@@ -60,7 +60,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 
 ====================================================================
 
-0.79: Wed Mar 30 16:34:17 CEST 2005
+0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)
 * pam_unix: don't log user unknown failure when he can be properly
   authenticated by another module (t8m)
