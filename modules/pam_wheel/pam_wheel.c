@@ -112,7 +112,7 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
 {
     const char *username = NULL;
     const char *fromsu;
-    struct passwd *pwd, *tpwd;
+    struct passwd *pwd, *tpwd = NULL;
     struct group *grp;
     int retval = PAM_AUTH_ERR;
 

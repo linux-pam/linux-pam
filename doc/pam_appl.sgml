@@ -442,12 +442,7 @@ However, the application should expect one of the following errors:
 </descrip>
 
 <p>
-Note, in the case of an error, the contents of <tt/item/ is not
-modified - that is, it retains its pre-call value. One should take
-care to initialize this value prior to calling
-<tt/pam_get_item()/. Since, if its value - despite the
-<tt/pam_get_item()/ function failing - is to be used the consequences
-are undefined.
+In the case of an error, the contents of <tt/item/ is set to <tt/NULL/.
 
 <sect2>Understanding errors
 <label id="pam-strerror-section">

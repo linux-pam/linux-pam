@@ -32,7 +32,7 @@
 #define MAIL_ENV_FORMAT           MAIL_ENV_NAME "=%s"
 #define YOUR_MAIL_VERBOSE_FORMAT  "You have %s mail in %s."
 #define YOUR_MAIL_STANDARD_FORMAT "You have %smail."
-#define NO_MAIL_STANDARD_FORMAT   "No mail." 
+#define NO_MAIL_STANDARD_FORMAT   "No mail."
 
 /*
  * here, we make a definition for the externally accessible function
@@ -142,8 +142,8 @@ static int converse(pam_handle_t *pamh, int ctrl, int nargs
 
     D(("begin to converse"));
 
-    retval = pam_get_item( pamh, PAM_CONV, (const void **) &conv ) ; 
-    if ( retval == PAM_SUCCESS ) {
+    retval = pam_get_item( pamh, PAM_CONV, (const void **) &conv ) ;
+    if ( retval == PAM_SUCCESS && conv ) {
 
 	retval = conv->conv(nargs, ( const struct pam_message ** ) message
 			    , response, conv->appdata_ptr);
@@ -158,6 +158,8 @@ static int converse(pam_handle_t *pamh, int ctrl, int nargs
     } else {
 	_log_err(LOG_ERR, "couldn't obtain coversation function [%s]"
 		 , pam_strerror(pamh, retval));
+	if (retval == PAM_SUCCESS)
+	  retval = PAM_BAD_ITEM; /* conv was NULL */
     }
 
     D(("ready to return from module conversation"));
@@ -234,7 +236,9 @@ static int get_folder(pam_handle_t *pamh, int ctrl,
 		_pam_overwrite(hash);
 		_pam_drop(hash);
 	    } else {
-		sprintf(folder, "error");
+	      _pam_drop(folder);
+	      _log_err(LOG_CRIT, "out of memory for mail folder");
+	      return PAM_BUF_ERR;
 	    }
 	}
 	D(("folder =[%s]", folder));
@@ -386,7 +390,7 @@ PAM_EXTERN
 int pam_sm_close_session(pam_handle_t *pamh,int flags,int argc
 			 ,const char **argv)
 {
-    return _do_mail(pamh,flags,argc,argv,0);;
+    return _do_mail(pamh,flags,argc,argv,0);
 }
 
 /* Checking mail as part of the session management */
@@ -467,8 +471,8 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 	    type = NULL;
 	}
     }
-    
-    /* Delete environment variable? */  
+
+    /* Delete environment variable? */
     if (!est)
 	(void) pam_putenv(pamh, MAIL_ENV_NAME);
 

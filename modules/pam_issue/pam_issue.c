@@ -84,12 +84,19 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
     if ((fd = fopen(issue_file, "r")) != NULL) {
 	int tot_size = 0;
 
-	if (fstat(fileno(fd), &st) < 0)
+	if (fstat(fileno(fd), &st) < 0) {
+	    fclose(fd);
+	    if (issue_file)
+	        free(issue_file);
 	    return PAM_IGNORE;
+	}
 
 	retval = pam_get_item(pamh, PAM_USER_PROMPT,
 			      (const void **) &cur_prompt);
 	if (retval != PAM_SUCCESS) {
+	    fclose(fd);
+	    if (issue_file)
+	        free(issue_file);
 	    return PAM_IGNORE;
 	}
 	if (cur_prompt == NULL) {
@@ -101,6 +108,9 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
 	if (parse_esc) {
 	    prompt_tmp = do_prompt(fd);
 	    if (prompt_tmp == NULL) {
+	        fclose(fd);
+	        if (issue_file)
+	           free(issue_file);
 		return PAM_IGNORE;
 	    }
 	} else {
@@ -108,13 +118,17 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
 
 	    prompt_tmp = malloc(st.st_size + 1);
 	    if (prompt_tmp == NULL) {
+	        fclose(fd);
+	        if (issue_file)
+	           free(issue_file);
 		return PAM_IGNORE;
 	    }
 	    memset (prompt_tmp, '\0', st.st_size + 1);
 	    count = fread(prompt_tmp, 1, st.st_size, fd);
 	    if (count != st.st_size) {
-		free(prompt_tmp);
-		return PAM_IGNORE;
+	        fclose(fd);
+		retval = PAM_IGNORE;
+		goto cleanup;
 	    }
 	    prompt_tmp[st.st_size] = '\0';
 	}
@@ -151,6 +165,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
 
     } else {
 	D(("could not open issue_file: %s", issue_file));
+	free(issue_file);
 	return PAM_IGNORE;
     }
 
@@ -167,11 +182,15 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
 static char *do_prompt(FILE *fd)
 {
     int c, size = 1024;
-    char *issue = (char *)malloc(size);
+    char *issue;
     char buf[1024];
     struct utsname uts;
 
-    if (issue == NULL || fd == NULL)
+    if (fd == NULL)
+	return NULL;
+
+    issue = (char *)malloc(size);
+    if (issue == NULL)
 	return NULL;
 
     issue[0] = '\0'; /* zero this, for strcat to work on first buf */

@@ -59,10 +59,15 @@ static int perform_check(pam_handle_t *pamh, int flags)
 	return PAM_SERVICE_ERR;
     }
 
-    if (!userName || (strlen(userName) <= 0)) {
+    if (!userName || (userName[0] == '\0')) {
+
 	/* Don't let them use a NULL username... */
-	pam_get_user(pamh,&userName,NULL);
+	retval = pam_get_user(pamh,&userName,NULL);
         if (retval != PAM_SUCCESS)
+	    return PAM_SERVICE_ERR;
+
+	/* It could still be NULL the second time. */
+    	if (!userName || (userName[0] == '\0'))
 	    return PAM_SERVICE_ERR;
     }
 
@@ -93,7 +98,7 @@ static int perform_check(pam_handle_t *pamh, int flags)
 
     retval = 1;
 
-    while((fgets(shellFileLine, 255, shellFile) != NULL) && retval) {
+    while(retval && (fgets(shellFileLine, 255, shellFile) != NULL)) {
 	if (shellFileLine[strlen(shellFileLine) - 1] == '\n')
 	    shellFileLine[strlen(shellFileLine) - 1] = '\0';
 	retval = strcmp(shellFileLine, userShell);

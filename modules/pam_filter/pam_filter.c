@@ -131,7 +131,7 @@ static int process_args(pam_handle_t *pamh
     } else {
 	char **levp;
 	const char *tmp;
-	int i,size;
+	int i,size, retval;
 
 	*filtername = *++argv;
 	if (ctrl & FILTER_DEBUG) {
@@ -177,7 +177,15 @@ static int process_args(pam_handle_t *pamh
 #define SERVICE_OFFSET    8                    /*  sizeof('SERVICE=');  */
 #define SERVICE_NAME      "SERVICE="
 
-	pam_get_item(pamh, PAM_SERVICE, (const void **)&tmp);
+	retval = pam_get_item(pamh, PAM_SERVICE, (const void **)&tmp);
+	if (retval != PAM_SUCCESS || tmp == NULL) {
+	    _pam_log(LOG_CRIT,"service name not found");
+	    if (levp) {
+		free(levp[0]);
+		free(levp);
+	    }
+	    return -1;
+	}
 	size = SERVICE_OFFSET+strlen(tmp);
 
 	levp[1] = (char *) malloc(size+1);
@@ -199,6 +207,7 @@ static int process_args(pam_handle_t *pamh
 #define USER_OFFSET    5                          /*  sizeof('USER=');  */
 #define USER_NAME      "USER="
 
+	tmp = NULL;
 	pam_get_user(pamh, &tmp, NULL);
 	if (tmp == NULL) {
 	    tmp = "<unknown>";

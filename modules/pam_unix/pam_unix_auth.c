@@ -15,13 +15,13 @@
  * 3. The name of the author may not be used to endorse or promote
  *    products derived from this software without specific prior
  *    written permission.
- * 
+ *
  * ALTERNATIVELY, this product may be distributed under the terms of
  * the GNU Public License, in which case the provisions of the GPL are
  * required INSTEAD OF the above restrictions.  (This clause is
  * necessary due to a potential bad interaction between the GPL and
  * the restrictions contained in a BSD-style copyright.)
- * 
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -88,7 +88,8 @@ do {								\
 		*ret_data = retval;				\
 		pam_set_data(pamh, "unix_setcred_return",	\
 		             (void *) ret_data, setcred_free);	\
-	}							\
+	} else if (ret_data)					\
+	  free (ret_data);                                      \
 	D(("done. [%s]", pam_strerror(pamh, retval)));		\
 	return retval;						\
 } while (0)
@@ -183,7 +184,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 }
 
 
-/* 
+/*
  * The only thing _pam_set_credentials_unix() does is initialization of
  * UNIX group IDs.
  *
@@ -203,7 +204,7 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t * pamh, int flags
 	retval = PAM_SUCCESS;
 
 	D(("recovering return code from auth call"));
-	/* We will only find something here if UNIX_LIKE_AUTH is set -- 
+	/* We will only find something here if UNIX_LIKE_AUTH is set --
 	   don't worry about an explicit check of argv. */
 	pam_get_data(pamh, "unix_setcred_return", (const void **) &pretval);
 	if(pretval) {

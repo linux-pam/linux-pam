@@ -32,4 +32,8 @@ extern void _pammodutil_cleanup(pam_handle_t *pamh, void *data,
 
 extern const char *_pammodutil_getlogin(pam_handle_t *pamh);
 
+extern int _pammodutil_read(int fd, char *buffer, int count);
+
+extern int _pammodutil_write(int fd, const char *buffer, int count);
+
 #endif /* _PAM_MODUTIL_H */

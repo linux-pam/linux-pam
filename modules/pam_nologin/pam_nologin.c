@@ -117,21 +117,30 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 	    goto clean_up_fd;
 	}
 
-	read(fd, mtmp, st.st_size);
-	mtmp[st.st_size] = '\000';
+	if (_pammodutil_read(fd, mtmp, st.st_size) == st.st_size) {
+		mtmp[st.st_size] = '\000';
 
-	/*
-	 * Use conversation function to give user contents of /etc/nologin
-	 */
+		/*
+		 * Use conversation function to give user contents 
+		 * of /etc/nologin
+		 */
 
-	pam_get_item(pamh, PAM_CONV, (const void **)&conversation);
-	(void) conversation->conv(1, (const struct pam_message **)&pmessage,
-				  &resp, conversation->appdata_ptr);
-	free(mtmp);
+		retval = pam_get_item(pamh, PAM_CONV, 
+				(const void **)&conversation);
+		if ((retval == PAM_SUCCESS) && (conversation)) {
+			(void) conversation->conv(1, 
+				(const struct pam_message **)&pmessage,
+				&resp, conversation->appdata_ptr);
 
-	if (resp) {
-	    _pam_drop_reply(resp, 1);
+			if (resp) {
+			    _pam_drop_reply(resp, 1);
+			}
+		}
 	}
+	else
+	    retval = PAM_SYSTEM_ERR;
+
+	free(mtmp);
 
     clean_up_fd:
 

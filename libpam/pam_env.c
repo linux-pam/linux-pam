@@ -344,7 +344,7 @@ static char **_copy_env(pam_handle_t *pamh)
 		_pam_overwrite(dump[i]);
 		_pam_drop(dump[i]);
 	    }
-	    __pam_drop(dump);
+	    _pam_drop(dump);
 	    return NULL;
 	}
     }

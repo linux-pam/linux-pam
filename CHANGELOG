@@ -103,8 +103,9 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   (from Linux distributors - kukuk)
 * pam_unix/pam_pwdb: Use SIG_DFL instead of SIG_IGN for SIGCHLD
   (from Linux distributors - kukuk)
-* Add parts of the first chunk of Steve Grubb's resource leak and
-  other fixes (from Linux distributors - kukuk)
+* Add most of Steve Grubb's resource leak and other fixes (from
+  Linux distributors - kukuk)
+* doc/Makefile: Don't include .cvsignore files in tar ball (kukuk)
 
 0.77: Mon Sep 23 10:25:42 PDT 2002
 

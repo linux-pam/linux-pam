@@ -111,7 +111,7 @@ static int converse(pam_handle_t * pamh, int ctrl, int nargs
    D(("begin to converse"));
 
    retval = pam_get_item(pamh, PAM_CONV, (const void **) &conv);
-   if (retval == PAM_SUCCESS)
+   if (retval == PAM_SUCCESS && conv)
    {
 
       retval = conv->conv(nargs, (const struct pam_message **) message
@@ -130,6 +130,8 @@ static int converse(pam_handle_t * pamh, int ctrl, int nargs
    {
       _log_err(LOG_ERR, "couldn't obtain coversation function [%s]"
 	       ,pam_strerror(pamh, retval));
+     if (retval == PAM_SUCCESS)
+         retval = PAM_BAD_ITEM; /* conv was NULL */
    }
 
    D(("ready to return from module conversation"));
@@ -235,7 +237,11 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
       /* If it's a directory, recurse. */
       if (S_ISDIR(St.st_mode))
       {
-         create_homedir(pamh, ctrl, pwd, newsource, newdest);
+         int retval = create_homedir(pamh, ctrl, pwd, newsource, newdest);
+         if (retval != PAM_SUCCESS) {
+            closedir(D);
+            return retval;
+         }
          continue;
       }
 
@@ -250,6 +256,7 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
             {
                if (lchown(newdest,pwd->pw_uid,pwd->pw_gid) != 0)
                {
+                   closedir(D);
                    _log_err(LOG_DEBUG, "unable to chang perms on link %s",
                             newdest);
                    return PAM_PERM_DENIED;
@@ -269,6 +276,7 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
       /* Open the source file */
       if ((SrcFd = open(newsource,O_RDONLY)) < 0 || fstat(SrcFd,&St) != 0)
       {
+         closedir(D);
          _log_err(LOG_DEBUG, "unable to open src file %s",newsource);
 	 return PAM_PERM_DENIED;
       }
@@ -278,6 +286,7 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
       if ((DestFd = open(newdest,O_WRONLY | O_TRUNC | O_CREAT,0600)) < 0)
       {
 	 close(SrcFd);
+	 closedir(D);
          _log_err(LOG_DEBUG, "unable to open dest file %s",newdest);
 	 return PAM_PERM_DENIED;
       }
@@ -290,6 +299,7 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
       {
          close(SrcFd);
          close(DestFd);
+         closedir(D);
          _log_err(LOG_DEBUG, "unable to chang perms on copy %s",newdest);
 	 return PAM_PERM_DENIED;
       }
@@ -297,19 +307,29 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
       /* Copy the file */
       do
       {
-         Res = read(SrcFd,remark,sizeof(remark));
-	 if (Res < 0 || write(DestFd,remark,Res) != Res)
-	 {
-	    close(SrcFd);
-	    close(DestFd);
-	    _log_err(LOG_DEBUG, "unable to perform IO");
-	    return PAM_PERM_DENIED;
+	 Res = _pammodutil_read(SrcFd,remark,sizeof(remark));
+
+	 if (Res == 0)
+	     continue;
+
+	 if (Res > 0) {
+	     if (_pammodutil_write(DestFd,remark,Res) == Res)
+		continue;
 	 }
+
+	 /* If we get here, pammodutil_read returned a -1 or
+	    _pammodutil_write returned something unexpected. */
+	 close(SrcFd);
+	 close(DestFd);
+	 closedir(D);
+	 _log_err(LOG_DEBUG, "unable to perform IO");
+	 return PAM_PERM_DENIED;
       }
       while (Res != 0);
       close(SrcFd);
       close(DestFd);
    }
+   closedir(D);
 
    return PAM_SUCCESS;
 }

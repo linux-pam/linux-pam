@@ -8,7 +8,7 @@
  * shadow-960129)
  */
 
-const static char rcsid[] =
+static const char rcsid[] =
 "$Id$;\n"
 "\t\tVersion 0.22 for Linux-PAM\n"
 "Copyright (C) Andrew G. Morgan 1996 <morgan@linux.kernel.org>\n";
@@ -127,6 +127,7 @@ static int read_field(int fd, char **buf, int *from, int *to)
 	i = read(fd, *to + *buf, PAM_TIME_BUFLEN - *to);
 	if (i < 0) {
 	    _log_err("error reading " PAM_TIME_CONF);
+	    close(fd);
 	    return -1;
 	} else if (!i) {
 	    close(fd);
@@ -166,6 +167,7 @@ static int read_field(int fd, char **buf, int *from, int *to)
 		} else {
 		    _log_err("internal error in " __FILE__
 			     " at line %d", __LINE__ );
+		    close(fd);
 		    return -1;
 		}
 		break;

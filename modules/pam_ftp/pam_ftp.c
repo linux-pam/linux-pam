@@ -58,7 +58,7 @@ static int converse(pam_handle_t *pamh, int nargs
     D(("begin to converse\n"));
 
     retval = pam_get_item( pamh, PAM_CONV, (const void **) &conv ) ; 
-    if ( retval == PAM_SUCCESS ) {
+    if ( retval == PAM_SUCCESS && conv ) {
 
 	retval = conv->conv(nargs, ( const struct pam_message ** ) message
 			    , response, conv->appdata_ptr);
@@ -73,6 +73,8 @@ static int converse(pam_handle_t *pamh, int nargs
     } else {
 	_pam_log(LOG_ERR, "couldn't obtain coversation function [%s]"
 		 , pam_strerror(pamh, retval));
+	if (retval == PAM_SUCCESS)
+	    retval = PAM_BAD_ITEM;  /* conv was NULL */
     }
 
     D(("ready to return from module conversation\n"));

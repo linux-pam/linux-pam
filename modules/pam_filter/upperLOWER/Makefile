@@ -12,16 +12,19 @@ TITLE=upperLOWER
 
 #
 
-CFLAGS += -I../include
+CFLAGS += -I../include -I../../pammodutil/include
 
 OBJS = $(TITLE).o
+
+LIBS +=  $(GLIB_LIBS) -L../../pammodutil -lpammodutil
+LDFLAGS = $(LIBS)
 
 ####################### don't edit below #######################
 
 all: $(TITLE)
 
 $(TITLE): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TITLE) $(OBJS)
+	$(CC) $(CFLAGS) -o $(TITLE) $(OBJS) $(LDFLAGS)
 	$(STRIP) $(TITLE)
 
 install:

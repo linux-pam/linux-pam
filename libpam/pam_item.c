@@ -158,6 +158,8 @@ int pam_get_item (const pam_handle_t *pamh, int item_type, const void **item)
 			"pam_get_item: nowhere to place requested item");
 	return PAM_PERM_DENIED;
     }
+    else
+	*item = NULL;
 
     switch (item_type) {
     case PAM_SERVICE:
@@ -238,6 +240,12 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
     struct pam_response *resp;
 
     D(("called."));
+    if (user == NULL) {  /* ensure that the module has supplied a destination */
+	_pam_system_log(LOG_ERR, "pam_get_user: nowhere to record username");
+	return PAM_PERM_DENIED;
+    } else
+	*user = NULL;
+    
     IF_NO_PAMH("pam_get_user", pamh, PAM_SYSTEM_ERR);
 
     if (pamh->pam_conversation == NULL) {
@@ -245,12 +253,6 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 	return PAM_SERVICE_ERR;
     }
 
-    if (user == NULL) {  /* ensure the the module has suplied a destination */
-	_pam_system_log(LOG_ERR, "pam_get_user: nowhere to record username");
-	return PAM_PERM_DENIED;
-    } else
-	*user = NULL;
-    
     if (pamh->user) {    /* have one so return it */
 	*user = pamh->user;
 	return PAM_SUCCESS;

@@ -109,7 +109,7 @@ static char *cline_user=0;  /* cline_user is used in the administration prog */
 
 static int pam_get_uid( pam_handle_t *pamh, uid_t *uid, const char **userp ) 
   {
-    const char *user;
+    const char *user = NULL;
     struct passwd *pw;
 
 #ifdef MAIN
@@ -189,7 +189,8 @@ static int get_tally( tally_t *tally,
 
     if ( fseek( *TALLY, uid * sizeof(struct faillog), SEEK_SET ) ) {
           _pam_log(LOG_ALERT, "fseek failed %s", filename);
-                return PAM_AUTH_ERR;
+          fclose(*TALLY);
+          return PAM_AUTH_ERR;
     }
                     
     if ( fileinfo.st_size <= uid * sizeof(struct faillog) ) {
@@ -527,6 +528,8 @@ PAM_FUNCTION( pam_sm_acct_mgmt ) {
 			 user,uid,
 			 fsp->fs_fail_time+fsp->fs_faillog.fail_locktime
 			 -time(NULL));
+		if (TALLY)
+			fclose(TALLY);
       		return PAM_AUTH_ERR;
       	}
       }
@@ -537,6 +540,8 @@ PAM_FUNCTION( pam_sm_acct_mgmt ) {
         ) {
         _pam_log(LOG_NOTICE,"user %s ("UID_FMT") tally "TALLY_FMT", deny "TALLY_FMT,
                  user, uid, tally, deny);
+		if (TALLY)
+			fclose(TALLY);
         return PAM_AUTH_ERR;                 /* Only unconditional failure   */
       }
       

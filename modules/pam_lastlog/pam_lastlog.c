@@ -149,7 +149,7 @@ static int converse(pam_handle_t *pamh, int ctrl, int nargs
     D(("begin to converse"));
 
     retval = pam_get_item( pamh, PAM_CONV, (const void **) &conv ) ; 
-    if ( retval == PAM_SUCCESS ) {
+    if ( retval == PAM_SUCCESS && conv) {
 
 	retval = conv->conv(nargs, ( const struct pam_message ** ) message
 			    , response, conv->appdata_ptr);
@@ -164,6 +164,8 @@ static int converse(pam_handle_t *pamh, int ctrl, int nargs
     } else {
 	_log_err(LOG_ERR, "couldn't obtain coversation function [%s]"
 		 , pam_strerror(pamh, retval));
+	if (retval == PAM_SUCCESS)
+		retval = PAM_BAD_ITEM; /* conv was NULL */
     }
 
     D(("ready to return from module conversation"));
@@ -235,7 +237,7 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 	    sleep(LASTLOG_IGNORE_LOCK_TIME);
 	}
 
-	win = ( read(last_fd, &last_login, sizeof(last_login))
+	win = ( _pammodutil_read(last_fd, &last_login, sizeof(last_login))
 		== sizeof(last_login) );
 
 	last_lock.l_type = F_UNLCK;
@@ -376,7 +378,7 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 	    }
 
 	    D(("writing to the last_log file"));
-	    (void) write(last_fd, &last_login, sizeof(last_login));
+	    (void) _pammodutil_write(last_fd, &last_login, sizeof(last_login));
 
 	    last_lock.l_type = F_UNLCK;
 	    (void) fcntl(last_fd, F_SETLK, &last_lock);        /* unlock */

@@ -79,6 +79,12 @@ static void shift_bytes(char *mem, int from, int by)
     }
 }
 
+/* This function should initially be called with buf = NULL. If
+ * an error occurs, the file descriptor is closed. Subsequent
+ * calls with a closed descriptor will cause buf to be deallocated.
+ * Therefore, always check buf after calling this to see if an error
+ * occurred.
+ */
 static int read_field(int fd, char **buf, int *from, int *to)
 {
     /* is buf set ? */
@@ -126,6 +132,7 @@ static int read_field(int fd, char **buf, int *from, int *to)
 	i = read(fd, *to + *buf, PAM_GROUP_BUFLEN - *to);
 	if (i < 0) {
 	    _log_err("error reading " PAM_GROUP_CONF);
+	    close(fd);
 	    return -1;
 	} else if (!i) {
 	    close(fd);
@@ -165,6 +172,7 @@ static int read_field(int fd, char **buf, int *from, int *to)
 		} else {
 		    _log_err("internal error in " __FILE__
 			     " at line %d", __LINE__ );
+	            close(fd);
 		    return -1;
 		}
 		break;

@@ -45,7 +45,9 @@ int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
     }
     if (user == NULL || *user == '\0') {
 	D(("username not known"));
-	pam_set_item(pamh, PAM_USER, (const void *) DEFAULT_USER);
+	retval = pam_set_item(pamh, PAM_USER, (const void *) DEFAULT_USER);
+	if (retval != PAM_SUCCESS)
+	    return PAM_USER_UNKNOWN;
     }
     user = NULL;                                            /* clean up */
 

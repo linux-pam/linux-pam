@@ -152,7 +152,9 @@ spec: specs/draft-morgan-pam.raw
 	specs/formatter/padout < specs/draft-morgan-pam.raw > specs/draft-morgan-pam-current.txt
 
 releasedocs: all spec
-	tar zvfc Linux-PAM-$(MAJOR_REL).$(MINOR_REL)-docs.tar.gz --exclude CVS  html ps txts specs/draft-morgan-pam-current.txt
+	tar zvfc Linux-PAM-$(MAJOR_REL).$(MINOR_REL)-docs.tar.gz \
+	--exclude CVS --exclude .cvsignore --exclude '.#*' \
+	html ps txts specs/draft-morgan-pam-current.txt
 
 clean:
 	rm -f *~ *.bak

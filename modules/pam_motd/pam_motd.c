@@ -33,6 +33,7 @@
 #define DEFAULT_MOTD	"/etc/motd"
 
 #include <security/pam_modules.h>
+#include <security/_pam_modutil.h>
 
 /* --- session management functions (only) --- */
 
@@ -80,24 +81,33 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
 
      if ((fd = open(motd_path, O_RDONLY, 0)) >= 0) {
        /* fill in message buffer with contents of motd */
-       if ((fstat(fd, &st) < 0) || !st.st_size)
+       if ((fstat(fd, &st) < 0) || !st.st_size) {
+         close(fd);
          return retval;
+       }
        message.msg = mtmp = malloc(st.st_size+1);
        /* if malloc failed... */
-       if (!message.msg) return retval;
-       read(fd, mtmp, st.st_size);
-       if (mtmp[st.st_size-1] == '\n')
-	  mtmp[st.st_size-1] = '\0';
-       else
-	  mtmp[st.st_size] = '\0';
-       close(fd);
-       /* Use conversation function to give user contents of motd */
-       pam_get_item(pamh, PAM_CONV, (const void **)&conversation);
-       conversation->conv(1, (const struct pam_message **)&pmessage,
-			  &resp, conversation->appdata_ptr);
+       if (!message.msg) {
+           close(fd);
+           return retval;
+       }
+       if (_pammodutil_read(fd, mtmp, st.st_size) == st.st_size) {
+	   if (mtmp[st.st_size-1] == '\n')
+		mtmp[st.st_size-1] = '\0';
+	   else
+		mtmp[st.st_size] = '\0';
+	   close(fd);
+
+ 	   /* Use conversation function to give user contents of motd */
+	   if (pam_get_item(pamh, PAM_CONV, (const void **)&conversation) ==
+	               PAM_SUCCESS && conversation) {
+	       conversation->conv(1, (const struct pam_message **)&pmessage,
+	            &resp, conversation->appdata_ptr);
+	       if (resp)
+	           _pam_drop_reply(resp, 1);
+           }
+       }
        free(mtmp);
-       if (resp)
-	   _pam_drop_reply(resp, 1);
      }
 
      return retval;

@@ -1,13 +1,13 @@
 /*
  * pam_limits - impose resource limits when opening a user session
  *
- * 1.6 - modified for PLD (added process priority settings) 
+ * 1.6 - modified for PLD (added process priority settings)
  *       by Marcin Korzonek <mkorz@shadow.eu.org>
  * 1.5 - Elliot Lee's "max system logins patch"
  * 1.4 - addressed bug in configuration file parser
  * 1.3 - modified the configuration file format
  * 1.2 - added 'debug' and 'conf=' arguments
- * 1.1 - added @group support    
+ * 1.1 - added @group support
  * 1.0 - initial release - Linux ONLY
  *
  * See end for Copyright information
@@ -15,7 +15,7 @@
 
 #if !(defined(linux))
 #error THIS CODE IS KNOWN TO WORK ONLY ON LINUX !!!
-#endif 
+#endif
 
 #include <security/_pam_aconf.h>
 
@@ -54,6 +54,8 @@ static const char *limits_def_names[] = {
        "GROUP",
        "DEFAULT",
        "NONE",
+       "ALL",
+       "ALLGROUP",
        NULL,
 };
 
@@ -165,7 +167,7 @@ static int is_in_group(const char *user_name, const char *group_name)
     struct passwd *pwd;
     struct group *grp, *pgrp;
     char uname[LINE_LENGTH], gname[LINE_LENGTH];
-    
+
     if (!user_name || !strlen(user_name))
         return 0;
     if (!group_name || !strlen(group_name))
@@ -174,7 +176,7 @@ static int is_in_group(const char *user_name, const char *group_name)
     strncpy(uname, user_name, sizeof(uname)-1);
     memset(gname, 0, sizeof(gname));
     strncpy(gname, group_name, sizeof(gname)-1);
-        
+
     pwd = getpwnam(uname);
     if (!pwd)
         return 0;
@@ -183,7 +185,7 @@ static int is_in_group(const char *user_name, const char *group_name)
     grp = getgrnam(gname);
     if (!grp)
         return 0;
-    
+
     /* first check: is a member of the group_name group ? */
     if (is_on_list(grp->gr_mem, uname))
         return 1;
@@ -194,10 +196,10 @@ static int is_in_group(const char *user_name, const char *group_name)
         return 0;
     if (!strcmp(pgrp->gr_name, gname))
         return 1;
-        
+
     return 0;
 }
-    
+
 /* Counts the number of user logins and check against the limit*/
 static int check_logins(const char *name, int limit, int ctrl,
 			struct pam_limit_s *pl)
@@ -228,7 +230,7 @@ static int check_logins(const char *name, int limit, int ctrl,
        standard for this, since if a module wants to actually map a
        username then any early utmp entry will be for the unmapped
        name = broken.) */
-    
+
     if (ctrl & PAM_UTMP_EARLY) {
 	count = 0;
     } else {
@@ -300,7 +302,7 @@ static int init_limits(struct pam_limit_s *pl)
     pl->login_limit_def = LIMITS_DEF_NONE;
 
     return retval;
-}    
+}
 
 static void process_limit(int source, const char *lim_type,
 			  const char *lim_item, const char *lim_value,
@@ -311,7 +313,7 @@ static void process_limit(int source, const char *lim_type,
     long limit_value;
     const char **endptr = &lim_value;
     const char *value_orig = lim_value;
-        
+
     if (ctrl & PAM_DEBUG_ARG)
 	 _pam_log(LOG_DEBUG, "%s: processing %s %s %s for %s\n",
 		  __FUNCTION__,lim_type,lim_item,lim_value,
@@ -451,7 +453,7 @@ static int parse_config_file(const char *uname, int ctrl,
 {
     FILE *fil;
     char buf[LINE_LENGTH];
-    
+
 #define CONF_FILE (pl->conf_file[0])?pl->conf_file:LIMITS_FILE
     /* check for the LIMITS_FILE */
     if (ctrl & PAM_DEBUG_ARG)
@@ -462,7 +464,7 @@ static int parse_config_file(const char *uname, int ctrl,
         return PAM_SERVICE_ERR;
     }
 #undef CONF_FILE
-    
+
     /* init things */
     memset(buf, 0, sizeof(buf));
     /* start the show */
@@ -473,14 +475,14 @@ static int parse_config_file(const char *uname, int ctrl,
         char value[LINE_LENGTH];
         int i,j;
         char *tptr;
-        
+
         tptr = buf;
         /* skip the leading white space */
         while (*tptr && isspace(*tptr))
             tptr++;
         strncpy(buf, tptr, sizeof(buf)-1);
 	buf[sizeof(buf)-1] = '\0';
-                                
+
         /* Rip off the comments */
         tptr = strchr(buf,'#');
         if (tptr)
@@ -499,7 +501,7 @@ static int parse_config_file(const char *uname, int ctrl,
         memset(ltype, 0, sizeof(ltype));
         memset(item, 0, sizeof(item));
         memset(value, 0, sizeof(value));
-        
+
         i = sscanf(buf,"%s%s%s%s", domain, ltype, item, value);
 	D(("scanned line[%d]: domain[%s], ltype[%s], item[%s], value[%s]",
 	   i, domain, ltype, item, value));
@@ -558,7 +560,7 @@ static int parse_config_file(const char *uname, int ctrl,
 	}
     }
     fclose(fil);
-    return PAM_SUCCESS;    
+    return PAM_SUCCESS;
 }
 
 static int setup_limits(const char * uname, uid_t uid, int ctrl,
@@ -588,7 +590,7 @@ static int setup_limits(const char * uname, uid_t uid, int ctrl,
 	}
 	status |= setrlimit(i, &pl->limits[i].limit);
     }
-    
+
     if (status) {
         retval = LIMIT_ERR;
     }
@@ -610,7 +612,7 @@ static int setup_limits(const char * uname, uid_t uid, int ctrl,
 
     return retval;
 }
-            
+
 /* now the session stuff */
 PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags,
                                    int argc, const char **argv)
@@ -631,7 +633,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags,
         _pam_log(LOG_CRIT, "open_session - error recovering username");
         return PAM_SESSION_ERR;
      }
-	
+
     pwd = getpwnam(user_name);
     if (!pwd) {
         if (ctrl & PAM_DEBUG_ARG)
@@ -639,7 +641,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags,
                                    user_name);
         return PAM_SESSION_ERR;
     }
-                     
+
     retval = init_limits(&pl);
     if (retval != PAM_SUCCESS) {
         _pam_log(LOG_WARNING, "cannot initialize");
@@ -705,13 +707,13 @@ struct pam_module _pam_limits_modstruct = {
  * 3. The name of the author may not be used to endorse or promote
  *    products derived from this software without specific prior
  *    written permission.
- * 
+ *
  * ALTERNATIVELY, this product may be distributed under the terms of
  * the GNU Public License, in which case the provisions of the GPL are
  * required INSTEAD OF the above restrictions.  (This clause is
  * necessary due to a potential bad interaction between the GPL and
  * the restrictions contained in a BSD-style copyright.)
- * 
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
