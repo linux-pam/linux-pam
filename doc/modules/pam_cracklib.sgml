@@ -169,8 +169,9 @@ are different then the new password will be accepted anyway.
 
 <item> <tt/minlen=N/ -
 
-The minimum acceptable size for the new password plus one.  In
-addition to the number of characters in the new password, credit (of
+The minimum acceptable size for the new password (plus one if credits 
+are not disabled which is the default).
+In addition to the number of characters in the new password, credit (of
 +1 in length) is given for each different kind of character (<em>other,
 upper, lower</em> and <em/digit/).  The default for this parameter is
 9 which is good for a old style UNIX password all of the same type of
@@ -184,34 +185,39 @@ the crack library and then recompile this module.
 
 <item> <tt/dcredit=N/ -
 
-This is the maximum credit for having digits in the new password. If
+(N >= 0) This is the maximum credit for having digits in the new password. If
 you have less than or <tt/N/ digits, each digit will count +1 towards
 meeting the current <tt/minlen/ value.  The default for <tt/dcredit/
 is 1 which is the recommended value for <tt/minlen/ less than 10.
+(N < 0) This is the minimum number of digits that must be met for a new 
+password.
 
 <item> <tt/ucredit=N/ -
 
-This is the maximum credit for having upper case letters in the new
+(N >= 0) This is the maximum credit for having upper case letters in the new
 password.  If you have less than or <tt/N/ upper case letters each
 letter will count +1 towards meeting the current <tt/minlen/ value.
 The default for <tt/ucredit/ is 1 which is the recommended value for
-<tt/minlen/ less than 10.
+<tt/minlen/ less than 10. (N < 0) This is the minimum number of upper 
+case letters that must be met for a new password.
 
 <item> <tt/lcredit=N/ -
 
-This is the maximum credit for having lower case letters in the new
+(N >= 0) This is the maximum credit for having lower case letters in the new
 password.  If you have less than or <tt/N/ lower case letters, each
 letter will count +1 towards meeting the current <tt/minlen/ value.
 The default for <tt/lcredit/ is 1 which is the recommended value for
-<tt/minlen/ less than 10.
+<tt/minlen/ less than 10. (N < 0) This is the minimum number of lower 
+case letters that must be met for a new password.
 
 <item> <tt/ocredit=N/ -
 
-This is the maximum credit for having other characters in the new
+(N >= 0) This is the maximum credit for having other characters in the new
 password.  If you have less than or <tt/N/ other characters, each
 character will count +1 towards meeting the current <tt/minlen/ value.
 The default for <tt/ocredit/ is 1 which is the recommended value for
-<tt/minlen/ less than 10.
+<tt/minlen/ less than 10. (N < 0) This is the minimum number of other 
+characters that must be met for a new password.
 
 <item> <tt/use_authtok/ -
 
@@ -254,6 +260,39 @@ case that you want to use md5 password encryption:
 #
 password  required pam_cracklib.so \
                difok=3 minlen=15 dcredit= 2 ocredit=2
+password  required pam_pwdb.so use_authtok nullok md5
+</verb>
+</tscreen>
+
+<p>
+And here is another example in case you don't want to use credits:
+<tscreen>
+<verb>
+#%PAM-1.0
+#
+# These lines require the user to select a password with a minimum
+# length of 8 and with at least 1 digit number, 1 upper case letter,
+# and 1 other character
+#
+password  required pam_cracklib.so \
+               dcredit=-1 ucredit=-1 ocredit=-1 lcredit=0 minlen=8
+password  required pam_pwdb.so use_authtok nullok md5
+</verb>
+</tscreen>
+
+<p>
+In this example we simply say that the password must have a minimum 
+length of 8:
+<tscreen>
+<verb>
+#%PAM-1.0
+#
+# These lines require the user to select a password with a mimimum
+# length of 8. He gets no credits and he is not forced to use
+# digit numbers, upper case letters etc.
+#
+password  required pam_cracklib.so \
+               dcredit=0 ucredit=0 ocredit=0 lcredit=0 minlen=8
 password  required pam_pwdb.so use_authtok nullok md5
 </verb>
 </tscreen>

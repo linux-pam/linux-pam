@@ -1,6 +1,11 @@
-/* pam_cracklib module */
+/*
+ * pam_cracklib module
+ * $Id$
+ */
 
 /*
+ * 0.86.  added support for setting minimum numbers of digits, uppers,
+ *        lowers, and others
  * 0.85.  added six new options to use this with long passwords.
  * 0.8. tidied output and improved D(()) usage for debugging.
  * 0.7. added support for more obscure checks for new passwd.
@@ -142,19 +147,19 @@ static int _pam_parse(struct cracklib_options *opt, int argc, const char **argv)
 		 opt->min_length = CO_MIN_LENGTH_BASE;
 	 } else if (!strncmp(*argv,"dcredit=",8)) {
 	     opt->dig_credit = strtol(*argv+8,&ep,10);
-	     if (!ep || (opt->dig_credit < 0))
+	     if (!ep)
 		 opt->dig_credit = 0;
 	 } else if (!strncmp(*argv,"ucredit=",8)) {
 	     opt->up_credit = strtol(*argv+8,&ep,10);
-	     if (!ep || (opt->up_credit < 0))
+	     if (!ep)
 		 opt->up_credit = 0;
 	 } else if (!strncmp(*argv,"lcredit=",8)) {
 	     opt->low_credit = strtol(*argv+8,&ep,10);
-	     if (!ep || (opt->low_credit < 0))
+	     if (!ep)
 		 opt->low_credit = 0;
 	 } else if (!strncmp(*argv,"ocredit=",8)) {
 	     opt->oth_credit = strtol(*argv+8,&ep,10);
-	     if (!ep || (opt->oth_credit < 0))
+	     if (!ep)
 		 opt->oth_credit = 0;
 	 } else if (!strncmp(*argv,"use_authtok",11)) {
 		 opt->use_authtok = 1;
@@ -268,54 +273,70 @@ static int similar(struct cracklib_options *opt,
  */
 static int simple(struct cracklib_options *opt, const char *old, const char *new)
 {
-	int	digits = 0;
-	int	uppers = 0;
-	int	lowers = 0;
-	int	others = 0;
-	int	size;
-	int	i;
+    int	digits = 0;
+    int	uppers = 0;
+    int	lowers = 0;
+    int	others = 0;
+    int	size;
+    int	i;
 
-	for (i = 0;new[i];i++) {
-		if (isdigit (new[i]))
-			digits++;
-		else if (isupper (new[i]))
-			uppers++;
-		else if (islower (new[i]))
-			lowers++;
-		else
-			others++;
-	}
+    for (i = 0;new[i];i++) {
+	if (isdigit (new[i]))
+	    digits++;
+	else if (isupper (new[i]))
+	    uppers++;
+	else if (islower (new[i]))
+	    lowers++;
+	else
+	    others++;
+    }
 
-	/*
-	 * The scam was this - a password of only one character type
-	 * must be 8 letters long.  Two types, 7, and so on.
-	 * This is now changed, the base size and the credits or defaults
-	 * see the docs on the module for info on these parameters, the
-	 * defaults cause the effect to be the same as before the change
-	 */
+    /*
+     * The scam was this - a password of only one character type
+     * must be 8 letters long.  Two types, 7, and so on.
+     * This is now changed, the base size and the credits or defaults
+     * see the docs on the module for info on these parameters, the
+     * defaults cause the effect to be the same as before the change
+     */
 
- 	if (digits > opt->dig_credit)
-	    digits = opt->dig_credit;
+    if ((opt->dig_credit >= 0) && (digits > opt->dig_credit))
+	digits = opt->dig_credit;
 
- 	if (uppers > opt->up_credit)
-	    uppers = opt->up_credit;
+    if ((opt->up_credit >= 0) && (uppers > opt->up_credit))
+	uppers = opt->up_credit;
 
- 	if (lowers > opt->low_credit)
-	    lowers = opt->low_credit;
+    if ((opt->low_credit >= 0) && (lowers > opt->low_credit))
+	lowers = opt->low_credit;
 
- 	if (others > opt->oth_credit)
-	    others = opt->oth_credit;
+    if ((opt->oth_credit >= 0) && (others > opt->oth_credit))
+	others = opt->oth_credit;
 
- 	size = opt->min_length;
- 	size -= digits;
- 	size -= uppers;
- 	size -= lowers;
- 	size -= others;
+    size = opt->min_length;
 
-	if (size <= i)
-		return 0;
-
+    if (opt->dig_credit >= 0)
+	size -= digits;
+    else if (digits < opt->dig_credit * -1)
 	return 1;
+ 
+    if (opt->up_credit >= 0)
+	size -= uppers;
+    else if (uppers < opt->up_credit * -1)
+	return 1;
+ 
+    if (opt->low_credit >= 0)
+	size -= lowers;
+    else if (lowers < opt->low_credit * -1)
+	return 1;
+ 
+    if (opt->oth_credit >= 0)
+	size -= others;
+    else if (others < opt->oth_credit * -1)
+	return 1;
+
+    if (size <= i)
+	return 0;
+
+    return 1;
 }
 
 static char * str_lower(char *string)
