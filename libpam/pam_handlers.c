@@ -13,6 +13,9 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
 #ifdef PAM_DYNAMIC
 # ifdef PAM_SHL
 #  include <dl.h>
@@ -20,8 +23,6 @@
 #  include <dlfcn.h>
 # endif /* PAM_SHL */
 #endif /* PAM_DYNAMIC */
-#include <fcntl.h>
-#include <unistd.h>
 
 #include "pam_private.h"
 
