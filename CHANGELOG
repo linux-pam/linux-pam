@@ -77,6 +77,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   cached chain (Bug 629251 - t8m)
 * pam_nologin: don't overwrite return value with return from
   pam_get_item (t8m)
+* libpam: Add more checks for broken PAM configuration files to
+  avoid seg.faults (kukuk)
 
 0.78: Do Nov 18 14:48:36 CET 2004
 

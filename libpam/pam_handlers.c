@@ -113,7 +113,14 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	       , this_service));
 
 	    tok = _pam_StrTok(NULL, " \n\t", &nexttok);
-	    if (!_pam_strCMP("auth", tok)) {
+	    if (tok == NULL) {
+	        /* module type does not exist */
+	        D(("_pam_init_handlers: empty module type for %s", this_service));
+	        _pam_system_log(LOG_ERR, "(%s) empty module type", this_service);
+	        module_type = (requested_module_type != PAM_T_ANY) ?
+		  requested_module_type : PAM_T_AUTH;	/* most sensitive */
+	        must_fail = 1; /* install as normal but fail when dispatched */
+	    } else if (!_pam_strCMP("auth", tok)) {
 		module_type = PAM_T_AUTH;
 	    } else if (!_pam_strCMP("session", tok)) {
 		module_type = PAM_T_SESS;
@@ -146,7 +153,14 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		     actions[i++] = _PAM_ACTION_UNDEF);
 	    }
 	    tok = _pam_StrTok(NULL, " \n\t", &nexttok);
-	    if (!_pam_strCMP("required", tok)) {
+	    if (tok == NULL) {
+		/* no module name given */
+		D(("_pam_init_handlers: no control flag supplied"));
+		_pam_system_log(LOG_ERR,
+				"(%s) no control flag supplied", this_service);
+		_pam_set_default_control(actions, _PAM_ACTION_BAD);
+		must_fail = 1;
+	    } else if (!_pam_strCMP("required", tok)) {
 		D(("*PAM_F_REQUIRED*"));
 		actions[PAM_SUCCESS] = _PAM_ACTION_OK;
 		actions[PAM_NEW_AUTHTOK_REQD] = _PAM_ACTION_OK;
