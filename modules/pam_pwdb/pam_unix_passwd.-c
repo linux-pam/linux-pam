@@ -236,6 +236,8 @@ static int _unix_chauthtok(pam_handle_t *pamh, unsigned int ctrl)
 	/*
 	 * By reaching here we have approved the passwords and must now
 	 * rebuild the password database file.
+	 *
+	 * This includes the fact that the password is _not_ NULL.
 	 */
 
 	/*

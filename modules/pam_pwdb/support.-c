@@ -513,6 +513,7 @@ static int _unix_verify_password(pam_handle_t *pamh, const char *name,
 
     } else {
 
+	/* there is no way that p can be NULL (one can be "") */
         pp = _pam_md(p, salt);
 
         /* the moment of truth -- do we agree with the password? */
