@@ -42,6 +42,8 @@ libpam. Prior versions were buggy - see bugfix for Bug 129775.
 
                           ** WARNING **
 
+* fixed URL for original RFC to a cached kernel.org file. (Bug 131503
+  - agmorgan)
 * quoted the $CRACKLIB_DICTPATH test in configure.in (Bug 130130 -
   agmorgan).
 * improved handling of the setcred/close_session and update chauthtok
