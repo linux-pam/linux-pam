@@ -49,6 +49,7 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* db3 is now recognized as a libdb candidate (Bug 435764 - agmorgan)
 * more changes (extracted from redhat version) courtesy of
   Harald Welte (Bugs pam_limits=436061, pam_lastlog=436060,
   pam_mkhomedir/pam_env=435991 - agmorgan)
