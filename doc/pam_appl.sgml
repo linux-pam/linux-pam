@@ -994,6 +994,40 @@ things come at once: a windows based application can then present a
 single form with many messages/prompts on at once.
 
 <p>
+In passing, it is worth noting that there is a descrepency between the
+way Linux-PAM handles the <tt/const struct pam_message **msg/
+conversation function argument from the way that Solaris' PAM (and
+derivitives, known to include HP/UX, <em/are there others?/)
+does. Linux-PAM interprets the <tt/msg/ argument as entirely
+equivalent to the following prototype <tt/const struct pam_message
+*msg[]/ (which, in spirit, is consistent with the commonly used
+prototypes for <tt/argv/ argument to the familiar <tt/main()/
+function: <tt/char **argv/; and <tt/char *argv[]/). Said another way
+Linux-PAM interprets the <tt/msg/ argument as a pointer to an array of
+<tt/num_meg/ read only 'struct pam_message' <em/pointers/.  Solaris'
+PAM implementation interprets this argument as a pointer to a pointer
+to an array of <tt/num_meg/ <tt/pam_message/ structures.  Fortunately,
+perhaps, for most module/application developers when <tt/num_msg/ has
+a value of one these two definitions are entirely
+equivalent. Unfortunately, casually raising this number to two has led
+to unanticipated compatibility problems.
+
+<p>
+For what its worth the two known module writer work-arounds for trying
+to maintain source level compatibility with both PAM implementations
+are:
+<itemize>
+<item> never call the conversation function with <tt/num_msg/ greater
+than one.
+<item> set up <tt/msg/ as doubly referenced so both types of
+conversation function can find the messages. That is, make
+<p><tscreen>
+<verb>
+msg[n] = & (( *msg )[n])
+</verb>
+</tscreen>
+</itemize>
+<p>
 The response (from the application to the module) passing structure is
 defined by including <tt>&lt;security/pam_appl.h&gt;</tt> as:
 
@@ -1018,13 +1052,12 @@ called.  This meant that it was not always necessary for the module to
 to display some text.
 
 <p>
-Post Linux-PAM-0.59 (and in the interests of compatibility with
-Sunsoft).  The number of responses is always equal to the <tt/num_msg/
-conversation function argument.  This is slightly easier to program
-but does require that the response array is <tt/free(3)/'d after every
-call to the conversation function.  The index of the responses
-corresponds directly to the prompt index in the <tt/pam_message/
-array.
+Post Linux-PAM-0.59.  The number of responses is always equal to the
+<tt/num_msg/ conversation function argument.  This is slightly easier
+to program but does require that the response array is <tt/free(3)/'d
+after every call to the conversation function.  The index of the
+responses corresponds directly to the prompt index in the
+<tt/pam_message/ array.
 
 <p>
 The maximum length of the <tt/pam_msg.msg/ and <tt/pam_response.resp/

@@ -55,6 +55,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* documentation: random typo fixes from Nalin and more stuff from me
+  (Bug 476949, Tasks 43507, 17426 - agmorgan)
 * A Tru64 fix (given other stuff has already resolved this, it
   actually just a comment actually) from 'Eddie'. (Bug 418450 -
   agmorgan)
@@ -72,8 +74,6 @@ bug report - outstanding bugs are listed here:
   to examples/xsh.c for testing purposes, and also modified the
   pam_rhosts_auth module to use this new library. (Bug 490938,
   409852 - agmorgan)
-* documentation: random typo fixes from Nalin and more stuff from me
-  (Bug 476949, Tasks 43507, 17426 - agmorgan)
 * pam_unix: fix 'likeauth' to kill off the memory leak once and for all.
   (Bug 483959 - vorlon)
 * pam_unix: restore handling of 'likeauth' argument to a known working
