@@ -89,5 +89,5 @@ const char *pam_strerror(pam_handle_t *pamh, int errnum)
 	return "Application needs to call libpam again";
     }
 
-    return "Unknown Linux-PAM error (need to upgrde libpam?)";
+    return "Unknown PAM error";
 }

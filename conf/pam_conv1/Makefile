@@ -1,4 +1,9 @@
 #
+# $Id$
+#
+
+include ../../Make.Rules
+
 #
 ifeq ($(OS),solaris)
 
@@ -16,7 +21,7 @@ else
 all: pam_conv1
 
 pam_conv1: pam_conv.tab.c lex.yy.c
-	$(CC) -o pam_conv1 pam_conv.tab.c -lfl
+	$(CC) -o pam_conv1 pam_conv.tab.c $(LINK_LIBLEX)
 
 pam_conv.tab.c: pam_conv.y lex.yy.c
 	bison pam_conv.y

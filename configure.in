@@ -222,6 +222,12 @@ AC_SUBST(HAVE_LIBNSL)
 AC_CHECK_LIB(pwdb, pwdb_db_name, HAVE_LIBPWDB=yes ; AC_DEFINE(HAVE_LIBPWDB),
 	HAVE_LIBPWDB=no)
 AC_SUBST(HAVE_LIBPWDB)
+AC_CHECK_LIB(fl, yywrap, HAVE_LIBFLEX=yes ; AC_DEFINE(HAVE_LIBFLEX),
+	HAVE_LIBFLEX=no)
+AC_SUBST(HAVE_LIBFLEX)
+AC_CHECK_LIB(l, yywrap, HAVE_LIBLEX=yes ; AC_DEFINE(HAVE_LIBLEX),
+	HAVE_LIBLEX=no)
+AC_SUBST(HAVE_LIBLEX)
 
 dnl Checks for header files.
 AC_HEADER_DIRENT
@@ -337,6 +343,11 @@ else
 ### Non-gcc needs attention on per-OS basis
 ###
 	case "$OS" in
+	darwin)
+# add some stuff here (see sourceforge bug 534205)
+# DOCDIR=/System/Documentation/Administration/Libraries/PAM
+# MANDIR=/usr/share/man
+		;;
 	solaris)
 	    ### Support for Solaris-C
 	    OS_CFLAGS=""

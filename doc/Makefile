@@ -138,7 +138,8 @@ ifeq ($(HAVE_SGML2HTML),yes)
 	  install -m 644 $$file $(FAKEROOT)$(DOCDIR)/html ; \
 	done
 endif
-	mkdir -p $(FAKEROOT)$(MANDIR)/man{3,8}
+	mkdir -p $(FAKEROOT)$(MANDIR)/man3
+	mkdir -p $(FAKEROOT)$(MANDIR)/man8
 	for file in man/*.3 ; do \
 	  install -m 644 $$file $(FAKEROOT)$(MANDIR)/man3 ; \
 	done
