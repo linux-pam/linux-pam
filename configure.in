@@ -45,6 +45,15 @@ dnl ### Would need to distribute GNU's config.guess and config.sub
 dnl AC_PROG_INSTALL
 INSTALL=/usr/bin/install	; AC_SUBST(INSTALL)
 
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_CXX
+AC_PROG_YACC
+AC_PROG_LEX
+dnl AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+
 dnl
 dnl options and defaults
 dnl
@@ -143,15 +152,6 @@ pam_mail_spool="\"/var/spool/mail\"",
 pam_mail_spool="\"/var/spool/mail\"")
 fi
 AC_DEFINE_UNQUOTED(PAM_PATH_MAILDIR, $pam_mail_spool)
-
-dnl Checks for programs.
-AC_PROG_CXX
-AC_PROG_YACC
-AC_PROG_LEX
-AC_PROG_CC
-dnl AC_PROG_INSTALL
-AC_PROG_LN_S
-AC_PROG_MAKE_SET
 
 dnl Checks for libraries.
 AC_CHECK_LIB(c, __libc_sched_setscheduler, PAM_NEEDS_LIBC=, PAM_NEEDS_LIBC=-lc)
@@ -252,7 +252,7 @@ dnl this should be done selectively.
 
 GCC_WARNINGS="-Wall -Wwrite-strings \
 	-Wpointer-arith -Wcast-qual -Wcast-align \
-	-Wtraditional -Wstrict-prototypes -Wmissing-prototypes \
+	-Wstrict-prototypes -Wmissing-prototypes \
 	-Wnested-externs -Winline -Wshadow"
 
 if test "$GCC" = yes; then
