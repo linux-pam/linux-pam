@@ -55,6 +55,9 @@ bug report - outstanding bugs are listed here:
 * pam_modules.sgml: sourceforge has changed its CVS viewing software
   (Bug 460491 - agmorgan)
 * pam_unix_passwd: got rid of an annoying warning (Bug 461089 - agmorgan)
+* configure.in, _pam_aconf.h.in: set the stage for fully reentrant PAM
+  modules, with some infrastructure to detect getxxbyxx_r() functions
+  (Bug 440107 - vorlon)
 * pam_unix: removed superfluous use of static variables in md5 and bigcrypt
   routines, bringing us a step closer to thread-safeness.  Eliminated
   some variable indirection along the way.  (Bug 440107 - vorlon)
