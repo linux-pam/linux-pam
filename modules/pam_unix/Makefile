@@ -109,7 +109,7 @@ ifdef DYNAMIC
 $(LIBOBJD): $(LIBSRC)
 
 $(LIBSHARED):	$(LIBOBJD)
-	$(LD_D) -o $@ $(LIBOBJD) $(PLUS) $(CRACKLIB) $(LDLIBS) $(LIBNSL) $(LIBCRYPT)
+	$(LD_D) -o $@ $(LIBOBJD) $(PLUS) $(CRACKLIB) $(LDLIBS) $(LIBNSL) $(LIBCRYPT) $(NEED_LINK_LIB_C) -L../../libpam -lpam
 endif
 
 ifdef STATIC

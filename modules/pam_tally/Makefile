@@ -65,7 +65,7 @@ ifdef DYNAMIC
 $(LIBOBJD): $(LIBSRC)
 
 $(LIBSHARED):   $(LIBOBJD)
-	$(LD_D) -o $@ $(LIBOBJD)
+	$(LD_D) -o $@ $(LIBOBJD) -L../../libpam -lpam $(NEED_LINK_LIB_C) 
 
 $(APPLICATION): $(APPOBJD) $(TITLE).c
 	$(CC) $(CFLAGS) -o $@ $(APPOBJD) $(LOADLIBES)

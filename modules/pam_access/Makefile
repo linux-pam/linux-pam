@@ -10,6 +10,9 @@ include ../../Make.Rules
 TITLE=pam_access
 LOCAL_CONFILE=./access.conf
 INSTALLED_CONFILE=$(SCONFIGD)/access.conf
+ifeq ($(HAVE_LIBNSL),yes)
+MODULE_SIMPLE_EXTRALIBS=-lnsl
+endif
 
 DEFS=-DDEFAULT_CONF_FILE=\"$(INSTALLED_CONFILE)\"
 CFLAGS += $(DEFS)

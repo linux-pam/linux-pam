@@ -42,7 +42,7 @@ SHLIBMODE=755			; AC_SUBST(SHLIBMODE)
 
 dnl These are most likely platform specific - I think HPUX differs
 USESONAME=yes			; AC_SUBST(USESONAME)
-SOSWITCH=-soname		; AC_SUBST(SOSWITCH)
+SOSWITCH='-Xlinker -soname	-Xlinker '	; AC_SUBST(SOSWITCH)
 NEEDSONAME=no			; AC_SUBST(NEEDSONAME)
 LDCONFIG=/sbin/ldconfig		; AC_SUBST(LDCONFIG)
 
@@ -282,9 +282,7 @@ AC_SUBST(CRACKLIB_DICTPATH)
 dnl Set FLAGS, linker options etc. depending on C compiler.
 dnl gcc is tested and much preferred; others less so, if at all
 dnl
-dnl If compiling with gcc, linking is also supposed to be done with gcc;
-dnl since we use linker-specific arguments, we may not gain anything by
-dnl switching LD_L over, but I think we can use LD_D as-is.
+dnl If compiling with gcc, linking is also supposed to be done with gcc
 dnl
 dnl For the moment, gcc is enforced above at "CC=gcc".
 dnl
@@ -309,8 +307,8 @@ if test "$GCC" = yes; then
 		WARNINGS="$GCC_WARNINGS"
 		PIC="-fPIC"
 		DYNTYPE=so
-		LD=ld				
-		LD_L="$LD -x -shared"
+		LD=gcc
+		LD_L="$LD -Xlinker -x -shared"
 		RANLIB=ranlib
 		STRIP=strip
 		CC_STATIC="-Xlinker -export-dynamic"

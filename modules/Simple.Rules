@@ -19,7 +19,7 @@ LIBOBJ = $(addsuffix .o,$(LIBFILES))
 LIBOBJD = $(addprefix dynamic/,$(LIBOBJ))
 LIBOBJS = $(addprefix static/,$(LIBOBJ))
 
-LINK_PAMMODUTILS = -L../pammodutil -lpammodutil
+LINK_PAMMODUTILS = -L../pammodutil -lpammodutil -L../../libpam -lpam
 INCLUDE_PAMMODUTILS = -I../pammodutil/include
 
 ifdef DYNAMIC

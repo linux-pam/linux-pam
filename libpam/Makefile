@@ -10,6 +10,8 @@ MOREFLAGS=-D"DEFAULT_MODULE_PATH=\"$(SECUREDIR)/\""
 
 ifeq ($(WITH_LIBDEBUG),yes)
  LIBNAME=libpamd
+ CFLAGS += -D"DEBUG"
+ CFLAGS += -g
 else
  LIBNAME=libpam
 endif
@@ -37,7 +39,7 @@ LIBPAMFULL = $(LIBPAMNAME)$(MODIFICATION)
 LIBPAMSTATIC = $(LIBNAME).a
 
 ifdef STATIC
-@echo Did you mean to set STATIC\?
+#	@echo Did you mean to set STATIC\?
 MODULES = $(shell cat ../modules/_static_module_objects)
 STATICOBJ = pam_static.o
 else
@@ -88,6 +90,9 @@ dynamic/%.o : %.c
 
 static/%.o : %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+bootstrap-libpam: bootdir $(LIBPAM)
+bootdir:
+	test -d dynamic || mkdir dynamic
 
 $(LIBPAM): $(DLIBOBJECTS)
 ifeq ($(DYNAMIC_LIBPAM),yes)

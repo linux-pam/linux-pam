@@ -19,6 +19,10 @@ THINGSTOMAKE = modules libpam libpamc libpam_misc doc examples
 
 all: $(THINGSTOMAKE)
 
+ # Let's get a dynamic libpam.so first
+ bootstrap-libpam: _pam_aconf.h prep
+	$(MAKE) -C libpam bootstrap-libpam
+
 prep:
 	rm -f security
 	ln -sf . security
@@ -52,7 +56,7 @@ configure: configure.in
 	@rm -f configure
 	@exit 1
 
-$(THINGSTOMAKE): _pam_aconf.h prep
+$(THINGSTOMAKE): _pam_aconf.h prep bootstrap-libpam
 	$(MAKE) -C $@ all
 
 install: _pam_aconf.h prep
