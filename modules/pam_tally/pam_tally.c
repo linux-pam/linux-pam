@@ -234,7 +234,7 @@ static int pam_get_uid( pam_handle_t *pamh, uid_t *uid, const char **userp, stru
     if ( ! ( pw = _pammodutil_getpwnam( pamh, user ) ) ) {
       opts->ctrl & OPT_AUDIT ? 
 	      _pam_log(LOG_ERR,MODULE_NAME ": pam_get_uid; no such user %s",user) : 
-	      _pam_log(LOG_ERR,MODULE_NAME ": pam_get_uid; user unknown");
+	      _pam_log(LOG_ERR,MODULE_NAME ": pam_get_uid; no such user");
       return PAM_USER_UNKNOWN;
     }
     
