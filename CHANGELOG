@@ -25,6 +25,9 @@ TODO:
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* fix to pam_unix_passwd: try repeatedly to get a lock on the password
+  file, instead of failing immediately (Bug 108845)
+
 Planning to include:
 
   - some autoconf support and other outstanding changes from Jan..
