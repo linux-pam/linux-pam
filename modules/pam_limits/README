@@ -39,6 +39,9 @@ Where:
 	- maxsyslogins - max number of logins on the system
 	- priority - lower the priority by given value (value can be -ve)
 	- locks - max locked files (Linux 2.4 and higher)
+	- sigpending - max number of pending signals (Linux 2.6 and higher)
+	- msgqueue - max memory used by POSIX message queues (bytes) 
+	  (Linux 2.6 and higher)
 
 Note, if you specify a type of '-' but neglect to supply the item and
 value fields then the module will never enforce any limits on the

@@ -30,6 +30,8 @@
 #        - maxlogins - max number of logins for this user
 #        - priority - the priority to run user process with
 #        - locks - max number of file locks the user can hold
+#        - sigpending - max number of pending signals
+#        - msgqueue - max memory used by POSIX message queues (bytes)
 #
 #<domain>      <type>  <item>         <value>
 #

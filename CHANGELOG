@@ -68,6 +68,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   warn user that pam_cracklib will not be built (kukuk)
 * modules/pam_unix/support.c: Fix return value, if user aborts while
   changes the password (Bug 872945 - kukuk)
+* pam_limits: support for new Linux kernel 2.6 limits (from toby cabot
+  - t8m)
 
 0.78: Do Nov 18 14:48:36 CET 2004
 
