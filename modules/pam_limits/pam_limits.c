@@ -21,9 +21,6 @@
 
 #include <stdio.h>
 #include <unistd.h>
-#ifndef __USE_POSIX2
-#define __USE_POSIX2
-#endif /* __USE_POSIX2 */
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -32,6 +29,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/resource.h>
+
 #include <utmp.h>
 #ifndef UT_USER  /* some systems have ut_name instead of ut_user */
 #define UT_USER ut_user
@@ -228,52 +226,48 @@ static int is_on_group(const char *user_name, const char *group_name)
     
 static int init_limits(void)
 {
+    int i;
     int retval = PAM_SUCCESS;
 
     D(("called."));
 
-    retval |= getrlimit(RLIMIT_CPU,     &limits[RLIMIT_CPU].limit);
+    for(i = 0; i < RLIM_NLIMITS; i++) 
+	retval |= getrlimit(i, &limits[i].limit);
+    
     limits[RLIMIT_CPU].src_soft = LIMITS_DEF_NONE;
     limits[RLIMIT_CPU].src_hard = LIMITS_DEF_NONE;
 
-    retval |= getrlimit(RLIMIT_FSIZE,   &limits[RLIMIT_FSIZE].limit);
     limits[RLIMIT_FSIZE].src_soft = LIMITS_DEF_NONE;
     limits[RLIMIT_FSIZE].src_hard = LIMITS_DEF_NONE;
 
-    retval |= getrlimit(RLIMIT_DATA,    &limits[RLIMIT_DATA].limit);
     limits[RLIMIT_DATA].src_soft = LIMITS_DEF_NONE;
     limits[RLIMIT_DATA].src_hard = LIMITS_DEF_NONE;
 
-    retval |= getrlimit(RLIMIT_STACK,   &limits[RLIMIT_STACK].limit);
     limits[RLIMIT_STACK].src_soft = LIMITS_DEF_NONE;
     limits[RLIMIT_STACK].src_hard = LIMITS_DEF_NONE;
 
-    retval |= getrlimit(RLIMIT_CORE,    &limits[RLIMIT_CORE].limit);
     limits[RLIMIT_CORE].src_soft = LIMITS_DEF_NONE;
     limits[RLIMIT_CORE].src_hard = LIMITS_DEF_NONE;
 
-    retval |= getrlimit(RLIMIT_RSS,     &limits[RLIMIT_RSS].limit);
     limits[RLIMIT_RSS].src_soft = LIMITS_DEF_NONE;
     limits[RLIMIT_RSS].src_hard = LIMITS_DEF_NONE;
 
-    retval |= getrlimit(RLIMIT_NPROC,   &limits[RLIMIT_NPROC].limit);
     limits[RLIMIT_NPROC].src_soft = LIMITS_DEF_NONE;
     limits[RLIMIT_NPROC].src_hard = LIMITS_DEF_NONE;
 
-    retval |= getrlimit(RLIMIT_NOFILE,  &limits[RLIMIT_NOFILE].limit);
     limits[RLIMIT_NOFILE].src_soft = LIMITS_DEF_NONE;
     limits[RLIMIT_NOFILE].src_hard = LIMITS_DEF_NONE;
 
-    retval |= getrlimit(RLIMIT_MEMLOCK, &limits[RLIMIT_MEMLOCK].limit);
     limits[RLIMIT_MEMLOCK].src_soft = LIMITS_DEF_NONE;
     limits[RLIMIT_MEMLOCK].src_hard = LIMITS_DEF_NONE;
 
-    retval |= getrlimit(RLIMIT_AS,      &limits[RLIMIT_AS].limit);
     limits[RLIMIT_AS].src_soft = LIMITS_DEF_NONE;
     limits[RLIMIT_AS].src_hard = LIMITS_DEF_NONE;
+
     priority = 0;
     login_limit = -2;
     login_limit_def = LIMITS_DEF_NONE;
+
     return retval;
 }    
 

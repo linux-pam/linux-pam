@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* fix for pam_limit module not dealing with all limits Adam J. Richter
+  (Bug 119554 - agmorgan)
 * comment fix describing fail_delay callback in _pam_types.h (Bug
   112646 - agmorgan)
 * "likeauth" fix for pam_unix and pam_pwdb which (Bug 113596 - agmorgan)
