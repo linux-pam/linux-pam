@@ -81,6 +81,13 @@ ARGUMENTS RECOGNIZED:
 			no processes.  Be warned that something else
 			may break when you do this.
 
+    utmp_early		some broken applications actually allocate a
+			utmp entry for the user before the user is
+			admitted to the system. If the service you are
+			configuring PAM for does this, you can use
+			this module argument to compensate for this
+			brokenness.
+
 MODULE SERVICES PROVIDED:
 	session            _open_session and _close_session (blank)
 

@@ -55,6 +55,11 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_limits can handle negative priority limits now (which can apply
+  to the superuser too) - based on patch from Nalin. Also cleanup the
+  error handling that was very sloppy before. Also, courtesy of Berend
+  De Schouwe get the math right on login counting (Bug 476990, 476987,
+  493294 - agmorgan)
 * documentation: random typo fixes from Nalin and more stuff from me
   (Bug 476949, Tasks 43507, 17426 - agmorgan)
 * A Tru64 fix (given other stuff has already resolved this, it
@@ -110,10 +115,6 @@ bug report - outstanding bugs are listed here:
   from Nalin (Bug 476940 - agmorgan)
 * pam_filter cleanup (including moving the filter directory) Nalin
   and Harald Welte (Bugs 436057, 476970 - agmorgan)
-* pam_limits can handle negative priority limits now (which can apply
-  to the superuser too) - based on patch from Nalin. Also cleanup the
-  error handling that was very sloppy before (Bug 476990, 476987 -
-  agmorgan)
 * db3 is now recognized as a libdb candidate (Bug 435764 - agmorgan)
 * more changes (extracted from redhat version) courtesy of
   Harald Welte (Bugs pam_limits=436061, pam_lastlog=436060,

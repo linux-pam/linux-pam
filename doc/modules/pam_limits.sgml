@@ -54,7 +54,8 @@ configuration file discussed below.
 <descrip>
 
 <tag><bf>Recognized arguments:</bf></tag>
-<tt/debug/; <tt>conf=/path/to/file.conf</tt>
+<tt/debug/; <tt>conf=/path/to/file.conf</tt>; <tt>change_uid</tt>;
+<tt>utmp_early</tt>
 
 <tag><bf>Description:</bf></tag>
 
@@ -79,6 +80,13 @@ change real uid to the user for who the limits are set up.  Use this
 option if you have problems like login not forking a shell for user
 who has no processes. Be warned that something else may break when
 you do this.
+
+<item><tt/utmp_early/ - 
+some broken applications actually allocate a utmp entry for the user
+before the user is admitted to the system. If some of the services you
+are configuring PAM for do this, you can selectively use this module
+argument to compensate for this behavior and at the same time maintain
+system-wide consistency with a single limits.conf file.
 
 </itemize>
 

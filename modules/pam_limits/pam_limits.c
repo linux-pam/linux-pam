@@ -2,7 +2,7 @@
  * pam_limits - impose resource limits when opening a user session
  *
  * 1.6 - modified for PLD (added process priority settings) 
- *       by Marcin Korzonek <mkorz@shadow.eu.org
+ *       by Marcin Korzonek <mkorz@shadow.eu.org>
  * 1.5 - Elliot Lee's "max system logins patch"
  * 1.4 - addressed bug in configuration file parser
  * 1.3 - modified the configuration file format
@@ -71,6 +71,7 @@ struct pam_limit_s {
     int supported[RLIM_NLIMITS];
     struct user_limits_struct limits[RLIM_NLIMITS];
     char conf_file[BUFSIZ];
+    int utmp_after_pam_call;
 };
 
 #define LIMIT_LOGIN RLIM_NLIMITS+1
@@ -102,29 +103,32 @@ static void _pam_log(int err, const char *format, ...)
 
 #define PAM_DEBUG_ARG       0x0001
 #define PAM_DO_SETREUID     0x0002
+#define PAM_UTMP_EARLY      0x0004
 
 static int _pam_parse(int argc, const char **argv, struct pam_limit_s *pl)
 {
-     int ctrl=0;
+    int ctrl=0;
 
-     /* step through arguments */
-     for (ctrl=0; argc-- > 0; ++argv) {
+    /* step through arguments */
+    for (ctrl=0; argc-- > 0; ++argv) {
 
-          /* generic options */
+	/* generic options */
 
-          if (!strcmp(*argv,"debug"))
-               ctrl |= PAM_DEBUG_ARG;
-          else if (!strncmp(*argv,"conf=",5))
-                strncpy(pl->conf_file,*argv+5,sizeof(pl->conf_file)-1);
-	  else if (!strncmp(*argv,"change_uid",10))
-		ctrl |= PAM_DO_SETREUID;
-          else {
-               _pam_log(LOG_ERR,"pam_parse: unknown option; %s",*argv);
-          }
-     }
-     pl->conf_file[sizeof(pl->conf_file) - 1] = '\0';
+	if (!strcmp(*argv,"debug")) {
+	    ctrl |= PAM_DEBUG_ARG;
+	} else if (!strncmp(*argv,"conf=",5)) {
+	    strncpy(pl->conf_file,*argv+5,sizeof(pl->conf_file)-1);
+	} else if (!strncmp(*argv,"change_uid",10)) {
+	    ctrl |= PAM_DO_SETREUID;
+	} else if (!strcmp(*argv,"utmp_early")) {
+	    ctrl |= PAM_UTMP_EARLY;
+	} else {
+	    _pam_log(LOG_ERR,"pam_parse: unknown option; %s",*argv);
+	}
+    }
+    pl->conf_file[sizeof(pl->conf_file) - 1] = '\0';
 
-     return ctrl;
+    return ctrl;
 }
 
 
@@ -212,24 +216,45 @@ static int check_logins(const char *name, int limit, int ctrl,
     }
 
     setutent();
-    count = 0;
+
+    /* Because there is no definition about when an application
+       actually adds a utmp entry, some applications bizarrely do the
+       utmp call before the have PAM authenticate them to the system:
+       you're logged it, sort of...? Anyway, you can use the
+       "utmp_early" module argument in your PAM config file to make
+       allowances for this sort of problem. (There should be a PAM
+       standard for this, since if a module wants to actually map a
+       username then any early utmp entry will be for the unmapped
+       name = broken.) */
+    
+    if (ctrl & PAM_UTMP_EARLY) {
+	count = 0;
+    } else {
+	count = 1;
+    }
+
     while((ut = getutent())) {
 #ifdef USER_PROCESS
-        if (ut->ut_type != USER_PROCESS)
+        if (ut->ut_type != USER_PROCESS) {
             continue;
+	}
 #endif
-        if (ut->UT_USER[0] == '\0')
+        if (ut->UT_USER[0] == '\0') {
             continue;
+	}
         if (!pl->flag_numsyslogins) {
 	    if ((pl->login_limit_def == LIMITS_DEF_USER)
-		&& strncmp(name, ut->UT_USER, sizeof(ut->UT_USER)) != 0)
+		&& strncmp(name, ut->UT_USER, sizeof(ut->UT_USER)) != 0) {
                 continue;
+	    }
 	    if ((pl->login_limit_def == LIMITS_DEF_GROUP)
-		&& !is_in_group(ut->UT_USER, name))
+		&& !is_in_group(ut->UT_USER, name)) {
                 continue;
+	    }
 	}
-        if (++count > limit)
-            break;
+	if (++count > limit) {
+	    break;
+	}
     }
     endutent();
     if (count > limit) {
