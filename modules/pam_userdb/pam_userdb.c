@@ -20,12 +20,12 @@
 
 #include "pam_userdb.h"
 
-#ifdef HAVE_LIBDB
-# define DB_DBM_HSEARCH    1 /* use the dbm interface */
-# include <db.h>
+#ifdef HAVE_NDBM_H
+# include <ndbm.h>
 #else
-# ifdef HAVE_LIBNDBM
-#  include <ndbm.h>
+# ifdef HAVE_DB_H
+#  define DB_DBM_HSEARCH    1 /* use the dbm interface */
+#  include <db.h>
 # else
 #  error "failed to find a libdb or equivalent"
 # endif

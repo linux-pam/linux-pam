@@ -42,12 +42,14 @@ Make.Rules: configure Make.Rules.in _pam_aconf.h.in
 	@echo XXX - by hand, with the options you want.
 	./configure
 
+_pam_aconf.h: Make.Rules
+
 configure: configure.in
-	@$(MAKE) distclean
 	@echo
-	@echo You do not appear to have a ./configure file.
+	@echo You do not appear to have an up-to-date ./configure file.
 	@echo Please run autoconf, and then ./configure [..options..]
 	@echo
+	@rm -f configure
 	@exit 1
 
 $(THINGSTOMAKE): _pam_aconf.h prep

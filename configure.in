@@ -9,7 +9,7 @@ dnl Release specific
 dnl
 
 LIBPAM_VERSION_MAJOR=0
-LIBPAM_VERSION_MINOR=73
+LIBPAM_VERSION_MINOR=74
 
 AC_SUBST(LIBPAM_VERSION_MAJOR)
 AC_SUBST(LIBPAM_VERSION_MINOR)
@@ -177,6 +177,12 @@ AC_CHECK_HEADERS(features.h)
 
 dnl For module/pam_cracklib
 AC_CHECK_HEADERS(crypt.h)
+
+dnl For module/pam_userdb
+AC_CHECK_HEADERS(ndbm.h db.h)
+dnl I suspect the following two lines are a hack.
+HAVE_NDBM_H=$ac_cv_header_ndbm_h
+AC_SUBST(HAVE_NDBM_H)
 
 dnl For module/pam_lastlog
 AC_CHECK_HEADERS(lastlog.h utmp.h utmpx.h)

@@ -35,13 +35,9 @@
 #undef HAVE_LIBCRYPT
 #undef HAVE_CRYPT_H
 
-/* we have libdb */
-#undef HAVE_LIBDB
-
-#ifndef HAVE_LIBDB
-/* we have libndbm - instead of libdb */
-#undef HAVE_LIBNDBM
-#endif /* HAVE_LIBDB */
+/* we have libndbm and/or libdb */
+#undef HAVE_DB_H
+#undef HAVE_NDBM_H
 
 /* have libfl (Flex) */
 #undef HAVE_LIBFL
