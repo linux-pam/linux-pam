@@ -16,11 +16,18 @@
 /* provide a global locking facility within libpam */
 #undef PAM_LOCKING
 
+/* GNU systems as a class, all have the feature.h file */
+#undef HAVE_FEATURES_H
+#ifdef HAVE_FEATURES_H
+# include <features.h>
+#endif /* HAVE_FEATURES_H */
+
 /* we have libcrack available */
 #undef HAVE_LIBCRACK
 
-/* we have libcrypt - its not part of libc */
+/* we have libcrypt - its not part of libc (do we need both definitions?) */
 #undef HAVE_LIBCRYPT
+#undef HAVE_CRYPT_H
 
 /* we have libndbm - instead of libdb */
 #undef HAVE_LIBNDBM

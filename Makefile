@@ -25,7 +25,7 @@ clean:
 extraclean: clean
 	touch Make.Rules
 	rm -rf include *~ #*# *.orig *.rej
-	for i in $(PAMLIBS) ; do make -C $$i extraclean ; done
+	for i in $(PAMLIBS) ; do $(MAKE) -C $$i extraclean ; done
 	rm -f Make.Rules pam_aconf.h
 
 ## =================
@@ -35,11 +35,11 @@ Make.Rules: configure Make.Rules.in pam_aconf.h.in
 	./configure
 
 configure: configure.in
-	@make extraclean
+	@$(MAKE) extraclean
 	autoconf
 
 $(PAMLIBS): Make.Rules
-	make -C $@ all
+	$(MAKE) -C $@ all
 
 ifdef LEGACY_OLD_MAKEFILE
 

@@ -28,27 +28,20 @@ dnl
 
 CC=gcc				; AC_SUBST(CC)
 CONF_CFLAGS=			; AC_SUBST(CONF_CFLAGS)
-LD=ld				; AC_SUBST(LD)
-LD_D="gcc -shared -Xlinker -x"	; AC_SUBST(LD_D)
-LD_L="$LD -x -shared"		; AC_SUBST(LD_L)
 MKDIR="mkdir -p"		; AC_SUBST(MKDIR)
+LOCALSRCDIR=`/bin/pwd`		; AC_SUBST(LOCALSRCDIR)
+
+dnl These are most likely platform specific - I think HPUX differs
 DYNTYPE=so			; AC_SUBST(DYNTYPE)
 LIBDL=-ldl			; AC_SUBST(LIBDL)
 USESONAME=yes			; AC_SUBST(USESONAME)
 NEEDSONAME=yes			; AC_SUBST(NEEDSONAME)
+SHLIBMODE=755			; AC_SUBST(SHLIBMODE)
+
+dnl ### Should enable this INSTALL detection.
+dnl ### Would need to distribute GNU's config.guess and config.sub
+dnl AC_PROG_INSTALL
 INSTALL=/usr/bin/install	; AC_SUBST(INSTALL)
-
-dnl This following location is not likely to work for most folk
-dnl the rule for locating the directory should be made conditional
-dnl upon HAVE_LIBCRYPT being found, and should be moved down this file
-dnl The Cracklib module used to have this code in its Makefile.
-dnl #ifeq ($(shell if [ -f /usr/lib/cracklib_dict.hwm ]; then echo yes ; fi),yes)
-dnl # CRACKLIB_DICTPATH=/usr/lib/cracklib_dict
-dnl #else
-dnl # CRACKLIB_DICTPATH=/usr/share/dict/cracklib_dict
-dnl #endif
-
-CRACKLIB_DICTPATH=/usr/lib/cracklib_dict	; AC_SUBST(CRACKLIB_DICTPATH)
 
 dnl
 dnl options and defaults
@@ -123,6 +116,11 @@ AC_PROG_MAKE_SET
 dnl Checks for libraries.
 AC_CHECK_LIB(c, __libc_sched_setscheduler, PAM_NEEDS_LIBC=, PAM_NEEDS_LIBC=-lc)
 AC_SUBST(PAM_NEEDS_LIBC)
+
+dnl
+dnl At least on Solaris, the existing libcrack must be dynamic.
+dnl Ought to introduce a check for this.
+dnl
 AC_CHECK_LIB(crack, FascistCheck, HAVE_LIBCRACK=yes ; AC_DEFINE(HAVE_LIBCRACK),
 	HAVE_LIBCRACK=no)
 AC_SUBST(HAVE_LIBCRACK)
@@ -143,7 +141,7 @@ AC_CHECK_LIB(nsl, yp_maplist, HAVE_LIBNSL=yes ; AC_DEFINE(HAVE_LIBNSL),
 	HAVE_LIBNSL=no)
 AC_SUBST(HAVE_LIBNSL)
 AC_CHECK_LIB(pwdb, pwdb_db_name, HAVE_LIBPWDB=yes ; AC_DEFINE(HAVE_LIBPWDB),
-	HAVE_LIBPWDB)
+	HAVE_LIBPWDB=no)
 AC_SUBST(HAVE_LIBPWDB)
 
 dnl Checks for header files.
@@ -151,6 +149,86 @@ AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/file.h sys/ioctl.h sys/time.h syslog.h termio.h unistd.h)
+
+dnl Linux wants features.h in some of the source files.
+AC_CHECK_HEADERS(features.h)
+
+dnl For module/pam_cracklib
+AC_CHECK_HEADERS(crypt.h)
+
+dnl For module/pam_lastlog
+AC_CHECK_HEADERS(lastlog.h utmp.h utmpx.h)
+
+dnl This following rule should be made conditional upon HAVE_LIBCRYPT
+dnl being found.
+
+dnl Look for cracklib dictionary
+AC_MSG_CHECKING(path to cracklib dictionary)
+DICT_DIR_CANDIDATES="/usr/lib /usr/share/dict /usr/share/lib \
+  /usr/local/lib /usr/local/share/lib"
+DICT_FILE_CANDIDATES="pw_dict cracklib_dict"
+CRACKLIB_DICTPATH=""
+for d in $DICT_DIR_CANDIDATES ; do
+      for f in $DICT_FILE_CANDIDATES ; do
+              if test -r $d/$f.hwm ; then
+                      CRACKLIB_DICTPATH=$d/$f
+                      break 2
+              elif test -r $d/dict/$f.hwm ; then
+                      CRACKLIB_DICTPATH=$d/dict/$f
+                      break 2
+              fi
+      done
+done
+if test -z $CRACKLIB_DICTPATH ; then
+      AC_MSG_RESULT(none found)
+else
+      AC_MSG_RESULT($CRACKLIB_DICTPATH)
+fi
+AC_SUBST(CRACKLIB_DICTPATH)
+
+dnl Set FLAGS, linker options etc. depending on C compiler.
+dnl gcc is tested and much preferred; others less so, if at all
+dnl
+dnl If compiling with gcc, linking is also supposed to be done with gcc;
+dnl since we use linker-specific arguments, we may not gain anything by
+dnl switching LD_L over, but I think we can use LD_D as-is.
+dnl
+dnl For the moment, gcc is enforced above at "CC=gcc".
+dnl
+dnl There is an issue over _POSIX_SOURCE _BSD_SOURCE and _GNU_SOURCE .
+dnl The original "Linux-PAM" had blanket inclusion.  But portability
+dnl requires their default absence: if particular OSes require them,
+dnl this should be done selectively.
+
+GCC_WARNINGS="-ansi -D_POSIX_SOURCE -Wall -Wwrite-strings \
+	-Wpointer-arith -Wcast-qual -Wcast-align \
+	-Wtraditional -Wstrict-prototypes -Wmissing-prototypes \
+	-Wnested-externs -Winline -Wshadow -pedantic"
+
+if test "$GCC" = yes; then
+	WARNINGS="$GCC_WARNINGS"
+	PIC="-fPIC"
+#can/should we use LD=gcc ???
+	LD=ld				
+	LD_D="gcc -shared -Xlinker -x"
+	LD_L="$LD -x -shared"
+else
+###
+### Non-gcc needs attention on per-OS basis
+###
+### [These are Solaris-C specific...]
+	WARNINGS=""
+	PIC="-K pic"
+	LD=ld
+	LD_D="cc -z text -G -R."
+	LD_L="$LD_D"
+fi
+
+AC_SUBST(WARNINGS)
+AC_SUBST(PIC)
+AC_SUBST(LD)
+AC_SUBST(LD_D)
+AC_SUBST(LD_L)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_BIGENDIAN

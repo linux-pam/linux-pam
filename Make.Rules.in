@@ -4,8 +4,8 @@
 ## @configure_input@
 ##
 
-srcdir = @srcdir@
-top_srcdir = @top_srcdir@
+srcdir = @LOCALSRCDIR@
+top_srcdir = @LOCALSRCDIR@
 VPATH = @srcdir@
 prefix = @prefix@
 exec_prefix = @exec_prefix@
@@ -30,14 +30,12 @@ MINOR_REL=@LIBPAM_VERSION_MINOR@
 # Linux-PAM. True, they are a little anal. Pay attention to the comments
 # they generate.
 
-WARNINGS= -ansi -D_POSIX_SOURCE -Wall -Wwrite-strings \
-        -Wpointer-arith -Wcast-qual -Wcast-align \
-        -Wtraditional -Wstrict-prototypes -Wmissing-prototypes \
-        -Wnested-externs -Winline -Wshadow -pedantic
-PIC=-fPIC
+HEADER_DIRS=-I./include -I$(top_srcdir)/libpam/include
+WARNINGS=@WARNINGS@
+PIC=@PIC@
 
 # Mode to install shared libraries with
-SHLIBMODE=755
+SHLIBMODE=@SHLIBMODE@
 
 NEED_LINK_LIB_C=@PAM_NEEDS_LIBC@
 HAVE_LIBCRACK=@HAVE_LIBCRACK@
@@ -65,7 +63,7 @@ CRACKLIB_DICTPATH=@CRACKLIB_DICTPATH@
 
 # generic build setup
 CC=@CC@
-CFLAGS=$(WARNINGS) @CONF_CFLAGS@
+CFLAGS=$(WARNINGS) $(HEADER_DIRS) @CONF_CFLAGS@
 LD=@LD@
 LD_D=@LD_D@
 LD_L=@LD_L@
