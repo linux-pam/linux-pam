@@ -58,20 +58,20 @@ $(THINGSTOMAKE): _pam_aconf.h prep
 install: _pam_aconf.h prep
 	$(MKDIR) $(FAKEROOT)$(INCLUDED)
 	$(INSTALL) -m 444 security/_pam_aconf.h $(FAKEROOT)$(INCLUDED)
-	for x in $(THINGSTOMAKE) ; do make -C $$x install ; done
+	for x in $(THINGSTOMAKE) ; do $(MAKE) -C $$x install ; done
 
 remove:
 	rm -f $(FAKEROOT)$(INCLUDED)/_pam_aconf.h
-	for x in $(THINGSTOMAKE) ; do make -C $$x remove ; done
+	for x in $(THINGSTOMAKE) ; do $(MAKE) -C $$x remove ; done
 
 release:
-	@if [ ! -f Make.Rules ]; then echo make Make.Rules first ; exit 1; fi
+	@if [ ! -f Make.Rules ]; then echo $(MAKE) Make.Rules first ;exit 1 ;fi
 	@if [ ! -L ../$(DISTNAME)-$(MAJOR_REL).$(MINOR_REL) ]; then \
 	   echo generating ../$(DISTNAME)-$(MAJOR_REL).$(MINOR_REL) link ; \
 	   ln -sf $(DISTNAME) ../$(DISTNAME)-$(MAJOR_REL).$(MINOR_REL) ; \
 	   echo to ../$(DISTNAME) . ; fi
 	@diff ../$(DISTNAME)-$(MAJOR_REL).$(MINOR_REL)/Make.Rules Make.Rules
-	make distclean
+	$(MAKE) distclean
 	cd .. ; tar zvfc $(DISTNAME)-$(MAJOR_REL).$(MINOR_REL).tar.gz \
 		--exclude CVS --exclude .cvsignore --exclude '.#*' \
 		$(DISTNAME)-$(MAJOR_REL).$(MINOR_REL)/*

@@ -22,7 +22,7 @@ MODULES=$(shell ls modules/*.sgml)
 
 dummy:
 	@echo "Making the documentation..."
-	@make all
+	@$(MAKE) all
 
 all: htmls texts postscript
 
@@ -127,7 +127,7 @@ endif
 	done
 
 spec:
-	cd specs/formatter && make
+	cd specs/formatter && $(MAKE)
 	specs/formatter/padout < specs/draft-morgan-pam.raw > specs/draft-morgan-pam-current.txt
 
 releasedocs: all spec
@@ -141,5 +141,5 @@ clean:
 	rm -f $(PSFILES) ps/missfont.log
 	rm -f MODULES-SGML pam.sgml
 	rm -f specs/draft-morgan-pam-current.txt
-	make -C specs/formatter clean
+	$(MAKE) -C specs/formatter clean
 
