@@ -1,5 +1,5 @@
 /*
- * Copyright 2001 Red Hat, Inc.
+ * Copyright 2001, 2004 Red Hat, Inc.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -60,7 +60,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	int i, ret = PAM_SUCCESS;
 	FILE *fp;
 	int debug = 0;
-	char filename[PATH_MAX] = "/etc/passwd";
+	const char *filename = "/etc/passwd";
 	char line[LINE_MAX], name[LINE_MAX];
 	const char* user;
 
@@ -72,8 +72,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	}
 	for(i = 0; i < argc; i++) {
 		if(strncmp("file=", argv[i], 5) == 0) {
-			strncpy(filename, argv[i] + 5, sizeof(filename) - 1);
-			filename[sizeof(filename) - 1] = '\0';
+			filename = argv[i] + 5;
 			if(debug) {
 				openlog(MODULE_NAME, LOG_PID, LOG_AUTHPRIV);
 				syslog(LOG_DEBUG, "set filename to \"%s\"",
@@ -93,7 +92,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 		return PAM_SYSTEM_ERR;
 	}
 
-	if(pam_get_item(pamh, PAM_USER, (const void**) &user) != PAM_SUCCESS) {
+	if(pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
 		openlog(MODULE_NAME, LOG_PID, LOG_AUTHPRIV);
 		syslog(LOG_ERR, "user name not specified yet");
 		closelog();

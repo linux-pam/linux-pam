@@ -323,7 +323,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	}
 
 	/* Read the target user's name. */
-	if (pam_get_item(pamh, PAM_USER, (const void**)&user) != PAM_SUCCESS) {
+	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
 		syslog(LOG_ERR, "pam_xauth: error determining target "
 		       "user's name");
 		return PAM_SESSION_ERR;
