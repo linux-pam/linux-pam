@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* comment fix describing fail_delay callback in _pam_types.h (Bug
+  112646 - agmorgan)
 * "likeauth" fix for pam_unix and pam_pwdb which (Bug 113596 - agmorgan)
 * fix for pam_unix (support.c) to avoid segfault with NULL password
   (Bug 113238 - vorlon)
