@@ -49,6 +49,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_pwdb: Solar Designer pointed out that there was a problem with
+  the compatibility support for md5 password hashing. (Bug 460717 -
+  agmorgan)
 * pam_issue: Nalin found segfaulting problems if the PAM_USER_PROMPT
   is unset, found some similar problems with assumptions about
   realloc. (Bug 476983 - agmorgan)

@@ -65,7 +65,7 @@ static char *_pam_md_compat(const char *key, const char *salt)
         x = x_strdup(e);                    /* put e in malloc()ed memory */
         _pam_overwrite(e);                                    /* clean up */
     } else {
-        x = x_strdup("*");
+        x = x_strdup("");   /* called from only one place so this is safe */
     }
 
     return x;                           /* this must be deleted elsewhere */
