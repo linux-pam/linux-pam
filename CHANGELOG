@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* improved portability of pam_unix by eliminating Linux-specific utmp
+  defines in PAM_getlogin() (Bug 125704 - vorlon)
 * removed static variables from pam_tally (Bug 117434 - agmorgan)
 * added copyright message to pam_access module from original logdaemon
   sources (Bug 125022 - agmorgan)

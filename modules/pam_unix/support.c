@@ -94,14 +94,14 @@ int _make_remark(pam_handle_t * pamh, unsigned int ctrl
 }
 
   /*
-   * Beacause getlogin() is fucked in a weird way, and
-   * sometimes it just don't work, we reimplement it here.
+   * Beacause getlogin() is braindead and sometimes it just
+   * doesn't work, we reimplement it here.
    */
 char *PAM_getlogin(void)
 {
 	struct utmp *ut, line;
 	char *curr_tty, *retval;
-	static char curr_user[UT_NAMESIZE + 4];
+	static char curr_user[sizeof(ut->ut_user) + 4];
 
 	retval = NULL;
 
@@ -112,7 +112,7 @@ char *PAM_getlogin(void)
 		setutent();
 		strncpy(line.ut_line, curr_tty, sizeof line.ut_line);
 		if ((ut = getutline(&line)) != NULL) {
-			strncpy(curr_user, ut->ut_user, UT_NAMESIZE);
+			strncpy(curr_user, ut->ut_user, sizeof(ut->ut_user));
 			retval = curr_user;
 		}
 		endutent();
