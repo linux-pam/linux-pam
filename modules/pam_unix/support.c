@@ -897,7 +897,7 @@ int _unix_read_password(pam_handle_t * pamh
 			return PAM_AUTHTOK_RECOVER_ERR;		/* didn't work */
 		} else if (on(UNIX_USE_AUTHTOK, ctrl)
 			   && off(UNIX__OLD_PASSWD, ctrl)) {
-			return PAM_AUTHTOK_RECOVER_ERR;
+			return PAM_AUTHTOK_ERR;
 		}
 	}
 	/*

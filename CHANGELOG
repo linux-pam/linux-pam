@@ -65,7 +65,9 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * pam_unix: don't log user unknown failure when he can be properly
   authenticated by another module (t8m)
 * configure: don't abort if no cracklib dictinaries were found, but
-  warn user that pam_cracklib will not be built.
+  warn user that pam_cracklib will not be built (kukuk)
+* modules/pam_unix/support.c: Fix return value, if user aborts while
+  changes the password (Bug 872945 - kukuk)
 
 0.78: Do Nov 18 14:48:36 CET 2004
 
