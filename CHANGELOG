@@ -49,8 +49,10 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_userdb: require that all of typed password matches that in
+  database report and fix from Vladimir Pastukhov. (Bug 484252 - agmorgan)
 * pam_malloc: revived malloc debugging code, now tied to
-  --enable-memory-debug and added strdup() (Bug 485454 - agmorgan)
+  --enable-memory-debug and added strdup() support (Bug 485454 - agmorgan)
 * pam_tally: Nalin's fix for lastlog corruption (Bug 476985 - agmorgan)
 * pam_rhosts: Nalin adds support for '+hostname', and zdd fix
   compilation warning. (Bug 476986 - agmorgan)

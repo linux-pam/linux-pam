@@ -138,11 +138,14 @@ static int user_lookup(const char *user, const char *pass)
 
     if (data.dptr != NULL) {
 	int compare = 0;
-	/* bingo, got it */
-	if (ctrl & PAM_ICASE_ARG)
-	    compare = strncasecmp(pass, data.dptr, data.dsize);
-	else
-	    compare = strncmp(pass, data.dptr, data.dsize);
+	
+	if (strlen(pass) != data.dsize) {
+	    compare = 1;
+	} else if (ctrl & PAM_ICASE_ARG) {
+	    compare = strncasecmp(data.dptr, pass, data.dsize);
+	} else {
+	    compare = strncmp(data.dptr, pass, data.dsize);
+	}
 	dbm_close(dbm);
 	if (compare == 0)
 	    return 0; /* match */
