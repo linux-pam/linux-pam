@@ -242,201 +242,223 @@ static int check_old_password(const char *forwho, const char *newpass)
 	return retval;
 }
 
-static int save_old_password(const char *forwho, const char *oldpass, int howmany)
+static int save_old_password(const char *forwho, const char *oldpass,
+			     int howmany)
 {
-	static char buf[16384];
-	static char nbuf[16384];
-	char *s_luser, *s_uid, *s_npas, *s_pas, *pass;
-	int retval = 0, npas;
-	FILE *pwfile, *opwfile;
-	int err = 0;
-	int oldmask;
-	int found = 0;
-	struct passwd *pwd = NULL;
+    static char buf[16384];
+    static char nbuf[16384];
+    char *s_luser, *s_uid, *s_npas, *s_pas, *pass;
+    int npas;
+    FILE *pwfile, *opwfile;
+    int err = 0;
+    int oldmask;
+    int found = 0;
+    struct passwd *pwd = NULL;
 
-	if (howmany < 0)
-		return retval;
+    if (howmany < 0) {
+	return PAM_SUCCESS;
+    }
 
-	if (oldpass == NULL)
-		return retval;
+    if (oldpass == NULL) {
+	return PAM_SUCCESS;
+    }
 
-	oldmask = umask(077);
-	pwfile = fopen(OPW_TMPFILE, "w");
-	umask(oldmask);
-	opwfile = fopen(OLD_PASSWORDS_FILE, "r");
-	if (pwfile == NULL || opwfile == NULL)
-		return PAM_AUTHTOK_ERR;
-	chown(OPW_TMPFILE, 0, 0);
-	chmod(OPW_TMPFILE, 0600);
+    oldmask = umask(077);
+    pwfile = fopen(OPW_TMPFILE, "w");
+    umask(oldmask);
+    if (pwfile == NULL) {
+	return PAM_AUTHTOK_ERR;
+    }
 
-	while (fgets(buf, 16380, opwfile)) {
-		if (!strncmp(buf, forwho, strlen(forwho))) {
-			buf[strlen(buf) - 1] = '\0';
-			s_luser = strtok(buf, ":");
-			s_uid = strtok(NULL, ":");
-			s_npas = strtok(NULL, ":");
-			s_pas = strtok(NULL, ":");
-			npas = strtol(s_npas, NULL, 10) + 1;
-			while (npas > howmany) {
-				s_pas = strpbrk(s_pas, ",");
-				if (s_pas != NULL)
-					s_pas++;
-				npas--;
-			}
-			pass = crypt_md5_wrapper(oldpass);
-			if (s_pas == NULL)
-				snprintf(nbuf, sizeof(nbuf), "%s:%s:%d:%s\n",
-					 s_luser, s_uid, npas, pass);
-			else
-				snprintf(nbuf, sizeof(nbuf),"%s:%s:%d:%s,%s\n",
-					 s_luser, s_uid, npas, s_pas, pass);
-			_pam_delete(pass);
-			if (fputs(nbuf, pwfile) < 0) {
-				retval = PAM_AUTHTOK_ERR;
-				err = 1;
-				break;
-			}
-			found = 1;
-		} else if (fputs(buf, pwfile) < 0) {
-			retval = PAM_AUTHTOK_ERR;
-			err = 1;
-			break;
-		}
-	}
-	fclose(opwfile);
-	if (!found) {
-		pwd = getpwnam(forwho);
-		if (pwd == NULL) {
-			retval = PAM_AUTHTOK_ERR;
-			err = 1;
-		} else {
-			pass = crypt_md5_wrapper(oldpass);
-			snprintf(nbuf, sizeof(nbuf), "%s:%d:1:%s\n",
-				 forwho, pwd->pw_uid, pass);
-			_pam_delete(pass);
-			if (fputs(nbuf, pwfile) < 0) {
-				retval = PAM_AUTHTOK_ERR;
-				err = 1;
-			}
-		}
-	}
-	if (fclose(pwfile)) {
-		fprintf(stderr, "error writing entries to old passwords file: %s\n",
-			strerror(errno));
-		retval = PAM_AUTHTOK_ERR;
+    opwfile = fopen(OLD_PASSWORDS_FILE, "r");
+    if (opwfile == NULL) {
+	fclose(pwfile);
+	return PAM_AUTHTOK_ERR;
+    }
+
+    chown(OPW_TMPFILE, 0, 0);
+    chmod(OPW_TMPFILE, 0600);
+
+    while (fgets(buf, 16380, opwfile)) {
+	if (!strncmp(buf, forwho, strlen(forwho))) {
+	    buf[strlen(buf) - 1] = '\0';
+	    s_luser = strtok(buf, ":");
+	    s_uid = strtok(NULL, ":");
+	    s_npas = strtok(NULL, ":");
+	    s_pas = strtok(NULL, ":");
+	    npas = strtol(s_npas, NULL, 10) + 1;
+	    while (npas > howmany) {
+		s_pas = strpbrk(s_pas, ",");
+		if (s_pas != NULL)
+		    s_pas++;
+		npas--;
+	    }
+	    pass = crypt_md5_wrapper(oldpass);
+	    if (s_pas == NULL)
+		snprintf(nbuf, sizeof(nbuf), "%s:%s:%d:%s\n",
+			 s_luser, s_uid, npas, pass);
+	    else
+		snprintf(nbuf, sizeof(nbuf),"%s:%s:%d:%s,%s\n",
+			 s_luser, s_uid, npas, s_pas, pass);
+	    _pam_delete(pass);
+	    if (fputs(nbuf, pwfile) < 0) {
 		err = 1;
+		break;
+	    }
+	    found = 1;
+	} else if (fputs(buf, pwfile) < 0) {
+	    err = 1;
+	    break;
 	}
-	if (!err)
-		rename(OPW_TMPFILE, OLD_PASSWORDS_FILE);
-	else
-		unlink(OPW_TMPFILE);
+    }
+    fclose(opwfile);
 
-	return retval;
+    if (!found) {
+	pwd = getpwnam(forwho);
+	if (pwd == NULL) {
+	    err = 1;
+	} else {
+	    pass = crypt_md5_wrapper(oldpass);
+	    snprintf(nbuf, sizeof(nbuf), "%s:%d:1:%s\n",
+		     forwho, pwd->pw_uid, pass);
+	    _pam_delete(pass);
+	    if (fputs(nbuf, pwfile) < 0) {
+		err = 1;
+	    }
+	}
+    }
+
+    if (fclose(pwfile)) {
+	D(("error writing entries to old passwords file: %s\n",
+	   strerror(errno)));
+	err = 1;
+    }
+
+    if (!err) {
+	rename(OPW_TMPFILE, OLD_PASSWORDS_FILE);
+	return PAM_SUCCESS;
+    } else {
+	unlink(OPW_TMPFILE);
+	return PAM_AUTHTOK_ERR;
+    }
 }
 
 static int _update_passwd(const char *forwho, const char *towhat)
 {
-	struct passwd *tmpent = NULL;
-	FILE *pwfile, *opwfile;
-	int retval = 0;
-	int err = 0;
-	int oldmask;
+    struct passwd *tmpent = NULL;
+    FILE *pwfile, *opwfile;
+    int err = 1;
+    int oldmask;
 
-	oldmask = umask(077);
-	pwfile = fopen(PW_TMPFILE, "w");
-	umask(oldmask);
-	opwfile = fopen("/etc/passwd", "r");
-	if (pwfile == NULL || opwfile == NULL)
-		return PAM_AUTHTOK_ERR;
-	chown(PW_TMPFILE, 0, 0);
-	chmod(PW_TMPFILE, 0644);
-	tmpent = fgetpwent(opwfile);
-	while (tmpent) {
-		if (!strcmp(tmpent->pw_name, forwho)) {
-			/* To shut gcc up */
-			union {
-				const char *const_charp;
-				char *charp;
-			} assigned_passwd;
-			assigned_passwd.const_charp = towhat;
+    oldmask = umask(077);
+    pwfile = fopen(PW_TMPFILE, "w");
+    umask(oldmask);
+    if (pwfile == NULL) {
+	return PAM_AUTHTOK_ERR;
+    }
+
+    opwfile = fopen("/etc/passwd", "r");
+    if (opwfile == NULL) {
+	fclose(pwfile);
+	return PAM_AUTHTOK_ERR;
+    }
+
+    chown(PW_TMPFILE, 0, 0);
+    chmod(PW_TMPFILE, 0644);
+    tmpent = fgetpwent(opwfile);
+    while (tmpent) {
+	if (!strcmp(tmpent->pw_name, forwho)) {
+	    /* To shut gcc up */
+	    union {
+		const char *const_charp;
+		char *charp;
+	    } assigned_passwd;
+	    assigned_passwd.const_charp = towhat;
 			
-			tmpent->pw_passwd = assigned_passwd.charp;
-		}
-		if (putpwent(tmpent, pwfile)) {
-			fprintf(stderr, "error writing entry to password file: %s\n",
-				strerror(errno));
-			err = 1;
-			retval = PAM_AUTHTOK_ERR;
-			break;
-		}
-		tmpent = fgetpwent(opwfile);
+	    tmpent->pw_passwd = assigned_passwd.charp;
+	    err = 0;
 	}
-	fclose(opwfile);
-
-	if (fclose(pwfile)) {
-		fprintf(stderr, "error writing entries to password file: %s\n",
-			strerror(errno));
-		retval = PAM_AUTHTOK_ERR;
-		err = 1;
+	if (putpwent(tmpent, pwfile)) {
+	    D(("error writing entry to password file: %s\n", strerror(errno)));
+	    err = 1;
+	    break;
 	}
-	if (!err)
-		rename(PW_TMPFILE, "/etc/passwd");
-	else
-		unlink(PW_TMPFILE);
+	tmpent = fgetpwent(opwfile);
+    }
+    fclose(opwfile);
 
-	return retval;
+    if (fclose(pwfile)) {
+	D(("error writing entries to password file: %s\n", strerror(errno)));
+	err = 1;
+    }
+
+    if (!err) {
+	rename(PW_TMPFILE, "/etc/passwd");
+	return PAM_SUCCESS;
+    } else {
+	unlink(PW_TMPFILE);
+	return PAM_AUTHTOK_ERR;
+    }
 }
 
 static int _update_shadow(const char *forwho, char *towhat)
 {
-	struct spwd *spwdent = NULL, *stmpent = NULL;
-	FILE *pwfile, *opwfile;
-	int retval = 0;
-	int err = 0;
-	int oldmask;
+    struct spwd *spwdent = NULL, *stmpent = NULL;
+    FILE *pwfile, *opwfile;
+    int err = 1;
+    int oldmask;
 
-	spwdent = getspnam(forwho);
-	if (spwdent == NULL)
-		return PAM_USER_UNKNOWN;
-	oldmask = umask(077);
-	pwfile = fopen(SH_TMPFILE, "w");
-	umask(oldmask);
-	opwfile = fopen("/etc/shadow", "r");
-	if (pwfile == NULL || opwfile == NULL)
-		return PAM_AUTHTOK_ERR;
-	chown(SH_TMPFILE, 0, 0);
-	chmod(SH_TMPFILE, 0600);
+    spwdent = getspnam(forwho);
+    if (spwdent == NULL) {
+	return PAM_USER_UNKNOWN;
+    }
+    oldmask = umask(077);
+    pwfile = fopen(SH_TMPFILE, "w");
+    umask(oldmask);
+    if (pwfile == NULL) {
+	return PAM_AUTHTOK_ERR;
+    }
+
+    opwfile = fopen("/etc/shadow", "r");
+    if (opwfile == NULL) {
+	fclose(pwfile);
+	return PAM_AUTHTOK_ERR;
+    }
+
+    chown(SH_TMPFILE, 0, 0);
+    chmod(SH_TMPFILE, 0600);
+    stmpent = fgetspent(opwfile);
+    while (stmpent) {
+
+	if (!strcmp(stmpent->sp_namp, forwho)) {
+	    stmpent->sp_pwdp = towhat;
+	    stmpent->sp_lstchg = time(NULL) / (60 * 60 * 24);
+	    err = 0;
+	    D(("Set password %s for %s", stmpent->sp_pwdp, forwho));
+	}
+
+	if (putspent(stmpent, pwfile)) {
+	    D(("error writing entry to shadow file: %s\n", strerror(errno)));
+	    err = 1;
+	    break;
+	}
+
 	stmpent = fgetspent(opwfile);
-	while (stmpent) {
-		if (!strcmp(stmpent->sp_namp, forwho)) {
-			stmpent->sp_pwdp = towhat;
-			stmpent->sp_lstchg = time(NULL) / (60 * 60 * 24);
+    }
+    fclose(opwfile);
 
-			D(("Set password %s for %s", stmpent->sp_pwdp, forwho));
-		}
-		if (putspent(stmpent, pwfile)) {
-			fprintf(stderr, "error writing entry to shadow file: %s\n",
-				strerror(errno));
-			err = 1;
-			retval = PAM_AUTHTOK_ERR;
-			break;
-		}
-		stmpent = fgetspent(opwfile);
-	}
-	fclose(opwfile);
+    if (fclose(pwfile)) {
+	D(("error writing entries to shadow file: %s\n", strerror(errno)));
+	err = 1;
+    }
 
-	if (fclose(pwfile)) {
-		fprintf(stderr, "error writing entries to shadow file: %s\n",
-			strerror(errno));
-		retval = PAM_AUTHTOK_ERR;
-		err = 1;
-	}
-	if (!err)
-		rename(SH_TMPFILE, "/etc/shadow");
-	else
-		unlink(SH_TMPFILE);
-
-	return retval;
+    if (!err) {
+	rename(SH_TMPFILE, "/etc/shadow");
+	return PAM_SUCCESS;
+    } else {
+	unlink(SH_TMPFILE);
+	return PAM_AUTHTOK_ERR;
+    }
 }
 
 static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
@@ -498,11 +520,11 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 			clnt_perrno(err);
 			retval = PAM_TRY_AGAIN;
 		} else if (status) {
-			fprintf(stderr, "Error while changing NIS password.\n");
+			D(("Error while changing NIS password.\n"));
 			retval = PAM_TRY_AGAIN;
 		}
-		printf("\nThe password has%s been changed on %s.\n",
-		       (err || status) ? " not" : "", master);
+		D(("The password has%s been changed on %s.",
+		   (err || status) ? " not" : "", master));
 
 		auth_destroy(clnt->cl_auth);
 		clnt_destroy(clnt);
