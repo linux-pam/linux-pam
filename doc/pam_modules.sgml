@@ -4,7 +4,7 @@
 
  $Id$
 
-    Copyright (c) Andrew G. Morgan 1996-9.  All rights reserved.
+    Copyright (c) Andrew G. Morgan 1996-2001.  All rights reserved.
 
 	** some sections, in this document, were contributed by other
 	** authors. They carry individual copyrights.
@@ -49,7 +49,7 @@ DAMAGE.
 
 <title>The Linux-PAM Module Writers' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.75 2001/02/04
+<date>DRAFT v0.75 2001/02/10
 <abstract>
 This manual documents what a programmer needs to know in order to
 write a module that conforms to the <bf/Linux-PAM/ standard. It also
@@ -1294,13 +1294,22 @@ endif
 For some further examples, see the <tt>modules</tt> subdirectory of
 the current <bf/Linux-PAM/ distribution.
 
-<p>
 <sect>An example module file
 
 <p>
-<em>
-perhaps this should point to a place in the file structure!?
-</em>
+At some point, we may include a fully commented example of a module in
+this document. For now, we point the reader to these two locations in
+the public CVS repository:
+<itemize>
+<item> A module that always succeeds: <tt><htmlurl
+url="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/Linux-PAM/modules/pam_permit/?cvsroot=pam"
+name="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/Linux-PAM/modules/pam_permit/?cvsroot=pam"
+></tt>
+<item> A module that always fails: <tt><htmlurl
+url="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/Linux-PAM/modules/pam_deny/?cvsroot=pam"
+name="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/Linux-PAM/modules/pam_deny/?cvsroot=pam"
+></tt>
+</itemize>
 
 <sect>Files
 

@@ -50,6 +50,8 @@ libpam. Prior versions were buggy - see bugfix for Bug 129775.
 
                           ** WARNING **
 
+* added a link to module examples from the module writers doc (Bug
+  131192 - agmorgan).
 * fixed a small security hole (more of a user confusion issue) with
   the unix and pwdb password helper binaries. The beef is described in
   the bug report, but no uid change was possible so no-one should
