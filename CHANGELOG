@@ -49,6 +49,7 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* removed stale link from pam_pwdb documentation (Bug 433460 - agmorgan)
 * pam_appl.sgml change - more discussion of choosing a service name
   (Bug 417512 - agmorgan)
 * more specific linking requirements for -lndbm for pam_userdb - from

@@ -19,7 +19,7 @@ Cristian Gafton &lt;gafton@redhat.com&gt; <newline>
 and Andrew G. Morgan &lt;morgan@kernel.org&gt;
 
 <tag><bf>Maintainer:</bf></tag>
-Authors.
+Red Hat.
 
 <tag><bf>Management groups provided:</bf></tag>
 account; authentication; password; session
@@ -42,10 +42,7 @@ Requires properly configured <tt/libpwdb/
 <p>
 This module is a pluggable replacement for the <tt/pam_unix_../
 modules. It uses the generic interface of the <em/Password Database/
-library
-<tt><htmlurl
-url="http://linux.kernel.org/morgan/libpwdb/index.html"
-name="http://linux.kernel.org/morgan/libpwdb/index.html"></tt>.
+library <tt>libpwdb</tt>.
 
 <sect2>Account component
 
