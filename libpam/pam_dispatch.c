@@ -6,10 +6,10 @@
  * $Id$
  */
 
+#include "pam_private.h"
+
 #include <stdlib.h>
 #include <stdio.h>
-
-#include "pam_private.h"
 
 /*
  * this is the return code we return when a function pointer is NULL

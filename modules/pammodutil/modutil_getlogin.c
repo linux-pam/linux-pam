@@ -6,11 +6,11 @@
  * there.
  */
 
+#include "pammodutil.h"
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <utmp.h>
-
-#include "pammodutil.h"
 
 #define _PAMMODUTIL_GETLOGIN "_pammodutil_getlogin"
 

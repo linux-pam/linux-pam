@@ -4,9 +4,9 @@
  * $Id$
  */
 
-#include <stdlib.h>
-
 #include "pam_private.h"
+
+#include <stdlib.h>
 
 int pam_end(pam_handle_t *pamh, int pam_status)
 {

@@ -8,6 +8,8 @@
  *
  */
 
+#include "pam_private.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -23,8 +25,6 @@
 #  include <dlfcn.h>
 # endif /* PAM_SHL */
 #endif /* PAM_DYNAMIC */
-
-#include "pam_private.h"
 
 /* If not required, define as nothing */
 #ifndef SHLIB_SYM_PREFIX

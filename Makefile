@@ -41,10 +41,8 @@ maintainer-clean: distclean
 
 # NB _pam_aconf.h.in changes will remake this too
 Make.Rules: configure Make.Rules.in _pam_aconf.h.in
-	@echo XXX - not sure how to preserve past configure options..
-	@echo XXX - so not attempting to. Feel free to run ./configure
-	@echo XXX - by hand, with the options you want.
-	./configure
+	./config.status --recheck
+	./config.status
 
 _pam_aconf.h: Make.Rules
 

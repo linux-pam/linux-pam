@@ -1,8 +1,8 @@
 /* pam_account.c - PAM Account Management */
 
-#include <stdio.h>
-
 #include "pam_private.h"
+
+#include <stdio.h>
 
 int pam_acct_mgmt(pam_handle_t *pamh, int flags)
 {

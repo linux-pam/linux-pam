@@ -4,12 +4,12 @@
  * $Id$
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-
 /* #define DEBUG */
 
 #include "pam_private.h"
+
+#include <stdio.h>
+#include <stdlib.h>
 
 int pam_chauthtok(pam_handle_t *pamh, int flags)
 {

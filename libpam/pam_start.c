@@ -7,13 +7,13 @@
  *
  */
 
+#include "pam_private.h"
+
 #include <ctype.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <syslog.h>
-
-#include "pam_private.h"
 
 int pam_start (
     const char *service_name,

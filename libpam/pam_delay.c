@@ -13,9 +13,9 @@
  * attempt to overcome authentication-time attacks in a simple manner.
  */
 
+#include "pam_private.h"
 #include <unistd.h>
 #include <time.h>
-#include "pam_private.h"
 
 /* **********************************************************************
  * initialize the time as unset, this is set on the return from the

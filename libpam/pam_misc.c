@@ -4,14 +4,14 @@
  * $Id$
  */
 
+#include "pam_private.h"
+
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <syslog.h>
 #include <ctype.h>
-
-#include "pam_private.h"
 
 /* caseless string comparison: POSIX does not define this.. */
 int _pam_strCMP(const char *s, const char *t)

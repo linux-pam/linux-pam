@@ -4,10 +4,10 @@
  * $Id$
  */
 
+#include "pam_private.h"
+
 #include <stdlib.h>
 #include <string.h>
-
-#include "pam_private.h"
 
 static struct pam_data *_pam_locate_data(const pam_handle_t *pamh,
 					 const char *name)

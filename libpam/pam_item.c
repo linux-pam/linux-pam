@@ -4,12 +4,12 @@
  * $Id$
  */
 
+#include "pam_private.h"
+
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
-
-#include "pam_private.h"
 
 #define RESET(X, Y)                    \
 {                                      \

@@ -4,9 +4,9 @@
  * $Id$
  */
 
-#include <stdio.h>
-
 #include "pam_private.h"
+
+#include <stdio.h>
 
 int pam_open_session(pam_handle_t *pamh, int flags)
 {

@@ -10,13 +10,14 @@
  * $Id$
  */
 
+#include "pam_private.h"
+
 #include <string.h>
 #include <stdlib.h>
+
 #ifdef sunos
 #define memmove(x,y,z) bcopy(y,x,z)
 #endif
-
-#include "pam_private.h"
 
 /* helper functions */
 
