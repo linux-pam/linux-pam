@@ -1,0 +1,25 @@
+PAM Make Home Dir module
+
+This module will create a users home directory if it does not exist
+when the session begins. This allows users to be present in central
+database (such as nis, kerb or ldap) without using a distributed
+file system or pre-creating a large number of directories.
+   
+Here is a sample /etc/pam.d/login file:
+   
+   auth       requisite  pam_securetty.so
+   auth       sufficient pam_ldap.so
+   auth       required   pam_unix.so
+   auth       optional   pam_group.so
+   auth       optional   pam_mail.so
+   account    requisite  pam_time.so
+   account    sufficient pam_ldap.so
+   account    required   pam_unix.so
+   session    required   pam_mkhomedir.so skel=/etc/skel/ umask=0022
+   session    required   pam_unix.so
+   session    optional   pam_lastlog.so
+   password   required   pam_unix.so   
+   
+Released under the GNU LGPL version 2 or later
+Originally written by Jason Gunthorpe <jgg@debian.org> Feb 1999
+

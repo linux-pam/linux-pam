@@ -46,7 +46,7 @@ Creates home directories on the fly for authenticated users.
 <descrip>
 
 <tag><bf>Recognized arguments:</bf></tag>
-<tt/debug/; <tt/skel=skeleton-dir/; <tt/umask=octal-umask/;
+<tt/skel=skeleton-dir/; <tt/umask=octal-umask/;
 
 <tag><bf>Description:</bf></tag>
 This module is useful for distributed systems where the user account is

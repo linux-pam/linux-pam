@@ -50,6 +50,14 @@ bug report - outstanding bugs are listed here:
 
 (to file another bug see the 'submit bug' button on that page).
 
+
+There is now a second bug tracking system for Linux-PAM on BerliOS.
+You can find the list of outstanding bugs on BerliOS here:
+
+http://developer.berlios.de/bugs/?func=browse&group_id=2134&set=open
+
+BerliOS Bugs are marked with (BerliOS #XXXX).
+
 ====================================================================
 
 0.78: please submit patches for this section with actual code/doc
@@ -72,7 +80,8 @@ bug report - outstanding bugs are listed here:
   The whole idea is to create few "systemwide" pam configs and include
   parts of them in application pam configs.
   (patch by "Dmitry V. Levin" <ldv@altlinux.org>) (Bug 812567 - baggins).
-
+* doc/modules/pam_mkhomedir.sgml: Remove wrong debug options 
+  (Bug 591605 - kukuk)
 
 
 0.77: Mon Sep 23 10:25:42 PDT 2002
