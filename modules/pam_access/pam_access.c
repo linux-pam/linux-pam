@@ -41,6 +41,7 @@
 #include <errno.h>
 #include <ctype.h>
 #include <sys/utsname.h>
+#include <rpcsvc/ypclnt.h>
 
 #ifndef BROKEN_NETWORK_MATCH
 # include <netdb.h>
@@ -262,16 +263,11 @@ static char * myhostname(void)
 
 static int netgroup_match(char *group, char *machine, char *user)
 {
-#ifdef NIS
-    static char *mydomain = 0;
+    static char *mydomain = NULL;
 
     if (mydomain == 0)
 	yp_get_default_domain(&mydomain);
     return (innetgr(group, machine, user, mydomain));
-#else
-    _log_err("NIS netgroup support not configured");
-    return (NO);
-#endif
 }
 
 /* user_match - match a username against one token */

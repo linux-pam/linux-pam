@@ -57,6 +57,7 @@ static void _pam_log(int err, const char *format, ...)
 }
 
 char * database	 = NULL;
+char * cryptmode = NULL;
 static int ctrl	 = 0;
 
 static int _pam_parse(int argc, const char **argv)
@@ -75,6 +76,11 @@ static int _pam_parse(int argc, const char **argv)
           else if (!strncasecmp(*argv,"db=", 3)) {
 	      database = strdup((*argv) + 3);
 	      if (database == NULL)
+		  _pam_log(LOG_ERR, "pam_parse: could not parse argument \"%s\"",
+			   *argv);
+	  } else if (!strncasecmp(*argv,"crypt=", 6)) {
+	      cryptmode = strdup((*argv) + 6);
+	      if (cryptmode == NULL)
 		  _pam_log(LOG_ERR, "pam_parse: could not parse argument \"%s\"",
 			   *argv);
 	  } else {
@@ -139,6 +145,40 @@ static int user_lookup(const char *user, const char *pass)
     if (data.dptr != NULL) {
 	int compare = 0;
 	
+	if (strncasecmp(cryptmode, "crypt", 5) == 0) {
+
+	  /* crypt(3) password storage */
+
+	  char *cryptpw;
+	  char salt[2];
+
+	  if (data.dsize != 13) {
+	    compare = -2;
+	  } else if (ctrl & PAM_ICASE_ARG) {
+	    compare = -2;
+	  } else {
+	    salt[0] = *data.dptr;
+	    salt[1] = *(data.dptr + 1);
+
+	    cryptpw = crypt (pass, salt);
+
+	    if (cryptpw) {
+	      compare = strncasecmp (data.dptr, cryptpw, data.dsize);
+	    } else {
+	      compare = -2;
+	      if (ctrl & PAM_DEBUG_ARG) {    
+		_pam_log(LOG_INFO, "crypt() returned NULL");
+	      }
+	    };
+
+	  };
+
+	} else {
+	  
+	  /* Unknown password encryption method -
+	   * default to plaintext password storage
+	   */
+
 	if (strlen(pass) != data.dsize) {
 	    compare = 1;
 	} else if (ctrl & PAM_ICASE_ARG) {
@@ -146,6 +186,15 @@ static int user_lookup(const char *user, const char *pass)
 	} else {
 	    compare = strncmp(data.dptr, pass, data.dsize);
 	}
+
+	  if (strncasecmp(cryptmode, "none", 4) && ctrl & PAM_DEBUG_ARG) {    
+	    _pam_log(LOG_INFO, "invalid value for crypt parameter: %s",
+		     cryptmode);
+	    _pam_log(LOG_INFO, "defaulting to plaintext password mode");
+	  }
+
+	}
+
 	dbm_close(dbm);
 	if (compare == 0)
 	    return 0; /* match */

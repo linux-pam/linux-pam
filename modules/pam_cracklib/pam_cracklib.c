@@ -258,12 +258,12 @@ static int distdifferent(const char *old, const char *new, int i, int j)
 {
     char c, d;
 
-    if ((i == 0) || (strlen(old) <= i)) {
+    if ((i == 0) || (strlen(old) < i)) {
 	c = 0;
     } else {
 	c = old[i - 1];
     }
-    if ((j == 0) || (strlen(new) <= i)) {
+    if ((j == 0) || (strlen(new) < j)) {
 	d = 0;
     } else {
 	d = new[j - 1];

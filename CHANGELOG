@@ -86,6 +86,11 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   contains only one character (Bug 1027903 - kukuk)
 * libpam/pam_start.c: All service names should be files below /etc/pam.d
   and nothing else. Forbid paths. (Bug 1027912 - kukuk)
+* pam_cracklib: Fix error in distance algorithm in the 0.9 pam_cracklib
+  module (Bug 1010142 - toady)
+* pam_userdb: applied patch from Paul Walmsley <paul@booyaka.com>
+  it now indicates whether encrypted or plaintext passwords are stored
+  in the database needed for pam_userdb. (Bug XXXXXX - toady)
 
 
 0.77: Mon Sep 23 10:25:42 PDT 2002

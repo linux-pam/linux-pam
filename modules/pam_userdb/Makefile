@@ -24,6 +24,10 @@ else
 endif
 endif
 
+ifeq ($(HAVE_LIBCRYPT),yes)
+  MODULE_SIMPLE_EXTRALIBS += -lcrypt
+endif
+
 ifeq ($(WHICH_DB),none)
 
 include ../dont_makefile

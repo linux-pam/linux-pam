@@ -206,6 +206,7 @@ char *identify_secret(char *identity, const char *user)
     pwd = getpwnam(user);
     if ((pwd == NULL) || (pwd->pw_dir == NULL)) {
 	D(("user [%s] is not known", user));
+	return NULL;
     }
 
     length_id = strlen(pwd->pw_dir) + sizeof(SECRET_FILE_FORMAT);
