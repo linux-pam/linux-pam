@@ -380,6 +380,7 @@ AC_PROG_GCC_TRADITIONAL
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(gethostname gettimeofday mkdir select strcspn strdup strerror strspn strstr strtol uname)
+AC_CHECK_FUNCS(getpwnam_r getgrnam_r)
 
 dnl Checks for programs/utilities
 AC_CHECK_PROG(HAVE_SGML2TXT, sgml2txt, yes, no)

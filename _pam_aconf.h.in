@@ -62,6 +62,10 @@
 #undef HAVE_STRTOL
 #undef HAVE_UNAME
 
+/* Define if reentrant declarations of standard nss functions are available */
+#undef HAVE_GETPWNAM_R
+#undef HAVE_GETGRNAM_R
+
 /* ugly hack to partially support old pam_strerror syntax */
 #undef UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT
 
