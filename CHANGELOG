@@ -80,6 +80,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   pam_get_item (t8m)
 * libpam: Add more checks for broken PAM configuration files to
   avoid seg.faults (kukuk)
+* pam_shells: correct README
 
 0.78: Do Nov 18 14:48:36 CET 2004
 
