@@ -126,6 +126,13 @@ endif
 	  install -m 644 $$file $(FAKEROOT)$(MANDIR)/man8 ; \
 	done
 
+spec:
+	cd specs/formatter && make
+	specs/formatter/padout < specs/draft-morgan-pam.raw > specs/draft-morgan-pam-current.txt
+
+releasedocs: all spec
+	tar zvfc Linux-PAM-$(MAJOR_REL).$(MINOR_REL)-docs.tar.gz --exclude CVS  html ps txts specs/draft-morgan-pam-current.txt
+
 clean:
 	rm -f *~ *.bak
 	rm -f html/pam*.html
@@ -133,4 +140,6 @@ clean:
 	rm -f $(TEXTS)
 	rm -f $(PSFILES) ps/missfont.log
 	rm -f MODULES-SGML pam.sgml
+	rm -f specs/draft-morgan-pam-current.txt
+	make -C specs/formatter clean
 

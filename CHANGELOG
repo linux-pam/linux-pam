@@ -35,6 +35,9 @@ Where you should replace XXXXX with a bug-id.
 0.75: please submit patches for this section with actual code/doc
       patches!
 
+* bumped the version number, and added some code to assist in making
+  documentation releases (Bug 129644 - agmorgan).
+
 0.74: Sun Jan 21 22:36:08 PST 2001
 
 * made 0.74 release (Bug 129642 - agmorgan)
