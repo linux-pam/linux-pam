@@ -1,0 +1,158 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(conf/pam_conv1/pam_conv.y)
+
+dnl The configuration header file
+AC_CONFIG_HEADER(pam_aconf.h)
+
+dnl
+dnl Release specific
+dnl
+
+LIBPAM_VERSION_MAJOR=0
+LIBPAM_VERSION_MINOR=72
+
+AC_SUBST(LIBPAM_VERSION_MAJOR)
+AC_SUBST(LIBPAM_VERSION_MINOR)
+AC_DEFINE(LIBPAM_VERSION_MAJOR)
+AC_DEFINE(LIBPAM_VERSION_MINOR)
+
+dnl
+dnl Rules needed for the following (hardcoded Linux defaults)
+dnl
+
+CC=gcc				; AC_SUBST(CC)
+CONF_CFLAGS=			; AC_SUBST(CONF_CFLAGS)
+LD=ld				; AC_SUBST(LD)
+LD_D="gcc -shared -Xlinker -x"	; AC_SUBST(LD_D)
+LD_L="$LD -x -shared"		; AC_SUBST(LD_L)
+DYNTYPE=so			; AC_SUBST(DYNTYPE)
+LIBDL=-ldl			; AC_SUBST(LIBDL)
+USESONAME=yes			; AC_SUBST(USESONAME)
+NEEDSONAME=yes			; AC_SUBST(NEEDSONAME)
+INSTALL=/usr/bin/install	; AC_SUBST(INSTALL)
+
+dnl
+dnl options and defaults
+dnl
+
+dnl lots of debugging information goes to /tmp/pam-debug.log
+AC_ARG_WITH(debug,
+  --with-debug  specify you are building with debugging on,
+	WITH_DEBUG=yes ; AC_DEFINE(DEBUG) , WITH_DEBUG=no)
+AC_SUBST(WITH_DEBUG)
+
+dnl build specially named libraries (for debugging purposes)
+AC_ARG_WITH(libdebug,
+  --with-libdebug  specify you are building debugging libraries,
+	WITH_LIBDEBUG=yes ; AC_DEFINE(WITH_LIBDEBUG) , WITH_LIBDEBUG=no)
+AC_SUBST(WITH_LIBDEBUG)
+
+dnl packaging convenience
+AC_ARG_WITH(fakeroot,
+  --with-fakeroot=<path to packaging directory>, FAKEROOT=$withval)
+AC_SUBST(FAKEROOT)
+
+AC_ARG_WITH(libdir,
+  --with-libdir=<path to libpam etc. directory> default /lib,
+	LIBDIR=$withval, LIBDIR=/lib)
+AC_SUBST(LIBDIR)
+
+AC_ARG_WITH(securedir,
+  --with-securedir=<path to location of PAMs> default \$LIBDIR/security ,
+	SECUREDIR=$withval, SECUREDIR=$LIBDIR/security)
+AC_SUBST(SECUREDIR)
+
+AC_ARG_WITH(includedir,
+  --with-includedir=<path to include location> of include <security>,
+	INCLUDEDIR=$witharg, INCLUDEDIR=/usr/include)
+AC_SUBST(INCLUDEDIR)
+
+AC_ARG_WITH(pamlocking,
+  --with-pamlocking  configure libpam to observe a global authentication lock,
+	WITH_PAMLOCKING=yes ; AC_DEFINE(PAM_LOCKING) , WITH_PAMLOCKING=no)
+AC_SUBST(WITH_PAMLOCKING)
+
+AC_ARG_WITH(uglyhack,
+  --with-uglyhack  configure libpam to try to honor old pam_strerror syntax,
+	AC_DEFINE(UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT))
+
+AC_ARG_WITH(read-both-confs,
+  --with-read-both-confs  read both /etc/pam.d and /etc/pam.conf files,
+	AC_DEFINE(PAM_READ_BOTH_CONFS))
+AC_SUBST(PAM_READ_BOTH_CONFS)
+
+AC_ARG_WITH(static-libpam, --static-libpam  build a libpam.a library,
+	STATIC_LIBPAM=yes , STATIC_LIBPAM=no)
+AC_SUBST(STATIC_LIBPAM)
+
+AC_ARG_WITH(dynamic-libpam,
+  --without-dynamic-libpam do not build a shared libpam library,
+	DYNAMIC_LIBPAM=no, DYNAMIC_LIBPAM=yes)
+AC_SUBST(DYNAMIC_LIBPAM)
+
+DYNAMIC=-DPAM_DYNAMIC
+AC_ARG_WITH(static-modules,
+  --with-static-modules do not make the modules dynamically loadable,
+	STATIC=-DPAM_STATIC)
+AC_SUBST(STATIC)
+AC_SUBST(DYNAMIC)
+
+dnl Checks for programs.
+AC_PROG_CXX
+AC_PROG_YACC
+AC_PROG_LEX
+AC_PROG_CC
+dnl AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+
+dnl Checks for libraries.
+AC_CHECK_LIB(c, __libc_sched_setscheduler, PAM_NEEDS_LIBC=, PAM_NEEDS_LIBC=-lc)
+AC_SUBST(PAM_NEEDS_LIBC)
+AC_CHECK_LIB(crack, FascistCheck, HAVE_LIBCRACK=yes ; AC_DEFINE(HAVE_LIBCRACK),
+	HAVE_LIBCRACK=no)
+AC_SUBST(HAVE_LIBCRACK)
+AC_CHECK_LIB(crypt, fcrypt, HAVE_LIBCRYPT=yes ; AC_DEFINE(HAVE_LIBCRYPT),
+	HAVE_LIBCRYPT=no)
+AC_SUBST(HAVE_LIBCRYPT)
+AC_CHECK_LIB(ndbm, dbm_store, HAVE_LIBNDBM=yes ; AC_DEFINE(HAVE_LIBNDBM),
+	HAVE_LIBNDBM=no)
+AC_SUBST(HAVE_LIBNDBM)
+AC_CHECK_LIB(db, dbm_store, HAVE_LIBDB=yes ; AC_DEFINE(HAVE_LIBDB),
+	HAVE_LIBDB=no)
+AC_SUBST(HAVE_LIBDB)
+AC_CHECK_LIB(fl, yylex, yyterminate, HAVE_LIBFL=yes ; AC_DEFINE(HAVE_LIBFL),
+	HAVE_LIBFL=no)
+AC_SUBST(HAVE_LIBFL)
+AC_CHECK_LIB(nsl, yp_maplist, HAVE_LIBNSL=yes ; AC_DEFINE(HAVE_LIBNSL),
+	HAVE_LIBNSL=no)
+AC_SUBST(HAVE_LIBNSL)
+AC_CHECK_LIB(pwdb, pwdb_db_name, HAVE_LIBPWDB=yes ; AC_DEFINE(HAVE_LIBPWDB),
+	HAVE_LIBPWDB)
+AC_SUBST(HAVE_LIBPWDB)
+
+dnl Checks for header files.
+AC_HEADER_DIRENT
+AC_HEADER_STDC
+AC_HEADER_SYS_WAIT
+AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/file.h sys/ioctl.h sys/time.h syslog.h termio.h unistd.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_BIGENDIAN
+AC_C_CONST
+AC_TYPE_UID_T
+AC_TYPE_OFF_T
+AC_TYPE_PID_T
+AC_TYPE_SIZE_T
+AC_HEADER_TIME
+AC_STRUCT_TM
+
+dnl Checks for library functions.
+AC_TYPE_GETGROUPS
+AC_PROG_GCC_TRADITIONAL
+AC_FUNC_MEMCMP
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS(gethostname gettimeofday mkdir select strcspn strdup strerror strspn strstr strtol uname)
+
+dnl Files to be created from when we run configure
+AC_OUTPUT(Make.Rules)

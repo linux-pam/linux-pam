@@ -1,0 +1,48 @@
+/*
+ * $Id$
+ *
+ * 
+ */
+
+#ifndef PAM_ACONF_H
+#define PAM_ACONF_H
+
+/* lots of stuff gets written to /tmp/pam-debug.log */
+#undef DEBUG
+
+/* build libraries with different names (suffixed with 'd') */
+#undef WITH_LIBDEBUG
+
+/* provide a global locking facility within libpam */
+#undef PAM_LOCKING
+
+/* we have libcrack available */
+#undef HAVE_LIBCRACK
+
+/* we have libcrypt - its not part of libc */
+#undef HAVE_LIBCRYPT
+
+/* we have libndbm - instead of libdb */
+#undef HAVE_LIBNDBM
+
+#ifndef HAVE_LIBNDBM
+/* we have libdb */
+#undef HAVE_LIBDB
+#endif /* HAVE_LIBNDBM */
+
+/* have libfl (Flex) */
+#undef HAVE_LIBFL
+
+/* have libnsl - instead of libc support */
+#undef HAVE_LIBNSL
+
+/* have libpwdb - don't expect this to be important for much longer */
+#undef HAVE_LIBPWDB
+
+/* ugly hack to partially support old pam_strerror syntax */
+#undef UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT
+
+/* read both confs - read /etc/pam.d and /etc/pam.conf in serial */
+#undef PAM_READ_BOTH_CONFS
+
+#endif /* PAM_ACONF_H */

@@ -1,0 +1,54 @@
+##
+## $Id$
+##
+## @configure_input@
+##
+
+# major and minor numbers of this release
+MAJOR_REL=@LIBPAM_VERSION_MAJOR@
+MINOR_REL=@LIBPAM_VERSION_MINOR@
+
+# The following is the generic set of compiler options for compiling
+# Linux-PAM. True, they are a little anal. Pay attention to the comments
+# they generate.
+
+WARNINGS= -ansi -D_POSIX_SOURCE -Wall -Wwrite-strings \
+        -Wpointer-arith -Wcast-qual -Wcast-align \
+        -Wtraditional -Wstrict-prototypes -Wmissing-prototypes \
+        -Wnested-externs -Winline -Wshadow -pedantic
+PIC=-fPIC
+
+# Mode to install shared libraries with
+SHLIBMODE=755
+
+NEED_LINK_LIB_C=@PAM_NEEDS_LIBC@
+HAVE_LIBCRACK=@HAVE_LIBCRACK@
+HAVE_LIBCRYPT=@HAVE_LIBCRYPT@
+HAVE_LIBNDBM=@HAVE_LIBNDBM@
+HAVE_LIBDB=@HAVE_LIBDB@
+HAVE_LIBFL=@HAVE_LIBFL@
+HAVE_LIBNSL=@HAVE_LIBNSL@
+HAVE_LIBPWDB=@HAVE_LIBPWDB@
+
+# configuration settings
+WITH_DEBUG=@WITH_DEBUG@
+WITH_LIBDEBUG=@WITH_LIBDEBUG@
+WITH_PAMLOCKING=@WITH_PAMLOCKING@
+STATIC_LIBPAM=@STATIC_LIBPAM@
+DYNAMIC_LIBPAM=@DYNAMIC_LIBPAM@
+STATIC=@STATIC@
+DYNAMIC=@DYNAMIC@
+
+# Location of libraries when installed on the system
+FAKEROOT=@FAKEROOT@
+LIBDIR=@LIBDIR@
+SECUREDIR=@SECUREDIR@
+INCLUDED=@INCLUDEDIR@
+
+# generic build setup
+CC=@CC@
+CFLAGS=$(WARNINGS) @CONF_CFLAGS@
+LD=@LD@
+LD_D=@LD_D@
+LD_L=@LD_L@
+DYNTYPE=@DYNTYPE@

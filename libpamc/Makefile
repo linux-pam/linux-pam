@@ -20,7 +20,7 @@ dummy:
 
 # ---------------------------------------------
 
-CFLAGS += $(DYNAMIC) $(STATIC) $(MOREFLAGS)
+CFLAGS += $(MOREFLAGS) $(DYNAMIC) $(STATIC)
 
 # dynamic library names
 
@@ -34,11 +34,11 @@ LIBPAMCSTATIC = $(LIBNAME).a
 
 LIBOBJECTS = pamc_client.o pamc_converse.o pamc_load.o
 
-ifdef DYNAMIC_LIBPAM
+ifeq ($(DYNAMIC_LIBPAM),yes)
 DLIBOBJECTS = $(addprefix dynamic/,$(LIBOBJECTS))
 endif
 
-ifdef STATIC_LIBPAM
+ifeq ($(STATIC_LIBPAM),yes)
 SLIBOBJECTS = $(addprefix static/,$(LIBOBJECTS))
 endif
 
@@ -48,21 +48,21 @@ endif
 all: dirs $(LIBPAMC) $(LIBPAMCSTATIC)
 
 dirs:
-ifdef DYNAMIC_LIBPAM
+ifeq ($(DYNAMIC_LIBPAM),yes)
 	mkdir -p dynamic
 endif
-ifdef STATIC_LIBPAM
+ifeq ($(STATIC_LIBPAM),yes)
 	mkdir -p static
 endif
 
 dynamic/%.o : %.c
-	$(CC) $(CFLAGS) $(DYNAMIC) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
 
 static/%.o : %.c
-	$(CC) $(CFLAGS) $(STATIC) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
 
 $(LIBPAMC): $(DLIBOBJECTS)
-ifdef DYNAMIC_LIBPAM
+ifeq ($(DYNAMIC_LIBPAM),yes)
     ifeq ($(USESONAME),yes)
 	$(LD_L) $(SOSWITCH) $(LIBPAMCNAME) -o $@ $(DLIBOBJECTS) $(MODULES) $(LINKLIBS)
     else
@@ -77,7 +77,7 @@ ifdef DYNAMIC_LIBPAM
 endif
 
 $(LIBPAMCSTATIC): $(SLIBOBJECTS)
-ifdef STATIC_LIBPAM
+ifeq ($(STATIC_LIBPAM),yes)
 	$(AR) $@ $(SLIBOBJECTS) $(MODULES)
 	$(RANLIB) $@
 endif
@@ -85,14 +85,14 @@ endif
 install: all
 	$(MKDIR) $(FAKEROOT)$(INCLUDED)
 	$(INSTALL) -m 644 include/security/pam_client.h $(FAKEROOT)$(INCLUDED)
-ifdef DYNAMIC_LIBPAM
+ifeq ($(DYNAMIC_LIBPAM),yes)
 	$(INSTALL) -m $(SHLIBMODE) $(LIBPAMC) $(FAKEROOT)$(LIBDIR)/$(LIBPAMCFULL)
 	$(LDCONFIG)
   ifneq ($(DYNTYPE),"sl")
 	( cd $(FAKEROOT)$(LIBDIR) ; rm -f $(LIBPAMC) ; ln -s $(LIBPAMCNAME) $(LIBPAMC) )
   endif
 endif
-ifdef STATIC_LIBPAM
+ifeq ($(STATIC_LIBPAM),yes)
 	$(INSTALL) -m 644 $(LIBPAMCSTATIC) $(FAKEROOT)$(LIBDIR)
 endif
 
