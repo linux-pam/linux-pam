@@ -20,6 +20,7 @@ localstatedir = @localstatedir@
 libdir = @libdir@
 infodir = @infodir@
 includedir = @includedir@
+mandir = @mandir@
 
 absolute_srcdir = @LOCALSRCDIR@
 absolute_objdir = @LOCALOBJDIR@
@@ -40,6 +41,7 @@ PIC=@PIC@
 
 # Mode to install shared libraries with
 SHLIBMODE=@SHLIBMODE@
+MANMODE=@MANMODE@
 
 NEED_LINK_LIB_C=@PAM_NEEDS_LIBC@
 HAVE_LCKPWDF=@HAVE_LCKPWDF@

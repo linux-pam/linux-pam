@@ -39,6 +39,7 @@ CONF_CFLAGS=			; AC_SUBST(CONF_CFLAGS)
 MKDIR="mkdir -p"		; AC_SUBST(MKDIR)
 
 SHLIBMODE=755			; AC_SUBST(SHLIBMODE)
+MANMODE=644			; AC_SUBST(MANMODE)
 
 dnl These are most likely platform specific - I think HPUX differs
 USESONAME=yes			; AC_SUBST(USESONAME)
@@ -46,22 +47,12 @@ SOSWITCH='-Xlinker -soname	-Xlinker '	; AC_SUBST(SOSWITCH)
 NEEDSONAME=no			; AC_SUBST(NEEDSONAME)
 LDCONFIG=/sbin/ldconfig		; AC_SUBST(LDCONFIG)
 
-dnl ### Should enable this INSTALL detection.
-dnl ### Would need to distribute GNU's config.guess and config.sub
-dnl AC_PROG_INSTALL
-if test "$OS" = "aix"; then
-  INSTALL=/usr/ucb/install -c
-else
-  INSTALL=/usr/bin/install
-fi
-AC_SUBST(INSTALL)
-
 dnl Checks for programs.
 AC_PROG_CC
 dnl ### AC_PROG_CXX
 AC_PROG_YACC
 AC_PROG_LEX
-dnl AC_PROG_INSTALL
+AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 
@@ -199,7 +190,7 @@ AC_CHECK_LIB(crack, FascistCheck, HAVE_LIBCRACK=yes ; AC_DEFINE(HAVE_LIBCRACK),
 	HAVE_LIBCRACK=no)
 AC_SUBST(HAVE_LIBCRACK)
 
-AC_CHECK_LIB(crypt, fcrypt, HAVE_LIBCRYPT=yes ; AC_DEFINE(HAVE_LIBCRYPT),
+AC_CHECK_LIB(crypt, crypt, HAVE_LIBCRYPT=yes ; AC_DEFINE(HAVE_LIBCRYPT),
 	HAVE_LIBCRYPT=no)
 AC_SUBST(HAVE_LIBCRYPT)
 AC_CHECK_LIB(util, logwtmp, HAVE_LIBUTIL=yes ; AC_DEFINE(HAVE_LIBUTIL),
@@ -273,7 +264,7 @@ for d in $DICT_DIR_CANDIDATES ; do
       done
 done
 if test -z "$CRACKLIB_DICTPATH" ; then
-      AC_MSG_RESULT(none found)
+      AC_MSG_ERROR(none found)
 else
       AC_MSG_RESULT($CRACKLIB_DICTPATH)
 fi
