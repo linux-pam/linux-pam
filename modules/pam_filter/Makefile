@@ -51,7 +51,7 @@ endif
 all: dirs $(LIBSHARED) $(LIBSTATIC) register filters
 
 dirs:
-	if [ ! -e include/security ]; then ln -sf . include/security ; fi
+	if [ ! -r include/security ]; then ln -sf . include/security ; fi
 ifdef DYNAMIC
 	$(MKDIR) ./dynamic
 endif
