@@ -770,7 +770,12 @@ int main ( int argc, char **argv ) {
     uid_t uid;
     tally_t tally=cline_reset;
     FILE *TALLY=0;
-    int i=pam_get_uid( NULL, &uid, NULL, NULL);
+    struct tally_options opts;
+    int i;
+    
+    memset(&opts, 0, sizeof(opts));
+    opts.ctrl = OPT_AUDIT;
+    i=pam_get_uid( NULL, &uid, NULL, &opts);
     if ( i != PAM_SUCCESS ) { 
       fprintf(stderr,"%s: %s\n",*argv,pam_errors(i));
       exit(0);
