@@ -193,6 +193,10 @@ AC_CHECK_LIB(ndbm, dbm_store, HAVE_LIBNDBM=yes ; AC_DEFINE(HAVE_LIBNDBM),
 AC_SUBST(HAVE_LIBNDBM)
 AC_CHECK_LIB(db, dbm_store, HAVE_LIBDB=yes ; AC_DEFINE(HAVE_LIBDB),
 	HAVE_LIBDB=no)
+if test x$HAVE_LIBDB != xyes ; then
+	AC_CHECK_LIB(db, db_create, HAVE_LIBDB=yes ; AC_DEFINE(HAVE_LIBDB),
+	HAVE_LIBDB=no)
+fi
 AC_SUBST(HAVE_LIBDB)
 AC_CHECK_LIB(fl, yylex, yyterminate, HAVE_LIBFL=yes ; AC_DEFINE(HAVE_LIBFL),
 	HAVE_LIBFL=no)
@@ -380,6 +384,7 @@ AC_PROG_GCC_TRADITIONAL
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(gethostname gettimeofday mkdir select strcspn strdup strerror strspn strstr strtol uname)
+
 AC_CHECK_FUNCS(getpwnam_r getgrnam_r)
 
 dnl Checks for programs/utilities
