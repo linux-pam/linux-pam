@@ -29,11 +29,10 @@
  * S.A.G. in the section on the cracklib module.
  */
 
-#define _GNU_SOURCE
-#define _BSD_SOURCE
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
-#ifdef NEED_CRYPT_HEADER
+#ifdef HAVE_CRYPT_H
 # include <crypt.h>
 #endif
 #include <unistd.h>

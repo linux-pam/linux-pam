@@ -47,6 +47,8 @@ libpam. Prior versions were buggy - see bugfix for Bug 129775.
 
                           ** WARNING **
 
+* pam_cracklib needs to be linked with -lcrypt (old password checking)
+  (Bug 131601 - agmorgan)
 * fixes for static library builds and also the examples when linked
   with the debugging build of the libraries. (Bug 131783 - agmorgan)
 * fixed URL for original RFC to a cached kernel.org file. (Bug 131503

@@ -5,7 +5,7 @@
 # Linux-PAM. You should not modify this Makefile (unless you know
 # what you are doing!).
 #
-# Created by Andrew Morgan <morgan@linux.kernel.org> 2000/10/08
+# Created by Andrew Morgan <morgan@kernel.org> 2000/10/08
 #
 
 include ../../Make.Rules
@@ -18,8 +18,9 @@ MODULE_SIMPLE_EXTRALIBS=-lcrack
 
 # These two should really be provided by ../../pam_aconf.h
 CFLAGS+=-DCRACKLIB_DICTPATH=\"$(CRACKLIB_DICTPATH)\"
+
 ifeq ($(HAVE_LIBCRYPT),yes)
- CFLAGS+=-DNEED_CRYPT_HEADER
+ MODULE_SIMPLE_EXTRALIBS += -lcrypt
 endif
 
 endif
