@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* removed static variables from pam_limits (thread safe now). (Bug
+  117450 - agmorgan).
 * removed static variable from pam_wheel (module should be thread safe
   now). (Bug 112906 - agmorgan)
 * added support for '/' symbols in pam_time and pam_group config files
