@@ -539,7 +539,23 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 		goto done;
 	}
 
-	if (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, forwho, 0, 1)) {
+	if (_unix_comesfromsource(pamh, forwho, 1, 0)) {
+		/* first, save old password */
+		if (save_old_password(pamh, forwho, fromwhat, remember)) {
+			retval = PAM_AUTHTOK_ERR;
+			goto done;
+		}
+		if (on(UNIX_SHADOW, ctrl) || _unix_shadowed(pwd)) {
+			retval = _update_shadow(pamh, forwho, towhat);
+ 		        if (retval != PAM_SUCCESS && SELINUX_ENABLED) 
+			  retval = _unix_run_shadow_binary(pamh, ctrl, forwho, fromwhat, towhat);
+			if (retval == PAM_SUCCESS)
+				if (!_unix_shadowed(pwd))
+					retval = _update_passwd(pamh, forwho, "x");
+		} else {
+			retval = _update_passwd(pamh, forwho, towhat);
+		}
+	} else if (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, forwho, 0, 1)) {
 		struct timeval timeout;
 		struct yppasswd yppwd;
 		CLIENT *clnt;
@@ -604,23 +620,6 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 		sleep(5);
 #endif
 		return retval;
-	}
-	/* first, save old password */
-	if (save_old_password(pamh, forwho, fromwhat, remember)) {
-		retval = PAM_AUTHTOK_ERR;
-		goto done;
-	}
-	if (_unix_comesfromsource(pamh, forwho, 1, 0)) {
-		if (on(UNIX_SHADOW, ctrl) || _unix_shadowed(pwd)) {
-			retval = _update_shadow(pamh, forwho, towhat);
- 		        if (retval != PAM_SUCCESS && SELINUX_ENABLED) 
-			  retval = _unix_run_shadow_binary(pamh, ctrl, forwho, fromwhat, towhat);
-			if (retval == PAM_SUCCESS)
-				if (!_unix_shadowed(pwd))
-					retval = _update_passwd(pamh, forwho, "x");
-		} else {
-			retval = _update_passwd(pamh, forwho, towhat);
-		}
 	}
 
 done:
