@@ -505,8 +505,10 @@ static int parse_config_file(const char *uname, int ctrl,
             if (strcmp(uname, domain) == 0) /* this user have a limit */
                 process_limit(LIMITS_DEF_USER, ltype, item, value, ctrl, pl);
             else if (domain[0]=='@') {
-		_pam_log(LOG_DEBUG, "checking if %s is in group %s",
-			 uname, domain + 1);
+		    if (ctrl & PAM_DEBUG_ARG) {
+			_pam_log(LOG_DEBUG, "checking if %s is in group %s",
+			 	uname, domain + 1);
+		    }
                 if (is_in_group(uname, domain+1))
                     process_limit(LIMITS_DEF_GROUP, ltype, item, value, ctrl,
 				  pl);
@@ -515,12 +517,16 @@ static int parse_config_file(const char *uname, int ctrl,
 			      pl);
 	} else if (i == 2 && ltype[0] == '-') { /* Probably a no-limit line */
 	    if (strcmp(uname, domain) == 0) {
-		_pam_log(LOG_DEBUG, "no limits for '%s'", uname);
+		if (ctrl & PAM_DEBUG_ARG) {
+		    _pam_log(LOG_DEBUG, "no limits for '%s'", uname);
+		}
 		fclose(fil);
 		return PAM_IGNORE;
 	    } else if (domain[0] == '@' && is_in_group(uname, domain+1)) {
-		_pam_log(LOG_DEBUG, "no limits for '%s' in group '%s'",
-			 uname, domain+1);
+		if (ctrl & PAM_DEBUG_ARG) {
+		    _pam_log(LOG_DEBUG, "no limits for '%s' in group '%s'",
+			     uname, domain+1);
+		}
 		fclose(fil);
 		return PAM_IGNORE;
 	    }

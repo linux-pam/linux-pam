@@ -55,6 +55,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_limits: put not so interesting log messages under debug arg
+  (Bug 533668 - baggins)
 * pam_access: added the 'fieldsep=' argument (Bug 547051 - agmorgan),
   made a PAM_RHOST of "" equivalent to NULL (Bug 547521 - agmorgan).
 * pam_limits: keep well know behaviour of maxlogins default ('*') limit
