@@ -3,9 +3,13 @@
 ##
 ##
 
-# major and minor numbers of this release
-MAJOR_REL=0
-MINOR_REL=72
+# Here we include the defines declared by configure.  These include things
+# like CC, CFLAGS and destination directories etc..  Make.Rules replaces the
+# ./defs/ directory used in the past.  If Make.Rules doesn't work for you,
+# please consider submitting a patch to configure.in and Make.Rules.in.
+
+include Make.Rules
+
 DEBUG_REL=no
 #DEBUG_REL=yes
 
@@ -45,15 +49,6 @@ HAVE_CRACKLIB=yes
 HAVE_AFSLIBS=no
 HAVE_KRBLIBS=no
 
-# NB. The following is the generic defines for compilation.
-# They can be overridden in the default.defs file below
-#
-WARNINGS = -ansi -D_POSIX_SOURCE -Wall -Wwrite-strings \
-        -Wpointer-arith -Wcast-qual -Wcast-align \
-        -Wtraditional -Wstrict-prototypes -Wmissing-prototypes \
-        -Wnested-externs -Winline -Wshadow -pedantic
-PIC=-fPIC
-
 # Mode to install shared libraries with
 SHLIBMODE=755
 
@@ -68,13 +63,6 @@ ifdef STATIC_LIBPAM
 RDYNAMIC = -rdynamic
 endif
 endif
-
-# Here we include the defines declared by configure.  These include things
-# like CC, CFLAGS and destination directories etc..  Make.Rules replaces the
-# ./defs/ directory used in the past.  If Make.Rules doesn't work for you,
-# please consider submitting a patch to configure.in and Make.Rules.in.
-
-include Make.Rules
 
 # to turn on the fprintf(stderr, ..) debugging lines throughout the
 # distribution uncomment this line
@@ -221,6 +209,11 @@ all: .freezemake headers
 	@echo "If you are in any doubt, just do 'make all' (or just"
 	@echo "'make'). It is likely that this is the SAFEST thing to do...."
 	@exit 1
+
+$(DIRS): FORCE
+	cd $@ ; $(MAKE) all
+
+FORCE:
 
 install:
 	@for i in $(DIRS) ; do \
