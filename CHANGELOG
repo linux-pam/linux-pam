@@ -52,8 +52,12 @@ bug report - outstanding bugs are listed here:
 
 ====================================================================
 
-0.76: please submit patches for this section with actual code/doc
+0.77: please submit patches for this section with actual code/doc
       patches!
+
+* updated CHANGELOG and configure.in for 0.77 work.
+
+0.76: Mon Jul  8 21:44:59 PDT 2002
 
 * pam_unix: fix for legacy crypt() support when the password entered
   was long. (Bug 521314 - agmorgan).
