@@ -10,10 +10,12 @@
 #   $(MODULE_SIMPLE_REMOVE)
 #   $(MODULE_SIMPLE_INSTALL)
 #   $(MODULE_SIMPLE_EXTRALIBS)  - other things to link with the module
+#   $(MODULE_SIMPLE_EXTRAFILES) - other files to build (no .c suffix)
 #
 
-LIBSRC = $(TITLE).c
-LIBOBJ = $(TITLE).o
+LIBFILES = $(TITLE) $(MODULE_SIMPLE_EXTRAFILES)
+LIBSRC = $(addsuffix .c,$(LIBFILES))
+LIBOBJ = $(addsuffix .o,$(LIBFILES))
 LIBOBJD = $(addprefix dynamic/,$(LIBOBJ))
 LIBOBJS = $(addprefix static/,$(LIBOBJ))
 
