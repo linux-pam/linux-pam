@@ -47,7 +47,7 @@ INSTALL=/usr/bin/install	; AC_SUBST(INSTALL)
 
 dnl Checks for programs.
 AC_PROG_CC
-AC_PROG_CXX
+dnl ### AC_PROG_CXX
 AC_PROG_YACC
 AC_PROG_LEX
 dnl AC_PROG_INSTALL
