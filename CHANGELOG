@@ -49,6 +49,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_appl.sgml change - more discussion of choosing a service name
+  (Bug 417512 - agmorgan)
 * more specific linking requirements for -lndbm for pam_userdb - from
   David Lee (Bug 417339 - agmorgan)
 * a large number of small changes to make AIX support better (Bug

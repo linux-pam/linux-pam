@@ -46,7 +46,7 @@ DAMAGE.
 
 <title>The Linux-PAM Application Developers' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.75 2001/03/18
+<date>DRAFT v0.76 2001/05/26
 <abstract>
 This manual documents what an application developer needs to know
 about the <bf>Linux-PAM</bf> library. It describes how an application
@@ -1073,6 +1073,16 @@ should <bf/avoid/ the temptation of choosing something related to
 <tt/argv[0]/.  It is a trivial matter for any user to invoke any
 application on a system under a different name and this should not be
 permitted to cause a security breach.
+
+<p>
+In general, this is always the right advice if the program is setuid,
+or otherwise more privileged than the user that invokes it. In some
+cases, avoiding this advice is convenient, but as an author of such an
+application, you should consider well the ways in which your program
+will be installed and used. (Its often the case that programs are not
+intended to be setuid, but end up being installed that way for
+convenience. If your program falls into this category, don't fall into
+the trap of making this mistake.)
 
 <p>
 To invoke some <tt/target/ application by another name, the user may
