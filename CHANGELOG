@@ -108,9 +108,10 @@ bug report - outstanding bugs are listed here:
   This is entirely inapropriate as it overrides PAM_USER_PROMPT. (Bug
   486361 - agmorgan).
 * added a static module helper library object includes a few changes
-  to examples/xsh.c for testing purposes, and also modified the
-  pam_rhosts_auth module to use this new library. (Bug 490938,
-  409852 - agmorgan)
+  to examples/xsh.c for testing purposes (added a simple shell wrapper
+  for running xsh with the sandbox libraries), and also modified the
+  pam_rhosts_auth module to use this new library. (Bug 490938, 409852
+  - agmorgan).
 * pam_unix: fix 'likeauth' to kill off the memory leak once and for all.
   (Bug 483959 - vorlon)
 * pam_unix: restore handling of 'likeauth' argument to a known working
@@ -160,7 +161,8 @@ bug report - outstanding bugs are listed here:
 * verified that the setcred stack didn't suffer from the bug I was
   nervous about, add a new module pam_debug to help me test this.
   fixed a libpam/pam_dispatch.c instrumentation line that I tripped
-  over when testing. (Bug 424315 - agmorgan)
+  over when testing. Also restructured pam_warn to help here (Bug
+  424315 - agmorgan).
 * pam_unix/support.c: sample use of reentrant NSS function.  Not yet active,
   because modules do not include _pam_aconf_h! (Bug 440107 - vorlon)
 * doc/Makefile changes - use $(mandir) [courtesy Harald Welte] (Bug
