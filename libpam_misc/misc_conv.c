@@ -137,6 +137,8 @@ static char *read_string(int echo, const char *prompt)
  
     D(("called with echo='%s', prompt='%s'.", echo ? "ON":"OFF" , prompt));
 
+    input = line;
+
     if (isatty(STDIN_FILENO)) {                      /* terminal state */
 
 	/* is a terminal so record settings and flush it */
@@ -191,27 +193,37 @@ static char *read_string(int echo, const char *prompt)
 	    if (expired) {
 		delay = get_delay();
 	    } else if (nc > 0) {                 /* we got some user input */
+		D(("we got some user input"));
 
 		if (nc > 0 && line[nc-1] == '\n') {     /* <NUL> terminate */
 		    line[--nc] = '\0';
 		} else {
+		    if (echo) {
+			fprintf(stderr, "\n");
+		    }
 		    line[nc] = '\0';
 		}
 		input = x_strdup(line);
 		_pam_overwrite(line);
 
 		goto cleanexit;                /* return malloc()ed string */
+
 	    } else if (nc == 0) {                                /* Ctrl-D */
 		D(("user did not want to type anything"));
 
 		input = x_strdup("");
-		fprintf(stderr, "\n");
+		if (echo) {
+		    fprintf(stderr, "\n");
+		}
 		goto cleanexit;                /* return malloc()ed "" */
 	    }
 	}
     }
 
     /* getting here implies that the timer expired */
+
+    D(("the timer appears to have expired"));
+
     input = NULL;
     _pam_overwrite(line);
 
@@ -222,7 +234,9 @@ static char *read_string(int echo, const char *prompt)
 	(void) tcsetattr(STDIN_FILENO, TCSADRAIN, &term_before);
     }
 
-    return NULL;
+    D(("returning [%s]", input));
+
+    return input;
 }
 
 /* end of read_string functions */
@@ -325,14 +339,14 @@ int misc_conv(int num_msg, const struct pam_message **msgm,
 	}
     }
 
-    /* New (0.59+) behavior is to always have a reply - this is
-       compatable with the X/Open (March 1997) spec. */
     *response = reply;
     reply = NULL;
 
     return PAM_SUCCESS;
 
 failed_conversation:
+
+    D(("the conversation failed"));
 
     if (reply) {
 	for (count=0; count<num_msg; ++count) {

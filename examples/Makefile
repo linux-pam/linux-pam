@@ -16,8 +16,7 @@ endif
 
 CFLAGS += -I../libpam_misc/include -I../libpamc/include
 
-LOADLIBES = -L../libpam -L../libpamc -L../libpam_misc \
-		-lpam$(LIBSUFFIX) -lpam_misc$(LIBSUFFIX)
+LOADLIBES = -L../libpam -L../libpamc -L../libpam_misc -lpam -lpam_misc
 
 ifeq ($(STATIC_LIBPAM),yes)
   ifneq ($(DYNAMIC),)
