@@ -22,8 +22,6 @@ Alexei Nogin &lt;alexei@nogin.dnttm.ru&gt;
 
 <tag><bf>Maintainer:</bf></tag>
 	
-Author
-
 <tag><bf>Management groups provided:</bf></tag>
 
 account
@@ -59,7 +57,8 @@ Provides logdaemon style login access control.
 
 <tag><bf>Recognized arguments:</bf></tag>
 
-<tt>accessfile=<it>/path/to/file.conf</it></tt>
+<tt>accessfile=<it>/path/to/file.conf</it></tt>;
+<tt>fieldsep=<it>separators</it></tt>
 
 <tag><bf>Description:</bf></tag>
 
@@ -79,7 +78,17 @@ arguments:
 indicate an alternative <em/access/ configuration file to override 
 the default. This can be useful when different services need different 
 access lists. 
- 
+
+<item><tt>fieldsep=<it>separators</it></tt> -
+this option modifies the field separator character that
+<tt/pam_access/ will recognize when parsing the access configuration
+file. For example: <tt>fieldsep=|</tt> will cause the default `:'
+character to be treated as part of a field value and `|' becomes the
+field separator. Doing this is useful in conjuction with a system that
+wants to use pam_access with X based applications, since the
+<tt/PAM_TTY/ item is likely to be of the form "hostname:0" which
+includes a `:' character in its value.
+
 </itemize> 
 
 <tag><bf>Examples/suggested usage:</bf></tag>

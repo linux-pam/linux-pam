@@ -55,6 +55,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_access: added the 'fieldsep=' argument (Bug 547051 - agmorgan),
+  made a PAM_RHOST of "" equivalent to NULL (Bug 547521 - agmorgan).
 * pam_limits: keep well know behaviour of maxlogins default ('*') limit
   (Bug 533664 - baggins)
 * pam_unix: more from Nalin log password changes (Bug 517743 - agmorgan)

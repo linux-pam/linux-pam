@@ -87,7 +87,7 @@ int strcasecmp(const char *s1, const char *s2);
 
  /* Delimiters for fields and for lists of users, ttys or hosts. */
 
-static const char fs[] = ":";			/* field separator */
+static const char *fs = ":";			/* field separator */
 static const char sep[] = ", \t";		/* list-element separator */
 
  /* Constants to be used in assignments only, not in comparisons... */
@@ -126,7 +126,12 @@ static int parse_args(struct login_info *loginfo, int argc, const char **argv)
     int i;
 
     for (i=0; i<argc; ++i) {
-	if (!strncmp("accessfile=", argv[i], 11)) {
+	if (!strncmp("fieldsep=", argv[i], 9)) {
+
+	    /* the admin wants to override the default field separators */
+	    fs = argv[i]+9;
+
+	} else if (!strncmp("accessfile=", argv[i], 11)) {
 	    FILE *fp = fopen(11 + argv[i], "r");
 
 	    if (fp) {
@@ -427,7 +432,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
 	return PAM_ABORT;
     }
 
-    if (from==NULL) {
+    if ((from==NULL) || (*from=='\0')) {
 
         /* local login, set tty name */
 
