@@ -813,6 +813,12 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 	} else {
 		struct passwd *pwd;
 		_unix_getpwnam(pamh, user, 1, 1, &pwd);
+		if (pwd == NULL) {
+			_log_err(LOG_DEBUG, pamh,
+				"user \"%s\" has corrupted passwd entry",
+				user);
+			return PAM_USER_UNKNOWN;
+		}
 		if (!_unix_shadowed(pwd) &&
 		    (strchr(pwd->pw_passwd, '*') != NULL)) {
 			_log_err(LOG_DEBUG, pamh,

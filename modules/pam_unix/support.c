@@ -390,14 +390,14 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 		}
 		memset(*ret, '\0', buflen);
 
-		(*ret)->pw_uid = strtol(suid, &p, 0);
+		(*ret)->pw_uid = strtol(suid, &p, 10);
 		if ((strlen(sgid) == 0) || (*p != '\0')) {
 			free(*ret);
 			*ret = NULL;
 			return matched;
 		}
 
-		(*ret)->pw_gid = strtol(sgid, &p, 0);
+		(*ret)->pw_gid = strtol(sgid, &p, 10);
 		if ((strlen(sgid) == 0) || (*p != '\0')) {
 			free(*ret);
 			*ret = NULL;
