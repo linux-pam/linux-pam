@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* fix for pam_unix (support.c) to avoid segfault with NULL password
+  (Bug 113238 - vorlon)
 * fix to pam_unix_passwd: try repeatedly to get a lock on the password
   file, instead of failing immediately (Bug 108845 - fix vorlon)
 * fix to pam_shells: logged information was not formatted correctly
