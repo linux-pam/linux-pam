@@ -268,7 +268,7 @@ static int tally_get_data( pam_handle_t *pamh, time_t *oldtime )
     const void *data;
 
     rv = pam_get_data(pamh, MODULE_NAME, &data);
-    if ( rv == PAM_SUCCESS && oldtime != NULL ) {
+    if ( rv == PAM_SUCCESS && data != NULL && oldtime != NULL ) {
       *oldtime = *(const time_t *)data;
       pam_set_data(pamh, MODULE_NAME, NULL, NULL);
     }
@@ -423,6 +423,7 @@ static int tally_bump (int inc, time_t *oldtime,
     int i;
 
     i=get_tally( &tally, uid, opts->filename, &TALLY, fsp );
+    if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
 
     /* to remember old fail time (for locktime) */
     fsp->fs_fail_time = fsp->fs_faillog.fail_time;
@@ -455,7 +456,6 @@ static int tally_bump (int inc, time_t *oldtime,
 		(size_t)sizeof(fsp->fs_faillog.fail_line));
 	fsp->fs_faillog.fail_line[sizeof(fsp->fs_faillog.fail_line)-1] = 0;
     }
-    if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
     
     if ( !(opts->ctrl & OPT_MAGIC_ROOT) || getuid() ) {   /* magic_root doesn't change tally */
 
