@@ -592,7 +592,7 @@ MKDIR="mkdir -p"		;
 SHLIBMODE=755			; 
 
 USESONAME=yes			; 
-SOSWITCH=-soname		; 
+SOSWITCH='-Xlinker -soname	-Xlinker '	; 
 NEEDSONAME=no			; 
 LDCONFIG=/sbin/ldconfig		; 
 
@@ -2479,8 +2479,8 @@ if test "$GCC" = yes; then
 		WARNINGS="$GCC_WARNINGS"
 		PIC="-fPIC"
 		DYNTYPE=so
-		LD=ld				
-		LD_L="$LD -x -shared"
+		LD=gcc
+		LD_L="$LD -Xlinker -x -shared"
 		RANLIB=ranlib
 		STRIP=strip
 		CC_STATIC="-Xlinker -export-dynamic"
