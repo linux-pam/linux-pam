@@ -10,15 +10,7 @@
  * This code began life as the pam_rootok module.
  */
 
-#ifdef linux
-# define _SVID_SOURCE
-# define _BSD_SOURCE
-# define __USE_BSD
-# define __USE_SVID
-# define __USE_MISC
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
 #include <stdlib.h>

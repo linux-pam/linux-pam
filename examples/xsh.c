@@ -1,31 +1,8 @@
 /*
  * $Id$
- *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:13  agmorgan
- * Initial revision
- *
- * Revision 1.2  1999/11/08 05:39:53  morgan
- * removed void main def which was making gcc complain
- *
- * Revision 1.1.1.1  1998/07/12 05:17:14  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.4  1996/11/10 21:09:45  morgan
- * no gcc warnings
- *
- * Revision 1.3  1996/07/07 23:53:36  morgan
- * added support for non standard pam_fail_delay
- *
- * Revision 1.2  1996/05/02 04:44:48  morgan
- * moved conversaation to a libmisc routine.
- *
- * Revision 1.1  1996/04/07 08:18:55  morgan
- * Initial revision
- *
  */
 
-/* Andrew Morgan (morgan@parc.power.net) -- an example application
+/* Andrew Morgan (morgan@kernel.org) -- an example application
  * that invokes a shell, based on blank.c */
 
 #include <stdio.h>
@@ -53,7 +30,7 @@ static struct pam_conv conv = {
 
 /* ------- the application itself -------- */
 
-int main(int argc, char **argv, char **envp)
+int main(int argc, char **argv)
 {
      pam_handle_t *pamh=NULL;
      char *username=NULL;

@@ -11,10 +11,7 @@
  * Stuff stolen from pam_rootok and pam_listfile
  */
 
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -70,7 +67,9 @@ enum TALLY_RESET {
 #endif
 
 static struct faillog faillog;
+#ifndef MAIN
 static time_t fail_time;
+#endif /* ndef MAIN */
 
 /*---------------------------------------------------------------------*/
 

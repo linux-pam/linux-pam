@@ -5,7 +5,6 @@ $Id$
 
 TODO:
 
-  - autoconf the modules?
   - sanitize use of md5 throughout distribution.. Make a static
     library for helping to develop modules that contains it and other
     stuff. Also add sha-1 and ripemd-160 digest algorithms.
@@ -21,6 +20,7 @@ TODO:
   - do we still need to remove openlog/closelog from modules..?
   - auth and acct support in pam_cracklib, "yes, I know the password
     you just typed was valid, I just don't think it was very strong..."
+  - add in the pam_cap and pam_netid modules
 
 ====================================================================
 Note, as of release 0.73, all checkins should be accompanied with a
@@ -47,12 +47,9 @@ Where you should replace XXXXX with a bug-id.
 * fix for C++ application support (Bug 111645 - fix agmorgan)
 * fix for typo in pam_client.h (Bug 111648 - fix agmorgan)
 * removal of -lpam from pam_mkhomedir Makefile (Bug 116380 - fix agmorgan)
-
-Planning to include:
-
-  - some autoconf support and other outstanding changes from Jan..
-  - some outstanding changes from Ben
-  - add in the pam_cap and pam_netid modules
+* autoconf support [Task ID 15788, Bug ID 108297 - agmorgan with help!]
+ - bugfix for libpamc.h include file [Bug ID 117476 - agmorgan]
+ - bugfix for pam_filter.h inclusion [Bug ID 117474 - agmorgan]
 
 0.72: Mon Dec 13 22:41:11 PST 1999
 

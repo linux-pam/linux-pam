@@ -2,3 +2,8 @@ default.defs
 .freezemake
 .filelist
 include
+config.status
+config.log
+config.cache
+_pam_aconf.h
+Make.Rules

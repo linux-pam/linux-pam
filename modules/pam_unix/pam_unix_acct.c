@@ -34,12 +34,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define _BSD_SOURCE
-
-#ifdef linux
-#define _GNU_SOURCE
-#include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -50,7 +45,6 @@
 #include <pwd.h>
 #include <shadow.h>
 #include <time.h>		/* for time() */
-
 
 #include <security/_pam_macros.h>
 

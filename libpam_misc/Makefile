@@ -1,96 +1,106 @@
+#
 # $Id$
 #
 
-dummy:
-	@echo "*** This is not a top-level Makefile!"
+# lots of debugging information goes to /tmp/pam-debug.log
+#MOREFLAGS += -D"DEBUG"
 
-# ///////////////////////////////////////////////////////////////////
-
-# uncomment if you wnat libpam_misc to be made as a dynamic library
-# AGM has had some segfaulting from libdl when I did this. I have not
-# investigated the cause...
-
-MAKE_DYNAMIC=yes
+include ../Make.Rules
 
 ifeq ($(DEBUG_REL),yes)
- LIBNAME=pamd_misc
+ LIBNAME=libpam_miscd
 else
- LIBNAME=pam_misc
+ LIBNAME=libpam_misc
 endif
-LIBMAJOR=$(MAJOR_REL)
-LIBMINOR=$(MINOR_REL)
+VERSION=.$(MAJOR_REL)
+MODIFICATION=.$(MINOR_REL)
 
-FILES=misc_conv help_env
+CFLAGS += $(MOREFLAGS) $(DYNAMIC) $(STATIC)
 
-#
-# Probably no need to alter anything below here.
-#
+# dynamic library names
 
-# build dynamic library names
-
-LIBDYNAMIC=lib$(LIBNAME).$(DYNTYPE)
-LIBDYNMAJ=$(LIBDYNAMIC).$(LIBMAJOR)
-LIBDYNMIN=$(LIBDYNMAJ).$(LIBMINOR)
+LIBNAMED = $(LIBNAME).$(DYNTYPE)
+LIBNAMEDNAME = $(LIBNAMED)$(VERSION)
+LIBNAMEDFULL = $(LIBNAMEDNAME)$(MODIFICATION)
 
 # static library name
 
-LIBSTATIC = lib$(LIBNAME).a
+LIBNAMEDSTATIC = $(LIBNAME).a
 
-# sources and object files
+LIBOBJECTS = help_env.o misc_conv.o
 
-LIBSRC = $(addsuffix .c,$(FILES))
-LIBOBJ = $(addsuffix .o,$(FILES))
+ifeq ($(DYNAMIC_LIBPAM),yes)
+DLIBOBJECTS = $(addprefix dynamic/,$(LIBOBJECTS))
+endif
 
-# rules
+ifeq ($(STATIC_LIBPAM),yes)
+SLIBOBJECTS = $(addprefix static/,$(LIBOBJECTS))
+endif
 
-all: $(LIBSTATIC) $(LIBDYNAMIC)
+# ---------------------------------------------
+## rules
 
-$(LIBDYNAMIC): $(LIBOBJ)
-ifdef MAKE_DYNAMIC
+all: dirs $(LIBNAMED) $(LIBNAMEDSTATIC)
+
+dirs:
+ifeq ($(DYNAMIC_LIBPAM),yes)
+	$(MKDIR) dynamic
+endif
+ifeq ($(STATIC_LIBPAM),yes)
+	$(MKDIR) static
+endif
+
+dynamic/%.o : %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+
+static/%.o : %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+
+$(LIBNAMED): $(DLIBOBJECTS)
+ifeq ($(DYNAMIC_LIBPAM),yes)
     ifeq ($(USESONAME),yes)
-	$(LD_L) $(SOSWITCH) $(LIBDYNMAJ) -o $@ $(LIBOBJ) $(LINKLIBS)
+	$(LD_L) $(SOSWITCH) $(LIBNAMEDNAME) -o $@ $(DLIBOBJECTS) $(MODULES) $(LINKLIBS)
     else
-	$(LD_L) -o $@ $(LIBOBJ)
+	$(LD_L) -o $@ $(DLIBOBJECTS) $(MODULES)
     endif
     ifeq ($(NEEDSONAME),yes)
-	rm -f $(LIBDYNMIN)
-	ln -s $(LIBDYNAMIC) $(LIBDYNMAJ)
-	rm -f $(LIBDYNMAJ)
-	ln -s $(LIBDYNAMIC) $(LIBDYNMIN)
+	rm -f $(LIBNAMEDFULL)
+	ln -s $(LIBNAMED) $(LIBNAMEDFULL)
+	rm -f $(LIBNAMEDNAME)
+	ln -s $(LIBNAMED) $(LIBNAMEDNAME)
     endif
 endif
 
-$(LIBSTATIC): $(LIBOBJ)
-	$(AR) $@ $(LIBOBJ)
+$(LIBNAMEDSTATIC): $(SLIBOBJECTS)
+ifeq ($(STATIC_LIBPAM),yes)
+	$(AR) $@ $(SLIBOBJECTS) $(MODULES)
 	$(RANLIB) $@
+endif
 
 install: all
 	$(MKDIR) $(FAKEROOT)$(INCLUDED)
-	$(INSTALL) -m 644 ./pam_misc.h $(FAKEROOT)$(INCLUDED)
-ifdef MAKE_DYNAMIC
-	$(INSTALL) -m $(SHLIBMODE) $(LIBDYNAMIC) $(FAKEROOT)$(LIBDIR)/$(LIBDYNMIN)
+	$(INSTALL) -m 644 include/security/pam_misc.h $(FAKEROOT)$(INCLUDED)
+ifeq ($(DYNAMIC_LIBPAM),yes)
+	$(MKDIR) $(FAKEROOT)$(libdir)
+	$(INSTALL) -m $(SHLIBMODE) $(LIBNAMED) $(FAKEROOT)$(libdir)/$(LIBNAMEDFULL)
 	$(LDCONFIG)
   ifneq ($(DYNTYPE),"sl")
-	( cd $(FAKEROOT)$(LIBDIR) ; ln -sf $(LIBDYNMAJ) $(LIBDYNAMIC) )
+	( cd $(FAKEROOT)$(libdir) ; rm -f $(LIBNAMED) ; ln -s $(LIBNAMEDNAME) $(LIBNAMED) )
   endif
 endif
-	$(INSTALL) -m 644 $(LIBSTATIC) $(FAKEROOT)$(LIBDIR)
-
-clean:
-	rm -f *.so *.a core a.out *~
+ifeq ($(STATIC_LIBPAM),yes)
+	$(INSTALL) -m 644 $(LIBNAMEDSTATIC) $(FAKEROOT)$(libdir)
+endif
 
 remove:
 	rm -f $(FAKEROOT)$(INCLUDED)/pam_misc.h
-	rm -f $(FAKEROOT)$(LIBDIR)/$(LIBDYNAMIC).*
-	rm -f $(FAKEROOT)$(LIBDIR)/$(LIBDYNAMIC)
+	rm -f $(FAKEROOT)$(libdir)/$(LIBNAMEDFULL)
+	rm -f $(FAKEROOT)$(libdir)/$(LIBNAMED)
 	$(LDCONFIG)
-	rm -f $(FAKEROOT)$(LIBDIR)/$(LIBSTATIC)
-	rm -f $(FAKEROOT)$(INCLUDED)/chk_malloc.h
+	rm -f $(FAKEROOT)$(libdir)/$(LIBNAMEDSTATIC)
 
-.c.o:
-	$(CC) -c $(DEFS) $(CFLAGS) $<
-
-extraclean:
-	@$(MAKE) clean
-	rm -f *.o *.bak
-
+clean:
+	rm -f a.out core *~ static/*.o dynamic/*.o
+	rm -f *.a *.out *.o *.so ./include/security/*~
+	if [ -d dynamic ]; then rmdir dynamic ; fi
+	if [ -d static ]; then rmdir static ; fi

@@ -6,10 +6,7 @@
  * Written by Andrew Morgan <morgan@linux.kernel.org>
  */
 
-#ifdef linux
-#define _GNU_SOURCE
-#include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <signal.h>
 #include <stdio.h>

@@ -1,3 +1,7 @@
+/*
+ * $Id$
+ */
+
 #ifndef _PAM_UNIX_SUPPORT_H
 #define _PAM_UNIX_SUPPORT_H
 

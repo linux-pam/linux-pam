@@ -7,45 +7,19 @@
 # <morgan@parc.power.net> 1996/11/6
 #
 
-#
-# Note, the STATIC module is commented out because it doesn't work.
-# please fix!
-#
+include ../../Make.Rules
 
-ifndef FULL_LINUX_PAM_SOURCE_TREE
-export DYNAMIC=-DPAM_DYNAMIC
-export CC=gcc
-export CFLAGS=-O2 -Dlinux -DLINUX_PAM \
-       -ansi -D_POSIX_SOURCE -Wall -Wwrite-strings \
-       -Wpointer-arith -Wcast-qual -Wcast-align -Wtraditional \
-       -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs -Winline \
-       -Wshadow -pedantic -fPIC
-export MKDIR=mkdir -p
-export LD_D=gcc -shared -Xlinker -x
-export HAVE_PWDBLIB=yes
-endif
+ifeq ($(HAVE_LIBPWDB),yes)
 
-ifeq ($(shell if [ -f /lib/libcrypt.so.* ]; then echo yes ; else echo no ; fi),yes)
-EXTRALS += -lcrypt
-endif
-
-ifeq ($(HAVE_PWDBLIB),yes)
-
-TITLE=pam_pwdb
-CHKPWD=pwdb_chkpwd
-
-# compilation flags
-EXTRAS=
-# extra object files
-PLUS=
-# extra files that may be needed to be created
-CREATE=
-
-# NOTE: this module links dynamically to the libpwdb library.
 EXTRALS += -lpwdb 
 EXTRAS += -DCHKPWD_HELPER=\"$(SUPLEMENTED)/$(CHKPWD)\"
 
-########################### don't edit below ##########################
+ifeq ($(HAVE_LIBCRYPT),yes)
+  EXTRALS += -lcrypt
+endif
+
+TITLE=pam_pwdb
+CHKPWD=pwdb_chkpwd
 
 LIBSRC = $(TITLE).c
 LIBOBJ = $(TITLE).o
@@ -132,7 +106,7 @@ ifdef DYNAMIC
 	$(INSTALL) -m $(SHLIBMODE) $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)
 endif
 	$(MKDIR) $(FAKEROOT)$(SUPLEMENTED)
-	$(INSTALL) -m 4555 -o root -g root $(CHKPWD) $(FAKEROOT)$(SUPLEMENTED)
+	$(INSTALL) -m 4555 $(CHKPWD) $(FAKEROOT)$(SUPLEMENTED)
 
 remove:
 	rm -f $(FAKEROOT)$(SECUREDIR)/$(TITLE).so
@@ -140,54 +114,11 @@ remove:
 
 clean:
 	rm -f $(CHKPWD) $(LIBOBJD) $(LIBOBJS) $(MOREDELS) core *~ *.o *.so
-
-extraclean: clean
 	rm -f *.a *.o *.so *.bak
+	rm -fr dynamic static
 
 else
 
 include ../dont_makefile
 
 endif
-
-#####################################################################
-# $Log$
-# Revision 1.1  2000/06/20 22:11:47  agmorgan
-# Initial revision
-#
-# Revision 1.4  1999/08/01 16:18:27  morgan
-# added a conditional for libcrypt
-#
-# Revision 1.3  1999/07/08 05:02:02  morgan
-# glibc fixes (Thorsten Kukuk, Adam J. Richter)
-#
-# Revision 1.2  1999/07/04 23:22:38  morgan
-# Andrey's MD5 (bigendian) work around + cleanup to address problems with
-# applications that let an (ab)user kill them off without giving PAM the
-# opportunity to end. [Problem report from Tani Hosokawa on bugtraq.]
-#
-# Revision 1.1.1.1  1998/07/12 05:17:16  morgan
-# Linux PAM sources pre-0.66
-#
-# Revision 1.7  1997/04/05 06:28:50  morgan
-# fakeroot
-#
-# Revision 1.6  1997/02/15 17:25:32  morgan
-# update for .56 . extra commands for new helper binary
-#
-# Revision 1.5  1997/01/04 20:39:08  morgan
-# conditional on having libpwdb
-#
-# Revision 1.4  1996/12/01 03:02:03  morgan
-# changed banner, removed linking libraries
-#
-# Revision 1.3  1996/11/10 20:14:42  morgan
-# cross platform support
-#
-# Revision 1.2  1996/09/05 06:36:49  morgan
-# options added and use of LD altered
-#
-# Revision 1.1  1996/08/29 13:23:29  morgan
-# Initial revision
-#
-#

@@ -5,10 +5,7 @@
  * Richard Stevens' UNIX Network Programming book.
  */
 
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdlib.h>
 #include <syslog.h>

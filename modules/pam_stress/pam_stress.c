@@ -5,14 +5,14 @@
  * created by Andrew Morgan <morgan@linux.kernel.org> 1996/3/12
  */
 
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdlib.h>
 #include <stdio.h>
+
+#define __USE_BSD
 #include <syslog.h>
+
 #include <stdarg.h>
 #include <string.h>
 #include <unistd.h>

@@ -4,23 +4,35 @@
 # for Linux-PAM. You should not modify this Makefile.
 #
 
+include ../../Make.Rules
+
 ########################################################################
 # some options... uncomment to take effect
 ########################################################################
 
+# Unless someone wants to work out how to make this work with the new
+# autoconf stuff, you should use a separate module for this type of thing
+# pam_cracklib perhaps..?
 # do you want cracklib?
-ifeq ($(HAVE_CRACKLIB),yes)
-USE_CRACKLIB=-D"USE_CRACKLIB"
-endif
+#ifeq ($(HAVE_CRACKLIB),yes)
+#USE_CRACKLIB=-D"USE_CRACKLIB"
+#endif
 
 # do you want to use lckpwdf?
+ifeq ($(WITH_LCKPWDF),yes)
 USE_LCKPWDF=-D"USE_LCKPWDF"
-
 # do you need to include the locking functions in the source?
-#NEED_LCKPWDF=-D"NEED_LCKPWDF"
+ifeq ($(HAVE_LCKPWDF),no)
+  NEED_LCKPWDF=-D"NEED_LCKPWDF"
+endif
+endif
 
-ifeq ($(shell ./need_nsl.sh),yes)
-LIBNSL = -lnsl
+ifeq ($(HAVE_LIBNSL),yes)
+  LIBNSL = -lnsl
+endif
+
+ifeq ($(HAVE_LIBCRYPT),yes)
+  LIBCRYPT=-lcrypt
 endif
 
 CHKPWD=unix_chkpwd
@@ -95,20 +107,20 @@ ifdef DYNAMIC
 $(LIBOBJD): $(LIBSRC)
 
 $(LIBSHARED):	$(LIBOBJD)
-	$(LD_D) -o $@ $(LIBOBJD) $(PLUS) $(CRACKLIB) $(LDLIBS) $(LIBNSL)
+	$(LD_D) -o $@ $(LIBOBJD) $(PLUS) $(CRACKLIB) $(LDLIBS) $(LIBNSL) $(LIBCRYPT)
 endif
 
 ifdef STATIC
 $(LIBOBJS): $(LIBSRC)
 
 $(LIBSTATIC): $(LIBOBJS)
-	$(LD) -r -o $@ $(LIBOBJS) $(PLUS) $(CRACKLIB) $(LDLIBS) $(LIBNSL)
+	$(LD) -r -o $@ $(LIBOBJS) $(PLUS) $(CRACKLIB) $(LDLIBS) $(LIBNSL) $(LIBCRYPT)
 endif
 
 $(CHKPWD): unix_chkpwd.o md5_good.o md5_broken.o \
 		md5_crypt_good.o md5_crypt_broken.o \
 		bigcrypt.o
-	$(CC) -o $(CHKPWD) $^ $(LDLIBS)
+	$(CC) -o $(CHKPWD) $^ $(LDLIBS) $(LIBCRYPT)
 
 unix_chkpwd.o: unix_chkpwd.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
@@ -133,22 +145,21 @@ install: all
 	mkdir -p $(FAKEROOT)$(SECUREDIR)
 ifdef DYNAMIC
 	install -m $(SHLIBMODE) $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)
-	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_auth.so
-	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_acct.so
-	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_passwd.so
-	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_session.so
+	for x in pam_unix_auth pam_unix_acct pam_unix_passwd pam_unix_session;\
+		do ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/$$x.so ; done
 endif
 	install $(CHKPWD) $(FAKEROOT)$(SUPLEMENTED)
 
 remove:
-	cd $(FAKEROOT)$(SECUREDIR) && rm -f $(LIBSHARED)
+	rm -f $(FAKEROOT)$(SECUREDIR)/$(LIBSHARED)
+	for x in pam_unix_auth pam_unix_acct pam_unix_passwd pam_unix_session;\
+		do rm -f $(FAKEROOT)$(SECUREDIR)/$$x.so ; done
 	rm -f $(FAKEROOT)$(SUPLEMENTED)/$(CHKPWD)
 
 clean:
 	rm -f $(LIBOBJD) $(LIBOBJS) $(CHKPWD) *.o *.so core
-
-extraclean: clean
 	rm -f *~ *.a *.out *.bak
+	rm -rf dynamic static
 
 .c.o:	
 	$(CC) -c $(CFLAGS) $<

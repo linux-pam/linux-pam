@@ -16,12 +16,7 @@
 #define YOUR_MAIL_STANDARD_FORMAT "You have %smail."
 #define NO_MAIL_STANDARD_FORMAT   "No mail." 
 
-#define _BSD_SOURCE
-
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <ctype.h>
 #include <pwd.h>

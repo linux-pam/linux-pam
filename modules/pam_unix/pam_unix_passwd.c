@@ -35,13 +35,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define _BSD_SOURCE
-#define __USE_SVID
-
-#ifdef linux
-#define _GNU_SOURCE
-#include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,6 +44,7 @@
 #include <malloc.h>
 #include <unistd.h>
 #include <errno.h>
+#include <sys/types.h>
 #include <pwd.h>
 #include <syslog.h>
 #include <shadow.h>
@@ -57,7 +52,6 @@
 #include <fcntl.h>
 #include <ctype.h>
 #include <sys/time.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <rpc/rpc.h>
 #include <rpcsvc/yp_prot.h>
