@@ -30,7 +30,7 @@ CC=gcc				; AC_SUBST(CC)
 CONF_CFLAGS=			; AC_SUBST(CONF_CFLAGS)
 MKDIR="mkdir -p"		; AC_SUBST(MKDIR)
 LOCALSRCDIR=`/bin/pwd`		; AC_SUBST(LOCALSRCDIR)
-OS=`uname|sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXWZ/abcdefghijklmonpqrstuvwxyz/'`
+OS=`uname|sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
 AC_SUBST(OS)
 
 dnl These are most likely platform specific - I think HPUX differs

@@ -579,7 +579,7 @@ CC=gcc				;
 CONF_CFLAGS=			; 
 MKDIR="mkdir -p"		; 
 LOCALSRCDIR=`/bin/pwd`		; 
-OS=`uname|sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXWZ/abcdefghijklmonpqrstuvwxyz/'`
+OS=`uname|sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
 
 
 DYNTYPE=so			; 
