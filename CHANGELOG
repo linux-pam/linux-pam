@@ -55,6 +55,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* documented the equivalent '[..]' expressions for "required"
+  etc. Request from Ross Patterson (Bug 529078 - agmorgan).
 * '[...]' parsing: document it and also fix it to support '\]' escape
   sequence. Feature request from Russell Kliese (Bug 517064 -
   agmorgan).
