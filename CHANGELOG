@@ -40,8 +40,12 @@ bug report - outstanding bugs are listed here:
 
 ====================================================================
 
-0.75: please submit patches for this section with actual code/doc
+0.76: please submit patches for this section with actual code/doc
       patches!
+
+*
+
+0.75: Sat Apr  7 23:10:50 PDT 2001
 
                           ** WARNING **
 
@@ -50,6 +54,7 @@ libpam. Prior versions were buggy - see bugfix for Bug 129775.
 
                           ** WARNING **
 
+* made 0.75 release (Bug 414665 - agmorgan)
 * pam_pwdb has been removed from the suggested pam.conf template. I've
   replaced it with pam_unix. (Bug 227565 - agmorgan)
 * pam_limits - Richard M. Yumul reported that "<domain> -" didn't
