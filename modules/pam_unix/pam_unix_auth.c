@@ -81,27 +81,33 @@
 #define _UNIX_AUTHTOK  "-UN*X-PASS"
 
 #define AUTH_RETURN						\
-{								\
-	if (on(UNIX_LIKE_AUTH, ctrl)) {         		\
+do {								\
+	if (on(UNIX_LIKE_AUTH, ctrl) && ret_data) {		\
 		D(("recording return code for next time [%d]",	\
 					retval));		\
+		*ret_data = retval;				\
 		pam_set_data(pamh, "unix_setcred_return",	\
-				(void *) retval, NULL);	        \
+				(void *) ret_data, NULL);	\
 	}							\
 	D(("done. [%s]", pam_strerror(pamh, retval)));		\
 	return retval;						\
-}
+} while (0)
 
 PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 				   ,int argc, const char **argv)
 {
 	unsigned int ctrl;
-	int retval;
+	int retval, *ret_data = NULL;
 	const char *name, *p;
 
 	D(("called."));
 
 	ctrl = _set_ctrl(pamh, flags, NULL, argc, argv);
+
+	/* Get a few bytes so we can pass our return value to
+	   pam_sm_setcred(). */
+	if (on(UNIX_LIKE_AUTH, ctrl))
+		ret_data = malloc(sizeof(int));
 
 	/* get the user'name' */
 
@@ -116,7 +122,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 		if (name == NULL || !isalnum(*name)) {
 			_log_err(LOG_ERR, pamh, "bad username [%s]", name);
 			retval = PAM_USER_UNKNOWN;
-			AUTH_RETURN
+			AUTH_RETURN;
 		}
 		if (retval == PAM_SUCCESS && on(UNIX_DEBUG, ctrl))
 			D(("username [%s] obtained", name));
@@ -129,7 +135,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 			 */
 			retval = PAM_INCOMPLETE;
 		}
-		AUTH_RETURN
+		AUTH_RETURN;
 	}
 
 	/* if this user does not have a password... */
@@ -138,7 +144,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 		D(("user '%s' has blank passwd", name));
 		name = NULL;
 		retval = PAM_SUCCESS;
-		AUTH_RETURN
+		AUTH_RETURN;
 	}
 	/* get this user's authentication token */
 
@@ -157,7 +163,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 			retval = PAM_INCOMPLETE;
 		}
 		name = NULL;
-		AUTH_RETURN
+		AUTH_RETURN;
 	}
 	D(("user=%s, password=[%s]", name, p));
 
@@ -165,7 +171,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 	retval = _unix_verify_password(pamh, name, p, ctrl);
 	name = p = NULL;
 
-	AUTH_RETURN
+	AUTH_RETURN;
 }
 
 
@@ -181,29 +187,24 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 PAM_EXTERN int pam_sm_setcred(pam_handle_t * pamh, int flags
 			      ,int argc, const char **argv)
 {
-	unsigned int ctrl;
 	int retval;
+	int *pretval = NULL;
 
 	D(("called."));
 
-	/* FIXME: it shouldn't be necessary to parse the arguments again. The
-	   only argument we need is UNIX_LIKE_AUTH: if it was set,
-	   pam_get_data will succeed. If it wasn't, it will fail, and we
-	   return PAM_SUCCESS.  -SRL */
-	ctrl = _set_ctrl(pamh, flags, NULL, argc, argv);
 	retval = PAM_SUCCESS;
 
-	if (on(UNIX_LIKE_AUTH, ctrl)) {
-		int *pretval = NULL;
-
-		D(("recovering return code from auth call"));
-		pam_get_data(pamh, "unix_setcred_return", (const void **) pretval);
-		if(pretval) {
-			retval = *pretval;
-			free(pretval);
-			D(("recovered data indicates that old retval was %d", retval));
-		}
+	D(("recovering return code from auth call"));
+	/* We will only find something here if UNIX_LIKE_AUTH is set -- 
+	   don't worry about an explicit check of argv. */
+	pam_get_data(pamh, "unix_setcred_return", (const void **) &pretval);
+	pam_set_data(pamh, "unix_setcred_return", NULL, NULL);
+	if(pretval) {
+		retval = *pretval;
+		free(pretval);
+		D(("recovered data indicates that old retval was %d", retval));
 	}
+
 	return retval;
 }
 
