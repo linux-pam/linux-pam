@@ -1,0 +1,36 @@
+.\" Copyright 2000 Red Hat, Inc.
+.TH pam_localuser 8 2000/7/21 "Red Hat" "System Administrator's Manual"
+
+.SH NAME
+pam_localuser \- require users to be listed in /etc/passwd
+
+.SH SYNOPSIS
+.B account sufficient /lib/security/pam_localuser.so \fIargs\fP
+.br
+.B account required /lib/security/pam_wheel.so group=devel
+
+.SH DESCRIPTION
+pam_localuser.so exists to help implement site-wide login policies, where
+they typically include a subset of the network's users and a few accounts
+that are local to a particular workstation.  Using pam_localuser.so and
+pam_wheel.so or pam_listfile.so is an effective way to restrict access to
+either local users and/or a subset of the network's users.
+
+This could also be implemented using pam_listfile.so and a very short awk
+script invoked by cron, but it's common enough to have been separated out.
+
+.SH ARGUMENTS
+.IP debug
+turns on debugging
+.IP file=\fBFILE\fP
+uses a file other than \fB/etc/passwd\fP.
+
+.SH FILES
+/etc/passwd
+
+.SH BUGS
+Let's hope not, but if you find any, please report them via the "Bug Track"
+link at http://bugzilla.redhat.com/bugzilla/
+
+.SH AUTHOR
+Nalin Dahyabhai <nalin@redhat.com>

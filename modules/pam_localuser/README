@@ -1,0 +1,17 @@
+pam_localuser:
+	Succeeds iff the PAM_USER is listed in /etc/passwd.  This seems to be a
+	common policy need (allowing only a subset of network-wide users, and
+	any locally-defined users, to access services).  Simpler than using
+	awk to generate a file for use with pam_listfile (-F: '{print $1}'),
+	I guess.
+
+RECOGNIZED ARGUMENTS:
+	debug		write debugging messages to syslog
+	passwd=FILE	scan FILE instead of /etc/passwd
+
+MODULE SERVICES PROVIDED:
+	auth,account	scan the FILE (/etc/passwd by default) and return
+			a success code if an entry is found for the user
+
+AUTHOR:
+	Nalin Dahyabhai <nalin@redhat.com>
