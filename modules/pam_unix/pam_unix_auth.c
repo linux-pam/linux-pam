@@ -88,9 +88,8 @@
 	if (on(UNIX_LIKE_AUTH, ctrl) && ret_data) {		\
 		D(("recording return code for next time [%d]",	\
 					retval));		\
-		*ret_data = retval;				\
 		pam_set_data(pamh, "unix_setcred_return",	\
-				(void *) ret_data, NULL);	\
+				(void *) retval, NULL);	        \
 	}							\
 	D(("done. [%s]", pam_strerror(pamh, retval)));		\
 	return retval;						\
@@ -205,8 +204,7 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t * pamh, int flags
 		int *pretval = NULL;
 
 		D(("recovering return code from auth call"));
-		pam_get_data(pamh, "unix_setcred_return", (const void **) &pretval);
-		pam_set_data(pamh, "unix_setcred_return", NULL, NULL);
+		pam_get_data(pamh, "unix_setcred_return", (const void **) pretval);
 		if(pretval) {
 			retval = *pretval;
 			free(pretval);

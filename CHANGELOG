@@ -35,6 +35,7 @@ Where you should replace XXXXX with a bug-id.
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* "likeauth" fix for pam_unix and pam_pwdb which (Bug 113596 - agmorgan)
 * fix for pam_unix (support.c) to avoid segfault with NULL password
   (Bug 113238 - vorlon)
 * fix to pam_unix_passwd: try repeatedly to get a lock on the password
