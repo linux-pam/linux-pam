@@ -49,6 +49,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_modules.sgml: sourceforge has changed its CVS viewing software
+  (Bug 460491 - agmorgan)
 * pam_unix_passwd: got rid of an annoying warning (Bug 461089 - agmorgan)
 * pam_unix: removed superfluous use of static variables in md5 and bigcrypt
   routines, bringing us a step closer to thread-safeness.  Eliminated

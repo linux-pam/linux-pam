@@ -49,7 +49,7 @@ DAMAGE.
 
 <title>The Linux-PAM Module Writers' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.75 2001/02/21
+<date>DRAFT v0.76 2001/09/12
 <abstract>
 This manual documents what a programmer needs to know in order to
 write a module that conforms to the <bf/Linux-PAM/ standard. It also
@@ -1302,12 +1302,12 @@ this document. For now, we point the reader to these two locations in
 the public CVS repository:
 <itemize>
 <item> A module that always succeeds: <tt><htmlurl
-url="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/Linux-PAM/modules/pam_permit/?cvsroot=pam"
-name="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/Linux-PAM/modules/pam_permit/?cvsroot=pam"
+url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/pam/Linux-PAM/modules/pam_permit/"
+name="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/pam/Linux-PAM/modules/pam_permit/"
 ></tt>
 <item> A module that always fails: <tt><htmlurl
-url="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/Linux-PAM/modules/pam_deny/?cvsroot=pam"
-name="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/Linux-PAM/modules/pam_deny/?cvsroot=pam"
+url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/pam/Linux-PAM/modules/pam_deny/"
+name="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/pam/Linux-PAM/modules/pam_deny/"
 ></tt>
 </itemize>
 
