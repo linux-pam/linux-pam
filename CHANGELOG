@@ -81,6 +81,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * libpam: Add more checks for broken PAM configuration files to
   avoid seg.faults (kukuk)
 * pam_shells: correct README
+* libpam: Fix debug code (kukuk)
 
 0.78: Do Nov 18 14:48:36 CET 2004
 

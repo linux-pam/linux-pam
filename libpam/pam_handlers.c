@@ -305,7 +305,7 @@ static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
 			    "_pam_load_conf_file: error reading %s: %s",
 			    config_name, pam_strerror(pamh, retval));
     } else {
-	D(("unable to open %s", filename));
+	D(("unable to open %s", config_name));
 	_pam_system_log(LOG_ERR,
 			"_pam_load_conf_file: unable to open %s",
 			config_name);
