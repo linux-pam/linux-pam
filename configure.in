@@ -269,7 +269,7 @@ dnl being found.
 dnl Look for cracklib dictionary
 AC_MSG_CHECKING(path to cracklib dictionary)
 DICT_DIR_CANDIDATES="/usr/lib /usr/share/dict /usr/share/lib \
-  /usr/local/lib /usr/local/share/lib"
+  /usr/local/lib /usr/local/share/lib /usr/share/cracklib"
 DICT_FILE_CANDIDATES="pw_dict cracklib_dict"
 CRACKLIB_DICTPATH=""
 for d in $DICT_DIR_CANDIDATES ; do

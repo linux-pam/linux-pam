@@ -86,6 +86,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * pam_xauth: preserve DISPLAY variable (Novell #66885 - kukuk)
 * libpam: Add prelude ids (http://www.prelude-ids.org) support, 
   as experimental. (toady)
+* configure: Add the directory where new versions of cracklib is 
+  installed (from Jim Gifford - toady) 
 
 0.78: Do Nov 18 14:48:36 CET 2004
 

@@ -5971,7 +5971,7 @@ done
 echo "$as_me:$LINENO: checking path to cracklib dictionary" >&5
 echo $ECHO_N "checking path to cracklib dictionary... $ECHO_C" >&6
 DICT_DIR_CANDIDATES="/usr/lib /usr/share/dict /usr/share/lib \
-  /usr/local/lib /usr/local/share/lib"
+  /usr/local/lib /usr/local/share/lib /usr/share/cracklib"
 DICT_FILE_CANDIDATES="pw_dict cracklib_dict"
 CRACKLIB_DICTPATH=""
 for d in $DICT_DIR_CANDIDATES ; do
