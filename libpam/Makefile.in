@@ -88,12 +88,7 @@ static/%.o : %.c
 
 $(LIBPAM): $(DLIBOBJECTS)
 ifeq ($(DYNAMIC_LIBPAM),yes)
-    ifeq ($(USESONAME),yes)
-	$(LD_L) $(SOSWITCH) $(LIBPAMNAME) -o $@ $(DLIBOBJECTS) \
-		$(MODULES) $(LINKLIBS)
-    else
-	$(LD_L) -o $@ $(DLIBOBJECTS) $(MODULES)
-    endif
+    $(LD_L) $(SONAMEFLAGS) -o $@ $(DLIBOBJECTS) $(MODULES) $(LINKLIBS)
     ifeq ($(NEEDSONAME),yes)
 	rm -f $(LIBPAMFULL)
 	ln -s $(LIBPAM) $(LIBPAMFULL)
