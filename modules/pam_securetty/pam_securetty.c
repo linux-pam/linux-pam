@@ -97,11 +97,6 @@ static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
 	return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE:PAM_SERVICE_ERR);
     }
 
-    /* The PAM_TTY item may be prefixed with "/dev/" - skip that */
-    if (strncmp(TTY_PREFIX, uttyname, sizeof(TTY_PREFIX)-1) == 0) {
-	uttyname += sizeof(TTY_PREFIX)-1;
-    }
-
     user_pwd = getpwnam(username);
     if (user_pwd == NULL) {
 	return PAM_IGNORE;
@@ -117,6 +112,11 @@ static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
             _pam_log(LOG_WARNING, "cannot determine user's tty");
 	}
 	return PAM_SERVICE_ERR;
+    }
+
+    /* The PAM_TTY item may be prefixed with "/dev/" - skip that */
+    if (strncmp(TTY_PREFIX, uttyname, sizeof(TTY_PREFIX)-1) == 0) {
+	uttyname += sizeof(TTY_PREFIX)-1;
     }
 
     if (stat(SECURETTY_FILE, &ttyfileinfo)) {
@@ -146,10 +146,10 @@ static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
     } else {
 	ptname[0] = '\0';
     }
-    
+
     retval = 1;
 
-    while ((fgets(ttyfileline, sizeof(ttyfileline)-1, ttyfile) != NULL) 
+    while ((fgets(ttyfileline, sizeof(ttyfileline)-1, ttyfile) != NULL)
 	   && retval) {
 	if (ttyfileline[strlen(ttyfileline) - 1] == '\n')
 	    ttyfileline[strlen(ttyfileline) - 1] = '\0';
