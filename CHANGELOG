@@ -22,6 +22,16 @@ TODO:
   - auth and acct support in pam_cracklib, "yes, I know the password
     you just typed was valid, I just don't think it was very strong..."
 
+====================================================================
+Note, as of release 0.73, all checkins should be accompanied with a
+Bug ID. The bug IDs relate to sourceforge IDs.. You can query the
+related bug description with the following URL:
+
+ http://sourceforge.net/bugs/?func=detailbug&bug_id=XXXXX&group_id=6663
+
+Where you should replace XXXXX with a bug-id.
+====================================================================
+
 0.73: please submit patches for this section with actual code/doc
       patches!
 
@@ -30,6 +40,7 @@ TODO:
 * fix to pam_shells: logged information was not formatted correctly
   (extra comma) (Bug 111491 - fix vorlon)
 * fix for C++ application support (Bug 111645 - fix agmorgan)
+* fix for typo in pam_client.h (Bug 111648 - fix agmorgan)
 
 Planning to include:
 
