@@ -50,6 +50,8 @@ libpam. Prior versions were buggy - see bugfix for Bug 129775.
 
                           ** WARNING **
 
+* Nicolay Pelov suggested a simple fix for freebsd support (Bug 407282
+  - agmorgan)
 * Michel D'HOOGE submitted documentation fixes (Bug 408961 - agmorgan)
 * fix for module linking directions (Bug 133545 - agmorgan)
 * fix for glibc-2.2.2 compilation of pam_issue (Bug 133542 - agmorgan)

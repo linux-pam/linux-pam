@@ -35,7 +35,6 @@ AC_SUBST(OS)
 
 dnl These are most likely platform specific - I think HPUX differs
 DYNTYPE=so			; AC_SUBST(DYNTYPE)
-LIBDL=-ldl			; AC_SUBST(LIBDL)
 USESONAME=yes			; AC_SUBST(USESONAME)
 NEEDSONAME=yes			; AC_SUBST(NEEDSONAME)
 SHLIBMODE=755			; AC_SUBST(SHLIBMODE)
@@ -160,6 +159,10 @@ AC_SUBST(PAM_NEEDS_LIBC)
 dnl Checks for the existence of lckpwdf in libc
 AC_CHECK_LIB(c, lckpwdf, HAVE_LCKPWDF=yes, HAVE_LCKPWDF=no)
 AC_SUBST(HAVE_LCKPWDF)
+
+dnl Checks for the existence of libdl - on BSD its part of libc
+AC_CHECK_LIB(dl, dlopen, LIBDL=-ldl) 
+AC_SUBST(LIBDL)
 
 dnl
 dnl At least on Solaris, the existing libcrack must be dynamic.
