@@ -128,7 +128,11 @@ ifdef MEMORY_DEBUG
 endif
 ifeq ($(DYNAMIC_LIBPAM),yes)
 	$(INSTALL) -m $(SHLIBMODE) $(LIBPAM) $(FAKEROOT)$(libdir)/$(LIBPAMFULL)
+ifndef FAKEROOT
 	$(LDCONFIG)
+else
+	$(LDCONFIG) -n $(FAKEROOT)$(libdir)
+endif
   ifneq ($(DYNTYPE),"sl")
 	( cd $(FAKEROOT)$(libdir) ; rm -f $(LIBPAM) ; \
 	  ln -sf $(LIBPAMNAME) $(LIBPAM) )
@@ -146,7 +150,9 @@ remove:
 	rm -f $(FAKEROOT)$(INCLUDED)/pam_malloc.h
 	rm -f $(FAKEROOT)$(libdir)/$(LIBPAM).*
 	rm -f $(FAKEROOT)$(libdir)/$(LIBPAM)
+ifndef FAKEROOT
 	$(LDCONFIG)
+endif
 	rm -f $(FAKEROOT)$(libdir)/$(LIBPAMSTATIC)
 
 clean:

@@ -84,7 +84,11 @@ install: all
 ifeq ($(DYNAMIC_LIBPAM),yes)
 	$(MKDIR) $(FAKEROOT)$(libdir)
 	$(INSTALL) -m $(SHLIBMODE) $(LIBNAMED) $(FAKEROOT)$(libdir)/$(LIBNAMEDFULL)
+ifndef FAKEROOT
 	$(LDCONFIG)
+else
+	$(LDCONFIG) -n $(FAKEROOT)$(libdir)
+endif
   ifneq ($(DYNTYPE),"sl")
 	( cd $(FAKEROOT)$(libdir) ; rm -f $(LIBNAMED) ; ln -s $(LIBNAMEDNAME) $(LIBNAMED) )
   endif
