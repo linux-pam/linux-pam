@@ -5,18 +5,11 @@
  *
  */
 
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#else
-# define _BSD_SOURCE
-#endif
+#include "pam_private.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-
-#include "pam_private.h"
 
 #ifdef __hpux
 # include <stdio.h>

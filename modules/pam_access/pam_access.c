@@ -7,10 +7,7 @@
  *
  */
 
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,7 +56,11 @@ static void _log_err(const char *format, ... )
     closelog();
 }
 
-#define PAM_ACCESS_CONFIG CONFILE
+#ifdef DEFAULT_CONF_FILE
+# define PAM_ACCESS_CONFIG DEFAULT_CONF_FILE
+#else
+# define PAM_ACCESS_CONFIG "/etc/security/access.conf"
+#endif
 
 int strcasecmp(const char *s1, const char *s2);
 

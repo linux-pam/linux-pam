@@ -24,7 +24,7 @@ prep:
 clean:
 	touch Make.Rules
 	for i in $(THINGSTOMAKE) ; do $(MAKE) -C $$i clean ; done
-	rm -f Make.Rules security pam_aconf.h
+	rm -f Make.Rules security _pam_aconf.h
 	rm -rf include *~ #*# *.orig *.rej
 
 distclean: clean
@@ -34,8 +34,8 @@ distclean: clean
 maintainer-clean: distclean
 	@echo files should be ok for packaging now.
 
-# NB pam_aconf.h.in changes will remake this too
-Make.Rules: configure Make.Rules.in pam_aconf.h.in
+# NB _pam_aconf.h.in changes will remake this too
+Make.Rules: configure Make.Rules.in _pam_aconf.h.in
 	@echo XXX - not sure how to preserve past configure options..
 	@echo XXX - so not attempting to. Feel free to run ./configure
 	@echo XXX - by hand, with the options you want.
@@ -54,7 +54,7 @@ $(THINGSTOMAKE): Make.Rules prep
 
 install:
 	$(MKDIR) $(FAKEROOT)$(INCLUDED)
-	$(INSTALL) -m 444 security/pam_aconf.h $(FAKEROOT)$(INCLUDED)
+	$(INSTALL) -m 444 security/_pam_aconf.h $(FAKEROOT)$(INCLUDED)
 	for x in modules ; do make -C $$x install ; done
 
 ## =================

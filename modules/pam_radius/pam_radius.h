@@ -1,9 +1,11 @@
+/*
+ * $Id$
+ */
 
 #ifndef PAM_RADIUS_H
 #define PAM_RADIUS_H
 
-#define _GNU_SOURCE
-#include <features.h>
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
 

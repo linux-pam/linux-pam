@@ -145,22 +145,21 @@ install: all
 	mkdir -p $(FAKEROOT)$(SECUREDIR)
 ifdef DYNAMIC
 	install -m $(SHLIBMODE) $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)
-	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_auth.so
-	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_acct.so
-	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_passwd.so
-	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_session.so
+	for x in pam_unix_auth pam_unix_acct pam_unix_passwd pam_unix_session;\
+		do ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/$$x.so ; done
 endif
 	install $(CHKPWD) $(FAKEROOT)$(SUPLEMENTED)
 
 remove:
-	cd $(FAKEROOT)$(SECUREDIR) && rm -f $(LIBSHARED)
+	rm -f $(FAKEROOT)$(SECUREDIR)/$(LIBSHARED)
+	for x in pam_unix_auth pam_unix_acct pam_unix_passwd pam_unix_session;\
+		do rm -f $(FAKEROOT)$(SECUREDIR)/$$x.so ; done
 	rm -f $(FAKEROOT)$(SUPLEMENTED)/$(CHKPWD)
 
 clean:
 	rm -f $(LIBOBJD) $(LIBOBJS) $(CHKPWD) *.o *.so core
-
-extraclean: clean
 	rm -f *~ *.a *.out *.bak
+	rm -rf dynamic static
 
 .c.o:	
 	$(CC) -c $(CFLAGS) $<

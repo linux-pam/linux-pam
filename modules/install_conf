@@ -1,10 +1,13 @@
 #!/bin/bash
 
-CONFILE=$FAKEROOT"$CONFILE"
+FAKEROOT=$1
+CONFD=$1$2
+CONFILE=$1$3
+MODULE=$4
+CONF=$5
+
 IGNORE_AGE=./.ignore_age
 QUIET_INSTALL=../../.quiet_install
-CONF=./group.conf
-MODULE=pam_group
 
 echo
 
@@ -31,7 +34,7 @@ else
 fi
 
 if [ "$yes" = "y" ]; then
-    mkdir -p $FAKEROOT$CONFD
+    mkdir -p $CONFD
     echo "  copying $CONF to $CONFILE"
     cp $CONF $CONFILE
 else

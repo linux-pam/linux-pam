@@ -5,26 +5,9 @@
  * provided with Linux-PAM). This filter simply transposes upper and
  * lower case letters, it is intended for demonstration purposes and
  * it serves no purpose other than to annoy the user...
- *
- * $Log$
- * Revision 1.1.1.1  2000/06/20 22:11:37  agmorgan
- * Imported 0.72 Linux-PAM sources
- *
- * Revision 1.2  1999/07/08 05:01:48  morgan
- * glibc fixes (Thorsten Kukuk, Adam J. Richter)
- *
- * Revision 1.1.1.1  1998/07/12 05:17:16  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.1  1996/06/02 08:17:02  morgan
- * Initial revision
- *
  */
 
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
 #include <syslog.h>

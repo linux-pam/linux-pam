@@ -15,10 +15,8 @@
 #define DEFAULT_ETC_ENVFILE     "/etc/environment"
 #define DEFAULT_READ_ENVFILE    1
 
-#define _GNU_SOURCE
-#define _BSD_SOURCE
+#include <security/_pam_aconf.h>
 
-#include <features.h>
 #include <ctype.h>
 #include <errno.h>
 #include <pwd.h>

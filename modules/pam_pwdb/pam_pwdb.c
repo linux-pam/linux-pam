@@ -20,14 +20,7 @@ static const char rcsid[] =
 
 /* #define DEBUG */
 
-#define _SVID_SOURCE
-#define _BSD_SOURCE
-#define _BSD_COMPAT
-
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <sys/types.h>
 #include <stdarg.h>

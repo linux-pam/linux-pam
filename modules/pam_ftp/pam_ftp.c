@@ -14,10 +14,8 @@
 /* the following is a password that "can't be correct" */
 #define BLOCK_PASSWORD "\177BAD PASSWPRD\177"
 
-#define _GNU_SOURCE
-#define _BSD_SOURCE
+#include <security/_pam_aconf.h>
 
-#include <features.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

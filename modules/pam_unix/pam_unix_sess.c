@@ -1,4 +1,6 @@
 /*
+ * $Id$
+ *
  * Copyright Alexander O. Yuriev, 1996.  All rights reserved.
  * Copyright Jan Rêkorajski, 1999.  All rights reserved.
  *
@@ -34,10 +36,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef linux
-#define _GNU_SOURCE
-#include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
 #include <stdlib.h>

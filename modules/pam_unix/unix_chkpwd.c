@@ -13,11 +13,7 @@
  *
  */
 
-#define _BSD_SOURCE
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdarg.h>
 #include <stdio.h>

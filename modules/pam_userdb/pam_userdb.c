@@ -6,10 +6,8 @@
  * See the end of the file for Copyright Information
  */
 
-#define _GNU_SOURCE
-#define _BSD_SOURCE
+#include <security/_pam_aconf.h>
 
-#include <features.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
@@ -22,12 +20,16 @@
 
 #include "pam_userdb.h"
 
-#ifdef USE_NDBM_H
-# include <ndbm.h>
-#else /* USE_NDBM_H */
+#ifdef HAVE_LIBDB
 # define DB_DBM_HSEARCH    1 /* use the dbm interface */
 # include <db.h>
-#endif /* USE_NDBM_H */
+#else
+# ifdef HAVE_LIBNDBM
+#  include <ndbm.h>
+# else
+#  error "failed to find a libdb or equivalent"
+# endif
+#endif
 
 /*
  * here, we make a definition for the externally accessible function

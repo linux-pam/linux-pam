@@ -35,13 +35,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define _BSD_SOURCE
-#define __USE_SVID
-
-#ifdef linux
-#define _GNU_SOURCE
-#include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
 #include <stdlib.h>

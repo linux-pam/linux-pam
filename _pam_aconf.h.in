@@ -19,6 +19,11 @@
 /* GNU systems as a class, all have the feature.h file */
 #undef HAVE_FEATURES_H
 #ifdef HAVE_FEATURES_H
+# define _SVID_SOURCE
+# define _BSD_SOURCE
+# define __USE_BSD
+# define __USE_SVID
+# define __USE_MISC
 # define _GNU_SOURCE
 # include <features.h>
 #endif /* HAVE_FEATURES_H */
@@ -30,13 +35,13 @@
 #undef HAVE_LIBCRYPT
 #undef HAVE_CRYPT_H
 
-/* we have libndbm - instead of libdb */
-#undef HAVE_LIBNDBM
-
-#ifndef HAVE_LIBNDBM
 /* we have libdb */
 #undef HAVE_LIBDB
-#endif /* HAVE_LIBNDBM */
+
+#ifndef HAVE_LIBDB
+/* we have libndbm - instead of libdb */
+#undef HAVE_LIBNDBM
+#endif /* HAVE_LIBDB */
 
 /* have libfl (Flex) */
 #undef HAVE_LIBFL

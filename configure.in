@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT(conf/pam_conv1/pam_conv.y)
 
 dnl The configuration header file
-AC_CONFIG_HEADER(pam_aconf.h)
+AC_CONFIG_HEADER(_pam_aconf.h)
 
 dnl
 dnl Release specific
@@ -70,6 +70,16 @@ AC_ARG_ENABLE(securedir,
 [  --enable-securedir=<path to location of PAMs> [default \$libdir/security]],
 	SECUREDIR=$enableval, SECUREDIR=$libdir/security)
 AC_SUBST(SECUREDIR)
+
+AC_ARG_ENABLE(sconfigdir,
+[  --enable-sconfigdir=<path to module conf files> [default \$sysconfdir/security]],
+	SCONFIGDIR=$enableval, SCONFIGDIR=$sysconfdir/security)
+AC_SUBST(SCONFIGDIR)
+
+AC_ARG_ENABLE(suplementedir,
+[  --enable-suplementedir=<path to module helper binaries> [default \$sbindir]],
+	SUPLEMENTED=$enableval, SUPLEMENTED=$sbindir)
+AC_SUBST(SUPLEMENTED)
 
 AC_ARG_ENABLE(includedir,
 [  --enable-includedir=<path to include location> - where to put <security>],

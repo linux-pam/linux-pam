@@ -10,10 +10,7 @@
  * present (login) service.
  */
 
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <fcntl.h>
 #include <time.h>

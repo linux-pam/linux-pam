@@ -8,15 +8,14 @@
 include ../../Make.Rules
 
 TITLE=pam_group
+LOCAL_CONFILE=./group.conf
+INSTALLED_CONFILE=$(SCONFIGD)/group.conf
 
-CONFD=$(CONFIGED)/security
-CONFILE=$(CONFD)/group.conf
-
-DEFS=-DCONFILE=\"$(CONFILE)\"
+DEFS=-DDEFAULT_CONF_FILE=\"$(CONFILE)\"
 CFLAGS += $(DEFS)
 
-MODULE_SIMPLE_INSTALL=$(MKDIR) $(FAKEROOT)$(SCONFIGED);bash -f ./install_conf
-MODULE_SIMPLE_REMOVE=rm -f $(FAKEROOT)$(CONFILE)
+MODULE_SIMPLE_INSTALL=bash -f ../install_conf "$(FAKEROOT)" "$(SCONFIGD)" "$(INSTALLED_CONFILE)" "$(TITLE)" "$(LOCAL_CONFILE)"
+MODULE_SIMPLE_REMOVE=rm -f $(FAKEROOT)$(INSTALLED_CONFILE)
 MODULE_SIMPLE_CLEAN=rm -f ./.ignore_age
 
 include ../Simple.Rules
