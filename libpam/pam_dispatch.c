@@ -184,8 +184,12 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 
 	    if ( impression == _PAM_UNDEF
 		 || (impression == _PAM_POSITIVE && status == PAM_SUCCESS) ) {
-		impression = _PAM_POSITIVE;
-		status = retval;
+                /* in case of using cached chain
+                   we could get here with PAM_IGNORE - don't return it */
+                if ( retval != PAM_IGNORE || cached_retval == retval ) {
+		    impression = _PAM_POSITIVE;
+                    status = retval;
+                }
 	    }
 	    if ( impression == _PAM_POSITIVE && action == _PAM_ACTION_DONE ) {
 		goto decision_made;
@@ -227,8 +231,10 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 		    if (impression == _PAM_UNDEF
 			|| (impression == _PAM_POSITIVE
 			    && status == PAM_SUCCESS) ) {
-			impression = _PAM_POSITIVE;
-			status = retval;
+                	if ( retval != PAM_IGNORE || cached_retval == retval ) {
+			    impression = _PAM_POSITIVE;
+                    	    status = retval;
+                	}
 		    }
 		}
 		

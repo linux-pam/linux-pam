@@ -71,6 +71,10 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * pam_limits: support for new Linux kernel 2.6 limits (from toby cabot
   - t8m)
 * pam_tally: major rewrite of the module (t8m)
+* libpam: don't return PAM_IGNORE for OK or JUMP actions if using
+  cached chain (Bug 629251 - t8m)
+* pam_nologin: don't overwrite return value with return from
+  pam_get_item (t8m)
 
 0.78: Do Nov 18 14:48:36 CET 2004
 

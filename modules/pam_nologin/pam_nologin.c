@@ -125,9 +125,8 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 		 * of /etc/nologin
 		 */
 
-		retval = pam_get_item(pamh, PAM_CONV, 
-				(const void **)&conversation);
-		if ((retval == PAM_SUCCESS) && (conversation)) {
+		if (pam_get_item(pamh, PAM_CONV, (const void **)&conversation)
+		     == PAM_SUCCESS && conversation && conversation->conv) {
 			(void) conversation->conv(1, 
 				(const struct pam_message **)&pmessage,
 				&resp, conversation->appdata_ptr);
