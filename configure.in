@@ -87,6 +87,14 @@ AC_ARG_ENABLE(securedir,
 	SECUREDIR=$enableval, SECUREDIR=$libdir/security)
 AC_SUBST(SECUREDIR)
 
+AC_ARG_ENABLE(isadir,
+[  --enable-isadir=<path to arch-specific module files> [default ../../\`basename \$libdir\`/security]],
+ISA=$enableval,
+ISA=../../`basename $libdir`/security)
+unset mylibdirbase
+AC_DEFINE_UNQUOTED(_PAM_ISA,"$ISA",[Define to the path, relative to SECUREDIR, where PAMs specific to this architecture can be found.])
+AC_MSG_RESULT([Defining \$ISA to \"$ISA\".])
+
 AC_ARG_ENABLE(sconfigdir,
 [  --enable-sconfigdir=<path to module conf files> [default \$sysconfdir/security]],
 	SCONFIGDIR=$enableval, SCONFIGDIR=$sysconfdir/security)
@@ -212,9 +220,15 @@ AC_SUBST(HAVE_LIBFL)
 AC_CHECK_LIB(nsl, yp_maplist, HAVE_LIBNSL=yes ; AC_DEFINE(HAVE_LIBNSL),
 	HAVE_LIBNSL=no)
 AC_SUBST(HAVE_LIBNSL)
+
+if test $HAVE_LIBNSL = yes ; then
+	pwdblibs="$pwdblibs -lnsl"
+fi
 AC_CHECK_LIB(pwdb, pwdb_db_name, HAVE_LIBPWDB=yes ; AC_DEFINE(HAVE_LIBPWDB),
-	HAVE_LIBPWDB=no)
+	HAVE_LIBPWDB=no,$pwdblibs)
 AC_SUBST(HAVE_LIBPWDB)
+unset pwdblibs
+
 AC_CHECK_LIB(fl, yywrap, HAVE_LIBFLEX=yes ; AC_DEFINE(HAVE_LIBFLEX),
 	HAVE_LIBFLEX=no)
 AC_SUBST(HAVE_LIBFLEX)

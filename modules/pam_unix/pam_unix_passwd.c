@@ -444,7 +444,7 @@ static int _update_passwd(pam_handle_t *pamh,
     }
 }
 
-static int _update_shadow(const char *forwho, char *towhat)
+static int _update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat)
 {
     struct spwd *spwdent = NULL, *stmpent = NULL;
     struct stat st;
@@ -516,6 +516,7 @@ static int _update_shadow(const char *forwho, char *towhat)
 
     if (!err) {
 	rename(SH_TMPFILE, "/etc/shadow");
+	_log_err(LOG_NOTICE, pamh, "password changed for %s", forwho);
 	return PAM_SUCCESS;
     } else {
 	unlink(SH_TMPFILE);
@@ -535,7 +536,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 	if (pwd == NULL)
 		return PAM_AUTHTOK_ERR;
 
-	if (on(UNIX_NIS, ctrl)) {
+	if (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, forwho, 0, 1)) {
 		struct timeval timeout;
 		struct yppasswd yppwd;
 		CLIENT *clnt;
@@ -619,13 +620,18 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 	}
 #endif /* def USE_LCKPWDF */
 
-	if (on(UNIX_SHADOW, ctrl) || (strcmp(pwd->pw_passwd, "x") == 0)) {
-		retval = _update_shadow(forwho, towhat);
+	if (_unix_comesfromsource (pamh, forwho, 1, 0))
+	  {
+	    if (on(UNIX_SHADOW, ctrl) || _unix_shadowed (pwd))
+	      {
+		retval = _update_shadow (pamh, forwho, towhat);
 		if (retval == PAM_SUCCESS)
-			retval = _update_passwd(pamh, forwho, "x");
-	} else {
-		retval = _update_passwd(pamh, forwho, towhat);
-	}
+		  if (!_unix_shadowed (pwd))
+		    retval = _update_passwd (pamh, forwho, "x");
+	      }
+	    else
+	      retval = _update_passwd (pamh, forwho, towhat);
+	  }
 
 #ifdef USE_LCKPWDF
 	ulckpwdf();
@@ -646,7 +652,7 @@ static int _unix_verify_shadow(const char *user, unsigned int ctrl)
 	if (pwd == NULL)
 		return PAM_AUTHINFO_UNAVAIL;	/* We don't need to do the rest... */
 
-	if (strcmp(pwd->pw_passwd, "x") == 0) {
+	if (_unix_shadowed(pwd)) {
 		/* ...and shadow password file entry for this user, if shadowing
 		   is enabled */
 		setspent();
@@ -738,7 +744,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 #else
 		if (strlen(pass_new) < 6)
 			remark = "You must choose a longer password";
-		D(("lenth check [%s]", remark));
+		D(("length check [%s]", remark));
 #endif
 		if (on(UNIX_REMEMBER_PASSWD, ctrl))
 			if ((retval = check_old_password(user, pass_new)) != PAM_SUCCESS)
@@ -794,6 +800,30 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 	}
 
 	D(("Got username of %s", user));
+
+	/*
+	 * Before we do anything else, check to make sure that the user's
+	 * info is in one of the databases we can modify from this module,
+	 * which currently is 'files' and 'nis'.  We have to do this because
+	 * getpwnam() doesn't tell you *where* the information it gives you
+	 * came from, nor should it.  That's our job.
+	 */
+	if (_unix_comesfromsource(pamh, user, 1, 1) == 0) {
+		_log_err(LOG_DEBUG, pamh,
+			 "user \"%s\" does not exist in /etc/passwd or NIS",
+			 user);
+		return PAM_USER_UNKNOWN;
+	} else {
+		struct passwd *pwd;
+		_unix_getpwnam(pamh, user, 1, 1, &pwd);
+		if (!_unix_shadowed(pwd) &&
+		    (strchr(pwd->pw_passwd, '*') != NULL)) {
+			_log_err(LOG_DEBUG, pamh,
+				"user \"%s\" does not have modifiable password",
+				user);
+			return PAM_USER_UNKNOWN;
+		}
+	}
 
 	/*
 	 * This is not an AUTH module!

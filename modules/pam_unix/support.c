@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
+#include <stdio.h>
 #include <string.h>
 #include <malloc.h>
 #include <pwd.h>
@@ -17,6 +18,8 @@
 #include <utmp.h>
 #include <errno.h>
 #include <signal.h>
+#include <ctype.h>
+#include <rpcsvc/ypclnt.h>
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
@@ -135,10 +138,6 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int argc,
 		D(("PRELIM_CHECK"));
 		set(UNIX__PRELIM, ctrl);
 	}
-	if (flags & PAM_DISALLOW_NULL_AUTHTOK) {
-		D(("DISALLOW_NULL_AUTHTOK"));
-		set(UNIX__NONULL, ctrl);
-	}
 	if (flags & PAM_SILENT) {
 		D(("SILENT"));
 		set(UNIX__QUIET, ctrl);
@@ -176,6 +175,11 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int argc,
 		}
 
 		++argv;		/* step to next argument */
+	}
+
+	if (flags & PAM_DISALLOW_NULL_AUTHTOK) {
+		D(("DISALLOW_NULL_AUTHTOK"));
+		set(UNIX__NONULL, ctrl);
 	}
 
 	/* auditing is a more sensitive version of debug */
@@ -276,6 +280,165 @@ static void _cleanup_failures(pam_handle_t * pamh, void *fl, int err)
 }
 
 /*
+ * _unix_getpwnam() searches only /etc/passwd and NIS to find user information
+ */
+static void _unix_cleanup(pam_handle_t *pamh, void *data, int error_status)
+{
+	free(data);
+}
+
+int _unix_getpwnam(pam_handle_t *pamh, const char *name,
+		   int files, int nis, struct passwd **ret)
+{
+	FILE *passwd;
+	char buf[16384];
+	int matched = 0, buflen;
+	char *slogin, *spasswd, *suid, *sgid, *sgecos, *shome, *sshell, *p;
+
+	memset(buf, 0, sizeof(buf));
+
+	if (!matched && files) {
+		int userlen = strlen(name);
+		passwd = fopen("/etc/passwd", "r");
+		if (passwd != NULL) {
+			while (fgets(buf, sizeof(buf), passwd) != NULL) {
+				if ((buf[userlen] == ':') &&
+				    (strncmp(name, buf, userlen) == 0)) {
+					p = buf + strlen(buf) - 1;
+					while (isspace(*p) && (p >= buf)) {
+						*p-- = '\0';
+					}
+					matched = 1;
+					break;
+				}
+			}
+			fclose(passwd);
+		}
+	}
+
+	if (!matched && nis) {
+		char *userinfo = NULL, *domain = NULL;
+		int len = 0, i;
+		len = yp_get_default_domain(&domain);
+		if (len == YPERR_SUCCESS) {
+			len = yp_bind(domain);
+		}
+		if (len == YPERR_SUCCESS) {
+			i = yp_match(domain, "passwd.byname", name,
+				     strlen(name), &userinfo, &len);
+			yp_unbind(domain);
+			if ((i == YPERR_SUCCESS) && (len < sizeof(buf))) {
+				strncpy(buf, userinfo, sizeof(buf) - 1);
+				buf[sizeof(buf) - 1] = '\0';
+				matched = 1;
+			}
+		}
+	}
+
+	if (matched && (ret != NULL)) {
+		*ret = NULL;
+
+		slogin = buf;
+
+		spasswd = strchr(slogin, ':');
+		if (spasswd == NULL) {
+			return matched;
+		}
+		*spasswd++ = '\0';
+
+		suid = strchr(spasswd, ':');
+		if (suid == NULL) {
+			return matched;
+		}
+		*suid++ = '\0';
+
+		sgid = strchr(suid, ':');
+		if (sgid == NULL) {
+			return matched;
+		}
+		*sgid++ = '\0';
+
+		sgecos = strchr(sgid, ':');
+		if (sgecos == NULL) {
+			return matched;
+		}
+		*sgecos++ = '\0';
+
+		shome = strchr(sgecos, ':');
+		if (shome == NULL) {
+			return matched;
+		}
+		*shome++ = '\0';
+
+		sshell = strchr(shome, ':');
+		if (sshell == NULL) {
+			return matched;
+		}
+		*sshell++ = '\0';
+
+		buflen = sizeof(struct passwd) +
+			 strlen(slogin) + 1 +
+			 strlen(spasswd) + 1 +
+			 strlen(suid) + 1 +
+			 strlen(sgid) + 1 +
+			 strlen(sgecos) + 1 +
+			 strlen(shome) + 1 +
+			 strlen(sshell) + 1;
+		*ret = malloc(buflen);
+		if (*ret == NULL) {
+			return matched;
+		}
+		memset(*ret, '\0', buflen);
+
+		(*ret)->pw_uid = strtol(suid, &p, 0);
+		if ((strlen(sgid) == 0) || (*p != '\0')) {
+			free(*ret);
+			*ret = NULL;
+			return matched;
+		}
+
+		(*ret)->pw_gid = strtol(sgid, &p, 0);
+		if ((strlen(sgid) == 0) || (*p != '\0')) {
+			free(*ret);
+			*ret = NULL;
+			return matched;
+		}
+
+		p = ((char*)(*ret)) + sizeof(struct passwd);
+		(*ret)->pw_name = strcpy(p, slogin);
+		p += strlen(p) + 1;
+		(*ret)->pw_passwd = strcpy(p, spasswd);
+		p += strlen(p) + 1;
+		(*ret)->pw_gecos = strcpy(p, sgecos);
+		p += strlen(p) + 1;
+		(*ret)->pw_dir = strcpy(p, shome);
+		p += strlen(p) + 1;
+		(*ret)->pw_shell = strcpy(p, sshell);
+
+		snprintf(buf, sizeof(buf), "_pam_unix_getpwnam_%s", name);
+
+		if (pam_set_data(pamh, buf,
+				 *ret, _unix_cleanup) != PAM_SUCCESS) {
+			free(*ret);
+			*ret = NULL;
+		}
+	}
+
+	return matched;
+}
+
+/*
+ * _unix_comsefromsource() is a quick check to see if information about a given
+ * user comes from a particular source (just files and nis for now)
+ *
+ */
+int _unix_comesfromsource(pam_handle_t *pamh,
+			  const char *name, int files, int nis)
+{
+	return _unix_getpwnam(pamh, name, files, nis, NULL);
+}
+
+/*
  * _unix_blankpasswd() is a quick check for a blank password
  *
  * returns TRUE if user does not have a password
@@ -331,10 +494,10 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned int ctrl, const char *name)
 				setreuid( save_uid, save_euid );
 			else {
 				if (setreuid( -1, 0 ) == -1)
-				setreuid( save_uid, -1 );
+					setreuid( save_uid, -1 );
 				setreuid( -1, save_euid );
 			}
-		} else if (strcmp(pwd->pw_passwd, "x") == 0) {
+		} else if (_unix_shadowed(pwd)) {
 			/*
 			 * ...and shadow password file entry for this user,
 			 * if shadowing is enabled
@@ -501,7 +664,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 				setreuid( save_uid, -1 );
 				setreuid( -1, save_euid );
 			}
-		} else if (strcmp(pwd->pw_passwd, "x") == 0) {
+		} else if (_unix_shadowed(pwd)) {
 			/*
 			 * ...and shadow password file entry for this user,
 			 * if shadowing is enabled
@@ -523,7 +686,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	}
 
 	retval = PAM_SUCCESS;
-	if (pwd == NULL || salt == NULL || strlen(salt) == 1) {
+	if (pwd == NULL || salt == NULL || !strcmp(salt, "x") || ((salt[0] == '#') && (salt[1] == '#') && !strcmp(salt + 2, name))) {
 		if (geteuid()) {
 			/* we are not root perhaps this is the reason? Run helper */
 			D(("running helper binary"));
@@ -848,6 +1011,21 @@ int _unix_read_password(pam_handle_t * pamh
 	}
 
 	return PAM_SUCCESS;
+}
+
+int _unix_shadowed(const struct passwd *pwd)
+{
+	if (pwd != NULL) {
+		if (strcmp(pwd->pw_passwd, "x") == 0) {
+			return 1;
+		}
+		if ((pwd->pw_passwd[0] == '#') &&
+		    (pwd->pw_passwd[1] == '#') &&
+		    (strcmp(pwd->pw_name, pwd->pw_passwd + 2) == 0)) {
+			return 1;
+		}
+	}
+	return 0;
 }
 
 /* ****************************************************************** *

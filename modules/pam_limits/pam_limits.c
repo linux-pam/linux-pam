@@ -207,12 +207,12 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
                 continue;
 	    }
 	}
-	if (++count > limit) {
+	if (++count >= limit) {
 	    break;
 	}
     }
     endutent();
-    if (count > limit) {
+    if (count >= limit) {
 	if (name) {
 	    _pam_log(LOG_WARNING, "Too many logins (max %d) for %s",
 		     limit, name);

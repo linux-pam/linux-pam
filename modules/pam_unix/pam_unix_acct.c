@@ -123,11 +123,10 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 			setreuid( -1, save_euid );
 		}
 
-	} else if (!strcmp( pwent->pw_passwd, "x" )) {
+	} else if (_unix_shadowed (pwent))
 		spent = _pammodutil_getspnam (pamh, uname);
-	} else {
+	else
 		return PAM_SUCCESS;
-	}
 
 	if (!spent)
 		if (on(UNIX_BROKEN_SHADOW,ctrl))

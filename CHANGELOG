@@ -119,6 +119,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * Add patches to make PAM modules reentrant (Bug 440107 - kukuk)
 * Merge patches from Red Hat (Bug 477000 and other - kukuk)
 * Fix pam_rhosts option parsing (Bug 922648 - kukuk)
+* Add $ISA support in config files (from Red Hat - kukuk)
 
 0.77: Mon Sep 23 10:25:42 PDT 2002
 

@@ -34,6 +34,9 @@
 #define BUF_SIZE                  1024
 #define MODULE_CHUNK              4
 #define UNKNOWN_MODULE_PATH       "<*unknown module path*>"
+#ifndef _PAM_ISA
+#define _PAM_ISA "."
+#endif
 
 static int _pam_assemble_line(FILE *f, char *buf, int buf_len);
 
@@ -313,7 +316,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
     }
 
     D(("_pam_init_handlers: initializing"));
-    
+
     /* First clean the service structure */
 
     _pam_free_handlers(pamh);
@@ -358,7 +361,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
      */
     {
 	struct stat test_d;
-	
+
 	/* Is there a PAM_CONFIG_D directory? */
 	if ( stat(PAM_CONFIG_D, &test_d) == 0 && S_ISDIR(test_d.st_mode) ) {
 	    char *filename;
@@ -575,7 +578,7 @@ int _pam_add_handler(pam_handle_t *pamh
 #ifdef PAM_SHL
     const char *_sym, *_sym2;
 #endif
-    char *mod_full_path=NULL;
+    char *mod_full_path=NULL, *mod_full_isa_path=NULL, *isa=NULL;
     servicefn func, func2;
     int success;
 
@@ -639,6 +642,30 @@ int _pam_add_handler(pam_handle_t *pamh
 	    dlopen(mod_path, RTLD_NOW);
 # endif /* PAM_SHL */
 	D(("_pam_add_handler: dlopen'ed"));
+	if (mod->dl_handle == NULL) {
+	    if (strstr(mod_path, "$ISA")) {
+		mod_full_isa_path = malloc(strlen(mod_path) + strlen(_PAM_ISA) + 1);
+		if (mod_full_isa_path == NULL) {
+		    D(("_pam_handler: couldn't get memory for mod_path"));
+		    _pam_system_log(LOG_ERR, "no memory for module path");
+		    success = PAM_ABORT;
+		} else {
+		    strcpy(mod_full_isa_path, mod_path);
+                    isa = strstr(mod_full_isa_path, "$ISA");
+		    if (isa) {
+		        memmove(isa + strlen(_PAM_ISA), isa + 4, strlen(isa + 4) + 1);
+		        memmove(isa, _PAM_ISA, strlen(_PAM_ISA));
+		    }
+		    mod->dl_handle =
+# ifdef PAM_SHL
+		        shl_load(mod_full_isa_path, BIND_IMMEDIATE, 0L);
+# else /* PAM_SHL */
+		        dlopen(mod_full_isa_path, RTLD_NOW);
+# endif /* PAM_SHL */
+		    _pam_drop(mod_full_isa_path);
+		}
+	    }
+	}
 	if (mod->dl_handle == NULL) {
 	    D(("_pam_add_handler: dlopen(%s) failed", mod_path));
 	    _pam_system_log(LOG_ERR, "unable to dlopen(%s)", mod_path);
@@ -782,7 +809,7 @@ int _pam_add_handler(pam_handle_t *pamh
     }
 
     /* now identify this module's functions - for non-faulty modules */
-    
+
 #ifdef PAM_DYNAMIC
     if ((mod->type == PAM_MT_DYNAMIC_MOD) &&
 # ifdef PAM_SHL
@@ -909,7 +936,7 @@ int _pam_free_handlers(pam_handle_t *pamh)
     }
 
     /* Free all the handlers */
-    
+
     _pam_free_handlers_aux(&(pamh->handlers.conf.authenticate));
     _pam_free_handlers_aux(&(pamh->handlers.conf.setcred));
     _pam_free_handlers_aux(&(pamh->handlers.conf.acct_mgmt));
@@ -949,7 +976,7 @@ void _pam_start_handlers(pam_handle_t *pamh)
     pamh->handlers.module = NULL;
 
     /* initialize the .conf and .other entries */
-    
+
     pamh->handlers.conf.authenticate = NULL;
     pamh->handlers.conf.setcred = NULL;
     pamh->handlers.conf.acct_mgmt = NULL;

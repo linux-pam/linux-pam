@@ -5,6 +5,7 @@
 #ifndef _PAM_UNIX_SUPPORT_H
 #define _PAM_UNIX_SUPPORT_H
 
+#include <pwd.h>
 
 /*
  * here is the string to inform the user that the new passwords they
@@ -133,6 +134,11 @@ extern int _make_remark(pam_handle_t * pamh, unsigned int ctrl
 		       ,int type, const char *text);
 extern int _set_ctrl(pam_handle_t * pamh, int flags, int *remember, int argc,
 		     const char **argv);
+extern int _unix_getpwnam (pam_handle_t *pamh,
+			   const char *name, int files, int nis,
+			   struct passwd **ret);
+extern int _unix_comesfromsource (pam_handle_t *pamh,
+				  const char *name, int files, int nis);
 extern int _unix_blankpasswd(pam_handle_t *pamh,unsigned int ctrl,
 			     const char *name);
 extern int _unix_verify_password(pam_handle_t * pamh, const char *name
@@ -144,6 +150,6 @@ extern int _unix_read_password(pam_handle_t * pamh
 			,const char *prompt2
 			,const char *data_name
 			,const char **pass);
+extern int _unix_shadowed(const struct passwd *pwd);
 
 #endif /* _PAM_UNIX_SUPPORT_H */
-

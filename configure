@@ -846,6 +846,7 @@ Optional Features:
   --enable-libdebug        specify you are building debugging libraries
   --enable-fakeroot=<path to packaging directory>
   --enable-securedir=<path to location of PAMs> default \$libdir/security
+  --enable-isadir=<path to arch-specific module files> default ../../\`basename \$libdir\`/security
   --enable-sconfigdir=<path to module conf files> default \$sysconfdir/security
   --enable-suplementedir=<path to module helper binaries> default \$sbindir
   --enable-includedir=<path to include location> - where to put <security>
@@ -2795,6 +2796,22 @@ else
 fi;
 
 
+# Check whether --enable-isadir or --disable-isadir was given.
+if test "${enable_isadir+set}" = set; then
+  enableval="$enable_isadir"
+  ISA=$enableval
+else
+  ISA=../../`basename $libdir`/security
+fi;
+unset mylibdirbase
+
+cat >>confdefs.h <<_ACEOF
+#define _PAM_ISA "$ISA"
+_ACEOF
+
+echo "$as_me:$LINENO: result: Defining \$ISA to \\"$ISA\\"." >&5
+echo "${ECHO_T}Defining \$ISA to \\"$ISA\\"." >&6
+
 # Check whether --enable-sconfigdir or --disable-sconfigdir was given.
 if test "${enable_sconfigdir+set}" = set; then
   enableval="$enable_sconfigdir"
@@ -4410,13 +4427,17 @@ else
 fi
 
 
+
+if test $HAVE_LIBNSL = yes ; then
+	pwdblibs="$pwdblibs -lnsl"
+fi
 echo "$as_me:$LINENO: checking for pwdb_db_name in -lpwdb" >&5
 echo $ECHO_N "checking for pwdb_db_name in -lpwdb... $ECHO_C" >&6
 if test "${ac_cv_lib_pwdb_pwdb_db_name+set}" = set; then
   echo $ECHO_N "(cached) $ECHO_C" >&6
 else
   ac_check_lib_save_LIBS=$LIBS
-LIBS="-lpwdb  $LIBS"
+LIBS="-lpwdb $pwdblibs $LIBS"
 cat >conftest.$ac_ext <<_ACEOF
 /* confdefs.h.  */
 _ACEOF
@@ -4483,6 +4504,8 @@ else
   HAVE_LIBPWDB=no
 fi
 
+
+unset pwdblibs
 
 echo "$as_me:$LINENO: checking for yywrap in -lfl" >&5
 echo $ECHO_N "checking for yywrap in -lfl... $ECHO_C" >&6

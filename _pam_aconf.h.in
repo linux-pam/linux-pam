@@ -97,4 +97,8 @@
 # include <security/pam_malloc.h>
 #endif /* MEMORY_DEBUG */
 
+/* the path, relative to SECUREDIR, where PAMs specific to this architecture
+ * can be found */
+#undef _PAM_ISA
+
 #endif /* PAM_ACONF_H */
