@@ -63,6 +63,13 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 0.78: please submit patches for this section with actual code/doc
       patches!
 
+* pam_unix: change the order of trying password changes - local first,
+  NIS second (t8m)
+* pam_wheel: add option only_root to make it affect authentication 
+  to root account only
+* pam_unix: test return values on renaming files and report error to
+  syslog and to user
+* pam_unix: forced password change shouldn't trump account expiration
 * pam_unix: remove the use of openlog (from debian - toady)
 * pam_unix: NIS cleanup (patch from Philippe Troin)
 * pam_access: you can now authenticate an explicit user on an explicit

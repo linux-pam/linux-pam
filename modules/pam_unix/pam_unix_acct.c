@@ -137,8 +137,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 
 	curdays = time(NULL) / (60 * 60 * 24);
 	D(("today is %d, last change %d", curdays, spent->sp_lstchg));
-	if ((curdays > spent->sp_expire) && (spent->sp_expire != -1)
-	    && (spent->sp_lstchg != 0)) {
+	if ((curdays > spent->sp_expire) && (spent->sp_expire != -1)) {
 		_log_err(LOG_NOTICE, pamh
 			 ,"account %s has expired (account expired)"
 			 ,uname);
