@@ -2186,7 +2186,7 @@ for d in $DICT_DIR_CANDIDATES ; do
               fi
       done
 done
-if test -z $CRACKLIB_DICTPATH ; then
+if test -z "$CRACKLIB_DICTPATH" ; then
       echo "$ac_t""none found" 1>&6
 else
       echo "$ac_t""$CRACKLIB_DICTPATH" 1>&6

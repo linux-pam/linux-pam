@@ -35,6 +35,15 @@ Where you should replace XXXXX with a bug-id.
 0.75: please submit patches for this section with actual code/doc
       patches!
 
+                          ** WARNING **
+
+This release contains backwardly incompatible changes to
+libpam. Prior versions were buggy - see bugfix for Bug 129775.
+
+                          ** WARNING **
+
+* quoted the $CRACKLIB_DICTPATH test in configure.in (Bug 130130 -
+  agmorgan).
 * improved handling of the setcred/close_session and update chauthtok
   stack. *Warning* This is a backwardly incompatable change, but 'more
   sane' than before. (Bug 129775 - agmorgan).

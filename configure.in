@@ -229,7 +229,7 @@ for d in $DICT_DIR_CANDIDATES ; do
               fi
       done
 done
-if test -z $CRACKLIB_DICTPATH ; then
+if test -z "$CRACKLIB_DICTPATH" ; then
       AC_MSG_RESULT(none found)
 else
       AC_MSG_RESULT($CRACKLIB_DICTPATH)
