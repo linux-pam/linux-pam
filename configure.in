@@ -17,6 +17,12 @@ AC_DEFINE(LIBPAM_VERSION_MAJOR)
 AC_DEFINE(LIBPAM_VERSION_MINOR)
 
 dnl
+dnl By default, everything under PAM is installed under the root fs.
+dnl
+
+AC_PREFIX_DEFAULT(/)
+
+dnl
 dnl Rules needed for the following (hardcoded Linux defaults for now)
 dnl
 
@@ -37,63 +43,58 @@ dnl options and defaults
 dnl
 
 dnl lots of debugging information goes to /tmp/pam-debug.log
-AC_ARG_WITH(debug,
-  --with-debug  specify you are building with debugging on,
+AC_ARG_ENABLE(debug,
+[  --enable-debug           qspecify you are building with debugging on],
 	WITH_DEBUG=yes ; AC_DEFINE(DEBUG) , WITH_DEBUG=no)
 AC_SUBST(WITH_DEBUG)
 
 dnl build specially named libraries (for debugging purposes)
-AC_ARG_WITH(libdebug,
-  --with-libdebug  specify you are building debugging libraries,
+AC_ARG_ENABLE(libdebug,
+[  --enable-libdebug        specify you are building debugging libraries],
 	WITH_LIBDEBUG=yes ; AC_DEFINE(WITH_LIBDEBUG) , WITH_LIBDEBUG=no)
 AC_SUBST(WITH_LIBDEBUG)
 
 dnl packaging convenience
-AC_ARG_WITH(fakeroot,
-  --with-fakeroot=<path to packaging directory>, FAKEROOT=$withval)
+AC_ARG_ENABLE(fakeroot,
+[  --enable-fakeroot=<path to packaging directory>], FAKEROOT=$withval)
 AC_SUBST(FAKEROOT)
 
-AC_ARG_WITH(libdir,
-  --with-libdir=<path to libpam etc. directory> default /lib,
-	LIBDIR=$withval, LIBDIR=/lib)
-AC_SUBST(LIBDIR)
-
-AC_ARG_WITH(securedir,
-  --with-securedir=<path to location of PAMs> default \$LIBDIR/security ,
+AC_ARG_ENABLE(securedir,
+[  --with-securedir=<path to location of PAMs> [default \$LIBDIR/security]],
 	SECUREDIR=$withval, SECUREDIR=$LIBDIR/security)
 AC_SUBST(SECUREDIR)
 
-AC_ARG_WITH(includedir,
-  --with-includedir=<path to include location> of include <security>,
+AC_ARG_ENABLE(includedir,
+[  --enable-includedir=<path to include location> of include <security>],
 	INCLUDEDIR=$witharg, INCLUDEDIR=/usr/include)
 AC_SUBST(INCLUDEDIR)
 
-AC_ARG_WITH(pamlocking,
-  --with-pamlocking  configure libpam to observe a global authentication lock,
+AC_ARG_ENABLE(pamlocking,
+[  --enable-pamlocking      configure libpam to observe a global authentication lock],
 	WITH_PAMLOCKING=yes ; AC_DEFINE(PAM_LOCKING) , WITH_PAMLOCKING=no)
 AC_SUBST(WITH_PAMLOCKING)
 
-AC_ARG_WITH(uglyhack,
-  --with-uglyhack  configure libpam to try to honor old pam_strerror syntax,
+AC_ARG_ENABLE(uglyhack,
+[  --enable-uglyhack        configure libpam to try to honor old pam_strerror syntax],
 	AC_DEFINE(UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT))
 
-AC_ARG_WITH(read-both-confs,
-  --with-read-both-confs  read both /etc/pam.d and /etc/pam.conf files,
+AC_ARG_ENABLE(read-both-confs,
+[  --enable-read-both-confs  read both /etc/pam.d and /etc/pam.conf files],
 	AC_DEFINE(PAM_READ_BOTH_CONFS))
 AC_SUBST(PAM_READ_BOTH_CONFS)
 
-AC_ARG_WITH(static-libpam, --static-libpam  build a libpam.a library,
+AC_ARG_ENABLE(static-libpam, [  --enable-static-libpam   build a libpam.a library],
 	STATIC_LIBPAM=yes , STATIC_LIBPAM=no)
 AC_SUBST(STATIC_LIBPAM)
 
-AC_ARG_WITH(dynamic-libpam,
-  --without-dynamic-libpam do not build a shared libpam library,
+AC_ARG_ENABLE(dynamic-libpam,
+[  --disable-dynamic-libpam do not build a shared libpam library],
 	DYNAMIC_LIBPAM=no, DYNAMIC_LIBPAM=yes)
 AC_SUBST(DYNAMIC_LIBPAM)
 
 DYNAMIC=-DPAM_DYNAMIC
-AC_ARG_WITH(static-modules,
-  --with-static-modules do not make the modules dynamically loadable,
+AC_ARG_ENABLE(static-modules,
+[  --enable-static-modules  do not make the modules dynamically loadable],
 	STATIC=-DPAM_STATIC)
 AC_SUBST(STATIC)
 AC_SUBST(DYNAMIC)
@@ -113,6 +114,7 @@ AC_SUBST(PAM_NEEDS_LIBC)
 AC_CHECK_LIB(crack, FascistCheck, HAVE_LIBCRACK=yes ; AC_DEFINE(HAVE_LIBCRACK),
 	HAVE_LIBCRACK=no)
 AC_SUBST(HAVE_LIBCRACK)
+
 AC_CHECK_LIB(crypt, fcrypt, HAVE_LIBCRYPT=yes ; AC_DEFINE(HAVE_LIBCRYPT),
 	HAVE_LIBCRYPT=no)
 AC_SUBST(HAVE_LIBCRYPT)
