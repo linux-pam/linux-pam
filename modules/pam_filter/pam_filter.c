@@ -150,7 +150,7 @@ static int process_args(pam_handle_t *pamh
 
 	/* the "ARGS" variable */
 
-#define ARGS_OFFSET    5                          /*  sizeof("ARGS=");  */
+#define ARGS_OFFSET    5                          /*  sizeof('ARGS=');  */
 #define ARGS_NAME      "ARGS="
 
 	size += ARGS_OFFSET;
@@ -174,7 +174,7 @@ static int process_args(pam_handle_t *pamh
 
 	/* the "SERVICE" variable */
 
-#define SERVICE_OFFSET    8                    /*  sizeof("SERVICE=");  */
+#define SERVICE_OFFSET    8                    /*  sizeof('SERVICE=');  */
 #define SERVICE_NAME      "SERVICE="
 
 	pam_get_item(pamh, PAM_SERVICE, (const void **)&tmp);
@@ -196,7 +196,7 @@ static int process_args(pam_handle_t *pamh
 
 	/* the "USER" variable */
 
-#define USER_OFFSET    5                          /*  sizeof("USER=");  */
+#define USER_OFFSET    5                          /*  sizeof('USER=');  */
 #define USER_NAME      "USER="
 
 	pam_get_user(pamh, &tmp, NULL);
@@ -222,7 +222,7 @@ static int process_args(pam_handle_t *pamh
 
 	/* the "USER" variable */
 
-#define TYPE_OFFSET    5                          /*  sizeof("TYPE=");  */
+#define TYPE_OFFSET    5                          /*  sizeof('TYPE=');  */
 #define TYPE_NAME      "TYPE="
 
 	size = TYPE_OFFSET+strlen(type);

@@ -21,7 +21,7 @@ OBJS = $(TITLE).o
 all: $(TITLE)
 
 $(TITLE): $(OBJS)
-	$(CC) -o $(TITLE) $(OBJS)
+	$(CC) $(CFLAGS) -o $(TITLE) $(OBJS)
 	$(STRIP) $(TITLE)
 
 install:

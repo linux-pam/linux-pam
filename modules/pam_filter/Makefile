@@ -18,7 +18,7 @@ include ../../Make.Rules
 
 TITLE=pam_filter
 FILTERS=upperLOWER
-FILTERSDIR=$(SUPLEMENTED)/pam_filter
+FILTERSDIR=$(SECUREDIR)/pam_filter
 export FILTERSDIR
 
 CFLAGS += -Iinclude

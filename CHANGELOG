@@ -49,6 +49,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_filter cleanup (including moving the filter directory) Nalin
+  and Harald Welte (Bugs 436057, 476970 - agmorgan)
 * pam_limits can handle negative priority limits now (which can apply
   to the superuser too) - base on patch from Nalin. (Bug 476990 -
   agmorgan)
