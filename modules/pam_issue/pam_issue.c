@@ -38,7 +38,7 @@
 
 static int _user_prompt_set = 0;
 
-char *do_prompt (FILE *);
+static char *do_prompt (FILE *);
 
 /* --- authentication management functions (only) --- */
 
@@ -130,7 +130,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
 	{
 	    char *prompt_tmp_tmp = prompt_tmp;
 
-	    prompt_tmp = realloc(prompt_tmp, tot_size);
+	    prompt_tmp = realloc(prompt_tmp, tot_size + 1);
 	    if (prompt_tmp == NULL) {
 		prompt_tmp = prompt_tmp_tmp;
 		retval = PAM_IGNORE;
@@ -164,7 +164,7 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
      return PAM_IGNORE;
 }
 
-char *do_prompt(FILE *fd)
+static char *do_prompt(FILE *fd)
 {
     int c, size = 1024;
     char *issue = (char *)malloc(size);

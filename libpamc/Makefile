@@ -100,7 +100,9 @@ remove:
 	rm -f $(FAKEROOT)$(INCLUDED)/pam_client.h
 	rm -f $(FAKEROOT)$(libdir)/$(LIBNAMEDFULL)
 	rm -f $(FAKEROOT)$(libdir)/$(LIBNAMED)
+ifndef FAKEROOT
 	$(LDCONFIG)
+endif
 	rm -f $(FAKEROOT)$(libdir)/$(LIBNAMEDSTATIC)
 
 clean:

@@ -559,6 +559,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
     D(("called."));
 
+    memset(&options, 0, sizeof(options));
     options.retry_times = CO_RETRY_TIMES;
     options.diff_ok = CO_DIFF_OK;
     options.diff_ignore = CO_DIFF_IGNORE;

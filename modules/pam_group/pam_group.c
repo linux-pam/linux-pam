@@ -771,7 +771,7 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags
     /* only interested in establishing credentials */
 
     setting = flags;
-    if (!(setting & PAM_ESTABLISH_CRED)) {
+    if (!(setting & (PAM_ESTABLISH_CRED | PAM_REINITIALIZE_CRED))) {
 	D(("ignoring call - not for establishing credentials"));
 	return PAM_SUCCESS;            /* don't fail because of this */
     }

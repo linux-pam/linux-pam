@@ -90,7 +90,17 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   module (Bug 1010142 - toady)
 * pam_userdb: applied patch from Paul Walmsley <paul@booyaka.com>
   it now indicates whether encrypted or plaintext passwords are stored
-  in the database needed for pam_userdb. (Bug XXXXXX - toady)
+  in the database needed for pam_userdb (BerliOS - toady)
+* pam_group: The module should also ignore PAM_REINITIALIZE_CRED to
+  avoid spurious errors (from Linux distributors - kukuk)
+* pam_cracklib: Clear the entire options structure (from Linux
+  distributors - kukuk)
+* pam_issue: We write a NUL to prompt_tmp[tot_size] later, so make sure
+  that the destination is part of the allocated block, make do_prompt
+  static (from Linux distributors - kukuk)
+* ldconfig: Only run full ldconfig, if we don't install into a FAKEROOT
+  environment, else let ldconfig only create the symlinks correct
+  (from Linux distributors - kukuk)
 
 
 0.77: Mon Sep 23 10:25:42 PDT 2002
