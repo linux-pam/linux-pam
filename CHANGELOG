@@ -55,6 +55,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* make pam_nologin more secure by default, added two new module
+  arguments etc. - acting on suggestion from Nico (Bug 419307 -
+  agmorgan)
 * link in libpam to libpam_misc - since the latter uses functions in
   the former it makes some sort of sense to do this (although, in the
   static library case, I remain to be convinced). (Bug 565470 -

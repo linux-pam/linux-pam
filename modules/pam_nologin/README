@@ -5,8 +5,19 @@ This module always lets root in; it lets other users in only if the file
 /etc/nologin doesn't exist.  In any case, if /etc/nologin exists, it's
 contents are displayed to the user.
 
+The default return value for this module is PAM_IGNORE, you can
+override this with the successok module argument.
+
 module services provided:
 
-	auth		_authentication and _setcred (blank)
+	auth		_authenticate and _setcred
+	account		_acct_mgmt
 
-Michael K. Johnson
+optional arguments:
+
+	file=<alternative-nologin-pathname>  - choose a different file
+	successok                            - return PAM_SUCCESS if no file
+
+[Original README by Michael K. Johnson]
+
+

@@ -16,21 +16,17 @@
 
 <tag><bf>Author:</bf></tag>
 Written by Michael K. Johnson &lt;johnsonm@redhat.com&gt;<newline>
-(based on code taken from a module written by Andrew G. Morgan
-&lt;morgan@kernel.org&gt;).
 
 <tag><bf>Maintainer:</bf></tag>
-Michael K. Johnson &lt;johnsonm@redhat.com&gt;
 
 <tag><bf>Management groups provided:</bf></tag>
-authentication
+account; authentication
 
 <tag><bf>Cryptographically sensitive:</bf></tag>
 	
 <tag><bf>Security rating:</bf></tag>
 
 <tag><bf>Clean code base:</bf></tag>
-1 warning about dropping const
 
 <tag><bf>System dependencies:</bf></tag>
 
@@ -49,24 +45,34 @@ Provides standard Unix <em/nologin/ authentication.
 <descrip>
 
 <tag><bf>Recognized arguments:</bf></tag>
+successok, file=&lt;<em/filename/&gt;
 
 <tag><bf>Description:</bf></tag>
 
 Provides standard Unix <em/nologin/ authentication.  If the file
 <tt>/etc/nologin</tt> exists, only root is allowed to log in; other
-users are turned away with an error message.  All users (root or
+users are turned away with an error message (and the module returns
+<tt/PAM_AUTH_ERR/ or <tt/PAM_USER_UNKNOWN/).  All users (root or
 otherwise) are shown the contents of <tt>/etc/nologin</tt>.
 
 <p>
-If the file <tt>/etc/nologin</tt> does not exist, this module succeeds
-silently.
+If the file <tt>/etc/nologin</tt> does not exist, this module defaults
+to returning <tt/PAM_IGNORE/, but the <tt/successok/ module argument
+causes it to return <tt/PAM_SUCCESS/ in this case.
+
+<p>
+The administrator can override the default nologin file with the
+<tt/file=/<em/pathname/ module argument.
 
 <tag><bf>Examples/suggested usage:</bf></tag>
 
-In order to make this module effective, all login methods should
-be secured by it.  It should be used as a <tt>required</tt>
-method listed before any <tt>sufficient</tt> methods in order to
-get standard Unix nologin semantics.
+In order to make this module effective, all login methods should be
+secured by it.  It should be used as a <tt>required</tt> method listed
+before any <tt>sufficient</tt> methods in order to get standard Unix
+nologin semantics. Note, the use of <tt/successok/ module argument
+causes the module to return <tt/PAM_SUCCESS/ and as such would break
+such a configuration - failing <tt/sufficient/ modules would lead to a
+successful login because the nologin module <em/succeeded/.
 
 </descrip>
 

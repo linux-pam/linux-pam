@@ -46,7 +46,7 @@ DAMAGE.
 
 <title>The Linux-PAM System Administrators' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.76 2002/05/27
+<date>DRAFT v0.76 2002/06/26
 <abstract>
 This manual documents what a system-administrator needs to know about
 the <bf>Linux-PAM</bf> library. It covers the correct syntax of the
