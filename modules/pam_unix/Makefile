@@ -1,0 +1,155 @@
+# $Id$
+#
+# This Makefile controls a build process of the pam_unix modules
+# for Linux-PAM. You should not modify this Makefile.
+#
+
+########################################################################
+# some options... uncomment to take effect
+########################################################################
+
+# do you want cracklib?
+ifeq ($(HAVE_CRACKLIB),yes)
+USE_CRACKLIB=-D"USE_CRACKLIB"
+endif
+
+# do you want to use lckpwdf?
+USE_LCKPWDF=-D"USE_LCKPWDF"
+
+# do you need to include the locking functions in the source?
+#NEED_LCKPWDF=-D"NEED_LCKPWDF"
+
+ifeq ($(shell ./need_nsl.sh),yes)
+LIBNSL = -lnsl
+endif
+
+CHKPWD=unix_chkpwd
+
+EXTRAS += -DCHKPWD_HELPER=\"$(SUPLEMENTED)/$(CHKPWD)\"
+
+########################################################################
+
+CFLAGS += $(USE_CRACKLIB) $(USE_LCKPWDF) $(NEED_LCKPWDF) $(EXTRAS)
+LDLIBS = $(EXTRALS)
+
+ifdef USE_CRACKLIB
+CRACKLIB = -lcrack
+endif
+
+
+LIBOBJ = pam_unix_auth.o pam_unix_acct.o pam_unix_sess.o pam_unix_passwd.o \
+		support.o
+LIBSRC = pam_unix_auth.c pam_unix_acct.c pam_unix_sess.c pam_unix_passwd.c \
+		support.c
+LIBOBJD = $(addprefix dynamic/,$(LIBOBJ))
+LIBOBJS = $(addprefix static/,$(LIBOBJ))
+
+PLUS = md5_good.o md5_broken.o md5_crypt_good.o md5_crypt_broken.o \
+		yppasswd_xdr.o bigcrypt.o
+
+ifdef DYNAMIC
+LIBSHARED = pam_unix.so
+endif
+ifdef STATIC
+LIBSTATIC = libpam_unix.o
+endif
+
+
+########################### don't edit below #######################
+
+all: dirs info $(PLUS) $(LIBSHARED) $(LIBSTATIC) $(CHKPWD) register
+
+dynamic/%.o : %.c
+	$(CC) $(CFLAGS) $(DYNAMIC) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+
+static/%.o: %.c
+	$(CC) $(CFLAGS) $(STATIC) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+
+dummy:
+	@echo "**** This is not a top-level Makefile "
+	exit
+
+info:
+	@echo
+	@echo "*** Building pam-unix module of the framework..."
+	@echo
+
+dirs:
+ifdef DYNAMIC
+	mkdir -p ./dynamic
+endif
+ifdef STATIC
+	mkdir -p ./static
+endif
+
+register:
+ifdef STATIC
+	( cd .. ; ./register_static pam_unix_auth pam_unix/$(LIBSTATIC) ; \
+		./register_static pam_unix_acct  "" ; \
+		./register_static pam_unix_session "" ; \
+		./register_static pam_unix_passwd "" ; \
+	)
+endif
+
+ifdef DYNAMIC
+$(LIBOBJD): $(LIBSRC)
+
+$(LIBSHARED):	$(LIBOBJD)
+	$(LD_D) -o $@ $(LIBOBJD) $(PLUS) $(CRACKLIB) $(LDLIBS) $(LIBNSL)
+endif
+
+ifdef STATIC
+$(LIBOBJS): $(LIBSRC)
+
+$(LIBSTATIC): $(LIBOBJS)
+	$(LD) -r -o $@ $(LIBOBJS) $(PLUS) $(CRACKLIB) $(LDLIBS) $(LIBNSL)
+endif
+
+$(CHKPWD): unix_chkpwd.o md5_good.o md5_broken.o \
+		md5_crypt_good.o md5_crypt_broken.o \
+		bigcrypt.o
+	$(CC) -o $(CHKPWD) $^ $(LDLIBS)
+
+unix_chkpwd.o: unix_chkpwd.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+
+md5_good.o: md5.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -DHIGHFIRST -D'MD5Name(x)=Good##x' \
+		$(TARGET_ARCH) -c $< -o $@
+
+md5_broken.o: md5.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -D'MD5Name(x)=Broken##x' \
+		$(TARGET_ARCH) -c $< -o $@
+
+md5_crypt_good.o: md5_crypt.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -D'MD5Name(x)=Good##x' \
+		$(TARGET_ARCH) -c $< -o $@
+
+md5_crypt_broken.o: md5_crypt.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -D'MD5Name(x)=Broken##x' \
+		$(TARGET_ARCH) -c $< -o $@
+
+install: all
+	mkdir -p $(FAKEROOT)$(SECUREDIR)
+ifdef DYNAMIC
+	install -m $(SHLIBMODE) $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)
+	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_auth.so
+	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_acct.so
+	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_passwd.so
+	ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/pam_unix_session.so
+endif
+	install $(CHKPWD) $(FAKEROOT)$(SUPLEMENTED)
+
+remove:
+	cd $(FAKEROOT)$(SECUREDIR) && rm -f $(LIBSHARED)
+	rm -f $(FAKEROOT)$(SUPLEMENTED)/$(CHKPWD)
+
+clean:
+	rm -f $(LIBOBJD) $(LIBOBJS) $(CHKPWD) *.o *.so core
+
+extraclean: clean
+	rm -f *~ *.a *.out *.bak
+
+.c.o:	
+	$(CC) -c $(CFLAGS) $<
+
