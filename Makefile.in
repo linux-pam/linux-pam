@@ -22,8 +22,6 @@ DISTFILE = $(RELNAME).tar.gz
 FULL_LINUX_PAM_SOURCE_TREE=yes
 export FULL_LINUX_PAM_SOURCE_TREE
 
-DYNTYPE="so"
-
 # Comment out either line to disable that type of linking for *modules only*
 # Both at once is a legal configuration!
 DYNAMIC=-DPAM_DYNAMIC
