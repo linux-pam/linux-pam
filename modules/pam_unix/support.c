@@ -314,6 +314,13 @@ int _unix_blankpasswd(unsigned int ctrl, const char *name)
 	struct spwd *spwdent = NULL;
 	char *salt = NULL;
 	int retval;
+#if HAVE_GETPWNAM_R
+	char *buf = NULL;
+	int bufsize = 0;
+	struct passwd pwd_buf;
+
+	pwd = &pwd_buf;
+#endif
 
 	D(("called"));
 
@@ -327,7 +334,25 @@ int _unix_blankpasswd(unsigned int ctrl, const char *name)
 		return 0;	/* will fail but don't let on yet */
 
 	/* UNIX passwords area */
-	pwd = getpwnam(name);	/* Get password file entry... */
+
+	/* Get password file entry... */
+#if HAVE_GETPWNAM_R
+	bufsize = 1024;
+	buf = malloc(bufsize);
+
+	if ((retval = getpwnam_r(name, pwd, buf, bufsize, &pwd))) {
+		pwd = NULL;
+	}
+	while (retval == ERANGE) {
+		bufsize += 1024;
+		buf = realloc(buf, bufsize);
+		if ((retval getpwnam_r(name, pwd, buf, bufsize, &pwd))) {
+			pwd = NULL;
+		}
+	}
+#else
+	pwd = getpwnam(name);
+#endif
 
 	if (pwd != NULL) {
 		if (strcmp( pwd->pw_passwd, "*NP*" ) == 0)
@@ -345,6 +370,10 @@ int _unix_blankpasswd(unsigned int ctrl, const char *name)
 					setreuid( 0, -1 );
 					if(setreuid( -1, pwd->pw_uid ) == -1)
 						/* Will fail elsewhere. */
+#if HAVE_GETPWNAM_R
+						if (buf)
+							free(buf);
+#endif
 						return 0;
 				}
 			}
@@ -383,6 +412,11 @@ int _unix_blankpasswd(unsigned int ctrl, const char *name)
 
 	if (salt)
 		_pam_delete(salt);
+
+#if HAVE_GETPWNAM_R
+	if (buf)
+		free(buf);
+#endif
 
 	return retval;
 }
