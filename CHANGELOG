@@ -55,6 +55,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_mkhomedir: recurse directories. Patch from Nalin (Bug 476981 -
+  agmorgan)
 * pam_limits can handle negative priority limits now (which can apply
   to the superuser too) - based on patch from Nalin. Also cleanup the
   error handling that was very sloppy before. Also, courtesy of Berend
