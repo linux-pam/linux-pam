@@ -550,7 +550,7 @@ pam_iruserok(pam_handle_t *pamh,
 
 	/* private group caveat */
 	if (opts->opt_private_group) {
-	    struct group *grp = getgrgid(sbuf.st_gid);
+	    struct group *grp = _pammodutil_getgrgid(pamh, sbuf.st_gid);
 
 	    if (NULL == grp || NULL == grp->gr_name
 		|| strcmp(luser,grp->gr_name)) {

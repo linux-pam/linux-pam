@@ -61,7 +61,11 @@
 
 /* Define if reentrant declarations of standard nss functions are available */
 #undef HAVE_GETPWNAM_R
+#undef HAVE_GETPWUID_R
+#undef HAVE_GETSPNAM_R
 #undef HAVE_GETGRNAM_R
+#undef HAVE_GETGRGID_R
+#undef HAVE_GETGROUPLIST
 
 /* ugly hack to partially support old pam_strerror syntax */
 #undef UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT

@@ -34,6 +34,7 @@
 #define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
+#include <security/_pam_modutil.h>
 
 /* some syslogging */
 
@@ -97,7 +98,7 @@ static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
 	return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE:PAM_SERVICE_ERR);
     }
 
-    user_pwd = getpwnam(username);
+    user_pwd = _pammodutil_getpwnam(pamh, username);
     if (user_pwd == NULL) {
 	return PAM_IGNORE;
     } else if (user_pwd->pw_uid != 0) { /* If the user is not root,

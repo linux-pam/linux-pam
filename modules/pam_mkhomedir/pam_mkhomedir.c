@@ -359,7 +359,7 @@ int pam_sm_open_session(pam_handle_t * pamh, int flags, int argc
    }
 
    /* Get the password entry */
-   pwd = getpwnam(user);
+   pwd = _pammodutil_getpwnam (pamh, user);
    if (pwd == NULL)
    {
       D(("couldn't identify user %s", user));

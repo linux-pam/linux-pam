@@ -19,7 +19,8 @@ CFLAGS += $(PIC) $(STATIC) $(MOREFLAGS) \
 
 # all the object files we care about
 LIBOBJECTS = modutil_cleanup.o modutil_getpwnam.o modutil_getpwuid.o \
-	modutil_getlogin.o modutil_ioloop.o
+	modutil_getspnam.o modutil_getgrnam.o modutil_getgrgid.o \
+	modutil_ingroup.o modutil_getlogin.o modutil_ioloop.o
 
 # static library name
 LIBSTATIC = $(LIBNAME).a

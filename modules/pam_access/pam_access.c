@@ -59,6 +59,7 @@
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
+#include <security/_pam_modutil.h>
 
 /* login_access.c from logdaemon-5.6 with several changes by A.Nogin: */
 
@@ -148,17 +149,18 @@ static int parse_args(struct login_info *loginfo, int argc, const char **argv)
     return 1;  /* OK */
 }
 
-typedef int match_func (char *, struct login_info *);
+typedef int match_func (pam_handle_t *, char *, struct login_info *);
 
-static int list_match (char *, struct login_info *,
-		             match_func *);
-static int user_match (char *, struct login_info *);
-static int from_match (char *, struct login_info *);
-static int string_match (char *, char *);
+static int list_match (pam_handle_t *, char *, struct login_info *,
+		       match_func *);
+static int user_match (pam_handle_t *, char *, struct login_info *);
+static int from_match (pam_handle_t *, char *, struct login_info *);
+static int string_match (pam_handle_t *, char *, char *);
 
 /* login_access - match username/group and host/tty with access control file */
 
-static int login_access(struct login_info *item)
+static int
+login_access (pam_handle_t *pamh, struct login_info *item)
 {
     FILE   *fp;
     char    line[BUFSIZ];
@@ -205,8 +207,8 @@ static int login_access(struct login_info *item)
 			 item->config_file, lineno);
 		continue;
 	    }
-	    match = (list_match(froms, item, from_match)
-		     && list_match(users, item, user_match));
+	    match = (list_match(pamh, froms, item, from_match)
+		     && list_match(pamh, users, item, user_match));
 	}
 	(void) fclose(fp);
     } else if (errno != ENOENT) {
@@ -218,7 +220,8 @@ static int login_access(struct login_info *item)
 
 /* list_match - match an item against a list of tokens with exceptions */
 
-static int list_match(char *list, struct login_info *item, match_func *match_fn)
+static int list_match(pam_handle_t *pamh,
+		      char *list, struct login_info *item, match_func *match_fn)
 {
     char   *tok;
     int     match = NO;
@@ -233,7 +236,7 @@ static int list_match(char *list, struct login_info *item, match_func *match_fn)
     for (tok = strtok(list, sep); tok != 0; tok = strtok((char *) 0, sep)) {
 	if (strcasecmp(tok, "EXCEPT") == 0)	/* EXCEPT: give up */
 	    break;
-	if ((match = (*match_fn) (tok, item)))	/* YES */
+	if ((match = (*match_fn) (pamh, tok, item)))	/* YES */
 	    break;
     }
     /* Process exceptions to matches. */
@@ -241,7 +244,7 @@ static int list_match(char *list, struct login_info *item, match_func *match_fn)
     if (match != NO) {
 	while ((tok = strtok((char *) 0, sep)) && strcasecmp(tok, "EXCEPT"))
 	     /* VOID */ ;
-	if (tok == 0 || list_match((char *) 0, item, match_fn) == NO)
+	if (tok == 0 || list_match(pamh, (char *) 0, item, match_fn) == NO)
 	    return (match);
     }
     return (NO);
@@ -273,12 +276,10 @@ static int netgroup_match(char *group, char *machine, char *user)
 
 /* user_match - match a username against one token */
 
-static int user_match(char *tok, struct login_info *item)
+static int user_match(pam_handle_t *pamh, char *tok, struct login_info *item)
 {
     char   *string = item->user->pw_name;
     struct login_info fake_item;
-    struct group *group;
-    int     i;
     char   *at;
 
     /*
@@ -293,24 +294,22 @@ static int user_match(char *tok, struct login_info *item)
 	fake_item.from = myhostname();
 	if (fake_item.from == NULL)
 	  return NO;
-	return (user_match(tok, item) && from_match(at + 1, &fake_item));
-    } else if (tok[0] == '@') {			/* netgroup */
+	return (user_match (pamh, tok, item) && from_match (pamh, at + 1, &fake_item));
+    } else if (tok[0] == '@') /* netgroup */
 	return (netgroup_match(tok + 1, (char *) 0, string));
-    } else if (string_match(tok, string)) {	/* ALL or exact match */
-	return (YES);
-    } else if ((group = getgrnam(tok))) {	/* try group membership */
-	if (item->user->pw_gid == group->gr_gid)
-	    return (YES);
-	for (i = 0; group->gr_mem[i]; i++)
-	    if (strcasecmp(string, group->gr_mem[i]) == 0)
-		return (YES);
-    }
-    return (NO);
+    else if (string_match (pamh, tok, string)) /* ALL or exact match */
+	return YES;
+    else if (_pammodutil_user_in_group_nam_nam (pamh, item->user->pw_name, tok))
+      /* try group membership */
+      return YES;
+
+    return NO;
 }
 
 /* from_match - match a host or tty against a list of tokens */
 
-static int from_match(char *tok, struct login_info *item)
+static int
+from_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 {
     char   *string = item->from;
     int     tok_len;
@@ -327,9 +326,9 @@ static int from_match(char *tok, struct login_info *item)
 
     if (tok[0] == '@') {			/* netgroup */
 	return (netgroup_match(tok + 1, string, (char *) 0));
-    } else if (string_match(tok, string)) {	/* ALL or exact match */
-	return (YES);
-    } else if (tok[0] == '.') {			/* domain: match last fields */
+    } else if (string_match (pamh, tok, string)) /* ALL or exact match */
+      return YES;
+    else if (tok[0] == '.') {			/* domain: match last fields */
 	if ((str_len = strlen(string)) > (tok_len = strlen(tok))
 	    && strcasecmp(tok, string + str_len - tok_len) == 0)
 	    return (YES);
@@ -373,7 +372,8 @@ static int from_match(char *tok, struct login_info *item)
 
 /* string_match - match a string against one token */
 
-static int string_match(char *tok, char *string)
+static int
+string_match (pam_handle_t *pamh, char *tok, char *string)
 {
 
     /*
@@ -444,7 +444,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
 
     }
 
-    if ((user_pw=getpwnam(user))==NULL) return (PAM_USER_UNKNOWN);
+    if ((user_pw=_pammodutil_getpwnam(pamh, user))==NULL) return (PAM_USER_UNKNOWN);
 
     /*
      * Bundle up the arguments to avoid unnecessary clumsiness later on.
@@ -461,7 +461,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
 	return PAM_ABORT;
     }
 
-    if (login_access(&loginfo)) {
+    if (login_access(pamh, &loginfo)) {
 	return (PAM_SUCCESS);
     } else {
 	_log_err("access denied for user `%s' from `%s'",user,from);

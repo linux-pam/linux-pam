@@ -149,7 +149,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 
 	/* if this user does not have a password... */
 
-	if (_unix_blankpasswd(ctrl, name)) {
+	if (_unix_blankpasswd(pamh, ctrl, name)) {
 		D(("user '%s' has blank passwd", name));
 		name = NULL;
 		retval = PAM_SUCCESS;

@@ -125,7 +125,7 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
     }
 
     /* su to a uid 0 account ? */
-    pwd = getpwnam(username);
+    pwd = _pammodutil_getpwnam (pamh, username);
     if (!pwd) {
         if (ctrl & PAM_DEBUG_ARG) {
             _pam_log(LOG_NOTICE,"unknown user %s",username);
@@ -134,7 +134,7 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
     }
      
     if (ctrl & PAM_USE_UID_ARG) {
-	tpwd = getpwuid(getuid());
+	tpwd = _pammodutil_getpwuid (pamh, getuid());
 	if (!tpwd) {
 	    if (ctrl & PAM_DEBUG_ARG) {
                 _pam_log(LOG_NOTICE, "who is running me ?!");
@@ -145,7 +145,7 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
     } else {
 	fromsu = _pammodutil_getlogin(pamh);
 	if (fromsu) {
-	    tpwd = getpwnam(fromsu);
+	    tpwd = _pammodutil_getpwnam (pamh, fromsu);
 	}
 	if (!fromsu || !tpwd) {
 	    if (ctrl & PAM_DEBUG_ARG) {
@@ -160,11 +160,11 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
      */
      
     if (!use_group[0]) {
-	if ((grp = getgrnam("wheel")) == NULL) {
-	    grp = getgrgid(0);
+	if ((grp = _pammodutil_getgrnam (pamh, "wheel")) == NULL) {
+	    grp = _pammodutil_getgrgid (pamh, 0);
 	}
     } else {
-	grp = getgrnam(use_group);
+	grp = _pammodutil_getgrnam (pamh, use_group);
     }
 
     if (!grp || (!grp->gr_mem && (tpwd->pw_gid != grp->gr_gid))) {

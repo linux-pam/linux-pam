@@ -44,6 +44,12 @@ endif
 APPLICATION = $(TITLE)
 APPMODE = 755
 
+LINK_PAMMODUTILS = -L../pammodutil -lpammodutil -L../../libpam -lpam
+INCLUDE_PAMMODUTILS = -I../pammodutil/include
+
+LDFLAGS += $(LINK_PAMMODUTILS)
+CFLAGS += $(INCLUDE_PAMMODUTILS)
+
 ####################### don't edit below #######################
 
 all: dirs $(LIBSHARED) $(LIBSTATIC) register $(APPLICATION)
@@ -65,10 +71,10 @@ ifdef DYNAMIC
 $(LIBOBJD): $(LIBSRC)
 
 $(LIBSHARED):   $(LIBOBJD)
-	$(LD_D) -o $@ $(LIBOBJD) -L../../libpam -lpam $(NEED_LINK_LIB_C) 
+	$(LD_D) -o $@ $(LIBOBJD) $(LDFLAGS)
 
 $(APPLICATION): $(APPOBJD) $(TITLE).c
-	$(CC) $(CFLAGS) -o $@ $(APPOBJD) $(LOADLIBES)
+	$(CC) $(CFLAGS) -o $@ $(APPOBJD) $(LDFLAGS) $(LOADLIBES)
     
 endif
 

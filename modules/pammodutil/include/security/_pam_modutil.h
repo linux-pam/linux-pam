@@ -19,6 +19,8 @@
  */
 
 #include <pwd.h>
+#include <grp.h>
+#include <shadow.h>
 #include <sys/types.h>
 
 extern struct passwd *_pammodutil_getpwnam(pam_handle_t *pamh,
@@ -26,6 +28,31 @@ extern struct passwd *_pammodutil_getpwnam(pam_handle_t *pamh,
 
 extern struct passwd *_pammodutil_getpwuid(pam_handle_t *pamh,
 					   uid_t uid);
+
+extern struct group  *_pammodutil_getgrnam(pam_handle_t *pamh,
+                                           const char *group);
+ 
+extern struct group  *_pammodutil_getgrgid(pam_handle_t *pamh,
+                                           gid_t gid);
+ 
+extern struct spwd   *_pammodutil_getspnam(pam_handle_t *pamh,
+                                           const char *user);
+
+extern int _pammodutil_user_in_group_nam_nam(pam_handle_t *pamh,
+                                             const char *user,
+                                             const char *group);
+ 
+extern int _pammodutil_user_in_group_nam_gid(pam_handle_t *pamh,
+                                             const char *user,
+                                             gid_t group);
+ 
+extern int _pammodutil_user_in_group_uid_nam(pam_handle_t *pamh,
+                                             uid_t user,
+                                             const char *group);
+ 
+extern int _pammodutil_user_in_group_uid_gid(pam_handle_t *pamh,
+                                             uid_t user,
+                                             gid_t group);
 
 extern void _pammodutil_cleanup(pam_handle_t *pamh, void *data,
 				int error_status);

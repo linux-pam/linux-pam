@@ -7337,7 +7337,11 @@ done
 
 
 
-for ac_func in getpwnam_r getgrnam_r
+
+
+
+
+for ac_func in getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r getgrouplist
 do
 as_ac_var=`echo "ac_cv_func_$ac_func" | $as_tr_sh`
 echo "$as_me:$LINENO: checking for $ac_func" >&5

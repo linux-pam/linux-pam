@@ -9,8 +9,31 @@
 
 #include "pammodutil.h"
 
+#include <limits.h>
+#include <pthread.h>
 #include <pwd.h>
+#include <stdio.h>
 #include <stdlib.h>
+
+static pthread_mutex_t _pammodutil_mutex = PTHREAD_MUTEX_INITIALIZER;
+static void _pammodutil_lock(void)
+{
+	pthread_mutex_lock(&_pammodutil_mutex);
+}
+static void _pammodutil_unlock(void)
+{
+	pthread_mutex_unlock(&_pammodutil_mutex);
+}
+
+static int intlen(int number)
+{ 
+    int len = 2;
+    while (number != 0) {
+        number /= 10;
+	len++;
+    }
+    return len;
+}
 
 struct passwd *_pammodutil_getpwnam(pam_handle_t *pamh, const char *user)
 {
@@ -41,9 +64,40 @@ struct passwd *_pammodutil_getpwnam(pam_handle_t *pamh, const char *user)
 	status = getpwnam_r(user, buffer,
 			    sizeof(struct passwd) + (char *) buffer,
 			    length, &result);
-	if (!status && result) {
-	    status = pam_set_data(pamh, "_pammodutil_getpwnam", result,
-				  _pammodutil_cleanup);
+	if (!status && (result == buffer)) {
+	    char *data_name;
+	    const void *ignore;
+	    int i;
+
+	    data_name = malloc(strlen("_pammodutil_getpwnam") + 1 +
+	    		       strlen(user) + 1 + intlen(INT_MAX) + 1);
+	    if ((pamh != NULL) && (data_name == NULL)) {
+	        D(("was unable to register the data item [%s]",
+	           pam_strerror(pamh, status)));
+		free(buffer);
+		return NULL;
+	    }
+
+	    if (pamh != NULL) {
+	        for (i = 0; i < INT_MAX; i++) {
+	            sprintf(data_name, "_pammodutil_getpwnam_%s_%d", user, i);
+	            _pammodutil_lock();
+		    status = PAM_NO_MODULE_DATA;
+	            if (pam_get_data(pamh, data_name, &ignore) != PAM_SUCCESS) {
+		        status = pam_set_data(pamh, data_name,
+					      result, _pammodutil_cleanup);
+		    }
+	            _pammodutil_unlock();
+		    if (status == PAM_SUCCESS) {
+		        break;
+		    }
+		}
+	    } else {
+	        status = PAM_SUCCESS;
+	    }
+
+	    free(data_name);
+
 	    if (status == PAM_SUCCESS) {
 		D(("success"));
 		return result;

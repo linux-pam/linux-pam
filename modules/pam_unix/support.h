@@ -133,7 +133,8 @@ extern int _make_remark(pam_handle_t * pamh, unsigned int ctrl
 		       ,int type, const char *text);
 extern int _set_ctrl(pam_handle_t * pamh, int flags, int *remember, int argc,
 		     const char **argv);
-extern int _unix_blankpasswd(unsigned int ctrl, const char *name);
+extern int _unix_blankpasswd(pam_handle_t *pamh,unsigned int ctrl,
+			     const char *name);
 extern int _unix_verify_password(pam_handle_t * pamh, const char *name
 			  ,const char *p, unsigned int ctrl);
 extern int _unix_read_password(pam_handle_t * pamh

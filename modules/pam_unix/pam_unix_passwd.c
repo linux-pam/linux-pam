@@ -73,6 +73,8 @@
 #include <security/pam_appl.h>
 #endif				/* LINUX_PAM */
 
+#include <security/_pam_modutil.h>
+
 #include "yppasswd.h"
 #include "md5.h"
 #include "support.h"
@@ -242,7 +244,8 @@ static int check_old_password(const char *forwho, const char *newpass)
 	return retval;
 }
 
-static int save_old_password(const char *forwho, const char *oldpass,
+static int save_old_password(pam_handle_t *pamh,
+			     const char *forwho, const char *oldpass,
 			     int howmany)
 {
     static char buf[16384];
@@ -314,7 +317,7 @@ static int save_old_password(const char *forwho, const char *oldpass,
     fclose(opwfile);
 
     if (!found) {
-	pwd = getpwnam(forwho);
+	pwd = _pammodutil_getpwnam(pamh, forwho);
 	if (pwd == NULL) {
 	    err = 1;
 	} else {
@@ -550,7 +553,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 		return retval;
 	}
 	/* first, save old password */
-	if (save_old_password(forwho, fromwhat, remember)) {
+	if (save_old_password(pamh, forwho, fromwhat, remember)) {
 		return PAM_AUTHTOK_ERR;
 	}
 
@@ -762,7 +765,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 		D(("prelim check"));
 
-		if (_unix_blankpasswd(ctrl, user)) {
+		if (_unix_blankpasswd(pamh, ctrl, user)) {
 			return PAM_SUCCESS;
 		} else if (off(UNIX__IAMROOT, ctrl)) {
 

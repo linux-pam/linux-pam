@@ -282,19 +282,13 @@ static void _cleanup_failures(pam_handle_t * pamh, void *fl, int err)
  * - to avoid prompting for one in such cases (CG)
  */
 
-int _unix_blankpasswd(unsigned int ctrl, const char *name)
+int
+_unix_blankpasswd (pam_handle_t *pamh, unsigned int ctrl, const char *name)
 {
 	struct passwd *pwd = NULL;
 	struct spwd *spwdent = NULL;
 	char *salt = NULL;
 	int retval;
-#if HAVE_GETPWNAM_R
-	char *buf = NULL;
-	int bufsize = 0;
-	struct passwd pwd_buf;
-
-	pwd = &pwd_buf;
-#endif
 
 	D(("called"));
 
@@ -310,23 +304,7 @@ int _unix_blankpasswd(unsigned int ctrl, const char *name)
 	/* UNIX passwords area */
 
 	/* Get password file entry... */
-#if HAVE_GETPWNAM_R
-	bufsize = 1024;
-	buf = malloc(bufsize);
-
-	if ((retval = getpwnam_r(name, pwd, buf, bufsize, &pwd))) {
-		pwd = NULL;
-	}
-	while (retval == ERANGE) {
-		bufsize += 1024;
-		buf = realloc(buf, bufsize);
-		if ((retval = getpwnam_r(name, pwd, buf, bufsize, &pwd))) {
-			pwd = NULL;
-		}
-	}
-#else
-	pwd = getpwnam(name);
-#endif
+	pwd = _pammodutil_getpwnam (pamh, name);
 
 	if (pwd != NULL) {
 		if (strcmp( pwd->pw_passwd, "*NP*" ) == 0)
@@ -344,15 +322,11 @@ int _unix_blankpasswd(unsigned int ctrl, const char *name)
 					setreuid( 0, -1 );
 					if(setreuid( -1, pwd->pw_uid ) == -1)
 						/* Will fail elsewhere. */
-#if HAVE_GETPWNAM_R
-						if (buf)
-							free(buf);
-#endif
 						return 0;
 				}
 			}
 	
-			spwdent = getspnam( name );
+			spwdent = _pammodutil_getspnam (pamh, name);
 			if (save_uid == pwd->pw_uid)
 				setreuid( save_uid, save_euid );
 			else {
@@ -365,7 +339,7 @@ int _unix_blankpasswd(unsigned int ctrl, const char *name)
 			 * ...and shadow password file entry for this user,
 			 * if shadowing is enabled
 			 */
-			spwdent = getspnam(name);
+			spwdent = _pammodutil_getspnam(pamh, name);
 		}
 		if (spwdent)
 			salt = x_strdup(spwdent->sp_pwdp);
@@ -386,11 +360,6 @@ int _unix_blankpasswd(unsigned int ctrl, const char *name)
 
 	if (salt)
 		_pam_delete(salt);
-
-#if HAVE_GETPWNAM_R
-	if (buf)
-		free(buf);
-#endif
 
 	return retval;
 }
@@ -503,7 +472,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	D(("locating user's record"));
 
 	/* UNIX passwords area */
-	pwd = getpwnam(name);	/* Get password file entry... */
+	pwd = _pammodutil_getpwnam (pamh, name);	/* Get password file entry... */
 
 	if (pwd != NULL) {
 		if (strcmp( pwd->pw_passwd, "*NP*" ) == 0)
@@ -524,7 +493,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 				}
 			}
 	
-			spwdent = getspnam( name );
+			spwdent = _pammodutil_getspnam (pamh, name);
 			if (save_uid == pwd->pw_uid)
 				setreuid( save_uid, save_euid );
 			else {
@@ -537,7 +506,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			 * ...and shadow password file entry for this user,
 			 * if shadowing is enabled
 			 */
-			spwdent = getspnam(name);
+			spwdent = _pammodutil_getspnam (pamh, name);
 		}
 		if (spwdent)
 			salt = x_strdup(spwdent->sp_pwdp);

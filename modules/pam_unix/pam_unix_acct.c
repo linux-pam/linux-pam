@@ -53,6 +53,7 @@
 #define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
+#include <security/_pam_modutil.h>
 
 #ifndef LINUX_PAM
 #include <security/pam_appl.h>
@@ -89,7 +90,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		return PAM_USER_UNKNOWN;
 	}
 
-	pwent = getpwnam(uname);
+	pwent = _pammodutil_getpwnam(pamh, uname);
 	if (!pwent) {
 		_log_err(LOG_ALERT, pamh
 			 ,"could not identify user (from getpwnam(%s))"
@@ -113,7 +114,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 					return PAM_CRED_INSUFFICIENT;
 			}
 		}
-		spent = getspnam( uname );
+		spent = _pammodutil_getspnam (pamh, uname);
 		if (save_uid == pwent->pw_uid)
 			setreuid( save_uid, save_euid );
 		else {
@@ -123,7 +124,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		}
 
 	} else if (!strcmp( pwent->pw_passwd, "x" )) {
-		spent = getspnam(uname);
+		spent = _pammodutil_getspnam (pamh, uname);
 	} else {
 		return PAM_SUCCESS;
 	}

@@ -49,6 +49,7 @@
 /* #define PAM_SM_PASSWORD */
 
 #include <security/pam_modules.h>
+#include <security/_pam_modutil.h>
 
 /*---------------------------------------------------------------------*/
 
@@ -123,7 +124,7 @@ static int pam_get_uid( pam_handle_t *pamh, uid_t *uid, const char **userp )
       return PAM_AUTH_ERR;
     }
 
-    if ( ! ( pw = getpwnam( user ) ) ) {
+    if ( ! ( pw = _pammodutil_getpwnam( pamh, user ) ) ) {
       _pam_log(LOG_ERR,MODULE_NAME ": pam_get_uid; no such user %s",user);
       return PAM_USER_UNKNOWN;
     }

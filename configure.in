@@ -402,7 +402,7 @@ AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(gethostname gettimeofday mkdir select strcspn strdup strerror strspn strstr strtol uname)
 
-AC_CHECK_FUNCS(getpwnam_r getgrnam_r)
+AC_CHECK_FUNCS(getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r getgrouplist)
 
 dnl Checks for programs/utilities
 AC_CHECK_PROG(HAVE_SGML2TXT, sgml2txt, yes, no)

@@ -57,6 +57,7 @@ typedef enum { AND, OR } operator;
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
+#include <security/_pam_modutil.h>
 
 /* --- static functions for checking whether the user should be let in --- */
 
@@ -526,7 +527,7 @@ static int find_member(const char *string, int *at)
 #define GROUP_BLK 10
 #define blk_size(len) (((len-1 + GROUP_BLK)/GROUP_BLK)*GROUP_BLK)
 
-static int mkgrplist(char *buf, gid_t **list, int len)
+static int mkgrplist(pam_handle_t *pamh, char *buf, gid_t **list, int len)
 {
      int l,at=0;
      int blks;
@@ -589,7 +590,7 @@ static int mkgrplist(char *buf, gid_t **list, int len)
 	  {
 	      const struct group *grp;
 
-	      grp = getgrnam(buf+at);
+	      grp = _pammodutil_getgrnam(pamh, buf+at);
 	      if (grp == NULL) {
 		  _log_err("bad group: %s", buf+at);
 	      } else {
@@ -608,8 +609,8 @@ static int mkgrplist(char *buf, gid_t **list, int len)
 }
 
 
-static int check_account(const char *service, const char *tty
-     , const char *user)
+static int check_account(pam_handle_t *pamh, const char *service,
+			 const char *tty, const char *user)
 {
     int from=0,to=0,fd=-1;
     char *buffer=NULL;
@@ -708,7 +709,7 @@ static int check_account(const char *service, const char *tty
 
 	if (good) {
 	    D(("adding %s to gid list", buffer));
-	    good = mkgrplist(buffer, &grps, no_grps);
+	    good = mkgrplist(pamh, buffer, &grps, no_grps);
 	    if (good < 0) {
 		no_grps = 0;
 	    } else {
@@ -831,7 +832,7 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags
     /* We initialize the pwdb library and check the account */
     retval = pwdb_start();                             /* initialize */
     if (retval == PWDB_SUCCESS) {
-	retval = check_account(service,tty,user);      /* get groups */
+	retval = check_account(pamh, service,tty,user);      /* get groups */
 	(void) pwdb_end();                                /* tidy up */
     } else {
 	D(("failed to initialize pwdb; %s", pwdb_strerror(retval)));
@@ -840,7 +841,7 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags
     }
 
 #else /* WANT_PWDB */
-    retval = check_account(service,tty,user);          /* get groups */
+    retval = check_account(pamh,service,tty,user);          /* get groups */
 #endif /* WANT_PWDB */
 
     return retval;

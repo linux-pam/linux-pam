@@ -15,6 +15,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <syslog.h>
 #include <unistd.h>
@@ -30,6 +31,7 @@
 #define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
+#include <security/_pam_modutil.h>
 
 /* some syslogging */
 
@@ -71,7 +73,7 @@ static int perform_check(pam_handle_t *pamh, int flags)
 	    return PAM_SERVICE_ERR;
     }
 
-    pw = getpwnam(userName);
+    pw = _pammodutil_getpwnam(pamh, userName);
     if (!pw) {
 	return PAM_AUTH_ERR;		/* user doesn't exist */
     }

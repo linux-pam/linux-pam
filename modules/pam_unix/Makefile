@@ -39,12 +39,15 @@ CHKPWD=unix_chkpwd
 
 EXTRAS += -DCHKPWD_HELPER=\"$(SUPLEMENTED)/$(CHKPWD)\"
 
+LINK_PAMMODUTILS = -L../pammodutil -lpammodutil
+INCLUDE_PAMMODUTILS = -I../pammodutil/include
+
 ########################################################################
 
 CFLAGS += $(USE_CRACKLIB) $(USE_LCKPWDF) $(NEED_LCKPWDF) $(EXTRAS) \
-	 -I../pammodutil/include
+	 $(INCLUDE_PAMMODUTILS)
 
-LDLIBS = $(EXTRALS) -L../pammodutil -lpammodutil
+LDLIBS = $(EXTRALS) $(LINK_PAMMODUTILS)
 
 ifdef USE_CRACKLIB
 CRACKLIB = -lcrack

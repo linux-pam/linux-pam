@@ -46,6 +46,7 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
+#include <security/_pam_modutil.h>
 
 /* some syslogging */
 
@@ -184,7 +185,7 @@ static int get_folder(pam_handle_t *pamh, int ctrl,
     if (ctrl & PAM_NEW_MAIL_DIR) {
 	path = *path_mail;
 	if (*path == '~') {       /* support for $HOME delivery */
-	    pwd = getpwnam(user);
+	    pwd = _pammodutil_getpwnam(pamh, user);
 	    if (pwd == NULL) {
 		_log_err(LOG_ERR, "user [%s] unknown", user);
 		_pam_overwrite(*path_mail);

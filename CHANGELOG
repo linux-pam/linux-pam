@@ -111,9 +111,12 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * Make.Rules.in: Add targets for installing man pages for modules
   (from Linux distributors - kukuk)
 * Add pam_xauth module (Bug 436440 - kukuk)
+* Add pam_localuser module (Bug 436444 - kukuk)
+* Add pam_succeed_if module (from Linux distributors - kukuk)
 * configure.in: Fix check for libcrypt (Bug 417704 - kukuk)
 * Add the "broken_shadow" argument to pam_unix, for ignoring errors
   reading shadow information (from Linux distributors - kukuk)
+* Add patches to make PAM modules reentrant (Bug 440107 - kukuk)
 
 0.77: Mon Sep 23 10:25:42 PDT 2002
 
