@@ -533,8 +533,11 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 	D(("called"));
 
 	pwd = getpwnam(forwho);
-	if (pwd == NULL)
-		return PAM_AUTHTOK_ERR;
+
+	if (pwd == NULL) {
+		retval = PAM_AUTHTOK_ERR;
+		goto done;
+	}
 
 	if (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, forwho, 0, 1)) {
 		struct timeval timeout;
@@ -544,6 +547,10 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 		int status;
 		int err = 0;
 
+		/* Unlock passwd file to avoid deadlock */
+#ifdef USE_LCKPWDF
+		ulckpwdf();
+#endif
 		/* Make RPC call to NIS server */
 		if ((master = getNISserver(pamh)) == NULL)
 			return PAM_TRY_AGAIN;
@@ -600,42 +607,26 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 	}
 	/* first, save old password */
 	if (save_old_password(pamh, forwho, fromwhat, remember)) {
-		return PAM_AUTHTOK_ERR;
+		retval = PAM_AUTHTOK_ERR;
+		goto done;
+	}
+	if (_unix_comesfromsource(pamh, forwho, 1, 0)) {
+		if (on(UNIX_SHADOW, ctrl) || _unix_shadowed(pwd)) {
+			retval = _update_shadow(pamh, forwho, towhat);
+ 		        if (retval != PAM_SUCCESS && SELINUX_ENABLED) 
+			  retval = _unix_run_shadow_binary(pamh, ctrl, forwho, fromwhat, towhat);
+			if (retval == PAM_SUCCESS)
+				if (!_unix_shadowed(pwd))
+					retval = _update_passwd(pamh, forwho, "x");
+		} else {
+			retval = _update_passwd(pamh, forwho, towhat);
+		}
 	}
 
-#ifdef USE_LCKPWDF
-	/*
-	 * These values for the number of attempts and the sleep time
-	 * are, of course, completely arbitrary.
-	 *
-	 * My reading of the PAM docs is that, once pam_chauthtok()
-	 * has been called with PAM_UPDATE_AUTHTOK, we are obliged to
-	 * take any reasonable steps to make sure the token is
-	 * updated; so retrying for 1/10 sec. isn't overdoing it.
-	 */
-
-	retval = lckpwdf();
-	if (retval != 0) {
-	    return PAM_AUTHTOK_LOCK_BUSY;
-	}
-#endif /* def USE_LCKPWDF */
-
-	if (_unix_comesfromsource (pamh, forwho, 1, 0))
-	  {
-	    if (on(UNIX_SHADOW, ctrl) || _unix_shadowed (pwd))
-	      {
-		retval = _update_shadow (pamh, forwho, towhat);
-		if (retval == PAM_SUCCESS)
-		  if (!_unix_shadowed (pwd))
-		    retval = _update_passwd (pamh, forwho, "x");
-	      }
-	    else
-	      retval = _update_passwd (pamh, forwho, towhat);
-	  }
-
+done:
 #ifdef USE_LCKPWDF
 	ulckpwdf();
-#endif /* def USE_LCKPWDF */
+#endif
 
 	return retval;
 }
@@ -762,7 +753,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 				int argc, const char **argv)
 {
 	unsigned int ctrl, lctrl;
-	int retval;
+	int retval, i;
 	int remember = -1;
 
 	/* <DO NOT free() THESE> */
@@ -937,11 +928,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 			_log_err(LOG_NOTICE, pamh, "user not authenticated");
 			return retval;
 		}
-		retval = _unix_verify_shadow(user, ctrl);
-		if (retval != PAM_SUCCESS) {
-			_log_err(LOG_NOTICE, pamh, "user not authenticated 2");
-			return retval;
-		}
+
 		D(("get new password now"));
 
 		lctrl = ctrl;
@@ -992,6 +979,54 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 			pass_new = pass_old = NULL;	/* tidy up */
 			return retval;
 		}
+#ifdef USE_LCKPWDF
+		/* These values for the number of attempts and the sleep time
+		   are, of course, completely arbitrary.
+		   My reading of the PAM docs is that, once pam_chauthtok() has been
+		   called with PAM_UPDATE_AUTHTOK, we are obliged to take any
+		   reasonable steps to make sure the token is updated; so retrying
+		   for 1/10 sec. isn't overdoing it. */
+		i=0;
+		while((retval = lckpwdf()) != 0 && i < 100) {
+			usleep(1000);
+			i++;
+		}
+		if(retval != 0) {
+			return PAM_AUTHTOK_LOCK_BUSY;
+		}
+#endif
+
+		if (pass_old) {
+			retval = _unix_verify_password(pamh, user, pass_old, ctrl);
+			if (retval != PAM_SUCCESS) {
+				_log_err(LOG_NOTICE, pamh, "user password changed by another process");
+#ifdef USE_LCKPWDF
+				ulckpwdf();
+#endif
+				return retval;
+			}
+		}
+
+		retval = _unix_verify_shadow(user, ctrl);
+		if (retval != PAM_SUCCESS) {
+			_log_err(LOG_NOTICE, pamh, "user not authenticated 2");
+#ifdef USE_LCKPWDF
+			ulckpwdf();
+#endif
+			return retval;
+		}
+
+		retval = _pam_unix_approve_pass(pamh, ctrl, pass_old, pass_new);
+		if (retval != PAM_SUCCESS) {
+			_log_err(LOG_NOTICE, pamh,
+			         "new password not acceptable 2");
+			pass_new = pass_old = NULL;	/* tidy up */
+#ifdef USE_LCKPWDF
+			ulckpwdf();
+#endif
+			return retval;
+		}
+
 		/*
 		 * By reaching here we have approved the passwords and must now
 		 * rebuild the password database file.
@@ -1030,6 +1065,9 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 					_log_err(LOG_CRIT, pamh,
 					         "out of memory for password");
 					pass_new = pass_old = NULL;	/* tidy up */
+#ifdef USE_LCKPWDF
+					ulckpwdf();
+#endif
 					return PAM_BUF_ERR;
 				}
 				/* copy first 8 bytes of password */
@@ -1051,6 +1089,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 		retval = _do_setpass(pamh, user, pass_old, tpass, ctrl,
 		                     remember);
+	        /* _do_setpass has called ulckpwdf for us */
 
 		_pam_delete(tpass);
 		pass_old = pass_new = NULL;
