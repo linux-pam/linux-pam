@@ -35,6 +35,9 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* added copyright message to pam_access module from original logdaemon
+  sources (Bug 125022 - agmorgan)
+* configure.in - removed the GCC -Wtraditional flag (Bug 124923 - agmorgan)
 * pam_mail - use PAM_PATH_MAILDIR as the location of mail spool
   (Bug 124397 - baggins)
 * _pam_aconf.h.in, configure.in - added PAM_PATH_MAILDIR set via
