@@ -23,15 +23,18 @@ dnl
 AC_PREFIX_DEFAULT()
 
 dnl
+dnl Useful info (believed to be portable)
+dnl
+LOCALSRCDIR=`/bin/pwd`         ; AC_SUBST(LOCALSRCDIR)
+OS=`uname|sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
+AC_SUBST(OS)
+
+dnl
 dnl Rules needed for the following (hardcoded Linux defaults for now)
 dnl
 
-CC=gcc				; AC_SUBST(CC)
 CONF_CFLAGS=			; AC_SUBST(CONF_CFLAGS)
 MKDIR="mkdir -p"		; AC_SUBST(MKDIR)
-LOCALSRCDIR=`/bin/pwd`		; AC_SUBST(LOCALSRCDIR)
-OS=`uname|sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
-AC_SUBST(OS)
 
 SHLIBMODE=755			; AC_SUBST(SHLIBMODE)
 
@@ -269,6 +272,7 @@ GCC_WARNINGS="-Wall -Wwrite-strings \
 	-Wnested-externs -Winline -Wshadow"
 
 if test "$GCC" = yes; then
+	CC=gcc				; AC_SUBST(CC)
 ### May need per-OS attention
 ### Example: -D_POSIX_SOURCE: needed on Linux but harms Solaris.
 	case $OS in
@@ -313,17 +317,40 @@ else
 ###
 ### Non-gcc needs attention on per-OS basis
 ###
-### [These are Solaris-C specific...]
-	OS_CFLAGS=""
-	WARNINGS=""
-	PIC="-K pic"
-	DYNTYPE=so
-	LD=ld
-	LD_D="cc -z text -G -R."
-	LD_L="$LD_D"
-	RANLIB=ranlib
-	STRIP=strip
-	CC_STATIC=
+	case "$OS" in
+	solaris)
+	    ### Support for Solaris-C
+	    OS_CFLAGS=""
+	    WARNINGS=""
+	    PIC="-K pic"
+	    LD=ld
+	    LD_D="cc -z text -G -R."
+	    LD_L="$LD_D"
+	    RANLIB=ranlib
+	    STRIP=strip
+	    CC_STATIC=
+	    ;;
+	irix*)
+	    OSRELEASE=`uname -r`
+	    if test "$OSRELEASE" = 6.5; then
+		OS_CFLAGS=""
+		WARNINGS="-fullwarn"
+		PIC=                    #PIC code is default for IRIX
+		LD="cc -shared"         # modules friendly approach
+		LD_D="cc -shared"
+		LD_L="ld -G -z redlocsym"
+		RANLIB=echo
+		STRIP=strip
+		CC_STATIC=
+	    else
+		echo "IRIX prior to 6.5 not allowed for"
+		exit
+	    fi
+	    ;;
+       *) echo "Native compiler on $OS is not yet supported"
+               exit
+	    ;;
+       esac
 fi
 
 AC_SUBST(DYNTYPE)
