@@ -50,6 +50,7 @@
 #include <malloc.h>
 #include <unistd.h>
 #include <errno.h>
+#include <sys/types.h>
 #include <pwd.h>
 #include <syslog.h>
 #include <shadow.h>
@@ -57,7 +58,6 @@
 #include <fcntl.h>
 #include <ctype.h>
 #include <sys/time.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <rpc/rpc.h>
 #include <rpcsvc/yp_prot.h>

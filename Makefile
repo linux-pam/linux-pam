@@ -9,14 +9,9 @@
 ## configure.in not getting propagated down the tree. (AGM) [I realise
 ## that this may not prove possible, but at least I tried.. Sigh.]
 
-PAMLIBS = libpam libpamc libpam_misc
+THINGSTOMAKE = modules libpam libpamc libpam_misc
 
-all: modules libs
-
-modules:
-	@echo \"make modules\" is not yet supported
-
-libs: $(PAMLIBS)
+all: $(THINGSTOMAKE)
 
 clean:
 	rm -f config.status config.cache config.log core
@@ -25,7 +20,7 @@ clean:
 extraclean: clean
 	touch Make.Rules
 	rm -rf include *~ #*# *.orig *.rej
-	for i in $(PAMLIBS) ; do $(MAKE) -C $$i extraclean ; done
+	for i in $(THINGSTOMAKE) ; do $(MAKE) -C $$i extraclean ; done
 	rm -f Make.Rules pam_aconf.h
 
 ## =================
@@ -38,7 +33,7 @@ configure: configure.in
 	@$(MAKE) extraclean
 	autoconf
 
-$(PAMLIBS): Make.Rules
+$(THINGSTOMAKE): Make.Rules
 	$(MAKE) -C $@ all
 
 ifdef LEGACY_OLD_MAKEFILE

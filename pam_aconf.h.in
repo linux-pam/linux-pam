@@ -19,6 +19,7 @@
 /* GNU systems as a class, all have the feature.h file */
 #undef HAVE_FEATURES_H
 #ifdef HAVE_FEATURES_H
+# define _GNU_SOURCE
 # include <features.h>
 #endif /* HAVE_FEATURES_H */
 

@@ -9,6 +9,7 @@
 #   $(MODULE_SIMPLE_CLEAN)
 #   $(MODULE_SIMPLE_REMOVE)
 #   $(MODULE_SIMPLE_INSTALL)
+#   $(MODULE_SIMPLE_EXTRALIBS)  - other things to link with the module
 #
 
 LIBSRC = $(TITLE).c
@@ -53,7 +54,8 @@ endif
 
 ifdef DYNAMIC
 $(LIBSHARED):	$(LIBOBJD)
-		$(LD_D) -o $@ $(LIBOBJD)
+	$(LD_D) -o $@ $(LIBOBJD) $(MODULE_SIMPLE_EXTRALIBS) $(NEED_LINK_LIB_C)
+
 endif
 
 ifdef STATIC
@@ -62,7 +64,7 @@ endif
 
 ifdef STATIC
 $(LIBSTATIC): $(LIBOBJS)
-	$(LD) -r -o $@ $(LIBOBJS)
+	$(LD) -r -o $@ $(LIBOBJS) $(MODULE_SIMPLE_EXTRALIBS)
 endif
 
 install: all

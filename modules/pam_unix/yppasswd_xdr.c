@@ -10,10 +10,7 @@
  * editied manually.
  */
 
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include "../../pam_aconf.h"
 
 #include <rpc/rpc.h>
 #include <rpcsvc/yp_prot.h>

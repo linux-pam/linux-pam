@@ -98,11 +98,17 @@ AC_ARG_ENABLE(dynamic-libpam,
 AC_SUBST(DYNAMIC_LIBPAM)
 
 DYNAMIC=-DPAM_DYNAMIC
+AC_SUBST(DYNAMIC)
+
 AC_ARG_ENABLE(static-modules,
 [  --enable-static-modules  do not make the modules dynamically loadable],
 	STATIC=-DPAM_STATIC)
 AC_SUBST(STATIC)
-AC_SUBST(DYNAMIC)
+
+AC_ARG_ENABLE(lckpwdf,
+[  --disable-lckpwdf do not use the lckpwdf function],
+	WITH_LCKPWDF=no, WITH_LCKPWDF=yes)
+AC_SUBST(WITH_LCKPWDF)
 
 dnl Checks for programs.
 AC_PROG_CXX
@@ -116,6 +122,10 @@ AC_PROG_MAKE_SET
 dnl Checks for libraries.
 AC_CHECK_LIB(c, __libc_sched_setscheduler, PAM_NEEDS_LIBC=, PAM_NEEDS_LIBC=-lc)
 AC_SUBST(PAM_NEEDS_LIBC)
+
+dnl Checks for the existence of lckpwdf in libc
+AC_CHECK_LIB(c, lckpwdf, HAVE_LCKPWDF=yes, HAVE_LCKPWDF=no)
+AC_SUBST(HAVE_LCKPWDF)
 
 dnl
 dnl At least on Solaris, the existing libcrack must be dynamic.
