@@ -25,7 +25,7 @@ dummy:
 # can type make pdf in this directory and see what happens in the pdf
 # subdirectory.
 
-all: htmls texts postscript
+all: htmls texts postscript pdf
 
 htmls: $(HTMLS)
 
@@ -125,12 +125,12 @@ ifneq ($(PSER),)
 	for file in ps/*.ps; do \
 	  install -m 644 $$file $(FAKEROOT)$(DOCDIR)/ps  ; \
 	done
-	ifeq ($(HAVE_PS2PDF),yes)
-		mkdir -p $(FAKEROOT)$(DOCDIR)/pdf
-		for file in pdf/*.pdf; do \
-		  install -m 644 $$file $(FAKEROOT)$(DOCDIR)/pdf  ; \
-		done
-	endif
+ifeq ($(HAVE_PS2PDF),yes)
+	mkdir -p $(FAKEROOT)$(DOCDIR)/pdf
+	for file in pdf/*.pdf; do \
+	  install -m 644 $$file $(FAKEROOT)$(DOCDIR)/pdf  ; \
+	done
+endif
 endif
 ifeq ($(HAVE_SGML2HTML),yes)
 	mkdir -p $(FAKEROOT)$(DOCDIR)/html
