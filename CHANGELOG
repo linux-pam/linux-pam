@@ -43,7 +43,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
-*
+* bumped version numbers and also added support for SONAME defines
+  that appear not to have survived the great autoconf experiment (Bug
+  414669 - agmorgan).
 
 0.75: Sat Apr  7 23:10:50 PDT 2001
 
