@@ -87,6 +87,7 @@ int innetgr(const char *, const char *, const char *,const char *);
 #include <sys/file.h>
 #include <sys/signal.h>
 #include <sys/stat.h>
+#include <stdint.h>
 #include <syslog.h>
 #ifndef _PATH_HEQUIV
 #define _PATH_HEQUIV "/etc/hosts.equiv"
@@ -98,8 +99,9 @@ int innetgr(const char *, const char *, const char *,const char *);
 #include <security/_pam_macros.h>
 #include <security/_pam_modutil.h>
 
-/* to the best of my knowledge, all modern UNIX boxes have 32 bit integers */
-#define U32 unsigned int
+/* Use the C99 type; older platforms will need this to be typedef'ed
+   elsewhere */
+#define U32 uint32_t
 
 
 /*
