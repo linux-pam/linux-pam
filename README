@@ -6,7 +6,32 @@ Hello!
 
 Thanks for downloading Linux-PAM.
 
+NOTES:
+
+This is the evolving autoconf branch for Linux-PAM. It is supposed to
+be equivalent to Linux-PAM-0.72.
+
+How to use it is as follows:
+
+      autoconf
+      ./configure --help | less
+      ./configure <your-options>
+      make
+
+  Note, this is all experimental so you may not want to do this one..(?)
+
+      make install
+
+Please report problems to me:
+
+Andrew Morgan
+<morgan@linux.kernel.org>
+<agmorgan@users.sourceforge.net>
+
 --------------------------------------------------------------------
+OLD OLD OLD stuff:
+--------------------------------------------------------------------
+
 Before you begin:
 
   * This distribution requires GNU's Make
