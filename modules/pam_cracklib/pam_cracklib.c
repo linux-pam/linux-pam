@@ -4,6 +4,7 @@
  */
 
 /*
+ * 0.9. switch to using a distance algorithm in similar()
  * 0.86.  added support for setting minimum numbers of digits, uppers,
  *        lowers, and others
  * 0.85.  added six new options to use this with long passwords.
@@ -59,6 +60,11 @@ extern char *FascistCheck(char *pw, const char *dictpath);
 #define PROMPT2 "Retype new %s%spassword: "
 #define MISTYPED_PASS "Sorry, passwords do not match"
 
+#ifdef MIN
+#undef MIN
+#endif
+#define MIN(_a, _b) (((_a) < (_b)) ? (_a) : (_b))
+
 /*
  * here, we make a definition for the externally accessible function
  * in this file (this definition is required for static a module
@@ -105,7 +111,7 @@ struct cracklib_options {
 };
 
 #define CO_RETRY_TIMES  1
-#define CO_DIFF_OK      10
+#define CO_DIFF_OK      5
 #define CO_DIFF_IGNORE  23
 #define CO_MIN_LENGTH   9
 # define CO_MIN_LENGTH_BASE 5
@@ -243,25 +249,89 @@ static int palindrome(const char *old, const char *new)
 }
 
 /*
- * This is a reasonably severe check for a different selection of characters
- * in the old and new passwords.
+ * Calculate how different two strings are in terms of the number of
+ * character removals, additions, and changes needed to go from one to
+ * the other
  */
 
-static int similar(struct cracklib_options *opt,
-		    const char *old, const char *new)
+static int distdifferent(const char *old, const char *new, int i, int j)
 {
-    int i, j;
+    char c, d;
 
-    for (i = j = 0; old[i]; i++) {
-	if (strchr (new, old[i])) {
-	    j++;
-	}
+    if ((i == 0) || (strlen(old) <= i)) {
+	c = 0;
+    } else {
+	c = old[i - 1];
+    }
+    if ((j == 0) || (strlen(new) <= i)) {
+	d = 0;
+    } else {
+	d = new[j - 1];
+    }
+    return (c != d);
+}
+
+static int distcalculate(int **distances, const char *old, const char *new,
+			 int i, int j)
+{
+    int tmp = 0;
+
+    if (distances[i][j] != -1) {
+	return distances[i][j];
     }
 
-    if (((i-j) >= opt->diff_ok)
-	|| (strlen(new) >= (j * 2))
-	|| (strlen(new) >= opt->diff_ignore)) {
-	/* passwords are not very similar */
+    tmp =          distcalculate(distances, old, new, i - 1, j - 1);
+    tmp = MIN(tmp, distcalculate(distances, old, new,     i, j - 1));
+    tmp = MIN(tmp, distcalculate(distances, old, new, i - 1,     j));
+    tmp += distdifferent(old, new, i, j);
+
+    distances[i][j] = tmp;
+
+    return tmp;
+}
+
+static int distance(const char *old, const char *new)
+{
+    int **distances = NULL;
+    int m, n, i, j, r;
+
+    m = strlen(old);
+    n = strlen(new);
+    distances = malloc(sizeof(int*) * (m + 1));
+
+    for (i = 0; i <= m; i++) {
+	distances[i] = malloc(sizeof(int) * (n + 1));
+	for(j = 0; j <= n; j++) {
+	    distances[i][j] = -1;
+	}
+    }
+    for (i = 0; i <= m; i++) {
+	distances[i][0] = i;
+    }
+    for (j = 0; j <= n; j++) {
+	distances[0][j] = j;
+    }
+    distances[0][0] = 0;
+
+    r = distcalculate(distances, old, new, m, n);
+
+    for (i = 0; i <= m; i++) {
+	memset(distances[i], 0, sizeof(int) * (n + 1));
+	free(distances[i]);
+    }
+    free(distances);
+
+    return r;
+}
+
+static int similar(struct cracklib_options *opt,
+		   const char *old, const char *new)
+{
+    if (distance(old, new) >= opt->diff_ok) {
+	return 0;
+    }
+
+    if (strlen(new) >= (strlen(old) * 2)) {
 	return 0;
     }
 
@@ -272,7 +342,8 @@ static int similar(struct cracklib_options *opt,
 /*
  * a nice mix of characters.
  */
-static int simple(struct cracklib_options *opt, const char *old, const char *new)
+static int simple(struct cracklib_options *opt,
+		  const char *old, const char *new)
 {
     int	digits = 0;
     int	uppers = 0;
@@ -486,6 +557,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
     unsigned int ctrl;
     struct cracklib_options options;
 
+    D(("called."));
+
     options.retry_times = CO_RETRY_TIMES;
     options.diff_ok = CO_DIFF_OK;
     options.diff_ignore = CO_DIFF_IGNORE;
@@ -496,12 +569,9 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
     options.oth_credit = CO_OTH_CREDIT;
     options.use_authtok = CO_USE_AUTHTOK;
     memset(options.prompt_type, 0, BUFSIZ);
-    
-    ctrl = _pam_parse(&options, argc, argv);
+    strcpy(options.prompt_type,"UNIX");
 
-    D(("called."));
-    if (!options.prompt_type[0])
-        strcpy(options.prompt_type,"UNIX");
+    ctrl = _pam_parse(&options, argc, argv);
 
     if (flags & PAM_PRELIM_CHECK) {
         /* Check for passwd dictionary */       
@@ -663,8 +733,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
         if (options.use_authtok == 0) {
             bzero(prompt,sizeof(prompt));
-            sprintf(prompt,sizeof(prompt),PROMPT2,
-		    options.prompt_type, options.prompt_type[0]?" ":"");
+            snprintf(prompt,sizeof(prompt),PROMPT2,
+		     options.prompt_type, options.prompt_type[0]?" ":"");
             pmsg[0] = &msg[0];
             msg[0].msg_style = PAM_PROMPT_ECHO_OFF;
             msg[0].msg = prompt;
