@@ -285,9 +285,11 @@ static int save_old_password(const char *forwho, const char *oldpass, int howman
 			}
 			pass = crypt_md5_wrapper(oldpass);
 			if (s_pas == NULL)
-				sprintf(nbuf, "%s:%s:%d:%s\n", s_luser, s_uid, npas, pass);
+				snprintf(nbuf, sizeof(nbuf), "%s:%s:%d:%s\n",
+					 s_luser, s_uid, npas, pass);
 			else
-				sprintf(nbuf, "%s:%s:%d:%s,%s\n", s_luser, s_uid, npas, s_pas, pass);
+				snprintf(nbuf, sizeof(nbuf),"%s:%s:%d:%s,%s\n",
+					 s_luser, s_uid, npas, s_pas, pass);
 			_pam_delete(pass);
 			if (fputs(nbuf, pwfile) < 0) {
 				retval = PAM_AUTHTOK_ERR;
@@ -309,7 +311,8 @@ static int save_old_password(const char *forwho, const char *oldpass, int howman
 			err = 1;
 		} else {
 			pass = crypt_md5_wrapper(oldpass);
-			sprintf(nbuf, "%s:%d:1:%s\n", forwho, pwd->pw_uid, pass);
+			snprintf(nbuf, sizeof(nbuf), "%s:%d:1:%s\n",
+				 forwho, pwd->pw_uid, pass);
 			_pam_delete(pass);
 			if (fputs(nbuf, pwfile) < 0) {
 				retval = PAM_AUTHTOK_ERR;

@@ -75,9 +75,12 @@ static int is_on_list(char * const *list, const char *member)
 #define PAM_TRUST_ARG       0x0004
 #define PAM_DENY_ARG        0x0010  
 
-static int _pam_parse(int argc, const char **argv, char *use_group)
+static int _pam_parse(int argc, const char **argv, char *use_group,
+		      size_t group_length)
 {
      int ctrl=0;
+
+     memset(use_group, '\0', group_length);
 
      /* step through arguments */
      for (ctrl=0; argc-- > 0; ++argv) {
@@ -93,7 +96,7 @@ static int _pam_parse(int argc, const char **argv, char *use_group)
           else if (!strcmp(*argv,"deny"))
                ctrl |= PAM_DENY_ARG;
           else if (!strncmp(*argv,"group=",6))
-                strcpy(use_group,*argv+6);
+	       strncpy(use_group,*argv+6,group_length-1);
           else {
                _pam_log(LOG_ERR,"pam_parse: unknown option; %s",*argv);
           }
@@ -120,8 +123,8 @@ int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
      /* Init the optional group */
      bzero(use_group,BUFSIZ);
      
-     ctrl = _pam_parse(argc, argv, use_group);
-     retval = pam_get_user(pamh,&username,NULL);
+     ctrl = _pam_parse(argc, argv, use_group, sizeof(use_group));
+     retval = pam_get_user(pamh, &username, NULL);
      if ((retval != PAM_SUCCESS) || (!username)) {
         if (ctrl & PAM_DEBUG_ARG)
             _pam_log(LOG_DEBUG,"can not get the username");

@@ -123,9 +123,10 @@ char *PAM_getlogin(void)
 		D(("PAM_getlogin ttyname: %s", curr_tty));
 		curr_tty += 5;
 		setutent();
-		strncpy(line.ut_line, curr_tty, sizeof line.ut_line);
+		strncpy(line.ut_line, curr_tty, sizeof(line.ut_line));
 		if ((ut = getutline(&line)) != NULL) {
 			strncpy(curr_user, ut->ut_user, sizeof(ut->ut_user));
+			curr_user[sizeof(curr_user) - 1] = '\0';
 			retval = curr_user;
 		}
 		endutent();

@@ -172,9 +172,8 @@ static char *getuidname(uid_t uid)
 	if (pw == NULL)
 		return NULL;
 
-	memset(username, 0, 32);
-	strncpy(username, pw->pw_name, 32);
-	username[31] = '\0';
+	strncpy(username, pw->pw_name, sizeof(username));
+	username[sizeof(username) - 1] = '\0';
 	
 	return username;
 }

@@ -55,8 +55,8 @@ extern char *FascistCheck(char *pw, const char *dictpath);
 #define CRACKLIB_DICTPATH "/usr/share/dict/cracklib_dict"
 #endif
 
-#define PROMPT1 "New %s password: "
-#define PROMPT2 "Retype new %s password: "
+#define PROMPT1 "New %s%spassword: "
+#define PROMPT2 "Retype new %s%spassword: "
 #define MISTYPED_PASS "Sorry, passwords do not match"
 
 /*
@@ -128,7 +128,7 @@ static int _pam_parse(struct cracklib_options *opt, int argc, const char **argv)
 	 if (!strcmp(*argv,"debug"))
 	     ctrl |= PAM_DEBUG_ARG;
 	 else if (!strncmp(*argv,"type=",5))
-	     strcpy(opt->prompt_type, *argv+5);
+	     strncpy(opt->prompt_type, *argv+5, sizeof(opt->prompt_type) - 1);
 	 else if (!strncmp(*argv,"retry=",6)) {
 	     opt->retry_times = strtol(*argv+6,&ep,10);
 	     if (!ep || (opt->retry_times < 1))
@@ -167,6 +167,7 @@ static int _pam_parse(struct cracklib_options *opt, int argc, const char **argv)
 	     _pam_log(LOG_ERR,"pam_parse: unknown option; %s",*argv);
 	 }
      }
+     opt->prompt_type[sizeof(opt->prompt_type) - 1] = '\0';
 
      return ctrl;
 }
@@ -465,7 +466,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
         char remark[BUFSIZ];
         
         memset(remark,0,sizeof(remark));
-        sprintf(remark,"BAD PASSWORD: %s",msg);
+        snprintf(remark,sizeof(remark),"BAD PASSWORD: %s",msg);
         if (ctrl && PAM_DEBUG_ARG)
             _pam_log(LOG_NOTICE, "new passwd fails strength check: %s",
                                   msg);
@@ -510,7 +511,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	D(("prelim check"));
 
         memset(buf,0,sizeof(buf)); /* zero the buffer */
-        sprintf(buf,"%s.pwd",CRACKLIB_DICTPATH);
+        snprintf(buf,sizeof(buf),"%s.pwd",CRACKLIB_DICTPATH);
 
         if (!stat(buf,&st) && st.st_size)
             return PAM_SUCCESS;
@@ -581,7 +582,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	} else {
             /* Prepare to ask the user for the first time */
             memset(prompt,0,sizeof(prompt));
-            sprintf(prompt,PROMPT1,options.prompt_type);
+            snprintf(prompt,sizeof(prompt),PROMPT1,
+		     options.prompt_type, options.prompt_type[0]?" ":"");
             pmsg[0] = &msg[0];
             msg[0].msg_style = PAM_PROMPT_ECHO_OFF;
             msg[0].msg = prompt;
@@ -625,7 +627,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
             if ((crack_msg = FascistCheck(token1, cracklib_dictpath))) {
                 if (ctrl && PAM_DEBUG_ARG)
                     _pam_log(LOG_DEBUG,"bad password: %s",crack_msg);
-                sprintf(remark,"BAD PASSWORD: %s", crack_msg);
+                snprintf(remark,sizeof(remark),"BAD PASSWORD: %s", crack_msg);
                 make_remark(pamh, ctrl, PAM_ERROR_MSG, remark);
                 if (getuid() || (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
                     retval = PAM_AUTHTOK_ERR;
@@ -661,7 +663,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
         if (options.use_authtok == 0) {
             bzero(prompt,sizeof(prompt));
-            sprintf(prompt,PROMPT2,options.prompt_type);
+            sprintf(prompt,sizeof(prompt),PROMPT2,
+		    options.prompt_type, options.prompt_type[0]?" ":"");
             pmsg[0] = &msg[0];
             msg[0].msg_style = PAM_PROMPT_ECHO_OFF;
             msg[0].msg = prompt;

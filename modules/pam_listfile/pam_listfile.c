@@ -75,20 +75,16 @@ static int is_on_group(const char *user_name, const char *group_name)
     if (!strlen(group_name))
         return 0;
     bzero(uname, sizeof(uname));
-    strncpy(uname, user_name, BUFSIZ-1);
+    strncpy(uname, user_name, sizeof(uname)-1);
     bzero(gname, sizeof(gname));
-    strncpy(gname, group_name, BUFSIZ-1);
+    strncpy(gname, group_name, sizeof(gname)-1);
         
-    setpwent();
     pwd = getpwnam(uname);
-    endpwent();
     if (!pwd)
         return 0;
 
     /* the info about this group */
-    setgrent();
     grp = getgrnam(gname);
-    endgrent();
     if (!grp)
         return 0;
     
@@ -97,9 +93,7 @@ static int is_on_group(const char *user_name, const char *group_name)
         return 1;
 
     /* next check: user primary group is group_name ? */
-    setgrent();
     pgrp = getgrgid(pwd->pw_gid);
-    endgrent();
     if (!pgrp)
         return 0;
     if (!strcmp(pgrp->gr_name, gname))
@@ -119,6 +113,8 @@ static int is_on_group(const char *user_name, const char *group_name)
 #define APPLY_TYPE_NONE		1
 #define APPLY_TYPE_USER		2
 #define APPLY_TYPE_GROUP	3
+
+#define LESSER(a, b) ((a) < (b) ? (a) : (b))
 
 PAM_EXTERN
 int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
@@ -145,15 +141,18 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 
     for(i=0; i < argc; i++) {
 	{
-	    char *junk;
-	    junk = (char *) malloc(strlen(argv[i])+1);
-	    if (junk == NULL) {
-		return PAM_BUF_ERR;
+	    const char *junk;
+
+	    memset(mybuf,'\0',sizeof(mybuf));
+	    memset(myval,'\0',sizeof(mybuf));
+	    junk = strchr(argv[i], '=');
+	    if((junk == NULL) || (junk - argv[i]) >= sizeof(mybuf)) {
+		_pam_log(LOG_ERR,LOCAL_LOG_PREFIX "Bad option: \"%s\"",
+			 argv[i]);
+		continue;
 	    }
-	    strcpy(junk,argv[i]);
-	    strncpy(mybuf,strtok(junk,"="),255);
-	    strncpy(myval,strtok(NULL,"="),255);
-	    free(junk);
+	    strncpy(mybuf, argv[i], LESSER(junk - argv[i], sizeof(mybuf) - 1));
+	    strncpy(myval, junk + 1, sizeof(myval) - 1);
 	}
 	if(!strcmp(mybuf,"onerr"))
 	    if(!strcmp(myval,"succeed"))
@@ -192,6 +191,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 		    citem = 0;
 	    } else if(!strcmp(mybuf,"apply")) {
 		apply_type=APPLY_TYPE_NONE;
+		memset(apply_val,'\0',sizeof(apply_val));
 		if (myval[0]=='@') {
 		    apply_type=APPLY_TYPE_GROUP;
 		    strncpy(apply_val,myval+1,sizeof(apply_val)-1);
@@ -290,10 +290,18 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
     if(extitem) {
 	switch(extitem) {
 	    case EI_GROUP:
-		setpwent();
 		userinfo = getpwnam(citemp);
-		setgrent();
+		if (userinfo == NULL) {
+		    _pam_log(LOG_ERR,LOCAL_LOG_PREFIX "getpwnam(%s) failed",
+			     citemp);
+		    return onerr;
+		}
 		grpinfo = getgrgid(userinfo->pw_gid);
+		if (grpinfo == NULL) {
+		    _pam_log(LOG_ERR,LOCAL_LOG_PREFIX "getgrgid(%d) failed",
+			     (int)userinfo->pw_gid);
+		    return onerr;
+		}
 		itemlist[0] = x_strdup(grpinfo->gr_name);
 		setgrent();
 		for (i=1; (i < sizeof(itemlist)/sizeof(itemlist[0])-1) &&
@@ -302,18 +310,20 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 			itemlist[i++] = x_strdup(grpinfo->gr_name);
 		    }
                 }
-		itemlist[i] = NULL;
 		endgrent();
-		endpwent();
+		itemlist[i] = NULL;
 		break;
 	    case EI_SHELL:
-		setpwent();
-		userinfo = getpwnam(citemp); /* Assume that we have already gotten
-						PAM_USER in pam_get_item() - a valid
-						assumption since citem gets set to
-						PAM_USER in the extitem switch */
+		/* Assume that we have already gotten PAM_USER in
+		   pam_get_item() - a valid assumption since citem
+		   gets set to PAM_USER in the extitem switch */
+		userinfo = getpwnam(citemp);
+		if (userinfo == NULL) {
+		    _pam_log(LOG_ERR,LOCAL_LOG_PREFIX "getpwnam(%s) failed",
+			     citemp);
+		    return onerr;
+		}
 		citemp = userinfo->pw_shell;
-		endpwent();
 		break;
 	    default:
 		_pam_log(LOG_ERR,
