@@ -17,10 +17,10 @@ dnl
 LIBPAM_VERSION_MAJOR=0
 LIBPAM_VERSION_MINOR=72
 
+AC_DEFINE_UNQUOTED(LIBPAM_VERSION_MAJOR, 0)
+AC_DEFINE_UNQUOTED(LIBPAM_VERSION_MINOR, 72)
 AC_SUBST(LIBPAM_VERSION_MAJOR)
 AC_SUBST(LIBPAM_VERSION_MINOR)
-AC_DEFINE(LIBPAM_VERSION_MAJOR)
-AC_DEFINE(LIBPAM_VERSION_MINOR)
 
 dnl
 dnl By default, everything under PAM is installed under the root fs.
@@ -53,15 +53,17 @@ dnl
 dnl Rules needed for the following (hardcoded Linux defaults for now)
 dnl
 
-CONF_CFLAGS=			; AC_SUBST(CONF_CFLAGS)
-LD=ld				; AC_SUBST(LD)
-LD_D="gcc -shared -Xlinker -x"	; AC_SUBST(LD_D)
-LD_L="$LD -x -shared"		; AC_SUBST(LD_L)
-MKDIR="mkdir -p"		; AC_SUBST(MKDIR)
-DYNTYPE=so			; AC_SUBST(DYNTYPE)
-USESONAME=yes			; AC_SUBST(USESONAME)
-NEEDSONAME=yes			; AC_SUBST(NEEDSONAME)
-INSTALL=/usr/bin/install	; AC_SUBST(INSTALL)
+CONF_CFLAGS=			; PAM_CACHE_SAVE(CONF_CFLAGS)
+MKDIR="mkdir -p"		; PAM_CACHE_SAVE(MKDIR)
+DYNTYPE=so			; PAM_CACHE_SAVE(DYNTYPE)
+USESONAME=yes			; PAM_CACHE_SAVE(USESONAME)
+NEEDSONAME=yes			; PAM_CACHE_SAVE(NEEDSONAME)
+INSTALL=/usr/bin/install	; PAM_CACHE_SAVE(INSTALL)
+
+
+dnl FIXME
+SONAMEFLAGS="$(SOSWITCH)" '$(LIBPAMNAME)'
+AC_SUBST(SONAMEFLAGS)
 
 dnl This following location is not likely to work for most folk
 dnl the rule for locating the directory should be made conditional
@@ -143,13 +145,49 @@ AC_SUBST(STATIC)
 AC_SUBST(DYNAMIC)
 
 dnl Checks for programs.
-AC_PROG_CXX
+dnl AC_PROG_CXX
 AC_PROG_YACC
-AC_PROG_LEX
+dnl AC_PROG_LEX
 AC_PROG_CC
 dnl AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
+
+dnl Set FLAGS, linker options etc. depending on C compiler.
+dnl gcc is tested and much preferred; others less so, if at all
+dnl
+dnl If compiling with gcc, linking is also supposed to be done with gcc;
+dnl since we use linker-specific arguments, we may not gain anything by
+dnl switching LD_L over, but I think we can use LD_D as-is.
+
+GCC_WARNINGS="-ansi -Wall -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wtraditional -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs -Winline -Wshadow -pedantic"
+
+if test "$GCC" = yes; then
+	WARNINGS="$GCC_WARNINGS"
+	PIC="-fPIC"
+	LD=ld
+	LD_D="gcc -shared -Xlinker -x"
+	LD_L="$LD -x shared"
+else
+	WARNINGS=""
+	PIC=""		### ???
+	LD=ld
+	LD_D="ld"	### needs attention
+	LD_L="$LD"	### needs attention
+fi
+
+PAM_CACHE_SAVE(WARNINGS)
+PAM_CACHE_SAVE(PIC)
+PAM_CACHE_SAVE(LD)
+PAM_CACHE_SAVE(LD_L)
+PAM_CACHE_SAVE(LD_D)
+
+dnl
+dnl If there are systems where 'ld' is not the dynamic linker of choice,
+dnl we will need to write an explicit test.
+dnl
+dnl AC_CHECK_PROGS(LD, [ld])
+
 
 dnl Checks for libraries.
 AC_CHECK_LIB(c, __libc_sched_setscheduler, PAM_NEEDS_LIBC=, PAM_NEEDS_LIBC=-lc)
@@ -200,5 +238,13 @@ AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(gethostname gettimeofday mkdir select strcspn strdup strerror strspn strstr strtol uname)
 
+dnl A macro for the benefit of AC_OUTPUT and the list of modules/Makefile
+define([TOP_N_TAIL], [patsubst($1, [\w+], [$2\&$3])])dnl
+
+dnl Dynamically determine list of module directories
+define([MODDIRS],[esyscmd((cd modules; ls -d pam_*))])dnl
+
 dnl Files to be created from when we run configure
-AC_OUTPUT(Make.Rules)
+AC_OUTPUT(Make.Rules Makefile
+  libpam/Makefile libpamc/Makefile modules/Makefile
+  TOP_N_TAIL([MODDIRS], [modules/], [/Makefile]))
