@@ -237,6 +237,7 @@ if test "$GCC" = yes; then
 	LD=ld				
 	LD_D="gcc -shared -Xlinker -x"
 	LD_L="$LD -x -shared"
+	STRIP=strip
 else
 ###
 ### Non-gcc needs attention on per-OS basis
@@ -248,6 +249,7 @@ else
 	LD=ld
 	LD_D="cc -z text -G -R."
 	LD_L="$LD_D"
+	STRIP=strip
 fi
 
 AC_SUBST(OS_CFLAGS)
@@ -256,6 +258,7 @@ AC_SUBST(PIC)
 AC_SUBST(LD)
 AC_SUBST(LD_D)
 AC_SUBST(LD_L)
+AC_SUBST(STRIP)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_BIGENDIAN

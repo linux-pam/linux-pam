@@ -22,7 +22,7 @@ all: $(TITLE)
 
 $(TITLE): $(OBJS)
 	$(CC) -o $(TITLE) $(OBJS)
-	strip $(TITLE)
+	$(STRIP) $(TITLE)
 
 install:
 	$(MKDIR) $(FAKEROOT)$(FILTERSDIR)
