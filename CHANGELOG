@@ -26,7 +26,9 @@ TODO:
       patches!
 
 * fix to pam_unix_passwd: try repeatedly to get a lock on the password
-  file, instead of failing immediately (Bug 108845)
+  file, instead of failing immediately (Bug 108845 - fix vorlon)
+* fix to pam_shells: logged information was not formatted correctly
+  (extra comma) (Bug 111491 - fix vorlon)
 
 Planning to include:
 
