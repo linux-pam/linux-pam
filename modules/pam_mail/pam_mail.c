@@ -8,14 +8,6 @@
  * mailhash additions by Chris Adams <cadams@ro.com> 1998/7/11
  */
 
-#define DEFAULT_MAIL_DIRECTORY    "/var/spool/mail"
-#define MAIL_FILE_FORMAT          "%s%s/%s"
-#define MAIL_ENV_NAME             "MAIL"
-#define MAIL_ENV_FORMAT           MAIL_ENV_NAME "=%s"
-#define YOUR_MAIL_VERBOSE_FORMAT  "You have %s mail in %s."
-#define YOUR_MAIL_STANDARD_FORMAT "You have %smail."
-#define NO_MAIL_STANDARD_FORMAT   "No mail." 
-
 #include <security/_pam_aconf.h>
 
 #include <ctype.h>
@@ -33,6 +25,14 @@
 #ifdef WANT_PWDB
 #include <pwdb/pwdb_public.h>
 #endif
+
+#define DEFAULT_MAIL_DIRECTORY    PAM_PATH_MAILDIR
+#define MAIL_FILE_FORMAT          "%s%s/%s"
+#define MAIL_ENV_NAME             "MAIL"
+#define MAIL_ENV_FORMAT           MAIL_ENV_NAME "=%s"
+#define YOUR_MAIL_VERBOSE_FORMAT  "You have %s mail in %s."
+#define YOUR_MAIL_STANDARD_FORMAT "You have %smail."
+#define NO_MAIL_STANDARD_FORMAT   "No mail." 
 
 /*
  * here, we make a definition for the externally accessible function
