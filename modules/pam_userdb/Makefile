@@ -12,7 +12,9 @@ TITLE=pam_userdb
 
 ifeq ($(HAVE_NDBM_H),yes)
  WHICH_DB=ndbm
- MODULE_SIMPLE_EXTRALIBS = -lndbm
+ ifeq ($(HAVE_LIBNDBM),yes) 
+  MODULE_SIMPLE_EXTRALIBS = -lndbm 
+ endif
 else
 ifeq ($(HAVE_LIBDB),yes)
  WHICH_DB=db
