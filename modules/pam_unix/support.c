@@ -15,6 +15,7 @@
 #include <shadow.h>
 #include <limits.h>
 #include <utmp.h>
+#include <errno.h>
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
@@ -346,7 +347,7 @@ int _unix_blankpasswd(unsigned int ctrl, const char *name)
 	while (retval == ERANGE) {
 		bufsize += 1024;
 		buf = realloc(buf, bufsize);
-		if ((retval getpwnam_r(name, pwd, buf, bufsize, &pwd))) {
+		if ((retval = getpwnam_r(name, pwd, buf, bufsize, &pwd))) {
 			pwd = NULL;
 		}
 	}
