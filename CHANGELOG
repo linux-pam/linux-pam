@@ -55,6 +55,7 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_unix: more from Nalin log password changes (Bug 517743 - agmorgan)
 * pam_limits: make it use the priority value specified in config
   (bug 530428 - baggins)
 * pam_unix: removed broken code in password update code. Report from

@@ -343,7 +343,8 @@ static int save_old_password(const char *forwho, const char *oldpass,
     }
 }
 
-static int _update_passwd(const char *forwho, const char *towhat)
+static int _update_passwd(pam_handle_t *pamh,
+			  const char *forwho, const char *towhat)
 {
     struct passwd *tmpent = NULL;
     FILE *pwfile, *opwfile;
@@ -394,6 +395,7 @@ static int _update_passwd(const char *forwho, const char *towhat)
 
     if (!err) {
 	rename(PW_TMPFILE, "/etc/passwd");
+	_log_err(LOG_NOTICE, pamh, "password changed for %s", forwho);
 	return PAM_SUCCESS;
     } else {
 	unlink(PW_TMPFILE);
@@ -525,6 +527,8 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 		}
 		D(("The password has%s been changed on %s.",
 		   (err || status) ? " not" : "", master));
+		_log_err(LOG_NOTICE, pamh, "password%s changed for %s on %s",
+			 (err || status) ? " not" : "", pwd->pw_name, master);
 
 		auth_destroy(clnt->cl_auth);
 		clnt_destroy(clnt);
@@ -543,9 +547,9 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 	if (on(UNIX_SHADOW, ctrl) || (strcmp(pwd->pw_passwd, "x") == 0)) {
 		retval = _update_shadow(forwho, towhat);
 		if (retval == PAM_SUCCESS)
-			retval = _update_passwd(forwho, "x");
+			retval = _update_passwd(pamh, forwho, "x");
 	} else {
-		retval = _update_passwd(forwho, towhat);
+		retval = _update_passwd(pamh, forwho, towhat);
 	}
 
 	return retval;
