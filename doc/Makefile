@@ -69,8 +69,8 @@ else
 	@echo XXX - neither sgml2ps nor sgml2latex binaries are installed
 endif
 
-pam.sgml: pam_source.sgml MODULES-SGML
-	@sed -e '/^<!\-\- insert\-file MODULES\-SGML \-\->/r MODULES-SGML' pam_source.sgml > pam.sgml
+pam.sgml: pam_source.sgml MODULES-SGML CREDITS
+	@sed -e '/^<!\-\- insert\-file MODULES\-SGML \-\->/r MODULES-SGML' pam_source.sgml | sed -e '/^<!\-\- insert\-file CREDITS \-\->/r CREDITS' > pam.sgml
 
 MODULES-SGML: $(MODULES)
 	@echo 'Building module text from files in modules/*.sgml'
