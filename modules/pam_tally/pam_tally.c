@@ -633,6 +633,8 @@ static int getopts( int argc, char **argv ) {
 
 int main ( int argc, char **argv ) {
 
+  struct fail_s fs, *fsp = &fs;
+
   if ( ! getopts( argc, argv+1 ) ) {
     printf("%s: [--file rooted-filename] [--user username] "
            "[--reset[=n]] [--quiet]\n",
@@ -658,7 +660,7 @@ int main ( int argc, char **argv ) {
       exit(0);
     }
     
-    i=get_tally( &tally, uid, cline_filename, &TALLY );
+    i=get_tally( &tally, uid, cline_filename, &TALLY, fsp );
     if ( i != PAM_SUCCESS ) { 
       if (TALLY) fclose(TALLY);       
       fprintf(stderr,"%s: %s\n",*argv,pam_errors(i));
@@ -669,7 +671,7 @@ int main ( int argc, char **argv ) {
       printf("User %s\t("UID_FMT")\t%s "TALLY_FMT"\n",cline_user,uid,
              (cline_reset!=TALLY_HI)?"had":"has",tally);
     
-    i=set_tally( cline_reset, uid, cline_filename, &TALLY );
+    i=set_tally( cline_reset, uid, cline_filename, &TALLY, fsp );
     if ( i != PAM_SUCCESS ) { 
       if (TALLY) fclose(TALLY);      
       fprintf(stderr,"%s: %s\n",*argv,pam_errors(i));
@@ -684,7 +686,8 @@ int main ( int argc, char **argv ) {
     for ( ; !feof(TALLY); uid++ ) {
       tally_t tally;
       struct passwd *pw;
-      if ( ! fread((char *) &fsp->fs_faillog, sizeof faillog, 1, TALLY)
+      if ( ! fread((char *) &fsp->fs_faillog,
+		   sizeof (struct faillog), 1, TALLY)
 	   || ! fsp->fs_faillog.fail_cnt ) {
       	tally=fsp->fs_faillog.fail_cnt;
       	continue;
