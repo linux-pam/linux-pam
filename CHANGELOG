@@ -55,6 +55,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* '[...]' parsing: document it and also fix it to support '\]' escape
+  sequence. Feature request from Russell Kliese (Bug 517064 -
+  agmorgan).
 * pam_rootok: compilation warning noted by Tony den Haan wrt no
   prototype for strcmp() (Bug 557322 - agmorgan).
 * documentation: (a few of mine in passing) and app documentation

@@ -43,7 +43,7 @@ char *_pam_StrTok(char *from, const char *format, char **next)
      for (i=1; i<256; table[i++] = '\0');
      for (i=0; format[i] ; table[(int)format[i++]] = 'y');
 
-     /* look for first non-blank char */
+     /* look for first non-format char */
      while (*from && table[(int)*from]) {
 	  ++from;
      }
@@ -53,10 +53,22 @@ char *_pam_StrTok(char *from, const char *format, char **next)
 	  * special case, "[...]" is considered to be a single
 	  * object.  Note, however, if one of the format[] chars is
 	  * '[' this single string will not be read correctly.
+	  * Note, any '[' inside the outer "[...]" pair will survive.
+	  * Note, the first ']' will terminate this string, but
+	  *  that "\]" will get compressed into "]". That is:
+	  *
+	  *   "[..[..\]..]..." --> "..[..].."
 	  */
-	 for (end=++from; *end && *end != ']'; ++end) {
+	 char *to;
+	 for (to=end=++from; *end && *end != ']'; ++to, ++end) {
 	     if (*end == '\\' && end[1] == ']')
 		 ++end;
+	     if (to != end) {
+		 *to = *end;
+	     }
+	 }
+	 if (to != end) {
+	     *to = '\0';
 	 }
 	 /* note, this string is stripped of its edges: "..." is what
             remains */
