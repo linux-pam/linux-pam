@@ -1,0 +1,55 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\" $Id$
+.\" Copyright (c) Andrew G. Morgan 1996,1997 <morgan@kernel.org>
+.TH PAM_SET_ITEM 3 "2001 Jan 21" "Linux-PAM" "App. Programmers' Manual"
+.SH NAME
+
+pam_set_item, pam_get_item \- item manipulation under PAM
+
+.SH SYNOPSIS
+.B #include <security/pam_appl.h>
+.br
+or
+.br
+.B #include <secruity/pam_modules.h>
+.sp
+.BI "int pam_set_item(pam_handle_t " *pamh ", int " item_type ", void " *item ");"
+.sp
+.BI "int pam_get_item(const pam_handle_t " *pamh ", int  " item_type ", const void " **item_p ");"
+.sp 2
+.SH DESCRIPTION
+.B pam_set_item
+.sp
+.B pam_set_item
+
+These functions are currently undocumented in a man page, but see the
+end of this man page for more information (the PAM guides).
+
+On success
+.BR PAM_SUCCESS
+is returned, all other return values should be treated as errors.
+
+.SH ERRORS
+May be translated to text with
+.BR pam_strerror "(3). "
+
+.SH "CONFORMING TO"
+DCE-RFC 86.0, October 1995.
+
+.SH BUGS
+.sp 2
+none known.
+
+.SH "SEE ALSO"
+
+.BR pam (8)
+and
+.BR pam_strerror "(3)."
+
+Also, see the three
+.BR Linux-PAM
+Guides, for
+.BR "System administrators" ", "
+.BR "module developers" ", "
+and
+.BR "application developers" ". "
