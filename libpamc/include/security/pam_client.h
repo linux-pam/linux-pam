@@ -9,6 +9,10 @@
 #ifndef PAM_CLIENT_H
 #define PAM_CLIENT_H
 
+#ifdef __cplusplus 
+extern "C" { 
+#endif /* def __cplusplus */
+
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
@@ -186,5 +190,8 @@ do {                                                                       \
     (((prompt)->control <= PAM_BPC_FAIL && (prompt)->control >= PAM_BPC_OK)   \
      ? PAM_BPC_TRUE:PAM_BPC_FALSE)
 
+#ifdef __cplusplus
+}
+#endif /* def __cplusplus */
 
 #endif /* PAM_CLIENT_H */

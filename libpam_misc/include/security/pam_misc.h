@@ -6,6 +6,10 @@
 #include <security/pam_appl.h>
 #include <security/pam_client.h>
 
+#ifdef __cplusplus 
+extern "C" { 
+#endif /* __cplusplus */
+
 /* include some useful macros */
 
 #include <security/_pam_macros.h>
@@ -51,7 +55,8 @@ extern char **pam_misc_drop_env(char **env);
 extern int pam_misc_setenv(pam_handle_t *pamh, const char *name
 			   , const char *value, int readonly);
 
-#endif
+#ifdef __cplusplus
+}
+#endif /* def __cplusplus */
 
- 
-	
+#endif /* ndef __PAMMISC_H */
