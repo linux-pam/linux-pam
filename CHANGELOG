@@ -55,6 +55,7 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* README fix for pam_unix from Nalin (Bug 476971 - agmorgan).
 * add support for building pdf files from the documentation - request
   from 'lolive' (Bug 471377 - agmorgan).
 * documented the equivalent '[..]' expressions for "required"

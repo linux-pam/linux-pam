@@ -1,7 +1,4 @@
-This is the README for pam_unix in Linux-PAM-0.67.
---------------------------------------------------
-
-pam_unix now comes as one module pam_unix.so.
+pam_unix comes as one module pam_unix.so.
 
 The following links are left for compatibility with old versions:
 pam_unix_auth:		authentication module providing
@@ -15,14 +12,14 @@ pam_unix_passwd:	password updating facilities providing
 The following options are recognized:
 	debug		-	log more debugging info
 	audit		-	a little more extreme than debug
-	use_first_pass	-	don 't prompt the user for passwords
+	use_first_pass	-	don't prompt the user for passwords
 				take them from PAM_ items instead
-	try_first_pass	-	don 't prompt the user for the passwords
+	try_first_pass	-	don't prompt the user for the passwords
 				unless PAM_(OLD)AUTHTOK is unset
 	use_authtok	-	like try_first_pass, but * fail * if the new
 				PAM_AUTHTOK has not been previously set.
 				(intended for stacking password modules only)
-	not_set_pass	-	don 't set the PAM_ items with the passwords
+	not_set_pass	-	don't set the PAM_ items with the passwords
 				used by this module.
 	shadow		-	try to maintian a shadow based system.
 	md5		-	when a user changes their password next,
@@ -36,4 +33,3 @@ The following options are recognized:
 				/etc/security/opasswd in MD5 crypted form
 
 	invalid arguments are logged to syslog.
-
