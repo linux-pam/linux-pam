@@ -46,6 +46,7 @@ Where you should replace XXXXX with a bug-id.
   (extra comma) (Bug 111491 - fix vorlon)
 * fix for C++ application support (Bug 111645 - fix agmorgan)
 * fix for typo in pam_client.h (Bug 111648 - fix agmorgan)
+* removal of -lpam from pam_mkhomedir Makefile (Bug 116380 - fix agmorgan)
 
 Planning to include:
 
