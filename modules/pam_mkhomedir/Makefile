@@ -61,7 +61,7 @@ ifdef DYNAMIC
 $(LIBOBJD): $(LIBSRC)
 
 $(LIBSHARED):	$(LIBOBJD)
-		$(LD_D) -o $@ $(LIBOBJD) $(LINKLIBS) -lpam
+		$(LD_D) -o $@ $(LIBOBJD) $(LINKLIBS)
 endif
 
 ifdef STATIC
