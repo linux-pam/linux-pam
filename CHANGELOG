@@ -24,8 +24,14 @@ TODO:
 
 ====================================================================
 Note, as of release 0.73, all checkins should be accompanied with a
-Bug ID. The bug IDs relate to sourceforge IDs.. You can query the
-related bug description with the following URL:
+Bug ID. The bug IDs relate to sourceforge IDs.. (Of course, nothing is
+ever that simple. It turns out that at some point in Sourceforge's
+history all of the bug ids got bumped by 100000, so pretty much if you
+see a bug ID below that begins with a '1' and your attempted query
+fails, try adding 100000 to the number and trying again. I believe
+this only affects bugs before release 0.76.)
+
+You can query the related bug description with the following URL:
 
  http://sourceforge.net/tracker/index.php?func=detail&aid=XXXXXX&group_id=6663&atid=106663
 
@@ -43,6 +49,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* added a comment to this CHANGELOG to explain why most of the bugids
+  used below appear not to be known to sourceforge [try adding 100000
+  to the bugid number.] (Bug 414943 - agmorgan)
 * bumped version numbers and also added support for SONAME defines
   that appear not to have survived the great autoconf experiment (Bug
   414669 - agmorgan).
