@@ -79,14 +79,14 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t * pamh, int flags,
 	ctrl = _set_ctrl(pamh, flags, NULL, argc, argv);
 
 	retval = pam_get_item(pamh, PAM_USER, (void *) &user_name);
-	if (user_name == NULL || retval != PAM_SUCCESS) {
+	if (user_name == NULL || *user_name == '\0' || retval != PAM_SUCCESS) {
 		_log_err(LOG_CRIT, pamh,
 		         "open_session - error recovering username");
 		return PAM_SESSION_ERR;		/* How did we get authenticated with
 						   no username?! */
 	}
 	retval = pam_get_item(pamh, PAM_SERVICE, (void *) &service);
-	if (service == NULL || retval != PAM_SUCCESS) {
+	if (service == NULL || *service == '\0' || retval != PAM_SUCCESS) {
 		_log_err(LOG_CRIT, pamh,
 		         "open_session - error recovering service");
 		return PAM_SESSION_ERR;
@@ -113,14 +113,14 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t * pamh, int flags,
 	ctrl = _set_ctrl(pamh, flags, NULL, argc, argv);
 
 	retval = pam_get_item(pamh, PAM_USER, (void *) &user_name);
-	if (user_name == NULL || retval != PAM_SUCCESS) {
+	if (user_name == NULL || *user_name == '\0' || retval != PAM_SUCCESS) {
 		_log_err(LOG_CRIT, pamh,
 		         "close_session - error recovering username");
 		return PAM_SESSION_ERR;		/* How did we get authenticated with
 						   no username?! */
 	}
 	retval = pam_get_item(pamh, PAM_SERVICE, (void *) &service);
-	if (service == NULL || retval != PAM_SUCCESS) {
+	if (service == NULL || *service == '\0' || retval != PAM_SUCCESS) {
 		_log_err(LOG_CRIT, pamh,
 		         "close_session - error recovering service");
 		return PAM_SESSION_ERR;
