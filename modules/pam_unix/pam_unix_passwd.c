@@ -1,5 +1,5 @@
 /*
- * Main coding by Elliot Lee <sopwith@redhat.com>, Red Hat Software. 
+ * Main coding by Elliot Lee <sopwith@redhat.com>, Red Hat Software.
  * Copyright (C) 1996.
  * Copyright (c) Jan Rêkorajski, 1999.
  *
@@ -116,7 +116,9 @@ extern char *bigcrypt(const char *key, const char *salt);
 #define MAX_PASSWD_TRIES	3
 #define PW_TMPFILE		"/etc/npasswd"
 #define SH_TMPFILE		"/etc/nshadow"
+#ifndef CRACKLIB_DICTS
 #define CRACKLIB_DICTS		"/usr/share/dict/cracklib_dict"
+#endif
 #define OPW_TMPFILE		"/etc/security/nopasswd"
 #define OLD_PASSWORDS_FILE	"/etc/security/opasswd"
 
@@ -257,6 +259,7 @@ static int save_old_password(pam_handle_t *pamh,
     int oldmask;
     int found = 0;
     struct passwd *pwd = NULL;
+    struct stat st;
 
     if (howmany < 0) {
 	return PAM_SUCCESS;
@@ -279,8 +282,25 @@ static int save_old_password(pam_handle_t *pamh,
 	return PAM_AUTHTOK_ERR;
     }
 
-    chown(OPW_TMPFILE, 0, 0);
-    chmod(OPW_TMPFILE, 0600);
+    if (fstat (fileno (opwfile), &st) == -1)
+      {
+	fclose (opwfile);
+	fclose (pwfile);
+	return PAM_AUTHTOK_ERR;
+      }
+
+    if (fchown (fileno (pwfile), st.st_uid, st.st_gid) == -1)
+      {
+	fclose (opwfile);
+	fclose (pwfile);
+	return PAM_AUTHTOK_ERR;
+      }
+    if (fchmod (fileno (pwfile), st.st_mode) == -1)
+      {
+	fclose (opwfile);
+	fclose (pwfile);
+	return PAM_AUTHTOK_ERR;
+      }
 
     while (fgets(buf, 16380, opwfile)) {
 	if (!strncmp(buf, forwho, strlen(forwho))) {
@@ -368,14 +388,26 @@ static int _update_passwd(pam_handle_t *pamh,
 	return PAM_AUTHTOK_ERR;
     }
 
-    if (fstat(fileno(opwfile), &st) == -1) {
-	chown(PW_TMPFILE, 0, 0);
-	chmod(PW_TMPFILE, 0644);
-    } else {
-	chown(PW_TMPFILE, st.st_uid, st.st_gid);
-	chmod(PW_TMPFILE, st.st_mode);
-    }
-    tmpent = fgetpwent(opwfile);
+    if (fstat (fileno (opwfile), &st) == -1)
+      {
+	fclose (opwfile);
+	fclose (pwfile);
+	return PAM_AUTHTOK_ERR;
+      }
+
+    if (fchown (fileno (pwfile), st.st_uid, st.st_gid) == -1)
+      {
+	fclose (opwfile);
+	fclose (pwfile);
+	return PAM_AUTHTOK_ERR;
+      }
+    if (fchmod (fileno (pwfile), st.st_mode) == -1)
+      {
+	fclose (opwfile);
+	fclose (pwfile);
+      }
+
+    tmpent = fgetpwent (opwfile);
     while (tmpent) {
 	if (!strcmp(tmpent->pw_name, forwho)) {
 	    /* To shut gcc up */
@@ -384,7 +416,7 @@ static int _update_passwd(pam_handle_t *pamh,
 		char *charp;
 	    } assigned_passwd;
 	    assigned_passwd.const_charp = towhat;
-			
+
 	    tmpent->pw_passwd = assigned_passwd.charp;
 	    err = 0;
 	}
@@ -437,13 +469,26 @@ static int _update_shadow(const char *forwho, char *towhat)
 	return PAM_AUTHTOK_ERR;
     }
 
-    if (fstat(fileno(opwfile), &st) == -1) {
-	chown(SH_TMPFILE, 0, 0);
-	chmod(SH_TMPFILE, 0600);
-    } else {
-	chown(SH_TMPFILE, st.st_uid, st.st_gid);
-	chmod(SH_TMPFILE, st.st_mode);
-    }
+    if (fstat (fileno (opwfile), &st) == -1)
+      {
+	fclose (opwfile);
+	fclose (pwfile);
+	return PAM_AUTHTOK_ERR;
+      }
+
+    if (fchown (fileno (pwfile), st.st_uid, st.st_gid) == -1)
+      {
+	fclose (opwfile);
+	fclose (pwfile);
+	return PAM_AUTHTOK_ERR;
+      }
+    if (fchmod (fileno (pwfile), st.st_mode) == -1)
+      {
+	fclose (opwfile);
+	fclose (pwfile);
+	return PAM_AUTHTOK_ERR;
+      }
+
     stmpent = fgetspent(opwfile);
     while (stmpent) {
 
@@ -573,7 +618,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 	    return PAM_AUTHTOK_LOCK_BUSY;
 	}
 #endif /* def USE_LCKPWDF */
-	
+
 	if (on(UNIX_SHADOW, ctrl) || (strcmp(pwd->pw_passwd, "x") == 0)) {
 		retval = _update_shadow(forwho, towhat);
 		if (retval == PAM_SUCCESS)
@@ -611,7 +656,7 @@ static int _unix_verify_shadow(const char *user, unsigned int ctrl)
 		if (spwdent == NULL)
 			return PAM_AUTHINFO_UNAVAIL;
 	} else {
-		if (strcmp(pwd->pw_passwd,"*NP*") == 0) { /* NIS+ */                 
+		if (strcmp(pwd->pw_passwd,"*NP*") == 0) { /* NIS+ */
 			uid_t save_uid;
 
 			save_uid = geteuid();
@@ -943,7 +988,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 			salt[2] = '\0';
 
 			if (off(UNIX_BIGCRYPT, ctrl) && strlen(pass_new) > 8) {
-				/* 
+				/*
 				 * to avoid using the _extensions_ of the bigcrypt()
 				 * function we truncate the newly entered password
 				 * [Problems that followed from this are fixed as per
@@ -1003,4 +1048,3 @@ struct pam_module _pam_unix_passwd_modstruct = {
     pam_sm_chauthtok,
 };
 #endif
-
