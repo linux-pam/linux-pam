@@ -221,7 +221,8 @@ static void _cleanup(pam_handle_t * pamh, void *x, int error_status)
 struct _pam_failed_auth {
 	char *user;		/* user that's failed to be authenticated */
 	char *name;		/* attempt from user with name */
-	int id;			/* uid of name'd user */
+	int uid;		/* uid of calling user */
+	int euid;		/* euid of calling process */
 	int count;		/* number of failures so far */
 };
 
@@ -233,6 +234,9 @@ static void _cleanup_failures(pam_handle_t * pamh, void *fl, int err)
 {
 	int quiet;
 	const char *service = NULL;
+	const char *ruser = NULL;
+	const char *rhost = NULL;
+	const char *tty = NULL;
 	struct _pam_failed_auth *failure;
 
 	D(("called"));
@@ -247,17 +251,28 @@ static void _cleanup_failures(pam_handle_t * pamh, void *fl, int err)
 
 			/* log the number of authentication failures */
 			if (failure->count > 1) {
-				(void) pam_get_item(pamh, PAM_SERVICE
-					      ,(const void **) &service);
-				_log_err(LOG_NOTICE
-					 ,"%d more authentication failure%s; %s(uid=%d) -> "
-					 "%s for %s service"
-					 ,failure->count - 1, failure->count == 2 ? "" : "s"
-					 ,failure->name
-					 ,failure->id
-					 ,failure->user
-				,service == NULL ? "**unknown**" : service
-				    );
+				(void) pam_get_item(pamh, PAM_SERVICE,
+						    (const void **)&service);
+				(void) pam_get_item(pamh, PAM_RUSER,
+						    (const void **)&ruser);
+				(void) pam_get_item(pamh, PAM_RHOST,
+						    (const void **)&rhost);
+				(void) pam_get_item(pamh, PAM_TTY,
+						    (const void **)&tty);
+				_log_err(LOG_NOTICE,
+				         "%d more authentication failure%s; "
+				         "logname=%s uid=%d euid=%d "
+				         "tty=%s ruser=%s rhost=%s "
+				         "service=%s%s%s",
+				         failure->count - 1, failure->count == 2 ? "" : "s",
+				         failure->name, failure->uid, failure->euid,
+				         tty ? tty : "", ruser ? ruser : "",
+				         rhost ? rhost : "",
+				         service ? service : "**unknown**",
+				         (failure->user && failure->user[0] != '\0')
+				          ? " user=" : "", failure->user
+				);
+
 				if (failure->count > UNIX_MAX_RETRIES) {
 					_log_err(LOG_ALERT
 						 ,"service(%s) ignoring max retries; %d > %d"
@@ -510,6 +525,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 				   instead of a username. Careful with this. */
 				_log_err(LOG_ALERT, "check pass; user (%s) unknown", name);
 			} else {
+				name = NULL;
 				_log_err(LOG_ALERT, "check pass; user unknown");
 			}
 			p = NULL;
@@ -564,8 +580,9 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 
 			if (new != NULL) {
 
-				new->user = x_strdup(name);
-				new->id = getuid();
+				new->user = x_strdup(name ? name : "");
+				new->uid = getuid();
+				new->euid = geteuid();
 				new->name = x_strdup(PAM_getlogin()? PAM_getlogin() : "");
 
 				/* any previous failures for this user ? */
@@ -578,16 +595,33 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 					}
 				} else {
 					const char *service=NULL;
+					const char *ruser=NULL;
+					const char *rhost=NULL;
+					const char *tty=NULL;
+
 					(void) pam_get_item(pamh, PAM_SERVICE,
 							    (const void **)&service);
-					_log_err(LOG_NOTICE
-							,"authentication failure; %s(uid=%d) -> "
-							 "%s for %s service"
-							,new->name
-							,new->id
-							,new->user
-							,service == NULL ? "**unknown**":service
-							);
+					(void) pam_get_item(pamh, PAM_RUSER,
+							    (const void **)&ruser);
+					(void) pam_get_item(pamh, PAM_RHOST,
+							    (const void **)&rhost);
+					(void) pam_get_item(pamh, PAM_TTY,
+							    (const void **)&tty);
+
+					_log_err(LOG_NOTICE,
+					         "authentication failure; "
+					         "logname=%s uid=%d euid=%d "
+					         "tty=%s ruser=%s rhost=%s "
+					         "service=%s%s%s",
+					         new->name, new->uid, new->euid,
+					         tty ? tty : "",
+					         ruser ? ruser : "",
+					         rhost ? rhost : "",
+					         service ? service : "**unknown**",
+					         (new->user && new->user[0] != '\0')
+					          ? " user=" : "",
+					         new->user
+					);
 					new->count = 1;
 				}
 
