@@ -62,6 +62,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 
 0.79: please submit patches for this section with actual code/doc
       patches!
+* pam_tally: added audit option (toady)
 * pam_unix: don't log user unknown failure when he can be properly
   authenticated by another module (t8m)
 * configure: don't abort if no cracklib dictinaries were found, but

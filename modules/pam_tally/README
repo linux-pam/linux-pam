@@ -9,6 +9,7 @@ SUMMARY:
                 * onerr=[succeed|fail] (if something weird happens
                         such as unable to open the file, what to do?)
                 * file=/where/to/keep/counts (default /var/log/faillog)
+		* audit (will display the username typed if the user is not found)
 
         (auth)
             Authentication phase first checks if user should be denied access

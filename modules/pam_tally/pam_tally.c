@@ -11,6 +11,7 @@
  * Stuff stolen from pam_rootok and pam_listfile
  *
  * Changes by Tomas Mraz <tmraz@redhat.com> 5 January 2005
+ * Audit option added for Tomas patch by Sebastien Tricaud <toady@gscore.org> 13 January 2005
  */
 
 #include <security/_pam_aconf.h>
@@ -94,6 +95,7 @@ struct tally_options {
 #define OPT_PER_USER			 010
 #define	OPT_NO_LOCK_TIME		 020
 #define OPT_NO_RESET			 040
+#define OPT_AUDIT                        100
 
 
 /*---------------------------------------------------------------------*/
@@ -193,6 +195,9 @@ static int tally_parse_args( struct tally_options *opts, int phase,
       else if ( ! strcmp( *argv, "no_reset" ) ) {
         opts->ctrl |= OPT_NO_RESET;
       }
+      else if ( ! strcmp ( *argv, "audit") ) {
+	opts->ctrl |= OPT_AUDIT;
+      }
       else {
         _pam_log(LOG_ERR, MODULE_NAME ": unknown option; %s",*argv);
       }
@@ -210,7 +215,7 @@ static int tally_parse_args( struct tally_options *opts, int phase,
 static char *cline_user=0;  /* cline_user is used in the administration prog */
 #endif
 
-static int pam_get_uid( pam_handle_t *pamh, uid_t *uid, const char **userp ) 
+static int pam_get_uid( pam_handle_t *pamh, uid_t *uid, const char **userp, struct tally_options *opts) 
   {
     const char *user = NULL;
     struct passwd *pw;
@@ -227,7 +232,9 @@ static int pam_get_uid( pam_handle_t *pamh, uid_t *uid, const char **userp )
     }
 
     if ( ! ( pw = _pammodutil_getpwnam( pamh, user ) ) ) {
-      _pam_log(LOG_ERR,MODULE_NAME ": pam_get_uid; no such user %s",user);
+      opts->ctrl & OPT_AUDIT ? 
+	      _pam_log(LOG_ERR,MODULE_NAME ": pam_get_uid; no such user %s",user) : 
+	      _pam_log(LOG_ERR,MODULE_NAME ": pam_get_uid; user unknown");
       return PAM_USER_UNKNOWN;
     }
     
@@ -589,7 +596,7 @@ PAM_FUNCTION( pam_sm_authenticate ) {
   if ( rvcheck != PAM_SUCCESS )
       RETURN_ERROR( rvcheck );
           
-  rvcheck = pam_get_uid(pamh, &uid, &user);
+  rvcheck = pam_get_uid(pamh, &uid, &user, opts);
   if ( rvcheck != PAM_SUCCESS )
       RETURN_ERROR( rvcheck );
       
@@ -617,7 +624,7 @@ PAM_FUNCTION( pam_sm_setcred ) {
   if ( rv != PAM_SUCCESS )
       RETURN_ERROR( rv );
 
-  rv = pam_get_uid(pamh, &uid, &user);
+  rv = pam_get_uid(pamh, &uid, &user, opts);
   if ( rv != PAM_SUCCESS )
       RETURN_ERROR( rv );
       
@@ -656,7 +663,7 @@ PAM_FUNCTION( pam_sm_acct_mgmt ) {
   if ( rv != PAM_SUCCESS )
       RETURN_ERROR( rv );
 
-  rv = pam_get_uid(pamh, &uid, &user);
+  rv = pam_get_uid(pamh, &uid, &user, opts);
   if ( rv != PAM_SUCCESS )
       RETURN_ERROR( rv );
 
@@ -763,7 +770,7 @@ int main ( int argc, char **argv ) {
     uid_t uid;
     tally_t tally=cline_reset;
     FILE *TALLY=0;
-    int i=pam_get_uid( NULL, &uid, NULL);
+    int i=pam_get_uid( NULL, &uid, NULL, NULL);
     if ( i != PAM_SUCCESS ) { 
       fprintf(stderr,"%s: %s\n",*argv,pam_errors(i));
       exit(0);

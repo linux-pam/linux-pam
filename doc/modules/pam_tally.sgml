@@ -73,6 +73,11 @@ of usernames would be much more flexible
 <item> <tt>file=</tt><em>/where/to/keep/counts</em>:
    specify the file location for the counts.
    The default location is <tt>/var/log/faillog</tt>.
+<item> <tt>audit</tt>:
+   display the username typed if the user is not found. It may be 
+   useful for scripts, but you should know users often type their
+   password instead making your system weaker. Activate it only if you
+   know what you are doing.
 </itemize>
 
 <sect2>Authentication component
