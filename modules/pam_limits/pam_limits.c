@@ -243,7 +243,8 @@ static int check_logins(const char *name, int limit, int ctrl,
             continue;
 	}
         if (!pl->flag_numsyslogins) {
-	    if ((pl->login_limit_def == LIMITS_DEF_USER)
+	    if (((pl->login_limit_def == LIMITS_DEF_USER) ||
+		 (pl->login_limit_def == LIMITS_DEF_DEFAULT))
 		&& strncmp(name, ut->UT_USER, sizeof(ut->UT_USER)) != 0) {
                 continue;
 	    }

@@ -55,6 +55,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_limits: keep well know behaviour of maxlogins default ('*') limit
+  (Bug 533664 - baggins)
 * pam_unix: more from Nalin log password changes (Bug 517743 - agmorgan)
 * pam_limits: make it use the priority value specified in config
   (bug 530428 - baggins)
