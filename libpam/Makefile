@@ -40,6 +40,8 @@ ifdef STATIC
 @echo Did you mean to set STATIC\?
 MODULES = $(shell cat ../modules/_static_module_objects)
 STATICOBJ = pam_static.o
+else
+MODULES =
 endif
 
 ifdef MEMORY_DEBUG
@@ -105,7 +107,7 @@ endif
 
 $(LIBPAMSTATIC): $(SLIBOBJECTS)
 ifeq ($(STATIC_LIBPAM),yes)
-	$(AR) $@ $(SLIBOBJECTS) $(MODULES)
+	ar cr $@ $(SLIBOBJECTS) $(MODULES)
 	$(RANLIB) $@
 endif
 

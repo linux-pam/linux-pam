@@ -7,7 +7,7 @@
 
 include ../Make.Rules
 
-ifeq ($(DEBUG_REL),yes)
+ifeq ($(WITH_LIBDEBUG),yes)
  LIBNAME=libpam_miscd
 else
  LIBNAME=libpam_misc
@@ -73,7 +73,7 @@ endif
 
 $(LIBNAMEDSTATIC): $(SLIBOBJECTS)
 ifeq ($(STATIC_LIBPAM),yes)
-	$(AR) $@ $(SLIBOBJECTS) $(MODULES)
+	$(AR) rc $@ $(SLIBOBJECTS) $(MODULES)
 	$(RANLIB) $@
 endif
 

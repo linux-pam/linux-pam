@@ -8,9 +8,23 @@ PROGS = blank xsh check_user
 SRCS = blank.c xsh.c check_user.c
 PROGSUID =
 
+ifeq ($(WITH_LIBDEBUG),yes)
+ LIBSUFFIX=d
+else
+ LIBSUFFIX=
+endif
+
 CFLAGS += -I../libpam_misc/include -I../libpamc/include
 
-LOADLIBES = -L../libpam -L../libpamc -L../libpam_misc -lpam -lpam_misc
+LOADLIBES = -L../libpam -L../libpamc -L../libpam_misc \
+		-lpam$(LIBSUFFIX) -lpam_misc$(LIBSUFFIX)
+
+ifeq ($(STATIC_LIBPAM),yes)
+  ifneq ($(DYNAMIC),)
+    CFLAGS += $(CC_STATIC)
+    LOADLIBES += $(LIBDL)
+  endif
+endif
 
 all: $(PROGS)
 

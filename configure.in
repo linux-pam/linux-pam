@@ -265,7 +265,9 @@ if test "$GCC" = yes; then
 	LD=ld				
 	LD_D="gcc -shared -Xlinker -x"
 	LD_L="$LD -x -shared"
+	RANLIB=ranlib
 	STRIP=strip
+	CC_STATIC="-Xlinker -export-dynamic"
 else
 ###
 ### Non-gcc needs attention on per-OS basis
@@ -277,7 +279,9 @@ else
 	LD=ld
 	LD_D="cc -z text -G -R."
 	LD_L="$LD_D"
+	RANLIB=ranlib
 	STRIP=strip
+	CC_STATIC=
 fi
 
 AC_SUBST(OS_CFLAGS)
@@ -286,7 +290,9 @@ AC_SUBST(PIC)
 AC_SUBST(LD)
 AC_SUBST(LD_D)
 AC_SUBST(LD_L)
+AC_SUBST(RANLIB)
 AC_SUBST(STRIP)
+AC_SUBST(CC_STATIC)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_BIGENDIAN
