@@ -49,6 +49,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_tally: remove #include of stdlib.h, which isn't needed by anything
+  found in this module.  Can be readded if we find a real need for it at
+  a later date. (Bug 436432 - vorlon)
 * pam_tally: added an #include (was it really needed?) and made the
   pam_tally app install (with more pretty printing and a corrected
   Makefile dependency) motivated by a (red hat diff) courtesy of Harald
