@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* pam_limits - set real uid to the user for who we set limits.
+  (Bug 123972 - baggins)
 * removed static variables from pam_limits (thread safe now). (Bug
   117450 - agmorgan).
 * removed static variable from pam_wheel (module should be thread safe
