@@ -419,7 +419,9 @@ static void process_limit(int source, const char *lim_type,
     } else {
 	/* recent kernels support negative priority limits (=raise priority) */
 
-	if (limit_item != LIMIT_PRI) {
+	if (limit_item == LIMIT_PRI) {
+		pl->priority = limit_value;
+	} else {
 	        if (pl->login_limit_def < source) {
 	            return;
 	        } else {
