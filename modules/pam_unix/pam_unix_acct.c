@@ -146,18 +146,6 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		D(("account expired"));
 		return PAM_ACCT_EXPIRED;
 	}
-	if ((curdays > (spent->sp_lstchg + spent->sp_max + spent->sp_inact))
-	    && (spent->sp_max != -1) && (spent->sp_inact != -1)
-	    && (spent->sp_lstchg != 0)) {
-		_log_err(LOG_NOTICE, pamh
-		    ,"account %s has expired (failed to change password)"
-			 ,uname);
-		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-			    "Your account has expired; please contact your system administrator");
-		D(("account expired 2"));
-		return PAM_ACCT_EXPIRED;
-	}
-	D(("when was the last change"));
 	if (spent->sp_lstchg == 0) {
 		_log_err(LOG_NOTICE, pamh
 			 ,"expired password for user %s (root enforced)"
@@ -167,7 +155,25 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		D(("need a new password"));
 		return PAM_NEW_AUTHTOK_REQD;
 	}
-	if (((spent->sp_lstchg + spent->sp_max) < curdays) && (spent->sp_max != -1)) {
+	if (curdays < spent->sp_lstchg) {
+		_log_err(LOG_DEBUG, pamh
+			 ,"account %s has password changed in future"
+			 ,uname);
+		return PAM_SUCCESS;
+	}
+	if ((curdays - spent->sp_lstchg > spent->sp_max)
+	    && (curdays - spent->sp_lstchg > spent->sp_inact)
+	    && (curdays - spent->sp_lstchg > spent->sp_max + spent->sp_inact)
+	    && (spent->sp_max != -1) && (spent->sp_inact != -1)) {
+		_log_err(LOG_NOTICE, pamh
+		    ,"account %s has expired (failed to change password)"
+			 ,uname);
+		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
+			    "Your account has expired; please contact your system administrator");
+		D(("account expired 2"));
+		return PAM_ACCT_EXPIRED;
+	}
+	if ((curdays - spent->sp_lstchg > spent->sp_max) && (spent->sp_max != -1)) {
 		_log_err(LOG_DEBUG, pamh
 			 ,"expired password for user %s (password aged)"
 			 ,uname);
@@ -176,7 +182,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		D(("need a new password 2"));
 		return PAM_NEW_AUTHTOK_REQD;
 	}
-	if ((curdays > (spent->sp_lstchg + spent->sp_max - spent->sp_warn))
+	if ((curdays - spent->sp_lstchg > spent->sp_max - spent->sp_warn)
 	    && (spent->sp_max != -1) && (spent->sp_warn != -1)) {
 		daysleft = (spent->sp_lstchg + spent->sp_max) - curdays;
 		_log_err(LOG_DEBUG, pamh
