@@ -79,6 +79,7 @@ struct lastlog {
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
+#include <security/_pam_modutil.h>
 
 /* some syslogging */
 
@@ -237,8 +238,8 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 	    sleep(LASTLOG_IGNORE_LOCK_TIME);
 	}
 
-	win = ( _pammodutil_read(last_fd, &last_login, sizeof(last_login))
-		== sizeof(last_login) );
+	win = (_pammodutil_read (last_fd, (char *) &last_login,
+				 sizeof(last_login)) == sizeof(last_login));
 
 	last_lock.l_type = F_UNLCK;
 	(void) fcntl(last_fd, F_SETLK, &last_lock);        /* unlock */
@@ -378,7 +379,8 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 	    }
 
 	    D(("writing to the last_log file"));
-	    (void) _pammodutil_write(last_fd, &last_login, sizeof(last_login));
+	    _pammodutil_write (last_fd, (char *) &last_login,
+			        sizeof (last_login));
 
 	    last_lock.l_type = F_UNLCK;
 	    (void) fcntl(last_fd, F_SETLK, &last_lock);        /* unlock */
