@@ -1,13 +1,13 @@
 
 ### $Id$
 
-TXTER=sgml2txt
-HTMLER=sgml2html
-# older distributions use, sgml2ps
-# newer distributions than the one I use (AGM :^) need the following line:
-#PSER=sgml2latex -o ps
-# until I upgrade this is the default
-PSER=sgml2latex -p
+include ../Make.Rules
+
+# These two should probably be moved into autoconf...
+DOCDIR=/usr/doc/Linux-PAM
+MANDIR=/usr/man
+
+#######################################################
 
 FILES=pam pam_appl pam_modules
 FSRCS=pam.sgml pam_appl.sgml pam_modules.sgml
@@ -29,33 +29,45 @@ all: htmls texts postscript
 htmls: $(HTMLS)
 
 $(HTMLS) : $(FSRCS)
+ifeq ($(HAVE_SGML2HTML),yes)
 	@for i in $(FILES) ; do \
 	if [ ! -f "html/$$i.html" ] || [ "$$i.sgml" -nt "html/$$i.html" ]; \
 	then \
-		cd html ; $(HTMLER) ../$$i ; \
+		cd html ; sgml2html ../$$i ; \
 		if [ $$? -ne 0 ]; then exit 1 ; fi ; \
 		cd .. ; \
 	fi ; \
 	done
+else
+	@echo XXX - you do not have the sgml2html binary installed
+endif
 
 texts: $(TEXTS)
 
 $(TEXTS) : $(FSRCS)
+ifeq ($(HAVE_SGML2TXT),yes)
 	@for i in $(FILES) ; do \
 		if [ ! -f "txts/$$i.txt" ] \
 				|| [ "$$i.sgml" -nt "txts/$$i.txt" ]; then \
-			cd txts ; $(TXTER) ../$$i ; cd .. ; \
+			cd txts ; sgml2txt ../$$i ; cd .. ; \
 		fi ; \
 	done
+else
+	@echo XXX - you do not have the sgml2txt binary installed
+endif
 
 postscript: $(PSFILES)
 
 $(PSFILES): $(FSRCS)
+ifneq ($(PSER),)
 	@for i in $(FILES) ; do \
 	if [ ! -f "ps/$$i.ps" ] || [ "$$i.sgml" -nt "ps/$$i.ps" ]; then \
 		cd ps ; $(PSER) ../$$i ; cd .. ; \
 	fi ; \
 	done
+else
+	@echo XXX - neither sgml2ps nor sgml2latex binaries are installed
+endif
 
 pam.sgml: pam_source.sgml MODULES-SGML
 	@sed -e '/^<!\-\- insert\-file MODULES\-SGML \-\->/r MODULES-SGML' pam_source.sgml > pam.sgml
@@ -70,25 +82,48 @@ MODULES-SGML: $(MODULES)
 
 extraclean: clean
 
-DOCDIR=/usr/doc/Linux-PAM
-MANDIR=/usr/man
+remove:
+	cd man && for file in *.3 ; do \
+	  rm -f $(FAKEROOT)$(MANDIR)/man3/$$file ; \
+	done
+	cd man && for file in *.8 ; do \
+	  rm -f $(FAKEROOT)$(MANDIR)/man8/$$file ; \
+	done
+	cd txts && for file in *.txt; do \
+	  rm -f $(FAKEROOT)$(DOCDIR)/text/$$file ; \
+	done
+	cd ps && for file in *.ps; do \
+	  rm -f $(FAKEROOT)$(DOCDIR)/ps/$$file  ; \
+	done
+	cd html && for file in *.html; do \
+	  rm -f $(FAKEROOT)$(DOCDIR)/html/$$file ; \
+	done
+
 install: all
-	mkdir -p $(FAKEROOT)$(DOCDIR)/{html,ps,text}
+ifeq ($(HAVE_SGML2TXT),yes)
+	mkdir -p $(FAKEROOT)$(DOCDIR)/text
 	for file in txts/*.txt; do \
-	  install -o root -g root -m 644 $$file $(FAKEROOT)$(DOCDIR)/text ; \
+	  install -m 644 $$file $(FAKEROOT)$(DOCDIR)/text ; \
 	done
+endif
+ifneq ($(PSER),)
+	mkdir -p $(FAKEROOT)$(DOCDIR)/ps
 	for file in ps/*.ps; do \
-	  install -o root -g root -m 644 $$file $(FAKEROOT)$(DOCDIR)/ps  ; \
+	  install -m 644 $$file $(FAKEROOT)$(DOCDIR)/ps  ; \
 	done
+endif
+ifeq ($(HAVE_SGML2HTML),yes)
+	mkdir -p $(FAKEROOT)$(DOCDIR)/html
 	for file in html/*.html; do \
-	  install -o root -g root -m 644 $$file $(FAKEROOT)$(DOCDIR)/html ; \
+	  install -m 644 $$file $(FAKEROOT)$(DOCDIR)/html ; \
 	done
+endif
 	mkdir -p $(FAKEROOT)$(MANDIR)/man{3,8}
 	for file in man/*.3 ; do \
-	  install -o root -g root -m 644 $$file $(FAKEROOT)$(MANDIR)/man3 ; \
+	  install -m 644 $$file $(FAKEROOT)$(MANDIR)/man3 ; \
 	done
 	for file in man/*.8 ; do \
-	  install -o root -g root -m 644 $$file $(FAKEROOT)$(MANDIR)/man8 ; \
+	  install -m 644 $$file $(FAKEROOT)$(MANDIR)/man8 ; \
 	done
 
 clean:
@@ -96,6 +131,6 @@ clean:
 	rm -f html/pam*.html
 	rm -f man/*~
 	rm -f $(TEXTS)
-	rm -f $(PSFILES)
+	rm -f $(PSFILES) ps/missfont.log
 	rm -f MODULES-SGML pam.sgml
 

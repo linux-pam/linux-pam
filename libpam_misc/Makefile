@@ -94,6 +94,8 @@ endif
 
 remove:
 	rm -f $(FAKEROOT)$(INCLUDED)/pam_misc.h
+	rm -f $(FAKEROOT)$(libdir)/$(LIBNAMEDFULL)
+	rm -f $(FAKEROOT)$(libdir)/$(LIBNAMED)
 	$(LDCONFIG)
 	rm -f $(FAKEROOT)$(libdir)/$(LIBNAMEDSTATIC)
 

@@ -274,5 +274,23 @@ AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(gethostname gettimeofday mkdir select strcspn strdup strerror strspn strstr strtol uname)
 
+dnl Checks for programs/utilities
+AC_CHECK_PROG(HAVE_SGML2TXT, sgml2txt, yes, no)
+AC_CHECK_PROG(HAVE_SGML2HTML, sgml2html, yes, no)
+AC_CHECK_PROG(HAVE_SGML2LATEX, sgml2latex, yes, no)
+if test $HAVE_SGML2LATEX = "yes" ; then
+  if sgml2latex -h | grep -e --paper | grep  ' -p ' > /dev/null ; then
+    PSER="sgml2latex -o ps"
+  else
+    PSER="sgml2latex -p"
+  fi
+else
+  AC_CHECK_PROG(HAVE_SGML2PS, sgml2ps, yes, no)
+  if test $HAVE_SGML2PS = yes ; then
+    PSER="sgml2ps"
+  fi
+fi
+AC_SUBST(PSER)
+
 dnl Files to be created from when we run configure
 AC_OUTPUT(Make.Rules)

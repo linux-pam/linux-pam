@@ -4,7 +4,7 @@
 
 ## Note, ideally I would prefer it if this top level makefile did
 ## not get created by autoconf. As I find typing 'make' and relying
-## on it to take care of all dependencies as much more friendly than
+## on it to take care of all dependencies much more friendly than
 ## the multi-stage autoconf+make and also worry about updates to
 ## configure.in not getting propagated down the tree. (AGM) [I realise
 ## that this may not prove possible, but at least I tried.. Sigh.]
@@ -13,7 +13,7 @@ ifeq ($(shell test \! -f Make.Rules || echo yes),yes)
     include Make.Rules
 endif
 
-THINGSTOMAKE = modules libpam libpamc libpam_misc
+THINGSTOMAKE = modules libpam libpamc libpam_misc doc
 
 all: $(THINGSTOMAKE)
 
@@ -22,7 +22,7 @@ prep:
 	ln -sf . security
 
 clean:
-	touch Make.Rules
+	if [ ! -f Make.Rules ]; then touch Make.Rules ; fi
 	for i in $(THINGSTOMAKE) ; do $(MAKE) -C $$i clean ; done
 	rm -f security *~ *.orig *.rej #*#
 
@@ -34,7 +34,7 @@ maintainer-clean: distclean
 	@echo files should be ok for packaging now.
 
 # NB _pam_aconf.h.in changes will remake this too
-_pam_aconf.h: configure Make.Rules.in _pam_aconf.h.in
+Make.Rules: configure Make.Rules.in _pam_aconf.h.in
 	@echo XXX - not sure how to preserve past configure options..
 	@echo XXX - so not attempting to. Feel free to run ./configure
 	@echo XXX - by hand, with the options you want.
@@ -54,7 +54,11 @@ $(THINGSTOMAKE): _pam_aconf.h prep
 install: _pam_aconf.h prep
 	$(MKDIR) $(FAKEROOT)$(INCLUDED)
 	$(INSTALL) -m 444 security/_pam_aconf.h $(FAKEROOT)$(INCLUDED)
-	for x in modules ; do make -C $$x install ; done
+	for x in $(THINGSTOMAKE) ; do make -C $$x install ; done
+
+remove:
+	rm -f $(FAKEROOT)$(INCLUDED)/_pam_aconf.h
+	for x in $(THINGSTOMAKE) ; do make -C $$x remove ; done
 
 ## =================
 
