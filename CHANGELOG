@@ -55,6 +55,11 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* added the dynamic/* directory to the distribution. If you go in
+  there after building the rest of the tree, you'll make a pam.so
+  object that can be used by something like a java runtime with
+  dlopen. Its not very well tested - caveat emptor. (Bug 232194 -
+  agmorgan)
 * somehow pam_unix has started forcing the user prompt to be "login: ".
   This is entirely inapropriate as it overrides PAM_USER_PROMPT. (Bug
   486361 - agmorgan).
