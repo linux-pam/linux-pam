@@ -55,6 +55,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_unix: fix for legacy crypt() support when the password entered
+  was long. (Bug 521314 - agmorgan).
 * pam_access no longer include gethostname() prototype complained from
   David Lee (Bug 415423 - agmorgan).
 * make pam_nologin more secure by default, added two new module

@@ -965,6 +965,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 				/* 
 				 * to avoid using the _extensions_ of the bigcrypt()
 				 * function we truncate the newly entered password
+				 * [Problems that followed from this are fixed as per
+				 *  Bug 521314.]
 				 */
 				char *temp = malloc(9);
 

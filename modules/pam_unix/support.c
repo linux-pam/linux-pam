@@ -617,7 +617,16 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			/* the moment of truth -- do we agree with the password? */
 			D(("comparing state of pp[%s] and salt[%s]", pp, salt));
 
-			if (strcmp(pp, salt) == 0) {
+			/*
+			 * Note, we are comparing the bigcrypt of the password with
+			 * the contents of the password field. If the latter was
+			 * encrypted with regular crypt (and not bigcrypt) it will
+			 * have been truncated for storage relative to the output
+			 * of bigcrypt here. As such we need to compare only the
+			 * stored string with the subset of bigcrypt's result.
+			 * Bug 521314: The strncmp comparison is for legacy support.
+			 */
+			if (strncmp(pp, salt, strlen(salt)) == 0) {
 				retval = PAM_SUCCESS;
 			} else {
 				retval = PAM_AUTH_ERR;
