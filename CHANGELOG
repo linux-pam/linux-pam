@@ -49,6 +49,7 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_tally: Nalin's fix for lastlog corruption (Bug 476985 - agmorgan)
 * pam_rhosts: Nalin adds support for '+hostname', and zdd fix
   compilation warning. (Bug 476986 - agmorgan)
 * pam_motd: Nalin fixed compiler warning. (Bug 476938 - agmorgan)

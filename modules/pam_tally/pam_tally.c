@@ -17,6 +17,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdarg.h>
+#include <stdlib.h>
 #include <syslog.h>
 #include <pwd.h>
 #include <time.h>
@@ -185,14 +186,24 @@ static int get_tally( tally_t *tally,
     if ( fseek( *TALLY, uid * sizeof(struct faillog), SEEK_SET ) ) {
           _pam_log(LOG_ALERT, "fseek failed %s", filename);
                 return PAM_AUTH_ERR;
-     }
-                    
-
-    if (( fread((char *) &fsp->fs_faillog,
-		sizeof(struct faillog), 1, *TALLY) )==0 ) {
-          *tally=0; /* Assuming a gappy filesystem */
     }
-    *tally = fsp->fs_faillog.fail_cnt;    
+                    
+    if ( fileinfo.st_size <= uid * sizeof(struct faillog) ) {
+
+	memset(fsp, 0, sizeof(struct faillog));
+	*tally=0;
+	fsp->fs_faillog.fail_time = time(NULL);
+
+    } else if (( fread((char *) &fsp->fs_faillog,
+		       sizeof(struct faillog), 1, *TALLY) )==0 ) {
+
+	*tally=0; /* Assuming a gappy filesystem */
+
+    } else {
+
+	*tally = fsp->fs_faillog.fail_cnt;
+
+    }
               
     return PAM_SUCCESS;
   }
@@ -216,8 +227,8 @@ static int set_tally( tally_t tally,
         fsp->fs_faillog.fail_cnt = tally;                                    
         if (fwrite((char *) &fsp->fs_faillog,
 		   sizeof(struct faillog), 1, *TALLY)==0 ) {
-          _pam_log(LOG_ALERT, "tally update (fputc) failed.", filename);
-          return PAM_AUTH_ERR;
+	    _pam_log(LOG_ALERT, "tally update (fwrite) failed.", filename);
+	    return PAM_AUTH_ERR;
         }
       }
     
@@ -313,21 +324,22 @@ static int tally_bump (int inc,
 
     /* to remember old fail time (for locktime) */
     fsp->fs_fail_time = fsp->fs_faillog.fail_time;
-    fsp->fs_faillog.fail_time = (time_t) time( (time_t *) 0);
+    fsp->fs_faillog.fail_time = time(NULL);
     (void) pam_get_item(pamh, PAM_RHOST, (const void **)&remote_host);
-    if (!remote_host)
-    {
+    if (!remote_host) {
+
     	(void) pam_get_item(pamh, PAM_TTY, (const void **)&cur_tty);
-	if (!cur_tty)
-    	    strcpy(fsp->fs_faillog.fail_line, "unknown");
-	else {
+	if (!cur_tty) {
+    	    strncpy(fsp->fs_faillog.fail_line, "unknown",
+		    sizeof(fsp->fs_faillog.fail_line) - 1);
+	    fsp->fs_faillog.fail_line[sizeof(fsp->fs_faillog.fail_line)-1] = 0;
+	} else {
     	    strncpy(fsp->fs_faillog.fail_line, cur_tty,
-		    (size_t)sizeof(fsp->fs_faillog.fail_line));
+		    sizeof(fsp->fs_faillog.fail_line)-1);
 	    fsp->fs_faillog.fail_line[sizeof(fsp->fs_faillog.fail_line)-1] = 0;
 	}
-    }
-    else
-    {
+
+    } else {
     	strncpy(fsp->fs_faillog.fail_line, remote_host,
 		(size_t)sizeof(fsp->fs_faillog.fail_line));
 	fsp->fs_faillog.fail_line[sizeof(fsp->fs_faillog.fail_line)-1] = 0;
@@ -503,15 +515,14 @@ PAM_FUNCTION( pam_sm_acct_mgmt ) {
       if (fsp->fs_faillog.fail_locktime && fsp->fs_fail_time
 	  && (!no_lock_time) )
       {
-      	if ( (fsp->fs_faillog.fail_locktime + fsp->fs_fail_time)
-	     > (time_t)time((time_t)0) )
+      	if ( (fsp->fs_faillog.fail_locktime + fsp->fs_fail_time) > time(NULL) )
       	{ 
       		_pam_log(LOG_NOTICE,
 			 "user %s ("UID_FMT") has time limit [%lds left]"
 			 " since last failure.",
 			 user,uid,
 			 fsp->fs_fail_time+fsp->fs_faillog.fail_locktime
-			 -(time_t)time((time_t)0));
+			 -time(NULL));
       		return PAM_AUTH_ERR;
       	}
       }
@@ -690,7 +701,6 @@ int main ( int argc, char **argv ) {
       if ( ! fread((char *) &fsp->fs_faillog,
 		   sizeof (struct faillog), 1, TALLY)
 	   || ! fsp->fs_faillog.fail_cnt ) {
-      	tally=fsp->fs_faillog.fail_cnt;
       	continue;
       	}
       tally = fsp->fs_faillog.fail_cnt;	
