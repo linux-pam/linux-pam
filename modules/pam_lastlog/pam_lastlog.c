@@ -25,7 +25,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
-#define __USE_BSD
 #include <syslog.h>
 #include <unistd.h>
 

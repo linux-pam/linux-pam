@@ -10,6 +10,10 @@
 
 include ../../Make.Rules
 
+ifeq ($(HAVE_LIBUTIL),yes)
+ MODULE_SIMPLE_EXTRALIBS += -lutil
+endif
+
 TITLE=pam_lastlog
 
 include ../Simple.Rules
