@@ -24,18 +24,17 @@ prep:
 clean:
 	touch Make.Rules
 	for i in $(THINGSTOMAKE) ; do $(MAKE) -C $$i clean ; done
-	rm -f Make.Rules security _pam_aconf.h
-	rm -rf include *~ #*# *.orig *.rej
+	rm -f security *~ *.orig *.rej #*#
 
 distclean: clean
-	rm -f config.status config.cache config.log core
-	rm -f configure
+	rm -f Make.Rules _pam_aconf.h
+	rm -f config.status config.cache config.log core configure
 
 maintainer-clean: distclean
 	@echo files should be ok for packaging now.
 
 # NB _pam_aconf.h.in changes will remake this too
-Make.Rules: configure Make.Rules.in _pam_aconf.h.in
+_pam_aconf.h: configure Make.Rules.in _pam_aconf.h.in
 	@echo XXX - not sure how to preserve past configure options..
 	@echo XXX - so not attempting to. Feel free to run ./configure
 	@echo XXX - by hand, with the options you want.
@@ -49,10 +48,10 @@ configure: configure.in
 	@echo
 	@exit 1
 
-$(THINGSTOMAKE): Make.Rules prep
+$(THINGSTOMAKE): _pam_aconf.h prep
 	$(MAKE) -C $@ all
 
-install:
+install: _pam_aconf.h prep
 	$(MKDIR) $(FAKEROOT)$(INCLUDED)
 	$(INSTALL) -m 444 security/_pam_aconf.h $(FAKEROOT)$(INCLUDED)
 	for x in modules ; do make -C $$x install ; done
