@@ -127,9 +127,11 @@ char *create_digest(int length, const char *raw)
     temp_packet.length = temp_packet.at = 0;
     temp_packet.buffer = NULL;
 
-    append_string(&temp_packet, "/bin/echo -n '", 0);
+    append_string(&temp_packet, "echo -n '", 0);
     append_string(&temp_packet, raw, 0);
     append_string(&temp_packet, "'|/usr/bin/md5sum -", 1);
+
+    fprintf(stderr, "am attempting to run [%s]\n", temp_packet.buffer);
 
     pipe = popen(temp_packet.buffer, "r");
     if (pipe == NULL) {
@@ -170,7 +172,13 @@ void prompt_to_packet(pamc_bp_t prompt, struct internal_packet *packet)
     data_length = PAM_BP_LENGTH(prompt);
     packet->at = 0;
     append_data(packet, data_length, NULL);
+    
     PAM_BP_EXTRACT(prompt, 0, data_length, packet->buffer);
+
+    fprintf(stderr, "server received[%d]: {%d|0x%.2x|%s}\n",
+	    data_length,
+	    PAM_BP_SIZE(prompt), PAM_BP_RCONTROL(prompt),
+	    PAM_BP_RDATA(prompt));
 }
 
 int main(int argc, char **argv)
@@ -217,9 +225,9 @@ int main(int argc, char **argv)
 
     retval = pamc_converse(pch, &prompt);
     fprintf(stderr, "server: after conversation\n");
-    if (PAM_BP_CONTROL(prompt) != PAM_BPC_OK) {
+    if (PAM_BP_RCONTROL(prompt) != PAM_BPC_OK) {
 	fprintf(stderr, "server: prompt had unexpected control type: %u\n",
-		PAM_BP_CONTROL(prompt));
+		PAM_BP_RCONTROL(prompt));
 	exit(1);
     }
 
@@ -274,9 +282,9 @@ int main(int argc, char **argv)
 
     retval = pamc_converse(pch, &prompt);
     fprintf(stderr, "server: after 2nd conversation\n");
-    if (PAM_BP_CONTROL(prompt) != PAM_BPC_DONE) {
+    if (PAM_BP_RCONTROL(prompt) != PAM_BPC_DONE) {
 	fprintf(stderr, "server: 2nd prompt had unexpected control type: %u\n",
-		PAM_BP_CONTROL(prompt));
+		PAM_BP_RCONTROL(prompt));
 	exit(1);
     }
 

@@ -344,7 +344,7 @@ static int auth_sequence(pam_handle_t *pamh,
 	PAM_BP_RENEW(&new->current_prompt, PAM_BPC_SELECT,
 		     sizeof(PS_AGENT_ID) + strlen(rusername) + 1
 		     + strlen(rhostname) + 1 + 32);
-	sprintf(PAM_BP_DATA(new->current_prompt),
+	sprintf(PAM_BP_WDATA(new->current_prompt),
 		PS_AGENT_ID "/%s@%s|%.32s", rusername, rhostname,
 		new->server_cookie);
 
@@ -390,7 +390,7 @@ static int auth_sequence(pam_handle_t *pamh,
 	/* find | */
 	length = PAM_BP_LENGTH(new->current_reply);
 	for (i=0; i<length; ++i) {
-	    if (PAM_BP_DATA(new->current_reply)[i] == '|') {
+	    if (PAM_BP_RDATA(new->current_reply)[i] == '|') {
 		break;
 	    }
 	}
@@ -407,13 +407,13 @@ static int auth_sequence(pam_handle_t *pamh,
 	}
 
 	/* copy client cookie */
-	memcpy(new->client_cookie, PAM_BP_DATA(new->current_reply)+i, 32);
+	memcpy(new->client_cookie, PAM_BP_RDATA(new->current_reply)+i, 32);
 
 	/* generate a prompt that is length(seqid) + length(|) + 32 long */
 	PAM_BP_RENEW(&new->current_prompt, PAM_BPC_OK, i+32);
 	/* copy the head of the response prompt */
-	memcpy(PAM_BP_DATA(new->current_prompt),
-	       PAM_BP_DATA(new->current_reply), i);
+	memcpy(PAM_BP_WDATA(new->current_prompt),
+	       PAM_BP_RDATA(new->current_reply), i);
 	PAM_BP_RENEW(&new->current_reply, 0, 0);
 
 	/* look up the secret */
@@ -456,7 +456,7 @@ static int auth_sequence(pam_handle_t *pamh,
 	/* construct md5[<client_cookie>|<server_cookie>|<secret_data>] */
 	if (! create_digest(new->client_cookie, new->server_cookie,
 			    new->secret_data,
-			    PAM_BP_DATA(new->current_prompt)+i)) {
+			    PAM_BP_WDATA(new->current_prompt)+i)) {
 	    D(("md5 digesting failed"));
 	    new->state = PS_STATE_DEAD;
 	    return PAM_ABORT;
@@ -497,7 +497,7 @@ static int auth_sequence(pam_handle_t *pamh,
 		return PAM_ABORT;
 	    }
 
-	    cf = strcmp(expectation, PAM_BP_DATA(new->current_reply));
+	    cf = strcmp(expectation, PAM_BP_RDATA(new->current_reply));
 	    memset(expectation, 0, sizeof(expectation));
 	    if (cf || new->invalid_secret) {
 		D(("failed to authenticate"));
@@ -580,7 +580,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
 	    PAM_BP_RENEW(&new_data->current_prompt,
 			 PAM_BP_CONTROL(old_data->current_prompt), length);
 	    PAM_BP_FILL(new_data->current_prompt, 0, length,
-			PAM_BP_DATA(old_data->current_prompt));
+			PAM_BP_RDATA(old_data->current_prompt));
 	}
 	/* don't need to duplicate current_reply */
     } else {

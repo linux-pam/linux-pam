@@ -87,17 +87,20 @@ char **pamc_list_agents(pamc_handle_t pch);
 # define PAM_BP_FREE        free
 #endif /* PAM_BP_FREE */
 
-#define __PAM_BP_OCTET(x,y)  (*((y) + (__u8 *)(x)))
+#define __PAM_BP_WOCTET(x,y)  (*((y) + (__u8 *)(x)))
+#define __PAM_BP_ROCTET(x,y)  (*((y) + (const __u8 *)(x)))
 
 #define PAM_BP_MIN_SIZE       (sizeof(__u32) + sizeof(__u8))
 #define PAM_BP_MAX_LENGTH     0x20000                   /* an advisory limit */
-#define PAM_BP_CONTROL(x)     (__PAM_BP_OCTET(x,4))
-#define PAM_BP_SIZE(x)        ((__PAM_BP_OCTET(x,0)<<24)+      \
-			       (__PAM_BP_OCTET(x,1)<<16)+      \
-			       (__PAM_BP_OCTET(x,2)<< 8)+      \
-			       (__PAM_BP_OCTET(x,3)    ))
+#define PAM_BP_WCONTROL(x)    (__PAM_BP_WOCTET(x,4))
+#define PAM_BP_RCONTROL(x)    (__PAM_BP_ROCTET(x,4))
+#define PAM_BP_SIZE(x)        ((__PAM_BP_ROCTET(x,0)<<24)+      \
+			       (__PAM_BP_ROCTET(x,1)<<16)+      \
+			       (__PAM_BP_ROCTET(x,2)<< 8)+      \
+			       (__PAM_BP_ROCTET(x,3)    ))
 #define PAM_BP_LENGTH(x)      (PAM_BP_SIZE(x) - PAM_BP_MIN_SIZE)
-#define PAM_BP_DATA(x)        (PAM_BP_MIN_SIZE + (__u8 *) (x))
+#define PAM_BP_WDATA(x)       (PAM_BP_MIN_SIZE + (__u8 *) (x))
+#define PAM_BP_RDATA(x)       (PAM_BP_MIN_SIZE + (const __u8 *) (x))
 
 /* Note, this macro always '\0' terminates renewed packets */
 
@@ -105,7 +108,8 @@ char **pamc_list_agents(pamc_handle_t pch);
 do {                                                                       \
     if (old_p) {                                                           \
 	if (*(old_p)) {                                                    \
-	    __u32 __size = PAM_BP_SIZE(*(old_p));                          \
+	    __u32 __size;                                                  \
+            __size = PAM_BP_SIZE(*(old_p));                                \
 	    memset(*(old_p), 0, __size);                                   \
 	    PAM_BP_FREE(*(old_p));                                         \
 	}                                                                  \
@@ -114,10 +118,10 @@ do {                                                                       \
                                                                            \
 	    __size = PAM_BP_MIN_SIZE + data_length;                        \
 	    if ((*(old_p) = PAM_BP_CALLOC(1, 1+__size))) {                 \
- 		__PAM_BP_OCTET(*(old_p), 3) =  __size      & 0xFF;         \
-		__PAM_BP_OCTET(*(old_p), 2) = (__size>>=8) & 0xFF;         \
-		__PAM_BP_OCTET(*(old_p), 1) = (__size>>=8) & 0xFF;         \
-		__PAM_BP_OCTET(*(old_p), 0) = (__size>>=8) & 0xFF;         \
+ 		__PAM_BP_WOCTET(*(old_p), 3) =  __size      & 0xFF;        \
+		__PAM_BP_WOCTET(*(old_p), 2) = (__size>>=8) & 0xFF;        \
+		__PAM_BP_WOCTET(*(old_p), 1) = (__size>>=8) & 0xFF;        \
+		__PAM_BP_WOCTET(*(old_p), 0) = (__size>>=8) & 0xFF;        \
 		(*(old_p))->control = cntrl;                               \
 	    } else {                                                       \
 		PAM_BP_ASSERT("out of memory for binary prompt");          \
@@ -138,19 +142,19 @@ do {                                                                       \
     if (bp_length < ((length)+(offset))) {                                 \
 	PAM_BP_ASSERT("attempt to write over end of prompt");              \
     }                                                                      \
-    memcpy((offset) + PAM_BP_DATA(prompt), (data), (length));              \
+    memcpy((offset) + PAM_BP_WDATA(prompt), (data), (length));             \
 } while (0)
 
 #define PAM_BP_EXTRACT(prmpt, offset, length, data)                        \
 do {                                                                       \
-    int bp_length;                                                         \
-    __u8 *prompt = (__u8 *) (prmpt);                                       \
-    bp_length = PAM_BP_LENGTH(prompt);                                     \
-    if (((offset) < 0) || bp_length < ((length)+(offset))                  \
-	|| (length) < 0) {                                                 \
+    int __bp_length;                                                       \
+    const __u8 *__prompt = (const __u8 *) (prmpt);                         \
+    __bp_length = PAM_BP_LENGTH(__prompt);                                 \
+    if (((offset) < 0) || (__bp_length < ((length)+(offset)))              \
+	|| ((length) < 0)) {                                               \
 	PAM_BP_ASSERT("invalid extraction from prompt");                   \
     }                                                                      \
-    memcpy((data), (offset) + PAM_BP_DATA(prompt), (length));              \
+    memcpy((data), (offset) + PAM_BP_RDATA(__prompt), (length));           \
 } while (0)
 
 

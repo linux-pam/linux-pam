@@ -4,6 +4,7 @@
 #define __PAMMISC_H
 
 #include <security/pam_appl.h>
+#include <security/pam_client.h>
 
 /* include some useful macros */
 
@@ -21,8 +22,8 @@ extern time_t pam_misc_conv_die_time;         /* cut-off time for input */
 extern const char *pam_misc_conv_warn_line;           /* warning notice */
 extern const char *pam_misc_conv_die_line;            /* cut-off remark */
 extern int pam_misc_conv_died;      /* 1 = cut-off time reached (0 not) */
-extern int (*pam_binary_handler_fn)(const void *send, void **receive);
-
+extern int (*pam_binary_handler_fn)(void *appdata, pamc_bp_t *prompt_p);
+extern void (*pam_binary_handler_free)(void *appdata, pamc_bp_t *prompt_p);
 /*
  * Environment helper functions
  */

@@ -155,7 +155,7 @@ int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
     /* construct the whole reply prompt */
 
     size = PAM_BP_SIZE(raw);
-    control = PAM_BP_CONTROL(raw);
+    control = PAM_BP_RCONTROL(raw);
     memset(raw, 0, sizeof(raw));
 
     D(("agent replied with prompt of size %d and control %u",
