@@ -192,33 +192,43 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
 
     if (is_on_list(grp->gr_mem, fromsu) || (tpwd->pw_gid == grp->gr_gid)) {
 
-	if (ctrl & PAM_DEBUG_ARG) {
-	    _pam_log(LOG_NOTICE,"Access %s to '%s' for '%s'",
-		     (ctrl & PAM_DENY_ARG)?"denied":"granted",
-		     fromsu,username);
+	if (ctrl & PAM_DENY_ARG) {
+	    retval = PAM_PERM_DENIED;
+
+	} else if (ctrl & PAM_TRUST_ARG) {
+	    retval = PAM_SUCCESS;        /* this can be a sufficient check */
+
+	} else {
+	    retval = PAM_IGNORE;
 	}
 
+    } else {
+
 	if (ctrl & PAM_DENY_ARG) {
-	    return PAM_PERM_DENIED;
-	} else {
+
 	    if (ctrl & PAM_TRUST_ARG) {
-		return PAM_SUCCESS;    /* this can be a sufficient check */
+		retval = PAM_SUCCESS;    /* this can be a sufficient check */
 	    } else {
-		return PAM_IGNORE;
+		retval = PAM_IGNORE;
 	    }
+
+	} else {
+	    retval = PAM_PERM_DENIED;
 	}
     }
 
     if (ctrl & PAM_DEBUG_ARG) {
-	_pam_log(LOG_NOTICE,"Access %s for '%s' to '%s'",
-		 (ctrl & PAM_DENY_ARG)?"granted":"denied",fromsu,username);
+	if (retval == PAM_IGNORE) {
+	    _pam_log(LOG_NOTICE, "Ignoring access request '%s' for '%s'",
+		     fromsu, username);
+	} else {
+	    _pam_log(LOG_NOTICE, "Access %s to '%s' for '%s'",
+		     (retval != PAM_SUCCESS) ? "denied":"granted",
+		     fromsu, username);
+	}
     }
 
-    if (ctrl & PAM_DENY_ARG) {
-	return PAM_SUCCESS;            /* this can be a sufficient check */
-    } else {
-	return PAM_PERM_DENIED;
-    }
+    return retval;
 }
 
 /* --- authentication management functions --- */

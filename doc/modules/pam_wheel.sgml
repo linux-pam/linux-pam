@@ -22,7 +22,7 @@ Cristian Gafton &lt;gafton@redhat.com&gt;
 Author.
 
 <tag><bf>Management groups provided:</bf></tag>
-authentication
+authentication; account
 
 <tag><bf>Cryptographically sensitive:</bf></tag>
 	
@@ -31,7 +31,6 @@ authentication
 <tag><bf>Clean code base:</bf></tag>
 
 <tag><bf>System dependencies:</bf></tag>
-Requires libpwdb.
 
 <tag><bf>Network aware:</bf></tag>
 
@@ -42,7 +41,7 @@ Requires libpwdb.
 <p>
 Only permit root access to members of the wheel (<tt/gid=0/) group.
 
-<sect2>Authentication component
+<sect2>Authentication and Account components
 
 <p>
 <descrip>
@@ -56,11 +55,15 @@ Only permit root access to members of the wheel (<tt/gid=0/) group.
 
 <tag><bf>Description:</bf></tag>
 
-This module is used to enforce the so-called <em/wheel/ group. By
+This module is used to enforce the so-called <em/wheel/ group.  By
 default, it permits root access to the system if the applicant user is
 a member of the <tt/wheel/ group (first, the module checks for the
 existence of a '<tt/wheel/' group. Otherwise the module defines the
 group with group-id <tt/0/ to be the <em/wheel/ group).
+
+<p>
+The module can be used as either an '<tt/auth/' or an '<tt/account/'
+module.
 
 <p>
 The action of the module may be modified from this default by one or
@@ -88,10 +91,13 @@ password. <bf/USE WITH CARE/.
 
 <item>
 <tt/deny/ - 
-This is used to reverse the logic of the module's behavior.
-If the user is trying to get <tt/uid=0/ access and is a member of the wheel
+This is used to reverse the logic of the module's behavior.  If the
+user is trying to get <tt/uid=0/ access and is a member of the wheel
 group, deny access (for the wheel group, this is perhaps nonsense!):
 it is intended for use in conjunction with the <tt/group=/ argument...
+Conversely, if the user is not in the group, return <tt/PAM_IGNORE/
+(unless <tt/trust/ was also specified, in which case we return
+<tt/PAM_SUCCESS/).
 
 <item>
 <tt/group=XXXX/ -
@@ -114,7 +120,7 @@ file:
 #
 su	auth	 sufficient	pam_rootok.so
 su	auth	 required	pam_wheel.so
-su	auth	 required	pam_unix_auth.so
+su	auth	 required	pam_unix.so
 </verb>
 </tscreen>
 

@@ -1,6 +1,6 @@
 
 pam_wheel:
-	only permit root authentication too members of wheel group
+	only permit root authentication to members of wheel group
 
 RECOGNIZED ARGUMENTS:
 	debug		write a message to syslog indicating success or
@@ -21,13 +21,16 @@ RECOGNIZED ARGUMENTS:
 			is trying to get UID 0 access and is a member of the
 			wheel group, deny access (well, kind of nonsense, but
 			for use in conjunction with 'group' argument... :-)
+	                Conversely, if the user is not in the group, return
+                        PAM_IGNORE (unless 'trust' was also specified, in
+                        which case we return PAM_SUCCESS).
 
 	group=xxxx	Instead of checking the GID 0 group, use the xxxx
 			group to perform the authentification.
 
 MODULE SERVICES PROVIDED:
-	auth		_authetication and _setcred (blank)
+	auth		_authentication, _setcred (blank) and _acct_mgmt
 
 AUTHOR:
-	Cristian Gafton <gafton@sorosis.ro>
+	Cristian Gafton <gafton@redhat.com>
 

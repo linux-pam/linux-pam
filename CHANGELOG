@@ -55,9 +55,12 @@ bug report - outstanding bugs are listed here:
 0.77: please submit patches for this section with actual code/doc
       patches!
 
+* pam_wheel was too aggressive to grant access (in the case of the
+  'deny' option you want to pay attention to 'trust'). Fix from
+  Nalin (Bugs 476951, 476953 - agmorgan)
 * account management support for: pam_shells, pam_listfile, pam_wheel
   and pam_securetty (+ static module fix for pam_nologin). Patch from
-  redhat through Harrold Welte (Bug 436435 - agmorgan).
+  redhat through Harald Welte (Bug 436435 - agmorgan).
 * pam_wheel feature from Nalin - can use the module to provide wheel
   access to non-root accounts. Also from Nalin, a bugfix related to
   the primary group of the applicant is the 'wheel' group. (Bugs
