@@ -350,7 +350,14 @@ static int _update_passwd(const char *forwho, const char *towhat)
 	tmpent = fgetpwent(opwfile);
 	while (tmpent) {
 		if (!strcmp(tmpent->pw_name, forwho)) {
-			tmpent->pw_passwd = towhat;
+			/* To shut gcc up */
+			union {
+				const char *const_charp;
+				char *charp;
+			} assigned_passwd;
+			assigned_passwd.const_charp = towhat;
+			
+			tmpent->pw_passwd = assigned_passwd.charp;
 		}
 		if (putpwent(tmpent, pwfile)) {
 			fprintf(stderr, "error writing entry to password file: %s\n",
