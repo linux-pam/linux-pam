@@ -378,13 +378,14 @@ static int pwdb_run_helper_binary(pam_handle_t *pamh, const char *passwd)
 	exit(PWDB_SUCCESS+1);
     } else if (child > 0) {
 	/* wait for child */
-	close(fds[0]);
 	if (passwd != NULL) {            /* send the password to the child */
 	    write(fds[1], passwd, strlen(passwd)+1);
 	    passwd = NULL;
 	} else {
 	    write(fds[1], "", 1);                        /* blank password */
 	}
+	close(fds[0]);   /* we close this after the write because we want
+			    to avoid a possible SIGPIPE. */
 	close(fds[1]);
 	(void) waitpid(child, &retval, 0);  /* wait for helper to complete */
 	retval = (retval == PWDB_SUCCESS) ? PAM_SUCCESS:PAM_AUTH_ERR;

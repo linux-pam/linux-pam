@@ -398,7 +398,6 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd, unsig
 	exit(PAM_AUTHINFO_UNAVAIL);
     } else if (child > 0) {
 	/* wait for child */
-	close(fds[0]);
 	/* if the stored password is NULL */
 	if (off(UNIX__NONULL, ctrl)) {	/* this means we've succeeded */
 	    write(fds[1], "nullok\0\0", 8);
@@ -411,6 +410,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd, unsig
 	} else {
 	    write(fds[1], "", 1);                        /* blank password */
 	}
+	close(fds[0]);       /* close here to avoid possible SIGPIPE above */
 	close(fds[1]);
 	(void) waitpid(child, &retval, 0);  /* wait for helper to complete */
 	retval = (retval == 0) ? PAM_SUCCESS:PAM_AUTH_ERR;

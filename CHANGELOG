@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* avoid potential SIGPIPE when writing to helper binaries with (Bug
+  123399 - agmorgan)
 * replaced bogus logic in the pam_cracklib module for determining if
   the replacement is too similar to the old password (Bug 115055 -
   agmorgan)
