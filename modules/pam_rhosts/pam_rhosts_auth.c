@@ -50,6 +50,10 @@
 #include <sys/fsuid.h>
 #endif /* HAVE_SYS_FSUID_H */
 
+#ifdef HAVE_NET_IF_H
+#include <sys/if.h>
+#endif
+
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <string.h>
@@ -91,6 +95,14 @@ int innetgr(const char *, const char *, const char *,const char *);
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/_pam_modutil.h>
+
+#ifdef _ISOC9X_SOURCE
+#include <inttypes.h>
+#define U32 uint32_t
+#else
+/* to the best of my knowledge, all modern UNIX boxes have 32 bits integers */
+#define U32 unsigned int
+#endif /* _ISOC9X_SOURCE */
 
 /* Use the C99 type; older platforms will need this to be typedef'ed
    elsewhere */

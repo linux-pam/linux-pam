@@ -43,6 +43,10 @@
 # be used in values using the @{string} syntax. Both the $ and @
 # characters can be backslash escaped to be used as literal values
 # values can be delimited with "", escaped " not supported.
+# Note that many environment variables that you would like to use
+# may not be set by the time the module is called.
+# For example, HOME is used below several times, but 
+# many PAM applications don't make it available by the time you need it.
 #
 #
 # First, some special variables

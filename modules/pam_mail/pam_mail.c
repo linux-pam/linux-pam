@@ -474,7 +474,7 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
     }
 
     /* Delete environment variable? */
-    if (!est)
+    if ( ! est && ! (ctrl & PAM_NO_ENV) )
 	(void) pam_putenv(pamh, MAIL_ENV_NAME);
 
     _pam_overwrite(folder); /* clean up */

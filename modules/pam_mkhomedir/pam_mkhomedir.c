@@ -221,7 +221,14 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
       int DestFd;
       int Res;
       struct stat St;
+#ifndef PATH_MAX
+      char *newsource = NULL; *newdest = NULL;
+      /* track length of buffers */
+      int nslen = 0, ndlen = 0;
+      slen = strlen(source), dlen = strlen(dest);
+#else
       char newsource[PATH_MAX], newdest[PATH_MAX];
+#endif
 
       /* Skip some files.. */
       if (strcmp(Dir->d_name,".") == 0 ||
@@ -229,17 +236,56 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
 	 continue;
 
       /* Determine what kind of file it is. */
+#ifndef PATH_MAX
+      if ( ( nslen <= 0 ) || ( ndlen <= 0) )
+	      return PAM_BUF_ERR;
+
+      nslen = slen + strlen(Dir->d_name) + 2;
+      
+      if ( (newsource = malloc(nslen)) == NULL ) 
+	      return PAM_BUF_ERR;
+
+      sprintf(newsource, "%s/%s", source, Dir->d_name);
+#else
       snprintf(newsource,sizeof(newsource),"%s/%s",source,Dir->d_name);
+#endif
+
       if (lstat(newsource,&St) != 0)
+#ifndef PATH_MAX
+      {
+	      free(newsource); 
+	      newsource = NULL;
          continue;
+      }
+#else
+         continue;
+#endif
+
 
       /* We'll need the new file's name. */
+#ifndef PATH_MAX
+	 ndlen = dlen + strlen(Dir->d_name)+2;
+
+	 if ( (newdest = (int *) malloc(ndlen)) == NULL ) {
+		 free(newsource);
+		 return PAM_BUF_ERR;
+	 }
+	 
+	 sprintf(newdest, "%s/%s", dest, Dir->d_name);
+#else
       snprintf(newdest,sizeof(newdest),"%s/%s",dest,Dir->d_name);
+#endif
 
       /* If it's a directory, recurse. */
       if (S_ISDIR(St.st_mode))
       {
          int retval = create_homedir(pamh, ctrl, pwd, newsource, newdest);
+
+#ifndef PATH_MAX
+	 free(newsource); newsource = NULL;
+	 free(newdest); newdest = NULL;
+#endif
+
          if (retval != PAM_SUCCESS) {
             closedir(D);
             return retval;
@@ -250,21 +296,61 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
       /* If it's a symlink, create a new link. */
       if (S_ISLNK(St.st_mode))
       {
+	 int pointedlen = 0;
+#ifndef PATH_MAX
+	 char *pointed = NULL;
+           {
+		   int size = 100;
+
+		   while (1) {
+			   pointed = (char *) malloc(size);
+			   if ( ! pointed ) {
+				   free(newsource);
+				   free(newdest);
+				   return PAM_BUF_ERR;
+			   }
+			   pointedlen = readlink (newsource, pointed, size);
+			   if ( pointedlen < 0 ) break;
+			   if ( pointedlen < size ) break;
+			   free (pointed);
+			   size *= 2;
+		   }
+	   }
+	   if ( pointedlen < 0 )
+		   free(pointed);
+	   else
+		   pointed[pointedlen] = 0;
+#else
          char pointed[PATH_MAX];
          memset(pointed, 0, sizeof(pointed));
-         if(readlink(newsource, pointed, sizeof(pointed) - 1) != -1)
-         {
+
+         pointedlen = readlink(newsource, pointed, sizeof(pointed) - 1);
+#endif
+
+	 if ( pointedlen >= 0 ) {
             if(symlink(pointed, newdest) == 0)
             {
                if (lchown(newdest,pwd->pw_uid,pwd->pw_gid) != 0)
                {
                    closedir(D);
-                   _log_err(LOG_DEBUG, "unable to chang perms on link %s",
+                   _log_err(LOG_DEBUG, "unable to change perms on link %s",
                             newdest);
+#ifndef PATH_MAX
+		   free(pointed);
+		   free(newsource);
+		   free(newdest);
+#endif
                    return PAM_PERM_DENIED;
                }
             }
+#ifndef PATH_MAX
+	    free(pointed);
+#endif
          }
+#ifndef PATH_MAX
+	 free(newsource); newsource = NULL;
+	 free(newdest); newdest = NULL;
+#endif
          continue;
       }
 
@@ -272,6 +358,10 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
        * the new device node, FIFO, or whatever it is. */
       if (!S_ISREG(St.st_mode))
       {
+#ifndef PATH_MAX
+	 free(newsource); newsource = NULL;
+	 free(newdest); newdest = NULL;
+#endif
          continue;
       }
 
@@ -280,6 +370,12 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
       {
          closedir(D);
          _log_err(LOG_DEBUG, "unable to open src file %s",newsource);
+
+#ifndef PATH_MAX
+	 free(newsource); newsource = NULL;
+	 free(newdest); newdest = NULL;
+#endif
+
 	 return PAM_PERM_DENIED;
       }
       stat(newsource,&St);
@@ -290,6 +386,11 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
 	 close(SrcFd);
 	 closedir(D);
          _log_err(LOG_DEBUG, "unable to open dest file %s",newdest);
+
+#ifndef PATH_MAX
+	 free(newsource); newsource = NULL;
+	 free(newdest); newdest = NULL;
+#endif
 	 return PAM_PERM_DENIED;
       }
 
@@ -303,6 +404,12 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
          close(DestFd);
          closedir(D);
          _log_err(LOG_DEBUG, "unable to chang perms on copy %s",newdest);
+
+#ifndef PATH_MAX
+	 free(newsource); newsource = NULL;
+	 free(newdest); newdest = NULL;
+#endif
+
 	 return PAM_PERM_DENIED;
       }
 
@@ -325,11 +432,23 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
 	 close(DestFd);
 	 closedir(D);
 	 _log_err(LOG_DEBUG, "unable to perform IO");
+
+#ifndef PATH_MAX
+	 free(newsource); newsource = NULL;
+	 free(newdest); newdest = NULL;
+#endif
+
 	 return PAM_PERM_DENIED;
       }
       while (Res != 0);
       close(SrcFd);
       close(DestFd);
+
+#ifndef PATH_MAX
+	 free(newsource); newsource = NULL;
+	 free(newdest); newdest = NULL;
+#endif
+
    }
    closedir(D);
 

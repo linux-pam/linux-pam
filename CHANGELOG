@@ -63,6 +63,20 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 0.78: please submit patches for this section with actual code/doc
       patches!
 
+* pam_unix: remove the use of openlog (from debian - toady)
+* pam_unix: NIS cleanup (patch from Philippe Troin)
+* pam_access: you can now authenticate an explicit user on an explicit
+  tty (from debian - toady)
+* pam_limits, pam_rhosts, pam_unix: fixed hurd portability issues
+  (patch from Igor Khavkine)
+* pam_env: added comments in the configuration file to avoid errors
+  (from debian - toady)
+* pam_mail: check PAM_NO_ENV to know if we can delete the environment
+  variable (from debian - toady)
+* pam_filter: s/termio/termios/g (from debian - toady)
+* pam_mkhomedir: no maxpathlen required (from debian - toady)
+* pam_limits: applied patch to allow explicit limits for root
+  and remove limits on su. (from debian - toady)
 * pam_unix: severe denial of service possible with this module since
   it locked too aggressively. Bug report and testing help from Sascha
   Loetz. (Bug 664290 - agmorgan)

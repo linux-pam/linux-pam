@@ -161,12 +161,10 @@ static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
     fclose(ttyfile);
 
     if (retval) {
-	if (ctrl & PAM_DEBUG_ARG) {
 	    _pam_log(LOG_WARNING, "access denied: tty '%s' is not secure !",
 		     uttyname);
-	}
-	retval = PAM_AUTH_ERR;
 
+	    retval = PAM_AUTH_ERR;
     } else {
 	if ((retval == PAM_SUCCESS) && (ctrl & PAM_DEBUG_ARG)) {
 	    _pam_log(LOG_DEBUG, "access allowed for '%s' on '%s'",

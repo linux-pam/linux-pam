@@ -77,6 +77,11 @@ static int _unix_shadowed(const struct passwd *pwd)
 
 static void su_sighandler(int sig)
 {
+#ifndef SA_RESETHAND
+	/* emulate the behaviour of the SA_RESETHAND flag */
+	if ( sig == SIGILL || sig == SIGTRAP || sig == SIGBUS || sig = SIGSERV )
+		signal(sig, SIG_DFL);
+#endif
 	if (sig > 0) {
 		_log_err(LOG_NOTICE, "caught signal %d.", sig);
 		exit(sig);
@@ -92,7 +97,9 @@ static void setup_signals(void)
 	 */
 	(void) memset((void *) &action, 0, sizeof(action));
 	action.sa_handler = su_sighandler;
+#ifdef SA_RESETHAND
 	action.sa_flags = SA_RESETHAND;
+#endif
 	(void) sigaction(SIGILL, &action, NULL);
 	(void) sigaction(SIGTRAP, &action, NULL);
 	(void) sigaction(SIGBUS, &action, NULL);
@@ -153,12 +160,10 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 	}
 
 	salt_len = strlen(salt);
-	if (salt_len == 0) {
+	if (salt_len == 0)
 		return (nullok == 0) ? UNIX_FAILED : UNIX_PASSED;
-	}
-	if (p == NULL) {
+	else if (p == NULL || strlen(p) == 0)
 		return UNIX_FAILED;
-	}
 
 	/* the moment of truth -- do we agree with the password? */
 	retval = UNIX_FAILED;

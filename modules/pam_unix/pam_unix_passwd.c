@@ -580,7 +580,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 		yppwd.newpw.pw_gecos = pwd->pw_gecos;
 		yppwd.newpw.pw_dir = pwd->pw_dir;
 		yppwd.newpw.pw_shell = pwd->pw_shell;
-		yppwd.oldpass = fromwhat;
+		yppwd.oldpass = fromwhat ? fromwhat : "";
 		yppwd.newpw.pw_passwd = towhat;
 
 		D(("Set password %s for %s", yppwd.newpw.pw_passwd, forwho));

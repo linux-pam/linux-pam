@@ -194,10 +194,11 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	    line[end] = 0;			/* strip trailing whitespace */
 	    if (line[0] == 0)			/* skip blank lines */
 		continue;
+
+	    /* Allow trailing: in last field fo froms */
 	    if (!(perm = strtok(line, fs))
 		|| !(users = strtok((char *) 0, fs))
-		|| !(froms = strtok((char *) 0, fs))
-		|| strtok((char *) 0, fs)) {
+  	        || !(froms = strtok((char *) 0, fs))) {
 		_log_err("%s: line %d: bad field count",
 			 item->config_file, lineno);
 		continue;
@@ -438,10 +439,12 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
 	        return PAM_ABORT;
 	     }
         }
-        if (strncmp("/dev/",from,5) == 0) {          /* strip leading /dev/ */
-	    from += 5;
-        }
 
+	if (from[0] == '/') { 	/* full path */
+		from++;
+		from = strchr(from, '/');
+		from++;
+        }
     }
 
     if ((user_pw=_pammodutil_getpwnam(pamh, user))==NULL) return (PAM_USER_UNKNOWN);
