@@ -74,10 +74,10 @@ all: dirs $(LIBPAM) $(LIBPAMSTATIC) ../Make.Rules
 
 dirs:
 ifeq ($(DYNAMIC_LIBPAM),yes)
-	mkdir -p dynamic
+	$(MKDIR) dynamic
 endif
 ifeq ($(STATIC_LIBPAM),yes)
-	mkdir -p static
+	$(MKDIR) static
 endif
 
 dynamic/%.o : %.c

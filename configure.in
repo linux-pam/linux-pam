@@ -17,7 +17,7 @@ AC_DEFINE(LIBPAM_VERSION_MAJOR)
 AC_DEFINE(LIBPAM_VERSION_MINOR)
 
 dnl
-dnl Rules needed for the following (hardcoded Linux defaults)
+dnl Rules needed for the following (hardcoded Linux defaults for now)
 dnl
 
 CC=gcc				; AC_SUBST(CC)
@@ -25,6 +25,7 @@ CONF_CFLAGS=			; AC_SUBST(CONF_CFLAGS)
 LD=ld				; AC_SUBST(LD)
 LD_D="gcc -shared -Xlinker -x"	; AC_SUBST(LD_D)
 LD_L="$LD -x -shared"		; AC_SUBST(LD_L)
+MKDIR="mkdir -p"		; AC_SUBST(MKDIR)
 DYNTYPE=so			; AC_SUBST(DYNTYPE)
 LIBDL=-ldl			; AC_SUBST(LIBDL)
 USESONAME=yes			; AC_SUBST(USESONAME)

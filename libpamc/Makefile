@@ -5,6 +5,8 @@
 # lots of debugging information goes to /tmp/pam-debug.log
 #MOREFLAGS += -D"DEBUG"
 
+include ../Make.Rules
+
 ifeq ($(DEBUG_REL),yes)
  LIBNAME=libpamcd
 else
@@ -13,24 +15,17 @@ endif
 VERSION=.$(MAJOR_REL)
 MODIFICATION=.$(MINOR_REL)
 
-# ---------------------------------------------
-
-dummy:
-	@echo "*** This is not a top-level Makefile!"
-
-# ---------------------------------------------
-
 CFLAGS += $(MOREFLAGS) $(DYNAMIC) $(STATIC)
 
 # dynamic library names
 
-LIBPAMC = $(LIBNAME).$(DYNTYPE)
-LIBPAMCNAME = $(LIBPAMC)$(VERSION)
-LIBPAMCFULL = $(LIBPAMCNAME)$(MODIFICATION)
+LIBNAMED = $(LIBNAME).$(DYNTYPE)
+LIBNAMEDNAME = $(LIBNAMED)$(VERSION)
+LIBNAMEDFULL = $(LIBNAMEDNAME)$(MODIFICATION)
 
 # static library name
 
-LIBPAMCSTATIC = $(LIBNAME).a
+LIBNAMEDSTATIC = $(LIBNAME).a
 
 LIBOBJECTS = pamc_client.o pamc_converse.o pamc_load.o
 
@@ -45,14 +40,14 @@ endif
 # ---------------------------------------------
 ## rules
 
-all: dirs $(LIBPAMC) $(LIBPAMCSTATIC)
+all: dirs $(LIBNAMED) $(LIBNAMEDSTATIC)
 
 dirs:
 ifeq ($(DYNAMIC_LIBPAM),yes)
-	mkdir -p dynamic
+	$(MKDIR) dynamic
 endif
 ifeq ($(STATIC_LIBPAM),yes)
-	mkdir -p static
+	$(MKDIR) static
 endif
 
 dynamic/%.o : %.c
@@ -61,22 +56,22 @@ dynamic/%.o : %.c
 static/%.o : %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
 
-$(LIBPAMC): $(DLIBOBJECTS)
+$(LIBNAMED): $(DLIBOBJECTS)
 ifeq ($(DYNAMIC_LIBPAM),yes)
     ifeq ($(USESONAME),yes)
-	$(LD_L) $(SOSWITCH) $(LIBPAMCNAME) -o $@ $(DLIBOBJECTS) $(MODULES) $(LINKLIBS)
+	$(LD_L) $(SOSWITCH) $(LIBNAMEDNAME) -o $@ $(DLIBOBJECTS) $(MODULES) $(LINKLIBS)
     else
 	$(LD_L) -o $@ $(DLIBOBJECTS) $(MODULES)
     endif
     ifeq ($(NEEDSONAME),yes)
-	rm -f $(LIBPAMCFULL)
-	ln -s $(LIBPAMC) $(LIBPAMCFULL)
-	rm -f $(LIBPAMCNAME)
-	ln -s $(LIBPAMC) $(LIBPAMCNAME)
+	rm -f $(LIBNAMEDFULL)
+	ln -s $(LIBNAMED) $(LIBNAMEDFULL)
+	rm -f $(LIBNAMEDNAME)
+	ln -s $(LIBNAMED) $(LIBNAMEDNAME)
     endif
 endif
 
-$(LIBPAMCSTATIC): $(SLIBOBJECTS)
+$(LIBNAMEDSTATIC): $(SLIBOBJECTS)
 ifeq ($(STATIC_LIBPAM),yes)
 	$(AR) $@ $(SLIBOBJECTS) $(MODULES)
 	$(RANLIB) $@
@@ -86,20 +81,20 @@ install: all
 	$(MKDIR) $(FAKEROOT)$(INCLUDED)
 	$(INSTALL) -m 644 include/security/pam_client.h $(FAKEROOT)$(INCLUDED)
 ifeq ($(DYNAMIC_LIBPAM),yes)
-	$(INSTALL) -m $(SHLIBMODE) $(LIBPAMC) $(FAKEROOT)$(LIBDIR)/$(LIBPAMCFULL)
+	$(INSTALL) -m $(SHLIBMODE) $(LIBNAMED) $(FAKEROOT)$(LIBDIR)/$(LIBNAMEDFULL)
 	$(LDCONFIG)
   ifneq ($(DYNTYPE),"sl")
-	( cd $(FAKEROOT)$(LIBDIR) ; rm -f $(LIBPAMC) ; ln -s $(LIBPAMCNAME) $(LIBPAMC) )
+	( cd $(FAKEROOT)$(LIBDIR) ; rm -f $(LIBNAMED) ; ln -s $(LIBNAMEDNAME) $(LIBNAMED) )
   endif
 endif
 ifeq ($(STATIC_LIBPAM),yes)
-	$(INSTALL) -m 644 $(LIBPAMCSTATIC) $(FAKEROOT)$(LIBDIR)
+	$(INSTALL) -m 644 $(LIBNAMEDSTATIC) $(FAKEROOT)$(LIBDIR)
 endif
 
 remove:
 	rm -f $(FAKEROOT)$(INCLUDED)/pam_client.h
 	$(LDCONFIG)
-	rm -f $(FAKEROOT)$(LIBDIR)/$(LIBPAMCSTATIC)
+	rm -f $(FAKEROOT)$(LIBDIR)/$(LIBNAMEDSTATIC)
 
 clean:
 	rm -f a.out core *~ static/*.o dynamic/*.o

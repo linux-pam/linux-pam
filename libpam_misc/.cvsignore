@@ -5,3 +5,5 @@ libpamd_misc.a
 help_env.o
 misc_conv.o
 xstrdup.o
+dynamic
+static
