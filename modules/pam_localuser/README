@@ -7,7 +7,7 @@ pam_localuser:
 
 RECOGNIZED ARGUMENTS:
 	debug		write debugging messages to syslog
-	passwd=FILE	scan FILE instead of /etc/passwd
+	file=FILE	scan FILE instead of /etc/passwd
 
 MODULE SERVICES PROVIDED:
 	auth,account	scan the FILE (/etc/passwd by default) and return
