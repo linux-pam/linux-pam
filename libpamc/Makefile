@@ -12,6 +12,9 @@ ifeq ($(DEBUG_REL),yes)
 else
  LIBNAME=libpamc
 endif
+ifeq ($(WITH_PRELUDE),yes)
+ CFLAGS += -DPRELUDE -DLIBPRELUDE_CONFIG_PREFIX=\"`libprelude-config --prefix`\"
+endif
 VERSION=.$(MAJOR_REL)
 MODIFICATION=.$(MINOR_REL)
 

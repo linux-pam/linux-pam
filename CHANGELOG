@@ -84,6 +84,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * libpam: Fix debug code (kukuk)
 * pam_limits: Fix order of LIMITS_DEF_* priorities (kukuk)
 * pam_xauth: preserve DISPLAY variable (Novell #66885 - kukuk)
+* libpam: Add prelude ids (http://www.prelude-ids.org) support, 
+  as experimental. (toady)
 
 0.78: Do Nov 18 14:48:36 CET 2004
 

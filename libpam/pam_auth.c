@@ -6,6 +6,7 @@
  */
 
 #include "pam_private.h"
+#include "pam_prelude.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,6 +40,10 @@ int pam_authenticate(pam_handle_t *pamh, int flags)
     } else {
 	D(("will resume when ready"));
     }
+
+#ifdef PRELUDE
+    prelude_send_alert(pamh, retval);
+#endif
 
     return retval;
 }

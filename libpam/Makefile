@@ -15,6 +15,10 @@ ifeq ($(WITH_LIBDEBUG),yes)
 else
  LIBNAME=libpam
 endif
+ifeq ($(WITH_PRELUDE),yes)
+ CFLAGS += -DPRELUDE -DLIBPRELUDE_CONFIG_PREFIX=\"`libprelude-config --prefix`\"
+ LINKLIBS += -lprelude
+endif
 VERSION=.$(MAJOR_REL)
 MODIFICATION=.$(MINOR_REL)
 
@@ -26,7 +30,8 @@ dummy: ../Make.Rules all
 
 CFLAGS += $(DYNAMIC) $(STATIC) $(MOREFLAGS) \
   -DLIBPAM_VERSION_MAJOR=$(MAJOR_REL) \
-  -DLIBPAM_VERSION_MINOR=$(MINOR_REL)
+  -DLIBPAM_VERSION_MINOR=$(MINOR_REL) \
+  -DLIBPAM_VERSION_STRING=\"$(MAJOR_REL).$(MINOR_REL)\"
 
 # dynamic library names
 
@@ -52,7 +57,7 @@ endif
 
 LIBOBJECTS = pam_item.o pam_strerror.o pam_end.o pam_start.o pam_data.o \
 		pam_delay.o pam_dispatch.o pam_handlers.o pam_misc.o \
-		pam_account.o pam_auth.o pam_session.o pam_password.o \
+		pam_account.o pam_auth.o pam_prelude.o pam_session.o pam_password.o \
 		pam_env.o pam_log.o $(EXTRAS)
 
 ifeq ($(DYNAMIC_LIBPAM),yes)
