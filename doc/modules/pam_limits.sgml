@@ -74,6 +74,12 @@ verbose logging to <tt/syslog(3)/.
 <item><tt>conf=/path/to/file.conf</tt> -
 indicate an alternative <em/limits/ configuration file to the default.
 
+<item><tt/change_uid/ - 
+change real uid to the user for who the limits are set up.  Use this
+option if you have problems like login not forking a shell for user
+who has no processes. Be warned that something else may break when
+you do this.
+
 </itemize>
 
 <tag><bf>Examples/suggested usage:</bf></tag>

@@ -68,6 +68,12 @@ ARGUMENTS RECOGNIZED:
     conf=/path/to/file	the limits configuration file if different from the
 			one set at compile time.
 
+    change_uid		change real uid to the user for who the limits
+    			are set up.  Use this option if you have problems
+			like login not forking a shell for user who has
+			no processes.  Be warned that something else
+			may break when you do this.
+
 MODULE SERVICES PROVIDED:
 	session            _open_session and _close_session (blank)
 

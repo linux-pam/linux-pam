@@ -91,6 +91,7 @@ static void _pam_log(int err, const char *format, ...)
 /* argument parsing */
 
 #define PAM_DEBUG_ARG       0x0001
+#define PAM_DO_SETREUID     0x0002
 
 static int _pam_parse(int argc, const char **argv, struct pam_limit_s *pl)
 {
@@ -105,6 +106,8 @@ static int _pam_parse(int argc, const char **argv, struct pam_limit_s *pl)
                ctrl |= PAM_DEBUG_ARG;
           else if (!strncmp(*argv,"conf=",5))
                 strcpy(pl->conf_file,*argv+5);
+	  else if (!strncmp(*argv,"change_uid",10))
+		ctrl |= PAM_DO_SETREUID;
           else {
                _pam_log(LOG_ERR,"pam_parse: unknown option; %s",*argv);
           }
@@ -564,8 +567,9 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags,
         _pam_log(LOG_WARNING, "error parsing the configuration file");
         return PAM_IGNORE;
     }
-    
-    setreuid(pwd->pw_uid, -1);
+
+    if (ctrl & PAM_DO_SETREUID)
+	setreuid(pwd->pw_uid, -1);
     retval = setup_limits(pwd->pw_name, ctrl, &pl);
     if (retval & LOGIN_ERR) {
         printf("\nToo many logins for '%s'\n",pwd->pw_name);
