@@ -1,0 +1,68 @@
+pam_succeed_if:
+	Succeed or fail based on account characteristics.
+
+	pam_succeed_if.so is designed to succeed or fail authentication based
+	on characteristics of the account belonging to the user being
+	authenticated.
+
+	The module can be given one or more conditions as module arguments, and
+	authentication will succeed only if all of the conditions are met.
+
+	Conditions are expressed in the form
+
+		ATTRIBUTE OPERATOR VALUE
+	
+	Recognized attributes:
+
+		LOGIN	- The user's login name.
+		UID	- The user's UID.
+		GID	- The user's primary GID.
+		SHELL	- The user's shell.
+		HOME	- The user's home directory.
+
+	Recognized operators:
+
+		<		- Arithmetic less-than.
+		<=		- Arithmetic less-than-or-equal-to.
+		>		- Arithmetic greater-than.
+		>=		- Arithmetic greater-than-or-equal-to.
+		eq		- Arithmetic equality.
+		=		- String equality.
+		ne		- Arithmetic inequality.
+		!=		- String inequality.
+		=~		- Wildcard match.
+		!~		- Wildcard mismatch.
+		ingroup		- Group membership check. [*]
+		notingroup	- Group non-membership check. [*]
+
+		* The "ingroup" and "notingroup" operators should only be
+		  used with the USER attribute.
+
+	Examples:
+
+		Deny authentication to all users except those in the wheel
+		group, before even asking for a password:
+			auth requisite pam_succeed_if.so user ingroup wheel
+
+		Assume all users with UID less than 500 ("system users") have
+		valid accounts.
+			account sufficient pam_succeed_if.so uid < 500
+
+		Deny login to all nologin users.
+			auth requisite pam_succeed_if.so shell !~ nologin
+
+RECOGNIZED ARGUMENTS:
+	debug		write debugging messages to syslog
+	use_uid 	perform checks on the account of the user under whose
+			UID the application is running instead of the user
+			being authenticated
+	quiet		don't log failure or success to syslog
+	quiet_fail	don't log failure to syslog
+	quiet_success	don't log success to syslog
+
+
+MODULE SERVICES PROVIDED:
+	authentication, account management
+
+AUTHOR:
+	Nalin Dahyabhai <nalin@redhat.com>
