@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <stdarg.h>
 #include <syslog.h>
 #include <pwd.h>
@@ -84,6 +85,7 @@ static void _pam_log(int err, const char *format, ...)
 
 #ifdef MAIN
     vfprintf(stderr,format,args);
+    fprintf(stderr,"\n");
 #else
     openlog(MODULE_NAME, LOG_CONS|LOG_PID, LOG_AUTH);
     vsyslog(err, format, args);

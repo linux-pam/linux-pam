@@ -49,6 +49,10 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_tally: added an #include (was it really needed?) and made the
+  pam_tally app install (with more pretty printing and a corrected
+  Makefile dependency) motivated by a (red hat diff) courtesy of Harald
+  Welte (Bug 436432 - agmorgan)
 * more pam_limits changes (extracted from redhat version) courtesy of
   Harald Welte (Bug 436061 - agmorgan)
 * configure.in changes to help support non-Linux environments courtesy
