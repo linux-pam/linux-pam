@@ -891,8 +891,6 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		if (retval != PAM_SUCCESS) {
 			_log_err(LOG_NOTICE, pamh,
 			         "new password not acceptable");
-			_pam_overwrite(pass_new);
-			_pam_overwrite(pass_old);
 			pass_new = pass_old = NULL;	/* tidy up */
 #ifdef USE_LCKPWDF
 			ulckpwdf();
@@ -935,8 +933,6 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 				if (temp == NULL) {
 					_log_err(LOG_CRIT, pamh,
 					         "out of memory for password");
-					_pam_overwrite(pass_new);
-					_pam_overwrite(pass_old);
 					pass_new = pass_old = NULL;	/* tidy up */
 #ifdef USE_LCKPWDF
 					ulckpwdf();
@@ -970,8 +966,6 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 		retval = _do_setpass(pamh, user, pass_old, tpass, ctrl,
 		                     remember);
-		_pam_overwrite(pass_new);
-		_pam_overwrite(pass_old);
 		_pam_delete(tpass);
 		pass_old = pass_new = NULL;
 	} else {		/* something has broken with the module */

@@ -49,6 +49,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* don't zero out password strings during pam_unix's password changing
+  function (Bug 419803 - vorlon)
 * propagate some definitions to the _pam_aconf.h file - from David Lee
   (Bug 415419 - agmorgan)
 * solaris GCC OS_CFLAGS change from David Lee (Bug 415412 - agmorgan)
