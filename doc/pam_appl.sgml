@@ -46,7 +46,7 @@ DAMAGE.
 
 <title>The Linux-PAM Application Developers' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.76 2001/05/26
+<date>DRAFT v0.76 2001/12/08
 <abstract>
 This manual documents what an application developer needs to know
 about the <bf>Linux-PAM</bf> library. It describes how an application
@@ -315,30 +315,62 @@ extern int pam_set_item(pam_handle_t *pamh, int item_type,
 
 <p><descrip>
 <tag><tt/PAM_SERVICE/</tag>
-     	The service name
+
+     	The service name (which identifies that PAM stack that
+     	<tt/libpam/ will use to authenticate the program).
 
 <tag><tt/PAM_USER/</tag>
-	The user name
+
+	The username of the entity under who's identity service will
+	be given. That is, following authentication, <tt/PAM_USER/
+	identifies the local entity that gets to use the
+	service. Note, this value can be mapped from something (eg.,
+	"<tt/anonymous/") to something else (eg. "<tt/guest119/") by
+	any module in the PAM stack. As such an application should
+	consult the value of <tt/PAM_USER/ after each call to a
+	<tt/pam_*()/ function.
 
 <tag><tt/PAM_USER_PROMPT/</tag>
+
 	The string used when prompting for a user's name. The default
-value for this string is ``Please enter username: ''.
+        value for this string is ``Please enter username: ''.
 
 <tag><tt/PAM_TTY/</tag>
+
 	The terminal name: prefixed by <tt>/dev/</tt> if it is a
-device file; for graphical, X-based, applications the value for this
-item should be the <tt/&dollar;DISPLAY/ variable.
+        device file; for graphical, X-based, applications the value
+        for this item should be the <tt/&dollar;DISPLAY/ variable.
 
 <tag><tt/PAM_RUSER/</tag>
-	The requesting user's username
+
+        The requesting entity: user's username for a locally
+	requesting user or a remote requesting user - generally an
+	application or module will attempt to supply the value that is
+	most strongly authenticated (a local account before a remote
+	one. The level of trust in this value is embodied in the
+	actual authentication stack associated with the application,
+	so it is ultimately at the discretion of the system
+	administrator. It should generally match the current
+	<tt/PAM_RHOST/ value. That is, "<tt/PAM_RUSER@PAM_RHOST/"
+	should always identify the requesting user. In some cases,
+	<tt/PAM_RUSER/ may be NULL. In such situations, it is unclear
+	who the requesting entity is.
 
 <tag><tt/PAM_RHOST/</tag>
-	The requesting hostname (the hostname of the machine from which
-	the <tt/PAM_RUSER/ is requesting service)
+
+	The requesting hostname (the hostname of the machine from
+	which the <tt/PAM_RUSER/ entity is requesting service). That
+	is "<tt/PAM_RUSER@PAM_RHOST/" does identify the requesting
+	user.  "<tt/luser@localhost/" or "<tt/evil@evilcom.com/" are
+	valid "<tt/PAM_RUSER@PAM_RHOST/" examples. In some
+	applications, <tt/PAM_RHOST/ may be NULL. In such situations,
+	it is unclear where the authentication request is originating
+	from.
 
 <tag><tt/PAM_CONV/</tag>
+
 	The conversation structure (see section <ref
-id="the-conversation-function" name="below">)
+        id="the-conversation-function" name="below">).
 
 <tag><tt/PAM_FAIL_DELAY/</tag> A function pointer to redirect
         centrally managed failure delays (see section <ref
@@ -358,7 +390,7 @@ section <ref id="the-failure-delay-function" name="below">).
 
 <p>
 A successful call to this function returns <tt/PAM_SUCCESS/.  However,
-the application should expect one of the following errors:
+the application should expect at least one the following errors:
 
 <p>
 <descrip>
@@ -1134,7 +1166,11 @@ current <tt/uid/ (userid) of the running process; the identity of the
 privilege granting user is the <tt/euid/ (effective userid) of the
 running process; the identity of the user, under whose name the
 service will be executed, is given by the contents of the
-<tt/PAM_USER/ <tt/pam_get_item(3)/.
+<tt/PAM_USER/ <tt/pam_get_item(3)/. Note, modules can change the
+values of <tt/PAM_USER/ and <tt/PAM_RUSER/ during any of the
+<tt/pam_*()/ library calls. For this reason, the application should
+take care to use the <tt/pam_get_item()/ every time it wishes to
+establish who the authenticated user is (or will currently be).
 
 <p>
 For network-serving databases and other applications that provide
@@ -1563,7 +1599,7 @@ purpose at the moment. Ideas/suggestions welcome!
 
 <p>
 This document was written by Andrew G. Morgan
-(morgan@transmeta.com) with many contributions from
+(morgan@kernel.org) with many contributions from
 <!-- insert credits here -->
 <!--
  an sgml list of people to credit for their contributions to Linux-PAM
@@ -1630,9 +1666,9 @@ credited for all the good work they have done.
 <sect>Copyright information for this document
 
 <p>
-Copyright (c) Andrew G. Morgan 1996-9.  All rights reserved.
+Copyright (c) Andrew G. Morgan 1996-9,2000-1.  All rights reserved.
 <newline>
-Email: <tt>&lt;morgan@transmeta.com&gt;</tt>
+Email: <tt>&lt;morgan@kernel.org&gt;</tt>
 
 <p>
 Redistribution and use in source and binary forms, with or without

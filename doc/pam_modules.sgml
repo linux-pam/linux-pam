@@ -49,7 +49,7 @@ DAMAGE.
 
 <title>The Linux-PAM Module Writers' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.76 2001/09/12
+<date>DRAFT v0.76 2001/12/08
 <abstract>
 This manual documents what a programmer needs to know in order to
 write a module that conforms to the <bf/Linux-PAM/ standard. It also
@@ -1375,7 +1375,7 @@ needed.
 
 <p>
 This document was written by Andrew G. Morgan
-(<tt/morgan@transmeta.com/) with many contributions from
+(<tt/morgan@kernel.org/) with many contributions from
 <!-- insert credits here -->
 <!--
  an sgml list of people to credit for their contributions to Linux-PAM
@@ -1443,9 +1443,9 @@ credited for all the good work they have done.
 <sect>Copyright information for this document
 
 <p>
-Copyright (c) Andrew G. Morgan 1996, 1997.  All rights reserved.
+Copyright (c) Andrew G. Morgan 1996-9,2000-1.  All rights reserved.
 <newline>
-Email: <tt>&lt;morgan@transmeta.com&gt;</tt>
+Email: <tt>&lt;morgan@kernel.org&gt;</tt>
 
 <p>
 Redistribution and use in source and binary forms, with or without

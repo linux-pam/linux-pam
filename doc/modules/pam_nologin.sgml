@@ -17,7 +17,7 @@
 <tag><bf>Author:</bf></tag>
 Written by Michael K. Johnson &lt;johnsonm@redhat.com&gt;<newline>
 (based on code taken from a module written by Andrew G. Morgan
-&lt;morgan@parc.power.net&gt;).
+&lt;morgan@kernel.org&gt;).
 
 <tag><bf>Maintainer:</bf></tag>
 Michael K. Johnson &lt;johnsonm@redhat.com&gt;

@@ -1,17 +1,18 @@
-PAM working group                 ##              A.G. Morgan
-Internet Draft:                   ##          October 6, 1999
-Document: draft-morgan-pam-07.txt ##
-Expires: June 13, 2000            ##
-Obsoletes: draft-morgan-pam-06.txt##
+Open-PAM working group            ##              A.G. Morgan
+Internet Draft:                   ##              Dec 8, 2001
+Document: draft-morgan-pam-08.txt ##
+Expires: June 8, 2002             ##
+Obsoletes: draft-morgan-pam-07.txt##
 
-## Pluggable Authentication Modules ##
+## Pluggable Authentication Modules (PAM) ##
 
 #$  Status of this memo
 
-This document is an draft specification. The latest version of this
-draft may be obtained from here:
+This document is a draft specification. Its contents are subject to
+change with revision. The latest version of this draft may be obtained
+from here:
 
-  http://linux.kernel.org/pub/linux/libs/pam/pre/doc/
+  http://www.kernel.org/pub/linux/libs/pam/pre/doc/
 
 As
 
@@ -187,12 +188,14 @@ The following control characters are only legal for exchanges between
 an agent and a client (it is the responsibility of the client to
 enforce this rule in the face of a rogue server):
 
-## 0x41     PAM_BPC_GETENV   - obtain client env.var ##
-## 0x42     PAM_BPC_PUTENV   - set client env.var    ##
-## 0x43     PAM_BPC_TEXT     - display message       ##
-## 0x44     PAM_BPC_ERROR    - display error message ##
-## 0x45     PAM_BPC_PROMPT   - echo'd text prompt    ##
-## 0x46     PAM_BPC_PASS     - non-echo'd text prompt##
+## 0x41     PAM_BPC_GETENV   - obtain client env.var  ##
+## 0x42     PAM_BPC_PUTENV   - set client env.var     ##
+## 0x43     PAM_BPC_TEXT     - display message        ##
+## 0x44     PAM_BPC_ERROR    - display error message  ##
+## 0x45     PAM_BPC_PROMPT   - echo'd text prompt     ##
+## 0x46     PAM_BPC_PASS     - non-echo'd text prompt ##
+## 0x46     PAM_BPC_STATUS   - ping all active clients##
+## 0x47     PAM_BPC_ABORT    - please abort session   ##
 
 Note, length is always equal to the total length of the binary
 prompt and represented by a network ordered unsigned 32 bit integer.
@@ -211,10 +214,10 @@ regexp:
 
 and has a specific form for each independent agent.
 
-o Agent_ids that do not contain an at-sign (@) are reserved to be
-  assigned by IANA (Internet Assigned Numbers Authority). Names of
-  this format MUST NOT be used without first registering with IANA.
-  Registered names MUST NOT contain an at-sign (@).
+o Agent_ids that do not contain an at-sign (@) are to be considered as
+  representing some authentication mode that is a "public
+  standard" see reference [#$R#{PAM_STD_AGENTIDS}]. Registered names
+  MUST NOT contain an at-sign (@).
 
 o Anyone can define additional agents by using names in the format
   name@domainname, e.g. "ouragent@example.com". The part following
@@ -248,8 +251,23 @@ Some client-server implementations (telnet for example) provide
 effective full tty connections. In these cases, the four simple text
 string prompting cases (see below) can be handled as in the primary
 login step. In other words, the server absorbs most of the overhead of
-propagating authentication messages. In these cases, there is special
-client/server support for handling binary prompts.
+propagating authentication messages. In these cases, there needs to be
+special client/server support for handling binary prompts.
+
+In some circumstances, a legacy network transfer protocol can carry
+authentication information. In such cases, a desire to support legacy
+clients (with no client-side support for PAM) will neccessitate the
+'hardcoding' of an agent protocol into the server application. Whilst
+against the spirit of PAM, this special casing can be managed by the
+server's 'conversation function' (see below). The guiding principle
+when implementing such support is for the application developer to
+relegate the authentication process to the PAM module -- simply
+performing a transcription of data from binary-prompt to legacy
+network 'packet' and visa-versa for propagating replies back to the
+driving PAM module. A common case of this is with network protocols
+that define an initialization packet of "user+password". In such cases
+one should attempt to support the "userpass" agent-id and its defined
+protocol.
 
 #$  Defined interfaces for information flow
 
@@ -318,8 +336,8 @@ and a single fail):
 ## (C)  | {12;PAM_BPC_TEXT;"hello!"}     | {5;PAM_BPC_OK;}         ##
 ##      | {12;PAM_BPC_TEXT;"hello!"}     | {5;PAM_BPC_FAIL;}       ##
 ## --------------------------------------------------------------- ##
-## (D)  | {11;PAM_BPC_TEXT;"ouch!"}      | {5;PAM_BPC_OK;}         ##
-##      | {11;PAM_BPC_TEXT;"ouch!"}      | {5;PAM_BPC_FAIL;}       ##
+## (D)  | {11;PAM_BPC_ERROR;"ouch!"}     | {5;PAM_BPC_OK;}         ##
+##      | {11;PAM_BPC_ERROR;"ouch!"}     | {5;PAM_BPC_FAIL;}       ##
 ## --------------------------------------------------------------- ##
 ## (E)  | {13;PAM_BPC_PROMPT;"login: "}  | {9;PAM_BPC_OK;"joe"}    ##
 ##      | {13;PAM_BPC_PROMPT;"login: "}  | {6;PAM_BPC_OK;""}       ##
@@ -570,6 +588,23 @@ should go to some effort to lower its level of privilege. It remains
 the responsibility of the applicant and the client to ensure that it
 is not compromised by a rogue agent.
 
+#$$$$  Status of agents
+
+	int pamc_status(pamc_handle_t *pch, pamc_bp_t *prompt_p);
+
+At any time, the client may ping all active agents for their status
+(with a PAM_BPC_STATUS binary prompt). If any agent replies with
+PAM_BPC_ABORT, the client is responsible for terminating the
+connection to the server and then terminating all agents with a call
+to pamc_end(). In such cases, the return value of pamc_status() is
+PAM_BPC_FALSE.
+
+If the return status of pamc_status() is PAM_BPC_TRUE and *prompt_p is
+non-NULL, then an agent is requesting access to a server module.
+
+XXX - how this information gets propagated to the server, and
+      ultimately to the server's module is yet to be determined.
+
 #$$$$  Termination of agents
 
 When closing the authentication session and severing the connection
@@ -627,6 +662,11 @@ decision about the authentication method adopted by the server.
 	pam_fail_delay(pam_handle_t *pamh, unsigned int micro_sec)
 	pam_get_env(pam_handle_t *pamh, const char *varname)
 	pam_strerror(pam_handle_t *pamh, int pam_errno)
+
+Event driven support (XXX work in progress)
+
+	pam_register_event() - app or module associates an event poller/handler
+	pam_select_event()   - query for any outstanding event and act on any
 ]
 
 #$$$ Server <-> libpam
@@ -677,6 +717,24 @@ functions provided to libpam by each module
 		pam_sm_chauthtok
 ]
 
+#$$$ The conversation function
+
+The server application, as part of its initialization of libpam,
+provides a conversation function for use by modules and libpam. The
+purpose of the conversation function is to enable direct communication
+to the applicant ultimately via the client and selected agents.
+
+[ this section will contain a definition for the conversation
+  function, the conversation structure (appdata etc), and legitimate
+  return codes for the application supplied function.
+
+	PAM_SUCCESS           - ok conversation completed
+	PAM_CONV_ERR          - conversation failed
+	PAM_CONV_AGAIN        - application needs control to complete conv
+	PAM_CONV_RECONSIDER   - application believes module should check if
+	                        it still needs to converse for this info
+ ]
+
 #$  Security considerations
 
 This document is devoted to standardizing authentication
@@ -693,10 +751,14 @@ The email list for discussing issues related to this document is
 [#{OSF_RFC_PAM}]  OSF RFC 86.0, "Unified Login with Pluggable Authentication
      Modules (PAM)", October 1995
 
+[#{PAM_STD_AGENTIDS}] Definitions for standard agents, "REGISTERED
+     AGENTS AND THEIR AGENT-ID'S", to be found here:
+
+## http://www.kernel.org/pub/linux/libs/pam/pre/doc/std-agent-ids.txt ##
+
 #$  Author's Address
 
 Andrew G. Morgan
-Email: morgan@ftp.kernel.org
+Email: morgan@kernel.org
 
 ## $Id$ ##
-

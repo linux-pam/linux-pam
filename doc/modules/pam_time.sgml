@@ -1,7 +1,7 @@
 <!--
    $Id$
    
-   This file was written by Andrew G. Morgan <morgan@parc.power.net>
+   This file was written by Andrew G. Morgan <morgan@kernel.org>
 -->
 
 <sect1>Time control
@@ -15,7 +15,7 @@
 <tt/pam_time/
 
 <tag><bf>Author:</bf></tag>
-Andrew G. Morgan <tt>&lt;morgan@parc.power.net&gt;</tt>
+Andrew G. Morgan <tt>&lt;morgan@kernel.org&gt;</tt>
 
 <tag><bf>Maintainer:</bf></tag>
 Author

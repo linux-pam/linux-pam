@@ -1,7 +1,7 @@
 <!--
    $Id$
    
-   This file was written by Andrew G. Morgan <morgan@parc.power.net>
+   This file was written by Andrew G. Morgan <morgan@kernel.org>
 -->
 
 <sect1>The promiscuous module
@@ -15,7 +15,7 @@
 pam_permit
 
 <tag><bf>Author:</bf></tag>
-Andrew G. Morgan, &lt;morgan@parc.power.net&gt;
+Andrew G. Morgan, &lt;morgan@kernel.org&gt;
 
 <tag><bf>Maintainer:</bf></tag>
 Linux-PAM maintainer.

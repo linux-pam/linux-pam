@@ -37,18 +37,26 @@ You can query the related bug description with the following URL:
 
 Where you should replace XXXXXX with a bug-id.
 
-If you have found a bug in Linux-PAM, please consider filing such a
+For general documentation completion work, I'm doing it all with
+respect to specific tasks. Open tasks are listed here:
+
+ http://sourceforge.net/pm/task.php?group_id=6663&group_project_id=2741&func=browse&set=open
+
+If you have found a bug in Linux-PAM (including a documentation bug,
+or a new feature request and/or patch), please consider filing such a
 bug report - outstanding bugs are listed here:
 
  http://sourceforge.net/tracker/?atid=106663&group_id=6663&func=browse
 
-(to file another bug see the 'submit bug' button on this page).
+(to file another bug see the 'submit bug' button on that page).
 
 ====================================================================
 
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* documentation: random typo fixes from Nalin and more stuff from me
+  (Bug 476949, Tasks 43507, 17426 - agmorgan)
 * pam_unix: fix 'likeauth' to kill off the memory leak once and for all.
   (Bug 483959 - vorlon)
 * pam_unix: restore handling of 'likeauth' argument to a known working
@@ -56,7 +64,6 @@ bug report - outstanding bugs are listed here:
   pam_sm_setcred() (Bugs 483959, 113596 - vorlon)
 * pam_cracklib: another try at implementing similar() from Harald
   Welte and Nalin (Bugs 436053, 476957 - agmorgan)
-* documentation: random typo fixes from Nalin (Bug 476949 - agmorgan)
 * pam_access: default access.conf file contained a type (console
   instead of LOCAL) fix from Nalin (Bug 476934 - agmorgan)
 * pam_unix: fixed bizarre memory leak pointed out by Fernando Trias
