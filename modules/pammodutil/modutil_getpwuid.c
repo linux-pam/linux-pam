@@ -71,6 +71,7 @@ struct passwd *_pammodutil_getpwuid(pam_handle_t *pamh, uid_t uid)
 	buffer = new_buffer;
 
 	/* make the re-entrant call to get the pwd structure */
+        errno = 0;
 	status = getpwuid_r(uid, buffer,
 			    sizeof(struct passwd) + (char *) buffer,
 			    length, &result);
@@ -120,9 +121,12 @@ struct passwd *_pammodutil_getpwuid(pam_handle_t *pamh, uid_t uid)
 	    free(buffer);
 	    return NULL;
 
-	}
+	} else if (errno != ERANGE && errno != EINTR) {
+                /* no sense in repeating the call */
+                break;
+        }
 	
-	length <<= 1;
+	length <<= 2;
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
 

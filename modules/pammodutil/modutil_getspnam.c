@@ -61,6 +61,7 @@ struct spwd *_pammodutil_getspnam(pam_handle_t *pamh, const char *user)
 	buffer = new_buffer;
 
 	/* make the re-entrant call to get the spwd structure */
+        errno = 0;
 	status = getspnam_r(user, buffer,
 			    sizeof(struct spwd) + (char *) buffer,
 			    length, &result);
@@ -109,9 +110,12 @@ struct spwd *_pammodutil_getspnam(pam_handle_t *pamh, const char *user)
 	    free(buffer);
 	    return NULL;
 
-	}
+	} else if (errno != ERANGE && errno != EINTR) {
+                /* no sense in repeating the call */
+                break;
+        }
 	
-	length <<= 1;
+	length <<= 2;
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
 
