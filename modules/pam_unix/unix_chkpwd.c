@@ -94,6 +94,7 @@ static int _unix_verify_password(const char *name, const char *p, int opt)
 	char *salt = NULL;
 	char *pp = NULL;
 	int retval = UNIX_FAILED;
+	int salt_len;
 
 	/* UNIX passwords area */
 	setpwent();
@@ -133,8 +134,10 @@ static int _unix_verify_password(const char *name, const char *p, int opt)
 		return retval;
 	}
 
-	if (strlen(salt) == 0)
+	salt_len = strlen(salt);
+	if (salt_len == 0) {
 		return (opt == 0) ? UNIX_FAILED : UNIX_PASSED;
+	}
 
 	/* the moment of truth -- do we agree with the password? */
 	retval = UNIX_FAILED;
@@ -147,6 +150,8 @@ static int _unix_verify_password(const char *name, const char *p, int opt)
 			if (strcmp(pp, salt) == 0)
 				retval = UNIX_PASSED;
 		}
+	} else if ((*salt == '*') || (salt_len < 13)) {
+	    retval = UNIX_FAILED;
 	} else {
 		pp = bigcrypt(p, salt);
 		/*
@@ -158,7 +163,7 @@ static int _unix_verify_password(const char *name, const char *p, int opt)
 		 * stored string with the subset of bigcrypt's result.
 		 * Bug 521314: the strncmp comparison is for legacy support.
 		 */
-		if (strncmp(pp, salt, strlen(salt)) == 0) {
+		if (strncmp(pp, salt, salt_len) == 0) {
 			retval = UNIX_PASSED;
 		}
 	}

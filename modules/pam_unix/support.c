@@ -609,47 +609,48 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			retval = PAM_AUTHINFO_UNAVAIL;
 		}
 	} else {
-		if (!strlen(salt)) {
-			/* the stored password is NULL */
-			if (off(UNIX__NONULL, ctrl)) {	/* this means we've succeeded */
-				D(("user has empty password - access granted"));
-				retval = PAM_SUCCESS;
-			} else {
-				D(("user has empty password - access denied"));
-				retval = PAM_AUTH_ERR;
-			}
-		} else if (!p) {
-				retval = PAM_AUTH_ERR;
+	    int salt_len = strlen(salt);
+	    if (!salt_len) {
+		/* the stored password is NULL */
+		if (off(UNIX__NONULL, ctrl)) {/* this means we've succeeded */
+		    D(("user has empty password - access granted"));
+		    retval = PAM_SUCCESS;
 		} else {
-			if (!strncmp(salt, "$1$", 3)) {
-				pp = Goodcrypt_md5(p, salt);
-				if (strcmp(pp, salt) != 0) {
-					_pam_delete(pp);
-					pp = Brokencrypt_md5(p, salt);
-				}
-			} else {
-				pp = bigcrypt(p, salt);
-			}
-			p = NULL;		/* no longer needed here */
-
-			/* the moment of truth -- do we agree with the password? */
-			D(("comparing state of pp[%s] and salt[%s]", pp, salt));
-
-			/*
-			 * Note, we are comparing the bigcrypt of the password with
-			 * the contents of the password field. If the latter was
-			 * encrypted with regular crypt (and not bigcrypt) it will
-			 * have been truncated for storage relative to the output
-			 * of bigcrypt here. As such we need to compare only the
-			 * stored string with the subset of bigcrypt's result.
-			 * Bug 521314: The strncmp comparison is for legacy support.
-			 */
-			if (strncmp(pp, salt, strlen(salt)) == 0) {
-				retval = PAM_SUCCESS;
-			} else {
-				retval = PAM_AUTH_ERR;
-			}
+		    D(("user has empty password - access denied"));
+		    retval = PAM_AUTH_ERR;
 		}
+	    } else if (!p || (*salt == '*') || (salt_len < 13)) {
+		retval = PAM_AUTH_ERR;
+	    } else {
+		if (!strncmp(salt, "$1$", 3)) {
+		    pp = Goodcrypt_md5(p, salt);
+		    if (strcmp(pp, salt) != 0) {
+			_pam_delete(pp);
+			pp = Brokencrypt_md5(p, salt);
+		    }
+		} else {
+		    pp = bigcrypt(p, salt);
+		}
+		p = NULL;		/* no longer needed here */
+
+		/* the moment of truth -- do we agree with the password? */
+		D(("comparing state of pp[%s] and salt[%s]", pp, salt));
+
+		/*
+		 * Note, we are comparing the bigcrypt of the password with
+		 * the contents of the password field. If the latter was
+		 * encrypted with regular crypt (and not bigcrypt) it will
+		 * have been truncated for storage relative to the output
+		 * of bigcrypt here. As such we need to compare only the
+		 * stored string with the subset of bigcrypt's result.
+		 * Bug 521314: The strncmp comparison is for legacy support.
+		 */
+		if (strncmp(pp, salt, salt_len) == 0) {
+		    retval = PAM_SUCCESS;
+		} else {
+		    retval = PAM_AUTH_ERR;
+		}
+	    }
 	}
 
 	if (retval == PAM_SUCCESS) {
