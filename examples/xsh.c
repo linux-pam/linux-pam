@@ -33,19 +33,25 @@ static struct pam_conv conv = {
 int main(int argc, char **argv)
 {
      pam_handle_t *pamh=NULL;
-     char *username=NULL;
+     const char *username=NULL;
+     const char *service="xsh";
      int retcode;
 
-     /* did the user call with a username as an argument ? */
+     /* did the user call with a username as an argument ?
+      * did they also */
 
-     if (argc > 2) {
-	  fprintf(stderr,"usage: %s [username]\n",argv[0]);
-     } else if (argc == 2) {
+     if (argc > 3) {
+	  fprintf(stderr,"usage: %s [username [service-name]]\n",argv[0]);
+     }
+     if (argc >= 2) {
 	  username = argv[1];
-     } 
+     }
+     if (argc == 3) {
+	 service = argv[2];
+     }
 
      /* initialize the Linux-PAM library */
-     retcode = pam_start("xsh", username, &conv, &pamh);
+     retcode = pam_start(service, username, &conv, &pamh);
      bail_out(pamh,1,retcode,"pam_start");
 
      /* to avoid using goto we abuse a loop here */
@@ -97,7 +103,10 @@ int main(int argc, char **argv)
 	       break;
 	  }
 
-	  fprintf(stderr,"The user has been authenticated and `logged in'\n");
+	  pam_get_item(pamh, PAM_USER, (const void **) &username);
+	  fprintf(stderr,
+		  "The user [%s] has been authenticated and `logged in'\n",
+		  username);
 
 	  /* this is always a really bad thing for security! */
 	  system("/bin/sh");
@@ -113,6 +122,15 @@ int main(int argc, char **argv)
 	       break;
 	  }
 	  
+	  /* `0' could be as above */
+	  retcode = pam_setcred(pamh, PAM_DELETE_CRED);
+	  bail_out(pamh,0,retcode,"pam_setcred");
+	  if (retcode != PAM_SUCCESS) {
+	       fprintf(stderr,"%s: problem deleting user credentials\n"
+		       ,argv[0]);
+	       break;
+	  }
+
 	  break;                      /* don't go on for ever! */
      }
 

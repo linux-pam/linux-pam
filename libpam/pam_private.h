@@ -47,6 +47,9 @@ struct handler {
     int must_fail;
     int (*func)(pam_handle_t *pamh, int flags, int argc, char **argv);
     int actions[_PAM_RETURN_VALUES];
+    /* set by authenticate, open_session, chauthtok(1st)
+       consumed by setcred, close_session, chauthtok(2nd) */
+    int cached_retval; int *cached_retval_p;
     int argc;
     char **argv;
     struct handler *next;

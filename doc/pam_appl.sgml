@@ -46,7 +46,7 @@ DAMAGE.
 
 <title>The Linux-PAM Application Developers' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.74 2001/01/21
+<date>DRAFT v0.75 2001/02/04
 <abstract>
 This manual documents what an application developer needs to know
 about the <bf>Linux-PAM</bf> library. It describes how an application
@@ -218,9 +218,9 @@ PAM is also capable of setting and deleting the users credentials with
 the call <tt>pam_setcred()</tt>.  This function should always be
 called after the user is authenticated and before service is offered
 to the user.  By convention, this should be the last call to the PAM
-library before service is given to the user.  What exactly a
-credential is, is not well defined.  However, some examples are given
-in the glossary below.
+library before the PAM session is opened.  What exactly a credential
+is, is not well defined.  However, some examples are given in the
+glossary below.
 
 <sect>The public interface to <bf>Linux-PAM</bf>
  
@@ -565,7 +565,7 @@ extern int pam_setcred(pam_handle_t *pamh, int flags);
 <p>
 This function is used to set the module-specific credentials of the
 user.  It is usually called after the user has been authenticated,
-after the account management function has been called and after a
+after the account management function has been called but before a
 session has been opened for the user.
 
 <p>

@@ -49,7 +49,7 @@ DAMAGE.
 
 <title>The Linux-PAM Module Writers' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.74 2001/01/21
+<date>DRAFT v0.75 2001/02/04
 <abstract>
 This manual documents what a programmer needs to know in order to
 write a module that conforms to the <bf/Linux-PAM/ standard. It also
@@ -693,7 +693,7 @@ scheme. Generally, an authentication module may have access to more
 information about a user than their authentication token. This
 function is used to make such information available to the
 application. It should only be called <em/after/ the user has been
-authenticated and after a session has been established.
+authenticated but before a session has been established.
 
 <p>
 Permitted flags, one of which, may be logically OR'd with
@@ -711,16 +711,26 @@ Permitted flags, one of which, may be logically OR'd with
 </descrip>
 
 <p>
-Generally, the module should attempt to return the same error code as
-<tt/pam_sm_authenticate/ did.  This will preserve the logic followed
-by libpam as it executes the stack of <em/authentication/ modules,
-when the application calls <tt/pam_authenticate()/ and
-<tt/pam_setcred()/.  Failing to do this, will lead to much confudion
-on the part of the System administrator.
+Prior to <bf/Linux-PAM-0.75/, and due to a deficiency with the way the
+<tt/auth/ stack was handled in the case of the setcred stack being
+processed, the module was required to attempt to return the same error
+code as <tt/pam_sm_authenticate/ did.  This was necessary to preserve
+the logic followed by libpam as it executes the stack of
+<em/authentication/ modules, when the application called either
+<tt/pam_authenticate()/ or <tt/pam_setcred()/.  Failing to do this,
+led to confusion on the part of the System Administrator.
 
 <p>
-<bf>The following text is depreciated.  Some thought needs to be given to
-how the credential setting modules are supposed to be stacked...</bf>
+For <bf/Linux-PAM-0.75/ and later, libpam handles the credential stack
+much more sanely. The way the <tt/auth/ stack is navigated in order to
+evaluate the <tt/pam_setcred()/ function call, independent of the
+<tt/pam_sm_setcred()/ return codes, is exactly the same way that it
+was navigated when evaluating the <tt/pam_authenticate()/ library
+call. Typically, if a stack entry was ignored in evaluating
+<tt/pam_authenticate()/, it will be ignored when libpam evaluates the
+<tt/pam_setcred()/ function call. Otherwise, the return codes from
+each module specific <tt/pam_sm_setcred()/ call are treated as
+<tt/required/.
 
 <p>
 Besides <tt/PAM_SUCCESS/, the module may return one of the following
@@ -736,6 +746,11 @@ errors:
 <tag><tt/PAM_CRED_ERR/</tag>
 	This module was unable to set the credentials of the user.
 </descrip>
+
+<p>
+these, non-<tt/PAM_SUCCESS/, return values will typically lead to the
+credential stack <em/failing/. The first such error will dominate in
+the return value of <tt/pam_setcred()/.
 
 </itemize>
 

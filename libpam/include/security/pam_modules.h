@@ -112,7 +112,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 #define PAM_PRELIM_CHECK		0x4000
 
 /* The password service should update passwords Note: PAM_PRELIM_CHECK
- * and PAM_UPDATE_AUTHTOK can not both be set simultaneously! */
+ * and PAM_UPDATE_AUTHTOK cannot both be set simultaneously! */
 #define PAM_UPDATE_AUTHTOK		0x2000
 
 
