@@ -87,11 +87,19 @@ do {								\
 					retval));		\
 		*ret_data = retval;				\
 		pam_set_data(pamh, "unix_setcred_return",	\
-				(void *) ret_data, NULL);	\
+		             (void *) ret_data, setcred_free);	\
 	}							\
 	D(("done. [%s]", pam_strerror(pamh, retval)));		\
 	return retval;						\
 } while (0)
+
+
+static void setcred_free (pam_handle_t * pamh, void *ptr, int err)
+{
+	if (ptr)
+		free (ptr);
+}
+
 
 PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 				   ,int argc, const char **argv)
@@ -198,10 +206,9 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t * pamh, int flags
 	/* We will only find something here if UNIX_LIKE_AUTH is set -- 
 	   don't worry about an explicit check of argv. */
 	pam_get_data(pamh, "unix_setcred_return", (const void **) &pretval);
-	pam_set_data(pamh, "unix_setcred_return", NULL, NULL);
 	if(pretval) {
 		retval = *pretval;
-		free(pretval);
+		pam_set_data(pamh, "unix_setcred_return", NULL, NULL);
 		D(("recovered data indicates that old retval was %d", retval));
 	}
 

@@ -49,6 +49,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_unix: fix 'likeauth' to kill off the memory leak once and for all.
+  (Bug 483959 - vorlon)
 * pam_unix: restore handling of 'likeauth' argument to a known working
   state; prettify AUTH_RETURN macro; remove redundant argv checks in
   pam_sm_setcred() (Bugs 483959, 113596 - vorlon)
