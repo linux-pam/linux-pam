@@ -16,8 +16,8 @@
  * will fill a supplied 16-byte array with the digest.
  *
  * $Log$
- * Revision 1.1  2000/06/20 22:11:48  agmorgan
- * Initial revision
+ * Revision 1.1.1.1  2000/06/20 22:11:48  agmorgan
+ * Imported 0.72 Linux-PAM sources
  *
  * Revision 1.2  1999/07/04 23:22:38  morgan
  * Andrey's MD5 (bigendian) work around + cleanup to address problems with

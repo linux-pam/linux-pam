@@ -787,8 +787,8 @@ struct pam_module _pam_rhosts_auth_modstruct = {
 
 /*
  * $Log$
- * Revision 1.1  2000/06/20 22:11:56  agmorgan
- * Initial revision
+ * Revision 1.1.1.1  2000/06/20 22:11:56  agmorgan
+ * Imported 0.72 Linux-PAM sources
  *
  * Revision 1.4  1999/11/08 05:46:58  morgan
  * fixes for .71

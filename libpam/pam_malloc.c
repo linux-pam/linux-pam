@@ -2,8 +2,8 @@
  * $Id$
  *
  * $Log$
- * Revision 1.1  2000/06/20 22:11:18  agmorgan
- * Initial revision
+ * Revision 1.1.1.1  2000/06/20 22:11:18  agmorgan
+ * Imported 0.72 Linux-PAM sources
  *
  * Revision 1.2  1998/12/27 04:34:23  morgan
  * reverting logging functions within libpam.  Gone are the externally

@@ -6,8 +6,8 @@
 # what you are doing!).
 #
 # $Log$
-# Revision 1.1  2000/06/20 22:11:33  agmorgan
-# Initial revision
+# Revision 1.1.1.1  2000/06/20 22:11:33  agmorgan
+# Imported 0.72 Linux-PAM sources
 #
 # Revision 1.2  1999/10/09 05:08:28  morgan
 # removed libpwdb dependencies (libpwdb support is depreciated)

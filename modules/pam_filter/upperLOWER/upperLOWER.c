@@ -7,8 +7,8 @@
  * it serves no purpose other than to annoy the user...
  *
  * $Log$
- * Revision 1.1  2000/06/20 22:11:37  agmorgan
- * Initial revision
+ * Revision 1.1.1.1  2000/06/20 22:11:37  agmorgan
+ * Imported 0.72 Linux-PAM sources
  *
  * Revision 1.2  1999/07/08 05:01:48  morgan
  * glibc fixes (Thorsten Kukuk, Adam J. Richter)

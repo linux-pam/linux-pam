@@ -152,8 +152,8 @@ endif
 
 #####################################################################
 # $Log$
-# Revision 1.1  2000/06/20 22:11:47  agmorgan
-# Initial revision
+# Revision 1.1.1.1  2000/06/20 22:11:47  agmorgan
+# Imported 0.72 Linux-PAM sources
 #
 # Revision 1.4  1999/08/01 16:18:27  morgan
 # added a conditional for libcrypt

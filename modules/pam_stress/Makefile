@@ -8,8 +8,8 @@
 # what you are doing!).
 #
 # $Log$
-# Revision 1.1  2000/06/20 22:11:57  agmorgan
-# Initial revision
+# Revision 1.1.1.1  2000/06/20 22:11:57  agmorgan
+# Imported 0.72 Linux-PAM sources
 #
 # Revision 1.1.1.1  1998/07/12 05:17:16  morgan
 # Linux PAM sources pre-0.66

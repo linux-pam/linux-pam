@@ -2,8 +2,8 @@
  * $Id$
  *
  * $Log$
- * Revision 1.1  2000/06/20 22:11:13  agmorgan
- * Initial revision
+ * Revision 1.1.1.1  2000/06/20 22:11:13  agmorgan
+ * Imported 0.72 Linux-PAM sources
  *
  * Revision 1.2  1999/11/08 05:39:53  morgan
  * removed void main def which was making gcc complain
