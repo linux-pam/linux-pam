@@ -36,6 +36,13 @@ const static char rcsid[] =
 #define PAM_GROUP_BUFLEN        1000
 #define FIELD_SEPARATOR         ';'   /* this is new as of .02 */
 
+#ifdef TRUE 
+# undef TRUE 
+#endif 
+#ifdef FALSE 
+# undef FALSE 
+#endif
+
 typedef enum { FALSE, TRUE } boolean;
 typedef enum { AND, OR } operator;
 

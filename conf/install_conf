@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 CONFILE="$FAKEROOT"$CONFIGED/pam.conf
 IGNORE_AGE=./.ignore_age

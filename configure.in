@@ -36,7 +36,6 @@ AC_SUBST(OS)
 SHLIBMODE=755			; AC_SUBST(SHLIBMODE)
 
 dnl These are most likely platform specific - I think HPUX differs
-DYNTYPE=so			; AC_SUBST(DYNTYPE)
 USESONAME=yes			; AC_SUBST(USESONAME)
 SOSWITCH=-soname		; AC_SUBST(SOSWITCH)
 NEEDSONAME=no			; AC_SUBST(NEEDSONAME)
@@ -45,7 +44,12 @@ LDCONFIG=/sbin/ldconfig		; AC_SUBST(LDCONFIG)
 dnl ### Should enable this INSTALL detection.
 dnl ### Would need to distribute GNU's config.guess and config.sub
 dnl AC_PROG_INSTALL
-INSTALL=/usr/bin/install	; AC_SUBST(INSTALL)
+if test "$OS" = "aix"; then
+  INSTALL=/usr/ucb/install -c
+else
+  INSTALL=/usr/bin/install
+fi
+AC_SUBST(INSTALL)
 
 dnl Checks for programs.
 AC_PROG_CC
@@ -265,26 +269,46 @@ GCC_WARNINGS="-Wall -Wwrite-strings \
 	-Wnested-externs -Winline -Wshadow"
 
 if test "$GCC" = yes; then
-	OS_CFLAGS=""
 ### May need per-OS attention
 ### Example: -D_POSIX_SOURCE: needed on Linux but harms Solaris.
 	case $OS in
 	linux)
 		OS_CFLAGS="-ansi -D_POSIX_SOURCE -pedantic"
+		LD_D="gcc -shared -Xlinker -x"
+		WARNINGS="$GCC_WARNINGS"
+		PIC="-fPIC"
+		DYNTYPE=so
+		LD=ld				
+		LD_L="$LD -x -shared"
+		RANLIB=ranlib
+		STRIP=strip
+		CC_STATIC="-Xlinker -export-dynamic"
 		;;
 	sunos)
 		OS_CFLAGS="-ansi -pedantic"
+		LD_D="gcc -shared -Xlinker -x"
+		WARNINGS="$GCC_WARNINGS"
+		PIC="-fPIC"
+		DYNTYPE=so
+		LD=ld				
+		LD_L="$LD -x -shared"
+		RANLIB=ranlib
+		STRIP=strip
+		CC_STATIC="-Xlinker -export-dynamic"
+		;;
+	aix)
+		OS_CFLAGS=""
+		DYNTYPE=lo
+		LD=ld				
+		LD_L=ld -bexpall -bM:SRE -bnoentry
+		LD_D="$LD_L"
+		RANLIB=ranlib
+		STRIP=strip
+		;;
+	*)
+		OS_CFLAGS=""
 		;;
 	esac
-	WARNINGS="$GCC_WARNINGS"
-	PIC="-fPIC"
-#can/should we use LD=gcc ???
-	LD=ld				
-	LD_D="gcc -shared -Xlinker -x"
-	LD_L="$LD -x -shared"
-	RANLIB=ranlib
-	STRIP=strip
-	CC_STATIC="-Xlinker -export-dynamic"
 else
 ###
 ### Non-gcc needs attention on per-OS basis
@@ -293,6 +317,7 @@ else
 	OS_CFLAGS=""
 	WARNINGS=""
 	PIC="-K pic"
+	DYNTYPE=so
 	LD=ld
 	LD_D="cc -z text -G -R."
 	LD_L="$LD_D"
@@ -301,6 +326,7 @@ else
 	CC_STATIC=
 fi
 
+AC_SUBST(DYNTYPE)
 AC_SUBST(OS_CFLAGS)
 AC_SUBST(WARNINGS)
 AC_SUBST(PIC)

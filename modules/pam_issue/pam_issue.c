@@ -22,13 +22,13 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <time.h>
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/utsname.h>
 #include <utmp.h>
 #include <malloc.h>
+#include <time.h>
 
 #include <security/_pam_macros.h>
 

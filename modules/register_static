@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ `basename $PWD` != "modules" ]; then
 	echo "$0 must be run from the .../modules directory"
