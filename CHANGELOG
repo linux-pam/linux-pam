@@ -49,6 +49,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* another fix for the latest number of rlimits available to pam_limits
+(Bug 424060 - agmorgan)
 * removed stale link from pam_pwdb documentation (Bug 433460 - agmorgan)
 * pam_appl.sgml change - more discussion of choosing a service name
   (Bug 417512 - agmorgan)
