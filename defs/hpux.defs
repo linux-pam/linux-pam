@@ -31,6 +31,5 @@ SECUREDIR=$(LIBDIR)/security
 INCLUDED=/usr/include/security
 CONFIGED=/etc
 SCONFIGED=/etc/security
-DYNLOAD="dld"
 DYNTYPE="sl"
 SHLIBMODE=755
