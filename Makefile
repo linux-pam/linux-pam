@@ -33,6 +33,7 @@ clean:
 distclean: clean
 	rm -f Make.Rules _pam_aconf.h
 	rm -f config.status config.cache config.log core
+	rm -rf autom4te.cache/
 
 maintainer-clean: distclean
 	@echo files should be ok for packaging now.
