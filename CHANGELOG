@@ -55,6 +55,10 @@ bug report - outstanding bugs are listed here:
 0.77: please submit patches for this section with actual code/doc
       patches!
 
+* pam_wheel feature from Nalin - can use the module to provide wheel
+  access to non-root accounts. Also from Nalin, a bugfix related to
+  the primary group of the applicant is the 'wheel' group. (Bugs
+  476980, 476941 - agmorgan)
 * pam_unix and pam_pwdb: by default turn off the SIGCHLD handler while
   running the helper binary (patch from Nalin) added the "noreap"
   module argument to both of these modules to turn off this new
