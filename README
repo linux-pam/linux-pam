@@ -8,20 +8,20 @@ Thanks for downloading Linux-PAM.
 
 NOTES:
 
-This is the evolving autoconf branch for Linux-PAM. It is supposed to
-be equivalent to Linux-PAM-0.72.
-
 How to use it is as follows:
 
       ./configure --help | less
       ./configure <your-options>
       make
 
-  Note, this is all experimental so you may not want to do this one..(?)
+Note, if you are worried - don't even think about doing the next line
+(most Linux distributions already support PAM out of the box, so if
+something goes wrong with installing the code from this version your
+box may stop working..)
 
       make install
 
-Please report problems to me:
+That said, please report problems to me.
 
 Andrew Morgan
 <morgan@kernel.org>
