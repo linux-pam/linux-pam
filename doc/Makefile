@@ -3,10 +3,6 @@
 
 include ../Make.Rules
 
-# These two should probably be moved into autoconf...
-DOCDIR=/usr/doc/Linux-PAM
-MANDIR=$(mandir)
-
 #######################################################
 
 FILES=pam pam_appl pam_modules

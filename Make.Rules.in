@@ -19,7 +19,6 @@ sharedstatedir = @sharedstatedir@
 localstatedir = @localstatedir@
 libdir = @libdir@
 infodir = @infodir@
-mandir = @mandir@
 includedir = @includedir@
 
 absolute_srcdir = @LOCALSRCDIR@
@@ -57,6 +56,8 @@ HAVE_LIBPWDB=@HAVE_LIBPWDB@
 HAVE_SGML2TXT=@HAVE_SGML2TXT@
 HAVE_SGML2HTML=@HAVE_SGML2HTML@
 PSER=@PSER@
+DOCDIR=@DOCDIR@
+MANDIR=@MANDIR@
 
 # configuration settings
 WITH_DEBUG=@WITH_DEBUG@

@@ -104,6 +104,16 @@ AC_ARG_ENABLE(includedir,
 	INCLUDEDIR=$enableval, INCLUDEDIR=/usr/include)
 AC_SUBST(INCLUDEDIR)
 
+AC_ARG_ENABLE(docdir,
+[  --enable-docdir=<path to store documentation in - /usr/share/doc/pam>],
+	DOCDIR=$enableval, DOCDIR=/usr/share/doc/pam)
+AC_SUBST(DOCDIR)
+
+AC_ARG_ENABLE(mandir,
+[  --enable-mandir=<path to store manuals in - /usr/share/man>],
+	MANDIR=$enableval, MANDIR=/usr/share/man)
+AC_SUBST(MANDIR)
+
 AC_ARG_ENABLE(pamlocking,
 [  --enable-pamlocking      configure libpam to observe a global authentication lock],
 	WITH_PAMLOCKING=yes ; AC_DEFINE(PAM_LOCKING) , WITH_PAMLOCKING=no)

@@ -49,6 +49,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* MANDIR cleanup. It defaults to /usr/share/man, but can be overridden
+  using the --enable-mandir ./configure option, similarly for DOCDIR
+  from Nalin (Bug 476940 - agmorgan)
 * pam_filter cleanup (including moving the filter directory) Nalin
   and Harald Welte (Bugs 436057, 476970 - agmorgan)
 * pam_limits can handle negative priority limits now (which can apply
