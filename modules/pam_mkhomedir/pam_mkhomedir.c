@@ -222,10 +222,10 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
       int Res;
       struct stat St;
 #ifndef PATH_MAX
-      char *newsource = NULL; *newdest = NULL;
+      char *newsource = NULL, *newdest = NULL;
       /* track length of buffers */
       int nslen = 0, ndlen = 0;
-      slen = strlen(source), dlen = strlen(dest);
+      int slen = strlen(source), dlen = strlen(dest);
 #else
       char newsource[PATH_MAX], newdest[PATH_MAX];
 #endif
@@ -237,11 +237,11 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
 
       /* Determine what kind of file it is. */
 #ifndef PATH_MAX
-      if ( ( nslen <= 0 ) || ( ndlen <= 0) )
+      nslen = slen + strlen(Dir->d_name) + 2;
+
+      if (nslen <= 0)
 	      return PAM_BUF_ERR;
 
-      nslen = slen + strlen(Dir->d_name) + 2;
-      
       if ( (newsource = malloc(nslen)) == NULL ) 
 	      return PAM_BUF_ERR;
 
@@ -266,7 +266,10 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
 #ifndef PATH_MAX
 	 ndlen = dlen + strlen(Dir->d_name)+2;
 
-	 if ( (newdest = (int *) malloc(ndlen)) == NULL ) {
+         if (ndlen <= 0)
+                 return PAM_BUF_ERR;
+
+	 if ( (newdest = malloc(ndlen)) == NULL ) {
 		 free(newsource);
 		 return PAM_BUF_ERR;
 	 }
