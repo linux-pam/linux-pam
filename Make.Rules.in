@@ -4,8 +4,8 @@
 ## @configure_input@
 ##
 
-srcdir = @LOCALSRCDIR@
-top_srcdir = @LOCALSRCDIR@
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
 VPATH = @srcdir@
 prefix = @prefix@
 exec_prefix = @exec_prefix@
@@ -22,6 +22,8 @@ infodir = @infodir@
 mandir = @mandir@
 includedir = @includedir@
 
+absolute_srcdir = @LOCALSRCDIR@
+
 # major and minor numbers of this release
 MAJOR_REL=@LIBPAM_VERSION_MAJOR@
 MINOR_REL=@LIBPAM_VERSION_MINOR@
@@ -30,7 +32,7 @@ MINOR_REL=@LIBPAM_VERSION_MINOR@
 # Linux-PAM. True, they are a little anal. Pay attention to the comments
 # they generate.
 
-HEADER_DIRS=-I./include -I$(top_srcdir)/libpam/include
+HEADER_DIRS=-I./include -I$(absolute_srcdir)/libpam/include
 WARNINGS=@WARNINGS@
 PIC=@PIC@
 
