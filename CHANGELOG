@@ -68,6 +68,12 @@ bug report - outstanding bugs are listed here:
 * added my new DSA public key to the pgp.keys.asc file. Also included
   a signed copy of my new public key (1024D/D41A6DF2) made with my old
   key (1024/2A398175).
+* added "include" directive to config file syntax.
+  The whole idea is to create few "systemwide" pam configs and include
+  parts of them in application pam configs.
+  (patch by "Dmitry V. Levin" <ldv@altlinux.org>) (Bug 812567 - baggins).
+
+
 
 0.77: Mon Sep 23 10:25:42 PDT 2002
 
