@@ -55,6 +55,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* A Tru64 fix (given other stuff has already resolved this, it
+  actually just a comment actually) from 'Eddie'. (Bug 418450 -
+  agmorgan)
 * pam_handlers: BSD fix from Dag-Erling Smørgrav and Anton Berezin
   (Bug 486063 - agmorgan)
 * added the dynamic/* directory to the distribution. If you go in

@@ -185,7 +185,7 @@ dnl Checks for the existence of lckpwdf in libc
 AC_CHECK_LIB(c, lckpwdf, HAVE_LCKPWDF=yes, HAVE_LCKPWDF=no)
 AC_SUBST(HAVE_LCKPWDF)
 
-dnl Checks for the existence of libdl - on BSD its part of libc
+dnl Checks for the existence of libdl - on BSD and Tru64 its part of libc
 AC_CHECK_LIB(dl, dlopen, LIBDL=-ldl) 
 AC_SUBST(LIBDL)
 
