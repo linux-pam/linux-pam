@@ -55,6 +55,9 @@ bug report - outstanding bugs are listed here:
 0.77: please submit patches for this section with actual code/doc
       patches!
 
+* account management support for: pam_shells, pam_listfile, pam_wheel
+  and pam_securetty (+ static module fix for pam_nologin). Patch from
+  redhat through Harrold Welte (Bug 436435 - agmorgan).
 * pam_wheel feature from Nalin - can use the module to provide wheel
   access to non-root accounts. Also from Nalin, a bugfix related to
   the primary group of the applicant is the 'wheel' group. (Bugs
@@ -69,7 +72,7 @@ bug report - outstanding bugs are listed here:
 
 * pam_unix: fix for legacy crypt() support when the password entered
   was long. (Bug 521314 - agmorgan).
-* pam_access no longer include gethostname() prototype complained from
+* pam_access no longer include gethostname() prototype complaint from
   David Lee (Bug 415423 - agmorgan).
 * make pam_nologin more secure by default, added two new module
   arguments etc. - acting on suggestion from Nico (Bug 419307 -

@@ -35,6 +35,7 @@
  */
 
 #define PAM_SM_AUTH
+#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
@@ -133,8 +134,6 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
     struct passwd *userinfo;
     struct group *grpinfo;
     char *itemlist[256]; /* Maximum of 256 items */
-
-    D(("called."));
 
     apply_type=APPLY_TYPE_NULL;
     memset(apply_val,0,sizeof(apply_val));
@@ -419,6 +418,13 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc, const char **argv)
     return PAM_SUCCESS;
 }
 
+PAM_EXTERN
+int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc,
+		     const char **argv)
+{
+    return pam_sm_authenticate(pamh, 0, argc, argv);
+}
+
 #ifdef PAM_STATIC
 
 /* static module data */
@@ -427,13 +433,13 @@ struct pam_module _pam_listfile_modstruct = {
     "pam_listfile",
     pam_sm_authenticate,
     pam_sm_setcred,
-    NULL,
+    pam_sm_acct_mgmt,
     NULL,
     NULL,
     NULL,
 };
 
-#endif
+#endif /* PAM_STATIC */
 
 /* end of module definition */
 

@@ -24,6 +24,7 @@
  */
 
 #define PAM_SM_AUTH
+#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 
@@ -192,6 +193,6 @@ struct pam_module _pam_nologin_modstruct = {
      NULL,
 };
 
-#endif
+#endif /* PAM_STATIC */
 
 /* end of module definition */

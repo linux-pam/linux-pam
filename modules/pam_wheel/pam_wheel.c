@@ -40,6 +40,7 @@
  */
 
 #define PAM_SM_AUTH
+#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 
@@ -105,22 +106,15 @@ static int _pam_parse(int argc, const char **argv, char *use_group,
      return ctrl;
 }
 
-
-/* --- authentication management functions --- */
-
-PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc,
-			const char **argv)
+static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
+			 const char *use_group)
 {
-    int ctrl;
     const char *username = NULL;
     char *fromsu;
     struct passwd *pwd, *tpwd;
     struct group *grp;
     int retval = PAM_AUTH_ERR;
-    char use_group[BUFSIZ];
-    
-    ctrl = _pam_parse(argc, argv, use_group, sizeof(use_group));
+
     retval = pam_get_user(pamh, &username, NULL);
     if ((retval != PAM_SUCCESS) || (!username)) {
         if (ctrl & PAM_DEBUG_ARG) {
@@ -177,7 +171,7 @@ int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc,
 	    if (!use_group[0]) {
 		_pam_log(LOG_NOTICE,"no members in a GID 0 group");
 	    } else {
-                _pam_log(LOG_NOTICE,"no members in '%s' group",use_group);
+                _pam_log(LOG_NOTICE,"no members in '%s' group", use_group);
 	    }
 	}
 	if (ctrl & PAM_DENY_ARG) {
@@ -225,32 +219,57 @@ int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc,
     } else {
 	return PAM_PERM_DENIED;
     }
+}
 
+/* --- authentication management functions --- */
+
+PAM_EXTERN
+int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
+			const char **argv)
+{
+    char use_group[BUFSIZ];
+    int ctrl;
+
+    ctrl = _pam_parse(argc, argv, use_group, sizeof(use_group));
+
+    return perform_check(pamh, flags, ctrl, use_group);
 }
 
 PAM_EXTERN
 int pam_sm_setcred(pam_handle_t *pamh,int flags,int argc
 		   ,const char **argv)
 {
-     return PAM_SUCCESS;
+    return PAM_SUCCESS;
 }
 
+PAM_EXTERN
+int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc,
+		     const char **argv)
+{
+    char use_group[BUFSIZ];
+    int ctrl;
+
+    ctrl = _pam_parse(argc, argv, use_group, sizeof(use_group));
+
+    return perform_check(pamh, flags, ctrl, use_group);
+}
 
 #ifdef PAM_STATIC
 
 /* static module data */
 
 struct pam_module _pam_wheel_modstruct = {
-     "pam_wheel",
-     pam_sm_authenticate,
-     pam_sm_setcred,
-     NULL,
-     NULL,
-     NULL,
-     NULL,
+    "pam_wheel",
+    pam_sm_authenticate,
+    pam_sm_setcred,
+    pam_sm_acct_mgmt,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
 };
 
-#endif
+#endif /* PAM_STATIC */
 
 /*
  * Copyright (c) Cristian Gafton <gafton@redhat.com>, 1996, 1997

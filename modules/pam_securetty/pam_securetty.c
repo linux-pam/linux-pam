@@ -21,8 +21,7 @@
 #include <stdarg.h>
 #include <pwd.h>
 #include <string.h>
-
-#define PAM_SM_AUTH
+#include <ctype.h>
 
 /*
  * here, we make a definition for the externally accessible function
@@ -32,6 +31,7 @@
  */
 
 #define PAM_SM_AUTH
+#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 
@@ -71,31 +71,30 @@ static int _pam_parse(int argc, const char **argv)
     return ctrl;
 }
 
-/* --- authentication management functions (only) --- */
-
-PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
-			,const char **argv)
+static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
+				   const char *function_name)
 {
     int retval = PAM_AUTH_ERR;
     const char *username;
     char *uttyname;
     char ttyfileline[256];
+    char ptname[256];
     struct stat ttyfileinfo;
     struct passwd *user_pwd;
     FILE *ttyfile;
-    int ctrl;
 
-    /* parse the arguments */
-    ctrl = _pam_parse(argc, argv);
+    /* log a trail for debugging */
+    if (ctrl & PAM_DEBUG_ARG) {
+	_pam_log(LOG_DEBUG, "pam_securetty called via %s function",
+		 function_name);
+    }
 
     retval = pam_get_user(pamh, &username, NULL);
     if (retval != PAM_SUCCESS || username == NULL) {
 	if (ctrl & PAM_DEBUG_ARG) {
             _pam_log(LOG_WARNING, "cannot determine username");
 	}
-	return (retval == PAM_CONV_AGAIN
-		? PAM_INCOMPLETE:PAM_SERVICE_ERR);
+	return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE:PAM_SERVICE_ERR);
     }
 
     retval = pam_get_item(pamh, PAM_TTY, (const void **)&uttyname);
@@ -107,8 +106,9 @@ int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
     }
 
     /* The PAM_TTY item may be prefixed with "/dev/" - skip that */
-    if (strncmp(TTY_PREFIX, uttyname, sizeof(TTY_PREFIX)-1) == 0)
+    if (strncmp(TTY_PREFIX, uttyname, sizeof(TTY_PREFIX)-1) == 0) {
 	uttyname += sizeof(TTY_PREFIX)-1;
+    }
 
     user_pwd = getpwnam(username);
     if (user_pwd == NULL) {
@@ -126,8 +126,7 @@ int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
 			       error. */
     }
 
-    if ((ttyfileinfo.st_mode & S_IWOTH)
-	|| !S_ISREG(ttyfileinfo.st_mode)) {
+    if ((ttyfileinfo.st_mode & S_IWOTH) || !S_ISREG(ttyfileinfo.st_mode)) {
 	/* If the file is world writable or is not a
 	   normal file, return error */
 	_pam_log(LOG_ERR, SECURETTY_FILE
@@ -136,39 +135,82 @@ int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
     }
 
     ttyfile = fopen(SECURETTY_FILE,"r");
-    if(ttyfile == NULL) { /* Check that we opened it successfully */
+    if (ttyfile == NULL) { /* Check that we opened it successfully */
 	_pam_log(LOG_ERR,
 		 "Error opening " SECURETTY_FILE);
 	return PAM_SERVICE_ERR;
     }
-    /* There should be no more errors from here on */
-    retval=PAM_AUTH_ERR;
-    /* This loop assumes that PAM_SUCCESS == 0
-       and PAM_AUTH_ERR != 0 */
-    while((fgets(ttyfileline,sizeof(ttyfileline)-1, ttyfile) != NULL) 
-	  && retval) {
-	if(ttyfileline[strlen(ttyfileline) - 1] == '\n')
+
+    if (isdigit(uttyname[0])) {
+	snprintf(ptname, sizeof(ptname), "pts/%s", uttyname);
+    } else {
+	ptname[0] = '\0';
+    }
+    
+    retval = 1;
+
+    while ((fgets(ttyfileline, sizeof(ttyfileline)-1, ttyfile) != NULL) 
+	   && retval) {
+	if (ttyfileline[strlen(ttyfileline) - 1] == '\n')
 	    ttyfileline[strlen(ttyfileline) - 1] = '\0';
-	retval = strcmp(ttyfileline,uttyname);
+
+	retval = ( strcmp(ttyfileline, uttyname)
+		   && (!ptname[0] || strcmp(ptname, uttyname)) );
     }
     fclose(ttyfile);
-    if(retval) {
-	if (ctrl & PAM_DEBUG_ARG)
+
+    if (retval) {
+	if (ctrl & PAM_DEBUG_ARG) {
 	    _pam_log(LOG_WARNING, "access denied: tty '%s' is not secure !",
 		     uttyname);
+	}
 	retval = PAM_AUTH_ERR;
+
+    } else {
+	if ((retval == PAM_SUCCESS) && (ctrl & PAM_DEBUG_ARG)) {
+	    _pam_log(LOG_DEBUG, "access allowed for '%s' on '%s'",
+		     username, uttyname);
+	}
+	retval = PAM_SUCCESS;
+
     }
-    if ((retval == PAM_SUCCESS) && (ctrl & PAM_DEBUG_ARG))
-	_pam_log(LOG_DEBUG, "access allowed for '%s' on '%s'",
-		 username, uttyname);
+
     return retval;
 }
 
+/* --- authentication management functions --- */
+
 PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh,int flags,int argc
-		   ,const char **argv)
+int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
+			const char **argv)
 {
-     return PAM_SUCCESS;
+    int ctrl;
+
+    /* parse the arguments */
+    ctrl = _pam_parse(argc, argv);
+
+    return securetty_perform_check(pamh, flags, ctrl, __FUNCTION__);
+}
+
+PAM_EXTERN
+int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc, const char **argv)
+{
+    return PAM_SUCCESS;
+}
+
+/* --- account management functions --- */
+
+PAM_EXTERN
+int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc,
+		     const char **argv)
+{
+    int ctrl;
+
+    /* parse the arguments */
+    ctrl = _pam_parse(argc, argv);
+
+    /* take the easy route */
+    return securetty_perform_check(pamh, flags, ctrl, __FUNCTION__);
 }
 
 
@@ -180,12 +222,12 @@ struct pam_module _pam_securetty_modstruct = {
      "pam_securetty",
      pam_sm_authenticate,
      pam_sm_setcred,
-     NULL,
+     pam_sm_acct_mgmt,
      NULL,
      NULL,
      NULL,
 };
 
-#endif
+#endif /* PAM_STATIC */
 
 /* end of module definition */
