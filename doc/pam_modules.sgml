@@ -49,7 +49,7 @@ DAMAGE.
 
 <title>The Linux-PAM Module Writers' Guide
 <author>Andrew G. Morgan, <tt>morgan@linux.kernel.org</tt>
-<date>DRAFT v0.71 1999/11/8
+<date>DRAFT v0.73 2000/12/02
 <abstract>
 This manual documents what a programmer needs to know in order to
 write a module that conforms to the <bf/Linux-PAM/ standard. It also

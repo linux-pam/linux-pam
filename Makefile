@@ -9,6 +9,8 @@
 ## configure.in not getting propagated down the tree. (AGM) [I realise
 ## that this may not prove possible, but at least I tried.. Sigh.]
 
+DISTNAME=Linux-PAM
+
 ifeq ($(shell test \! -f Make.Rules || echo yes),yes)
     include Make.Rules
 endif
@@ -24,7 +26,7 @@ prep:
 clean:
 	if [ ! -f Make.Rules ]; then touch Make.Rules ; fi
 	for i in $(THINGSTOMAKE) ; do $(MAKE) -C $$i clean ; done
-	rm -f security *~ *.orig *.rej #*#
+	rm -f security *~ *.orig *.rej Make.Rules #*#
 
 distclean: clean
 	rm -f Make.Rules _pam_aconf.h
@@ -59,6 +61,16 @@ install: _pam_aconf.h prep
 remove:
 	rm -f $(FAKEROOT)$(INCLUDED)/_pam_aconf.h
 	for x in $(THINGSTOMAKE) ; do make -C $$x remove ; done
+
+release:
+	@if [ ! -f Make.Rules ]; then echo make Make.Rules first ; exit 1; fi
+	@if [ ! -L ../$(DISTNAME)-$(MAJOR_REL).$(MINOR_REL) ]; then \
+	   echo generating ../$(DISTNAME)-$(MAJOR_REL).$(MINOR_REL) link ; \
+	   ln -sf $(DISTNAME) ../$(DISTNAME)-$(MAJOR_REL).$(MINOR_REL) ; \
+	   echo to ../$(DISTNAME) . ; fi
+	@diff ../$(DISTNAME)-$(MAJOR_REL).$(MINOR_REL)/Make.Rules Make.Rules
+	make distclean
+	cd .. ; tar zvfc $(DISTNAME)-$(MAJOR_REL).$(MINOR_REL).tar.gz --exclude CVS --exclude .cvsignore --exclude '.#*' $(DISTNAME)-$(MAJOR_REL).$(MINOR_REL)/*
 
 ## =================
 

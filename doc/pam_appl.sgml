@@ -46,7 +46,7 @@ DAMAGE.
 
 <title>The Linux-PAM Application Developers' Guide
 <author>Andrew G. Morgan, <tt>morgan@linux.kernel.org</tt>
-<date>DRAFT v0.71 1999/11/8
+<date>DRAFT v0.73 2000/12/02
 <abstract>
 This manual documents what an application developer needs to know
 about the <bf>Linux-PAM</bf> library. It describes how an application

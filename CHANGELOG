@@ -32,9 +32,13 @@ related bug description with the following URL:
 Where you should replace XXXXX with a bug-id.
 ====================================================================
 
-0.73: please submit patches for this section with actual code/doc
+0.74: please submit patches for this section with actual code/doc
       patches!
 
+0.73: Sat Dec  2 00:04:04 PST 2000
+
+* updated documentaion revisions and added 'make release' support
+  to the top level Makefile (Bug 124132 - agmorgan).
 * documented Qmail support in pam_mail (Bug 109219 - baggins)
 * add change_uid option to pam_limits, and set real uid only if
   this option is present (Bug 124062 - baggins)
