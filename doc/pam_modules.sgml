@@ -49,7 +49,7 @@ DAMAGE.
 
 <title>The Linux-PAM Module Writers' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.76 2001/12/08
+<date>DRAFT v0.76 2002/05/09
 <abstract>
 This manual documents what a programmer needs to know in order to
 write a module that conforms to the <bf/Linux-PAM/ standard. It also
@@ -293,34 +293,38 @@ structure.  Should a module require that a change is made to the this
 
 <p>
 Following the call <tt>pam_get_item(pamh,PAM_CONV,&amp;item)</tt>, the
-pointer <tt/item/ points to a <em/conversation/-function that provides
-limited but direct access to the application.  The purpose of this
-function is to allow the module to prompt the user for their password
-and pass other information in a manner consistent with the
-application. For example, an X-windows based program might pop up a
-dialog box to report a login failure. Just as the application should
-not be concerned with the method of authentication, so the module
-should not dictate the manner in which input (output) is
-obtained from (presented to) to the user.
+pointer <tt/item/ points to a structure containing an a pointer to a
+<em/conversation/-function that provides limited but direct access to
+the application.  The purpose of this function is to allow the module
+to prompt the user for their password and pass other information in a
+manner consistent with the application. For example, an X-windows
+based program might pop up a dialog box to report a login
+failure. Just as the application should not be concerned with the
+method of authentication, so the module should not dictate the manner
+in which input (output) is obtained from (presented to) to the user.
 
 <p>
-The reader is strongly urged to read the more complete description of
+<bf>The reader is strongly urged to read the more complete description of
 the <tt/pam_conv/ structure, written from the perspective of the
 application developer, in the <bf/Linux-PAM/ Application Developers'
-Guide.
+Guide.</bf>
+
+<p>
+The return values for this function are listed in the 
+<bf>Linux-PAM</bf> Application Developers' Guide.
 
 <p>
 The <tt/pam_response/ structure returned after a call to the
 <tt/pam_conv/ function must be <tt/free()/'d by the module. Since the
 call to the conversation function originates from the module, it is
-clear that either this <tt/pam_response/ structure could be either
-statically or dynamically (using <tt/malloc()/ etc.) allocated within
-the application. Repeated calls to the conversation function would
-likely overwrite static memory, so it is required that for a
-successful return from the conversation function the memory for the
-response structure is dynamically allocated by the application with
-one of the <tt/malloc()/ family of commands and <em/must/ be
-<tt/free()/'d by the module.
+clear that this <tt/pam_response/ structure could be either statically
+or dynamically (using <tt/malloc()/ etc.) allocated within the
+application. Repeated calls to the conversation function would likely
+overwrite static memory, so it is required that for a successful
+return from the conversation function the memory for the response
+structure is dynamically allocated by the application with one of the
+<tt/malloc()/ family of commands and <em/must/ be <tt/free()/'d by the
+module.
 
 <p>
 If the <tt/pam_conv/ mechanism is used to enter authentication tokens,
@@ -330,9 +334,12 @@ has been stored (by one of these methods or another one), the memory
 returned by the application should be overwritten with <tt/0/'s, and
 then <tt/free()/'d.
 
-<p>
-The return values for this function are listed in the 
-<bf>Linux-PAM</bf> Application Developers' Guide.
+There is a handy macro <tt/_pam_drop_reply()/ to be found in
+<tt>&lt;security/_pam_macros.h&gt;</tt> that can be used to
+conveniently cleanup a <tt/pam_response/ structure. (Note, this
+include file is specific to the Linux-PAM sources, and whilst it will
+work with Sun derived PAM implementations, it is not generally
+distributed by Sun.)
 
 <sect2>Getting the name of a user<label id="pam-get-user">
 
@@ -1443,7 +1450,7 @@ credited for all the good work they have done.
 <sect>Copyright information for this document
 
 <p>
-Copyright (c) Andrew G. Morgan 1996-9,2000-1.  All rights reserved.
+Copyright (c) Andrew G. Morgan 1996-2002.  All rights reserved.
 <newline>
 Email: <tt>&lt;morgan@kernel.org&gt;</tt>
 
