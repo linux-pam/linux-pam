@@ -219,7 +219,7 @@ static int check_old_password(const char *forwho, const char *newpass)
 
 	opwfile = fopen(OLD_PASSWORDS_FILE, "r");
 	if (opwfile == NULL)
-		return PAM_AUTHTOK_ERR;
+		return PAM_ABORT;
 
 	while (fgets(buf, 16380, opwfile)) {
 		if (!strncmp(buf, forwho, strlen(forwho))) {
@@ -358,12 +358,13 @@ static int save_old_password(pam_handle_t *pamh,
     }
 
     if (!err) {
-	rename(OPW_TMPFILE, OLD_PASSWORDS_FILE);
-	return PAM_SUCCESS;
-    } else {
-	unlink(OPW_TMPFILE);
-	return PAM_AUTHTOK_ERR;
+	if (!rename(OPW_TMPFILE, OLD_PASSWORDS_FILE)) {
+	    return PAM_SUCCESS;
+	}
     }
+
+    unlink(OPW_TMPFILE);
+    return PAM_AUTHTOK_ERR;
 }
 
 static int _update_passwd(pam_handle_t *pamh,
@@ -435,13 +436,14 @@ static int _update_passwd(pam_handle_t *pamh,
     }
 
     if (!err) {
-	rename(PW_TMPFILE, "/etc/passwd");
-	_log_err(LOG_NOTICE, pamh, "password changed for %s", forwho);
-	return PAM_SUCCESS;
-    } else {
-	unlink(PW_TMPFILE);
-	return PAM_AUTHTOK_ERR;
+	if (!rename(PW_TMPFILE, "/etc/passwd")) {
+	    _log_err(LOG_NOTICE, pamh, "password changed for %s", forwho);
+	    return PAM_SUCCESS;
+	}
     }
+
+    unlink(PW_TMPFILE);
+    return PAM_AUTHTOK_ERR;
 }
 
 static int _update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat)
@@ -515,13 +517,14 @@ static int _update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat)
     }
 
     if (!err) {
-	rename(SH_TMPFILE, "/etc/shadow");
-	_log_err(LOG_NOTICE, pamh, "password changed for %s", forwho);
-	return PAM_SUCCESS;
-    } else {
-	unlink(SH_TMPFILE);
-	return PAM_AUTHTOK_ERR;
+	if (!rename(SH_TMPFILE, "/etc/shadow")) {
+	    _log_err(LOG_NOTICE, pamh, "password changed for %s", forwho);
+	    return PAM_SUCCESS;
+	}
     }
+
+    unlink(SH_TMPFILE);
+    return PAM_AUTHTOK_ERR;
 }
 
 static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
@@ -734,9 +737,15 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 			remark = "You must choose a longer password";
 		D(("length check [%s]", remark));
 #endif
-		if (on(UNIX_REMEMBER_PASSWD, ctrl))
-			if ((retval = check_old_password(user, pass_new)) != PAM_SUCCESS)
+		if (on(UNIX_REMEMBER_PASSWD, ctrl)) {
+			if ((retval = check_old_password(user, pass_new)) == PAM_AUTHTOK_ERR)
 				remark = "Password has been already used. Choose another.";
+			if (retval == PAM_ABORT) {
+				_log_err(LOG_ERR, pamh, "can't open %s file to check old passwords",
+					OLD_PASSWORDS_FILE);
+				return retval;
+			}
+		}
 	}
 	if (remark) {
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG, remark);
