@@ -8,7 +8,7 @@ PROGS = blank xsh check_user
 SRCS = blank.c xsh.c check_user.c
 PROGSUID =
 
-CFLAGS += -I../libpam_misc/inlcude -I../libpamc/include
+CFLAGS += -I../libpam_misc/include -I../libpamc/include
 
 LOADLIBES = -L../libpam -L../libpamc -L../libpam_misc -lpam -lpam_misc
 

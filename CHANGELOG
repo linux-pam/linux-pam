@@ -35,6 +35,11 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* fixed example/Makefile include path (Bug 124187 - agmorgan)
+* pam_userdb compiles on RH5x. Also removed circular dependency on
+  configure.in. Also bumped revision number to 0.74. (Bug 124136 -
+  agmorgan)
+
 0.73: Sat Dec  2 00:04:04 PST 2000
 
 * updated documentaion revisions and added 'make release' support
