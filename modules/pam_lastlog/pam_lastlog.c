@@ -334,8 +334,9 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 	    }
 
 	    /* copy to last_login */
-	    strncpy(last_login.ll_host, remote_host
-		    , sizeof(last_login.ll_host));
+	    strncpy(last_login.ll_host, remote_host,
+		    sizeof(last_login.ll_host));
+	    last_login.ll_host[sizeof(last_login.ll_host) - 1] = '\0';
 	    remote_host = NULL;
 
 	    /* set the terminal line */
@@ -350,8 +351,9 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 	    D(("terminal = %s", terminal_line));
 
 	    /* copy to last_login */
-	    strncpy(last_login.ll_line, terminal_line
-		    , sizeof(last_login.ll_line));
+	    strncpy(last_login.ll_line, terminal_line,
+		    sizeof(last_login.ll_line));
+	    last_login.ll_host[sizeof(last_login.ll_host) - 1] = '\0';
 	    terminal_line = NULL;
 
 	    D(("locking last_log file"));
