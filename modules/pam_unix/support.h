@@ -80,8 +80,9 @@ typedef struct {
 #define UNIX_BIGCRYPT            18	/* use DEC-C2 crypt()^x function */
 #define UNIX_LIKE_AUTH           19	/* need to auth for setcred to work */
 #define UNIX_REMEMBER_PASSWD     20	/* Remember N previous passwords */
+#define UNIX_NOREAP              21     /* don't reap child process */
 /* -------------- */
-#define UNIX_CTRLS_              21	/* number of ctrl arguments defined */
+#define UNIX_CTRLS_              22	/* number of ctrl arguments defined */
 
 
 static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
@@ -110,6 +111,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX_BIGCRYPT */        {"bigcrypt",        _ALL_ON_^(020000),    0400000},
 /* UNIX_LIKE_AUTH */       {"likeauth",        _ALL_ON_,            01000000},
 /* UNIX_REMEMBER_PASSWD */ {"remember=",       _ALL_ON_,            02000000},
+/* UNIX_NOREAP */          {"noreap",          _ALL_ON_,            04000000},
 };
 
 #define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)

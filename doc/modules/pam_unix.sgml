@@ -97,7 +97,8 @@ login	account	 required	pam_unix.so
 <tt/use_first_pass/;
 <tt/try_first_pass/;
 <tt/nullok/;
-<tt/nodelay/
+<tt/nodelay/;
+<tt/noreap/
 
 <tag><bf>Description:</bf></tag>
 
@@ -126,17 +127,24 @@ authentication as a whole fail.  The default action is for the module
 to request a delay-on-failure of the order of one second.
 
 <p>
-Remaining arguments, supported by the other functions of this module,
-are silently ignored. Other arguments are logged as errors through
-<tt/syslog(3)/.
-
-<p>
 A helper binary, <tt>unix_chkpwd</tt>, is provided to check the user's
 password when it is stored in a read protected database.  This binary
 is very simple and will only check the password of the user invoking
 it.  It is called transparently on behalf of the user by the
 authenticating component of this module.  In this way it is possible
-for applications like <em>xlock</em> to work without being setuid-root.
+for applications like <em>xlock</em> to work without being
+setuid-root. The module, by default, will temporarily turn off
+<tt/SIGCHLD/ handling for the duration of execution of the helper
+binary. This is generally the right thing to do, as many applications
+are not prepared to handle this signal from a child they didn't know
+was <tt/fork()/d. The <tt/noreap/ module argument can be used to
+suppress this temporary shielding and may be needed for use with
+certain applications.
+
+<p>
+Remaining arguments, supported by the other functions of this module,
+are silently ignored. Other arguments are logged as errors through
+<tt/syslog(3)/.
 
 <tag><bf>Examples/suggested usage:</bf></tag>
 

@@ -99,7 +99,8 @@ login	account	 required	pam_pwdb.so
 <tt/try_first_pass/;
 <tt/nullok/;
 <tt/nodelay/;
-<tt/likeauth/
+<tt/likeauth/;
+<tt/noreap/
 
 <tag><bf>Description:</bf></tag>
 
@@ -137,7 +138,14 @@ password when it is stored in a read protected database.  This binary
 is very simple and will only check the password of the user invoking
 it.  It is called transparently on behalf of the user by the
 authenticating component of this module.  In this way it is possible
-for applications like <em>xlock</em> to work without being setuid-root.
+for applications like <em>xlock</em> to work without being
+setuid-root. The module, by default, will temporarily turn off
+<tt/SIGCHLD/ handling for the duration of execution of the helper
+binary. This is generally the right thing to do, as many applications
+are not prepared to handle this signal from a child they didn't know
+was <tt/fork()/d. The <tt/noreap/ module argument can be used to
+suppress this temporary shielding and may be needed for use with
+certain applications.
 
 <p>
 The <tt>likeauth</tt> argument makes the module return the same value

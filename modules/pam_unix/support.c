@@ -16,6 +16,7 @@
 #include <limits.h>
 #include <utmp.h>
 #include <errno.h>
+#include <signal.h>
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
@@ -434,12 +435,25 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 				   unsigned int ctrl, const char *user)
 {
     int retval, child, fds[2];
+    void (*sighandler)(int) = NULL;
 
     D(("called."));
     /* create a pipe for the password */
     if (pipe(fds) != 0) {
 	D(("could not make pipe"));
 	return PAM_AUTH_ERR;
+    }
+
+    if (off(UNIX_NOREAP, ctrl)) {
+	/*
+	 * This code arranges that the demise of the child does not cause
+	 * the application to receive a signal it is not expecting - which
+	 * may kill the application or worse.
+	 *
+	 * The "noreap" module argument is provided so that the admin can
+	 * override this behavior.
+	 */
+	sighandler = signal(SIGCHLD, SIG_IGN);
     }
 
     /* fork */
@@ -484,6 +498,10 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
     } else {
 	D(("fork failed"));
 	retval = PAM_AUTH_ERR;
+    }
+
+    if (sighandler != NULL) {
+        (void) signal(SIGCHLD, sighandler);   /* restore old signal handler */
     }
 
     D(("returning %d", retval));

@@ -79,8 +79,9 @@ typedef struct {
 #define UNIX_UNIX                19     /* wish to use /etc/passwd for pwd */
 #define UNIX_BIGCRYPT            20     /* use DEC-C2 crypt()^x function */
 #define UNIX_LIKE_AUTH           21     /* need to auth for setcred to work */
+#define UNIX_NOREAP              22     /* don't reap child process */
 /* -------------- */
-#define UNIX_CTRLS_              22     /* number of ctrl arguments defined */
+#define UNIX_CTRLS_              23     /* number of ctrl arguments defined */
 
 
 static const UNIX_Ctrls unix_args[UNIX_CTRLS_] = {
@@ -109,6 +110,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] = {
 /* UNIX_UNIX */		  { "unix",           _ALL_ON_^(050000),  01000000 },
 /* UNIX_BIGCRYPT */	  { "bigcrypt",       _ALL_ON_^(020000),  02000000 },
 /* UNIX_LIKE_AUTH */	  { "likeauth",       _ALL_ON_,           04000000 },
+/* UNIX_NOREAP */         {"noreap",          _ALL_ON_,          010000000 },
 };
 
 #define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)
@@ -342,19 +344,33 @@ static void _cleanup_failures(pam_handle_t *pamh, void *fl, int err)
  * verify the password of a user
  */
 
+#include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
 static int pwdb_run_helper_binary(pam_handle_t *pamh, const char *passwd,
-				  const char *user)
+				  unsigned int ctrl, const char *user)
 {
     int retval, child, fds[2];
+    void (*sighandler)(int) = NULL;
 
     D(("called."));
     /* create a pipe for the password */
     if (pipe(fds) != 0) {
 	D(("could not make pipe"));
 	return PAM_AUTH_ERR;
+    }
+
+    if (off(UNIX_NOREAP, ctrl)) {
+	/*
+	 * This code arranges that the demise of the child does not cause
+	 * the application to receive a signal it is not expecting - which
+	 * may kill the application or worse.
+	 *
+	 * The "noreap" module argument is provided so that the admin can
+	 * override this behavior.
+	 */
+	sighandler = signal(SIGCHLD, SIG_IGN);
     }
 
     /* fork */
@@ -395,6 +411,10 @@ static int pwdb_run_helper_binary(pam_handle_t *pamh, const char *passwd,
     } else {
 	D(("fork failed"));
 	retval = PAM_AUTH_ERR;
+    }
+
+    if (sighandler != NULL) {
+        (void) signal(SIGCHLD, sighandler);   /* restore old signal handler */
     }
 
     D(("returning %d", retval));
@@ -468,7 +488,7 @@ static int _unix_verify_password(pam_handle_t *pamh, const char *name,
 	if (geteuid()) {
 	    /* we are not root perhaps this is the reason? Run helper */
 	    D(("running helper binary"));
-	    retval = pwdb_run_helper_binary(pamh, p, name);
+	    retval = pwdb_run_helper_binary(pamh, p, ctrl, name);
 	} else {
 	    retval = PAM_AUTHINFO_UNAVAIL;
 	    _log_err(LOG_ALERT, "get passwd; %s", pwdb_strerror(retval));

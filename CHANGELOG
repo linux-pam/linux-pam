@@ -55,6 +55,10 @@ bug report - outstanding bugs are listed here:
 0.77: please submit patches for this section with actual code/doc
       patches!
 
+* pam_unix and pam_pwdb: by default turn off the SIGCHLD handler while
+  running the helper binary (patch from Nalin) added the "noreap"
+  module argument to both of these modules to turn off this new
+  default. (Bug 476963 - agmorgan).
 * updated CHANGELOG and configure.in for 0.77 work.
 
 0.76: Mon Jul  8 21:44:59 PDT 2002
