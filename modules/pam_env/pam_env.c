@@ -4,7 +4,7 @@
  * $Id$
  *
  * Written by Dave Kinchlea <kinch@kinch.ark.com> 1997/01/31
- * Inspired by Andrew Morgan <morgan@parc.power.net, who also supplied the 
+ * Inspired by Andrew Morgan <morgan@kernel.org>, who also supplied the 
  * template for this file (via pam_mail)
  */
 
@@ -536,12 +536,14 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
 		    * call pam_getenv and _pam_get_item_byname -- sigh
 		    */
 		      
-  char type, tmpval[BUF_SIZE]; /* No unexpanded variable can be bigger than BUF_SIZE */
-  char tmp[MAX_ENV];   /* I know this shouldn't be hard-coded but it's so 
-			* much easier this way */
+  /* No unexpanded variable can be bigger than BUF_SIZE */
+  char type, tmpval[BUF_SIZE];
+
+  /* I know this shouldn't be hard-coded but it's so much easier this way */
+  char tmp[MAX_ENV];
 
   D(("Remember to initialize tmp!"));
-  tmp[0] = '\0';
+  memset(tmp, 0, MAX_ENV);
 
   /* 
    * (possibly non-existent) environment variables can be used as values
@@ -563,15 +565,17 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
       } else {
 	/* is it really a good idea to try to log this? */
 	D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
-	_log_err(LOG_ERR, "Variable buffer overflow: <%s> + <%s>", tmp, tmpptr);
+	_log_err(LOG_ERR, "Variable buffer overflow: <%s> + <%s>",
+		 tmp, tmpptr);
       }
       continue;
     } 
     if ('$' == *orig || '@' == *orig) {
       if ('{' != *(orig+1)) {
-	D(("Expandable variables must be wrapped in {} <%s> - ignoring", orig));
-	_log_err(LOG_ERR, "Expandable variables must be wrapped in {} <%s> - ignoring", 
-		 orig);
+	D(("Expandable variables must be wrapped in {}"
+	   " <%s> - ignoring", orig));
+	_log_err(LOG_ERR, "Expandable variables must be wrapped in {}"
+		 " <%s> - ignoring", orig);
 	if ((strlen(tmp) + 1) < MAX_ENV) {
 	  tmp[strlen(tmp)] = *orig++;        /* Note the increment */
 	}

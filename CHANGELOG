@@ -49,6 +49,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_env: 'weichangyang of hotmail' pointed out a wild string with no
+  valid '\0' was leading to problems with sshd and suggested fix (Bug
+  473034 - agmorgan)
 * MANDIR cleanup. It defaults to /usr/share/man, but can be overridden
   using the --enable-mandir ./configure option, similarly for DOCDIR
   from Nalin (Bug 476940 - agmorgan)
