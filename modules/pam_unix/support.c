@@ -525,6 +525,8 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 				D(("user has empty password - access denied"));
 				retval = PAM_AUTH_ERR;
 			}
+		} else if (!p) {
+				retval = PAM_AUTH_ERR;
 		} else {
 			if (!strncmp(salt, "$1$", 3)) {
 				pp = Goodcrypt_md5(p, salt);
