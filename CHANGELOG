@@ -35,6 +35,9 @@ Where you should replace XXXXX with a bug-id.
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* added support for '/' symbols in pam_time and pam_group config files
+  (support for modern terminal devices). Fixed infinite loop problem
+  with '\\[^\n]' in these files. (Bug 116076 - agmorgan)
 * avoid potential SIGPIPE when writing to helper binaries with (Bug
   123399 - agmorgan)
 * replaced bogus logic in the pam_cracklib module for determining if

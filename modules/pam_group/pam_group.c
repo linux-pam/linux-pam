@@ -165,6 +165,8 @@ static int read_field(int fd, char **buf, int *from, int *to)
 		if ((*buf)[i+1] == '\n') {
 		    shift_bytes(i + *buf, 2, *to - (i+2));
 		    *to -= 2;
+		} else {
+		    ++i;   /* we don't escape non-newline characters */
 		}
 		break;
 	    case '!':
@@ -245,7 +247,7 @@ static int logic_member(const char *string, int *at)
 
 	  default:
 	       if (isalpha(c) || c == '*' || isdigit(c) || c == '_'
-		    || c == '-' || c == '.') {
+		    || c == '-' || c == '.' || c == '/') {
 		    token = 1;
 	       } else if (token) {
 		    --to;
