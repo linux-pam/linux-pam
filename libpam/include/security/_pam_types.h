@@ -46,7 +46,7 @@ typedef struct pam_handle pam_handle_t;
 #define PAM_CRED_INSUFFICIENT 8	/* Can not access authentication data */
 				/* due to insufficient credentials */
 #define PAM_AUTHINFO_UNAVAIL 9	/* Underlying authentication service */
-				/* can not retrieve authenticaiton */
+				/* can not retrieve authentication */
 				/* information  */
 #define PAM_USER_UNKNOWN 10	/* User not known to the underlying */
 				/* authenticaiton module */
