@@ -437,8 +437,8 @@ with one of two syntaxes.
 The simpler (and historical) syntax for the control-flag is a single
 keyword defined to indicate the severity of concern associated with
 the success or failure of a specific module.  There are four such
-keywords: <tt/required/, <tt/requisite/, <tt/sufficient/ and
-<tt/optional/.
+keywords: <tt/required/, <tt/requisite/, <tt/sufficient/,
+<tt/optional/ and <tt/include/.
 
 <p>
 The Linux-PAM library interprets these keywords in the following
@@ -480,6 +480,12 @@ failures of previous or subsequent stacked modules this module will
 determine the nature of the response to the application.  One example
 of this latter case, is when the other modules return something like
 <tt/PAM_IGNORE/.
+
+<item> <tt/include/; this tells PAM to include all lines of given type
+from the configuration file specified as an argument to this control.
+The whole idea is to create few "systemwide" pam configs and include
+parts of them in application pam configs.
+
 
 </itemize>
 
