@@ -10,6 +10,8 @@
  *
  */
 
+#include <security/_pam_aconf.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -47,7 +49,8 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
 {
      int retval = PAM_IGNORE;
      int fd;
-     char *mtmp=NULL, *motd_path=NULL;
+     char *mtmp=NULL;
+     const char *motd_path=NULL;
      struct pam_conv *conversation;
      struct pam_message message;
      struct pam_message *pmessage = &message;
@@ -60,9 +63,10 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
 
     for (; argc-- > 0; ++argv) {
         if (!strncmp(*argv,"motd=",5)) {
+
             motd_path = (char *) strdup(5+*argv);
             if (motd_path != NULL) {
-                D(("set motd path: %s", motd_path));
+                D(("set motd path: %s (and a memory leak)", motd_path));
             } else {
                 D(("failed to duplicate motd path - ignored"));
             }

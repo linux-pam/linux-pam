@@ -49,6 +49,7 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_motd: Nalin fixed compiler warning. (Bug 476938 - agmorgan)
 * pam_pwdb: Solar Designer pointed out that there was a problem with
   the compatibility support for md5 password hashing. (Bug 460717,
   476961 - agmorgan)
