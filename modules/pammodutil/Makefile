@@ -18,7 +18,8 @@ CFLAGS += $(PIC) $(STATIC) $(MOREFLAGS) \
   -DLIBPAM_VERSION_MINOR=$(MINOR_REL)
 
 # all the object files we care about
-LIBOBJECTS = modutil_cleanup.o modutil_getpwnam.o modutil_getpwuid.o
+LIBOBJECTS = modutil_cleanup.o modutil_getpwnam.o modutil_getpwuid.o \
+	modutil_getlogin.o
 
 # static library name
 LIBSTATIC = $(LIBNAME).a

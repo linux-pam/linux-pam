@@ -43,6 +43,7 @@
 #define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
+#include <security/_pam_modutil.h>
 
 /* some syslogging */
 
@@ -110,7 +111,7 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
 			 const char *use_group)
 {
     const char *username = NULL;
-    char *fromsu;
+    const char *fromsu;
     struct passwd *pwd, *tpwd;
     struct group *grp;
     int retval = PAM_AUTH_ERR;
@@ -142,7 +143,7 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
 	}
 	fromsu = tpwd->pw_name;
     } else {
-	fromsu = getlogin();
+	fromsu = _pammodutil_getlogin(pamh);
 	if (fromsu) {
 	    tpwd = getpwnam(fromsu);
 	}

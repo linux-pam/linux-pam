@@ -20,6 +20,7 @@
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
+#include <security/_pam_modutil.h>
 
 #include "md5.h"
 #include "support.h"
@@ -104,36 +105,6 @@ int _make_remark(pam_handle_t * pamh, unsigned int ctrl
 			_pam_drop_reply(resp, 1);
 		}
 	}
-	return retval;
-}
-
-  /*
-   * Beacause getlogin() is braindead and sometimes it just
-   * doesn't work, we reimplement it here.
-   */
-char *PAM_getlogin(void)
-{
-	struct utmp *ut, line;
-	char *curr_tty, *retval;
-	static char curr_user[sizeof(ut->ut_user) + 4];
-
-	retval = NULL;
-
-	curr_tty = ttyname(0);
-	if (curr_tty != NULL) {
-		D(("PAM_getlogin ttyname: %s", curr_tty));
-		curr_tty += 5;
-		setutent();
-		strncpy(line.ut_line, curr_tty, sizeof(line.ut_line));
-		if ((ut = getutline(&line)) != NULL) {
-			strncpy(curr_user, ut->ut_user, sizeof(ut->ut_user));
-			curr_user[sizeof(curr_user) - 1] = '\0';
-			retval = curr_user;
-		}
-		endutent();
-	}
-	D(("PAM_getlogin retval: %s", retval));
-
 	return retval;
 }
 
@@ -668,10 +639,17 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 
 			if (new != NULL) {
 
-				new->user = x_strdup(name ? name : "");
+			    const char *login_name;
+
+			    login_name = _pammodutil_getlogin(pamh);
+			    if (login_name == NULL) {
+				login_name = "";
+			    }
+
+			        new->user = x_strdup(name ? name : "");
 				new->uid = getuid();
 				new->euid = geteuid();
-				new->name = x_strdup(PAM_getlogin()? PAM_getlogin() : "");
+				new->name = x_strdup(login_name);
 
 				/* any previous failures for this user ? */
 				pam_get_data(pamh, data_name, (const void **) &old);

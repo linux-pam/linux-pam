@@ -53,6 +53,7 @@
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
+#include <security/_pam_modutil.h>
 
 #ifndef LINUX_PAM
 #include <security/pam_appl.h>
@@ -71,6 +72,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t * pamh, int flags,
 	char *user_name, *service;
 	unsigned int ctrl;
 	int retval;
+    const char *login_name;
 
 	D(("called."));
 
@@ -89,9 +91,12 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t * pamh, int flags,
 		         "open_session - error recovering service");
 		return PAM_SESSION_ERR;
 	}
-	_log_err(LOG_INFO, pamh, "session opened for user %s by %s(uid=%d)"
-		 ,user_name
-		 ,PAM_getlogin() == NULL ? "" : PAM_getlogin(), getuid());
+	login_name = _pammodutil_getlogin(pamh);
+	if (login_name == NULL) {
+	    login_name = "";
+	}
+	_log_err(LOG_INFO, pamh, "session opened for user %s by %s(uid=%d)",
+		 user_name, login_name, getuid());
 
 	return PAM_SUCCESS;
 }

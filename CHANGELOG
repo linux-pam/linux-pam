@@ -55,6 +55,16 @@ bug report - outstanding bugs are listed here:
 0.78: please submit patches for this section with actual code/doc
       patches!
 
+* pam_unix: severe denial of service possible with this module since
+  it locked too aggressively. Bug report and testing help from Sascha
+  Loetz. (Bug 664290 - agmorgan)
+* getlogin was spoofable: "/tmp/" and "/dev/" have the same number of
+  characters, so 'ln /dev/tty /tmp/tty1 ; bash < /tmp/tty1 ; logname'
+  attacks could potentially spoof pam_wheel with the 'trust' module
+  argument into granting access to a luser. Also, pam_unix gave
+  odd error messages in such a situation (logname != uid). This
+  problem was found by David Endler of iDefense.com (Bug 667584 -
+  agmorgan).
 * added my new DSA public key to the pgp.keys.asc file. Also included
   a signed copy of my new public key (1024D/D41A6DF2) made with my old
   key (1024/2A398175).

@@ -41,8 +41,10 @@ EXTRAS += -DCHKPWD_HELPER=\"$(SUPLEMENTED)/$(CHKPWD)\"
 
 ########################################################################
 
-CFLAGS += $(USE_CRACKLIB) $(USE_LCKPWDF) $(NEED_LCKPWDF) $(EXTRAS)
-LDLIBS = $(EXTRALS)
+CFLAGS += $(USE_CRACKLIB) $(USE_LCKPWDF) $(NEED_LCKPWDF) $(EXTRAS) \
+	 -I../pammodutil/include
+
+LDLIBS = $(EXTRALS) -L../pammodutil -lpammodutil
 
 ifdef USE_CRACKLIB
 CRACKLIB = -lcrack

@@ -15,7 +15,7 @@
  * On systems that simply can't support thread safe programming, these
  * functions don't support it either - sorry.
  *
- * Copyright (c) 2001 Andrew Morgan <morgan@kernel.org>
+ * Copyright (c) 2001-2002 Andrew Morgan <morgan@kernel.org>
  */
 
 #include <pwd.h>
@@ -29,5 +29,7 @@ extern struct passwd *_pammodutil_getpwuid(pam_handle_t *pamh,
 
 extern void _pammodutil_cleanup(pam_handle_t *pamh, void *data,
 				int error_status);
+
+extern const char *_pammodutil_getlogin(pam_handle_t *pamh);
 
 #endif /* _PAM_MODUTIL_H */
