@@ -16,6 +16,7 @@ VERSION=.$(MAJOR_REL)
 MODIFICATION=.$(MINOR_REL)
 
 CFLAGS += $(MOREFLAGS) $(DYNAMIC) $(STATIC)
+LINKLIBS += -L$(absolute_objdir)/libpam -lpam
 
 # dynamic library names
 

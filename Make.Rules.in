@@ -22,6 +22,7 @@ infodir = @infodir@
 includedir = @includedir@
 
 absolute_srcdir = @LOCALSRCDIR@
+absolute_objdir = @LOCALOBJDIR@
 
 # major and minor numbers of this release
 MAJOR_REL=@LIBPAM_VERSION_MAJOR@
@@ -32,7 +33,7 @@ MINOR_REL=@LIBPAM_VERSION_MINOR@
 # they generate.
 
 HEADER_DIRS=-I./include -I$(absolute_srcdir)/libpam/include \
-	-I$(absolute_srcdir) -I$(absolute_srcdir)/libpamc/include
+	-I$(absolute_objdir) -I$(absolute_srcdir)/libpamc/include
 WARNINGS=@WARNINGS@
 OS_CFLAGS=@OS_CFLAGS@
 PIC=@PIC@

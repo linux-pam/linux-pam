@@ -55,6 +55,10 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* link in libpam to libpam_misc - since the latter uses functions in
+  the former it makes some sort of sense to do this (although, in the
+  static library case, I remain to be convinced). (Bug 565470 -
+  agmorgan).
 * absorbed some of the proposed darwin (OS X) changes from Luke Howard
   (of PADL software) - hopefully will get the rest (see Rob Braun's
   534205) by 0.77 (Bug 491466 - agmorgan).

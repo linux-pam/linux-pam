@@ -23,9 +23,11 @@ dnl
 AC_PREFIX_DEFAULT()
 
 dnl
-dnl Useful info (believed to be portable)
+dnl Useful info (believed to be portable) - in the future
+dnl the LOCALSRCDIR and LOCALOBJDIRs may be different
 dnl
 LOCALSRCDIR=`/bin/pwd`         ; AC_SUBST(LOCALSRCDIR)
+LOCALOBJDIR=`/bin/pwd`         ; AC_SUBST(LOCALOBJDIR)
 OS=`uname|sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
 AC_SUBST(OS)
 

@@ -14,9 +14,10 @@ else
  LIBSUFFIX=
 endif
 
-CFLAGS += -I../libpam_misc/include -I../libpamc/include
+CFLAGS += -I$(absolute_srcdir)/libpam_misc/include
 
-LOADLIBES = -L../libpam -L../libpamc -L../libpam_misc -lpam -lpam_misc
+LOADLIBES = -L$(absolute_objdir)/libpam -L$(absolute_objdir)/libpamc \
+    -L$(absolute_objdir)/libpam_misc -lpam -lpam_misc
 
 ifeq ($(STATIC_LIBPAM),yes)
   ifneq ($(DYNAMIC),)
