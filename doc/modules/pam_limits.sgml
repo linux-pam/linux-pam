@@ -114,6 +114,8 @@ The fields listed above should be filled as follows...<newline>
 <item> a username
 <item> a groupname, with <tt>@group</tt> syntax
 <item> the wild-card <tt/*/, for default entry
+<item> the wild-card <tt/%/, for maxlogins limit only,
+can also be used with <tt>%group</tt> syntax
 </itemize>
 
 <p>
@@ -202,6 +204,28 @@ Note, the use of <tt/soft/ and <tt/hard/ limits for the same resource
 (see <tt/@faculty/) -- this establishes the <em/default/ and permitted
 <em/extreme/ level of resources that the user can obtain in a given
 service-session.
+
+<p>
+Note, that wild-cards <tt/*/ and <tt/%/ have the following meaning when
+used for maxlogins limit
+<itemize>
+<item> <tt/*/ every user
+<item> <tt/%/ all users, or entire group when <tt>%group</tt> is specified 
+</itemize>
+See the following examples:
+<tscreen>
+<verb>
+# EXAMPLE /etc/security/limits.conf file:
+# <domain>	<type>	<item>		<value>
+*               -       maxlogins       2
+@faculty        -       maxlogins       4
+%               -       maxlogins       30
+%student        -       maxlogins       10
+</verb>
+</tscreen>
+Explanation: every user can login 2 times, members of the <tt/faculty/
+group can login 4 times, there can be only 30 logins, only 10 from
+<tt/students/ group.
 
 <p>
 For the services that need resources limits (login for example) put
