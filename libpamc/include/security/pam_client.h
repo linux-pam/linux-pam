@@ -140,7 +140,7 @@ do {                                                                       \
 
 #define PAM_BP_FILL(prmpt, offset, length, data)                           \
 do {                                                                       \
-    int bp_length;                                                         \
+    size_t bp_length;                                                      \
     __u8 *prompt = (__u8 *) (prmpt);                                       \
     bp_length = PAM_BP_LENGTH(prompt);                                     \
     if (bp_length < ((length)+(offset))) {                                 \
@@ -151,7 +151,7 @@ do {                                                                       \
 
 #define PAM_BP_EXTRACT(prmpt, offset, length, data)                        \
 do {                                                                       \
-    int __bp_length;                                                       \
+    size_t __bp_length;                                                    \
     const __u8 *__prompt = (const __u8 *) (prmpt);                         \
     __bp_length = PAM_BP_LENGTH(__prompt);                                 \
     if (((offset) < 0) || (__bp_length < ((length)+(offset)))              \

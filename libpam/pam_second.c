@@ -13,6 +13,17 @@
 
 /* p 42 */
 
+/* XXX - there are actually no plans to support this function. It does
+   not appear to be very well defined */
+
+int pam_authenticate_secondary(pam_handle_t *pamh,
+			       char *target_username,
+			       char *target_module_type,
+			       char *target_authn_domain,
+			       char *target_supp_data,
+			       unsigned char *target_module_authtok,
+			       int flags);
+
 int pam_authenticate_secondary(pam_handle_t *pamh,
 			       char *target_username,
 			       char *target_module_type,

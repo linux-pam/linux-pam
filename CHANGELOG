@@ -49,6 +49,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* some BSD updates and fixes from Mark Murray - including a slightly
+  more robust conversation function and some minimization of gcc
+  warnings. (Bug 449203 - agmorgan)
 * pam_unix/support.c: sample use of reentrant NSS function.  Not yet active,
   because modules do not include _pam_aconf_h! (Bug 440107 - vorlon)
 * doc/Makefile changes - use $(mandir) [courtesy Harald Welte] (Bug

@@ -2,7 +2,7 @@
 
 /*
  * created by Marc Ewing.
- * Currently maintained by Andrew G. Morgan <morgan@linux.kernel.org>
+ * Currently maintained by Andrew G. Morgan <morgan@kernel.org>
  *
  * $Id$
  *
@@ -25,12 +25,7 @@
 
 #include "pam_private.h"
 
-/* FreeBSD doesn't define this */
-#ifndef RTLD_NOW
-# define RTLD_NOW      1
-#endif
-
-/* If not required, define as nothing - FreeBSD needs it to be "_"... */
+/* If not required, define as nothing */
 #ifndef SHLIB_SYM_PREFIX
 # define SHLIB_SYM_PREFIX ""
 #endif

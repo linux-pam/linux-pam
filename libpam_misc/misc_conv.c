@@ -57,7 +57,7 @@ void (*pam_binary_handler_free)(void *appdata, pamc_bp_t *prompt_p)
 
 /* the following code is used to get text input */
 
-volatile static int expired=0;
+static volatile int expired=0;
 
 /* return to the previous signal handling */
 static void reset_alarm(struct sigaction *o_ptr)
@@ -130,10 +130,11 @@ static int get_delay(void)
 static char *read_string(int echo, const char *prompt)
 {
     struct termios term_before, term_tmp;
-    char line[INPUTSIZE];
+    char line[INPUTSIZE], *input;
     struct sigaction old_sig;
     int delay, nc, have_term=0;
-
+    sigset_t oset, nset;
+ 
     D(("called with echo='%s', prompt='%s'.", echo ? "ON":"OFF" , prompt));
 
     if (isatty(STDIN_FILENO)) {                      /* terminal state */
@@ -148,6 +149,16 @@ static char *read_string(int echo, const char *prompt)
 	    term_tmp.c_lflag &= ~(ECHO);
 	}
 	have_term = 1;
+
+	/*
+	 * We make a simple attempt to block TTY signals from terminating
+	 * the conversation without giving PAM a chance to clean up.
+	 */
+
+	sigemptyset(&nset); 
+	sigaddset(&nset, SIGINT); 
+	sigaddset(&nset, SIGTSTP); 
+	(void) sigprocmask(SIG_BLOCK, &nset, &oset);
 
     } else if (!echo) {
 	D(("<warning: cannot turn echo off>"));
@@ -180,7 +191,6 @@ static char *read_string(int echo, const char *prompt)
 	    if (expired) {
 		delay = get_delay();
 	    } else if (nc > 0) {                 /* we got some user input */
-		char *input;
 
 		if (nc > 0 && line[nc-1] == '\n') {     /* <NUL> terminate */
 		    line[--nc] = '\0';
@@ -190,24 +200,45 @@ static char *read_string(int echo, const char *prompt)
 		input = x_strdup(line);
 		_pam_overwrite(line);
 
-		return input;                  /* return malloc()ed string */
+		goto cleanexit;                /* return malloc()ed string */
 	    } else if (nc == 0) {                                /* Ctrl-D */
 		D(("user did not want to type anything"));
+
+		input = x_strdup("");
 		fprintf(stderr, "\n");
-		break;
+		goto cleanexit;                /* return malloc()ed "" */
 	    }
 	}
     }
 
     /* getting here implies that the timer expired */
-    if (have_term)
-	(void) tcsetattr(STDIN_FILENO, TCSADRAIN, &term_before);
+    input = NULL;
+    _pam_overwrite(line);
 
-    memset(line, 0, INPUTSIZE);                      /* clean up */
+ cleanexit:
+
+    if (have_term) {
+	(void) sigprocmask(SIG_SETMASK, &oset, NULL);
+	(void) tcsetattr(STDIN_FILENO, TCSADRAIN, &term_before);
+    }
+
     return NULL;
 }
 
 /* end of read_string functions */
+
+/*
+ * This conversation function is supposed to be a generic PAM one.
+ * Unfortunately, it is _not_ completely compatible with the Solaris PAM
+ * codebase.
+ *
+ * Namely, for msgm's that contain multiple prompts, this function
+ * interprets "const struct pam_message **msgm" as equivalent to
+ * "const struct pam_message *msgm[]". The Solaris module
+ * implementation interprets the **msgm object as a pointer to a
+ * pointer to an array of "struct pam_message" objects (that is, a
+ * confusing amount of pointer indirection).
+ */
 
 int misc_conv(int num_msg, const struct pam_message **msgm,
 	      struct pam_response **response, void *appdata_ptr)
