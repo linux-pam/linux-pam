@@ -255,8 +255,8 @@ int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 
 /* static module data */
 
-struct pam_module _pam_wheel_modstruct = {
-     MODULE_NAME,
+struct pam_module _pam_userdb_modstruct = {
+     "pam_userdb",
      pam_sm_authenticate,
      pam_sm_setcred,
      NULL,
