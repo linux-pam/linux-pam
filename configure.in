@@ -9,7 +9,7 @@ dnl Release specific
 dnl
 
 LIBPAM_VERSION_MAJOR=0
-LIBPAM_VERSION_MINOR=75
+LIBPAM_VERSION_MINOR=76
 
 AC_SUBST(LIBPAM_VERSION_MAJOR)
 AC_SUBST(LIBPAM_VERSION_MINOR)
@@ -33,11 +33,14 @@ LOCALSRCDIR=`/bin/pwd`		; AC_SUBST(LOCALSRCDIR)
 OS=`uname|sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
 AC_SUBST(OS)
 
+SHLIBMODE=755			; AC_SUBST(SHLIBMODE)
+
 dnl These are most likely platform specific - I think HPUX differs
 DYNTYPE=so			; AC_SUBST(DYNTYPE)
 USESONAME=yes			; AC_SUBST(USESONAME)
-NEEDSONAME=yes			; AC_SUBST(NEEDSONAME)
-SHLIBMODE=755			; AC_SUBST(SHLIBMODE)
+SOSWITCH=-soname		; AC_SUBST(SOSWITCH)
+NEEDSONAME=no			; AC_SUBST(NEEDSONAME)
+LDCONFIG=/sbin/ldconfig		; AC_SUBST(LDCONFIG)
 
 dnl ### Should enable this INSTALL detection.
 dnl ### Would need to distribute GNU's config.guess and config.sub
