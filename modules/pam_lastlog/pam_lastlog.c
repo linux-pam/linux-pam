@@ -254,10 +254,12 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 
 	if (!(announce & LASTLOG_QUIET)) {
 	    if (last_login.ll_time) {
+		time_t ll_time;
 		char *the_time;
 		char *remark;
 
-		the_time = ctime(&last_login.ll_time);
+		ll_time = last_login.ll_time;
+		the_time = ctime(&ll_time);
 		the_time[-1+strlen(the_time)] = '\0';    /* delete '\n' */
 
 		remark = malloc(LASTLOG_MAXSIZE);
@@ -319,13 +321,15 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 
 	/* write latest value */
 	{
+	    time_t ll_time;
 	    const char *remote_host=NULL
 		, *terminal_line=DEFAULT_TERM;
 
 	    /* set this login date */
 	    D(("set the most recent login time"));
 
-	    (void) time(&last_login.ll_time);    /* set the time */
+	    (void) time(&ll_time);    /* set the time */
+            last_login.ll_time = ll_time;
 
 	    /* set the remote host */
 	    (void) pam_get_item(pamh, PAM_RHOST, (const void **)&remote_host);
