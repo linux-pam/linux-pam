@@ -58,7 +58,7 @@ and their terminal from which they are making their request.
 <tag><bf>Description:</bf></tag>
 
 This module bases its actions on the rules listed in its configuration
-file: <tt>/etc/security/pam.conf</tt>.  Each rule has the following
+file: <tt>/etc/security/time.conf</tt>.  Each rule has the following
 form,
 <tscreen>
 <em/services/<tt/;/<em/ttys/<tt/;/<em/users/<tt/;/<em/times/

@@ -155,11 +155,9 @@ session on the host computer.
 <tag><bf>Examples/suggested usage:</bf></tag>
 
 Together with another session module, that displays a message of the
-day perhaps (XXX - such a module needs to be written),
-this module can be used to block a user from starting a shell. Given
-the presence of a <tt/pam_motd/ module, we might use the following
-entries in the configuration file to inform the user it is system
-time:
+day perhaps (<tt/pam_motd/ for example), this module can be used to
+block a user from starting a shell. We might use the following entries
+in the configuration file to inform the user it is system time:
 <tscreen>
 <verb>
 #
@@ -167,7 +165,7 @@ time:
 # session (politely)
 #
 login	session	 required	pam_motd.so \
-			file=/etc/system_time
+			motd=/etc/system_time
 login	session	 required	pam_deny.so
 </verb>
 </tscreen>

@@ -55,6 +55,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* documentation: pam_time.sgml typo fixed, pam_motd exists now,
+  correct Red Hat comment about config files (Bugs 554274, 554261,
+  554182 - agmorgan)
 * pam_limits: added '%' domain for maxlogins limiting, now '*' and @group
   have the old meaning (every) and '%' the new one (all)
   (Bug 533664 - baggins)

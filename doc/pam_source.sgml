@@ -4,7 +4,7 @@
 
  $Id$
 
-    Copyright (c) Andrew G. Morgan 1996-2001.  All rights reserved.
+    Copyright (c) Andrew G. Morgan 1996-2002.  All rights reserved.
 
 Redistribution and use in source (sgml) and binary (derived) forms,
 with or without modification, are permitted provided that the
@@ -46,7 +46,7 @@ DAMAGE.
 
 <title>The Linux-PAM System Administrators' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.76 2001/12/08
+<date>DRAFT v0.76 2002/05/09
 <abstract>
 This manual documents what a system-administrator needs to know about
 the <bf>Linux-PAM</bf> library. It covers the correct syntax of the
@@ -599,9 +599,9 @@ mode uses either <tt>/etc/pam.d/</tt> or <tt>/etc/pam.conf</tt>
 configuration but not both.  That is to say, if there is a
 <tt>/etc/pam.d/</tt> directory then libpam only uses the files
 contained in this directory.  However, in the absence of the
-<tt>/etc/pam.d/</tt> directory the <tt>/etc/pam.conf</tt> file is
-used.  The other mode (and the one currently supported by Red Hat 4.2
-and higher) is to use both <tt>/etc/pam.d/</tt> and
+<tt>/etc/pam.d/</tt> directory the <tt>/etc/pam.conf</tt> file is used
+(this is likely to be the mode your preferred distribution uses).  The
+other mode is to use both <tt>/etc/pam.d/</tt> and
 <tt>/etc/pam.conf</tt> in sequence.  In this mode, entries in
 <tt>/etc/pam.d/</tt> override those of <tt>/etc/pam.conf</tt>.
 
@@ -1071,9 +1071,9 @@ for all the good work they have done.
 <sect>Copyright information for this document
 
 <p>
-Copyright (c) Andrew G. Morgan 1996-9.  All rights reserved.
+Copyright (c) Andrew G. Morgan 1996-2002.  All rights reserved.
 <newline>
-Email: <tt>&lt;morgan@linux.kernel.org&gt;</tt>
+Email: <tt>&lt;morgan@kernel.org&gt;</tt>
 
 <p>
 Redistribution and use in source and binary forms, with or without
