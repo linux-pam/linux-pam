@@ -16,14 +16,14 @@
 #ifndef _SECURITY_PAM_APPL_H
 #define _SECURITY_PAM_APPL_H
 
-#include <security/_pam_types.h>      /* Linux-PAM common defined types */
-
-/* -------------- The Linux-PAM Framework layer API ------------- */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
  
+#include <security/_pam_types.h>      /* Linux-PAM common defined types */
+
+/* -------------- The Linux-PAM Framework layer API ------------- */
+
 extern int pam_start(const char *service_name, const char *user,
 		     const struct pam_conv *pam_conversation,
 		     pam_handle_t **pamh);

@@ -29,6 +29,7 @@ TODO:
   file, instead of failing immediately (Bug 108845 - fix vorlon)
 * fix to pam_shells: logged information was not formatted correctly
   (extra comma) (Bug 111491 - fix vorlon)
+* fix for C++ application support (Bug 111645 - fix agmorgan)
 
 Planning to include:
 
