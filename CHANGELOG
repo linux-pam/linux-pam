@@ -35,6 +35,7 @@ Where you should replace XXXXX with a bug-id.
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* added accessconf=<filename> feature to pam_access - request from Aldrin Martoq (Bug 111927 - agmorgan)
 * fix for pam_limit module not dealing with all limits Adam J. Richter
   (Bug 119554 - agmorgan)
 * comment fix describing fail_delay callback in _pam_types.h (Bug
