@@ -295,7 +295,8 @@ static int tally_bump (int inc,
       *TALLY = NULL;
     const char
       *user  = NULL,
-      *remote_host = NULL;
+      *remote_host = NULL,
+      *cur_tty = NULL;
 
     int i=pam_get_uid(pamh, &uid, &user);
     if ( i != PAM_SUCCESS ) RETURN_ERROR( i );
@@ -306,7 +307,13 @@ static int tally_bump (int inc,
     (void) pam_get_item(pamh, PAM_RHOST, (const void **)&remote_host);
     if (!remote_host)
     {
-    	strcpy(faillog.fail_line, "unknown");
+    	(void) pam_get_item(pamh, PAM_TTY, (const void **)&cur_tty);
+	if (!cur_tty)
+    	    strcpy(faillog.fail_line, "unknown");
+	else {
+    	    strncpy(faillog.fail_line, cur_tty, (size_t)sizeof(faillog.fail_line));
+	    faillog.fail_line[sizeof(faillog.fail_line)-1] = 0;
+	}
     }
     else
     {

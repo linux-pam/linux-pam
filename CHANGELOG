@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* pam_tally - check for PAM_TTY if PAM_RHOST is not set when writing
+  to faillog (Bug 124394 - baggins)
 * use O_NOFOLLOW if available when opening debug log (Bug 124385 - baggins)
 * pam_cracklib - removed comments about pam_unix not working with
   pam_cracklib, added information about use_authtok parameter
