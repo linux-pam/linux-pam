@@ -452,6 +452,9 @@ static int parse_config_file(const char *uname, int ctrl,
         memset(value, 0, sizeof(value));
         
         i = sscanf(buf,"%s%s%s%s", domain, ltype, item, value);
+	D(("scanned line[%d]: domain[%s], ltype[%s], item[%s], value[%s]",
+	   i, domain, ltype, item, value));
+
         for(j=0; j < strlen(domain); j++)
             domain[j]=tolower(domain[j]);
         for(j=0; j < strlen(ltype); j++)
@@ -483,7 +486,7 @@ static int parse_config_file(const char *uname, int ctrl,
 		return PAM_IGNORE;
 	    }
         } else {
-            _pam_log(LOG_DEBUG,"invalid line '%s'", buf);
+            _pam_log(LOG_DEBUG,"invalid line '%s' - skipped", buf);
 	}
     }
     fclose(fil);
@@ -563,6 +566,10 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags,
     }
 
     retval = parse_config_file(pwd->pw_name, ctrl, &pl);
+    if (retval == PAM_IGNORE) {
+	D(("the configuration file has an applicable '<domain> -' entry"));
+	return PAM_SUCCESS;
+    }
     if (retval != PAM_SUCCESS) {
         _pam_log(LOG_WARNING, "error parsing the configuration file");
         return PAM_IGNORE;

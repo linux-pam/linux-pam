@@ -27,14 +27,14 @@ Note, as of release 0.73, all checkins should be accompanied with a
 Bug ID. The bug IDs relate to sourceforge IDs.. You can query the
 related bug description with the following URL:
 
- http://sourceforge.net/bugs/?func=detailbug&bug_id=XXXXX&group_id=6663
+ http://sourceforge.net/tracker/index.php?func=detail&aid=XXXXXX&group_id=6663&atid=106663
 
-Where you should replace XXXXX with a bug-id.
+Where you should replace XXXXXX with a bug-id.
 
 If you have found a bug in Linux-PAM, please consider filing such a
 bug report - outstanding bugs are listed here:
 
- http://sourceforge.net/bugs/?group_id=6663
+ http://sourceforge.net/tracker/?atid=106663&group_id=6663&func=browse
 
 (to file another bug see the 'submit bug' button on this page).
 
@@ -50,6 +50,8 @@ libpam. Prior versions were buggy - see bugfix for Bug 129775.
 
                           ** WARNING **
 
+* pam_limits - Richard M. Yumul reported that "<domain> -" didn't
+  work, first fix suggested by Werner Puschitz (Bug 404953 - agmorgan)
 * Nicolay Pelov suggested a simple fix for freebsd support (Bug 407282
   - agmorgan)
 * Michel D'HOOGE submitted documentation fixes (Bug 408961 - agmorgan)
