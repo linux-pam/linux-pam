@@ -127,24 +127,23 @@ static int get_delay(void)
 }
 
 /* read a line of input string, giving prompt when appropriate */
-static char *read_string(int echo, const char *prompt)
+static int read_string(int echo, const char *prompt, char **retstr)
 {
     struct termios term_before, term_tmp;
-    char line[INPUTSIZE], *input;
+    char line[INPUTSIZE];
     struct sigaction old_sig;
-    int delay, nc, have_term=0;
+    int delay, nc = -1, have_term = 0;
     sigset_t oset, nset;
- 
-    D(("called with echo='%s', prompt='%s'.", echo ? "ON":"OFF" , prompt));
 
-    input = line;
+    D(("called with echo='%s', prompt='%s'.", echo ? "ON":"OFF" , prompt));
 
     if (isatty(STDIN_FILENO)) {                      /* terminal state */
 
 	/* is a terminal so record settings and flush it */
 	if ( tcgetattr(STDIN_FILENO, &term_before) != 0 ) {
 	    D(("<error: failed to get terminal settings>"));
-	    return NULL;
+	    *retstr = NULL;
+	    return -1;
 	}
 	memcpy(&term_tmp, &term_before, sizeof(term_tmp));
 	if (!echo) {
@@ -203,7 +202,7 @@ static char *read_string(int echo, const char *prompt)
 		    }
 		    line[nc] = '\0';
 		}
-		input = x_strdup(line);
+		*retstr = x_strdup(line);
 		_pam_overwrite(line);
 
 		goto cleanexit;                /* return malloc()ed string */
@@ -211,11 +210,19 @@ static char *read_string(int echo, const char *prompt)
 	    } else if (nc == 0) {                                /* Ctrl-D */
 		D(("user did not want to type anything"));
 
-		input = x_strdup("");
+		*retstr = NULL;
 		if (echo) {
 		    fprintf(stderr, "\n");
 		}
 		goto cleanexit;                /* return malloc()ed "" */
+	    } else if (nc == -1) {
+		/* Don't loop forever if read() returns -1. */
+		D(("error reading input from the user: %s", strerror(errno)));
+		if (echo) {
+		    fprintf(stderr, "\n");
+		}
+		*retstr = NULL;
+		goto cleanexit;                /* return NULL */
 	    }
 	}
     }
@@ -224,7 +231,7 @@ static char *read_string(int echo, const char *prompt)
 
     D(("the timer appears to have expired"));
 
-    input = NULL;
+    *retstr = NULL;
     _pam_overwrite(line);
 
  cleanexit:
@@ -234,9 +241,7 @@ static char *read_string(int echo, const char *prompt)
 	(void) tcsetattr(STDIN_FILENO, TCSADRAIN, &term_before);
     }
 
-    D(("returning [%s]", input));
-
-    return input;
+    return nc;
 }
 
 /* end of read_string functions */
@@ -276,17 +281,18 @@ int misc_conv(int num_msg, const struct pam_message **msgm,
 
     for (count=0; count < num_msg; ++count) {
 	char *string=NULL;
+	int nc;
 
 	switch (msgm[count]->msg_style) {
 	case PAM_PROMPT_ECHO_OFF:
-	    string = read_string(CONV_ECHO_OFF,msgm[count]->msg);
-	    if (string == NULL) {
+	    nc = read_string(CONV_ECHO_OFF,msgm[count]->msg, &string);
+	    if (nc < 0) {
 		goto failed_conversation;
 	    }
 	    break;
 	case PAM_PROMPT_ECHO_ON:
-	    string = read_string(CONV_ECHO_ON,msgm[count]->msg);
-	    if (string == NULL) {
+	    nc = read_string(CONV_ECHO_ON,msgm[count]->msg, &string);
+	    if (nc < 0) {
 		goto failed_conversation;
 	    }
 	    break;
