@@ -111,7 +111,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
 		return PAM_IGNORE;
 	    }
 	    memset (prompt_tmp, '\0', st.st_size + 1);
-	    count = fread(prompt_tmp, sizeof(char *), st.st_size, fd);
+	    count = fread(prompt_tmp, 1, st.st_size, fd);
 	    if (count != st.st_size) {
 		free(prompt_tmp);
 		return PAM_IGNORE;
