@@ -52,10 +52,10 @@ const char *_pammodutil_getlogin(pam_handle_t *pamh)
 	goto clean_up_and_go_home;
     }
 
-    strncpy(curr_user, ut->ut_user, sizeof(ut->ut_user));
-    curr_user[sizeof(line.ut_user)] = '\0';
+    strncpy(curr_user, ut->ut_user, sizeof(ut->ut_user)); 
+    /* calloc already zeroed the memory */
 
-    status = pam_set_data(pamh, _PAMMODUTIL_GETLOGIN, logname,
+    status = pam_set_data(pamh, _PAMMODUTIL_GETLOGIN, curr_user,
 			  _pammodutil_cleanup);
     if (status != PAM_SUCCESS) {
 	free(curr_user);
