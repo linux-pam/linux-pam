@@ -55,6 +55,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_limits: make it use the priority value specified in config
+  (bug 530428 - baggins)
 * pam_unix: removed broken code in password update code. Report from
   Len Lattanzi (Bug 507379 - agmorgan)
 * pam_mkhomedir: recurse directories. Patch from Nalin (Bug 476981 -
