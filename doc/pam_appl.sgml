@@ -811,6 +811,26 @@ session for the user, this function will return <tt/PAM_SESSION_ERR/.
 <label id="pam-putenv-section">
 
 <p>
+The <tt/libpam/ library associates with each PAM-handle (<tt/pamh/), a
+set of <it/PAM environment variables/. These variables are intended to
+hold the session environment variables that the user will inherit when
+the session is granted and the authenticated user obtains access to
+the requested service. For example, when <tt/login/ has finally given
+the user a shell, the environment (as viewed with the command
+<tt/env/) will be what <tt/libpam/ was maintaining as the PAM
+environment for that service application. Note, these variables are not
+the environment variables of the <tt/login/ application. This is
+principally for two reasons: <tt/login/ may want to have an
+environment that cannot be seen or manipulated by a user; and
+<tt/login/ (or whatever the serving application is) may be maintaining
+a number of parallel sessions, via different <tt/pamh/ values, at the
+same time and a single environment may not be appropriately shared
+between each of these. The PAM environment may contain variables
+seeded by the applicant user's client program, for example, and as
+such it is not appropriate for one applicant to interfere with the
+environment of another applicant.
+
+<p>
 <tscreen>
 <verb>
 extern int pam_putenv(pam_handle_t *pamh, const char *name_value);
@@ -872,14 +892,6 @@ extern const char *pam_getenv(pam_handle_t *pamh, const char *name);
 </tscreen>
 
 <p>
-<em>
-Warning, the environment support in <bf/Linux-PAM/ is based solely
-on a six-line email from the developers at Sun. Its interface is
-likely to be generally correct, however, the details are likely to be
-changed as more information becomes available.
-</em>
-
-<p>
 Obtain the value of the indicated <bf/Linux-PAM/ environment
 variable. On error, internal failure or the unavailability of the
 given variable (unspecified), this function simply returns <tt/NULL/.
@@ -895,22 +907,31 @@ extern const char * const *pam_getenvlist(pam_handle_t *pamh);
 </tscreen>
 
 <p>
-<em>
-Warning, the environment support in <bf/Linux-PAM/ is based solely
-on a six line email from the developers at Sun. Its interface is
-likely to be generally correct, however, the details are likely to be
-changed as more information becomes available.
-</em>
+The PAM environment variables (see section <ref
+id="pam-putenv-section" name="above">) are a complete set of enviroment
+variables that are associated with a PAM-handle (<tt/pamh/). They
+represent the contents of the <it/regular/ environment variables of
+the authenticated user when service is granted.
 
 <p>
-This function returns a pointer to the complete <tt/Linux-PAM/
-environment.  It is a pointer to a <em/read-only/ list of
-<em/read-only/ environment variables.  It should be noted that this
-memory will become invalid after a call to <tt/pam_end()/ (see the
-section <ref id="pam-end-section" name="above">).  If application
-wishes to make use of this list after such a call, it should first
-make a copy of all the set variables. (A function that performs such a
-transcription is to be found in <tt/libpam_misc/.)
+Th function, <tt>pam_getenvlist()</tt> returns a pointer to a complete,
+<tt/malloc()/'d, copy of the PAM environment.  It is a pointer to a
+duplicated list of environment variables.  It should be noted that
+this memory will never be <tt/free()'d/ by <tt/libpam/.  Once obtained
+by a call to <tt/pam_getenvlist()/, <bf>it is the responsibility of
+the calling application</bf> to <tt/free()/ this memory.
+
+<p>
+The format of the memory is a <tt/malloc()/'d array of <tt/char */
+pointers, the last element of which is set to <tt/NULL/. Each of the
+non-<tt/NULL/ entries in this array point to a <tt/NUL/ terminated and
+<tt/malloc()/'d <tt/char/ string of the form:
+<tt/"/<it/name/<tt/=/<it/value/<tt/"/.
+
+<p>
+It is by design, and not a coincidence, that the format and contents
+of the returned array matches that required for the third argument of
+the <tt/execle(3)/ function call.
 
 <sect1>What is expected of an application
 
@@ -1268,19 +1289,26 @@ should be noted that this library is specific to <bf/Linux-PAM/ and is
 not referred to in the defining DCE-RFC (see <ref id="bibliography"
 name="the bibliography">) below.
 
-<sect1>Functions supplied
+<sect1>Macros supplied
 
-<sect2>Safe string duplication
+<sect2>Safe duplication of strings
 
 <p>
 <tscreen>
 <verb>
-extern char *xstrdup(const char *s)
+x_strdup(const char *s)
 </verb>
 </tscreen>
-Return a duplicate copy of the <tt/NUL/ terminated string,
-<tt/s/. <tt/NULL/ is returned if there is insufficient memory
-available for the duplicate or if <tt/s=NULL/.
+
+<p>
+This macro is a replacement for the <tt/xstrdup()/ function that was
+present in earlier versions of the library and which clashed horribly
+with a number of applications. It returns a duplicate copy of the
+<tt/NUL/ terminated string, <tt/s/. <tt/NULL/ is returned if there is
+insufficient memory available for the duplicate or if <tt/s/ is
+<tt/NULL/ to begin with.
+
+<sect1>Functions supplied
 
 <sect2>A text based conversation function
 
@@ -1346,14 +1374,28 @@ Following a return from the <bf/Linux-PAM/ libraray, the value of this
 variable indicates whether the conversation has timed out. A value of
 <tt/1/ indicates the time-out occurred.
 
-<tag><tt>extern int (*pam_binary_handler_fn)(const union pam_u_packet_p send,
-                     union pam_u_packet_p *receive);</tt></tag>
+</descrip>
+
+<p>
+The following two function pointers are available for supporting binary
+prompts in the conversation function. They are optimized for the
+current incarnation of the <tt/libpamc/ library and are subject to
+change.
+<descrip>
+<tag><tt>extern int (*pam_binary_handler_fn)(void *appdata, pamc_bp_t
+*prompt_p);</tt></tag>
 
 This function pointer is initialized to <tt/NULL/ but can be filled
 with a function that provides machine-machine (hidden) message
 exchange.  It is intended for use with hidden authentication protocols
 such as RSA or Diffie-Hellman key exchanges.  (This is still under
 development.)
+
+<tag><tt>extern int (*pam_binary_handler_free)(void *appdata,
+pamc_bp_t *delete_me);</tt></tag>
+
+This function pointer is initialized to <tt/PAM_BP_RENEW(delete_me, 0,
+0)/, but can be redefined as desired by the application.
 
 </descrip>
 
@@ -1370,20 +1412,6 @@ This function takes the supplied list of environment pointers and
 <em/uploads/ its contents to the <bf/Linux-PAM/ environment. Success
 is indicated by <tt/PAM_SUCCESS/.
 
-<sect2>Saving the Linux-PAM environment for later use
-<p>
-<tscreen>
-<verb>
-extern char **pam_misc_copy_env(pam_handle_t *pamh);
-</verb>
-</tscreen>
-
-This function returns a pointer to a list of environment variables
-that are a direct copy of the <bf/Linux-PAM/ environment.  The memory
-associated with these variables are the responsibility of the
-application and should be liberated with a call to
-<tt/pam_misc_drop_env()/.
-
 <sect2>Liberating a locally saved environment
 <p>
 <tscreen>
@@ -1392,7 +1420,7 @@ extern char **pam_misc_drop_env(char **env);
 </verb>
 </tscreen>
 
-This function is defined to complement the <tt/pam_misc_copy_env()/
+This function is defined to complement the <tt/pam_getenvlist()/
 function.  It liberates the memory associated with <tt/env/,
 <em/overwriting/ with <tt/0/ all memory before <tt/free()/ing it.
 

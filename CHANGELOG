@@ -55,6 +55,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* documentation: suggestions regarding PAM environment variables from
+  Jenn Vesperman, plus some updatens to the libpam_misc description
+  (Bug 527821 - agmorgan)
 * documentation: pam_time.sgml typo fixed, pam_motd exists now,
   correct Red Hat comment about config files (Bugs 554274, 554261,
   554182 - agmorgan)
