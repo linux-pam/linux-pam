@@ -70,6 +70,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   changes the password (Bug 872945 - kukuk)
 * pam_limits: support for new Linux kernel 2.6 limits (from toby cabot
   - t8m)
+* pam_tally: major rewrite of the module (t8m)
 
 0.78: Do Nov 18 14:48:36 CET 2004
 

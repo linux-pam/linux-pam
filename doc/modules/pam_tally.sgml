@@ -18,6 +18,7 @@ pam_tally
 
 <tag><bf>Author[s]:</bf></tag>
 Tim Baverstock
+Tomas Mraz
 
 <tag><bf>Maintainer:</bf></tag>
 
@@ -61,9 +62,7 @@ want to use the supplied appliction.
 <p>
 Note, there are some outstanding issues with this module:
 <tt>pam_tally</tt> is very dependant on <tt>getpw*()</tt> - a database
-of usernames would be much more flexible; the `keep a count of current
-logins' bit has been <tt>#ifdef</tt>'d out and you can only reset the
-counter on successful authentication, for now.
+of usernames would be much more flexible
 
 <sect3>Generic options accepted by both components
 <p>
@@ -84,23 +83,46 @@ counter on successful authentication, for now.
 <tag><bf>Recognized arguments:</bf></tag>
 <tt>onerr=</tt>(<tt>succeed</tt>|<tt>fail</tt>);
 <tt>file=</tt>/where/to/keep/counts;
-<tt>no_magic_root</tt>
+<tt>deny=</tt><em>n</em>;
+<tt>lock_time=</tt><em>n</em>;
+<tt>unlock_time=</tt><em>n</em>;
+<tt>magic_root</tt>;
+<tt>even_deny_root_account</tt>;
+<tt>per_user</tt>;
+<tt>no_lock_time</tt>
+<tt>no_reset</tt>;
 
 <tag><bf>Description:</bf></tag>
 
 <p>
-The authentication component of this module increments the attempted
-login counter.
+The authentication component first checks if the user should be denied
+access and if not it increments attempted login counter.
+Then on call to <tt>pam_setcred</tt> it resets the attempts counter 
+if the user is NOT magic root.
 
 <p>
 <tag><bf>Examples/suggested usage:</bf></tag>
 
 <p>
-The module argument <tt>no_magic_root</tt> is used to indicate that if
-the module is invoked by a user with uid=0, then the counter is
-incremented. The sys-admin should use this for daemon-launched
-services, like <tt>telnet</tt>/<tt>rsh</tt>/<tt>login</tt>. For user
-launched services, like <tt>su</tt>, this argument should be omitted.
+The <tt>deny=</tt><em>n</em> option is used to deny access if tally
+for this user exceeds <em>n</em>.
+
+<p>
+The <tt>lock_time=</tt><em>n</em> option is used to always deny access
+for at least <em>n</em> seconds after a failed attempt.
+
+<p>
+The <tt>unlock_time=</tt><em>n</em> option is used to allow access after
+<em>n</em> seconds after the last failed attempt with exceeded tally.
+If this option is used the user will be locked out only for the specified
+amount of time after he exceeded his maximum allowed attempts. Otherwise
+the lock is removed only by a manual intervention of the system administrator.
+
+<p>
+The <tt>magic_root</tt> option is used to indicate that if
+the module is invoked by a user with uid=0, then the counter is not
+incremented. The sys-admin should use this for user launched services,
+like <tt>su</tt>, otherwise this argument should be omitted.
 
 <p>
 By way of more explanation, when a process already running as root
@@ -109,8 +131,32 @@ bypasses <tt>pam_tally</tt>'s checks: this is handy for <tt>su</tt>ing
 from root into an account otherwise blocked. However, for services
 like <tt>telnet</tt> or <tt>login</tt>, which always effectively run
 from the root account, root (ie everyone) shouldn't be granted this
-magic status, and the flag `no_magic_root' should be set in this
+magic status, and the flag `magic_root' should not be set in this
 situation, as noted in the summary above.
+
+<p>
+Normally, failed attempts to access root will <bf>NOT</bf> cause the
+root account to become blocked, to prevent denial-of-service: if your
+users aren't given shell accounts and root may only login via
+<tt>su</tt> or at the machine console (not
+<tt>telnet</tt>/<tt>rsh</tt>, etc), this is safe. If you really want
+root to be blocked for some given service, use
+<tt>even_deny_root_account</tt>.
+
+<p>
+If <tt>/var/log/faillog</tt> contains a non-zero <tt>.fail_max/.fail_locktime</tt>
+field for this user then the <tt>per_user</tt> module argument will
+ensure that the module uses this value and not the global
+<tt>deny/lock_time=</tt><em>n</em> parameter.
+
+<p>
+The <tt>no_lock_time</tt> option is for ensuring that the module does
+not use the <tt>.fail_locktime</tt> field in /var/log/faillog for this
+user.
+
+<p>
+The <tt>no_reset</tt> option is used to instruct the module to not reset
+the count on successful entry.
 
 </descrip>
 
@@ -122,67 +168,28 @@ situation, as noted in the summary above.
 <tag><bf>Recognized arguments:</bf></tag>
 <tt>onerr=</tt>(<tt>succeed</tt>|<tt>fail</tt>);
 <tt>file=</tt>/where/to/keep/counts;
-<tt>deny=</tt><em>n</em>;
-<tt>no_magic_root</tt>;
-<tt>even_deny_root_account</tt>;
-<tt>reset</tt>;
+<tt>magic_root</tt>;
 <tt>no_reset</tt>;
-<tt>per_user</tt>;
-<tt>no_lock_time</tt>
 
 <tag><bf>Description:</bf></tag>
 
 <p>
-The account component can deny access and/or reset the attempts
-counter. It also checks to make sure that the counts file is a plain
-file and not world writable.
+The account component resets attempts counter if the user is NOT 
+magic root. This phase can be used optionaly for services which don't call
+pam_setcred correctly or if the reset should be done regardless
+of the failure of the account phase of other modules.
 
 <tag><bf>Examples/suggested usage:</bf></tag>
 
 <p>
-The <tt>deny=</tt><em>n</em> option is used to deny access if tally
-for this user exceeds <em>n</em>. The presence of
-<tt>deny=</tt><em>n</em> changes the default for
-<tt>reset</tt>/<tt>no_reset</tt> to <tt>reset</tt>, unless the user
-trying to gain access is root and the <tt>no_magic_root</tt> option
-has NOT been specified.
+The <tt>magic_root</tt> option is used to indicate that if
+the module is invoked by a user with uid=0, then the counter is not
+decremented/reset. The sys-admin should use this for user launched services,
+like <tt>su</tt>, otherwise this argument should be omitted.
 
 <p>
-The <tt>no_magic_root</tt> option ensures that access attempts by root
-DON'T ignore deny.  Use this for daemon-based stuff, like
-<tt>telnet</tt>/<tt>rsh</tt>/<tt>login</tt>.
-
-<p>
-The <tt>even_deny_root_account</tt> option is used to ensure that the
-root account can become unavailable. <bf>Note</bf> that magic root
-trying to gain root bypasses this, but normal users can be locked out.
-
-<p>
-The <tt>reset</tt> option instructs the module to reset count to 0 on
-successful entry, even for magic root. The <tt>no_reset</tt> option is
-used to instruct the module to not reset the count on successful
-entry.  This is the default unless <tt>deny</tt> exists and the user
-attempting access is NOT magic root.
-
-<p>
-If <tt>/var/log/faillog</tt> contains a non-zero <tt>.fail_max</tt>
-field for this user then the <tt>per_user</tt> module argument will
-ensure that the module uses this value and not the global
-<tt>deny=</tt><em>n</em> parameter.
-
-<p>
-The <tt>no_lock_time</tt> option is for ensuring that the module does
-not use the <tt>.fail_locktime</tt> field in /var/log/faillog for this
-user.
-
-<p>
-Normally, failed attempts to access root will <bf>NOT</bf> cause the
-root account to become blocked, to prevent denial-of-service: if your
-users aren't given shell accounts and root may only login via
-<tt>su</tt> or at the machine console (not
-<tt>telnet</tt>/<tt>rsh</tt>, etc), this is safe. If you really want
-root to be blocked for some given service, use
-<tt>even_deny_root_account</tt>.
+The <tt>no_reset</tt> option is used to instruct the module to not reset
+the count on successful entry.
 
 </descrip>
 

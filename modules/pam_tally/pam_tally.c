@@ -9,6 +9,8 @@
  * 5 March 1997
  *
  * Stuff stolen from pam_rootok and pam_listfile
+ *
+ * Changes by Tomas Mraz <tmraz@redhat.com> 5 January 2005
  */
 
 #include <security/_pam_aconf.h>
@@ -56,12 +58,6 @@
 #define DEFAULT_LOGFILE "/var/log/faillog"
 #define MODULE_NAME     "pam_tally"
 
-enum TALLY_RESET {
-  TALLY_RESET_DEFAULT,
-  TALLY_RESET_RESET,
-  TALLY_RESET_NO_RESET
-};
-
 #define tally_t    unsigned short int
 #define TALLY_FMT  "%hu"
 #define TALLY_HI   ((tally_t)~0L)
@@ -78,6 +74,27 @@ struct fail_s {
     time_t fs_fail_time;
 #endif /* ndef MAIN */
 };
+
+struct tally_options {
+    const char *filename;
+    tally_t deny;
+    long lock_time;
+    long unlock_time;
+    unsigned int ctrl;
+};
+
+#define PHASE_UNKNOWN 0
+#define PHASE_AUTH    1
+#define PHASE_ACCOUNT 2
+#define PHASE_SESSION 3
+
+#define OPT_MAGIC_ROOT			  01
+#define OPT_FAIL_ON_ERROR		  02
+#define OPT_DENY_ROOT			  04
+#define OPT_PER_USER			 010
+#define	OPT_NO_LOCK_TIME		 020
+#define OPT_NO_RESET			 040
+
 
 /*---------------------------------------------------------------------*/
 
@@ -97,6 +114,91 @@ static void _pam_log(int err, const char *format, ...)
     closelog();
 #endif
     va_end(args);
+}
+
+/*---------------------------------------------------------------------*/
+
+/* --- Support function: parse arguments --- */
+
+static void log_phase_no_auth( int phase, const char *argv )
+{
+    if ( phase != PHASE_AUTH ) {
+    	_pam_log(LOG_ERR,
+    	         MODULE_NAME ": option %s allowed in auth phase only", argv);  	         
+    }
+}
+
+static int tally_parse_args( struct tally_options *opts, int phase,
+			     int argc, const char **argv )
+{
+    memset(opts, 0, sizeof(*opts));
+    opts->filename = DEFAULT_LOGFILE;
+    
+    for ( ; argc-- > 0; ++argv ) {
+
+      if ( ! strncmp( *argv, "file=", 5 ) ) {
+	const char *from = *argv + 5;
+        if ( *from!='/' || strlen(from)>FILENAME_MAX-1 ) {
+          _pam_log(LOG_ERR,
+                   MODULE_NAME ": filename not /rooted or too long; ",
+                   *argv);
+          return PAM_AUTH_ERR;
+        }
+        opts->filename = from;
+      }
+      else if ( ! strcmp( *argv, "onerr=fail" ) ) {
+        opts->ctrl |= OPT_FAIL_ON_ERROR;
+      }
+      else if ( ! strcmp( *argv, "onerr=succeed" ) ) {
+        opts->ctrl &= ~OPT_FAIL_ON_ERROR;
+      }
+      else if ( ! strcmp( *argv, "magic_root" ) ) {
+        opts->ctrl |= OPT_MAGIC_ROOT;
+      }
+      else if ( ! strcmp( *argv, "even_deny_root_account" ) ) {
+	log_phase_no_auth(phase, *argv);  
+        opts->ctrl |= OPT_DENY_ROOT;
+      }
+      else if ( ! strncmp( *argv, "deny=", 5 ) ) {
+	log_phase_no_auth(phase, *argv);  
+        if ( sscanf((*argv)+5,TALLY_FMT,&opts->deny) != 1 ) {
+          _pam_log(LOG_ERR,"bad number supplied; %s",*argv);
+          return PAM_AUTH_ERR;
+        }
+      }
+      else if ( ! strncmp( *argv, "lock_time=", 10 ) ) {
+	log_phase_no_auth(phase, *argv);  
+        if ( sscanf((*argv)+10,"%ld",&opts->lock_time) != 1 ) {
+          _pam_log(LOG_ERR,"bad number supplied; %s",*argv);
+          return PAM_AUTH_ERR;
+        }
+      }
+      else if ( ! strncmp( *argv, "unlock_time=", 12 ) ) {
+	log_phase_no_auth(phase, *argv);  
+        if ( sscanf((*argv)+12,"%ld",&opts->unlock_time) != 1 ) {
+          _pam_log(LOG_ERR,"bad number supplied; %s",*argv);
+          return PAM_AUTH_ERR;
+        }
+      }
+      else if ( ! strcmp( *argv, "per_user" ) )
+      {
+	log_phase_no_auth(phase, *argv);  
+      	opts->ctrl |= OPT_PER_USER;
+      }
+      else if ( ! strcmp( *argv, "no_lock_time") )
+      {
+	log_phase_no_auth(phase, *argv);  
+      	opts->ctrl |= OPT_NO_LOCK_TIME;
+      }
+      else if ( ! strcmp( *argv, "no_reset" ) ) {
+        opts->ctrl |= OPT_NO_RESET;
+      }
+      else {
+        _pam_log(LOG_ERR, MODULE_NAME ": unknown option; %s",*argv);
+      }
+    }
+
+    return PAM_SUCCESS;
 }
 
 /*---------------------------------------------------------------------*/
@@ -132,6 +234,42 @@ static int pam_get_uid( pam_handle_t *pamh, uid_t *uid, const char **userp )
     if ( uid )   *uid   = pw->pw_uid;
     if ( userp ) *userp = user;
     return PAM_SUCCESS;
+  }
+
+/*---------------------------------------------------------------------*/
+
+/* --- Support functions: set/get tally data --- */
+
+static void _cleanup( pam_handle_t *pamh, void *data, int error_status )
+  {
+    free(data);
+  }
+
+static void tally_set_data( pam_handle_t *pamh, time_t oldtime ) 
+  {
+    time_t *data;
+    
+    if ( (data=malloc(sizeof(time_t))) != NULL ) {
+        *data = oldtime;    
+        pam_set_data(pamh, MODULE_NAME, (void *)data, _cleanup);
+    }
+  }
+
+static int tally_get_data( pam_handle_t *pamh, time_t *oldtime ) 
+  {
+    int rv;
+    const void *data;
+
+    rv = pam_get_data(pamh, MODULE_NAME, &data);
+    if ( rv == PAM_SUCCESS && oldtime != NULL ) {
+      *oldtime = *(const time_t *)data;
+      pam_set_data(pamh, MODULE_NAME, NULL, NULL);
+    }
+    else {
+      rv = -1;
+      *oldtime = 0;
+    }
+    return rv;
   }
 
 /*---------------------------------------------------------------------*/
@@ -255,82 +393,42 @@ static int set_tally( tally_t tally,
 #define PAM_FUNCTION(name) \
  PAM_EXTERN int name (pam_handle_t *pamh,int flags,int argc,const char **argv)
 
-#define RETURN_ERROR(i) return ((fail_on_error)?(i):(PAM_SUCCESS))
+#define RETURN_ERROR(i) return ((opts->ctrl & OPT_FAIL_ON_ERROR)?(i):(PAM_SUCCESS))
 
 /*---------------------------------------------------------------------*/
 
 /* --- tally bump function: bump tally for uid by (signed) inc --- */
 
-static int tally_bump (int inc,
+static int tally_bump (int inc, time_t *oldtime,
                            pam_handle_t *pamh,
-                           int flags,
-                           int argc,
-                           const char **argv) {
-  uid_t uid;
-
-  int 
-    fail_on_error = FALSE;
+                           uid_t uid,
+                           const char *user,
+                           struct tally_options *opts) {
   tally_t
     tally         = 0;  /* !TALLY_HI --> Log opened for update */
 
-  char
-    no_magic_root          = FALSE;
-
-  char 
-    filename[ FILENAME_MAX ] = DEFAULT_LOGFILE;
-
-  /* Should probably decode the parameters before anything else. */
-
-  {
-    for ( ; argc-- > 0; ++argv ) {
-
-      /* generic options.. um, ignored. :] */
-      
-      if ( ! strcmp( *argv, "no_magic_root" ) ) {
-        no_magic_root = TRUE;
-      }
-      else if ( ! strncmp( *argv, "file=", 5 ) ) {
-        char const 
-          *from = (*argv)+5;
-        char
-          *to   = filename;
-        if ( *from!='/' || strlen(from)>FILENAME_MAX-1 ) {
-          _pam_log(LOG_ERR,
-                   MODULE_NAME ": filename not /rooted or too long; ",
-                   *argv);
-          RETURN_ERROR( PAM_AUTH_ERR );
-        }
-        while ( ( *to++ = *from++ ) );        
-      }
-      else if ( ! strcmp( *argv, "onerr=fail" ) ) {
-        fail_on_error=TRUE;
-      }
-      else if ( ! strcmp( *argv, "onerr=succeed" ) ) {
-        fail_on_error=FALSE;
-      }
-      else {
-        _pam_log(LOG_ERR, MODULE_NAME ": unknown option; %s",*argv);
-      }
-    } /* for() */
-  }
-
-  {
     FILE
       *TALLY = NULL;
     const char
-      *user  = NULL,
       *remote_host = NULL,
       *cur_tty = NULL;
     struct fail_s fs, *fsp = &fs;
+    int i;
 
-    int i=pam_get_uid(pamh, &uid, &user);
-    if ( i != PAM_SUCCESS ) RETURN_ERROR( i );
-
-    i=get_tally( &tally, uid, filename, &TALLY, fsp );
+    i=get_tally( &tally, uid, opts->filename, &TALLY, fsp );
 
     /* to remember old fail time (for locktime) */
     fsp->fs_fail_time = fsp->fs_faillog.fail_time;
-    fsp->fs_faillog.fail_time = time(NULL);
+    if ( inc > 0 ) {
+        if ( oldtime ) {
+            *oldtime = fsp->fs_faillog.fail_time;
+        }
+        fsp->fs_faillog.fail_time = time(NULL);
+    } else {
+        if ( oldtime ) {
+            fsp->fs_faillog.fail_time = *oldtime;
+        }
+    }
     (void) pam_get_item(pamh, PAM_RHOST, (const void **)&remote_host);
     if (!remote_host) {
 
@@ -352,7 +450,7 @@ static int tally_bump (int inc,
     }
     if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
     
-    if ( no_magic_root || getuid() ) {       /* no_magic_root kills uid test */
+    if ( !(opts->ctrl & OPT_MAGIC_ROOT) || getuid() ) {   /* magic_root doesn't change tally */
 
       tally+=inc;
       
@@ -363,12 +461,111 @@ static int tally_bump (int inc,
       }
     }
     
-    i=set_tally( tally, uid, filename, &TALLY, fsp );
+    i=set_tally( tally, uid, opts->filename, &TALLY, fsp );
     if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
-  }
 
-  return PAM_SUCCESS;
+    return PAM_SUCCESS;
 } 
+
+static int tally_check (time_t oldtime, 
+                           pam_handle_t *pamh,	
+                           uid_t uid,
+                           const char *user,
+                           struct tally_options *opts) {
+  tally_t
+    deny          = opts->deny;
+  tally_t
+    tally         = 0;  /* !TALLY_HI --> Log opened for update */
+  long
+    lock_time     = opts->lock_time;
+
+    struct fail_s fs, *fsp = &fs;
+    FILE *TALLY=0;
+    int i;
+    
+    i=get_tally( &tally, uid, opts->filename, &TALLY, fsp );
+    if (TALLY) fclose(TALLY); 
+    if ( i != PAM_SUCCESS ) { RETURN_ERROR( i ); }
+    
+    if ( !(opts->ctrl & OPT_MAGIC_ROOT) || getuid() ) {       /* magic_root skips tally check */
+      
+      /* To deny or not to deny; that is the question */
+      
+      /* if there's .fail_max entry and per_user=TRUE then deny=.fail_max */
+      
+      if ( (fsp->fs_faillog.fail_max) && (opts->ctrl & OPT_PER_USER) ) {
+	  deny = fsp->fs_faillog.fail_max;
+      }
+      if ( (fsp->fs_faillog.fail_locktime) && (opts->ctrl & OPT_PER_USER) ) {
+	  lock_time = fsp->fs_faillog.fail_locktime;
+      }
+      if (lock_time && oldtime
+	  && !(opts->ctrl & OPT_NO_LOCK_TIME) )
+      {
+      	if ( lock_time + oldtime > time(NULL) )
+      	{ 
+      		_pam_log(LOG_NOTICE,
+			 "user %s ("UID_FMT") has time limit [%lds left]"
+			 " since last failure.",
+			 user,uid,
+			 oldtime+lock_time
+			 -time(NULL));
+      		return PAM_AUTH_ERR;
+      	}
+      }
+      if (opts->unlock_time && oldtime)
+      {
+      	if ( opts->unlock_time + oldtime <= time(NULL) )
+      	{       /* ignore deny check after unlock_time elapsed */
+      		return PAM_SUCCESS;
+      	}
+      }
+      if (
+        ( deny != 0 ) &&                     /* deny==0 means no deny        */
+        ( tally > deny ) &&                  /* tally>deny means exceeded    */
+        ( ((opts->ctrl & OPT_DENY_ROOT) || uid) )    /* even_deny stops uid check    */
+        ) {
+        _pam_log(LOG_NOTICE,"user %s ("UID_FMT") tally "TALLY_FMT", deny "TALLY_FMT,
+                 user, uid, tally, deny);
+        return PAM_AUTH_ERR;                 /* Only unconditional failure   */
+      }
+    }
+      
+    return PAM_SUCCESS;
+}
+
+static int tally_reset (pam_handle_t *pamh,
+                           uid_t uid,
+                           const char *user,
+                           struct tally_options *opts) {
+  tally_t
+    tally         = 0;  /* !TALLY_HI --> Log opened for update */
+
+    struct fail_s fs, *fsp = &fs;
+    FILE *TALLY=0;
+    int i;
+
+    i=get_tally( &tally, uid, opts->filename, &TALLY, fsp );
+    if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
+    
+      /* resets if not magic root
+       */
+      
+    if ( (!(opts->ctrl & OPT_MAGIC_ROOT) || getuid()) 
+         && !(opts->ctrl & OPT_NO_RESET) ) 
+        { tally=0; }
+      
+    if (tally == 0)
+    {
+    	fsp->fs_faillog.fail_time = (time_t) 0;
+    	strcpy(fsp->fs_faillog.fail_line, "");	
+    }
+
+    i=set_tally( tally, uid, opts->filename, &TALLY, fsp );
+    if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
+  
+    return PAM_SUCCESS;
+}
 
 /*---------------------------------------------------------------------*/
 
@@ -377,33 +574,60 @@ static int tally_bump (int inc,
 #ifdef PAM_SM_AUTH
 
 PAM_FUNCTION( pam_sm_authenticate ) {
-  return tally_bump( 1, pamh, flags, argc, argv);
+  int
+    rvcheck, rvbump;
+  time_t
+    oldtime = 0;
+  struct tally_options 
+    options, *opts = &options;
+  uid_t 
+    uid;
+  const char
+    *user;
+  
+  rvcheck = tally_parse_args(opts, PHASE_AUTH, argc, argv);
+  if ( rvcheck != PAM_SUCCESS )
+      RETURN_ERROR( rvcheck );
+          
+  rvcheck = pam_get_uid(pamh, &uid, &user);
+  if ( rvcheck != PAM_SUCCESS )
+      RETURN_ERROR( rvcheck );
+      
+  rvbump = tally_bump(1, &oldtime, pamh, uid, user, opts);
+  rvcheck = tally_check(oldtime, pamh, uid, user, opts);
+  
+  tally_set_data(pamh, oldtime);
+  
+  return rvcheck != PAM_SUCCESS ? rvcheck : rvbump;
 }
 
-/* --- Seems to need this function. Ho hum. --- */
+PAM_FUNCTION( pam_sm_setcred ) {
+  int
+    rv;
+  time_t
+    oldtime = 0;
+  struct tally_options 
+    options, *opts = &options;
+  uid_t 
+    uid;
+  const char
+    *user;
+  
+  rv = tally_parse_args(opts, PHASE_AUTH, argc, argv);
+  if ( rv != PAM_SUCCESS )
+      RETURN_ERROR( rv );
 
-PAM_FUNCTION( pam_sm_setcred ) { return PAM_SUCCESS; }
-
-#endif
-
-/*---------------------------------------------------------------------*/
-
-/* --- session management functions (only) --- */
-
-/*
- *  Unavailable until .so files can be suid
- */
-
-#ifdef PAM_SM_SESSION
-
-/* To maintain a balance-tally of successful login/outs */
-
-PAM_FUNCTION( pam_sm_open_session ) {
-  return tally_bump( 1, pamh, flags, argc, argv);
-}
-
-PAM_FUNCTION( pam_sm_close_session ) {
-  return tally_bump(-1, pamh, flags, argc, argv);
+  rv = pam_get_uid(pamh, &uid, &user);
+  if ( rv != PAM_SUCCESS )
+      RETURN_ERROR( rv );
+      
+  if ( tally_get_data(pamh, &oldtime) != 0 )
+  /* no data found */
+      return PAM_SUCCESS;
+      
+  if ( (rv=tally_bump(-1, &oldtime, pamh, uid, user, opts)) != PAM_SUCCESS )
+      return rv;
+  return tally_reset(pamh, uid, user, opts);
 }
 
 #endif
@@ -412,168 +636,40 @@ PAM_FUNCTION( pam_sm_close_session ) {
 
 /* --- authentication management functions (only) --- */
 
-#ifdef PAM_SM_AUTH
+#ifdef PAM_SM_ACCOUNT
 
-/* To lock out a user with an unacceptably high tally */
+/* To reset failcount of user on successfull login */
 
 PAM_FUNCTION( pam_sm_acct_mgmt ) {
+  int
+    rv;
+  time_t
+    oldtime = 0;
+  struct tally_options 
+    options, *opts = &options;
   uid_t 
     uid;
-
-  int 
-    fail_on_error = FALSE;
-  tally_t
-    deny          = 0;
-  tally_t
-    tally         = 0;  /* !TALLY_HI --> Log opened for update */
-
-  char
-    no_magic_root          = FALSE,
-    even_deny_root_account = FALSE;
-  char  per_user	    = FALSE;    /* if true then deny=.fail_max for user */
-  char  no_lock_time	    = FALSE;	/* if true then don't use .fail_locktime */
-
   const char
-    *user                  = NULL;
-
-  enum TALLY_RESET 
-    reset         = TALLY_RESET_DEFAULT;
-
-  char 
-    filename[ FILENAME_MAX ] = DEFAULT_LOGFILE;
-
-  /* Should probably decode the parameters before anything else. */
-
-  {
-    for ( ; argc-- > 0; ++argv ) {
-
-      /* generic options.. um, ignored. :] */
-      
-      if ( ! strcmp( *argv, "no_magic_root" ) ) {
-        no_magic_root = TRUE;
-      }
-      else if ( ! strcmp( *argv, "even_deny_root_account" ) ) {
-        even_deny_root_account = TRUE;
-      }
-      else if ( ! strcmp( *argv, "reset" ) ) {
-        reset = TALLY_RESET_RESET;
-      }
-      else if ( ! strcmp( *argv, "no_reset" ) ) {
-        reset = TALLY_RESET_NO_RESET;
-      }
-      else if ( ! strncmp( *argv, "file=", 5 ) ) {
-        char const 
-          *from = (*argv)+5;
-        char
-          *to   = filename;
-        if ( *from != '/' || strlen(from) > FILENAME_MAX-1 ) {
-          _pam_log(LOG_ERR,
-                   MODULE_NAME ": filename not /rooted or too long; ",
-                   *argv);
-          RETURN_ERROR( PAM_AUTH_ERR );
-        }
-        while ( ( *to++ = *from++ ) );        
-      }
-      else if ( ! strncmp( *argv, "deny=", 5 ) ) {
-        if ( sscanf((*argv)+5,TALLY_FMT,&deny) != 1 ) {
-          _pam_log(LOG_ERR,"bad number supplied; %s",*argv);
-          RETURN_ERROR( PAM_AUTH_ERR );
-        }
-      }
-      else if ( ! strcmp( *argv, "onerr=fail" ) ) {
-        fail_on_error=TRUE;
-      }
-      else if ( ! strcmp( *argv, "onerr=succeed" ) ) {
-        fail_on_error=FALSE;
-      }
-      else if ( ! strcmp( *argv, "per_user" ) )
-      {
-      	per_user = TRUE;
-      }
-      else if ( ! strcmp( *argv, "no_lock_time") )
-      {
-      	no_lock_time = TRUE;
-      }
-      else {
-        _pam_log(LOG_ERR, MODULE_NAME ": unknown option; %s",*argv);
-      }
-    } /* for() */
-  }
+    *user;
   
-  {
-    struct fail_s fs, *fsp = &fs;
-    FILE *TALLY=0;
-    int i=pam_get_uid(pamh, &uid, &user);
-    if ( i != PAM_SUCCESS ) RETURN_ERROR( i );
-    
-    i=get_tally( &tally, uid, filename, &TALLY, fsp );
-    if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
-    
-    if ( no_magic_root || getuid() ) {       /* no_magic_root kills uid test */
-      
-      /* To deny or not to deny; that is the question */
-      
-      /* if there's .fail_max entry and per_user=TRUE then deny=.fail_max */
-      
-      if ( (fsp->fs_faillog.fail_max) && (per_user) ) {
-	  deny = fsp->fs_faillog.fail_max;
-      }
-      if (fsp->fs_faillog.fail_locktime && fsp->fs_fail_time
-	  && (!no_lock_time) )
-      {
-      	if ( (fsp->fs_faillog.fail_locktime + fsp->fs_fail_time) > time(NULL) )
-      	{ 
-      		_pam_log(LOG_NOTICE,
-			 "user %s ("UID_FMT") has time limit [%lds left]"
-			 " since last failure.",
-			 user,uid,
-			 fsp->fs_fail_time+fsp->fs_faillog.fail_locktime
-			 -time(NULL));
-		if (TALLY)
-			fclose(TALLY);
-      		return PAM_AUTH_ERR;
-      	}
-      }
-      if (
-        ( deny != 0 ) &&                     /* deny==0 means no deny        */
-        ( tally > deny ) &&                  /* tally>deny means exceeded    */
-        ( even_deny_root_account || uid )    /* even_deny stops uid check    */
-        ) {
-        _pam_log(LOG_NOTICE,"user %s ("UID_FMT") tally "TALLY_FMT", deny "TALLY_FMT,
-                 user, uid, tally, deny);
-		if (TALLY)
-			fclose(TALLY);
-        return PAM_AUTH_ERR;                 /* Only unconditional failure   */
-      }
-      
-      /* resets for explicit reset
-       * or by default if deny exists and not magic-root
-       */
-      
-      if ( ( reset == TALLY_RESET_RESET ) ||
-           ( reset == TALLY_RESET_DEFAULT && deny ) ) { tally=0; }
-    }
-    else /* is magic root */ {
-      
-      /* Magic root skips deny test... */
-      
-      /* Magic root only resets on explicit reset, regardless of deny */
-      
-      if ( reset == TALLY_RESET_RESET ) { tally=0; }
-    }
-    if (tally == 0)
-    {
-    	fsp->fs_faillog.fail_time = (time_t) 0;
-    	strcpy(fsp->fs_faillog.fail_line, "");	
-    }
-    i=set_tally( tally, uid, filename, &TALLY, fsp );
-    if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
-  }
+  rv = tally_parse_args(opts, PHASE_ACCOUNT, argc, argv);
+  if ( rv != PAM_SUCCESS )
+      RETURN_ERROR( rv );
+
+  rv = pam_get_uid(pamh, &uid, &user);
+  if ( rv != PAM_SUCCESS )
+      RETURN_ERROR( rv );
+
+  if ( tally_get_data(pamh, &oldtime) != 0 )
+  /* no data found */
+      return PAM_SUCCESS;
   
-  return PAM_SUCCESS;
+  if ( (rv=tally_bump(-1, &oldtime, pamh, uid, user, opts)) != PAM_SUCCESS )
+      return rv;
+  return tally_reset(pamh, uid, user, opts);
 } 
 
-#endif  /* #ifdef PAM_SM_AUTH */
+#endif  /* #ifdef PAM_SM_ACCOUNT */
 
 /*-----------------------------------------------------------------------*/
 
@@ -595,18 +691,9 @@ struct pam_module _pam_tally_modstruct = {
 #else
      NULL,
 #endif
-#ifdef PAM_SM_SESSION
-     pam_sm_open_session,
-     pam_sm_close_session,
-#else
      NULL,
      NULL,
-#endif
-#ifdef PAM_SM_PASSWORD
-     pam_sm_chauthtok,
-#else
      NULL,
-#endif
 };
 
 #endif   /* #ifdef PAM_STATIC */
