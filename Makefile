@@ -15,7 +15,7 @@ ifeq ($(shell test \! -f Make.Rules || echo yes),yes)
     include Make.Rules
 endif
 
-THINGSTOMAKE = modules libpam libpamc libpam_misc doc examples
+THINGSTOMAKE = libpam libpamc libpam_misc modules doc examples
 
 all: $(THINGSTOMAKE)
 

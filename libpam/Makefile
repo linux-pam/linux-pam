@@ -112,7 +112,7 @@ endif
 
 $(LIBPAMSTATIC): $(SLIBOBJECTS)
 ifeq ($(STATIC_LIBPAM),yes)
-	ar cr $@ $(SLIBOBJECTS) $(MODULES)
+	$(AR) cr $@ $(SLIBOBJECTS) $(MODULES)
 	$(RANLIB) $@
 endif
 
