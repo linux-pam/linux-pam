@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* removed comments about pam_unix not working with pam_cracklib,
+  added information about use_authtok parameter (Bug 124388 - baggins)
 * fixed wrong definition of struct pam_module (was pam_wheel)
   (Bug 124386 - baggins)
 * fixed example/Makefile include path (Bug 124187 - agmorgan)
