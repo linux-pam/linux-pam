@@ -21,7 +21,7 @@ FILTERS=upperLOWER
 FILTERSDIR=$(SUPLEMENTED)/pam_filter
 export FILTERSDIR
 
-CFLAGS += -Iinclude -I../include
+CFLAGS += -Iinclude
 
 LIBSRC = $(TITLE).c
 LIBOBJ = $(TITLE).o

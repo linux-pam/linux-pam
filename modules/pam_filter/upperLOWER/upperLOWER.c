@@ -49,7 +49,9 @@ static void do_transpose(char *buffer,int len)
      }
 }
 
-int main(int argc, char **argv, char **envp) 
+extern char **environ;
+
+int main(int argc, char **argv) 
 {
      char buffer[BUFSIZ];
      fd_set readers;
@@ -61,8 +63,8 @@ int main(int argc, char **argv, char **envp)
 	  int i;
 
 	  fprintf(stderr,"environment :[\r\n");
-	  for (i=0; envp[i]; ++i) {
-	       fprintf(stderr,"-> %s\r\n",envp[i]);
+	  for (i=0; environ[i]; ++i) {
+	       fprintf(stderr,"-> %s\r\n",environ[i]);
 	  }
 	  fprintf(stderr,"]: end\r\n");
      }

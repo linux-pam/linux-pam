@@ -12,12 +12,11 @@ TITLE=upperLOWER
 
 #
 
+CFLAGS += -I../include
+
 OBJS = $(TITLE).o
 
 ####################### don't edit below #######################
-
-dummy:
-	@echo "**** This is not a top-level Makefile "
 
 all: $(TITLE)
 
