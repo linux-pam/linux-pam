@@ -24,6 +24,11 @@ int pam_start (
     D(("called pam_start: [%s] [%s] [%p] [%p]"
        ,service_name, user, pam_conversation, pamh));
 
+    if (pamh == NULL) {
+	_pam_system_log(LOG_CRIT, "pam_start: invalid argument: pamh == NULL");
+	return (PAM_BUF_ERR);
+    }
+
     if ((*pamh = calloc(1, sizeof(**pamh))) == NULL) {
 	_pam_system_log(LOG_CRIT, "pam_start: calloc failed for *pamh");
 	return (PAM_BUF_ERR);
