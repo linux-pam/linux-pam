@@ -38,7 +38,7 @@
  * SUCH DAMAGE.
  */
 
-#define _BSD_SOURCE
+#include <security/_pam_aconf.h>
 
 #define USER_RHOSTS_FILE "/.rhosts"     /* prefixed by user's home dir */
 
@@ -46,9 +46,9 @@
 #include <endian.h>
 #endif
 
-#ifdef NEED_FSUID_H
+#ifdef HAVE_SYS_FSUID_H
 #include <sys/fsuid.h>
-#endif /* NEED_FSUID_H */
+#endif /* HAVE_SYS_FSUID_H */
 
 #include <sys/types.h>
 #include <sys/uio.h>
@@ -282,7 +282,11 @@ __icheckhost (pam_handle_t *pamh, struct _options *opts, U32 raddr
 	    return (1);                     /* asking for trouble, but ok.. */
 	/* If not promiscuous: handle as negative */
 	return (-1);
+    } else if (strncmp("+",lhost,1) == 0) {
+	/* '+hostname' is supposed to be equivalent to 'hostname' */
+	lhost++;
     }
+
 
     /* Try for raw ip address first. */
     if (isdigit(*lhost) && (long)(laddr = inet_addr(lhost)) != -1)

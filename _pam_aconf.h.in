@@ -79,4 +79,8 @@
 /* location of the mail spool directory */
 #undef PAM_PATH_MAILDIR
 
+/* where should we include setfsuid's prototype from? If this is not
+   defined, we get it from unistd.h */
+#undef HAVE_SYS_FSUID_H
+
 #endif /* PAM_ACONF_H */
