@@ -97,14 +97,6 @@ static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
 	return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE:PAM_SERVICE_ERR);
     }
 
-    retval = pam_get_item(pamh, PAM_TTY, (const void **)&uttyname);
-    if (retval != PAM_SUCCESS || uttyname == NULL) {
-        if (ctrl & PAM_DEBUG_ARG) {
-            _pam_log(LOG_WARNING, "cannot determine user's tty");
-	}
-	return PAM_SERVICE_ERR;
-    }
-
     /* The PAM_TTY item may be prefixed with "/dev/" - skip that */
     if (strncmp(TTY_PREFIX, uttyname, sizeof(TTY_PREFIX)-1) == 0) {
 	uttyname += sizeof(TTY_PREFIX)-1;
@@ -117,6 +109,14 @@ static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
 					   securetty's does not apply
 					   to them */
 	return PAM_SUCCESS;
+    }
+
+    retval = pam_get_item(pamh, PAM_TTY, (const void **)&uttyname);
+    if (retval != PAM_SUCCESS || uttyname == NULL) {
+        if (ctrl & PAM_DEBUG_ARG) {
+            _pam_log(LOG_WARNING, "cannot determine user's tty");
+	}
+	return PAM_SERVICE_ERR;
     }
 
     if (stat(SECURETTY_FILE, &ttyfileinfo)) {
