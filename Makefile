@@ -58,8 +58,6 @@ $(THINGSTOMAKE): _pam_aconf.h prep bootstrap-libpam
 	$(MAKE) -C $@ all
 
 install: _pam_aconf.h prep
-	$(MKDIR) $(FAKEROOT)$(INCLUDED)
-	$(INSTALL) -m 444 security/_pam_aconf.h $(FAKEROOT)$(INCLUDED)
 	for x in $(THINGSTOMAKE) ; do $(MAKE) -C $$x install ; done
 
 remove:
