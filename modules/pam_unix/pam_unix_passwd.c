@@ -347,6 +347,7 @@ static int _update_passwd(pam_handle_t *pamh,
 			  const char *forwho, const char *towhat)
 {
     struct passwd *tmpent = NULL;
+    struct stat st;
     FILE *pwfile, *opwfile;
     int err = 1;
     int oldmask;
@@ -364,8 +365,13 @@ static int _update_passwd(pam_handle_t *pamh,
 	return PAM_AUTHTOK_ERR;
     }
 
-    chown(PW_TMPFILE, 0, 0);
-    chmod(PW_TMPFILE, 0644);
+    if (fstat(fileno(opwfile), &st) == -1) {
+	chown(PW_TMPFILE, 0, 0);
+	chmod(PW_TMPFILE, 0644);
+    } else {
+	chown(PW_TMPFILE, st.st_uid, st.st_gid);
+	chmod(PW_TMPFILE, st.st_mode);
+    }
     tmpent = fgetpwent(opwfile);
     while (tmpent) {
 	if (!strcmp(tmpent->pw_name, forwho)) {
@@ -406,6 +412,7 @@ static int _update_passwd(pam_handle_t *pamh,
 static int _update_shadow(const char *forwho, char *towhat)
 {
     struct spwd *spwdent = NULL, *stmpent = NULL;
+    struct stat st;
     FILE *pwfile, *opwfile;
     int err = 1;
     int oldmask;
@@ -427,8 +434,13 @@ static int _update_shadow(const char *forwho, char *towhat)
 	return PAM_AUTHTOK_ERR;
     }
 
-    chown(SH_TMPFILE, 0, 0);
-    chmod(SH_TMPFILE, 0600);
+    if (fstat(fileno(opwfile), &st) == -1) {
+	chown(SH_TMPFILE, 0, 0);
+	chmod(SH_TMPFILE, 0600);
+    } else {
+	chown(SH_TMPFILE, st.st_uid, st.st_gid);
+	chmod(SH_TMPFILE, st.st_mode);
+    }
     stmpent = fgetspent(opwfile);
     while (stmpent) {
 
