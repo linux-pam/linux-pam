@@ -49,6 +49,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_unix: removed superfluous use of static variables in md5 and bigcrypt
+  routines, bringing us a step closer to thread-safeness.  Eliminated
+  some variable indirection along the way.  (Bug 440107 - vorlon)
 * pam_tally: remove #include of stdlib.h, which isn't needed by anything
   found in this module.  Can be readded if we find a real need for it at
   a later date. (Bug 436432 - vorlon)

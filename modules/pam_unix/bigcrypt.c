@@ -25,6 +25,7 @@
  */
 
 #include <string.h>
+#include <stdlib.h>
 #include <security/_pam_macros.h>
 
 char *crypt(const char *key, const char *salt);
@@ -45,7 +46,7 @@ char *bigcrypt(const char *key, const char *salt);
 
 char *bigcrypt(const char *key, const char *salt)
 {
-	static char dec_c2_cryptbuf[CBUF_SIZE];		/* static storage area */
+	char *dec_c2_cryptbuf;
 
 	unsigned long int keylen, n_seg, j;
 	char *cipher_ptr, *plaintext_ptr, *tmp_ptr, *salt_ptr;
@@ -54,6 +55,10 @@ char *bigcrypt(const char *key, const char *salt)
 	D(("called with key='%s', salt='%s'.", key, salt));
 
 	/* reset arrays */
+	dec_c2_cryptbuf = malloc(CBUF_SIZE);
+	if (!dec_c2_cryptbuf) {
+		return NULL;
+	}
 	memset(keybuf, 0, KEYBUF_SIZE + 1);
 	memset(dec_c2_cryptbuf, 0, CBUF_SIZE);
 

@@ -155,6 +155,7 @@ static int _unix_verify_password(const char *name, const char *p, int opt)
 		if (pp != NULL) {
 			while (tp && *tp)
 				*tp++ = '\0';
+			free(pp);
 		}
 		pp = tp = NULL;
 	}

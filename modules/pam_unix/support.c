@@ -570,6 +570,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			if (!strncmp(salt, "$1$", 3)) {
 				pp = Goodcrypt_md5(p, salt);
 				if (strcmp(pp, salt) != 0) {
+					_pam_delete(pp);
 					pp = Brokencrypt_md5(p, salt);
 				}
 			} else {
@@ -661,7 +662,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	if (salt)
 		_pam_delete(salt);
 	if (pp)
-		_pam_overwrite(pp);
+		_pam_delete(pp);
 
 	D(("done [%d].", retval));
 
@@ -682,7 +683,6 @@ int _unix_read_password(pam_handle_t * pamh
 {
 	int authtok_flag;
 	int retval;
-	const char *item;
 	char *token;
 
 	D(("called"));
@@ -704,16 +704,14 @@ int _unix_read_password(pam_handle_t * pamh
 	 */
 
 	if (on(UNIX_TRY_FIRST_PASS, ctrl) || on(UNIX_USE_FIRST_PASS, ctrl)) {
-		retval = pam_get_item(pamh, authtok_flag, (const void **) &item);
+		retval = pam_get_item(pamh, authtok_flag, (const void **) pass);
 		if (retval != PAM_SUCCESS) {
 			/* very strange. */
 			_log_err(LOG_ALERT, pamh
 				 ,"pam_get_item returned error to unix-read-password"
 			    );
 			return retval;
-		} else if (item != NULL) {	/* we have a password! */
-			*pass = item;
-			item = NULL;
+		} else if (*pass != NULL) {	/* we have a password! */
 			return PAM_SUCCESS;
 		} else if (on(UNIX_USE_FIRST_PASS, ctrl)) {
 			return PAM_AUTHTOK_RECOVER_ERR;		/* didn't work */
@@ -812,9 +810,10 @@ int _unix_read_password(pam_handle_t * pamh
 		_pam_delete(token);	/* clean it up */
 		if (retval != PAM_SUCCESS
 		    || (retval = pam_get_item(pamh, authtok_flag
-					      ,(const void **) &item))
+					      ,(const void **) pass))
 		    != PAM_SUCCESS) {
 
+			*pass = NULL;
 			_log_err(LOG_CRIT, pamh, "error manipulating password");
 			return retval;
 
@@ -833,12 +832,9 @@ int _unix_read_password(pam_handle_t * pamh
 			_pam_delete(token);
 			return retval;
 		}
-		item = token;
+		*pass = token;
 		token = NULL;	/* break link to password */
 	}
-
-	*pass = item;
-	item = NULL;		/* break link to password */
 
 	return PAM_SUCCESS;
 }

@@ -153,7 +153,7 @@ static char *crypt_md5_wrapper(const char *pass_new)
 	char *cp = (char *) result;
 	unsigned char tmp[16];
 	int i;
-	char *x, *e = NULL;
+	char *x = NULL;
 
 	GoodMD5Init(&ctx);
 	gettimeofday(&tv, (struct timezone *) 0);
@@ -171,9 +171,7 @@ static char *crypt_md5_wrapper(const char *pass_new)
 	*cp = '\0';
 
 	/* no longer need cleartext */
-	e = Goodcrypt_md5(pass_new, (const char *) result);
-	x = x_strdup(e);	/* put e in malloc()ed memory */
-	_pam_overwrite(e);	/* clean up */
+	x = Goodcrypt_md5(pass_new, (const char *) result);
 
 	return x;
 }
@@ -227,11 +225,14 @@ static int check_old_password(const char *forwho, const char *newpass)
 			s_npas = strtok(NULL, ":,");
 			s_pas = strtok(NULL, ":,");
 			while (s_pas != NULL) {
-				if (!strcmp(Goodcrypt_md5(newpass, s_pas), s_pas)) {
+				char *md5pass = Goodcrypt_md5(newpass, s_pas);
+				if (!strcmp(md5pass, s_pas)) {
+					_pam_delete(md5pass);
 					retval = PAM_AUTHTOK_ERR;
 					break;
 				}
 				s_pas = strtok(NULL, ":,");
+				_pam_delete(md5pass);
 			}
 			break;
 		}
@@ -287,6 +288,7 @@ static int save_old_password(const char *forwho, const char *oldpass, int howman
 				sprintf(nbuf, "%s:%s:%d:%s\n", s_luser, s_uid, npas, pass);
 			else
 				sprintf(nbuf, "%s:%s:%d:%s,%s\n", s_luser, s_uid, npas, s_pas, pass);
+			_pam_delete(pass);
 			if (fputs(nbuf, pwfile) < 0) {
 				retval = PAM_AUTHTOK_ERR;
 				err = 1;
@@ -308,6 +310,7 @@ static int save_old_password(const char *forwho, const char *oldpass, int howman
 		} else {
 			pass = crypt_md5_wrapper(oldpass);
 			sprintf(nbuf, "%s:%d:1:%s\n", forwho, pwd->pw_uid, pass);
+			_pam_delete(pass);
 			if (fputs(nbuf, pwfile) < 0) {
 				retval = PAM_AUTHTOK_ERR;
 				err = 1;
@@ -928,7 +931,6 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 				 * function we truncate the newly entered password
 				 */
 				char *temp = malloc(9);
-				char *e;
 
 				if (temp == NULL) {
 					_log_err(LOG_CRIT, pamh,
@@ -944,19 +946,11 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 				temp[8] = '\0';
 
 				/* no longer need cleartext */
-				e = bigcrypt(temp, salt);
-				tpass = x_strdup(e);
+				tpass = bigcrypt(temp, salt);
 
-				_pam_overwrite(e);
 				_pam_delete(temp);	/* tidy up */
 			} else {
-				char *e;
-
-				/* no longer need cleartext */
-				e = bigcrypt(pass_new, salt);
-				tpass = x_strdup(e);
-
-				_pam_overwrite(e);
+				tpass = bigcrypt(pass_new, salt);
 			}
 		}
 

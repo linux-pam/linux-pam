@@ -13,6 +13,7 @@
  */
 
 #include <string.h>
+#include <stdlib.h>
 #include "md5.h"
 
 static unsigned char itoa64[] =	/* 0 ... 63 => ascii - 64 */
@@ -37,8 +38,8 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 	const char *magic = "$1$";
 	/* This string is magic for this algorithm.  Having
 	 * it this way, we can get get better later on */
-	static char passwd[120], *p;
-	static const char *sp, *ep;
+	char *passwd, *p;
+	const char *sp, *ep;
 	unsigned char final[16];
 	int sl, pl, i, j;
 	MD5_CTX ctx, ctx1;
@@ -46,6 +47,10 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 
 	/* Refine the Salt first */
 	sp = salt;
+
+	/* TODO: now that we're using malloc'ed memory, get rid of the
+	   strange constant buffer size. */
+	passwd = malloc(120);
 
 	/* If it starts with the magic string, then skip that */
 	if (!strncmp(sp, magic, strlen(magic)))
