@@ -9,32 +9,55 @@
 ## configure.in not getting propagated down the tree. (AGM) [I realise
 ## that this may not prove possible, but at least I tried.. Sigh.]
 
+ifeq ($(shell test \! -f Make.Rules || echo yes),yes)
+    include Make.Rules
+endif
+
 THINGSTOMAKE = modules libpam libpamc libpam_misc
 
 all: $(THINGSTOMAKE)
 
+prep:
+	rm -f security
+	ln -sf . security
+
 clean:
+	touch Make.Rules
+	for i in $(THINGSTOMAKE) ; do $(MAKE) -C $$i clean ; done
+	rm -f Make.Rules security pam_aconf.h
+	rm -rf include *~ #*# *.orig *.rej
+
+distclean: clean
 	rm -f config.status config.cache config.log core
 	rm -f configure
 
-extraclean: clean
-	touch Make.Rules
-	rm -rf include *~ #*# *.orig *.rej
-	for i in $(THINGSTOMAKE) ; do $(MAKE) -C $$i extraclean ; done
-	rm -f Make.Rules pam_aconf.h
-
-## =================
+maintainer-clean: distclean
+	@echo files should be ok for packaging now.
 
 # NB pam_aconf.h.in changes will remake this too
 Make.Rules: configure Make.Rules.in pam_aconf.h.in
+	@echo XXX - not sure how to preserve past configure options..
+	@echo XXX - so not attempting to. Feel free to run ./configure
+	@echo XXX - by hand, with the options you want.
 	./configure
 
 configure: configure.in
-	@$(MAKE) extraclean
-	autoconf
+	@$(MAKE) distclean
+	@echo
+	@echo You do not appear to have a ./configure file.
+	@echo Please run autoconf, and then ./configure [..options..]
+	@echo
+	@exit 1
 
-$(THINGSTOMAKE): Make.Rules
+$(THINGSTOMAKE): Make.Rules prep
 	$(MAKE) -C $@ all
+
+install:
+	$(MKDIR) $(FAKEROOT)$(INCLUDED)
+	$(INSTALL) -m 444 security/pam_aconf.h $(FAKEROOT)$(INCLUDED)
+	for x in modules ; do make -C $$x install ; done
+
+## =================
 
 ifdef LEGACY_OLD_MAKEFILE
 

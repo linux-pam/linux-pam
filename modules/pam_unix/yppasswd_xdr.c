@@ -10,7 +10,7 @@
  * editied manually.
  */
 
-#include "../../pam_aconf.h"
+#include <security/pam_aconf.h>
 
 #include <rpc/rpc.h>
 #include <rpcsvc/yp_prot.h>

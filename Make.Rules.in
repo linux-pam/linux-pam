@@ -32,8 +32,9 @@ MINOR_REL=@LIBPAM_VERSION_MINOR@
 # Linux-PAM. True, they are a little anal. Pay attention to the comments
 # they generate.
 
-HEADER_DIRS=-I./include -I$(absolute_srcdir)/libpam/include
+HEADER_DIRS=-I./include -I$(absolute_srcdir)/libpam/include -I$(absolute_srcdir)
 WARNINGS=@WARNINGS@
+OS_CFLAGS=@OS_CFLAGS@
 PIC=@PIC@
 
 # Mode to install shared libraries with
@@ -62,14 +63,16 @@ DYNAMIC=@DYNAMIC@
 # Location of libraries when installed on the system
 FAKEROOT=@FAKEROOT@
 SECUREDIR=@SECUREDIR@
-INCLUDED=@INCLUDEDIR@
+INCLUDED=@INCLUDEDIR@/security
 CRACKLIB_DICTPATH=@CRACKLIB_DICTPATH@
 
 # generic build setup
+OS=@OS@
 CC=@CC@
-CFLAGS=$(WARNINGS) $(HEADER_DIRS) @CONF_CFLAGS@
+CFLAGS=$(WARNINGS) -D$(OS) $(OS_CFLAGS) $(HEADER_DIRS) @CONF_CFLAGS@
 LD=@LD@
 LD_D=@LD_D@
 LD_L=@LD_L@
 DYNTYPE=@DYNTYPE@
 MKDIR=@MKDIR@
+INSTALL=@INSTALL@

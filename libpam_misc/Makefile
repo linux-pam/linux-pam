@@ -81,6 +81,7 @@ install: all
 	$(MKDIR) $(FAKEROOT)$(INCLUDED)
 	$(INSTALL) -m 644 include/security/pam_misc.h $(FAKEROOT)$(INCLUDED)
 ifeq ($(DYNAMIC_LIBPAM),yes)
+	$(MKDIR) $(FAKEROOT)$(libdir)
 	$(INSTALL) -m $(SHLIBMODE) $(LIBNAMED) $(FAKEROOT)$(libdir)/$(LIBNAMEDFULL)
 	$(LDCONFIG)
   ifneq ($(DYNTYPE),"sl")
@@ -98,8 +99,6 @@ remove:
 
 clean:
 	rm -f a.out core *~ static/*.o dynamic/*.o
-
-extraclean: clean
 	rm -f *.a *.out *.o *.so ./include/security/*~
 	if [ -d dynamic ]; then rmdir dynamic ; fi
 	if [ -d static ]; then rmdir static ; fi

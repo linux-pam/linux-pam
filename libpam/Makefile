@@ -143,8 +143,6 @@ remove:
 
 clean:
 	rm -f a.out core *~ static/*.o dynamic/*.o
-
-extraclean: clean
 	rm -f *.a *.o *.so ./include/security/*~
 	if [ -d dynamic ]; then rmdir dynamic ; fi
 	if [ -d static ]; then rmdir static ; fi

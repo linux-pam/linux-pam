@@ -54,10 +54,3 @@ clean: lclean
 		} fi ; \
 	done 
 
-extraclean: lclean
-	for i in $(MODDIRS) ; do \
-		if [ -d $$i ]; then \
-			$(MAKE) -C $$i extraclean ; \
-		fi ; \
-	done
-

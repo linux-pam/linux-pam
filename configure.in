@@ -30,6 +30,8 @@ CC=gcc				; AC_SUBST(CC)
 CONF_CFLAGS=			; AC_SUBST(CONF_CFLAGS)
 MKDIR="mkdir -p"		; AC_SUBST(MKDIR)
 LOCALSRCDIR=`/bin/pwd`		; AC_SUBST(LOCALSRCDIR)
+OS=`uname|sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXWZ/abcdefghijklmonpqrstuvwxyz/'`
+AC_SUBST(OS)
 
 dnl These are most likely platform specific - I think HPUX differs
 DYNTYPE=so			; AC_SUBST(DYNTYPE)
@@ -61,17 +63,17 @@ AC_SUBST(WITH_LIBDEBUG)
 
 dnl packaging convenience
 AC_ARG_ENABLE(fakeroot,
-[  --enable-fakeroot=<path to packaging directory>], FAKEROOT=$withval)
+[  --enable-fakeroot=<path to packaging directory>], FAKEROOT=$enableval)
 AC_SUBST(FAKEROOT)
 
 AC_ARG_ENABLE(securedir,
 [  --enable-securedir=<path to location of PAMs> [default \$libdir/security]],
-	SECUREDIR=$withval, SECUREDIR=$libdir/security)
+	SECUREDIR=$enableval, SECUREDIR=$libdir/security)
 AC_SUBST(SECUREDIR)
 
 AC_ARG_ENABLE(includedir,
-[  --enable-includedir=<path to include location> of include <security>],
-	INCLUDEDIR=$witharg, INCLUDEDIR=/usr/include)
+[  --enable-includedir=<path to include location> - where to put <security>],
+	INCLUDEDIR=$enableval, INCLUDEDIR=/usr/include)
 AC_SUBST(INCLUDEDIR)
 
 AC_ARG_ENABLE(pamlocking,
@@ -210,12 +212,15 @@ dnl The original "Linux-PAM" had blanket inclusion.  But portability
 dnl requires their default absence: if particular OSes require them,
 dnl this should be done selectively.
 
-GCC_WARNINGS="-ansi -D_POSIX_SOURCE -Wall -Wwrite-strings \
+GCC_WARNINGS="-Wall -Wwrite-strings \
 	-Wpointer-arith -Wcast-qual -Wcast-align \
 	-Wtraditional -Wstrict-prototypes -Wmissing-prototypes \
-	-Wnested-externs -Winline -Wshadow -pedantic"
+	-Wnested-externs -Winline -Wshadow"
 
 if test "$GCC" = yes; then
+###
+### Non-Linux needs attention on per-OS basis
+	OS_CFLAGS="-ansi -D_POSIX_SOURCE -pedantic"
 	WARNINGS="$GCC_WARNINGS"
 	PIC="-fPIC"
 #can/should we use LD=gcc ???
@@ -227,6 +232,7 @@ else
 ### Non-gcc needs attention on per-OS basis
 ###
 ### [These are Solaris-C specific...]
+	OS_CFLAGS=""
 	WARNINGS=""
 	PIC="-K pic"
 	LD=ld
@@ -234,6 +240,7 @@ else
 	LD_L="$LD_D"
 fi
 
+AC_SUBST(OS_CFLAGS)
 AC_SUBST(WARNINGS)
 AC_SUBST(PIC)
 AC_SUBST(LD)

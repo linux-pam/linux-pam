@@ -81,8 +81,6 @@ remove:
 clean:
 	rm -f $(LIBOBJD) $(LIBOBJS) core *~
 	$(MODULE_SIMPLE_CLEAN)
-
-extraclean: clean
 	rm -f *.a *.o *.so *.bak
 	rm -rf dynamic static
 	$(MODULE_SIMPLE_EXTRACLEAN)
