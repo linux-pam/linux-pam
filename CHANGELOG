@@ -35,6 +35,7 @@ Where you should replace XXXXX with a bug-id.
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* documented Qmail support in pam_mail (Bug 109219 - baggins)
 * add change_uid option to pam_limits, and set real uid only if
   this option is present (Bug 124062 - baggins)
 * pam_limits - set real uid to the user for who we set limits.

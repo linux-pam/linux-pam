@@ -121,6 +121,11 @@ login	session	 optional	pam_mail.so
 </tscreen>
 
 <p>
+Note, if the mail spool file (be it <tt>/var/spool/mail/$USER</tt> or
+a pathname given with the <tt>dir=</tt> parameter) is a directory then
+<tt>pam_mail</tt> assumes it is in the <it>Qmail Maildir</it> format.
+
+<p>
 Note, some applications may perform this function themselves. In such
 cases, this module is not necessary.
 
@@ -130,7 +135,7 @@ cases, this module is not necessary.
 
 <p>
 Then authentication companent works the same as the session component,
-expect that everything is done during the pam_setcred() phase.
+except that everything is done during the <tt>pam_setcred()</tt> phase.
 
 <!--
 End of sgml insert for this module.
