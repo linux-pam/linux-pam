@@ -265,9 +265,17 @@ GCC_WARNINGS="-Wall -Wwrite-strings \
 	-Wnested-externs -Winline -Wshadow"
 
 if test "$GCC" = yes; then
-###
-### Non-Linux needs attention on per-OS basis
-	OS_CFLAGS="-ansi -D_POSIX_SOURCE -pedantic"
+	OS_CFLAGS=""
+### May need per-OS attention
+### Example: -D_POSIX_SOURCE: needed on Linux but harms Solaris.
+	case $OS in
+	linux)
+		OS_CFLAGS="-ansi -D_POSIX_SOURCE -pedantic"
+		;;
+	sunos)
+		OS_CFLAGS="-ansi -pedantic"
+		;;
+	esac
 	WARNINGS="$GCC_WARNINGS"
 	PIC="-fPIC"
 #can/should we use LD=gcc ???
