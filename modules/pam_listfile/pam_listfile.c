@@ -280,8 +280,14 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	if (retval != PAM_SUCCESS)
 	    return PAM_SERVICE_ERR;
     }
+    if((citem == PAM_TTY) && citemp) {
+        /* Normalize the TTY name. */
+        if(strncmp(citemp, "/dev/", 5) == 0) {
+            citemp += 5;
+        }
+    }
 
-    if(!citemp || (strlen(citemp) <= 0)) {
+    if(!citemp || (strlen(citemp) == 0)) {
 	/* The item was NULL - we are sure not to match */
 	return sense?PAM_SUCCESS:PAM_AUTH_ERR;
     }
@@ -370,8 +376,10 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
     assert(PAM_AUTH_ERR != 0);
 #endif
     if(extitem == EI_GROUP) {
-	while((fgets(aline,255,inf) != NULL)
+	while((fgets(aline,sizeof(aline),inf) != NULL)
 	      && retval) {
+            if(strlen(aline) == 0)
+		continue;
 	    if(aline[strlen(aline) - 1] == '\n')
 		aline[strlen(aline) - 1] = '\0';
 	    for(i=0;itemlist[i];)
@@ -382,11 +390,21 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	for(i=0;itemlist[i];)
 	    free(itemlist[i++]);
     } else {
-	while((fgets(aline,255,inf) != NULL)
+	while((fgets(aline,sizeof(aline),inf) != NULL)
 	      && retval) {
+            char *a = aline;
+            if(strlen(aline) == 0)
+		continue;
 	    if(aline[strlen(aline) - 1] == '\n')
 		aline[strlen(aline) - 1] = '\0';
-	    retval = strcmp(aline,citemp);
+            if(strlen(aline) == 0)
+		continue;
+	    if(aline[strlen(aline) - 1] == '\r')
+		aline[strlen(aline) - 1] = '\0';
+	    if(citem == PAM_TTY)
+	        if(strncmp(a, "/dev/", 5) == 0)
+	            a += 5;
+	    retval = strcmp(a,citemp);
 	}
     }
     fclose(inf);
