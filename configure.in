@@ -278,7 +278,7 @@ for d in $DICT_DIR_CANDIDATES ; do
       done
 done
 if test -z "$CRACKLIB_DICTPATH" ; then
-      AC_MSG_ERROR(none found)
+      AC_MSG_WARN([none found - pam_cracklib will not be built])
 else
       AC_MSG_RESULT($CRACKLIB_DICTPATH)
 fi

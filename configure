@@ -6011,9 +6011,8 @@ for d in $DICT_DIR_CANDIDATES ; do
       done
 done
 if test -z "$CRACKLIB_DICTPATH" ; then
-      { { echo "$as_me:$LINENO: error: none found" >&5
-echo "$as_me: error: none found" >&2;}
-   { (exit 1); exit 1; }; }
+      { echo "$as_me:$LINENO: WARNING: none found - pam_cracklib will not be built" >&5
+echo "$as_me: WARNING: none found - pam_cracklib will not be built" >&2;}
 else
       echo "$as_me:$LINENO: result: $CRACKLIB_DICTPATH" >&5
 echo "${ECHO_T}$CRACKLIB_DICTPATH" >&6
