@@ -13,6 +13,6 @@ Recognized arguments:
 
 module services provided:
 
-	auth		_authetication and _setcred (blank)
+	auth		_authentication and _setcred (blank)
 
 Andrew Morgan

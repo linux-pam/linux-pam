@@ -46,7 +46,7 @@ used as a wildcard in any field.
   + <user>             Allow the user to connect from anywhere. DANGEROUS.
   <host> +             Allow any user from the host. Dangerous.
   
-These, perhaps more usefull, forms of the + form is also disallowed
+These, perhaps more useful, forms of the + form is also disallowed
 unless "promiscuous" is specified:
 
   + -<user>            Disallow the user from any host

@@ -75,7 +75,7 @@ int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
 	retval = PAM_SUCCESS;
 
     if (ctrl & PAM_DEBUG_ARG) {
-	_pam_log(LOG_DEBUG, "authetication %s"
+	_pam_log(LOG_DEBUG, "authentication %s"
 		 , retval==PAM_SUCCESS ? "succeeded":"failed" );
     }
 

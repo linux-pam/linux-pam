@@ -82,7 +82,7 @@ clear all counts every midnight from a cron..
 
 The counts file is organised as a binary-word array, indexed by uid. You
 can probably make sense of it with `od', if you don't want to use the
-supplied appliction.
+supplied application.
 
 BUGS:
 

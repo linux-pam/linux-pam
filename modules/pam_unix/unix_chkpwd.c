@@ -225,7 +225,7 @@ int main(int argc, char *argv[])
 	    }
 	}
 
-	/* read the nollok/nonull option */
+	/* read the nullok/nonull option */
 
 	npass = read(STDIN_FILENO, option, 8);
 
