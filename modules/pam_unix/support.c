@@ -698,6 +698,8 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			}
 		} else {
 			D(("user's record unavailable"));
+			p = NULL;
+			retval = PAM_AUTHINFO_UNAVAIL;
 			if (on(UNIX_AUDIT, ctrl)) {
 				/* this might be a typo and the user has given a password
 				   instead of a username. Careful with this. */
@@ -705,11 +707,14 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 				         "check pass; user (%s) unknown", name);
 			} else {
 				name = NULL;
-				_log_err(LOG_ALERT, pamh,
-				         "check pass; user unknown");
+				if (on(UNIX_DEBUG, ctrl) || pwd == NULL) {
+				    _log_err(LOG_ALERT, pamh,
+				            "check pass; user unknown");
+				} else {
+				    /* don't log failure as another pam module can succeed */
+				    goto cleanup;
+				}
 			}
-			p = NULL;
-			retval = PAM_AUTHINFO_UNAVAIL;
 		}
 	} else {
 	    int salt_len = strlen(salt);
@@ -831,6 +836,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 		}
 	}
 
+cleanup:
 	if (data_name)
 		_pam_delete(data_name);
 	if (salt)

@@ -62,7 +62,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 
 0.79: please submit patches for this section with actual code/doc
       patches!
-
+* pam_unix: don't log user unknown failure when he can be properly
+  authenticated by another module
 
 0.78: Do Nov 18 14:48:36 CET 2004
 
