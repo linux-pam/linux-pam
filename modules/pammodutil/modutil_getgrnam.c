@@ -9,6 +9,7 @@
 
 #include "pammodutil.h"
 
+#include <errno.h>
 #include <limits.h>
 #include <grp.h>
 #include <pthread.h>
