@@ -55,6 +55,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* added a static module helper library object includes a few changes
+  to examples/xsh.c for testing purposes, and also modified the
+  pam_rhosts_auth module to use this new library. (Bug 490938 - agmorgan)
 * documentation: random typo fixes from Nalin and more stuff from me
   (Bug 476949, Tasks 43507, 17426 - agmorgan)
 * pam_unix: fix 'likeauth' to kill off the memory leak once and for all.

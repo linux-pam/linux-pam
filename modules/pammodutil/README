@@ -1,0 +1,15 @@
+$Id$
+
+This is a libarary of routines for use by modules. The routines seem
+to have a common use for modules, but are not part of libpam and never
+will be. They are also a convenient layer of abstraction for providing
+thread-safe functions that may require use of pam_handle_t 'data'
+items to make their thread-safeness tied to the use of a single
+pam_handle_t per thread.
+
+Functions provided so far are all listed in
+
+   include/security/_pam_modutil.h
+
+.
+

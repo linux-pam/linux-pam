@@ -19,6 +19,9 @@ LIBOBJ = $(addsuffix .o,$(LIBFILES))
 LIBOBJD = $(addprefix dynamic/,$(LIBOBJ))
 LIBOBJS = $(addprefix static/,$(LIBOBJ))
 
+LINK_PAMMODUTILS = -L../pammodutil -lpammodutil
+INCLUDE_PAMMODUTILS = -I../pammodutil/include
+
 ifdef DYNAMIC
 LIBSHARED = $(TITLE).so
 endif
@@ -32,10 +35,10 @@ endif
 all: dirs $(LIBSHARED) $(LIBSTATIC) register
 
 dynamic/%.o : %.c
-	$(CC) $(CFLAGS) $(DYNAMIC) $(TARGET_ARCH) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE_PAMMODUTILS) $(DYNAMIC) $(TARGET_ARCH) -c $< -o $@
 
 static/%.o : %.c
-	$(CC) $(CFLAGS) $(STATIC) $(TARGET_ARCH) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE_PAMMODUTILS) $(STATIC) $(TARGET_ARCH) -c $< -o $@
 
 dirs:
 ifdef DYNAMIC
@@ -56,7 +59,7 @@ endif
 
 ifdef DYNAMIC
 $(LIBSHARED):	$(LIBOBJD)
-	$(LD_D) -o $@ $(LIBOBJD) $(MODULE_SIMPLE_EXTRALIBS) $(NEED_LINK_LIB_C)
+	$(LD_D) -o $@ $(LIBOBJD) $(MODULE_SIMPLE_EXTRALIBS) $(NEED_LINK_LIB_C) $(LINK_PAMMODUTILS)
 
 endif
 
@@ -66,7 +69,7 @@ endif
 
 ifdef STATIC
 $(LIBSTATIC): $(LIBOBJS)
-	$(LD) -r -o $@ $(LIBOBJS) $(MODULE_SIMPLE_EXTRALIBS)
+	$(LD) -r -o $@ $(LIBOBJS) $(MODULE_SIMPLE_EXTRALIBS) $(LINK_PAMMODUTILS)
 endif
 
 install: all

@@ -11,6 +11,8 @@ include ../Make.Rules
 MODDIRS=$(shell /bin/ls -d pam_*)
 
 all:	
+	@echo building the static modutil library
+	make -C pammodutil all
 	@echo modules sources available are:
 	@ls -d $(MODDIRS) 2>/dev/null ; echo :--------
 	@echo
@@ -52,5 +54,5 @@ clean: lclean
 		if [ -d $$i ]; then { \
 			$(MAKE) -C $$i clean ; \
 		} fi ; \
-	done 
-
+	done
+	make -C pammodutil clean

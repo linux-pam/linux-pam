@@ -13,6 +13,10 @@
 
 #include <security/_pam_aconf.h>
 
+#include <pwd.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 /* ------ some local (static) functions ------- */
 
 static void bail_out(pam_handle_t *pamh,int really, int code, const char *fn)
@@ -55,6 +59,26 @@ int main(int argc, char **argv)
      /* initialize the Linux-PAM library */
      retcode = pam_start(service, username, &conv, &pamh);
      bail_out(pamh,1,retcode,"pam_start");
+
+     /* fill in the RUSER and RHOST fields */
+     {
+	 char buffer[100];
+	 struct passwd *pw;
+
+	 pw = getpwuid(getuid());
+	 if (pw != NULL) {
+	     retcode = pam_set_item(pamh, PAM_RUSER, pw->pw_name);
+	     bail_out(pamh,1,retcode,"pam_set_item(PAM_RUSER)");
+	 }
+	 retcode = gethostname(buffer, sizeof(buffer)-1);
+	 if (retcode) {
+	     perror("failed to look up hostname");
+	     retcode = pam_end(pamh, PAM_ABORT);
+	     bail_out(pamh,1,retcode,"pam_end");
+	 }
+	 retcode = pam_set_item(pamh, PAM_RHOST, buffer);
+	 bail_out(pamh,1,retcode,"pam_set_item(PAM_RHOST)");
+     }
 
      /* to avoid using goto we abuse a loop here */
      for (;;) {

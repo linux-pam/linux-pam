@@ -96,6 +96,7 @@ int innetgr(const char *, const char *, const char *,const char *);
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
+#include <security/_pam_modutil.h>
 
 /* to the best of my knowledge, all modern UNIX boxes have 32 bit integers */
 #define U32 unsigned int
@@ -232,15 +233,16 @@ static int pam_get_rhost(pam_handle_t *pamh, const char **rhost
  * requesting the contents of the PAM_RUSER item.
  */
 
-static int pam_get_ruser(pam_handle_t *pamh, const char **ruser
-			 , const char *prompt)
+static int pam_get_ruser(pam_handle_t *pamh, const char **ruser,
+			 const char *prompt)
 {
     int retval;
     const char   *current;
 
     retval = pam_get_item (pamh, PAM_RUSER, (const void **)&current);
-    if (retval != PAM_SUCCESS)
+    if (retval != PAM_SUCCESS) {
         return retval;
+    }
 
     if (current == NULL) {
 	return PAM_AUTH_ERR;
@@ -491,7 +493,7 @@ pam_iruserok(pam_handle_t *pamh,
      * Identify user's local .rhosts file
      */
 
-    pwd = getpwnam(luser);
+    pwd = _pammodutil_getpwnam(pamh, luser);
     if (pwd == NULL) {
 	/* 
 	 * luser is assumed to be valid because of an earlier check for uid = 0
@@ -660,10 +662,11 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
 			     const char **argv) 
 {
     int retval;
-    const char *luser;
-    const char *ruser,*rhost;
+    const char *luser = NULL;
+    const char *ruser = NULL, *rhost = NULL;
     struct _options opts;
     int as_root = 0;
+
     /*
      * Look at the options and set the flags accordingly.
      */
@@ -675,6 +678,7 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
     for (;;) {                         /* abuse loop to avoid goto */
 
 	/* get the remotehost */
+	D(("getting rhost"));
 	retval = pam_get_rhost(pamh, &rhost, NULL);
 	(void) pam_set_item(pamh, PAM_RHOST, rhost);
 	if (retval != PAM_SUCCESS) {
@@ -685,6 +689,7 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
 	}
 
 	/* get the remote user */
+	D(("getting ruser"));
 	retval = pam_get_ruser(pamh, &ruser, NULL);
 	(void) pam_set_item(pamh, PAM_RUSER, ruser);
 	if (retval != PAM_SUCCESS) {
@@ -694,8 +699,8 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
 	}
 
 	/* get the local user */
+	D(("getting user"));
 	retval = pam_get_user(pamh, &luser, NULL);
-
 	if (retval != PAM_SUCCESS) {
 	    if (opts.opt_debug)
 		_pam_log(LOG_DEBUG, "could not determine name of local user");
@@ -710,7 +715,7 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
 	if (! opts.opt_no_uid_check) {
 	    struct passwd *luser_pwd;
 
-	    luser_pwd = getpwnam(luser);
+	    luser_pwd = _pammodutil_getpwnam(pamh, luser);
 	    if (luser_pwd == NULL) {
 		if (opts.opt_debug)
 		    _pam_log(LOG_DEBUG, "user '%s' unknown to this system",
