@@ -2,7 +2,6 @@ default.defs
 .freezemake
 .filelist
 include
-configure
 config.status
 config.log
 config.cache

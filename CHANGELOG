@@ -25,6 +25,10 @@ TODO:
 0.73: please submit patches for this section with actual code/doc
       patches!
 
+* autoconf support [Task ID 15788, Bug ID 108297 - agmorgan with help!]
+ - bugfix for libpamc.h include file [Bug ID 117476 - agmorgan]
+ - bugfix for pam_filter.h inclusion [Bug ID 117474 - agmorgan]
+
 Planning to include:
 
   - some autoconf support and other outstanding changes from Jan..

@@ -51,7 +51,6 @@ LIBOBJECTS = pam_item.o pam_strerror.o pam_end.o pam_start.o pam_data.o \
 
 ifeq ($(DYNAMIC_LIBPAM),yes)
 # libpam.so needs -ldl, too.
-LINKLIBS += $(LIBDL)
 DLIBOBJECTS = $(addprefix dynamic/,$(LIBOBJECTS) $(STATICOBJ))
 ifeq ($(STATICOBJ),yes)
 dynamic/pam_static.o: pam_static.c ../modules/_static_module_objects
@@ -92,7 +91,7 @@ ifeq ($(DYNAMIC_LIBPAM),yes)
 	$(LD_L) $(SOSWITCH) $(LIBPAMNAME) -o $@ $(DLIBOBJECTS) \
 		$(MODULES) $(LINKLIBS)
     else
-	$(LD_L) -o $@ $(DLIBOBJECTS) $(MODULES)
+	$(LD_L) -o $@ $(DLIBOBJECTS) $(MODULES) $(LINKLIBS)
     endif
     ifeq ($(NEEDSONAME),yes)
 	rm -f $(LIBPAMFULL)

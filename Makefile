@@ -13,7 +13,7 @@ ifeq ($(shell test \! -f Make.Rules || echo yes),yes)
     include Make.Rules
 endif
 
-THINGSTOMAKE = modules libpam libpamc libpam_misc doc
+THINGSTOMAKE = modules libpam libpamc libpam_misc doc examples
 
 all: $(THINGSTOMAKE)
 
@@ -28,7 +28,7 @@ clean:
 
 distclean: clean
 	rm -f Make.Rules _pam_aconf.h
-	rm -f config.status config.cache config.log core configure
+	rm -f config.status config.cache config.log core
 
 maintainer-clean: distclean
 	@echo files should be ok for packaging now.
