@@ -76,6 +76,7 @@ struct pam_limit_s {
     struct user_limits_struct limits[RLIM_NLIMITS];
     char conf_file[BUFSIZ];
     int utmp_after_pam_call;
+    char login_group[LINE_LENGTH];
 };
 
 #define LIMIT_LOGIN RLIM_NLIMITS+1
@@ -203,7 +204,7 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
                 continue;
 	    }
 	    if ((pl->login_limit_def == LIMITS_DEF_ALLGROUP)
-		&& !_pammodutil_user_in_group_nam_nam(pamh, ut->UT_USER, name)) {
+		&& !_pammodutil_user_in_group_nam_nam(pamh, ut->UT_USER, pl->login_group)) {
                 continue;
 	    }
 	}
@@ -479,9 +480,11 @@ static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
 		if (strcmp(domain,"%") == 0)
 		    process_limit(LIMITS_DEF_ALL, ltype, item, value, ctrl,
 				  pl);
-		else if (_pammodutil_user_in_group_nam_nam(pamh, uname, domain+1))
+		else if (_pammodutil_user_in_group_nam_nam(pamh, uname, domain+1)) {
+		    strcpy(pl->login_group, domain+1);
                     process_limit(LIMITS_DEF_ALLGROUP, ltype, item, value, ctrl,
 				  pl);
+		}
             } else if (strcmp(domain, "*") == 0)
                 process_limit(LIMITS_DEF_DEFAULT, ltype, item, value, ctrl,
 			      pl);
