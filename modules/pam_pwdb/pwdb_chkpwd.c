@@ -15,6 +15,12 @@
 
 #include <security/_pam_aconf.h>
 
+#ifdef MEMORY_DEBUG
+# undef exit
+# undef strdup
+# undef free
+#endif /* MEMORY_DEBUG */
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>

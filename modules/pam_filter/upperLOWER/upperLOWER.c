@@ -9,6 +9,10 @@
 
 #include <security/_pam_aconf.h>
 
+#ifdef MEMORY_DEBUG
+# undef exit
+#endif /* MEMORY_DEBUG */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <syslog.h>

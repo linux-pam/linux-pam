@@ -23,7 +23,6 @@
 #ifndef DEBUG
 #define DEBUG
 #endif
-
 #include "pam_private.h"
 
 #include <security/pam_malloc.h>
@@ -385,6 +384,8 @@ void *pam_alloca(size_t size
 void pam_exit(int i
 	      , const char *file, const char *fn, const int line)
 {
+     D(("time to exit"));
+
      _fn("exit");
 
      if (on(0)) err(("passed (%d)", i));

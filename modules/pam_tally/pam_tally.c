@@ -13,6 +13,10 @@
 
 #include <security/_pam_aconf.h>
 
+#if defined(MAIN) && defined(MEMORY_DEBUG)
+# undef exit
+#endif /* defined(MAIN) && defined(MEMORY_DEBUG) */
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>

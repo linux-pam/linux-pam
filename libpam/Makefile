@@ -44,7 +44,7 @@ else
 MODULES =
 endif
 
-ifdef WITH_MEMORY_DEBUG
+ifeq ($(WITH_MEMORY_DEBUG),yes)
 EXTRAS += pam_malloc.o
 endif
 
