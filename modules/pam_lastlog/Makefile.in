@@ -6,6 +6,17 @@
 # what you are doing!).
 #
 # $Log$
+# Revision 1.1.2.1  2000/07/09 21:18:52  vorlon
+#
+# Relevant BUGIDs: task 15788
+#
+# Purpose of commit: increased autoconf support
+#
+# Commit summary:
+# ---------------
+# Finished renaming 'Makefile' to 'Makefile.in'.
+# Now done for all Makefiles except for modules/pam_permit
+#
 # Revision 1.1.1.1  2000/06/20 22:11:40  agmorgan
 # Imported 0.72 Linux-PAM sources
 #
