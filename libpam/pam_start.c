@@ -29,6 +29,11 @@ int pam_start (
 	return (PAM_BUF_ERR);
     }
 
+    /* Mark the caller as the application - permission to do certain
+       things is limited to a module or an application */
+
+    __PAM_TO_APP(*pamh);
+
     if (service_name) {
 	char *tmp;
 
@@ -91,11 +96,6 @@ int pam_start (
 
     /* According to the SunOS man pages, loading modules and resolving
      * symbols happens on the first call from the application. */
-
-    /*
-     * XXX - should we call _pam_init_handlers() here ? The following
-     * is new as of Linux-PAM 0.55
-     */
 
     if ( _pam_init_handlers(*pamh) != PAM_SUCCESS ) {
 	_pam_system_log(LOG_ERR, "pam_start: failed to initialize handlers");

@@ -35,6 +35,11 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* libpam - cleaned up a few non-static functions to be static and added
+  support for libpam to enforce things like pam_[gs]et_data() and
+  AUTHTOK rules for using the API. Also documented pam_[gs]et_item()
+  a little better including return codes (Bugs 129027, 128576 -
+  agmorgan).
 * pam_access - fixed the non-default config file option (Bug 127561 -
   agmorgan)
 * pam.8 manual page clarified with respect to the default location for

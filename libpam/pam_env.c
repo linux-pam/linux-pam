@@ -47,6 +47,7 @@ static void _pam_dump_env(pam_handle_t *pamh)
 int _pam_make_env(pam_handle_t *pamh)
 {
     D(("called."));
+
     IF_NO_PAMH("_pam_make_env", pamh, PAM_ABORT);
 
     /*

@@ -22,7 +22,9 @@ dummy: ../Make.Rules all
 
 # ---------------------------------------------
 
-CFLAGS += $(DYNAMIC) $(STATIC) $(MOREFLAGS)
+CFLAGS += $(DYNAMIC) $(STATIC) $(MOREFLAGS) \
+  -DLIBPAM_VERSION_MAJOR=$(MAJOR_REL) \
+  -DLIBPAM_VERSION_MINOR=$(MINOR_REL)
 
 # dynamic library names
 
@@ -95,9 +97,9 @@ ifeq ($(DYNAMIC_LIBPAM),yes)
     endif
     ifeq ($(NEEDSONAME),yes)
 	rm -f $(LIBPAMFULL)
-	ln -s $(LIBPAM) $(LIBPAMFULL)
+	ln -sf $(LIBPAM) $(LIBPAMFULL)
 	rm -f $(LIBPAMNAME)
-	ln -s $(LIBPAM) $(LIBPAMNAME)
+	ln -sf $(LIBPAM) $(LIBPAMNAME)
     endif
 endif
 
@@ -122,7 +124,7 @@ ifeq ($(DYNAMIC_LIBPAM),yes)
 	$(LDCONFIG)
   ifneq ($(DYNTYPE),"sl")
 	( cd $(FAKEROOT)$(libdir) ; rm -f $(LIBPAM) ; \
-	  ln -s $(LIBPAMNAME) $(LIBPAM) )
+	  ln -sf $(LIBPAMNAME) $(LIBPAM) )
   endif
 endif
 ifeq ($(STATIC_LIBPAM),yes)

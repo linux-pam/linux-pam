@@ -1,7 +1,7 @@
 /*
  * pam_delay.c
  *
- * Copyright (c) Andrew G. Morgan <morgan@linux.kernel.org> 1996-9
+ * Copyright (c) Andrew G. Morgan <morgan@kernel.org> 1996-9
  * All rights reserved.
  *
  * $Id$

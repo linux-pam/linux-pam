@@ -126,6 +126,7 @@ struct _pam_former_state {
 
 struct pam_handle {
     char *authtok;
+    unsigned caller_is;
     struct pam_conv *pam_conversation;
     char *oldauthtok;
     char *prompt;                /* for use by pam_get_user() */
@@ -268,9 +269,22 @@ if ((pamh) == NULL) {                             \
 
 #include <security/_pam_macros.h>
 
+/* used to work out where control currently resides (in an application
+   or in a module) */
+
+#define _PAM_CALLED_FROM_MODULE         1
+#define _PAM_CALLED_FROM_APP            2
+
+#define __PAM_FROM_MODULE(pamh)  ((pamh)->caller_is == _PAM_CALLED_FROM_MODULE)
+#define __PAM_FROM_APP(pamh)     ((pamh)->caller_is == _PAM_CALLED_FROM_APP)
+#define __PAM_TO_MODULE(pamh) \
+        do { (pamh)->caller_is = _PAM_CALLED_FROM_MODULE; } while (0)
+#define __PAM_TO_APP(pamh)    \
+        do { (pamh)->caller_is = _PAM_CALLED_FROM_APP; } while (0)
+
 /*
  * Copyright (C) 1995 by Red Hat Software, Marc Ewing
- * Copyright (c) 1996-8, Andrew G. Morgan <morgan@linux.kernel.org>
+ * Copyright (c) 1996-8,2001 by Andrew G. Morgan <morgan@kernel.org>
  *
  * All rights reserved
  *

@@ -16,6 +16,13 @@ int pam_authenticate(pam_handle_t *pamh, int flags)
 
     D(("pam_authenticate called"));
 
+    IF_NO_PAMH("pam_authenticate", pamh, PAM_SYSTEM_ERR);
+
+    if (__PAM_FROM_MODULE(pamh)) {
+	D(("called from module!?"));
+	return PAM_SYSTEM_ERR;
+    }
+
     if (pamh->former.choice == PAM_NOT_STACKED) {
 	_pam_sanitize(pamh);
 	_pam_start_timer(pamh);    /* we try to make the time for a failure
@@ -23,7 +30,6 @@ int pam_authenticate(pam_handle_t *pamh, int flags)
 				      fail */
     }
 
-    IF_NO_PAMH("pam_authenticate",pamh,PAM_SYSTEM_ERR);
     retval = _pam_dispatch(pamh, flags, PAM_AUTHENTICATE);
 
     if (retval != PAM_INCOMPLETE) {
@@ -41,9 +47,14 @@ int pam_setcred(pam_handle_t *pamh, int flags)
 {
     int retval;
 
+    D(("pam_setcred called"));
+
     IF_NO_PAMH("pam_setcred", pamh, PAM_SYSTEM_ERR);
 
-    D(("pam_setcred called"));
+    if (__PAM_FROM_MODULE(pamh)) {
+	D(("called from module!?"));
+	return PAM_SYSTEM_ERR;
+    }
 
     if (! flags) {
 	flags = PAM_ESTABLISH_CRED;

@@ -399,7 +399,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
  * preceeded by lines of comments and also extended with "\\\n"
  */
 
-int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
+static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
 {
     char *p = buffer;
     char *s, *os;

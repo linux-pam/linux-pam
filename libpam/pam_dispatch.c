@@ -195,7 +195,12 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
     int retval;
     _pam_boolean resumed;
 
-    IF_NO_PAMH("_pam_dispatch",pamh,PAM_SYSTEM_ERR);
+    IF_NO_PAMH("_pam_dispatch", pamh, PAM_SYSTEM_ERR);
+
+    if (__PAM_FROM_MODULE(pamh)) {
+	D(("called from a module!?"));
+	return PAM_SYSTEM_ERR;
+    }
 
     /* Load all modules, resolve all symbols */
 
@@ -265,9 +270,13 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
 	resumed = PAM_FALSE;
     }
 
+    __PAM_TO_MODULE(pamh);
+
     /* call the list of module functions */
     retval = _pam_dispatch_aux(pamh, flags, h, resumed);
     resumed = PAM_FALSE;
+
+    __PAM_TO_APP(pamh);
 
     /* Should we recall where to resume next time? */
     if (retval == PAM_INCOMPLETE) {

@@ -9,7 +9,26 @@
 
 #include "pam_private.h"
 
-struct pam_data *_pam_locate_data(const pam_handle_t *pamh, const char *name);
+static struct pam_data *_pam_locate_data(const pam_handle_t *pamh,
+					 const char *name)
+{
+    struct pam_data *data;
+
+    D(("called"));
+
+    IF_NO_PAMH("_pam_locate_data", pamh, NULL);
+
+    data = pamh->data;
+    
+    while (data) {
+	if (!strcmp(data->name, name)) {
+	    return data;
+	}
+	data = data->next;
+    }
+
+    return NULL;
+}
 
 int pam_set_data(
     pam_handle_t *pamh,
@@ -19,7 +38,14 @@ int pam_set_data(
 {
     struct pam_data *data_entry;
     
-    IF_NO_PAMH("pam_set_data",pamh,PAM_SYSTEM_ERR);
+    D(("called"));
+
+    IF_NO_PAMH("pam_set_data", pamh, PAM_SYSTEM_ERR);
+
+    if (__PAM_FROM_APP(pamh)) {
+	D(("called from application!?"));
+	return PAM_SYSTEM_ERR;
+    }
 
     /* first check if there is some data already. If so clean it up */
 
@@ -57,7 +83,14 @@ int pam_get_data(
 {
     struct pam_data *data;
 
-    IF_NO_PAMH("pam_get_data",pamh,PAM_SYSTEM_ERR);
+    D(("called"));
+
+    IF_NO_PAMH("pam_get_data", pamh, PAM_SYSTEM_ERR);
+
+    if (__PAM_FROM_APP(pamh)) {
+	D(("called from application!?"));
+	return PAM_SYSTEM_ERR;
+    }
 
     data = _pam_locate_data(pamh, module_data_name);
     if (data) {
@@ -68,29 +101,14 @@ int pam_get_data(
     return PAM_NO_MODULE_DATA;
 }
 
-struct pam_data *_pam_locate_data(const pam_handle_t *pamh, const char *name)
-{
-    struct pam_data *data;
-
-    IF_NO_PAMH("_pam_locate_data",pamh,NULL);
-    data = pamh->data;
-    
-    while (data) {
-	if (!strcmp(data->name, name)) {
-	    return data;
-	}
-	data = data->next;
-    }
-
-    return NULL;
-}
-
 void _pam_free_data(pam_handle_t *pamh, int status)
 {
     struct pam_data *last;
     struct pam_data *data;
 
-    IF_NO_PAMH("_pam_free_data",pamh,/* no return value for void fn */);
+    D(("called"));
+
+    IF_NO_PAMH("_pam_free_data", pamh, /* no return value for void fn */);
     data = pamh->data;
 
     while (data) {

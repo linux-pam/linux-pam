@@ -59,13 +59,15 @@ const char * const _pam_token_returns[_PAM_RETURN_VALUES+1] = {
     "authtok_expired",   /* 27 */
     "module_unknown",    /* 28 */
     "bad_item",          /* 29 */
+    "conv_again",        /* 30 */
+    "incomplete",        /* 31 */
 /* add new return codes here */
     "default"            /* this is _PAM_RETURN_VALUES and indicates
 			    the default return action */
 };
 
 /*
- * Copyright (C) 1998, Andrew G. Morgan <morgan@linux.kernel.org>
+ * Copyright (C) 1998,2001 Andrew G. Morgan <morgan@kernel.org>
  *
  * All rights reserved
  *

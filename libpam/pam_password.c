@@ -19,6 +19,11 @@ int pam_chauthtok(pam_handle_t *pamh, int flags)
 
     IF_NO_PAMH("pam_chauthtok", pamh, PAM_SYSTEM_ERR);
 
+    if (__PAM_FROM_MODULE(pamh)) {
+	D(("called from module!?"));
+	return PAM_SYSTEM_ERR;
+    }
+
     if (pamh->former.choice == PAM_NOT_STACKED) {
 	_pam_start_timer(pamh);    /* we try to make the time for a failure
 				      independent of the time it takes to

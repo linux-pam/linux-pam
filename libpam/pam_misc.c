@@ -177,11 +177,15 @@ int _pam_mkargv(char *s, char ***argv, int *argc)
 
 void _pam_sanitize(pam_handle_t *pamh)
 {
+    int old_caller_is = pamh->caller_is;
+
     /*
      * this is for security. We reset the auth-tokens here.
      */
-    pam_set_item(pamh,PAM_AUTHTOK,NULL);
-    pam_set_item(pamh,PAM_OLDAUTHTOK,NULL);
+    __PAM_TO_MODULE(pamh);
+    pam_set_item(pamh, PAM_AUTHTOK, NULL);
+    pam_set_item(pamh, PAM_OLDAUTHTOK, NULL);
+    pamh->caller_is = old_caller_is;
 }
 
 /*

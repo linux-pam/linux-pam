@@ -48,8 +48,8 @@ DAMAGE.
 <article>
 
 <title>The Linux-PAM Module Writers' Guide
-<author>Andrew G. Morgan, <tt>morgan@linux.kernel.org</tt>
-<date>DRAFT v0.73 2000/12/02
+<author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
+<date>DRAFT v0.74 2001/01/21
 <abstract>
 This manual documents what a programmer needs to know in order to
 write a module that conforms to the <bf/Linux-PAM/ standard. It also
@@ -207,10 +207,9 @@ Setting items
 Synopsis:
 <tscreen>
 <verb>
-extern int pam_set_item(pam_handle_t *pamh
-			, int item_type
-			, const void *item
-			);
+extern int pam_set_item(pam_handle_t *pamh,
+                        int item_type,
+			const void *item);
 </verb>
 </tscreen>
 
@@ -227,8 +226,8 @@ following two <tt/item_type/s:
 <descrip>
 <tag><tt/PAM_AUTHTOK/</tag>
 
-The authentication token (password). This token should be ignored by
-all module functions besides <tt/pam_sm_authenticate()/ and
+The authentication token (often a password). This token should be
+ignored by all module functions besides <tt/pam_sm_authenticate()/ and
 <tt/pam_sm_chauthtok()/. In the former function it is used to pass the
 most recent authentication token from one stacked module to
 another. In the latter function the token is used for another
@@ -258,10 +257,9 @@ Getting items
 Synopsis:
 <tscreen>
 <verb>
-extern int pam_get_item(const pam_handle_t *pamh
-			, int item_type
-			, const void **item
-			);
+extern int pam_get_item(const pam_handle_t *pamh,
+			int item_type,
+			const void **item);
 </verb>
 </tscreen>
 
@@ -413,7 +411,7 @@ extern int pam_putenv(pam_handle_t *pamh, const char *name_value);
 </tscreen>
 
 <p>
-<bf/Linux-PAM/ (0.54+) comes equipped with a series of functions for
+<bf/Linux-PAM/ comes equipped with a series of functions for
 maintaining a set of <em/environment/ variables. The environment is
 initialized by the call to <tt/pam_start()/ and is <bf/erased/ with a
 call to <tt/pam_end()/.  This <em/environment/ is associated with the
@@ -531,9 +529,9 @@ is returned to the application. When using this function the module
 programmer should check if it is available with,
 <tscreen>
 <verb>
-#ifdef HAVE_PAM_FAIL_DELAY
+#ifdef PAM_FAIL_DELAY
     ....
-#endif /* HAVE_PAM_FAIL_DELAY */
+#endif /* PAM_FAIL_DELAY */
 </verb>
 </tscreen>
 

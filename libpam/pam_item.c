@@ -21,12 +21,13 @@
     }                                  \
 }
 
+/* handy version id */
+
+unsigned int __libpam_version = LIBPAM_VERSION;
+
 /* functions */
 
-int pam_set_item (
-    pam_handle_t *pamh,
-    int item_type,
-    const void *item)
+int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 {
     int retval;
 
@@ -37,6 +38,7 @@ int pam_set_item (
     retval = PAM_SUCCESS;
 
     switch (item_type) {
+
     case PAM_SERVICE:
 	/* Setting handlers_loaded to 0 will cause the handlers
 	 * to be reloaded on the next call to a service module.
@@ -49,53 +51,68 @@ int pam_set_item (
 		*tmp = tolower(*tmp);                 /* require lower case */
 	}
 	break;
+
     case PAM_USER:
 	RESET(pamh->user, item);
 	break;
+
     case PAM_USER_PROMPT:
 	RESET(pamh->prompt, item);
 	break;
+
     case PAM_TTY:
 	D(("setting tty to %s", item));
 	RESET(pamh->tty, item);
 	break;
+
     case PAM_RUSER:
 	RESET(pamh->ruser, item);
 	break;
+
     case PAM_RHOST:
 	RESET(pamh->rhost, item);
 	break;
+
     case PAM_AUTHTOK:
-	 /*
-	  * The man page says this is only supposed to be available to
-	  * the module providers.  In order to use this item the app
-	  * has to #include <security/pam_modules.h>. This is something
-	  * it is *not* supposed to do with "Linux-"PAM!  - AGM.
-	  */
-    {
-	char *_TMP_ = pamh->authtok;
-	if (_TMP_ == item)            /* not changed so leave alone */
-	     break;
-	pamh->authtok = (item) ? _pam_strdup(item) : NULL;
-	if (_TMP_) {
-	    _pam_overwrite(_TMP_);
-	    free(_TMP_);
+	/*
+	 * PAM_AUTHTOK and PAM_OLDAUTHTOK are only accessible from
+	 * modules.
+	 */
+	if (__PAM_FROM_MODULE(pamh)) {
+	    char *_TMP_ = pamh->authtok;
+	    if (_TMP_ == item)            /* not changed so leave alone */
+		break;
+	    pamh->authtok = (item) ? _pam_strdup(item) : NULL;
+	    if (_TMP_) {
+		_pam_overwrite(_TMP_);
+		free(_TMP_);
+	    }
+	} else {
+	    retval = PAM_BAD_ITEM;
 	}
+
 	break;
-    }
+
     case PAM_OLDAUTHTOK:
-	 /* See note above. */
-    {
-	char *_TMP_ = pamh->oldauthtok;
-	if (_TMP_ == item)            /* not changed so leave alone */
-	     break;
-	pamh->oldauthtok = (item) ? _pam_strdup(item) : NULL;
-	if (_TMP_) {
-	    _pam_overwrite(_TMP_);
-	    free(_TMP_);
+	/*
+	 * PAM_AUTHTOK and PAM_OLDAUTHTOK are only accessible from
+	 * modules.
+	 */
+	if (__PAM_FROM_MODULE(pamh)) {
+	    char *_TMP_ = pamh->oldauthtok;
+	    if (_TMP_ == item)            /* not changed so leave alone */
+		break;
+	    pamh->oldauthtok = (item) ? _pam_strdup(item) : NULL;
+	    if (_TMP_) {
+		_pam_overwrite(_TMP_);
+		free(_TMP_);
+	    }
+	} else {
+	    retval = PAM_BAD_ITEM;
 	}
+
 	break;
-    }
+
     case PAM_CONV:              /* want to change the conversation function */
 	if (item == NULL) {
 	    _pam_system_log(LOG_ERR,
@@ -117,23 +134,24 @@ int pam_set_item (
 	    }
 	}
         break;
+
     case PAM_FAIL_DELAY:
 	pamh->fail_delay.delay_fn_ptr = item;
 	break;
+
     default:
 	retval = PAM_BAD_ITEM;
     }
 
-    return (retval);
+    return retval;
 }
 
-int pam_get_item (
-    const pam_handle_t *pamh,
-    int item_type,
-    const void **item)
+int pam_get_item (const pam_handle_t *pamh, int item_type, const void **item)
 {
+    int retval = PAM_SUCCESS;
+
     D(("called."));
-    IF_NO_PAMH("pam_get_item",pamh,PAM_SYSTEM_ERR);
+    IF_NO_PAMH("pam_get_item", pamh, PAM_SYSTEM_ERR);
 
     if (item == NULL) {
 	_pam_system_log(LOG_ERR,
@@ -145,45 +163,72 @@ int pam_get_item (
     case PAM_SERVICE:
 	*item = pamh->service_name;
 	break;
+
     case PAM_USER:
 	D(("returning user=%s", pamh->user));
 	*item = pamh->user;
 	break;
+
     case PAM_USER_PROMPT:
 	D(("returning userprompt=%s", pamh->user));
 	*item = pamh->prompt;
 	break;
+
     case PAM_TTY:
 	D(("returning tty=%s", pamh->tty));
 	*item = pamh->tty;
 	break;
+
     case PAM_RUSER:
 	*item = pamh->ruser;
 	break;
+
     case PAM_RHOST:
 	*item = pamh->rhost;
 	break;
+
     case PAM_AUTHTOK:
-	*item = pamh->authtok;
+	/*
+	 * PAM_AUTHTOK and PAM_OLDAUTHTOK are only accessible from
+	 * modules.
+	 */
+	if (__PAM_FROM_MODULE(pamh)) {
+	    *item = pamh->authtok;
+	} else {
+	    retval = PAM_BAD_ITEM;
+	}
 	break;
+
     case PAM_OLDAUTHTOK:
-	*item = pamh->oldauthtok;
+	/*
+	 * PAM_AUTHTOK and PAM_OLDAUTHTOK are only accessible from
+	 * modules.
+	 */
+	if (__PAM_FROM_MODULE(pamh)) {
+	    *item = pamh->oldauthtok;
+	} else {
+	    retval = PAM_BAD_ITEM;
+	}
 	break;
+
     case PAM_CONV:
 	*item = pamh->pam_conversation;
 	break;
+
     case PAM_FAIL_DELAY:
 	*item = pamh->fail_delay.delay_fn_ptr;
 	break;
+
     default:
-	/* XXX - I made this up */
-	return PAM_BAD_ITEM;
+	retval = PAM_BAD_ITEM;
     }
   
-    return PAM_SUCCESS;
+    return retval;
 }
 
-/* added by AGM 1996/3/2 */
+/*
+ * This function is the 'preferred method to obtain the username'.
+ */
 
 int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 {

@@ -45,8 +45,8 @@ DAMAGE.
 <article>
 
 <title>The Linux-PAM Application Developers' Guide
-<author>Andrew G. Morgan, <tt>morgan@linux.kernel.org</tt>
-<date>DRAFT v0.73 2000/12/02
+<author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
+<date>DRAFT v0.74 2001/01/21
 <abstract>
 This manual documents what an application developer needs to know
 about the <bf>Linux-PAM</bf> library. It describes how an application
@@ -316,33 +316,41 @@ extern int pam_set_item(pam_handle_t *pamh, int item_type,
 <tag><tt/PAM_USER/</tag>
 	The user name
 
+<tag><tt/PAM_USER_PROMPT/</tag>
+	The string used when prompting for a user's name. The default
+value for this string is ``Please enter username: ''.
+
 <tag><tt/PAM_TTY/</tag>
 	The terminal name: prefixed by <tt>/dev/</tt> if it is a
 device file; for graphical, X-based, applications the value for this
 item should be the <tt/&dollar;DISPLAY/ variable.
 
+<tag><tt/PAM_RUSER/</tag>
+	The requesting user's username
+
 <tag><tt/PAM_RHOST/</tag>
-	The remote host name
+	The requesting hostname (the hostname of the machine from which
+	the <tt/PAM_RUSER/ is requesting service)
 
 <tag><tt/PAM_CONV/</tag>
 	The conversation structure (see section <ref
 id="the-conversation-function" name="below">)
 
-<tag><tt/PAM_RUSER/</tag>
-	The remote user name
-
-<tag><tt/PAM_USER_PROMPT/</tag>
-	The string used when prompting for a user's name. The default
-value for this string is ``Please enter username: ''.
+<tag><tt/PAM_FAIL_DELAY/</tag> A function pointer to redirect
+        centrally managed failure delays (see section <ref
+        id="the-failure-delay-function" name="below">).
 
 </descrip>
 
 <p>
-For all <tt/item_type/s, other than <tt/PAM_CONV/, <tt/item/ is a
-pointer to a <tt>&lt;NUL&gt;</tt> terminated character string.  In the
-case of <tt/PAM_CONV/, <tt/item/ points to an initialized
-<tt/pam_conv/ structure (see section <ref
-id="the-conversation-function" name="below">).
+For all <tt/item_type/s, other than <tt/PAM_CONV/ and
+<tt/PAM_FAIL_DELAY/, <tt/item/ is a pointer to a <tt>&lt;NUL&gt;</tt>
+terminated character string.  In the case of <tt/PAM_CONV/, <tt/item/
+points to an initialized <tt/pam_conv/ structure (see section <ref
+id="the-conversation-function" name="below">). In the case of
+<tt/PAM_FAIL_DELAY/, <tt/item/ is a function pointer: <tt/void
+(*delay_fn)(int retval, unsigned usec_delay, void *appdata_ptr)/ (see
+section <ref id="the-failure-delay-function" name="below">).
 
 <p>
 A successful call to this function returns <tt/PAM_SUCCESS/.  However,
@@ -350,13 +358,17 @@ the application should expect one of the following errors:
 
 <p>
 <descrip>
+<tag><tt/PAM_SYSTEM_ERR/</tag>
+        The <tt/pam_handle_t/ passed as a first argument to this
+        function was invalid.
 <tag><tt/PAM_PERM_DENIED/</tag>
 	An attempt was made to replace the conversation structure with
-a <tt/NULL/ value.
+        a <tt/NULL/ value.
 <tag><tt/PAM_BUF_ERR/</tag>
 	The function ran out of memory making a copy of the item.
 <tag><tt/PAM_BAD_ITEM/</tag>
-	The application attempted to set an undefined item.
+	The application attempted to set an undefined or inaccessible
+	item.
 </descrip>
 
 <sect2>Getting PAM items
@@ -375,9 +387,31 @@ This function is used to obtain the value of the indicated
 <tt/item_type/.  Upon successful return, <tt/*item/ contains a pointer
 to the value of the corresponding item.  Note, this is a pointer to
 the <em/actual/ data and should <em/not/ be <tt/free()/'ed or
-over-written!  A successful call is signaled by a return value of
-<tt/PAM_SUCCESS/.  If an attempt is made to get an undefined item,
-<tt/PAM_BAD_ITEM/ is returned.
+over-written!
+
+<p>
+A successful call is signaled by a return value of <tt/PAM_SUCCESS/.
+However, the application should expect one of the following errors:
+
+<p>
+<descrip>
+<tag><tt/PAM_SYSTEM_ERR/</tag>
+        The <tt/pam_handle_t/ passed as a first argument to this
+        function was invalid.
+<tag><tt/PAM_PERM_DENIED/</tag>
+	The value of <tt/item/ was <tt/NULL/.
+<tag><tt/PAM_BAD_ITEM/</tag>
+	The application attempted to set an undefined or inaccessible
+	item.
+</descrip>
+
+<p>
+Note, in the case of an error, the contents of <tt/item/ is not
+modified - that is, it retains its pre-call value. One should take
+care to initialize this value prior to calling
+<tt/pam_get_item()/. Since, if its value - despite the
+<tt/pam_get_item()/ function failing - is to be used the consequences
+are undefined.
 
 <sect2>Understanding errors
 <label id="pam-strerror-section">
@@ -395,6 +429,7 @@ error associated with the argument <tt/errnum/.  If the error is not
 recognized ``<tt/Unknown Linux-PAM error/'' is returned.
 
 <sect2>Planning for delays
+<label id="the-failure-delay-function">
 
 <p>
 <tscreen>
@@ -410,9 +445,9 @@ is returned to the application. When using this function the
 application programmer should check if it is available with,
 <tscreen>
 <verb>
-#ifdef HAVE_PAM_FAIL_DELAY
+#ifdef PAM_FAIL_DELAY
     ....
-#endif /* HAVE_PAM_FAIL_DELAY */
+#endif /* PAM_FAIL_DELAY */
 </verb>
 </tscreen>
 
@@ -463,7 +498,7 @@ void (*delay_fn)(int retval, unsigned usec_delay, void *appdata_ptr);
 The arguments being the <tt/retval/ return code of the module stack,
 the <tt/usec_delay/ micro-second delay that libpam is requesting and
 the <tt/appdata_ptr/ that the application has associated with the
-current <tt/pamh/ (/tt/pam_handle_t/). This last value was set by the
+current <tt/pamh/ (<tt/pam_handle_t/). This last value was set by the
 application when it called <tt/pam_start/ or explicitly with
 <tt/pam_set_item(... , PAM_CONV, ...)/. Note, if <tt/PAM_FAIL_DELAY/
 is unset (or set to <tt/NULL/), then <tt/libpam/ will perform any
@@ -744,14 +779,6 @@ session for the user, this function will return <tt/PAM_SESSION_ERR/.
 extern int pam_putenv(pam_handle_t *pamh, const char *name_value);
 </verb>
 </tscreen>
-
-<p>
-<em>
-Warning, the environment support in <bf/Linux-PAM/ is based solely
-on a six line email from the developers at Sun. Its interface is
-likely to be generally correct, however, the details are likely to be
-changed as more information becomes available.
-</em>
 
 <p>
 This function attempts to (re)set a <bf/Linux-PAM/ environment

@@ -12,9 +12,14 @@ int pam_end(pam_handle_t *pamh, int pam_status)
 {
     int ret;
 
+    D(("entering pam_end()"));
+
     IF_NO_PAMH("pam_end", pamh, PAM_SYSTEM_ERR);
 
-    D(("entering pam_end()"));
+    if (__PAM_FROM_MODULE(pamh)) {
+	D(("called from module!?"));
+	return PAM_SYSTEM_ERR;
+    }
 
     /* first liberate the modules (it is not inconcevible that the
        modules may need to use the service_name etc. to clean up) */

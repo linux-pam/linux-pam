@@ -14,6 +14,11 @@
 #ifndef _SECURITY__PAM_TYPES_H
 #define _SECURITY__PAM_TYPES_H
 
+#ifndef __LIBPAM_VERSION
+# define __LIBPAM_VERSION __libpam_version
+#endif
+extern unsigned int __libpam_version;
+
 /*
  * include local definition for POSIX - NULL
  */
@@ -86,7 +91,10 @@ typedef struct pam_handle pam_handle_t;
 				   calling again, verify that conversation
 				   is completed */
 
-/* Add new #define's here */
+/*
+ * Add new #define's here - take care to also extend the libpam code:
+ * pam_strerror() and "libpam/pam_tokens.h" .
+ */
 
 #define _PAM_RETURN_VALUES 32   /* this is the number of return values */
 
