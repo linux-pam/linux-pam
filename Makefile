@@ -1,7 +1,47 @@
 ##
 ## $Id$
 ##
-##
+
+## Note, ideally I would prefer it if this top level makefile did
+## not get created by autoconf. As I find typing 'make' and relying
+## on it to take care of all dependencies as much more friendly than
+## the multi-stage autoconf+make and also worry about updates to
+## configure.in not getting propagated down the tree. (AGM) [I realise
+## that this may not prove possible, but at least I tried.. Sigh.]
+
+PAMLIBS = libpam libpamc libpam_misc
+
+all: modules libs
+
+modules:
+	@echo \"make modules\" is not yet supported
+
+libs: $(PAMLIBS)
+
+clean:
+	rm -f config.status config.cache config.log core
+	rm -f configure
+
+extraclean: clean
+	touch Make.Rules
+	rm -rf include *~ #*# *.orig *.rej
+	for i in $(PAMLIBS) ; do make -C $$i extraclean ; done
+	rm -f Make.Rules pam_aconf.h
+
+## =================
+
+# NB pam_aconf.h.in changes will remake this too
+Make.Rules: configure Make.Rules.in pam_aconf.h.in
+	./configure
+
+configure: configure.in
+	@make extraclean
+	autoconf
+
+$(PAMLIBS): Make.Rules
+	make -C $@ all
+
+ifdef LEGACY_OLD_MAKEFILE
 
 # major and minor numbers of this release
 MAJOR_REL=0
@@ -281,3 +321,5 @@ release:
 	chmod 400 .filelist
 	$(MAKE) check
 	(cat .filelist ; echo $(RELNAME)/conf/.md5sum) | (cd .. ; tar -cz -f$(DISTFILE) -T-)
+
+endif # LEGACY_OLD_MAKEFILE
