@@ -42,7 +42,7 @@
 
 #define USER_RHOSTS_FILE "/.rhosts"     /* prefixed by user's home dir */
 
-#ifdef linux
+#ifdef __linux__
 #include <endian.h>
 #endif
 
@@ -74,13 +74,6 @@ int innetgr(const char *, const char *, const char *,const char *);
 #include <ctype.h>
 
 #include <net/if.h>
-#ifdef linux
-# include <linux/sockios.h>
-# ifndef __USE_MISC
-#  define __USE_MISC
-#  include <sys/fsuid.h>
-# endif /* __USE_MISC */
-#endif
 
 #include <pwd.h>
 #include <grp.h>
@@ -522,7 +515,7 @@ pam_iruserok(pam_handle_t *pamh,
      */
 
     /* We are root, this will not fail */
-#ifdef linux
+#ifdef __linux__
     /* If we are on linux the better way is setfsuid */
     uid = setfsuid(pwd->pw_uid);
     hostf = fopen(pbuf, "r");
@@ -598,7 +591,7 @@ exit_function:
      * they are reset before we exit.
      */
 
-#ifdef linux
+#ifdef __linux__
     setfsuid(uid);
 #else
     (void)seteuid(uid);
