@@ -542,13 +542,33 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		}
 
 		/* Unset any old XAUTHORITY variable in the environment. */
-		if (getenv(XAUTHENV)) {
-			unsetenv(XAUTHENV);
-		}
+		if (getenv (XAUTHENV))
+		  unsetenv (XAUTHENV);
 
 		/* Set the new variable in the environment. */
-		pam_putenv(pamh, xauthority);
-		putenv(xauthority); /* The environment owns this string now. */
+		if (pam_putenv (pamh, xauthority) != PAM_SUCCESS)
+		  syslog (LOG_DEBUG, "pam_xauth: can't set environment variable '%s'",
+			  xauthority);
+		putenv (xauthority); /* The environment owns this string now. */
+
+		/* set $DISPLAY in pam handle to make su - work */
+		{
+		  char *d = (char *) malloc (strlen ("DISPLAY=") +
+					     strlen (display) + 1);
+		  if (d == NULL)
+		    {
+		      syslog (LOG_DEBUG, "pam_xauth: memory exhausted\n");
+		      return PAM_SESSION_ERR;
+		    }
+		  strcpy (d, "DISPLAY=");
+		  strcat (d, display);
+
+		  if (pam_putenv (pamh, d) != PAM_SUCCESS)
+		    syslog (LOG_DEBUG,
+			    "pam_xauth: can't set environment variable '%s'",
+			    d);
+		  free (d);
+		}
 
 		/* Merge the cookie we read before into the new file. */
 		if (debug) {

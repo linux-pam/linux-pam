@@ -83,6 +83,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * pam_shells: correct README
 * libpam: Fix debug code (kukuk)
 * pam_limits: Fix order of LIMITS_DEF_* priorities (kukuk)
+* pam_xauth: preserve DISPLAY variable (Novell #66885 - kukuk)
 
 0.78: Do Nov 18 14:48:36 CET 2004
 
