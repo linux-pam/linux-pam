@@ -75,7 +75,8 @@ static int is_on_list(char * const *list, const char *member)
 #define PAM_DEBUG_ARG       0x0001
 #define PAM_USE_UID_ARG     0x0002
 #define PAM_TRUST_ARG       0x0004
-#define PAM_DENY_ARG        0x0010  
+#define PAM_DENY_ARG        0x0010
+#define PAM_ROOT_ONLY_ARG   0x0020
 
 static int _pam_parse(int argc, const char **argv, char *use_group,
 		      size_t group_length)
@@ -97,6 +98,8 @@ static int _pam_parse(int argc, const char **argv, char *use_group,
                ctrl |= PAM_TRUST_ARG;
           else if (!strcmp(*argv,"deny"))
                ctrl |= PAM_DENY_ARG;
+          else if (!strcmp(*argv,"root_only"))
+               ctrl |= PAM_ROOT_ONLY_ARG;
           else if (!strncmp(*argv,"group=",6))
 	       strncpy(use_group,*argv+6,group_length-1);
           else {
@@ -124,13 +127,18 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
         return PAM_SERVICE_ERR;
     }
 
-    /* su to a uid 0 account ? */
     pwd = _pammodutil_getpwnam (pamh, username);
     if (!pwd) {
         if (ctrl & PAM_DEBUG_ARG) {
             _pam_log(LOG_NOTICE,"unknown user %s",username);
-	}
+        }
         return PAM_USER_UNKNOWN;
+    }
+    if (ctrl & PAM_ROOT_ONLY_ARG) {
+	/* su to a non uid 0 account ? */
+        if (pwd->pw_uid != 0) {
+            return PAM_IGNORE;
+        }
     }
      
     if (ctrl & PAM_USE_UID_ARG) {
