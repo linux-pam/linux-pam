@@ -44,19 +44,19 @@
 
 #define LIMITS_DEF_USER     0 /* limit was set by an user entry */
 #define LIMITS_DEF_GROUP    1 /* limit was set by a group entry */
-#define LIMITS_DEF_DEFAULT  2 /* limit was set by an default entry */
-#define LIMITS_DEF_NONE     3 /* this limit was not set yet */
-#define LIMITS_DEF_ALL      4 /* limit was set by an default entry */
-#define LIMITS_DEF_ALLGROUP 5 /* limit was set by a group entry */
+#define LIMITS_DEF_ALLGROUP 2 /* limit was set by a group entry */
+#define LIMITS_DEF_ALL      3 /* limit was set by an default entry */
+#define LIMITS_DEF_DEFAULT  4 /* limit was set by an default entry */
+#define LIMITS_DEF_NONE     5 /* this limit was not set yet */
 
 static const char *limits_def_names[] = {
        "USER",
        "GROUP",
+       "ALLGROUP",
+       "ALL",
        "DEFAULT",
        "NONE",
-       "ALL",
-       "ALLGROUP",
-       NULL,
+       NULL
 };
 
 struct user_limits_struct {
