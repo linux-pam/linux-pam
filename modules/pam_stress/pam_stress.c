@@ -12,7 +12,10 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+
+#define __USE_BSD
 #include <syslog.h>
+
 #include <stdarg.h>
 #include <string.h>
 #include <unistd.h>
