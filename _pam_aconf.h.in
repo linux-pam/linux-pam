@@ -48,6 +48,20 @@
 /* have libpwdb - don't expect this to be important for much longer */
 #undef HAVE_LIBPWDB
 
+/* have gethostname() declared */
+#undef HAVE_GETHOSTNAME
+
+#undef HAVE_GETTIMEOFDAY
+#undef HAVE_MKDIR
+#undef HAVE_SELECT
+#undef HAVE_STRCSPN
+#undef HAVE_STRDUP
+#undef HAVE_STRERROR
+#undef HAVE_STRSPN
+#undef HAVE_STRSTR
+#undef HAVE_STRTOL
+#undef HAVE_UNAME
+
 /* ugly hack to partially support old pam_strerror syntax */
 #undef UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT
 
