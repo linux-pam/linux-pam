@@ -50,6 +50,11 @@ libpam. Prior versions were buggy - see bugfix for Bug 129775.
 
                           ** WARNING **
 
+* fixed a small security hole (more of a user confusion issue) with
+  the unix and pwdb password helper binaries. The beef is described in
+  the bug report, but no uid change was possible so no-one should
+  think they need to issue a security bulletin over this one! (Bug
+  112540 - agmorgan)
 * pam_lastlog needs to be linked with -lutil (Bug 131549 - agmorgan)
 * pam_cracklib needs to be linked with -lcrypt (old password checking)
   (Bug 131601 - agmorgan)

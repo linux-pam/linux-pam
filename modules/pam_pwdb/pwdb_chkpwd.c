@@ -83,12 +83,12 @@ static int _unix_verify_passwd(const char *salt, const char *p)
     return retval;
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
     const struct pwdb *pw=NULL;
     const struct pwdb_entry *pwe=NULL;
     char pass[MAXPASS+1];
-    int npass;
+    int npass, force_failure=0;
     int retval=UNIX_FAILED;
 
     /*
@@ -120,13 +120,25 @@ int main(void)
 	retval = UNIX_FAILED;
     }
     if (retval != UNIX_FAILED) {
-	retval = pwdb_locate("user", PWDB_DEFAULT, PWDB_NAME_UNKNOWN
-			     , getuid(), &pw);
+	retval = pwdb_locate("user", PWDB_DEFAULT, PWDB_NAME_UNKNOWN,
+			     getuid(), &pw);
     }
     if (retval != PWDB_SUCCESS) {
 	_log_err(LOG_ALERT, "could not identify user");
 	while (pwdb_end() != PWDB_SUCCESS);
 	exit(UNIX_FAILED);
+    }
+    if (argc == 2) {
+	if (pwdb_get_entry(pw, "user", &pwe) == PWDB_SUCCESS) {
+	    if (pwe == NULL) {
+		force_failure = 1;
+	    } else {
+		if (strcmp((const char *) pwe->value, argv[1])) {
+		    force_failure = 1;
+		}
+		pwdb_entry_delete(&pwe);
+	    }
+	}
     }
 
     /* read the password from stdin (a pipe from the pam_pwdb module) */
@@ -158,6 +170,10 @@ int main(void)
     memset(pass, '\0', MAXPASS);        /* clear memory of the password */
     while (pwdb_end() != PWDB_SUCCESS);
 
+    if ((retval != UNIX_FAILED) && force_failure) {
+	retval = UNIX_FAILED;
+    }
+    
     /* return pass or fail */
 
     exit(retval);

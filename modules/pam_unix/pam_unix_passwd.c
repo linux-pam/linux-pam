@@ -328,7 +328,7 @@ static int save_old_password(const char *forwho, const char *oldpass, int howman
 	return retval;
 }
 
-static int _update_passwd(const char *forwho, char *towhat)
+static int _update_passwd(const char *forwho, const char *towhat)
 {
 	struct passwd *tmpent = NULL;
 	FILE *pwfile, *opwfile;
@@ -588,7 +588,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 				  ,const char *pass_new)
 {
 	const char *user;
-	char *remark = NULL;
+	const char *remark = NULL;
 	int retval = PAM_SUCCESS;
 
 	D(("&new=%p, &old=%p", pass_old, pass_new));

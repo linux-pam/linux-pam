@@ -165,22 +165,6 @@ static int _unix_verify_password(const char *name, const char *p, int opt)
 static char *getuidname(uid_t uid)
 {
 	struct passwd *pw;
-#if 0
-	char *envname;
-
-	envname = getenv("LOGNAME");
-	if (envname == NULL)
-		return NULL;
-
-	pw = getpwuid(uid);
-	if (pw == NULL)
-		return NULL;
-
-	if (strcmp(envname, pw->pw_name))
-		return NULL;
-
-	return envname;
-#else
 	static char username[32];
 
 	pw = getpwuid(uid);
@@ -192,7 +176,6 @@ static char *getuidname(uid_t uid)
 	username[31] = '\0';
 	
 	return username;
-#endif
 }
 
 int main(int argc, char *argv[])
@@ -200,6 +183,7 @@ int main(int argc, char *argv[])
 	char pass[MAXPASS + 1];
 	char option[8];
 	int npass, opt;
+	int force_failure = 0;
 	int retval = UNIX_FAILED;
 	char *user;
 
@@ -228,12 +212,18 @@ int main(int argc, char *argv[])
 		sleep(10);	/* this should discourage/annoy the user */
 		return UNIX_FAILED;
 	}
+
 	/*
 	 * determine the current user's name is
-	 * 1. supplied as a environment variable as LOGNAME
-	 * 2. the uid has to match the one associated with the LOGNAME.
 	 */
 	user = getuidname(getuid());
+	if (argc == 2) {
+	    /* if the caller specifies the username, verify that user
+	       matches it */
+	    if (strcmp(user, argv[1])) {
+		force_failure = 1;
+	    }
+	}
 
 	/* read the nollok/nonull option */
 
@@ -281,7 +271,11 @@ int main(int argc, char *argv[])
 
 	/* return pass or fail */
 
-	return retval;
+	if ((retval != UNIX_PASSED) || force_failure) {
+	    return UNIX_FAILED;
+	} else {
+	    return UNIX_PASSED;
+	}
 }
 
 /*

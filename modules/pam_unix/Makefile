@@ -148,7 +148,8 @@ ifdef DYNAMIC
 	for x in pam_unix_auth pam_unix_acct pam_unix_passwd pam_unix_session;\
 		do ln -sf $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)/$$x.so ; done
 endif
-	install $(CHKPWD) $(FAKEROOT)$(SUPLEMENTED)
+	$(MKDIR) $(FAKEROOT)$(SUPLEMENTED)
+	install -m 4555 $(CHKPWD) $(FAKEROOT)$(SUPLEMENTED)
 
 remove:
 	rm -f $(FAKEROOT)$(SECUREDIR)/$(LIBSHARED)

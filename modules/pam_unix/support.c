@@ -394,7 +394,8 @@ int _unix_blankpasswd(unsigned int ctrl, const char *name)
 #include <sys/types.h>
 #include <sys/wait.h>
 
-static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd, unsigned int ctrl)
+static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
+				   unsigned int ctrl, const char *user)
 {
     int retval, child, fds[2];
 
@@ -408,8 +409,8 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd, unsig
     /* fork */
     child = fork();
     if (child == 0) {
-	static char *args[] = { NULL, NULL };
 	static char *envp[] = { NULL };
+	char *args[] = { NULL, NULL, NULL };
 
 	/* XXX - should really tidy up PAM here too */
 
@@ -419,6 +420,8 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd, unsig
 
 	/* exec binary helper */
 	args[0] = x_strdup(CHKPWD_HELPER);
+	args[1] = x_strdup(user);
+
 	execve(CHKPWD_HELPER, args, envp);
 
 	/* should not get here: exit with error */
@@ -530,7 +533,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 		if (geteuid()) {
 			/* we are not root perhaps this is the reason? Run helper */
 			D(("running helper binary"));
-			retval = _unix_run_helper_binary(pamh, p, ctrl);
+			retval = _unix_run_helper_binary(pamh, p, ctrl, name);
 			if (pwd == NULL && !on(UNIX_AUDIT,ctrl)
 			    && retval != PAM_SUCCESS)
 			{
