@@ -34,8 +34,10 @@ account
 
 <tag><bf>Clean code base:</bf></tag>
 
-<tag><bf>System dependencies:</bf></tag>
-Requires a configuration file <tt>/etc/security/access.conf</tt>
+<tag><bf>System dependencies:</bf></tag> 
+Requires a configuration file. By default 
+<tt>/etc/security/access.conf</tt> is used but this can be overridden. 
+
 <tag><bf>Network aware:</bf></tag>
 
 Through <tt/PAM_TTY/ if set, otherwise attempts getting tty name of
@@ -57,6 +59,8 @@ Provides logdaemon style login access control.
 
 <tag><bf>Recognized arguments:</bf></tag>
 
+<tt>accessconf=<it>/path/to/file.conf</it></tt>
+
 <tag><bf>Description:</bf></tag>
 
 This module provides logdaemon style login access control based on
@@ -65,6 +69,18 @@ network numbers), or on terminal line names in case of non-networked
 logins. Diagnostics are reported through <tt/syslog(3)/.  Wietse
 Venema's <tt/login_access.c/ from <em/logdaemon-5.6/ is used with
 several changes by A. Nogin.
+
+<p> 
+The behavior of this module can be modified with the following 
+arguments: 
+<itemize> 
+ 
+<item><tt>accessconf=/path/to/file.conf</tt> - 
+indicate an alternative <em/access/ configuration file to override 
+the default. This can be useful when different services need different 
+access lists. 
+ 
+</itemize> 
 
 <tag><bf>Examples/suggested usage:</bf></tag>
 
@@ -90,4 +106,3 @@ A sample <tt>access.conf</tt> configuration file is included with the
 distribution.
 
 </descrip>
-
