@@ -77,6 +77,18 @@ install: all
 ifdef DYNAMIC
 	$(INSTALL) -m $(SHLIBMODE) $(LIBSHARED) $(FAKEROOT)$(SECUREDIR)
 endif
+ifdef MAN3
+	test -d $(FAKEROOT)$(mandir)/man3 || $(MKDIR) $(FAKEROOT)$(mandir)/man3
+	$(INSTALL) -m $(MANMODE) $(MAN3) $(FAKEROOT)$(mandir)/man3/
+endif
+ifdef MAN5
+	test -d $(FAKEROOT)$(mandir)/man5 || $(MKDIR) $(FAKEROOT)$(mandir)/man5
+	$(INSTALL) -m $(MANMODE) $(MAN5) $(FAKEROOT)$(mandir)/man5/
+endif
+ifdef MAN8
+	test -d $(FAKEROOT)$(mandir)/man8 || $(MKDIR) $(FAKEROOT)$(mandir)/man8
+	$(INSTALL) -m $(MANMODE) $(MAN8) $(FAKEROOT)$(mandir)/man8/
+endif
 	$(MODULE_SIMPLE_INSTALL)
 
 remove:

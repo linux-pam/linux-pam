@@ -1,0 +1,82 @@
+.\" Copyright 2001,2003 Red Hat, Inc.
+.\" Written by Nalin Dahyabhai <nalin@redhat.com>, based on the original
+.\" version by Michael K. Johnson
+.TH pam_xauth 8 2003/7/24 "Red Hat Linux" "System Administrator's Manual"
+.SH NAME
+pam_xauth \- forward xauth keys between users
+.SH SYNOPSIS
+.B session optional /lib/security/pam_xauth.so \fIarguments\fP
+.SH DESCRIPTION
+pam_xauth.so is designed to forward xauth keys (sometimes referred
+to as "cookies") between users.
+
+Without pam_xauth, when xauth is enabled and a user uses the \fBsu\fP command
+to assume another user's priviledges, that user is no longer able to access
+the original user's X display because the new user does not have the key
+needed to access the display.  pam_xauth solves the problem by forwarding the
+key from the user running su (the source user) to the user whose
+identity the source user is assuming (the target user) when the session
+is created, and destroying the key when the session is torn down.
+
+This means, for example, that when you run \fBsu\fP from an xterm sesssion,
+you will be able to run X programs without explicitly dealing with the
+xauth command or ~/.Xauthority files.
+
+pam_xauth will only forward keys if xauth can list a key connected
+to the $DISPLAY environment variable.
+
+Primitive access control is provided by \fB~/.xauth/export\fP in the invoking
+user's home directory and \fB~/.xauth/import\fP in the target user's home
+directory.
+
+If a user has a \fB~/.xauth/import\fP file, the user will only receive cookies
+from users listed in the file.  If there is no \fB~/.xauth/import\fP file,
+the user will accept cookies from any other user.
+
+If a user has a \fB.xauth/export\fP file, the user will only forward cookies
+to users listed in the file.  If there is no \fB~/.xauth/export\fP file, and
+the invoking user is not \fBroot\fP, the user will forward cookies to
+any other user.  If there is no \fB~/.xauth/export\fP file, and the invoking
+user is \fBroot\fP, the user will \fInot\fP forward cookies to other users.
+
+Both the import and export files support wildcards (such as \fI*\fP).  Both
+the import and export files can be empty, signifying that no users are allowed.
+
+.SH ARGUMENTS
+.IP debug
+Turns on debugging messages sent to syslog.
+.IP xauthpath=\fI/usr/X11R6/bin/xauth\fP
+Specify the path the xauth program (the default is /usr/X11R6/bin/xauth).
+.IP systemuser=\fInumber\fP
+Specify the highest UID which will be assumed to belong to a "system" user.
+pam_xauth will refuse to forward credentials to users with UID less than or
+equal to this number, except for root and the "targetuser", if specified.
+.IP targetuser=\fInumber\fP
+Specify a single target UID which is exempt from the systemuser check.
+.SH "IMPLEMENTATION DETAILS"
+pam_xauth will work \fIonly\fP if it is used from a setuid application
+in which the getuid() call returns the id of the user running the
+application, and for which PAM can supply the name of the account that
+the user is attempting to assume.  The typical application of this
+type is \fBsu\fP.  The application must call both pam_open_session() and
+pam_close_session() with the ruid set to the uid of the calling user
+and the euid set to root, and must have provided as the PAM_USER item
+the name of the target user.
+
+pam_xauth calls \fBxauth\fP as the source user to extract the key for
+$DISPLAY, then calls xauth as the target user to merge the key
+into the a temporary database and later remove the database.
+
+pam_xauth cannot be told not to remove the keys when the session
+is closed.
+.SH "SEE ALSO"
+\fI/usr/share/doc/pam*/html/index.html\fP
+.SH FILES
+\fI~/.xauth/import\fP
+\fI~/.xauth/export\fP
+.SH BUGS
+Let's hope not, but if you find any, please report them via the "Bug Track"
+link at http://bugzilla.redhat.com/bugzilla/
+.SH AUTHOR
+Nalin Dahyabhai <nalin@redhat.com>, based on original version by
+Michael K. Johnson <johnsonm@redhat.com>

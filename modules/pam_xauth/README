@@ -1,0 +1,41 @@
+pam_xauth:
+	Forward xauth cookies from user to user, normally used by su, sudo, or
+	userhelper.
+
+	Primitive access control is provided by ~/.xauth/export in the invoking
+	user's home directory and ~/.xauth/import in the target user's home
+	directory.
+
+	If a user has a ~/.xauth/import file, the user will only receive cookies
+	from users listed in the file.  If there is no ~/.xauth/import file,
+	the user will accept cookies from any other user.
+
+	If a user has a .xauth/export file, the user will only forward cookies
+	to users listed in the file.  If there is no ~/.xauth/export file, and
+	the invoking user is not "root", the user will forward cookies to
+	any other user.  If there is no ~/.xauth/export file, and the invoking
+	user is "root", the user will NOT forward cookies to other users.
+
+	Both the import and export files support wildcards (such as "*").  Both
+	the import and export files can be empty, signifying that no users are
+	allowed.
+
+RECOGNIZED ARGUMENTS:
+	debug		write debugging messages to syslog
+	xauthpath=	the path to the xauth program, by default
+			/usr/X11R6/bin/xauth
+	systemuser=	highest user id assigned to system users, defaults
+			to 499 (pam_xauth will refuse to forward creds to
+			target users with id equal to or below this number,
+			except for root and possibly another specified user)
+	targetuser=	a target user id which is excepted from the systemuser
+			checks
+
+
+MODULE SERVICES PROVIDED:
+	session         open session copies xauth cookie to new user
+			close session deletes copied xauth cookie
+
+AUTHOR:
+	Nalin Dahyabhai <nalin@redhat.com>, based on original version by
+	Michael K. Johnson <johnsonm@redhat.com>
