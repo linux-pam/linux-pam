@@ -4,6 +4,24 @@
 ## @configure_input@
 ##
 
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+
 # major and minor numbers of this release
 MAJOR_REL=@LIBPAM_VERSION_MAJOR@
 MINOR_REL=@LIBPAM_VERSION_MINOR@
@@ -41,7 +59,6 @@ DYNAMIC=@DYNAMIC@
 
 # Location of libraries when installed on the system
 FAKEROOT=@FAKEROOT@
-LIBDIR=@LIBDIR@
 SECUREDIR=@SECUREDIR@
 INCLUDED=@INCLUDEDIR@
 

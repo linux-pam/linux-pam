@@ -109,7 +109,7 @@ ifeq ($(STATIC_LIBPAM),yes)
 endif
 
 install: all
-	$(MKDIR) $(FAKEROOT)$(INCLUDED) $(FAKEROOT)$(LIBDIR)
+	$(MKDIR) $(FAKEROOT)$(INCLUDED) $(FAKEROOT)$(libdir)
 	$(INSTALL) -m 644 include/security/pam_appl.h $(FAKEROOT)$(INCLUDED)
 	$(INSTALL) -m 644 include/security/pam_modules.h $(FAKEROOT)$(INCLUDED)
 	$(INSTALL) -m 644 include/security/_pam_macros.h $(FAKEROOT)$(INCLUDED)
@@ -119,15 +119,15 @@ ifdef MEMORY_DEBUG
 	$(INSTALL) -m 644 include/security/pam_malloc.h $(FAKEROOT)$(INCLUDED)
 endif
 ifeq ($(DYNAMIC_LIBPAM),yes)
-	$(INSTALL) -m $(SHLIBMODE) $(LIBPAM) $(FAKEROOT)$(LIBDIR)/$(LIBPAMFULL)
+	$(INSTALL) -m $(SHLIBMODE) $(LIBPAM) $(FAKEROOT)$(libdir)/$(LIBPAMFULL)
 	$(LDCONFIG)
   ifneq ($(DYNTYPE),"sl")
-	( cd $(FAKEROOT)$(LIBDIR) ; rm -f $(LIBPAM) ; \
+	( cd $(FAKEROOT)$(libdir) ; rm -f $(LIBPAM) ; \
 	  ln -s $(LIBPAMNAME) $(LIBPAM) )
   endif
 endif
 ifeq ($(STATIC_LIBPAM),yes)
-	$(INSTALL) -m 644 $(LIBPAMSTATIC) $(FAKEROOT)$(LIBDIR)
+	$(INSTALL) -m 644 $(LIBPAMSTATIC) $(FAKEROOT)$(libdir)
 endif
 
 remove:
@@ -136,10 +136,10 @@ remove:
 	rm -f $(FAKEROOT)$(INCLUDED)/pam_appl.h
 	rm -f $(FAKEROOT)$(INCLUDED)/pam_modules.h
 	rm -f $(FAKEROOT)$(INCLUDED)/pam_malloc.h
-	rm -f $(FAKEROOT)$(LIBDIR)/$(LIBPAM).*
-	rm -f $(FAKEROOT)$(LIBDIR)/$(LIBPAM)
+	rm -f $(FAKEROOT)$(libdir)/$(LIBPAM).*
+	rm -f $(FAKEROOT)$(libdir)/$(LIBPAM)
 	$(LDCONFIG)
-	rm -f $(FAKEROOT)$(LIBDIR)/$(LIBPAMSTATIC)
+	rm -f $(FAKEROOT)$(libdir)/$(LIBPAMSTATIC)
 
 clean:
 	rm -f a.out core *~ static/*.o dynamic/*.o

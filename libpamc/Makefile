@@ -81,20 +81,20 @@ install: all
 	$(MKDIR) $(FAKEROOT)$(INCLUDED)
 	$(INSTALL) -m 644 include/security/pam_client.h $(FAKEROOT)$(INCLUDED)
 ifeq ($(DYNAMIC_LIBPAM),yes)
-	$(INSTALL) -m $(SHLIBMODE) $(LIBNAMED) $(FAKEROOT)$(LIBDIR)/$(LIBNAMEDFULL)
+	$(INSTALL) -m $(SHLIBMODE) $(LIBNAMED) $(FAKEROOT)$(libdir)/$(LIBNAMEDFULL)
 	$(LDCONFIG)
   ifneq ($(DYNTYPE),"sl")
-	( cd $(FAKEROOT)$(LIBDIR) ; rm -f $(LIBNAMED) ; ln -s $(LIBNAMEDNAME) $(LIBNAMED) )
+	( cd $(FAKEROOT)$(libdir) ; rm -f $(LIBNAMED) ; ln -s $(LIBNAMEDNAME) $(LIBNAMED) )
   endif
 endif
 ifeq ($(STATIC_LIBPAM),yes)
-	$(INSTALL) -m 644 $(LIBNAMEDSTATIC) $(FAKEROOT)$(LIBDIR)
+	$(INSTALL) -m 644 $(LIBNAMEDSTATIC) $(FAKEROOT)$(libdir)
 endif
 
 remove:
 	rm -f $(FAKEROOT)$(INCLUDED)/pam_client.h
 	$(LDCONFIG)
-	rm -f $(FAKEROOT)$(LIBDIR)/$(LIBNAMEDSTATIC)
+	rm -f $(FAKEROOT)$(libdir)/$(LIBNAMEDSTATIC)
 
 clean:
 	rm -f a.out core *~ static/*.o dynamic/*.o

@@ -60,8 +60,8 @@ AC_ARG_ENABLE(fakeroot,
 AC_SUBST(FAKEROOT)
 
 AC_ARG_ENABLE(securedir,
-[  --with-securedir=<path to location of PAMs> [default \$LIBDIR/security]],
-	SECUREDIR=$withval, SECUREDIR=$LIBDIR/security)
+[  --with-securedir=<path to location of PAMs> [default \$libdir/security]],
+	SECUREDIR=$withval, SECUREDIR=$libdir/security)
 AC_SUBST(SECUREDIR)
 
 AC_ARG_ENABLE(includedir,
