@@ -345,8 +345,9 @@ static int from_match(char *tok, struct login_info *item)
            by "string" starts from "tok".
                                1998/01/27  Andrey V. Savochkin <saw@msu.ru>
          */
+
         struct hostent *h;
-        char hn[3+1+3+1+3+1+3+1];
+        char hn[3+1+3+1+3+1+3+1+1];
         int r;
 
         h = gethostbyname(string);
@@ -356,9 +357,9 @@ static int from_match(char *tok, struct login_info *item)
 	    return (NO);
         if (h->h_length != 4)
 	    return (NO); /* only IPv4 addresses (SAW) */
-        r = snprintf(hn, sizeof(hn), "%u.%u.%u.%u",
-                (unsigned char)h->h_addr[0], (unsigned char)h->h_addr[1],
-                (unsigned char)h->h_addr[2], (unsigned char)h->h_addr[3]);
+        r = snprintf(hn, sizeof(hn), "%u.%u.%u.%u.",
+		     (unsigned char)h->h_addr[0], (unsigned char)h->h_addr[1],
+		     (unsigned char)h->h_addr[2], (unsigned char)h->h_addr[3]);
         if (r < 0 || r >= sizeof(hn))
 	    return (NO);
         if (!strncmp(tok, hn, tok_len))
