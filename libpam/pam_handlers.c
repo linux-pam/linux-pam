@@ -46,13 +46,23 @@ static int _pam_add_handler(pam_handle_t *pamh
 
 /* Values for module type */
 
+#define PAM_T_ANY     0
 #define PAM_T_AUTH    1
 #define PAM_T_SESS    2
 #define PAM_T_ACCT    4
 #define PAM_T_PASS    8
 
+static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
+				, const char *service /* specific file */
+				, int module_type /* specific type */
+#ifdef PAM_READ_BOTH_CONFS
+				, int not_other
+#endif /* PAM_READ_BOTH_CONFS */
+    );
+
 static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 				, const char *known_service /* specific file */
+				, int requested_module_type /* specific type */
 #ifdef PAM_READ_BOTH_CONFS
 				, int not_other
 #endif /* PAM_READ_BOTH_CONFS */
@@ -93,6 +103,8 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 
 	/* accept "service name" or PAM_DEFAULT_SERVICE modules */
 	if (!_pam_strCMP(this_service, pamh->service_name) || other) {
+	    int pam_include = 0;
+
 	    /* This is a service we are looking for */
 	    D(("_pam_init_handlers: Found PAM config entry for: %s"
 	       , this_service));
@@ -111,10 +123,17 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		D(("_pam_init_handlers: bad module type: %s", tok));
 		_pam_system_log(LOG_ERR, "(%s) illegal module type: %s",
 				this_service, tok);
-		module_type = PAM_T_AUTH;                  /* most sensitive */
+		module_type = (requested_module_type != PAM_T_ANY) ?
+			      requested_module_type : PAM_T_AUTH;	/* most sensitive */
 		must_fail = 1; /* install as normal but fail when dispatched */
 	    }
 	    D(("Using %s config entry: %s", must_fail?"BAD ":"", tok));
+	    if (requested_module_type != PAM_T_ANY &&
+	        module_type != requested_module_type) {
+		D(("Skipping config entry: %s (requested=%d, found=%d)",
+		   tok, requested_module_type, module_type));
+		continue;
+	    }
 
 	    /* reset the actions to .._UNDEF's -- this is so that
                we can work out which entries are not yet set (for default). */
@@ -146,6 +165,9 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		actions[PAM_SUCCESS] = _PAM_ACTION_DONE;
 		actions[PAM_NEW_AUTHTOK_REQD] = _PAM_ACTION_DONE;
 		_pam_set_default_control(actions, _PAM_ACTION_IGNORE);
+	    } else if (!_pam_strCMP("include", tok)) {
+		D(("*PAM_F_INCLUDE*"));
+		pam_include = 1;
 	    } else {
 		D(("will need to parse %s", tok));
 		_pam_parse_control(actions, tok);
@@ -154,7 +176,18 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    }
 
 	    tok = _pam_StrTok(NULL, " \n\t", &nexttok);
-	    if (tok != NULL) {
+	    if (pam_include) {
+		if (_pam_load_conf_file(pamh, tok, this_service, module_type
+#ifdef PAM_READ_BOTH_CONFS
+					      , !other
+#endif /* PAM_READ_BOTH_CONFS */
+		    ) == PAM_SUCCESS)
+		    continue;
+		_pam_set_default_control(actions, _PAM_ACTION_BAD);
+		mod_path = NULL;
+		must_fail = 1;
+		nexttok = NULL;
+	    } else if (tok != NULL) {
 		mod_path = tok;
 		D(("mod_path = %s",mod_path));
 	    } else {
@@ -211,6 +244,58 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
     }
 
     return ( (x < 0) ? PAM_ABORT:PAM_SUCCESS );
+}
+
+static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
+				, const char *service /* specific file */
+				, int module_type /* specific type */
+#ifdef PAM_READ_BOTH_CONFS
+				, int not_other
+#endif /* PAM_READ_BOTH_CONFS */
+    )
+{
+    FILE *f;
+    char *config_path = NULL;
+    int retval = PAM_ABORT;
+
+    D(("_pam_load_conf_file called"));
+
+    if (config_name == NULL) {
+	D(("no config file supplied"));
+	_pam_system_log(LOG_ERR, "(%s) no config file supplied", service);
+	return PAM_ABORT;
+    }
+
+    if (config_name[0] != '/') {
+	if (asprintf (&config_path, PAM_CONFIG_DF, config_name) < 0) {
+	    _pam_system_log(LOG_CRIT, "asprintf failed");
+	    return PAM_BUF_ERR;
+	}
+	config_name = config_path;
+    }
+
+    D(("opening %s", config_name));
+    f = fopen(config_name, "r");
+    if (f != NULL) {
+	retval = _pam_parse_conf_file(pamh, f, service, module_type
+#ifdef PAM_READ_BOTH_CONFS
+					      , not_other
+#endif /* PAM_READ_BOTH_CONFS */
+	    );
+	fclose(f);
+	if (retval != PAM_SUCCESS)
+	    _pam_system_log(LOG_ERR,
+			    "_pam_load_conf_file: error reading %s: %s",
+			    config_name, pam_strerror(pamh, retval));
+    } else {
+	D(("unable to open %s", filename));
+	_pam_system_log(LOG_ERR,
+			"_pam_load_conf_file: unable to open %s",
+			config_name);
+    }
+
+    _pam_drop(config_path);
+    return retval;
 }
 
 /* Parse config file, allocate handler structures, dlopen() */
@@ -293,7 +378,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 	    f = fopen(filename, "r");
 	    if (f != NULL) {
 		/* would test magic here? */
-		retval = _pam_parse_conf_file(pamh, f, pamh->service_name
+		retval = _pam_parse_conf_file(pamh, f, pamh->service_name, PAM_T_ANY
 #ifdef PAM_READ_BOTH_CONFS
 					      , 0
 #endif /* PAM_READ_BOTH_CONFS */
@@ -314,7 +399,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 		D(("checking %s", PAM_CONFIG));
 
 		if ((f = fopen(PAM_CONFIG,"r")) != NULL) {
-		    retval = _pam_parse_conf_file(pamh, f, NULL, 1);
+		    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY, 1);
 		    fclose(f);
 		} else
 #endif /* PAM_READ_BOTH_CONFS */
@@ -335,6 +420,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 		    /* would test magic here? */
 		    retval = _pam_parse_conf_file(pamh, f
 						  , PAM_DEFAULT_SERVICE
+						  , PAM_T_ANY
 #ifdef PAM_READ_BOTH_CONFS
 						  , 0
 #endif /* PAM_READ_BOTH_CONFS */
@@ -367,7 +453,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 		return PAM_ABORT;
 	    }
 
-	    retval = _pam_parse_conf_file(pamh, f, NULL
+	    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY
 #ifdef PAM_READ_BOTH_CONFS
 					  , 0
 #endif /* PAM_READ_BOTH_CONFS */
