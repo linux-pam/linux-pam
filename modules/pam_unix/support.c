@@ -167,7 +167,7 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int argc,
 			if (remember != NULL) {
 				if (j == UNIX_REMEMBER_PASSWD) {
 					*remember = strtol(*argv + 9, NULL, 10);
-					if ((*remember == LONG_MIN) || (*remember == LONG_MAX))
+					if ((*remember == INT_MIN) || (*remember == INT_MAX))
 						*remember = -1;
 					if (*remember > 400)
 						*remember = 400;
