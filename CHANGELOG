@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* fixed wrong definition of struct pam_module (was pam_wheel)
+  (Bug 124386 - baggins)
 * fixed example/Makefile include path (Bug 124187 - agmorgan)
 * pam_userdb compiles on RH5x. Also removed circular dependency on
   configure.in. Also bumped revision number to 0.74. (Bug 124136 -
