@@ -187,7 +187,7 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
    /* Create the new directory */
    if (mkdir(dest,0700) != 0)
    {
-      _log_err(LOG_DEBUG, "unable to create directory %s",source);
+      _log_err(LOG_DEBUG, "unable to create directory %s",dest);
       return PAM_PERM_DENIED;
    }   
    if (chmod(dest,0777 & (~UMask)) != 0 ||
