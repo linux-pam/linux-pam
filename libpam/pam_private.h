@@ -43,6 +43,8 @@
 
 /* components of the pam_handle structure */
 
+#define _PAM_INVALID_RETVAL  -1    /* default value for cached_retval */
+
 struct handler {
     int must_fail;
     int (*func)(pam_handle_t *pamh, int flags, int argc, char **argv);

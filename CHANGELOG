@@ -49,6 +49,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* fix for legacy behavior of pam_setcred and pam_close_session in
+  the case that pam_authenticate and pam_open_session hadn't been
+  called - bug report from S Park. (Bug 468724 - agmorgan)
 * some BSD updates and fixes from Mark Murray - including a slightly
   more robust conversation function and some minimization of gcc
   warnings. (Bugs 449203,463984 - agmorgan)

@@ -22,6 +22,11 @@
 #define _PAM_POSITIVE +1
 #define _PAM_NEGATIVE -1
 
+/* frozen chain required codes */
+#define _PAM_PLEASE_FREEZE  0
+#define _PAM_MAY_BE_FROZEN  1
+#define _PAM_MUST_BE_FROZEN 2
+
 /*
  * walk a stack of modules.  Interpret the administrator's instructions
  * when combining the return code of each module.
@@ -99,9 +104,45 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	    return retval;
 	}
 
-	if (use_cached_chain) {
-	    /* a former stack execution has frozen the chain */
+	/*
+	 * use_cached_chain is how we ensure that the setcred/close_session
+	 * and chauthtok(2) modules are called in the same order as they did
+	 * when they were invoked as auth/open_session/chauthtok(1). This
+	 * feature was added in 0.75 to make the behavior of pam_setcred
+	 * sane. It was debugged by release 0.76.
+	 */
+	if (use_cached_chain != _PAM_PLEASE_FREEZE) {
+
+	    /* a former stack execution should have frozen the chain */
+
 	    cached_retval = *(h->cached_retval_p);
+	    if (cached_retval == _PAM_INVALID_RETVAL) {
+
+		/* This may be a problem condition. It implies that
+		   the application is running setcred, close_session,
+		   chauthtok(2nd) without having first run
+		   authenticate, open_session, chauthtok(1st)
+		   [respectively]. */
+
+		D(("use_cached_chain is set to [%d],"
+		   " but cached_retval == _PAM_INVALID_RETVAL",
+		   use_cached_chain));
+
+		/* In the case of close_session and setcred there is a
+		   backward compatibility reason for allowing this, in
+		   the chauthtok case we have encountered a bug in
+		   libpam! */
+
+		if (use_cached_chain == _PAM_MAY_BE_FROZEN) {
+		    /* (not ideal) force non-frozen stack control. */
+		    cached_retval = retval;
+		} else {
+		    D(("BUG in libpam -"
+		       " chain is required to be frozen but isn't"));
+
+		    /* cached_retval is already _PAM_INVALID_RETVAL */
+		}
+	    }
 	} else {
 	    /* this stack execution is defining the frozen chain */
 	    cached_retval = h->cached_retval = retval;
@@ -110,6 +151,7 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	/* verify that the return value is a valid one */
 	if ((cached_retval < PAM_SUCCESS)
 	    || (cached_retval >= _PAM_RETURN_VALUES)) {
+
 	    retval = PAM_MUST_FAIL_CODE;
 	    action = _PAM_ACTION_BAD;
 	} else {
@@ -133,21 +175,12 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	switch (action) {
 	case _PAM_ACTION_RESET:
 
-	    /* if (use_cached_chain) {
-	           XXX - we need to consider the use_cached_chain case
-      	                 do we want to trash accumulated info here..?
-	       } */
-
 	    impression = _PAM_UNDEF;
 	    status = PAM_MUST_FAIL_CODE;
 	    break;
 
 	case _PAM_ACTION_OK:
 	case _PAM_ACTION_DONE:
-
-	    /* XXX - should we maintain cached_status and status in
-               the case of use_cached_chain? The same with BAD&DIE
-               below */
 
 	    if ( impression == _PAM_UNDEF
 		 || (impression == _PAM_POSITIVE && status == PAM_SUCCESS) ) {
@@ -178,11 +211,6 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	    break;
 
 	case _PAM_ACTION_IGNORE:
-	    /* if (use_cached_chain) {
-	            XXX - when evaluating a cached
-	            chain, do we still want to ignore the module's
-	            return value?
-	       } */
 	    break;
 
         /* if we get here, we expect action is a positive number --
@@ -261,7 +289,7 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
 	return retval;
     }
 
-    use_cached_chain = 0;   /* default to setting h->cached_retval */
+    use_cached_chain = _PAM_PLEASE_FREEZE;
 
     switch (choice) {
     case PAM_AUTHENTICATE:
@@ -269,7 +297,7 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
 	break;
     case PAM_SETCRED:
 	h = pamh->handlers.conf.setcred;
-	use_cached_chain = 1;
+	use_cached_chain = _PAM_MAY_BE_FROZEN;
 	break;
     case PAM_ACCOUNT:
 	h = pamh->handlers.conf.acct_mgmt;
@@ -279,12 +307,12 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
 	break;
     case PAM_CLOSE_SESSION:
 	h = pamh->handlers.conf.close_session;
-	use_cached_chain = 1;
+	use_cached_chain = _PAM_MAY_BE_FROZEN;
 	break;
     case PAM_CHAUTHTOK:
 	h = pamh->handlers.conf.chauthtok;
 	if (flags & PAM_UPDATE_AUTHTOK) {
-	    use_cached_chain = 1;
+	    use_cached_chain = _PAM_MUST_BE_FROZEN;
 	}
 	break;
     default:

@@ -751,7 +751,7 @@ int _pam_add_handler(pam_handle_t *pamh
     (*handler_p)->must_fail = must_fail;        /* failure forced? */
     (*handler_p)->func = func;
     memcpy((*handler_p)->actions,actions,sizeof((*handler_p)->actions));
-    (*handler_p)->cached_retval = -1;                     /* error */
+    (*handler_p)->cached_retval = _PAM_INVALID_RETVAL;
     (*handler_p)->cached_retval_p = &((*handler_p)->cached_retval);
     (*handler_p)->argc = argc;
     (*handler_p)->argv = argv;                       /* not a copy */
@@ -772,7 +772,7 @@ int _pam_add_handler(pam_handle_t *pamh
 	(*handler_p2)->must_fail = must_fail;        /* failure forced? */
 	(*handler_p2)->func = func2;
 	memcpy((*handler_p2)->actions,actions,sizeof((*handler_p2)->actions));
-	(*handler_p2)->cached_retval = -1;            /* ignored */
+	(*handler_p2)->cached_retval =  _PAM_INVALID_RETVAL;     /* ignored */
 	/* Note, this next entry points to the handler_p value! */
 	(*handler_p2)->cached_retval_p = &((*handler_p)->cached_retval);
 	(*handler_p2)->argc = argc;
