@@ -17,7 +17,6 @@ pam_unix
 <tag><bf>Author:</bf></tag>
 
 <tag><bf>Maintainer:</bf></tag>
-Authors.
 
 <tag><bf>Management groups provided:</bf></tag>
 account; authentication; password; session
@@ -40,7 +39,7 @@ account; authentication; password; session
 This is the standard Unix authentication module. It uses standard calls
 from the system's libraries to retrieve and set account information as
 well as authentication. Usually this is obtained from the /etc/passwd
-and the /etc/shadow file aswell if shadow is enabled.
+and the /etc/shadow file as well if shadow is enabled.
 
 <sect2>Account component
 

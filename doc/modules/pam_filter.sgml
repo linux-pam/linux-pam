@@ -100,8 +100,8 @@ the filter might expect.
 
 <p>
 Permitted values for <tt/X/ are <tt/1/ and <tt/2/. These indicate the
-precise time the that filter is to be run. To explain this concept it
-will be useful to have read the Linux-PAM Module developer's
+precise time that the filter is to be run. To understand this concept
+it will be useful to have read the Linux-PAM Module developer's
 guide. Basically, for each management group there are up to two ways
 of calling the module's functions.
 

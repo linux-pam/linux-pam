@@ -44,7 +44,7 @@ yes; this is a network module (independent of application).
 
 <p>
 This module is intended to provide the session service for users
-autheticated with a RADIUS server.  At the present stage, the only
+authenticated with a RADIUS server.  At the present stage, the only
 option supported is the use of the RADIUS server as an accounting
 server.
 
@@ -60,7 +60,7 @@ server.
 <tag><bf>Description:</bf></tag>
 
 This module is intended to provide the session service for users
-autheticated with a RADIUS server. At the present stage, the only
+authenticated with a RADIUS server. At the present stage, the only
 option supported is the use of the RADIUS server as an <em/accounting/
 server.  
 

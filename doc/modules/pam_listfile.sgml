@@ -111,8 +111,8 @@ Note, users listed in <tt>/etc/ftpusers</tt> file are
 (counterintuitively) <bf/not/ allowed access to the ftp service.
 
 <p>
-To allow login access only for certain users, you can use an
-pam.conf entry like this:
+To allow login access only for certain users, you can use a
+<tt/pam.conf/ entry like this:
 <tscreen>
 <verb>
 #

@@ -51,7 +51,7 @@ is the use of previously set environment variables as well as
 
 <tag><bf>Recognized arguments:</bf></tag>
 <tt/debug/; <tt/conffile=/<em/configuration-file-name/;
-<tt/envfile/=/<em/env-file-name/; <tt/readenv/=/<em/0|1/
+<tt/envfile/=<em/env-file-name/; <tt/readenv/=<em/0|1/
 
 <tag><bf>Description:</bf></tag>
 This module allows you to (un)set arbitrary environment variables
@@ -61,9 +61,9 @@ and/or <em/PAM_ITEM/s.
 <p>
 All is controlled via a configuration file (by default,
 <tt>/etc/security/pam_env.conf</tt> but can be overriden with
-<tt>connfile</tt> argument).  Each line starts with the variable name,
+<tt>conffile</tt> argument).  Each line starts with the variable name,
 there are then two possible options for each variable <bf>DEFAULT</bf>
-and <bf>OVERRIDE</bf>.  <bf>DEFAULT</bf> allows and administrator to
+and <bf>OVERRIDE</bf>.  <bf>DEFAULT</bf> allows an administrator to
 set the value of the variable to some default value, if none is
 supplied then the empty string is assumed.  The <bf>OVERRIDE</bf>
 option tells pam_env that it should enter in its value (overriding the
@@ -89,10 +89,10 @@ space is needed <bf>the full value must be delimited by the quotes and
 embedded or escaped quotes are not supported</bf>.
 
 <p>
-This module can also parse a file with simple KEY=VAL pairs on seperate
-lines (/etc/environment by default). You can change the default file to
-parse, with the <em/envfile/ flag and turn it on or off by setting the
-<em/readenv/ flag to 1 or 0 respectively.
+This module can also parse a file with simple <tt>KEY=VAL</tt> pairs
+on seperate lines (<tt>/etc/environment</tt> by default). You can
+change the default file to parse, with the <em/envfile/ flag and turn
+it on or off by setting the <em/readenv/ flag to 1 or 0 respectively.
 
 <p>
 The behavior of this module can be modified with one of the following

@@ -180,11 +180,11 @@ ftp             hard    nproc           0
 </tscreen>
 Note, the use of <tt/soft/ and <tt/hard/ limits for the same resource
 (see <tt/@faculty/) -- this establishes the <em/default/ and permitted
-<em/extreme/ level of resources that the user can can obtain in a
-given service-session.
+<em/extreme/ level of resources that the user can obtain in a given
+service-session.
 
 <p>
-For the services that need resources limits (login for example) put a
+For the services that need resources limits (login for example) put
 the following line in <tt>/etc/pam.conf</tt> as the last line for that
 service (usually after the pam_unix session line:
 <tscreen>

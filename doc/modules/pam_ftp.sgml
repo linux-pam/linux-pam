@@ -56,7 +56,7 @@ mode of access.
 
 This module intercepts the user's name and password. If the name is
 ``<tt/ftp/'' or ``<tt/anonymous/'', the user's password is broken up
-at the `<tt/@/' delimiter into a <tt/PAM_RUSER/ and a <tt/PAM_RHOST/
+at the `<tt/&commat;/' delimiter into a <tt/PAM_RUSER/ and a <tt/PAM_RHOST/
 part; these pam-items being set accordingly. The username is set to
 ``<tt/ftp/''.  In this case the module succeeds.  Alternatively, the
 module sets the <tt/PAM_AUTHTOK/ item with the entered password and

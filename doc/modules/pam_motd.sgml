@@ -38,8 +38,8 @@ Session (open)
 <sect2>Overview of module
 
 <p>
-This module outputs the motd file (<em>/etc/motd</em> by default) upon succesful
-login.
+This module outputs the motd file (<em>/etc/motd</em> by default) upon
+successful login.
 
 <sect2>Session component
 

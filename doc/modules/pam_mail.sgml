@@ -49,7 +49,7 @@ whether the user has any mail in it.
 <descrip>
 
 <tag><bf>Recognized arguments:</bf></tag>
-<tt/debug/; <tt/dir=/<em/direcory-name/; <tt/nopen/; <tt/close/;
+<tt/debug/; <tt/dir=/<em/directory-name/; <tt/nopen/; <tt/close/;
 <tt/noenv/; <tt/empty/; <tt/hash=/<em/hashcount/; <tt/standard/;
 <tt/quiet/;
 
@@ -131,7 +131,7 @@ cases, this module is not necessary.
 
 </descrip>
 
-<sect2>Authentication compent
+<sect2>Authentication component
 
 <p>
 Then authentication companent works the same as the session component,

@@ -4,7 +4,7 @@
 
  $Id$
 
-    Copyright (C) Andrew G. Morgan 1996-9.  All rights reserved.
+    Copyright (C) Andrew G. Morgan 1996-2001.  All rights reserved.
 
 Redistribution and use in source (sgml) and binary (derived) forms,
 with or without modification, are permitted provided that the
@@ -46,7 +46,7 @@ DAMAGE.
 
 <title>The Linux-PAM Application Developers' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.75 2001/02/04
+<date>DRAFT v0.75 2001/03/18
 <abstract>
 This manual documents what an application developer needs to know
 about the <bf>Linux-PAM</bf> library. It describes how an application
@@ -130,7 +130,7 @@ manage.  In addition to authentication, PAM provides account
 management, credential management, session management and
 authentication-token (password changing) management services.  It is
 important to realize when writing a PAM based application that these
-services are provided in a manner that is <bf>transparent</bf> to the
+services are provided in a manner that is <bf>transparent</bf> to
 the application.  That is to say, when the application is written, no
 assumptions can be made about <em>how</em> the client will be
 authenticated.
@@ -288,12 +288,16 @@ to cause a segmentation fault if accessed).
 
 <p>
 Under normal conditions the argument <tt/pam_status/ has the value
-PAM_SUCCESS, but in the event of an unsuccessful service application
-the approprite <bf/Linux-PAM/ error-return value should be used
-here.
-attempt its purpose is to be passed as an argument to the
-module specific function <tt/cleanup()/ (see the <bf/Linux-PAM/
-<htmlurl url="pam_modules.html" name="Module Developers' Guide">).
+PAM_SUCCESS, but in the event of an unsuccessful application for
+service the appropriate <bf/Linux-PAM/ error-return value should be
+used here. Note, <tt/pam_end()/ unconditionally shuts down the
+authentication stack associated with the <tt/pamh/ handle. The value
+taken by <tt/pam_status/ is used as an argument to the module specific
+callback functions, <tt/cleanup()/ (see the <bf/Linux-PAM/ <htmlurl
+url="pam_modules.html" name="Module Developers' Guide">). In this way,
+the module can be given notification of the pass/fail nature of the
+tear-down process, and perform any last minute tasks that are
+appropriate to the module before it is unlinked.
 
 <sect2>Setting PAM items
 <label id="pam-set-item-section">
@@ -478,7 +482,7 @@ value when <bf/Linux-PAM/ returns control to the application.
 
 <p>
 For applications written with a single thread that are event driven in
-nature, <tt/libpam/ generating this dalay may be undesirable. Instead,
+nature, <tt/libpam/ generating this delay may be undesirable. Instead,
 the application may want to register the delay in some other way. For
 example, in a single threaded server that serves multiple
 authentication requests from a single event loop, the application
@@ -646,7 +650,7 @@ this.  In such cases, the user should be denied access until such time
 as they can update their password.
 
 <tag><tt/PAM_ACCT_EXPIRED/</tag>
-	The user is no longer permitted access to the system.
+	The user is no longer permitted to access the system.
 <tag><tt/PAM_AUTH_ERR/</tag>
 	There was an authentication error.
 
@@ -730,7 +734,7 @@ extern int pam_open_session(pam_handle_t *pamh, int flags);
 
 <p>
 This function is used to indicate that an authenticated session has
-begun.  It is used to inform the module that the user is currently in
+begun.  It is used to inform the modules that the user is currently in
 a session.  It should be possible for the <bf>Linux-PAM</bf> library
 to open a session and close the same session (see section <ref
 id="pam-close-session-section" name="below">) from different
@@ -757,14 +761,15 @@ extern int pam_close_session(pam_handle_t *pamh, int flags);
 
 <p>
 This function is used to indicate that an authenticated session has
-ended. It is used to inform the module that the user is exiting a
+ended. It is used to inform the modules that the user is exiting a
 session. It should be possible for the <bf>Linux-PAM</bf> library to
 open a session and close the same session from different applications.
 
 <p>
-Currently, this function simply calls each of the corresponding
-functions of the loaded modules.  The only valid flag is
-<tt/PAM_SILENT/ and this is, of course, <em/optional/.
+This function simply calls each of the corresponding functions of the
+loaded modules in the same order that they were invoked with
+<tt/pam_open_session()/.  The only valid flag is <tt/PAM_SILENT/ and
+this is, of course, <em/optional/.
 
 <p>
 If any of the <em/required/ loaded modules are unable to close a
@@ -801,7 +806,7 @@ setting.
 <tag>``<tt/NAME/''</tag>
 
 Without an `<tt/=/' the <tt/pam_putenv()/ function will delete the
-correspoding variable from the <bf/Linux-PAM/ environment.
+corresponding variable from the <bf/Linux-PAM/ environment.
 
 </descrip>
 
@@ -982,7 +987,7 @@ to display some text.
 
 <p>
 Post Linux-PAM-0.59 (and in the interests of compatibility with
-Sunsoft).  The number of resposes is always equal to the <tt/num_msg/
+Sunsoft).  The number of responses is always equal to the <tt/num_msg/
 conversation function argument.  This is slightly easier to program
 but does require that the response array is <tt/free(3)/'d after every
 call to the conversation function.  The index of the responses
@@ -1026,7 +1031,7 @@ generated.
 <p>
 PAM, from the perspective of an application, is a convenient API for
 authenticating users. PAM modules generally have no increased
-privilege over that posessed by the application that is making use of
+privilege over that possessed by the application that is making use of
 it. For this reason, the application must take ultimate responsibility
 for protecting the environment in which PAM operates.
 
@@ -1335,7 +1340,7 @@ The following is extracted from an email.  I'll tidy it up later.
 
 <p>
 The point of PAM is that the application is not supposed to have any
-idea how the attatched authentication modules will choose to
+idea how the attached authentication modules will choose to
 authenticate the user.  So all they can do is provide a conversation
 function that will talk directly to the user(client) on the modules'
 behalf.
@@ -1349,10 +1354,10 @@ point is that the retinal scanner is an ideal task for a "module".
 
 <p>
 While it is true that a pop-daemon program is designed with the POP
-protocol in mind and no-one ever considered attatching a retinal
+protocol in mind and no-one ever considered attaching a retinal
 scanner to it, it is also the case that the "clean" PAM'ification of
 such a daemon would allow for the possibility of a scanner module
-being be attatched to it.  The point being that the "standard"
+being be attached to it.  The point being that the "standard"
 pop-authentication protocol(s) [which will be needed to satisfy
 inflexible/legacy clients] would be supported by inserting an
 appropriate pam_qpopper module(s).  However, having rewritten popd
@@ -1373,7 +1378,7 @@ of the authentication procedure (how many passwords etc..) the
 exchange protocol (prefixes to prompts etc., numbers like 331 in the
 case of ftpd) and what is part of the service that the application
 delivers.  PAM really needs to have total control in the
-authentication "proceedure", the conversation function should only
+authentication "procedure", the conversation function should only
 deal with reformatting user prompts and extracting responses from raw
 input.
 

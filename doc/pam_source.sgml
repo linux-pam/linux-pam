@@ -4,7 +4,7 @@
 
  $Id$
 
-    Copyright (c) Andrew G. Morgan 1996-9.  All rights reserved.
+    Copyright (c) Andrew G. Morgan 1996-2001.  All rights reserved.
 
 Redistribution and use in source (sgml) and binary (derived) forms,
 with or without modification, are permitted provided that the
@@ -46,7 +46,7 @@ DAMAGE.
 
 <title>The Linux-PAM System Administrators' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.75 2001/02/07
+<date>DRAFT v0.75 2001/03/18
 <abstract>
 This manual documents what a system-administrator needs to know about
 the <bf>Linux-PAM</bf> library. It covers the correct syntax of the
@@ -140,10 +140,10 @@ command shell (<em>bash, tcsh, zsh, etc.</em>) running with the
 identity of the user.
 
 <p>
-Traditinally, the former step is achieved by the <em/login/
+Traditionally, the former step is achieved by the <em/login/
 application prompting the user for a password and then verifying that
-it agrees with that located on the system; hence verifying that the
-so far as the system is concerned the user is who they claim to be.
+it agrees with that located on the system; hence verifying that
+as far as the system is concerned the user is who they claim to be.
 This is the task that is delegated to <bf/Linux-PAM/.
 
 <p>
@@ -215,7 +215,7 @@ configured authentication method.  The <bf/Linux-PAM/ library (in the
 center) consults the contents of the PAM configuration file and loads
 the modules that are appropriate for application-X. These modules fall
 into one of four management groups (lower-center) and are stacked in
-the order they appear in the configuaration file. These modules, when
+the order they appear in the configuration file. These modules, when
 called by <bf/Linux-PAM/, perform the various authentication tasks for
 the application. Textual information, required from/or offered to the
 user, can be exchanged through the use of the application-supplied
@@ -577,7 +577,7 @@ next section.
 </descrip>
 
 <p>
-Any line in (one of) the confiuration file(s), that is not formatted
+Any line in (one of) the configuration file(s), that is not formatted
 correctly, will generally tend (erring on the side of caution) to make
 the authentication process fail.  A corresponding error is written to
 the system log files with a call to <tt/syslog(3)/.
