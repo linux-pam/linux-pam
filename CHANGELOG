@@ -35,6 +35,7 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* md5.h ia64 fixes for pam_unix and pam_pwdb (Bug 127700 - agmorgan)
 * removed requirement for c++ from the configure{.in,} files (Bug
   128298 - agmorgan)
 * removed subdirectories from man page redirections (124396 - baggins)
