@@ -119,7 +119,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 
 	/* get the user'name' */
 
-	retval = pam_get_user(pamh, &name, "login: ");
+	retval = pam_get_user(pamh, &name, NULL);
 	if (retval == PAM_SUCCESS) {
 		/*
 		 * Various libraries at various times have had bugs related to

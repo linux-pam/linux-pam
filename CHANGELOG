@@ -55,6 +55,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* somehow pam_unix has started forcing the user prompt to be "login: ".
+  This is entirely inapropriate as it overrides PAM_USER_PROMPT. (Bug
+  486361 - agmorgan).
 * added a static module helper library object includes a few changes
   to examples/xsh.c for testing purposes, and also modified the
   pam_rhosts_auth module to use this new library. (Bug 490938 - agmorgan)

@@ -49,7 +49,7 @@ int main(int argc, char **argv)
      if (argc > 3) {
 	  fprintf(stderr,"usage: %s [username [service-name]]\n",argv[0]);
      }
-     if (argc >= 2) {
+     if ((argc >= 2) && (argv[1][0] != '-')) {
 	  username = argv[1];
      }
      if (argc == 3) {
@@ -60,16 +60,18 @@ int main(int argc, char **argv)
      retcode = pam_start(service, username, &conv, &pamh);
      bail_out(pamh,1,retcode,"pam_start");
 
-     /* fill in the RUSER and RHOST fields */
+     /* fill in the RUSER and RHOST etc. fields */
      {
 	 char buffer[100];
 	 struct passwd *pw;
+	 const char *tty;
 
 	 pw = getpwuid(getuid());
 	 if (pw != NULL) {
 	     retcode = pam_set_item(pamh, PAM_RUSER, pw->pw_name);
 	     bail_out(pamh,1,retcode,"pam_set_item(PAM_RUSER)");
 	 }
+
 	 retcode = gethostname(buffer, sizeof(buffer)-1);
 	 if (retcode) {
 	     perror("failed to look up hostname");
@@ -78,6 +80,12 @@ int main(int argc, char **argv)
 	 }
 	 retcode = pam_set_item(pamh, PAM_RHOST, buffer);
 	 bail_out(pamh,1,retcode,"pam_set_item(PAM_RHOST)");
+
+	 tty = ttyname(fileno(stdin));
+	 if (tty) {
+	     retcode = pam_set_item(pamh, PAM_TTY, tty);
+	     bail_out(pamh,1,retcode,"pam_set_item(PAM_RHOST)");
+	 }
      }
 
      /* to avoid using goto we abuse a loop here */
