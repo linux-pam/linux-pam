@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* changed format of pam_unix 'authentication failure' log messages to make
+  them clearer and more consistent (Bug 126036 - vorlon)
 * improved portability of pam_unix by eliminating Linux-specific utmp
   defines in PAM_getlogin() (Bug 125704 - vorlon)
 * removed static variables from pam_tally (Bug 117434 - agmorgan)
