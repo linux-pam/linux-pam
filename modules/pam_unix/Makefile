@@ -182,7 +182,7 @@ remove:
 	rm -f $(FAKEROOT)$(SUPLEMENTED)/$(CHKPWD)
 
 clean:
-	rm -f $(LIBOBJD) $(LIBOBJS) $(CHKPWD) *.o *.so core
+	rm -f $(LIBOBJD) $(LIBOBJS) $(CHKPWD) $(BIGCRYPT) *.o *.so core
 	rm -f *~ *.a *.out *.bak
 	rm -rf dynamic static
 
