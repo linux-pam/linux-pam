@@ -50,7 +50,8 @@ bug report - outstanding bugs are listed here:
       patches!
 
 * more changes (extracted from redhat version) courtesy of
-  Harald Welte (Bugs pam_limits=436061, pam_lastlog=436060 - agmorgan)
+  Harald Welte (Bugs pam_limits=436061, pam_lastlog=436060,
+  pam_mkhomedir/pam_env=435991 - agmorgan)
 * fix for legacy behavior of pam_setcred and pam_close_session in
   the case that pam_authenticate and pam_open_session hadn't been
   called - bug report from Seongwan Park. (Bug 468724 - agmorgan)

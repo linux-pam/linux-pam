@@ -588,7 +588,8 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
 	  _log_err(LOG_ERR, "Unterminated expandable variable: <%s>", orig-2);
 	  return PAM_ABORT;
 	}
-	strncpy(tmpval, orig, (size_t) BUF_SIZE);
+	strncpy(tmpval, orig, sizeof(tmpval));
+	tmpval[sizeof(tmpval)-1] = '\0';
 	orig=ptr;
 	/* 
 	 * so, we know we need to expand tmpval, it is either 

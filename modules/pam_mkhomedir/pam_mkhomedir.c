@@ -57,7 +57,7 @@
 #define MKHOMEDIR_QUIET      040	/* keep quiet about things */
 
 static unsigned int UMask = 0022;
-static char SkelDir[BUFSIZ] = "/etc/skel";
+static char SkelDir[BUFSIZ] = "/etc/skel"; /* THIS MODULE IS NOT THREAD SAFE */
 
 /* some syslogging */
 static void _log_err(int err, const char *format, ...)
@@ -82,16 +82,14 @@ static int _pam_parse(int flags, int argc, const char **argv)
    /* step through arguments */
    for (; argc-- > 0; ++argv)
    {
-      if (!strcmp(*argv, "silent"))
-      {
+      if (!strcmp(*argv, "silent")) {
 	 ctrl |= MKHOMEDIR_QUIET;
-      } 
-      else if (!strncmp(*argv,"umask=",6))
+      } else if (!strncmp(*argv,"umask=",6)) {
 	 UMask = strtol(*argv+6,0,0);
-      else if (!strncmp(*argv,"skel=",5))
-	 strcpy(SkelDir,*argv+5);
-      else
-      {
+      } else if (!strncmp(*argv,"skel=",5)) {
+	 strncpy(SkelDir,*argv+5,sizeof(SkelDir));
+	 SkelDir[sizeof(SkelDir)-1] = '\0';
+      } else {
 	 _log_err(LOG_ERR, "unknown option; %s", *argv);
       }
    }
