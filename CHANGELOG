@@ -55,8 +55,14 @@ bug report - outstanding bugs are listed here:
 0.78: please submit patches for this section with actual code/doc
       patches!
 
+* added my new DSA public key to the pgp.keys.asc file. Also included
+  a signed copy of my new public key (1024D/D41A6DF2) made with my old
+  key (1024/2A398175).
+
 0.77: Mon Sep 23 10:25:42 PDT 2002
 
+* documentation support for pdf files was not quite right -
+  installation was messed up.
 * pam_wheel was too aggressive to grant access (in the case of the
   'deny' option you want to pay attention to 'trust'). Fix from
   Nalin (Bugs 476951, 476953 - agmorgan)
@@ -70,9 +76,8 @@ bug report - outstanding bugs are listed here:
 * pam_unix and pam_pwdb: by default turn off the SIGCHLD handler while
   running the helper binary (patch from Nalin) added the "noreap"
   module argument to both of these modules to turn off this new
-  default. Bugfix for former module and 521314 checkin. (Bugs 476963,
-  521314 - agmorgan).
-
+  default. Bugfix found by Silvan Minghetti for former module and
+  521314 checkin. (Bugs 476963, 521314 - agmorgan).
 * updated CHANGELOG and configure.in for 0.77 work.
 
 0.76: Mon Jul  8 21:44:59 PDT 2002
