@@ -49,6 +49,10 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* verified that the setcred stack didn't suffer from the bug I was
+  nervous about, add a new module pam_debug to help me test this.
+  fixed a libpam/pam_dispatch.c instrumentation line that I tripped
+  over when testing. (Bug 424315 - agmorgan)
 * some BSD updates and fixes from Mark Murray - including a slightly
   more robust conversation function and some minimization of gcc
   warnings. (Bug 449203 - agmorgan)

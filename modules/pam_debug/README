@@ -1,0 +1,15 @@
+# $Id$
+#
+
+This module returns what its module arguments tell it to return. It
+can be used for debugging libpam and/or an application.
+
+Here are some example ways to use it:
+
+auth	requisite	pam_permit.so
+auth    [success=2 default=ok]  pam_debug.so auth=perm_denied cred=success
+auth    [default=reset]         pam_debug.so auth=success cred=perm_denied
+auth    [success=done default=die] pam_debug.so
+auth    optional        pam_debug.so auth=perm_denied cred=perm_denied
+auth    sufficient      pam_debug.so auth=success cred=success
+

@@ -126,8 +126,7 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	    action = h->actions[cached_retval];
 	}
 
-	D((stderr,
-	   "use_cached_chain=%d action=%d cached_retval=%d retval=%d\n",
+	D(("use_cached_chain=%d action=%d cached_retval=%d retval=%d",
 	   use_cached_chain, action, cached_retval, retval));
 
 	/* decide what to do */
