@@ -69,9 +69,14 @@ dnl
 
 dnl lots of debugging information goes to /tmp/pam-debug.log
 AC_ARG_ENABLE(debug,
-[  --enable-debug           qspecify you are building with debugging on],
+[  --enable-debug           specify you are building with debugging on],
 	WITH_DEBUG=yes ; AC_DEFINE(DEBUG) , WITH_DEBUG=no)
 AC_SUBST(WITH_DEBUG)
+
+AC_ARG_ENABLE(memory-debug,
+[  --enable-memory-debug    specify you want every malloc etc. call tracked],
+	WITH_MEMORY_DEBUG=yes ; AC_DEFINE(MEMORY_DEBUG) , WITH_MEMORY_DEBUG=no)
+AC_SUBST(WITH_MEMORY_DEBUG)
 
 dnl build specially named libraries (for debugging purposes)
 AC_ARG_ENABLE(libdebug,

@@ -11,6 +11,8 @@
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
 
+#include <security/_pam_aconf.h>
+
 /* ------ some local (static) functions ------- */
 
 static void bail_out(pam_handle_t *pamh,int really, int code, const char *fn)

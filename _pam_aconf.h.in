@@ -83,4 +83,17 @@
    defined, we get it from unistd.h */
 #undef HAVE_SYS_FSUID_H
 
+/* track all memory allocations and liberations */
+#undef MEMORY_DEBUG
+#ifdef MEMORY_DEBUG
+/*
+ * this is basically a hack - we need to include a semiarbitrary
+ * number of headers to ensure that we don't get silly prototype/macro
+ * confusion.
+ */
+# include <string.h>
+# include <stdlib.h>
+# include <security/pam_malloc.h>
+#endif /* MEMORY_DEBUG */
+
 #endif /* PAM_ACONF_H */
