@@ -33,7 +33,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ident "$Id$"
+/* "$Id$" */
 
 #include "../../_pam_aconf.h"
 #include <sys/types.h>

@@ -4,10 +4,10 @@
    when the session begins. This allows users to be present in central
    database (such as nis, kerb or ldap) without using a distributed
    file system or pre-creating a large number of directories.
-   
+
    Here is a sample /etc/pam.d/login file for Debian GNU/Linux
    2.1:
-   
+
    auth       requisite  pam_securetty.so
    auth       sufficient pam_ldap.so
    auth       required   pam_pwdb.so
@@ -19,11 +19,11 @@
    session    required   pam_mkhomedir.so skel=/etc/skel/ umask=0022
    session    required   pam_pwdb.so
    session    optional   pam_lastlog.so
-   password   required   pam_pwdb.so   
-   
+   password   required   pam_pwdb.so
+
    Released under the GNU LGPL version 2 or later
    Originally written by Jason Gunthorpe <jgg@debian.org> Feb 1999
-   Structure taken from pam_lastlogin by Andrew Morgan 
+   Structure taken from pam_lastlogin by Andrew Morgan
      <morgan@parc.power.net> 1996
  */
 
@@ -51,6 +51,8 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
+#include <security/_pam_modutil.h>
+
 
 /* argument parsing */
 #define MKHOMEDIR_DEBUG      020	/* keep quiet about things */
@@ -98,8 +100,8 @@ static int _pam_parse(int flags, int argc, const char **argv)
    return ctrl;
 }
 
-/* This common function is used to send a message to the applications 
-   conversion function. Our only use is to ask the application to print 
+/* This common function is used to send a message to the applications
+   conversion function. Our only use is to ask the application to print
    an informative message that we are creating a home directory */
 static int converse(pam_handle_t * pamh, int ctrl, int nargs
 		    ,struct pam_message **message
@@ -191,7 +193,7 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
    {
       _log_err(LOG_DEBUG, "unable to create directory %s",dest);
       return PAM_PERM_DENIED;
-   }   
+   }
    if (chmod(dest,0777 & (~UMask)) != 0 ||
        chown(dest,pwd->pw_uid,pwd->pw_gid) != 0)
    {
@@ -214,7 +216,7 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
    }
 
    for (Dir = readdir(D); Dir != 0; Dir = readdir(D))
-   {  
+   {
       int SrcFd;
       int DestFd;
       int Res;
@@ -344,7 +346,7 @@ int pam_sm_open_session(pam_handle_t * pamh, int flags, int argc
    const char *user;
    const struct passwd *pwd;
    struct stat St;
-      
+
    /* Parse the flag values */
    ctrl = _pam_parse(flags, argc, argv);
 
@@ -373,7 +375,7 @@ int pam_sm_open_session(pam_handle_t * pamh, int flags, int argc
 }
 
 /* Ignore */
-PAM_EXTERN 
+PAM_EXTERN
 int pam_sm_close_session(pam_handle_t * pamh, int flags, int argc
 			 ,const char **argv)
 {

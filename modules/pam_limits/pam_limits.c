@@ -311,7 +311,7 @@ static void process_limit(int source, const char *lim_type,
     int limit_item;
     int limit_type = 0;
     long limit_value;
-    const char **endptr = &lim_value;
+    char *endptr;
     const char *value_orig = lim_value;
 
     if (ctrl & PAM_DEBUG_ARG)
@@ -367,14 +367,10 @@ static void process_limit(int source, const char *lim_type,
         return;
     }
 
-    /*
-     * there is a warning here because the library prototype for this
-     * function is incorrect.
-     */
-    limit_value = strtol(lim_value, endptr, 10);
+    limit_value = strtol (lim_value, &endptr, 10);
 
     /* special case value when limiting logins */
-    if (limit_value == 0 && value_orig == *endptr) { /* no chars read */
+    if (limit_value == 0 && value_orig == endptr) { /* no chars read */
         if (strcmp(lim_value,"-") != 0) {
             _pam_log(LOG_DEBUG,"wrong limit value '%s'", lim_value);
             return;

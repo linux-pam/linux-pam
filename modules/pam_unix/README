@@ -31,5 +31,7 @@ The following options are recognized:
 	nis		-	use NIS RPC for setting new password
 	remember=X	-	remember X old passwords, they are kept in
 				/etc/security/opasswd in MD5 crypted form
+	broken_shadow	-	ignore errors reading shadow information for
+				users in the account management module
 
 	invalid arguments are logged to syslog.

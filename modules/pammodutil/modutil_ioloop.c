@@ -8,10 +8,13 @@
 #include <unistd.h>
 #include <errno.h>
 
+#include <security/pam_modules.h>
+#include "include/security/_pam_modutil.h"
+
 int _pammodutil_read(int fd, char *buffer, int count)
 {
        int block, offset = 0;
- 
+
        while (count > 0) {
                block = read(fd, &buffer[offset], count);
 
@@ -31,7 +34,7 @@ int _pammodutil_read(int fd, char *buffer, int count)
 int _pammodutil_write(int fd, const char *buffer, int count)
 {
        int block, offset = 0;
-                                                                                
+
        while (count > 0) {
                block = write(fd, &buffer[offset], count);
 
@@ -44,7 +47,6 @@ int _pammodutil_write(int fd, const char *buffer, int count)
                offset += block;
                count -= block;
        }
-                                                                                
+
        return offset;
 }
-

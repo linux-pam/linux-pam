@@ -17,7 +17,8 @@
 const char *_pammodutil_getlogin(pam_handle_t *pamh)
 {
     int status;
-    const char *logname, *curr_tty;
+    char *logname;
+    const char *curr_tty;
     char *curr_user;
     struct utmp *ut, line;
 

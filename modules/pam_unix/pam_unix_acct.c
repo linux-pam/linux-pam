@@ -129,6 +129,10 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 	}
 
 	if (!spent)
+		if (on(UNIX_BROKEN_SHADOW,ctrl))
+			return PAM_SUCCESS;
+
+	if (!spent)
 		return PAM_AUTHINFO_UNAVAIL;	/* Couldn't get username from shadow */
 
 	curdays = time(NULL) / (60 * 60 * 24);

@@ -81,8 +81,10 @@ typedef struct {
 #define UNIX_LIKE_AUTH           19	/* need to auth for setcred to work */
 #define UNIX_REMEMBER_PASSWD     20	/* Remember N previous passwords */
 #define UNIX_NOREAP              21     /* don't reap child process */
+#define UNIX_BROKEN_SHADOW       22     /* ignore errors reading password aging
+					 * information during acct management */
 /* -------------- */
-#define UNIX_CTRLS_              22	/* number of ctrl arguments defined */
+#define UNIX_CTRLS_              23	/* number of ctrl arguments defined */
 
 
 static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
@@ -112,6 +114,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX_LIKE_AUTH */       {"likeauth",        _ALL_ON_,            01000000},
 /* UNIX_REMEMBER_PASSWD */ {"remember=",       _ALL_ON_,            02000000},
 /* UNIX_NOREAP */          {"noreap",          _ALL_ON_,            04000000},
+/* UNIX_BROKEN_SHADOW */   {"broken_shadow",   _ALL_ON_,           010000000},
 };
 
 #define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)
