@@ -35,6 +35,8 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* pam_access - fixed the non-default config file option (Bug 127561 -
+  agmorgan)
 * pam.8 manual page clarified with respect to the default location for
   finding modules, also added some text describing the [...] control
   syntax. (Bug 127625 - agmorgan)

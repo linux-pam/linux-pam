@@ -160,12 +160,12 @@ static int login_access(struct login_info *item)
 {
     FILE   *fp;
     char    line[BUFSIZ];
-    char   *perm;			/* becomes permission field */
-    char   *users;			/* becomes list of login names */
-    char   *froms;			/* becomes list of terminals or hosts */
+    char   *perm;		/* becomes permission field */
+    char   *users;		/* becomes list of login names */
+    char   *froms;		/* becomes list of terminals or hosts */
     int     match = NO;
     int     end;
-    int     lineno = 0;			/* for diagnostics */
+    int     lineno = 0;		/* for diagnostics */
 
     /*
      * Process the table one line at a time and stop at the first match.
@@ -175,12 +175,12 @@ static int login_access(struct login_info *item)
      * non-existing table means no access control.
      */
 
-    if ((fp = fopen(PAM_ACCESS_CONFIG, "r"))!=NULL) {
+    if ((fp = fopen(item->config_file, "r"))!=NULL) {
 	while (!match && fgets(line, sizeof(line), fp)) {
 	    lineno++;
 	    if (line[end = strlen(line) - 1] != '\n') {
 		_log_err("%s: line %d: missing newline or line too long",
-		       PAM_ACCESS_CONFIG, lineno);
+		       item->config_file, lineno);
 		continue;
 	    }
 	    if (line[0] == '#')
@@ -194,11 +194,13 @@ static int login_access(struct login_info *item)
 		|| !(users = strtok((char *) 0, fs))
 		|| !(froms = strtok((char *) 0, fs))
 		|| strtok((char *) 0, fs)) {
-		_log_err("%s: line %d: bad field count", PAM_ACCESS_CONFIG, lineno);
+		_log_err("%s: line %d: bad field count",
+			 item->config_file, lineno);
 		continue;
 	    }
 	    if (perm[0] != '+' && perm[0] != '-') {
-		_log_err("%s: line %d: bad first field", PAM_ACCESS_CONFIG, lineno);
+		_log_err("%s: line %d: bad first field",
+			 item->config_file, lineno);
 		continue;
 	    }
 	    match = (list_match(froms, item, from_match)
@@ -206,7 +208,7 @@ static int login_access(struct login_info *item)
 	}
 	(void) fclose(fp);
     } else if (errno != ENOENT) {
-	_log_err("cannot open %s: %m", PAM_ACCESS_CONFIG);
+	_log_err("cannot open %s: %m", item->config_file);
     }
     return (match == 0 || (line[0] == '+'));
 }
@@ -450,7 +452,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
     if ((user_pw=getpwnam(user))==NULL) return (PAM_USER_UNKNOWN);
 
     /*
-     * Bundle up the arguments to avoid unnecessary clumsiness lateron.
+     * Bundle up the arguments to avoid unnecessary clumsiness later on.
      */
     loginfo.user = user_pw;
     loginfo.from = from;

@@ -59,7 +59,7 @@ Provides logdaemon style login access control.
 
 <tag><bf>Recognized arguments:</bf></tag>
 
-<tt>accessconf=<it>/path/to/file.conf</it></tt>
+<tt>accessfile=<it>/path/to/file.conf</it></tt>
 
 <tag><bf>Description:</bf></tag>
 
@@ -75,7 +75,7 @@ The behavior of this module can be modified with the following
 arguments: 
 <itemize> 
  
-<item><tt>accessconf=/path/to/file.conf</tt> - 
+<item><tt>accessfile=/path/to/file.conf</tt> - 
 indicate an alternative <em/access/ configuration file to override 
 the default. This can be useful when different services need different 
 access lists. 
