@@ -34,6 +34,11 @@ int pam_start (
 	return (PAM_BUF_ERR);
     }
 
+    /* All service names should be files below /etc/pam.d and nothing
+       else. Forbid paths. */
+    if (strrchr(service_name, '/') != NULL)
+	service_name = strrchr(service_name, '/') + 1;
+    
     /* Mark the caller as the application - permission to do certain
        things is limited to a module or an application */
 

@@ -82,6 +82,10 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   (patch by "Dmitry V. Levin" <ldv@altlinux.org>) (Bug 812567 - baggins).
 * doc/modules/pam_mkhomedir.sgml: Remove wrong debug options 
   (Bug 591605 - kukuk)
+* pam_unix: Call password checking helper whenever the password field
+  contains only one character (Bug 1027903 - kukuk)
+* libpam/pam_start.c: All service names should be files below /etc/pam.d
+  and nothing else. Forbid paths. (Bug 1027912 - kukuk)
 
 
 0.77: Mon Sep 23 10:25:42 PDT 2002

@@ -554,7 +554,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	}
 
 	retval = PAM_SUCCESS;
-	if (pwd == NULL || salt == NULL || !strcmp(salt, "x")) {
+	if (pwd == NULL || salt == NULL || strlen(salt) == 1) {
 		if (geteuid()) {
 			/* we are not root perhaps this is the reason? Run helper */
 			D(("running helper binary"));
