@@ -97,7 +97,7 @@ bootdir:
 $(LIBPAM): $(DLIBOBJECTS)
 ifeq ($(DYNAMIC_LIBPAM),yes)
     ifeq ($(USESONAME),yes)
-	$(LD_L) $(SOSWITCH) $(LIBPAMNAME) -o $@ $(DLIBOBJECTS) \
+	$(LD_L) $(SOSWITCH)$(LIBPAMNAME) -o $@ $(DLIBOBJECTS) \
 		$(MODULES) $(LINKLIBS)
     else
 	$(LD_L) -o $@ $(DLIBOBJECTS) $(MODULES) $(LINKLIBS)
@@ -112,8 +112,10 @@ endif
 
 $(LIBPAMSTATIC): $(SLIBOBJECTS)
 ifeq ($(STATIC_LIBPAM),yes)
-	$(AR) cr $@ $(SLIBOBJECTS) $(MODULES)
+	$(AR) cru $@ $(SLIBOBJECTS) $(MODULES)
+ifdef RANLIB
 	$(RANLIB) $@
+endif
 endif
 
 install: all

@@ -11,9 +11,7 @@
 
 DISTNAME=Linux-PAM
 
-ifeq ($(shell test \! -f Make.Rules || echo yes),yes)
-    include Make.Rules
-endif
+-include Make.Rules
 
 THINGSTOMAKE = libpam libpamc libpam_misc modules doc examples
 
@@ -30,7 +28,7 @@ prep:
 clean:
 	if [ ! -f Make.Rules ]; then touch Make.Rules ; fi
 	for i in $(THINGSTOMAKE) ; do $(MAKE) -C $$i clean ; done
-	rm -f security *~ *.orig *.rej Make.Rules #*#
+	rm -f security *~ *.orig *.rej #*#
 
 distclean: clean
 	rm -f Make.Rules _pam_aconf.h
@@ -75,4 +73,3 @@ release:
 	cd .. ; tar zvfc $(DISTNAME)-$(MAJOR_REL).$(MINOR_REL).tar.gz \
 		--exclude CVS --exclude .cvsignore --exclude '.#*' \
 		$(DISTNAME)-$(MAJOR_REL).$(MINOR_REL)/*
-

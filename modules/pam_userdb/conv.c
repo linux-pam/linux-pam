@@ -5,8 +5,6 @@
 /* $Id */
 /* Copyright at the end of the file */
 
-#define _BSD_SOURCE
-
 #include <stdlib.h>
 #include <string.h>
 

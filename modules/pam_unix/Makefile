@@ -18,6 +18,19 @@ include ../../Make.Rules
 #USE_CRACKLIB=-D"USE_CRACKLIB"
 #endif
 
+ifeq ($(shell if [ -f /usr/lib/cracklib_dict.hwm ]; then echo yes ; fi),yes)
+ CRACKLIB_DICTPATH=/usr/lib/cracklib_dict
+else
+ CRACKLIB_DICTPATH=/usr/share/dict/cracklib_dict
+endif
+EXTRAS += -DCRACKLIB_DICTS=\"$(CRACKLIB_DICTPATH)\"
+
+ifeq ($(HAVE_LIBCRYPT),yes)
+  EXTRALS += -lcrypt
+endif
+ifeq ($(HAVE_LIBNSL),yes)
+  EXTRALS += -lnsl
+endif
 # do you want to use lckpwdf?
 ifeq ($(WITH_LCKPWDF),yes)
 USE_LCKPWDF=-D"USE_LCKPWDF"
@@ -36,6 +49,8 @@ ifeq ($(HAVE_LIBCRYPT),yes)
 endif
 
 CHKPWD=unix_chkpwd
+
+BIGCRYPT=bigcrypt
 
 EXTRAS += -DCHKPWD_HELPER=\"$(SUPLEMENTED)/$(CHKPWD)\"
 
@@ -74,7 +89,8 @@ endif
 
 ########################### don't edit below #######################
 
-all: dirs info $(PLUS) $(LIBSHARED) $(LIBSTATIC) $(CHKPWD) register
+all: dirs info $(PLUS) $(LIBSHARED) $(LIBSTATIC) $(CHKPWD) $(BIGCRYPT) \
+	register
 
 dynamic/%.o : %.c
 	$(CC) $(CFLAGS) $(DYNAMIC) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
@@ -125,7 +141,10 @@ endif
 $(CHKPWD): unix_chkpwd.o md5_good.o md5_broken.o \
 		md5_crypt_good.o md5_crypt_broken.o \
 		bigcrypt.o
-	$(CC) -o $(CHKPWD) $^ $(LDLIBS) $(LIBCRYPT)
+	$(CC) $(CFLAGS) -o $(CHKPWD) $^ $(LDLIBS) $(LIBCRYPT)
+
+$(BIGCRYPT): bigcrypt_main.o bigcrypt.o
+	$(CC) -o $(BIGCRYPT) $^ $(LDLIBS) $(LIBCRYPT)
 
 unix_chkpwd.o: unix_chkpwd.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@

@@ -60,9 +60,9 @@ static/%.o : %.c
 $(LIBNAMED): $(DLIBOBJECTS)
 ifeq ($(DYNAMIC_LIBPAM),yes)
     ifeq ($(USESONAME),yes)
-	$(LD_L) $(SOSWITCH) $(LIBNAMEDNAME) -o $@ $(DLIBOBJECTS) $(MODULES) $(LINKLIBS)
+	$(LD_L) $(SOSWITCH)$(LIBNAMEDNAME) -o $@ $(DLIBOBJECTS) $(MODULES) $(LINKLIBS)
     else
-	$(LD_L) -o $@ $(DLIBOBJECTS) $(MODULES)
+	$(LD_L) -o $@ $(DLIBOBJECTS) $(MODULES) $(LINKLIBS)
     endif
     ifeq ($(NEEDSONAME),yes)
 	rm -f $(LIBNAMEDFULL)
@@ -74,8 +74,11 @@ endif
 
 $(LIBNAMEDSTATIC): $(SLIBOBJECTS)
 ifeq ($(STATIC_LIBPAM),yes)
+	$(AR) rcu $@ $(SLIBOBJECTS) $(MODULES)
+ifdef RANLIB
 	$(AR) rc $@ $(SLIBOBJECTS) $(MODULES)
 	$(RANLIB) $@
+endif
 endif
 
 install: all

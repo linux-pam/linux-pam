@@ -7,7 +7,7 @@
 use DB_File;
 
 my $database = $ARGV[0];
-die "Use: check,pl <database>\n" unless ($database);
+die "Use: create.pl <database>\n" unless ($database);
 print "Using database: $database\n";
 
 my %lusers = ();

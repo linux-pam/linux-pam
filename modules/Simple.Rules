@@ -13,6 +13,8 @@
 #   $(MODULE_SIMPLE_EXTRAFILES) - other files to build (no .c suffix)
 #
 
+-include ../Make.Rules
+
 LIBFILES = $(TITLE) $(MODULE_SIMPLE_EXTRAFILES)
 LIBSRC = $(addsuffix .c,$(LIBFILES))
 LIBOBJ = $(addsuffix .o,$(LIBFILES))

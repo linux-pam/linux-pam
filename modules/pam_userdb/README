@@ -1,6 +1,7 @@
 pam_userdb:
 	Look up users in a .db database and verify their password against
-	what is contained in that database.
+	what is contained in that database.  The database will have been
+	created using db_load.
 
 RECOGNIZED ARGUMENTS:
 	debug		write a message to syslog indicating success or
@@ -8,7 +9,9 @@ RECOGNIZED ARGUMENTS:
 
 	db=[path]	use the [path] database for performing lookup. There
 			is no default; the module will return PAM_IGNORE if
-			no database is provided.
+			no database is provided.  Some versions of DB will
+			automatically append ".db" to whatever pathname you
+			supply here.
 			
 	crypt=[mode]	indicates whether encrypted or plaintext passwords
 	                are stored in the database.  If [mode] is "crypt", 
@@ -24,8 +27,28 @@ RECOGNIZED ARGUMENTS:
 	dump		dump all the entries in the database to the log (eek,
 			don't do this by default!)
 
+	use_authtok	use the authentication token previously obtained by
+			another module that did the conversation with the
+			application.  If this token can not be obtained then
+			the module will try to converse again. This option can
+			be used for stacking different modules that need to
+			deal with the authentication tokens.
+
+	unknown_ok	do not return error when checking for a user that is
+			not in the database. This can be used to stack more
+			than one pam_userdb module that will check a
+			username/password pair in more than a database.
+
+	key_only	the username and password are concatenated together
+			in the database hash as 'username-password' with a
+			random value.  if the concatenation of the username and
+			password with a dash in the middle returns any result,
+			the user is valid.  this is useful in cases where
+			the username may not be unique but the username and
+			password pair are.
+
 MODULE SERVICES PROVIDED:
-	auth		_authetication and _setcred (blank)
+	auth		_authentication and _setcred (blank)
 
 EXAMPLE USE:
 	auth  sufficient pam_userdb.so icase db=/tmp/dbtest.db

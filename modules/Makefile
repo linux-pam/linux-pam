@@ -8,7 +8,7 @@
 
 include ../Make.Rules
 
-MODDIRS=$(shell /bin/ls -d pam_*)
+MODDIRS=$(shell /bin/ls -d pam_*/Makefile | cut -f1 -d/)
 
 all:	
 	@echo building the static modutil library

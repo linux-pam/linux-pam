@@ -178,7 +178,7 @@ static void set_option (struct _options *opts, const char *arg)
 	return;
     }
 
-    if (strcmp(arg, "superuser=") == 0) {
+    if (strncmp(arg, "superuser=", sizeof("superuser=")-1) == 0) {
 	opts->superuser = arg+sizeof("superuser=")-1;
 	return;
     }
@@ -293,7 +293,7 @@ __icheckhost (pam_handle_t *pamh, struct _options *opts, U32 raddr
     hp = gethostbyname(lhost);
     if (hp == NULL)
 	return (0);
-    
+
     /* Spin through ip addresses. */
     for (pp = hp->h_addr_list; *pp; ++pp)
 	if (!memcmp (&raddr, *pp, sizeof (U32)))
@@ -408,7 +408,7 @@ __ivaliduser (pam_handle_t *pamh, struct _options *opts,
 	    user = p;                   /* this is the user's name */
 	    while (*p && !isspace(*p))
 		++p;                    /* find end of user's name */
-	} else 
+	} else
 	    user = p;
 
 	*p = '\0';              /* <nul> terminate username (+host?) */
@@ -480,7 +480,7 @@ pam_iruserok(pam_handle_t *pamh,
 	    No hosts.equiv file on system.
 	} */
     }
-    
+
     if ( opts->opt_no_rhosts )
 	return 1;
 
@@ -490,10 +490,10 @@ pam_iruserok(pam_handle_t *pamh,
 
     pwd = _pammodutil_getpwnam(pamh, luser);
     if (pwd == NULL) {
-	/* 
+	/*
 	 * luser is assumed to be valid because of an earlier check for uid = 0
 	 * we don't log this error twice. However, this shouldn't happen !
-	 * --cristiang 
+	 * --cristiang
 	 */
 	return(1);
     }
@@ -652,9 +652,9 @@ pam_ruserok (pam_handle_t *pamh,
  */
 
 static int _pam_auth_rhosts (pam_handle_t *pamh,
-			     int flags, 
+			     int flags,
 			     int argc,
-			     const char **argv) 
+			     const char **argv)
 {
     int retval;
     const char *luser = NULL;
@@ -745,9 +745,9 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
 /* --- authentication management functions --- */
 
 PAM_EXTERN
-int pam_sm_authenticate (pam_handle_t *pamh, 
+int pam_sm_authenticate (pam_handle_t *pamh,
 			 int flags,
-			 int argc, 
+			 int argc,
 			 const char **argv)
 {
     int retval;

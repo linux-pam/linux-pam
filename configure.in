@@ -43,8 +43,8 @@ MANMODE=644			; AC_SUBST(MANMODE)
 
 dnl These are most likely platform specific - I think HPUX differs
 USESONAME=yes			; AC_SUBST(USESONAME)
-SOSWITCH='-Xlinker -soname	-Xlinker '	; AC_SUBST(SOSWITCH)
-NEEDSONAME=no			; AC_SUBST(NEEDSONAME)
+SOSWITCH="-Wl,-soname -Wl,"	; AC_SUBST(SOSWITCH)
+NEEDSONAME=yes			; AC_SUBST(NEEDSONAME)
 LDCONFIG=/sbin/ldconfig		; AC_SUBST(LDCONFIG)
 
 dnl Checks for programs.
@@ -179,7 +179,7 @@ AC_CHECK_LIB(c, lckpwdf, HAVE_LCKPWDF=yes, HAVE_LCKPWDF=no)
 AC_SUBST(HAVE_LCKPWDF)
 
 dnl Checks for the existence of libdl - on BSD and Tru64 its part of libc
-AC_CHECK_LIB(dl, dlopen, LIBDL=-ldl) 
+AC_CHECK_LIB(dl, dlopen, LIBDL=-ldl)
 AC_SUBST(LIBDL)
 
 dnl
@@ -293,14 +293,14 @@ if test "$GCC" = yes; then
 ### Example: -D_POSIX_SOURCE: needed on Linux but harms Solaris.
 	case $OS in
 	linux)
-		OS_CFLAGS="-ansi -D_POSIX_SOURCE -pedantic"
-		LD_D="gcc -shared -Xlinker -x"
+		OS_CFLAGS=
+		LD_D="$CC -shared $LDFLAGS"
 		WARNINGS="$GCC_WARNINGS"
 		PIC="-fPIC"
 		DYNTYPE=so
 		LD=gcc
-		LD_L="$LD -Xlinker -x -shared"
-		RANLIB=ranlib
+		LD_L="$CC -shared $LDFLAGS"
+		RANLIB=:
 		STRIP=strip
 		CC_STATIC="-Xlinker -export-dynamic"
 		;;
@@ -310,7 +310,7 @@ if test "$GCC" = yes; then
 		WARNINGS="$GCC_WARNINGS"
 		PIC="-fPIC"
 		DYNTYPE=so
-		LD=ld				
+		LD=ld
 		LD_L="$LD -x -shared"
 		RANLIB=ranlib
 		STRIP=strip
@@ -319,7 +319,7 @@ if test "$GCC" = yes; then
 	aix)
 		OS_CFLAGS=""
 		DYNTYPE=lo
-		LD=ld				
+		LD=ld
 		LD_L=ld -bexpall -bM:SRE -bnoentry
 		LD_D="$LD_L"
 		RANLIB=ranlib

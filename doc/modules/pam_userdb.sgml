@@ -50,6 +50,8 @@ what is contained in that database.
 <tt/icase/;
 <tt/dump/;
 <tt/db=XXXX/;
+<tt/use_authtok/;
+<tt/unknown_ok/;
 
 <tag><bf>Description:</bf></tag>
 
@@ -59,7 +61,7 @@ fields corresponding to the username keys are the passwords, in unencrypted form
 so caution must be exercised over the access rights to the DB database itself..
 
 The module will read the password from the user using the conversation mechanism. If
-you are using this module on top of another authetication module (like <tt/pam_pwdb/;)
+you are using this module on top of another authentication module (like <tt/pam_pwdb/;)
 then you should tell that module to read the entered password from the PAM_AUTHTOK field, which is set by this module.
 
 <p>
@@ -84,6 +86,18 @@ don't do this by default!)
 use the database found on pathname XXXX. Note that Berkeley DB usually adds the 
 needed filename extension for you, so you should use something like <tt>/etc/foodata</tt>
 instead of <tt>/etc/foodata.db</tt>.
+
+<item> <tt/use_authtok/ - 
+use the authentication token previously obtained by another module that did the
+conversation with the application. If this token can not be obtained then
+the module will try to converse again. This option can be used for stacking
+different modules that need to deal with the authentication tokens.
+
+<item>
+<tt/unknown_ok/ -
+do not return error when checking for a user that is not in the database.
+This can be used to stack more than one pam_userdb module that will check a
+username/password pair in more than a database.
 
 </itemize>
 

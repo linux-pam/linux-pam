@@ -10,6 +10,9 @@
 #define PAM_DEBUG_ARG		0x0001
 #define PAM_ICASE_ARG		0x0002
 #define PAM_DUMP_ARG		0x0004
+#define PAM_USE_AUTHTOK_ARG	0x0008
+#define PAM_UNKNOWN_OK_ARG	0x0010
+#define PAM_KEY_ONLY_ARG	0x0020
 
 /* Useful macros */
 #define  x_strdup(s)  ( (s) ? strdup(s):NULL )

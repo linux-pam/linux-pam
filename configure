@@ -1347,8 +1347,8 @@ SHLIBMODE=755			;
 MANMODE=644			;
 
 USESONAME=yes			;
-SOSWITCH='-Xlinker -soname	-Xlinker '	;
-NEEDSONAME=no			;
+SOSWITCH="-Wl,-soname -Wl,"	;
+NEEDSONAME=yes			;
 LDCONFIG=/sbin/ldconfig		;
 
 ac_ext=c
@@ -6009,14 +6009,14 @@ if test "$GCC" = yes; then
 ### Example: -D_POSIX_SOURCE: needed on Linux but harms Solaris.
 	case $OS in
 	linux)
-		OS_CFLAGS="-ansi -D_POSIX_SOURCE -pedantic"
-		LD_D="gcc -shared -Xlinker -x"
+		OS_CFLAGS=
+		LD_D="$CC -shared $LDFLAGS"
 		WARNINGS="$GCC_WARNINGS"
 		PIC="-fPIC"
 		DYNTYPE=so
 		LD=gcc
-		LD_L="$LD -Xlinker -x -shared"
-		RANLIB=ranlib
+		LD_L="$CC -shared $LDFLAGS"
+		RANLIB=:
 		STRIP=strip
 		CC_STATIC="-Xlinker -export-dynamic"
 		;;

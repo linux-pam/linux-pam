@@ -27,6 +27,9 @@ endif
 
 include ../Simple.Rules
 
+#else
+#include ../dont_makefile
+#endif
 else
 
 include ../dont_makefile

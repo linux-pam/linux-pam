@@ -17,6 +17,9 @@ EXTRAS += -DCHKPWD_HELPER=\"$(SUPLEMENTED)/$(CHKPWD)\"
 ifeq ($(HAVE_LIBCRYPT),yes)
   EXTRALS += -lcrypt
 endif
+ifeq ($(HAVE_LIBNSL),yes)
+  EXTRALS += -lnsl
+endif
 
 TITLE=pam_pwdb
 CHKPWD=pwdb_chkpwd
@@ -53,7 +56,7 @@ info:
 
 $(CHKPWD): pwdb_chkpwd.o md5_good.o md5_broken.o \
            md5_crypt_good.o md5_crypt_broken.o
-	$(CC) -o $(CHKPWD) $^ -lpwdb
+	$(CC) $(CFLAGS) -o $(CHKPWD) $^ $(LDFLAGS) -lpwdb $(EXTRALS)
 
 pwdb_chkpwd.o: pwdb_chkpwd.c pam_unix_md.-c bigcrypt.-c
 

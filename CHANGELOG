@@ -117,6 +117,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * Add the "broken_shadow" argument to pam_unix, for ignoring errors
   reading shadow information (from Linux distributors - kukuk)
 * Add patches to make PAM modules reentrant (Bug 440107 - kukuk)
+* Merge patches from Red Hat (Bug 477000 and other - kukuk)
+* Fix pam_rhosts option parsing (Bug 922648 - kukuk)
 
 0.77: Mon Sep 23 10:25:42 PDT 2002
 

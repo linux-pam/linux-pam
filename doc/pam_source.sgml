@@ -268,7 +268,7 @@ that this enables.
       be used, including RADIUS, NIS, NCP (which means that Novell
       password databases can be used).
 
-   o  pppd has a PAMified version (available from RedHat)  Now it is
+   o  pppd has a PAMified version (available from Red Hat)  Now it is
       possible to use a series of databases to authenticate ppp users.
       In addition to the normal Linux-based password databases (such
       as /etc/passwd and /etc/shadow), you can use PAM modules to 
