@@ -60,8 +60,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 
 ====================================================================
 
-0.78: please submit patches for this section with actual code/doc
-      patches!
+0.78: Do Nov 18 14:48:36 CET 2004
 
 * pam_unix: change the order of trying password changes - local first,
   NIS second (t8m)
