@@ -49,7 +49,8 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
     int retval = PAM_SUCCESS;
     FILE *fd;
     int parse_esc = 1;
-    char *prompt_tmp = NULL, *cur_prompt = NULL;
+    char *prompt_tmp = NULL;
+    const char *cur_prompt = NULL;
     struct stat st;
     char *issue_file = NULL;
 
@@ -83,23 +84,38 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
     if ((fd = fopen(issue_file, "r")) != NULL) {
 	int tot_size = 0;
 
-	if (stat(issue_file, &st) < 0)
+	if (fstat(fileno(fd), &st) < 0)
 	    return PAM_IGNORE;
 
-	retval = pam_get_item(pamh, PAM_USER_PROMPT, (const void **) &cur_prompt);
-	if (retval != PAM_SUCCESS)
+	retval = pam_get_item(pamh, PAM_USER_PROMPT,
+			      (const void **) &cur_prompt);
+	if (retval != PAM_SUCCESS) {
 	    return PAM_IGNORE;
+	}
+	if (cur_prompt == NULL) {
+	    cur_prompt = "";
+	}
 
-       /* first read in the issue file */
+	/* first read in the issue file */
 
-	if (parse_esc)
+	if (parse_esc) {
 	    prompt_tmp = do_prompt(fd);
-	else {
+	    if (prompt_tmp == NULL) {
+		return PAM_IGNORE;
+	    }
+	} else {
 	    int count = 0;
+
 	    prompt_tmp = malloc(st.st_size + 1);
-	    if (prompt_tmp == NULL) return PAM_IGNORE;
+	    if (prompt_tmp == NULL) {
+		return PAM_IGNORE;
+	    }
 	    memset (prompt_tmp, '\0', st.st_size + 1);
 	    count = fread(prompt_tmp, sizeof(char *), st.st_size, fd);
+	    if (count != st.st_size) {
+		free(prompt_tmp);
+		return PAM_IGNORE;
+	    }
 	    prompt_tmp[st.st_size] = '\0';
 	}
 
@@ -111,15 +127,28 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
 	* alloc some extra space for the original prompt
 	* and postpend it to the buffer
 	*/
-	prompt_tmp = realloc(prompt_tmp, tot_size);
+	{
+	    char *prompt_tmp_tmp = prompt_tmp;
+
+	    prompt_tmp = realloc(prompt_tmp, tot_size);
+	    if (prompt_tmp == NULL) {
+		prompt_tmp = prompt_tmp_tmp;
+		retval = PAM_IGNORE;
+		goto cleanup;
+	    }
+	}
+
 	strcpy(prompt_tmp+strlen(prompt_tmp), cur_prompt);
 
 	prompt_tmp[tot_size] = '\0';
 
-	retval = pam_set_item(pamh, PAM_USER_PROMPT, (const char *) prompt_tmp);
+	retval = pam_set_item(pamh, PAM_USER_PROMPT,
+			      (const char *) prompt_tmp);
 
+    cleanup:
 	free(issue_file);
 	free(prompt_tmp);
+
     } else {
 	D(("could not open issue_file: %s", issue_file));
 	return PAM_IGNORE;
@@ -231,19 +260,32 @@ char *do_prompt(FILE *fd)
 		buf[0] = c; buf[1] = '\0';
 	    }
 	    if ((strlen(issue) + strlen(buf)) < size + 1) {
+		char *old_issue = issue;
+
 		size += strlen(buf) + 1;
 		issue = (char *) realloc (issue, size);
+		if (issue == NULL) {
+		    free(old_issue);
+		    return NULL;
+		}
 	    }
 	    strcat(issue, buf);
 	} else {
 	    buf[0] = c; buf[1] = '\0';
 	    if ((strlen(issue) + strlen(buf)) < size + 1) {
+		char *old_issue = issue;
+
 		size += strlen(buf) + 1;
 		issue = (char *) realloc (issue, size);
+		if (issue == NULL) {
+		    free(old_issue);
+		    return NULL;
+		}
 	    }
 	    strcat(issue, buf);
 	}
     }
+
     return issue;
 }
 

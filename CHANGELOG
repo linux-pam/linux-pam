@@ -49,6 +49,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_issue: Nalin found segfaulting problems if the PAM_USER_PROMPT
+  is unset, found some similar problems with assumptions about
+  realloc. (Bug 476983 - agmorgan)
 * pam_env: 'weichangyang of hotmail' pointed out a wild string with no
   valid '\0' was leading to problems with sshd and suggested fix (Bug
   473034 - agmorgan)
