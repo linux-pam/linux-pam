@@ -59,7 +59,9 @@ libpam. Prior versions were buggy - see bugfix for Bug 129775.
   the bug report, but no uid change was possible so no-one should
   think they need to issue a security bulletin over this one! (Bug
   112540 - agmorgan)
-* pam_lastlog needs to be linked with -lutil (Bug 131549 - agmorgan).
+* pam_lastlog needs to be linked with -lutil, also removed ambiguity
+  from sysadmin guide regarding this module being a 'session' module
+  (Bug 131549 - agmorgan).
 * pam_cracklib needs to be linked with -lcrypt (old password checking)
   (Bug 131601 - agmorgan).
 * fixes for static library builds and also the examples when linked
