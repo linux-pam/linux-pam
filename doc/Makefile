@@ -11,6 +11,7 @@ FSRCS=pam.sgml pam_appl.sgml pam_modules.sgml
 TEXTS=txts/pam.txt txts/pam_appl.txt txts/pam_modules.txt
 HTMLS=html/pam.html html/pam_appl.html html/pam_modules.html
 PSFILES=ps/pam.ps ps/pam_appl.ps ps/pam_modules.ps
+PDFFILES=pdf/pam.pdf ps/pam_appl.pdf ps/pam_modules.pdf
 
 MODULES=$(shell ls modules/*.sgml)
 
@@ -19,6 +20,10 @@ MODULES=$(shell ls modules/*.sgml)
 dummy:
 	@echo "Making the documentation..."
 	@$(MAKE) all
+
+# note, at this time we don't include pdf files by default, but you
+# can type make pdf in this directory and see what happens in the pdf
+# subdirectory.
 
 all: htmls texts postscript
 
@@ -65,6 +70,19 @@ else
 	@echo XXX - neither sgml2ps nor sgml2latex binaries are installed
 endif
 
+pdf: $(PDFFILES)
+
+$(PDFFILES) : $(PSFILES)
+ifeq ($(HAVE_PS2PDF),yes)
+	@for i in $(FILES) ; do \
+	if [ ! -f "pdf/$$i.pdf" ] || [ "ps/$$i.ps" -nt "ps/$$i.pdf" ]; then \
+		ps2pdf ps/$$i.ps pdf/$$i.pdf ; \
+	fi ; \
+	done
+else
+	@echo XXX - ps2pdf is not installed
+endif
+
 pam.sgml: pam_source.sgml MODULES-SGML CREDITS
 	@sed -e '/^<!\-\- insert\-file MODULES\-SGML \-\->/r MODULES-SGML' pam_source.sgml | sed -e '/^<!\-\- insert\-file CREDITS \-\->/r CREDITS' > pam.sgml
 
@@ -107,6 +125,12 @@ ifneq ($(PSER),)
 	for file in ps/*.ps; do \
 	  install -m 644 $$file $(FAKEROOT)$(DOCDIR)/ps  ; \
 	done
+	ifeq ($(HAVE_PS2PDF),yes)
+		mkdir -p $(FAKEROOT)$(DOCDIR)/pdf
+		for file in pdf/*.pdf; do \
+		  install -m 644 $$file $(FAKEROOT)$(DOCDIR)/pdf  ; \
+		done
+	endif
 endif
 ifeq ($(HAVE_SGML2HTML),yes)
 	mkdir -p $(FAKEROOT)$(DOCDIR)/html
@@ -135,6 +159,7 @@ clean:
 	rm -f man/*~
 	rm -f $(TEXTS)
 	rm -f $(PSFILES) ps/missfont.log
+	rm -f pdf/*.pdf
 	rm -f MODULES-SGML pam.sgml
 	rm -f specs/draft-morgan-pam-current.txt
 	$(MAKE) -C specs/formatter clean

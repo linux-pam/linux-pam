@@ -412,6 +412,7 @@ if test $HAVE_SGML2LATEX = "yes" ; then
   else
     PSER="sgml2latex -p"
   fi
+  AC_CHECK_PROG(HAVE_PS2PDF, ps2pdf, yes, no)
 else
   AC_CHECK_PROG(HAVE_SGML2PS, sgml2ps, yes, no)
   if test $HAVE_SGML2PS = yes ; then
@@ -419,6 +420,7 @@ else
   fi
 fi
 AC_SUBST(PSER)
+AC_SUBST(PS2PDF)
 
 dnl Files to be created from when we run configure
 AC_OUTPUT(Make.Rules)

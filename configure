@@ -3305,11 +3305,41 @@ if test $HAVE_SGML2LATEX = "yes" ; then
   else
     PSER="sgml2latex -p"
   fi
+  # Extract the first word of "ps2pdf", so it can be a program name with args.
+set dummy ps2pdf; ac_word=$2
+echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+echo "configure:3312: checking for $ac_word" >&5
+if eval "test \"`echo '$''{'ac_cv_prog_HAVE_PS2PDF'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  if test -n "$HAVE_PS2PDF"; then
+  ac_cv_prog_HAVE_PS2PDF="$HAVE_PS2PDF" # Let the user override the test.
+else
+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
+  ac_dummy="$PATH"
+  for ac_dir in $ac_dummy; do
+    test -z "$ac_dir" && ac_dir=.
+    if test -f $ac_dir/$ac_word; then
+      ac_cv_prog_HAVE_PS2PDF="yes"
+      break
+    fi
+  done
+  IFS="$ac_save_ifs"
+  test -z "$ac_cv_prog_HAVE_PS2PDF" && ac_cv_prog_HAVE_PS2PDF="no"
+fi
+fi
+HAVE_PS2PDF="$ac_cv_prog_HAVE_PS2PDF"
+if test -n "$HAVE_PS2PDF"; then
+  echo "$ac_t""$HAVE_PS2PDF" 1>&6
+else
+  echo "$ac_t""no" 1>&6
+fi
+
 else
   # Extract the first word of "sgml2ps", so it can be a program name with args.
 set dummy sgml2ps; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:3313: checking for $ac_word" >&5
+echo "configure:3343: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_HAVE_SGML2PS'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -3340,6 +3370,7 @@ fi
     PSER="sgml2ps"
   fi
 fi
+
 
 
 trap '' 1 2 15
@@ -3537,8 +3568,10 @@ s%@LIBOBJS@%$LIBOBJS%g
 s%@HAVE_SGML2TXT@%$HAVE_SGML2TXT%g
 s%@HAVE_SGML2HTML@%$HAVE_SGML2HTML%g
 s%@HAVE_SGML2LATEX@%$HAVE_SGML2LATEX%g
+s%@HAVE_PS2PDF@%$HAVE_PS2PDF%g
 s%@HAVE_SGML2PS@%$HAVE_SGML2PS%g
 s%@PSER@%$PSER%g
+s%@PS2PDF@%$PS2PDF%g
 
 CEOF
 EOF

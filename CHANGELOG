@@ -55,6 +55,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* add support for building pdf files from the documentation - request
+  from 'lolive' (Bug 471377 - agmorgan).
 * documented the equivalent '[..]' expressions for "required"
   etc. Request from Ross Patterson (Bug 529078 - agmorgan).
 * '[...]' parsing: document it and also fix it to support '\]' escape
