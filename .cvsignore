@@ -8,3 +8,4 @@ config.log
 config.cache
 pam_aconf.h
 Make.Rules
+Makefile
