@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <syslog.h>
 #include <stdarg.h>
+#include <string.h>
 
 /*
  * here, we make a definition for the externally accessible function

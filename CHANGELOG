@@ -55,6 +55,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_rootok: compilation warning noted by Tony den Haan wrt no
+  prototype for strcmp() (Bug 557322 - agmorgan).
 * documentation: (a few of mine in passing) and app documentation
   suggestions regarding PAM environment variables and module
   documentation changes regarding the conversation function from Jenn
