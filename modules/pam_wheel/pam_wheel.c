@@ -43,9 +43,6 @@
 
 #include <security/pam_modules.h>
 
-/* variables */
-static char use_group[BUFSIZ];
-
 /* some syslogging */
 
 static void _pam_log(int err, const char *format, ...)
@@ -78,7 +75,7 @@ static int is_on_list(char * const *list, const char *member)
 #define PAM_TRUST_ARG       0x0004
 #define PAM_DENY_ARG        0x0010  
 
-static int _pam_parse(int argc, const char **argv)
+static int _pam_parse(int argc, const char **argv, char *use_group)
 {
      int ctrl=0;
 
@@ -118,11 +115,12 @@ int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
      struct passwd *pwd, *tpwd;
      struct group *grp;
      int retval = PAM_AUTH_ERR;
+     char use_group[BUFSIZ];
     
      /* Init the optional group */
-     bzero(use_group,sizeof(use_group));
+     bzero(use_group,BUFSIZ);
      
-     ctrl = _pam_parse(argc, argv);
+     ctrl = _pam_parse(argc, argv, use_group);
      retval = pam_get_user(pamh,&username,NULL);
      if ((retval != PAM_SUCCESS) || (!username)) {
         if (ctrl & PAM_DEBUG_ARG)
