@@ -135,8 +135,9 @@ static int _pam_parse(int argc, const char **argv, struct pam_limit_s *pl)
 # define LIMITS_FILE "/etc/security/limits.conf"
 #endif
 
-#define LIMIT_ERR 1 /* error setting a limit */
-#define LOGIN_ERR 2 /* too many logins err */
+#define LIMITED_OK 0 /* limit setting appeared to work */
+#define LIMIT_ERR  1 /* error setting a limit */
+#define LOGIN_ERR  2 /* too many logins err */
 
 /* checks if a user is on a list of members of the GID 0 group */
 static int is_on_list(char * const *list, const char *member)
@@ -341,6 +342,7 @@ static void process_limit(int source, const char *lim_type,
      */
     limit_value = strtol(lim_value, endptr, 10);
 
+    /* special case value when limiting logins */
     if (limit_value == 0 && value_orig == *endptr) { /* no chars read */
         if (strcmp(lim_value,"-") != 0) {
             _pam_log(LOG_DEBUG,"wrong limit value '%s'", lim_value);
@@ -390,10 +392,9 @@ static void process_limit(int source, const char *lim_type,
             }
 	}
     } else {
-	if (limit_item == LIMIT_PRI) {
-		/* additional check */
-		pl->priority = ((limit_value>0)?limit_value:0);
-	} else {
+	/* recent kernels support negative priority limits (=raise priority) */
+
+	if (limit_item != LIMIT_PRI) {
 	        if (pl->login_limit_def < source) {
 	            return;
 	        } else {
@@ -503,34 +504,53 @@ static int parse_config_file(const char *uname, int ctrl,
     return PAM_SUCCESS;    
 }
 
-static int setup_limits(const char * uname, int ctrl, struct pam_limit_s *pl)
+static int setup_limits(const char * uname, uid_t uid, int ctrl,
+			struct pam_limit_s *pl)
 {
     int i;
-    int retval = PAM_SUCCESS;
-    
-    for (i=0; i<RLIM_NLIMITS; i++) {
+    int status;
+    int retval = LIMITED_OK;
+
+    if (uid == 0) {
+	/* do not impose limits (+ve limits anyway) on the superuser */
+	if (pl->priority > 0) {
+	    if (ctrl & PAM_DEBUG_ARG) {
+		_pam_log(LOG_DEBUG, "user '%s' has UID 0 - no limits imposed",
+			 uname);
+	    }
+            pl->priority = 0;
+	}
+    }
+
+    for (i=0, status=LIMITED_OK; i<RLIM_NLIMITS; i++) {
         if (pl->limits[i].limit.rlim_cur > pl->limits[i].limit.rlim_max)
             pl->limits[i].limit.rlim_cur = pl->limits[i].limit.rlim_max;
 	if (!pl->supported[i]) {
 	    /* skip it if its not known to the system */
 	    continue;
 	}
-	retval |= setrlimit(i, &pl->limits[i].limit);
+	status |= setrlimit(i, &pl->limits[i].limit);
     }
     
-    if (retval != PAM_SUCCESS)
+    if (status) {
         retval = LIMIT_ERR;
+    }
 
-    retval=setpriority(PRIO_PROCESS, 0, pl->priority);
-    
-    if (retval != PAM_SUCCESS)
+    status = setpriority(PRIO_PROCESS, 0, pl->priority);
+    if (status != 0) {
         retval = LIMIT_ERR;
+    }
 
-    if (pl->login_limit > 0) {
-        if (check_logins(uname, pl->login_limit, ctrl, pl) == LOGIN_ERR)
+    if (uid == 0) {
+	D(("skip login limit check for uid=0"));
+    } else if (pl->login_limit > 0) {
+        if (check_logins(uname, pl->login_limit, ctrl, pl) == LOGIN_ERR) {
             retval |= LOGIN_ERR;
-    } else if (pl->login_limit == 0)
+	}
+    } else if (pl->login_limit == 0) {
         retval |= LOGIN_ERR;
+    }
+
     return retval;
 }
             
@@ -563,14 +583,6 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags,
         return PAM_SESSION_ERR;
     }
                      
-    /* do not impose limits on UID 0 accounts */
-    if (!pwd->pw_uid) {
-        if (ctrl & PAM_DEBUG_ARG)
-            _pam_log(LOG_DEBUG, "user '%s' have UID 0 - no limits imposed",
-                                user_name);
-        return PAM_SUCCESS;
-    }
-        
     retval = init_limits(&pl);
     if (retval != PAM_SUCCESS) {
         _pam_log(LOG_WARNING, "cannot initialize");
@@ -587,10 +599,11 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags,
         return PAM_IGNORE;
     }
 
-    if (ctrl & PAM_DO_SETREUID)
+    if (ctrl & PAM_DO_SETREUID) {
 	setreuid(pwd->pw_uid, -1);
-    retval = setup_limits(pwd->pw_name, ctrl, &pl);
-    if (retval & LOGIN_ERR) {
+    }
+    retval = setup_limits(pwd->pw_name, pwd->pw_uid, ctrl, &pl);
+    if (retval != LIMITED_OK) {
         return PAM_PERM_DENIED;
     }
 

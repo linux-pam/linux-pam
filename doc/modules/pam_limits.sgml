@@ -1,7 +1,7 @@
 <!--
    $Id$
    
-   This file was written by Andrew G. Morgan <morgan@parc.power.net>
+   This file was written by Andrew G. Morgan <morgan@kernel.org>
    from information compiled by Cristian Gafton (author of module)
 -->
 
@@ -140,8 +140,11 @@ together.
 <item><tt/cpu/ - max CPU time (MIN)
 <item><tt/nproc/ - max number of processes
 <item><tt/as/ - address space limit
-<item><tt/maxlogins/ - max number of logins for this user.
-<item><tt/priority/ - the priority to run user process with
+<item><tt/maxlogins/ - max number of logins for this user
+<item><tt/maxsyslogins/ - max number of logins on system
+<item><tt/priority/ - the priority to run user process with (negative
+values boost process priority)
+<item><tt/locks/ - max locked files (Linux 2.4 and higher)
 </itemize>
 
 <p>
