@@ -9,6 +9,8 @@
 #        - an user name
 #        - a group name, with @group syntax
 #        - the wildcard *, for default entry
+#        - the wildcard %, can be also used with %group syntax,
+#                 for maxlogin limit
 #
 #<type> can have the two values:
 #        - "soft" for enforcing the soft limits
