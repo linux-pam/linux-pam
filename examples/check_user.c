@@ -8,18 +8,7 @@
   # check authorization
   check   auth       required     pam_unix_auth.so
   check   account    required     pam_unix_acct.so
-
-  $Log$
-  Revision 1.1  2000/06/20 22:11:13  agmorgan
-  Initial revision
-
-  Revision 1.1.1.1  1998/07/12 05:17:14  morgan
-  Linux PAM sources pre-0.66
-
-  Revision 1.1  1996/11/10 21:19:30  morgan
-  Initial revision
-
- */
+*/
 
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>

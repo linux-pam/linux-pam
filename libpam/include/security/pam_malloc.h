@@ -1,15 +1,5 @@
-/* $Id$
- *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:23  agmorgan
- * Initial revision
- *
- * Revision 1.1.1.1  1998/07/12 05:17:15  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.1  1996/11/10 21:23:14  morgan
- * Initial revision
- *
+/*
+ * $Id$
  */
 
 /*

@@ -1,29 +1,5 @@
 /*
  * $Id$
- *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:13  agmorgan
- * Initial revision
- *
- * Revision 1.2  1999/11/08 05:39:53  morgan
- * removed void main def which was making gcc complain
- *
- * Revision 1.1.1.1  1998/07/12 05:17:14  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.7  1996/12/01 03:16:53  morgan
- * added setcred closing function
- *
- * Revision 1.6  1996/11/10 19:51:40  morgan
- * minor change to avoid gcc warning
- *
- * Revision 1.5  1996/07/07 23:53:05  morgan
- * added optional fail delay (non-standard Linux-PAM)
- *
- * Revision 1.4  1996/05/02 04:44:18  morgan
- * moved conversation to a libmisc library routine.
- *
- *
  */
 
 /* Andrew Morgan (morgan@parc.power.net) -- a self contained `blank'

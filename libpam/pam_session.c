@@ -2,22 +2,6 @@
 
 /*
  * $Id$
- *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:20  agmorgan
- * Initial revision
- *
- * Revision 1.1.1.1  1998/07/12 05:17:15  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.3  1996/12/01 03:14:13  morgan
- * use _pam_macros.h
- *
- * Revision 1.2  1996/03/10 02:19:12  morgan
- * some oversight meant that this wasn't being compiled. It needed a
- * couple of changes.
- *
- *
  */
 
 #include <stdio.h>

@@ -1,33 +1,5 @@
 /*
  * $Id$
- *
- * $Log$
- * Revision 1.2  2000/12/04 18:31:56  baggins
- *
- * Relevant BUGIDs: 124385
- *
- * Purpose of commit: security
- *
- * Commit summary:
- * ---------------
- * * use O_NOFOLLOW if available when opening debug log
- *
- * Revision 1.1.1.1  2000/06/20 22:11:18  agmorgan
- * Imported 0.72 Linux-PAM sources
- *
- * Revision 1.2  1998/12/27 04:34:23  morgan
- * reverting logging functions within libpam.  Gone are the externally
- * advertised API replaced by a more simple (libpam internal) one.
- *
- * Revision 1.1.1.1  1998/07/12 05:17:15  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.2  1996/12/01 03:14:13  morgan
- * use _pam_macros.h
- *
- * Revision 1.1  1996/11/10 21:26:11  morgan
- * Initial revision
- *
  */
 
 /*

@@ -1,38 +1,5 @@
 /* $Id$ */
 
-/*
- * $Log$
- * Revision 1.1  2000/06/20 22:11:50  agmorgan
- * Initial revision
- *
- * Revision 1.2  1999/07/04 23:22:38  morgan
- * Andrey's MD5 (bigendian) work around + cleanup to address problems with
- * applications that let an (ab)user kill them off without giving PAM the
- * opportunity to end. [Problem report from Tani Hosokawa on bugtraq.]
- *
- * Revision 1.1.1.1  1998/07/12 05:17:16  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.6  1997/04/05 06:31:06  morgan
- * mostly a reformat.
- *
- * Revision 1.5  1996/12/01 03:05:54  morgan
- * debugging with _pam_macros.h
- *
- * Revision 1.4  1996/11/10 21:04:51  morgan
- * pwdb conversion
- *
- * Revision 1.3  1996/09/05 06:48:15  morgan
- * A lot has changed. I'd recommend you study the diff.
- *
- * Revision 1.2  1996/09/01 16:33:27  morgan
- * Cristian Gafton's changes
- *
- * Revision 1.1  1996/08/29 13:21:27  morgan
- * Initial revision
- *
- */
-
 static const char rcsid_pass[] =
 "$Id$\n"
 " - PAM_PWDB password module <morgan@parc.power.net>"

@@ -3,19 +3,6 @@
  *
  * This file was written by Andrew G. Morgan <morgan@parc.power.net>
  *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:24  agmorgan
- * Initial revision
- *
- * Revision 1.1.1.1  1998/07/12 05:17:15  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.2  1997/01/04 20:19:20  morgan
- * added a prototype (no warning) and fixed paste function
- *
- * Revision 1.1  1996/12/01 03:25:37  morgan
- * Initial revision
- *
  */
 
 #include <stdlib.h>

@@ -9,21 +9,6 @@
  *
  * Origin: Id: crypt.c,v 1.3 1995/05/30 05:42:22 rgrimes Exp
  *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:48  agmorgan
- * Initial revision
- *
- * Revision 1.2  1999/07/04 23:22:38  morgan
- * Andrey's MD5 (bigendian) work around + cleanup to address problems with
- * applications that let an (ab)user kill them off without giving PAM the
- * opportunity to end. [Problem report from Tani Hosokawa on bugtraq.]
- *
- * Revision 1.1.1.1  1998/07/12 05:17:17  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.1  1996/09/05 06:43:31  morgan
- * Initial revision
- *
  */
 
 #include <string.h>

@@ -2,22 +2,6 @@
 
 /*
  * $Id$
- *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:17  agmorgan
- * Initial revision
- *
- * Revision 1.3  1999/11/08 05:41:05  morgan
- * pam_log - extra paranoia
- * otherwise debugging changes
- *
- * Revision 1.2  1998/12/27 04:34:22  morgan
- * reverting logging functions within libpam.  Gone are the externally
- * advertised API replaced by a more simple (libpam internal) one.
- *
- * Revision 1.1.1.1  1998/07/12 05:17:15  morgan
- * Linux PAM sources pre-0.66
- *
  */
 
 #include <ctype.h>

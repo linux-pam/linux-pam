@@ -5,22 +5,6 @@
  *
  * Written by Andrew Morgan <morgan@parc.power.net> 1996/3/11
  *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:46  agmorgan
- * Initial revision
- *
- * Revision 1.1.1.1  1998/07/12 05:17:16  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.5  1997/02/15 19:03:15  morgan
- * fixed email address
- *
- * Revision 1.4  1997/02/15 16:03:10  morgan
- * force a name for user
- *
- * Revision 1.3  1996/06/02 08:10:14  morgan
- * updated for new static protocol
- *
  */
 
 #define DEFAULT_USER "nobody"

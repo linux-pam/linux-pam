@@ -5,13 +5,6 @@
  * This is based on the X/Open XSSO specification of March 1997.
  * It is not implemented as it is going to change... after 1997/9/25.
  *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:19  agmorgan
- * Initial revision
- *
- * Revision 1.1.1.1  1998/07/12 05:17:15  morgan
- * Linux PAM sources pre-0.66
- *
  */
 
 #include <stdio.h>

@@ -5,26 +5,6 @@
  *
  * Written by Michael K. Johnson <johnsonm@redhat.com> 1996/10/24
  *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:46  agmorgan
- * Initial revision
- *
- * Revision 1.1.1.1  1998/07/12 05:17:17  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.4  1997/04/05 06:36:47  morgan
- * display message when the user is unknown
- *
- * Revision 1.3  1996/12/01 03:00:54  morgan
- * added prototype to conversation, gave static structure name of module
- *
- * Revision 1.2  1996/11/10 21:02:31  morgan
- * compile against .53
- *
- * Revision 1.1  1996/10/25 03:19:36  morgan
- * Initial revision
- *
- *
  */
 
 #include <stdio.h>

@@ -5,25 +5,6 @@
  *
  * Written by Andrew Morgan <morgan@parc.power.net> 1996/3/11
  *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:33  agmorgan
- * Initial revision
- *
- * Revision 1.1.1.1  1998/07/12 05:17:16  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.4  1997/02/15 19:05:15  morgan
- * fixed email
- *
- * Revision 1.3  1996/06/02 08:06:19  morgan
- * changes for new static protocol
- *
- * Revision 1.2  1996/05/26 04:01:12  morgan
- * added static support
- *
- * Revision 1.1  1996/03/16 17:47:36  morgan
- * Initial revision
- *
  */
 
 /*

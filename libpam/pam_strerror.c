@@ -1,26 +1,7 @@
 /* pam_strerror.c */
 
-/* $Id$
- *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:21  agmorgan
- * Initial revision
- *
- * Revision 1.1.1.1  1998/07/12 05:17:15  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.6  1997/01/04 20:12:02  morgan
- * replaced conditional FAIL_NOW with ABORT
- *
- * Revision 1.5  1996/07/07 23:58:56  morgan
- * corrected "... " to "..."
- *
- * Revision 1.4  1996/06/02 08:03:29  morgan
- * spelling correction
- *
- * Revision 1.3  1996/03/16 23:08:54  morgan
- * PAM --> Linux-PAM ;)
- *
+/*
+ * $Id$
  */
 
 #include "pam_private.h"

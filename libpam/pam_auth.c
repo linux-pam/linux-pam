@@ -3,16 +3,6 @@
  *
  * $Id$
  *
- * $Log$
- * Revision 1.1  2000/06/20 22:11:13  agmorgan
- * Initial revision
- *
- * Revision 1.1.1.1  1998/07/12 05:17:15  morgan
- * Linux PAM sources pre-0.66
- *
- * Revision 1.7  1997/04/05 06:53:52  morgan
- * fail-delay changes
- *
  */
 
 #include <stdio.h>
