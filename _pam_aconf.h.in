@@ -54,4 +54,11 @@
 /* read both confs - read /etc/pam.d and /etc/pam.conf in serial */
 #undef PAM_READ_BOTH_CONFS
 
+#undef HAVE_PATHS_H
+#ifdef HAVE_PATHS_H
+#include <paths.h>
+#endif
+/* location of the mail spool directory */
+#undef PAM_PATH_MAILDIR
+
 #endif /* PAM_ACONF_H */

@@ -122,6 +122,28 @@ AC_ARG_ENABLE(lckpwdf,
 	WITH_LCKPWDF=no, WITH_LCKPWDF=yes)
 AC_SUBST(WITH_LCKPWDF)
 
+AC_CHECK_HEADERS(paths.h)
+AC_ARG_WITH(mailspool,
+[  --with-mailspool         path to mail spool directory
+                           [default _PATH_MAILDIR if defined in paths.h, otherwise /var/spool/mail]],
+with_mailspool=${withval})
+if test x$with_mailspool != x ; then
+	pam_mail_spool="\"$with_mailspool\""
+else
+	AC_TRY_RUN([
+#include <paths.h>
+int main() {
+#ifdef _PATH_MAILDIR
+exit(0);
+#else
+exit(1);
+#endif
+}], pam_mail_spool="_PATH_MAILDIR",
+pam_mail_spool="\"/var/spool/mail\"",
+pam_mail_spool="\"/var/spool/mail\"")
+fi
+AC_DEFINE_UNQUOTED(PAM_PATH_MAILDIR, $pam_mail_spool)
+
 dnl Checks for programs.
 AC_PROG_CXX
 AC_PROG_YACC

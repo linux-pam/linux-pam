@@ -35,6 +35,9 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* _pam_aconf.h.in, configure.in - added PAM_PATH_MAILDIR set via
+  --with-mailspool=dir option (default is _PAM_MAILDIR if defined
+  in paths.h otherwise /var/spool/mail (Bug 124397 - baggins)
 * removed unnecessary CVS Log tags from all over the source
   (Bug 124391 - baggins)
 * pam_tally - check for PAM_TTY if PAM_RHOST is not set when writing
