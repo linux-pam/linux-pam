@@ -22,7 +22,6 @@ DISTFILE = $(RELNAME).tar.gz
 FULL_LINUX_PAM_SOURCE_TREE=yes
 export FULL_LINUX_PAM_SOURCE_TREE
 
-DYNLOAD="dl"
 DYNTYPE="so"
 
 # Comment out either line to disable that type of linking for *modules only*
@@ -66,20 +65,18 @@ SHLIBMODE=755
 
 ifdef DYNAMIC
 # need the dynamic library functions
-LIBDL=-l$(DYNLOAD)
 ifdef STATIC_LIBPAM
 # needed because pam_xxx() fn's are now in statically linked library
 RDYNAMIC = -rdynamic
 endif
 endif
 
-# Here we include the defines for the preferred operating system
-# these include things like CC, CFLAGS and destination directories 
-# etc.. By default, this is a symbolic link to one of the .defs files
-# the .../defs/ directory. Please take a moment to check that you are
-# using the correct one.
+# Here we include the defines declared by configure.  These include things
+# like CC, CFLAGS and destination directories etc..  Make.Rules replaces the
+# ./defs/ directory used in the past.  If Make.Rules doesn't work for you,
+# please consider submitting a patch to configure.in and Make.Rules.in.
 
-include default.defs
+include Make.Rules
 
 # to turn on the fprintf(stderr, ..) debugging lines throughout the
 # distribution uncomment this line
