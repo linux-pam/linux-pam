@@ -5,23 +5,23 @@
  * (I took login_access from logdaemon-5.6 and converted it to PAM
  * using parts of pam_time code.)
  *
- ************************************************************************ 
+ ************************************************************************
  * Copyright message from logdaemon-5.6 (original file name DISCLAIMER)
- ************************************************************************ 
- * Copyright 1995 by Wietse Venema. All rights reserved. Individual files 
- * may be covered by other copyrights (as noted in the file itself.) 
- * 
- * This material was originally written and compiled by Wietse Venema at 
- * Eindhoven University of Technology, The Netherlands, in 1990, 1991, 
- * 1992, 1993, 1994 and 1995. 
- * 
- * Redistribution and use in source and binary forms are permitted 
- * provided that this entire copyright notice is duplicated in all such 
- * copies. 
- * 
- * This software is provided "as is" and without any expressed or implied 
- * warranties, including, without limitation, the implied warranties of 
- * merchantibility and fitness for any particular purpose. 
+ ************************************************************************
+ * Copyright 1995 by Wietse Venema. All rights reserved. Individual files
+ * may be covered by other copyrights (as noted in the file itself.)
+ *
+ * This material was originally written and compiled by Wietse Venema at
+ * Eindhoven University of Technology, The Netherlands, in 1990, 1991,
+ * 1992, 1993, 1994 and 1995.
+ *
+ * Redistribution and use in source and binary forms are permitted
+ * provided that this entire copyright notice is duplicated in all such
+ * copies.
+ *
+ * This software is provided "as is" and without any expressed or implied
+ * warranties, including, without limitation, the implied warranties of
+ * merchantibility and fitness for any particular purpose.
  *************************************************************************
  */
 
@@ -60,8 +60,6 @@
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
 
-int strcasecmp(const char *s1, const char *s2);
-
 /* login_access.c from logdaemon-5.6 with several changes by A.Nogin: */
 
  /*
@@ -69,7 +67,7 @@ int strcasecmp(const char *s1, const char *s2);
   * control based on login names and on host (or domain) names, internet
   * addresses (or network numbers), or on terminal line names in case of
   * non-networked logins. Diagnostics are reported through syslog(3).
-  * 
+  *
   * Author: Wietse Venema, Eindhoven University of Technology, The Netherlands.
   */
 
@@ -141,16 +139,16 @@ static int parse_args(struct login_info *loginfo, int argc, const char **argv)
 			 , loginfo->service, 11 + argv[i]);
 		return 0;
 	    }
-	    
+
 	} else {
 	    _log_err("unrecognized option [%s]", argv[i]);
 	}
     }
-    
+
     return 1;  /* OK */
 }
 
-typedef int match_func (char *, struct login_info *); 
+typedef int match_func (char *, struct login_info *);
 
 static int list_match (char *, struct login_info *,
 		             match_func *);
@@ -213,6 +211,7 @@ static int login_access(struct login_info *item)
 	(void) fclose(fp);
     } else if (errno != ENOENT) {
 	_log_err("cannot open %s: %m", item->config_file);
+	return NO;
     }
     return (match == 0 || (line[0] == '+'));
 }
@@ -254,9 +253,11 @@ static char * myhostname(void)
 {
     static char name[MAXHOSTNAMELEN + 1];
 
-    gethostname(name, MAXHOSTNAMELEN);
-    name[MAXHOSTNAMELEN] = 0;
-    return (name);
+    if (gethostname(name, MAXHOSTNAMELEN) == 0) {
+      name[MAXHOSTNAMELEN] = 0;
+      return (name);
+    }
+    return NULL;
 }
 
 /* netgroup_match - match group against machine or user */
@@ -290,6 +291,8 @@ static int user_match(char *tok, struct login_info *item)
     if ((at = strchr(tok + 1, '@')) != 0) {	/* split user@host pattern */
 	*at = 0;
 	fake_item.from = myhostname();
+	if (fake_item.from == NULL)
+	  return NO;
 	return (user_match(tok, item) && from_match(at + 1, &fake_item));
     } else if (tok[0] == '@') {			/* netgroup */
 	return (netgroup_match(tok + 1, (char *) 0, string));
@@ -384,14 +387,6 @@ static int string_match(char *tok, char *string)
 	return (YES);
     }
     return (NO);
-}
-
-/* end of login_access.c */
-
-int strcasecmp(const char *s1, const char *s2) 
-{
-    while ((toupper(*s1)==toupper(*s2)) && (*s1) && (*s2)) {s1++; s2++;}
-    return(toupper(*s1)-toupper(*s2));
 }
 
 /* --- public account management functions --- */
@@ -490,4 +485,3 @@ struct pam_module _pam_access_modstruct = {
     NULL
 };
 #endif
-

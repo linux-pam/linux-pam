@@ -250,7 +250,13 @@ void _pam_set_default_control(int *control_array, int default_action);
 
 void _pam_parse_control(int *control_array, char *tok);
 
-void _pam_system_log(int priority, const char *format,  ... );
+void _pam_system_log(int priority, const char *format,  ... )
+#ifdef __GNUC__
+	__attribute__ ((format (printf, 2, 3)));
+#else
+	;
+#endif
+
 #define _PAM_SYSTEM_LOG_PREFIX "PAM "
 
 /*

@@ -686,7 +686,7 @@ int _pam_add_handler(pam_handle_t *pamh
 	/* indicate its name - later we will search for it by this */
 	if ((mod->name = _pam_strdup(mod_path)) == NULL) {
 	    D(("_pam_handler: couldn't get memory for mod_path"));
-	    _pam_system_log(LOG_ERR, "no memory for module path", mod_path);
+	    _pam_system_log(LOG_ERR, "no memory for module path");
 	    success = PAM_ABORT;
 	}
 

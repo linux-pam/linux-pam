@@ -76,7 +76,7 @@ typedef struct pam_handle pam_handle_t;
 #define PAM_AUTHTOK_LOCK_BUSY 22   /* Authentication token lock busy */
 #define PAM_AUTHTOK_DISABLE_AGING 23 /* Authentication token aging disabled */
 #define PAM_TRY_AGAIN 24	/* Preliminary check by password service */
-#define PAM_IGNORE 25		/* Ingore underlying account module */
+#define PAM_IGNORE 25		/* Ignore underlying account module */
 				/* regardless of whether the control */
 				/* flag is required, optional, or sufficient */
 #define PAM_ABORT 26            /* Critical error (?module fail now request) */

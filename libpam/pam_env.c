@@ -75,7 +75,7 @@ int _pam_make_env(pam_handle_t *pamh)
     /*
      * fill entries in pamh->env
      */
-    
+
     pamh->env->entries = PAM_ENV_CHUNK;
     pamh->env->requested = 1;
     pamh->env->list[0] = NULL;
@@ -223,7 +223,7 @@ int pam_putenv(pam_handle_t *pamh, const char *name_value)
 
 	    /* add a new NULL entry at end; increase counter */
 	    pamh->env->list[pamh->env->requested++] = NULL;
-	    
+
 	} else {                                /* replace old */
 	    D(("replacing item: %s\n          with: %s"
 	       , pamh->env->list[item], name_value));
@@ -344,6 +344,7 @@ static char **_copy_env(pam_handle_t *pamh)
 		_pam_overwrite(dump[i]);
 		_pam_drop(dump[i]);
 	    }
+	    __pam_drop(dump);
 	    return NULL;
 	}
     }

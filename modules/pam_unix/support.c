@@ -424,7 +424,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	 * The "noreap" module argument is provided so that the admin can
 	 * override this behavior.
 	 */
-	sighandler = signal(SIGCHLD, SIG_IGN);
+	sighandler = signal(SIGCHLD, SIG_DFL);
     }
 
     /* fork */

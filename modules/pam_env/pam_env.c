@@ -13,7 +13,7 @@
 #endif
 
 #define DEFAULT_ETC_ENVFILE     "/etc/environment"
-#define DEFAULT_READ_ENVFILE    1
+#define DEFAULT_READ_ENVFILE    0
 
 #include <security/_pam_aconf.h>
 
@@ -165,8 +165,8 @@ static int _parse_config_file(pam_handle_t *pamh, int ctrl, char **conffile)
       return PAM_IGNORE;
     }
 
-    /* _pam_assemble_line will provide a complete line from the config file, with all 
-     * comments removed and any escaped newlines fixed up
+    /* _pam_assemble_line will provide a complete line from the config file,
+     * with all comments removed and any escaped newlines fixed up
      */
 
     while (( retval = _assemble_line(conf, buffer, BUF_SIZE)) > 0) {
@@ -192,12 +192,13 @@ static int _parse_config_file(pam_handle_t *pamh, int ctrl, char **conffile)
     (void) fclose(conf);
 
     /* tidy up */
-    _clean_var(var);        /* We could have got here prematurely, this is safe though */
+    _clean_var(var);        /* We could have got here prematurely,
+			     * this is safe though */
     _pam_overwrite(*conffile);
     _pam_drop(*conffile);
     file = NULL;
     D(("Exit."));
-    return (retval<0?PAM_ABORT:PAM_SUCCESS);
+    return (retval != 0 ? PAM_ABORT : PAM_SUCCESS);
 }
 
 static int _parse_env_file(pam_handle_t *pamh, int ctrl, char **env_file)
@@ -231,7 +232,7 @@ static int _parse_env_file(pam_handle_t *pamh, int ctrl, char **env_file)
 	    continue;
 
 	/* skip over "export " if present so we can be compat with
-	   bash type declerations */
+	   bash type declarations */
 	if (strncmp(key, "export ", (size_t) 7) == 0)
 	    key += 7;
 
@@ -279,7 +280,7 @@ static int _parse_env_file(pam_handle_t *pamh, int ctrl, char **env_file)
     _pam_drop(*env_file);
     file = NULL;
     D(("Exit."));
-    return (retval<0?PAM_IGNORE:PAM_SUCCESS);
+    return (retval != 0 ? PAM_IGNORE : PAM_SUCCESS);
 }
 
 /*
@@ -765,8 +766,8 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
 
   retval = _parse_config_file(pamh, ctrl, &conf_file);
 
-  if(readenv)
-    _parse_env_file(pamh, ctrl, &env_file);
+  if(readenv && retval == PAM_SUCCESS)
+    retval = _parse_env_file(pamh, ctrl, &env_file);
 
   /* indicate success or failure */
   
@@ -798,8 +799,8 @@ int pam_sm_open_session(pam_handle_t *pamh,int flags,int argc
   
   retval = _parse_config_file(pamh, ctrl, &conf_file);
   
-  if(readenv)
-    _parse_env_file(pamh, ctrl, &env_file);
+  if(readenv && retval == PAM_SUCCESS)
+    retval = _parse_env_file(pamh, ctrl, &env_file);
 
   /* indicate success or failure */
   

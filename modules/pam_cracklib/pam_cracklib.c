@@ -77,7 +77,7 @@ extern char *FascistCheck(char *pw, const char *dictpath);
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 
-#ifndef LINUX_PAM 
+#ifndef LINUX_PAM
 #include <security/pam_appl.h>
 #endif  /* LINUX_PAM */
 
@@ -186,11 +186,11 @@ static int converse(pam_handle_t *pamh, int ctrl, int nargs,
                     struct pam_response **response)
 {
     int retval;
-    struct pam_conv *conv;
+    struct pam_conv *conv = NULL;
 
-    retval = pam_get_item(pamh, PAM_CONV, (const void **) &conv); 
+    retval = pam_get_item(pamh, PAM_CONV, (const void **) &conv);
 
-    if ( retval == PAM_SUCCESS ) {
+    if ( retval == PAM_SUCCESS && conv ) {
         retval = conv->conv(nargs, (const struct pam_message **)message,
 			                response, conv->appdata_ptr);
         if (retval != PAM_SUCCESS && (ctrl && PAM_DEBUG_ARG)) {
@@ -199,7 +199,9 @@ static int converse(pam_handle_t *pamh, int ctrl, int nargs,
         }
     } else {
         _pam_log(LOG_ERR, "couldn't obtain coversation function [%s]",
-                pam_strerror(pamh, retval));
+		 pam_strerror(pamh, retval));
+        if ( retval == PAM_SUCCESS )
+            retval = PAM_BAD_ITEM; /* conv was NULL */
     }
 
     return retval;                  /* propagate error status */
@@ -389,17 +391,17 @@ static int simple(struct cracklib_options *opt,
 	size -= digits;
     else if (digits < opt->dig_credit * -1)
 	return 1;
- 
+
     if (opt->up_credit >= 0)
 	size -= uppers;
     else if (uppers < opt->up_credit * -1)
 	return 1;
- 
+
     if (opt->low_credit >= 0)
 	size -= lowers;
     else if (lowers < opt->low_credit * -1)
 	return 1;
- 
+
     if (opt->oth_credit >= 0)
 	size -= others;
     else if (others < opt->oth_credit * -1)
@@ -507,7 +509,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
     const char *msg = NULL;
     const char *user;
     int retval;
-    
+
     if (pass_new == NULL || (pass_old && !strcmp(pass_old,pass_new))) {
         if (ctrl && PAM_DEBUG_ARG)
             _pam_log(LOG_DEBUG, "bad authentication token");
@@ -524,7 +526,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
     msg = password_check(opt, pass_old,pass_new);
     if (!msg) {
 	retval = pam_get_item(pamh, PAM_USER, (const void **)&user);
-	if (retval != PAM_SUCCESS) {
+	if (retval != PAM_SUCCESS || user == NULL) {
 	    if (ctrl & PAM_DEBUG_ARG) {
 		_pam_log(LOG_ERR,"Can not get username");
         	return PAM_AUTHTOK_ERR;
@@ -535,7 +537,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
 
     if (msg) {
         char remark[BUFSIZ];
-        
+
         memset(remark,0,sizeof(remark));
         snprintf(remark,sizeof(remark),"BAD PASSWORD: %s",msg);
         if (ctrl && PAM_DEBUG_ARG)
@@ -543,12 +545,12 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
                                   msg);
         make_remark(pamh, ctrl, PAM_ERROR_MSG, remark);
         return PAM_AUTHTOK_ERR;
-    };   
+    };
     return PAM_SUCCESS;
-    
+
 }
 
-/* The Main Thing (by Cristian Gafton, CEO at this module :-) 
+/* The Main Thing (by Cristian Gafton, CEO at this module :-)
  * (stolen from http://home.netscape.com)
  */
 PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
@@ -575,7 +577,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
     ctrl = _pam_parse(&options, argc, argv);
 
     if (flags & PAM_PRELIM_CHECK) {
-        /* Check for passwd dictionary */       
+        /* Check for passwd dictionary */
         struct stat st;
         char buf[sizeof(CRACKLIB_DICTPATH)+10];
 
@@ -592,7 +594,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
                                      CRACKLIB_DICTPATH);
             return PAM_ABORT;
         }
-        
+
         /* Not reached */
         return PAM_SERVICE_ERR;
 
@@ -614,12 +616,12 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
             retval = PAM_SUCCESS;
         }
 
-        do {        
+        do {
         /*
          * make sure nothing inappropriate gets returned
          */
         token1 = token2 = NULL;
-        
+
         if (!options.retry_times) {
 	    D(("returning %s because maxtries reached",
 	       pam_strerror(pamh, retval)));
@@ -629,7 +631,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
         /* Planned modus operandi:
          * Get a passwd.
          * Verify it against cracklib.
-         * If okay get it a second time. 
+         * If okay get it a second time.
          * Check to be the same with the first one.
          * set PAM_AUTHTOK and return
          */
@@ -692,7 +694,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
         {
             char *crack_msg;
             char remark[BUFSIZ];
-            
+
             bzero(remark,sizeof(remark));
 	    D(("against cracklib"));
             if ((crack_msg = FascistCheck(token1, cracklib_dictpath))) {
@@ -780,7 +782,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
                 retval = PAM_AUTHTOK_RECOVER_ERR;
                 continue;
             }
-        
+
             /* Yes, the password was typed correct twice
              * we store this password as an item
              */
@@ -805,7 +807,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		return PAM_SUCCESS;
 	    }
         }
-        
+
         } while (options.retry_times--);
 
     } else {
@@ -815,7 +817,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
     }
 
     /* Not reached */
-    return PAM_SERVICE_ERR;                            
+    return PAM_SERVICE_ERR;
 }
 
 
