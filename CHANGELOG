@@ -66,8 +66,10 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   authenticated by another module (t8m)
 * configure: don't abort if no cracklib dictinaries were found, but
   warn user that pam_cracklib will not be built (kukuk)
-* modules/pam_unix/support.c: Fix return value, if user aborts while
+* modules/pam_unix/support.c: Fix return value if user aborts while
   changes the password (Bug 872945 - kukuk)
+* modules/pam_unix/support.c: Fix return value for an unknown user
+  (Bug 872943 - kukuk)
 * pam_limits: support for new Linux kernel 2.6 limits (from toby cabot
   - t8m)
 * pam_tally: major rewrite of the module (t8m)

@@ -699,7 +699,10 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 		} else {
 			D(("user's record unavailable"));
 			p = NULL;
-			retval = PAM_AUTHINFO_UNAVAIL;
+			if (pwd == NULL)
+				retval = PAM_USER_UNKNOWN;
+			else
+				retval = PAM_AUTHINFO_UNAVAIL;
 			if (on(UNIX_AUDIT, ctrl)) {
 				/* this might be a typo and the user has given a password
 				   instead of a username. Careful with this. */
