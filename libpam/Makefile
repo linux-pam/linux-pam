@@ -159,6 +159,7 @@ endif
 
 clean:
 	rm -f a.out core *~ static/*.o dynamic/*.o
+	rm -f *.orig $(LIBPAMNAME) $(LIBPAMFULL)
 	rm -f *.a *.o *.so ./include/security/*~
 	if [ -d dynamic ]; then rmdir dynamic ; fi
 	if [ -d static ]; then rmdir static ; fi

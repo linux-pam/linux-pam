@@ -112,5 +112,6 @@ endif
 clean:
 	rm -f a.out core *~ static/*.o dynamic/*.o
 	rm -f *.a *.out *.o *.so ./include/security/*~
+	rm -f *.orig $(LIBNAMEDNAME) $(LIBNAMEDFULL)
 	if [ -d dynamic ]; then rmdir dynamic ; fi
 	if [ -d static ]; then rmdir static ; fi
