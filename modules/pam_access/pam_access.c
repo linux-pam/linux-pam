@@ -30,8 +30,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-/* man page says above file includes this... */
-extern int gethostname(char *name, size_t len);
 
 #include <stdarg.h>
 #include <syslog.h>
