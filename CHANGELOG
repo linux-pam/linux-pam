@@ -49,6 +49,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_unix: fixed bizarre memory leak pointed out by Fernando Trias
+  (Bug 483959 - agmorgan)
 * misc string comparison length checking changes from Nalin. Modules
   touched, pam_cracklib, pam_listfile, pam_unix, pam_wheel (Bug 476947 -
   agmorgan)

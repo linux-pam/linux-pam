@@ -82,7 +82,7 @@
 
 #define AUTH_RETURN						\
 {								\
-	if (on(UNIX_LIKE_AUTH, ctrl) && ret_data) {		\
+	if (on(UNIX_LIKE_AUTH, ctrl)) {         		\
 		D(("recording return code for next time [%d]",	\
 					retval));		\
 		pam_set_data(pamh, "unix_setcred_return",	\
@@ -96,16 +96,12 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 				   ,int argc, const char **argv)
 {
 	unsigned int ctrl;
-	int retval, *ret_data = NULL;
+	int retval;
 	const char *name, *p;
 
 	D(("called."));
 
 	ctrl = _set_ctrl(pamh, flags, NULL, argc, argv);
-
-	/* Get a few bytes so we can pass our return value to
-	   pam_sm_setcred(). */
-	ret_data = malloc(sizeof(int));
 
 	/* get the user'name' */
 
