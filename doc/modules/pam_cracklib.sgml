@@ -70,11 +70,18 @@ Is the new password the the old one with only a change of case?
 
 <item> <bf/Similar/ -
 
-Is the new password too much like the old one?  This is controlled
-by one argument, <tt/difok/ which is a number of characters that if
-different between the old and new are enough to accept the new
+Is the new password too much like the old one?  This is primarily
+controlled by one argument, <tt/difok/ which is a number of characters
+that if different between the old and new are enough to accept the new
 password, this defaults to 10 or 1/2 the size of the new password
 whichever is smaller.
+
+To avoid the lockup associated with trying to change a long and
+complicated password, <tt/difignore/ is available. This argument can
+be used to specify the minimum length a new password needs to be
+before the <tt/difok/ value is ignored. The default value for
+<tt/difignore/ is 23.
+
 
 <item> <bf/Simple/ -
 

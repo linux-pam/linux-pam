@@ -87,11 +87,10 @@ static void _pam_log(int err, const char *format, ...)
 /* argument parsing */
 #define PAM_DEBUG_ARG       0x0001
 
-/* module data - AGM: */
-
 struct cracklib_options {
 	int retry_times;
 	int diff_ok;
+	int diff_ignore;
 	int min_length;
 	int dig_credit;
 	int up_credit;
@@ -100,6 +99,17 @@ struct cracklib_options {
 	int use_authtok;
 	char prompt_type[BUFSIZ];
 };
+
+#define CO_RETRY_TIMES  1
+#define CO_DIFF_OK      10
+#define CO_DIFF_IGNORE  23
+#define CO_MIN_LENGTH   9
+# define CO_MIN_LENGTH_BASE 5
+#define CO_DIG_CREDIT   1
+#define CO_UP_CREDIT    1
+#define CO_LOW_CREDIT   1
+#define CO_OTH_CREDIT   1
+#define CO_USE_AUTHTOK  0
 
 static int _pam_parse(struct cracklib_options *opt, int argc, const char **argv)
 {
@@ -118,15 +128,19 @@ static int _pam_parse(struct cracklib_options *opt, int argc, const char **argv)
 	 else if (!strncmp(*argv,"retry=",6)) {
 	     opt->retry_times = strtol(*argv+6,&ep,10);
 	     if (!ep || (opt->retry_times < 1))
-		 opt->retry_times = 1;
+		 opt->retry_times = CO_RETRY_TIMES;
 	 } else if (!strncmp(*argv,"difok=",6)) {
 	     opt->diff_ok = strtol(*argv+6,&ep,10);
 	     if (!ep || (opt->diff_ok < 0))
-		 opt->diff_ok = 10;
+		 opt->diff_ok = CO_DIFF_OK;
+	 } else if (!strncmp(*argv,"difignore=",10)) {
+	     opt->diff_ignore = strtol(*argv+10,&ep,10);
+	     if (!ep || (opt->diff_ignore < 0))
+		 opt->diff_ignore = CO_DIFF_IGNORE;
 	 } else if (!strncmp(*argv,"minlen=",7)) {
 	     opt->min_length = strtol(*argv+7,&ep,10);
-	     if (!ep || (opt->min_length < 5))
-		 opt->min_length = 5;
+	     if (!ep || (opt->min_length < CO_MIN_LENGTH_BASE))
+		 opt->min_length = CO_MIN_LENGTH_BASE;
 	 } else if (!strncmp(*argv,"dcredit=",8)) {
 	     opt->dig_credit = strtol(*argv+8,&ep,10);
 	     if (!ep || (opt->dig_credit < 0))
@@ -224,26 +238,30 @@ static int palindrome(const char *old, const char *new)
 }
 
 /*
- * more than half of the characters are different ones.
- * or at least diff_ok are different
- * NOTE that the defaults are NOT the same as befor this
- * change. as long as there are at least 10 different bytes
- * in a new password it will now pass even if the password
- * is longer than 20 bytes (MD5)
+ * This is a reasonably severe check for a different selection of characters
+ * in the old and new passwords.
  */
 
-static int similiar(struct cracklib_options *opt, const char *old, const char *new)
+static int similar(struct cracklib_options *opt,
+		    const char *old, const char *new)
 {
-	int	i, j;
+    int i, j;
 
-	for (i = j = 0;new[i] && old[i];i++)
-		if (strchr (new, old[i]))
-			j++;
+    for (i = j = 0; old[i]; i++) {
+	if (strchr (new, old[i])) {
+	    j++;
+	}
+    }
 
- 	if (j >= opt->diff_ok || i >= j * 2)
-		return 0;
+    if (((i-j) >= opt->diff_ok)
+	|| (strlen(new) >= (j * 2))
+	|| (strlen(new) >= opt->diff_ignore)) {
+	/* passwords are not very similar */
+	return 0;
+    }
 
-	return 1;
+    /* passwords are too similar */
+    return 1;
 }
 
 /*
@@ -332,8 +350,8 @@ static const char * password_check(struct cracklib_options *opt, const char *old
 	if (!msg && strcmp(oldmono, newmono) == 0)
 		msg = "case changes only";
 
-	if (!msg && similiar(opt, oldmono, newmono))
-		msg = "is too similiar to the old one";
+	if (!msg && similar(opt, oldmono, newmono))
+		msg = "is too similar to the old one";
 
 	if (!msg && simple(opt, old, new))
 		msg = "is too simple";
@@ -447,14 +465,15 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
     unsigned int ctrl;
     struct cracklib_options options;
 
-    options.retry_times = 1;
-    options.diff_ok = 10;
-    options.min_length = 9;
-    options.dig_credit = 1;
-    options.up_credit = 1;
-    options.low_credit = 1;
-    options.oth_credit = 1;
-    options.use_authtok = 0;
+    options.retry_times = CO_RETRY_TIMES;
+    options.diff_ok = CO_DIFF_OK;
+    options.diff_ignore = CO_DIFF_IGNORE;
+    options.min_length = CO_MIN_LENGTH;
+    options.dig_credit = CO_DIG_CREDIT;
+    options.up_credit = CO_UP_CREDIT;
+    options.low_credit = CO_LOW_CREDIT;
+    options.oth_credit = CO_OTH_CREDIT;
+    options.use_authtok = CO_USE_AUTHTOK;
     memset(options.prompt_type, 0, BUFSIZ);
     
     ctrl = _pam_parse(&options, argc, argv);
