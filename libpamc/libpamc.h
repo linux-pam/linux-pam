@@ -9,7 +9,7 @@
 #define LIBPAMC_H
 
 #include <security/pam_client.h>
-#include <security/pam_misc.h>
+#include <security/_pam_macros.h>
 
 #include <sys/stat.h>
 #include <unistd.h>

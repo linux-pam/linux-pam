@@ -2,18 +2,15 @@
 # $Id$
 #
 
-dummy:
-
-	@echo	"*** This is not a top level Makefile!"
+include ../Make.Rules
 
 PROGS = blank xsh check_user
 SRCS = blank.c xsh.c check_user.c
-
-# have removed the following pair since they no longer conform to
-# any recognized conventions: vpass test
-# ditto: vpass.c test.c
-
 PROGSUID =
+
+CFLAGS += -I../libpam_misc/inlcude -I../libpamc/include
+
+LOADLIBES = -L../libpam -L../libpamc -L../libpam_misc -lpam -lpam_misc
 
 all: $(PROGS)
 
@@ -26,17 +23,18 @@ blank: blank.o
 xsh: xsh.o
 	$(CC) $(CFLAGS) -o $@ $< $(LOADLIBES)
 
+clean:
+	rm -f *.a *.so *.o *~ $(PROGS) $(PROGSUID)
+	rm -f *.a *.out *.o *.so
+
+# note, the programs are test programs, they should not be
+# installed on your system!
+
 install: all
 	if [ -n "$(PROGS)" ]; then cp $(PROGS) ../bin ; fi
 	if [ -n "$(PROGSUID)" ]; then \
-		$(INSTALL) -m 4555 -o root -g bin $(PROGSUID) ../bin ; fi
-
-clean:
-	rm -f *.a *.so *.o *~ $(PROGS) $(PROGSUID)
+		$(INSTALL) -m 4555 $(PROGSUID) ../bin ; fi
 
 remove:
 	cd ../bin ; rm -f $(PROGS) $(PROGSUID)
-
-extraclean: clean
-	rm -f *.a *.out *.o *.so
 	for x in $(PROGS) $(PROGSUID) ; do rm -f ../bin/$$x ; done

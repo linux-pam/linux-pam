@@ -20,14 +20,7 @@ static const char rcsid[] =
 
 /* #define DEBUG */
 
-#define _SVID_SOURCE
-#define _BSD_SOURCE
-#define _BSD_COMPAT
-
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <sys/types.h>
 #include <stdarg.h>
@@ -83,7 +76,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags
 
     if ( on(UNIX_LIKE_AUTH, ctrl) ) {
 	D(("recording return code for next time [%d]", retval));
-	pam_set_data(pamh, "pwdb_setcred_return", (void *) &retval, NULL);
+	pam_set_data(pamh, "pwdb_setcred_return", (void *) retval, NULL);
     }
 
     D(("done. [%s]", pam_strerror(pamh, retval)));
@@ -108,8 +101,7 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags
 	int *pretval = &retval;
 
 	D(("recovering return code from auth call"));
-	pam_get_data(pamh, "pwdb_setcred_return", (const void **) &pretval);
-	pam_set_data(pamh, "pwdb_setcred_return", NULL, NULL);
+	pam_get_data(pamh, "pwdb_setcred_return", (const void **) pretval);
 	D(("recovered data indicates that old retval was %d", retval));
     }
 

@@ -90,7 +90,7 @@ char **pamc_list_agents(pamc_handle_t pch);
 #define __PAM_BP_OCTET(x,y)  (*((y) + (__u8 *)(x)))
 
 #define PAM_BP_MIN_SIZE       (sizeof(__u32) + sizeof(__u8))
-#define PAM_PB_MAX_LENGTH     0x8000                   /* an advisory limit */
+#define PAM_BP_MAX_LENGTH     0x20000                   /* an advisory limit */
 #define PAM_BP_CONTROL(x)     (__PAM_BP_OCTET(x,4))
 #define PAM_BP_SIZE(x)        ((__PAM_BP_OCTET(x,0)<<24)+      \
 			       (__PAM_BP_OCTET(x,1)<<16)+      \

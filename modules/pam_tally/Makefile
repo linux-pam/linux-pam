@@ -7,6 +7,8 @@
 #
 #
 
+include ../../Make.Rules
+
 TITLE=pam_tally
 
 #
@@ -44,14 +46,7 @@ APPMODE = 755
 
 ####################### don't edit below #######################
 
-dummy:
-	@echo "**** This is not a top-level Makefile "
-	exit
-
-all: dirs $(LIBSHARED) $(LIBSTATIC) register
-# we're not yet in a position to build this. If you want it, build it
-# separately...
-# $(APPLICATION)
+all: dirs $(LIBSHARED) $(LIBSTATIC) register $(APPLICATION)
 
 dirs:
 ifdef DYNAMIC
@@ -101,9 +96,8 @@ remove:
 
 clean:
 	rm -f $(LIBOBJD) $(LIBOBJS) $(APPOBJD) $(APPOBJS) core *~
-
-extraclean: clean
 	rm -f *.a *.o *.so *.bak dynamic/* static/* $(APPLICATION)
+	rm -rf dynamic static
 
 .c.o:   
 	$(CC) $(CFLAGS) -c $<

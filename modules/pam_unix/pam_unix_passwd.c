@@ -35,13 +35,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define _BSD_SOURCE
-#define __USE_SVID
-
-#ifdef linux
-#define _GNU_SOURCE
-#include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,6 +44,7 @@
 #include <malloc.h>
 #include <unistd.h>
 #include <errno.h>
+#include <sys/types.h>
 #include <pwd.h>
 #include <syslog.h>
 #include <shadow.h>
@@ -57,7 +52,6 @@
 #include <fcntl.h>
 #include <ctype.h>
 #include <sys/time.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <rpc/rpc.h>
 #include <rpcsvc/yp_prot.h>
@@ -644,7 +638,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 				int argc, const char **argv)
 {
 	unsigned int ctrl, lctrl;
-	int retval;
+	int retval, i;
 	int remember = -1;
 
 	/* <DO NOT free() THESE> */
@@ -658,7 +652,22 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 	/* our current locking system requires that we lock the
 	   entire password database.  This avoids both livelock
 	   and deadlock. */
-	lckpwdf();
+	/* These values for the number of attempts and the sleep time
+	   are, of course, completely arbitrary.
+	   My reading of the PAM docs is that, once pam_chauthtok() has been
+	   called with PAM_UPDATE_AUTHTOK, we are obliged to take any
+	   reasonable steps to make sure the token is updated; so retrying
+	   for 1/10 sec. isn't overdoing it.
+	   The other possibility is to call lckpwdf() on the first
+	   pam_chauthtok() pass, and hold the lock until released in the
+	   second pass--but is this guaranteed to work? -SRL */
+	i=0;
+	while((retval = lckpwdf()) != 0 && i < 100) {
+		usleep(1000);
+	}
+	if(retval != 0) {
+		return PAM_AUTHTOK_LOCK_BUSY;
+	}
 #endif
 	ctrl = _set_ctrl(flags, &remember, argc, argv);
 

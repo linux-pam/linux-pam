@@ -17,10 +17,7 @@
 #error THIS CODE IS KNOWN TO WORK ONLY ON LINUX !!!
 #endif 
 
-#define _GNU_SOURCE
-#define _BSD_SOURCE
-
-#include <features.h>
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
 #include <unistd.h>
@@ -119,8 +116,10 @@ static int _pam_parse(int argc, const char **argv)
 
 
 /* limits stuff */
-#ifndef LIMITS_FILE
-#define LIMITS_FILE "/etc/security/limits.conf"
+#ifdef DEFAULT_CONF_FILE
+# define LIMITS_FILE DEFAULT_CONF_FILE
+#else
+# define LIMITS_FILE "/etc/security/limits.conf"
 #endif
 
 #define LIMIT_ERR 1 /* error setting a limit */

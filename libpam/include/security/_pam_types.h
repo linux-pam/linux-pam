@@ -175,7 +175,7 @@ extern char **pam_getenvlist(pam_handle_t *pamh);
  * This item was added to accommodate event driven programs that need to
  * manage delays more carefully.  The function prototype for this data
  * item is
- *           void (*fail_delay)(int status, unsigned int delay);
+ *     void (*fail_delay)(int status, unsigned int delay, void *appdata_ptr);
  */
 
 #define HAVE_PAM_FAIL_DELAY

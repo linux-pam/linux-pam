@@ -28,7 +28,11 @@ const static char rcsid[] =
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define PAM_GROUP_CONF          CONFILE /* from external define */
+#ifdef DEFAULT_CONF_FILE
+# define PAM_GROUP_CONF         DEFAULT_CONF_FILE /* from external define */
+#else
+# define PAM_GROUP_CONF         "/etc/security/group.conf"
+#endif
 #define PAM_GROUP_BUFLEN        1000
 #define FIELD_SEPARATOR         ';'   /* this is new as of .02 */
 

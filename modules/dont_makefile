@@ -1,4 +1,6 @@
 #########################################################################
+# $Id$
+#########################################################################
 # This is a makefile that does nothing. It is designed to be included
 # by module Makefile-s when they are not compatable with the local
 # system
@@ -7,7 +9,7 @@
 all:
 	@echo "This module will not be compiled on this system"
 
-extraclean: clean
+remove: clean
 
 install: clean
 

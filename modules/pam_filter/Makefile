@@ -14,13 +14,14 @@ include ../dont_makefile
 
 else
 
+include ../../Make.Rules
+
 TITLE=pam_filter
 FILTERS=upperLOWER
 FILTERSDIR=$(SUPLEMENTED)/pam_filter
 export FILTERSDIR
 
-CFLAGS += -I. -I..
-#
+CFLAGS += -Iinclude
 
 LIBSRC = $(TITLE).c
 LIBOBJ = $(TITLE).o
@@ -43,10 +44,6 @@ endif
 
 ####################### don't edit below #######################
 
-dummy:
-	@echo "**** This is not a top-level Makefile "
-	exit
-
 #
 # this is where we compile this module
 #
@@ -54,7 +51,7 @@ dummy:
 all: dirs $(LIBSHARED) $(LIBSTATIC) register filters
 
 dirs:
-	if [ ! -f security ]; then ln -sf include security ; fi
+	if [ ! -e include/security ]; then ln -sf . include/security ; fi
 ifdef DYNAMIC
 	$(MKDIR) ./dynamic
 endif
@@ -93,6 +90,15 @@ $(LIBSTATIC): $(LIBOBJS)
 	$(LD) -r -o $@ $(LIBOBJS)
 endif
 
+remove:
+	rm -f $(FAKEROOT)$(SECUREDIR)/$(TITLE).so
+	rm -f $(FAKEROOT)$(INCLUDED)/pam_filter.h
+	@for i in $(FILTERS) ; do \
+		if [ -d $$i ]; then \
+		   $(MAKE) -C $$i remove ; \
+		fi ; \
+	done
+
 install: all
 	@for i in $(FILTERS) ; do \
 		if [ -d $$i ]; then \
@@ -106,35 +112,15 @@ endif
 	$(MKDIR) $(FAKEROOT)$(INCLUDED)
 	$(INSTALL) -m 644 include/pam_filter.h $(FAKEROOT)$(INCLUDED)
 
-remove:
-	rm -f $(FAKEROOT)$(SECUREDIR)/$(TITLE).so
-	rm -f $(FAKEROOT)$(INCLUDED)/pam_filter.h
-	@for i in $(FILTERS) ; do \
-		if [ -d $$i ]; then \
-		   $(MAKE) -C $$i remove ; \
-		fi ; \
-	done
-
-lclean:
-	rm -f $(LIBSHARED) $(LIBOBJD) $(LIBOBJS) core *~
-
-clean: lclean
+clean:
 	@for i in $(FILTERS) ; do \
 		if [ -d $$i ]; then \
 		   $(MAKE) -C $$i clean ; \
 		fi ; \
 	done
-
-extraclean: lclean
-	@rm -f security
-	@rm -f *.a *.o *.so *.bak
-	for i in $(FILTERS) ; do \
-		if [ -d $$i ]; then \
-		   $(MAKE) -C $$i extraclean ; \
-		fi ; \
-	done
-
-security:
-	ln -s include security
+	rm -f $(LIBSHARED) $(LIBOBJD) $(LIBOBJS) core *~
+	rm -f include/security
+	rm -fr dynamic static
+	rm -f *.a *.o *.so *.bak
 
 endif

@@ -37,10 +37,7 @@
 
 /* #define DEBUG */
 
-#ifdef linux
-#define _GNU_SOURCE
-#include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -85,11 +82,11 @@
 
 #define AUTH_RETURN						\
 {								\
-	if (on(UNIX_LIKE_AUTH, ctrl)) {				\
+	if (on(UNIX_LIKE_AUTH, ctrl) && ret_data) {		\
 		D(("recording return code for next time [%d]",	\
 					retval));		\
 		pam_set_data(pamh, "unix_setcred_return",	\
-				(void *) &retval, NULL);	\
+				(void *) retval, NULL);	        \
 	}							\
 	D(("done. [%s]", pam_strerror(pamh, retval)));		\
 	return retval;						\
@@ -99,12 +96,16 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 				   ,int argc, const char **argv)
 {
 	unsigned int ctrl;
-	int retval;
+	int retval, *ret_data = NULL;
 	const char *name, *p;
 
 	D(("called."));
 
 	ctrl = _set_ctrl(flags, NULL, argc, argv);
+
+	/* Get a few bytes so we can pass our return value to
+	   pam_sm_setcred(). */
+	ret_data = malloc(sizeof(int));
 
 	/* get the user'name' */
 
@@ -197,12 +198,15 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t * pamh, int flags
 	retval = PAM_SUCCESS;
 
 	if (on(UNIX_LIKE_AUTH, ctrl)) {
-		int *pretval = &retval;
+		int *pretval = NULL;
 
 		D(("recovering return code from auth call"));
-		pam_get_data(pamh, "unix_setcred_return", (const void **) &pretval);
-		pam_set_data(pamh, "unix_setcred_return", NULL, NULL);
-		D(("recovered data indicates that old retval was %d", retval));
+		pam_get_data(pamh, "unix_setcred_return", (const void **) pretval);
+		if(pretval) {
+			retval = *pretval;
+			free(pretval);
+			D(("recovered data indicates that old retval was %d", retval));
+		}
 	}
 	return retval;
 }

@@ -13,10 +13,7 @@ const static char rcsid[] =
 "\t\tVersion 0.22 for Linux-PAM\n"
 "Copyright (C) Andrew G. Morgan 1996 <morgan@linux.kernel.org>\n";
 
-#ifdef linux
-# define _GNU_SOURCE
-# include <features.h>
-#endif
+#include <security/_pam_aconf.h>
 
 #include <sys/file.h>
 #include <stdio.h>
@@ -31,7 +28,11 @@ const static char rcsid[] =
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define PAM_TIME_CONF          CONFILE /* from external define */
+#ifdef DEFAULT_CONF_FILE
+# define PAM_TIME_CONF         DEFAULT_CONF_FILE /* from external define */
+#else
+# define PAM_TIME_CONF         "/etc/security/time.conf"
+#endif
 #define PAM_TIME_BUFLEN        1000
 #define FIELD_SEPARATOR        ';'   /* this is new as of .02 */
 

@@ -10,14 +10,16 @@
  * Please see end of file for copyright.
  *
  * Creator: Marc Ewing.
- * Maintained: AGM
+ * Maintained: CVS
  */
 
 #ifndef _PAM_PRIVATE_H
 #define _PAM_PRIVATE_H
 
+#include <security/_pam_aconf.h>
+
 /* this is not used at the moment --- AGM */
-#define LIBPAM_VERSION 67
+#define LIBPAM_VERSION (LIBPAM_VERSION_MAJOR*0x100 + LIBPAM_VERSION_MINOR)
 
 #include <security/pam_appl.h>
 #include <security/pam_modules.h>
@@ -188,8 +190,6 @@ int _pam_make_env(pam_handle_t *pamh);
 /* delete the environment structure */
 void _pam_drop_env(pam_handle_t *pamh);
 
-#ifdef LINUX_PAM
-
 /* these functions deal with failure delays as required by the
    authentication modules and application. Their *interface* is likely
    to remain the same although their function is hopefully going to
@@ -203,9 +203,6 @@ void _pam_start_timer(pam_handle_t *pamh);
 
 /* this waits for the clock to stop ticking if status != PAM_SUCCESS */
 void _pam_await_timer(pam_handle_t *pamh, int status);
-
-
-#endif /* LINUX_PAM */
 
 typedef void (*voidfunc(void))(void);
 #ifdef PAM_STATIC
