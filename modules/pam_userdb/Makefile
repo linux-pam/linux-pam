@@ -28,6 +28,8 @@ include ../dont_makefile
 
 else
 
+MODULE_SIMPLE_EXTRAFILES = conv
+
 include ../Simple.Rules
 
 endif

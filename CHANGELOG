@@ -50,6 +50,8 @@ libpam. Prior versions were buggy - see bugfix for Bug 129775.
 
                           ** WARNING **
 
+* fix pam_userdb to make and link both .o files it needs - converse()
+  wasn't being linked! (Bug 132880 - agmorgan)
 * added some sys-admin documentation for the pam_tally module (Bug
   126210 - agmorgan).
 * added a link to module examples from the module writers doc (Bug
