@@ -49,6 +49,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* doc/Makefile changes - use $(mandir) [courtesy Harald Welte] (Bug
+  435760) and add some rules to make/delete the draft rfc I've been
+  working on (Task 17426 - agmorgan)
 * pam_modules.sgml: sourceforge has changed its CVS viewing software
   (Bug 460491 - agmorgan)
 * pam_unix_passwd: got rid of an annoying warning (Bug 461089 - agmorgan)

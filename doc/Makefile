@@ -5,7 +5,7 @@ include ../Make.Rules
 
 # These two should probably be moved into autoconf...
 DOCDIR=/usr/doc/Linux-PAM
-MANDIR=/usr/man
+MANDIR=$(mandir)
 
 #######################################################
 
@@ -126,7 +126,7 @@ endif
 	  install -m 644 $$file $(FAKEROOT)$(MANDIR)/man8 ; \
 	done
 
-spec:
+spec: specs/draft-morgan-pam.raw
 	cd specs/formatter && $(MAKE)
 	specs/formatter/padout < specs/draft-morgan-pam.raw > specs/draft-morgan-pam-current.txt
 
