@@ -2,8 +2,18 @@
  * $Id$
  *
  * $Log$
- * Revision 1.1  2000/06/20 22:11:18  agmorgan
- * Initial revision
+ * Revision 1.2  2000/12/04 18:31:56  baggins
+ *
+ * Relevant BUGIDs: 124385
+ *
+ * Purpose of commit: security
+ *
+ * Commit summary:
+ * ---------------
+ * * use O_NOFOLLOW if available when opening debug log
+ *
+ * Revision 1.1.1.1  2000/06/20 22:11:18  agmorgan
+ * Imported 0.72 Linux-PAM sources
  *
  * Revision 1.2  1998/12/27 04:34:23  morgan
  * reverting logging functions within libpam.  Gone are the externally
@@ -90,18 +100,27 @@ static void set_last_(const char *x, const char *f
 static void _pam_output_xdebug_info(void)
 {
     FILE *logfile;
-    int must_close = 1;
-    
-    if (!(logfile = fopen(_PAM_LOGFILE,"a"))) {
-        logfile = stderr;
-        must_close = 0;
+    int must_close = 1, fd;
+
+#ifdef O_NOFOLLOW
+    if ((fd = open(_PAM_LOGFILE, O_WRONLY|O_NOFOLLOW|O_APPEND)) != -1) {
+#else
+    if ((fd = open(_PAM_LOGFILE, O_WRONLY|O_APPEND)) != -1) {
+#endif
+	if (!(logfile = fdopen(fd,"a"))) {
+	    logfile = stderr;
+	    must_close = 0;
+	    close(fd);
+	}
+    } else {
+	logfile = stderr;
+	must_close = 0;
     }
     fprintf(logfile, "[%s:%s(%d)->%s()] ",
            last_file, last_call, last_line, last_fn);
-    if (must_close) {
-        fflush(logfile);
+    fflush(logfile);
+    if (must_close)
         fclose(logfile);
-    }
 }
 
 static void hinder(void)
