@@ -37,6 +37,7 @@ Where:
 	- as - address space limit
 	- maxlogins - max number of logins for this user
 	- maxsyslogins - max number of logins on the system
+	- locks - max locked files (Linux 2.4 and higher)
 
 Note, if you specify a type of '-' but neglect to supply the item and
 value fields then the module will never enforce any limits on the
@@ -95,4 +96,4 @@ USAGE:
 AUTHOR:
         Cristian Gafton <gafton@redhat.com>
 	Thanks to Elliot Lee <sopwith@redhat.com> for his comments on
-	improving this module.
+	improving this module, and Jens Sorensen for Linux 2.4 updates.

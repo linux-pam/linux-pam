@@ -49,6 +49,8 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* more pam_limits changes (extracted from redhat version) courtesy of
+  Harald Welte (Bug 436061 - agmorgan)
 * configure.in changes to help support non-Linux environments courtesy
   of Scott T. Emery (Bug 422563 - agmorgan)
 * made a pam_cracklib enhancement to interpret -ve limits in a

@@ -47,6 +47,14 @@
 #define LIMITS_DEF_DEFAULT  2 /* limit was set by an default entry */
 #define LIMITS_DEF_NONE     3 /* this limit was not set yet */
 
+static const char *limits_def_names[] = {
+       "USER",
+       "GROUP",
+       "DEFAULT",
+       "NONE",
+       NULL,
+};
+
 struct user_limits_struct {
     int src_soft;
     int src_hard;
@@ -107,13 +115,14 @@ static int _pam_parse(int argc, const char **argv, struct pam_limit_s *pl)
           if (!strcmp(*argv,"debug"))
                ctrl |= PAM_DEBUG_ARG;
           else if (!strncmp(*argv,"conf=",5))
-                strcpy(pl->conf_file,*argv+5);
+                strncpy(pl->conf_file,*argv+5,sizeof(pl->conf_file)-1);
 	  else if (!strncmp(*argv,"change_uid",10))
 		ctrl |= PAM_DO_SETREUID;
           else {
                _pam_log(LOG_ERR,"pam_parse: unknown option; %s",*argv);
           }
      }
+     pl->conf_file[sizeof(pl->conf_file) - 1] = '\0';
 
      return ctrl;
 }
@@ -129,6 +138,59 @@ static int _pam_parse(int argc, const char **argv, struct pam_limit_s *pl)
 #define LIMIT_ERR 1 /* error setting a limit */
 #define LOGIN_ERR 2 /* too many logins err */
 
+/* checks if a user is on a list of members of the GID 0 group */
+static int is_on_list(char * const *list, const char *member)
+{
+    while (*list) {
+        if (strcmp(*list, member) == 0)
+            return 1;
+        list++;
+    }
+    return 0;
+}
+
+/*
+ * Checks if a user is a member of a group - return non-zero if
+ * the user is in the group.
+ */
+static int is_in_group(const char *user_name, const char *group_name)
+{
+    struct passwd *pwd;
+    struct group *grp, *pgrp;
+    char uname[LINE_LENGTH], gname[LINE_LENGTH];
+    
+    if (!user_name || !strlen(user_name))
+        return 0;
+    if (!group_name || !strlen(group_name))
+        return 0;
+    memset(uname, 0, sizeof(uname));
+    strncpy(uname, user_name, sizeof(uname)-1);
+    memset(gname, 0, sizeof(gname));
+    strncpy(gname, group_name, sizeof(gname)-1);
+        
+    pwd = getpwnam(uname);
+    if (!pwd)
+        return 0;
+
+    /* the info about this group */
+    grp = getgrnam(gname);
+    if (!grp)
+        return 0;
+    
+    /* first check: is a member of the group_name group ? */
+    if (is_on_list(grp->gr_mem, uname))
+        return 1;
+
+    /* next check: user primary group is group_name ? */
+    pgrp = getgrgid(pwd->pw_gid);
+    if (!pgrp)
+        return 0;
+    if (!strcmp(pgrp->gr_name, gname))
+        return 1;
+        
+    return 0;
+}
+    
 /* Counts the number of user logins and check against the limit*/
 static int check_logins(const char *name, int limit, int ctrl,
 			struct pam_limit_s *pl)
@@ -137,7 +199,8 @@ static int check_logins(const char *name, int limit, int ctrl,
     unsigned int count;
 
     if (ctrl & PAM_DEBUG_ARG) {
-	 _pam_log(LOG_DEBUG, "checking logins for '%s' / %d\n", name,limit);
+        _pam_log(LOG_DEBUG, "checking logins for '%s' (maximum of %d)\n",
+                 name, limit);
     }
 
     if (limit < 0)
@@ -156,14 +219,19 @@ static int check_logins(const char *name, int limit, int ctrl,
 #endif
         if (ut->UT_USER[0] == '\0')
             continue;
-        if (!pl->flag_numsyslogins
-	    && strncmp(name, ut->UT_USER, sizeof(ut->UT_USER)) != 0)
-            continue;
-        if (++count >= limit)
+        if (!pl->flag_numsyslogins) {
+	    if ((pl->login_limit_def == LIMITS_DEF_USER)
+		&& strncmp(name, ut->UT_USER, sizeof(ut->UT_USER)) != 0)
+                continue;
+	    if ((pl->login_limit_def == LIMITS_DEF_GROUP)
+		&& !is_in_group(ut->UT_USER, name))
+                continue;
+	}
+        if (++count > limit)
             break;
     }
     endutent();
-    if (count >= limit) {
+    if (count > limit) {
 	if (name) {
 	    _pam_log(LOG_WARNING, "Too many logins (max %d) for %s",
 		     limit, name);
@@ -175,62 +243,6 @@ static int check_logins(const char *name, int limit, int ctrl,
     return 0;
 }
 
-/* checks if a user is on a list of members of the GID 0 group */
-static int is_on_list(char * const *list, const char *member)
-{
-    while (*list) {
-        if (strcmp(*list, member) == 0)
-            return 1;
-        list++;
-    }
-    return 0;
-}
-
-/* Checks if a user is a member of a group */
-static int is_on_group(const char *user_name, const char *group_name)
-{
-    struct passwd *pwd;
-    struct group *grp, *pgrp;
-    char uname[LINE_LENGTH], gname[LINE_LENGTH];
-    
-    if (!strlen(user_name))
-        return 0;
-    if (!strlen(group_name))
-        return 0;
-    memset(uname, 0, sizeof(uname));
-    strncpy(uname, user_name, LINE_LENGTH);
-    memset(gname, 0, sizeof(gname));
-    strncpy(gname, group_name, LINE_LENGTH);
-        
-    setpwent();
-    pwd = getpwnam(uname);
-    endpwent();
-    if (!pwd)
-        return 0;
-
-    /* the info about this group */
-    setgrent();
-    grp = getgrnam(gname);
-    endgrent();
-    if (!grp)
-        return 0;
-    
-    /* first check: is a member of the group_name group ? */
-    if (is_on_list(grp->gr_mem, uname))
-        return 1;
-
-    /* next check: user primary group is group_name ? */
-    setgrent();
-    pgrp = getgrgid(pwd->pw_gid);
-    endgrent();
-    if (!pgrp)
-        return 0;
-    if (!strcmp(pgrp->gr_name, gname))
-        return 1;
-        
-    return 0;
-}
-    
 static int init_limits(struct pam_limit_s *pl)
 {
     int i;
@@ -271,8 +283,9 @@ static void process_limit(int source, const char *lim_type,
     const char *value_orig = lim_value;
         
     if (ctrl & PAM_DEBUG_ARG)
-	 _pam_log(LOG_DEBUG, "%s: processing(%d) %s %s %s\n",
-		  __FUNCTION__,source,lim_type,lim_item,lim_value);
+	 _pam_log(LOG_DEBUG, "%s: processing %s %s %s for %s\n",
+		  __FUNCTION__,lim_type,lim_item,lim_value,
+		  limits_def_names[source]);
 
     if (strcmp(lim_item, "cpu") == 0)
         limit_item = RLIMIT_CPU;
@@ -294,6 +307,10 @@ static void process_limit(int source, const char *lim_type,
 	limit_item = RLIMIT_MEMLOCK;
     else if (strcmp(lim_item, "as") == 0)
 	limit_item = RLIMIT_AS;
+#ifdef RLIMIT_LOCKS
+    else if (strcmp(lim_item, "locks") == 0)
+	limit_item = RLIMIT_LOCKS;
+#endif
     else if (strcmp(lim_item, "maxlogins") == 0) {
 	limit_item = LIMIT_LOGIN;
 	pl->flag_numsyslogins = 0;
@@ -317,8 +334,13 @@ static void process_limit(int source, const char *lim_type,
         _pam_log(LOG_DEBUG,"unknown limit type '%s'", lim_type);
         return;
     }
-    
+
+    /*
+     * there is a warning here because the library prototype for this
+     * function is incorrect.
+     */
     limit_value = strtol(lim_value, endptr, 10);
+
     if (limit_value == 0 && value_orig == *endptr) { /* no chars read */
         if (strcmp(lim_value,"-") != 0) {
             _pam_log(LOG_DEBUG,"wrong limit value '%s'", lim_value);
@@ -348,9 +370,9 @@ static void process_limit(int source, const char *lim_type,
             break;
     }
 
-    if (limit_item != LIMIT_LOGIN && limit_item != LIMIT_NUMSYSLOGINS 
-	&& limit_item != LIMIT_PRI
-	) {
+    if ( (limit_item != LIMIT_LOGIN)
+	 && (limit_item != LIMIT_NUMSYSLOGINS)
+	 && (limit_item != LIMIT_PRI) ) {
         if (limit_type & LIMIT_SOFT) {
 	    if (pl->limits[limit_item].src_soft < source) {
                 return;
@@ -415,7 +437,8 @@ static int parse_config_file(const char *uname, int ctrl,
         /* skip the leading white space */
         while (*tptr && isspace(*tptr))
             tptr++;
-        strcpy(buf, (const char *)tptr);
+        strncpy(buf, tptr, sizeof(buf)-1);
+	buf[sizeof(buf)-1] = '\0';
                                 
         /* Rip off the comments */
         tptr = strchr(buf,'#');
@@ -453,7 +476,9 @@ static int parse_config_file(const char *uname, int ctrl,
             if (strcmp(uname, domain) == 0) /* this user have a limit */
                 process_limit(LIMITS_DEF_USER, ltype, item, value, ctrl, pl);
             else if (domain[0]=='@') {
-                if (is_on_group(uname, domain+1))
+		_pam_log(LOG_DEBUG, "checking if %s is in group %s",
+			 uname, domain + 1);
+                if (is_in_group(uname, domain+1))
                     process_limit(LIMITS_DEF_GROUP, ltype, item, value, ctrl,
 				  pl);
             } else if (strcmp(domain, "*") == 0)
@@ -464,7 +489,7 @@ static int parse_config_file(const char *uname, int ctrl,
 		_pam_log(LOG_DEBUG, "no limits for '%s'", uname);
 		fclose(fil);
 		return PAM_IGNORE;
-	    } else if (domain[0] == '@' && is_on_group(uname, domain+1)) {
+	    } else if (domain[0] == '@' && is_in_group(uname, domain+1)) {
 		_pam_log(LOG_DEBUG, "no limits for '%s' in group '%s'",
 			 uname, domain+1);
 		fclose(fil);
@@ -530,9 +555,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags,
         return PAM_SESSION_ERR;
      }
 	
-    setpwent();
     pwd = getpwnam(user_name);
-    endpwent();
     if (!pwd) {
         if (ctrl & PAM_DEBUG_ARG)
             _pam_log(LOG_WARNING, "open_session username '%s' does not exist",
