@@ -46,6 +46,8 @@
 #define LIMITS_DEF_GROUP    1 /* limit was set by a group entry */
 #define LIMITS_DEF_DEFAULT  2 /* limit was set by an default entry */
 #define LIMITS_DEF_NONE     3 /* this limit was not set yet */
+#define LIMITS_DEF_ALL      4 /* limit was set by an default entry */
+#define LIMITS_DEF_ALLGROUP 5 /* limit was set by a group entry */
 
 static const char *limits_def_names[] = {
        "USER",
@@ -243,12 +245,13 @@ static int check_logins(const char *name, int limit, int ctrl,
             continue;
 	}
         if (!pl->flag_numsyslogins) {
-	    if (((pl->login_limit_def == LIMITS_DEF_USER) ||
-		 (pl->login_limit_def == LIMITS_DEF_DEFAULT))
+	    if (((pl->login_limit_def == LIMITS_DEF_USER)
+	         || (pl->login_limit_def == LIMITS_DEF_GROUP)
+		 || (pl->login_limit_def == LIMITS_DEF_DEFAULT))
 		&& strncmp(name, ut->UT_USER, sizeof(ut->UT_USER)) != 0) {
                 continue;
 	    }
-	    if ((pl->login_limit_def == LIMITS_DEF_GROUP)
+	    if ((pl->login_limit_def == LIMITS_DEF_ALLGROUP)
 		&& !is_in_group(ut->UT_USER, name)) {
                 continue;
 	    }
@@ -382,7 +385,16 @@ static void process_limit(int source, const char *lim_type,
             } else
                 limit_value = -1;
     }
-    
+
+    /* one more special case when limiting logins */
+    if ((source == LIMITS_DEF_ALL || source == LIMITS_DEF_ALLGROUP)
+		&& (limit_item != LIMIT_LOGIN)) {
+	if (ctrl & PAM_DEBUG_ARG)
+	    _pam_log(LOG_DEBUG,
+			"'%%' domain valid for maxlogins type only");
+	return;
+    }
+
     switch(limit_item) {
         case RLIMIT_CPU:
             limit_value *= 60;
@@ -511,6 +523,17 @@ static int parse_config_file(const char *uname, int ctrl,
 		    }
                 if (is_in_group(uname, domain+1))
                     process_limit(LIMITS_DEF_GROUP, ltype, item, value, ctrl,
+				  pl);
+            } else if (domain[0]=='%') {
+		    if (ctrl & PAM_DEBUG_ARG) {
+			_pam_log(LOG_DEBUG, "checking if %s is in group %s",
+			 	uname, domain + 1);
+		    }
+		if (strcmp(domain,"%") == 0)
+		    process_limit(LIMITS_DEF_ALL, ltype, item, value, ctrl,
+				  pl);
+		else if (is_in_group(uname, domain+1))
+                    process_limit(LIMITS_DEF_ALLGROUP, ltype, item, value, ctrl,
 				  pl);
             } else if (strcmp(domain, "*") == 0)
                 process_limit(LIMITS_DEF_DEFAULT, ltype, item, value, ctrl,

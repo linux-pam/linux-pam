@@ -55,6 +55,9 @@ bug report - outstanding bugs are listed here:
 0.76: please submit patches for this section with actual code/doc
       patches!
 
+* pam_limits: added '%' domain for maxlogins limiting, now '*' and @group
+  have the old meaning (every) and '%' the new one (all)
+  (Bug 533664 - baggins)
 * pam_limits: put not so interesting log messages under debug arg
   (Bug 533668 - baggins)
 * pam_access: added the 'fieldsep=' argument (Bug 547051 - agmorgan),
