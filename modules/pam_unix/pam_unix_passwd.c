@@ -547,8 +547,6 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 		}
 		if (on(UNIX_SHADOW, ctrl) || _unix_shadowed(pwd)) {
 			retval = _update_shadow(pamh, forwho, towhat);
- 		        if (retval != PAM_SUCCESS && SELINUX_ENABLED) 
-			  retval = _unix_run_shadow_binary(pamh, ctrl, forwho, fromwhat, towhat);
 			if (retval == PAM_SUCCESS)
 				if (!_unix_shadowed(pwd))
 					retval = _update_passwd(pamh, forwho, "x");
