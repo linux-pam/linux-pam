@@ -50,6 +50,7 @@ libpam. Prior versions were buggy - see bugfix for Bug 129775.
 
                           ** WARNING **
 
+* fix for module linking directions (Bug 133545 - agmorgan)
 * fix for glibc-2.2.2 compilation of pam_issue (Bug 133542 - agmorgan)
 * fix pam_userdb to make and link both .o files it needs - converse()
   wasn't being linked! (Bug 132880 - agmorgan)

@@ -49,7 +49,7 @@ DAMAGE.
 
 <title>The Linux-PAM Module Writers' Guide
 <author>Andrew G. Morgan, <tt>morgan@kernel.org</tt>
-<date>DRAFT v0.75 2001/02/10
+<date>DRAFT v0.75 2001/02/21
 <abstract>
 This manual documents what a programmer needs to know in order to
 write a module that conforms to the <bf/Linux-PAM/ standard. It also
@@ -68,7 +68,7 @@ programmer.
 #include <security/pam_modules.h>
 
 gcc -fPIC -c pam_module-name.c
-ld -x --shared -o pam_module-name.so pam_module-name.o -lpam
+ld -x --shared -o pam_module-name.so pam_module-name.o
 </verb>
 </tscreen>
 
