@@ -11,6 +11,7 @@
 #ifdef PRELUDE
 
 #include <libprelude/prelude.h>
+#include <libprelude/prelude-log.h>
 #include <libprelude/idmef-message-print.h>
 
 #include "pam_prelude.h"
@@ -261,6 +262,8 @@ prelude_send_alert(pam_handle_t *pamh, int authval)
 {
 
         int ret;
+
+        prelude_log_set_flags(PRELUDE_LOG_FLAGS_SYSLOG);
 
         ret = pam_alert_prelude_init(pamh, authval);
         if ( ret < 0 )
