@@ -78,12 +78,12 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 
 	D(("called."));
 
-	ctrl = _set_ctrl(flags, NULL, argc, argv);
+	ctrl = _set_ctrl(pamh, flags, NULL, argc, argv);
 
 	retval = pam_get_item(pamh, PAM_USER, (const void **) &uname);
 	D(("user = `%s'", uname));
 	if (retval != PAM_SUCCESS || uname == NULL) {
-		_log_err(LOG_ALERT
+		_log_err(LOG_ALERT, pamh
 			 ,"could not identify user (from uid=%d)"
 			 ,getuid());
 		return PAM_USER_UNKNOWN;
@@ -91,7 +91,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 
 	pwent = getpwnam(uname);
 	if (!pwent) {
-		_log_err(LOG_ALERT
+		_log_err(LOG_ALERT, pamh
 			 ,"could not identify user (from getpwnam(%s))"
 			 ,uname);
 		return PAM_USER_UNKNOWN;
@@ -135,7 +135,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 	D(("today is %d, last change %d", curdays, spent->sp_lstchg));
 	if ((curdays > spent->sp_expire) && (spent->sp_expire != -1)
 	    && (spent->sp_lstchg != 0)) {
-		_log_err(LOG_NOTICE
+		_log_err(LOG_NOTICE, pamh
 			 ,"account %s has expired (account expired)"
 			 ,uname);
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
@@ -146,7 +146,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 	if ((curdays > (spent->sp_lstchg + spent->sp_max + spent->sp_inact))
 	    && (spent->sp_max != -1) && (spent->sp_inact != -1)
 	    && (spent->sp_lstchg != 0)) {
-		_log_err(LOG_NOTICE
+		_log_err(LOG_NOTICE, pamh
 		    ,"account %s has expired (failed to change password)"
 			 ,uname);
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
@@ -156,7 +156,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 	}
 	D(("when was the last change"));
 	if (spent->sp_lstchg == 0) {
-		_log_err(LOG_NOTICE
+		_log_err(LOG_NOTICE, pamh
 			 ,"expired password for user %s (root enforced)"
 			 ,uname);
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
@@ -165,7 +165,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		return PAM_NEW_AUTHTOK_REQD;
 	}
 	if (((spent->sp_lstchg + spent->sp_max) < curdays) && (spent->sp_max != -1)) {
-		_log_err(LOG_DEBUG
+		_log_err(LOG_DEBUG, pamh
 			 ,"expired password for user %s (password aged)"
 			 ,uname);
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
@@ -176,7 +176,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 	if ((curdays > (spent->sp_lstchg + spent->sp_max - spent->sp_warn))
 	    && (spent->sp_max != -1) && (spent->sp_warn != -1)) {
 		daysleft = (spent->sp_lstchg + spent->sp_max) - curdays;
-		_log_err(LOG_DEBUG
+		_log_err(LOG_DEBUG, pamh
 			 ,"password for user %s will expire in %d days"
 			 ,uname, daysleft);
 		snprintf(buf, 80, "Warning: your password will expire in %d day%.2s",

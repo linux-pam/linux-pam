@@ -178,29 +178,31 @@ static char *crypt_md5_wrapper(const char *pass_new)
 	return x;
 }
 
-static char *getNISserver(void)
+static char *getNISserver(pam_handle_t *pamh)
 {
 	char *master;
 	char *domainname;
 	int port, err;
 
 	if ((err = yp_get_default_domain(&domainname)) != 0) {
-		_log_err(LOG_WARNING, "can't get local yp domain: %s\n",
+		_log_err(LOG_WARNING, pamh, "can't get local yp domain: %s\n",
 			 yperr_string(err));
 		return NULL;
 	}
 	if ((err = yp_master(domainname, "passwd.byname", &master)) != 0) {
-		_log_err(LOG_WARNING, "can't find the master ypserver: %s\n",
+		_log_err(LOG_WARNING, pamh, "can't find the master ypserver: %s\n",
 			 yperr_string(err));
 		return NULL;
 	}
 	port = getrpcport(master, YPPASSWDPROG, YPPASSWDPROC_UPDATE, IPPROTO_UDP);
 	if (port == 0) {
-		_log_err(LOG_WARNING, "yppasswdd not running on NIS master host\n");
+		_log_err(LOG_WARNING, pamh,
+		         "yppasswdd not running on NIS master host\n");
 		return NULL;
 	}
 	if (port >= IPPORT_RESERVED) {
-		_log_err(LOG_WARNING, "yppasswd daemon running on illegal port.\n");
+		_log_err(LOG_WARNING, pamh,
+		         "yppasswd daemon running on illegal port.\n");
 		return NULL;
 	}
 	return master;
@@ -424,8 +426,8 @@ static int _update_shadow(const char *forwho, char *towhat)
 	return retval;
 }
 
-static int _do_setpass(const char *forwho, char *fromwhat, char *towhat,
-		       unsigned int ctrl, int remember)
+static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
+		       char *towhat, unsigned int ctrl, int remember)
 {
 	struct passwd *pwd = NULL;
 	int retval = 0;
@@ -448,7 +450,7 @@ static int _do_setpass(const char *forwho, char *fromwhat, char *towhat,
 		int err = 0;
 
 		/* Make RPC call to NIS server */
-		if ((master = getNISserver()) == NULL)
+		if ((master = getNISserver(pamh)) == NULL)
 			return PAM_TRY_AGAIN;
 
 		/* Initialize password information */
@@ -595,7 +597,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 
 	if (pass_new == NULL || (pass_old && !strcmp(pass_old, pass_new))) {
 		if (on(UNIX_DEBUG, ctrl)) {
-			_log_err(LOG_DEBUG, "bad authentication token");
+			_log_err(LOG_DEBUG, pamh, "bad authentication token");
 		}
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG, pass_new == NULL ?
 			  "No password supplied" : "Password unchanged");
@@ -609,7 +611,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 	retval = pam_get_item(pamh, PAM_USER, (const void **) &user);
 	if (retval != PAM_SUCCESS) {
 		if (on(UNIX_DEBUG, ctrl)) {
-			_log_err(LOG_ERR, "Can not get username");
+			_log_err(LOG_ERR, pamh, "Can not get username");
 			return PAM_AUTHTOK_ERR;
 		}
 	}
@@ -669,7 +671,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		return PAM_AUTHTOK_LOCK_BUSY;
 	}
 #endif
-	ctrl = _set_ctrl(flags, &remember, argc, argv);
+	ctrl = _set_ctrl(pamh, flags, &remember, argc, argv);
 
 	/*
 	 * First get the name of a user
@@ -683,17 +685,19 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		 * alphanumeric character.
 		 */
 		if (user == NULL || !isalnum(*user)) {
-			_log_err(LOG_ERR, "bad username [%s]", user);
+			_log_err(LOG_ERR, pamh, "bad username [%s]", user);
 #ifdef USE_LCKPWDF
 			ulckpwdf();
 #endif
 			return PAM_USER_UNKNOWN;
 		}
 		if (retval == PAM_SUCCESS && on(UNIX_DEBUG, ctrl))
-			_log_err(LOG_DEBUG, "username [%s] obtained", user);
+			_log_err(LOG_DEBUG, pamh, "username [%s] obtained",
+			         user);
 	} else {
 		if (on(UNIX_DEBUG, ctrl))
-			_log_err(LOG_DEBUG, "password - could not identify user");
+			_log_err(LOG_DEBUG, pamh,
+			         "password - could not identify user");
 #ifdef USE_LCKPWDF
 		ulckpwdf();
 #endif
@@ -728,7 +732,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 #define greeting "Changing password for "
 			Announce = (char *) malloc(sizeof(greeting) + strlen(user));
 			if (Announce == NULL) {
-				_log_err(LOG_CRIT, "password - out of memory");
+				_log_err(LOG_CRIT, pamh,
+				         "password - out of memory");
 #ifdef USE_LCKPWDF
 				ulckpwdf();
 #endif
@@ -749,7 +754,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 			free(Announce);
 
 			if (retval != PAM_SUCCESS) {
-				_log_err(LOG_NOTICE
+				_log_err(LOG_NOTICE, pamh
 				 ,"password - (old) token not obtained");
 #ifdef USE_LCKPWDF
 				ulckpwdf();
@@ -776,7 +781,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		retval = pam_set_item(pamh, PAM_OLDAUTHTOK, (const void *) pass_old);
 		pass_old = NULL;
 		if (retval != PAM_SUCCESS) {
-			_log_err(LOG_CRIT, "failed to set PAM_OLDAUTHTOK");
+			_log_err(LOG_CRIT, pamh,
+			         "failed to set PAM_OLDAUTHTOK");
 		}
 		retval = _unix_verify_shadow(user, ctrl);
 		if (retval == PAM_AUTHTOK_ERR) {
@@ -821,7 +827,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		D(("pass_old [%s]", pass_old));
 
 		if (retval != PAM_SUCCESS) {
-			_log_err(LOG_NOTICE, "user not authenticated");
+			_log_err(LOG_NOTICE, pamh, "user not authenticated");
 #ifdef USE_LCKPWDF
 			ulckpwdf();
 #endif
@@ -829,7 +835,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		}
 		retval = _unix_verify_shadow(user, ctrl);
 		if (retval != PAM_SUCCESS) {
-			_log_err(LOG_NOTICE, "user not authenticated 2");
+			_log_err(LOG_NOTICE, pamh, "user not authenticated 2");
 #ifdef USE_LCKPWDF
 			ulckpwdf();
 #endif
@@ -859,7 +865,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 			if (retval != PAM_SUCCESS) {
 				if (on(UNIX_DEBUG, ctrl)) {
-					_log_err(LOG_ALERT
+					_log_err(LOG_ALERT, pamh
 						 ,"password - new password not obtained");
 				}
 				pass_old = NULL;	/* tidy up */
@@ -883,7 +889,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		}
 
 		if (retval != PAM_SUCCESS) {
-			_log_err(LOG_NOTICE, "new password not acceptable");
+			_log_err(LOG_NOTICE, pamh,
+			         "new password not acceptable");
 			_pam_overwrite(pass_new);
 			_pam_overwrite(pass_old);
 			pass_new = pass_old = NULL;	/* tidy up */
@@ -926,7 +933,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 				char *e;
 
 				if (temp == NULL) {
-					_log_err(LOG_CRIT, "out of memory for password");
+					_log_err(LOG_CRIT, pamh,
+					         "out of memory for password");
 					_pam_overwrite(pass_new);
 					_pam_overwrite(pass_old);
 					pass_new = pass_old = NULL;	/* tidy up */
@@ -960,13 +968,15 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 		/* update the password database(s) -- race conditions..? */
 
-		retval = _do_setpass(user, pass_old, tpass, ctrl, remember);
+		retval = _do_setpass(pamh, user, pass_old, tpass, ctrl,
+		                     remember);
 		_pam_overwrite(pass_new);
 		_pam_overwrite(pass_old);
 		_pam_delete(tpass);
 		pass_old = pass_new = NULL;
 	} else {		/* something has broken with the module */
-		_log_err(LOG_ALERT, "password received unknown request");
+		_log_err(LOG_ALERT, pamh,
+		         "password received unknown request");
 		retval = PAM_ABORT;
 	}
 

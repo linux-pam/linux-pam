@@ -35,6 +35,9 @@ Where you should replace XXXXX with a bug-id.
 0.74: please submit patches for this section with actual code/doc
       patches!
 
+* modify format of pam_unix log messages to include service name
+  (Bug 126423)
+* prevent pam_unix from logging unknown usernames (Bug 126431 - vorlon)
 * changed format of pam_unix 'authentication failure' log messages to make
   them clearer and more consistent (Bug 126036 - vorlon)
 * improved portability of pam_unix by eliminating Linux-specific utmp

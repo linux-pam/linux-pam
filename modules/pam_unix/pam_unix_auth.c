@@ -101,7 +101,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 
 	D(("called."));
 
-	ctrl = _set_ctrl(flags, NULL, argc, argv);
+	ctrl = _set_ctrl(pamh, flags, NULL, argc, argv);
 
 	/* Get a few bytes so we can pass our return value to
 	   pam_sm_setcred(). */
@@ -118,7 +118,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 		 * alphanumeric character.
 		 */
 		if (name == NULL || !isalnum(*name)) {
-			_log_err(LOG_ERR, "bad username [%s]", name);
+			_log_err(LOG_ERR, pamh, "bad username [%s]", name);
 			retval = PAM_USER_UNKNOWN;
 			AUTH_RETURN
 		}
@@ -150,7 +150,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 				     ,_UNIX_AUTHTOK, &p);
 	if (retval != PAM_SUCCESS) {
 		if (retval != PAM_CONV_AGAIN) {
-			_log_err(LOG_CRIT, "auth could not identify password for [%s]"
+			_log_err(LOG_CRIT, pamh, "auth could not identify password for [%s]"
 				 ,name);
 		} else {
 			D(("conversation function is not ready yet"));
@@ -194,7 +194,7 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t * pamh, int flags
 	   only argument we need is UNIX_LIKE_AUTH: if it was set,
 	   pam_get_data will succeed. If it wasn't, it will fail, and we
 	   return PAM_SUCCESS.  -SRL */
-	ctrl = _set_ctrl(flags, NULL, argc, argv);
+	ctrl = _set_ctrl(pamh, flags, NULL, argc, argv);
 	retval = PAM_SUCCESS;
 
 	if (on(UNIX_LIKE_AUTH, ctrl)) {
