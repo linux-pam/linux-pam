@@ -565,6 +565,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags,
         return PAM_IGNORE;
     }
     
+    setreuid(pwd->pw_uid, -1);
     retval = setup_limits(pwd->pw_name, ctrl, &pl);
     if (retval & LOGIN_ERR) {
         printf("\nToo many logins for '%s'\n",pwd->pw_name);
