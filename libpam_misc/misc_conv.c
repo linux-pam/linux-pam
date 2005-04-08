@@ -170,11 +170,11 @@ static int read_string(int echo, const char *prompt, char **retstr)
 
     /* reading the line */
     while (delay >= 0) {
-
-	fprintf(stderr, "%s", prompt);
 	/* this may, or may not set echo off -- drop pending input */
 	if (have_term)
 	    (void) tcsetattr(STDIN_FILENO, TCSAFLUSH, &term_tmp);
+
+	fprintf(stderr, "%s", prompt);
 
 	if ( delay > 0 && set_alarm(delay, &old_sig) ) {
 	    D(("<failed to set alarm>"));

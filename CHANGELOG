@@ -65,6 +65,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * pam_tally: test for NULL data before dereferencing them (t8m)
 * pam_unix: fix regression introduced in 0.78 - both NIS and local password
   should be changed if possible (t8m)
+* misc_conv: flush input first then print the prompt - fixes problem
+  with expect scripts (t8m)
 
 0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)
