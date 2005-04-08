@@ -532,6 +532,8 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 {
 	struct passwd *pwd = NULL;
 	int retval = 0;
+	int unlocked = 0;
+	char *master = NULL;
 
 	D(("called"));
 
@@ -541,26 +543,12 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 		retval = PAM_AUTHTOK_ERR;
 		goto done;
 	}
-
-	if (_unix_comesfromsource(pamh, forwho, 1, 0)) {
-		/* first, save old password */
-		if (save_old_password(pamh, forwho, fromwhat, remember)) {
-			retval = PAM_AUTHTOK_ERR;
-			goto done;
-		}
-		if (on(UNIX_SHADOW, ctrl) || _unix_shadowed(pwd)) {
-			retval = _update_shadow(pamh, forwho, towhat);
-			if (retval == PAM_SUCCESS)
-				if (!_unix_shadowed(pwd))
-					retval = _update_passwd(pamh, forwho, "x");
-		} else {
-			retval = _update_passwd(pamh, forwho, towhat);
-		}
-	} else if (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, forwho, 0, 1)) {
+	
+	if (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, forwho, 0, 1)) {
+	    if ((master=getNISserver(pamh)) != NULL) {
 		struct timeval timeout;
 		struct yppasswd yppwd;
 		CLIENT *clnt;
-		char *master;
 		int status;
 		int err = 0;
 
@@ -568,9 +556,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 #ifdef USE_LCKPWDF
 		ulckpwdf();
 #endif
-		/* Make RPC call to NIS server */
-		if ((master = getNISserver(pamh)) == NULL)
-			return PAM_TRY_AGAIN;
+		unlocked = 1;
 
 		/* Initialize password information */
 		yppwd.newpw.pw_passwd = pwd->pw_passwd;
@@ -601,11 +587,10 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 				timeout);
 
 		if (err) {
-			clnt_perrno(err);
-			retval = PAM_TRY_AGAIN;
+			_make_remark(pamh, ctrl, PAM_TEXT_INFO,
+				clnt_sperrno(err));
 		} else if (status) {
 			D(("Error while changing NIS password.\n"));
-			retval = PAM_TRY_AGAIN;
 		}
 		D(("The password has%s been changed on %s.",
 		   (err || status) ? " not" : "", master));
@@ -614,16 +599,55 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 
 		auth_destroy(clnt->cl_auth);
 		clnt_destroy(clnt);
-		if ((err || status) != 0) {
+		if (err || status) {
+			_make_remark(pamh, ctrl, PAM_TEXT_INFO,
+				"NIS password could not be changed.");
 			retval = PAM_TRY_AGAIN;
 		}
 #ifdef DEBUG
 		sleep(5);
 #endif
-		return retval;
+	    } else {
+		    retval = PAM_TRY_AGAIN;
+	    }
 	}
 
-done:
+	if (_unix_comesfromsource(pamh, forwho, 1, 0)) {
+#ifdef USE_LCKPWDF
+		if(unlocked) {
+			int i = 0;
+			/* These values for the number of attempts and the sleep time
+			   are, of course, completely arbitrary.
+			   My reading of the PAM docs is that, once pam_chauthtok() has been
+			   called with PAM_UPDATE_AUTHTOK, we are obliged to take any
+			   reasonable steps to make sure the token is updated; so retrying
+			   for 1/10 sec. isn't overdoing it. */
+			while((retval = lckpwdf()) != 0 && i < 100) {
+				usleep(1000);
+				i++;
+			}
+			if(retval != 0) {
+				return PAM_AUTHTOK_LOCK_BUSY;
+			}
+		}
+#endif
+		/* first, save old password */
+		if (save_old_password(pamh, forwho, fromwhat, remember)) {
+			retval = PAM_AUTHTOK_ERR;
+			goto done;
+		}
+		if (on(UNIX_SHADOW, ctrl) || _unix_shadowed(pwd)) {
+			retval = _update_shadow(pamh, forwho, towhat);
+			if (retval == PAM_SUCCESS)
+				if (!_unix_shadowed(pwd))
+					retval = _update_passwd(pamh, forwho, "x");
+		} else {
+			retval = _update_passwd(pamh, forwho, towhat);
+		}
+	}
+
+
+done:	
 #ifdef USE_LCKPWDF
 	ulckpwdf();
 #endif

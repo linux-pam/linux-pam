@@ -63,6 +63,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 0.80: please submit patches for this section with actual code/doc
       patches!
 * pam_tally: test for NULL data before dereferencing them (t8m)
+* pam_unix: fix regression introduced in 0.78 - both NIS and local password
+  should be changed if possible (t8m)
 
 0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)
