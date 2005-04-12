@@ -110,7 +110,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX__NULLOK */         {"nullok",          _ALL_ON_^(01000),           0},
 /* UNIX_DEBUG */           {"debug",           _ALL_ON_,              040000},
 /* UNIX_NODELAY */         {"nodelay",         _ALL_ON_,             0100000},
-/* UNIX_NIS */             {"nis",             _ALL_ON_^(010000),    0200000},
+/* UNIX_NIS */             {"nis",             _ALL_ON_,             0200000},
 /* UNIX_BIGCRYPT */        {"bigcrypt",        _ALL_ON_^(020000),    0400000},
 /* UNIX_LIKE_AUTH */       {"likeauth",        _ALL_ON_,            01000000},
 /* UNIX_REMEMBER_PASSWD */ {"remember=",       _ALL_ON_,            02000000},

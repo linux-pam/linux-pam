@@ -67,6 +67,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   should be changed if possible (t8m)
 * misc_conv: flush input first then print the prompt - fixes problem
   with expect scripts (t8m)
+* pam_unix: nis option shouldn't clear the shadow option (t8m)
 
 0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)
