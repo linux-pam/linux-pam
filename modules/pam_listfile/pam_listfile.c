@@ -131,6 +131,8 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 		return onerr;
 	else if(!strcmp(mybuf,"file")) {
 	    ifname = (char *)malloc(strlen(myval)+1);
+	    if (!ifname)
+		return PAM_BUF_ERR;
 	    strcpy(ifname,myval);
 	} else if(!strcmp(mybuf,"item"))
 	    if(!strcmp(myval,"user"))
@@ -161,6 +163,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 		    strncpy(apply_val,myval,sizeof(apply_val)-1);
 		}
 	    } else {
+		free(ifname);
 		_pam_log(LOG_ERR,LOCAL_LOG_PREFIX "Unknown option: %s",mybuf);
 		return onerr;
 	    }
@@ -169,6 +172,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
     if(!citem) {
 	_pam_log(LOG_ERR,
 		 LOCAL_LOG_PREFIX "Unknown item or item not specified");
+	free(ifname);
 	return onerr;
     } else if(!ifname) {
 	_pam_log(LOG_ERR,LOCAL_LOG_PREFIX "List filename not specified");
@@ -176,6 +180,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
     } else if(sense == 2) {
 	_pam_log(LOG_ERR,
 		 LOCAL_LOG_PREFIX "Unknown sense or sense not specified");
+	free(ifname);
 	return onerr;
     } else if(
 	      (apply_type==APPLY_TYPE_NONE) || 
@@ -206,7 +211,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	int rval;
        
 	rval=pam_get_user(pamh,&user_name,NULL);
-	if((rval==PAM_SUCCESS) && user_name[0]) {
+	if((rval==PAM_SUCCESS) && user_name && user_name[0]) {
 	    /* Got it ? Valid ? */
 	    if(apply_type==APPLY_TYPE_USER) {
 		if(strcmp(user_name, apply_val)) {
@@ -216,6 +221,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 			     LOCAL_LOG_PREFIX "don't apply: apply=%s, user=%s",
 			     apply_val,user_name);
 #endif /* DEBUG */
+		    free(ifname);
 		    return PAM_IGNORE;
 		}
 	    } else if(apply_type==APPLY_TYPE_GROUP) {
@@ -227,6 +233,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 			     "don't apply: %s not a member of group %s",
 			     user_name,apply_val);
 #endif /* DEBUG */
+		    free(ifname);
 		    return PAM_IGNORE;
 		}
 	    }
@@ -238,9 +245,11 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	return onerr;
     }
     if((citem == PAM_USER) && !citemp) {
-	pam_get_user(pamh,&citemp,NULL);
-	if (retval != PAM_SUCCESS)
+	retval = pam_get_user(pamh,&citemp,NULL);
+	if (retval != PAM_SUCCESS || !citemp) {
+	    free(ifname);
 	    return PAM_SERVICE_ERR;
+	}
     }
     if((citem == PAM_TTY) && citemp) {
         /* Normalize the TTY name. */
@@ -250,6 +259,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
     }
 
     if(!citemp || (strlen(citemp) == 0)) {
+	free(ifname);
 	/* The item was NULL - we are sure not to match */
 	return sense?PAM_SUCCESS:PAM_AUTH_ERR;
     }
@@ -261,12 +271,14 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 		if (userinfo == NULL) {
 		    _pam_log(LOG_ERR,LOCAL_LOG_PREFIX "getpwnam(%s) failed",
 			     citemp);
+		    free(ifname);
 		    return onerr;
 		}
 		grpinfo = _pammodutil_getgrgid(pamh, userinfo->pw_gid);
 		if (grpinfo == NULL) {
 		    _pam_log(LOG_ERR,LOCAL_LOG_PREFIX "getgrgid(%d) failed",
 			     (int)userinfo->pw_gid);
+		    free(ifname);
 		    return onerr;
 		}
 		itemlist[0] = x_strdup(grpinfo->gr_name);
@@ -288,6 +300,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 		if (userinfo == NULL) {
 		    _pam_log(LOG_ERR,LOCAL_LOG_PREFIX "getpwnam(%s) failed",
 			     citemp);
+		    free(ifname);
 		    return onerr;
 		}
 		citemp = userinfo->pw_shell;
@@ -297,6 +310,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 			 LOCAL_LOG_PREFIX
 			 "Internal weirdness, unknown extended item %d",
 			 extitem);
+		free(ifname);
 		return onerr;
 	}
     }
@@ -308,6 +322,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 #endif
     if(lstat(ifname,&fileinfo)) {
 	_pam_log(LOG_ERR,LOCAL_LOG_PREFIX "Couldn't open %s",ifname);
+	free(ifname);
 	return onerr;
     }
 
@@ -318,6 +333,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	_pam_log(LOG_ERR,LOCAL_LOG_PREFIX 
 		 "%s is either world writable or not a normal file",
 		 ifname);
+	free(ifname);
 	return PAM_AUTH_ERR;
     }
 
@@ -327,6 +343,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	    /* Only report if it's an error... */
 	    _pam_log(LOG_ERR,LOCAL_LOG_PREFIX  "Error opening %s", ifname);
 	}
+	free(ifname);
 	return onerr;
     }
     /* There should be no more errors from here on */

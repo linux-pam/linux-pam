@@ -211,6 +211,8 @@ static int get_folder(pam_handle_t *pamh, int ctrl,
     }
 
     /* put folder together */
+    
+    hashcount = hashcount < strlen(user) ? hashcount : strlen(user);
 
     if (ctrl & PAM_HOME_MAIL) {
 	folder = malloc(sizeof(MAIL_FILE_FORMAT)

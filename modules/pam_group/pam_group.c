@@ -6,7 +6,7 @@
  * Written by Andrew Morgan <morgan@linux.kernel.org> 1996/7/6
  */
 
-const static char rcsid[] =
+static const char rcsid[] =
 "$Id$;\n"
 "Version 0.5 for Linux-PAM\n"
 "Copyright (c) Andrew G. Morgan 1996 <morgan@linux.kernel.org>\n";

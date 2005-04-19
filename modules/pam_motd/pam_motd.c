@@ -44,6 +44,8 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags, int argc,
      return PAM_IGNORE;
 }
 
+static char default_motd[] = DEFAULT_MOTD;
+
 PAM_EXTERN
 int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
                    const char **argv)
@@ -51,7 +53,7 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
      int retval = PAM_IGNORE;
      int fd;
      char *mtmp=NULL;
-     const char *motd_path=NULL;
+     char *motd_path=NULL;
      struct pam_conv *conversation;
      struct pam_message message;
      struct pam_message *pmessage = &message;
@@ -67,7 +69,7 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
 
             motd_path = (char *) strdup(5+*argv);
             if (motd_path != NULL) {
-                D(("set motd path: %s (and a memory leak)", motd_path));
+                D(("set motd path: %s", motd_path));
             } else {
                 D(("failed to duplicate motd path - ignored"));
             }
@@ -75,11 +77,13 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
      }
 
      if (motd_path == NULL)
-	motd_path = DEFAULT_MOTD;
+	motd_path = default_motd;
 
      message.msg_style = PAM_TEXT_INFO;
 
      if ((fd = open(motd_path, O_RDONLY, 0)) >= 0) {
+       if (motd_path != default_motd)
+         free(motd_path);
        /* fill in message buffer with contents of motd */
        if ((fstat(fd, &st) < 0) || !st.st_size) {
          close(fd);
@@ -108,6 +112,9 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
            }
        }
        free(mtmp);
+     } else {
+       if (motd_path != default_motd)
+         free(motd_path);
      }
 
      return retval;

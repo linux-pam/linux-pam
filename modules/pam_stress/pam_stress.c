@@ -197,9 +197,11 @@ static int stress_get_password(pam_handle_t *pamh, int flags
 	       pass = resp[0].resp;          /* remember this! */
 
 	       resp[0].resp = NULL;
-	  } else if (ctrl & PAM_ST_DEBUG) {
-	       _pam_log(LOG_DEBUG,"pam_sm_authenticate: no error reported");
-	       _pam_log(LOG_DEBUG,"getting password, but NULL returned!?");
+	  } else {
+               if (ctrl & PAM_ST_DEBUG) {
+	          _pam_log(LOG_DEBUG,"pam_sm_authenticate: no error reported");
+	          _pam_log(LOG_DEBUG,"getting password, but NULL returned!?");
+               }
 	       return PAM_CONV_ERR;
 	  }
 	  if (resp)

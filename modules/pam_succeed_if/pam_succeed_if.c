@@ -373,6 +373,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 				  (long)getuid());
 			return PAM_SERVICE_ERR;
 		}
+		user = pwd->pw_name;
 	} else {
 		/* Get the user's name. */
 		ret = pam_get_user(pamh, &user, prompt);

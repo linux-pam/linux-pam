@@ -269,10 +269,11 @@ static char *do_prompt(FILE *fd)
 			if (ut->ut_type == USER_PROCESS)
 			users++;
 		    endutent();
-		    printf ("%d ", users);
 		    if (c == 'U')
-			snprintf (buf, 1024, "%s", (users == 1) ?
-				" user" : " users");
+			snprintf (buf, 1024, "%d %s", users,
+			          (users == 1) ? "user" : "users");
+		    else
+			snprintf (buf, 1024, "%d", users);
 		    break;
 		}
 	      default:
