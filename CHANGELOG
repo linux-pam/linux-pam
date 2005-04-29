@@ -70,6 +70,10 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * pam_unix: nis option shouldn't clear the shadow option (t8m)
 * cleanups and minor bugfixes by Steve Grubb (t8m)
 * pam_private.h: set PAM_DEFAULT_PROMPT to "login: " (kukuk)
+* pam_mkhomedir: Create parent directories if they do not already
+  exist (Bug 600351 - kukuk)
+* pam_mkhomedir: Set owner/permissions of home directory after we
+  created all files (Bug 1032922 - kukuk)
 
 0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)

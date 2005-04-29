@@ -35,6 +35,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <pwd.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -62,7 +63,8 @@ static unsigned int UMask = 0022;
 static char SkelDir[BUFSIZ] = "/etc/skel"; /* THIS MODULE IS NOT THREAD SAFE */
 
 /* some syslogging */
-static void _log_err(int err, const char *format, ...)
+static void
+_log_err (int err, const char *format, ...)
 {
     va_list args;
 
@@ -73,7 +75,8 @@ static void _log_err(int err, const char *format, ...)
     closelog();
 }
 
-static int _pam_parse(int flags, int argc, const char **argv)
+static int
+_pam_parse (int flags, int argc, const char **argv)
 {
    int ctrl = 0;
 
@@ -142,7 +145,8 @@ static int converse(pam_handle_t * pamh, int ctrl, int nargs
 }
 
 /* Ask the application to display a short text string for us. */
-static int make_remark(pam_handle_t * pamh, int ctrl, const char *remark)
+static int
+make_remark (pam_handle_t *pamh, int ctrl, const char *remark)
 {
    int retval;
 
@@ -173,14 +177,43 @@ static int make_remark(pam_handle_t * pamh, int ctrl, const char *remark)
    return retval;
 }
 
+static int
+rec_mkdir (const char *dir, int mode)
+{
+  char *parent = strdup (dir);
+  char *cp = strrchr (parent, '/');
+
+  if (cp != NULL)
+    {
+      struct stat st;
+
+      *cp++ = '\0';
+      if (stat (parent, &st) == -1 && errno == ENOENT)
+        if (rec_mkdir (parent, mode) != 0)
+	  {
+	    free (parent);
+	    return 1;
+	  }
+    }
+
+  free (parent);
+
+  if (mkdir (dir, mode) != 0 && errno != EEXIST)
+    return 1;
+
+  return 0;
+}
+
 /* Do the actual work of creating a home dir */
-static int create_homedir(pam_handle_t * pamh, int ctrl,
-                          const struct passwd *pwd,
-                          const char *source, const char *dest)
+static int
+create_homedir (pam_handle_t * pamh, int ctrl,
+		const struct passwd *pwd,
+		const char *source, const char *dest)
 {
    char remark[BUFSIZ];
    DIR *D;
    struct dirent *Dir;
+   int retval = PAM_AUTH_ERR;
 
    /* Mention what is happening, if the notification fails that is OK */
    if (snprintf(remark,sizeof(remark),"Creating directory '%s'.", dest) == -1)
@@ -189,30 +222,26 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
    make_remark(pamh, ctrl, remark);
 
    /* Create the new directory */
-   if (mkdir(dest,0700) != 0)
+   if (rec_mkdir (dest,0755) != 0)
    {
       _log_err(LOG_DEBUG, "unable to create directory %s",dest);
-      return PAM_PERM_DENIED;
-   }
-   if (chmod(dest,0777 & (~UMask)) != 0 ||
-       chown(dest,pwd->pw_uid,pwd->pw_gid) != 0)
-   {
-      _log_err(LOG_DEBUG, "unable to change perms on directory %s",dest);
       return PAM_PERM_DENIED;
    }
 
    /* See if we need to copy the skel dir over. */
    if ((source == NULL) || (strlen(source) == 0))
    {
-      return PAM_SUCCESS;
+     retval = PAM_SUCCESS;
+     goto go_out;
    }
 
    /* Scan the directory */
-   D = opendir(source);
+   D = opendir (source);
    if (D == 0)
    {
       _log_err(LOG_DEBUG, "unable to read directory %s",source);
-      return PAM_PERM_DENIED;
+      retval = PAM_PERM_DENIED;
+      goto go_out;
    }
 
    for (Dir = readdir(D); Dir != 0; Dir = readdir(D))
@@ -240,10 +269,16 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
       nslen = slen + strlen(Dir->d_name) + 2;
 
       if (nslen <= 0)
-	      return PAM_BUF_ERR;
+	{
+	  retval = PAM_BUF_ERR;
+	  goto go_out;
+	}
 
-      if ( (newsource = malloc(nslen)) == NULL ) 
-	      return PAM_BUF_ERR;
+      if ((newsource = malloc (nslen)) == NULL)
+	{
+	  retval = PAM_BUF_ERR;
+	  goto go_out;
+	}
 
       sprintf(newsource, "%s/%s", source, Dir->d_name);
 #else
@@ -253,46 +288,52 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
       if (lstat(newsource,&St) != 0)
 #ifndef PATH_MAX
       {
-	      free(newsource); 
+	      free(newsource);
 	      newsource = NULL;
          continue;
       }
 #else
-         continue;
+      continue;
 #endif
 
 
       /* We'll need the new file's name. */
 #ifndef PATH_MAX
-	 ndlen = dlen + strlen(Dir->d_name)+2;
+      ndlen = dlen + strlen(Dir->d_name)+2;
 
-         if (ndlen <= 0)
-                 return PAM_BUF_ERR;
+      if (ndlen <= 0)
+	{
+	  retval = PAM_BUF_ERR;
+	  goto go_out;
+	}
 
-	 if ( (newdest = malloc(ndlen)) == NULL ) {
-		 free(newsource);
-		 return PAM_BUF_ERR;
-	 }
-	 
-	 sprintf(newdest, "%s/%s", dest, Dir->d_name);
+      if ((newdest = malloc(ndlen)) == NULL)
+	{
+	  free (newsource);
+	  retval = PAM_BUF_ERR;
+	  goto go_out;
+	}
+
+      sprintf (newdest, "%s/%s", dest, Dir->d_name);
 #else
-      snprintf(newdest,sizeof(newdest),"%s/%s",dest,Dir->d_name);
+      snprintf (newdest,sizeof (newdest),"%s/%s",dest,Dir->d_name);
 #endif
 
       /* If it's a directory, recurse. */
       if (S_ISDIR(St.st_mode))
       {
-         int retval = create_homedir(pamh, ctrl, pwd, newsource, newdest);
+        retval = create_homedir (pamh, ctrl, pwd, newsource, newdest);
 
 #ifndef PATH_MAX
 	 free(newsource); newsource = NULL;
 	 free(newdest); newdest = NULL;
 #endif
 
-         if (retval != PAM_SUCCESS) {
-            closedir(D);
-            return retval;
-         }
+         if (retval != PAM_SUCCESS)
+	   {
+	     closedir(D);
+	     goto go_out;
+	   }
          continue;
       }
 
@@ -455,7 +496,18 @@ static int create_homedir(pam_handle_t * pamh, int ctrl,
    }
    closedir(D);
 
-   return PAM_SUCCESS;
+   retval = PAM_SUCCESS;
+
+ go_out:
+
+   if (chmod(dest,0777 & (~UMask)) != 0 ||
+       chown(dest,pwd->pw_uid,pwd->pw_gid) != 0)
+   {
+      _log_err(LOG_DEBUG, "unable to change perms on directory %s",dest);
+      return PAM_PERM_DENIED;
+   }
+
+   return retval;
 }
 
 /* --- authentication management functions (only) --- */
