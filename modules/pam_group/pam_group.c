@@ -36,11 +36,11 @@ static const char rcsid[] =
 #define PAM_GROUP_BUFLEN        1000
 #define FIELD_SEPARATOR         ';'   /* this is new as of .02 */
 
-#ifdef TRUE 
-# undef TRUE 
-#endif 
-#ifdef FALSE 
-# undef FALSE 
+#ifdef TRUE
+# undef TRUE
+#endif
+#ifdef FALSE
+# undef FALSE
 #endif
 
 typedef enum { FALSE, TRUE } boolean;
@@ -140,7 +140,7 @@ static int read_field(int fd, char **buf, int *from, int *to)
 	    fd = -1;          /* end of file reached */
 	} else
 	    *to += i;
-    
+
 	/*
 	 * contract the buffer. Delete any comments, and replace all
 	 * multiple spaces with single commas
@@ -630,7 +630,11 @@ static int check_account(pam_handle_t *pamh, const char *service,
     if (no_grps > 0) {
 	grps = calloc( blk_size(no_grps) , sizeof(gid_t) );
 	D(("copying current list into grps [%d big]",blk_size(no_grps)));
-	(void) getgroups(no_grps, grps);
+	if (getgroups(no_grps, grps) < 0) {
+	    D(("getgroups call failed"));
+	    no_grps = 0;
+	    grps = NULL;
+	}
 #ifdef DEBUG
 	{
 	    int z;

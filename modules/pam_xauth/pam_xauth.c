@@ -522,7 +522,8 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		}
 		/* Set permissions on the new file and dispose of the
 		 * descriptor. */
-		fchown(fd, tpwd->pw_uid, tpwd->pw_gid);
+		if (fchown(fd, tpwd->pw_uid, tpwd->pw_gid) < 0)
+		  syslog (LOG_ERR, "pam_xauth: fchown failed: %m");
 		close(fd);
 
 		/* Get a copy of the filename to save as a data item for

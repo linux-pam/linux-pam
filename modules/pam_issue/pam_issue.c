@@ -219,8 +219,10 @@ static char *do_prompt(FILE *fd)
 		{
 		    char domainname[256];
 
-		    getdomainname(domainname, sizeof(domainname));
-		    domainname[sizeof(domainname)-1] = '\0';
+		    if (getdomainname(domainname, sizeof(domainname)) == -1)
+		      domainname[0] = '\0';
+		    else
+		      domainname[sizeof(domainname)-1] = '\0';
 		    snprintf (buf, 1024, "%s", domainname);
 		}
 		break;
@@ -244,7 +246,7 @@ static char *do_prompt(FILE *fd)
 		    if (c == 'd')
 			snprintf (buf, 1024, "%s %s %d  %d",
 				weekday[tm->tm_wday], month[tm->tm_mon],
-				tm->tm_mday, 
+				tm->tm_mday,
 				tm->tm_year + 1900);
 		    else
 			snprintf (buf, 1024, "%02d:%02d:%02d",
