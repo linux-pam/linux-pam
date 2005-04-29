@@ -602,4 +602,4 @@ pam_alert_prelude_init(pam_handle_t *pamh, int authval)
         return 0;
 }
 
-#endif PRELUDE
+#endif /* PRELUDE */
