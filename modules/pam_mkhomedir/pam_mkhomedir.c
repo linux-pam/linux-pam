@@ -180,8 +180,13 @@ make_remark (pam_handle_t *pamh, int ctrl, const char *remark)
 static int
 rec_mkdir (const char *dir, int mode)
 {
+  char *cp;
   char *parent = strdup (dir);
-  char *cp = strrchr (parent, '/');
+
+  if (parent == NULL)
+    return 1;
+
+  cp = strrchr (parent, '/');
 
   if (cp != NULL)
     {
