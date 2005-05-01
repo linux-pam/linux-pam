@@ -84,6 +84,9 @@
    defined, we get it from unistd.h */
 #undef HAVE_SYS_FSUID_H
 
+/* Do we have inttypes.h for uint32_t */
+#undef HAVE_INTTYPES_H
+
 /* track all memory allocations and liberations */
 #undef MEMORY_DEBUG
 #ifdef MEMORY_DEBUG

@@ -96,18 +96,13 @@ int innetgr(const char *, const char *, const char *,const char *);
 #include <security/_pam_macros.h>
 #include <security/_pam_modutil.h>
 
-#ifdef _ISOC9X_SOURCE
-#include <inttypes.h>
-#define U32 uint32_t
+#ifdef HAVE_INTTYPES_H
+  #include <inttypes.h>
+  #define U32 uint32_t
 #else
-/* to the best of my knowledge, all modern UNIX boxes have 32 bits integers */
-#define U32 unsigned int
-#endif /* _ISOC9X_SOURCE */
-
-/* Use the C99 type; older platforms will need this to be typedef'ed
-   elsewhere */
-#define U32 uint32_t
-
+  /* to the best of my knowledge, all modern UNIX boxes have 32 bits integers */
+  #define U32 unsigned int
+#endif /* HAVE_INTTYPES_H */
 
 /*
  * Options for this module

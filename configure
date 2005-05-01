@@ -1320,7 +1320,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 LIBPAM_VERSION_MAJOR=0
-LIBPAM_VERSION_MINOR=79
+LIBPAM_VERSION_MINOR=80
 
 
 
@@ -5246,7 +5246,8 @@ fi
 
 
 
-for ac_header in fcntl.h limits.h malloc.h sys/file.h sys/ioctl.h sys/time.h syslog.h termio.h unistd.h sys/fsuid.h
+
+for ac_header in fcntl.h limits.h malloc.h sys/file.h sys/ioctl.h sys/time.h syslog.h termio.h unistd.h sys/fsuid.h inittypes.h
 do
 as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
 if eval "test \"\${$as_ac_Header+set}\" = set"; then
