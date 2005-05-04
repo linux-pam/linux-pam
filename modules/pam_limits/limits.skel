@@ -28,6 +28,7 @@
 #        - nproc - max number of processes
 #        - as - address space limit
 #        - maxlogins - max number of logins for this user
+#        - maxsyslogins - max number of logins on the system
 #        - priority - the priority to run user process with
 #        - locks - max number of file locks the user can hold
 #        - sigpending - max number of pending signals
