@@ -471,7 +471,7 @@ pam_iruserok(pam_handle_t *pamh,
     FILE *hostf;
     uid_t uid;
     int answer;
-    char pbuf[MAXPATHLEN];               /* potential buffer overrun */
+    char *fpath;
 
     if ((!superuser||opts->opt_hosts_equiv_rootok) && !opts->opt_no_hosts_equiv ) {
 
@@ -505,15 +505,14 @@ pam_iruserok(pam_handle_t *pamh,
 	return(1);
     }
 
-    /* check for buffer overrun */
-    if (strlen(pwd->pw_dir) + sizeof(USER_RHOSTS_FILE) + 2 >= MAXPATHLEN) {
-	if (opts->opt_debug)
-	    _pam_log(LOG_DEBUG,"home directory for `%s' is too long", luser);
-	return 1;                               /* to dangerous to try */
+    fpath = malloc (strlen (pwd->pw_dir) + strlen (USER_RHOSTS_FILE) + 1);
+    if (fpath == NULL) {
+       _pam_log (LOG_ALERT, "Running out of memory");
+       return 1;
     }
 
-    (void) strcpy(pbuf, pwd->pw_dir);
-    (void) strcat(pbuf, USER_RHOSTS_FILE);
+    strcpy (fpath, pwd->pw_dir);
+    strcat (fpath, USER_RHOSTS_FILE);
 
     /*
      * Change effective uid while _reading_ .rhosts. (not just
@@ -525,16 +524,16 @@ pam_iruserok(pam_handle_t *pamh,
 #ifdef __linux__
     /* If we are on linux the better way is setfsuid */
     uid = setfsuid(pwd->pw_uid);
-    hostf = fopen(pbuf, "r");
+    hostf = fopen(fpath, "r");
 #else
     uid = geteuid();
     (void) seteuid(pwd->pw_uid);
-    hostf = fopen(pbuf, "r");
+    hostf = fopen(fpath, "r");
 #endif
 
     if (hostf == NULL) {
         if (opts->opt_debug)
-	    _pam_log(LOG_DEBUG,"Could not open %s file",pbuf);
+	    _pam_log(LOG_DEBUG,"Could not open %s file",fpath);
 	answer = 1;
 	goto exit_function;
     }
@@ -545,7 +544,7 @@ pam_iruserok(pam_handle_t *pamh,
      */
 
     cp = NULL;
-    if (lstat(pbuf, &sbuf) < 0 || !S_ISREG(sbuf.st_mode))
+    if (lstat(fpath, &sbuf) < 0 || !S_ISREG(sbuf.st_mode))
 	cp = ".rhosts not regular file";
     else if (fstat(fileno(hostf), &sbuf) < 0)
 	cp = ".rhosts fstat failed";
@@ -603,6 +602,8 @@ exit_function:
 #else
     (void)seteuid(uid);
 #endif
+
+    free (fpath);
 
     if (hostf != NULL)
         (void) fclose(hostf);
