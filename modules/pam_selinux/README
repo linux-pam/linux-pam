@@ -1,0 +1,17 @@
+This is pam_selinux, a module for setting the default security context after 
+login via PAM.
+
+Background:  SELinux provides a mechanism for allowing people to login with 
+different security contexts.
+
+The module takes these arguments:
+The module takes these arguments:
+    close           Only execute the close_session portion of the module.
+    debug           Log debug messages (with priority DEBUG) to syslog.	
+    nottys          Do not set security context on controlling tty
+    verbose         Attempt to tell the user when security context is set.
+    open            Only execute the open_session portion of the module.
+
+Dan Walsh <dwalsh@redhat.com>
+
+
