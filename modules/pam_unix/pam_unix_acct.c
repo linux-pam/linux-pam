@@ -14,13 +14,13 @@
  * 3. The name of the author may not be used to endorse or promote
  *    products derived from this software without specific prior
  *    written permission.
- * 
+ *
  * ALTERNATIVELY, this product may be distributed under the terms of
  * the GNU Public License, in which case the provisions of the GPL are
  * required INSTEAD OF the above restrictions.  (This clause is
  * necessary due to a potential bad interaction between the GPL and
  * the restrictions contained in a BSD-style copyright.)
- * 
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -45,6 +45,12 @@
 #include <pwd.h>
 #include <shadow.h>
 #include <time.h>		/* for time() */
+#include <errno.h>
+#include <sys/wait.h>
+#ifdef WITH_SELINUX
+#include <selinux/selinux.h>
+#define SELINUX_ENABLED is_selinux_enabled()>0
+#endif
 
 #include <security/_pam_macros.h>
 
@@ -60,7 +66,119 @@
 #endif				/* LINUX_PAM */
 
 #include "support.h"
- 
+
+#ifdef WITH_SELINUX
+
+struct spwd spwd;
+
+struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, const char *user)
+{
+  int retval=0, child, fds[2];
+  void (*sighandler)(int) = NULL;
+  D(("running verify_binary"));
+
+  /* create a pipe for the messages */
+  if (pipe(fds) != 0) {
+    D(("could not make pipe"));
+    _log_err(LOG_ERR, pamh, "Could not make pipe %s",strerror(errno));
+    return NULL;
+  }
+  D(("called."));
+
+  if (off(UNIX_NOREAP, ctrl)) {
+    /*
+     * This code arranges that the demise of the child does not cause
+     * the application to receive a signal it is not expecting - which
+     * may kill the application or worse.
+     *
+     * The "noreap" module argument is provided so that the admin can
+     * override this behavior.
+     */
+    sighandler = signal(SIGCHLD, SIG_DFL);
+  }
+
+  /* fork */
+  child = fork();
+  if (child == 0) {
+    int i=0;
+    struct rlimit rlim;
+    static char *envp[] = { NULL };
+    char *args[] = { NULL, NULL, NULL, NULL };
+
+    close(0); close(1);
+    /* reopen stdin as pipe */
+    close(fds[0]);
+    dup2(fds[1], STDOUT_FILENO);
+
+    /* XXX - should really tidy up PAM here too */
+
+    if (getrlimit(RLIMIT_NOFILE,&rlim)==0) {
+      for (i=2; i < rlim.rlim_max; i++) {
+	if (fds[1] != i) {
+	  close(i);
+	}
+      }
+    }
+    /* exec binary helper */
+    args[0] = x_strdup(CHKPWD_HELPER);
+    args[1] = x_strdup(user);
+    args[2] = x_strdup("verify");
+
+    execve(CHKPWD_HELPER, args, envp);
+
+    _log_err(LOG_ERR, pamh, "helper binary execve failed: %s",strerror(errno));
+    /* should not get here: exit with error */
+    close (fds[1]);
+    D(("helper binary is not available"));
+    exit(PAM_AUTHINFO_UNAVAIL);
+  } else {
+    close(fds[1]);
+    if (child > 0) {
+      char buf[1024];
+      int rc=0;
+      rc=waitpid(child, &retval, 0);  /* wait for helper to complete */
+      if (rc<0) {
+	_log_err(LOG_ERR, pamh, "unix_chkpwd waitpid returned %d: %s", rc, strerror(errno));
+	retval = PAM_AUTH_ERR;
+      } else {
+	retval = WEXITSTATUS(retval);
+	if (retval != PAM_AUTHINFO_UNAVAIL) {
+          rc = _pammodutil_read(fds[0], buf, sizeof(buf) - 1);
+	  if(rc > 0) {
+	      buf[rc] = '\0';
+	      if (sscanf(buf,"%ld:%ld:%ld:%ld:%ld:%ld",
+		     &spwd.sp_lstchg, /* last password change */
+		     &spwd.sp_min, /* days until change allowed. */
+		     &spwd.sp_max, /* days before change required */
+		     &spwd.sp_warn, /* days warning for expiration */
+		     &spwd.sp_inact, /* days before account inactive */
+		     &spwd.sp_expire) /* date when account expires */ != 6 ) retval = PAM_AUTH_ERR;
+	    }
+	  else {
+	    _log_err(LOG_ERR, pamh, " ERROR %d:%s \n",rc, strerror(errno)); retval = PAM_AUTH_ERR;
+	  }
+	}
+      }
+    } else {
+      _log_err(LOG_ERR, pamh, "Fork failed %s \n",strerror(errno));
+      D(("fork failed"));
+      retval = PAM_AUTH_ERR;
+    }
+    close(fds[0]);
+  }
+  if (sighandler != NULL) {
+    (void) signal(SIGCHLD, sighandler);   /* restore old signal handler */
+  }
+  D(("Returning %d",retval));
+  if (retval != PAM_SUCCESS) {
+    return NULL;
+  }
+  return &spwd;
+}
+
+#endif
+
+
 /*
  * PAM framework looks for this entry-point to pass control to the
  * account management module.
@@ -127,6 +245,11 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		spent = _pammodutil_getspnam (pamh, uname);
 	else
 		return PAM_SUCCESS;
+
+#ifdef WITH_SELINUX
+	if (!spent && SELINUX_ENABLED )
+	    spent = _unix_run_verify_binary(pamh, ctrl, uname);
+#endif
 
 	if (!spent)
 		if (on(UNIX_BROKEN_SHADOW,ctrl))

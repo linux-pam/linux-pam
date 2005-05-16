@@ -40,6 +40,11 @@ ifeq ($(HAVE_LCKPWDF),no)
 endif
 endif
 
+ifeq ($(HAVE_LIBSELINUX),yes)
+  USE_SELINUX=-D"WITH_SELINUX"
+  EXTRALS += -lselinux
+endif
+
 ifeq ($(HAVE_LIBNSL),yes)
   LIBNSL = -lnsl
 endif
@@ -60,7 +65,7 @@ INCLUDE_PAMMODUTILS = -I../pammodutil/include
 ########################################################################
 
 CFLAGS += $(USE_CRACKLIB) $(USE_LCKPWDF) $(NEED_LCKPWDF) $(EXTRAS) \
-	 $(INCLUDE_PAMMODUTILS)
+	 $(INCLUDE_PAMMODUTILS) $(USE_SELINUX)
 
 LDLIBS = $(EXTRALS) $(LINK_PAMMODUTILS)
 
@@ -186,6 +191,5 @@ clean:
 	rm -f *~ *.a *.out *.bak
 	rm -rf dynamic static
 
-.c.o:	
+.c.o:
 	$(CC) -c $(CFLAGS) $<
-

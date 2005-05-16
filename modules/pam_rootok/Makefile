@@ -13,3 +13,9 @@ include ../../Make.Rules
 TITLE=pam_rootok
 
 include ../Simple.Rules
+
+ifeq ($(HAVE_LIBSELINUX),yes)
+CFLAGS += -DWITH_SELINUX
+LINK_PAMMODUTILS += -lselinux
+endif
+

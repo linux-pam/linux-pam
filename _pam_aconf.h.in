@@ -45,6 +45,9 @@
 /* have libpwdb - don't expect this to be important for much longer */
 #undef HAVE_LIBPWDB
 
+/* have libselinux - SELinux is Linux special */
+#undef HAVE_LIBSELINUX
+
 /* have gethostname() declared */
 #undef HAVE_GETHOSTNAME
 

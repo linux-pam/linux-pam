@@ -227,6 +227,13 @@ AC_CHECK_LIB(nsl, yp_maplist, HAVE_LIBNSL=yes ; AC_DEFINE(HAVE_LIBNSL),
 	HAVE_LIBNSL=no)
 AC_SUBST(HAVE_LIBNSL)
 
+AC_CHECK_LIB(selinux, getfilecon, HAVE_LIBSELINUX=yes ; AC_DEFINE(HAVE_LIBSELINUX),
+	HAVE_LIBSELINUX=no)
+AC_SUBST(HAVE_LIBSELINUX)
+
+if test $HAVE_LIBSELINUX = yes ; then
+	pwdblibs="$pwdblibs -lselinux"
+fi
 if test $HAVE_LIBNSL = yes ; then
 	pwdblibs="$pwdblibs -lnsl"
 fi

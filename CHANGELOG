@@ -75,6 +75,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * pam_mkhomedir: Set owner/permissions of home directory after we
   created all files (Bug 1032922 - kukuk)
 * pam_rhosts: Get ride of static buffer for path (kukuk)
+* pam_selinux/pam_unix/pam_rootok: Add SELinux support based on
+  patch from Red Hat (kukuk)
 
 0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)

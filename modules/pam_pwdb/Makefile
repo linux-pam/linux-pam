@@ -11,8 +11,12 @@ include ../../Make.Rules
 
 ifeq ($(HAVE_LIBPWDB),yes)
 
-EXTRALS += -lpwdb 
+EXTRALS += -lpwdb
 EXTRAS += -DCHKPWD_HELPER=\"$(SUPLEMENTED)/$(CHKPWD)\"
+
+ifeq ($(HAVE_LIBSELINUX),yes)
+  EXTRALS += -lselinux
+endif
 
 ifeq ($(HAVE_LIBCRYPT),yes)
   EXTRALS += -lcrypt

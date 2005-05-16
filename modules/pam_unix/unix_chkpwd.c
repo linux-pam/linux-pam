@@ -28,21 +28,29 @@
 #include <syslog.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <pwd.h>
 #include <shadow.h>
 #include <signal.h>
+#include <time.h>
+#ifdef WITH_SELINUX
+#include <selinux/selinux.h>
+#define SELINUX_ENABLED (selinux_enabled!=-1 ? selinux_enabled : (selinux_enabled=is_selinux_enabled()>0))
+static security_context_t prev_context=NULL;
+static int selinux_enabled=-1;
+#else
+#define SELINUX_ENABLED 0
+#endif
 
 #define MAXPASS		200	/* the maximum length of a password */
 
+#include <security/_pam_types.h>
 #include <security/_pam_macros.h>
 
 #include "md5.h"
 
 extern char *crypt(const char *key, const char *salt);
 extern char *bigcrypt(const char *key, const char *salt);
-
-#define UNIX_PASSED	0
-#define UNIX_FAILED	1
 
 /* syslogging function for errors and other information */
 
@@ -112,13 +120,40 @@ static void setup_signals(void)
 	(void) sigaction(SIGQUIT, &action, NULL);
 }
 
+static int _verify_account(const char * const uname)
+{
+	struct spwd *spent;
+	struct passwd *pwent;
+
+	pwent = getpwnam(uname);
+	if (!pwent) {
+		_log_err(LOG_ALERT, "could not identify user (from getpwnam(%s))", uname);
+		return PAM_USER_UNKNOWN;
+	}
+
+	spent = getspnam( uname );
+	if (!spent) {
+		_log_err(LOG_ALERT, "could not get username from shadow (%s))", uname);
+		return PAM_AUTHINFO_UNAVAIL;	/* Couldn't get username from shadow */
+	}
+	printf("%ld:%ld:%ld:%ld:%ld:%ld",
+		 spent->sp_lstchg, /* last password change */
+                 spent->sp_min, /* days until change allowed. */
+                 spent->sp_max, /* days before change required */
+                 spent->sp_warn, /* days warning for expiration */
+                 spent->sp_inact, /* days before account inactive */
+                 spent->sp_expire); /* date when account expires */
+
+	return PAM_SUCCESS;
+}
+
 static int _unix_verify_password(const char *name, const char *p, int nullok)
 {
 	struct passwd *pwd = NULL;
 	struct spwd *spwdent = NULL;
 	char *salt = NULL;
 	char *pp = NULL;
-	int retval = UNIX_FAILED;
+	int retval = PAM_AUTH_ERR;
 	int salt_len;
 
 	/* UNIX passwords area */
@@ -156,28 +191,30 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 	if (pwd == NULL || salt == NULL) {
 		_log_err(LOG_ALERT, "check pass; user unknown");
 		p = NULL;
-		return retval;
+		return PAM_USER_UNKNOWN;
 	}
 
 	salt_len = strlen(salt);
-	if (salt_len == 0)
-		return (nullok == 0) ? UNIX_FAILED : UNIX_PASSED;
-	else if (p == NULL || strlen(p) == 0)
-		return UNIX_FAILED;
+	if (salt_len == 0) {
+		return (nullok == 0) ? PAM_AUTH_ERR : PAM_SUCCESS;
+	}
+	if (p == NULL || strlen(p) == 0) {
+		return PAM_AUTHTOK_ERR;
+	}
 
 	/* the moment of truth -- do we agree with the password? */
-	retval = UNIX_FAILED;
+	retval = PAM_AUTH_ERR;
 	if (!strncmp(salt, "$1$", 3)) {
 		pp = Goodcrypt_md5(p, salt);
 		if (strcmp(pp, salt) == 0) {
-			retval = UNIX_PASSED;
+			retval = PAM_SUCCESS;
 		} else {
 			pp = Brokencrypt_md5(p, salt);
 			if (strcmp(pp, salt) == 0)
-				retval = UNIX_PASSED;
+				retval = PAM_SUCCESS;
 		}
 	} else if ((*salt == '*') || (salt_len < 13)) {
-	    retval = UNIX_FAILED;
+	    retval = PAM_AUTH_ERR;
 	} else {
 		pp = bigcrypt(p, salt);
 		/*
@@ -190,7 +227,7 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 		 * Bug 521314: the strncmp comparison is for legacy support.
 		 */
 		if (strncmp(pp, salt, salt_len) == 0) {
-			retval = UNIX_PASSED;
+			retval = PAM_SUCCESS;
 		}
 	}
 	p = NULL;		/* no longer needed here */
@@ -220,17 +257,178 @@ static char *getuidname(uid_t uid)
 
 	strncpy(username, pw->pw_name, sizeof(username));
 	username[sizeof(username) - 1] = '\0';
-	
+
 	return username;
+}
+
+#define SH_TMPFILE		"/etc/nshadow"
+static int _update_shadow(const char *forwho)
+{
+    struct spwd *spwdent = NULL, *stmpent = NULL;
+    FILE *pwfile, *opwfile;
+    int err = 1;
+    int oldmask;
+    struct stat st;
+    char pass[MAXPASS + 1];
+    char towhat[MAXPASS + 1];
+    int npass=0;
+
+    /* read the password from stdin (a pipe from the pam_unix module) */
+
+    npass = read(STDIN_FILENO, pass, MAXPASS);
+
+    if (npass < 0) {	/* is it a valid password? */
+
+      _log_err(LOG_DEBUG, "no password supplied");
+      return PAM_AUTHTOK_ERR;
+
+    } else if (npass >= MAXPASS) {
+
+      _log_err(LOG_DEBUG, "password too long");
+      return PAM_AUTHTOK_ERR;
+
+    } else {
+      /* does pass agree with the official one? */
+      int retval=0;
+      pass[npass] = '\0';	/* NUL terminate */
+      retval = _unix_verify_password(forwho, pass, 0);
+      if (retval != PAM_SUCCESS) {
+	return retval;
+      }
+    }
+
+    /* read the password from stdin (a pipe from the pam_unix module) */
+
+    npass = read(STDIN_FILENO, towhat, MAXPASS);
+
+    if (npass < 0) {	/* is it a valid password? */
+
+      _log_err(LOG_DEBUG, "no new password supplied");
+      return PAM_AUTHTOK_ERR;
+
+    } else if (npass >= MAXPASS) {
+
+      _log_err(LOG_DEBUG, "new password too long");
+      return PAM_AUTHTOK_ERR;
+
+    }
+
+    towhat[npass] = '\0';	/* NUL terminate */
+    spwdent = getspnam(forwho);
+    if (spwdent == NULL) {
+	return PAM_USER_UNKNOWN;
+    }
+    oldmask = umask(077);
+
+#ifdef WITH_SELINUX
+    if (SELINUX_ENABLED) {
+      security_context_t shadow_context=NULL;
+      if (getfilecon("/etc/shadow",&shadow_context)<0) {
+	return PAM_AUTHTOK_ERR;
+      };
+      if (getfscreatecon(&prev_context)<0) {
+	freecon(shadow_context);
+	return PAM_AUTHTOK_ERR;
+      }
+      if (setfscreatecon(shadow_context)) {
+	freecon(shadow_context);
+	freecon(prev_context);
+	return PAM_AUTHTOK_ERR;
+      }
+      freecon(shadow_context);
+    }
+#endif
+    pwfile = fopen(SH_TMPFILE, "w");
+    umask(oldmask);
+    if (pwfile == NULL) {
+	err = 1;
+	goto done;
+    }
+
+    opwfile = fopen("/etc/shadow", "r");
+    if (opwfile == NULL) {
+	fclose(pwfile);
+	err = 1;
+	goto done;
+    }
+
+    if (fstat(fileno(opwfile), &st) == -1) {
+	fclose(opwfile);
+	fclose(pwfile);
+	err = 1;
+	goto done;
+    }
+
+    if (fchown(fileno(pwfile), st.st_uid, st.st_gid) == -1) {
+	fclose(opwfile);
+	fclose(pwfile);
+	err = 1;
+	goto done;
+    }
+    if (fchmod(fileno(pwfile), st.st_mode) == -1) {
+	fclose(opwfile);
+	fclose(pwfile);
+	err = 1;
+	goto done;
+    }
+
+    stmpent = fgetspent(opwfile);
+    while (stmpent) {
+
+	if (!strcmp(stmpent->sp_namp, forwho)) {
+	    stmpent->sp_pwdp = towhat;
+	    stmpent->sp_lstchg = time(NULL) / (60 * 60 * 24);
+	    err = 0;
+	    D(("Set password %s for %s", stmpent->sp_pwdp, forwho));
+	}
+
+	if (putspent(stmpent, pwfile)) {
+	    D(("error writing entry to shadow file: %s\n", strerror(errno)));
+	    err = 1;
+	    break;
+	}
+
+	stmpent = fgetspent(opwfile);
+    }
+    fclose(opwfile);
+
+    if (fclose(pwfile)) {
+	D(("error writing entries to shadow file: %s\n", strerror(errno)));
+	err = 1;
+    }
+
+ done:
+    if (!err) {
+	if (rename(SH_TMPFILE, "/etc/shadow"))
+	    err = 1;
+    }
+
+#ifdef WITH_SELINUX
+    if (SELINUX_ENABLED) {
+      if (setfscreatecon(prev_context)) {
+	err = 1;
+      }
+      if (prev_context)
+	freecon(prev_context);
+      prev_context=NULL;
+    }
+#endif
+
+    if (!err) {
+	return PAM_SUCCESS;
+    } else {
+	unlink(SH_TMPFILE);
+	return PAM_AUTHTOK_ERR;
+    }
 }
 
 int main(int argc, char *argv[])
 {
 	char pass[MAXPASS + 1];
-	char option[8];
+	char *option;
 	int npass, nullok;
 	int force_failure = 0;
-	int retval = UNIX_FAILED;
+	int retval = PAM_AUTH_ERR;
 	char *user;
 
 	/*
@@ -247,8 +445,7 @@ int main(int argc, char *argv[])
 	 * account).
 	 */
 
-	if (isatty(STDIN_FILENO)) {
-
+	if (isatty(STDIN_FILENO) || argc != 3 ) {
 		_log_err(LOG_NOTICE
 		      ,"inappropriate use of Unix helper binary [UID=%d]"
 			 ,getuid());
@@ -256,35 +453,45 @@ int main(int argc, char *argv[])
 		 ,"This binary is not designed for running in this way\n"
 		      "-- the system administrator has been informed\n");
 		sleep(10);	/* this should discourage/annoy the user */
-		return UNIX_FAILED;
+		return PAM_SYSTEM_ERR;
 	}
 
 	/*
-	 * determine the current user's name is
+	 * determine the current user's name is.
+	 * On a SELinux enabled system, policy will prevent third parties from using
+	 * unix_chkpwd as a password guesser.  Leaving the existing check prevents
+	 * su from working,  Since the current uid is the users and the password is
+	 * for root.
 	 */
-	user = getuidname(getuid());
-	if (argc == 2) {
-	    /* if the caller specifies the username, verify that user
-	       matches it */
-	    if (strcmp(user, argv[1])) {
-		force_failure = 1;
-	    }
+	if (SELINUX_ENABLED) {
+	  user=argv[1];
+	}
+	else {
+	  user = getuidname(getuid());
+	  /* if the caller specifies the username, verify that user
+	     matches it */
+	  if (strcmp(user, argv[1])) {
+	    return PAM_AUTH_ERR;
+	  }
+	}
+
+	option=argv[2];
+
+	if (strncmp(argv[2], "verify", 8) == 0) {
+	  /* Get the account information from the shadow file */
+	  return _verify_account(argv[1]);
+	}
+
+	if (strncmp(option, "shadow", 8) == 0) {
+	  /* Attempting to change the password */
+	  return _update_shadow(argv[1]);
 	}
 
 	/* read the nullok/nonull option */
-
-	npass = read(STDIN_FILENO, option, 8);
-
-	if (npass < 0) {
-		_log_err(LOG_DEBUG, "no option supplied");
-		return UNIX_FAILED;
-	} else {
-		option[7] = '\0';
-		if (strncmp(option, "nullok", 8) == 0)
-			nullok = 1;
-		else
-			nullok = 0;
-	}
+	if (strncmp(option, "nullok", 8) == 0)
+	  nullok = 1;
+	else
+	  nullok = 0;
 
 	/* read the password from stdin (a pipe from the pam_unix module) */
 
@@ -317,10 +524,10 @@ int main(int argc, char *argv[])
 
 	/* return pass or fail */
 
-	if ((retval != UNIX_PASSED) || force_failure) {
-	    return UNIX_FAILED;
+	if ((retval != PAM_SUCCESS) || force_failure) {
+	    return PAM_AUTH_ERR;
 	} else {
-	    return UNIX_PASSED;
+	    return PAM_SUCCESS;
 	}
 }
 
@@ -339,13 +546,13 @@ int main(int argc, char *argv[])
  * 3. The name of the author may not be used to endorse or promote
  *    products derived from this software without specific prior
  *    written permission.
- * 
+ *
  * ALTERNATIVELY, this product may be distributed under the terms of
  * the GNU Public License, in which case the provisions of the GPL are
  * required INSTEAD OF the above restrictions.  (This clause is
  * necessary due to a potential bad interaction between the GPL and
  * the restrictions contained in a BSD-style copyright.)
- * 
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE

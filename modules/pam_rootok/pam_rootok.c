@@ -39,6 +39,11 @@ static void _pam_log(int err, const char *format, ...)
 }
 
 
+#ifdef WITH_SELINUX
+#include <selinux/selinux.h>
+#include <selinux/av_permissions.h>
+#endif
+
 /* argument parsing */
 
 #define PAM_DEBUG_ARG       01
@@ -73,6 +78,9 @@ int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
 
     ctrl = _pam_parse(argc, argv);
     if (getuid() == 0)
+#ifdef WITH_SELINUX
+      if (is_selinux_enabled()<1 || checkPasswdAccess(PASSWD__ROOTOK)==0)
+#endif
 	retval = PAM_SUCCESS;
 
     if (ctrl & PAM_DEBUG_ARG) {

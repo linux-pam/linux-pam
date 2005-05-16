@@ -27,7 +27,12 @@
 
 #include "md5.h"
 #include "support.h"
-
+#ifdef WITH_SELINUX
+#include <selinux/selinux.h>
+#define SELINUX_ENABLED is_selinux_enabled()>0
+#else
+#define SELINUX_ENABLED 0
+#endif
 extern char *crypt(const char *key, const char *salt);
 extern char *bigcrypt(const char *key, const char *salt);
 
@@ -562,18 +567,32 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
     /* fork */
     child = fork();
     if (child == 0) {
+        int i=0;
+        struct rlimit rlim;
 	static char *envp[] = { NULL };
-	char *args[] = { NULL, NULL, NULL };
+	char *args[] = { NULL, NULL, NULL, NULL };
 
 	/* XXX - should really tidy up PAM here too */
 
+	close(0); close(1);
 	/* reopen stdin as pipe */
 	close(fds[1]);
 	dup2(fds[0], STDIN_FILENO);
 
+	if (getrlimit(RLIMIT_NOFILE,&rlim)==0) {
+	  for (i=2; i < rlim.rlim_max; i++) {
+		if (fds[0] != i)
+	  	   close(i);
+	  }	
+	}
 	/* exec binary helper */
 	args[0] = x_strdup(CHKPWD_HELPER);
 	args[1] = x_strdup(user);
+	if (off(UNIX__NONULL, ctrl)) {	/* this means we've succeeded */
+	  args[2]=x_strdup("nullok");
+	} else {
+	  args[2]=x_strdup("nonull");
+	}
 
 	execve(CHKPWD_HELPER, args, envp);
 
@@ -583,11 +602,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
     } else if (child > 0) {
 	/* wait for child */
 	/* if the stored password is NULL */
-	if (off(UNIX__NONULL, ctrl)) {	/* this means we've succeeded */
-	    write(fds[1], "nullok\0\0", 8);
-	} else {
-	    write(fds[1], "nonull\0\0", 8);
-	}
+        int rc=0;
 	if (passwd != NULL) {            /* send the password to the child */
 	    write(fds[1], passwd, strlen(passwd)+1);
 	    passwd = NULL;
@@ -596,10 +611,17 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	}
 	close(fds[0]);       /* close here to avoid possible SIGPIPE above */
 	close(fds[1]);
-	(void) waitpid(child, &retval, 0);  /* wait for helper to complete */
-	retval = (retval == 0) ? PAM_SUCCESS:PAM_AUTH_ERR;
+	rc=waitpid(child, &retval, 0);  /* wait for helper to complete */
+	if (rc<0) {
+	  _log_err(LOG_ERR, pamh, "unix_chkpwd waitpid returned %d: %s", rc, strerror(errno));
+	  retval = PAM_AUTH_ERR;
+	} else {
+	  retval = WEXITSTATUS(retval);
+	}
     } else {
 	D(("fork failed"));
+	close(fds[0]);
+ 	close(fds[1]);
 	retval = PAM_AUTH_ERR;
     }
 
@@ -620,6 +642,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	char *pp = NULL;
 	char *data_name;
 	int retval;
+
 
 	D(("called"));
 
@@ -687,7 +710,8 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 
 	retval = PAM_SUCCESS;
 	if (pwd == NULL || salt == NULL || !strcmp(salt, "x") || ((salt[0] == '#') && (salt[1] == '#') && !strcmp(salt + 2, name))) {
-		if (geteuid()) {
+	  
+		if (geteuid() || SELINUX_ENABLED) {
 			/* we are not root perhaps this is the reason? Run helper */
 			D(("running helper binary"));
 			retval = _unix_run_helper_binary(pamh, p, ctrl, name);

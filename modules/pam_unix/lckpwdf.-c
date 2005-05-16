@@ -26,6 +26,9 @@
 
 #include <fcntl.h>
 #include <signal.h>
+#ifdef WITH_SELINUX
+#include <selinux/selinux.h>
+#endif
 
 #define LOCKFILE "/etc/.pwd.lock"
 #define TIMEOUT 15
@@ -64,6 +67,28 @@ static int lckpwdf(void)
 	if (lockfd != -1)
 		return -1;
 
+#ifdef WITH_SELINUX
+	if(is_selinux_enabled()>0)
+	{
+		lockfd = open(LOCKFILE, O_WRONLY);
+		if(lockfd == -1 && errno == ENOENT)
+		{
+			security_context_t create_context;
+			int rc;
+
+			if(getfilecon("/etc/passwd", &create_context))
+				return -1;
+			rc = setfscreatecon(create_context);
+			freecon(create_context);
+			if(rc)
+				return -1;
+			lockfd = open(LOCKFILE, O_CREAT | O_WRONLY, 0600);
+			if(setfscreatecon(NULL))
+				return -1;
+		}
+	}
+	else
+#endif
 	lockfd = open(LOCKFILE, O_CREAT | O_WRONLY, 0600);
 	if (lockfd == -1)
 		return -1;
