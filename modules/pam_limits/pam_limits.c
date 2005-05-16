@@ -30,6 +30,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/resource.h>
+#include <limits.h>
 
 #include <utmp.h>
 #ifndef UT_USER  /* some systems have ut_name instead of ut_user */
@@ -260,7 +261,8 @@ static void process_limit(int source, const char *lim_type,
 {
     int limit_item;
     int limit_type = 0;
-    long limit_value;
+    int int_value = 0;
+    unsigned long rlimit_value = 0;
     char *endptr;
     const char *value_orig = lim_value;
 
@@ -324,23 +326,30 @@ static void process_limit(int source, const char *lim_type,
         _pam_log(LOG_DEBUG,"unknown limit type '%s'", lim_type);
         return;
     }
-
-    limit_value = strtol (lim_value, &endptr, 10);
-
-    /* special case value when limiting logins */
-    if (limit_value == 0 && value_orig == endptr) { /* no chars read */
-        if (strcmp(lim_value,"-") != 0) {
-            _pam_log(LOG_DEBUG,"wrong limit value '%s'", lim_value);
+	if (limit_item != LIMIT_PRI && (strcmp(lim_value, "-1") == 0
+		|| strcmp(lim_value, "-") == 0 || strcmp(lim_value, "unlimited") == 0
+		|| strcmp(lim_value, "infinity") == 0)) {
+		int_value = -1;
+		rlimit_value = RLIM_INFINITY;
+	} else if (limit_item == LIMIT_PRI || limit_item == LIMIT_LOGIN ||
+		limit_item == LIMIT_NUMSYSLOGINS) {
+		long temp;
+		temp = strtol (lim_value, &endptr, 10);
+		temp = temp < INT_MAX ? temp : INT_MAX;
+		int_value = temp > INT_MIN ? temp : INT_MIN;
+		if (int_value == 0 && value_orig == endptr) {
+			_pam_log(LOG_DEBUG, "wrong limit value '%s' for limit type '%s'",
+				lim_value, lim_type);
             return;
-        } else
-            if (limit_item != LIMIT_LOGIN) {
-                if (ctrl & PAM_DEBUG_ARG)
-                    _pam_log(LOG_DEBUG,
-                            "'-' limit value valid for maxlogins type only");
-                return;
-            } else
-                limit_value = -1;
-    }
+		}
+	} else {
+		rlimit_value = strtoul (lim_value, &endptr, 10);
+		if (rlimit_value == 0 && value_orig == endptr) {
+			_pam_log(LOG_DEBUG, "wrong limit value '%s' for limit type '%s'",
+				lim_value, lim_type);
+			return;
+		}
+	}
 
     /* one more special case when limiting logins */
     if ((source == LIMITS_DEF_ALL || source == LIMITS_DEF_ALLGROUP)
@@ -353,8 +362,9 @@ static void process_limit(int source, const char *lim_type,
 
     switch(limit_item) {
         case RLIMIT_CPU:
-            limit_value *= 60;
-            break;
+         if (rlimit_value != RLIM_INFINITY)
+            rlimit_value *= 60;
+         break;
         case RLIMIT_FSIZE:
         case RLIMIT_DATA:
         case RLIMIT_STACK:
@@ -362,8 +372,9 @@ static void process_limit(int source, const char *lim_type,
         case RLIMIT_RSS:
         case RLIMIT_MEMLOCK:
         case RLIMIT_AS:
-            limit_value *= 1024;
-            break;
+         if (rlimit_value != RLIM_INFINITY)
+            rlimit_value *= 1024;
+         break;
     }
 
     if ( (limit_item != LIMIT_LOGIN)
@@ -373,7 +384,7 @@ static void process_limit(int source, const char *lim_type,
 	    if (pl->limits[limit_item].src_soft < source) {
                 return;
 	    } else {
-                pl->limits[limit_item].limit.rlim_cur = limit_value;
+                pl->limits[limit_item].limit.rlim_cur = rlimit_value;
                 pl->limits[limit_item].src_soft = source;
             }
 	}
@@ -381,7 +392,7 @@ static void process_limit(int source, const char *lim_type,
 	    if (pl->limits[limit_item].src_hard < source) {
                 return;
             } else {
-                pl->limits[limit_item].limit.rlim_max = limit_value;
+                pl->limits[limit_item].limit.rlim_max = rlimit_value;
                 pl->limits[limit_item].src_hard = source;
             }
 	}
@@ -389,12 +400,12 @@ static void process_limit(int source, const char *lim_type,
 	/* recent kernels support negative priority limits (=raise priority) */
 
 	if (limit_item == LIMIT_PRI) {
-		pl->priority = limit_value;
+		pl->priority = int_value;
 	} else {
 	        if (pl->login_limit_def < source) {
 	            return;
 	        } else {
-	            pl->login_limit = limit_value;
+	            pl->login_limit = int_value;
 	            pl->login_limit_def = source;
         	}
 	}
