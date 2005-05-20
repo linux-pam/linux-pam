@@ -16,19 +16,14 @@ extern "C" {
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <sys/types.h>
 
 /* opaque agent handling structure */
 
 typedef struct pamc_handle_s *pamc_handle_t;
 
 /* binary prompt structure pointer */
-#ifndef __u32
-# define __u32  unsigned int
-#endif
-#ifndef __u8
-# define __u8  unsigned char
-#endif
-typedef struct { __u32 length; __u8 control; } *pamc_bp_t;
+typedef struct { u_int32_t length; u_int8_t control; } *pamc_bp_t;
 
 /*
  * functions provided by libpamc
@@ -91,10 +86,10 @@ char **pamc_list_agents(pamc_handle_t pch);
 # define PAM_BP_FREE        free
 #endif /* PAM_BP_FREE */
 
-#define __PAM_BP_WOCTET(x,y)  (*((y) + (__u8 *)(x)))
-#define __PAM_BP_ROCTET(x,y)  (*((y) + (const __u8 *)(x)))
+#define __PAM_BP_WOCTET(x,y)  (*((y) + (u_int8_t *)(x)))
+#define __PAM_BP_ROCTET(x,y)  (*((y) + (const u_int8_t *)(x)))
 
-#define PAM_BP_MIN_SIZE       (sizeof(__u32) + sizeof(__u8))
+#define PAM_BP_MIN_SIZE       (sizeof(u_int32_t) + sizeof(u_int8_t))
 #define PAM_BP_MAX_LENGTH     0x20000                   /* an advisory limit */
 #define PAM_BP_WCONTROL(x)    (__PAM_BP_WOCTET(x,4))
 #define PAM_BP_RCONTROL(x)    (__PAM_BP_ROCTET(x,4))
@@ -103,8 +98,8 @@ char **pamc_list_agents(pamc_handle_t pch);
 			       (__PAM_BP_ROCTET(x,2)<< 8)+      \
 			       (__PAM_BP_ROCTET(x,3)    ))
 #define PAM_BP_LENGTH(x)      (PAM_BP_SIZE(x) - PAM_BP_MIN_SIZE)
-#define PAM_BP_WDATA(x)       (PAM_BP_MIN_SIZE + (__u8 *) (x))
-#define PAM_BP_RDATA(x)       (PAM_BP_MIN_SIZE + (const __u8 *) (x))
+#define PAM_BP_WDATA(x)       (PAM_BP_MIN_SIZE + (u_int8_t *) (x))
+#define PAM_BP_RDATA(x)       (PAM_BP_MIN_SIZE + (const u_int8_t *) (x))
 
 /* Note, this macro always '\0' terminates renewed packets */
 
@@ -112,13 +107,13 @@ char **pamc_list_agents(pamc_handle_t pch);
 do {                                                                       \
     if (old_p) {                                                           \
 	if (*(old_p)) {                                                    \
-	    __u32 __size;                                                  \
+	    u_int32_t __size;                                              \
             __size = PAM_BP_SIZE(*(old_p));                                \
 	    memset(*(old_p), 0, __size);                                   \
 	    PAM_BP_FREE(*(old_p));                                         \
 	}                                                                  \
 	if (cntrl) {                                                       \
-	    __u32 __size;                                                  \
+	    u_int32_t __size;                                              \
                                                                            \
 	    __size = PAM_BP_MIN_SIZE + data_length;                        \
 	    if ((*(old_p) = PAM_BP_CALLOC(1, 1+__size))) {                 \
@@ -141,7 +136,7 @@ do {                                                                       \
 #define PAM_BP_FILL(prmpt, offset, length, data)                           \
 do {                                                                       \
     size_t bp_length;                                                      \
-    __u8 *prompt = (__u8 *) (prmpt);                                       \
+    u_int8_t *prompt = (u_int8_t *) (prmpt);                               \
     bp_length = PAM_BP_LENGTH(prompt);                                     \
     if (bp_length < ((length)+(offset))) {                                 \
 	PAM_BP_ASSERT("attempt to write over end of prompt");              \
@@ -152,7 +147,7 @@ do {                                                                       \
 #define PAM_BP_EXTRACT(prmpt, offset, length, data)                        \
 do {                                                                       \
     size_t __bp_length;                                                    \
-    const __u8 *__prompt = (const __u8 *) (prmpt);                         \
+    const u_int8_t *__prompt = (const u_int8_t *) (prmpt);                 \
     __bp_length = PAM_BP_LENGTH(__prompt);                                 \
     if (((offset) < 0) || (__bp_length < ((length)+(offset)))              \
 	|| ((length) < 0)) {                                               \

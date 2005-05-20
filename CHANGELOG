@@ -107,6 +107,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   as experimental. (toady)
 * configure: Add the directory where new versions of cracklib is 
   installed (from Jim Gifford - toady) 
+* libpamc: Use standard u_intX_t types instead of __uX (kukuk)
 
 0.78: Do Nov 18 14:48:36 CET 2004
 
