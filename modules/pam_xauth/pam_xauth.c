@@ -276,6 +276,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	const char *user, *xauth = xauthpath;
 	struct passwd *tpwd, *rpwd;
 	int fd, i, debug = 0;
+	int retval = PAM_SUCCESS;
 	uid_t systemuser = 499, targetuser = 0, euid;
 
 	/* Parse arguments.  We don't understand many, so no sense in breaking
@@ -326,13 +327,15 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
 		syslog(LOG_ERR, "pam_xauth: error determining target "
 		       "user's name");
-		return PAM_SESSION_ERR;
+		retval = PAM_SESSION_ERR;
+		goto cleanup;
 	}
 	rpwd = _pammodutil_getpwuid(pamh, getuid());
 	if (rpwd == NULL) {
 		syslog(LOG_ERR, "pam_xauth: error determining invoking "
 		       "user's name");
-		return PAM_SESSION_ERR;
+		retval = PAM_SESSION_ERR;
+		goto cleanup;
 	}
 
 	/* Get the target user's UID and primary GID, which we'll need to set
@@ -341,7 +344,8 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	if (tpwd == NULL) {
 		syslog(LOG_ERR, "pam_xauth: error determining target "
 		       "user's UID");
-		return PAM_SESSION_ERR;
+		retval = PAM_SESSION_ERR;
+		goto cleanup;
 	}
 
 	if (debug) {
@@ -362,7 +366,8 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			syslog(LOG_DEBUG, "pam_xauth: not forwarding cookies "
 			       "to user ID %ld", (long) tpwd->pw_uid);
 		}
-		return PAM_SESSION_ERR;
+		retval = PAM_SESSION_ERR;
+		goto cleanup;
 	}
 
 	/* Check that both users are amenable to this.  By default, this
@@ -372,15 +377,17 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	 *                 if .xauth/export does not exist
 	 * import(user=*): if <ruser> is listed in .xauth/import, or
 	 *                 if .xauth/import does not exist */
-	i = (getuid() != 0) ? PAM_SUCCESS : PAM_PERM_DENIED;
+	i = (getuid() != 0 || tpwd->pw_uid == 0) ? PAM_SUCCESS : PAM_PERM_DENIED;
 	i = check_acl(pamh, "export", rpwd->pw_name, user, i, debug);
 	if (i != PAM_SUCCESS) {
-		return PAM_SESSION_ERR;
+		retval = PAM_SESSION_ERR;
+		goto cleanup;
 	}
 	i = PAM_SUCCESS;
 	i = check_acl(pamh, "import", user, rpwd->pw_name, i, debug);
 	if (i != PAM_SUCCESS) {
-		return PAM_SESSION_ERR;
+		retval = PAM_SESSION_ERR;
+		goto cleanup;
 	}
 
 	/* Figure out where the source user's .Xauthority file is. */
@@ -390,7 +397,8 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		cookiefile = malloc(strlen(rpwd->pw_dir) + 1 +
 				    strlen(XAUTHDEF) + 1);
 		if (cookiefile == NULL) {
-			return PAM_SESSION_ERR;
+			retval = PAM_SESSION_ERR;
+			goto cleanup;
 		}
 		strcpy(cookiefile, rpwd->pw_dir);
 		strcat(cookiefile, "/");
@@ -483,7 +491,8 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			if (debug) {
 				syslog(LOG_DEBUG, "pam_xauth: no key");
 			}
-			return PAM_SESSION_ERR;
+			retval = PAM_SESSION_ERR;
+			goto cleanup;
 		}
 
 		/* Generate the environment variable
@@ -495,9 +504,8 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			if (debug) {
 				syslog(LOG_DEBUG, "pam_xauth: no free memory");
 			}
-			free(cookiefile);
-			free(cookie);
-			return PAM_SESSION_ERR;
+			retval = PAM_SESSION_ERR;
+			goto cleanup;
 		}
 		strcpy(xauthority, XAUTHENV);
 		strcat(xauthority, "=");
@@ -515,10 +523,8 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			       "temporary file `%s': %s",
 			       xauthority + strlen(XAUTHENV) + 1,
 			       strerror(errno));
-			free(cookiefile);
-			free(cookie);
-			free(xauthority);
-			return PAM_SESSION_ERR;
+			retval = PAM_SESSION_ERR;
+			goto cleanup;
 		}
 		/* Set permissions on the new file and dispose of the
 		 * descriptor. */
@@ -536,15 +542,9 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			syslog(LOG_ERR, "pam_xauth: error saving name of "
 			       "temporary file `%s'", cookiefile);
 			unlink(cookiefile);
-			free(xauthority);
-			free(cookiefile);
-			free(cookie);
-			return PAM_SESSION_ERR;
+			retval = PAM_SESSION_ERR;
+			goto cleanup;
 		}
-
-		/* Unset any old XAUTHORITY variable in the environment. */
-		if (getenv (XAUTHENV))
-		  unsetenv (XAUTHENV);
 
 		/* Set the new variable in the environment. */
 		if (pam_putenv (pamh, xauthority) != PAM_SUCCESS)
@@ -558,8 +558,10 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 					     strlen (display) + 1);
 		  if (d == NULL)
 		    {
-		      syslog (LOG_DEBUG, "pam_xauth: memory exhausted\n");
-		      return PAM_SESSION_ERR;
+		      syslog (LOG_DEBUG, "pam_xauth: memory exhausted");
+		      cookiefile = NULL;
+		      retval = PAM_SESSION_ERR;
+		      goto cleanup;
 		    }
 		  strcpy (d, "DISPLAY=");
 		  strcat (d, display);
@@ -593,10 +595,17 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			      xauth, "-f", cookiefile, "nmerge", "-", NULL);
 
 		/* We don't need to keep a copy of these around any more. */
-		free(cookie);
-		cookie = NULL;
+		cookiefile = NULL;
+		free(tmp);
 	}
-	return PAM_SUCCESS;
+cleanup:
+	/* Unset any old XAUTHORITY variable in the environment. */
+	if (retval != PAM_SUCCESS && getenv (XAUTHENV))
+		unsetenv (XAUTHENV);
+	free(cookiefile);
+	free(cookie);
+	free(xauthority);
+	return retval;
 }
 
 int

@@ -79,6 +79,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   patch from Red Hat (kukuk)
 * pam_limits: Correct support of unlimited limits, use correct type
   for rlimit value (Bug 945449 - kukuk, t8m)
+* pam_xauth: Unset the XAUTHORITY variable when requesting user is
+  root and target user is not (t8m)
 
 0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)
