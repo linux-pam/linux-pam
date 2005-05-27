@@ -86,7 +86,7 @@
  /* Delimiters for fields and for lists of users, ttys or hosts. */
 
 static const char *fs = ":";			/* field separator */
-static const char sep[] = ", \t";		/* list-element separator */
+static const char *sep = ", \t";		/* list-element separator */
 
  /* Constants to be used in assignments only, not in comparisons... */
 
@@ -128,6 +128,11 @@ static int parse_args(struct login_info *loginfo, int argc, const char **argv)
 
 	    /* the admin wants to override the default field separators */
 	    fs = argv[i]+9;
+
+	} else if (!strncmp("listsep=", argv[i], 8)) {
+
+	    /* the admin wants to override the default list separators */
+	    sep = argv[i]+8;
 
 	} else if (!strncmp("accessfile=", argv[i], 11)) {
 	    FILE *fp = fopen(11 + argv[i], "r");

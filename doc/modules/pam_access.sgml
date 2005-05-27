@@ -59,6 +59,7 @@ Provides logdaemon style login access control.
 
 <tt>accessfile=<it>/path/to/file.conf</it></tt>;
 <tt>fieldsep=<it>separators</it></tt>
+<tt>listsep=<it>separators</it></tt>
 
 <tag><bf>Description:</bf></tag>
 
@@ -88,6 +89,15 @@ field separator. Doing this is useful in conjuction with a system that
 wants to use pam_access with X based applications, since the
 <tt/PAM_TTY/ item is likely to be of the form "hostname:0" which
 includes a `:' character in its value.
+
+<item><tt>listsep=<it>separators</it></tt> -
+this option modifies the list separator character that
+<tt/pam_access/ will recognize when parsing the access configuration
+file. For example: <tt>listsep=,</tt> will cause the default ` ' and `\t'
+characters to be treated as part of a list element value and `,' becomes the
+only list element separator. Doing this is useful on a system with
+group information obtained from a Windows domain, where the default built-in
+groups "Domain Users", "Domain Admins" contain a space.
 
 </itemize> 
 
