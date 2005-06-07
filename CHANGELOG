@@ -83,6 +83,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   root and target user is not (t8m)
 * pam_access: Add listsep option to set list element separator by
   Richard Shaffer (t8m)
+* pam_limits: Don't reset process priority if none is specified in
+  the config file (Novell #81690 - kukuk)
 
 0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)

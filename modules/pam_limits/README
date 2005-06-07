@@ -6,8 +6,8 @@ THEORY OF OPERATION:
 
 First, make a root-only-readable file (/etc/security/limits.conf by
 default or INSTALLED_CONFILE defined Makefile) that describes the
-resource limits you wish to impose. No limits are imposed on UID 0
-accounts.
+resource limits you wish to impose. No priority changes and login 
+limit checks are done on UID 0 accounts.
 
 Each line describes a limit for a user in the form:
 

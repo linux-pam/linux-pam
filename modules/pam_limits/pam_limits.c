@@ -248,7 +248,10 @@ static int init_limits(struct pam_limit_s *pl)
 	}
     }
 
-    pl->priority = 0;
+    errno = 0;
+    pl->priority = getpriority (PRIO_PROCESS, 0);
+    if (pl->priority == -1 && errno != 0)
+      retval = !PAM_SUCCESS;
     pl->login_limit = -2;
     pl->login_limit_def = LIMITS_DEF_NONE;
 
