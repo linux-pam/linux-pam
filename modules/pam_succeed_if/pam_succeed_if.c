@@ -101,7 +101,7 @@ evaluate_num(const char *left, const char *right, int (*cmp)(int, int))
 	if (ret != PAM_SUCCESS) {
 		return ret;
 	}
-		
+
 	return cmp(l, r) ? PAM_SUCCESS : PAM_AUTH_ERR;
 }
 
@@ -330,7 +330,7 @@ evaluate(pam_handle_t *pamh, int debug,
 int
 pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
-	const char *prompt;
+	const void *prompt;
 	const char *user;
 	struct passwd *pwd;
 	int ret, i, count, use_uid, debug;
@@ -338,7 +338,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	int quiet_fail, quiet_succ;
 
 	/* Get the user prompt. */
-	ret = pam_get_item(pamh, PAM_USER_PROMPT, (const void**) &prompt);
+	ret = pam_get_item(pamh, PAM_USER_PROMPT, &prompt);
 	if ((ret != PAM_SUCCESS) || (prompt == NULL) || (strlen(prompt) == 0)) {
 		prompt = "login: ";
 	}

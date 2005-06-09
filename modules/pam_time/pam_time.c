@@ -36,11 +36,11 @@ static const char rcsid[] =
 #define PAM_TIME_BUFLEN        1000
 #define FIELD_SEPARATOR        ';'   /* this is new as of .02 */
 
-#ifdef TRUE 
-# undef TRUE 
-#endif 
-#ifdef FALSE 
-# undef FALSE 
+#ifdef TRUE
+# undef TRUE
+#endif
+#ifdef FALSE
+# undef FALSE
 #endif
 
 typedef enum { FALSE, TRUE } boolean;
@@ -134,7 +134,7 @@ static int read_field(int fd, char **buf, int *from, int *to)
 	    fd = -1;          /* end of file reached */
 	} else
 	    *to += i;
-    
+
 	/*
 	 * contract the buffer. Delete any comments, and replace all
 	 * multiple spaces with single commas
@@ -558,12 +558,13 @@ static int check_account(const char *service
 PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
 		     ,const char **argv)
 {
-    const char *service=NULL, *tty=NULL;
+    const void *service=NULL, *void_tty=NULL;
+    const char *tty;
     const char *user=NULL;
 
     /* set service name */
 
-    if (pam_get_item(pamh, PAM_SERVICE, (const void **)&service)
+    if (pam_get_item(pamh, PAM_SERVICE, &service)
 	!= PAM_SUCCESS || service == NULL) {
 	_log_err("cannot find the current service name");
 	return PAM_ABORT;
@@ -579,8 +580,8 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
 
     /* set tty name */
 
-    if (pam_get_item(pamh, PAM_TTY, (const void **)&tty) != PAM_SUCCESS
-	|| tty == NULL) {
+    if (pam_get_item(pamh, PAM_TTY, &void_tty) != PAM_SUCCESS
+	|| void_tty == NULL) {
 	D(("PAM_TTY not set, probing stdin"));
 	tty = ttyname(STDIN_FILENO);
 	if (tty == NULL) {
@@ -592,6 +593,8 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
 	    return PAM_ABORT;
 	}
     }
+    else
+      tty = void_tty;
 
     if (strncmp("/dev/",tty,5) == 0) {          /* strip leading /dev/ */
 	tty += 5;

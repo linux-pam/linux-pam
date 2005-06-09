@@ -22,13 +22,15 @@ static int converse(pam_handle_t *pamh,
 		    struct pam_response **response)
 {
     int retval;
+    const void* void_conv;
     const struct pam_conv *conv;
 
-    retval = pam_get_item(pamh, PAM_CONV, (const void **) &conv ) ;
+    retval = pam_get_item(pamh, PAM_CONV,  &void_conv ) ;
+    conv = void_conv;
     if (retval == PAM_SUCCESS)
 	retval = conv->conv(1, (const struct pam_message **)message,
 			    response, conv->appdata_ptr);
-	
+
     return retval; /* propagate error status */
 }
 
@@ -49,7 +51,7 @@ int conversation(pam_handle_t *pamh)
     struct pam_response *resp;
     int retval;
     char * token = NULL;
-    
+
     pmsg[0] = &msg[0];
     msg[0].msg_style = PAM_PROMPT_ECHO_OFF;
     msg[0].msg = "Password: ";
@@ -59,7 +61,7 @@ int conversation(pam_handle_t *pamh)
     retval = converse(pamh, pmsg, &resp);
 
     if (resp != NULL) {
-	const char * item;
+	const void *item;
 	/* interpret the response */
 	if (retval == PAM_SUCCESS) {     /* a good conversation */
 	    token = x_strdup(resp[0].resp);
@@ -72,11 +74,11 @@ int conversation(pam_handle_t *pamh)
 	retval = pam_set_item(pamh, PAM_AUTHTOK, token);
 	token = _pam_delete(token);   /* clean it up */
 	if ( (retval != PAM_SUCCESS) ||
-	     (retval = pam_get_item(pamh, PAM_AUTHTOK, (const void **)&item))
+	     (retval = pam_get_item(pamh, PAM_AUTHTOK, &item))
 	     != PAM_SUCCESS ) {
 	    return retval;
 	}
-	
+
 	_pam_drop_reply(resp, 1);
     } else {
 	retval = (retval == PAM_SUCCESS)

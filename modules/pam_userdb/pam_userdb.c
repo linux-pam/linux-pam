@@ -295,7 +295,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
 			int argc, const char **argv)
 {
      const char *username;
-     const char *password;
+     const void *password;
      char *database = NULL;
      char *cryptmode = NULL;
      int retval = PAM_AUTH_ERR, ctrl;
@@ -329,7 +329,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
       * user anyway, so check for one and handle a failure for that case.  If
       * use_authtok wasn't specified, then we've already asked once and needn't
       * do so again. */
-     retval = pam_get_item(pamh, PAM_AUTHTOK, (const void **) &password);
+     retval = pam_get_item(pamh, PAM_AUTHTOK, &password);
      if ((retval != PAM_SUCCESS) && ((ctrl & PAM_USE_AUTHTOK_ARG) != 0)) {
         retval = conversation(pamh);
         if (retval != PAM_SUCCESS) {
@@ -340,7 +340,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
      }
 
      /* Get the password */
-     retval = pam_get_item(pamh, PAM_AUTHTOK, (const void **)&password);
+     retval = pam_get_item(pamh, PAM_AUTHTOK, &password);
      if (retval != PAM_SUCCESS) {
 	 _pam_log(LOG_ERR, "Could not retrieve user's password");
 	 return -2;

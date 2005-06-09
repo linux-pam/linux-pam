@@ -17,21 +17,22 @@
 const char *_pammodutil_getlogin(pam_handle_t *pamh)
 {
     int status;
-    char *logname;
+    const void *logname;
+    const void *void_curr_tty;
     const char *curr_tty;
     char *curr_user;
     struct utmp *ut, line;
 
-    status = pam_get_data(pamh, _PAMMODUTIL_GETLOGIN,
-			  (const void **) &logname);
+    status = pam_get_data(pamh, _PAMMODUTIL_GETLOGIN, &logname);
     if (status == PAM_SUCCESS) {
 	return logname;
     }
 
-    status = pam_get_item(pamh, PAM_TTY, (const void **) &curr_tty);
-    if ((status != PAM_SUCCESS) || (curr_tty == NULL)) {
-	curr_tty = ttyname(0);
-    }
+    status = pam_get_item(pamh, PAM_TTY, &void_curr_tty);
+    if ((status != PAM_SUCCESS) || (void_curr_tty == NULL))
+      curr_tty = ttyname(0);
+    else
+      curr_tty = (const char*)void_curr_tty;
 
     if ((curr_tty == NULL) || memcmp(curr_tty, "/dev/", 5)) {
 	return NULL;
@@ -52,7 +53,7 @@ const char *_pammodutil_getlogin(pam_handle_t *pamh)
 	goto clean_up_and_go_home;
     }
 
-    strncpy(curr_user, ut->ut_user, sizeof(ut->ut_user)); 
+    strncpy(curr_user, ut->ut_user, sizeof(ut->ut_user));
     /* calloc already zeroed the memory */
 
     status = pam_set_data(pamh, _PAMMODUTIL_GETLOGIN, curr_user,

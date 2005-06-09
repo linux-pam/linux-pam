@@ -1,7 +1,7 @@
 /* pam_dispatch.c - handles module function dispatch */
 
 /*
- * Copyright (c) 1998 Andrew G. Morgan <morgan@kernel.org>
+ * Copyright (c) 1998, 2005 Andrew G. Morgan <morgan@kernel.org>
  *
  * $Id$
  */
@@ -40,11 +40,11 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
     IF_NO_PAMH("_pam_dispatch_aux", pamh, PAM_SYSTEM_ERR);
 
     if (h == NULL) {
-	const char *service=NULL;
+        const void *service=NULL;
 
-	(void) pam_get_item(pamh, PAM_SERVICE, (const void **)&service);
+	(void) pam_get_item(pamh, PAM_SERVICE, &service);
 	_pam_system_log(LOG_ERR, "no modules loaded for `%s' service",
-			service ? service:"<unknown>" );
+			service ? (const char *)service:"<unknown>" );
 	service = NULL;
 	return PAM_MUST_FAIL_CODE;
     }
@@ -237,7 +237,7 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
                 	}
 		    }
 		}
-		
+
 		/* this means that we need to skip #action stacked modules */
 		do {
  		    h = h->next;
@@ -381,4 +381,3 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
 
     return retval;
 }
-

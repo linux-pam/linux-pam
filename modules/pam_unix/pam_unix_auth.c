@@ -107,7 +107,8 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 {
 	unsigned int ctrl;
 	int retval, *ret_data = NULL;
-	const char *name, *p;
+	const char *name;
+	const void *p;
 
 	D(("called."));
 
@@ -197,7 +198,7 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t * pamh, int flags
 			      ,int argc, const char **argv)
 {
 	int retval;
-	int *pretval = NULL;
+	const void *pretval = NULL;
 
 	D(("called."));
 
@@ -206,9 +207,9 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t * pamh, int flags
 	D(("recovering return code from auth call"));
 	/* We will only find something here if UNIX_LIKE_AUTH is set --
 	   don't worry about an explicit check of argv. */
-	pam_get_data(pamh, "unix_setcred_return", (const void **) &pretval);
+	pam_get_data(pamh, "unix_setcred_return", &pretval);
 	if(pretval) {
-		retval = *pretval;
+ 	        retval = *(const int *)pretval;
 		pam_set_data(pamh, "unix_setcred_return", NULL, NULL);
 		D(("recovered data indicates that old retval was %d", retval));
 	}

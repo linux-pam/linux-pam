@@ -72,7 +72,9 @@
 #include <selinux/selinux.h>
 #include <selinux/context.h>
 
-static int send_text(  struct pam_conv *conv, const char *text, int debug) {
+static int
+send_text (const struct pam_conv *conv, const char *text, int debug)
+{
   struct pam_message message;
   const struct pam_message *messages[] = {&message};
   struct pam_response *responses;
@@ -93,8 +95,10 @@ static int send_text(  struct pam_conv *conv, const char *text, int debug) {
  * This function sends a message to the user and gets the response. The caller
  * is responsible for freeing the responses.
  */
-static int query_response(  struct pam_conv *conv, const char *text,
-                            struct pam_response **responses, int debug) {
+static int
+query_response (const struct pam_conv *conv, const char *text,
+		struct pam_response **responses, int debug)
+{
   struct pam_message message;
   const struct pam_message *messages[] = {&message};
 
@@ -112,10 +116,12 @@ static security_context_t
 select_context (pam_handle_t *pamh, security_context_t* contextlist,
 		int debug)
 {
-  struct pam_conv *conv;
+  const void *void_conv;
+  const struct pam_conv *conv;
 
-  if (pam_get_item(pamh, PAM_CONV, (const void**) &conv) == PAM_SUCCESS &&
-	conv) {
+  if (pam_get_item(pamh, PAM_CONV, &void_conv) == PAM_SUCCESS &&
+      void_conv) {
+    conv = void_conv;
     if (conv->conv != NULL) {
       struct pam_response *responses;
       char *text=calloc(PATH_MAX,1);
@@ -171,14 +177,16 @@ select_context (pam_handle_t *pamh, security_context_t* contextlist,
 }
 
 static security_context_t
-manual_context (pam_handle_t *pamh, char *user, int debug)
+manual_context (pam_handle_t *pamh, const char *user, int debug)
 {
-  struct pam_conv *conv;
+  const void *void_conv;
+  const struct pam_conv *conv;
   security_context_t newcon;
   context_t new_context;
   int mls_enabled = is_selinux_mls_enabled();
 
-  if (pam_get_item(pamh, PAM_CONV, (const void**) &conv) == PAM_SUCCESS) {
+  if (pam_get_item(pamh, PAM_CONV, &void_conv) == PAM_SUCCESS) {
+    conv = void_conv;
     if (conv && conv->conv != NULL) {
       struct pam_response *responses;
 
@@ -329,11 +337,13 @@ static char *ttyn=NULL;
 static void
 verbose_message(pam_handle_t *pamh, char *msg, int debug)
 {
-  struct pam_conv *conv;
+  const void *void_conv;
+  const struct pam_conv *conv;
   struct pam_message message;
   const struct pam_message *messages[] = {&message};
   struct pam_response *responses;
-  if (pam_get_item(pamh, PAM_CONV, (const void**) &conv) == PAM_SUCCESS) {
+  if (pam_get_item(pamh, PAM_CONV, &void_conv) == PAM_SUCCESS) {
+    conv = void_conv;
     if (conv && conv->conv != NULL) {
       char text[PATH_MAX];
 
@@ -374,11 +384,11 @@ PAM_EXTERN int
 pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
   int i, debug = 0, ttys=1, has_tty=isatty(0), verbose=0, multiple=0, close_session=0;
-  int ret=0;
-  security_context_t* contextlist=NULL;
+  int ret = 0;
+  security_context_t* contextlist = NULL;
   int num_contexts = 0;
-  char *username=NULL;
-  const char *tty=NULL;
+  const void *username = NULL;
+  const void *tty = NULL;
 
   /* Parse arguments. */
   for (i = 0; i < argc; i++) {
@@ -409,7 +419,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
   if (!(selinux_enabled = is_selinux_enabled()>0) )
       return PAM_SUCCESS;
 
-  if (pam_get_item(pamh, PAM_USER, (const void**)&username) != PAM_SUCCESS ||
+  if (pam_get_item(pamh, PAM_USER, &username) != PAM_SUCCESS ||
                    username == NULL) {
     return PAM_AUTH_ERR;
   }
@@ -426,11 +436,14 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
     if (has_tty) {
       user_context = manual_context(pamh,username,debug);
       if (user_context == NULL) {
-	syslog (LOG_ERR, _("Unable to get valid context for %s"), username);
+	syslog (LOG_ERR, _("Unable to get valid context for %s"),
+		(const char *)username);
 	return PAM_AUTH_ERR;
       }
     } else {
-	syslog (LOG_ERR, _("Unable to get valid context for %s, No valid tty"), username);
+	syslog (LOG_ERR,
+		_("Unable to get valid context for %s, No valid tty"),
+		(const char *)username);
 	return PAM_AUTH_ERR;
     }
   }
@@ -439,7 +452,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
   }
   if (ttys) {
     /* Get the name of the terminal. */
-    if (pam_get_item(pamh, PAM_TTY, (const void**)&tty) != PAM_SUCCESS) {
+    if (pam_get_item(pamh, PAM_TTY, &tty) != PAM_SUCCESS) {
       tty = NULL;
     }
 
@@ -467,13 +480,13 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
   }
   if (ret) {
     syslog(LOG_ERR, _("Error!  Unable to set %s executable context %s."),
-           username, user_context);
+           (const char *)username, user_context);
     freecon(user_context);
     return PAM_AUTH_ERR;
   } else {
     if (debug)
       syslog(LOG_NOTICE, _("%s: set %s security context to %s"),MODULE,
-             username, user_context);
+             (const char *)username, user_context);
   }
   freecon(user_context);
 

@@ -188,7 +188,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 				int argc, const char **argv)
 {
 	unsigned int ctrl;
-	const char *uname;
+	const void *uname;
 	int retval, daysleft;
 	time_t curdays;
 	struct spwd *spent;
@@ -199,7 +199,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 
 	ctrl = _set_ctrl(pamh, flags, NULL, argc, argv);
 
-	retval = pam_get_item(pamh, PAM_USER, (const void **) &uname);
+	retval = pam_get_item(pamh, PAM_USER, &uname);
 	D(("user = `%s'", uname));
 	if (retval != PAM_SUCCESS || uname == NULL) {
 		_log_err(LOG_ALERT, pamh

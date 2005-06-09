@@ -130,7 +130,8 @@ static int process_args(pam_handle_t *pamh
 	*evp = NULL;
     } else {
 	char **levp;
-	const char *tmp;
+	const char *user = NULL;
+	const void *tmp;
 	int i,size, retval;
 
 	*filtername = *++argv;
@@ -177,7 +178,7 @@ static int process_args(pam_handle_t *pamh
 #define SERVICE_OFFSET    8                    /*  strlen('SERVICE=');  */
 #define SERVICE_NAME      "SERVICE="
 
-	retval = pam_get_item(pamh, PAM_SERVICE, (const void **)&tmp);
+	retval = pam_get_item(pamh, PAM_SERVICE, &tmp);
 	if (retval != PAM_SUCCESS || tmp == NULL) {
 	    _pam_log(LOG_CRIT,"service name not found");
 	    if (levp) {
@@ -207,12 +208,11 @@ static int process_args(pam_handle_t *pamh
 #define USER_OFFSET    5                          /*  strlen('USER=');  */
 #define USER_NAME      "USER="
 
-	tmp = NULL;
-	pam_get_user(pamh, &tmp, NULL);
-	if (tmp == NULL) {
-	    tmp = "<unknown>";
+	pam_get_user(pamh, &user, NULL);
+	if (user == NULL) {
+	    user = "<unknown>";
 	}
-	size = USER_OFFSET+strlen(tmp);
+	size = USER_OFFSET+strlen(user);
 
 	levp[2] = (char *) malloc(size+1);
 	if (levp[2] == NULL) {
@@ -226,7 +226,7 @@ static int process_args(pam_handle_t *pamh
 	}
 
 	strncpy(levp[2],USER_NAME,USER_OFFSET);
-	strcpy(levp[2]+USER_OFFSET, tmp);
+	strcpy(levp[2]+USER_OFFSET, user);
 	levp[2][size] = '\0';                      /* <NUL> terminate */
 
 	/* the "USER" variable */
@@ -595,9 +595,9 @@ static int set_filter(pam_handle_t *pamh, int flags, int ctrl
 
 static int set_the_terminal(pam_handle_t *pamh)
 {
-    const char *tty;
+    const void *tty;
 
-    if (pam_get_item(pamh, PAM_TTY, (const void **)&tty) != PAM_SUCCESS
+    if (pam_get_item(pamh, PAM_TTY, &tty) != PAM_SUCCESS
 	|| tty == NULL) {
 	tty = ttyname(STDIN_FILENO);
 	if (tty == NULL) {
@@ -642,7 +642,7 @@ static int need_a_filter(pam_handle_t *pamh
 			    , (const char **)evp, filterfile);
     }
 
-    if (retval == PAM_SUCCESS 
+    if (retval == PAM_SUCCESS
 	&& !(ctrl & NON_TERM) && (ctrl & NEW_TERM)) {
 	retval = set_the_terminal(pamh);
 	if (retval != PAM_SUCCESS) {

@@ -77,7 +77,8 @@ static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
 {
     int retval = PAM_AUTH_ERR;
     const char *username;
-    char *uttyname;
+    const char *uttyname;
+    const void *void_uttyname;
     char ttyfileline[256];
     char ptname[256];
     struct stat ttyfileinfo;
@@ -107,7 +108,8 @@ static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
 	return PAM_SUCCESS;
     }
 
-    retval = pam_get_item(pamh, PAM_TTY, (const void **)&uttyname);
+    retval = pam_get_item(pamh, PAM_TTY, &void_uttyname);
+    uttyname = void_uttyname;
     if (retval != PAM_SUCCESS || uttyname == NULL) {
         if (ctrl & PAM_DEBUG_ARG) {
             _pam_log(LOG_WARNING, "cannot determine user's tty");

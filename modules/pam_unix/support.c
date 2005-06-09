@@ -1,4 +1,4 @@
-/* 
+/*
  * $Id$
  *
  * Copyright information at end of file.
@@ -40,11 +40,11 @@ extern char *bigcrypt(const char *key, const char *salt);
 
 void _log_err(int err, pam_handle_t *pamh, const char *format,...)
 {
-	char *service = NULL;
+	const void *service = NULL;
 	char logname[256];
 	va_list args;
 
-	pam_get_item(pamh, PAM_SERVICE, (const void **) &service);
+	pam_get_item(pamh, PAM_SERVICE, &service);
 	if (service) {
 		strncpy(logname, service, sizeof(logname));
 		logname[sizeof(logname) - 1 - strlen("(pam_unix)")] = '\0';
@@ -67,11 +67,13 @@ static int converse(pam_handle_t * pamh, int ctrl, int nargs
 		    ,struct pam_response **response)
 {
 	int retval;
-	struct pam_conv *conv;
+	const void *void_conv;
+	const struct pam_conv *conv;
 
 	D(("begin to converse"));
 
-	retval = pam_get_item(pamh, PAM_CONV, (const void **) &conv);
+	retval = pam_get_item(pamh, PAM_CONV, &void_conv);
+	conv = void_conv;
 	if (retval == PAM_SUCCESS) {
 
 		retval = conv->conv(nargs, (const struct pam_message **) message
@@ -230,10 +232,10 @@ struct _pam_failed_auth {
 static void _cleanup_failures(pam_handle_t * pamh, void *fl, int err)
 {
 	int quiet;
-	const char *service = NULL;
-	const char *ruser = NULL;
-	const char *rhost = NULL;
-	const char *tty = NULL;
+	const void *service = NULL;
+	const void *ruser = NULL;
+	const void *rhost = NULL;
+	const void *tty = NULL;
 	struct _pam_failed_auth *failure;
 
 	D(("called"));
@@ -249,13 +251,13 @@ static void _cleanup_failures(pam_handle_t * pamh, void *fl, int err)
 			/* log the number of authentication failures */
 			if (failure->count > 1) {
 				(void) pam_get_item(pamh, PAM_SERVICE,
-						    (const void **)&service);
+						    &service);
 				(void) pam_get_item(pamh, PAM_RUSER,
-						    (const void **)&ruser);
+						    &ruser);
 				(void) pam_get_item(pamh, PAM_RHOST,
-						    (const void **)&rhost);
+						    &rhost);
 				(void) pam_get_item(pamh, PAM_TTY,
-						    (const void **)&tty);
+						    &tty);
 				_log_err(LOG_NOTICE, pamh,
 				         "%d more authentication failure%s; "
 				         "logname=%s uid=%d euid=%d "
@@ -476,9 +478,9 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned int ctrl, const char *name)
 
 	if (pwd != NULL) {
 		if (strcmp( pwd->pw_passwd, "*NP*" ) == 0)
-		{ /* NIS+ */                 
+		{ /* NIS+ */
 			uid_t save_euid, save_uid;
-	
+
 			save_euid = geteuid();
 			save_uid = getuid();
 			if (save_uid == pwd->pw_uid)
@@ -493,7 +495,7 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned int ctrl, const char *name)
 						return 0;
 				}
 			}
-	
+
 			spwdent = _pammodutil_getspnam (pamh, name);
 			if (save_uid == pwd->pw_uid)
 				setreuid( save_uid, save_euid );
@@ -583,7 +585,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	  for (i=2; i < rlim.rlim_max; i++) {
 		if (fds[0] != i)
 	  	   close(i);
-	  }	
+	  }
 	}
 	/* exec binary helper */
 	args[0] = x_strdup(CHKPWD_HELPER);
@@ -662,9 +664,9 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 
 	if (pwd != NULL) {
 		if (strcmp( pwd->pw_passwd, "*NP*" ) == 0)
-		{ /* NIS+ */                 
+		{ /* NIS+ */
 			uid_t save_euid, save_uid;
-	
+
 			save_euid = geteuid();
 			save_uid = getuid();
 			if (save_uid == pwd->pw_uid)
@@ -678,7 +680,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 						return PAM_CRED_INSUFFICIENT;
 				}
 			}
-	
+
 			spwdent = _pammodutil_getspnam (pamh, name);
 			if (save_uid == pwd->pw_uid)
 				setreuid( save_uid, save_euid );
@@ -710,7 +712,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 
 	retval = PAM_SUCCESS;
 	if (pwd == NULL || salt == NULL || !strcmp(salt, "x") || ((salt[0] == '#') && (salt[1] == '#') && !strcmp(salt + 2, name))) {
-	  
+
 		if (geteuid() || SELINUX_ENABLED) {
 			/* we are not root perhaps this is the reason? Run helper */
 			D(("running helper binary"));
@@ -804,6 +806,8 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			if (new != NULL) {
 
 			    const char *login_name;
+			    const void *void_old;
+
 
 			    login_name = _pammodutil_getlogin(pamh);
 			    if (login_name == NULL) {
@@ -816,7 +820,8 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 				new->name = x_strdup(login_name);
 
 				/* any previous failures for this user ? */
-				pam_get_data(pamh, data_name, (const void **) &old);
+				pam_get_data(pamh, data_name, &void_old);
+				old = void_old;
 
 				if (old != NULL) {
 					new->count = old->count + 1;
@@ -824,19 +829,19 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 						retval = PAM_MAXTRIES;
 					}
 				} else {
-					const char *service=NULL;
-					const char *ruser=NULL;
-					const char *rhost=NULL;
-					const char *tty=NULL;
+					const void *service=NULL;
+					const void *ruser=NULL;
+					const void *rhost=NULL;
+					const void *tty=NULL;
 
 					(void) pam_get_item(pamh, PAM_SERVICE,
-							    (const void **)&service);
+							    &service);
 					(void) pam_get_item(pamh, PAM_RUSER,
-							    (const void **)&ruser);
+							    &ruser);
 					(void) pam_get_item(pamh, PAM_RHOST,
-							    (const void **)&rhost);
+							    &rhost);
 					(void) pam_get_item(pamh, PAM_TTY,
-							    (const void **)&tty);
+							    &tty);
 
 					_log_err(LOG_NOTICE, pamh,
 					         "authentication failure; "
@@ -886,7 +891,7 @@ int _unix_read_password(pam_handle_t * pamh
 			,const char *prompt1
 			,const char *prompt2
 			,const char *data_name
-			,const char **pass)
+			,const void **pass)
 {
 	int authtok_flag;
 	int retval;
@@ -911,7 +916,7 @@ int _unix_read_password(pam_handle_t * pamh
 	 */
 
 	if (on(UNIX_TRY_FIRST_PASS, ctrl) || on(UNIX_USE_FIRST_PASS, ctrl)) {
-		retval = pam_get_item(pamh, authtok_flag, (const void **) pass);
+		retval = pam_get_item(pamh, authtok_flag, pass);
 		if (retval != PAM_SUCCESS) {
 			/* very strange. */
 			_log_err(LOG_ALERT, pamh
@@ -1016,8 +1021,7 @@ int _unix_read_password(pam_handle_t * pamh
 		retval = pam_set_item(pamh, authtok_flag, token);
 		_pam_delete(token);	/* clean it up */
 		if (retval != PAM_SUCCESS
-		    || (retval = pam_get_item(pamh, authtok_flag
-					      ,(const void **) pass))
+		    || (retval = pam_get_item(pamh, authtok_flag, pass))
 		    != PAM_SUCCESS) {
 
 			*pass = NULL;
@@ -1079,13 +1083,13 @@ int _unix_shadowed(const struct passwd *pwd)
  * 3. The name of the author may not be used to endorse or promote
  *    products derived from this software without specific prior
  *    written permission.
- * 
+ *
  * ALTERNATIVELY, this product may be distributed under the terms of
  * the GNU Public License, in which case the provisions of the GPL are
  * required INSTEAD OF the above restrictions.  (This clause is
  * necessary due to a potential bad interaction between the GPL and
  * the restrictions contained in a BSD-style copyright.)
- * 
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE

@@ -80,7 +80,8 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 
 	char *mtmp=NULL;
 	struct passwd *user_pwd;
-	struct pam_conv *conversation;
+	const void *void_conv;
+	const struct pam_conv *conversation;
 	struct pam_message message;
 	struct pam_message *pmessage = &message;
 	struct pam_response *resp = NULL;
@@ -121,13 +122,15 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 		mtmp[st.st_size] = '\000';
 
 		/*
-		 * Use conversation function to give user contents 
+		 * Use conversation function to give user contents
 		 * of /etc/nologin
 		 */
 
-		if (pam_get_item(pamh, PAM_CONV, (const void **)&conversation)
-		     == PAM_SUCCESS && conversation && conversation->conv) {
-			(void) conversation->conv(1, 
+		if (pam_get_item(pamh, PAM_CONV, &void_conv)
+		    == PAM_SUCCESS && void_conv &&
+		    ((const struct pam_conv *)void_conv)->conv) {
+		        conversation = void_conv;
+			(void) conversation->conv(1,
 				(const struct pam_message **)&pmessage,
 				&resp, conversation->appdata_ptr);
 

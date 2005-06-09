@@ -5,7 +5,7 @@
  *
  * Based off of:
  * $Id$
- * 
+ *
  * Written by Michael K. Johnson <johnsonm@redhat.com> 1996/10/24
  *
  */
@@ -54,7 +54,8 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
      int fd;
      char *mtmp=NULL;
      char *motd_path=NULL;
-     struct pam_conv *conversation;
+     const void *void_conv;
+     const struct pam_conv *conversation;
      struct pam_message message;
      struct pam_message *pmessage = &message;
      struct pam_response *resp = NULL;
@@ -103,8 +104,9 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
 	   close(fd);
 
  	   /* Use conversation function to give user contents of motd */
-	   if (pam_get_item(pamh, PAM_CONV, (const void **)&conversation) ==
-	               PAM_SUCCESS && conversation) {
+	   if (pam_get_item(pamh, PAM_CONV, &void_conv) ==
+	               PAM_SUCCESS && void_conv) {
+	       conversation = void_conv;
 	       conversation->conv(1, (const struct pam_message **)&pmessage,
 	            &resp, conversation->appdata_ptr);
 	       if (resp)

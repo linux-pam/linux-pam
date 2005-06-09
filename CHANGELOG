@@ -85,6 +85,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   Richard Shaffer (t8m)
 * pam_limits: Don't reset process priority if none is specified in
   the config file (Novell #81690 - kukuk)
+* Fix all occurrence of dereferencing type-punned pointer will break
+  strict-aliasing rules warnings (kukuk)
 
 0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)

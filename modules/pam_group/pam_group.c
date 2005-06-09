@@ -776,8 +776,9 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags
 PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags
 			      , int argc, const char **argv)
 {
-    const char *service=NULL, *tty=NULL;
+    const void *service=NULL, *void_tty=NULL;
     const char *user=NULL;
+    const char *tty;
     int retval;
     unsigned setting;
 
@@ -791,7 +792,7 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags
 
     /* set service name */
 
-    if (pam_get_item(pamh, PAM_SERVICE, (const void **)&service)
+    if (pam_get_item(pamh, PAM_SERVICE, &service)
 	!= PAM_SUCCESS || service == NULL) {
 	_log_err("cannot find the current service name");
 	return PAM_ABORT;
@@ -807,8 +808,8 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags
 
     /* set tty name */
 
-    if (pam_get_item(pamh, PAM_TTY, (const void **)&tty) != PAM_SUCCESS
-	|| tty == NULL) {
+    if (pam_get_item(pamh, PAM_TTY, &void_tty) != PAM_SUCCESS
+	|| void_tty == NULL) {
 	D(("PAM_TTY not set, probing stdin"));
 	tty = ttyname(STDIN_FILENO);
 	if (tty == NULL) {
@@ -820,6 +821,8 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags
 	    return PAM_ABORT;
 	}
     }
+    else
+      tty = (const char *) void_tty;
 
     if (strncmp("/dev/",tty,5) == 0) {          /* strip leading /dev/ */
 	tty += 5;

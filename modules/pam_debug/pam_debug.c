@@ -37,11 +37,14 @@
 static int state(pam_handle_t *pamh, const char *text)
 {
     int retval;
-    struct pam_conv *conv;
+    const void *void_conv;
+    const struct pam_conv *conv;
     struct pam_message msg[1], *mesg[1];
     struct pam_response *response;
 
-    retval = pam_get_item(pamh, PAM_CONV, (const void **)&conv);
+    retval = pam_get_item(pamh, PAM_CONV, &void_conv);
+    conv = (const struct pam_conv *) void_conv;
+
     if ((retval != PAM_SUCCESS) || (conv == NULL)) {
 	D(("failed to obtain conversation function"));
 	return PAM_ABORT;
@@ -114,7 +117,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
 }
 
 PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc, 
+int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
 		   const char **argv)
 {
     return parse_args(PAM_SUCCESS, "cred", pamh, argc, argv);

@@ -186,10 +186,11 @@ static int converse(pam_handle_t *pamh, int ctrl, int nargs,
                     struct pam_response **response)
 {
     int retval;
-    struct pam_conv *conv = NULL;
+    const void *void_conv = NULL;
+    const struct pam_conv *conv;
 
-    retval = pam_get_item(pamh, PAM_CONV, (const void **) &conv);
-
+    retval = pam_get_item(pamh, PAM_CONV, &void_conv);
+    conv = (const struct pam_conv *)void_conv;
     if ( retval == PAM_SUCCESS && conv ) {
         retval = conv->conv(nargs, (const struct pam_message **)message,
 			                response, conv->appdata_ptr);
@@ -507,7 +508,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
                                   const char *pass_new)
 {
     const char *msg = NULL;
-    const char *user;
+    const void *user;
     int retval;
 
     if (pass_new == NULL || (pass_old && !strcmp(pass_old,pass_new))) {
@@ -525,7 +526,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
      */
     msg = password_check(opt, pass_old,pass_new);
     if (!msg) {
-	retval = pam_get_item(pamh, PAM_USER, (const void **)&user);
+	retval = pam_get_item(pamh, PAM_USER, &user);
 	if (retval != PAM_SUCCESS || user == NULL) {
 	    if (ctrl & PAM_DEBUG_ARG) {
 		_pam_log(LOG_ERR,"Can not get username");
@@ -600,15 +601,15 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
     } else if (flags & PAM_UPDATE_AUTHTOK) {
         int retval;
-        char *token1, *token2, *oldtoken;
+        char *token1, *token2;
+	const void *oldtoken;
         struct pam_message msg[1],*pmsg[1];
         struct pam_response *resp;
         const char *cracklib_dictpath = CRACKLIB_DICTPATH;
         char prompt[BUFSIZ];
 
 	D(("do update"));
-        retval = pam_get_item(pamh, PAM_OLDAUTHTOK,
-                              (const void **)&oldtoken);
+        retval = pam_get_item(pamh, PAM_OLDAUTHTOK, &oldtoken);
         if (retval != PAM_SUCCESS) {
             if (ctrl & PAM_DEBUG_ARG)
                 _pam_log(LOG_ERR,"Can not get old passwd");
@@ -637,9 +638,9 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
          */
 
 	if (options.use_authtok == 1) {
-	    const char *item = NULL;
+	    const void *item = NULL;
 
-	    retval = pam_get_item(pamh, PAM_AUTHTOK, (const void **) &item);
+	    retval = pam_get_item(pamh, PAM_AUTHTOK, &item);
 	    if (retval != PAM_SUCCESS) {
 		/* very strange. */
 		_pam_log(LOG_ALERT
@@ -788,7 +789,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
              */
 
 	    {
-		const char *item = NULL;
+		const void *item = NULL;
 
 		retval = pam_set_item(pamh, PAM_AUTHTOK, token1);
 
@@ -797,8 +798,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		token2 = _pam_delete(token2);
 
 		if ( (retval != PAM_SUCCESS) ||
-		     ((retval = pam_get_item(pamh, PAM_AUTHTOK,
-					     (const void **)&item)
+		     ((retval = pam_get_item(pamh, PAM_AUTHTOK, &item)
 			 ) != PAM_SUCCESS) ) {
                     _pam_log(LOG_CRIT, "error manipulating password");
                     continue;

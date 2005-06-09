@@ -145,11 +145,13 @@ static int converse(pam_handle_t *pamh, int ctrl, int nargs
 		    , struct pam_response **response)
 {
     int retval;
-    struct pam_conv *conv;
+    const void *void_conv;
+    const struct pam_conv *conv;
 
     D(("begin to converse"));
 
-    retval = pam_get_item( pamh, PAM_CONV, (const void **) &conv ) ; 
+    retval = pam_get_item( pamh, PAM_CONV, &void_conv ) ;
+    conv = (const struct pam_conv *)void_conv;
     if ( retval == PAM_SUCCESS && conv) {
 
 	retval = conv->conv(nargs, ( const struct pam_message ** ) message
@@ -325,8 +327,9 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 	/* write latest value */
 	{
 	    time_t ll_time;
-	    const char *remote_host=NULL
-		, *terminal_line=DEFAULT_TERM;
+	    const void *remote_host=NULL
+		, *void_terminal_line=DEFAULT_TERM;
+	    const char *terminal_line;
 
 	    /* set this login date */
 	    D(("set the most recent login time"));
@@ -335,7 +338,7 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
             last_login.ll_time = ll_time;
 
 	    /* set the remote host */
-	    (void) pam_get_item(pamh, PAM_RHOST, (const void **)&remote_host);
+	    (void) pam_get_item(pamh, PAM_RHOST, &remote_host);
 	    if (remote_host == NULL) {
 		remote_host = DEFAULT_HOST;
 	    }
@@ -347,7 +350,8 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 	    remote_host = NULL;
 
 	    /* set the terminal line */
-	    (void) pam_get_item(pamh, PAM_TTY, (const void **)&terminal_line);
+	    (void) pam_get_item(pamh, PAM_TTY, &void_terminal_line);
+	    terminal_line = void_terminal_line;
 	    D(("terminal = %s", terminal_line));
 	    if (terminal_line == NULL) {
 		terminal_line = DEFAULT_TERM;
@@ -404,7 +408,7 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc
 			, const char **argv)
 {
     int retval, ctrl;
-    const char *user;
+    const void *user;
     const struct passwd *pwd;
     uid_t uid;
 
@@ -417,8 +421,8 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc
 
     /* which user? */
 
-    retval = pam_get_item(pamh, PAM_USER, (const void **)&user);
-    if (retval != PAM_SUCCESS || user == NULL || *user == '\0') {
+    retval = pam_get_item(pamh, PAM_USER, &user);
+    if (retval != PAM_SUCCESS || user == NULL || *(const char *)user == '\0') {
 	_log_err(LOG_NOTICE, "user unknown");
 	return PAM_USER_UNKNOWN;
     }

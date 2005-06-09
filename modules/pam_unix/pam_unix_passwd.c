@@ -738,7 +738,8 @@ static int _update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat)
     }
 }
 
-static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
+static int _do_setpass(pam_handle_t* pamh, const char *forwho,
+		       const char *fromwhat,
 		       char *towhat, unsigned int ctrl, int remember)
 {
 	struct passwd *pwd = NULL;
@@ -754,7 +755,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 		retval = PAM_AUTHTOK_ERR;
 		goto done;
 	}
-	
+
 	if (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, forwho, 0, 1)) {
 	    if ((master=getNISserver(pamh)) != NULL) {
 		struct timeval timeout;
@@ -777,7 +778,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 		yppwd.newpw.pw_gecos = pwd->pw_gecos;
 		yppwd.newpw.pw_dir = pwd->pw_dir;
 		yppwd.newpw.pw_shell = pwd->pw_shell;
-		yppwd.oldpass = fromwhat ? fromwhat : "";
+		yppwd.oldpass = fromwhat ? strdup (fromwhat) : strdup ("");
 		yppwd.newpw.pw_passwd = towhat;
 
 		D(("Set password %s for %s", yppwd.newpw.pw_passwd, forwho));
@@ -796,6 +797,8 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 				(xdrproc_t) xdr_yppasswd, (char *) &yppwd,
 				(xdrproc_t) xdr_int, (char *) &status,
 				timeout);
+
+		free (yppwd.oldpass);
 
 		if (err) {
 			_make_remark(pamh, ctrl, PAM_TEXT_INFO,
@@ -862,7 +865,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho, char *fromwhat,
 	}
 
 
-done:	
+done:
 #ifdef USE_LCKPWDF
 	ulckpwdf();
 #endif
@@ -943,7 +946,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 				  ,const char *pass_old
 				  ,const char *pass_new)
 {
-	const char *user;
+	const void *user;
 	const char *remark = NULL;
 	int retval = PAM_SUCCESS;
 
@@ -964,7 +967,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 	 * checking this would be the place - AGM
 	 */
 
-	retval = pam_get_item(pamh, PAM_USER, (const void **) &user);
+	retval = pam_get_item(pamh, PAM_USER, &user);
 	if (retval != PAM_SUCCESS) {
 		if (on(UNIX_DEBUG, ctrl)) {
 			_log_err(LOG_ERR, pamh, "Can not get username");
@@ -1007,7 +1010,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 	/* <DO NOT free() THESE> */
 	const char *user;
-	char *pass_old, *pass_new;
+	const void *pass_old, *pass_new;
 	/* </DO NOT free() THESE> */
 
 	D(("called."));
@@ -1109,7 +1112,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 					     ,"(current) UNIX password: "
 						     ,NULL
 						     ,_UNIX_OLD_AUTHTOK
-					     ,(const char **) &pass_old);
+					     ,&pass_old);
 			free(Announce);
 
 			if (retval != PAM_SUCCESS) {
@@ -1168,10 +1171,10 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 		if (off(UNIX_NOT_SET_PASS, ctrl)) {
 			retval = pam_get_item(pamh, PAM_OLDAUTHTOK
-					      ,(const void **) &pass_old);
+					      ,&pass_old);
 		} else {
 			retval = pam_get_data(pamh, _UNIX_OLD_AUTHTOK
-					      ,(const void **) &pass_old);
+					      ,&pass_old);
 			if (retval == PAM_NO_MODULE_DATA) {
 				retval = PAM_SUCCESS;
 				pass_old = NULL;
@@ -1204,7 +1207,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 					     ,"Enter new UNIX password: "
 					    ,"Retype new UNIX password: "
 						     ,_UNIX_NEW_AUTHTOK
-					     ,(const char **) &pass_new);
+					     ,&pass_new);
 
 			if (retval != PAM_SUCCESS) {
 				if (on(UNIX_DEBUG, ctrl)) {
@@ -1222,7 +1225,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 			 * password is acceptable.
 			 */
 
-			if (pass_new[0] == '\0') {	/* "\0" password = NULL */
+			if (*(const char *)pass_new == '\0') {	/* "\0" password = NULL */
 				pass_new = NULL;
 			}
 			retval = _pam_unix_approve_pass(pamh, ctrl, pass_old, pass_new);

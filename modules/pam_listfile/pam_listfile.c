@@ -48,7 +48,7 @@
 static void _pam_log(int err, const char *format, ...)
 {
     va_list args;
- 
+
     va_start(args, format);
     vsyslog(LOG_AUTH | err, format, args);
     va_end(args);
@@ -83,6 +83,7 @@ PAM_EXTERN
 int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
     int retval, i, citem=0, extitem=0, onerr=PAM_SERVICE_ERR, sense=2;
+    const void *void_citemp;
     const char *citemp;
     char *ifname=NULL;
     char aline[256];
@@ -183,14 +184,14 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	free(ifname);
 	return onerr;
     } else if(
-	      (apply_type==APPLY_TYPE_NONE) || 
+	      (apply_type==APPLY_TYPE_NONE) ||
 	      ((apply_type!=APPLY_TYPE_NULL) && (*apply_val=='\0'))
               ) {
 	_pam_log(LOG_ERR,
 		 LOCAL_LOG_PREFIX "Invalid usage for apply= parameter");
 	return onerr;
     }
-     
+
     /* Check if it makes sense to use the apply= parameter */
     if (apply_type != APPLY_TYPE_NULL) {
 	if((citem==PAM_USER) || (citem==PAM_RUSER)) {
@@ -204,12 +205,12 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	    apply_type=APPLY_TYPE_NULL;
 	}
     }
-     
+
     /* Short-circuit - test if this session apply for this user */
     {
 	const char *user_name;
 	int rval;
-       
+
 	rval=pam_get_user(pamh,&user_name,NULL);
 	if((rval==PAM_SUCCESS) && user_name && user_name[0]) {
 	    /* Got it ? Valid ? */
@@ -240,7 +241,8 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	}
     }
 
-    retval = pam_get_item(pamh,citem,(const void **)&citemp);
+    retval = pam_get_item(pamh,citem,&void_citemp);
+    citemp = void_citemp;
     if(retval != PAM_SUCCESS) {
 	return onerr;
     }
@@ -330,7 +332,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
        || !S_ISREG(fileinfo.st_mode)) {
 	/* If the file is world writable or is not a
 	   normal file, return error */
-	_pam_log(LOG_ERR,LOCAL_LOG_PREFIX 
+	_pam_log(LOG_ERR,LOCAL_LOG_PREFIX
 		 "%s is either world writable or not a normal file",
 		 ifname);
 	free(ifname);
@@ -396,12 +398,13 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	return PAM_SUCCESS;
     }
     else {
-	const char *service, *user_name;
+	const void *service;
+	const char *user_name;
 #ifdef DEBUG
 	_pam_log(LOG_INFO,LOCAL_LOG_PREFIX
 		 "Returning PAM_AUTH_ERR, retval = %d", retval);
 #endif
-	(void) pam_get_item(pamh, PAM_SERVICE, (const void **)&service);
+	(void) pam_get_item(pamh, PAM_SERVICE, &service);
 	(void) pam_get_user(pamh, &user_name, NULL);
 	_pam_log(LOG_ALERT,LOCAL_LOG_PREFIX "Refused user %s for service %s",
 		 user_name, service);
@@ -439,4 +442,3 @@ struct pam_module _pam_listfile_modstruct = {
 #endif /* PAM_STATIC */
 
 /* end of module definition */
-

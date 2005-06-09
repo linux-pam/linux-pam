@@ -310,7 +310,7 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS LIBPAM_VERSION_MAJOR LIBPAM_VERSION_MINOR LOCALSRCDIR LOCALOBJDIR OS CONF_CFLAGS MKDIR SHLIBMODE MANMODE USESONAME SOSWITCH NEEDSONAME LDCONFIG CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT YACC LEX LEXLIB LEX_OUTPUT_ROOT INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA LN_S SET_MAKE WITH_DEBUG WITH_MEMORY_DEBUG WITH_LIBDEBUG WITH_PRELUDE FAKEROOT SECUREDIR SCONFIGDIR SUPLEMENTED INCLUDEDIR DOCDIR MANDIR WITH_PAMLOCKING PAM_READ_BOTH_CONFS STATIC_LIBPAM DYNAMIC_LIBPAM DYNAMIC STATIC WITH_LCKPWDF CPP EGREP PAM_NEEDS_LIBC HAVE_LCKPWDF LIBDL HAVE_LIBCRACK HAVE_LIBCRYPT HAVE_LIBUTIL HAVE_LIBNDBM HAVE_LIBDB HAVE_LIBFL HAVE_LIBNSL HAVE_LIBPWDB HAVE_LIBFLEX HAVE_LIBLEX HAVE_NDBM_H CRACKLIB_DICTPATH DYNTYPE OS_CFLAGS WARNINGS PIC LD LD_D LD_L RANLIB STRIP CC_STATIC LIBOBJS HAVE_SGML2TXT HAVE_SGML2HTML HAVE_SGML2LATEX HAVE_PS2PDF HAVE_SGML2PS PSER PS2PDF LTLIBOBJS'
+ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS LIBPAM_VERSION_MAJOR LIBPAM_VERSION_MINOR LOCALSRCDIR LOCALOBJDIR OS CONF_CFLAGS MKDIR SHLIBMODE MANMODE USESONAME SOSWITCH NEEDSONAME LDCONFIG CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT YACC LEX LEXLIB LEX_OUTPUT_ROOT INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA LN_S SET_MAKE WITH_DEBUG WITH_MEMORY_DEBUG WITH_LIBDEBUG WITH_PRELUDE FAKEROOT SECUREDIR SCONFIGDIR SUPLEMENTED INCLUDEDIR DOCDIR MANDIR WITH_PAMLOCKING PAM_READ_BOTH_CONFS STATIC_LIBPAM DYNAMIC_LIBPAM DYNAMIC STATIC WITH_LCKPWDF CPP EGREP PAM_NEEDS_LIBC HAVE_LCKPWDF LIBDL HAVE_LIBCRACK HAVE_LIBCRYPT HAVE_LIBUTIL HAVE_LIBNDBM HAVE_LIBDB HAVE_LIBFL HAVE_LIBNSL HAVE_LIBSELINUX HAVE_LIBPWDB HAVE_LIBFLEX HAVE_LIBLEX HAVE_NDBM_H CRACKLIB_DICTPATH DYNTYPE OS_CFLAGS WARNINGS PIC LD LD_D LD_L RANLIB STRIP CC_STATIC LIBOBJS HAVE_SGML2TXT HAVE_SGML2HTML HAVE_SGML2LATEX HAVE_PS2PDF HAVE_SGML2PS PSER PS2PDF LTLIBOBJS'
 ac_subst_files=''
 
 # Initialize some variables set by options.
@@ -4441,6 +4441,84 @@ fi
 
 
 
+echo "$as_me:$LINENO: checking for getfilecon in -lselinux" >&5
+echo $ECHO_N "checking for getfilecon in -lselinux... $ECHO_C" >&6
+if test "${ac_cv_lib_selinux_getfilecon+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lselinux  $LIBS"
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+/* Override any gcc2 internal prototype to avoid an error.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+/* We use char because int might match the return type of a gcc2
+   builtin and then its argument prototype would still apply.  */
+char getfilecon ();
+int
+main ()
+{
+getfilecon ();
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+  (eval $ac_link) 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag"
+			 || test ! -s conftest.err'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest$ac_exeext'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  ac_cv_lib_selinux_getfilecon=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+ac_cv_lib_selinux_getfilecon=no
+fi
+rm -f conftest.err conftest.$ac_objext \
+      conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+echo "$as_me:$LINENO: result: $ac_cv_lib_selinux_getfilecon" >&5
+echo "${ECHO_T}$ac_cv_lib_selinux_getfilecon" >&6
+if test $ac_cv_lib_selinux_getfilecon = yes; then
+  HAVE_LIBSELINUX=yes ; cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBSELINUX 1
+_ACEOF
+
+else
+  HAVE_LIBSELINUX=no
+fi
+
+
+
+if test $HAVE_LIBSELINUX = yes ; then
+	pwdblibs="$pwdblibs -lselinux"
+fi
 if test $HAVE_LIBNSL = yes ; then
 	pwdblibs="$pwdblibs -lnsl"
 fi
@@ -8344,6 +8422,7 @@ s,@HAVE_LIBNDBM@,$HAVE_LIBNDBM,;t t
 s,@HAVE_LIBDB@,$HAVE_LIBDB,;t t
 s,@HAVE_LIBFL@,$HAVE_LIBFL,;t t
 s,@HAVE_LIBNSL@,$HAVE_LIBNSL,;t t
+s,@HAVE_LIBSELINUX@,$HAVE_LIBSELINUX,;t t
 s,@HAVE_LIBPWDB@,$HAVE_LIBPWDB,;t t
 s,@HAVE_LIBFLEX@,$HAVE_LIBFLEX,;t t
 s,@HAVE_LIBLEX@,$HAVE_LIBLEX,;t t

@@ -424,7 +424,7 @@ static int tally_bump (int inc, time_t *oldtime,
 
     FILE
       *TALLY = NULL;
-    const char
+    const void
       *remote_host = NULL,
       *cur_tty = NULL;
     struct fail_s fs, *fsp = &fs;
@@ -445,10 +445,10 @@ static int tally_bump (int inc, time_t *oldtime,
             fsp->fs_faillog.fail_time = *oldtime;
         }
     }
-    (void) pam_get_item(pamh, PAM_RHOST, (const void **)&remote_host);
+    (void) pam_get_item(pamh, PAM_RHOST, &remote_host);
     if (!remote_host) {
 
-    	(void) pam_get_item(pamh, PAM_TTY, (const void **)&cur_tty);
+    	(void) pam_get_item(pamh, PAM_TTY, &cur_tty);
 	if (!cur_tty) {
     	    strncpy(fsp->fs_faillog.fail_line, "unknown",
 		    sizeof(fsp->fs_faillog.fail_line) - 1);

@@ -53,11 +53,13 @@ static int converse(pam_handle_t *pamh, int nargs
 		    , struct pam_response **response)
 {
     int retval;
-    struct pam_conv *conv;
+    const void *void_conv;
+    const struct pam_conv *conv;
 
     D(("begin to converse\n"));
 
-    retval = pam_get_item( pamh, PAM_CONV, (const void **) &conv ) ; 
+    retval = pam_get_item(pamh, PAM_CONV, &void_conv);
+    conv = (const struct pam_conv *)void_conv;
     if ( retval == PAM_SUCCESS && conv ) {
 
 	retval = conv->conv(nargs, ( const struct pam_message ** ) message

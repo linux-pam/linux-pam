@@ -39,7 +39,7 @@ static struct pam_conv conv = {
 int main(int argc, char **argv)
 {
      pam_handle_t *pamh=NULL;
-     const char *username=NULL;
+     const void *username=NULL;
      const char *service="xsh";
      int retcode;
 
@@ -137,10 +137,10 @@ int main(int argc, char **argv)
 	       break;
 	  }
 
-	  pam_get_item(pamh, PAM_USER, (const void **) &username);
+	  pam_get_item(pamh, PAM_USER, &username);
 	  fprintf(stderr,
 		  "The user [%s] has been authenticated and `logged in'\n",
-		  username);
+		  (const char *)username);
 
 	  /* this is always a really bad thing for security! */
 	  system("/bin/sh");

@@ -111,11 +111,13 @@ static int converse(pam_handle_t * pamh, int ctrl, int nargs
 		    ,struct pam_response **response)
 {
    int retval;
-   struct pam_conv *conv;
+   const void *void_conv;
+   const struct pam_conv *conv;
 
    D(("begin to converse"));
 
-   retval = pam_get_item(pamh, PAM_CONV, (const void **) &conv);
+   retval = pam_get_item(pamh, PAM_CONV, &void_conv);
+   conv = (const struct pam_conv *)void_conv;
    if (retval == PAM_SUCCESS && conv)
    {
 
@@ -522,7 +524,7 @@ int pam_sm_open_session(pam_handle_t * pamh, int flags, int argc
 			,const char **argv)
 {
    int retval, ctrl;
-   const char *user;
+   const void *user;
    const struct passwd *pwd;
    struct stat St;
 
@@ -530,8 +532,8 @@ int pam_sm_open_session(pam_handle_t * pamh, int flags, int argc
    ctrl = _pam_parse(flags, argc, argv);
 
    /* Determine the user name so we can get the home directory */
-   retval = pam_get_item(pamh, PAM_USER, (const void **) &user);
-   if (retval != PAM_SUCCESS || user == NULL || *user == '\0')
+   retval = pam_get_item(pamh, PAM_USER, &user);
+   if (retval != PAM_SUCCESS || user == NULL || *(const char *)user == '\0')
    {
       _log_err(LOG_NOTICE, "user unknown");
       return PAM_USER_UNKNOWN;

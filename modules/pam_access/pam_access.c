@@ -99,7 +99,7 @@ static const char *sep = ", \t";		/* list-element separator */
   */
 struct login_info {
     struct passwd *user;
-    char   *from;
+    const char *from;
     const char *config_file;
     const char *service;
 };
@@ -160,7 +160,7 @@ static int list_match (pam_handle_t *, char *, struct login_info *,
 		       match_func *);
 static int user_match (pam_handle_t *, char *, struct login_info *);
 static int from_match (pam_handle_t *, char *, struct login_info *);
-static int string_match (pam_handle_t *, char *, char *);
+static int string_match (pam_handle_t *, const char *, const char *);
 
 /* login_access - match username/group and host/tty with access control file */
 
@@ -271,7 +271,7 @@ static char * myhostname(void)
 
 /* netgroup_match - match group against machine or user */
 
-static int netgroup_match(char *group, char *machine, char *user)
+static int netgroup_match(const char *group, const char *machine, const char *user)
 {
     static char *mydomain = NULL;
 
@@ -317,9 +317,9 @@ static int user_match(pam_handle_t *pamh, char *tok, struct login_info *item)
 static int
 from_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 {
-    char   *string = item->from;
-    int     tok_len;
-    int     str_len;
+    const char *string = item->from;
+    int        tok_len;
+    int        str_len;
 
     /*
      * If a token has the magic value "ALL" the match always succeeds. Return
@@ -379,7 +379,7 @@ from_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 /* string_match - match a string against one token */
 
 static int
-string_match (pam_handle_t *pamh, char *tok, char *string)
+string_match (pam_handle_t *pamh, const char *tok, const char *string)
 {
 
     /*
@@ -401,12 +401,15 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
 		     ,const char **argv)
 {
     struct login_info loginfo;
-    const char *user=NULL, *service=NULL;
-    char *from=NULL;
+    const char *user=NULL;
+    const void *service=NULL;
+    const void *void_from=NULL;
+    const char *from;
     struct passwd *user_pw;
 
-    if ((pam_get_item(pamh, PAM_SERVICE, (const void **)&service)
-	!= PAM_SUCCESS) || (service == NULL) || (*service == ' ')) {
+    if ((pam_get_item(pamh, PAM_SERVICE, &service)
+	 != PAM_SUCCESS) || (service == NULL) ||
+	 (*(const char *)service == ' ')) {
 	_log_err("cannot find the service name");
 	return PAM_ABORT;
     }
@@ -421,18 +424,19 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
 
     /* remote host name */
 
-    if (pam_get_item(pamh, PAM_RHOST, (const void **)&from)
+    if (pam_get_item(pamh, PAM_RHOST, &void_from)
 	!= PAM_SUCCESS) {
 	_log_err("cannot find the remote host name");
 	return PAM_ABORT;
     }
+    from = void_from;
 
     if ((from==NULL) || (*from=='\0')) {
 
         /* local login, set tty name */
 
-        if (pam_get_item(pamh, PAM_TTY, (const void **)&from) != PAM_SUCCESS
-            || from == NULL) {
+        if (pam_get_item(pamh, PAM_TTY, &void_from) != PAM_SUCCESS
+            || void_from == NULL) {
             D(("PAM_TTY not set, probing stdin"));
 	    from = ttyname(STDIN_FILENO);
 	    if (from == NULL) {
@@ -444,6 +448,8 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
 	        return PAM_ABORT;
 	     }
         }
+	else
+	  from = void_from;
 
 	if (from[0] == '/') { 	/* full path */
 		from++;

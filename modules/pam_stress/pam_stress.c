@@ -132,9 +132,11 @@ static int converse(pam_handle_t *pamh, int nargs
 		    , struct pam_response **response)
 {
      int retval;
-     struct pam_conv *conv;
+     const void *void_conv;
+     const struct pam_conv *conv;
 
-     retval = pam_get_item(pamh,PAM_CONV,(const void **)&conv);
+     retval = pam_get_item(pamh,PAM_CONV,&void_conv);
+     conv = void_conv;
      if (retval == PAM_SUCCESS && conv) {
 	  retval = conv->conv(nargs, (const struct pam_message **) message
 			      , response, conv->appdata_ptr);
@@ -156,13 +158,14 @@ static int converse(pam_handle_t *pamh, int nargs
 static int stress_get_password(pam_handle_t *pamh, int flags
 			       , int ctrl, char **password)
 {
+     const void *pam_pass;
      char *pass;
 
      if ( (ctrl & (PAM_ST_TRY_PASS1|PAM_ST_USE_PASS1))
-	 && (pam_get_item(pamh,PAM_AUTHTOK,(const void **)&pass)
+	 && (pam_get_item(pamh,PAM_AUTHTOK,&pam_pass)
 	     == PAM_SUCCESS)
-	 && (pass != NULL) ) {
-	  if ((pass = strdup(pass)) == NULL)
+	 && (pam_pass != NULL) ) {
+	  if ((pass = strdup(pam_pass)) == NULL)
 	       return PAM_BUF_ERR;
      } else if ((ctrl & PAM_ST_USE_PASS1)) {
 	  _pam_log(LOG_WARNING, "pam_stress: no forwarded password");
@@ -271,10 +274,10 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
      /* if we are debugging then we print the password */
 
      if (ctrl & PAM_ST_DEBUG) {
-	  (void) pam_get_item(pamh,PAM_AUTHTOK,(const void **)&pass);
+          const void *pam_pass;
+	  (void) pam_get_item(pamh,PAM_AUTHTOK,&pam_pass);
 	  _pam_log(LOG_DEBUG,
-		   "pam_st_authenticate: password entered is: [%s]\n",pass);
-	  pass = NULL;
+		   "pam_st_authenticate: password entered is: [%s]\n",pam_pass);
      }
 
      /* if we signal a fail for this function then fail */
@@ -341,16 +344,16 @@ PAM_EXTERN
 int pam_sm_open_session(pam_handle_t *pamh, int flags,
 			int argc, const char **argv)
 {
-     char *username,*service;
+     const void *username, *service;
      int ctrl = _pam_parse(argc,argv);
 
      D(("called. [post parsing]"));
 
      _pam_report(ctrl,"pam_sm_open_session", flags, argc, argv);
 
-     if ((pam_get_item(pamh, PAM_USER, (const void **) &username)
+     if ((pam_get_item(pamh, PAM_USER, &username)
 	  != PAM_SUCCESS || !username)
-	 || (pam_get_item(pamh, PAM_SERVICE, (const void **) &service)
+	 || (pam_get_item(pamh, PAM_SERVICE, &service)
 	     != PAM_SUCCESS || !service)) {
 	  _pam_log(LOG_WARNING,"pam_sm_open_session: for whom?");
 	  return PAM_SESSION_ERR;
@@ -369,16 +372,16 @@ PAM_EXTERN
 int pam_sm_close_session(pam_handle_t *pamh, int flags,
 			 int argc, const char **argv)
 {
-     const char *username,*service;
+     const void *username, *service;
      int ctrl = _pam_parse(argc,argv);
 
      D(("called. [post parsing]"));
 
      _pam_report(ctrl,"pam_sm_close_session", flags, argc, argv);
 
-     if ((pam_get_item(pamh, PAM_USER, (const void **)&username)
+     if ((pam_get_item(pamh, PAM_USER, &username)
 	  != PAM_SUCCESS || !username)
-	 || (pam_get_item(pamh, PAM_SERVICE, (const void **)&service)
+	 || (pam_get_item(pamh, PAM_SERVICE, &service)
 	     != PAM_SUCCESS || !service)) {
 	  _pam_log(LOG_WARNING,"pam_sm_close_session: for whom?");
 	  return PAM_SESSION_ERR;
@@ -417,7 +420,7 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
      } else if (flags & PAM_UPDATE_AUTHTOK) {  /* second call */
 	  struct pam_message msg[3],*pmsg[3];
 	  struct pam_response *resp;
-	  const char *text;
+	  const void *text;
 	  char *txt=NULL;
 	  int i;
 
@@ -430,7 +433,7 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
 	  if ( !(ctrl && PAM_ST_EXPIRED)
 	       && (flags & PAM_CHANGE_EXPIRED_AUTHTOK)
-	       && (pam_get_data(pamh,"stress_new_pwd",(const void **)&text)
+	       && (pam_get_data(pamh,"stress_new_pwd", &text)
 		      != PAM_SUCCESS || strcmp(text,"yes"))) {
 	       return PAM_SUCCESS;          /* the token has not expired */
 	  }
@@ -466,9 +469,9 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	  /* set up for conversation */
 
 	  if (!(flags & PAM_SILENT)) {
-	       char *username;
+	       const void *username;
 
-	       if ( pam_get_item(pamh, PAM_USER, (const void **)&username)
+	       if ( pam_get_item(pamh, PAM_USER, &username)
 		    || username == NULL ) {
 		    _pam_log(LOG_ERR,"no username set");
 		    return PAM_USER_UNKNOWN;
@@ -531,7 +534,7 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		    return PAM_AUTHTOK_ERR;
 	       }
 
-	       if (pam_get_item(pamh,PAM_AUTHTOK,(const void **)&text)
+	       if (pam_get_item(pamh,PAM_AUTHTOK,&text)
 		   == PAM_SUCCESS) {
 		    (void) pam_set_item(pamh,PAM_OLDAUTHTOK,text);
 		    text = NULL;

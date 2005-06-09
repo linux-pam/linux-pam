@@ -216,9 +216,9 @@ static int pam_get_rhost(pam_handle_t *pamh, const char **rhost
 			 , const char *prompt)
 {
     int retval;
-    const char   *current;
+    const void *current;
 
-    retval = pam_get_item (pamh, PAM_RHOST, (const void **)&current);
+    retval = pam_get_item (pamh, PAM_RHOST, &current);
     if (retval != PAM_SUCCESS)
         return retval;
 
@@ -239,9 +239,9 @@ static int pam_get_ruser(pam_handle_t *pamh, const char **ruser,
 			 const char *prompt)
 {
     int retval;
-    const char   *current;
+    const void *current;
 
-    retval = pam_get_item (pamh, PAM_RUSER, (const void **)&current);
+    retval = pam_get_item (pamh, PAM_RUSER, &current);
     if (retval != PAM_SUCCESS) {
         return retval;
     }
@@ -265,7 +265,8 @@ __icheckhost (pam_handle_t *pamh, struct _options *opts, U32 raddr
     struct hostent *hp;
     U32 laddr;
     int negate=1;    /* Multiply return with this to get -1 instead of 1 */
-    char **pp, *user;
+    char **pp;
+    const void *user;
 
     /* Check nis netgroup.  We assume that pam has done all needed
        paranoia checking before we are handed the rhost */
@@ -280,7 +281,7 @@ __icheckhost (pam_handle_t *pamh, struct _options *opts, U32 raddr
 	negate=-1;
 	lhost++;
     } else if (strcmp("+",lhost) == 0) {
-        (void) pam_get_item(pamh, PAM_USER, (const void **)&user);
+        (void) pam_get_item(pamh, PAM_USER, &user);
         D(("user %s has a `+' host entry", user));
 	if (opts->opt_promiscuous)
 	    return (1);                     /* asking for trouble, but ok.. */
@@ -321,7 +322,7 @@ static int __icheckuser(pam_handle_t *pamh, struct _options *opts
       ruser is user id on remote host
       rhost is the remote host name
       */
-    char *user;
+    const void *user;
 
     /* [-+]@netgroup */
     if (strncmp("+@",luser,2) == 0)
@@ -336,8 +337,9 @@ static int __icheckuser(pam_handle_t *pamh, struct _options *opts
 
     /* + */
     if (strcmp("+",luser) == 0) {
-	(void) pam_get_item(pamh, PAM_USER, (const void **)&user);
-	_pam_log(LOG_WARNING, "user %s has a `+' user entry", user);
+	(void) pam_get_item(pamh, PAM_USER, &user);
+	_pam_log(LOG_WARNING, "user %s has a `+' user entry",
+		 (const char *) user);
 	if (opts->opt_promiscuous)
 	    return(1);
 	/* If not promiscuous we handle it as a negative match */

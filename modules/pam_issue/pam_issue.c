@@ -50,7 +50,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
     FILE *fd;
     int parse_esc = 1;
     char *prompt_tmp = NULL;
-    const char *cur_prompt = NULL;
+    const void *cur_prompt = NULL;
     struct stat st;
     char *issue_file = NULL;
 
@@ -91,8 +91,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
 	    return PAM_IGNORE;
 	}
 
-	retval = pam_get_item(pamh, PAM_USER_PROMPT,
-			      (const void **) &cur_prompt);
+	retval = pam_get_item(pamh, PAM_USER_PROMPT, &cur_prompt);
 	if (retval != PAM_SUCCESS) {
 	    fclose(fd);
 	    if (issue_file)
