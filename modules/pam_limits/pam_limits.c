@@ -306,6 +306,14 @@ static void process_limit(int source, const char *lim_type,
     else if (strcmp(lim_item, "msgqueue") == 0)
 	limit_item = RLIMIT_MSGQUEUE;
 #endif
+#ifdef RLIMIT_NICE
+    else if (strcmp(lim_item, "nice") == 0)
+	limit_item = RLIMIT_NICE;
+#endif
+#ifdef RLIMIT_RTPRIO
+    else if (strcmp(lim_item, "rtprio") == 0)
+	limit_item = RLIMIT_RTPRIO;
+#endif
     else if (strcmp(lim_item, "maxlogins") == 0) {
 	limit_item = LIMIT_LOGIN;
 	pl->flag_numsyslogins = 0;

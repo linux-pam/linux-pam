@@ -87,6 +87,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   the config file (Novell #81690 - kukuk)
 * Fix all occurrence of dereferencing type-punned pointer will break
   strict-aliasing rules warnings (kukuk)
+* pam_limits: Support new limits in linux 2.6.12 (t8m)
 
 0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)

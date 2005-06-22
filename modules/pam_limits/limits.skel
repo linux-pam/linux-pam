@@ -33,6 +33,8 @@
 #        - locks - max number of file locks the user can hold
 #        - sigpending - max number of pending signals
 #        - msgqueue - max memory used by POSIX message queues (bytes)
+#        - nice - max nice priority allowed to raise to
+#        - rtprio - max realtime priority
 #
 #<domain>      <type>  <item>         <value>
 #
