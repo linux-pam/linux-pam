@@ -180,7 +180,7 @@ make_remark (pam_handle_t *pamh, int ctrl, const char *remark)
 }
 
 static int
-rec_mkdir (const char *dir, int mode)
+rec_mkdir (const char *dir, mode_t mode)
 {
   char *cp;
   char *parent = strdup (dir);

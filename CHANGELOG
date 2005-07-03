@@ -88,6 +88,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * Fix all occurrence of dereferencing type-punned pointer will break
   strict-aliasing rules warnings (kukuk)
 * pam_limits: Support new limits in linux 2.6.12 (t8m)
+* pam_mkhomedir: change mode datatype (toady)
 
 0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)
