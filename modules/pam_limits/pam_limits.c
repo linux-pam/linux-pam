@@ -337,12 +337,19 @@ static void process_limit(int source, const char *lim_type,
         _pam_log(LOG_DEBUG,"unknown limit type '%s'", lim_type);
         return;
     }
-	if (limit_item != LIMIT_PRI && (strcmp(lim_value, "-1") == 0
+	if (limit_item != LIMIT_PRI
+#ifdef RLIMIT_NICE
+	    && limit_item != RLIMIT_NICE
+#endif
+	    && (strcmp(lim_value, "-1") == 0
 		|| strcmp(lim_value, "-") == 0 || strcmp(lim_value, "unlimited") == 0
 		|| strcmp(lim_value, "infinity") == 0)) {
 		int_value = -1;
 		rlimit_value = RLIM_INFINITY;
 	} else if (limit_item == LIMIT_PRI || limit_item == LIMIT_LOGIN ||
+#ifdef RLIMIT_NICE
+		limit_item == RLIMIT_NICE ||
+#endif
 		limit_item == LIMIT_NUMSYSLOGINS) {
 		long temp;
 		temp = strtol (lim_value, &endptr, 10);
@@ -385,6 +392,12 @@ static void process_limit(int source, const char *lim_type,
         case RLIMIT_AS:
          if (rlimit_value != RLIM_INFINITY)
             rlimit_value *= 1024;
+#ifdef RLIMIT_NICE
+	case RLIMIT_NICE:
+	 if (int_value > 19)
+	    int_value = 19;
+	 rlimit_value = 19 - int_value;
+#endif
          break;
     }
 

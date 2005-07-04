@@ -42,8 +42,7 @@ Where:
 	- sigpending - max number of pending signals (Linux 2.6 and higher)
 	- msgqueue - max memory used by POSIX message queues (bytes) 
 	  (Linux 2.6 and higher)
-	- nice - max nice priority allowed to raise to. Nice levels 19..-20
-	  correspond to 0..39 values of this limit (Linux 2.6.12 and higher)
+	- nice - max nice priority allowed to raise to (Linux 2.6.12 and higher)
 	- rtprio - max realtime priority allowed for non-priviledged
           processes (Linux 2.6.12 and higher)
 
