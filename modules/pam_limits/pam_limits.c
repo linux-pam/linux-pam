@@ -495,8 +495,6 @@ static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
 	D(("scanned line[%d]: domain[%s], ltype[%s], item[%s], value[%s]",
 	   i, domain, ltype, item, value));
 
-        for(j=0; j < strlen(domain); j++)
-            domain[j]=tolower(domain[j]);
         for(j=0; j < strlen(ltype); j++)
             ltype[j]=tolower(ltype[j]);
         for(j=0; j < strlen(item); j++)

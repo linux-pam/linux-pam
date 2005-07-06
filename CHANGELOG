@@ -89,6 +89,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   strict-aliasing rules warnings (kukuk)
 * pam_limits: Support new limits in linux 2.6.12 (t8m)
 * pam_mkhomedir: change mode datatype (toady)
+* pam_limits: Don't lowercase login names (kukuk)
 
 0.79: Thu Mar 31 16:48:45 CEST 2005
 * pam_tally: added audit option (toady)
