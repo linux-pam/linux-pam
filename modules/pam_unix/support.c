@@ -713,15 +713,10 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	retval = PAM_SUCCESS;
 	if (pwd == NULL || salt == NULL || !strcmp(salt, "x") || ((salt[0] == '#') && (salt[1] == '#') && !strcmp(salt + 2, name))) {
 
-		if (geteuid() || SELINUX_ENABLED) {
+		if (pwd != NULL && (geteuid() || SELINUX_ENABLED)) {
 			/* we are not root perhaps this is the reason? Run helper */
 			D(("running helper binary"));
 			retval = _unix_run_helper_binary(pamh, p, ctrl, name);
-			if (pwd == NULL && !on(UNIX_AUDIT,ctrl)
-			    && retval != PAM_SUCCESS)
-			{
-				name = NULL;
-			}
 		} else {
 			D(("user's record unavailable"));
 			p = NULL;
