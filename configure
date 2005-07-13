@@ -1320,7 +1320,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 LIBPAM_VERSION_MAJOR=0
-LIBPAM_VERSION_MINOR=80
+LIBPAM_VERSION_MINOR=81
 
 
 
