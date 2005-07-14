@@ -1,0 +1,14 @@
+This is the README for pam_umask
+--------------------------------
+
+pam_umask sets the set the file mode creation mask of the current
+environment. It tries to get the umask value from the following 
+files in the following priority:
+
+- umask= argument
+- umask= entry of the users GECOS field
+- pri= entry of the users GECOS field
+- ulimit= entry of the users GECOS field
+- UMASK= entry from /etc/default/login
+- UMASK entry from /etc/login.defs
+

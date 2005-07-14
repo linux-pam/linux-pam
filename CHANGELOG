@@ -62,6 +62,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 
 0.81: please submit patches for this section with actual code/doc
       patches!
+* pam_umask: New module for setting umask from GECOS field, /etc/login.defs
+  or /etc/default/login (kukuk)
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)
