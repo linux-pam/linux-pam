@@ -131,10 +131,6 @@ AC_ARG_ENABLE(pamlocking,
 	WITH_PAMLOCKING=yes ; AC_DEFINE(PAM_LOCKING) , WITH_PAMLOCKING=no)
 AC_SUBST(WITH_PAMLOCKING)
 
-AC_ARG_ENABLE(uglyhack,
-[  --enable-uglyhack        configure libpam to try to honor old pam_strerror syntax],
-	AC_DEFINE(UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT))
-
 AC_ARG_ENABLE(read-both-confs,
 [  --enable-read-both-confs  read both /etc/pam.d and /etc/pam.conf files],
 	AC_DEFINE(PAM_READ_BOTH_CONFS))

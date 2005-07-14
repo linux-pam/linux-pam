@@ -854,7 +854,6 @@ Optional Features:
   --enable-docdir=<path to store documentation in - /usr/share/doc/pam>
   --enable-mandir=<path to store manuals in - /usr/share/man>
   --enable-pamlocking      configure libpam to observe a global authentication lock
-  --enable-uglyhack        configure libpam to try to honor old pam_strerror syntax
   --enable-read-both-confs  read both /etc/pam.d and /etc/pam.conf files
   --enable-static-libpam   build a libpam.a library
   --disable-dynamic-libpam do not build a shared libpam library
@@ -2881,15 +2880,6 @@ else
   WITH_PAMLOCKING=no
 fi;
 
-
-# Check whether --enable-uglyhack or --disable-uglyhack was given.
-if test "${enable_uglyhack+set}" = set; then
-  enableval="$enable_uglyhack"
-  cat >>confdefs.h <<\_ACEOF
-#define UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT 1
-_ACEOF
-
-fi;
 
 # Check whether --enable-read-both-confs or --disable-read-both-confs was given.
 if test "${enable_read_both_confs+set}" = set; then

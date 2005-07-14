@@ -8,20 +8,6 @@
 
 const char *pam_strerror(pam_handle_t *pamh, int errnum)
 {
-#ifdef UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT  /* will be removed from v 1.0 */
-
-    int possible_error;
-
-    possible_error = (int) pamh;
-    if (!(possible_error >= 0 && possible_error <= PAM_BAD_ITEM)) {
-	possible_error = errnum;
-    }
-
-/* mask standard behavior to use possible_error variable. */
-#define errnum possible_error
-
-#endif /* UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT */
-
     switch (errnum) {
     case PAM_SUCCESS:
 	return "Success";
