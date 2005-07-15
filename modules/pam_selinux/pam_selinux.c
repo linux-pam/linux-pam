@@ -38,9 +38,6 @@
  *
  */
 
-#define PAM_SM_AUTH
-#define PAM_SM_SESSION
-
 #include "../../_pam_aconf.h"
 
 #include <errno.h>
@@ -55,7 +52,9 @@
 #include <fcntl.h>
 #include <linux/limits.h>
 
-#include "../../_pam_aconf.h"
+#define PAM_SM_AUTH
+#define PAM_SM_SESSION
+
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/_pam_modutil.h>

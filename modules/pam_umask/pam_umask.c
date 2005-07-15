@@ -33,7 +33,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define _GNU_SOURCE
+#include <security/_pam_aconf.h>
 
 #include <pwd.h>
 #include <grp.h>
@@ -48,8 +48,6 @@
 #include <sys/resource.h>
 
 #define PAM_SM_SESSION
-
-#include <security/_pam_aconf.h>
 
 #include <security/pam_modules.h>
 #include <security/_pam_modutil.h>
