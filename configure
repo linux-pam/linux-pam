@@ -1323,14 +1323,6 @@ LIBPAM_VERSION_MINOR=81
 
 
 
-cat >>confdefs.h <<\_ACEOF
-#define LIBPAM_VERSION_MAJOR 1
-_ACEOF
-
-cat >>confdefs.h <<\_ACEOF
-#define LIBPAM_VERSION_MINOR 1
-_ACEOF
-
 
 
 
@@ -2747,8 +2739,9 @@ fi
 # Check whether --enable-debug or --disable-debug was given.
 if test "${enable_debug+set}" = set; then
   enableval="$enable_debug"
-  WITH_DEBUG=yes ; cat >>confdefs.h <<\_ACEOF
-#define DEBUG 1
+  WITH_DEBUG=yes ;
+cat >>confdefs.h <<\_ACEOF
+#define DEBUG
 _ACEOF
 
 else
@@ -2759,8 +2752,9 @@ fi;
 # Check whether --enable-memory-debug or --disable-memory-debug was given.
 if test "${enable_memory_debug+set}" = set; then
   enableval="$enable_memory_debug"
-  WITH_MEMORY_DEBUG=yes ; cat >>confdefs.h <<\_ACEOF
-#define MEMORY_DEBUG 1
+  WITH_MEMORY_DEBUG=yes ;
+cat >>confdefs.h <<\_ACEOF
+#define MEMORY_DEBUG
 _ACEOF
 
 else
@@ -2768,11 +2762,14 @@ else
 fi;
 
 
+
+
 # Check whether --enable-libdebug or --disable-libdebug was given.
 if test "${enable_libdebug+set}" = set; then
   enableval="$enable_libdebug"
-  WITH_LIBDEBUG=yes ; cat >>confdefs.h <<\_ACEOF
-#define WITH_LIBDEBUG 1
+  WITH_LIBDEBUG=yes ;
+cat >>confdefs.h <<\_ACEOF
+#define WITH_LIBDEBUG
 _ACEOF
 
 else
@@ -2783,8 +2780,9 @@ fi;
 # Check whether --enable-prelude or --disable-prelude was given.
 if test "${enable_prelude+set}" = set; then
   enableval="$enable_prelude"
-  WITH_PRELUDE=yes ; cat >>confdefs.h <<\_ACEOF
-#define WITH_PRELUDE 1
+  WITH_PRELUDE=yes ;
+cat >>confdefs.h <<\_ACEOF
+#define WITH_PRELUDE
 _ACEOF
 
 else
@@ -2872,8 +2870,9 @@ fi;
 # Check whether --enable-pamlocking or --disable-pamlocking was given.
 if test "${enable_pamlocking+set}" = set; then
   enableval="$enable_pamlocking"
-  WITH_PAMLOCKING=yes ; cat >>confdefs.h <<\_ACEOF
-#define PAM_LOCKING 1
+  WITH_PAMLOCKING=yes ;
+cat >>confdefs.h <<\_ACEOF
+#define PAM_LOCKING
 _ACEOF
 
 else
@@ -2884,8 +2883,9 @@ fi;
 # Check whether --enable-read-both-confs or --disable-read-both-confs was given.
 if test "${enable_read_both_confs+set}" = set; then
   enableval="$enable_read_both_confs"
-  cat >>confdefs.h <<\_ACEOF
-#define PAM_READ_BOTH_CONFS 1
+
+cat >>confdefs.h <<\_ACEOF
+#define PAM_READ_BOTH_CONFS
 _ACEOF
 
 fi;
@@ -3617,6 +3617,7 @@ fi
 rm -f core *.core gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
 fi
 fi
+
 cat >>confdefs.h <<_ACEOF
 #define PAM_PATH_MAILDIR $pam_mail_spool
 _ACEOF
@@ -3901,8 +3902,10 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_crack_FascistCheck" >&5
 echo "${ECHO_T}$ac_cv_lib_crack_FascistCheck" >&6
 if test $ac_cv_lib_crack_FascistCheck = yes; then
-  HAVE_LIBCRACK=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBCRACK 1
+  HAVE_LIBCRACK=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBCRACK
 _ACEOF
 
 else
@@ -3976,8 +3979,10 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_crypt_crypt" >&5
 echo "${ECHO_T}$ac_cv_lib_crypt_crypt" >&6
 if test $ac_cv_lib_crypt_crypt = yes; then
-  HAVE_LIBCRYPT=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBCRYPT 1
+  HAVE_LIBCRYPT=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBCRYPT
 _ACEOF
 
 else
@@ -4050,8 +4055,10 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_util_logwtmp" >&5
 echo "${ECHO_T}$ac_cv_lib_util_logwtmp" >&6
 if test $ac_cv_lib_util_logwtmp = yes; then
-  HAVE_LIBUTIL=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBUTIL 1
+  HAVE_LIBUTIL=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBUTIL
 _ACEOF
 
 else
@@ -4124,8 +4131,10 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_ndbm_dbm_store" >&5
 echo "${ECHO_T}$ac_cv_lib_ndbm_dbm_store" >&6
 if test $ac_cv_lib_ndbm_dbm_store = yes; then
-  HAVE_LIBNDBM=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBNDBM 1
+  HAVE_LIBNDBM=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBNDBM
 _ACEOF
 
 else
@@ -4198,8 +4207,10 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_db_dbm_store" >&5
 echo "${ECHO_T}$ac_cv_lib_db_dbm_store" >&6
 if test $ac_cv_lib_db_dbm_store = yes; then
-  HAVE_LIBDB=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBDB 1
+  HAVE_LIBDB=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBDB
 _ACEOF
 
 else
@@ -4272,8 +4283,10 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_db_db_create" >&5
 echo "${ECHO_T}$ac_cv_lib_db_db_create" >&6
 if test $ac_cv_lib_db_db_create = yes; then
-  HAVE_LIBDB=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBDB 1
+  HAVE_LIBDB=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBDB
 _ACEOF
 
 else
@@ -4349,8 +4362,10 @@ echo "${ECHO_T}$ac_cv_lib_fl_yylex" >&6
 if test $ac_cv_lib_fl_yylex = yes; then
   yyterminate
 else
-  HAVE_LIBFL=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBFL 1
+  HAVE_LIBFL=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBFL
 _ACEOF
 
 fi
@@ -4421,8 +4436,10 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_nsl_yp_maplist" >&5
 echo "${ECHO_T}$ac_cv_lib_nsl_yp_maplist" >&6
 if test $ac_cv_lib_nsl_yp_maplist = yes; then
-  HAVE_LIBNSL=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBNSL 1
+  HAVE_LIBNSL=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBNSL
 _ACEOF
 
 else
@@ -4496,8 +4513,10 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_selinux_getfilecon" >&5
 echo "${ECHO_T}$ac_cv_lib_selinux_getfilecon" >&6
 if test $ac_cv_lib_selinux_getfilecon = yes; then
-  HAVE_LIBSELINUX=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBSELINUX 1
+  HAVE_LIBSELINUX=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBSELINUX
 _ACEOF
 
 else
@@ -4577,8 +4596,10 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_pwdb_pwdb_db_name" >&5
 echo "${ECHO_T}$ac_cv_lib_pwdb_pwdb_db_name" >&6
 if test $ac_cv_lib_pwdb_pwdb_db_name = yes; then
-  HAVE_LIBPWDB=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBPWDB 1
+  HAVE_LIBPWDB=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBPWDB
 _ACEOF
 
 else
@@ -4653,8 +4674,10 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_fl_yywrap" >&5
 echo "${ECHO_T}$ac_cv_lib_fl_yywrap" >&6
 if test $ac_cv_lib_fl_yywrap = yes; then
-  HAVE_LIBFLEX=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBFLEX 1
+  HAVE_LIBFLEX=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBFLEX
 _ACEOF
 
 else
@@ -4727,8 +4750,10 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_l_yywrap" >&5
 echo "${ECHO_T}$ac_cv_lib_l_yywrap" >&6
 if test $ac_cv_lib_l_yywrap = yes; then
-  HAVE_LIBLEX=yes ; cat >>confdefs.h <<\_ACEOF
-#define HAVE_LIBLEX 1
+  HAVE_LIBLEX=yes ;
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBLEX
 _ACEOF
 
 else
@@ -5614,6 +5639,8 @@ _ACEOF
 fi
 
 done
+
+
 
 
 

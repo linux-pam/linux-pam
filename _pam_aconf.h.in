@@ -1,23 +1,252 @@
-/*
- * $Id$
- *
- * 
- */
-
-#ifndef PAM_ACONF_H
-#define PAM_ACONF_H
+/* _pam_aconf.h.in.  Generated from configure.in by autoheader.  */
 
 /* lots of stuff gets written to /tmp/pam-debug.log */
 #undef DEBUG
 
+/* Define to the type of elements in the array set by `getgroups'. Usually
+   this is either `int' or `gid_t'. */
+#undef GETGROUPS_T
+
+/* Define to 1 if you have the <crypt.h> header file. */
+#undef HAVE_CRYPT_H
+
+/* Define to 1 if you have the <db.h> header file. */
+#undef HAVE_DB_H
+
+/* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
+   */
+#undef HAVE_DIRENT_H
+
+/* Define to 1 if you don't have `vprintf' but do have `_doprnt.' */
+#undef HAVE_DOPRNT
+
+/* Define to 1 if you have the <fcntl.h> header file. */
+#undef HAVE_FCNTL_H
+
+/* Define to 1 if you have the <features.h> header file. */
+#undef HAVE_FEATURES_H
+
+/* Define to 1 if you have the `getgrgid_r' function. */
+#undef HAVE_GETGRGID_R
+
+/* Define to 1 if you have the `getgrnam_r' function. */
+#undef HAVE_GETGRNAM_R
+
+/* Define to 1 if you have the `getgrouplist' function. */
+#undef HAVE_GETGROUPLIST
+
+/* Define to 1 if you have the `gethostname' function. */
+#undef HAVE_GETHOSTNAME
+
+/* Define to 1 if you have the `getpwnam_r' function. */
+#undef HAVE_GETPWNAM_R
+
+/* Define to 1 if you have the `getpwuid_r' function. */
+#undef HAVE_GETPWUID_R
+
+/* Define to 1 if you have the `getspnam_r' function. */
+#undef HAVE_GETSPNAM_R
+
+/* Define to 1 if you have the `gettimeofday' function. */
+#undef HAVE_GETTIMEOFDAY
+
+/* Define to 1 if you have the <inittypes.h> header file. */
+#undef HAVE_INITTYPES_H
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the <lastlog.h> header file. */
+#undef HAVE_LASTLOG_H
+
+/* Define to 1 if you have the `crack' library (-lcrack). */
+#undef HAVE_LIBCRACK
+
+/* Define to 1 if you have the `crypt' library (-lcrypt). */
+#undef HAVE_LIBCRYPT
+
+/* Define to 1 if you have the `db' library (-ldb). */
+#undef HAVE_LIBDB
+
+/* Define to 1 if you have the `fl' library (-lfl). */
+#undef HAVE_LIBFL
+
+/* Define to 1 if you have the `fl' library (-lfl). */
+#undef HAVE_LIBFLEX
+
+/* Define to 1 if you have the `l' library (-ll). */
+#undef HAVE_LIBLEX
+
+/* Define to 1 if you have the `ndbm' library (-lndbm). */
+#undef HAVE_LIBNDBM
+
+/* Define to 1 if you have the `nsl' library (-lnsl). */
+#undef HAVE_LIBNSL
+
+/* Define to 1 if you have the `pwdb' library (-lpwdb). */
+#undef HAVE_LIBPWDB
+
+/* Define to 1 if you have the `nsl' library (-lnsl). */
+#undef HAVE_LIBSELINUX
+
+/* Define to 1 if you have the `util' library (-lutil). */
+#undef HAVE_LIBUTIL
+
+/* Define to 1 if you have the <limits.h> header file. */
+#undef HAVE_LIMITS_H
+
+/* Define to 1 if you have the <malloc.h> header file. */
+#undef HAVE_MALLOC_H
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the `mkdir' function. */
+#undef HAVE_MKDIR
+
+/* Define to 1 if you have the <ndbm.h> header file. */
+#undef HAVE_NDBM_H
+
+/* Define to 1 if you have the <ndir.h> header file, and it defines `DIR'. */
+#undef HAVE_NDIR_H
+
+/* Define to 1 if you have the <paths.h> header file. */
+#undef HAVE_PATHS_H
+
+/* Define to 1 if you have the `select' function. */
+#undef HAVE_SELECT
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the `strcspn' function. */
+#undef HAVE_STRCSPN
+
+/* Define to 1 if you have the `strdup' function. */
+#undef HAVE_STRDUP
+
+/* Define to 1 if you have the `strerror' function. */
+#undef HAVE_STRERROR
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the `strspn' function. */
+#undef HAVE_STRSPN
+
+/* Define to 1 if you have the `strstr' function. */
+#undef HAVE_STRSTR
+
+/* Define to 1 if you have the `strtol' function. */
+#undef HAVE_STRTOL
+
+/* Define to 1 if you have the <syslog.h> header file. */
+#undef HAVE_SYSLOG_H
+
+/* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
+   */
+#undef HAVE_SYS_DIR_H
+
+/* Define to 1 if you have the <sys/file.h> header file. */
+#undef HAVE_SYS_FILE_H
+
+/* Define to 1 if you have the <sys/fsuid.h> header file. */
+#undef HAVE_SYS_FSUID_H
+
+/* Define to 1 if you have the <sys/ioctl.h> header file. */
+#undef HAVE_SYS_IOCTL_H
+
+/* Define to 1 if you have the <sys/ndir.h> header file, and it defines `DIR'.
+   */
+#undef HAVE_SYS_NDIR_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have <sys/wait.h> that is POSIX.1 compatible. */
+#undef HAVE_SYS_WAIT_H
+
+/* Define to 1 if you have the <termio.h> header file. */
+#undef HAVE_TERMIO_H
+
+/* Define to 1 if you have the `uname' function. */
+#undef HAVE_UNAME
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if you have the <utmpx.h> header file. */
+#undef HAVE_UTMPX_H
+
+/* Define to 1 if you have the <utmp.h> header file. */
+#undef HAVE_UTMP_H
+
+/* Define to 1 if you have the `vprintf' function. */
+#undef HAVE_VPRINTF
+
+/* Every malloc etc. call will be tracked */
+#undef MEMORY_DEBUG
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* libpam should observe a global authentication lock */
+#undef PAM_LOCKING
+
+/* Path where mails are stored */
+#undef PAM_PATH_MAILDIR
+
+/* read both /etc/pam.d and /etc/pam.conf files */
+#undef PAM_READ_BOTH_CONFS
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
+#undef TIME_WITH_SYS_TIME
+
+/* Define to 1 if your <sys/time.h> declares `struct tm'. */
+#undef TM_IN_SYS_TIME
+
 /* build libraries with different names (suffixed with 'd') */
 #undef WITH_LIBDEBUG
 
-/* provide a global locking facility within libpam */
-#undef PAM_LOCKING
+/* Build with prelude ids support */
+#undef WITH_PRELUDE
+
+/* Define to 1 if your processor stores words with the most significant byte
+   first (like Motorola and SPARC, unlike Intel and VAX). */
+#undef WORDS_BIGENDIAN
+
+/* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
+   `char[]'. */
+#undef YYTEXT_POINTER
 
 /* GNU systems as a class, all have the feature.h file */
-#undef HAVE_FEATURES_H
 #ifdef HAVE_FEATURES_H
 # define _SVID_SOURCE
 # define _BSD_SOURCE
@@ -25,73 +254,6 @@
 # include <features.h>
 #endif /* HAVE_FEATURES_H */
 
-/* we have libcrack available */
-#undef HAVE_LIBCRACK
-
-/* we have libcrypt - its not part of libc (do we need both definitions?) */
-#undef HAVE_LIBCRYPT
-#undef HAVE_CRYPT_H
-
-/* we have libndbm and/or libdb */
-#undef HAVE_DB_H
-#undef HAVE_NDBM_H
-
-/* have libfl (Flex) */
-#undef HAVE_LIBFL
-
-/* have libnsl - instead of libc support */
-#undef HAVE_LIBNSL
-
-/* have libpwdb - don't expect this to be important for much longer */
-#undef HAVE_LIBPWDB
-
-/* have libselinux - SELinux is Linux special */
-#undef HAVE_LIBSELINUX
-
-/* have gethostname() declared */
-#undef HAVE_GETHOSTNAME
-
-#undef HAVE_GETTIMEOFDAY
-#undef HAVE_MKDIR
-#undef HAVE_SELECT
-#undef HAVE_STRCSPN
-#undef HAVE_STRDUP
-#undef HAVE_STRERROR
-#undef HAVE_STRSPN
-#undef HAVE_STRSTR
-#undef HAVE_STRTOL
-#undef HAVE_UNAME
-
-/* Define if reentrant declarations of standard nss functions are available */
-#undef HAVE_GETPWNAM_R
-#undef HAVE_GETPWUID_R
-#undef HAVE_GETSPNAM_R
-#undef HAVE_GETGRNAM_R
-#undef HAVE_GETGRGID_R
-#undef HAVE_GETGROUPLIST
-
-/* ugly hack to partially support old pam_strerror syntax */
-#undef UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT
-
-/* read both confs - read /etc/pam.d and /etc/pam.conf in serial */
-#undef PAM_READ_BOTH_CONFS
-
-#undef HAVE_PATHS_H
-#ifdef HAVE_PATHS_H
-#include <paths.h>
-#endif
-/* location of the mail spool directory */
-#undef PAM_PATH_MAILDIR
-
-/* where should we include setfsuid's prototype from? If this is not
-   defined, we get it from unistd.h */
-#undef HAVE_SYS_FSUID_H
-
-/* Do we have inttypes.h for uint32_t */
-#undef HAVE_INTTYPES_H
-
-/* track all memory allocations and liberations */
-#undef MEMORY_DEBUG
 #ifdef MEMORY_DEBUG
 /*
  * this is basically a hack - we need to include a semiarbitrary
@@ -103,8 +265,24 @@
 # include <security/pam_malloc.h>
 #endif /* MEMORY_DEBUG */
 
-/* the path, relative to SECUREDIR, where PAMs specific to this architecture
- * can be found */
+/* Define to the path, relative to SECUREDIR, where PAMs specific to this
+   architecture can be found. */
 #undef _PAM_ISA
 
-#endif /* PAM_ACONF_H */
+/* Define to empty if `const' does not conform to ANSI C. */
+#undef const
+
+/* Define to `int' if <sys/types.h> doesn't define. */
+#undef gid_t
+
+/* Define to `long' if <sys/types.h> does not define. */
+#undef off_t
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef pid_t
+
+/* Define to `unsigned' if <sys/types.h> does not define. */
+#undef size_t
+
+/* Define to `int' if <sys/types.h> doesn't define. */
+#undef uid_t
