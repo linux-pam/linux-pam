@@ -281,17 +281,6 @@ AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/file.h sys/ioctl.h sys/time.h syslog.h termio.h unistd.h sys/fsuid.h inittypes.h)
 
-dnl Linux wants features.h in some of the source files.
-AC_CHECK_HEADERS(features.h)
-AH_VERBATIM([_HAVE_FEATURES_H],
-[/* GNU systems as a class, all have the feature.h file */
-#ifdef HAVE_FEATURES_H
-# define _SVID_SOURCE
-# define _BSD_SOURCE
-# define _GNU_SOURCE
-# include <features.h>
-#endif /* HAVE_FEATURES_H */])
-
 dnl For module/pam_cracklib
 AC_CHECK_HEADERS(crypt.h)
 

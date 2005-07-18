@@ -23,9 +23,6 @@
 /* Define to 1 if you have the <fcntl.h> header file. */
 #undef HAVE_FCNTL_H
 
-/* Define to 1 if you have the <features.h> header file. */
-#undef HAVE_FEATURES_H
-
 /* Define to 1 if you have the `getgrgid_r' function. */
 #undef HAVE_GETGRGID_R
 
@@ -245,14 +242,6 @@
 /* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
    `char[]'. */
 #undef YYTEXT_POINTER
-
-/* GNU systems as a class, all have the feature.h file */
-#ifdef HAVE_FEATURES_H
-# define _SVID_SOURCE
-# define _BSD_SOURCE
-# define _GNU_SOURCE
-# include <features.h>
-#endif /* HAVE_FEATURES_H */
 
 #ifdef MEMORY_DEBUG
 /*
