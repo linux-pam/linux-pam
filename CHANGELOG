@@ -68,6 +68,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
   interface change (kukuk)
 * configure.in: Fix AC_DEFINE usage for autoheader (kukuk)
 * configure.in/_pam_aconf.h.in: Remove feature.h inclusion (kukuk)
+* defs: Remove obsolete directory/content (kukuk)
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)
