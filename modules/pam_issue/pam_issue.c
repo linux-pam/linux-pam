@@ -17,6 +17,8 @@
 #define _GNU_SOURCE
 #define _BSD_SOURCE
 
+#include "config.h"
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -35,7 +35,7 @@
  * S.A.G. in the section on the cracklib module.
  */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <stdio.h>
 #ifdef HAVE_CRYPT_H

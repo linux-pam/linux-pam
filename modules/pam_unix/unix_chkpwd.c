@@ -13,7 +13,7 @@
  *
  */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #ifdef MEMORY_DEBUG
 # undef exit

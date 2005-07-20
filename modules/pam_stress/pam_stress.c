@@ -5,7 +5,7 @@
  * created by Andrew Morgan <morgan@linux.kernel.org> 1996/3/12
  */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <stdlib.h>
 #include <stdio.h>

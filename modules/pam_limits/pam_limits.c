@@ -17,7 +17,7 @@
 #error THIS CODE IS KNOWN TO WORK ONLY ON LINUX !!!
 #endif
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <unistd.h>

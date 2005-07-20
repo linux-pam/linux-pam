@@ -10,7 +10,7 @@
  * present (login) service.
  */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <fcntl.h>
 #include <time.h>

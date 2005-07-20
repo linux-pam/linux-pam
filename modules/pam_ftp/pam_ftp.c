@@ -14,7 +14,7 @@
 /* the following is a password that "can't be correct" */
 #define BLOCK_PASSWORD "\177BAD PASSWPRD\177"
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>

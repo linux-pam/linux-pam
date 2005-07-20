@@ -5,7 +5,7 @@
 /* Andrew Morgan (morgan@kernel.org) -- an example application
  * that invokes a shell, based on blank.c */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>

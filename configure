@@ -1314,7 +1314,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-          ac_config_headers="$ac_config_headers _pam_aconf.h"
+          ac_config_headers="$ac_config_headers config.h"
 
 
 
@@ -8142,7 +8142,7 @@ do
   case "$ac_config_target" in
   # Handling of arguments.
   "Make.Rules" ) CONFIG_FILES="$CONFIG_FILES Make.Rules" ;;
-  "_pam_aconf.h" ) CONFIG_HEADERS="$CONFIG_HEADERS _pam_aconf.h" ;;
+  "config.h" ) CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;

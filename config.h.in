@@ -1,4 +1,4 @@
-/* _pam_aconf.h.in.  Generated from configure.in by autoheader.  */
+/* config.h.in.  Generated from configure.in by autoheader.  */
 
 /* lots of stuff gets written to /tmp/pam-debug.log */
 #undef DEBUG

@@ -15,7 +15,7 @@
 #define DEFAULT_ETC_ENVFILE     "/etc/environment"
 #define DEFAULT_READ_ENVFILE    0
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <ctype.h>
 #include <errno.h>

@@ -14,7 +14,7 @@
  * Audit option added for Tomas patch by Sebastien Tricaud <toady@gscore.org> 13 January 2005
  */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #if defined(MAIN) && defined(MEMORY_DEBUG)
 # undef exit

@@ -6,7 +6,7 @@
  * Written by Andrew Morgan <morgan@linux.kernel.org>
  */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <signal.h>
 #include <stdio.h>

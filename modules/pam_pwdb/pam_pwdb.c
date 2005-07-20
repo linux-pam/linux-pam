@@ -20,7 +20,7 @@ static const char rcsid[] =
 
 /* #define DEBUG */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <sys/types.h>
 #include <stdarg.h>

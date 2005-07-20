@@ -35,7 +35,7 @@
 
 /* "$Id$" */
 
-#include "../../_pam_aconf.h"
+#include "config.h"
 #include <sys/types.h>
 #include <sys/fsuid.h>
 #include <sys/wait.h>

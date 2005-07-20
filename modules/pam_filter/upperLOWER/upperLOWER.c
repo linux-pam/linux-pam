@@ -7,7 +7,7 @@
  * it serves no purpose other than to annoy the user...
  */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #ifdef MEMORY_DEBUG
 # undef exit

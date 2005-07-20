@@ -8,7 +8,7 @@
  * mailhash additions by Chris Adams <cadams@ro.com> 1998/7/11
  */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <ctype.h>
 #include <pwd.h>

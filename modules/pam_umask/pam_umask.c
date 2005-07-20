@@ -35,7 +35,7 @@
 
 #define _GNU_SOURCE
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <pwd.h>
 #include <grp.h>

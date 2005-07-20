@@ -13,7 +13,7 @@ static const char rcsid[] =
 "\t\tVersion 0.22 for Linux-PAM\n"
 "Copyright (C) Andrew G. Morgan 1996 <morgan@linux.kernel.org>\n";
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <sys/file.h>
 #include <stdio.h>

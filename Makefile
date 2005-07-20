@@ -18,12 +18,12 @@ THINGSTOMAKE = libpam libpamc libpam_misc modules doc examples
 all: $(THINGSTOMAKE)
 
  # Let's get a dynamic libpam.so first
- bootstrap-libpam: _pam_aconf.h prep
+ bootstrap-libpam: config.h prep
 	$(MAKE) -C libpam bootstrap-libpam
 
 prep:
 	rm -f security
-	ln -sf . security
+#	ln -sf . security
 
 clean:
 	if [ ! -f Make.Rules ]; then touch Make.Rules ; fi
@@ -31,19 +31,19 @@ clean:
 	rm -f security *~ *.orig *.rej #*#
 
 distclean: clean
-	rm -f Make.Rules _pam_aconf.h
+	rm -f Make.Rules config.h
 	rm -f config.status config.cache config.log core
 	rm -rf autom4te.cache/
 
 maintainer-clean: distclean
 	@echo files should be ok for packaging now.
 
-# NB _pam_aconf.h.in changes will remake this too
-Make.Rules: configure Make.Rules.in _pam_aconf.h.in
+# NB config.h.in changes will remake this too
+Make.Rules: configure Make.Rules.in config.h.in
 	./config.status --recheck
 	./config.status
 
-_pam_aconf.h: Make.Rules
+config.h: Make.Rules
 
 configure: configure.in
 	@echo
@@ -53,14 +53,14 @@ configure: configure.in
 	@rm -f configure
 	@exit 1
 
-$(THINGSTOMAKE): _pam_aconf.h prep bootstrap-libpam
+$(THINGSTOMAKE): config.h prep bootstrap-libpam
 	$(MAKE) -C $@ all
 
-install: _pam_aconf.h prep
+install: config.h prep
 	for x in $(THINGSTOMAKE) ; do $(MAKE) -C $$x install ; done
 
 remove:
-	rm -f $(FAKEROOT)$(INCLUDED)/_pam_aconf.h
+	rm -f $(FAKEROOT)$(INCLUDED)/config.h
 	for x in $(THINGSTOMAKE) ; do $(MAKE) -C $$x remove ; done
 
 release:

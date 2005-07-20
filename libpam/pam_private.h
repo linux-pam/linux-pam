@@ -16,7 +16,7 @@
 #ifndef _PAM_PRIVATE_H
 #define _PAM_PRIVATE_H
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 /* this is not used at the moment --- AGM */
 #define LIBPAM_VERSION (LIBPAM_VERSION_MAJOR*0x100 + LIBPAM_VERSION_MINOR)

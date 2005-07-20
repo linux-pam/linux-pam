@@ -28,7 +28,10 @@
  */
 
 /* I want snprintf dammit */
-#define _GNU_SOURCE 1
+#define _GNU_SOURCE
+
+#include "config.h"
+
 #include <stdarg.h>
 #include <sys/types.h>
 #include <sys/stat.h>

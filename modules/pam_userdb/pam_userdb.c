@@ -6,7 +6,7 @@
  * See the end of the file for Copyright Information
  */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -5,7 +5,7 @@
  * Richard Stevens' UNIX Network Programming book.
  */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <stdlib.h>
 #include <syslog.h>

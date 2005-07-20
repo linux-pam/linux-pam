@@ -38,7 +38,7 @@
  * SUCH DAMAGE.
  */
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #define USER_RHOSTS_FILE "/.rhosts"     /* prefixed by user's home dir */
 

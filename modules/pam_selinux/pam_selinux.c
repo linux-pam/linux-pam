@@ -38,7 +38,7 @@
  *
  */
 
-#include "../../_pam_aconf.h"
+#include "config.h"
 
 #include <errno.h>
 #include <limits.h>

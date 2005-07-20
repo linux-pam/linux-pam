@@ -13,6 +13,8 @@ static const char rcsid[] =
 
 #define _BSD_SOURCE
 
+#include "config.h"
+
 #include <sys/file.h>
 #include <stdio.h>
 #include <stdlib.h>
