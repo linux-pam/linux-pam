@@ -32,8 +32,8 @@
 time_t pam_misc_conv_warn_time = 0;                  /* time when we warn */
 time_t pam_misc_conv_die_time  = 0;               /* time when we timeout */
 
-const char *pam_misc_conv_warn_line = "..\a.Time is running out...\n";
-const char *pam_misc_conv_die_line  = "..\a.Sorry, your time is up!\n";
+const char *pam_misc_conv_warn_line = N_("..\a.Time is running out...\n");
+const char *pam_misc_conv_die_line  = N_("..\a.Sorry, your time is up!\n");
 
 int pam_misc_conv_died=0;       /* application can probe this for timeout */
 
@@ -156,9 +156,9 @@ static int read_string(int echo, const char *prompt, char **retstr)
 	 * the conversation without giving PAM a chance to clean up.
 	 */
 
-	sigemptyset(&nset); 
-	sigaddset(&nset, SIGINT); 
-	sigaddset(&nset, SIGTSTP); 
+	sigemptyset(&nset);
+	sigaddset(&nset, SIGINT);
+	sigaddset(&nset, SIGTSTP);
 	(void) sigprocmask(SIG_BLOCK, &nset, &oset);
 
     } else if (!echo) {
@@ -331,8 +331,8 @@ int misc_conv(int num_msg, const struct pam_message **msgm,
 	    break;
 	}
 	default:
-	    fprintf(stderr, "erroneous conversation (%d)\n"
-		    ,msgm[count]->msg_style);
+	    fprintf(stderr, _("erroneous conversation (%d)\n"),
+		   msgm[count]->msg_style);
 	    goto failed_conversation;
 	}
 
@@ -373,7 +373,7 @@ failed_conversation:
 	    case PAM_TEXT_INFO:
 		/* should not actually be able to get here... */
 		free(reply[count].resp);
-	    }                                            
+	    }
 	    reply[count].resp = NULL;
 	}
 	/* forget reply too */
@@ -383,4 +383,3 @@ failed_conversation:
 
     return PAM_CONV_ERR;
 }
-

@@ -243,6 +243,15 @@
    `char[]'. */
 #undef YYTEXT_POINTER
 
+#ifdef ENABLE_NLS
+#include <libintl.h>
+#define _(msgid) dgettext("Linux-PAM", msgid)
+#define N_(msgid) msgid
+#else
+#define _(msgid) (msgid)
+#define N_(msgid) msgid
+#endif /* ENABLE_NLS */
+
 #ifdef MEMORY_DEBUG
 /*
  * this is basically a hack - we need to include a semiarbitrary

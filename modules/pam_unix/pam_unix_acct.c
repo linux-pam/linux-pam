@@ -193,7 +193,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 	time_t curdays;
 	struct spwd *spent;
 	struct passwd *pwent;
-	char buf[80];
+	char buf[256];
 
 	D(("called."));
 
@@ -265,7 +265,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 			 ,"account %s has expired (account expired)"
 			 ,uname);
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-			    "Your account has expired; please contact your system administrator");
+			     _("Your account has expired; please contact your system administrator"));
 		D(("account expired"));
 		return PAM_ACCT_EXPIRED;
 	}
@@ -274,7 +274,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 			 ,"expired password for user %s (root enforced)"
 			 ,uname);
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-			    "You are required to change your password immediately (root enforced)");
+			     _("You are required to change your password immediately (root enforced)"));
 		D(("need a new password"));
 		return PAM_NEW_AUTHTOK_REQD;
 	}
@@ -292,7 +292,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		    ,"account %s has expired (failed to change password)"
 			 ,uname);
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-			    "Your account has expired; please contact your system administrator");
+			     _("Your account has expired; please contact your system administrator"));
 		D(("account expired 2"));
 		return PAM_ACCT_EXPIRED;
 	}
@@ -301,7 +301,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 			 ,"expired password for user %s (password aged)"
 			 ,uname);
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-			    "You are required to change your password immediately (password aged)");
+			     _("You are required to change your password immediately (password aged)"));
 		D(("need a new password 2"));
 		return PAM_NEW_AUTHTOK_REQD;
 	}
@@ -311,7 +311,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		_log_err(LOG_DEBUG, pamh
 			 ,"password for user %s will expire in %d days"
 			 ,uname, daysleft);
-		snprintf(buf, 80, "Warning: your password will expire in %d day%.2s",
+		snprintf(buf, sizeof (buf), _("Warning: your password will expire in %d day%.2s"),
 			 daysleft, daysleft == 1 ? "" : "s");
 		_make_remark(pamh, ctrl, PAM_TEXT_INFO, buf);
 	}

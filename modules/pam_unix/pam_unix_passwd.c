@@ -815,7 +815,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 		clnt_destroy(clnt);
 		if (err || status) {
 			_make_remark(pamh, ctrl, PAM_TEXT_INFO,
-				"NIS password could not be changed.");
+				_("NIS password could not be changed."));
 			retval = PAM_TRY_AGAIN;
 		}
 #ifdef DEBUG
@@ -959,7 +959,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 			_log_err(LOG_DEBUG, pamh, "bad authentication token");
 		}
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG, pass_new == NULL ?
-			  "No password supplied" : "Password unchanged");
+			_("No password supplied") : _("Password unchanged"));
 		return PAM_AUTHTOK_ERR;
 	}
 	/*
@@ -980,12 +980,12 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 		D(("called cracklib [%s]", remark));
 #else
 		if (strlen(pass_new) < 6)
-			remark = "You must choose a longer password";
+		  remark = _("You must choose a longer password");
 		D(("length check [%s]", remark));
 #endif
 		if (on(UNIX_REMEMBER_PASSWD, ctrl)) {
 			if ((retval = check_old_password(user, pass_new)) == PAM_AUTHTOK_ERR)
-				remark = "Password has been already used. Choose another.";
+			  remark = _("Password has been already used. Choose another.");
 			if (retval == PAM_ABORT) {
 				_log_err(LOG_ERR, pamh, "can't open %s file to check old passwords",
 					OLD_PASSWORDS_FILE);
@@ -1144,7 +1144,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		if (retval == PAM_AUTHTOK_ERR) {
 			if (off(UNIX__IAMROOT, ctrl))
 				_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-					    "You must wait longer to change your password");
+					     _("You must wait longer to change your password"));
 			else
 				retval = PAM_SUCCESS;
 		}

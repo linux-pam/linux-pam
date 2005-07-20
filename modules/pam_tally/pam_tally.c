@@ -727,10 +727,10 @@ static int cline_quiet =  0;
 
 static const char * pam_errors( int i ) {
   switch (i) {
-  case PAM_AUTH_ERR:     return "Authentication error";
-  case PAM_SERVICE_ERR:  return "Service error";
-  case PAM_USER_UNKNOWN: return "Unknown user";
-  default:               return "Unknown error";
+  case PAM_AUTH_ERR:     return _("Authentication error");
+  case PAM_SERVICE_ERR:  return _("Service error");
+  case PAM_USER_UNKNOWN: return _("Unknown user");
+  default:               return _("Unknown error");
   }
 }
 
@@ -744,11 +744,11 @@ static int getopts( int argc, char **argv ) {
     else if ( !strcmp (*argv,"--reset")   ) cline_reset=0;
     else if ( !strncmp(*argv,"--reset=",8)) {
       if ( sscanf(*argv+8,TALLY_FMT,&cline_reset) != 1 )
-        fprintf(stderr,"%s: Bad number given to --reset=\n",pname), exit(0);
+        fprintf(stderr,_("%s: Bad number given to --reset=\n"),pname), exit(0);
     }
     else if ( !strcmp (*argv,"--quiet")   ) cline_quiet=1;
     else {
-      fprintf(stderr,"%s: Unrecognised option %s\n",pname,*argv);
+      fprintf(stderr,_("%s: Unrecognised option %s\n"),pname,*argv);
       return FALSE;
     }
   }
@@ -760,8 +760,8 @@ int main ( int argc, char **argv ) {
   struct fail_s fs, *fsp = &fs;
 
   if ( ! getopts( argc, argv+1 ) ) {
-    printf("%s: [--file rooted-filename] [--user username] "
-           "[--reset[=n]] [--quiet]\n",
+    printf(_("%s: [--file rooted-filename] [--user username] "
+	     "[--reset[=n]] [--quiet]\n"),
            *argv);
     exit(0);
   }
@@ -833,7 +833,7 @@ int main ( int argc, char **argv ) {
     }
     fclose(TALLY);
     if ( cline_reset!=0 && cline_reset!=TALLY_HI ) {
-      fprintf(stderr,"%s: Can't reset all users to non-zero\n",*argv);
+      fprintf(stderr,_("%s: Can't reset all users to non-zero\n"),*argv);
     }
     else if ( !cline_reset ) {
       TALLY=fopen(cline_filename, "w");

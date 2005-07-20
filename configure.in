@@ -71,7 +71,7 @@ AC_ARG_ENABLE(memory-debug,
 	WITH_MEMORY_DEBUG=yes ; AC_DEFINE([MEMORY_DEBUG],,
 		[Every malloc etc. call will be tracked]) , WITH_MEMORY_DEBUG=no)
 AC_SUBST(WITH_MEMORY_DEBUG)
-AH_VERBATIM([_MEMORY_DEBUG], 
+AH_VERBATIM([_MEMORY_DEBUG],
 [#ifdef MEMORY_DEBUG
 /*
  * this is basically a hack - we need to include a semiarbitrary
@@ -473,6 +473,16 @@ else
 fi
 AC_SUBST(PSER)
 AC_SUBST(PS2PDF)
+
+AH_VERBATIM([_ENABLE_NLS],
+[#ifdef ENABLE_NLS
+#include <libintl.h>
+#define _(msgid) dgettext("Linux-PAM", msgid)
+#define N_(msgid) msgid
+#else
+#define _(msgid) (msgid)
+#define N_(msgid) msgid
+#endif /* ENABLE_NLS */])
 
 dnl Files to be created from when we run configure
 AC_OUTPUT(Make.Rules)

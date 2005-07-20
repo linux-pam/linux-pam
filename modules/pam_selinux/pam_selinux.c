@@ -59,9 +59,6 @@
 #include <security/_pam_macros.h>
 #include <security/_pam_modutil.h>
 
-#include <libintl.h>
-#define _(x) gettext(x)
-
 #ifndef PAM_SELINUX_MAIN
 #define MODULE "pam_selinux"
 
@@ -139,7 +136,7 @@ select_context (pam_handle_t *pamh, security_context_t* contextlist,
       {
 	  int choice=0;
 	  int i;
-	  char *prompt=_("Enter number of choice: ");
+	  const char *prompt=_("Enter number of choice: ");
 	  int len=strlen(prompt);
 	  char buf[PATH_MAX];
 
@@ -166,11 +163,11 @@ select_context (pam_handle_t *pamh, security_context_t* contextlist,
         _pam_drop_reply(responses, 1);
     } else {
       if (debug)
-	syslog(LOG_NOTICE, _("%s: bogus conversation function"),MODULE);
+	syslog(LOG_NOTICE, "%s: bogus conversation function",MODULE);
     }
   } else {
     if (debug)
-      syslog(LOG_NOTICE, _("%s: no conversation function"),MODULE);
+      syslog(LOG_NOTICE, "%s: no conversation function",MODULE);
   }
   return (security_context_t) strdup(contextlist[0]);
 }
@@ -249,11 +246,11 @@ manual_context (pam_handle_t *pamh, const char *user, int debug)
       } /* end while */
     } else {
       if (debug)
-	syslog(LOG_NOTICE, _("%s: bogus conversation function"),MODULE);
+	syslog(LOG_NOTICE, "%s: bogus conversation function",MODULE);
     }
   } else {
     if (debug)
-      syslog(LOG_NOTICE, _("%s: no conversation function"),MODULE);
+      syslog(LOG_NOTICE, "%s: no conversation function",MODULE);
   }
   return NULL;
 }
@@ -276,7 +273,7 @@ static void security_restorelabel_tty(const char *tty,
   if (setfilecon(ptr, context) && errno != ENOENT)
   {
       syslog(LOG_NOTICE,
-             _("Warning!  Could not relabel %s with %s, not relabeling.\n"),
+             "Warning!  Could not relabel %s with %s, not relabeling.\n",
              ptr, context);
   }
 }
@@ -300,14 +297,15 @@ static security_context_t security_label_tty(char *tty,
   if (getfilecon(ptr, &prev_context) < 0)
   {
       syslog(LOG_NOTICE,
-           _("Warning!  Could not get current context for %s, not relabeling."),           ptr);
+	     "Warning!  Could not get current context for %s, not relabeling.",
+	     ptr);
       return NULL;
   }
   if( security_compute_relabel(usercon,prev_context,SECCLASS_CHR_FILE,
                                &newdev_context)!=0)
   {
     syslog(LOG_NOTICE,
-           _("Warning!  Could not get new context for %s, not relabeling."),
+           "Warning!  Could not get new context for %s, not relabeling.",
            ptr);
     syslog(LOG_NOTICE, "usercon=%s, prev_context=%s\n", usercon, prev_context);
     freecon(prev_context);
@@ -317,7 +315,7 @@ static security_context_t security_label_tty(char *tty,
   if (status)
   {
       syslog(LOG_NOTICE,
-             _("Warning!  Could not relabel %s with %s, not relabeling.%s"),
+             "Warning!  Could not relabel %s with %s, not relabeling.%s",
              ptr,newdev_context,strerror(errno));
       freecon(prev_context);
       prev_context=NULL;
@@ -358,11 +356,11 @@ verbose_message(pam_handle_t *pamh, char *msg, int debug)
         _pam_drop_reply(responses, 1);
     } else {
       if (debug)
-	syslog(LOG_NOTICE, _("%s: bogus conversation function"),MODULE);
+	syslog(LOG_NOTICE, "%s: bogus conversation function", MODULE);
     }
   } else {
     if (debug)
-      syslog(LOG_NOTICE,_("%s: no conversation function"),MODULE);
+      syslog(LOG_NOTICE, "%s: no conversation function", MODULE);
   }
 }
 
@@ -435,13 +433,13 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
     if (has_tty) {
       user_context = manual_context(pamh,username,debug);
       if (user_context == NULL) {
-	syslog (LOG_ERR, _("Unable to get valid context for %s"),
+	syslog (LOG_ERR, "Unable to get valid context for %s",
 		(const char *)username);
 	return PAM_AUTH_ERR;
       }
     } else {
 	syslog (LOG_ERR,
-		_("Unable to get valid context for %s, No valid tty"),
+		"Unable to get valid context for %s, No valid tty",
 		(const char *)username);
 	return PAM_AUTH_ERR;
     }
@@ -478,13 +476,13 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
     verbose_message(pamh, msg, debug);
   }
   if (ret) {
-    syslog(LOG_ERR, _("Error!  Unable to set %s executable context %s."),
+    syslog(LOG_ERR, "Error!  Unable to set %s executable context %s.",
            (const char *)username, user_context);
     freecon(user_context);
     return PAM_AUTH_ERR;
   } else {
     if (debug)
-      syslog(LOG_NOTICE, _("%s: set %s security context to %s"),MODULE,
+      syslog(LOG_NOTICE, "%s: set %s security context to %s", MODULE,
              (const char *)username, user_context);
   }
   freecon(user_context);
@@ -527,13 +525,13 @@ pam_sm_close_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
   status=setexeccon(prev_user_context);
   freecon(prev_user_context);
   if (status) {
-    syslog(LOG_ERR, _("Error!  Unable to set executable context %s."),
+    syslog(LOG_ERR, "Error!  Unable to set executable context %s.",
            prev_user_context);
     return PAM_AUTH_ERR;
   }
 
   if (debug)
-    syslog(LOG_NOTICE, _("%s: setcontext back to orginal"),MODULE);
+    syslog(LOG_NOTICE, "%s: setcontext back to orginal", MODULE);
 
   return PAM_SUCCESS;
 }
