@@ -1,7 +1,9 @@
 default.defs
 .freezemake
 .filelist
+autom4te.cache
 include
+config.h
 config.status
 config.log
 config.cache
