@@ -19,6 +19,7 @@
 #include <errno.h>
 #include <signal.h>
 #include <ctype.h>
+#include <sys/resource.h>
 #include <rpcsvc/ypclnt.h>
 
 #include <security/_pam_macros.h>
