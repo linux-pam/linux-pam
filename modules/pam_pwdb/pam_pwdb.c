@@ -98,11 +98,14 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags
     pwdb_end();
 
     if ( on(UNIX_LIKE_AUTH, ctrl) ) {
-	int *pretval = &retval;
+	const void *pretval = NULL;
 
 	D(("recovering return code from auth call"));
-	pam_get_data(pamh, "pwdb_setcred_return", (const void **) pretval);
-	D(("recovered data indicates that old retval was %d", retval));
+	if ( pam_get_data(pamh, "pwdb_setcred_return", &pretval) 
+	    == PAM_SUCCESS ) {
+	    retval = (int)(long)pretval;
+	    D(("recovered data indicates that old retval was %d", retval));
+	}
     }
 
     return retval;
