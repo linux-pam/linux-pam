@@ -207,8 +207,8 @@ PAM_EXTERN int pam_sm_setcred(pam_handle_t * pamh, int flags
 	D(("recovering return code from auth call"));
 	/* We will only find something here if UNIX_LIKE_AUTH is set --
 	   don't worry about an explicit check of argv. */
-	pam_get_data(pamh, "unix_setcred_return", &pretval);
-	if(pretval) {
+	if (pam_get_data(pamh, "unix_setcred_return", &pretval) == PAM_SUCCESS
+	    && pretval) {
  	        retval = *(const int *)pretval;
 		pam_set_data(pamh, "unix_setcred_return", NULL, NULL);
 		D(("recovered data indicates that old retval was %d", retval));

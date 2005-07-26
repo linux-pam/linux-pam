@@ -816,8 +816,11 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 				new->name = x_strdup(login_name);
 
 				/* any previous failures for this user ? */
-				pam_get_data(pamh, data_name, &void_old);
-				old = void_old;
+				if (pam_get_data(pamh, data_name, &void_old)
+				    == PAM_SUCCESS)
+				        old = void_old;
+				else
+				        old = NULL;
 
 				if (old != NULL) {
 					new->count = old->count + 1;

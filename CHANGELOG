@@ -70,6 +70,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * configure.in/_pam_aconf.h.in: Remove feature.h inclusion (kukuk)
 * defs: Remove obsolete directory/content (kukuk)
 * Rename _pam_aconf.h.in to config.h (kukuk)
+* pam_unix: Don't ignore pam_get_item return value (kukuk)
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)
