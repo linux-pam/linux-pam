@@ -71,6 +71,7 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * defs: Remove obsolete directory/content (kukuk)
 * Rename _pam_aconf.h.in to config.h (kukuk)
 * pam_unix: Don't ignore pam_get_item return value (kukuk)
+* pam_userdb: Fix regression - crash when crypt param not specified (t8m)
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)

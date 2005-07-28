@@ -164,8 +164,8 @@ user_lookup (const char *database, const char *cryptmode,
     }
 
     if (ctrl & PAM_DEBUG_ARG) {
-	_pam_log(LOG_INFO, "password in database is [%p]`%s', len is %d",
-		 data.dptr, (char *) data.dptr, data.dsize);
+	_pam_log(LOG_INFO, "password in database is [%p]`%.*s', len is %d",
+		 data.dptr, data.dsize, (char *) data.dptr, data.dsize);
     }
 
     if (data.dptr != NULL) {
@@ -177,7 +177,7 @@ user_lookup (const char *database, const char *cryptmode,
 	    return 0; /* found it, data contents don't matter */
 	}
 
-	if (strncasecmp(cryptmode, "crypt", 5) == 0) {
+	if (cryptmode && strncasecmp(cryptmode, "crypt", 5) == 0) {
 
 	  /* crypt(3) password storage */
 
@@ -219,7 +219,8 @@ user_lookup (const char *database, const char *cryptmode,
 	    compare = strncmp(data.dptr, pass, data.dsize);
 	}
 
-	  if (strncasecmp(cryptmode, "none", 4) && ctrl & PAM_DEBUG_ARG) {
+	  if (cryptmode && strncasecmp(cryptmode, "none", 4) 
+		&& (ctrl & PAM_DEBUG_ARG)) {
 	    _pam_log(LOG_INFO, "invalid value for crypt parameter: %s",
 		     cryptmode);
 	    _pam_log(LOG_INFO, "defaulting to plaintext password mode");
