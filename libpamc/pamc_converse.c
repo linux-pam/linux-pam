@@ -66,11 +66,12 @@ int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
 	D(("*prompt_p is not legal for the client to use"));
 	goto pamc_unknown_prompt;
     }
-    
+
     /* do we need to select the agent? */
     if ((*prompt_p)->control == PAM_BPC_SELECT) {
 	char *rawh;
-	int i, retval;
+	size_t i;
+	int retval;
 
 	D(("selecting a specified agent"));
 
@@ -208,4 +209,3 @@ pamc_unknown_prompt:
     PAM_BP_RENEW(prompt_p, PAM_BPC_FAIL, 0);
     return PAM_BPC_TRUE;
 }
-

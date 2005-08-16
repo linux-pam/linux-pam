@@ -323,14 +323,6 @@ void  pam_free(void *ptr
      }
 }
 
-void *pam_memalign(size_t ali, size_t size
-		  , const char *file, const char *fn, const int line)
-{
-     _fn("memalign");
-     if (on(0)) err(("not implemented currently (Sorry)"));
-     exit(1);
-}
-
 void *pam_realloc(void *ptr, size_t size
 		, const char *file, const char *fn, const int line)
 {
@@ -361,24 +353,6 @@ void *pam_realloc(void *ptr, size_t size
      }
 
      return new;
-}
-
-void *pam_valloc(size_t size
-		, const char *file, const char *fn, const int line)
-{
-     _fn("valloc");
-     if (on(0)) err(("not implemented currently (Sorry)"));
-     exit(1);
-}
-
-#include <alloca.h>
-
-void *pam_alloca(size_t size
-		, const char *file, const char *fn, const int line)
-{
-     _fn("alloca");
-     if (on(0)) err(("not implemented currently (Sorry)"));
-     exit(1);
 }
 
 void pam_exit(int i

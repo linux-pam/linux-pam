@@ -5,7 +5,7 @@
 #ifndef PAM_RADIUS_H
 #define PAM_RADIUS_H
 
-#include <security/_pam_aconf.h>
+#include "config.h"
 
 #include <stdio.h>
 

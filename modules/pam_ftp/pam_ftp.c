@@ -158,9 +158,9 @@ static int lookup(const char *name, char *list, const char **_user)
 
 /* --- authentication management functions (only) --- */
 
-PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
-			,const char **argv)
+PAM_EXTERN int
+pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
 {
     int retval, anon=0, ctrl;
     const char *user;
@@ -274,9 +274,9 @@ int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
     }
 }
 
-PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh,int flags,int argc
-		   ,const char **argv)
+PAM_EXTERN int
+pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		int argc UNUSED, const char **argv UNUSED)
 {
      return PAM_IGNORE;
 }

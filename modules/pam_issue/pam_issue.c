@@ -44,9 +44,9 @@ static char *do_prompt (FILE *);
 
 /* --- authentication management functions (only) --- */
 
-PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
-                        const char **argv)
+PAM_EXTERN int
+pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
 {
     int retval = PAM_SUCCESS;
     FILE *fd;
@@ -173,16 +173,18 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
     return retval;
 }
 
-PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
-                   const char **argv)
+PAM_EXTERN int
+pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		int argc UNUSED, const char **argv UNUSED)
 {
      return PAM_IGNORE;
 }
 
-static char *do_prompt(FILE *fd)
+static char *
+do_prompt (FILE *fd)
 {
-    int c, size = 1024;
+    int c;
+    size_t size = 1024;
     char *issue;
     char buf[1024];
     struct utsname uts;

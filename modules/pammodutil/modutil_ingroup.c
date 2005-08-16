@@ -40,9 +40,10 @@ static int checkgrouplist(const char *user, gid_t primary, gid_t target)
 }
 #endif
 
-static int _pammodutil_user_in_group_common(pam_handle_t *pamh,
-				            struct passwd *pwd,
-					    struct group *grp)
+static int
+_pammodutil_user_in_group_common(pam_handle_t *pamh UNUSED,
+				 struct passwd *pwd,
+				 struct group *grp)
 {
 	int i;
 

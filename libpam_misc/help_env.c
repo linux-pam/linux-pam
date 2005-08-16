@@ -11,23 +11,6 @@
 #include <security/pam_misc.h>
 
 /*
- * This is a useful function for dumping the Linux-PAM environment
- * into some local memory, prior to it all getting lost when pam_end()
- * is called.
- *
- * Initially it was assumed that libpam did not do this part correctly
- * (based on a loose email definition).  The X/Open XSSO spec makes it
- * clear that this function is a duplicate of the one already in
- * libpam and therefore unnecessary.  IT WILL BE COMPLETELY REMOVED
- * IN libpam_misc 1.0 */
-
-char **pam_misc_copy_env(pam_handle_t *pamh);
-char **pam_misc_copy_env(pam_handle_t *pamh)
-{
-    return pam_getenvlist(pamh);
-}
-
-/*
  * This function should be used to carefully dispose of the copied
  * environment.
  *

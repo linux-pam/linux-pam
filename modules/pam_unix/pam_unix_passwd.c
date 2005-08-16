@@ -99,7 +99,7 @@ extern int getrpcport(const char *host, unsigned long prognum,
  * password changing module.
  */
 
-#ifdef NEED_LCKPWDF
+#if defined(USE_LCKPWDF) && !defined(HAVE_LCKPWDF)
 # include "./lckpwdf.-c"
 #endif
 
@@ -127,7 +127,7 @@ extern char *bigcrypt(const char *key, const char *salt);
 #define PW_TMPFILE		"/etc/npasswd"
 #define SH_TMPFILE		"/etc/nshadow"
 #ifndef CRACKLIB_DICTS
-#define CRACKLIB_DICTS		"/usr/share/dict/cracklib_dict"
+#define CRACKLIB_DICTS		NULL
 #endif
 #define OPW_TMPFILE		"/etc/security/nopasswd"
 #define OLD_PASSWORDS_FILE	"/etc/security/opasswd"
@@ -249,7 +249,7 @@ static int _unix_run_shadow_binary(pam_handle_t *pamh, unsigned int ctrl, const 
     /* fork */
     child = fork();
     if (child == 0) {
-        int i=0;
+        size_t i=0;
         struct rlimit rlim;
 	static char *envp[] = { NULL };
 	char *args[] = { NULL, NULL, NULL, NULL };
@@ -263,7 +263,7 @@ static int _unix_run_shadow_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 
 	if (getrlimit(RLIMIT_NOFILE,&rlim)==0) {
 	  for (i=2; i < rlim.rlim_max; i++) {
-		if (fds[0] != i)
+	    if ((unsigned int)fds[0] != i)
 	  	   close(i);
 	  }
 	}
@@ -976,7 +976,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 	}
 	if (off(UNIX__IAMROOT, ctrl)) {
 #ifdef USE_CRACKLIB
-		remark = FascistCheck(pass_new, CRACKLIB_DICTS);
+		remark = FascistCheck (pass_new, CRACKLIB_DICTS);
 		D(("called cracklib [%s]", remark));
 #else
 		if (strlen(pass_new) < 6)

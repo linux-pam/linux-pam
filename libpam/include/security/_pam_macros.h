@@ -9,8 +9,8 @@
 
 /* a 'safe' version of strdup */
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define  x_strdup(s)  ( (s) ? strdup(s):NULL )
 

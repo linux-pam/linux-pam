@@ -6,7 +6,7 @@
 
 #include "pam_private.h"
 
-const char *pam_strerror(pam_handle_t *pamh, int errnum)
+const char *pam_strerror(pam_handle_t *pamh UNUSED, int errnum)
 {
     switch (errnum) {
     case PAM_SUCCESS:

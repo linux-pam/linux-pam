@@ -20,7 +20,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include <security/pam_filter.h>
+#include "pam_filter.h"
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/_pam_modutil.h>
@@ -59,7 +59,7 @@ static void do_transpose(char *buffer,int len)
 
 extern char **environ;
 
-int main(int argc, char **argv) 
+int main(int argc, char **argv UNUSED)
 {
      char buffer[BUFSIZ];
      fd_set readers;
@@ -162,6 +162,3 @@ int main(int argc, char **argv)
 
      exit(0);
 }
-
-
-

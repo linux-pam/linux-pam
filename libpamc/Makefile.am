@@ -1,0 +1,24 @@
+#
+# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+#
+
+SUBDIRS = test
+
+CLEANFILES = *~
+
+EXTRA_DIST = libpamc.map
+
+include_HEADERS = include/security/pam_client.h
+
+noinst_HEADERS = libpamc.h
+
+AM_CFLAGS=-I$(top_srcdir)/libpam/include -I$(srcdir)/include
+
+libpamc_la_LDFLAGS = -version-info 1:0:0
+if HAVE_VERSIONING
+  libpamc_la_LDFLAGS += -Wl,--version-script=libpamc.map
+endif
+
+lib_LTLIBRARIES = libpamc.la
+
+libpamc_la_SOURCES = pamc_client.c pamc_converse.c pamc_load.c

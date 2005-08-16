@@ -238,7 +238,7 @@ static char *_pam_delete(register char *xx)
 /*
  * can't be a palindrome - like `R A D A R' or `M A D A M'
  */
-static int palindrome(const char *old, const char *new)
+static int palindrome(const char *new)
 {
     int	i, j;
 
@@ -257,7 +257,8 @@ static int palindrome(const char *old, const char *new)
  * the other
  */
 
-static int distdifferent(const char *old, const char *new, int i, int j)
+static int distdifferent(const char *old, const char *new,
+			 size_t i, size_t j)
 {
     char c, d;
 
@@ -275,7 +276,7 @@ static int distdifferent(const char *old, const char *new, int i, int j)
 }
 
 static int distcalculate(int **distances, const char *old, const char *new,
-			 int i, int j)
+			 size_t i, size_t j)
 {
     int tmp = 0;
 
@@ -296,7 +297,7 @@ static int distcalculate(int **distances, const char *old, const char *new,
 static int distance(const char *old, const char *new)
 {
     int **distances = NULL;
-    int m, n, i, j, r;
+    size_t m, n, i, j, r;
 
     m = strlen(old);
     n = strlen(new);
@@ -345,8 +346,7 @@ static int similar(struct cracklib_options *opt,
 /*
  * a nice mix of characters.
  */
-static int simple(struct cracklib_options *opt,
-		  const char *old, const char *new)
+static int simple(struct cracklib_options *opt, const char *new)
 {
     int	digits = 0;
     int	uppers = 0;
@@ -439,7 +439,7 @@ static const char * password_check(struct cracklib_options *opt, const char *old
 	strcpy (wrapped, oldmono);
 	strcat (wrapped, oldmono);
 
-	if (palindrome(oldmono, newmono))
+	if (palindrome(newmono))
 		msg = "is a palindrome";
 
 	if (!msg && strcmp(oldmono, newmono) == 0)
@@ -448,7 +448,7 @@ static const char * password_check(struct cracklib_options *opt, const char *old
 	if (!msg && similar(opt, oldmono, newmono))
 		msg = "is too similar to the old one";
 
-	if (!msg && simple(opt, old, new))
+	if (!msg && simple(opt, new))
 		msg = "is too simple";
 
 	if (!msg && strstr(wrapped, newmono))

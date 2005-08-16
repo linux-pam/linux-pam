@@ -45,7 +45,7 @@ int pam_misc_conv_died=0;       /* application can probe this for timeout */
  * being used.
  */
 
-static void pam_misc_conv_delete_binary(void *appdata,
+static void pam_misc_conv_delete_binary(void *appdata UNUSED,
 					pamc_bp_t *delete_me)
 {
     PAM_BP_RENEW(delete_me, 0, 0);
@@ -67,7 +67,7 @@ static void reset_alarm(struct sigaction *o_ptr)
 }
 
 /* this is where we intercept the alarm signal */
-static void time_is_up(int ignore)
+static void time_is_up(int ignore UNUSED)
 {
     expired = 1;
 }

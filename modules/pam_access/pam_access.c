@@ -77,12 +77,6 @@
 #define MAXHOSTNAMELEN 256
 #endif
 
-#ifdef DEFAULT_CONF_FILE
-# define PAM_ACCESS_CONFIG DEFAULT_CONF_FILE
-#else
-# define PAM_ACCESS_CONFIG "/etc/security/access.conf"
-#endif
-
  /* Delimiters for fields and for lists of users, ttys or hosts. */
 
 static const char *fs = ":";			/* field separator */
@@ -160,7 +154,7 @@ static int list_match (pam_handle_t *, char *, struct login_info *,
 		       match_func *);
 static int user_match (pam_handle_t *, char *, struct login_info *);
 static int from_match (pam_handle_t *, char *, struct login_info *);
-static int string_match (pam_handle_t *, const char *, const char *);
+static int string_match (const char *, const char *);
 
 /* login_access - match username/group and host/tty with access control file */
 
@@ -303,7 +297,7 @@ static int user_match(pam_handle_t *pamh, char *tok, struct login_info *item)
 	return (user_match (pamh, tok, item) && from_match (pamh, at + 1, &fake_item));
     } else if (tok[0] == '@') /* netgroup */
 	return (netgroup_match(tok + 1, (char *) 0, string));
-    else if (string_match (pamh, tok, string)) /* ALL or exact match */
+    else if (string_match (tok, string)) /* ALL or exact match */
 	return YES;
     else if (_pammodutil_user_in_group_nam_nam (pamh, item->user->pw_name, tok))
       /* try group membership */
@@ -315,7 +309,7 @@ static int user_match(pam_handle_t *pamh, char *tok, struct login_info *item)
 /* from_match - match a host or tty against a list of tokens */
 
 static int
-from_match (pam_handle_t *pamh, char *tok, struct login_info *item)
+from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
 {
     const char *string = item->from;
     int        tok_len;
@@ -332,7 +326,7 @@ from_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 
     if (tok[0] == '@') {			/* netgroup */
 	return (netgroup_match(tok + 1, string, (char *) 0));
-    } else if (string_match (pamh, tok, string)) /* ALL or exact match */
+    } else if (string_match (tok, string)) /* ALL or exact match */
       return YES;
     else if (tok[0] == '.') {			/* domain: match last fields */
 	if ((str_len = strlen(string)) > (tok_len = strlen(tok))
@@ -367,7 +361,7 @@ from_match (pam_handle_t *pamh, char *tok, struct login_info *item)
         r = snprintf(hn, sizeof(hn), "%u.%u.%u.%u.",
 		     (unsigned char)h->h_addr[0], (unsigned char)h->h_addr[1],
 		     (unsigned char)h->h_addr[2], (unsigned char)h->h_addr[3]);
-        if (r < 0 || r >= sizeof(hn))
+        if (r < 0 || r >= (int)sizeof(hn))
 	    return (NO);
         if (!strncmp(tok, hn, tok_len))
 	    return (YES);
@@ -379,7 +373,7 @@ from_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 /* string_match - match a string against one token */
 
 static int
-string_match (pam_handle_t *pamh, const char *tok, const char *string)
+string_match (const char *tok, const char *string)
 {
 
     /*
@@ -397,8 +391,9 @@ string_match (pam_handle_t *pamh, const char *tok, const char *string)
 
 /* --- public account management functions --- */
 
-PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
-		     ,const char **argv)
+PAM_EXTERN int
+pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
+		  int argc, const char **argv)
 {
     struct login_info loginfo;
     const char *user=NULL;

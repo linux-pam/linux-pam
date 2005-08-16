@@ -560,8 +560,8 @@ int pam_sm_open_session(pam_handle_t * pamh, int flags, int argc
 
 /* Ignore */
 PAM_EXTERN
-int pam_sm_close_session(pam_handle_t * pamh, int flags, int argc
-			 ,const char **argv)
+int pam_sm_close_session (pam_handle_t * pamh UNUSED, int flags UNUSED,
+			  int argc UNUSED, const char **argv UNUSED)
 {
    return PAM_SUCCESS;
 }

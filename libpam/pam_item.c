@@ -21,10 +21,6 @@
     }                                  \
 }
 
-/* handy version id */
-
-unsigned int __libpam_version = LIBPAM_VERSION;
-
 /* functions */
 
 int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)

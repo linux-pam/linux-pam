@@ -30,11 +30,6 @@ static const char rcsid[] =
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#ifdef DEFAULT_CONF_FILE
-# define PAM_GROUP_CONF         DEFAULT_CONF_FILE /* from external define */
-#else
-# define PAM_GROUP_CONF         "/etc/security/group.conf"
-#endif
 #define PAM_GROUP_BUFLEN        1000
 #define FIELD_SEPARATOR         ';'   /* this is new as of .02 */
 
@@ -163,8 +158,9 @@ static int read_field(int fd, char **buf, int *from, int *to)
 		}
 	    }
 	    switch ((*buf)[i]) {
-		int j,c;
+		int j, c;
 	    case '#':
+	        c = 0;
 		for (j=i; j < *to && (c = (*buf)[j]) != '\n'; ++j);
 		if (j >= *to) {
 		    (*buf)[*to = ++i] = '\0';
@@ -329,7 +325,8 @@ static boolean logic_field(const void *me, const char *x, int rule,
      return left;
 }
 
-static boolean is_same(const void *A, const char *b, int len, int rule)
+static boolean
+is_same (const void *A, const char *b, int len, int rule UNUSED)
 {
      int i;
      const char *a;
@@ -351,10 +348,10 @@ typedef struct {
      int minute;            /* integer, hour*100+minute for now */
 } TIME;
 
-struct day {
+static struct day {
      const char *d;
      int bit;
-} static const days[11] = {
+} const days[11] = {
      { "su", 01 },
      { "mo", 02 },
      { "tu", 04 },
@@ -769,14 +766,16 @@ static int check_account(pam_handle_t *pamh, const char *service,
 
 /* --- public authentication management functions --- */
 
-PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags
-				   , int argc, const char **argv)
+PAM_EXTERN int
+pam_sm_authenticate (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		     int argc UNUSED, const char **argv UNUSED)
 {
     return PAM_IGNORE;
 }
 
-PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags
-			      , int argc, const char **argv)
+PAM_EXTERN int
+pam_sm_setcred (pam_handle_t *pamh, int flags,
+		int argc UNUSED, const char **argv UNUSED)
 {
     const void *service=NULL, *void_tty=NULL;
     const char *user=NULL;

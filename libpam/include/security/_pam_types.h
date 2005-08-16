@@ -14,11 +14,6 @@
 #ifndef _SECURITY__PAM_TYPES_H
 #define _SECURITY__PAM_TYPES_H
 
-#ifndef __LIBPAM_VERSION
-# define __LIBPAM_VERSION __libpam_version
-#endif
-extern unsigned int __libpam_version;
-
 /*
  * include local definition for POSIX - NULL
  */

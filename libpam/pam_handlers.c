@@ -594,7 +594,10 @@ int _pam_add_handler(pam_handle_t *pamh
 #ifdef PAM_SHL
     const char *_sym, *_sym2;
 #endif
-    char *mod_full_path=NULL, *mod_full_isa_path=NULL, *isa=NULL;
+    char *mod_full_path=NULL;
+#ifdef PAM_DYNAMIC
+    char *mod_full_isa_path=NULL, *isa=NULL;
+#endif
     servicefn func, func2;
     int success;
 

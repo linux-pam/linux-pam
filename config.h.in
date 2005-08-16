@@ -17,6 +17,9 @@
    */
 #undef HAVE_DIRENT_H
 
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
 /* Define to 1 if you don't have `vprintf' but do have `_doprnt.' */
 #undef HAVE_DOPRNT
 
@@ -56,38 +59,8 @@
 /* Define to 1 if you have the <lastlog.h> header file. */
 #undef HAVE_LASTLOG_H
 
-/* Define to 1 if you have the `crack' library (-lcrack). */
-#undef HAVE_LIBCRACK
-
-/* Define to 1 if you have the `crypt' library (-lcrypt). */
-#undef HAVE_LIBCRYPT
-
-/* Define to 1 if you have the `db' library (-ldb). */
-#undef HAVE_LIBDB
-
-/* Define to 1 if you have the `fl' library (-lfl). */
-#undef HAVE_LIBFL
-
-/* Define to 1 if you have the `fl' library (-lfl). */
-#undef HAVE_LIBFLEX
-
-/* Define to 1 if you have the `l' library (-ll). */
-#undef HAVE_LIBLEX
-
-/* Define to 1 if you have the `ndbm' library (-lndbm). */
-#undef HAVE_LIBNDBM
-
-/* Define to 1 if you have the `nsl' library (-lnsl). */
-#undef HAVE_LIBNSL
-
-/* Define to 1 if you have the `pwdb' library (-lpwdb). */
-#undef HAVE_LIBPWDB
-
-/* Define to 1 if you have the `nsl' library (-lnsl). */
-#undef HAVE_LIBSELINUX
-
-/* Define to 1 if you have the `util' library (-lutil). */
-#undef HAVE_LIBUTIL
+/* Define to 1 if you have the `lckpwdf' function. */
+#undef HAVE_LCKPWDF
 
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
@@ -196,6 +169,9 @@
 /* Every malloc etc. call will be tracked */
 #undef MEMORY_DEBUG
 
+/* Name of package */
+#undef PACKAGE
+
 /* Define to the address where bug reports for this package should be sent. */
 #undef PACKAGE_BUGREPORT
 
@@ -229,11 +205,14 @@
 /* Define to 1 if your <sys/time.h> declares `struct tm'. */
 #undef TM_IN_SYS_TIME
 
-/* build libraries with different names (suffixed with 'd') */
-#undef WITH_LIBDEBUG
+/* define if your compiler has __att ribute__ ((unused)) */
+#undef UNUSED
 
-/* Build with prelude ids support */
-#undef WITH_PRELUDE
+/* Define to 1 if the lckpwdf function should be used */
+#undef USE_LCKPWDF
+
+/* Version number of package */
+#undef VERSION
 
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */
@@ -252,11 +231,16 @@
 #define N_(msgid) msgid
 #endif /* ENABLE_NLS */
 
+/* Number of bits in a file offset, on hosts where this is settable. */
+#undef _FILE_OFFSET_BITS
+
+/* Define for large files, on AIX-style hosts. */
+#undef _LARGE_FILES
+
 #ifdef MEMORY_DEBUG
 /*
  * this is basically a hack - we need to include a semiarbitrary
  * number of headers to ensure that we don't get silly prototype/macro
- * confusion.
  */
 # include <string.h>
 # include <stdlib.h>

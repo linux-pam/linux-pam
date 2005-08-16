@@ -100,7 +100,7 @@ struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, cons
   /* fork */
   child = fork();
   if (child == 0) {
-    int i=0;
+    size_t i=0;
     struct rlimit rlim;
     static char *envp[] = { NULL };
     char *args[] = { NULL, NULL, NULL, NULL };
@@ -114,7 +114,7 @@ struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, cons
 
     if (getrlimit(RLIMIT_NOFILE,&rlim)==0) {
       for (i=2; i < rlim.rlim_max; i++) {
-	if (fds[1] != i) {
+	if ((unsigned int)fds[1] != i) {
 	  close(i);
 	}
       }

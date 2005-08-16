@@ -8,10 +8,6 @@
  * template for this file (via pam_mail)
  */
 
-#ifndef DEFAULT_CONF_FILE
-#define DEFAULT_CONF_FILE       "/etc/security/pam_env.conf"
-#endif
-
 #define DEFAULT_ETC_ENVFILE     "/etc/environment"
 #define DEFAULT_READ_ENVFILE    0
 
@@ -95,7 +91,7 @@ static void _log_err(int err, const char *format, ...)
 #define PAM_ENV_SILENT      0x04
 #define PAM_NEW_ENV_FILE    0x10
 
-static int _pam_parse(int flags, int argc, const char **argv, char **conffile,
+static int _pam_parse(int argc, const char **argv, char **conffile,
 	char **envfile, int *readenv)
 {
     int ctrl=0;
@@ -743,16 +739,16 @@ static void   _clean_var(VAR *var)
 
 /* --- authentication management functions (only) --- */
 
-PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
-			const char **argv)
+PAM_EXTERN int
+pam_sm_authenticate (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		     int argc UNUSED, const char **argv UNUSED)
 {
   return PAM_IGNORE;
 }
 
-PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
-		   const char **argv)
+PAM_EXTERN int
+pam_sm_setcred (pam_handle_t *pamh, int flags UNUSED,
+		int argc, const char **argv)
 {
   int retval, ctrl, readenv=DEFAULT_READ_ENVFILE;
   char *conf_file=NULL, *env_file=NULL;
@@ -762,7 +758,7 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
    */
 
   D(("Called."));
-  ctrl = _pam_parse(flags, argc, argv, &conf_file, &env_file, &readenv);
+  ctrl = _pam_parse(argc, argv, &conf_file, &env_file, &readenv);
 
   retval = _parse_config_file(pamh, ctrl, &conf_file);
 
@@ -775,17 +771,17 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
   return retval;
 }
 
-PAM_EXTERN
-int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc,
-		     const char **argv)
+PAM_EXTERN int
+pam_sm_acct_mgmt (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		  int argc UNUSED, const char **argv UNUSED)
 {
   _log_err(LOG_NOTICE, "pam_sm_acct_mgmt called inappropriatly");
   return PAM_SERVICE_ERR;
 }
 
-PAM_EXTERN
-int pam_sm_open_session(pam_handle_t *pamh,int flags,int argc
-			,const char **argv)
+PAM_EXTERN int
+pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
 {
   int retval, ctrl, readenv=DEFAULT_READ_ENVFILE;
   char *conf_file=NULL, *env_file=NULL;
@@ -795,7 +791,7 @@ int pam_sm_open_session(pam_handle_t *pamh,int flags,int argc
    */
 
   D(("Called."));
-  ctrl = _pam_parse(flags, argc, argv, &conf_file, &env_file, &readenv);
+  ctrl = _pam_parse(argc, argv, &conf_file, &env_file, &readenv);
 
   retval = _parse_config_file(pamh, ctrl, &conf_file);
 
@@ -808,17 +804,17 @@ int pam_sm_open_session(pam_handle_t *pamh,int flags,int argc
   return retval;
 }
 
-PAM_EXTERN
-int pam_sm_close_session(pam_handle_t *pamh,int flags,int argc,
-			 const char **argv)
+PAM_EXTERN int
+pam_sm_close_session (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		      int argc UNUSED, const char **argv UNUSED)
 {
   D(("Called and Exit"));
   return PAM_SUCCESS;
 }
 
-PAM_EXTERN
-int pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc,
-		     const char **argv)
+PAM_EXTERN int
+pam_sm_chauthtok (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		  int argc UNUSED, const char **argv UNUSED)
 {
   _log_err(LOG_NOTICE, "pam_sm_chauthtok called inappropriatly");
   return PAM_SERVICE_ERR;

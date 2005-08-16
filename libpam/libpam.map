@@ -1,0 +1,38 @@
+LIBPAM_1.0 {
+  global:
+    pam_acct_mgmt;
+    pam_authenticate;
+    pam_authenticate_secondary;
+    pam_chauthtok;
+    pam_close_session;
+    pam_end;
+    pam_open_session;
+    pam_setcred;
+    pam_start;
+    pam_getenv;
+    pam_putenv;
+    pam_getenvlist;
+    pam_set_item;
+    pam_get_item;
+    pam_strerror;
+    pam_fail_delay;
+    pam_set_data;
+    pam_get_data;
+    pam_get_user;
+    pam_get_mapped_authtok;
+    pam_set_mapped_authtok;
+    pam_get_mapped_username;
+    pam_set_mapped_username;
+
+  local:
+    *;
+};
+LIBPAM_MALLOC_DEBUG_1.0 {
+  global:
+    pam_malloc;
+    pam_calloc;
+    pam_free;
+    pam_realloc;
+    pam_exit;
+    pam_strdup;
+};

@@ -28,11 +28,6 @@ static const char rcsid[] =
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#ifdef DEFAULT_CONF_FILE
-# define PAM_TIME_CONF         DEFAULT_CONF_FILE /* from external define */
-#else
-# define PAM_TIME_CONF         "/etc/security/time.conf"
-#endif
 #define PAM_TIME_BUFLEN        1000
 #define FIELD_SEPARATOR        ';'   /* this is new as of .02 */
 

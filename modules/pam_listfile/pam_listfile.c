@@ -79,8 +79,9 @@ static int is_on_list(char * const *list, const char *member)
 
 #define LESSER(a, b) ((a) < (b) ? (a) : (b))
 
-PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
+PAM_EXTERN int
+pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
 {
     int retval, i, citem=0, extitem=0, onerr=PAM_SERVICE_ERR, sense=2;
     const void *void_citemp;
@@ -108,12 +109,13 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 	    memset(mybuf,'\0',sizeof(mybuf));
 	    memset(myval,'\0',sizeof(mybuf));
 	    junk = strchr(argv[i], '=');
-	    if((junk == NULL) || (junk - argv[i]) >= sizeof(mybuf)) {
+	    if((junk == NULL) || (junk - argv[i]) >= (int) sizeof(mybuf)) {
 		_pam_log(LOG_ERR,LOCAL_LOG_PREFIX "Bad option: \"%s\"",
 			 argv[i]);
 		continue;
 	    }
-	    strncpy(mybuf, argv[i], LESSER(junk - argv[i], sizeof(mybuf) - 1));
+	    strncpy(mybuf, argv[i],
+		    LESSER(junk - argv[i], (int)sizeof(mybuf) - 1));
 	    strncpy(myval, junk + 1, sizeof(myval) - 1);
 	}
 	if(!strcmp(mybuf,"onerr"))
@@ -285,7 +287,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
 		}
 		itemlist[0] = x_strdup(grpinfo->gr_name);
 		setgrent();
-		for (i=1; (i < sizeof(itemlist)/sizeof(itemlist[0])-1) &&
+		for (i=1; (i < (int)(sizeof(itemlist)/sizeof(itemlist[0])-1)) &&
 			 (grpinfo = getgrent()); ) {
 		    if (is_on_list(grpinfo->gr_mem,citemp)) {
 			itemlist[i++] = x_strdup(grpinfo->gr_name);
@@ -412,15 +414,16 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **ar
     }
 }
 
-PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc, const char **argv)
+PAM_EXTERN int
+pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		int argc UNUSED, const char **argv UNUSED)
 {
     return PAM_SUCCESS;
 }
 
-PAM_EXTERN
-int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc,
-		     const char **argv)
+PAM_EXTERN int
+pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
+		  int argc, const char **argv)
 {
     return pam_sm_authenticate(pamh, 0, argc, argv);
 }

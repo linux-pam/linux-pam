@@ -31,7 +31,7 @@
 #define PAM_SM_PASSWORD
 
 #include <security/pam_modules.h>
-#include <security/pam_filter.h>
+#include "pam_filter.h"
 
 /* ------ some tokens used for convenience throughout this file ------- */
 
@@ -282,8 +282,9 @@ static void free_evp(char *evp[])
     free(evp);
 }
 
-static int set_filter(pam_handle_t *pamh, int flags, int ctrl
-		      , const char **evp, const char *filtername)
+static int
+set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
+	    const char **evp, const char *filtername)
 {
     int status=-1;
     char terminal[TERMINAL_LEN];
@@ -591,6 +592,7 @@ static int set_filter(pam_handle_t *pamh, int flags, int ctrl
     /* quit the parent process, returning the child's exit status */
 
     exit(status);
+    return status; /* never reached, to make gcc happy */
 }
 
 static int set_the_terminal(pam_handle_t *pamh)

@@ -18,11 +18,9 @@
 #define malloc(s)      pam_malloc(s,__FILE__,__FUNCTION__,__LINE__)
 #define calloc(n,s)    pam_calloc(n,s,__FILE__,__FUNCTION__,__LINE__)
 #define free(x)        pam_free(x,__FILE__,__FUNCTION__,__LINE__)
-/* #define memalign(a,s)  pam_memalign(a,s,__FILE__,__FUNCTION__,__LINE__) */
 #define realloc(x,s)   pam_realloc(x,s,__FILE__,__FUNCTION__,__LINE__)
-/* #define valloc(s)      pam_valloc(s,__FILE__,__FUNCTION__,__LINE__) */
-/* #define alloca(s)      pam_alloca(s,__FILE__,__FUNCTION__,__LINE__) */
 #define exit(i)        pam_exit(i,__FILE__,__FUNCTION__,__LINE__)
+#undef strdup
 #define strdup(s)      pam_strdup(s,__FILE__,__FUNCTION__,__LINE__)
 
 /* these are the prototypes for the wrapper functions */

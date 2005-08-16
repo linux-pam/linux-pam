@@ -75,7 +75,7 @@ static void _log_err(int err, const char *format, ...)
 #define PAM_QUIET_MAIL		0x1000
 
 static int _pam_parse(int flags, int argc, const char **argv, char **maildir,
-		      int *hashcount)
+		      size_t *hashcount)
 {
     int ctrl=0;
 
@@ -107,8 +107,8 @@ static int _pam_parse(int flags, int argc, const char **argv, char **maildir,
 	    }
 	} else if (!strncmp(*argv,"hash=",5)) {
 	    char *ep = NULL;
-	    *hashcount = strtol(*argv+5,&ep,10);
-	    if (!ep || (*hashcount < 0)) {
+	    *hashcount = strtoul(*argv+5,&ep,10);
+	    if (!ep) {
 		*hashcount = 0;
 	    }
 	} else if (!strcmp(*argv,"close")) {
@@ -171,7 +171,7 @@ static int converse(pam_handle_t *pamh, int ctrl, int nargs
 }
 
 static int get_folder(pam_handle_t *pamh, int ctrl,
-		      char **path_mail, char **folder_p, int hashcount)
+		      char **path_mail, char **folder_p, size_t hashcount)
 {
     int retval;
     const char *user, *path;
@@ -228,7 +228,7 @@ static int get_folder(pam_handle_t *pamh, int ctrl,
 	if (ctrl & PAM_HOME_MAIL) {
 	    sprintf(folder, MAIL_FILE_FORMAT, pwd->pw_dir, "", path);
 	} else {
-	    int i;
+	    size_t i;
 	    char *hash = malloc(2*hashcount+1);
 
 	    if (hash) {
@@ -372,9 +372,9 @@ static int _do_mail(pam_handle_t *, int, int, const char **, int);
 
 /* --- authentication functions --- */
 
-PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc,
-    const char **argv)
+PAM_EXTERN int
+pam_sm_authenticate (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		     int argc UNUSED, const char **argv UNUSED)
 {
     return PAM_IGNORE;
 }
@@ -412,7 +412,8 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
 static int _do_mail(pam_handle_t *pamh, int flags, int argc,
     const char **argv, int est)
 {
-    int retval, ctrl, hashcount;
+    int retval, ctrl;
+    size_t hashcount;
     char *path_mail=NULL, *folder;
     const char *type;
 

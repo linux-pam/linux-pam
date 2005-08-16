@@ -6,11 +6,12 @@
 
 #include "pammodutil.h"
 
-void _pammodutil_cleanup(pam_handle_t *pamh, void *data, int error_status)
+void
+_pammodutil_cleanup (pam_handle_t *pamh UNUSED, void *data,
+		     int error_status UNUSED)
 {
     if (data) {
 	/* junk it */
 	(void) free(data);
     }
 }
-

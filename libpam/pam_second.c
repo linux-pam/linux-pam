@@ -25,12 +25,12 @@ int pam_authenticate_secondary(pam_handle_t *pamh,
 			       int flags);
 
 int pam_authenticate_secondary(pam_handle_t *pamh,
-			       char *target_username,
-			       char *target_module_type,
-			       char *target_authn_domain,
-			       char *target_supp_data,
-			       unsigned char *target_module_authtok,
-			       int flags)
+			       char *target_username UNUSED,
+			       char *target_module_type UNUSED,
+			       char *target_authn_domain UNUSED,
+			       char *target_supp_data UNUSED,
+			       unsigned char *target_module_authtok UNUSED,
+			       int flags UNUSED)
 {
     int retval=PAM_SYSTEM_ERR;
 

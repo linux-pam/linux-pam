@@ -37,9 +37,9 @@
 
 /* --- session management functions (only) --- */
 
-PAM_EXTERN
-int pam_sm_close_session(pam_handle_t *pamh, int flags, int argc,
-                        const char **argv)
+PAM_EXTERN int
+pam_sm_close_session (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		      int argc UNUSED, const char **argv UNUSED)
 {
      return PAM_IGNORE;
 }

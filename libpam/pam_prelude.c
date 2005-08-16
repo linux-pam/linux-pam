@@ -23,10 +23,6 @@
 #define ANALYZER_MANUFACTURER "Sebastien Tricaud, http://www.kernel.org/pub/linux/libs/pam/"
 
 #define DEFAULT_ANALYZER_NAME "PAM"
-#define DEFAULT_ANALYZER_CONFIG LIBPRELUDE_CONFIG_PREFIX "/etc/prelude/default/idmef-client.conf"
-
-#define PAM_VERSION LIBPAM_VERSION_STRING
-
 
 static const char *
 pam_get_item_service(pam_handle_t *pamh)

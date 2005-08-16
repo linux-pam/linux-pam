@@ -139,13 +139,6 @@ static int _pam_parse(int argc, const char **argv, struct pam_limit_s *pl)
 }
 
 
-/* limits stuff */
-#ifdef DEFAULT_CONF_FILE
-# define LIMITS_FILE DEFAULT_CONF_FILE
-#else
-# define LIMITS_FILE "/etc/security/limits.conf"
-#endif
-
 #define LIMITED_OK 0 /* limit setting appeared to work */
 #define LIMIT_ERR  1 /* error setting a limit */
 #define LOGIN_ERR  2 /* too many logins err */
@@ -156,7 +149,7 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
               struct pam_limit_s *pl)
 {
     struct utmp *ut;
-    unsigned int count;
+    int count;
 
     if (ctrl & PAM_DEBUG_ARG) {
         _pam_log(LOG_DEBUG, "checking logins for '%s' (maximum of %d)\n",
@@ -265,7 +258,7 @@ static void process_limit(int source, const char *lim_type,
     int limit_item;
     int limit_type = 0;
     int int_value = 0;
-    unsigned long rlimit_value = 0;
+    rlim_t rlimit_value = 0;
     char *endptr;
     const char *value_orig = lim_value;
 
@@ -361,7 +354,11 @@ static void process_limit(int source, const char *lim_type,
             return;
 		}
 	} else {
+#ifdef __USE_FILE_OFFSET64
+		rlimit_value = strtoull (lim_value, &endptr, 10);
+#else
 		rlimit_value = strtoul (lim_value, &endptr, 10);
+#endif
 		if (rlimit_value == 0 && value_orig == endptr) {
 			_pam_log(LOG_DEBUG, "wrong limit value '%s' for limit type '%s'",
 				lim_value, lim_type);
@@ -462,7 +459,8 @@ static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
         char ltype[LINE_LENGTH];
         char item[LINE_LENGTH];
         char value[LINE_LENGTH];
-        int i,j;
+        int i;
+        size_t j;
         char *tptr;
 
         tptr = buf;
@@ -604,8 +602,9 @@ static int setup_limits(pam_handle_t *pamh,
 }
 
 /* now the session stuff */
-PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags,
-                                   int argc, const char **argv)
+PAM_EXTERN int
+pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
 {
     int retval;
     char *user_name;
@@ -659,8 +658,9 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags,
     return PAM_SUCCESS;
 }
 
-PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags,
-                                    int argc, const char **argv)
+PAM_EXTERN int
+pam_sm_close_session (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		      int argc UNUSED, const char **argv UNUSED)
 {
      /* nothing to do */
      return PAM_SUCCESS;

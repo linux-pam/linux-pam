@@ -95,7 +95,8 @@ do {								\
 } while (0)
 
 
-static void setcred_free (pam_handle_t * pamh, void *ptr, int err)
+static void
+setcred_free (pam_handle_t *pamh UNUSED, void *ptr, int err UNUSED)
 {
 	if (ptr)
 		free (ptr);
@@ -194,8 +195,9 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
  * warned you. -- AOY
  */
 
-PAM_EXTERN int pam_sm_setcred(pam_handle_t * pamh, int flags
-			      ,int argc, const char **argv)
+PAM_EXTERN int
+pam_sm_setcred (pam_handle_t *pamh, int flags UNUSED,
+		int argc UNUSED, const char **argv UNUSED)
 {
 	int retval;
 	const void *pretval = NULL;

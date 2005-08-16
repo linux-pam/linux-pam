@@ -173,5 +173,5 @@ int main(int argc, char **argv)
      pamh = NULL;
      bail_out(pamh,1,retcode,"pam_end");
 
-     exit(0);
+     return (0);
 }
