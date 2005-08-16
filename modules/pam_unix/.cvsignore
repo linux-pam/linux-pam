@@ -2,3 +2,5 @@ dynamic
 unix_chkpwd
 *.so
 *~
+Makefile
+Makefile.in

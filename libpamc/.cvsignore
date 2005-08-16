@@ -1,3 +1,5 @@
 libpamc.so*
 static
 dynamic
+Makefile
+Makefile.in

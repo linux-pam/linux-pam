@@ -1,2 +1,4 @@
 dynamic
 pwdb_chkpwd
+Makefile
+Makefile.in

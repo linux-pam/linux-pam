@@ -9,3 +9,5 @@ config.log
 config.cache
 _pam_aconf.h
 Make.Rules
+Makefile
+Makefile.in

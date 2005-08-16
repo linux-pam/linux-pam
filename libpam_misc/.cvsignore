@@ -7,3 +7,5 @@ misc_conv.o
 xstrdup.o
 dynamic
 static
+Makefile
+Makefile.in

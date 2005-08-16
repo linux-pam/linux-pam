@@ -1,3 +1,5 @@
 lex.yy.c
 parse.tab.c
 padout
+Makefile
+Makefile.in

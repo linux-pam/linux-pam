@@ -1,2 +1,4 @@
 .ignore_age
 .md5sum
+Makefile
+Makefile.in

@@ -3,7 +3,7 @@
 #
 
 FILES=pam pam_appl pam_modules
-FSRCS=pam.sgml pam_appl.sgml pam_modules.sgml
+FSRCS=pam_appl.sgml pam_modules.sgml
 
 TEXTS=txts/pam.txt txts/pam_appl.txt txts/pam_modules.txt
 HTMLS=html/pam.html html/pam_appl.html html/pam_modules.html
@@ -32,7 +32,7 @@ all: html text postscript pdf
 
 html: $(HTMLS)
 
-$(HTMLS) : $(FSRCS)
+$(HTMLS) : $(FSRCS) pam.sgml
 	@echo 'Building html documentation from files in modules/*.sgml'
 if HAVE_SGML2HTML
 	@for i in $(FILES) ; do \
@@ -49,7 +49,7 @@ endif
 
 text: $(TEXTS)
 
-$(TEXTS) : $(FSRCS)
+$(TEXTS) : $(FSRCS) pam.sgml
 	@echo 'Building text documentation from files in modules/*.sgml'
 if HAVE_SGML2TXT
 	@for i in $(FILES) ; do \
@@ -64,7 +64,7 @@ endif
 
 postscript: $(PSFILES)
 
-$(PSFILES): $(FSRCS)
+$(PSFILES): $(FSRCS) pam.sgml
 	@echo 'Building postscript documentation from files in modules/*.sgml'
 if HAVE_SGML2PS
 	@for i in $(FILES) ; do \
