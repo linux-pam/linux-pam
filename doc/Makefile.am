@@ -12,12 +12,12 @@ PDFFILES=pdf/pam.pdf pdf/pam_appl.pdf pdf/pam_modules.pdf
 
 MODULES=$(shell ls modules/*.sgml)
 
-CLEANFILES = *~ */*~ $(TEXTS) $(PSFILES) $(PDFFILES) html/*.html \
+CLEANFILES = *~ */*~ $(TEXTS) $(PSFILES) $(PDFFILES) html/pam*.html \
 	ps/missfont.log MODULES-SGML pam.sgml \
 	specs/draft-morgan-pam-current.txt
 
 EXTRA_DIST = $(FSRCS) CREDITS NOTES figs/pam_orient.txt pdf/README \
-	ps/README html/README txts/README man/template-man $(MANS) \
+	ps/README txts/README man/template-man $(MANS) \
 	pam_source.sgml $(MODULES) modules/module.sgml-template \
 	modules/README
 
