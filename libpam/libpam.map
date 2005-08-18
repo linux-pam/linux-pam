@@ -2,7 +2,6 @@ LIBPAM_1.0 {
   global:
     pam_acct_mgmt;
     pam_authenticate;
-    pam_authenticate_secondary;
     pam_chauthtok;
     pam_close_session;
     pam_end;
@@ -19,10 +18,6 @@ LIBPAM_1.0 {
     pam_set_data;
     pam_get_data;
     pam_get_user;
-    pam_get_mapped_authtok;
-    pam_set_mapped_authtok;
-    pam_get_mapped_username;
-    pam_set_mapped_username;
 
   local:
     *;
