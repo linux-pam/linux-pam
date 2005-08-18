@@ -12,5 +12,7 @@ pam_conv1_SOURCES = pam_conv.lex pam_conv.y
 
 pam_conv1_LDADD = @LEXLIB@
 
+pam_conv.c: lex.yy.c
+
 lex.yy.c: pam_conv.lex
 	$(LEX) pam_conv.lex

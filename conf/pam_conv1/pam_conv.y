@@ -9,7 +9,7 @@
  * distributed with this file.)
  */
 
-    const static char bisonid[]=
+    static const char bisonid[]=
 	"$Id$\n"
 	"Copyright (c) Andrew G. Morgan 1997-8 <morgan@linux.kernel.org>\n";
 
@@ -17,6 +17,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <sys/stat.h>
 
     int current_line=1;
     extern char *yytext;
@@ -27,7 +29,7 @@
 #define PAM_D                "./pam.d"
 #define PAM_D_MODE           0755
 #define PAM_D_MAGIC_HEADER   \
-    "#%PAM-1.0\n" \
+    "#%%PAM-1.0\n" \
     "#[For version 1.0 syntax, the above header is optional]\n"
 
 #define PAM_D_FILE_FMT       PAM_D "/%s"

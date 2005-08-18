@@ -9,7 +9,7 @@
  * distributed with this file.)
  */
 
-    const static char lexid[]=
+    static const char lexid[]=
 	"$Id$\n"
 	"Copyright (c) Andrew G. Morgan 1997 <morgan@parc.power.net>\n";
 
