@@ -13,4 +13,4 @@ SUBDIRS = pammodutil pam_access pam_cracklib pam_debug pam_deny pam_env \
 
 CLEANFILES = *~
 
-EXTRA_DIST = register_static
+EXTRA_DIST = register_static modules.map
