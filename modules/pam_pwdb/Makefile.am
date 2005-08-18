@@ -6,7 +6,7 @@ CLEANFILES = *~
 
 EXTRA_DIST = TODO README md5.c md5_crypt.c bigcrypt.-c pam_unix_acct.-c \
 	pam_unix_auth.-c pam_unix_md.-c pam_unix_passwd.-c \
-	pam_unix_pwupd.-c pam_unix_sess.-c support.-c
+	pam_unix_pwupd.-c pam_unix_sess.-c support.-c BUGS CHANGELOG
 
 noinst_HEADERS = md5.h
 

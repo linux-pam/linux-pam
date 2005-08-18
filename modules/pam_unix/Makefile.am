@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README md5.c md5_crypt.c lckpwdf.-c $(MANS)
+EXTRA_DIST = README md5.c md5_crypt.c lckpwdf.-c $(MANS) CHANGELOG
 
 man_MANS = unix_chkpwd.8
 

@@ -17,7 +17,7 @@ CLEANFILES = *~ */*~ $(TEXTS) $(PSFILES) $(PDFFILES) html/pam*.html \
 	specs/draft-morgan-pam-current.txt
 
 EXTRA_DIST = $(FSRCS) CREDITS NOTES figs/pam_orient.txt pdf/README \
-	ps/README txts/README man/template-man $(MANS) \
+	ps/README html/index.html txts/README man/template-man $(MANS) \
 	pam_source.sgml $(MODULES) modules/module.sgml-template \
 	modules/README
 
