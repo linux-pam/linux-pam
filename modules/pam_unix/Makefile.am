@@ -24,9 +24,12 @@ if HAVE_LIBCRACK
   AM_CFLAGS += -D"USE_CRACKLIB"
 endif
 
-pam_unix_la_LDFLAGS = -avoid-version -module \
+pam_unix_la_LDFLAGS = -no-undefined -avoid-version -module \
 	-L$(top_builddir)/modules/pammodutil -lpammodutil \
 	@LIBCRACK@ @LIBNSL@
+if HAVE_VERSIONING
+  pam_unix_la_LDFLAGS += -Wl,--version-script=../modules.map
+endif
 
 securelib_LTLIBRARIES = pam_unix.la
 

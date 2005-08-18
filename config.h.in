@@ -1,6 +1,6 @@
 /* config.h.in.  Generated from configure.in by autoheader.  */
 
-/* lots of stuff gets written to /tmp/pam-debug.log */
+/* lots of stuff gets written to /var/run/pam-debug.log */
 #undef DEBUG
 
 /* Define to the type of elements in the array set by `getgroups'. Usually

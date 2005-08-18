@@ -51,7 +51,7 @@ MODULE SERVICES PROVIDED:
 	auth		_authentication and _setcred (blank)
 
 EXAMPLE USE:
-	auth  sufficient pam_userdb.so icase db=/tmp/dbtest.db
+	auth  sufficient pam_userdb.so icase db=/etc/dbtest.db
 
 AUTHOR:
 	Cristian Gafton <gafton@redhat.com>

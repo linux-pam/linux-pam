@@ -147,12 +147,12 @@ if test "$LIBPRELUDE_CONFIG" != "no" ; then
   LIBPRELUDE_CFLAGS="$LIBPRELUDE_CFLAGS -DPRELUDE=1"
 fi
 
-dnl lots of debugging information goes to /tmp/pam-debug.log
+dnl lots of debugging information goes to /var/run/pam-debug.log
 AC_ARG_ENABLE([debug],
     AC_HELP_STRING([--enable-debug],
 	[specify you are building with debugging on]),
 	WITH_DEBUG=yes ; AC_DEFINE([DEBUG],,
-		[lots of stuff gets written to /tmp/pam-debug.log]),
+		[lots of stuff gets written to /var/run/pam-debug.log]),
 		WITH_DEBUG=no)
 AC_SUBST(WITH_DEBUG)
 
