@@ -93,15 +93,13 @@ static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
 
     retval = pam_get_user(pamh, &username, NULL);
     if (retval != PAM_SUCCESS || username == NULL) {
-	if (ctrl & PAM_DEBUG_ARG) {
-            _pam_log(LOG_WARNING, "cannot determine username");
-	}
+	_pam_log(LOG_WARNING, "cannot determine username");
 	return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE:PAM_SERVICE_ERR);
     }
 
     user_pwd = _pammodutil_getpwnam(pamh, username);
     if (user_pwd == NULL) {
-	return PAM_IGNORE;
+	return PAM_USER_UNKNOWN;
     } else if (user_pwd->pw_uid != 0) { /* If the user is not root,
 					   securetty's does not apply
 					   to them */
@@ -111,9 +109,7 @@ static int securetty_perform_check(pam_handle_t *pamh, int flags, int ctrl,
     retval = pam_get_item(pamh, PAM_TTY, &void_uttyname);
     uttyname = void_uttyname;
     if (retval != PAM_SUCCESS || uttyname == NULL) {
-        if (ctrl & PAM_DEBUG_ARG) {
-            _pam_log(LOG_WARNING, "cannot determine user's tty");
-	}
+        _pam_log(LOG_WARNING, "cannot determine user's tty");
 	return PAM_SERVICE_ERR;
     }
 

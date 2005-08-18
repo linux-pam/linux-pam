@@ -74,6 +74,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * pam_userdb: Fix regression - crash when crypt param not specified (t8m)
 * libpam: Remove pam_authenticate_secondary stub (kukuk)
 * Use autoconf/automake/libtool (kukuk)
+* pam_securetty: Be fail-close on user lookups, always log failures,
+  not just with "debug" (Solar Designer)
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)
