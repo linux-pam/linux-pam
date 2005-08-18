@@ -21,7 +21,7 @@ EXTRA_DIST = $(FSRCS) CREDITS NOTES figs/pam_orient.txt pdf/README \
 	pam_source.sgml $(MODULES) modules/module.sgml-template \
 	modules/README
 
-man_MANS = $(addprefix man/, pam.8 pam.conf.8 pam.d.8 pam_authenticate.3 \
+man_MANS = $(addprefix man/, pam.8 pam.conf.5 pam.d.5 pam_authenticate.3 \
 	pam_chauthtok.3 pam_close_session.3 pam_end.3 pam_fail_delay.3 \
 	pam_get_item.3 pam_open_session.3 pam_set_item.3 pam_setcred.3 \
 	pam_start.3 pam_strerror.3)
