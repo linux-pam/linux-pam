@@ -76,6 +76,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * Use autoconf/automake/libtool (kukuk)
 * pam_securetty: Be fail-close on user lookups, always log failures,
   not just with "debug" (Solar Designer)
+* Add gettext support
+* Add translations for cs, hu, nb, pa and pt
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)

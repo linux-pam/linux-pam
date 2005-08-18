@@ -142,4 +142,6 @@ releasedocs: all spec
 	tar zvfc Linux-PAM-$(VERSION)-docs.tar.gz \
 	--exclude CVS --exclude .cvsignore --exclude '.#*' \
 	html ps txts pdf specs/draft-morgan-pam-current.txt
-
+	tar jvfc Linux-PAM-$(VERSION)-docs.tar.bz2 \
+	--exclude CVS --exclude .cvsignore --exclude '.#*' \
+	html ps txts pdf specs/draft-morgan-pam-current.txt

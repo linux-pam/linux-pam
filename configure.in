@@ -1,11 +1,13 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(conf/pam_conv1/pam_conv.y)
-AM_INIT_AUTOMAKE("Linux-PAM", 0.99.0.2)
+AM_INIT_AUTOMAKE("Linux-PAM", 0.99.0.3)
 AM_CONFIG_HEADER(config.h)
 AC_CANONICAL_HOST
 
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
+
+ALL_LINGUAS="cs hu nb pa pt"
 
 dnl
 dnl By default, everything under PAM is installed below /usr.
@@ -350,7 +352,10 @@ else
 fi
 AC_SUBST(PSER)
 
-AH_VERBATIM([_ENABLE_NLS],
+AM_GNU_GETTEXT_VERSION
+AM_GNU_GETTEXT([external])
+
+AH_VERBATIM([_ZZENABLE_NLS],
 [#ifdef ENABLE_NLS
 #include <libintl.h>
 #define _(msgid) dgettext("Linux-PAM", msgid)
@@ -363,6 +368,7 @@ AH_VERBATIM([_ENABLE_NLS],
 dnl Files to be created from when we run configure
 AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	libpam_misc/Makefile conf/Makefile conf/pam_conv1/Makefile \
+	po/Makefile.in \
 	modules/Makefile modules/pammodutil/Makefile \
 	modules/pam_access/Makefile modules/pam_cracklib/Makefile \
         modules/pam_debug/Makefile modules/pam_deny/Makefile \
