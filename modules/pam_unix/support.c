@@ -4,7 +4,7 @@
  * Copyright information at end of file.
  */
 
-#define _BSD_SOURCE
+#include "config.h"
 
 #include <stdlib.h>
 #include <unistd.h>

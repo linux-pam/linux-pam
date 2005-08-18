@@ -11,8 +11,6 @@ static const char rcsid[] =
 "Version 0.5 for Linux-PAM\n"
 "Copyright (c) Andrew G. Morgan 1996 <morgan@linux.kernel.org>\n";
 
-#define _BSD_SOURCE
-
 #include "config.h"
 
 #include <sys/file.h>

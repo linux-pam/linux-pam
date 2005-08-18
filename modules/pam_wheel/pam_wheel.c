@@ -21,7 +21,7 @@
  *    a wheel member.
  */
 
-#define _BSD_SOURCE
+#include "config.h"
 
 #include <stdio.h>
 #include <unistd.h>

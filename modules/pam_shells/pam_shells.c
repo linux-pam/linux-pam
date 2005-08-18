@@ -8,7 +8,7 @@
  * This code shamelessly ripped from the pam_securetty module.
  */
 
-#define _BSD_SOURCE
+#include "config.h"
 
 #include <pwd.h>
 #include <stdarg.h>

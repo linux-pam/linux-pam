@@ -14,9 +14,6 @@
  * Released under the GNU LGPL version 2 or later
  */
 
-#define _GNU_SOURCE
-#define _BSD_SOURCE
-
 #include "config.h"
 
 #include <string.h>

@@ -10,7 +10,7 @@
  * Slight modifications AGM. 1996/12/3
  */
 
-#define _GNU_SOURCE
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>

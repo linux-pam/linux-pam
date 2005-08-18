@@ -6,7 +6,7 @@
  * Written by Andrew Morgan <morgan@linux.kernel.org> 1996/3/11
  */
 
-#define _BSD_SOURCE
+#include "config.h"
 
 #include <stdio.h>
 #include <unistd.h>

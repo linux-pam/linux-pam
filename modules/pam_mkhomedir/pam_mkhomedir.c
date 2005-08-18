@@ -27,9 +27,6 @@
      <morgan@parc.power.net> 1996
  */
 
-/* I want snprintf dammit */
-#define _GNU_SOURCE
-
 #include "config.h"
 
 #include <stdarg.h>

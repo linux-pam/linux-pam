@@ -8,8 +8,6 @@
  *
  */
 
-#define _GNU_SOURCE /* for asprintf */
-
 #include "pam_private.h"
 
 #include <stdlib.h>
