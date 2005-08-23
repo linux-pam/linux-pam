@@ -47,23 +47,17 @@ pam_sm_close_session (pam_handle_t *pamh UNUSED, int flags UNUSED,
 static char default_motd[] = DEFAULT_MOTD;
 
 PAM_EXTERN
-int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
-                   const char **argv)
+int pam_sm_open_session(pam_handle_t *pamh, int flags,
+			int argc, const char **argv)
 {
-     int retval = PAM_IGNORE;
-     int fd;
-     char *mtmp=NULL;
-     char *motd_path=NULL;
-     const void *void_conv;
-     const struct pam_conv *conversation;
-     struct pam_message message;
-     struct pam_message *pmessage = &message;
-     struct pam_response *resp = NULL;
-     struct stat st;
+    int retval = PAM_IGNORE;
+    int fd;
+    char *motd_path = NULL;
+    char *mtmp = NULL;
 
-     if (flags & PAM_SILENT) {
+    if (flags & PAM_SILENT) {
 	return retval;
-     }
+    }
 
     for (; argc-- > 0; ++argv) {
         if (!strncmp(*argv,"motd=",5)) {
@@ -75,49 +69,55 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
                 D(("failed to duplicate motd path - ignored"));
             }
 	}
-     }
+    }
 
-     if (motd_path == NULL)
+    if (motd_path == NULL)
 	motd_path = default_motd;
 
-     message.msg_style = PAM_TEXT_INFO;
+    while ((fd = open(motd_path, O_RDONLY, 0)) >= 0) {
+	const void *void_conv = NULL;
+	struct pam_message message;
+	struct pam_message *pmessage = &message;
+	struct pam_response *resp = NULL;
+	struct stat st;
 
-     if ((fd = open(motd_path, O_RDONLY, 0)) >= 0) {
-       if (motd_path != default_motd)
-         free(motd_path);
-       /* fill in message buffer with contents of motd */
-       if ((fstat(fd, &st) < 0) || !st.st_size) {
-         close(fd);
-         return retval;
-       }
-       message.msg = mtmp = malloc(st.st_size+1);
-       /* if malloc failed... */
-       if (!message.msg) {
-           close(fd);
-           return retval;
-       }
-       if (_pammodutil_read(fd, mtmp, st.st_size) == st.st_size) {
-	   if (mtmp[st.st_size-1] == '\n')
-		mtmp[st.st_size-1] = '\0';
-	   else
-		mtmp[st.st_size] = '\0';
-	   close(fd);
+	/* fill in message buffer with contents of motd */
+	if ((fstat(fd, &st) < 0) || !st.st_size || st.st_size > 0x10000)
+	    break;
 
- 	   /* Use conversation function to give user contents of motd */
-	   if (pam_get_item(pamh, PAM_CONV, &void_conv) ==
-	               PAM_SUCCESS && void_conv) {
-	       conversation = void_conv;
-	       conversation->conv(1, (const struct pam_message **)&pmessage,
-	            &resp, conversation->appdata_ptr);
-	       if (resp)
-	           _pam_drop_reply(resp, 1);
-           }
-       }
-       free(mtmp);
-     } else {
-       if (motd_path != default_motd)
-         free(motd_path);
-     }
+	if (!(message.msg = mtmp = malloc(st.st_size+1)))
+	    break;
+
+	if (_pammodutil_read(fd, mtmp, st.st_size) != st.st_size)
+	    break;
+
+	if (mtmp[st.st_size-1] == '\n')
+	    mtmp[st.st_size-1] = '\0';
+	else
+	    mtmp[st.st_size] = '\0';
+
+	message.msg_style = PAM_TEXT_INFO;
+
+	/* Use conversation function to give user contents of motd */
+	if (pam_get_item(pamh, PAM_CONV, &void_conv) == PAM_SUCCESS
+	    && void_conv) {
+	    const struct pam_conv *conversation = void_conv;
+	    conversation->conv(1, (const struct pam_message **)&pmessage,
+			       &resp, conversation->appdata_ptr);
+	    if (resp)
+		_pam_drop_reply(resp, 1);
+	}
+
+	break;
+    }
+
+    free(mtmp);
+
+    if (fd >= 0)
+	close(fd);
+
+    if (motd_path != default_motd)
+	free(motd_path);
 
      return retval;
 }

@@ -258,7 +258,7 @@ msgstr "Kommunikationsfehler"
 
 #: libpam/pam_strerror.c:57
 msgid "Authentication token manipulation error"
-msgstr "Fehler aufgrund von Manipulationen am Authentifizierungs-Token"
+msgstr "Fehler beim Ändern des Authentifizierungs-Token"
 
 #: libpam/pam_strerror.c:59
 msgid "Authentication information cannot be recovered"

@@ -14,7 +14,7 @@ noinst_HEADERS = libpamc.h
 
 AM_CFLAGS=-I$(top_srcdir)/libpam/include -I$(srcdir)/include
 
-libpamc_la_LDFLAGS = -version-info 1:0:0
+libpamc_la_LDFLAGS = -no-undefined -version-info 81:0:81
 if HAVE_VERSIONING
   libpamc_la_LDFLAGS += -Wl,--version-script=libpamc.map
 endif

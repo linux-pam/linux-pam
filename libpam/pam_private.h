@@ -122,6 +122,7 @@ struct _pam_former_state {
     int status;            /* the status before returning incomplete */
 
 /* state info used by pam_get_user() function */
+    int fail_user;
     int want_user;
     char *prompt;          /* saved prompt information */
 

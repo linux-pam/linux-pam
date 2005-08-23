@@ -11,7 +11,7 @@ include_HEADERS = include/security/pam_misc.h
 AM_CFLAGS = -I$(top_srcdir)/libpam/include \
 	-I$(top_srcdir)/libpamc/include -I$(srcdir)/include
 
-libpam_misc_la_LDFLAGS = -version-info 1:0:0
+libpam_misc_la_LDFLAGS = -no-undefined -version-info 81:0:81
 if HAVE_VERSIONING
   libpam_misc_la_LDFLAGS += -Wl,--version-script=libpam_misc.map
 endif

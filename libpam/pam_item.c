@@ -50,10 +50,12 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 
     case PAM_USER:
 	RESET(pamh->user, item);
+	pamh->former.fail_user = PAM_SUCCESS;
 	break;
 
     case PAM_USER_PROMPT:
 	RESET(pamh->prompt, item);
+	pamh->former.fail_user = PAM_SUCCESS;
 	break;
 
     case PAM_TTY:
@@ -127,6 +129,7 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 		memcpy(tconv, item, sizeof(struct pam_conv));
 		_pam_drop(pamh->pam_conversation);
 		pamh->pam_conversation = tconv;
+		pamh->former.fail_user = PAM_SUCCESS;
 	    }
 	}
         break;
@@ -254,6 +257,9 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 	return PAM_SUCCESS;
     }
 
+    if (pamh->former.fail_user != PAM_SUCCESS)
+	return pamh->former.fail_user;
+
     /* will need a prompt */
     use_prompt = prompt;
     if (use_prompt == NULL) {
@@ -308,6 +314,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 	 */
 	D(("pam_get_user: no response provided"));
 	retval = PAM_CONV_ERR;
+	pamh->former.fail_user = retval;
     } else if (retval == PAM_SUCCESS) {            /* copy the username */
 	/*
 	 * now we set the PAM_USER item -- this was missing from pre.53
@@ -316,7 +323,8 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 	 */
 	RESET(pamh->user, resp->resp);
 	*user = pamh->user;
-    }
+    } else
+	pamh->former.fail_user = retval;
 
     if (resp) {
 	/*

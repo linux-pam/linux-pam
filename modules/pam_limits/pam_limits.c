@@ -61,6 +61,7 @@ static const char *limits_def_names[] = {
 };
 
 struct user_limits_struct {
+    int supported;
     int src_soft;
     int src_hard;
     struct rlimit limit;
@@ -73,7 +74,6 @@ struct pam_limit_s {
     int flag_numsyslogins; /* whether to limit logins only for a
 			      specific user or to count all logins */
     int priority;	 /* the priority to run user process with */
-    int supported[RLIM_NLIMITS];
     struct user_limits_struct limits[RLIM_NLIMITS];
     char conf_file[BUFSIZ];
     int utmp_after_pam_call;
@@ -229,13 +229,12 @@ static int init_limits(struct pam_limit_s *pl)
     for(i = 0; i < RLIM_NLIMITS; i++) {
 	int r = getrlimit(i, &pl->limits[i].limit);
 	if (r == -1) {
-	    if (errno == EINVAL) {
-		pl->supported[i] = 0;
-	    } else {
+	    pl->limits[i].supported = 0;
+	    if (errno != EINVAL) {
 		retval = !PAM_SUCCESS;
 	    }
 	} else {
-	    pl->supported[i] = 1;
+	    pl->limits[i].supported = 1;
 	    pl->limits[i].src_soft = LIMITS_DEF_NONE;
 	    pl->limits[i].src_hard = LIMITS_DEF_NONE;
 	}
@@ -570,12 +569,17 @@ static int setup_limits(pam_handle_t *pamh,
     }
 
     for (i=0, status=LIMITED_OK; i<RLIM_NLIMITS; i++) {
-        if (pl->limits[i].limit.rlim_cur > pl->limits[i].limit.rlim_max)
-            pl->limits[i].limit.rlim_cur = pl->limits[i].limit.rlim_max;
-	if (!pl->supported[i]) {
+	if (!pl->limits[i].supported) {
 	    /* skip it if its not known to the system */
 	    continue;
 	}
+	if (pl->limits[i].src_soft == LIMITS_DEF_NONE &&
+	    pl->limits[i].src_hard == LIMITS_DEF_NONE) {
+	    /* skip it if its not initialized */
+	    continue;
+	}
+        if (pl->limits[i].limit.rlim_cur > pl->limits[i].limit.rlim_max)
+            pl->limits[i].limit.rlim_cur = pl->limits[i].limit.rlim_max;
 	status |= setrlimit(i, &pl->limits[i].limit);
     }
 
@@ -634,7 +638,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
     retval = init_limits(&pl);
     if (retval != PAM_SUCCESS) {
         _pam_log(LOG_WARNING, "cannot initialize");
-        return PAM_IGNORE;
+        return PAM_ABORT;
     }
 
     retval = parse_config_file(pamh, pwd->pw_name, ctrl, &pl);
@@ -644,7 +648,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
     }
     if (retval != PAM_SUCCESS) {
         _pam_log(LOG_WARNING, "error parsing the configuration file");
-        return PAM_IGNORE;
+        return retval;
     }
 
     if (ctrl & PAM_DO_SETREUID) {
