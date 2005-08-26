@@ -2013,7 +2013,7 @@ host_os=`echo $ac_cv_host | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\3/'`
 
 
 
-ALL_LINGUAS="cs de es fr hu it ja nb pa pt_BR pt zh_CN zh_TW"
+ALL_LINGUAS="cs de es fr hu it ja nb pa pl pt_BR pt zh_CN zh_TW"
 
 
 

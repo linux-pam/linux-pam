@@ -7,7 +7,7 @@ AC_CANONICAL_HOST
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 
-ALL_LINGUAS="cs de es fr hu it ja nb pa pt_BR pt zh_CN zh_TW"
+ALL_LINGUAS="cs de es fr hu it ja nb pa pl pt_BR pt zh_CN zh_TW"
 
 dnl
 dnl By default, everything under PAM is installed below /usr.

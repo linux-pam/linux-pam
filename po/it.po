@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-08-18 14:53+0200\n"
+"POT-Creation-Date: 2005-08-26 15:03+0200\n"
 "PO-Revision-Date: 2005-08-18 13:43-0000\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -57,7 +57,7 @@ msgstr ""
 #: modules/pam_selinux/pam_selinux.c:129
 #, c-format
 msgid "Your default context is %s. \n"
-msgstr "Il contesto di default è %s. \n"
+msgstr "Il contesto di default \303\250 %s. \n"
 
 #: modules/pam_selinux/pam_selinux.c:132
 msgid "Do you want to choose a different one? [n]"
@@ -85,7 +85,7 @@ msgstr "livello:"
 
 #: modules/pam_selinux/pam_selinux.c:240
 msgid "Not a valid security context"
-msgstr "Non è un contesto di sicurezza valido"
+msgstr "Non \303\250 un contesto di sicurezza valido"
 
 #: modules/pam_selinux/pam_selinux.c:475
 #, c-format
@@ -114,18 +114,24 @@ msgstr "Account scaduto; contattare l'amministratore di sistema"
 #: modules/pam_unix/pam_unix_acct.c:277
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
-"È richiesta la modifica immediata della parola d'ordine (applicato da root)"
+"\303\210 richiesta la modifica immediata della parola d'ordine (applicato da "
+"root)"
 
 #: modules/pam_unix/pam_unix_acct.c:304
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
-"È richiesta la modifica immediata della parola d'ordine (parola d'ordine "
-"obsoleta)"
+"\303\210 richiesta la modifica immediata della parola d'ordine (parola "
+"d'ordine obsoleta)"
 
 #: modules/pam_unix/pam_unix_acct.c:314
 #, c-format
 msgid "Warning: your password will expire in %d day%.2s"
-msgstr "Avviso: la parola d'ordine scadrà tra %d giorni%.2s"
+msgstr "Avviso: la parola d'ordine scadr\303\240 tra %d giorni%.2s"
+
+#: modules/pam_unix/pam_unix_auth.c:162
+#, fuzzy
+msgid "Password: "
+msgstr "Parola d'ordine non modificata"
 
 #: modules/pam_unix/pam_unix_passwd.c:818
 msgid "NIS password could not be changed."
@@ -141,15 +147,29 @@ msgstr "Parola d'ordine non modificata"
 
 #: modules/pam_unix/pam_unix_passwd.c:983
 msgid "You must choose a longer password"
-msgstr "Scegliere una parola d'ordine più lunga"
+msgstr "Scegliere una parola d'ordine pi\303\271 lunga"
 
 #: modules/pam_unix/pam_unix_passwd.c:988
 msgid "Password has been already used. Choose another."
-msgstr "Parola d'ordine già utilizzata. Sceglierne un'altra."
+msgstr "Parola d'ordine gi\303\240 utilizzata. Sceglierne un'altra."
+
+#: modules/pam_unix/pam_unix_passwd.c:1112
+msgid "(current) UNIX password: "
+msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:1147
 msgid "You must wait longer to change your password"
 msgstr "Attendere ancora per cambiare la parola d'ordine "
+
+#: modules/pam_unix/pam_unix_passwd.c:1207
+#, fuzzy
+msgid "Enter new UNIX password: "
+msgstr "Immettere nuova parola d'ordine STRESS:"
+
+#: modules/pam_unix/pam_unix_passwd.c:1208
+#, fuzzy
+msgid "Retype new UNIX password: "
+msgstr "Ridigitare nuova parola d'ordine STRESS:"
 
 #: modules/pam_stress/pam_stress.c:481
 msgid "Changing STRESS password for "
@@ -166,6 +186,10 @@ msgstr "Ridigitare nuova parola d'ordine STRESS:"
 #: modules/pam_stress/pam_stress.c:526
 msgid "Verification mis-typed; password unchanged"
 msgstr "Errore digitazione verifica; parola d'ordine non cambiata"
+
+#: libpam/pam_item.c:268
+msgid "login:"
+msgstr ""
 
 #: libpam/pam_strerror.c:13
 msgid "Success"
@@ -210,8 +234,8 @@ msgstr "Credenziali insufficienti per accedere ai dati di autenticazione"
 #: libpam/pam_strerror.c:33
 msgid "Authentication service cannot retrieve authentication info."
 msgstr ""
-"Il servizio di autenticazione non è in grado di recuperare le informazioni "
-"di autenticazione."
+"Il servizio di autenticazione non \303\250 in grado di recuperare le "
+"informazioni di autenticazione."
 
 #: libpam/pam_strerror.c:35
 msgid "User not known to the underlying authentication module"
@@ -223,7 +247,7 @@ msgstr "Numero massimo di tentativi per il servizio superato."
 
 #: libpam/pam_strerror.c:39
 msgid "Authentication token is no longer valid; new one required."
-msgstr "Token di autenticazione non più valido; richiesto uno nuovo."
+msgstr "Token di autenticazione non pi\303\271 valido; richiesto uno nuovo."
 
 #: libpam/pam_strerror.c:41
 msgid "User account has expired"
@@ -237,8 +261,8 @@ msgstr ""
 #: libpam/pam_strerror.c:45
 msgid "Authentication service cannot retrieve user credentials"
 msgstr ""
-"Il servizio di autenticazione non è in grado di recuperare le credenziali "
-"utente"
+"Il servizio di autenticazione non \303\250 in grado di recuperare le "
+"credenziali utente"
 
 #: libpam/pam_strerror.c:47
 msgid "User credentials expired"
@@ -305,14 +329,12 @@ msgid "Unknown PAM error"
 msgstr "Errore PAM sconosciuto"
 
 #: libpam_misc/misc_conv.c:35
-#, fuzzy
-msgid "...Time is running out...\n"
-msgstr ".._.Il tempo sta per scadere...\n"
+msgid "..\007.Time is running out...\n"
+msgstr "..\007.Il tempo sta per scadere...\n"
 
 #: libpam_misc/misc_conv.c:36
-#, fuzzy
-msgid "...Sorry, your time is up!\n"
-msgstr ".._.Tempo scaduto!\n"
+msgid "..\007.Sorry, your time is up!\n"
+msgstr "..\007.Tempo scaduto!\n"
 
 #: libpam_misc/misc_conv.c:334
 #, c-format

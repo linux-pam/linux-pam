@@ -159,7 +159,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 	}
 	/* get this user's authentication token */
 
-	retval = _unix_read_password(pamh, ctrl, NULL, "Password: ", NULL
+	retval = _unix_read_password(pamh, ctrl, NULL, _("Password: "), NULL
 				     ,_UNIX_AUTHTOK, &p);
 	if (retval != PAM_SUCCESS) {
 		if (retval != PAM_CONV_AGAIN) {

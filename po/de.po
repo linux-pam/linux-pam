@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-08-18 14:53+0200\n"
+"POT-Creation-Date: 2005-08-26 15:03+0200\n"
 "PO-Revision-Date: 2005-08-17 16:50+0000\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -34,7 +34,7 @@ msgstr "Unbekannter Fehler"
 #: modules/pam_tally/pam_tally.c:747
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
-msgstr "%s: Ungültige Nummer für --reset=\n"
+msgstr "%s: Ung\303\274ltige Nummer f\303\274r --reset=\n"
 
 #: modules/pam_tally/pam_tally.c:751
 #, c-format
@@ -52,7 +52,8 @@ msgstr ""
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
-"%s: Es können nicht alle Benutzer auf Nicht-null zurückgesetzt werden\n"
+"%s: Es k\303\266nnen nicht alle Benutzer auf Nicht-null zur\303\274ckgesetzt "
+"werden\n"
 
 #: modules/pam_selinux/pam_selinux.c:129
 #, c-format
@@ -61,15 +62,15 @@ msgstr "Ihr Standardkontext lautet %s. \n"
 
 #: modules/pam_selinux/pam_selinux.c:132
 msgid "Do you want to choose a different one? [n]"
-msgstr "Möchten Sie einen anderen auswählen? [n]"
+msgstr "M\303\266chten Sie einen anderen ausw\303\244hlen? [n]"
 
 #: modules/pam_selinux/pam_selinux.c:139
 msgid "Enter number of choice: "
-msgstr "Geben Sie die gewünschte Nummer ein:"
+msgstr "Geben Sie die gew\303\274nschte Nummer ein:"
 
 #: modules/pam_selinux/pam_selinux.c:191
 msgid "Would you like to enter a security context? [y] "
-msgstr "Möchten Sie einen Sicherheitskontext eingeben? [j]"
+msgstr "M\303\266chten Sie einen Sicherheitskontext eingeben? [j]"
 
 #: modules/pam_selinux/pam_selinux.c:208
 msgid "role: "
@@ -85,7 +86,7 @@ msgstr "Stufe:"
 
 #: modules/pam_selinux/pam_selinux.c:240
 msgid "Not a valid security context"
-msgstr "Kein gültiger Sicherheitskontext"
+msgstr "Kein g\303\274ltiger Sicherheitskontext"
 
 #: modules/pam_selinux/pam_selinux.c:475
 #, c-format
@@ -113,20 +114,26 @@ msgstr "Ihr Konto ist abgelaufen. Wenden Sie sich an den Systemadministrator"
 
 #: modules/pam_unix/pam_unix_acct.c:277
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Sie müssen Ihr Passwort sofort ändern (von Root erzwungen)."
+msgstr ""
+"Sie m\303\274ssen Ihr Passwort sofort \303\244ndern (von Root erzwungen)."
 
 #: modules/pam_unix/pam_unix_acct.c:304
 msgid "You are required to change your password immediately (password aged)"
-msgstr "Sie müssen Ihr Passwort sofort ändern (Passwortablauf)."
+msgstr "Sie m\303\274ssen Ihr Passwort sofort \303\244ndern (Passwortablauf)."
 
 #: modules/pam_unix/pam_unix_acct.c:314
 #, c-format
 msgid "Warning: your password will expire in %d day%.2s"
-msgstr "Warnung: Ihr Passwort läuft in %d Tag%.2s(en) ab."
+msgstr "Warnung: Ihr Passwort l\303\244uft in %d Tag%.2s(en) ab."
+
+#: modules/pam_unix/pam_unix_auth.c:162
+#, fuzzy
+msgid "Password: "
+msgstr "Passwort nicht ge\303\244ndert"
 
 #: modules/pam_unix/pam_unix_passwd.c:818
 msgid "NIS password could not be changed."
-msgstr "Änderung des NIS-Passworts nicht möglich."
+msgstr "\303\204nderung des NIS-Passworts nicht m\303\266glich."
 
 #: modules/pam_unix/pam_unix_passwd.c:962
 msgid "No password supplied"
@@ -134,23 +141,37 @@ msgstr "Kein Passwort angegeben"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
 msgid "Password unchanged"
-msgstr "Passwort nicht geändert"
+msgstr "Passwort nicht ge\303\244ndert"
 
 #: modules/pam_unix/pam_unix_passwd.c:983
 msgid "You must choose a longer password"
-msgstr "Sie müssen ein längeres Passwort auswählen."
+msgstr "Sie m\303\274ssen ein l\303\244ngeres Passwort ausw\303\244hlen."
 
 #: modules/pam_unix/pam_unix_passwd.c:988
 msgid "Password has been already used. Choose another."
-msgstr "Passwort wurde bereits verwendet. Wählen Sie ein anderes aus."
+msgstr "Passwort wurde bereits verwendet. W\303\244hlen Sie ein anderes aus."
+
+#: modules/pam_unix/pam_unix_passwd.c:1112
+msgid "(current) UNIX password: "
+msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:1147
 msgid "You must wait longer to change your password"
-msgstr "Sie können Ihr Passwort noch nicht ändern."
+msgstr "Sie k\303\266nnen Ihr Passwort noch nicht \303\244ndern."
+
+#: modules/pam_unix/pam_unix_passwd.c:1207
+#, fuzzy
+msgid "Enter new UNIX password: "
+msgstr "Geben Sie ein neues STRESS-Passwort ein:"
+
+#: modules/pam_unix/pam_unix_passwd.c:1208
+#, fuzzy
+msgid "Retype new UNIX password: "
+msgstr "Geben Sie das neue STRESS-Passwort erneut ein:"
 
 #: modules/pam_stress/pam_stress.c:481
 msgid "Changing STRESS password for "
-msgstr "Ändern des STRESS-Passworts für"
+msgstr "\303\204ndern des STRESS-Passworts f\303\274r"
 
 #: modules/pam_stress/pam_stress.c:495
 msgid "Enter new STRESS password: "
@@ -162,7 +183,12 @@ msgstr "Geben Sie das neue STRESS-Passwort erneut ein:"
 
 #: modules/pam_stress/pam_stress.c:526
 msgid "Verification mis-typed; password unchanged"
-msgstr "Bestätigungspasswort falsch eingegeben; Passwort nicht geändert"
+msgstr ""
+"Best\303\244tigungspasswort falsch eingegeben; Passwort nicht ge\303\244ndert"
+
+#: libpam/pam_item.c:268
+msgid "login:"
+msgstr ""
 
 #: libpam/pam_strerror.c:13
 msgid "Success"
@@ -203,7 +229,7 @@ msgstr "Fehler bei Authentifizierung."
 #: libpam/pam_strerror.c:31
 msgid "Insufficient credentials to access authentication data"
 msgstr ""
-"Berechtigungsnachweis für Zugriff auf Authentifizierungsdaten nicht "
+"Berechtigungsnachweis f\303\274r Zugriff auf Authentifizierungsdaten nicht "
 "ausreichend"
 
 #: libpam/pam_strerror.c:33
@@ -217,11 +243,12 @@ msgstr "Benutzer bei zu Grunde liegendem Authentifizierungsmodul nicht bekannt"
 
 #: libpam/pam_strerror.c:37
 msgid "Have exhausted maximum number of retries for service."
-msgstr "Maximale Anzahl an Versuchen für den Dienst erreicht."
+msgstr "Maximale Anzahl an Versuchen f\303\274r den Dienst erreicht."
 
 #: libpam/pam_strerror.c:39
 msgid "Authentication token is no longer valid; new one required."
-msgstr "Authentifizierungs-Token ist nicht mehr gültig; neues erforderlich."
+msgstr ""
+"Authentifizierungs-Token ist nicht mehr g\303\274ltig; neues erforderlich."
 
 #: libpam/pam_strerror.c:41
 msgid "User account has expired"
@@ -230,7 +257,8 @@ msgstr "Benutzerkonto ist abgelaufen."
 #: libpam/pam_strerror.c:43
 msgid "Cannot make/remove an entry for the specified session"
 msgstr ""
-"Erstellen/Entfernen eines Eintrags für die angegebene Sitzung nicht möglich"
+"Erstellen/Entfernen eines Eintrags f\303\274r die angegebene Sitzung nicht m"
+"\303\266glich"
 
 #: libpam/pam_strerror.c:45
 msgid "Authentication service cannot retrieve user credentials"
@@ -250,7 +278,7 @@ msgstr "Keine modulspezifischen Daten vorhanden"
 
 #: libpam/pam_strerror.c:53
 msgid "Bad item passed to pam_*_item()"
-msgstr "Ungültiges Element an pam_*_item() übergeben"
+msgstr "Ung\303\274ltiges Element an pam_*_item() \303\274bergeben"
 
 #: libpam/pam_strerror.c:55
 msgid "Conversation error"
@@ -258,19 +286,20 @@ msgstr "Kommunikationsfehler"
 
 #: libpam/pam_strerror.c:57
 msgid "Authentication token manipulation error"
-msgstr "Fehler beim Ändern des Authentifizierungs-Token"
+msgstr "Fehler beim \303\204ndern des Authentifizierungs-Token"
 
 #: libpam/pam_strerror.c:59
 msgid "Authentication information cannot be recovered"
-msgstr "Authentifizierungsinformationen können nicht wiederhergestellt werden"
+msgstr ""
+"Authentifizierungsinformationen k\303\266nnen nicht wiederhergestellt werden"
 
 #: libpam/pam_strerror.c:61
 msgid "Authentication token lock busy"
-msgstr "Sperre für Authentifizierungs-Token belegt"
+msgstr "Sperre f\303\274r Authentifizierungs-Token belegt"
 
 #: libpam/pam_strerror.c:63
 msgid "Authentication token aging disabled"
-msgstr "Zeitablauf für Authentifizierungs-Token deaktiviert"
+msgstr "Zeitablauf f\303\274r Authentifizierungs-Token deaktiviert"
 
 #: libpam/pam_strerror.c:65
 msgid "Failed preliminary check by password service"
@@ -278,7 +307,7 @@ msgstr "Vorabtest durch Passwortdienst gescheitert"
 
 #: libpam/pam_strerror.c:67
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "Der Rückgabewert sollte von PAM-Dispatch ignoriert werden"
+msgstr "Der R\303\274ckgabewert sollte von PAM-Dispatch ignoriert werden"
 
 #: libpam/pam_strerror.c:69
 msgid "Module is unknown"
@@ -301,14 +330,12 @@ msgid "Unknown PAM error"
 msgstr "Unbekannter PAM-Fehler"
 
 #: libpam_misc/misc_conv.c:35
-#, fuzzy
-msgid "...Time is running out...\n"
-msgstr ".._.Time läuft ab...\n"
+msgid "..\007.Time is running out...\n"
+msgstr "..\007.Time l\303\244uft ab...\n"
 
 #: libpam_misc/misc_conv.c:36
-#, fuzzy
-msgid "...Sorry, your time is up!\n"
-msgstr ".._.Ihre Zeit ist abgelaufen.\n"
+msgid "..\007.Sorry, your time is up!\n"
+msgstr "..\007.Ihre Zeit ist abgelaufen.\n"
 
 #: libpam_misc/misc_conv.c:334
 #, c-format

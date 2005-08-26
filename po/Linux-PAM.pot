@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-08-18 14:53+0200\n"
+"POT-Creation-Date: 2005-08-26 15:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,6 +123,10 @@ msgstr ""
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr ""
 
+#: modules/pam_unix/pam_unix_auth.c:162
+msgid "Password: "
+msgstr ""
+
 #: modules/pam_unix/pam_unix_passwd.c:818
 msgid "NIS password could not be changed."
 msgstr ""
@@ -143,8 +147,20 @@ msgstr ""
 msgid "Password has been already used. Choose another."
 msgstr ""
 
+#: modules/pam_unix/pam_unix_passwd.c:1112
+msgid "(current) UNIX password: "
+msgstr ""
+
 #: modules/pam_unix/pam_unix_passwd.c:1147
 msgid "You must wait longer to change your password"
+msgstr ""
+
+#: modules/pam_unix/pam_unix_passwd.c:1207
+msgid "Enter new UNIX password: "
+msgstr ""
+
+#: modules/pam_unix/pam_unix_passwd.c:1208
+msgid "Retype new UNIX password: "
 msgstr ""
 
 #: modules/pam_stress/pam_stress.c:481
@@ -161,6 +177,10 @@ msgstr ""
 
 #: modules/pam_stress/pam_stress.c:526
 msgid "Verification mis-typed; password unchanged"
+msgstr ""
+
+#: libpam/pam_item.c:268
+msgid "login:"
 msgstr ""
 
 #: libpam/pam_strerror.c:13
@@ -296,11 +316,11 @@ msgid "Unknown PAM error"
 msgstr ""
 
 #: libpam_misc/misc_conv.c:35
-msgid "...Time is running out...\n"
+msgid "..\007.Time is running out...\n"
 msgstr ""
 
 #: libpam_misc/misc_conv.c:36
-msgid "...Sorry, your time is up!\n"
+msgid "..\007.Sorry, your time is up!\n"
 msgstr ""
 
 #: libpam_misc/misc_conv.c:334

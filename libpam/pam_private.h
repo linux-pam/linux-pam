@@ -271,10 +271,6 @@ if ((pamh) == NULL) {                             \
     return ERR;                                   \
 }
 
-/* Definition for the default username prompt used by pam_get_user() */
-
-#define PAM_DEFAULT_PROMPT "login: "
-
 /*
  * include some helpful macros
  */

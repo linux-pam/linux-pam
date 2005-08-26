@@ -1109,7 +1109,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 			set(UNIX__OLD_PASSWD, lctrl);
 			retval = _unix_read_password(pamh, lctrl
 						     ,Announce
-					     ,"(current) UNIX password: "
+					     ,_("(current) UNIX password: ")
 						     ,NULL
 						     ,_UNIX_OLD_AUTHTOK
 					     ,&pass_old);
@@ -1204,8 +1204,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 			retval = _unix_read_password(pamh, lctrl
 						     ,NULL
-					     ,"Enter new UNIX password: "
-					    ,"Retype new UNIX password: "
+					     ,_("Enter new UNIX password: ")
+					    ,_("Retype new UNIX password: ")
 						     ,_UNIX_NEW_AUTHTOK
 					     ,&pass_new);
 

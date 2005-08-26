@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-08-18 14:53+0200\n"
+"POT-Creation-Date: 2005-08-26 15:03+0200\n"
 "PO-Revision-Date: 2005-08-18 12:12+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -17,29 +17,34 @@ msgstr ""
 
 #: modules/pam_tally/pam_tally.c:730
 msgid "Authentication error"
-msgstr "驗證錯誤"
+msgstr "\351\251\227\350\255\211\351\214\257\350\252\244"
 
 #: modules/pam_tally/pam_tally.c:731
 msgid "Service error"
-msgstr "服務錯誤"
+msgstr "\346\234\215\345\213\231\351\214\257\350\252\244"
 
 #: modules/pam_tally/pam_tally.c:732
 msgid "Unknown user"
-msgstr "未知的使用者"
+msgstr ""
+"\346\234\252\347\237\245\347\232\204\344\275\277\347\224\250\350\200\205"
 
 #: modules/pam_tally/pam_tally.c:733
 msgid "Unknown error"
-msgstr "未知的錯誤"
+msgstr "\346\234\252\347\237\245\347\232\204\351\214\257\350\252\244"
 
 #: modules/pam_tally/pam_tally.c:747
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
-msgstr "%s: 不良的號碼提供至 --reset=\n"
+msgstr ""
+"%s: \344\270\215\350\211\257\347\232\204\350\231\237\347\242\274\346\217\220"
+"\344\276\233\350\207\263 --reset=\n"
 
 #: modules/pam_tally/pam_tally.c:751
 #, c-format
 msgid "%s: Unrecognised option %s\n"
-msgstr "%s: 未識別的選項 %s\n"
+msgstr ""
+"%s: \346\234\252\350\255\230\345\210\245\347\232\204\351\201\270\351\240\205 "
+"%s\n"
 
 #: modules/pam_tally/pam_tally.c:763
 #, c-format
@@ -51,261 +56,396 @@ msgstr ""
 #: modules/pam_tally/pam_tally.c:836
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: 無法將所有使用者重新設定為非零\n"
+msgstr ""
+"%s: \347\204\241\346\263\225\345\260\207\346\211\200\346\234\211\344\275\277"
+"\347\224\250\350\200\205\351\207\215\346\226\260\350\250\255\345\256\232\347"
+"\202\272\351\235\236\351\233\266\n"
 
 #: modules/pam_selinux/pam_selinux.c:129
 #, c-format
 msgid "Your default context is %s. \n"
-msgstr "您的預設網路位置為 %s。\n"
+msgstr ""
+"\346\202\250\347\232\204\351\240\220\350\250\255\347\266\262\350\267\257\344"
+"\275\215\347\275\256\347\202\272 %s\343\200\202\n"
 
 #: modules/pam_selinux/pam_selinux.c:132
 msgid "Do you want to choose a different one? [n]"
-msgstr "您要選擇不同的網路位置嗎？ [否]"
+msgstr ""
+"\346\202\250\350\246\201\351\201\270\346\223\207\344\270\215\345\220\214\347"
+"\232\204\347\266\262\350\267\257\344\275\215\347\275\256\345\227\216\357\274"
+"\237 [\345\220\246]"
 
 #: modules/pam_selinux/pam_selinux.c:139
 msgid "Enter number of choice: "
-msgstr "輸入選擇的密碼："
+msgstr ""
+"\350\274\270\345\205\245\351\201\270\346\223\207\347\232\204\345\257\206\347"
+"\242\274\357\274\232"
 
 #: modules/pam_selinux/pam_selinux.c:191
 msgid "Would you like to enter a security context? [y] "
-msgstr "您是否要輸入安全網路位置？ [是]"
+msgstr ""
+"\346\202\250\346\230\257\345\220\246\350\246\201\350\274\270\345\205\245\345"
+"\256\211\345\205\250\347\266\262\350\267\257\344\275\215\347\275\256\357\274"
+"\237 [\346\230\257]"
 
 #: modules/pam_selinux/pam_selinux.c:208
 msgid "role: "
-msgstr "職能："
+msgstr "\350\201\267\350\203\275\357\274\232"
 
 #: modules/pam_selinux/pam_selinux.c:216
 msgid "type: "
-msgstr "類型："
+msgstr "\351\241\236\345\236\213\357\274\232"
 
 #: modules/pam_selinux/pam_selinux.c:226
 msgid "level: "
-msgstr "層級："
+msgstr "\345\261\244\347\264\232\357\274\232"
 
 #: modules/pam_selinux/pam_selinux.c:240
 msgid "Not a valid security context"
-msgstr "不是有效的安全網路位置"
+msgstr ""
+"\344\270\215\346\230\257\346\234\211\346\225\210\347\232\204\345\256\211\345"
+"\205\250\347\266\262\350\267\257\344\275\215\347\275\256"
 
 #: modules/pam_selinux/pam_selinux.c:475
 #, c-format
 msgid "Security Context %s Assigned"
-msgstr "已指定安全網路位置 %s"
+msgstr ""
+"\345\267\262\346\214\207\345\256\232\345\256\211\345\205\250\347\266\262\350"
+"\267\257\344\275\215\347\275\256 %s"
 
 #: modules/pam_selinux/pam_selinux.c:595
 #, c-format
 msgid "failed to initialize PAM\n"
-msgstr "起始 PAM 失敗\n"
+msgstr "\350\265\267\345\247\213 PAM \345\244\261\346\225\227\n"
 
 #: modules/pam_selinux/pam_selinux.c:601
 #, c-format
 msgid "failed to pam_set_item()\n"
-msgstr "pam_set_item() 失敗\n"
+msgstr "pam_set_item() \345\244\261\346\225\227\n"
 
 #: modules/pam_selinux/pam_selinux.c:626
 #, c-format
 msgid "login: failure forking: %s"
-msgstr "登入：失敗的分叉：%s"
+msgstr ""
+"\347\231\273\345\205\245\357\274\232\345\244\261\346\225\227\347\232\204\345"
+"\210\206\345\217\211\357\274\232%s"
 
 #: modules/pam_unix/pam_unix_acct.c:268 modules/pam_unix/pam_unix_acct.c:295
 msgid "Your account has expired; please contact your system administrator"
-msgstr "您的帳戶已經逾期，請洽詢您的系統管理員"
+msgstr ""
+"\346\202\250\347\232\204\345\270\263\346\210\266\345\267\262\347\266\223\351"
+"\200\276\346\234\237\357\274\214\350\253\213\346\264\275\350\251\242\346\202"
+"\250\347\232\204\347\263\273\347\265\261\347\256\241\347\220\206\345\223\241"
 
 #: modules/pam_unix/pam_unix_acct.c:277
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "您必須立刻變更您的密碼 (root 強制執行)"
+msgstr ""
+"\346\202\250\345\277\205\351\240\210\347\253\213\345\210\273\350\256\212\346"
+"\233\264\346\202\250\347\232\204\345\257\206\347\242\274 (root \345\274\267"
+"\345\210\266\345\237\267\350\241\214)"
 
 #: modules/pam_unix/pam_unix_acct.c:304
 msgid "You are required to change your password immediately (password aged)"
-msgstr "您必須立刻變更您的密碼 (密碼使用過久)"
+msgstr ""
+"\346\202\250\345\277\205\351\240\210\347\253\213\345\210\273\350\256\212\346"
+"\233\264\346\202\250\347\232\204\345\257\206\347\242\274 (\345\257\206\347"
+"\242\274\344\275\277\347\224\250\351\201\216\344\271\205)"
 
 #: modules/pam_unix/pam_unix_acct.c:314
 #, c-format
 msgid "Warning: your password will expire in %d day%.2s"
-msgstr "警告：您的密碼將在 %d 天之後逾期。%2s"
+msgstr ""
+"\350\255\246\345\221\212\357\274\232\346\202\250\347\232\204\345\257\206\347"
+"\242\274\345\260\207\345\234\250 %d \345\244\251\344\271\213\345\276\214\351"
+"\200\276\346\234\237\343\200\202%2s"
+
+#: modules/pam_unix/pam_unix_auth.c:162
+#, fuzzy
+msgid "Password: "
+msgstr "\345\257\206\347\242\274\346\234\252\350\256\212\346\233\264"
 
 #: modules/pam_unix/pam_unix_passwd.c:818
 msgid "NIS password could not be changed."
-msgstr "無法變更 NIS 密碼。"
+msgstr ""
+"\347\204\241\346\263\225\350\256\212\346\233\264 NIS \345\257\206\347\242\274"
+"\343\200\202"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
 msgid "No password supplied"
-msgstr "未提供密碼"
+msgstr "\346\234\252\346\217\220\344\276\233\345\257\206\347\242\274"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
 msgid "Password unchanged"
-msgstr "密碼未變更"
+msgstr "\345\257\206\347\242\274\346\234\252\350\256\212\346\233\264"
 
 #: modules/pam_unix/pam_unix_passwd.c:983
 msgid "You must choose a longer password"
-msgstr "您必須選擇更長的密碼"
+msgstr ""
+"\346\202\250\345\277\205\351\240\210\351\201\270\346\223\207\346\233\264\351"
+"\225\267\347\232\204\345\257\206\347\242\274"
 
 #: modules/pam_unix/pam_unix_passwd.c:988
 msgid "Password has been already used. Choose another."
-msgstr "密碼已經由其他使用者使用。請選擇其他密碼。"
+msgstr ""
+"\345\257\206\347\242\274\345\267\262\347\266\223\347\224\261\345\205\266\344"
+"\273\226\344\275\277\347\224\250\350\200\205\344\275\277\347\224\250\343\200"
+"\202\350\253\213\351\201\270\346\223\207\345\205\266\344\273\226\345\257\206"
+"\347\242\274\343\200\202"
+
+#: modules/pam_unix/pam_unix_passwd.c:1112
+msgid "(current) UNIX password: "
+msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:1147
 msgid "You must wait longer to change your password"
-msgstr "您必須久候，以變更您的密碼。"
+msgstr ""
+"\346\202\250\345\277\205\351\240\210\344\271\205\345\200\231\357\274\214\344"
+"\273\245\350\256\212\346\233\264\346\202\250\347\232\204\345\257\206\347\242"
+"\274\343\200\202"
+
+#: modules/pam_unix/pam_unix_passwd.c:1207
+#, fuzzy
+msgid "Enter new UNIX password: "
+msgstr ""
+"\350\274\270\345\205\245\346\226\260\347\232\204 STRESS \345\257\206\347\242"
+"\274\357\274\232"
+
+#: modules/pam_unix/pam_unix_passwd.c:1208
+#, fuzzy
+msgid "Retype new UNIX password: "
+msgstr ""
+"\345\206\215\346\254\241\350\274\270\345\205\245\346\226\260\347\232\204 "
+"STRESS \345\257\206\347\242\274\357\274\232"
 
 #: modules/pam_stress/pam_stress.c:481
 msgid "Changing STRESS password for "
-msgstr "正在變更 STRESS 密碼"
+msgstr ""
+"\346\255\243\345\234\250\350\256\212\346\233\264 STRESS \345\257\206\347\242"
+"\274"
 
 #: modules/pam_stress/pam_stress.c:495
 msgid "Enter new STRESS password: "
-msgstr "輸入新的 STRESS 密碼："
+msgstr ""
+"\350\274\270\345\205\245\346\226\260\347\232\204 STRESS \345\257\206\347\242"
+"\274\357\274\232"
 
 #: modules/pam_stress/pam_stress.c:498
 msgid "Retype new STRESS password: "
-msgstr "再次輸入新的 STRESS 密碼："
+msgstr ""
+"\345\206\215\346\254\241\350\274\270\345\205\245\346\226\260\347\232\204 "
+"STRESS \345\257\206\347\242\274\357\274\232"
 
 #: modules/pam_stress/pam_stress.c:526
 msgid "Verification mis-typed; password unchanged"
-msgstr "確認錯誤輸入；密碼未變更"
+msgstr ""
+"\347\242\272\350\252\215\351\214\257\350\252\244\350\274\270\345\205\245\357"
+"\274\233\345\257\206\347\242\274\346\234\252\350\256\212\346\233\264"
+
+#: libpam/pam_item.c:268
+msgid "login:"
+msgstr ""
 
 #: libpam/pam_strerror.c:13
 msgid "Success"
-msgstr "成功"
+msgstr "\346\210\220\345\212\237"
 
 #: libpam/pam_strerror.c:15
 msgid "Critical error - immediate abort"
-msgstr "嚴重錯誤 - 立即中止"
+msgstr ""
+"\345\232\264\351\207\215\351\214\257\350\252\244 - \347\253\213\345\215\263"
+"\344\270\255\346\255\242"
 
 #: libpam/pam_strerror.c:17
 msgid "dlopen() failure"
-msgstr "dlopen() 失敗"
+msgstr "dlopen() \345\244\261\346\225\227"
 
 #: libpam/pam_strerror.c:19
 msgid "Symbol not found"
-msgstr "找不到符號"
+msgstr "\346\211\276\344\270\215\345\210\260\347\254\246\350\231\237"
 
 #: libpam/pam_strerror.c:21
 msgid "Error in service module"
-msgstr "服務模組發生錯誤"
+msgstr ""
+"\346\234\215\345\213\231\346\250\241\347\265\204\347\231\274\347\224\237\351"
+"\214\257\350\252\244"
 
 #: libpam/pam_strerror.c:23
 msgid "System error"
-msgstr "系統錯誤"
+msgstr "\347\263\273\347\265\261\351\214\257\350\252\244"
 
 #: libpam/pam_strerror.c:25
 msgid "Memory buffer error"
-msgstr "記憶體暫存區錯誤"
+msgstr ""
+"\350\250\230\346\206\266\351\253\224\346\232\253\345\255\230\345\215\200\351"
+"\214\257\350\252\244"
 
 #: libpam/pam_strerror.c:27
 msgid "Permission denied"
-msgstr "許可權被拒絕"
+msgstr ""
+"\350\250\261\345\217\257\346\254\212\350\242\253\346\213\222\347\265\225"
 
 #: libpam/pam_strerror.c:29
 msgid "Authentication failure"
-msgstr "驗證失敗"
+msgstr "\351\251\227\350\255\211\345\244\261\346\225\227"
 
 #: libpam/pam_strerror.c:31
 msgid "Insufficient credentials to access authentication data"
-msgstr "憑證不足，無法存取驗證資料"
+msgstr ""
+"\346\206\221\350\255\211\344\270\215\350\266\263\357\274\214\347\204\241\346"
+"\263\225\345\255\230\345\217\226\351\251\227\350\255\211\350\263\207\346\226"
+"\231"
 
 #: libpam/pam_strerror.c:33
 msgid "Authentication service cannot retrieve authentication info."
-msgstr "驗證服務無法取出驗證資訊。"
+msgstr ""
+"\351\251\227\350\255\211\346\234\215\345\213\231\347\204\241\346\263\225\345"
+"\217\226\345\207\272\351\251\227\350\255\211\350\263\207\350\250\212\343\200"
+"\202"
 
 #: libpam/pam_strerror.c:35
 msgid "User not known to the underlying authentication module"
-msgstr "底層的驗證模組無法識別使用者"
+msgstr ""
+"\345\272\225\345\261\244\347\232\204\351\251\227\350\255\211\346\250\241\347"
+"\265\204\347\204\241\346\263\225\350\255\230\345\210\245\344\275\277\347\224"
+"\250\350\200\205"
 
 #: libpam/pam_strerror.c:37
 msgid "Have exhausted maximum number of retries for service."
-msgstr "服務的重試次數已超過最大數量。"
+msgstr ""
+"\346\234\215\345\213\231\347\232\204\351\207\215\350\251\246\346\254\241\346"
+"\225\270\345\267\262\350\266\205\351\201\216\346\234\200\345\244\247\346\225"
+"\270\351\207\217\343\200\202"
 
 #: libpam/pam_strerror.c:39
 msgid "Authentication token is no longer valid; new one required."
-msgstr "驗證記號已經失效；需要新的驗證記號。"
+msgstr ""
+"\351\251\227\350\255\211\350\250\230\350\231\237\345\267\262\347\266\223\345"
+"\244\261\346\225\210\357\274\233\351\234\200\350\246\201\346\226\260\347\232"
+"\204\351\251\227\350\255\211\350\250\230\350\231\237\343\200\202"
 
 #: libpam/pam_strerror.c:41
 msgid "User account has expired"
-msgstr "使用者帳戶已逾期"
+msgstr ""
+"\344\275\277\347\224\250\350\200\205\345\270\263\346\210\266\345\267\262\351"
+"\200\276\346\234\237"
 
 #: libpam/pam_strerror.c:43
 msgid "Cannot make/remove an entry for the specified session"
-msgstr "無法為指定的工作階段製作/移除項目"
+msgstr ""
+"\347\204\241\346\263\225\347\202\272\346\214\207\345\256\232\347\232\204\345"
+"\267\245\344\275\234\351\232\216\346\256\265\350\243\275\344\275\234/\347\247"
+"\273\351\231\244\351\240\205\347\233\256"
 
 #: libpam/pam_strerror.c:45
 msgid "Authentication service cannot retrieve user credentials"
-msgstr "驗證服務無法取出使用者憑證"
+msgstr ""
+"\351\251\227\350\255\211\346\234\215\345\213\231\347\204\241\346\263\225\345"
+"\217\226\345\207\272\344\275\277\347\224\250\350\200\205\346\206\221\350\255"
+"\211"
 
 #: libpam/pam_strerror.c:47
 msgid "User credentials expired"
-msgstr "使用者憑證已逾期"
+msgstr ""
+"\344\275\277\347\224\250\350\200\205\346\206\221\350\255\211\345\267\262\351"
+"\200\276\346\234\237"
 
 #: libpam/pam_strerror.c:49
 msgid "Failure setting user credentials"
-msgstr "無法設定使用者憑證"
+msgstr ""
+"\347\204\241\346\263\225\350\250\255\345\256\232\344\275\277\347\224\250\350"
+"\200\205\346\206\221\350\255\211"
 
 #: libpam/pam_strerror.c:51
 msgid "No module specific data is present"
-msgstr "沒有模組的詳細資料"
+msgstr ""
+"\346\262\222\346\234\211\346\250\241\347\265\204\347\232\204\350\251\263\347"
+"\264\260\350\263\207\346\226\231"
 
 #: libpam/pam_strerror.c:53
 msgid "Bad item passed to pam_*_item()"
-msgstr "不良的項目傳送至 pam_*_item()"
+msgstr ""
+"\344\270\215\350\211\257\347\232\204\351\240\205\347\233\256\345\202\263\351"
+"\200\201\350\207\263 pam_*_item()"
 
 #: libpam/pam_strerror.c:55
 msgid "Conversation error"
-msgstr "交談錯誤"
+msgstr "\344\272\244\350\253\207\351\214\257\350\252\244"
 
 #: libpam/pam_strerror.c:57
 msgid "Authentication token manipulation error"
-msgstr "驗證記號處理錯誤"
+msgstr ""
+"\351\251\227\350\255\211\350\250\230\350\231\237\350\231\225\347\220\206\351"
+"\214\257\350\252\244"
 
 #: libpam/pam_strerror.c:59
 msgid "Authentication information cannot be recovered"
-msgstr "無法恢復驗證資訊"
+msgstr ""
+"\347\204\241\346\263\225\346\201\242\345\276\251\351\251\227\350\255\211\350"
+"\263\207\350\250\212"
 
 #: libpam/pam_strerror.c:61
 msgid "Authentication token lock busy"
-msgstr "驗證記號鎖定忙碌"
+msgstr ""
+"\351\251\227\350\255\211\350\250\230\350\231\237\351\216\226\345\256\232\345"
+"\277\231\347\242\214"
 
 #: libpam/pam_strerror.c:63
 msgid "Authentication token aging disabled"
-msgstr "驗證記號計時已停用"
+msgstr ""
+"\351\251\227\350\255\211\350\250\230\350\231\237\350\250\210\346\231\202\345"
+"\267\262\345\201\234\347\224\250"
 
 #: libpam/pam_strerror.c:65
 msgid "Failed preliminary check by password service"
-msgstr "密碼服務的初步檢查失敗"
+msgstr ""
+"\345\257\206\347\242\274\346\234\215\345\213\231\347\232\204\345\210\235\346"
+"\255\245\346\252\242\346\237\245\345\244\261\346\225\227"
 
 #: libpam/pam_strerror.c:67
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "PAM 發送應忽略傳回值"
+msgstr ""
+"PAM \347\231\274\351\200\201\346\207\211\345\277\275\347\225\245\345\202\263"
+"\345\233\236\345\200\274"
 
 #: libpam/pam_strerror.c:69
 msgid "Module is unknown"
-msgstr "未知的模組"
+msgstr "\346\234\252\347\237\245\347\232\204\346\250\241\347\265\204"
 
 #: libpam/pam_strerror.c:71
 msgid "Authentication token expired"
-msgstr "驗證記號已逾期"
+msgstr ""
+"\351\251\227\350\255\211\350\250\230\350\231\237\345\267\262\351\200\276\346"
+"\234\237"
 
 #: libpam/pam_strerror.c:73
 msgid "Conversation is waiting for event"
-msgstr "交談正在等候事件"
+msgstr ""
+"\344\272\244\350\253\207\346\255\243\345\234\250\347\255\211\345\200\231\344"
+"\272\213\344\273\266"
 
 #: libpam/pam_strerror.c:75
 msgid "Application needs to call libpam again"
-msgstr "應用程式需要再次呼叫 libpam"
+msgstr ""
+"\346\207\211\347\224\250\347\250\213\345\274\217\351\234\200\350\246\201\345"
+"\206\215\346\254\241\345\221\274\345\217\253 libpam"
 
 #: libpam/pam_strerror.c:78
 msgid "Unknown PAM error"
-msgstr "未知的 PAM 錯誤"
+msgstr "\346\234\252\347\237\245\347\232\204 PAM \351\214\257\350\252\244"
 
 #: libpam_misc/misc_conv.c:35
-#, fuzzy
-msgid "...Time is running out...\n"
-msgstr ".._.時間已經超過...\n"
+msgid "..\007.Time is running out...\n"
+msgstr ""
+"..\007.\346\231\202\351\226\223\345\267\262\347\266\223\350\266\205\351\201"
+"\216...\n"
 
 #: libpam_misc/misc_conv.c:36
-#, fuzzy
-msgid "...Sorry, your time is up!\n"
-msgstr ".._.抱歉，您的時間已到！\n"
+msgid "..\007.Sorry, your time is up!\n"
+msgstr ""
+"..\007.\346\212\261\346\255\211\357\274\214\346\202\250\347\232\204\346\231"
+"\202\351\226\223\345\267\262\345\210\260\357\274\201\n"
 
 #: libpam_misc/misc_conv.c:334
 #, c-format
 msgid "erroneous conversation (%d)\n"
-msgstr "錯誤的交談 (%d)\n"
+msgstr "\351\214\257\350\252\244\347\232\204\344\272\244\350\253\207 (%d)\n"

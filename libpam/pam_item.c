@@ -265,7 +265,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
     if (use_prompt == NULL) {
 	use_prompt = pamh->prompt;
 	if (use_prompt == NULL) {
-	    use_prompt = PAM_DEFAULT_PROMPT;
+	    use_prompt = _("login:");
 	}
     }
 

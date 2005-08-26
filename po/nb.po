@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-08-18 14:53+0200\n"
+"POT-Creation-Date: 2005-08-26 15:03+0200\n"
 "PO-Revision-Date: 2005-08-13 22:44+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@online.no>\n"
 "Language-Team:  <nb@li.org>\n"
@@ -81,7 +81,7 @@ msgstr "type: "
 
 #: modules/pam_selinux/pam_selinux.c:226
 msgid "level: "
-msgstr "nivå: "
+msgstr "niv\303\245: "
 
 #: modules/pam_selinux/pam_selinux.c:240
 msgid "Not a valid security context"
@@ -109,20 +109,25 @@ msgstr "login: feil under forgrening: %s"
 
 #: modules/pam_unix/pam_unix_acct.c:268 modules/pam_unix/pam_unix_acct.c:295
 msgid "Your account has expired; please contact your system administrator"
-msgstr "Din konto er utløpt; kontakt systemadministratoren"
+msgstr "Din konto er utl\303\270pt; kontakt systemadministratoren"
 
 #: modules/pam_unix/pam_unix_acct.c:277
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Du må straks endre passordet ditt (ordre fra rot)"
+msgstr "Du m\303\245 straks endre passordet ditt (ordre fra rot)"
 
 #: modules/pam_unix/pam_unix_acct.c:304
 msgid "You are required to change your password immediately (password aged)"
-msgstr "Du må straks endre passordet ditt (passord for gammelt)"
+msgstr "Du m\303\245 straks endre passordet ditt (passord for gammelt)"
 
 #: modules/pam_unix/pam_unix_acct.c:314
 #, c-format
 msgid "Warning: your password will expire in %d day%.2s"
-msgstr "Advarsel: passordet ditt vil utløpe om %d dager%.2s"
+msgstr "Advarsel: passordet ditt vil utl\303\270pe om %d dager%.2s"
+
+#: modules/pam_unix/pam_unix_auth.c:162
+#, fuzzy
+msgid "Password: "
+msgstr "Passord uendret"
 
 #: modules/pam_unix/pam_unix_passwd.c:818
 msgid "NIS password could not be changed."
@@ -138,15 +143,29 @@ msgstr "Passord uendret"
 
 #: modules/pam_unix/pam_unix_passwd.c:983
 msgid "You must choose a longer password"
-msgstr "Du må velge et lengre passord"
+msgstr "Du m\303\245 velge et lengre passord"
 
 #: modules/pam_unix/pam_unix_passwd.c:988
 msgid "Password has been already used. Choose another."
 msgstr "Passordet er allerede benyttet. Velg et annet."
 
+#: modules/pam_unix/pam_unix_passwd.c:1112
+msgid "(current) UNIX password: "
+msgstr ""
+
 #: modules/pam_unix/pam_unix_passwd.c:1147
 msgid "You must wait longer to change your password"
-msgstr "Du må vente lenger før du kan endre passordet"
+msgstr "Du m\303\245 vente lenger f\303\270r du kan endre passordet"
+
+#: modules/pam_unix/pam_unix_passwd.c:1207
+#, fuzzy
+msgid "Enter new UNIX password: "
+msgstr "Angi nytt STRESS-passord: "
+
+#: modules/pam_unix/pam_unix_passwd.c:1208
+#, fuzzy
+msgid "Retype new UNIX password: "
+msgstr "Bekreft nytt STRESS-passord: "
 
 #: modules/pam_stress/pam_stress.c:481
 msgid "Changing STRESS password for "
@@ -164,9 +183,13 @@ msgstr "Bekreft nytt STRESS-passord: "
 msgid "Verification mis-typed; password unchanged"
 msgstr "Bekreftelse feil skrevet; passord uendret"
 
+#: libpam/pam_item.c:268
+msgid "login:"
+msgstr ""
+
 #: libpam/pam_strerror.c:13
 msgid "Success"
-msgstr "Utført"
+msgstr "Utf\303\270rt"
 
 #: libpam/pam_strerror.c:15
 msgid "Critical error - immediate abort"
@@ -214,7 +237,7 @@ msgstr "Bruker ukjent for autentiseringsmodul"
 
 #: libpam/pam_strerror.c:37
 msgid "Have exhausted maximum number of retries for service."
-msgstr "Maksimalt antall forsøk er overskredet for tjenesten."
+msgstr "Maksimalt antall fors\303\270k er overskredet for tjenesten."
 
 #: libpam/pam_strerror.c:39
 msgid "Authentication token is no longer valid; new one required."
@@ -222,11 +245,12 @@ msgstr "Autentiseringsjide ikke lenger gyldig; ny kode kreves."
 
 #: libpam/pam_strerror.c:41
 msgid "User account has expired"
-msgstr "Brukerkonto er utløpt"
+msgstr "Brukerkonto er utl\303\270pt"
 
 #: libpam/pam_strerror.c:43
 msgid "Cannot make/remove an entry for the specified session"
-msgstr "Kan ikke opprette/fjerne en oppføring for den valgte økten"
+msgstr ""
+"Kan ikke opprette/fjerne en oppf\303\270ring for den valgte \303\270kten"
 
 #: libpam/pam_strerror.c:45
 msgid "Authentication service cannot retrieve user credentials"
@@ -234,7 +258,7 @@ msgstr "Autentiseringstjenesten kan ikke hente brukerrettigheter"
 
 #: libpam/pam_strerror.c:47
 msgid "User credentials expired"
-msgstr "Brukerrettigheter utløpt"
+msgstr "Brukerrettigheter utl\303\270pt"
 
 #: libpam/pam_strerror.c:49
 msgid "Failure setting user credentials"
@@ -246,7 +270,7 @@ msgstr "Nei modulspesifikk informasjon finnes"
 
 #: libpam/pam_strerror.c:53
 msgid "Bad item passed to pam_*_item()"
-msgstr "Ugyldig oppføring angitt for pam_*_item()"
+msgstr "Ugyldig oppf\303\270ring angitt for pam_*_item()"
 
 #: libpam/pam_strerror.c:55
 msgid "Conversation error"
@@ -262,7 +286,7 @@ msgstr "Autentiseringsinformasjon kan ikke gjenopprettes"
 
 #: libpam/pam_strerror.c:61
 msgid "Authentication token lock busy"
-msgstr "Låsing av autentiseringskode opptatt"
+msgstr "L\303\245sing av autentiseringskode opptatt"
 
 #: libpam/pam_strerror.c:63
 msgid "Authentication token aging disabled"
@@ -274,7 +298,7 @@ msgstr "Passordtjenestens innledende kontroll mislyktes"
 
 #: libpam/pam_strerror.c:67
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "Resultatverdien bør ignoreres av PAM"
+msgstr "Resultatverdien b\303\270r ignoreres av PAM"
 
 #: libpam/pam_strerror.c:69
 msgid "Module is unknown"
@@ -282,29 +306,27 @@ msgstr "Modulen er ukjent"
 
 #: libpam/pam_strerror.c:71
 msgid "Authentication token expired"
-msgstr "Autentiseringskode utløpt"
+msgstr "Autentiseringskode utl\303\270pt"
 
 #: libpam/pam_strerror.c:73
 msgid "Conversation is waiting for event"
-msgstr "Dialogen venter på hendelse"
+msgstr "Dialogen venter p\303\245 hendelse"
 
 #: libpam/pam_strerror.c:75
 msgid "Application needs to call libpam again"
-msgstr "Programmet må spørre libpam på nytt"
+msgstr "Programmet m\303\245 sp\303\270rre libpam p\303\245 nytt"
 
 #: libpam/pam_strerror.c:78
 msgid "Unknown PAM error"
 msgstr "Ukjent PAM-feil"
 
 #: libpam_misc/misc_conv.c:35
-#, fuzzy
-msgid "...Time is running out...\n"
-msgstr "...Tiden er i ferd med utløpe..\n"
+msgid "..\007.Time is running out...\n"
+msgstr "..\007.Tiden er i ferd med utl\303\270pe..\n"
 
 #: libpam_misc/misc_conv.c:36
-#, fuzzy
-msgid "...Sorry, your time is up!\n"
-msgstr "...Beklager, tiden er utløpt!\n"
+msgid "..\007.Sorry, your time is up!\n"
+msgstr "..\007.Beklager, tiden er utl\303\270pt!\n"
 
 #: libpam_misc/misc_conv.c:334
 #, c-format
