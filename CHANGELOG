@@ -79,8 +79,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * Add gettext support
 * Add translations for cs, de, es, fr, hu, it, ja, nb, pa, pt_BR,
   pt, zh_CN and zh_TW
-* pam_limits: Apply ALT-Linux/OWL patch
-* pam_motd: Apply ALT-Linux/OWL patch
+* pam_limits: Apply ALT Linux/Owl patch
+* pam_motd: Apply ALT Linux/Owl patch
 * libpam: Cache pam_get_user() failures
 
 0.80: Wed Jul 13 13:23:20 CEST 2005

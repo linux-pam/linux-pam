@@ -46,6 +46,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/resource.h>
+#include <syslog.h>
 
 #define PAM_SM_SESSION
 

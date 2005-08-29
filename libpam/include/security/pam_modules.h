@@ -10,12 +10,6 @@
 
 #include <security/_pam_types.h>      /* Linux-PAM common defined types */
 
-/* these defines are used by pam_set_item() and pam_get_item() and are
- * in addition to those found in <security/_pam_types.h> */
-
-#define PAM_AUTHTOK     6	/* The authentication token (password) */
-#define PAM_OLDAUTHTOK  7	/* The old authentication token */
-
 /* -------------- The Linux-PAM Module PI ------------- */
 
 extern int pam_set_data(pam_handle_t *pamh, const char *module_data_name,

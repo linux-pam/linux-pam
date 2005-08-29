@@ -40,6 +40,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <dirent.h>
+#include <syslog.h>
 
 /*
  * here, we make a definition for the externally accessible function

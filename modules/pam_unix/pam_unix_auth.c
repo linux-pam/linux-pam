@@ -48,6 +48,7 @@
 #include <ctype.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <syslog.h>
 
 /* indicate the following groups are defined */
 

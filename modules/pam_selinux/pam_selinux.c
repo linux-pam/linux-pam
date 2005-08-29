@@ -51,6 +51,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <linux/limits.h>
+#include <syslog.h>
 
 #define PAM_SM_AUTH
 #define PAM_SM_SESSION

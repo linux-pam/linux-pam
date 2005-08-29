@@ -18,8 +18,7 @@
 
 #include "config.h"
 
-/* this is not used at the moment --- AGM */
-#define LIBPAM_VERSION (LIBPAM_VERSION_MAJOR*0x100 + LIBPAM_VERSION_MINOR)
+#include <syslog.h>
 
 #include <security/pam_appl.h>
 #include <security/pam_modules.h>

@@ -14,12 +14,6 @@
 #ifndef _SECURITY__PAM_TYPES_H
 #define _SECURITY__PAM_TYPES_H
 
-/*
- * include local definition for POSIX - NULL
- */
-
-#include <locale.h>
-
 /* This is a blind structure; users aren't allowed to see inside a
  * pam_handle_t, so we don't define struct pam_handle here.  This is
  * defined in a file private to the PAM library.  (i.e., it's private
@@ -128,16 +122,17 @@ typedef struct pam_handle pam_handle_t;
 
 /* ------------------ The Linux-PAM item types ------------------- */
 
-/* these defines are used by pam_set_item() and pam_get_item() */
+/* These defines are used by pam_set_item() and pam_get_item().
+   Please check the spec which are allowed for use by applications
+   and which are only allowed for use by modules. */
 
 #define PAM_SERVICE	   1	/* The service name */
 #define PAM_USER           2	/* The user name */
 #define PAM_TTY            3	/* The tty name */
 #define PAM_RHOST          4	/* The remote host name */
 #define PAM_CONV           5	/* The pam_conv structure */
-
-/* missing entries found in <security/pam_modules.h> for modules only! */
-
+#define PAM_AUTHTOK        6	/* The authentication token (password) */
+#define PAM_OLDAUTHTOK     7	/* The old authentication token */
 #define PAM_RUSER          8	/* The remote user name */
 #define PAM_USER_PROMPT    9    /* the prompt for getting a username */
 #define PAM_FAIL_DELAY     10   /* app supplied function to override failure
@@ -183,13 +178,6 @@ extern char **pam_getenvlist(pam_handle_t *pamh);
 
 #define HAVE_PAM_FAIL_DELAY
 extern int pam_fail_delay(pam_handle_t *pamh, unsigned int musec_delay);
-
-#include <syslog.h>
-#ifndef LOG_AUTHPRIV
-# ifdef LOG_PRIV
-#  define LOG_AUTHPRIV LOG_PRIV
-# endif /* LOG_PRIV */
-#endif /* !LOG_AUTHPRIV */
 
 #ifdef MEMORY_DEBUG
 /*
@@ -266,18 +254,6 @@ struct pam_conv {
 		struct pam_response **resp, void *appdata_ptr);
     void *appdata_ptr;
 };
-
-#ifndef LINUX_PAM
-/*
- * the following few lines represent a hack.  They are there to make
- * the Linux-PAM headers more compatible with the Sun ones, which have a
- * less strictly separated notion of module specific and application
- * specific definitions.
- */
-#include <security/pam_appl.h>
-#include <security/pam_modules.h>
-#endif
-
 
 /* ... adapted from the pam_appl.h file created by Theodore Ts'o and
  *
