@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-08-26 15:03+0200\n"
+"POT-Creation-Date: 2005-09-01 15:47+0200\n"
 "PO-Revision-Date: 2005-08-13 22:44+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@online.no>\n"
 "Language-Team:  <nb@li.org>\n"
@@ -54,55 +54,55 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Kan ikke tilbakestille alle brukere til non-zero\n"
 
-#: modules/pam_selinux/pam_selinux.c:129
+#: modules/pam_selinux/pam_selinux.c:130
 #, c-format
 msgid "Your default context is %s. \n"
 msgstr "Din standardkontekst er %s. \n"
 
-#: modules/pam_selinux/pam_selinux.c:132
+#: modules/pam_selinux/pam_selinux.c:133
 msgid "Do you want to choose a different one? [n]"
 msgstr "Vil du velge en annen? [n]"
 
-#: modules/pam_selinux/pam_selinux.c:139
+#: modules/pam_selinux/pam_selinux.c:140
 msgid "Enter number of choice: "
 msgstr "Angi et tall: "
 
-#: modules/pam_selinux/pam_selinux.c:191
+#: modules/pam_selinux/pam_selinux.c:192
 msgid "Would you like to enter a security context? [y] "
 msgstr "Vil du angi en sikkerhetskontekst? [y] "
 
-#: modules/pam_selinux/pam_selinux.c:208
+#: modules/pam_selinux/pam_selinux.c:209
 msgid "role: "
 msgstr "rolle: "
 
-#: modules/pam_selinux/pam_selinux.c:216
+#: modules/pam_selinux/pam_selinux.c:217
 msgid "type: "
 msgstr "type: "
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:227
 msgid "level: "
 msgstr "niv\303\245: "
 
-#: modules/pam_selinux/pam_selinux.c:240
+#: modules/pam_selinux/pam_selinux.c:241
 msgid "Not a valid security context"
 msgstr "Ikke en gyldig sikkerhetskontekst"
 
-#: modules/pam_selinux/pam_selinux.c:475
+#: modules/pam_selinux/pam_selinux.c:476
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Sikkerhetskontekst %s tilordnet"
 
-#: modules/pam_selinux/pam_selinux.c:595
+#: modules/pam_selinux/pam_selinux.c:596
 #, c-format
 msgid "failed to initialize PAM\n"
 msgstr "kunne ikke initialisere PAM\n"
 
-#: modules/pam_selinux/pam_selinux.c:601
+#: modules/pam_selinux/pam_selinux.c:602
 #, c-format
 msgid "failed to pam_set_item()\n"
 msgstr "kunne ikke pam_set_item()\n"
 
-#: modules/pam_selinux/pam_selinux.c:626
+#: modules/pam_selinux/pam_selinux.c:627
 #, c-format
 msgid "login: failure forking: %s"
 msgstr "login: feil under forgrening: %s"
@@ -124,7 +124,7 @@ msgstr "Du m\303\245 straks endre passordet ditt (passord for gammelt)"
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr "Advarsel: passordet ditt vil utl\303\270pe om %d dager%.2s"
 
-#: modules/pam_unix/pam_unix_auth.c:162
+#: modules/pam_unix/pam_unix_auth.c:163
 #, fuzzy
 msgid "Password: "
 msgstr "Passord uendret"

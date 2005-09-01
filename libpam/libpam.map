@@ -31,3 +31,9 @@ LIBPAM_MALLOC_DEBUG_1.0 {
     pam_exit;
     pam_strdup;
 };
+LIBPAM_EXTENSION_1.0 {
+  global:
+    pam_prompt;
+    pam_vprompt;
+};
+

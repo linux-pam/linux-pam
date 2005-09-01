@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM 0.80\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-08-26 15:03+0200\n"
+"POT-Creation-Date: 2005-09-01 15:47+0200\n"
 "PO-Revision-Date: 2005-08-07 02:59+0100\n"
 "Last-Translator: Szabolcs Varga <shirokuma@shirokuma.hu>\n"
 "Language-Team: hu\n"
@@ -56,56 +56,56 @@ msgstr ""
 "%s: Nem \303\241ll\303\255that\303\263 vissza minden felhaszn\303\241l\303"
 "\263 nem null\303\241ra\n"
 
-#: modules/pam_selinux/pam_selinux.c:129
+#: modules/pam_selinux/pam_selinux.c:130
 #, c-format
 msgid "Your default context is %s. \n"
 msgstr "Az \303\226n alap\303\251rtelmezett kontextusa: %s. \n"
 
-#: modules/pam_selinux/pam_selinux.c:132
+#: modules/pam_selinux/pam_selinux.c:133
 msgid "Do you want to choose a different one? [n]"
 msgstr "K\303\255v\303\241n m\303\241sikat v\303\241lasztani? [n]"
 
-#: modules/pam_selinux/pam_selinux.c:139
+#: modules/pam_selinux/pam_selinux.c:140
 msgid "Enter number of choice: "
 msgstr ""
 "Adja meg a k\303\255v\303\241nt lehet\305\221s\303\251g sz\303\241m\303\241t:"
 
-#: modules/pam_selinux/pam_selinux.c:191
+#: modules/pam_selinux/pam_selinux.c:192
 msgid "Would you like to enter a security context? [y] "
 msgstr "K\303\255v\303\241n megadni egy biztons\303\241gi kontextust? [y] "
 
-#: modules/pam_selinux/pam_selinux.c:208
+#: modules/pam_selinux/pam_selinux.c:209
 msgid "role: "
 msgstr "szerep:"
 
-#: modules/pam_selinux/pam_selinux.c:216
+#: modules/pam_selinux/pam_selinux.c:217
 msgid "type: "
 msgstr "t\303\255pus:"
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:227
 msgid "level: "
 msgstr "szint:"
 
-#: modules/pam_selinux/pam_selinux.c:240
+#: modules/pam_selinux/pam_selinux.c:241
 msgid "Not a valid security context"
 msgstr "Nem \303\251rv\303\251nyes biztons\303\241gi kontextus"
 
-#: modules/pam_selinux/pam_selinux.c:475
+#: modules/pam_selinux/pam_selinux.c:476
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "%s biztons\303\241gi kontextus hozz\303\241rendelve"
 
-#: modules/pam_selinux/pam_selinux.c:595
+#: modules/pam_selinux/pam_selinux.c:596
 #, c-format
 msgid "failed to initialize PAM\n"
 msgstr "PAM inicializ\303\241l\303\241sa sikertelen\n"
 
-#: modules/pam_selinux/pam_selinux.c:601
+#: modules/pam_selinux/pam_selinux.c:602
 #, c-format
 msgid "failed to pam_set_item()\n"
 msgstr "pam_set_item() meghi\303\272sult\n"
 
-#: modules/pam_selinux/pam_selinux.c:626
+#: modules/pam_selinux/pam_selinux.c:627
 #, c-format
 msgid "login: failure forking: %s"
 msgstr "bejelentkez\303\251s: hiba az el\303\241gaz\303\241s k\303\266zben: %s"
@@ -133,7 +133,7 @@ msgstr ""
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr "Figyelmeztet\303\251s: a jelszava lej\303\241r %d nap m\303\272lva%.2s"
 
-#: modules/pam_unix/pam_unix_auth.c:162
+#: modules/pam_unix/pam_unix_auth.c:163
 #, fuzzy
 msgid "Password: "
 msgstr "A jelsz\303\263 nem v\303\241ltozott"

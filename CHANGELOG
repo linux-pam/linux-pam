@@ -9,7 +9,6 @@ TODO:
     library for helping to develop modules that contains it and other
     stuff. Also add sha-1 and ripemd-160 digest algorithms.
   - once above is done. remove hacks from the secret@here module etc..
-  - remove prototype for gethostname in pam_access.c (Derrick)
   - document PAM_INCOMPLETE changes
   - verify that the PAM_INCOMPLETE interface is sensible.   Can we
     catch errors? should we permit item changing etc., between
@@ -20,7 +19,6 @@ TODO:
   - do we still need to remove openlog/closelog from modules..?
   - auth and acct support in pam_cracklib, "yes, I know the password
     you just typed was valid, I just don't think it was very strong..."
-  - add in the pam_cap and pam_netid modules
 
 ====================================================================
 Note, as of release 0.73, all checkins should be accompanied with a
@@ -82,6 +80,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * pam_limits: Apply ALT Linux/Owl patch
 * pam_motd: Apply ALT Linux/Owl patch
 * libpam: Cache pam_get_user() failures
+* libpam: Add pam_prompt,pam_vprompt,pam_error,pam_verror,pam_info
+  and pam_vinfo functions for use by modules as extension (kukuk).
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)

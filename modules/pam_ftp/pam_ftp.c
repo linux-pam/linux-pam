@@ -34,6 +34,7 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
+#include <security/pam_ext.h>
 
 /* some syslogging */
 
@@ -46,42 +47,6 @@ static void _pam_log(int err, const char *format, ...)
     vsyslog(err, format, args);
     va_end(args);
     closelog();
-}
-
-static int converse(pam_handle_t *pamh, int nargs
-		    , struct pam_message **message
-		    , struct pam_response **response)
-{
-    int retval;
-    const void *void_conv;
-    const struct pam_conv *conv;
-
-    D(("begin to converse\n"));
-
-    retval = pam_get_item(pamh, PAM_CONV, &void_conv);
-    conv = (const struct pam_conv *)void_conv;
-    if ( retval == PAM_SUCCESS && conv ) {
-
-	retval = conv->conv(nargs, ( const struct pam_message ** ) message
-			    , response, conv->appdata_ptr);
-
-	D(("returned from application's conversation function\n"));
-
-	if ((retval != PAM_SUCCESS) && (retval != PAM_CONV_AGAIN)) {
-	    _pam_log(LOG_DEBUG, "conversation failure [%s]"
-		     , pam_strerror(pamh, retval));
-	}
-
-    } else {
-	_pam_log(LOG_ERR, "couldn't obtain coversation function [%s]"
-		 , pam_strerror(pamh, retval));
-	if (retval == PAM_SUCCESS)
-	    retval = PAM_BAD_ITEM;  /* conv was NULL */
-    }
-
-    D(("ready to return from module conversation\n"));
-
-    return retval;                  /* propagate error status */
 }
 
 /* argument parsing */
@@ -198,46 +163,28 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
      */
 
     {
-	struct pam_message msg[1], *mesg[1];
-	struct pam_response *resp=NULL;
+	char *resp = NULL;
 	const char *token;
-	char *prompt=NULL;
-	int i=0;
 
-	if (!anon) {
-	    prompt = malloc(strlen(PLEASE_ENTER_PASSWORD) + strlen(user));
-	    if (prompt == NULL) {
-		D(("out of memory!?"));
-		return PAM_BUF_ERR;
-	    } else {
-		sprintf(prompt, PLEASE_ENTER_PASSWORD, user);
-		msg[i].msg = prompt;
-	    }
-	} else {
-	    msg[i].msg = GUEST_LOGIN_PROMPT;
-	}
-
-	msg[i].msg_style = PAM_PROMPT_ECHO_OFF;
-	mesg[i] = &msg[i];
-
-	retval = converse(pamh, ++i, mesg, &resp);
-	if (prompt) {
-	    _pam_overwrite(prompt);
-	    _pam_drop(prompt);
-	}
+	if (!anon)
+	  retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp,
+			       PLEASE_ENTER_PASSWORD, user);
+	else
+	  retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp,
+			       GUEST_LOGIN_PROMPT);
 
 	if (retval != PAM_SUCCESS) {
 	    if (resp != NULL)
-		_pam_drop_reply(resp,i);
+		_pam_drop (resp);
 	    return ((retval == PAM_CONV_AGAIN)
 		    ? PAM_INCOMPLETE:PAM_AUTHINFO_UNAVAIL);
 	}
 
 	if (anon) {
-	    /* XXX: Some effort should be made to verify this email address! */
+	  /* XXX: Some effort should be made to verify this email address! */
 
 	    if (!(ctrl & PAM_IGNORE_EMAIL)) {
-		token = strtok(resp->resp, "@");
+		token = strtok(resp, "@");
 		retval = pam_set_item(pamh, PAM_RUSER, token);
 
 		if ((token) && (retval == PAM_SUCCESS)) {
@@ -254,7 +201,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	     * we have a password so set AUTHTOK
 	     */
 
-	    (void) pam_set_item(pamh, PAM_AUTHTOK, resp->resp);
+	    pam_set_item(pamh, PAM_AUTHTOK, resp);
 
 	    /*
 	     * this module failed, but the next one might succeed with
@@ -265,7 +212,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	}
 
 	if (resp) {                                      /* clean up */
-	    _pam_drop_reply(resp, i);
+	    _pam_drop(resp);
 	}
 
 	/* success or failure */

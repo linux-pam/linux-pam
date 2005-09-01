@@ -21,6 +21,13 @@
 
 typedef struct pam_handle pam_handle_t;
 
+/* ---------------- The Linux-PAM Version defines ----------------- */
+
+/* Major and minor version number of the Linux-PAM package.  Use
+   these macros to test for features in specific releases.  */
+#define __LINUX_PAM__ 1
+#define __LINUX_PAM_MINOR__ 0
+
 /* ----------------- The Linux-PAM return values ------------------ */
 
 #define PAM_SUCCESS 0		/* Successful function return */
@@ -254,6 +261,27 @@ struct pam_conv {
 		struct pam_response **resp, void *appdata_ptr);
     void *appdata_ptr;
 };
+
+/* -------------- Special defines used by Linux-PAM -------------- */
+
+#if defined(__GNUC__) && defined(__GNUC_MINOR__)
+# define PAM_GNUC_PREREQ(maj, min) \
+        ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
+#else
+# define PAM_GNUC_PREREQ(maj, min) 0
+#endif
+
+#if PAM_GNUC_PREREQ(2,5)
+# define PAM_FORMAT(params) __attribute__((__format__ params))
+#else
+# define PAM_FORMAT(params)
+#endif
+
+#if PAM_GNUC_PREREQ(3,3)
+# define PAM_NONNULL(params) __attribute__((__nonnull__ params))
+#else
+# define PAM_NONNULL(params)
+#endif
 
 /* ... adapted from the pam_appl.h file created by Theodore Ts'o and
  *

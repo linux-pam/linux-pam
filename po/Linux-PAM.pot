@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-08-26 15:03+0200\n"
+"POT-Creation-Date: 2005-09-01 15:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,55 +53,55 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:129
+#: modules/pam_selinux/pam_selinux.c:130
 #, c-format
 msgid "Your default context is %s. \n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:132
+#: modules/pam_selinux/pam_selinux.c:133
 msgid "Do you want to choose a different one? [n]"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:139
+#: modules/pam_selinux/pam_selinux.c:140
 msgid "Enter number of choice: "
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:191
+#: modules/pam_selinux/pam_selinux.c:192
 msgid "Would you like to enter a security context? [y] "
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:208
+#: modules/pam_selinux/pam_selinux.c:209
 msgid "role: "
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:216
+#: modules/pam_selinux/pam_selinux.c:217
 msgid "type: "
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:227
 msgid "level: "
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:240
+#: modules/pam_selinux/pam_selinux.c:241
 msgid "Not a valid security context"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:475
+#: modules/pam_selinux/pam_selinux.c:476
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:595
+#: modules/pam_selinux/pam_selinux.c:596
 #, c-format
 msgid "failed to initialize PAM\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:601
+#: modules/pam_selinux/pam_selinux.c:602
 #, c-format
 msgid "failed to pam_set_item()\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:626
+#: modules/pam_selinux/pam_selinux.c:627
 #, c-format
 msgid "login: failure forking: %s"
 msgstr ""
@@ -123,7 +123,7 @@ msgstr ""
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_auth.c:162
+#: modules/pam_unix/pam_unix_auth.c:163
 msgid "Password: "
 msgstr ""
 

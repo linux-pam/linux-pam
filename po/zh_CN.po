@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-08-26 15:03+0200\n"
+"POT-Creation-Date: 2005-09-01 15:47+0200\n"
 "PO-Revision-Date: 2005-08-18 HO:MI+ZONE\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -62,67 +62,67 @@ msgstr ""
 "\346\210\267\351\207\215\350\256\276\347\275\256\344\270\272\351\235\236\351"
 "\233\266\n"
 
-#: modules/pam_selinux/pam_selinux.c:129
+#: modules/pam_selinux/pam_selinux.c:130
 #, c-format
 msgid "Your default context is %s. \n"
 msgstr ""
 "\346\202\250\347\232\204\351\273\230\350\256\244\347\216\257\345\242\203\344"
 "\270\272 %s\343\200\202\n"
 
-#: modules/pam_selinux/pam_selinux.c:132
+#: modules/pam_selinux/pam_selinux.c:133
 msgid "Do you want to choose a different one? [n]"
 msgstr ""
 "\346\230\257\345\220\246\346\203\263\350\246\201\351\200\211\346\213\251\345"
 "\217\246\344\270\200\344\270\252\357\274\237[n]"
 
-#: modules/pam_selinux/pam_selinux.c:139
+#: modules/pam_selinux/pam_selinux.c:140
 msgid "Enter number of choice: "
 msgstr ""
 "\350\276\223\345\205\245\351\200\211\351\241\271\347\232\204\346\225\260\345"
 "\255\227\357\274\232"
 
-#: modules/pam_selinux/pam_selinux.c:191
+#: modules/pam_selinux/pam_selinux.c:192
 msgid "Would you like to enter a security context? [y] "
 msgstr ""
 "\346\230\257\345\220\246\346\204\277\346\204\217\350\276\223\345\205\245\345"
 "\256\211\345\205\250\346\200\247\347\216\257\345\242\203\357\274\237[y]"
 
-#: modules/pam_selinux/pam_selinux.c:208
+#: modules/pam_selinux/pam_selinux.c:209
 msgid "role: "
 msgstr "\350\201\214\350\203\275\357\274\232"
 
-#: modules/pam_selinux/pam_selinux.c:216
+#: modules/pam_selinux/pam_selinux.c:217
 msgid "type: "
 msgstr "\347\261\273\345\236\213\357\274\232"
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:227
 msgid "level: "
 msgstr "\347\272\247\345\210\253\357\274\232"
 
-#: modules/pam_selinux/pam_selinux.c:240
+#: modules/pam_selinux/pam_selinux.c:241
 msgid "Not a valid security context"
 msgstr ""
 "\344\270\215\346\230\257\346\234\211\346\225\210\347\232\204\345\256\211\345"
 "\205\250\346\200\247\347\216\257\345\242\203"
 
-#: modules/pam_selinux/pam_selinux.c:475
+#: modules/pam_selinux/pam_selinux.c:476
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr ""
 "\345\267\262\346\214\207\346\264\276\345\256\211\345\205\250\346\200\247\347"
 "\216\257\345\242\203 %s"
 
-#: modules/pam_selinux/pam_selinux.c:595
+#: modules/pam_selinux/pam_selinux.c:596
 #, c-format
 msgid "failed to initialize PAM\n"
 msgstr "\346\234\252\350\203\275\345\210\235\345\247\213\345\214\226 PAM\n"
 
-#: modules/pam_selinux/pam_selinux.c:601
+#: modules/pam_selinux/pam_selinux.c:602
 #, c-format
 msgid "failed to pam_set_item()\n"
 msgstr "\346\234\252\350\203\275 pam_set_item()\n"
 
-#: modules/pam_selinux/pam_selinux.c:626
+#: modules/pam_selinux/pam_selinux.c:627
 #, c-format
 msgid "login: failure forking: %s"
 msgstr ""
@@ -158,7 +158,7 @@ msgstr ""
 "\273\244\345\260\206\345\234\250 %d \345\244\251 %.2s \345\220\216\345\244"
 "\261\346\225\210\343\200\202"
 
-#: modules/pam_unix/pam_unix_auth.c:162
+#: modules/pam_unix/pam_unix_auth.c:163
 #, fuzzy
 msgid "Password: "
 msgstr "\345\217\243\344\273\244\346\234\252\346\233\264\346\224\271"
