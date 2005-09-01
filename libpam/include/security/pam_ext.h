@@ -41,7 +41,7 @@ extern int PAM_FORMAT((printf, 4, 0)) PAM_NONNULL((4))
 pam_vprompt (pam_handle_t *pamh, int style, char **response,
 	     const char *fmt, va_list args);
 
-extern int PAM_FORMAT((printf, 4, 0)) PAM_NONNULL((4))
+extern int PAM_FORMAT((printf, 4, 5)) PAM_NONNULL((4))
 pam_prompt (pam_handle_t *pamh, int style, char **response,
 	    const char *fmt, ...);
 

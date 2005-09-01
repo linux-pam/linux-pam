@@ -84,6 +84,7 @@ pam_vprompt (pam_handle_t *pamh, int style, char **response,
   if (response)
     *response = pam_resp == NULL ? NULL : pam_resp->resp;
   _pam_overwrite (msgbuf);
+  _pam_drop (pam_resp);
   free (msgbuf);
   if (retval != PAM_SUCCESS)
     _pam_system_log (LOG_ERR, "conversation failed");
@@ -91,7 +92,7 @@ pam_vprompt (pam_handle_t *pamh, int style, char **response,
   return retval;
 }
 
-int PAM_FORMAT((printf, 4, 0)) PAM_NONNULL((4))
+int PAM_FORMAT((printf, 4, 5)) PAM_NONNULL((4))
 pam_prompt (pam_handle_t *pamh, int style, char **response,
 	    const char *fmt, ...)
 {
