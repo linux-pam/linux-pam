@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-01 15:47+0200\n"
+"POT-Creation-Date: 2005-09-02 10:31+0200\n"
 "PO-Revision-Date: 2005-08-24 13:58+0200\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
@@ -144,10 +144,12 @@ msgid "NIS password could not be changed."
 msgstr "NIS heslo se nepoda\305\231ilo zm\304\233nit."
 
 #: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_cracklib/pam_cracklib.c:476
 msgid "No password supplied"
 msgstr "Nezad\303\241no heslo"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_cracklib/pam_cracklib.c:476
 msgid "Password unchanged"
 msgstr "Heslo nebylo zm\304\233n\304\233no"
 
@@ -193,6 +195,26 @@ msgstr "Opakujte STRESS heslo: "
 #: modules/pam_stress/pam_stress.c:526
 msgid "Verification mis-typed; password unchanged"
 msgstr "Chybn\303\251 potvrzen\303\255. Heslo nezm\304\233n\304\233no"
+
+#: modules/pam_cracklib/pam_cracklib.c:61
+#, fuzzy, c-format
+msgid "New %s%spassword: "
+msgstr "Heslo nebylo zm\304\233n\304\233no"
+
+#: modules/pam_cracklib/pam_cracklib.c:63
+#, fuzzy, c-format
+msgid "Retype new %s%spassword: "
+msgstr "Opakujte STRESS heslo: "
+
+#: modules/pam_cracklib/pam_cracklib.c:64
+#, fuzzy
+msgid "Sorry, passwords do not match."
+msgstr "NIS heslo se nepoda\305\231ilo zm\304\233nit."
+
+#: modules/pam_cracklib/pam_cracklib.c:500
+#, c-format
+msgid "BAD PASSWORD: %s"
+msgstr ""
 
 #: libpam/pam_item.c:268
 msgid "login:"

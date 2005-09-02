@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-01 15:47+0200\n"
+"POT-Creation-Date: 2005-09-02 10:31+0200\n"
 "PO-Revision-Date: 2005-08-18 12:12+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -171,10 +171,12 @@ msgstr ""
 "\343\200\202"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_cracklib/pam_cracklib.c:476
 msgid "No password supplied"
 msgstr "\346\234\252\346\217\220\344\276\233\345\257\206\347\242\274"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_cracklib/pam_cracklib.c:476
 msgid "Password unchanged"
 msgstr "\345\257\206\347\242\274\346\234\252\350\256\212\346\233\264"
 
@@ -240,6 +242,30 @@ msgid "Verification mis-typed; password unchanged"
 msgstr ""
 "\347\242\272\350\252\215\351\214\257\350\252\244\350\274\270\345\205\245\357"
 "\274\233\345\257\206\347\242\274\346\234\252\350\256\212\346\233\264"
+
+#: modules/pam_cracklib/pam_cracklib.c:61
+#, fuzzy, c-format
+msgid "New %s%spassword: "
+msgstr "\345\257\206\347\242\274\346\234\252\350\256\212\346\233\264"
+
+#: modules/pam_cracklib/pam_cracklib.c:63
+#, fuzzy, c-format
+msgid "Retype new %s%spassword: "
+msgstr ""
+"\345\206\215\346\254\241\350\274\270\345\205\245\346\226\260\347\232\204 "
+"STRESS \345\257\206\347\242\274\357\274\232"
+
+#: modules/pam_cracklib/pam_cracklib.c:64
+#, fuzzy
+msgid "Sorry, passwords do not match."
+msgstr ""
+"\347\204\241\346\263\225\350\256\212\346\233\264 NIS \345\257\206\347\242\274"
+"\343\200\202"
+
+#: modules/pam_cracklib/pam_cracklib.c:500
+#, c-format
+msgid "BAD PASSWORD: %s"
+msgstr ""
 
 #: libpam/pam_item.c:268
 msgid "login:"

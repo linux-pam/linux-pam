@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM 0.80\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-01 15:47+0200\n"
+"POT-Creation-Date: 2005-09-02 10:31+0200\n"
 "PO-Revision-Date: 2005-08-07 02:59+0100\n"
 "Last-Translator: Szabolcs Varga <shirokuma@shirokuma.hu>\n"
 "Language-Team: hu\n"
@@ -143,10 +143,12 @@ msgid "NIS password could not be changed."
 msgstr "A NIS-jelsz\303\263 nem m\303\263dos\303\255that\303\263."
 
 #: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_cracklib/pam_cracklib.c:476
 msgid "No password supplied"
 msgstr "Nem lett megadva jelsz\303\263"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_cracklib/pam_cracklib.c:476
 msgid "Password unchanged"
 msgstr "A jelsz\303\263 nem v\303\241ltozott"
 
@@ -197,6 +199,26 @@ msgid "Verification mis-typed; password unchanged"
 msgstr ""
 "Az ellen\305\221rz\305\221 jelsz\303\263 nem egyezik; a jelsz\303\263 nem ker"
 "\303\274lt m\303\263dos\303\255t\303\241sra"
+
+#: modules/pam_cracklib/pam_cracklib.c:61
+#, fuzzy, c-format
+msgid "New %s%spassword: "
+msgstr "A jelsz\303\263 nem v\303\241ltozott"
+
+#: modules/pam_cracklib/pam_cracklib.c:63
+#, fuzzy, c-format
+msgid "Retype new %s%spassword: "
+msgstr "\303\215rja be m\303\251gegyszer az \303\272j STRESS jelsz\303\263t:"
+
+#: modules/pam_cracklib/pam_cracklib.c:64
+#, fuzzy
+msgid "Sorry, passwords do not match."
+msgstr "A NIS-jelsz\303\263 nem m\303\263dos\303\255that\303\263."
+
+#: modules/pam_cracklib/pam_cracklib.c:500
+#, c-format
+msgid "BAD PASSWORD: %s"
+msgstr ""
 
 #: libpam/pam_item.c:268
 msgid "login:"

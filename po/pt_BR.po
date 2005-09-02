@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-01 15:47+0200\n"
+"POT-Creation-Date: 2005-09-02 10:31+0200\n"
 "PO-Revision-Date: 2005-08-18 15:02+0000\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -135,10 +135,12 @@ msgid "NIS password could not be changed."
 msgstr "A senha NIS n\303\243o p\303\264de ser mudada."
 
 #: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_cracklib/pam_cracklib.c:476
 msgid "No password supplied"
 msgstr "Nenhuma senha informada"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_cracklib/pam_cracklib.c:476
 msgid "Password unchanged"
 msgstr "Senha inalterada"
 
@@ -183,6 +185,26 @@ msgstr "Digite novamente a nova senha STRESS:"
 #: modules/pam_stress/pam_stress.c:526
 msgid "Verification mis-typed; password unchanged"
 msgstr "Verifica\303\247\303\243o digitada incorretamente; senha inalterada"
+
+#: modules/pam_cracklib/pam_cracklib.c:61
+#, fuzzy, c-format
+msgid "New %s%spassword: "
+msgstr "Senha inalterada"
+
+#: modules/pam_cracklib/pam_cracklib.c:63
+#, fuzzy, c-format
+msgid "Retype new %s%spassword: "
+msgstr "Digite novamente a nova senha STRESS:"
+
+#: modules/pam_cracklib/pam_cracklib.c:64
+#, fuzzy
+msgid "Sorry, passwords do not match."
+msgstr "A senha NIS n\303\243o p\303\264de ser mudada."
+
+#: modules/pam_cracklib/pam_cracklib.c:500
+#, c-format
+msgid "BAD PASSWORD: %s"
+msgstr ""
 
 #: libpam/pam_item.c:268
 msgid "login:"

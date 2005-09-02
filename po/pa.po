@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pa\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-01 15:47+0200\n"
+"POT-Creation-Date: 2005-09-02 10:31+0200\n"
 "PO-Revision-Date: 2005-08-06 08:34+0530\n"
 "Last-Translator: Amanpreet Singh Alam[\340\250\206\340\250\262\340\250\256] "
 "<amanpreetalam@yahoo.com>\n"
@@ -216,6 +216,7 @@ msgstr ""
 "\250\277\340\250\206 \340\250\271\340\251\210\340\245\244"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_cracklib/pam_cracklib.c:476
 msgid "No password supplied"
 msgstr ""
 "\340\250\225\340\251\213\340\250\210 \340\250\227\340\251\201\340\250\252\340"
@@ -224,6 +225,7 @@ msgstr ""
 "\276 \340\250\227\340\250\277\340\250\206"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_cracklib/pam_cracklib.c:476
 msgid "Password unchanged"
 msgstr ""
 "\340\250\227\340\251\201\340\250\252\340\250\244-\340\250\225\340\251\213\340"
@@ -296,6 +298,38 @@ msgstr ""
 
 #: modules/pam_stress/pam_stress.c:526
 msgid "Verification mis-typed; password unchanged"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:61
+#, fuzzy, c-format
+msgid "New %s%spassword: "
+msgstr ""
+"\340\250\227\340\251\201\340\250\252\340\250\244-\340\250\225\340\251\213\340"
+"\250\241 \340\250\250\340\250\276-\340\250\244\340\250\254\340\250\246\340"
+"\251\200\340\250\262 \340\250\271\340\251\210"
+
+#: modules/pam_cracklib/pam_cracklib.c:63
+#, fuzzy, c-format
+msgid "Retype new %s%spassword: "
+msgstr ""
+"\340\250\250\340\250\265\340\250\276\340\250\202 STRESS \340\250\227\340\251"
+"\201\340\250\252\340\250\244-\340\250\225\340\251\213\340\250\241 \340\250"
+"\256\340\251\201\340\251\234-\340\250\262\340\250\277\340\250\226\340\251"
+"\213: "
+
+#: modules/pam_cracklib/pam_cracklib.c:64
+#, fuzzy
+msgid "Sorry, passwords do not match."
+msgstr ""
+"NIS \340\250\227\340\251\201\340\250\252\340\250\244-\340\250\225\340\251\213"
+"\340\250\241 \340\250\244\340\250\254\340\250\246\340\251\200\340\250\262 "
+"\340\250\250\340\250\271\340\251\200\340\250\202 \340\250\225\340\251\200\340"
+"\250\244\340\250\276 \340\250\234\340\250\276 \340\250\270\340\250\225\340"
+"\250\277\340\250\206 \340\250\271\340\251\210\340\245\244"
+
+#: modules/pam_cracklib/pam_cracklib.c:500
+#, c-format
+msgid "BAD PASSWORD: %s"
 msgstr ""
 
 #: libpam/pam_item.c:268

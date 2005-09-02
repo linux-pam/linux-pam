@@ -29,6 +29,9 @@ RECOGNIZED ARGUMENTS:
 
 	use_authtok	Get the proposed password from PAM_AUTHTOK
 
+	dictpath=<path> Path to the cracklib dictionaries.
+
+
 MODULE SERVICES PROVIDED:
 	passwd		chauthtok
 
