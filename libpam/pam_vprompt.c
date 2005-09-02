@@ -83,6 +83,11 @@ pam_vprompt (pam_handle_t *pamh, int style, char **response,
   retval = conv->conv (1, &pmsg, &pam_resp, conv->appdata_ptr);
   if (response)
     *response = pam_resp == NULL ? NULL : pam_resp->resp;
+  else if (pam_resp && pam_resp->resp)
+    {
+      _pam_overwrite (pam_resp->resp);
+      _pam_drop (pam_resp->resp);
+    }
   _pam_overwrite (msgbuf);
   _pam_drop (pam_resp);
   free (msgbuf);
