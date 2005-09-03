@@ -576,6 +576,27 @@ static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
     return used;
 }
 
+static char *
+extract_modulename(const char *mod_path)
+{
+  const char *p = strrchr (mod_path, '/');
+  char *dot, *retval;
+
+  if (p == NULL)
+    p = mod_path;
+  else
+    *p++;
+
+  if ((retval = strdup (p)) == NULL)
+    return NULL;
+
+  dot = strrchr (retval, '.');
+  if (dot)
+    *dot = '\0';
+
+  return retval;
+}
+
 typedef int (*servicefn)(pam_handle_t *, int, int, char **);
 
 int _pam_add_handler(pam_handle_t *pamh
@@ -886,6 +907,7 @@ int _pam_add_handler(pam_handle_t *pamh
     (*handler_p)->cached_retval_p = &((*handler_p)->cached_retval);
     (*handler_p)->argc = argc;
     (*handler_p)->argv = argv;                       /* not a copy */
+    (*handler_p)->mod_name = extract_modulename(mod->name);
     (*handler_p)->next = NULL;
 
     /* some of the modules have a second calling function */
@@ -916,6 +938,7 @@ int _pam_add_handler(pam_handle_t *pamh
 	} else {
 	    (*handler_p2)->argv = NULL;              /* no arguments */
 	}
+	(*handler_p2)->mod_name = extract_modulename(mod->name);
 	(*handler_p2)->next = NULL;
     }
 
@@ -1018,6 +1041,8 @@ void _pam_free_handlers_aux(struct handler **hp)
     while (h) {
 	last = h;
 	_pam_drop(h->argv);  /* This is all alocated in a single chunk */
+	if (h->mod_name)
+	  _pam_drop(h->mod_name);
 	h = h->next;
 	memset(last, 0, sizeof(*last));
 	free(last);

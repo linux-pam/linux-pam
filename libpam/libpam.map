@@ -35,5 +35,7 @@ LIBPAM_EXTENSION_1.0 {
   global:
     pam_prompt;
     pam_vprompt;
+    pam_syslog;
+    pam_vsyslog;
 };
 

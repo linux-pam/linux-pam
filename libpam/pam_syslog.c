@@ -45,68 +45,74 @@
 
 #include "pam_private.h"
 
-int
-pam_vprompt (pam_handle_t *pamh, int style, char **response,
-	     const char *fmt, va_list args)
+static const char *
+_pam_choice2str (int choice)
 {
-  struct pam_message msg;
-  struct pam_response *pam_resp = NULL;
-  const struct pam_message *pmsg;
-  const struct pam_conv *conv;
-  const void *convp;
-  char *msgbuf;
-  int retval;
-
-  if (response)
-    *response = NULL;
-
-  retval = pam_get_item (pamh, PAM_CONV, &convp);
-  if (retval != PAM_SUCCESS)
-    return retval;
-  conv = convp;
-  if (conv == NULL || conv->conv == NULL)
+  switch (choice)
     {
-      _pam_system_log (LOG_ERR, "no conversation function");
-      return PAM_SYSTEM_ERR;
+    case PAM_AUTHENTICATE:
+      return "auth";
+    case PAM_SETCRED:
+      return "setcred";
+    case PAM_ACCOUNT:
+      return "account";
+    case PAM_OPEN_SESSION:
+    case PAM_CLOSE_SESSION:
+      return "session";
+    case PAM_CHAUTHTOK:
+      return "chauthtok";
     }
-
-  if (vasprintf (&msgbuf, fmt, args) < 0)
-    {
-      _pam_system_log (LOG_ERR, "vasprintf: %m");
-      return PAM_BUF_ERR;
-    }
-
-  msg.msg_style = style;
-  msg.msg = msgbuf;
-  pmsg = &msg;
-
-  retval = conv->conv (1, &pmsg, &pam_resp, conv->appdata_ptr);
-  if (response)
-    *response = pam_resp == NULL ? NULL : pam_resp->resp;
-  else if (pam_resp && pam_resp->resp)
-    {
-      _pam_overwrite (pam_resp->resp);
-      _pam_drop (pam_resp->resp);
-    }
-  _pam_overwrite (msgbuf);
-  _pam_drop (pam_resp);
-  free (msgbuf);
-  if (retval != PAM_SUCCESS)
-    _pam_system_log (LOG_ERR, "conversation failed");
-
-  return retval;
+  return "";
 }
 
-int
-pam_prompt (pam_handle_t *pamh, int style, char **response,
+void
+pam_vsyslog (pam_handle_t *pamh, int priority,
+	     const char *fmt, va_list args)
+{
+  char *msgbuf1 = NULL, *msgbuf2 = NULL;
+  int save_errno = errno;
+
+  if (pamh->mod_name)
+    {
+      if (asprintf (&msgbuf1, "%s(%s:%s):", pamh->mod_name,
+		    pamh->service_name?pamh->service_name:"<unknown>",
+		    _pam_choice2str (pamh->choice)) < 0)
+	{
+	  syslog (LOG_AUTHPRIV|LOG_ERR, "asprintf: %m");
+	  return;
+	}
+    }
+  else
+    {
+      msgbuf1 = strdup (_PAM_SYSTEM_LOG_PREFIX);
+      if (msgbuf1 == NULL)
+	{
+	  vsyslog (LOG_AUTHPRIV|priority, fmt, args);
+	  return;
+	}
+    }
+
+  if (vasprintf (&msgbuf2, fmt, args) < 0)
+    {
+      syslog (LOG_AUTHPRIV|LOG_ERR, "vasprintf: %m");
+      _pam_drop (msgbuf1);
+      return;
+    }
+
+  errno = save_errno;
+  syslog (LOG_AUTHPRIV|priority, "%s %s", msgbuf1, msgbuf2);
+
+  _pam_drop (msgbuf1);
+  _pam_drop (msgbuf2);
+}
+
+void
+pam_syslog (pam_handle_t *pamh, int priority,
 	    const char *fmt, ...)
 {
   va_list args;
-  int retval;
 
   va_start (args, fmt);
-  retval = pam_vprompt (pamh, style, response, fmt, args);
+  pam_vsyslog (pamh, priority, fmt, args);
   va_end (args);
-
-  return retval;
 }

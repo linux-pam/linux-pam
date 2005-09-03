@@ -83,6 +83,8 @@ BerliOS Bugs are marked with (BerliOS #XXXX).
 * libpam: Add pam_prompt,pam_vprompt,pam_error,pam_verror,pam_info
   and pam_vinfo functions for use by modules as extension (kukuk).
 * pam_cracklib: Make path to cracklib dicts an option (kukuk).
+* libpam: Add pam_syslog function for unified syslog messages from
+  PAM modules (kukuk).
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)

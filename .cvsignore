@@ -2,6 +2,7 @@ default.defs
 .freezemake
 .filelist
 autom4te.cache
+libtool
 include
 config.h
 config.status
@@ -13,3 +14,4 @@ _pam_aconf.h
 Make.Rules
 Makefile
 Makefile.in
+stamp-h1

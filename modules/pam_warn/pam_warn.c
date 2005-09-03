@@ -24,6 +24,7 @@
 #define PAM_SM_PASSWORD
 
 #include <security/pam_modules.h>
+#include <security/pam_ext.h>
 
 /* some syslogging */
 
@@ -31,17 +32,6 @@
      (void) pam_get_item(pamh, item, &value);                   \
      value = value ? value : default_value ;                    \
 } while (0)
-
-static void _pam_log(int err, const char *format, ...)
-{
-    va_list args;
-
-    va_start(args, format);
-    openlog("PAM-warn", LOG_CONS|LOG_PID, LOG_AUTH);
-    vsyslog(err, format, args);
-    va_end(args);
-    closelog();
-}
 
 static void log_items(pam_handle_t *pamh, const char *function)
 {
@@ -54,23 +44,27 @@ static void log_items(pam_handle_t *pamh, const char *function)
      OBTAIN(PAM_RUSER, ruser, "<unknown>");
      OBTAIN(PAM_RHOST, rhost, "<unknown>");
 
-     _pam_log(LOG_NOTICE, "function=[%s] service=[%s] terminal=[%s] user=[%s]"
-	      " ruser=[%s] rhost=[%s]\n",
-	      function, service, terminal, user, ruser, rhost);
+     pam_syslog(pamh, LOG_NOTICE,
+		"function=[%s] service=[%s] terminal=[%s] user=[%s]"
+		" ruser=[%s] rhost=[%s]\n", function,
+		(const char *) service, (const char *) terminal,
+		(const char *) user, (const char *) ruser,
+		(const char *) rhost);
 }
 
 /* --- authentication management functions (only) --- */
 
 PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
-			const char **argv)
+int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
+			int argc UNUSED, const char **argv UNUSED)
 {
     log_items(pamh, __FUNCTION__);
     return PAM_IGNORE;
 }
 
 PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc, const char **argv)
+int pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
+		   int argc UNUSED, const char **argv UNUSED)
 {
     log_items(pamh, __FUNCTION__);
     return PAM_IGNORE;
@@ -79,7 +73,8 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc, const char **argv)
 /* password updating functions */
 
 PAM_EXTERN
-int pam_sm_chauthtok(pam_handle_t *pamh,int flags,int argc,const char **argv)
+int pam_sm_chauthtok(pam_handle_t *pamh, int flags UNUSED,
+		     int argc UNUSED, const char **argv UNUSED)
 {
     log_items(pamh, __FUNCTION__);
     return PAM_IGNORE;

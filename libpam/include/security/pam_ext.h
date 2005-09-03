@@ -37,16 +37,25 @@
 #include <security/_pam_types.h>
 #include <stdarg.h>
 
-extern int PAM_FORMAT((printf, 4, 0)) PAM_NONNULL((4))
+extern void PAM_FORMAT((printf, 3, 0)) PAM_NONNULL((1,3))
+pam_vsyslog (pam_handle_t *pamh, int priority,
+             const char *fmt, va_list args);
+
+extern void PAM_FORMAT((printf, 3, 4)) PAM_NONNULL((1,3))
+pam_syslog (pam_handle_t *pamh, int priority, const char *fmt, ...);
+
+extern int PAM_FORMAT((printf, 4, 0)) PAM_NONNULL((1,4))
 pam_vprompt (pam_handle_t *pamh, int style, char **response,
 	     const char *fmt, va_list args);
 
-extern int PAM_FORMAT((printf, 4, 5)) PAM_NONNULL((4))
+extern int PAM_FORMAT((printf, 4, 5)) PAM_NONNULL((1,4))
 pam_prompt (pam_handle_t *pamh, int style, char **response,
 	    const char *fmt, ...);
 
-#define pam_error(pamh, fmt, args...) pam_prompt(pamh, PAM_ERROR_MSG, NULL, fmt, args)
-#define pam_verror(pamh, fmt, args) pam_vprompt(pamh, PAM_ERROR_MSG, NULL, fmt, args)
+#define pam_error(pamh, fmt, args...) \
+	pam_prompt(pamh, PAM_ERROR_MSG, NULL, fmt, args)
+#define pam_verror(pamh, fmt, args) \
+	pam_vprompt(pamh, PAM_ERROR_MSG, NULL, fmt, args)
 
 #define pam_info(pamh, fmt, args...) pam_prompt(pamh, PAM_TEXT_INFO, NULL, fmt, args)
 #define pam_vinfo(pamh, fmt, ...) pam_vprompt(pamh, PAM_TEXT_INFO, NULL, fmt, args)

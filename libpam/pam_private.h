@@ -54,6 +54,7 @@ struct handler {
     int argc;
     char **argv;
     struct handler *next;
+    char *mod_name;
 };
 
 struct loaded_module {
@@ -146,6 +147,8 @@ struct pam_handle {
     struct service handlers;
     struct _pam_former_state former;  /* library state - support for
 					 event driven applications */
+    const char *mod_name;	/* Name of the module currently executed */
+    int choice;			/* Which function we call from the module */
 };
 
 /* Values for select arg to _pam_dispatch() */

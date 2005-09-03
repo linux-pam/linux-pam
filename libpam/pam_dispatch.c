@@ -80,7 +80,9 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	    retval = PAM_MODULE_UNKNOWN;
 	} else {
 	    D(("passing control to module..."));
+	    pamh->mod_name=h->mod_name;
 	    retval = h->func(pamh, flags, h->argc, h->argv);
+	    pamh->mod_name=NULL;
 	    D(("module returned: %s", pam_strerror(pamh, retval)));
 	    if (h->must_fail) {
 		D(("module poorly listed in PAM config; forcing failure"));
@@ -366,6 +368,7 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
     __PAM_TO_MODULE(pamh);
 
     /* call the list of module functions */
+    pamh->choice = choice;
     retval = _pam_dispatch_aux(pamh, flags, h, resumed, use_cached_chain);
     resumed = PAM_FALSE;
 
