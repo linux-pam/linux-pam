@@ -81,19 +81,6 @@ extern char *FascistCheck(char *pw, const char *dictpath);
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
 
-/* some syslogging */
-
-static void _pam_log(int err, const char *format, ...)
-{
-    va_list args;
-
-    va_start(args, format);
-    openlog("PAM-Cracklib", LOG_CONS|LOG_PID, LOG_AUTH);
-    vsyslog(err, format, args);
-    va_end(args);
-    closelog();
-}
-
 /* argument parsing */
 #define PAM_DEBUG_ARG       0x0001
 
@@ -122,7 +109,9 @@ struct cracklib_options {
 #define CO_OTH_CREDIT   1
 #define CO_USE_AUTHTOK  0
 
-static int _pam_parse(struct cracklib_options *opt, int argc, const char **argv)
+static int
+_pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
+            int argc, const char **argv)
 {
      int ctrl=0;
 
@@ -174,7 +163,7 @@ static int _pam_parse(struct cracklib_options *opt, int argc, const char **argv)
 	     strncpy(opt->cracklib_dictpath, *argv+9,
 		     sizeof(opt->cracklib_dictpath) - 1);
 	 } else {
-	     _pam_log(LOG_ERR,"pam_parse: unknown option; %s",*argv);
+	     pam_syslog(pamh,LOG_ERR,"pam_parse: unknown option; %s",*argv);
 	 }
      }
      opt->prompt_type[sizeof(opt->prompt_type) - 1] = '\0';
@@ -471,7 +460,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
 
     if (pass_new == NULL || (pass_old && !strcmp(pass_old,pass_new))) {
         if (ctrl && PAM_DEBUG_ARG)
-            _pam_log(LOG_DEBUG, "bad authentication token");
+            pam_syslog(pamh, LOG_DEBUG, "bad authentication token");
         pam_error(pamh, "%s", pass_new == NULL ?
 		   _("No password supplied"):_("Password unchanged"));
         return PAM_AUTHTOK_ERR;
@@ -486,7 +475,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
 	retval = pam_get_item(pamh, PAM_USER, &user);
 	if (retval != PAM_SUCCESS || user == NULL) {
 	    if (ctrl & PAM_DEBUG_ARG) {
-		_pam_log(LOG_ERR,"Can not get username");
+		pam_syslog(pamh,LOG_ERR,"Can not get username");
         	return PAM_AUTHTOK_ERR;
 	    }
 	}
@@ -495,8 +484,8 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
 
     if (msg) {
         if (ctrl && PAM_DEBUG_ARG)
-            _pam_log(LOG_NOTICE, "new passwd fails strength check: %s",
-                                  msg);
+            pam_syslog(pamh, LOG_NOTICE,
+		       "new passwd fails strength check: %s", msg);
         pam_error(pamh, _("BAD PASSWORD: %s"), msg);
         return PAM_AUTHTOK_ERR;
     };
@@ -530,7 +519,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
     memset(options.cracklib_dictpath, 0,
 	   sizeof (options.cracklib_dictpath));
 
-    ctrl = _pam_parse(&options, argc, argv);
+    ctrl = _pam_parse(pamh, &options, argc, argv);
 
     if (flags & PAM_PRELIM_CHECK) {
         /* Check for passwd dictionary */
@@ -546,7 +535,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
         retval = pam_get_item(pamh, PAM_OLDAUTHTOK, &oldtoken);
         if (retval != PAM_SUCCESS) {
             if (ctrl & PAM_DEBUG_ARG)
-                _pam_log(LOG_ERR,"Can not get old passwd");
+                pam_syslog(pamh,LOG_ERR,"Can not get old passwd");
             oldtoken=NULL;
             retval = PAM_SUCCESS;
         }
@@ -577,9 +566,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	    retval = pam_get_item(pamh, PAM_AUTHTOK, &item);
 	    if (retval != PAM_SUCCESS) {
 		/* very strange. */
-		_pam_log(LOG_ALERT
-			,"pam_get_item returned error to pam_cracklib"
-			);
+		pam_syslog(pamh, LOG_ALERT,
+			   "pam_get_item returned error to pam_cracklib");
 	    } else if (item != NULL) {      /* we have a password! */
 		token1 = x_strdup(item);
 		item = NULL;
@@ -597,8 +585,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	    if (retval == PAM_SUCCESS) {     /* a good conversation */
 	        token1 = x_strdup(resp);
                 if (token1 == NULL) {
-		    _pam_log(LOG_NOTICE,
-                             "could not recover authentication token 1");
+		    pam_syslog(pamh, LOG_NOTICE,
+                               "could not recover authentication token 1");
 		    retval = PAM_AUTHTOK_RECOVER_ERR;
 		}
                 /*
@@ -613,7 +601,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
         if (retval != PAM_SUCCESS) {
             if (ctrl && PAM_DEBUG_ARG)
-                _pam_log(LOG_DEBUG,"unable to obtain a password");
+                pam_syslog(pamh,LOG_DEBUG,"unable to obtain a password");
             continue;
         }
 
@@ -625,7 +613,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	    D(("against cracklib"));
             if ((crack_msg = FascistCheck(token1,options.cracklib_dictpath[0] == '\0'?NULL:options.cracklib_dictpath))) {
                 if (ctrl && PAM_DEBUG_ARG)
-                    _pam_log(LOG_DEBUG,"bad password: %s",crack_msg);
+                    pam_syslog(pamh,LOG_DEBUG,"bad password: %s",crack_msg);
                 pam_error(pamh, "BAD PASSWORD: %s", crack_msg);
                 if (getuid() || (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
                     retval = PAM_AUTHTOK_ERR;
@@ -667,8 +655,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	    if (retval == PAM_SUCCESS) {     /* a good conversation */
 	        token2 = x_strdup(resp);
 	        if (token2 == NULL) {
-		    _pam_log(LOG_NOTICE,
-			     "could not recover authentication token 2");
+		    pam_syslog(pamh,LOG_NOTICE,
+			       "could not recover authentication token 2");
 		    retval = PAM_AUTHTOK_RECOVER_ERR;
 		}
                 /*
@@ -682,8 +670,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
             if (retval != PAM_SUCCESS) {
                 if (ctrl && PAM_DEBUG_ARG)
-                    _pam_log(LOG_DEBUG
-			     ,"unable to obtain the password a second time");
+                    pam_syslog(pamh, LOG_DEBUG,
+			       "unable to obtain the password a second time");
                 continue;
             }
 
@@ -695,7 +683,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
                 token2 = _pam_delete(token2);
                 pam_set_item(pamh, PAM_AUTHTOK, NULL);
                 if (ctrl & PAM_DEBUG_ARG)
-                    _pam_log(LOG_NOTICE,"Password mistyped");
+                    pam_syslog(pamh,LOG_NOTICE,"Password mistyped");
                 retval = PAM_AUTHTOK_RECOVER_ERR;
                 continue;
             }
@@ -716,7 +704,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		if ( (retval != PAM_SUCCESS) ||
 		     ((retval = pam_get_item(pamh, PAM_AUTHTOK, &item)
 			 ) != PAM_SUCCESS) ) {
-                    _pam_log(LOG_CRIT, "error manipulating password");
+                    pam_syslog(pamh, LOG_CRIT, "error manipulating password");
                     continue;
 		}
 		item = NULL;                 /* break link to password */
@@ -728,7 +716,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
     } else {
         if (ctrl & PAM_DEBUG_ARG)
-            _pam_log(LOG_NOTICE, "UNKNOWN flags setting %02X",flags);
+            pam_syslog(pamh, LOG_NOTICE, "UNKNOWN flags setting %02X",flags);
         return PAM_SERVICE_ERR;
     }
 
