@@ -60,6 +60,7 @@
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
 #include <security/_pam_modutil.h>
+#include <security/pam_ext.h>
 
 /* login_access.c from logdaemon-5.6 with several changes by A.Nogin: */
 
@@ -100,20 +101,11 @@ struct login_info {
 
 /* --- static functions for checking whether the user should be let in --- */
 
-static void _log_err(const char *format, ... )
-{
-    va_list args;
-
-    va_start(args, format);
-    openlog("pam_access", LOG_CONS|LOG_PID, LOG_AUTH);
-    vsyslog(LOG_ERR, format, args);
-    va_end(args);
-    closelog();
-}
-
 /* Parse module config arguments */
 
-static int parse_args(struct login_info *loginfo, int argc, const char **argv)
+static int
+parse_args(pam_handle_t *pamh, struct login_info *loginfo,
+           int argc, const char **argv)
 {
     int i;
 
@@ -135,13 +127,14 @@ static int parse_args(struct login_info *loginfo, int argc, const char **argv)
 		loginfo->config_file = 11 + argv[i];
 		fclose(fp);
 	    } else {
-		_log_err("for service [%s] failed to open accessfile=[%s]"
-			 , loginfo->service, 11 + argv[i]);
+		pam_syslog(pamh, LOG_ERR,
+			   "for service [%s] failed to open accessfile=[%s]",
+			   loginfo->service, 11 + argv[i]);
 		return 0;
 	    }
 
 	} else {
-	    _log_err("unrecognized option [%s]", argv[i]);
+	    pam_syslog(pamh, LOG_ERR, "unrecognized option [%s]", argv[i]);
 	}
     }
 
@@ -182,8 +175,9 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	while (!match && fgets(line, sizeof(line), fp)) {
 	    lineno++;
 	    if (line[end = strlen(line) - 1] != '\n') {
-		_log_err("%s: line %d: missing newline or line too long",
-		       item->config_file, lineno);
+		pam_syslog(pamh, LOG_ERR,
+                           "%s: line %d: missing newline or line too long",
+		           item->config_file, lineno);
 		continue;
 	    }
 	    if (line[0] == '#')
@@ -198,13 +192,13 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	    if (!(perm = strtok(line, fs))
 		|| !(users = strtok((char *) 0, fs))
   	        || !(froms = strtok((char *) 0, fs))) {
-		_log_err("%s: line %d: bad field count",
-			 item->config_file, lineno);
+		pam_syslog(pamh, LOG_ERR, "%s: line %d: bad field count",
+			   item->config_file, lineno);
 		continue;
 	    }
 	    if (perm[0] != '+' && perm[0] != '-') {
-		_log_err("%s: line %d: bad first field",
-			 item->config_file, lineno);
+		pam_syslog(pamh, LOG_ERR, "%s: line %d: bad first field",
+			   item->config_file, lineno);
 		continue;
 	    }
 	    match = (list_match(pamh, froms, item, from_match)
@@ -212,7 +206,7 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	}
 	(void) fclose(fp);
     } else if (errno != ENOENT) {
-	_log_err("cannot open %s: %m", item->config_file);
+	pam_syslog(pamh, LOG_ERR, "cannot open %s: %m", item->config_file);
 	return NO;
     }
     return (match == 0 || (line[0] == '+'));
@@ -405,7 +399,7 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
     if ((pam_get_item(pamh, PAM_SERVICE, &service)
 	 != PAM_SUCCESS) || (service == NULL) ||
 	 (*(const char *)service == ' ')) {
-	_log_err("cannot find the service name");
+	pam_syslog(pamh, LOG_ERR, "cannot find the service name");
 	return PAM_ABORT;
     }
 
@@ -413,7 +407,7 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
 
     if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || user == NULL
 	|| *user == '\0') {
-	_log_err("cannot determine the user's name");
+	pam_syslog(pamh, LOG_ERR, "cannot determine the user's name");
 	return PAM_USER_UNKNOWN;
     }
 
@@ -421,7 +415,7 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
 
     if (pam_get_item(pamh, PAM_RHOST, &void_from)
 	!= PAM_SUCCESS) {
-	_log_err("cannot find the remote host name");
+	pam_syslog(pamh, LOG_ERR, "cannot find the remote host name");
 	return PAM_ABORT;
     }
     from = void_from;
@@ -435,11 +429,11 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
             D(("PAM_TTY not set, probing stdin"));
 	    from = ttyname(STDIN_FILENO);
 	    if (from == NULL) {
-	        _log_err("couldn't get the tty name");
+	        pam_syslog(pamh, LOG_ERR, "couldn't get the tty name");
 	        return PAM_ABORT;
 	     }
 	    if (pam_set_item(pamh, PAM_TTY, from) != PAM_SUCCESS) {
-	        _log_err("couldn't set tty name");
+	        pam_syslog(pamh, LOG_ERR, "couldn't set tty name");
 	        return PAM_ABORT;
 	     }
         }
@@ -465,15 +459,16 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
 
     /* parse the argument list */
 
-    if (!parse_args(&loginfo, argc, argv)) {
-	_log_err("failed to parse the module arguments");
+    if (!parse_args(pamh, &loginfo, argc, argv)) {
+	pam_syslog(pamh, LOG_ERR, "failed to parse the module arguments");
 	return PAM_ABORT;
     }
 
     if (login_access(pamh, &loginfo)) {
 	return (PAM_SUCCESS);
     } else {
-	_log_err("access denied for user `%s' from `%s'",user,from);
+	pam_syslog(pamh, LOG_ERR,
+                   "access denied for user `%s' from `%s'",user,from);
 	return (PAM_PERM_DENIED);
     }
 }
