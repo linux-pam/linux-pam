@@ -109,7 +109,7 @@ char *_pam_strdup(const char *x)
 	  for (i=0; x[i]; ++i);                       /* length of string */
 	  if ((new = malloc(++i)) == NULL) {
 	       i = 0;
-	       _pam_system_log(LOG_CRIT, "_pam_strdup: failed to get memory");
+	       pam_syslog(NULL, LOG_CRIT, "_pam_strdup: failed to get memory");
 	  } else {
 	       while (i-- > 0) {
 		    new[i] = x[i];
@@ -143,15 +143,15 @@ int _pam_mkargv(char *s, char ***argv, int *argc)
     l = strlen(s);
     if (l) {
 	if ((sbuf = sbuf_start = _pam_strdup(s)) == NULL) {
-	    _pam_system_log(LOG_CRIT,
-			    "pam_mkargv: null returned by _pam_strdup");
+	    pam_syslog(NULL, LOG_CRIT,
+		       "pam_mkargv: null returned by _pam_strdup");
 	    D(("arg NULL"));
 	} else {
 	    /* Overkill on the malloc, but not large */
 	    argvlen = (l + 1) * ((sizeof(char)) + sizeof(char *));
 	    if ((our_argv = argvbuf = malloc(argvlen)) == NULL) {
-		_pam_system_log(LOG_CRIT,
-				"pam_mkargv: null returned by malloc");
+		pam_syslog(NULL, LOG_CRIT,
+			   "pam_mkargv: null returned by malloc");
 	    } else {
 		char *tmp=NULL;
 
@@ -315,7 +315,7 @@ void _pam_parse_control(int *control_array, char *tok)
 
 parse_error:
     /* treat everything as bad */
-    _pam_system_log(LOG_ERR, "pam_parse: %s; [...%s]", error, tok);
+    pam_syslog(NULL, LOG_ERR, "pam_parse: %s; [...%s]", error, tok);
     for (ret=0; ret<_PAM_RETURN_VALUES; control_array[ret++]=_PAM_ACTION_BAD);
 
 }

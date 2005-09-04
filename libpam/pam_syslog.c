@@ -66,13 +66,13 @@ _pam_choice2str (int choice)
 }
 
 void
-pam_vsyslog (pam_handle_t *pamh, int priority,
+pam_vsyslog (const pam_handle_t *pamh, int priority,
 	     const char *fmt, va_list args)
 {
   char *msgbuf1 = NULL, *msgbuf2 = NULL;
   int save_errno = errno;
 
-  if (pamh->mod_name)
+  if (pamh && pamh->mod_name)
     {
       if (asprintf (&msgbuf1, "%s(%s:%s):", pamh->mod_name,
 		    pamh->service_name?pamh->service_name:"<unknown>",
@@ -99,7 +99,7 @@ pam_vsyslog (pam_handle_t *pamh, int priority,
 }
 
 void
-pam_syslog (pam_handle_t *pamh, int priority,
+pam_syslog (const pam_handle_t *pamh, int priority,
 	    const char *fmt, ...)
 {
   va_list args;

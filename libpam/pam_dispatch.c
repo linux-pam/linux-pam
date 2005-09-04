@@ -43,8 +43,8 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
         const void *service=NULL;
 
 	(void) pam_get_item(pamh, PAM_SERVICE, &service);
-	_pam_system_log(LOG_ERR, "no modules loaded for `%s' service",
-			service ? (const char *)service:"<unknown>" );
+	pam_syslog(pamh, LOG_ERR, "no modules loaded for `%s' service",
+		   service ? (const char *)service:"<unknown>" );
 	service = NULL;
 	return PAM_MUST_FAIL_CODE;
     }
@@ -293,7 +293,7 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
     /* Load all modules, resolve all symbols */
 
     if ((retval = _pam_init_handlers(pamh)) != PAM_SUCCESS) {
-	_pam_system_log(LOG_ERR, "unable to dispatch function");
+	pam_syslog(pamh, LOG_ERR, "unable to dispatch function");
 	return retval;
     }
 
@@ -324,7 +324,7 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
 	}
 	break;
     default:
-	_pam_system_log(LOG_ERR, "undefined fn choice; %d", choice);
+	pam_syslog(pamh, LOG_ERR, "undefined fn choice; %d", choice);
 	return PAM_ABORT;
     }
 
@@ -355,7 +355,7 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
     /* Did a module return an "incomplete state" last time? */
     if (pamh->former.choice != PAM_NOT_STACKED) {
 	if (pamh->former.choice != choice) {
-	    _pam_system_log(LOG_ERR,
+	    pam_syslog(pamh, LOG_ERR,
 			    "application failed to re-exec stack [%d:%d]",
 			    pamh->former.choice, choice);
 	    return PAM_ABORT;

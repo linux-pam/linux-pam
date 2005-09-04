@@ -46,7 +46,7 @@
 #include "pam_private.h"
 
 int
-pam_vprompt (pam_handle_t *pamh, int style, char **response,
+pam_vprompt (const pam_handle_t *pamh, int style, char **response,
 	     const char *fmt, va_list args)
 {
   struct pam_message msg;
@@ -66,13 +66,13 @@ pam_vprompt (pam_handle_t *pamh, int style, char **response,
   conv = convp;
   if (conv == NULL || conv->conv == NULL)
     {
-      _pam_system_log (LOG_ERR, "no conversation function");
+      pam_syslog (pamh, LOG_ERR, "no conversation function");
       return PAM_SYSTEM_ERR;
     }
 
   if (vasprintf (&msgbuf, fmt, args) < 0)
     {
-      _pam_system_log (LOG_ERR, "vasprintf: %m");
+      pam_syslog (pamh, LOG_ERR, "vasprintf: %m");
       return PAM_BUF_ERR;
     }
 
@@ -92,13 +92,13 @@ pam_vprompt (pam_handle_t *pamh, int style, char **response,
   _pam_drop (pam_resp);
   free (msgbuf);
   if (retval != PAM_SUCCESS)
-    _pam_system_log (LOG_ERR, "conversation failed");
+    pam_syslog (pamh, LOG_ERR, "conversation failed");
 
   return retval;
 }
 
 int
-pam_prompt (pam_handle_t *pamh, int style, char **response,
+pam_prompt (const pam_handle_t *pamh, int style, char **response,
 	    const char *fmt, ...)
 {
   va_list args;

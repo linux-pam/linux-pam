@@ -25,7 +25,7 @@
 #define DEFAULT_ANALYZER_NAME "PAM"
 
 static const char *
-pam_get_item_service(pam_handle_t *pamh)
+pam_get_item_service(const pam_handle_t *pamh)
 {
         const void *service = NULL;
 
@@ -35,7 +35,7 @@ pam_get_item_service(pam_handle_t *pamh)
 }
 
 static const char *
-pam_get_item_user(pam_handle_t *pamh)
+pam_get_item_user(const pam_handle_t *pamh)
 {
         const void *user = NULL;
 
@@ -45,7 +45,7 @@ pam_get_item_user(pam_handle_t *pamh)
 }
 
 static const char *
-pam_get_item_user_prompt(pam_handle_t *pamh)
+pam_get_item_user_prompt(const pam_handle_t *pamh)
 {
         const void *user_prompt = NULL;
 
@@ -55,7 +55,7 @@ pam_get_item_user_prompt(pam_handle_t *pamh)
 }
 
 static const char *
-pam_get_item_tty(pam_handle_t *pamh)
+pam_get_item_tty(const pam_handle_t *pamh)
 {
         const void *tty = NULL;
 
@@ -65,7 +65,7 @@ pam_get_item_tty(pam_handle_t *pamh)
 }
 
 static const char *
-pam_get_item_ruser(pam_handle_t *pamh)
+pam_get_item_ruser(const pam_handle_t *pamh)
 {
         const void *ruser = NULL;
 
@@ -75,7 +75,7 @@ pam_get_item_ruser(pam_handle_t *pamh)
 }
 
 static const char *
-pam_get_item_rhost(pam_handle_t *pamh)
+pam_get_item_rhost(const pam_handle_t *pamh)
 {
         const void *rhost = NULL;
 
@@ -109,7 +109,7 @@ generate_additional_data(idmef_alert_t *alert, const char *meaning,
 }
 
 static int
-setup_analyzer(idmef_analyzer_t *analyzer)
+setup_analyzer(const pam_handle_t *pamh, idmef_analyzer_t *analyzer)
 {
         int ret;
         prelude_string_t *string;
@@ -138,15 +138,16 @@ setup_analyzer(idmef_analyzer_t *analyzer)
         return 0;
 
  err:
-        _pam_system_log(LOG_WARNING,
-                        "%s: IDMEF error: %s.\n",
-                        prelude_strsource(ret), prelude_strerror(ret));
+        pam_syslog(pamh, LOG_WARNING,
+                   "%s: IDMEF error: %s.\n",
+                   prelude_strsource(ret), prelude_strerror(ret));
 
         return -1;
 }
 
 static void
-pam_alert_prelude(const char *msg, void *data, pam_handle_t *pamh, int authval)
+pam_alert_prelude(const char *msg, void *data,
+		  const pam_handle_t *pamh, int authval)
 {
         int ret;
         idmef_time_t *clienttime;
@@ -372,9 +373,8 @@ pam_alert_prelude(const char *msg, void *data, pam_handle_t *pamh, int authval)
 
 	return;
  err:
-        _pam_system_log(LOG_WARNING,
-                        "%s: IDMEF error: %s.\n",
-                        prelude_strsource(ret), prelude_strerror(ret));
+        pam_syslog(pamh, LOG_WARNING, "%s: IDMEF error: %s.\n",
+                   prelude_strsource(ret), prelude_strerror(ret));
 
         if ( idmef )
                 idmef_message_destroy(idmef);
@@ -382,7 +382,7 @@ pam_alert_prelude(const char *msg, void *data, pam_handle_t *pamh, int authval)
 }
 
 static int
-pam_alert_prelude_init(pam_handle_t *pamh, int authval)
+pam_alert_prelude_init(const pam_handle_t *pamh, int authval)
 {
 
         int ret;
@@ -390,7 +390,7 @@ pam_alert_prelude_init(pam_handle_t *pamh, int authval)
 
         ret = prelude_init(NULL, NULL);
         if ( ret < 0 ) {
-                _pam_system_log(LOG_WARNING,
+                pam_syslog(pamh, LOG_WARNING,
                          "%s: Unable to initialize the Prelude library: %s.\n",
                          prelude_strsource(ret), prelude_strerror(ret));
                 return -1;
@@ -398,7 +398,7 @@ pam_alert_prelude_init(pam_handle_t *pamh, int authval)
 
         ret = prelude_client_new(&client, DEFAULT_ANALYZER_NAME);
         if ( ! client ) {
-                _pam_system_log(LOG_WARNING,
+                pam_syslog(pamh, LOG_WARNING,
                          "%s: Unable to create a prelude client object: %s.\n",
                          prelude_strsource(ret), prelude_strerror(ret));
 
@@ -408,7 +408,7 @@ pam_alert_prelude_init(pam_handle_t *pamh, int authval)
 
         ret = setup_analyzer(prelude_client_get_analyzer(client));
         if ( ret < 0 ) {
-                _pam_system_log(LOG_WARNING,
+                pam_syslog(pamh, LOG_WARNING,
                          "%s: Unable to setup analyzer: %s\n",
                          prelude_strsource(ret), prelude_strerror(ret));
 
@@ -419,7 +419,7 @@ pam_alert_prelude_init(pam_handle_t *pamh, int authval)
 
         ret = prelude_client_start(client);
         if ( ret < 0 ) {
-                _pam_system_log(LOG_WARNING,
+                pam_syslog(pamh, LOG_WARNING,
                          "%s: Unable to initialize prelude client: %s.\n",
                          prelude_strsource(ret), prelude_strerror(ret));
 
@@ -435,8 +435,8 @@ pam_alert_prelude_init(pam_handle_t *pamh, int authval)
         return 0;
 }
 
-extern void
-prelude_send_alert(pam_handle_t *pamh, int authval)
+void
+prelude_send_alert(const pam_handle_t *pamh, int authval)
 {
 
         int ret;
@@ -445,8 +445,7 @@ prelude_send_alert(pam_handle_t *pamh, int authval)
 
         ret = pam_alert_prelude_init(pamh, authval);
         if ( ret < 0 )
-                _pam_system_log(LOG_WARNING,
-				"No prelude alert sent");
+                pam_syslog(pamh, LOG_WARNING, "No prelude alert sent");
 
 	prelude_deinit();
 

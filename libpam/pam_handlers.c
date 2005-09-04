@@ -116,7 +116,8 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    if (tok == NULL) {
 	        /* module type does not exist */
 	        D(("_pam_init_handlers: empty module type for %s", this_service));
-	        _pam_system_log(LOG_ERR, "(%s) empty module type", this_service);
+	        pam_syslog(pamh, LOG_ERR,
+			   "(%s) empty module type", this_service);
 	        module_type = (requested_module_type != PAM_T_ANY) ?
 		  requested_module_type : PAM_T_AUTH;	/* most sensitive */
 	        must_fail = 1; /* install as normal but fail when dispatched */
@@ -131,8 +132,8 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    } else {
 		/* Illegal module type */
 		D(("_pam_init_handlers: bad module type: %s", tok));
-		_pam_system_log(LOG_ERR, "(%s) illegal module type: %s",
-				this_service, tok);
+		pam_syslog(pamh, LOG_ERR, "(%s) illegal module type: %s",
+			   this_service, tok);
 		module_type = (requested_module_type != PAM_T_ANY) ?
 			      requested_module_type : PAM_T_AUTH;	/* most sensitive */
 		must_fail = 1; /* install as normal but fail when dispatched */
@@ -156,8 +157,8 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    if (tok == NULL) {
 		/* no module name given */
 		D(("_pam_init_handlers: no control flag supplied"));
-		_pam_system_log(LOG_ERR,
-				"(%s) no control flag supplied", this_service);
+		pam_syslog(pamh, LOG_ERR,
+			   "(%s) no control flag supplied", this_service);
 		_pam_set_default_control(actions, _PAM_ACTION_BAD);
 		must_fail = 1;
 	    } else if (!_pam_strCMP("required", tok)) {
@@ -210,8 +211,8 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    } else {
 		/* no module name given */
 		D(("_pam_init_handlers: no module name supplied"));
-		_pam_system_log(LOG_ERR,
-				"(%s) no module name supplied", this_service);
+		pam_syslog(pamh, LOG_ERR,
+		           "(%s) no module name supplied", this_service);
 		mod_path = NULL;
 		must_fail = 1;
 	    }
@@ -253,7 +254,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 				   , module_type, actions, mod_path
 				   , argc, argv, argvlen);
 	    if (res != PAM_SUCCESS) {
-		_pam_system_log(LOG_ERR, "error loading %s", mod_path);
+		pam_syslog(pamh, LOG_ERR, "error loading %s", mod_path);
 		D(("failed to load module - aborting"));
 		return PAM_ABORT;
 	    }
@@ -279,13 +280,13 @@ static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
 
     if (config_name == NULL) {
 	D(("no config file supplied"));
-	_pam_system_log(LOG_ERR, "(%s) no config file supplied", service);
+	pam_syslog(pamh, LOG_ERR, "(%s) no config file supplied", service);
 	return PAM_ABORT;
     }
 
     if (config_name[0] != '/') {
 	if (asprintf (&config_path, PAM_CONFIG_DF, config_name) < 0) {
-	    _pam_system_log(LOG_CRIT, "asprintf failed");
+	    pam_syslog(pamh, LOG_CRIT, "asprintf failed");
 	    return PAM_BUF_ERR;
 	}
 	config_name = config_path;
@@ -301,14 +302,14 @@ static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
 	    );
 	fclose(f);
 	if (retval != PAM_SUCCESS)
-	    _pam_system_log(LOG_ERR,
-			    "_pam_load_conf_file: error reading %s: %s",
-			    config_name, pam_strerror(pamh, retval));
+	    pam_syslog(pamh, LOG_ERR,
+		       "_pam_load_conf_file: error reading %s: %s",
+		       config_name, pam_strerror(pamh, retval));
     } else {
 	D(("unable to open %s", config_name));
-	_pam_system_log(LOG_ERR,
-			"_pam_load_conf_file: unable to open %s",
-			config_name);
+	pam_syslog(pamh, LOG_ERR,
+		   "_pam_load_conf_file: unable to open %s",
+		   config_name);
     }
 
     _pam_drop(config_path);
@@ -337,8 +338,8 @@ int _pam_init_handlers(pam_handle_t *pamh)
     if (! pamh->handlers.module) {
 	if ((pamh->handlers.module =
 	     malloc(MODULE_CHUNK * sizeof(struct loaded_module))) == NULL) {
-	    _pam_system_log(LOG_CRIT,
-			    "_pam_init_handlers: no memory loading module");
+	    pam_syslog(pamh, LOG_CRIT,
+		       "_pam_init_handlers: no memory loading module");
 	    return PAM_BUF_ERR;
 	}
 	pamh->handlers.modules_allocated = MODULE_CHUNK;
@@ -355,8 +356,9 @@ int _pam_init_handlers(pam_handle_t *pamh)
 	 int fd_tmp;
 
 	 if ((fd_tmp = open( PAM_LOCK_FILE, O_RDONLY )) != -1) {
-	     _pam_system_log(LOG_ERR, "_pam_init_handlers: PAM lockfile ("
-			     PAM_LOCK_FILE ") exists - aborting");
+	     pam_syslog(pamh, LOG_ERR,
+			"_pam_init_handlers: PAM lockfile ("
+			PAM_LOCK_FILE ") exists - aborting");
 	      (void) close(fd_tmp);
 	      /*
 	       * to avoid swamping the system with requests
@@ -385,7 +387,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 	    filename = malloc(sizeof(PAM_CONFIG_DF)
 			      +strlen(pamh->service_name));
 	    if (filename == NULL) {
-		_pam_system_log(LOG_ERR,
+		pam_syslog(pamh, LOG_ERR,
 				"_pam_init_handlers: no memory; service %s",
 				pamh->service_name);
 		return PAM_BUF_ERR;
@@ -402,10 +404,10 @@ int _pam_init_handlers(pam_handle_t *pamh)
 		    );
 		fclose(f);
 		if (retval != PAM_SUCCESS) {
-		    _pam_system_log(LOG_ERR,
+		    pam_syslog(pamh, LOG_ERR,
 				    "_pam_init_handlers: error reading %s",
 				    filename);
-		    _pam_system_log(LOG_ERR, "_pam_init_handlers: [%s]",
+		    pam_syslog(pamh, LOG_ERR, "_pam_init_handlers: [%s]",
 				    pam_strerror(pamh, retval));
 		} else {
 		    read_something = 1;
@@ -444,10 +446,10 @@ int _pam_init_handlers(pam_handle_t *pamh)
 			);
 		    fclose(f);
 		    if (retval != PAM_SUCCESS) {
-			_pam_system_log(LOG_ERR,
+			pam_syslog(pamh, LOG_ERR,
 					"_pam_init_handlers: error reading %s",
 					PAM_DEFAULT_SERVICE_FILE);
-			_pam_system_log(LOG_ERR,
+			pam_syslog(pamh, LOG_ERR,
 					"_pam_init_handlers: [%s]",
 					pam_strerror(pamh, retval));
 		    } else {
@@ -455,7 +457,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 		    }
 		} else {
 		    D(("unable to open %s", PAM_DEFAULT_SERVICE_FILE));
-		    _pam_system_log(LOG_ERR,
+		    pam_syslog(pamh, LOG_ERR,
 				    "_pam_init_handlers: no default config %s",
 				    PAM_DEFAULT_SERVICE_FILE);
 		}
@@ -465,7 +467,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 	    }
 	} else {
 	    if ((f = fopen(PAM_CONFIG, "r")) == NULL) {
-		_pam_system_log(LOG_ERR, "_pam_init_handlers: could not open "
+		pam_syslog(pamh, LOG_ERR, "_pam_init_handlers: could not open "
 				PAM_CONFIG );
 		return PAM_ABORT;
 	    }
@@ -483,7 +485,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 
     if (retval != PAM_SUCCESS) {
 	/* Read error */
-	_pam_system_log(LOG_ERR, "error reading PAM configuration file");
+	pam_syslog(pamh, LOG_ERR, "error reading PAM configuration file");
 	return PAM_ABORT;
     }
 
@@ -635,7 +637,7 @@ int _pam_add_handler(pam_handle_t *pamh
 	    mod_path = mod_full_path;
 	    break;
 	}
-	_pam_system_log(LOG_CRIT, "cannot malloc full mod path");
+	pam_syslog(pamh, LOG_CRIT, "cannot malloc full mod path");
     case 0:
 	mod_path = UNKNOWN_MODULE_PATH;
     }
@@ -659,7 +661,7 @@ int _pam_add_handler(pam_handle_t *pamh
                                *sizeof(struct loaded_module));
 	    if (tmp == NULL) {
 		D(("cannot enlarge module pointer memory"));
-		_pam_system_log(LOG_ERR,
+		pam_syslog(pamh, LOG_ERR,
 				"realloc returned NULL in _pam_add_handler");
 		_pam_drop(mod_full_path);
 		return PAM_ABORT;
@@ -685,7 +687,7 @@ int _pam_add_handler(pam_handle_t *pamh
 		mod_full_isa_path = malloc(strlen(mod_path) + strlen(_PAM_ISA) + 1);
 		if (mod_full_isa_path == NULL) {
 		    D(("_pam_handler: couldn't get memory for mod_path"));
-		    _pam_system_log(LOG_ERR, "no memory for module path");
+		    pam_syslog(pamh, LOG_ERR, "no memory for module path");
 		    success = PAM_ABORT;
 		} else {
 		    strcpy(mod_full_isa_path, mod_path);
@@ -706,9 +708,9 @@ int _pam_add_handler(pam_handle_t *pamh
 	}
 	if (mod->dl_handle == NULL) {
 	    D(("_pam_add_handler: dlopen(%s) failed", mod_path));
-	    _pam_system_log(LOG_ERR, "unable to dlopen(%s)", mod_path);
+	    pam_syslog(pamh, LOG_ERR, "unable to dlopen(%s)", mod_path);
 # ifndef PAM_SHL
-	    _pam_system_log(LOG_ERR, "[dlerror: %s]", dlerror());
+	    pam_syslog(pamh, LOG_ERR, "[dlerror: %s]", dlerror());
 # endif /* PAM_SHL */
 	    /* Don't abort yet; static code may be able to find function.
 	     * But defaults to abort if nothing found below... */
@@ -728,7 +730,7 @@ int _pam_add_handler(pam_handle_t *pamh
 	    if (mod->dl_handle == NULL) {
 	        D(("_pam_add_handler: unable to find static handler %s",
 		   mod_path));
-		_pam_system_log(LOG_ERR,
+		pam_syslog(pamh, LOG_ERR,
 				"unable to open static handler %s", mod_path);
 		/* Didn't find module in dynamic or static..will mark bad */
 	    } else {
@@ -744,14 +746,14 @@ int _pam_add_handler(pam_handle_t *pamh
 	    mod->dl_handle = NULL;
 	    mod->type = PAM_MT_FAULTY_MOD;
 	    pamh->handlers.modules_used++;
-	    _pam_system_log(LOG_ERR, "adding faulty module: %s", mod_path);
+	    pam_syslog(pamh, LOG_ERR, "adding faulty module: %s", mod_path);
 	    success = PAM_SUCCESS;  /* We have successfully added a module */
 	}
 
 	/* indicate its name - later we will search for it by this */
 	if ((mod->name = _pam_strdup(mod_path)) == NULL) {
 	    D(("_pam_handler: couldn't get memory for mod_path"));
-	    _pam_system_log(LOG_ERR, "no memory for module path");
+	    pam_syslog(pamh, LOG_ERR, "no memory for module path");
 	    success = PAM_ABORT;
 	}
 
@@ -840,7 +842,7 @@ int _pam_add_handler(pam_handle_t *pamh
 	 mod->type != PAM_MT_FAULTY_MOD
 	) {
 	D(("_pam_add_handlers: illegal module library type; %d", mod->type));
-	_pam_system_log(LOG_ERR,
+	pam_syslog(pamh, LOG_ERR,
 			"internal error: module library type not known: %s;%d",
 			sym, mod->type);
 	return PAM_ABORT;
@@ -857,13 +859,13 @@ int _pam_add_handler(pam_handle_t *pamh
         (func = (servicefn) dlsym(mod->dl_handle, sym)) == NULL
 # endif /* PAM_SHL */
 	) {
-	_pam_system_log(LOG_ERR, "unable to resolve symbol: %s", sym);
+	pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym);
     }
 #endif
 #ifdef PAM_STATIC
     if ((mod->type == PAM_MT_STATIC_MOD) &&
         (func = (servicefn)_pam_get_static_sym(mod->dl_handle, sym)) == NULL) {
-	_pam_system_log(LOG_ERR, "unable to resolve static symbol: %s", sym);
+	pam_syslog(pamh, LOG_ERR, "unable to resolve static symbol: %s", sym);
     }
 #endif
     if (sym2) {
@@ -876,14 +878,14 @@ int _pam_add_handler(pam_handle_t *pamh
 	    (func2 = (servicefn) dlsym(mod->dl_handle, sym2)) == NULL
 # endif /* PAM_SHL */
 	    ) {
-	    _pam_system_log(LOG_ERR, "unable to resolve symbol: %s", sym2);
+	    pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym2);
 	}
 #endif
 #ifdef PAM_STATIC
 	if ((mod->type == PAM_MT_STATIC_MOD) &&
 	    (func2 = (servicefn)_pam_get_static_sym(mod->dl_handle, sym2))
 	    == NULL) {
-	    _pam_system_log(LOG_ERR, "unable to resolve symbol: %s", sym2);
+	    pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym2);
 	}
 #endif
     }
@@ -896,7 +898,7 @@ int _pam_add_handler(pam_handle_t *pamh
     }
 
     if ((*handler_p = malloc(sizeof(struct handler))) == NULL) {
-	_pam_system_log(LOG_CRIT, "cannot malloc struct handler #1");
+	pam_syslog(pamh, LOG_CRIT, "cannot malloc struct handler #1");
 	return (PAM_ABORT);
     }
 
@@ -918,7 +920,7 @@ int _pam_add_handler(pam_handle_t *pamh
 	}
 
 	if ((*handler_p2 = malloc(sizeof(struct handler))) == NULL) {
-	    _pam_system_log(LOG_CRIT, "cannot malloc struct handler #2");
+	    pam_syslog(pamh, LOG_CRIT, "cannot malloc struct handler #2");
 	    return (PAM_ABORT);
 	}
 
@@ -931,7 +933,7 @@ int _pam_add_handler(pam_handle_t *pamh
 	(*handler_p2)->argc = argc;
 	if (argv) {
 	    if (((*handler_p2)->argv = malloc(argvlen)) == NULL) {
-		_pam_system_log(LOG_CRIT, "cannot malloc argv for handler #2");
+		pam_syslog(pamh, LOG_CRIT, "cannot malloc argv for handler #2");
 		return (PAM_ABORT);
 	    }
 	    memcpy((*handler_p2)->argv, argv, argvlen);

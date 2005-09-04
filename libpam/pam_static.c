@@ -68,8 +68,7 @@ struct pam_module * _pam_open_static_handler(const char *path)
     }
 
     if (static_modules[i] == NULL) {
-      _pam_system_log (LOG_ERR, "no static module named %s",
-		       lpath);
+      pam_syslog (pamh, LOG_ERR, "no static module named %s", lpath);
     }
 
     free(lpath);

@@ -22,6 +22,7 @@
 
 #include <security/pam_appl.h>
 #include <security/pam_modules.h>
+#include <security/pam_ext.h>
 
 /* the Linux-PAM configuration file */
 
@@ -253,14 +254,7 @@ void _pam_set_default_control(int *control_array, int default_action);
 
 void _pam_parse_control(int *control_array, char *tok);
 
-void _pam_system_log(int priority, const char *format,  ... )
-#ifdef __GNUC__
-	__attribute__ ((format (printf, 2, 3)));
-#else
-	;
-#endif
-
-#define _PAM_SYSTEM_LOG_PREFIX "PAM "
+#define _PAM_SYSTEM_LOG_PREFIX "PAM"
 
 /*
  * XXX - Take care with this. It could confuse the logic of a trailing
@@ -269,7 +263,7 @@ void _pam_system_log(int priority, const char *format,  ... )
 
 #define IF_NO_PAMH(X,pamh,ERR)                    \
 if ((pamh) == NULL) {                             \
-    _pam_system_log(LOG_ERR, X ": NULL pam handle passed"); \
+    syslog(LOG_ERR, _PAM_SYSTEM_LOG_PREFIX " " X ": NULL pam handle passed"); \
     return ERR;                                   \
 }
 

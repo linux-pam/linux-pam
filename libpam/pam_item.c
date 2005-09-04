@@ -113,8 +113,8 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 
     case PAM_CONV:              /* want to change the conversation function */
 	if (item == NULL) {
-	    _pam_system_log(LOG_ERR,
-			    "pam_set_item: attempt to set conv() to NULL");
+	    pam_syslog(pamh, LOG_ERR,
+		       "pam_set_item: attempt to set conv() to NULL");
 	    retval = PAM_PERM_DENIED;
 	} else {
 	    struct pam_conv *tconv;
@@ -122,7 +122,7 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	    if ((tconv=
 		 (struct pam_conv *) malloc(sizeof(struct pam_conv))
 		) == NULL) {
-		_pam_system_log(LOG_CRIT,
+		pam_syslog(pamh, LOG_CRIT,
 				"pam_set_item: malloc failed for pam_conv");
 		retval = PAM_BUF_ERR;
 	    } else {
@@ -153,7 +153,7 @@ int pam_get_item (const pam_handle_t *pamh, int item_type, const void **item)
     IF_NO_PAMH("pam_get_item", pamh, PAM_SYSTEM_ERR);
 
     if (item == NULL) {
-	_pam_system_log(LOG_ERR,
+	pam_syslog(pamh, LOG_ERR,
 			"pam_get_item: nowhere to place requested item");
 	return PAM_PERM_DENIED;
     }
@@ -240,7 +240,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 
     D(("called."));
     if (user == NULL) {  /* ensure that the module has supplied a destination */
-	_pam_system_log(LOG_ERR, "pam_get_user: nowhere to record username");
+	pam_syslog(pamh, LOG_ERR, "pam_get_user: nowhere to record username");
 	return PAM_PERM_DENIED;
     } else
 	*user = NULL;
@@ -248,7 +248,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
     IF_NO_PAMH("pam_get_user", pamh, PAM_SYSTEM_ERR);
 
     if (pamh->pam_conversation == NULL) {
-	_pam_system_log(LOG_ERR, "pam_get_user: no conv element in pamh");
+	pam_syslog(pamh, LOG_ERR, "pam_get_user: no conv element in pamh");
 	return PAM_SERVICE_ERR;
     }
 
@@ -274,7 +274,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
     if (pamh->former.want_user) {
 	/* must have a prompt to resume with */
 	if (! pamh->former.prompt) {
-	    	    _pam_system_log(LOG_ERR,
+	    	    pam_syslog(pamh, LOG_ERR,
 				   "pam_get_user: failed to resume with prompt"
 			);
 	    return PAM_ABORT;
@@ -282,7 +282,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 
 	/* must be the same prompt as last time */
 	if (strcmp(pamh->former.prompt, use_prompt)) {
-	    _pam_system_log(LOG_ERR,
+	    pam_syslog(pamh, LOG_ERR,
 			    "pam_get_user: resumed with different prompt");
 	    return PAM_ABORT;
 	}
