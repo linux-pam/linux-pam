@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM TBD\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-02 10:31+0200\n"
+"POT-Creation-Date: 2005-09-04 22:38+0200\n"
 "PO-Revision-Date: 2005-08-23 15:22+0200\n"
 "Last-Translator: Piotr Bolek <pb@7bulls.com>\n"
 "Language-Team: Polish <i18n@suse.de>\n"
@@ -139,12 +139,12 @@ msgid "NIS password could not be changed."
 msgstr "Nie mo\305\274na zmienia\304\207 has\305\202a NIS."
 
 #: modules/pam_unix/pam_unix_passwd.c:962
-#: modules/pam_cracklib/pam_cracklib.c:476
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
 msgstr "Nie podano has\305\202a"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
-#: modules/pam_cracklib/pam_cracklib.c:476
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
 msgstr "Has\305\202o nie zmienione"
 
@@ -207,7 +207,7 @@ msgstr "Wpisz ponownie has\305\202o STRESS: "
 msgid "Sorry, passwords do not match."
 msgstr "Nie mo\305\274na zmienia\304\207 has\305\202a NIS."
 
-#: modules/pam_cracklib/pam_cracklib.c:500
+#: modules/pam_cracklib/pam_cracklib.c:489
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr ""

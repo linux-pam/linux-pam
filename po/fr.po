@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-02 10:31+0200\n"
+"POT-Creation-Date: 2005-09-04 22:38+0200\n"
 "PO-Revision-Date: 2005-08-18 12:12+0000\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -139,12 +139,12 @@ msgid "NIS password could not be changed."
 msgstr "Le mot de passe NIS n'a pas pu \303\252tre chang\303\251."
 
 #: modules/pam_unix/pam_unix_passwd.c:962
-#: modules/pam_cracklib/pam_cracklib.c:476
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
 msgstr "Aucun mot de passe fourni"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
-#: modules/pam_cracklib/pam_cracklib.c:476
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
 msgstr "Mot de passe inchang\303\251"
 
@@ -206,7 +206,7 @@ msgstr "Retaper le nouveau mot de passe STRESS :"
 msgid "Sorry, passwords do not match."
 msgstr "Le mot de passe NIS n'a pas pu \303\252tre chang\303\251."
 
-#: modules/pam_cracklib/pam_cracklib.c:500
+#: modules/pam_cracklib/pam_cracklib.c:489
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr ""

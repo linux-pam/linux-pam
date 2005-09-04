@@ -79,7 +79,6 @@
 ./libpam/pam_data.c
 ./libpam/pam_end.c
 ./libpam/pam_env.c
-./libpam/pam_log.c
 ./libpam/pam_item.c
 ./libpam/pam_misc.c
 ./libpam/pam_static.c
@@ -91,6 +90,8 @@
 ./libpam/pam_prelude.c
 ./libpam/pam_account.c
 ./libpam/pam_malloc.c
+./libpam/pam_syslog.c
+./libpam/pam_vprompt.c
 ./examples/xsh.c
 ./examples/check_user.c
 ./examples/vpass.c

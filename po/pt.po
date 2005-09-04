@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM-pt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-02 10:31+0200\n"
+"POT-Creation-Date: 2005-09-04 22:38+0200\n"
 "PO-Revision-Date: 2005-08-07 00:41+0100\n"
 "Last-Translator: Antonio Cardoso Martins <digiplan@netvisao.pt>\n"
 "Language-Team: portuguese\n"
@@ -142,12 +142,12 @@ msgid "NIS password could not be changed."
 msgstr "A palavra passe de NIS n\303\243o pode ser alterada."
 
 #: modules/pam_unix/pam_unix_passwd.c:962
-#: modules/pam_cracklib/pam_cracklib.c:476
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
 msgstr "N\303\243o foi fornecida uma palavra passe"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
-#: modules/pam_cracklib/pam_cracklib.c:476
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
 msgstr "Palavra passe inalterada"
 
@@ -209,7 +209,7 @@ msgstr "Digite novamente a nova palavra passe de STRESS: "
 msgid "Sorry, passwords do not match."
 msgstr "A palavra passe de NIS n\303\243o pode ser alterada."
 
-#: modules/pam_cracklib/pam_cracklib.c:500
+#: modules/pam_cracklib/pam_cracklib.c:489
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr ""

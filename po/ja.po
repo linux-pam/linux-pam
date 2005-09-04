@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-02 10:31+0200\n"
+"POT-Creation-Date: 2005-09-04 22:38+0200\n"
 "PO-Revision-Date: 2005-08-18 11:52-0000\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -199,7 +199,7 @@ msgstr ""
 "\202\223\343\201\247\343\201\227\343\201\237\343\200\202"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
-#: modules/pam_cracklib/pam_cracklib.c:476
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
 msgstr ""
 "\343\203\221\343\202\271\343\203\257\343\203\274\343\203\211\343\201\214\344"
@@ -207,7 +207,7 @@ msgstr ""
 "\276\343\201\233\343\202\223"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
-#: modules/pam_cracklib/pam_cracklib.c:476
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
 msgstr ""
 "\343\203\221\343\202\271\343\203\257\343\203\274\343\203\211\343\201\214\345"
@@ -311,7 +311,7 @@ msgstr ""
 "\345\244\211\346\233\264\343\201\247\343\201\215\343\201\276\343\201\233\343"
 "\202\223\343\201\247\343\201\227\343\201\237\343\200\202"
 
-#: modules/pam_cracklib/pam_cracklib.c:500
+#: modules/pam_cracklib/pam_cracklib.c:489
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr ""

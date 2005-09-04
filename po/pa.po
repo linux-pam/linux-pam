@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pa\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-02 10:31+0200\n"
+"POT-Creation-Date: 2005-09-04 22:38+0200\n"
 "PO-Revision-Date: 2005-08-06 08:34+0530\n"
 "Last-Translator: Amanpreet Singh Alam[\340\250\206\340\250\262\340\250\256] "
 "<amanpreetalam@yahoo.com>\n"
@@ -216,7 +216,7 @@ msgstr ""
 "\250\277\340\250\206 \340\250\271\340\251\210\340\245\244"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
-#: modules/pam_cracklib/pam_cracklib.c:476
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
 msgstr ""
 "\340\250\225\340\251\213\340\250\210 \340\250\227\340\251\201\340\250\252\340"
@@ -225,7 +225,7 @@ msgstr ""
 "\276 \340\250\227\340\250\277\340\250\206"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
-#: modules/pam_cracklib/pam_cracklib.c:476
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
 msgstr ""
 "\340\250\227\340\251\201\340\250\252\340\250\244-\340\250\225\340\251\213\340"
@@ -327,7 +327,7 @@ msgstr ""
 "\250\244\340\250\276 \340\250\234\340\250\276 \340\250\270\340\250\225\340"
 "\250\277\340\250\206 \340\250\271\340\251\210\340\245\244"
 
-#: modules/pam_cracklib/pam_cracklib.c:500
+#: modules/pam_cracklib/pam_cracklib.c:489
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr ""
