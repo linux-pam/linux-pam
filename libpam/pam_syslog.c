@@ -82,15 +82,6 @@ pam_vsyslog (pam_handle_t *pamh, int priority,
 	  return;
 	}
     }
-  else
-    {
-      msgbuf1 = strdup (_PAM_SYSTEM_LOG_PREFIX);
-      if (msgbuf1 == NULL)
-	{
-	  vsyslog (LOG_AUTHPRIV|priority, fmt, args);
-	  return;
-	}
-    }
 
   if (vasprintf (&msgbuf2, fmt, args) < 0)
     {
@@ -100,7 +91,8 @@ pam_vsyslog (pam_handle_t *pamh, int priority,
     }
 
   errno = save_errno;
-  syslog (LOG_AUTHPRIV|priority, "%s %s", msgbuf1, msgbuf2);
+  syslog (LOG_AUTHPRIV|priority, "%s %s",
+	  (msgbuf1 ? msgbuf1 : _PAM_SYSTEM_LOG_PREFIX), msgbuf2);
 
   _pam_drop (msgbuf1);
   _pam_drop (msgbuf2);
