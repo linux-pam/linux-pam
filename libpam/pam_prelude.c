@@ -147,7 +147,7 @@ setup_analyzer(const pam_handle_t *pamh, idmef_analyzer_t *analyzer)
 
 static void
 pam_alert_prelude(const char *msg, void *data,
-		  const pam_handle_t *pamh, int authval)
+		  pam_handle_t *pamh, int authval)
 {
         int ret;
         idmef_time_t *clienttime;
@@ -406,7 +406,7 @@ pam_alert_prelude_init(const pam_handle_t *pamh, int authval)
         }
 
 
-        ret = setup_analyzer(prelude_client_get_analyzer(client));
+        ret = setup_analyzer(pamh, prelude_client_get_analyzer(client));
         if ( ret < 0 ) {
                 pam_syslog(pamh, LOG_WARNING,
                          "%s: Unable to setup analyzer: %s\n",
