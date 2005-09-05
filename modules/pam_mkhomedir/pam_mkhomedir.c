@@ -54,6 +54,7 @@
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/_pam_modutil.h>
+#include <security/pam_ext.h>
 
 
 /* argument parsing */
@@ -63,21 +64,8 @@
 static unsigned int UMask = 0022;
 static char SkelDir[BUFSIZ] = "/etc/skel"; /* THIS MODULE IS NOT THREAD SAFE */
 
-/* some syslogging */
-static void
-_log_err (int err, const char *format, ...)
-{
-    va_list args;
-
-    va_start(args, format);
-    openlog("PAM-mkhomedir", LOG_CONS|LOG_PID, LOG_AUTH);
-    vsyslog(err, format, args);
-    va_end(args);
-    closelog();
-}
-
 static int
-_pam_parse (int flags, int argc, const char **argv)
+_pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
    int ctrl = 0;
 
@@ -96,55 +84,12 @@ _pam_parse (int flags, int argc, const char **argv)
 	 strncpy(SkelDir,*argv+5,sizeof(SkelDir));
 	 SkelDir[sizeof(SkelDir)-1] = '\0';
       } else {
-	 _log_err(LOG_ERR, "unknown option; %s", *argv);
+	 pam_syslog(pamh,LOG_ERR, "unknown option; %s", *argv);
       }
    }
 
    D(("ctrl = %o", ctrl));
    return ctrl;
-}
-
-/* This common function is used to send a message to the applications
-   conversion function. Our only use is to ask the application to print
-   an informative message that we are creating a home directory */
-static int converse(pam_handle_t * pamh, int ctrl, int nargs
-		    ,struct pam_message **message
-		    ,struct pam_response **response)
-{
-   int retval;
-   const void *void_conv;
-   const struct pam_conv *conv;
-
-   D(("begin to converse"));
-
-   retval = pam_get_item(pamh, PAM_CONV, &void_conv);
-   conv = (const struct pam_conv *)void_conv;
-   if (retval == PAM_SUCCESS && conv)
-   {
-
-      retval = conv->conv(nargs, (const struct pam_message **) message
-			  ,response, conv->appdata_ptr);
-
-      D(("returned from application's conversation function"));
-
-      if (retval != PAM_SUCCESS && (ctrl & MKHOMEDIR_DEBUG))
-      {
-	 _log_err(LOG_DEBUG, "conversation failure [%s]"
-		  ,pam_strerror(pamh, retval));
-      }
-
-   }
-   else
-   {
-      _log_err(LOG_ERR, "couldn't obtain coversation function [%s]"
-	       ,pam_strerror(pamh, retval));
-     if (retval == PAM_SUCCESS)
-         retval = PAM_BAD_ITEM; /* conv was NULL */
-   }
-
-   D(("ready to return from module conversation"));
-
-   return retval;		/* propagate error status */
 }
 
 /* Ask the application to display a short text string for us. */
@@ -155,20 +100,7 @@ make_remark (pam_handle_t *pamh, int ctrl, const char *remark)
 
    if ((ctrl & MKHOMEDIR_QUIET) != MKHOMEDIR_QUIET)
    {
-      struct pam_message msg[1], *mesg[1];
-      struct pam_response *resp = NULL;
-
-      mesg[0] = &msg[0];
-      msg[0].msg_style = PAM_TEXT_INFO;
-      msg[0].msg = remark;
-
-      retval = converse(pamh, ctrl, 1, mesg, &resp);
-
-      msg[0].msg = NULL;
-      if (resp)
-      {
-	 _pam_drop_reply(resp, 1);
-      }
+     pam_info (pamh, "%s", remark);
    }
    else
    {
@@ -232,7 +164,7 @@ create_homedir (pam_handle_t * pamh, int ctrl,
    /* Create the new directory */
    if (rec_mkdir (dest,0755) != 0)
    {
-      _log_err(LOG_DEBUG, "unable to create directory %s",dest);
+      pam_syslog(pamh,LOG_DEBUG, "unable to create directory %s",dest);
       return PAM_PERM_DENIED;
    }
 
@@ -247,7 +179,7 @@ create_homedir (pam_handle_t * pamh, int ctrl,
    D = opendir (source);
    if (D == 0)
    {
-      _log_err(LOG_DEBUG, "unable to read directory %s",source);
+      pam_syslog(pamh,LOG_DEBUG, "unable to read directory %s",source);
       retval = PAM_PERM_DENIED;
       goto go_out;
    }
@@ -385,7 +317,7 @@ create_homedir (pam_handle_t * pamh, int ctrl,
                if (lchown(newdest,pwd->pw_uid,pwd->pw_gid) != 0)
                {
                    closedir(D);
-                   _log_err(LOG_DEBUG, "unable to change perms on link %s",
+                   pam_syslog(pamh,LOG_DEBUG, "unable to change perms on link %s",
                             newdest);
 #ifndef PATH_MAX
 		   free(pointed);
@@ -421,7 +353,7 @@ create_homedir (pam_handle_t * pamh, int ctrl,
       if ((SrcFd = open(newsource,O_RDONLY)) < 0 || fstat(SrcFd,&St) != 0)
       {
          closedir(D);
-         _log_err(LOG_DEBUG, "unable to open src file %s",newsource);
+         pam_syslog(pamh,LOG_DEBUG, "unable to open src file %s",newsource);
 
 #ifndef PATH_MAX
 	 free(newsource); newsource = NULL;
@@ -437,7 +369,7 @@ create_homedir (pam_handle_t * pamh, int ctrl,
       {
 	 close(SrcFd);
 	 closedir(D);
-         _log_err(LOG_DEBUG, "unable to open dest file %s",newdest);
+         pam_syslog(pamh,LOG_DEBUG, "unable to open dest file %s",newdest);
 
 #ifndef PATH_MAX
 	 free(newsource); newsource = NULL;
@@ -455,7 +387,7 @@ create_homedir (pam_handle_t * pamh, int ctrl,
          close(SrcFd);
          close(DestFd);
          closedir(D);
-         _log_err(LOG_DEBUG, "unable to chang perms on copy %s",newdest);
+         pam_syslog(pamh,LOG_DEBUG, "unable to chang perms on copy %s",newdest);
 
 #ifndef PATH_MAX
 	 free(newsource); newsource = NULL;
@@ -483,7 +415,7 @@ create_homedir (pam_handle_t * pamh, int ctrl,
 	 close(SrcFd);
 	 close(DestFd);
 	 closedir(D);
-	 _log_err(LOG_DEBUG, "unable to perform IO");
+	 pam_syslog(pamh,LOG_DEBUG, "unable to perform IO");
 
 #ifndef PATH_MAX
 	 free(newsource); newsource = NULL;
@@ -511,7 +443,7 @@ create_homedir (pam_handle_t * pamh, int ctrl,
    if (chmod(dest,0777 & (~UMask)) != 0 ||
        chown(dest,pwd->pw_uid,pwd->pw_gid) != 0)
    {
-      _log_err(LOG_DEBUG, "unable to change perms on directory %s",dest);
+      pam_syslog(pamh,LOG_DEBUG, "unable to change perms on directory %s",dest);
       return PAM_PERM_DENIED;
    }
 
@@ -520,9 +452,9 @@ create_homedir (pam_handle_t * pamh, int ctrl,
 
 /* --- authentication management functions (only) --- */
 
-PAM_EXTERN
-int pam_sm_open_session(pam_handle_t * pamh, int flags, int argc
-			,const char **argv)
+PAM_EXTERN int
+pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
+		     const char **argv)
 {
    int retval, ctrl;
    const void *user;
@@ -530,13 +462,13 @@ int pam_sm_open_session(pam_handle_t * pamh, int flags, int argc
    struct stat St;
 
    /* Parse the flag values */
-   ctrl = _pam_parse(flags, argc, argv);
+   ctrl = _pam_parse(pamh, flags, argc, argv);
 
    /* Determine the user name so we can get the home directory */
    retval = pam_get_item(pamh, PAM_USER, &user);
    if (retval != PAM_SUCCESS || user == NULL || *(const char *)user == '\0')
    {
-      _log_err(LOG_NOTICE, "user unknown");
+      pam_syslog(pamh,LOG_NOTICE, "user unknown");
       return PAM_USER_UNKNOWN;
    }
 
