@@ -40,19 +40,9 @@
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/_pam_modutil.h>
+#include <security/pam_ext.h>
 
 /* some syslogging */
-
-#define LOCAL_LOG_PREFIX "PAM-listfile: "
-
-static void _pam_log(int err, const char *format, ...)
-{
-    va_list args;
-
-    va_start(args, format);
-    vsyslog(LOG_AUTH | err, format, args);
-    va_end(args);
-}
 
 /* checks if a user is on a list of members */
 static int is_on_list(char * const *list, const char *member)
@@ -110,7 +100,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	    memset(myval,'\0',sizeof(mybuf));
 	    junk = strchr(argv[i], '=');
 	    if((junk == NULL) || (junk - argv[i]) >= (int) sizeof(mybuf)) {
-		_pam_log(LOG_ERR,LOCAL_LOG_PREFIX "Bad option: \"%s\"",
+		pam_syslog(pamh,LOG_ERR, "Bad option: \"%s\"",
 			 argv[i]);
 		continue;
 	    }
@@ -167,43 +157,43 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		}
 	    } else {
 		free(ifname);
-		_pam_log(LOG_ERR,LOCAL_LOG_PREFIX "Unknown option: %s",mybuf);
+		pam_syslog(pamh,LOG_ERR, "Unknown option: %s",mybuf);
 		return onerr;
 	    }
     }
 
     if(!citem) {
-	_pam_log(LOG_ERR,
-		 LOCAL_LOG_PREFIX "Unknown item or item not specified");
+	pam_syslog(pamh,LOG_ERR,
+		  "Unknown item or item not specified");
 	free(ifname);
 	return onerr;
     } else if(!ifname) {
-	_pam_log(LOG_ERR,LOCAL_LOG_PREFIX "List filename not specified");
+	pam_syslog(pamh,LOG_ERR, "List filename not specified");
 	return onerr;
     } else if(sense == 2) {
-	_pam_log(LOG_ERR,
-		 LOCAL_LOG_PREFIX "Unknown sense or sense not specified");
+	pam_syslog(pamh,LOG_ERR,
+		  "Unknown sense or sense not specified");
 	free(ifname);
 	return onerr;
     } else if(
 	      (apply_type==APPLY_TYPE_NONE) ||
 	      ((apply_type!=APPLY_TYPE_NULL) && (*apply_val=='\0'))
               ) {
-	_pam_log(LOG_ERR,
-		 LOCAL_LOG_PREFIX "Invalid usage for apply= parameter");
+	pam_syslog(pamh,LOG_ERR,
+		  "Invalid usage for apply= parameter");
 	return onerr;
     }
 
     /* Check if it makes sense to use the apply= parameter */
     if (apply_type != APPLY_TYPE_NULL) {
 	if((citem==PAM_USER) || (citem==PAM_RUSER)) {
-	    _pam_log(LOG_WARNING,
-		     LOCAL_LOG_PREFIX "Non-sense use for apply= parameter");
+	    pam_syslog(pamh,LOG_WARNING,
+		      "Non-sense use for apply= parameter");
 	    apply_type=APPLY_TYPE_NULL;
 	}
 	if(extitem && (extitem==EI_GROUP)) {
-	    _pam_log(LOG_WARNING,
-		     LOCAL_LOG_PREFIX "Non-sense use for apply= parameter");
+	    pam_syslog(pamh,LOG_WARNING,
+		      "Non-sense use for apply= parameter");
 	    apply_type=APPLY_TYPE_NULL;
 	}
     }
@@ -220,8 +210,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		if(strcmp(user_name, apply_val)) {
 		    /* Does not apply to this user */
 #ifdef DEBUG
-		    _pam_log(LOG_DEBUG,
-			     LOCAL_LOG_PREFIX "don't apply: apply=%s, user=%s",
+		    pam_syslog(pamh,LOG_DEBUG,
+			      "don't apply: apply=%s, user=%s",
 			     apply_val,user_name);
 #endif /* DEBUG */
 		    free(ifname);
@@ -231,8 +221,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		if(!_pammodutil_user_in_group_nam_nam(pamh,user_name,apply_val)) {
 		    /* Not a member of apply= group */
 #ifdef DEBUG
-		    _pam_log(LOG_DEBUG,
-			     LOCAL_LOG_PREFIX
+		    pam_syslog(pamh,LOG_DEBUG,
+			     
 			     "don't apply: %s not a member of group %s",
 			     user_name,apply_val);
 #endif /* DEBUG */
@@ -273,14 +263,14 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	    case EI_GROUP:
 		userinfo = _pammodutil_getpwnam(pamh, citemp);
 		if (userinfo == NULL) {
-		    _pam_log(LOG_ERR,LOCAL_LOG_PREFIX "getpwnam(%s) failed",
+		    pam_syslog(pamh,LOG_ERR, "getpwnam(%s) failed",
 			     citemp);
 		    free(ifname);
 		    return onerr;
 		}
 		grpinfo = _pammodutil_getgrgid(pamh, userinfo->pw_gid);
 		if (grpinfo == NULL) {
-		    _pam_log(LOG_ERR,LOCAL_LOG_PREFIX "getgrgid(%d) failed",
+		    pam_syslog(pamh,LOG_ERR, "getgrgid(%d) failed",
 			     (int)userinfo->pw_gid);
 		    free(ifname);
 		    return onerr;
@@ -302,7 +292,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		   gets set to PAM_USER in the extitem switch */
 		userinfo = _pammodutil_getpwnam(pamh, citemp);
 		if (userinfo == NULL) {
-		    _pam_log(LOG_ERR,LOCAL_LOG_PREFIX "getpwnam(%s) failed",
+		    pam_syslog(pamh,LOG_ERR, "getpwnam(%s) failed",
 			     citemp);
 		    free(ifname);
 		    return onerr;
@@ -310,8 +300,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		citemp = userinfo->pw_shell;
 		break;
 	    default:
-		_pam_log(LOG_ERR,
-			 LOCAL_LOG_PREFIX
+		pam_syslog(pamh,LOG_ERR,
+			 
 			 "Internal weirdness, unknown extended item %d",
 			 extitem);
 		free(ifname);
@@ -319,13 +309,13 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	}
     }
 #ifdef DEBUG
-    _pam_log(LOG_INFO,
-	     LOCAL_LOG_PREFIX
+    pam_syslog(pamh,LOG_INFO,
+	     
 	     "Got file = %s, item = %d, value = %s, sense = %d",
 	     ifname, citem, citemp, sense);
 #endif
     if(lstat(ifname,&fileinfo)) {
-	_pam_log(LOG_ERR,LOCAL_LOG_PREFIX "Couldn't open %s",ifname);
+	pam_syslog(pamh,LOG_ERR, "Couldn't open %s",ifname);
 	free(ifname);
 	return onerr;
     }
@@ -334,7 +324,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
        || !S_ISREG(fileinfo.st_mode)) {
 	/* If the file is world writable or is not a
 	   normal file, return error */
-	_pam_log(LOG_ERR,LOCAL_LOG_PREFIX
+	pam_syslog(pamh,LOG_ERR,
 		 "%s is either world writable or not a normal file",
 		 ifname);
 	free(ifname);
@@ -345,7 +335,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     if(inf == NULL) { /* Check that we opened it successfully */
 	if (onerr == PAM_SERVICE_ERR) {
 	    /* Only report if it's an error... */
-	    _pam_log(LOG_ERR,LOCAL_LOG_PREFIX  "Error opening %s", ifname);
+	    pam_syslog(pamh,LOG_ERR,  "Error opening %s", ifname);
 	}
 	free(ifname);
 	return onerr;
@@ -394,7 +384,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     free(ifname);
     if ((sense && retval) || (!sense && !retval)) {
 #ifdef DEBUG
-	_pam_log(LOG_INFO, LOCAL_LOG_PREFIX
+	pam_syslog(pamh,LOG_INFO, 
 		 "Returning PAM_SUCCESS, retval = %d", retval);
 #endif
 	return PAM_SUCCESS;
@@ -403,13 +393,13 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	const void *service;
 	const char *user_name;
 #ifdef DEBUG
-	_pam_log(LOG_INFO,LOCAL_LOG_PREFIX
+	pam_syslog(pamh,LOG_INFO,
 		 "Returning PAM_AUTH_ERR, retval = %d", retval);
 #endif
 	(void) pam_get_item(pamh, PAM_SERVICE, &service);
 	(void) pam_get_user(pamh, &user_name, NULL);
-	_pam_log(LOG_ALERT,LOCAL_LOG_PREFIX "Refused user %s for service %s",
-		 user_name, service);
+	pam_syslog (pamh, LOG_ALERT, "Refused user %s for service %s",
+		    user_name, (const char *)service);
 	return PAM_AUTH_ERR;
     }
 }
