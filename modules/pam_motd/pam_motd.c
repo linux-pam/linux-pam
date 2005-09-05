@@ -22,6 +22,7 @@
 #include <pwd.h>
 
 #include <security/_pam_macros.h>
+#include <security/pam_ext.h>
 /*
  * here, we make a definition for the externally accessible function
  * in this file (this definition is required for static a module
@@ -75,17 +76,13 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 	motd_path = default_motd;
 
     while ((fd = open(motd_path, O_RDONLY, 0)) >= 0) {
-	const void *void_conv = NULL;
-	struct pam_message message;
-	struct pam_message *pmessage = &message;
-	struct pam_response *resp = NULL;
 	struct stat st;
 
 	/* fill in message buffer with contents of motd */
 	if ((fstat(fd, &st) < 0) || !st.st_size || st.st_size > 0x10000)
 	    break;
 
-	if (!(message.msg = mtmp = malloc(st.st_size+1)))
+	if (!(mtmp = malloc(st.st_size+1)))
 	    break;
 
 	if (_pammodutil_read(fd, mtmp, st.st_size) != st.st_size)
@@ -96,17 +93,9 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 	else
 	    mtmp[st.st_size] = '\0';
 
-	message.msg_style = PAM_TEXT_INFO;
 
-	/* Use conversation function to give user contents of motd */
-	if (pam_get_item(pamh, PAM_CONV, &void_conv) == PAM_SUCCESS
-	    && void_conv) {
-	    const struct pam_conv *conversation = void_conv;
-	    conversation->conv(1, (const struct pam_message **)&pmessage,
-			       &resp, conversation->appdata_ptr);
-	    if (resp)
-		_pam_drop_reply(resp, 1);
-	}
+	pam_info (pamh, "%s", mtmp);
+	_pam_drop (mtmp);
 
 	break;
     }
