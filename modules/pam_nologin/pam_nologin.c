@@ -7,6 +7,8 @@
  *
  */
 
+#include "config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -27,8 +29,8 @@
 #define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
-
 #include <security/_pam_modutil.h>
+#include <security/pam_ext.h>
 
 /*
  * parse some command line options
@@ -38,8 +40,8 @@ struct opt_s {
     const char *nologin_file;
 };
 
-static void parse_args(pam_handle_t *pamh, int argc, const char **argv,
-		       struct opt_s *opts)
+static void
+parse_args(int argc, const char **argv, struct opt_s *opts)
 {
     int i;
 
@@ -79,29 +81,20 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
     if ((fd = open(opts->nologin_file, O_RDONLY, 0)) >= 0) {
 
 	char *mtmp=NULL;
+	int msg_style = PAM_TEXT_INFO;
 	struct passwd *user_pwd;
-	const void *void_conv;
-	const struct pam_conv *conversation;
-	struct pam_message message;
-	struct pam_message *pmessage = &message;
-	struct pam_response *resp = NULL;
 	struct stat st;
 
 	user_pwd = _pammodutil_getpwnam(pamh, username);
 	if (user_pwd == NULL) {
 
 	    retval = PAM_USER_UNKNOWN;
-	    message.msg_style = PAM_ERROR_MSG;
+	    msg_style = PAM_ERROR_MSG;
 
 	} else if (user_pwd->pw_uid) {
 
 	    retval = PAM_AUTH_ERR;
-	    message.msg_style = PAM_ERROR_MSG;
-
-	} else {
-
-	    /* root can still log in; lusers cannot */
-	    message.msg_style = PAM_TEXT_INFO;
+	    msg_style = PAM_ERROR_MSG;
 
 	}
 
@@ -111,8 +104,8 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 	    goto clean_up_fd;
 	}
 
-	message.msg = mtmp = malloc(st.st_size+1);
-	if (!message.msg) {
+	mtmp = malloc(st.st_size+1);
+	if (!mtmp) {
 	    /* if malloc failed... */
 	    retval = PAM_BUF_ERR;
 	    goto clean_up_fd;
@@ -121,23 +114,7 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 	if (_pammodutil_read(fd, mtmp, st.st_size) == st.st_size) {
 		mtmp[st.st_size] = '\000';
 
-		/*
-		 * Use conversation function to give user contents
-		 * of /etc/nologin
-		 */
-
-		if (pam_get_item(pamh, PAM_CONV, &void_conv)
-		    == PAM_SUCCESS && void_conv &&
-		    ((const struct pam_conv *)void_conv)->conv) {
-		        conversation = void_conv;
-			(void) conversation->conv(1,
-				(const struct pam_message **)&pmessage,
-				&resp, conversation->appdata_ptr);
-
-			if (resp) {
-			    _pam_drop_reply(resp, 1);
-			}
-		}
+		pam_prompt (pamh, msg_style, NULL, "%s", mtmp);
 	}
 	else
 	    retval = PAM_SYSTEM_ERR;
@@ -154,37 +131,37 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 
 /* --- authentication management functions --- */
 
-PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
-                        const char **argv)
+PAM_EXTERN int
+pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
 {
     struct opt_s opts;
 
-    parse_args(pamh, argc, argv, &opts);
+    parse_args(argc, argv, &opts);
 
     return perform_check(pamh, &opts);
 }
 
-PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
-                   const char **argv)
+PAM_EXTERN int
+pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		int argc, const char **argv)
 {
     struct opt_s opts;
 
-    parse_args(pamh, argc, argv, &opts);
+    parse_args(argc, argv, &opts);
 
     return opts.retval_when_nofile;
 }
 
 /* --- account management function --- */
 
-PAM_EXTERN
-int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc,
-		     const char **argv)
+PAM_EXTERN int
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
+		 int argc, const char **argv)
 {
     struct opt_s opts;
 
-    parse_args(pamh, argc, argv, &opts);
+    parse_args(argc, argv, &opts);
 
     return perform_check(pamh, &opts);
 }
