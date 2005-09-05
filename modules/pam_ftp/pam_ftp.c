@@ -174,8 +174,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			       GUEST_LOGIN_PROMPT);
 
 	if (retval != PAM_SUCCESS) {
-	    if (resp != NULL)
-		_pam_drop (resp);
+	    _pam_drop (resp);
 	    return ((retval == PAM_CONV_AGAIN)
 		    ? PAM_INCOMPLETE:PAM_AUTHINFO_UNAVAIL);
 	}
@@ -211,9 +210,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	    retval = PAM_AUTH_ERR;
 	}
 
-	if (resp) {                                      /* clean up */
-	    _pam_drop(resp);
-	}
+	/* clean up */
+	_pam_drop(resp);
 
 	/* success or failure */
 
