@@ -49,8 +49,9 @@
 
 #define PAM_SM_AUTH
 #define PAM_SM_ACCOUNT
-#include "../../libpam/include/security/pam_modules.h"
-#include "../../libpam/include/security/_pam_macros.h"
+#include <security/pam_modules.h>
+#include <security/_pam_macros.h>
+#include <security/pam_ext.h>
 
 #define MODULE_NAME "pam_localuser"
 
@@ -75,10 +76,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		if(strncmp("file=", argv[i], 5) == 0) {
 			filename = argv[i] + 5;
 			if(debug) {
-				openlog(MODULE_NAME, LOG_PID, LOG_AUTHPRIV);
-				syslog(LOG_DEBUG, "set filename to \"%s\"",
-				       filename);
-				closelog();
+				pam_syslog (pamh, LOG_DEBUG,
+					    "set filename to \"%s\"",
+				            filename);
 			}
 		}
 	}
@@ -86,25 +86,19 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	/* open the file */
 	fp = fopen(filename, "r");
 	if(fp == NULL) {
-		openlog(MODULE_NAME, LOG_PID, LOG_AUTHPRIV);
-		syslog(LOG_ERR, "error opening \"%s\": %s", filename,
-		       strerror(errno));
-		closelog();
+		pam_syslog (pamh, LOG_ERR, "error opening \"%s\": %s",
+			    filename, strerror(errno));
 		return PAM_SYSTEM_ERR;
 	}
 
 	if(pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
-		openlog(MODULE_NAME, LOG_PID, LOG_AUTHPRIV);
-		syslog(LOG_ERR, "user name not specified yet");
-		closelog();
+		pam_syslog (pamh, LOG_ERR, "user name not specified yet");
 		fclose(fp);
 		return PAM_SYSTEM_ERR;
 	}
 
 	if ((user == NULL) || (strlen(user) == 0)) {
-		openlog(MODULE_NAME, LOG_PID, LOG_AUTHPRIV);
-		syslog(LOG_ERR, "user name not valid");
-		closelog();
+		pam_syslog (pamh, LOG_ERR, "user name not valid");
 		fclose(fp);
 		return PAM_SYSTEM_ERR;
 	}
@@ -116,9 +110,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	i = strlen(name);
 	while(fgets(line, sizeof(line), fp) != NULL) {
 		if(debug) {
-			openlog(MODULE_NAME, LOG_PID, LOG_AUTHPRIV);
-			syslog(LOG_DEBUG, "checking \"%s\"", line);
-			closelog();
+			pam_syslog (pamh, LOG_DEBUG, "checking \"%s\"", line);
 		}
 		if(strncmp(name, line, i) == 0) {
 			ret = PAM_SUCCESS;
