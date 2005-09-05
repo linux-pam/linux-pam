@@ -32,21 +32,9 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_modutil.h>
+#include <security/pam_ext.h>
 
-/* some syslogging */
-
-static void _pam_log(int err, const char *format, ...)
-{
-    va_list args;
-
-    va_start(args, format);
-    openlog("PAM-shells", LOG_CONS|LOG_PID, LOG_AUTH);
-    vsyslog(err, format, args);
-    va_end(args);
-    closelog();
-}
-
-static int perform_check(pam_handle_t *pamh, int flags)
+static int perform_check(pam_handle_t *pamh)
 {
     int retval = PAM_AUTH_ERR;
     const char *userName;
@@ -80,21 +68,22 @@ static int perform_check(pam_handle_t *pamh, int flags)
     userShell = pw->pw_shell;
 
     if (stat(SHELL_FILE,&sb)) {
-	_pam_log(LOG_ERR, "%s cannot be stat'd (it probably does not exist)",
-		 SHELL_FILE);
+	pam_syslog(pamh, LOG_ERR,
+		   "%s cannot be stat'd (it probably does not exist)",
+		   SHELL_FILE);
 	return PAM_AUTH_ERR;		/* must have /etc/shells */
     }
 
     if ((sb.st_mode & S_IWOTH) || !S_ISREG(sb.st_mode)) {
-	_pam_log(LOG_ERR, "%s is either world writable or not a normal file",
-		 SHELL_FILE);
+	pam_syslog(pamh, LOG_ERR,
+		   "%s is either world writable or not a normal file",
+		   SHELL_FILE);
 	return PAM_AUTH_ERR;
     }
 
     shellFile = fopen(SHELL_FILE,"r");
     if (shellFile == NULL) {       /* Check that we opened it successfully */
-	_pam_log(LOG_ERR,
-		 "Error opening %s", SHELL_FILE);
+	pam_syslog(pamh, LOG_ERR, "Error opening %s", SHELL_FILE);
 	return PAM_SERVICE_ERR;
     }
 
@@ -118,14 +107,15 @@ static int perform_check(pam_handle_t *pamh, int flags)
 /* --- authentication management functions (only) --- */
 
 PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
-			const char **argv)
+int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
+		        int argc UNUSED, const char **argv UNUSED)
 {
-    return perform_check(pamh, flags);
+    return perform_check(pamh);
 }
 
 PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,const char **argv)
+int pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
+		   int argc UNUSED, const char **argv UNUSED)
 {
      return PAM_SUCCESS;
 }
@@ -133,10 +123,10 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,const char **argv)
 /* --- account management functions (only) --- */
 
 PAM_EXTERN
-int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc,
-		     const char **argv)
+int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
+		     int argc UNUSED, const char **argv UNUSED)
 {
-    return perform_check(pamh, flags);
+    return perform_check(pamh);
 }
 
 #ifdef PAM_STATIC
