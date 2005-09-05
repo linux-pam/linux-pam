@@ -55,6 +55,7 @@
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/_pam_modutil.h>
+#include <security/pam_ext.h>
 
 #define DATANAME "pam_xauth_cookie_file"
 #define XAUTHBIN "/usr/X11R6/bin/xauth"
@@ -100,6 +101,7 @@ run_coprocess(const char *input, char **output,
 
 	if (child == 0) {
 		/* We're the child. */
+		size_t j;
 		char *args[10];
 		const char *tmp;
 		/* Drop privileges. */
@@ -121,12 +123,12 @@ run_coprocess(const char *input, char **output,
 		/* Convert the varargs list into a regular array of strings. */
 		va_start(ap, command);
 		args[0] = strdup(command);
-		for (i = 1; i < ((sizeof(args) / sizeof(args[0])) - 1); i++) {
+		for (j = 1; j < ((sizeof(args) / sizeof(args[0])) - 1); j++) {
 			tmp = va_arg(ap, const char*);
 			if (tmp == NULL) {
 				break;
 			}
-			args[i] = strdup(tmp);
+			args[j] = strdup(tmp);
 		}
 		/* Run the command. */
 		execvp(command, args);
@@ -177,9 +179,9 @@ run_coprocess(const char *input, char **output,
 
 /* Free a data item. */
 static void
-cleanup(pam_handle_t *pamh, void *data, int err)
+cleanup (pam_handle_t *pamh UNUSED, void *data, int err UNUSED)
 {
-	free(data);
+	free (data);
 }
 
 /* Check if we want to allow export to the other user, or import from the
@@ -197,14 +199,14 @@ check_acl(pam_handle_t *pamh,
 	/* Check this user's <sense> file. */
 	pwd = _pammodutil_getpwnam(pamh, this_user);
 	if (pwd == NULL) {
-		syslog(LOG_ERR, "pam_xauth: error determining "
+		pam_syslog(pamh,LOG_ERR, "pam_xauth: error determining "
 		       "home directory for '%s'", this_user);
 		return PAM_SESSION_ERR;
 	}
 	/* Figure out what that file is really named. */
 	i = snprintf(path, sizeof(path), "%s/.xauth/%s", pwd->pw_dir, sense);
-	if ((i >= sizeof(path)) || (i < 0)) {
-		syslog(LOG_ERR, "pam_xauth: name of user's home directory "
+	if ((i >= (int)sizeof(path)) || (i < 0)) {
+		pam_syslog(pamh,LOG_ERR, "pam_xauth: name of user's home directory "
 		       "is too long");
 		return PAM_SESSION_ERR;
 	}
@@ -226,7 +228,7 @@ check_acl(pam_handle_t *pamh,
 			}
 			if (fnmatch(buf, other_user, 0) == 0) {
 				if (debug) {
-					syslog(LOG_DEBUG, "pam_xauth: %s %s "
+					pam_syslog(pamh,LOG_DEBUG, "pam_xauth: %s %s "
 					       "allowed by %s",
 					       other_user, sense, path);
 				}
@@ -236,7 +238,7 @@ check_acl(pam_handle_t *pamh,
 		}
 		/* If there's no match in the file, we fail. */
 		if (debug) {
-			syslog(LOG_DEBUG, "pam_xauth: %s not listed in %s",
+			pam_syslog(pamh,LOG_DEBUG, "pam_xauth: %s not listed in %s",
 			       other_user, path);
 		}
 		fclose(fp);
@@ -247,19 +249,19 @@ check_acl(pam_handle_t *pamh,
 		case ENOENT:
 			if (noent_code == PAM_SUCCESS) {
 				if (debug) {
-					syslog(LOG_DEBUG, "%s does not exist, "
+					pam_syslog(pamh,LOG_DEBUG, "%s does not exist, "
 					       "ignoring", path);
 				}
 			} else {
 				if (debug) {
-					syslog(LOG_DEBUG, "%s does not exist, "
+					pam_syslog(pamh,LOG_DEBUG, "%s does not exist, "
 					       "failing", path);
 				}
 			}
 			return noent_code;
 		default:
 			if (debug) {
-				syslog(LOG_ERR, "%s opening %s",
+				pam_syslog(pamh,LOG_ERR, "%s opening %s",
 				       strerror(errno), path);
 			}
 			return PAM_PERM_DENIED;
@@ -268,7 +270,8 @@ check_acl(pam_handle_t *pamh,
 }
 
 int
-pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
 {
 	char xauthpath[] = XAUTHBIN;
 	char *cookiefile = NULL, *xauthority = NULL,
@@ -295,7 +298,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			if ((strlen(argv[i] + 11) > 0) && (*tmp == '\0')) {
 				targetuser = l;
 			} else {
-				syslog(LOG_WARNING, "pam_xauth: invalid value "
+				pam_syslog(pamh,LOG_WARNING, "pam_xauth: invalid value "
 				       "for targetuser (`%s')", argv[i] + 11);
 			}
 			continue;
@@ -305,19 +308,19 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			if ((strlen(argv[i] + 11) > 0) && (*tmp == '\0')) {
 				systemuser = l;
 			} else {
-				syslog(LOG_WARNING, "pam_xauth: invalid value "
+				pam_syslog(pamh,LOG_WARNING, "pam_xauth: invalid value "
 				       "for systemuser (`%s')", argv[i] + 11);
 			}
 			continue;
 		}
-		syslog(LOG_WARNING, "pam_xauth: unrecognized option `%s'",
+		pam_syslog(pamh,LOG_WARNING, "pam_xauth: unrecognized option `%s'",
 		       argv[i]);
 	}
 
 	/* If DISPLAY isn't set, we don't really care, now do we? */
 	if ((display = getenv("DISPLAY")) == NULL) {
 		if (debug) {
-			syslog(LOG_DEBUG, "pam_xauth: user has no DISPLAY,"
+			pam_syslog(pamh,LOG_DEBUG, "pam_xauth: user has no DISPLAY,"
 			       " doing nothing");
 		}
 		return PAM_SUCCESS;
@@ -325,14 +328,14 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 
 	/* Read the target user's name. */
 	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
-		syslog(LOG_ERR, "pam_xauth: error determining target "
+		pam_syslog(pamh,LOG_ERR, "pam_xauth: error determining target "
 		       "user's name");
 		retval = PAM_SESSION_ERR;
 		goto cleanup;
 	}
 	rpwd = _pammodutil_getpwuid(pamh, getuid());
 	if (rpwd == NULL) {
-		syslog(LOG_ERR, "pam_xauth: error determining invoking "
+		pam_syslog(pamh,LOG_ERR, "pam_xauth: error determining invoking "
 		       "user's name");
 		retval = PAM_SESSION_ERR;
 		goto cleanup;
@@ -342,14 +345,14 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	 * on the xauthority file we create later on. */
 	tpwd = _pammodutil_getpwnam(pamh, user);
 	if (tpwd == NULL) {
-		syslog(LOG_ERR, "pam_xauth: error determining target "
+		pam_syslog(pamh,LOG_ERR, "pam_xauth: error determining target "
 		       "user's UID");
 		retval = PAM_SESSION_ERR;
 		goto cleanup;
 	}
 
 	if (debug) {
-		syslog(LOG_DEBUG, "pam_xauth: requesting user %lu/%lu, "
+		pam_syslog(pamh,LOG_DEBUG, "pam_xauth: requesting user %lu/%lu, "
 		       "target user %lu/%lu",
 		       (unsigned long) rpwd->pw_uid,
 		       (unsigned long) rpwd->pw_gid,
@@ -363,7 +366,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	    (tpwd->pw_uid != targetuser) &&
 	    (tpwd->pw_uid <= systemuser)) {
 		if (debug) {
-			syslog(LOG_DEBUG, "pam_xauth: not forwarding cookies "
+			pam_syslog(pamh,LOG_DEBUG, "pam_xauth: not forwarding cookies "
 			       "to user ID %ld", (long) tpwd->pw_uid);
 		}
 		retval = PAM_SESSION_ERR;
@@ -405,7 +408,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		strcat(cookiefile, XAUTHDEF);
 	}
 	if (debug) {
-		syslog(LOG_DEBUG, "pam_xauth: reading keys from `%s'",
+		pam_syslog(pamh,LOG_DEBUG, "pam_xauth: reading keys from `%s'",
 		       cookiefile);
 	}
 
@@ -413,7 +416,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	 * the original user's UID, this will only fail if something has
 	 * gone wrong, or we have no cookies. */
 	if (debug) {
-		syslog(LOG_DEBUG, "pam_xauth: running \"%s %s %s %s %s\" as "
+		pam_syslog(pamh,LOG_DEBUG, "pam_xauth: running \"%s %s %s %s %s\" as "
 		       "%lu/%lu",
 		       xauth,
 		       "-f",
@@ -458,13 +461,13 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 						}
 					}
 					if (debug) {
-						syslog(LOG_DEBUG, "pam_xauth: "
+						pam_syslog(pamh,LOG_DEBUG, "pam_xauth: "
 						       "no key for `%s', trying"
 						       " `%s'", display, t);
 					}
 					/* Read the cookie for this display. */
 					if (debug) {
-						syslog(LOG_DEBUG,
+						pam_syslog(pamh,LOG_DEBUG,
 						       "pam_xauth: running "
 						       "\"%s %s %s %s %s\" as "
 						       "%lu/%lu",
@@ -489,7 +492,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		/* Check that we got a cookie, this time for real. */
 		if ((cookie == NULL) || (strlen(cookie) == 0)) {
 			if (debug) {
-				syslog(LOG_DEBUG, "pam_xauth: no key");
+				pam_syslog(pamh,LOG_DEBUG, "pam_xauth: no key");
 			}
 			retval = PAM_SESSION_ERR;
 			goto cleanup;
@@ -502,7 +505,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 				    strlen(XAUTHTMP) + 1);
 		if (xauthority == NULL) {
 			if (debug) {
-				syslog(LOG_DEBUG, "pam_xauth: no free memory");
+				pam_syslog(pamh,LOG_DEBUG, "pam_xauth: no free memory");
 			}
 			retval = PAM_SESSION_ERR;
 			goto cleanup;
@@ -519,7 +522,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		fd = mkstemp(xauthority + strlen(XAUTHENV) + 1);
 		setfsuid(euid);
 		if (fd == -1) {
-			syslog(LOG_ERR, "pam_xauth: error creating "
+			pam_syslog(pamh,LOG_ERR, "pam_xauth: error creating "
 			       "temporary file `%s': %s",
 			       xauthority + strlen(XAUTHENV) + 1,
 			       strerror(errno));
@@ -539,7 +542,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 
 		/* Save the filename. */
 		if (pam_set_data(pamh, DATANAME, cookiefile, cleanup) != PAM_SUCCESS) {
-			syslog(LOG_ERR, "pam_xauth: error saving name of "
+			pam_syslog(pamh,LOG_ERR, "pam_xauth: error saving name of "
 			       "temporary file `%s'", cookiefile);
 			unlink(cookiefile);
 			retval = PAM_SESSION_ERR;
@@ -575,11 +578,11 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 
 		/* Merge the cookie we read before into the new file. */
 		if (debug) {
-			syslog(LOG_DEBUG, "pam_xauth: writing key `%s' to "
+			pam_syslog(pamh,LOG_DEBUG, "pam_xauth: writing key `%s' to "
 			       "temporary file `%s'", cookie, cookiefile);
 		}
 		if (debug) {
-			syslog(LOG_DEBUG,
+			pam_syslog(pamh,LOG_DEBUG,
 			       "pam_xauth: running \"%s %s %s %s %s\" as "
 			       "%lu/%lu",
 			       xauth,
@@ -609,7 +612,8 @@ cleanup:
 }
 
 int
-pam_sm_close_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_close_session (pam_handle_t *pamh, int flags UNUSED,
+		      int argc, const char **argv)
 {
 	void *cookiefile;
 	int i, debug = 0;
@@ -630,7 +634,7 @@ pam_sm_close_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		if (strncmp(argv[i], "targetuser=", 11) == 0) {
 			continue;
 		}
-		syslog(LOG_WARNING, "pam_xauth: unrecognized option `%s'",
+		pam_syslog(pamh,LOG_WARNING, "pam_xauth: unrecognized option `%s'",
 		       argv[i]);
 	}
 
@@ -640,7 +644,7 @@ pam_sm_close_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		/* We'll only try to remove the file once. */
 		if (strlen((char*)cookiefile) > 0) {
 			if (debug) {
-				syslog(LOG_DEBUG, "pam_xauth: removing `%s'",
+				pam_syslog(pamh,LOG_DEBUG, "pam_xauth: removing `%s'",
 				       (char*)cookiefile);
 			}
 			unlink((char*)cookiefile);
