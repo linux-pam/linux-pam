@@ -44,22 +44,9 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_modutil.h>
-
-/* some syslogging */
-
-static void _pam_log(int err, const char *format, ...)
-{
-    va_list args;
-
-    va_start(args, format);
-    openlog("PAM-Wheel", LOG_CONS|LOG_PID, LOG_AUTH);
-    vsyslog(err, format, args);
-    va_end(args);
-    closelog();
-}
+#include <security/pam_ext.h>
 
 /* checks if a user is on a list of members of the GID 0 group */
-
 static int is_on_list(char * const *list, const char *member)
 {
     while (list && *list) {
@@ -78,8 +65,9 @@ static int is_on_list(char * const *list, const char *member)
 #define PAM_DENY_ARG        0x0010
 #define PAM_ROOT_ONLY_ARG   0x0020
 
-static int _pam_parse(int argc, const char **argv, char *use_group,
-		      size_t group_length)
+static int
+_pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
+	    char *use_group, size_t group_length)
 {
      int ctrl=0;
 
@@ -103,15 +91,15 @@ static int _pam_parse(int argc, const char **argv, char *use_group,
           else if (!strncmp(*argv,"group=",6))
 	       strncpy(use_group,*argv+6,group_length-1);
           else {
-               _pam_log(LOG_ERR,"pam_parse: unknown option; %s",*argv);
+               pam_syslog(pamh,LOG_ERR,"pam_parse: unknown option; %s",*argv);
           }
      }
 
      return ctrl;
 }
 
-static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
-			 const char *use_group)
+static int
+perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
 {
     const char *username = NULL;
     const char *fromsu;
@@ -122,7 +110,7 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
     retval = pam_get_user(pamh, &username, NULL);
     if ((retval != PAM_SUCCESS) || (!username)) {
         if (ctrl & PAM_DEBUG_ARG) {
-            _pam_log(LOG_DEBUG,"can not get the username");
+            pam_syslog(pamh,LOG_DEBUG,"can not get the username");
 	}
         return PAM_SERVICE_ERR;
     }
@@ -130,7 +118,7 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
     pwd = _pammodutil_getpwnam (pamh, username);
     if (!pwd) {
         if (ctrl & PAM_DEBUG_ARG) {
-            _pam_log(LOG_NOTICE,"unknown user %s",username);
+            pam_syslog(pamh,LOG_NOTICE,"unknown user %s",username);
         }
         return PAM_USER_UNKNOWN;
     }
@@ -140,12 +128,12 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
             return PAM_IGNORE;
         }
     }
-     
+
     if (ctrl & PAM_USE_UID_ARG) {
 	tpwd = _pammodutil_getpwuid (pamh, getuid());
 	if (!tpwd) {
 	    if (ctrl & PAM_DEBUG_ARG) {
-                _pam_log(LOG_NOTICE, "who is running me ?!");
+                pam_syslog(pamh,LOG_NOTICE, "who is running me ?!");
 	    }
 	    return PAM_SERVICE_ERR;
 	}
@@ -157,7 +145,7 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
 	}
 	if (!fromsu || !tpwd) {
 	    if (ctrl & PAM_DEBUG_ARG) {
-		_pam_log(LOG_NOTICE, "who is running me ?!");
+		pam_syslog(pamh,LOG_NOTICE, "who is running me ?!");
 	    }
 	    return PAM_SERVICE_ERR;
 	}
@@ -166,7 +154,7 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
     /*
      * At this point fromsu = username-of-invoker; tpwd = pwd ptr for fromsu
      */
-     
+
     if (!use_group[0]) {
 	if ((grp = _pammodutil_getgrnam (pamh, "wheel")) == NULL) {
 	    grp = _pammodutil_getgrgid (pamh, 0);
@@ -178,9 +166,9 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
     if (!grp || (!grp->gr_mem && (tpwd->pw_gid != grp->gr_gid))) {
 	if (ctrl & PAM_DEBUG_ARG) {
 	    if (!use_group[0]) {
-		_pam_log(LOG_NOTICE,"no members in a GID 0 group");
+		pam_syslog(pamh,LOG_NOTICE,"no members in a GID 0 group");
 	    } else {
-                _pam_log(LOG_NOTICE,"no members in '%s' group", use_group);
+                pam_syslog(pamh,LOG_NOTICE,"no members in '%s' group", use_group);
 	    }
 	}
 	if (ctrl & PAM_DENY_ARG) {
@@ -193,7 +181,7 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
 	    return PAM_AUTH_ERR;
 	}
     }
-     
+
     /*
      * test if the user is a member of the group, or if the
      * user has the "wheel" (sic) group as its primary group.
@@ -228,10 +216,10 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
 
     if (ctrl & PAM_DEBUG_ARG) {
 	if (retval == PAM_IGNORE) {
-	    _pam_log(LOG_NOTICE, "Ignoring access request '%s' for '%s'",
+	    pam_syslog(pamh,LOG_NOTICE, "Ignoring access request '%s' for '%s'",
 		     fromsu, username);
 	} else {
-	    _pam_log(LOG_NOTICE, "Access %s to '%s' for '%s'",
+	    pam_syslog(pamh,LOG_NOTICE, "Access %s to '%s' for '%s'",
 		     (retval != PAM_SUCCESS) ? "denied":"granted",
 		     fromsu, username);
 	}
@@ -242,35 +230,35 @@ static int perform_check(pam_handle_t *pamh, int flags, int ctrl,
 
 /* --- authentication management functions --- */
 
-PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,
-			const char **argv)
+PAM_EXTERN int
+pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
 {
     char use_group[BUFSIZ];
     int ctrl;
 
-    ctrl = _pam_parse(argc, argv, use_group, sizeof(use_group));
+    ctrl = _pam_parse(pamh, argc, argv, use_group, sizeof(use_group));
 
-    return perform_check(pamh, flags, ctrl, use_group);
+    return perform_check(pamh, ctrl, use_group);
 }
 
-PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh,int flags,int argc
-		   ,const char **argv)
+PAM_EXTERN int
+pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		int argc UNUSED, const char **argv UNUSED)
 {
     return PAM_SUCCESS;
 }
 
-PAM_EXTERN
-int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc,
-		     const char **argv)
+PAM_EXTERN int
+pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
+		  int argc, const char **argv)
 {
     char use_group[BUFSIZ];
     int ctrl;
 
-    ctrl = _pam_parse(argc, argv, use_group, sizeof(use_group));
+    ctrl = _pam_parse(pamh, argc, argv, use_group, sizeof(use_group));
 
-    return perform_check(pamh, flags, ctrl, use_group);
+    return perform_check(pamh, ctrl, use_group);
 }
 
 #ifdef PAM_STATIC
