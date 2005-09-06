@@ -54,32 +54,14 @@
 #include <grp.h>
 #include <security/pam_modules.h>
 #include <security/_pam_modutil.h>
-
-#define MODULE "pam_succeed_if"
-
-static void
-log_error(int priority, const char *fmt, ...)
-{
-	va_list va;
-	char *fmt2;
-	fmt2 = malloc(strlen(fmt) + strlen(MODULE) + 3);
-	va_start(va, fmt);
-	if (fmt2 == NULL) {
-		vsyslog(LOG_AUTHPRIV | priority, fmt, va);
-	} else {
-		snprintf(fmt2, strlen(fmt) + strlen(MODULE) + 3,
-			 "%s: %s", MODULE, fmt);
-		vsyslog(LOG_AUTHPRIV | priority, fmt2, va);
-		free(fmt2);
-	}
-	va_end(va);
-}
+#include <security/pam_ext.h>
 
 /* Basically, run cmp(atol(left), atol(right)), returning PAM_SUCCESS if
  * the function returns non-zero, PAM_AUTH_ERR if it returns zero, and
  * PAM_SYSTEM_ERR if the arguments can't be parsed as numbers. */
 static int
-evaluate_num(const char *left, const char *right, int (*cmp)(int, int))
+evaluate_num(const pam_handle_t *pamh, const char *left,
+	     const char *right, int (*cmp)(int, int))
 {
 	long l, r;
 	char *p;
@@ -88,13 +70,13 @@ evaluate_num(const char *left, const char *right, int (*cmp)(int, int))
 	errno = 0;
 	l = strtol(left, &p, 0);
 	if ((p == NULL) || (*p != '\0') || errno) {
-		log_error(LOG_INFO, "\"%s\" is not a number", left);
+		pam_syslog(pamh,LOG_INFO, "\"%s\" is not a number", left);
 		ret = PAM_SERVICE_ERR;
 	}
 
 	r = strtol(right, &p, 0);
 	if ((p == NULL) || (*p != '\0') || errno) {
-		log_error(LOG_INFO, "\"%s\" is not a number", right);
+		pam_syslog(pamh,LOG_INFO, "\"%s\" is not a number", right);
 		ret = PAM_SERVICE_ERR;
 	}
 
@@ -139,9 +121,9 @@ ge(int i, int j)
 
 /* Test for numeric equality. */
 static int
-evaluate_eqn(const char *left, const char *right)
+evaluate_eqn(const pam_handle_t *pamh, const char *left, const char *right)
 {
-	return evaluate_num(left, right, eq);
+	return evaluate_num(pamh, left, right, eq);
 }
 /* Test for string equality. */
 static int
@@ -151,9 +133,9 @@ evaluate_eqs(const char *left, const char *right)
 }
 /* Test for numeric inequality. */
 static int
-evaluate_nen(const char *left, const char *right)
+evaluate_nen(const pam_handle_t *pamh, const char *left, const char *right)
 {
-	return evaluate_num(left, right, ne);
+	return evaluate_num(pamh, left, right, ne);
 }
 /* Test for string inequality. */
 static int
@@ -163,27 +145,27 @@ evaluate_nes(const char *left, const char *right)
 }
 /* Test for numeric less-than-ness(?) */
 static int
-evaluate_lt(const char *left, const char *right)
+evaluate_lt(const pam_handle_t *pamh, const char *left, const char *right)
 {
-	return evaluate_num(left, right, lt);
+	return evaluate_num(pamh, left, right, lt);
 }
 /* Test for numeric less-than-or-equal-ness(?) */
 static int
-evaluate_le(const char *left, const char *right)
+evaluate_le(const pam_handle_t *pamh,const char *left, const char *right)
 {
-	return evaluate_num(left, right, le);
+	return evaluate_num(pamh, left, right, le);
 }
 /* Test for numeric greater-than-ness(?) */
 static int
-evaluate_gt(const char *left, const char *right)
+evaluate_gt(const pam_handle_t *pamh, const char *left, const char *right)
 {
-	return evaluate_num(left, right, gt);
+	return evaluate_num(pamh, left, right, gt);
 }
 /* Test for numeric greater-than-or-equal-ness(?) */
 static int
-evaluate_ge(const char *left, const char *right)
+evaluate_ge(const pam_handle_t *pamh, const char *left, const char *right)
 {
-	return evaluate_num(left, right, ge);
+	return evaluate_num(pamh, left, right, ge);
 }
 /* Check for file glob match. */
 static int
@@ -263,36 +245,36 @@ evaluate(pam_handle_t *pamh, int debug,
 	}
 	/* If we have no idea what's going on, return an error. */
 	if (left != buf) {
-		log_error(LOG_CRIT, "unknown attribute \"%s\"", left);
+		pam_syslog(pamh,LOG_CRIT, "unknown attribute \"%s\"", left);
 		return PAM_SERVICE_ERR;
 	}
 	if (debug) {
-		log_error(LOG_DEBUG, "'%s' resolves to '%s'", attribute, left);
+		pam_syslog(pamh,LOG_DEBUG, "'%s' resolves to '%s'", attribute, left);
 	}
 
 	/* Attribute value < some threshold. */
 	if ((strcasecmp(qual, "<") == 0) ||
 	    (strcasecmp(qual, "lt") == 0)) {
-		return evaluate_lt(left, right);
+		return evaluate_lt(pamh, left, right);
 	}
 	/* Attribute value <= some threshold. */
 	if ((strcasecmp(qual, "<=") == 0) ||
 	    (strcasecmp(qual, "le") == 0)) {
-		return evaluate_le(left, right);
+		return evaluate_le(pamh, left, right);
 	}
 	/* Attribute value > some threshold. */
 	if ((strcasecmp(qual, ">") == 0) ||
 	    (strcasecmp(qual, "gt") == 0)) {
-		return evaluate_gt(left, right);
+		return evaluate_gt(pamh, left, right);
 	}
 	/* Attribute value >= some threshold. */
 	if ((strcasecmp(qual, ">=") == 0) ||
 	    (strcasecmp(qual, "ge") == 0)) {
-		return evaluate_ge(left, right);
+		return evaluate_ge(pamh, left, right);
 	}
 	/* Attribute value == some threshold. */
 	if (strcasecmp(qual, "eq") == 0) {
-		return evaluate_eqn(left, right);
+		return evaluate_eqn(pamh, left, right);
 	}
 	/* Attribute value = some string. */
 	if (strcasecmp(qual, "=") == 0) {
@@ -300,7 +282,7 @@ evaluate(pam_handle_t *pamh, int debug,
 	}
 	/* Attribute value != some threshold. */
 	if (strcasecmp(qual, "ne") == 0) {
-		return evaluate_nen(left, right);
+		return evaluate_nen(pamh, left, right);
 	}
 	/* Attribute value != some string. */
 	if (strcasecmp(qual, "!=") == 0) {
@@ -328,7 +310,8 @@ evaluate(pam_handle_t *pamh, int debug,
 }
 
 int
-pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
 {
 	const void *prompt;
 	const char *user;
@@ -368,7 +351,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		/* Get information about the user. */
 		pwd = _pammodutil_getpwuid(pamh, getuid());
 		if (pwd == NULL) {
-			log_error(LOG_CRIT,
+			pam_syslog(pamh,LOG_CRIT,
 				  "error retrieving information about user %ld",
 				  (long)getuid());
 			return PAM_SERVICE_ERR;
@@ -378,7 +361,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		/* Get the user's name. */
 		ret = pam_get_user(pamh, &user, prompt);
 		if ((ret != PAM_SUCCESS) || (user == NULL)) {
-			log_error(LOG_CRIT, "error retrieving user name: %s",
+			pam_syslog(pamh,LOG_CRIT, "error retrieving user name: %s",
 				  pam_strerror(pamh, ret));
 			return ret;
 		}
@@ -386,7 +369,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		/* Get information about the user. */
 		pwd = _pammodutil_getpwnam(pamh, user);
 		if (pwd == NULL) {
-			log_error(LOG_CRIT,
+			pam_syslog(pamh,LOG_CRIT,
 				  "error retrieving information about user %s",
 				  user);
 			return PAM_SERVICE_ERR;
@@ -403,7 +386,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 				       pwd);
 			if (ret != PAM_SUCCESS) {
 				if(!quiet_fail)
-					log_error(LOG_INFO,
+					pam_syslog(pamh,LOG_INFO,
 						  "requirement \"%s %s %s\" "
 						  "not met by user \"%s\"",
 						  left, qual, right, user);
@@ -411,7 +394,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			}
 			else
 				if(!quiet_succ)
-					log_error(LOG_INFO,
+					pam_syslog(pamh,LOG_INFO,
 						  "requirement \"%s %s %s\" "
 						  "was met by user \"%s\"",
 						  left, qual, right, user);
@@ -459,7 +442,8 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 }
 
 int
-pam_sm_setcred(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
+               int argc UNUSED, const char **argv UNUSED)
 {
 	return PAM_SUCCESS;
 }
