@@ -52,6 +52,7 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_modutil.h>
+#include <security/pam_ext.h>
 
 struct options_t {
   int debug;
@@ -60,22 +61,8 @@ struct options_t {
 };
 typedef struct options_t options_t;
 
-/* syslogging function for errors and other information */
 static void
-__pam_log (int err, const char *format,...)
-{
-  va_list args;
-  char *str;
-
-  va_start (args, format);
-  if (vasprintf (&str, format, args) < 0)
-    return;
-  syslog (err, "pam_umask: %s", str);
-  va_end (args);
-}
-
-static void
-parse_option (const char *argv, options_t *options)
+parse_option (const pam_handle_t *pamh, const char *argv, options_t *options)
 {
   if (argv == NULL || argv[0] == '\0')
     return;
@@ -87,7 +74,7 @@ parse_option (const char *argv, options_t *options)
   else if (strcasecmp (argv, "usergroups") == 0)
     options->usergroups = 1;
   else
-    __pam_log (LOG_ERR, "Unknown option: `%s'", argv);
+    pam_syslog (pamh, LOG_ERR, "Unknown option: `%s'", argv);
 }
 
 static char *
@@ -160,12 +147,13 @@ search_key (const char *filename)
 }
 
 static int
-get_options (options_t *options, int argc, const char **argv)
+get_options (const pam_handle_t *pamh, options_t *options,
+	     int argc, const char **argv)
 {
   memset (options, 0, sizeof (options_t));
   /* Parse parameters for module */
   for ( ; argc-- > 0; argv++)
-    parse_option (*argv, options);
+    parse_option (pamh, *argv, options);
 
   if (options->umask == NULL)
     options->umask = search_key ("/etc/login.defs");
@@ -235,7 +223,7 @@ setup_limits_from_gecos (pam_handle_t *pamh, options_t *options,
 
 
 PAM_EXTERN int
-pam_sm_open_session (pam_handle_t *pamh, int flags,
+pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
                      int argc, const char **argv)
 {
   struct passwd *pw;
@@ -243,12 +231,12 @@ pam_sm_open_session (pam_handle_t *pamh, int flags,
   const char *name;
   int retval = PAM_SUCCESS;
 
-  get_options (&options, argc, argv);
+  get_options (pamh, &options, argc, argv);
 
   /* get the user name. */
   if ((retval = pam_get_user (pamh, &name, NULL)) != PAM_SUCCESS)
     {
-      __pam_log (LOG_ERR, "pam_get_user failed: return %d", retval);
+      pam_syslog (pamh, LOG_ERR, "pam_get_user failed: return %d", retval);
       return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE:retval);
     }
 
@@ -256,7 +244,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags,
     {
       if (name)
         {
-          __pam_log (LOG_ERR, "bad username [%s]", name);
+          pam_syslog (pamh, LOG_ERR, "bad username [%s]", name);
           return PAM_USER_UNKNOWN;
         }
       return PAM_SERVICE_ERR;
@@ -265,7 +253,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags,
   pw = _pammodutil_getpwnam (pamh, name);
   if (pw == NULL)
     {
-      __pam_log (LOG_ERR, "account for %s not found", name);
+      pam_syslog (pamh, LOG_ERR, "account for %s not found", name);
       return PAM_USER_UNKNOWN;
     }
 
@@ -281,8 +269,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags,
 }
 
 PAM_EXTERN int
-pam_sm_close_session (pam_handle_t *pamh, int flags,
-		      int argc, const char **argv)
+pam_sm_close_session (pam_handle_t *pamh UNUSED, int flags UNUSED,
+		      int argc UNUSED, const char **argv UNUSED)
 {
   return PAM_SUCCESS;
 }
