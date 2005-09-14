@@ -44,5 +44,7 @@ pam_unix_la_SOURCES = bigcrypt.c pam_unix_acct.c \
 	yppasswd_xdr.c md5_good.c md5_broken.c
 
 bigcrypt_SOURCES = bigcrypt.c bigcrypt_main.c
+bigcrypt_CFLAGS = $(AM_CFLAGS)
 
 unix_chkpwd_SOURCES = unix_chkpwd.c md5_good.c md5_broken.c bigcrypt.c
+unix_chkpwd_CFLAGS = $(AM_CFLAGS)
