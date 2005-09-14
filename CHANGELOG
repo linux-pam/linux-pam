@@ -16,29 +16,10 @@ TODO:
   - verify that the PAM_INCOMPLETE interface works (auth seems ok..)
   - add PAM_INCOMPLETE support to modules (partially added to pam_pwdb)
   - work on RFC.
-  - do we still need to remove openlog/closelog from modules..?
   - auth and acct support in pam_cracklib, "yes, I know the password
     you just typed was valid, I just don't think it was very strong..."
 
 ====================================================================
-Note, as of release 0.73, all checkins should be accompanied with a
-Bug ID. The bug IDs relate to sourceforge IDs.. (Of course, nothing is
-ever that simple. It turns out that at some point in Sourceforge's
-history all of the bug ids got bumped by 100000, so pretty much if you
-see a bug ID below that begins with a '1' and your attempted query
-fails, try adding 100000 to the number and trying again. I believe
-this only affects bugs before release 0.76.)
-
-You can query the related bug description with the following URL:
-
- http://sourceforge.net/tracker/index.php?func=detail&aid=XXXXXX&group_id=6663&atid=106663
-
-Where you should replace XXXXXX with a bug-id.
-
-For general documentation completion work, I'm doing it all with
-respect to specific tasks. Open tasks are listed here:
-
- http://sourceforge.net/pm/task.php?group_id=6663&group_project_id=2741&func=browse&set=open
 
 If you have found a bug in Linux-PAM (including a documentation bug,
 or a new feature request and/or patch), please consider filing such a
@@ -47,14 +28,6 @@ bug report - outstanding bugs are listed here:
  http://sourceforge.net/tracker/?atid=106663&group_id=6663&func=browse
 
 (to file another bug see the 'submit bug' button on that page).
-
-
-There is now a second bug tracking system for Linux-PAM on BerliOS.
-You can find the list of outstanding bugs on BerliOS here:
-
-http://developer.berlios.de/bugs/?func=browse&group_id=2134&set=open
-
-BerliOS Bugs are marked with (BerliOS #XXXX).
 
 ====================================================================
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-05 15:43+0200\n"
+"POT-Creation-Date: 2005-09-14 19:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,119 +53,57 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:127
-#, c-format
-msgid "Your default context is %s. \n"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:130
-msgid "Do you want to choose a different one? [n]"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:137
-msgid "Enter number of choice: "
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:164 modules/pam_selinux/pam_selinux.c:245
-#: modules/pam_selinux/pam_selinux.c:352
-#, c-format
-msgid "%s: bogus conversation function"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:168 modules/pam_selinux/pam_selinux.c:249
-#: modules/pam_selinux/pam_selinux.c:356
-#, c-format
-msgid "%s: no conversation function"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:187
-msgid "Would you like to enter a security context? [y] "
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:204
-msgid "role: "
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:212
-msgid "type: "
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:222
-msgid "level: "
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:236
-msgid "Not a valid security context"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:272
-#, c-format
-msgid "Warning!  Could not relabel %s with %s, not relabeling.\n"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:296
-#, c-format
-msgid "Warning!  Could not get current context for %s, not relabeling."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:303
-#, c-format
-msgid "Warning!  Could not get new context for %s, not relabeling."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:313
-#, c-format
-msgid "Warning!  Could not relabel %s with %s, not relabeling.%s"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:429
-#, c-format
-msgid "Unable to get valid context for %s"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:433
-#, c-format
-msgid "Unable to get valid context for %s, No valid tty"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:465
-#, c-format
-msgid "Security Context %s Assigned"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:469
-#, c-format
-msgid "Error!  Unable to set %s executable context %s."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:475
-#, c-format
-msgid "%s: set %s security context to %s"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:518
-#, c-format
-msgid "Error!  Unable to set executable context %s."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:524
-#, c-format
-msgid "%s: setcontext back to orginal"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:585
+#: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:591
+#: modules/pam_selinux/pam_selinux_check.c:105
 #, c-format
 msgid "failed to pam_set_item()\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:616
+#: modules/pam_selinux/pam_selinux_check.c:132
 #, c-format
 msgid "login: failure forking: %s"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:102
+#, c-format
+msgid "Your default context is %s. \n"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:105
+msgid "Do you want to choose a different one? [n]"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:112
+msgid "Enter number of choice: "
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:152
+msgid "Would you like to enter a security context? [y] "
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:169
+msgid "role: "
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:177
+msgid "type: "
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:187
+msgid "level: "
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:203
+msgid "Not a valid security context"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:416
+#, c-format
+msgid "Security Context %s Assigned"
 msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:268 modules/pam_unix/pam_unix_acct.c:295
@@ -227,19 +165,19 @@ msgstr ""
 msgid "Retype new UNIX password: "
 msgstr ""
 
-#: modules/pam_stress/pam_stress.c:481
+#: modules/pam_stress/pam_stress.c:474
 msgid "Changing STRESS password for "
 msgstr ""
 
-#: modules/pam_stress/pam_stress.c:495
+#: modules/pam_stress/pam_stress.c:488
 msgid "Enter new STRESS password: "
 msgstr ""
 
-#: modules/pam_stress/pam_stress.c:498
+#: modules/pam_stress/pam_stress.c:491
 msgid "Retype new STRESS password: "
 msgstr ""
 
-#: modules/pam_stress/pam_stress.c:526
+#: modules/pam_stress/pam_stress.c:519
 msgid "Verification mis-typed; password unchanged"
 msgstr ""
 
@@ -428,11 +366,11 @@ msgid "Unknown PAM error"
 msgstr ""
 
 #: libpam_misc/misc_conv.c:35
-msgid "..\007.Time is running out...\n"
+msgid "...Time is running out...\n"
 msgstr ""
 
 #: libpam_misc/misc_conv.c:36
-msgid "..\007.Sorry, your time is up!\n"
+msgid "...Sorry, your time is up!\n"
 msgstr ""
 
 #: libpam_misc/misc_conv.c:334

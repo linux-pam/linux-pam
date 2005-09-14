@@ -32,8 +32,8 @@
 time_t pam_misc_conv_warn_time = 0;                  /* time when we warn */
 time_t pam_misc_conv_die_time  = 0;               /* time when we timeout */
 
-const char *pam_misc_conv_warn_line = N_("..\a.Time is running out...\n");
-const char *pam_misc_conv_die_line  = N_("..\a.Sorry, your time is up!\n");
+const char *pam_misc_conv_warn_line = N_("...Time is running out...\n");
+const char *pam_misc_conv_die_line  = N_("...Sorry, your time is up!\n");
 
 int pam_misc_conv_died=0;       /* application can probe this for timeout */
 

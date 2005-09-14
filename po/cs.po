@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-05 15:43+0200\n"
+"POT-Creation-Date: 2005-09-14 19:09+0200\n"
 "PO-Revision-Date: 2005-08-24 13:58+0200\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
@@ -23,25 +23,25 @@ msgstr "Chyba autentizace"
 
 #: modules/pam_tally/pam_tally.c:731
 msgid "Service error"
-msgstr "Chyba slu\305\276by"
+msgstr "Chyba služby"
 
 #: modules/pam_tally/pam_tally.c:732
 msgid "Unknown user"
-msgstr "Nezn\303\241m\303\275 u\305\276ivatel"
+msgstr "Neznámý uživatel"
 
 #: modules/pam_tally/pam_tally.c:733
 msgid "Unknown error"
-msgstr "Nezn\303\241m\303\241 chyba"
+msgstr "Neznámá chyba"
 
 #: modules/pam_tally/pam_tally.c:747
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
-msgstr "%s: Zad\303\241na \305\241patn\303\241 hodnota --reset=\n"
+msgstr "%s: Zadána špatná hodnota --reset=\n"
 
 #: modules/pam_tally/pam_tally.c:751
 #, c-format
 msgid "%s: Unrecognised option %s\n"
-msgstr "%s: Nezn\303\241m\303\241 volba %s\n"
+msgstr "%s: Neznámá volba %s\n"
 
 #: modules/pam_tally/pam_tally.c:763
 #, c-format
@@ -54,174 +54,104 @@ msgstr ""
 #: modules/pam_tally/pam_tally.c:836
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: Nelze resetovat v\305\241echny u\305\276ivatele nenulov\304\233\n"
+msgstr "%s: Nelze resetovat všechny uživatele nenulově\n"
 
-#: modules/pam_selinux/pam_selinux.c:127
-#, c-format
-msgid "Your default context is %s. \n"
-msgstr "V\303\241\305\241 v\303\275choz\303\255 kontext je %s. \n"
-
-#: modules/pam_selinux/pam_selinux.c:130
-msgid "Do you want to choose a different one? [n]"
-msgstr "Chcete zvolit jin\303\275? [n]"
-
-#: modules/pam_selinux/pam_selinux.c:137
-msgid "Enter number of choice: "
-msgstr "Zadejte \304\215\303\255slo volby: "
-
-#: modules/pam_selinux/pam_selinux.c:164 modules/pam_selinux/pam_selinux.c:245
-#: modules/pam_selinux/pam_selinux.c:352
-#, c-format
-msgid "%s: bogus conversation function"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:168 modules/pam_selinux/pam_selinux.c:249
-#: modules/pam_selinux/pam_selinux.c:356
-#, c-format
-msgid "%s: no conversation function"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:187
-msgid "Would you like to enter a security context? [y] "
-msgstr "Chcete zadat bezpe\304\215nostn\303\255 kontext? [y]"
-
-#: modules/pam_selinux/pam_selinux.c:204
-msgid "role: "
-msgstr "role: "
-
-#: modules/pam_selinux/pam_selinux.c:212
-msgid "type: "
-msgstr "typ: "
-
-#: modules/pam_selinux/pam_selinux.c:222
-msgid "level: "
-msgstr "\303\272rove\305\210: "
-
-#: modules/pam_selinux/pam_selinux.c:236
-msgid "Not a valid security context"
-msgstr "Neplatn\303\275 bezpe\304\215nostn\303\255 kontext"
-
-#: modules/pam_selinux/pam_selinux.c:272
-#, c-format
-msgid "Warning!  Could not relabel %s with %s, not relabeling.\n"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:296
-#, c-format
-msgid "Warning!  Could not get current context for %s, not relabeling."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:303
-#, c-format
-msgid "Warning!  Could not get new context for %s, not relabeling."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:313
-#, c-format
-msgid "Warning!  Could not relabel %s with %s, not relabeling.%s"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:429
-#, c-format
-msgid "Unable to get valid context for %s"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:433
-#, c-format
-msgid "Unable to get valid context for %s, No valid tty"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:465
-#, c-format
-msgid "Security Context %s Assigned"
-msgstr "Bezpe\304\215nostn\303\255 kontext %s p\305\231id\304\233len"
-
-#: modules/pam_selinux/pam_selinux.c:469
-#, c-format
-msgid "Error!  Unable to set %s executable context %s."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:475
-#, fuzzy, c-format
-msgid "%s: set %s security context to %s"
-msgstr "Neplatn\303\275 bezpe\304\215nostn\303\255 kontext"
-
-#: modules/pam_selinux/pam_selinux.c:518
-#, c-format
-msgid "Error!  Unable to set executable context %s."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:524
-#, c-format
-msgid "%s: setcontext back to orginal"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:585
+#: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
-msgstr "chyba p\305\231i inicializaci PAM\n"
+msgstr "chyba při inicializaci PAM\n"
 
-#: modules/pam_selinux/pam_selinux.c:591
+#: modules/pam_selinux/pam_selinux_check.c:105
 #, c-format
 msgid "failed to pam_set_item()\n"
 msgstr "chyba pam_set_item()\n"
 
-#: modules/pam_selinux/pam_selinux.c:616
+#: modules/pam_selinux/pam_selinux_check.c:132
 #, c-format
 msgid "login: failure forking: %s"
 msgstr "login: chyba forku: %s"
 
+#: modules/pam_selinux/pam_selinux.c:102
+#, c-format
+msgid "Your default context is %s. \n"
+msgstr "Váš výchozí kontext je %s. \n"
+
+#: modules/pam_selinux/pam_selinux.c:105
+msgid "Do you want to choose a different one? [n]"
+msgstr "Chcete zvolit jiný? [n]"
+
+#: modules/pam_selinux/pam_selinux.c:112
+msgid "Enter number of choice: "
+msgstr "Zadejte číslo volby: "
+
+#: modules/pam_selinux/pam_selinux.c:152
+msgid "Would you like to enter a security context? [y] "
+msgstr "Chcete zadat bezpečnostní kontext? [y]"
+
+#: modules/pam_selinux/pam_selinux.c:169
+msgid "role: "
+msgstr "role: "
+
+#: modules/pam_selinux/pam_selinux.c:177
+msgid "type: "
+msgstr "typ: "
+
+#: modules/pam_selinux/pam_selinux.c:187
+msgid "level: "
+msgstr "úroveň: "
+
+#: modules/pam_selinux/pam_selinux.c:203
+msgid "Not a valid security context"
+msgstr "Neplatný bezpečnostní kontext"
+
+#: modules/pam_selinux/pam_selinux.c:416
+#, c-format
+msgid "Security Context %s Assigned"
+msgstr "Bezpečnostní kontext %s přidělen"
+
 #: modules/pam_unix/pam_unix_acct.c:268 modules/pam_unix/pam_unix_acct.c:295
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"V\303\241\305\241 \303\272\304\215et vypr\305\241el; kontaktujte pros\303"
-"\255m sv\303\251ho spr\303\241vce syst\303\251mu"
+msgstr "Váš účet vypršel; kontaktujte prosím svého správce systému"
 
 #: modules/pam_unix/pam_unix_acct.c:277
 msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
-"Mus\303\255te okam\305\276it\304\233 zm\304\233nit sv\303\251 heslo "
-"(vynuceno rootem)"
+msgstr "Musíte okamžitě změnit své heslo (vynuceno rootem)"
 
 #: modules/pam_unix/pam_unix_acct.c:304
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
-"Mus\303\255te okam\305\276it\304\233 zm\304\233nit sv\303\251 heslo (heslo "
-"vypr\305\241elo)"
+msgstr "Musíte okamžitě změnit své heslo (heslo vypršelo)"
 
 #: modules/pam_unix/pam_unix_acct.c:314
 #, c-format
 msgid "Warning: your password will expire in %d day%.2s"
-msgstr ""
-"Varov\303\241n\303\255: Po\304\215et dn\303\255 do vypr\305\241en\303\255 "
-"hesla: %d %.0s"
+msgstr "Varování: Počet dní do vypršení hesla: %d %.0s"
 
 #: modules/pam_unix/pam_unix_auth.c:163
 #, fuzzy
 msgid "Password: "
-msgstr "Heslo nebylo zm\304\233n\304\233no"
+msgstr "Heslo nebylo změněno"
 
 #: modules/pam_unix/pam_unix_passwd.c:818
 msgid "NIS password could not be changed."
-msgstr "NIS heslo se nepoda\305\231ilo zm\304\233nit."
+msgstr "NIS heslo se nepodařilo změnit."
 
 #: modules/pam_unix/pam_unix_passwd.c:962
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
-msgstr "Nezad\303\241no heslo"
+msgstr "Nezadáno heslo"
 
 #: modules/pam_unix/pam_unix_passwd.c:962
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
-msgstr "Heslo nebylo zm\304\233n\304\233no"
+msgstr "Heslo nebylo změněno"
 
 #: modules/pam_unix/pam_unix_passwd.c:983
 msgid "You must choose a longer password"
-msgstr "Mus\303\255te zvolit del\305\241\303\255 heslo"
+msgstr "Musíte zvolit delší heslo"
 
 #: modules/pam_unix/pam_unix_passwd.c:988
 msgid "Password has been already used. Choose another."
-msgstr "Heslo ji\305\276 bylo pou\305\276ito. Zvolte jin\303\251."
+msgstr "Heslo již bylo použito. Zvolte jiné."
 
 #: modules/pam_unix/pam_unix_passwd.c:1112
 msgid "(current) UNIX password: "
@@ -229,39 +159,38 @@ msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:1147
 msgid "You must wait longer to change your password"
-msgstr ""
-"Na zm\304\233nu sv\303\251ho hesla mus\303\255te po\304\215kat d\303\251le"
+msgstr "Na změnu svého hesla musíte počkat déle"
 
 #: modules/pam_unix/pam_unix_passwd.c:1207
 #, fuzzy
 msgid "Enter new UNIX password: "
-msgstr "Zadejte nov\303\251 STRESS heslo: "
+msgstr "Zadejte nové STRESS heslo: "
 
 #: modules/pam_unix/pam_unix_passwd.c:1208
 #, fuzzy
 msgid "Retype new UNIX password: "
 msgstr "Opakujte STRESS heslo: "
 
-#: modules/pam_stress/pam_stress.c:481
+#: modules/pam_stress/pam_stress.c:474
 msgid "Changing STRESS password for "
-msgstr "Zm\304\233na STRESS hesla pro"
+msgstr "Změna STRESS hesla pro"
 
-#: modules/pam_stress/pam_stress.c:495
+#: modules/pam_stress/pam_stress.c:488
 msgid "Enter new STRESS password: "
-msgstr "Zadejte nov\303\251 STRESS heslo: "
+msgstr "Zadejte nové STRESS heslo: "
 
-#: modules/pam_stress/pam_stress.c:498
+#: modules/pam_stress/pam_stress.c:491
 msgid "Retype new STRESS password: "
 msgstr "Opakujte STRESS heslo: "
 
-#: modules/pam_stress/pam_stress.c:526
+#: modules/pam_stress/pam_stress.c:519
 msgid "Verification mis-typed; password unchanged"
-msgstr "Chybn\303\251 potvrzen\303\255. Heslo nezm\304\233n\304\233no"
+msgstr "Chybné potvrzení. Heslo nezměněno"
 
 #: modules/pam_cracklib/pam_cracklib.c:61
 #, fuzzy, c-format
 msgid "New %s%spassword: "
-msgstr "Heslo nebylo zm\304\233n\304\233no"
+msgstr "Heslo nebylo změněno"
 
 #: modules/pam_cracklib/pam_cracklib.c:63
 #, fuzzy, c-format
@@ -271,7 +200,7 @@ msgstr "Opakujte STRESS heslo: "
 #: modules/pam_cracklib/pam_cracklib.c:64
 #, fuzzy
 msgid "Sorry, passwords do not match."
-msgstr "NIS heslo se nepoda\305\231ilo zm\304\233nit."
+msgstr "NIS heslo se nepodařilo změnit."
 
 #: modules/pam_cracklib/pam_cracklib.c:379
 msgid "is the same as the old one"
@@ -300,7 +229,7 @@ msgstr ""
 #: modules/pam_cracklib/pam_cracklib.c:437
 #, fuzzy
 msgid "has been already used"
-msgstr "Heslo ji\305\276 bylo pou\305\276ito. Zvolte jin\303\251."
+msgstr "Heslo již bylo použito. Zvolte jiné."
 
 #: modules/pam_cracklib/pam_cracklib.c:489
 #: modules/pam_cracklib/pam_cracklib.c:617
@@ -314,15 +243,15 @@ msgstr ""
 
 #: libpam/pam_strerror.c:13
 msgid "Success"
-msgstr "\303\232sp\304\233ch"
+msgstr "Úspěch"
 
 #: libpam/pam_strerror.c:15
 msgid "Critical error - immediate abort"
-msgstr "Kritick\303\241 chyba - okam\305\276it\303\251 ukon\304\215en\303\255"
+msgstr "Kritická chyba - okamžité ukončení"
 
 #: libpam/pam_strerror.c:17
 msgid "dlopen() failure"
-msgstr "Selh\303\241n\303\255 dlopen()"
+msgstr "Selhání dlopen()"
 
 #: libpam/pam_strerror.c:19
 msgid "Symbol not found"
@@ -330,90 +259,71 @@ msgstr "Symbol nenalezen"
 
 #: libpam/pam_strerror.c:21
 msgid "Error in service module"
-msgstr "Chyba v modulu slu\305\276by"
+msgstr "Chyba v modulu služby"
 
 #: libpam/pam_strerror.c:23
 msgid "System error"
-msgstr "Chyba syst\303\251mu"
+msgstr "Chyba systému"
 
 #: libpam/pam_strerror.c:25
 msgid "Memory buffer error"
-msgstr "Chyba alokace pam\304\233ti"
+msgstr "Chyba alokace paměti"
 
 #: libpam/pam_strerror.c:27
 msgid "Permission denied"
-msgstr "P\305\231\303\255stup zam\303\255tnut"
+msgstr "Přístup zamítnut"
 
 #: libpam/pam_strerror.c:29
 msgid "Authentication failure"
-msgstr "Selh\303\241n\303\255 autentizace"
+msgstr "Selhání autentizace"
 
 #: libpam/pam_strerror.c:31
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
-"Nedostate\304\215n\303\241 opr\303\241vn\304\233n\303\255 pro p\305\231\303"
-"\255stup k autentiza\304\215n\303\255m dat\305\257m"
+msgstr "Nedostatečná oprávnění pro přístup k autentizačním datům"
 
 #: libpam/pam_strerror.c:33
 msgid "Authentication service cannot retrieve authentication info."
-msgstr ""
-"Autentiza\304\215n\303\255 slu\305\276ba nem\305\257\305\276e z\303\255skat "
-"informace pro autentizaci."
+msgstr "Autentizační služba nemůže získat informace pro autentizaci."
 
 #: libpam/pam_strerror.c:35
 msgid "User not known to the underlying authentication module"
-msgstr ""
-"U\305\276ivatel nen\303\255 zn\303\241m pou\305\276it\303\251mu autentiza\304"
-"\215n\303\255mu modulu"
+msgstr "Uživatel není znám použitému autentizačnímu modulu"
 
 #: libpam/pam_strerror.c:37
 msgid "Have exhausted maximum number of retries for service."
-msgstr ""
-"Vy\304\215erp\303\241n maxim\303\241ln\303\255 po\304\215et pokus\305\257 "
-"pro slu\305\276bu."
+msgstr "Vyčerpán maximální počet pokusů pro službu."
 
 #: libpam/pam_strerror.c:39
 msgid "Authentication token is no longer valid; new one required."
-msgstr ""
-"Autentiza\304\215n\303\255 token ji\305\276 nen\303\255 platn\303\275; vy\305"
-"\276adov\303\241n nov\303\275."
+msgstr "Autentizační token již není platný; vyžadován nový."
 
 #: libpam/pam_strerror.c:41
 msgid "User account has expired"
-msgstr "U\305\276ivatelsk\303\275 \303\272\304\215et vypr\305\241el"
+msgstr "Uživatelský účet vypršel"
 
 #: libpam/pam_strerror.c:43
 msgid "Cannot make/remove an entry for the specified session"
-msgstr ""
-"Pro zadan\303\251 sezen\303\255 nelze vytvo\305\231it/odstranit z\303\241znam"
+msgstr "Pro zadané sezení nelze vytvořit/odstranit záznam"
 
 #: libpam/pam_strerror.c:45
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
-"Autentiza\304\215n\303\255 slu\305\276ba nem\305\257\305\276e z\303\255skat "
-"\303\272daje o opr\303\241vn\304\233n\303\255ch u\305\276ivatele"
+msgstr "Autentizační služba nemůže získat údaje o oprávněních uživatele"
 
 #: libpam/pam_strerror.c:47
 msgid "User credentials expired"
-msgstr ""
-"\303\232daje o opr\303\241vn\304\233n\303\255ch u\305\276ivatele vypr\305"
-"\241ely"
+msgstr "Údaje o oprávněních uživatele vypršely"
 
 #: libpam/pam_strerror.c:49
 msgid "Failure setting user credentials"
-msgstr ""
-"Chyba p\305\231i nastaven\303\255 \303\272daj\305\257 o opr\303\241vn\304"
-"\233n\303\255ch u\305\276ivatele"
+msgstr "Chyba při nastavení údajů o oprávněních uživatele"
 
 #: libpam/pam_strerror.c:51
 msgid "No module specific data is present"
-msgstr "Nelze naj\303\255t data pot\305\231ebn\303\241 pro modul"
+msgstr "Nelze najít data potřebná pro modul"
 
 #: libpam/pam_strerror.c:53
 msgid "Bad item passed to pam_*_item()"
-msgstr ""
-"Funkci pam_*_item() byla p\305\231ed\303\241na \305\241patn\303\241 polo\305"
-"\276ka"
+msgstr "Funkci pam_*_item() byla předána špatná položka"
 
 #: libpam/pam_strerror.c:55
 msgid "Conversation error"
@@ -421,63 +331,61 @@ msgstr "Chyba konverzace"
 
 #: libpam/pam_strerror.c:57
 msgid "Authentication token manipulation error"
-msgstr "Chyba manipulace s autentiza\304\215n\303\255m tokenem"
+msgstr "Chyba manipulace s autentizačním tokenem"
 
 #: libpam/pam_strerror.c:59
 msgid "Authentication information cannot be recovered"
-msgstr "Autentiza\304\215n\303\255 informace nelze z\303\255skat"
+msgstr "Autentizační informace nelze získat"
 
 #: libpam/pam_strerror.c:61
 msgid "Authentication token lock busy"
-msgstr "Autentiza\304\215n\303\255 token je uzam\304\215en"
+msgstr "Autentizační token je uzamčen"
 
 #: libpam/pam_strerror.c:63
 msgid "Authentication token aging disabled"
-msgstr ""
-"St\303\241rnut\303\255 autentiza\304\215n\303\255ho tokenu zak\303\241z\303"
-"\241no"
+msgstr "Stárnutí autentizačního tokenu zakázáno"
 
 #: libpam/pam_strerror.c:65
 msgid "Failed preliminary check by password service"
-msgstr ""
-"Selh\303\241n\303\255 p\305\231edb\304\233\305\276n\303\251 kontroly ve slu"
-"\305\276b\304\233 hesla"
+msgstr "Selhání předběžné kontroly ve službě hesla"
 
 #: libpam/pam_strerror.c:67
 msgid "The return value should be ignored by PAM dispatch"
-msgstr ""
-"N\303\241vratov\303\241 hodnota by m\304\233la b\303\275t ignorov\303\241na "
-"rozhodovac\303\255m mechanismem PAM"
+msgstr "Návratová hodnota by měla být ignorována rozhodovacím mechanismem PAM"
 
 #: libpam/pam_strerror.c:69
 msgid "Module is unknown"
-msgstr "Nezn\303\241m\303\275 modul"
+msgstr "Neznámý modul"
 
 #: libpam/pam_strerror.c:71
 msgid "Authentication token expired"
-msgstr "Autentiza\304\215n\303\255 token vypr\305\241el"
+msgstr "Autentizační token vypršel"
 
 #: libpam/pam_strerror.c:73
 msgid "Conversation is waiting for event"
-msgstr "Konverzace \304\215ek\303\241 na ud\303\241lost"
+msgstr "Konverzace čeká na událost"
 
 #: libpam/pam_strerror.c:75
 msgid "Application needs to call libpam again"
-msgstr "Aplikace mus\303\255 znovu zavolat libpam"
+msgstr "Aplikace musí znovu zavolat libpam"
 
 #: libpam/pam_strerror.c:78
 msgid "Unknown PAM error"
-msgstr "Nezn\303\241m\303\241 chyba PAM"
+msgstr "Neznámá chyba PAM"
 
 #: libpam_misc/misc_conv.c:35
-msgid "..\007.Time is running out...\n"
-msgstr "..\007.Odpo\304\215et byl spu\305\241t\304\233n...\n"
+msgid "...Time is running out...\n"
+msgstr "..Odpočet byl spuštěn...\n"
 
 #: libpam_misc/misc_conv.c:36
-msgid "..\007.Sorry, your time is up!\n"
-msgstr "..\007.\304\214as vypr\305\241el!\n"
+msgid "...Sorry, your time is up!\n"
+msgstr "...Čas vypršel!\n"
 
 #: libpam_misc/misc_conv.c:334
 #, c-format
 msgid "erroneous conversation (%d)\n"
-msgstr "nespr\303\241vn\303\241 konverzace (%d)\n"
+msgstr "nesprávná konverzace (%d)\n"
+
+#, fuzzy
+#~ msgid "%s: set %s security context to %s"
+#~ msgstr "Neplatný bezpečnostní kontext"

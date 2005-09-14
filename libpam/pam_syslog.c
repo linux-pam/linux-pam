@@ -83,6 +83,7 @@ pam_vsyslog (const pam_handle_t *pamh, int priority,
 	}
     }
 
+  errno = save_errno;
   if (vasprintf (&msgbuf2, fmt, args) < 0)
     {
       syslog (LOG_AUTHPRIV|LOG_ERR, "vasprintf: %m");
