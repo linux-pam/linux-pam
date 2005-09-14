@@ -36,26 +36,14 @@
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
 
-/* some syslogging */
-
-static void _pam_log(int err, const char *format, ...)
-{
-    va_list args;
-
-    va_start(args, format);
-    openlog("PAM-ftp", LOG_CONS|LOG_PID, LOG_AUTH);
-    vsyslog(err, format, args);
-    va_end(args);
-    closelog();
-}
-
 /* argument parsing */
 
 #define PAM_DEBUG_ARG       01
 #define PAM_IGNORE_EMAIL    02
 #define PAM_NO_ANON         04
 
-static int _pam_parse(int argc, const char **argv, char **users)
+static int
+_pam_parse(pam_handle_t *pamh, int argc, const char **argv, char **users)
 {
     int ctrl=0;
 
@@ -70,12 +58,13 @@ static int _pam_parse(int argc, const char **argv, char **users)
 	    *users = x_strdup(6+*argv);
 	    if (*users == NULL) {
 		ctrl |= PAM_NO_ANON;
-		_pam_log(LOG_CRIT, "failed to duplicate user list - anon off");
+		pam_syslog(pamh, LOG_CRIT,
+			   "failed to duplicate user list - anon off");
 	    }
 	} else if (!strcmp(*argv,"ignore")) {
 	    ctrl |= PAM_IGNORE_EMAIL;
 	} else {
-	    _pam_log(LOG_ERR,"pam_parse: unknown option; %s",*argv);
+	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
     }
 
@@ -137,11 +126,11 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
      * address and SUCCEEDS, otherwise it FAILS.
      */
 
-    ctrl = _pam_parse(argc, argv, &users);
+    ctrl = _pam_parse(pamh, argc, argv, &users);
 
     retval = pam_get_user(pamh, &user, NULL);
     if (retval != PAM_SUCCESS || user == NULL) {
-	_pam_log(LOG_ERR, "no user specified");
+	pam_syslog(pamh, LOG_ERR, "no user specified");
 	return PAM_USER_UNKNOWN;
     }
 
@@ -152,7 +141,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     if (anon) {
 	retval = pam_set_item(pamh, PAM_USER, (const void *)user);
 	if (retval != PAM_SUCCESS || user == NULL) {
-	    _pam_log(LOG_ERR, "user resetting failed");
+	    pam_syslog(pamh, LOG_ERR, "user resetting failed");
 	    return PAM_USER_UNKNOWN;
 	}
     }

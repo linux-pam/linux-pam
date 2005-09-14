@@ -80,19 +80,7 @@ struct lastlog {
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/_pam_modutil.h>
-
-/* some syslogging */
-
-static void _log_err(int err, const char *format, ...)
-{
-    va_list args;
-
-    va_start(args, format);
-    openlog("PAM-lastlog", LOG_CONS|LOG_PID, LOG_AUTH);
-    vsyslog(err, format, args);
-    va_end(args);
-    closelog();
-}
+#include <security/pam_ext.h>
 
 /* argument parsing */
 
@@ -103,7 +91,8 @@ static void _log_err(int err, const char *format, ...)
 #define LASTLOG_DEBUG      020  /* send info to syslog(3) */
 #define LASTLOG_QUIET      040  /* keep quiet about things */
 
-static int _pam_parse(int flags, int argc, const char **argv)
+static int
+_pam_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
     int ctrl=(LASTLOG_DATE|LASTLOG_HOST|LASTLOG_LINE);
 
@@ -130,77 +119,12 @@ static int _pam_parse(int flags, int argc, const char **argv)
 	} else if (!strcmp(*argv,"never")) {
 	    ctrl |= LASTLOG_NEVER;
 	} else {
-	    _log_err(LOG_ERR,"unknown option; %s",*argv);
+	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
     }
 
     D(("ctrl = %o", ctrl));
     return ctrl;
-}
-
-/* a front end for conversations */
-
-static int converse(pam_handle_t *pamh, int ctrl, int nargs
-		    , struct pam_message **message
-		    , struct pam_response **response)
-{
-    int retval;
-    const void *void_conv;
-    const struct pam_conv *conv;
-
-    D(("begin to converse"));
-
-    retval = pam_get_item( pamh, PAM_CONV, &void_conv ) ;
-    conv = (const struct pam_conv *)void_conv;
-    if ( retval == PAM_SUCCESS && conv) {
-
-	retval = conv->conv(nargs, ( const struct pam_message ** ) message
-			    , response, conv->appdata_ptr);
-
-	D(("returned from application's conversation function"));
-
-	if (retval != PAM_SUCCESS && (ctrl & LASTLOG_DEBUG) ) {
-	    _log_err(LOG_DEBUG, "conversation failure [%s]"
-		     , pam_strerror(pamh, retval));
-	}
-
-    } else {
-	_log_err(LOG_ERR, "couldn't obtain coversation function [%s]"
-		 , pam_strerror(pamh, retval));
-	if (retval == PAM_SUCCESS)
-		retval = PAM_BAD_ITEM; /* conv was NULL */
-    }
-
-    D(("ready to return from module conversation"));
-
-    return retval;                  /* propagate error status */
-}
-
-static int make_remark(pam_handle_t *pamh, int ctrl, const char *remark)
-{
-    int retval;
-
-    if (!(ctrl & LASTLOG_QUIET)) {
-	struct pam_message msg[1], *mesg[1];
-	struct pam_response *resp=NULL;
-
-	mesg[0] = &msg[0];
-	msg[0].msg_style = PAM_TEXT_INFO;
-	msg[0].msg = remark;
-
-	retval = converse(pamh, ctrl, 1, mesg, &resp);
-
-	msg[0].msg = NULL;
-	if (resp) {
-	    _pam_drop_reply(resp, 1);
-	}
-    } else {
-	D(("keeping quiet"));
-	retval = PAM_SUCCESS;
-    }
-
-    D(("returning %s", pam_strerror(pamh, retval)));
-    return retval;
 }
 
 /*
@@ -217,10 +141,8 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
     /* obtain the last login date and all the relevant info */
     last_fd = open(_PATH_LASTLOG, O_RDWR);
     if (last_fd < 0) {
+	pam_syslog(pamh, LOG_ERR, "unable to open %s: %m", _PATH_LASTLOG);
 	D(("unable to open the %s file", _PATH_LASTLOG));
-	if (announce & LASTLOG_DEBUG) {
-	    _log_err(LOG_DEBUG, "unable to open %s file", _PATH_LASTLOG);
-	}
 	retval = PAM_PERM_DENIED;
     } else {
 	int win;
@@ -236,7 +158,8 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 
 	if ( fcntl(last_fd, F_SETLK, &last_lock) < 0 ) {
 	    D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
-	    _log_err(LOG_ALERT, "%s file is locked/read", _PATH_LASTLOG);
+	    pam_syslog(pamh, LOG_WARNING,
+		       "%s file is locked/read", _PATH_LASTLOG);
 	    sleep(LASTLOG_IGNORE_LOCK_TIME);
 	}
 
@@ -249,7 +172,7 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 	if (!win) {
 	    D(("First login for user uid=%d", _PATH_LASTLOG, uid));
 	    if (announce & LASTLOG_DEBUG) {
-		_log_err(LOG_DEBUG, "creating lastlog for uid %d", uid);
+		pam_syslog(pamh, LOG_DEBUG, "creating lastlog for uid %d", uid);
 	    }
 	    memset(&last_login, 0, sizeof(last_login));
 	}
@@ -309,7 +232,7 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 		    /* display requested combo */
 		    sprintf(remark+at, "%s", LASTLOG_TAIL);
 
-		    retval = make_remark(pamh, announce, remark);
+		    retval = pam_info(pamh, "%s", remark);
 
 		    /* free all the stuff malloced */
 		    _pam_overwrite(remark);
@@ -317,7 +240,7 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 		}
 	    } else if ((!last_login.ll_time) && (announce & LASTLOG_NEVER)) {
 		D(("this is the first time this user has logged in"));
-		retval = make_remark(pamh, announce, LASTLOG_NEVER_WELCOME);
+		retval = pam_info(pamh, "%s", LASTLOG_NEVER_WELCOME);
 	    }
 	} else {
 	    D(("no text was requested"));
@@ -378,7 +301,8 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 
 	    if ( fcntl(last_fd, F_SETLK, &last_lock) < 0 ) {
 		D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
-		_log_err(LOG_ALERT, "%s file is locked/write", _PATH_LASTLOG);
+		pam_syslog(pamh, LOG_WARNING,
+			   "%s file is locked/write", _PATH_LASTLOG);
 		sleep(LASTLOG_IGNORE_LOCK_TIME);
 	    }
 
@@ -417,13 +341,13 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc
      * last login info and then updates the lastlog for that user.
      */
 
-    ctrl = _pam_parse(flags, argc, argv);
+    ctrl = _pam_parse(pamh, flags, argc, argv);
 
     /* which user? */
 
     retval = pam_get_item(pamh, PAM_USER, &user);
     if (retval != PAM_SUCCESS || user == NULL || *(const char *)user == '\0') {
-	_log_err(LOG_NOTICE, "user unknown");
+	pam_syslog(pamh, LOG_NOTICE, "user unknown");
 	return PAM_USER_UNKNOWN;
     }
 
