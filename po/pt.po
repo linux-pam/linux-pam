@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM-pt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-04 22:38+0200\n"
+"POT-Creation-Date: 2005-09-05 15:43+0200\n"
 "PO-Revision-Date: 2005-08-07 00:41+0100\n"
 "Last-Translator: Antonio Cardoso Martins <digiplan@netvisao.pt>\n"
 "Language-Team: portuguese\n"
@@ -56,55 +56,117 @@ msgstr ""
 "%s: N\303\243o foi poss\303\255vel reiniciar todos os utilizadores para n\303"
 "\243o zero\n"
 
-#: modules/pam_selinux/pam_selinux.c:130
+#: modules/pam_selinux/pam_selinux.c:127
 #, c-format
 msgid "Your default context is %s. \n"
 msgstr "O seu contexto pr\303\251-definido \303\251 %s: \n"
 
-#: modules/pam_selinux/pam_selinux.c:133
+#: modules/pam_selinux/pam_selinux.c:130
 msgid "Do you want to choose a different one? [n]"
 msgstr "Pretende escolher um diferente? [n]"
 
-#: modules/pam_selinux/pam_selinux.c:140
+#: modules/pam_selinux/pam_selinux.c:137
 msgid "Enter number of choice: "
 msgstr "Digite o n\303\272mero da escolha: "
 
-#: modules/pam_selinux/pam_selinux.c:192
+#: modules/pam_selinux/pam_selinux.c:164 modules/pam_selinux/pam_selinux.c:245
+#: modules/pam_selinux/pam_selinux.c:352
+#, c-format
+msgid "%s: bogus conversation function"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:168 modules/pam_selinux/pam_selinux.c:249
+#: modules/pam_selinux/pam_selinux.c:356
+#, c-format
+msgid "%s: no conversation function"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:187
 msgid "Would you like to enter a security context? [y] "
 msgstr "Pretende introduzir um contexto de seguran\303\247a? [y]"
 
-#: modules/pam_selinux/pam_selinux.c:209
+#: modules/pam_selinux/pam_selinux.c:204
 msgid "role: "
 msgstr "papel: "
 
-#: modules/pam_selinux/pam_selinux.c:217
+#: modules/pam_selinux/pam_selinux.c:212
 msgid "type: "
 msgstr "tipo: "
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:222
 msgid "level: "
 msgstr "n\303\255vel: "
 
-#: modules/pam_selinux/pam_selinux.c:241
+#: modules/pam_selinux/pam_selinux.c:236
 msgid "Not a valid security context"
 msgstr "N\303\243o \303\251 um contexto de seguran\303\247a v\303\241lido"
 
-#: modules/pam_selinux/pam_selinux.c:476
+#: modules/pam_selinux/pam_selinux.c:272
+#, c-format
+msgid "Warning!  Could not relabel %s with %s, not relabeling.\n"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:296
+#, c-format
+msgid "Warning!  Could not get current context for %s, not relabeling."
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:303
+#, c-format
+msgid "Warning!  Could not get new context for %s, not relabeling."
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:313
+#, c-format
+msgid "Warning!  Could not relabel %s with %s, not relabeling.%s"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:429
+#, c-format
+msgid "Unable to get valid context for %s"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:433
+#, c-format
+msgid "Unable to get valid context for %s, No valid tty"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:465
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Contexto de Seguran\303\247a %s Atribu\303\255do"
 
-#: modules/pam_selinux/pam_selinux.c:596
+#: modules/pam_selinux/pam_selinux.c:469
+#, c-format
+msgid "Error!  Unable to set %s executable context %s."
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:475
+#, fuzzy, c-format
+msgid "%s: set %s security context to %s"
+msgstr "N\303\243o \303\251 um contexto de seguran\303\247a v\303\241lido"
+
+#: modules/pam_selinux/pam_selinux.c:518
+#, c-format
+msgid "Error!  Unable to set executable context %s."
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:524
+#, c-format
+msgid "%s: setcontext back to orginal"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:585
 #, c-format
 msgid "failed to initialize PAM\n"
 msgstr "falha ao inicializar o PAM\n"
 
-#: modules/pam_selinux/pam_selinux.c:602
+#: modules/pam_selinux/pam_selinux.c:591
 #, c-format
 msgid "failed to pam_set_item()\n"
 msgstr "falha em pam_set_item()\n"
 
-#: modules/pam_selinux/pam_selinux.c:627
+#: modules/pam_selinux/pam_selinux.c:616
 #, c-format
 msgid "login: failure forking: %s"
 msgstr "sess\303\243o: falha ao executar o forking: %s"
@@ -209,7 +271,37 @@ msgstr "Digite novamente a nova palavra passe de STRESS: "
 msgid "Sorry, passwords do not match."
 msgstr "A palavra passe de NIS n\303\243o pode ser alterada."
 
+#: modules/pam_cracklib/pam_cracklib.c:379
+msgid "is the same as the old one"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:390
+msgid "is a palindrome"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:393
+msgid "case changes only"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:396
+msgid "is too similar to the old one"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:399
+msgid "is too simple"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:402
+msgid "is rotated"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:437
+#, fuzzy
+msgid "has been already used"
+msgstr "A palavra passe j\303\241 foi anteriormente utilizada. Escolha outra."
+
 #: modules/pam_cracklib/pam_cracklib.c:489
+#: modules/pam_cracklib/pam_cracklib.c:617
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr ""

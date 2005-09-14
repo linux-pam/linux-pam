@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pa\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-04 22:38+0200\n"
+"POT-Creation-Date: 2005-09-05 15:43+0200\n"
 "PO-Revision-Date: 2005-08-06 08:34+0530\n"
 "Last-Translator: Amanpreet Singh Alam[\340\250\206\340\250\262\340\250\256] "
 "<amanpreetalam@yahoo.com>\n"
@@ -96,7 +96,7 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:130
+#: modules/pam_selinux/pam_selinux.c:127
 #, c-format
 msgid "Your default context is %s. \n"
 msgstr ""
@@ -104,7 +104,7 @@ msgstr ""
 "\250\256\340\251\201\340\251\261\340\250\262 \340\250\252\340\250\260\340\250"
 "\270\340\251\260\340\250\227 %s \340\250\271\340\251\210 \n"
 
-#: modules/pam_selinux/pam_selinux.c:133
+#: modules/pam_selinux/pam_selinux.c:130
 msgid "Do you want to choose a different one? [n]"
 msgstr ""
 "\340\250\225\340\251\200 \340\250\244\340\251\201\340\250\270\340\251\200\340"
@@ -113,13 +113,25 @@ msgstr ""
 "\250\260\340\250\250\340\251\200 \340\250\232\340\250\276\340\250\271\340\251"
 "\201\340\251\260\340\250\246\340\251\207 \340\250\271\340\251\213? [n]"
 
-#: modules/pam_selinux/pam_selinux.c:140
+#: modules/pam_selinux/pam_selinux.c:137
 msgid "Enter number of choice: "
 msgstr ""
 "\340\250\232\340\251\213\340\250\243 \340\250\246\340\250\276 \340\250\250"
 "\340\251\260\340\250\254\340\250\260 \340\250\246\340\250\277\340\250\223: "
 
-#: modules/pam_selinux/pam_selinux.c:192
+#: modules/pam_selinux/pam_selinux.c:164 modules/pam_selinux/pam_selinux.c:245
+#: modules/pam_selinux/pam_selinux.c:352
+#, c-format
+msgid "%s: bogus conversation function"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:168 modules/pam_selinux/pam_selinux.c:249
+#: modules/pam_selinux/pam_selinux.c:356
+#, c-format
+msgid "%s: no conversation function"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:187
 msgid "Would you like to enter a security context? [y] "
 msgstr ""
 "\340\250\225\340\251\200 \340\250\244\340\251\201\340\250\270\340\251\200\340"
@@ -129,19 +141,19 @@ msgstr ""
 "\340\250\276 \340\250\232\340\250\276\340\250\271\340\251\201\340\251\260\340"
 "\250\246\340\251\207 \340\250\271\340\251\213? [y] "
 
-#: modules/pam_selinux/pam_selinux.c:209
+#: modules/pam_selinux/pam_selinux.c:204
 msgid "role: "
 msgstr "\340\250\260\340\251\213\340\250\262: "
 
-#: modules/pam_selinux/pam_selinux.c:217
+#: modules/pam_selinux/pam_selinux.c:212
 msgid "type: "
 msgstr "\340\250\225\340\250\277\340\250\270\340\250\256: "
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:222
 msgid "level: "
 msgstr "\340\250\252\340\251\261\340\250\247\340\250\260: "
 
-#: modules/pam_selinux/pam_selinux.c:241
+#: modules/pam_selinux/pam_selinux.c:236
 msgid "Not a valid security context"
 msgstr ""
 "\340\250\207\340\251\261\340\250\225 \340\250\240\340\251\200\340\250\225 "
@@ -149,12 +161,66 @@ msgstr ""
 "\250\206 \340\250\252\340\250\260\340\250\270\340\251\260\340\250\227 \340"
 "\250\250\340\250\271\340\251\200\340\250\202"
 
-#: modules/pam_selinux/pam_selinux.c:476
+#: modules/pam_selinux/pam_selinux.c:272
+#, c-format
+msgid "Warning!  Could not relabel %s with %s, not relabeling.\n"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:296
+#, c-format
+msgid "Warning!  Could not get current context for %s, not relabeling."
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:303
+#, c-format
+msgid "Warning!  Could not get new context for %s, not relabeling."
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:313
+#, c-format
+msgid "Warning!  Could not relabel %s with %s, not relabeling.%s"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:429
+#, c-format
+msgid "Unable to get valid context for %s"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:433
+#, c-format
+msgid "Unable to get valid context for %s, No valid tty"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:465
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:596
+#: modules/pam_selinux/pam_selinux.c:469
+#, c-format
+msgid "Error!  Unable to set %s executable context %s."
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:475
+#, fuzzy, c-format
+msgid "%s: set %s security context to %s"
+msgstr ""
+"\340\250\207\340\251\261\340\250\225 \340\250\240\340\251\200\340\250\225 "
+"\340\250\270\340\251\201\340\250\260\340\251\261\340\250\226\340\250\277\340"
+"\250\206 \340\250\252\340\250\260\340\250\270\340\251\260\340\250\227 \340"
+"\250\250\340\250\271\340\251\200\340\250\202"
+
+#: modules/pam_selinux/pam_selinux.c:518
+#, c-format
+msgid "Error!  Unable to set executable context %s."
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:524
+#, c-format
+msgid "%s: setcontext back to orginal"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:585
 #, c-format
 msgid "failed to initialize PAM\n"
 msgstr ""
@@ -162,14 +228,14 @@ msgstr ""
 "\340\250\260\340\250\250 \340\250\262\340\250\210 \340\250\253\340\251\207"
 "\340\250\262\n"
 
-#: modules/pam_selinux/pam_selinux.c:602
+#: modules/pam_selinux/pam_selinux.c:591
 #, c-format
 msgid "failed to pam_set_item()\n"
 msgstr ""
 "pam_set_item() \340\250\262\340\250\210 \340\250\253\340\251\207\340\250"
 "\262\n"
 
-#: modules/pam_selinux/pam_selinux.c:627
+#: modules/pam_selinux/pam_selinux.c:616
 #, c-format
 msgid "login: failure forking: %s"
 msgstr ""
@@ -327,7 +393,43 @@ msgstr ""
 "\250\244\340\250\276 \340\250\234\340\250\276 \340\250\270\340\250\225\340"
 "\250\277\340\250\206 \340\250\271\340\251\210\340\245\244"
 
+#: modules/pam_cracklib/pam_cracklib.c:379
+msgid "is the same as the old one"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:390
+msgid "is a palindrome"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:393
+msgid "case changes only"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:396
+msgid "is too similar to the old one"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:399
+msgid "is too simple"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:402
+msgid "is rotated"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:437
+#, fuzzy
+msgid "has been already used"
+msgstr ""
+"\340\250\227\340\251\201\340\250\252\340\250\244-\340\250\225\340\251\213\340"
+"\250\241 \340\250\252\340\250\271\340\250\277\340\250\262\340\250\276\340\250"
+"\202 \340\250\265\340\251\200 \340\250\265\340\250\260\340\250\244\340\250"
+"\277\340\250\206 \340\250\227\340\250\277\340\250\206 \340\250\271\340\251"
+"\210\340\245\244 \340\250\265\340\251\261\340\250\226\340\250\260\340\250"
+"\276 \340\250\232\340\251\201\340\250\243\340\251\213\340\245\244"
+
 #: modules/pam_cracklib/pam_cracklib.c:489
+#: modules/pam_cracklib/pam_cracklib.c:617
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr ""

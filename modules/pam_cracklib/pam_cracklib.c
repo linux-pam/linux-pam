@@ -376,7 +376,7 @@ static const char * password_check(struct cracklib_options *opt, const char *old
 	char *oldmono, *newmono, *wrapped;
 
 	if (strcmp(new, old) == 0) {
-        msg = "is the same as the old one";
+        msg = _("is the same as the old one");
         return msg;
     }
 
@@ -387,19 +387,19 @@ static const char * password_check(struct cracklib_options *opt, const char *old
 	strcat (wrapped, oldmono);
 
 	if (palindrome(newmono))
-		msg = "is a palindrome";
+		msg = _("is a palindrome");
 
 	if (!msg && strcmp(oldmono, newmono) == 0)
-		msg = "case changes only";
+		msg = _("case changes only");
 
 	if (!msg && similar(opt, oldmono, newmono))
-		msg = "is too similar to the old one";
+		msg = _("is too similar to the old one");
 
 	if (!msg && simple(opt, new))
-		msg = "is too simple";
+		msg = _("is too simple");
 
 	if (!msg && strstr(wrapped, newmono))
-		msg = "is rotated";
+		msg = _("is rotated");
 
 	memset(newmono, 0, strlen(newmono));
 	memset(oldmono, 0, strlen(oldmono));
@@ -434,7 +434,7 @@ static const char * check_old_password(const char *forwho, const char *newpass)
 			s_pas   = strtok(NULL, ":,");
 			while (s_pas != NULL) {
 				if (!strcmp(crypt(newpass, s_pas), s_pas)) {
-					msg = "has been already used";
+					msg = _("has been already used");
 					break;
 				}
 				s_pas = strtok(NULL, ":,");
@@ -614,7 +614,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
             if ((crack_msg = FascistCheck(token1,options.cracklib_dictpath[0] == '\0'?NULL:options.cracklib_dictpath))) {
                 if (ctrl && PAM_DEBUG_ARG)
                     pam_syslog(pamh,LOG_DEBUG,"bad password: %s",crack_msg);
-                pam_error(pamh, "BAD PASSWORD: %s", crack_msg);
+                pam_error(pamh, _("BAD PASSWORD: %s"), crack_msg);
                 if (getuid() || (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
                     retval = PAM_AUTHTOK_ERR;
                 else
