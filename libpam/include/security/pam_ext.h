@@ -52,13 +52,13 @@ extern int PAM_FORMAT((printf, 4, 5)) PAM_NONNULL((1,4))
 pam_prompt (const pam_handle_t *pamh, int style, char **response,
 	    const char *fmt, ...);
 
-#define pam_error(pamh, fmt, args...) \
-	pam_prompt(pamh, PAM_ERROR_MSG, NULL, fmt, args)
+#define pam_error(pamh, fmt...) \
+	pam_prompt(pamh, PAM_ERROR_MSG, NULL, fmt)
 #define pam_verror(pamh, fmt, args) \
 	pam_vprompt(pamh, PAM_ERROR_MSG, NULL, fmt, args)
 
-#define pam_info(pamh, fmt, args...) pam_prompt(pamh, PAM_TEXT_INFO, NULL, fmt, args)
-#define pam_vinfo(pamh, fmt, ...) pam_vprompt(pamh, PAM_TEXT_INFO, NULL, fmt, args)
+#define pam_info(pamh, fmt...) pam_prompt(pamh, PAM_TEXT_INFO, NULL, fmt)
+#define pam_vinfo(pamh, fmt, args) pam_vprompt(pamh, PAM_TEXT_INFO, NULL, fmt, args)
 
 #endif
 
