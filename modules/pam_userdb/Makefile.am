@@ -22,5 +22,4 @@ if HAVE_LIBDB
   securelib_LTLIBRARIES = pam_userdb.la
 endif
 
-pam_userdb_la_SOURCES = pam_userdb.c conv.c
 noinst_HEADERS = pam_userdb.h

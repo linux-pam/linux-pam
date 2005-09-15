@@ -46,22 +46,45 @@
 #define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
+#include <security/pam_ext.h>
+#include <security/_pam_macros.h>
 
-/* some syslogging */
-
-static void _pam_log(int err, const char *format, ...)
+/*
+ * Conversation function to obtain the user's password
+ */
+static int
+obtain_authtok(pam_handle_t *pamh)
 {
-    va_list args;
+    char *resp;
+    const void *item;
+    int retval;
 
-    va_start(args, format);
-    openlog(MODULE_NAME, LOG_CONS|LOG_PID, LOG_AUTH);
-    vsyslog(err, format, args);
-    va_end(args);
-    closelog();
+    retval = pam_prompt(pamh, PAM_PROMPT_ECHO_OFF, &resp, "Password: ");
+
+    if (retval != PAM_SUCCESS)
+	return retval;
+
+    if (resp == NULL)
+	return PAM_AUTHTOK_RECOVER_ERR;
+
+    /* set the auth token */
+    retval = pam_set_item(pamh, PAM_AUTHTOK, resp);
+
+    /* clean it up */
+    _pam_overwrite(resp);
+    _pam_drop(resp);
+
+    if ( (retval != PAM_SUCCESS) ||
+	 (retval = pam_get_item(pamh, PAM_AUTHTOK, &item))
+	 != PAM_SUCCESS ) {
+	return retval;
+    }
+
+    return retval;
 }
 
 static int
-_pam_parse (int argc, const char **argv,
+_pam_parse (pam_handle_t *pamh, int argc, const char **argv,
 	    char **database, char **cryptmode)
 {
   int ctrl;
@@ -88,21 +111,19 @@ _pam_parse (int argc, const char **argv,
 	{
 	  *database = strdup((*argv) + 3);
 	  if ((*database == NULL) || (strlen (*database) == 0))
-	    _pam_log(LOG_ERR,
-		     "pam_parse: could not parse argument \"%s\"",
-		     *argv);
+	    pam_syslog(pamh, LOG_ERR,
+		       "could not parse argument \"%s\"", *argv);
 	}
       else if (!strncasecmp(*argv,"crypt=", 6))
 	{
 	  *cryptmode = strdup((*argv) + 6);
 	  if ((*cryptmode == NULL) || (strlen (*cryptmode) == 0))
-	    _pam_log(LOG_ERR,
-		     "pam_parse: could not parse argument \"%s\"",
-		     *argv);
+	    pam_syslog(pamh, LOG_ERR,
+		       "could not parse argument \"%s\"", *argv);
 	}
       else
 	{
-	  _pam_log(LOG_ERR, "pam_parse: unknown option; %s", *argv);
+	  pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
     }
 
@@ -120,7 +141,7 @@ _pam_parse (int argc, const char **argv,
  *	-2  = System error
  */
 static int
-user_lookup (const char *database, const char *cryptmode,
+user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	     const char *user, const char *pass, int ctrl)
 {
     DBM *dbm;
@@ -129,19 +150,20 @@ user_lookup (const char *database, const char *cryptmode,
     /* Open the DB file. */
     dbm = dbm_open(database, O_RDONLY, 0644);
     if (dbm == NULL) {
-	_pam_log(LOG_ERR, "user_lookup: could not open database `%s'",
-		 database);
+	pam_syslog(pamh, LOG_ERR,
+		   "user_lookup: could not open database `%s': %m", database);
 	return -2;
     }
 
     /* dump out the database contents for debugging */
     if (ctrl & PAM_DUMP_ARG) {
-	_pam_log(LOG_INFO, "Database dump:");
+	pam_syslog(pamh, LOG_INFO, "Database dump:");
 	for (key = dbm_firstkey(dbm);  key.dptr != NULL;
 	     key = dbm_nextkey(dbm)) {
 	    data = dbm_fetch(dbm, key);
-	    _pam_log(LOG_INFO, "key[len=%d] = `%s', data[len=%d] = `%s'",
-		     key.dsize, key.dptr, data.dsize, data.dptr);
+	    pam_syslog(pamh, LOG_INFO,
+		       "key[len=%d] = `%s', data[len=%d] = `%s'",
+		       key.dsize, key.dptr, data.dsize, data.dptr);
 	}
     }
 
@@ -164,8 +186,9 @@ user_lookup (const char *database, const char *cryptmode,
     }
 
     if (ctrl & PAM_DEBUG_ARG) {
-	_pam_log(LOG_INFO, "password in database is [%p]`%.*s', len is %d",
-		 data.dptr, data.dsize, (char *) data.dptr, data.dsize);
+	pam_syslog(pamh, LOG_INFO,
+		   "password in database is [%p]`%.*s', len is %d",
+		   data.dptr, data.dsize, (char *) data.dptr, data.dsize);
     }
 
     if (data.dptr != NULL) {
@@ -199,7 +222,7 @@ user_lookup (const char *database, const char *cryptmode,
 	    } else {
 	      compare = -2;
 	      if (ctrl & PAM_DEBUG_ARG) {
-		_pam_log(LOG_INFO, "crypt() returned NULL");
+		pam_syslog(pamh, LOG_INFO, "crypt() returned NULL");
 	      }
 	    };
 
@@ -221,9 +244,9 @@ user_lookup (const char *database, const char *cryptmode,
 
 	  if (cryptmode && strncasecmp(cryptmode, "none", 4) 
 		&& (ctrl & PAM_DEBUG_ARG)) {
-	    _pam_log(LOG_INFO, "invalid value for crypt parameter: %s",
-		     cryptmode);
-	    _pam_log(LOG_INFO, "defaulting to plaintext password mode");
+	    pam_syslog(pamh, LOG_INFO, "invalid value for crypt parameter: %s",
+		       cryptmode);
+	    pam_syslog(pamh, LOG_INFO, "defaulting to plaintext password mode");
 	  }
 
 	}
@@ -237,8 +260,7 @@ user_lookup (const char *database, const char *cryptmode,
         int saw_user = 0;
 
 	if (ctrl & PAM_DEBUG_ARG) {
-	    _pam_log(LOG_INFO, "error returned by dbm_fetch: %s",
-		     strerror(errno));
+	    pam_syslog(pamh, LOG_INFO, "error returned by dbm_fetch: %m");
 	}
 
 	/* probably we should check dbm_error() here */
@@ -294,9 +316,9 @@ user_lookup (const char *database, const char *cryptmode,
 
 /* --- authentication management functions (only) --- */
 
-PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh, int flags,
-			int argc, const char **argv)
+PAM_EXTERN int
+pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
+		    int argc, const char **argv)
 {
      const char *username;
      const void *password;
@@ -305,26 +327,24 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
      int retval = PAM_AUTH_ERR, ctrl;
 
      /* parse arguments */
-     ctrl = _pam_parse(argc, argv, &database, &cryptmode);
+     ctrl = _pam_parse(pamh, argc, argv, &database, &cryptmode);
      if ((database == NULL) || (strlen(database) == 0)) {
-        if (ctrl & PAM_DEBUG_ARG)
-            _pam_log(LOG_DEBUG,"can not get the database name");
+        pam_syslog(pamh, LOG_ERR, "can not get the database name");
         return PAM_SERVICE_ERR;
      }
 
      /* Get the username */
      retval = pam_get_user(pamh, &username, NULL);
      if ((retval != PAM_SUCCESS) || (!username)) {
-        if (ctrl & PAM_DEBUG_ARG)
-            _pam_log(LOG_DEBUG,"can not get the username");
+        pam_syslog(pamh, LOG_ERR, "can not get the username");
         return PAM_SERVICE_ERR;
      }
 
      /* Converse just to be sure we have a password */
-     retval = conversation(pamh);
+     retval = obtain_authtok(pamh);
      if (retval != PAM_SUCCESS) {
-	 _pam_log(LOG_ERR, "could not obtain password for `%s'",
-		  username);
+	 pam_syslog(pamh, LOG_ERR, "could not obtain password for `%s'",
+		    username);
 	 return PAM_CONV_ERR;
      }
 
@@ -335,10 +355,10 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
       * do so again. */
      retval = pam_get_item(pamh, PAM_AUTHTOK, &password);
      if ((retval != PAM_SUCCESS) && ((ctrl & PAM_USE_AUTHTOK_ARG) != 0)) {
-        retval = conversation(pamh);
+        retval = obtain_authtok(pamh);
         if (retval != PAM_SUCCESS) {
-           _pam_log(LOG_ERR, "could not obtain password for `%s'",
-                    username);
+           pam_syslog(pamh, LOG_ERR, "could not obtain password for `%s'",
+		      username);
            return PAM_CONV_ERR;
         }
      }
@@ -346,39 +366,39 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
      /* Get the password */
      retval = pam_get_item(pamh, PAM_AUTHTOK, &password);
      if (retval != PAM_SUCCESS) {
-	 _pam_log(LOG_ERR, "Could not retrieve user's password");
+	 pam_syslog(pamh, LOG_ERR, "Could not retrieve user's password");
 	 return -2;
      }
 
      if (ctrl & PAM_DEBUG_ARG)
-	 _pam_log(LOG_INFO, "Verify user `%s' with password `%s'",
-		  username, password);
+	 pam_syslog(pamh, LOG_INFO, "Verify user `%s' with password `%s'",
+		    username, (const char *)password);
 
      /* Now use the username to look up password in the database file */
-     retval = user_lookup(database, cryptmode, username, password, ctrl);
+     retval = user_lookup(pamh, database, cryptmode, username, password, ctrl);
      switch (retval) {
 	 case -2:
 	     /* some sort of system error. The log was already printed */
 	     return PAM_SERVICE_ERR;
 	 case -1:
 	     /* incorrect password */
-	     _pam_log(LOG_WARNING,
-		      "user `%s' denied access (incorrect password)",
-		      username);
+	     pam_syslog(pamh, LOG_WARNING,
+			"user `%s' denied access (incorrect password)",
+			username);
 	     return PAM_AUTH_ERR;
 	 case 1:
 	     /* the user does not exist in the database */
 	     if (ctrl & PAM_DEBUG_ARG)
-		 _pam_log(LOG_NOTICE, "user `%s' not found in the database",
-			  username);
+		 pam_syslog(pamh, LOG_NOTICE,
+			    "user `%s' not found in the database", username);
 	     return PAM_USER_UNKNOWN;
 	 case 0:
 	     /* Otherwise, the authentication looked good */
-	     _pam_log(LOG_NOTICE, "user '%s' granted acces", username);
+	     pam_syslog(pamh, LOG_NOTICE, "user '%s' granted acces", username);
 	     return PAM_SUCCESS;
 	 default:
 	     /* we don't know anything about this return value */
-	     _pam_log(LOG_ERR,
+	     pam_syslog(pamh, LOG_ERR,
 		      "internal module error (retval = %d, user = `%s'",
 		      retval, username);
 	     return PAM_SERVICE_ERR;
@@ -388,15 +408,16 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
      return PAM_IGNORE;
 }
 
-PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh, int flags,
-		   int argc, const char **argv)
+PAM_EXTERN int
+pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
+	       int argc UNUSED, const char **argv UNUSED)
 {
     return PAM_SUCCESS;
 }
 
-PAM_EXTERN
-int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
+PAM_EXTERN int
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
+		 int argc, const char **argv)
 {
     const char *username;
     char *database = NULL;
@@ -404,18 +425,17 @@ int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
     int retval = PAM_AUTH_ERR, ctrl;
 
     /* parse arguments */
-    ctrl = _pam_parse(argc, argv, &database, &cryptmode);
+    ctrl = _pam_parse(pamh, argc, argv, &database, &cryptmode);
 
     /* Get the username */
     retval = pam_get_user(pamh, &username, NULL);
     if ((retval != PAM_SUCCESS) || (!username)) {
-        if (ctrl & PAM_DEBUG_ARG)
-            _pam_log(LOG_DEBUG,"can not get the username");
+        pam_syslog(pamh, LOG_ERR,"can not get the username");
         return PAM_SERVICE_ERR;
     }
 
     /* Now use the username to look up password in the database file */
-    retval = user_lookup(database, cryptmode, username, "", ctrl);
+    retval = user_lookup(pamh, database, cryptmode, username, "", ctrl);
     switch (retval) {
         case -2:
 	    /* some sort of system error. The log was already printed */
@@ -431,9 +451,9 @@ int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	    return PAM_USER_UNKNOWN;
         default:
 	    /* we don't know anything about this return value */
-	    _pam_log(LOG_ERR,
-		     "internal module error (retval = %d, user = `%s'",
-		     retval, username);
+	    pam_syslog(pamh, LOG_ERR,
+		       "internal module error (retval = %d, user = `%s'",
+		       retval, username);
         return PAM_SERVICE_ERR;
     }
 

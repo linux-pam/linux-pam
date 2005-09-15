@@ -22,9 +22,6 @@
 #define MODULE_NAME	"pam_userdb"
 #endif /* MODULE_NAME */
 
-/* function prototypes */
-int conversation(pam_handle_t *);
-
 #endif /* _PAM_USERSDB_H */
 
 /*
