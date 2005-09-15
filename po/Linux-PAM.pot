@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-14 19:09+0200\n"
+"POT-Creation-Date: 2005-09-15 11:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,39 +16,39 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: modules/pam_tally/pam_tally.c:730
+#: modules/pam_tally/pam_tally.c:738
 msgid "Authentication error"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:731
+#: modules/pam_tally/pam_tally.c:739
 msgid "Service error"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:732
+#: modules/pam_tally/pam_tally.c:740
 msgid "Unknown user"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:733
+#: modules/pam_tally/pam_tally.c:741
 msgid "Unknown error"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:757
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:751
+#: modules/pam_tally/pam_tally.c:761
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:763
+#: modules/pam_tally/pam_tally.c:773
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:836
+#: modules/pam_tally/pam_tally.c:846
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""

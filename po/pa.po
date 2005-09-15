@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pa\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-14 19:09+0200\n"
+"POT-Creation-Date: 2005-09-15 11:54+0200\n"
 "PO-Revision-Date: 2005-08-06 08:34+0530\n"
 "Last-Translator: Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>\n"
 "Language-Team: Panjabi <pa@li.org>\n"
@@ -18,40 +18,40 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: modules/pam_tally/pam_tally.c:730
+#: modules/pam_tally/pam_tally.c:738
 msgid "Authentication error"
 msgstr "ਪਰਮਾਣਕਿਤਾ ਗਲਤੀ"
 
-#: modules/pam_tally/pam_tally.c:731
+#: modules/pam_tally/pam_tally.c:739
 msgid "Service error"
 msgstr "ਸੇਵਾ ਗਲਤੀ"
 
-#: modules/pam_tally/pam_tally.c:732
+#: modules/pam_tally/pam_tally.c:740
 msgid "Unknown user"
 msgstr "ਅਣਜਾਣ ਉਪਭੋਗੀ"
 
-#: modules/pam_tally/pam_tally.c:733
+#: modules/pam_tally/pam_tally.c:741
 msgid "Unknown error"
 msgstr "ਅਣਜਾਣੀ ਗਲਤੀ"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:757
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: --reset= ਲਈ ਗਲਤ ਨੰਬਰ ਦਿੱਤਾ ਗਿਆ\n"
 
-#: modules/pam_tally/pam_tally.c:751
+#: modules/pam_tally/pam_tally.c:761
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: ਬੇਪਛਾਣ ਚੋਣ %s\n"
 
-#: modules/pam_tally/pam_tally.c:763
+#: modules/pam_tally/pam_tally.c:773
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:836
+#: modules/pam_tally/pam_tally.c:846
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""

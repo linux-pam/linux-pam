@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM TBD\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-14 19:09+0200\n"
+"POT-Creation-Date: 2005-09-15 11:54+0200\n"
 "PO-Revision-Date: 2005-08-23 15:22+0200\n"
 "Last-Translator: Piotr Bolek <pb@7bulls.com>\n"
 "Language-Team: Polish <i18n@suse.de>\n"
@@ -15,40 +15,40 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
 
-#: modules/pam_tally/pam_tally.c:730
+#: modules/pam_tally/pam_tally.c:738
 msgid "Authentication error"
 msgstr "Błąd autoryzacji"
 
-#: modules/pam_tally/pam_tally.c:731
+#: modules/pam_tally/pam_tally.c:739
 msgid "Service error"
 msgstr "Błąd usługi"
 
-#: modules/pam_tally/pam_tally.c:732
+#: modules/pam_tally/pam_tally.c:740
 msgid "Unknown user"
 msgstr "Nieznany użytkownik"
 
-#: modules/pam_tally/pam_tally.c:733
+#: modules/pam_tally/pam_tally.c:741
 msgid "Unknown error"
 msgstr "Nieznany błąd"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:757
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Błędny numer podany w opcji --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:751
+#: modules/pam_tally/pam_tally.c:761
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Nierozpoznana opcja %s\n"
 
-#: modules/pam_tally/pam_tally.c:763
+#: modules/pam_tally/pam_tally.c:773
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:836
+#: modules/pam_tally/pam_tally.c:846
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Nie można zresetować wszystkich użytkowników\n"

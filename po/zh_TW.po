@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-14 19:09+0200\n"
+"POT-Creation-Date: 2005-09-15 11:54+0200\n"
 "PO-Revision-Date: 2005-08-18 12:12+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -15,40 +15,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: modules/pam_tally/pam_tally.c:730
+#: modules/pam_tally/pam_tally.c:738
 msgid "Authentication error"
 msgstr "驗證錯誤"
 
-#: modules/pam_tally/pam_tally.c:731
+#: modules/pam_tally/pam_tally.c:739
 msgid "Service error"
 msgstr "服務錯誤"
 
-#: modules/pam_tally/pam_tally.c:732
+#: modules/pam_tally/pam_tally.c:740
 msgid "Unknown user"
 msgstr "未知的使用者"
 
-#: modules/pam_tally/pam_tally.c:733
+#: modules/pam_tally/pam_tally.c:741
 msgid "Unknown error"
 msgstr "未知的錯誤"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:757
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: 不良的號碼提供至 --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:751
+#: modules/pam_tally/pam_tally.c:761
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: 未識別的選項 %s\n"
 
-#: modules/pam_tally/pam_tally.c:763
+#: modules/pam_tally/pam_tally.c:773
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:836
+#: modules/pam_tally/pam_tally.c:846
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: 無法將所有使用者重新設定為非零\n"
