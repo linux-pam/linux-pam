@@ -327,6 +327,9 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 	pamh->former.fail_user = retval;
 
     if (resp) {
+	if (retval != PAM_SUCCESS)
+	    pam_syslog(pamh, LOG_WARNING,
+		       "unexpected response from failed conversation function");
 	/*
 	 * note 'resp' is allocated by the application and is
          * correctly free()'d here
