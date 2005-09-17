@@ -587,7 +587,7 @@ extract_modulename(const char *mod_path)
   if (p == NULL)
     p = mod_path;
   else
-    *p++;
+    p++;
 
   if ((retval = strdup (p)) == NULL)
     return NULL;

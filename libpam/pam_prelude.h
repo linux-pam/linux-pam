@@ -10,7 +10,7 @@
 
 #include <security/_pam_types.h>
 
-void prelude_send_alert(const pam_handle_t *pamh, int authval);
+void prelude_send_alert(pam_handle_t *pamh, int authval);
 
 #endif /* _SECURITY_PAM_PRELUDE_H */
 

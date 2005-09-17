@@ -382,7 +382,7 @@ pam_alert_prelude(const char *msg, void *data,
 }
 
 static int
-pam_alert_prelude_init(const pam_handle_t *pamh, int authval)
+pam_alert_prelude_init(pam_handle_t *pamh, int authval)
 {
 
         int ret;
@@ -436,7 +436,7 @@ pam_alert_prelude_init(const pam_handle_t *pamh, int authval)
 }
 
 void
-prelude_send_alert(const pam_handle_t *pamh, int authval)
+prelude_send_alert(pam_handle_t *pamh, int authval)
 {
 
         int ret;
