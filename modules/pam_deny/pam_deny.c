@@ -14,6 +14,8 @@
  * modules include file to define their prototypes.
  */
 
+#include "config.h"
+
 #define PAM_SM_AUTH
 #define PAM_SM_ACCOUNT
 #define PAM_SM_SESSION
@@ -23,46 +25,52 @@
 
 /* --- authentication management functions --- */
 
-PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh,int flags,int argc
-			,const char **argv)
+PAM_EXTERN int
+pam_sm_authenticate(pam_handle_t *pamh UNUSED, int flags UNUSED,
+		    int argc UNUSED, const char **argv UNUSED)
 {
      return PAM_AUTH_ERR;
 }
 
-PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh,int flags,int argc
-		   ,const char **argv)
+PAM_EXTERN int
+pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
+	       int argc UNUSED, const char **argv UNUSED)
 {
-     return PAM_CRED_UNAVAIL;
+     return PAM_CRED_ERR;
 }
 
 /* --- account management functions --- */
 
-PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,int flags,int argc
-		     ,const char **argv)
+PAM_EXTERN int
+pam_sm_acct_mgmt(pam_handle_t *pamh UNUSED, int flags UNUSED,
+		 int argc UNUSED, const char **argv UNUSED)
 {
-     return PAM_ACCT_EXPIRED;
+     return PAM_AUTH_ERR;
 }
 
 /* --- password management --- */
 
-PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh,int flags,int argc
-		     ,const char **argv)
+PAM_EXTERN int
+pam_sm_chauthtok(pam_handle_t *pamh UNUSED, int flags UNUSED,
+		 int argc UNUSED, const char **argv UNUSED)
 {
      return PAM_AUTHTOK_ERR;
 }
 
 /* --- session management --- */
 
-PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh,int flags,int argc
-			,const char **argv)
+PAM_EXTERN int
+pam_sm_open_session(pam_handle_t *pamh UNUSED, int flags UNUSED,
+		    int argc UNUSED, const char **argv UNUSED)
 {
-    return PAM_SYSTEM_ERR;
+    return PAM_SESSION_ERR;
 }
 
-PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh,int flags,int argc
-			 ,const char **argv)
+PAM_EXTERN int
+pam_sm_close_session(pam_handle_t *pamh UNUSED, int flags UNUSED,
+		     int argc UNUSED, const char **argv UNUSED)
 {
-     return PAM_SYSTEM_ERR;
+     return PAM_SESSION_ERR;
 }
 
 /* end of module definition */
