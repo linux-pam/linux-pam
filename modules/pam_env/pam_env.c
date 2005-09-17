@@ -1,4 +1,4 @@
-/* pam_mail module */
+/* pam_env module */
 
 /*
  * $Id$
@@ -99,7 +99,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 		D(("new Configuration File: %s", *conffile));
 		ctrl |= PAM_NEW_CONF_FILE;
 	    } else {
-		pam_syslog(pamh, LOG_CRIT,
+		pam_syslog(pamh, LOG_ERR,
 			 "Configuration file specification missing argument - ignored");
 	    }
 	} else if (!strncmp(*argv,"envfile=",8)) {
@@ -108,13 +108,13 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 		D(("new Env File: %s", *envfile));
 		ctrl |= PAM_NEW_ENV_FILE;
 	    } else {
-		pam_syslog (pamh, LOG_CRIT,
+		pam_syslog (pamh, LOG_ERR,
 			 "Env file specification missing argument - ignored");
 	    }
 	} else if (!strncmp(*argv,"readenv=",8))
 	    *readenv = atoi(8+*argv);
 	else
-	    pam_syslog(pamh,LOG_ERR,"pam_parse: unknown option; %s",*argv);
+	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
     }
 
     return ctrl;
@@ -145,8 +145,7 @@ static int _parse_config_file(pam_handle_t *pamh, int ctrl, char **conffile)
      */
 
     if ((conf = fopen(file,"r")) == NULL) {
-      pam_syslog(pamh, LOG_ERR, "Unable to open config file: %s",
-	       strerror(errno));
+      pam_syslog(pamh, LOG_ERR, "Unable to open config file: %s: %m", file);
       return PAM_IGNORE;
     }
 
@@ -201,8 +200,8 @@ static int _parse_env_file(pam_handle_t *pamh, int ctrl, char **env_file)
     D(("Env file name is: %s", file));
 
     if ((conf = fopen(file,"r")) == NULL) {
-      D(("Unable to open env file: %s", strerror(errno)));
-      return PAM_ABORT;
+      pam_syslog(pamh, LOG_ERR, "Unable to open env file: %s: %m", file);
+      return PAM_SERVICE_ERR;
     }
 
     while (_assemble_line(conf, buffer, BUF_SIZE) > 0) {
@@ -687,18 +686,16 @@ static int _define_var(pam_handle_t *pamh, VAR *var)
   /* We have a variable to define, this is a simple function */
 
   char *envvar;
-  int size, retval=PAM_SUCCESS;
+  int retval = PAM_SUCCESS;
 
   D(("Called."));
-  size = strlen(var->name)+strlen(var->value)+2;
-  if ((envvar = malloc(size)) == NULL) {
-    D(("Malloc fail, size = %d", size));
-    pam_syslog(pamh, LOG_ERR, "Malloc fail, size = %d", size);
+  if (asprintf(&envvar, "%s=%s", var->name, var->value) < 0) {
+    pam_syslog(pamh, LOG_ERR, "out of memory");
     return PAM_BUF_ERR;
   }
-  (void) sprintf(envvar,"%s=%s",var->name,var->value);
+  
   retval = pam_putenv(pamh, envvar);
-  free(envvar); envvar=NULL;
+  _pam_drop(envvar);
   D(("Exit."));
   return retval;
 }
