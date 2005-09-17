@@ -93,14 +93,11 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 	else
 	    mtmp[st.st_size] = '\0';
 
-
 	pam_info (pamh, "%s", mtmp);
-	_pam_drop (mtmp);
-
 	break;
     }
 
-    free(mtmp);
+    _pam_drop (mtmp);
 
     if (fd >= 0)
 	close(fd);
