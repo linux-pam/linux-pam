@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-AM_CFLAGS = -I$(srcdir)/include -I$(top_srcdir)/libpam/include
+AM_CFLAGS = -I$(srcdir)/include -I$(top_srcdir)/libpam/include -fPIC -DPIC
 
 noinst_HEADERS = pammodutil.h include/security/_pam_modutil.h
 
