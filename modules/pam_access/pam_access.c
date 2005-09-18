@@ -96,7 +96,6 @@ struct login_info {
     struct passwd *user;
     const char *from;
     const char *config_file;
-    const char *service;
 };
 
 /* --- static functions for checking whether the user should be let in --- */
@@ -128,8 +127,7 @@ parse_args(pam_handle_t *pamh, struct login_info *loginfo,
 		fclose(fp);
 	    } else {
 		pam_syslog(pamh, LOG_ERR,
-			   "for service [%s] failed to open accessfile=[%s]",
-			   loginfo->service, 11 + argv[i]);
+			   "failed to open accessfile=[%s]: %m", 11 + argv[i]);
 		return 0;
 	    }
 
@@ -391,17 +389,9 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
 {
     struct login_info loginfo;
     const char *user=NULL;
-    const void *service=NULL;
     const void *void_from=NULL;
     const char *from;
     struct passwd *user_pw;
-
-    if ((pam_get_item(pamh, PAM_SERVICE, &service)
-	 != PAM_SUCCESS) || (service == NULL) ||
-	 (*(const char *)service == ' ')) {
-	pam_syslog(pamh, LOG_ERR, "cannot find the service name");
-	return PAM_ABORT;
-    }
 
     /* set username */
 
@@ -454,7 +444,6 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
      */
     loginfo.user = user_pw;
     loginfo.from = from;
-    loginfo.service = service;
     loginfo.config_file = PAM_ACCESS_CONFIG;
 
     /* parse the argument list */

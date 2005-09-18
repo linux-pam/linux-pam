@@ -59,13 +59,13 @@ obtain_authtok(pam_handle_t *pamh)
     const void *item;
     int retval;
 
-    retval = pam_prompt(pamh, PAM_PROMPT_ECHO_OFF, &resp, "Password: ");
+    retval = pam_prompt(pamh, PAM_PROMPT_ECHO_OFF, &resp, _("Password: "));
 
     if (retval != PAM_SUCCESS)
 	return retval;
 
     if (resp == NULL)
-	return PAM_AUTHTOK_RECOVER_ERR;
+	return PAM_CONV_ERR;
 
     /* set the auth token */
     retval = pam_set_item(pamh, PAM_AUTHTOK, resp);
@@ -107,6 +107,10 @@ _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
 	ctrl |= PAM_UNKNOWN_OK_ARG;
       else if (!strcasecmp(*argv, "key_only"))
 	ctrl |= PAM_KEY_ONLY_ARG;
+      else if (!strcasecmp(*argv, "use_first_pass"))
+	ctrl |= PAM_USE_FPASS_ARG;
+      else if (!strcasecmp(*argv, "try_first_pass"))
+	ctrl |= PAM_TRY_FPASS_ARG;
       else if (!strncasecmp(*argv,"db=", 3))
 	{
 	  *database = strdup((*argv) + 3);
@@ -234,7 +238,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	   * default to plaintext password storage
 	   */
 
-	if (strlen(pass) != data.dsize) {
+	if (strlen(pass) != (size_t)data.dsize) {
 	  compare = 1; /* wrong password len -> wrong password */
 	} else if (ctrl & PAM_ICASE_ARG) {
 	    compare = strncasecmp(data.dptr, pass, data.dsize);
@@ -283,7 +287,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
                 /* if we have the divider where we expect it to be... */
                 if (key.dptr[strlen(user)] == '-') {
 		    saw_user = 1;
-		    if (key.dsize == strlen(user) + 1 + strlen(pass)) {
+		    if ((size_t)key.dsize == strlen(user) + 1 + strlen(pass)) {
 		        if (ctrl & PAM_ICASE_ARG) {
 			    /* compare the password portion (case insensitive)*/
                             compare = strncasecmp(key.dptr + strlen(user) + 1,
@@ -340,39 +344,36 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
         return PAM_SERVICE_ERR;
      }
 
-     /* Converse just to be sure we have a password */
-     retval = obtain_authtok(pamh);
-     if (retval != PAM_SUCCESS) {
-	 pam_syslog(pamh, LOG_ERR, "could not obtain password for `%s'",
-		    username);
-	 return PAM_CONV_ERR;
-     }
-
-     /* Check if we got a password.  The docs say that if we didn't have one,
-      * and use_authtok was specified as an argument, that we converse with the
-      * user anyway, so check for one and handle a failure for that case.  If
-      * use_authtok wasn't specified, then we've already asked once and needn't
-      * do so again. */
-     retval = pam_get_item(pamh, PAM_AUTHTOK, &password);
-     if ((retval != PAM_SUCCESS) && ((ctrl & PAM_USE_AUTHTOK_ARG) != 0)) {
+     if ((ctrl & PAM_USE_FPASS_ARG) == 0 && (ctrl & PAM_TRY_FPASS_ARG) == 0) {
+        /* Converse to obtain a password */
         retval = obtain_authtok(pamh);
         if (retval != PAM_SUCCESS) {
-           pam_syslog(pamh, LOG_ERR, "could not obtain password for `%s'",
-		      username);
-           return PAM_CONV_ERR;
+	    pam_syslog(pamh, LOG_ERR, "can not obtain password from user");
+	    return retval;
         }
      }
-
-     /* Get the password */
+     
+     /* Check if we got a password */
      retval = pam_get_item(pamh, PAM_AUTHTOK, &password);
-     if (retval != PAM_SUCCESS) {
-	 pam_syslog(pamh, LOG_ERR, "Could not retrieve user's password");
-	 return -2;
+     if (retval != PAM_SUCCESS || password == NULL) {
+        if ((ctrl & PAM_TRY_FPASS_ARG) != 0) {
+    	    /* Converse to obtain a password */
+    	    retval = obtain_authtok(pamh);
+    	    if (retval != PAM_SUCCESS) {
+	        pam_syslog(pamh, LOG_ERR, "can not obtain password from user");
+		return retval;
+    	    }
+	    retval = pam_get_item(pamh, PAM_AUTHTOK, &password);
+	}
+	if (retval != PAM_SUCCESS || password == NULL) {
+	    pam_syslog(pamh, LOG_ERR, "can not recover user password");
+	    return PAM_AUTHTOK_RECOVER_ERR;
+	} 
      }
-
+     
      if (ctrl & PAM_DEBUG_ARG)
-	 pam_syslog(pamh, LOG_INFO, "Verify user `%s' with password `%s'",
-		    username, (const char *)password);
+	 pam_syslog(pamh, LOG_INFO, "Verify user `%s' with a password",
+		    username);
 
      /* Now use the username to look up password in the database file */
      retval = user_lookup(pamh, database, cryptmode, username, password, ctrl);
