@@ -121,6 +121,9 @@ main (int argc, char **argv)
   pam_handle_t *pamh;
   int childPid;
 
+  if (argc < 1)
+    exit (-1);
+
   if (!authenticate_via_pam(argv[1],&pamh))
     exit(-1);
 
@@ -149,7 +152,7 @@ main (int argc, char **argv)
     pam_end( pamh, PAM_SUCCESS );
     exit(0);
   }
-  argv[0]="/bin/sh";
+  argv[0]=strdup ("/bin/sh");
   argv[1]=NULL;
 
   /* NOTE: The environment has not been sanitized. LD_PRELOAD and other fun
