@@ -388,8 +388,8 @@ AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	modules/pam_localuser/Makefile modules/pam_mail/Makefile \
 	modules/pam_mkhomedir/Makefile modules/pam_motd/Makefile \
 	modules/pam_nologin/Makefile modules/pam_permit/Makefile \
-	modules/pam_pwdb/Makefile modules/pam_radius/Makefile \
-	modules/pam_rhosts/Makefile modules/pam_rootok/Makefile \
+	modules/pam_pwdb/Makefile modules/pam_rhosts/Makefile \
+	modules/pam_rootok/Makefile \
 	modules/pam_securetty/Makefile modules/pam_selinux/Makefile \
 	modules/pam_shells/Makefile modules/pam_stress/Makefile \
 	modules/pam_succeed_if/Makefile modules/pam_tally/Makefile \
