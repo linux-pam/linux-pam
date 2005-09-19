@@ -26,7 +26,6 @@
 ./modules/pam_selinux/pam_selinux_check.c
 ./modules/pam_selinux/pam_selinux.c
 ./modules/pam_permit/pam_permit.c
-./modules/pam_radius/pam_radius.c
 ./modules/pammodutil/modutil_getlogin.c
 ./modules/pammodutil/modutil_cleanup.c
 ./modules/pammodutil/modutil_getspnam.c
