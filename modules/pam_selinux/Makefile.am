@@ -15,7 +15,7 @@ AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	-I$(top_srcdir)/libpam_misc/include \
 	-I$(top_srcdir)/modules/pammodutil/include/
 AM_LDFLAGS = -no-undefined \
-	-L$(top_builddir)/modules/pammodutil -lpammodutil \
+	$(top_builddir)/modules/pammodutil/libpammodutil.la \
 	-L$(top_builddir)/libpam -lpam @LIBSELINUX@
 
 pam_selinux_check_LDFLAGS = -L$(top_builddir)/libpam_misc -lpam_misc

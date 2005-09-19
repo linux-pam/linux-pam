@@ -9,6 +9,6 @@ securelibfilterdir = $(SECUREDIR)/pam_filter
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	-I$(top_srcdir)/modules/pammodutil/include/ -I..
-AM_LDFLAGS = -L$(top_builddir)/modules/pammodutil -lpammodutil
+AM_LDFLAGS = $(top_builddir)/modules/pammodutil/libpammodutil.la
 
 securelibfilter_PROGRAMS = upperLOWER
