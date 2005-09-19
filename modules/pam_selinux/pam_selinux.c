@@ -67,7 +67,7 @@
 #include <selinux/context.h>
 
 static int
-send_text (const pam_handle_t *pamh, const char *text, int debug)
+send_text (pam_handle_t *pamh, const char *text, int debug)
 {
   if (debug)
     pam_syslog(pamh, LOG_NOTICE, "%s", text);
@@ -79,7 +79,7 @@ send_text (const pam_handle_t *pamh, const char *text, int debug)
  * is responsible for freeing the responses.
  */
 static int
-query_response (const pam_handle_t *pamh, const char *text,
+query_response (pam_handle_t *pamh, const char *text,
 		char **responses, int debug)
 {
   if (debug)
@@ -237,7 +237,7 @@ security_restorelabel_tty(const pam_handle_t *pamh,
 }
 
 static security_context_t
-security_label_tty(const pam_handle_t *pamh, char *tty,
+security_label_tty(pam_handle_t *pamh, char *tty,
 		   security_context_t usercon)
 {
   char ttybuf[PATH_MAX];

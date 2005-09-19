@@ -45,11 +45,11 @@ extern void PAM_FORMAT((printf, 3, 4)) PAM_NONNULL((3))
 pam_syslog (const pam_handle_t *pamh, int priority, const char *fmt, ...);
 
 extern int PAM_FORMAT((printf, 4, 0)) PAM_NONNULL((1,4))
-pam_vprompt (const pam_handle_t *pamh, int style, char **response,
+pam_vprompt (pam_handle_t *pamh, int style, char **response,
 	     const char *fmt, va_list args);
 
 extern int PAM_FORMAT((printf, 4, 5)) PAM_NONNULL((1,4))
-pam_prompt (const pam_handle_t *pamh, int style, char **response,
+pam_prompt (pam_handle_t *pamh, int style, char **response,
 	    const char *fmt, ...);
 
 #define pam_error(pamh, fmt...) \

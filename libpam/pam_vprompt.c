@@ -46,7 +46,7 @@
 #include "pam_private.h"
 
 int
-pam_vprompt (const pam_handle_t *pamh, int style, char **response,
+pam_vprompt (pam_handle_t *pamh, int style, char **response,
 	     const char *fmt, va_list args)
 {
   struct pam_message msg;
@@ -101,7 +101,7 @@ pam_vprompt (const pam_handle_t *pamh, int style, char **response,
 }
 
 int
-pam_prompt (const pam_handle_t *pamh, int style, char **response,
+pam_prompt (pam_handle_t *pamh, int style, char **response,
 	    const char *fmt, ...)
 {
   va_list args;

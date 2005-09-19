@@ -145,16 +145,46 @@ typedef struct pam_handle pam_handle_t;
 #define PAM_FAIL_DELAY     10   /* app supplied function to override failure
 				   delays */
 
+/* -------------- Special defines used by Linux-PAM -------------- */
+
+#if defined(__GNUC__) && defined(__GNUC_MINOR__)
+# define PAM_GNUC_PREREQ(maj, min) \
+        ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
+#else
+# define PAM_GNUC_PREREQ(maj, min) 0
+#endif
+
+#if PAM_GNUC_PREREQ(2,5)
+# define PAM_FORMAT(params) __attribute__((__format__ params))
+#else
+# define PAM_FORMAT(params)
+#endif
+
+#if PAM_GNUC_PREREQ(3,3)
+# define PAM_NONNULL(params) __attribute__((__nonnull__ params))
+#else
+# define PAM_NONNULL(params)
+#endif
+
 /* ---------- Common Linux-PAM application/module PI ----------- */
 
-extern int pam_set_item(pam_handle_t *pamh, int item_type, const void *item);
-extern int pam_get_item(const pam_handle_t *pamh, int item_type,
-			const void **item);
-extern const char *pam_strerror(pam_handle_t *pamh, int errnum);
+extern int PAM_NONNULL((1))
+pam_set_item(pam_handle_t *pamh, int item_type, const void *item);
 
-extern int pam_putenv(pam_handle_t *pamh, const char *name_value);
-extern const char *pam_getenv(pam_handle_t *pamh, const char *name);
-extern char **pam_getenvlist(pam_handle_t *pamh);
+extern int PAM_NONNULL((1,3))
+pam_get_item(pam_handle_t *pamh, int item_type, const void **item);
+
+extern const char *
+pam_strerror(pam_handle_t *pamh, int errnum);
+
+extern int PAM_NONNULL((1,2))
+pam_putenv(pam_handle_t *pamh, const char *name_value);
+
+extern const char * PAM_NONNULL((1,2))
+pam_getenv(pam_handle_t *pamh, const char *name);
+
+extern char ** PAM_NONNULL((1))
+pam_getenvlist(pam_handle_t *pamh);
 
 /* ---------- Common Linux-PAM application/module PI ----------- */
 
@@ -261,27 +291,6 @@ struct pam_conv {
 		struct pam_response **resp, void *appdata_ptr);
     void *appdata_ptr;
 };
-
-/* -------------- Special defines used by Linux-PAM -------------- */
-
-#if defined(__GNUC__) && defined(__GNUC_MINOR__)
-# define PAM_GNUC_PREREQ(maj, min) \
-        ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
-#else
-# define PAM_GNUC_PREREQ(maj, min) 0
-#endif
-
-#if PAM_GNUC_PREREQ(2,5)
-# define PAM_FORMAT(params) __attribute__((__format__ params))
-#else
-# define PAM_FORMAT(params)
-#endif
-
-#if PAM_GNUC_PREREQ(3,3)
-# define PAM_NONNULL(params) __attribute__((__nonnull__ params))
-#else
-# define PAM_NONNULL(params)
-#endif
 
 /* ... adapted from the pam_appl.h file created by Theodore Ts'o and
  *

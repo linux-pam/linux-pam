@@ -79,7 +79,7 @@ int pam_set_data(
 }
 
 int pam_get_data(
-    const pam_handle_t *pamh,
+    pam_handle_t *pamh,
     const char *module_data_name,
     const void **datap)
 {
