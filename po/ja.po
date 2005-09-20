@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-15 11:54+0200\n"
+"POT-Creation-Date: 2005-09-20 18:30+0200\n"
 "PO-Revision-Date: 2005-08-18 11:52-0000\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -53,6 +53,11 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: すべてのユーザを非ゼロにリセットできません\n"
 
+#: modules/pam_limits/pam_limits.c:658
+#, c-format
+msgid "Too many logins for '%s'."
+msgstr ""
+
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
@@ -63,7 +68,7 @@ msgstr "PAMの初期化に失敗しました\n"
 msgid "failed to pam_set_item()\n"
 msgstr "pam_set_item()に失敗しました\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:132
+#: modules/pam_selinux/pam_selinux_check.c:135
 #, c-format
 msgid "login: failure forking: %s"
 msgstr "ログイン: いまいましい失敗: %s"
@@ -124,7 +129,7 @@ msgstr "パスワードを直ちに変更する必要があります(古いパ�
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr "警告: パスワードは%d日で有効期限が切れます。%.2s"
 
-#: modules/pam_unix/pam_unix_auth.c:163
+#: modules/pam_unix/pam_unix_auth.c:163 modules/pam_userdb/pam_userdb.c:62
 #, fuzzy
 msgid "Password: "
 msgstr "パスワードが変更されていません"

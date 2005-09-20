@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-15 11:54+0200\n"
+"POT-Creation-Date: 2005-09-20 18:30+0200\n"
 "PO-Revision-Date: 2005-08-24 13:58+0200\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
@@ -56,6 +56,11 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Nelze resetovat všechny uživatele nenulově\n"
 
+#: modules/pam_limits/pam_limits.c:658
+#, c-format
+msgid "Too many logins for '%s'."
+msgstr ""
+
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
@@ -66,7 +71,7 @@ msgstr "chyba při inicializaci PAM\n"
 msgid "failed to pam_set_item()\n"
 msgstr "chyba pam_set_item()\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:132
+#: modules/pam_selinux/pam_selinux_check.c:135
 #, c-format
 msgid "login: failure forking: %s"
 msgstr "login: chyba forku: %s"
@@ -126,7 +131,7 @@ msgstr "Musíte okamžitě změnit své heslo (heslo vypršelo)"
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr "Varování: Počet dní do vypršení hesla: %d %.0s"
 
-#: modules/pam_unix/pam_unix_auth.c:163
+#: modules/pam_unix/pam_unix_auth.c:163 modules/pam_userdb/pam_userdb.c:62
 #, fuzzy
 msgid "Password: "
 msgstr "Heslo nebylo změněno"

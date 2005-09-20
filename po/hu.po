@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM 0.80\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-15 11:54+0200\n"
+"POT-Creation-Date: 2005-09-20 18:30+0200\n"
 "PO-Revision-Date: 2005-08-07 02:59+0100\n"
 "Last-Translator: Szabolcs Varga <shirokuma@shirokuma.hu>\n"
 "Language-Team: hu\n"
@@ -53,6 +53,11 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Nem állítható vissza minden felhasználó nem nullára\n"
 
+#: modules/pam_limits/pam_limits.c:658
+#, c-format
+msgid "Too many logins for '%s'."
+msgstr ""
+
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
@@ -63,7 +68,7 @@ msgstr "PAM inicializálása sikertelen\n"
 msgid "failed to pam_set_item()\n"
 msgstr "pam_set_item() meghiúsult\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:132
+#: modules/pam_selinux/pam_selinux_check.c:135
 #, c-format
 msgid "login: failure forking: %s"
 msgstr "bejelentkezés: hiba az elágazás közben: %s"
@@ -123,7 +128,7 @@ msgstr "Azonnal meg kell változtatnia a jelszavát (a jelszó elévült)"
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr "Figyelmeztetés: a jelszava lejár %d nap múlva%.2s"
 
-#: modules/pam_unix/pam_unix_auth.c:163
+#: modules/pam_unix/pam_unix_auth.c:163 modules/pam_userdb/pam_userdb.c:62
 #, fuzzy
 msgid "Password: "
 msgstr "A jelszó nem változott"
