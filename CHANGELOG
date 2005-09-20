@@ -60,6 +60,8 @@ bug report - outstanding bugs are listed here:
   PAM modules (kukuk).
 * pam_tally, pam_time, pam_userdb: use pam_syslog and pam_prompt (ldv)
 * pam_issue: major cleanup (ldv)
+* pam_limits: Fix regression from RLIMIT_NICE support (wrong limit
+  values for other limits are applied) patch by Anton Guda
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)

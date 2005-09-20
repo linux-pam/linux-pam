@@ -380,6 +380,7 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
         case RLIMIT_AS:
          if (rlimit_value != RLIM_INFINITY)
             rlimit_value *= 1024;
+    	 break;
 #ifdef RLIMIT_NICE
 	case RLIMIT_NICE:
 	 if (int_value > 19)
