@@ -60,6 +60,7 @@ bug report - outstanding bugs are listed here:
   PAM modules (kukuk).
 * pam_tally, pam_time, pam_userdb: use pam_syslog and pam_prompt (ldv)
 * pam_issue: major cleanup (ldv)
+* pam_echo: New PAM module for message output (kukuk)
 * pam_limits: Fix regression from RLIMIT_NICE support (wrong limit
   values for other limits are applied) patch by Anton Guda
 
