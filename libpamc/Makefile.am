@@ -6,7 +6,7 @@ SUBDIRS = test
 
 CLEANFILES = *~
 
-EXTRA_DIST = libpamc.map
+EXTRA_DIST = License libpamc.map
 
 include_HEADERS = include/security/pam_client.h
 
