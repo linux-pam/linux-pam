@@ -5,6 +5,8 @@
  *
  */
 
+#include "config.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -72,9 +74,7 @@ int pam_misc_setenv(pam_handle_t *pamh, const char *name
 	    return PAM_PERM_DENIED;          /* not allowed to overwrite */
 	}
     }
-    tmp = malloc(2+strlen(name)+strlen(value));
-    if (tmp != NULL) {
-	sprintf(tmp,"%s=%s",name,value);
+    if (asprintf(&tmp, "%s=%s", name, value) >= 0) {
 	D(("pam_putt()ing: %s", tmp));
 	retval = pam_putenv(pamh, tmp);
 	_pam_overwrite(tmp);                 /* purge */

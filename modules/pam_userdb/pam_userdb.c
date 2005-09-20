@@ -175,9 +175,10 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
     memset(&key, 0, sizeof(key));
     memset(&data, 0, sizeof(data));
     if (ctrl & PAM_KEY_ONLY_ARG) {
-        key.dptr = malloc(strlen(user) + 1 + strlen(pass) + 1);
-        sprintf(key.dptr, "%s-%s", user, pass);
-        key.dsize = strlen(key.dptr);
+	if (asprintf(&key.dptr, "%s-%s", user, pass) < 0)
+	    key.dptr = NULL;
+	else
+	    key.dsize = strlen(key.dptr);
     } else {
         key.dptr = x_strdup(user);
         key.dsize = strlen(user);

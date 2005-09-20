@@ -384,15 +384,12 @@ int _pam_init_handlers(pam_handle_t *pamh)
 	    int read_something=0;
 
 	    D(("searching " PAM_CONFIG_D " for config files"));
-	    filename = malloc(sizeof(PAM_CONFIG_DF)
-			      +strlen(pamh->service_name));
-	    if (filename == NULL) {
+	    if (asprintf(&filename, PAM_CONFIG_DF, pamh->service_name) < 0) {
 		pam_syslog(pamh, LOG_ERR,
 				"_pam_init_handlers: no memory; service %s",
 				pamh->service_name);
 		return PAM_BUF_ERR;
 	    }
-	    sprintf(filename, PAM_CONFIG_DF, pamh->service_name);
 	    D(("opening %s", filename));
 	    f = fopen(filename, "r");
 	    if (f != NULL) {
@@ -631,12 +628,12 @@ int _pam_add_handler(pam_handle_t *pamh
 	if (mod_path[0] == '/') {
 	    break;
 	}
-	mod_full_path = malloc(sizeof(DEFAULT_MODULE_PATH)+strlen(mod_path));
-	if (mod_full_path) {
-	    sprintf(mod_full_path, DEFAULT_MODULE_PATH "%s", mod_path);
+	if (asprintf(&mod_full_path, "%s%s",
+		     DEFAULT_MODULE_PATH, mod_path) >= 0) {
 	    mod_path = mod_full_path;
 	    break;
 	}
+	mod_full_path = NULL;
 	pam_syslog(pamh, LOG_CRIT, "cannot malloc full mod path");
     case 0:
 	mod_path = UNKNOWN_MODULE_PATH;
