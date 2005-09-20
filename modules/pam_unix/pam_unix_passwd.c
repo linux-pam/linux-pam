@@ -1051,10 +1051,10 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 	 * getpwnam() doesn't tell you *where* the information it gives you
 	 * came from, nor should it.  That's our job.
 	 */
-	if (_unix_comesfromsource(pamh, user, 1, 1) == 0) {
+	if (_unix_comesfromsource(pamh, user, 1, on(UNIX_NIS, ctrl)) == 0) {
 		_log_err(LOG_DEBUG, pamh,
-			 "user \"%s\" does not exist in /etc/passwd or NIS",
-			 user);
+			 "user \"%s\" does not exist in /etc/passwd%s",
+			 user, on(UNIX_NIS, ctrl) ? " or NIS" : "");
 		return PAM_USER_UNKNOWN;
 	} else {
 		struct passwd *pwd;

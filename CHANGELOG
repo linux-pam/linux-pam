@@ -63,6 +63,7 @@ bug report - outstanding bugs are listed here:
 * pam_echo: New PAM module for message output (kukuk)
 * pam_limits: Fix regression from RLIMIT_NICE support (wrong limit
   values for other limits are applied) patch by Anton Guda
+* pam_unix: Always honor nis flag on password change (by Aaron Hope)
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)
