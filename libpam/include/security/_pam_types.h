@@ -172,7 +172,7 @@ extern int PAM_NONNULL((1))
 pam_set_item(pam_handle_t *pamh, int item_type, const void *item);
 
 extern int PAM_NONNULL((1,3))
-pam_get_item(pam_handle_t *pamh, int item_type, const void **item);
+pam_get_item(const pam_handle_t *pamh, int item_type, const void **item);
 
 extern const char *
 pam_strerror(pam_handle_t *pamh, int errnum);

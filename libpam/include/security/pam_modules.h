@@ -18,7 +18,7 @@ pam_set_data(pam_handle_t *pamh, const char *module_data_name, void *data,
 			     int error_status));
 
 extern int PAM_NONNULL((1,2,3))
-pam_get_data(pam_handle_t *pamh, const char *module_data_name,
+pam_get_data(const pam_handle_t *pamh, const char *module_data_name,
 	     const void **data);
 
 extern int PAM_NONNULL((1,2))

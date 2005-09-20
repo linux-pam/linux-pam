@@ -145,7 +145,7 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
     return retval;
 }
 
-int pam_get_item (pam_handle_t *pamh, int item_type, const void **item)
+int pam_get_item (const pam_handle_t *pamh, int item_type, const void **item)
 {
     int retval = PAM_SUCCESS;
 
