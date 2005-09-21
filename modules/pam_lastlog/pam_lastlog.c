@@ -28,10 +28,6 @@
 #include <syslog.h>
 #include <unistd.h>
 
-#ifdef WANT_PWDB
-#include <pwdb/pwdb_public.h>                /* use POSIX front end */
-#endif
-
 #if defined(hpux) || defined(sunos) || defined(solaris)
 # ifndef _PATH_LASTLOG
 #  define _PATH_LASTLOG "/usr/adm/lastlog"
@@ -56,17 +52,6 @@ struct lastlog {
 
 #define DEFAULT_HOST     ""  /* "[no.where]" */
 #define DEFAULT_TERM     ""  /* "tt???" */
-#define LASTLOG_NEVER_WELCOME       "Welcome to your new account!"
-#define LASTLOG_INTRO    "Last login:"
-#define LASTLOG_TIME     " %s"
-#define _LASTLOG_HOST_FORMAT   " from %%.%ds"
-#define _LASTLOG_LINE_FORMAT   " on %%.%ds"
-#define LASTLOG_TAIL     ""
-#define LASTLOG_MAXSIZE  (sizeof(LASTLOG_INTRO)+0 \
-			  +sizeof(LASTLOG_TIME)+strlen(the_time) \
-			  +sizeof(_LASTLOG_HOST_FORMAT)+UT_HOSTSIZE \
-			  +sizeof(_LASTLOG_LINE_FORMAT)+UT_LINESIZE \
-			  +sizeof(LASTLOG_TAIL))
 
 /*
  * here, we make a definition for the externally accessible function
@@ -90,11 +75,12 @@ struct lastlog {
 #define LASTLOG_NEVER      010  /* display a welcome message for first login */
 #define LASTLOG_DEBUG      020  /* send info to syslog(3) */
 #define LASTLOG_QUIET      040  /* keep quiet about things */
+#define LASTLOG_WTMP      0100  /* log to wtmp as well as lastlog */
 
 static int
 _pam_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
-    int ctrl=(LASTLOG_DATE|LASTLOG_HOST|LASTLOG_LINE);
+    int ctrl=(LASTLOG_DATE|LASTLOG_HOST|LASTLOG_LINE|LASTLOG_WTMP);
 
     /* does the appliction require quiet? */
     if (flags & PAM_SILENT) {
@@ -109,15 +95,17 @@ _pam_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	if (!strcmp(*argv,"debug")) {
 	    ctrl |= LASTLOG_DEBUG;
 	} else if (!strcmp(*argv,"nodate")) {
-	    ctrl |= ~LASTLOG_DATE;
+	    ctrl &= ~LASTLOG_DATE;
 	} else if (!strcmp(*argv,"noterm")) {
-	    ctrl |= ~LASTLOG_LINE;
+	    ctrl &= ~LASTLOG_LINE;
 	} else if (!strcmp(*argv,"nohost")) {
-	    ctrl |= ~LASTLOG_HOST;
+	    ctrl &= ~LASTLOG_HOST;
 	} else if (!strcmp(*argv,"silent")) {
 	    ctrl |= LASTLOG_QUIET;
 	} else if (!strcmp(*argv,"never")) {
 	    ctrl |= LASTLOG_NEVER;
+	} else if (!strcmp(*argv,"nowtmp")) {
+	    ctrl &= ~LASTLOG_WTMP;
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
@@ -127,209 +115,250 @@ _pam_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
     return ctrl;
 }
 
-/*
- * Values for the announce flags..
- */
+static const char *
+get_tty(pam_handle_t *pamh)
+{
+    const void *void_terminal_line = NULL;
+    const char *terminal_line;
 
-static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
+    if (pam_get_item(pamh, PAM_TTY, &void_terminal_line) != PAM_SUCCESS
+	|| void_terminal_line == NULL) {
+	terminal_line = DEFAULT_TERM;
+    } else {
+	terminal_line = void_terminal_line;
+    }
+    if (!strncmp("/dev/", terminal_line, 5)) {
+	/* strip leading "/dev/" from tty. */
+	terminal_line += 5;
+    }
+    D(("terminal = %s", terminal_line));
+    return terminal_line;
+}
+
+static int
+last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
 {
     struct flock last_lock;
     struct lastlog last_login;
-    int retval = PAM_SESSION_ERR;
-    int last_fd;
+    int retval = PAM_SERVICE_ERR;
+    char *date = NULL;
+    char *host = NULL;
+    char *line = NULL;
 
-    /* obtain the last login date and all the relevant info */
-    last_fd = open(_PATH_LASTLOG, O_RDWR);
-    if (last_fd < 0) {
-	pam_syslog(pamh, LOG_ERR, "unable to open %s: %m", _PATH_LASTLOG);
-	D(("unable to open the %s file", _PATH_LASTLOG));
-	retval = PAM_PERM_DENIED;
-    } else {
-	int win;
-
-	/* read the lastlogin file - for this uid */
-	(void) lseek(last_fd, sizeof(last_login) * (off_t) uid, SEEK_SET);
-
+    do {
 	memset(&last_lock, 0, sizeof(last_lock));
 	last_lock.l_type = F_RDLCK;
 	last_lock.l_whence = SEEK_SET;
 	last_lock.l_start = sizeof(last_login) * (off_t) uid;
 	last_lock.l_len = sizeof(last_login);
 
-	if ( fcntl(last_fd, F_SETLK, &last_lock) < 0 ) {
+	if (fcntl(last_fd, F_SETLK, &last_lock) < 0) {
 	    D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
 	    pam_syslog(pamh, LOG_WARNING,
-		       "%s file is locked/read", _PATH_LASTLOG);
+		       "file %s is locked/read", _PATH_LASTLOG);
 	    sleep(LASTLOG_IGNORE_LOCK_TIME);
 	}
 
-	win = (pam_modutil_read (last_fd, (char *) &last_login,
-				 sizeof(last_login)) == sizeof(last_login));
+	if (pam_modutil_read(last_fd, (char *) &last_login,
+			     sizeof(last_login)) != sizeof(last_login)) {
+	    memset(&last_login, 0, sizeof(last_login));
+	}
 
 	last_lock.l_type = F_UNLCK;
 	(void) fcntl(last_fd, F_SETLK, &last_lock);        /* unlock */
 
-	if (!win) {
-	    D(("First login for user uid=%d", _PATH_LASTLOG, uid));
+	if (!last_login.ll_time) {
+	    D(("First login for user uid=%d", uid));
 	    if (announce & LASTLOG_DEBUG) {
 		pam_syslog(pamh, LOG_DEBUG, "creating lastlog for uid %d", uid);
 	    }
-	    memset(&last_login, 0, sizeof(last_login));
 	}
 
-	/* rewind */
-	(void) lseek(last_fd, sizeof(last_login) * (off_t) uid, SEEK_SET);
+	if ((announce & LASTLOG_QUIET)) {
+	    retval = PAM_SUCCESS;
+	    break;
+	}
 
-	if (!(announce & LASTLOG_QUIET)) {
-	    if (last_login.ll_time) {
+	if (last_login.ll_time) {
+	    retval = PAM_BUF_ERR;
+
+	    /* we want the date? */
+	    if (announce & LASTLOG_DATE) {
 		time_t ll_time;
 		char *the_time;
-		char *remark;
 
 		ll_time = last_login.ll_time;
 		the_time = ctime(&ll_time);
-		the_time[-1+strlen(the_time)] = '\0';    /* delete '\n' */
+		the_time[strlen(the_time)-1] = '\0';    /* strip trailing '\n' */
 
-		remark = malloc(LASTLOG_MAXSIZE);
-		if (remark == NULL) {
-		    D(("no memory for last login remark"));
-		    retval = PAM_BUF_ERR;
-		} else {
-		    int at;
-
-		    /* printing prefix */
-		    at = sprintf(remark, "%s", LASTLOG_INTRO);
-
-		    /* we want the date? */
-		    if (announce & LASTLOG_DATE) {
-			at += sprintf(remark+at, LASTLOG_TIME, the_time);
-		    }
-
-		    /* we want & have the host? */
-		    if ((announce & LASTLOG_HOST)
-			&& (last_login.ll_host[0] != '\0')) {
-			char format[2*sizeof(_LASTLOG_HOST_FORMAT)];
-
-			(void) sprintf(format, _LASTLOG_HOST_FORMAT
-				       , UT_HOSTSIZE);
-			D(("format: %s", format));
-			at += sprintf(remark+at, format, last_login.ll_host);
-			_pam_overwrite(format);
-		    }
-
-		    /* we want and have the terminal? */
-		    if ((announce & LASTLOG_LINE)
-			&& (last_login.ll_line[0] != '\0')) {
-			char format[2*sizeof(_LASTLOG_LINE_FORMAT)];
-
-			(void) sprintf(format, _LASTLOG_LINE_FORMAT
-				       , UT_LINESIZE);
-			D(("format: %s", format));
-			at += sprintf(remark+at, format, last_login.ll_line);
-			_pam_overwrite(format);
-		    }
-
-		    /* display requested combo */
-		    sprintf(remark+at, "%s", LASTLOG_TAIL);
-
-		    retval = pam_info(pamh, "%s", remark);
-
-		    /* free all the stuff malloced */
-		    _pam_overwrite(remark);
-		    _pam_drop(remark);
+		if (asprintf(&date, " %s", the_time) < 0) {
+		    pam_syslog(pamh, LOG_ERR, "out of memory");
+		    break;
 		}
-	    } else if ((!last_login.ll_time) && (announce & LASTLOG_NEVER)) {
+	    }
+
+	    /* we want & have the host? */
+	    if ((announce & LASTLOG_HOST)
+		&& (last_login.ll_host[0] != '\0')) {
+		/* TRANSLATORS: " from <host>" */
+		if (asprintf(&host, _(" from %.*s"), UT_HOSTSIZE,
+			     last_login.ll_host) < 0) {
+		    pam_syslog(pamh, LOG_ERR, "out of memory");
+		    break;
+		}
+	    }
+
+	    /* we want and have the terminal? */
+	    if ((announce & LASTLOG_LINE)
+		&& (last_login.ll_line[0] != '\0')) {
+		/* TRANSLATORS: " on <terminal>" */ 
+		if (asprintf(&line, _(" on %.*s"), UT_LINESIZE,
+			     last_login.ll_line) < 0) {
+		    pam_syslog(pamh, LOG_ERR, "out of memory");
+		    break;
+		}
+	    }
+
+		/* TRANSLATORS: "Last login: <date> from <host> on <terminal>" */
+	    retval = pam_info(pamh, _("Last login:%s%s%s"),
+			      date ? date : "",
+			      host ? host : "",
+			      line ? line : "");
+	} else if (announce & LASTLOG_NEVER) {
 		D(("this is the first time this user has logged in"));
-		retval = pam_info(pamh, "%s", LASTLOG_NEVER_WELCOME);
-	    }
-	} else {
-	    D(("no text was requested"));
-	    retval = PAM_SUCCESS;
+		retval = pam_info(pamh, "%s", _("Welcome to your new account!"));
 	}
+    } while (0);
 
-	/* write latest value */
-	{
-	    time_t ll_time;
-	    const void *remote_host=NULL
-		, *void_terminal_line=DEFAULT_TERM;
-	    const char *terminal_line;
+    /* cleanup */
+    memset(&last_login, 0, sizeof(last_login));
+    _pam_overwrite(date);
+    _pam_drop(date);
+    _pam_overwrite(host);
+    _pam_drop(host);
+    _pam_overwrite(line);
+    _pam_drop(line);
 
-	    /* set this login date */
-	    D(("set the most recent login time"));
+    return retval;
+}
 
-	    (void) time(&ll_time);    /* set the time */
-            last_login.ll_time = ll_time;
+static int
+last_login_write(pam_handle_t *pamh, int announce, int last_fd,
+		 uid_t uid, const char *user)
+{
+    struct flock last_lock;
+    struct lastlog last_login;
+    time_t ll_time;
+    const void *void_remote_host = NULL;
+    const char *remote_host;
+    const char *terminal_line;
+    int retval = PAM_SUCCESS;
 
-	    /* set the remote host */
-	    (void) pam_get_item(pamh, PAM_RHOST, &remote_host);
-	    if (remote_host == NULL) {
-		remote_host = DEFAULT_HOST;
-	    }
-
-	    /* copy to last_login */
-	    strncpy(last_login.ll_host, remote_host,
-		    sizeof(last_login.ll_host));
-	    last_login.ll_host[sizeof(last_login.ll_host) - 1] = '\0';
-	    remote_host = NULL;
-
-	    /* set the terminal line */
-	    (void) pam_get_item(pamh, PAM_TTY, &void_terminal_line);
-	    terminal_line = void_terminal_line;
-	    D(("terminal = %s", terminal_line));
-	    if (terminal_line == NULL) {
-		terminal_line = DEFAULT_TERM;
-	    } else if ( !strncmp("/dev/", terminal_line, 5) ) {
-		/* strip leading "/dev/" from tty.. */
-		terminal_line += 5;
-	    }
-	    D(("terminal = %s", terminal_line));
-
-	    /* copy to last_login */
-	    strncpy(last_login.ll_line, terminal_line,
-		    sizeof(last_login.ll_line));
-	    last_login.ll_host[sizeof(last_login.ll_host) - 1] = '\0';
-	    terminal_line = NULL;
-
-	    D(("locking last_log file"));
-
-	    /* now we try to lock this file-record exclusively; non-blocking */
-	    memset(&last_lock, 0, sizeof(last_lock));
-	    last_lock.l_type = F_WRLCK;
-	    last_lock.l_whence = SEEK_SET;
-	    last_lock.l_start = sizeof(last_login) * (off_t) uid;
-	    last_lock.l_len = sizeof(last_login);
-
-	    if ( fcntl(last_fd, F_SETLK, &last_lock) < 0 ) {
-		D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
-		pam_syslog(pamh, LOG_WARNING,
-			   "%s file is locked/write", _PATH_LASTLOG);
-		sleep(LASTLOG_IGNORE_LOCK_TIME);
-	    }
-
-	    D(("writing to the last_log file"));
-	    pam_modutil_write (last_fd, (char *) &last_login,
-			        sizeof (last_login));
-
-	    last_lock.l_type = F_UNLCK;
-	    (void) fcntl(last_fd, F_SETLK, &last_lock);        /* unlock */
-	    D(("unlocked"));
-
-	    close(last_fd);                                  /* all done */
-	}
-	D(("all done with last login"));
+    /* rewind */
+    if (lseek(last_fd, sizeof(last_login) * (off_t) uid, SEEK_SET) < 0) {
+	pam_syslog(pamh, LOG_ERR, "failed to lseek %s: %m", _PATH_LASTLOG);
+	return PAM_SERVICE_ERR;
     }
 
-    /* reset the last login structure */
+    /* set this login date */
+    D(("set the most recent login time"));
+    (void) time(&ll_time);    /* set the time */
+    last_login.ll_time = ll_time;
+
+    /* set the remote host */
+    if (pam_get_item(pamh, PAM_RHOST, &void_remote_host) != PAM_SUCCESS
+	|| void_remote_host == NULL) {
+	remote_host = DEFAULT_HOST;
+    } else {
+	remote_host = void_remote_host;
+    }
+
+    /* copy to last_login */
+    last_login.ll_host[0] = '\0';
+    strncat(last_login.ll_host, remote_host, sizeof(last_login.ll_host)-1);
+
+    /* set the terminal line */
+    terminal_line = get_tty(pamh);
+
+    /* copy to last_login */
+    last_login.ll_host[0] = '\0';
+    strncat(last_login.ll_line, terminal_line, sizeof(last_login.ll_line)-1);
+    terminal_line = NULL;
+
+    D(("locking lastlog file"));
+
+    /* now we try to lock this file-record exclusively; non-blocking */
+    memset(&last_lock, 0, sizeof(last_lock));
+    last_lock.l_type = F_WRLCK;
+    last_lock.l_whence = SEEK_SET;
+    last_lock.l_start = sizeof(last_login) * (off_t) uid;
+    last_lock.l_len = sizeof(last_login);
+
+    if (fcntl(last_fd, F_SETLK, &last_lock) < 0) {
+	D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
+	pam_syslog(pamh, LOG_WARNING, "file %s is locked/write", _PATH_LASTLOG);
+        sleep(LASTLOG_IGNORE_LOCK_TIME);
+    }
+
+    D(("writing to the lastlog file"));
+    if (pam_modutil_write (last_fd, (char *) &last_login,
+			   sizeof (last_login)) != sizeof(last_login)) {
+	pam_syslog(pamh, LOG_ERR, "failed to write %s: %m", _PATH_LASTLOG);
+	retval = PAM_SERVICE_ERR;
+    }
+
+    last_lock.l_type = F_UNLCK;
+    (void) fcntl(last_fd, F_SETLK, &last_lock);        /* unlock */
+    D(("unlocked"));
+
+    if (announce & LASTLOG_WTMP) {
+	/* write wtmp entry for user */
+	logwtmp(last_login.ll_line, user, remote_host);
+    }
+
+    /* cleanup */
     memset(&last_login, 0, sizeof(last_login));
 
     return retval;
 }
 
+static int
+last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user)
+{
+    int rc_read, rc_write;
+    int last_fd;
+
+    /* obtain the last login date and all the relevant info */
+    last_fd = open(_PATH_LASTLOG, O_RDWR);
+    if (last_fd < 0) {
+	pam_syslog(pamh, LOG_ERR, "unable to open %s: %m", _PATH_LASTLOG);
+	D(("unable to open %s file", _PATH_LASTLOG));
+	return PAM_SERVICE_ERR;
+    }
+
+    if (lseek(last_fd, sizeof(struct lastlog) * (off_t) uid, SEEK_SET) < 0) {
+	pam_syslog(pamh, LOG_ERR, "failed to lseek %s: %m", _PATH_LASTLOG);
+	D(("unable to lseek %s file", _PATH_LASTLOG));
+	return PAM_SERVICE_ERR;
+    }
+
+    rc_read = last_login_read(pamh, announce, last_fd, uid);
+    rc_write = last_login_write(pamh, announce, last_fd, uid, user);
+
+    close(last_fd);
+    D(("all done with last login"));
+
+    if (rc_write != PAM_SUCCESS)
+	return rc_write;
+    else
+	return rc_read;
+}
+
 /* --- authentication management functions (only) --- */
 
-PAM_EXTERN
-int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc
-			, const char **argv)
+PAM_EXTERN int
+pam_sm_open_session(pam_handle_t *pamh, int flags,
+		    int argc, const char **argv)
 {
     int retval, ctrl;
     const void *user;
@@ -356,14 +385,14 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc
     pwd = pam_modutil_getpwnam (pamh, user);
     if (pwd == NULL) {
 	D(("couldn't identify user %s", user));
-	return PAM_CRED_INSUFFICIENT;
+	return PAM_USER_UNKNOWN;
     }
     uid = pwd->pw_uid;
     pwd = NULL;                                         /* tidy up */
 
     /* process the current login attempt (indicate last) */
 
-    retval = last_login_date(pamh, ctrl, uid);
+    retval = last_login_date(pamh, ctrl, uid, user);
 
     /* indicate success or failure */
 
@@ -373,9 +402,19 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc
 }
 
 PAM_EXTERN int
-pam_sm_close_session (pam_handle_t *pamh UNUSED, int flags UNUSED,
-		      int argc UNUSED, const char **argv UNUSED)
+pam_sm_close_session (pam_handle_t *pamh, int flags,
+		      int argc, const char **argv)
 {
+    const char *terminal_line;
+
+    if (!(_pam_parse(pamh, flags, argc, argv) & LASTLOG_WTMP))
+	return PAM_SUCCESS;
+
+    terminal_line = get_tty(pamh);
+
+    /* Wipe out utmp logout entry */
+    logwtmp(terminal_line, "", "");
+
     return PAM_SUCCESS;
 }
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-20 18:30+0200\n"
+"POT-Creation-Date: 2005-09-21 12:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,28 @@ msgstr ""
 #: modules/pam_tally/pam_tally.c:846
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
+msgstr ""
+
+#. TRANSLATORS: " from <host>"
+#: modules/pam_lastlog/pam_lastlog.c:204
+#, c-format
+msgid " from %.*s"
+msgstr ""
+
+#. TRANSLATORS: " on <terminal>"
+#: modules/pam_lastlog/pam_lastlog.c:215
+#, c-format
+msgid " on %.*s"
+msgstr ""
+
+#. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
+#: modules/pam_lastlog/pam_lastlog.c:223
+#, c-format
+msgid "Last login:%s%s%s"
+msgstr ""
+
+#: modules/pam_lastlog/pam_lastlog.c:229
+msgid "Welcome to your new account!"
 msgstr ""
 
 #: modules/pam_limits/pam_limits.c:658

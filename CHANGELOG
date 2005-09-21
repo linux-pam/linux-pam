@@ -65,6 +65,8 @@ bug report - outstanding bugs are listed here:
   values for other limits are applied) patch by Anton Guda
 * pam_unix: Always honor nis flag on password change (by Aaron Hope)
 * libpam: Moved functions from pammodutil to libpam (t8m)
+* pam_lastlog: Cleanup, fix broken logic in pam_parse,
+  modify wtmp by default, nowtmp option switches that off (ldv)
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)

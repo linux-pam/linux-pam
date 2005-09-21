@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-20 18:30+0200\n"
+"POT-Creation-Date: 2005-09-21 12:48+0200\n"
 "PO-Revision-Date: 2005-08-18 HO:MI+ZONE\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -55,6 +55,28 @@ msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 "%s: No es posible restaurar a todos los usuarios a un número distinto de "
 "cero\n"
+
+#. TRANSLATORS: " from <host>"
+#: modules/pam_lastlog/pam_lastlog.c:204
+#, c-format
+msgid " from %.*s"
+msgstr ""
+
+#. TRANSLATORS: " on <terminal>"
+#: modules/pam_lastlog/pam_lastlog.c:215
+#, c-format
+msgid " on %.*s"
+msgstr ""
+
+#. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
+#: modules/pam_lastlog/pam_lastlog.c:223
+#, c-format
+msgid "Last login:%s%s%s"
+msgstr ""
+
+#: modules/pam_lastlog/pam_lastlog.c:229
+msgid "Welcome to your new account!"
+msgstr ""
 
 #: modules/pam_limits/pam_limits.c:658
 #, c-format
