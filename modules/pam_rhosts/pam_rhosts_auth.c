@@ -85,7 +85,7 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 /*
@@ -471,7 +471,7 @@ pam_iruserok(pam_handle_t *pamh,
      * Identify user's local .rhosts file
      */
 
-    pwd = _pammodutil_getpwnam(pamh, luser);
+    pwd = pam_modutil_getpwnam(pamh, luser);
     if (pwd == NULL) {
 	/*
 	 * luser is assumed to be valid because of an earlier check for uid = 0
@@ -532,7 +532,7 @@ pam_iruserok(pam_handle_t *pamh,
 
 	/* private group caveat */
 	if (opts->opt_private_group) {
-	    struct group *grp = _pammodutil_getgrgid(pamh, sbuf.st_gid);
+	    struct group *grp = pam_modutil_getgrgid(pamh, sbuf.st_gid);
 
 	    if (NULL == grp || NULL == grp->gr_name
 		|| strcmp(luser,grp->gr_name)) {
@@ -694,7 +694,7 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
 	if (! opts.opt_no_uid_check) {
 	    struct passwd *luser_pwd;
 
-	    luser_pwd = _pammodutil_getpwnam(pamh, luser);
+	    luser_pwd = pam_modutil_getpwnam(pamh, luser);
 	    if (luser_pwd == NULL) {
 		if (opts.opt_debug)
 		    pam_syslog(pamh,LOG_DEBUG, "user '%s' unknown to this system",

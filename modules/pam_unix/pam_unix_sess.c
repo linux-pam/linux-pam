@@ -53,7 +53,7 @@
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 
 #ifndef LINUX_PAM
 #include <security/pam_appl.h>
@@ -91,7 +91,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t * pamh, int flags,
 		         "open_session - error recovering service");
 		return PAM_SESSION_ERR;
 	}
-	login_name = _pammodutil_getlogin(pamh);
+	login_name = pam_modutil_getlogin(pamh);
 	if (login_name == NULL) {
 	    login_name = "";
 	}

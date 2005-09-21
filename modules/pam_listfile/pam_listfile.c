@@ -39,7 +39,7 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 /* some syslogging */
@@ -218,7 +218,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		    return PAM_IGNORE;
 		}
 	    } else if(apply_type==APPLY_TYPE_GROUP) {
-		if(!_pammodutil_user_in_group_nam_nam(pamh,user_name,apply_val)) {
+		if(!pam_modutil_user_in_group_nam_nam(pamh,user_name,apply_val)) {
 		    /* Not a member of apply= group */
 #ifdef DEBUG
 		    pam_syslog(pamh,LOG_DEBUG,
@@ -261,14 +261,14 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     if(extitem) {
 	switch(extitem) {
 	    case EI_GROUP:
-		userinfo = _pammodutil_getpwnam(pamh, citemp);
+		userinfo = pam_modutil_getpwnam(pamh, citemp);
 		if (userinfo == NULL) {
 		    pam_syslog(pamh,LOG_ERR, "getpwnam(%s) failed",
 			     citemp);
 		    free(ifname);
 		    return onerr;
 		}
-		grpinfo = _pammodutil_getgrgid(pamh, userinfo->pw_gid);
+		grpinfo = pam_modutil_getgrgid(pamh, userinfo->pw_gid);
 		if (grpinfo == NULL) {
 		    pam_syslog(pamh,LOG_ERR, "getgrgid(%d) failed",
 			     (int)userinfo->pw_gid);
@@ -290,7 +290,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		/* Assume that we have already gotten PAM_USER in
 		   pam_get_item() - a valid assumption since citem
 		   gets set to PAM_USER in the extitem switch */
-		userinfo = _pammodutil_getpwnam(pamh, citemp);
+		userinfo = pam_modutil_getpwnam(pamh, citemp);
 		if (userinfo == NULL) {
 		    pam_syslog(pamh,LOG_ERR, "getpwnam(%s) failed",
 			     citemp);

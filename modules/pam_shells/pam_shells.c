@@ -31,7 +31,7 @@
 #define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 static int perform_check(pam_handle_t *pamh)
@@ -61,7 +61,7 @@ static int perform_check(pam_handle_t *pamh)
 	    return PAM_SERVICE_ERR;
     }
 
-    pw = _pammodutil_getpwnam(pamh, userName);
+    pw = pam_modutil_getpwnam(pamh, userName);
     if (!pw) {
 	return PAM_AUTH_ERR;		/* user doesn't exist */
     }

@@ -34,7 +34,7 @@
 #define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 #define PAM_DEBUG_ARG       0x0001
@@ -85,7 +85,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 	return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE:PAM_SERVICE_ERR);
     }
 
-    user_pwd = _pammodutil_getpwnam(pamh, username);
+    user_pwd = pam_modutil_getpwnam(pamh, username);
     if (user_pwd == NULL) {
 	return PAM_USER_UNKNOWN;
     } else if (user_pwd->pw_uid != 0) { /* If the user is not root,

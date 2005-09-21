@@ -79,7 +79,7 @@ struct lastlog {
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 /* argument parsing */
@@ -163,7 +163,7 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 	    sleep(LASTLOG_IGNORE_LOCK_TIME);
 	}
 
-	win = (_pammodutil_read (last_fd, (char *) &last_login,
+	win = (pam_modutil_read (last_fd, (char *) &last_login,
 				 sizeof(last_login)) == sizeof(last_login));
 
 	last_lock.l_type = F_UNLCK;
@@ -307,7 +307,7 @@ static int last_login_date(pam_handle_t *pamh, int announce, uid_t uid)
 	    }
 
 	    D(("writing to the last_log file"));
-	    _pammodutil_write (last_fd, (char *) &last_login,
+	    pam_modutil_write (last_fd, (char *) &last_login,
 			        sizeof (last_login));
 
 	    last_lock.l_type = F_UNLCK;
@@ -353,7 +353,7 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc
 
     /* what uid? */
 
-    pwd = _pammodutil_getpwnam (pamh, user);
+    pwd = pam_modutil_getpwnam (pamh, user);
     if (pwd == NULL) {
 	D(("couldn't identify user %s", user));
 	return PAM_CRED_INSUFFICIENT;

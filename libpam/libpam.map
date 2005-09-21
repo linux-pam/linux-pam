@@ -39,3 +39,18 @@ LIBPAM_EXTENSION_1.0 {
     pam_vsyslog;
 };
 
+LIBPAM_MODUTIL_1.0 {
+  global:
+    pam_modutil_getpwnam;
+    pam_modutil_getpwuid;
+    pam_modutil_getgrnam;
+    pam_modutil_getgrgid;
+    pam_modutil_getspnam;
+    pam_modutil_user_in_group_nam_nam;
+    pam_modutil_user_in_group_nam_gid;
+    pam_modutil_user_in_group_uid_nam;
+    pam_modutil_user_in_group_uid_gid;
+    pam_modutil_getlogin;
+    pam_modutil_read;
+    pam_modutil_write;
+};

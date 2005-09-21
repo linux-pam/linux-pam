@@ -83,7 +83,7 @@ static security_context_t prev_context=NULL;
 #include <security/pam_appl.h>
 #endif				/* LINUX_PAM */
 
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 
 #include "yppasswd.h"
 #include "md5.h"
@@ -282,14 +282,14 @@ static int _unix_run_shadow_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	/* if the stored password is NULL */
         int rc=0;
 	if (fromwhat)
-	  _pammodutil_write(fds[1], fromwhat, strlen(fromwhat)+1);
+	  pam_modutil_write(fds[1], fromwhat, strlen(fromwhat)+1);
 	else
-	  _pammodutil_write(fds[1], "", 1);
+	  pam_modutil_write(fds[1], "", 1);
 	if (towhat) {
-	  _pammodutil_write(fds[1], towhat, strlen(towhat)+1);
+	  pam_modutil_write(fds[1], towhat, strlen(towhat)+1);
 	}
 	else
-	  _pammodutil_write(fds[1], "", 1);
+	  pam_modutil_write(fds[1], "", 1);
 
 	close(fds[0]);       /* close here to avoid possible SIGPIPE above */
 	close(fds[1]);
@@ -463,7 +463,7 @@ static int save_old_password(pam_handle_t *pamh,
     fclose(opwfile);
 
     if (!found) {
-	pwd = _pammodutil_getpwnam(pamh, forwho);
+	pwd = pam_modutil_getpwnam(pamh, forwho);
 	if (pwd == NULL) {
 	    err = 1;
 	} else {

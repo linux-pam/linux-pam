@@ -54,7 +54,7 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 #define DATANAME "pam_xauth_cookie_file"
@@ -141,12 +141,12 @@ run_coprocess(const char *input, char **output,
 	close(opipe[1]);
 	/* Send input to the process (if we have any), then send an EOF. */
 	if (input) {
-		(void)_pammodutil_write(ipipe[1], input, strlen(input));
+		(void)pam_modutil_write(ipipe[1], input, strlen(input));
 	}
 	close(ipipe[1]);
 
 	/* Read data output until we run out of stuff to read. */
-	i = _pammodutil_read(opipe[0], buf, sizeof(buf));
+	i = pam_modutil_read(opipe[0], buf, sizeof(buf));
 	while ((i != 0) && (i != -1)) {
 		char *tmp;
 		/* Resize the buffer to hold the data. */
@@ -168,7 +168,7 @@ run_coprocess(const char *input, char **output,
 		buffer[buffer_size + i] = '\0';
 		buffer_size += i;
 		/* Try to read again. */
-		i = _pammodutil_read(opipe[0], buf, sizeof(buf));
+		i = pam_modutil_read(opipe[0], buf, sizeof(buf));
 	}
 	/* No more data.  Clean up and return data. */
 	close(opipe[0]);
@@ -197,7 +197,7 @@ check_acl(pam_handle_t *pamh,
 	int i;
 	uid_t euid;
 	/* Check this user's <sense> file. */
-	pwd = _pammodutil_getpwnam(pamh, this_user);
+	pwd = pam_modutil_getpwnam(pamh, this_user);
 	if (pwd == NULL) {
 		pam_syslog(pamh,LOG_ERR, "pam_xauth: error determining "
 		       "home directory for '%s'", this_user);
@@ -333,7 +333,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		retval = PAM_SESSION_ERR;
 		goto cleanup;
 	}
-	rpwd = _pammodutil_getpwuid(pamh, getuid());
+	rpwd = pam_modutil_getpwuid(pamh, getuid());
 	if (rpwd == NULL) {
 		pam_syslog(pamh,LOG_ERR, "pam_xauth: error determining invoking "
 		       "user's name");
@@ -343,7 +343,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 
 	/* Get the target user's UID and primary GID, which we'll need to set
 	 * on the xauthority file we create later on. */
-	tpwd = _pammodutil_getpwnam(pamh, user);
+	tpwd = pam_modutil_getpwnam(pamh, user);
 	if (tpwd == NULL) {
 		pam_syslog(pamh,LOG_ERR, "pam_xauth: error determining target "
 		       "user's UID");

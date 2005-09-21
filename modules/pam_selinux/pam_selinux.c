@@ -57,7 +57,7 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 #include <selinux/selinux.h>

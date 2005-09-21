@@ -51,7 +51,7 @@
 #define PAM_SM_SESSION
 
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 struct options_t {
@@ -192,7 +192,7 @@ setup_limits_from_gecos (pam_handle_t *pamh, options_t *options,
 	 owner bits (examples: 022 -> 002, 077 -> 007).  */
       if (pw->pw_uid != 0 && pw->pw_uid == pw->pw_gid)
 	{
-	  struct group *grp = _pammodutil_getgrgid (pamh, pw->pw_gid);
+	  struct group *grp = pam_modutil_getgrgid (pamh, pw->pw_gid);
 	  if (grp && (strcmp (pw->pw_name, grp->gr_name) == 0))
 	    {
 	      mode_t oldmask = umask (0777);
@@ -250,7 +250,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
       return PAM_SERVICE_ERR;
     }
 
-  pw = _pammodutil_getpwnam (pamh, name);
+  pw = pam_modutil_getpwnam (pamh, name);
   if (pw == NULL)
     {
       pam_syslog (pamh, LOG_ERR, "account for %s not found", name);

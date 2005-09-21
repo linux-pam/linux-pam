@@ -25,5 +25,7 @@ libpam_la_SOURCES = pam_account.c pam_auth.c pam_data.c pam_delay.c \
 	pam_dispatch.c pam_end.c pam_env.c pam_handlers.c pam_item.c \
 	pam_malloc.c pam_misc.c pam_password.c pam_prelude.c \
 	pam_session.c pam_start.c pam_static.c pam_strerror.c \
-	pam_vprompt.c pam_syslog.c
-
+	pam_vprompt.c pam_syslog.c \
+	pam_modutil_cleanup.c pam_modutil_getpwnam.c pam_modutil_ioloop.c \
+	pam_modutil_getgrgid.c pam_modutil_getpwuid.c pam_modutil_getgrnam.c \
+	pam_modutil_getspnam.c pam_modutil_getlogin.c  pam_modutil_ingroup.c

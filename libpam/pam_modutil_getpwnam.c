@@ -1,18 +1,18 @@
 /*
  * $Id$
  *
- * This function provides a thread safer version of getgrgid() for use
+ * This function provides a thread safer version of getpwnam() for use
  * with PAM modules that care about this sort of thing.
  *
  * XXX - or at least it should provide a thread-safe alternative.
  */
 
-#include "pammodutil.h"
+#include "pam_modutil_private.h"
 
 #include <errno.h>
 #include <limits.h>
-#include <grp.h>
 #include <pthread.h>
+#include <pwd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -36,19 +36,10 @@ static int intlen(int number)
     return len;
 }
 
-static int longlen(long number)
-{ 
-    int len = 2;
-    while (number != 0) {
-        number /= 10;
-	len++;
-    }
-    return len;
-}
-
-struct group *_pammodutil_getgrgid(pam_handle_t *pamh, gid_t gid)
+struct passwd *
+pam_modutil_getpwnam(pam_handle_t *pamh, const char *user)
 {
-#ifdef HAVE_GETGRGID_R
+#ifdef HAVE_GETPWNAM_R
 
     void *buffer=NULL;
     size_t length = PWD_INITIAL_LENGTH;
@@ -56,9 +47,9 @@ struct group *_pammodutil_getgrgid(pam_handle_t *pamh, gid_t gid)
     do {
 	int status;
 	void *new_buffer;
-	struct group *result = NULL;
+	struct passwd *result = NULL;
 
-	new_buffer = realloc(buffer, sizeof(struct group) + length);
+	new_buffer = realloc(buffer, sizeof(struct passwd) + length);
 	if (new_buffer == NULL) {
 
 	    D(("out of memory"));
@@ -71,18 +62,18 @@ struct group *_pammodutil_getgrgid(pam_handle_t *pamh, gid_t gid)
 	}
 	buffer = new_buffer;
 
-	/* make the re-entrant call to get the grp structure */
+	/* make the re-entrant call to get the pwd structure */
 	errno = 0;
-	status = getgrgid_r(gid, buffer,
-			    sizeof(struct group) + (char *) buffer,
+	status = getpwnam_r(user, buffer,
+			    sizeof(struct passwd) + (char *) buffer,
 			    length, &result);
 	if (!status && (result == buffer)) {
 	    char *data_name;
 	    const void *ignore;
 	    int i;
 
-	    data_name = malloc(strlen("_pammodutil_getgrgid") + 1 +
-	    		       longlen((long)gid) + 1 + intlen(INT_MAX) + 1);
+	    data_name = malloc(strlen("_pammodutil_getpwnam") + 1 +
+	    		       strlen(user) + 1 + intlen(INT_MAX) + 1);
 	    if ((pamh != NULL) && (data_name == NULL)) {
 	        D(("was unable to register the data item [%s]",
 	           pam_strerror(pamh, status)));
@@ -92,13 +83,12 @@ struct group *_pammodutil_getgrgid(pam_handle_t *pamh, gid_t gid)
 
 	    if (pamh != NULL) {
 	        for (i = 0; i < INT_MAX; i++) {
-	            sprintf(data_name, "_pammodutil_getgrgid_%ld_%d",
-		   	    (long) gid, i);
+	            sprintf(data_name, "_pammodutil_getpwnam_%s_%d", user, i);
 	            _pammodutil_lock();
 		    status = PAM_NO_MODULE_DATA;
 	            if (pam_get_data(pamh, data_name, &ignore) != PAM_SUCCESS) {
 		        status = pam_set_data(pamh, data_name,
-					      result, _pammodutil_cleanup);
+					      result, pam_modutil_cleanup);
 		    }
 	            _pammodutil_unlock();
 		    if (status == PAM_SUCCESS) {
@@ -123,28 +113,28 @@ struct group *_pammodutil_getgrgid(pam_handle_t *pamh, gid_t gid)
 	    return NULL;
 
 	} else if (errno != ERANGE && errno != EINTR) {
-		/* no sense in repeating the call */
-		break;
-	}
+                /* no sense in repeating the call */
+                break;
+        }
 	
 	length <<= 2;
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
 
-    D(("grp structure took %u bytes or so of memory",
-       length+sizeof(struct group)));
+    D(("pwd structure took %u bytes or so of memory",
+       length+sizeof(struct passwd)));
 
     free(buffer);
     return NULL;
 
-#else /* ie. ifndef HAVE_GETGRGID_R */
+#else /* ie. ifndef HAVE_GETPWNAM_R */
 
     /*
      * Sorry, there does not appear to be a reentrant version of
-     * getgrgid(). So, we use the standard libc function.
+     * getpwnam(). So, we use the standard libc function.
      */
     
-    return getgrgid(gid);
+    return getpwnam(user);
 
-#endif /* def HAVE_GETGRGID_R */
+#endif /* def HAVE_GETPWNAM_R */
 }

@@ -5,8 +5,9 @@
  * specified group.
  */
 
-#include "pammodutil.h"
-#include "include/security/_pam_modutil.h"
+#include "pam_modutil_private.h"
+
+#include <stdlib.h>
 #include <pwd.h>
 #include <grp.h>
 
@@ -41,7 +42,7 @@ static int checkgrouplist(const char *user, gid_t primary, gid_t target)
 #endif
 
 static int
-_pammodutil_user_in_group_common(pam_handle_t *pamh UNUSED,
+pam_modutil_user_in_group_common(pam_handle_t *pamh UNUSED,
 				 struct passwd *pwd,
 				 struct group *grp)
 {
@@ -73,50 +74,54 @@ _pammodutil_user_in_group_common(pam_handle_t *pamh UNUSED,
 	return 0;
 }
 
-int _pammodutil_user_in_group_nam_nam(pam_handle_t *pamh,
-				      const char *user, const char *group)
+int 
+pam_modutil_user_in_group_nam_nam(pam_handle_t *pamh,
+				 const char *user, const char *group)
 {
 	struct passwd *pwd;
 	struct group *grp;
 
-	pwd = _pammodutil_getpwnam(pamh, user);
-	grp = _pammodutil_getgrnam(pamh, group);
+	pwd = pam_modutil_getpwnam(pamh, user);
+	grp = pam_modutil_getgrnam(pamh, group);
 
-	return _pammodutil_user_in_group_common(pamh, pwd, grp);
+	return pam_modutil_user_in_group_common(pamh, pwd, grp);
 }
 
-int _pammodutil_user_in_group_nam_gid(pam_handle_t *pamh,
-				      const char *user, gid_t group)
+int
+pam_modutil_user_in_group_nam_gid(pam_handle_t *pamh,
+				  const char *user, gid_t group)
 {
 	struct passwd *pwd;
 	struct group *grp;
 
-	pwd = _pammodutil_getpwnam(pamh, user);
-	grp = _pammodutil_getgrgid(pamh, group);
+	pwd = pam_modutil_getpwnam(pamh, user);
+	grp = pam_modutil_getgrgid(pamh, group);
 
-	return _pammodutil_user_in_group_common(pamh, pwd, grp);
+	return pam_modutil_user_in_group_common(pamh, pwd, grp);
 }
 
-int _pammodutil_user_in_group_uid_nam(pam_handle_t *pamh,
-				      uid_t user, const char *group)
+int
+pam_modutil_user_in_group_uid_nam(pam_handle_t *pamh,
+				  uid_t user, const char *group)
 {
 	struct passwd *pwd;
 	struct group *grp;
 
-	pwd = _pammodutil_getpwuid(pamh, user);
-	grp = _pammodutil_getgrnam(pamh, group);
+	pwd = pam_modutil_getpwuid(pamh, user);
+	grp = pam_modutil_getgrnam(pamh, group);
 
-	return _pammodutil_user_in_group_common(pamh, pwd, grp);
+	return pam_modutil_user_in_group_common(pamh, pwd, grp);
 }
 
-int _pammodutil_user_in_group_uid_gid(pam_handle_t *pamh,
-				      uid_t user, gid_t group)
+int
+pam_modutil_user_in_group_uid_gid(pam_handle_t *pamh,
+				  uid_t user, gid_t group)
 {
 	struct passwd *pwd;
 	struct group *grp;
 
-	pwd = _pammodutil_getpwuid(pamh, user);
-	grp = _pammodutil_getgrgid(pamh, group);
+	pwd = pam_modutil_getpwuid(pamh, user);
+	grp = pam_modutil_getgrgid(pamh, group);
 
-	return _pammodutil_user_in_group_common(pamh, pwd, grp);
+	return pam_modutil_user_in_group_common(pamh, pwd, grp);
 }

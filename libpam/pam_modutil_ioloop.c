@@ -5,13 +5,13 @@
  * write occurs. It handles EINTR and partial read/write returns.
  */
 
+#include "pam_modutil_private.h"
+
 #include <unistd.h>
 #include <errno.h>
 
-#include <security/pam_modules.h>
-#include "include/security/_pam_modutil.h"
-
-int _pammodutil_read(int fd, char *buffer, int count)
+int
+pam_modutil_read(int fd, char *buffer, int count)
 {
        int block, offset = 0;
 
@@ -31,7 +31,8 @@ int _pammodutil_read(int fd, char *buffer, int count)
        return offset;
 }
 
-int _pammodutil_write(int fd, const char *buffer, int count)
+int
+pam_modutil_write(int fd, const char *buffer, int count)
 {
        int block, offset = 0;
 

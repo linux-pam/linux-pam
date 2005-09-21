@@ -10,10 +10,8 @@ securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	-I$(top_srcdir)/modules/pammodutil/include/ \
 	-DLIMITS_FILE=\"$(SCONFIGDIR)/limits.conf\"
 AM_LDFLAGS = -no-undefined -avoid-version -module \
-	$(top_builddir)/modules/pammodutil/libpammodutil.la \
 	-L$(top_builddir)/libpam -lpam
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=../modules.map

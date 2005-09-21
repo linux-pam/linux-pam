@@ -29,7 +29,7 @@
 #define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 /*
@@ -85,7 +85,7 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 	struct passwd *user_pwd;
 	struct stat st;
 
-	user_pwd = _pammodutil_getpwnam(pamh, username);
+	user_pwd = pam_modutil_getpwnam(pamh, username);
 	if (user_pwd == NULL) {
 
 	    retval = PAM_USER_UNKNOWN;
@@ -111,7 +111,7 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 	    goto clean_up_fd;
 	}
 
-	if (_pammodutil_read(fd, mtmp, st.st_size) == st.st_size) {
+	if (pam_modutil_read(fd, mtmp, st.st_size) == st.st_size) {
 		mtmp[st.st_size] = '\000';
 
 		pam_prompt (pamh, msg_style, NULL, "%s", mtmp);

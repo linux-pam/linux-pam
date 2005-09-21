@@ -53,7 +53,7 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 
@@ -400,18 +400,18 @@ create_homedir (pam_handle_t * pamh, int ctrl,
       /* Copy the file */
       do
       {
-	 Res = _pammodutil_read(SrcFd,remark,sizeof(remark));
+	 Res = pam_modutil_read(SrcFd,remark,sizeof(remark));
 
 	 if (Res == 0)
 	     continue;
 
 	 if (Res > 0) {
-	     if (_pammodutil_write(DestFd,remark,Res) == Res)
+	     if (pam_modutil_write(DestFd,remark,Res) == Res)
 		continue;
 	 }
 
-	 /* If we get here, pammodutil_read returned a -1 or
-	    _pammodutil_write returned something unexpected. */
+	 /* If we get here, pam_modutil_read returned a -1 or
+	    pam_modutil_write returned something unexpected. */
 	 close(SrcFd);
 	 close(DestFd);
 	 closedir(D);
@@ -473,7 +473,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
    }
 
    /* Get the password entry */
-   pwd = _pammodutil_getpwnam (pamh, user);
+   pwd = pam_modutil_getpwnam (pamh, user);
    if (pwd == NULL)
    {
       D(("couldn't identify user %s", user));

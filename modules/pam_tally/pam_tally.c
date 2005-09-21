@@ -52,7 +52,7 @@
 /* #define PAM_SM_PASSWORD */
 
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 /*---------------------------------------------------------------------*/
@@ -238,7 +238,7 @@ pam_get_uid(pam_handle_t *pamh, uid_t *uid, const char **userp, struct tally_opt
       return PAM_AUTH_ERR;
     }
 
-    if ( ! ( pw = _pammodutil_getpwnam( pamh, user ) ) ) {
+    if ( ! ( pw = pam_modutil_getpwnam( pamh, user ) ) ) {
       opts->ctrl & OPT_AUDIT ?
 	      pam_syslog(pamh, LOG_ERR, "pam_get_uid; no such user %s", user) :
 	      pam_syslog(pamh, LOG_ERR, "pam_get_uid; no such user");

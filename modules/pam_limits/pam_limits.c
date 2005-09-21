@@ -92,7 +92,7 @@ struct pam_limit_s {
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 /* argument parsing */
@@ -189,7 +189,7 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
                 continue;
 	    }
 	    if ((pl->login_limit_def == LIMITS_DEF_ALLGROUP)
-		&& !_pammodutil_user_in_group_nam_nam(pamh, ut->UT_USER, pl->login_group)) {
+		&& !pam_modutil_user_in_group_nam_nam(pamh, ut->UT_USER, pl->login_group)) {
                 continue;
 	    }
 	}
@@ -504,7 +504,7 @@ static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
 				   "checking if %s is in group %s",
 				   uname, domain + 1);
 		    }
-                if (_pammodutil_user_in_group_nam_nam(pamh, uname, domain+1))
+                if (pam_modutil_user_in_group_nam_nam(pamh, uname, domain+1))
                     process_limit(pamh, LIMITS_DEF_GROUP, ltype, item, value, ctrl,
 				  pl);
             } else if (domain[0]=='%') {
@@ -516,7 +516,7 @@ static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
 		if (strcmp(domain,"%") == 0)
 		    process_limit(pamh, LIMITS_DEF_ALL, ltype, item, value, ctrl,
 				  pl);
-		else if (_pammodutil_user_in_group_nam_nam(pamh, uname, domain+1)) {
+		else if (pam_modutil_user_in_group_nam_nam(pamh, uname, domain+1)) {
 		    strcpy(pl->login_group, domain+1);
                     process_limit(pamh, LIMITS_DEF_ALLGROUP, ltype, item, value, ctrl,
 				  pl);
@@ -531,7 +531,7 @@ static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
 		}
 		fclose(fil);
 		return PAM_IGNORE;
-	    } else if (domain[0] == '@' && _pammodutil_user_in_group_nam_nam(pamh, uname, domain+1)) {
+	    } else if (domain[0] == '@' && pam_modutil_user_in_group_nam_nam(pamh, uname, domain+1)) {
 		if (ctrl & PAM_DEBUG_ARG) {
 		    pam_syslog(pamh, LOG_DEBUG,
 			       "no limits for '%s' in group '%s'",

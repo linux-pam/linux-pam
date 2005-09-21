@@ -34,7 +34,7 @@
 #define DEFAULT_MOTD	"/etc/motd"
 
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 
 /* --- session management functions (only) --- */
 
@@ -85,7 +85,7 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 	if (!(mtmp = malloc(st.st_size+1)))
 	    break;
 
-	if (_pammodutil_read(fd, mtmp, st.st_size) != st.st_size)
+	if (pam_modutil_read(fd, mtmp, st.st_size) != st.st_size)
 	    break;
 
 	if (mtmp[st.st_size-1] == '\n')

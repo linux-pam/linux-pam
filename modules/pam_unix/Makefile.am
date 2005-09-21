@@ -12,7 +12,6 @@ securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	-I$(top_srcdir)/modules/pammodutil/include/ \
 	-DCHKPWD_HELPER=\"$(sbindir)/unix_chkpwd\"
 
 AM_LDFLAGS = -L$(top_builddir)/libpam -lpam @LIBCRYPT@ @LIBSELINUX@
@@ -25,7 +24,6 @@ if HAVE_LIBCRACK
 endif
 
 pam_unix_la_LDFLAGS = -no-undefined -avoid-version -module \
-	$(top_builddir)/modules/pammodutil/libpammodutil.la \
 	@LIBCRACK@ @LIBNSL@
 if HAVE_VERSIONING
   pam_unix_la_LDFLAGS += -Wl,--version-script=../modules.map

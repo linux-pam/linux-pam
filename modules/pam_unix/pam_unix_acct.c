@@ -59,7 +59,7 @@
 #define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 
 #ifndef LINUX_PAM
 #include <security/pam_appl.h>
@@ -143,7 +143,7 @@ struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, cons
       } else {
 	retval = WEXITSTATUS(retval);
 	if (retval != PAM_AUTHINFO_UNAVAIL) {
-          rc = _pammodutil_read(fds[0], buf, sizeof(buf) - 1);
+          rc = pam_modutil_read(fds[0], buf, sizeof(buf) - 1);
 	  if(rc > 0) {
 	      buf[rc] = '\0';
 	      if (sscanf(buf,"%ld:%ld:%ld:%ld:%ld:%ld",
@@ -208,7 +208,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		return PAM_USER_UNKNOWN;
 	}
 
-	pwent = _pammodutil_getpwnam(pamh, uname);
+	pwent = pam_modutil_getpwnam(pamh, uname);
 	if (!pwent) {
 		_log_err(LOG_ALERT, pamh
 			 ,"could not identify user (from getpwnam(%s))"
@@ -232,7 +232,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 					return PAM_CRED_INSUFFICIENT;
 			}
 		}
-		spent = _pammodutil_getspnam (pamh, uname);
+		spent = pam_modutil_getspnam (pamh, uname);
 		if (save_uid == pwent->pw_uid)
 			setreuid( save_uid, save_euid );
 		else {
@@ -242,7 +242,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		}
 
 	} else if (_unix_shadowed (pwent))
-		spent = _pammodutil_getspnam (pamh, uname);
+		spent = pam_modutil_getspnam (pamh, uname);
 	else
 		return PAM_SUCCESS;
 

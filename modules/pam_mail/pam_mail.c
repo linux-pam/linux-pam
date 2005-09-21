@@ -22,6 +22,10 @@
 #include <unistd.h>
 #include <dirent.h>
 
+#ifdef HAVE_PATHS_H
+#include <paths.h>
+#endif
+
 #define DEFAULT_MAIL_DIRECTORY    PAM_PATH_MAILDIR
 #define MAIL_FILE_FORMAT          "%s%s/%s"
 #define MAIL_ENV_NAME             "MAIL"
@@ -42,7 +46,7 @@
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 /* argument parsing */
@@ -134,7 +138,7 @@ static int get_folder(pam_handle_t *pamh, int ctrl,
     if (ctrl & PAM_NEW_MAIL_DIR) {
 	path = *path_mail;
 	if (*path == '~') {       /* support for $HOME delivery */
-	    pwd = _pammodutil_getpwnam(pamh, user);
+	    pwd = pam_modutil_getpwnam(pamh, user);
 	    if (pwd == NULL) {
 		pam_syslog(pamh,LOG_ERR, "user [%s] unknown", user);
 		_pam_overwrite(*path_mail);

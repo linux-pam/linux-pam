@@ -23,7 +23,7 @@
 #include "pam_filter.h"
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 
 /* ---------------------------------------------------------------- */
 
@@ -98,27 +98,27 @@ int main(int argc, char **argv UNUSED)
 	  /* application errors */
 
 	  if ( FD_ISSET(APPERR_FILENO,&readers) ) {
-	       int got = _pammodutil_read(APPERR_FILENO, buffer, BUFSIZ);
+	       int got = pam_modutil_read(APPERR_FILENO, buffer, BUFSIZ);
 	       if (got <= 0) {
 		    break;
 	       } else {
 		    /* translate to give to real terminal */
 		    if (before_user != NULL)
 			 before_user(buffer, got);
-		    if (_pammodutil_write(STDERR_FILENO, buffer, got) != got ) {
+		    if (pam_modutil_write(STDERR_FILENO, buffer, got) != got ) {
 			 syslog(LOG_WARNING,"couldn't write %d bytes?!",got);
 			 break;
 		    }
 	       }
 	  } else if ( FD_ISSET(APPOUT_FILENO,&readers) ) {    /* app output */
-	       int got = _pammodutil_read(APPOUT_FILENO, buffer, BUFSIZ);
+	       int got = pam_modutil_read(APPOUT_FILENO, buffer, BUFSIZ);
 	       if (got <= 0) {
 		    break;
 	       } else {
 		    /* translate to give to real terminal */
 		    if (before_user != NULL)
 			 before_user(buffer, got);
-		    if (_pammodutil_write(STDOUT_FILENO, buffer, got) != got ) {
+		    if (pam_modutil_write(STDOUT_FILENO, buffer, got) != got ) {
 			 syslog(LOG_WARNING,"couldn't write %d bytes!?",got);
 			 break;
 		    }
@@ -126,7 +126,7 @@ int main(int argc, char **argv UNUSED)
 	  }
 
 	  if ( FD_ISSET(STDIN_FILENO, &readers) ) {  /* user input */
-	       int got = _pammodutil_read(STDIN_FILENO, buffer, BUFSIZ);
+	       int got = pam_modutil_read(STDIN_FILENO, buffer, BUFSIZ);
 	       if (got < 0) {
 		    syslog(LOG_WARNING,"user input junked");
 		    break;
@@ -134,7 +134,7 @@ int main(int argc, char **argv UNUSED)
 		    /* translate to give to application */
 		    if (before_app != NULL)
 			 before_app(buffer, got);
-		    if (_pammodutil_write(APPIN_FILENO, buffer, got) != got ) {
+		    if (pam_modutil_write(APPIN_FILENO, buffer, got) != got ) {
 			 syslog(LOG_WARNING,"couldn't pass %d bytes!?",got);
 			 break;
 		    }

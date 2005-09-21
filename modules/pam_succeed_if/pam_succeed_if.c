@@ -53,7 +53,7 @@
 #include <pwd.h>
 #include <grp.h>
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 /* Basically, run cmp(atol(left), atol(right)), returning PAM_SUCCESS if
@@ -184,7 +184,7 @@ static int
 evaluate_ingroup(pam_handle_t *pamh, const char *user, const char *group)
 {
 	int ret;
-	ret = _pammodutil_user_in_group_nam_nam(pamh, user, group);
+	ret = pam_modutil_user_in_group_nam_nam(pamh, user, group);
 	switch (ret) {
 	case 1:
 		return PAM_SUCCESS;
@@ -199,7 +199,7 @@ static int
 evaluate_notingroup(pam_handle_t *pamh, const char *user, const char *group)
 {
 	int ret;
-	ret = _pammodutil_user_in_group_nam_nam(pamh, user, group);
+	ret = pam_modutil_user_in_group_nam_nam(pamh, user, group);
 	switch (ret) {
 	case 0:
 		return PAM_SUCCESS;
@@ -349,7 +349,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 
 	if (use_uid) {
 		/* Get information about the user. */
-		pwd = _pammodutil_getpwuid(pamh, getuid());
+		pwd = pam_modutil_getpwuid(pamh, getuid());
 		if (pwd == NULL) {
 			pam_syslog(pamh,LOG_CRIT,
 				  "error retrieving information about user %ld",
@@ -367,7 +367,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		}
 
 		/* Get information about the user. */
-		pwd = _pammodutil_getpwnam(pamh, user);
+		pwd = pam_modutil_getpwnam(pamh, user);
 		if (pwd == NULL) {
 			pam_syslog(pamh,LOG_CRIT,
 				  "error retrieving information about user %s",

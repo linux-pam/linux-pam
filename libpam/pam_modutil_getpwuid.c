@@ -1,13 +1,13 @@
 /*
  * $Id$
  *
- * This function provides a thread safer version of getpwnam() for use
+ * This function provides a thread safer version of getpwuid() for use
  * with PAM modules that care about this sort of thing.
  *
  * XXX - or at least it should provide a thread-safe alternative.
  */
 
-#include "pammodutil.h"
+#include "pam_modutil_private.h"
 
 #include <errno.h>
 #include <limits.h>
@@ -36,9 +36,20 @@ static int intlen(int number)
     return len;
 }
 
-struct passwd *_pammodutil_getpwnam(pam_handle_t *pamh, const char *user)
+static int longlen(long number)
+{ 
+    int len = 2;
+    while (number != 0) {
+        number /= 10;
+	len++;
+    }
+    return len;
+}
+
+struct passwd *
+pam_modutil_getpwuid(pam_handle_t *pamh, uid_t uid)
 {
-#ifdef HAVE_GETPWNAM_R
+#ifdef HAVE_GETPWUID_R
 
     void *buffer=NULL;
     size_t length = PWD_INITIAL_LENGTH;
@@ -62,8 +73,8 @@ struct passwd *_pammodutil_getpwnam(pam_handle_t *pamh, const char *user)
 	buffer = new_buffer;
 
 	/* make the re-entrant call to get the pwd structure */
-	errno = 0;
-	status = getpwnam_r(user, buffer,
+        errno = 0;
+	status = getpwuid_r(uid, buffer,
 			    sizeof(struct passwd) + (char *) buffer,
 			    length, &result);
 	if (!status && (result == buffer)) {
@@ -71,8 +82,8 @@ struct passwd *_pammodutil_getpwnam(pam_handle_t *pamh, const char *user)
 	    const void *ignore;
 	    int i;
 
-	    data_name = malloc(strlen("_pammodutil_getpwnam") + 1 +
-	    		       strlen(user) + 1 + intlen(INT_MAX) + 1);
+	    data_name = malloc(strlen("_pammodutil_getpwuid") + 1 +
+	    		       longlen((long) uid) + 1 + intlen(INT_MAX) + 1);
 	    if ((pamh != NULL) && (data_name == NULL)) {
 	        D(("was unable to register the data item [%s]",
 	           pam_strerror(pamh, status)));
@@ -82,12 +93,13 @@ struct passwd *_pammodutil_getpwnam(pam_handle_t *pamh, const char *user)
 
 	    if (pamh != NULL) {
 	        for (i = 0; i < INT_MAX; i++) {
-	            sprintf(data_name, "_pammodutil_getpwnam_%s_%d", user, i);
+	            sprintf(data_name, "_pammodutil_getpwuid_%ld_%d",
+		   	    (long) uid, i);
 	            _pammodutil_lock();
 		    status = PAM_NO_MODULE_DATA;
 	            if (pam_get_data(pamh, data_name, &ignore) != PAM_SUCCESS) {
 		        status = pam_set_data(pamh, data_name,
-					      result, _pammodutil_cleanup);
+					      result, pam_modutil_cleanup);
 		    }
 	            _pammodutil_unlock();
 		    if (status == PAM_SUCCESS) {
@@ -126,14 +138,14 @@ struct passwd *_pammodutil_getpwnam(pam_handle_t *pamh, const char *user)
     free(buffer);
     return NULL;
 
-#else /* ie. ifndef HAVE_GETPWNAM_R */
+#else /* ie. ifndef HAVE_GETPWUID_R */
 
     /*
      * Sorry, there does not appear to be a reentrant version of
-     * getpwnam(). So, we use the standard libc function.
+     * getpwuid(). So, we use the standard libc function.
      */
     
-    return getpwnam(user);
+    return getpwuid(uid);
 
-#endif /* def HAVE_GETPWNAM_R */
+#endif /* def HAVE_GETPWUID_R */
 }

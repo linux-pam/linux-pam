@@ -4,10 +4,12 @@
  * This function provides a common pam_set_data() friendly version of free().
  */
 
-#include "pammodutil.h"
+#include "pam_modutil_private.h"
+
+#include <stdlib.h>
 
 void
-_pammodutil_cleanup (pam_handle_t *pamh UNUSED, void *data,
+pam_modutil_cleanup (pam_handle_t *pamh UNUSED, void *data,
 		     int error_status UNUSED)
 {
     if (data) {

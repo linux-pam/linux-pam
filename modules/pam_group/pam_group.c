@@ -52,7 +52,7 @@ typedef enum { AND, OR } operator;
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 /* --- static functions for checking whether the user should be let in --- */
@@ -583,7 +583,7 @@ static int mkgrplist(pam_handle_t *pamh, char *buf, gid_t **list, int len)
 	  {
 	      const struct group *grp;
 
-	      grp = _pammodutil_getgrnam(pamh, buf+at);
+	      grp = pam_modutil_getgrnam(pamh, buf+at);
 	      if (grp == NULL) {
 		  pam_syslog(pamh,LOG_ERR,"bad group: %s", buf+at);
 	      } else {

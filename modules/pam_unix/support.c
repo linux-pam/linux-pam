@@ -25,7 +25,7 @@
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 
 #include "md5.h"
 #include "support.h"
@@ -476,7 +476,7 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned int ctrl, const char *name)
 	/* UNIX passwords area */
 
 	/* Get password file entry... */
-	pwd = _pammodutil_getpwnam (pamh, name);
+	pwd = pam_modutil_getpwnam (pamh, name);
 
 	if (pwd != NULL) {
 		if (strcmp( pwd->pw_passwd, "*NP*" ) == 0)
@@ -498,7 +498,7 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned int ctrl, const char *name)
 				}
 			}
 
-			spwdent = _pammodutil_getspnam (pamh, name);
+			spwdent = pam_modutil_getspnam (pamh, name);
 			if (save_uid == pwd->pw_uid)
 				setreuid( save_uid, save_euid );
 			else {
@@ -511,7 +511,7 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned int ctrl, const char *name)
 			 * ...and shadow password file entry for this user,
 			 * if shadowing is enabled
 			 */
-			spwdent = _pammodutil_getspnam(pamh, name);
+			spwdent = pam_modutil_getspnam(pamh, name);
 		}
 		if (spwdent)
 			salt = x_strdup(spwdent->sp_pwdp);
@@ -662,7 +662,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	D(("locating user's record"));
 
 	/* UNIX passwords area */
-	pwd = _pammodutil_getpwnam (pamh, name);	/* Get password file entry... */
+	pwd = pam_modutil_getpwnam (pamh, name);	/* Get password file entry... */
 
 	if (pwd != NULL) {
 		if (strcmp( pwd->pw_passwd, "*NP*" ) == 0)
@@ -683,7 +683,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 				}
 			}
 
-			spwdent = _pammodutil_getspnam (pamh, name);
+			spwdent = pam_modutil_getspnam (pamh, name);
 			if (save_uid == pwd->pw_uid)
 				setreuid( save_uid, save_euid );
 			else {
@@ -696,7 +696,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			 * ...and shadow password file entry for this user,
 			 * if shadowing is enabled
 			 */
-			spwdent = _pammodutil_getspnam (pamh, name);
+			spwdent = pam_modutil_getspnam (pamh, name);
 		}
 		if (spwdent)
 			salt = x_strdup(spwdent->sp_pwdp);
@@ -806,7 +806,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			    const void *void_old;
 
 
-			    login_name = _pammodutil_getlogin(pamh);
+			    login_name = pam_modutil_getlogin(pamh);
 			    if (login_name == NULL) {
 				login_name = "";
 			    }

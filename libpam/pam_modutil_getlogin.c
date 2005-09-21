@@ -6,7 +6,7 @@
  * there.
  */
 
-#include "pammodutil.h"
+#include "pam_modutil_private.h"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -14,7 +14,8 @@
 
 #define _PAMMODUTIL_GETLOGIN "_pammodutil_getlogin"
 
-const char *_pammodutil_getlogin(pam_handle_t *pamh)
+const char *
+pam_modutil_getlogin(pam_handle_t *pamh)
 {
     int status;
     const void *logname;
@@ -57,7 +58,7 @@ const char *_pammodutil_getlogin(pam_handle_t *pamh)
     /* calloc already zeroed the memory */
 
     status = pam_set_data(pamh, _PAMMODUTIL_GETLOGIN, curr_user,
-			  _pammodutil_cleanup);
+			  pam_modutil_cleanup);
     if (status != PAM_SUCCESS) {
 	free(curr_user);
 	goto clean_up_and_go_home;

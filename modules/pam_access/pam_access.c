@@ -59,7 +59,7 @@
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 /* login_access.c from logdaemon-5.6 with several changes by A.Nogin: */
@@ -291,7 +291,7 @@ static int user_match(pam_handle_t *pamh, char *tok, struct login_info *item)
 	return (netgroup_match(tok + 1, (char *) 0, string));
     else if (string_match (tok, string)) /* ALL or exact match */
 	return YES;
-    else if (_pammodutil_user_in_group_nam_nam (pamh, item->user->pw_name, tok))
+    else if (pam_modutil_user_in_group_nam_nam (pamh, item->user->pw_name, tok))
       /* try group membership */
       return YES;
 
@@ -437,7 +437,7 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
         }
     }
 
-    if ((user_pw=_pammodutil_getpwnam(pamh, user))==NULL) return (PAM_USER_UNKNOWN);
+    if ((user_pw=pam_modutil_getpwnam(pamh, user))==NULL) return (PAM_USER_UNKNOWN);
 
     /*
      * Bundle up the arguments to avoid unnecessary clumsiness later on.

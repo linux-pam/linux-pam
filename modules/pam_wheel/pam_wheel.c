@@ -43,7 +43,7 @@
 #define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
-#include <security/_pam_modutil.h>
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 /* checks if a user is on a list of members of the GID 0 group */
@@ -115,7 +115,7 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
         return PAM_SERVICE_ERR;
     }
 
-    pwd = _pammodutil_getpwnam (pamh, username);
+    pwd = pam_modutil_getpwnam (pamh, username);
     if (!pwd) {
         if (ctrl & PAM_DEBUG_ARG) {
             pam_syslog(pamh,LOG_NOTICE,"unknown user %s",username);
@@ -130,7 +130,7 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
     }
 
     if (ctrl & PAM_USE_UID_ARG) {
-	tpwd = _pammodutil_getpwuid (pamh, getuid());
+	tpwd = pam_modutil_getpwuid (pamh, getuid());
 	if (!tpwd) {
 	    if (ctrl & PAM_DEBUG_ARG) {
                 pam_syslog(pamh,LOG_NOTICE, "who is running me ?!");
@@ -139,9 +139,9 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
 	}
 	fromsu = tpwd->pw_name;
     } else {
-	fromsu = _pammodutil_getlogin(pamh);
+	fromsu = pam_modutil_getlogin(pamh);
 	if (fromsu) {
-	    tpwd = _pammodutil_getpwnam (pamh, fromsu);
+	    tpwd = pam_modutil_getpwnam (pamh, fromsu);
 	}
 	if (!fromsu || !tpwd) {
 	    if (ctrl & PAM_DEBUG_ARG) {
@@ -156,11 +156,11 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
      */
 
     if (!use_group[0]) {
-	if ((grp = _pammodutil_getgrnam (pamh, "wheel")) == NULL) {
-	    grp = _pammodutil_getgrgid (pamh, 0);
+	if ((grp = pam_modutil_getgrnam (pamh, "wheel")) == NULL) {
+	    grp = pam_modutil_getgrgid (pamh, 0);
 	}
     } else {
-	grp = _pammodutil_getgrnam (pamh, use_group);
+	grp = pam_modutil_getgrnam (pamh, use_group);
     }
 
     if (!grp || (!grp->gr_mem && (tpwd->pw_gid != grp->gr_gid))) {
