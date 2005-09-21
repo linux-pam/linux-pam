@@ -11,7 +11,7 @@ man_MANS = pam_echo.8
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
 AM_LDFLAGS = -no-undefined -avoid-version -module \
 	-L$(top_builddir)/libpam -lpam
 if HAVE_VERSIONING
