@@ -20,7 +20,7 @@ pam_selinux_check_LDFLAGS = -L$(top_builddir)/libpam_misc -lpam_misc
 
 if HAVE_VERSIONING
   pam_selinux_la_LDFLAGS = -avoid-version -module \
-	-Wl,--version-script=../modules.map
+	-Wl,--version-script=$(srcdir)/../modules.map
 endif
 
 if HAVE_LIBSELINUX

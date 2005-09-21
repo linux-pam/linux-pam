@@ -10,13 +10,14 @@ CLEANFILES = *~
 
 EXTRA_DIST = libpam.map
 
-include_HEADERS = $(addprefix include/security/, _pam_compat.h _pam_macros.h _pam_types.h pam_appl.h pam_malloc.h pam_modules.h pam_ext.h)
+include_HEADERS = $(addprefix include/security/, _pam_compat.h _pam_macros.h _pam_types.h \
+	pam_appl.h pam_malloc.h pam_modules.h pam_ext.h pam_modutil.h)
 
-noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h
+noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h pam_modutil_private.h
 
 libpam_la_LDFLAGS = -no-undefined -version-info 81:0:81
 if HAVE_VERSIONING
-  libpam_la_LDFLAGS += -Wl,--version-script=libpam.map
+  libpam_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libpam.map
 endif
 
 lib_LTLIBRARIES = libpam.la

@@ -16,7 +16,7 @@ AM_CFLAGS=-I$(top_srcdir)/libpam/include -I$(srcdir)/include
 
 libpamc_la_LDFLAGS = -no-undefined -version-info 81:0:81
 if HAVE_VERSIONING
-  libpamc_la_LDFLAGS += -Wl,--version-script=libpamc.map
+  libpamc_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libpamc.map
 endif
 
 lib_LTLIBRARIES = libpamc.la

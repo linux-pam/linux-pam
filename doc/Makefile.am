@@ -3,14 +3,14 @@
 #
 
 FILES=pam pam_appl pam_modules
-FSRCS=pam_appl.sgml pam_modules.sgml
+FSRCS=$(srcdir)/pam_appl.sgml $(srcdir)/pam_modules.sgml
 
 TEXTS=txts/pam.txt txts/pam_appl.txt txts/pam_modules.txt
 HTMLS=html/pam.html html/pam_appl.html html/pam_modules.html
 PSFILES=ps/pam.ps ps/pam_appl.ps ps/pam_modules.ps
 PDFFILES=pdf/pam.pdf pdf/pam_appl.pdf pdf/pam_modules.pdf
 
-MODULES=$(shell ls modules/*.sgml)
+MODULES=$(shell ls $(srcdir)/modules/*.sgml)
 
 CLEANFILES = *~ */*~ $(TEXTS) $(PSFILES) $(PDFFILES) html/pam*.html \
 	ps/missfont.log MODULES-SGML pam.sgml \
@@ -32,13 +32,14 @@ all: html text postscript pdf
 
 html: $(HTMLS)
 
-$(HTMLS) : $(FSRCS) pam.sgml
+$(HTMLS) : $(FSRCS) $(srcdir)/pam.sgml
 	@echo 'Building html documentation from files in modules/*.sgml'
 if HAVE_SGML2HTML
 	@for i in $(FILES) ; do \
-	if [ ! -f "html/$$i.html" ] || [ "$$i.sgml" -nt "html/$$i.html" ]; \
+	if [ ! -f "html/$$i.html" ] || [ "$(srcdir)/$$i.sgml" -nt "html/$$i.html" ]; \
 	then \
-		cd html ; sgml2html ../$$i ; \
+		mkdir -p html ; \
+		cd html ; sgml2html ../$(srcdir)/$$i ; \
 		if [ $$? -ne 0 ]; then exit 1 ; fi ; \
 		cd .. ; \
 	fi ; \
@@ -49,13 +50,14 @@ endif
 
 text: $(TEXTS)
 
-$(TEXTS) : $(FSRCS) pam.sgml
+$(TEXTS) : $(FSRCS) $(srcdir)/pam.sgml
 	@echo 'Building text documentation from files in modules/*.sgml'
 if HAVE_SGML2TXT
 	@for i in $(FILES) ; do \
 		if [ ! -f "txts/$$i.txt" ] \
-				|| [ "$$i.sgml" -nt "txts/$$i.txt" ]; then \
-			cd txts ; sgml2txt ../$$i ; cd .. ; \
+				|| [ "$(srcdir)/$$i.sgml" -nt "txts/$$i.txt" ]; then \
+			mkdir -p txts ; \
+			cd txts ; sgml2txt ../$(srcdir)/$$i ; cd .. ; \
 		fi ; \
 	done
 else
@@ -64,12 +66,13 @@ endif
 
 postscript: $(PSFILES)
 
-$(PSFILES): $(FSRCS) pam.sgml
+$(PSFILES): $(FSRCS) $(srcdir)/pam.sgml
 	@echo 'Building postscript documentation from files in modules/*.sgml'
 if HAVE_SGML2PS
 	@for i in $(FILES) ; do \
-	if [ ! -f "ps/$$i.ps" ] || [ "$$i.sgml" -nt "ps/$$i.ps" ]; then \
-		cd ps ; $(PSER) ../$$i ; cd .. ; \
+	if [ ! -f "ps/$$i.ps" ] || [ "$(srcdir)/$$i.sgml" -nt "ps/$$i.ps" ]; then \
+		mkdir -p ps ; \
+		cd ps ; $(PSER) ../$(srcdir)/$$i ; cd .. ; \
 	fi ; \
 	done
 else
@@ -84,6 +87,7 @@ if HAVE_SGML2PS
 if HAVE_PS2PDF
 	@for i in $(FILES) ; do \
 	if [ ! -f "pdf/$$i.pdf" ] || [ "ps/$$i.ps" -nt "ps/$$i.pdf" ]; then \
+		mkdir -p pdf ; \
 		ps2pdf ps/$$i.ps pdf/$$i.pdf ; \
 	fi ; \
 	done
@@ -94,16 +98,17 @@ else
 	@echo XXX - neither sgml2ps nor sgml2latex binaries are installed
 endif
 
-pam.sgml: pam_source.sgml MODULES-SGML CREDITS
-	@sed -e '/^<!\-\- insert\-file MODULES\-SGML \-\->/r MODULES-SGML' pam_source.sgml | sed -e '/^<!\-\- insert\-file CREDITS \-\->/r CREDITS' > pam.sgml
+$(srcdir)/pam.sgml: $(srcdir)/pam_source.sgml MODULES-SGML CREDITS
+	@sed -e '/^<!\-\- insert\-file MODULES\-SGML \-\->/r MODULES-SGML' $(srcdir)/pam_source.sgml |\
+	  sed -e '/^<!\-\- insert\-file CREDITS \-\->/r CREDITS' > $(srcdir)/pam.sgml
 
 MODULES-SGML: $(MODULES)
 	@echo 'Building module text from files in modules/*.sgml'
 	@rm -f MODULES-SGML
 	@echo '<!-- modules included:' > MODULES-SGML
-	@ls modules/*.sgml >> MODULES-SGML
+	@ls $(srcdir)/modules/*.sgml >> MODULES-SGML
 	@echo '  and that is all -->' >> MODULES-SGML
-	@cat modules/*.sgml >> MODULES-SGML
+	@cat $(srcdir)/modules/*.sgml >> MODULES-SGML
 
 extraclean: clean
 

@@ -13,7 +13,7 @@ AM_CFLAGS = -I$(top_srcdir)/libpam/include \
 
 libpam_misc_la_LDFLAGS = -no-undefined -version-info 81:0:81
 if HAVE_VERSIONING
-  libpam_misc_la_LDFLAGS += -Wl,--version-script=libpam_misc.map
+  libpam_misc_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libpam_misc.map
 endif
 libpam_misc_la_LIBADD = $(top_builddir)/libpam/libpam.la
 

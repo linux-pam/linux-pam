@@ -26,7 +26,7 @@ endif
 pam_unix_la_LDFLAGS = -no-undefined -avoid-version -module \
 	@LIBCRACK@ @LIBNSL@
 if HAVE_VERSIONING
-  pam_unix_la_LDFLAGS += -Wl,--version-script=../modules.map
+  pam_unix_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
 securelib_LTLIBRARIES = pam_unix.la

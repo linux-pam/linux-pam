@@ -17,7 +17,7 @@ AM_LDFLAGS = -no-undefined -avoid-version -module \
 
 pam_tally_la_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
-  pam_tally_la_LDFLAGS += -Wl,--version-script=../modules.map
+  pam_tally_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
 securelib_LTLIBRARIES = pam_tally.la
