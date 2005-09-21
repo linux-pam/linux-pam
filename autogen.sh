@@ -1,8 +1,6 @@
 #!/bin/sh -x
 
 echo "Please look at CHANGELOG" > NEWS
-touch AUTHORS
-echo "Please look at CHANGELOG" > ChangeLog
-aclocal
+aclocal -I m4
 automake --add-missing --copy
 autoreconf

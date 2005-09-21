@@ -1,0 +1,13 @@
+2005-09-20  Thorsten Kukuk  <kukuk@suse.de>
+
+	* configure.in: Add finish translation.
+	* po/fi.po: New.
+
+	* acinclude.m4: remove libprelude macros.
+	* m4/libprelude.m4: New.
+
+	* Makefile.am (EXTRA_DIST): make sure we include all m4 macros.
+
+	* libpamc/Makefile.am (EXTRA_DIST): Add License.
+
+See CHANGELOG for earlier changes.
