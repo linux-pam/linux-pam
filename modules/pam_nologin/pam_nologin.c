@@ -15,6 +15,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <syslog.h>
 #include <pwd.h>
 
 #include <security/_pam_macros.h>
@@ -41,7 +42,7 @@ struct opt_s {
 };
 
 static void
-parse_args(int argc, const char **argv, struct opt_s *opts)
+parse_args(pam_handle_t *pamh, int argc, const char **argv, struct opt_s *opts)
 {
     int i;
 
@@ -56,8 +57,7 @@ parse_args(int argc, const char **argv, struct opt_s *opts)
 	} else if (!memcmp("file=", argv[i], 5)) {
 	    opts->nologin_file = argv[i] + 5;
 	} else {
-	    /* XXX - ignore for now. Later, we'll use the logging
-               function in pammodutils */
+	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", argv[i]);
 	}
     }
 }
@@ -69,12 +69,11 @@ parse_args(int argc, const char **argv, struct opt_s *opts)
 static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 {
     const char *username;
-    int retval = PAM_SUCCESS;
+    int retval = opts->retval_when_nofile;
     int fd;
 
-    retval = opts->retval_when_nofile;
-
     if ((pam_get_user(pamh, &username, NULL) != PAM_SUCCESS) || !username) {
+	pam_syslog(pamh, LOG_WARNING, "cannot determine username");
 	return PAM_USER_UNKNOWN;
     }
 
@@ -87,15 +86,11 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 
 	user_pwd = pam_modutil_getpwnam(pamh, username);
 	if (user_pwd == NULL) {
-
 	    retval = PAM_USER_UNKNOWN;
 	    msg_style = PAM_ERROR_MSG;
-
 	} else if (user_pwd->pw_uid) {
-
 	    retval = PAM_AUTH_ERR;
 	    msg_style = PAM_ERROR_MSG;
-
 	}
 
 	/* fill in message buffer with contents of /etc/nologin */
@@ -106,15 +101,14 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 
 	mtmp = malloc(st.st_size+1);
 	if (!mtmp) {
-	    /* if malloc failed... */
+	    pam_syslog(pamh, LOG_ERR, "out of memory");
 	    retval = PAM_BUF_ERR;
 	    goto clean_up_fd;
 	}
 
 	if (pam_modutil_read(fd, mtmp, st.st_size) == st.st_size) {
-		mtmp[st.st_size] = '\000';
-
-		pam_prompt (pamh, msg_style, NULL, "%s", mtmp);
+		mtmp[st.st_size] = '\0';
+		(void) pam_prompt (pamh, msg_style, NULL, "%s", mtmp);
 	}
 	else
 	    retval = PAM_SYSTEM_ERR;
@@ -137,7 +131,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 {
     struct opt_s opts;
 
-    parse_args(argc, argv, &opts);
+    parse_args(pamh, argc, argv, &opts);
 
     return perform_check(pamh, &opts);
 }
@@ -148,7 +142,7 @@ pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
 {
     struct opt_s opts;
 
-    parse_args(argc, argv, &opts);
+    parse_args(pamh, argc, argv, &opts);
 
     return opts.retval_when_nofile;
 }
@@ -161,7 +155,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 {
     struct opt_s opts;
 
-    parse_args(argc, argv, &opts);
+    parse_args(pamh, argc, argv, &opts);
 
     return perform_check(pamh, &opts);
 }

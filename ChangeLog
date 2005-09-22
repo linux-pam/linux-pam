@@ -1,3 +1,12 @@
+2005-09-21  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* modules/pam_nologin/pam_nologin.c: Include <syslog.h>.
+	(parse_args): Add pam_handle_t* argument.  Log unrecognized
+	options.
+	(perform_check): Log pam_get_user() and malloc() failures.
+	(pam_sm_authenticate, pam_sm_setcred, pam_sm_acct_mgmt):
+	Pass pam_handle_t* to parse_args().
+
 2005-09-20  Thorsten Kukuk  <kukuk@suse.de>
 
 	* configure.in: Add finish translation.
