@@ -20,6 +20,24 @@
 	(_do_mail): Cleanup memory management.	Pass pam_handle_t*
 	to get_mail_status().
 
+	* po/Linux-PAM.pot: Update with new strings from pam_mail for
+	translation.
+	* po/cs.po: Likewise.
+	* po/de.po: Likewise.
+	* po/es.po: Likewise.
+	* po/fi.po: Likewise.
+	* po/fr.po: Likewise.
+	* po/hu.po: Likewise.
+	* po/it.po: Likewise.
+	* po/ja.po: Likewise.
+	* po/nb.po: Likewise.
+	* po/pa.po: Likewise.
+	* po/pl.po: Likewise.
+	* po/pt.po: Likewise.
+	* po/pt_BR.po: Likewise.
+	* po/zh_CN.po: Likewise.
+	* po/zh_TW.po: Likewise.
+
 2005-09-20  Thorsten Kukuk  <kukuk@suse.de>
 
 	* configure.in: Add finish translation.

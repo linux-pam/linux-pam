@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pa\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-21 12:48+0200\n"
+"POT-Creation-Date: 2005-09-21 17:16+0000\n"
 "PO-Revision-Date: 2005-08-06 08:34+0530\n"
 "Last-Translator: Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>\n"
 "Language-Team: Panjabi <pa@li.org>\n"
@@ -134,6 +134,20 @@ msgstr "ਇੱਕ ਠੀਕ ਸੁਰੱਖਿਆ ਪਰਸੰਗ ਨਹੀਂ"
 #: modules/pam_selinux/pam_selinux.c:416
 #, c-format
 msgid "Security Context %s Assigned"
+msgstr ""
+
+#: modules/pam_mail/pam_mail.c:302
+msgid "No mail."
+msgstr ""
+
+#: modules/pam_mail/pam_mail.c:304
+#, c-format
+msgid "You have %smail."
+msgstr ""
+
+#: modules/pam_mail/pam_mail.c:306
+#, c-format
+msgid "You have %s mail in %s."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:268 modules/pam_unix/pam_unix_acct.c:295

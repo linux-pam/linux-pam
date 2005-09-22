@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-21 12:48+0200\n"
+"POT-Creation-Date: 2005-09-21 17:16+0000\n"
 "PO-Revision-Date: 2005-08-24 13:58+0200\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
@@ -135,6 +135,20 @@ msgstr "Neplatný bezpečnostní kontext"
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Bezpečnostní kontext %s přidělen"
+
+#: modules/pam_mail/pam_mail.c:302
+msgid "No mail."
+msgstr ""
+
+#: modules/pam_mail/pam_mail.c:304
+#, c-format
+msgid "You have %smail."
+msgstr ""
+
+#: modules/pam_mail/pam_mail.c:306
+#, c-format
+msgid "You have %s mail in %s."
+msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:268 modules/pam_unix/pam_unix_acct.c:295
 msgid "Your account has expired; please contact your system administrator"
