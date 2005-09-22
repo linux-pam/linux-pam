@@ -21,6 +21,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <dirent.h>
+#include <errno.h>
 
 #ifdef HAVE_PATHS_H
 #include <paths.h>
@@ -30,9 +31,6 @@
 #define MAIL_FILE_FORMAT          "%s%s/%s"
 #define MAIL_ENV_NAME             "MAIL"
 #define MAIL_ENV_FORMAT           MAIL_ENV_NAME "=%s"
-#define YOUR_MAIL_VERBOSE_FORMAT  "You have %s mail in %s."
-#define YOUR_MAIL_STANDARD_FORMAT "You have %smail."
-#define NO_MAIL_STANDARD_FORMAT   "No mail."
 
 /*
  * here, we make a definition for the externally accessible function
@@ -109,7 +107,7 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc,
 	} else if (!strcmp(*argv,"empty")) {
 	    ctrl |= PAM_EMPTY_TOO;
 	} else {
-	    pam_syslog(pamh,LOG_ERR,"pam_parse: unknown option; %s",*argv);
+	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
     }
 
@@ -121,42 +119,44 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc,
     return ctrl;
 }
 
-static int get_folder(pam_handle_t *pamh, int ctrl,
-		      char **path_mail, char **folder_p, size_t hashcount)
+static int
+get_folder(pam_handle_t *pamh, int ctrl,
+	   char **path_mail, char **folder_p, size_t hashcount)
 {
     int retval;
     const char *user, *path;
-    char *folder;
-    const struct passwd *pwd=NULL;
+    char *folder = NULL;
+    const struct passwd *pwd = NULL;
 
     retval = pam_get_user(pamh, &user, NULL);
     if (retval != PAM_SUCCESS || user == NULL) {
-	pam_syslog(pamh,LOG_ERR, "no user specified");
-	return PAM_USER_UNKNOWN;
+	pam_syslog(pamh, LOG_ERR, "cannot determine username");
+	retval = PAM_USER_UNKNOWN;
+	goto get_folder_cleanup;
     }
 
     if (ctrl & PAM_NEW_MAIL_DIR) {
 	path = *path_mail;
-	if (*path == '~') {       /* support for $HOME delivery */
+	if (*path == '~') {	/* support for $HOME delivery */
 	    pwd = pam_modutil_getpwnam(pamh, user);
 	    if (pwd == NULL) {
-		pam_syslog(pamh,LOG_ERR, "user [%s] unknown", user);
-		_pam_overwrite(*path_mail);
-		_pam_drop(*path_mail);
-		return PAM_USER_UNKNOWN;
+		pam_syslog(pamh, LOG_ERR, "user unknown");
+		retval = PAM_USER_UNKNOWN;
+		goto get_folder_cleanup;
 	    }
 	    /*
 	     * "~/xxx" and "~xxx" are treated as same
 	     */
 	    if (!*++path || (*path == '/' && !*++path)) {
-		pam_syslog(pamh,LOG_ALERT, "badly formed mail path [%s]", *path_mail);
-		_pam_overwrite(*path_mail);
-		_pam_drop(*path_mail);
-		return PAM_ABORT;
+		pam_syslog(pamh, LOG_ERR,
+			   "badly formed mail path [%s]", *path_mail);
+		retval = PAM_SERVICE_ERR;
+		goto get_folder_cleanup;
 	    }
 	    ctrl |= PAM_HOME_MAIL;
 	    if (hashcount != 0) {
-		pam_syslog(pamh,LOG_ALERT, "can't do hash= and home directory mail");
+		pam_syslog(pamh, LOG_ERR,
+			   "cannot do hash= and home directory mail");
 	    }
 	}
     } else {
@@ -167,111 +167,130 @@ static int get_folder(pam_handle_t *pamh, int ctrl,
 
     hashcount = hashcount < strlen(user) ? hashcount : strlen(user);
 
+    retval = PAM_BUF_ERR;
     if (ctrl & PAM_HOME_MAIL) {
-	folder = malloc(sizeof(MAIL_FILE_FORMAT)
-			+strlen(pwd->pw_dir)+strlen(path));
+	if (asprintf(&folder, MAIL_FILE_FORMAT, pwd->pw_dir, "", path) < 0)
+	    goto get_folder_cleanup;
     } else {
-	folder = malloc(sizeof(MAIL_FILE_FORMAT)+strlen(path)+strlen(user)
-			+2*hashcount);
-    }
+	int rc;
+	size_t i;
+	char *hash;
 
-    if (folder != NULL) {
-	if (ctrl & PAM_HOME_MAIL) {
-	    sprintf(folder, MAIL_FILE_FORMAT, pwd->pw_dir, "", path);
-	} else {
-	    size_t i;
-	    char *hash = malloc(2*hashcount+1);
+	if ((hash = malloc(2 * hashcount + 1)) == NULL)
+	    goto get_folder_cleanup;
 
-	    if (hash) {
-		for (i = 0; i < hashcount; i++) {
-		    hash[2*i] = '/';
-		    hash[2*i+1] = user[i];
-		}
-		hash[2*i] = '\0';
-		sprintf(folder, MAIL_FILE_FORMAT, path, hash, user);
-		_pam_overwrite(hash);
-		_pam_drop(hash);
-	    } else {
-	      _pam_drop(folder);
-	      pam_syslog(pamh,LOG_CRIT, "out of memory for mail folder");
-	      return PAM_BUF_ERR;
-	    }
+	for (i = 0; i < hashcount; i++) {
+	    hash[2 * i] = '/';
+	    hash[2 * i + 1] = user[i];
 	}
-	D(("folder =[%s]", folder));
+	hash[2 * i] = '\0';
+
+	rc = asprintf(&folder, MAIL_FILE_FORMAT, path, hash, user);
+	_pam_overwrite(hash);
+	_pam_drop(hash);
+	if (rc < 0)
+	    goto get_folder_cleanup;
     }
+    D(("folder=[%s]", folder));
+    retval = PAM_SUCCESS;
 
     /* tidy up */
 
+  get_folder_cleanup:
     _pam_overwrite(*path_mail);
     _pam_drop(*path_mail);
     user = NULL;
-
-    if (folder == NULL) {
-	pam_syslog(pamh,LOG_CRIT, "out of memory for mail folder");
-	return PAM_BUF_ERR;
-    }
+    path = NULL;
 
     *folder_p = folder;
     folder = NULL;
 
-    return PAM_SUCCESS;
+    if (retval == PAM_BUF_ERR)
+	pam_syslog(pamh, LOG_CRIT, "out of memory for mail folder");
+
+    return retval;
 }
 
-static const char *get_mail_status(int ctrl, const char *folder)
+static const char *
+get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 {
     const char *type = NULL;
-    static char dir[256];
     struct stat mail_st;
-    struct dirent **namelist;
-    int i;
 
-    if (stat(folder, &mail_st) == 0) {
-	if (S_ISDIR(mail_st.st_mode)) { /* Assume Maildir format */
-	    sprintf(dir, "%.250s/new", folder);
+    if (stat(folder, &mail_st) < 0)
+	return NULL;
+
+    if (S_ISDIR(mail_st.st_mode)) {	/* Assume Maildir format */
+	int i, save_errno;
+	char *dir;
+	struct dirent **namelist;
+
+	if (asprintf(&dir, "%s/new", folder) < 0) {
+	    pam_syslog(pamh, LOG_CRIT, "out of memory");
+	    goto get_mail_status_cleanup;
+	}
+	i = scandir(dir, &namelist, 0, alphasort);
+	save_errno = errno;
+	_pam_overwrite(dir);
+	_pam_drop(dir);
+	if (i < 0) {
+	    type = NULL;
+	    namelist = NULL;
+	    if (save_errno == ENOMEM) {
+		pam_syslog(pamh, LOG_CRIT, "out of memory");
+		goto get_mail_status_cleanup;
+	    }
+	}
+	type = (i > 2) ? "new" : NULL;
+	while (--i >= 0)
+	    _pam_drop(namelist[i]);
+	_pam_drop(namelist);
+	if (type == NULL) {
+	    if (asprintf(&dir, "%s/cur", folder) < 0) {
+		pam_syslog(pamh, LOG_CRIT, "out of memory");
+		goto get_mail_status_cleanup;
+	    }
 	    i = scandir(dir, &namelist, 0, alphasort);
-	    if (i > 2) {
-		type = "new";
-		while (--i)
-		    free(namelist[i]);
-	    } else {
-		while (--i >= 0)
-		    free(namelist[i]);
-		sprintf(dir, "%.250s/cur", folder);
-		i = scandir(dir, &namelist, 0, alphasort);
-		if (i > 2) {
-		    type = "old";
-		    while (--i)
-			free(namelist[i]);
-		} else if (ctrl & PAM_EMPTY_TOO) {
-		    while (--i >= 0)
-			free(namelist[i]);
-		    type = "no";
-		} else {
-		    type = NULL;
+	    save_errno = errno;
+	    _pam_overwrite(dir);
+	    _pam_drop(dir);
+	    if (i < 0) {
+		type = NULL;
+		namelist = NULL;
+		if (save_errno == ENOMEM) {
+		    pam_syslog(pamh, LOG_CRIT, "out of memory");
+		    goto get_mail_status_cleanup;
 		}
 	    }
+	    if (i > 2)
+		type = "old";
+	    else
+		type = (ctrl & PAM_EMPTY_TOO) ? "no" : NULL;
+	    while (--i >= 0)
+		_pam_drop(namelist[i]);
+	    _pam_drop(namelist);
+	}
+    } else {
+	if (mail_st.st_size > 0) {
+	    if (mail_st.st_atime < mail_st.st_mtime)	/* new */
+		type = (ctrl & PAM_STANDARD_MAIL) ? "new " : "new";
+	    else		/* old */
+		type = (ctrl & PAM_STANDARD_MAIL) ? "" : "old";
+	} else if (ctrl & PAM_EMPTY_TOO) {
+	    type = "no";
 	} else {
-	    if (mail_st.st_size > 0) {
-		if (mail_st.st_atime < mail_st.st_mtime) /* new */
-		    type = (ctrl & PAM_STANDARD_MAIL) ? "new " : "new";
-		else /* old */
-		    type = (ctrl & PAM_STANDARD_MAIL) ? "" : "old";
-	    } else if (ctrl & PAM_EMPTY_TOO) {
-		type = "no";
-	    } else {
-		type = NULL;
-	    }
+	    type = NULL;
 	}
     }
 
-    memset(dir, 0, 256);
+  get_mail_status_cleanup:
     memset(&mail_st, 0, sizeof(mail_st));
     D(("user has %s mail in %s folder", type, folder));
     return type;
 }
 
-static int report_mail(pam_handle_t *pamh, int ctrl
-		       , const char *type, const char *folder)
+static int
+report_mail(pam_handle_t *pamh, int ctrl, const char *type, const char *folder)
 {
     int retval;
 
@@ -280,11 +299,11 @@ static int report_mail(pam_handle_t *pamh, int ctrl
       {
 	if (ctrl & PAM_STANDARD_MAIL)
 	  if (!strcmp(type, "no"))
-	    retval = pam_info (pamh, "%s", NO_MAIL_STANDARD_FORMAT);
+	    retval = pam_info (pamh, "%s", _("No mail."));
 	  else
-	    retval = pam_info (pamh, YOUR_MAIL_STANDARD_FORMAT, type);
+	    retval = pam_info (pamh, _("You have %smail."), type);
 	else
-	  retval = pam_info (pamh, YOUR_MAIL_VERBOSE_FORMAT, type, folder);
+	  retval = pam_info (pamh, _("You have %s mail in %s."), type, folder);
       }
     else
       {
@@ -342,7 +361,7 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 {
     int retval, ctrl;
     size_t hashcount;
-    char *path_mail=NULL, *folder;
+    char *path_mail = NULL, *folder = NULL;
     const char *type;
 
     /*
@@ -370,24 +389,21 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
     if (!(ctrl & PAM_NO_ENV) && est) {
 	char *tmp;
 
-	tmp = malloc(strlen(folder)+sizeof(MAIL_ENV_FORMAT));
-	if (tmp != NULL) {
-	    sprintf(tmp, MAIL_ENV_FORMAT, folder);
-	    D(("setting env: %s", tmp));
-	    retval = pam_putenv(pamh, tmp);
-	    _pam_overwrite(tmp);
-	    _pam_drop(tmp);
-	    if (retval != PAM_SUCCESS) {
-		_pam_overwrite(folder);
-		_pam_drop(folder);
-		pam_syslog(pamh,LOG_CRIT, "unable to set " MAIL_ENV_NAME " variable");
-		return retval;
-	    }
-	} else {
-	    pam_syslog(pamh,LOG_CRIT, "no memory for " MAIL_ENV_NAME " variable");
-	    _pam_overwrite(folder);
-	    _pam_drop(folder);
-	    return retval;
+	if (asprintf(&tmp, MAIL_ENV_FORMAT, folder) < 0) {
+	    pam_syslog(pamh, LOG_CRIT,
+		       "no memory for " MAIL_ENV_NAME " variable");
+	    retval = PAM_BUF_ERR;
+	    goto do_mail_cleanup;
+	}
+	D(("setting env: %s", tmp));
+	retval = pam_putenv(pamh, tmp);
+	_pam_overwrite(tmp);
+	_pam_drop(tmp);
+	if (retval != PAM_SUCCESS) {
+	    pam_syslog(pamh, LOG_CRIT,
+		       "unable to set " MAIL_ENV_NAME " variable");
+	    retval = PAM_BUF_ERR;
+	    goto do_mail_cleanup;
 	}
     } else {
 	D(("not setting " MAIL_ENV_NAME " variable"));
@@ -399,7 +415,7 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 
     if ((est && !(ctrl & PAM_NO_LOGIN))
 	|| (!est && (ctrl & PAM_LOGOUT_TOO))) {
-	type = get_mail_status(ctrl, folder);
+	type = get_mail_status(pamh, ctrl, folder);
 	if (type != NULL) {
 	    retval = report_mail(pamh, ctrl, type, folder);
 	    type = NULL;
@@ -410,7 +426,8 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
     if ( ! est && ! (ctrl & PAM_NO_ENV) )
 	(void) pam_putenv(pamh, MAIL_ENV_NAME);
 
-    _pam_overwrite(folder); /* clean up */
+  do_mail_cleanup:
+    _pam_overwrite(folder);
     _pam_drop(folder);
 
     /* indicate success or failure */

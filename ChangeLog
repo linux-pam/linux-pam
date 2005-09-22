@@ -7,6 +7,19 @@
 	(pam_sm_authenticate, pam_sm_setcred, pam_sm_acct_mgmt):
 	Pass pam_handle_t* to parse_args().
 
+	* modules/pam_mail/pam_mail.c: Include <errno.h>.
+	Remove YOUR_MAIL_VERBOSE_FORMAT, YOUR_MAIL_STANDARD_FORMAT and
+	NO_MAIL_STANDARD_FORMAT macros.
+	(parse_args, get_folder): Cleanup error messages.
+	(get_folder): Fix leak of the path_mail variable in case of
+	pam_get_user() failure.  Cleanup memory management.
+	(get_mail_status): Add pam_handle_t* argument.	Fix leaks of
+	namelist variable.  Cleanup memory management.	Log memory
+	allocation failures.  Remove 250-byte limit on Maildir pathname.
+	(report_mail): Mark text messages for translation.
+	(_do_mail): Cleanup memory management.	Pass pam_handle_t*
+	to get_mail_status().
+
 2005-09-20  Thorsten Kukuk  <kukuk@suse.de>
 
 	* configure.in: Add finish translation.
