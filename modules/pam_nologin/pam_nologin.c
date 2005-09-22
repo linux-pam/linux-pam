@@ -54,7 +54,7 @@ parse_args(pam_handle_t *pamh, int argc, const char **argv, struct opt_s *opts)
     for (i=0; i<argc; ++i) {
 	if (!strcmp("successok", argv[i])) {
 	    opts->retval_when_nofile = PAM_SUCCESS;
-	} else if (!memcmp("file=", argv[i], 5)) {
+	} else if (!strncmp("file=", argv[i], 5)) {
 	    opts->nologin_file = argv[i] + 5;
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", argv[i]);

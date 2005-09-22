@@ -1,3 +1,8 @@
+2005-09-22  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* modules/pam_nologin/pam_nologin.c (parse_args): Use strncmp()
+	instead of memcmp() for string comparison.
+
 2005-09-21  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* modules/pam_nologin/pam_nologin.c: Include <syslog.h>.
