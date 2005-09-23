@@ -1,5 +1,12 @@
 2005-09-22  Dmitry V. Levin  <ldv@altlinux.org>
 
+	* modules/pam_xauth/pam_xauth.c: (check_acl, pam_sm_open_session,
+	pam_sm_close_session): Strip redundant "pam_xauth: " prefix from
+	text of log messages.
+	(pam_sm_open_session): Replace sequence of malloc(), strcpy()
+	and strcat() calls with asprintf().  Replace syslog() calls
+	with pam_syslog().
+
 	* modules/pam_nologin/pam_nologin.c (parse_args): Use strncmp()
 	instead of memcmp() for string comparison.
 
