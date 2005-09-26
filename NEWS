@@ -1,0 +1,17 @@
+Linux-PAM NEWS -- history of user-visible changes.
+
+Release 0.99.1.0
+
+* Use autoconf/automake/libtool
+* Add gettext support
+* Add translations for cs, de, es, fr, hu, it, ja, nb, pa, pt_BR,
+  pt, zh_CN and zh_TW
+* libpam: Remove pam_authenticate_secondary stub
+* libpam: Add pam_prompt,pam_vprompt,pam_error,pam_verror,pam_info
+  and pam_vinfo functions for use by modules as extension
+* libpam: Add pam_syslog function for unified syslog messages from
+  PAM modules.
+* libpam: Moved functions from pammodutil to libpam
+* pam_umask: New module for setting umask from GECOS field, /etc/login.defs
+  or /etc/default/login
+* pam_echo: New PAM module for message output
