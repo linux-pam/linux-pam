@@ -1,3 +1,7 @@
+2005-09-26  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* NEWS: Mention changes in pam_lastlog.
+
 2005-09-26  Thorsten Kukuk  <kukuk@suse.de>
 
 	* release 0.99.1.0
