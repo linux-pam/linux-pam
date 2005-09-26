@@ -316,11 +316,13 @@ from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
      * if it matches the head of the string.
      */
 
-    if (tok[0] == '@') {			/* netgroup */
+    if (string != NULL && tok[0] == '@') {			/* netgroup */
 	return (netgroup_match(tok + 1, string, (char *) 0));
-    } else if (string_match (tok, string)) /* ALL or exact match */
-      return YES;
-    else if (tok[0] == '.') {			/* domain: match last fields */
+    } else if (string_match(tok, string)) {	/* ALL or exact match */
+	return (YES);
+    } else if (string == NULL) {
+	return (NO);
+    } else if (tok[0] == '.') {			/* domain: match last fields */
 	if ((str_len = strlen(string)) > (tok_len = strlen(tok))
 	    && strcasecmp(tok, string + str_len - tok_len) == 0)
 	    return (YES);
@@ -371,11 +373,16 @@ string_match (const char *tok, const char *string)
     /*
      * If the token has the magic value "ALL" the match always succeeds.
      * Otherwise, return YES if the token fully matches the string.
+	 * "NONE" token matches NULL string.
      */
 
     if (strcasecmp(tok, "ALL") == 0) {		/* all: always matches */
 	return (YES);
-    } else if (strcasecmp(tok, string) == 0) {	/* try exact match */
+    } else if (string != NULL) {
+	if (strcasecmp(tok, string) == 0) {	/* try exact match */
+	    return (YES);
+	}
+    } else if (strcasecmp(tok, "NONE") == 0) {
 	return (YES);
     }
     return (NO);
@@ -418,19 +425,17 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
             || void_from == NULL) {
             D(("PAM_TTY not set, probing stdin"));
 	    from = ttyname(STDIN_FILENO);
-	    if (from == NULL) {
-	        pam_syslog(pamh, LOG_ERR, "couldn't get the tty name");
-	        return PAM_ABORT;
-	     }
-	    if (pam_set_item(pamh, PAM_TTY, from) != PAM_SUCCESS) {
-	        pam_syslog(pamh, LOG_ERR, "couldn't set tty name");
-	        return PAM_ABORT;
-	     }
+	    if (from != NULL) {
+	        if (pam_set_item(pamh, PAM_TTY, from) != PAM_SUCCESS) {
+	            pam_syslog(pamh, LOG_ERR, "couldn't set tty name");
+	            return PAM_ABORT;
+	        }
+	    }
         }
 	else
 	  from = void_from;
 
-	if (from[0] == '/') { 	/* full path */
+	if (from != NULL && from[0] == '/') { 	/* full path */
 		from++;
 		from = strchr(from, '/');
 		from++;

@@ -1,3 +1,11 @@
+2005-09-23  Tomas Mraz  <t8m@centrum.cz>
+	
+	* modules/pam_access/pam_access.c (from_match): Support NULL from.
+	(string_match): Support NULL string, add NONE keyword matching it.
+	(pam_sm_acct_mgmt): Don't fail when ttyname returns NULL.
+	* modules/pam_access/access.conf: NONE keyword description
+	* modules/pam_access/README: NONE keyword description
+
 2005-09-22  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* modules/pam_xauth/pam_xauth.c: (check_acl, pam_sm_open_session,
