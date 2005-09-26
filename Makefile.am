@@ -8,7 +8,7 @@ SUBDIRS = libpam libpamc libpam_misc modules po conf doc examples
 
 CLEANFILES = *~
 
-M4_FILES = $(shell ls m4/*.m4)
+M4_FILES = $(shell ls $(srcdir)/m4/*.m4)
 
 EXTRA_DIST = config.rpath mkinstalldirs pgp.keys.asc CHANGELOG \
 		Copyright $(M4_FILES)

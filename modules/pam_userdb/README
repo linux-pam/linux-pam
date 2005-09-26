@@ -27,12 +27,19 @@ RECOGNIZED ARGUMENTS:
 	dump		dump all the entries in the database to the log (eek,
 			don't do this by default!)
 
-	use_authtok	use the authentication token previously obtained by
+	try_first_pass	use the authentication token previously obtained by
 			another module that did the conversation with the
 			application.  If this token can not be obtained then
-			the module will try to converse again. This option can
+			the module will try to converse. This option can
 			be used for stacking different modules that need to
 			deal with the authentication tokens.
+
+	use_first_pass	use the authentication token previously obtained by
+			another module that did the conversation with the
+			application.  If this token can not be obtained then
+			the module will fail. This option can be used for
+			stacking different modules that need to	deal with
+			the authentication tokens.
 
 	unknown_ok	do not return error when checking for a user that is
 			not in the database. This can be used to stack more

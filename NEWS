@@ -15,4 +15,8 @@ Release 0.99.1.0
 * pam_umask: New module for setting umask from GECOS field, /etc/login.defs
   or /etc/default/login
 * pam_echo: New PAM module for message output
+* pam_userdb: Fix regression (crash when crypt param not specified)
+* pam_limits: Fix regression from RLIMIT_NICE support (wrong limit
+  values for other limits are applied)
+* pam_access: Support for NULL tty - matches ALL and NONE keywords
 * pam_lastlog: Enable log to wtmp by default.  Add "nowtmp" option.

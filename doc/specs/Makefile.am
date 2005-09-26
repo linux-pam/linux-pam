@@ -4,12 +4,12 @@
 
 CLEANFILES = draft-morgan-pam-current.txt *~
 
-EXTRA_DIST = draft-morgan-pam.raw std-agent-id.raw rfc86.0.txt lex.yy.c
+EXTRA_DIST = draft-morgan-pam.raw std-agent-id.raw rfc86.0.txt
 
 all: padout spec
 
 spec: draft-morgan-pam.raw
-	./padout < draft-morgan-pam.raw > draft-morgan-pam-current.txt
+	./padout < $(srcdir)/draft-morgan-pam.raw > draft-morgan-pam-current.txt
 
 noinst_PROGRAMS = padout
 
@@ -19,5 +19,5 @@ padout_LDADD = @LEXLIB@
 
 parse.c: lex.yy.c
 
-lex.yy.c: parse.lex
-	$(LEX) parse.lex
+lex.yy.c: $(srcdir)/parse.lex
+	$(LEX) $(srcdir)/parse.lex

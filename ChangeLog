@@ -1,3 +1,17 @@
+2005-09-26  Tomas Mraz  <t8m@centrum.cz>
+
+	* NEWS: Add a few missing entries from CHANGELOG.
+	
+	* AUTHORS: Fixed entries for Toady and me
+	
+	* Makefile.am (M4_FILES): Fixed out of tree build.
+	* doc/specs/Makefile.am (EXTRA_DIST): Removed lex.yy.c
+	(spec, lex.yy.c): Fixed out of tree build.
+	
+	* modules/pam_userdb/README: Document try_first_pass and
+	use_first_pass options, remove use_authtok option.
+	
+
 2005-09-26  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* NEWS: Mention changes in pam_lastlog.
