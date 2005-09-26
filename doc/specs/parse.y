@@ -170,7 +170,7 @@ typedef struct node_s {
 node_t label_root = NULL;
 node_t counter_root = NULL;
 
-const char *find_key(node_t root, const char *key)
+static const char *find_key(node_t root, const char *key)
 {
     while (root) {
 	int cmp = strcmp(key, root->key);
@@ -186,7 +186,7 @@ const char *find_key(node_t root, const char *key)
     return NULL;
 }
 
-node_t set_key(node_t root, const char *key, const char *value)
+static node_t set_key(node_t root, const char *key, const char *value)
 {
     if (root) {
 	int cmp = strcmp(key, root->key);
@@ -287,7 +287,8 @@ char *new_counter(const char *key)
     return new;
 }
 
-main()
+int
+main(void)
 {
-    yyparse();
+    return yyparse();
 }

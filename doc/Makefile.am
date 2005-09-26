@@ -2,6 +2,8 @@
 # Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
 #
 
+SUBDIRS = specs
+
 FILES=pam pam_appl pam_modules
 FSRCS=$(srcdir)/pam_appl.sgml $(srcdir)/pam_modules.sgml
 
@@ -13,8 +15,7 @@ PDFFILES=pdf/pam.pdf pdf/pam_appl.pdf pdf/pam_modules.pdf
 MODULES=$(shell ls $(srcdir)/modules/*.sgml)
 
 CLEANFILES = *~ */*~ $(TEXTS) $(PSFILES) $(PDFFILES) html/pam*.html \
-	ps/missfont.log MODULES-SGML pam.sgml \
-	specs/draft-morgan-pam-current.txt
+	ps/missfont.log MODULES-SGML pam.sgml
 
 EXTRA_DIST = $(FSRCS) CREDITS NOTES figs/pam_orient.txt pdf/README \
 	ps/README html/index.html txts/README man/template-man $(MANS) \
@@ -139,14 +140,12 @@ if HAVE_SGML2HTML
 	done
 endif
 
-spec: specs/draft-morgan-pam.raw
-	cd specs/formatter && $(MAKE)
-	specs/formatter/padout < specs/draft-morgan-pam.raw > specs/draft-morgan-pam-current.txt
-
-releasedocs: all spec
-	tar zvfc Linux-PAM-$(VERSION)-docs.tar.gz \
+releasedocs: all
+	tar zvfc ../Linux-PAM-$(VERSION)-docs.tar.gz \
 	--exclude CVS --exclude .cvsignore --exclude '.#*' \
-	html ps txts pdf specs/draft-morgan-pam-current.txt
-	tar jvfc Linux-PAM-$(VERSION)-docs.tar.bz2 \
+	--exclude README html ps txts pdf \
+	specs/draft-morgan-pam-current.txt specs/rfc86.0.txt
+	tar jvfc ../Linux-PAM-$(VERSION)-docs.tar.bz2 \
 	--exclude CVS --exclude .cvsignore --exclude '.#*' \
-	html ps txts pdf specs/draft-morgan-pam-current.txt
+	--exclude README html ps txts pdf \
+	specs/draft-morgan-pam-current.txt specs/rfc86.0.txt

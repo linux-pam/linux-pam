@@ -14,3 +14,6 @@ EXTRA_DIST = config.rpath mkinstalldirs pgp.keys.asc CHANGELOG \
 		Copyright $(M4_FILES)
 
 ACLOCAL_AMFLAGS = -I m4
+
+releasedocs: 
+	make -C doc releasedocs
