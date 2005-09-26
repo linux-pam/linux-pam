@@ -241,7 +241,7 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 		goto get_mail_status_cleanup;
 	    }
 	}
-	type = (i > 2) ? "new" : NULL;
+	type = (i > 2) ? _("new") : NULL;
 	while (--i >= 0)
 	    _pam_drop(namelist[i]);
 	_pam_drop(namelist);
@@ -263,9 +263,9 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 		}
 	    }
 	    if (i > 2)
-		type = "old";
+	        type = _("old");
 	    else
-		type = (ctrl & PAM_EMPTY_TOO) ? "no" : NULL;
+	        type = (ctrl & PAM_EMPTY_TOO) ? _("no") : NULL;
 	    while (--i >= 0)
 		_pam_drop(namelist[i]);
 	    _pam_drop(namelist);
@@ -273,11 +273,11 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
     } else {
 	if (mail_st.st_size > 0) {
 	    if (mail_st.st_atime < mail_st.st_mtime)	/* new */
-		type = (ctrl & PAM_STANDARD_MAIL) ? "new " : "new";
+	        type = (ctrl & PAM_STANDARD_MAIL) ? _("new ") : _("new");
 	    else		/* old */
-		type = (ctrl & PAM_STANDARD_MAIL) ? "" : "old";
+	        type = (ctrl & PAM_STANDARD_MAIL) ? "" : _("old");
 	} else if (ctrl & PAM_EMPTY_TOO) {
-	    type = "no";
+	    type = _("no");
 	} else {
 	    type = NULL;
 	}
@@ -295,10 +295,10 @@ report_mail(pam_handle_t *pamh, int ctrl, const char *type, const char *folder)
     int retval;
 
     if (!(ctrl & PAM_MAIL_SILENT) ||
-	((ctrl & PAM_QUIET_MAIL) && strcmp(type, "new")))
+	((ctrl & PAM_QUIET_MAIL) && strcmp(type, _("new"))))
       {
 	if (ctrl & PAM_STANDARD_MAIL)
-	  if (!strcmp(type, "no"))
+	  if (!strcmp(type, _("no")))
 	    retval = pam_info (pamh, "%s", _("No mail."));
 	  else
 	    retval = pam_info (pamh, _("You have %smail."), type);

@@ -37,6 +37,24 @@
 	* doc/specs/formatter/parse.lex: move from here ...
 	* doc/specs/parse.lex: ... here.
 
+	* modules/pam_mail/pam_mail.c: Mark missing strings for translation
+	* po/Linux-PAM.pot: Add new strings from pam_mail
+	* po/cs.po: Likewise.
+	* po/de.po: Likewise.
+	* po/es.po: Likewise.
+	* po/fi.po: Likewise.
+	* po/fr.po: Likewise.
+	* po/hu.po: Likewise.
+	* po/it.po: Likewise.
+	* po/ja.po: Likewise.
+	* po/nb.po: Likewise.
+	* po/pa.po: Likewise.
+	* po/pl.po: Likewise.
+	* po/pt.po: Likewise.
+	* po/pt_BR.po: Likewise.
+	* po/zh_CN.po: Likewise.
+	* po/zh_TW.po: Likewise.
+
 2005-09-23  Tomas Mraz  <t8m@centrum.cz>
 	
 	* modules/pam_access/pam_access.c (from_match): Support NULL from.

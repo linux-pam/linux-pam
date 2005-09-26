@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-21 17:16+0000\n"
-"PO-Revision-Date: 2005-09-14 19:44+02:00\n"
+"POT-Creation-Date: 2005-09-26 16:37+0200\n"
+"PO-Revision-Date: 2005-09-26 16:32+02:00\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
@@ -58,28 +58,28 @@ msgstr ""
 #: modules/pam_lastlog/pam_lastlog.c:204
 #, c-format
 msgid " from %.*s"
-msgstr ""
+msgstr " von %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:215
 #, c-format
 msgid " on %.*s"
-msgstr ""
+msgstr " auf %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:223
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr ""
+msgstr "Letzte Anmeldung: %s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:229
 msgid "Welcome to your new account!"
-msgstr ""
+msgstr "Willkommen in Ihrem neuen Account!"
 
 #: modules/pam_limits/pam_limits.c:658
 #, c-format
 msgid "Too many logins for '%s'."
-msgstr ""
+msgstr "Zu viele Anmeldungen für '%s'."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -134,76 +134,94 @@ msgstr "Kein gültiger Sicherheitskontext"
 msgid "Security Context %s Assigned"
 msgstr "Sicherheitskontext %s zugewiesen"
 
+#: modules/pam_mail/pam_mail.c:244 modules/pam_mail/pam_mail.c:276
+#: modules/pam_mail/pam_mail.c:298
+msgid "new"
+msgstr "neue"
+
+#: modules/pam_mail/pam_mail.c:266 modules/pam_mail/pam_mail.c:278
+msgid "old"
+msgstr "alte"
+
+#: modules/pam_mail/pam_mail.c:268 modules/pam_mail/pam_mail.c:280
+#: modules/pam_mail/pam_mail.c:301
+msgid "no"
+msgstr "keine"
+
+#: modules/pam_mail/pam_mail.c:276
+msgid "new "
+msgstr "neue "
+
 #: modules/pam_mail/pam_mail.c:302
 msgid "No mail."
-msgstr ""
+msgstr "Keine Nachrichten."
 
 #: modules/pam_mail/pam_mail.c:304
 #, c-format
 msgid "You have %smail."
-msgstr ""
+msgstr "Sie haben %sNachrichten."
 
 #: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have %s mail in %s."
-msgstr ""
+msgstr "Sie haben %s Nachrichten in %s."
 
-#: modules/pam_unix/pam_unix_acct.c:268 modules/pam_unix/pam_unix_acct.c:295
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:294
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Ihr Konto ist abgelaufen. Wenden Sie sich an den Systemadministrator"
 
-#: modules/pam_unix/pam_unix_acct.c:277
+#: modules/pam_unix/pam_unix_acct.c:276
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Sie müssen Ihr Passwort sofort ändern (von Root erzwungen)."
 
-#: modules/pam_unix/pam_unix_acct.c:304
+#: modules/pam_unix/pam_unix_acct.c:303
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Sie müssen Ihr Passwort sofort ändern (Passwortablauf)."
 
-#: modules/pam_unix/pam_unix_acct.c:314
+#: modules/pam_unix/pam_unix_acct.c:313
 #, c-format
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr "Warnung: Ihr Passwort läuft in %d Tag%.2s(en) ab."
 
-#: modules/pam_unix/pam_unix_auth.c:163 modules/pam_userdb/pam_userdb.c:62
+#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:62
 msgid "Password: "
 msgstr "Passwort: "
 
-#: modules/pam_unix/pam_unix_passwd.c:818
+#: modules/pam_unix/pam_unix_passwd.c:814
 msgid "NIS password could not be changed."
 msgstr "Änderung des NIS-Passworts nicht möglich."
 
-#: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_unix/pam_unix_passwd.c:958
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
 msgstr "Kein Passwort angegeben"
 
-#: modules/pam_unix/pam_unix_passwd.c:962
+#: modules/pam_unix/pam_unix_passwd.c:958
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
 msgstr "Passwort nicht geändert"
 
-#: modules/pam_unix/pam_unix_passwd.c:983
+#: modules/pam_unix/pam_unix_passwd.c:979
 msgid "You must choose a longer password"
 msgstr "Sie müssen ein längeres Passwort auswählen."
 
-#: modules/pam_unix/pam_unix_passwd.c:988
+#: modules/pam_unix/pam_unix_passwd.c:984
 msgid "Password has been already used. Choose another."
 msgstr "Passwort wurde bereits verwendet. Wählen Sie ein anderes aus."
 
-#: modules/pam_unix/pam_unix_passwd.c:1112
+#: modules/pam_unix/pam_unix_passwd.c:1108
 msgid "(current) UNIX password: "
 msgstr "(aktuelles) UNIX Passwort: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1147
+#: modules/pam_unix/pam_unix_passwd.c:1143
 msgid "You must wait longer to change your password"
 msgstr "Sie können Ihr Passwort noch nicht ändern."
 
-#: modules/pam_unix/pam_unix_passwd.c:1207
+#: modules/pam_unix/pam_unix_passwd.c:1203
 msgid "Enter new UNIX password: "
 msgstr "Geben Sie ein neues UNIX Passwort ein: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1208
+#: modules/pam_unix/pam_unix_passwd.c:1204
 msgid "Retype new UNIX password: "
 msgstr "Geben Sie das neue UNIX Passwort erneut ein: "
 
@@ -255,7 +273,7 @@ msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:399
 msgid "is too simple"
-msgstr ""
+msgstr "ist zu einfach"
 
 #: modules/pam_cracklib/pam_cracklib.c:402
 msgid "is rotated"
