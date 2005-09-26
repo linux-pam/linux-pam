@@ -25,6 +25,7 @@
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
+#include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
 #include "md5.h"
@@ -38,84 +39,15 @@
 extern char *crypt(const char *key, const char *salt);
 extern char *bigcrypt(const char *key, const char *salt);
 
-/* syslogging function for errors and other information */
-
-void _log_err(int err, pam_handle_t *pamh, const char *format,...)
-{
-	const void *service = NULL;
-	char logname[256];
-	va_list args;
-
-	pam_get_item(pamh, PAM_SERVICE, &service);
-	if (service) {
-		strncpy(logname, service, sizeof(logname));
-		logname[sizeof(logname) - 1 - strlen("(pam_unix)")] = '\0';
-		strncat(logname, "(pam_unix)", strlen("(pam_unix)"));
-	} else {
-		strncpy(logname, "pam_unix", sizeof(logname) - 1);
-	}
-
-	va_start(args, format);
-	openlog(logname, LOG_CONS | LOG_PID, LOG_AUTH);
-	vsyslog(err, format, args);
-	va_end(args);
-	closelog();
-}
-
 /* this is a front-end for module-application conversations */
 
-static int converse(pam_handle_t * pamh, int ctrl, int nargs
-		    ,struct pam_message **message
-		    ,struct pam_response **response)
-{
-	int retval;
-	const void *void_conv;
-	const struct pam_conv *conv;
-
-	D(("begin to converse"));
-
-	retval = pam_get_item(pamh, PAM_CONV, &void_conv);
-	conv = void_conv;
-	if (retval == PAM_SUCCESS) {
-
-		retval = conv->conv(nargs, (const struct pam_message **) message
-				    ,response, conv->appdata_ptr);
-
-		D(("returned from application's conversation function"));
-
-		if (retval != PAM_SUCCESS && on(UNIX_DEBUG, ctrl)) {
-			_log_err(LOG_DEBUG, pamh, "conversation failure [%s]"
-				 ,pam_strerror(pamh, retval));
-		}
-	} else if (retval != PAM_CONV_AGAIN) {
-		_log_err(LOG_ERR, pamh
-		         ,"couldn't obtain coversation function [%s]"
-			 ,pam_strerror(pamh, retval));
-	}
-	D(("ready to return from module conversation"));
-
-	return retval;		/* propagate error status */
-}
-
-int _make_remark(pam_handle_t * pamh, unsigned int ctrl
-		       ,int type, const char *text)
+int _make_remark(pam_handle_t * pamh, unsigned int ctrl,
+		    int type, const char *text)
 {
 	int retval = PAM_SUCCESS;
 
 	if (off(UNIX__QUIET, ctrl)) {
-		struct pam_message *pmsg[1], msg[1];
-		struct pam_response *resp;
-
-		pmsg[0] = &msg[0];
-		msg[0].msg = text;
-		msg[0].msg_style = type;
-
-		resp = NULL;
-		retval = converse(pamh, ctrl, 1, pmsg, &resp);
-
-		if (resp) {
-			_pam_drop_reply(resp, 1);
-		}
+		retval = pam_prompt(pamh, type, NULL, "%s", text);
 	}
 	return retval;
 }
@@ -166,7 +98,7 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int argc,
 		}
 
 		if (j >= UNIX_CTRLS_) {
-			_log_err(LOG_ERR, pamh,
+			pam_syslog(pamh, LOG_ERR,
 			         "unrecognized option [%s]", *argv);
 		} else {
 			ctrl &= unix_args[j].mask;	/* for turning things off */
@@ -202,7 +134,7 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int argc,
 	return ctrl;
 }
 
-static void _cleanup(pam_handle_t * pamh, void *x, int error_status)
+static void _cleanup(pam_handle_t * pamh UNUSED, void *x, int error_status UNUSED)
 {
 	_pam_delete(x);
 }
@@ -260,25 +192,25 @@ static void _cleanup_failures(pam_handle_t * pamh, void *fl, int err)
 						    &rhost);
 				(void) pam_get_item(pamh, PAM_TTY,
 						    &tty);
-				_log_err(LOG_NOTICE, pamh,
+				pam_syslog(pamh, LOG_NOTICE,
 				         "%d more authentication failure%s; "
 				         "logname=%s uid=%d euid=%d "
 				         "tty=%s ruser=%s rhost=%s "
 				         "%s%s",
 				         failure->count - 1, failure->count == 2 ? "" : "s",
 				         failure->name, failure->uid, failure->euid,
-				         tty ? tty : "", ruser ? ruser : "",
-				         rhost ? rhost : "",
+				         tty ? (const char *)tty : "", ruser ? (const char *)ruser : "",
+				         rhost ? (const char *)rhost : "",
 				         (failure->user && failure->user[0] != '\0')
 				          ? " user=" : "", failure->user
 				);
 
 				if (failure->count > UNIX_MAX_RETRIES) {
-					_log_err(LOG_ALERT, pamh
-						 ,"service(%s) ignoring max retries; %d > %d"
-						 ,service == NULL ? "**unknown**" : service
-						 ,failure->count
-						 ,UNIX_MAX_RETRIES);
+					pam_syslog(pamh, LOG_ALERT,
+						 "service(%s) ignoring max retries; %d > %d",
+						 service == NULL ? "**unknown**" : (const char *)service,
+						 failure->count,
+						 UNIX_MAX_RETRIES);
 				}
 			}
 		}
@@ -291,7 +223,7 @@ static void _cleanup_failures(pam_handle_t * pamh, void *fl, int err)
 /*
  * _unix_getpwnam() searches only /etc/passwd and NIS to find user information
  */
-static void _unix_cleanup(pam_handle_t *pamh, void *data, int error_status)
+static void _unix_cleanup(pam_handle_t *pamh UNUSED, void *data, int error_status UNUSED)
 {
 	free(data);
 }
@@ -336,7 +268,7 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 			i = yp_match(domain, "passwd.byname", name,
 				     strlen(name), &userinfo, &len);
 			yp_unbind(domain);
-			if ((i == YPERR_SUCCESS) && (len < sizeof(buf))) {
+			if ((i == YPERR_SUCCESS) && ((size_t)len < sizeof(buf))) {
 				strncpy(buf, userinfo, sizeof(buf) - 1);
 				buf[sizeof(buf) - 1] = '\0';
 				matched = 1;
@@ -584,7 +516,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	dup2(fds[0], STDIN_FILENO);
 
 	if (getrlimit(RLIMIT_NOFILE,&rlim)==0) {
-	  for (i=2; i < rlim.rlim_max; i++) {
+	  for (i=2; i < (int)rlim.rlim_max; i++) {
 		if (fds[0] != i)
 	  	   close(i);
 	  }
@@ -617,7 +549,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	close(fds[1]);
 	rc=waitpid(child, &retval, 0);  /* wait for helper to complete */
 	if (rc<0) {
-	  _log_err(LOG_ERR, pamh, "unix_chkpwd waitpid returned %d: %s", rc, strerror(errno));
+	  pam_syslog(pamh, LOG_ERR, "unix_chkpwd waitpid returned %d: %s", rc, strerror(errno));
 	  retval = PAM_AUTH_ERR;
 	} else {
 	  retval = WEXITSTATUS(retval);
@@ -706,7 +638,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 
 	data_name = (char *) malloc(sizeof(FAIL_PREFIX) + strlen(name));
 	if (data_name == NULL) {
-		_log_err(LOG_CRIT, pamh, "no memory for data-name");
+		pam_syslog(pamh, LOG_CRIT, "no memory for data-name");
 	} else {
 		strcpy(data_name, FAIL_PREFIX);
 		strcpy(data_name + sizeof(FAIL_PREFIX) - 1, name);
@@ -729,12 +661,12 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			if (on(UNIX_AUDIT, ctrl)) {
 				/* this might be a typo and the user has given a password
 				   instead of a username. Careful with this. */
-				_log_err(LOG_ALERT, pamh,
+				pam_syslog(pamh, LOG_ALERT,
 				         "check pass; user (%s) unknown", name);
 			} else {
 				name = NULL;
 				if (on(UNIX_DEBUG, ctrl) || pwd == NULL) {
-				    _log_err(LOG_ALERT, pamh,
+				    pam_syslog(pamh, LOG_ALERT,
 				            "check pass; user unknown");
 				} else {
 				    /* don't log failure as another pam module can succeed */
@@ -843,15 +775,15 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 					(void) pam_get_item(pamh, PAM_TTY,
 							    &tty);
 
-					_log_err(LOG_NOTICE, pamh,
+					pam_syslog(pamh, LOG_NOTICE,
 					         "authentication failure; "
 					         "logname=%s uid=%d euid=%d "
 					         "tty=%s ruser=%s rhost=%s "
 					         "%s%s",
 					         new->name, new->uid, new->euid,
-					         tty ? tty : "",
-					         ruser ? ruser : "",
-					         rhost ? rhost : "",
+					         tty ? (const char *)tty : "",
+					         ruser ? (const char *)ruser : "",
+					         rhost ? (const char *)rhost : "",
 					         (new->user && new->user[0] != '\0')
 					          ? " user=" : "",
 					         new->user
@@ -862,7 +794,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 				pam_set_data(pamh, data_name, new, _cleanup_failures);
 
 			} else {
-				_log_err(LOG_CRIT, pamh,
+				pam_syslog(pamh, LOG_CRIT,
 				         "no memory for failure recorder");
 			}
 		}
@@ -894,7 +826,7 @@ int _unix_read_password(pam_handle_t * pamh
 			,const void **pass)
 {
 	int authtok_flag;
-	int retval;
+	int retval = PAM_SUCCESS;
 	char *token;
 
 	D(("called"));
@@ -919,8 +851,8 @@ int _unix_read_password(pam_handle_t * pamh
 		retval = pam_get_item(pamh, authtok_flag, pass);
 		if (retval != PAM_SUCCESS) {
 			/* very strange. */
-			_log_err(LOG_ALERT, pamh
-				 ,"pam_get_item returned error to unix-read-password"
+			pam_syslog(pamh, LOG_ALERT,
+				 "pam_get_item returned error to unix-read-password"
 			    );
 			return retval;
 		} else if (*pass != NULL) {	/* we have a password! */
@@ -938,77 +870,62 @@ int _unix_read_password(pam_handle_t * pamh
 	 */
 
 	{
-		struct pam_message msg[3], *pmsg[3];
-		struct pam_response *resp;
-		int i, replies;
-
-		/* prepare to converse */
+		int replies=1;
+		char *resp[2] = { NULL, NULL };
 
 		if (comment != NULL && off(UNIX__QUIET, ctrl)) {
-			pmsg[0] = &msg[0];
-			msg[0].msg_style = PAM_TEXT_INFO;
-			msg[0].msg = comment;
-			i = 1;
-		} else {
-			i = 0;
+			retval = pam_info(pamh, "%s", comment);
+		}
+		
+		if (retval == PAM_SUCCESS) {
+			retval = pam_prompt(pamh, PAM_PROMPT_ECHO_OFF,
+			    &resp[0], "%s", prompt1);
+			
+			if (retval == PAM_SUCCESS && prompt2 != NULL) {
+				retval = pam_prompt(pamh, PAM_PROMPT_ECHO_OFF,
+				    &resp[1], "%s", prompt2);
+				++replies;
+			}
 		}
 
-		pmsg[i] = &msg[i];
-		msg[i].msg_style = PAM_PROMPT_ECHO_OFF;
-		msg[i++].msg = prompt1;
-		replies = 1;
-
-		if (prompt2 != NULL) {
-			pmsg[i] = &msg[i];
-			msg[i].msg_style = PAM_PROMPT_ECHO_OFF;
-			msg[i++].msg = prompt2;
-			++replies;
-		}
-		/* so call the conversation expecting i responses */
-		resp = NULL;
-		retval = converse(pamh, ctrl, i, pmsg, &resp);
-
-		if (resp != NULL) {
-
+		if (resp[0] != NULL && resp[replies-1] != NULL) {
 			/* interpret the response */
 
 			if (retval == PAM_SUCCESS) {	/* a good conversation */
 
-				token = x_strdup(resp[i - replies].resp);
+				token = resp[0];
 				if (token != NULL) {
 					if (replies == 2) {
-
 						/* verify that password entered correctly */
-						if (!resp[i - 1].resp
-						    || strcmp(token, resp[i - 1].resp)) {
-							_pam_delete(token);	/* mistyped */
+						if (strcmp(token, resp[replies - 1])) {
+							/* mistyped */
 							retval = PAM_AUTHTOK_RECOVER_ERR;
-							_make_remark(pamh, ctrl
-								    ,PAM_ERROR_MSG, MISTYPED_PASS);
+							_make_remark(pamh, ctrl,
+							    PAM_ERROR_MSG, MISTYPED_PASS);
 						}
 					}
 				} else {
-					_log_err(LOG_NOTICE, pamh
-						 ,"could not recover authentication token");
+					pam_syslog(pamh, LOG_NOTICE,
+						    "could not recover authentication token");
 				}
 
 			}
-			/*
-			 * tidy up the conversation (resp_retcode) is ignored
-			 * -- what is it for anyway? AGM
-			 */
-
-			_pam_drop_reply(resp, i);
 
 		} else {
 			retval = (retval == PAM_SUCCESS)
 			    ? PAM_AUTHTOK_RECOVER_ERR : retval;
 		}
+		
+		resp[0] = NULL;
+		if (replies > 1)
+			_pam_delete(resp[1]);
 	}
 
 	if (retval != PAM_SUCCESS) {
+		_pam_delete(token);
+	
 		if (on(UNIX_DEBUG, ctrl))
-			_log_err(LOG_DEBUG, pamh,
+			pam_syslog(pamh, LOG_DEBUG,
 			         "unable to obtain a password");
 		return retval;
 	}
@@ -1025,7 +942,7 @@ int _unix_read_password(pam_handle_t * pamh
 		    != PAM_SUCCESS) {
 
 			*pass = NULL;
-			_log_err(LOG_CRIT, pamh, "error manipulating password");
+			pam_syslog(pamh, LOG_CRIT, "error manipulating password");
 			return retval;
 
 		}
@@ -1037,9 +954,9 @@ int _unix_read_password(pam_handle_t * pamh
 
 		retval = pam_set_data(pamh, data_name, (void *) token, _cleanup);
 		if (retval != PAM_SUCCESS) {
-			_log_err(LOG_CRIT, pamh
-			         ,"error manipulating password data [%s]"
-				 ,pam_strerror(pamh, retval));
+			pam_syslog(pamh, LOG_CRIT,
+			         "error manipulating password data [%s]",
+				 pam_strerror(pamh, retval));
 			_pam_delete(token);
 			return retval;
 		}

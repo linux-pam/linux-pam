@@ -1,3 +1,30 @@
+2005-09-26  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_unix/pam_unix_acct.c (_unix_run_verify_binary):
+	_log_err() -> pam_syslog()
+	(pam_sm_acct_mgmt): _log_err() -> pam_syslog(), fix warning.
+	* modules/pam_unix/pam_unix_auth.c (pam_sm_authenticate):
+	_log_err() -> pam_syslog()
+	* modules/pam_unix/pam_unix_passwd.c: removed obsolete ifdef
+	(getNISserver, _unix_run_shadow_binary, _update_passwd,
+	_update_shadow, _do_setpass, _pam_unix_approve_pass,
+	pam_sm_chauthtok): _log_err() -> pam_syslog()
+	* modules/pam_unix/pam_unix_sess.c: removed obsolete ifdef
+	(pam_sm_open_session, pam_sm_close_session):
+	_log_err() -> pam_syslog()
+	* modules/pam_unix/support.c (_log_err, converse): removed
+	(_make_remark): use pam_prompt() instead of converse()
+	(_set_ctrl, _cleanup_failures, _unix_run_helper_binary,
+	_unix_verify_password, _unix_read_password):
+	_log_err() -> pam_syslog()
+	_cleanup(), _unix_cleanup(): Silence unused param warnings.
+	(_cleanup_failures, _unix_verify_password, _unix_getpwnam,
+	_unix_run_helper_binary): Silence incorrect type warnings.
+	(_unix_read_password): Use multiple pam_prompt() and pam_info() calls
+	instead of converse().
+	* modules/pam_unix/support.h (_log_err): removed
+	* modules/pam_unix/unix_chkpwd.c (_log_err): LOG_AUTH -> LOG_AUTHPRIV
+
 2005-09-26  Thorsten Kukuk  <kukuk@suse.de>
 
 	* configure.in: Add doc/specs/Makefile.

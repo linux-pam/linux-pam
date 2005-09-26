@@ -78,11 +78,7 @@ static security_context_t prev_context=NULL;
 #define PAM_SM_PASSWORD
 
 #include <security/pam_modules.h>
-
-#ifndef LINUX_PAM
-#include <security/pam_appl.h>
-#endif				/* LINUX_PAM */
-
+#include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
 #include "yppasswd.h"
@@ -197,24 +193,24 @@ static char *getNISserver(pam_handle_t *pamh)
 	int port, err;
 
 	if ((err = yp_get_default_domain(&domainname)) != 0) {
-		_log_err(LOG_WARNING, pamh, "can't get local yp domain: %s\n",
+		pam_syslog(pamh, LOG_WARNING, "can't get local yp domain: %s",
 			 yperr_string(err));
 		return NULL;
 	}
 	if ((err = yp_master(domainname, "passwd.byname", &master)) != 0) {
-		_log_err(LOG_WARNING, pamh, "can't find the master ypserver: %s\n",
+		pam_syslog(pamh, LOG_WARNING, "can't find the master ypserver: %s",
 			 yperr_string(err));
 		return NULL;
 	}
 	port = getrpcport(master, YPPASSWDPROG, YPPASSWDPROC_UPDATE, IPPROTO_UDP);
 	if (port == 0) {
-		_log_err(LOG_WARNING, pamh,
-		         "yppasswdd not running on NIS master host\n");
+		pam_syslog(pamh, LOG_WARNING,
+		         "yppasswdd not running on NIS master host");
 		return NULL;
 	}
 	if (port >= IPPORT_RESERVED) {
-		_log_err(LOG_WARNING, pamh,
-		         "yppasswd daemon running on illegal port.\n");
+		pam_syslog(pamh, LOG_WARNING,
+		         "yppasswd daemon running on illegal port");
 		return NULL;
 	}
 	return master;
@@ -295,7 +291,7 @@ static int _unix_run_shadow_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	close(fds[1]);
 	rc=waitpid(child, &retval, 0);  /* wait for helper to complete */
 	if (rc<0) {
-	  _log_err(LOG_ERR, pamh, "unix_chkpwd waitpid returned %d: %s", rc, strerror(errno));
+	  pam_syslog(pamh, LOG_ERR, "unix_chkpwd waitpid returned %d: %m", rc);
 	  retval = PAM_AUTH_ERR;
 	} else {
 	  retval = WEXITSTATUS(retval);
@@ -598,7 +594,7 @@ static int _update_passwd(pam_handle_t *pamh,
 done:
     if (!err) {
 	if (!rename(PW_TMPFILE, "/etc/passwd"))
-	    _log_err(LOG_NOTICE, pamh, "password changed for %s", forwho);
+	    pam_syslog(pamh, LOG_NOTICE, "password changed for %s", forwho);
 	else
 	    err = 1;
     }
@@ -714,7 +710,7 @@ static int _update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat)
  done:
     if (!err) {
 	if (!rename(SH_TMPFILE, "/etc/shadow"))
-	    _log_err(LOG_NOTICE, pamh, "password changed for %s", forwho);
+	    pam_syslog(pamh, LOG_NOTICE, "password changed for %s", forwho);
 	else
 	    err = 1;
     }
@@ -808,7 +804,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 		}
 		D(("The password has%s been changed on %s.",
 		   (err || status) ? " not" : "", master));
-		_log_err(LOG_NOTICE, pamh, "password%s changed for %s on %s",
+		pam_syslog(pamh, LOG_NOTICE, "password%s changed for %s on %s",
 			 (err || status) ? " not" : "", pwd->pw_name, master);
 
 		auth_destroy(clnt->cl_auth);
@@ -956,7 +952,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 
 	if (pass_new == NULL || (pass_old && !strcmp(pass_old, pass_new))) {
 		if (on(UNIX_DEBUG, ctrl)) {
-			_log_err(LOG_DEBUG, pamh, "bad authentication token");
+			pam_syslog(pamh, LOG_DEBUG, "bad authentication token");
 		}
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG, pass_new == NULL ?
 			_("No password supplied") : _("Password unchanged"));
@@ -970,7 +966,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 	retval = pam_get_item(pamh, PAM_USER, &user);
 	if (retval != PAM_SUCCESS) {
 		if (on(UNIX_DEBUG, ctrl)) {
-			_log_err(LOG_ERR, pamh, "Can not get username");
+			pam_syslog(pamh, LOG_ERR, "Can not get username");
 			return PAM_AUTHTOK_ERR;
 		}
 	}
@@ -987,7 +983,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 			if ((retval = check_old_password(user, pass_new)) == PAM_AUTHTOK_ERR)
 			  remark = _("Password has been already used. Choose another.");
 			if (retval == PAM_ABORT) {
-				_log_err(LOG_ERR, pamh, "can't open %s file to check old passwords",
+				pam_syslog(pamh, LOG_ERR, "can't open %s file to check old passwords",
 					OLD_PASSWORDS_FILE);
 				return retval;
 			}
@@ -1029,15 +1025,15 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		 * alphanumeric character.
 		 */
 		if (user == NULL || !isalnum(*user)) {
-			_log_err(LOG_ERR, pamh, "bad username [%s]", user);
+			pam_syslog(pamh, LOG_ERR, "bad username [%s]", user);
 			return PAM_USER_UNKNOWN;
 		}
 		if (retval == PAM_SUCCESS && on(UNIX_DEBUG, ctrl))
-			_log_err(LOG_DEBUG, pamh, "username [%s] obtained",
+			pam_syslog(pamh, LOG_DEBUG, "username [%s] obtained",
 			         user);
 	} else {
 		if (on(UNIX_DEBUG, ctrl))
-			_log_err(LOG_DEBUG, pamh,
+			pam_syslog(pamh, LOG_DEBUG,
 			         "password - could not identify user");
 		return retval;
 	}
@@ -1052,7 +1048,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 	 * came from, nor should it.  That's our job.
 	 */
 	if (_unix_comesfromsource(pamh, user, 1, on(UNIX_NIS, ctrl)) == 0) {
-		_log_err(LOG_DEBUG, pamh,
+		pam_syslog(pamh, LOG_DEBUG,
 			 "user \"%s\" does not exist in /etc/passwd%s",
 			 user, on(UNIX_NIS, ctrl) ? " or NIS" : "");
 		return PAM_USER_UNKNOWN;
@@ -1060,14 +1056,14 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		struct passwd *pwd;
 		_unix_getpwnam(pamh, user, 1, 1, &pwd);
 		if (pwd == NULL) {
-			_log_err(LOG_DEBUG, pamh,
+			pam_syslog(pamh, LOG_DEBUG,
 				"user \"%s\" has corrupted passwd entry",
 				user);
 			return PAM_USER_UNKNOWN;
 		}
 		if (!_unix_shadowed(pwd) &&
 		    (strchr(pwd->pw_passwd, '*') != NULL)) {
-			_log_err(LOG_DEBUG, pamh,
+			pam_syslog(pamh, LOG_DEBUG,
 				"user \"%s\" does not have modifiable password",
 				user);
 			return PAM_USER_UNKNOWN;
@@ -1097,7 +1093,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 #define greeting "Changing password for "
 			Announce = (char *) malloc(sizeof(greeting) + strlen(user));
 			if (Announce == NULL) {
-				_log_err(LOG_CRIT, pamh,
+				pam_syslog(pamh, LOG_CRIT,
 				         "password - out of memory");
 				return PAM_BUF_ERR;
 			}
@@ -1116,8 +1112,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 			free(Announce);
 
 			if (retval != PAM_SUCCESS) {
-				_log_err(LOG_NOTICE, pamh
-				 ,"password - (old) token not obtained");
+				pam_syslog(pamh, LOG_NOTICE,
+				    "password - (old) token not obtained");
 				return retval;
 			}
 			/* verify that this is the password for this user */
@@ -1137,7 +1133,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		retval = pam_set_item(pamh, PAM_OLDAUTHTOK, (const void *) pass_old);
 		pass_old = NULL;
 		if (retval != PAM_SUCCESS) {
-			_log_err(LOG_CRIT, pamh,
+			pam_syslog(pamh, LOG_CRIT,
 			         "failed to set PAM_OLDAUTHTOK");
 		}
 		retval = _unix_verify_shadow(pamh,user, ctrl);
@@ -1183,7 +1179,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		D(("pass_old [%s]", pass_old));
 
 		if (retval != PAM_SUCCESS) {
-			_log_err(LOG_NOTICE, pamh, "user not authenticated");
+			pam_syslog(pamh, LOG_NOTICE, "user not authenticated");
 			return retval;
 		}
 
@@ -1211,8 +1207,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 			if (retval != PAM_SUCCESS) {
 				if (on(UNIX_DEBUG, ctrl)) {
-					_log_err(LOG_ALERT, pamh
-						 ,"password - new password not obtained");
+					pam_syslog(pamh, LOG_ALERT,
+						 "password - new password not obtained");
 				}
 				pass_old = NULL;	/* tidy up */
 				return retval;
@@ -1232,7 +1228,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		}
 
 		if (retval != PAM_SUCCESS) {
-			_log_err(LOG_NOTICE, pamh,
+			pam_syslog(pamh, LOG_NOTICE,
 			         "new password not acceptable");
 			pass_new = pass_old = NULL;	/* tidy up */
 			return retval;
@@ -1257,7 +1253,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		if (pass_old) {
 			retval = _unix_verify_password(pamh, user, pass_old, ctrl);
 			if (retval != PAM_SUCCESS) {
-				_log_err(LOG_NOTICE, pamh, "user password changed by another process");
+				pam_syslog(pamh, LOG_NOTICE, "user password changed by another process");
 #ifdef USE_LCKPWDF
 				ulckpwdf();
 #endif
@@ -1267,7 +1263,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 		retval = _unix_verify_shadow(pamh, user, ctrl);
 		if (retval != PAM_SUCCESS) {
-			_log_err(LOG_NOTICE, pamh, "user not authenticated 2");
+			pam_syslog(pamh, LOG_NOTICE, "user not authenticated 2");
 #ifdef USE_LCKPWDF
 			ulckpwdf();
 #endif
@@ -1276,7 +1272,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 		retval = _pam_unix_approve_pass(pamh, ctrl, pass_old, pass_new);
 		if (retval != PAM_SUCCESS) {
-			_log_err(LOG_NOTICE, pamh,
+			pam_syslog(pamh, LOG_NOTICE,
 			         "new password not acceptable 2");
 			pass_new = pass_old = NULL;	/* tidy up */
 #ifdef USE_LCKPWDF
@@ -1320,7 +1316,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 				char *temp = malloc(9);
 
 				if (temp == NULL) {
-					_log_err(LOG_CRIT, pamh,
+					pam_syslog(pamh, LOG_CRIT,
 					         "out of memory for password");
 					pass_new = pass_old = NULL;	/* tidy up */
 #ifdef USE_LCKPWDF
@@ -1352,7 +1348,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		_pam_delete(tpass);
 		pass_old = pass_new = NULL;
 	} else {		/* something has broken with the module */
-		_log_err(LOG_ALERT, pamh,
+		pam_syslog(pamh, LOG_ALERT, 
 		         "password received unknown request");
 		retval = PAM_ABORT;
 	}

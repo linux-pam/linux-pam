@@ -53,11 +53,8 @@
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
+#include <security/pam_ext.h>
 #include <security/pam_modutil.h>
-
-#ifndef LINUX_PAM
-#include <security/pam_appl.h>
-#endif				/* LINUX_PAM */
 
 #include "support.h"
 
@@ -80,14 +77,14 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t * pamh, int flags,
 
 	retval = pam_get_item(pamh, PAM_USER, (void *) &user_name);
 	if (user_name == NULL || *user_name == '\0' || retval != PAM_SUCCESS) {
-		_log_err(LOG_CRIT, pamh,
+		pam_syslog(pamh, LOG_CRIT,
 		         "open_session - error recovering username");
 		return PAM_SESSION_ERR;		/* How did we get authenticated with
 						   no username?! */
 	}
 	retval = pam_get_item(pamh, PAM_SERVICE, (void *) &service);
 	if (service == NULL || *service == '\0' || retval != PAM_SUCCESS) {
-		_log_err(LOG_CRIT, pamh,
+		pam_syslog(pamh, LOG_CRIT,
 		         "open_session - error recovering service");
 		return PAM_SESSION_ERR;
 	}
@@ -95,7 +92,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t * pamh, int flags,
 	if (login_name == NULL) {
 	    login_name = "";
 	}
-	_log_err(LOG_INFO, pamh, "session opened for user %s by %s(uid=%d)",
+	pam_syslog(pamh, LOG_INFO, "session opened for user %s by %s(uid=%d)",
 		 user_name, login_name, getuid());
 
 	return PAM_SUCCESS;
@@ -114,19 +111,19 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t * pamh, int flags,
 
 	retval = pam_get_item(pamh, PAM_USER, (void *) &user_name);
 	if (user_name == NULL || *user_name == '\0' || retval != PAM_SUCCESS) {
-		_log_err(LOG_CRIT, pamh,
+		pam_syslog(pamh, LOG_CRIT,
 		         "close_session - error recovering username");
 		return PAM_SESSION_ERR;		/* How did we get authenticated with
 						   no username?! */
 	}
 	retval = pam_get_item(pamh, PAM_SERVICE, (void *) &service);
 	if (service == NULL || *service == '\0' || retval != PAM_SUCCESS) {
-		_log_err(LOG_CRIT, pamh,
+		pam_syslog(pamh, LOG_CRIT,
 		         "close_session - error recovering service");
 		return PAM_SESSION_ERR;
 	}
-	_log_err(LOG_INFO, pamh, "session closed for user %s"
-		 ,user_name);
+	pam_syslog(pamh, LOG_INFO, "session closed for user %s",
+		user_name);
 
 	return PAM_SUCCESS;
 }

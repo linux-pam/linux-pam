@@ -57,10 +57,7 @@
 #define _PAM_EXTERN_FUNCTIONS
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
-
-#ifndef LINUX_PAM
-#include <security/pam_appl.h>
-#endif				/* LINUX_PAM */
+#include <security/pam_ext.h>
 
 #include "support.h"
 
@@ -132,7 +129,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 		 * alphanumeric character.
 		 */
 		if (name == NULL || !isalnum(*name)) {
-			_log_err(LOG_ERR, pamh, "bad username [%s]", name);
+			pam_syslog(pamh, LOG_ERR, "bad username [%s]", name);
 			retval = PAM_USER_UNKNOWN;
 			AUTH_RETURN;
 		}
@@ -164,8 +161,8 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 				     ,_UNIX_AUTHTOK, &p);
 	if (retval != PAM_SUCCESS) {
 		if (retval != PAM_CONV_AGAIN) {
-			_log_err(LOG_CRIT, pamh, "auth could not identify password for [%s]"
-				 ,name);
+			pam_syslog(pamh, LOG_CRIT,
+			    "auth could not identify password for [%s]", name);
 		} else {
 			D(("conversation function is not ready yet"));
 			/*

@@ -59,7 +59,7 @@ static void _log_err(int err, const char *format,...)
 	va_list args;
 
 	va_start(args, format);
-	openlog("unix_chkpwd", LOG_CONS | LOG_PID, LOG_AUTH);
+	openlog("unix_chkpwd", LOG_CONS | LOG_PID, LOG_AUTHPRIV);
 	vsyslog(err, format, args);
 	va_end(args);
 	closelog();

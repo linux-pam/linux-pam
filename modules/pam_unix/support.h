@@ -129,7 +129,6 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 	_pam_drop(xx);		\
 }
 
-extern void _log_err(int err, pam_handle_t *pamh, const char *format,...);
 extern int _make_remark(pam_handle_t * pamh, unsigned int ctrl
 		       ,int type, const char *text);
 extern int _set_ctrl(pam_handle_t * pamh, int flags, int *remember, int argc,
