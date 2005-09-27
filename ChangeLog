@@ -1,5 +1,7 @@
 2005-09-27  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+        * release 0.99.1.0
+
 	* doc/specs/Makefile.am (install-data-local): Install
 	rfc and draft.
 	(all): Copy rfc if we build outside of source directory.
@@ -38,8 +40,6 @@
 	* NEWS: Mention changes in pam_lastlog.
 
 2005-09-26  Thorsten Kukuk  <kukuk@suse.de>
-
-	* release 0.99.1.0
 
 	* NEWS: New file.
 	* autogen.sh: Don't generate NEWS file.
