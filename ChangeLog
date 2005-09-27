@@ -1,8 +1,20 @@
+2005-09-27  Thorsten Kukuk  <kukuk@suse.de>
+
+	* NEWS: Document removal of pam_radius.
+	* autogen.sh: Make configure script executeable.
+
+	* conv/pam_conv1/Makefile (EXTRA_DIST): Removed lex.yy.c
+	(lex.yy.c): Fixed out of tree build.
+
+	* conv/pam_conv1/pam_conv.y: Fix main prototype.
+
+	* README: Adjust.
+
 2005-09-26  Tomas Mraz  <t8m@centrum.cz>
 
 	* NEWS: Add a few missing entries from CHANGELOG.
 	
-	* AUTHORS: Fixed entries for Toady and me
+	* AUTHORS: Fixed entries for Toady and me.
 	
 	* Makefile.am (M4_FILES): Fixed out of tree build.
 	* doc/specs/Makefile.am (EXTRA_DIST): Removed lex.yy.c

@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README lex.yy.c
+EXTRA_DIST = README
 
 noinst_PROGRAMS = pam_conv1
 
@@ -15,4 +15,4 @@ pam_conv1_LDADD = @LEXLIB@
 pam_conv.c: lex.yy.c
 
 lex.yy.c: pam_conv.lex
-	$(LEX) pam_conv.lex
+	$(LEX) $(srcdir)/pam_conv.lex

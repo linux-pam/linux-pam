@@ -195,7 +195,7 @@ void yyerror(const char *format, ...)
     fprintf(stderr, "\n");
 }
 
-int main(int argc, char *argv[])
+int main(void)
 {
     if (mkdir(PAM_D, PAM_D_MODE) != 0) {
 	yyerror(PAM_D " already exists.. aborting");
