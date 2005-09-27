@@ -10,6 +10,9 @@
 
 	* README: Adjust.
 
+	* po/POTFILES.in: Remove files not distributed by tar archive
+	and not containing strings for translation.
+
 2005-09-26  Tomas Mraz  <t8m@centrum.cz>
 
 	* NEWS: Add a few missing entries from CHANGELOG.

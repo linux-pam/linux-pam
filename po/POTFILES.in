@@ -1,13 +1,7 @@
 # List of source files which contain translatable strings.
-./conf/pam_conv1/pam_conv.c
-./conf/pam_conv1/lex.yy.c
-./libpamc/test/regress/test.libpamc.c
-./libpamc/test/modules/pam_secret.c
 ./libpamc/pamc_converse.c
 ./libpamc/pamc_load.c
 ./libpamc/pamc_client.c
-./dynamic/pam.c
-./dynamic/test.c
 ./modules/pam_access/pam_access.c
 ./modules/pam_localuser/pam_localuser.c
 ./modules/pam_debug/pam_debug.c
@@ -91,9 +85,5 @@
 ./libpam/pam_modutil_getpwnam.c
 ./libpam/pam_modutil_getpwuid.c
 ./libpam/pam_modutil_ioloop.c
-./examples/xsh.c
-./examples/check_user.c
-./examples/vpass.c
-./examples/blank.c
 ./libpam_misc/help_env.c
 ./libpam_misc/misc_conv.c
