@@ -1,3 +1,8 @@
+2005-09-30  Steve Langasek  <vorlon@debian.org>
+
+	* modules/pam_userdb/pam_userdb.c: Fix memory leak due to
+	gratuitous use of strdup().
+
 2005-09-27  Thorsten Kukuk  <kukuk@thkukuk.de>
 
         * release 0.99.1.0

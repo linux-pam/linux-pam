@@ -113,14 +113,14 @@ _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
 	ctrl |= PAM_TRY_FPASS_ARG;
       else if (!strncasecmp(*argv,"db=", 3))
 	{
-	  *database = strdup((*argv) + 3);
+	  *database = (*argv) + 3;
 	  if ((*database == NULL) || (strlen (*database) == 0))
 	    pam_syslog(pamh, LOG_ERR,
 		       "could not parse argument \"%s\"", *argv);
 	}
       else if (!strncasecmp(*argv,"crypt=", 6))
 	{
-	  *cryptmode = strdup((*argv) + 6);
+	  *cryptmode = (*argv) + 6;
 	  if ((*cryptmode == NULL) || (strlen (*cryptmode) == 0))
 	    pam_syslog(pamh, LOG_ERR,
 		       "could not parse argument \"%s\"", *argv);
@@ -239,13 +239,13 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	   * default to plaintext password storage
 	   */
 
-	if (strlen(pass) != (size_t)data.dsize) {
-	  compare = 1; /* wrong password len -> wrong password */
-	} else if (ctrl & PAM_ICASE_ARG) {
+	  if (strlen(pass) != (size_t)data.dsize) {
+	    compare = 1; /* wrong password len -> wrong password */
+	  } else if (ctrl & PAM_ICASE_ARG) {
 	    compare = strncasecmp(data.dptr, pass, data.dsize);
-	} else {
+	  } else {
 	    compare = strncmp(data.dptr, pass, data.dsize);
-	}
+	  }
 
 	  if (cryptmode && strncasecmp(cryptmode, "none", 4) 
 		&& (ctrl & PAM_DEBUG_ARG)) {
