@@ -396,7 +396,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	     return PAM_USER_UNKNOWN;
 	 case 0:
 	     /* Otherwise, the authentication looked good */
-	     pam_syslog(pamh, LOG_NOTICE, "user '%s' granted acces", username);
+	     pam_syslog(pamh, LOG_NOTICE, "user '%s' granted access", username);
 	     return PAM_SUCCESS;
 	 default:
 	     /* we don't know anything about this return value */

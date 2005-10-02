@@ -1,3 +1,7 @@
+2005-10-01  Steve Langasek  <vorlon@debian.org>
+
+	* modules/pam_userdb/pam_userdb.c: spelling fix in log message.
+
 2005-09-30  Steve Langasek  <vorlon@debian.org>
 
 	* modules/pam_userdb/pam_userdb.c: Fix memory leak due to
