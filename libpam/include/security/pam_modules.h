@@ -8,6 +8,10 @@
 #ifndef _SECURITY_PAM_MODULES_H
 #define _SECURITY_PAM_MODULES_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <security/_pam_types.h>      /* Linux-PAM common defined types */
 
 /* -------------- The Linux-PAM Module PI ------------- */
@@ -125,6 +129,10 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
 /* take care of any compatibility issues */
 #include <security/_pam_compat.h>
+
+#ifdef __cplusplus
+}
+#endif
 
 /* Copyright (C) Theodore Ts'o, 1996.
  * Copyright (C) Andrew Morgan, 1996-8.

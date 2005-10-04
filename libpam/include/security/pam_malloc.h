@@ -13,6 +13,10 @@
 #ifndef PAM_MALLOC_H
 #define PAM_MALLOC_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* these are the macro definitions for the stdlib.h memory functions */
 
 #define malloc(s)      pam_malloc(s,__FILE__,__FUNCTION__,__LINE__)
@@ -65,5 +69,9 @@ extern FILE *pam_malloc_outfile;      /* defaults to stdout */
 
 extern int pam_malloc_flags;
 extern int pam_malloc_delay_length;      /* how long to pause on errors */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PAM_MALLOC_H */

@@ -1,3 +1,9 @@
+2005-10-04  Steve Langasek  <vorlon@debian.org>
+
+	* libpam/include/security/pam_malloc.h,
+	libpam/include/security/pam_modules.h: Declare public header
+	files extern "C" so that they are C++-safe.
+
 2005-10-02  Dmitry V. Levin  <ldv@altlinux.org>
 	    Steve Langasek  <vorlon@debian.org>
 
