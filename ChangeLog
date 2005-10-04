@@ -1,3 +1,47 @@
+2005-10-02  Dmitry V. Levin  <ldv@altlinux.org>
+	    Steve Langasek  <vorlon@debian.org>
+
+	Cleanup gratuitous use of strdup().
+	Fix "missing argument" checks.
+
+	* modules/pam_env/pam_env.c (_pam_parse): Add const qualifier
+	to conffile and envfile arguments.  Do not use x_strdup() for
+	conffile and envfile initialization.  Fix "missing argument"
+	checks.
+	(_parse_config_file): Take conffile argument of type "const char *"
+	instead of "char **".  Do not free conffile.
+	(_parse_env_file): Take env_file argument of type "const char *"
+	instead of "char **".  Do not free env_file.
+	(pam_sm_setcred): Add const qualifier to conf_file and env_file.
+	Pass conf_file and env_file to _parse_config_file() and
+	_parse_env_file() by value.
+	(pam_sm_open_session): Likewise.
+
+	* modules/pam_ftp/pam_ftp.c (_pam_parse): Add const qualifier to
+	users argument.  Do not use x_strdup() for users initialization.
+	(lookup):  Add const qualifier to list argument.
+	(pam_sm_authenticate): Add const qualifier to users argument.
+
+	* modules/pam_mail/pam_mail.c (_pam_parse): Add const qualifier
+	to maildir argument.  Do not use x_strdup() for maildir
+	initialization.  Fix "missing argument" check.
+	(get_folder): Take path_mail argument of type "const char *"
+	instead of "char **".  Do not free path_mail.
+	(_do_mail): Add const qualifier to path_mail argument.
+	Pass path_mail to get_folder() by value.
+
+	* modules/pam_motd/pam_motd.c: Include <syslog.h>.
+	(pam_sm_open_session): Add const qualifier to motd_path.
+	Do not use x_strdup() for motd_path initialization.  Do not
+	free motd_path.  Fix "missing argument" check.	Add "unknown
+	option" warning.
+
+	* modules/pam_userdb/pam_userdb.c (_pam_parse): Add const
+	qualifier to database and cryptmode arguments.	Fix "missing
+	argument" checks.
+	(pam_sm_authenticate): Add const qualifier to database and cryptmode.
+	(pam_sm_acct_mgmt): Likewise.
+
 2005-10-01  Steve Langasek  <vorlon@debian.org>
 
 	* modules/pam_userdb/pam_userdb.c: spelling fix in log message.

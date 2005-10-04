@@ -20,6 +20,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <pwd.h>
+#include <syslog.h>
 
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
@@ -53,7 +54,7 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 {
     int retval = PAM_IGNORE;
     int fd;
-    char *motd_path = NULL;
+    const char *motd_path = NULL;
     char *mtmp = NULL;
 
     if (flags & PAM_SILENT) {
@@ -63,13 +64,17 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
     for (; argc-- > 0; ++argv) {
         if (!strncmp(*argv,"motd=",5)) {
 
-            motd_path = (char *) strdup(5+*argv);
-            if (motd_path != NULL) {
+            motd_path = 5 + *argv;
+            if (*motd_path != '\0') {
                 D(("set motd path: %s", motd_path));
-            } else {
-                D(("failed to duplicate motd path - ignored"));
-            }
+	    } else {
+		motd_path = NULL;
+		pam_syslog(pamh, LOG_ERR,
+			   "motd= specification missing argument - ignored");
+	    }
 	}
+	else
+	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
     }
 
     if (motd_path == NULL)
@@ -101,9 +106,6 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 
     if (fd >= 0)
 	close(fd);
-
-    if (motd_path != default_motd)
-	free(motd_path);
 
      return retval;
 }

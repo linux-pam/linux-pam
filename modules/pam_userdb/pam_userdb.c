@@ -85,7 +85,7 @@ obtain_authtok(pam_handle_t *pamh)
 
 static int
 _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
-	    char **database, char **cryptmode)
+	    const char **database, const char **cryptmode)
 {
   int ctrl;
 
@@ -114,16 +114,18 @@ _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
       else if (!strncasecmp(*argv,"db=", 3))
 	{
 	  *database = (*argv) + 3;
-	  if ((*database == NULL) || (strlen (*database) == 0))
+	  if (**database == '\0') {
+	    *database = NULL;
 	    pam_syslog(pamh, LOG_ERR,
-		       "could not parse argument \"%s\"", *argv);
+		       "db= specification missing argument - ignored");
+	  }
 	}
       else if (!strncasecmp(*argv,"crypt=", 6))
 	{
 	  *cryptmode = (*argv) + 6;
-	  if ((*cryptmode == NULL) || (strlen (*cryptmode) == 0))
+	  if (**cryptmode == '\0')
 	    pam_syslog(pamh, LOG_ERR,
-		       "could not parse argument \"%s\"", *argv);
+		       "crypt= specification missing argument - ignored");
 	}
       else
 	{
@@ -327,13 +329,13 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 {
      const char *username;
      const void *password;
-     char *database = NULL;
-     char *cryptmode = NULL;
+     const char *database = NULL;
+     const char *cryptmode = NULL;
      int retval = PAM_AUTH_ERR, ctrl;
 
      /* parse arguments */
      ctrl = _pam_parse(pamh, argc, argv, &database, &cryptmode);
-     if ((database == NULL) || (strlen(database) == 0)) {
+     if (database == NULL) {
         pam_syslog(pamh, LOG_ERR, "can not get the database name");
         return PAM_SERVICE_ERR;
      }
@@ -422,8 +424,8 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 		 int argc, const char **argv)
 {
     const char *username;
-    char *database = NULL;
-    char *cryptmode = NULL;
+    const char *database = NULL;
+    const char *cryptmode = NULL;
     int retval = PAM_AUTH_ERR, ctrl;
 
     /* parse arguments */

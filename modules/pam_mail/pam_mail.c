@@ -62,7 +62,7 @@
 
 static int
 _pam_parse (const pam_handle_t *pamh, int flags, int argc,
-	    const char **argv, char **maildir, size_t *hashcount)
+	    const char **argv, const char **maildir, size_t *hashcount)
 {
     int ctrl=0;
 
@@ -84,13 +84,13 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc,
 	else if (!strcmp(*argv,"standard"))
 	    ctrl |= PAM_STANDARD_MAIL | PAM_EMPTY_TOO;
 	else if (!strncmp(*argv,"dir=",4)) {
-	    *maildir = x_strdup(4+*argv);
-	    if (*maildir != NULL) {
+	    *maildir = 4 + *argv;
+	    if (**maildir != '\0') {
 		D(("new mail directory: %s", *maildir));
 		ctrl |= PAM_NEW_MAIL_DIR;
 	    } else {
-		pam_syslog (pamh, LOG_CRIT,
-			    "failed to duplicate mail directory - ignored");
+		pam_syslog(pamh, LOG_ERR,
+			   "dir= specification missing argument - ignored");
 	    }
 	} else if (!strncmp(*argv,"hash=",5)) {
 	    char *ep = NULL;
@@ -112,7 +112,7 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc,
     }
 
     if ((*hashcount != 0) && !(ctrl & PAM_NEW_MAIL_DIR)) {
-	*maildir = x_strdup(DEFAULT_MAIL_DIRECTORY);
+	*maildir = DEFAULT_MAIL_DIRECTORY;
 	ctrl |= PAM_NEW_MAIL_DIR;
     }
 
@@ -121,7 +121,7 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc,
 
 static int
 get_folder(pam_handle_t *pamh, int ctrl,
-	   char **path_mail, char **folder_p, size_t hashcount)
+	   const char *path_mail, char **folder_p, size_t hashcount)
 {
     int retval;
     const char *user, *path;
@@ -136,7 +136,7 @@ get_folder(pam_handle_t *pamh, int ctrl,
     }
 
     if (ctrl & PAM_NEW_MAIL_DIR) {
-	path = *path_mail;
+	path = path_mail;
 	if (*path == '~') {	/* support for $HOME delivery */
 	    pwd = pam_modutil_getpwnam(pamh, user);
 	    if (pwd == NULL) {
@@ -149,7 +149,7 @@ get_folder(pam_handle_t *pamh, int ctrl,
 	     */
 	    if (!*++path || (*path == '/' && !*++path)) {
 		pam_syslog(pamh, LOG_ERR,
-			   "badly formed mail path [%s]", *path_mail);
+			   "badly formed mail path [%s]", path_mail);
 		retval = PAM_SERVICE_ERR;
 		goto get_folder_cleanup;
 	    }
@@ -197,8 +197,6 @@ get_folder(pam_handle_t *pamh, int ctrl,
     /* tidy up */
 
   get_folder_cleanup:
-    _pam_overwrite(*path_mail);
-    _pam_drop(*path_mail);
     user = NULL;
     path = NULL;
 
@@ -361,8 +359,8 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 {
     int retval, ctrl;
     size_t hashcount;
-    char *path_mail = NULL, *folder = NULL;
-    const char *type;
+    char *folder = NULL;
+    const char *path_mail = NULL, *type;
 
     /*
      * this module (un)sets the MAIL environment variable, and checks if
@@ -378,7 +376,7 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 
     /* which folder? */
 
-    retval = get_folder(pamh, ctrl, &path_mail, &folder, hashcount);
+    retval = get_folder(pamh, ctrl, path_mail, &folder, hashcount);
     if (retval != PAM_SUCCESS) {
 	D(("failed to find folder"));
 	return retval;

@@ -81,7 +81,7 @@ static char quote='Z';
 
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
-	    char **conffile, char **envfile, int *readenv)
+	    const char **conffile, const char **envfile, int *readenv)
 {
     int ctrl=0;
 
@@ -94,22 +94,22 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	if (!strcmp(*argv,"debug"))
 	    ctrl |= PAM_DEBUG_ARG;
 	else if (!strncmp(*argv,"conffile=",9)) {
-	    *conffile = x_strdup(9+*argv);
-	    if (*conffile != NULL) {
+	    *conffile = 9 + *argv;
+	    if (**conffile != '\0') {
 		D(("new Configuration File: %s", *conffile));
 		ctrl |= PAM_NEW_CONF_FILE;
 	    } else {
 		pam_syslog(pamh, LOG_ERR,
-			 "Configuration file specification missing argument - ignored");
+			 "conffile= specification missing argument - ignored");
 	    }
 	} else if (!strncmp(*argv,"envfile=",8)) {
-	    *envfile = x_strdup(8+*argv);
-	    if (*envfile != NULL) {
+	    *envfile = 8 + *argv;
+	    if (**envfile != '\0') {
 		D(("new Env File: %s", *envfile));
 		ctrl |= PAM_NEW_ENV_FILE;
 	    } else {
 		pam_syslog (pamh, LOG_ERR,
-			 "Env file specification missing argument - ignored");
+			 "envfile= specification missing argument - ignored");
 	    }
 	} else if (!strncmp(*argv,"readenv=",8))
 	    *readenv = atoi(8+*argv);
@@ -120,7 +120,8 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
     return ctrl;
 }
 
-static int _parse_config_file(pam_handle_t *pamh, int ctrl, char **conffile)
+static int
+_parse_config_file(pam_handle_t *pamh, int ctrl, const char *conffile)
 {
     int retval;
     const char *file;
@@ -132,7 +133,7 @@ static int _parse_config_file(pam_handle_t *pamh, int ctrl, char **conffile)
     D(("Called."));
 
     if (ctrl & PAM_NEW_CONF_FILE) {
-	file = *conffile;
+	file = conffile;
     } else {
 	file = DEFAULT_CONF_FILE;
     }
@@ -178,14 +179,12 @@ static int _parse_config_file(pam_handle_t *pamh, int ctrl, char **conffile)
     /* tidy up */
     _clean_var(var);        /* We could have got here prematurely,
 			     * this is safe though */
-    _pam_overwrite(*conffile);
-    _pam_drop(*conffile);
-    file = NULL;
     D(("Exit."));
     return (retval != 0 ? PAM_ABORT : PAM_SUCCESS);
 }
 
-static int _parse_env_file(pam_handle_t *pamh, int ctrl, char **env_file)
+static int
+_parse_env_file(pam_handle_t *pamh, int ctrl, const char *env_file)
 {
     int retval=PAM_SUCCESS, i, t;
     const char *file;
@@ -193,7 +192,7 @@ static int _parse_env_file(pam_handle_t *pamh, int ctrl, char **env_file)
     FILE *conf;
 
     if (ctrl & PAM_NEW_ENV_FILE)
-	file = *env_file;
+	file = env_file;
     else
 	file = DEFAULT_ETC_ENVFILE;
 
@@ -260,9 +259,6 @@ static int _parse_env_file(pam_handle_t *pamh, int ctrl, char **env_file)
     (void) fclose(conf);
 
     /* tidy up */
-    _pam_overwrite(*env_file);
-    _pam_drop(*env_file);
-    file = NULL;
     D(("Exit."));
     return (retval != 0 ? PAM_IGNORE : PAM_SUCCESS);
 }
@@ -742,7 +738,7 @@ pam_sm_setcred (pam_handle_t *pamh, int flags UNUSED,
 		int argc, const char **argv)
 {
   int retval, ctrl, readenv=DEFAULT_READ_ENVFILE;
-  char *conf_file=NULL, *env_file=NULL;
+  const char *conf_file = NULL, *env_file = NULL;
 
   /*
    * this module sets environment variables read in from a file
@@ -751,10 +747,10 @@ pam_sm_setcred (pam_handle_t *pamh, int flags UNUSED,
   D(("Called."));
   ctrl = _pam_parse(pamh, argc, argv, &conf_file, &env_file, &readenv);
 
-  retval = _parse_config_file(pamh, ctrl, &conf_file);
+  retval = _parse_config_file(pamh, ctrl, conf_file);
 
   if(readenv && retval == PAM_SUCCESS)
-    retval = _parse_env_file(pamh, ctrl, &env_file);
+    retval = _parse_env_file(pamh, ctrl, env_file);
 
   /* indicate success or failure */
 
@@ -766,7 +762,7 @@ PAM_EXTERN int
 pam_sm_acct_mgmt (pam_handle_t *pamh UNUSED, int flags UNUSED,
 		  int argc UNUSED, const char **argv UNUSED)
 {
-  pam_syslog (pamh, LOG_NOTICE, "pam_sm_acct_mgmt called inappropriatly");
+  pam_syslog (pamh, LOG_NOTICE, "pam_sm_acct_mgmt called inappropriately");
   return PAM_SERVICE_ERR;
 }
 
@@ -775,7 +771,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
   int retval, ctrl, readenv=DEFAULT_READ_ENVFILE;
-  char *conf_file=NULL, *env_file=NULL;
+  const char *conf_file = NULL, *env_file = NULL;
 
   /*
    * this module sets environment variables read in from a file
@@ -784,10 +780,10 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
   D(("Called."));
   ctrl = _pam_parse(pamh, argc, argv, &conf_file, &env_file, &readenv);
 
-  retval = _parse_config_file(pamh, ctrl, &conf_file);
+  retval = _parse_config_file(pamh, ctrl, conf_file);
 
   if(readenv && retval == PAM_SUCCESS)
-    retval = _parse_env_file(pamh, ctrl, &env_file);
+    retval = _parse_env_file(pamh, ctrl, env_file);
 
   /* indicate success or failure */
 
@@ -807,7 +803,7 @@ PAM_EXTERN int
 pam_sm_chauthtok (pam_handle_t *pamh UNUSED, int flags UNUSED,
 		  int argc UNUSED, const char **argv UNUSED)
 {
-  pam_syslog (pamh, LOG_NOTICE, "pam_sm_chauthtok called inappropriatly");
+  pam_syslog (pamh, LOG_NOTICE, "pam_sm_chauthtok called inappropriately");
   return PAM_SERVICE_ERR;
 }
 

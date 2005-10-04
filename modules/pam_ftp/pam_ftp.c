@@ -43,7 +43,7 @@
 #define PAM_NO_ANON         04
 
 static int
-_pam_parse(pam_handle_t *pamh, int argc, const char **argv, char **users)
+_pam_parse(pam_handle_t *pamh, int argc, const char **argv, const char **users)
 {
     int ctrl=0;
 
@@ -55,12 +55,7 @@ _pam_parse(pam_handle_t *pamh, int argc, const char **argv, char **users)
 	if (!strcmp(*argv,"debug"))
 	    ctrl |= PAM_DEBUG_ARG;
 	else if (!strncmp(*argv,"users=",6)) {
-	    *users = x_strdup(6+*argv);
-	    if (*users == NULL) {
-		ctrl |= PAM_NO_ANON;
-		pam_syslog(pamh, LOG_CRIT,
-			   "failed to duplicate user list - anon off");
-	    }
+	    *users = 6 + *argv;
 	} else if (!strcmp(*argv,"ignore")) {
 	    ctrl |= PAM_IGNORE_EMAIL;
 	} else {
@@ -76,23 +71,26 @@ _pam_parse(pam_handle_t *pamh, int argc, const char **argv, char **users)
  * return 1 if listed 0 if not.
  */
 
-static int lookup(const char *name, char *list, const char **_user)
+static int lookup(const char *name, const char *list, const char **_user)
 {
     int anon = 0;
 
     *_user = name;                 /* this is the default */
-    if (list) {
+    if (list && *list) {
 	const char *l;
-	char *x;
+	char *list_copy, *x;
 
-	x = list;
-	while ((l = strtok(x, ","))) {
+	list_copy = x_strdup(list);
+	x = list_copy;
+	while (list_copy && (l = strtok(x, ","))) {
 	    x = NULL;
 	    if (!strcmp(name, l)) {
 		*_user = list;
 		anon = 1;
 	    }
 	}
+	_pam_overwrite(list_copy);
+	_pam_drop(list_copy);
     } else {
 #define MAX_L 2
 	static const char *l[MAX_L] = { "ftp", "anonymous" };
@@ -118,7 +116,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 {
     int retval, anon=0, ctrl;
     const char *user;
-    char *users=NULL;
+    const char *users = NULL;
 
     /*
      * this module checks if the user name is ftp or annonymous. If
