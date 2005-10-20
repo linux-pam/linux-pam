@@ -223,8 +223,8 @@ fi
 
 AC_CHECK_HEADERS(paths.h)
 AC_ARG_WITH(mailspool,
-[  --with-mailspool         path to mail spool directory
-                           [default _PATH_MAILDIR if defined in paths.h, otherwise /var/spool/mail]],
+[  --with-mailspool        path to mail spool directory
+                          [default _PATH_MAILDIR if defined in paths.h, otherwise /var/spool/mail]],
 with_mailspool=${withval})
 if test x$with_mailspool != x ; then
 	pam_mail_spool="\"$with_mailspool\""
@@ -243,6 +243,23 @@ pam_mail_spool="\"/var/spool/mail\"")
 fi
 AC_DEFINE_UNQUOTED(PAM_PATH_MAILDIR, $pam_mail_spool,
 	[Path where mails are stored])
+
+AC_ARG_WITH(xauth,
+[  --with-xauth            additional path to check for xauth when it is called from pam_xauth
+                          [added to the default of /usr/X11R6/bin/xauth, /usr/bin/xauth, /usr/bin/X11/xauth]],
+pam_xauth_path=${withval})
+if test x$with_xauth == x ; then
+	AC_PATH_PROG(pam_xauth_path, xauth)
+dnl There is no sense in adding the first default path
+	if test x$pam_xauth_path == x/usr/X11R6/bin/xauth ; then
+		unset pam_xauth_path
+	fi
+fi
+
+if test x$pam_xauth_path != x ; then
+	AC_DEFINE_UNQUOTED(PAM_PATH_XAUTH, "$pam_xauth_path",
+	[Additional path of xauth executable])
+fi
 
 dnl Checks for the existence of libdl - on BSD and Tru64 its part of libc
 AC_CHECK_LIB([dl], [dlopen], LIBDL="-ldl", LIBDL="")

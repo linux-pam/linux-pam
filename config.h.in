@@ -218,6 +218,9 @@
 /* Path where mails are stored */
 #undef PAM_PATH_MAILDIR
 
+/* Additional path of xauth executable */
+#undef PAM_PATH_XAUTH
+
 /* read both /etc/pam.d and /etc/pam.conf files */
 #undef PAM_READ_BOTH_CONFS
 

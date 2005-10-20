@@ -1,11 +1,11 @@
 .\" Copyright 2001,2003 Red Hat, Inc.
 .\" Written by Nalin Dahyabhai <nalin@redhat.com>, based on the original
 .\" version by Michael K. Johnson
-.TH pam_xauth 8 2003/7/24 "Red Hat Linux" "System Administrator's Manual"
+.TH pam_xauth 8 2005/10/20 "Red Hat Linux" "System Administrator's Manual"
 .SH NAME
 pam_xauth \- forward xauth keys between users
 .SH SYNOPSIS
-.B session optional /lib/security/pam_xauth.so \fIarguments\fP
+.B session optional pam_xauth.so \fIarguments\fP
 .SH DESCRIPTION
 pam_xauth.so is designed to forward xauth keys (sometimes referred
 to as "cookies") between users.
@@ -45,8 +45,9 @@ the import and export files can be empty, signifying that no users are allowed.
 .SH ARGUMENTS
 .IP debug
 Turns on debugging messages sent to syslog.
-.IP xauthpath=\fI/usr/X11R6/bin/xauth\fP
-Specify the path the xauth program (the default is /usr/X11R6/bin/xauth).
+.IP xauthpath=\fI/path/to/xauth\fP
+Specify the path the xauth program (it is expected in \fB/usr/X11R6/bin/xauth,\fP
+or \fB/usr/bin/xauth\fP, or \fB/usr/bin/X11/xauth\fP by default).
 .IP systemuser=\fInumber\fP
 Specify the highest UID which will be assumed to belong to a "system" user.
 pam_xauth will refuse to forward credentials to users with UID less than or

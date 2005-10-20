@@ -58,11 +58,20 @@
 #include <security/pam_ext.h>
 
 #define DATANAME "pam_xauth_cookie_file"
-#define XAUTHBIN "/usr/X11R6/bin/xauth"
 #define XAUTHENV "XAUTHORITY"
 #define HOMEENV  "HOME"
 #define XAUTHDEF ".Xauthority"
 #define XAUTHTMP ".xauthXXXXXX"
+
+/* Possible paths to xauth executable */
+static const char * const xauthpaths[] = { 
+#ifdef PAM_PATH_XAUTH
+	PAM_PATH_XAUTH,
+#endif
+	"/usr/X11R6/bin/xauth",
+	"/usr/bin/xauth",
+	"/usr/bin/X11/xauth"
+};
 
 /* Run a given command (with a NULL-terminated argument list), feeding it the
  * given input on stdin, and storing any output it generates. */
@@ -131,7 +140,7 @@ run_coprocess(const char *input, char **output,
 			args[j] = strdup(tmp);
 		}
 		/* Run the command. */
-		execvp(command, args);
+		execv(command, args);
 		/* Never reached. */
 		exit(1);
 	}
@@ -276,10 +285,9 @@ int
 pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
-	char xauthpath[] = XAUTHBIN;
 	char *cookiefile = NULL, *xauthority = NULL,
 	     *cookie = NULL, *display = NULL, *tmp = NULL;
-	const char *user, *xauth = xauthpath;
+	const char *user, *xauth = NULL;
 	struct passwd *tpwd, *rpwd;
 	int fd, i, debug = 0;
 	int retval = PAM_SUCCESS;
@@ -320,6 +328,19 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		}
 		pam_syslog(pamh, LOG_WARNING, "unrecognized option `%s'",
 			   argv[i]);
+	}
+	
+	if (xauth == NULL) {
+		for (i = 0; i < sizeof(xauthpaths)/sizeof(xauthpaths[0]); i++) {
+			if (access(xauthpaths[i], X_OK) == 0) {
+				xauth = xauthpaths[i];
+				break;
+			}
+		}
+		if (xauth == NULL) {
+			/* xauth executable not found - nothing to do */
+			return PAM_SUCCESS;
+		}
 	}
 
 	/* If DISPLAY isn't set, we don't really care, now do we? */

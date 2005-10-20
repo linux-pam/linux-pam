@@ -23,7 +23,8 @@ pam_xauth:
 RECOGNIZED ARGUMENTS:
 	debug		write debugging messages to syslog
 	xauthpath=	the path to the xauth program, by default
-			/usr/X11R6/bin/xauth
+			/usr/X11R6/bin/xauth, /usr/bin/xauth and
+			/usr/bin/X11/xauth
 	systemuser=	highest user id assigned to system users, defaults
 			to 499 (pam_xauth will refuse to forward creds to
 			target users with id equal to or below this number,

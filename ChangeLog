@@ -1,3 +1,13 @@
+2005-10-20  Tomas Mraz	<t8m@centrum.cz>
+
+	* configure.in: Added check for xauth binary and --with-xauth option.
+	* config.h.in: Added configurable PAM_PATH_XAUTH.
+	* modules/pam_xauth/README,
+	modules/pam_xauth/pam_xauth.8: Document where xauth is looked for.
+	* modules/pam_xauth/pam_xauth.c (pam_sm_open_session): Implement 
+	searching xauth binary on multiple places.
+	(run_coprocess): Don't use execvp as it can be a security risk.
+
 2005-10-04  Steve Langasek  <vorlon@debian.org>
 
 	* libpam/include/security/pam_malloc.h,
