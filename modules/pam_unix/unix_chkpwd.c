@@ -457,13 +457,12 @@ int main(int argc, char *argv[])
 	}
 
 	/*
-	 * determine the current user's name is.
-	 * On a SELinux enabled system, policy will prevent third parties from using
-	 * unix_chkpwd as a password guesser.  Leaving the existing check prevents
-	 * su from working,  Since the current uid is the users and the password is
-	 * for root.
+	 * Determine what the current user's name is.
+	 * On a SELinux enabled system with a strict policy leaving the
+	 * existing check prevents shadow password authentication from working.
+	 * We must thus skip the check if the real uid is 0.
 	 */
-	if (SELINUX_ENABLED) {
+	if (SELINUX_ENABLED && getuid() == 0) {
 	  user=argv[1];
 	}
 	else {
@@ -525,6 +524,7 @@ int main(int argc, char *argv[])
 	/* return pass or fail */
 
 	if ((retval != PAM_SUCCESS) || force_failure) {
+	    _log_err(LOG_NOTICE, "password check failed for user (%s)", user);
 	    return PAM_AUTH_ERR;
 	} else {
 	    return PAM_SUCCESS;

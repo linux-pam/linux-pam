@@ -1,3 +1,13 @@
+2005-10-26  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_unix/pam_unix_acct.c (_unix_run_verify_binary),
+	modules/pam_unix/pam_unix_passwd.c (_unix_run_shadow_binary),
+	modules/pam_unix/support.c (_unix_run_shadow_binary_): Set real
+	uid to 0 before executing the helper if SELinux is enabled.
+	* modules/pam_unix/unix_chkpwd.c (main): Disable user check only
+	if real uid is 0 (CVE-2005-2977). Log failed password check attempt.
+	
+	
 2005-10-20  Tomas Mraz	<t8m@centrum.cz>
 
 	* configure.in: Added check for xauth binary and --with-xauth option.

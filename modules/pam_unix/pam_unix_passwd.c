@@ -263,6 +263,13 @@ static int _unix_run_shadow_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	  	   close(i);
 	  }
 	}
+
+        if (SELINUX_ENABLED && geteuid() == 0) {
+          /* must set the real uid to 0 so the helper will not error
+             out if pam is called from setuid binary (su, sudo...) */
+          setuid(0);
+        }
+
 	/* exec binary helper */
 	args[0] = x_strdup(CHKPWD_HELPER);
 	args[1] = x_strdup(user);

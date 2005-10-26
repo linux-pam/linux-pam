@@ -1,6 +1,8 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 * pam_xauth: Look for xauth executable in multiple places
+* pam_unix: Disable user check in unix_chkpwd only if real uid
+  is 0 (CVE-2005-2977). Log failed password check attempt.
 
 Release 0.99.1.0
 
