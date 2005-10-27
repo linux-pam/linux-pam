@@ -1,7 +1,7 @@
 .\" Hey Emacs! This file is -*- nroff -*- source.
 .\" $Id$
 .\" Copyright (c) Andrew G. Morgan 1996-7,2001 <morgan@kernel.org>
-.TH PAM 8 "2001 Jan 20" "Linux-PAM 0.74" "Linux-PAM Manual"
+.TH PAM 8 "2005 Oct 27" "Linux-PAM 1.0" "Linux-PAM Manual"
 .SH NAME
 
 Linux-PAM \- Pluggable Authentication Modules for Linux
@@ -81,9 +81,9 @@ expired?; is this user permitted access to the requested service?
 
 .br
 .BR auth "entication - "
-establish the user is who they claim to be. Typically this is via some
-challenge-response request that the user must satisfy: if you are who
-you claim to be please enter your password.  Not all authentications
+authenticate a user and set up user credentials. Typically this is via
+some challenge-response request that the user must satisfy: if you are
+who you claim to be please enter your password. Not all authentications
 are of this type, there exist hardware based authentication schemes
 (such as the use of smart-cards and biometric devices), with suitable
 modules, these may be substituted seamlessly for more standard
@@ -149,7 +149,7 @@ first three being case-insensitive:
 The syntax of files contained in the
 .B /etc/pam.d/
 directory, are identical except for the absence of any
-.I service 
+.I service
 field. In this case, the
 .I service
 is the name of the file in the
@@ -169,7 +169,7 @@ The
 .BR service
 is typically the familiar name of the corresponding application:
 .BR login
-and 
+and
 .BR su
 are good examples. The
 .BR service "-name, " other ", "
@@ -285,7 +285,7 @@ implies 'all
 not mentioned explicitly. Note, the full list of PAM errors is
 available in /usr/include/security/_pam_types.h . The
 .B actionN
-can be: an unsigned integer, 
+can be: an unsigned integer,
 .BR J ,
 signifying an action of 'jump over the next J modules in the stack';
 or take one of the following forms:
@@ -294,7 +294,7 @@ or take one of the following forms:
 - when used with a stack of modules, the module's return status will
 not contribute to the return code the application obtains;
 .br
-.B bad 
+.B bad
 - this action indicates that the return code should be thought of as
 indicative of the module failing. If this module is the first in the
 stack to fail, its status value will be used for that of the whole
