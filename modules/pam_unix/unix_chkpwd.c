@@ -13,7 +13,7 @@
  *
  */
 
-#include "config.h"
+#include <security/_pam_aconf.h>
 
 #ifdef MEMORY_DEBUG
 # undef exit
@@ -59,7 +59,7 @@ static void _log_err(int err, const char *format,...)
 	va_list args;
 
 	va_start(args, format);
-	openlog("unix_chkpwd", LOG_CONS | LOG_PID, LOG_AUTHPRIV);
+	openlog("unix_chkpwd", LOG_CONS | LOG_PID, LOG_AUTH);
 	vsyslog(err, format, args);
 	va_end(args);
 	closelog();

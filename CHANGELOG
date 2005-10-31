@@ -1,13 +1,5 @@
 
-=======================================================================
-=======================================================================
-
-  This file is no longer used for tracking changes for Linux-PAM. For
-  user visible changes, please look at the NEWS file. A more verbose
-  list of changes can be found in ChangeLog.
-
-=======================================================================
-=======================================================================
+$Id$
 
 -----------------------------
 
@@ -17,6 +9,7 @@ TODO:
     library for helping to develop modules that contains it and other
     stuff. Also add sha-1 and ripemd-160 digest algorithms.
   - once above is done. remove hacks from the secret@here module etc..
+  - remove prototype for gethostname in pam_access.c (Derrick)
   - document PAM_INCOMPLETE changes
   - verify that the PAM_INCOMPLETE interface is sensible.   Can we
     catch errors? should we permit item changing etc., between
@@ -24,10 +17,30 @@ TODO:
   - verify that the PAM_INCOMPLETE interface works (auth seems ok..)
   - add PAM_INCOMPLETE support to modules (partially added to pam_pwdb)
   - work on RFC.
+  - do we still need to remove openlog/closelog from modules..?
   - auth and acct support in pam_cracklib, "yes, I know the password
     you just typed was valid, I just don't think it was very strong..."
+  - add in the pam_cap and pam_netid modules
 
 ====================================================================
+Note, as of release 0.73, all checkins should be accompanied with a
+Bug ID. The bug IDs relate to sourceforge IDs.. (Of course, nothing is
+ever that simple. It turns out that at some point in Sourceforge's
+history all of the bug ids got bumped by 100000, so pretty much if you
+see a bug ID below that begins with a '1' and your attempted query
+fails, try adding 100000 to the number and trying again. I believe
+this only affects bugs before release 0.76.)
+
+You can query the related bug description with the following URL:
+
+ http://sourceforge.net/tracker/index.php?func=detail&aid=XXXXXX&group_id=6663&atid=106663
+
+Where you should replace XXXXXX with a bug-id.
+
+For general documentation completion work, I'm doing it all with
+respect to specific tasks. Open tasks are listed here:
+
+ http://sourceforge.net/pm/task.php?group_id=6663&group_project_id=2741&func=browse&set=open
 
 If you have found a bug in Linux-PAM (including a documentation bug,
 or a new feature request and/or patch), please consider filing such a
@@ -37,44 +50,22 @@ bug report - outstanding bugs are listed here:
 
 (to file another bug see the 'submit bug' button on that page).
 
+
+There is now a second bug tracking system for Linux-PAM on BerliOS.
+You can find the list of outstanding bugs on BerliOS here:
+
+http://developer.berlios.de/bugs/?func=browse&group_id=2134&set=open
+
+BerliOS Bugs are marked with (BerliOS #XXXX).
+
 ====================================================================
 
-0.81: please submit patches for this section with actual code/doc
-      patches!
-* pam_umask: New module for setting umask from GECOS field, /etc/login.defs
-  or /etc/default/login (kukuk)
-* configure/pam_strerror: Remove old ugly-hack option for pam_strerror
-  interface change (kukuk)
-* configure.in: Fix AC_DEFINE usage for autoheader (kukuk)
-* configure.in/_pam_aconf.h.in: Remove feature.h inclusion (kukuk)
-* defs: Remove obsolete directory/content (kukuk)
-* Rename _pam_aconf.h.in to config.h (kukuk)
-* pam_unix: Don't ignore pam_get_item return value (kukuk)
-* pam_userdb: Fix regression - crash when crypt param not specified (t8m)
-* libpam: Remove pam_authenticate_secondary stub (kukuk)
-* Use autoconf/automake/libtool (kukuk)
-* pam_securetty: Be fail-close on user lookups, always log failures,
-  not just with "debug" (Solar Designer)
-* Add gettext support
-* Add translations for cs, de, es, fr, hu, it, ja, nb, pa, pt_BR,
-  pt, zh_CN and zh_TW
-* pam_limits: Apply ALT Linux/Owl patch
-* pam_motd: Apply ALT Linux/Owl patch
-* libpam: Cache pam_get_user() failures
-* libpam: Add pam_prompt,pam_vprompt,pam_error,pam_verror,pam_info
-  and pam_vinfo functions for use by modules as extension (kukuk).
-* pam_cracklib: Make path to cracklib dicts an option (kukuk).
-* libpam: Add pam_syslog function for unified syslog messages from
-  PAM modules (kukuk).
-* pam_tally, pam_time, pam_userdb: use pam_syslog and pam_prompt (ldv)
-* pam_issue: major cleanup (ldv)
-* pam_echo: New PAM module for message output (kukuk)
-* pam_limits: Fix regression from RLIMIT_NICE support (wrong limit
-  values for other limits are applied) patch by Anton Guda
-* pam_unix: Always honor nis flag on password change (by Aaron Hope)
-* libpam: Moved functions from pammodutil to libpam (t8m)
-* pam_lastlog: Cleanup, fix broken logic in pam_parse,
-  modify wtmp by default, nowtmp option switches that off (ldv)
+0.81: Mon Oct 31 16:01:46 CET 2005
+* pam_unix: Prevent normal users from using unix_chkpwd with SELinux
+  in permissive mode or if the policy doesn't prevent running
+  unix_chkpwd as regular user (CVE-2005-2977).
+* pam_limits: Some user limits set in the limits.conf were applied
+  incorrectly.
 
 0.80: Wed Jul 13 13:23:20 CEST 2005
 * pam_tally: test for NULL data before dereferencing them (t8m)

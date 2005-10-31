@@ -1,230 +1,171 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(conf/pam_conv1/pam_conv.y)
-AM_INIT_AUTOMAKE("Linux-PAM", 0.99.1.0)
-AM_CONFIG_HEADER(config.h)
-AC_CANONICAL_HOST
 
-AC_SUBST(PACKAGE)
-AC_SUBST(VERSION)
-
-ALL_LINGUAS="cs de es fi fr hu it ja nb pa pl pt_BR pt zh_CN zh_TW"
+dnl The configuration header file
+AC_CONFIG_HEADER(_pam_aconf.h)
 
 dnl
-dnl By default, everything under PAM is installed below /usr.
+dnl Release specific
 dnl
-AC_PREFIX_DEFAULT(/usr)
 
-dnl and some hacks to use /etc and /lib
-test "${prefix}" = "NONE" && prefix="/usr"
-if test ${prefix} = '/usr'
-then
-dnl If we use /usr as prefix, use /etc for config files
-        if test ${sysconfdir} = '${prefix}/etc'
-        then
-                sysconfdir="/etc"
-        fi
-	if test ${libdir} = '${exec_prefix}/lib'
-	then
-		libdir="/lib"
-	fi
-	if test ${sbindir} = '${exec_prefix}/sbin'
-        then
-                sbindir="/sbin"
-        fi
-dnl If we use /usr as prefix, use /usr/share/man for manual pages
-        if test ${mandir} = '${prefix}/man'
-        then
-                mandir='${prefix}/share/man'
-        fi
-dnl Add security to include directory
-	if test ${includedir} = '${prefix}/include'
-	then
-		includedir="${prefix}/include/security"
-	fi
-fi
+LIBPAM_VERSION_MAJOR=0
+LIBPAM_VERSION_MINOR=81
 
+AC_SUBST(LIBPAM_VERSION_MAJOR)
+AC_SUBST(LIBPAM_VERSION_MINOR)
+AC_DEFINE(LIBPAM_VERSION_MAJOR)
+AC_DEFINE(LIBPAM_VERSION_MINOR)
+
+dnl
+dnl By default, everything under PAM is installed under the root fs.
+dnl
+
+AC_PREFIX_DEFAULT()
+
+dnl
+dnl Useful info (believed to be portable) - in the future
+dnl the LOCALSRCDIR and LOCALOBJDIRs may be different
+dnl
+LOCALSRCDIR=`/bin/pwd`         ; AC_SUBST(LOCALSRCDIR)
+LOCALOBJDIR=`/bin/pwd`         ; AC_SUBST(LOCALOBJDIR)
+OS=`uname|sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
+AC_SUBST(OS)
+
+dnl
+dnl Rules needed for the following (hardcoded Linux defaults for now)
+dnl
+
+CONF_CFLAGS=			; AC_SUBST(CONF_CFLAGS)
+MKDIR="mkdir -p"		; AC_SUBST(MKDIR)
+
+SHLIBMODE=755			; AC_SUBST(SHLIBMODE)
+MANMODE=644			; AC_SUBST(MANMODE)
+
+dnl These are most likely platform specific - I think HPUX differs
+USESONAME=yes			; AC_SUBST(USESONAME)
+SOSWITCH="-Wl,-soname -Wl,"	; AC_SUBST(SOSWITCH)
+NEEDSONAME=yes			; AC_SUBST(NEEDSONAME)
+LDCONFIG=/sbin/ldconfig		; AC_SUBST(LDCONFIG)
 
 dnl Checks for programs.
-AC_GNU_SOURCE
 AC_PROG_CC
+dnl ### AC_PROG_CXX
 AC_PROG_YACC
-AM_PROG_LEX
+AC_PROG_LEX
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-# per default don't build static libraries
-AC_DISABLE_STATIC
-AC_PROG_LIBTOOL
-
-if test "$enable_static" = yes; then
-   CFLAGS="$CFLAGS -DPAM_STATIC"
-fi
-if test "$enable_shared" = yes; then
-   CFLAGS="$CFLAGS -DPAM_DYNAMIC"
-fi
-
-# Largefile support
-AC_SYS_LARGEFILE
-
-if eval "test x$GCC = xyes"; then
-  for flag in \
-      -W \
-      -Wall \
-      -Wbad-function-cast \
-      -Wcast-align \
-      -Wcast-qual \
-      -Wmissing-declarations \
-      -Wmissing-prototypes \
-      -Wpointer-arith \
-      -Wreturn-type \
-      -Wstrict-prototypes \
-      -Wwrite-strings \
-      -Winline \
-      -Wshadow
-  do
-    JAPHAR_GREP_CFLAGS($flag, [ CFLAGS="$CFLAGS $flag" ])
-  done
-fi
-
-AC_C___ATTRIBUTE__
-
-dnl
-dnl Check if --version-script is supported by ld
-dnl 
-AC_CACHE_CHECK(for .symver assembler directive, libc_cv_asm_symver_directive,
-[cat > conftest.s <<EOF
-${libc_cv_dot_text}
-_sym:
-.symver _sym,sym@VERS
-EOF
-if ${CC-cc} -c $ASFLAGS conftest.s 1>&AS_MESSAGE_LOG_FD 2>&AS_MESSAGE_LOG_FD; then
-  libc_cv_asm_symver_directive=yes
-else
-  libc_cv_asm_symver_directive=no
-fi
-rm -f conftest*])
-AC_CACHE_CHECK(for ld --version-script, libc_cv_ld_version_script_option, [dnl
-if test $libc_cv_asm_symver_directive = yes; then
-  cat > conftest.s <<EOF
-${libc_cv_dot_text}
-_sym:
-.symver _sym,sym@VERS
-EOF
-  cat > conftest.map <<EOF
-VERS_1 {
-        global: sym;
-};
-
-VERS_2 {
-        global: sym;
-} VERS_1;
-EOF
-  if ${CC-cc} -c $ASFLAGS conftest.s 1>&AS_MESSAGE_LOG_FD 2>&AS_MESSAGE_LOG_FD; 
-then
-    if AC_TRY_COMMAND([${CC-cc} $CFLAGS $LDFLAGS -shared
-                                -o conftest.so conftest.o
-                                -nostartfiles -nostdlib
-                                -Wl,--version-script,conftest.map
-                       1>&AS_MESSAGE_LOG_FD]);
-    then
-      libc_cv_ld_version_script_option=yes
-    else
-      libc_cv_ld_version_script_option=no
-    fi
-  else
-    libc_cv_ld_version_script_option=no
-  fi
-else
-  libc_cv_ld_version_script_option=no
-fi
-rm -f conftest*])
-AM_CONDITIONAL([HAVE_VERSIONING],
-	[test "$libc_cv_ld_version_script_option" = "yes"])
 
 dnl
 dnl options and defaults
 dnl
 
-AM_PATH_LIBPRELUDE([0.9.0])
-if test "$LIBPRELUDE_CONFIG" != "no" ; then
-  LIBPRELUDE_CFLAGS="$LIBPRELUDE_CFLAGS -DPRELUDE=1"
-fi
-
-dnl lots of debugging information goes to /var/run/pam-debug.log
-AC_ARG_ENABLE([debug],
-    AC_HELP_STRING([--enable-debug],
-	[specify you are building with debugging on]),
-	WITH_DEBUG=yes ; AC_DEFINE([DEBUG],,
-		[lots of stuff gets written to /var/run/pam-debug.log]),
-		WITH_DEBUG=no)
+dnl lots of debugging information goes to /tmp/pam-debug.log
+AC_ARG_ENABLE(debug,
+[  --enable-debug           specify you are building with debugging on],
+	WITH_DEBUG=yes ; AC_DEFINE(DEBUG) , WITH_DEBUG=no)
 AC_SUBST(WITH_DEBUG)
 
-AC_ARG_ENABLE([memory-debug],
-    AC_HELP_STRING([--enable-memory-debug],[specify you want every malloc etc. call tracked]),
-    WITH_MEMORY_DEBUG=$enableval, WITH_MEMORY_DEBUG=no)
-if test "$WITH_MEMORY_DEBUG" != "no" ; then
-    AC_DEFINE([MEMORY_DEBUG], 1, [Every malloc etc. call will be tracked])
-fi
-AH_VERBATIM([_MEMORY_DEBUG],
-[#ifdef MEMORY_DEBUG
-/*
- * this is basically a hack - we need to include a semiarbitrary
- * number of headers to ensure that we don't get silly prototype/macro
- */
-# include <string.h>
-# include <stdlib.h>
-# include <security/pam_malloc.h>
-#endif /* MEMORY_DEBUG */])
+AC_ARG_ENABLE(memory-debug,
+[  --enable-memory-debug    specify you want every malloc etc. call tracked],
+	WITH_MEMORY_DEBUG=yes ; AC_DEFINE(MEMORY_DEBUG) , WITH_MEMORY_DEBUG=no)
+AC_SUBST(WITH_MEMORY_DEBUG)
+
+dnl build specially named libraries (for debugging purposes)
+AC_ARG_ENABLE(libdebug,
+[  --enable-libdebug        specify you are building debugging libraries],
+	WITH_LIBDEBUG=yes ; AC_DEFINE(WITH_LIBDEBUG) , WITH_LIBDEBUG=no)
+AC_SUBST(WITH_LIBDEBUG)
+
+dnl have prelude support
+AC_ARG_ENABLE(prelude,
+[  --enable-prelude         build prelude ids support],
+        WITH_PRELUDE=yes ; AC_DEFINE(WITH_PRELUDE), WITH_PRELUDE=no)
+AC_SUBST(WITH_PRELUDE)
+
+dnl packaging convenience
+AC_ARG_ENABLE(fakeroot,
+[  --enable-fakeroot=<path to packaging directory>], FAKEROOT=$enableval)
+AC_SUBST(FAKEROOT)
 
 AC_ARG_ENABLE(securedir,
 [  --enable-securedir=<path to location of PAMs> [default \$libdir/security]],
 	SECUREDIR=$enableval, SECUREDIR=$libdir/security)
 AC_SUBST(SECUREDIR)
 
-AC_ARG_ENABLE([isadir],
-	AC_HELP_STRING([--enable-isadir=DIR],[path to arch-specific module files [default ../../`basename $libdir`/security]]),
+AC_ARG_ENABLE(isadir,
+[  --enable-isadir=<path to arch-specific module files> [default ../../\`basename \$libdir\`/security]],
 ISA=$enableval,
 ISA=../../`basename $libdir`/security)
 unset mylibdirbase
 AC_DEFINE_UNQUOTED(_PAM_ISA,"$ISA",[Define to the path, relative to SECUREDIR, where PAMs specific to this architecture can be found.])
-AC_MSG_RESULT([Defining \$ISA to "$ISA"])
+AC_MSG_RESULT([Defining \$ISA to \"$ISA\".])
 
 AC_ARG_ENABLE(sconfigdir,
 [  --enable-sconfigdir=<path to module conf files> [default \$sysconfdir/security]],
 	SCONFIGDIR=$enableval, SCONFIGDIR=$sysconfdir/security)
 AC_SUBST(SCONFIGDIR)
 
+AC_ARG_ENABLE(suplementedir,
+[  --enable-suplementedir=<path to module helper binaries> [default \$sbindir]],
+	SUPLEMENTED=$enableval, SUPLEMENTED=$sbindir)
+AC_SUBST(SUPLEMENTED)
+
+AC_ARG_ENABLE(includedir,
+[  --enable-includedir=<path to include location> - where to put <security>],
+	INCLUDEDIR=$enableval, INCLUDEDIR=/usr/include)
+AC_SUBST(INCLUDEDIR)
+
 AC_ARG_ENABLE(docdir,
 [  --enable-docdir=<path to store documentation in - /usr/share/doc/pam>],
 	DOCDIR=$enableval, DOCDIR=/usr/share/doc/pam)
 AC_SUBST(DOCDIR)
 
+AC_ARG_ENABLE(mandir,
+[  --enable-mandir=<path to store manuals in - /usr/share/man>],
+	MANDIR=$enableval, MANDIR=/usr/share/man)
+AC_SUBST(MANDIR)
 
 AC_ARG_ENABLE(pamlocking,
 [  --enable-pamlocking      configure libpam to observe a global authentication lock],
-	WITH_PAMLOCKING=yes ; AC_DEFINE([PAM_LOCKING],,
-		[libpam should observe a global authentication lock]),
-		WITH_PAMLOCKING=no)
+	WITH_PAMLOCKING=yes ; AC_DEFINE(PAM_LOCKING) , WITH_PAMLOCKING=no)
 AC_SUBST(WITH_PAMLOCKING)
+
+AC_ARG_ENABLE(uglyhack,
+[  --enable-uglyhack        configure libpam to try to honor old pam_strerror syntax],
+	AC_DEFINE(UGLY_HACK_FOR_PRIOR_BEHAVIOR_SUPPORT))
 
 AC_ARG_ENABLE(read-both-confs,
 [  --enable-read-both-confs  read both /etc/pam.d and /etc/pam.conf files],
-	AC_DEFINE([PAM_READ_BOTH_CONFS],,
-		[read both /etc/pam.d and /etc/pam.conf files]))
+	AC_DEFINE(PAM_READ_BOTH_CONFS))
 AC_SUBST(PAM_READ_BOTH_CONFS)
 
-AC_ARG_ENABLE([lckpwdf],
-	AC_HELP_STRING([--disable-lckpwdf],[do not use the lckpwdf function]),
-	WITH_LCKPWDF=$enableval, WITH_LCKPWDF=yes)
-if test "$WITH_LCKPWDF" == "yes" ; then
-    AC_DEFINE([USE_LCKPWDF], 1,
-		[Define to 1 if the lckpwdf function should be used])
-fi
+AC_ARG_ENABLE(static-libpam, [  --enable-static-libpam   build a libpam.a library],
+	STATIC_LIBPAM=yes , STATIC_LIBPAM=no)
+AC_SUBST(STATIC_LIBPAM)
+
+AC_ARG_ENABLE(dynamic-libpam,
+[  --disable-dynamic-libpam do not build a shared libpam library],
+	DYNAMIC_LIBPAM=no, DYNAMIC_LIBPAM=yes)
+AC_SUBST(DYNAMIC_LIBPAM)
+
+DYNAMIC=-DPAM_DYNAMIC
+AC_SUBST(DYNAMIC)
+
+AC_ARG_ENABLE(static-modules,
+[  --enable-static-modules  do not make the modules dynamically loadable],
+	STATIC=-DPAM_STATIC)
+AC_SUBST(STATIC)
+
+AC_ARG_ENABLE(lckpwdf,
+[  --disable-lckpwdf do not use the lckpwdf function],
+	WITH_LCKPWDF=no, WITH_LCKPWDF=yes)
+AC_SUBST(WITH_LCKPWDF)
 
 AC_CHECK_HEADERS(paths.h)
 AC_ARG_WITH(mailspool,
-[  --with-mailspool        path to mail spool directory
-                          [default _PATH_MAILDIR if defined in paths.h, otherwise /var/spool/mail]],
+[  --with-mailspool         path to mail spool directory
+                           [default _PATH_MAILDIR if defined in paths.h, otherwise /var/spool/mail]],
 with_mailspool=${withval})
 if test x$with_mailspool != x ; then
 	pam_mail_spool="\"$with_mailspool\""
@@ -241,81 +182,72 @@ exit(1);
 pam_mail_spool="\"/var/spool/mail\"",
 pam_mail_spool="\"/var/spool/mail\"")
 fi
-AC_DEFINE_UNQUOTED(PAM_PATH_MAILDIR, $pam_mail_spool,
-	[Path where mails are stored])
+AC_DEFINE_UNQUOTED(PAM_PATH_MAILDIR, $pam_mail_spool)
 
-AC_ARG_WITH(xauth,
-[  --with-xauth            additional path to check for xauth when it is called from pam_xauth
-                          [added to the default of /usr/X11R6/bin/xauth, /usr/bin/xauth, /usr/bin/X11/xauth]],
-pam_xauth_path=${withval})
-if test x$with_xauth == x ; then
-	AC_PATH_PROG(pam_xauth_path, xauth)
-dnl There is no sense in adding the first default path
-	if test x$pam_xauth_path == x/usr/X11R6/bin/xauth ; then
-		unset pam_xauth_path
-	fi
-fi
+dnl Checks for libraries.
+AC_CHECK_LIB(c, __libc_sched_setscheduler, PAM_NEEDS_LIBC=, PAM_NEEDS_LIBC=-lc)
+AC_SUBST(PAM_NEEDS_LIBC)
 
-if test x$pam_xauth_path != x ; then
-	AC_DEFINE_UNQUOTED(PAM_PATH_XAUTH, "$pam_xauth_path",
-	[Additional path of xauth executable])
-fi
+dnl Checks for the existence of lckpwdf in libc
+AC_CHECK_LIB(c, lckpwdf, HAVE_LCKPWDF=yes, HAVE_LCKPWDF=no)
+AC_SUBST(HAVE_LCKPWDF)
 
 dnl Checks for the existence of libdl - on BSD and Tru64 its part of libc
-AC_CHECK_LIB([dl], [dlopen], LIBDL="-ldl", LIBDL="")
+AC_CHECK_LIB(dl, dlopen, LIBDL=-ldl)
 AC_SUBST(LIBDL)
 
-BACKUP_LIBS=$LIBS
-AC_SEARCH_LIBS([FascistCheck],[crack], LIBCRACK="-l$ac_lib", LIBCRACK="")
-LIBS=$BACKUP_LIBS
-AC_SUBST(LIBCRACK)
-AM_CONDITIONAL([HAVE_LIBCRACK], [test ! -z "$LIBCRACK"])
+dnl
+dnl At least on Solaris, the existing libcrack must be dynamic.
+dnl Ought to introduce a check for this.
+dnl
+AC_CHECK_LIB(crack, FascistCheck, HAVE_LIBCRACK=yes ; AC_DEFINE(HAVE_LIBCRACK),
+	HAVE_LIBCRACK=no)
+AC_SUBST(HAVE_LIBCRACK)
 
-BACKUP_LIBS=$LIBS
-AC_SEARCH_LIBS([crypt],[xcrypt crypt], LIBCRYPT="-l$ac_lib", LIBCRYPT="")
-LIBS=$BACKUP_LIBS
-AC_SUBST(LIBCRYPT)
-
-dnl check for libndbm or libdb as fallback
-BACKUP_LIBS=$LIBS
-AC_CHECK_LIB([ndbm],[dbm_store], LIBDB="-lndbm", LIBDB="") 
-LIBS=$BACKUP_LIBS
-if test -z "$LIBDB" ; then
-    BACKUP_LIBS=$LIBS
-    AC_CHECK_LIB([db], [dbm_store], LIBDB="-ldb", LIBDB="")
-    LIBS=$BACKUP_LIBS
+AC_CHECK_LIB(crypt, crypt, HAVE_LIBCRYPT=yes ; AC_DEFINE(HAVE_LIBCRYPT),
+	HAVE_LIBCRYPT=no)
+AC_SUBST(HAVE_LIBCRYPT)
+AC_CHECK_LIB(util, logwtmp, HAVE_LIBUTIL=yes ; AC_DEFINE(HAVE_LIBUTIL),
+	HAVE_LIBUTIL=no)
+AC_SUBST(HAVE_LIBUTIL)
+AC_CHECK_LIB(ndbm, dbm_store, HAVE_LIBNDBM=yes ; AC_DEFINE(HAVE_LIBNDBM),
+	HAVE_LIBNDBM=no)
+AC_SUBST(HAVE_LIBNDBM)
+AC_CHECK_LIB(db, dbm_store, HAVE_LIBDB=yes ; AC_DEFINE(HAVE_LIBDB),
+	HAVE_LIBDB=no)
+if test x$HAVE_LIBDB != xyes ; then
+	AC_CHECK_LIB(db, db_create, HAVE_LIBDB=yes ; AC_DEFINE(HAVE_LIBDB),
+	HAVE_LIBDB=no)
 fi
-if test -z "$LIBDB" ; then
-    BACKUP_LIBS=$LIBS
-    AC_CHECK_LIB([db], [db_create], LIBDB="-ldb", LIBDB="")
-    LIBS=$BACKUP_LIBS
+AC_SUBST(HAVE_LIBDB)
+AC_CHECK_LIB(fl, yylex, yyterminate, HAVE_LIBFL=yes ; AC_DEFINE(HAVE_LIBFL),
+	HAVE_LIBFL=no)
+AC_SUBST(HAVE_LIBFL)
+AC_CHECK_LIB(nsl, yp_maplist, HAVE_LIBNSL=yes ; AC_DEFINE(HAVE_LIBNSL),
+	HAVE_LIBNSL=no)
+AC_SUBST(HAVE_LIBNSL)
+
+AC_CHECK_LIB(selinux, getfilecon, HAVE_LIBSELINUX=yes ; AC_DEFINE(HAVE_LIBSELINUX),
+	HAVE_LIBSELINUX=no)
+AC_SUBST(HAVE_LIBSELINUX)
+
+if test $HAVE_LIBSELINUX = yes ; then
+	pwdblibs="$pwdblibs -lselinux"
 fi
-AC_SUBST(LIBDB)
-AM_CONDITIONAL([HAVE_LIBDB], [test ! -z "$LIBDB"])
+if test $HAVE_LIBNSL = yes ; then
+	pwdblibs="$pwdblibs -lnsl"
+fi
+AC_CHECK_LIB(pwdb, pwdb_db_name, HAVE_LIBPWDB=yes ; AC_DEFINE(HAVE_LIBPWDB),
+	HAVE_LIBPWDB=no,$pwdblibs)
+AC_SUBST(HAVE_LIBPWDB)
+unset pwdblibs
 
-BACKUP_LIBS=$LIBS
-AC_CHECK_LIB([nsl],[yp_get_default_domain], LIBNSL="-lnsl", LIBNSL="")
-LIBS=$BACKUP_LIBS
-AC_SUBST(LIBNSL)
-
-BACKUP_LIBS=$LIBS
-AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
-LIBS=$BACKUP_LIBS
-AC_SUBST(LIBSELINUX)
-AM_CONDITIONAL([HAVE_LIBSELINUX], [test ! -z "$LIBSELINUX"])
-
-dnl Checks for Libcap
-BACKUP_LIBS=$LIBS
-AC_CHECK_LIB([cap], [cap_get_proc], LIBCAP="-lcap", LIBCAP="" )
-LIBS=$BACKUP_LIBS
-AC_SUBST(LIBCAP)
-AM_CONDITIONAL([HAVE_LIBCAP], [test ! -z "$LIBCAP"])
-
-BACKUP_LIBS=$LIBS
-AC_CHECK_LIB([pwdb],[pwdb_db_name], LIBPWDB="-lpwdb", LIBPWDB="")
-LIBS=$BACKUP_LIBS
-AC_SUBST(LIBPWDB)
-AM_CONDITIONAL([HAVE_LIBPWDB], [test ! -z "$LIBPWDB"])
+AC_CHECK_LIB(fl, yywrap, HAVE_LIBFLEX=yes ; AC_DEFINE(HAVE_LIBFLEX),
+	HAVE_LIBFLEX=no)
+AC_SUBST(HAVE_LIBFLEX)
+AC_CHECK_LIB(l, yywrap, HAVE_LIBLEX=yes ; AC_DEFINE(HAVE_LIBLEX),
+	HAVE_LIBLEX=no)
+AC_SUBST(HAVE_LIBLEX)
 
 dnl Checks for header files.
 AC_HEADER_DIRENT
@@ -323,8 +255,11 @@ AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/file.h sys/ioctl.h sys/time.h syslog.h termio.h unistd.h sys/fsuid.h inittypes.h)
 
+dnl Linux wants features.h in some of the source files.
+AC_CHECK_HEADERS(features.h)
+
+dnl For module/pam_cracklib
 AC_CHECK_HEADERS(crypt.h)
-AC_CHECK_HEADERS(crack.h)
 
 dnl For module/pam_userdb
 AC_CHECK_HEADERS(ndbm.h db.h)
@@ -334,6 +269,148 @@ AC_SUBST(HAVE_NDBM_H)
 
 dnl For module/pam_lastlog
 AC_CHECK_HEADERS(lastlog.h utmp.h utmpx.h)
+
+dnl This following rule should be made conditional upon HAVE_LIBCRYPT
+dnl being found.
+
+dnl Look for cracklib dictionary
+AC_MSG_CHECKING(path to cracklib dictionary)
+DICT_DIR_CANDIDATES="/usr/lib /usr/share/dict /usr/share/lib \
+  /usr/local/lib /usr/local/share/lib /usr/share/cracklib"
+DICT_FILE_CANDIDATES="pw_dict cracklib_dict"
+CRACKLIB_DICTPATH=""
+for d in $DICT_DIR_CANDIDATES ; do
+      for f in $DICT_FILE_CANDIDATES ; do
+              if test -r $d/$f.hwm ; then
+                      CRACKLIB_DICTPATH=$d/$f
+                      break 2
+              elif test -r $d/dict/$f.hwm ; then
+                      CRACKLIB_DICTPATH=$d/dict/$f
+                      break 2
+              fi
+      done
+done
+if test -z "$CRACKLIB_DICTPATH" ; then
+      AC_MSG_WARN([none found - pam_cracklib will not be built])
+else
+      AC_MSG_RESULT($CRACKLIB_DICTPATH)
+fi
+AC_SUBST(CRACKLIB_DICTPATH)
+
+dnl Set FLAGS, linker options etc. depending on C compiler.
+dnl gcc is tested and much preferred; others less so, if at all
+dnl
+dnl If compiling with gcc, linking is also supposed to be done with gcc
+dnl
+dnl For the moment, gcc is enforced above at "CC=gcc".
+dnl
+dnl There is an issue over _POSIX_SOURCE _BSD_SOURCE and _GNU_SOURCE .
+dnl The original "Linux-PAM" had blanket inclusion.  But portability
+dnl requires their default absence: if particular OSes require them,
+dnl this should be done selectively.
+
+GCC_WARNINGS="-Wall -Wwrite-strings \
+	-Wpointer-arith -Wcast-qual -Wcast-align \
+	-Wstrict-prototypes -Wmissing-prototypes \
+	-Wnested-externs -Winline -Wshadow"
+
+if test "$GCC" = yes; then
+	CC=gcc				; AC_SUBST(CC)
+### May need per-OS attention
+### Example: -D_POSIX_SOURCE: needed on Linux but harms Solaris.
+	case $OS in
+	linux)
+		OS_CFLAGS=
+		LD_D="$CC -shared $LDFLAGS"
+		WARNINGS="$GCC_WARNINGS"
+		PIC="-fPIC"
+		DYNTYPE=so
+		LD=gcc
+		LD_L="$CC -shared $LDFLAGS"
+		RANLIB=:
+		STRIP=strip
+		CC_STATIC="-Xlinker -export-dynamic"
+		;;
+	sunos)
+		OS_CFLAGS="-ansi -pedantic"
+		LD_D="gcc -shared -Xlinker -x"
+		WARNINGS="$GCC_WARNINGS"
+		PIC="-fPIC"
+		DYNTYPE=so
+		LD=ld
+		LD_L="$LD -x -shared"
+		RANLIB=ranlib
+		STRIP=strip
+		CC_STATIC="-Xlinker -export-dynamic"
+		;;
+	aix)
+		OS_CFLAGS=""
+		DYNTYPE=lo
+		LD=ld
+		LD_L=ld -bexpall -bM:SRE -bnoentry
+		LD_D="$LD_L"
+		RANLIB=ranlib
+		STRIP=strip
+		;;
+	*)
+		OS_CFLAGS=""
+		;;
+	esac
+else
+###
+### Non-gcc needs attention on per-OS basis
+###
+	case "$OS" in
+	darwin)
+# add some stuff here (see sourceforge bug 534205)
+# DOCDIR=/System/Documentation/Administration/Libraries/PAM
+# MANDIR=/usr/share/man
+		;;
+	solaris)
+	    ### Support for Solaris-C
+	    OS_CFLAGS=""
+	    WARNINGS=""
+	    PIC="-K pic"
+	    LD=ld
+	    LD_D="cc -z text -G -R."
+	    LD_L="$LD_D"
+	    RANLIB=ranlib
+	    STRIP=strip
+	    CC_STATIC=
+	    ;;
+	irix*)
+	    OSRELEASE=`uname -r`
+	    if test "$OSRELEASE" = 6.5; then
+		OS_CFLAGS=""
+		WARNINGS="-fullwarn"
+		PIC=                    #PIC code is default for IRIX
+		LD="cc -shared"         # modules friendly approach
+		LD_D="cc -shared"
+		LD_L="ld -G -z redlocsym"
+		RANLIB=echo
+		STRIP=strip
+		CC_STATIC=
+	    else
+		echo "IRIX prior to 6.5 not allowed for"
+		exit
+	    fi
+	    ;;
+       *) echo "Native compiler on $OS is not yet supported"
+               exit
+	    ;;
+       esac
+fi
+
+AC_SUBST(DYNTYPE)
+AC_SUBST(OS_CFLAGS)
+AC_SUBST(WARNINGS)
+AC_SUBST(PIC)
+AC_SUBST(LD)
+AC_SUBST(LD_D)
+AC_SUBST(LD_L)
+AC_SUBST(RANLIB)
+AC_SUBST(STRIP)
+AC_SUBST(CC_STATIC)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_BIGENDIAN
@@ -350,68 +427,29 @@ AC_TYPE_GETGROUPS
 AC_PROG_GCC_TRADITIONAL
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS(gethostname gettimeofday lckpwdf mkdir select strcspn strdup strerror strspn strstr strtol uname)
+AC_CHECK_FUNCS(gethostname gettimeofday mkdir select strcspn strdup strerror strspn strstr strtol uname)
 
 AC_CHECK_FUNCS(getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r getgrouplist)
 
 dnl Checks for programs/utilities
-AC_CHECK_PROG(SGML2PS, sgml2ps, yes, no)
-AC_CHECK_PROG(SGML2TXT, sgml2txt, yes, no)
-AC_CHECK_PROG(SGML2HTML, sgml2html, yes, no)
-AC_CHECK_PROG(SGML2LATEX, sgml2latex, yes, no)
-AC_CHECK_PROG(PS2PDF, ps2pdf, yes, no)
-AM_CONDITIONAL([HAVE_SGML2PS], [test "$SGML2PS" = yes || test "$SGML2LATEX" = yes])
-AM_CONDITIONAL([HAVE_SGML2TXT], [test "$SGML2TXT" = yes])
-AM_CONDITIONAL([HAVE_SGML2HTML], [test "$SGML2HTML" = yes])
-AM_CONDITIONAL([HAVE_PS2PDF], [test "$PS2PDF" = yes])
-if test $SGML2LATEX = "yes" ; then
+AC_CHECK_PROG(HAVE_SGML2TXT, sgml2txt, yes, no)
+AC_CHECK_PROG(HAVE_SGML2HTML, sgml2html, yes, no)
+AC_CHECK_PROG(HAVE_SGML2LATEX, sgml2latex, yes, no)
+if test $HAVE_SGML2LATEX = "yes" ; then
   if sgml2latex -h | grep -e --paper | grep  ' -p ' > /dev/null ; then
     PSER="sgml2latex -o ps"
   else
     PSER="sgml2latex -p"
   fi
+  AC_CHECK_PROG(HAVE_PS2PDF, ps2pdf, yes, no)
 else
-  if test $SGML2PS = yes ; then
+  AC_CHECK_PROG(HAVE_SGML2PS, sgml2ps, yes, no)
+  if test $HAVE_SGML2PS = yes ; then
     PSER="sgml2ps"
   fi
 fi
 AC_SUBST(PSER)
-
-AM_GNU_GETTEXT_VERSION
-AM_GNU_GETTEXT([external])
-
-AH_VERBATIM([_ZZENABLE_NLS],
-[#ifdef ENABLE_NLS
-#include <libintl.h>
-#define _(msgid) dgettext("Linux-PAM", msgid)
-#define N_(msgid) msgid
-#else
-#define _(msgid) (msgid)
-#define N_(msgid) msgid
-#endif /* ENABLE_NLS */])
+AC_SUBST(PS2PDF)
 
 dnl Files to be created from when we run configure
-AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
-	libpam_misc/Makefile conf/Makefile conf/pam_conv1/Makefile \
-	po/Makefile.in \
-	modules/Makefile \
-	modules/pam_access/Makefile modules/pam_cracklib/Makefile \
-        modules/pam_debug/Makefile modules/pam_deny/Makefile \
-	modules/pam_echo/Makefile modules/pam_env/Makefile \
-	modules/pam_filter/Makefile modules/pam_filter/upperLOWER/Makefile \
-	modules/pam_ftp/Makefile modules/pam_group/Makefile \
-	modules/pam_issue/Makefile modules/pam_lastlog/Makefile \
-	modules/pam_limits/Makefile modules/pam_listfile/Makefile \
-	modules/pam_localuser/Makefile modules/pam_mail/Makefile \
-	modules/pam_mkhomedir/Makefile modules/pam_motd/Makefile \
-	modules/pam_nologin/Makefile modules/pam_permit/Makefile \
-	modules/pam_pwdb/Makefile modules/pam_rhosts/Makefile \
-	modules/pam_rootok/Makefile \
-	modules/pam_securetty/Makefile modules/pam_selinux/Makefile \
-	modules/pam_shells/Makefile modules/pam_stress/Makefile \
-	modules/pam_succeed_if/Makefile modules/pam_tally/Makefile \
-	modules/pam_time/Makefile modules/pam_umask/Makefile \
-	modules/pam_unix/Makefile modules/pam_userdb/Makefile \
-	modules/pam_warn/Makefile modules/pam_wheel/Makefile \
-	modules/pam_xauth/Makefile doc/Makefile doc/specs/Makefile \
-	examples/Makefile)
+AC_OUTPUT(Make.Rules)
