@@ -332,7 +332,7 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 		memset(*ret, '\0', buflen);
 
 		(*ret)->pw_uid = strtol(suid, &p, 10);
-		if ((strlen(sgid) == 0) || (*p != '\0')) {
+		if ((strlen(suid) == 0) || (*p != '\0')) {
 			free(*ret);
 			*ret = NULL;
 			return matched;

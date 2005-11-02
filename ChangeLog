@@ -1,3 +1,7 @@
+2005-11-02  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_unix/support.c (_unix_getpwnam): Fix typo [#1224807].
+
 2005-10-31  Thorsten Kukuk  <kukuk@suse.de>
 
 	* modules/pam_filter/pam_filter.c: Use XCASE only if defined
