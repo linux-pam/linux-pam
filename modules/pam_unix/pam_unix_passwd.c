@@ -923,10 +923,21 @@ static int _unix_verify_shadow(pam_handle_t *pamh, const char *user, unsigned in
 		if (off(UNIX__IAMROOT, ctrl)) {
 			/* Get the current number of days since 1970 */
 			curdays = time(NULL) / (60 * 60 * 24);
-			if ((curdays < (spwdent->sp_lstchg + spwdent->sp_min))
-			    && (spwdent->sp_min != -1))
+			if (curdays < spent->sp_lstchg) {
+				pam_syslog(pamh, LOG_DEBUG,
+					"account %s has password changed in future",
+					uname);
+				curdays = spent->sp_lstchg;
+			}
+			if ((curdays - spwdent->sp_lstchg < spwdent->sp_min)
+				 && (spwdent->sp_min != -1))
+				/*
+				 * The last password change was too recent.
+				 */
 				retval = PAM_AUTHTOK_ERR;
-			else if ((curdays > (spwdent->sp_lstchg + spwdent->sp_max + spwdent->sp_inact))
+			else if ((curdays - spent->sp_lstchg > spent->sp_max)
+				 && (curdays - spent->sp_lstchg > spent->sp_inact)
+				 && (curdays - spent->sp_lstchg > spent->sp_max + spent->sp_inact)
 				 && (spwdent->sp_max != -1) && (spwdent->sp_inact != -1)
 				 && (spwdent->sp_lstchg != 0))
 				/*

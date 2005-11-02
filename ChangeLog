@@ -1,6 +1,10 @@
 2005-11-02  Tomas Mraz <t8m@centrum.cz>
 
-	* modules/pam_unix/support.c (_unix_getpwnam): Fix typo [#1224807].
+	* modules/pam_unix/support.c (_unix_getpwnam): Fix typo [#1224807]
+	by ohyajapn.
+	
+	* modules/pam_unix/pam_unix_passwd.c (_unix_verify_shadow): Change the
+	logic when comparing dates to handle corner cases better [#1245888].
 
 2005-10-31  Thorsten Kukuk  <kukuk@suse.de>
 
