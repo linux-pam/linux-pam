@@ -320,7 +320,10 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    t_mode.c_oflag &= ~OPOST;      /* no ouput post processing */
 
 	    /* no signals, canonical input, echoing, upper/lower output */
-	    t_mode.c_lflag &= ~(ISIG|ICANON|ECHO|XCASE);
+#ifdef XCASE
+	    t_mode.c_lflag &= ~(XCASE);
+#endif
+	    t_mode.c_lflag &= ~(ISIG|ICANON|ECHO);
 	    t_mode.c_cflag &= ~(CSIZE|PARENB);  /* no parity */
 	    t_mode.c_cflag |= CS8;              /* 8 bit chars */
 
