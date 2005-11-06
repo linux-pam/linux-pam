@@ -9,7 +9,7 @@
  */
 
 #define DEFAULT_ETC_ENVFILE     "/etc/environment"
-#define DEFAULT_READ_ENVFILE    0
+#define DEFAULT_READ_ENVFILE    1
 
 #include "config.h"
 
@@ -200,7 +200,7 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *env_file)
 
     if ((conf = fopen(file,"r")) == NULL) {
       pam_syslog(pamh, LOG_ERR, "Unable to open env file: %s: %m", file);
-      return PAM_SERVICE_ERR;
+      return PAM_IGNORE;
     }
 
     while (_assemble_line(conf, buffer, BUF_SIZE) > 0) {
@@ -260,7 +260,7 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *env_file)
 
     /* tidy up */
     D(("Exit."));
-    return (retval != 0 ? PAM_IGNORE : PAM_SUCCESS);
+    return retval;
 }
 
 /*
@@ -749,8 +749,11 @@ pam_sm_setcred (pam_handle_t *pamh, int flags UNUSED,
 
   retval = _parse_config_file(pamh, ctrl, conf_file);
 
-  if(readenv && retval == PAM_SUCCESS)
+  if(readenv && retval == PAM_SUCCESS) {
     retval = _parse_env_file(pamh, ctrl, env_file);
+    if (retval == PAM_IGNORE)
+      retval = PAM_SUCCESS;
+  }
 
   /* indicate success or failure */
 
@@ -782,8 +785,11 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 
   retval = _parse_config_file(pamh, ctrl, conf_file);
 
-  if(readenv && retval == PAM_SUCCESS)
+  if(readenv && retval == PAM_SUCCESS) {
     retval = _parse_env_file(pamh, ctrl, env_file);
+    if (retval == PAM_IGNORE)
+      retval = PAM_SUCCESS;
+  }
 
   /* indicate success or failure */
 

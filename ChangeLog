@@ -1,3 +1,10 @@
+2005-11-06  Steve Langasek <vorlon@debian.org>
+
+	* modules/pam_env/pam_env.c: don't treat a missing
+	/etc/environment as a fatal error when attempting to read it,
+	and try to read this file by default; this restores the behavior
+	from Linux-PAM 0.76.
+
 2005-11-02  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_unix/support.c (_unix_getpwnam): Fix typo [#1224807]
