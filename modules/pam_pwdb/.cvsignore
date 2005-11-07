@@ -1,4 +1,7 @@
-dynamic
-pwdb_chkpwd
+*.la
+*.lo
+.deps
+.libs
 Makefile
 Makefile.in
+pwdb_chkpwd

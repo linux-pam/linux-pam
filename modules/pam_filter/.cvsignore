@@ -1,4 +1,7 @@
-dynamic
-security
+*.la
+*.lo
+.deps
+.libs
 Makefile
 Makefile.in
+security

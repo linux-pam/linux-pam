@@ -1,5 +1,8 @@
+*.la
+*.lo
 *.so
 *~
-*.la
+.deps
+.libs
 Makefile
 Makefile.in

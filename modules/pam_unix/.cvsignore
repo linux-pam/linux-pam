@@ -1,6 +1,9 @@
-dynamic
-unix_chkpwd
+*.la
+*.lo
 *.so
-*~
+.deps
+.libs
 Makefile
 Makefile.in
+bigcrypt
+unix_chkpwd

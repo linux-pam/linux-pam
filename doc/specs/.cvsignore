@@ -3,3 +3,6 @@ Makefile
 Makefile.in
 parse.c
 lex.yy.c
+.deps
+.libs
+padout

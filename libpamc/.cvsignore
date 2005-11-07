@@ -3,3 +3,7 @@ static
 dynamic
 Makefile
 Makefile.in
+.deps
+.libs
+*.la
+*.lo

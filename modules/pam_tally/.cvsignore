@@ -1,4 +1,7 @@
-dynamic
-pam_tally
+*.la
+*.lo
+.deps
+.libs
 Makefile
 Makefile.in
+pam_tally

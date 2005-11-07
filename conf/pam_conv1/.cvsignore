@@ -3,3 +3,6 @@ pam_conv.tab.c
 pam_conv1
 Makefile
 Makefile.in
+pam_conv.c
+.deps
+.libs

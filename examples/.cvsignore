@@ -1,5 +1,9 @@
 blank
 xsh
 check_user
+vpass
 Makefile
 Makefile.in
+.deps
+.libs
+
