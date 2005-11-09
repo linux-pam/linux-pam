@@ -250,7 +250,7 @@ static int logic_member(const char *string, int *at)
 
 	  default:
 	       if (isalpha(c) || c == '*' || isdigit(c) || c == '_'
-		    || c == '-' || c == '.' || c == '/') {
+		    || c == '-' || c == '.' || c == '/' || c == ':') {
 		    token = 1;
 	       } else if (token) {
 		    --to;
@@ -809,8 +809,7 @@ pam_sm_setcred (pam_handle_t *pamh, int flags,
 	D(("PAM_TTY not set, probing stdin"));
 	tty = ttyname(STDIN_FILENO);
 	if (tty == NULL) {
-	    pam_syslog(pamh,LOG_ERR,"couldn't get the tty name");
-	    return PAM_ABORT;
+	    tty = "";
 	}
 	if (pam_set_item(pamh, PAM_TTY, tty) != PAM_SUCCESS) {
 	    pam_syslog(pamh,LOG_ERR,"couldn't set tty name");
@@ -820,8 +819,12 @@ pam_sm_setcred (pam_handle_t *pamh, int flags,
     else
       tty = (const char *) void_tty;
 
-    if (strncmp("/dev/",tty,5) == 0) {          /* strip leading /dev/ */
-	tty += 5;
+    if (tty[0] == '/') {   /* full path */
+	const char *t;
+        tty++;
+        if ((t = strchr(tty, '/')) != NULL) {
+	    tty = t + 1;
+	}
     }
 
     /* good, now we have the service name, the user and the terminal name */

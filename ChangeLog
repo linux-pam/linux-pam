@@ -1,3 +1,17 @@
+2005-11-09  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_access/pam_access.c (pam_sm_acct_mgmt): Parse correctly
+	full path tty name.
+	* modules/pam_time/pam_time.c (pam_sm_acct_mgmt): Parse correctly
+	full path tty name. Allow unset tty.
+	(logic_member): Allow matching ':' in tty name.
+	* modules/pam_group/pam_group.c (pam_sm_acct_mgmt): Parse correctly
+	full path tty name. Allow unset tty.
+	(logic_member): Allow matching ':' in tty name.
+
+	* libpam_misc/misc_conv.c (read_string): Read only up to EOL if stdin
+	is not terminal.
+	
 2005-11-07  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_unix/pam_unix_passwd.c (_unix_verify_shadow): Use

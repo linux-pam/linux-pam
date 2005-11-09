@@ -435,11 +435,13 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
 	else
 	  from = void_from;
 
-	if (from != NULL && from[0] == '/') { 	/* full path */
-		from++;
-		from = strchr(from, '/');
-		from++;
-        }
+	if (from[0] == '/') {   /* full path */
+	    const char *f;
+	    from++;
+	    if ((f = strchr(from, '/')) != NULL) {
+		from = f + 1;
+	    }
+	}
     }
 
     if ((user_pw=pam_modutil_getpwnam(pamh, user))==NULL) return (PAM_USER_UNKNOWN);
