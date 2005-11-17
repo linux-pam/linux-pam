@@ -1,3 +1,8 @@
+2005-11-17  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpam/include/security/_pam_compat.h: Fix wrong #ifdef nesting.
+	Redefine PAM_CHANGE_EXPIRED_AUTHTOK [#604380]
+
 2005-11-09  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_access/pam_access.c (pam_sm_acct_mgmt): Parse correctly
@@ -11,7 +16,7 @@
 
 	* libpam_misc/misc_conv.c (read_string): Read only up to EOL if stdin
 	is not terminal.
-	
+
 2005-11-07  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_unix/pam_unix_passwd.c (_unix_verify_shadow): Use
