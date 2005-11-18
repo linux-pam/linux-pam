@@ -3,6 +3,14 @@
 	* libpam/include/security/_pam_compat.h: Fix wrong #ifdef nesting.
 	Redefine PAM_CHANGE_EXPIRED_AUTHTOK [#604380]
 
+2005-11-16  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpam/pam_handlers.c: Replace code for all dlopen variants with
+	a generic wrapper.
+	* libpam/pam_dynamic.c: Implement generic wrapper for dlopen.
+	* libpam/pam_dynamic.h: Provide prototypes.
+	For Mac OS X support [#534205]
+
 2005-11-09  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_access/pam_access.c (pam_sm_acct_mgmt): Parse correctly

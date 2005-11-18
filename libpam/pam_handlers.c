@@ -19,17 +19,8 @@
 #include <unistd.h>
 
 #ifdef PAM_DYNAMIC
-# ifdef PAM_SHL
-#  include <dl.h>
-# else /* PAM_SHL */
-#  include <dlfcn.h>
-# endif /* PAM_SHL */
+#include "pam_dynamic.h"
 #endif /* PAM_DYNAMIC */
-
-/* If not required, define as nothing */
-#ifndef SHLIB_SYM_PREFIX
-# define SHLIB_SYM_PREFIX ""
-#endif
 
 #define BUF_SIZE                  1024
 #define MODULE_CHUNK              4
@@ -596,8 +587,6 @@ extract_modulename(const char *mod_path)
   return retval;
 }
 
-typedef int (*servicefn)(pam_handle_t *, int, int, char **);
-
 int _pam_add_handler(pam_handle_t *pamh
 		     , int must_fail, int other, int type
 		     , int *actions, const char *mod_path
@@ -609,9 +598,6 @@ int _pam_add_handler(pam_handle_t *pamh
     struct handler **handler_p2;
     struct handlers *the_handlers;
     const char *sym, *sym2;
-#ifdef PAM_SHL
-    const char *_sym, *_sym2;
-#endif
     char *mod_full_path=NULL;
 #ifdef PAM_DYNAMIC
     char *mod_full_isa_path=NULL, *isa=NULL;
@@ -671,13 +657,9 @@ int _pam_add_handler(pam_handle_t *pamh
 	success = PAM_ABORT;
 
 #ifdef PAM_DYNAMIC
-	D(("_pam_add_handler: dlopen(%s) -> %lx", mod_path, &mod->dl_handle));
-	mod->dl_handle =
-# ifdef PAM_SHL
-	    shl_load(mod_path, BIND_IMMEDIATE, 0L);
-# else /* PAM_SHL */
-	    dlopen(mod_path, RTLD_NOW);
-# endif /* PAM_SHL */
+	D(("_pam_add_handler: _pam_dlopen(%s)", mod_path));
+	mod->dl_handle = _pam_dlopen(mod_path);
+	D(("_pam_add_handler: _pam_dlopen'ed"));
 	D(("_pam_add_handler: dlopen'ed"));
 	if (mod->dl_handle == NULL) {
 	    if (strstr(mod_path, "$ISA")) {
@@ -693,22 +675,15 @@ int _pam_add_handler(pam_handle_t *pamh
 		        memmove(isa + strlen(_PAM_ISA), isa + 4, strlen(isa + 4) + 1);
 		        memmove(isa, _PAM_ISA, strlen(_PAM_ISA));
 		    }
-		    mod->dl_handle =
-# ifdef PAM_SHL
-		        shl_load(mod_full_isa_path, BIND_IMMEDIATE, 0L);
-# else /* PAM_SHL */
-		        dlopen(mod_full_isa_path, RTLD_NOW);
-# endif /* PAM_SHL */
+		    mod->dl_handle = _pam_dlopen(mod_full_isa_path);
 		    _pam_drop(mod_full_isa_path);
 		}
 	    }
 	}
 	if (mod->dl_handle == NULL) {
-	    D(("_pam_add_handler: dlopen(%s) failed", mod_path));
+	    D(("_pam_add_handler: _pam_dlopen(%s) failed", mod_path));
 	    pam_syslog(pamh, LOG_ERR, "unable to dlopen(%s)", mod_path);
-# ifndef PAM_SHL
-	    pam_syslog(pamh, LOG_ERR, "[dlerror: %s]", dlerror());
-# endif /* PAM_SHL */
+	    pam_syslog(pamh, LOG_ERR, "[error: %s]", _pam_dlerror());
 	    /* Don't abort yet; static code may be able to find function.
 	     * But defaults to abort if nothing found below... */
 	} else {
@@ -779,46 +754,29 @@ int _pam_add_handler(pam_handle_t *pamh
 
     handler_p = handler_p2 = NULL;
     func = func2 = NULL;
-#ifdef PAM_SHL
-    _sym2 =
-#endif /* PAM_SHL */
     sym2 = NULL;
 
     /* point handler_p's at the root addresses of the function stacks */
     switch (type) {
     case PAM_T_AUTH:
 	handler_p = &the_handlers->authenticate;
-	sym = SHLIB_SYM_PREFIX "pam_sm_authenticate";
+	sym = "pam_sm_authenticate";
 	handler_p2 = &the_handlers->setcred;
-	sym2 = SHLIB_SYM_PREFIX "pam_sm_setcred";
-#ifdef PAM_SHL
-	_sym = "_pam_sm_authenticate";
-	_sym2 = "_pam_sm_setcred";
-#endif
+	sym2 = "pam_sm_setcred";
 	break;
     case PAM_T_SESS:
 	handler_p = &the_handlers->open_session;
-	sym = SHLIB_SYM_PREFIX "pam_sm_open_session";
+	sym = "pam_sm_open_session";
 	handler_p2 = &the_handlers->close_session;
-	sym2 = SHLIB_SYM_PREFIX "pam_sm_close_session";
-#ifdef PAM_SHL
-	_sym = "_pam_sm_open_session";
-	_sym2 = "_pam_sm_close_session";
-#endif
+	sym2 = "pam_sm_close_session";
 	break;
     case PAM_T_ACCT:
 	handler_p = &the_handlers->acct_mgmt;
-	sym = SHLIB_SYM_PREFIX "pam_sm_acct_mgmt";
-#ifdef PAM_SHL
-	_sym = "_pam_sm_acct_mgmt";
-#endif
+	sym = "pam_sm_acct_mgmt";
 	break;
     case PAM_T_PASS:
 	handler_p = &the_handlers->chauthtok;
-	sym = SHLIB_SYM_PREFIX "pam_sm_chauthtok";
-#ifdef PAM_SHL
-	_sym = "_pam_sm_chauthtok";
-#endif
+	sym = "pam_sm_chauthtok";
 	break;
     default:
 	/* Illegal module type */
@@ -848,14 +806,8 @@ int _pam_add_handler(pam_handle_t *pamh
     /* now identify this module's functions - for non-faulty modules */
 
 #ifdef PAM_DYNAMIC
-    if ((mod->type == PAM_MT_DYNAMIC_MOD) &&
-# ifdef PAM_SHL
-	(shl_findsym(&mod->dl_handle, sym, (short) TYPE_PROCEDURE, &func) &&
-	 shl_findsym(&mod->dl_handle, _sym, (short) TYPE_PROCEDURE, &func))
-# else /* PAM_SHL */
-        (func = (servicefn) dlsym(mod->dl_handle, sym)) == NULL
-# endif /* PAM_SHL */
-	) {
+    if ((mod->type == PAM_MT_DYNAMIC_MOD) && 
+        !(func = _pam_dlsym(mod->dl_handle, sym)) ) {
 	pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym);
     }
 #endif
@@ -868,13 +820,7 @@ int _pam_add_handler(pam_handle_t *pamh
     if (sym2) {
 #ifdef PAM_DYNAMIC
 	if ((mod->type == PAM_MT_DYNAMIC_MOD) &&
-# ifdef PAM_SHL
-	    (shl_findsym(&mod->dl_handle,sym2,(short)TYPE_PROCEDURE, &func2)&&
-	     shl_findsym(&mod->dl_handle,_sym2,(short)TYPE_PROCEDURE, &func2))
-# else /* PAM_SHL */
-	    (func2 = (servicefn) dlsym(mod->dl_handle, sym2)) == NULL
-# endif /* PAM_SHL */
-	    ) {
+	    !(func2 = _pam_dlsym(mod->dl_handle, sym2)) ) {
 	    pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym2);
 	}
 #endif
@@ -963,11 +909,7 @@ int _pam_free_handlers(pam_handle_t *pamh)
 	free(mod->name);
 #ifdef PAM_DYNAMIC
 	if (mod->type == PAM_MT_DYNAMIC_MOD) {
-# ifdef PAM_SHL
-	    shl_unload(mod->dl_handle);
-# else
-	    dlclose(mod->dl_handle);
-# endif
+	    _pam_dlclose(mod->dl_handle);
 	}
 #endif
 	mod++;
