@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pa\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-09-26 16:37+0200\n"
+"POT-Creation-Date: 2005-11-16 19:18+0100\n"
 "PO-Revision-Date: 2005-08-06 08:34+0530\n"
 "Last-Translator: Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>\n"
 "Language-Team: Panjabi <pa@li.org>\n"
@@ -136,51 +136,51 @@ msgstr "ਇੱਕ ਠੀਕ ਸੁਰੱਖਿਆ ਪਰਸੰਗ ਨਹੀਂ"
 msgid "Security Context %s Assigned"
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:244 modules/pam_mail/pam_mail.c:276
-#: modules/pam_mail/pam_mail.c:298
+#: modules/pam_mail/pam_mail.c:242 modules/pam_mail/pam_mail.c:274
+#: modules/pam_mail/pam_mail.c:296
 msgid "new"
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:266 modules/pam_mail/pam_mail.c:278
+#: modules/pam_mail/pam_mail.c:264 modules/pam_mail/pam_mail.c:276
 msgid "old"
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:268 modules/pam_mail/pam_mail.c:280
-#: modules/pam_mail/pam_mail.c:301
+#: modules/pam_mail/pam_mail.c:266 modules/pam_mail/pam_mail.c:278
+#: modules/pam_mail/pam_mail.c:299
 msgid "no"
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:276
+#: modules/pam_mail/pam_mail.c:274
 msgid "new "
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:302
+#: modules/pam_mail/pam_mail.c:300
 msgid "No mail."
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:304
+#: modules/pam_mail/pam_mail.c:302
 #, c-format
 msgid "You have %smail."
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:306
+#: modules/pam_mail/pam_mail.c:304
 #, c-format
 msgid "You have %s mail in %s."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:294
+#: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:283
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:303
+#: modules/pam_unix/pam_unix_acct.c:310
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:313
+#: modules/pam_unix/pam_unix_acct.c:320
 #, c-format
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr "ਸਾਵਧਾਨ: ਤੁਹਾਡਾ ਗੁਪਤ-ਕੋਡ ਦੀ ਮਿਆਦ %d ਦਿਨ%.2s 'ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
@@ -190,42 +190,42 @@ msgstr "ਸਾਵਧਾਨ: ਤੁਹਾਡਾ ਗੁਪਤ-ਕੋਡ ਦੀ ਮ
 msgid "Password: "
 msgstr "ਗੁਪਤ-ਕੋਡ ਨਾ-ਤਬਦੀਲ ਹੈ"
 
-#: modules/pam_unix/pam_unix_passwd.c:814
+#: modules/pam_unix/pam_unix_passwd.c:821
 msgid "NIS password could not be changed."
 msgstr "NIS ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:958
+#: modules/pam_unix/pam_unix_passwd.c:977
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
 msgstr "ਕੋਈ ਗੁਪਤ-ਕੋਡ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ"
 
-#: modules/pam_unix/pam_unix_passwd.c:958
+#: modules/pam_unix/pam_unix_passwd.c:977
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
 msgstr "ਗੁਪਤ-ਕੋਡ ਨਾ-ਤਬਦੀਲ ਹੈ"
 
-#: modules/pam_unix/pam_unix_passwd.c:979
+#: modules/pam_unix/pam_unix_passwd.c:998
 msgid "You must choose a longer password"
 msgstr "ਤੁਹਾਨੂੰ ਲੰਮੇ ਗੁਪਤ-ਕੋਡ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ"
 
-#: modules/pam_unix/pam_unix_passwd.c:984
+#: modules/pam_unix/pam_unix_passwd.c:1003
 msgid "Password has been already used. Choose another."
 msgstr "ਗੁਪਤ-ਕੋਡ ਪਹਿਲਾਂ ਵੀ ਵਰਤਿਆ ਗਿਆ ਹੈ। ਵੱਖਰਾ ਚੁਣੋ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:1108
+#: modules/pam_unix/pam_unix_passwd.c:1127
 msgid "(current) UNIX password: "
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:1143
+#: modules/pam_unix/pam_unix_passwd.c:1162
 msgid "You must wait longer to change your password"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:1203
+#: modules/pam_unix/pam_unix_passwd.c:1222
 #, fuzzy
 msgid "Enter new UNIX password: "
 msgstr "ਨਵਾਂ STRESS ਗੁਪਤ-ਕੋਡ ਦਿਓ: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1204
+#: modules/pam_unix/pam_unix_passwd.c:1223
 #, fuzzy
 msgid "Retype new UNIX password: "
 msgstr "ਨਵਾਂ STRESS ਗੁਪਤ-ਕੋਡ ਮੁੜ-ਲਿਖੋ: "
@@ -440,7 +440,7 @@ msgstr "...ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਰਿਹਾ ਹੈ...\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "...ਅਫ਼ਸੋਸ, ਤੁਹਾਡਾ ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਗਿਆ ਹੈ!\n"
 
-#: libpam_misc/misc_conv.c:334
+#: libpam_misc/misc_conv.c:345
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr ""
