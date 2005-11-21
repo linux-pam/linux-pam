@@ -1,5 +1,8 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+
+Release 0.99.2.0
+
 * Fix parsing of full path tty name in various modules
 * pam_xauth: Look for xauth executable in multiple places
 * pam_unix: Disable user check in unix_chkpwd only if real uid

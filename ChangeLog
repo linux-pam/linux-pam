@@ -1,3 +1,12 @@
+2005-11-21  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 0.99.2.0
+
+	* libpam_misc/Makefile.am: Increase release number (for change
+	from 2005-11-09)
+
+	* NEWS: Adjust for 0.99.2.0
+
 2005-11-17  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/include/security/_pam_compat.h: Fix wrong #ifdef nesting.
