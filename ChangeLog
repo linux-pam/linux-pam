@@ -1,3 +1,11 @@
+2005-11-23  Thorsten Kukuk  <kukuk@suse.de>
+
+	* modules/pam_xauth/pam_xauth.c (pam_sm_open_session): Introduce
+	new variable to fix compiler warning.
+
+	* libpam/pam_modutil_getlogin.c (pam_modutil_getlogin): PAM_TTY
+	don't need to start with /dev/.
+
 2005-11-21  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.2.0

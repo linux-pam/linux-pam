@@ -64,7 +64,7 @@
 #define XAUTHTMP ".xauthXXXXXX"
 
 /* Possible paths to xauth executable */
-static const char * const xauthpaths[] = { 
+static const char * const xauthpaths[] = {
 #ifdef PAM_PATH_XAUTH
 	PAM_PATH_XAUTH,
 #endif
@@ -329,11 +329,12 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		pam_syslog(pamh, LOG_WARNING, "unrecognized option `%s'",
 			   argv[i]);
 	}
-	
+
 	if (xauth == NULL) {
-		for (i = 0; i < sizeof(xauthpaths)/sizeof(xauthpaths[0]); i++) {
-			if (access(xauthpaths[i], X_OK) == 0) {
-				xauth = xauthpaths[i];
+	        size_t j;
+		for (j = 0; j < sizeof(xauthpaths)/sizeof(xauthpaths[0]); j++) {
+			if (access(xauthpaths[j], X_OK) == 0) {
+				xauth = xauthpaths[j];
 				break;
 			}
 		}

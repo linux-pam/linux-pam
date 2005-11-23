@@ -35,11 +35,17 @@ pam_modutil_getlogin(pam_handle_t *pamh)
     else
       curr_tty = (const char*)void_curr_tty;
 
-    if ((curr_tty == NULL) || memcmp(curr_tty, "/dev/", 5)) {
+    if (curr_tty == NULL) {
 	return NULL;
     }
 
-    curr_tty += 5;  /* strlen("/dev/") */
+    if (curr_tty[0] == '/') {   /* full path */
+        const char *t;
+	curr_tty++;
+	if ((t = strchr(curr_tty, '/')) != NULL) {
+	  curr_tty = t + 1;
+	}
+    }
     logname = NULL;
 
     setutent();
