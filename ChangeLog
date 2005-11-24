@@ -1,5 +1,8 @@
 2005-11-24  Dmitry V. Levin  <ldv@altlinux.org>
 
+	* config.h.in: Remove generated file.
+	* .cvsignore: Add config.h.in.
+
 	* configure.in: Do not check for strerror.
 	* libpam_misc/misc_conv.c (read_string): Replace strerror()
 	call with %m specifier.

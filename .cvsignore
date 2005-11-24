@@ -5,6 +5,7 @@ autom4te.cache
 libtool
 include
 config.h
+config.h.in
 config.status
 config.log
 config.cache
