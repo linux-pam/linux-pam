@@ -350,7 +350,7 @@ AC_TYPE_GETGROUPS
 AC_PROG_GCC_TRADITIONAL
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS(gethostname gettimeofday lckpwdf mkdir select strcspn strdup strerror strspn strstr strtol uname)
+AC_CHECK_FUNCS(gethostname gettimeofday lckpwdf mkdir select strcspn strdup strspn strstr strtol uname)
 
 AC_CHECK_FUNCS(getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r getgrouplist)
 

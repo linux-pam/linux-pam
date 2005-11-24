@@ -556,7 +556,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	close(fds[1]);
 	rc=waitpid(child, &retval, 0);  /* wait for helper to complete */
 	if (rc<0) {
-	  pam_syslog(pamh, LOG_ERR, "unix_chkpwd waitpid returned %d: %s", rc, strerror(errno));
+	  pam_syslog(pamh, LOG_ERR, "unix_chkpwd waitpid returned %d: %m", rc);
 	  retval = PAM_AUTH_ERR;
 	} else {
 	  retval = WEXITSTATUS(retval);

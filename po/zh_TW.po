@@ -92,7 +92,7 @@ msgstr "pam_set_item() 失敗\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:135
 #, c-format
-msgid "login: failure forking: %s"
+msgid "login: failure forking: %m"
 msgstr "登入：失敗的分叉：%s"
 
 #: modules/pam_selinux/pam_selinux.c:102

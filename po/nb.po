@@ -93,7 +93,7 @@ msgstr "kunne ikke pam_set_item()\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:135
 #, c-format
-msgid "login: failure forking: %s"
+msgid "login: failure forking: %m"
 msgstr "login: feil under forgrening: %s"
 
 #: modules/pam_selinux/pam_selinux.c:102

@@ -179,8 +179,7 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
 
       if (read (fd, mtmp, st.st_size) == -1)
 	{
-	  pam_syslog (pamh, LOG_ERR, "Error while reading %s: %s",
-		      file, strerror (errno));
+	  pam_syslog (pamh, LOG_ERR, "Error while reading %s: %m", file);
 	  free (mtmp);
 	  return PAM_IGNORE;
 	}
@@ -195,8 +194,7 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
       free (mtmp);
     }
   else
-    pam_syslog (pamh, LOG_ERR, "Cannot open %s: %s",
-		file, strerror (errno));
+    pam_syslog (pamh, LOG_ERR, "Cannot open %s: %m", file);
 
   return PAM_IGNORE;
 }

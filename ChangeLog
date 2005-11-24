@@ -1,3 +1,39 @@
+2005-11-24  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* configure.in: Do not check for strerror.
+	* libpam_misc/misc_conv.c (read_string): Replace strerror()
+	call with %m specifier.
+	* libpamc/pamc_converse.c (pamc_converse): Likewise.
+	* modules/pam_echo/pam_echo.c (pam_echo): Likewise.
+	* modules/pam_localuser/pam_localuser.c (pam_sm_authenticate):
+	Likewise.
+	* modules/pam_selinux/pam_selinux.c (security_label_tty):
+	Likewise.
+	(security_restorelabel_tty, security_label_tty): Append %m
+	specifier where appropriate.
+	* modules/pam_selinux/pam_selinux_check.c (main): Replace
+	strerror() call with %m specifier.
+	* modules/pam_unix/pam_unix_passwd.c (save_old_password,
+	_update_passwd, _update_shadow): Likewise.
+	* modules/pam_unix/support.c (_unix_run_helper_binary): Likewise.
+	* modules/pam_unix/unix_chkpwd.c (_update_shadow): Likewise.
+	* po/Linux-PAM.pot: Update strings from pam_selinux.
+	* po/cs.po: Likewise.
+	* po/de.po: Likewise.
+	* po/es.po: Likewise.
+	* po/fi.po: Likewise.
+	* po/fr.po: Likewise.
+	* po/hu.po: Likewise.
+	* po/it.po: Likewise.
+	* po/ja.po: Likewise.
+	* po/nb.po: Likewise.
+	* po/pa.po: Likewise.
+	* po/pl.po: Likewise.
+	* po/pt.po: Likewise.
+	* po/pt_BR.po: Likewise.
+	* po/zh_CN.po: Likewise.
+	* po/zh_TW.po: Likewise.
+
 2005-11-23  Thorsten Kukuk  <kukuk@suse.de>
 
 	* modules/pam_xauth/pam_xauth.c (pam_sm_open_session): Introduce

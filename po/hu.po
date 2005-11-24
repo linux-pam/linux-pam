@@ -92,7 +92,7 @@ msgstr "pam_set_item() meghiúsult\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:135
 #, c-format
-msgid "login: failure forking: %s"
+msgid "login: failure forking: %m"
 msgstr "bejelentkezés: hiba az elágazás közben: %s"
 
 #: modules/pam_selinux/pam_selinux.c:102

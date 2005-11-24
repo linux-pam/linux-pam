@@ -228,7 +228,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
 		goto cleanexit;                /* return malloc()ed "" */
 	    } else if (nc == -1) {
 		/* Don't loop forever if read() returns -1. */
-		D(("error reading input from the user: %s", strerror(errno)));
+		D(("error reading input from the user: %m"));
 		if (echo) {
 		    fprintf(stderr, "\n");
 		}

@@ -383,7 +383,7 @@ static int _update_shadow(const char *forwho)
 	}
 
 	if (putspent(stmpent, pwfile)) {
-	    D(("error writing entry to shadow file: %s\n", strerror(errno)));
+	    D(("error writing entry to shadow file: %m"));
 	    err = 1;
 	    break;
 	}
@@ -393,7 +393,7 @@ static int _update_shadow(const char *forwho)
     fclose(opwfile);
 
     if (fclose(pwfile)) {
-	D(("error writing entries to shadow file: %s\n", strerror(errno)));
+	D(("error writing entries to shadow file: %m"));
 	err = 1;
     }
 

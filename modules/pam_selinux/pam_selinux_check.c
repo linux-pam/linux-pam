@@ -129,10 +129,8 @@ main (int argc, char **argv)
 
   childPid = fork();
   if (childPid < 0) {
-    int errsv = errno;
-
     /* error in fork() */
-    fprintf(stderr, _("login: failure forking: %s"), strerror(errsv));
+    fprintf(stderr, _("login: failure forking: %m"));
     pam_close_session(pamh, 0);
     /* We're done with PAM.  Free `pam_handle'. */
     pam_end( pamh, PAM_SUCCESS );

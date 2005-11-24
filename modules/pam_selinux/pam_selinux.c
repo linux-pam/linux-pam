@@ -231,7 +231,7 @@ security_restorelabel_tty(const pam_handle_t *pamh,
   if (setfilecon(ptr, context) && errno != ENOENT)
   {
     pam_syslog(pamh, LOG_NOTICE,
-	       "Warning!  Could not relabel %s with %s, not relabeling.\n",
+	       "Warning!  Could not relabel %s with %s, not relabeling: %m",
 	       ptr, context);
   }
 }
@@ -257,18 +257,18 @@ security_label_tty(pam_handle_t *pamh, char *tty,
   if (getfilecon(ptr, &prev_context) < 0)
   {
     pam_syslog(pamh, LOG_NOTICE,
-	     "Warning!  Could not get current context for %s, not relabeling.",
+	     "Warning!  Could not get current context for %s, not relabeling: %m",
 	     ptr);
       return NULL;
   }
   if( security_compute_relabel(usercon,prev_context,SECCLASS_CHR_FILE,
                                &newdev_context)!=0)
   {
-    pam_syslog(pamh,LOG_NOTICE,
-           "Warning!  Could not get new context for %s, not relabeling.",
+    pam_syslog(pamh, LOG_NOTICE,
+           "Warning!  Could not get new context for %s, not relabeling: %m",
            ptr);
     pam_syslog(pamh, LOG_NOTICE,
-	       "usercon=%s, prev_context=%s\n", usercon, prev_context);
+	       "usercon=%s, prev_context=%s", usercon, prev_context);
     freecon(prev_context);
     return NULL;
   }
@@ -276,8 +276,8 @@ security_label_tty(pam_handle_t *pamh, char *tty,
   if (status)
   {
       pam_syslog(pamh, LOG_NOTICE,
-		 "Warning!  Could not relabel %s with %s, not relabeling.%s",
-		 ptr,newdev_context,strerror(errno));
+		 "Warning!  Could not relabel %s with %s, not relabeling: %m",
+		 ptr,newdev_context);
       freecon(prev_context);
       prev_context=NULL;
   }

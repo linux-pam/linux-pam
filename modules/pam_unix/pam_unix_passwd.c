@@ -481,8 +481,7 @@ static int save_old_password(pam_handle_t *pamh,
     }
 
     if (fclose(pwfile)) {
-	D(("error writing entries to old passwords file: %s\n",
-	   strerror(errno)));
+	D(("error writing entries to old passwords file: %m"));
 	err = 1;
     }
 
@@ -585,7 +584,7 @@ static int _update_passwd(pam_handle_t *pamh,
 	    err = 0;
 	}
 	if (putpwent(tmpent, pwfile)) {
-	    D(("error writing entry to password file: %s\n", strerror(errno)));
+	    D(("error writing entry to password file: %m"));
 	    err = 1;
 	    break;
 	}
@@ -594,7 +593,7 @@ static int _update_passwd(pam_handle_t *pamh,
     fclose(opwfile);
 
     if (fclose(pwfile)) {
-	D(("error writing entries to password file: %s\n", strerror(errno)));
+	D(("error writing entries to password file: %m"));
 	err = 1;
     }
 
@@ -700,7 +699,7 @@ static int _update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat)
 	}
 
 	if (putspent(stmpent, pwfile)) {
-	    D(("error writing entry to shadow file: %s\n", strerror(errno)));
+	    D(("error writing entry to shadow file: %m"));
 	    err = 1;
 	    break;
 	}
@@ -710,7 +709,7 @@ static int _update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat)
     fclose(opwfile);
 
     if (fclose(pwfile)) {
-	D(("error writing entries to shadow file: %s\n", strerror(errno)));
+	D(("error writing entries to shadow file: %m"));
 	err = 1;
     }
 

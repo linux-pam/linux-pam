@@ -117,7 +117,7 @@ int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
 	    case EINTR:
 		break;
 	    default:
-		D(("problem writing to agent: %s", strerror(errno)));
+		D(("problem writing to agent: %m"));
 		goto pamc_unknown_prompt;
 	    }
 	} else {
@@ -142,7 +142,7 @@ int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
 	    case EINTR:
 		break;
 	    default:
-		D(("problem reading from agent: %s", strerror(errno)));
+		D(("problem reading from agent: %m"));
 		goto pamc_unknown_prompt;
 	    }
 	} else if (rval) {
@@ -180,7 +180,7 @@ int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
 	    case EINTR:
 		break;
 	    default:
-		D(("problem reading from agent: %s", strerror(errno)));
+		D(("problem reading from agent: %m"));
 		goto pamc_unknown_prompt;
 	    }
 	} else if (rval) {

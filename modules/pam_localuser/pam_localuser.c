@@ -86,8 +86,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	/* open the file */
 	fp = fopen(filename, "r");
 	if(fp == NULL) {
-		pam_syslog (pamh, LOG_ERR, "error opening \"%s\": %s",
-			    filename, strerror(errno));
+		pam_syslog (pamh, LOG_ERR, "error opening \"%s\": %m",
+			    filename);
 		return PAM_SYSTEM_ERR;
 	}
 

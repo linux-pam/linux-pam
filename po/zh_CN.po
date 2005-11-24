@@ -91,7 +91,7 @@ msgstr "未能 pam_set_item()\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:135
 #, c-format
-msgid "login: failure forking: %s"
+msgid "login: failure forking: %m"
 msgstr "登录：故障派生：%s"
 
 #: modules/pam_selinux/pam_selinux.c:102
