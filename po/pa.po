@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pa\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-11-21 14:57+0100\n"
+"POT-Creation-Date: 2005-11-24 23:22+0100\n"
 "PO-Revision-Date: 2005-08-06 08:34+0530\n"
 "Last-Translator: Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>\n"
 "Language-Team: Panjabi <pa@li.org>\n"
@@ -93,7 +93,7 @@ msgstr "PAM ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਫੇਲ\n"
 msgid "failed to pam_set_item()\n"
 msgstr "pam_set_item() ਲਈ ਫੇਲ\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:135
+#: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
 msgstr ""
@@ -190,42 +190,42 @@ msgstr "ਸਾਵਧਾਨ: ਤੁਹਾਡਾ ਗੁਪਤ-ਕੋਡ ਦੀ ਮ
 msgid "Password: "
 msgstr "ਗੁਪਤ-ਕੋਡ ਨਾ-ਤਬਦੀਲ ਹੈ"
 
-#: modules/pam_unix/pam_unix_passwd.c:821
+#: modules/pam_unix/pam_unix_passwd.c:820
 msgid "NIS password could not be changed."
 msgstr "NIS ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:976
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
 msgstr "ਕੋਈ ਗੁਪਤ-ਕੋਡ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ"
 
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:976
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
 msgstr "ਗੁਪਤ-ਕੋਡ ਨਾ-ਤਬਦੀਲ ਹੈ"
 
-#: modules/pam_unix/pam_unix_passwd.c:998
+#: modules/pam_unix/pam_unix_passwd.c:997
 msgid "You must choose a longer password"
 msgstr "ਤੁਹਾਨੂੰ ਲੰਮੇ ਗੁਪਤ-ਕੋਡ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ"
 
-#: modules/pam_unix/pam_unix_passwd.c:1003
+#: modules/pam_unix/pam_unix_passwd.c:1002
 msgid "Password has been already used. Choose another."
 msgstr "ਗੁਪਤ-ਕੋਡ ਪਹਿਲਾਂ ਵੀ ਵਰਤਿਆ ਗਿਆ ਹੈ। ਵੱਖਰਾ ਚੁਣੋ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:1127
+#: modules/pam_unix/pam_unix_passwd.c:1126
 msgid "(current) UNIX password: "
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:1162
+#: modules/pam_unix/pam_unix_passwd.c:1161
 msgid "You must wait longer to change your password"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:1222
+#: modules/pam_unix/pam_unix_passwd.c:1221
 #, fuzzy
 msgid "Enter new UNIX password: "
 msgstr "ਨਵਾਂ STRESS ਗੁਪਤ-ਕੋਡ ਦਿਓ: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1223
+#: modules/pam_unix/pam_unix_passwd.c:1222
 #, fuzzy
 msgid "Retype new UNIX password: "
 msgstr "ਨਵਾਂ STRESS ਗੁਪਤ-ਕੋਡ ਮੁੜ-ਲਿਖੋ: "

@@ -1,3 +1,21 @@
+2005-11-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* po/de.po: Add new translation, fix wrong format specifier.
+	* po/cs.po: Fix wrong format specifier.
+	* po/es.po: Likewise.
+	* po/fi.po: Likewise.
+	* po/fr.po: Likewise.
+	* po/hu.po: Likewise.
+	* po/it.po: Likewise.
+	* po/ja.po: Likewise.
+	* po/nb.po: Likewise.
+	* po/pa.po: Likewise.
+	* po/pl.po: Likewise.
+	* po/pt.po: Likewise.
+	* po/pt_BR.po: Likewise.
+	* po/zh_CN.po: Likewise.
+	* po/zh_TW.po: Likewise.
+
 2005-11-24  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* config.h.in: Remove generated file.

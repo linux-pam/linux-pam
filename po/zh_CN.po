@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-11-21 14:57+0100\n"
+"POT-Creation-Date: 2005-11-24 23:22+0100\n"
 "PO-Revision-Date: 2005-08-18 HO:MI+ZONE\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -89,10 +89,10 @@ msgstr "未能初始化 PAM\n"
 msgid "failed to pam_set_item()\n"
 msgstr "未能 pam_set_item()\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:135
+#: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr "登录：故障派生：%s"
+msgstr "登录：故障派生：%m"
 
 #: modules/pam_selinux/pam_selinux.c:102
 #, c-format
@@ -186,42 +186,42 @@ msgstr "警告：您的口令将在 %d 天 %.2s 后失效。"
 msgid "Password: "
 msgstr "口令未更改"
 
-#: modules/pam_unix/pam_unix_passwd.c:821
+#: modules/pam_unix/pam_unix_passwd.c:820
 msgid "NIS password could not be changed."
 msgstr "无法更改 NIS 口令。"
 
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:976
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
 msgstr "口令未提供"
 
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:976
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
 msgstr "口令未更改"
 
-#: modules/pam_unix/pam_unix_passwd.c:998
+#: modules/pam_unix/pam_unix_passwd.c:997
 msgid "You must choose a longer password"
 msgstr "必须选择更长的口令"
 
-#: modules/pam_unix/pam_unix_passwd.c:1003
+#: modules/pam_unix/pam_unix_passwd.c:1002
 msgid "Password has been already used. Choose another."
 msgstr "口令已使用。请选择其他口令。"
 
-#: modules/pam_unix/pam_unix_passwd.c:1127
+#: modules/pam_unix/pam_unix_passwd.c:1126
 msgid "(current) UNIX password: "
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:1162
+#: modules/pam_unix/pam_unix_passwd.c:1161
 msgid "You must wait longer to change your password"
 msgstr "您必须等待更长时间以更改口令"
 
-#: modules/pam_unix/pam_unix_passwd.c:1222
+#: modules/pam_unix/pam_unix_passwd.c:1221
 #, fuzzy
 msgid "Enter new UNIX password: "
 msgstr "输入新的 STRESS 口令："
 
-#: modules/pam_unix/pam_unix_passwd.c:1223
+#: modules/pam_unix/pam_unix_passwd.c:1222
 #, fuzzy
 msgid "Retype new UNIX password: "
 msgstr "重新输入新的 STRESS 口令："

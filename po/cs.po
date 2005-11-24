@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-11-21 14:57+0100\n"
+"POT-Creation-Date: 2005-11-24 23:22+0100\n"
 "PO-Revision-Date: 2005-08-24 13:58+0200\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
@@ -93,10 +93,10 @@ msgstr "chyba při inicializaci PAM\n"
 msgid "failed to pam_set_item()\n"
 msgstr "chyba pam_set_item()\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:135
+#: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr "login: chyba forku: %s"
+msgstr "login: chyba forku: %m"
 
 #: modules/pam_selinux/pam_selinux.c:102
 #, c-format
@@ -190,42 +190,42 @@ msgstr "Varování: Počet dní do vypršení hesla: %d %.0s"
 msgid "Password: "
 msgstr "Heslo nebylo změněno"
 
-#: modules/pam_unix/pam_unix_passwd.c:821
+#: modules/pam_unix/pam_unix_passwd.c:820
 msgid "NIS password could not be changed."
 msgstr "NIS heslo se nepodařilo změnit."
 
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:976
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
 msgstr "Nezadáno heslo"
 
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:976
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
 msgstr "Heslo nebylo změněno"
 
-#: modules/pam_unix/pam_unix_passwd.c:998
+#: modules/pam_unix/pam_unix_passwd.c:997
 msgid "You must choose a longer password"
 msgstr "Musíte zvolit delší heslo"
 
-#: modules/pam_unix/pam_unix_passwd.c:1003
+#: modules/pam_unix/pam_unix_passwd.c:1002
 msgid "Password has been already used. Choose another."
 msgstr "Heslo již bylo použito. Zvolte jiné."
 
-#: modules/pam_unix/pam_unix_passwd.c:1127
+#: modules/pam_unix/pam_unix_passwd.c:1126
 msgid "(current) UNIX password: "
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:1162
+#: modules/pam_unix/pam_unix_passwd.c:1161
 msgid "You must wait longer to change your password"
 msgstr "Na změnu svého hesla musíte počkat déle"
 
-#: modules/pam_unix/pam_unix_passwd.c:1222
+#: modules/pam_unix/pam_unix_passwd.c:1221
 #, fuzzy
 msgid "Enter new UNIX password: "
 msgstr "Zadejte nové STRESS heslo: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1223
+#: modules/pam_unix/pam_unix_passwd.c:1222
 #, fuzzy
 msgid "Retype new UNIX password: "
 msgstr "Opakujte STRESS heslo: "

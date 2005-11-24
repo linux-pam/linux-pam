@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM TBD\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-11-21 14:57+0100\n"
+"POT-Creation-Date: 2005-11-24 23:22+0100\n"
 "PO-Revision-Date: 2005-08-23 15:22+0200\n"
 "Last-Translator: Piotr Bolek <pb@7bulls.com>\n"
 "Language-Team: Polish <i18n@suse.de>\n"
@@ -90,10 +90,10 @@ msgstr "Nie można zainicjować PAM\n"
 msgid "failed to pam_set_item()\n"
 msgstr "nieudane pam_set_item()\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:135
+#: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr "login: nieudany fork: %s"
+msgstr "login: nieudany fork: %m"
 
 #: modules/pam_selinux/pam_selinux.c:102
 #, c-format
@@ -187,42 +187,42 @@ msgstr "Ostrzeżenie: twoje hasło wygaśnie za %d dni%.2s"
 msgid "Password: "
 msgstr "Hasło nie zmienione"
 
-#: modules/pam_unix/pam_unix_passwd.c:821
+#: modules/pam_unix/pam_unix_passwd.c:820
 msgid "NIS password could not be changed."
 msgstr "Nie można zmieniać hasła NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:976
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "No password supplied"
 msgstr "Nie podano hasła"
 
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:976
 #: modules/pam_cracklib/pam_cracklib.c:465
 msgid "Password unchanged"
 msgstr "Hasło nie zmienione"
 
-#: modules/pam_unix/pam_unix_passwd.c:998
+#: modules/pam_unix/pam_unix_passwd.c:997
 msgid "You must choose a longer password"
 msgstr "Musisz podać dłuższe hasło"
 
-#: modules/pam_unix/pam_unix_passwd.c:1003
+#: modules/pam_unix/pam_unix_passwd.c:1002
 msgid "Password has been already used. Choose another."
 msgstr "Hasło było już używane. Podaj inne."
 
-#: modules/pam_unix/pam_unix_passwd.c:1127
+#: modules/pam_unix/pam_unix_passwd.c:1126
 msgid "(current) UNIX password: "
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:1162
+#: modules/pam_unix/pam_unix_passwd.c:1161
 msgid "You must wait longer to change your password"
 msgstr "Musisz poczekać dłużej żeby zmienić hasło"
 
-#: modules/pam_unix/pam_unix_passwd.c:1222
+#: modules/pam_unix/pam_unix_passwd.c:1221
 #, fuzzy
 msgid "Enter new UNIX password: "
 msgstr "Poda nowe hasło STRESS: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1223
+#: modules/pam_unix/pam_unix_passwd.c:1222
 #, fuzzy
 msgid "Retype new UNIX password: "
 msgstr "Wpisz ponownie hasło STRESS: "
