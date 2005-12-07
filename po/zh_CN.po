@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-11-24 23:22+0100\n"
+"POT-Creation-Date: 2005-12-07 18:03+0100\n"
 "PO-Revision-Date: 2005-08-18 HO:MI+ZONE\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -132,36 +132,40 @@ msgstr "不是有效的安全性环境"
 msgid "Security Context %s Assigned"
 msgstr "已指派安全性环境 %s"
 
-#: modules/pam_mail/pam_mail.c:242 modules/pam_mail/pam_mail.c:274
-#: modules/pam_mail/pam_mail.c:296
-msgid "new"
-msgstr ""
-
-#: modules/pam_mail/pam_mail.c:264 modules/pam_mail/pam_mail.c:276
-msgid "old"
-msgstr ""
-
-#: modules/pam_mail/pam_mail.c:266 modules/pam_mail/pam_mail.c:278
-#: modules/pam_mail/pam_mail.c:299
-msgid "no"
-msgstr ""
-
-#: modules/pam_mail/pam_mail.c:274
-msgid "new "
-msgstr ""
-
-#: modules/pam_mail/pam_mail.c:300
+#: modules/pam_mail/pam_mail.c:307
 msgid "No mail."
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:302
-#, c-format
-msgid "You have %smail."
+#: modules/pam_mail/pam_mail.c:310
+msgid "You have new mail."
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:304
+#: modules/pam_mail/pam_mail.c:313
+msgid "You have old mail."
+msgstr ""
+
+#: modules/pam_mail/pam_mail.c:317
+msgid "You have mail."
+msgstr ""
+
+#: modules/pam_mail/pam_mail.c:324
 #, c-format
-msgid "You have %s mail in %s."
+msgid "You have no mail in folder %s."
+msgstr ""
+
+#: modules/pam_mail/pam_mail.c:328
+#, c-format
+msgid "You have mew mail in folder %s."
+msgstr ""
+
+#: modules/pam_mail/pam_mail.c:332
+#, c-format
+msgid "You have old mail in folder %s."
+msgstr ""
+
+#: modules/pam_mail/pam_mail.c:337
+#, c-format
+msgid "You have mail in folder %s."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301

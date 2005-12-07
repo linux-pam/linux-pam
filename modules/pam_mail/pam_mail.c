@@ -60,6 +60,11 @@
 #define PAM_STANDARD_MAIL	0x0400
 #define PAM_QUIET_MAIL		0x1000
 
+#define HAVE_NEW_MAIL           0x1
+#define HAVE_OLD_MAIL           0x2
+#define HAVE_NO_MAIL            0x3
+#define HAVE_MAIL               0x4
+
 static int
 _pam_parse (const pam_handle_t *pamh, int flags, int argc,
 	    const char **argv, const char **maildir, size_t *hashcount)
@@ -209,14 +214,14 @@ get_folder(pam_handle_t *pamh, int ctrl,
     return retval;
 }
 
-static const char *
+static int
 get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 {
-    const char *type = NULL;
+    int type = 0;
     struct stat mail_st;
 
     if (stat(folder, &mail_st) < 0)
-	return NULL;
+	return 0;
 
     if (S_ISDIR(mail_st.st_mode)) {	/* Assume Maildir format */
 	int i, save_errno;
@@ -232,18 +237,18 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 	_pam_overwrite(dir);
 	_pam_drop(dir);
 	if (i < 0) {
-	    type = NULL;
+	    type = 0;
 	    namelist = NULL;
 	    if (save_errno == ENOMEM) {
 		pam_syslog(pamh, LOG_CRIT, "out of memory");
 		goto get_mail_status_cleanup;
 	    }
 	}
-	type = (i > 2) ? _("new") : NULL;
+	type = (i > 2) ? HAVE_NEW_MAIL : 0;
 	while (--i >= 0)
 	    _pam_drop(namelist[i]);
 	_pam_drop(namelist);
-	if (type == NULL) {
+	if (type == 0) {
 	    if (asprintf(&dir, "%s/cur", folder) < 0) {
 		pam_syslog(pamh, LOG_CRIT, "out of memory");
 		goto get_mail_status_cleanup;
@@ -253,7 +258,7 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 	    _pam_overwrite(dir);
 	    _pam_drop(dir);
 	    if (i < 0) {
-		type = NULL;
+		type = 0;
 		namelist = NULL;
 		if (save_errno == ENOMEM) {
 		    pam_syslog(pamh, LOG_CRIT, "out of memory");
@@ -261,9 +266,9 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 		}
 	    }
 	    if (i > 2)
-	        type = _("old");
+	        type = HAVE_OLD_MAIL;
 	    else
-	        type = (ctrl & PAM_EMPTY_TOO) ? _("no") : NULL;
+	        type = (ctrl & PAM_EMPTY_TOO) ? HAVE_NO_MAIL : 0;
 	    while (--i >= 0)
 		_pam_drop(namelist[i]);
 	    _pam_drop(namelist);
@@ -271,37 +276,68 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
     } else {
 	if (mail_st.st_size > 0) {
 	    if (mail_st.st_atime < mail_st.st_mtime)	/* new */
-	        type = (ctrl & PAM_STANDARD_MAIL) ? _("new ") : _("new");
+	        type = HAVE_NEW_MAIL;
 	    else		/* old */
-	        type = (ctrl & PAM_STANDARD_MAIL) ? "" : _("old");
+	        type = (ctrl & PAM_STANDARD_MAIL) ? HAVE_MAIL : HAVE_OLD_MAIL;
 	} else if (ctrl & PAM_EMPTY_TOO) {
-	    type = _("no");
+	    type = HAVE_NO_MAIL;
 	} else {
-	    type = NULL;
+	    type = 0;
 	}
     }
 
   get_mail_status_cleanup:
     memset(&mail_st, 0, sizeof(mail_st));
-    D(("user has %s mail in %s folder", type, folder));
+    D(("user has %d mail in %s folder", type, folder));
     return type;
 }
 
 static int
-report_mail(pam_handle_t *pamh, int ctrl, const char *type, const char *folder)
+report_mail(pam_handle_t *pamh, int ctrl, int type, const char *folder)
 {
     int retval;
 
     if (!(ctrl & PAM_MAIL_SILENT) ||
-	((ctrl & PAM_QUIET_MAIL) && strcmp(type, _("new"))))
+	((ctrl & PAM_QUIET_MAIL) && type == HAVE_NEW_MAIL))
       {
 	if (ctrl & PAM_STANDARD_MAIL)
-	  if (!strcmp(type, _("no")))
-	    retval = pam_info (pamh, "%s", _("No mail."));
-	  else
-	    retval = pam_info (pamh, _("You have %smail."), type);
+	  switch (type)
+	    {
+	    case HAVE_NO_MAIL:
+	      retval = pam_info (pamh, "%s", _("No mail."));
+	      break;
+	    case HAVE_NEW_MAIL:
+	      retval = pam_info (pamh, "%s", _("You have new mail."));
+	      break;
+	    case HAVE_OLD_MAIL:
+	      retval = pam_info (pamh, "%s", _("You have old mail."));
+	      break;
+	    case HAVE_MAIL:
+	    default:
+	      retval = pam_info (pamh, "%s", _("You have mail."));
+	      break;
+	    }
 	else
-	  retval = pam_info (pamh, _("You have %s mail in %s."), type, folder);
+	  switch (type)
+	    {
+	    case HAVE_NO_MAIL:
+	      retval = pam_info (pamh, _("You have no mail in folder %s."),
+				 folder);
+	      break;
+	    case HAVE_NEW_MAIL:
+	      retval = pam_info (pamh, _("You have mew mail in folder %s."),
+				 folder);
+	      break;
+	    case HAVE_OLD_MAIL:
+	      retval = pam_info (pamh, _("You have old mail in folder %s."),
+				 folder);
+	      break;
+	    case HAVE_MAIL:
+	    default:
+	      retval = pam_info (pamh, _("You have mail in folder %s."),
+				 folder);
+	      break;
+	    }
       }
     else
       {
@@ -357,10 +393,10 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
 static int _do_mail(pam_handle_t *pamh, int flags, int argc,
     const char **argv, int est)
 {
-    int retval, ctrl;
+    int retval, ctrl, type;
     size_t hashcount;
     char *folder = NULL;
-    const char *path_mail = NULL, *type;
+    const char *path_mail = NULL;
 
     /*
      * this module (un)sets the MAIL environment variable, and checks if
@@ -414,9 +450,9 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
     if ((est && !(ctrl & PAM_NO_LOGIN))
 	|| (!est && (ctrl & PAM_LOGOUT_TOO))) {
 	type = get_mail_status(pamh, ctrl, folder);
-	if (type != NULL) {
+	if (type != 0) {
 	    retval = report_mail(pamh, ctrl, type, folder);
-	    type = NULL;
+	    type = 0;
 	}
     }
 

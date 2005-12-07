@@ -1,3 +1,11 @@
+2005-12-07  Thorsten Kukuk  <kukuk@suse.de>
+
+	* modules/pam_mail/pam_mail.c: Modify assembling of output
+	for easier translation.
+
+	* po/de.po: Translate new pam_mail messages.
+
+
 2005-11-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/de.po: Add new translation, fix wrong format specifier.
