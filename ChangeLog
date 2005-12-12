@@ -21,21 +21,22 @@
 2005-12-12  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_mail/pam_mail.c (report_mail): Fixed typo in string.
-        * po/de.po: Likewise.
-        * po/es.po: Likewise.
-        * po/fi.po: Likewise.
-        * po/fr.po: Likewise.
-        * po/hu.po: Likewise.
-        * po/it.po: Likewise.
-        * po/ja.po: Likewise.
-        * po/nb.po: Likewise.
-        * po/pa.po: Likewise.
-        * po/pl.po: Likewise.
-        * po/pt.po: Likewise.
-        * po/pt_BR.po: Likewise.
-        * po/zh_CN.po: Likewise.
-        * po/zh_TW.po: Likewise.
-        * po/de.po: Add new translation, fixed typo in string.
+	* po/Linux-PAM.pot: Likewise.
+	* po/de.po: Likewise.
+	* po/es.po: Likewise.
+	* po/fi.po: Likewise.
+	* po/fr.po: Likewise.
+	* po/hu.po: Likewise.
+	* po/it.po: Likewise.
+	* po/ja.po: Likewise.
+	* po/nb.po: Likewise.
+	* po/pa.po: Likewise.
+	* po/pl.po: Likewise.
+	* po/pt.po: Likewise.
+	* po/pt_BR.po: Likewise.
+	* po/zh_CN.po: Likewise.
+	* po/zh_TW.po: Likewise.
+	* po/de.po: Add new translation, fixed typo in string.
 
 2005-12-12  Mike Becher  <Mike.Becher@lrz-muenchen.de>
 
