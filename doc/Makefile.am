@@ -118,25 +118,25 @@ install-data-local:
 if HAVE_SGML2TXT
 	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/text
 	for file in txts/*.txt; do \
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(DOCDIR)/text
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(DOCDIR)/text; \
 	done
 endif
 if HAVE_SGML2PS
 	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/ps
 	for file in ps/*.ps; do \
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(DOCDIR)/ps
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(DOCDIR)/ps; \
 	done
 if HAVE_PS2PDF
 	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/pdf
 	for file in pdf/*.pdf; do \
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(DOCDIR)/pdf
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(DOCDIR)/pdf; \
 	done
 endif
 endif
 if HAVE_SGML2HTML
 	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/html
 	for file in html/*.html; do \
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(DOCDIR)/html
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(DOCDIR)/html; \
 	done
 endif
 
