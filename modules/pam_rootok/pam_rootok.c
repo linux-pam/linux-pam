@@ -48,7 +48,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
 	if (!strcmp(*argv,"debug"))
 	    ctrl |= PAM_DEBUG_ARG;
 	else {
-	    pam_syslog(pamh,LOG_ERR,"pam_parse: unknown option; %s",*argv);
+	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
     }
 
@@ -64,7 +64,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     int ctrl;
     int retval = PAM_AUTH_ERR;
 
-    ctrl = _pam_parse(pamh,argc, argv);
+    ctrl = _pam_parse(pamh, argc, argv);
     if (getuid() == 0)
 #ifdef WITH_SELINUX
       if (is_selinux_enabled()<1 || checkPasswdAccess(PASSWD__ROOTOK)==0)
@@ -72,8 +72,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	retval = PAM_SUCCESS;
 
     if (ctrl & PAM_DEBUG_ARG) {
-	pam_syslog(pamh,LOG_DEBUG, "authentication %s"
-		 , retval==PAM_SUCCESS ? "succeeded":"failed" );
+	pam_syslog(pamh, LOG_DEBUG, "authentication %s",
+		   (retval==PAM_SUCCESS) ? "succeeded" : "failed");
     }
 
     return retval;

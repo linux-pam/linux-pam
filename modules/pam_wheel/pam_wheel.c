@@ -91,7 +91,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
           else if (!strncmp(*argv,"group=",6))
 	       strncpy(use_group,*argv+6,group_length-1);
           else {
-               pam_syslog(pamh,LOG_ERR,"pam_parse: unknown option; %s",*argv);
+               pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
           }
      }
 
@@ -110,7 +110,7 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
     retval = pam_get_user(pamh, &username, NULL);
     if ((retval != PAM_SUCCESS) || (!username)) {
         if (ctrl & PAM_DEBUG_ARG) {
-            pam_syslog(pamh,LOG_DEBUG,"can not get the username");
+            pam_syslog(pamh, LOG_DEBUG, "can not get the username");
 	}
         return PAM_SERVICE_ERR;
     }
@@ -118,7 +118,7 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
     pwd = pam_modutil_getpwnam (pamh, username);
     if (!pwd) {
         if (ctrl & PAM_DEBUG_ARG) {
-            pam_syslog(pamh,LOG_NOTICE,"unknown user %s",username);
+            pam_syslog(pamh, LOG_NOTICE, "unknown user %s", username);
         }
         return PAM_USER_UNKNOWN;
     }
@@ -133,7 +133,7 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
 	tpwd = pam_modutil_getpwuid (pamh, getuid());
 	if (!tpwd) {
 	    if (ctrl & PAM_DEBUG_ARG) {
-                pam_syslog(pamh,LOG_NOTICE, "who is running me ?!");
+                pam_syslog(pamh, LOG_NOTICE, "who is running me ?!");
 	    }
 	    return PAM_SERVICE_ERR;
 	}
@@ -145,7 +145,7 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
 	}
 	if (!fromsu || !tpwd) {
 	    if (ctrl & PAM_DEBUG_ARG) {
-		pam_syslog(pamh,LOG_NOTICE, "who is running me ?!");
+		pam_syslog(pamh, LOG_NOTICE, "who is running me ?!");
 	    }
 	    return PAM_SERVICE_ERR;
 	}
@@ -166,9 +166,10 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
     if (!grp || (!grp->gr_mem && (tpwd->pw_gid != grp->gr_gid))) {
 	if (ctrl & PAM_DEBUG_ARG) {
 	    if (!use_group[0]) {
-		pam_syslog(pamh,LOG_NOTICE,"no members in a GID 0 group");
+		pam_syslog(pamh, LOG_NOTICE, "no members in a GID 0 group");
 	    } else {
-                pam_syslog(pamh,LOG_NOTICE,"no members in '%s' group", use_group);
+                pam_syslog(pamh, LOG_NOTICE,
+			   "no members in '%s' group", use_group);
 	    }
 	}
 	if (ctrl & PAM_DENY_ARG) {
@@ -216,12 +217,13 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
 
     if (ctrl & PAM_DEBUG_ARG) {
 	if (retval == PAM_IGNORE) {
-	    pam_syslog(pamh,LOG_NOTICE, "Ignoring access request '%s' for '%s'",
-		     fromsu, username);
+	    pam_syslog(pamh, LOG_NOTICE,
+		       "Ignoring access request '%s' for '%s'",
+		       fromsu, username);
 	} else {
-	    pam_syslog(pamh,LOG_NOTICE, "Access %s to '%s' for '%s'",
-		     (retval != PAM_SUCCESS) ? "denied":"granted",
-		     fromsu, username);
+	    pam_syslog(pamh, LOG_NOTICE, "Access %s to '%s' for '%s'",
+		       (retval != PAM_SUCCESS) ? "denied":"granted",
+		       fromsu, username);
 	}
     }
 

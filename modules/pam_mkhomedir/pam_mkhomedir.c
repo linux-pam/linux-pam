@@ -84,32 +84,12 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv)
 	 strncpy(SkelDir,*argv+5,sizeof(SkelDir));
 	 SkelDir[sizeof(SkelDir)-1] = '\0';
       } else {
-	 pam_syslog(pamh,LOG_ERR, "unknown option; %s", *argv);
+	 pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
       }
    }
 
    D(("ctrl = %o", ctrl));
    return ctrl;
-}
-
-/* Ask the application to display a short text string for us. */
-static int
-make_remark (pam_handle_t *pamh, int ctrl, const char *remark)
-{
-   int retval;
-
-   if ((ctrl & MKHOMEDIR_QUIET) != MKHOMEDIR_QUIET)
-   {
-     pam_info (pamh, "%s", remark);
-   }
-   else
-   {
-      D(("keeping quiet"));
-      retval = PAM_SUCCESS;
-   }
-
-   D(("returning %s", pam_strerror(pamh, retval)));
-   return retval;
 }
 
 static int
@@ -156,15 +136,13 @@ create_homedir (pam_handle_t * pamh, int ctrl,
    int retval = PAM_AUTH_ERR;
 
    /* Mention what is happening, if the notification fails that is OK */
-   if (snprintf(remark,sizeof(remark),"Creating directory '%s'.", dest) == -1)
-      return PAM_PERM_DENIED;
-
-   make_remark(pamh, ctrl, remark);
+   if ((ctrl & MKHOMEDIR_QUIET) != MKHOMEDIR_QUIET)
+      (void) pam_info(pamh, "Creating directory '%s'.", dest);
 
    /* Create the new directory */
    if (rec_mkdir (dest,0755) != 0)
    {
-      pam_syslog(pamh,LOG_DEBUG, "unable to create directory %s",dest);
+      pam_syslog(pamh, LOG_DEBUG, "unable to create directory %s: %m", dest);
       return PAM_PERM_DENIED;
    }
 
@@ -179,7 +157,7 @@ create_homedir (pam_handle_t * pamh, int ctrl,
    D = opendir (source);
    if (D == 0)
    {
-      pam_syslog(pamh,LOG_DEBUG, "unable to read directory %s",source);
+      pam_syslog(pamh, LOG_DEBUG, "unable to read directory %s: %m", source);
       retval = PAM_PERM_DENIED;
       goto go_out;
    }
@@ -316,9 +294,9 @@ create_homedir (pam_handle_t * pamh, int ctrl,
             {
                if (lchown(newdest,pwd->pw_uid,pwd->pw_gid) != 0)
                {
+                   pam_syslog(pamh, LOG_DEBUG,
+			      "unable to change perms on link %s: %m", newdest);
                    closedir(D);
-                   pam_syslog(pamh,LOG_DEBUG, "unable to change perms on link %s",
-                            newdest);
 #ifndef PATH_MAX
 		   free(pointed);
 		   free(newsource);
@@ -352,8 +330,9 @@ create_homedir (pam_handle_t * pamh, int ctrl,
       /* Open the source file */
       if ((SrcFd = open(newsource,O_RDONLY)) < 0 || fstat(SrcFd,&St) != 0)
       {
+         pam_syslog(pamh, LOG_DEBUG,
+		    "unable to open src file %s: %m", newsource);
          closedir(D);
-         pam_syslog(pamh,LOG_DEBUG, "unable to open src file %s",newsource);
 
 #ifndef PATH_MAX
 	 free(newsource); newsource = NULL;
@@ -367,9 +346,10 @@ create_homedir (pam_handle_t * pamh, int ctrl,
       /* Open the dest file */
       if ((DestFd = open(newdest,O_WRONLY | O_TRUNC | O_CREAT,0600)) < 0)
       {
+         pam_syslog(pamh, LOG_DEBUG,
+		    "unable to open dest file %s: %m", newdest);
 	 close(SrcFd);
 	 closedir(D);
-         pam_syslog(pamh,LOG_DEBUG, "unable to open dest file %s",newdest);
 
 #ifndef PATH_MAX
 	 free(newsource); newsource = NULL;
@@ -384,10 +364,11 @@ create_homedir (pam_handle_t * pamh, int ctrl,
       if (fchmod(DestFd,(St.st_mode | 0222) & (~UMask)) != 0 ||
 	  fchown(DestFd,pwd->pw_uid,pwd->pw_gid) != 0)
       {
+         pam_syslog(pamh, LOG_DEBUG,
+		    "unable to change perms on copy %s: %m", newdest);
          close(SrcFd);
          close(DestFd);
          closedir(D);
-         pam_syslog(pamh,LOG_DEBUG, "unable to chang perms on copy %s",newdest);
 
 #ifndef PATH_MAX
 	 free(newsource); newsource = NULL;
@@ -412,10 +393,10 @@ create_homedir (pam_handle_t * pamh, int ctrl,
 
 	 /* If we get here, pam_modutil_read returned a -1 or
 	    pam_modutil_write returned something unexpected. */
+	 pam_syslog(pamh, LOG_DEBUG, "unable to perform IO: %m");
 	 close(SrcFd);
 	 close(DestFd);
 	 closedir(D);
-	 pam_syslog(pamh,LOG_DEBUG, "unable to perform IO");
 
 #ifndef PATH_MAX
 	 free(newsource); newsource = NULL;
@@ -443,7 +424,8 @@ create_homedir (pam_handle_t * pamh, int ctrl,
    if (chmod(dest,0777 & (~UMask)) != 0 ||
        chown(dest,pwd->pw_uid,pwd->pw_gid) != 0)
    {
-      pam_syslog(pamh,LOG_DEBUG, "unable to change perms on directory %s",dest);
+      pam_syslog(pamh, LOG_DEBUG,
+		 "unable to change perms on directory %s: %m", dest);
       return PAM_PERM_DENIED;
    }
 
@@ -468,7 +450,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
    retval = pam_get_item(pamh, PAM_USER, &user);
    if (retval != PAM_SUCCESS || user == NULL || *(const char *)user == '\0')
    {
-      pam_syslog(pamh,LOG_NOTICE, "user unknown");
+      pam_syslog(pamh, LOG_NOTICE, "user unknown");
       return PAM_USER_UNKNOWN;
    }
 

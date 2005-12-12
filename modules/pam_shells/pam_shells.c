@@ -68,9 +68,7 @@ static int perform_check(pam_handle_t *pamh)
     userShell = pw->pw_shell;
 
     if (stat(SHELL_FILE,&sb)) {
-	pam_syslog(pamh, LOG_ERR,
-		   "%s cannot be stat'd (it probably does not exist)",
-		   SHELL_FILE);
+	pam_syslog(pamh, LOG_ERR, "Cannot stat %s: %m", SHELL_FILE);
 	return PAM_AUTH_ERR;		/* must have /etc/shells */
     }
 
@@ -83,7 +81,7 @@ static int perform_check(pam_handle_t *pamh)
 
     shellFile = fopen(SHELL_FILE,"r");
     if (shellFile == NULL) {       /* Check that we opened it successfully */
-	pam_syslog(pamh, LOG_ERR, "Error opening %s", SHELL_FILE);
+	pam_syslog(pamh, LOG_ERR, "Error opening %s: %m", SHELL_FILE);
 	return PAM_SERVICE_ERR;
     }
 

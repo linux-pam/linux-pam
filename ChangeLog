@@ -1,3 +1,23 @@
+2005-12-12  Dmitry V. Levin  <ldv@altlinux.org>
+
+	Cleanup pam_syslog messages.
+
+	* modules/pam_env/pam_env.c (_expand_arg): Fix compiler warning.
+	* modules/pam_filter/pam_filter.c (set_filter): Append %m
+	specifier to pam_syslog messages where appropriate.
+	* modules/pam_group/pam_group.c (read_field): Likewise.
+	* modules/pam_mkhomedir/pam_mkhomedir.c (make_remark): Remove.
+	(create_homedir): Do not use make_remark() wrapper, call
+	pam_info() directly.  Call pam_syslog() right after failed
+	operation and append %m specifier to pam_syslog messages where
+	appropriate.
+	* modules/pam_rhosts/pam_rhosts_auth.c (pam_iruserok): Replace
+	sequence of malloc(), strcpy() and strcat() calls with asprintf().
+	Append %m specifier to pam_syslog messages where appropriate.
+	* modules/pam_securetty/pam_securetty.c (securetty_perform_check):
+	Append %m specifier to pam_syslog messages where appropriate.
+	* modules/pam_shells/pam_shells.c (perform_check): Likewise.
+
 2005-12-12  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_mail/pam_mail.c (report_mail): Fixed typo in string.

@@ -79,7 +79,7 @@ read_field (const pam_handle_t *pamh, int fd, char **buf, int *from, int *to)
     if (! *buf) {
 	*buf = (char *) malloc(PAM_GROUP_BUFLEN);
 	if (! *buf) {
-	    pam_syslog(pamh,LOG_ERR,"out of memory");
+	    pam_syslog(pamh, LOG_ERR, "out of memory");
 	    return -1;
 	}
 	*from = *to = 0;
@@ -89,7 +89,7 @@ read_field (const pam_handle_t *pamh, int fd, char **buf, int *from, int *to)
     /* do we have a file open ? return error */
 
     if (fd < 0 && *to <= 0) {
-	pam_syslog(pamh,LOG_ERR, PAM_GROUP_CONF " not opened");
+	pam_syslog(pamh, LOG_ERR, "%s not opened", PAM_GROUP_CONF);
 	memset(*buf, 0, PAM_GROUP_BUFLEN);
 	_pam_drop(*buf);
 	return -1;
@@ -118,7 +118,7 @@ read_field (const pam_handle_t *pamh, int fd, char **buf, int *from, int *to)
 
 	i = read(fd, *to + *buf, PAM_GROUP_BUFLEN - *to);
 	if (i < 0) {
-	    pam_syslog(pamh,LOG_ERR,"error reading " PAM_GROUP_CONF);
+	    pam_syslog(pamh, LOG_ERR, "error reading %s: %m", PAM_GROUP_CONF);
 	    close(fd);
 	    return -1;
 	} else if (!i) {
@@ -158,8 +158,9 @@ read_field (const pam_handle_t *pamh, int fd, char **buf, int *from, int *to)
 		    *to -= j-i;
 		    ++i;
 		} else {
-		    pam_syslog(pamh,LOG_ERR,"internal error in " __FILE__
-			     " at line %d", __LINE__ );
+		    pam_syslog(pamh, LOG_CRIT,
+			       "internal error in file %s at line %d",
+			       __FILE__, __LINE__);
 	            close(fd);
 		    return -1;
 		}
@@ -291,7 +292,9 @@ logic_field (const pam_handle_t *pamh, const void *me,
 			 left |= right;
 		    next = OP;
 	       } else {
-		    pam_syslog(pamh,LOG_ERR,"garbled syntax; expected name (rule #%d)", rule);
+		    pam_syslog(pamh, LOG_ERR,
+			       "garbled syntax; expected name (rule #%d)",
+			       rule);
 		    return FALSE;
 	       }
 	  } else {   /* OP */
@@ -303,8 +306,9 @@ logic_field (const pam_handle_t *pamh, const void *me,
 		    oper = OR;
 		    break;
 	       default:
-		    pam_syslog(pamh,LOG_ERR,"garbled syntax; expected & or | (rule #%d)"
-			     , rule);
+		    pam_syslog(pamh, LOG_ERR,
+			       "garbled syntax; expected & or | (rule #%d)",
+			       rule);
 		    D(("%c at %d",c,at));
 		    return FALSE;
 	       }
@@ -387,7 +391,8 @@ check_time (const pam_handle_t *pamh, const void *AT,
 
      if (times == NULL) {
 	  /* this should not happen */
-	  pam_syslog(pamh,LOG_ERR,"internal error: " __FILE__ " line %d", __LINE__);
+	  pam_syslog(pamh, LOG_CRIT, "internal error in file %s at line %d",
+		     __FILE__, __LINE__);
 	  return FALSE;
      }
 
@@ -411,13 +416,13 @@ check_time (const pam_handle_t *pamh, const void *AT,
 	  }
 	  j += 2;
 	  if (this_day == -1) {
-	       pam_syslog(pamh,LOG_ERR,"bad day specified (rule #%d)", rule);
+	       pam_syslog(pamh, LOG_ERR, "bad day specified (rule #%d)", rule);
 	       return FALSE;
 	  }
 	  marked_day ^= this_day;
      }
      if (marked_day == 0) {
-	  pam_syslog(pamh,LOG_ERR,"no day specified");
+	  pam_syslog(pamh, LOG_ERR, "no day specified");
 	  return FALSE;
      }
      D(("day range = 0%o", marked_day));
@@ -441,7 +446,7 @@ check_time (const pam_handle_t *pamh, const void *AT,
 
      D(("i=%d, time_end=%d, times[j]='%c'", i, time_end, times[j]));
      if (i != 5 || time_end == -1) {
-	  pam_syslog(pamh,LOG_ERR,"no/bad times specified (rule #%d)", rule);
+	  pam_syslog(pamh, LOG_ERR, "no/bad times specified (rule #%d)", rule);
 	  return TRUE;
      }
      D(("times(%d to %d)", time_start,time_end));
@@ -540,7 +545,7 @@ static int mkgrplist(pam_handle_t *pamh, char *buf, gid_t **list, int len)
 	       if (tmp != NULL) {
 		    (*list) = tmp;
 	       } else {
-		    pam_syslog(pamh,LOG_ERR,"out of memory for group list");
+		    pam_syslog(pamh, LOG_ERR, "out of memory for group list");
 		    free(*list);
 		    (*list) = NULL;
 		    return -1;
@@ -562,7 +567,8 @@ static int mkgrplist(pam_handle_t *pamh, char *buf, gid_t **list, int len)
 	      retval = pwdb_locate("group", PWDB_DEFAULT, buf+at
 				   , PWDB_ID_UNKNOWN, &pw);
 	      if (retval != PWDB_SUCCESS) {
-		  pam_syslog(pamh,LOG_ERR,"bad group: %s; %s", buf+at, pwdb_strerror(retval));
+		  pam_syslog(pamh, LOG_ERR, "bad group: %s; %s",
+			     buf+at, pwdb_strerror(retval));
 	      } else {
 		  const struct pwdb_entry *pwe=NULL;
 
@@ -573,8 +579,8 @@ static int mkgrplist(pam_handle_t *pamh, char *buf, gid_t **list, int len)
 		      (*list)[len++] = * (const gid_t *) pwe->value;
 		      pwdb_entry_delete(&pwe);                  /* tidy up */
 		  } else {
-		      pam_syslog(pamh,LOG_ERR,"%s group entry is bad; %s"
-			       , pwdb_strerror(retval));
+		      pam_syslog(pamh, LOG_ERR, "%s group entry is bad; %s",
+				 pwdb_strerror(retval));
 		  }
 		  pw = NULL;          /* break link - cached for later use */
 	      }
@@ -585,7 +591,7 @@ static int mkgrplist(pam_handle_t *pamh, char *buf, gid_t **list, int len)
 
 	      grp = pam_modutil_getgrnam(pamh, buf+at);
 	      if (grp == NULL) {
-		  pam_syslog(pamh,LOG_ERR,"bad group: %s", buf+at);
+		  pam_syslog(pamh, LOG_ERR, "bad group: %s", buf+at);
 	      } else {
 		  D(("group %s exists", buf+at));
 		  (*list)[len++] = grp->gr_gid;
@@ -665,7 +671,8 @@ static int check_account(pam_handle_t *pamh, const char *service,
 
 	fd = read_field(pamh,fd,&buffer,&from,&to);
 	if (!buffer || !buffer[0]) {
-	    pam_syslog(pamh,LOG_ERR,PAM_GROUP_CONF "; no tty entry #%d", count);
+	    pam_syslog(pamh, LOG_ERR,
+		       "%s: no tty entry #%d", PAM_GROUP_CONF, count);
 	    continue;
 	}
 	good &= logic_field(pamh,tty, buffer, count, is_same);
@@ -675,7 +682,8 @@ static int check_account(pam_handle_t *pamh, const char *service,
 
 	fd = read_field(pamh,fd,&buffer,&from,&to);
 	if (!buffer || !buffer[0]) {
-	    pam_syslog(pamh,LOG_ERR,PAM_GROUP_CONF "; no user entry #%d", count);
+	    pam_syslog(pamh, LOG_ERR,
+		       "%s: no user entry #%d", PAM_GROUP_CONF, count);
 	    continue;
 	}
 	good &= logic_field(pamh,user, buffer, count, is_same);
@@ -685,7 +693,8 @@ static int check_account(pam_handle_t *pamh, const char *service,
 
 	fd = read_field(pamh,fd,&buffer,&from,&to);
 	if (!buffer || !buffer[0]) {
-	    pam_syslog(pamh,LOG_ERR,PAM_GROUP_CONF "; no time entry #%d", count);
+	    pam_syslog(pamh, LOG_ERR,
+		       "%s: no time entry #%d", PAM_GROUP_CONF, count);
 	    continue;
 	}
 
@@ -694,8 +703,8 @@ static int check_account(pam_handle_t *pamh, const char *service,
 
 	fd = read_field(pamh,fd,&buffer,&from,&to);
 	if (!buffer || !buffer[0]) {
-	    pam_syslog(pamh,LOG_ERR,PAM_GROUP_CONF "; no listed groups for rule #%d"
-		     , count);
+	    pam_syslog(pamh, LOG_ERR,
+		       "%s: no listed groups for rule #%d", PAM_GROUP_CONF, count);
 	    continue;
 	}
 
@@ -718,8 +727,8 @@ static int check_account(pam_handle_t *pamh, const char *service,
 
 	fd = read_field(pamh,fd,&buffer,&from,&to);
 	if (buffer && buffer[0]) {
-	    pam_syslog(pamh,LOG_ERR,
-                       PAM_GROUP_CONF "; poorly terminated rule #%d", count);
+	    pam_syslog(pamh, LOG_ERR,
+                       "%s: poorly terminated rule #%d", PAM_GROUP_CONF, count);
 	}
 
 	if (good > 0) {
@@ -744,8 +753,8 @@ static int check_account(pam_handle_t *pamh, const char *service,
 #endif
 	if ((err = setgroups(no_grps, grps))) {
 	    D(("but couldn't set groups %d", err));
-	    pam_syslog(pamh,LOG_ERR,"unable to set the group membership for user (err=%d)"
-		     , err);
+	    pam_syslog(pamh, LOG_ERR,
+		       "unable to set the group membership for user: %m");
 	    retval = PAM_CRED_ERR;
 	}
     }
@@ -790,7 +799,7 @@ pam_sm_setcred (pam_handle_t *pamh, int flags,
 
     if (pam_get_item(pamh, PAM_SERVICE, &service)
 	!= PAM_SUCCESS || service == NULL) {
-	pam_syslog(pamh,LOG_ERR,"cannot find the current service name");
+	pam_syslog(pamh, LOG_ERR, "cannot find the current service name");
 	return PAM_ABORT;
     }
 
@@ -798,7 +807,7 @@ pam_sm_setcred (pam_handle_t *pamh, int flags,
 
     if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || user == NULL
 	|| *user == '\0') {
-	pam_syslog(pamh,LOG_ERR,"cannot determine the user's name");
+	pam_syslog(pamh, LOG_ERR, "cannot determine the user's name");
 	return PAM_USER_UNKNOWN;
     }
 
@@ -812,7 +821,7 @@ pam_sm_setcred (pam_handle_t *pamh, int flags,
 	    tty = "";
 	}
 	if (pam_set_item(pamh, PAM_TTY, tty) != PAM_SUCCESS) {
-	    pam_syslog(pamh,LOG_ERR,"couldn't set tty name");
+	    pam_syslog(pamh, LOG_ERR, "couldn't set tty name");
 	    return PAM_ABORT;
 	}
     }
@@ -842,7 +851,7 @@ pam_sm_setcred (pam_handle_t *pamh, int flags,
 	(void) pwdb_end();                                /* tidy up */
     } else {
 	D(("failed to initialize pwdb; %s", pwdb_strerror(retval)));
-	pam_syslog(pamh,LOG_ERR,"unable to initialize libpwdb");
+	pam_syslog(pamh, LOG_ERR, "unable to initialize libpwdb");
 	retval = PAM_ABORT;
     }
 

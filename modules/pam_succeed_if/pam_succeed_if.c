@@ -70,13 +70,13 @@ evaluate_num(const pam_handle_t *pamh, const char *left,
 	errno = 0;
 	l = strtol(left, &p, 0);
 	if ((p == NULL) || (*p != '\0') || errno) {
-		pam_syslog(pamh,LOG_INFO, "\"%s\" is not a number", left);
+		pam_syslog(pamh, LOG_INFO, "\"%s\" is not a number", left);
 		ret = PAM_SERVICE_ERR;
 	}
 
 	r = strtol(right, &p, 0);
 	if ((p == NULL) || (*p != '\0') || errno) {
-		pam_syslog(pamh,LOG_INFO, "\"%s\" is not a number", right);
+		pam_syslog(pamh, LOG_INFO, "\"%s\" is not a number", right);
 		ret = PAM_SERVICE_ERR;
 	}
 
@@ -151,7 +151,7 @@ evaluate_lt(const pam_handle_t *pamh, const char *left, const char *right)
 }
 /* Test for numeric less-than-or-equal-ness(?) */
 static int
-evaluate_le(const pam_handle_t *pamh,const char *left, const char *right)
+evaluate_le(const pam_handle_t *pamh, const char *left, const char *right)
 {
 	return evaluate_num(pamh, left, right, le);
 }
@@ -245,11 +245,12 @@ evaluate(pam_handle_t *pamh, int debug,
 	}
 	/* If we have no idea what's going on, return an error. */
 	if (left != buf) {
-		pam_syslog(pamh,LOG_CRIT, "unknown attribute \"%s\"", left);
+		pam_syslog(pamh, LOG_CRIT, "unknown attribute \"%s\"", left);
 		return PAM_SERVICE_ERR;
 	}
 	if (debug) {
-		pam_syslog(pamh,LOG_DEBUG, "'%s' resolves to '%s'", attribute, left);
+		pam_syslog(pamh, LOG_DEBUG, "'%s' resolves to '%s'",
+			   attribute, left);
 	}
 
 	/* Attribute value < some threshold. */
@@ -351,9 +352,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		/* Get information about the user. */
 		pwd = pam_modutil_getpwuid(pamh, getuid());
 		if (pwd == NULL) {
-			pam_syslog(pamh,LOG_CRIT,
-				  "error retrieving information about user %ld",
-				  (long)getuid());
+			pam_syslog(pamh, LOG_CRIT,
+				   "error retrieving information about user %lu",
+				   (unsigned long)getuid());
 			return PAM_SERVICE_ERR;
 		}
 		user = pwd->pw_name;
@@ -361,17 +362,18 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		/* Get the user's name. */
 		ret = pam_get_user(pamh, &user, prompt);
 		if ((ret != PAM_SUCCESS) || (user == NULL)) {
-			pam_syslog(pamh,LOG_CRIT, "error retrieving user name: %s",
-				  pam_strerror(pamh, ret));
+			pam_syslog(pamh, LOG_CRIT,
+				   "error retrieving user name: %s",
+				   pam_strerror(pamh, ret));
 			return ret;
 		}
 
 		/* Get information about the user. */
 		pwd = pam_modutil_getpwnam(pamh, user);
 		if (pwd == NULL) {
-			pam_syslog(pamh,LOG_CRIT,
-				  "error retrieving information about user %s",
-				  user);
+			pam_syslog(pamh, LOG_CRIT,
+				   "error retrieving information about user %s",
+				   user);
 			return PAM_SERVICE_ERR;
 		}
 	}
@@ -386,18 +388,18 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 				       pwd);
 			if (ret != PAM_SUCCESS) {
 				if(!quiet_fail)
-					pam_syslog(pamh,LOG_INFO,
-						  "requirement \"%s %s %s\" "
-						  "not met by user \"%s\"",
-						  left, qual, right, user);
+					pam_syslog(pamh, LOG_INFO,
+						   "requirement \"%s %s %s\" "
+						   "not met by user \"%s\"",
+						   left, qual, right, user);
 				break;
 			}
 			else
 				if(!quiet_succ)
-					pam_syslog(pamh,LOG_INFO,
-						  "requirement \"%s %s %s\" "
-						  "was met by user \"%s\"",
-						  left, qual, right, user);
+					pam_syslog(pamh, LOG_INFO,
+						   "requirement \"%s %s %s\" "
+						   "was met by user \"%s\"",
+						   left, qual, right, user);
 			left = qual = right = NULL;
 		}
 		if ((i < argc) && (strcmp(argv[i], "debug") == 0)) {

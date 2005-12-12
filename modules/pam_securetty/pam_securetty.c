@@ -52,7 +52,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
 	if (!strcmp(*argv,"debug"))
 	    ctrl |= PAM_DEBUG_ARG;
 	else {
-	    pam_syslog(pamh,LOG_ERR,"pam_parse: unknown option; %s",*argv);
+	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
     }
 
@@ -107,7 +107,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
     }
 
     if (stat(SECURETTY_FILE, &ttyfileinfo)) {
-	pam_syslog(pamh, LOG_NOTICE, "Couldn't open " SECURETTY_FILE);
+	pam_syslog(pamh, LOG_NOTICE, "Couldn't open %s: %m", SECURETTY_FILE);
 	return PAM_SUCCESS; /* for compatibility with old securetty handling,
 			       this needs to succeed.  But we still log the
 			       error. */
@@ -116,15 +116,15 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
     if ((ttyfileinfo.st_mode & S_IWOTH) || !S_ISREG(ttyfileinfo.st_mode)) {
 	/* If the file is world writable or is not a
 	   normal file, return error */
-	pam_syslog(pamh, LOG_ERR, SECURETTY_FILE
-		 " is either world writable or not a normal file");
+	pam_syslog(pamh, LOG_ERR,
+		   "%s is either world writable or not a normal file",
+		   SECURETTY_FILE);
 	return PAM_AUTH_ERR;
     }
 
     ttyfile = fopen(SECURETTY_FILE,"r");
     if (ttyfile == NULL) { /* Check that we opened it successfully */
-	pam_syslog(pamh, LOG_ERR,
-		 "Error opening " SECURETTY_FILE);
+	pam_syslog(pamh, LOG_ERR, "Error opening %s: %m", SECURETTY_FILE);
 	return PAM_SERVICE_ERR;
     }
 

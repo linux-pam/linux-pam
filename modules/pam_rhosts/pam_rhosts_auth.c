@@ -165,7 +165,7 @@ set_option (const pam_handle_t *pamh, struct _options *opts, const char *arg)
     /*
      * All other options are ignored at the present time.
      */
-    pam_syslog(pamh,LOG_WARNING, "unrecognized option '%s'", arg);
+    pam_syslog(pamh, LOG_WARNING, "unrecognized option '%s'", arg);
 }
 
 static void
@@ -312,8 +312,8 @@ __icheckuser (pam_handle_t *pamh, struct _options *opts,
     /* + */
     if (strcmp("+",luser) == 0) {
 	(void) pam_get_item(pamh, PAM_USER, &user);
-	pam_syslog(pamh,LOG_WARNING, "user %s has a `+' user entry",
-		 (const char *) user);
+	pam_syslog(pamh, LOG_WARNING, "user %s has a `+' user entry",
+		   (const char *) user);
 	if (opts->opt_promiscuous)
 	    return(1);
 	/* If not promiscuous we handle it as a negative match */
@@ -481,14 +481,10 @@ pam_iruserok(pam_handle_t *pamh,
 	return(1);
     }
 
-    fpath = malloc (strlen (pwd->pw_dir) + strlen (USER_RHOSTS_FILE) + 1);
-    if (fpath == NULL) {
+    if (asprintf (&fpath, "%s%s", pwd->pw_dir, USER_RHOSTS_FILE) < 0) {
        pam_syslog (pamh, LOG_ALERT, "Running out of memory");
        return 1;
     }
-
-    strcpy (fpath, pwd->pw_dir);
-    strcat (fpath, USER_RHOSTS_FILE);
 
     /*
      * Change effective uid while _reading_ .rhosts. (not just
@@ -509,7 +505,7 @@ pam_iruserok(pam_handle_t *pamh,
 
     if (hostf == NULL) {
         if (opts->opt_debug)
-	    pam_syslog(pamh,LOG_DEBUG,"Could not open %s file",fpath);
+	    pam_syslog(pamh, LOG_DEBUG, "Could not open %s: %m", fpath);
 	answer = 1;
 	goto exit_function;
     }
@@ -603,8 +599,8 @@ pam_ruserok (pam_handle_t *pamh,
     if (hp != NULL) {
 	/* First of all check the address length */
         if (hp->h_length != 4) {
-            pam_syslog(pamh,LOG_ALERT, "pam_rhosts module can't work with not IPv4 "
-		     "addresses");
+            pam_syslog(pamh, LOG_ALERT,
+		       "pam_rhosts module can't work with non-IPv4 addresses");
             return 1;                                    /* not allowed */
         }
 
@@ -662,7 +658,8 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
 	(void) pam_set_item(pamh, PAM_RHOST, rhost);
 	if (retval != PAM_SUCCESS) {
 	    if (opts.opt_debug) {
-		pam_syslog(pamh,LOG_DEBUG, "could not get the remote host name");
+		pam_syslog(pamh, LOG_DEBUG,
+			   "could not get the remote host name");
 	    }
 	    break;
 	}
@@ -673,7 +670,8 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
 	(void) pam_set_item(pamh, PAM_RUSER, ruser);
 	if (retval != PAM_SUCCESS) {
 	    if (opts.opt_debug)
-		pam_syslog(pamh,LOG_DEBUG, "could not get the remote username");
+		pam_syslog(pamh, LOG_DEBUG,
+			   "could not get the remote username");
 	    break;
 	}
 
@@ -682,7 +680,8 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
 	retval = pam_get_user(pamh, &luser, NULL);
 	if (retval != PAM_SUCCESS) {
 	    if (opts.opt_debug)
-		pam_syslog(pamh,LOG_DEBUG, "could not determine name of local user");
+		pam_syslog(pamh, LOG_DEBUG,
+			   "could not determine name of local user");
 	    break;
 	}
 
@@ -697,8 +696,8 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
 	    luser_pwd = pam_modutil_getpwnam(pamh, luser);
 	    if (luser_pwd == NULL) {
 		if (opts.opt_debug)
-		    pam_syslog(pamh,LOG_DEBUG, "user '%s' unknown to this system",
-			     luser);
+		    pam_syslog(pamh, LOG_DEBUG,
+			       "user '%s' unknown to this system", luser);
 		retval = PAM_AUTH_ERR;
 		break;
 	    }
@@ -711,13 +710,13 @@ static int _pam_auth_rhosts (pam_handle_t *pamh,
  */
 	if (pam_ruserok (pamh, &opts, rhost, as_root, ruser, luser) != 0) {
 	    if ( !opts.opt_suppress ) {
-		pam_syslog(pamh,LOG_WARNING, "denied to %s@%s as %s: %s",
+		pam_syslog(pamh, LOG_WARNING, "denied to %s@%s as %s: %s",
 			 ruser, rhost, luser, (opts.last_error==NULL) ?
 			 "access not allowed":opts.last_error);
 	    }
 	    retval = PAM_AUTH_ERR;
 	} else {
-	    pam_syslog(pamh,LOG_NOTICE, "allowed to %s@%s as %s",
+	    pam_syslog(pamh, LOG_NOTICE, "allowed to %s@%s as %s",
                      ruser, rhost, luser);
 	}
 	break;

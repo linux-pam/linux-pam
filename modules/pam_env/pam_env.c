@@ -630,8 +630,8 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
     free(*value);
     if ((*value = malloc(strlen(tmp) +1)) == NULL) {
       D(("Couldn't malloc %d bytes for expanded var", strlen(tmp)+1));
-      pam_syslog (pamh, LOG_ERR,"Couldn't malloc %d bytes for expanded var",
-	       strlen(tmp)+1);
+      pam_syslog (pamh, LOG_ERR, "Couldn't malloc %lu bytes for expanded var",
+	       (unsigned long)strlen(tmp)+1);
       return PAM_BUF_ERR;
     }
   }
