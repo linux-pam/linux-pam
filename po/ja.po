@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-12-12 13:11+0100\n"
+"POT-Creation-Date: 2005-12-12 18:34+0100\n"
 "PO-Revision-Date: 2005-08-18 11:52-0000\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -233,19 +233,19 @@ msgstr "新しいSTRESSパスワードを入力してください:"
 msgid "Retype new UNIX password: "
 msgstr "新しいSTRESSパスワードを再入力してください:"
 
-#: modules/pam_stress/pam_stress.c:474
+#: modules/pam_stress/pam_stress.c:477
 msgid "Changing STRESS password for "
 msgstr "STRESSパスワードの変更元"
 
-#: modules/pam_stress/pam_stress.c:488
+#: modules/pam_stress/pam_stress.c:491
 msgid "Enter new STRESS password: "
 msgstr "新しいSTRESSパスワードを入力してください:"
 
-#: modules/pam_stress/pam_stress.c:491
+#: modules/pam_stress/pam_stress.c:494
 msgid "Retype new STRESS password: "
 msgstr "新しいSTRESSパスワードを再入力してください:"
 
-#: modules/pam_stress/pam_stress.c:519
+#: modules/pam_stress/pam_stress.c:523
 msgid "Verification mis-typed; password unchanged"
 msgstr "ミスタイプの確認、パスワードが変更されていません"
 

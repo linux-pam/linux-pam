@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-12-12 13:11+0100\n"
-"PO-Revision-Date: 2005-12-07 18:08+01:00\n"
+"POT-Creation-Date: 2005-12-12 18:34+0100\n"
+"PO-Revision-Date: 2005-12-12 17:55+01:00\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgid "You have no mail in folder %s."
 msgstr "Sie haben keine Nachrichten in %s."
 
 #: modules/pam_mail/pam_mail.c:328
-#, fuzzy, c-format
+#, c-format
 msgid "You have new mail in folder %s."
 msgstr "Sie haben neue Nachrichten in %s."
 
@@ -229,19 +229,19 @@ msgstr "Geben Sie ein neues UNIX Passwort ein: "
 msgid "Retype new UNIX password: "
 msgstr "Geben Sie das neue UNIX Passwort erneut ein: "
 
-#: modules/pam_stress/pam_stress.c:474
+#: modules/pam_stress/pam_stress.c:477
 msgid "Changing STRESS password for "
 msgstr "Ändern des STRESS-Passworts für"
 
-#: modules/pam_stress/pam_stress.c:488
+#: modules/pam_stress/pam_stress.c:491
 msgid "Enter new STRESS password: "
 msgstr "Geben Sie ein neues STRESS-Passwort ein:"
 
-#: modules/pam_stress/pam_stress.c:491
+#: modules/pam_stress/pam_stress.c:494
 msgid "Retype new STRESS password: "
 msgstr "Geben Sie das neue STRESS-Passwort erneut ein:"
 
-#: modules/pam_stress/pam_stress.c:519
+#: modules/pam_stress/pam_stress.c:523
 msgid "Verification mis-typed; password unchanged"
 msgstr "Bestätigungspasswort falsch eingegeben; Passwort nicht geändert"
 

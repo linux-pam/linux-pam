@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM-pt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-12-12 13:11+0100\n"
+"POT-Creation-Date: 2005-12-12 18:34+0100\n"
 "PO-Revision-Date: 2005-08-07 00:41+0100\n"
 "Last-Translator: Antonio Cardoso Martins <digiplan@netvisao.pt>\n"
 "Language-Team: portuguese\n"
@@ -236,19 +236,19 @@ msgstr "Digite a nova palavra passe de STRESS: "
 msgid "Retype new UNIX password: "
 msgstr "Digite novamente a nova palavra passe de STRESS: "
 
-#: modules/pam_stress/pam_stress.c:474
+#: modules/pam_stress/pam_stress.c:477
 msgid "Changing STRESS password for "
 msgstr "A alterar a palavra passe de STRESS para "
 
-#: modules/pam_stress/pam_stress.c:488
+#: modules/pam_stress/pam_stress.c:491
 msgid "Enter new STRESS password: "
 msgstr "Digite a nova palavra passe de STRESS: "
 
-#: modules/pam_stress/pam_stress.c:491
+#: modules/pam_stress/pam_stress.c:494
 msgid "Retype new STRESS password: "
 msgstr "Digite novamente a nova palavra passe de STRESS: "
 
-#: modules/pam_stress/pam_stress.c:519
+#: modules/pam_stress/pam_stress.c:523
 msgid "Verification mis-typed; password unchanged"
 msgstr "A verificação não coincide; palavra passe inalterada"
 

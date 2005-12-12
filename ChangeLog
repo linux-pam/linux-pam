@@ -1,3 +1,13 @@
+2005-12-12  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 0.99.2.1
+
+	* po/de.po: Remove new fuzzy entry
+
+	* NEWS: Add 0.99.2.1 changes
+
+	* configure.in: bump version number to 0.99.2.1
+
 2005-12-12  Dmitry V. Levin  <ldv@altlinux.org>
 
 	Cleanup pam_syslog messages.

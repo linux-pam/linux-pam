@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM TBD\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-12-12 13:11+0100\n"
+"POT-Creation-Date: 2005-12-12 18:34+0100\n"
 "PO-Revision-Date: 2005-08-23 15:22+0200\n"
 "Last-Translator: Piotr Bolek <pb@7bulls.com>\n"
 "Language-Team: Polish <i18n@suse.de>\n"
@@ -231,19 +231,19 @@ msgstr "Poda nowe hasło STRESS: "
 msgid "Retype new UNIX password: "
 msgstr "Wpisz ponownie hasło STRESS: "
 
-#: modules/pam_stress/pam_stress.c:474
+#: modules/pam_stress/pam_stress.c:477
 msgid "Changing STRESS password for "
 msgstr "Zmiana hasła STRESS dla "
 
-#: modules/pam_stress/pam_stress.c:488
+#: modules/pam_stress/pam_stress.c:491
 msgid "Enter new STRESS password: "
 msgstr "Poda nowe hasło STRESS: "
 
-#: modules/pam_stress/pam_stress.c:491
+#: modules/pam_stress/pam_stress.c:494
 msgid "Retype new STRESS password: "
 msgstr "Wpisz ponownie hasło STRESS: "
 
-#: modules/pam_stress/pam_stress.c:519
+#: modules/pam_stress/pam_stress.c:523
 msgid "Verification mis-typed; password unchanged"
 msgstr "Błędna weryfikacja; hasło niezmienione"
 
