@@ -325,7 +325,7 @@ report_mail(pam_handle_t *pamh, int ctrl, int type, const char *folder)
 				 folder);
 	      break;
 	    case HAVE_NEW_MAIL:
-	      retval = pam_info (pamh, _("You have mew mail in folder %s."),
+	      retval = pam_info (pamh, _("You have new mail in folder %s."),
 				 folder);
 	      break;
 	    case HAVE_OLD_MAIL:

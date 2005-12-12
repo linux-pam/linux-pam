@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-12-07 18:03+0100\n"
+"POT-Creation-Date: 2005-12-12 13:11+0100\n"
 "PO-Revision-Date: 2005-08-18 12:12+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -156,7 +156,7 @@ msgstr ""
 
 #: modules/pam_mail/pam_mail.c:328
 #, c-format
-msgid "You have mew mail in folder %s."
+msgid "You have new mail in folder %s."
 msgstr ""
 
 #: modules/pam_mail/pam_mail.c:332
