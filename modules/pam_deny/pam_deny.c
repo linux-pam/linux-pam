@@ -1,4 +1,4 @@
-/* pam_permit module */
+/* pam_deny module */
 
 /*
  * $Id$
