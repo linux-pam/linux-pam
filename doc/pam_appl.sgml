@@ -223,7 +223,7 @@ is, is not well defined.  However, some examples are given in the
 glossary below.
 
 <sect>The public interface to <bf>Linux-PAM</bf>
- 
+
 <p>
 Firstly, the relevant include file for the <bf>Linux-PAM</bf> library
 is <tt>&lt;security/pam_appl.h&gt;</tt>. It contains the definitions
@@ -321,7 +321,7 @@ extern int pam_set_item(pam_handle_t *pamh, int item_type,
 
 <tag><tt/PAM_USER/</tag>
 
-	The username of the entity under who's identity service will
+	The username of the entity under whose identity service will
 	be given. That is, following authentication, <tt/PAM_USER/
 	identifies the local entity that gets to use the
 	service. Note, this value can be mapped from something (eg.,
@@ -723,14 +723,14 @@ error-returns are:
 <descrip>
 <tag><tt/PAM_AUTHTOK_ERR/</tag>
 	A module was unable to obtain the new authentication token.
-	
+
 <tag><tt/PAM_AUTHTOK_RECOVERY_ERR/</tag>
 	A module was unable to obtain the old authentication token.
 
 <tag><tt/PAM_AUTHTOK_LOCK_BUSY/</tag>
 	One or more of the modules was unable to change the
 authentication token since it is currently locked.
-	
+
 <tag><tt/PAM_AUTHTOK_DISABLE_AGING/</tag>
 	Authentication token aging has been disabled for at least one
 of the modules.
@@ -1559,7 +1559,7 @@ int main(int argc, char *argv[])
     }
 
     retval = pam_start("check_user", user, &ero;conv, &ero;pamh);
-	
+
     if (retval == PAM_SUCCESS)
         retval = pam_authenticate(pamh, 0);    /* is user really user? */
 

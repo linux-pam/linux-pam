@@ -1,3 +1,8 @@
+2005-12-14  Thorsten Kukuk  <kukuk@suse.de>
+
+	* doc/pam_appl.sgml: Fix typo (Reported by
+	Russell Bateman <russ@windofkeltia.com>)
+
 2005-12-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.2.1
