@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = group.conf
+EXTRA_DIST = README group.conf
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

@@ -1,3 +1,15 @@
+2005-12-16  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_group/pam_group.c (check_account): Implement
+	support for netgroups.
+
+	* modules/pam_group/group.conf: Add all documentation to this
+	example config file and don't reference to outdated configs.
+
+	* modules/pam_group/README: New.
+
+	* modules/pam_group/Makefile.am: Add README to EXTRADIST.
+
 2005-12-15  Thorsten Kukuk  <kukuk@suse.de>
 
 	* modules/pam_lastlog/pam_lastlog.c (last_login_read): Don't report an

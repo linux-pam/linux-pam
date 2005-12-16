@@ -1,0 +1,23 @@
+
+This is a help file for the pam_group module. It explains the need for
+pam_group and also the syntax of the /etc/security/group.conf file.
+
+1. Introduction
+===============
+
+It is desirable to give extra privileges to a user running a specific
+PAM aware application at various times of the day and on specific days
+or over various terminal lines by adding this user to extra groups.
+
+The pam_group module is intended to offer a configurable module that
+satisfies this purpose, within the context of Linux-PAM.
+
+2. the /etc/security/group.conf file
+===================================
+
+Its syntax is described in the sample group.conf file.
+
+unrecognised rules are ignored (but an error is logged to syslog(3))
+
+--------------------
+Bugs to the list <pam-list@redhat.com>

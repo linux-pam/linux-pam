@@ -6,11 +6,6 @@
  * Written by Andrew Morgan <morgan@linux.kernel.org> 1996/7/6
  */
 
-static const char rcsid[] =
-"$Id$;\n"
-"Version 0.5 for Linux-PAM\n"
-"Copyright (c) Andrew G. Morgan 1996 <morgan@linux.kernel.org>\n";
-
 #include "config.h"
 
 #include <sys/file.h>
@@ -27,6 +22,7 @@ static const char rcsid[] =
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <netdb.h>
 
 #define PAM_GROUP_BUFLEN        1000
 #define FIELD_SEPARATOR         ';'   /* this is new as of .02 */
@@ -686,7 +682,11 @@ static int check_account(pam_handle_t *pamh, const char *service,
 		       "%s: no user entry #%d", PAM_GROUP_CONF, count);
 	    continue;
 	}
-	good &= logic_field(pamh,user, buffer, count, is_same);
+	/* If buffer starts with @, we are using netgroups */
+	if (buffer[0] == '@')
+	  good &= innetgr (&buffer[1], NULL, user, NULL);
+	else
+	  good &= logic_field(pamh,user, buffer, count, is_same);
 	D(("with user: %s", good ? "passes":"fails" ));
 
 	/* here we get the time field */
