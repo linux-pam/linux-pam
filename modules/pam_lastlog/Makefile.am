@@ -7,6 +7,8 @@ CLEANFILES = *~
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
+EXTRADIST = README
+
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
 AM_LDFLAGS = -no-undefined -avoid-version -module \
 	-L$(top_builddir)/libpam -lpam -lutil

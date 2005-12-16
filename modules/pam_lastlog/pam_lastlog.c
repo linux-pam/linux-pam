@@ -1,8 +1,6 @@
 /* pam_lastlog module */
 
 /*
- * $Id$
- *
  * Written by Andrew Morgan <morgan@linux.kernel.org> 1996/3/11
  *
  * This module does the necessary work to display the last login
@@ -140,47 +138,41 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
 {
     struct flock last_lock;
     struct lastlog last_login;
-    int retval = PAM_SERVICE_ERR;
+    int retval = PAM_SUCCESS;
     char *date = NULL;
     char *host = NULL;
     char *line = NULL;
 
-    do {
-	memset(&last_lock, 0, sizeof(last_lock));
-	last_lock.l_type = F_RDLCK;
-	last_lock.l_whence = SEEK_SET;
-	last_lock.l_start = sizeof(last_login) * (off_t) uid;
-	last_lock.l_len = sizeof(last_login);
+    memset(&last_lock, 0, sizeof(last_lock));
+    last_lock.l_type = F_RDLCK;
+    last_lock.l_whence = SEEK_SET;
+    last_lock.l_start = sizeof(last_login) * (off_t) uid;
+    last_lock.l_len = sizeof(last_login);
 
-	if (fcntl(last_fd, F_SETLK, &last_lock) < 0) {
-	    D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
-	    pam_syslog(pamh, LOG_WARNING,
-		       "file %s is locked/read", _PATH_LASTLOG);
-	    sleep(LASTLOG_IGNORE_LOCK_TIME);
+    if (fcntl(last_fd, F_SETLK, &last_lock) < 0) {
+        D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
+	pam_syslog(pamh, LOG_WARNING,
+		   "file %s is locked/read", _PATH_LASTLOG);
+	sleep(LASTLOG_IGNORE_LOCK_TIME);
+    }
+
+    if (pam_modutil_read(last_fd, (char *) &last_login,
+			 sizeof(last_login)) != sizeof(last_login)) {
+        memset(&last_login, 0, sizeof(last_login));
+    }
+
+    last_lock.l_type = F_UNLCK;
+    (void) fcntl(last_fd, F_SETLK, &last_lock);        /* unlock */
+
+    if (!last_login.ll_time) {
+        if (announce & LASTLOG_DEBUG) {
+	    pam_syslog(pamh, LOG_DEBUG, "first login for user with uid %d", uid);
 	}
+    }
 
-	if (pam_modutil_read(last_fd, (char *) &last_login,
-			     sizeof(last_login)) != sizeof(last_login)) {
-	    memset(&last_login, 0, sizeof(last_login));
-	}
-
-	last_lock.l_type = F_UNLCK;
-	(void) fcntl(last_fd, F_SETLK, &last_lock);        /* unlock */
-
-	if (!last_login.ll_time) {
-	    D(("First login for user uid=%d", uid));
-	    if (announce & LASTLOG_DEBUG) {
-		pam_syslog(pamh, LOG_DEBUG, "creating lastlog for uid %d", uid);
-	    }
-	}
-
-	if ((announce & LASTLOG_QUIET)) {
-	    retval = PAM_SUCCESS;
-	    break;
-	}
+    if (!(announce & LASTLOG_QUIET)) {
 
 	if (last_login.ll_time) {
-	    retval = PAM_BUF_ERR;
 
 	    /* we want the date? */
 	    if (announce & LASTLOG_DATE) {
@@ -193,7 +185,8 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
 
 		if (asprintf(&date, " %s", the_time) < 0) {
 		    pam_syslog(pamh, LOG_ERR, "out of memory");
-		    break;
+		    retval = PAM_BUF_ERR;
+		    goto cleanup;
 		}
 	    }
 
@@ -204,18 +197,20 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
 		if (asprintf(&host, _(" from %.*s"), UT_HOSTSIZE,
 			     last_login.ll_host) < 0) {
 		    pam_syslog(pamh, LOG_ERR, "out of memory");
-		    break;
+		    retval = PAM_BUF_ERR;
+		    goto cleanup;
 		}
 	    }
 
 	    /* we want and have the terminal? */
 	    if ((announce & LASTLOG_LINE)
 		&& (last_login.ll_line[0] != '\0')) {
-		/* TRANSLATORS: " on <terminal>" */ 
+		/* TRANSLATORS: " on <terminal>" */
 		if (asprintf(&line, _(" on %.*s"), UT_LINESIZE,
 			     last_login.ll_line) < 0) {
 		    pam_syslog(pamh, LOG_ERR, "out of memory");
-		    break;
+		    retval = PAM_BUF_ERR;
+		    goto cleanup;
 		}
 	    }
 
@@ -228,9 +223,10 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
 		D(("this is the first time this user has logged in"));
 		retval = pam_info(pamh, "%s", _("Welcome to your new account!"));
 	}
-    } while (0);
+    }
 
     /* cleanup */
+ cleanup:
     memset(&last_login, 0, sizeof(last_login));
     _pam_overwrite(date);
     _pam_drop(date);
@@ -325,7 +321,7 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
 static int
 last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user)
 {
-    int rc_read, rc_write;
+    int retval;
     int last_fd;
 
     /* obtain the last login date and all the relevant info */
@@ -342,16 +338,20 @@ last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user)
 	return PAM_SERVICE_ERR;
     }
 
-    rc_read = last_login_read(pamh, announce, last_fd, uid);
-    rc_write = last_login_write(pamh, announce, last_fd, uid, user);
+    retval = last_login_read(pamh, announce, last_fd, uid);
+    if (retval != PAM_SUCCESS)
+      {
+	close(last_fd);
+	D(("error while reading lastlog file"));
+	return retval;
+      }
+
+    retval = last_login_write(pamh, announce, last_fd, uid, user);
 
     close(last_fd);
     D(("all done with last login"));
 
-    if (rc_write != PAM_SUCCESS)
-	return rc_write;
-    else
-	return rc_read;
+    return retval;
 }
 
 /* --- authentication management functions (only) --- */

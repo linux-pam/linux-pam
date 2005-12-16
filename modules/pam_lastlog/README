@@ -1,0 +1,30 @@
+pam_lastlogin: The last login module
+
+This module can be used as session entry to provide a `Last login on ...'
+message. When the user logs into the system from what ever application
+uses the PAM libraries.  In addition, the module maintains the
+/var/log/lastlog file and the wtmp entry.
+
+
+The behavior of this module can be modified with one of the following
+flags:
+
+ * debug - write more information to syslog(3).
+
+ * nodate - neglect to give the date of the last login when displaying
+            information about the last login on the system.
+
+ * noterm - neglect to diplay the terminal name on which the last
+            login was attempt.
+
+ * nohost - neglect to indicate from which host the last login was
+            attempted.
+
+ * silent - neglect to inform the user about any previous login:
+            just update the /var/log/lastlog file.
+
+ * never - if the /var/log/lastlog file does not contain any old
+           entries for the user, indicate that the user has never
+           previously logged in with a ``welcome..." message.
+
+ * nowtmp - Don't update the wtmp entry.
