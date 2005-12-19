@@ -45,6 +45,10 @@
 
 #include "pam_private.h"
 
+#ifndef LOG_AUTHPRIV
+#define LOG_AUTHPRIV LOG_AUTH
+#endif
+
 static const char *
 _pam_choice2str (int choice)
 {
