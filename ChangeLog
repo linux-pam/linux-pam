@@ -1,3 +1,10 @@
+2005-12-19  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_time/pam_time.c (check_account): Implement
+	support for netgroups.
+
+	* modules/pam_time/time.conf: Document usage of netgroups.
+
 2005-12-16  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_group/pam_group.c (check_account): Implement
