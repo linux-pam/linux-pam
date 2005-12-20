@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-12-12 18:34+0100\n"
+"POT-Creation-Date: 2005-12-20 22:26+0100\n"
 "PO-Revision-Date: 2005-12-12 13:14+0100\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
@@ -57,24 +57,24 @@ msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Nelze resetovat všechny uživatele nenulově\n"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:204
+#: modules/pam_lastlog/pam_lastlog.c:195
 #, c-format
 msgid " from %.*s"
 msgstr " z %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:215
+#: modules/pam_lastlog/pam_lastlog.c:207
 #, c-format
 msgid " on %.*s"
 msgstr " na %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:223
+#: modules/pam_lastlog/pam_lastlog.c:216
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Poslední přihlášení:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:229
+#: modules/pam_lastlog/pam_lastlog.c:222
 msgid "Welcome to your new account!"
 msgstr "Vítejte na vašem novém účtu!"
 

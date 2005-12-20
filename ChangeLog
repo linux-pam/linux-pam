@@ -1,3 +1,10 @@
+2005-12-20  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_lastlog/pam_lastlog.c (last_login_read): Use
+	strftime instead of ctime.
+
+	* po/de.po: Fix typo.
+
 2005-12-19  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/pam_syslog.c: Define LOG_AUTHPRIV as LOG_AUTH on Solaris.

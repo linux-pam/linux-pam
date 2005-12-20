@@ -139,6 +139,7 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
     struct flock last_lock;
     struct lastlog last_login;
     int retval = PAM_SUCCESS;
+    char the_time[256];
     char *date = NULL;
     char *host = NULL;
     char *line = NULL;
@@ -176,18 +177,15 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
 
 	    /* we want the date? */
 	    if (announce & LASTLOG_DATE) {
+	        struct tm *tm, tm_buf;
 		time_t ll_time;
-		char *the_time;
 
 		ll_time = last_login.ll_time;
-		the_time = ctime(&ll_time);
-		the_time[strlen(the_time)-1] = '\0';    /* strip trailing '\n' */
+		tm = localtime_r (&ll_time, &tm_buf);
+		strftime (the_time, sizeof (the_time),
+			  " %a %b %e %H:%M:%S %Z %Y", tm);
 
-		if (asprintf(&date, " %s", the_time) < 0) {
-		    pam_syslog(pamh, LOG_ERR, "out of memory");
-		    retval = PAM_BUF_ERR;
-		    goto cleanup;
-		}
+		date = the_time;
 	    }
 
 	    /* we want & have the host? */
@@ -229,7 +227,6 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
  cleanup:
     memset(&last_login, 0, sizeof(last_login));
     _pam_overwrite(date);
-    _pam_drop(date);
     _pam_overwrite(host);
     _pam_drop(host);
     _pam_overwrite(line);
