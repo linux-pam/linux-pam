@@ -34,10 +34,16 @@ pam_succeed_if:
 		!~		- Wildcard mismatch.
 		ingroup		- Group membership check. [*]
 		notingroup	- Group non-membership check. [*]
+		innetgr		- Netgroup membership check. [*][+]
+		notinnetgr	- Netgroup non-membership check. [*][+]
 
-		* The "ingroup" and "notingroup" operators should only be
-		  used with the USER attribute.
+		* The "ingroup", "notingroup", "innetgr" and "notinnetgr"
+		  operators should only be used with the USER attribute.
 
+		+ The "innetgr" and "notinnetgr" operators always match
+		  both remote host and USER against the netgroup. If a remote
+		  host is not set by the application it will be matched
+		  against any host in the netgroup triplet.
 	Examples:
 
 		Deny authentication to all users except those in the wheel

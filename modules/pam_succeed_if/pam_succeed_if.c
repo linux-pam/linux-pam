@@ -52,6 +52,7 @@
 #include <unistd.h>
 #include <pwd.h>
 #include <grp.h>
+#include <netdb.h>
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
@@ -183,30 +184,32 @@ evaluate_noglob(const char *left, const char *right)
 static int
 evaluate_ingroup(pam_handle_t *pamh, const char *user, const char *group)
 {
-	int ret;
-	ret = pam_modutil_user_in_group_nam_nam(pamh, user, group);
-	switch (ret) {
-	case 1:
+	if (pam_modutil_user_in_group_nam_nam(pamh, user, group) == 1)
 		return PAM_SUCCESS;
-		break;
-	default:
-		break;
-	}
 	return PAM_AUTH_ERR;
 }
 /* Return PAM_SUCCESS if the user is NOT in the group. */
 static int
 evaluate_notingroup(pam_handle_t *pamh, const char *user, const char *group)
 {
-	int ret;
-	ret = pam_modutil_user_in_group_nam_nam(pamh, user, group);
-	switch (ret) {
-	case 0:
+	if (pam_modutil_user_in_group_nam_nam(pamh, user, group) == 0)
 		return PAM_SUCCESS;
-		break;
-	default:
-		break;
-	}
+	return PAM_AUTH_ERR;
+}
+/* Return PAM_SUCCESS if the (host,user) is in the netgroup. */
+static int
+evaluate_innetgr(const char *host, const char *user, const char *group)
+{
+	if (innetgr(group, host, user, NULL) == 1)
+		return PAM_SUCCESS;
+	return PAM_AUTH_ERR;
+}
+/* Return PAM_SUCCESS if the (host,user) is NOT in the netgroup. */
+static int
+evaluate_notinnetgr(const char *host, const char *user, const char *group)
+{
+	if (innetgr(group, host, user, NULL) == 0)
+		return PAM_SUCCESS;
 	return PAM_AUTH_ERR;
 }
 
@@ -305,6 +308,20 @@ evaluate(pam_handle_t *pamh, int debug,
 	/* User is not in this group. */
 	if (strcasecmp(qual, "notingroup") == 0) {
 		return evaluate_notingroup(pamh, pwd->pw_name, right);
+	}
+	/* (Rhost, user) is in this netgroup. */
+	if (strcasecmp(qual, "innetgr") == 0) {
+		const void *rhost;
+		if (pam_get_item(pamh, PAM_RHOST, &rhost) != PAM_SUCCESS)
+			rhost = NULL;		
+		return evaluate_innetgr(rhost, pwd->pw_name, right);
+	}
+	/* (Rhost, user) is not in this group. */
+	if (strcasecmp(qual, "notinnetgr") == 0) {
+		const void *rhost;
+		if (pam_get_item(pamh, PAM_RHOST, &rhost) != PAM_SUCCESS)
+			rhost = NULL;		
+		return evaluate_notinnetgr(rhost, pwd->pw_name, right);
 	}
 	/* Fail closed. */
 	return PAM_SERVICE_ERR;

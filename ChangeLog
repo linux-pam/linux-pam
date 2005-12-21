@@ -1,3 +1,12 @@
+2005-12-21  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_succeed_if/pam_succeed_if.c (evaluate_ingroup),
+	(evaluate_notingroup): Simplified.
+	(evaluate_innetgr), (evaluate_notinnetgr): New functions.
+	(evaluate): Added calls to evaluate_(not)innetgr().
+	* modules/pam_succeed_if/README: Documented netgroup matching.
+	* NEWS: Mentioned the added netgroup matching support.
+
 2005-12-20  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_lastlog/pam_lastlog.c (last_login_read): Use
