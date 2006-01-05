@@ -171,7 +171,7 @@ typedef struct pam_handle pam_handle_t;
 extern int PAM_NONNULL((1))
 pam_set_item(pam_handle_t *pamh, int item_type, const void *item);
 
-extern int PAM_NONNULL((1,3))
+extern int PAM_NONNULL((1))
 pam_get_item(const pam_handle_t *pamh, int item_type, const void **item);
 
 extern const char *
@@ -309,13 +309,13 @@ struct pam_conv {
  * 3. The name of the author may not be used to endorse or promote
  *    products derived from this software without specific prior
  *    written permission.
- * 
+ *
  * ALTERNATIVELY, this product may be distributed under the terms of
  * the GNU Public License, in which case the provisions of the GPL are
  * required INSTEAD OF the above restrictions.  (This clause is
  * necessary due to a potential bad interaction between the GPL and
  * the restrictions contained in a BSD-style copyright.)
- * 
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -329,4 +329,3 @@ struct pam_conv {
  * OF THE POSSIBILITY OF SUCH DAMAGE.  */
 
 #endif /* _SECURITY__PAM_TYPES_H */
-

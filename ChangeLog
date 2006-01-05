@@ -1,3 +1,9 @@
+2006-01-05  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpam/include/security/_pam_types.h: Remove nonnull attribute
+	from third paramter (item) of pam_get_item.
+	* libpam/Makefile.am: Bump version number of shared library.
+
 2005-12-21  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_succeed_if/pam_succeed_if.c (evaluate_ingroup),
