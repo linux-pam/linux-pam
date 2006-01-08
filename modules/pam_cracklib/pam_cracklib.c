@@ -1,6 +1,5 @@
 /*
  * pam_cracklib module
- * $Id$
  */
 
 /*
@@ -572,7 +571,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		token1 = x_strdup(item);
 		item = NULL;
 	    } else {
-		retval = PAM_AUTHTOK_RECOVER_ERR;         /* didn't work */
+		retval = PAM_AUTHTOK_RECOVERY_ERR;         /* didn't work */
 	    }
 
 	} else {
@@ -587,7 +586,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
                 if (token1 == NULL) {
 		    pam_syslog(pamh, LOG_NOTICE,
                                "could not recover authentication token 1");
-		    retval = PAM_AUTHTOK_RECOVER_ERR;
+		    retval = PAM_AUTHTOK_RECOVERY_ERR;
 		}
                 /*
                  * tidy up the conversation (resp_retcode) is ignored
@@ -595,7 +594,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
                 _pam_drop(resp);
             } else {
                 retval = (retval == PAM_SUCCESS) ?
-                         PAM_AUTHTOK_RECOVER_ERR:retval ;
+                         PAM_AUTHTOK_RECOVERY_ERR:retval ;
             }
 	}
 
@@ -657,7 +656,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	        if (token2 == NULL) {
 		    pam_syslog(pamh,LOG_NOTICE,
 			       "could not recover authentication token 2");
-		    retval = PAM_AUTHTOK_RECOVER_ERR;
+		    retval = PAM_AUTHTOK_RECOVERY_ERR;
 		}
                 /*
                  * tidy up the conversation (resp_retcode) is ignored
@@ -665,7 +664,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	        _pam_drop(resp);
             } else {
                 retval = (retval == PAM_SUCCESS) ?
-                         PAM_AUTHTOK_RECOVER_ERR:retval ;
+                         PAM_AUTHTOK_RECOVERY_ERR:retval ;
             }
 
             if (retval != PAM_SUCCESS) {
@@ -684,7 +683,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
                 pam_set_item(pamh, PAM_AUTHTOK, NULL);
                 if (ctrl & PAM_DEBUG_ARG)
                     pam_syslog(pamh,LOG_NOTICE,"Password mistyped");
-                retval = PAM_AUTHTOK_RECOVER_ERR;
+                retval = PAM_AUTHTOK_RECOVERY_ERR;
                 continue;
             }
 

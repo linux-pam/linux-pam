@@ -1,6 +1,4 @@
-/* 
- * $Id$
- *
+/*
  * Copyright information at end of file.
  */
 
@@ -139,7 +137,7 @@ static int converse(pam_handle_t *pamh, int ctrl, int nargs
 
     D(("begin to converse"));
 
-    retval = pam_get_item( pamh, PAM_CONV, (const void **) &conv ) ; 
+    retval = pam_get_item( pamh, PAM_CONV, (const void **) &conv ) ;
     if ( retval == PAM_SUCCESS ) {
 
 	retval = conv->conv(nargs, ( const struct pam_message ** ) message
@@ -767,10 +765,10 @@ static int _unix_read_password( pam_handle_t *pamh
 	    item = NULL;
 	    return PAM_SUCCESS;
 	} else if (on(UNIX_USE_FIRST_PASS,ctrl)) {
-	    return PAM_AUTHTOK_RECOVER_ERR;       /* didn't work */
+	    return PAM_AUTHTOK_RECOVERY_ERR;       /* didn't work */
 	} else if (on(UNIX_USE_AUTHTOK, ctrl)
 		   && off(UNIX__OLD_PASSWD, ctrl)) {
-	    return PAM_AUTHTOK_RECOVER_ERR;
+	    return PAM_AUTHTOK_RECOVERY_ERR;
 	}
     }
 
@@ -825,7 +823,7 @@ static int _unix_read_password( pam_handle_t *pamh
 			if (!resp[i-1].resp
 			    || strcmp(token,resp[i-1].resp)) {
 			    token = _pam_delete(token); /* mistyped */
-			    retval = PAM_AUTHTOK_RECOVER_ERR;
+			    retval = PAM_AUTHTOK_RECOVERY_ERR;
 			    make_remark(pamh, ctrl
 					, PAM_ERROR_MSG, MISTYPED_PASS);
 			}
@@ -847,7 +845,7 @@ static int _unix_read_password( pam_handle_t *pamh
 
 	} else {
 	    retval = (retval == PAM_SUCCESS)
-		? PAM_AUTHTOK_RECOVER_ERR:retval ;
+		? PAM_AUTHTOK_RECOVERY_ERR:retval ;
 	}
     }
 
@@ -941,13 +939,13 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh
  * 3. The name of the author may not be used to endorse or promote
  *    products derived from this software without specific prior
  *    written permission.
- * 
+ *
  * ALTERNATIVELY, this product may be distributed under the terms of
  * the GNU Public License, in which case the provisions of the GPL are
  * required INSTEAD OF the above restrictions.  (This clause is
  * necessary due to a potential bad interaction between the GPL and
  * the restrictions contained in a BSD-style copyright.)
- * 
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -960,4 +958,3 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-

@@ -1,6 +1,4 @@
 /*
- * $Id$
- *
  * Copyright information at end of file.
  */
 
@@ -527,7 +525,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	     out if pam is called from setuid binary (su, sudo...) */
 	  setuid(0);
 	}
-	
+
 	/* exec binary helper */
 	args[0] = x_strdup(CHKPWD_HELPER);
 	args[1] = x_strdup(user);
@@ -865,7 +863,7 @@ int _unix_read_password(pam_handle_t * pamh
 		} else if (*pass != NULL) {	/* we have a password! */
 			return PAM_SUCCESS;
 		} else if (on(UNIX_USE_FIRST_PASS, ctrl)) {
-			return PAM_AUTHTOK_RECOVER_ERR;		/* didn't work */
+			return PAM_AUTHTOK_RECOVERY_ERR;	  /* didn't work */
 		} else if (on(UNIX_USE_AUTHTOK, ctrl)
 			   && off(UNIX__OLD_PASSWD, ctrl)) {
 			return PAM_AUTHTOK_ERR;
@@ -883,11 +881,11 @@ int _unix_read_password(pam_handle_t * pamh
 		if (comment != NULL && off(UNIX__QUIET, ctrl)) {
 			retval = pam_info(pamh, "%s", comment);
 		}
-		
+
 		if (retval == PAM_SUCCESS) {
 			retval = pam_prompt(pamh, PAM_PROMPT_ECHO_OFF,
 			    &resp[0], "%s", prompt1);
-			
+
 			if (retval == PAM_SUCCESS && prompt2 != NULL) {
 				retval = pam_prompt(pamh, PAM_PROMPT_ECHO_OFF,
 				    &resp[1], "%s", prompt2);
@@ -906,7 +904,7 @@ int _unix_read_password(pam_handle_t * pamh
 						/* verify that password entered correctly */
 						if (strcmp(token, resp[replies - 1])) {
 							/* mistyped */
-							retval = PAM_AUTHTOK_RECOVER_ERR;
+							retval = PAM_AUTHTOK_RECOVERY_ERR;
 							_make_remark(pamh, ctrl,
 							    PAM_ERROR_MSG, MISTYPED_PASS);
 						}
@@ -920,9 +918,9 @@ int _unix_read_password(pam_handle_t * pamh
 
 		} else {
 			retval = (retval == PAM_SUCCESS)
-			    ? PAM_AUTHTOK_RECOVER_ERR : retval;
+			    ? PAM_AUTHTOK_RECOVERY_ERR : retval;
 		}
-		
+
 		resp[0] = NULL;
 		if (replies > 1)
 			_pam_delete(resp[1]);
@@ -930,7 +928,7 @@ int _unix_read_password(pam_handle_t * pamh
 
 	if (retval != PAM_SUCCESS) {
 		_pam_delete(token);
-	
+
 		if (on(UNIX_DEBUG, ctrl))
 			pam_syslog(pamh, LOG_DEBUG,
 			         "unable to obtain a password");

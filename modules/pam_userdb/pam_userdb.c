@@ -1,7 +1,6 @@
 /* pam_userdb module */
 
 /*
- * $Id$
  * Written by Cristian Gafton <gafton@redhat.com> 1996/09/10
  * See the end of the file for Copyright Information
  */
@@ -249,7 +248,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	    compare = strncmp(data.dptr, pass, data.dsize);
 	  }
 
-	  if (cryptmode && strncasecmp(cryptmode, "none", 4) 
+	  if (cryptmode && strncasecmp(cryptmode, "none", 4)
 		&& (ctrl & PAM_DEBUG_ARG)) {
 	    pam_syslog(pamh, LOG_INFO, "invalid value for crypt parameter: %s",
 		       cryptmode);
@@ -355,7 +354,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	    return retval;
         }
      }
-     
+
      /* Check if we got a password */
      retval = pam_get_item(pamh, PAM_AUTHTOK, &password);
      if (retval != PAM_SUCCESS || password == NULL) {
@@ -370,10 +369,10 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	}
 	if (retval != PAM_SUCCESS || password == NULL) {
 	    pam_syslog(pamh, LOG_ERR, "can not recover user password");
-	    return PAM_AUTHTOK_RECOVER_ERR;
-	} 
+	    return PAM_AUTHTOK_RECOVERY_ERR;
+	}
      }
-     
+
      if (ctrl & PAM_DEBUG_ARG)
 	 pam_syslog(pamh, LOG_INFO, "Verify user `%s' with a password",
 		    username);

@@ -2,8 +2,6 @@
 #define _PAM_COMPAT_H
 
 /*
- * $Id$
- *
  * This file was contributed by Derrick J Brashear <shadow@dementia.org>
  * slight modification by Brad M. Garcia <bgarcia@fore.com>
  *
@@ -117,6 +115,11 @@
 # define PAM_TRY_AGAIN           	27
 
 #endif /* _SECURITY__PAM_TYPES_H */
+
+#else
+
+/* For compatibility with old Linux-PAM implementations. */
+#define PAM_AUTHTOK_RECOVER_ERR PAM_AUTHTOK_RECOVERY_ERR
 
 #endif /* defined(solaris) || (defined(__SVR4) && defined(sun)) */
 

@@ -1,3 +1,18 @@
+2006-01-08  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_cracklib/pam_cracklib.c: Use PAM_AUTHTOK_RECOVERY_ERR
+	instead of PAM_AUTHTOK_RECOVER_ERR.
+	* modules/pam_pwdb/support.-c: Likewise.
+	* modules/pam_unix/support.c: Likewise.
+	* modules/pam_userdb/pam_userdb.c (pam_sm_authenticate): Likewise.
+	* libpam/pam_strerror.c (pam_strerror): Likewise.
+
+	* libpam/include/security/_pam_compat.h: Define
+	PAM_AUTHTOK_RECOVER_ERR for backward compatibility.
+
+	* libpam/include/security/_pam_types.h: Rename
+	PAM_AUTHTOK_RECOVER_ERR to PAM_AUTHTOK_RECOVERY_ERR.
+
 2006-01-05  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/include/security/_pam_types.h: Remove nonnull attribute

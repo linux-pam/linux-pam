@@ -1,14 +1,10 @@
 /*
  * <security/_pam_types.h>
  *
- * $Id$
- *
  * This file defines all of the types common to the Linux-PAM library
  * applications and modules.
  *
  * Note, the copyright+license information is at end of file.
- *
- * Created: 1996/3/5 by AGM
  */
 
 #ifndef _SECURITY__PAM_TYPES_H
@@ -67,8 +63,8 @@ typedef struct pam_handle pam_handle_t;
 #define PAM_NO_MODULE_DATA 18	/* No module specific data is present */
 #define PAM_CONV_ERR 19		/* Conversation error */
 #define PAM_AUTHTOK_ERR 20	/* Authentication token manipulation error */
-#define PAM_AUTHTOK_RECOVER_ERR 21 /* Authentication information */
-				   /* cannot be recovered */
+#define PAM_AUTHTOK_RECOVERY_ERR 21 /* Authentication information */
+				    /* cannot be recovered */
 #define PAM_AUTHTOK_LOCK_BUSY 22   /* Authentication token lock busy */
 #define PAM_AUTHTOK_DISABLE_AGING 23 /* Authentication token aging disabled */
 #define PAM_TRY_AGAIN 24	/* Preliminary check by password service */
