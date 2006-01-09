@@ -1,5 +1,9 @@
 2006-01-08  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* po/nb.po: Update with new translations.
+
+2006-01-08  Thorsten Kukuk  <kukuk@thkukuk.de>
+
 	* modules/pam_cracklib/pam_cracklib.c: Use PAM_AUTHTOK_RECOVERY_ERR
 	instead of PAM_AUTHTOK_RECOVER_ERR.
 	* modules/pam_pwdb/support.-c: Likewise.
