@@ -1,7 +1,7 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 * pam_succeed_if, pam_group, pam_time: Support netgroup matching.
-* New translations for: nb
+* New translations for: nb, hu
 
 Release 0.99.2.1
 
