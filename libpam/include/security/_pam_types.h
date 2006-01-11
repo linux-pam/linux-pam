@@ -156,7 +156,7 @@ typedef struct pam_handle pam_handle_t;
 # define PAM_FORMAT(params)
 #endif
 
-#if PAM_GNUC_PREREQ(3,3)
+#if PAM_GNUC_PREREQ(3,3) && !defined(LIBPAM_COMPILE)
 # define PAM_NONNULL(params) __attribute__((__nonnull__ params))
 #else
 # define PAM_NONNULL(params)

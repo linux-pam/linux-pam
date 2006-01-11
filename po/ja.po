@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-12-20 22:26+0100\n"
+"POT-Creation-Date: 2006-01-09 18:03+0100\n"
 "PO-Revision-Date: 2005-08-18 11:52-0000\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -187,7 +187,7 @@ msgstr "パスワードを直ちに変更する必要があります(古いパ�
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr "警告: パスワードは%d日で有効期限が切れます。%.2s"
 
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:62
+#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
 #, fuzzy
 msgid "Password: "
 msgstr "パスワードが変更されていません"
@@ -197,12 +197,12 @@ msgid "NIS password could not be changed."
 msgstr "NISパスワードを変更できませんでした。"
 
 #: modules/pam_unix/pam_unix_passwd.c:976
-#: modules/pam_cracklib/pam_cracklib.c:465
+#: modules/pam_cracklib/pam_cracklib.c:464
 msgid "No password supplied"
 msgstr "パスワードが与えられていません"
 
 #: modules/pam_unix/pam_unix_passwd.c:976
-#: modules/pam_cracklib/pam_cracklib.c:465
+#: modules/pam_cracklib/pam_cracklib.c:464
 msgid "Password unchanged"
 msgstr "パスワードが変更されていません"
 
@@ -249,53 +249,53 @@ msgstr "新しいSTRESSパスワードを再入力してください:"
 msgid "Verification mis-typed; password unchanged"
 msgstr "ミスタイプの確認、パスワードが変更されていません"
 
-#: modules/pam_cracklib/pam_cracklib.c:61
+#: modules/pam_cracklib/pam_cracklib.c:60
 #, fuzzy, c-format
 msgid "New %s%spassword: "
 msgstr "パスワードが変更されていません"
 
-#: modules/pam_cracklib/pam_cracklib.c:63
+#: modules/pam_cracklib/pam_cracklib.c:62
 #, fuzzy, c-format
 msgid "Retype new %s%spassword: "
 msgstr "新しいSTRESSパスワードを再入力してください:"
 
-#: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_cracklib/pam_cracklib.c:63
 #, fuzzy
 msgid "Sorry, passwords do not match."
 msgstr "NISパスワードを変更できませんでした。"
 
-#: modules/pam_cracklib/pam_cracklib.c:379
+#: modules/pam_cracklib/pam_cracklib.c:378
 msgid "is the same as the old one"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:390
+#: modules/pam_cracklib/pam_cracklib.c:389
 msgid "is a palindrome"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:393
+#: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:396
+#: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:399
+#: modules/pam_cracklib/pam_cracklib.c:398
 msgid "is too simple"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:402
+#: modules/pam_cracklib/pam_cracklib.c:401
 msgid "is rotated"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:437
+#: modules/pam_cracklib/pam_cracklib.c:436
 #, fuzzy
 msgid "has been already used"
 msgstr ""
 "パスワードはすでに使用されています。 別のパスワードを選択してください。"
 
-#: modules/pam_cracklib/pam_cracklib.c:489
-#: modules/pam_cracklib/pam_cracklib.c:617
+#: modules/pam_cracklib/pam_cracklib.c:488
+#: modules/pam_cracklib/pam_cracklib.c:616
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr ""
@@ -304,135 +304,135 @@ msgstr ""
 msgid "login:"
 msgstr ""
 
-#: libpam/pam_strerror.c:13
+#: libpam/pam_strerror.c:40
 msgid "Success"
 msgstr "成功"
 
-#: libpam/pam_strerror.c:15
+#: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
 msgstr "致命的エラー - 直ちに中止してください"
 
-#: libpam/pam_strerror.c:17
+#: libpam/pam_strerror.c:44
 msgid "dlopen() failure"
 msgstr "dlopen()失敗"
 
-#: libpam/pam_strerror.c:19
+#: libpam/pam_strerror.c:46
 msgid "Symbol not found"
 msgstr "記号が見つかりません"
 
-#: libpam/pam_strerror.c:21
+#: libpam/pam_strerror.c:48
 msgid "Error in service module"
 msgstr "サービスモジュールのエラー"
 
-#: libpam/pam_strerror.c:23
+#: libpam/pam_strerror.c:50
 msgid "System error"
 msgstr "システムエラー"
 
-#: libpam/pam_strerror.c:25
+#: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
 msgstr "メモリバッファエラー"
 
-#: libpam/pam_strerror.c:27
+#: libpam/pam_strerror.c:54
 msgid "Permission denied"
 msgstr "拒否されたパーミッション"
 
-#: libpam/pam_strerror.c:29
+#: libpam/pam_strerror.c:56
 msgid "Authentication failure"
 msgstr "認証失敗"
 
-#: libpam/pam_strerror.c:31
+#: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
 msgstr "認証データにアクセスする資格認定がありません"
 
-#: libpam/pam_strerror.c:33
+#: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info."
 msgstr "認証サービスが認証情報を検索できません。"
 
-#: libpam/pam_strerror.c:35
+#: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "基礎となる認証モジュールを知らないユーザ"
 
-#: libpam/pam_strerror.c:37
+#: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service."
 msgstr "サービスの最大試行回数に達しました。"
 
-#: libpam/pam_strerror.c:39
+#: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required."
 msgstr "認証トークンはもはや有効ではありません。新しい認証トークンが必要です。"
 
-#: libpam/pam_strerror.c:41
+#: libpam/pam_strerror.c:68
 msgid "User account has expired"
 msgstr "ユーザアカウントの有効期限が切れました"
 
-#: libpam/pam_strerror.c:43
+#: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
 msgstr "指定したセッションに対するエントリを作成/削除できません"
 
-#: libpam/pam_strerror.c:45
+#: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
 msgstr "認証サービスがユーザ資格認定を検索できません"
 
-#: libpam/pam_strerror.c:47
+#: libpam/pam_strerror.c:74
 msgid "User credentials expired"
 msgstr "ユーザ資格認定の有効期限切れ"
 
-#: libpam/pam_strerror.c:49
+#: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
 msgstr "ユーザ資格認定の設定に失敗しました"
 
-#: libpam/pam_strerror.c:51
+#: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
 msgstr "モジュール固有データがありません"
 
-#: libpam/pam_strerror.c:53
+#: libpam/pam_strerror.c:80
 msgid "Bad item passed to pam_*_item()"
 msgstr "pam_*_item()に渡された不正項目"
 
-#: libpam/pam_strerror.c:55
+#: libpam/pam_strerror.c:82
 msgid "Conversation error"
 msgstr "会話エラー"
 
-#: libpam/pam_strerror.c:57
+#: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
 msgstr "認証トークン操作エラー"
 
-#: libpam/pam_strerror.c:59
+#: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
 msgstr "認証情報を回復できません"
 
-#: libpam/pam_strerror.c:61
+#: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
 msgstr "認証トークンをロック中です"
 
-#: libpam/pam_strerror.c:63
+#: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
 msgstr "認証トークンエージングが無効です"
 
-#: libpam/pam_strerror.c:65
+#: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
 msgstr "パスワードサービスによる予備チェックに失敗しました"
 
-#: libpam/pam_strerror.c:67
+#: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
 msgstr "戻り値はPAMタスク指名により無視する必要があります"
 
-#: libpam/pam_strerror.c:69
+#: libpam/pam_strerror.c:96
 msgid "Module is unknown"
 msgstr "モジュールが不明です"
 
-#: libpam/pam_strerror.c:71
+#: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
 msgstr "認証トークンの有効期限切れです"
 
-#: libpam/pam_strerror.c:73
+#: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
 msgstr "会話はイベントを待っています"
 
-#: libpam/pam_strerror.c:75
+#: libpam/pam_strerror.c:102
 msgid "Application needs to call libpam again"
 msgstr "アプリケーションはlibpamを再び呼び出す必要があります"
 
-#: libpam/pam_strerror.c:78
+#: libpam/pam_strerror.c:105
 msgid "Unknown PAM error"
 msgstr "不明なPAMエラー"
 

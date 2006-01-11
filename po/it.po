@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-12-20 22:26+0100\n"
+"POT-Creation-Date: 2006-01-09 18:03+0100\n"
 "PO-Revision-Date: 2005-08-18 13:43-0000\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr "Avviso: la parola d'ordine scadrà tra %d giorni%.2s"
 
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:62
+#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
 #, fuzzy
 msgid "Password: "
 msgstr "Parola d'ordine non modificata"
@@ -200,12 +200,12 @@ msgid "NIS password could not be changed."
 msgstr "[f1]Impossibile modificare parola d'ordine NIS."
 
 #: modules/pam_unix/pam_unix_passwd.c:976
-#: modules/pam_cracklib/pam_cracklib.c:465
+#: modules/pam_cracklib/pam_cracklib.c:464
 msgid "No password supplied"
 msgstr "Nessuna parola d'ordine fornita"
 
 #: modules/pam_unix/pam_unix_passwd.c:976
-#: modules/pam_cracklib/pam_cracklib.c:465
+#: modules/pam_cracklib/pam_cracklib.c:464
 msgid "Password unchanged"
 msgstr "Parola d'ordine non modificata"
 
@@ -251,52 +251,52 @@ msgstr "Ridigitare nuova parola d'ordine STRESS:"
 msgid "Verification mis-typed; password unchanged"
 msgstr "Errore digitazione verifica; parola d'ordine non cambiata"
 
-#: modules/pam_cracklib/pam_cracklib.c:61
+#: modules/pam_cracklib/pam_cracklib.c:60
 #, fuzzy, c-format
 msgid "New %s%spassword: "
 msgstr "Parola d'ordine non modificata"
 
-#: modules/pam_cracklib/pam_cracklib.c:63
+#: modules/pam_cracklib/pam_cracklib.c:62
 #, fuzzy, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Ridigitare nuova parola d'ordine STRESS:"
 
-#: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_cracklib/pam_cracklib.c:63
 #, fuzzy
 msgid "Sorry, passwords do not match."
 msgstr "[f1]Impossibile modificare parola d'ordine NIS."
 
-#: modules/pam_cracklib/pam_cracklib.c:379
+#: modules/pam_cracklib/pam_cracklib.c:378
 msgid "is the same as the old one"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:390
+#: modules/pam_cracklib/pam_cracklib.c:389
 msgid "is a palindrome"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:393
+#: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:396
+#: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:399
+#: modules/pam_cracklib/pam_cracklib.c:398
 msgid "is too simple"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:402
+#: modules/pam_cracklib/pam_cracklib.c:401
 msgid "is rotated"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:437
+#: modules/pam_cracklib/pam_cracklib.c:436
 #, fuzzy
 msgid "has been already used"
 msgstr "Parola d'ordine già utilizzata. Sceglierne un'altra."
 
-#: modules/pam_cracklib/pam_cracklib.c:489
-#: modules/pam_cracklib/pam_cracklib.c:617
+#: modules/pam_cracklib/pam_cracklib.c:488
+#: modules/pam_cracklib/pam_cracklib.c:616
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr ""
@@ -305,140 +305,140 @@ msgstr ""
 msgid "login:"
 msgstr ""
 
-#: libpam/pam_strerror.c:13
+#: libpam/pam_strerror.c:40
 msgid "Success"
 msgstr "Successo"
 
-#: libpam/pam_strerror.c:15
+#: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
 msgstr "Errore critico - interruzione immediata"
 
-#: libpam/pam_strerror.c:17
+#: libpam/pam_strerror.c:44
 msgid "dlopen() failure"
 msgstr "errore dlopen()"
 
-#: libpam/pam_strerror.c:19
+#: libpam/pam_strerror.c:46
 msgid "Symbol not found"
 msgstr "Simbolo non trovato"
 
-#: libpam/pam_strerror.c:21
+#: libpam/pam_strerror.c:48
 msgid "Error in service module"
 msgstr "Errore in modulo di servizio"
 
-#: libpam/pam_strerror.c:23
+#: libpam/pam_strerror.c:50
 msgid "System error"
 msgstr "Errore di sistema"
 
-#: libpam/pam_strerror.c:25
+#: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
 msgstr "Errore buffer memoria"
 
-#: libpam/pam_strerror.c:27
+#: libpam/pam_strerror.c:54
 msgid "Permission denied"
 msgstr "Permesso negato"
 
-#: libpam/pam_strerror.c:29
+#: libpam/pam_strerror.c:56
 msgid "Authentication failure"
 msgstr "Errore di autenticazione"
 
-#: libpam/pam_strerror.c:31
+#: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
 msgstr "Credenziali insufficienti per accedere ai dati di autenticazione"
 
-#: libpam/pam_strerror.c:33
+#: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info."
 msgstr ""
 "Il servizio di autenticazione non è in grado di recuperare le informazioni "
 "di autenticazione."
 
-#: libpam/pam_strerror.c:35
+#: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "Utente sconosciuto nel modulo di autenticazione sottostante"
 
-#: libpam/pam_strerror.c:37
+#: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service."
 msgstr "Numero massimo di tentativi per il servizio superato."
 
-#: libpam/pam_strerror.c:39
+#: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required."
 msgstr "Token di autenticazione non più valido; richiesto uno nuovo."
 
-#: libpam/pam_strerror.c:41
+#: libpam/pam_strerror.c:68
 msgid "User account has expired"
 msgstr "Account utente scaduto"
 
-#: libpam/pam_strerror.c:43
+#: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
 msgstr ""
 "Impossibile creare/rimuovere una registrazione per la sessione specificata"
 
-#: libpam/pam_strerror.c:45
+#: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
 msgstr ""
 "Il servizio di autenticazione non è in grado di recuperare le credenziali "
 "utente"
 
-#: libpam/pam_strerror.c:47
+#: libpam/pam_strerror.c:74
 msgid "User credentials expired"
 msgstr "Credenziali utente scadute"
 
-#: libpam/pam_strerror.c:49
+#: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
 msgstr "Errore impostazione credenziali utente"
 
-#: libpam/pam_strerror.c:51
+#: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
 msgstr "Dati specifici del modulo non presenti"
 
-#: libpam/pam_strerror.c:53
+#: libpam/pam_strerror.c:80
 msgid "Bad item passed to pam_*_item()"
 msgstr "Elemento errato passato a pam_*_item()"
 
-#: libpam/pam_strerror.c:55
+#: libpam/pam_strerror.c:82
 msgid "Conversation error"
 msgstr "Errore conversazione"
 
-#: libpam/pam_strerror.c:57
+#: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
 msgstr "Errore manipolazione token autenticazione"
 
-#: libpam/pam_strerror.c:59
+#: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
 msgstr "Impossibile ripristinare informazioni autenticazione"
 
-#: libpam/pam_strerror.c:61
+#: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
 msgstr "Blocco token autenticazione occupato"
 
-#: libpam/pam_strerror.c:63
+#: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
 msgstr "Aging token autenticazione disabilitato"
 
-#: libpam/pam_strerror.c:65
+#: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
 msgstr "Errore controllo preliminare per servizio parola d'ordine"
 
-#: libpam/pam_strerror.c:67
+#: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
 msgstr "Il valore restituito deve essere ignorato da dispatch PAM"
 
-#: libpam/pam_strerror.c:69
+#: libpam/pam_strerror.c:96
 msgid "Module is unknown"
 msgstr "Modulo sconosciuto"
 
-#: libpam/pam_strerror.c:71
+#: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
 msgstr "Token autenticazione scaduto"
 
-#: libpam/pam_strerror.c:73
+#: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
 msgstr "Conversazione in attesa di evento"
 
-#: libpam/pam_strerror.c:75
+#: libpam/pam_strerror.c:102
 msgid "Application needs to call libpam again"
 msgstr "L'applicazione richiede chiamata a libpam"
 
-#: libpam/pam_strerror.c:78
+#: libpam/pam_strerror.c:105
 msgid "Unknown PAM error"
 msgstr "Errore PAM sconosciuto"
 

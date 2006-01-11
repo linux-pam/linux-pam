@@ -1,8 +1,8 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
 #
 
-AM_CFLAGS = -DDEFAULT_MODULE_PATH=\"$(SECUREDIR)/\" \
+AM_CFLAGS = -DDEFAULT_MODULE_PATH=\"$(SECUREDIR)/\" -DLIBPAM_COMPILE \
 	-I$(srcdir)/include $(LIBPRELUDE_CFLAGS) -DPAM_VERSION=\"$(VERSION)\"
 AM_LDFLAGS = $(LIBPRELUDE_LIBS) @LIBDL@
 

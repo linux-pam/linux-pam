@@ -1,10 +1,11 @@
 2006-01-11  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* libpam/Makefile.am (AM_CFLAGS): Define LIBPAM_COMPILE.
+
+	* libpam/include/security/_pam_types.h: Don't define PAM_NONNULL
+	if we compile libpam itself.
+
 	* po/hu.po: Update with new translations.
-
-2006-01-08  Thorsten Kukuk  <kukuk@thkukuk.de>
-
-	* po/nb.po: Update with new translations.
 
 2006-01-08  Thorsten Kukuk  <kukuk@thkukuk.de>
 

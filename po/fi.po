@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2005-12-20 22:26+0100\n"
+"POT-Creation-Date: 2006-01-09 18:03+0100\n"
 "PO-Revision-Date: 2005-09-17 12:27+0300\n"
 "Last-Translator: Ilkka Pirskanen <ilkka.pirskanen@kolumbus.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -188,7 +188,7 @@ msgstr "Salasanasi täytyy vaihtaa heti (salasana vanhentunut)"
 msgid "Warning: your password will expire in %d day%.2s"
 msgstr "Varoitus: salasanasi vanhenee %d päivässä%.2s"
 
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:62
+#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
 #, fuzzy
 msgid "Password: "
 msgstr "Salasanaa ei vaihdettu"
@@ -198,12 +198,12 @@ msgid "NIS password could not be changed."
 msgstr "NIS-salasanaa ei voitu vaihtaa."
 
 #: modules/pam_unix/pam_unix_passwd.c:976
-#: modules/pam_cracklib/pam_cracklib.c:465
+#: modules/pam_cracklib/pam_cracklib.c:464
 msgid "No password supplied"
 msgstr "Et antanut salasanaa"
 
 #: modules/pam_unix/pam_unix_passwd.c:976
-#: modules/pam_cracklib/pam_cracklib.c:465
+#: modules/pam_cracklib/pam_cracklib.c:464
 msgid "Password unchanged"
 msgstr "Salasanaa ei vaihdettu"
 
@@ -249,52 +249,52 @@ msgstr "Anna uusi STRESS-salasana uudelleen: "
 msgid "Verification mis-typed; password unchanged"
 msgstr "Salasanat eivät ole samat; salasanaa ei vaihdettu"
 
-#: modules/pam_cracklib/pam_cracklib.c:61
+#: modules/pam_cracklib/pam_cracklib.c:60
 #, c-format
 msgid "New %s%spassword: "
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:63
+#: modules/pam_cracklib/pam_cracklib.c:62
 #, fuzzy, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Anna uusi STRESS-salasana uudelleen: "
 
-#: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_cracklib/pam_cracklib.c:63
 #, fuzzy
 msgid "Sorry, passwords do not match."
 msgstr "NIS-salasanaa ei voitu vaihtaa."
 
-#: modules/pam_cracklib/pam_cracklib.c:379
+#: modules/pam_cracklib/pam_cracklib.c:378
 msgid "is the same as the old one"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:390
+#: modules/pam_cracklib/pam_cracklib.c:389
 msgid "is a palindrome"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:393
+#: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:396
+#: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:399
+#: modules/pam_cracklib/pam_cracklib.c:398
 msgid "is too simple"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:402
+#: modules/pam_cracklib/pam_cracklib.c:401
 msgid "is rotated"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:437
+#: modules/pam_cracklib/pam_cracklib.c:436
 #, fuzzy
 msgid "has been already used"
 msgstr "Salasana on jo käytetty. Valitse toinen."
 
-#: modules/pam_cracklib/pam_cracklib.c:489
-#: modules/pam_cracklib/pam_cracklib.c:617
+#: modules/pam_cracklib/pam_cracklib.c:488
+#: modules/pam_cracklib/pam_cracklib.c:616
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr ""
@@ -303,135 +303,135 @@ msgstr ""
 msgid "login:"
 msgstr ""
 
-#: libpam/pam_strerror.c:13
+#: libpam/pam_strerror.c:40
 msgid "Success"
 msgstr "Onnistui"
 
-#: libpam/pam_strerror.c:15
+#: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
 msgstr "Kriittinen virhe - välitön keskeytys"
 
-#: libpam/pam_strerror.c:17
+#: libpam/pam_strerror.c:44
 msgid "dlopen() failure"
 msgstr "dlopen() virhe"
 
-#: libpam/pam_strerror.c:19
+#: libpam/pam_strerror.c:46
 msgid "Symbol not found"
 msgstr "Symbolia ei löydetty"
 
-#: libpam/pam_strerror.c:21
+#: libpam/pam_strerror.c:48
 msgid "Error in service module"
 msgstr "Virhe palvelumoduulissa"
 
-#: libpam/pam_strerror.c:23
+#: libpam/pam_strerror.c:50
 msgid "System error"
 msgstr "Järjestelmävirhe"
 
-#: libpam/pam_strerror.c:25
+#: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
 msgstr "Muistipuskurivirhe"
 
-#: libpam/pam_strerror.c:27
+#: libpam/pam_strerror.c:54
 msgid "Permission denied"
 msgstr "Ei käyttöoikeutta"
 
-#: libpam/pam_strerror.c:29
+#: libpam/pam_strerror.c:56
 msgid "Authentication failure"
 msgstr "Tunnistautumisvirhe"
 
-#: libpam/pam_strerror.c:31
+#: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
 msgstr "Riittämätön valtakirja tunnistautumistietojen saamiseksi"
 
-#: libpam/pam_strerror.c:33
+#: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info."
 msgstr "Tunnistautumispalvelu ei pääse tunnistautumistietoihin."
 
-#: libpam/pam_strerror.c:35
+#: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "Käyttäjä tuntematon taustajärjestelmän tunnistautumismoduulille"
 
-#: libpam/pam_strerror.c:37
+#: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service."
 msgstr "Kaikki palvelun uudelleenyritykset käytetty."
 
-#: libpam/pam_strerror.c:39
+#: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required."
 msgstr "Tunnistautumislipuke ei ole enää kelvollinen, tarvitaan uusi."
 
-#: libpam/pam_strerror.c:41
+#: libpam/pam_strerror.c:68
 msgid "User account has expired"
 msgstr "Käyttäjätili on vanhentunut"
 
-#: libpam/pam_strerror.c:43
+#: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
 msgstr "Valitun istunnon merkintää ei voida tehdä/poistaa"
 
-#: libpam/pam_strerror.c:45
+#: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
 msgstr "Tunnistautumispalvelu ei pääse käyttäjän valtakirjaan"
 
-#: libpam/pam_strerror.c:47
+#: libpam/pam_strerror.c:74
 msgid "User credentials expired"
 msgstr "Käyttäjän valtakirja vanhentunut"
 
-#: libpam/pam_strerror.c:49
+#: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
 msgstr "Käyttäjän valtakirjan antaminen ei onnistunut"
 
-#: libpam/pam_strerror.c:51
+#: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
 msgstr "Moduulilla ei ole omia tietoja"
 
-#: libpam/pam_strerror.c:53
+#: libpam/pam_strerror.c:80
 msgid "Bad item passed to pam_*_item()"
 msgstr "Väärä tieto välitettiin funktiolle pam_*_item()"
 
-#: libpam/pam_strerror.c:55
+#: libpam/pam_strerror.c:82
 msgid "Conversation error"
 msgstr "Keskusteluvirhe"
 
-#: libpam/pam_strerror.c:57
+#: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
 msgstr "Tunnistautumislipukkeen käsittelyvirhe"
 
-#: libpam/pam_strerror.c:59
+#: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
 msgstr "Tunnistautumistietoja ei voida palauttaa"
 
-#: libpam/pam_strerror.c:61
+#: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
 msgstr "Tunnistautumislipukkeen lukko varattu"
 
-#: libpam/pam_strerror.c:63
+#: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
 msgstr "Tunnistautumislipukkeen vanhentuminen otettu pois käytöstä"
 
-#: libpam/pam_strerror.c:65
+#: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
 msgstr "Salasanapalvelun alustava tarkistus ei onnistunut"
 
-#: libpam/pam_strerror.c:67
+#: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
 msgstr "PAM-välittäjän tulisi hylätä paluuarvo"
 
-#: libpam/pam_strerror.c:69
+#: libpam/pam_strerror.c:96
 msgid "Module is unknown"
 msgstr "Tuntematon moduuli"
 
-#: libpam/pam_strerror.c:71
+#: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
 msgstr "Tunnistautumislipuke vanhentunut"
 
-#: libpam/pam_strerror.c:73
+#: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
 msgstr "Keskustelussa odotetaan tapahtumaa"
 
-#: libpam/pam_strerror.c:75
+#: libpam/pam_strerror.c:102
 msgid "Application needs to call libpam again"
 msgstr "Sovelluksen tarvitsee kutsua uudelleen libpam:ia"
 
-#: libpam/pam_strerror.c:78
+#: libpam/pam_strerror.c:105
 msgid "Unknown PAM error"
 msgstr "Tuntematon PAM-virhe"
 

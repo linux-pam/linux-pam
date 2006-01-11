@@ -15,5 +15,7 @@ EXTRA_DIST = config.rpath mkinstalldirs pgp.keys.asc CHANGELOG \
 
 ACLOCAL_AMFLAGS = -I m4
 
+release-docs: releasedocs
+
 releasedocs: 
 	make -C doc releasedocs

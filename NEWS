@@ -1,7 +1,9 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+* Fix NULL pointer checks in libpam.so
 * pam_succeed_if, pam_group, pam_time: Support netgroup matching.
 * New translations for: nb, hu
+
 
 Release 0.99.2.1
 
@@ -9,6 +11,7 @@ Release 0.99.2.1
 * pam_mail: Update README
 * Use %m consistent
 * pam_modutil_getlogin: Fix parsing of PAM_TTY variable
+
 
 Release 0.99.2.0
 
@@ -19,6 +22,7 @@ Release 0.99.2.0
 * pam_env: Support /etc/environment again, but don't treat it as
   error if it is missing.
 * pam_userdb: Fix memory leak.
+
 
 Release 0.99.1.0
 
