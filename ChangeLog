@@ -1,3 +1,21 @@
+2006-01-12  Steve Grubb  <sgrubb@redhat.com>
+
+	* configure.in: Add check for audit library.
+	* libpam/Makefile.am (libpam_la_LDFLAGS): Add LIBAUDIT.
+	(libpam_la_SOURCES): Add pam_audit.c.
+	* libpam/pam_account.c (pam_acct_mgmt): Add _pam_auditlog() call.
+	* libpam/pam_auth.c (pam_authenticate), (pam_setcred): Likewise.
+	* libpam/pam_password.c (pam_chauthtok):  Likewise.
+	* libpam/pam_session.c (pam_open_session),
+	(pam_close_session): Likewise.
+	* libpam/pam_private.h: Add audit_state member to pam_handle,
+	declare _pam_auditlog and _pam_audit_end.
+	* libpam/pam_start.c (pam_start): Initialize audit_state.
+	* libpam/pam_audit.c: New file with _pam_auditlog and _pam_audit_end
+	implementation.
+	* libpam/pam_end.c (pam_end): Add _pam_audit_end() call.
+	* NEWS: Note about added auditing.
+
 2006-01-11  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/Makefile.am (AM_CFLAGS): Define LIBPAM_COMPILE.

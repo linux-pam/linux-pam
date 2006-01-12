@@ -271,6 +271,16 @@ LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCRACK)
 AM_CONDITIONAL([HAVE_LIBCRACK], [test ! -z "$LIBCRACK"])
 
+dnl Look for Linux Auditing library - see documentation
+AC_CHECK_HEADER([libaudit.h])
+BACKUP_LIBS=$LIBS
+AC_CHECK_LIB(audit, audit_log_user_message, LIBAUDIT=-laudit, LIBAUDIT="")
+LIBS=$BACKUP_LIBS
+AC_SUBST(LIBAUDIT)
+if test ! -z "$LIBAUDIT" ; then
+    AC_DEFINE([HAVE_LIBAUDIT], 1, [Defined if audit support should be compiled in])
+fi
+
 BACKUP_LIBS=$LIBS
 AC_SEARCH_LIBS([crypt],[xcrypt crypt], LIBCRYPT="-l$ac_lib", LIBCRYPT="")
 LIBS=$BACKUP_LIBS

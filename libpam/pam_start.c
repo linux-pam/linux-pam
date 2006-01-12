@@ -88,6 +88,9 @@ int pam_start (
     (*pamh)->oldauthtok = NULL;
     (*pamh)->fail_delay.delay_fn_ptr = NULL;
     (*pamh)->former.choice = PAM_NOT_STACKED;
+#if HAVE_LIBAUDIT
+    (*pamh)->audit_state = 0;
+#endif
 
     if (((*pamh)->pam_conversation = (struct pam_conv *)
 	  malloc(sizeof(struct pam_conv))) == NULL) {

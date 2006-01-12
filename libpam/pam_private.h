@@ -150,6 +150,10 @@ struct pam_handle {
 					 event driven applications */
     const char *mod_name;	/* Name of the module currently executed */
     int choice;			/* Which function we call from the module */
+
+#if HAVE_LIBAUDIT
+    int audit_state;             /* keep track of reported audit messages */
+#endif
 };
 
 /* Values for select arg to _pam_dispatch() */
@@ -286,6 +290,12 @@ if ((pamh) == NULL) {                             \
 #define __PAM_TO_APP(pamh)    \
         do { (pamh)->caller_is = _PAM_CALLED_FROM_APP; } while (0)
 
+
+#if HAVE_LIBAUDIT
+extern int _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags);
+extern int _pam_audit_end(pam_handle_t *pamh, int pam_status);
+#endif
+                                                                               
 /*
  * Copyright (C) 1995 by Red Hat Software, Marc Ewing
  * Copyright (c) 1996-8,2001 by Andrew G. Morgan <morgan@kernel.org>
