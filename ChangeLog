@@ -1,3 +1,11 @@
+2006-01-12  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Add check for -fpie/-pie
+	* modules/pam_filter/upperLOWER/Makefile.am: Compile/link
+	upperLOWER with -fpie/-pie if supported.
+	* modules/pam_unix/Makefile.am: Compile/link unix_chkpwd
+	with -fpie/-pie if supported.
+
 2006-01-12  Steve Grubb  <sgrubb@redhat.com>
 
 	* configure.in: Add check for audit library.

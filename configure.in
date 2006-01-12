@@ -142,6 +142,36 @@ AM_CONDITIONAL([HAVE_VERSIONING],
 	[test "$libc_cv_ld_version_script_option" = "yes"])
 
 dnl
+dnl check for -fPIE/-pie support
+dnl
+AC_ARG_ENABLE(pie,AS_HELP_STRING([--disable-pie],
+                        [Disable position-independent executeables (PIE)]),
+        USE_PIE=$enableval, USE_PIE=yes)
+
+AC_CACHE_CHECK(for -fpie, libc_cv_fpie, [dnl
+  cat > conftest.c <<EOF
+int foo;
+main () { return 0;}
+EOF
+  if test "$USE_PIE" = "yes" &&
+        AC_TRY_COMMAND([${CC-cc} $CFLAGS $CPPFLAGS $LDFLAGS -pie -fpie
+                              -o conftest conftest.c 1>&AS_MESSAGE_LOG_FD])
+  then
+    libc_cv_fpie=yes
+    PIE_CFLAGS="-fpie"
+    PIE_LDFLAGS="-pie"
+  else
+    libc_cv_fpie=no
+    PIE_CFLAGS=""
+    PIE_LDFLAGS=""
+  fi
+  rm -f conftest*])
+AC_SUBST(libc_cv_fpie)
+AC_SUBST(PIE_CFLAGS)
+AC_SUBST(PIE_LDFLAGS)
+
+
+dnl
 dnl options and defaults
 dnl
 
