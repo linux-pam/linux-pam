@@ -1,3 +1,8 @@
+2006-01-13  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* libpam/pam_audit.c (_pam_auditlog): Replace strerror(errno)
+	call with %m specifier.
+
 2006-01-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Add check for -fpie/-pie

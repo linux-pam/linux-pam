@@ -56,8 +56,7 @@ _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags)
     /* this should only fail in case of extreme resource shortage,
      * need to prevent login in that case for CAPP compliance.
      */
-    pam_syslog(pamh, LOG_CRIT, "audit_open() failed: %s",
-		    strerror(errno));
+    pam_syslog(pamh, LOG_CRIT, "audit_open() failed: %m");
     return PAM_SYSTEM_ERR;
   }
                           
