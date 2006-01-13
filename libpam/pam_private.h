@@ -290,7 +290,6 @@ if ((pamh) == NULL) {                             \
 #define __PAM_TO_APP(pamh)    \
         do { (pamh)->caller_is = _PAM_CALLED_FROM_APP; } while (0)
 
-
 #if HAVE_LIBAUDIT
 extern int _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags);
 extern int _pam_audit_end(pam_handle_t *pamh, int pam_status);

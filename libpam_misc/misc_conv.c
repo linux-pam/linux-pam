@@ -1,6 +1,4 @@
 /*
- * $Id$
- *
  * A generic conversation function for text based applications
  *
  * Written by Andrew Morgan <morgan@linux.kernel.org>
@@ -377,9 +375,11 @@ failed_conversation:
 		free(reply[count].resp);
 		break;
 	    case PAM_BINARY_PROMPT:
-		pam_binary_handler_free(appdata_ptr,
-					(pamc_bp_t *) &reply[count].resp);
+	      {
+		void *bt_ptr = reply[count].resp;
+		pam_binary_handler_free(appdata_ptr, bt_ptr);
 		break;
+	      }
 	    case PAM_ERROR_MSG:
 	    case PAM_TEXT_INFO:
 		/* should not actually be able to get here... */

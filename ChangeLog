@@ -1,5 +1,13 @@
 2006-01-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* libpam_misc/misc_conv.c (misc_conv): Fix strict aliasing
+	error.
+
+	* modules/pam_umask/pam_umask.c (search_key): Don't ignore
+	EOF/error return value from fgets().
+
+	* configure.in: Check for getline and getdelim
+
 	* po/fi.po: Add new translations.
 	* po/de.po: Likewise.
 	* po/es.po: Likewise.
