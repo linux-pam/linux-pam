@@ -1,20 +1,21 @@
-# translation of Linux-PAM.po to Finnish
+# translation of Linux-PAM.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR Linux-PAM Project.
-# Ilkka Pirskanen <ilkka.pirskanen@kolumbus.fi>, 2005.
 #
+# Ilkka Pirskanen <ilkka.pirskanen@kolumbus.fi>, 2005.
+# Jyri Palokangas <jmp@netti.fi>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2006-01-09 18:03+0100\n"
-"PO-Revision-Date: 2005-09-17 12:27+0300\n"
-"Last-Translator: Ilkka Pirskanen <ilkka.pirskanen@kolumbus.fi>\n"
-"Language-Team: Finnish <fi@li.org>\n"
+"PO-Revision-Date: 2006-01-12 18:58+0200\n"
+"Last-Translator: Jyri Palokangas <jmp@netti.fi>\n"
+"Language-Team:  <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.1\n"
 
 #: modules/pam_tally/pam_tally.c:738
 msgid "Authentication error"
@@ -59,28 +60,28 @@ msgstr "%s: Ei voida palauttaa kaikkia käyttäjiä ei-nolliksi\n"
 #: modules/pam_lastlog/pam_lastlog.c:195
 #, c-format
 msgid " from %.*s"
-msgstr ""
+msgstr " koneelta %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:207
 #, c-format
 msgid " on %.*s"
-msgstr ""
+msgstr " %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:216
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr ""
+msgstr "Viimeisin kirjautuminen:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:222
 msgid "Welcome to your new account!"
-msgstr ""
+msgstr "Tervetuloa käyttämään uutta käyttäjätiliäsi!"
 
 #: modules/pam_limits/pam_limits.c:658
 #, c-format
 msgid "Too many logins for '%s'."
-msgstr ""
+msgstr "Liian monta kirjautumista '%s'."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -137,39 +138,39 @@ msgstr "Tietoturvaympäristö %s asetettiin"
 
 #: modules/pam_mail/pam_mail.c:307
 msgid "No mail."
-msgstr ""
+msgstr "Ei postia."
 
 #: modules/pam_mail/pam_mail.c:310
 msgid "You have new mail."
-msgstr ""
+msgstr "Sinulle on uutta postia."
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "You have old mail."
-msgstr ""
+msgstr "Sinulla on vanhoja posteja."
 
 #: modules/pam_mail/pam_mail.c:317
 msgid "You have mail."
-msgstr ""
+msgstr "Sinulle on postia."
 
 #: modules/pam_mail/pam_mail.c:324
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr ""
+msgstr "Sinulle ei ole postia kansiossa %s."
 
 #: modules/pam_mail/pam_mail.c:328
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr ""
+msgstr "Sinulle on uutta postia kansiossa %s."
 
 #: modules/pam_mail/pam_mail.c:332
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr ""
+msgstr "Sinulla on vanhoja posteja kansiossa %s."
 
 #: modules/pam_mail/pam_mail.c:337
 #, c-format
 msgid "You have mail in folder %s."
-msgstr ""
+msgstr "Sinulle on postia kansiossa %s."
 
 #: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
 msgid "Your account has expired; please contact your system administrator"
@@ -189,9 +190,8 @@ msgid "Warning: your password will expire in %d day%.2s"
 msgstr "Varoitus: salasanasi vanhenee %d päivässä%.2s"
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
-#, fuzzy
 msgid "Password: "
-msgstr "Salasanaa ei vaihdettu"
+msgstr "Salasana: "
 
 #: modules/pam_unix/pam_unix_passwd.c:820
 msgid "NIS password could not be changed."
@@ -217,21 +217,19 @@ msgstr "Salasana on jo käytetty. Valitse toinen."
 
 #: modules/pam_unix/pam_unix_passwd.c:1126
 msgid "(current) UNIX password: "
-msgstr ""
+msgstr "(nykyinen) UNIX salasana: "
 
 #: modules/pam_unix/pam_unix_passwd.c:1161
 msgid "You must wait longer to change your password"
 msgstr "Sinun täytyy odottaa kauemmin vaihtaaksesi salasanan"
 
 #: modules/pam_unix/pam_unix_passwd.c:1221
-#, fuzzy
 msgid "Enter new UNIX password: "
-msgstr "Anna uusi STRESS-salasana: "
+msgstr "Anna uusi UNIX-salasana: "
 
 #: modules/pam_unix/pam_unix_passwd.c:1222
-#, fuzzy
 msgid "Retype new UNIX password: "
-msgstr "Anna uusi STRESS-salasana uudelleen: "
+msgstr "Anna uusi UNIX-salasana uudelleen: "
 
 #: modules/pam_stress/pam_stress.c:477
 msgid "Changing STRESS password for "
@@ -252,56 +250,54 @@ msgstr "Salasanat eivät ole samat; salasanaa ei vaihdettu"
 #: modules/pam_cracklib/pam_cracklib.c:60
 #, c-format
 msgid "New %s%spassword: "
-msgstr ""
+msgstr "Uusi %s%s-salasana: "
 
 #: modules/pam_cracklib/pam_cracklib.c:62
-#, fuzzy, c-format
+#, c-format
 msgid "Retype new %s%spassword: "
-msgstr "Anna uusi STRESS-salasana uudelleen: "
+msgstr "Anna uusi %s%s-salasana uudelleen: "
 
 #: modules/pam_cracklib/pam_cracklib.c:63
-#, fuzzy
 msgid "Sorry, passwords do not match."
-msgstr "NIS-salasanaa ei voitu vaihtaa."
+msgstr "Sorry, salasanat eivät täsmää."
 
 #: modules/pam_cracklib/pam_cracklib.c:378
 msgid "is the same as the old one"
-msgstr ""
+msgstr "on sama kuin vanha"
 
 #: modules/pam_cracklib/pam_cracklib.c:389
 msgid "is a palindrome"
-msgstr ""
+msgstr "on palindromi"
 
 #: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
-msgstr ""
+msgstr "vain merkkikoko muutoksia"
 
 #: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
-msgstr ""
+msgstr "on liian samankaltainen kuin vanha"
 
 #: modules/pam_cracklib/pam_cracklib.c:398
 msgid "is too simple"
-msgstr ""
+msgstr "liian yksinkertainen"
 
 #: modules/pam_cracklib/pam_cracklib.c:401
 msgid "is rotated"
-msgstr ""
+msgstr "on kierrätetty"
 
 #: modules/pam_cracklib/pam_cracklib.c:436
-#, fuzzy
 msgid "has been already used"
-msgstr "Salasana on jo käytetty. Valitse toinen."
+msgstr "on jo aiemmin käytetty"
 
 #: modules/pam_cracklib/pam_cracklib.c:488
 #: modules/pam_cracklib/pam_cracklib.c:616
 #, c-format
 msgid "BAD PASSWORD: %s"
-msgstr ""
+msgstr "HUONO SALASANA: %s"
 
 #: libpam/pam_item.c:268
 msgid "login:"
-msgstr ""
+msgstr "kirjaudu:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"

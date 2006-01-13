@@ -2,7 +2,7 @@
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: modules/pam_tally/pam_tally.c:738
@@ -58,28 +58,28 @@ msgstr ""
 #: modules/pam_lastlog/pam_lastlog.c:195
 #, c-format
 msgid " from %.*s"
-msgstr ""
+msgstr "da %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:207
 #, c-format
 msgid " on %.*s"
-msgstr ""
+msgstr "in %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:216
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr ""
+msgstr "Ultimo login:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:222
 msgid "Welcome to your new account!"
-msgstr ""
+msgstr "Nuovo conto."
 
 #: modules/pam_limits/pam_limits.c:658
 #, c-format
 msgid "Too many logins for '%s'."
-msgstr ""
+msgstr "Ci sono troppi login per '%s'."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -136,39 +136,39 @@ msgstr "Contesto di sicurezza %s assegnato"
 
 #: modules/pam_mail/pam_mail.c:307
 msgid "No mail."
-msgstr ""
+msgstr "Nessuna e-mail."
 
 #: modules/pam_mail/pam_mail.c:310
 msgid "You have new mail."
-msgstr ""
+msgstr "Nuova e-mail."
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "You have old mail."
-msgstr ""
+msgstr "E-mail vecchie."
 
 #: modules/pam_mail/pam_mail.c:317
 msgid "You have mail."
-msgstr ""
+msgstr "E-mail esistenti."
 
 #: modules/pam_mail/pam_mail.c:324
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr ""
+msgstr "La cartella %s non contiene alcuna e-mail."
 
 #: modules/pam_mail/pam_mail.c:328
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr ""
+msgstr "La cartella %s non contiene alcuna e-mail nuova."
 
 #: modules/pam_mail/pam_mail.c:332
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr ""
+msgstr "La cartella %s non contiene alcuna e-mail vecchia."
 
 #: modules/pam_mail/pam_mail.c:337
 #, c-format
 msgid "You have mail in folder %s."
-msgstr ""
+msgstr "La cartella %s contiene e-mail."
 
 #: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
 msgid "Your account has expired; please contact your system administrator"
@@ -191,9 +191,8 @@ msgid "Warning: your password will expire in %d day%.2s"
 msgstr "Avviso: la parola d'ordine scadrà tra %d giorni%.2s"
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
-#, fuzzy
 msgid "Password: "
-msgstr "Parola d'ordine non modificata"
+msgstr "Parola d'ordine:"
 
 #: modules/pam_unix/pam_unix_passwd.c:820
 msgid "NIS password could not be changed."
@@ -219,21 +218,19 @@ msgstr "Parola d'ordine già utilizzata. Sceglierne un'altra."
 
 #: modules/pam_unix/pam_unix_passwd.c:1126
 msgid "(current) UNIX password: "
-msgstr ""
+msgstr "Parola d'ordine UNIX (corrente):"
 
 #: modules/pam_unix/pam_unix_passwd.c:1161
 msgid "You must wait longer to change your password"
 msgstr "Attendere ancora per cambiare la parola d'ordine "
 
 #: modules/pam_unix/pam_unix_passwd.c:1221
-#, fuzzy
 msgid "Enter new UNIX password: "
-msgstr "Immettere nuova parola d'ordine STRESS:"
+msgstr "Immettere nuova parola d'ordine UNIX:"
 
 #: modules/pam_unix/pam_unix_passwd.c:1222
-#, fuzzy
 msgid "Retype new UNIX password: "
-msgstr "Ridigitare nuova parola d'ordine STRESS:"
+msgstr "Reimmettere la nuova parola d'ordine UNIX:"
 
 #: modules/pam_stress/pam_stress.c:477
 msgid "Changing STRESS password for "
@@ -252,58 +249,56 @@ msgid "Verification mis-typed; password unchanged"
 msgstr "Errore digitazione verifica; parola d'ordine non cambiata"
 
 #: modules/pam_cracklib/pam_cracklib.c:60
-#, fuzzy, c-format
+#, c-format
 msgid "New %s%spassword: "
-msgstr "Parola d'ordine non modificata"
+msgstr "Nuova parola d'ordine%s%s:"
 
 #: modules/pam_cracklib/pam_cracklib.c:62
-#, fuzzy, c-format
+#, c-format
 msgid "Retype new %s%spassword: "
-msgstr "Ridigitare nuova parola d'ordine STRESS:"
+msgstr "Reimmettere la nuova parola d'ordine%s%s:"
 
 #: modules/pam_cracklib/pam_cracklib.c:63
-#, fuzzy
 msgid "Sorry, passwords do not match."
-msgstr "[f1]Impossibile modificare parola d'ordine NIS."
+msgstr "Le parole d'ordine non corrispondono."
 
 #: modules/pam_cracklib/pam_cracklib.c:378
 msgid "is the same as the old one"
-msgstr ""
+msgstr "è la stessa di quella precedente"
 
 #: modules/pam_cracklib/pam_cracklib.c:389
 msgid "is a palindrome"
-msgstr ""
+msgstr "è un palindromo"
 
 #: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
-msgstr ""
+msgstr "cambiano solo le maiuscole/minuscole"
 
 #: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
-msgstr ""
+msgstr "è troppo simile alla precedente"
 
 #: modules/pam_cracklib/pam_cracklib.c:398
 msgid "is too simple"
-msgstr ""
+msgstr "è troppo semplice"
 
 #: modules/pam_cracklib/pam_cracklib.c:401
 msgid "is rotated"
-msgstr ""
+msgstr "è alternata"
 
 #: modules/pam_cracklib/pam_cracklib.c:436
-#, fuzzy
 msgid "has been already used"
-msgstr "Parola d'ordine già utilizzata. Sceglierne un'altra."
+msgstr "è già stata utilizzata"
 
 #: modules/pam_cracklib/pam_cracklib.c:488
 #: modules/pam_cracklib/pam_cracklib.c:616
 #, c-format
 msgid "BAD PASSWORD: %s"
-msgstr ""
+msgstr "PAROLA D'ORDINE ERRTATA: %s"
 
 #: libpam/pam_item.c:268
 msgid "login:"
-msgstr ""
+msgstr "login:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
@@ -455,6 +450,5 @@ msgstr "...Tempo scaduto!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "conversazione errata (%d)\n"
 
-#, fuzzy
 #~ msgid "%s: set %s security context to %s"
 #~ msgstr "Non è un contesto di sicurezza valido"

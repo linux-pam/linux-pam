@@ -2,7 +2,7 @@ Linux-PAM NEWS -- history of user-visible changes.
 
 * Fix NULL pointer checks in libpam.so
 * pam_succeed_if, pam_group, pam_time: Support netgroup matching
-* New translations for: nb, hu
+* New translations for: nb, hu, fi, de, es, fr, it, ja, pt_BR, zh_CN, zh_TW
 * Audit PAM calls if Linux Audit is available
 * Compile upperLOWER and unix_chkpwd as PIE binaries
 

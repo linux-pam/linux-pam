@@ -2,7 +2,7 @@
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: modules/pam_tally/pam_tally.c:738
@@ -269,11 +269,11 @@ msgstr "ist ein Palindrome"
 
 #: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
-msgstr ""
+msgstr "Nur Änderungen in Groß-/Kleinschreibung"
 
 #: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
-msgstr ""
+msgstr "ist der/m alten zu ähnlich"
 
 #: modules/pam_cracklib/pam_cracklib.c:398
 msgid "is too simple"
@@ -281,7 +281,7 @@ msgstr "ist zu einfach"
 
 #: modules/pam_cracklib/pam_cracklib.c:401
 msgid "is rotated"
-msgstr ""
+msgstr "wurde gedreht"
 
 #: modules/pam_cracklib/pam_cracklib.c:436
 msgid "has been already used"
@@ -458,6 +458,5 @@ msgstr "fehlerhafte Kommunikation (%d)\n"
 #~ msgid "new "
 #~ msgstr "neue "
 
-#, fuzzy
 #~ msgid "%s: set %s security context to %s"
 #~ msgstr "Kein gültiger Sicherheitskontext"

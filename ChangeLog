@@ -1,3 +1,15 @@
+2006-01-13  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* po/fi.po: Add new translations.
+	* po/de.po: Likewise.
+	* po/es.po: Likewise.
+	* po/fr.po: Likewise.
+	* po/it.po: Likewise.
+	* po/ja.po: Likewise.
+	* po/pt_BR.po: Likewise.
+	* po/zh_CH.po: Likewise.
+	* po/zh_TW.po: Likewise.
+
 2006-01-13  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* libpam/pam_audit.c (_pam_auditlog): Replace strerror(errno)
