@@ -1,5 +1,7 @@
 2006-01-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* release version 0.99.3.0
+
 	* libpam_misc/misc_conv.c (misc_conv): Fix strict aliasing
 	error.
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.hu\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-01-09 18:03+0100\n"
+"POT-Creation-Date: 2006-01-13 22:04+0100\n"
 "PO-Revision-Date: 2006-01-10 12:08+0100\n"
 "Last-Translator: Kalman Kemenczy <kkemenczy@novell.com>\n"
 "Language-Team: Hungarian <en@li.org>\n"
@@ -435,15 +435,15 @@ msgstr "Az alkalmazásnak újra meg kell hívnia a libpam modult"
 msgid "Unknown PAM error"
 msgstr "Ismeretlen PAM-hiba"
 
-#: libpam_misc/misc_conv.c:35
+#: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
 msgstr "...Kifut az időből...\n"
 
-#: libpam_misc/misc_conv.c:36
+#: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
 msgstr "...Elnézést, de az idő lejárt!\n"
 
-#: libpam_misc/misc_conv.c:345
+#: libpam_misc/misc_conv.c:343
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "hibás beszélgetés (%d)\n"

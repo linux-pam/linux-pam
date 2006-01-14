@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM TBD\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-01-09 18:03+0100\n"
+"POT-Creation-Date: 2006-01-13 22:04+0100\n"
 "PO-Revision-Date: 2005-08-23 15:22+0200\n"
 "Last-Translator: Piotr Bolek <pb@7bulls.com>\n"
 "Language-Team: Polish <i18n@suse.de>\n"
@@ -433,15 +433,15 @@ msgstr "Aplikacja musi jeszcze raz wywołać libpam"
 msgid "Unknown PAM error"
 msgstr "Nieznany błąd PAM"
 
-#: libpam_misc/misc_conv.c:35
+#: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
 msgstr "...Czas ucieka...\n"
 
-#: libpam_misc/misc_conv.c:36
+#: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
 msgstr "...Przykro mi, twój czas się skończył!\n"
 
-#: libpam_misc/misc_conv.c:345
+#: libpam_misc/misc_conv.c:343
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "błędna konwersacja (%d)\n"

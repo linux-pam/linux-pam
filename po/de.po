@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-01-09 18:03+0100\n"
+"POT-Creation-Date: 2006-01-13 22:04+0100\n"
 "PO-Revision-Date: 2005-12-12 17:55+01:00\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -433,15 +433,15 @@ msgstr "Anwendung muss libpam wieder aufrufen"
 msgid "Unknown PAM error"
 msgstr "Unbekannter PAM-Fehler"
 
-#: libpam_misc/misc_conv.c:35
+#: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
 msgstr "...Time läuft ab...\n"
 
-#: libpam_misc/misc_conv.c:36
+#: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
 msgstr "...Ihre Zeit ist abgelaufen.\n"
 
-#: libpam_misc/misc_conv.c:345
+#: libpam_misc/misc_conv.c:343
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "fehlerhafte Kommunikation (%d)\n"
