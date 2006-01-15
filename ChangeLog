@@ -1,3 +1,8 @@
+2006-01-15  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_echo/pam_echo.c: Define HOST_NAME_MAX if not
+	already defined.
+
 2006-01-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.3.0

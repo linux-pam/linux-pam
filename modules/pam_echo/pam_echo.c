@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+ * Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -47,6 +47,10 @@
 #include <syslog.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
+#ifndef HOST_NAME_MAX
+#define HOST_NAME_MAX 255
+#endif
 
 #define PAM_SM_ACCOUNT
 #define PAM_SM_AUTH
