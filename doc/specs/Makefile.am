@@ -1,15 +1,15 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = draft-morgan-pam-current.txt *~
 
 EXTRA_DIST = draft-morgan-pam.raw std-agent-id.raw rfc86.0.txt
 
-all: padout spec
+all: spec
 	test -f rfc86.0.txt || cp -p $(srcdir)/rfc86.0.txt .
 
-spec: draft-morgan-pam.raw
+spec: padout draft-morgan-pam.raw
 	./padout < $(srcdir)/draft-morgan-pam.raw > draft-morgan-pam-current.txt
 
 noinst_PROGRAMS = padout
