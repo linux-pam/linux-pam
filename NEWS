@@ -1,5 +1,7 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+* Fix building of static variants of libpam, libpamc and libpam_misc
+
 Release 0.99.3.0
 
 * Fix NULL pointer checks in libpam.so

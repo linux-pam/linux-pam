@@ -219,8 +219,9 @@ void _pam_start_timer(pam_handle_t *pamh);
 void _pam_await_timer(pam_handle_t *pamh, int status);
 
 typedef void (*voidfunc(void))(void);
-#ifdef PAM_STATIC
+typedef int (*servicefn)(pam_handle_t *, int, int, char **);
 
+#ifdef PAM_STATIC
 /* The next two in ../modules/_pam_static/pam_static.c */
 
 /* Return pointer to data structure used to define a static module */
@@ -229,7 +230,11 @@ struct pam_module * _pam_open_static_handler(const char *path);
 /* Return pointer to function requested from static module */
 
 voidfunc *_pam_get_static_sym(struct pam_module *mod, const char *symname);
-
+#else
+void *_pam_dlopen (const char *mod_path);
+servicefn _pam_dlsym (void *handle, const char *symbol);
+void _pam_dlclose (void *handle);
+const char *_pam_dlerror (void);
 #endif
 
 /* For now we just use a stack and linear search for module data. */

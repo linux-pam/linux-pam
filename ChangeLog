@@ -1,3 +1,15 @@
+2006-01-22  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Don't define PAM_DYNAMIC.
+	* libpam/pam_handlers.c: Get ride of PAM_DYNAMIC, don't
+	include pam_dynamic.h
+	* libpam/pam_dynamic.c: Don't include pam_dynamic.h, 
+	exclude functions if we compile with PAM_STATIC.
+	* libpam/pam_dynamic.h: Remove.
+	* libpam/pam_private.h: Add function prototypes from pam_dynamic.h.
+	* libpam/Makefile.am: Bump version number of libpam, remove
+	pam_dynamic.h.
+
 2006-01-19  Thorsten Kukuk  <kukuk@suse.de>
 
 	* doc/specs/Makefile.am (spec): Add padout to fix parallel

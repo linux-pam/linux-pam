@@ -33,6 +33,8 @@
 
 #include "pam_private.h"
 
+#ifndef PAM_STATIC
+
 #ifdef PAM_SHL
 # include <dl.h>
 #elif defined(PAM_DYLD)
@@ -40,8 +42,6 @@
 #else /* PAM_SHL */
 # include <dlfcn.h>
 #endif /* PAM_SHL */
-
-#include "pam_dynamic.h"
 
 #ifndef SHLIB_SYM_PREFIX
 #define SHLIB_SYM_PREFIX "_"
@@ -138,3 +138,5 @@ _pam_dlerror (void)
         return dlerror ();
 #endif
 }
+
+#endif

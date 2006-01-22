@@ -4,8 +4,6 @@
  * created by Marc Ewing.
  * Currently maintained by Andrew G. Morgan <morgan@kernel.org>
  *
- * $Id$
- *
  */
 
 #include "pam_private.h"
@@ -17,10 +15,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-#ifdef PAM_DYNAMIC
-#include "pam_dynamic.h"
-#endif /* PAM_DYNAMIC */
 
 #define BUF_SIZE                  1024
 #define MODULE_CHUNK              4
@@ -599,7 +593,7 @@ int _pam_add_handler(pam_handle_t *pamh
     struct handlers *the_handlers;
     const char *sym, *sym2;
     char *mod_full_path=NULL;
-#ifdef PAM_DYNAMIC
+#ifndef PAM_STATIC
     char *mod_full_isa_path=NULL, *isa=NULL;
 #endif
     servicefn func, func2;
@@ -656,7 +650,26 @@ int _pam_add_handler(pam_handle_t *pamh
 	/* Be pessimistic... */
 	success = PAM_ABORT;
 
-#ifdef PAM_DYNAMIC
+#ifdef PAM_STATIC
+	/* Only load static function if function was not found dynamically.
+	 * This code should work even if no dynamic loading is available. */
+	if (success != PAM_SUCCESS) {
+	    D(("_pam_add_handler: open static handler %s", mod_path));
+	    mod->dl_handle = _pam_open_static_handler(mod_path);
+	    if (mod->dl_handle == NULL) {
+	        D(("_pam_add_handler: unable to find static handler %s",
+		   mod_path));
+		pam_syslog(pamh, LOG_ERR,
+				"unable to open static handler %s", mod_path);
+		/* Didn't find module in dynamic or static..will mark bad */
+	    } else {
+	        D(("static module added successfully"));
+		success = PAM_SUCCESS;
+		mod->type = PAM_MT_STATIC_MOD;
+		pamh->handlers.modules_used++;
+	    }
+	}
+#else
 	D(("_pam_add_handler: _pam_dlopen(%s)", mod_path));
 	mod->dl_handle = _pam_dlopen(mod_path);
 	D(("_pam_add_handler: _pam_dlopen'ed"));
@@ -691,26 +704,6 @@ int _pam_add_handler(pam_handle_t *pamh
 	    success = PAM_SUCCESS;
 	    mod->type = PAM_MT_DYNAMIC_MOD;
 	    pamh->handlers.modules_used++;
-	}
-#endif
-#ifdef PAM_STATIC
-	/* Only load static function if function was not found dynamically.
-	 * This code should work even if no dynamic loading is available. */
-	if (success != PAM_SUCCESS) {
-	    D(("_pam_add_handler: open static handler %s", mod_path));
-	    mod->dl_handle = _pam_open_static_handler(mod_path);
-	    if (mod->dl_handle == NULL) {
-	        D(("_pam_add_handler: unable to find static handler %s",
-		   mod_path));
-		pam_syslog(pamh, LOG_ERR,
-				"unable to open static handler %s", mod_path);
-		/* Didn't find module in dynamic or static..will mark bad */
-	    } else {
-	        D(("static module added successfully"));
-		success = PAM_SUCCESS;
-		mod->type = PAM_MT_STATIC_MOD;
-		pamh->handlers.modules_used++;
-	    }
 	}
 #endif
 
@@ -786,14 +779,13 @@ int _pam_add_handler(pam_handle_t *pamh
 
     /* are the modules reliable? */
     if (
-#ifdef PAM_DYNAMIC
-	 mod->type != PAM_MT_DYNAMIC_MOD
-	 &&
-#endif /* PAM_DYNAMIC */
 #ifdef PAM_STATIC
 	 mod->type != PAM_MT_STATIC_MOD
 	 &&
-#endif /* PAM_STATIC */
+#else
+	 mod->type != PAM_MT_DYNAMIC_MOD
+	 &&
+#endif
 	 mod->type != PAM_MT_FAULTY_MOD
 	) {
 	D(("_pam_add_handlers: illegal module library type; %d", mod->type));
@@ -805,29 +797,27 @@ int _pam_add_handler(pam_handle_t *pamh
 
     /* now identify this module's functions - for non-faulty modules */
 
-#ifdef PAM_DYNAMIC
-    if ((mod->type == PAM_MT_DYNAMIC_MOD) && 
-        !(func = _pam_dlsym(mod->dl_handle, sym)) ) {
-	pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym);
-    }
-#endif
 #ifdef PAM_STATIC
     if ((mod->type == PAM_MT_STATIC_MOD) &&
         (func = (servicefn)_pam_get_static_sym(mod->dl_handle, sym)) == NULL) {
 	pam_syslog(pamh, LOG_ERR, "unable to resolve static symbol: %s", sym);
     }
+#else
+    if ((mod->type == PAM_MT_DYNAMIC_MOD) &&
+        !(func = _pam_dlsym(mod->dl_handle, sym)) ) {
+	pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym);
+    }
 #endif
     if (sym2) {
-#ifdef PAM_DYNAMIC
-	if ((mod->type == PAM_MT_DYNAMIC_MOD) &&
-	    !(func2 = _pam_dlsym(mod->dl_handle, sym2)) ) {
-	    pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym2);
-	}
-#endif
 #ifdef PAM_STATIC
 	if ((mod->type == PAM_MT_STATIC_MOD) &&
 	    (func2 = (servicefn)_pam_get_static_sym(mod->dl_handle, sym2))
 	    == NULL) {
+	    pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym2);
+	}
+#else
+	if ((mod->type == PAM_MT_DYNAMIC_MOD) &&
+	    !(func2 = _pam_dlsym(mod->dl_handle, sym2)) ) {
 	    pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym2);
 	}
 #endif
@@ -907,7 +897,7 @@ int _pam_free_handlers(pam_handle_t *pamh)
     while (pamh->handlers.modules_used) {
 	D(("_pam_free_handlers: dlclose(%s)", mod->name));
 	free(mod->name);
-#ifdef PAM_DYNAMIC
+#ifndef PAM_STATIC
 	if (mod->type == PAM_MT_DYNAMIC_MOD) {
 	    _pam_dlclose(mod->dl_handle);
 	}
