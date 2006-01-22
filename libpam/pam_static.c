@@ -1,8 +1,7 @@
-/* pam_static.c -- static module loading helper functions */
-
-/* created by Michael K. Johnson, johnsonm@redhat.com
+/*
+ * pam_static.c -- static module loading helper functions
  *
- * $Id$
+ * created by Michael K. Johnson, johnsonm@redhat.com
  */
 
 /* This whole file is only used for PAM_STATIC */
@@ -39,7 +38,8 @@ static struct pam_module *static_modules[] = {
  */
 
 /* Return pointer to data structure used to define a static module */
-struct pam_module * _pam_open_static_handler(const char *path)
+struct pam_module *
+_pam_open_static_handler (pam_handle_t *pamh, const char *path)
 {
     int i;
     const char *clpath = path;

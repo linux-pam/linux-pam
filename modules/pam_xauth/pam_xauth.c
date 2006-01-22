@@ -33,8 +33,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* "$Id$" */
-
 #include "config.h"
 #include <sys/types.h>
 #include <sys/fsuid.h>
@@ -51,6 +49,8 @@
 #include <string.h>
 #include <syslog.h>
 #include <unistd.h>
+
+#define PAM_SM_SESSION
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
@@ -665,3 +665,16 @@ pam_sm_close_session (pam_handle_t *pamh, int flags UNUSED,
 	}
 	return PAM_SUCCESS;
 }
+
+/* static module data */
+#ifdef PAM_STATIC
+struct pam_module _pam_xauth_modstruct = {
+  "pam_xauth",
+  NULL,
+  NULL,
+  NULL,
+  pam_sm_open_session,
+  pam_sm_close_session,
+  NULL
+};
+#endif

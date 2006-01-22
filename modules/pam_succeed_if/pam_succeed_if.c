@@ -53,6 +53,10 @@
 #include <pwd.h>
 #include <grp.h>
 #include <netdb.h>
+
+#define PAM_SM_AUTH
+#define PAM_SM_ACCOUNT
+
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
@@ -313,21 +317,21 @@ evaluate(pam_handle_t *pamh, int debug,
 	if (strcasecmp(qual, "innetgr") == 0) {
 		const void *rhost;
 		if (pam_get_item(pamh, PAM_RHOST, &rhost) != PAM_SUCCESS)
-			rhost = NULL;		
+			rhost = NULL;
 		return evaluate_innetgr(rhost, pwd->pw_name, right);
 	}
 	/* (Rhost, user) is not in this group. */
 	if (strcasecmp(qual, "notinnetgr") == 0) {
 		const void *rhost;
 		if (pam_get_item(pamh, PAM_RHOST, &rhost) != PAM_SUCCESS)
-			rhost = NULL;		
+			rhost = NULL;
 		return evaluate_notinnetgr(rhost, pwd->pw_name, right);
 	}
 	/* Fail closed. */
 	return PAM_SERVICE_ERR;
 }
 
-int
+PAM_EXTERN int
 pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
@@ -460,15 +464,28 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	return ret;
 }
 
-int
+PAM_EXTERN int
 pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
                int argc UNUSED, const char **argv UNUSED)
 {
 	return PAM_SUCCESS;
 }
 
-int
+PAM_EXTERN int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	return pam_sm_authenticate(pamh, flags, argc, argv);
 }
+
+/* static module data */
+#ifdef PAM_STATIC
+struct pam_module _pam_succeed_if_modstruct = {
+    "pam_succeed_if",
+    pam_sm_authenticate,
+    pam_sm_setcred,
+    pam_sm_acct_mgmt,
+    NULL,
+    NULL,
+    NULL
+};
+#endif

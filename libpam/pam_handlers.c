@@ -655,7 +655,7 @@ int _pam_add_handler(pam_handle_t *pamh
 	 * This code should work even if no dynamic loading is available. */
 	if (success != PAM_SUCCESS) {
 	    D(("_pam_add_handler: open static handler %s", mod_path));
-	    mod->dl_handle = _pam_open_static_handler(mod_path);
+	    mod->dl_handle = _pam_open_static_handler(pamh, mod_path);
 	    if (mod->dl_handle == NULL) {
 	        D(("_pam_add_handler: unable to find static handler %s",
 		   mod_path));

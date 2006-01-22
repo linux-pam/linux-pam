@@ -225,7 +225,8 @@ typedef int (*servicefn)(pam_handle_t *, int, int, char **);
 /* The next two in ../modules/_pam_static/pam_static.c */
 
 /* Return pointer to data structure used to define a static module */
-struct pam_module * _pam_open_static_handler(const char *path);
+struct pam_module * _pam_open_static_handler (pam_handle_t *pamh,
+					      const char *path);
 
 /* Return pointer to function requested from static module */
 
@@ -299,7 +300,7 @@ if ((pamh) == NULL) {                             \
 extern int _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags);
 extern int _pam_audit_end(pam_handle_t *pamh, int pam_status);
 #endif
-                                                                               
+
 /*
  * Copyright (C) 1995 by Red Hat Software, Marc Ewing
  * Copyright (c) 1996-8,2001 by Andrew G. Morgan <morgan@kernel.org>
@@ -318,13 +319,13 @@ extern int _pam_audit_end(pam_handle_t *pamh, int pam_status);
  * 3. The name of the author may not be used to endorse or promote
  *    products derived from this software without specific prior
  *    written permission.
- * 
+ *
  * ALTERNATIVELY, this product may be distributed under the terms of
  * the GNU Public License, in which case the provisions of the GPL are
  * required INSTEAD OF the above restrictions.  (This clause is
  * necessary due to a potential bad interaction between the GPL and
  * the restrictions contained in a BSD-style copyright.)
- * 
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
