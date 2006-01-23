@@ -1,9 +1,4 @@
 /*
- * $Id$
- *
- */
-
-/*
  * by Elliot Lee <sopwith@redhat.com>, Red Hat Software. July 25, 1996.
  * log refused access error christopher mccrory <chrismcc@netus.com> 1998/7/11
  *
@@ -36,13 +31,13 @@
 
 #define PAM_SM_AUTH
 #define PAM_SM_ACCOUNT
+#define PAM_SM_PASSWORD
+#define PAM_SM_SESSION
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
-
-/* some syslogging */
 
 /* checks if a user is on a list of members */
 static int is_on_list(char * const *list, const char *member)
@@ -222,7 +217,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		    /* Not a member of apply= group */
 #ifdef DEBUG
 		    pam_syslog(pamh,LOG_DEBUG,
-			     
+
 			     "don't apply: %s not a member of group %s",
 			     user_name,apply_val);
 #endif /* DEBUG */
@@ -301,7 +296,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		break;
 	    default:
 		pam_syslog(pamh,LOG_ERR,
-			 
+
 			 "Internal weirdness, unknown extended item %d",
 			 extitem);
 		free(ifname);
@@ -310,7 +305,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     }
 #ifdef DEBUG
     pam_syslog(pamh,LOG_INFO,
-	     
+
 	     "Got file = %s, item = %d, value = %s, sense = %d",
 	     ifname, citem, citemp, sense);
 #endif
@@ -384,7 +379,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     free(ifname);
     if ((sense && retval) || (!sense && !retval)) {
 #ifdef DEBUG
-	pam_syslog(pamh,LOG_INFO, 
+	pam_syslog(pamh,LOG_INFO,
 		 "Returning PAM_SUCCESS, retval = %d", retval);
 #endif
 	return PAM_SUCCESS;
@@ -412,10 +407,31 @@ pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
 }
 
 PAM_EXTERN int
-pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
+pam_sm_acct_mgmt (pam_handle_t *pamh, int flags,
 		  int argc, const char **argv)
 {
-    return pam_sm_authenticate(pamh, 0, argc, argv);
+    return pam_sm_authenticate(pamh, flags, argc, argv);
+}
+
+PAM_EXTERN int
+pam_sm_open_session (pam_handle_t *pamh, int flags,
+		     int argc, const char **argv)
+{
+    return pam_sm_authenticate(pamh, flags, argc, argv);
+}
+
+PAM_EXTERN int
+pam_sm_close_session (pam_handle_t *pamh, int flags,
+		      int argc, const char **argv)
+{
+    return pam_sm_authenticate(pamh, flags, argc, argv);
+}
+
+PAM_EXTERN int
+pam_sm_chauthtok (pam_handle_t *pamh, int flags,
+		  int argc, const char **argv)
+{
+    return pam_sm_authenticate(pamh, flags, argc, argv);
 }
 
 #ifdef PAM_STATIC
@@ -427,9 +443,9 @@ struct pam_module _pam_listfile_modstruct = {
     pam_sm_authenticate,
     pam_sm_setcred,
     pam_sm_acct_mgmt,
-    NULL,
-    NULL,
-    NULL,
+    pam_sm_open_session,
+    pam_sm_close_session,
+    pam_sm_chauthtok,
 };
 
 #endif /* PAM_STATIC */

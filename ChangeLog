@@ -1,15 +1,14 @@
 2006-01-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
-	* modules/pam_succeed_if/pam_succeed_if.c (pam_sm_acct_mgmt):
-	Add support for static modules.
+	* modules/pam_succeed_if/pam_succeed_if.c: Add support for
+	static modules.
 	* modules/pam_xauth/pam_xauth.c: Likewise.
-
-	* libpam/pam_handlers.c (_pam_add_handler): Add pamh to
-	_pam_open_static_handler call.
 
 	* libpam/pam_static.c (_pam_open_static_handler): Add pamh
 	as argument.
 	* libpam/pam_private.h: Adjust prototype.
+	* libpam/pam_handlers.c (_pam_add_handler): Add pamh to
+	_pam_open_static_handler call.
 
 	* configure.in: Don't define PAM_DYNAMIC.
 	* libpam/pam_handlers.c: Get ride of PAM_DYNAMIC, don't
@@ -20,6 +19,11 @@
 	* libpam/pam_private.h: Add function prototypes from pam_dynamic.h.
 	* libpam/Makefile.am: Bump version number of libpam, remove
 	pam_dynamic.h.
+
+2006-01-21  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_listfile/pam_listfile.c: Add support for session
+	and password management.
 
 2006-01-19  Thorsten Kukuk  <kukuk@suse.de>
 
