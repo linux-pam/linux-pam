@@ -154,7 +154,7 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 
 /* static module data */
 
-struct pam_module _pam_permit_modstruct = {
+struct pam_module _pam_debug_modstruct = {
     "pam_debug",
     pam_sm_authenticate,
     pam_sm_setcred,
