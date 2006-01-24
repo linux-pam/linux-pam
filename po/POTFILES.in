@@ -5,6 +5,7 @@
 ./modules/pam_access/pam_access.c
 ./modules/pam_localuser/pam_localuser.c
 ./modules/pam_debug/pam_debug.c
+./modules/pam_exec/pam_exec.c
 ./modules/pam_echo/pam_echo.c
 ./modules/pam_group/pam_group.c
 ./modules/pam_issue/pam_issue.c

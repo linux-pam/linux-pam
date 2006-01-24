@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+
+<refentry id="pam_exec">
+
+  <refmeta>
+    <refentrytitle>pam_exec</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>pam_exec</refname>
+    <refpurpose>PAM module which calls an external command</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis id="pam_exec-cmdsynopsis">
+      <command>pam_exec.so</command>
+      <arg choice="opt">
+	debug
+      </arg>
+      <arg choice="opt">
+        seteuid
+      </arg>
+      <arg choice="opt">
+        log=<replaceable>file</replaceable>
+      </arg>
+      <arg choice="plain">
+       <replaceable>command</replaceable>
+      </arg>
+      <arg choice="opt">
+        <replaceable>...</replaceable>
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="pam_exec-description">
+
+    <title>Description</title>
+
+    <para>
+      pam_exec is a PAM module that can be used to run
+      an external command.
+    </para>
+
+  </refsect1>
+
+  <refsect1 id="pam_exec-options">
+
+    <title>Options</title>
+    <para>
+      <variablelist>
+
+        <varlistentry>
+          <term>
+            <option>debug</option>
+          </term>
+          <listitem>
+            <para>
+	      Print debug information.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>log=<replaceable>file</replaceable></option>
+          </term>
+          <listitem>
+            <para>
+	      The output of the command is appended to
+              <filename>file</filename>
+            </para>
+          </listitem>
+	</varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>seteuid</option>
+          </term>
+          <listitem>
+            <para>
+  	      Per default pam_exec.so will execute the external command
+     	      with the real user ID of the calling process.
+              Specifying this option means the command is run
+              with the effective user ID.
+            </para>
+          </listitem>
+        </varlistentry>
+
+      </variablelist>
+
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_exec-services">
+    <title>Module Services Provided</title>
+    <para>
+      The services <option>auth</option>, <option>account</option>,
+      <option>password</option> and <option>session</option> are supported.
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_exec-return_values'>
+    <title>Return Values</title>
+    <para>
+      <variablelist>
+
+        <varlistentry>
+          <term>
+            <option>PAM_SUCCESS</option>
+          </term>
+          <listitem>
+            <para>
+              The external command runs successfull.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>PAM_SERVICE_ERR</option>
+          </term>
+          <listitem>
+            <para>
+	      No argument or a wrong number of arguments were given.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>PAM_SYSTEM_ERR</option>
+          </term>
+          <listitem>
+            <para>
+	      A system error occured or the command to execute failed.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>PAM_IGNORE</option>
+          </term>
+          <listitem>
+            <para>
+	      <function>pam_setcred</function> was called, which
+	      does not execute the command.
+            </para>
+          </listitem>
+        </varlistentry>
+
+      </variablelist>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_exec-examples'>
+    <title>Examples</title>
+    <para>
+      Add the following line to <filename>/etc/pam.d/passwd</filename> to
+      rebuild the NIS database after each local password change:
+      <programlisting>
+        passwd optional pam_exec.so seteuid make -C /var/yp
+      </programlisting>
+
+      This will execute the command
+      <programlisting>make -C /var/yp</programlisting>
+       with effective user ID.
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_exec-see_also'>
+    <title>See Also</title>
+    <para>
+      <citerefentry>
+	<refentrytitle>pam.conf</refentrytitle>
+	<manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam.d</refentrytitle>
+	<manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam</refentrytitle>
+	<manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_exec-author'>
+    <title>Author</title>
+      <para>
+        pam_exec was written by Thorsten Kukuk &lt;kukuk@thkukuk.de&gt;.
+      </para>
+  </refsect1>
+
+</refentry>
+<!-- vim: sw=2
+-->

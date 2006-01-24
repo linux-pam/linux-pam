@@ -8,7 +8,7 @@ SUBDIRS = pam_access pam_cracklib pam_debug pam_deny pam_echo \
 	pam_motd pam_nologin pam_permit pam_pwdb pam_rhosts pam_rootok \
 	pam_securetty pam_selinux pam_shells pam_stress pam_succeed_if \
 	pam_tally pam_time pam_umask pam_unix pam_userdb pam_warn \
-	pam_wheel pam_xauth
+	pam_wheel pam_xauth pam_exec
 
 
 CLEANFILES = *~

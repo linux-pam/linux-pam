@@ -4,6 +4,16 @@
 
 	* po/de.po: Fix one translation.
 
+	* configure.in: Add modules/pam_exec.
+	* modules/Makefile.am: Add pam_exec subdirectory.
+	* modules/pam_exec/README: New.
+	* modules/pam_exec/Makefile.am: New.
+	* modules/pam_exec/pam_exec.8: New.
+	* modules/pam_exec/pam_exec.c: New.
+	* modules/pam_exec/pam_exec.8.xml: New.
+	* po/POTFILES.in: Add modules/pam_exec/pam_exec.c.
+	* po/*.po: Merge new pam_exec strings.
+
 2006-01-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_succeed_if/pam_succeed_if.c: Add support for

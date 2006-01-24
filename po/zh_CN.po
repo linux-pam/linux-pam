@@ -7,13 +7,28 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-01-13 22:04+0100\n"
+"POT-Creation-Date: 2006-01-24 16:51+0100\n"
 "PO-Revision-Date: 2005-08-18 HO:MI+ZONE\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: modules/pam_exec/pam_exec.c:118
+#, c-format
+msgid "%s failed: exit code %d"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:126
+#, c-format
+msgid "%s failed: caught signal %d%s"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:134
+#, c-format
+msgid "%s failed: unknown status 0x%x"
+msgstr ""
 
 #: modules/pam_tally/pam_tally.c:738
 msgid "Authentication error"

@@ -1,0 +1,29 @@
+
+pam_exec module:
+	Call <prog> <arguments>
+
+
+USAGE:
+        For the services you wish to run a program put the following
+	line in the config as the last line for that service:
+
+        <type>    required     pam_exec.so [options] /path/prog ...
+
+	and pam_exec.so will run "/path/prog ...".
+
+
+OPTIONS:
+
+	debug		print debug informations
+
+	seteuid		pam_exec.so will call setuid(seteuid()), so that
+			the program will run with the same rights as the 
+			calling applications (effective user ID). The
+			default is that the program will be run with the
+			permissions of the calling user (real user ID).
+
+	log=<file>	the output is appended to this file.
+
+
+AUTHOR:
+	Thorsten Kukuk <kukuk@thkukuk.de>

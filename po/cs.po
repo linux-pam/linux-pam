@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-01-13 22:04+0100\n"
+"POT-Creation-Date: 2006-01-24 16:51+0100\n"
 "PO-Revision-Date: 2005-12-12 13:14+0100\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
@@ -16,6 +16,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: modules/pam_exec/pam_exec.c:118
+#, c-format
+msgid "%s failed: exit code %d"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:126
+#, c-format
+msgid "%s failed: caught signal %d%s"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:134
+#, c-format
+msgid "%s failed: unknown status 0x%x"
+msgstr ""
 
 #: modules/pam_tally/pam_tally.c:738
 msgid "Authentication error"

@@ -90,7 +90,7 @@ AC_C___ATTRIBUTE__
 
 dnl
 dnl Check if --version-script is supported by ld
-dnl 
+dnl
 AC_CACHE_CHECK(for .symver assembler directive, libc_cv_asm_symver_directive,
 [cat > conftest.s <<EOF
 ${libc_cv_dot_text}
@@ -119,7 +119,7 @@ VERS_2 {
         global: sym;
 } VERS_1;
 EOF
-  if ${CC-cc} -c $ASFLAGS conftest.s 1>&AS_MESSAGE_LOG_FD 2>&AS_MESSAGE_LOG_FD; 
+  if ${CC-cc} -c $ASFLAGS conftest.s 1>&AS_MESSAGE_LOG_FD 2>&AS_MESSAGE_LOG_FD;
 then
     if AC_TRY_COMMAND([${CC-cc} $CFLAGS $LDFLAGS -shared
                                 -o conftest.so conftest.o
@@ -318,7 +318,7 @@ AC_SUBST(LIBCRYPT)
 
 dnl check for libndbm or libdb as fallback
 BACKUP_LIBS=$LIBS
-AC_CHECK_LIB([ndbm],[dbm_store], LIBDB="-lndbm", LIBDB="") 
+AC_CHECK_LIB([ndbm],[dbm_store], LIBDB="-lndbm", LIBDB="")
 LIBS=$BACKUP_LIBS
 if test -z "$LIBDB" ; then
     BACKUP_LIBS=$LIBS
@@ -447,7 +447,7 @@ AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	modules/pam_mkhomedir/Makefile modules/pam_motd/Makefile \
 	modules/pam_nologin/Makefile modules/pam_permit/Makefile \
 	modules/pam_pwdb/Makefile modules/pam_rhosts/Makefile \
-	modules/pam_rootok/Makefile \
+	modules/pam_rootok/Makefile modules/pam_exec/Makefile \
 	modules/pam_securetty/Makefile modules/pam_selinux/Makefile \
 	modules/pam_shells/Makefile modules/pam_stress/Makefile \
 	modules/pam_succeed_if/Makefile modules/pam_tally/Makefile \
