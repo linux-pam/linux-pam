@@ -269,7 +269,7 @@ msgstr "ist ein Palindrome"
 
 #: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
-msgstr "Nur Änderungen in Groß-/Kleinschreibung"
+msgstr "Nur Änderungen bei der Groß-/Kleinschreibung"
 
 #: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"

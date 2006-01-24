@@ -2,6 +2,8 @@
 
 	* modules/pam_debug/pam_debug.c: Fix name of pam_module struct.
 
+	* po/de.po: Fix one translation.
+
 2006-01-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_succeed_if/pam_succeed_if.c: Add support for
