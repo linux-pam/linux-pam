@@ -4,9 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README $(MANS)
+EXTRA_DIST = README $(MANS) $(XMLS)
 
 man_MANS = pam_exec.8
+man_XMLS = pam_exec.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -19,3 +20,14 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_exec.la
+
+if ENABLE_REGENERATE_MAN
+
+pam_exec.8: pam_exec.8.xml
+	$(XMLLINT) --nonet --xinclude --postvalid --noout $<
+	$(XSLTPROC) --nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
+
+#CLEANFILES += $(man_MANS)
+
+endif
+

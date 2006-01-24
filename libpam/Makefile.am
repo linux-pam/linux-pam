@@ -4,6 +4,13 @@
 
 AM_CFLAGS = -DDEFAULT_MODULE_PATH=\"$(SECUREDIR)/\" -DLIBPAM_COMPILE \
 	-I$(srcdir)/include $(LIBPRELUDE_CFLAGS) -DPAM_VERSION=\"$(VERSION)\"
+if HAVE_LIBSELINUX
+  AM_CFLAGS += -D"WITH_SELINUX"
+endif
+if HAVE_LIBPWDB
+  AM_CFLAGS += -D"WITH_PWDB"
+endif
+
 AM_LDFLAGS = $(LIBPRELUDE_LIBS) @LIBDL@
 
 CLEANFILES = *~
@@ -14,9 +21,13 @@ include_HEADERS = $(addprefix include/security/, _pam_compat.h _pam_macros.h _pa
 	pam_appl.h pam_malloc.h pam_modules.h pam_ext.h pam_modutil.h)
 
 noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h \
-		pam_modutil_private.h
+		pam_modutil_private.h pam_static_modules.h
 
 libpam_la_LDFLAGS = -no-undefined -version-info 81:3:81 @LIBAUDIT@
+if STATIC_MODULES
+  libpam_la_LDFLAGS += `ls ../modules/pam_*/*.lo` \
+	@LIBDB@ @LIBCRYPT@ @LIBNSL@ @LIBCRACK@ -lutil
+endif
 if HAVE_VERSIONING
   libpam_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libpam.map
 endif

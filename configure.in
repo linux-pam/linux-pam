@@ -43,6 +43,22 @@ dnl Add security to include directory
 	fi
 fi
 
+dnl
+dnl check if we should link everything static into libpam
+dnl
+AC_ARG_ENABLE(static-modules,AS_HELP_STRING([--enable-static-modules],
+	[do not make the modules dynamically loadable]),
+	STATIC_MODULES=$enableval,STATIC_MODULES=no)
+if test "$STATIC_MODULES" != "no" ; then
+        CFLAGS="$CFLAGS -DPAM_STATIC"
+	AC_ENABLE_STATIC([yes])
+	AC_ENABLE_SHARED([no])
+else
+# per default don't build static libraries
+	AC_ENABLE_STATIC([no])
+	AC_ENABLE_SHARED([yes])
+fi
+AM_CONDITIONAL([STATIC_MODULES], [test "$STATIC_MODULES" != "no"])
 
 dnl Checks for programs.
 AC_GNU_SOURCE
@@ -52,16 +68,7 @@ AM_PROG_LEX
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-# per default don't build static libraries
-AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
-
-if test "$enable_static" = yes; then
-   CFLAGS="$CFLAGS -DPAM_STATIC"
-fi
-if test "$enable_shared" = yes; then
-   CFLAGS="$CFLAGS -DPAM_DYNAMIC"
-fi
 
 # Largefile support
 AC_SYS_LARGEFILE
@@ -417,6 +424,23 @@ else
   fi
 fi
 AC_SUBST(PSER)
+
+dnl
+dnl Check for xsltproc
+dnl
+enable_man=yes
+AC_PATH_PROG([XSLTPROC], [xsltproc])
+if test -z "$XSLTPROC"; then
+     enable_man=no
+fi
+AC_PATH_PROG([XMLLINT], [xmllint],[/bin/true])
+dnl check for DocBook DTD and stylesheets in the local catalog.
+JH_CHECK_XML_CATALOG([-//OASIS//DTD DocBook XML V4.3//EN],
+                [DocBook XML DTD V4.3], [], enable_man=no)
+JH_CHECK_XML_CATALOG([http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl],
+                [DocBook XSL Stylesheets], [], enable_man=no)
+AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_man != xno)
+
 
 AM_GNU_GETTEXT_VERSION
 AM_GNU_GETTEXT([external])

@@ -14,6 +14,19 @@
 	* po/POTFILES.in: Add modules/pam_exec/pam_exec.c.
 	* po/*.po: Merge new pam_exec strings.
 
+	* libpam/pam_static_modules.h: New.
+	* Makefile.am: Reorder subdirectories for static modules.
+	* configure.in: Add --enable-static-modules option.
+	* libpam/Makefile.am: Define WITH_SELINUX and WITH_PWDB if
+	necessary, add pam_static_modules.h, link against all PAM
+	module object files if STATIC_MODULES is defined.
+	* libpam/pam_static.c: Remove old _static_module* includes,
+	include pam_static_modules.h.
+
+	* configure.in: Add checks for xsltproc, xmllint and docbook
+	xsl stylesheet.
+	* m4/jh_path_xml_catalog.m4: New.
+
 2006-01-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_succeed_if/pam_succeed_if.c: Add support for

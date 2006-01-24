@@ -14,24 +14,7 @@
 
 #include "pam_private.h"
 
-/*
- * Need to include pointers to static modules; this was built by each
- * of the modules that register...
- */
-
-#include "../modules/_static_module_list"
-
-/*
- * and here is a structure that connects libpam to the above static
- * modules
- */
-
-static struct pam_module *static_modules[] = {
-
-#include "../modules/_static_module_entry"
-
-    NULL
-};
+#include "pam_static_modules.h"
 
 /*
  * and now for the functions

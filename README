@@ -20,3 +20,16 @@ box may stop working..)
 
 That said, please report problems to the bug reporting database
 on sourceforge.net.
+
+If you do not wish to make the modules dynamically loadable, but
+build a static libpam including all PAM modules, you have to call:
+
+      ./configure --enable-static-modules
+
+In this case you cannot use pam_unix in the PAM config files instead you
+have to use pam_unix_acct, pam_unix_auth, pam_unix_passwd and
+pam_unix_session.
+
+To regenerate manual pages from the XML source files you need the
+docbook-xsl stylesheets in version 1.69.1 or newer, older versions had
+a bug which generates a broken layout.

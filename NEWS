@@ -3,6 +3,7 @@ Linux-PAM NEWS -- history of user-visible changes.
 * Fix building of static variants of libpam, libpamc and libpam_misc
 * pam_listfile: Add support for password and session management
 * pam_exec: New PAM module to execute arbitary commands
+* Fix building of a static libpam including all PAM modules
 
 Release 0.99.3.0
 
