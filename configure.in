@@ -302,17 +302,13 @@ dnl Checks for the existence of libdl - on BSD and Tru64 its part of libc
 AC_CHECK_LIB([dl], [dlopen], LIBDL="-ldl", LIBDL="")
 AC_SUBST(LIBDL)
 
-BACKUP_LIBS=$LIBS
-AC_SEARCH_LIBS([FascistCheck],[crack], LIBCRACK="-l$ac_lib", LIBCRACK="")
-LIBS=$BACKUP_LIBS
+AC_CHECK_LIB([crack], [FascistCheck], LIBCRACK="-lcrack", LIBCRACK="")
 AC_SUBST(LIBCRACK)
 AM_CONDITIONAL([HAVE_LIBCRACK], [test ! -z "$LIBCRACK"])
 
 dnl Look for Linux Auditing library - see documentation
 AC_CHECK_HEADER([libaudit.h])
-BACKUP_LIBS=$LIBS
 AC_CHECK_LIB(audit, audit_log_user_message, LIBAUDIT=-laudit, LIBAUDIT="")
-LIBS=$BACKUP_LIBS
 AC_SUBST(LIBAUDIT)
 if test ! -z "$LIBAUDIT" ; then
     AC_DEFINE([HAVE_LIBAUDIT], 1, [Defined if audit support should be compiled in])
@@ -323,44 +319,36 @@ AC_SEARCH_LIBS([crypt],[xcrypt crypt], LIBCRYPT="-l$ac_lib", LIBCRYPT="")
 LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCRYPT)
 
-dnl check for libndbm or libdb as fallback
-BACKUP_LIBS=$LIBS
-AC_CHECK_LIB([ndbm],[dbm_store], LIBDB="-lndbm", LIBDB="")
-LIBS=$BACKUP_LIBS
+dnl check for libdb or libndbm as fallback. Some libndbm compat
+dnl libraries are unuseable, so try libdb first.
+AC_CHECK_LIB([db], [db_create], LIBDB="-ldb", LIBDB="")
 if test -z "$LIBDB" ; then
-    BACKUP_LIBS=$LIBS
     AC_CHECK_LIB([db], [dbm_store], LIBDB="-ldb", LIBDB="")
-    LIBS=$BACKUP_LIBS
 fi
 if test -z "$LIBDB" ; then
-    BACKUP_LIBS=$LIBS
-    AC_CHECK_LIB([db], [db_create], LIBDB="-ldb", LIBDB="")
-    LIBS=$BACKUP_LIBS
+    AC_CHECK_LIB([ndbm],[dbm_store], LIBDB="-lndbm", LIBDB="")
+    if test ! -z "$LIBDB" ; then
+        AC_CHECK_HEADERS(ndbm.h)
+    fi
+else
+    AC_CHECK_HEADERS(db.h)
 fi
 AC_SUBST(LIBDB)
 AM_CONDITIONAL([HAVE_LIBDB], [test ! -z "$LIBDB"])
 
-BACKUP_LIBS=$LIBS
 AC_CHECK_LIB([nsl],[yp_get_default_domain], LIBNSL="-lnsl", LIBNSL="")
-LIBS=$BACKUP_LIBS
 AC_SUBST(LIBNSL)
 
-BACKUP_LIBS=$LIBS
 AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
-LIBS=$BACKUP_LIBS
 AC_SUBST(LIBSELINUX)
 AM_CONDITIONAL([HAVE_LIBSELINUX], [test ! -z "$LIBSELINUX"])
 
 dnl Checks for Libcap
-BACKUP_LIBS=$LIBS
 AC_CHECK_LIB([cap], [cap_get_proc], LIBCAP="-lcap", LIBCAP="" )
-LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCAP)
 AM_CONDITIONAL([HAVE_LIBCAP], [test ! -z "$LIBCAP"])
 
-BACKUP_LIBS=$LIBS
 AC_CHECK_LIB([pwdb],[pwdb_db_name], LIBPWDB="-lpwdb", LIBPWDB="")
-LIBS=$BACKUP_LIBS
 AC_SUBST(LIBPWDB)
 AM_CONDITIONAL([HAVE_LIBPWDB], [test ! -z "$LIBPWDB"])
 
@@ -372,12 +360,6 @@ AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/file.h sys/ioctl.h sys/time.h sys
 
 AC_CHECK_HEADERS(crypt.h)
 AC_CHECK_HEADERS(crack.h)
-
-dnl For module/pam_userdb
-AC_CHECK_HEADERS(ndbm.h db.h)
-dnl I suspect the following two lines are a hack.
-HAVE_NDBM_H=$ac_cv_header_ndbm_h
-AC_SUBST(HAVE_NDBM_H)
 
 dnl For module/pam_lastlog
 AC_CHECK_HEADERS(lastlog.h utmp.h utmpx.h)
