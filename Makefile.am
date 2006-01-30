@@ -1,8 +1,8 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
-AUTOMAKE_OPTIONS = 1.8 gnu dist-bzip2
+AUTOMAKE_OPTIONS = 1.9 gnu dist-bzip2 check-news
 
 if STATIC_MODULES
 SUBDIRS = modules libpam libpamc libpam_misc po conf doc examples
@@ -15,7 +15,7 @@ CLEANFILES = *~
 M4_FILES = $(shell ls $(srcdir)/m4/*.m4)
 
 EXTRA_DIST = config.rpath mkinstalldirs pgp.keys.asc CHANGELOG \
-		Copyright $(M4_FILES)
+		Copyright $(M4_FILES) Make.xml.rules
 
 ACLOCAL_AMFLAGS = -I m4
 

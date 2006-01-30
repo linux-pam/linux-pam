@@ -5,6 +5,8 @@
 
 	* Make.xml.rules: New.
 
+	* Makefile.am (EXTRA_DIST): Add Make.xml.rules.
+
 2006-01-27  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Prefer libdb over libndbm, fix check for
