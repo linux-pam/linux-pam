@@ -1,0 +1,22 @@
+#
+# Copyright (c) 2006 Thorsten Kukuk <kukuk@thkukuk.de>
+#
+
+%.1: %.1.xml
+	$(XMLLINT) --nonet --xinclude --postvalid --noout $<
+	$(XSLTPROC) --nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
+
+%.3: %.3.xml
+	$(XMLLINT) --nonet --xinclude --postvalid --noout $<
+	$(XSLTPROC) --nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
+
+%.5: %.5.xml
+	$(XMLLINT) --nonet --xinclude --postvalid --noout $<
+	$(XSLTPROC) --nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
+
+%.8: %.8.xml
+	$(XMLLINT) --nonet --xinclude --postvalid --noout $<
+	$(XSLTPROC) --nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
+
+#CLEANFILES += $(man_MANS)
+

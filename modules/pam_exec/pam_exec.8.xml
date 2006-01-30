@@ -109,9 +109,7 @@
       <variablelist>
 
         <varlistentry>
-          <term>
-            <option>PAM_SUCCESS</option>
-          </term>
+          <term>PAM_SUCCESS</term>
           <listitem>
             <para>
               The external command runs successfull.
@@ -120,9 +118,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>
-            <option>PAM_SERVICE_ERR</option>
-          </term>
+          <term>PAM_SERVICE_ERR</term>
           <listitem>
             <para>
 	      No argument or a wrong number of arguments were given.
@@ -131,9 +127,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>
-            <option>PAM_SYSTEM_ERR</option>
-          </term>
+          <term>PAM_SYSTEM_ERR</term>
           <listitem>
             <para>
 	      A system error occured or the command to execute failed.
@@ -142,9 +136,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>
-            <option>PAM_IGNORE</option>
-          </term>
+          <term>PAM_IGNORE</term>
           <listitem>
             <para>
 	      <function>pam_setcred</function> was called, which
@@ -176,16 +168,13 @@
     <title>See Also</title>
     <para>
       <citerefentry>
-	<refentrytitle>pam.conf</refentrytitle>
-	<manvolnum>5</manvolnum>
+	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
       </citerefentry>,
       <citerefentry>
-	<refentrytitle>pam.d</refentrytitle>
-	<manvolnum>8</manvolnum>
+	<refentrytitle>pam.d</refentrytitle><manvolnum>8</manvolnum>
       </citerefentry>,
       <citerefentry>
-	<refentrytitle>pam</refentrytitle>
-	<manvolnum>8</manvolnum>
+	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
       </citerefentry>
     </para>
   </refsect1>

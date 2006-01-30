@@ -22,12 +22,6 @@ endif
 securelib_LTLIBRARIES = pam_exec.la
 
 if ENABLE_REGENERATE_MAN
-
-pam_exec.8: pam_exec.8.xml
-	$(XMLLINT) --nonet --xinclude --postvalid --noout $<
-	$(XSLTPROC) --nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
-
-#CLEANFILES += $(man_MANS)
-
+-include $(top_srcdir)/Make.xml.rules
 endif
 

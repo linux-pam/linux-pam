@@ -2,7 +2,7 @@
 .\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
 .\" Instead of manually editing it, you probably should edit the DocBook XML
 .\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_EXEC" "8" "01/24/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_EXEC" "8" "01/30/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -39,16 +39,16 @@ are supported.
 .SH "RETURN VALUES"
 .PP
 .TP
-\fBPAM_SUCCESS\fR
+PAM_SUCCESS
 The external command runs successfull.
 .TP
-\fBPAM_SERVICE_ERR\fR
+PAM_SERVICE_ERR
 No argument or a wrong number of arguments were given.
 .TP
-\fBPAM_SYSTEM_ERR\fR
+PAM_SYSTEM_ERR
 A system error occured or the command to execute failed.
 .TP
-\fBPAM_IGNORE\fR
+PAM_IGNORE
 \fBpam_setcred\fR
 was called, which does not execute the command.
 .SH "EXAMPLES"
