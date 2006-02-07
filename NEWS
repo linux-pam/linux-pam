@@ -5,6 +5,8 @@ Linux-PAM NEWS -- history of user-visible changes.
 * pam_exec: New PAM module to execute arbitary commands
 * Fix building of a static libpam including all PAM modules
 * New/updated translations for: nl, pt
+* pam_access: Add network(address) / netmask and IPv6 support
+* Add manual pages for pam_cracklib, pam_deny and pam_access
 
 Release 0.99.3.0
 
