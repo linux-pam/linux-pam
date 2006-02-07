@@ -6,3 +6,4 @@
 .libs
 Makefile
 Makefile.in
+pam_selinux_check
