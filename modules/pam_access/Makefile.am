@@ -28,7 +28,7 @@ if ENABLE_REGENERATE_MAN
 
 noinst_DATA = README
 
-README.html: pam_access.8.xml access.conf.5.xml
+README: pam_access.8.xml access.conf.5.xml
 
 -include $(top_srcdir)/Make.xml.rules
 endif
