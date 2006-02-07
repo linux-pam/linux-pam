@@ -10,7 +10,7 @@
     <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv>
+  <refnamediv id="pam_exec-name">
     <refname>pam_exec</refname>
     <refpurpose>PAM module which calls an external command</refpurpose>
   </refnamediv>
@@ -38,7 +38,7 @@
 
   <refsect1 id="pam_exec-description">
 
-    <title>Description</title>
+    <title>DESCRIPTION</title>
 
     <para>
       pam_exec is a PAM module that can be used to run
@@ -49,7 +49,7 @@
 
   <refsect1 id="pam_exec-options">
 
-    <title>Options</title>
+    <title>OPTIONS</title>
     <para>
       <variablelist>
 
@@ -96,7 +96,7 @@
   </refsect1>
 
   <refsect1 id="pam_exec-services">
-    <title>Module Services Provided</title>
+    <title>MODULE SERVICES PROVIDED</title>
     <para>
       The services <option>auth</option>, <option>account</option>,
       <option>password</option> and <option>session</option> are supported.
@@ -104,7 +104,7 @@
   </refsect1>
 
   <refsect1 id='pam_exec-return_values'>
-    <title>Return Values</title>
+    <title>RETURN VALUES</title>
     <para>
       <variablelist>
 
@@ -150,7 +150,7 @@
   </refsect1>
 
   <refsect1 id='pam_exec-examples'>
-    <title>Examples</title>
+    <title>EXAMPLES</title>
     <para>
       Add the following line to <filename>/etc/pam.d/passwd</filename> to
       rebuild the NIS database after each local password change:
@@ -165,7 +165,7 @@
   </refsect1>
 
   <refsect1 id='pam_exec-see_also'>
-    <title>See Also</title>
+    <title>SEE ALSO</title>
     <para>
       <citerefentry>
 	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
@@ -180,7 +180,7 @@
   </refsect1>
 
   <refsect1 id='pam_exec-author'>
-    <title>Author</title>
+    <title>AUTHOR</title>
       <para>
         pam_exec was written by Thorsten Kukuk &lt;kukuk@thkukuk.de&gt;.
       </para>

@@ -1,29 +1,42 @@
+pam_exec — PAM module which calls an external command
 
-pam_exec module:
-	Call <prog> <arguments>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DESCRIPTION
+
+pam_exec is a PAM module that can be used to run an external command.
+
+OPTIONS
+
+debug
+
+    Print debug information.
+
+log=file
+
+    The output of the command is appended to file
+
+seteuid
+
+    Per default pam_exec.so will execute the external command with the real
+    user ID of the calling process. Specifying this option means the command is
+    run with the effective user ID.
+
+EXAMPLES
+
+Add the following line to /etc/pam.d/passwd to rebuild the NIS database after
+each local password change:
+
+        passwd optional pam_exec.so seteuid make -C /var/yp
 
 
-USAGE:
-        For the services you wish to run a program put the following
-	line in the config as the last line for that service:
+This will execute the command
 
-        <type>    required     pam_exec.so [options] /path/prog ...
+make -C /var/yp
 
-	and pam_exec.so will run "/path/prog ...".
+with effective user ID.
 
+AUTHOR
 
-OPTIONS:
+pam_exec was written by Thorsten Kukuk <kukuk@thkukuk.de>.
 
-	debug		print debug informations
-
-	seteuid		pam_exec.so will call setuid(seteuid()), so that
-			the program will run with the same rights as the 
-			calling applications (effective user ID). The
-			default is that the program will be run with the
-			permissions of the calling user (real user ID).
-
-	log=<file>	the output is appended to this file.
-
-
-AUTHOR:
-	Thorsten Kukuk <kukuk@thkukuk.de>

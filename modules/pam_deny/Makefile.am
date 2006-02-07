@@ -4,7 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README
+EXTRA_DIST = README README.xml $(MANS) $(XMLS)
+
+man_MANS = pam_deny.8
+man_XMLS = pam_deny.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -17,3 +20,13 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_deny.la
+
+if ENABLE_REGENERATE_MAN
+
+noinst_DATA = README
+
+README: pam_deny.8.xml
+
+-include $(top_srcdir)/Make.xml.rules
+endif
+

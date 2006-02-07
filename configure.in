@@ -337,6 +337,9 @@ AC_SUBST(LIBDB)
 AM_CONDITIONAL([HAVE_LIBDB], [test ! -z "$LIBDB"])
 
 AC_CHECK_LIB([nsl],[yp_get_default_domain], LIBNSL="-lnsl", LIBNSL="")
+LIBS="$LIBS $LIBNSL"
+AC_CHECK_FUNCS(yp_get_default_domain)
+LIBS=$BACKUP_LIBS
 AC_SUBST(LIBNSL)
 
 AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
@@ -383,6 +386,7 @@ AC_CHECK_FUNCS(gethostname gettimeofday lckpwdf mkdir select)
 AC_CHECK_FUNCS(strcspn strdup strspn strstr strtol uname)
 AC_CHECK_FUNCS(getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r)
 AC_CHECK_FUNCS(getgrouplist getline getdelim)
+AC_CHECK_FUNCS(inet_ntop inet_pton)
 
 dnl Checks for programs/utilities
 AC_CHECK_PROG(SGML2PS, sgml2ps, yes, no)
@@ -421,6 +425,14 @@ JH_CHECK_XML_CATALOG([-//OASIS//DTD DocBook XML V4.3//EN],
                 [DocBook XML DTD V4.3], [], enable_man=no)
 JH_CHECK_XML_CATALOG([http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl],
                 [DocBook XSL Stylesheets], [], enable_man=no)
+
+AC_PATH_PROG([BROWSER], [w3m])
+if test ! -z "$BROWSER"; then
+     BROWSER="$BROWSER -T text/html -dump"
+else
+     enable_man=no
+fi
+
 AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_man != xno)
 
 

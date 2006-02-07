@@ -1,44 +1,103 @@
-# Description of its configuration file
-#
-# (The default config file is "/etc/security/access.conf". This
-#  default can be overridden with a module config argument
-#  'accessfile=<full-path>'):
-#
-# Login access control table.
-# 
-# When someone logs in, the table is scanned for the first entry that
-# matches the (user, host) combination, or, in case of non-networked
-# logins, the first entry that matches the (user, tty) combination.  The
-# permissions field of that table entry determines whether the login will 
-# be accepted or refused.
-# 
-# Format of the login access control table is three fields separated by a
-# ":" character:
-# 
-#       permission : users : origins
-# 
-# The first field should be a "+" (access granted) or "-" (access denied)
-# character. 
-#
-# The second field should be a list of one or more login names, group
-# names, or ALL (always matches). A pattern of the form user@host is
-# matched when the login name matches the "user" part, and when the
-# "host" part matches the local machine name.
-#
-# The third field should be a list of one or more tty names (for
-# non-networked logins), host names, domain names (begin with "."), host
-# addresses, internet network numbers (end with "."), ALL (always
-# matches), NONE (matches no tty on non-networked logins) or
-# LOCAL (matches any string that does not contain a "." character).
-#
-# If you run NIS you can use @netgroupname in host or user patterns; this
-# even works for @usergroup@@hostgroup patterns. Weird.
-#
-# The EXCEPT operator makes it possible to write very compact rules.
-#
-# The group file is searched only when a name does not match that of the
-# logged-in user. Both the user's primary group is matched, as well as
-# groups in which users are explicitly listed.
-#
-# Alexei Nogin <alexei@nogin.dnttm.ru> 1997/06/15
-############################################################################
+pam_access — PAM module for logdaemon style login access control
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DESCRIPTION
+
+The pam_access PAM module is mainly for access management. It provides
+logdaemon style login access control based on login names, host or domain
+names, internet addresses or network numbers, or on terminal line names in case
+of non-networked logins.
+
+By default rules for access management are taken from config file /etc/security
+/access.conf if you don't specify another file.
+
+OPTIONS
+
+accessfile=/path/to/access.conf
+
+    Indicate an alternative access.conf style configuration file to override
+    the default. This can be useful when different services need different
+    access lists.
+
+debug
+
+    A lot of debug informations are printed with syslog(3).
+
+fieldsep=separators
+
+    This option modifies the field separator character that pam_access will
+    recognize when parsing the access configuration file. For example: fieldsep
+    =| will cause the default `:' character to be treated as part of a field
+    value and `|' becomes the field separator. Doing this may be useful in
+    conjuction with a system that wants to use pam_access with X based
+    applications, since the PAM_TTY item is likely to be of the form
+    "hostname:0" which includes a `:' character in its value. But you should
+    not need this.
+
+listsep=separators
+
+    This option modifies the list separator character that pam_access will
+    recognize when parsing the access configuration file. For example: listsep
+    =, will cause the default ` ' (space) and `\t' (tab) characters to be
+    treated as part of a list element value and `,' becomes the only list
+    element separator. Doing this may be useful on a system with group
+    information obtained from a Windows domain, where the default built-in
+    groups "Domain Users", "Domain Admins" contain a space.
+
+EXAMPLES
+
+These are some example lines which might be specified in /etc/security/
+access.conf.
+
+User root should be allowed to get access via cron, X11 terminal :0, tty1, ...,
+tty5, tty6.
+
++ : root : crond :0 tty1 tty2 tty3 tty4 tty5 tty6
+
+User root should be allowed to get access from hosts which own the IPv4
+addresses. This does not mean that the connection have to be a IPv4 one, a IPv6
+connection from a host with one of this IPv4 addresses does work, too.
+
++ : root : 192.168.200.1 192.168.200.4 192.168.200.9
+
++ : root : 127.0.0.1
+
+User root should get access from network 192.168.201. where the term will be
+evaluated by string matching. But it might be better to use network/netmask
+instead. The same meaning of 192.168.201. is 192.168.201.0/24 or 192.168.201.0/
+255.255.255.0.
+
++ : root : 192.168.201.
+
+User root should be able to have access from hosts foo1.bar.org and
+foo2.bar.org (uses string matching also).
+
++ : root : foo1.bar.org foo2.bar.org
+
+User root should be able to have access from domain foo.bar.org (uses string
+matching also).
+
++ : root : .foo.bar.org
+
+User root should be denied to get access from all other sources.
+
+- : root : ALL
+
+User foo and members of netgroup admins should be allowed to get access from
+all sources. This will only work if netgroup service is available.
+
++ : @admins foo : ALL
+
+User john and foo should get access from IPv6 host address.
+
++ : john foo : 2001:4ca0:0:101::1
+
+User john should get access from IPv6 net/mask.
+
++ : john : 2001:4ca0:0:101::/64
+
+All other users should be denied to get access from all sources.
+
+- : ALL : ALL
+

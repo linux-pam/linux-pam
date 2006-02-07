@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+
+<refentry id='pam_access'>
+
+  <refmeta>
+    <refentrytitle>pam_access</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id='pam_access-name'>
+    <refname>pam_access</refname>
+    <refpurpose>
+      PAM module for logdaemon style login access control
+    </refpurpose>
+  </refnamediv>
+
+<!-- body begins here -->
+
+  <refsynopsisdiv>
+    <cmdsynopsis id="pam_access-cmdsynopsis">
+      <command>pam_access.so</command>
+      <arg choice="opt">
+        debug
+      </arg>
+      <arg choice="opt">
+        accessfile=<replaceable>file</replaceable>
+      </arg>
+      <arg choice="opt">
+        fieldsep=<replaceable>sep</replaceable>
+      </arg>
+      <arg choice="opt">
+        listsep=<replaceable>sep</replaceable>
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+
+  <refsect1 id="pam_access-description">
+    <title>DESCRIPTION</title>
+    <para>
+      The pam_access PAM module is mainly for access management.
+      It provides logdaemon style login access control based on login
+      names, host or domain names, internet addresses or network numbers,
+      or on terminal line names in case of non-networked logins.
+    </para>
+    <para>
+      By default rules for access management are taken from config file
+      <filename>/etc/security/access.conf</filename> if you don't specify
+      another file.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_access-options">
+    <title>OPTIONS</title>
+    <variablelist>
+
+      <varlistentry>
+        <term>
+          <option>accessfile=<replaceable>/path/to/access.conf</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            Indicate an alternative <filename>access.conf</filename>
+            style configuration file to override the default. This can
+            be useful when different services need different access lists.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>debug</option>
+        </term>
+        <listitem>
+          <para>
+            A lot of debug informations are printed with
+            <citerefentry><refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>fieldsep=<replaceable>separators</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            This option modifies the field separator character that
+            pam_access will recognize when parsing the access
+            configuration file. For example:
+            <emphasis remap='B'>fieldsep=|</emphasis> will cause the
+            default `:' character to be treated as part of a field value
+            and `|' becomes the field separator. Doing this may be
+            useful in conjuction with a system that wants to use
+            pam_access with X based applications, since the
+            <emphasis remap='B'>PAM_TTY</emphasis> item is likely to be
+            of the form "hostname:0" which includes a `:' character in
+            its value. But you should not need this.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>listsep=<replaceable>separators</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            This option modifies the list separator character that
+            pam_access will recognize when parsing the access
+            configuration file. For example:
+            <emphasis remap='B'>listsep=,</emphasis> will cause the
+            default ` ' (space) and `\t' (tab) characters to be treated
+            as part of a list element value and `,' becomes the only
+            list element separator. Doing this may be useful on a system
+            with group information obtained from a Windows domain,
+            where the default built-in groups "Domain Users",
+            "Domain Admins" contain a space.
+          </para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="pam_access-services">
+    <title>MODULE SERVICES PROVIDED</title>
+    <para>
+      The <option>auth</option> and <option>account</option> services are supported.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_access-return_values">
+    <title>RETURN VALUES</title>
+    <variablelist>
+      <varlistentry>
+        <term>PAM_SUCCESS</term>
+        <listitem>
+           <para>
+             Access was granted.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_PERM_DENIED</term>
+        <listitem>
+           <para>
+             Access was not granted.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_IGNORE</term>
+        <listitem>
+           <para>
+             <function>pam_setcred</function> was called which does nothing.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_ABORT</term>
+        <listitem>
+           <para>
+             Not all relevant data or options could be gotten.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_USER_UNKNOWN</term>
+        <listitem>
+           <para>
+             The user is not known to the system.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="pam_access-files">
+    <title>FILES</title>
+    <variablelist>
+      <varlistentry>
+        <term><filename>/etc/security/access.conf</filename></term>
+        <listitem>
+          <para>Default configuration file</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="pam_access-see_also">
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+        <refentrytitle>access.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam.d</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_access-authors">
+    <title>AUTHORS</title>
+    <para>
+      The logdaemon style login access control scheme was designed and implemented by
+      Wietse Venema.
+      The pam_access PAM module was developed by
+      Alexei Nogin &lt;alexei@nogin.dnttm.ru&gt;.
+      The IPv4(/) IPv6 support and the network(address) / netmask feature
+      was developed and provided by Mike Becher &lt;mike.becher@lrz-muenchen.de&gt;.
+    </para>
+  </refsect1>
+</refentry>

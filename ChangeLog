@@ -1,3 +1,37 @@
+2006-02-07  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+        * configure.in: Check for text browser.
+	* Make.xml.rules: Add rule to generate README from README.xml.
+
+	* modules/pam_access/Makefile.am: Include Make.xml.rules.
+	* modules/pam_access/README: Regenerated from README.xml.
+	* modules/pam_access/README.xml: New.
+	* modules/pam_access/access.conf: Extended by new examples.
+	* modules/pam_access/access.conf.5: New, generated from xml file.
+	* modules/pam_access/access.conf.5.xml: New.
+	* modules/pam_access/pam_access.8: New, generated from xml file.
+	* modules/pam_access/pam_access.8.xml: New.
+	* modules/pam_access/pam_access.c: Add rules for IPv6 and
+	netmasks.
+	Based on patch from Mike Becher <Mike.Becher@lrz-muenchen.de>.
+
+	* modules/pam_deny/Makefile.am: Include Make.xml.rules.
+	* modules/pam_deny/pam_deny.8.xml: New.
+	* modules/pam_deny/pam_deny.8: New, generated from xml file.
+	* modules/pam_deny/README.xml: New.
+	* modules/pam_deny/README: Regenerated from xml file.
+
+	* modules/pam_cracklib/Makefile.am: Include Make.xml.rules.
+	* modules/pam_cracklib/pam_cracklib.8.xml: New.
+	* modules/pam_cracklib/pam_cracklib.8: New, generated from xml file.
+	* modules/pam_cracklib/README.xml: New.
+	* modules/pam_cracklib/README: Regenerated from xml file.
+
+	* modules/pam_exec/Makefile.am: Add rule to generate README.
+	* modules/pam_exec/README: Regenerated from xml file.
+	* modules/pam_exec/pam_exec.8: Regenerated from xml file.
+	* modules/pam_exec/pam_exec.8.xml: Syntax files.
+
 2006-02-06  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/nl.po: New.

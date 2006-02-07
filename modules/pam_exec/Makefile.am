@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README $(MANS) $(XMLS)
+EXTRA_DIST = README README.xml $(MANS) $(XMLS)
 
 man_MANS = pam_exec.8
 man_XMLS = pam_exec.8.xml
@@ -22,6 +22,11 @@ endif
 securelib_LTLIBRARIES = pam_exec.la
 
 if ENABLE_REGENERATE_MAN
+
+noinst_DATA = README
+
+README: pam_exec.8.xml
+
 -include $(top_srcdir)/Make.xml.rules
 endif
 

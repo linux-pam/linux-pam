@@ -1,10 +1,13 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
 
-EXTRA_DIST = README
+EXTRA_DIST = README README.xml $(MANS) $(XMLS)
+
+man_MANS = pam_cracklib.8
+man_XMLS = pam_cracklib.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -21,3 +24,13 @@ securelib_LTLIBRARIES = pam_cracklib.la
 endif
 
 pam_cracklib_la_LIBADD = @LIBCRACK@ @LIBCRYPT@
+
+if ENABLE_REGENERATE_MAN
+
+noinst_DATA = README
+
+README: pam_cracklib.8.xml
+
+-include $(top_srcdir)/Make.xml.rules
+endif
+

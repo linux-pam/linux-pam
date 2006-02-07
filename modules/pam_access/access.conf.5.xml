@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+        "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+
+<refentry id="access.conf">
+
+  <refmeta>
+    <refentrytitle>access.conf</refentrytitle>
+    <manvolnum>5</manvolnum>
+    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>access.conf</refname>
+    <refpurpose>The login access control table file</refpurpose>
+  </refnamediv>
+
+
+  <refsect1 id='access.conf-description'>
+    <title>DESCRIPTION</title>
+
+    <para>
+      This module provides logdaemon style login access control based
+      on login names and on host (or domain) names, internet addresses
+      (or network numbers), on terminal line names in case of
+      non-networked logins or on service name if called by a daemon.
+    </para>
+
+    <para>
+      The <filename>/etc/security/access.conf</filename> file specifies
+      (<replaceable>user</replaceable>, <replaceable>host</replaceable>),
+      (<replaceable>user</replaceable>, <replaceable>network/netmask</replaceable>) or
+      (<replaceable>user</replaceable>, <replaceable>tty</replaceable>)
+      combinations for which a login will be either accepted or refused.
+    </para>
+
+    <para>
+      When someone logs in, the file <filename>access.conf</filename> is
+      scanned for the first entry that matches the
+      (<replaceable>user</replaceable>, <replaceable>host</replaceable>) or
+      (<replaceable>user</replaceable>, <replaceable>network/netmask</replaceable>)
+      combination, or, in case of non-networked logins, the first entry
+      that matches the
+      (<replaceable>user</replaceable>, <replaceable>tty</replaceable>)
+      combination.  The permissions field of that table entry determines
+      whether the login will be accepted or refused.
+   </para>
+
+    <para>
+      Each line of the login access control table has three fields separated
+      by a ":" character (colon):
+    </para>
+
+    <para>
+      <replaceable>permission</replaceable>:<replaceable>users</replaceable>:<replaceable>origins</replaceable>
+    </para>
+
+
+    <para>
+      The first field, the <replaceable>permission</replaceable> field, can be either a
+      "<emphasis>+</emphasis>" character (plus) for access granted or a
+      "<emphasis>-</emphasis>" character (minus) for access denied.
+    </para>
+
+    <para>
+      The second field, the <replaceable>users</replaceable>
+      field, should be a list of one or more login names, group names, or
+      <emphasis>ALL</emphasis> (which always matches).
+    </para>
+
+    <para>
+      The third field, the <replaceable>origins</replaceable>
+      field, should be a list of one or more tty names (for non-networked
+      logins), host names, domain names (begin with "."), host addresses,
+      internet network numbers (end with "."), internet network addresses
+      with network mask (where network mask can be a decimal number or an
+      internet address also), <emphasis>ALL</emphasis> (which always matches)
+      or <emphasis>LOCAL</emphasis> (which matches any string that does not
+      contain a "." character). If supported by the system you can use
+      <emphasis>@netgroupname</emphasis> in host or user patterns.
+    </para>
+
+    <para>
+      The <replaceable>except</replaceable> operator makes it possible to
+      write very compact rules.
+    </para>
+
+    <para>
+       The group file is searched only when a name does not match that of
+       the logged-in user. Only groups are matched in which users are
+       explicitly listed. However the PAM module does not look at the
+       primary group id of a user.
+    </para>
+
+
+    <para>
+      The "<emphasis>#</emphasis>" character at start of line (no space
+      at front) can be used to mark this line as a comment line.
+    </para>
+
+  </refsect1>
+
+  <refsect1 id="access.conf-examples">
+    <title>EXAMPLES</title>
+    <para>
+      These are some example lines which might be specified in
+      <filename>/etc/security/access.conf</filename>.
+    </para>
+
+    <para>
+      User <emphasis>root</emphasis> should be allowed to get access via
+      <emphasis>cron</emphasis>, X11 terminal <emphasis remap='I'>:0</emphasis>,
+      <emphasis>tty1</emphasis>, ..., <emphasis>tty5</emphasis>,
+      <emphasis>tty6</emphasis>.
+    </para>
+    <para>+ : root : crond :0 tty1 tty2 tty3 tty4 tty5 tty6</para>
+
+    <para>
+      User <emphasis>root</emphasis> should be allowed to get access from
+      hosts which own the IPv4 addresses. This does not mean that the
+      connection have to be a IPv4 one, a IPv6 connection from a host with
+      one of this IPv4 addresses does work, too.
+    </para>
+    <para>+ : root : 192.168.200.1 192.168.200.4 192.168.200.9</para>
+    <para>+ : root : 127.0.0.1</para>
+
+    <para>
+      User <emphasis>root</emphasis> should get access from network
+      <literal>192.168.201.</literal> where the term will be evaluated by
+      string matching. But it might be better to use network/netmask instead.
+      The same meaning of <literal>192.168.201.</literal> is
+      <emphasis>192.168.201.0/24</emphasis> or
+      <emphasis>192.168.201.0/255.255.255.0</emphasis>.
+    </para>
+    <para>+ : root : 192.168.201.</para>
+
+    <para>
+      User <emphasis>root</emphasis> should be able to have access from hosts
+      <emphasis>foo1.bar.org</emphasis> and <emphasis>foo2.bar.org</emphasis>
+      (uses string matching also).
+    </para>
+    <para>+ : root : foo1.bar.org foo2.bar.org</para>
+
+    <para>
+      User <emphasis>root</emphasis> should be able to have access from
+      domain <emphasis>foo.bar.org</emphasis> (uses string matching also).
+    </para>
+    <para>+ : root : .foo.bar.org</para>
+
+    <para>
+      User <emphasis>root</emphasis> should be denied to get access
+      from all other sources.
+    </para>
+    <para>- : root : ALL</para>
+
+    <para>
+      User <emphasis>foo</emphasis> and members of netgroup
+      <emphasis>admins</emphasis> should be allowed to get access
+      from all sources. This will only work if netgroup service is available.
+    </para>
+    <para>+ : @admins foo : ALL</para>
+
+    <para>
+      User <emphasis>john</emphasis> and <emphasis>foo</emphasis>
+      should get access from IPv6 host address.
+    </para>
+    <para>+ : john foo : 2001:4ca0:0:101::1</para>
+
+    <para>
+      User <emphasis>john</emphasis> should get access from IPv6 net/mask.
+    </para>
+    <para>+ : john : 2001:4ca0:0:101::/64</para>
+
+    <para>
+      All other users should be denied to get access from all sources.
+    </para>
+    <para>- : ALL : ALL</para>
+
+  </refsect1>
+
+  <refsect1 id="access.conf-see_also">
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry><refentrytitle>pam_access</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    </para>
+  </refsect1>
+
+  <refsect1 id="access.conf-author">
+    <title>AUTHORS</title>
+    <para>
+      Original <citerefentry><refentrytitle>login.access</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+      manual was provided by Guido van Rooij which was renamed to
+      <citerefentry><refentrytitle>access.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+      to reflect relation to default config file.
+    </para>
+    <para>
+      Network address / netmask description and example text was
+      introduced by Mike Becher &lt;mike.becher@lrz-muenchen.de&gt;.
+    </para>
+  </refsect1>
+</refentry>

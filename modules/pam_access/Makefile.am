@@ -1,10 +1,13 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
 CLEANFILES = *~
 
-EXTRA_DIST = README access.conf
+EXTRA_DIST = README README.xml access.conf $(MANS) $(XMLS)
+
+man_MANS = access.conf.5 pam_access.8
+man_XMLS = access.conf.5.xml pam_access.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -20,3 +23,12 @@ endif
 securelib_LTLIBRARIES = pam_access.la
 
 secureconf_DATA = access.conf
+
+if ENABLE_REGENERATE_MAN
+
+noinst_DATA = README
+
+README.html: pam_access.8.xml access.conf.5.xml
+
+-include $(top_srcdir)/Make.xml.rules
+endif
