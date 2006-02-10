@@ -1,5 +1,22 @@
 2006-02-10  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* configure.in: Remove pam_pwdb support.
+	* modules/Makefile.am: remove pam_pwdb.
+	* modules/pam_pwdb: Remove complete directory.
+	* libpam/Makefile.am: Remove LIBPWDB references.
+	* libpam/pam_static_modules.h: Remove pam_pwdb references.
+	* doc/modules/pam_pwdb.sgml: Removed.
+	* po/POTFILES.in: Remove modules/pam_pwdb/*.c entries.
+	* doc/pam_source.sgml: Remove references to libpwdb.
+	* doc/modules/pam_limits.sgml: Remove wrong reference to libpwdb.
+	* doc/modules/pam_group.sgml: Likewise.
+	* doc/modules/pam_cracklib.sgml: Replace pam_pwdb with pam_unix.
+	* doc/modules/pam_userdb.sgml: Likewise.
+	* modules/pam_cracklib/pam_cracklib.8.xml: Replace pam_pwdb
+	with pam_unix.
+	* modules/pam_mkhomedir/pam_mkhomedir.c: Likewise.
+	* modules/pam_group/pam_group.c: Remove dead code for libpwdb.
+
 	* modules/pam_access/Makefile.am: Fix EXTRA_DIST.
 	* modules/pam_cracklib/Makefile.am: Likewise.
 	* modules/pam_deny/Makefile.am: Likewise.

@@ -351,10 +351,6 @@ AC_CHECK_LIB([cap], [cap_get_proc], LIBCAP="-lcap", LIBCAP="" )
 AC_SUBST(LIBCAP)
 AM_CONDITIONAL([HAVE_LIBCAP], [test ! -z "$LIBCAP"])
 
-AC_CHECK_LIB([pwdb],[pwdb_db_name], LIBPWDB="-lpwdb", LIBPWDB="")
-AC_SUBST(LIBPWDB)
-AM_CONDITIONAL([HAVE_LIBPWDB], [test ! -z "$LIBPWDB"])
-
 dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC
@@ -464,7 +460,7 @@ AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	modules/pam_localuser/Makefile modules/pam_mail/Makefile \
 	modules/pam_mkhomedir/Makefile modules/pam_motd/Makefile \
 	modules/pam_nologin/Makefile modules/pam_permit/Makefile \
-	modules/pam_pwdb/Makefile modules/pam_rhosts/Makefile \
+	modules/pam_rhosts/Makefile \
 	modules/pam_rootok/Makefile modules/pam_exec/Makefile \
 	modules/pam_securetty/Makefile modules/pam_selinux/Makefile \
 	modules/pam_shells/Makefile modules/pam_stress/Makefile \

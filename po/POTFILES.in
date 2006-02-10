@@ -26,12 +26,6 @@
 ./modules/pam_rhosts/pam_rhosts_auth.c
 ./modules/pam_mail/pam_mail.c
 ./modules/pam_motd/pam_motd.c
-./modules/pam_pwdb/md5.c
-./modules/pam_pwdb/md5_broken.c
-./modules/pam_pwdb/pam_pwdb.c
-./modules/pam_pwdb/md5_good.c
-./modules/pam_pwdb/pwdb_chkpwd.c
-./modules/pam_pwdb/md5_crypt.c
 ./modules/pam_time/pam_time.c
 ./modules/pam_unix/md5.c
 ./modules/pam_unix/md5_broken.c

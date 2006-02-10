@@ -231,18 +231,18 @@ for a new password but use the one provided by the previously stacked
 
 <p>
 For an example of the use of this module, we show how it may be
-stacked with the password component of <tt/pam_pwdb/:
+stacked with the password component of <tt/pam_unix/:
 <tscreen>
 <verb>
 #
 # These lines stack two password type modules. In this example the
 # user is given 3 opportunities to enter a strong password. The
-# "use_authtok" argument ensures that the pam_pwdb module does not
+# "use_authtok" argument ensures that the pam_unix module does not
 # prompt for a password, but instead uses the one provided by
 # pam_cracklib.
 #
 passwd	password required	pam_cracklib.so retry=3
-passwd	password required	pam_pwdb.so use_authtok
+passwd	password required	pam_unix.so use_authtok
 </verb>
 </tscreen>
 
@@ -260,7 +260,7 @@ case that you want to use md5 password encryption:
 #
 password  required pam_cracklib.so \
                difok=3 minlen=15 dcredit= 2 ocredit=2
-password  required pam_pwdb.so use_authtok nullok md5
+password  required pam_unix.so use_authtok nullok md5
 </verb>
 </tscreen>
 
@@ -276,7 +276,7 @@ And here is another example in case you don't want to use credits:
 #
 password  required pam_cracklib.so \
                dcredit=-1 ucredit=-1 ocredit=-1 lcredit=0 minlen=8
-password  required pam_pwdb.so use_authtok nullok md5
+password  required pam_unix.so use_authtok nullok md5
 </verb>
 </tscreen>
 
@@ -293,7 +293,7 @@ length of 8:
 #
 password  required pam_cracklib.so \
                dcredit=0 ucredit=0 ocredit=0 lcredit=0 minlen=8
-password  required pam_pwdb.so use_authtok nullok md5
+password  required pam_unix.so use_authtok nullok md5
 </verb>
 </tscreen>
 

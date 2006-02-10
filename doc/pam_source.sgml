@@ -967,20 +967,6 @@ From here you can go back and get a real configuration
 going, hopefully after you've tested it first on a machine
 you don't care about screwing up.  :/
 
-Some pointers (to make everything "right" with Red Hat...):
-
-    Install the newest pam, pamconfig, and pwdb from the
-    redhat current directory, and do it all on the same
-    command line with rpm...
-
-        rpm -Uvh [maybe --force too] pam-* pamconfig-* pwdb-*
-
-    Then make sure you install (or reinstall) the newest
-    version of libc, util-linux, wuftp, and NetKit. For
-    kicks you might try installing the newest versions of
-    the affected x apps, like xlock, but I haven't gotten
-    those to work at all yet.
-
 </verb>
 
 <sect1>Avoid having a weak `other' configuration

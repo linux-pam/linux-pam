@@ -555,33 +555,6 @@ static int mkgrplist(pam_handle_t *pamh, char *buf, gid_t **list, int len)
 	  D(("found group: %s",buf+at));
 
 	  /* this is where we convert a group name to a gid_t */
-#ifdef WANT_PWDB
-	  {
-	      int retval;
-	      const struct pwdb *pw=NULL;
-
-	      retval = pwdb_locate("group", PWDB_DEFAULT, buf+at
-				   , PWDB_ID_UNKNOWN, &pw);
-	      if (retval != PWDB_SUCCESS) {
-		  pam_syslog(pamh, LOG_ERR, "bad group: %s; %s",
-			     buf+at, pwdb_strerror(retval));
-	      } else {
-		  const struct pwdb_entry *pwe=NULL;
-
-		  D(("group %s exists", buf+at));
-		  retval = pwdb_get_entry(pw, "gid", &pwe);
-		  if (retval == PWDB_SUCCESS) {
-		      D(("gid = %d [%p]",* (const gid_t *) pwe->value,list));
-		      (*list)[len++] = * (const gid_t *) pwe->value;
-		      pwdb_entry_delete(&pwe);                  /* tidy up */
-		  } else {
-		      pam_syslog(pamh, LOG_ERR, "%s group entry is bad; %s",
-				 pwdb_strerror(retval));
-		  }
-		  pw = NULL;          /* break link - cached for later use */
-	      }
-	  }
-#else
 	  {
 	      const struct group *grp;
 
@@ -593,7 +566,6 @@ static int mkgrplist(pam_handle_t *pamh, char *buf, gid_t **list, int len)
 		  (*list)[len++] = grp->gr_gid;
 	      }
 	  }
-#endif
 
 	  /* next entry along */
 
@@ -842,22 +814,7 @@ pam_sm_setcred (pam_handle_t *pamh, int flags,
     D(("user=%s", user));
     D(("tty=%s", tty));
 
-#ifdef WANT_PWDB
-
-    /* We initialize the pwdb library and check the account */
-    retval = pwdb_start();                             /* initialize */
-    if (retval == PWDB_SUCCESS) {
-	retval = check_account(pamh, service,tty,user);      /* get groups */
-	(void) pwdb_end();                                /* tidy up */
-    } else {
-	D(("failed to initialize pwdb; %s", pwdb_strerror(retval)));
-	pam_syslog(pamh, LOG_ERR, "unable to initialize libpwdb");
-	retval = PAM_ABORT;
-    }
-
-#else /* WANT_PWDB */
     retval = check_account(pamh,service,tty,user);          /* get groups */
-#endif /* WANT_PWDB */
 
     return retval;
 }

@@ -2,7 +2,7 @@
 .\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
 .\" Instead of manually editing it, you probably should edit the DocBook XML
 .\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_CRACKLIB" "8" "02/03/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_CRACKLIB" "8" "02/10/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -234,7 +234,7 @@ And here is another example in case you don't want to use credits:
 #
 password  required pam_cracklib.so \\
                dcredit=\-1 ucredit=\-1 ocredit=\-1 lcredit=0 minlen=8
-password  required pam_pwdb.so use_authtok nullok md5
+password  required pam_unix.so use_authtok nullok md5
       
 .fi
 .sp

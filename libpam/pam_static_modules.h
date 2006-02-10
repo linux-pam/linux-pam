@@ -53,9 +53,6 @@ extern struct pam_module _pam_mkhomedir_modstruct;
 extern struct pam_module _pam_motd_modstruct;
 extern struct pam_module _pam_nologin_modstruct;
 extern struct pam_module _pam_permit_modstruct;
-#ifdef WITH_PWDB
-extern struct pam_module _pam_pwdb_modstruct;
-#endif
 extern struct pam_module _pam_rhosts_auth_modstruct;
 extern struct pam_module _pam_rootok_modstruct;
 extern struct pam_module _pam_securetty_modstruct;
@@ -101,9 +98,6 @@ static struct pam_module *static_modules[] = {
   &_pam_motd_modstruct,
   &_pam_nologin_modstruct,
   &_pam_permit_modstruct,
-#ifdef WITH_PWDB
-  &_pam_pwdb_modstruct,
-#endif
   &_pam_rhosts_auth_modstruct,
   &_pam_rootok_modstruct,
   &_pam_securetty_modstruct,

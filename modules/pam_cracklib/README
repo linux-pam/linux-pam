@@ -203,7 +203,7 @@ And here is another example in case you don't want to use credits:
 #
 password  required pam_cracklib.so \
                dcredit=-1 ucredit=-1 ocredit=-1 lcredit=0 minlen=8
-password  required pam_pwdb.so use_authtok nullok md5
+password  required pam_unix.so use_authtok nullok md5
 
 
 AUTHOR

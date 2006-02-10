@@ -10,16 +10,16 @@
 
    auth       requisite  pam_securetty.so
    auth       sufficient pam_ldap.so
-   auth       required   pam_pwdb.so
+   auth       required   pam_unix.so
    auth       optional   pam_group.so
    auth       optional   pam_mail.so
    account    requisite  pam_time.so
    account    sufficient pam_ldap.so
-   account    required   pam_pwdb.so
+   account    required   pam_unix.so
    session    required   pam_mkhomedir.so skel=/etc/skel/ umask=0022
-   session    required   pam_pwdb.so
+   session    required   pam_unix.so
    session    optional   pam_lastlog.so
-   password   required   pam_pwdb.so
+   password   required   pam_unix.so
 
    Released under the GNU LGPL version 2 or later
    Originally written by Jason Gunthorpe <jgg@debian.org> Feb 1999

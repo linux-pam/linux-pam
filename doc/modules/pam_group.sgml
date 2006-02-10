@@ -31,8 +31,7 @@ Sensitive to <em/setgid/ status of file-systems accessible to users.
 <tag><bf>Clean code base:</bf></tag>
 
 <tag><bf>System dependencies:</bf></tag>
-Requires an <tt>/etc/security/group.conf</tt> file. Can be compiled
-with or without <tt/libpwdb/.
+Requires an <tt>/etc/security/group.conf</tt> file.
 
 <tag><bf>Network aware:</bf></tag>
 Only through correctly set <tt/PAM_TTY/ item.

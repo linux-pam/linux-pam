@@ -61,7 +61,7 @@ fields corresponding to the username keys are the passwords, in unencrypted form
 so caution must be exercised over the access rights to the DB database itself..
 
 The module will read the password from the user using the conversation mechanism. If
-you are using this module on top of another authentication module (like <tt/pam_pwdb/;)
+you are using this module on top of another authentication module (like <tt/pam_unix/;)
 then you should tell that module to read the entered password from the PAM_AUTHTOK field, which is set by this module.
 
 <p>
@@ -112,10 +112,10 @@ provided in the <tt>/etc/dbtest.db</tt> file:
 #%PAM-1.0
 auth       required     pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succeed
 auth       sufficient   pam_userdb.so icase db=/etc/dbtest
-auth       required     pam_pwdb.so shadow nullok try_first_pass
+auth       required     pam_unix.so shadow nullok try_first_pass
 auth       required     pam_shells.so
-account    required     pam_pwdb.so
-session    required     pam_pwdb.so
+account    required     pam_unix.so
+session    required     pam_unix.so
 </verb>
 </tscreen>
 

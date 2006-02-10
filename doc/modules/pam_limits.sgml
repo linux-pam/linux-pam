@@ -34,7 +34,7 @@ session
 
 <tag><bf>System dependencies:</bf></tag>
 requires an <tt>/etc/security/limits.conf</tt> file and kernel support
-for resource limits. Also uses the library, <tt/libpwdb/.
+for resource limits.
 
 <tag><bf>Network aware:</bf></tag>
 
