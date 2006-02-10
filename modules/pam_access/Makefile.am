@@ -4,10 +4,11 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README README.xml access.conf $(MANS) $(XMLS)
+EXTRA_DIST = README access.conf $(MANS) $(XMLS)
 
 man_MANS = access.conf.5 pam_access.8
-man_XMLS = access.conf.5.xml pam_access.8.xml
+
+XMLS = README.xml access.conf.5.xml pam_access.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

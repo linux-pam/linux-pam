@@ -27,4 +27,4 @@ if HAVE_LIBPWDB
 endif
 
 pam_pwdb_la_SOURCES = md5_good.c md5_broken.c pam_pwdb.c
-pwdb_checkpwd = md5_good.c md5_broken.c pwdb_chkpwd.c
+pwdb_checkpwd_SOURCES = md5_good.c md5_broken.c pwdb_chkpwd.c

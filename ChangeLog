@@ -1,3 +1,10 @@
+2006-02-10  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_access/Makefile.am: Fix EXTRA_DIST.
+	* modules/pam_cracklib/Makefile.am: Likewise.
+	* modules/pam_deny/Makefile.am: Likewise.
+	* modules/pam_exec/Makefile.am: Likewise.
+
 2006-02-07  Thorsten Kukuk  <kukuk@thkukuk.de>
 
         * configure.in: Check for text browser.

@@ -4,10 +4,11 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README README.xml $(MANS) $(XMLS)
+EXTRA_DIST = README $(MANS) $(XMLS)
 
 man_MANS = pam_exec.8
-man_XMLS = pam_exec.8.xml
+
+XMLS = README.xml pam_exec.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
