@@ -1,99 +1,47 @@
-.\" Hey Emacs! This file is -*- nroff -*- source.
-.\" $Id$
-.\" Copyright (c) Andrew G. Morgan 1997 <morgan@parc.power.net>
-.TH PAM_OPEN_SESSION 3 "1997 Jan 4" "Linux-PAM 0.55" "App. Programmers' Manual"
-.SH NAME
-
-pam_open/close_session \- PAM session management
-
-.SH SYNOPSIS
-.B #include <security/pam_appl.h>
-.sp
-.BI "int pam_open_session(pam_handle_t " *pamh ", int  " flags ");"
-.sp
-.BI "int pam_close_session(pam_handle_t " *pamh ", int  " flags ");"
-.sp 2
-.SH DESCRIPTION
-
-PAM provides management-hooks for the initialization and termination
-of a session. 
-
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_OPEN_SESSION" "3" "02/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_open_session \- start PAM session management
+.SH "SYNOPSIS"
+.PP
+\fB#include <security/pam_appl.h>\fR
+.HP 21
+\fBint\ \fBpam_open_session\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBint\ \fR\fB\fIflags\fR\fR\fB);\fR
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_open_session\fR
+function sets up a user session for a previously successful authenticated user. The session should later be terminated with a call to
+\fBpam_close_session\fR(3).
+.PP
+It should be noted that the effective uid,
+\fBgeteuid\fR(2). of the application should be of sufficient privilege to perform such tasks as creating or mounting the user's home directory for example.
+.PP
+The flags argument is the binary or of zero or more of the following values:
 .TP
-.B pam_open_session
-.br
-Use this function to signal that an authenticated user session has
-begun. It should be called only after the user is properly identified
-and (where necessary) has been granted their credentials with
-.BR pam_authenticate "(3)"
-and
-.BR pam_setcred "(3)"
-respectively.
-
-.br
-Some types of functions associated with session
-initialization are logging for the purposes of system-audit and
-mounting directories (the user's home directory for example). These
-should not concern the application. It should be noted that the
-.I effective
-uid,
-.BR geteuid "(2),"
-of the application should be of sufficient privilege to perform such
-tasks.
-
+PAM_SILENT
+Do not emit any messages.
+.SH "RETURN VALUES"
 .TP
-.B pam_close_session
-.br
-Use this function to signal that a user session has
-terminated. In general this function may not need to be located in the
-same application as the initialization function,
-.BR pam_open_session "."
-
-.br
-Typically, this function will undo the actions of
-.BR pam_open_session "."
-That is, log audit information concerning the end of the user session
-or unmount the user's home directory. Apart from having sufficient
-privilege the details of the session termination should not concern
-the calling application. It is good programming practice, however, to
-cease acting on behalf of the user on returning from this call.
-
-.SH RETURN VALUE
-A successful return from the session management functions will be
-indicated with
-.BR PAM_SUCCESS "."
-
-.br
-The specific error indicating a failure to open or close a session is
-.BR PAM_SESSION_ERR "."
-In general other return values may be returned. They should be treated
-as indicating failure.
-
-.SH ERRORS
-May be translated to text with
-.BR pam_strerror "(3). "
-
-.SH "CONFORMING TO"
-OSF-RFC 86.0, October 1995.
-
-.SH BUGS
-.sp 2
-none known.
-
+PAM_ABORT
+General failure.
+.TP
+PAM_BUF_ERR
+Memory buffer error.
+.TP
+PAM_SESSION_ERR
+Session failure.
+.TP
+PAM_SUCCESS
+Session was successful created.
 .SH "SEE ALSO"
-
-.BR pam_start "(3), "
-.BR pam_authenticate "(3), "
-.BR pam_setcred "(3), "
-.BR pam_get_item "(3), "
-.BR pam_strerror "(3) "
-and
-.BR pam "(3)."
-
-.br
-Also, see the three
-.BR Linux-PAM
-Guides, for
-.BR "System administrators" ", "
-.BR "module developers" ", "
-and
-.BR "application developers" ". "
+.PP
+\fBpam_close_session\fR(3),
+\fBpam_strerror\fR(3)

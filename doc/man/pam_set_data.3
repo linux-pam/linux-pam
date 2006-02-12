@@ -1,0 +1,85 @@
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_SET_DATA" "3" "02/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_set_data \- set module internal data
+.SH "SYNOPSIS"
+.PP
+\fB#include <security/pam_modules.h>\fR
+.HP 17
+\fBint\ \fBpam_set_data\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fImodule_data_name\fR\fR\fB, \fR\fBvoid\ *\fR\fB\fIdata\fR\fR\fB, \fR\fBvoid\ \fR\fB\fI(*cleanup)(pam_handle_t\ *pamh,\ void\ *data,\ int\ error_status)\fR\fR\fB);\fR
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_set_data\fR
+function associates a pointer to an object with the (hopefully) unique string
+\fImodule_data_name\fR
+in the PAM context specified by the
+\fIpamh\fR
+argument.
+.PP
+PAM modules may be dynamically loadable objects. In general such files should not contain
+\fIstatic\fR
+variables. This function and its counterpart
+\fBpam_get_data\fR(3), provide a mechanism for a module to associate some data with the handle
+\fIpamh\fR. Typically a module will call the
+\fBpam_set_data\fR
+function to register some data under a (hopefully) unique
+\fImodule_data_name\fR. The data is available for use by other modules too but
+\fInot\fR
+by an application. Since this functions stores only a pointer to the
+\fIdata\fR, the module should not modify or free the content of it.
+.PP
+The function
+\fBcleanup()\fR
+is associated with the
+\fIdata\fR
+and, if non\-NULL, it is called when this data is over\-written or following a call to
+\fBpam_end\fR(3).
+.PP
+The
+\fIerror_status\fR
+argument is used to indicate to the module the sort of action it is to take in cleaning this data item. As an example, Kerberos creates a ticket file during the authentication phase, this file might be associated with a data item. When
+\fBpam_end\fR(3)
+is called by the module, the
+\fIerror_status\fR
+carries the return value of the
+\fBpam_authenticate\fR(3)
+or other
+\fIlibpam\fR
+function as appropriate. Based on this value the Kerberos module may choose to delete the ticket file (\fIauthentication failure\fR) or leave it in place.
+.PP
+The
+\fIerror_status\fR
+may have been logically OR'd with either of the following two values:
+.TP
+PAM_DATA_REPLACE
+When a data item is being replaced (through a second call to
+\fBpam_set_data\fR) this mask is used. Otherwise, the call is assumed to be from
+\fBpam_end\fR(3).
+.TP
+PAM_DATA_SILENT
+Which indicates that the process would prefer to perform the
+\fBcleanup()\fR
+quietly. That is, discourages logging/messages to the user.
+.SH "RETURN VALUES"
+.TP
+PAM_BUF_ERR
+Memory buffer error.
+.TP
+PAM_SUCCESS
+Data was successful stored.
+.TP
+PAM_SYSTEM_ERR
+A NULL pointer was submitted as PAM handle or the function was called by an application.
+.SH "SEE ALSO"
+.PP
+\fBpam_end\fR(3),
+\fBpam_get_data\fR(3),
+\fBpam_strerror\fR(3)

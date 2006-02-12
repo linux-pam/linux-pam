@@ -1,98 +1,72 @@
-.\" Hey Emacs! This file is -*- nroff -*- source.
-.\" $Id$
-.\" Copyright (c) Andrew G. Morgan 1996-7 <morgan@parc.power.net>
-.TH PAM_START 3 "1997 Feb 15" "Linux-PAM 0.56" "Application Programmers' Manual"
-.SH NAME
-
-pam_start, pam_end \- activating Linux-PAM
-
-.SH SYNOPSIS
-.B #include <security/pam_appl.h>
-.sp
-.BI "int pam_start(const char " *service ", const char " *user ", const struct pam_conv " *conv ", pam_handle_t " **pamh_p ");"
-.sp
-.BI "int pam_end(pam_handle_t " *pamh ", int " pam_status ");"
-.sp 2
-.SH DESCRIPTION
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_START" "3" "02/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_start \- initialization of PAM transaction
+.SH "SYNOPSIS"
+.PP
+\fB#include <security/pam_appl.h>\fR
+.HP 14
+\fBint\ \fBpam_start\fR\fR\fB(\fR\fBconst\ char\ *\fR\fB\fIservice_name\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIuser\fR\fR\fB, \fR\fBconst\ struct\ pam_conv\ *\fR\fB\fIpam_conversation\fR\fR\fB, \fR\fBpam_handle_t\ **\fR\fB\fIpamh\fR\fR\fB);\fR
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_start\fR
+function creates the PAM context and initiates the PAM transaction. It is the first of the PAM functions that needs to be called by an application.
+.PP
+The
+\fIservice_name\fR
+argument specifies the name of the service to apply and will be stored as PAM_SERVICE item in the new context. The policy for the service will be read from the file
+\fI/etc/pam.d/service_name\fR
+or, if that file does not exist, from
+\fI/etc/pam.conf\fR.
+.PP
+The
+\fIuser\fR
+argument can specify the name of the target user and will be stored as PAM_USER item. If the argument is NULL, the module has to ask for this item if necessary.
+.PP
+The
+\fIpam_conversation\fR
+argument points to a
+\fIstruct pam_conv\fR
+describing the conversation function to use. An application must provide this for direct communication between a loaded module and the application.
+.PP
+Following a successful return (PAM_SUCCESS) the contents of
+\fIpamh\fR
+is a handle that contains the PAM context for successive calls to the PAM functions. In an error case is the content of
+\fIpamh\fR
+undefined.
+.PP
+The
+\fIpam_handle_t\fR
+is a blind structure and the application should not attempt to probe it directly for information. Instead the PAM library provides the functions
+\fBpam_set_item\fR(3)
+and
+\fBpam_get_item\fR(3). The PAM handle cannot be used for mulitiple authentications at the same time as long as
+\fBpam_end\fR
+was not called on it before.
+.SH "RETURN VALUES"
 .TP
-.B pam_start
-Initialize the
-.I Linux-PAM
-library.  Identifying the application with a particular
-.IR service
-name.  The
-.IR user "name"
-can take the value
-.IR NULL ", "
-if not known at the time the interface is initialized.  The
-conversation structure is passed to the library via the
-.IR conv
-argument.  (For a complete description of this and other structures
-the reader is directed to the more verbose
-.IR Linux-PAM
-application developers' guide).  Upon successful initialization, an
-opaque pointer-handle for future access to the library is returned
-through the contents of the
-.IR pamh_p
-pointer.
-
+PAM_ABORT
+General failure.
 .TP
-.B pam_end
-Terminate the
-.B Linux-PAM
-library.  The service application associated with the
-.IR pamh
-handle, is terminated.  The argument,
-.IR pam_status ", "
-passes the value most recently returned to the application from the
-library; it indicates the manner in which the library should be
-shutdown.  Besides carrying a return value, this argument may be
-logically OR'd with
-.IR PAM_DATA_SILENT
-to indicate that the module should not treat the call too
-seriously. It is generally used to indicate that the current closing
-of the library is in a
-.IR fork "(2)ed"
-process, and that the parent will take care of cleaning up things that
-exist outside of the current process space (files etc.).
-
-.SH "RETURN VALUE"
+PAM_BUF_ERR
+Memory buffer error.
 .TP
-.B pam_start
+PAM_SUCCESS
+Transaction was successful created.
 .TP
-.B pam_end
-On success,
-.BR PAM_SUCCESS
-is returned
-
-.SH ERRORS
-May be translated to text with
-.BR pam_strerror "(3). "
-
-.SH "CONFORMING TO"
-DCE-RFC 86.0, October 1995.
-.sp
-Note, the 
-.BR PAM_DATA_SILENT
-flag is pending acceptance with the DCE (as of 1996/12/4).
-
-.SH BUGS
-.sp 2
-None known.
-
+PAM_SYSTEM_ERR
+System error, for example a NULL pointer was submitted instead of a pointer to data.
 .SH "SEE ALSO"
-
-.BR fork "(2), "
-.BR pam_authenticate "(3), "
-.BR pam_acct_mgmt "(3), "
-.BR pam_open_session "(3), "
-and
-.BR pam_chauthtok "(3)."
-
-Also, see the three
-.BR Linux-PAM
-Guides, for
-.BR "System administrators" ", "
-.BR "module developers" ", "
-and
-.BR "application developers" ". "
+.PP
+\fBpam_get_data\fR(3),
+\fBpam_set_data\fR(3),
+\fBpam_end\fR(3),
+\fBpam_strerror\fR(3)

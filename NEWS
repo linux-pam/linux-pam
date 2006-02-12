@@ -8,6 +8,7 @@ Linux-PAM NEWS -- history of user-visible changes.
 * pam_access: Add network(address) / netmask and IPv6 support
 * Add manual pages for pam_cracklib, pam_deny and pam_access
 * pam_pwdb: This deprecated module was removed
+* Manual pages: Major rewrite/cleanup
 
 Release 0.99.3.0
 

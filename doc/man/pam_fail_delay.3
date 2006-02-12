@@ -1,130 +1,108 @@
-.\" Hey Emacs! This file is -*- nroff -*- source.
-.\" $Id$
-.\" Copyright (c) Andrew G. Morgan 1997 <morgan@parc.power.net>
-.TH PAM_FAIL_DELAY 3 "1997 Jan 12" "Linux-PAM 0.56" "Programmers' Manual"
-.SH NAME
-
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_FAIL_DELAY" "3" "02/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
 pam_fail_delay \- request a delay on failure
-
-.SH SYNOPSIS
-.B #include <security/pam_appl.h>
-.br
-or,
-.br
-.B #include <security/pam_modules.h>
-.sp
-.BI "int pam_fail_delay(pam_handle_t " "*pamh" ", unsigned int " "usec" ");"
-.sp 2
-.SH DESCRIPTION
-.br
-It is often possible to attack an authentication scheme by exploiting
-the time it takes the scheme to deny access to an applicant user.  In
-cases of
-.I short
-timeouts, it may prove possible to attempt a
-.I brute force
-dictionary attack -- with an automated process, the attacker tries all
-possible passwords to gain access to the system.  In other cases,
-where individual failures can take measurable amounts of time
-(indicating the nature of the failure), an attacker can obtain useful
-information about the authentication process.  These latter attacks
-make use of procedural delays that constitute a
-.I covert channel
-of useful information.
-
-.br
-To minimize the effectiveness of such attacks, it is desirable to
-introduce a random delay in a failed authentication process.
-.B Linux-PAM
-provides such a facility.  The delay occurs upon failure of the
-.BR pam_authenticate "(3) "
-and
-.BR pam_chauthtok "(3) "
-functions.  It occurs
-.I after
+.SH "SYNOPSIS"
+.PP
+\fB#include <security/pam_appl.h>\fR
+.HP 19
+\fBint\ \fBpam_fail_delay\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBunsigned\ int\ \fR\fB\fIusec\fR\fR\fB);\fR
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_fail_delay\fR
+function provides a mechanism by which an application or module can suggest a minimum delay of
+\fIusec\fR
+micro\-seconds. The function keeps a record of the longest time requested with this function. Should
+\fBpam_authenticate\fR(3)
+fail, the failing return to the application is delayed by an amount of time randomly distributed (by up to 25%) about this longest value.
+.PP
+Independent of success, the delay time is reset to its zero default value when the PAM service module returns control to the application. The delay occurs
+\fIafter\fR
 all authentication modules have been called, but
-.I before
+\fIbefore\fR
 control is returned to the service application.
-
-.br
-The function,
-.BR pam_fail_delay "(3),"
-is used to specify a required minimum for the length of the
-failure-delay; the
-.I usec
-argument.  This function can be called by the service application
-and/or the authentication modules, both may have an interest in
-delaying a reapplication for service by the user.  The length of the
-delay is computed at the time it is required.  Its length is
-pseudo-gausianly distributed about the
-.I maximum
-requested value; the resultant delay will differ by as much as 25% of
-this maximum requested value (both up and down).
-
-.br
-On return from
-.BR pam_authenticate "(3) or " pam_chauthtok "(3),"
-independent of success or failure, the new requested delay is reset to
-its default value: zero.
-
-.SH EXAMPLE
-.br
-For example, a
-.B login
-application may require a failure delay of roughly 3 seconds. It will
-contain the following code:
+.PP
+When using this function the application programmer should check if it is available with:
 .sp
-.br
-.B "     pam_fail_delay(pamh, 3000000 /* micro-seconds */ );"
-.br
-.B "     pam_authenticate(pamh, 0);"
+.nf
+#ifdef PAM_FAIL_DELAY
+    ....
+#endif /* PAM_FAIL_DELAY */
+      
+.fi
+.PP
+For applications written with a single thread that are event driven in nature, generating this delay may be undesirable. Instead, the application may want to register the delay in some other way. For example, in a single threaded server that serves multiple authentication requests from a single event loop, the application might want to simply mark a given connection as blocked until an application timer expires. For this reason the delay function can be changed with the
+\fIPAM_FAIL_DELAY\fR
+item. It can be queried and set with
+\fBpam_get_item\fR(3)
+and
+\fBpam_set_item \fR(3)
+respectively. The value used to set it should be a function pointer of the following prototype:
 .sp
-.br
-if the modules do not request a delay, the failure delay will be
-between 2.25 and 3.75 seconds.
-
-.br
-However, the modules, invoked in the authentication process, may
-also request delays:
+.nf
+void (*delay_fn)(int retval, unsigned usec_delay, void *appdata_ptr);
+      
+.fi
 .sp
-.br
-.RB "  (module #1)   " "pam_fail_delay(pamh, 2000000);"
+The arguments being the
+\fIretval\fR
+return code of the module stack, the
+\fIusec_delay\fR
+micro\-second delay that libpam is requesting and the
+\fIappdata_ptr\fR
+that the application has associated with the current
+\fIpamh\fR. This last value was set by the application when it called
+\fBpam_start\fR(3)
+or explicitly with
+\fBpam_set_item\fR(3). Note, if PAM_FAIL_DELAY is unset (or set to NULL), then no delay will be performed.
+.SH "RATIONALE"
+.PP
+It is often possible to attack an authentication scheme by exploiting the time it takes the scheme to deny access to an applicant user. In cases of
+\fIshort\fR
+timeouts, it may prove possible to attempt a
+\fIbrute force\fR
+dictionary attack \-\- with an automated process, the attacker tries all possible passwords to gain access to the system. In other cases, where individual failures can take measurable amounts of time (indicating the nature of the failure), an attacker can obtain useful information about the authentication process. These latter attacks make use of procedural delays that constitute a
+\fIcovert channel\fR
+of useful information.
+.PP
+To minimize the effectiveness of such attacks, it is desirable to introduce a random delay in a failed authentication process.
+.SH "EXAMPLE"
+.PP
+For example, a login application may require a failure delay of roughly 3 seconds. It will contain the following code:
 .sp
-.br
-.RB "  (module #2)   " "pam_fail_delay(pamh, 4000000);"
+.nf
+    pam_fail_delay (pamh, 3000000 /* micro\-seconds */ );
+    pam_authenticate (pamh, 0);
+    
+.fi
+.PP
+if the modules do not request a delay, the failure delay will be between 2.25 and 3.75 seconds.
+.PP
+However, the modules, invoked in the authentication process, may also request delays:
 .sp
-.br
-in this case, it is the largest requested value that is used to
-compute the actual failed delay: here between 3 and 5 seconds.
-
+.nf
+module #1:    pam_fail_delay (pamh, 2000000);
+module #2:    pam_fail_delay (pamh, 4000000);
+    
+.fi
+.PP
+in this case, it is the largest requested value that is used to compute the actual failed delay: here between 3 and 5 seconds.
 .SH "RETURN VALUE"
+.PP
 Following a successful call to
-.BR pam_fail_delay "(3), " PAM_SUCCESS
-is returned.  All other returns should be considered serious failures.
-
-.SH ERRORS
-May be translated to text with
-.BR pam_strerror "(3). "
-
-.SH "CONFORMING TO"
-Under consideration by the X/Open group for future inclusion in the
-PAM RFC. 1996/1/10
-
-.SH BUGS
-.sp 2
-none known.
-
+\fBpam_fail_delay\fR(3),
+\fIPAM_SUCCESS\fR
+is returned. All other returns should be considered serious failures.
 .SH "SEE ALSO"
-
-.BR pam_start "(3), "
-.BR pam_get_item "(3) "
-and
-.BR pam_strerror "(3). "
-
-Also, see the three
-.BR Linux-PAM
-Guides, for
-.BR "System administrators" ", "
-.BR "module developers" ", "
-and
-.BR "application developers" ". "
+.PP
+\fBpam_start\fR(3),
+\fBpam_get_item\fR(3),
+\fBpam_strerror\fR(3)

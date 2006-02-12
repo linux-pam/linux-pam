@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+
+<refentry id='pam_strerror'>
+
+  <refmeta>
+    <refentrytitle>pam_strerror</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id="pam_strerror-name">
+    <refname>pam_strerror</refname>
+    <refpurpose>return string describing PAM error code</refpurpose>
+  </refnamediv>
+
+<!-- body begins here -->
+
+  <refsynopsisdiv id="pam_strerror-synopsis">
+    <funcsynopsis>
+      <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>const char *<function>pam_strerror</function></funcdef>
+        <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
+        <paramdef>int <parameter>errnum</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+
+  <refsect1 id="pam_strerror-description">
+    <title>DESCRIPTION</title>
+    <para>
+       The <function>pam_strerror</function> function returns a pointer to
+       a string describing the error code passed in the argument
+       <emphasis>errnum</emphasis>, possibly using the LC_MESSAGES part of
+       the current locale to select the appropriate language. This string
+       must not be modified by the application. No library function will
+       modify this string.
+    </para>
+  </refsect1>
+  <refsect1 id="pam_strerror-return_values">
+    <title>RETURN VALUES</title>
+    <para>
+       This function returns always a pointer to a string.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_strerror-see_also">
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+        <refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
+</refentry>

@@ -1,375 +1,246 @@
-.\" Hey Emacs! This file is -*- nroff -*- source.
-.\" $Id$
-.\" Copyright (c) Andrew G. Morgan 1996-7,2001 <morgan@kernel.org>
-.TH PAM 8 "2005 Oct 27" "Linux-PAM 1.0" "Linux-PAM Manual"
-.SH NAME
-
-Linux-PAM \- Pluggable Authentication Modules for Linux
-
-.SH SYNOPSIS
-.B /etc/pam.conf
-.sp 2
-.SH DESCRIPTION
-
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM" "8" "02/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam \- Pluggable Authentication Modules for Linux
+.SH "DESCRIPTION"
+.PP
 This manual is intended to offer a quick introduction to
-.BR Linux-PAM ". "
-For more information the reader is directed to the
-.BR "Linux-PAM system administrators' guide".
-
-.sp
-.BR Linux-PAM
-Is a system of libraries that handle the authentication tasks of
-applications (services) on the system.  The library provides a stable
-general interface (Application Programming Interface - API) that
-privilege granting programs (such as
-.BR login "(1) "
+\fILinux\-PAM\fR. For more information the reader is directed to the
+\fILinux\-PAM system administrators' guide\fR.
+.PP
+\fILinux\-PAM\fR
+Is a system of libraries that handle the authentication tasks of applications (services) on the system. The library provides a stable general interface (Application Programming Interface \- API) that privilege granting programs (such as
+\fBlogin\fR(1)
 and
-.BR su "(1)) "
-defer to to perform standard authentication tasks.
-
-.sp
-The principal feature of the PAM approach is that the nature of the
-authentication is dynamically configurable.  In other words, the
-system administrator is free to choose how individual
-service-providing applications will authenticate users. This dynamic
-configuration is set by the contents of the single
-.BR Linux-PAM
+\fBsu\fR(1)) defer to to perform standard authentication tasks.
+.PP
+The principal feature of the PAM approach is that the nature of the authentication is dynamically configurable. In other words, the system administrator is free to choose how individual service\-providing applications will authenticate users. This dynamic configuration is set by the contents of the single
+\fILinux\-PAM\fR
 configuration file
-.BR /etc/pam.conf "."
-Alternatively, the configuration can be set by individual
-configuration files located in the
-.B /etc/pam.d/
+\fI/etc/pam.conf\fR. Alternatively, the configuration can be set by individual configuration files located in the
+\fI/etc/pam.d/\fR
 directory.
-.IB "The presence of this directory will cause " Linux-PAM " to ignore"
-.BI /etc/pam.conf "."
-
-.sp
-From the point of view of the system administrator, for whom this
-manual is provided, it is not of primary importance to understand the
-internal behavior of the
-.BR Linux-PAM
-library.  The important point to recognize is that the configuration
-file(s)
-.I define
+\fIThe presence of this directory will cause \fR\fILinux\-PAM\fR\fI to ignore\fR\fI/etc/pam.conf\fR.
+.PP
+From the point of view of the system administrator, for whom this manual is provided, it is not of primary importance to understand the internal behavior of the
+\fILinux\-PAM\fR
+library. The important point to recognize is that the configuration file(s)
+\fIdefine\fR
 the connection between applications
-.BR "" "(" services ")"
-and the pluggable authentication modules
-.BR "" "(" PAM "s)"
-that perform the actual authentication tasks.
-
-.sp
-.BR Linux-PAM
+(\fIservices\fR) and the pluggable authentication modules
+(\fIPAM\fRs) that perform the actual authentication tasks.
+.PP
+\fILinux\-PAM\fR
 separates the tasks of
-.I authentication
+\fIauthentication\fR
 into four independent management groups:
-.BR "account" " management; "
-.BR "auth" "entication management; "
-.BR "password" " management; "
-and
-.BR "session" " management."
-(We highlight the abbreviations used for these groups in the
-configuration file.)
-
-.sp
-Simply put, these groups take care of different aspects of a typical
-user's request for a restricted service:
-
-.sp
-.BR account " - "
-provide account verification types of service: has the user's password
-expired?; is this user permitted access to the requested service?
-
-.br
-.BR auth "entication - "
-authenticate a user and set up user credentials. Typically this is via
-some challenge-response request that the user must satisfy: if you are
-who you claim to be please enter your password. Not all authentications
-are of this type, there exist hardware based authentication schemes
-(such as the use of smart-cards and biometric devices), with suitable
-modules, these may be substituted seamlessly for more standard
-approaches to authentication - such is the flexibility of
-.BR Linux-PAM "."
-
-.br
-.BR password " - "
-this group's responsibility is the task of updating authentication
-mechanisms. Typically, such services are strongly coupled to those of
-the
-.BR auth
-group. Some authentication mechanisms lend themselves well to being
-updated with such a function. Standard UN*X password-based access is
-the obvious example: please enter a replacement password.
-
-.br
-.BR session " - "
-this group of tasks cover things that should be done prior to a
-service being given and after it is withdrawn. Such tasks include the
-maintenance of audit trails and the mounting of the user's home
-directory. The
-.BR session
-management group is important as it provides both an opening and
-closing hook for modules to affect the services available to a user.
-
-.SH The configuration file(s)
-
+\fIaccount\fR
+management;
+\fIauth\fRentication management;
+\fIpassword\fR
+management; and
+\fIsession\fR
+management. (We highlight the abbreviations used for these groups in the configuration file.)
+.PP
+Simply put, these groups take care of different aspects of a typical user's request for a restricted service:
+.PP
+\fIaccount\fR
+\- provide account verification types of service: has the user's password expired?; is this user permitted access to the requested service?
+.PP
+\fIauth\fRentication \- authenticate a user and set up user credentials. Typically this is via some challenge\-response request that the user must satisfy: if you are who you claim to be please enter your password. Not all authentications are of this type, there exist hardware based authentication schemes (such as the use of smart\-cards and biometric devices), with suitable modules, these may be substituted seamlessly for more standard approaches to authentication \- such is the flexibility of
+\fILinux\-PAM\fR.
+.PP
+\fIpassword\fR
+\- this group's responsibility is the task of updating authentication mechanisms. Typically, such services are strongly coupled to those of the
+\fIauth\fR
+group. Some authentication mechanisms lend themselves well to being updated with such a function. Standard UN*X password\-based access is the obvious example: please enter a replacement password.
+.PP
+\fIsession\fR
+\- this group of tasks cover things that should be done prior to a service being given and after it is withdrawn. Such tasks include the maintenance of audit trails and the mounting of the user's home directory. The
+\fIsession\fR
+management group is important as it provides both an opening and closing hook for modules to affect the services available to a user.
+.SH "THE CONFIGURATION FILE(S)"
+.PP
 When a
-.BR Linux-PAM
-aware privilege granting application is started, it activates its
-attachment to the PAM-API.  This activation performs a number of
-tasks, the most important being the reading of the configuration file(s):
-.BR /etc/pam.conf "."
-Alternatively, this may be the contents of the
-.BR /etc/pam.d/
+\fILinux\-PAM\fR
+aware privilege granting application is started, it activates its attachment to the PAM\-API. This activation performs a number of tasks, the most important being the reading of the configuration file(s):
+\fI/etc/pam.conf\fR. Alternatively, this may be the contents of the
+\fI/etc/pam.d/\fR
 directory.
-
+.PP
 These files list the
-.BR PAM "s"
-that will do the authentication tasks required by this service, and
-the appropriate behavior of the PAM-API in the event that individual
-.BR PAM "s "
-fail.
-
-.sp
+\fIPAM\fRs that will do the authentication tasks required by this service, and the appropriate behavior of the PAM\-API in the event that individual
+\fIPAM\fRs fail.
+.PP
 The syntax of the
-.B /etc/pam.conf
-configuration file is as follows. The file is made
-up of a list of rules, each rule is typically placed on a single line,
-but may be extended with an escaped end of line: `\\<LF>'. Comments
-are preceded with `#' marks and extend to the next end of line.
-
-.sp
-The format of each rule is a space separated collection of tokens, the
-first three being case-insensitive:
-
-.sp
-.br
-.BR "   service  type  control  module-path  module-arguments"
-
-.sp
+\fI/etc/pam.conf\fR
+configuration file is as follows. The file is made up of a list of rules, each rule is typically placed on a single line, but may be extended with an escaped end of line: `\\<LF>'. Comments are preceded with `#' marks and extend to the next end of line.
+.PP
+The format of each rule is a space separated collection of tokens, the first three being case\-insensitive:
+.PP
+\fI service type control module\-path module\-arguments\fR
+.PP
 The syntax of files contained in the
-.B /etc/pam.d/
+\fI/etc/pam.d/\fR
 directory, are identical except for the absence of any
-.I service
+\fIservice\fR
 field. In this case, the
-.I service
+\fIservice\fR
 is the name of the file in the
-.B /etc/pam.d/
+\fI/etc/pam.d/\fR
 directory. This filename must be in lower case.
-
-.sp
+.PP
 An important feature of
-.BR Linux-PAM ", "
-is that a number of rules may be
-.I stacked
-to combine the services of a number of PAMs for a given authentication
-task.
-
-.sp
+\fILinux\-PAM\fR, is that a number of rules may be
+\fIstacked\fR
+to combine the services of a number of PAMs for a given authentication task.
+.PP
 The
-.BR service
+\fIservice\fR
 is typically the familiar name of the corresponding application:
-.BR login
+\fIlogin\fR
 and
-.BR su
+\fIsu\fR
 are good examples. The
-.BR service "-name, " other ", "
-is reserved for giving
-.I default
-rules.  Only lines that mention the current service (or in the absence
-of such, the
-.BR other
-entries) will be associated with the given service-application.
-
-.sp
+\fIservice\fR\-name,
+\fIother\fR, is reserved for giving
+\fIdefault\fR
+rules. Only lines that mention the current service (or in the absence of such, the
+\fIother\fR
+entries) will be associated with the given service\-application.
+.PP
 The
-.BR type
-is the management group that the rule corresponds to. It is used to
-specify which of the management groups the subsequent module is to
-be associated with. Valid entries are:
-.BR account "; "
-.BR auth "; "
-.BR password "; "
-and
-.BR session "."
-The meaning of each of these tokens was explained above.
-
-.sp
+\fItype\fR
+is the management group that the rule corresponds to. It is used to specify which of the management groups the subsequent module is to be associated with. Valid entries are:
+\fIaccount\fR;
+\fIauth\fR;
+\fIpassword\fR; and
+\fIsession\fR. The meaning of each of these tokens was explained above.
+.PP
 The third field,
-.BR control ", "
-indicates the behavior of the PAM-API should the module fail to
-succeed in its authentication task. There are two types of syntax for
-this control field: the simple one has a single simple keyword; the
-more complicated one involves a square-bracketed selection of
-.B value=action
+\fIcontrol\fR, indicates the behavior of the PAM\-API should the module fail to succeed in its authentication task. There are two types of syntax for this control field: the simple one has a single simple keyword; the more complicated one involves a square\-bracketed selection of
+\fIvalue=action\fR
 pairs.
-
-.sp
+.PP
 For the simple (historical) syntax valid
-.BR control
+\fIcontrol\fR
 values are:
-.BR requisite
-- failure of such a PAM results in the immediate termination of the
-authentication process;
-.BR required
-- failure of such a PAM will ultimately lead to the PAM-API returning
-failure but only after the remaining
-.I stacked
+\fIrequisite\fR
+\- failure of such a PAM results in the immediate termination of the authentication process;
+\fIrequired\fR
+\- failure of such a PAM will ultimately lead to the PAM\-API returning failure but only after the remaining
+\fIstacked\fR
 modules (for this
-.BR service
+\fIservice\fR
 and
-.BR type ")"
-have been invoked;
-.BR sufficient
-- success of such a module is enough to satisfy the authentication
-requirements of the stack of modules (if a prior
-.BR required
+\fItype\fR) have been invoked;
+\fIsufficient\fR
+\- success of such a module is enough to satisfy the authentication requirements of the stack of modules (if a prior
+\fIrequired\fR
 module has failed the success of this one is
-.IR ignored "); "
-.BR optional
-- the success or failure of this module is only important if it is the
-only module in the stack associated with this
-.BR service "+" type "."
-
-.sp
+\fIignored\fR);
+\fIoptional\fR
+\- the success or failure of this module is only important if it is the only module in the stack associated with this
+\fIservice\fR+\fItype\fR.
+.PP
 New control directive first introduced in ALT Linux is
-.BR include
-- include all lines of given type from the configuration
-file specified as an argument to this control.
-
-.sp
+\fIinclude\fR
+\- include all lines of given type from the configuration file specified as an argument to this control.
+.PP
 For the more complicated syntax valid
-.B control
+\fIcontrol\fR
 values have the following form:
-.sp
-.RB  [value1=action1 value2=action2 ...]
-.sp
+.PP
+[value1=action1\fIvalue2=action2\fR...]
+.PP
 Where
-.B valueN
-corresponds to the return code from the function invoked in the module
-for which the line is defined. It is selected from one of these:
-.BR success ;
-.BR open_err ;
-.BR symbol_err ;
-.BR service_err ;
-.BR system_err ;
-.BR buf_err ;
-.BR perm_denied ;
-.BR auth_err ;
-.BR cred_insufficient ;
-.BR authinfo_unavail ;
-.BR user_unknown ;
-.BR maxtries ;
-.BR new_authtok_reqd ;
-.BR acct_expired ;
-.BR session_err ;
-.BR cred_unavail ;
-.BR cred_expired ;
-.BR cred_err ;
-.BR no_module_data ;
-.BR conv_err ;
-.BR authtok_err ;
-.BR authtok_recover_err ;
-.BR authtok_lock_busy ;
-.BR authtok_disable_aging ;
-.BR try_again ;
-.BR ignore ;
-.BR abort ;
-.BR authtok_expired ;
-.BR module_unknown ;
-.BR bad_item "; and"
-.BR default .
-The last of these,
-.BR default ,
-implies 'all
-.BR valueN 's
-not mentioned explicitly. Note, the full list of PAM errors is
-available in /usr/include/security/_pam_types.h . The
-.B actionN
+\fIvalueN\fR
+corresponds to the return code from the function invoked in the module for which the line is defined. It is selected from one of these:
+\fIsuccess\fR;
+\fIopen_err\fR;
+\fIsymbol_err\fR;
+\fIservice_err\fR;
+\fIsystem_err\fR;
+\fIbuf_err\fR;
+\fIperm_denied\fR;
+\fIauth_err\fR;
+\fIcred_insufficient\fR;
+\fIauthinfo_unavail\fR;
+\fIuser_unknown\fR;
+\fImaxtries\fR;
+\fInew_authtok_reqd\fR;
+\fIacct_expired\fR;
+\fIsession_err\fR;
+\fIcred_unavail\fR;
+\fIcred_expired\fR;
+\fIcred_err\fR;
+\fIno_module_data\fR;
+\fIconv_err\fR;
+\fIauthtok_err\fR;
+\fIauthtok_recover_err\fR;
+\fIauthtok_lock_busy\fR;
+\fIauthtok_disable_aging\fR;
+\fItry_again\fR;
+\fIignore\fR;
+\fIabort\fR;
+\fIauthtok_expired\fR;
+\fImodule_unknown\fR;
+\fIbad_item\fR; and
+\fIdefault\fR. The last of these,
+\fIdefault\fR, implies 'all
+\fIvalueN\fR's not mentioned explicitly. Note, the full list of PAM errors is available in /usr/include/security/_pam_types.h . The
+\fIactionN\fR
 can be: an unsigned integer,
-.BR J ,
-signifying an action of 'jump over the next J modules in the stack';
-or take one of the following forms:
-.br
-.B ignore
-- when used with a stack of modules, the module's return status will
-not contribute to the return code the application obtains;
-.br
-.B bad
-- this action indicates that the return code should be thought of as
-indicative of the module failing. If this module is the first in the
-stack to fail, its status value will be used for that of the whole
-stack.
-.br
-.B die
-- equivalent to bad with the side effect of terminating the module
-stack and PAM immediately returning to the application.
-.br
-.B ok
-- this tells PAM that the administrator thinks this return code
-should contribute directly to the return code of the full stack of
-modules. In other words, if the former state of the stack would lead
-to a return of
-.BR PAM_SUCCESS ,
-the module's return code will override this value. Note, if the former
-state of the stack holds some value that is indicative of a modules
-failure, this 'ok' value will not be used to override that value.
-.br
-.B done
-- equivalent to ok with the side effect of terminating the module
-stack and PAM immediately returning to the application.
-.br
-.B reset
-- clear all memory of the state of the module stack and start again
-with the next stacked module.
-
-.sp
-.BR module-path
-- this is either the full filename of the PAM to be used by the
-application (it begins with a '/'), or a relative pathname from the
-default module location:
-.BR /lib/security/ .
-
-.sp
-.BR module-arguments
-- these are a space separated list of tokens that can be used to
-modify the specific behavior of the given PAM. Such arguments will be
-documented for each individual module.
-
+\fIJ\fR, signifying an action of 'jump over the next J modules in the stack'; or take one of the following forms:\fIignore\fR
+\- when used with a stack of modules, the module's return status will not contribute to the return code the application obtains;\fIbad\fR
+\- this action indicates that the return code should be thought of as indicative of the module failing. If this module is the first in the stack to fail, its status value will be used for that of the whole stack.\fIdie\fR
+\- equivalent to bad with the side effect of terminating the module stack and PAM immediately returning to the application.\fIok\fR
+\- this tells PAM that the administrator thinks this return code should contribute directly to the return code of the full stack of modules. In other words, if the former state of the stack would lead to a return of
+\fIPAM_SUCCESS\fR, the module's return code will override this value. Note, if the former state of the stack holds some value that is indicative of a modules failure, this 'ok' value will not be used to override that value.\fIdone\fR
+\- equivalent to ok with the side effect of terminating the module stack and PAM immediately returning to the application.\fIreset\fR
+\- clear all memory of the state of the module stack and start again with the next stacked module.
+.PP
+\fImodule\-path\fR
+\- this is either the full filename of the PAM to be used by the application (it begins with a '/'), or a relative pathname from the default module location:
+\fI/lib/security/\fR.
+.PP
+\fImodule\-arguments\fR
+\- these are a space separated list of tokens that can be used to modify the specific behavior of the given PAM. Such arguments will be documented for each individual module.
 .SH "FILES"
-.BR /etc/pam.conf " - the configuration file"
-.br
-.BR /etc/pam.d/ " - the"
-.BR Linux-PAM
+.PP
+\fI/etc/pam.conf\fR
+\- the configuration file\fI/etc/pam.d/\fR
+\- the
+\fILinux\-PAM\fR
 configuration directory. Generally, if this directory is present, the
-.B /etc/pam.conf
-file is ignored.
-.br
-.BR /lib/libpam.so.X " - the dynamic library"
-.br
-.BR /lib/security/*.so " - the PAMs
-
-.SH ERRORS
+\fI/etc/pam.conf\fR
+file is ignored.\fI/lib/libpam.so.X\fR
+\- the dynamic library\fI/lib/security/*.so\fR
+\- the PAMs
+.SH "ERRORS"
+.PP
 Typically errors generated by the
-.BR Linux-PAM
+\fILinux\-PAM\fR
 system of libraries, will be written to
-.BR syslog "(3)."
-
+\fBsyslog\fR(3).
 .SH "CONFORMING TO"
-DCE-RFC 86.0, October 1995.
-.br
-Contains additional features, but remains backwardly compatible with
-this RFC.
-
-.SH BUGS
-.sp 2
+.PP
+DCE\-RFC 86.0, October 1995.Contains additional features, but remains backwardly compatible with this RFC.
+.SH "BUGS"
+.PP
 None known.
-
 .SH "SEE ALSO"
-
+.PP
 The three
-.BR Linux-PAM
+\fILinux\-PAM\fR
 Guides, for
-.BR "system administrators" ", "
-.BR "module developers" ", "
-and
-.BR "application developers" ". "
+\fIsystem administrators\fR,
+\fImodule developers\fR, and
+\fIapplication developers\fR.

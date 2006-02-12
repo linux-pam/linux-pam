@@ -1,79 +1,74 @@
-.\" Hey Emacs! This file is -*- nroff -*- source.
-.\" $Id$
-.\" Copyright (c) Andrew G. Morgan 1996,1997 <morgan@parc.power.net>
-.TH PAM_SETCRED 3 "1997 July 6" "Linux-PAM 0.58" "App. Programmers' Manual"
-.SH NAME
-
-pam_setcred \- set the credentials for the user
-
-.SH SYNOPSIS
-.B #include <security/pam_appl.h>
-.sp
-.BI "int pam_setcred(pam_handle_t " *pamh ", int  " flags ");"
-.sp 2
-.SH DESCRIPTION
-.B pam_setcred
-
-This function is used to establish, maintain and delete the
-credentials of a user. It should be called after a user has been
-authenticated and before a session is opened for the user (with
-.BR pam_open_session "(3))."
-
-It should be noted that credentials come in many forms. Examples
-include: group memberships; ticket-files; and Linux-PAM environment
-variables.  For this reason, it is important that the basic identity
-of the user is established, by the application, prior to a call to
-this function.  For example, the default
-.BR Linux-PAM
-environment variables should be set and also
-.BR initgroups "(2) "
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_SETCRED" "3" "02/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_setcred \- establish / delete user credentials
+.SH "SYNOPSIS"
+.PP
+\fB#include <security/pam_appl.h>\fR
+.HP 16
+\fBint\ \fBpam_setcred\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBint\ \fR\fB\fIflags\fR\fR\fB);\fR
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_setcred\fR
+function is used to establish, maintain and delete the credentials of a user. It should be called after a user has been authenticated and before a session is opened for the user (with
+\fBpam_open_session\fR(3)).
+.PP
+A credential is something that the user possesses. It is some property, such as a
+\fIKerberos\fR
+ticket, or a supplementary group membership that make up the uniqueness of a given user. On a Linux system the user's
+\fIUID\fR
+and
+\fIGID\fR's are credentials too. However, it has been decided that these properties (along with the default supplementary groups of which the user is a member) are credentials that should be set directly by the application and not by PAM. Such credentials should be established, by the application, prior to a call to this function. For example,
+\fBinitgroups\fR(2)
 (or equivalent) should have been performed.
-
-.SH "VALID FLAGS"
+.PP
+Valid
+\fIflags\fR, any one of which, may be logically OR'd with
+\fBPAM_SILENT\fR, are:
 .TP
-.BR PAM_ESTABLISH_CRED
-initialize the credentials for the user.
-
+PAM_ESTABLISH_CRED
+Initialize the credentials for the user.
 .TP
-.BR PAM_DELETE_CRED
-delete the user's credentials.
-
+PAM_DELETE_CRED
+Delete the user's credentials.
 .TP
-.BR PAM_REINITIALIZE_CRED
-delete and then initialize the user's credentials.
-
+PAM_REINITIALIZE_CRED
+Fully reinitialize the user's credentials.
 .TP
-.BR PAM_REFRESH_CRED
-extend the lifetime of the existing credentials.
-
+PAM_REFRESH_CRED
+Extend the lifetime of the existing credentials.
 .SH "RETURN VALUE"
-
-On success
-.BR PAM_SUCCESS
-is returned, all other return values should be treated as errors.
-
-.SH ERRORS
-May be translated to text with
-.BR pam_strerror "(3). "
-
-.SH "CONFORMING TO"
-DCE-RFC 86.0, October 1995.
-
-.SH BUGS
-.sp 2
-none known.
-
+.TP
+PAM_BUF_ERR
+Memory buffer error.
+.TP
+PAM_CRED_ERR
+Failed to set user credentials.
+.TP
+PAM_CRED_EXPIRED
+User credentials are expired.
+.TP
+PAM_CRED_UNAVAIL
+Failed to retrieve user credentials.
+.TP
+PAM_SUCCESS
+Data was successful stored.
+.TP
+PAM_SYSTEM_ERR
+A NULL pointer was submitted as PAM handle, the function was called by a module or another system error occured.
+.TP
+PAM_USER_UNKNOWN
+User is not known to an authentication module.
 .SH "SEE ALSO"
-
-.BR pam_authenticate "(3), "
-.BR pam_strerror "(3)"
-and
-.BR pam_open_session "(3). "
-
-Also, see the three
-.BR Linux-PAM
-Guides, for
-.BR "System administrators" ", "
-.BR "module developers" ", "
-and
-.BR "application developers" ". "
+.PP
+\fBpam_authenticate\fR(3),
+\fBpam_open_session\fR(3),
+\fBpam_strerror\fR(3)

@@ -1,3 +1,43 @@
+2006-02-12  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Add doc/man/Makefile.
+	* Make.xml.rules: Enable xincludes for manual pages.
+	* doc/Makefile.am (EXRA_DIST): Remove manual pages.
+	(SUBDIR): Add man subdirectory.
+	* doc/man/Makefile.am: New.
+	* doc/man/pam_acct_mgmt.3: New.
+	* doc/man/pam_acct_mgmt.3.xml: New.
+	* doc/man/pam_get_data.3: New.
+	* doc/man/pam_get_data.3.xml: New.
+	* doc/man/pam_set_data.3: New.
+	* doc/man/pam_set_data.3.xml: New.
+	* doc/man/pam.8.xml: New.
+	* doc/man/pam.8: Regenerated from xml file.
+	* doc/man/pam_authenticate.3.xml: New.
+	* doc/man/pam_authenticate.3: Regenerated from xml file.
+	* doc/man/pam_chauthtok.3.xml: New.
+	* doc/man/pam_chauthtok.3: Regenerated from xml file.
+	* doc/man/pam_close_session.3.xml: New.
+	* doc/man/pam_close_session.3: Regenerated from xml file.
+	* doc/man/pam_end.3.xml: New.
+	* doc/man/pam_end.3: Regenerated from xml file.
+	* doc/man/pam_fail_delay.3.xml: New.
+	* doc/man/pam_fail_delay.3: Regenerated from xml file.
+	* doc/man/pam_get_item.3.xml: New.
+	* doc/man/pam_get_item.3: Regenerated from xml file.
+	* doc/man/pam_item_types.inc.xml: New.
+	* doc/man/pam_open_session.3.xml: New.
+	* doc/man/pam_open_session.3: Regenerated from xml file.
+	* doc/man/pam_set_item.3.xml: New.
+	* doc/man/pam_set_item.3: Regenerated from xml file.
+	* doc/man/pam_setcred.3.xml: New.
+	* doc/man/pam_setcred.3: Regenerated from xml file.
+	* doc/man/pam_start.3.xml: New.
+	* doc/man/pam_start.3: Regenerated from xml file.
+	* doc/man/pam_strerror.3.xml: New.
+	* doc/man/pam_strerror.3: Regenerated from xml file.
+	* doc/man/template-man: Removed.
+
 2006-02-10  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Remove pam_pwdb support.

@@ -1,8 +1,8 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
 #
 
-SUBDIRS = specs
+SUBDIRS = man specs
 
 FILES=pam pam_appl pam_modules
 FSRCS=$(srcdir)/pam_appl.sgml $(srcdir)/pam_modules.sgml
@@ -18,14 +18,9 @@ CLEANFILES = *~ */*~ $(TEXTS) $(PSFILES) $(PDFFILES) html/pam*.html \
 	ps/missfont.log MODULES-SGML pam.sgml
 
 EXTRA_DIST = $(FSRCS) CREDITS NOTES figs/pam_orient.txt pdf/README \
-	ps/README html/index.html txts/README man/template-man $(MANS) \
+	ps/README html/index.html txts/README \
 	pam_source.sgml $(MODULES) modules/module.sgml-template \
 	modules/README
-
-man_MANS = $(addprefix man/, pam.8 pam.conf.5 pam.d.5 pam_authenticate.3 \
-	pam_chauthtok.3 pam_close_session.3 pam_end.3 pam_fail_delay.3 \
-	pam_get_item.3 pam_open_session.3 pam_set_item.3 pam_setcred.3 \
-	pam_start.3 pam_strerror.3)
 
 #######################################################
 

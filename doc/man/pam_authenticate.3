@@ -1,91 +1,68 @@
-.\" Hey Emacs! This file is -*- nroff -*- source.
-.\" $Id$
-.\" Copyright (c) Andrew G. Morgan 1996-7 <morgan@parc.power.net>
-.TH PAM_AUTHENTICATE 3 "1996 Dec 9" "Linux-PAM 0.55" "App. Programmers' Manual"
-.SH NAME
-
-pam_authenticate \- authenticate a user
-
-.SH SYNOPSIS
-.B #include <security/pam_appl.h>
-.sp
-.BI "int pam_authenticate(pam_handle_t " *pamh ", int  " flags ");"
-.sp 2
-.SH DESCRIPTION
-.B pam_authenticate
-
-.br
-Use this function to authenticate an applicant user.  It is linked
-.I dynamically
-to the authentication modules by
-.BR Linux-PAM ". "
-It is the task of these module to perform such an authentication.  The
-specific nature of the authentication is not the concern of the
-application.
-
-.br
-Following successful completion, the
-.BR name
-of the authenticated user will be present in the
-.BR Linux-PAM
-item
-.BR PAM_USER ". "
-This item may be recovered with a call to
-.BR pam_get_item "(3)."
-
-.br
-The application developer should note that the modules may request
-that the user enter their username via the conversation mechanism (see
-.BR pam_start "(3))."
-Should this be the case, the user-prompt string can be set via
-the
-.BR PAM_USER_PROMPT
-item (see
-.BR pam_set_item "(3))."
-
-.SH "RETURN VALUE"
-On success
-.BR PAM_SUCCESS
-is returned.  All other returns should be considered
-authentication failures and will be
-.I delayed
-by an amount specified with prior calls to
-.BR pam_fail_delay "(3). "
-Specific failures that demand special attention are the following:
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_AUTHENTICATE" "3" "02/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_authenticate \- account authentication
+.SH "SYNOPSIS"
+.PP
+\fB#include <security/pam_appl.h>\fR
+.HP 21
+\fBint\ \fBpam_authenticate\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBint\ \fR\fB\fIflags\fR\fR\fB);\fR
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_authenticate\fR
+function is used to authenticate the user. The user is required to provide an authentication token depending upon the authentication service, usually this is a password, but could also be a finger print.
+.PP
+The PAM service module may request that the user enter their username vio the the conversation mechanism (see
+\fBpam_start\fR(3)
+and
+\fBpam_conv\fR(3)). The name of the authenticated user will be present in the PAM item PAM_USER. This item may be recovered with a call to
+\fBpam_get_item\fR(3).
+.PP
+The
+\fIpamh\fR
+argument is an authentication handle obtained by a prior call to pam_start(). The flags argument is the binary or of zero or more of the following values:
 .TP
-.B PAM_ABORT
-the application should exit immediately. Of course,
-.BR pam_end "(3)"
-should be called first.
-
+PAM_SILENT
+Do not emit any messages.
 .TP
-.B PAM_MAXTRIES
-the application has tried too many times to authenticate the
-user, authentication should not be attempted again.
-
-.SH ERRORS
-May be translated to text with
-.BR pam_strerror "(3). "
-
-.SH "CONFORMING TO"
-DCE-RFC 86.0, October 1995.
-
-.SH BUGS
-.sp 2
-none known.
-
+PAM_DISALLOW_NULL_AUTHTOK
+The PAM module service should return PAM_AUTH_ERR if the user does not have a registered authentication token.
+.SH "RETURN VALUES"
+.TP
+PAM_ABORT
+The application should exit immediately after calling
+\fBpam_end\fR(3)
+first.
+.TP
+PAM_AUTH_ERR
+The user was not authenticated.
+.TP
+PAM_CRED_INSUFFICIENT
+For some reason the application does not have sufficient credentials to authenticate the user.
+.TP
+PAM_AUTHINFO_UNVAIL
+The modules were not able to access the authentication information. This might be due to a network or hardware failure etc.
+.TP
+PAM_MAXTRIES
+One or more of the authentication modules has reached its limit of tries authenticating the user. Do not try again.
+.TP
+PAM_SUCCESS
+The user was successfully authenticated.
+.TP
+PAM_USER_UNKNOWN
+User unknown to authentication service.
 .SH "SEE ALSO"
-
-.BR pam_start "(3), "
-.BR pam_get_item "(3) "
-.BR pam_fail_delay "(3) "
-and
-.BR pam_strerror "(3). "
-
-Also, see the three
-.BR Linux-PAM
-Guides, for
-.BR "System administrators" ", "
-.BR "module developers" ", "
-and
-.BR "application developers" ". "
+.PP
+\fBpam_start\fR(3),
+\fBpam_setcred\fR(3),
+\fBpam_chauthtok\fR(3),
+\fBpam_strerror\fR(3),
+\fBpam\fR(8)

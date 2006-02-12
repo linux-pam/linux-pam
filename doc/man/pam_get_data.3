@@ -1,0 +1,52 @@
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_GET_DATA" "3" "02/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_get_data \- get module internal data
+.SH "SYNOPSIS"
+.PP
+\fB#include <security/pam_modules.h>\fR
+.HP 17
+\fBint\ \fBpam_get_data\fR\fR\fB(\fR\fBconst\ pam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fImodule_data_name\fR\fR\fB, \fR\fBconst\ void\ **\fR\fB\fIdata\fR\fR\fB);\fR
+.SH "DESCRIPTION"
+.PP
+This function together with the
+\fBpam_set_data\fR(3)
+function is useful to manage module\-specific data meaningful only to the calling PAM module.
+.PP
+The
+\fBpam_get_data\fR
+function looks up the object associated with the (hopefully) unique string
+\fImodule_data_name\fR
+in the PAM context specified by the
+\fIpamh\fR
+argument. A successful call to
+\fBpam_get_data\fR
+will result in
+\fIdata\fR
+pointing to the object. Note, this data is
+\fInot\fR
+a copy and should be treated as
+\fIconstant\fR
+by the module.
+.SH "RETURN VALUES"
+.TP
+PAM_SUCCESS
+Data was successful retrieved.
+.TP
+PAM_SYSTEM_ERR
+A NULL pointer was submitted as PAM handle or the function was called by an application.
+.TP
+PAM_NO_MODULE_DATA
+Module data not found or there is an entry, but it has the value NULL.
+.SH "SEE ALSO"
+.PP
+\fBpam_end\fR(3),
+\fBpam_set_data\fR(3),
+\fBpam_strerror\fR(3)
