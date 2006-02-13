@@ -1,3 +1,10 @@
+2006-02-13  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_echo/pam_echo.8.xml: New.
+	* modules/pam_echo/pam_echo.8: Regenerated from xml file.
+	* modules/pam_echo/Makefile.am: Include Make.xml.rules.
+	* modules/pam_echo/pam_echo.c: Fix return value.
+
 2006-02-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Add doc/man/Makefile.

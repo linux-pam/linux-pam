@@ -76,7 +76,7 @@ replace_and_print (pam_handle_t *pamh, const char *mesg)
   if (output == NULL)
     {
       pam_syslog (pamh, LOG_ERR, "running out of memory");
-      return PAM_IGNORE;
+      return PAM_BUF_ERR;
     }
 
   for (p = mesg, len = 0; *p != '\0' && len < length - 1; ++p)
@@ -139,6 +139,7 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
   int orig_argc = argc;
   const char **orig_argv = argv;
   const char *file = NULL;
+  int retval;
 
   if (flags & PAM_SILENT)
     return PAM_IGNORE;
@@ -166,7 +167,7 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	}
       msg[len] = '\0';
 
-      replace_and_print (pamh, msg);
+      retval = replace_and_print (pamh, msg);
     }
   else if ((fd = open (file, O_RDONLY, 0)) >= 0)
     {
@@ -179,7 +180,7 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
 
       mtmp = malloc (st.st_size + 1);
       if (!mtmp)
-	return PAM_IGNORE;
+	return PAM_BUF_ERR;
 
       if (read (fd, mtmp, st.st_size) == -1)
 	{
@@ -194,13 +195,15 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	mtmp[st.st_size] = '\0';
 
       close (fd);
-      replace_and_print (pamh, mtmp);
+      retval = replace_and_print (pamh, mtmp);
       free (mtmp);
     }
   else
-    pam_syslog (pamh, LOG_ERR, "Cannot open %s: %m", file);
-
-  return PAM_IGNORE;
+    {
+       pam_syslog (pamh, LOG_ERR, "Cannot open %s: %m", file);
+       retval = PAM_IGNORE;
+    }
+  return retval;
 }
 
 int

@@ -1,12 +1,14 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
 CLEANFILES = *~
 
-EXTRA_DIST = $(MANS)
+EXTRA_DIST = README $(MANS) $(XMLS)
 
 man_MANS = pam_echo.8
+
+XMLS = README.xml pam_echo.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -19,3 +21,10 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_echo.la
+
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_echo.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
