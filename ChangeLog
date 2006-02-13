@@ -5,6 +5,8 @@
 	* modules/pam_echo/Makefile.am: Include Make.xml.rules.
 	* modules/pam_echo/pam_echo.c: Fix return value.
 
+	* doc/modules/pam_chroot.sgml: Remove obsolete sgml file.
+
 2006-02-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Add doc/man/Makefile.
