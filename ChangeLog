@@ -1,3 +1,9 @@
+2006-02-14  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* po/fi.po: Updated translations.
+	* po/km.po: New translation.
+	* configure.in: Add km as new language.
+
 2006-02-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_echo/pam_echo.8.xml: New.

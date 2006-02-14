@@ -1,21 +1,22 @@
-# translation of Linux-PAM.po to
+# translation of Linux-PAM.po to suomi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR Linux-PAM Project.
 #
 # Ilkka Pirskanen <ilkka.pirskanen@kolumbus.fi>, 2005.
+# Janne Ahlskog <j.ahlskog@multi.fi>, 2006.
 # Jyri Palokangas <jmp@netti.fi>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2006-01-24 16:51+0100\n"
-"PO-Revision-Date: 2006-01-12 18:58+0200\n"
+"PO-Revision-Date: 2006-02-07 22:53+0200\n"
 "Last-Translator: Jyri Palokangas <jmp@netti.fi>\n"
-"Language-Team:  <fi@li.org>\n"
+"Language-Team: suomi <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.1\n"
+"X-Generator: KBabel 1.11.2\n"
 
 #: modules/pam_exec/pam_exec.c:118
 #, c-format
@@ -81,17 +82,17 @@ msgstr " koneelta %.*s"
 #: modules/pam_lastlog/pam_lastlog.c:207
 #, c-format
 msgid " on %.*s"
-msgstr " %.*s"
+msgstr "päätteellä %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:216
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr "Viimeisin kirjautuminen:%s%s%s"
+msgstr "Viimeinen kirjautuminen:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:222
 msgid "Welcome to your new account!"
-msgstr "Tervetuloa käyttämään uutta käyttäjätiliäsi!"
+msgstr "Tervetuloa uudella käyttäjätilillä!"
 
 #: modules/pam_limits/pam_limits.c:658
 #, c-format
@@ -157,35 +158,35 @@ msgstr "Ei postia."
 
 #: modules/pam_mail/pam_mail.c:310
 msgid "You have new mail."
-msgstr "Sinulle on uutta postia."
+msgstr "Sinulla on uusi posti."
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "You have old mail."
-msgstr "Sinulla on vanhoja posteja."
+msgstr "Sinulla on vanha posti."
 
 #: modules/pam_mail/pam_mail.c:317
 msgid "You have mail."
-msgstr "Sinulle on postia."
+msgstr "Sinulla on postia."
 
 #: modules/pam_mail/pam_mail.c:324
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr "Sinulle ei ole postia kansiossa %s."
+msgstr "Sinulla ei ole postia hakemistossa %s."
 
 #: modules/pam_mail/pam_mail.c:328
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "Sinulle on uutta postia kansiossa %s."
+msgstr "Sinulla on postia hakemistossa %s."
 
 #: modules/pam_mail/pam_mail.c:332
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr "Sinulla on vanhoja posteja kansiossa %s."
+msgstr "Sinulla on vanhaa postia hakemistossa %s."
 
 #: modules/pam_mail/pam_mail.c:337
 #, c-format
 msgid "You have mail in folder %s."
-msgstr "Sinulle on postia kansiossa %s."
+msgstr "Sinulla on postia hakemistossa %s."
 
 #: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
 msgid "Your account has expired; please contact your system administrator"
@@ -265,16 +266,16 @@ msgstr "Salasanat eivät ole samat; salasanaa ei vaihdettu"
 #: modules/pam_cracklib/pam_cracklib.c:60
 #, c-format
 msgid "New %s%spassword: "
-msgstr "Uusi %s%s-salasana: "
+msgstr "Uusi %s%ssalasana: "
 
 #: modules/pam_cracklib/pam_cracklib.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "Anna uusi %s%s-salasana uudelleen: "
+msgstr "Anna uudelleen uusi %s%ssalasana: "
 
 #: modules/pam_cracklib/pam_cracklib.c:63
 msgid "Sorry, passwords do not match."
-msgstr "Sorry, salasanat eivät täsmää."
+msgstr "Salasanat eivät täsmää."
 
 #: modules/pam_cracklib/pam_cracklib.c:378
 msgid "is the same as the old one"
@@ -286,15 +287,15 @@ msgstr "on palindromi"
 
 #: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
-msgstr "vain merkkikoko muutoksia"
+msgstr "kirjasin muuttuu ainoastaan"
 
 #: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
-msgstr "on liian samankaltainen kuin vanha"
+msgstr "on liian samankaltainen vanhan kanssa"
 
 #: modules/pam_cracklib/pam_cracklib.c:398
 msgid "is too simple"
-msgstr "liian yksinkertainen"
+msgstr "on liian yksinkertainen"
 
 #: modules/pam_cracklib/pam_cracklib.c:401
 msgid "is rotated"
@@ -302,17 +303,17 @@ msgstr "on kierrätetty"
 
 #: modules/pam_cracklib/pam_cracklib.c:436
 msgid "has been already used"
-msgstr "on jo aiemmin käytetty"
+msgstr "on jo käytetty"
 
 #: modules/pam_cracklib/pam_cracklib.c:488
 #: modules/pam_cracklib/pam_cracklib.c:616
 #, c-format
 msgid "BAD PASSWORD: %s"
-msgstr "HUONO SALASANA: %s"
+msgstr "VÄÄRÄ SALASANA: %s"
 
 #: libpam/pam_item.c:268
 msgid "login:"
-msgstr "kirjaudu:"
+msgstr "kirjautua sisään:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
@@ -352,7 +353,7 @@ msgstr "Tunnistautumisvirhe"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr "Riittämätön valtakirja tunnistautumistietojen saamiseksi"
+msgstr "Riittämätön valtuustieto tunnistautumistietojen saamiseksi"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info."
@@ -380,15 +381,15 @@ msgstr "Valitun istunnon merkintää ei voida tehdä/poistaa"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr "Tunnistautumispalvelu ei pääse käyttäjän valtakirjaan"
+msgstr "Tunnistautumispalvelu ei pääse käyttäjän valtuustietoihin"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr "Käyttäjän valtakirja vanhentunut"
+msgstr "Käyttäjän valtuustiedot vanhentunut"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr "Käyttäjän valtakirjan antaminen ei onnistunut"
+msgstr "Käyttäjän valtuustiedon antaminen ei onnistunut"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
@@ -396,7 +397,7 @@ msgstr "Moduulilla ei ole omia tietoja"
 
 #: libpam/pam_strerror.c:80
 msgid "Bad item passed to pam_*_item()"
-msgstr "Väärä tieto välitettiin funktiolle pam_*_item()"
+msgstr "Väärä tieto välitettiin pam_*_item()"
 
 #: libpam/pam_strerror.c:82
 msgid "Conversation error"

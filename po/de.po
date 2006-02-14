@@ -2,13 +2,13 @@
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2006-01-24 16:51+0100\n"
-"PO-Revision-Date: 2006-01-25 00:18+01:00\n"
+"PO-Revision-Date: 2005-12-12 17:55+01:00\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
@@ -460,18 +460,3 @@ msgstr "...Ihre Zeit ist abgelaufen.\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "fehlerhafte Kommunikation (%d)\n"
-
-#~ msgid "new"
-#~ msgstr "neue"
-
-#~ msgid "old"
-#~ msgstr "alte"
-
-#~ msgid "no"
-#~ msgstr "keine"
-
-#~ msgid "new "
-#~ msgstr "neue "
-
-#~ msgid "%s: set %s security context to %s"
-#~ msgstr "Kein gültiger Sicherheitskontext"
