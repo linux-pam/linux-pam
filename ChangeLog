@@ -1,6 +1,7 @@
 2006-02-14  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/fi.po: Updated translations.
+	* po/pl.po: Likewise.
 	* po/km.po: New translation.
 	* configure.in: Add km as new language.
 

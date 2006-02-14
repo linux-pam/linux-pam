@@ -1,19 +1,22 @@
+# translation of Linux-PAM.pl.po to
 # Polish message file for YaST2 (@memory@).
 # Copyright (C) 2003 SuSE Linux AG.
+# Antje Faber, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM TBD\n"
+"Project-Id-Version: Linux-PAM.pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2006-01-24 16:51+0100\n"
-"PO-Revision-Date: 2005-08-23 15:22+0200\n"
-"Last-Translator: Piotr Bolek <pb@7bulls.com>\n"
-"Language-Team: Polish <i18n@suse.de>\n"
+"PO-Revision-Date: 2006-02-14 12:26+0000\n"
+"Last-Translator: Antje Faber\n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.10\n"
 
 #: modules/pam_exec/pam_exec.c:118
 #, c-format
@@ -72,28 +75,28 @@ msgstr "%s: Nie można zresetować wszystkich użytkowników\n"
 #: modules/pam_lastlog/pam_lastlog.c:195
 #, c-format
 msgid " from %.*s"
-msgstr ""
+msgstr " od %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:207
 #, c-format
 msgid " on %.*s"
-msgstr ""
+msgstr " na %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:216
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr ""
+msgstr "Ostatnie logowanie:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:222
 msgid "Welcome to your new account!"
-msgstr ""
+msgstr "Witaj na swoim nowym koncie!"
 
 #: modules/pam_limits/pam_limits.c:658
 #, c-format
 msgid "Too many logins for '%s'."
-msgstr ""
+msgstr "Zbyt wiele prób zalogowania na '%s'."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -150,39 +153,39 @@ msgstr "Kontekst bezpieczeństwa %s przypisany"
 
 #: modules/pam_mail/pam_mail.c:307
 msgid "No mail."
-msgstr ""
+msgstr "Brak poczty."
 
 #: modules/pam_mail/pam_mail.c:310
 msgid "You have new mail."
-msgstr ""
+msgstr "Masz nową pocztę."
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "You have old mail."
-msgstr ""
+msgstr "Masz starą pocztę."
 
 #: modules/pam_mail/pam_mail.c:317
 msgid "You have mail."
-msgstr ""
+msgstr "Masz pocztę."
 
 #: modules/pam_mail/pam_mail.c:324
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr ""
+msgstr "Nie masz żadnej poczty w katalogu %s."
 
 #: modules/pam_mail/pam_mail.c:328
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr ""
+msgstr "Masz nową pocztę w katalogu %s."
 
 #: modules/pam_mail/pam_mail.c:332
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr ""
+msgstr "Masz starą pocztę w katalogu %s."
 
 #: modules/pam_mail/pam_mail.c:337
 #, c-format
 msgid "You have mail in folder %s."
-msgstr ""
+msgstr "Masz pocztę w katalogu %s."
 
 #: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
 msgid "Your account has expired; please contact your system administrator"
@@ -202,9 +205,8 @@ msgid "Warning: your password will expire in %d day%.2s"
 msgstr "Ostrzeżenie: twoje hasło wygaśnie za %d dni%.2s"
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
-#, fuzzy
 msgid "Password: "
-msgstr "Hasło nie zmienione"
+msgstr "Hasło: "
 
 #: modules/pam_unix/pam_unix_passwd.c:820
 msgid "NIS password could not be changed."
@@ -230,21 +232,19 @@ msgstr "Hasło było już używane. Podaj inne."
 
 #: modules/pam_unix/pam_unix_passwd.c:1126
 msgid "(current) UNIX password: "
-msgstr ""
+msgstr "(aktualne) Hasło UNIX:"
 
 #: modules/pam_unix/pam_unix_passwd.c:1161
 msgid "You must wait longer to change your password"
 msgstr "Musisz poczekać dłużej żeby zmienić hasło"
 
 #: modules/pam_unix/pam_unix_passwd.c:1221
-#, fuzzy
 msgid "Enter new UNIX password: "
-msgstr "Poda nowe hasło STRESS: "
+msgstr "Podaj nowe hasło UNIX: "
 
 #: modules/pam_unix/pam_unix_passwd.c:1222
-#, fuzzy
 msgid "Retype new UNIX password: "
-msgstr "Wpisz ponownie hasło STRESS: "
+msgstr "Wpisz ponownie hasło UNIX: "
 
 #: modules/pam_stress/pam_stress.c:477
 msgid "Changing STRESS password for "
@@ -263,58 +263,56 @@ msgid "Verification mis-typed; password unchanged"
 msgstr "Błędna weryfikacja; hasło niezmienione"
 
 #: modules/pam_cracklib/pam_cracklib.c:60
-#, fuzzy, c-format
+#, c-format
 msgid "New %s%spassword: "
-msgstr "Hasło nie zmienione"
+msgstr "Nowe hasło %s%s: "
 
 #: modules/pam_cracklib/pam_cracklib.c:62
-#, fuzzy, c-format
+#, c-format
 msgid "Retype new %s%spassword: "
-msgstr "Wpisz ponownie hasło STRESS: "
+msgstr "Wpisz ponownie nowe hasło %s%s: "
 
 #: modules/pam_cracklib/pam_cracklib.c:63
-#, fuzzy
 msgid "Sorry, passwords do not match."
-msgstr "Nie można zmieniać hasła NIS."
+msgstr "Niestety, hasła nie są zgodne."
 
 #: modules/pam_cracklib/pam_cracklib.c:378
 msgid "is the same as the old one"
-msgstr ""
+msgstr "jest identyczne ze starym"
 
 #: modules/pam_cracklib/pam_cracklib.c:389
 msgid "is a palindrome"
-msgstr ""
+msgstr "jest palindromem"
 
 #: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
-msgstr ""
+msgstr "zmienia tylko wielkość znaków"
 
 #: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
-msgstr ""
+msgstr "jest zbyt podobne do poprzedniego"
 
 #: modules/pam_cracklib/pam_cracklib.c:398
 msgid "is too simple"
-msgstr ""
+msgstr "jest zbyt proste"
 
 #: modules/pam_cracklib/pam_cracklib.c:401
 msgid "is rotated"
-msgstr ""
+msgstr "jest obrócone"
 
 #: modules/pam_cracklib/pam_cracklib.c:436
-#, fuzzy
 msgid "has been already used"
-msgstr "Hasło było już używane. Podaj inne."
+msgstr "było już używane"
 
 #: modules/pam_cracklib/pam_cracklib.c:488
 #: modules/pam_cracklib/pam_cracklib.c:616
 #, c-format
 msgid "BAD PASSWORD: %s"
-msgstr ""
+msgstr "ZŁE HASŁO: %s"
 
 #: libpam/pam_item.c:268
 msgid "login:"
-msgstr ""
+msgstr "login:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
@@ -460,7 +458,3 @@ msgstr "...Przykro mi, twój czas się skończył!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "błędna konwersacja (%d)\n"
-
-#, fuzzy
-#~ msgid "%s: set %s security context to %s"
-#~ msgstr "Nieważny kontekst bezpieczeństwa"
