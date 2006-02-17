@@ -1,3 +1,19 @@
+2006-02-17  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/Makefile.am: Add new manual pages.
+	* doc/man/pam_end.3: Regenerated from xml file.
+	* doc/man/pam_end.3.xml: Document freeing of item data.
+	* doc/man/pam_get_user.3: New.
+	* doc/man/pam_get_user.3.xml: New.
+	* modules/pam_access/access.conf.5.xml: Fix typos.
+	* modules/pam_env/Makefile.am: Add new manual pages.
+	* modules/pam_env/README: Regenerate from xml file.
+	* modules/pam_env/README.xml: New.
+	* modules/pam_env/pam_env.8: New.
+	* modules/pam_env/pam_env.8.xml: New.
+	* modules/pam_env/pam_env.conf.5: New.
+	* modules/pam_env/pam_env.conf.5.xml New.
+
 2006-02-14  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/fi.po: Updated translations.

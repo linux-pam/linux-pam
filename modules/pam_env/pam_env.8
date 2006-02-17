@@ -1,0 +1,85 @@
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_ENV" "8" "02/17/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_env \- PAM module to set/unset environment variables
+.SH "SYNOPSIS"
+.HP 11
+\fBpam_env.so\fR [debug] [conffile=\fIconf\-file\fR] [envfile=\fIenv\-file\fR] [readenv=\fI0|1\fR]
+.SH "DESCRIPTION"
+.PP
+The pam_env PAM module allows the (un)setting of environment variables. Supported is the use of previously set environment variables as well as
+\fIPAM_ITEM\fRs such as
+\fIPAM_RHOST\fR.
+.PP
+By default rules for (un)setting of variables is taken from the config file
+\fI/etc/security/pam_env.conf\fR
+if no other file is specified.
+.PP
+This module can also parse a file with simple
+\fIKEY=VAL\fR
+pairs on seperate lines (\fI/etc/environment\fR
+by default). You can change the default file to parse, with the
+\fIenvfile\fR
+flag and turn it on or off by setting the
+\fIreadenv\fR
+flag to 1 or 0 respectively.
+.SH "OPTIONS"
+.TP
+\fBconffile=\fR\fB\fI/path/to/pam_env.conf\fR\fR
+Indicate an alternative
+\fIpam_env.conf\fR
+style configuration file to override the default. This can be useful when different services need different environments.
+.TP
+\fBdebug\fR
+A lot of debug informations are printed with
+\fBsyslog\fR(3).
+.TP
+\fBenvfile=\fR\fB\fI/path/to/environment\fR\fR
+Indicate an alternative
+\fIenvironment\fR
+file to override the default. This can be useful when different services need different environments.
+.TP
+\fBreadenv=\fR\fB\fI0|1\fR\fR
+Turns on or off the reading of the file specified by envfile (0 is off, 1 is on). By default this option is on.
+.SH "MODULE SERVICES PROVIDED"
+.PP
+The
+\fBauth\fR
+and
+\fBsession\fR
+services are supported.
+.SH "RETURN VALUES"
+.TP
+PAM_ABORT
+Not all relevant data or options could be gotten.
+.TP
+PAM_BUF_ERR
+Memory buffer error.
+.TP
+PAM_IGNORE
+No pam_env.conf and environment file was found.
+.TP
+PAM_SUCCESS
+Environment variables were set.
+.SH "FILES"
+.TP
+\fI/etc/security/pam_env.conf\fR
+Default configuration file
+.TP
+\fI/etc/environment\fR
+Default environment file
+.SH "SEE ALSO"
+.PP
+\fBpam_env.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8).
+.SH "AUTHORS"
+.PP
+pam_env was written by Dave Kinchlea <kinch@kinch.ark.com>.

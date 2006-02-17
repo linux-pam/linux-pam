@@ -4,7 +4,11 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README pam_env.conf
+EXTRA_DIST = README pam_env.conf $(MANS) $(XMLS)
+
+man_MANS = pam_env.conf.5 pam_env.8
+
+XMLS = README.xml pam_env.conf.5.xml pam_env.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -20,3 +24,10 @@ endif
 securelib_LTLIBRARIES = pam_env.la
 
 secureconf_DATA = pam_env.conf
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_env.8.xml pam_env.conf.5.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+

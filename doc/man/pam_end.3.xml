@@ -65,6 +65,19 @@
       process, and that the parent will take care of cleaning up things
       that exist outside of the current process space (files etc.).
     </para>
+
+    <para>
+      This function <emphasis>free</emphasis>'s all memory for items
+      associated with the
+      <citerefentry>
+        <refentrytitle>pam_set_item</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry> and
+      <citerefentry>
+        <refentrytitle>pam_get_item</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry> functions. Pointers associated with such objects
+      are not valid anymore after <function>pam_end</function> was called.
+    </para>
+
   </refsect1>
   <refsect1 id="pam_end-return_values">
     <title>RETURN VALUES</title>

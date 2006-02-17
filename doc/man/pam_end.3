@@ -2,7 +2,7 @@
 .\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
 .\" Instead of manually editing it, you probably should edit the DocBook XML
 .\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_END" "3" "02/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_END" "3" "02/14/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -37,6 +37,15 @@ and
 \fIPAM_DATA_SILENT\fR
 to indicate to indicate that the module should not treat the call too seriously. It is generally used to indicate that the current closing of the library is in a
 \fBfork\fR(2)ed process, and that the parent will take care of cleaning up things that exist outside of the current process space (files etc.).
+.PP
+This function
+\fIfree\fR's all memory for items associated with the
+\fBpam_set_item\fR(3)
+and
+\fBpam_get_item\fR(3)
+functions. Pointers associated with such objects are not valid anymore after
+\fBpam_end\fR
+was called.
 .SH "RETURN VALUES"
 .TP
 PAM_SUCCESS

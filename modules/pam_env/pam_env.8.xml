@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+
+<refentry id='pam_env'>
+
+  <refmeta>
+    <refentrytitle>pam_env</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id='pam_env-name'>
+    <refname>pam_env</refname>
+    <refpurpose>
+      PAM module to set/unset environment variables
+    </refpurpose>
+  </refnamediv>
+
+<!-- body begins here -->
+
+  <refsynopsisdiv>
+    <cmdsynopsis id="pam_env-cmdsynopsis">
+      <command>pam_env.so</command>
+      <arg choice="opt">
+        debug
+      </arg>
+      <arg choice="opt">
+        conffile=<replaceable>conf-file</replaceable>
+      </arg>
+      <arg choice="opt">
+        envfile=<replaceable>env-file</replaceable>
+      </arg>
+      <arg choice="opt">
+        readenv=<replaceable>0|1</replaceable>
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+
+  <refsect1 id="pam_env-description">
+    <title>DESCRIPTION</title>
+    <para>
+      The pam_env PAM module allows the (un)setting of environment
+      variables. Supported is the use of previously set environment
+      variables as well as <emphasis>PAM_ITEM</emphasis>s such as
+      <emphasis>PAM_RHOST</emphasis>.
+    </para>
+    <para>
+      By default rules for (un)setting of variables is taken from the
+      config file <filename>/etc/security/pam_env.conf</filename> if
+      no other file is specified.
+    </para>
+    <para>
+      This module can also parse a file with simple
+      <emphasis>KEY=VAL</emphasis> pairs on seperate lines
+      (<filename>/etc/environment</filename> by default). You can
+      change the default file to parse, with the <emphasis>envfile</emphasis>
+      flag and turn it on or off by setting the <emphasis>readenv</emphasis>
+      flag to 1 or 0 respectively.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_env-options">
+    <title>OPTIONS</title>
+    <variablelist>
+
+      <varlistentry>
+        <term>
+          <option>conffile=<replaceable>/path/to/pam_env.conf</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            Indicate an alternative <filename>pam_env.conf</filename>
+            style configuration file to override the default. This can
+            be useful when different services need different environments.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>debug</option>
+        </term>
+        <listitem>
+          <para>
+            A lot of debug informations are printed with
+            <citerefentry><refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>envfile=<replaceable>/path/to/environment</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            Indicate an alternative <filename>environment</filename>
+            file to override the default. This can be useful when different
+            services need different environments.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>readenv=<replaceable>0|1</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            Turns on or off the reading of the file specified by envfile
+            (0 is off, 1 is on). By default this option is on.
+          </para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="pam_env-services">
+    <title>MODULE SERVICES PROVIDED</title>
+    <para>
+      The <option>auth</option> and <option>session</option> services
+      are supported.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_env-return_values">
+    <title>RETURN VALUES</title>
+    <variablelist>
+      <varlistentry>
+        <term>PAM_ABORT</term>
+        <listitem>
+           <para>
+             Not all relevant data or options could be gotten.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_BUF_ERR</term>
+        <listitem>
+           <para>
+              Memory buffer error.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_IGNORE</term>
+        <listitem>
+           <para>
+             No pam_env.conf and environment file was found.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_SUCCESS</term>
+        <listitem>
+           <para>
+             Environment variables were set.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="pam_env-files">
+    <title>FILES</title>
+    <variablelist>
+      <varlistentry>
+        <term><filename>/etc/security/pam_env.conf</filename></term>
+        <listitem>
+          <para>Default configuration file</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><filename>/etc/environment</filename></term>
+        <listitem>
+          <para>Default environment file</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="pam_env-see_also">
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+        <refentrytitle>pam_env.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam.d</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_env-authors">
+    <title>AUTHORS</title>
+    <para>
+      pam_env was written by Dave Kinchlea &lt;kinch@kinch.ark.com&gt;.
+    </para>
+  </refsect1>
+</refentry>
