@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.km\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-01-24 16:51+0100\n"
+"POT-Creation-Date: 2006-02-22 20:39+0100\n"
 "PO-Revision-Date: 2006-02-12 11:42-0700\n"
 "Last-Translator: Leang Chumsoben <soben@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -68,25 +68,29 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s ៖ មិន​អាច​កំណត់​អ្នក​ប្រើ​ទាំងអស់ទៅមិនមែនសូន្យ​ឡើងវិញ​ទេ\n"
 
+#: modules/pam_lastlog/pam_lastlog.c:187
+msgid " %a %b %e %H:%M:%S %Z %Y"
+msgstr ""
+
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:195
+#: modules/pam_lastlog/pam_lastlog.c:196
 #, c-format
 msgid " from %.*s"
 msgstr " ពី %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:207
+#: modules/pam_lastlog/pam_lastlog.c:208
 #, c-format
 msgid " on %.*s"
 msgstr " លើ %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:216
+#: modules/pam_lastlog/pam_lastlog.c:217
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "ចូល​ចុងក្រោយ ៖%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:222
+#: modules/pam_lastlog/pam_lastlog.c:223
 msgid "Welcome to your new account!"
 msgstr "សូម​ស្វាគមន៍​មក​កាន់​គណនី​ថ្មី​របស់​អ្នក !"
 

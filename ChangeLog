@@ -1,10 +1,15 @@
 2006-02-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Fix check for incomplete libaudit installations
-	(Patch from Ruediger Oertel <ro@suse.de>)
+	(Patch from Ruediger Oertel <ro@suse.de>).
 
 	* modules/pam_lastlog/pam_lastlog.c (last_login_write): Initialize
-	correct last_login field [#1427401]
+	correct last_login field [#1427401].
+
+	* modules/pam_lastlog/pam_lastlog.c (last_login_read): Mark strftime
+	format string for translation to allow reorder [#1428269].
+	* po/*.po: Update with last pam_lastlog change.
+
 
 2006-02-17  Thorsten Kukuk  <kukuk@thkukuk.de>
 

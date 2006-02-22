@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-01-24 16:51+0100\n"
+"POT-Creation-Date: 2006-02-22 20:39+0100\n"
 "PO-Revision-Date: 2005-08-18 HO:MI+ZONE\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -71,25 +71,29 @@ msgstr ""
 "%s: No es posible restaurar a todos los usuarios a un número distinto de "
 "cero\n"
 
+#: modules/pam_lastlog/pam_lastlog.c:187
+msgid " %a %b %e %H:%M:%S %Z %Y"
+msgstr ""
+
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:195
+#: modules/pam_lastlog/pam_lastlog.c:196
 #, c-format
 msgid " from %.*s"
 msgstr "de %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:207
+#: modules/pam_lastlog/pam_lastlog.c:208
 #, c-format
 msgid " on %.*s"
 msgstr "en %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:216
+#: modules/pam_lastlog/pam_lastlog.c:217
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Último inicio de sesión:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:222
+#: modules/pam_lastlog/pam_lastlog.c:223
 msgid "Welcome to your new account!"
 msgstr "¡Bienvenido a su nueva cuenta!"
 

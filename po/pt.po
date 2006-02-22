@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-01-24 16:51+0100\n"
+"POT-Creation-Date: 2006-02-22 20:39+0100\n"
 "PO-Revision-Date: 2006-02-04 17:17+0000\n"
 "Last-Translator: Antonio Cardoso Martins <digiplan@netvisao.pt>\n"
 "Language-Team: portuguese\n"
@@ -69,25 +69,29 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Não foi possível reiniciar todos os utilizadores para não zero\n"
 
+#: modules/pam_lastlog/pam_lastlog.c:187
+msgid " %a %b %e %H:%M:%S %Z %Y"
+msgstr ""
+
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:195
+#: modules/pam_lastlog/pam_lastlog.c:196
 #, c-format
 msgid " from %.*s"
 msgstr " a partir de %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:207
+#: modules/pam_lastlog/pam_lastlog.c:208
 #, c-format
 msgid " on %.*s"
 msgstr " em %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:216
+#: modules/pam_lastlog/pam_lastlog.c:217
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Último início de sessão: %s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:222
+#: modules/pam_lastlog/pam_lastlog.c:223
 msgid "Welcome to your new account!"
 msgstr "Bemvindo à sua nova conta!"
 
