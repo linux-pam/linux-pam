@@ -274,7 +274,7 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
     terminal_line = get_tty(pamh);
 
     /* copy to last_login */
-    last_login.ll_host[0] = '\0';
+    last_login.ll_line[0] = '\0';
     strncat(last_login.ll_line, terminal_line, sizeof(last_login.ll_line)-1);
     terminal_line = NULL;
 

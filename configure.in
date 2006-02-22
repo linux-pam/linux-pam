@@ -307,10 +307,11 @@ AC_SUBST(LIBCRACK)
 AM_CONDITIONAL([HAVE_LIBCRACK], [test ! -z "$LIBCRACK"])
 
 dnl Look for Linux Auditing library - see documentation
-AC_CHECK_HEADER([libaudit.h])
-AC_CHECK_LIB(audit, audit_log_user_message, LIBAUDIT=-laudit, LIBAUDIT="")
+AC_CHECK_HEADER([libaudit.h],
+  [AC_CHECK_LIB(audit, audit_log_user_message, LIBAUDIT=-laudit, LIBAUDIT="")]
+)
 AC_SUBST(LIBAUDIT)
-if test ! -z "$LIBAUDIT" ; then
+if test ! -z "$LIBAUDIT" -a "ac_cv_header_libaudit_h" != "no" ; then
     AC_DEFINE([HAVE_LIBAUDIT], 1, [Defined if audit support should be compiled in])
 fi
 

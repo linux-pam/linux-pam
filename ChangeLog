@@ -1,3 +1,11 @@
+2006-02-22  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Fix check for incomplete libaudit installations
+	(Patch from Ruediger Oertel <ro@suse.de>)
+
+	* modules/pam_lastlog/pam_lastlog.c (last_login_write): Initialize
+	correct last_login field [#1427401]
+
 2006-02-17  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/Makefile.am: Add new manual pages.
