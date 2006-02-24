@@ -1,74 +1,108 @@
-pam_succeed_if:
-	Succeed or fail based on account characteristics.
+pam_succeed_if — test account characteristics
 
-	pam_succeed_if.so is designed to succeed or fail authentication based
-	on characteristics of the account belonging to the user being
-	authenticated.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-	The module can be given one or more conditions as module arguments, and
-	authentication will succeed only if all of the conditions are met.
+DESCRIPTION
 
-	Conditions are expressed in the form
+pam_succeed_if.so is designed to succeed or fail authentication based on
+characteristics of the account belonging to the user being authenticated. One
+use is to select whether to load other modules based on this test.
 
-		ATTRIBUTE OPERATOR VALUE
-	
-	Recognized attributes:
+The module should be given one or more conditions as module arguments, and
+authentication will succeed only if all of the conditions are met.
 
-		LOGIN	- The user's login name.
-		UID	- The user's UID.
-		GID	- The user's primary GID.
-		SHELL	- The user's shell.
-		HOME	- The user's home directory.
+OPTIONS
 
-	Recognized operators:
+The following flags are supported:
 
-		<		- Arithmetic less-than.
-		<=		- Arithmetic less-than-or-equal-to.
-		>		- Arithmetic greater-than.
-		>=		- Arithmetic greater-than-or-equal-to.
-		eq		- Arithmetic equality.
-		=		- String equality.
-		ne		- Arithmetic inequality.
-		!=		- String inequality.
-		=~		- Wildcard match.
-		!~		- Wildcard mismatch.
-		ingroup		- Group membership check. [*]
-		notingroup	- Group non-membership check. [*]
-		innetgr		- Netgroup membership check. [*][+]
-		notinnetgr	- Netgroup non-membership check. [*][+]
+debug
 
-		* The "ingroup", "notingroup", "innetgr" and "notinnetgr"
-		  operators should only be used with the USER attribute.
+    Turns on debugging messages sent to syslog.
 
-		+ The "innetgr" and "notinnetgr" operators always match
-		  both remote host and USER against the netgroup. If a remote
-		  host is not set by the application it will be matched
-		  against any host in the netgroup triplet.
-	Examples:
+use_uid
 
-		Deny authentication to all users except those in the wheel
-		group, before even asking for a password:
-			auth requisite pam_succeed_if.so user ingroup wheel
+    Evaluate conditions using the account of the user whose UID the application
+    is running under instead of the user being authenticated.
 
-		Assume all users with UID less than 500 ("system users") have
-		valid accounts.
-			account sufficient pam_succeed_if.so uid < 500
+quiet
 
-		Deny login to all nologin users.
-			auth requisite pam_succeed_if.so shell !~ nologin
+    Don't log failure or success to the system log.
 
-RECOGNIZED ARGUMENTS:
-	debug		write debugging messages to syslog
-	use_uid 	perform checks on the account of the user under whose
-			UID the application is running instead of the user
-			being authenticated
-	quiet		don't log failure or success to syslog
-	quiet_fail	don't log failure to syslog
-	quiet_success	don't log success to syslog
+quiet_fail
+
+    Don't log failure to the system log.
+
+quiet_success
+
+    Don't log success to the system log.
+
+Conditions are three words: a field, a test, and a value to test for.
+
+Available fields are user, uid, gid, shell and home:
+
+field < number
+
+    Field has a value numerically less than number.
+
+field <= number
+
+    Field has a value numerically less than or equal to number.
+
+field eq number
+
+    Field has a value numerically less equal to number.
+
+field >= number
+
+    Field has a value numerically greater than or equal to number.
+
+field > number
+
+    Field has a value numerically greater than number.
+
+field ne number
+
+    Field has a value numerically different from number.
+
+field = string
+
+    Field exactly matches the given string.
+
+field != string
+
+    Field does not match the given string.
+
+field =~ glob
+
+    Field matches the given glob.
+
+field !~ glob
+
+    Field does not match the given glob.
+
+user ingroup group
+
+    User is in given group.
+
+user notingroup group
+
+    User is not in given group.
+
+EXAMPLES
+
+To emulate the behaviour of pam_wheel, except there is no fallback to group 0:
+
+    auth required pam_succeed_if.so quiet user ingroup wheel
 
 
-MODULE SERVICES PROVIDED:
-	authentication, account management
+Given that the type matches, only loads the othermodule rule if the UID is over
+500. Adjust the number after default to skip several rules.
 
-AUTHOR:
-	Nalin Dahyabhai <nalin@redhat.com>
+    type [default=1 success=ignore] pam_succeed_if.so quiet uid > 500
+    type required othermodule.so arguments...
+
+
+AUTHOR
+
+Nalin Dahyabhai <nalin@redhat.com>
+

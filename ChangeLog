@@ -1,3 +1,14 @@
+2006-02-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_succeed_if/pam_succeed_if.8.xml: New, based on
+	version from #1425487.
+	* modules/pam_succeed_if/pam_succeed_if.8: Regenerated from xml.
+	* modules/pam_succeed_if/Makefile.am: Include XML rules.
+	* modules/pam_succeed_if/README.xml: New.
+	* modules/pam_succeed_if/README: Regenerated from xml.
+	* modules/pam_succeed_if/pam_succeed_if.c: Fix comment about
+	return values.
+
 2006-02-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Fix check for incomplete libaudit installations

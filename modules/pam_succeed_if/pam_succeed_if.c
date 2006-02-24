@@ -63,7 +63,7 @@
 
 /* Basically, run cmp(atol(left), atol(right)), returning PAM_SUCCESS if
  * the function returns non-zero, PAM_AUTH_ERR if it returns zero, and
- * PAM_SYSTEM_ERR if the arguments can't be parsed as numbers. */
+ * PAM_SERVICE_ERR if the arguments can't be parsed as numbers. */
 static int
 evaluate_num(const pam_handle_t *pamh, const char *left,
 	     const char *right, int (*cmp)(int, int))

@@ -1,37 +1,120 @@
-.\" Copyright 2003, 2004 Red Hat, Inc.
-.\" Written by Nalin Dahyabhai <nalin@redhat.com>
-.TH pam_succeed_if 8 2004/12/27 "Linux-PAM" "System Administrator's Manual"
-
-.SH NAME
-pam_succeed_if \- succeed or fail based on account characteristics
-
-.SH SYNOPSIS
-.B account sufficient pam_succeed_if.so uid < 500
-
-.SH DESCRIPTION
-pam_succeed_if.so is designed to succeed or fail authentication based on
-characteristics of the account belonging to the user being authenticated.
-
-The module can be given one or more conditions as module arguments, and
-authentication will succeed only if all of the conditions are met.
-
-.SH ARGUMENTS
-.IP debug
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_SUCCEED_IF" "8" "02/24/2006" "Linux\-PAM" "Linux\-PAM"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_succeed_if \- test account characteristics
+.SH "SYNOPSIS"
+.HP 18
+\fBpam_succeed_if.so\fR [\fIflag\fR...] [\fIcondition\fR...]
+.SH "DESCRIPTION"
+.PP
+pam_succeed_if.so is designed to succeed or fail authentication based on characteristics of the account belonging to the user being authenticated. One use is to select whether to load other modules based on this test.
+.PP
+The module should be given one or more conditions as module arguments, and authentication will succeed only if all of the conditions are met.
+.SH "OPTIONS"
+.PP
+The following
+\fIflag\fRs are supported:
+.TP
+\fBdebug\fR
 Turns on debugging messages sent to syslog.
-.IP use_uid
-Evaluate conditions using the account of the user whose UID the application
-is running under instead of the user being authenticated.
-.IP quiet
+.TP
+\fBuse_uid\fR
+Evaluate conditions using the account of the user whose UID the application is running under instead of the user being authenticated.
+.TP
+\fBquiet\fR
 Don't log failure or success to the system log.
-.IP quiet_fail
+.TP
+\fBquiet_fail\fR
 Don't log failure to the system log.
-.IP quiet_success
+.TP
+\fBquiet_success\fR
 Don't log success to the system log.
-
-
-.SH BUGS
-Let's hope not, but if you find any, please report them via the "Bug Track"
-link at http://bugzilla.redhat.com/bugzilla/
-
-.SH AUTHOR
+.PP
+\fICondition\fRs are three words: a field, a test, and a value to test for.
+.PP
+Available fields are
+\fIuser\fR,
+\fIuid\fR,
+\fIgid\fR,
+\fIshell\fR
+and
+\fIhome\fR:
+.TP
+\fBfield < number\fR
+Field has a value numerically less than number.
+.TP
+\fBfield <= number\fR
+Field has a value numerically less than or equal to number.
+.TP
+\fBfield eq number\fR
+Field has a value numerically less equal to number.
+.TP
+\fBfield >= number\fR
+Field has a value numerically greater than or equal to number.
+.TP
+\fBfield > number\fR
+Field has a value numerically greater than number.
+.TP
+\fBfield ne number\fR
+Field has a value numerically different from number.
+.TP
+\fBfield = string\fR
+Field exactly matches the given string.
+.TP
+\fBfield != string\fR
+Field does not match the given string.
+.TP
+\fBfield =~ glob\fR
+Field matches the given glob.
+.TP
+\fBfield !~ glob\fR
+Field does not match the given glob.
+.TP
+\fBuser ingroup group\fR
+User is in given group.
+.TP
+\fBuser notingroup group\fR
+User is not in given group.
+.SH "RETURN VALUES"
+.TP
+PAM_SUCCESS
+The condition was true.
+.TP
+PAM_AUTH_ERR
+The condition was false.
+.TP
+PAM_SERVICE_ERR
+A service error occured or the arguments can't be parsed as numbers.
+.SH "EXAMPLES"
+.PP
+To emulate the behaviour of
+\fIpam_wheel\fR, except there is no fallback to group 0:
+.sp
+.nf
+    auth required pam_succeed_if.so quiet user ingroup wheel
+      
+.fi
+.sp
+.PP
+Given that the type matches, only loads the othermodule rule if the UID is over 500. Adjust the number after default to skip several rules.
+.sp
+.nf
+    type [default=1 success=ignore] pam_succeed_if.so quiet uid > 500
+    type required othermodule.so arguments...
+      
+.fi
+.sp
+.SH "SEE ALSO"
+.PP
+\fBglob\fR(7),
+\fBpam\fR(8)
+.SH "AUTHOR"
+.PP
 Nalin Dahyabhai <nalin@redhat.com>
