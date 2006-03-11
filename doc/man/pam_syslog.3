@@ -1,0 +1,49 @@
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_SYSLOG" "3" "02/20/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_syslog, pam_vsyslog \- send messages to the system logger
+.SH "SYNOPSIS"
+.PP
+\fB#include <syslog.h>\fR
+.PP
+\fB#include <security/pam_ext.h>\fR
+.HP 16
+\fBvoid\ \fBpam_syslog\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBint\ \fR\fB\fIpriority\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIfmt\fR\fR\fB, \fR\fB\fI...\fR\fR\fB);\fR
+.HP 17
+\fBvoid\ \fBpam_vsyslog\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBint\ \fR\fB\fIpriority\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIfmt\fR\fR\fB, \fR\fBva_list\ \fR\fB\fIargs\fR\fR\fB);\fR
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_syslog\fR
+function logs messages using
+\fBsyslog\fR(3)
+and is intended for internal use by Linux\-PAM and PAM service modules. The
+\fIpriority\fR
+argument is formed by ORing the facility and the level values as documented in the
+\fBsyslog\fR(3)
+manual page.
+.PP
+The
+\fBpam_vsyslog\fR
+function performs the same task as
+\fBpam_syslog()\fR
+with the difference that it takes a set of arguments which have been obtained using the
+\fBstdarg\fR(3)
+variable argument list macros.
+.SH "SEE ALSO"
+.PP
+\fBpam\fR(8)
+.SH "STANDARDS"
+.PP
+The
+\fBpam_syslog\fR
+and
+\fBpam_vsyslog\fR
+functions are Linux\-PAM extensions.

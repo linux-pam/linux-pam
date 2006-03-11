@@ -151,12 +151,27 @@ module #2:    pam_fail_delay (pamh, 4000000);
     </para>
   </refsect1>
 
-<refsect1 id='return_value'><title>RETURN VALUE</title>
-<para>Following a successful call to
-<citerefentry><refentrytitle>pam_fail_delay</refentrytitle><manvolnum>3</manvolnum></citerefentry>, <emphasis remap='B'>PAM_SUCCESS</emphasis>
-is returned.  All other returns should be considered serious failures.</para>
-
-</refsect1>
+  <refsect1 id='pam_fail_delay-return_values'>
+    <title>RETURN VALUES</title>
+    <variablelist>
+      <varlistentry>
+        <term>PAM_SUCCESS</term>
+        <listitem>
+           <para>
+            Delay was successful adjusted.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_SYSTEM_ERR</term>
+        <listitem>
+           <para>
+             A NULL pointer was submitted as PAM handle.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
 
   <refsect1 id='pam_fail_delay-see_also'>
     <title>SEE ALSO</title>
@@ -172,4 +187,13 @@ is returned.  All other returns should be considered serious failures.</para>
       </citerefentry>
     </para>
   </refsect1>
+
+  <refsect1 id='pam_fail_delay-standards'>
+    <title>STANDARDS</title>
+    <para>
+      The <function>pam_fail_delay</funcion> function is an
+      Linux-PAM extension.
+    </para>
+  </refsect1>
+  
 </refentry>

@@ -1,3 +1,14 @@
+2006-03-11  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/pam_fail_delay.3.xml: New.
+	* doc/man/pam_fail_delay.3: New, generated from xml.
+	* doc/man/pam_prompt.3.xml: New.
+	* doc/man/pam_prompt.3: New, generated from xml.
+	* doc/man/pam_syslog.3.xml: New.
+	* doc/man/pam_syslog.3: New, generated from xml.
+	* doc/man/pam_vprompt.3: New, generated from xml.
+	* doc/man/pam_vsyslog.3: New, generated from xml.
+
 2006-02-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_succeed_if/pam_succeed_if.8.xml: New, based on
