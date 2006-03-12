@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README
+EXTRA_DIST = README tst-pam_debug
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -17,3 +17,5 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_debug.la
+
+TESTS = tst-pam_debug

@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README $(MANS) $(XMLS)
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_cracklib
 
 man_MANS = pam_cracklib.8
 
@@ -22,6 +22,8 @@ endif
 
 if HAVE_LIBCRACK
 securelib_LTLIBRARIES = pam_cracklib.la
+
+TESTS = tst-pam_cracklib
 endif
 
 pam_cracklib_la_LIBADD = @LIBCRACK@ @LIBCRYPT@
@@ -34,4 +36,3 @@ README: pam_cracklib.8.xml
 
 -include $(top_srcdir)/Make.xml.rules
 endif
-

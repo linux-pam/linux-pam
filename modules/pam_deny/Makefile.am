@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README $(MANS) $(XMLS)
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_deny
 
 man_MANS = pam_deny.8
 
@@ -31,3 +31,4 @@ README: pam_deny.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
 
+TESTS = tst-pam_deny

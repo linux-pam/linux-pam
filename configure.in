@@ -470,4 +470,4 @@ AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	modules/pam_unix/Makefile modules/pam_userdb/Makefile \
 	modules/pam_warn/Makefile modules/pam_wheel/Makefile \
 	modules/pam_xauth/Makefile doc/Makefile doc/specs/Makefile \
-	doc/man/Makefile examples/Makefile)
+	doc/man/Makefile examples/Makefile tests/Makefile)

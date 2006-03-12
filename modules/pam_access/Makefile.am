@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README access.conf $(MANS) $(XMLS)
+EXTRA_DIST = README access.conf $(MANS) $(XMLS) tst-pam_access
 
 man_MANS = access.conf.5 pam_access.8
 
@@ -33,3 +33,5 @@ README: pam_access.8.xml access.conf.5.xml
 
 -include $(top_srcdir)/Make.xml.rules
 endif
+
+TESTS = tst-pam_access

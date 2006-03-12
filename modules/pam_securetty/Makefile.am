@@ -1,10 +1,12 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
 
-EXTRA_DIST = README $(MANS)
+EXTRA_DIST = README $(MANS) tst-pam_securetty
+
+TESTS = tst-pam_securetty
 
 man_MANS = pam_securetty.8
 

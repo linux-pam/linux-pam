@@ -5,9 +5,9 @@
 AUTOMAKE_OPTIONS = 1.9 gnu dist-bzip2 check-news
 
 if STATIC_MODULES
-SUBDIRS = modules libpam libpamc libpam_misc po conf doc examples
+SUBDIRS = modules libpam libpamc libpam_misc tests po conf doc examples
 else
-SUBDIRS = libpam libpamc libpam_misc modules po conf doc examples
+SUBDIRS = libpam tests libpamc libpam_misc modules po conf doc examples
 endif
 
 CLEANFILES = *~

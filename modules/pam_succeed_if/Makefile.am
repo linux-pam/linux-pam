@@ -1,10 +1,12 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
 
-EXTRA_DIST = README ${MANS} ${XMLS}
+EXTRA_DIST = README ${MANS} ${XMLS} tst-pam_succeed_if
+
+TESTS = tst-pam_succeed_if
 
 man_MANS = pam_succeed_if.8
 
@@ -27,4 +29,3 @@ noinst_DATA = README
 README: pam_succeed_if.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
-

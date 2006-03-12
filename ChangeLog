@@ -1,3 +1,93 @@
+2006-03-12  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: create tests/Makefile
+	* Makefile.am (SUBDIRS): Add tests
+ 	* tests/Makefile.am: New
+	* tests/tst-dlopen.c
+	* tests/tst-pam_acct_mgmt.c
+	* tests/tst-pam_authenticate.c
+	* tests/tst-pam_chauthtok.c
+	* tests/tst-pam_close_session.c
+	* tests/tst-pam_end.c
+	* tests/tst-pam_fail_delay.c
+	* tests/tst-pam_getenvlist.c
+	* tests/tst-pam_get_item.c
+	* tests/tst-pam_open_session.c
+	* tests/tst-pam_setcred.c
+	* tests/tst-pam_set_item.c
+	* tests/tst-pam_start.c
+
+	* modules/pam_access/Makefile.am: Add rules for make check
+	* modules/pam_access/tst-pam_access: New
+	* modules/pam_cracklib/Makefile.am: Add rules for make check
+	* modules/pam_cracklib/tst-pam_cracklib: New
+	* modules/pam_debug/Makefile.am: Add rules for make check
+	* modules/pam_debug/tst-pam_debug: New
+	* modules/pam_deny/Makefile.am: Add rules for make check
+	* modules/pam_deny/tst-pam_deny: New
+	* modules/pam_echo/Makefile.am: Add rules for make check
+	* modules/pam_echo/tst-pam_echo: New
+	* modules/pam_env/Makefile.am: Add rules for make check
+	* modules/pam_env/tst-pam_env: New
+	* modules/pam_exec/Makefile.am: Add rules for make check
+	* modules/pam_exec/tst-pam_exec: New
+	* modules/pam_filter/Makefile.am: Add rules for make check
+	* modules/pam_filter/tst-pam_filter: New
+	* modules/pam_ftp/Makefile.am: Add rules for make check
+	* modules/pam_ftp/tst-pam_ftp: New
+	* modules/pam_group/Makefile.am: Add rules for make check
+	* modules/pam_group/tst-pam_group: New
+	* modules/pam_issue/Makefile.am: Add rules for make check
+	* modules/pam_issue/tst-pam_issue: New
+	* modules/pam_lastlog/Makefile.am: Add rules for make check
+	* modules/pam_lastlog/tst-pam_lastlog: New
+	* modules/pam_limits/Makefile.am: Add rules for make check
+	* modules/pam_limits/tst-pam_limits: New
+	* modules/pam_listfile/Makefile.am: Add rules for make check
+	* modules/pam_listfile/tst-pam_listfile: New
+	* modules/pam_localuser/Makefile.am: Add rules for make check
+	* modules/pam_localuser/tst-pam_localuser: New
+	* modules/pam_mail/Makefile.am: Add rules for make check
+	* modules/pam_mail/tst-pam_mail: New
+	* modules/pam_mkhomedir/Makefile.am: Add rules for make check
+	* modules/pam_mkhomedir/tst-pam_mkhomedir: New
+	* modules/pam_motd/Makefile.am: Add rules for make check
+	* modules/pam_motd/tst-pam_motd: New
+	* modules/pam_nologin/Makefile.am: Add rules for make check
+	* modules/pam_nologin/tst-pam_nologin: New
+	* modules/pam_permit/Makefile.am: Add rules for make check
+	* modules/pam_permit/tst-pam_permit: New
+	* modules/pam_rhosts/Makefile.am: Add rules for make check
+	* modules/pam_rhosts/tst-pam_rhosts: New
+	* modules/pam_rootok/Makefile.am: Add rules for make check
+	* modules/pam_rootok/tst-pam_rootok: New
+	* modules/pam_securetty/Makefile.am: Add rules for make check
+	* modules/pam_securetty/tst-pam_securetty: New
+	* modules/pam_selinux/Makefile.am: Add rules for make check
+	* modules/pam_selinux/tst-pam_selinux: New
+	* modules/pam_shells/Makefile.am: Add rules for make check
+	* modules/pam_shells/tst-pam_shells: New
+	* modules/pam_stress/Makefile.am: Add rules for make check
+	* modules/pam_stress/tst-pam_stress: New
+	* modules/pam_succeed_if/Makefile.am: Add rules for make check
+	* modules/pam_succeed_if/tst-pam_succeed_if: New
+	* modules/pam_tally/Makefile.am: Add rules for make check
+	* modules/pam_tally/tst-pam_tally: New
+	* modules/pam_time/Makefile.am: Add rules for make check
+	* modules/pam_time/tst-pam_time: New
+	* modules/pam_umask/Makefile.am: Add rules for make check
+	* modules/pam_umask/tst-pam_umask: New
+	* modules/pam_unix/Makefile.am: Add rules for make check
+	* modules/pam_unix/tst-pam_unix: New
+	* modules/pam_userdb/Makefile.am: Add rules for make check
+	* modules/pam_userdb/tst-pam_userdb: New
+	* modules/pam_warn/Makefile.am: Add rules for make check
+	* modules/pam_warn/tst-pam_warn: New
+	* modules/pam_wheel/Makefile.am: Add rules for make check
+	* modules/pam_wheel/tst-pam_wheel: New
+	* modules/pam_xauth/Makefile.am: Add rules for make check
+	* modules/pam_xauth/tst-pam_xauth: New
+
 2006-03-11  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam_fail_delay.3.xml: New.

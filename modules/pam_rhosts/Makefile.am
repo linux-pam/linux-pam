@@ -1,10 +1,12 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
 
-EXTRA_DIST = README
+EXTRA_DIST = README tst-pam_rhosts
+
+TESTS = tst-pam_rhosts
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

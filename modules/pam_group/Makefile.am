@@ -1,10 +1,10 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
 
-EXTRA_DIST = README group.conf
+EXTRA_DIST = README group.conf tst-pam_group
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -20,3 +20,5 @@ endif
 securelib_LTLIBRARIES = pam_group.la
 
 secureconf_DATA = group.conf
+
+TESTS = tst-pam_group

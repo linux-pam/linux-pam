@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README pam_env.conf $(MANS) $(XMLS)
+EXTRA_DIST = README pam_env.conf $(MANS) $(XMLS) tst-pam_env
 
 man_MANS = pam_env.conf.5 pam_env.8
 
@@ -31,3 +31,4 @@ README: pam_env.8.xml pam_env.conf.5.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
 
+TESTS = tst-pam_env

@@ -1,12 +1,14 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
 
 man_MANS = pam_xauth.8
 
-EXTRA_DIST = README ${MANS}
+EXTRA_DIST = README ${MANS} tst-pam_xauth
+
+TESTS = tst-pam_xauth
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

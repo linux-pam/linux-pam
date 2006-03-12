@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README $(MANS) $(XMLS)
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_echo
 
 man_MANS = pam_echo.8
 
@@ -22,9 +22,10 @@ endif
 
 securelib_LTLIBRARIES = pam_echo.la
 
-
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
 README: pam_echo.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
+
+TESTS = tst-pam_echo
