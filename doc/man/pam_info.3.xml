@@ -2,53 +2,56 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
                    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 
-<refentry id="pam_prompt">
+<refentry id="pam_info">
 
   <refmeta>
-    <refentrytitle>pam_prompt</refentrytitle>
+    <refentrytitle>pam_info</refentrytitle>
     <manvolnum>3</manvolnum>
     <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_prompt-name">
-    <refname>pam_prompt</refname>
-    <refname>pam_vprompt</refname>
-    <refpurpose>interface to conversation function</refpurpose>
+  <refnamediv id="pam_info-name">
+    <refname>pam_info</refname>
+    <refname>pam_vinfo</refname>
+    <refpurpose>display messages to the user</refpurpose>
   </refnamediv>
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id="pam_prompt-synopsis">
+  <refsynopsisdiv id="pam_info-synopsis">
     <funcsynopsis>
       <funcsynopsisinfo>#include &lt;security/pam_ext.h&gt;</funcsynopsisinfo>
       <funcprototype>
-        <funcdef>void <function>pam_prompt</function></funcdef>
+        <funcdef>int <function>pam_info</function></funcdef>
         <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
-        <paramdef>int <parameter>style</parameter></paramdef>
-        <paramdef>char **<parameter>response</parameter></paramdef>
         <paramdef>const char *<parameter>fmt</parameter></paramdef>
         <paramdef><parameter>...</parameter></paramdef>
       </funcprototype>
       <funcprototype>
-        <funcdef>void <function>pam_vprompt</function></funcdef>
+        <funcdef>int <function>pam_vinfo</function></funcdef>
         <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
-        <paramdef>int <parameter>style</parameter></paramdef>
-        <paramdef>char **<parameter>response</parameter></paramdef>
         <paramdef>const char *<parameter>fmt</parameter></paramdef>
         <paramdef>va_list <parameter>args</parameter></paramdef>
       </funcprototype>
     </funcsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id='pam_prompt-description'>
+  <refsect1 id='pam_info-description'>
     <title>DESCRIPTION</title>
     <para>
-      The <function>pam_prompt</function> function constructs a message
-      from the specified format string and arguments and passes it to
+      The <function>pam_info</function> function prints messages
+      through the conversation function to the user.
+    </para>
+    <para>
+      The <function>pam_vinfo</function> function performs the same
+      task as <function>pam_info()</function> with the difference
+      that it takes a set of arguments which have been obtained using
+      the <citerefentry>
+        <refentrytitle>stdarg</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry> variable argument list macros.
     </para>
   </refsect1>
-
-  <refsect1 id="pam_prompt-return_values">
+  <refsect1 id="pam_info-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -86,23 +89,19 @@
     </variablelist>
   </refsect1>
 
-
-  <refsect1 id='pam_prompt-see_also'>
+  <refsect1 id='pam_info-see_also'>
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
         <refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
-      </citerefentry>,
-      <citerefentry>
-        <refentrytitle>pam_conv</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>
     </para>
   </refsect1>
 
-  <refsect1 id='pam_prompt-standards'>
+  <refsect1 id='pam_info-standards'>
     <title>STANDARDS</title>
     <para>
-      The <function>pam_prompt</function> and <function>pam_vprompt</function>
+      The <function>pam_info</function> and <function>pam_vinfo</function>
       functions are Linux-PAM extensions.
     </para>
   </refsect1>

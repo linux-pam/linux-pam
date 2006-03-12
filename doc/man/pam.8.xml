@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
                    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+
 <refentry id='pam'>
-<refmeta>
-<refentrytitle>pam</refentrytitle>
-<manvolnum>8</manvolnum>
-<refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
-</refmeta>
-<refnamediv id='name'>
-<refname>pam</refname>
-<refpurpose>Pluggable Authentication Modules for Linux</refpurpose>
-</refnamediv>
+
+  <refmeta>
+    <refentrytitle>pam</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id='pam-name'>
+    <refname>PAM</refname>
+    <refname>pam</refname>
+    <refpurpose>Pluggable Authentication Modules for Linux</refpurpose>
+  </refnamediv>
+
 <!-- body begins here -->
 
 <refsect1 id='description'><title>DESCRIPTION</title>
@@ -112,232 +117,6 @@ directory. The
 <emphasis remap='B'>session</emphasis>
 management group is important as it provides both an opening and
 closing hook for modules to affect the services available to a user.</para>
-
-</refsect1>
-
-<refsect1 id='the_configuration_files'><title>The configuration file(s)</title>
-<para>When a
-<emphasis remap='B'>Linux-PAM</emphasis>
-aware privilege granting application is started, it activates its
-attachment to the PAM-API.  This activation performs a number of
-tasks, the most important being the reading of the configuration file(s):
-<filename>/etc/pam.conf</filename>.
-Alternatively, this may be the contents of the
-<filename>/etc/pam.d/</filename>
-directory.</para>
-
-<para>These files list the
-<emphasis remap='B'>PAM</emphasis>s
-that will do the authentication tasks required by this service, and
-the appropriate behavior of the PAM-API in the event that individual
-<emphasis remap='B'>PAM</emphasis>s 
-fail.</para>
-
-
-<para>The syntax of the
-<filename>/etc/pam.conf</filename>
-configuration file is as follows. The file is made
-up of a list of rules, each rule is typically placed on a single line,
-but may be extended with an escaped end of line: `\&lt;LF&gt;'. Comments
-are preceded with `#' marks and extend to the next end of line.</para>
-
-
-<para>The format of each rule is a space separated collection of tokens, the
-first three being case-insensitive:</para>
-
-
-<!-- .br -->
-<para><emphasis remap='B'>   service  type  control  module-path  module-arguments</emphasis></para>
-
-
-<para>The syntax of files contained in the
-<filename>/etc/pam.d/</filename>
-directory, are identical except for the absence of any
-<emphasis remap='I'>service</emphasis>
-field. In this case, the
-<emphasis remap='I'>service</emphasis>
-is the name of the file in the
-<filename>/etc/pam.d/</filename>
-directory. This filename must be in lower case.</para>
-
-
-<para>An important feature of
-<emphasis remap='B'>Linux-PAM</emphasis>, 
-is that a number of rules may be
-<emphasis remap='I'>stacked</emphasis>
-to combine the services of a number of PAMs for a given authentication
-task.</para>
-
-
-<para>The
-<emphasis remap='B'>service</emphasis>
-is typically the familiar name of the corresponding application:
-<emphasis remap='B'>login</emphasis>
-and
-<emphasis remap='B'>su</emphasis>
-are good examples. The
-<emphasis remap='B'>service</emphasis>-name, <emphasis remap='B'>other</emphasis>, 
-is reserved for giving
-<emphasis remap='I'>default</emphasis>
-rules.  Only lines that mention the current service (or in the absence
-of such, the
-<emphasis remap='B'>other</emphasis>
-entries) will be associated with the given service-application.</para>
-
-
-<para>The
-<emphasis remap='B'>type</emphasis>
-is the management group that the rule corresponds to. It is used to
-specify which of the management groups the subsequent module is to
-be associated with. Valid entries are:
-<emphasis remap='B'>account</emphasis>; 
-<emphasis remap='B'>auth</emphasis>; 
-<emphasis remap='B'>password</emphasis>; 
-and
-<emphasis remap='B'>session</emphasis>.
-The meaning of each of these tokens was explained above.</para>
-
-
-<para>The third field,
-<emphasis remap='B'>control</emphasis>, 
-indicates the behavior of the PAM-API should the module fail to
-succeed in its authentication task. There are two types of syntax for
-this control field: the simple one has a single simple keyword; the
-more complicated one involves a square-bracketed selection of
-<emphasis remap='B'>value=action</emphasis>
-pairs.</para>
-
-
-<para>For the simple (historical) syntax valid
-<emphasis remap='B'>control</emphasis>
-values are:
-<emphasis remap='B'>requisite</emphasis>
-- failure of such a PAM results in the immediate termination of the
-authentication process;
-<emphasis remap='B'>required</emphasis>
-- failure of such a PAM will ultimately lead to the PAM-API returning
-failure but only after the remaining
-<emphasis remap='I'>stacked</emphasis>
-modules (for this
-<emphasis remap='B'>service</emphasis>
-and
-<emphasis remap='B'>type</emphasis>)
-have been invoked;
-<emphasis remap='B'>sufficient</emphasis>
-- success of such a module is enough to satisfy the authentication
-requirements of the stack of modules (if a prior
-<emphasis remap='B'>required</emphasis>
-module has failed the success of this one is
-<emphasis remap='I'>ignored</emphasis>); 
-<emphasis remap='B'>optional</emphasis>
-- the success or failure of this module is only important if it is the
-only module in the stack associated with this
-<emphasis remap='B'>service</emphasis>+<emphasis remap='B'>type</emphasis>.</para>
-
-
-<para>New control directive first introduced in ALT Linux is
-<emphasis remap='B'>include</emphasis>
-- include all lines of given type from the configuration
-file specified as an argument to this control.</para>
-
-
-<para>For the more complicated syntax valid
-<emphasis remap='B'>control</emphasis>
-values have the following form:</para>
-
-<para>[value1=action1<emphasis remap='B'>value2=action2</emphasis>...]</para>
-
-<para>Where
-<emphasis remap='B'>valueN</emphasis>
-corresponds to the return code from the function invoked in the module
-for which the line is defined. It is selected from one of these:
-<emphasis remap='B'>success</emphasis>;
-<emphasis remap='B'>open_err</emphasis>;
-<emphasis remap='B'>symbol_err</emphasis>;
-<emphasis remap='B'>service_err</emphasis>;
-<emphasis remap='B'>system_err</emphasis>;
-<emphasis remap='B'>buf_err</emphasis>;
-<emphasis remap='B'>perm_denied</emphasis>;
-<emphasis remap='B'>auth_err</emphasis>;
-<emphasis remap='B'>cred_insufficient</emphasis>;
-<emphasis remap='B'>authinfo_unavail</emphasis>;
-<emphasis remap='B'>user_unknown</emphasis>;
-<emphasis remap='B'>maxtries</emphasis>;
-<emphasis remap='B'>new_authtok_reqd</emphasis>;
-<emphasis remap='B'>acct_expired</emphasis>;
-<emphasis remap='B'>session_err</emphasis>;
-<emphasis remap='B'>cred_unavail</emphasis>;
-<emphasis remap='B'>cred_expired</emphasis>;
-<emphasis remap='B'>cred_err</emphasis>;
-<emphasis remap='B'>no_module_data</emphasis>;
-<emphasis remap='B'>conv_err</emphasis>;
-<emphasis remap='B'>authtok_err</emphasis>;
-<emphasis remap='B'>authtok_recover_err</emphasis>;
-<emphasis remap='B'>authtok_lock_busy</emphasis>;
-<emphasis remap='B'>authtok_disable_aging</emphasis>;
-<emphasis remap='B'>try_again</emphasis>;
-<emphasis remap='B'>ignore</emphasis>;
-<emphasis remap='B'>abort</emphasis>;
-<emphasis remap='B'>authtok_expired</emphasis>;
-<emphasis remap='B'>module_unknown</emphasis>;
-<emphasis remap='B'>bad_item</emphasis>; and
-<emphasis remap='B'>default</emphasis>.
-The last of these,
-<emphasis remap='B'>default</emphasis>,
-implies 'all
-<emphasis remap='B'>valueN</emphasis>'s
-not mentioned explicitly. Note, the full list of PAM errors is
-available in /usr/include/security/_pam_types.h . The
-<emphasis remap='B'>actionN</emphasis>
-can be: an unsigned integer,
-<emphasis remap='B'>J</emphasis>,
-signifying an action of 'jump over the next J modules in the stack';
-or take one of the following forms:
-<!-- .br -->
-<emphasis remap='B'>ignore</emphasis>
-- when used with a stack of modules, the module's return status will
-not contribute to the return code the application obtains;
-<!-- .br -->
-<emphasis remap='B'>bad</emphasis>
-- this action indicates that the return code should be thought of as
-indicative of the module failing. If this module is the first in the
-stack to fail, its status value will be used for that of the whole
-stack.
-<!-- .br -->
-<emphasis remap='B'>die</emphasis>
-- equivalent to bad with the side effect of terminating the module
-stack and PAM immediately returning to the application.
-<!-- .br -->
-<emphasis remap='B'>ok</emphasis>
-- this tells PAM that the administrator thinks this return code
-should contribute directly to the return code of the full stack of
-modules. In other words, if the former state of the stack would lead
-to a return of
-<emphasis remap='B'>PAM_SUCCESS</emphasis>,
-the module's return code will override this value. Note, if the former
-state of the stack holds some value that is indicative of a modules
-failure, this 'ok' value will not be used to override that value.
-<!-- .br -->
-<emphasis remap='B'>done</emphasis>
-- equivalent to ok with the side effect of terminating the module
-stack and PAM immediately returning to the application.
-<!-- .br -->
-<emphasis remap='B'>reset</emphasis>
-- clear all memory of the state of the module stack and start again
-with the next stacked module.</para>
-
-
-<para><emphasis remap='B'>module-path</emphasis>
-- this is either the full filename of the PAM to be used by the
-application (it begins with a '/'), or a relative pathname from the
-default module location:
-<filename>/lib/security/</filename>.</para>
-
-
-<para><emphasis remap='B'>module-arguments</emphasis>
-- these are a space separated list of tokens that can be used to
-modify the specific behavior of the given PAM. Such arguments will be
-documented for each individual module.</para>
 
 </refsect1>
 

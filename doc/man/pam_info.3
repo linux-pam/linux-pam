@@ -1,0 +1,54 @@
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_INFO" "3" "03/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_info, pam_vinfo \- display messages to the user
+.SH "SYNOPSIS"
+.PP
+\fB#include <security/pam_ext.h>\fR
+.HP 13
+\fBint\ \fBpam_info\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIfmt\fR\fR\fB, \fR\fB\fI...\fR\fR\fB);\fR
+.HP 14
+\fBint\ \fBpam_vinfo\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIfmt\fR\fR\fB, \fR\fBva_list\ \fR\fB\fIargs\fR\fR\fB);\fR
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_info\fR
+function prints messages through the conversation function to the user.
+.PP
+The
+\fBpam_vinfo\fR
+function performs the same task as
+\fBpam_info()\fR
+with the difference that it takes a set of arguments which have been obtained using the
+\fBstdarg\fR(3)
+variable argument list macros.
+.SH "RETURN VALUES"
+.TP
+PAM_BUF_ERR
+Memory buffer error.
+.TP
+PAM_CONV_ERR
+Conversation failure.
+.TP
+PAM_SUCCESS
+Transaction was successful created.
+.TP
+PAM_SYSTEM_ERR
+System error.
+.SH "SEE ALSO"
+.PP
+\fBpam\fR(8)
+.SH "STANDARDS"
+.PP
+The
+\fBpam_info\fR
+and
+\fBpam_vinfo\fR
+functions are Linux\-PAM extensions.

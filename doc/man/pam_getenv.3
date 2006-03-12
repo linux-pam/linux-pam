@@ -1,0 +1,35 @@
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_GETENV" "3" "03/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_getenv \- get a PAM environment variable
+.SH "SYNOPSIS"
+.PP
+\fB#include <security/pam_appl.h>\fR
+.HP 23
+\fBconst\ char\ *\fBpam_getenv\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIname\fR\fR\fB);\fR
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_getenv\fR
+function searches the PAM environment list as associated with the handle
+\fIpamh\fR
+for a string that matches the string pointed to by
+\fIname\fR. The return values are of the form: "\fIname=value\fR".
+.SH "RETURN VALUES"
+.PP
+The
+\fBpam_getenv\fR
+function returns NULL on failure.
+.SH "SEE ALSO"
+.PP
+\fBpam_start\fR(3),
+\fBpam_getenvlist\fR(3),
+\fBpam_putenv\fR(3),
+\fBpam\fR(8)

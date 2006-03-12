@@ -32,7 +32,7 @@
     <para>
       The <function>pam_chauthtok</function> function is used to change the
       authentication token for a given user (as indicated by the state
-      associated with the handle <emphasis>pamh</emphasis>.
+      associated with the handle <emphasis>pamh</emphasis>).
     </para>
     <para>
       The <emphasis>pamh</emphasis> argument is an authentication 
@@ -64,7 +64,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_start-return_values">
+  <refsect1 id="pam_chauthtok-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>

@@ -1,5 +1,27 @@
 2006-03-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* doc/man/Makefile.am: Add new manual pages.
+
+	* doc/man/pam.conf.5.xml: Replace link with content
+	of PAM admin guide.
+	* doc/man/pam.conf.5: Regenerated from XML file.
+
+	* doc/man/pam_info.3.xml: New.
+	* doc/man/pam_info.3: New, generated from XML file.
+	* doc/man/pam_vinfo.3: New, generated from XML file.
+
+	* doc/man/pam_conv.3.xml: New.
+	* doc/man/pam_conv.3: New, generated from XML file.
+
+	* doc/man/pam_putenv.3.xml: New.
+	* doc/man/pam_putenv.3: New, generated from XML file.
+
+	* doc/man/pam_getenv.3.xml: New.
+	* doc/man/pam_getenv.3: New, generated from XML file.
+
+	* doc/man/pam_getenvlist.3.xml: New.
+	* doc/man/pam_getenvlist.3: New, generated from XML file.
+
 	* libpam/pam_item.c (pam_get_user): Check for valid pamh before
 	using it.
 

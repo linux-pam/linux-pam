@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id='pam_getenv'>
+  <refmeta>
+    <refentrytitle>pam_getenv</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id="pam_getenv-name">
+    <refname>pam_getenv</refname>
+    <refpurpose>get a PAM environment variable</refpurpose>
+  </refnamediv>
+
+<!-- body begins here -->
+
+  <refsynopsisdiv id='pam_getenv-synopsis'>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>const char *<function>pam_getenv</function></funcdef>
+        <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
+        <paramdef>const char *<parameter>name</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+
+  <refsect1 id='pam_getenv-description'>
+    <title>DESCRIPTION</title>
+    <para>
+      The <function>pam_getenv</function> function searches the
+      PAM environment list as associated with the handle
+      <emphasis>pamh</emphasis> for a string that matches the string
+      pointed to by <emphasis>name</emphasis>. The return values are
+      of the form: "<emphasis>name=value</emphasis>".
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_getenv-return_values">
+    <title>RETURN VALUES</title>
+    <para>
+      The <function>pam_getenv</function> function returns NULL
+      on failure.
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_getenv-see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+        <refentrytitle>pam_start</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam_getenvlist</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam_putenv</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
+</refentry>
