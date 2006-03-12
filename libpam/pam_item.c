@@ -30,7 +30,7 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
     D(("called"));
 
     IF_NO_PAMH("pam_set_item", pamh, PAM_SYSTEM_ERR);
-    
+
     retval = PAM_SUCCESS;
 
     switch (item_type) {
@@ -118,7 +118,7 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	    retval = PAM_PERM_DENIED;
 	} else {
 	    struct pam_conv *tconv;
-	    
+
 	    if ((tconv=
 		 (struct pam_conv *) malloc(sizeof(struct pam_conv))
 		) == NULL) {
@@ -223,7 +223,7 @@ int pam_get_item (const pam_handle_t *pamh, int item_type, const void **item)
     default:
 	retval = PAM_BAD_ITEM;
     }
-  
+
     return retval;
 }
 
@@ -239,13 +239,15 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
     struct pam_response *resp;
 
     D(("called."));
-    if (user == NULL) {  /* ensure that the module has supplied a destination */
+
+    IF_NO_PAMH("pam_get_user", pamh, PAM_SYSTEM_ERR);
+
+    if (user == NULL) {
+        /* ensure that the module has supplied a destination */
 	pam_syslog(pamh, LOG_ERR, "pam_get_user: nowhere to record username");
 	return PAM_PERM_DENIED;
     } else
 	*user = NULL;
-    
-    IF_NO_PAMH("pam_get_user", pamh, PAM_SYSTEM_ERR);
 
     if (pamh->pam_conversation == NULL) {
 	pam_syslog(pamh, LOG_ERR, "pam_get_user: no conv element in pamh");
@@ -261,13 +263,12 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 	return pamh->former.fail_user;
 
     /* will need a prompt */
-    use_prompt = prompt;
-    if (use_prompt == NULL) {
-	use_prompt = pamh->prompt;
-	if (use_prompt == NULL) {
-	    use_prompt = _("login:");
-	}
-    }
+    if (prompt != NULL)
+      use_prompt = prompt;
+    else if (pamh->prompt != NULL)
+      use_prompt = pamh->prompt;
+    else
+      use_prompt = _("login:");
 
     /* If we are resuming an old conversation, we verify that the prompt
        is the same.  Anything else is an error. */

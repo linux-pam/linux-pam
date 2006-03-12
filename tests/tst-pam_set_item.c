@@ -33,6 +33,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
 #include <security/pam_appl.h>
 
@@ -132,7 +133,7 @@ main (void)
 	      fprintf (stderr,
 		       "pam_get_item got wrong value:\n"
 		       "expected: %s\n"
-		       "got: %s\n", items[i].new_value, value);
+		       "got: %s\n", items[i].new_value, (const char *)value);
 	      return 1;
 	    }
 	}

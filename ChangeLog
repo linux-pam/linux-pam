@@ -1,21 +1,25 @@
 2006-03-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* libpam/pam_item.c (pam_get_user): Check for valid pamh before
+	using it.
+
 	* configure.in: create tests/Makefile
 	* Makefile.am (SUBDIRS): Add tests
- 	* tests/Makefile.am: New
-	* tests/tst-dlopen.c
-	* tests/tst-pam_acct_mgmt.c
-	* tests/tst-pam_authenticate.c
-	* tests/tst-pam_chauthtok.c
-	* tests/tst-pam_close_session.c
-	* tests/tst-pam_end.c
-	* tests/tst-pam_fail_delay.c
-	* tests/tst-pam_getenvlist.c
-	* tests/tst-pam_get_item.c
-	* tests/tst-pam_open_session.c
-	* tests/tst-pam_setcred.c
-	* tests/tst-pam_set_item.c
-	* tests/tst-pam_start.c
+	* tests/Makefile.am: New.
+	* tests/tst-dlopen.c: New.
+	* tests/tst-pam_acct_mgmt.c: New.
+	* tests/tst-pam_authenticate.c: New.
+	* tests/tst-pam_chauthtok.c: New.
+	* tests/tst-pam_close_session.c: New.
+	* tests/tst-pam_end.c: New.
+	* tests/tst-pam_fail_delay.c: New.
+	* tests/tst-pam_getenvlist.c: New.
+	* tests/tst-pam_get_item.c: New.
+	* tests/tst-pam_open_session.c: New.
+	* tests/tst-pam_setcred.c: New.
+	* tests/tst-pam_set_item.c: New.
+	* tests/tst-pam_start.c: New.
+	* tests/tst-pam_get_user.c: New.
 
 	* modules/pam_access/Makefile.am: Add rules for make check
 	* modules/pam_access/tst-pam_access: New

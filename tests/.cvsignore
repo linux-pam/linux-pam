@@ -11,6 +11,7 @@ tst-pam_close_session
 tst-pam_end
 tst-pam_fail_delay
 tst-pam_get_item
+tst-pam_get_user
 tst-pam_getenvlist
 tst-pam_open_session
 tst-pam_set_item
