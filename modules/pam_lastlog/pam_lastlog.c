@@ -183,7 +183,7 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
 		ll_time = last_login.ll_time;
 		tm = localtime_r (&ll_time, &tm_buf);
 		strftime (the_time, sizeof (the_time),
-	        /* TRANSLATORS: "options for strftime of lastlogin". */
+	        /* TRANSLATORS: "strftime options for date of last login" */
 			  _(" %a %b %e %H:%M:%S %Z %Y"), tm);
 
 		date = the_time;
