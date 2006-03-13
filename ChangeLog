@@ -2,6 +2,10 @@
 
 	* modules/pam_lastlog/Makefile.am: Fix typo.
 
+	* modules/pam_lastlog/pam_lastlog.c: Move comment for
+	translators in right line.
+	* po/*.po: Update po files with comment for translator.
+
 2006-03-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/Makefile.am: Add new manual pages.
@@ -128,6 +132,10 @@
 	* doc/man/pam_syslog.3: New, generated from xml.
 	* doc/man/pam_vprompt.3: New, generated from xml.
 	* doc/man/pam_vsyslog.3: New, generated from xml.
+
+2006-02-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* po/km.po: Update Khmer translation.
 
 2006-02-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 

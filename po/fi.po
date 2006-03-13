@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-02-22 20:39+0100\n"
+"POT-Creation-Date: 2006-03-13 10:52+0100\n"
 "PO-Revision-Date: 2006-02-07 22:53+0200\n"
 "Last-Translator: Jyri Palokangas <jmp@netti.fi>\n"
 "Language-Team: suomi <fi@li.org>\n"
@@ -72,6 +72,7 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Ei voida palauttaa kaikkia käyttäjiä ei-nolliksi\n"
 
+#. TRANSLATORS: " options for strftime".
 #: modules/pam_lastlog/pam_lastlog.c:187
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr ""
@@ -315,7 +316,7 @@ msgstr "on jo käytetty"
 msgid "BAD PASSWORD: %s"
 msgstr "VÄÄRÄ SALASANA: %s"
 
-#: libpam/pam_item.c:268
+#: libpam/pam_item.c:271
 msgid "login:"
 msgstr "kirjautua sisään:"
 

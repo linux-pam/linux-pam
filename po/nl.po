@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-02-22 20:39+0100\n"
+"POT-Creation-Date: 2006-03-13 10:52+0100\n"
 "PO-Revision-Date: 2006-01-29 15:56+0100\n"
 "Last-Translator: Rinse de Vries <rinsedevries@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -72,6 +72,7 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: kan niet alle gebruikers terugzetten naar non-zero\n"
 
+#. TRANSLATORS: " options for strftime".
 #: modules/pam_lastlog/pam_lastlog.c:187
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr ""
@@ -317,7 +318,7 @@ msgstr "is al gebruikt"
 msgid "BAD PASSWORD: %s"
 msgstr "SLECHT WACHTWOORD: %s"
 
-#: libpam/pam_item.c:268
+#: libpam/pam_item.c:271
 msgid "login:"
 msgstr "gebruikersnaam:"
 

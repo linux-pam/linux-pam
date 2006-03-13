@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-02-22 20:39+0100\n"
+"POT-Creation-Date: 2006-03-13 10:52+0100\n"
 "PO-Revision-Date: 2006-02-22 20:38+0100\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -69,6 +69,7 @@ msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 "%s: Es können nicht alle Benutzer auf Nicht-null zurückgesetzt werden\n"
 
+#. TRANSLATORS: " options for strftime".
 #: modules/pam_lastlog/pam_lastlog.c:187
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %A, den %d. %B %Y, %H:%M:%S %Z"
@@ -312,7 +313,7 @@ msgstr "es wurde bereits verwendet"
 msgid "BAD PASSWORD: %s"
 msgstr "Schlechtes Passwort: %s"
 
-#: libpam/pam_item.c:268
+#: libpam/pam_item.c:271
 msgid "login:"
 msgstr "login:"
 
