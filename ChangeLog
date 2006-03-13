@@ -1,3 +1,7 @@
+2006-03-13  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_lastlog/Makefile.am: Fix typo.
+
 2006-03-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/Makefile.am: Add new manual pages.

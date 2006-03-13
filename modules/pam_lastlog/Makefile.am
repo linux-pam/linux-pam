@@ -7,7 +7,7 @@ CLEANFILES = *~
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
-EXTRADIST = README tst-pam_lastlog
+EXTRA_DIST = README tst-pam_lastlog
 
 TESTS = tst-pam_lastlog
 
