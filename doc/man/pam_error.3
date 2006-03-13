@@ -1,0 +1,58 @@
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_ERROR" "3" "03/13/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_error, pam_verror \- display error messages to the user
+.SH "SYNOPSIS"
+.PP
+\fB#include <security/pam_ext.h>\fR
+.HP 14
+\fBint\ \fBpam_error\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIfmt\fR\fR\fB, \fR\fB\fI...\fR\fR\fB);\fR
+.HP 15
+\fBint\ \fBpam_verror\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIfmt\fR\fR\fB, \fR\fBva_list\ \fR\fB\fIargs\fR\fR\fB);\fR
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_error\fR
+function prints error messages through the conversation function to the user.
+.PP
+The
+\fBpam_verror\fR
+function performs the same task as
+\fBpam_error()\fR
+with the difference that it takes a set of arguments which have been obtained using the
+\fBstdarg\fR(3)
+variable argument list macros.
+.SH "RETURN VALUES"
+.TP
+PAM_BUF_ERR
+Memory buffer error.
+.TP
+PAM_CONV_ERR
+Conversation failure.
+.TP
+PAM_SUCCESS
+Error message was displayed.
+.TP
+PAM_SYSTEM_ERR
+System error.
+.SH "SEE ALSO"
+.PP
+\fBpam_info\fR(3),
+\fBpam_vinfo\fR(3),
+\fBpam_prompt\fR(3),
+\fBpam_vprompt\fR(3),
+\fBpam\fR(8)
+.SH "STANDARDS"
+.PP
+The
+\fBpam_error\fR
+and
+\fBpam_verror\fR
+functions are Linux\-PAM extensions.
