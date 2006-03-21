@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-03-13 10:52+0100\n"
+"POT-Creation-Date: 2006-03-13 11:10+0100\n"
 "PO-Revision-Date: 2006-01-06 11:56+0100\n"
 "Last-Translator: Olav Pettershagen <olav.pet@online.no>\n"
 "Language-Team:  <nb@li.org>\n"
@@ -69,7 +69,7 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Kan ikke tilbakestille alle brukere til non-zero\n"
 
-#. TRANSLATORS: " options for strftime".
+#. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:187
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr ""

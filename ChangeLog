@@ -1,3 +1,9 @@
+2006-03-21  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Remove ALL_LINGUAS.
+	* po/LINGUAS: New.
+	* po/tr.po: New (from Ismail Donmez <ismail@pardus.org.tr>).
+	
 2006-03-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam_error.3.xml: New.
