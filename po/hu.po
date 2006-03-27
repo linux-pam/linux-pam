@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM.hu\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2006-03-13 11:10+0100\n"
-"PO-Revision-Date: 2006-01-10 12:08+0100\n"
+"PO-Revision-Date: 2006-03-14 09:50+0100\n"
 "Last-Translator: Kalman Kemenczy <kkemenczy@novell.com>\n"
 "Language-Team: Hungarian <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr "%s: Nem állítható vissza minden felhasználó nem nullára\n"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:187
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr ""
+msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:196

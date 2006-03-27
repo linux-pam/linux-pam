@@ -71,7 +71,7 @@ msgstr "%s: Impossible de réinitialiser tous les utilisateurs à non-zéro\n"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:187
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr ""
+msgstr " %a %e %b %Y, %H:%M:%S %Z "
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:196

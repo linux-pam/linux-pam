@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM.pt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2006-03-13 11:10+0100\n"
-"PO-Revision-Date: 2006-02-04 17:17+0000\n"
+"PO-Revision-Date: 2006-03-13 23:25+0000\n"
 "Last-Translator: Antonio Cardoso Martins <digiplan@netvisao.pt>\n"
 "Language-Team: portuguese\n"
 "MIME-Version: 1.0\n"
@@ -72,7 +72,7 @@ msgstr "%s: Não foi possível reiniciar todos os utilizadores para não zero\n"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:187
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr ""
+msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:196

@@ -1,3 +1,22 @@
+2006-03-27  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* po/LINGUAS: Add uk.
+
+	* po/uk.po: New.
+	* po/cs.po: Updated.
+	* po/po/es.po: Updated.
+	* po/fi.po: Updated.
+	* po/fr.po: Updated.
+	* po/hu.po: Updated.
+	* po/it.po: Updated.
+	* po/ja.po: Updated.
+	* po/nb.po: Updated.
+	* po/pl.po: Updated.
+	* po/pt.po: Updated.
+	* po/pt_BR.po: Updated.
+	* po/zh_CN.po: Updated.
+	* po/zh_TW.po: Updated.
+
 2006-03-21  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Remove ALL_LINGUAS.

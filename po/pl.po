@@ -1,22 +1,24 @@
-# translation of Linux-PAM.pl.po to
+# translation of Linux-PAM.po to 
+# translation of Linux-PAM.po to polski
 # Polish message file for YaST2 (@memory@).
 # Copyright (C) 2003 SuSE Linux AG.
-# Antje Faber, 2006.
+# Stanisław Małolepszy <smalolepszy@aviary.pl>, 2006.
+# Wojciech Kapusta <wojciech@aviary.pl>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM.pl\n"
+"Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2006-03-13 11:10+0100\n"
-"PO-Revision-Date: 2006-02-14 12:26+0000\n"
-"Last-Translator: Antje Faber\n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2006-03-23 19:43+0100\n"
+"Last-Translator: Wojciech Kapusta <wojciech@aviary.pl>\n"
+"Language-Team:  <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: KBabel 1.10\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: modules/pam_exec/pam_exec.c:118
 #, c-format
@@ -35,7 +37,7 @@ msgstr ""
 
 #: modules/pam_tally/pam_tally.c:738
 msgid "Authentication error"
-msgstr "Błąd autoryzacji"
+msgstr "Błąd uwierzytelniania"
 
 #: modules/pam_tally/pam_tally.c:739
 msgid "Service error"
@@ -69,12 +71,12 @@ msgstr ""
 #: modules/pam_tally/pam_tally.c:846
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: Nie można zresetować wszystkich użytkowników\n"
+msgstr "%s: Nie można przywrócić wszystkich użytkowników\n"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:187
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr ""
+msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:196
@@ -121,19 +123,19 @@ msgstr "login: nieudany fork: %m"
 #: modules/pam_selinux/pam_selinux.c:102
 #, c-format
 msgid "Your default context is %s. \n"
-msgstr "Twój domyślny kontekst to %s. \n"
+msgstr "Domyślny kontekst: %s. \n"
 
 #: modules/pam_selinux/pam_selinux.c:105
 msgid "Do you want to choose a different one? [n]"
-msgstr "Czy chcesz wybrać jakieś inne? [n]"
+msgstr "Czy powtórzyć wybieranie? [n]"
 
 #: modules/pam_selinux/pam_selinux.c:112
 msgid "Enter number of choice: "
-msgstr "Podaj liczbę: "
+msgstr "Wybrana liczba: "
 
 #: modules/pam_selinux/pam_selinux.c:152
 msgid "Would you like to enter a security context? [y] "
-msgstr "Czy chcesz wejść w kontekst bezpieczeństwa? [y]"
+msgstr "Czy wejść w kontekst bezpieczeństwa? [y]"
 
 #: modules/pam_selinux/pam_selinux.c:169
 msgid "role: "
@@ -158,56 +160,56 @@ msgstr "Kontekst bezpieczeństwa %s przypisany"
 
 #: modules/pam_mail/pam_mail.c:307
 msgid "No mail."
-msgstr "Brak poczty."
+msgstr "Brak wiadomości."
 
 #: modules/pam_mail/pam_mail.c:310
 msgid "You have new mail."
-msgstr "Masz nową pocztę."
+msgstr "Odebrano nowe wiadomości."
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "You have old mail."
-msgstr "Masz starą pocztę."
+msgstr "Skrzynka zawiera stare wiadomości."
 
 #: modules/pam_mail/pam_mail.c:317
 msgid "You have mail."
-msgstr "Masz pocztę."
+msgstr "Odebrano wiadomości."
 
 #: modules/pam_mail/pam_mail.c:324
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr "Nie masz żadnej poczty w katalogu %s."
+msgstr "Brak wiadomości w katalogu %s."
 
 #: modules/pam_mail/pam_mail.c:328
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "Masz nową pocztę w katalogu %s."
+msgstr "Nowe wiadomości w katalogu %s."
 
 #: modules/pam_mail/pam_mail.c:332
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr "Masz starą pocztę w katalogu %s."
+msgstr "Stare wiadomości katalogu %s."
 
 #: modules/pam_mail/pam_mail.c:337
 #, c-format
 msgid "You have mail in folder %s."
-msgstr "Masz pocztę w katalogu %s."
+msgstr "Wiadomości w katalogu %s."
 
 #: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
 msgid "Your account has expired; please contact your system administrator"
-msgstr "Twoje konto się unieważniło; skontaktuj się z administratorem"
+msgstr "Konto użytkownika wygasło ; proszę skontaktować się z administratorem"
 
 #: modules/pam_unix/pam_unix_acct.c:283
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Musisz natychmiast zmienić hasło (wymuszone przez root-a)"
+msgstr "Należy natychmiast zmienić hasło (wymuszone przez administratora)"
 
 #: modules/pam_unix/pam_unix_acct.c:310
 msgid "You are required to change your password immediately (password aged)"
-msgstr "Musisz natychmiast zmienić hasło (hasło wygasło)"
+msgstr "Należy natychmiast zmienić hasło (hasło wygasło)"
 
 #: modules/pam_unix/pam_unix_acct.c:320
 #, c-format
 msgid "Warning: your password will expire in %d day%.2s"
-msgstr "Ostrzeżenie: twoje hasło wygaśnie za %d dni%.2s"
+msgstr "Ostrzeżenie: hasło wygaśnie za %d dni%.2s"
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
@@ -215,7 +217,7 @@ msgstr "Hasło: "
 
 #: modules/pam_unix/pam_unix_passwd.c:820
 msgid "NIS password could not be changed."
-msgstr "Nie można zmieniać hasła NIS."
+msgstr "Nie można zmienić hasła NIS."
 
 #: modules/pam_unix/pam_unix_passwd.c:976
 #: modules/pam_cracklib/pam_cracklib.c:464
@@ -229,27 +231,27 @@ msgstr "Hasło nie zmienione"
 
 #: modules/pam_unix/pam_unix_passwd.c:997
 msgid "You must choose a longer password"
-msgstr "Musisz podać dłuższe hasło"
+msgstr "Proszę podać dłuższe hasło"
 
 #: modules/pam_unix/pam_unix_passwd.c:1002
 msgid "Password has been already used. Choose another."
-msgstr "Hasło było już używane. Podaj inne."
+msgstr "Hasło było już używane. Proszę wybrać inne."
 
 #: modules/pam_unix/pam_unix_passwd.c:1126
 msgid "(current) UNIX password: "
-msgstr "(aktualne) Hasło UNIX:"
+msgstr "Bieżące hasło UNIX:"
 
 #: modules/pam_unix/pam_unix_passwd.c:1161
 msgid "You must wait longer to change your password"
-msgstr "Musisz poczekać dłużej żeby zmienić hasło"
+msgstr "Proszę poczekać dłużej aby zmienić hasło"
 
 #: modules/pam_unix/pam_unix_passwd.c:1221
 msgid "Enter new UNIX password: "
-msgstr "Podaj nowe hasło UNIX: "
+msgstr "Nowe hasło UNIX: "
 
 #: modules/pam_unix/pam_unix_passwd.c:1222
 msgid "Retype new UNIX password: "
-msgstr "Wpisz ponownie hasło UNIX: "
+msgstr "Powtórzenie hasła UNIX: "
 
 #: modules/pam_stress/pam_stress.c:477
 msgid "Changing STRESS password for "
@@ -257,11 +259,11 @@ msgstr "Zmiana hasła STRESS dla "
 
 #: modules/pam_stress/pam_stress.c:491
 msgid "Enter new STRESS password: "
-msgstr "Poda nowe hasło STRESS: "
+msgstr "Nowe hasło STRESS: "
 
 #: modules/pam_stress/pam_stress.c:494
 msgid "Retype new STRESS password: "
-msgstr "Wpisz ponownie hasło STRESS: "
+msgstr "Powtórzenie hasła STRESS: "
 
 #: modules/pam_stress/pam_stress.c:523
 msgid "Verification mis-typed; password unchanged"
@@ -275,11 +277,11 @@ msgstr "Nowe hasło %s%s: "
 #: modules/pam_cracklib/pam_cracklib.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "Wpisz ponownie nowe hasło %s%s: "
+msgstr "Powtórzenie nowego hasła %s%s: "
 
 #: modules/pam_cracklib/pam_cracklib.c:63
 msgid "Sorry, passwords do not match."
-msgstr "Niestety, hasła nie są zgodne."
+msgstr "Podane hasła nie są zgodne."
 
 #: modules/pam_cracklib/pam_cracklib.c:378
 msgid "is the same as the old one"
@@ -291,7 +293,7 @@ msgstr "jest palindromem"
 
 #: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
-msgstr "zmienia tylko wielkość znaków"
+msgstr "ma zmienioną tylko wielkość znaków"
 
 #: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
@@ -361,11 +363,11 @@ msgstr "Niedostateczne uwierzytelnienie do dostępu do danych autoryzacyjnych"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info."
-msgstr "Usługa autoryzacji nie może uzyskać danych autoryzacyjnych."
+msgstr "Usługa uwierzytelniania nie może uzyskać danych uwierzytelniających."
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr "Użytkownik nieznany w module autoryzacji niższego poziomu"
+msgstr "Użytkownik nieznany w module uwierzytelniania niższego poziomu"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service."
@@ -373,7 +375,7 @@ msgstr "Wykorzystana maksymalna liczba prób dla usługi."
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required."
-msgstr "Bilety autoryzacyjny jest już nieważny; konieczny nowy."
+msgstr "Bilet uwierzytelniania jest już nieważny; konieczny nowy."
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -385,7 +387,7 @@ msgstr "Nie można utworzyć/usunąć pozycji dla podanej sesji"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr "Usługa autoryzacyjna nie może uzyskać uwierzytelnienia użytkownika"
+msgstr "Usługa uwierzytelniania nie może uzyskać uwierzytelnienia użytkownika"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -409,19 +411,19 @@ msgstr "Błąd konwersjacji"
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
-msgstr "Błąd obsługi biletu autoryzacji"
+msgstr "Błąd obsługi biletu uwierzytelniania"
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
-msgstr "Nie można odzyskać informacji autoryzacyjnych"
+msgstr "Nie można odzyskać informacji uwierzytelniających"
 
 #: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
-msgstr "Zajęta blokada biletu autoryzacji"
+msgstr "Zajęta blokada biletu uwierzytelniania"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr "Przeterminowanie biletu autoryzacyjnego wyłączone"
+msgstr "Przeterminowanie biletu uwierzytelniania wyłączone"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
@@ -437,7 +439,7 @@ msgstr "Moduł jest nieznany"
 
 #: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
-msgstr "Bilet autoryzacyjny przeterminował się"
+msgstr "Bilet uwierzytelniania przeterminował się"
 
 #: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
@@ -453,11 +455,11 @@ msgstr "Nieznany błąd PAM"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
-msgstr "...Czas ucieka...\n"
+msgstr "...czas mija...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "...Przykro mi, twój czas się skończył!\n"
+msgstr "... czas minął.\n"
 
 #: libpam_misc/misc_conv.c:343
 #, c-format
