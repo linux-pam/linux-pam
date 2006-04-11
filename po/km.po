@@ -1,19 +1,20 @@
-# translation of Linux-PAM.km.po to Khmer
-# Leang Chumsoben <soben@khmeros.info>, 2005, 2006.
-# Hok Kakada <hokkakada@khmeros.info>, 2006.
+# translation of Linux-PAM.po to Khmer
+# Copyright (C) YEAR Linux-PAM Project
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Leang Chumsoben <soben@khmeros.info>, 2006.
 # Khoem Sokhem <khoemsokhem@khmeros.info>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM.km\n"
+"Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2006-03-13 11:10+0100\n"
-"PO-Revision-Date: 2006-02-17 15:21+0700\n"
+"PO-Revision-Date: 2006-03-17 10:32+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: KBabel 1.11\n"
 
 #: modules/pam_exec/pam_exec.c:118
@@ -72,7 +73,7 @@ msgstr "%s ៖ មិន​អាច​កំណត់​អ្នក​ប្�
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:187
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr ""
+msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:196
@@ -347,7 +348,7 @@ msgstr "កំហុស​សតិ​បណ្ដោះ​អាសន្ន"
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
-msgstr "សិទ្ធិបាន​បដិសេធ"
+msgstr "សិទ្ធិ​ត្រូវ​បាន​បដិសេធ"
 
 #: libpam/pam_strerror.c:56
 msgid "Authentication failure"
