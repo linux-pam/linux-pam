@@ -54,7 +54,7 @@ msgstr "%s: Numéro incorrect attribué à --reset=\n"
 #: modules/pam_tally/pam_tally.c:761
 #, c-format
 msgid "%s: Unrecognised option %s\n"
-msgstr "%s: Option non reconnue %s\n"
+msgstr "%s : Option non reconnue %s\n"
 
 #: modules/pam_tally/pam_tally.c:773
 #, c-format
@@ -71,19 +71,19 @@ msgstr "%s: Impossible de réinitialiser tous les utilisateurs à non-zéro\n"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:187
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr " %a %e %b %Y, %H:%M:%S %Z "
+msgstr " %A %e %B %Y à %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:196
 #, c-format
 msgid " from %.*s"
-msgstr "de %.*s"
+msgstr " de %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:208
 #, c-format
 msgid " on %.*s"
-msgstr "sur %.*s"
+msgstr " sur %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:217
@@ -195,7 +195,7 @@ msgstr "Votre compte a expiré. Contactez votre administrateur système"
 
 #: modules/pam_unix/pam_unix_acct.c:283
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Vous devez changer votre mot de passe immédiatement (imposition root)"
+msgstr "Vous devez changer votre mot de passe immédiatement (imposé par root)"
 
 #: modules/pam_unix/pam_unix_acct.c:310
 msgid "You are required to change your password immediately (password aged)"
@@ -205,11 +205,11 @@ msgstr ""
 #: modules/pam_unix/pam_unix_acct.c:320
 #, c-format
 msgid "Warning: your password will expire in %d day%.2s"
-msgstr "Avertissement : votre mot de passe expire dans %d day%.2s"
+msgstr "Avertissement : votre mot de passe expire dans %d jour%.2s"
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
-msgstr "Mot de passe :"
+msgstr "Mot de passe : "
 
 #: modules/pam_unix/pam_unix_passwd.c:820
 msgid "NIS password could not be changed."
@@ -235,7 +235,7 @@ msgstr "Mot de passe déjà utilisé. Choisissez-en un autre."
 
 #: modules/pam_unix/pam_unix_passwd.c:1126
 msgid "(current) UNIX password: "
-msgstr "Mot de passe UNIX (actuel) :"
+msgstr "Mot de passe UNIX (actuel) : "
 
 #: modules/pam_unix/pam_unix_passwd.c:1161
 msgid "You must wait longer to change your password"
@@ -243,23 +243,23 @@ msgstr "Vous devez encore attendre avant de changer votre mot de passe"
 
 #: modules/pam_unix/pam_unix_passwd.c:1221
 msgid "Enter new UNIX password: "
-msgstr "Entrez le nouveau mot de passe UNIX :"
+msgstr "Entrez le nouveau mot de passe UNIX : "
 
 #: modules/pam_unix/pam_unix_passwd.c:1222
 msgid "Retype new UNIX password: "
-msgstr "Retapez le nouveau mot de passe UNIX :"
+msgstr "Retapez le nouveau mot de passe UNIX : "
 
 #: modules/pam_stress/pam_stress.c:477
 msgid "Changing STRESS password for "
-msgstr "Changement du mot de passe STRESS pour"
+msgstr "Changement du mot de passe STRESS pour "
 
 #: modules/pam_stress/pam_stress.c:491
 msgid "Enter new STRESS password: "
-msgstr "Entrer le nouveau mot de passe STRESS :"
+msgstr "Entrer le nouveau mot de passe STRESS : "
 
 #: modules/pam_stress/pam_stress.c:494
 msgid "Retype new STRESS password: "
-msgstr "Retaper le nouveau mot de passe STRESS :"
+msgstr "Retaper le nouveau mot de passe STRESS : "
 
 #: modules/pam_stress/pam_stress.c:523
 msgid "Verification mis-typed; password unchanged"
@@ -268,12 +268,12 @@ msgstr "Verification erronée : mot de passe inchangé"
 #: modules/pam_cracklib/pam_cracklib.c:60
 #, c-format
 msgid "New %s%spassword: "
-msgstr "Nouveau %s%smot de passe :"
+msgstr "Nouveau %s%smot de passe : "
 
 #: modules/pam_cracklib/pam_cracklib.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "Retapez le nouveau %s%smot de passe :"
+msgstr "Retapez le nouveau %s%smot de passe : "
 
 #: modules/pam_cracklib/pam_cracklib.c:63
 msgid "Sorry, passwords do not match."
@@ -315,7 +315,7 @@ msgstr "MOT DE PASSE INCORRECT : %s"
 
 #: libpam/pam_item.c:271
 msgid "login:"
-msgstr "login :"
+msgstr "login : "
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
