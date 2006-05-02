@@ -379,26 +379,27 @@ static int
 set_tally(pam_handle_t *pamh, tally_t tally, uid_t uid,
 	     const char *filename, FILE **TALLY, struct fail_s *fsp)
 {
-    if ( tally!=TALLY_HI )
-      {
-        if ( fseek( *TALLY, uid * sizeof(struct faillog), SEEK_SET ) ) {
-                  pam_syslog(pamh, LOG_ALERT, "fseek failed for %s", filename);
-                            return PAM_AUTH_ERR;
-        }
-        fsp->fs_faillog.fail_cnt = tally;
-        if (fwrite((char *) &fsp->fs_faillog,
+    int retval = PAM_SUCCESS;
+
+    if ( tally!=TALLY_HI ) {
+      if ( fseek( *TALLY, uid * sizeof(struct faillog), SEEK_SET ) ) {
+	pam_syslog(pamh, LOG_ALERT, "fseek failed for %s", filename);
+	retval = PAM_AUTH_ERR;
+      } else {
+	fsp->fs_faillog.fail_cnt = tally;
+	if (fwrite((char *) &fsp->fs_faillog,
 		   sizeof(struct faillog), 1, *TALLY)==0 ) {
-	    pam_syslog(pamh, LOG_ALERT, "update (fwrite) failed for %s", filename);
-	    return PAM_AUTH_ERR;
-        }
+	  pam_syslog(pamh, LOG_ALERT, "update (fwrite) failed for %s", filename);
+	  retval = PAM_AUTH_ERR;
       }
+    }
 
     if ( fclose(*TALLY) ) {
       pam_syslog(pamh, LOG_ALERT, "update (fclose) failed for %s", filename);
       return PAM_AUTH_ERR;
     }
     *TALLY=NULL;
-    return PAM_SUCCESS;
+    return retval;
 }
 
 /*---------------------------------------------------------------------*/
@@ -415,7 +416,7 @@ set_tally(pam_handle_t *pamh, tally_t tally, uid_t uid,
 
 static int
 tally_bump (int inc, time_t *oldtime, pam_handle_t *pamh,
-            uid_t uid, const char *user, struct tally_options *opts) 
+            uid_t uid, const char *user, struct tally_options *opts)
 {
   tally_t
     tally         = 0;  /* !TALLY_HI --> Log opened for update */
@@ -429,7 +430,7 @@ tally_bump (int inc, time_t *oldtime, pam_handle_t *pamh,
     int i;
 
     i=get_tally(pamh, &tally, uid, opts->filename, &TALLY, fsp);
-    if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
+    if ( i != PAM_SUCCESS ) { RETURN_ERROR( i ); }
 
     /* to remember old fail time (for locktime) */
     fsp->fs_fail_time = fsp->fs_faillog.fail_time;
@@ -475,14 +476,14 @@ tally_bump (int inc, time_t *oldtime, pam_handle_t *pamh,
     }
 
     i=set_tally(pamh, tally, uid, opts->filename, &TALLY, fsp );
-    if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
+    if ( i != PAM_SUCCESS ) { RETURN_ERROR( i ); }
 
     return PAM_SUCCESS;
 }
 
 static int
 tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
-               const char *user, struct tally_options *opts) 
+               const char *user, struct tally_options *opts)
 {
   tally_t
     deny          = opts->deny;
@@ -496,7 +497,6 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
     int i;
 
     i=get_tally(pamh, &tally, uid, opts->filename, &TALLY, fsp);
-    if (TALLY) fclose(TALLY);
     if ( i != PAM_SUCCESS ) { RETURN_ERROR( i ); }
 
     if ( !(opts->ctrl & OPT_MAGIC_ROOT) || getuid() ) {       /* magic_root skips tally check */
@@ -558,7 +558,7 @@ tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts)
     int i;
 
     i=get_tally(pamh, &tally, uid, opts->filename, &TALLY, fsp);
-    if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
+    if ( i != PAM_SUCCESS ) { RETURN_ERROR( i ); }
 
       /* resets if not magic root
        */
@@ -574,7 +574,7 @@ tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts)
     }
 
     i=set_tally(pamh, tally, uid, opts->filename, &TALLY, fsp);
-    if ( i != PAM_SUCCESS ) { if (TALLY) fclose(TALLY); RETURN_ERROR( i ); }
+    if ( i != PAM_SUCCESS ) { RETURN_ERROR( i ); }
 
     return PAM_SUCCESS;
 }
@@ -732,7 +732,7 @@ static int cline_quiet =  0;
  */
 
 static const char *
-pam_errors( int i ) 
+pam_errors( int i )
 {
   switch (i) {
   case PAM_AUTH_ERR:     return _("Authentication error");
@@ -743,7 +743,7 @@ pam_errors( int i )
 }
 
 static int
-getopts( char **argv ) 
+getopts( char **argv )
 {
   const char *pname = *argv;
   for ( ; *argv ; (void)(*argv && ++argv) ) {
@@ -801,7 +801,6 @@ int main ( int argc UNUSED, char **argv )
 
     i=get_tally(NULL, &tally, uid, cline_filename, &TALLY, fsp);
     if ( i != PAM_SUCCESS ) {
-      if (TALLY) fclose(TALLY);
       fprintf(stderr,"%s: %s\n",*argv,pam_errors(i));
       exit(0);
     }
@@ -812,7 +811,6 @@ int main ( int argc UNUSED, char **argv )
 
     i=set_tally(NULL, cline_reset, uid, cline_filename, &TALLY, fsp);
     if ( i != PAM_SUCCESS ) {
-      if (TALLY) fclose(TALLY);
       fprintf(stderr,"%s: %s\n",*argv,pam_errors(i));
       exit(0);
     }

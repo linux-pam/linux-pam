@@ -1,3 +1,8 @@
+2006-05-02  Thorsten Kukuk  <kukuk@suse.de>
+
+	* modules/pam_tally/pam_tally.c: Always close file handle
+	in error case, don't close it depending on *TALLY value [#1478180]
+
 2006-04-21  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/fr.po: Updated.
@@ -30,7 +35,7 @@
 	* configure.in: Remove ALL_LINGUAS.
 	* po/LINGUAS: New.
 	* po/tr.po: New (from Ismail Donmez <ismail@pardus.org.tr>).
-	
+
 2006-03-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam_error.3.xml: New.
