@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-03-13 11:10+0100\n"
+"POT-Creation-Date: 2006-05-02 13:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,39 +31,39 @@ msgstr ""
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:738
+#: modules/pam_tally/pam_tally.c:739
 msgid "Authentication error"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:739
+#: modules/pam_tally/pam_tally.c:740
 msgid "Service error"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:740
+#: modules/pam_tally/pam_tally.c:741
 msgid "Unknown user"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:742
 msgid "Unknown error"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:757
+#: modules/pam_tally/pam_tally.c:758
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:761
+#: modules/pam_tally/pam_tally.c:762
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:773
+#: modules/pam_tally/pam_tally.c:774
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:846
+#: modules/pam_tally/pam_tally.c:845
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
@@ -201,9 +201,14 @@ msgstr ""
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:320
+#: modules/pam_unix/pam_unix_acct.c:322
 #, c-format
-msgid "Warning: your password will expire in %d day%.2s"
+msgid "Warning: your password will expire in one day"
+msgstr ""
+
+#: modules/pam_unix/pam_unix_acct.c:325
+#, c-format
+msgid "Warning: your password will expire in %d days"
 msgstr ""
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61

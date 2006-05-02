@@ -317,8 +317,13 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		pam_syslog(pamh, LOG_DEBUG,
 			 "password for user %s will expire in %d days",
 			 uname, daysleft);
-		snprintf(buf, sizeof (buf), _("Warning: your password will expire in %d day%.2s"),
-			 daysleft, daysleft == 1 ? "" : "s");
+		if (daysleft == 1)
+		  snprintf(buf, sizeof (buf),
+			   _("Warning: your password will expire in one day"));
+		else
+		  snprintf(buf, sizeof (buf),
+			   _("Warning: your password will expire in %d days"),
+			   daysleft);
 		_make_remark(pamh, ctrl, PAM_TEXT_INFO, buf);
 	}
 

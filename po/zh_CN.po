@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-03-13 11:10+0100\n"
+"POT-Creation-Date: 2006-05-02 13:05+0200\n"
 "PO-Revision-Date: 2005-08-18 HO:MI+ZONE\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -30,39 +30,39 @@ msgstr ""
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:738
+#: modules/pam_tally/pam_tally.c:739
 msgid "Authentication error"
 msgstr "鉴定错误"
 
-#: modules/pam_tally/pam_tally.c:739
+#: modules/pam_tally/pam_tally.c:740
 msgid "Service error"
 msgstr "服务错误"
 
-#: modules/pam_tally/pam_tally.c:740
+#: modules/pam_tally/pam_tally.c:741
 msgid "Unknown user"
 msgstr "未知的用户"
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:742
 msgid "Unknown error"
 msgstr "未知的错误"
 
-#: modules/pam_tally/pam_tally.c:757
+#: modules/pam_tally/pam_tally.c:758
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: 给定的数字无效 --重设置=\n"
 
-#: modules/pam_tally/pam_tally.c:761
+#: modules/pam_tally/pam_tally.c:762
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: 未识别的选项 %s\n"
 
-#: modules/pam_tally/pam_tally.c:773
+#: modules/pam_tally/pam_tally.c:774
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr "%s: [--文件 根文件名] [--用户 用户名] [--重设置[=n]] [--安静]\n"
 
-#: modules/pam_tally/pam_tally.c:846
+#: modules/pam_tally/pam_tally.c:845
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: 无法将所有用户重设置为非零\n"
@@ -200,9 +200,14 @@ msgstr "您需要立即更改口令（root 强制）"
 msgid "You are required to change your password immediately (password aged)"
 msgstr "您需要立即更改口令（口令过期）"
 
-#: modules/pam_unix/pam_unix_acct.c:320
-#, c-format
-msgid "Warning: your password will expire in %d day%.2s"
+#: modules/pam_unix/pam_unix_acct.c:322
+#, fuzzy, c-format
+msgid "Warning: your password will expire in one day"
+msgstr "警告：您的口令将在 %d 天 %.2s 后失效。"
+
+#: modules/pam_unix/pam_unix_acct.c:325
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d days"
 msgstr "警告：您的口令将在 %d 天 %.2s 后失效。"
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-03-13 11:10+0100\n"
+"POT-Creation-Date: 2006-05-02 13:05+0200\n"
 "PO-Revision-Date: 2006-03-17 10:32+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -32,40 +32,40 @@ msgstr ""
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:738
+#: modules/pam_tally/pam_tally.c:739
 msgid "Authentication error"
 msgstr "កំហុស​ក្នុង​ការ​ផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ"
 
-#: modules/pam_tally/pam_tally.c:739
+#: modules/pam_tally/pam_tally.c:740
 msgid "Service error"
 msgstr "កំហុស​សេវា"
 
-#: modules/pam_tally/pam_tally.c:740
+#: modules/pam_tally/pam_tally.c:741
 msgid "Unknown user"
 msgstr "មិន​ស្គាល់​អ្នក​ប្រើ"
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:742
 msgid "Unknown error"
 msgstr "មិន​ស្គាល់​កំហុស"
 
-#: modules/pam_tally/pam_tally.c:757
+#: modules/pam_tally/pam_tally.c:758
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s ៖ លេខ​មិន​ល្អ​បាន​ផ្ដល់​ទៅ --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:761
+#: modules/pam_tally/pam_tally.c:762
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s ៖ ជម្រើស​ដែល​មិន​ស្គាល់ %s\n"
 
-#: modules/pam_tally/pam_tally.c:773
+#: modules/pam_tally/pam_tally.c:774
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s ៖ [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:846
+#: modules/pam_tally/pam_tally.c:845
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s ៖ មិន​អាច​កំណត់​អ្នក​ប្រើ​ទាំងអស់​ទៅ​មិនមែន​សូន្យ​ឡើងវិញ​បានទេ\n"
@@ -203,9 +203,14 @@ msgstr "អ្នក​ត្រូវ​តែ​ផ្លាស់ប្ដូ
 msgid "You are required to change your password immediately (password aged)"
 msgstr "អ្នក​ត្រូវ​តែ​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់​របស់​អ្នក​ឥឡូវ​នេះ (ពាក្យសម្ងាត់​ចាស់​ហើយ)"
 
-#: modules/pam_unix/pam_unix_acct.c:320
-#, c-format
-msgid "Warning: your password will expire in %d day%.2s"
+#: modules/pam_unix/pam_unix_acct.c:322
+#, fuzzy, c-format
+msgid "Warning: your password will expire in one day"
+msgstr "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់​របស់​អ្នក​នឹង​ផុតកំណត់​ក្នុង​រយៈពេល %d ថ្ងៃ %.2s ។"
+
+#: modules/pam_unix/pam_unix_acct.c:325
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d days"
 msgstr "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់​របស់​អ្នក​នឹង​ផុតកំណត់​ក្នុង​រយៈពេល %d ថ្ងៃ %.2s ។"
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61

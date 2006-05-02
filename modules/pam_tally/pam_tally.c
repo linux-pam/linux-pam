@@ -391,6 +391,7 @@ set_tally(pam_handle_t *pamh, tally_t tally, uid_t uid,
 		   sizeof(struct faillog), 1, *TALLY)==0 ) {
 	  pam_syslog(pamh, LOG_ALERT, "update (fwrite) failed for %s", filename);
 	  retval = PAM_AUTH_ERR;
+        }
       }
     }
 

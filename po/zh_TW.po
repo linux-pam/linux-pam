@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-03-13 11:10+0100\n"
+"POT-Creation-Date: 2006-05-02 13:05+0200\n"
 "PO-Revision-Date: 2005-08-18 12:12+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -30,40 +30,40 @@ msgstr ""
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:738
+#: modules/pam_tally/pam_tally.c:739
 msgid "Authentication error"
 msgstr "驗證錯誤"
 
-#: modules/pam_tally/pam_tally.c:739
+#: modules/pam_tally/pam_tally.c:740
 msgid "Service error"
 msgstr "服務錯誤"
 
-#: modules/pam_tally/pam_tally.c:740
+#: modules/pam_tally/pam_tally.c:741
 msgid "Unknown user"
 msgstr "未知的使用者"
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:742
 msgid "Unknown error"
 msgstr "未知的錯誤"
 
-#: modules/pam_tally/pam_tally.c:757
+#: modules/pam_tally/pam_tally.c:758
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: 不良的號碼提供至 --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:761
+#: modules/pam_tally/pam_tally.c:762
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: 未識別的選項 %s\n"
 
-#: modules/pam_tally/pam_tally.c:773
+#: modules/pam_tally/pam_tally.c:774
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:846
+#: modules/pam_tally/pam_tally.c:845
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: 無法將所有使用者重新設定為非零\n"
@@ -201,9 +201,14 @@ msgstr "您必須立刻變更您的密碼 (root 強制執行)"
 msgid "You are required to change your password immediately (password aged)"
 msgstr "您必須立刻變更您的密碼 (密碼使用過久)"
 
-#: modules/pam_unix/pam_unix_acct.c:320
-#, c-format
-msgid "Warning: your password will expire in %d day%.2s"
+#: modules/pam_unix/pam_unix_acct.c:322
+#, fuzzy, c-format
+msgid "Warning: your password will expire in one day"
+msgstr "警告：您的密碼將在 %d 天之後逾期。%2s"
+
+#: modules/pam_unix/pam_unix_acct.c:325
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d days"
 msgstr "警告：您的密碼將在 %d 天之後逾期。%2s"
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61

@@ -1,5 +1,10 @@
 2006-05-02  Thorsten Kukuk  <kukuk@suse.de>
 
+	* modules/pam_unix/pam_unix_acct.c (pam_sm_acct_mgmt): Use
+	different strings for plural or not [#1427738]
+
+	* po/*.po: Adjust for pam_unix.so translation fix.
+
 	* modules/pam_tally/pam_tally.c: Always close file handle
 	in error case, don't close it depending on *TALLY value [#1478180]
 
