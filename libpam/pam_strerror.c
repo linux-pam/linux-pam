@@ -41,7 +41,7 @@ const char *pam_strerror(pam_handle_t *pamh UNUSED, int errnum)
     case PAM_ABORT:
       return _("Critical error - immediate abort");
     case PAM_OPEN_ERR:
-      return _("dlopen() failure");
+      return _("Failed to load module");
     case PAM_SYMBOL_ERR:
       return _("Symbol not found");
     case PAM_SERVICE_ERR:
@@ -57,13 +57,13 @@ const char *pam_strerror(pam_handle_t *pamh UNUSED, int errnum)
     case PAM_CRED_INSUFFICIENT:
       return _("Insufficient credentials to access authentication data");
     case PAM_AUTHINFO_UNAVAIL:
-      return _("Authentication service cannot retrieve authentication info.");
+      return _("Authentication service cannot retrieve authentication info");
     case PAM_USER_UNKNOWN:
       return _("User not known to the underlying authentication module");
     case PAM_MAXTRIES:
-      return _("Have exhausted maximum number of retries for service.");
+      return _("Have exhausted maximum number of retries for service");
     case PAM_NEW_AUTHTOK_REQD:
-      return _("Authentication token is no longer valid; new one required.");
+      return _("Authentication token is no longer valid; new one required");
     case PAM_ACCT_EXPIRED:
       return _("User account has expired");
     case PAM_SESSION_ERR:

@@ -2,13 +2,13 @@
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2005-08-18 HO:MI+ZONE\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-03 18:59+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
@@ -201,14 +201,14 @@ msgid "You are required to change your password immediately (password aged)"
 msgstr "您需要立即更改口令（口令过期）"
 
 #: modules/pam_unix/pam_unix_acct.c:322
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in one day"
-msgstr "警告：您的口令将在 %d 天 %.2s 后失效。"
+msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:325
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "警告：您的口令将在 %d 天 %.2s 后失效。"
+msgstr ""
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
@@ -329,8 +329,8 @@ msgid "Critical error - immediate abort"
 msgstr "严重错误 - 立即中止"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "dlopen() 故障"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -361,7 +361,7 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "没有足够的身份凭证以访问鉴定数据"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
+msgid "Authentication service cannot retrieve authentication info"
 msgstr "鉴定服务无法检索到鉴定信息"
 
 #: libpam/pam_strerror.c:62
@@ -369,12 +369,12 @@ msgid "User not known to the underlying authentication module"
 msgstr "底层的鉴定模块无法识别用户"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
-msgstr "已经超出服务重试的最多次数。"
+msgid "Have exhausted maximum number of retries for service"
+msgstr "已经超出服务重试的最多次数"
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr "鉴定令牌不再有效；需要新的鉴定令牌。"
+msgid "Authentication token is no longer valid; new one required"
+msgstr "鉴定令牌不再有效；需要新的鉴定令牌"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -464,6 +464,9 @@ msgstr "...对不起，您的时间已经耗尽！\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "有错误的转换 (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "dlopen() 故障"
 
 #~ msgid "%s: set %s security context to %s"
 #~ msgstr "不是有效的安全性环境"

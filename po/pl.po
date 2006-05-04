@@ -1,7 +1,7 @@
-# translation of Linux-PAM.po to 
+# translation of Linux-PAM.po to
 # translation of Linux-PAM.po to polski
 # Polish message file for YaST2 (@memory@).
-# Copyright (C) 2003 SuSE Linux AG.
+# Copyright (C) 2003, 2006 SuSE Linux AG.
 # Stanisław Małolepszy <smalolepszy@aviary.pl>, 2006.
 # Wojciech Kapusta <wojciech@aviary.pl>, 2006.
 #
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2006-03-23 19:43+0100\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-03 21:58+0200\n"
 "Last-Translator: Wojciech Kapusta <wojciech@aviary.pl>\n"
 "Language-Team:  <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -335,8 +335,8 @@ msgid "Critical error - immediate abort"
 msgstr "Błąd krytyczny - natychmiastowe przerwanie"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "nieudane dlopen()"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -367,20 +367,20 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "Niedostateczne uwierzytelnienie do dostępu do danych autoryzacyjnych"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
-msgstr "Usługa uwierzytelniania nie może uzyskać danych uwierzytelniających."
+msgid "Authentication service cannot retrieve authentication info"
+msgstr "Usługa uwierzytelniania nie może uzyskać danych uwierzytelniających"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "Użytkownik nieznany w module uwierzytelniania niższego poziomu"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
-msgstr "Wykorzystana maksymalna liczba prób dla usługi."
+msgid "Have exhausted maximum number of retries for service"
+msgstr "Wykorzystana maksymalna liczba prób dla usługi"
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr "Bilet uwierzytelniania jest już nieważny; konieczny nowy."
+msgid "Authentication token is no longer valid; new one required"
+msgstr "Bilet uwierzytelniania jest już nieważny; konieczny nowy"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -470,3 +470,6 @@ msgstr "... czas minął.\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "błędna konwersacja (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "nieudane dlopen()"

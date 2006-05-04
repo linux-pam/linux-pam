@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2006-03-18 22:52+0200\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-03 19:00+0200\n"
 "Last-Translator: Koray Löker <loker@pardus.org.tr>\n"
 "Language-Team: Türkçe <tr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -332,8 +332,8 @@ msgid "Critical error - immediate abort"
 msgstr "Kritik hata - şimdi çıkılıyor"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "dlopen() hatası"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -364,7 +364,7 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "Kimlik bilgisine ulaşmak için yetersiz yetki"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
+msgid "Authentication service cannot retrieve authentication info"
 msgstr "Yetkilendirme servisi yetki bilgisini getiremedi"
 
 #: libpam/pam_strerror.c:62
@@ -372,13 +372,12 @@ msgid "User not known to the underlying authentication module"
 msgstr "Kullanıcı yetki modülü altyapısında tanımlı değil"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
+msgid "Have exhausted maximum number of retries for service"
 msgstr "Servis için geçerli deneme sayısı aşıldı"
 
 #: libpam/pam_strerror.c:66
-#, fuzzy
-msgid "Authentication token is no longer valid; new one required."
-msgstr "Yetki alıntı kütüğü geçersiz; yenisi gerekiyor."
+msgid "Authentication token is no longer valid; new one required"
+msgstr "Yetki alıntı kütüğü geçersiz; yenisi gerekiyor"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -421,7 +420,6 @@ msgid "Authentication information cannot be recovered"
 msgstr "Yetki bilgisi kurtarılamadı"
 
 #: libpam/pam_strerror.c:88
-#, fuzzy
 msgid "Authentication token lock busy"
 msgstr "Yetki alıntı kütüğü kilitli"
 
@@ -469,3 +467,6 @@ msgstr "...Üzgünüm, süreniz doldu!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "hatalı etkileşim (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "dlopen() hatası"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.hu\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2006-03-14 09:50+0100\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-03 22:06+0200\n"
 "Last-Translator: Kalman Kemenczy <kkemenczy@novell.com>\n"
 "Language-Team: Hungarian <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -334,8 +334,8 @@ msgid "Critical error - immediate abort"
 msgstr "Kritikus hiba - azonnali leállás"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "dlopen() hiba"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -366,21 +366,21 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "Nem elegendő azonosítási adat a hitelesítési adatok eléréséhez"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
-msgstr "A hitelesítési szolgáltatás nem tudja lekérni a hitelesítési adatokat."
+msgid "Authentication service cannot retrieve authentication info"
+msgstr "A hitelesítési szolgáltatás nem tudja lekérni a hitelesítési adatokat"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "Az alsóbb szintű hitelesítési modul nem ismeri a felhasználót"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
+msgid "Have exhausted maximum number of retries for service"
 msgstr ""
-"Elérte a szolgáltatás által engedélyezett újrapróbálkozások maximális számát."
+"Elérte a szolgáltatás által engedélyezett újrapróbálkozások maximális számát"
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr "A hitelesítési token már nem érvényes; újra van szükség."
+msgid "Authentication token is no longer valid; new one required"
+msgstr "A hitelesítési token már nem érvényes; újra van szükség"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -472,3 +472,6 @@ msgstr "...Elnézést, de az idő lejárt!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "hibás beszélgetés (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "dlopen() hiba"

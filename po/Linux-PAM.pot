@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -330,7 +330,7 @@ msgid "Critical error - immediate abort"
 msgstr ""
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
+msgid "Failed to load module"
 msgstr ""
 
 #: libpam/pam_strerror.c:46
@@ -362,7 +362,7 @@ msgid "Insufficient credentials to access authentication data"
 msgstr ""
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
+msgid "Authentication service cannot retrieve authentication info"
 msgstr ""
 
 #: libpam/pam_strerror.c:62
@@ -370,11 +370,11 @@ msgid "User not known to the underlying authentication module"
 msgstr ""
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
+msgid "Have exhausted maximum number of retries for service"
 msgstr ""
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
+msgid "Authentication token is no longer valid; new one required"
 msgstr ""
 
 #: libpam/pam_strerror.c:68

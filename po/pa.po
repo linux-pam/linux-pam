@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pa\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
 "PO-Revision-Date: 2005-08-06 08:34+0530\n"
 "Last-Translator: Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>\n"
 "Language-Team: Panjabi <pa@li.org>\n"
@@ -338,8 +338,8 @@ msgid "Critical error - immediate abort"
 msgstr "ਨਾਜ਼ੁਕ ਗਲਤੀ - ਤਰੁੰਤ ਅਧੂਰਾ ਛੱਡਿਆ"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "dlopen() ਫੇਲ"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -370,7 +370,7 @@ msgid "Insufficient credentials to access authentication data"
 msgstr ""
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
+msgid "Authentication service cannot retrieve authentication info"
 msgstr ""
 
 #: libpam/pam_strerror.c:62
@@ -378,12 +378,13 @@ msgid "User not known to the underlying authentication module"
 msgstr ""
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
+msgid "Have exhausted maximum number of retries for service"
 msgstr ""
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr ""
+#, fuzzy
+msgid "Authentication token is no longer valid; new one required"
+msgstr "ਪਰਮਾਣਕਿਤਾ ਟੋਕਨ ਦੀ ਮਿਆਦ ਪੁੱਗ ਚੁੱਕੀ ਹੈ"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -473,6 +474,9 @@ msgstr "...ਅਫ਼ਸੋਸ, ਤੁਹਾਡਾ ਸਮਾਂ ਸਮਾਪਤ �
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr ""
+
+#~ msgid "dlopen() failure"
+#~ msgstr "dlopen() ਫੇਲ"
 
 #, fuzzy
 #~ msgid "%s: set %s security context to %s"

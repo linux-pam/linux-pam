@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2006-03-24 08:05+0200\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-04 08:30+0200\n"
 "Last-Translator: Jyri Palokangas <jmp@netti.fi>\n"
 "Language-Team:  <yast-trans-fi@kotoistaminen.novell.fi>\n"
 "MIME-Version: 1.0\n"
@@ -335,8 +335,8 @@ msgid "Critical error - immediate abort"
 msgstr "Kriittinen virhe - välitön keskeytys"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "dlopen() virhe"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -367,20 +367,20 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "Riittämätön valtuustieto tunnistautumistietojen saamiseksi"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
-msgstr "Tunnistautumispalvelu ei pääse tunnistautumistietoihin."
+msgid "Authentication service cannot retrieve authentication info"
+msgstr "Tunnistautumispalvelu ei pääse tunnistautumistietoihin"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "Käyttäjä tuntematon taustajärjestelmän tunnistautumismoduulille"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
-msgstr "Kaikki palvelun uudelleenyritykset käytetty."
+msgid "Have exhausted maximum number of retries for service"
+msgstr "Kaikki palvelun uudelleenyritykset käytetty"
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr "Tunnistautumislipuke ei ole enää kelvollinen, tarvitaan uusi."
+msgid "Authentication token is no longer valid; new one required"
+msgstr "Tunnistautumislipuke ei ole enää kelvollinen, tarvitaan uusi"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -470,3 +470,6 @@ msgstr "...Aikasi on loppunut!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "virheellinen keskustelu (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "dlopen() virhe"

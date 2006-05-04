@@ -802,7 +802,7 @@ This function may return one of the following errors,
 	The user is no longer permitted access to the system.
 <tag><tt/PAM_AUTH_ERR/</tag>
 	There was an authentication error.
-<tag><tt/PAM_AUTHTOKEN_REQD/</tag>
+<tag><tt/PAM_NEW_AUTHTOKEN_REQD/</tag>
 	The user's authentication token has expired. Before calling
 this function again the application will arrange for a new one to be
 given. This will likely result in a call to <tt/pam_sm_chauthtok()/.

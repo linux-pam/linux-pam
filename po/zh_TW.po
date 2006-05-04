@@ -2,13 +2,13 @@
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2005-08-18 12:12+0200\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-03 18:55+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
@@ -330,8 +330,8 @@ msgid "Critical error - immediate abort"
 msgstr "嚴重錯誤 - 立即中止"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "dlopen() 失敗"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -362,20 +362,20 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "憑證不足，無法存取驗證資料"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
-msgstr "驗證服務無法取出驗證資訊。"
+msgid "Authentication service cannot retrieve authentication info"
+msgstr "驗證服務無法取出驗證資訊"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "底層的驗證模組無法識別使用者"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
-msgstr "服務的重試次數已超過最大數量。"
+msgid "Have exhausted maximum number of retries for service"
+msgstr "服務的重試次數已超過最大數量"
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr "驗證記號已經失效；需要新的驗證記號。"
+msgid "Authentication token is no longer valid; new one required"
+msgstr "驗證記號已經失效；需要新的驗證記號"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -465,6 +465,9 @@ msgstr "...抱歉，您的時間已到！\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "錯誤的交談 (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "dlopen() 失敗"
 
 #~ msgid "%s: set %s security context to %s"
 #~ msgstr "不是有效的安全網路位置"

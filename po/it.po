@@ -2,13 +2,13 @@
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2005-08-18 13:43-0000\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-03 22:05+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
@@ -334,8 +334,8 @@ msgid "Critical error - immediate abort"
 msgstr "Errore critico - interruzione immediata"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "errore dlopen()"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -366,22 +366,22 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "Credenziali insufficienti per accedere ai dati di autenticazione"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
+msgid "Authentication service cannot retrieve authentication info"
 msgstr ""
 "Il servizio di autenticazione non è in grado di recuperare le informazioni "
-"di autenticazione."
+"di autenticazione"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "Utente sconosciuto nel modulo di autenticazione sottostante"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
-msgstr "Numero massimo di tentativi per il servizio superato."
+msgid "Have exhausted maximum number of retries for service"
+msgstr "Numero massimo di tentativi per il servizio superato"
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr "Token di autenticazione non più valido; richiesto uno nuovo."
+msgid "Authentication token is no longer valid; new one required"
+msgstr "Token di autenticazione non più valido; richiesto uno nuovo"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -474,6 +474,9 @@ msgstr "...Tempo scaduto!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "conversazione errata (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "errore dlopen()"
 
 #~ msgid "%s: set %s security context to %s"
 #~ msgstr "Non è un contesto di sicurezza valido"

@@ -1,4 +1,37 @@
-2006-05-02  Thorsten Kukuk  <kukuk@suse.de>
+2006-05-04  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpam/pam_strerror.c: Unify error messages.
+
+	* po/zh_TW.po: Adjust for last pam_strerror changes.
+	* po/zh_CN.po: Likewise.
+	* po/uk.po: Likewise.
+	* po/tr.po: Likewise.
+	* po/pt.po: Likewise.
+	* po/pt_BR.po: Likewise.
+	* po/pl.po: Likewise.
+	* po/ja.po: Likewise.
+	* po/nl.po: Likewise.
+	* po/nb.po: Likewise.
+	* po/it.po: Likewise.
+	* po/hu.po: Likewise.
+	* po/fr.po: Likewise.
+	* po/fi.po: Likewise.
+	* po/es.po: Likewise.
+	* po/de.po: Likewise.
+	* po/cs.po: Likewise.
+
+	* doc/man/pam.3.xml: New.
+	* doc/man/pam.3. New, generated from XML file.
+
+	* doc/man/pam_sm_acct_mgmt.3.xml: New.
+	* doc/man/pam_sm_acct_mgmt.3: New, generated from XML file.
+
+	* doc/man/*.xml: Fix encoding and use always UTF-8, regenerate
+	all manual pages.
+
+	* doc/pam_modules.sgml (PAM_NEW_AUTHTOKEN_REQD): Fix typo.
+
+2006-05-02  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_unix/pam_unix_acct.c (pam_sm_acct_mgmt): Use
 	different strings for plural or not [#1427738]

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2006-03-22 12:56+0100\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-03 22:04+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@online.no>\n"
 "Language-Team:  <nb@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -330,8 +330,8 @@ msgid "Critical error - immediate abort"
 msgstr "Kritisk feil - avbryter straks"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "dlopen()-feil"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -362,20 +362,20 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "Utilstrekkelige rettigheter for tilgang til autentiseringsinformasjon"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
-msgstr "Autentiseringstjenesten kan ikke hente autentiseringsinformasjon."
+msgid "Authentication service cannot retrieve authentication info"
+msgstr "Autentiseringstjenesten kan ikke hente autentiseringsinformasjon"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "Bruker ukjent for autentiseringsmodul"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
-msgstr "Maksimalt antall forsøk er overskredet for tjenesten."
+msgid "Have exhausted maximum number of retries for service"
+msgstr "Maksimalt antall forsøk er overskredet for tjenesten"
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr "Autentiseringsjide ikke lenger gyldig; ny kode kreves."
+msgid "Authentication token is no longer valid; new one required"
+msgstr "Autentiseringsjide ikke lenger gyldig; ny kode kreves"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -465,3 +465,6 @@ msgstr "...Beklager, tiden er utløpt!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "mislykket dialog (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "dlopen()-feil"

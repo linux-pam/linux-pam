@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.uk\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2006-03-15 14:54-0700\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-03 18:59+0200\n"
 "Last-Translator: Ivan Petrouchtchak <ivanpetrouchtchak@yahoo.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
@@ -336,8 +336,8 @@ msgid "Critical error - immediate abort"
 msgstr "Критична помилка - негайна зупинка"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "Помилка dlopen()"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -368,20 +368,20 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "Недостатньо прав для доступу до даних автентифікації"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
-msgstr "Служба автентифікації не може отримати інформацію автентифікації."
+msgid "Authentication service cannot retrieve authentication info"
+msgstr "Служба автентифікації не може отримати інформацію автентифікації"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "Невідомий користувач для модуля автентифікації"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
-msgstr "Витрачено максимальну кількість дозволених спроб для служби."
+msgid "Have exhausted maximum number of retries for service"
+msgstr "Витрачено максимальну кількість дозволених спроб для служби"
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr "Лексема автентифікації вже не чинна; потрібна нова."
+msgid "Authentication token is no longer valid; new one required"
+msgstr "Лексема автентифікації вже не чинна; потрібна нова"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -471,3 +471,6 @@ msgstr "...Вибачте, ваш час закінчився!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "помилкова розмова (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "Помилка dlopen()"

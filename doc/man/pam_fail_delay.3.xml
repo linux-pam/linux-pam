@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
                    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 
@@ -191,7 +191,7 @@ module #2:    pam_fail_delay (pamh, 4000000);
   <refsect1 id='pam_fail_delay-standards'>
     <title>STANDARDS</title>
     <para>
-      The <function>pam_fail_delay</funcion> function is an
+      The <function>pam_fail_delay</function> function is an
       Linux-PAM extension.
     </para>
   </refsect1>

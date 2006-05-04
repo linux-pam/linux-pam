@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2006-05-02 13:08+02:00\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-04 08:41+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
@@ -331,8 +331,8 @@ msgid "Critical error - immediate abort"
 msgstr "Kritischer Fehler - sofortiger Abbruch"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "Fehler bei dlopen()"
+msgid "Failed to load module"
+msgstr "Fehler beim Laden des Moduls"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -340,7 +340,7 @@ msgstr "Symbol nicht gefunden"
 
 #: libpam/pam_strerror.c:48
 msgid "Error in service module"
-msgstr "Fehler bei Dienstmodul"
+msgstr "Fehler im Service Modul"
 
 #: libpam/pam_strerror.c:50
 msgid "System error"
@@ -348,7 +348,7 @@ msgstr "Systemfehler"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
-msgstr "Fehler beim Speicherpuffer"
+msgstr "Fehler beim Allozieren von Speicher"
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
@@ -356,7 +356,7 @@ msgstr "Berechtigung verweigert"
 
 #: libpam/pam_strerror.c:56
 msgid "Authentication failure"
-msgstr "Fehler bei Authentifizierung."
+msgstr "Fehler bei Authentifizierung"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
@@ -365,7 +365,7 @@ msgstr ""
 "ausreichend"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
+msgid "Authentication service cannot retrieve authentication info"
 msgstr ""
 "Authentifizierungsdienst kann Authentifizierungsinformationen nicht abrufen"
 
@@ -374,16 +374,16 @@ msgid "User not known to the underlying authentication module"
 msgstr "Benutzer bei zu Grunde liegendem Authentifizierungsmodul nicht bekannt"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
-msgstr "Maximale Anzahl an Versuchen für den Dienst erreicht."
+msgid "Have exhausted maximum number of retries for service"
+msgstr "Maximale Anzahl an Versuchen für den Dienst erreicht"
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr "Authentifizierungs-Token ist nicht mehr gültig; neues erforderlich."
+msgid "Authentication token is no longer valid; new one required"
+msgstr "Authentifizierungs-Token ist nicht mehr gültig; neues erforderlich"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
-msgstr "Benutzerkonto ist abgelaufen."
+msgstr "Benutzerkonto ist abgelaufen"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
@@ -440,7 +440,7 @@ msgstr "Der Rückgabewert sollte von PAM-Dispatch ignoriert werden"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
-msgstr "Modul ist nicht bekannt."
+msgstr "Modul ist nicht bekannt"
 
 #: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
@@ -448,7 +448,7 @@ msgstr "Authentifizierungs-Token abgelaufen"
 
 #: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
-msgstr "Kommunikation wartet auf Ereignis "
+msgstr "Kommunikation wartet auf Ereignis"
 
 #: libpam/pam_strerror.c:102
 msgid "Application needs to call libpam again"
@@ -470,3 +470,6 @@ msgstr "...Ihre Zeit ist abgelaufen.\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "fehlerhafte Kommunikation (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "Fehler bei dlopen()"

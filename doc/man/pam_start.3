@@ -2,7 +2,7 @@
 .\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
 .\" Instead of manually editing it, you probably should edit the DocBook XML
 .\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_START" "3" "02/12/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_START" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -18,7 +18,7 @@ pam_start \- initialization of PAM transaction
 .PP
 The
 \fBpam_start\fR
-function creates the PAM context and initiates the PAM transaction. It is the first of the PAM functions that needs to be called by an application.
+function creates the PAM context and initiates the PAM transaction. It is the first of the PAM functions that needs to be called by an application. The transaction state is contained entirely within the structure identified by this handle, so it is possible to have multiple transactions in parallel. But it is not possible to use the same handle for different transactions, a new one is needed for every new context.
 .PP
 The
 \fIservice_name\fR

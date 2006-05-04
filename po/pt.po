@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2006-03-13 23:25+0000\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-03 21:54+0200\n"
 "Last-Translator: Antonio Cardoso Martins <digiplan@netvisao.pt>\n"
 "Language-Team: portuguese\n"
 "MIME-Version: 1.0\n"
@@ -335,8 +335,8 @@ msgid "Critical error - immediate abort"
 msgstr "Erro crítico - interrupção imediata"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "falha em dlopen()"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -367,20 +367,20 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "Credenciais insuficientes para aceder aos dados de autenticação"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
-msgstr "O serviço de autenticação não pode obter informação de autenticação."
+msgid "Authentication service cannot retrieve authentication info"
+msgstr "O serviço de autenticação não pode obter informação de autenticação"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "Utilizador desconhecido para o módulo de autenticação subjacente"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
-msgstr "Esgotou o número máximo de tentativas para o serviço."
+msgid "Have exhausted maximum number of retries for service"
+msgstr "Esgotou o número máximo de tentativas para o serviço"
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr "O testemunho de autenticação já não é válido; é necessário um novo."
+msgid "Authentication token is no longer valid; new one required"
+msgstr "O testemunho de autenticação já não é válido; é necessário um novo"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -471,3 +471,6 @@ msgstr "...Lamento, o seu tempo esgotou-se!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "conversação errónea (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "falha em dlopen()"

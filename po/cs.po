@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-02 13:05+0200\n"
-"PO-Revision-Date: 2006-03-14 15:43+0100\n"
+"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"PO-Revision-Date: 2006-05-04 08:44+0200\n"
 "Last-Translator: Klara Cihlarova <koty@seznam.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -205,14 +205,14 @@ msgid "You are required to change your password immediately (password aged)"
 msgstr "Musíte okamžitě změnit své heslo (heslo vypršelo)"
 
 #: modules/pam_unix/pam_unix_acct.c:322
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in one day"
-msgstr "Varování: Počet dní do vypršení hesla: %d %.0s"
+msgstr "Varování: Počet dní do vypršení hesla: 1"
 
 #: modules/pam_unix/pam_unix_acct.c:325
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "Varování: Počet dní do vypršení hesla: %d %.0s"
+msgstr "Varování: Počet dní do vypršení hesla: %d"
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
@@ -333,8 +333,8 @@ msgid "Critical error - immediate abort"
 msgstr "Kritická chyba - okamžité ukončení"
 
 #: libpam/pam_strerror.c:44
-msgid "dlopen() failure"
-msgstr "Selhání dlopen()"
+msgid "Failed to load module"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -365,20 +365,20 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "Nedostatečná oprávnění pro přístup k autentizačním datům"
 
 #: libpam/pam_strerror.c:60
-msgid "Authentication service cannot retrieve authentication info."
-msgstr "Autentizační služba nemůže získat informace pro autentizaci."
+msgid "Authentication service cannot retrieve authentication info"
+msgstr "Autentizační služba nemůže získat informace pro autentizaci"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "Uživatel není znám použitému autentizačnímu modulu"
 
 #: libpam/pam_strerror.c:64
-msgid "Have exhausted maximum number of retries for service."
-msgstr "Vyčerpán maximální počet pokusů pro službu."
+msgid "Have exhausted maximum number of retries for service"
+msgstr "Vyčerpán maximální počet pokusů pro službu"
 
 #: libpam/pam_strerror.c:66
-msgid "Authentication token is no longer valid; new one required."
-msgstr "Autentizační token již není platný; vyžadován nový."
+msgid "Authentication token is no longer valid; new one required"
+msgstr "Autentizační token již není platný; vyžadován nový"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -468,3 +468,6 @@ msgstr "...Čas vypršel!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "nesprávná konverzace (%d)\n"
+
+#~ msgid "dlopen() failure"
+#~ msgstr "Selhání dlopen()"
