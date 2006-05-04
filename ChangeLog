@@ -1,5 +1,7 @@
 2006-05-04  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* release version 0.99.4.0
+
 	* libpam/pam_strerror.c: Unify error messages.
 
 	* po/zh_TW.po: Adjust for last pam_strerror changes.
