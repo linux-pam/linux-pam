@@ -377,7 +377,7 @@ AC_TYPE_GETGROUPS
 AC_PROG_GCC_TRADITIONAL
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS(gethostname gettimeofday lckpwdf mkdir select)
+AC_CHECK_FUNCS(fseeko gethostname gettimeofday lckpwdf mkdir select)
 AC_CHECK_FUNCS(strcspn strdup strspn strstr strtol uname)
 AC_CHECK_FUNCS(getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r)
 AC_CHECK_FUNCS(getgrouplist getline getdelim)

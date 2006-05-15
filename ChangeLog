@@ -1,3 +1,9 @@
+2006-05-04  Thorsten Kukuk  <kukuk@suse.de>
+
+	* configure.in: Check for fseeko.
+	* modules/pam_tally/pam_tally.c: Use fseeko if available
+	(Based on patch by IBM).
+
 2006-05-04  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.4.0

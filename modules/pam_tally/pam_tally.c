@@ -1,7 +1,6 @@
 /*
  * pam_tally.c
  *
- * $Id$
  */
 
 
@@ -34,11 +33,6 @@
 #include <sys/param.h>
 #include "faillog.h"
 
-#ifndef TRUE
-#define TRUE  1L
-#define FALSE 0L
-#endif
-
 /*
  * here, we make a definition for the externally accessible function
  * in this file (this definition is required for static a module
@@ -55,6 +49,15 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
+#ifndef TRUE
+#define TRUE  1L
+#define FALSE 0L
+#endif
+
+#ifndef HAVE_FSEEKO
+#define fseeko fseek
+#endif
+
 /*---------------------------------------------------------------------*/
 
 #define DEFAULT_LOGFILE "/var/log/faillog"
@@ -63,8 +66,6 @@
 #define tally_t    unsigned short int
 #define TALLY_FMT  "%hu"
 #define TALLY_HI   ((tally_t)~0L)
-
-#define UID_FMT    "%hu"
 
 #ifndef FILENAME_MAX
 # define FILENAME_MAX MAXPATHLEN
@@ -345,7 +346,7 @@ get_tally(pam_handle_t *pamh, tally_t *tally, uid_t uid,
       return PAM_AUTH_ERR;
     }
 
-    if ( fseek( *TALLY, uid * sizeof(struct faillog), SEEK_SET ) ) {
+    if ( fseeko( *TALLY, (off_t) uid * sizeof(struct faillog), SEEK_SET ) ) {
           pam_syslog(pamh, LOG_ALERT, "fseek failed for %s", filename);
           fclose(*TALLY);
           return PAM_AUTH_ERR;
@@ -382,7 +383,7 @@ set_tally(pam_handle_t *pamh, tally_t tally, uid_t uid,
     int retval = PAM_SUCCESS;
 
     if ( tally!=TALLY_HI ) {
-      if ( fseek( *TALLY, uid * sizeof(struct faillog), SEEK_SET ) ) {
+      if ( fseeko( *TALLY, (off_t) uid * sizeof(struct faillog), SEEK_SET ) ) {
 	pam_syslog(pamh, LOG_ALERT, "fseek failed for %s", filename);
 	retval = PAM_AUTH_ERR;
       } else {
@@ -518,9 +519,9 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
       	if ( lock_time + oldtime > time(NULL) )
       	{
       		pam_syslog(pamh, LOG_NOTICE,
-			 "user %s ("UID_FMT") has time limit [%lds left]"
+			 "user %s (%lu) has time limit [%lds left]"
 			 " since last failure.",
-			 user,uid,
+			 user, (unsigned long int) uid,
 			 oldtime+lock_time
 			 -time(NULL));
       		return PAM_AUTH_ERR;
@@ -539,8 +540,8 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
         ( ((opts->ctrl & OPT_DENY_ROOT) || uid) )    /* even_deny stops uid check    */
         ) {
         pam_syslog(pamh, LOG_NOTICE,
-		   "user %s ("UID_FMT") tally "TALLY_FMT", deny "TALLY_FMT,
-		   user, uid, tally, deny);
+		   "user %s (%lu) tally "TALLY_FMT", deny "TALLY_FMT,
+		   user, (unsigned long int) uid, tally, deny);
         return PAM_AUTH_ERR;                 /* Only unconditional failure   */
       }
     }
@@ -807,7 +808,8 @@ int main ( int argc UNUSED, char **argv )
     }
 
     if ( !cline_quiet )
-      printf("User %s\t("UID_FMT")\t%s "TALLY_FMT"\n",cline_user,uid,
+      printf("User %s\t(%lu)\t%s "TALLY_FMT"\n",cline_user,
+	     (unsigned long int) uid,
              (cline_reset!=TALLY_HI)?"had":"has",tally);
 
     i=set_tally(NULL, cline_reset, uid, cline_filename, &TALLY, fsp);
@@ -832,11 +834,13 @@ int main ( int argc UNUSED, char **argv )
       tally = fsp->fs_faillog.fail_cnt;
 
       if ( ( pw=getpwuid(uid) ) ) {
-        printf("User %s\t("UID_FMT")\t%s "TALLY_FMT"\n",pw->pw_name,uid,
+        printf("User %s\t(%lu)\t%s "TALLY_FMT"\n",pw->pw_name,
+	       (unsigned long int) uid,
                (cline_reset!=TALLY_HI)?"had":"has",tally);
       }
       else {
-        printf("User [NONAME]\t("UID_FMT")\t%s "TALLY_FMT"\n",uid,
+        printf("User [NONAME]\t(%lu)\t%s "TALLY_FMT"\n",
+	       (unsigned long int) uid,
                (cline_reset!=TALLY_HI)?"had":"has",tally);
       }
     }
