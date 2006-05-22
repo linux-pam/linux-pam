@@ -2,6 +2,7 @@ Linux-PAM NEWS -- history of user-visible changes.
 
 
 * pam_tally: Fix support for large UIDs
+* Fixed all problems found by Coverity
 
 Release 0.99.4.0
 

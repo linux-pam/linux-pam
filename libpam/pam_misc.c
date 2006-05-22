@@ -170,11 +170,11 @@ int _pam_mkargv(char *s, char ***argv, int *argc)
 		    sbuf = NULL;
 		    D(("loop again?"));
 		}
-		_pam_drop(sbuf_start);
 	    }
+	    _pam_drop(sbuf_start);
 	}
     }
-    
+
     *argv = our_argv;
 
     D(("_pam_mkargv returned"));
@@ -256,7 +256,7 @@ void _pam_parse_control(int *control_array, char *tok)
 	    error = "expecting '='";
 	    goto parse_error;
 	}
-	
+
 	/* skip leading space */
 	while (isspace((int)*tok) && *++tok);
 	if (!*tok) {

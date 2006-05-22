@@ -1,3 +1,31 @@
+2006-05-22  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_listfile/pam_listfile.c (pam_sm_authenticate):
+	Fix memory leaks, [#1490956] found by Coverity.
+
+	* modules/pam_tally/pam_tally.c (pam_get_uid): Check return
+	value of pam_get_user().
+	(tally_get_data): Check if oldtime is not NULL.
+	[#1489818] found by Coverity.
+
+	* modules/pam_mkhomedir/pam_mkhomedir.c (create_homedir): Don't
+	ignore return value of stat(). [#1489808] found by Coverity.
+
+	* modules/pam_mail/pam_mail.c (get_folder): Fix a potential
+	NULL pointer dereference. [#1489792] found by Coverity.
+
+	* libpam/Makefile.am: bump release number of libpam.so.
+	* libpam/pam_misc.c (_pam_mkargv): Fix memory leak,
+	[#1489804] found by Coverity.
+
+	* modules/pam_echo/pam_echo.c (replace_and_print): Initialize
+	str, [#1489658] found by Coverity.
+
+	* modules/pam_cracklib/pam_cracklib.c (_pam_unix_approve_pass): Fix
+	a potential NULL pointer dereference.
+	(pam_sm_chauthtok): Remove dead code.
+	[#1489634] found by Coverity.
+
 2006-05-04  Thorsten Kukuk  <kukuk@suse.de>
 
 	* configure.in: Check for fseeko.

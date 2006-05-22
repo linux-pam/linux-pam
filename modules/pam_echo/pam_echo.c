@@ -67,7 +67,7 @@ replace_and_print (pam_handle_t *pamh, const char *mesg)
   char *output;
   size_t length = strlen (mesg) + PAM_MAX_MSG_SIZE;
   char myhostname[HOST_NAME_MAX+1];
-  const void *str;
+  const void *str = NULL;
   const char *p, *q;
   int item;
   size_t len;

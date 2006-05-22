@@ -1,8 +1,6 @@
 /* pam_mail module */
 
 /*
- * $Id$
- *
  * Written by Andrew Morgan <morgan@linux.kernel.org> 1996/3/11
  * $HOME additions by David Kinchlea <kinch@kinch.ark.com> 1997/1/7
  * mailhash additions by Chris Adams <cadams@ro.com> 1998/7/11
@@ -174,6 +172,14 @@ get_folder(pam_handle_t *pamh, int ctrl,
 
     retval = PAM_BUF_ERR;
     if (ctrl & PAM_HOME_MAIL) {
+        if (pwd == NULL) {
+	    pwd = pam_modutil_getpwnam(pamh, user);
+	    if (pwd == NULL) {
+		pam_syslog(pamh, LOG_ERR, "user unknown");
+		retval = PAM_USER_UNKNOWN;
+		goto get_folder_cleanup;
+	    }
+	}
 	if (asprintf(&folder, MAIL_FILE_FORMAT, pwd->pw_dir, "", path) < 0)
 	    goto get_folder_cleanup;
     } else {

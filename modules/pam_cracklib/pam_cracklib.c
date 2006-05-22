@@ -473,10 +473,9 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
     if (!msg) {
 	retval = pam_get_item(pamh, PAM_USER, &user);
 	if (retval != PAM_SUCCESS || user == NULL) {
-	    if (ctrl & PAM_DEBUG_ARG) {
+	    if (ctrl & PAM_DEBUG_ARG)
 		pam_syslog(pamh,LOG_ERR,"Can not get username");
-        	return PAM_AUTHTOK_ERR;
-	    }
+	    return PAM_AUTHTOK_ERR;
 	}
 	msg = check_old_password(user, pass_new);
     }
@@ -663,11 +662,6 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
                  */
 	        _pam_drop(resp);
             } else {
-                retval = (retval == PAM_SUCCESS) ?
-                         PAM_AUTHTOK_RECOVERY_ERR:retval ;
-            }
-
-            if (retval != PAM_SUCCESS) {
                 if (ctrl && PAM_DEBUG_ARG)
                     pam_syslog(pamh, LOG_DEBUG,
 			       "unable to obtain the password a second time");

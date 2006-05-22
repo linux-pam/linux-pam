@@ -341,7 +341,20 @@ create_homedir (pam_handle_t * pamh, int ctrl,
 
 	 return PAM_PERM_DENIED;
       }
-      stat(newsource,&St);
+      if (stat(newsource,&St) != 0)
+	{
+	  pam_syslog(pamh, LOG_DEBUG, "unable to stat src file %s: %m",
+		     newsource);
+	  close(SrcFd);
+	  closedir(D);
+
+#ifndef PATH_MAX
+	  free(newsource); newsource = NULL;
+	  free(newdest); newdest = NULL;
+#endif
+
+	  return PAM_PERM_DENIED;
+	}
 
       /* Open the dest file */
       if ((DestFd = open(newdest,O_WRONLY | O_TRUNC | O_CREAT,0600)) < 0)
