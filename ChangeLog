@@ -1,3 +1,8 @@
+2006-05-23  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_echo/pam_echo.c (pam_echo): Use pam_modutil_read()
+	instead of read().
+
 2006-05-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_listfile/pam_listfile.c (pam_sm_authenticate):

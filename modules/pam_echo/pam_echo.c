@@ -58,6 +58,7 @@
 #define PAM_SM_SESSION
 
 #include <security/pam_modules.h>
+#include <security/pam_modutil.h>
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
 
@@ -182,7 +183,7 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
       if (!mtmp)
 	return PAM_BUF_ERR;
 
-      if (read (fd, mtmp, st.st_size) == -1)
+      if (pam_modutil_read (fd, mtmp, st.st_size) == -1)
 	{
 	  pam_syslog (pamh, LOG_ERR, "Error while reading %s: %m", file);
 	  free (mtmp);
