@@ -4,7 +4,11 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README tst-pam_mkhomedir
+EXTRA_DIST = README (MANS) $(XMLS) tst-pam_mkhomedir
+
+man_MANS = pam_mkhomedir.8
+
+XMLS = README.xml pam_mkhomedir.8.xml
 
 TESTS = tst-pam_mkhomedir
 
@@ -19,3 +23,11 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_mkhomedir.la
+pam_mkhomedir_la_SOURCES = pam_mkhomedir.c
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_mkhomedir.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+

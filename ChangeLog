@@ -1,3 +1,11 @@
+2006-05-29  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_mkhomedir/Makefile.am: Include Make.xml.rules.
+	* modules/pam_mkhomedir/pam_mkhomedir.8.xml: New.
+	* modules/pam_mkhomedir/pam_mkhomedir.8: New, generated from xml file.
+	* modules/pam_mkhomedir/README.xml: New.
+	* modules/pam_mkhomedir/README: Regenerated from xml file.
+
 2006-05-23  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_echo/pam_echo.c (pam_echo): Use pam_modutil_read()
