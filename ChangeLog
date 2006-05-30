@@ -1,5 +1,8 @@
 2006-05-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_mkhomedir/pam_mkhomedir.8.xml: Fix umask and skel
+	directory documentation.
+
 	* modules/pam_umask/Makefile.am: Include Make.xml.rules.
 	* modules/pam_umask/pam_umask.8.xml: New.
 	* modules/pam_umask/pam_umask.8: New, generated from xml file.

@@ -42,7 +42,9 @@
       if it does not exist when the session begins. This allows users
       to be present in central database (such as NIS, kerberos or LDAP)
       without using a distributed file system or pre-creating a large
-      number of directories.
+      number of directories. The skeleton directory (usually
+      <filename>/etc/skel/</filename>) is used to copy default files
+      and also set's a umask for the creation.
     </para>
     <para>
       The new users home directory will not be removed after logout
@@ -67,12 +69,12 @@
 
       <varlistentry>
         <term>
-          <option>umask=<replaceable>mode</replaceable></option>
+          <option>umask=<replaceable>mask</replaceable></option>
         </term>
         <listitem>
           <para>
             The user file-creation mask is set to
-            <replaceable>mode</replaceable>. The default value of umask is
+            <replaceable>mask</replaceable>. The default value of mask is
             0022.
           </para>
         </listitem>

@@ -2,7 +2,7 @@
 .\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
 .\" Instead of manually editing it, you probably should edit the DocBook XML
 .\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_MKHOMEDIR" "8" "05/24/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_MKHOMEDIR" "8" "05/30/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -14,7 +14,8 @@ pam_mkhomedir \- PAM module to create users home directory
 \fBpam_mkhomedir.so\fR [silent] [umask=\fImode\fR] [skel=\fIskeldir\fR]
 .SH "DESCRIPTION"
 .PP
-The pam_mkhomedir PAM module will create a users home directory if it does not exist when the session begins. This allows users to be present in central database (such as NIS, kerberos or LDAP) without using a distributed file system or pre\-creating a large number of directories.
+The pam_mkhomedir PAM module will create a users home directory if it does not exist when the session begins. This allows users to be present in central database (such as NIS, kerberos or LDAP) without using a distributed file system or pre\-creating a large number of directories. The skeleton directory (usually
+\fI/etc/skel/\fR) is used to copy default files and also set's a umask for the creation.
 .PP
 The new users home directory will not be removed after logout of the user.
 .SH "OPTIONS"
@@ -22,9 +23,9 @@ The new users home directory will not be removed after logout of the user.
 \fBsilent\fR
 Don't print informative messages.
 .TP
-\fBumask=\fR\fB\fImode\fR\fR
+\fBumask=\fR\fB\fImask\fR\fR
 The user file\-creation mask is set to
-\fImode\fR. The default value of umask is 0022.
+\fImask\fR. The default value of mask is 0022.
 .TP
 \fBskel=\fR\fB\fI/path/to/skel/directory\fR\fR
 Indicate an alternative
