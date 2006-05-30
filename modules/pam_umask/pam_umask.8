@@ -1,0 +1,85 @@
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_UMASK" "8" "05/30/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_umask \- PAM module to set the file mode creation mask
+.SH "SYNOPSIS"
+.HP 13
+\fBpam_umask.so\fR [debug] [usergroups] [umask=\fImask\fR]
+.SH "DESCRIPTION"
+.PP
+pam_umask is a PAM module to set the file mode creation mask of the current environment. The umask affects the default permissions assigned to newly created files.
+.PP
+The PAM module tries to get the umask value from the following places in the following order:
+.TP 3
+\(bu
+umask= argument
+.TP
+\(bu
+umask= entry of the users GECOS field
+.TP
+\(bu
+pri= entry of the users GECOS field
+.TP
+\(bu
+ulimit= entry of the users GECOS field
+.TP
+\(bu
+UMASK= entry from /etc/default/login
+.TP
+\(bu
+UMASK entry from /etc/login.defs
+.SH "OPTIONS"
+.PP
+.TP
+\fBdebug\fR
+Print debug information.
+.TP
+\fBusergroups\fR
+If the user is not root, and the user ID is equal to the group ID, and the username is the same as primary group name, the umask group bits are set to be the same as owner bits (examples: 022 \-> 002, 077 \-> 007).
+.TP
+\fBumask=\fR\fB\fImask\fR\fR
+Sets the calling process's file mode creation mask (umask) to
+\fBmask\fR
+& 0777. The value is interpreted as Octal.
+.SH "MODULE SERVICES PROVIDED"
+.PP
+Only the
+\fBsession\fR
+service is supported.
+.SH "RETURN VALUES"
+.PP
+.TP
+PAM_SUCCESS
+The new umask was set successfull.
+.TP
+PAM_SERVICE_ERR
+No username was given.
+.TP
+PAM_USER_UNKNOWN
+User not known.
+.SH "EXAMPLES"
+.PP
+Add the following line to
+\fI/etc/pam.d/login\fR
+to set the user specific umask at login:
+.sp
+.nf
+        session optional pam_umask.so umask=0022
+      
+.fi
+.sp
+.SH "SEE ALSO"
+.PP
+\fBpam.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8)
+.SH "AUTHOR"
+.PP
+pam_umask was written by Thorsten Kukuk <kukuk@thkukuk.de>.

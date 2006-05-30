@@ -1,3 +1,11 @@
+2006-05-30  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_umask/Makefile.am: Include Make.xml.rules.
+	* modules/pam_umask/pam_umask.8.xml: New.
+	* modules/pam_umask/pam_umask.8: New, generated from xml file.
+	* modules/pam_umask/README.xml: New.
+	* modules/pam_umask/README: Regenerated from xml file.
+
 2006-05-29  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_mkhomedir/Makefile.am: Include Make.xml.rules.

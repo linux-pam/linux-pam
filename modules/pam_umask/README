@@ -1,14 +1,54 @@
-This is the README for pam_umask
---------------------------------
+pam_umask — PAM module to set the file mode creation mask
 
-pam_umask sets the set the file mode creation mask of the current
-environment. It tries to get the umask value from the following 
-files in the following priority:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-- umask= argument
-- umask= entry of the users GECOS field
-- pri= entry of the users GECOS field
-- ulimit= entry of the users GECOS field
-- UMASK= entry from /etc/default/login
-- UMASK entry from /etc/login.defs
+DESCRIPTION
+
+pam_umask is a PAM module to set the file mode creation mask of the current
+environment. The umask affects the default permissions assigned to newly
+created files.
+
+The PAM module tries to get the umask value from the following places in the
+following order:
+
+  ● umask= argument
+
+  ● umask= entry of the users GECOS field
+
+  ● pri= entry of the users GECOS field
+
+  ● ulimit= entry of the users GECOS field
+
+  ● UMASK= entry from /etc/default/login
+
+  ● UMASK entry from /etc/login.defs
+
+OPTIONS
+
+debug
+
+    Print debug information.
+
+usergroups
+
+    If the user is not root, and the user ID is equal to the group ID, and the
+    username is the same as primary group name, the umask group bits are set to
+    be the same as owner bits (examples: 022 -> 002, 077 -> 007).
+
+umask=mask
+
+    Sets the calling process's file mode creation mask (umask) to mask & 0777.
+    The value is interpreted as Octal.
+
+EXAMPLES
+
+Add the following line to /etc/pam.d/login to set the user specific umask at
+login:
+
+        session optional pam_umask.so umask=0022
+
+
+AUTHOR
+
+pam_umask was written by Thorsten Kukuk <kukuk@thkukuk.de>.
 

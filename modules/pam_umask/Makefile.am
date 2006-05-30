@@ -4,7 +4,11 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README tst-pam_umask
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_umask
+
+man_MANS = pam_umask.8
+
+XMLS = README.xml pam_umask.8.xml
 
 TESTS = tst-pam_umask
 
@@ -19,3 +23,10 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_umask.la
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_umask.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+
