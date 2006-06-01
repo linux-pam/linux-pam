@@ -1,5 +1,11 @@
 2006-06-01  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_ftp/Makefile.am: Include Make.xml.rules.
+	* modules/pam_ftp/pam_ftp.8.xml: New.
+	* modules/pam_ftp/pam_ftp.8: New, generated from xml file.
+	* modules/pam_ftp/README.xml: New.
+	* modules/pam_ftp/README: Regenerated from xml file.
+
 	* modules/pam_issue/Makefile.am: Include Make.xml.rules.
 	* modules/pam_issue/pam_issue.8.xml: New.
 	* modules/pam_issue/pam_issue.8: New, generated from xml file.
