@@ -1,94 +1,78 @@
-#
-# $Id$
-#
-# This describes the behavior of this module with respect to the
-# /etc/pam.conf file.
-#
-# writen by Andrew Morgan <morgan@parc.power.net>
-#
+pam_filter — PAM filter module
 
-This module is intended to be a platform for providing access to all
-of the input/output that passes between the user and the application.
-It is only suitable for tty-based and (stdin/stdout) applications. And
-is only known to work on Linux based systems.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The action of the module is dictated by the arguments it is given in
-the pam.conf file.
+DESCRIPTION
 
-recognized flags are:
+This module is intended to be a platform for providing access to all of the
+input/output that passes between the user and the application. It is only
+suitable for tty-based and (stdin/stdout) applications.
 
-	debug			print some information to syslog(3)
+To function this module requires filters to be installed on the system. The
+single filter provided with the module simply transposes upper and lower case
+letters in the input and output streams. (This can be very annoying and is not
+kind to termcap based editors).
 
-	new_term		set the PAM_TTY item to the new filtered
-				terminal (the default is to set it
-				to be that of the users terminal)
+Each component of the module has the potential to invoke the desired filter.
+The filter is always execv(2) with the privilege of the calling application and
+not that of the user. For this reason it cannot usually be killed by the user
+without closing their session.
 
-	non_term		don't try to set the PAM_TTY item
+OPTIONS
 
-	run1/run2		these arguments indicate that the
-				module should separate the application
-				from the user and insert a filter
-				program between them. The pathname of
-				the filter program follows the 'runN'
-				argument. Arguments that follow this
-				pathname are passed as arguments to
-				the filter program.
+debug
 
-				The distinction between run1 and run2
-				is which of the two functions of
-				the given management-type triggers the
-				execution of the indicated filter.
+    Print debug information.
 
-	type:		run1			run2
-	-----		----			----
+new_term
 
-	auth		pam_sm_authenticate	pam_sm_setcred
+    The default action of the filter is to set the PAM_TTY item to indicate the
+    terminal that the user is using to connect to the application. This
+    argument indicates that the filter should set PAM_TTY to the filtered
+    pseudo-terminal.
 
-	account		[  pam_sm_acct_mgmt  (either is good)  ] 
+non_term
 
-	session		pam_sm_open_session	pam_sm_close_session
+    don't try to set the PAM_TTY item.
 
-	password	pam_sm_chauthtok/PRELIM	pam_sm_chauthtok/UPDATE
+runX
 
-Note, in the case of 'password' PRELIM/UPDATE indicates which of the
-two calls to pam_sm_chauthtok from libpam (not the application) will
-trigger the filter.
+    In order that the module can invoke a filter it should know when to invoke
+    it. This argument is required to tell the filter when to do this.
 
-What a filter program should expect:
-------------------------------------
+    Permitted values for X are 1 and 2. These indicate the precise time that
+    the filter is to be run. To understand this concept it will be useful to
+    have read the pam(3) manual page. Basically, for each management group
+    there are up to two ways of calling the module's functions. In the case of
+    the authentication and session components there are actually two separate
+    functions. For the case of authentication, these functions are
+    pam_authenticate(3) and pam_setcred(3), here run1 means run the filter from
+    the pam_authenticate function and run2 means run the filter from
+    pam_setcred. In the case of the session modules, run1 implies that the
+    filter is invoked at the pam_open_session(3) stage, and run2 for
+    pam_close_session(3).
 
-Definitions for filter programs (which may be locally designed) are
-contained in the <security/pam_filter.h> file.
+    For the case of the account component. Either run1 or run2 may be used.
 
-Arguments are not passed to the filter on the command line, since this
-is plainly visible when a user types 'ps -a'. Instead they are passed
-as the filter's environment. Other information is passed in this way
-too.
+    For the case of the password component, run1 is used to indicate that the
+    filter is run on the first occasion of pam_chauthtok(3) (the
+    PAM_PRELIM_CHECK phase) and run2 is used to indicate that the filter is run
+    on the second occasion (the PAM_UPDATE_AUTHTOK phase).
 
-Here is a list of the environment variables that a filter should
-expect:
+filter
 
-	ARGS="filter_path_name argument list"
-	SERVICE="service_name"  (as it appears in /etc/pam.conf)
-	USER="username"
-	TYPE="module_fn"  (the name of the function in pam_filter.so
-			   that invoked the filter)
+    The full pathname of the filter to be run and any command line arguments
+    that the filter might expect.
 
-[This list is likely to grow. If you want something added, email me!]
+EXAMPLES
 
-Among other things this module is intended to provide a useful means
-of logging the activity of users in as discrete a manner as possible.
+Add the following line to /etc/pam.d/login to see how to configure login to
+transpose upper and lower case letters once the user has logged in:
 
-Existing filters:
------------------
+        session required pam_filter.so run1 /lib/security/pam_filter/upperLOWER
 
-Currently, there is a single supplied filter (upperLOWER).  The effect
-of using this filter is to transpose upper and lower case letters
-between the user and the application. This is really annoying when you
-try the 'xsh' example application! ;)
 
-TODO: provide more filters...
-      Decide if providing stderr interception is really overkill.
+AUTHOR
 
-Andrew G. Morgan <morgan@parc.power.net> 1996/5/27
+pam_filter was written by Andrew G. Morgan <morgan@kernel.org>.
 

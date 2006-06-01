@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+
+<refentry id="pam_issue">
+
+  <refmeta>
+    <refentrytitle>pam_issue</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id="pam_issue-name">
+    <refname>pam_issue</refname>
+    <refpurpose>PAM module to add issue file to user prompt</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis id="pam_issue-cmdsynopsis">
+      <command>pam_issue.so</command>
+      <arg choice="opt">
+        noesc
+      </arg>
+      <arg choice="opt">
+        issue=<replaceable>issue-file-name</replaceable>
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="pam_issue-description">
+
+    <title>DESCRIPTION</title>
+
+    <para>
+      pam_issue is a PAM module to prepend an issue file to the username
+      prompt. It also by default parses escape codes in the issue file
+      similar to some common getty's (using &bsol;x format).
+    </para>
+    <para>
+      Recognized escapes:
+    </para>
+    <variablelist remap='IP'>
+      <varlistentry>
+        <term><emphasis remap='B'>&bsol;d</emphasis></term>
+        <listitem>
+          <para>current day</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis remap='B'>&bsol;l</emphasis></term>
+        <listitem>
+          <para>name of this tty</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis remap='B'>&bsol;m</emphasis></term>
+        <listitem>
+          <para>machine architecture (uname -m)</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis remap='B'>&bsol;n</emphasis></term>
+        <listitem>
+          <para>machine's network node hostname (uname -n)</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis remap='B'>&bsol;o</emphasis></term>
+        <listitem>
+          <para>domain name of this system</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis remap='B'>&bsol;r</emphasis></term>
+        <listitem>
+          <para>release number of operating system (uname -r)</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis remap='B'>&bsol;t</emphasis></term>
+        <listitem>
+          <para>current time</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis remap='B'>&bsol;s</emphasis></term>
+        <listitem>
+          <para>operating system name (uname -s)</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis remap='B'>&bsol;u</emphasis></term>
+        <listitem>
+          <para>number of users currently logged in</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis remap='B'>&bsol;U</emphasis></term>
+        <listitem>
+          <para>
+            same as &bsol;u except it is suffixed with "user" or
+            "users" (eg. "1 user" or "10 users")
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis remap='B'>&bsol;v</emphasis></term>
+        <listitem>
+          <para>operating system version and build date (uname -v)</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+  </refsect1>
+
+  <refsect1 id="pam_issue-options">
+
+    <title>OPTIONS</title>
+    <para>
+      <variablelist>
+
+        <varlistentry>
+          <term>
+            <option>noesc</option>
+          </term>
+          <listitem>
+            <para>
+              Turns off escape code parsing.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>issue=<replaceable>issue-file-name</replaceable></option>
+          </term>
+          <listitem>
+            <para>
+              The file to output if not using the default.
+            </para>
+          </listitem>
+	</varlistentry>
+
+      </variablelist>
+
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_issue-services">
+    <title>MODULE SERVICES PROVIDED</title>
+    <para>
+      Only the <option>auth</option> service is supported.
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_issue-return_values'>
+    <title>RETURN VALUES</title>
+    <para>
+      <variablelist>
+
+        <varlistentry>
+          <term>PAM_BUF_ERR</term>
+          <listitem>
+             <para>
+               Memory buffer error.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>PAM_IGNORE</term>
+          <listitem>
+            <para>
+              The prompt was already changed.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>PAM_SERVICE_ERR</term>
+          <listitem>
+            <para>
+	      A service module error occured.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>PAM_SUCCESS</term>
+          <listitem>
+            <para>
+              The new prompt was set successfull.
+            </para>
+          </listitem>
+        </varlistentry>
+
+      </variablelist>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_issue-examples'>
+    <title>EXAMPLES</title>
+    <para>
+      Add the following line to <filename>/etc/pam.d/login</filename> to
+      set the user specific issue at login:
+      <programlisting>
+        auth optional pam_issue.so issue=/etc/issue
+      </programlisting>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_issue-see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam.d</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_issue-author'>
+    <title>AUTHOR</title>
+      <para>
+        pam_issue was written by Ben Collins &lt;bcollins@debian.org&gt;.
+      </para>
+  </refsect1>
+
+</refentry>
+<!-- vim: sw=2
+-->

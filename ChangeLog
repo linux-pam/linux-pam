@@ -1,3 +1,17 @@
+2006-06-01  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_issue/Makefile.am: Include Make.xml.rules.
+	* modules/pam_issue/pam_issue.8.xml: New.
+	* modules/pam_issue/pam_issue.8: New, generated from xml file.
+	* modules/pam_issue/README.xml: New.
+	* modules/pam_issue/README: Regenerated from xml file.
+
+	* modules/pam_filter/Makefile.am: Include Make.xml.rules.
+	* modules/pam_filter/pam_filter.8.xml: New.
+	* modules/pam_filter/pam_filter.8: New, generated from xml file.
+	* modules/pam_filter/README.xml: New.
+	* modules/pam_filter/README: Regenerated from xml file.
+
 2006-05-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_mkhomedir/pam_mkhomedir.8.xml: Fix umask and skel

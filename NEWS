@@ -3,7 +3,7 @@ Linux-PAM NEWS -- history of user-visible changes.
 
 * pam_tally: Fix support for large UIDs
 * Fixed all problems found by Coverity
-* Add manual page for pam_mkhomedir, pam_umask
+* Add manual page for pam_mkhomedir, pam_umask, pam_filter, pam_issue
 
 Release 0.99.4.0
 
