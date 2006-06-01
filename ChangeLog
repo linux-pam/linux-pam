@@ -1,5 +1,11 @@
 2006-06-01  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_lastlog/Makefile.am: Include Make.xml.rules.
+	* modules/pam_lastlog/pam_lastlog.8.xml: New.
+	* modules/pam_lastlog/pam_lastlog.8: New, generated from xml file.
+	* modules/pam_lastlog/README.xml: New.
+	* modules/pam_lastlog/README: Regenerated from xml file.
+
 	* modules/pam_group/Makefile.am: Include Make.xml.rules.
 	* modules/pam_group/group.conf.5.xml: New.
 	* modules/pam_group/group.conf.5: New, generated from xml file.

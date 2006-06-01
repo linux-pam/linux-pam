@@ -7,7 +7,10 @@ CLEANFILES = *~
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
-EXTRA_DIST = README tst-pam_lastlog
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_lastlog
+
+man_MANS = pam_lastlog.8
+XMLS = README.xml pam_lastlog.8.xml
 
 TESTS = tst-pam_lastlog
 
@@ -19,3 +22,10 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_lastlog.la
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_lastlog.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+

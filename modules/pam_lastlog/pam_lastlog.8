@@ -1,0 +1,85 @@
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_LASTLOG" "8" "06/01/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_lastlog \- PAM module to display date of last login
+.SH "SYNOPSIS"
+.HP 15
+\fBpam_lastlog.so\fR [debug] [silent] [never] [nodate] [nohost] [noterm] [nowtmp]
+.SH "DESCRIPTION"
+.PP
+pam_lastlog is a PAM module to display a line of information about the last login of the user. In addition, the module maintains the
+\fI/var/log/lastlog\fR
+file.
+.PP
+Some applications may perform this function themselves. In such cases, this module is not necessary.
+.SH "OPTIONS"
+.TP
+\fBdebug\fR
+Print debug information.
+.TP
+\fBsilent\fR
+Don't inform the user about any previous login, just upate the
+\fI/var/log/lastlog\fR
+file.
+.TP
+\fBnever\fR
+If the
+\fI/var/log/lastlog\fR
+file does not contain any old entries for the user, indicate that the user has never previously logged in with a welcome message.
+.TP
+\fBnodate\fR
+Don't display the date of the last login.
+.TP
+\fBnoterm\fR
+Don't display the terminal name on which the last login was attempted.
+.TP
+\fBnohost\fR
+Don't indicate from which host the last login was attempted.
+.TP
+\fBnowtmp\fR
+Don't update the wtmp entry.
+.SH "MODULE SERVICES PROVIDED"
+.PP
+Only the
+\fBsession\fR
+service is supported.
+.SH "RETURN VALUES"
+.PP
+.TP
+PAM_SUCCESS
+Everything was successfull.
+.TP
+PAM_SERVICE_ERR
+Internal service module error.
+.TP
+PAM_USER_UNKNOWN
+User not known.
+.SH "EXAMPLES"
+.PP
+Add the following line to
+\fI/etc/pam.d/login\fR
+to display the last login time of an user:
+.sp
+.nf
+    session  required  pam_lastlog.so nowtmp
+      
+.fi
+.SH "FILES"
+.TP
+\fI/var/log/lastlog\fR
+Lastlog logging file
+.SH "SEE ALSO"
+.PP
+\fBpam.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8)
+.SH "AUTHOR"
+.PP
+pam_lastlog was written by Andrew G. Morgan <morgan@kernel.org>.

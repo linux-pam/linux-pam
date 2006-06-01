@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+
+<refentry id="pam_lastlog">
+
+  <refmeta>
+    <refentrytitle>pam_lastlog</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id="pam_lastlog-name">
+    <refname>pam_lastlog</refname>
+    <refpurpose>PAM module to display date of last login</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis id="pam_lastlog-cmdsynopsis">
+      <command>pam_lastlog.so</command>
+      <arg choice="opt">
+	debug
+      </arg>
+      <arg choice="opt">
+        silent
+      </arg>
+      <arg choice="opt">
+        never
+      </arg>
+      <arg choice="opt">
+        nodate
+      </arg>
+      <arg choice="opt">
+        nohost
+      </arg>
+      <arg choice="opt">
+        noterm
+      </arg>
+      <arg choice="opt">
+        nowtmp
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="pam_lastlog-description">
+
+    <title>DESCRIPTION</title>
+
+    <para>
+      pam_lastlog is a PAM module to display a line of information
+      about the last login of the user. In addition, the module maintains
+      the <filename>/var/log/lastlog</filename> file.
+    </para>
+    <para>
+      Some applications may perform this function themselves. In such
+      cases, this module is not necessary.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_lastlog-options">
+
+    <title>OPTIONS</title>
+    <variablelist>
+      <varlistentry>
+        <term>
+          <option>debug</option>
+        </term>
+        <listitem>
+          <para>
+            Print debug information.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>silent</option>
+        </term>
+        <listitem>
+          <para>
+            Don't inform the user about any previous login,
+            just upate the <filename>/var/log/lastlog</filename> file.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>never</option>
+        </term>
+        <listitem>
+          <para>
+            If the <filename>/var/log/lastlog</filename> file does
+            not contain any old entries for the user, indicate that
+            the user has never previously logged in with a welcome
+            message.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>nodate</option>
+        </term>
+        <listitem>
+          <para>
+            Don't display the date of the last login.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>noterm</option>
+        </term>
+        <listitem>
+          <para>
+            Don't display the terminal name on which the
+            last login was attempted.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>nohost</option>
+        </term>
+        <listitem>
+          <para>
+            Don't indicate from which host the last login was
+            attempted.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>nowtmp</option>
+        </term>
+        <listitem>
+          <para>
+            Don't update the wtmp entry.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="pam_lastlog-services">
+    <title>MODULE SERVICES PROVIDED</title>
+    <para>
+      Only the <option>session</option> service is supported.
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_lastlog-return_values'>
+    <title>RETURN VALUES</title>
+    <para>
+      <variablelist>
+
+        <varlistentry>
+          <term>PAM_SUCCESS</term>
+          <listitem>
+            <para>
+              Everything was successfull.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>PAM_SERVICE_ERR</term>
+          <listitem>
+            <para>
+	      Internal service module error.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>PAM_USER_UNKNOWN</term>
+          <listitem>
+            <para>
+	      User not known.
+            </para>
+          </listitem>
+        </varlistentry>
+
+      </variablelist>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_lastlog-examples'>
+    <title>EXAMPLES</title>
+    <para>
+      Add the following line to <filename>/etc/pam.d/login</filename> to
+      display the last login time of an user:
+    </para>
+      <programlisting>
+    session  required  pam_lastlog.so nowtmp
+      </programlisting>
+  </refsect1>
+
+  <refsect1 id="pam_lastlog-files">
+    <title>FILES</title>
+    <variablelist>
+      <varlistentry>
+        <term><filename>/var/log/lastlog</filename></term>
+        <listitem>
+          <para>Lastlog logging file</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id='pam_lastlog-see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam.d</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_lastlog-author'>
+    <title>AUTHOR</title>
+      <para>
+        pam_lastlog was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.
+      </para>
+  </refsect1>
+
+</refentry>
+<!-- vim: sw=2
+-->
