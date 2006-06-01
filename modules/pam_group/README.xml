@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.docbook.org/xml/4.3/docbookx.dtd"
+[
+<!--
+<!ENTITY pamgroup SYSTEM "pam_group.8.xml">
+-->
+<!--
+<!ENTITY groupconf SYSTEM "group.conf.5.xml">
+-->
+]>
+
+<article>
+
+  <articleinfo>
+
+    <title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+      href="pam_group.8.xml" xpointer='xpointer(//refnamediv[@id = "pam_group-name"]/*)'/>
+    </title>
+
+  </articleinfo>
+
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+      href="pam_group.8.xml" xpointer='xpointer(//refsect1[@id = "pam_group-description"]/*)'/>
+  </section>
+
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+      href="group.conf.5.xml" xpointer='xpointer(//refsect1[@id = "group.conf-examples"]/*)'/>
+  </section>
+
+</article>

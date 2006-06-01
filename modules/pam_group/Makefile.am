@@ -4,7 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README group.conf tst-pam_group
+EXTRA_DIST = README group.conf $(MANS) $(XMLS) tst-pam_group
+
+man_MANS = group.conf.5 pam_group.8
+XMLS = README.xml group.conf.5.xml pam_group.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -22,3 +25,10 @@ securelib_LTLIBRARIES = pam_group.la
 secureconf_DATA = group.conf
 
 TESTS = tst-pam_group
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_group.8.xml group.conf.5.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+

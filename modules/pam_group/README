@@ -1,23 +1,45 @@
+pam_group — PAM module for group access
 
-This is a help file for the pam_group module. It explains the need for
-pam_group and also the syntax of the /etc/security/group.conf file.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. Introduction
-===============
+DESCRIPTION
 
-It is desirable to give extra privileges to a user running a specific
-PAM aware application at various times of the day and on specific days
-or over various terminal lines by adding this user to extra groups.
+The pam_group PAM module does not authenticate the user, but instead it grants
+group memberships (in the credential setting phase of the authentication
+module) to the user. Such memberships are based on the service they are
+applying for.
 
-The pam_group module is intended to offer a configurable module that
-satisfies this purpose, within the context of Linux-PAM.
+By default rules for group memberships are taken from config file /etc/security
+/group.conf.
 
-2. the /etc/security/group.conf file
-===================================
+This module's usefulness relies on the file-systems accessible to the user. The
+point being that once granted the membership of a group, the user may attempt
+to create a setgid binary with a restricted group ownership. Later, when the
+user is not given membership to this group, they can recover group membership
+with the precompiled binary. The reason that the file-systems that the user has
+access to are so significant, is the fact that when a system is mounted nosuid
+the user is unable to create or execute such a binary file. For this module to
+provide any level of security, all file-systems that the user has write access
+to should be mounted nosuid.
 
-Its syntax is described in the sample group.conf file.
+The pam_group module fuctions in parallel with the /etc/group file. If the user
+is granted any groups based on the behavior of this module, they are granted in
+addition to those entries /etc/group (or equivalent).
 
-unrecognised rules are ignored (but an error is logged to syslog(3))
+EXAMPLES
 
---------------------
-Bugs to the list <pam-list@redhat.com>
+These are some example lines which might be specified in /etc/security/
+group.conf.
+
+Running 'xsh' on tty* (any ttyXXX device), the user 'us' is given access to the
+floppy (through membership of the floppy group)
+
+xsh;tty*&!ttyp*;us;Al0000-2400;floppy
+
+Running 'xsh' on tty* (any ttyXXX device), the user 'sword' is given access to
+games (through membership of the floppy group) after work hours.
+
+xsh; tty* ;sword;!Wk0900-1800;games, sound
+
+xsh; tty* ;*;Al0900-1800;floppy
+
