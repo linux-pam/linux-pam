@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README (MANS) $(XMLS) tst-pam_mkhomedir
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_mkhomedir
 
 man_MANS = pam_mkhomedir.8
 
