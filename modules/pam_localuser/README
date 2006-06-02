@@ -1,17 +1,38 @@
-pam_localuser:
-	Succeeds iff the PAM_USER is listed in /etc/passwd.  This seems to be a
-	common policy need (allowing only a subset of network-wide users, and
-	any locally-defined users, to access services).  Simpler than using
-	awk to generate a file for use with pam_listfile (-F: '{print $1}'),
-	I guess.
+pam_localuser — require users to be listed in /etc/passwd
 
-RECOGNIZED ARGUMENTS:
-	debug		write debugging messages to syslog
-	file=FILE	scan FILE instead of /etc/passwd
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-MODULE SERVICES PROVIDED:
-	auth,account	scan the FILE (/etc/passwd by default) and return
-			a success code if an entry is found for the user
+DESCRIPTION
 
-AUTHOR:
-	Nalin Dahyabhai <nalin@redhat.com>
+pam_localuser is a PAM module to help implementing site-wide login policies,
+where they typically include a subset of the network's users and a few accounts
+that are local to a particular workstation. Using pam_localuser and pam_wheel
+or pam_listfile is an effective way to restrict access to either local users
+and/or a subset of the network's users.
+
+This could also be implemented using pam_listfile.so and a very short awk
+script invoked by cron, but it's common enough to have been separated out.
+
+OPTIONS
+
+debug
+
+    Print debug information.
+
+file=/path/passwd
+
+    Use a file other than /etc/passwd.
+
+EXAMPLES
+
+Add the following line to /etc/pam.d/su to allow only local users in group
+wheel to use su.
+
+account sufficient pam_localuser.so
+account required pam_wheel.so
+
+
+AUTHOR
+
+pam_localuser was written by Nalin Dahyabhai <nalin@redhat.com>.
+

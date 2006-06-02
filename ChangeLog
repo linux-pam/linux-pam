@@ -1,5 +1,11 @@
 2006-06-02  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_localuser/Makefile.am: Include Make.xml.rules.
+	* modules/pam_localuser/pam_localuser.8.xml: New.
+	* modules/pam_localuser/pam_localuser.8: New, generated from xml file.
+	* modules/pam_localuser/README.xml: New.
+	* modules/pam_localuser/README: Regenerated from xml file.
+
 	* doc/man/PAM.8: Regenerate with DocBook XSL Stylesheets v1.70.1.
 	* doc/man/pam.3: Likewise.
 	* doc/man/pam.conf.5: Likewise.
