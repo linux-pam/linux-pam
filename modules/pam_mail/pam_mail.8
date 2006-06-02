@@ -1,0 +1,113 @@
+.\"     Title: pam_mail
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_MAIL" "8" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_mail \- Inform about available mail
+.SH "SYNOPSIS"
+.HP 12
+\fBpam_mail.so\fR [close] [debug] [dir=\fImaildir\fR] [empty] [hash=\fIcount\fR] [noenv] [nopen] [quit] [standard]
+.SH "DESCRIPTION"
+.PP
+The pam_mail PAM module provides the "you have new mail" service to the user. It can be plugged into any application that has credential or session hooks. It gives a single message indicating the
+\fInewness\fR
+of any mail it finds in the user's mail folder. This module also sets the PAM environment variable,
+\fBMAIL\fR, to the user's mail directory.
+.PP
+If the mail spool file (be it
+\fI/var/mail/$USER\fR
+or a pathname given with the
+\fBdir=\fR
+parameter) is a directory then pam_mail assumes it is in the
+\fIMaildir\fR
+format.
+.SH "OPTIONS"
+.PP
+.TP 3n
+\fBclose\fR
+Indicate if the user has any mail also on logout.
+.TP 3n
+\fBdebug\fR
+Print debug information.
+.TP 3n
+\fBdir=\fR\fB\fImaildir\fR\fR
+Look for the users' mail in an alternative location defined by
+\fImaildir/<login>\fR. The default location for mail is
+\fI/var/mail/<login>\fR. Note, if the supplied
+\fImaildir\fR
+is prefixed by a '~', the directory is interpreted as indicating a file in the user's home directory.
+.TP 3n
+\fBempty\fR
+Also print message if user has no mail.
+.TP 3n
+\fBhash=\fR\fB\fIcount\fR\fR
+Mail directory hash depth. For example, a
+\fIhashcount\fR
+of 2 would make the mail file be
+\fI/var/spool/mail/u/s/user\fR.
+.TP 3n
+\fBnoenv\fR
+Do not set the
+\fBMAIL\fR
+environment variable.
+.TP 3n
+\fBnopen\fR
+Don't print any mail information on login. This flag is useful to get the
+\fBMAIL\fR
+environment variable set, but to not display any information about it.
+.TP 3n
+\fBquiet\fR
+Only report when there is new mail.
+.TP 3n
+\fBstandard\fR
+Old style "You have..." format which doesn't show the mail spool being used. This also implies "empty".
+.SH "MODULE SERVICES PROVIDED"
+.PP
+The
+\fBauth\fR
+and
+\fBaccount\fR
+services are supported.
+.SH "RETURN VALUES"
+.TP 3n
+PAM_BUF_ERR
+Memory buffer error.
+.TP 3n
+PAM_SERVICE_ERR
+Badly formed arguments.
+.TP 3n
+PAM_SUCCESS
+Success.
+.TP 3n
+PAM_USER_UNKNOWN
+User not known.
+.SH "EXAMPLES"
+.PP
+Add the following line to
+\fI/etc/pam.d/login\fR
+to indicate that the user has new mail when they login to the system.
+.sp
+.RS 3n
+.nf
+session  optional  pam_mail.so standard
+      
+.fi
+.RE
+.sp
+.SH "SEE ALSO"
+.PP
+
+\fBpam.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8)
+.SH "AUTHOR"
+.PP
+pam_mail was written by Andrew G. Morgan <morgan@kernel.org>.

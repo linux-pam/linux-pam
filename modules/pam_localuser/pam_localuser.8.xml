@@ -136,7 +136,7 @@ account required pam_wheel.so
     </para>
   </refsect1>
 
-  <refsect1 id="pam_lastlog-files">
+  <refsect1 id="pam_localuser-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>

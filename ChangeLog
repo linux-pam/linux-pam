@@ -1,5 +1,11 @@
 2006-06-02  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_mail/Makefile.am: Include Make.xml.rules.
+	* modules/pam_mail/pam_mail.8.xml: New.
+	* modules/pam_mail/pam_mail.8: New, generated from xml file.
+	* modules/pam_mail/README.xml: New.
+	* modules/pam_mail/README: Regenerated from xml file.
+
 	* modules/pam_localuser/Makefile.am: Include Make.xml.rules.
 	* modules/pam_localuser/pam_localuser.8.xml: New.
 	* modules/pam_localuser/pam_localuser.8: New, generated from xml file.

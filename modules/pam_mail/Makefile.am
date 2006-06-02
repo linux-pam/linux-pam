@@ -4,7 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README tst-pam_mail
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_mail
+
+man_MANS = pam_mail.8
+XMLS = README.xml pam_mail.8.xml
 
 TESTS = tst-pam_mail
 
@@ -19,3 +22,10 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_mail.la
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_mail.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+

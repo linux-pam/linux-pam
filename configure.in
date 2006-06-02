@@ -345,10 +345,6 @@ AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
 AC_SUBST(LIBSELINUX)
 AM_CONDITIONAL([HAVE_LIBSELINUX], [test ! -z "$LIBSELINUX"])
 
-dnl Check for xattr support
-AC_CHECK_HEADERS([sys/xattr.h])
-AC_CHECK_FUNCS(llistxattr lgetxattr lsetxattr)
-
 dnl Checks for Libcap
 AC_CHECK_LIB([cap], [cap_get_proc], LIBCAP="-lcap", LIBCAP="" )
 AC_SUBST(LIBCAP)
