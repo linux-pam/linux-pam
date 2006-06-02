@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_MKHOMEDIR" "8" "05/30/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_mkhomedir
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_MKHOMEDIR" "8" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -19,14 +22,14 @@ The pam_mkhomedir PAM module will create a users home directory if it does not e
 .PP
 The new users home directory will not be removed after logout of the user.
 .SH "OPTIONS"
-.TP
+.TP 3n
 \fBsilent\fR
 Don't print informative messages.
-.TP
+.TP 3n
 \fBumask=\fR\fB\fImask\fR\fR
 The user file\-creation mask is set to
 \fImask\fR. The default value of mask is 0022.
-.TP
+.TP 3n
 \fBskel=\fR\fB\fI/path/to/skel/directory\fR\fR
 Indicate an alternative
 \fIskel\fR
@@ -38,29 +41,30 @@ Only the
 \fBsession\fR
 service is supported.
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_BUF_ERR
 Memory buffer error.
-.TP
+.TP 3n
 PAM_CRED_INSUFFICIENT
 Insufficient credentials to access authentication data.
-.TP
+.TP 3n
 PAM_PERM_DENIED
 Not enough permissions to create the new directory or read the skel directory.
-.TP
+.TP 3n
 PAM_USER_UNKNOWN
 User not known to the underlying authentication module.
-.TP
+.TP 3n
 PAM_SUCCESS
 Environment variables were set.
 .SH "FILES"
-.TP
+.TP 3n
 \fI/etc/skel\fR
 Default skel directory
 .SH "EXAMPLES"
 .PP
 A sample /etc/pam.d/login file:
 .sp
+.RS 3n
 .nf
   auth       requisite   pam_securetty.so
   auth       sufficient  pam_ldap.so
@@ -75,9 +79,11 @@ A sample /etc/pam.d/login file:
   session    optional    pam_mail.so standard
       
 .fi
+.RE
 .sp
 .SH "SEE ALSO"
 .PP
+
 \fBpam.d\fR(8),
 \fBpam\fR(8).
 .SH "AUTHOR"

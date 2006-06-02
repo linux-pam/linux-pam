@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_ENV" "8" "02/17/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_env
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_ENV" "8" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -31,21 +34,21 @@ flag and turn it on or off by setting the
 \fIreadenv\fR
 flag to 1 or 0 respectively.
 .SH "OPTIONS"
-.TP
+.TP 3n
 \fBconffile=\fR\fB\fI/path/to/pam_env.conf\fR\fR
 Indicate an alternative
 \fIpam_env.conf\fR
 style configuration file to override the default. This can be useful when different services need different environments.
-.TP
+.TP 3n
 \fBdebug\fR
 A lot of debug informations are printed with
 \fBsyslog\fR(3).
-.TP
+.TP 3n
 \fBenvfile=\fR\fB\fI/path/to/environment\fR\fR
 Indicate an alternative
 \fIenvironment\fR
 file to override the default. This can be useful when different services need different environments.
-.TP
+.TP 3n
 \fBreadenv=\fR\fB\fI0|1\fR\fR
 Turns on or off the reading of the file specified by envfile (0 is off, 1 is on). By default this option is on.
 .SH "MODULE SERVICES PROVIDED"
@@ -56,27 +59,28 @@ and
 \fBsession\fR
 services are supported.
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_ABORT
 Not all relevant data or options could be gotten.
-.TP
+.TP 3n
 PAM_BUF_ERR
 Memory buffer error.
-.TP
+.TP 3n
 PAM_IGNORE
 No pam_env.conf and environment file was found.
-.TP
+.TP 3n
 PAM_SUCCESS
 Environment variables were set.
 .SH "FILES"
-.TP
+.TP 3n
 \fI/etc/security/pam_env.conf\fR
 Default configuration file
-.TP
+.TP 3n
 \fI/etc/environment\fR
 Default environment file
 .SH "SEE ALSO"
 .PP
+
 \fBpam_env.conf\fR(5),
 \fBpam.d\fR(8),
 \fBpam\fR(8).

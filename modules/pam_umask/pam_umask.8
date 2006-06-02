@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_UMASK" "8" "05/30/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_umask
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_UMASK" "8" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -17,33 +20,35 @@ pam_umask \- PAM module to set the file mode creation mask
 pam_umask is a PAM module to set the file mode creation mask of the current environment. The umask affects the default permissions assigned to newly created files.
 .PP
 The PAM module tries to get the umask value from the following places in the following order:
-.TP 3
+.TP 3n
 \(bu
 umask= argument
-.TP
+.TP 3n
 \(bu
 umask= entry of the users GECOS field
-.TP
+.TP 3n
 \(bu
 pri= entry of the users GECOS field
-.TP
+.TP 3n
 \(bu
 ulimit= entry of the users GECOS field
-.TP
+.TP 3n
 \(bu
 UMASK= entry from /etc/default/login
-.TP
+.TP 3n
 \(bu
 UMASK entry from /etc/login.defs
+.sp
+.RE
 .SH "OPTIONS"
 .PP
-.TP
+.TP 3n
 \fBdebug\fR
 Print debug information.
-.TP
+.TP 3n
 \fBusergroups\fR
 If the user is not root, and the user ID is equal to the group ID, and the username is the same as primary group name, the umask group bits are set to be the same as owner bits (examples: 022 \-> 002, 077 \-> 007).
-.TP
+.TP 3n
 \fBumask=\fR\fB\fImask\fR\fR
 Sets the calling process's file mode creation mask (umask) to
 \fBmask\fR
@@ -55,13 +60,13 @@ Only the
 service is supported.
 .SH "RETURN VALUES"
 .PP
-.TP
+.TP 3n
 PAM_SUCCESS
 The new umask was set successfull.
-.TP
+.TP 3n
 PAM_SERVICE_ERR
 No username was given.
-.TP
+.TP 3n
 PAM_USER_UNKNOWN
 User not known.
 .SH "EXAMPLES"
@@ -70,13 +75,16 @@ Add the following line to
 \fI/etc/pam.d/login\fR
 to set the user specific umask at login:
 .sp
+.RS 3n
 .nf
         session optional pam_umask.so umask=0022
       
 .fi
+.RE
 .sp
 .SH "SEE ALSO"
 .PP
+
 \fBpam.conf\fR(5),
 \fBpam.d\fR(8),
 \fBpam\fR(8)

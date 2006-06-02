@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"POT-Creation-Date: 2006-06-02 12:37+0200\n"
 "PO-Revision-Date: 2006-05-03 21:58+0200\n"
 "Last-Translator: Wojciech Kapusta <wojciech@aviary.pl>\n"
 "Language-Team:  <pl@li.org>\n"
@@ -35,40 +35,40 @@ msgstr ""
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:739
+#: modules/pam_tally/pam_tally.c:744
 msgid "Authentication error"
 msgstr "Błąd uwierzytelniania"
 
-#: modules/pam_tally/pam_tally.c:740
+#: modules/pam_tally/pam_tally.c:745
 msgid "Service error"
 msgstr "Błąd usługi"
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:746
 msgid "Unknown user"
 msgstr "Nieznany użytkownik"
 
-#: modules/pam_tally/pam_tally.c:742
+#: modules/pam_tally/pam_tally.c:747
 msgid "Unknown error"
 msgstr "Nieznany błąd"
 
-#: modules/pam_tally/pam_tally.c:758
+#: modules/pam_tally/pam_tally.c:763
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Błędny numer podany w opcji --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:762
+#: modules/pam_tally/pam_tally.c:767
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Nierozpoznana opcja %s\n"
 
-#: modules/pam_tally/pam_tally.c:774
+#: modules/pam_tally/pam_tally.c:779
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:845
+#: modules/pam_tally/pam_tally.c:853
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Nie można przywrócić wszystkich użytkowników\n"
@@ -158,38 +158,38 @@ msgstr "Nieważny kontekst bezpieczeństwa"
 msgid "Security Context %s Assigned"
 msgstr "Kontekst bezpieczeństwa %s przypisany"
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
 msgstr "Brak wiadomości."
 
-#: modules/pam_mail/pam_mail.c:310
+#: modules/pam_mail/pam_mail.c:316
 msgid "You have new mail."
 msgstr "Odebrano nowe wiadomości."
 
-#: modules/pam_mail/pam_mail.c:313
+#: modules/pam_mail/pam_mail.c:319
 msgid "You have old mail."
 msgstr "Skrzynka zawiera stare wiadomości."
 
-#: modules/pam_mail/pam_mail.c:317
+#: modules/pam_mail/pam_mail.c:323
 msgid "You have mail."
 msgstr "Odebrano wiadomości."
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:330
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Brak wiadomości w katalogu %s."
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:334
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Nowe wiadomości w katalogu %s."
 
-#: modules/pam_mail/pam_mail.c:332
+#: modules/pam_mail/pam_mail.c:338
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Stare wiadomości katalogu %s."
 
-#: modules/pam_mail/pam_mail.c:337
+#: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Wiadomości w katalogu %s."
@@ -206,12 +206,17 @@ msgstr "Należy natychmiast zmienić hasło (wymuszone przez administratora)"
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Należy natychmiast zmienić hasło (hasło wygasło)"
 
-#: modules/pam_unix/pam_unix_acct.c:322
+#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
 #, fuzzy, c-format
-msgid "Warning: your password will expire in one day"
-msgstr "Ostrzeżenie: hasło wygaśnie za %d dni%.2s"
+msgid "Warning: your password will expire in %d day"
+msgid_plural "Warning: your password will expire in %d days"
+msgstr[0] "Ostrzeżenie: hasło wygaśnie za %d dni%.2s"
+msgstr[1] "Ostrzeżenie: hasło wygaśnie za %d dni%.2s"
+msgstr[2] "Ostrzeżenie: hasło wygaśnie za %d dni%.2s"
 
-#: modules/pam_unix/pam_unix_acct.c:325
+#. TRANSLATORS: only used if dngettext is not support
+#. ed
+#: modules/pam_unix/pam_unix_acct.c:336
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Ostrzeżenie: hasło wygaśnie za %d dni%.2s"
@@ -316,8 +321,8 @@ msgstr "jest obrócone"
 msgid "has been already used"
 msgstr "było już używane"
 
-#: modules/pam_cracklib/pam_cracklib.c:488
-#: modules/pam_cracklib/pam_cracklib.c:616
+#: modules/pam_cracklib/pam_cracklib.c:487
+#: modules/pam_cracklib/pam_cracklib.c:615
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ZŁE HASŁO: %s"
@@ -470,6 +475,10 @@ msgstr "... czas minął.\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "błędna konwersacja (%d)\n"
+
+#, fuzzy
+#~ msgid "Warning: your password will expire in one day"
+#~ msgstr "Ostrzeżenie: hasło wygaśnie za %d dni%.2s"
 
 #~ msgid "dlopen() failure"
 #~ msgstr "nieudane dlopen()"

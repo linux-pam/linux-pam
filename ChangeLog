@@ -1,3 +1,61 @@
+2006-06-02  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/PAM.8: Regenerate with DocBook XSL Stylesheets v1.70.1.
+	* doc/man/pam.3: Likewise.
+	* doc/man/pam.conf.5: Likewise.
+	* doc/man/pam_acct_mgmt.3: Likewise.
+	* doc/man/pam_authenticate.3: Likewise.
+	* doc/man/pam_chauthtok.3: Likewise.
+	* doc/man/pam_close_session.3: Likewise.
+	* doc/man/pam_conv.3: Likewise.
+	* doc/man/pam_end.3: Likewise.
+	* doc/man/pam_error.3: Likewise.
+	* doc/man/pam_fail_delay.3: Likewise.
+	* doc/man/pam_get_data.3: Likewise.
+	* doc/man/pam_get_item.3: Likewise.
+	* doc/man/pam_get_user.3: Likewise.
+	* doc/man/pam_getenv.3: Likewise.
+	* doc/man/pam_getenvlist.3: Likewise.
+	* doc/man/pam_info.3: Likewise.
+	* doc/man/pam_open_session.3: Likewise.
+	* doc/man/pam_prompt.3: Likewise.
+	* doc/man/pam_putenv.3: Likewise.
+	* doc/man/pam_set_data.3: Likewise.
+	* doc/man/pam_set_item.3: Likewise.
+	* doc/man/pam_setcred.3: Likewise.
+	* doc/man/pam_sm_acct_mgmt.3: Likewise.
+	* doc/man/pam_start.3: Likewise.
+	* doc/man/pam_strerror.3: Likewise.
+	* doc/man/pam_syslog.3: Likewise.
+	* modules/pam_access/access.conf.5: Likewise.
+	* modules/pam_access/pam_access.8: Likewise.
+	* modules/pam_cracklib/pam_cracklib.8: Likewise.
+	* modules/pam_deny/pam_deny.8: Likewise.
+	* modules/pam_echo/pam_echo.8: Likewise.
+	* modules/pam_env/pam_env.8: Likewise.
+	* modules/pam_env/pam_env.conf.5: Likewise.
+	* modules/pam_exec/pam_exec.8: Likewise.
+	* modules/pam_filter/pam_filter.8: Likewise.
+	* modules/pam_ftp/pam_ftp.8: Likewise.
+	* modules/pam_group/group.conf.5: Likewise.
+	* modules/pam_group/pam_group.8: Likewise.
+	* modules/pam_issue/pam_issue.8: Likewise.
+	* modules/pam_lastlog/pam_lastlog.8: Likewise.
+	* modules/pam_mkhomedir/pam_mkhomedir.8: Likewise.
+	* modules/pam_succeed_if/pam_succeed_if.8: Likewise.
+	* modules/pam_umask/pam_umask.8: Likewise.
+
+	* modules/pam_unix/pam_unix_acct.c (pam_sm_acct_mgmt): Use
+	dngettext if available [#1427738].
+	* configure.in: Check for dngettext [#1427738].
+	* po/*.po: Update to dngettext usage.
+
+	* modules/pam_listfile/Makefile.am: Include Make.xml.rules.
+	* modules/pam_listfile/pam_listfile.8.xml: New.
+	* modules/pam_listfile/pam_listfile.8: New, generated from xml file.
+	* modules/pam_listfile/README.xml: New.
+	* modules/pam_listfile/README: Regenerated from xml file.
+
 2006-06-01  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_lastlog/Makefile.am: Include Make.xml.rules.

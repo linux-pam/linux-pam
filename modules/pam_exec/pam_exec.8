@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_EXEC" "8" "02/03/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_exec
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_EXEC" "8" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -17,14 +20,14 @@ pam_exec \- PAM module which calls an external command
 pam_exec is a PAM module that can be used to run an external command.
 .SH "OPTIONS"
 .PP
-.TP
+.TP 3n
 \fBdebug\fR
 Print debug information.
-.TP
+.TP 3n
 \fBlog=\fR\fB\fIfile\fR\fR
 The output of the command is appended to
 \fIfile\fR
-.TP
+.TP 3n
 \fBseteuid\fR
 Per default pam_exec.so will execute the external command with the real user ID of the calling process. Specifying this option means the command is run with the effective user ID.
 .SH "MODULE SERVICES PROVIDED"
@@ -38,17 +41,18 @@ and
 are supported.
 .SH "RETURN VALUES"
 .PP
-.TP
+.TP 3n
 PAM_SUCCESS
 The external command runs successfull.
-.TP
+.TP 3n
 PAM_SERVICE_ERR
 No argument or a wrong number of arguments were given.
-.TP
+.TP 3n
 PAM_SYSTEM_ERR
 A system error occured or the command to execute failed.
-.TP
+.TP 3n
 PAM_IGNORE
+
 \fBpam_setcred\fR
 was called, which does not execute the command.
 .SH "EXAMPLES"
@@ -57,20 +61,25 @@ Add the following line to
 \fI/etc/pam.d/passwd\fR
 to rebuild the NIS database after each local password change:
 .sp
+.RS 3n
 .nf
         passwd optional pam_exec.so seteuid make \-C /var/yp
       
 .fi
+.RE
 .sp
 This will execute the command
 .sp
+.RS 3n
 .nf
 make \-C /var/yp
 .fi
+.RE
 .sp
 with effective user ID.
 .SH "SEE ALSO"
 .PP
+
 \fBpam.conf\fR(5),
 \fBpam.d\fR(8),
 \fBpam\fR(8)

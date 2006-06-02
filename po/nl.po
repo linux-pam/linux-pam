@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"POT-Creation-Date: 2006-06-02 12:37+0200\n"
 "PO-Revision-Date: 2006-05-03 22:02+0200\n"
 "Last-Translator: Rinse de Vries <rinsedevries@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -33,33 +33,33 @@ msgstr ""
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:739
+#: modules/pam_tally/pam_tally.c:744
 msgid "Authentication error"
 msgstr "Verificatiefout"
 
-#: modules/pam_tally/pam_tally.c:740
+#: modules/pam_tally/pam_tally.c:745
 msgid "Service error"
 msgstr "Servicefout"
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:746
 msgid "Unknown user"
 msgstr "Onbekende gebruiker"
 
-#: modules/pam_tally/pam_tally.c:742
+#: modules/pam_tally/pam_tally.c:747
 msgid "Unknown error"
 msgstr "Onbekende fout"
 
-#: modules/pam_tally/pam_tally.c:758
+#: modules/pam_tally/pam_tally.c:763
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: onjuist getal gegeven aan --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:762
+#: modules/pam_tally/pam_tally.c:767
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: niet-herkende optie %s\n"
 
-#: modules/pam_tally/pam_tally.c:774
+#: modules/pam_tally/pam_tally.c:779
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
@@ -67,7 +67,7 @@ msgstr ""
 "%s [--file rooted-bestandsnaam] [ --user gebruikersnaam] [--reset[=n]] [--"
 "quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:845
+#: modules/pam_tally/pam_tally.c:853
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: kan niet alle gebruikers terugzetten naar non-zero\n"
@@ -157,38 +157,38 @@ msgstr "Geen geldige beveiligingscontext"
 msgid "Security Context %s Assigned"
 msgstr "Beveilgingscontext %s toegewezen"
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
 msgstr "Geen e-mail."
 
-#: modules/pam_mail/pam_mail.c:310
+#: modules/pam_mail/pam_mail.c:316
 msgid "You have new mail."
 msgstr "U hebt nieuwe e-mail."
 
-#: modules/pam_mail/pam_mail.c:313
+#: modules/pam_mail/pam_mail.c:319
 msgid "You have old mail."
 msgstr "U hebt oude e-mail."
 
-#: modules/pam_mail/pam_mail.c:317
+#: modules/pam_mail/pam_mail.c:323
 msgid "You have mail."
 msgstr "U hebt e-mail."
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:330
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "U hebt geen e-mail in map %s."
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:334
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "U hebt nieuwe e-mail in map %s."
 
-#: modules/pam_mail/pam_mail.c:332
+#: modules/pam_mail/pam_mail.c:338
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "U hebt oude e-mail in map %s."
 
-#: modules/pam_mail/pam_mail.c:337
+#: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "U hebt e-mail in map %s."
@@ -207,12 +207,16 @@ msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "U dient onmiddellijk uw wachtwoord te wijzigen (wachtwoord is verouderd)"
 
-#: modules/pam_unix/pam_unix_acct.c:322
-#, c-format
-msgid "Warning: your password will expire in one day"
-msgstr ""
+#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d day"
+msgid_plural "Warning: your password will expire in %d days"
+msgstr[0] "Waarschuwing: uw wachtwoord zal over %d day%.2s verlopen"
+msgstr[1] "Waarschuwing: uw wachtwoord zal over %d day%.2s verlopen"
 
-#: modules/pam_unix/pam_unix_acct.c:325
+#. TRANSLATORS: only used if dngettext is not support
+#. ed
+#: modules/pam_unix/pam_unix_acct.c:336
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Waarschuwing: uw wachtwoord zal over %d day%.2s verlopen"
@@ -317,8 +321,8 @@ msgstr "is omgedraaid"
 msgid "has been already used"
 msgstr "is al gebruikt"
 
-#: modules/pam_cracklib/pam_cracklib.c:488
-#: modules/pam_cracklib/pam_cracklib.c:616
+#: modules/pam_cracklib/pam_cracklib.c:487
+#: modules/pam_cracklib/pam_cracklib.c:615
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "SLECHT WACHTWOORD: %s"

@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_SUCCEED_IF" "8" "02/24/2006" "Linux\-PAM" "Linux\-PAM"
+.\"     Title: pam_succeed_if
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM
+.\"    Source: Linux\-PAM
+.\"
+.TH "PAM_SUCCEED_IF" "8" "06/02/2006" "Linux\-PAM" "Linux\-PAM"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -21,22 +24,23 @@ The module should be given one or more conditions as module arguments, and authe
 .PP
 The following
 \fIflag\fRs are supported:
-.TP
+.TP 3n
 \fBdebug\fR
 Turns on debugging messages sent to syslog.
-.TP
+.TP 3n
 \fBuse_uid\fR
 Evaluate conditions using the account of the user whose UID the application is running under instead of the user being authenticated.
-.TP
+.TP 3n
 \fBquiet\fR
 Don't log failure or success to the system log.
-.TP
+.TP 3n
 \fBquiet_fail\fR
 Don't log failure to the system log.
-.TP
+.TP 3n
 \fBquiet_success\fR
 Don't log success to the system log.
 .PP
+
 \fICondition\fRs are three words: a field, a test, and a value to test for.
 .PP
 Available fields are
@@ -46,50 +50,50 @@ Available fields are
 \fIshell\fR
 and
 \fIhome\fR:
-.TP
+.TP 3n
 \fBfield < number\fR
 Field has a value numerically less than number.
-.TP
+.TP 3n
 \fBfield <= number\fR
 Field has a value numerically less than or equal to number.
-.TP
+.TP 3n
 \fBfield eq number\fR
 Field has a value numerically less equal to number.
-.TP
+.TP 3n
 \fBfield >= number\fR
 Field has a value numerically greater than or equal to number.
-.TP
+.TP 3n
 \fBfield > number\fR
 Field has a value numerically greater than number.
-.TP
+.TP 3n
 \fBfield ne number\fR
 Field has a value numerically different from number.
-.TP
+.TP 3n
 \fBfield = string\fR
 Field exactly matches the given string.
-.TP
+.TP 3n
 \fBfield != string\fR
 Field does not match the given string.
-.TP
+.TP 3n
 \fBfield =~ glob\fR
 Field matches the given glob.
-.TP
+.TP 3n
 \fBfield !~ glob\fR
 Field does not match the given glob.
-.TP
+.TP 3n
 \fBuser ingroup group\fR
 User is in given group.
-.TP
+.TP 3n
 \fBuser notingroup group\fR
 User is not in given group.
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_SUCCESS
 The condition was true.
-.TP
+.TP 3n
 PAM_AUTH_ERR
 The condition was false.
-.TP
+.TP 3n
 PAM_SERVICE_ERR
 A service error occured or the arguments can't be parsed as numbers.
 .SH "EXAMPLES"
@@ -97,22 +101,27 @@ A service error occured or the arguments can't be parsed as numbers.
 To emulate the behaviour of
 \fIpam_wheel\fR, except there is no fallback to group 0:
 .sp
+.RS 3n
 .nf
     auth required pam_succeed_if.so quiet user ingroup wheel
       
 .fi
+.RE
 .sp
 .PP
 Given that the type matches, only loads the othermodule rule if the UID is over 500. Adjust the number after default to skip several rules.
 .sp
+.RS 3n
 .nf
     type [default=1 success=ignore] pam_succeed_if.so quiet uid > 500
     type required othermodule.so arguments...
       
 .fi
+.RE
 .sp
 .SH "SEE ALSO"
 .PP
+
 \fBglob\fR(7),
 \fBpam\fR(8)
 .SH "AUTHOR"

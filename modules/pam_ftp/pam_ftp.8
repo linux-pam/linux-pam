@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_FTP" "8" "06/01/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_ftp
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_FTP" "8" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -33,13 +36,13 @@ item with the entered password and fails.
 This module is not safe and easily spoofable.
 .SH "OPTIONS"
 .PP
-.TP
+.TP 3n
 \fBdebug\fR
 Print debug information.
-.TP
+.TP 3n
 \fBignore\fR
 Pay no attention to the email address of the user (if supplied).
-.TP
+.TP 3n
 \fBftp=\fR\fB\fIXXX,YYY,...\fR\fR
 Instead of
 \fIftp\fR
@@ -54,10 +57,10 @@ Only the
 service is supported.
 .SH "RETURN VALUES"
 .PP
-.TP
+.TP 3n
 PAM_SUCCESS
 The authentication was successfull.
-.TP
+.TP 3n
 PAM_USER_UNKNOWN
 User not known.
 .SH "EXAMPLES"
@@ -66,6 +69,7 @@ Add the following line to
 \fI/etc/pam.d/ftpd\fR
 to handle ftp style anonymous login:
 .sp
+.RS 3n
 .nf
 #
 # ftpd; add ftp\-specifics. These lines enable anonymous ftp over
@@ -78,9 +82,11 @@ auth    required    pam_listfile.so \\
            onerr=succeed item=user sense=deny file=/etc/ftpusers
       
 .fi
+.RE
 .sp
 .SH "SEE ALSO"
 .PP
+
 \fBpam.conf\fR(5),
 \fBpam.d\fR(8),
 \fBpam\fR(8)

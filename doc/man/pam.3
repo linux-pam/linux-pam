@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM" "3" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -10,15 +13,28 @@
 .SH "NAME"
 pam \- Pluggable Authentication Modules Library
 .SH "SYNOPSIS"
-.PP
-\fB#include <security/pam_appl.h>\fR
-.PP
-\fB#include <security/pam_modules.h>\fR
-.PP
-\fB#include <security/pam_ext.h>\fR
+.sp
+.ft B
+.nf
+#include <security/pam_appl.h>
+.fi
+.ft
+.sp
+.ft B
+.nf
+#include <security/pam_modules.h>
+.fi
+.ft
+.sp
+.ft B
+.nf
+#include <security/pam_ext.h>
+.fi
+.ft
 .SH "DESCRIPTION"
 .PP
-\fIPAM\fR
+
+\fBPAM\fR
 is a system of libraries that handle the authentication tasks of applications (services) on the system. The library provides a stable general interface (Application Programming Interface \- API) that privilege granting programs (such as
 \fBlogin\fR(1)
 and
@@ -32,6 +48,7 @@ function creates the PAM context and initiates the PAM transaction. It is the fi
 The
 \fBpam_end\fR(3)
 function terminates the PAM transaction and is the last function an application should call in the PAM contenxt. Upon return the handle pamh is no longer valid and all memory associated with it will be invalid. It can be called at any time to terminate a PAM transaction.
+.\" end of SS subsection "Initialization and Cleanup"
 .SS "Authentication"
 .PP
 The
@@ -41,22 +58,26 @@ function is used to authenticate the user. The user is required to provide an au
 The
 \fBpam_setcred\fR(3)
 function manages the userscredentials.
+.\" end of SS subsection "Authentication"
 .SS "Account Management"
 .PP
 The
 \fBpam_acct_mgmt\fR(3)
 function is used to determine if the users account is valid. It checks for authentication token and account expiration and verifies access restrictions. It is typically called after the user has been authenticated.
+.\" end of SS subsection "Account Management"
 .SS "Password Management"
 .PP
 The
 \fBpam_chauthtok\fR(3)
 function is used to change the authentication token for a given user on request or because the token has expired.
+.\" end of SS subsection "Password Management"
 .SS "Session Management"
 .PP
 The
 \fBpam_open_session\fR(3)
 function sets up a user session for a previously successful authenticated user. The session should later be terminated with a call to
 \fBpam_close_session\fR(3).
+.\" end of SS subsection "Session Management"
 .SS "Conversation"
 .PP
 The PAM library uses an application\-defined callback to allow a direct communication between a loaded module and the application. This callback is specified by the
@@ -66,6 +87,7 @@ passed to
 at the start of the transaction. See
 \fBpam_conv\fR(3)
 for details.
+.\" end of SS subsection "Conversation"
 .SS "Data Objects"
 .PP
 The
@@ -79,6 +101,7 @@ The
 and
 \fBpam_get_data\fR(3)
 functions allows PAM service modules to set and retrieve free\-form data from one invocation to another.
+.\" end of SS subsection "Data Objects"
 .SS "Environment and Error Management"
 .PP
 The
@@ -91,98 +114,100 @@ functions are for maintaining a set of private environment variables.
 The
 \fBpam_strerror\fR(3)
 function returns a pointer to a string describing the given PAM error code.
+.\" end of SS subsection "Environment and Error Management"
 .SH "RETURN VALUES"
 .PP
 The following return codes are known by PAM:
-.TP
+.TP 3n
 PAM_ABORT
 Critical error, immediate abort.
-.TP
+.TP 3n
 PAM_ACCT_EXPIRED
 User account has expired.
-.TP
+.TP 3n
 PAM_AUTHINFO_UNAVAIL
 Authentication service cannot retrieve authentication info.
-.TP
+.TP 3n
 PAM_AUTHTOK_DISABLE_AGING
 Authentication token aging disabled.
-.TP
+.TP 3n
 PAM_AUTHTOK_ERR
 Authentication token manipulation error.
-.TP
+.TP 3n
 PAM_AUTHTOK_EXPIRED
 Authentication token expired.
-.TP
+.TP 3n
 PAM_AUTHTOK_LOCK_BUSY
 Authentication token lock busy.
-.TP
+.TP 3n
 PAM_AUTHTOK_RECOVERY_ERR
 Authentication information cannot be recovered.
-.TP
+.TP 3n
 PAM_AUTH_ERR
 Authentication failure.
-.TP
+.TP 3n
 PAM_BUF_ERR
 Memory buffer error.
-.TP
+.TP 3n
 PAM_CONV_ERR
 Conversation failure.
-.TP
+.TP 3n
 PAM_CRED_ERR
 Failure setting user credentials.
-.TP
+.TP 3n
 PAM_CRED_EXPIRED
 User credentials expired.
-.TP
+.TP 3n
 PAM_CRED_INSUFFICIENT
 Insufficient credentials to access authentication data.
-.TP
+.TP 3n
 PAM_CRED_UNAVAIL
 Authentication service cannot retrieve user credentials.
-.TP
+.TP 3n
 PAM_IGNORE
 The return value should be ignored by PAM dispatch.
-.TP
+.TP 3n
 PAM_MAXTRIES
 Have exhausted maximum number of retries for service.
-.TP
+.TP 3n
 PAM_MODULE_UNKNOWN
 Module is unknown.
-.TP
+.TP 3n
 PAM_NEW_AUTHTOK_REQD
 Authentication token is no longer valid; new one required.
-.TP
+.TP 3n
 PAM_NO_MODULE_DATA
 No module specific data is present.
-.TP
+.TP 3n
 PAM_OPEN_ERR
 Failed to load module.
-.TP
+.TP 3n
 PAM_PERM_DENIED
 Permission denied.
-.TP
+.TP 3n
 PAM_SERVICE_ERR
 Error in service module.
-.TP
+.TP 3n
 PAM_SESSION_ERR
 Cannot make/remove an entry for the specified session.
-.TP
+.TP 3n
 PAM_SUCCESS
 Success.
-.TP
+.TP 3n
 PAM_SYMBOL_ERR
 Symbol not found.
-.TP
+.TP 3n
 PAM_SYSTEM_ERR
 System error.
-.TP
+.TP 3n
 PAM_TRY_AGAIN
 Failed preliminary check by password service.
-.TP
+.TP 3n
 PAM_USER_UNKNOWN
 User not known to the underlying authentication module.
 .SH "SEE ALSO"
 .PP
+
 \fBpam_acct_mgmt\fR(3),
 \fBpam_authenticate\fR(3),
 \fBpam_chauthtok\fR(3),

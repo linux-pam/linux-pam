@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_SET_DATA" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_set_data
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_SET_DATA" "3" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -10,10 +13,14 @@
 .SH "NAME"
 pam_set_data \- set module internal data
 .SH "SYNOPSIS"
-.PP
-\fB#include <security/pam_modules.h>\fR
+.sp
+.ft B
+.nf
+#include <security/pam_modules.h>
+.fi
+.ft
 .HP 17
-\fBint\ \fBpam_set_data\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fImodule_data_name\fR\fR\fB, \fR\fBvoid\ *\fR\fB\fIdata\fR\fR\fB, \fR\fBvoid\ \fR\fB\fI(*cleanup)(pam_handle_t\ *pamh,\ void\ *data,\ int\ error_status)\fR\fR\fB);\fR
+.BI "int pam_set_data(pam_handle_t\ *" "pamh" ", const\ char\ *" "module_data_name" ", void\ *" "data" ", void\ " "(*cleanup)(pam_handle_t\ *pamh,\ void\ *data,\ int\ error_status)" ");"
 .SH "DESCRIPTION"
 .PP
 The
@@ -58,28 +65,29 @@ function as appropriate. Based on this value the Kerberos module may choose to d
 The
 \fIerror_status\fR
 may have been logically OR'd with either of the following two values:
-.TP
+.TP 3n
 PAM_DATA_REPLACE
 When a data item is being replaced (through a second call to
 \fBpam_set_data\fR) this mask is used. Otherwise, the call is assumed to be from
 \fBpam_end\fR(3).
-.TP
+.TP 3n
 PAM_DATA_SILENT
 Which indicates that the process would prefer to perform the
 \fBcleanup()\fR
 quietly. That is, discourages logging/messages to the user.
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_BUF_ERR
 Memory buffer error.
-.TP
+.TP 3n
 PAM_SUCCESS
 Data was successful stored.
-.TP
+.TP 3n
 PAM_SYSTEM_ERR
 A NULL pointer was submitted as PAM handle or the function was called by an application.
 .SH "SEE ALSO"
 .PP
+
 \fBpam_end\fR(3),
 \fBpam_get_data\fR(3),
 \fBpam_strerror\fR(3)

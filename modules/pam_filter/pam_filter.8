@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_FILTER" "8" "05/30/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_filter
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_FILTER" "8" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -27,22 +30,22 @@ with the privilege of the calling application and
 that of the user. For this reason it cannot usually be killed by the user without closing their session.
 .SH "OPTIONS"
 .PP
-.TP
+.TP 3n
 \fBdebug\fR
 Print debug information.
-.TP
+.TP 3n
 \fBnew_term\fR
 The default action of the filter is to set the
 \fIPAM_TTY\fR
 item to indicate the terminal that the user is using to connect to the application. This argument indicates that the filter should set
 \fIPAM_TTY\fR
 to the filtered pseudo\-terminal.
-.TP
+.TP 3n
 \fBnon_term\fR
 don't try to set the
 \fIPAM_TTY\fR
 item.
-.TP
+.TP 3n
 \fBrunX\fR
 In order that the module can invoke a filter it should know when to invoke it. This argument is required to tell the filter when to do this.
 .sp
@@ -93,7 +96,7 @@ phase) and
 is used to indicate that the filter is run on the second occasion (the
 \fIPAM_UPDATE_AUTHTOK\fR
 phase).
-.TP
+.TP 3n
 \fBfilter\fR
 The full pathname of the filter to be run and any command line arguments that the filter might expect.
 .SH "MODULE SERVICES PROVIDED"
@@ -107,10 +110,10 @@ and
 are supported.
 .SH "RETURN VALUES"
 .PP
-.TP
+.TP 3n
 PAM_SUCCESS
 The new filter was set successfull.
-.TP
+.TP 3n
 PAM_ABORT
 Critical error, immediate abort.
 .SH "EXAMPLES"
@@ -119,13 +122,16 @@ Add the following line to
 \fI/etc/pam.d/login\fR
 to see how to configure login to transpose upper and lower case letters once the user has logged in:
 .sp
+.RS 3n
 .nf
         session required pam_filter.so run1 /lib/security/pam_filter/upperLOWER
       
 .fi
+.RE
 .sp
 .SH "SEE ALSO"
 .PP
+
 \fBpam.conf\fR(5),
 \fBpam.d\fR(8),
 \fBpam\fR(8)

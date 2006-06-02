@@ -1,0 +1,164 @@
+.\"     Title: pam_listfile
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_LISTFILE" "8" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_listfile \- deny or allow services based on an arbitrary file.
+.SH "SYNOPSIS"
+.HP 16
+\fBpam_listfile.so\fR item=[tty|user|rhost|ruser|group|shell] sense=[allow|deny] file=\fI/path/filename\fR onerr=[succeed|fail] [apply=[\fIuser\fR|\fI@group\fR]]
+.SH "DESCRIPTION"
+.PP
+pam_listfile is a PAM module which provides a way to deny or allow services based on an arbitrary file.
+.PP
+The module gets the
+\fBitem\fR
+of the type specified \-\-
+\fIuser\fR
+specifies the username,
+\fIPAM_USER\fR; tty specifies the name of the terminal over which the request has been made,
+\fIPAM_TTY\fR; rhost specifies the name of the remote host (if any) from which the request was made,
+\fIPAM_RHOST\fR; and ruser specifies the name of the remote user (if available) who made the request,
+\fIPAM_RUSER\fR
+\-\- and looks for an instance of that item in the
+\fBfile=\fR\fB\fIfilename\fR\fR.
+\fIfilename\fR
+contains one line per item listed. If the item is found, then if
+\fBsense=\fR\fB\fIallow\fR\fR,
+\fIPAM_SUCCESS\fR
+is returned, causing the authorization request to succeed; else if
+\fBsense=\fR\fB\fIdeny\fR\fR,
+\fIPAM_AUTH_ERR\fR
+is returned, causing the authorization request to fail.
+.PP
+If an error is encountered (for instance, if
+\fIfilename\fR
+does not exist, or a poorly\-constructed argument is encountered), then if
+\fIonerr=succeed\fR,
+\fIPAM_SUCCESS\fR
+is returned, otherwise if
+\fIonerr=fail\fR,
+\fIPAM_AUTH_ERR\fR
+or
+\fIPAM_SERVICE_ERR\fR
+(as appropriate) will be returned.
+.PP
+An additional argument,
+\fBapply=\fR, can be used to restrict the application of the above to a specific user (\fBapply=\fR\fB\fIusername\fR\fR) or a given group (\fBapply=\fR\fB\fI@groupname\fR\fR). This added restriction is only meaningful when used with the
+\fItty\fR,
+\fIrhost\fR
+and
+\fIshell\fR
+items.
+.PP
+Besides this last one, all arguments should be specified; do not count on any default behavior.
+.PP
+No credentials are awarded by this module.
+.SH "OPTIONS"
+.PP
+.TP 3n
+\fBitem=[tty|user|rhost|ruser|group|shell]\fR
+What is listed in the file and should be checked for.
+.TP 3n
+\fBsense=[allow|deny]\fR
+Action to take if found in file, if the item is NOT found in the file, then the opposite action is requested.
+.TP 3n
+\fBfile=\fR\fB\fI/path/filename\fR\fR
+File containing one item per line. The file needs to be a plain file and not world writeable.
+.TP 3n
+\fBonerr=[succeed|fail]\fR
+What to do if something weird happens like being unable to open the file.
+.TP 3n
+\fBapply=[\fR\fB\fIuser\fR\fR\fB|\fR\fB\fI@group\fR\fR\fB]\fR
+Restrict the user class for which the restriction apply. Note that with
+\fBitem=[user|ruser|group]\fR
+this oes not make sense, but for
+\fBitem=[tty|rhost|shell]\fR
+it have a meaning.
+.SH "MODULE SERVICES PROVIDED"
+.PP
+The services
+\fBauth\fR,
+\fBaccount\fR,
+\fBpassword\fR
+and
+\fBsession\fR
+are supported.
+.SH "RETURN VALUES"
+.PP
+.TP 3n
+PAM_AUTH_ERR
+Authentication failure.
+.TP 3n
+PAM_BUF_ERR
+Memory buffer error.
+.TP 3n
+PAM_IGNORE
+The rule does not apply to the
+\fBapply\fR
+option.
+.TP 3n
+PAM_SERVICE_ERR
+Error in service module.
+.TP 3n
+PAM_SUCCESS
+Success.
+.SH "EXAMPLES"
+.PP
+Classic 'ftpusers' authentication can be implemented with this entry in
+\fI/etc/pam.d/ftpd\fR:
+.sp
+.RS 3n
+.nf
+#
+# deny ftp\-access to users listed in the /etc/ftpusers file
+#
+auth    required       pam_listfile.so \\
+        onerr=succeed item=user sense=deny file=/etc/ftpusers
+      
+.fi
+.RE
+.sp
+Note, users listed in
+\fI/etc/ftpusers\fR
+file are (counterintuitively)
+\fInot\fR
+allowed access to the ftp service.
+.PP
+To allow login access only for certain users, you can use a
+\fI/etc/pam.d/login\fR
+entry like this:
+.sp
+.RS 3n
+.nf
+#
+# permit login to users listed in /etc/loginusers
+#
+auth    required       pam_listfile.so \\
+        onerr=fail item=user sense=allow file=/etc/loginusers
+      
+.fi
+.RE
+.sp
+For this example to work, all users who are allowed to use the login service should be listed in the file
+\fI/etc/loginusers\fR. Unless you are explicitly trying to lock out root, make sure that when you do this, you leave a way for root to log in, either by listing root in
+\fI/etc/loginusers\fR, or by listing a user who is able to
+\fIsu\fR
+to the root account.
+.SH "SEE ALSO"
+.PP
+
+\fBpam.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8)
+.SH "AUTHOR"
+.PP
+pam_listfile was written by Michael K. Johnson <johnsonm@redhat.com> and Elliot Lee <sopwith@cuc.edu>.

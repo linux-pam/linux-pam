@@ -317,13 +317,25 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		pam_syslog(pamh, LOG_DEBUG,
 			 "password for user %s will expire in %d days",
 			 uname, daysleft);
+#ifdef HAVE_DNGETTEXT
+		snprintf (buf, sizeof (buf),
+			  dngettext(PACKAGE,
+				    "Warning: your password will expire in %d day",
+				    "Warning: your password will expire in %d days",
+				    daysleft),
+			  daysleft);
+#else
 		if (daysleft == 1)
 		  snprintf(buf, sizeof (buf),
-			   _("Warning: your password will expire in one day"));
+			   _("Warning: your password will expire in %d day"),
+			   daysleft);
 		else
 		  snprintf(buf, sizeof (buf),
+			   /* TRANSLATORS: only used if dngettext is not support
+ed */
 			   _("Warning: your password will expire in %d days"),
 			   daysleft);
+#endif
 		_make_remark(pamh, ctrl, PAM_TEXT_INFO, buf);
 	}
 

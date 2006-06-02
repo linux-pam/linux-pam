@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_FAIL_DELAY" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_fail_delay
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_FAIL_DELAY" "3" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -10,10 +13,14 @@
 .SH "NAME"
 pam_fail_delay \- request a delay on failure
 .SH "SYNOPSIS"
-.PP
-\fB#include <security/pam_appl.h>\fR
+.sp
+.ft B
+.nf
+#include <security/pam_appl.h>
+.fi
+.ft
 .HP 19
-\fBint\ \fBpam_fail_delay\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBunsigned\ int\ \fR\fB\fIusec\fR\fR\fB);\fR
+.BI "int pam_fail_delay(pam_handle_t\ *" "pamh" ", unsigned\ int\ " "usec" ");"
 .SH "DESCRIPTION"
 .PP
 The
@@ -32,12 +39,14 @@ control is returned to the service application.
 .PP
 When using this function the application programmer should check if it is available with:
 .sp
+.RS 3n
 .nf
 #ifdef PAM_FAIL_DELAY
     ....
 #endif /* PAM_FAIL_DELAY */
       
 .fi
+.RE
 .PP
 For applications written with a single thread that are event driven in nature, generating this delay may be undesirable. Instead, the application may want to register the delay in some other way. For example, in a single threaded server that serves multiple authentication requests from a single event loop, the application might want to simply mark a given connection as blocked until an application timer expires. For this reason the delay function can be changed with the
 \fIPAM_FAIL_DELAY\fR
@@ -47,10 +56,12 @@ and
 \fBpam_set_item \fR(3)
 respectively. The value used to set it should be a function pointer of the following prototype:
 .sp
+.RS 3n
 .nf
 void (*delay_fn)(int retval, unsigned usec_delay, void *appdata_ptr);
       
 .fi
+.RE
 .sp
 The arguments being the
 \fIretval\fR
@@ -78,32 +89,37 @@ To minimize the effectiveness of such attacks, it is desirable to introduce a ra
 .PP
 For example, a login application may require a failure delay of roughly 3 seconds. It will contain the following code:
 .sp
+.RS 3n
 .nf
     pam_fail_delay (pamh, 3000000 /* micro\-seconds */ );
     pam_authenticate (pamh, 0);
     
 .fi
+.RE
 .PP
 if the modules do not request a delay, the failure delay will be between 2.25 and 3.75 seconds.
 .PP
 However, the modules, invoked in the authentication process, may also request delays:
 .sp
+.RS 3n
 .nf
 module #1:    pam_fail_delay (pamh, 2000000);
 module #2:    pam_fail_delay (pamh, 4000000);
     
 .fi
+.RE
 .PP
 in this case, it is the largest requested value that is used to compute the actual failed delay: here between 3 and 5 seconds.
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_SUCCESS
 Delay was successful adjusted.
-.TP
+.TP 3n
 PAM_SYSTEM_ERR
 A NULL pointer was submitted as PAM handle.
 .SH "SEE ALSO"
 .PP
+
 \fBpam_start\fR(3),
 \fBpam_get_item\fR(3),
 \fBpam_strerror\fR(3)

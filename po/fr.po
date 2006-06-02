@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"POT-Creation-Date: 2006-06-02 12:37+0200\n"
 "PO-Revision-Date: 2006-05-04 08:29+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -30,40 +30,40 @@ msgstr ""
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:739
+#: modules/pam_tally/pam_tally.c:744
 msgid "Authentication error"
 msgstr "Erreur d'authentification"
 
-#: modules/pam_tally/pam_tally.c:740
+#: modules/pam_tally/pam_tally.c:745
 msgid "Service error"
 msgstr "Erreur de service"
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:746
 msgid "Unknown user"
 msgstr "Utilisateur inconnu"
 
-#: modules/pam_tally/pam_tally.c:742
+#: modules/pam_tally/pam_tally.c:747
 msgid "Unknown error"
 msgstr "Erreur inconnue"
 
-#: modules/pam_tally/pam_tally.c:758
+#: modules/pam_tally/pam_tally.c:763
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Numéro incorrect attribué à --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:762
+#: modules/pam_tally/pam_tally.c:767
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s : Option non reconnue %s\n"
 
-#: modules/pam_tally/pam_tally.c:774
+#: modules/pam_tally/pam_tally.c:779
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:845
+#: modules/pam_tally/pam_tally.c:853
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Impossible de réinitialiser tous les utilisateurs à non-zéro\n"
@@ -153,38 +153,38 @@ msgstr "Contexte de sécurité non valide"
 msgid "Security Context %s Assigned"
 msgstr "Contexte de sécurité %s attribué"
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
 msgstr "Aucun message."
 
-#: modules/pam_mail/pam_mail.c:310
+#: modules/pam_mail/pam_mail.c:316
 msgid "You have new mail."
 msgstr "Vous avez un nouveau message."
 
-#: modules/pam_mail/pam_mail.c:313
+#: modules/pam_mail/pam_mail.c:319
 msgid "You have old mail."
 msgstr "Vous avez un ancien message."
 
-#: modules/pam_mail/pam_mail.c:317
+#: modules/pam_mail/pam_mail.c:323
 msgid "You have mail."
 msgstr "Vous avez des messages."
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:330
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Vous n'avez aucun message dans le dossier %s."
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:334
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Vous avez un nouveau message dans le dossier %s."
 
-#: modules/pam_mail/pam_mail.c:332
+#: modules/pam_mail/pam_mail.c:338
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Vous avez un ancien message dans le dossier %s."
 
-#: modules/pam_mail/pam_mail.c:337
+#: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Vous avez des messages dans le dossier %s."
@@ -202,12 +202,16 @@ msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "Vous devez changer votre mot de passe immédiatement (mot de passe périmé)"
 
-#: modules/pam_unix/pam_unix_acct.c:322
+#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
 #, fuzzy, c-format
-msgid "Warning: your password will expire in one day"
-msgstr "Avertissement : votre mot de passe expire dans %d jour%.2s"
+msgid "Warning: your password will expire in %d day"
+msgid_plural "Warning: your password will expire in %d days"
+msgstr[0] "Avertissement : votre mot de passe expire dans %d jour%.2s"
+msgstr[1] "Avertissement : votre mot de passe expire dans %d jour%.2s"
 
-#: modules/pam_unix/pam_unix_acct.c:325
+#. TRANSLATORS: only used if dngettext is not support
+#. ed
+#: modules/pam_unix/pam_unix_acct.c:336
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Avertissement : votre mot de passe expire dans %d jour%.2s"
@@ -312,8 +316,8 @@ msgstr "est inversé"
 msgid "has been already used"
 msgstr "a déjà été utilisé"
 
-#: modules/pam_cracklib/pam_cracklib.c:488
-#: modules/pam_cracklib/pam_cracklib.c:616
+#: modules/pam_cracklib/pam_cracklib.c:487
+#: modules/pam_cracklib/pam_cracklib.c:615
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "MOT DE PASSE INCORRECT : %s"
@@ -474,6 +478,10 @@ msgstr "...Votre temps est épuisé !\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "erreurs de conversation (%d)\n"
+
+#, fuzzy
+#~ msgid "Warning: your password will expire in one day"
+#~ msgstr "Avertissement : votre mot de passe expire dans %d jour%.2s"
 
 #~ msgid "dlopen() failure"
 #~ msgstr "échec de dlopen()"

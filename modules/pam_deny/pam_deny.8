@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_DENY" "8" "02/03/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_deny
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_DENY" "8" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -25,20 +28,23 @@ and
 \fBsession\fR) are supported.
 .SH "RETURN VALUES"
 .PP
-.TP
+.TP 3n
 PAM_AUTH_ERR
 This is returned by the account and auth services.
-.TP
+.TP 3n
 PAM_CRED_ERR
 This is returned by the setcred function.
-.TP
+.TP 3n
 PAM_AUTHTOK_ERR
 This is returned by the password service.
-.TP
+.TP 3n
 PAM_SESSION_ERR
 This is returned by the session service.
 .SH "EXAMPLES"
 .PP
+
+.sp
+.RS 3n
 .nf
         #%PAM\-1.0
         #
@@ -55,9 +61,11 @@ This is returned by the session service.
         other session  required       pam_deny.so
       
 .fi
+.RE
 .sp
 .SH "SEE ALSO"
 .PP
+
 \fBpam.conf\fR(5),
 \fBpam.d\fR(8),
 \fBpam\fR(8)

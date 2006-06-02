@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_GET_USER" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_get_user
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_GET_USER" "3" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -10,10 +13,14 @@
 .SH "NAME"
 pam_get_user \- get user name
 .SH "SYNOPSIS"
-.PP
-\fB#include <security/pam_modules.h>\fR
+.sp
+.ft B
+.nf
+#include <security/pam_modules.h>
+.fi
+.ft
 .HP 17
-\fBint\ \fBpam_get_user\fR\fR\fB(\fR\fBconst\ pam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ **\fR\fB\fIuser\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIprompt\fR\fR\fB);\fR
+.BI "int pam_get_user(const\ pam_handle_t\ *" "pamh" ", const\ char\ **" "user" ", const\ char\ *" "prompt" ");"
 .SH "DESCRIPTION"
 .PP
 The
@@ -24,21 +31,23 @@ function returns the name of the user specified by
 would have returned. If this is NULL it obtains the username via the
 \fBpam_conv\fR(3)
 mechanism, it prompts the user with the first non\-NULL string in the following list:
-.TP 3
+.TP 3n
 \(bu
 The
 \fIprompt\fR
 argument passed to the function.
-.TP
+.TP 3n
 \(bu
 What is returned by pam_get_item (pamh, PAM_USER_PROMPT, ... );
-.TP
+.TP 3n
 \(bu
 The default prompt: "login: "
+.sp
+.RE
 .PP
 By whatever means the username is obtained, a pointer to it is returned as the contents of
 \fI*user\fR. Note, this memory should
-\fInot\fR
+\fBnot\fR
 be
 \fIfree()\fR'd or
 \fImodified\fR
@@ -52,17 +61,18 @@ and
 \fBpam_get_item\fR(3)
 functions.
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_SUCCESS
 User name was successful retrieved.
-.TP
+.TP 3n
 PAM_SYSTEM_ERR
 A NULL pointer was submitted.
-.TP
+.TP 3n
 PAM_CONV_ERR
 The conversation method supplied by the application failed to obtain the username.
 .SH "SEE ALSO"
 .PP
+
 \fBpam_end\fR(3),
 \fBpam_get_item\fR(3),
 \fBpam_set_item\fR(3),

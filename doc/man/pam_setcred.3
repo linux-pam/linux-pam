@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_SETCRED" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_setcred
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_SETCRED" "3" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -10,10 +13,14 @@
 .SH "NAME"
 pam_setcred \- establish / delete user credentials
 .SH "SYNOPSIS"
-.PP
-\fB#include <security/pam_appl.h>\fR
+.sp
+.ft B
+.nf
+#include <security/pam_appl.h>
+.fi
+.ft
 .HP 16
-\fBint\ \fBpam_setcred\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBint\ \fR\fB\fIflags\fR\fR\fB);\fR
+.BI "int pam_setcred(pam_handle_t\ *" "pamh" ", int\ " "flags" ");"
 .SH "DESCRIPTION"
 .PP
 The
@@ -33,42 +40,43 @@ and
 Valid
 \fIflags\fR, any one of which, may be logically OR'd with
 \fBPAM_SILENT\fR, are:
-.TP
+.TP 3n
 PAM_ESTABLISH_CRED
 Initialize the credentials for the user.
-.TP
+.TP 3n
 PAM_DELETE_CRED
 Delete the user's credentials.
-.TP
+.TP 3n
 PAM_REINITIALIZE_CRED
 Fully reinitialize the user's credentials.
-.TP
+.TP 3n
 PAM_REFRESH_CRED
 Extend the lifetime of the existing credentials.
 .SH "RETURN VALUE"
-.TP
+.TP 3n
 PAM_BUF_ERR
 Memory buffer error.
-.TP
+.TP 3n
 PAM_CRED_ERR
 Failed to set user credentials.
-.TP
+.TP 3n
 PAM_CRED_EXPIRED
 User credentials are expired.
-.TP
+.TP 3n
 PAM_CRED_UNAVAIL
 Failed to retrieve user credentials.
-.TP
+.TP 3n
 PAM_SUCCESS
 Data was successful stored.
-.TP
+.TP 3n
 PAM_SYSTEM_ERR
 A NULL pointer was submitted as PAM handle, the function was called by a module or another system error occured.
-.TP
+.TP 3n
 PAM_USER_UNKNOWN
 User is not known to an authentication module.
 .SH "SEE ALSO"
 .PP
+
 \fBpam_authenticate\fR(3),
 \fBpam_open_session\fR(3),
 \fBpam_strerror\fR(3)

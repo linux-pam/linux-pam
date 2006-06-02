@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_OPEN_SESSION" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_open_session
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_OPEN_SESSION" "3" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -10,10 +13,14 @@
 .SH "NAME"
 pam_open_session \- start PAM session management
 .SH "SYNOPSIS"
-.PP
-\fB#include <security/pam_appl.h>\fR
+.sp
+.ft B
+.nf
+#include <security/pam_appl.h>
+.fi
+.ft
 .HP 21
-\fBint\ \fBpam_open_session\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBint\ \fR\fB\fIflags\fR\fR\fB);\fR
+.BI "int pam_open_session(pam_handle_t\ *" "pamh" ", int\ " "flags" ");"
 .SH "DESCRIPTION"
 .PP
 The
@@ -25,23 +32,24 @@ It should be noted that the effective uid,
 \fBgeteuid\fR(2). of the application should be of sufficient privilege to perform such tasks as creating or mounting the user's home directory for example.
 .PP
 The flags argument is the binary or of zero or more of the following values:
-.TP
+.TP 3n
 PAM_SILENT
 Do not emit any messages.
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_ABORT
 General failure.
-.TP
+.TP 3n
 PAM_BUF_ERR
 Memory buffer error.
-.TP
+.TP 3n
 PAM_SESSION_ERR
 Session failure.
-.TP
+.TP 3n
 PAM_SUCCESS
 Session was successful created.
 .SH "SEE ALSO"
 .PP
+
 \fBpam_close_session\fR(3),
 \fBpam_strerror\fR(3)

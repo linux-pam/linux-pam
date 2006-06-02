@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_PUTENV" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_putenv
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_PUTENV" "3" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -10,10 +13,14 @@
 .SH "NAME"
 pam_putenv \- set or change PAM environment variable
 .SH "SYNOPSIS"
-.PP
-\fB#include <security/pam_appl.h>\fR
+.sp
+.ft B
+.nf
+#include <security/pam_appl.h>
+.fi
+.ft
 .HP 15
-\fBint\ \fBpam_putenv\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIname_value\fR\fR\fB);\fR
+.BI "int pam_putenv(pam_handle_t\ *" "pamh" ", const\ char\ *" "name_value" ");"
 .SH "DESCRIPTION"
 .PP
 The
@@ -27,38 +34,39 @@ The
 argument is an authentication handle obtained by a prior call to pam_start(). The
 \fIname_value\fR
 argument is a single NUL terminated string of one of the following forms:
-.TP
+.TP 3n
 NAME=value of variable
 In this case the environment variable of the given NAME is set to the indicated value:
 \fIvalue of variable\fR. If this variable is already known, it is overwritten. Otherwise it is added to the PAM environment.
-.TP
+.TP 3n
 NAME=
 This function sets the variable to an empty value. It is listed separately to indicate that this is the correct way to achieve such a setting.
-.TP
+.TP 3n
 NAME
 Without an '=' the pam_putenv() function will delete the corresponding variable from the PAM environment.
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_PERM_DENIED
 Argument
 \fIname_value\fR
 given is a NULL pointer.
-.TP
+.TP 3n
 PAM_BAD_ITEM
 Variable requested (for deletion) is not currently set.
-.TP
+.TP 3n
 PAM_ABORT
 The
 \fIpamh\fR
 handle is corrupt.
-.TP
+.TP 3n
 PAM_BUF_ERR
 Memory buffer error.
-.TP
+.TP 3n
 PAM_SUCCESS
 The environment variable was successfully updated.
 .SH "SEE ALSO"
 .PP
+
 \fBpam_start\fR(3),
 \fBpam_getenv\fR(3),
 \fBpam_getenvlist\fR(3),

@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_CONV" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_conv
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_CONV" "3" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -10,9 +13,14 @@
 .SH "NAME"
 pam_conv \- PAM conversation function
 .SH "SYNOPSIS"
-.PP
-\fB#include <security/pam_appl.h>\fR
 .sp
+.ft B
+.nf
+#include <security/pam_appl.h>
+.fi
+.ft
+.sp
+.RS 3n
 .nf
 struct pam_message {
     int msg_style;
@@ -31,6 +39,7 @@ struct pam_conv {
 };
     
 .fi
+.RE
 .SH "DESCRIPTION"
 .PP
 The PAM library uses an application\-defined callback to allow a direct communication between a loaded module and the application. This callback is specified by the
@@ -68,16 +77,16 @@ Each message can have one of four types, specified by the
 \fImsg_style\fR
 member of
 \fIstruct pam_message\fR:
-.TP
+.TP 3n
 PAM_PROMPT_ECHO_OFF
 Obtain a string without echoing any text.
-.TP
+.TP 3n
 PAM_PROMPT_ECHO_ON
 Obtain a string whilst echoing text.
-.TP
+.TP 3n
 PAM_ERROR_MSG
 Display an error message.
-.TP
+.TP 3n
 PAM_TEXT_INFO
 Display some text.
 .PP
@@ -86,30 +95,33 @@ The point of having an array of messages is that it becomes possible to pass a n
 In passing, it is worth noting that there is a descrepency between the way Linux\-PAM handles the const struct pam_message **msg conversation function argument from the way that Solaris' PAM (and derivitives, known to include HP/UX, are there others?) does. Linux\-PAM interprets the msg argument as entirely equivalent to the following prototype const struct pam_message *msg[] (which, in spirit, is consistent with the commonly used prototypes for argv argument to the familiar main() function: char **argv; and char *argv[]). Said another way Linux\-PAM interprets the msg argument as a pointer to an array of num_meg read only 'struct pam_message' pointers. Solaris' PAM implementation interprets this argument as a pointer to a pointer to an array of num_meg pam_message structures. Fortunately, perhaps, for most module/application developers when num_msg has a value of one these two definitions are entirely equivalent. Unfortunately, casually raising this number to two has led to unanticipated compatibility problems.
 .PP
 For what its worth the two known module writer work\-arounds for trying to maintain source level compatibility with both PAM implementations are:
-.TP 3
+.TP 3n
 \(bu
 never call the conversation function with num_msg greater than one.
-.TP
+.TP 3n
 \(bu
 set up msg as doubly referenced so both types of conversation function can find the messages. That is, make
 .sp
+.RS 3n
 .nf
        msg[n] = & (( *msg )[n])
        
 .fi
+.RE
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_BUF_ERR
 Memory buffer error.
-.TP
+.TP 3n
 PAM_CONV_ERR
 Conversation failure. The application should not set
 \fI*resp\fR.
-.TP
+.TP 3n
 PAM_SUCCESS
 Success.
 .SH "SEE ALSO"
 .PP
+
 \fBpam_start\fR(3),
 \fBpam_set_item\fR(3),
 \fBpam_get_item\fR(3),

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"POT-Creation-Date: 2006-06-02 12:37+0200\n"
 "PO-Revision-Date: 2006-05-03 22:00+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -30,40 +30,40 @@ msgstr ""
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:739
+#: modules/pam_tally/pam_tally.c:744
 msgid "Authentication error"
 msgstr "認証エラー"
 
-#: modules/pam_tally/pam_tally.c:740
+#: modules/pam_tally/pam_tally.c:745
 msgid "Service error"
 msgstr "サービスエラー"
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:746
 msgid "Unknown user"
 msgstr "不明なユーザ"
 
-#: modules/pam_tally/pam_tally.c:742
+#: modules/pam_tally/pam_tally.c:747
 msgid "Unknown error"
 msgstr "不明なエラー"
 
-#: modules/pam_tally/pam_tally.c:758
+#: modules/pam_tally/pam_tally.c:763
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: 不正番号が--reset=に与えられました\n"
 
-#: modules/pam_tally/pam_tally.c:762
+#: modules/pam_tally/pam_tally.c:767
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: 未認識オプション%s\n"
 
-#: modules/pam_tally/pam_tally.c:774
+#: modules/pam_tally/pam_tally.c:779
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:845
+#: modules/pam_tally/pam_tally.c:853
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: すべてのユーザを非ゼロにリセットできません\n"
@@ -153,38 +153,38 @@ msgstr "有効なセキュリティコンテキストでありません"
 msgid "Security Context %s Assigned"
 msgstr "割り当てられたセキュリティコンテキスト%s"
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
 msgstr "メールがありません。"
 
-#: modules/pam_mail/pam_mail.c:310
+#: modules/pam_mail/pam_mail.c:316
 msgid "You have new mail."
 msgstr "新しいメールがあります。"
 
-#: modules/pam_mail/pam_mail.c:313
+#: modules/pam_mail/pam_mail.c:319
 msgid "You have old mail."
 msgstr "古いメールがあります。"
 
-#: modules/pam_mail/pam_mail.c:317
+#: modules/pam_mail/pam_mail.c:323
 msgid "You have mail."
 msgstr "メールがあります。"
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:330
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "フォルダ%sにメールがありません。"
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:334
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "フォルダ%sに新しいメールがあります。"
 
-#: modules/pam_mail/pam_mail.c:332
+#: modules/pam_mail/pam_mail.c:338
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "フォルダ%sに古いメールがあります。"
 
-#: modules/pam_mail/pam_mail.c:337
+#: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "フォルダ%sにメールがあります。"
@@ -202,12 +202,16 @@ msgstr "パスワードを直ちに変更する必要があります(強制さ�
 msgid "You are required to change your password immediately (password aged)"
 msgstr "パスワードを直ちに変更する必要があります(古いパスワード)"
 
-#: modules/pam_unix/pam_unix_acct.c:322
+#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
 #, fuzzy, c-format
-msgid "Warning: your password will expire in one day"
-msgstr "警告: パスワードは%d日で有効期限が切れます。%.2s"
+msgid "Warning: your password will expire in %d day"
+msgid_plural "Warning: your password will expire in %d days"
+msgstr[0] "警告: パスワードは%d日で有効期限が切れます。%.2s"
+msgstr[1] "警告: パスワードは%d日で有効期限が切れます。%.2s"
 
-#: modules/pam_unix/pam_unix_acct.c:325
+#. TRANSLATORS: only used if dngettext is not support
+#. ed
+#: modules/pam_unix/pam_unix_acct.c:336
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "警告: パスワードは%d日で有効期限が切れます。%.2s"
@@ -313,8 +317,8 @@ msgstr "回転しています"
 msgid "has been already used"
 msgstr "パスワードはすでに使用されています。"
 
-#: modules/pam_cracklib/pam_cracklib.c:488
-#: modules/pam_cracklib/pam_cracklib.c:616
+#: modules/pam_cracklib/pam_cracklib.c:487
+#: modules/pam_cracklib/pam_cracklib.c:615
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "よくないパスワード: %s"
@@ -467,6 +471,10 @@ msgstr "...時間切れです。\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "誤った会話(%d)\n"
+
+#, fuzzy
+#~ msgid "Warning: your password will expire in one day"
+#~ msgstr "警告: パスワードは%d日で有効期限が切れます。%.2s"
 
 #~ msgid "dlopen() failure"
 #~ msgstr "dlopen()失敗"

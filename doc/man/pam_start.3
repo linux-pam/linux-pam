@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_START" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_start
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_START" "3" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -10,10 +13,14 @@
 .SH "NAME"
 pam_start \- initialization of PAM transaction
 .SH "SYNOPSIS"
-.PP
-\fB#include <security/pam_appl.h>\fR
+.sp
+.ft B
+.nf
+#include <security/pam_appl.h>
+.fi
+.ft
 .HP 14
-\fBint\ \fBpam_start\fR\fR\fB(\fR\fBconst\ char\ *\fR\fB\fIservice_name\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIuser\fR\fR\fB, \fR\fBconst\ struct\ pam_conv\ *\fR\fB\fIpam_conversation\fR\fR\fB, \fR\fBpam_handle_t\ **\fR\fB\fIpamh\fR\fR\fB);\fR
+.BI "int pam_start(const\ char\ *" "service_name" ", const\ char\ *" "user" ", const\ struct\ pam_conv\ *" "pam_conversation" ", pam_handle_t\ **" "pamh" ");"
 .SH "DESCRIPTION"
 .PP
 The
@@ -52,20 +59,21 @@ and
 \fBpam_end\fR
 was not called on it before.
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_ABORT
 General failure.
-.TP
+.TP 3n
 PAM_BUF_ERR
 Memory buffer error.
-.TP
+.TP 3n
 PAM_SUCCESS
 Transaction was successful created.
-.TP
+.TP 3n
 PAM_SYSTEM_ERR
 System error, for example a NULL pointer was submitted instead of a pointer to data.
 .SH "SEE ALSO"
 .PP
+
 \fBpam_get_data\fR(3),
 \fBpam_set_data\fR(3),
 \fBpam_end\fR(3),

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-05-03 18:51+0200\n"
+"POT-Creation-Date: 2006-06-02 12:37+0200\n"
 "PO-Revision-Date: 2006-05-04 08:30+0200\n"
 "Last-Translator: Jyri Palokangas <jmp@netti.fi>\n"
 "Language-Team:  <yast-trans-fi@kotoistaminen.novell.fi>\n"
@@ -34,33 +34,33 @@ msgstr ""
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:739
+#: modules/pam_tally/pam_tally.c:744
 msgid "Authentication error"
 msgstr "Tunnistautumisvirhe"
 
-#: modules/pam_tally/pam_tally.c:740
+#: modules/pam_tally/pam_tally.c:745
 msgid "Service error"
 msgstr "Palveluvirhe"
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:746
 msgid "Unknown user"
 msgstr "Tuntematon käyttäjä"
 
-#: modules/pam_tally/pam_tally.c:742
+#: modules/pam_tally/pam_tally.c:747
 msgid "Unknown error"
 msgstr "Tuntematon virhe"
 
-#: modules/pam_tally/pam_tally.c:758
+#: modules/pam_tally/pam_tally.c:763
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Väärä numero annettu valinnalle --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:762
+#: modules/pam_tally/pam_tally.c:767
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Tunnistamaton valinta %s\n"
 
-#: modules/pam_tally/pam_tally.c:774
+#: modules/pam_tally/pam_tally.c:779
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
@@ -68,7 +68,7 @@ msgstr ""
 "%s: [--file juurrutettu-tiedostonimi] [--user käyttäjätunnus] [--reset[=n]] "
 "[--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:845
+#: modules/pam_tally/pam_tally.c:853
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Ei voida palauttaa kaikkia käyttäjiä ei-nolliksi\n"
@@ -158,38 +158,38 @@ msgstr "Ei kelvollinen tietoturvaympäristö"
 msgid "Security Context %s Assigned"
 msgstr "Tietoturvaympäristö %s asetettiin"
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
 msgstr "Ei postia."
 
-#: modules/pam_mail/pam_mail.c:310
+#: modules/pam_mail/pam_mail.c:316
 msgid "You have new mail."
 msgstr "Sinulle on uutta postia."
 
-#: modules/pam_mail/pam_mail.c:313
+#: modules/pam_mail/pam_mail.c:319
 msgid "You have old mail."
 msgstr "Sinulla on vanha posti."
 
-#: modules/pam_mail/pam_mail.c:317
+#: modules/pam_mail/pam_mail.c:323
 msgid "You have mail."
 msgstr "Sinulle on postia."
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:330
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Sinulla ei ole postia kansiossa %s."
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:334
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Sinulla on postia kansiossa %s."
 
-#: modules/pam_mail/pam_mail.c:332
+#: modules/pam_mail/pam_mail.c:338
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Sinulla on vanhaa postia kansiossa %s."
 
-#: modules/pam_mail/pam_mail.c:337
+#: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Sinulla on postia kansiossa %s."
@@ -206,12 +206,16 @@ msgstr "Salasanasi täytyy vaihtaa heti (pääkäyttäjän vaatimus)"
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Salasanasi täytyy vaihtaa heti (salasana vanhentunut)"
 
-#: modules/pam_unix/pam_unix_acct.c:322
+#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
 #, fuzzy, c-format
-msgid "Warning: your password will expire in one day"
-msgstr "Varoitus: salasanasi vanhenee %d päivässä%.2s"
+msgid "Warning: your password will expire in %d day"
+msgid_plural "Warning: your password will expire in %d days"
+msgstr[0] "Varoitus: salasanasi vanhenee %d päivässä%.2s"
+msgstr[1] "Varoitus: salasanasi vanhenee %d päivässä%.2s"
 
-#: modules/pam_unix/pam_unix_acct.c:325
+#. TRANSLATORS: only used if dngettext is not support
+#. ed
+#: modules/pam_unix/pam_unix_acct.c:336
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Varoitus: salasanasi vanhenee %d päivässä%.2s"
@@ -316,8 +320,8 @@ msgstr "on kierrätetty"
 msgid "has been already used"
 msgstr "on jo käytetty"
 
-#: modules/pam_cracklib/pam_cracklib.c:488
-#: modules/pam_cracklib/pam_cracklib.c:616
+#: modules/pam_cracklib/pam_cracklib.c:487
+#: modules/pam_cracklib/pam_cracklib.c:615
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "HUONO SALASANA: %s"
@@ -470,6 +474,10 @@ msgstr "...Aikasi on loppunut!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "virheellinen keskustelu (%d)\n"
+
+#, fuzzy
+#~ msgid "Warning: your password will expire in one day"
+#~ msgstr "Varoitus: salasanasi vanhenee %d päivässä%.2s"
 
 #~ msgid "dlopen() failure"
 #~ msgstr "dlopen() virhe"

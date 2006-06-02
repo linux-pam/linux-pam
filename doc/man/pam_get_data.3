@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_GET_DATA" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_get_data
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_GET_DATA" "3" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -10,10 +13,14 @@
 .SH "NAME"
 pam_get_data \- get module internal data
 .SH "SYNOPSIS"
-.PP
-\fB#include <security/pam_modules.h>\fR
+.sp
+.ft B
+.nf
+#include <security/pam_modules.h>
+.fi
+.ft
 .HP 17
-\fBint\ \fBpam_get_data\fR\fR\fB(\fR\fBconst\ pam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fImodule_data_name\fR\fR\fB, \fR\fBconst\ void\ **\fR\fB\fIdata\fR\fR\fB);\fR
+.BI "int pam_get_data(const\ pam_handle_t\ *" "pamh" ", const\ char\ *" "module_data_name" ", const\ void\ **" "data" ");"
 .SH "DESCRIPTION"
 .PP
 This function together with the
@@ -36,17 +43,18 @@ a copy and should be treated as
 \fIconstant\fR
 by the module.
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_SUCCESS
 Data was successful retrieved.
-.TP
+.TP 3n
 PAM_SYSTEM_ERR
 A NULL pointer was submitted as PAM handle or the function was called by an application.
-.TP
+.TP 3n
 PAM_NO_MODULE_DATA
 Module data not found or there is an entry, but it has the value NULL.
 .SH "SEE ALSO"
 .PP
+
 \fBpam_end\fR(3),
 \fBpam_set_data\fR(3),
 \fBpam_strerror\fR(3)

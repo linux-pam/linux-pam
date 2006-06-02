@@ -1,8 +1,11 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "PAM_ERROR" "3" "05/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\"     Title: pam_error
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/02/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_ERROR" "3" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -10,12 +13,16 @@
 .SH "NAME"
 pam_error, pam_verror \- display error messages to the user
 .SH "SYNOPSIS"
-.PP
-\fB#include <security/pam_ext.h>\fR
+.sp
+.ft B
+.nf
+#include <security/pam_ext.h>
+.fi
+.ft
 .HP 14
-\fBint\ \fBpam_error\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIfmt\fR\fR\fB, \fR\fB\fI...\fR\fR\fB);\fR
+.BI "int pam_error(pam_handle_t\ *" "pamh" ", const\ char\ *" "fmt" ", " "..." ");"
 .HP 15
-\fBint\ \fBpam_verror\fR\fR\fB(\fR\fBpam_handle_t\ *\fR\fB\fIpamh\fR\fR\fB, \fR\fBconst\ char\ *\fR\fB\fIfmt\fR\fR\fB, \fR\fBva_list\ \fR\fB\fIargs\fR\fR\fB);\fR
+.BI "int pam_verror(pam_handle_t\ *" "pamh" ", const\ char\ *" "fmt" ", va_list\ " "args" ");"
 .SH "DESCRIPTION"
 .PP
 The
@@ -30,20 +37,21 @@ with the difference that it takes a set of arguments which have been obtained us
 \fBstdarg\fR(3)
 variable argument list macros.
 .SH "RETURN VALUES"
-.TP
+.TP 3n
 PAM_BUF_ERR
 Memory buffer error.
-.TP
+.TP 3n
 PAM_CONV_ERR
 Conversation failure.
-.TP
+.TP 3n
 PAM_SUCCESS
 Error message was displayed.
-.TP
+.TP 3n
 PAM_SYSTEM_ERR
 System error.
 .SH "SEE ALSO"
 .PP
+
 \fBpam_info\fR(3),
 \fBpam_vinfo\fR(3),
 \fBpam_prompt\fR(3),
