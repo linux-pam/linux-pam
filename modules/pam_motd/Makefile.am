@@ -4,7 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = tst-pam_motd
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_motd
+
+man_MANS = pam_motd.8
+XMLS = README.xml pam_motd.8.xml
 
 TESTS = tst-pam_motd
 
@@ -19,3 +22,10 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_motd.la
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_motd.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+

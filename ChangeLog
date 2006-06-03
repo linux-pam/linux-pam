@@ -1,3 +1,11 @@
+2006-06-03  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_motd/Makefile.am: Include Make.xml.rules.
+	* modules/pam_motd/pam_motd.8.xml: New.
+	* modules/pam_motd/pam_motd.8: New, generated from xml file.
+	* modules/pam_motd/README.xml: New.
+	* modules/pam_motd/README: New, generated from xml file.
+
 2006-06-02  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_mail/Makefile.am: Include Make.xml.rules.
