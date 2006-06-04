@@ -1,0 +1,62 @@
+.\"     Title: pam_permit
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/04/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_PERMIT" "8" "06/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_permit \- The promiscuous module
+.SH "SYNOPSIS"
+.HP 14
+\fBpam_permit.so\fR
+.SH "DESCRIPTION"
+.PP
+pam_permit is a PAM module that always permit access. It does nothing else.
+.PP
+In the case of authentication, the user's name will be set to
+\fInobody\fR
+if the application didn't set one. Many applications and PAM modules become confused if this name is unknown.
+.PP
+This module is very dangerous. It should be used with extreme caution.
+.SH "OPTIONS"
+.PP
+This module does not recognice any options.
+.SH "MODULE SERVICES PROVIDED"
+.PP
+The services
+\fBauth\fR,
+\fBaccount\fR,
+\fBpassword\fR
+and
+\fBsession\fR
+are supported.
+.SH "RETURN VALUES"
+.TP 3n
+PAM_SUCCESS
+This module always returns this value.
+.SH "EXAMPLES"
+.PP
+Add this line to your other login entries to disable account management, but continue to permit users to log in.
+.sp
+.RS 3n
+.nf
+account  required  pam_permit.so
+      
+.fi
+.RE
+.sp
+.SH "SEE ALSO"
+.PP
+
+\fBpam.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8)
+.SH "AUTHOR"
+.PP
+pam_permit was written by Andrew G. Morgan, <morgan@kernel.org>.
