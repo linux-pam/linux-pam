@@ -1,23 +1,41 @@
-# $Id$
-#
+pam_nologin — Prevent non-root users from login
 
-This module always lets root in; it lets other users in only if the file
-/etc/nologin doesn't exist.  In any case, if /etc/nologin exists, it's
-contents are displayed to the user.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The default return value for this module is PAM_IGNORE, you can
-override this with the successok module argument.
+DESCRIPTION
 
-module services provided:
+pam_nologin is a PAM module that prevents users from logging into the system
+when /etc/nologin exists. The contents of the /etc/nologin file are displayed
+to the user. The pam_nologin module has no effect on the root user's ability to
+log in.
 
-	auth		_authenticate and _setcred
-	account		_acct_mgmt
+OPTIONS
 
-optional arguments:
+file=/path/nologin
 
-	file=<alternative-nologin-pathname>  - choose a different file
-	successok                            - return PAM_SUCCESS if no file
+    Use this file instead the default /etc/nologin.
 
-[Original README by Michael K. Johnson]
+successok
 
+    Return PAM_SUCCESS if no file exists, the default is PAM_IGNORE.
+
+EXAMPLES
+
+The suggested usage for /etc/pam.d/login is:
+
+auth  required  pam_nologin.so
+
+
+NOTES
+
+In order to make this module effective, all login methods should be secured by
+it. It should be used as a required method listed before any sufficient methods
+in order to get standard Unix nologin semantics. Note, the use of successok
+module argument causes the module to return PAM_SUCCESS and as such would break
+such a configuration - failing sufficient modules would lead to a successful
+login because the nologin module succeeded.
+
+AUTHOR
+
+pam_nologin was written by Michael K. Johnson <johnsonm@redhat.com>.
 

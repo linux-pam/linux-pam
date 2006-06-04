@@ -4,11 +4,12 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README $(MANS) tst-pam_nologin
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_nologin
 
 TESTS = tst-pam_nologin
 
 man_MANS = pam_nologin.8
+XMLS = README.xml pam_nologin.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -21,3 +22,10 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_nologin.la
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_nologin.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+

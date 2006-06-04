@@ -1,3 +1,11 @@
+2006-06-04  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_nologin/Makefile.am: Include Make.xml.rules.
+	* modules/pam_nologin/pam_nologin.8.xml: New.
+	* modules/pam_nologin/pam_nologin.8: Regenerated from xml file.
+	* modules/pam_nologin/README.xml: New.
+	* modules/pam_nologin/README: Regenerated from xml file.
+
 2006-06-03  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_motd/Makefile.am: Include Make.xml.rules.
