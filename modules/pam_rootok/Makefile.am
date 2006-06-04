@@ -4,7 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README tst-pam_rootok
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_rootok
+
+man_MANS = pam_rootok.8
+XMLS = README.xml pam_rootok.8.xml
 
 TESTS = tst-pam_rootok
 
@@ -22,3 +25,9 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_rootok.la
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_rootok.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif

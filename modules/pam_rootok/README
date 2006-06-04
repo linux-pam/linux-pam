@@ -1,18 +1,33 @@
-# $Id$
-#
+pam_rootok — Gain only root access
 
-this module is an authentication module that performs one task: if the
-id of the user is '0' then it returns 'PAM_SUCCESS' with the
-'sufficient' /etc/pam.conf control flag it can be used to allow
-password free access to some service for 'root'
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Recognized arguments:
+DESCRIPTION
 
-	debug		write a message to syslog indicating success or
-			failure.
+pam_rootok is a PAM module that authenticates the user if their UID is 0.
+Applications that are created setuid-root generally retain the UID of the user
+but run with the authority of an enhanced effective-UID. It is the real UID
+that is checked.
 
-module services provided:
+OPTIONS
 
-	auth		_authentication and _setcred (blank)
+debug
 
-Andrew Morgan
+    Print debug information.
+
+EXAMPLES
+
+In the case of the su(1) application the historical usage is to permit the
+superuser to adopt the identity of a lesser user without the use of a password.
+To obtain this behavior with PAM the following pair of lines are needed for the
+corresponding entry in the /etc/pam.d/su configuration file:
+
+# su authentication. Root is granted access by default.
+auth  sufficient   pam_rootok.so
+auth  required     pam_unix.so
+
+
+AUTHOR
+
+pam_rootok was written by Andrew G. Morgan, <morgan@kernel.org>.
+

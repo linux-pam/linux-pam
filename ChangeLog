@@ -1,5 +1,11 @@
 2006-06-04  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_rootok/Makefile.am: Include Make.xml.rules.
+	* modules/pam_rootok/pam_rootok.8.xml: New.
+	* modules/pam_rootok/pam_rootok.8: New, generated from xml file.
+	* modules/pam_rootok/README.xml: New.
+	* modules/pam_rootok/README: Regenerated from xml file.
+
 	* modules/pam_permit/Makefile.am: Include Make.xml.rules.
 	* modules/pam_permit/pam_permit.8.xml: New.
 	* modules/pam_permit/pam_permit.8: New, generated from xml file.
