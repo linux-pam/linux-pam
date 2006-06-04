@@ -1,9 +1,33 @@
-pam_securetty:
-	Allows root logins only if the user is logging in on a
-	"secure" tty, as defined by the listing in /etc/securetty
+pam_securetty — Limit root login to special devices
 
-	Also checks to make sure that /etc/securetty is a plain
-	file and not world writable.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-	- Elliot Lee <sopwith@redhat.com>, Red Hat Software.
-		July 25, 1996.
+DESCRIPTION
+
+pam_securetty is a PAM module that allows root logins only if the user is
+logging in on a "secure" tty, as defined by the listing in /etc/securetty.
+pam_securetty also checks to make sure that /etc/securetty is a plain file and
+not world writable.
+
+This module has no effect on non-root users and requires that the application
+fills in the PAM_TTY item correctly.
+
+For canonical usage, should be listed as a required authentication method
+before any sufficient authentication methods.
+
+OPTIONS
+
+debug
+
+    Print debug information.
+
+EXAMPLES
+
+auth  required  pam_securetty.so
+auth  required  pam_unix.so
+
+
+AUTHOR
+
+pam_securetty was written by Elliot Lee <sopwith@cuc.edu>.
+

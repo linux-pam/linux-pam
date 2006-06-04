@@ -4,11 +4,12 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README $(MANS) tst-pam_securetty
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_securetty
 
 TESTS = tst-pam_securetty
 
 man_MANS = pam_securetty.8
+XMLS = README.xml pam_securetty.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -21,3 +22,9 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_securetty.la
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_securetty.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif

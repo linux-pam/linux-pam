@@ -1,98 +1,85 @@
-.\" Copyright (C) 2003 International Business Machines Corp.
-.\" This file is distributed according to the GNU General Public License.
-.\" See the file COPYING in the top level source directory for details.
+.\"     Title: pam_securetty
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/04/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
 .\"
-.de Sh \" Subsection
-.br
-.if t .Sp
-.ne 5
-.PP
-\fB\\$1\fR
-.PP
-..
-.de Sp \" Vertical space (when we can't use .PP)
-.if t .sp .5v
-.if n .sp
-..
-.de Ip \" List item
-.br
-.ie \\n(.$>=3 .ne \\$3
-.el .ne 3
-.IP "\\$1" \\$2
-..
-.TH "PAM_SECURETTY" 8 "2003-02-21" "Linux 2.4" "System Administrator's Manual"
-.SH NAME
-pam_securetty \- Limits root to logging in on devices listed in /etc/securetty
-.SH "SYNOPSIS"
+.TH "PAM_SECURETTY" "8" "06/04/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
 .ad l
-.hy 0
-
-/usr/security/pam_securetty
-.sp
-.ad
-.hy
-
+.SH "NAME"
+pam_securetty \- Limit root login to special devices
+.SH "SYNOPSIS"
+.HP 17
+\fBpam_securetty.so\fR [debug]
 .SH "DESCRIPTION"
-
 .PP
-\fBpam_securetty\fR is a PAM module that allows root logins only if the 
-user is logging in on a "secure" tty, as defined by the listing in 
-\fI/etc/securetty\fR. 
-\fBpam_securetty\fR also checks to make sure that \fI/etc/securetty\fR 
+pam_securetty is a PAM module that allows root logins only if the user is logging in on a "secure" tty, as defined by the listing in
+\fI/etc/securetty\fR. pam_securetty also checks to make sure that
+\fI/etc/securetty\fR
 is a plain file and not world writable.
-
 .PP
-This module has no effect on non-root users.
-
+This module has no effect on non\-root users and requires that the application fills in the
+\fBPAM_TTY\fR
+item correctly.
+.PP
+For canonical usage, should be listed as a
+\fBrequired\fR
+authentication method before any
+\fBsufficient\fR
+authentication methods.
 .SH "OPTIONS"
+.TP 3n
+\fBdebug\fR
+Print debug information.
+.SH "MODULE SERVICES PROVIDED"
 .PP
-\fBpam_securetty\fR has no options.
-
-.SH "RETURN CODES"
-.PP
-\fBpam_securetty\fR has the following return codes:
-.TP
+Only the
+\fBauth\fR
+service is supported.
+.SH "RETURN VALUES"
+.TP 3n
 PAM_SUCCESS
-The user is allowed to continue authentication. 
-Either the user is not root, or the root user is trying to log in on 
-an acceptable device.
-
-.TP
+The user is allowed to continue authentication. Either the user is not root, or the root user is trying to log in on an acceptable device.
+.TP 3n
 PAM_AUTH_ERR
-Authentication is rejected. 
-Either root is attempting to log in via an unacceptable device, 
-or the \fI/etc/securetty\fR file is world writable or not a normal file.
-
-.TP
+Authentication is rejected. Either root is attempting to log in via an unacceptable device, or the
+\fI/etc/securetty\fR
+file is world writable or not a normal file.
+.TP 3n
 PAM_INCOMPLETE
-An application error occurred. \fBpam_securetty\fR was not able to get 
-information it required from the application that called it.
-
-.TP
+An application error occurred. pam_securetty was not able to get information it required from the application that called it.
+.TP 3n
 PAM_SERVICE_ERR
-An error occurred while the module was determining the user's name or tty, 
-or the module could not open \fI/etc/securetty\fR.
-
-.TP
+An error occurred while the module was determining the user's name or tty, or the module could not open
+\fI/etc/securetty\fR.
+.TP 3n
 PAM_IGNORE
-The module could not find the user name in the 
-\fI/etc/passwd\fR file to verify whether the user had a UID of 0. 
-Therefore, the results of running this module are ignored.
-
-.SH "HISTORY"
-
+The module could not find the user name in the
+\fI/etc/passwd\fR
+file to verify whether the user had a UID of 0. Therefore, the results of running this module are ignored.
+.SH "EXAMPLES"
 .PP
-\fBpam_securetty\fR was written by Elliot Lee.
 
-.SH "FILES"
-
-.PP
- \fI/etc/securetty\fR 
-
+.sp
+.RS 3n
+.nf
+auth  required  pam_securetty.so
+auth  required  pam_unix.so
+      
+.fi
+.RE
+.sp
 .SH "SEE ALSO"
-
 .PP
-\fBpam.conf\fR(8), \fBpam.d\fR(8), \fBpam\fR(8), \fBsecuretty\fR(8).
 
-.SH AUTHOR
-Emily Ratliff.
+\fBsecuretty\fR(5),
+\fBpam.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8)
+.SH "AUTHOR"
+.PP
+pam_securetty was written by Elliot Lee <sopwith@cuc.edu>.
