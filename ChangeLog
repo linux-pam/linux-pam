@@ -1,3 +1,11 @@
+2006-06-06  Thorsten Kukuk  <kukuk@suse.de>
+
+	* modules/pam_shells/Makefile.am: Include Make.xml.rules.
+	* modules/pam_shells/pam_shells.8.xml: New.
+	* modules/pam_shells/pam_shells.8: New, generated from xml file.
+	* modules/pam_shells/README.xml: New.
+	* modules/pam_shells/README: Regenerated from xml file.
+
 2006-06-06  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/include/security/pam_malloc.h: Add missing license

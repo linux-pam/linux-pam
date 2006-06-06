@@ -1,9 +1,24 @@
-pam_shells:
-	Authentication is granted if the users shell is listed in
-	/etc/shells.
+pam_shells — PAM module to check for valid login shell
 
-	Also checks to make sure that /etc/shells is a plain
-	file and not world writable.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-	- Erik Troan <ewt@redhat.com>, Red Hat Software.
-		August 5, 1996.
+DESCRIPTION
+
+pam_shells is a PAM module that only allows access to the system if the users
+shell is listed in /etc/shells.
+
+It also checks if /etc/shells is a plain file and not world writable.
+
+OPTIONS
+
+This module does not recognice any options.
+
+EXAMPLES
+
+auth  required  pam_shells.so
+
+
+AUTHOR
+
+pam_shells was written by Erik Troan <ewt@redhat.com>.
+

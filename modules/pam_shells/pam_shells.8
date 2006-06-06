@@ -1,0 +1,59 @@
+.\" ** You probably do not want to edit this file directly **
+.\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
+.\" Instead of manually editing it, you probably should edit the DocBook XML
+.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
+.TH "PAM_SHELLS" "8" "06/06/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_shells \- PAM module to check for valid login shell
+.SH "SYNOPSIS"
+.HP 14
+\fBpam_shells.so\fR
+.SH "DESCRIPTION"
+.PP
+pam_shells is a PAM module that only allows access to the system if the users shell is listed in
+\fI/etc/shells\fR.
+.PP
+It also checks if
+\fI/etc/shells\fR
+is a plain file and not world writable.
+.SH "OPTIONS"
+.PP
+This module does not recognice any options.
+.SH "MODULE SERVICES PROVIDED"
+.PP
+The services
+\fBauth\fR
+and
+\fBaccount\fR
+are supported.
+.SH "RETURN VALUES"
+.TP
+PAM_AUTH_ERR
+Access to the system was denied.
+.TP
+PAM_SUCCESS
+The users login shell was listed as valid shell in
+\fI/etc/shells\fR.
+.TP
+PAM_SERVICE_ERR
+The module was not able to get the name of the user.
+.SH "EXAMPLES"
+.PP
+.nf
+auth  required  pam_shells.so
+      
+.fi
+.sp
+.SH "SEE ALSO"
+.PP
+\fBshells\fR(5),
+\fBpam.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8)
+.SH "AUTHOR"
+.PP
+pam_shells was written by Erik Troan <ewt@redhat.com>.
