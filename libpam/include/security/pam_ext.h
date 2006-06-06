@@ -1,4 +1,14 @@
 /*
+ * Copyright (C) 2005, 2006 Thorsten Kukuk.
+ *
+ * <security/pam_ext.h>
+ *
+ * This header file collects definitions for the extended PAM API.
+ * This is a public interface of the PAM library for PAM modules,
+ * which makes the life of PAM developers easier, but are not documented
+ * in any standard and are not portable between different PAM
+ * implementations.
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -34,6 +44,10 @@
 #ifndef _SECURITY__PAM_EXT_H_
 #define _SECURITY__PAM_EXT_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <security/_pam_types.h>
 #include <stdarg.h>
 
@@ -60,5 +74,8 @@ pam_prompt (pam_handle_t *pamh, int style, char **response,
 #define pam_info(pamh, fmt...) pam_prompt(pamh, PAM_TEXT_INFO, NULL, fmt)
 #define pam_vinfo(pamh, fmt, args) pam_vprompt(pamh, PAM_TEXT_INFO, NULL, fmt, args)
 
+#ifdef __cplusplus
+}
 #endif
 
+#endif

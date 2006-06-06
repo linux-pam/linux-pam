@@ -1,8 +1,10 @@
 /*
  * <security/pam_modules.h>
- * 
- * $Id$
  *
+ * This header file collects definitions for the PAM API --- that is,
+ * public interface between the PAM library and PAM modules.
+ *
+ * Note, the copyright information is at end of file.
  */
 
 #ifndef _SECURITY_PAM_MODULES_H
@@ -56,7 +58,7 @@ struct pam_module {
 #define PAM_EXTERN extern
 
 #endif /* PAM_STATIC */
-	
+
 /* Lots of files include pam_modules.h that don't need these
  * declared.  However, when they are declared static, they
  * need to be defined later.  So we have to protect C files
@@ -127,6 +129,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
 #define PAM_DATA_REPLACE   0x20000000     /* used when replacing a data item */
 
+
 /* take care of any compatibility issues */
 #include <security/_pam_compat.h>
 
@@ -150,13 +153,13 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
  * 3. The name of the author may not be used to endorse or promote
  *    products derived from this software without specific prior
  *    written permission.
- * 
+ *
  * ALTERNATIVELY, this product may be distributed under the terms of
  * the GNU General Public License, in which case the provisions of the
  * GNU GPL are required INSTEAD OF the above restrictions.  (This
  * clause is necessary due to a potential bad interaction between the
  * GNU GPL and the restrictions contained in a BSD-style copyright.)
- * 
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -170,4 +173,3 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
  * OF THE POSSIBILITY OF SUCH DAMAGE.  */
 
 #endif /* _SECURITY_PAM_MODULES_H */
-

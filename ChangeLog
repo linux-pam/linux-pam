@@ -1,3 +1,17 @@
+2006-06-06  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpam/include/security/pam_malloc.h: Add missing license
+	informations.
+
+	* libpam/include/security/pam_ext.h: Add brackets for C++.
+	* libpam/include/security/pam_modutil.h: Likewise.
+
+	* libpam/include/security/pam_modules.h: Document where to
+	find the copyright/license informations.
+
+	* libpam/include/security/pam_appl.h: Move _pam_compat.h
+	include inside of brackets.
+
 2006-06-04  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_securetty/Makefile.am: Include Make.xml.rules.
