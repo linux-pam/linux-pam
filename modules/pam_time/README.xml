@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.docbook.org/xml/4.3/docbookx.dtd"
+[
+<!--
+<!ENTITY pamtime SYSTEM "pam_time.8.xml">
+-->
+<!--
+<!ENTITY timeconf SYSTEM "time.conf.5.xml">
+-->
+]>
+
+<article>
+
+  <articleinfo>
+
+    <title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+      href="pam_time.8.xml" xpointer='xpointer(//refnamediv[@id = "pam_time-name"]/*)'/>
+    </title>
+
+  </articleinfo>
+
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+      href="pam_time.8.xml" xpointer='xpointer(//refsect1[@id = "pam_time-description"]/*)'/>
+  </section>
+
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+      href="time.conf.5.xml" xpointer='xpointer(//refsect1[@id = "time.conf-examples"]/*)'/>
+  </section>
+
+</article>

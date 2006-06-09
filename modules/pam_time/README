@@ -1,30 +1,33 @@
-$Id$
+pam_time — PAM module for time control access
 
-This is a help file for the pam_time module. It explains the need for
-pam_time and also the syntax of the /etc/security/time.conf file.
-[a lot of the syntax is freely adapted from the porttime file of the
-shadow suite.]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. Introduction
-===============
+DESCRIPTION
 
-It is desirable to restrict access to a system and or specific
-applications at various times of the day and on specific days or over
-various terminal lines.
+The pam_time PAM module does not authenticate the user, but instead it
+restricts access to a system and or specific applications at various times of
+the day and on specific days or over various terminal lines. This module can be
+configured to deny access to (individual) users based on their name, the time
+of day, the day of week, the service they are applying for and their terminal
+from which they are making their request.
 
-The pam_time module is intended to offer a configurable module that
-satisfies this purpose, within the context of Linux-PAM.
+By default rules for time/port access are taken from config file /etc/security/
+time.conf.
 
-2. the /etc/security/time.conf file
-===================================
+EXAMPLES
 
-This file is the configuration script for defining time/port access
-control to the system/applications.
+These are some example lines which might be specified in /etc/security/
+time.conf.
 
-Its syntax is described in the sample ./time.conf provided in this
-directory.
+All users except for root are denied access to console-login at all times:
 
-unrecognised rules are ignored (but an error is logged to syslog(3))
+login ; tty* & !ttyp* ; !root ; !Al0000-2400
 
---------------------
-Bugs to Andrew <morgan@parc.power.net> or the list <pam-list@redhat.com>
+
+Games (configured to use PAM) are only to be accessed out of working hours.
+This rule does not apply to the user waster:
+
+
+games ; * ; !waster ; Wd0000-2400 | Wk1800-0800
+
+

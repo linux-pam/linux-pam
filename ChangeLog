@@ -1,5 +1,13 @@
 2006-06-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_time/Makefile.am: Include Make.xml.rules.
+	* modules/pam_time/time.conf.5: New, generated from xml file.
+	* modules/pam_time/time.conf.5.xml: New.
+	* modules/pam_time/pam_time.8: New, generated from xml file.
+	* modules/pam_time/pam_time.8.xml: New.
+	* modules/pam_time/README.xml: New.
+	* modules/pam_time/README: Regenerated from README.xml.
+
 	* modules/pam_wheel/Makefile.am: Include Make.xml.rules.
 	* modules/pam_wheel/pam_wheel.8.xml: New.
 	* modules/pam_wheel/pam_wheel.8: New, generated from xml file.

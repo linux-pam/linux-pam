@@ -4,7 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README time.conf tst-pam_time
+EXTRA_DIST = README $(MANS) $(XMLS) time.conf tst-pam_time
+
+man_MANS = time.conf.5 pam_time.8
+XMLS = README.xml time.conf.5.xml pam_time.8.xml
 
 TESTS = tst-pam_time
 
@@ -21,3 +24,9 @@ endif
 
 securelib_LTLIBRARIES = pam_time.la
 secureconf_DATA = time.conf
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_time.8.xml time.conf.5.xml
+-include $(top_srcdir)/Make.xml.rules
+endif

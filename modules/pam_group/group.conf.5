@@ -1,11 +1,11 @@
 .\"     Title: group.conf
 .\"    Author: 
 .\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/02/2006
+.\"      Date: 06/09/2006
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "GROUP.CONF" "5" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "GROUP.CONF" "5" "06/09/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -17,7 +17,7 @@ group.conf \- configuration file for the pam_group module
 The pam_group PAM module does not authenticate the user, but instead it grants group memberships (in the credential setting phase of the authentication module) to the user. Such memberships are based on the service they are applying for.
 .PP
 For this module to function correctly there must be a correctly formatted
-\fI/etc/security/groups.conf\fR
+\fI/etc/security/group.conf\fR
 file present. White spaces are ignored and lines maybe extended with '\\' (escaped newlines). Text following a '#' is ignored to the end of the line.
 .PP
 The syntax of the lines is as follows:
@@ -41,9 +41,9 @@ For these items the simple wildcard '*' may be used only once. With netgroups no
 .PP
 The
 \fItimes\fR
-field is used to indicate "when" these groups are to be given to the user. The format here is a logic list of day/time\-range entries the days are specified by a sequence of two character entries, MoTuSa for example is Monday Tuesday and Saturday. Note that repeated days are unset MoMo = no day, and MoWk = all weekdays bar Monday. The two character combinations accepted are Mo Tu We Th Fr Sa Su Wk Wd Al, the last two being week\-end days and all 7 days of the week respectively. As a final example, AlFr means all days except Friday.
+field is used to indicate "when" these groups are to be given to the user. The format here is a logic list of day/time\-range entries. The days are specified by a sequence of two character entries, MoTuSa for example is Monday Tuesday and Saturday. Note that repeated days are unset MoMo = no day, and MoWk = all weekdays bar Monday. The two character combinations accepted are Mo Tu We Th Fr Sa Su Wk Wd Al, the last two being week\-end days and all 7 days of the week respectively. As a final example, AlFr means all days except Friday.
 .PP
-Each day/time\-range can be prefixed with a '!' to indicate "anything but". The time\-range part is two 24\-hour times HHMM separated by a hyphen indicating the start and finish time (if the finish time is smaller than the start time it is deemed to apply on the following day).
+Each day/time\-range can be prefixed with a '!' to indicate "anything but". The time\-range part is two 24\-hour times HHMM, separated by a hyphen, indicating the start and finish time (if the finish time is smaller than the start time it is deemed to apply on the following day).
 .PP
 The
 \fIgroups\fR

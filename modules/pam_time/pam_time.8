@@ -1,0 +1,72 @@
+.\"     Title: pam_time
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/09/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_TIME" "8" "06/09/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_time \- PAM module for time control access
+.SH "SYNOPSIS"
+.HP 12
+\fBpam_time.so\fR
+.SH "DESCRIPTION"
+.PP
+The pam_time PAM module does not authenticate the user, but instead it restricts access to a system and or specific applications at various times of the day and on specific days or over various terminal lines. This module can be configured to deny access to (individual) users based on their name, the time of day, the day of week, the service they are applying for and their terminal from which they are making their request.
+.PP
+By default rules for time/port access are taken from config file
+\fI/etc/security/time.conf\fR.
+.SH "OPTIONS"
+.PP
+This module does not recognice any options.
+.SH "MODULE SERVICES PROVIDED"
+.PP
+Only the
+\fBaccount\fR
+service is supported.
+.SH "RETURN VALUES"
+.TP 3n
+PAM_SUCCESS
+Access was granted.
+.TP 3n
+PAM_ABORT
+Not all relevant data could be gotten.
+.TP 3n
+PAM_BUF_ERR
+Memory buffer error.
+.TP 3n
+PAM_PERM_DENIED
+Access was not granted.
+.TP 3n
+PAM_USER_UNKNOWN
+The user is not known to the system.
+.SH "FILES"
+.TP 3n
+\fI/etc/security/time.conf\fR
+Default configuration file
+.SH "EXAMPLES"
+.sp
+.RS 3n
+.nf
+#%PAM\-1.0
+#
+# apply pam_time accounting to login requests
+#
+login  account  required  pam_time.so
+      
+.fi
+.RE
+.SH "SEE ALSO"
+.PP
+
+\fBtime.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8).
+.SH "AUTHORS"
+.PP
+pam_time was written by Andrew G. Morgan <morgan@kernel.org>.

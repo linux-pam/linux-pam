@@ -26,7 +26,7 @@
     </para>
     <para>
       For this module to function correctly there must be a correctly
-      formatted <filename>/etc/security/groups.conf</filename> file present.
+      formatted <filename>/etc/security/group.conf</filename> file present.
       White spaces are ignored and lines maybe extended with '\' (escaped
       newlines). Text following a '#' is ignored to the end of the line.
    </para>
@@ -64,7 +64,7 @@
     <para>
       The <replaceable>times</replaceable> field is used to indicate "when"
       these groups are to be given to the user. The format here is a logic
-      list of day/time-range entries the days are specified by a sequence of
+      list of day/time-range entries. The days are specified by a sequence of
       two character entries, MoTuSa for example is Monday Tuesday and Saturday.
       Note that repeated days are unset MoMo = no day, and MoWk = all weekdays
       bar Monday. The two character combinations accepted are Mo Tu We Th Fr Sa
@@ -73,7 +73,7 @@
     </para>
     <para>
       Each day/time-range can be prefixed with a '!' to indicate "anything but".
-      The time-range part is two 24-hour times HHMM separated by a hyphen
+      The time-range part is two 24-hour times HHMM, separated by a hyphen,
       indicating the start and finish time (if the finish time is smaller
       than the start time it is deemed to apply on the following day).
     </para>
