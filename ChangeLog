@@ -1,12 +1,40 @@
-2006-06-06  Thorsten Kukuk  <kukuk@suse.de>
+2006-06-09  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_wheel/Makefile.am: Include Make.xml.rules.
+	* modules/pam_wheel/pam_wheel.8.xml: New.
+	* modules/pam_wheel/pam_wheel.8: New, generated from xml file.
+	* modules/pam_wheel/README.xml: New.
+	* modules/pam_wheel/README: Regenerated from xml file.
+
+	* modules/pam_xauth/Makefile.am: Include Make.xml.rules.
+	* modules/pam_xauth/pam_xauth.8.xml: New.
+	* modules/pam_xauth/pam_xauth.8: Regenerated from xml file.
+	* modules/pam_xauth/README.xml: New.
+	* modules/pam_xauth/README: Regenerated from xml file.
+
+	* modules/pam_deny/pam_deny.8.xml: Fix syntax errors.
+	* modules/pam_deny/pam_deny.8: Regenerate from xml file.
+	* modules/pam_deny/README: Likewise.
+
+	* modules/pam_warn/Makefile.am: Include Make.xml.rules.
+	* modules/pam_warn/pam_warn.8.xml: New.
+	* modules/pam_warn/pam_warn.8: New, generated from xml file.
+	* modules/pam_warn/README.xml: New.
+	* modules/pam_warn/README: Regenerated from xml file.
+
+	* modules/pam_userdb/Makefile.am: Include Make.xml.rules.
+	* modules/pam_userdb/pam_userdb.8.xml: New.
+	* modules/pam_userdb/pam_userdb.8: New, generated from xml file.
+	* modules/pam_userdb/README.xml: New.
+	* modules/pam_userdb/README: Regenerated from xml file.
+
+2006-06-06  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_shells/Makefile.am: Include Make.xml.rules.
 	* modules/pam_shells/pam_shells.8.xml: New.
 	* modules/pam_shells/pam_shells.8: New, generated from xml file.
 	* modules/pam_shells/README.xml: New.
 	* modules/pam_shells/README: Regenerated from xml file.
-
-2006-06-06  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/include/security/pam_malloc.h: Add missing license
 	informations.

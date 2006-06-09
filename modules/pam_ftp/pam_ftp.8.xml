@@ -181,5 +181,3 @@ auth    required    pam_listfile.so \
   </refsect1>
 
 </refentry>
-<!-- vim: sw=2
--->

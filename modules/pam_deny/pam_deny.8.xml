@@ -88,23 +88,21 @@
 
   <refsect1 id='pam_deny-examples'>
     <title>EXAMPLES</title>
-    <para>
-      <programlisting>
-        #%PAM-1.0
-        #
-        # If we don't have config entries for a service, the
-        # OTHER entries are used. To be secure, warn and deny
-        # access to everything.
-        other auth     required       pam_warn.so
-        other auth     required       pam_deny.so
-        other account  required       pam_warn.so
-        other account  required       pam_deny.so
-        other password required       pam_warn.so
-        other password required       pam_deny.so
-        other session  required       pam_warn.so
-        other session  required       pam_deny.so
-      </programlisting>
-    </para>
+    <programlisting>
+#%PAM-1.0
+#
+# If we don't have config entries for a service, the
+# OTHER entries are used. To be secure, warn and deny
+# access to everything.
+other auth     required       pam_warn.so
+other auth     required       pam_deny.so
+other account  required       pam_warn.so
+other account  required       pam_deny.so
+other password required       pam_warn.so
+other password required       pam_deny.so
+other session  required       pam_warn.so
+other session  required       pam_deny.so
+    </programlisting>
   </refsect1>
 
   <refsect1 id='pam_deny-see_also'>

@@ -6,7 +6,7 @@ Linux-PAM NEWS -- history of user-visible changes.
 * Add manual page for pam_mkhomedir, pam_umask, pam_filter,
   pam_issue, pam_ftp, pam_group, pam_lastlog, pam_listfile,
   pam_localuser, pam_mail, pam_motd, pam_nologin, pam_permit,
-  pam_rootok, pam_securetty, pam_shells
+  pam_rootok, pam_securetty, pam_shells, pam_userdb, pam_warn
 
 Release 0.99.4.0
 

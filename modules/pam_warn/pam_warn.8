@@ -1,45 +1,41 @@
-.\"     Title: pam_deny
+.\"     Title: pam_warn
 .\"    Author: 
 .\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
 .\"      Date: 06/09/2006
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM_DENY" "8" "06/09/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_WARN" "8" "06/09/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
 .ad l
 .SH "NAME"
-pam_deny \- The locking\-out PAM module
+pam_warn \- PAM module which logs all PAM items if called
 .SH "SYNOPSIS"
 .HP 12
-\fBpam_deny.so\fR
+\fBpam_warn.so\fR
 .SH "DESCRIPTION"
 .PP
-This module can be used to deny access. It always indicates a failure to the application through the PAM framework. It might be suitable for using for default (the
-\fIOTHER\fR) entries.
+pam_warn is a PAM module that logs the service, terminal, user, remote user and remote host to
+\fBsyslog\fR(3). The items are not probed for, but instead obtained from the standard PAM items. The module always returns
+\fBPAM_IGNORE\fR, indicating that it does not want to affect the authentication process.
+.SH "OPTIONS"
+.PP
+This module does not recognice any options.
 .SH "MODULE SERVICES PROVIDED"
 .PP
-All services (\fBaccount\fR,
+The services
 \fBauth\fR,
+\fBaccount\fR,
 \fBpassword\fR
 and
-\fBsession\fR) are supported.
+\fBsession\fR
+are supported.
 .SH "RETURN VALUES"
-.PP
 .TP 3n
-PAM_AUTH_ERR
-This is returned by the account and auth services.
-.TP 3n
-PAM_CRED_ERR
-This is returned by the setcred function.
-.TP 3n
-PAM_AUTHTOK_ERR
-This is returned by the password service.
-.TP 3n
-PAM_SESSION_ERR
-This is returned by the session service.
+PAM_IGNORE
+This module always returns PAM_IGNORE.
 .SH "EXAMPLES"
 .sp
 .RS 3n
@@ -57,7 +53,7 @@ other password required       pam_warn.so
 other password required       pam_deny.so
 other session  required       pam_warn.so
 other session  required       pam_deny.so
-    
+      
 .fi
 .RE
 .SH "SEE ALSO"
@@ -68,4 +64,4 @@ other session  required       pam_deny.so
 \fBpam\fR(8)
 .SH "AUTHOR"
 .PP
-pam_deny was written by Andrew G. Morgan <morgan@kernel.org>
+pam_warn was written by Andrew G. Morgan <morgan@kernel.org>.

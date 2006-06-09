@@ -277,5 +277,3 @@ session  optional  pam_mail.so standard
   </refsect1>
 
 </refentry>
-<!-- vim: sw=2
--->

@@ -171,5 +171,3 @@ account required pam_wheel.so
   </refsect1>
 
 </refentry>
-<!-- vim: sw=2
--->

@@ -4,7 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README tst-pam_wheel
+EXTRA_DIST = README ${MANS} $(XMLS) tst-pam_wheel
+
+man_MANS = pam_wheel.8
+XMLS = README.xml pam_wheel.8.xml
 
 TESTS = tst-pam_wheel
 
@@ -19,3 +22,10 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_wheel.la
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_wheel.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+

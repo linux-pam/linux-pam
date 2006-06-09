@@ -4,7 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README create.pl tst-pam_userdb
+EXTRA_DIST = README (MANS) $(XMLS) create.pl tst-pam_userdb
+
+man_MANS = pam_userdb.8
+XMLS = README.xml pam_userdb.8.xml
 
 TESTS = tst-pam_userdb
 
@@ -23,3 +26,10 @@ if HAVE_LIBDB
 endif
 
 noinst_HEADERS = pam_userdb.h
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_userdb.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+

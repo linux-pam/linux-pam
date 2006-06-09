@@ -1,26 +1,36 @@
-# $Id$
+pam_warn — PAM module which logs all PAM items if called
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DESCRIPTION
+
+pam_warn is a PAM module that logs the service, terminal, user, remote user and
+remote host to syslog(3). The items are not probed for, but instead obtained
+from the standard PAM items. The module always returns PAM_IGNORE, indicating
+that it does not want to affect the authentication process.
+
+OPTIONS
+
+This module does not recognice any options.
+
+EXAMPLES
+
+#%PAM-1.0
 #
-
-This module is an authentication module that does not authenticate.
-Instead it always returns PAM_IGNORE, indicating that it does not want
-to affect the authentication process.
-
-Its purpose is to log a message to the syslog indicating the
-pam_item's available at the time it was invoked. It is a diagnostic
-tool.
-
-Recognized arguments:
-
-	<none>
-
-module services provided:
-
-	auth		_authenticate and _setcred (blank)
-	acct		_acct_mgmt [mapped to _authenticate]
-	session		_open_session and
-			_close_session [mapped to _authenticate ]
-	password	_chauthtok [mapped to _authenticate]
+# If we don't have config entries for a service, the
+# OTHER entries are used. To be secure, warn and deny
+# access to everything.
+other auth     required       pam_warn.so
+other auth     required       pam_deny.so
+other account  required       pam_warn.so
+other account  required       pam_deny.so
+other password required       pam_warn.so
+other password required       pam_deny.so
+other session  required       pam_warn.so
+other session  required       pam_deny.so
 
 
-Andrew Morgan
-1996/11/14
+AUTHOR
+
+pam_warn was written by Andrew G. Morgan <morgan@kernel.org>.
+

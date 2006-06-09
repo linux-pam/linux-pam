@@ -4,9 +4,10 @@
 
 CLEANFILES = *~
 
-man_MANS = pam_xauth.8
+EXTRA_DIST = README ${MANS} $(XMLS) tst-pam_xauth
 
-EXTRA_DIST = README ${MANS} tst-pam_xauth
+man_MANS = pam_xauth.8
+XMLS = README.xml pam_xauth.8.xml
 
 TESTS = tst-pam_xauth
 
@@ -21,3 +22,10 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_xauth.la
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_xauth.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+
