@@ -1,3 +1,8 @@
+2006-06-12  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_tally/Makefile.am (AM_LDFLAGS): Remove flags
+	for modules from main application.
+
 2006-06-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_time/Makefile.am: Include Make.xml.rules.
