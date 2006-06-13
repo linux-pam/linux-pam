@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README (MANS) $(XMLS) create.pl tst-pam_userdb
+EXTRA_DIST = README $(MANS) $(XMLS) create.pl tst-pam_userdb
 
 man_MANS = pam_userdb.8
 XMLS = README.xml pam_userdb.8.xml
