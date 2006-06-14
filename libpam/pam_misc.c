@@ -122,16 +122,14 @@ char *_pam_strdup(const char *x)
      register char *new=NULL;
 
      if (x != NULL) {
-	  register int i;
+	  register int len;
 
-	  for (i=0; x[i]; ++i);                       /* length of string */
-	  if ((new = malloc(++i)) == NULL) {
-	       i = 0;
+	  len = strlen (x) + 1;  /* length of string including NUL */
+	  if ((new = malloc(len)) == NULL) {
+	       len = 0;
 	       pam_syslog(NULL, LOG_CRIT, "_pam_strdup: failed to get memory");
 	  } else {
-	       while (i-- > 0) {
-		    new[i] = x[i];
-	       }
+	       strcpy (new, x);
 	  }
 	  x = NULL;
      }

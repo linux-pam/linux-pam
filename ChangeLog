@@ -1,5 +1,7 @@
 2006-06-14  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* libpam/pam_misc.c (_pam_strdup): Use strlen and strcpy.
+
 	* configure.in: Remove --enable-memory-debug, add option
 	to disable prelude if installed.
 
