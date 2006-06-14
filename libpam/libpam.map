@@ -22,15 +22,6 @@ LIBPAM_1.0 {
   local:
     *;
 };
-LIBPAM_MALLOC_DEBUG_1.0 {
-  global:
-    pam_malloc;
-    pam_calloc;
-    pam_free;
-    pam_realloc;
-    pam_exit;
-    pam_strdup;
-};
 LIBPAM_EXTENSION_1.0 {
   global:
     pam_prompt;

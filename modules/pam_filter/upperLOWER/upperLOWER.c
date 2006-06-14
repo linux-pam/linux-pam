@@ -1,6 +1,4 @@
 /*
- * $Id$
- *
  * This is a sample filter program, for use with pam_filter (a module
  * provided with Linux-PAM). This filter simply transposes upper and
  * lower case letters, it is intended for demonstration purposes and
@@ -8,10 +6,6 @@
  */
 
 #include "config.h"
-
-#ifdef MEMORY_DEBUG
-# undef exit
-#endif /* MEMORY_DEBUG */
 
 #include <stdio.h>
 #include <stdlib.h>

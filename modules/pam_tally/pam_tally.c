@@ -10,14 +10,11 @@
  * Stuff stolen from pam_rootok and pam_listfile
  *
  * Changes by Tomas Mraz <tmraz@redhat.com> 5 January 2005
- * Audit option added for Tomas patch by Sebastien Tricaud <toady@gscore.org> 13 January 2005
+ * Audit option added for Tomas patch by
+ * Sebastien Tricaud <toady@gscore.org> 13 January 2005
  */
 
 #include "config.h"
-
-#if defined(MAIN) && defined(MEMORY_DEBUG)
-# undef exit
-#endif /* defined(MAIN) && defined(MEMORY_DEBUG) */
 
 #include <stdio.h>
 #include <string.h>

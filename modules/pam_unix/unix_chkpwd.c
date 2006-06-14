@@ -1,6 +1,4 @@
 /*
- * $Id$
- *
  * This program is designed to run setuid(root) or with sufficient
  * privilege to read all of the unix password databases. It is designed
  * to provide a mechanism for the current user (defined by this
@@ -14,12 +12,6 @@
  */
 
 #include "config.h"
-
-#ifdef MEMORY_DEBUG
-# undef exit
-# undef strdup
-# undef free
-#endif /* MEMORY_DEBUG */
 
 #include <stdarg.h>
 #include <stdio.h>

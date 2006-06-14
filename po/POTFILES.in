@@ -68,7 +68,6 @@
 ./libpam/pam_session.c
 ./libpam/pam_prelude.c
 ./libpam/pam_account.c
-./libpam/pam_malloc.c
 ./libpam/pam_syslog.c
 ./libpam/pam_vprompt.c
 ./libpam/pam_modutil_getlogin.c

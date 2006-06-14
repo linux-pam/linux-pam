@@ -1,5 +1,16 @@
 2006-06-14  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* configure.in: Remove --enable-memory-debug, add option
+	to disable prelude if installed.
+
+	* modules/pam_tally/pam_tally.c: Remove MEMORY_DEBUG
+	* modules/pam_filter/upperLOWER/upperLOWER.c: Likewise.
+	* modules/pam_unix/unix_chkpwd.c: Likewise.
+	* libpam/include/security/_pam_types.h: Likewise.
+	* libpam/libpam.map: Remove LIBPAM_MALLOC_DEBUG export.
+	* libpam/pam_malloc.c: Remove file.
+	* libpam/Makefile.am: Remove pam_malloc.c and pam_malloc.h.
+
 	* libpam/pam_handlers.c (extract_modulename): Use _pam_strdup
 	instead of strdup.
 

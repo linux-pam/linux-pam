@@ -212,15 +212,6 @@ pam_getenvlist(pam_handle_t *pamh);
 #define HAVE_PAM_FAIL_DELAY
 extern int pam_fail_delay(pam_handle_t *pamh, unsigned int musec_delay);
 
-#ifdef MEMORY_DEBUG
-/*
- * this defines some macros that keep track of what memory has been
- * allocated and indicates leakage etc... It should not be included in
- * production application/modules.
- */
-#include <security/pam_malloc.h>
-#endif
-
 /* ------------ The Linux-PAM conversation structures ------------ */
 
 /* Message styles */
