@@ -1,8 +1,6 @@
 /*
  * pam_private.h
  *
- * $Id$
- *
  * This is the Linux-PAM Library Private Header. It contains things
  * internal to the Linux-PAM library. Things not needed by either an
  * application or module.
@@ -251,7 +249,6 @@ struct pam_data {
 
 void _pam_free_data(pam_handle_t *pamh, int status);
 
-int _pam_strCMP(const char *s, const char *t);
 char *_pam_StrTok(char *from, const char *format, char **next);
 
 char *_pam_strdup(const char *s);

@@ -87,10 +87,10 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    other = 0;
 	else
 #endif /* PAM_READ_BOTH_CONFS */
-	other = !_pam_strCMP(this_service, PAM_DEFAULT_SERVICE);
+	other = !strcasecmp(this_service, PAM_DEFAULT_SERVICE);
 
 	/* accept "service name" or PAM_DEFAULT_SERVICE modules */
-	if (!_pam_strCMP(this_service, pamh->service_name) || other) {
+	if (!strcasecmp(this_service, pamh->service_name) || other) {
 	    int pam_include = 0;
 
 	    /* This is a service we are looking for */
@@ -106,13 +106,13 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	        module_type = (requested_module_type != PAM_T_ANY) ?
 		  requested_module_type : PAM_T_AUTH;	/* most sensitive */
 	        must_fail = 1; /* install as normal but fail when dispatched */
-	    } else if (!_pam_strCMP("auth", tok)) {
+	    } else if (!strcasecmp("auth", tok)) {
 		module_type = PAM_T_AUTH;
-	    } else if (!_pam_strCMP("session", tok)) {
+	    } else if (!strcasecmp("session", tok)) {
 		module_type = PAM_T_SESS;
-	    } else if (!_pam_strCMP("account", tok)) {
+	    } else if (!strcasecmp("account", tok)) {
 		module_type = PAM_T_ACCT;
-	    } else if (!_pam_strCMP("password", tok)) {
+	    } else if (!strcasecmp("password", tok)) {
 		module_type = PAM_T_PASS;
 	    } else {
 		/* Illegal module type */
@@ -146,29 +146,29 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 			   "(%s) no control flag supplied", this_service);
 		_pam_set_default_control(actions, _PAM_ACTION_BAD);
 		must_fail = 1;
-	    } else if (!_pam_strCMP("required", tok)) {
+	    } else if (!strcasecmp("required", tok)) {
 		D(("*PAM_F_REQUIRED*"));
 		actions[PAM_SUCCESS] = _PAM_ACTION_OK;
 		actions[PAM_NEW_AUTHTOK_REQD] = _PAM_ACTION_OK;
                 actions[PAM_IGNORE] = _PAM_ACTION_IGNORE;
 		_pam_set_default_control(actions, _PAM_ACTION_BAD);
-	    } else if (!_pam_strCMP("requisite", tok)) {
+	    } else if (!strcasecmp("requisite", tok)) {
 		D(("*PAM_F_REQUISITE*"));
 		actions[PAM_SUCCESS] = _PAM_ACTION_OK;
 		actions[PAM_NEW_AUTHTOK_REQD] = _PAM_ACTION_OK;
                 actions[PAM_IGNORE] = _PAM_ACTION_IGNORE;
 		_pam_set_default_control(actions, _PAM_ACTION_DIE);
-	    } else if (!_pam_strCMP("optional", tok)) {
+	    } else if (!strcasecmp("optional", tok)) {
 		D(("*PAM_F_OPTIONAL*"));
 		actions[PAM_SUCCESS] = _PAM_ACTION_OK;
 		actions[PAM_NEW_AUTHTOK_REQD] = _PAM_ACTION_OK;
 		_pam_set_default_control(actions, _PAM_ACTION_IGNORE);
-	    } else if (!_pam_strCMP("sufficient", tok)) {
+	    } else if (!strcasecmp("sufficient", tok)) {
 		D(("*PAM_F_SUFFICIENT*"));
 		actions[PAM_SUCCESS] = _PAM_ACTION_DONE;
 		actions[PAM_NEW_AUTHTOK_REQD] = _PAM_ACTION_DONE;
 		_pam_set_default_control(actions, _PAM_ACTION_IGNORE);
-	    } else if (!_pam_strCMP("include", tok)) {
+	    } else if (!strcasecmp("include", tok)) {
 		D(("*PAM_F_INCLUDE*"));
 		pam_include = 1;
 	    } else {
@@ -571,7 +571,7 @@ extract_modulename(const char *mod_path)
   else
     p++;
 
-  if ((retval = strdup (p)) == NULL)
+  if ((retval = _pam_strdup (p)) == NULL)
     return NULL;
 
   dot = strrchr (retval, '.');
