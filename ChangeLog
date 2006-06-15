@@ -1,5 +1,9 @@
 2006-06-15  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_group/pam_group.c (logic_field): Accept
+	colon in tty name. [#1428276].
+	* modules/pam_time/pam_time.c (logic_field): Likewise.
+
 	* configure.in: Add special exceptions for icc: different
 	compiler warnings, no PIE support.
 

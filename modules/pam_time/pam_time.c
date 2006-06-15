@@ -273,7 +273,8 @@ logic_field(pam_handle_t *pamh, const void *me, const char *x, int rule,
 	  if (next == VAL) {
 	       if (c == '!')
 		    not = !not;
-	       else if (isalpha(c) || c == '*') {
+	       else if (isalpha(c) || c == '*' || isdigit(c) || c == '_'
+                    || c == '-' || c == '.' || c == '/' || c == ':') {
 		    right = not ^ agrees(pamh, me, x+at, l, rule);
 		    if (oper == AND)
 			 left &= right;
