@@ -1,8 +1,6 @@
 /* pam_group module */
 
 /*
- * $Id$
- *
  * Written by Andrew Morgan <morgan@linux.kernel.org> 1996/7/6
  */
 
@@ -220,11 +218,10 @@ read_field (const pam_handle_t *pamh, int fd, char **buf, int *from, int *to)
 
 static int logic_member(const char *string, int *at)
 {
-     int len,c,to;
+     int c,to;
      int done=0;
      int token=0;
 
-     len=0;
      to=*at;
      do {
 	  c = string[to++];
@@ -478,11 +475,10 @@ check_time (const pam_handle_t *pamh, const void *AT,
 
 static int find_member(const char *string, int *at)
 {
-     int len,c,to;
+     int c,to;
      int done=0;
      int token=0;
 
-     len=0;
      to=*at;
      do {
           c = string[to++];
@@ -717,15 +713,17 @@ static int check_account(pam_handle_t *pamh, const char *service,
     /* now set the groups for the user */
 
     if (no_grps > 0) {
+#ifdef DEBUG
 	int err;
+#endif
 	D(("trying to set %d groups", no_grps));
 #ifdef DEBUG
 	for (err=0; err<no_grps; ++err) {
 	    D(("gid[%d]=%d", err, grps[err]));
 	}
 #endif
-	if ((err = setgroups(no_grps, grps))) {
-	    D(("but couldn't set groups %d", err));
+	if (setgroups(no_grps, grps) != 0) {
+	    D(("but couldn't set groups %m"));
 	    pam_syslog(pamh, LOG_ERR,
 		       "unable to set the group membership for user: %m");
 	    retval = PAM_CRED_ERR;

@@ -2,6 +2,9 @@
 
 	* modules/pam_group/pam_group.c (logic_field): Accept
 	colon in tty name. [#1428276].
+	(logic_member): Remove unused variable len.
+	(check_account): Fix usage of err variable in debug code.
+
 	* modules/pam_time/pam_time.c (logic_field): Likewise.
 
 	* configure.in: Add special exceptions for icc: different
