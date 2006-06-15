@@ -1,5 +1,15 @@
 2006-06-15  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_unix/bigcrypt.h: New.
+	* modules/pam_unix/Makefile.am: Add bigcrypt.h.
+	* modules/pam_unix/bigcrypt.c: Include bigcrypt.h.
+	* modules/pam_unix/support.c: Include bigcrypt.h, remove
+	own prototype.
+	* modules/pam_unix/bigcrypt_main.c: Include bigcrypt.h, remove
+	own prototype.
+	* modules/pam_unix/pam_unix_passwd.c: Include bigcrypt.h, remove
+	own prototype.
+
 	* modules/pam_time/pam_time.c (logic_member): Remove unused
 	variable len.
 

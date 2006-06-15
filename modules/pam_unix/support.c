@@ -28,14 +28,13 @@
 
 #include "md5.h"
 #include "support.h"
+#include "bigcrypt.h"
 #ifdef WITH_SELINUX
 #include <selinux/selinux.h>
 #define SELINUX_ENABLED is_selinux_enabled()>0
 #else
 #define SELINUX_ENABLED 0
 #endif
-extern char *crypt(const char *key, const char *salt);
-extern char *bigcrypt(const char *key, const char *salt);
 
 /* this is a front-end for module-application conversations */
 
@@ -527,12 +526,12 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	}
 
 	/* exec binary helper */
-	args[0] = x_strdup(CHKPWD_HELPER);
+	args[0] = strdup(CHKPWD_HELPER);
 	args[1] = x_strdup(user);
 	if (off(UNIX__NONULL, ctrl)) {	/* this means we've succeeded */
-	  args[2]=x_strdup("nullok");
+	  args[2]=strdup("nullok");
 	} else {
-	  args[2]=x_strdup("nonull");
+	  args[2]=strdup("nonull");
 	}
 
 	execve(CHKPWD_HELPER, args, envp);

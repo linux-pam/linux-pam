@@ -84,6 +84,7 @@ static security_context_t prev_context=NULL;
 #include "yppasswd.h"
 #include "md5.h"
 #include "support.h"
+#include "bigcrypt.h"
 
 #if !((__GLIBC__ == 2) && (__GLIBC_MINOR__ >= 1))
 extern int getrpcport(const char *host, unsigned long prognum,
@@ -98,8 +99,6 @@ extern int getrpcport(const char *host, unsigned long prognum,
 #if defined(USE_LCKPWDF) && !defined(HAVE_LCKPWDF)
 # include "./lckpwdf.-c"
 #endif
-
-extern char *bigcrypt(const char *key, const char *salt);
 
 /*
    How it works:

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-extern const char *bigcrypt(const char *password, const char *salt);
+#include "bigcrypt.h"
 
 int
 main(int argc, char **argv)

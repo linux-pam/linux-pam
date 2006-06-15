@@ -24,12 +24,16 @@
  * Andy Phillips <atp@mssl.ucl.ac.uk>
  */
 
+#include "config.h"
+
 #include <string.h>
 #include <stdlib.h>
 #include <security/_pam_macros.h>
+#ifdef HAVE_CRYPT_H
+#include <crypt.h>
+#endif
 
-char *crypt(const char *key, const char *salt);
-char *bigcrypt(const char *key, const char *salt);
+#include "bigcrypt.h"
 
 /*
  * Max cleartext password length in segments of 8 characters this
