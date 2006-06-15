@@ -1,3 +1,8 @@
+2006-06-15  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Add special exceptions for icc: different
+	compiler warnings, no PIE support.
+
 2006-06-14  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/pam_misc.c (_pam_strdup): Use strlen and strcpy.
