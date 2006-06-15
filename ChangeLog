@@ -1,5 +1,8 @@
 2006-06-15  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_time/pam_time.c (logic_member): Remove unused
+	variable len.
+
 	* modules/pam_group/pam_group.c (logic_field): Accept
 	colon in tty name. [#1428276].
 	(logic_member): Remove unused variable len.

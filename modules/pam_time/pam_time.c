@@ -214,11 +214,10 @@ read_field(pam_handle_t *pamh, int fd, char **buf, int *from, int *to)
 static int
 logic_member(const char *string, int *at)
 {
-     int len,c,to;
+     int c,to;
      int done=0;
      int token=0;
 
-     len=0;
      to=*at;
      do {
 	  c = string[to++];
