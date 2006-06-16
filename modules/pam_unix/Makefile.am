@@ -34,7 +34,7 @@ endif
 
 securelib_LTLIBRARIES = pam_unix.la
 
-noinst_HEADERS = md5.h support.h yppasswd.h
+noinst_HEADERS = md5.h support.h yppasswd.h bigcrypt.h
 
 sbin_PROGRAMS = unix_chkpwd
 
