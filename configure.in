@@ -68,9 +68,10 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
 
-# Largefile support
+dnl Largefile support
 AC_SYS_LARGEFILE
 
+dnl icc claims to be GCC compatible, but use other flags for warnings
 if eval "test x$GCC = xyes -a $CC != icc"; then
   for flag in \
       -W \
@@ -90,6 +91,7 @@ if eval "test x$GCC = xyes -a $CC != icc"; then
     JAPHAR_GREP_CFLAGS($flag, [ CFLAGS="$CFLAGS $flag" ])
   done
 fi
+dnl icc has special warning flags
 if eval "test x$CC = xicc"; then
   for flag in \
       -Wall \
@@ -165,6 +167,8 @@ AM_CONDITIONAL([HAVE_VERSIONING],
 
 dnl
 dnl check for -fPIE/-pie support
+dnl
+dnl icc handles -fpie as -fp without error, so blacklist icc
 dnl
 AC_ARG_ENABLE(pie,AS_HELP_STRING([--disable-pie],
                         [Disable position-independent executeables (PIE)]),
