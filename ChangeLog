@@ -1,3 +1,8 @@
+2006-06-16  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_time/pam_time.c: Replace type boolean with int.
+	* modules/pam_group/pam_group.c: Likewise.
+
 2006-06-15  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_unix/bigcrypt.h: New.

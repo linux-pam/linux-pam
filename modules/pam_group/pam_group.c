@@ -25,14 +25,13 @@
 #define PAM_GROUP_BUFLEN        1000
 #define FIELD_SEPARATOR         ';'   /* this is new as of .02 */
 
-#ifdef TRUE
-# undef TRUE
+#ifndef TRUE
+# define TRUE 1
 #endif
-#ifdef FALSE
-# undef FALSE
+#ifndef FALSE
+# define FALSE 0
 #endif
 
-typedef enum { FALSE, TRUE } boolean;
 typedef enum { AND, OR } operator;
 
 /*
@@ -260,13 +259,13 @@ static int logic_member(const char *string, int *at)
 
 typedef enum { VAL, OP } expect;
 
-static boolean
+static int
 logic_field (const pam_handle_t *pamh, const void *me,
              const char *x, int rule,
-             boolean (*agrees)(const pam_handle_t *pamh, const void *,
+             int (*agrees)(const pam_handle_t *pamh, const void *,
                                const char *, int, int))
 {
-     boolean left=FALSE, right, not=FALSE;
+     int left=FALSE, right, not=FALSE;
      operator oper=OR;
      int at=0, l;
      expect next=VAL;
@@ -314,7 +313,7 @@ logic_field (const pam_handle_t *pamh, const void *me,
      return left;
 }
 
-static boolean
+static int
 is_same (const pam_handle_t *pamh UNUSED,
          const void *A, const char *b, int len, int rule UNUSED)
 {
@@ -371,11 +370,11 @@ static TIME time_now(void)
 }
 
 /* take the current date and see if the range "date" passes it */
-static boolean
+static int
 check_time (const pam_handle_t *pamh, const void *AT,
             const char *times, int len, int rule)
 {
-     boolean not,pass;
+     int not,pass;
      int marked_day, time_start, time_end;
      const TIME *at;
      int i,j=0;
