@@ -470,8 +470,8 @@ static int save_old_password(pam_handle_t *pamh,
 	    err = 1;
 	} else {
 	    pass = crypt_md5_wrapper(oldpass);
-	    snprintf(nbuf, sizeof(nbuf), "%s:%d:1:%s\n",
-		     forwho, pwd->pw_uid, pass);
+	    snprintf(nbuf, sizeof(nbuf), "%s:%lu:1:%s\n",
+		     forwho, (unsigned long)pwd->pw_uid, pass);
 	    _pam_delete(pass);
 	    if (fputs(nbuf, pwfile) < 0) {
 		err = 1;
@@ -763,7 +763,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 		struct yppasswd yppwd;
 		CLIENT *clnt;
 		int status;
-		int err = 0;
+		enum clnt_stat err;
 
 		/* Unlock passwd file to avoid deadlock */
 #ifdef USE_LCKPWDF

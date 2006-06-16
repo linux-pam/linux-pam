@@ -1,5 +1,9 @@
 2006-06-16  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_unix/pam_unix_passwd.c (save_old_password): UIDs
+	are unsigned on Linux, don't truncate them.
+	(_do_setpass): err is of type clnt_stat, not int.
+
 	* modules/pam_lastlog/pam_lastlog.c (last_login_read): Don't
 	truncate UID for syslog output.
 
