@@ -167,7 +167,9 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
 
     if (!last_login.ll_time) {
         if (announce & LASTLOG_DEBUG) {
-	    pam_syslog(pamh, LOG_DEBUG, "first login for user with uid %d", uid);
+	    pam_syslog(pamh, LOG_DEBUG,
+		       "first login for user with uid %lu",
+		       (unsigned long int)uid);
 	}
     }
 
