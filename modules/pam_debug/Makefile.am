@@ -1,10 +1,13 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
 CLEANFILES = *~
 
-EXTRA_DIST = README tst-pam_debug
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_debug
+
+man_MANS = pam_debug.8
+XMLS = README.xml pam_debug.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -19,3 +22,10 @@ endif
 securelib_LTLIBRARIES = pam_debug.la
 
 TESTS = tst-pam_debug
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_debug.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+

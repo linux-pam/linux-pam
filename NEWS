@@ -8,7 +8,7 @@ Linux-PAM NEWS -- history of user-visible changes.
   pam_issue, pam_ftp, pam_group, pam_lastlog, pam_listfile,
   pam_localuser, pam_mail, pam_motd, pam_nologin, pam_permit,
   pam_rootok, pam_securetty, pam_shells, pam_userdb, pam_warn,
-  pam_time, pam_limits
+  pam_time, pam_limits, pam_debug
 * The libpam memory debug code was removed
 
 Release 0.99.4.0

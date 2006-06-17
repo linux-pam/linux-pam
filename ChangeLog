@@ -1,5 +1,11 @@
 2006-06-17  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_debug/Makefile.am: Include Make.xml.rules.
+	* modules/pam_debug/pam_debug.8.xml: New.
+	* modules/pam_debug/pam_debug.8: New, generated from xml file.
+	* modules/pam_debug/README.xml: New.
+	* modules/pam_debug/README: Regenerated from xml file.
+
 	* examples/vpass.c: UID is unsigned on Linux.
 	* modules/pam_exec/pam_exec.c: Likewise.
 	* modules/pam_unix/pam_unix_acct.c: Likewise.
