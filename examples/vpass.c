@@ -33,7 +33,7 @@ int main(void)
     if (pw) {
 	user = pw->pw_name;
     } else {
-	fprintf(stderr, "Invalid userid: %d\n", uid);
+	fprintf(stderr, "Invalid userid: %lu\n", (unsigned long) uid);
 	exit(1);
     }
 

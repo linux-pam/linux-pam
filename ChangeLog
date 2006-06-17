@@ -1,5 +1,14 @@
 2006-06-17  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* examples/vpass.c: UID is unsigned on Linux.
+	* modules/pam_exec/pam_exec.c: Likewise.
+	* modules/pam_unix/pam_unix_acct.c: Likewise.
+	* modules/pam_unix/pam_unix_sess.c: Likewise.
+
+	* modules/pam_succeed_if/pam_succeed_if.8.xml: Fix syntax error.
+	* modules/pam_succeed_if/pam_succeed_if.8: Regenerated.
+	* modules/pam_succeed_if/README: Regenerated.
+
 	* modules/pam_limits/Makefile.am: Include Make.xml.rules.
 	* modules/pam_limits/limits.conf.5: New, generated from xml file.
 	* modules/pam_limits/limits.conf.5.xml: New.

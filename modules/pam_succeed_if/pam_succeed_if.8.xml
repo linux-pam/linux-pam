@@ -230,20 +230,20 @@
     <para>
       To emulate the behaviour of <emphasis>pam_wheel</emphasis>, except
       there is no fallback to group 0:
-      <programlisting>
-    auth required pam_succeed_if.so quiet user ingroup wheel
-      </programlisting>
     </para>
+    <programlisting>
+auth required pam_succeed_if.so quiet user ingroup wheel
+    </programlisting>
 
     <para>
       Given that the type matches, only loads the othermodule rule if
       the UID is over 500. Adjust the number after default to skip
       several rules.
-      <programlisting>
-    type [default=1 success=ignore] pam_succeed_if.so quiet uid &gt; 500
-    type required othermodule.so arguments...
-      </programlisting>
     </para>
+    <programlisting>
+type [default=1 success=ignore] pam_succeed_if.so quiet uid &gt; 500
+type required othermodule.so arguments...
+    </programlisting>
   </refsect1>
 
   <refsect1 id='pam_succeed_if-see_also'>

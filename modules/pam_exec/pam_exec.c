@@ -190,8 +190,8 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
 	if (setuid (geteuid ()) == -1)
 	  {
 	    int err = errno;
-	    pam_syslog (pamh, LOG_ERR, "setuid(%d) failed: %m",
-			geteuid ());
+	    pam_syslog (pamh, LOG_ERR, "setuid(%lu) failed: %m",
+			(unsigned long) geteuid ());
 	    exit (err);
 	  }
 

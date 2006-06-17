@@ -92,8 +92,8 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t * pamh, int flags,
 	if (login_name == NULL) {
 	    login_name = "";
 	}
-	pam_syslog(pamh, LOG_INFO, "session opened for user %s by %s(uid=%d)",
-		 user_name, login_name, getuid());
+	pam_syslog(pamh, LOG_INFO, "session opened for user %s by %s(uid=%lu)",
+		 user_name, login_name, (unsigned long)getuid());
 
 	return PAM_SUCCESS;
 }

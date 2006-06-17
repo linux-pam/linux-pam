@@ -457,7 +457,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 	    pam_syslog(pamh, LOG_ERR,
 		       "internal module error (retval = %d, user = `%s'",
 		       retval, username);
-        return PAM_SERVICE_ERR;
+            return PAM_SERVICE_ERR;
     }
 
     return PAM_SUCCESS;

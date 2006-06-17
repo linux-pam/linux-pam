@@ -92,14 +92,14 @@ EXAMPLES
 
 To emulate the behaviour of pam_wheel, except there is no fallback to group 0:
 
-    auth required pam_succeed_if.so quiet user ingroup wheel
+auth required pam_succeed_if.so quiet user ingroup wheel
 
 
 Given that the type matches, only loads the othermodule rule if the UID is over
 500. Adjust the number after default to skip several rules.
 
-    type [default=1 success=ignore] pam_succeed_if.so quiet uid > 500
-    type required othermodule.so arguments...
+type [default=1 success=ignore] pam_succeed_if.so quiet uid > 500
+type required othermodule.so arguments...
 
 
 AUTHOR
