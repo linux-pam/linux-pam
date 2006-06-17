@@ -1,0 +1,174 @@
+.\"     Title: limits.conf
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/17/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "LIMITS.CONF" "5" "06/17/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+limits.conf \- configuration file for the pam_limits module
+.SH "DESCRIPTION"
+.PP
+The pam_limits PAM module sets limits on the system resources that can be obtained in a user\-session.
+.PP
+The syntax of the lines is as follows:
+.PP
+
+\fI<domain>\fR
+\fI<type>\fR
+\fI<item>\fR
+\fI<value>\fR
+.PP
+The fields listed above should be filled as follows:
+.TP 3n
+\fB<domain>\fR
+.RS 3n
+.TP 3n
+\(bu
+a username
+.TP 3n
+\(bu
+a groupname, with
+\fB@group\fR
+syntax. This should not be confused with netgroups.
+.TP 3n
+\(bu
+the wildcard
+\fB*\fR, for default entry.
+.TP 3n
+\(bu
+the wildcard
+\fB%\fR, for maxlogins limit only, can also be used with
+\fI%group\fR
+syntax.
+.RE
+.TP 3n
+\fB<type>\fR
+.RS 3n
+.TP 3n
+\fBhard\fR
+for enforcing
+\fBhard\fR
+resource limits. These limits are set by the superuser and enforced by the Kernel. The user cannot raise his requirement of system resources above such values.
+.TP 3n
+\fBsoft\fR
+for enforcing
+\fBsoft\fR
+resource limits. These limits are ones that the user can move up or down within the permitted range by any pre\-exisiting
+\fBhard\fR
+limits. The values specified with this token can be thought of as
+\fIdefault\fR
+values, for normal system usage.
+.TP 3n
+\fB\-\fR
+for enforcing both
+\fBsoft\fR
+and
+\fBhard\fR
+resource limits together.
+.sp
+Note, if you specify a type of '\-' but neglect to supply the item and value fields then the module will never enforce any limits on the specified user/group etc. .
+.RE
+.TP 3n
+\fB<item>\fR
+.RS 3n
+.TP 3n
+\fBcore\fR
+limits the core file size (KB)
+.TP 3n
+\fBdata\fR
+maximum data size (KB)
+.TP 3n
+\fBfsize\fR
+maximum filesize (KB)
+.TP 3n
+\fBmemlock\fR
+maximum locked\-in\-memory address space (KB)
+.TP 3n
+\fBnofile\fR
+maximum number of open files
+.TP 3n
+\fBrss\fR
+maximum resident set size (KB)
+.TP 3n
+\fBstack\fR
+maximum stack size (KB)
+.TP 3n
+\fBcpu\fR
+maximum CPU time (minutes)
+.TP 3n
+\fBnproc\fR
+maximum number of processes
+.TP 3n
+\fBas\fR
+address space limit
+.TP 3n
+\fBmaxlogins\fR
+maximum number of logins for this user
+.TP 3n
+\fBmaxsyslogins\fR
+maximum number of logins on system
+.TP 3n
+\fBpriority\fR
+the priority to run user process with (negative values boost process priority)
+.TP 3n
+\fBlocks\fR
+maximum locked files (Linux 2.4 and higher)
+.TP 3n
+\fBsigpending\fR
+maximum number of pending signals (Linux 2.6 and higher)
+.TP 3n
+\fBmsqqueue\fR
+maximum memory used by POSIX message queues (bytes) (Linux 2.6 and higher)
+.TP 3n
+\fBnice\fR
+maximum nice priority allowed to raise to (Linux 2.6.12 and higher)
+.TP 3n
+\fBrtprio\fR
+maximum realtime priority allowed for non\-privileged processes (Linux 2.6.12 and higher)
+.RE
+.PP
+In general, individual limits have priority over group limits, so if you impose no limits for
+\fIadmin\fR
+group, but one of the members in this group have a limits line, the user will have its limits set according to this line.
+.PP
+Also, please note that all limit settings are set
+\fIper login\fR. They are not global, nor are they permanent; existing only for the duration of the session.
+.PP
+In the
+\fIlimits\fR
+configuration file, the '\fB#\fR' character introduces a comment \- after which the rest of the line is ignored.
+.PP
+The pam_limits module does its best to report configuration problems found in its configuration file via
+\fBsyslog\fR(3).
+.SH "EXAMPLES"
+.PP
+These are some example lines which might be specified in
+\fI/etc/security/limits.conf\fR.
+.sp
+.RS 3n
+.nf
+*               soft    core            0
+*               hard    rss             10000
+@student        hard    nproc           20
+@faculty        soft    nproc           20
+@faculty        hard    nproc           50
+ftp             hard    nproc           0
+@student        \-       maxlogins       4
+    
+.fi
+.RE
+.SH "SEE ALSO"
+.PP
+
+\fBpam_limits\fR(8),
+\fBpam.d\fR(5),
+\fBpam\fR(8)
+.SH "AUTHORS"
+.PP
+pam_limits was initially written by Cristian Gafton <gafton@redhat.com>

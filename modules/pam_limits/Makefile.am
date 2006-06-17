@@ -4,7 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README limits.conf tst-pam_limits
+EXTRA_DIST = README $(MANS) $(XMLS) limits.conf tst-pam_limits
+
+man_MANS = limits.conf.5 pam_limits.8
+XMLS = README.xml limits.conf.5.xml pam_limits.8.xml
 
 TESTS = tst-pam_limits
 
@@ -22,3 +25,10 @@ endif
 securelib_LTLIBRARIES = pam_limits.la
 
 secureconf_DATA = limits.conf
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_limits.8.xml limits.conf.5.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+        "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+
+<refentry id="limits.conf">
+
+  <refmeta>
+    <refentrytitle>limits.conf</refentrytitle>
+    <manvolnum>5</manvolnum>
+    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>limits.conf</refname>
+    <refpurpose>configuration file for the pam_limits module</refpurpose>
+  </refnamediv>
+
+  <refsect1 id='limits.conf-description'>
+    <title>DESCRIPTION</title>
+
+    <para>
+      The pam_limits PAM module sets limits on the system resources that can be
+      obtained in a user-session.
+   </para>
+
+    <para>
+      The syntax of the lines is as follows:
+    </para>
+
+    <para>
+      <replaceable>&lt;domain&gt;</replaceable> <replaceable>&lt;type&gt;</replaceable>
+      <replaceable>&lt;item&gt;</replaceable> <replaceable>&lt;value&gt;</replaceable>
+    </para>
+    <para>
+      The fields listed above should be filled as follows:
+    </para>
+    <variablelist>
+      <varlistentry>
+        <term>
+          <option>&lt;domain&gt;</option>
+        </term>
+        <listitem>
+          <itemizedlist>
+            <listitem>
+              <para>
+                a username
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                a groupname, with <emphasis remap='B'>@group</emphasis> syntax.
+                This should not be confused with netgroups.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                the wildcard <emphasis remap='B'>*</emphasis>, for default entry.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                the wildcard <emphasis remap='B'>%</emphasis>, for maxlogins limit only,
+                can also be used with <emphasis remap='b'>%group</emphasis> syntax.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>&lt;type&gt;</option>
+        </term>
+        <listitem>
+          <variablelist>
+            <varlistentry>
+              <term><option>hard</option></term>
+              <listitem>
+                <para>
+                  for enforcing <emphasis remap='B'>hard</emphasis> resource limits.
+                  These limits are set by the superuser and enforced by the Kernel.
+                  The user cannot raise his requirement of system resources above such values.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>soft</option></term>
+              <listitem>
+                <para>
+                  for enforcing <emphasis remap='B'>soft</emphasis> resource limits.
+                  These limits are ones that the user can move up or down within the
+                  permitted range by any pre-exisiting <emphasis remap='B'>hard</emphasis>
+                  limits. The values specified with this token can be thought of as
+                  <emphasis>default</emphasis> values, for normal system usage.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>-</option></term>
+              <listitem>
+                <para>
+                  for enforcing both <emphasis remap='B'>soft</emphasis> and
+                  <emphasis remap='B'>hard</emphasis> resource limits together.
+                </para>
+                <para>
+                  Note, if you specify a type of '-' but neglect to supply the
+                  item and value fields then the module will never enforce any
+                  limits on the specified user/group etc. .
+                </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>&lt;item&gt;</option>
+        </term>
+        <listitem>
+          <variablelist>
+            <varlistentry>
+              <term><option>core</option></term>
+              <listitem>
+                <para>limits the core file size (KB)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>data</option></term>
+              <listitem>
+                <para>maximum data size (KB)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>fsize</option></term>
+              <listitem>
+                <para>maximum filesize (KB)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>memlock</option></term>
+              <listitem>
+                <para>maximum locked-in-memory address space (KB)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>nofile</option></term>
+              <listitem>
+                <para>maximum number of open files</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>rss</option></term>
+              <listitem>
+                <para>maximum resident set size (KB)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>stack</option></term>
+              <listitem>
+                <para>maximum stack size (KB)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>cpu</option></term>
+              <listitem>
+                <para>maximum CPU time (minutes)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>nproc</option></term>
+              <listitem>
+                <para>maximum number of processes</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>as</option></term>
+              <listitem>
+                <para>address space limit</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>maxlogins</option></term>
+              <listitem>
+                <para>maximum number of logins for this user</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>maxsyslogins</option></term>
+              <listitem>
+                <para>maximum number of logins on system</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>priority</option></term>
+              <listitem>
+                <para>the priority to run user process with (negative
+                  values boost process priority)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>locks</option></term>
+              <listitem>
+                <para>maximum locked files (Linux 2.4 and higher)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>sigpending</option></term>
+              <listitem>
+                <para>maximum number of pending signals (Linux 2.6 and higher)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>msqqueue</option></term>
+              <listitem>
+                <para>maximum memory used by POSIX message queues (bytes)
+                  (Linux 2.6 and higher)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>nice</option></term>
+              <listitem>
+                <para>maximum nice priority allowed to raise to (Linux 2.6.12 and higher)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><option>rtprio</option></term>
+              <listitem>
+                <para>maximum realtime priority allowed for non-privileged processes
+                  (Linux 2.6.12 and higher)</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+    <para>
+      In general, individual limits have priority over group limits, so if
+      you impose no limits for <emphasis>admin</emphasis> group, but one of
+      the members in this group have a limits line, the user will have its
+      limits set according to this line.
+    </para>
+    <para>
+      Also, please note that all limit settings are set
+      <emphasis>per login</emphasis>. They are not global, nor are they
+      permanent; existing only for the duration of the session.
+    </para>
+    <para>
+      In the <emphasis>limits</emphasis> configuration file, the
+      '<emphasis remap='B'>#</emphasis>' character introduces a comment
+      - after which the rest of the line is ignored.
+    </para>
+    <para>
+      The pam_limits module does its best to report configuration problems
+      found in its configuration file via <citerefentry>
+      <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+    </para>
+  </refsect1>
+
+  <refsect1 id="limits.conf-examples">
+    <title>EXAMPLES</title>
+    <para>
+      These are some example lines which might be specified in
+      <filename>/etc/security/limits.conf</filename>.
+    </para>
+    <programlisting>
+*               soft    core            0
+*               hard    rss             10000
+@student        hard    nproc           20
+@faculty        soft    nproc           20
+@faculty        hard    nproc           50
+ftp             hard    nproc           0
+@student        -       maxlogins       4
+    </programlisting>
+  </refsect1>
+
+  <refsect1 id="limits.conf-see_also">
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry><refentrytitle>pam_limits</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    </para>
+  </refsect1>
+
+  <refsect1 id="limits.conf-author">
+    <title>AUTHORS</title>
+    <para>
+      pam_limits was initially written by Cristian Gafton &lt;gafton@redhat.com&gt;
+    </para>
+  </refsect1>
+</refentry>

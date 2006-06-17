@@ -631,7 +631,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
         if (ctrl & PAM_DEBUG_ARG)
             pam_syslog(pamh, LOG_WARNING,
 		       "open_session username '%s' does not exist", user_name);
-        return PAM_SESSION_ERR;
+        return PAM_USER_UNKNOWN;
     }
 
     retval = init_limits(&pl);

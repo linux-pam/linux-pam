@@ -3,11 +3,12 @@ Linux-PAM NEWS -- history of user-visible changes.
 
 * pam_tally: Fix support for large UIDs
 * Fixed all problems found by Coverity
+* Add support for Intel C Compiler
 * Add manual page for pam_mkhomedir, pam_umask, pam_filter,
   pam_issue, pam_ftp, pam_group, pam_lastlog, pam_listfile,
   pam_localuser, pam_mail, pam_motd, pam_nologin, pam_permit,
   pam_rootok, pam_securetty, pam_shells, pam_userdb, pam_warn,
-  pam_time
+  pam_time, pam_limits
 * The libpam memory debug code was removed
 
 Release 0.99.4.0

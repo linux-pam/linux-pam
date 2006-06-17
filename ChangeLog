@@ -1,3 +1,13 @@
+2006-06-17  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_limits/Makefile.am: Include Make.xml.rules.
+	* modules/pam_limits/limits.conf.5: New, generated from xml file.
+	* modules/pam_limits/limits.conf.5.xml: New.
+	* modules/pam_limits/pam_limits.8: New, generated from xml file.
+	* modules/pam_limits/pam_limits.8.xml: New.
+	* modules/pam_limits/README.xml: New.
+	* modules/pam_limits/README: Regenerated from README.xml.
+
 2006-06-16  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_unix/pam_unix_passwd.c (save_old_password): UIDs
