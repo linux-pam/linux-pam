@@ -50,12 +50,9 @@ verbose
 
 EXAMPLES
 
-auth    requisite       pam_permit.so
-auth    [success=2 default=ok]  pam_selinux.so auth=perm_denied cred=success
-auth    [default=reset]         pam_selinux.so auth=success cred=perm_denied
-auth    [success=done default=die] pam_selinux.so
-auth    optional        pam_selinux.so auth=perm_denied cred=perm_denied
-auth    sufficient      pam_selinux.so auth=success cred=success
+auth     required  pam_unix.so
+session  required  pam_permit.so
+session  optional  pam_selinux.so
 
 
 AUTHOR
