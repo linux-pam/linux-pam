@@ -1,17 +1,64 @@
-This is pam_selinux, a module for setting the default security context after 
-login via PAM.
+pam_selinux — PAM module to set the default security context
 
-Background:  SELinux provides a mechanism for allowing people to login with 
-different security contexts.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The module takes these arguments:
-The module takes these arguments:
-    close           Only execute the close_session portion of the module.
-    debug           Log debug messages (with priority DEBUG) to syslog.	
-    nottys          Do not set security context on controlling tty
-    verbose         Attempt to tell the user when security context is set.
-    open            Only execute the open_session portion of the module.
+DESCRIPTION
 
-Dan Walsh <dwalsh@redhat.com>
+In a nutshell, pam_selinux sets up the default security context for the next
+execed shell.
 
+When an application opens a session using pam_selinux, the shell that gets
+executed will be run in the default security context, or if the user chooses
+and the pam file allows the selected security context. Also the controlling tty
+will have it's security context modified to match the users.
+
+Adding pam_selinux into a pam file could cause other pam modules to change
+their behavior if the exec another application. The close and open option help
+mitigate this problem. close option will only cause the close portion of the
+pam_selinux to execute, and open will only cause the open portion to run. You
+can add pam_selinux to the config file twice. Add the pam_selinux close as the
+executes the open pass through the modules, pam_selinux open_session will
+happen last. When PAM executes the close pass through the modules pam_selinux
+close_session will happen first.
+
+OPTIONS
+
+close
+
+    Only execute the close_session portion of the module.
+
+debug
+
+    Turns on debugging via syslog(3).
+
+multiple
+
+    Tells pam_selinux.so to allow the user to select the security context they
+    will login with, if the user has more than one role.
+
+open
+
+    Only execute the open_session portion of the module.
+
+nottys
+
+    Do not try to setup the ttys security context.
+
+verbose
+
+    attempt to inform the user when security context is set.
+
+EXAMPLES
+
+auth    requisite       pam_permit.so
+auth    [success=2 default=ok]  pam_selinux.so auth=perm_denied cred=success
+auth    [default=reset]         pam_selinux.so auth=success cred=perm_denied
+auth    [success=done default=die] pam_selinux.so
+auth    optional        pam_selinux.so auth=perm_denied cred=perm_denied
+auth    sufficient      pam_selinux.so auth=success cred=success
+
+
+AUTHOR
+
+pam_selinux was written by Dan Walsh <dwalsh@redhat.com>.
 

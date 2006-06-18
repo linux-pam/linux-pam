@@ -359,7 +359,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 
   if (pam_get_item(pamh, PAM_USER, &username) != PAM_SUCCESS ||
                    username == NULL) {
-    return PAM_AUTH_ERR;
+    return PAM_USER_UNKNOWN;
   }
   num_contexts = get_ordered_context_list(username, 0, &contextlist);
   if (num_contexts > 0) {
