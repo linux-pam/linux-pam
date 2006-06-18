@@ -1,0 +1,188 @@
+.\"     Title: pam_tally
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/18/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_TALLY" "8" "06/18/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_tally \- The login counter (tallying) module
+.SH "SYNOPSIS"
+.HP 13
+\fBpam_tally.so\fR [file=\fI/path/to/counter\fR] [onerr=[\fIfail\fR|\fIsucceed\fR]] [magic_root] [even_deny_root_account] [deny=\fIn\fR] [lock_time=\fIn\fR] [unlock_time=\fIn\fR] [per_user] [no_lock_time] [no_reset] [audit]
+.HP 10
+\fBpam_tally\fR [\-\-file\ \fI/path/to/counter\fR] [\-\-user\ \fIusername\fR] [\-\-reset[=\fIn\fR]] [\-\-quiet]
+.SH "DESCRIPTION"
+.PP
+This module maintains a count of attempted accesses, can reset count on success, can deny access if too many attempts fail.
+.PP
+pam_tally comes in two parts:
+\fBpam_tally.so\fR
+and
+\fBpam_tally\fR. The former is the PAM module and the latter, a stand\-alone program.
+\fBpam_tally\fR
+is an (optional) application which can be used to interrogate and manipulate the counter file. It can display users' counts, set individual counts, or clear all counts. Setting artificially high counts may be useful for blocking users without changing their passwords. For example, one might find it useful to clear all counts every midnight from a cron job. The
+\fBfaillog\fR(8)
+command can be used instead of pam_tally to to maintain the counter file.
+.PP
+Normally, failed attempts to access
+\fIroot\fR
+will
+\fBnot\fR
+cause the root account to become blocked, to prevent denial\-of\-service: if your users aren't given shell accounts and root may only login via
+\fBsu\fR
+or at the machine console (not telnet/rsh, etc), this is safe.
+.SH "OPTIONS"
+.TP 3n
+GLOBAL OPTIONS
+This can be used for
+\fIauth\fR
+and
+\fIaccount\fR
+services.
+.RS 3n
+.TP 3n
+\fBonerr=[\fR\fB\fIfail\fR\fR\fB|\fR\fB\fIsucceed\fR\fR\fB]\fR
+If something weird happens (like unable to open the file), return with
+\fBPAM_SUCESS\fR
+if
+\fBonerr=\fR\fB\fIsucceed\fR\fR
+is given, else with the corresponding PAM error code.
+.TP 3n
+\fBfile=\fR\fB\fI/path/to/counter\fR\fR
+File where to keep counts. Default is
+\fI/var/log/faillog\fR.
+.TP 3n
+\fBaudit\fR
+Will display the username typed if the user is not found.
+.RE
+.TP 3n
+AUTH OPTIONS
+Authentication phase first checks if user should be denied access and if not it increments attempted login counter. Then on call to
+\fBpam_setcred\fR(3)
+it resets the attempts counter.
+.RS 3n
+.TP 3n
+\fBdeny=\fR\fB\fIn\fR\fR
+Deny access if tally for this user exceeds
+\fIn\fR.
+.TP 3n
+\fBlock_time=\fR\fB\fIn\fR\fR
+Always deny for
+\fIn\fR
+seconds after failed attempt.
+.TP 3n
+\fBunlock_time=\fR\fB\fIn\fR\fR
+Allow access after
+\fIn\fR
+seconds after failed attempt. If this option is used the user will be locked out for the specified amount of time after he exceeded his maximum allowed attempts. Otherwise the account is locked until the lock is removed by a manual intervention of the system administrator.
+.TP 3n
+\fBmagic_root\fR
+If the module is invoked by a user with uid=0 the counter is not incremented. The sys\-admin should use this for user launched services, like
+\fBsu\fR, otherwise this argument should be omitted.
+.TP 3n
+\fBno_lock_time\fR
+Do not use the .fail_locktime field in
+\fI/var/log/faillog\fR
+for this user.
+.TP 3n
+\fBno_reset\fR
+Don't reset count on successful entry, only decrement.
+.TP 3n
+\fBeven_deny_root_account\fR
+Root account can become unavailable.
+.TP 3n
+\fBeven_deny_root_account\fR
+Root account can become unavailable.
+.TP 3n
+\fBper_user\fR
+If
+\fI/var/log/faillog\fR
+contains a non\-zero .fail_max/.fail_locktime field for this user then use it instead of
+\fBdeny=\fR\fB\fIn\fR\fR/
+\fBlock_time=\fR\fB\fIn\fR\fR
+parameter.
+.TP 3n
+\fBno_lock_time\fR
+Don't use .fail_locktime filed in
+\fI/var/log/faillog\fR
+for this user.
+.RE
+.TP 3n
+ACCOUNT OPTIONS
+Account phase resets attempts counter if the user is
+\fBnot\fR
+magic root. This phase can be used optionaly for services which don't call
+\fBpam_setcred\fR(3)
+correctly or if the reset should be done regardless of the failure of the account phase of other modules.
+.RS 3n
+.TP 3n
+\fBmagic_root\fR
+If the module is invoked by a user with uid=0 the counter is not incremented. The sys\-admin should use this for user launched services, like
+\fBsu\fR, otherwise this argument should be omitted.
+.TP 3n
+\fBno_reset\fR
+Don't reset count on successful entry, only decrement.
+.RE
+.SH "MODULE SERVICES PROVIDED"
+.PP
+The
+\fBauth\fR
+and
+\fBaccount\fR
+services are supported.
+.SH "RETURN VALUES"
+.TP 3n
+PAM_AUTH_ERR
+A invalid option was given, the module was not able to retrive the user name, no valid counter file was found, or too many failed logins.
+.TP 3n
+PAM_SUCCESS
+Everything was successfull.
+.TP 3n
+PAM_USER_UNKNOWN
+User not known.
+.SH "EXAMPLES"
+.PP
+Add the following line to
+\fI/etc/pam.d/login\fR
+to lock the account after too many failed logins. The number of allowed fails is specified by
+\fI/var/log/faillog\fR
+and needs to be set with pam_tally or
+\fBfaillog\fR(8)
+before.
+.sp
+.RS 3n
+.nf
+auth     required       pam_securetty.so
+auth     required       pam_tally.so per_user
+auth     required       pam_env.so
+auth     required       pam_unix.so
+auth     required       pam_nologin.so
+account  required       pam_unix.so
+password required       pam_unix.so
+session  required       pam_limits.so
+session  required       pam_unix.so
+session  required       pam_lastlog.so nowtmp
+session  optional       pam_mail.so standard
+    
+.fi
+.RE
+.SH "FILES"
+.TP 3n
+\fI/var/log/faillog\fR
+failure logging file
+.SH "SEE ALSO"
+.PP
+
+\fBfaillog\fR(8),
+\fBpam.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8)
+.SH "AUTHOR"
+.PP
+pam_tally was written by Tim Baverstock and Tomas Mraz.

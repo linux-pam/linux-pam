@@ -1,116 +1,136 @@
-SUMMARY:
-  pam_tally.so:
+pam_tally — The login counter (tallying) module
 
-        Maintains a count of attempted accesses, can reset count on success,
-                can deny access if too many attempts fail.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-        Options:
+DESCRIPTION
 
-                * onerr=[succeed|fail] (if something weird happens
-                        such as unable to open the file, what to do?)
-                * file=/where/to/keep/counts (default /var/log/faillog)
-		* audit (will display the username typed if the user is not found)
+This module maintains a count of attempted accesses, can reset count on
+success, can deny access if too many attempts fail.
 
-        (auth)
-            Authentication phase first checks if user should be denied access
-	    and if not it increments attempted login counter. Then on call to
-	    pam_setcred it resets the attempts counter if the user is NOT
-	    magic root.
-                * deny=n (deny access if tally for this user exceeds n)
-		
-		* lock_time=n (always deny for n seconds after failed attempt)
-		
-		* unlock_time=n (allow access after n seconds after the last
-		        failed attempt with exceeded tally)
-                
-                * magic_root (access attempts by root as requesting user ignore
-			deny and don't change counter.
-                        Use this for su and similar services.)
+pam_tally comes in two parts: pam_tally.so and pam_tally. The former is the PAM
+module and the latter, a stand-alone program. pam_tally is an (optional)
+application which can be used to interrogate and manipulate the counter file.
+It can display users' counts, set individual counts, or clear all counts.
+Setting artificially high counts may be useful for blocking users without
+changing their passwords. For example, one might find it useful to clear all
+counts every midnight from a cron job. The faillog(8) command can be used
+instead of pam_tally to to maintain the counter file.
 
-                * even_deny_root_account (Root can become unavailable. BEWARE.
-                        Note that magic root trying to gain root bypasses this,
-                        but normal users can be locked out.)
-                
-		* per_user (If /var/log/faillog contains a non-zero
-			.fail_max/.fail_locktime field for this user then use it
-			instead of deny=n/lock_time=n parameter.)
+Normally, failed attempts to access root will not cause the root account to
+become blocked, to prevent denial-of-service: if your users aren't given shell
+accounts and root may only login via su or at the machine console (not telnet/
+rsh, etc), this is safe.
 
-		* no_lock_time (Don't use .fail_locktime filed in
-			/var/log/faillog for this user)
+OPTIONS
 
-                * no_reset (don't reset count on successful entry,
-		        only decrement)
+GLOBAL OPTIONS
 
-                
-        (account)
-            Account phase resets attempts counter if the user is NOT magic root.
-	    This phase can be used optionaly for services which don't call
-	    pam_setcred correctly or if the reset should be done regardless
-	    of the failure of the account phase of other modules.
-	    
-                * magic_root (access attempts by root as requesting user 
-			don't change counter.
-                        Use this for su and similar services.)
+    This can be used for auth and account services.
 
-                * no_reset (don't reset count on successful entry,
-		        only decrement)
+    onerr=[fail|succeed]
 
-        Also checks to make sure that the counts file is a plain
-        file and not world writable.
+        If something weird happens (like unable to open the file), return with
+        PAM_SUCESS if onerr=succeed is given, else with the corresponding PAM
+        error code.
 
-        - Tim Baverstock <warwick@sable.demon.co.uk>, v0.1 5 March 1997
-	- Tomas Mraz <tmraz@redhat.com>, v0.2 5 January 2005
+    file=/path/to/counter
 
-LONGER:
+        File where to keep counts. Default is /var/log/faillog.
 
-pam_tally comes in two parts: pam_tally.so and pam_tally.
+    audit
 
-pam_tally.so sits in a pam config file, in the auth and account sections.
+        Will display the username typed if the user is not found.
 
-In the auth section, it denies access if attempted logins exceed some
-threshold and it increments a per-uid counter for each attempted login,
-in the account section, it resets that counter to zero on successful
-login. If the module isn't used in the account section it resets the counter
-to zero on call to pam_setcred.
+AUTH OPTIONS
 
-Root is treated specially:
+    Authentication phase first checks if user should be denied access and if
+    not it increments attempted login counter. Then on call to pam_setcred(3)
+    it resets the attempts counter.
 
-1. When a process already running as root tries to access some service and the
-'magic_root' flag is set, the access is `magic', and bypasses pam_tally's 
-checks: handy for `su'ing from root into an account otherwise blocked.
-NOTE: This was changed from the previous version of pam_tally where the default
-was to treat root as magic and there were the 'no_magic_root' flag. However
-for most of services the current default make sense.
+    deny=n
 
-2. Normally, failed attempts to access root will NOT cause the root 
-account to become blocked, to prevent denial-of-service: if your users aren't 
-given shell accounts and root may only login via `su' or at the machine 
-console (not telnet/rsh, etc), this is safe. If you really want root to be
-blocked for some given service, use even_deny_root_account.
+        Deny access if tally for this user exceeds n.
 
-pam_tally is an (optional) application which can be used to interrogate and 
-manipulate the counter file. It can display users' counts, set individual 
-counts, or clear all counts. Setting artificially high counts may be useful 
-for blocking users without changing their passwords. I found it useful to 
-clear all counts every midnight from a cron..
+    lock_time=n
 
-The counts file is organised as a binary-word array, indexed by uid. You
-can probably make sense of it with `od', if you don't want to use the
-supplied application.
+        Always deny for n seconds after failed attempt.
 
-BUGS:
+    unlock_time=n
 
-pam_tally is very dependant on getpw*(): a database of usernames
-would be much more flexible.
+        Allow access after n seconds after failed attempt. If this option is
+        used the user will be locked out for the specified amount of time after
+        he exceeded his maximum allowed attempts. Otherwise the account is
+        locked until the lock is removed by a manual intervention of the system
+        administrator.
 
-The (4.0 Redhat) utilities seem to do funny things with uid, and I'm
-not wholly sure I understood what I should have been doing anyway so
-the `keep a count of current logins' bit has been #ifdef'd out and you
-can only reset the counter on successful authentication, for now.
+    magic_root
 
-IMPORTANT NOTICE:
-In the original version of pam_tally there was a bug where the information
-if the password was correct or not was leaked by returning error from
-different pam management phases. This was solved by moving the denying
-functionality to the auth phase. However it's necessary to update the pam
-configuration by moving the required options (as deny=N) to the auth phase.
+        If the module is invoked by a user with uid=0 the counter is not
+        incremented. The sys-admin should use this for user launched services,
+        like su, otherwise this argument should be omitted.
+
+    no_lock_time
+
+        Do not use the .fail_locktime field in /var/log/faillog for this user.
+
+    no_reset
+
+        Don't reset count on successful entry, only decrement.
+
+    even_deny_root_account
+
+        Root account can become unavailable.
+
+    even_deny_root_account
+
+        Root account can become unavailable.
+
+    per_user
+
+        If /var/log/faillog contains a non-zero .fail_max/.fail_locktime field
+        for this user then use it instead of deny=n/ lock_time=n parameter.
+
+    no_lock_time
+
+        Don't use .fail_locktime filed in /var/log/faillog for this user.
+
+ACCOUNT OPTIONS
+
+    Account phase resets attempts counter if the user is not magic root. This
+    phase can be used optionaly for services which don't call pam_setcred(3)
+    correctly or if the reset should be done regardless of the failure of the
+    account phase of other modules.
+
+    magic_root
+
+        If the module is invoked by a user with uid=0 the counter is not
+        incremented. The sys-admin should use this for user launched services,
+        like su, otherwise this argument should be omitted.
+
+    no_reset
+
+        Don't reset count on successful entry, only decrement.
+
+EXAMPLES
+
+Add the following line to /etc/pam.d/login to lock the account after too many
+failed logins. The number of allowed fails is specified by /var/log/faillog and
+needs to be set with pam_tally or faillog(8) before.
+
+auth     required       pam_securetty.so
+auth     required       pam_tally.so per_user
+auth     required       pam_env.so
+auth     required       pam_unix.so
+auth     required       pam_nologin.so
+account  required       pam_unix.so
+password required       pam_unix.so
+session  required       pam_limits.so
+session  required       pam_unix.so
+session  required       pam_lastlog.so nowtmp
+session  optional       pam_mail.so standard
+
+
+AUTHOR
+
+pam_tally was written by Tim Baverstock and Tomas Mraz.
+

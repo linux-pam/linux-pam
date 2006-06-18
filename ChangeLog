@@ -1,5 +1,11 @@
 2006-06-18  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_tally/Makefile.am: Include Make.xml.rules.
+	* modules/pam_tally/pam_tally.8.xml: New.
+	* modules/pam_tally/pam_tally.8: New, generated from xml file.
+	* modules/pam_tally/README.xml: New.
+	* modules/pam_tally/README: Regenerated from xml file.
+
 	* modules/pam_selinux/Makefile.am: Include Make.xml.rules.
 	* modules/pam_selinux/pam_selinux.8.xml: New.
 	* modules/pam_selinux/pam_selinux.8: Regenerated from xml file.

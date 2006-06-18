@@ -4,7 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README tst-pam_tally
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_tally
+
+man_MANS = pam_tally.8
+XMLS = README.xml pam_tally.8.xml
 
 TESTS = tst-pam_tally
 
@@ -25,3 +28,10 @@ securelib_LTLIBRARIES = pam_tally.la
 sbin_PROGRAMS = pam_tally
 
 pam_tally_SOURCES = pam_tally_app.c
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_tally.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+
