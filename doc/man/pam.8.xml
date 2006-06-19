@@ -2,7 +2,7 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
                    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 
-<refentry id='pam'>
+<refentry id='pam8'>
 
   <refmeta>
     <refentrytitle>pam</refentrytitle>
@@ -10,46 +10,47 @@
     <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam-name'>
+  <refnamediv id='pam8-name'>
     <refname>PAM</refname>
     <refname>pam</refname>
     <refpurpose>Pluggable Authentication Modules for Linux</refpurpose>
   </refnamediv>
 
-<!-- body begins here -->
+  <refsect1 id='pam8-description'>
+    <title>DESCRIPTION</title>
+    <para>
+      This manual is intended to offer a quick introduction to
+      <emphasis remap='B'>Linux-PAM</emphasis>. For more information
+      the reader is directed to the
+      <emphasis remap='B'>Linux-PAM system administrators' guide</emphasis>.
+    </para>
 
-<refsect1 id='description'><title>DESCRIPTION</title>
-<para>This manual is intended to offer a quick introduction to
-<emphasis remap='B'>Linux-PAM</emphasis>. 
-For more information the reader is directed to the
-<emphasis remap='B'>Linux-PAM system administrators' guide</emphasis>.</para>
+    <para>
+      <emphasis remap='B'>Linux-PAM</emphasis> is a system of libraries
+      that handle the authentication tasks of applications (services) on
+      the system. The library provides a stable general interface
+      (Application Programming Interface - API) that privilege granting
+      programs (such as <citerefentry>
+      <refentrytitle>login</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry> and <citerefentry>
+      <refentrytitle>su</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry>) defer to to perform standard authentication tasks.
+    </para>
 
-
-<para><emphasis remap='B'>Linux-PAM</emphasis>
-Is a system of libraries that handle the authentication tasks of
-applications (services) on the system.  The library provides a stable
-general interface (Application Programming Interface - API) that
-privilege granting programs (such as
-<citerefentry><refentrytitle>login</refentrytitle><manvolnum>1</manvolnum></citerefentry> 
-and
-<citerefentry><refentrytitle>su</refentrytitle><manvolnum>1</manvolnum></citerefentry>) 
-defer to to perform standard authentication tasks.</para>
-
-
-<para>The principal feature of the PAM approach is that the nature of the
-authentication is dynamically configurable.  In other words, the
-system administrator is free to choose how individual
-service-providing applications will authenticate users. This dynamic
-configuration is set by the contents of the single
-<emphasis remap='B'>Linux-PAM</emphasis>
-configuration file
-<filename>/etc/pam.conf</filename>.
-Alternatively, the configuration can be set by individual
-configuration files located in the
-<filename>/etc/pam.d/</filename>
-directory.
-<emphasis remap='I'>The presence of this directory will cause </emphasis><emphasis remap='B'>Linux-PAM</emphasis><emphasis remap='I'> to ignore</emphasis>
-<filename>/etc/pam.conf</filename><literal>.</literal></para>
+    <para>
+      The principal feature of the PAM approach is that the nature of the
+      authentication is dynamically configurable.  In other words, the
+      system administrator is free to choose how individual
+      service-providing applications will authenticate users. This dynamic
+      configuration is set by the contents of the single
+      <emphasis remap='B'>Linux-PAM</emphasis> configuration file
+      <filename>/etc/pam.conf</filename>. Alternatively, the configuration
+      can be set by individual configuration files located in the
+      <filename>/etc/pam.d/</filename> directory. The presence of this
+      directory will cause <emphasis remap='B'>Linux-PAM</emphasis> to
+      <emphasis remap='I'>ignore</emphasis>
+      <filename>/etc/pam.conf</filename>.
+    </para>
 
 
 <para>From the point of view of the system administrator, for whom this
@@ -70,9 +71,9 @@ that perform the actual authentication tasks.</para>
 separates the tasks of
 <emphasis remap='I'>authentication</emphasis>
 into four independent management groups:
-<emphasis remap='B'>account</emphasis> management; 
-<emphasis remap='B'>auth</emphasis>entication management; 
-<emphasis remap='B'>password</emphasis> management; 
+<emphasis remap='B'>account</emphasis> management;
+<emphasis remap='B'>auth</emphasis>entication management;
+<emphasis remap='B'>password</emphasis> management;
 and
 <emphasis remap='B'>session</emphasis> management.
 (We highlight the abbreviations used for these groups in the
@@ -83,12 +84,12 @@ configuration file.)</para>
 user's request for a restricted service:</para>
 
 
-<para><emphasis remap='B'>account</emphasis> - 
+<para><emphasis remap='B'>account</emphasis> -
 provide account verification types of service: has the user's password
 expired?; is this user permitted access to the requested service?</para>
 
 <!-- .br -->
-<para><emphasis remap='B'>auth</emphasis>entication - 
+<para><emphasis remap='B'>auth</emphasis>entication -
 authenticate a user and set up user credentials. Typically this is via
 some challenge-response request that the user must satisfy: if you are
 who you claim to be please enter your password. Not all authentications
@@ -99,7 +100,7 @@ approaches to authentication - such is the flexibility of
 <emphasis remap='B'>Linux-PAM</emphasis>.</para>
 
 <!-- .br -->
-<para><emphasis remap='B'>password</emphasis> - 
+<para><emphasis remap='B'>password</emphasis> -
 this group's responsibility is the task of updating authentication
 mechanisms. Typically, such services are strongly coupled to those of
 the
@@ -109,7 +110,7 @@ updated with such a function. Standard UN*X password-based access is
 the obvious example: please enter a replacement password.</para>
 
 <!-- .br -->
-<para><emphasis remap='B'>session</emphasis> - 
+<para><emphasis remap='B'>session</emphasis> -
 this group of tasks cover things that should be done prior to a
 service being given and after it is withdrawn. Such tasks include the
 maintenance of audit trails and the mounting of the user's home
@@ -120,52 +121,66 @@ closing hook for modules to affect the services available to a user.</para>
 
 </refsect1>
 
-<refsect1 id='files'><title>FILES</title>
-<para><filename>/etc/pam.conf</filename> - the configuration file
-<!-- .br -->
-<filename>/etc/pam.d/</filename> - the
-<emphasis remap='B'>Linux-PAM</emphasis>
-configuration directory. Generally, if this directory is present, the
-<filename>/etc/pam.conf</filename>
-file is ignored.
-<!-- .br -->
-<filename>/lib/libpam.so.X</filename> - the dynamic library
-<!-- .br -->
-<filename>/lib/security/*.so</filename> - the PAMs</para>
+  <refsect1 id='pam8-files'>
+    <title>FILES</title>
+    <variablelist>
+      <varlistentry>
+        <term><filename>/etc/pam.conf</filename></term>
+        <listitem>
+          <para>the configuration file</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><filename>/etc/pam.d</filename></term>
+        <listitem>
+          <para>
+            the <emphasis remap='B'>Linux-PAM</emphasis> configuration
+            directory. Generally, if this directory is present, the
+            <filename>/etc/pam.conf</filename> file is ignored.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
 
-</refsect1>
+  <refsect1 id='pam8-errors'>
+    <title>ERRORS</title>
+    <para>
+      Typically errors generated by the
+      <emphasis remap='B'>Linux-PAM</emphasis> system of libraries, will
+      be written to <citerefentry>
+      <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>.
+    </para>
+  </refsect1>
 
-<refsect1 id='errors'><title>ERRORS</title>
-<para>Typically errors generated by the
-<emphasis remap='B'>Linux-PAM</emphasis>
-system of libraries, will be written to
-<citerefentry><refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>.</para>
+  <refsect1 id='pam8-conforming_to'>
+    <title>CONFORMING TO</title>
+    <para>
+      DCE-RFC 86.0, October 1995.
+      Contains additional features, but remains backwardly compatible
+      with this RFC.
+    </para>
+  </refsect1>
 
-</refsect1>
-
-<refsect1 id='conforming_to'><title>CONFORMING TO</title>
-<para>DCE-RFC 86.0, October 1995.
-<!-- .br -->
-Contains additional features, but remains backwardly compatible with
-this RFC.</para>
-
-</refsect1>
-
-<refsect1 id='bugs'><title>BUGS</title>
-
-
-<para>None known.</para>
-
-</refsect1>
-
-<refsect1 id='see_also'><title>SEE ALSO</title>
-<para>The three
-<emphasis remap='B'>Linux-PAM</emphasis>
-Guides, for
-<emphasis remap='B'>system administrators</emphasis>, 
-<emphasis remap='B'>module developers</emphasis>, 
-and
-<emphasis remap='B'>application developers</emphasis>. </para>
-</refsect1>
+  <refsect1 id='pam8-see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+        <refentrytitle>pam</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam_authenticate</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam_sm_setcred</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam_strerror</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>PAM</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
 </refentry>
-

@@ -1,3 +1,21 @@
+2006-06-19  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/pam.8.xml: Syntax cleanup.
+	* doc/pam/PAM.8: Regenerated from xml source.
+	* man/pam_sm_chauthtok.3: New.
+	* man/pam_sm_chauthtok.3.xml: New.
+	* man/pam_sm_close_session.3: New.
+	* man/pam_sm_close_session.3.xml: New.
+	* man/pam_sm_open_session.3: New.
+	* man/pam_sm_open_session.3.xml: New.
+	* man/pam_sm_authenticate.3: New.
+	* man/pam_sm_authenticate.3.xml: New.
+	* man/pam_sm_setcred.3: New.
+	* man/pam_sm_setcred.3.xml: New.
+	* man/Makefile.am: Add new pam_sm_* manual pages.
+
+	* specs/Makefile.am: Fix rule to generate draft.
+
 2006-06-18  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_tally/Makefile.am: Include Make.xml.rules.

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id='pam_sm_open_session'>
+  <refmeta>
+    <refentrytitle>pam_sm_open_session</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id="pam_sm_open_session-name">
+    <refname>pam_sm_open_session</refname>
+    <refpurpose>PAM service function for session management</refpurpose>
+  </refnamediv>
+
+<!-- body begins here -->
+
+  <refsynopsisdiv id='pam_sm_open_session-synopsis'>
+    <funcsynopsis>
+      <funcsynopsisinfo>#define PAM_SM_SESSION</funcsynopsisinfo>
+      <funcsynopsisinfo>#include &lt;security/pam_modules.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>PAM_EXTERN int <function>pam_sm_open_session</function></funcdef>
+        <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
+        <paramdef>int <parameter>flags</parameter></paramdef>
+        <paramdef>int <parameter>argc</parameter></paramdef>
+        <paramdef>const char **<parameter>argv</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+
+  <refsect1 id='pam_sm_open_session-description'>
+    <title>DESCRIPTION</title>
+    <para>
+      The <function>pam_sm_open_session</function> function is the service
+      module's implementation of the
+      <citerefentry>
+        <refentrytitle>pam_open_session</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry> interface.
+    </para>
+    <para>
+      This function is called to commence a session. The only valid
+      value for <varname role='parameter'>flags</varname> is zero or:
+    </para>
+    <variablelist>
+      <varlistentry>
+        <term>PAM_SILENT</term>
+        <listitem>
+           <para>
+             Do not emit any messages.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="pam_sm_open_session-return_values">
+    <title>RETURN VALUES</title>
+    <variablelist>
+      <varlistentry>
+        <term>PAM_SESSION_ERR</term>
+        <listitem>
+          <para>
+            Cannot make/remove an entry for the specified session.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_SUCCESS</term>
+        <listitem>
+           <para>
+             The session was successfully started.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id='pam_sm_open_session-see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+        <refentrytitle>pam</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam_open_session</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam_sm_close_session</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam_strerror</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>PAM</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
+</refentry>

@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
                    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id='pam_sm_acct_mgmt'>
+<refentry id='pam_sm_authenticate'>
   <refmeta>
-    <refentrytitle>pam_sm_acct_mgmt</refentrytitle>
+    <refentrytitle>pam_sm_authenticate</refentrytitle>
     <manvolnum>3</manvolnum>
     <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_sm_acct_mgmt-name">
-    <refname>pam_sm_acct_mgmt</refname>
-    <refpurpose>PAM service function for account management</refpurpose>
+  <refnamediv id="pam_sm_authenticate-name">
+    <refname>pam_sm_authenticate</refname>
+    <refpurpose>PAM service function for user authentication</refpurpose>
   </refnamediv>
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id='pam_sm_acct_mgmt-synopsis'>
+  <refsynopsisdiv id='pam_sm_authenticate-synopsis'>
     <funcsynopsis>
-      <funcsynopsisinfo>#define PAM_SM_ACCOUNT</funcsynopsisinfo>
+      <funcsynopsisinfo>#define PAM_SM_AUTH</funcsynopsisinfo>
       <funcsynopsisinfo>#include &lt;security/pam_modules.h&gt;</funcsynopsisinfo>
       <funcprototype>
-        <funcdef>PAM_EXTERN int <function>pam_sm_acct_mgmt</function></funcdef>
+        <funcdef>PAM_EXTERN int <function>pam_sm_authenticate</function></funcdef>
         <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
         <paramdef>int <parameter>flags</parameter></paramdef>
         <paramdef>int <parameter>argc</parameter></paramdef>
@@ -30,23 +30,17 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id='pam_sm_acct_mgmt-description'>
+  <refsect1 id='pam_sm_authenticate-description'>
     <title>DESCRIPTION</title>
     <para>
-      The <function>pam_sm_acct_mgmt</function> function is the service
+      The <function>pam_sm_authenticate</function> function is the service
       module's implementation of the
       <citerefentry>
-        <refentrytitle>pam_acct_mgmt</refentrytitle><manvolnum>3</manvolnum>
+        <refentrytitle>pam_authenticate</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry> interface.
     </para>
     <para>
-      This function performs the task of establishing whether the user is
-      permitted to gain access at this time. It should be understood that
-      the user has previously been validated by an authentication
-      module. This function checks for other things. Such things might be:
-      the time of day or the date, the terminal line, remote hostname, etc.
-      This function may also determine things like the expiration on
-      passwords, and respond that the user change it before continuing.
+      This function performs the task of authenticating the user.
     </para>
     <para>
        Valid flags, which may be logically OR'd with
@@ -68,23 +62,17 @@
             Return <emphasis remap='B'>PAM_AUTH_ERR</emphasis> if the
             database of authentication tokens for this authentication
             mechanism has a <emphasis>NULL</emphasis> entry for the user.
+            Without this flag, such a <emphasis>NULL</emphasis> token 
+            will lead to a success without the user being prompted.
           </para>
         </listitem>
       </varlistentry>
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_sm_acct_mgmt-return_values">
+  <refsect1 id="pam_sm_authenticate-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
-      <varlistentry>
-        <term>PAM_ACCT_EXPIRED</term>
-        <listitem>
-           <para>
-             User account has expired.
-          </para>
-        </listitem>
-      </varlistentry>
       <varlistentry>
         <term>PAM_AUTH_ERR</term>
         <listitem>
@@ -94,22 +82,21 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term>PAM_NEW_AUTHTOK_REQD</term>
+        <term>PAM_CRED_INSUFFICIENT</term>
         <listitem>
           <para>
-            The user's authentication token has expired. Before calling
-            this function again the application will arrange for a new
-            one to be given. This will likely result in a call to
-            <function>pam_sm_chauthtok()</function>.
-
+            For some reason the application does not have sufficient
+            credentials to authenticate the user.
           </para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term>PAM_PERM_DENIED</term>
+        <term>PAM_AUTHINFO_UNAVAIL</term>
         <listitem>
           <para>
-            Permission denied.
+            The modules were not able to access the authentication
+            information. This might be due to a network or hardware 
+            failure etc.
           </para>
         </listitem>
       </varlistentry>
@@ -125,24 +112,34 @@
         <term>PAM_USER_UNKNOWN</term>
         <listitem>
           <para>
-            User unknown to password service.
+            The supplied username is not known to the authentication
+            service.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_MAXTRIES</term>
+        <listitem>
+          <para>
+            One or more of the authentication modules has reached its
+            limit of tries authenticating the user. Do not try again.
           </para>
         </listitem>
       </varlistentry>
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_sm_acct_mgmt-see_also'>
+  <refsect1 id='pam_sm_authenticate-see_also'>
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
         <refentrytitle>pam</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>,
       <citerefentry>
-        <refentrytitle>pam_acct_mgmt</refentrytitle><manvolnum>3</manvolnum>
+        <refentrytitle>pam_authenticate</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>,
       <citerefentry>
-        <refentrytitle>pam_sm_chauthtok</refentrytitle><manvolnum>3</manvolnum>
+        <refentrytitle>pam_sm_setcred</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>,
       <citerefentry>
         <refentrytitle>pam_strerror</refentrytitle><manvolnum>3</manvolnum>

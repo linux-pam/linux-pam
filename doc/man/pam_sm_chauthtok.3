@@ -1,0 +1,97 @@
+.\"     Title: pam_sm_chauthtok
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/19/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_SM_CHAUTHTOK" "3" "06/19/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_sm_chauthtok \- PAM service function for account management
+.SH "SYNOPSIS"
+.sp
+.ft B
+.nf
+#define PAM_SM_PASSWORD
+.fi
+.ft
+.sp
+.ft B
+.nf
+#include <security/pam_modules.h>
+.fi
+.ft
+.HP 32
+.BI "PAM_EXTERN int pam_sm_chauthtok(pam_handle_t\ *" "pamh" ", int\ " "flags" ", int\ " "argc" ", const\ char\ **" "argv" ");"
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_sm_chauthtok\fR
+function is the service module's implementation of the
+\fBpam_chauthtok\fR(3)
+interface.
+.PP
+This function is used to (re\-)set the authentication token of the user.
+.PP
+Valid flags, which may be logically OR'd with
+\fIPAM_SILENT\fR, are:
+.TP 3n
+PAM_SILENT
+Do not emit any messages.
+.TP 3n
+PAM_CHANGE_EXPIRED_AUTHTOK
+This argument indicates to the module that the users authentication token (password) should only be changed if it has expired. This flag is optional and
+\fImust\fR
+be combined with one of the following two flags. Note, however, the following two options are
+\fImutually exclusive\fR.
+.TP 3n
+PAM_PRELIM_CHECK
+This indicates that the modules are being probed as to their ready status for altering the user's authentication token. If the module requires access to another system over some network it should attempt to verify it can connect to this system on receiving this flag. If a module cannot establish it is ready to update the user's authentication token it should return
+\fBPAM_TRY_AGAIN\fR, this information will be passed back to the application.
+.TP 3n
+PAM_UPDATE_AUTHTOK
+This informs the module that this is the call it should change the authorization tokens. If the flag is logically OR'd with
+\fBPAM_CHANGE_EXPIRED_AUTHTOK\fR, the token is only changed if it has actually expired.
+.PP
+The PAM library calls this function twice in succession. The first time with
+\fBPAM_PRELIM_CHECK\fR
+and then, if the module does not return
+\fBPAM_TRY_AGAIN\fR, subsequently with
+\fBPAM_UPDATE_AUTHTOK\fR. It is only on the second call that the authorization token is (possibly) changed.
+.SH "RETURN VALUES"
+.TP 3n
+PAM_AUTHTOK_ERR
+The module was unable to obtain the new authentication token.
+.TP 3n
+PAM_AUTHTOK_RECOVERY_ERR
+The module was unable to obtain the old authentication token.
+.TP 3n
+PAM_AUTHTOK_LOCK_BUSY
+Cannot change the authentication token since it is currently locked.
+.TP 3n
+PAM_AUTHTOK_DISABLE_AGING
+Authentication token aging has been disabled.
+.TP 3n
+PAM_PERM_DENIED
+Permission denied.
+.TP 3n
+PAM_TRY_AGAIN
+Preliminary check was unsuccessful. Signals an immediate return to the application is desired.
+.TP 3n
+PAM_SUCCESS
+The authentication token was successfully updated.
+.TP 3n
+PAM_USER_UNKNOWN
+User unknown to password service.
+.SH "SEE ALSO"
+.PP
+
+\fBpam\fR(3),
+\fBpam_chauthtok\fR(3),
+\fBpam_sm_chauthtok\fR(3),
+\fBpam_strerror\fR(3),
+\fBPAM\fR(8)

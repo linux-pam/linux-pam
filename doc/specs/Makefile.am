@@ -6,10 +6,10 @@ CLEANFILES = draft-morgan-pam-current.txt *~
 
 EXTRA_DIST = draft-morgan-pam.raw std-agent-id.raw rfc86.0.txt
 
-all: spec
+all: draft-morgan-pam-current.txt
 	test -f rfc86.0.txt || cp -p $(srcdir)/rfc86.0.txt .
 
-spec: padout draft-morgan-pam.raw
+draft-morgan-pam-current.txt: padout draft-morgan-pam.raw
 	./padout < $(srcdir)/draft-morgan-pam.raw > draft-morgan-pam-current.txt
 
 noinst_PROGRAMS = padout
