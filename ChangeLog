@@ -1,3 +1,10 @@
+2006-06-20  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* m4/ld-as-needed.m4: New.
+	* m4/ld-O1.m4: New.
+	* configure.in: Call PAM_LD_AS_NEEDED and PAM_LD_O1,
+	require docbook version 4.4.
+
 2006-06-19  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam.8.xml: Syntax cleanup.

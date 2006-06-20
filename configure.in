@@ -67,6 +67,8 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
+PAM_LD_AS_NEEDED
+PAM_LD_O1
 
 dnl Largefile support
 AC_SYS_LARGEFILE
@@ -425,8 +427,8 @@ if test -z "$XSLTPROC"; then
 fi
 AC_PATH_PROG([XMLLINT], [xmllint],[/bin/true])
 dnl check for DocBook DTD and stylesheets in the local catalog.
-JH_CHECK_XML_CATALOG([-//OASIS//DTD DocBook XML V4.3//EN],
-                [DocBook XML DTD V4.3], [], enable_man=no)
+JH_CHECK_XML_CATALOG([-//OASIS//DTD DocBook XML V4.4//EN],
+                [DocBook XML DTD V4.4], [], enable_man=no)
 JH_CHECK_XML_CATALOG([http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl],
                 [DocBook XSL Stylesheets], [], enable_man=no)
 
