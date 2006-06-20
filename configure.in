@@ -356,11 +356,6 @@ AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
 AC_SUBST(LIBSELINUX)
 AM_CONDITIONAL([HAVE_LIBSELINUX], [test ! -z "$LIBSELINUX"])
 
-dnl Checks for Libcap
-AC_CHECK_LIB([cap], [cap_get_proc], LIBCAP="-lcap", LIBCAP="" )
-AC_SUBST(LIBCAP)
-AM_CONDITIONAL([HAVE_LIBCAP], [test ! -z "$LIBCAP"])
-
 dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC

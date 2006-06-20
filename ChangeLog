@@ -1,5 +1,7 @@
 2006-06-20  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* configure.in: Remove unused check for libcap.
+
 	* m4/ld-as-needed.m4: New.
 	* m4/ld-O1.m4: New.
 	* configure.in: Call PAM_LD_AS_NEEDED and PAM_LD_O1,
