@@ -1,3 +1,11 @@
+2006-06-21  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_selinux/Makefile.am: Fix "make dist" if libselinux
+	is not installed.
+
+	* modules/pam_issue/pam_issue.8.xml: Fix listing of escapes.
+	* modules/pam_issue/pam_issue.8: Regenerate.
+
 2006-06-20  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Remove unused check for libcap.

@@ -39,7 +39,7 @@
     <para>
       Recognized escapes:
     </para>
-    <variablelist remap='IP'>
+    <variablelist>
       <varlistentry>
         <term><emphasis remap='B'>&bsol;d</emphasis></term>
         <listitem>

@@ -4,13 +4,15 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README ${MANS} $(XMLS) pam_selinux_check.8 tst-pam_selinux
+EXTRA_DIST = README $(XMLS) pam_selinux.8 pam_selinux_check.8 \
+		tst-pam_selinux
 
 if HAVE_LIBSELINUX
   TESTS = tst-pam_selinux
   man_MANS = pam_selinux.8 
-  XMLS = README.xml pam_selinux.8.xml
 endif
+
+XMLS = README.xml pam_selinux.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
