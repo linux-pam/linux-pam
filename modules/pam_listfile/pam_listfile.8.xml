@@ -12,7 +12,7 @@
 
   <refnamediv id="pam_listfile-name">
     <refname>pam_listfile</refname>
-    <refpurpose>deny or allow services based on an arbitrary file.</refpurpose>
+    <refpurpose>deny or allow services based on an arbitrary file</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>

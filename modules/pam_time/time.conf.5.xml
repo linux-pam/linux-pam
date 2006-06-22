@@ -135,7 +135,7 @@ games ; * ; !waster ; Wd0000-2400 | Wk1800-0800
   </refsect1>
 
   <refsect1 id="time.conf-author">
-    <title>AUTHORS</title>
+    <title>AUTHOR</title>
     <para>
       pam_time was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.
     </para>

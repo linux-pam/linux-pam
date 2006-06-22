@@ -190,7 +190,15 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_exec-return_values'>
+  <refsect1 id="pam_succeed_if-services">
+    <title>MODULE SERVICES PROVIDED</title>
+    <para>
+      The <emphasis remap='B'>auth</emphasis> and 
+      <emphasis remap='B'>account</emphasis> services are supported.
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_succeed_if-return_values'>
     <title>RETURN VALUES</title>
      <variablelist>
 

@@ -1,3 +1,41 @@
+2006-06-23  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_access/access.conf.5.xml: Fix syntax for SAG.
+	* modules/pam_access/pam_access.8.xml: Likewise.
+	* modules/pam_deny/pam_deny.8.xml: Likewise.
+	* modules/pam_echo/pam_echo.8.xml: Likewise.
+	* modules/pam_env/pam_env.8.xml: Likewise.
+	* modules/pam_env/pam_env.conf.5.xml: Likewise.
+	* modules/pam_group/group.conf.5.xml: Likewise.
+	* modules/pam_group/pam_group.8.xml: Likewise.
+	* modules/pam_limits/limits.conf.5.xml: Likewise.
+	* modules/pam_listfile/pam_listfile.8.xml: Likewise.
+	* modules/pam_succeed_if/pam_succeed_if.8.xml: Likewise.
+	* modules/pam_time/pam_time.8.xml: Likewise.
+	* modules/pam_time/time.conf.5.xml: Likewise.
+
+	* modules/pam_access/access.conf.5: Regenerate.
+	* modules/pam_access/pam_access.8: Likewise.
+	* modules/pam_deny/pam_deny.8: Likewise.
+	* modules/pam_echo/README: Likewise.
+	* modules/pam_echo/pam_echo.8: Likewise.
+	* modules/pam_env/pam_env.8: Likewise.
+	* modules/pam_env/pam_env.conf.5: Likewise.
+	* modules/pam_group/README: Likewise.
+	* modules/pam_group/group.conf.5: Likewise.
+	* modules/pam_group/pam_group.8: Likewise.
+	* modules/pam_limits/limits.conf.5: Likewise.
+	* modules/pam_listfile/README: Likewise.
+	* modules/pam_listfile/pam_listfile.8: Likewise.
+	* modules/pam_succeed_if/pam_succeed_if.8: Likewise.
+	* modules/pam_time/pam_time.8: Likewise.
+	* modules/pam_time/time.conf.5: Likewise.
+
+	* doc/man/Makefile.am: Add pam.conf-desc.xml, pam.conf-dir.xml
+	and pam.conf-syntax.xml.
+	* doc/man/pam.conf.5.xml: Split into different pieces for SAG.
+	* doc/man/pam.conf.5: Regenerated.
+
 2006-06-21  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_selinux/Makefile.am: Fix "make dist" if libselinux

@@ -36,10 +36,12 @@ XMLS = pam.3.xml pam.8.xml \
 	pam_sm_close_session.3.xml pam_sm_open_session.3.xml \
 	pam_sm_setcred.3.xml pam_start.3.xml pam_strerror.3.xml \
 	pam_sm_chauthtok.3.xml \
-	pam_item_types.inc.xml
+	pam_item_types.inc.xml \
+	pam.conf-desc.xml pam.conf-dir.xml pam.conf-syntax.xml
 
 if ENABLE_REGENERATE_MAN
 pam_get_item.3: pam_item_types.inc.xml
 pam_set_data.3: pam_item_types.inc.xml
+pam.conf.5: pam.conf-desc.xml pam.conf-dir.xml pam.conf-syntax.xml
 -include $(top_srcdir)/Make.xml.rules
 endif

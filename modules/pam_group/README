@@ -40,6 +40,6 @@ Running 'xsh' on tty* (any ttyXXX device), the user 'sword' is given access to
 games (through membership of the floppy group) after work hours.
 
 xsh; tty* ;sword;!Wk0900-1800;games, sound
-
 xsh; tty* ;*;Al0900-1800;floppy
+
 

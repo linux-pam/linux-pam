@@ -101,15 +101,16 @@
       Running 'xsh' on tty* (any ttyXXX device), the user 'us' is given access
       to the floppy (through membership of the floppy group)
     </para>
-    <para>xsh;tty*&amp;!ttyp*;us;Al0000-2400;floppy</para>
+    <programlisting>xsh;tty*&amp;!ttyp*;us;Al0000-2400;floppy</programlisting>
 
     <para>
       Running 'xsh' on tty* (any ttyXXX device), the user 'sword' is given access
       to games (through membership of the floppy group) after work hours.
     </para>
-    <para>xsh; tty* ;sword;!Wk0900-1800;games, sound</para>
-    <para>xsh; tty* ;*;Al0900-1800;floppy</para>
-
+    <programlisting>
+xsh; tty* ;sword;!Wk0900-1800;games, sound
+xsh; tty* ;*;Al0900-1800;floppy
+    </programlisting>
   </refsect1>
 
   <refsect1 id="group.conf-see_also">
@@ -122,7 +123,7 @@
   </refsect1>
 
   <refsect1 id="group.conf-author">
-    <title>AUTHORS</title>
+    <title>AUTHOR</title>
     <para>
       pam_group was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.
     </para>

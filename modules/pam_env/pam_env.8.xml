@@ -198,7 +198,7 @@
   </refsect1>
 
   <refsect1 id="pam_env-authors">
-    <title>AUTHORS</title>
+    <title>AUTHOR</title>
     <para>
       pam_env was written by Dave Kinchlea &lt;kinch@kinch.ark.com&gt;.
     </para>

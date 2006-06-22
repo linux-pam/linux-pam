@@ -213,7 +213,7 @@
       Wietse Venema.
       The pam_access PAM module was developed by
       Alexei Nogin &lt;alexei@nogin.dnttm.ru&gt;.
-      The IPv4(/) IPv6 support and the network(address) / netmask feature
+      The IPv6 support and the network(address) / netmask feature
       was developed and provided by Mike Becher &lt;mike.becher@lrz-muenchen.de&gt;.
     </para>
   </refsect1>

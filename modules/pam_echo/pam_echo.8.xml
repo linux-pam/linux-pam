@@ -104,7 +104,7 @@
   </refsect1>
 
 
-  <refsect1 id="pam_access-return_values">
+  <refsect1 id="pam_echo-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -163,6 +163,6 @@ password required pam_unix.so
 
   <refsect1 id='pam_echo-author'>
     <title>AUTHOR</title>
-    <para>Thorsten Kukuk &lt;kukuk@suse.de&gt;</para>
+    <para>Thorsten Kukuk &lt;kukuk@thkukuk.de&gt;</para>
   </refsect1>
 </refentry>

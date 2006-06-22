@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-        "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
 
 <refentry id="access.conf">
 
@@ -18,14 +18,6 @@
 
   <refsect1 id='access.conf-description'>
     <title>DESCRIPTION</title>
-
-    <para>
-      This module provides logdaemon style login access control based
-      on login names and on host (or domain) names, internet addresses
-      (or network numbers), on terminal line names in case of
-      non-networked logins or on service name if called by a daemon.
-    </para>
-
     <para>
       The <filename>/etc/security/access.conf</filename> file specifies
       (<replaceable>user</replaceable>, <replaceable>host</replaceable>),
@@ -33,7 +25,6 @@
       (<replaceable>user</replaceable>, <replaceable>tty</replaceable>)
       combinations for which a login will be either accepted or refused.
     </para>
-
     <para>
       When someone logs in, the file <filename>access.conf</filename> is
       scanned for the first entry that matches the

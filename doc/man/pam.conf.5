@@ -1,11 +1,11 @@
 .\"     Title: pam.conf
 .\"    Author: 
 .\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/19/2006
+.\"      Date: 06/21/2006
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM.CONF" "5" "06/19/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM.CONF" "5" "06/21/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -244,9 +244,19 @@ directory. In this case the directory is filled with files each of which has a f
 The syntax of each file in /etc/pam.d/ is similar to that of the
 \fI/etc/pam.conf\fR
 file and is made up of lines of the following form:
+.sp
+.RS 3n
+.nf
+type  control  module\-path  module\-arguments
+    
+.fi
+.RE
 .PP
-
-\fB type control module\-path module\-arguments\fR
+The only difference being that the service\-name is not present. The service\-name is of course the name of the given configuration file. For example,
+\fI/etc/pam.d/login\fR
+contains the configuration for the
+\fBlogin\fR
+service.
 .SH "SEE ALSO"
 .PP
 

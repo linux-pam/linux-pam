@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<section id='pam.conf-dir'>
+    <para>
+      More flexible than the single configuration file is it to
+      configure libpam via the contents of the
+      <filename>/etc/pam.d/</filename> directory. In this case the
+      directory is filled with files each of which has a filename
+      equal to a service-name (in lower-case): it is the personal
+      configuration file for the named service.
+    </para>
+
+    <para>
+      The syntax of each file in /etc/pam.d/ is similar to that of the
+      <filename>/etc/pam.conf</filename> file and is made up of lines
+      of the following form:
+    </para>
+
+    <programlisting>
+type  control  module-path  module-arguments
+    </programlisting>
+
+    <para>
+      The only difference being that the service-name is not present. The
+      service-name is of course the name of the given configuration file.
+      For example, <filename>/etc/pam.d/login</filename> contains the
+      configuration for the <emphasis remap='B'>login</emphasis> service.
+    </para>
+</section>

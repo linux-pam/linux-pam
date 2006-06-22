@@ -17,16 +17,9 @@
 
   <refsect1 id='limits.conf-description'>
     <title>DESCRIPTION</title>
-
-    <para>
-      The pam_limits PAM module sets limits on the system resources that can be
-      obtained in a user-session.
-   </para>
-
     <para>
       The syntax of the lines is as follows:
     </para>
-
     <para>
       <replaceable>&lt;domain&gt;</replaceable> <replaceable>&lt;type&gt;</replaceable>
       <replaceable>&lt;item&gt;</replaceable> <replaceable>&lt;value&gt;</replaceable>
@@ -285,7 +278,7 @@ ftp             hard    nproc           0
   </refsect1>
 
   <refsect1 id="limits.conf-author">
-    <title>AUTHORS</title>
+    <title>AUTHOR</title>
     <para>
       pam_limits was initially written by Cristian Gafton &lt;gafton@redhat.com&gt;
     </para>

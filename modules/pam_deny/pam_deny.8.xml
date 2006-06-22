@@ -33,6 +33,11 @@
 
   </refsect1>
 
+  <refsect1 id="pam_deny-options">
+    <title>OPTIONS</title>
+    <para>This module does not recognice any options.</para>
+  </refsect1>
+
   <refsect1 id="pam_deny-services">
     <title>MODULE SERVICES PROVIDED</title>
     <para>

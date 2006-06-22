@@ -1,11 +1,11 @@
 .\"     Title: pam_env.conf
 .\"    Author: 
 .\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/02/2006
+.\"      Date: 06/21/2006
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM_ENV.CONF" "5" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_ENV.CONF" "5" "06/21/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -15,13 +15,9 @@ pam_env.conf \- the environment variables config file
 .SH "DESCRIPTION"
 .PP
 The
-\fIpam_env\fR
-module allows the (un)setting of environment variables. Supported is the use of previously set environment variables as well as
-\fIPAM_ITEM\fRs such as PAM_RHOST.
-.PP
-The
 \fI/etc/security/pam_env.conf\fR
-file specifies the environment variables to be set, unset or modified. When someone logs in, this file is read and the environment variables are set according.
+file specifies the environment variables to be set, unset or modified by
+\fBpam_env\fR(8). When someone logs in, this file is read and the environment variables are set according.
 .PP
 Each line starts with the variable name, there are then two possible options for each variable DEFAULT and OVERRIDE. DEFAULT allows and administrator to set the value of the variable to some default value, if none is supplied then the empty string is assumed. The OVERRIDE option tells pam_env that it should enter in its value (overriding the default value) if there is one to use. OVERRIDE is not used, "" is assumed and no override will be done.
 .PP
@@ -86,6 +82,6 @@ Silly examples of escaped variables, just to show how they work.
 \fBpam_env\fR(8),
 \fBpam.d\fR(5),
 \fBpam\fR(8)
-.SH "AUTHORS"
+.SH "AUTHOR"
 .PP
 pam_env was written by Dave Kinchlea <kinch@kinch.ark.com>.
