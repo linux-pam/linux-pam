@@ -1,3 +1,8 @@
+2006-06-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_limits/pam_limits.c (setup_limits): Don't
+	reset priority for root.
+
 2006-06-23  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_access/access.conf.5.xml: Fix syntax for SAG.

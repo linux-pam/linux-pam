@@ -556,17 +556,6 @@ static int setup_limits(pam_handle_t *pamh,
     int status;
     int retval = LIMITED_OK;
 
-    if (uid == 0) {
-	/* do not impose limits (+ve limits anyway) on the superuser */
-	if (pl->priority > 0) {
-	    if (ctrl & PAM_DEBUG_ARG) {
-		pam_syslog(pamh, LOG_DEBUG,
-			   "user '%s' has UID 0 - no limits imposed", uname);
-	    }
-            pl->priority = 0;
-	}
-    }
-
     for (i=0, status=LIMITED_OK; i<RLIM_NLIMITS; i++) {
 	if (!pl->limits[i].supported) {
 	    /* skip it if its not known to the system */
