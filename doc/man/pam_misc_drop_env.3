@@ -1,0 +1,46 @@
+.\"     Title: pam_misc_drop_env
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/25/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_MISC_DROP_ENV" "3" "06/25/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_misc_drop_env \- liberating a locally saved environment
+.SH "SYNOPSIS"
+.sp
+.ft B
+.nf
+#include <security/pam_misc.h>
+.fi
+.ft
+.HP 22
+.BI "int pam_misc_drop_env(char\ **" "env" ");"
+.SH "DESCRIPTION"
+.PP
+This function is defined to complement the
+\fBpam_getenvlist\fR(3)
+function. It liberates the memory associated with
+\fIenv\fR,
+\fIoverwriting\fR
+with
+\fI0\fR
+all memory before
+\fBfree()\fRing it.
+.SH "SEE ALSO"
+.PP
+
+\fBpam_getenvlist\fR(3),
+\fBpam\fR(8)
+.SH "STANDARDS"
+.PP
+The
+\fBpam_misc_drop_env\fR
+function is part of the
+\fBlibpam_misc\fR
+Library and not defined in any standard.

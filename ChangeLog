@@ -1,5 +1,15 @@
 2006-06-25  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* doc/man/misc_conv.3.xml: New.
+	* doc/man/misc_conv.3: New.
+	* doc/man/pam_misc_paste_env.3.xml: New.
+	* doc/man/pam_misc_paste_env.3: New.
+	* doc/man/pam_misc_drop_env.3.xml: New.
+	* doc/man/pam_misc_drop_env.3: New.
+	* doc/man/pam_misc_setenv.3.xml: New.
+	* doc/man/pam_misc_setenv.3: New.
+	* doc/man/Makefile.am: Add new manual pages.
+
 	* doc/man/pam_acct_mgmt.3.xml: Fix syntax for inclusion
 	in Applicatoin Developer Guide.
 	* doc/man/pam_authenticate.3.xml: Likewise
