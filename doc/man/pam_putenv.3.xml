@@ -15,8 +15,8 @@
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id='pam_putenv-synopsis'>
-    <funcsynopsis>
+  <refsynopsisdiv>
+    <funcsynopsis id='pam_putenv-synopsis'>
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_putenv</function></funcdef>

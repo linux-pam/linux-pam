@@ -17,8 +17,8 @@
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id="pam_start-synopsis">
-    <funcsynopsis>
+  <refsynopsisdiv>
+    <funcsynopsis id="pam_start-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_start</function></funcdef>

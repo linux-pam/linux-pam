@@ -17,8 +17,8 @@
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id="pam_fail_delay-synopsis">
-    <funcsynopsis>
+  <refsynopsisdiv>
+    <funcsynopsis id="pam_fail_delay-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_fail_delay</function></funcdef>

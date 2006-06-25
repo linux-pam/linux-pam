@@ -12,13 +12,13 @@
 
   <refnamediv id="pam_close_session-name">
     <refname>pam_close_session</refname>
-    <refpurpose>terminating PAM session management</refpurpose>
+    <refpurpose>terminate PAM session management</refpurpose>
   </refnamediv>
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id="pam_close_session-synopsis">
-    <funcsynopsis>
+  <refsynopsisdiv>
+    <funcsynopsis id="pam_close_session-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_close_session</function></funcdef>
