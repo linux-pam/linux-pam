@@ -1,3 +1,39 @@
+2006-06-25  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/pam_acct_mgmt.3.xml: Fix syntax for inclusion
+	in Applicatoin Developer Guide.
+	* doc/man/pam_authenticate.3.xml: Likewise
+	* doc/man/pam_chauthtok.3.xml: Likewise
+	* doc/man/pam_close_session.3.xml: Likewise
+	* doc/man/pam_conv.3.xml: Likewise
+	* doc/man/pam_end.3.xml: Likewise
+	* doc/man/pam_fail_delay.3.xml: Likewise
+	* doc/man/pam_getenv.3.xml: Likewise
+	* doc/man/pam_getenvlist.3.xml: Likewise
+	* doc/man/pam_open_session.3.xml: Likewise
+	* doc/man/pam_putenv.3.xml: Likewise
+	* doc/man/pam_setcred.3.xml: Likewise
+	* doc/man/pam_start.3.xml: Likewise
+	* doc/man/pam_strerror.3.xml: Likewise
+
+	* doc/man/pam_acct_mgmt.3: Regenerate from XML source.
+	* doc/man/pam_authenticate.3: Likewise
+	* doc/man/pam_chauthtok.3: Likewise
+	* doc/man/pam_close_session.3: Likewise
+	* doc/man/pam_conv.3: Likewise
+	* doc/man/pam_end.3: Likewise
+	* doc/man/pam_fail_delay.3: Likewise
+	* doc/man/pam_getenv.3: Likewise
+	* doc/man/pam_getenvlist.3: Likewise
+	* doc/man/pam_open_session.3: Likewise
+	* doc/man/pam_putenv.3: Likewise
+	* doc/man/pam_setcred.3: Likewise
+	* doc/man/pam_sm_close_session.3: Likewise
+	* doc/man/pam_start.3: Likewise
+	* doc/man/pam_strerror.3: Likewise
+	* doc/man/pam_syslog.3: Likewise
+	* doc/man/PAM.8: Likewise
+
 2006-06-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_limits/pam_limits.c (setup_limits): Don't
