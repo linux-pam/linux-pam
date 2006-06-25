@@ -17,8 +17,8 @@
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id="pam_misc_drop_env-synopsis">
-    <funcsynopsis>
+  <refsynopsisdiv>
+    <funcsynopsis id="pam_misc_drop_env-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_misc.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_misc_drop_env</function></funcdef>

@@ -17,8 +17,8 @@
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id="misc_conv-synopsis">
-    <funcsynopsis>
+  <refsynopsisdiv>
+    <funcsynopsis id="misc_conv-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_misc.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>void <function>misc_conv</function></funcdef>

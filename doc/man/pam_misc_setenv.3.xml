@@ -9,7 +9,6 @@
     <manvolnum>3</manvolnum>
     <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
   </refmeta>
-
   <refnamediv id="pam_misc_setenv-name">
     <refname>pam_misc_setenv</refname>
     <refpurpose>BSD like PAM environment variable setting</refpurpose>
@@ -17,8 +16,8 @@
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id="pam_misc_setenv-synopsis">
-    <funcsynopsis>
+  <refsynopsisdiv>
+    <funcsynopsis id="pam_misc_setenv-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_misc.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_misc_setenv</function></funcdef>
