@@ -1,3 +1,21 @@
+2006-06-27  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_namespace/pam_namespace.c: New module
+	originally written by Janak Desai.
+	* modules/pam_namespace/Makefile.am: New.
+	* modules/pam_namespace/README: New.
+	* modules/pam_namespace/md5.c: New.
+	* modules/pam_namespace/md5.h: New.
+	* modules/pam_namespace/namespace.conf: New.
+	* modules/pam_namespace/namespace.conf.5: New.
+	* modules/pam_namespace/namespace.conf.5.xml: New.
+	* modules/pam_namespace/namespace.init: New.
+	* modules/pam_namespace/pam_namespace.8: New.
+	* modules/pam_namespace/pam_namespace.8.xml: New.
+	* modules/Makefile.am: Added pam_namespace.
+	* configure.in: Added pam_namespace, test for unshare
+	library call.
+
 2006-06-27  David Howells <dhowells@redhat.com>
 
 	* modules/pam_keyinit/pam_keyinit.c: New module.

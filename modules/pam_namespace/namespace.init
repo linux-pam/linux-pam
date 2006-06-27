@@ -1,0 +1,24 @@
+#!/bin/sh
+# This is only a boilerplate for the instance initialization script.
+# It receives polydir path as $1 and the instance path as $2.
+#
+# If you intend to polyinstantiate /tmp and you also want to use the X windows
+# environment, you will have to use this script to bind mount the socket that
+# is used by the X server to communicate with its clients. X server places
+# this socket in /tmp/.X11-unix directory, which will get obscured by
+# polyinstantiation. Uncommenting the following lines will bind mount
+# the relevant directory at an alternative location (/.tmp/.X11-unix) such
+# that the X server, window manager and X clients, can still find the
+# socket X0 at the polyinstanted /tmp/.X11-unix.
+#
+#if [ $1 = /tmp ]; then
+#	if [ ! -f /.tmp/.X11-unix ]; then
+#		mkdir -p /.tmp/.X11-unix
+#	fi
+#	mount --bind /tmp/.X11-unix /.tmp/.X11-unix
+#	cp -fp -- /tmp/.X0-lock "$2/.X0-lock"
+#	mkdir -- "$2/.X11-unix"
+#	ln -fs -- /.tmp/.X11-unix/X0 "$2/.X11-unix/X0"
+#fi
+
+exit 0

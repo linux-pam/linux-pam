@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+        "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+
+<refentry id="namespace.conf">
+
+  <refmeta>
+    <refentrytitle>namespace.conf</refentrytitle>
+    <manvolnum>5</manvolnum>
+    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>namespace.conf</refname>
+    <refpurpose>the namespace configuration file</refpurpose>
+  </refnamediv>
+
+
+  <refsect1 id='namespace.conf-description'>
+    <title>DESCRIPTION</title>
+
+    <para>
+      This module allows setup of private namespaces with polyinstantiated
+      directories. Directories can be polyinstantiated based on user name
+      or, in the case of SELinux, user name, security context or both.  If an
+      executable script <filename>/etc/security/namespace.init</filename>
+      exists, it is used to initialize the namespace every time a new instance
+      directory is setup. The script receives the polyinstantiated
+      directory path and the instance directory path as its arguments.
+    </para>
+
+    <para>
+      The <filename>/etc/security/namespace.conf</filename> file specifies
+      which directories are polyinstantiated, how they are polyinstantiated,
+      how instance directories would be named, and any users for whom
+      polyinstantiation would not be performed.
+    </para>
+
+    <para>
+      When someone logs in, the file <filename>namespace.conf</filename> is
+      scanned where each non comment line represents one polyinstantiated
+      directory with space separated fields as follows:
+   </para>
+
+    <para>
+      <replaceable>polydir</replaceable> <replaceable> instance_prefix</replaceable> <replaceable> method</replaceable> <replaceable> list_of_uids</replaceable>
+    </para>
+
+    <para>
+      The first field, <replaceable>polydir</replaceable>, is the absolute
+      pathname of the directory to polyinstantiate. Special entry $HOME is
+      supported to designate user's home directory. This field cannot be
+      blank.
+    </para>
+
+    <para>
+      The second field, <replaceable>instance_prefix</replaceable> is
+      the string prefix used to build the pathname for the instantiation
+      of &lt;polydir&gt;. The directory security context, or optionally its
+      md5sum string (32 hex characters), is appended to the prefix to
+      generate the final instance directory path. This directory is
+      created if it did not exist already, and is then bind mounted on the
+      &lt;polydir&gt; to provide an instance of &lt;polydir&gt; based on the
+      &lt;method&gt; column. The special string $HOME is replaced with the
+      user's home directory, and $USER with the username. This field cannot
+      be blank. The directory where polyinstantiated instances are to be
+      created, must exist and must have, by default, the mode of 000.  The
+      requirement that the instance parent be of mode 000 can be overridden
+      with the command line option &lt;ignore_instance_parent_mode&gt;
+    </para>
+
+    <para>
+      The third field, <replaceable>method</replaceable>, is the method
+      used for polyinstantiation. It can take 3 different values; "user"
+      for polyinstantiation based on user name, "context" for
+      polyinstantiation based on process security context, and "both"
+      for polyinstantiation based on both user name and security context.
+      Methods "context" and "both" are only available with SELinux. This
+      field cannot be blank.
+    </para>
+
+    <para>
+      The fourth field, <replaceable>list_of_uids</replaceable>, is
+      a comma separated list of user names for whom the polyinstantiation
+      is not performed. If left blank, polyinstantiation will be performed
+      for all users.
+    </para>
+
+  </refsect1>
+
+  <refsect1 id="namespace.conf-examples">
+    <title>EXAMPLES</title>
+    <para>
+      These are some example lines which might be specified in
+      <filename>/etc/security/namespace.conf</filename>.
+    </para>
+
+    <literallayout>
+      # The following three lines will polyinstantiate /tmp,
+      # /var/tmp and user's home directories. /tmp and /var/tmp
+      # will be polyinstantiated based on both security context
+      # as well as user name, whereas home directory will be
+      # polyinstantiated based on security context only.
+      # Polyinstantiation will not be performed for user root
+      # and adm for directories /tmp and /var/tmp, whereas home
+      # directories will be polyinstantiated for all users.
+      #
+      # Note that instance directories do not have to reside inside
+      # the polyinstantiated directory. In the examples below,
+      # instances of /tmp will be created in /tmp-inst directory,
+      # where as instances of /var/tmp and users home directories
+      # will reside within the directories that are being
+      # polyinstantiated.
+      #
+      /tmp     /tmp-inst/       	both      root,adm
+      /var/tmp /var/tmp/tmp-inst/   	both      root,adm
+      $HOME    $HOME/$USER.inst/inst- context
+    </literallayout>
+
+    <para>
+      For the &lt;service&gt;s you need polyinstantiation (login for example)
+      put the following line in /etc/pam.d/&lt;service&gt; as the last line for
+      session group:
+    </para>
+
+    <para>
+      session  required  pam_namespace.so [arguments]
+    </para>
+
+    <para>
+      This module also depends on pam_selinux.so setting the context.
+    </para>
+
+  </refsect1>
+
+  <refsect1 id="namespace.conf-see_also">
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry><refentrytitle>pam_namespace</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    </para>
+  </refsect1>
+
+  <refsect1 id="namespace.conf-author">
+    <title>AUTHORS</title>
+    <para>
+      The namespace.conf manual page was written by Janak Desai &lt;janak@us.ibm.com&gt;.
+    </para>
+  </refsect1>
+</refentry>

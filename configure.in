@@ -355,6 +355,9 @@ AC_SUBST(LIBNSL)
 AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
 AC_SUBST(LIBSELINUX)
 AM_CONDITIONAL([HAVE_LIBSELINUX], [test ! -z "$LIBSELINUX"])
+if test ! -z "$LIBSELINUX" ; then
+    AC_DEFINE([WITH_SELINUX], 1, [Defined if SE Linux support is compiled in])
+fi
 
 dnl Checks for header files.
 AC_HEADER_DIRENT
@@ -388,6 +391,8 @@ AC_CHECK_FUNCS(strcspn strdup strspn strstr strtol uname)
 AC_CHECK_FUNCS(getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r)
 AC_CHECK_FUNCS(getgrouplist getline getdelim)
 AC_CHECK_FUNCS(inet_ntop inet_pton)
+AC_CHECK_FUNCS(unshare, [UNSHARE=yes], [UNSHARE=no])
+AM_CONDITIONAL([HAVE_UNSHARE], [test "$UNSHARE" = yes])
 
 dnl Checks for programs/utilities
 AC_CHECK_PROG(SGML2PS, sgml2ps, yes, no)
@@ -489,6 +494,7 @@ AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	modules/pam_limits/Makefile modules/pam_listfile/Makefile \
 	modules/pam_localuser/Makefile modules/pam_mail/Makefile \
 	modules/pam_mkhomedir/Makefile modules/pam_motd/Makefile \
+	modules/pam_namespace/Makefile \
 	modules/pam_nologin/Makefile modules/pam_permit/Makefile \
 	modules/pam_rhosts/Makefile \
 	modules/pam_rootok/Makefile modules/pam_exec/Makefile \
