@@ -1,3 +1,7 @@
+2006-06-27  Thorsten Kukuk <kukuk@thkukuk.de>
+
+	* m4/libprelude.m4: Sync with upstream.
+
 2006-06-27  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_unix/pam_unix_acct.c (_unix_run_verify_binary):

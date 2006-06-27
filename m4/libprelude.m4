@@ -15,9 +15,9 @@ AC_DEFUN([AM_PATH_LIBPRELUDE],
 [dnl
 dnl Get the cflags and libraries from the libprelude-config script
 dnl
-AC_ARG_WITH(libprelude-prefix,
-          [  --with-libprelude-prefix=PFX   Prefix where libprelude is installed (optional)],
-          libprelude_config_prefix="$withval", libprelude_config_prefix="")
+AC_ARG_WITH(libprelude-prefix, AC_HELP_STRING(--with-libprelude-prefix=PFX,
+	    Prefix where libprelude is installed (optional)),
+            libprelude_config_prefix="$withval", libprelude_config_prefix="")
 
   if test x$libprelude_config_prefix != x ; then
      if test x${LIBPRELUDE_CONFIG+set} != xset ; then
