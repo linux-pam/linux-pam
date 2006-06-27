@@ -1,3 +1,8 @@
+2006-06-27  Thorsten Kukuk <kukuk@thkukuk.de>
+
+	* configure.in: Allow disabling of SELinux support, check for
+	rootok_af.
+
 2006-06-27  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_namespace/pam_namespace.c: New module

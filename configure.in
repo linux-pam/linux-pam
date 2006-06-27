@@ -352,7 +352,14 @@ AC_CHECK_FUNCS(yp_get_default_domain)
 LIBS=$BACKUP_LIBS
 AC_SUBST(LIBNSL)
 
-AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
+AC_ARG_ENABLE([selinux],
+        AC_HELP_STRING([--disable-selinux],[do not use SELinux]),
+        WITH_SELINUX=$enableval, WITH_SELINUX=yes)
+if test "$WITH_SELINUX" == "yes" ; then
+  AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
+else
+  LIBSELINUX=""
+fi
 AC_SUBST(LIBSELINUX)
 AM_CONDITIONAL([HAVE_LIBSELINUX], [test ! -z "$LIBSELINUX"])
 if test ! -z "$LIBSELINUX" ; then
@@ -390,7 +397,8 @@ AC_CHECK_FUNCS(fseeko gethostname gettimeofday lckpwdf mkdir select)
 AC_CHECK_FUNCS(strcspn strdup strspn strstr strtol uname)
 AC_CHECK_FUNCS(getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r)
 AC_CHECK_FUNCS(getgrouplist getline getdelim)
-AC_CHECK_FUNCS(inet_ntop inet_pton)
+AC_CHECK_FUNCS(inet_ntop inet_pton ruserok_af)
+
 AC_CHECK_FUNCS(unshare, [UNSHARE=yes], [UNSHARE=no])
 AM_CONDITIONAL([HAVE_UNSHARE], [test "$UNSHARE" = yes])
 
