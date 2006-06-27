@@ -12,6 +12,7 @@
 	* modules/pam_namespace/namespace.init: New.
 	* modules/pam_namespace/pam_namespace.8: New.
 	* modules/pam_namespace/pam_namespace.8.xml: New.
+	* modules/pam_namespace/tst-pam_keyinit: New.
 	* modules/Makefile.am: Added pam_namespace.
 	* configure.in: Added pam_namespace, test for unshare
 	library call.

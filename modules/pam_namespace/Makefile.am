@@ -14,7 +14,7 @@ if ENABLE_REGENERATE_MAN
 -include $(top_srcdir)/Make.xml.rules
 endif
 
-EXTRA_DIST = README namespace.conf $(man_MANS) $(XMLS)
+EXTRA_DIST = README namespace.conf $(man_MANS) $(XMLS) tst-pam_namespace
 
 noinst_HEADERS = md5.h
 
@@ -35,4 +35,5 @@ pam_namespace_la_SOURCES = pam_namespace.c md5.c md5.h
 
 secureconf_DATA = namespace.conf
 secureconf_SCRIPTS = namespace.init
+TESTS = tst-pam_namespace
 endif
