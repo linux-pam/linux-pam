@@ -451,6 +451,29 @@ AH_VERBATIM([_ZZENABLE_NLS],
 #define N_(msgid) msgid
 #endif /* ENABLE_NLS */])
 
+dnl
+dnl Check for the availability of the kernel key management facility
+dnl - The pam_keyinit module only requires the syscalls, not the error codes
+dnl
+have_key_syscalls=0
+AC_CHECK_DECL(__NR_keyctl, [have_key_syscalls=1],,[#include <sys/syscall.h>])
+have_key_errors=0
+AC_CHECK_DECL(ENOKEY, [have_key_errors=1])
+
+HAVE_KEY_MANAGEMENT=0
+if test $have_key_syscalls$have_key_errors = 11
+then
+	HAVE_KEY_MANAGEMENT=1
+fi
+
+if test $HAVE_KEY_MANAGEMENT = 1; then
+   AC_DEFINE([HAVE_KEY_MANAGEMENT], 1,
+	     [Defined if the kernel key management facility is available])
+fi
+AC_SUBST([HAVE_KEY_MANAGEMENT], $HAVE_KEY_MANAGEMENT)
+
+AM_CONDITIONAL([HAVE_KEY_MANAGEMENT], [test ! -z "$have_key_syscalls"])
+
 dnl Files to be created from when we run configure
 AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	libpam_misc/Makefile conf/Makefile conf/pam_conv1/Makefile \
@@ -461,7 +484,8 @@ AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	modules/pam_echo/Makefile modules/pam_env/Makefile \
 	modules/pam_filter/Makefile modules/pam_filter/upperLOWER/Makefile \
 	modules/pam_ftp/Makefile modules/pam_group/Makefile \
-	modules/pam_issue/Makefile modules/pam_lastlog/Makefile \
+	modules/pam_issue/Makefile \
+	modules/pam_keyinit/Makefile modules/pam_lastlog/Makefile \
 	modules/pam_limits/Makefile modules/pam_listfile/Makefile \
 	modules/pam_localuser/Makefile modules/pam_mail/Makefile \
 	modules/pam_mkhomedir/Makefile modules/pam_motd/Makefile \

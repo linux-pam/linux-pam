@@ -1,3 +1,15 @@
+2006-06-27  David Howells <dhowells@redhat.com>
+
+	* modules/pam_keyinit/pam_keyinit.c: New module.
+	* modules/pam_keyinit/pam_keyinit.8: New.
+	* modules/pam_keyinit/pam_keyinit.8.xml: New.
+	* modules/pam_keyinit/README: New.
+	* modules/pam_keyinit/README.xml: New.
+	* modules/pam_keyinit/Makefile.am: New.
+	* modules/pam_keyinit/tst_pam_keyinit: New.
+	* modules/Makefile.am: Added pam_keyinit.
+	* configure.in: Added test for the key mgmt syscall.
+
 2006-06-27  Thorsten Kukuk <kukuk@thkukuk.de>
 
 	* m4/libprelude.m4: Sync with upstream.
