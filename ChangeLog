@@ -1,3 +1,12 @@
+2006-06-27  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_unix/pam_unix_acct.c (_unix_run_verify_binary):
+	signal() fails with SIG_ERR return
+	* modules/pam_unix/pam_unix_passwd.c(_unix_run_shadow_binary):
+	Likewise.
+	* modules/pam_unix/support.c(_unix_run_helper_binary):
+	Likewise.
+
 2006-06-25  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/misc_conv.3.xml: New.

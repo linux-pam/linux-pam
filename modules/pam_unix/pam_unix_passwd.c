@@ -309,7 +309,7 @@ static int _unix_run_shadow_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	retval = PAM_AUTH_ERR;
     }
 
-    if (sighandler != NULL) {
+    if (sighandler != SIG_ERR) {
         (void) signal(SIGCHLD, sighandler);   /* restore old signal handler */
     }
 

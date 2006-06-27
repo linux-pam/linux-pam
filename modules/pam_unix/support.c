@@ -565,7 +565,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	retval = PAM_AUTH_ERR;
     }
 
-    if (sighandler != NULL) {
+    if (sighandler != SIG_ERR) {
         (void) signal(SIGCHLD, sighandler);   /* restore old signal handler */
     }
 

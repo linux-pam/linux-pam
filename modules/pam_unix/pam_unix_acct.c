@@ -170,7 +170,7 @@ struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, cons
     }
     close(fds[0]);
   }
-  if (sighandler != NULL) {
+  if (sighandler != SIG_ERR) {
     (void) signal(SIGCHLD, sighandler);   /* restore old signal handler */
   }
   D(("Returning %d",retval));
