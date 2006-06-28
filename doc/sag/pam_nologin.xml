@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_nologin'>
+  <title>pam_nologin - prevent non-root users from login</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_nologin/pam_nologin.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_nologin-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section id='sag-pam_nologin-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_nologin/pam_nologin.8.xml" xpointer='xpointer(//refsect1[@id = "pam_nologin-description"]/*)'/>
+  </section>
+  <section id='sag-pam_nologin-options'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_nologin/pam_nologin.8.xml" xpointer='xpointer(//refsect1[@id = "pam_nologin-options"]/*)'/>
+  </section>
+  <section id='sag-pam_nologin-services'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_nologin/pam_nologin.8.xml" xpointer='xpointer(//refsect1[@id = "pam_nologin-services"]/*)'/>
+  </section>
+  <section id='sag-pam_nologin-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_nologin/pam_nologin.8.xml" xpointer='xpointer(//refsect1[@id = "pam_nologin-return_values"]/*)'/>
+  </section>
+  <section id='sag-pam_nologin-examples'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_nologin/pam_nologin.8.xml" xpointer='xpointer(//refsect1[@id = "pam_nologin-examples"]/*)'/>
+  </section>
+  <section id='sag-pam_nologin-author'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_nologin/pam_nologin.8.xml" xpointer='xpointer(//refsect1[@id = "pam_nologin-author"]/*)'/>
+  </section>
+</section>

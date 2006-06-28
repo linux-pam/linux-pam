@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_env'>
+  <title>pam_env - set/unset environment variables</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_env/pam_env.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_env-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_env/pam_env.8.xml" xpointer='xpointer(//refsect1[@id = "pam_env-description"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_env/pam_env.conf.5.xml" xpointer='xpointer(//refsect1[@id = "pam_env.conf-description"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_env/pam_env.8.xml" xpointer='xpointer(//refsect1[@id = "pam_env-options"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_env/pam_env.8.xml" xpointer='xpointer(//refsect1[@id = "pam_env-services"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_env/pam_env.8.xml" xpointer='xpointer(//refsect1[@id = "pam_env-return_values"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_env/pam_env.8.xml" xpointer='xpointer(//refsect1[@id = "pam_env-files"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_env/pam_env.conf.5.xml" xpointer='xpointer(//refsect1[@id = "pam_env.conf-examples"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_env/pam_env.8.xml" xpointer='xpointer(//refsect1[@id = "pam_env-authors"]/*)'/>
+  </section>
+</section>

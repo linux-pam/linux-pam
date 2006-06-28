@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_namespace'>
+  <title>pam_namespace - setup a private namespace</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_namespace/pam_namespace.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_namespace-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_namespace/pam_namespace.8.xml" xpointer='xpointer(//refsect1[@id = "pam_namespace-description"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_namespace/namespace.conf.5.xml" xpointer='xpointer(//refsect1[@id = "namespace.conf-description"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_namespace/pam_namespace.8.xml" xpointer='xpointer(//refsect1[@id = "pam_namespace-options"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_namespace/pam_namespace.8.xml" xpointer='xpointer(//refsect1[@id = "pam_namespace-services"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_namespace/pam_namespace.8.xml" xpointer='xpointer(//refsect1[@id = "pam_namespace-return_values"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_namespace/pam_namespace.8.xml" xpointer='xpointer(//refsect1[@id = "pam_namespace-files"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_namespace/namespace.conf.5.xml" xpointer='xpointer(//refsect1[@id = "namespace.conf-examples"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_namespace/pam_namespace.8.xml" xpointer='xpointer(//refsect1[@id = "pam_namespace-authors"]/*)'/>
+  </section>
+</section>

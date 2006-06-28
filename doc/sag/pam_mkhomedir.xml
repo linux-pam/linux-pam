@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_mkhomedir'>
+  <title>pam_mkhomedir - create users home directory</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_mkhomedir/pam_mkhomedir.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_mkhomedir-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section id='sag-pam_mkhomedir-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_mkhomedir/pam_mkhomedir.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mkhomedir-description"]/*)'/>
+  </section>
+  <section id='sag-pam_mkhomedir-options'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_mkhomedir/pam_mkhomedir.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mkhomedir-options"]/*)'/>
+  </section>
+  <section id='sag-pam_mkhomedir-services'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_mkhomedir/pam_mkhomedir.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mkhomedir-services"]/*)'/>
+  </section>
+  <section id='sag-pam_mkhomedir-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_mkhomedir/pam_mkhomedir.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mkhomedir-return_values"]/*)'/>
+  </section>
+  <section id='sag-pam_mkhomedir-examples'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_mkhomedir/pam_mkhomedir.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mkhomedir-examples"]/*)'/>
+  </section>
+  <section id='sag-pam_mkhomedir-author'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_mkhomedir/pam_mkhomedir.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mkhomedir-author"]/*)'/>
+  </section>
+</section>

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_selinux'>
+  <title>pam_selinux - set the default security context</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_selinux/pam_selinux.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_selinux-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section id='sag-pam_selinux-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_selinux/pam_selinux.8.xml" xpointer='xpointer(//refsect1[@id = "pam_selinux-description"]/*)'/>
+  </section>
+  <section id='sag-pam_selinux-options'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_selinux/pam_selinux.8.xml" xpointer='xpointer(//refsect1[@id = "pam_selinux-options"]/*)'/>
+  </section>
+  <section id='sag-pam_selinux-services'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_selinux/pam_selinux.8.xml" xpointer='xpointer(//refsect1[@id = "pam_selinux-services"]/*)'/>
+  </section>
+  <section id='sag-pam_selinux-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_selinux/pam_selinux.8.xml" xpointer='xpointer(//refsect1[@id = "pam_selinux-return_values"]/*)'/>
+  </section>
+  <section id='sag-pam_selinux-examples'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_selinux/pam_selinux.8.xml" xpointer='xpointer(//refsect1[@id = "pam_selinux-examples"]/*)'/>
+  </section>
+  <section id='sag-pam_selinux-author'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_selinux/pam_selinux.8.xml" xpointer='xpointer(//refsect1[@id = "pam_selinux-author"]/*)'/>
+  </section>
+</section>

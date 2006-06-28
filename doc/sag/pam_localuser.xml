@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_localuser'>
+  <title>pam_localuser - require users to be listed in /etc/passwd</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_localuser/pam_localuser.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_localuser-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section id='sag-pam_localuser-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_localuser/pam_localuser.8.xml" xpointer='xpointer(//refsect1[@id = "pam_localuser-description"]/*)'/>
+  </section>
+  <section id='sag-pam_localuser-options'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_localuser/pam_localuser.8.xml" xpointer='xpointer(//refsect1[@id = "pam_localuser-options"]/*)'/>
+  </section>
+  <section id='sag-pam_localuser-services'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_localuser/pam_localuser.8.xml" xpointer='xpointer(//refsect1[@id = "pam_localuser-services"]/*)'/>
+  </section>
+  <section id='sag-pam_localuser-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_localuser/pam_localuser.8.xml" xpointer='xpointer(//refsect1[@id = "pam_localuser-return_values"]/*)'/>
+  </section>
+  <section id='sag-pam_localuser-examples'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_localuser/pam_localuser.8.xml" xpointer='xpointer(//refsect1[@id = "pam_localuser-examples"]/*)'/>
+  </section>
+  <section id='sag-pam_localuser-author'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_localuser/pam_localuser.8.xml" xpointer='xpointer(//refsect1[@id = "pam_localuser-author"]/*)'/>
+  </section>
+</section>

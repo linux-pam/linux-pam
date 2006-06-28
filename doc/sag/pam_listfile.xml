@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_listfile'>
+  <title>pam_listfile - deny or allow services based on an arbitrary file</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_listfile/pam_listfile.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_listfile-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section id='sag-pam_listfile-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_listfile/pam_listfile.8.xml" xpointer='xpointer(//refsect1[@id = "pam_listfile-description"]/*)'/>
+  </section>
+  <section id='sag-pam_listfile-options'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_listfile/pam_listfile.8.xml" xpointer='xpointer(//refsect1[@id = "pam_listfile-options"]/*)'/>
+  </section>
+  <section id='sag-pam_listfile-services'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_listfile/pam_listfile.8.xml" xpointer='xpointer(//refsect1[@id = "pam_listfile-services"]/*)'/>
+  </section>
+  <section id='sag-pam_listfile-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_listfile/pam_listfile.8.xml" xpointer='xpointer(//refsect1[@id = "pam_listfile-return_values"]/*)'/>
+  </section>
+  <section id='sag-pam_listfile-examples'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_listfile/pam_listfile.8.xml" xpointer='xpointer(//refsect1[@id = "pam_listfile-examples"]/*)'/>
+  </section>
+  <section id='sag-pam_listfile-author'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_listfile/pam_listfile.8.xml" xpointer='xpointer(//refsect1[@id = "pam_listfile-author"]/*)'/>
+  </section>
+</section>

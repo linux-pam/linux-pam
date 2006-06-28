@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_limits'>
+  <title>pam_limits - limit resources</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_limits-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-description"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_limits/limits.conf.5.xml" xpointer='xpointer(//refsect1[@id = "limits.conf-description"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-options"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-services"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-return_values"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-files"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_limits/limits.conf.5.xml" xpointer='xpointer(//refsect1[@id = "limits.conf-examples"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-authors"]/*)'/>
+  </section>
+</section>

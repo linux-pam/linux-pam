@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_group'>
+  <title>pam_group - module to modify group access</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_group/pam_group.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_group-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_group/pam_group.8.xml" xpointer='xpointer(//refsect1[@id = "pam_group-description"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_group/group.conf.5.xml" xpointer='xpointer(//refsect1[@id = "group.conf-description"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_group/pam_group.8.xml" xpointer='xpointer(//refsect1[@id = "pam_group-options"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_group/pam_group.8.xml" xpointer='xpointer(//refsect1[@id = "pam_group-services"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_group/pam_group.8.xml" xpointer='xpointer(//refsect1[@id = "pam_group-return_values"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_group/pam_group.8.xml" xpointer='xpointer(//refsect1[@id = "pam_group-files"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_group/group.conf.5.xml" xpointer='xpointer(//refsect1[@id = "group.conf-examples"]/*)'/>
+  </section>
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_group/pam_group.8.xml" xpointer='xpointer(//refsect1[@id = "pam_group-authors"]/*)'/>
+  </section>
+</section>

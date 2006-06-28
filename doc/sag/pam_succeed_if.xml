@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_succeed_if'>
+  <title>pam_succeed_if - test account characteristics</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_succeed_if/pam_succeed_if.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_succeed_if-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section id='sag-pam_succeed_if-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_succeed_if/pam_succeed_if.8.xml" xpointer='xpointer(//refsect1[@id = "pam_succeed_if-description"]/*)'/>
+  </section>
+  <section id='sag-pam_succeed_if-options'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_succeed_if/pam_succeed_if.8.xml" xpointer='xpointer(//refsect1[@id = "pam_succeed_if-options"]/*)'/>
+  </section>
+  <section id='sag-pam_succeed_if-services'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_succeed_if/pam_succeed_if.8.xml" xpointer='xpointer(//refsect1[@id = "pam_succeed_if-services"]/*)'/>
+  </section>
+  <section id='sag-pam_succeed_if-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_succeed_if/pam_succeed_if.8.xml" xpointer='xpointer(//refsect1[@id = "pam_succeed_if-return_values"]/*)'/>
+  </section>
+  <section id='sag-pam_succeed_if-examples'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_succeed_if/pam_succeed_if.8.xml" xpointer='xpointer(//refsect1[@id = "pam_succeed_if-examples"]/*)'/>
+  </section>
+  <section id='sag-pam_succeed_if-author'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_succeed_if/pam_succeed_if.8.xml" xpointer='xpointer(//refsect1[@id = "pam_succeed_if-author"]/*)'/>
+  </section>
+</section>
