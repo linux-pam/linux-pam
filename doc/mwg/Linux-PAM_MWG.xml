@@ -16,7 +16,7 @@
         <email>kukuk@thkukuk.de</email>
       </author>
     </authorgroup>
-    <releaseinfo>Version 0.99, 26. June 2006</releaseinfo>
+    <releaseinfo>Version 0.99, 28. June 2006</releaseinfo>
     <abstract>
       <para>
         This manual documents what a programmer needs to know in order
@@ -298,6 +298,265 @@ gcc -shared -o pam_module.so pam_module.o -lpam
         </listitem>
       </varlistentry>
     </variablelist>
+  </chapter>
+
+  <chapter id="mwg-see-programming">
+    <title>Programming notes</title>
+    <para>
+      Here we collect some pointers for the module writer to bear in mind
+      when writing/developing a <emphasis remap='B'>Linux-PAM</emphasis>
+      compatible module.
+    </para>
+
+    <section id="mwg-see-programming-sec">
+      <title>Security issues for module creation</title>
+      <section>
+        <title>Sufficient resources</title>
+        <para>
+          Care should be taken to ensure that the proper execution
+          of a module is not compromised by a lack of system resources.
+          If a module is unable to open sufficient files to perform its
+          task, it should fail gracefully, or request additional resources.
+          Specifically, the quantities manipulated by the <citerefentry>
+          <refentrytitle>setrlimit</refentrytitle><manvolnum>2</manvolnum>
+          </citerefentry> family of commands should be taken into
+          consideration.
+        </para>
+      </section>
+      <section id="mwg-see-programming-sec-who">
+        <title>Who´s who?</title>
+        <para>
+          Generally, the module may wish to establish the identity of
+          the user requesting a service. This may not be the same as
+          the username returned by <function>pam_get_user()</function>.
+          Indeed, that is only going to be the name of the user under
+          whose identity the service will be given. This is not
+          necessarily the user that requests the service.
+        </para>
+        <para>
+          In other words, user X runs a program that is setuid-Y, it
+          grants the user to have the permissions of Z. A specific example
+          of this sort of service request is the <command>su</command>
+          program: user <command>joe</command> executes
+          <command>su</command> to become the user <command>jane</command>.
+          In this situation X=<command>joe</command>, Y=<command>root</command>
+          and Z=<command>jane</command>. Clearly, it is important that
+          the module does not confuse these different users and grant an
+          inappropriate level of privilege.
+        </para>
+        <para>
+          The following is the convention to be adhered to when juggling
+          user-identities.
+        </para>
+        <itemizedlist>
+          <listitem>
+            <para>
+              X, the identity of the user invoking the service request.
+              This is the user identifier; returned by the function
+              <citerefentry>
+                <refentrytitle>getuid</refentrytitle><manvolnum>2</manvolnum>
+              </citerefentry>.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Y, the privileged identity of the application used to
+              grant the requested service. This is the
+              <emphasis>effective</emphasis> user identifier;
+              returned by the function <citerefentry>
+              <refentrytitle>geteuid</refentrytitle><manvolnum>2</manvolnum>
+              </citerefentry>.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Z, the user under whose identity the service will be granted.
+              This is the username returned by
+              <function>pam_get_user()</function> and also stored in the
+              <emphasis remap='B'>Linux-PAM</emphasis> item,
+              <emphasis>PAM_USER</emphasis>.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              <emphasis remap='B'>Linux-PAM</emphasis> has a place for
+              an additional user identity that a module may care to make
+              use of. This is the <emphasis>PAM_RUSER</emphasis> item.
+              Generally, network sensitive modules/applications may wish
+              to set/read this item to establish the identity of the user
+              requesting a service from a remote location.
+            </para>
+          </listitem>
+        </itemizedlist>
+        <para>
+          Note, if a module wishes to modify the identity of either the
+          <emphasis>uid</emphasis> or <emphasis>euid</emphasis> of the
+          running process, it should take care to restore the original
+          values prior to returning control to the
+          <emphasis remap='B'>Linux-PAM</emphasis> library.
+        </para>
+      </section>
+      <section id="mwg-see-programming-sec-conv">
+        <title>Using the conversation function</title>
+        <para>
+          Prior to calling the conversation function, the module should
+          reset the contents of the pointer that will return the applications
+          response. This is a good idea since the application may fail
+          to fill the pointer and the module should be in a position to
+          notice!
+        </para>
+        <para>
+          The module should be prepared for a failure from the
+          conversation. The generic error would be
+          <emphasis>PAM_CONV_ERR</emphasis>, but anything other than
+          <emphasis>PAM_SUCCESS</emphasis> should be treated as
+          indicating failure.
+        </para>
+      </section>
+      <section id="mwg-see-programming-sec-token">
+        <title>Authentication tokens</title>
+        <para>
+          To ensure that the authentication tokens are not left lying
+          around the items, <emphasis>PAM_AUTHTOK</emphasis> and
+          <emphasis>PAM_OLDAUTHTOK</emphasis>, are not available to
+          the application: they are defined in
+          <filename>&lt;security/pam_modules.h&gt;</filename>. This
+          is ostensibly for security reasons, but a maliciously
+          programmed application will always have access to all memory
+          of the process, so it is only superficially enforced. As a
+          general rule the module should overwrite authentication tokens
+          as soon as they are no longer needed. Especially before
+          <function>free()</function>'ing them. The
+          <emphasis remap='B'>Linux-PAM</emphasis> library is
+          required to do this when either of these authentication
+          token items are (re)set.
+        </para>
+        <para>
+          Not to dwell too little on this concern; should the module
+          store the authentication tokens either as (automatic) function
+          variables or using <function>pam_[gs]et_data()</function> the
+          associated memory should be over-written explicitly before it
+          is released. In the case of the latter storage mechanism, the
+          associated <function>cleanup()</function> function should
+          explicitly overwrite the <varname>*data</varname> before
+          <function>free()</function>'ing it: for example,
+          <programlisting>
+/*
+ * An example cleanup() function for releasing memory that was used to
+ * store a password.
+ */
+
+int cleanup(pam_handle_t *pamh, void *data, int error_status)
+{
+    char *xx;
+
+    if ((xx = data)) {
+        while (*xx)
+            *xx++ = '\0';
+        free(data);
+    }
+    return PAM_SUCCESS;
+}
+          </programlisting>
+        </para>
+      </section>
+    </section>
+    <section id="mwg-see-programming-syslog">
+      <title>Use of <citerefentry>
+        <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry></title>
+      <para>
+        Only rarely should error information be directed to the user.
+        Usually, this is to be limited to
+        <quote><emphasis>sorry you cannot login now</emphasis></quote>
+        type messages. Information concerning errors in the configuration
+        file, <filename>/etc/pam.conf</filename>, or due to some system
+        failure encountered by the module, should be written to
+        <citerefentry>
+        <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum>
+        </citerefentry> with <emphasis>facility-type</emphasis>
+        <emphasis remap='B'>LOG_AUTHPRIV</emphasis>.
+      </para>
+      <para>
+        With a few exceptions, the level of logging is, at the discretion
+        of the module developer. Here is the recommended usage of different
+        logging levels:
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            As a general rule, errors encountered by a module should be
+            logged at the <emphasis>LOG_ERR</emphasis> level. However,
+            information regarding an unrecognized argument, passed to a
+            module from an entry in the <filename>/etc/pam.conf</filename>
+            file, is <emphasis>required</emphasis> to be logged at the
+            <emphasis>LOG_ERR</emphasis> level.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Debugging information, as activated by the
+            <command>debug</command> argument to the module in
+            <filename>/etc/pam.conf</filename>, should be logged
+            at the <emphasis>LOG_DEBUG</emphasis> level.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            If a module discovers that its personal configuration
+            file or some system file it uses for information is
+            corrupted or somehow unusable, it should indicate this
+            by logging messages at level, <emphasis>LOG_ALERT</emphasis>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Shortages of system resources, such as a failure to
+            manipulate a file or <function>malloc()</function> failures
+            should be logged at level <emphasis>LOG_CRIT</emphasis>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Authentication failures, associated with an incorrectly
+            typed password should be logged at level,
+            <emphasis>LOG_NOTICE</emphasis>.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+    <section id="mwg-see-programming-libs">
+      <title>Modules that require system libraries</title>
+      <para>
+        Writing a module is much like writing an application. You
+        have to provide the "conventional hooks" for it to work
+        correctly, like <function>pam_sm_authenticate()</function>
+        etc., which would correspond to the <function>main()</function>
+        function in a normal function.
+      </para>
+      <para>
+        Typically, the author may want to link against some standard system
+        libraries. As when one compiles a normal program, this can be
+        done for modules too: you simply append the
+        <parameter>-l</parameter><emphasis>XXX</emphasis> arguments
+        for the desired libraries when you create the shared module object.
+        To make sure a module is linked to the
+        <command>libwhatever.so</command> library
+        when it is <function>dlopen()</function>ed, try:
+        <programlisting>
+% gcc -shared -o pam_module.so pam_module.o -lwhatever
+        </programlisting>
+      </para>
+    </section>
+  </chapter>
+
+  <chapter id="mwg-example">
+    <title>An example module</title>
+    <para>
+      At some point, we may include a fully commented example of a module in
+      this document. For now, please look at the modules directory of the
+      <emphasis remap='B'>Linux-PAM</emphasis> sources.
+    </para>
   </chapter>
 
   <chapter id="mwg-see-also">
