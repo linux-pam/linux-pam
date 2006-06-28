@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README tst-pam_keyinit
+EXTRA_DIST = README $(XMLS) pam_keyinit.8 tst-pam_keyinit
 XMLS = README.xml pam_keyinit.8.xml
 
 if HAVE_KEY_MANAGEMENT

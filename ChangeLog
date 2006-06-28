@@ -26,6 +26,9 @@
 
 	* modules/pam_keyinit.c: Add _pam_keyinit_modstruct.
 
+	* modules/pam_keyinit/Makefile.am (EXTRA_DIST): Add XML
+	files and manual page.
+
 2006-06-27  Thorsten Kukuk <kukuk@thkukuk.de>
 
 	* configure.in: Allow disabling of SELinux support, check for
