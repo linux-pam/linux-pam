@@ -1,5 +1,19 @@
 2006-06-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* doc/sag: System Administrator Guide as XML source.
+	* doc/sag/Makefile.am: New.
+	* doc/sag/Linux-PAM_SAG.xml: New, main XML document.
+	* doc/sag/pam_*.xml: New, wrapper to include module documentation.
+
+        * doc/adg: Application Developers Guide as XML source.
+        * doc/adg/Makefile.am: New.
+        * doc/adg/Linux-PAM_ADG.xml: New, main XML document.
+        * doc/adg/pam_*.xml: New, wrappers to include manual pages.
+
+2006-06-28  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 0.99.5.0
+
 	* bump version number to 0.99.5.0
 
 	* modules/pam_rhosts/pam_rhosts.c: New module, replaces
@@ -166,6 +180,9 @@
 	and pam.conf-syntax.xml.
 	* doc/man/pam.conf.5.xml: Split into different pieces for SAG.
 	* doc/man/pam.conf.5: Regenerated.
+	* doc/man/pam.conf-desc.xml: New.
+	* doc/man/pam.conf-dir.xml: New.
+	* doc/man/pam.conf-syntax.xml: New.
 
 2006-06-21  Thorsten Kukuk  <kukuk@thkukuk.de>
 

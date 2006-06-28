@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='adg-pam_start'>
+  <title>Initialization of PAM transaction</title>
+  <funcsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_start.3.xml" xpointer='xpointer(//funcsynopsis[@id = "pam_start-synopsis"]/*)'/>
+  </funcsynopsis>
+  <section id='adg-pam_start-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_start.3.xml" xpointer='xpointer(//refsect1[@id = "pam_start-description"]/*)'/>
+  </section>
+  <section id='adg-pam_start-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_start.3.xml" xpointer='xpointer(//refsect1[@id = "pam_start-return_values"]/*)'/>
+  </section>
+</section>

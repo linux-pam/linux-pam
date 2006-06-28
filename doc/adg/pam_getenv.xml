@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='adg-pam_getenv'>
+  <title>Get a PAM environment variable</title>
+  <funcsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_getenv.3.xml" xpointer='xpointer(//funcsynopsis[@id = "pam_getenv-synopsis"]/*)'/>
+  </funcsynopsis>
+  <section id='adg-pam_getenv-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_getenv.3.xml" xpointer='xpointer(//refsect1[@id = "pam_getenv-description"]/*)'/>
+  </section>
+  <section id='adg-pam_getenv-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_getenv.3.xml" xpointer='xpointer(//refsect1[@id = "pam_getenv-return_values"]/*)'/>
+  </section>
+</section>
