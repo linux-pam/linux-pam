@@ -28,8 +28,12 @@
 
 	* doc/Makefile.am: Remove references to sgml, add sag, adg and mwg
 	directories.
-
 	* doc/modules: Remove directory.
+	* doc/html: Remove directory.
+	* doc/ps: Remove directory.
+	* doc/pdf: Remove directory.
+	* doc/txts: Remove directory.
+	* doc/index.html: Moved from html directory to here.
 
 2006-06-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 

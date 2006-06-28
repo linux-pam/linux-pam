@@ -6,7 +6,7 @@ SUBDIRS = man specs sag adg mwg
 
 CLEANFILES = *~
 
-EXTRA_DIST = pdf/README html/index.html txts/README
+EXTRA_DIST = index.html
 
 #######################################################
 
@@ -26,11 +26,17 @@ install-data-local:
 	done
 
 releasedocs: all
-	tar zvfc ../Linux-PAM-$(VERSION)-docs.tar.gz \
-	--exclude CVS --exclude .cvsignore --exclude '.#*' \
-	--exclude README html txts pdf \
-	specs/draft-morgan-pam-current.txt specs/rfc86.0.txt
-	tar jvfc ../Linux-PAM-$(VERSION)-docs.tar.bz2 \
-	--exclude CVS --exclude .cvsignore --exclude '.#*' \
-	--exclude README html ps txts pdf \
-	specs/draft-morgan-pam-current.txt specs/rfc86.0.txt
+	mkdir -p $(top_builddir)/Linux-PAM-$(VERSION)-docs/html
+	mkdir -p $(top_builddir)/Linux-PAM-$(VERSION)-docs/pdf
+	mkdir -p $(top_builddir)/Linux-PAM-$(VERSION)-docs/txt
+	mkdir -p $(top_builddir)/Linux-PAM-$(VERSION)-docs/specs
+	cp -av $(srcdir)/index.html \
+		$(top_builddir)/Linux-PAM-$(VERSION)-docs/html/
+	cp -av specs/draft-morgan-pam-current.txt \
+		$(top_builddir)/Linux-PAM-$(VERSION)-docs/specs/
+	cp -av specs/rfc86.0.txt \
+		$(top_builddir)/Linux-PAM-$(VERSION)-docs/specs/
+	make -C sag releasedocs
+	make -C adg releasedocs
+	make -C mwg releasedocs
+	

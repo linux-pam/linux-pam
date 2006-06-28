@@ -6,7 +6,7 @@ CLEANFILES = Linux-PAM_MWG.fo *~
 
 EXTRA_DIST = $(XMLS)
 
-XMLS = Linux-PAM_MWG.xml $(shell ls pam_*.xml)
+XMLS = Linux-PAM_MWG.xml $(shell ls $(srcdir)/pam_*.xml)
 
 if ENABLE_REGENERATE_MAN
 MAINTAINERCLEANFILES = Linux-PAM_MWG.txt Linux-PAM_MWG.pdf html/*.html
@@ -46,3 +46,21 @@ html/Linux-PAM_MWG.html: $(XMLS)
 	  --stringparam toc.max.depth 3 --xinclude --nonet \
 	  http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl $<
 endif
+
+releasedocs: all
+	test -f html/Linux-PAM_MWG.html && \
+	    cp -ap html/Linux-PAM_MWG.html html/mwg-*.html \
+		$(top_builddir)/Linux-PAM-$(VERSION)-docs/html/ || \
+	    cp -ap $(srcdir)/html/Linux-PAM_MWG.html \
+		$(srcdir)/html/mwg-*.html \
+		$(top_builddir)/Linux-PAM-$(VERSION)-docs/html/
+	test -f Linux-PAM_MWG.txt && \
+	    cp -p Linux-PAM_MWG.txt \
+		$(top_builddir)/Linux-PAM-$(VERSION)-docs/txt/ || \
+	    cp -p $(srcdir)/Linux-PAM_MWG.txt \
+		$(top_builddir)/Linux-PAM-$(VERSION)-docs/txt/
+	test -f Linux-PAM_MWG.pdf && \
+	    cp -p Linux-PAM_MWG.pdf \
+		$(top_builddir)/Linux-PAM-$(VERSION)-docs/pdf/ || \
+	    cp -p $(srcdir)/Linux-PAM_MWG.pdf \
+		$(top_builddir)/Linux-PAM-$(VERSION)-docs/pdf/
