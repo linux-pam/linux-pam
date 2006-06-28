@@ -1,6 +1,8 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
+Release 0.99.5.0
+
 * pam_tally: Fix support for large UIDs
 * Fixed all problems found by Coverity
 * Add support for Intel C Compiler
@@ -10,6 +12,11 @@ Linux-PAM NEWS -- history of user-visible changes.
   pam_rootok, pam_securetty, pam_shells, pam_userdb, pam_warn,
   pam_time, pam_limits, pam_debug, pam_tally
 * The libpam memory debug code was removed
+* pam_keyinit: New module to initialise kernel session keyring.
+* pam_namespace: New module to configure private namespace for a session.
+* pam_rhosts: New module which replaces pam_rhosts_auth, now IPv6 capable.
+* pam_rhosts_auth: This module is now deprecated.
+
 
 Release 0.99.4.0
 

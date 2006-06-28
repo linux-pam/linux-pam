@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.docbook.org/xml/4.4/docbookx.dtd">
+<article>
+  <articleinfo>
+    <title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+      href="pam_namespace.8.xml" xpointer='xpointer(//refnamediv[@id = "pam_namespace-name"]/*)'/>
+    </title>
+  </articleinfo>
+  <section>
+    <programlisting><![CDATA[
+
+pam_namespace module:
+Setup a private namespace with polyinstantiated directories.
+
+THEORY OF OPERATION:
+The pam namespace module consults /etc/security/namespace.conf
+configuration file and sets up a private namespace with polyinstantiated
+directories for a session managed by PAM. A skeleton namespace.conf
+installed by default provides example for polyinstantiating /tmp, /var/tmp
+and users' home directory.
+
+If an executable script /etc/security/namespace.init exists, it
+is used to initialize the namespace every time a new instance directory
+is setup. The script receives the polyinstantiated directory path
+and the instance directory path as its arguments.
+
+Each line in namespace.conf describes a limit for a user in the form:
+
+<polydir>  <instance_prefix>  <method>  <list_of_uids>
+
+Where:
+<polydir> - is the absolute pathname of the directory to polyinstantiate
+      Special entry $HOME is supported to designate user's home directory.
+      This field cannot be blank.
+
+<instance_prefix> - is the string prefix used to build the pathname for the
+	instantiation of <polydir>. The directory security context, or
+	optionally its md5sum string (32 hex characters), is appended to
+        the prefix to generate the final instance directory path.
+        This directory is created if it did not exist already, and is then
+	bind mounted on the <polydir> to provide an instance of <polydir>
+	based on the <method> column. The special string $HOME is replaced with
+	the user's home directory, and $USER with the username.
+	This field cannot be blank.
+
+<method> - is the method used for polyinstantiation. It can take 3 different
+	values; "user" for polyinstantiation based on user name, "context"
+	for polyinstantiation based on process security context, and "both"
+	for polyinstantiation based on both user name and security context.
+	Methods "context" and "both" are only available with SELinux. This
+	field cannot be blank.
+
+<list_of_uids> - is a comma separated list of user names for whom the
+	polyinstantiation is not performed. If left blank, polyinstantiation
+	will be performed for all users.
+
+EXAMPLE /etc/security/namespace.conf configuration file:
+=======================================================
+# Following three lines will polyinstantiate /tmp, /var/tmp and user's home
+# directories. /tmp and /var/tmp will be polyinstantiated based on both
+# security context as well as user name, whereas home directory will
+# be polyinstantiated based on security context only. Polyinstantiation
+# will not be performed for user root and adm for directories /tmp and
+# /var/tmp, whereas home directories will be polyinstantiated for all
+# users. The user name and/or context is appended to the instance prefix.
+#
+# Note that instance directories do not have to reside inside the
+# polyinstantiated directory. In the examples below, instances of /tmp
+# will be created in /tmp-inst directory, where as instances of /var/tmp
+# and users home directories will reside within the directories that
+# are being polyinstantiated.
+#
+# Instance parent directories must exist for the polyinstantiation
+# mechanism to work. By default, they should be created with the mode
+# of 000. pam_namespace module will enforce this mode unless it
+# is explicitly called with an argument to ignore the mode of the
+# instance parent. System administrators should use this argument with
+# caution, as it will reduce security and isolation achieved by
+# polyinstantiation.
+#
+/tmp     /tmp-inst/       	both      root,adm
+/var/tmp /var/tmp/tmp-inst/   	both      root,adm
+$HOME    $HOME/$USER.inst/inst- context
+
+ARGUMENTS RECOGNIZED:
+    debug
+	Verbose logging by syslog
+
+    unmnt_remnt
+	For programs such as su and newrole, the login session has
+	already setup a polyinstantiated namespace. For these programs,
+	polyinstantiation is performed based on new user id or security
+	context, however the command first needs to undo the
+	polyinstantiation performed by login. This argument instructs
+	the command to first undo previous polyinstantiation before
+	proceeding with new polyinstantiation based on new id/context.
+
+    unmnt_only
+	For trusted programs that want to undo any existing bind mounts
+	and process instance directories on their own, this argument
+	allows them to unmount currently mounted instance directories.
+
+    require_selinux
+	If selinux is not enabled, return failure.
+
+    gen_hash
+	Instead of using the security context string for the instance
+	name, generate and use its md5 hash.
+
+    ignore_config_error
+	If a line in the configuration file corresponding to a
+	polyinstantiated directory contains format error, skip that
+	line process the next line. Without this option, pam will return
+	an error to the calling program resulting in termination
+	of the session.
+
+    ignore_instance_parent_mode
+	Instance parent directories by default are expected to have
+	the restrictive mode of 000. Using this option, an administrator
+	can choose to ignore the mode of the instance parent.
+
+MODULE SERVICES PROVIDED:
+	session            open_session and close_session
+
+USAGE:
+	For the <service>s you need polyinstantiation (login for example)
+	put the following line in /etc/pam.d/<service> as the last line for 
+	session group:
+
+	session  required  pam_namespace.so [arguments]
+
+	This module also depends on pam_selinux.so setting the context.
+]]>
+    </programlisting>
+  </section>
+</article>
+

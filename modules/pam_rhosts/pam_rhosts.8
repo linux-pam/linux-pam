@@ -1,0 +1,98 @@
+.\"     Title: pam_rhosts
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 06/28/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_RHOSTS" "8" "06/28/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_rhosts \- The rhosts PAM module
+.SH "SYNOPSIS"
+.HP 14
+\fBpam_rhosts.so\fR
+.SH "DESCRIPTION"
+.PP
+This module performs the standard network authentication for services, as used by traditional implementations of
+\fBrlogin\fR
+and
+\fBrsh\fR
+etc.
+.PP
+The authentication mechanism of this module is based on the contents of two files;
+\fI/etc/hosts.equiv\fR
+(or and
+\fI~/.rhosts\fR. Firstly, hosts listed in the former file are treated as equivalent to the localhost. Secondly, entries in the user's own copy of the latter file is used to map "\fIremote\-host remote\-user\fR" pairs to that user's account on the current host. Access is granted to the user if their host is present in
+\fI/etc/hosts.equiv\fR
+and their remote account is identical to their local one, or if their remote account has an entry in their personal configuration file.
+.PP
+The module authenticates a remote user (internally specified by the item
+\fIPAM_RUSER\fR
+connecting from the remote host (internally specified by the item
+\fBPAM_RHOST\fR). Accordingly, for applications to be compatible this authentication module they must set these items prior to calling
+\fBpam_authenticate()\fR. The module is not capable of independently probing the network connection for such information.
+.SH "OPTIONS"
+.TP 3n
+\fBdebug\fR
+Print debug information.
+.TP 3n
+\fBsilent\fR
+Don't print informative messages.
+.TP 3n
+\fBsuperuser=\fR\fB\fIaccount\fR\fR
+Handle
+\fIaccount\fR
+as root.
+.SH "MODULE SERVICES PROVIDED"
+.PP
+Only the
+\fBauth\fR
+service is supported.
+.SH "RETURN VALUES"
+.TP 3n
+PAM_AUTH_ERR
+The remote host, remote user name or the local user name couldn't be determined or access was denied by
+\fI.rhosts\fR
+file.
+.TP 3n
+PAM_USER_UNKNOWN
+User is not known to system.
+.SH "EXAMPLES"
+.PP
+To grant a remote user access by
+\fI/etc/hosts.equiv\fR
+or
+\fI.rhosts\fR
+for
+\fBrsh\fR
+add the following lines to
+\fI/etc/pam.d/rsh\fR:
+.sp
+.RS 3n
+.nf
+#%PAM\-1.0
+#
+auth     required       pam_rhosts.so
+auth     required       pam_nologin.so
+auth     required       pam_env.so
+auth     required       pam_unix.so
+      
+.fi
+.RE
+.sp
+.SH "SEE ALSO"
+.PP
+
+\fBrootok\fR(3),
+\fBhosts.equiv\fR(5),
+\fBrhosts\fR(5),
+\fBpam.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8)
+.SH "AUTHOR"
+.PP
+pam_rhosts was written by Thorsten Kukuk <kukuk@thkukuk.de>

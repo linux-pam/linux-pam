@@ -10,13 +10,13 @@
 
   <refnamediv id="pam_sm_chauthtok-name">
     <refname>pam_sm_chauthtok</refname>
-    <refpurpose>PAM service function for account management</refpurpose>
+    <refpurpose>PAM service function for authentication token management</refpurpose>
   </refnamediv>
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id='pam_sm_chauthtok-synopsis'>
-    <funcsynopsis>
+  <refsynopsisdiv>
+    <funcsynopsis id='pam_sm_chauthtok-synopsis'>
       <funcsynopsisinfo>#define PAM_SM_PASSWORD</funcsynopsisinfo>
       <funcsynopsisinfo>#include &lt;security/pam_modules.h&gt;</funcsynopsisinfo>
       <funcprototype>

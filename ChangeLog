@@ -1,3 +1,31 @@
+2006-06-28  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* bump version number to 0.99.5.0
+
+	* modules/pam_rhosts/pam_rhosts.c: New module, replaces
+	pam_rhosts_auth.so.
+	* modules/pam_rhosts/pam_rhosts.8.xml: New.
+	* modules/pam_rhosts/pam_rhosts.8: New, generated from XML source.
+	* modules/pam_rhosts/tst-pam_rhosts: New.
+	* modules/pam_rhosts/Makefile.am: Add pam_rhosts, generate
+	manual page and README.
+	* modules/pam_rhosts/README.xml: New.
+	* modules/pam_rhosts/reADME: Regenerated from XML source.
+
+	* doc/man/pam_sm_acct_mgmt.3.xml: Adjust syntax for module
+	writers guide.
+	* doc/man/pam_sm_authenticate.3.xml: Likewise.
+	* doc/man/pam_sm_chauthtok.3.xml: Likewise.
+	* doc/man/pam_sm_close_session.3.xml: Likewise.
+	* doc/man/pam_sm_open_session.3.xml: Likewise.
+	* doc/man/pam_sm_setcred.3.xml: Likewise.
+
+	* po/POTFILES.in: Add new source files.
+
+	* libpam/pam_static_modules.h: Add new modules.
+
+	* modules/pam_keyinit.c: Add _pam_keyinit_modstruct.
+
 2006-06-27  Thorsten Kukuk <kukuk@thkukuk.de>
 
 	* configure.in: Allow disabling of SELinux support, check for
@@ -17,7 +45,7 @@
 	* modules/pam_namespace/namespace.init: New.
 	* modules/pam_namespace/pam_namespace.8: New.
 	* modules/pam_namespace/pam_namespace.8.xml: New.
-	* modules/pam_namespace/tst-pam_keyinit: New.
+	* modules/pam_namespace/tst-pam_namespace: New.
 	* modules/Makefile.am: Added pam_namespace.
 	* configure.in: Added pam_namespace, test for unshare
 	library call.
@@ -30,7 +58,7 @@
 	* modules/pam_keyinit/README: New.
 	* modules/pam_keyinit/README.xml: New.
 	* modules/pam_keyinit/Makefile.am: New.
-	* modules/pam_keyinit/tst_pam_keyinit: New.
+	* modules/pam_keyinit/tst-pam_keyinit: New.
 	* modules/Makefile.am: Added pam_keyinit.
 	* configure.in: Added test for the key mgmt syscall.
 

@@ -1,57 +1,56 @@
-arguments recognized:
+pam_rhosts — The rhosts PAM module
 
-"no_hosts_equiv"
-"no_rhosts"
-"debug"
-"nowarn"
-"suppress"
-"promiscuous"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-.rhosts/hosts.equiv format:
+DESCRIPTION
 
-There are positive entries, when one is matched authentication
-succeeds and terminates.  There are negative entries, when one is
-matched authentication fails and terminates.  Thus order is
-significant.
+This module performs the standard network authentication for services, as used
+by traditional implementations of rlogin and rsh etc.
 
-Entry          hosts.equiv                     .rhosts
-<host>         All users on <host> are ok      Same username from <host> is ok
-<host> <user>  <user> from <host> is ok        ditto
--<host>                No users from <host> are ok     ditto
-<host> -<user> <user> from <host> is not ok    ditto
+The authentication mechanism of this module is based on the contents of two
+files; /etc/hosts.equiv (or and ~/.rhosts. Firstly, hosts listed in the former
+file are treated as equivalent to the localhost. Secondly, entries in the
+user's own copy of the latter file is used to map "remote-host remote-user"
+pairs to that user's account on the current host. Access is granted to the user
+if their host is present in /etc/hosts.equiv and their remote account is
+identical to their local one, or if their remote account has an entry in their
+personal configuration file.
 
-<host> can be ip (IPv4) numbers.
+The module authenticates a remote user (internally specified by the item
+PAM_RUSER connecting from the remote host (internally specified by the item
+PAM_RHOST). Accordingly, for applications to be compatible this authentication
+module they must set these items prior to calling pam_authenticate(). The
+module is not capable of independently probing the network connection for such
+information.
 
-Netgroups may be used in either host or user fields, and then applies
-to all hosts, or users, in the netgroup.  The syntax is
+OPTIONS
 
-  +@<ng>
+debug
 
-The entries
+    Print debug information.
 
-  <host> +@<ng>
-  +@<ng> +@<ng>
-  +@<ng> <user>
+silent
 
-means exactly what you think it does.  Negative entries are of the
-form
+    Don't print informative messages.
 
-  -@<ng>
+superuser=account
 
-When the "promiscuous" option is given the special character + may be
-used as a wildcard in any field.
+    Handle account as root.
 
-  +                    Allow anyone from any host to connect. DANGEROUS.
-  + +                  Ditto.
-  + <user>             Allow the user to connect from anywhere. DANGEROUS.
-  <host> +             Allow any user from the host. Dangerous.
-  
-These, perhaps more useful, forms of the + form is also disallowed
-unless "promiscuous" is specified:
+EXAMPLES
 
-  + -<user>            Disallow the user from any host
-  + -@<ng>             Disallow all members of the netgroup from any host
+To grant a remote user access by /etc/hosts.equiv or .rhosts for rsh add the
+following lines to /etc/pam.d/rsh:
 
-When "promiscuous" is not specified a '+' is handled as a negative
-match.
+#%PAM-1.0
+#
+auth     required       pam_rhosts.so
+auth     required       pam_nologin.so
+auth     required       pam_env.so
+auth     required       pam_unix.so
+
+
+AUTHOR
+
+pam_rhosts was written by Thorsten Kukuk <kukuk@thkukuk.de>
 

@@ -10,13 +10,13 @@
 
   <refnamediv id="pam_sm_open_session-name">
     <refname>pam_sm_open_session</refname>
-    <refpurpose>PAM service function for session management</refpurpose>
+    <refpurpose>PAM service function to start session management</refpurpose>
   </refnamediv>
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id='pam_sm_open_session-synopsis'>
-    <funcsynopsis>
+  <refsynopsisdiv>
+    <funcsynopsis id='pam_sm_open_session-synopsis'>
       <funcsynopsisinfo>#define PAM_SM_SESSION</funcsynopsisinfo>
       <funcsynopsisinfo>#include &lt;security/pam_modules.h&gt;</funcsynopsisinfo>
       <funcprototype>

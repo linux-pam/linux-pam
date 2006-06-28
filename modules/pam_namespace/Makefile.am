@@ -8,9 +8,10 @@ MAN8 = pam_namespace.8
 
 man_MANS = $(MAN5) $(MAN8)
 
-XMLS = namespace.conf.5.xml pam_namespace.8.xml
+XMLS = README.xml namespace.conf.5.xml pam_namespace.8.xml
 
 if ENABLE_REGENERATE_MAN
+noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif
 

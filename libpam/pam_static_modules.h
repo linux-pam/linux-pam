@@ -44,6 +44,7 @@ extern struct pam_module _pam_filter_modstruct;
 extern struct pam_module _pam_ftp_modstruct;
 extern struct pam_module _pam_group_modstruct;
 extern struct pam_module _pam_issue_modstruct;
+extern struct pam_module _pam_keyinit_modstruct;
 extern struct pam_module _pam_lastlog_modstruct;
 extern struct pam_module _pam_limits_modstruct;
 extern struct pam_module _pam_listfile_modstruct;
@@ -51,8 +52,12 @@ extern struct pam_module _pam_localuser_modstruct;
 extern struct pam_module _pam_mail_modstruct;
 extern struct pam_module _pam_mkhomedir_modstruct;
 extern struct pam_module _pam_motd_modstruct;
+#ifdef HAVE_UNSHARE
+extern struct pam_module _pam_namespace;
+#endif
 extern struct pam_module _pam_nologin_modstruct;
 extern struct pam_module _pam_permit_modstruct;
+extern struct pam_module _pam_rhosts_modstruct;
 extern struct pam_module _pam_rhosts_auth_modstruct;
 extern struct pam_module _pam_rootok_modstruct;
 extern struct pam_module _pam_securetty_modstruct;
@@ -89,6 +94,7 @@ static struct pam_module *static_modules[] = {
   &_pam_ftp_modstruct,
   &_pam_group_modstruct,
   &_pam_issue_modstruct,
+  &_pam_keyinit_modstruct,
   &_pam_lastlog_modstruct,
   &_pam_limits_modstruct,
   &_pam_listfile_modstruct,
@@ -96,8 +102,12 @@ static struct pam_module *static_modules[] = {
   &_pam_mail_modstruct,
   &_pam_mkhomedir_modstruct,
   &_pam_motd_modstruct,
+#ifdef HAVE_UNSHARE
+  &_pam_namespace,
+#endif
   &_pam_nologin_modstruct,
   &_pam_permit_modstruct,
+  &_pam_rhosts_modstruct,
   &_pam_rhosts_auth_modstruct,
   &_pam_rootok_modstruct,
   &_pam_securetty_modstruct,

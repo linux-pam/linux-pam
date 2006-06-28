@@ -207,3 +207,19 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 
 	return PAM_SUCCESS;
 }
+
+#ifdef PAM_STATIC
+
+/* static module data */
+
+struct pam_module _pam_keyinit_modstruct = {
+     "pam_keyinit",
+     NULL,
+     NULL,
+     NULL,
+     pam_sm_open_session,
+     pam_sm_close_session,
+     NULL
+};
+#endif
+
