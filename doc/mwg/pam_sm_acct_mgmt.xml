@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='mwg-pam_sm_acct_mgmt'>
+  <title>Service function for account management</title>
+  <funcsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_sm_acct_mgmt.3.xml" xpointer='xpointer(//funcsynopsis[@id = "pam_sm_acct_mgmt-synopsis"]/*)'/>
+  </funcsynopsis>
+  <section id='mwg-pam_sm_acct_mgmt-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_sm_acct_mgmt.3.xml" xpointer='xpointer(//refsect1[@id = "pam_sm_acct_mgmt-description"]/*)'/>
+  </section>
+  <section id='mwg-pam_sm_acct_mgmt-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_sm_acct_mgmt.3.xml" xpointer='xpointer(//refsect1[@id = "pam_sm_acct_mgmt-return_values"]/*)'/>
+  </section>
+</section>

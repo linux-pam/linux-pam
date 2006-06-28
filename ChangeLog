@@ -5,10 +5,15 @@
 	* doc/sag/Linux-PAM_SAG.xml: New, main XML document.
 	* doc/sag/pam_*.xml: New, wrapper to include module documentation.
 
-        * doc/adg: Application Developers Guide as XML source.
-        * doc/adg/Makefile.am: New.
-        * doc/adg/Linux-PAM_ADG.xml: New, main XML document.
-        * doc/adg/pam_*.xml: New, wrappers to include manual pages.
+	* doc/adg: Application Developers Guide as XML source.
+	* doc/adg/Makefile.am: New.
+	* doc/adg/Linux-PAM_ADG.xml: New, main XML document.
+	* doc/adg/pam_*.xml: New, wrappers to include manual pages.
+
+	* doc/mwg: Application Developers Guide as XML source.
+	* doc/mwg/Makefile.am: New.
+	* doc/mwg/Linux-PAM_MWG.xml: New, main XML document.
+	* doc/mwg/pam_*.xml: New, wrappers to include manual pages.
 
 2006-06-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='mwg-pam_conv'>
+  <title>The conversation function</title>
+  <funcsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_conv.3.xml" xpointer='xpointer(//funcsynopsis[@id = "pam_conv-synopsis"]/*)'/>
+  </funcsynopsis>
+  <programlisting>
+struct pam_message {
+    int msg_style;
+    const char *msg;
+};
+
+struct pam_response {
+    char *resp;
+    int resp_retcode;
+};
+
+struct pam_conv {
+    int (*conv)(int num_msg, const struct pam_message **msg,
+                struct pam_response **resp, void *appdata_ptr);
+    void *appdata_ptr;
+};
+  </programlisting>
+  <section id='mwg-pam_conv-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_conv.3.xml" xpointer='xpointer(//refsect1[@id = "pam_conv-description"]/*)'/>
+  </section>
+  <section id='mwg-pam_conv-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../man/pam_conv.3.xml" xpointer='xpointer(//refsect1[@id = "pam_conv-return_values"]/*)'/>
+  </section>
+</section>
