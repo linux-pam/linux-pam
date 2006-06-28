@@ -29,6 +29,8 @@
 	* doc/Makefile.am: Remove references to sgml, add sag, adg and mwg
 	directories.
 
+	* doc/modules: Remove directory.
+
 2006-06-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.5.0
