@@ -1,6 +1,9 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
+* Documentation: Convert sgml guides to XML, unify documentation
+  for PAM functions and modules.
+
 Release 0.99.5.0
 
 * pam_tally: Fix support for large UIDs

@@ -402,29 +402,6 @@ AC_CHECK_FUNCS(inet_ntop inet_pton ruserok_af)
 AC_CHECK_FUNCS(unshare, [UNSHARE=yes], [UNSHARE=no])
 AM_CONDITIONAL([HAVE_UNSHARE], [test "$UNSHARE" = yes])
 
-dnl Checks for programs/utilities
-AC_CHECK_PROG(SGML2PS, sgml2ps, yes, no)
-AC_CHECK_PROG(SGML2TXT, sgml2txt, yes, no)
-AC_CHECK_PROG(SGML2HTML, sgml2html, yes, no)
-AC_CHECK_PROG(SGML2LATEX, sgml2latex, yes, no)
-AC_CHECK_PROG(PS2PDF, ps2pdf, yes, no)
-AM_CONDITIONAL([HAVE_SGML2PS], [test "$SGML2PS" = yes || test "$SGML2LATEX" = yes])
-AM_CONDITIONAL([HAVE_SGML2TXT], [test "$SGML2TXT" = yes])
-AM_CONDITIONAL([HAVE_SGML2HTML], [test "$SGML2HTML" = yes])
-AM_CONDITIONAL([HAVE_PS2PDF], [test "$PS2PDF" = yes])
-if test $SGML2LATEX = "yes" ; then
-  if sgml2latex -h | grep -e --paper | grep  ' -p ' > /dev/null ; then
-    PSER="sgml2latex -o ps"
-  else
-    PSER="sgml2latex -p"
-  fi
-else
-  if test $SGML2PS = yes ; then
-    PSER="sgml2ps"
-  fi
-fi
-AC_SUBST(PSER)
-
 dnl
 dnl Check for xsltproc
 dnl
@@ -447,7 +424,10 @@ else
      enable_man=no
 fi
 
+AC_PATH_PROG([FO2PDF], [fop])
+     
 AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_man != xno)
+AM_CONDITIONAL(ENABLE_GENERATE_PDF, test ! -z "$FO2PDF")
 
 
 AM_GNU_GETTEXT_VERSION
@@ -513,4 +493,5 @@ AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	modules/pam_unix/Makefile modules/pam_userdb/Makefile \
 	modules/pam_warn/Makefile modules/pam_wheel/Makefile \
 	modules/pam_xauth/Makefile doc/Makefile doc/specs/Makefile \
-	doc/man/Makefile examples/Makefile tests/Makefile)
+	doc/man/Makefile doc/sag/Makefile doc/adg/Makefile \
+	doc/mwg/Makefile examples/Makefile tests/Makefile)

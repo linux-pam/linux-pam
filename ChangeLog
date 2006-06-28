@@ -15,6 +15,20 @@
 	* doc/mwg/Linux-PAM_MWG.xml: New, main XML document.
 	* doc/mwg/pam_*.xml: New, wrappers to include manual pages.
 
+	* doc/CREDITS: Removed.
+	* doc/NOTES: Removed.
+	* doc/pam_appl.sgml: Removed.
+	* doc/pam_modules.sgml: Removed.
+	* doc/pam_source.sgml: Removed.
+	* doc/figs/pam_orient.txt: Removed.
+	* doc/figs: Removed.
+
+	* configure.in: Remove checks for sgml2* progrs, add sag, adg
+	and mwg Makefiles.
+
+	* doc/Makefile.am: Remove references to sgml, add sag, adg and mwg
+	directories.
+
 2006-06-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.5.0
