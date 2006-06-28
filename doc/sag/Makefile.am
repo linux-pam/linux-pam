@@ -47,6 +47,26 @@ html/Linux-PAM_SAG.html: $(XMLS)
 	  http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl $<
 endif
 
+install-data-local:
+	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)
+	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/txt
+	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/pdf
+	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/html
+	test -f html/Linux-PAM_SAG.html && \
+	    $(install_sh_DATA) html/Linux-PAM_SAG.html html/sag-*.html \
+		$(DESTDIR)$(DOCDIR)/html/ || \
+	    $(install_sh_DATA) $(srcdir)/html/Linux-PAM_SAG.html \
+		$(srcdir)/html/sag-*.html \
+		$(DESTDIR)$(DOCDIR)/html/
+	test -f Linux-PAM_SAG.txt && \
+	    $(install_sh_DATA) Linux-PAM_SAG.txt $(DESTDIR)$(DOCDIR)/txt/ || \
+	    $(install_sh_DATA) $(srcdir)/Linux-PAM_SAG.txt \
+		$(DESTDIR)$(DOCDIR)/txt/
+	test -f Linux-PAM_SAG.pdf && \
+	    $(install_sh_DATA) Linux-PAM_SAG.pdf $(DESTDIR)$(DOCDIR)/pdf/ || \
+	    $(install_sh_DATA) $(srcdir)/Linux-PAM_SAG.pdf \
+		$(DESTDIR)$(DOCDIR)/pdf/
+
 releasedocs: all
 	test -f html/Linux-PAM_SAG.html && \
 	    cp -ap html/Linux-PAM_SAG.html html/sag-*.html \
