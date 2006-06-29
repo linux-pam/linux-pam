@@ -68,19 +68,20 @@ install-data-local:
 		$(DESTDIR)$(DOCDIR)/pdf/
 
 releasedocs: all
+	$(mkinstalldirs) $(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/html
 	test -f html/Linux-PAM_MWG.html && \
 	    cp -ap html/Linux-PAM_MWG.html html/mwg-*.html \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/html/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/html/ || \
 	    cp -ap $(srcdir)/html/Linux-PAM_MWG.html \
 		$(srcdir)/html/mwg-*.html \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/html/
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/html/
 	test -f Linux-PAM_MWG.txt && \
 	    cp -p Linux-PAM_MWG.txt \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/txt/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/ || \
 	    cp -p $(srcdir)/Linux-PAM_MWG.txt \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/txt/
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/
 	test -f Linux-PAM_MWG.pdf && \
 	    cp -p Linux-PAM_MWG.pdf \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/pdf/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/ || \
 	    cp -p $(srcdir)/Linux-PAM_MWG.pdf \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/pdf/
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/

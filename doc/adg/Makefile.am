@@ -68,19 +68,20 @@ install-data-local:
 		$(DESTDIR)$(DOCDIR)/pdf/
 
 releasedocs: all
+	$(mkinstalldirs) $(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/html
 	test -f html/Linux-PAM_ADG.html && \
 	    cp -ap html/Linux-PAM_ADG.html html/adg-*.html \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/html/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/html/ || \
 	    cp -ap $(srcdir)/html/Linux-PAM_ADG.html \
 		$(srcdir)/html/adg-*.html \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/html/
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/html/
 	test -f Linux-PAM_ADG.txt && \
 	    cp -p Linux-PAM_ADG.txt \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/txt/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/ || \
 	    cp -p $(srcdir)/Linux-PAM_ADG.txt \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/txt/
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/
 	test -f Linux-PAM_ADG.pdf && \
 	    cp -p Linux-PAM_ADG.pdf \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/pdf/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/ || \
 	    cp -p $(srcdir)/Linux-PAM_ADG.pdf \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/pdf/
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/

@@ -68,19 +68,20 @@ install-data-local:
 		$(DESTDIR)$(DOCDIR)/pdf/
 
 releasedocs: all
+	$(mkinstalldirs) $(top_builddir)/Linux-PAM-$(VERSION)/doc/sag/html
 	test -f html/Linux-PAM_SAG.html && \
 	    cp -ap html/Linux-PAM_SAG.html html/sag-*.html \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/html/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/sag/html/ || \
 	    cp -ap $(srcdir)/html/Linux-PAM_SAG.html \
 		$(srcdir)/html/sag-*.html \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/html/
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/sag/html/
 	test -f Linux-PAM_SAG.txt && \
 	    cp -p Linux-PAM_SAG.txt \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/txt/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/sag/ || \
 	    cp -p $(srcdir)/Linux-PAM_SAG.txt \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/txt/
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/sag/
 	test -f Linux-PAM_SAG.pdf && \
 	    cp -p Linux-PAM_SAG.pdf \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/pdf/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/sag/ || \
 	    cp -p $(srcdir)/Linux-PAM_SAG.pdf \
-		$(top_builddir)/Linux-PAM-$(VERSION)-docs/pdf/
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/sag/

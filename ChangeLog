@@ -1,3 +1,10 @@
+2006-06-29  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/Makefile.am (releasedocs): Fix directory layout.
+	* doc/adg/Makefile.am: Likewise.
+	* doc/mwg/Makefile.am: Likewise.
+	* doc/sag/Makefile.am: Likewise.
+
 2006-06-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/sag: System Administrator Guide as XML source.

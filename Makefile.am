@@ -24,11 +24,11 @@ release: dist releasedocs
 release-docs: releasedocs
 
 releasedocs: 
-	rm -rf Linux-PAM-$(VERSION)-docs
-	mkdir -p Linux-PAM-$(VERSION)-docs
+	rm -rf Linux-PAM-$(VERSION)
+	mkdir -p Linux-PAM-$(VERSION)/doc
 	make -C doc releasedocs
 	tar zfc Linux-PAM-$(VERSION)-docs.tar.gz \
-		Linux-PAM-$(VERSION)-docs/*
+		Linux-PAM-$(VERSION)/doc
 	tar jfc Linux-PAM-$(VERSION)-docs.tar.bz2 \
-		Linux-PAM-$(VERSION)-docs/*
-	rm -rf Linux-PAM-$(VERSION)-docs 
+		Linux-PAM-$(VERSION)/doc
+	rm -rf Linux-PAM-$(VERSION)
