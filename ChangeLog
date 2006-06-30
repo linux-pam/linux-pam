@@ -1,3 +1,7 @@
+2006-06-30  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_namespace/Makefile.am(EXTRA_DIST): Add namespace.init.
+
 2006-06-29  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/Makefile.am (releasedocs): Fix directory layout.

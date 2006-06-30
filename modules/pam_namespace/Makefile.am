@@ -15,7 +15,7 @@ noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif
 
-EXTRA_DIST = README namespace.conf $(man_MANS) $(XMLS) tst-pam_namespace
+EXTRA_DIST = README namespace.conf namespace.init $(man_MANS) $(XMLS) tst-pam_namespace
 
 noinst_HEADERS = md5.h
 
