@@ -1,3 +1,10 @@
+2006-07-03  Dan Yefimov <dan@D00M.lightwave.net.ru>
+
+	* configure.in: Fixed have_key_syscalls test.
+
+	* modules/pam_access/pam_access.c (from_match): Fixed IPv4 network match,
+	removed AI_ADDRCONFIG flag.
+
 2006-06-30  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_namespace/Makefile.am(EXTRA_DIST): Add namespace.init.

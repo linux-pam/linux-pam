@@ -465,7 +465,7 @@ if test $HAVE_KEY_MANAGEMENT = 1; then
 fi
 AC_SUBST([HAVE_KEY_MANAGEMENT], $HAVE_KEY_MANAGEMENT)
 
-AM_CONDITIONAL([HAVE_KEY_MANAGEMENT], [test ! -z "$have_key_syscalls"])
+AM_CONDITIONAL([HAVE_KEY_MANAGEMENT], [test "$have_key_syscalls" = 1])
 
 dnl Files to be created from when we run configure
 AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \

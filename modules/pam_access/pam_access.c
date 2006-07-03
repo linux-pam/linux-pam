@@ -535,7 +535,7 @@ from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
       struct addrinfo hint;
 
       memset (&hint, '\0', sizeof (hint));
-      hint.ai_flags = AI_ADDRCONFIG | AI_CANONNAME;
+      hint.ai_flags = AI_CANONNAME;
       hint.ai_family = AF_INET;
 
       if (getaddrinfo (string, NULL, &hint, &res) != 0)
@@ -561,10 +561,10 @@ from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
 		      freeaddrinfo (res);
 		      return YES;
 		    }
-		  runp = runp->ai_next;
 		}
-	      freeaddrinfo (res);
+	      runp = runp->ai_next;
 	    }
+	  freeaddrinfo (res);
 	}
     } else  if (isipaddr(string, NULL, NULL) == YES) {
       /* Assume network/netmask with a IP of a host.  */
@@ -576,7 +576,7 @@ from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
       struct addrinfo hint;
 
       memset (&hint, '\0', sizeof (hint));
-      hint.ai_flags = AI_ADDRCONFIG | AI_CANONNAME;
+      hint.ai_flags = AI_CANONNAME;
       hint.ai_family = AF_UNSPEC;
 
       if (getaddrinfo (string, NULL, &hint, &res) != 0)
