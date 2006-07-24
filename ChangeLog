@@ -1,11 +1,48 @@
-2006-07-03  Dan Yefimov <dan@D00M.lightwave.net.ru>
+2006-07-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/adg/Makefile.am: Add uninstall and distclean rules.
+	* doc/mwg/Makefile.am: Likewise.
+	* doc/sag/Makefile.am: Likewise.
+
+2006-07-08  Daniel Richard G.  <skunk@iskunk.org>
+
+	* conf/pam_conv1/Makefile.am: Fix rules for lex and yacc files.
+	* conf/pam_conv1/pam_conv.lex: Rename to ...
+	* conf/pam_conv1/pam_conv_l.l: ... this.
+	* conf/pam_conv1/pam_conv.y: Rename to ...
+	* conf/pam_conv1/pam_conv_y.y: ... this.
+	* configure.in: Add AC_HELP_STRING()s to various AC_ARG_ENABLE()
+	calls.
+	* doc/Makefile.am: Fix rule to install index.html.
+	* doc/adg/Makefile.am: Fix test usage.
+	* doc/mwg/Makefile.am: Likewise.
+	* doc/sag/Makefile.am: Likewise.
+	* doc/specs/Makefile.am: Fix rules for lex and yacc files.
+	* specs/parse.lex: Rename to ...
+	* doc/specs/parse_l.l: ... this.
+	* doc/specs/parse.y: Rename to ...
+	* doc/specs/parse_y.y: ... this.
+	* libpam/pam_account.c: Fix #if vs. #ifdef.
+	* libpam/pam_audit.c: Likewise.
+	* libpam/pam_auth.c: Likewise.
+	* libpam/pam_password.c: Likewise.
+	* libpam/pam_private.h: Likewise.
+	* libpam/pam_session.c: Likewise.
+	* libpam/pam_start.c: Likewise.
+	* libpam/pam_static.c: Fix "empty sourcefile" warning.
+	* modules/pam_limits/pam_limits.c: Check for __linux, too.
+	* modules/pam_userdb/Makefile.am: Don't run test if no
+	libdb available.
+	* tests/tst-dlopen.c: Include config.h.
+
+2006-07-03  Dan Yefimov  <dan@D00M.lightwave.net.ru>
 
 	* configure.in: Fixed have_key_syscalls test.
 
-	* modules/pam_access/pam_access.c (from_match): Fixed IPv4 network match,
-	removed AI_ADDRCONFIG flag.
+	* modules/pam_access/pam_access.c (from_match): Fixed IPv4 network
+	match, removed AI_ADDRCONFIG flag.
 
-2006-06-30  Tomas Mraz <t8m@centrum.cz>
+2006-06-30  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_namespace/Makefile.am(EXTRA_DIST): Add namespace.init.
 

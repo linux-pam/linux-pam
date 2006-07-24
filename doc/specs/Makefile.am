@@ -6,24 +6,19 @@ CLEANFILES = draft-morgan-pam-current.txt *~
 
 EXTRA_DIST = draft-morgan-pam.raw std-agent-id.raw rfc86.0.txt
 
-all: draft-morgan-pam-current.txt
-	test -f rfc86.0.txt || cp -p $(srcdir)/rfc86.0.txt .
-
 draft-morgan-pam-current.txt: padout draft-morgan-pam.raw
 	./padout < $(srcdir)/draft-morgan-pam.raw > draft-morgan-pam-current.txt
 
+AM_YFLAGS = -d
+
+BUILT_SOURCES = parse_y.h
+
 noinst_PROGRAMS = padout
 
-padout_SOURCES = parse.y parse.lex
+padout_SOURCES = parse_l.l parse_y.y
 
 padout_LDADD = @LEXLIB@
 
-parse.c: lex.yy.c
+specdir = $(DOCDIR)/spec
 
-lex.yy.c: $(srcdir)/parse.lex
-	$(LEX) $(srcdir)/parse.lex
-
-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/spec
-	$(INSTALL_DATA) draft-morgan-pam-current.txt $(DESTDIR)$(DOCDIR)/spec/
-	$(INSTALL_DATA) rfc86.0.txt $(DESTDIR)$(DOCDIR)/spec/
+spec_DATA = draft-morgan-pam-current.txt rfc86.0.txt

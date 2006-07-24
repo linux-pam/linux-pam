@@ -6,13 +6,12 @@ CLEANFILES = *~
 
 EXTRA_DIST = README
 
+AM_YFLAGS = -d
+
+BUILT_SOURCES = pam_conv_y.h
+
 noinst_PROGRAMS = pam_conv1
 
-pam_conv1_SOURCES = pam_conv.lex pam_conv.y
+pam_conv1_SOURCES = pam_conv_l.l pam_conv_y.y
 
 pam_conv1_LDADD = @LEXLIB@
-
-pam_conv.c: lex.yy.c
-
-lex.yy.c: pam_conv.lex
-	$(LEX) $(srcdir)/pam_conv.lex

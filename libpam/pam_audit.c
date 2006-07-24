@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <syslog.h>
 
-#if HAVE_LIBAUDIT
+#ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
 #include <pwd.h>
 #include <netdb.h>

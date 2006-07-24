@@ -84,7 +84,11 @@ voidfunc *_pam_get_static_sym(struct pam_module *mod, const char *symname) {
     return ((voidfunc *)NULL);
 }
 
-#endif /* PAM_STATIC */
+#else /* ! PAM_STATIC */
+
+typedef int blarg;
+
+#endif /* ! PAM_STATIC */
 
 /*
  * Copyright (C) 1995 by Red Hat Software, Michael K. Johnson

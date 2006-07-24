@@ -13,7 +13,7 @@
  * See end for Copyright information
  */
 
-#if !(defined(linux))
+#if !defined(linux) && !defined(__linux)
 #error THIS CODE IS KNOWN TO WORK ONLY ON LINUX !!!
 #endif
 

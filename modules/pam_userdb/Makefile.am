@@ -9,8 +9,6 @@ EXTRA_DIST = README $(MANS) $(XMLS) create.pl tst-pam_userdb
 man_MANS = pam_userdb.8
 XMLS = README.xml pam_userdb.8.xml
 
-TESTS = tst-pam_userdb
-
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
@@ -23,6 +21,7 @@ endif
 
 if HAVE_LIBDB
   securelib_LTLIBRARIES = pam_userdb.la
+  TESTS = tst-pam_userdb
 endif
 
 noinst_HEADERS = pam_userdb.h

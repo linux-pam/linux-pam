@@ -1,5 +1,9 @@
 
 %{
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,13 +16,12 @@
     int line=1;
     char *last_label=NULL;
 
+    extern int yylex(void);
+    extern char *yytext;
     extern void yyerror(const char *x);
     extern char *get_label(const char *label);
     extern void set_label(const char *label, const char *target);
     char *new_counter(const char *key);
-
-#include "lex.yy.c"
-
 %}
 
 %union {

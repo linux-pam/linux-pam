@@ -45,7 +45,7 @@ int pam_authenticate(pam_handle_t *pamh, int flags)
     prelude_send_alert(pamh, retval);
 #endif
 
-#if HAVE_LIBAUDIT
+#ifdef HAVE_LIBAUDIT
     retval = _pam_auditlog(pamh, PAM_AUTHENTICATE, retval, flags);
 #endif
 
@@ -71,7 +71,7 @@ int pam_setcred(pam_handle_t *pamh, int flags)
 
     retval = _pam_dispatch(pamh, flags, PAM_SETCRED);
 
-#if HAVE_LIBAUDIT
+#ifdef HAVE_LIBAUDIT
     retval = _pam_auditlog(pamh, PAM_SETCRED, retval, flags);
 #endif
 

@@ -6,13 +6,11 @@ SUBDIRS = man specs sag adg mwg
 
 CLEANFILES = *~
 
-EXTRA_DIST = index.html
+htmldir = $(DOCDIR)/html
+
+dist_html_DATA = index.html
 
 #######################################################
-
-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/html
-	install -m 644 $(srcdir)/index.html $(DESTDIR)$(DOCDIR)/html/
 
 releasedocs: all
 	$(mkinstalldirs) $(top_builddir)/Linux-PAM-$(VERSION)/doc/specs

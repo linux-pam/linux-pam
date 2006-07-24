@@ -52,7 +52,7 @@ int pam_chauthtok(pam_handle_t *pamh, int flags)
 	D(("will resume when ready", retval));
     }
 
-#if HAVE_LIBAUDIT
+#ifdef HAVE_LIBAUDIT
     retval = _pam_auditlog(pamh, PAM_CHAUTHTOK, retval, flags);
 #endif
 

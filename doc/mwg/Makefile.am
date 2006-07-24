@@ -21,7 +21,7 @@ if ENABLE_GENERATE_PDF
 	  --stringparam section.label.includes.component.label 1 \
 	  --stringparam toc.max.depth 3 --xinclude --nonet \
 	http://docbook.sourceforge.net/release/xsl/current/fo/docbook.xsl $< > Linux-PAM_MWG.fo
-	$(FO2PDF) Linux-PAM_MWG.fo $(srcdir)/$@
+	$(FO2PDF) Linux-PAM_MWG.fo $@
 else
 	echo "No fo2pdf processor installed, skip PDF generation"
 endif
@@ -32,10 +32,10 @@ Linux-PAM_MWG.txt: $(XMLS)
 	  --stringparam section.autolabel 1 \
 	  --stringparam section.label.includes.component.label 1 \
 	  --stringparam toc.max.depth 3 --xinclude --nonet \
-	  http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl $< | $(BROWSER) > $(srcdir)/$@
+	  http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl $< | $(BROWSER) > $@
 
 html/Linux-PAM_MWG.html: $(XMLS)
-	@test -d $(srcdir)/html || mkdir -p $(srcdir)/html
+	@test -d html || mkdir -p html
 	$(XMLLINT) --nonet --xinclude --postvalid --noent --noout $<
 	$(XSLTPROC) --stringparam base.dir html/ \
 	  --stringparam root.filename Linux-PAM_MWG \
@@ -45,6 +45,10 @@ html/Linux-PAM_MWG.html: $(XMLS)
 	  --stringparam section.label.includes.component.label 1 \
 	  --stringparam toc.max.depth 3 --xinclude --nonet \
 	  http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl $<
+
+distclean-local:
+	-rm -rf html Linux-PAM_MWG.txt Linux-PAM_MWG.pdf
+
 endif
 
 install-data-local:
@@ -52,35 +56,41 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/txt
 	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/pdf
 	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/html
-	test -f html/Linux-PAM_MWG.html && \
+	test -f html/Linux-PAM_MWG.html || exit 0; \
 	    $(install_sh_DATA) html/Linux-PAM_MWG.html html/mwg-*.html \
 		$(DESTDIR)$(DOCDIR)/html/ || \
 	    $(install_sh_DATA) $(srcdir)/html/Linux-PAM_MWG.html \
 		$(srcdir)/html/sag-*.html \
 		$(DESTDIR)$(DOCDIR)/html/
-	test -f Linux-PAM_MWG.txt && \
+	test -f Linux-PAM_MWG.txt || exit 0; \
 	    $(install_sh_DATA) Linux-PAM_MWG.txt $(DESTDIR)$(DOCDIR)/txt/ || \
 	    $(install_sh_DATA) $(srcdir)/Linux-PAM_MWG.txt \
 		$(DESTDIR)$(DOCDIR)/txt/
-	test -f Linux-PAM_MWG.pdf && \
+	test -f Linux-PAM_MWG.pdf || exit 0; \
 	    $(install_sh_DATA) Linux-PAM_MWG.pdf $(DESTDIR)$(DOCDIR)/pdf/ || \
 	    $(install_sh_DATA) $(srcdir)/Linux-PAM_MWG.pdf \
 		$(DESTDIR)$(DOCDIR)/pdf/
 
+uninstall-local:
+	-rm $(DESTDIR)$(DOCDIR)/html/Linux-PAM_MWG.html
+	-rm $(DESTDIR)$(DOCDIR)/html/mwg-*.html
+	-rm $(DESTDIR)$(DOCDIR)/txt/Linux-PAM_MWG.txt
+	-rm $(DESTDIR)$(DOCDIR)/pdf/Linux-PAM_MWG.pdf
+
 releasedocs: all
 	$(mkinstalldirs) $(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/html
-	test -f html/Linux-PAM_MWG.html && \
+	test -f html/Linux-PAM_MWG.html || exit 0; \
 	    cp -ap html/Linux-PAM_MWG.html html/mwg-*.html \
 		$(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/html/ || \
 	    cp -ap $(srcdir)/html/Linux-PAM_MWG.html \
 		$(srcdir)/html/mwg-*.html \
 		$(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/html/
-	test -f Linux-PAM_MWG.txt && \
+	test -f Linux-PAM_MWG.txt || exit 0; \
 	    cp -p Linux-PAM_MWG.txt \
 		$(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/ || \
 	    cp -p $(srcdir)/Linux-PAM_MWG.txt \
 		$(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/
-	test -f Linux-PAM_MWG.pdf && \
+	test -f Linux-PAM_MWG.pdf || exit 0; \
 	    cp -p Linux-PAM_MWG.pdf \
 		$(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/ || \
 	    cp -p $(srcdir)/Linux-PAM_MWG.pdf \
