@@ -1,3 +1,20 @@
+2006-07-28  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* ABOUT-NLS: Upgrade to gettext-0.15.
+	* config.rpath: Likewise.
+	* m4/gettext.m4: Upgrade to gettext-0.15.
+	* m4/inttypes-h.m4: New file, from gettext-0.15.
+	* m4/inttypes-pri.m4: Upgrade to gettext-0.15.
+	* m4/lib-link.m4: Upgrade to gettext-0.15.
+	* m4/lib-prefix.m4: Upgrade to gettext-0.15.
+	* m4/lock.m4: New file, from gettext-0.15.
+	* m4/longdouble.m4: Upgrade to gettext-0.15.
+	* m4/nls.m4: Upgrade to gettext-0.15.
+	* m4/po.m4: Upgrade to gettext-0.15.
+	* m4/size_max.m4: Upgrade to gettext-0.15.
+	* m4/visibility.m4: New file, from gettext-0.15.
+	* po/Makefile.in.in: Upgrade to gettext-0.15.
+
 2006-07-24  David Quigley   <dpquigl@tycho.nsa.gov>
 
 	* modules/pam_namespace/Makefile.am: Add pam_namespace.h.
