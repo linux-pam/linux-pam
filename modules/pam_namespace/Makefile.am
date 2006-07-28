@@ -32,7 +32,7 @@ endif
 
 if HAVE_UNSHARE
 securelib_LTLIBRARIES = pam_namespace.la
-pam_namespace_la_SOURCES = pam_namespace.c md5.c md5.h
+pam_namespace_la_SOURCES = pam_namespace.c pam_namespace.h md5.c md5.h
 
 secureconf_DATA = namespace.conf
 secureconf_SCRIPTS = namespace.init

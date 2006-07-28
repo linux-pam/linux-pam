@@ -1,3 +1,13 @@
+2006-07-24  David Quigley   <dpquigl@tycho.nsa.gov>
+
+	* modules/pam_namespace/Makefile.am: Add pam_namespace.h.
+	* modules/pam_namespace/pam_namespace.c: Move includes and
+	data structure definitions from here ...
+	* modules/pam_namespace/pam_namespace.h: ... here. New file.
+
+	* modules/pam_namespace/pam_namespace.c: Move large sections
+	of code into new functions.
+
 2006-07-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/adg/Makefile.am: Add uninstall and distclean rules.

@@ -30,109 +30,33 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#if !(defined(linux))
-#error THIS CODE IS KNOWN TO WORK ONLY ON LINUX !!!
-#endif
-
-#include "config.h"
-
-#include <stdio.h>
-#include <stdio_ext.h>
-#include <unistd.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <syslog.h>
-#include <dlfcn.h>
-#include <stdarg.h>
-#include <pwd.h>
-#include <limits.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/resource.h>
-#include <sys/mount.h>
-#include <sys/wait.h>
-#include <libgen.h>
-#include <fcntl.h>
-#include <sched.h>
-#include "security/pam_modules.h"
-#include "security/pam_modutil.h"
-#include "security/pam_ext.h"
-#include "md5.h"
-
-#ifdef WITH_SELINUX
-#include <selinux/selinux.h>
-#endif
-
-#ifndef CLONE_NEWNS
-#define CLONE_NEWNS 0x00020000 /* Flag to create new namespace */
-#endif
+#include "pam_namespace.h"
 
 /*
- * Module defines
+ * Copies the contents of ent into pent
  */
-#ifndef PAM_NAMESPACE_CONFIG
-#define PAM_NAMESPACE_CONFIG "/etc/security/namespace.conf"
-#endif
+static int copy_ent(const struct polydir_s *ent, struct polydir_s *pent)
+{
+	unsigned int i;
 
-#ifndef NAMESPACE_INIT_SCRIPT
-#define NAMESPACE_INIT_SCRIPT "/etc/security/namespace.init"
-#endif
+	strcpy(pent->dir, ent->dir);
+	strcpy(pent->instance_prefix, ent->instance_prefix);
+	pent->method = ent->method;
+	pent->num_uids = ent->num_uids;
+	if (ent->num_uids) {
+		uid_t *pptr, *eptr;
 
-#define PAMNS_DEBUG           0x00000100 /* Running in debug mode */
-#define PAMNS_SELINUX_ENABLED 0x00000400 /* SELinux is enabled */
-#define PAMNS_CTXT_BASED_INST 0x00000800 /* Context based instance needed */
-#define PAMNS_GEN_HASH        0x00002000 /* Generate md5 hash for inst names */
-#define PAMNS_IGN_CONFIG_ERR  0x00004000 /* Ignore format error in conf file */
-#define PAMNS_IGN_INST_PARENT_MODE  0x00008000 /* Ignore instance parent mode */
-
-/*
- * Polyinstantiation method options, based on user, security context
- * or both
- */
-enum polymethod {
-    USER,
-    CONTEXT,
-    BOTH,
-};
-
-/*
- * Depending on the application using this namespace module, we
- * may need to unmount priviously bind mounted instance directory.
- * Applications such as login and sshd, that establish a new 
- * session unmount of instance directory is not needed. For applications
- * such as su and newrole, that switch the identity, this module 
- * has to unmount previous instance directory first and re-mount
- * based on the new indentity. For other trusted applications that
- * just want to undo polyinstantiation, only unmount of previous
- * instance directory is needed.
- */
-enum unmnt_op {
-    NO_UNMNT,
-    UNMNT_REMNT,
-    UNMNT_ONLY,
-};
-
-/*
- * Structure that holds information about a directory to polyinstantiate
- */
-struct polydir_s {
-    char dir[PATH_MAX];    	       	/* directory to polyinstantiate */
-    char instance_prefix[PATH_MAX];	/* prefix for instance dir path name */
-    enum polymethod method;		/* method used to polyinstantiate */
-    unsigned int num_uids;		/* number of override uids */
-    uid_t *uid;				/* list of override uids */
-    struct polydir_s *next;		/* pointer to the next polydir entry */
-};
-
-struct instance_data {
-    pam_handle_t *pamh;		/* The pam handle for this instance */
-    struct polydir_s *polydirs_ptr; /* The linked list pointer */
-    char user[LOGIN_NAME_MAX];	/* User name */
-    uid_t uid;			/* The uid of the user */
-    unsigned long flags;		/* Flags for debug, selinux etc */
-};
+		pent->uid = (uid_t *) malloc(ent->num_uids * sizeof(uid_t));
+		if (!(pent->uid)) {
+			return -1;
+		}
+		for (i = 0, pptr = pent->uid, eptr = ent->uid; i < ent->num_uids;
+				i++, eptr++, pptr++)
+			*pptr = *eptr;
+	} else 
+		pent->uid = NULL;
+	return 0;
+}
 
 /*
  * Adds an entry for a polyinstantiated directory to the linked list of
@@ -143,7 +67,7 @@ static int add_polydir_entry(struct instance_data *idata,
 	const struct polydir_s *ent)
 {
     struct polydir_s *pent;
-    unsigned int i;
+    int rc = 0;
 
     /*
      * Allocate an entry to hold information about a directory to
@@ -152,27 +76,14 @@ static int add_polydir_entry(struct instance_data *idata,
      * directories.
      */
     pent = (struct polydir_s *) malloc(sizeof(struct polydir_s));
-    if (!pent) 
-        return -1;
-
+	if (!pent) { 
+		rc = -1;
+		goto out;
+	}
     /* Make copy */
-    strcpy(pent->dir, ent->dir);
-    strcpy(pent->instance_prefix, ent->instance_prefix);
-    pent->method = ent->method;
-    pent->num_uids = ent->num_uids;
-    if (ent->num_uids) {
-        uid_t *pptr, *eptr;
-
-        pent->uid = (uid_t *) malloc(ent->num_uids * sizeof(uid_t));
-        if (!(pent->uid)) {
-            free(pent);
-            return -1;
-        }
-        for (i = 0, pptr = pent->uid, eptr = ent->uid; i < ent->num_uids;
-                 i++, eptr++, pptr++)
-             *pptr = *eptr;
-    } else 
-        pent->uid = NULL;
+	rc = copy_ent(ent,pent);
+	if(rc < 0)
+		goto out_clean;
 
     /* Now attach to linked list */
     pent->next = NULL;
@@ -186,8 +97,11 @@ static int add_polydir_entry(struct instance_data *idata,
             tail = tail->next;
         tail->next = pent;
     }
-
-    return 0;
+    goto out;
+out_clean:
+	free(pent);
+out:
+	return rc;
 }
 
 
@@ -515,6 +429,54 @@ static int ns_override(struct polydir_s *polyptr, struct instance_data *idata)
     return 0;
 }
 
+#ifdef WITH_SELINUX
+static int form_context(const struct polydir_s *polyptr,
+		security_context_t *i_context, security_context_t *origcon,
+		struct instance_data *idata)
+{
+	int rc = PAM_SUCCESS;
+	security_context_t scon = NULL;
+	security_class_t tclass;
+
+	/*
+	 * Get the security context of the directory to polyinstantiate.
+	 */
+	rc = getfilecon(polyptr->dir, origcon);
+	if (rc < 0 || *origcon == NULL) {
+		pam_syslog(idata->pamh, LOG_ERR,
+				"Error getting poly dir context, %m");
+		return PAM_SESSION_ERR;
+	}
+
+	/*
+	 * If polyinstantiating based on security context, get current
+	 * process security context, get security class for directories,
+	 * and ask the policy to provide security context of the
+	 * polyinstantiated instance directory.
+	 */
+	if ((polyptr->method == CONTEXT) || (polyptr->method == BOTH)) {
+		rc = getexeccon(&scon);
+		if (rc < 0 || scon == NULL) {
+			pam_syslog(idata->pamh, LOG_ERR, 
+					"Error getting exec context, %m");
+			return PAM_SESSION_ERR;
+		}
+		tclass = string_to_security_class("dir");
+
+		if (security_compute_member(scon, *origcon, tclass,
+					i_context) < 0) {
+			pam_syslog(idata->pamh, LOG_ERR,
+					"Error computing poly dir member context");
+			freecon(scon);
+			return PAM_SESSION_ERR;
+		} else if (idata->flags & PAMNS_DEBUG)
+			pam_syslog(idata->pamh, LOG_DEBUG, 
+					"member context returned by policy %s", *i_context);
+		freecon(scon);
+	}
+	return PAM_SUCCESS;
+}
+#endif
 
 /*
  * poly_name returns the name of the polyinstantiated instance directory
@@ -532,49 +494,10 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 	struct instance_data *idata)
 #endif
 {
-#ifdef WITH_SELINUX
-    security_context_t scon = NULL;
-    security_class_t tclass;
-#endif
     int rc;
 
 # ifdef WITH_SELINUX
-    /*
-     * Get the security context of the directory to polyinstantiate.
-     */
-    rc = getfilecon(polyptr->dir, origcon);
-    if (rc < 0 || *origcon == NULL) {
-       pam_syslog(idata->pamh, LOG_ERR,
-		"Error getting poly dir context, %m");
-       return PAM_SESSION_ERR;
-    }
-
-    /*
-     * If polyinstantiating based on security context, get current
-     * process security context, get security class for directories,
-     * and ask the policy to provide security context of the
-     * polyinstantiated instance directory.
-     */
-    if ((polyptr->method == CONTEXT) || (polyptr->method == BOTH)) {
-        rc = getexeccon(&scon);
-        if (rc < 0 || scon == NULL) {
-            pam_syslog(idata->pamh, LOG_ERR, 
-		"Error getting exec context, %m");
-            return PAM_SESSION_ERR;
-	}
-        tclass = string_to_security_class("dir");
-
-        if (security_compute_member(scon, *origcon, tclass,
-						i_context) < 0) {
-    	    pam_syslog(idata->pamh, LOG_ERR,
-                       "Error computing poly dir member context");
-	    freecon(scon);
-    	    return PAM_SESSION_ERR;
-        } else if (idata->flags & PAMNS_DEBUG)
-    	    pam_syslog(idata->pamh, LOG_DEBUG, 
-		    "member context returned by policy %s", *i_context);
-	freecon(scon);
-    }
+    rc = form_context(polyptr, i_context, origcon, idata);
 #endif
     rc = PAM_SUCCESS;
 
@@ -618,6 +541,122 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
     return rc;
 }
 
+static int check_inst_parent(char *ipath, struct instance_data *idata)
+{
+	struct stat instpbuf;
+	char *inst_parent, *trailing_slash;
+	/*
+	 * stat the instance parent path to make sure it exists
+	 * and is a directory. Check that its mode is 000 (unless the
+	 * admin explicitly instructs to ignore the instance parent
+	 * mode by the "ignore_instance_parent_mode" argument).
+	 */
+	inst_parent = (char *) malloc(strlen(ipath)+1);
+	if (!inst_parent) {
+		pam_syslog(idata->pamh, LOG_ERR, "Error allocating pathname string");
+		return PAM_SESSION_ERR;
+	}
+
+	strcpy(inst_parent, ipath);
+	trailing_slash = strrchr(inst_parent, '/');
+	if (trailing_slash)
+		*trailing_slash = '\0';
+
+	if (stat(inst_parent, &instpbuf) < 0) {
+		pam_syslog(idata->pamh, LOG_ERR, "Error stating %s, %m", inst_parent);
+		free(inst_parent);
+		return PAM_SESSION_ERR;
+	}
+
+	/*
+	 * Make sure we are dealing with a directory
+	 */
+	if (!S_ISDIR(instpbuf.st_mode)) {
+		pam_syslog(idata->pamh, LOG_ERR, "Instance parent %s is not a dir",
+				inst_parent);
+		free(inst_parent);
+		return PAM_SESSION_ERR;
+	}
+
+	if ((idata->flags & PAMNS_IGN_INST_PARENT_MODE) == 0) {
+		if (instpbuf.st_mode & (S_IRWXU|S_IRWXG|S_IRWXO)) {
+			pam_syslog(idata->pamh, LOG_ERR, "Mode of inst parent %s not 000",
+					inst_parent);
+			free(inst_parent);
+			return PAM_SESSION_ERR;
+		}
+	}
+	free(inst_parent);
+	return PAM_SUCCESS;
+}
+
+/*
+* Check to see if there is a namespace initialization script in
+* the /etc/security directory. If such a script exists
+* execute it and pass directory to polyinstantiate and instance
+* directory as arguments.
+*/
+static int inst_init(const struct polydir_s *polyptr, char *ipath,  
+	   struct instance_data *idata)
+{
+	pid_t rc, pid;
+	sighandler_t osighand = NULL;
+	int status;
+
+	osighand = signal(SIGCHLD, SIG_DFL);
+	if (osighand == SIG_ERR) {
+		pam_syslog(idata->pamh, LOG_ERR, "Cannot set signal value");
+		rc = PAM_SESSION_ERR;
+		goto out;
+	}
+
+	if (access(NAMESPACE_INIT_SCRIPT, F_OK) == 0) {
+		if (access(NAMESPACE_INIT_SCRIPT, X_OK) < 0) {
+			if (idata->flags & PAMNS_DEBUG)
+				pam_syslog(idata->pamh, LOG_ERR,
+						"Namespace init script not executable");
+			rc = PAM_SESSION_ERR;
+			goto out;
+		} else {
+			pid = fork();
+			if (pid == 0) {
+#ifdef WITH_SELINUX
+				if (idata->flags & PAMNS_SELINUX_ENABLED) {
+					if (setexeccon(NULL) < 0)
+						exit(1);
+				}
+#endif
+				if (execl(NAMESPACE_INIT_SCRIPT, NAMESPACE_INIT_SCRIPT,
+							polyptr->dir, ipath, (char *)NULL) < 0)
+					exit(1);
+			} else if (pid > 0) {
+				while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
+						(errno == EINTR));
+				if (rc == (pid_t)-1) {
+					pam_syslog(idata->pamh, LOG_ERR, "waitpid failed- %m");
+					rc = PAM_SESSION_ERR;
+					goto out;
+				}
+				if (!WIFEXITED(status) || WIFSIGNALED(status) > 0) {
+					pam_syslog(idata->pamh, LOG_ERR,
+							"Error initializing instance");
+					rc = PAM_SESSION_ERR;
+					goto out;
+				}
+			} else if (pid < 0) {
+				pam_syslog(idata->pamh, LOG_ERR,
+						"Cannot fork to run namespace init script, %m");
+				rc = PAM_SESSION_ERR;
+				goto out;
+			}
+		}
+	}
+	rc = PAM_SUCCESS;
+out:
+   (void) signal(SIGCHLD, osighand);
+
+   return rc;
+}
 
 /*
  * Create polyinstantiated instance directory (ipath).
@@ -631,16 +670,14 @@ static int create_dirs(const struct polydir_s *polyptr, char *ipath,
 	struct instance_data *idata)
 #endif
 {
-    struct stat statbuf, newstatbuf, instpbuf;
-    int fd, status;
-    char *inst_parent, *trailing_slash;
-    pid_t rc, pid;
-    sighandler_t osighand = NULL;
+	struct stat statbuf, newstatbuf;
+	int rc, fd;
 
     /*
      * stat the directory to polyinstantiate, so its owner-group-mode
      * can be propagated to instance directory
      */
+	rc = PAM_SUCCESS;
     if (stat(polyptr->dir, &statbuf) < 0) {
         pam_syslog(idata->pamh, LOG_ERR, "Error stating %s, %m",
 		polyptr->dir);
@@ -655,49 +692,12 @@ static int create_dirs(const struct polydir_s *polyptr, char *ipath,
 		polyptr->dir);
         return PAM_SESSION_ERR;
     }
-
-    /*
-     * stat the instance parent path to make sure it exists
-     * and is a directory. Check that its mode is 000 (unless the
-     * admin explicitly instructs to ignore the instance parent
-     * mode by the "ignore_instance_parent_mode" argument).
-     */
-    inst_parent = (char *) malloc(strlen(ipath)+1);
-    if (!inst_parent) {
-	pam_syslog(idata->pamh, LOG_ERR, "Error allocating pathname string");
-        return PAM_SESSION_ERR;
-    }
-
-    strcpy(inst_parent, ipath);
-    trailing_slash = strrchr(inst_parent, '/');
-    if (trailing_slash)
-        *trailing_slash = '\0';
-
-    if (stat(inst_parent, &instpbuf) < 0) {
-        pam_syslog(idata->pamh, LOG_ERR, "Error stating %s, %m", inst_parent);
-        free(inst_parent);
-        return PAM_SESSION_ERR;
-    }
-
-    /*
-     * Make sure we are dealing with a directory
-     */
-    if (!S_ISDIR(instpbuf.st_mode)) {
-	pam_syslog(idata->pamh, LOG_ERR, "Instance parent %s is not a dir",
-		inst_parent);
-        free(inst_parent);
-        return PAM_SESSION_ERR;
-    }
-
-    if ((idata->flags & PAMNS_IGN_INST_PARENT_MODE) == 0) {
-        if (instpbuf.st_mode & (S_IRWXU|S_IRWXG|S_IRWXO)) {
-	    pam_syslog(idata->pamh, LOG_ERR, "Mode of inst parent %s not 000",
-		    inst_parent);
-            free(inst_parent);
-            return PAM_SESSION_ERR;
-        }
-    }
-    free(inst_parent);
+	
+	/*
+	 * Check to make sure instance parent is valid.
+	 */
+	if (check_inst_parent(ipath, idata))
+		return PAM_SESSION_ERR;
 
     /*
      * Create instance directory and set its security context to the context
@@ -779,56 +779,8 @@ static int create_dirs(const struct polydir_s *polyptr, char *ipath,
      */
 
 inst_init:
-    osighand = signal(SIGCHLD, SIG_DFL);
-    if (osighand == SIG_ERR) {
-        pam_syslog(idata->pamh, LOG_ERR, "Cannot set signal value");
-        return PAM_SESSION_ERR;
-    }
-
-    if (access(NAMESPACE_INIT_SCRIPT, F_OK) == 0) {
-        if (access(NAMESPACE_INIT_SCRIPT, X_OK) < 0) {
-            if (idata->flags & PAMNS_DEBUG)
-                pam_syslog(idata->pamh, LOG_ERR,
-                           "Namespace init script not executable");
-            (void) signal(SIGCHLD, osighand);
-            return PAM_SESSION_ERR;
-        } else {
-            pid = fork();
-	    if (pid == 0) {
-#ifdef WITH_SELINUX
-		if (idata->flags & PAMNS_SELINUX_ENABLED) {
-		    if (setexeccon(NULL) < 0)
-			exit(1);
-		}
-#endif
-	        if (execl(NAMESPACE_INIT_SCRIPT, NAMESPACE_INIT_SCRIPT,
-		          polyptr->dir, ipath, (char *)NULL) < 0)
-		    exit(1);
-            } else if (pid > 0) {
-                while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
-                       (errno == EINTR));
-                if (rc == (pid_t)-1) {
-                    pam_syslog(idata->pamh, LOG_ERR, "waitpid failed- %m");
-                    (void) signal(SIGCHLD, osighand);
-                    return PAM_SESSION_ERR;
-                }
-                if (!WIFEXITED(status) || WIFSIGNALED(status) > 0) {
-                    pam_syslog(idata->pamh, LOG_ERR,
-                               "Error initializing instance");
-                    (void) signal(SIGCHLD, osighand);
-                    return PAM_SESSION_ERR;
-                }
-	    } else if (pid < 0) {
-                pam_syslog(idata->pamh, LOG_ERR,
-                           "Cannot fork to run namespace init script, %m");
-                (void) signal(SIGCHLD, osighand);
-                return PAM_SESSION_ERR;
-	    }
-        }
-    }
-
-    (void) signal(SIGCHLD, osighand);
-    return PAM_SUCCESS;
+	rc = inst_init(polyptr, ipath, idata); 
+    return rc;
 }
 
 
