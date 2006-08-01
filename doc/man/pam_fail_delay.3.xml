@@ -50,13 +50,13 @@
       control is returned to the service application.
     </para>
     <para>
-      When using this function the application programmer should check if
-      it is available with:
+      When using this function the programmer should check if it is
+      available with:
     </para>
       <programlisting>
-#ifdef PAM_FAIL_DELAY
+#ifdef HAVE_PAM_FAIL_DELAY
     ....
-#endif /* PAM_FAIL_DELAY */
+#endif /* HAVE_PAM_FAIL_DELAY */
       </programlisting>
 
     <para>
@@ -93,7 +93,7 @@ void (*delay_fn)(int retval, unsigned usec_delay, void *appdata_ptr);
       <citerefentry>
         <refentrytitle>pam_set_item</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>.
-      Note, if PAM_FAIL_DELAY is unset (or set to NULL), then no delay
+      Note, if PAM_FAIL_DELAY item is unset (or set to NULL), then no delay
       will be performed.
     </para>
   </refsect1>
@@ -116,6 +116,9 @@ void (*delay_fn)(int retval, unsigned usec_delay, void *appdata_ptr);
     <para>
       To minimize the effectiveness of such attacks, it is desirable to
       introduce a random delay in a failed authentication process.
+      Preferable this value should be set by the application or a special
+      PAM module. Standard PAM modules should not modify the delay
+      unconditional.
     </para>
   </refsect1>
 
@@ -195,5 +198,5 @@ module #2:    pam_fail_delay (pamh, 4000000);
       Linux-PAM extension.
     </para>
   </refsect1>
-  
+
 </refentry>

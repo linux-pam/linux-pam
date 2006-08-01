@@ -1,5 +1,10 @@
 2006-08-01  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* doc/man/pam_fail_delay.3.xml: Fix some Bugs and enhance
+	rationale about when this function should be used and when not.
+
+2006-08-01  Thorsten Kukuk  <kukuk@thkukuk.de>
+
 	* libpam/Makefile.am: Bump patchlevel of libpam.
 	* libpam/pam_dispatch.c (_pam_dispatch_aux): If [return=die]
 	or [return=bad] is used, don't return PAM_IGNORE. Based on

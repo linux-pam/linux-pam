@@ -1,11 +1,11 @@
 .\"     Title: pam_fail_delay
 .\"    Author: 
 .\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/27/2006
+.\"      Date: 08/01/2006
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM_FAIL_DELAY" "3" "06/27/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_FAIL_DELAY" "3" "08/01/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -37,13 +37,13 @@ all authentication modules have been called, but
 \fIbefore\fR
 control is returned to the service application.
 .PP
-When using this function the application programmer should check if it is available with:
+When using this function the programmer should check if it is available with:
 .sp
 .RS 3n
 .nf
-#ifdef PAM_FAIL_DELAY
+#ifdef HAVE_PAM_FAIL_DELAY
     ....
-#endif /* PAM_FAIL_DELAY */
+#endif /* HAVE_PAM_FAIL_DELAY */
       
 .fi
 .RE
@@ -73,7 +73,7 @@ that the application has associated with the current
 \fIpamh\fR. This last value was set by the application when it called
 \fBpam_start\fR(3)
 or explicitly with
-\fBpam_set_item\fR(3). Note, if PAM_FAIL_DELAY is unset (or set to NULL), then no delay will be performed.
+\fBpam_set_item\fR(3). Note, if PAM_FAIL_DELAY item is unset (or set to NULL), then no delay will be performed.
 .SH "RATIONALE"
 .PP
 It is often possible to attack an authentication scheme by exploiting the time it takes the scheme to deny access to an applicant user. In cases of
@@ -84,7 +84,7 @@ dictionary attack \-\- with an automated process, the attacker tries all possibl
 \fIcovert channel\fR
 of useful information.
 .PP
-To minimize the effectiveness of such attacks, it is desirable to introduce a random delay in a failed authentication process.
+To minimize the effectiveness of such attacks, it is desirable to introduce a random delay in a failed authentication process. Preferable this value should be set by the application or a special PAM module. Standard PAM modules should not modify the delay unconditional.
 .SH "EXAMPLE"
 .PP
 For example, a login application may require a failure delay of roughly 3 seconds. It will contain the following code:
