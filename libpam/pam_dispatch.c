@@ -3,7 +3,6 @@
 /*
  * Copyright (c) 1998, 2005 Andrew G. Morgan <morgan@kernel.org>
  *
- * $Id$
  */
 
 #include "pam_private.h"
@@ -209,7 +208,11 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 #endif /* PAM_FAIL_NOW_ON */
 	    if ( impression != _PAM_NEGATIVE ) {
 		impression = _PAM_NEGATIVE;
-		status = retval;
+	        /* Don't return with PAM_IGNORE as status */
+	        if ( retval == PAM_IGNORE )
+		    status = PAM_MUST_FAIL_CODE;
+		else
+		    status = retval;
 	    }
 	    if ( action == _PAM_ACTION_DIE ) {
 		goto decision_made;

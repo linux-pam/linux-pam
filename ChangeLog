@@ -1,3 +1,10 @@
+2006-08-01  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpam/Makefile.am: Bump patchlevel of libpam.
+	* libpam/pam_dispatch.c (_pam_dispatch_aux): If [return=die]
+	or [return=bad] is used, don't return PAM_IGNORE. Based on
+        patch by Tomas Mraz <t8m@centrum.cz>, [BRC#196859].
+
 2006-07-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* ABOUT-NLS: Upgrade to gettext-0.15.

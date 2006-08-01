@@ -20,7 +20,7 @@ include_HEADERS = $(addprefix include/security/, _pam_compat.h _pam_macros.h _pa
 noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h \
 		pam_modutil_private.h pam_static_modules.h
 
-libpam_la_LDFLAGS = -no-undefined -version-info 81:4:81 @LIBAUDIT@
+libpam_la_LDFLAGS = -no-undefined -version-info 81:5:81 @LIBAUDIT@
 if STATIC_MODULES
   libpam_la_LDFLAGS += `ls ../modules/pam_*/*.lo` \
 	@LIBDB@ @LIBCRYPT@ @LIBNSL@ @LIBCRACK@ -lutil
