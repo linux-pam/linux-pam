@@ -21,4 +21,4 @@ aclocal.m4
 ltmain.sh
 compile
 missing
-mkinstalldirs
+depcomp
