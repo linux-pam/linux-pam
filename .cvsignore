@@ -19,3 +19,6 @@ stamp-h1
 configure
 aclocal.m4
 ltmain.sh
+compile
+missing
+mkinstalldirs
