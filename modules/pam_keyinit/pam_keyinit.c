@@ -31,8 +31,9 @@
 #define KEYCTL_LINK			8 /* link a key into a keyring */
 
 static int my_session_keyring;
+static int session_counter;
 static int do_revoke;
-static int xdebug = 1;
+static int xdebug = 0;
 
 static void debug(pam_handle_t *pamh, const char *fmt, ...)
 	__attribute__((format(printf, 2, 3)));
@@ -95,10 +96,8 @@ static int init_keyrings(pam_handle_t *pamh, int force)
 
 		/* if the user session keyring is our keyring, then we don't
 		 * need to do anything if we're not forcing */
-		if (session != usession) {
-			do_revoke = 0;
+		if (session != usession)
 			return PAM_SUCCESS;
-		}
 	}
 
 	/* create a session keyring, discarding the old one */
@@ -132,6 +131,8 @@ static void kill_keyrings(pam_handle_t *pamh)
 		syscall(__NR_keyctl,
 			KEYCTL_REVOKE,
 			my_session_keyring);
+
+		my_session_keyring = 0;
 	}
 }
 
@@ -154,6 +155,16 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 		else if (strcmp(argv[loop], "revoke") == 0)
 			do_revoke = 1;
 	}
+
+	/* don't do anything if already created a keyring (will be called
+	 * multiple times if mentioned more than once in a pam script)
+	 */
+	session_counter++;
+
+	debug(pamh, "OPEN %d", session_counter);
+
+	if (my_session_keyring > 0)
+		return PAM_SUCCESS;
 
 	/* look up the target UID */
 	ret = pam_get_user(pamh, &username, "key user");
@@ -202,7 +213,12 @@ PAM_EXTERN
 int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 			 int argc UNUSED, const char **argv UNUSED)
 {
-	if (do_revoke)
+	debug(pamh, "CLOSE %d,%d,%d",
+	      session_counter, my_session_keyring, do_revoke);
+
+	session_counter--;
+
+	if (session_counter == 0 && my_session_keyring > 0 && do_revoke)
 		kill_keyrings(pamh);
 
 	return PAM_SUCCESS;

@@ -1,3 +1,9 @@
+2006-08-03  David Howells <dhowells@redhat.com>
+
+	* modules/pam_keyinit/pam_keyinit.c: Debug should be off by default.
+	(init_keyrings): Properly handle multiple invocations of the module.
+	(kill_keyrings, pam_sm_open_session, pam_sm_close_session): Likewise.
+
 2006-08-03  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_succeed_if/pam_succeed_if.c (evaluate_inlist):
