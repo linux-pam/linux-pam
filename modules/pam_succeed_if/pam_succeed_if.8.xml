@@ -97,7 +97,8 @@
     <para>
       Available fields are <emphasis>user</emphasis>,
       <emphasis>uid</emphasis>, <emphasis>gid</emphasis>,
-      <emphasis>shell</emphasis> and <emphasis>home</emphasis>:
+      <emphasis>shell</emphasis>, <emphasis>home</emphasis>
+      and <emphasis>service</emphasis>:
     </para>
 
     <variablelist>
@@ -176,6 +177,18 @@
         </listitem>
       </varlistentry>
       <varlistentry>
+        <term><option>field in item:item:...</option></term>
+        <listitem>
+          <para>Field is contained in the list of items separated by colons.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>field notin item:item:...</option></term>
+        <listitem>
+          <para>Field is not contained in the list of items separated by colons.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
         <term><option>user ingroup group</option></term>
         <listitem>
           <para>User is in given group.</para>
@@ -185,6 +198,18 @@
         <term><option>user notingroup group</option></term>
         <listitem>
           <para>User is not in given group.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>user innetgr netgroup</option></term>
+        <listitem>
+          <para>(user,host) is in given netgroup.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>user notinnetgr group</option></term>
+        <listitem>
+          <para>(user,host) is not in given netgroup.</para>
         </listitem>
       </varlistentry>
     </variablelist>

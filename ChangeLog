@@ -1,3 +1,12 @@
+2006-08-03  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_succeed_if/pam_succeed_if.c (evaluate_inlist):
+	New function for list matching.
+	(evaluate_notinlist): Likewise.
+	(evaluate): Add service value match, list matching.
+	* modules/pam_succeed_if/pam_succeed_if.8.xml: Document the
+	features.
+
 2006-08-01  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam_fail_delay.3.xml: Fix some Bugs and enhance

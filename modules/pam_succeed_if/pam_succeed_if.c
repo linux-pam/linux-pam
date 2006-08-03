@@ -184,6 +184,27 @@ evaluate_noglob(const char *left, const char *right)
 {
 	return (fnmatch(right, left, 0) != 0) ? PAM_SUCCESS : PAM_AUTH_ERR;
 }
+/* Check for list match. */
+static int
+evaluate_inlist(const char *left, const char *right)
+{
+	char *p;
+	if ((p=strstr(right, left)) == NULL)
+		return PAM_AUTH_ERR;
+	if (p == right || *(p-1) == ':') { /* ':' is a list separator */
+		p += strlen(left);
+		if (*p == '\0' || *p == ':') {
+		    return PAM_SUCCESS;
+		}
+	}
+	return PAM_AUTH_ERR;
+}
+/* Check for list mismatch. */
+static int
+evaluate_notinlist(const char *left, const char *right)
+{
+	return evaluate_inlist(left, right) != PAM_SUCCESS ? PAM_SUCCESS : PAM_AUTH_ERR;
+}
 /* Return PAM_SUCCESS if the user is in the group. */
 static int
 evaluate_ingroup(pam_handle_t *pamh, const char *user, const char *group)
@@ -250,6 +271,13 @@ evaluate(pam_handle_t *pamh, int debug,
 		snprintf(buf, sizeof(buf), "%s", pwd->pw_dir);
 		left = buf;
 	}
+	if (strcasecmp(left, "service") == 0) {
+		const void *svc;
+		if (pam_get_item(pamh, PAM_SERVICE, &svc) != PAM_SUCCESS)
+			svc = "";
+		snprintf(buf, sizeof(buf), "%s", svc);
+		left = buf;
+	}
 	/* If we have no idea what's going on, return an error. */
 	if (left != buf) {
 		pam_syslog(pamh, LOG_CRIT, "unknown attribute \"%s\"", left);
@@ -304,6 +332,13 @@ evaluate(pam_handle_t *pamh, int debug,
 	if ((strcasecmp(qual, "!~") == 0) ||
 	    (strcasecmp(qual, "noglob") == 0)) {
 		return evaluate_noglob(left, right);
+	}
+	/* Attribute value matches item in list. */
+	if (strcasecmp(qual, "in") == 0) {
+		return evaluate_inlist(left, right);
+	}
+	if (strcasecmp(qual, "notin") == 0) {
+		return evaluate_notinlist(left, right);
 	}
 	/* User is in this group. */
 	if (strcasecmp(qual, "ingroup") == 0) {
