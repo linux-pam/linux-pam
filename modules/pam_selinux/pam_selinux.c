@@ -256,10 +256,11 @@ security_label_tty(pam_handle_t *pamh, char *tty,
 
   if (getfilecon(ptr, &prev_context) < 0)
   {
-    pam_syslog(pamh, LOG_NOTICE,
+    if(errno != ENOENT)
+      pam_syslog(pamh, LOG_NOTICE,
 	     "Warning!  Could not get current context for %s, not relabeling: %m",
 	     ptr);
-      return NULL;
+    return NULL;
   }
   if( security_compute_relabel(usercon,prev_context,SECCLASS_CHR_FILE,
                                &newdev_context)!=0)

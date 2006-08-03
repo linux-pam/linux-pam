@@ -13,6 +13,9 @@
 	* modules/pam_succeed_if/pam_succeed_if.8.xml: Document the
 	features.
 
+	* modules/pam_selinux/pam_selinux.c (security_label_tty): Don't log
+	relabelling error when the tty device doesn't exist (ENOENT).
+
 2006-08-01  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam_fail_delay.3.xml: Fix some Bugs and enhance
