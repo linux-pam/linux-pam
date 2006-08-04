@@ -411,7 +411,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			pam_syslog(pamh, LOG_CRIT,
 				   "error retrieving information about user %lu",
 				   (unsigned long)getuid());
-			return PAM_SERVICE_ERR;
+			return PAM_USER_UNKNOWN;
 		}
 		user = pwd->pw_name;
 	} else {
@@ -430,7 +430,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			pam_syslog(pamh, LOG_CRIT,
 				   "error retrieving information about user %s",
 				   user);
-			return PAM_SERVICE_ERR;
+			return PAM_USER_UNKNOWN;
 		}
 	}
 

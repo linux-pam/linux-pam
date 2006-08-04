@@ -1,3 +1,8 @@
+2006-08-04 Ray Strode <rstrode@redhat.com>
+
+	* modules/pam_succeed_if/pam_succeed_if.c (pam_sm_authenticate):
+	Return PAM_USER_UNKNOWN instead of PAM_SERVICE_ERR where appropriate.
+
 2006-08-03  David Howells <dhowells@redhat.com>
 
 	* modules/pam_keyinit/pam_keyinit.c: Debug should be off by default.
