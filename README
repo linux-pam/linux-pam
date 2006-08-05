@@ -11,6 +11,12 @@ How to use it is as follows:
       ./configure <your-options>
       make
 
+To make sure everything was compiled correct, run:
+
+      make check
+
+If a test failes, you should not continue to install this build.
+
 Note, if you are worried - don't even think about doing the next line
 (most Linux distributions already support PAM out of the box, so if
 something goes wrong with installing the code from this version your
@@ -20,6 +26,12 @@ box may stop working..)
 
 That said, please report problems to the bug reporting database
 on sourceforge.net.
+
+You can run additional checks after installing by executing
+
+      make xtests
+
+as root.
 
 If you do not wish to make the modules dynamically loadable, but
 build a static libpam including all PAM modules, you have to call:

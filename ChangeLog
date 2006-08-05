@@ -1,15 +1,28 @@
-2006-08-04 Ray Strode <rstrode@redhat.com>
+2006-08-05 Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Generate xtests/Makefile.
+	* Makefile.am (SUBDIRS): Add xtests.
+	* README: Document make check and make xtests.
+	* xtests/Makefile.am: New.
+	* xtests/tst-pam_dispatch1.pamd: New.
+	* xtests/tst-pam_dispatch2.pamd: New.
+	* xtests/tst-pam_dispatch3.pamd: New.
+	* xtests/tst-pam_dispatch1.c: New.
+	* xtests/tst-pam_dispatch2.c: New.
+	* xtests/tst-pam_dispatch3.c: New.
+
+2006-08-04 Ray Strode  <rstrode@redhat.com>
 
 	* modules/pam_succeed_if/pam_succeed_if.c (pam_sm_authenticate):
 	Return PAM_USER_UNKNOWN instead of PAM_SERVICE_ERR where appropriate.
 
-2006-08-03  David Howells <dhowells@redhat.com>
+2006-08-03  David Howells  <dhowells@redhat.com>
 
 	* modules/pam_keyinit/pam_keyinit.c: Debug should be off by default.
 	(init_keyrings): Properly handle multiple invocations of the module.
 	(kill_keyrings, pam_sm_open_session, pam_sm_close_session): Likewise.
 
-2006-08-03  Tomas Mraz <t8m@centrum.cz>
+2006-08-03  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_succeed_if/pam_succeed_if.c (evaluate_inlist):
 	New function for list matching.

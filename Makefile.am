@@ -5,9 +5,9 @@
 AUTOMAKE_OPTIONS = 1.9 gnu dist-bzip2 check-news
 
 if STATIC_MODULES
-SUBDIRS = modules libpam libpamc libpam_misc tests po conf doc examples
+SUBDIRS = modules libpam libpamc libpam_misc tests po conf doc examples xtests
 else
-SUBDIRS = libpam tests libpamc libpam_misc modules po conf doc examples
+SUBDIRS = libpam tests libpamc libpam_misc modules po conf doc examples xtests
 endif
 
 CLEANFILES = *~
@@ -32,3 +32,8 @@ releasedocs:
 	tar jfc Linux-PAM-$(VERSION)-docs.tar.bz2 \
 		Linux-PAM-$(VERSION)/doc
 	rm -rf Linux-PAM-$(VERSION)
+
+xtests:
+	make -C xtests xtests
+
+.PHONY: xtests

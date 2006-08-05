@@ -38,7 +38,7 @@ quiet_success
 
 Conditions are three words: a field, a test, and a value to test for.
 
-Available fields are user, uid, gid, shell and home:
+Available fields are user, uid, gid, shell, home and service:
 
 field < number
 
@@ -80,6 +80,14 @@ field !~ glob
 
     Field does not match the given glob.
 
+field in item:item:...
+
+    Field is contained in the list of items separated by colons.
+
+field notin item:item:...
+
+    Field is not contained in the list of items separated by colons.
+
 user ingroup group
 
     User is in given group.
@@ -87,6 +95,14 @@ user ingroup group
 user notingroup group
 
     User is not in given group.
+
+user innetgr netgroup
+
+    (user,host) is in given netgroup.
+
+user notinnetgr group
+
+    (user,host) is not in given netgroup.
 
 EXAMPLES
 
