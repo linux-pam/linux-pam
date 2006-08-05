@@ -1,4 +1,7 @@
-2006-08-05 Thorsten Kukuk  <kukuk@thkukuk.de>
+2006-08-05  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_succeed_if/pam_succeed_if.c (evaluate): Cast
+	svc variable to char pointer for snprintf.
 
 	* configure.in: Generate xtests/Makefile.
 	* Makefile.am (SUBDIRS): Add xtests.

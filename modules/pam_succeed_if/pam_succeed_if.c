@@ -275,7 +275,7 @@ evaluate(pam_handle_t *pamh, int debug,
 		const void *svc;
 		if (pam_get_item(pamh, PAM_SERVICE, &svc) != PAM_SUCCESS)
 			svc = "";
-		snprintf(buf, sizeof(buf), "%s", svc);
+		snprintf(buf, sizeof(buf), "%s", (const char *)svc);
 		left = buf;
 	}
 	/* If we have no idea what's going on, return an error. */
