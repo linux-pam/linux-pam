@@ -1,5 +1,7 @@
 2006-08-05  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* release version 0.99.6.0
+
 	* modules/pam_limits/pam_limits.c (pam_sm_open_session): Use
 	pam_modutil_getpwnam instead of getpwnam.
 
