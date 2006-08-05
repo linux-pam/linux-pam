@@ -615,7 +615,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
         return PAM_SESSION_ERR;
      }
 
-    pwd = getpwnam(user_name);
+    pwd = pam_modutil_getpwnam(pamh, user_name);
     if (!pwd) {
         if (ctrl & PAM_DEBUG_ARG)
             pam_syslog(pamh, LOG_WARNING,
