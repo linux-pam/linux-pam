@@ -1,7 +1,8 @@
 
+#include <stdio.h>
+#include <strings.h>
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
-#include <stdio.h>
 
 static struct pam_conv conv = {
     misc_conv,

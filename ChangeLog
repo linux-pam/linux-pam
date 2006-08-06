@@ -1,3 +1,12 @@
+2006-08-06  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_umask/pam_umask.c (setup_limits_from_gecos):
+	Add error handling.
+	* modules/pam_umask/pam_umask.8.xml: Document silent option.
+
+	* xtests/Makefile.am: Fix includes for bootstrapping.
+	Reported by Greg Schafer <gschafer@zip.com.au>.
+
 2006-08-05  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.6.0

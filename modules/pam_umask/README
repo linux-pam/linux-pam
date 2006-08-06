@@ -29,6 +29,10 @@ debug
 
     Print debug information.
 
+silent
+
+    Don't print informative messages.
+
 usergroups
 
     If the user is not root, and the user ID is equal to the group ID, and the

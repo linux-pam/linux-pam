@@ -39,6 +39,7 @@
 #include <grp.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <errno.h>
 #include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
@@ -57,6 +58,7 @@
 struct options_t {
   int debug;
   int usergroups;
+  int silent;
   char *umask;
 };
 typedef struct options_t options_t;
@@ -73,6 +75,8 @@ parse_option (const pam_handle_t *pamh, const char *argv, options_t *options)
     options->umask = strdup (&argv[6]);
   else if (strcasecmp (argv, "usergroups") == 0)
     options->usergroups = 1;
+  else if (strcasecmp (argv, "silent") == 0)
+    options->silent = 1;
   else
     pam_syslog (pamh, LOG_ERR, "Unknown option: `%s'", argv);
 }
@@ -211,13 +215,26 @@ setup_limits_from_gecos (pam_handle_t *pamh, options_t *options,
       if (strncasecmp (cp, "umask=", 6) == 0)
 	umask (strtol (cp + 6, NULL, 8) & 0777);
       else if (strncasecmp (cp, "pri=", 4) == 0)
-	nice (strtol (cp + 4, NULL, 10));
+	{
+	  errno = 0;
+	  if (nice (strtol (cp + 4, NULL, 10)) == -1 && errno != 0)
+	    {
+	      if (!options->silent || options->debug)
+		pam_error (pamh, "nice failed: %m\n");
+	      pam_syslog (pamh, LOG_ERR, "nice failed: %m");
+	    }
+	}
       else if (strncasecmp (cp, "ulimit=", 7) == 0)
 	{
 	  struct rlimit rlimit_fsize;
 	  rlimit_fsize.rlim_cur = 512L * strtol (cp + 7, NULL, 10);
 	  rlimit_fsize.rlim_max = rlimit_fsize.rlim_cur;
-	  setrlimit (RLIMIT_FSIZE, &rlimit_fsize);
+	  if (setrlimit (RLIMIT_FSIZE, &rlimit_fsize) == -1)
+	    {
+	      if (!options->silent || options->debug)
+		pam_error (pamh, "setrlimit failed: %m\n");
+	      pam_syslog (pamh, LOG_ERR, "setrlimit failed: %m");
+	    }
         }
     }
 }
@@ -233,6 +250,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
   int retval = PAM_SUCCESS;
 
   get_options (pamh, &options, argc, argv);
+  if (flags & PAM_SILENT)
+    options.silent = 1;
 
   /* get the user name. */
   if ((retval = pam_get_user (pamh, &name, NULL)) != PAM_SUCCESS)

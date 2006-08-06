@@ -2,8 +2,10 @@
 # Copyright (c) 2006 Thorsten Kukuk <kukuk@suse.de>
 #
 
-AM_CFLAGS = -DLIBPAM_COMPILE -I$(top_srcdir)/libpam/include
-AM_LDFLAGS = -L$(top_builddir)/libpam -lpam
+AM_CFLAGS = -DLIBPAM_COMPILE -I$(top_srcdir)/libpam/include \
+	-I$(top_srcdir)/libpamc/include -I$(top_srcdir)/libpam_misc/include
+AM_LDFLAGS = -L$(top_builddir)/libpam -lpam \
+	-L$(top_builddir)/libpam_misc -lpam_misc
 
 CLEANFILES = *~
 
@@ -13,10 +15,6 @@ EXTRA_DIST = tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3
 
 noinst_PROGRAMS = $(XTESTS)
-
-tst_pam_dispatch1_LDADD = -L$(top_builddir)/libpam -lpam -ldl -L$(top_builddir)/libpam_misc -lpam_misc
-tst_pam_dispatch2_LDADD = -L$(top_builddir)/libpam -lpam -ldl -L$(top_builddir)/libpam_misc -lpam_misc
-tst_pam_dispatch3_LDADD = -L$(top_builddir)/libpam -lpam -ldl -L$(top_builddir)/libpam_misc -lpam_misc
 
 xtests: $(XTESTS)
 	@failed=0; pass=0; all=0; \

@@ -1,11 +1,11 @@
 .\"     Title: pam_umask
 .\"    Author: 
 .\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/09/2006
+.\"      Date: 08/06/2006
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM_UMASK" "8" "06/09/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_UMASK" "8" "08/06/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -14,7 +14,7 @@
 pam_umask \- PAM module to set the file mode creation mask
 .SH "SYNOPSIS"
 .HP 13
-\fBpam_umask.so\fR [debug] [usergroups] [umask=\fImask\fR]
+\fBpam_umask.so\fR [debug] [silent] [usergroups] [umask=\fImask\fR]
 .SH "DESCRIPTION"
 .PP
 pam_umask is a PAM module to set the file mode creation mask of the current environment. The umask affects the default permissions assigned to newly created files.
@@ -45,6 +45,9 @@ UMASK entry from /etc/login.defs
 .TP 3n
 \fBdebug\fR
 Print debug information.
+.TP 3n
+\fBsilent\fR
+Don't print informative messages.
 .TP 3n
 \fBusergroups\fR
 If the user is not root, and the user ID is equal to the group ID, and the username is the same as primary group name, the umask group bits are set to be the same as owner bits (examples: 022 \-> 002, 077 \-> 007).
