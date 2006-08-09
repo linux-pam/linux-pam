@@ -1,3 +1,9 @@
+2006-08-09  David Howells  <dhowells@redhat.com>
+
+	* modules/pam_keyinit/pam_keyinit.c (kill_keyrings): Set real uid
+	to user's before revoking.
+	(pam_sm_open_session): Remember the uid.
+
 2006-08-06  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_umask/pam_umask.c (setup_limits_from_gecos):
@@ -63,7 +69,7 @@
 	* libpam/Makefile.am: Bump patchlevel of libpam.
 	* libpam/pam_dispatch.c (_pam_dispatch_aux): If [return=die]
 	or [return=bad] is used, don't return PAM_IGNORE. Based on
-        patch by Tomas Mraz <t8m@centrum.cz>, [BRC#196859].
+	patch by Tomas Mraz <t8m@centrum.cz>, [BRC#196859].
 
 2006-07-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
