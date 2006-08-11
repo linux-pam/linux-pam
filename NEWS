@@ -1,6 +1,11 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
+Release 0.99.6.1
+
+* Fix bootstrapping problems.
+* Bug fixes: pam_keyinit, pam_umask
+
 Release 0.99.6.0
 
 * pam_namespace: Code cleanup, add init script to tar archive.

@@ -1,3 +1,7 @@
+2006-08-09  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 0.99.6.1
+
 2006-08-09  David Howells  <dhowells@redhat.com>
 
 	* modules/pam_keyinit/pam_keyinit.c (kill_keyrings): Set real uid
