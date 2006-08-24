@@ -337,7 +337,7 @@ last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user)
 		  D(("unable to create %s file", _PATH_LASTLOG));
 		  return PAM_SERVICE_ERR;
 	     }
-	     pam_syslog(pamh, LOG_WARN,
+	     pam_syslog(pamh, LOG_WARNING,
 			"file %s created", _PATH_LASTLOG);
 	     D(("file %s created", _PATH_LASTLOG));
 	} else {
