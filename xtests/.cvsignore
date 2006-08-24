@@ -5,3 +5,5 @@ Makefile.in
 tst-pam_dispatch1
 tst-pam_dispatch2
 tst-pam_dispatch3
+tst-pam_dispatch4
+tst-pam_cracklib1

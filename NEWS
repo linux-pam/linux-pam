@@ -1,10 +1,18 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
+Release 0.99.6.2
+
+* pam_lastlog: Don't refuse login if lastlog file got lost.
+* pam_cracklib: Fix a user triggerable crash.
+* documentation: Regenerate with fixed docbook stylesheet.
+
+
 Release 0.99.6.1
 
 * Fix bootstrapping problems.
 * Bug fixes: pam_keyinit, pam_umask
+
 
 Release 0.99.6.0
 
@@ -13,6 +21,7 @@ Release 0.99.6.0
 * Add xtests (to run after installation).
 * Documentation: Convert sgml guides to XML, unify documentation
   for PAM functions and modules.
+
 
 Release 0.99.5.0
 

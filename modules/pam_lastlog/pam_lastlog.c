@@ -12,6 +12,7 @@
 
 #include <fcntl.h>
 #include <time.h>
+#include <errno.h>
 #ifdef HAVE_UTMP_H
 # include <utmp.h>
 #else
@@ -327,9 +328,23 @@ last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user)
     /* obtain the last login date and all the relevant info */
     last_fd = open(_PATH_LASTLOG, O_RDWR);
     if (last_fd < 0) {
-	pam_syslog(pamh, LOG_ERR, "unable to open %s: %m", _PATH_LASTLOG);
-	D(("unable to open %s file", _PATH_LASTLOG));
-	return PAM_SERVICE_ERR;
+        if (errno == ENOENT) {
+	     last_fd = open(_PATH_LASTLOG, O_RDWR|O_CREAT,
+                            S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+             if (last_fd < 0) {
+	          pam_syslog(pamh, LOG_ERR,
+                             "unable to create %s: %m", _PATH_LASTLOG);
+		  D(("unable to create %s file", _PATH_LASTLOG));
+		  return PAM_SERVICE_ERR;
+	     }
+	     pam_syslog(pamh, LOG_WARN,
+			"file %s created", _PATH_LASTLOG);
+	     D(("file %s created", _PATH_LASTLOG));
+	} else {
+	  pam_syslog(pamh, LOG_ERR, "unable to open %s: %m", _PATH_LASTLOG);
+	  D(("unable to open %s file", _PATH_LASTLOG));
+	  return PAM_SERVICE_ERR;
+	}
     }
 
     if (lseek(last_fd, sizeof(struct lastlog) * (off_t) uid, SEEK_SET) < 0) {
