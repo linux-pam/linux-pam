@@ -1,3 +1,8 @@
+2006-08-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* xtests/tst-pam_dispatch4.c: New test.
+	* xtests/tst-pam_dispatch4.pamd: PAM config for new test.
+
 2006-08-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.6.1
