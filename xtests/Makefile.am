@@ -10,10 +10,11 @@ AM_LDFLAGS = -L$(top_builddir)/libpam -lpam \
 CLEANFILES = *~
 
 EXTRA_DIST = tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
-	tst-pam_dispatch3.pamd tst-pam_dispatch4.pamd
+	tst-pam_dispatch3.pamd tst-pam_dispatch4.pamd \
+	tst-pam_cracklib1.pamd
 
 XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
-	tst-pam_dispatch4
+	tst-pam_dispatch4 tst-pam_cracklib1
 
 noinst_PROGRAMS = $(XTESTS)
 

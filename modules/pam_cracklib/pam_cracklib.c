@@ -668,6 +668,12 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
                 continue;
             }
 
+	    if (retval != PAM_SUCCESS) {
+	      if (ctrl && PAM_DEBUG_ARG)
+                pam_syslog(pamh,LOG_DEBUG,"unable to obtain retyped password");
+	      continue;
+	    }
+
             /* Hopefully now token1 and token2 the same password ... */
             if (strcmp(token1,token2) != 0) {
                 /* tell the user */

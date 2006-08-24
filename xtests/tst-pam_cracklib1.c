@@ -1,0 +1,99 @@
+
+#include <stdio.h>
+#include <string.h>
+#include <security/pam_appl.h>
+
+/* A conversation function which uses an internally-stored value for
+   the responses. */
+static int
+fake_conv (int num_msg, const struct pam_message **msgm,
+	   struct pam_response **response, void *appdata_ptr)
+{
+  static int calls = 0;
+  struct pam_response *reply;
+  int count;
+
+  /* Sanity test. */
+  if (num_msg <= 0)
+    return PAM_CONV_ERR;
+
+  /* Allocate memory for the responses. */
+  reply = calloc (num_msg, sizeof (struct pam_response));
+  if (reply == NULL)
+    return PAM_CONV_ERR;
+
+  /* Each prompt elicits the same response. */
+  for (count = 0; count < num_msg; ++count)
+    {
+      reply[count].resp_retcode = 0;
+      /* first call get a password, second one NULL */
+      if (calls)
+	reply[count].resp = NULL;
+      else
+	{
+	  ++calls;
+	  reply[count].resp = strdup ("Kindergarten");
+	}
+    }
+
+  /* Set the pointers in the response structure and return. */
+  *response = reply;
+  return PAM_SUCCESS;
+}
+
+static struct pam_conv conv = {
+    fake_conv,
+    NULL
+};
+
+
+/* Check that errors of optional modules are ignored and that
+   required modules after a sufficient one are not executed.  */
+
+int
+main(int argc, char *argv[])
+{
+  pam_handle_t *pamh=NULL;
+  const char *user="root";
+  int retval;
+  int debug = 0;
+
+  if (argc > 1 && strcmp (argv[1], "-d") == 0)
+    debug = 1;
+
+  retval = pam_start("tst-pam_cracklib1", user, &conv, &pamh);
+  if (retval != PAM_SUCCESS)
+    {
+      if (debug)
+	fprintf (stderr, "cracklib1: pam_start returned %d\n", retval);
+      return 1;
+    }
+
+  /* Try one, first input is correct, second is NULL */
+  retval = pam_chauthtok (pamh, 0);
+  if (retval != PAM_AUTHTOK_RECOVERY_ERR)
+    {
+      if (debug)
+	fprintf (stderr, "cracklib1-1: pam_chauthtok returned %d\n", retval);
+      return 1;
+    }
+
+  /* Try two, first input is NULL */
+  retval = pam_chauthtok (pamh, 0);
+  if (retval != PAM_AUTHTOK_RECOVERY_ERR)
+    {
+      if (debug)
+        fprintf (stderr, "cracklib1-2: pam_chauthtok returned %d\n", retval);
+      return 1;
+    }
+
+
+  retval = pam_end (pamh,retval);
+  if (retval != PAM_SUCCESS)
+    {
+      if (debug)
+	fprintf (stderr, "cracklib1: pam_end returned %d\n", retval);
+      return 1;
+    }
+  return 0;
+}

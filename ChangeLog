@@ -1,5 +1,13 @@
 2006-08-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_cracklib/pam_cracklib.c (pam_sm_chauthtok): Check
+	for error from getting second token.
+	* xtests/Makefile.am: Add tst-pam_cracklib1
+	* xtests/tst-pam_cracklib1.c: New, check for pam_cracklib seg.fault.
+	* xtests/tst-pam_cracklib1.pamd: New, config for cracklib test.
+
+2006-08-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
 	* xtests/tst-pam_dispatch4.c: New test.
 	* xtests/tst-pam_dispatch4.pamd: PAM config for new test.
 
