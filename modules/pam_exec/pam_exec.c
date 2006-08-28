@@ -159,7 +159,8 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
 	  time_t tm = time (NULL);
 	  char *buffer = NULL;
 
-	  if ((i = open (logfile, O_CREAT|O_APPEND|O_WRONLY))  == -1)
+	  if ((i = open (logfile, O_CREAT|O_APPEND|O_WRONLY,
+	  		 S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)) == -1)
 	    {
 	      int err = errno;
 	      pam_syslog (pamh, LOG_ERR, "open of %s failed: %m",

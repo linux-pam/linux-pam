@@ -1,3 +1,8 @@
+2006-08-29  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* modules/pam_exec/pam_exec.c (call_exec): Add required third
+	argument to open() call with O_CREAT flag set.
+
 2006-08-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_cracklib/pam_cracklib.c (pam_sm_chauthtok): Remove
