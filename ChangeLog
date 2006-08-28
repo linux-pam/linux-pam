@@ -1,3 +1,8 @@
+2006-08-28  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_cracklib/pam_cracklib.c (pam_sm_chauthtok): Remove
+	duplicate code.
+
 2006-08-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.6.2

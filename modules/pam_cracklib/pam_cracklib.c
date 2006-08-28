@@ -661,13 +661,10 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
                  * tidy up the conversation (resp_retcode) is ignored
                  */
 	        _pam_drop(resp);
-            } else {
-                if (ctrl && PAM_DEBUG_ARG)
-                    pam_syslog(pamh, LOG_DEBUG,
-			       "unable to obtain the password a second time");
-                continue;
             }
 
+	    /* No else, the a retval == PAM_SUCCESS path can change retval
+	       to a failure code.  */
 	    if (retval != PAM_SUCCESS) {
 	      if (ctrl && PAM_DEBUG_ARG)
                 pam_syslog(pamh,LOG_DEBUG,"unable to obtain retyped password");
