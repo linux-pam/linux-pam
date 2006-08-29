@@ -1,0 +1,59 @@
+.\"     Title: pam_loginuid
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets vsnapshot_2006\-08\-24_0226 <http://docbook.sf.net/>
+.\"      Date: 08/29/2006
+.\"    Manual: Linux\-PAM Manual
+.\"    Source: Linux\-PAM Manual
+.\"
+.TH "PAM_LOGINUID" "8" "08/29/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_loginuid \- Record user's login uid to the process attribute
+.SH "SYNOPSIS"
+.HP 16
+\fBpam_loginuid.so\fR [require_auditd]
+.SH "DESCRIPTION"
+.PP
+The pam_loginuid module sets the loginuid process attribute for the process that was authenticated. This is necessary for applications to be correctly audited. This PAM module should only be used for entry point applications like: login, sshd, gdm, vsftpd, crond, at, and remote. There are probably other entry point applications besides these. You should not use it for applications like sudo or su as that defeats the purpose by changing the loginuid to the account they just switched to.
+.SH "OPTIONS"
+.TP 3n
+\fBrequire_auditd\fR
+This option, when given, will cause this module to query the audit daemon status and deny logins if it is not running.
+.SH "MODULE SERVICES PROVIDED"
+.PP
+The
+\fBsession\fR
+service is supported.
+.SH "RETURN VALUES"
+.PP
+.TP 3n
+PAM_SESSION_ERR
+An error occured during session management.
+.SH "EXAMPLES"
+.sp
+.RS 3n
+.nf
+#%PAM\-1.0
+auth       required     pam_unix.so
+auth       required     pam_nologin.so
+account    required     pam_unix.so
+password   required     pam_unix.so
+session    required     pam_unix.so
+session    required     pam_loginuid.so
+    
+.fi
+.RE
+.SH "SEE ALSO"
+.PP
+
+\fBpam.conf\fR(5),
+\fBpam.d\fR(8),
+\fBpam\fR(8),
+\fBauditctl\fR(8),
+\fBauditd\fR(8)
+.SH "AUTHOR"
+.PP
+pam_loginuid was written by Steve Grubb <sgrubb@redhat.com>

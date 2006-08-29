@@ -49,6 +49,7 @@ extern struct pam_module _pam_lastlog_modstruct;
 extern struct pam_module _pam_limits_modstruct;
 extern struct pam_module _pam_listfile_modstruct;
 extern struct pam_module _pam_localuser_modstruct;
+extern struct pam_module _pam_loginuid_modstruct;
 extern struct pam_module _pam_mail_modstruct;
 extern struct pam_module _pam_mkhomedir_modstruct;
 extern struct pam_module _pam_motd_modstruct;
@@ -99,6 +100,7 @@ static struct pam_module *static_modules[] = {
   &_pam_limits_modstruct,
   &_pam_listfile_modstruct,
   &_pam_localuser_modstruct,
+  &_pam_loginuid_modstruct,
   &_pam_mail_modstruct,
   &_pam_mkhomedir_modstruct,
   &_pam_motd_modstruct,

@@ -1,6 +1,11 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
+Release 0.99.6.3
+
+* pam_loginuid: New PAM module.
+
+
 Release 0.99.6.2
 
 * pam_lastlog: Don't refuse login if lastlog file got lost.

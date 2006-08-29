@@ -1,3 +1,21 @@
+2006-08-29  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/sag/pam_loginuid.xml: New.
+	* doc/sag/Linux-PAM_SAG.xml: Include pam_loginuid.xml.
+
+	* configure.in: Add modules/pam_loginuid/Makefile.
+	* modules/Makefile.am: Add pam_loginuid sub directory.
+
+	* libpam/pam_static_modules.h: Add pam_loginuid.
+
+	* modules/pam_loginuid/Makefile.am: New.
+	* modules/pam_loginuid/tst-pam_loginuid: New.
+	* modules/pam_loginuid/pam_loginuid.8.xml: New.
+	* modules/pam_loginuid/pam_loginuid.8: New, generated from XML source.
+	* modules/pam_loginuid/pam_loginuid.c: New.
+	* modules/pam_loginuid/README.xml: New.
+	* modules/pam_loginuid/README: New, generated from XML source.
+
 2006-08-29  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* modules/pam_exec/pam_exec.c (call_exec): Add required third
