@@ -129,7 +129,7 @@
   <refsect1 id="pam_access-services">
     <title>MODULE SERVICES PROVIDED</title>
     <para>
-      The <option>auth</option> and <option>account</option> services are supported.
+      All services are supported.
     </para>
   </refsect1>
 

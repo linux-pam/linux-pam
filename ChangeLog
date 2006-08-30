@@ -1,3 +1,17 @@
+2006-08-30  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_access/pam_access.8.xml: All services supported.
+	* modules/pam_access/pam_access.c (pam_sm_open_session): New.
+	(pam_sm_close_session): New.
+	(pam_sm_chauthtok): New.
+
+	* modules/pam_access/pam_succeed_if.8.xml: All services supported.
+	* modules/pam_access/pam_succeed_if.c (pam_sm_setcred): Return
+	PAM_IGNORE rather than success.
+	(pam_sm_open_session): New.
+	(pam_sm_close_session): New.
+	(pam_sm_chauthtok): New.
+
 2006-08-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* xtests/Makefile.am: Move shell code to execute tests from here ...

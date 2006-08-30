@@ -218,8 +218,7 @@
   <refsect1 id="pam_succeed_if-services">
     <title>MODULE SERVICES PROVIDED</title>
     <para>
-      The <emphasis remap='B'>auth</emphasis> and 
-      <emphasis remap='B'>account</emphasis> services are supported.
+      All services are supported.
     </para>
   </refsect1>
 

@@ -56,6 +56,8 @@
 
 #define PAM_SM_AUTH
 #define PAM_SM_ACCOUNT
+#define PAM_SM_SESSION
+#define PAM_SM_PASSWORD
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
@@ -503,11 +505,29 @@ PAM_EXTERN int
 pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
                int argc UNUSED, const char **argv UNUSED)
 {
-	return PAM_SUCCESS;
+	return PAM_IGNORE;
 }
 
 PAM_EXTERN int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
+{
+	return pam_sm_authenticate(pamh, flags, argc, argv);
+}
+
+PAM_EXTERN int
+pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
+{
+	return pam_sm_authenticate(pamh, flags, argc, argv);
+}
+
+PAM_EXTERN int
+pam_sm_close_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
+{
+	return pam_sm_authenticate(pamh, flags, argc, argv);
+}
+
+PAM_EXTERN int
+pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	return pam_sm_authenticate(pamh, flags, argc, argv);
 }
@@ -519,8 +539,8 @@ struct pam_module _pam_succeed_if_modstruct = {
     pam_sm_authenticate,
     pam_sm_setcred,
     pam_sm_acct_mgmt,
-    NULL,
-    NULL,
-    NULL
+    pam_sm_open_session,
+    pam_sm_close_session,
+    pam_sm_chauthtok
 };
 #endif

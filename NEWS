@@ -4,7 +4,7 @@ Linux-PAM NEWS -- history of user-visible changes.
 Release 0.99.6.3
 
 * pam_loginuid: New PAM module.
-
+* pam_access, pam_succeed_if: Support passwd and session services.
 
 Release 0.99.6.2
 
