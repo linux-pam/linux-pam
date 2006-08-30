@@ -1,5 +1,10 @@
 2006-08-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* xtests/Makefile.am: Move shell code to execute tests from here ...
+	* xtests/run-xtests.sh: ... to here.
+	* xtests/*.c: Include config.h.
+	* tests/*.c: Likewise.
+
 	* modules/pam_namespace/pam_namespace.c: Use pam_modutil_getpwnam()
 	instead of getpwnam().
 
