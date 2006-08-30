@@ -1,3 +1,8 @@
+2006-08-30  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_namespace/pam_namespace.c: Use pam_modutil_getpwnam()
+	instead of getpwnam().
+
 2006-08-29  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/sag/pam_loginuid.xml: New.
