@@ -14,11 +14,11 @@ EOF
                                  -Wl,--as-needed 1>&AS_MESSAGE_LOG_FD])
   then
     pam_cv_ld_as_needed=yes
+    LDFLAGS="$LDFLAGS -Wl,--as-needed"
   else
     pam_cv_ld_as_needed=no
   fi
   rm -f conftest*])
   AC_SUBST(pam_cv_ld_as_needed)
-  LDFLAGS="$LDFLAGS -Wl,--as-needed"
   ]
 )

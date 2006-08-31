@@ -1,7 +1,3 @@
-/*
- * $Id$
- */
-
 /* Andrew Morgan (morgan@kernel.org) -- an example application
  * that invokes a shell, based on blank.c */
 
@@ -143,7 +139,7 @@ int main(int argc, char **argv)
 		  (const char *)username);
 
 	  /* this is always a really bad thing for security! */
-	  system("/bin/sh");
+	  retcode = system("/bin/sh");
 
 	  /* close a session for the user --- `0' could be PAM_SILENT
 	   * it is possible that this pam_close_call is in another program..

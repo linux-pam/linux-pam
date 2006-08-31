@@ -1,3 +1,11 @@
+2006-08-31  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_namespace/Makefile.am: Don't install
+	manual page if we don't build module.
+
+	* m4/ld-as-needed.m4: Don't set LDFLAGS if check failed.
+	* m4/ld-O1: Likewise.
+
 2006-08-30  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_access/pam_access.8.xml: All services supported.

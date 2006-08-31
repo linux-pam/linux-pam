@@ -1,12 +1,10 @@
 #
-# Copyright (c) 2006 Red Hat, Inc. 
+# Copyright (c) 2006 Red Hat, Inc.
 #
 
 CLEANFILES = *~
 MAN5 = namespace.conf.5
 MAN8 = pam_namespace.8
-
-man_MANS = $(MAN5) $(MAN8)
 
 XMLS = README.xml namespace.conf.5.xml pam_namespace.8.xml
 
@@ -15,7 +13,7 @@ noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif
 
-EXTRA_DIST = README namespace.conf namespace.init $(man_MANS) $(XMLS) tst-pam_namespace
+EXTRA_DIST = README namespace.conf namespace.init $(MAN5) $(MAN8) $(XMLS) tst-pam_namespace
 
 noinst_HEADERS = md5.h
 
@@ -37,4 +35,5 @@ pam_namespace_la_SOURCES = pam_namespace.c pam_namespace.h md5.c md5.h
 secureconf_DATA = namespace.conf
 secureconf_SCRIPTS = namespace.init
 TESTS = tst-pam_namespace
+man_MANS = $(MAN5) $(MAN8)
 endif
