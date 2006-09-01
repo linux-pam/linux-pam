@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README pam_env.conf $(MANS) $(XMLS) tst-pam_env
+EXTRA_DIST = README pam_env.conf $(MANS) $(XMLS) tst-pam_env environment
 
 man_MANS = pam_env.conf.5 pam_env.8
 
@@ -24,6 +24,7 @@ endif
 securelib_LTLIBRARIES = pam_env.la
 
 secureconf_DATA = pam_env.conf
+sysconf_DATA = environment
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README

@@ -1,5 +1,8 @@
 2006-08-31  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_env/environment: New, dummy environment example
+	config file.
+
 	* modules/pam_namespace/Makefile.am: Don't install
 	manual page if we don't build module.
 
