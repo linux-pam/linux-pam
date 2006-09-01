@@ -1,3 +1,8 @@
+2006-09-01  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_loginuid/pam_loginuid.8.xml: Fix typo in
+	config name.
+
 2006-08-31  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_env/environment: New, dummy environment example
