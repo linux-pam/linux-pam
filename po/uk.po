@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.uk\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-06-02 12:37+0200\n"
+"POT-Creation-Date: 2006-08-31 16:32+0200\n"
 "PO-Revision-Date: 2006-05-03 18:59+0200\n"
 "Last-Translator: Ivan Petrouchtchak <ivanpetrouchtchak@yahoo.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -18,48 +18,33 @@ msgstr ""
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: modules/pam_exec/pam_exec.c:118
-#, c-format
-msgid "%s failed: exit code %d"
-msgstr ""
-
-#: modules/pam_exec/pam_exec.c:126
-#, c-format
-msgid "%s failed: caught signal %d%s"
-msgstr ""
-
-#: modules/pam_exec/pam_exec.c:134
-#, c-format
-msgid "%s failed: unknown status 0x%x"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:744
+#: modules/pam_tally/pam_tally.c:741
 msgid "Authentication error"
 msgstr "Помилка автентифікації"
 
-#: modules/pam_tally/pam_tally.c:745
+#: modules/pam_tally/pam_tally.c:742
 msgid "Service error"
 msgstr "Помилка служби"
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:743
 msgid "Unknown user"
 msgstr "Невідомий користувач"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:744
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
-#: modules/pam_tally/pam_tally.c:763
+#: modules/pam_tally/pam_tally.c:760
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Погане число дано для --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:767
+#: modules/pam_tally/pam_tally.c:764
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Нерозпізнано параметр %s\n"
 
-#: modules/pam_tally/pam_tally.c:779
+#: modules/pam_tally/pam_tally.c:776
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
@@ -67,39 +52,39 @@ msgstr ""
 "%s: [--file rooted-filename] [--user ім'я користувача] [--reset[=n]] [--"
 "quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:853
+#: modules/pam_tally/pam_tally.c:850
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Не вдається скинути всіх користувачів до не-нуль\n"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:187
+#: modules/pam_lastlog/pam_lastlog.c:190
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:196
+#: modules/pam_lastlog/pam_lastlog.c:199
 #, c-format
 msgid " from %.*s"
 msgstr " з %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:208
+#: modules/pam_lastlog/pam_lastlog.c:211
 #, c-format
 msgid " on %.*s"
 msgstr " на %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:217
+#: modules/pam_lastlog/pam_lastlog.c:220
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Останній вхід: %s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:223
+#: modules/pam_lastlog/pam_lastlog.c:226
 msgid "Welcome to your new account!"
 msgstr "Ласкаво просимо до вашого нового рахунку!"
 
-#: modules/pam_limits/pam_limits.c:658
+#: modules/pam_limits/pam_limits.c:647
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Забагато входів в для \"%s\"."
@@ -152,10 +137,25 @@ msgstr "рівень: "
 msgid "Not a valid security context"
 msgstr "Непридатний контекст безпеки"
 
-#: modules/pam_selinux/pam_selinux.c:416
+#: modules/pam_selinux/pam_selinux.c:417
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Призначено контекст безпеки %s"
+
+#: modules/pam_exec/pam_exec.c:118
+#, c-format
+msgid "%s failed: exit code %d"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:126
+#, c-format
+msgid "%s failed: caught signal %d%s"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:134
+#, c-format
+msgid "%s failed: unknown status 0x%x"
+msgstr ""
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
@@ -226,41 +226,41 @@ msgstr "Попередження: ваш пароль застаріє чере�
 msgid "Password: "
 msgstr "Пароль: "
 
-#: modules/pam_unix/pam_unix_passwd.c:820
+#: modules/pam_unix/pam_unix_passwd.c:819
 msgid "NIS password could not be changed."
 msgstr "Не вдалося змінити пароль NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:976
+#: modules/pam_unix/pam_unix_passwd.c:975
 #: modules/pam_cracklib/pam_cracklib.c:464
 msgid "No password supplied"
 msgstr "Не встановлений пароль"
 
-#: modules/pam_unix/pam_unix_passwd.c:976
+#: modules/pam_unix/pam_unix_passwd.c:975
 #: modules/pam_cracklib/pam_cracklib.c:464
 msgid "Password unchanged"
 msgstr "Пароль не змінено"
 
-#: modules/pam_unix/pam_unix_passwd.c:997
+#: modules/pam_unix/pam_unix_passwd.c:996
 msgid "You must choose a longer password"
 msgstr "Необхідно вибрати довший пароль"
 
-#: modules/pam_unix/pam_unix_passwd.c:1002
+#: modules/pam_unix/pam_unix_passwd.c:1001
 msgid "Password has been already used. Choose another."
 msgstr "Пароль вже вживається. Виберіть інший."
 
-#: modules/pam_unix/pam_unix_passwd.c:1126
+#: modules/pam_unix/pam_unix_passwd.c:1125
 msgid "(current) UNIX password: "
 msgstr "(поточний) пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1161
+#: modules/pam_unix/pam_unix_passwd.c:1160
 msgid "You must wait longer to change your password"
 msgstr "Ви повинні зачекати довше, щоб змінити ваш пароль"
 
-#: modules/pam_unix/pam_unix_passwd.c:1221
+#: modules/pam_unix/pam_unix_passwd.c:1220
 msgid "Enter new UNIX password: "
 msgstr "Введіть новий пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1222
+#: modules/pam_unix/pam_unix_passwd.c:1221
 msgid "Retype new UNIX password: "
 msgstr "Повторіть новий пароль UNIX: "
 

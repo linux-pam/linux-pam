@@ -1,3 +1,7 @@
+2006-09-06  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 0.99.6.3
+
 2006-09-01  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_loginuid/pam_loginuid.8.xml: Fix typo in

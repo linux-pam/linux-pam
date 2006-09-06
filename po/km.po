@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-06-02 12:37+0200\n"
+"POT-Creation-Date: 2006-08-31 16:32+0200\n"
 "PO-Revision-Date: 2006-03-17 10:32+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -17,87 +17,72 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11\n"
 
-#: modules/pam_exec/pam_exec.c:118
-#, c-format
-msgid "%s failed: exit code %d"
-msgstr ""
-
-#: modules/pam_exec/pam_exec.c:126
-#, c-format
-msgid "%s failed: caught signal %d%s"
-msgstr ""
-
-#: modules/pam_exec/pam_exec.c:134
-#, c-format
-msgid "%s failed: unknown status 0x%x"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:744
+#: modules/pam_tally/pam_tally.c:741
 msgid "Authentication error"
 msgstr "កំហុស​ក្នុង​ការ​ផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ"
 
-#: modules/pam_tally/pam_tally.c:745
+#: modules/pam_tally/pam_tally.c:742
 msgid "Service error"
 msgstr "កំហុស​សេវា"
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:743
 msgid "Unknown user"
 msgstr "មិន​ស្គាល់​អ្នក​ប្រើ"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:744
 msgid "Unknown error"
 msgstr "មិន​ស្គាល់​កំហុស"
 
-#: modules/pam_tally/pam_tally.c:763
+#: modules/pam_tally/pam_tally.c:760
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s ៖ លេខ​មិន​ល្អ​បាន​ផ្ដល់​ទៅ --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:767
+#: modules/pam_tally/pam_tally.c:764
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s ៖ ជម្រើស​ដែល​មិន​ស្គាល់ %s\n"
 
-#: modules/pam_tally/pam_tally.c:779
+#: modules/pam_tally/pam_tally.c:776
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s ៖ [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:853
+#: modules/pam_tally/pam_tally.c:850
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s ៖ មិន​អាច​កំណត់​អ្នក​ប្រើ​ទាំងអស់​ទៅ​មិនមែន​សូន្យ​ឡើងវិញ​បានទេ\n"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:187
+#: modules/pam_lastlog/pam_lastlog.c:190
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:196
+#: modules/pam_lastlog/pam_lastlog.c:199
 #, c-format
 msgid " from %.*s"
 msgstr " ពី %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:208
+#: modules/pam_lastlog/pam_lastlog.c:211
 #, c-format
 msgid " on %.*s"
 msgstr " លើ %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:217
+#: modules/pam_lastlog/pam_lastlog.c:220
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "ចូល​ចុងក្រោយ ៖%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:223
+#: modules/pam_lastlog/pam_lastlog.c:226
 msgid "Welcome to your new account!"
 msgstr "សូម​ស្វាគមន៍​មក​កាន់​គណនី​ថ្មី​របស់​អ្នក !"
 
-#: modules/pam_limits/pam_limits.c:658
+#: modules/pam_limits/pam_limits.c:647
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "មាន​ការ​ចូល​ច្រើន​ពេក​សម្រាប់ '%s' ។"
@@ -150,10 +135,25 @@ msgstr "កម្រិត ៖ "
 msgid "Not a valid security context"
 msgstr "មិន​មែន​ជា​បរិបទ​សុវត្ថិភាព​ត្រឹមត្រូវ​មួយឡើយ"
 
-#: modules/pam_selinux/pam_selinux.c:416
+#: modules/pam_selinux/pam_selinux.c:417
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "បរិបទ​សុវត្ថិភាព %s បាន​ផ្ដល់​តម្លៃ​"
+
+#: modules/pam_exec/pam_exec.c:118
+#, c-format
+msgid "%s failed: exit code %d"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:126
+#, c-format
+msgid "%s failed: caught signal %d%s"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:134
+#, c-format
+msgid "%s failed: unknown status 0x%x"
+msgstr ""
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
@@ -221,41 +221,41 @@ msgstr "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់
 msgid "Password: "
 msgstr "ពាក្យសម្ងាត់ ៖ "
 
-#: modules/pam_unix/pam_unix_passwd.c:820
+#: modules/pam_unix/pam_unix_passwd.c:819
 msgid "NIS password could not be changed."
 msgstr "មិន​អាច​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់ NIS បាន​ឡើយ ។"
 
-#: modules/pam_unix/pam_unix_passwd.c:976
+#: modules/pam_unix/pam_unix_passwd.c:975
 #: modules/pam_cracklib/pam_cracklib.c:464
 msgid "No password supplied"
 msgstr "មិន​បាន​ផ្ដល់​ពាក្យសម្ងាត់"
 
-#: modules/pam_unix/pam_unix_passwd.c:976
+#: modules/pam_unix/pam_unix_passwd.c:975
 #: modules/pam_cracklib/pam_cracklib.c:464
 msgid "Password unchanged"
 msgstr "ពាក្យសម្ងាត់​មិន​បាន​ផ្លាស់ប្ដូរ​ឡើយ"
 
-#: modules/pam_unix/pam_unix_passwd.c:997
+#: modules/pam_unix/pam_unix_passwd.c:996
 msgid "You must choose a longer password"
 msgstr "អ្នក​ត្រូវ​តែ​ជ្រើស​ពាក្យសម្ងាត់​វែង​ជាង​នេះ"
 
-#: modules/pam_unix/pam_unix_passwd.c:1002
+#: modules/pam_unix/pam_unix_passwd.c:1001
 msgid "Password has been already used. Choose another."
 msgstr "ពាក្យសម្ងាត់​ត្រូវ​បាន​ប្រើ​រួច​ហើយ ។ សូម​ជ្រើស​មួយ​ទៀត ។"
 
-#: modules/pam_unix/pam_unix_passwd.c:1126
+#: modules/pam_unix/pam_unix_passwd.c:1125
 msgid "(current) UNIX password: "
 msgstr "(បច្ចុប្បន្ន) ពាក្យ​សម្ងាត់ UNIX ៖"
 
-#: modules/pam_unix/pam_unix_passwd.c:1161
+#: modules/pam_unix/pam_unix_passwd.c:1160
 msgid "You must wait longer to change your password"
 msgstr "អ្នក​ត្រូវ​តែ​រង់ចាំ​បន្តិច ដើម្បី​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់​របស់​អ្នក"
 
-#: modules/pam_unix/pam_unix_passwd.c:1221
+#: modules/pam_unix/pam_unix_passwd.c:1220
 msgid "Enter new UNIX password: "
 msgstr "បញ្ចូល​ពាក្យ​សម្ងាត់ UNIX ថ្មី ៖ "
 
-#: modules/pam_unix/pam_unix_passwd.c:1222
+#: modules/pam_unix/pam_unix_passwd.c:1221
 msgid "Retype new UNIX password: "
 msgstr "វាយ​ពាក្យ​សម្ងាត់ UNIX ថ្មី​ម្ដង​ទៀត ៖ "
 

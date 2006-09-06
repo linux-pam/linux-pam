@@ -7,10 +7,10 @@ DESCRIPTION
 The pam_loginuid module sets the loginuid process attribute for the process
 that was authenticated. This is necessary for applications to be correctly
 audited. This PAM module should only be used for entry point applications like:
-login, sshd, gdm, vsftpd, crond, at, and remote. There are probably other entry
-point applications besides these. You should not use it for applications like
-sudo or su as that defeats the purpose by changing the loginuid to the account
-they just switched to.
+login, sshd, gdm, vsftpd, crond and atd. There are probably other entry point
+applications besides these. You should not use it for applications like sudo or
+su as that defeats the purpose by changing the loginuid to the account they
+just switched to.
 
 EXAMPLES
 

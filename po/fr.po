@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-06-02 12:37+0200\n"
+"POT-Creation-Date: 2006-08-31 16:32+0200\n"
 "PO-Revision-Date: 2006-05-04 08:29+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -15,87 +15,72 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: modules/pam_exec/pam_exec.c:118
-#, c-format
-msgid "%s failed: exit code %d"
-msgstr ""
-
-#: modules/pam_exec/pam_exec.c:126
-#, c-format
-msgid "%s failed: caught signal %d%s"
-msgstr ""
-
-#: modules/pam_exec/pam_exec.c:134
-#, c-format
-msgid "%s failed: unknown status 0x%x"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:744
+#: modules/pam_tally/pam_tally.c:741
 msgid "Authentication error"
 msgstr "Erreur d'authentification"
 
-#: modules/pam_tally/pam_tally.c:745
+#: modules/pam_tally/pam_tally.c:742
 msgid "Service error"
 msgstr "Erreur de service"
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:743
 msgid "Unknown user"
 msgstr "Utilisateur inconnu"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:744
 msgid "Unknown error"
 msgstr "Erreur inconnue"
 
-#: modules/pam_tally/pam_tally.c:763
+#: modules/pam_tally/pam_tally.c:760
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Numéro incorrect attribué à --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:767
+#: modules/pam_tally/pam_tally.c:764
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s : Option non reconnue %s\n"
 
-#: modules/pam_tally/pam_tally.c:779
+#: modules/pam_tally/pam_tally.c:776
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:853
+#: modules/pam_tally/pam_tally.c:850
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Impossible de réinitialiser tous les utilisateurs à non-zéro\n"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:187
+#: modules/pam_lastlog/pam_lastlog.c:190
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %A %e %B %Y à %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:196
+#: modules/pam_lastlog/pam_lastlog.c:199
 #, c-format
 msgid " from %.*s"
 msgstr " de %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:208
+#: modules/pam_lastlog/pam_lastlog.c:211
 #, c-format
 msgid " on %.*s"
 msgstr " sur %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:217
+#: modules/pam_lastlog/pam_lastlog.c:220
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Dernière connexion :%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:223
+#: modules/pam_lastlog/pam_lastlog.c:226
 msgid "Welcome to your new account!"
 msgstr "Bienvenue sur votre nouveau compte !"
 
-#: modules/pam_limits/pam_limits.c:658
+#: modules/pam_limits/pam_limits.c:647
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Trop de connexions pour '%s'."
@@ -148,10 +133,25 @@ msgstr "niveau :"
 msgid "Not a valid security context"
 msgstr "Contexte de sécurité non valide"
 
-#: modules/pam_selinux/pam_selinux.c:416
+#: modules/pam_selinux/pam_selinux.c:417
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Contexte de sécurité %s attribué"
+
+#: modules/pam_exec/pam_exec.c:118
+#, c-format
+msgid "%s failed: exit code %d"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:126
+#, c-format
+msgid "%s failed: caught signal %d%s"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:134
+#, c-format
+msgid "%s failed: unknown status 0x%x"
+msgstr ""
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
@@ -220,41 +220,41 @@ msgstr "Avertissement : votre mot de passe expire dans %d jour%.2s"
 msgid "Password: "
 msgstr "Mot de passe : "
 
-#: modules/pam_unix/pam_unix_passwd.c:820
+#: modules/pam_unix/pam_unix_passwd.c:819
 msgid "NIS password could not be changed."
 msgstr "Le mot de passe NIS n'a pas pu être changé."
 
-#: modules/pam_unix/pam_unix_passwd.c:976
+#: modules/pam_unix/pam_unix_passwd.c:975
 #: modules/pam_cracklib/pam_cracklib.c:464
 msgid "No password supplied"
 msgstr "Aucun mot de passe fourni"
 
-#: modules/pam_unix/pam_unix_passwd.c:976
+#: modules/pam_unix/pam_unix_passwd.c:975
 #: modules/pam_cracklib/pam_cracklib.c:464
 msgid "Password unchanged"
 msgstr "Mot de passe inchangé"
 
-#: modules/pam_unix/pam_unix_passwd.c:997
+#: modules/pam_unix/pam_unix_passwd.c:996
 msgid "You must choose a longer password"
 msgstr "Vous devez choisir un mot de passe plus long"
 
-#: modules/pam_unix/pam_unix_passwd.c:1002
+#: modules/pam_unix/pam_unix_passwd.c:1001
 msgid "Password has been already used. Choose another."
 msgstr "Mot de passe déjà utilisé. Choisissez-en un autre."
 
-#: modules/pam_unix/pam_unix_passwd.c:1126
+#: modules/pam_unix/pam_unix_passwd.c:1125
 msgid "(current) UNIX password: "
 msgstr "Mot de passe UNIX (actuel) : "
 
-#: modules/pam_unix/pam_unix_passwd.c:1161
+#: modules/pam_unix/pam_unix_passwd.c:1160
 msgid "You must wait longer to change your password"
 msgstr "Vous devez encore attendre avant de changer votre mot de passe"
 
-#: modules/pam_unix/pam_unix_passwd.c:1221
+#: modules/pam_unix/pam_unix_passwd.c:1220
 msgid "Enter new UNIX password: "
 msgstr "Entrez le nouveau mot de passe UNIX : "
 
-#: modules/pam_unix/pam_unix_passwd.c:1222
+#: modules/pam_unix/pam_unix_passwd.c:1221
 msgid "Retype new UNIX password: "
 msgstr "Retapez le nouveau mot de passe UNIX : "
 
