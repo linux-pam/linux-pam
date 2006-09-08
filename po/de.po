@@ -303,7 +303,7 @@ msgstr "Nur Änderungen bei der Groß-/Kleinschreibung"
 
 #: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
-msgstr "ist der/m alten zu ähnlich"
+msgstr "ist dem alten zu ähnlich"
 
 #: modules/pam_cracklib/pam_cracklib.c:398
 msgid "is too simple"
