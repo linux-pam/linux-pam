@@ -1,3 +1,9 @@
+2006-09-09  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* modules/pam_wheel/pam_wheel.8.xml: Fix typo.
+	* modules/pam_wheel/pam_wheel.8: Likewise.
+	* modules/pam_wheel/README: Likewise.
+
 2006-09-08  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/de.po: Fix typo.

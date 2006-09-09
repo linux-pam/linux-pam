@@ -87,7 +87,7 @@
           <para>
             Instead of checking the wheel or GID 0 groups, use
             the <option><replaceable>name</replaceable></option> group
-            to perform the authentification.
+            to perform the authentication.
           </para>
         </listitem>
       </varlistentry>

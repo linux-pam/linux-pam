@@ -26,7 +26,7 @@ deny
 group=name
 
     Instead of checking the wheel or GID 0 groups, use the name group to
-    perform the authentification.
+    perform the authentication.
 
 root_only
 
