@@ -67,7 +67,9 @@
       check the password of the user invoking it. It is called
       transparently on behalf of the user by the authenticating
       component of this module. In this way it is possible
-      for applications like <command>xlock</command> to work without
+      for applications like <citerefentry>
+      <refentrytitle>xlock</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry> to work without
       being setuid-root. The module, by default, will temporarily turn
       off SIGCHLD handling for the duration of execution of the helper
       binary. This is generally the right thing to do, as many applications
