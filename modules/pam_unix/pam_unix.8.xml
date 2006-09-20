@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+
+<refentry id="pam_unix">
+
+  <refmeta>
+    <refentrytitle>pam_unix</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id="pam_unix-name">
+    <refname>pam_unix</refname>
+    <refpurpose>Module for traditional password authentication</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis id="pam_unix-cmdsynopsis">
+      <command>pam_unix.so</command>
+      <arg choice="opt">
+        ...
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="pam_unix-description">
+
+    <title>DESCRIPTION</title>
+
+    <para>
+      This is the standard Unix authentication module. It uses standard
+      calls from the system's libraries to retrieve and set account
+      information as well as authentication. Usually this is obtained
+      from the /etc/passwd and the /etc/shadow file as well if shadow is
+      enabled.
+    </para>
+
+    <para>
+      The account component performs the task of establishing the status
+      of the user's account and password based on the following
+      <emphasis>shadow</emphasis> elements: expire, last_change, max_change,
+      min_change, warn_change. In the case of the latter, it may offer advice
+      to the user on changing their password or, through the
+      <emphasis remap='B'>PAM_AUTHTOKEN_REQD</emphasis> return, delay
+      giving service to the user until they have established a new password.
+      The entries listed above are documented in the <citerefentry>
+      <refentrytitle>shadow</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry> manual page. Should the user's record not contain
+      one or more of these entries, the corresponding
+      <emphasis>shadow</emphasis> check is not performed.
+    </para>
+
+    <para>
+      The authentication component performs the task of checking the
+      users credentials (password). The default action of this module
+      is to not permit the user access to a service if their official
+      password is blank.
+    </para>
+
+    <para>
+      A helper binary, <citerefentry>
+      <refentrytitle>unix_chkpwd</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>, is provided
+      to check the user's password when it is stored in a read
+      protected database. This binary is very simple and will only
+      check the password of the user invoking it. It is called
+      transparently on behalf of the user by the authenticating
+      component of this module. In this way it is possible
+      for applications like <command>xlock</command> to work without
+      being setuid-root. The module, by default, will temporarily turn
+      off SIGCHLD handling for the duration of execution of the helper
+      binary. This is generally the right thing to do, as many applications
+      are not prepared to handle this signal from a child they didn't know
+      was <function>fork()</function>d. The <option>noreap</option> module
+      argument can be used to suppress this temporary shielding and may be
+      needed for use with certain applications.
+    </para>
+
+    <para>
+      The password component of this module performs the task of updating
+      the user's password.
+    </para>
+
+    <para>
+      The session component of this module logs when a user logins 
+      or leave the system.
+    </para>
+
+    <para>
+      Remaining arguments, supported by others functions of this
+      module, are silently ignored. Other arguments are logged as
+      errors through <citerefentry>
+      <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_unix-options">
+
+    <title>OPTIONS</title>
+    <variablelist>
+      <varlistentry>
+        <term>
+          <option>debug</option>
+        </term>
+        <listitem>
+          <para>
+	    Turns on debugging via
+            <citerefentry>
+              <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum>
+            </citerefentry>.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>audit</option>
+        </term>
+        <listitem>
+          <para>
+            A little more extreme than debug.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>nullok</option>
+        </term>
+        <listitem>
+          <para>
+            The default action of this module is to not permit the
+            user access to a service if their official password is blank.
+            The <option>nullok</option> argument overrides this default.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>try_first_pass</option>
+        </term>
+        <listitem>
+          <para>
+            Before prompting the user for their password, the module first
+            tries the previous stacked module's password in case that
+            satisfies this module as well.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>use_first_pass</option>
+        </term>
+        <listitem>
+          <para>
+            The argument <option>use_first_pass</option> forces the module
+            to use a previous stacked modules password and will never prompt
+            the user - if no password is available or the password is not
+            appropriate, the user will be denied access.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>nodelay</option>
+        </term>
+        <listitem>
+          <para>
+            This argument can be used to discourage the authentication
+            component from requesting a delay should the authentication
+            as a whole fail. The default action is for the module to
+            request a delay-on-failure of the order of two second.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>use_authtok</option>
+        </term>
+        <listitem>
+          <para>
+            When password changing enforce the module to set the new
+            password to the one provided by a previously stacked
+            <option>password</option> module (this is used in the
+            example of the stacking of the <command>pam_cracklib</command>
+            module documented above).
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>not_set_pass</option>
+        </term>
+        <listitem>
+          <para>
+            This argument is used to inform the module that it is not to
+            pay attention to/make available the old or new passwords from/to
+            other (stacked) password modules.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>nis</option>
+        </term>
+        <listitem>
+          <para>
+            NIS RPC is used for setting new passwords.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>remember=<replaceable>n</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            The last <replaceable>n</replaceable> passwords for each
+            user are saved in <filename>/etc/security/opasswd</filename>
+            in order to force password change history and keep the user
+            from alternating between the same password too frequently.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>shadow</option>
+        </term>
+        <listitem>
+          <para>
+            Try to maintain a shadow based system.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>md5</option>
+        </term>
+        <listitem>
+          <para>
+            When a user changes their password next, encrypt
+            it with the MD5 algorithm.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>bigcrypt</option>
+        </term>
+        <listitem>
+          <para>
+            When a user changes their password next,
+            encrypt it with the DEC C2 algorithm.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>broken_shadow</option>
+        </term>
+        <listitem>
+          <para>
+            Ignore errors reading shadow inforation for
+            users in the account management module.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para>
+      Invalid arguments are logged with  <citerefentry>
+      <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_unix-services">
+    <title>MODULE SERVICES PROVIDED</title>
+    <para>
+      All service are supported.
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_unix-return_values'>
+    <title>RETURN VALUES</title>
+    <variablelist>
+      <varlistentry>
+        <term>PAM_IGNORE</term>
+        <listitem>
+          <para>
+            Ignore this module.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+     </refsect1>
+
+  <refsect1 id='pam_unix-examples'>
+    <title>EXAMPLES</title>
+    <para>
+      An example usage for <filename>/etc/pam.d/login</filename>
+      would be:
+      <programlisting>
+# Authenticate the user
+auth       required   pam_unix.so
+# Ensure users account and password are still active
+account    required   pam_unix.so
+# Change the users password, but at first check the strength
+# with pam_cracklib(8)
+password   required   pam_cracklib.so retry=3 minlen=6 difok=3
+password   required   pam_unix.so use_authtok nullok md5
+session    required   pam_unix.so
+      </programlisting>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_unix-see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam.d</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_unix-author'>
+    <title>AUTHOR</title>
+      <para>
+        pam_unix was written by various people.
+      </para>
+  </refsect1>
+
+</refentry>

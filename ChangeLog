@@ -1,3 +1,16 @@
+2006-09-20  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/adg/Makefile.am: Add manual pages as dependency.
+	* doc/mwg/Makefile.am: Likewise.
+	* doc/sag/Makefile.am: Likewise.
+	* doc/sag/Linux-PAM_SAG.xml: Include pam_unix.xml.
+	* doc/sag/pam_unix.xml: New.
+	* modules/pam_unix/Makefile.am: Generate pam_unix.8 manual page.
+	* modules/pam_unix/README.xml: New.
+	* modules/pam_unix/pam_unix.8.xml: New.
+	* modules/pam_unix/README: Regenerate from XML.
+	* modules/pam_unix/pam_unix.8: Generated from XML.
+
 2006-09-09  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* modules/pam_wheel/pam_wheel.8.xml: Fix typo.

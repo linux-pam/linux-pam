@@ -7,13 +7,14 @@ CLEANFILES = Linux-PAM_ADG.fo *~
 EXTRA_DIST = $(XMLS)
 
 XMLS = Linux-PAM_ADG.xml $(shell ls $(srcdir)/pam_*.xml)
+DEP_XMLS = $(shell ls $(top_srcdir)/doc/man/pam_*.xml)
 
 if ENABLE_REGENERATE_MAN
 MAINTAINERCLEANFILES = Linux-PAM_ADG.txt Linux-PAM_ADG.pdf html/*.html
 
 all: Linux-PAM_ADG.txt html/Linux-PAM_ADG.html Linux-PAM_ADG.pdf
 
-Linux-PAM_ADG.pdf: $(XMLS)
+Linux-PAM_ADG.pdf: $(XMLS) $(DEP_XMLS)
 if ENABLE_GENERATE_PDF
 	$(XMLLINT) --nonet --xinclude --postvalid --noent --noout $<
 	$(XSLTPROC) --stringparam generate.toc "book toc" \
@@ -26,7 +27,7 @@ else
 	echo "No fo2pdf processor installed, skip PDF generation"
 endif
 
-Linux-PAM_ADG.txt: $(XMLS)
+Linux-PAM_ADG.txt: $(XMLS) $(DEP_XMLS)
 	$(XMLLINT) --nonet --xinclude --postvalid --noent --noout $<
 	$(XSLTPROC) --stringparam generate.toc "book toc" \
 	  --stringparam section.autolabel 1 \
@@ -34,7 +35,7 @@ Linux-PAM_ADG.txt: $(XMLS)
 	  --stringparam toc.max.depth 3 --xinclude --nonet \
 	  http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl $< | $(BROWSER) > $@
 
-html/Linux-PAM_ADG.html: $(XMLS)
+html/Linux-PAM_ADG.html: $(XMLS) $(DEP_XMLS)
 	@test -d html || mkdir -p html
 	$(XMLLINT) --nonet --xinclude --postvalid --noent --noout $<
 	$(XSLTPROC) --stringparam base.dir html/ \

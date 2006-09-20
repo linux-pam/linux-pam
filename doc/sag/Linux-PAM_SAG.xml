@@ -16,7 +16,7 @@
         <email>kukuk@thkukuk.de</email>
       </author>
     </authorgroup>
-    <releaseinfo>Version 0.99.6.0, 5. August 2006</releaseinfo>
+    <releaseinfo>Version 0.99.6.4, 20. September 2006</releaseinfo>
     <abstract>
       <para>
         This manual documents what a system-administrator needs to know about
@@ -458,6 +458,8 @@ session   required   pam_warn.so
      href="pam_time.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_umask.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="pam_unix.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_userdb.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

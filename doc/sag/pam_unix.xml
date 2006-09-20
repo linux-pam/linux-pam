@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_unix'>
+  <title>pam_unix - traditional password authentication</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_unix/pam_unix.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_unix-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section id='sag-pam_unix-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_unix/pam_unix.8.xml" xpointer='xpointer(//refsect1[@id = "pam_unix-description"]/*)'/>
+  </section>
+  <section id='sag-pam_unix-options'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_unix/pam_unix.8.xml" xpointer='xpointer(//refsect1[@id = "pam_unix-options"]/*)'/>
+  </section>
+  <section id='sag-pam_unix-services'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_unix/pam_unix.8.xml" xpointer='xpointer(//refsect1[@id = "pam_unix-services"]/*)'/>
+  </section>
+  <section id='sag-pam_unix-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_unix/pam_unix.8.xml" xpointer='xpointer(//refsect1[@id = "pam_unix-return_values"]/*)'/>
+  </section>
+  <section id='sag-pam_unix-examples'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_unix/pam_unix.8.xml" xpointer='xpointer(//refsect1[@id = "pam_unix-examples"]/*)'/>
+  </section>
+  <section id='sag-pam_unix-author'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_unix/pam_unix.8.xml" xpointer='xpointer(//refsect1[@id = "pam_unix-author"]/*)'/>
+  </section>
+</section>

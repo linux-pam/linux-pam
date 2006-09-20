@@ -5,11 +5,12 @@
 CLEANFILES = *~
 
 EXTRA_DIST = README md5.c md5_crypt.c lckpwdf.-c $(MANS) CHANGELOG \
-		tst-pam_unix
+		tst-pam_unix $(XMLS) 
+
+man_MANS = pam_unix.8 unix_chkpwd.8
+XMLS = README.xml pam_unix.8.xml
 
 TESTS = tst-pam_unix
-
-man_MANS = unix_chkpwd.8
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -50,3 +51,10 @@ bigcrypt_CFLAGS = $(AM_CFLAGS)
 unix_chkpwd_SOURCES = unix_chkpwd.c md5_good.c md5_broken.c bigcrypt.c
 unix_chkpwd_CFLAGS = $(AM_CFLAGS) @PIE_CFLAGS@
 unix_chkpwd_LDFLAGS = @PIE_LDFLAGS@
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+README: pam_unix.8.xml
+-include $(top_srcdir)/Make.xml.rules
+endif
+
