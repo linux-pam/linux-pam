@@ -1,4 +1,5 @@
-# translation of Linux-PAM.hu.po to Hungarian
+# translation of Linux-pam.po to
+# translation of hu.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR Linux-PAM Project.
 # Papp Zsolt <zpapp@novell.com>, 2006.
@@ -7,16 +8,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM.hu\n"
+"Project-Id-Version: Linux-pam\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2006-08-31 16:32+0200\n"
-"PO-Revision-Date: 2006-05-03 22:06+0200\n"
-"Last-Translator: Kalman Kemenczy <kkemenczy@novell.com>\n"
-"Language-Team: Hungarian <en@li.org>\n"
+"PO-Revision-Date: 2006-10-06 13:54+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
 
 #: modules/pam_tally/pam_tally.c:741
@@ -60,7 +61,7 @@ msgstr "%s: Nem állítható vissza minden felhasználó nem nullára\n"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:190
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr " %a %b %e %H:%M:%S %Z %Y"
+msgstr "%Y. %b %e, %a  %H:%M:%S %Z "
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:199
@@ -72,13 +73,13 @@ msgstr " innen: %.*s"
 #: modules/pam_lastlog/pam_lastlog.c:211
 #, c-format
 msgid " on %.*s"
-msgstr "itt: %.*s"
+msgstr " itt: %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:220
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr "Utolsó belépés: %s%s%s"
+msgstr "Utolsó belépés:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:226
 msgid "Welcome to your new account!"
@@ -115,7 +116,7 @@ msgstr "Kíván másikat választani? [n]"
 
 #: modules/pam_selinux/pam_selinux.c:112
 msgid "Enter number of choice: "
-msgstr "Adja meg a kívánt lehetőség számát:"
+msgstr "Adja meg a kívánt lehetőség számát: "
 
 #: modules/pam_selinux/pam_selinux.c:152
 msgid "Would you like to enter a security context? [y] "
@@ -123,15 +124,15 @@ msgstr "Kíván megadni egy biztonsági kontextust? [y] "
 
 #: modules/pam_selinux/pam_selinux.c:169
 msgid "role: "
-msgstr "szerep:"
+msgstr "szerep: "
 
 #: modules/pam_selinux/pam_selinux.c:177
 msgid "type: "
-msgstr "típus:"
+msgstr "típus: "
 
 #: modules/pam_selinux/pam_selinux.c:187
 msgid "level: "
-msgstr "szint:"
+msgstr "szint: "
 
 #: modules/pam_selinux/pam_selinux.c:203
 msgid "Not a valid security context"
@@ -145,21 +146,21 @@ msgstr "%s biztonsági kontextus hozzárendelve"
 #: modules/pam_exec/pam_exec.c:118
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr ""
+msgstr "%s hiba: kimeneti érték %d"
 
 #: modules/pam_exec/pam_exec.c:126
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr ""
+msgstr "%s hiba: kimeneti signal %d%s"
 
 #: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr ""
+msgstr "%s hiba: ismeretlen állapot 0x%x"
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
-msgstr "Nincs levél"
+msgstr "Nincs levél."
 
 #: modules/pam_mail/pam_mail.c:316
 msgid "You have new mail."
@@ -206,21 +207,21 @@ msgid "You are required to change your password immediately (password aged)"
 msgstr "Azonnal meg kell változtatnia a jelszavát (a jelszó elévült)"
 
 #: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "Figyelmeztetés: a jelszava lejár %d nap múlva%.2s"
+msgstr[0] "Figyelmeztetés: a jelszava lejár %d nap múlva"
 
 #. TRANSLATORS: only used if dngettext is not support
 #. ed
 #: modules/pam_unix/pam_unix_acct.c:336
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "Figyelmeztetés: a jelszava lejár %d nap múlva%.2s"
+msgstr "Figyelmeztetés: a jelszava lejár %d nap múlva"
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
-msgstr "Jelszó:"
+msgstr "Jelszó: "
 
 #: modules/pam_unix/pam_unix_passwd.c:819
 msgid "NIS password could not be changed."
@@ -246,7 +247,7 @@ msgstr "A jelszót már használta. Válasszon egy másikat."
 
 #: modules/pam_unix/pam_unix_passwd.c:1125
 msgid "(current) UNIX password: "
-msgstr "A (jelenlegi) UNIX jelszó:"
+msgstr "A (jelenlegi) UNIX jelszó: "
 
 #: modules/pam_unix/pam_unix_passwd.c:1160
 msgid "You must wait longer to change your password"
@@ -254,11 +255,11 @@ msgstr "Tovább kell várnia a jelszó módosítására"
 
 #: modules/pam_unix/pam_unix_passwd.c:1220
 msgid "Enter new UNIX password: "
-msgstr "Adja meg az új UNIX jelszót:"
+msgstr "Adja meg az új UNIX jelszót: "
 
 #: modules/pam_unix/pam_unix_passwd.c:1221
 msgid "Retype new UNIX password: "
-msgstr "Írja be újra a UNIX jelszót:"
+msgstr "Írja be újra a UNIX jelszót: "
 
 #: modules/pam_stress/pam_stress.c:477
 msgid "Changing STRESS password for "
@@ -270,7 +271,7 @@ msgstr "Új STRESS jelszó: "
 
 #: modules/pam_stress/pam_stress.c:494
 msgid "Retype new STRESS password: "
-msgstr "Írja be mégegyszer az új STRESS jelszót:"
+msgstr "Írja be mégegyszer az új STRESS jelszót: "
 
 #: modules/pam_stress/pam_stress.c:523
 msgid "Verification mis-typed; password unchanged"
@@ -279,12 +280,12 @@ msgstr "Az ellenőrző jelszó nem egyezik; a jelszó nem került módosításra
 #: modules/pam_cracklib/pam_cracklib.c:60
 #, c-format
 msgid "New %s%spassword: "
-msgstr "Az új %s%sjelszó:"
+msgstr "Az új %s%sjelszó: "
 
 #: modules/pam_cracklib/pam_cracklib.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "Írja be újra az új %s%sjelszót:"
+msgstr "Írja be újra az új %s%sjelszót: "
 
 #: modules/pam_cracklib/pam_cracklib.c:63
 msgid "Sorry, passwords do not match."
@@ -338,7 +339,7 @@ msgstr "Kritikus hiba - azonnali leállás"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr ""
+msgstr "A modul betöltése sikertelen"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -475,10 +476,3 @@ msgstr "...Elnézést, de az idő lejárt!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "hibás beszélgetés (%d)\n"
-
-#, fuzzy
-#~ msgid "Warning: your password will expire in one day"
-#~ msgstr "Figyelmeztetés: a jelszava lejár %d nap múlva%.2s"
-
-#~ msgid "dlopen() failure"
-#~ msgstr "dlopen() hiba"
