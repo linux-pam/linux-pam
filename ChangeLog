@@ -1,3 +1,15 @@
+2006-10-13  Tomas Mraz <t8m@centrum.cz>
+
+	* doc/mwg/Linux-PAM_MWG.xml: Add id[s] to section[s].
+	* doc/sag/pam_access.xml: Likewise.
+	* doc/sag/pam_echo.xml: Likewise.
+	* doc/sag/pam_env.xml: Likewise.
+	* doc/sag/pam_exec.xml: Likewise.
+	* doc/sag/pam_group.xml: Likewise.
+	* doc/sag/pam_limits.xml: Likewise.
+	* doc/sag/pam_namespace.xml: Likewise.
+	* doc/sag/pam_time.xml: Likewise.
+
 2006-10-07  Thorsten Kukuk  <kukuk@suse.de>
 
 	* po/hu.po: Updated hungarian translation (from

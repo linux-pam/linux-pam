@@ -310,7 +310,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
 
     <section id="mwg-see-programming-sec">
       <title>Security issues for module creation</title>
-      <section>
+      <section id="mwg-see-programming-sec-res">
         <title>Sufficient resources</title>
         <para>
           Care should be taken to ensure that the proper execution

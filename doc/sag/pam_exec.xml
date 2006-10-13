@@ -7,27 +7,27 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_exec-cmdsynopsis"]/*)'/>
   </cmdsynopsis>
-  <section>
+  <section id='sag-pam_exec-description'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-description"]/*)'/>
   </section>
-  <section>
+  <section id='sag-pam_exec-options'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-options"]/*)'/>
   </section>
-  <section>
+  <section id='sag-pam_exec-services'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-services"]/*)'/>
   </section>
-  <section>
+  <section id='sag-pam_exec-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-return_values"]/*)'/>
   </section>
-  <section>
+  <section id='sag-pam_exec-examples'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-examples"]/*)'/>
   </section>
-  <section>
+  <section id='sag-pam_exec-author'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-author"]/*)'/>
   </section>

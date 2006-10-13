@@ -7,35 +7,35 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_limits-cmdsynopsis"]/*)'/>
   </cmdsynopsis>
-  <section>
+  <section id='sag-pam_limits-description'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-description"]/*)'/>
   </section>
-  <section>
+  <section id='sag-limits.conf-description'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_limits/limits.conf.5.xml" xpointer='xpointer(//refsect1[@id = "limits.conf-description"]/*)'/>
   </section>
-  <section>
+  <section id='sag-pam_limits-options'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-options"]/*)'/>
   </section>
-  <section>
+  <section id='sag-pam_limits-services'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-services"]/*)'/>
   </section>
-  <section>
+  <section id='sag-pam_limits-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-return_values"]/*)'/>
   </section>
-  <section>
+  <section id='sag-pam_limits-files'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-files"]/*)'/>
   </section>
-  <section>
+  <section id='sag-limits.conf-examples'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_limits/limits.conf.5.xml" xpointer='xpointer(//refsect1[@id = "limits.conf-examples"]/*)'/>
   </section>
-  <section>
+  <section id='sag-pam_limits-authors'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_limits/pam_limits.8.xml" xpointer='xpointer(//refsect1[@id = "pam_limits-authors"]/*)'/>
   </section>
