@@ -1,5 +1,10 @@
 2006-10-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_namespace/pam_namespace.c: Reserve space for
+	trailing zero.
+
+2006-10-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
 	* modules/pam_unix/support.c (_unix_verify_password): Try system
 	crypt() if we don't know the hash alogorithm.
 	* modules/pam_unix/unix_chkpwd.c (_unix_verify_password): Likewise.

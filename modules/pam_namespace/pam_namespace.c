@@ -1206,7 +1206,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
      * Add the user info to the instance data so we can refer to them later.
      */
     idata.user[0] = 0;
-    strncat(idata.user, user_name, sizeof(idata.user));
+    strncat(idata.user, user_name, sizeof(idata.user) - 1);
     idata.uid = pwd->pw_uid;
 
     /*
@@ -1290,7 +1290,7 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
      * Add the user info to the instance data so we can refer to them later.
      */
     idata.user[0] = 0;
-    strncat(idata.user, user_name, sizeof(idata.user));
+    strncat(idata.user, user_name, sizeof(idata.user) - 1);
     idata.uid = pwd->pw_uid;
 
     /*
