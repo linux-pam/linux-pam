@@ -689,7 +689,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 		    D(("user has empty password - access denied"));
 		    retval = PAM_AUTH_ERR;
 		}
-	    } else if (!p || (*salt == '*') || (salt_len < 13)) {
+	    } else if (!p || (*salt == '*')) {
 		retval = PAM_AUTH_ERR;
 	    } else {
 		if (!strncmp(salt, "$1$", 3)) {
@@ -698,6 +698,12 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			_pam_delete(pp);
 			pp = Brokencrypt_md5(p, salt);
 		    }
+		} else if (*salt == '$') {
+                    /*
+		     * Ok, we don't know the crypt algorithm, but maybe
+		     * libcrypt nows about it? We should try it.
+		     */
+		    pp = x_strdup (crypt(p, salt));
 		} else {
 		    pp = bigcrypt(p, salt);
 		}

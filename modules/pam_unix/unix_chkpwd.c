@@ -40,9 +40,7 @@ static int selinux_enabled=-1;
 #include <security/_pam_macros.h>
 
 #include "md5.h"
-
-extern char *crypt(const char *key, const char *salt);
-extern char *bigcrypt(const char *key, const char *salt);
+#include "bigcrypt.h"
 
 /* syslogging function for errors and other information */
 
@@ -204,6 +202,15 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 			pp = Brokencrypt_md5(p, salt);
 			if (strcmp(pp, salt) == 0)
 				retval = PAM_SUCCESS;
+		}
+	} else if (*salt == '$') {
+	        /*
+		 * Ok, we don't know the crypt algorithm, but maybe
+		 * libcrypt nows about it? We should try it.
+		 */
+	        pp = x_strdup (crypt(p, salt));
+		if (strcmp(pp, salt) == 0) {
+			retval = PAM_SUCCESS;
 		}
 	} else if ((*salt == '*') || (salt_len < 13)) {
 	    retval = PAM_AUTH_ERR;

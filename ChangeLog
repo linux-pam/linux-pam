@@ -1,3 +1,9 @@
+2006-10-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/support.c (_unix_verify_password): Try system
+	crypt() if we don't know the hash alogorithm.
+	* modules/pam_unix/unix_chkpwd.c (_unix_verify_password): Likewise.
+
 2006-10-13  Tomas Mraz <t8m@centrum.cz>
 
 	* doc/mwg/Linux-PAM_MWG.xml: Add id[s] to section[s].
@@ -12,9 +18,9 @@
 	* doc/sag/Linux-PAM_SAG.xml: Add id to book.
 	* doc/adg/Linux-PAM_ADG.xml: Add id to book.
 	* doc/mwg/Linux-PAM_MWG.xml: Add id to book.
-	
 
-2006-10-07  Thorsten Kukuk  <kukuk@suse.de>
+
+2006-10-07  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/hu.po: Updated hungarian translation (from
 	Kalman Kemenczy <kkemenczy@novell.com>)
