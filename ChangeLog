@@ -2,6 +2,8 @@
 
 	* doc/man/pam.3.xml: Add pam_get_user function.
 
+	* modules/pam_motd/pam_motd.8.xml: Fix typo.
+
 2006-10-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_namespace/pam_namespace.c: Reserve space for

@@ -18,7 +18,7 @@ EXAMPLES
 
 The suggested usage for /etc/pam.d/login is:
 
-session  optoinal  pam_motd.so  motd=/etc/motd
+session  optional  pam_motd.so  motd=/etc/motd
 
 
 AUTHOR

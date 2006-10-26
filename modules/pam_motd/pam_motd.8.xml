@@ -81,7 +81,7 @@
     <para>
       The suggested usage for <filename>/etc/pam.d/login</filename> is:
       <programlisting>
-session  optoinal  pam_motd.so  motd=/etc/motd
+session  optional  pam_motd.so  motd=/etc/motd
       </programlisting>
     </para>
   </refsect1>
