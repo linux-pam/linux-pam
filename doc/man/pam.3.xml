@@ -152,8 +152,15 @@
         <citerefentry>
           <refentrytitle>pam_get_item</refentrytitle><manvolnum>3</manvolnum>
         </citerefentry>
-        functions allows applications and PAM service modules to set and retrieve
-        PAM informations.
+        functions allows applications and PAM service modules to set and
+        retrieve PAM informations.
+      </para>
+      <para>
+         The
+        <citerefentry>
+          <refentrytitle>pam_get_user</refentrytitle><manvolnum>3</manvolnum>
+        </citerefentry>
+        function is the preferred method to obtain the username.
       </para>
       <para>
         The

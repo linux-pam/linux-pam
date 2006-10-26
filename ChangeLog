@@ -1,3 +1,7 @@
+2006-10-26  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/pam.3.xml: Add pam_get_user function.
+
 2006-10-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_namespace/pam_namespace.c: Reserve space for
@@ -899,7 +903,7 @@
 	(pam_sm_chauthtok): Remove dead code.
 	[#1489634] found by Coverity.
 
-2006-05-04  Thorsten Kukuk  <kukuk@suse.de>
+2006-05-04  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Check for fseeko.
 	* modules/pam_tally/pam_tally.c: Use fseeko if available
@@ -1357,7 +1361,7 @@
 	* modules/pam_listfile/pam_listfile.c: Add support for session
 	and password management.
 
-2006-01-19  Thorsten Kukuk  <kukuk@suse.de>
+2006-01-19  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/specs/Makefile.am (spec): Add padout to fix parallel
 	build (Reported by Andreas Haumer <andreas@xss.co.at>).
