@@ -458,7 +458,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
     int retval;
 
     if (pass_new == NULL || (pass_old && !strcmp(pass_old,pass_new))) {
-        if (ctrl && PAM_DEBUG_ARG)
+        if (ctrl & PAM_DEBUG_ARG)
             pam_syslog(pamh, LOG_DEBUG, "bad authentication token");
         pam_error(pamh, "%s", pass_new == NULL ?
 		   _("No password supplied"):_("Password unchanged"));
@@ -481,7 +481,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
     }
 
     if (msg) {
-        if (ctrl && PAM_DEBUG_ARG)
+        if (ctrl & PAM_DEBUG_ARG)
             pam_syslog(pamh, LOG_NOTICE,
 		       "new passwd fails strength check: %s", msg);
         pam_error(pamh, _("BAD PASSWORD: %s"), msg);
@@ -598,7 +598,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	}
 
         if (retval != PAM_SUCCESS) {
-            if (ctrl && PAM_DEBUG_ARG)
+            if (ctrl & PAM_DEBUG_ARG)
                 pam_syslog(pamh,LOG_DEBUG,"unable to obtain a password");
             continue;
         }
@@ -610,7 +610,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
 	    D(("against cracklib"));
             if ((crack_msg = FascistCheck(token1,options.cracklib_dictpath[0] == '\0'?NULL:options.cracklib_dictpath))) {
-                if (ctrl && PAM_DEBUG_ARG)
+                if (ctrl & PAM_DEBUG_ARG)
                     pam_syslog(pamh,LOG_DEBUG,"bad password: %s",crack_msg);
                 pam_error(pamh, _("BAD PASSWORD: %s"), crack_msg);
                 if (getuid() || (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
@@ -666,7 +666,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	    /* No else, the a retval == PAM_SUCCESS path can change retval
 	       to a failure code.  */
 	    if (retval != PAM_SUCCESS) {
-	      if (ctrl && PAM_DEBUG_ARG)
+	      if (ctrl & PAM_DEBUG_ARG)
                 pam_syslog(pamh,LOG_DEBUG,"unable to obtain retyped password");
 	      continue;
 	    }

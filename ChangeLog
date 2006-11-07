@@ -1,3 +1,9 @@
+2006-11-07  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_cracklib/pam_cracklib.c: PAM_DEBUG_ARG
+	is a bit mask and not a boolean value (Reported by
+	Jochen Voss <voss@seehuhn.de>).
+
 2006-10-26  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam.3.xml: Add pam_get_user function.
