@@ -13,6 +13,8 @@
 	* modules/pam_faildelay/pam_faildelay.c: New.
 	* modules/pam_faildelay/tst-pam_faildelay: New.
 
+	* po/POTFILES.in: Add pam_faildelay.c and pam_loginuid.c.
+
 2006-11-07  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_cracklib/pam_cracklib.c: PAM_DEBUG_ARG
