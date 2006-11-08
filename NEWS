@@ -2,6 +2,7 @@ Linux-PAM NEWS -- history of user-visible changes.
 
 
 * Add manual page for pam_unix.so
+* Add pam_faildelay module to set pam_fail_delay() value.
 
 Release 0.99.6.3
 

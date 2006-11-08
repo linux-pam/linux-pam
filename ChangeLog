@@ -1,3 +1,18 @@
+2006-11-08  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Add modules/pam_faildelay/Makefile.
+	* doc/sag/Linux-PAM_SAG.xml: Include pam_faildelay.xml.
+	* doc/sag/pam_faildelay.xml: New.
+	* libpam/pam_static_modules.h: Include static pam_faildelay data.
+	* modules/Makefile.am: Add pam_faildelay directory.
+	* modules/pam_faildelay/Makefile.am: New.
+	* modules/pam_faildelay/README: New, generated from XML file.
+	* modules/pam_faildelay/README.xml: New.
+	* modules/pam_faildelay/pam_faildelay.8: New, generated from xml.
+	* modules/pam_faildelay/pam_faildelay.8.xml: New.
+	* modules/pam_faildelay/pam_faildelay.c: New.
+	* modules/pam_faildelay/tst-pam_faildelay: New.
+
 2006-11-07  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_cracklib/pam_cracklib.c: PAM_DEBUG_ARG

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+	"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+
+<refentry id="pam_faildelay">
+
+  <refmeta>
+    <refentrytitle>pam_faildelay</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id="pam_faildelay-name">
+    <refname>pam_faildelay</refname>
+    <refpurpose>Change the delay on failure per-application</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis id="pam_faildelay-cmdsynopsis">
+      <command>pam_faildelay.so</command>
+      <arg choice="opt">
+        debug
+      </arg>
+      <arg choice="opt">
+        delay=<replaceable>microseconds</replaceable>
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="pam_faildelay-description">
+
+    <title>DESCRIPTION</title>
+
+    <para>
+      pam_faildelay is a PAM module that can be used to set
+      the delay on failure per-application.
+    </para>
+
+  </refsect1>
+
+  <refsect1 id="pam_faildelay-options">
+
+    <title>OPTIONS</title>
+    <variablelist>
+      <varlistentry>
+        <term>
+          <option>debug</option>
+        </term>
+        <listitem>
+          <para>
+            Turns on debugging messages sent to syslog.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>delay=<replaceable>N</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+	    Set the delay on failure to N microseconds.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="pam_faildelay-services">
+    <title>MODULE SERVICES PROVIDED</title>
+    <para>
+      Only the <option>auth</option> service is supported.
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_faildelay-return_values'>
+    <title>RETURN VALUES</title>
+    <variablelist>
+      <varlistentry>
+        <term>PAM_IGNORE</term>
+        <listitem>
+           <para>
+            Delay was successful adjusted.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_SYSTEM_ERR</term>
+        <listitem>
+          <para>
+            The specified delay was not valid.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id='pam_faildelay-examples'>
+    <title>EXAMPLES</title>
+    <para>
+      The following example will set the delay on failure to
+      10 seconds:
+      <programlisting>
+auth  optional  pam_faildelay.so  delay=10000000
+      </programlisting>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_faildelay-see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+	<refentrytitle>pam_fail_delay</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam.d</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_faildelay-author'>
+    <title>AUTHOR</title>
+      <para>
+        pam_faildelay was written by Bjoern Voigt &lt;bjoern@cs.tu-berlin.de&gt;.
+      </para>
+  </refsect1>
+
+</refentry>

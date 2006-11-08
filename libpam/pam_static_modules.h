@@ -40,6 +40,7 @@ extern struct pam_module _pam_deny_modstruct;
 extern struct pam_module _pam_echo_modstruct;
 extern struct pam_module _pam_env_modstruct;
 extern struct pam_module _pam_exec_modstruct;
+extern struct pam_module _pam_faildelay_modstruct;
 extern struct pam_module _pam_filter_modstruct;
 extern struct pam_module _pam_ftp_modstruct;
 extern struct pam_module _pam_group_modstruct;
@@ -91,6 +92,7 @@ static struct pam_module *static_modules[] = {
   &_pam_echo_modstruct,
   &_pam_env_modstruct,
   &_pam_exec_modstruct,
+  &_pam_faildelay,
   &_pam_filter_modstruct,
   &_pam_ftp_modstruct,
   &_pam_group_modstruct,
