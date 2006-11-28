@@ -1,5 +1,12 @@
 2006-11-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* configure.in: Remove --enable-docdir (obsolete by --docdir).
+	* doc/Makefile.am: Don't overwrite htmldir.
+	* doc/adg/Makefile.am: Use docdir, htmldir and pdfdir.
+	* doc/mwg/Makefile.am: Likewise.
+	* doc/sag/Makefile.am: Likewise.
+	* doc/specs/Makefile.am: Use docdir.
+
 	* tests/tst-pam_set_data.c: New test cases for pam_set_data().
 	* tests/Makefile.am: Add pam_set_data test case.
 
