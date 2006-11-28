@@ -1,3 +1,11 @@
+2006-11-28  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* tests/tst-pam_set_data.c: New test cases for pam_set_data().
+	* tests/Makefile.am: Add pam_set_data test case.
+
+	* libpam/pam_data.c: Add NULL pointer check for module_data_name.
+	* libpam/Makefile.am: Bump revision of shared library.
+
 2006-11-08  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Add modules/pam_faildelay/Makefile.
