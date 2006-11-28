@@ -41,7 +41,7 @@
 
 #include <security/pam_appl.h>
 #include <security/pam_modules.h>
-#include <libpam/pam_private.h>
+#include <pam_private.h>
 
 static int cleanup_was_called = 0;
 static int cleanup3_was_called = 0;

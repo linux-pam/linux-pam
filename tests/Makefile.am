@@ -2,7 +2,8 @@
 # Copyright (c) 2006 Thorsten Kukuk <kukuk@suse.de>
 #
 
-AM_CFLAGS = -DLIBPAM_COMPILE -I$(top_srcdir)/libpam/include 
+AM_CFLAGS = -DLIBPAM_COMPILE -I$(top_srcdir)/libpam/include \
+		-I$(top_srcdir)/libpam
 AM_LDFLAGS = -L$(top_builddir)/libpam -lpam
 
 CLEANFILES = *~
