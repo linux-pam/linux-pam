@@ -19,6 +19,4 @@ padout_SOURCES = parse_l.l parse_y.y
 
 padout_LDADD = @LEXLIB@
 
-specdir = $(DOCDIR)/spec
-
-spec_DATA = draft-morgan-pam-current.txt rfc86.0.txt
+doc_DATA = draft-morgan-pam-current.txt rfc86.0.txt

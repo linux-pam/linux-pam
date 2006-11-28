@@ -1,6 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(conf/pam_conv1/pam_conv_y.y)
 AM_INIT_AUTOMAKE("Linux-PAM", 0.99.6.3)
+AC_PREREQ([2.60])
 AM_CONFIG_HEADER(config.h)
 AC_CANONICAL_HOST
 
@@ -239,12 +240,6 @@ AC_ARG_ENABLE(sconfigdir,
 	AC_HELP_STRING([--enable-sconfigdir=DIR],[path to module conf files @<:@default=$sysconfdir/security@:>@]),
 	SCONFIGDIR=$enableval, SCONFIGDIR=$sysconfdir/security)
 AC_SUBST(SCONFIGDIR)
-
-AC_ARG_ENABLE(docdir,
-	AC_HELP_STRING([--enable-docdir=DIR],[path to documentation @<:@default=$datadir/doc/pam@:>@]),
-	DOCDIR=$enableval, DOCDIR=$datadir/doc/pam)
-AC_SUBST(DOCDIR)
-
 
 AC_ARG_ENABLE(pamlocking,
 	AC_HELP_STRING([--enable-pamlocking],[configure libpam to observe a global authentication lock]),

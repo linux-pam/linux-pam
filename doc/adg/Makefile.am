@@ -53,30 +53,29 @@ distclean-local:
 endif
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)
-	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/txt
-	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/pdf
-	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/html
+	$(mkinstalldirs) $(DESTDIR)$(docdir)
+	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
+	$(mkinstalldirs) $(DESTDIR)$(htmldir)
 	test -f html/Linux-PAM_ADG.html || exit 0; \
 	    $(install_sh_DATA) html/Linux-PAM_ADG.html html/adg-*.html \
-		$(DESTDIR)$(DOCDIR)/html/ || \
+		$(DESTDIR)$(htmldir)/ || \
 	    $(install_sh_DATA) $(srcdir)/html/Linux-PAM_ADG.html \
 		$(srcdir)/html/sag-*.html \
-		$(DESTDIR)$(DOCDIR)/html/
+		$(DESTDIR)$(htmldir)/
 	test -f Linux-PAM_ADG.txt || exit 0; \
-	    $(install_sh_DATA) Linux-PAM_ADG.txt $(DESTDIR)$(DOCDIR)/txt/ || \
+	    $(install_sh_DATA) Linux-PAM_ADG.txt $(DESTDIR)$(docdir)/ || \
 	    $(install_sh_DATA) $(srcdir)/Linux-PAM_ADG.txt \
-		$(DESTDIR)$(DOCDIR)/txt/
+		$(DESTDIR)$(docdir)/
 	test -f Linux-PAM_ADG.pdf || exit 0; \
-	    $(install_sh_DATA) Linux-PAM_ADG.pdf $(DESTDIR)$(DOCDIR)/pdf/ || \
+	    $(install_sh_DATA) Linux-PAM_ADG.pdf $(DESTDIR)$(pdfdir)/ || \
 	    $(install_sh_DATA) $(srcdir)/Linux-PAM_ADG.pdf \
-		$(DESTDIR)$(DOCDIR)/pdf/
+		$(DESTDIR)$(pdfdir)/
 
 uninstall-local:
-	-rm $(DESTDIR)$(DOCDIR)/html/Linux-PAM_ADG.html
-	-rm $(DESTDIR)$(DOCDIR)/html/adg-*.html
-	-rm $(DESTDIR)$(DOCDIR)/txt/Linux-PAM_ADG.txt
-	-rm $(DESTDIR)$(DOCDIR)/pdf/Linux-PAM_ADG.pdf
+	-rm $(DESTDIR)$(htmldir)/Linux-PAM_ADG.html
+	-rm $(DESTDIR)$(htmldir)/adg-*.html
+	-rm $(DESTDIR)$(docdir)/Linux-PAM_ADG.txt
+	-rm $(DESTDIR)$(pdfdir)/Linux-PAM_ADG.pdf
 
 releasedocs: all
 	$(mkinstalldirs) $(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/html

@@ -6,8 +6,6 @@ SUBDIRS = man specs sag adg mwg
 
 CLEANFILES = *~
 
-htmldir = $(DOCDIR)/html
-
 dist_html_DATA = index.html
 
 #######################################################

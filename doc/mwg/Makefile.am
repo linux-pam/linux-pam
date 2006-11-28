@@ -53,30 +53,29 @@ distclean-local:
 endif
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)
-	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/txt
-	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/pdf
-	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)/html
+	$(mkinstalldirs) $(DESTDIR)$(docdir)
+	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
+	$(mkinstalldirs) $(DESTDIR)$(htmldir)
 	test -f html/Linux-PAM_MWG.html || exit 0; \
 	    $(install_sh_DATA) html/Linux-PAM_MWG.html html/mwg-*.html \
-		$(DESTDIR)$(DOCDIR)/html/ || \
+		$(DESTDIR)$(htmldir)/ || \
 	    $(install_sh_DATA) $(srcdir)/html/Linux-PAM_MWG.html \
 		$(srcdir)/html/sag-*.html \
-		$(DESTDIR)$(DOCDIR)/html/
+		$(DESTDIR)$(htmldir)/
 	test -f Linux-PAM_MWG.txt || exit 0; \
-	    $(install_sh_DATA) Linux-PAM_MWG.txt $(DESTDIR)$(DOCDIR)/txt/ || \
+	    $(install_sh_DATA) Linux-PAM_MWG.txt $(DESTDIR)$(docdir)/ || \
 	    $(install_sh_DATA) $(srcdir)/Linux-PAM_MWG.txt \
-		$(DESTDIR)$(DOCDIR)/txt/
+		$(DESTDIR)$(docdir)/
 	test -f Linux-PAM_MWG.pdf || exit 0; \
-	    $(install_sh_DATA) Linux-PAM_MWG.pdf $(DESTDIR)$(DOCDIR)/pdf/ || \
+	    $(install_sh_DATA) Linux-PAM_MWG.pdf $(DESTDIR)$(pdfdir)/ || \
 	    $(install_sh_DATA) $(srcdir)/Linux-PAM_MWG.pdf \
-		$(DESTDIR)$(DOCDIR)/pdf/
+		$(DESTDIR)$(pdfdir)/
 
 uninstall-local:
-	-rm $(DESTDIR)$(DOCDIR)/html/Linux-PAM_MWG.html
-	-rm $(DESTDIR)$(DOCDIR)/html/mwg-*.html
-	-rm $(DESTDIR)$(DOCDIR)/txt/Linux-PAM_MWG.txt
-	-rm $(DESTDIR)$(DOCDIR)/pdf/Linux-PAM_MWG.pdf
+	-rm $(DESTDIR)$(htmldir)/Linux-PAM_MWG.html
+	-rm $(DESTDIR)$(htmldir)/mwg-*.html
+	-rm $(DESTDIR)$(docdir)/Linux-PAM_MWG.txt
+	-rm $(DESTDIR)$(pdfdir)/Linux-PAM_MWG.pdf
 
 releasedocs: all
 	$(mkinstalldirs) $(top_builddir)/Linux-PAM-$(VERSION)/doc/mwg/html
