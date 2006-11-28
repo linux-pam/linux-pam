@@ -26,5 +26,5 @@ auth  optional  pam_faildelay.so  delay=10000000
 
 AUTHOR
 
-pam_faildelay was written by Bjoern Voigt <bjoern@cs.tu-berlin.de>.
+pam_faildelay was written by Darren Tucker <dtucker@zip.com.au>.
 

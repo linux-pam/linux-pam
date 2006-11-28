@@ -126,7 +126,7 @@ auth  optional  pam_faildelay.so  delay=10000000
   <refsect1 id='pam_faildelay-author'>
     <title>AUTHOR</title>
       <para>
-        pam_faildelay was written by Bjoern Voigt &lt;bjoern@cs.tu-berlin.de&gt;.
+        pam_faildelay was written by Darren Tucker &lt;dtucker@zip.com.au&gt;.
       </para>
   </refsect1>
 

@@ -1,5 +1,7 @@
 2006-11-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_faildelay/pam_faildelay.8.xml: Correct name of Author.
+
 	* configure.in: Remove --enable-docdir (obsolete by --docdir).
 	* doc/Makefile.am: Don't overwrite htmldir.
 	* doc/adg/Makefile.am: Use docdir, htmldir and pdfdir.
