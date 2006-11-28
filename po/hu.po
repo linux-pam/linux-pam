@@ -73,7 +73,7 @@ msgstr " innen: %.*s"
 #: modules/pam_lastlog/pam_lastlog.c:211
 #, c-format
 msgid " on %.*s"
-msgstr " itt: %.*s"
+msgstr ", %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:220

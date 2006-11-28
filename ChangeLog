@@ -1,5 +1,8 @@
 2006-11-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* po/hu.po: Update hungarian translation (from
+	Kalman Kemenczy <kkemenczy@novell.com>).
+
 	* configure.in: Allow disabling support for cracklib, audit, libdb.
 
 	* modules/pam_faildelay/pam_faildelay.8.xml: Correct name of Author.
