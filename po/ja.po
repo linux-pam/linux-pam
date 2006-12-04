@@ -218,7 +218,7 @@ msgstr "警告: パスワードは%d日で有効期限が切れます。%.2s"
 
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
-msgstr "パスワード(P):"
+msgstr "パスワード:"
 
 #: modules/pam_unix/pam_unix_passwd.c:819
 msgid "NIS password could not be changed."
