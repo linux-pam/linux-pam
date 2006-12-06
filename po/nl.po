@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-08-31 16:32+0200\n"
+"POT-Creation-Date: 2006-12-06 14:36+0100\n"
 "PO-Revision-Date: 2006-05-03 22:02+0200\n"
 "Last-Translator: Rinse de Vries <rinsedevries@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -18,314 +18,18 @@ msgstr ""
 "X-Generator: KBabel 1.11.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: modules/pam_tally/pam_tally.c:741
-msgid "Authentication error"
-msgstr "Verificatiefout"
+#: libpam_misc/misc_conv.c:33
+msgid "...Time is running out...\n"
+msgstr "...De tijd is aan het verlopen...\n"
 
-#: modules/pam_tally/pam_tally.c:742
-msgid "Service error"
-msgstr "Servicefout"
+#: libpam_misc/misc_conv.c:34
+msgid "...Sorry, your time is up!\n"
+msgstr "...Helaas, uw tijd is verlopen!\n"
 
-#: modules/pam_tally/pam_tally.c:743
-msgid "Unknown user"
-msgstr "Onbekende gebruiker"
-
-#: modules/pam_tally/pam_tally.c:744
-msgid "Unknown error"
-msgstr "Onbekende fout"
-
-#: modules/pam_tally/pam_tally.c:760
+#: libpam_misc/misc_conv.c:343
 #, c-format
-msgid "%s: Bad number given to --reset=\n"
-msgstr "%s: onjuist getal gegeven aan --reset=\n"
-
-#: modules/pam_tally/pam_tally.c:764
-#, c-format
-msgid "%s: Unrecognised option %s\n"
-msgstr "%s: niet-herkende optie %s\n"
-
-#: modules/pam_tally/pam_tally.c:776
-#, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s [--file rooted-bestandsnaam] [ --user gebruikersnaam] [--reset[=n]] [--"
-"quiet]\n"
-
-#: modules/pam_tally/pam_tally.c:850
-#, c-format
-msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: kan niet alle gebruikers terugzetten naar non-zero\n"
-
-#. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:190
-msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr ""
-
-#. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:199
-#, c-format
-msgid " from %.*s"
-msgstr " van %.*s"
-
-#. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:211
-#, c-format
-msgid " on %.*s"
-msgstr " op %.*s"
-
-#. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:220
-#, c-format
-msgid "Last login:%s%s%s"
-msgstr "Laatste keer aangemeld: %s%s%s"
-
-#: modules/pam_lastlog/pam_lastlog.c:226
-msgid "Welcome to your new account!"
-msgstr "Welkom bij uw nieuwe account!"
-
-#: modules/pam_limits/pam_limits.c:647
-#, c-format
-msgid "Too many logins for '%s'."
-msgstr "Te vaak aangemeld met '%s'."
-
-#: modules/pam_selinux/pam_selinux_check.c:99
-#, c-format
-msgid "failed to initialize PAM\n"
-msgstr "Het initialiseren van PAM is mislukt\n"
-
-#: modules/pam_selinux/pam_selinux_check.c:105
-#, c-format
-msgid "failed to pam_set_item()\n"
-msgstr "pam_set_item() is mislukt\n"
-
-#: modules/pam_selinux/pam_selinux_check.c:133
-#, c-format
-msgid "login: failure forking: %m"
-msgstr "login: failure forking: %m"
-
-#: modules/pam_selinux/pam_selinux.c:102
-#, c-format
-msgid "Your default context is %s. \n"
-msgstr "Uw standaardcontext is %s. \n"
-
-#: modules/pam_selinux/pam_selinux.c:105
-msgid "Do you want to choose a different one? [n]"
-msgstr "Wilt u een andere kiezen? [n]"
-
-#: modules/pam_selinux/pam_selinux.c:112
-msgid "Enter number of choice: "
-msgstr "Voer het gekozen getal in: "
-
-#: modules/pam_selinux/pam_selinux.c:152
-msgid "Would you like to enter a security context? [y] "
-msgstr "Wilt u een beveiligingscontext invoeren? [y] "
-
-#: modules/pam_selinux/pam_selinux.c:169
-msgid "role: "
-msgstr "rol: "
-
-#: modules/pam_selinux/pam_selinux.c:177
-msgid "type: "
-msgstr "type: "
-
-#: modules/pam_selinux/pam_selinux.c:187
-msgid "level: "
-msgstr "niveau: "
-
-#: modules/pam_selinux/pam_selinux.c:203
-msgid "Not a valid security context"
-msgstr "Geen geldige beveiligingscontext"
-
-#: modules/pam_selinux/pam_selinux.c:417
-#, c-format
-msgid "Security Context %s Assigned"
-msgstr "Beveilgingscontext %s toegewezen"
-
-#: modules/pam_exec/pam_exec.c:118
-#, c-format
-msgid "%s failed: exit code %d"
-msgstr ""
-
-#: modules/pam_exec/pam_exec.c:126
-#, c-format
-msgid "%s failed: caught signal %d%s"
-msgstr ""
-
-#: modules/pam_exec/pam_exec.c:134
-#, c-format
-msgid "%s failed: unknown status 0x%x"
-msgstr ""
-
-#: modules/pam_mail/pam_mail.c:313
-msgid "No mail."
-msgstr "Geen e-mail."
-
-#: modules/pam_mail/pam_mail.c:316
-msgid "You have new mail."
-msgstr "U hebt nieuwe e-mail."
-
-#: modules/pam_mail/pam_mail.c:319
-msgid "You have old mail."
-msgstr "U hebt oude e-mail."
-
-#: modules/pam_mail/pam_mail.c:323
-msgid "You have mail."
-msgstr "U hebt e-mail."
-
-#: modules/pam_mail/pam_mail.c:330
-#, c-format
-msgid "You have no mail in folder %s."
-msgstr "U hebt geen e-mail in map %s."
-
-#: modules/pam_mail/pam_mail.c:334
-#, c-format
-msgid "You have new mail in folder %s."
-msgstr "U hebt nieuwe e-mail in map %s."
-
-#: modules/pam_mail/pam_mail.c:338
-#, c-format
-msgid "You have old mail in folder %s."
-msgstr "U hebt oude e-mail in map %s."
-
-#: modules/pam_mail/pam_mail.c:343
-#, c-format
-msgid "You have mail in folder %s."
-msgstr "U hebt e-mail in map %s."
-
-#: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
-msgid "Your account has expired; please contact your system administrator"
-msgstr "Uw account is verlopen. Een contact op met uw systeembeheerder"
-
-#: modules/pam_unix/pam_unix_acct.c:283
-msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
-"U dient onmiddellijk uw wachtwoord te wijzigen (op last van systeembeheerder)"
-
-#: modules/pam_unix/pam_unix_acct.c:310
-msgid "You are required to change your password immediately (password aged)"
-msgstr ""
-"U dient onmiddellijk uw wachtwoord te wijzigen (wachtwoord is verouderd)"
-
-#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
-#, fuzzy, c-format
-msgid "Warning: your password will expire in %d day"
-msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "Waarschuwing: uw wachtwoord zal over %d day%.2s verlopen"
-msgstr[1] "Waarschuwing: uw wachtwoord zal over %d day%.2s verlopen"
-
-#. TRANSLATORS: only used if dngettext is not support
-#. ed
-#: modules/pam_unix/pam_unix_acct.c:336
-#, fuzzy, c-format
-msgid "Warning: your password will expire in %d days"
-msgstr "Waarschuwing: uw wachtwoord zal over %d day%.2s verlopen"
-
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "Wachtwoord: "
-
-#: modules/pam_unix/pam_unix_passwd.c:819
-msgid "NIS password could not be changed."
-msgstr "NIS-wachtwoord kon niet worden gewijzigd."
-
-#: modules/pam_unix/pam_unix_passwd.c:975
-#: modules/pam_cracklib/pam_cracklib.c:464
-msgid "No password supplied"
-msgstr "Geen wachtwoord opgegeven"
-
-#: modules/pam_unix/pam_unix_passwd.c:975
-#: modules/pam_cracklib/pam_cracklib.c:464
-msgid "Password unchanged"
-msgstr "Wachtwoord is niet gewijzigd"
-
-#: modules/pam_unix/pam_unix_passwd.c:996
-msgid "You must choose a longer password"
-msgstr "Kies een langer wachtwoord"
-
-#: modules/pam_unix/pam_unix_passwd.c:1001
-msgid "Password has been already used. Choose another."
-msgstr "Dit wachtwoord is al gebruikt. Kies een ander wachtwoord."
-
-#: modules/pam_unix/pam_unix_passwd.c:1125
-msgid "(current) UNIX password: "
-msgstr "(huidig) UNIX-wachtwoord: "
-
-#: modules/pam_unix/pam_unix_passwd.c:1160
-msgid "You must wait longer to change your password"
-msgstr "U moet langer wachten om uw wachtwoord te wijzigen"
-
-#: modules/pam_unix/pam_unix_passwd.c:1220
-msgid "Enter new UNIX password: "
-msgstr "Nieuw UNIX-wachtwoord invoeren: "
-
-#: modules/pam_unix/pam_unix_passwd.c:1221
-msgid "Retype new UNIX password: "
-msgstr "Nieuw UNIX-wachtwoord herhalen: "
-
-#: modules/pam_stress/pam_stress.c:477
-msgid "Changing STRESS password for "
-msgstr "STRESS-wachtwoord wijzigen voor "
-
-#: modules/pam_stress/pam_stress.c:491
-msgid "Enter new STRESS password: "
-msgstr "Nieuw STRESS-wachtwoord invoeren: "
-
-#: modules/pam_stress/pam_stress.c:494
-msgid "Retype new STRESS password: "
-msgstr "Nieuw STRESS-wachtwoord herhalen: "
-
-#: modules/pam_stress/pam_stress.c:523
-msgid "Verification mis-typed; password unchanged"
-msgstr "Verificatie onjuist getypt. Wachtwoord blijft ongewijzigd."
-
-#: modules/pam_cracklib/pam_cracklib.c:60
-#, c-format
-msgid "New %s%spassword: "
-msgstr "Nieuw %s%s-wachtwoord: "
-
-#: modules/pam_cracklib/pam_cracklib.c:62
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "Nieuw %s%s-wachtwoord herhalen: "
-
-#: modules/pam_cracklib/pam_cracklib.c:63
-msgid "Sorry, passwords do not match."
-msgstr "Helaas, wachtwoorden komen niet overeen."
-
-#: modules/pam_cracklib/pam_cracklib.c:378
-msgid "is the same as the old one"
-msgstr "is hetzelfde als het oude wachtwoord."
-
-#: modules/pam_cracklib/pam_cracklib.c:389
-msgid "is a palindrome"
-msgstr "is een palindrome"
-
-#: modules/pam_cracklib/pam_cracklib.c:392
-msgid "case changes only"
-msgstr "alleen gebruik hoofd/kleine letters gewijzigd"
-
-#: modules/pam_cracklib/pam_cracklib.c:395
-msgid "is too similar to the old one"
-msgstr "lijkt teveel op oud wachtwoord"
-
-#: modules/pam_cracklib/pam_cracklib.c:398
-msgid "is too simple"
-msgstr "is te eenvoudig"
-
-#: modules/pam_cracklib/pam_cracklib.c:401
-msgid "is rotated"
-msgstr "is omgedraaid"
-
-#: modules/pam_cracklib/pam_cracklib.c:436
-msgid "has been already used"
-msgstr "is al gebruikt"
-
-#: modules/pam_cracklib/pam_cracklib.c:487
-#: modules/pam_cracklib/pam_cracklib.c:615
-#, c-format
-msgid "BAD PASSWORD: %s"
-msgstr "SLECHT WACHTWOORD: %s"
+msgid "erroneous conversation (%d)\n"
+msgstr "foute conversatie (%d)\n"
 
 #: libpam/pam_item.c:271
 msgid "login:"
@@ -463,18 +167,324 @@ msgstr "Toepassing dient libpam nogmaals aan te roepen"
 msgid "Unknown PAM error"
 msgstr "Onbekende PAM-fout"
 
-#: libpam_misc/misc_conv.c:33
-msgid "...Time is running out...\n"
-msgstr "...De tijd is aan het verlopen...\n"
-
-#: libpam_misc/misc_conv.c:34
-msgid "...Sorry, your time is up!\n"
-msgstr "...Helaas, uw tijd is verlopen!\n"
-
-#: libpam_misc/misc_conv.c:343
+#: modules/pam_cracklib/pam_cracklib.c:60
 #, c-format
-msgid "erroneous conversation (%d)\n"
-msgstr "foute conversatie (%d)\n"
+msgid "New %s%spassword: "
+msgstr "Nieuw %s%s-wachtwoord: "
+
+#: modules/pam_cracklib/pam_cracklib.c:62
+#, c-format
+msgid "Retype new %s%spassword: "
+msgstr "Nieuw %s%s-wachtwoord herhalen: "
+
+#: modules/pam_cracklib/pam_cracklib.c:63
+msgid "Sorry, passwords do not match."
+msgstr "Helaas, wachtwoorden komen niet overeen."
+
+#: modules/pam_cracklib/pam_cracklib.c:378
+msgid "is the same as the old one"
+msgstr "is hetzelfde als het oude wachtwoord."
+
+#: modules/pam_cracklib/pam_cracklib.c:389
+msgid "is a palindrome"
+msgstr "is een palindrome"
+
+#: modules/pam_cracklib/pam_cracklib.c:392
+msgid "case changes only"
+msgstr "alleen gebruik hoofd/kleine letters gewijzigd"
+
+#: modules/pam_cracklib/pam_cracklib.c:395
+msgid "is too similar to the old one"
+msgstr "lijkt teveel op oud wachtwoord"
+
+#: modules/pam_cracklib/pam_cracklib.c:398
+msgid "is too simple"
+msgstr "is te eenvoudig"
+
+#: modules/pam_cracklib/pam_cracklib.c:401
+msgid "is rotated"
+msgstr "is omgedraaid"
+
+#: modules/pam_cracklib/pam_cracklib.c:436
+msgid "has been already used"
+msgstr "is al gebruikt"
+
+#: modules/pam_cracklib/pam_cracklib.c:464
+#: modules/pam_unix/pam_unix_passwd.c:975
+msgid "No password supplied"
+msgstr "Geen wachtwoord opgegeven"
+
+#: modules/pam_cracklib/pam_cracklib.c:464
+#: modules/pam_unix/pam_unix_passwd.c:975
+msgid "Password unchanged"
+msgstr "Wachtwoord is niet gewijzigd"
+
+#: modules/pam_cracklib/pam_cracklib.c:487
+#: modules/pam_cracklib/pam_cracklib.c:615
+#, c-format
+msgid "BAD PASSWORD: %s"
+msgstr "SLECHT WACHTWOORD: %s"
+
+#: modules/pam_exec/pam_exec.c:118
+#, c-format
+msgid "%s failed: exit code %d"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:126
+#, c-format
+msgid "%s failed: caught signal %d%s"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:134
+#, c-format
+msgid "%s failed: unknown status 0x%x"
+msgstr ""
+
+#. TRANSLATORS: "strftime options for date of last login"
+#: modules/pam_lastlog/pam_lastlog.c:190
+msgid " %a %b %e %H:%M:%S %Z %Y"
+msgstr ""
+
+#. TRANSLATORS: " from <host>"
+#: modules/pam_lastlog/pam_lastlog.c:199
+#, c-format
+msgid " from %.*s"
+msgstr " van %.*s"
+
+#. TRANSLATORS: " on <terminal>"
+#: modules/pam_lastlog/pam_lastlog.c:211
+#, c-format
+msgid " on %.*s"
+msgstr " op %.*s"
+
+#. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
+#: modules/pam_lastlog/pam_lastlog.c:220
+#, c-format
+msgid "Last login:%s%s%s"
+msgstr "Laatste keer aangemeld: %s%s%s"
+
+#: modules/pam_lastlog/pam_lastlog.c:226
+msgid "Welcome to your new account!"
+msgstr "Welkom bij uw nieuwe account!"
+
+#: modules/pam_limits/pam_limits.c:647
+#, c-format
+msgid "Too many logins for '%s'."
+msgstr "Te vaak aangemeld met '%s'."
+
+#: modules/pam_mail/pam_mail.c:313
+msgid "No mail."
+msgstr "Geen e-mail."
+
+#: modules/pam_mail/pam_mail.c:316
+msgid "You have new mail."
+msgstr "U hebt nieuwe e-mail."
+
+#: modules/pam_mail/pam_mail.c:319
+msgid "You have old mail."
+msgstr "U hebt oude e-mail."
+
+#: modules/pam_mail/pam_mail.c:323
+msgid "You have mail."
+msgstr "U hebt e-mail."
+
+#: modules/pam_mail/pam_mail.c:330
+#, c-format
+msgid "You have no mail in folder %s."
+msgstr "U hebt geen e-mail in map %s."
+
+#: modules/pam_mail/pam_mail.c:334
+#, c-format
+msgid "You have new mail in folder %s."
+msgstr "U hebt nieuwe e-mail in map %s."
+
+#: modules/pam_mail/pam_mail.c:338
+#, c-format
+msgid "You have old mail in folder %s."
+msgstr "U hebt oude e-mail in map %s."
+
+#: modules/pam_mail/pam_mail.c:343
+#, c-format
+msgid "You have mail in folder %s."
+msgstr "U hebt e-mail in map %s."
+
+#: modules/pam_mkhomedir/pam_mkhomedir.c:140
+#, c-format
+msgid "Creating directory '%s'."
+msgstr ""
+
+#: modules/pam_mkhomedir/pam_mkhomedir.c:145
+#, c-format
+msgid "Unable to create directory %s: %m"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:102
+#, c-format
+msgid "Your default context is %s. \n"
+msgstr "Uw standaardcontext is %s. \n"
+
+#: modules/pam_selinux/pam_selinux.c:105
+msgid "Do you want to choose a different one? [n]"
+msgstr "Wilt u een andere kiezen? [n]"
+
+#: modules/pam_selinux/pam_selinux.c:112
+msgid "Enter number of choice: "
+msgstr "Voer het gekozen getal in: "
+
+#: modules/pam_selinux/pam_selinux.c:152
+msgid "Would you like to enter a security context? [y] "
+msgstr "Wilt u een beveiligingscontext invoeren? [y] "
+
+#: modules/pam_selinux/pam_selinux.c:169
+msgid "role: "
+msgstr "rol: "
+
+#: modules/pam_selinux/pam_selinux.c:177
+msgid "type: "
+msgstr "type: "
+
+#: modules/pam_selinux/pam_selinux.c:187
+msgid "level: "
+msgstr "niveau: "
+
+#: modules/pam_selinux/pam_selinux.c:203
+msgid "Not a valid security context"
+msgstr "Geen geldige beveiligingscontext"
+
+#: modules/pam_selinux/pam_selinux.c:417
+#, c-format
+msgid "Security Context %s Assigned"
+msgstr "Beveilgingscontext %s toegewezen"
+
+#: modules/pam_selinux/pam_selinux_check.c:99
+#, c-format
+msgid "failed to initialize PAM\n"
+msgstr "Het initialiseren van PAM is mislukt\n"
+
+#: modules/pam_selinux/pam_selinux_check.c:105
+#, c-format
+msgid "failed to pam_set_item()\n"
+msgstr "pam_set_item() is mislukt\n"
+
+#: modules/pam_selinux/pam_selinux_check.c:133
+#, c-format
+msgid "login: failure forking: %m"
+msgstr "login: failure forking: %m"
+
+#: modules/pam_stress/pam_stress.c:477
+msgid "Changing STRESS password for "
+msgstr "STRESS-wachtwoord wijzigen voor "
+
+#: modules/pam_stress/pam_stress.c:491
+msgid "Enter new STRESS password: "
+msgstr "Nieuw STRESS-wachtwoord invoeren: "
+
+#: modules/pam_stress/pam_stress.c:494
+msgid "Retype new STRESS password: "
+msgstr "Nieuw STRESS-wachtwoord herhalen: "
+
+#: modules/pam_stress/pam_stress.c:523
+msgid "Verification mis-typed; password unchanged"
+msgstr "Verificatie onjuist getypt. Wachtwoord blijft ongewijzigd."
+
+#: modules/pam_tally/pam_tally.c:741
+msgid "Authentication error"
+msgstr "Verificatiefout"
+
+#: modules/pam_tally/pam_tally.c:742
+msgid "Service error"
+msgstr "Servicefout"
+
+#: modules/pam_tally/pam_tally.c:743
+msgid "Unknown user"
+msgstr "Onbekende gebruiker"
+
+#: modules/pam_tally/pam_tally.c:744
+msgid "Unknown error"
+msgstr "Onbekende fout"
+
+#: modules/pam_tally/pam_tally.c:760
+#, c-format
+msgid "%s: Bad number given to --reset=\n"
+msgstr "%s: onjuist getal gegeven aan --reset=\n"
+
+#: modules/pam_tally/pam_tally.c:764
+#, c-format
+msgid "%s: Unrecognised option %s\n"
+msgstr "%s: niet-herkende optie %s\n"
+
+#: modules/pam_tally/pam_tally.c:776
+#, c-format
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s [--file rooted-bestandsnaam] [ --user gebruikersnaam] [--reset[=n]] [--"
+"quiet]\n"
+
+#: modules/pam_tally/pam_tally.c:850
+#, c-format
+msgid "%s: Can't reset all users to non-zero\n"
+msgstr "%s: kan niet alle gebruikers terugzetten naar non-zero\n"
+
+#: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
+msgid "Your account has expired; please contact your system administrator"
+msgstr "Uw account is verlopen. Een contact op met uw systeembeheerder"
+
+#: modules/pam_unix/pam_unix_acct.c:283
+msgid "You are required to change your password immediately (root enforced)"
+msgstr ""
+"U dient onmiddellijk uw wachtwoord te wijzigen (op last van systeembeheerder)"
+
+#: modules/pam_unix/pam_unix_acct.c:310
+msgid "You are required to change your password immediately (password aged)"
+msgstr ""
+"U dient onmiddellijk uw wachtwoord te wijzigen (wachtwoord is verouderd)"
+
+#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d day"
+msgid_plural "Warning: your password will expire in %d days"
+msgstr[0] "Waarschuwing: uw wachtwoord zal over %d day%.2s verlopen"
+msgstr[1] "Waarschuwing: uw wachtwoord zal over %d day%.2s verlopen"
+
+#. TRANSLATORS: only used if dngettext is not support
+#. ed
+#: modules/pam_unix/pam_unix_acct.c:336
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d days"
+msgstr "Waarschuwing: uw wachtwoord zal over %d day%.2s verlopen"
+
+#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
+msgid "Password: "
+msgstr "Wachtwoord: "
+
+#: modules/pam_unix/pam_unix_passwd.c:819
+msgid "NIS password could not be changed."
+msgstr "NIS-wachtwoord kon niet worden gewijzigd."
+
+#: modules/pam_unix/pam_unix_passwd.c:996
+msgid "You must choose a longer password"
+msgstr "Kies een langer wachtwoord"
+
+#: modules/pam_unix/pam_unix_passwd.c:1001
+msgid "Password has been already used. Choose another."
+msgstr "Dit wachtwoord is al gebruikt. Kies een ander wachtwoord."
+
+#: modules/pam_unix/pam_unix_passwd.c:1125
+msgid "(current) UNIX password: "
+msgstr "(huidig) UNIX-wachtwoord: "
+
+#: modules/pam_unix/pam_unix_passwd.c:1160
+msgid "You must wait longer to change your password"
+msgstr "U moet langer wachten om uw wachtwoord te wijzigen"
+
+#: modules/pam_unix/pam_unix_passwd.c:1220
+msgid "Enter new UNIX password: "
+msgstr "Nieuw UNIX-wachtwoord invoeren: "
+
+#: modules/pam_unix/pam_unix_passwd.c:1221
+msgid "Retype new UNIX password: "
+msgstr "Nieuw UNIX-wachtwoord herhalen: "
 
 #~ msgid "dlopen() failure"
 #~ msgstr "dlopen() failure"

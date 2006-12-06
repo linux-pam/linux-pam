@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-08-31 16:32+0200\n"
+"POT-Creation-Date: 2006-12-06 14:36+0100\n"
 "PO-Revision-Date: 2006-05-03 21:54+0200\n"
 "Last-Translator: Antonio Cardoso Martins <digiplan@netvisao.pt>\n"
 "Language-Team: portuguese\n"
@@ -16,315 +16,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
 
-#: modules/pam_tally/pam_tally.c:741
-msgid "Authentication error"
-msgstr "Erro de autenticação"
+#: libpam_misc/misc_conv.c:33
+msgid "...Time is running out...\n"
+msgstr "...O tempo está a esgotar-se...\n"
 
-#: modules/pam_tally/pam_tally.c:742
-msgid "Service error"
-msgstr "Erro de serviço"
+#: libpam_misc/misc_conv.c:34
+msgid "...Sorry, your time is up!\n"
+msgstr "...Lamento, o seu tempo esgotou-se!\n"
 
-#: modules/pam_tally/pam_tally.c:743
-msgid "Unknown user"
-msgstr "Utilizador desconhecido"
-
-#: modules/pam_tally/pam_tally.c:744
-msgid "Unknown error"
-msgstr "Erro desconhecido"
-
-#: modules/pam_tally/pam_tally.c:760
+#: libpam_misc/misc_conv.c:343
 #, c-format
-msgid "%s: Bad number given to --reset=\n"
-msgstr "%s: Número errado fornecido a --reset=\n"
-
-#: modules/pam_tally/pam_tally.c:764
-#, c-format
-msgid "%s: Unrecognised option %s\n"
-msgstr "%s: Opção não reconhecida %s\n"
-
-#: modules/pam_tally/pam_tally.c:776
-#, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file ficheiro-raiz] [--user nome-utilizador] [--reset[=n]] [--quiet]\n"
-
-#: modules/pam_tally/pam_tally.c:850
-#, c-format
-msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: Não foi possível reiniciar todos os utilizadores para não zero\n"
-
-#. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:190
-msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr " %a %b %e %H:%M:%S %Z %Y"
-
-#. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:199
-#, c-format
-msgid " from %.*s"
-msgstr " a partir de %.*s"
-
-#. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:211
-#, c-format
-msgid " on %.*s"
-msgstr " em %.*s"
-
-#. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:220
-#, c-format
-msgid "Last login:%s%s%s"
-msgstr "Último início de sessão: %s%s%s"
-
-#: modules/pam_lastlog/pam_lastlog.c:226
-msgid "Welcome to your new account!"
-msgstr "Bemvindo à sua nova conta!"
-
-#: modules/pam_limits/pam_limits.c:647
-#, c-format
-msgid "Too many logins for '%s'."
-msgstr "Demasiados inícios de sessão para '%s'."
-
-#: modules/pam_selinux/pam_selinux_check.c:99
-#, c-format
-msgid "failed to initialize PAM\n"
-msgstr "falha ao inicializar o PAM\n"
-
-#: modules/pam_selinux/pam_selinux_check.c:105
-#, c-format
-msgid "failed to pam_set_item()\n"
-msgstr "falha em pam_set_item()\n"
-
-#: modules/pam_selinux/pam_selinux_check.c:133
-#, c-format
-msgid "login: failure forking: %m"
-msgstr "sessão: falha ao executar o forking: %m"
-
-#: modules/pam_selinux/pam_selinux.c:102
-#, c-format
-msgid "Your default context is %s. \n"
-msgstr "O seu contexto pré-definido é %s: \n"
-
-#: modules/pam_selinux/pam_selinux.c:105
-msgid "Do you want to choose a different one? [n]"
-msgstr "Pretende escolher um diferente? [n]"
-
-#: modules/pam_selinux/pam_selinux.c:112
-msgid "Enter number of choice: "
-msgstr "Digite o número da escolha: "
-
-#: modules/pam_selinux/pam_selinux.c:152
-msgid "Would you like to enter a security context? [y] "
-msgstr "Pretende introduzir um contexto de segurança? [y]"
-
-#: modules/pam_selinux/pam_selinux.c:169
-msgid "role: "
-msgstr "papel: "
-
-#: modules/pam_selinux/pam_selinux.c:177
-msgid "type: "
-msgstr "tipo: "
-
-#: modules/pam_selinux/pam_selinux.c:187
-msgid "level: "
-msgstr "nível: "
-
-#: modules/pam_selinux/pam_selinux.c:203
-msgid "Not a valid security context"
-msgstr "Não é um contexto de segurança válido"
-
-#: modules/pam_selinux/pam_selinux.c:417
-#, c-format
-msgid "Security Context %s Assigned"
-msgstr "Contexto de Segurança %s Atribuído"
-
-#: modules/pam_exec/pam_exec.c:118
-#, c-format
-msgid "%s failed: exit code %d"
-msgstr ""
-
-#: modules/pam_exec/pam_exec.c:126
-#, c-format
-msgid "%s failed: caught signal %d%s"
-msgstr ""
-
-#: modules/pam_exec/pam_exec.c:134
-#, c-format
-msgid "%s failed: unknown status 0x%x"
-msgstr ""
-
-#: modules/pam_mail/pam_mail.c:313
-msgid "No mail."
-msgstr "Não tem correio."
-
-#: modules/pam_mail/pam_mail.c:316
-msgid "You have new mail."
-msgstr "Tem novo correio electrónico."
-
-#: modules/pam_mail/pam_mail.c:319
-msgid "You have old mail."
-msgstr "Tem correio electrónico antigo."
-
-#: modules/pam_mail/pam_mail.c:323
-msgid "You have mail."
-msgstr "Tem correio electrónico."
-
-#: modules/pam_mail/pam_mail.c:330
-#, c-format
-msgid "You have no mail in folder %s."
-msgstr "Não tem correio electrónico na pasta %s."
-
-#: modules/pam_mail/pam_mail.c:334
-#, c-format
-msgid "You have new mail in folder %s."
-msgstr "Tem novo correio electrónico na pasta %s."
-
-#: modules/pam_mail/pam_mail.c:338
-#, c-format
-msgid "You have old mail in folder %s."
-msgstr "Tem correio electrónico antigo na pasta %s."
-
-#: modules/pam_mail/pam_mail.c:343
-#, c-format
-msgid "You have mail in folder %s."
-msgstr "Tem correio electrónico na pasta %s."
-
-#: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
-msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"A sua conta de utilizador expirou; por favor contacte o seu administrador de "
-"sistema"
-
-#: modules/pam_unix/pam_unix_acct.c:283
-msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
-"É obrigatório que altere de imediato a sua palavra passe (forçado pelo root)"
-
-#: modules/pam_unix/pam_unix_acct.c:310
-msgid "You are required to change your password immediately (password aged)"
-msgstr ""
-"É obrigatório que altere de imediato a sua palavra passe (forçado pela idade)"
-
-#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
-#, fuzzy, c-format
-msgid "Warning: your password will expire in %d day"
-msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "Aviso: a sua palavra passe expira em %d dia%.2s"
-msgstr[1] "Aviso: a sua palavra passe expira em %d dia%.2s"
-
-#. TRANSLATORS: only used if dngettext is not support
-#. ed
-#: modules/pam_unix/pam_unix_acct.c:336
-#, fuzzy, c-format
-msgid "Warning: your password will expire in %d days"
-msgstr "Aviso: a sua palavra passe expira em %d dia%.2s"
-
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "Palavra passe: "
-
-#: modules/pam_unix/pam_unix_passwd.c:819
-msgid "NIS password could not be changed."
-msgstr "A palavra passe de NIS não pode ser alterada."
-
-#: modules/pam_unix/pam_unix_passwd.c:975
-#: modules/pam_cracklib/pam_cracklib.c:464
-msgid "No password supplied"
-msgstr "Não foi fornecida uma palavra passe"
-
-#: modules/pam_unix/pam_unix_passwd.c:975
-#: modules/pam_cracklib/pam_cracklib.c:464
-msgid "Password unchanged"
-msgstr "Palavra passe inalterada"
-
-#: modules/pam_unix/pam_unix_passwd.c:996
-msgid "You must choose a longer password"
-msgstr "Deve escolher uma palavra passe mais longa"
-
-#: modules/pam_unix/pam_unix_passwd.c:1001
-msgid "Password has been already used. Choose another."
-msgstr "A palavra passe já foi anteriormente utilizada. Escolha outra."
-
-#: modules/pam_unix/pam_unix_passwd.c:1125
-msgid "(current) UNIX password: "
-msgstr "palavra passe UNIX (actual): "
-
-#: modules/pam_unix/pam_unix_passwd.c:1160
-msgid "You must wait longer to change your password"
-msgstr "Tem de esperar mais antes de poder alterar a sua palavra passe"
-
-#: modules/pam_unix/pam_unix_passwd.c:1220
-msgid "Enter new UNIX password: "
-msgstr "Digite a nova palavra passe UNIX: "
-
-#: modules/pam_unix/pam_unix_passwd.c:1221
-msgid "Retype new UNIX password: "
-msgstr "Digite novamente a nova palavra passe UNIX: "
-
-#: modules/pam_stress/pam_stress.c:477
-msgid "Changing STRESS password for "
-msgstr "A alterar a palavra passe de STRESS para "
-
-#: modules/pam_stress/pam_stress.c:491
-msgid "Enter new STRESS password: "
-msgstr "Digite a nova palavra passe de STRESS: "
-
-#: modules/pam_stress/pam_stress.c:494
-msgid "Retype new STRESS password: "
-msgstr "Digite novamente a nova palavra passe de STRESS: "
-
-#: modules/pam_stress/pam_stress.c:523
-msgid "Verification mis-typed; password unchanged"
-msgstr "A verificação não coincide; palavra passe inalterada"
-
-#: modules/pam_cracklib/pam_cracklib.c:60
-#, c-format
-msgid "New %s%spassword: "
-msgstr "Nova %s%spalavra passe: "
-
-#: modules/pam_cracklib/pam_cracklib.c:62
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "Digite novamente a nova %s%spalavra passe: "
-
-#: modules/pam_cracklib/pam_cracklib.c:63
-msgid "Sorry, passwords do not match."
-msgstr "Lamento, as palavras passe não coincidem."
-
-#: modules/pam_cracklib/pam_cracklib.c:378
-msgid "is the same as the old one"
-msgstr "é igual à anterior"
-
-#: modules/pam_cracklib/pam_cracklib.c:389
-msgid "is a palindrome"
-msgstr "é um palíndrome"
-
-#: modules/pam_cracklib/pam_cracklib.c:392
-msgid "case changes only"
-msgstr "apenas muda a capitulação"
-
-#: modules/pam_cracklib/pam_cracklib.c:395
-msgid "is too similar to the old one"
-msgstr "é demasiado similar à anterior"
-
-#: modules/pam_cracklib/pam_cracklib.c:398
-msgid "is too simple"
-msgstr "é demasiado simples"
-
-#: modules/pam_cracklib/pam_cracklib.c:401
-msgid "is rotated"
-msgstr "é rodada"
-
-#: modules/pam_cracklib/pam_cracklib.c:436
-msgid "has been already used"
-msgstr "já foi utilizada"
-
-#: modules/pam_cracklib/pam_cracklib.c:487
-#: modules/pam_cracklib/pam_cracklib.c:615
-#, c-format
-msgid "BAD PASSWORD: %s"
-msgstr "MÁ PALAVRA PASSE: %s"
+msgid "erroneous conversation (%d)\n"
+msgstr "conversação errónea (%d)\n"
 
 #: libpam/pam_item.c:271
 msgid "login:"
@@ -463,18 +166,325 @@ msgstr "A aplicação necessita de invocar o libpam novamente"
 msgid "Unknown PAM error"
 msgstr "Erro PAM desconhecido"
 
-#: libpam_misc/misc_conv.c:33
-msgid "...Time is running out...\n"
-msgstr "...O tempo está a esgotar-se...\n"
-
-#: libpam_misc/misc_conv.c:34
-msgid "...Sorry, your time is up!\n"
-msgstr "...Lamento, o seu tempo esgotou-se!\n"
-
-#: libpam_misc/misc_conv.c:343
+#: modules/pam_cracklib/pam_cracklib.c:60
 #, c-format
-msgid "erroneous conversation (%d)\n"
-msgstr "conversação errónea (%d)\n"
+msgid "New %s%spassword: "
+msgstr "Nova %s%spalavra passe: "
+
+#: modules/pam_cracklib/pam_cracklib.c:62
+#, c-format
+msgid "Retype new %s%spassword: "
+msgstr "Digite novamente a nova %s%spalavra passe: "
+
+#: modules/pam_cracklib/pam_cracklib.c:63
+msgid "Sorry, passwords do not match."
+msgstr "Lamento, as palavras passe não coincidem."
+
+#: modules/pam_cracklib/pam_cracklib.c:378
+msgid "is the same as the old one"
+msgstr "é igual à anterior"
+
+#: modules/pam_cracklib/pam_cracklib.c:389
+msgid "is a palindrome"
+msgstr "é um palíndrome"
+
+#: modules/pam_cracklib/pam_cracklib.c:392
+msgid "case changes only"
+msgstr "apenas muda a capitulação"
+
+#: modules/pam_cracklib/pam_cracklib.c:395
+msgid "is too similar to the old one"
+msgstr "é demasiado similar à anterior"
+
+#: modules/pam_cracklib/pam_cracklib.c:398
+msgid "is too simple"
+msgstr "é demasiado simples"
+
+#: modules/pam_cracklib/pam_cracklib.c:401
+msgid "is rotated"
+msgstr "é rodada"
+
+#: modules/pam_cracklib/pam_cracklib.c:436
+msgid "has been already used"
+msgstr "já foi utilizada"
+
+#: modules/pam_cracklib/pam_cracklib.c:464
+#: modules/pam_unix/pam_unix_passwd.c:975
+msgid "No password supplied"
+msgstr "Não foi fornecida uma palavra passe"
+
+#: modules/pam_cracklib/pam_cracklib.c:464
+#: modules/pam_unix/pam_unix_passwd.c:975
+msgid "Password unchanged"
+msgstr "Palavra passe inalterada"
+
+#: modules/pam_cracklib/pam_cracklib.c:487
+#: modules/pam_cracklib/pam_cracklib.c:615
+#, c-format
+msgid "BAD PASSWORD: %s"
+msgstr "MÁ PALAVRA PASSE: %s"
+
+#: modules/pam_exec/pam_exec.c:118
+#, c-format
+msgid "%s failed: exit code %d"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:126
+#, c-format
+msgid "%s failed: caught signal %d%s"
+msgstr ""
+
+#: modules/pam_exec/pam_exec.c:134
+#, c-format
+msgid "%s failed: unknown status 0x%x"
+msgstr ""
+
+#. TRANSLATORS: "strftime options for date of last login"
+#: modules/pam_lastlog/pam_lastlog.c:190
+msgid " %a %b %e %H:%M:%S %Z %Y"
+msgstr " %a %b %e %H:%M:%S %Z %Y"
+
+#. TRANSLATORS: " from <host>"
+#: modules/pam_lastlog/pam_lastlog.c:199
+#, c-format
+msgid " from %.*s"
+msgstr " a partir de %.*s"
+
+#. TRANSLATORS: " on <terminal>"
+#: modules/pam_lastlog/pam_lastlog.c:211
+#, c-format
+msgid " on %.*s"
+msgstr " em %.*s"
+
+#. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
+#: modules/pam_lastlog/pam_lastlog.c:220
+#, c-format
+msgid "Last login:%s%s%s"
+msgstr "Último início de sessão: %s%s%s"
+
+#: modules/pam_lastlog/pam_lastlog.c:226
+msgid "Welcome to your new account!"
+msgstr "Bemvindo à sua nova conta!"
+
+#: modules/pam_limits/pam_limits.c:647
+#, c-format
+msgid "Too many logins for '%s'."
+msgstr "Demasiados inícios de sessão para '%s'."
+
+#: modules/pam_mail/pam_mail.c:313
+msgid "No mail."
+msgstr "Não tem correio."
+
+#: modules/pam_mail/pam_mail.c:316
+msgid "You have new mail."
+msgstr "Tem novo correio electrónico."
+
+#: modules/pam_mail/pam_mail.c:319
+msgid "You have old mail."
+msgstr "Tem correio electrónico antigo."
+
+#: modules/pam_mail/pam_mail.c:323
+msgid "You have mail."
+msgstr "Tem correio electrónico."
+
+#: modules/pam_mail/pam_mail.c:330
+#, c-format
+msgid "You have no mail in folder %s."
+msgstr "Não tem correio electrónico na pasta %s."
+
+#: modules/pam_mail/pam_mail.c:334
+#, c-format
+msgid "You have new mail in folder %s."
+msgstr "Tem novo correio electrónico na pasta %s."
+
+#: modules/pam_mail/pam_mail.c:338
+#, c-format
+msgid "You have old mail in folder %s."
+msgstr "Tem correio electrónico antigo na pasta %s."
+
+#: modules/pam_mail/pam_mail.c:343
+#, c-format
+msgid "You have mail in folder %s."
+msgstr "Tem correio electrónico na pasta %s."
+
+#: modules/pam_mkhomedir/pam_mkhomedir.c:140
+#, c-format
+msgid "Creating directory '%s'."
+msgstr ""
+
+#: modules/pam_mkhomedir/pam_mkhomedir.c:145
+#, c-format
+msgid "Unable to create directory %s: %m"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:102
+#, c-format
+msgid "Your default context is %s. \n"
+msgstr "O seu contexto pré-definido é %s: \n"
+
+#: modules/pam_selinux/pam_selinux.c:105
+msgid "Do you want to choose a different one? [n]"
+msgstr "Pretende escolher um diferente? [n]"
+
+#: modules/pam_selinux/pam_selinux.c:112
+msgid "Enter number of choice: "
+msgstr "Digite o número da escolha: "
+
+#: modules/pam_selinux/pam_selinux.c:152
+msgid "Would you like to enter a security context? [y] "
+msgstr "Pretende introduzir um contexto de segurança? [y]"
+
+#: modules/pam_selinux/pam_selinux.c:169
+msgid "role: "
+msgstr "papel: "
+
+#: modules/pam_selinux/pam_selinux.c:177
+msgid "type: "
+msgstr "tipo: "
+
+#: modules/pam_selinux/pam_selinux.c:187
+msgid "level: "
+msgstr "nível: "
+
+#: modules/pam_selinux/pam_selinux.c:203
+msgid "Not a valid security context"
+msgstr "Não é um contexto de segurança válido"
+
+#: modules/pam_selinux/pam_selinux.c:417
+#, c-format
+msgid "Security Context %s Assigned"
+msgstr "Contexto de Segurança %s Atribuído"
+
+#: modules/pam_selinux/pam_selinux_check.c:99
+#, c-format
+msgid "failed to initialize PAM\n"
+msgstr "falha ao inicializar o PAM\n"
+
+#: modules/pam_selinux/pam_selinux_check.c:105
+#, c-format
+msgid "failed to pam_set_item()\n"
+msgstr "falha em pam_set_item()\n"
+
+#: modules/pam_selinux/pam_selinux_check.c:133
+#, c-format
+msgid "login: failure forking: %m"
+msgstr "sessão: falha ao executar o forking: %m"
+
+#: modules/pam_stress/pam_stress.c:477
+msgid "Changing STRESS password for "
+msgstr "A alterar a palavra passe de STRESS para "
+
+#: modules/pam_stress/pam_stress.c:491
+msgid "Enter new STRESS password: "
+msgstr "Digite a nova palavra passe de STRESS: "
+
+#: modules/pam_stress/pam_stress.c:494
+msgid "Retype new STRESS password: "
+msgstr "Digite novamente a nova palavra passe de STRESS: "
+
+#: modules/pam_stress/pam_stress.c:523
+msgid "Verification mis-typed; password unchanged"
+msgstr "A verificação não coincide; palavra passe inalterada"
+
+#: modules/pam_tally/pam_tally.c:741
+msgid "Authentication error"
+msgstr "Erro de autenticação"
+
+#: modules/pam_tally/pam_tally.c:742
+msgid "Service error"
+msgstr "Erro de serviço"
+
+#: modules/pam_tally/pam_tally.c:743
+msgid "Unknown user"
+msgstr "Utilizador desconhecido"
+
+#: modules/pam_tally/pam_tally.c:744
+msgid "Unknown error"
+msgstr "Erro desconhecido"
+
+#: modules/pam_tally/pam_tally.c:760
+#, c-format
+msgid "%s: Bad number given to --reset=\n"
+msgstr "%s: Número errado fornecido a --reset=\n"
+
+#: modules/pam_tally/pam_tally.c:764
+#, c-format
+msgid "%s: Unrecognised option %s\n"
+msgstr "%s: Opção não reconhecida %s\n"
+
+#: modules/pam_tally/pam_tally.c:776
+#, c-format
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file ficheiro-raiz] [--user nome-utilizador] [--reset[=n]] [--quiet]\n"
+
+#: modules/pam_tally/pam_tally.c:850
+#, c-format
+msgid "%s: Can't reset all users to non-zero\n"
+msgstr "%s: Não foi possível reiniciar todos os utilizadores para não zero\n"
+
+#: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
+msgid "Your account has expired; please contact your system administrator"
+msgstr ""
+"A sua conta de utilizador expirou; por favor contacte o seu administrador de "
+"sistema"
+
+#: modules/pam_unix/pam_unix_acct.c:283
+msgid "You are required to change your password immediately (root enforced)"
+msgstr ""
+"É obrigatório que altere de imediato a sua palavra passe (forçado pelo root)"
+
+#: modules/pam_unix/pam_unix_acct.c:310
+msgid "You are required to change your password immediately (password aged)"
+msgstr ""
+"É obrigatório que altere de imediato a sua palavra passe (forçado pela idade)"
+
+#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d day"
+msgid_plural "Warning: your password will expire in %d days"
+msgstr[0] "Aviso: a sua palavra passe expira em %d dia%.2s"
+msgstr[1] "Aviso: a sua palavra passe expira em %d dia%.2s"
+
+#. TRANSLATORS: only used if dngettext is not support
+#. ed
+#: modules/pam_unix/pam_unix_acct.c:336
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d days"
+msgstr "Aviso: a sua palavra passe expira em %d dia%.2s"
+
+#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
+msgid "Password: "
+msgstr "Palavra passe: "
+
+#: modules/pam_unix/pam_unix_passwd.c:819
+msgid "NIS password could not be changed."
+msgstr "A palavra passe de NIS não pode ser alterada."
+
+#: modules/pam_unix/pam_unix_passwd.c:996
+msgid "You must choose a longer password"
+msgstr "Deve escolher uma palavra passe mais longa"
+
+#: modules/pam_unix/pam_unix_passwd.c:1001
+msgid "Password has been already used. Choose another."
+msgstr "A palavra passe já foi anteriormente utilizada. Escolha outra."
+
+#: modules/pam_unix/pam_unix_passwd.c:1125
+msgid "(current) UNIX password: "
+msgstr "palavra passe UNIX (actual): "
+
+#: modules/pam_unix/pam_unix_passwd.c:1160
+msgid "You must wait longer to change your password"
+msgstr "Tem de esperar mais antes de poder alterar a sua palavra passe"
+
+#: modules/pam_unix/pam_unix_passwd.c:1220
+msgid "Enter new UNIX password: "
+msgstr "Digite a nova palavra passe UNIX: "
+
+#: modules/pam_unix/pam_unix_passwd.c:1221
+msgid "Retype new UNIX password: "
+msgstr "Digite novamente a nova palavra passe UNIX: "
 
 #, fuzzy
 #~ msgid "Warning: your password will expire in one day"

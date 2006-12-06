@@ -103,7 +103,7 @@ rec_mkdir (const char *dir, mode_t mode)
 
   cp = strrchr (parent, '/');
 
-  if (cp != NULL)
+  if (cp != NULL && cp != parent)
     {
       struct stat st;
 
@@ -137,12 +137,13 @@ create_homedir (pam_handle_t * pamh, int ctrl,
 
    /* Mention what is happening, if the notification fails that is OK */
    if ((ctrl & MKHOMEDIR_QUIET) != MKHOMEDIR_QUIET)
-      (void) pam_info(pamh, "Creating directory '%s'.", dest);
+      pam_info(pamh, _("Creating directory '%s'."), dest);
 
    /* Create the new directory */
    if (rec_mkdir (dest,0755) != 0)
    {
-      pam_syslog(pamh, LOG_DEBUG, "unable to create directory %s: %m", dest);
+      pam_error(pamh, _("Unable to create directory %s: %m"), dest);
+      pam_syslog(pamh, LOG_ERR, "unable to create directory %s: %m", dest);
       return PAM_PERM_DENIED;
    }
 

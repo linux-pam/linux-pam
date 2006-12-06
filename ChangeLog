@@ -1,3 +1,10 @@
+2006-12-06  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_mkhomedir/pam_mkhomedir.c (rec_mkdir): Fix
+	handling of left-most path component [SF#1591598].
+	(create_homedir): Mark user visible messages for translation.
+	* po/de.po: Adjust german translation for pam_mkhomedir.
+
 2006-12-04  Tomas Mraz <t8m@centrun.cz>
 
 	* po/jp.po: Fixed mistake in Password: message (from
