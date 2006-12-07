@@ -1,11 +1,11 @@
 .\"     Title: pam_faildelay
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.71.0 <http://docbook.sf.net/>
-.\"      Date: 11/28/2006
+.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
+.\"      Date: 12/06/2006
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM_FAILDELAY" "8" "11/28/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_FAILDELAY" "8" "12/06/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -18,33 +18,30 @@ pam_faildelay \- Change the delay on failure per\-application
 .SH "DESCRIPTION"
 .PP
 pam_faildelay is a PAM module that can be used to set the delay on failure per\-application.
+.PP
+If no
+\fBdelay\fR
+is given, pam_faildelay will use the value of FAIL_DELAY from
+\fI/etc/login.defs\fR.
 .SH "OPTIONS"
-.PP
+.TP 3n
 \fBdebug\fR
-.RS 3n
 Turns on debugging messages sent to syslog.
-.RE
-.PP
+.TP 3n
 \fBdelay=\fR\fB\fIN\fR\fR
-.RS 3n
 Set the delay on failure to N microseconds.
-.RE
 .SH "MODULE SERVICES PROVIDED"
 .PP
 Only the
 \fBauth\fR
 service is supported.
 .SH "RETURN VALUES"
-.PP
+.TP 3n
 PAM_IGNORE
-.RS 3n
 Delay was successful adjusted.
-.RE
-.PP
+.TP 3n
 PAM_SYSTEM_ERR
-.RS 3n
 The specified delay was not valid.
-.RE
 .SH "EXAMPLES"
 .PP
 The following example will set the delay on failure to 10 seconds:

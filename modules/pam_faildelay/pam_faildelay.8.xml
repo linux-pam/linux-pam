@@ -35,7 +35,10 @@
       pam_faildelay is a PAM module that can be used to set
       the delay on failure per-application.
     </para>
-
+    <para>
+      If no <option>delay</option> is given, pam_faildelay will
+      use the value of FAIL_DELAY from <filename>/etc/login.defs</filename>.
+    </para>
   </refsect1>
 
   <refsect1 id="pam_faildelay-options">

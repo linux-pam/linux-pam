@@ -5,6 +5,11 @@
 	(create_homedir): Mark user visible messages for translation.
 	* po/de.po: Adjust german translation for pam_mkhomedir.
 
+	* modules/pam_faildelay/pam_faildelay.c: If no argument is
+	given, try to read FAIL_DELAY from /etc/login.defs.
+	* modules/pam_faildelay/pam_faildelay.8.xml: Document usage
+	of /etc/login.defs.
+
 2006-12-04  Tomas Mraz <t8m@centrun.cz>
 
 	* po/jp.po: Fixed mistake in Password: message (from
