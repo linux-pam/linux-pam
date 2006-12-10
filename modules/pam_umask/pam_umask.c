@@ -15,8 +15,8 @@
  *    written permission.
  *
  * ALTERNATIVELY, this product may be distributed under the terms of
- * the GNU Public License, in which case the provisions of the GPL are
- * required INSTEAD OF the above restrictions.  (This clause is
+ * the GNU Public License V2, in which case the provisions of the GPL
+ * are required INSTEAD OF the above restrictions.  (This clause is
  * necessary due to a potential bad interaction between the GPL and
  * the restrictions contained in a BSD-style copyright.)
  *
@@ -40,6 +40,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <errno.h>
+#include <limits.h>
 #include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
@@ -54,6 +55,10 @@
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+
+#define BUF_SIZE 4096
+#define LOGIN_DEFS "/etc/login.defs"
+#define LOGIN_CONF "/etc/default/login"
 
 struct options_t {
   int debug;
@@ -105,7 +110,7 @@ search_key (const char *filename)
 
       if (buf == NULL)
         {
-          buflen = 8096;
+          buflen = BUF_SIZE;
           buf = malloc (buflen);
         }
       buf[0] = '\0';
@@ -145,8 +150,7 @@ search_key (const char *filename)
     }
   fclose (fp);
 
-  if (buf)
-    free (buf);
+  free (buf);
 
   return retval;
 }
@@ -161,9 +165,9 @@ get_options (const pam_handle_t *pamh, options_t *options,
     parse_option (pamh, *argv, options);
 
   if (options->umask == NULL)
-    options->umask = search_key ("/etc/login.defs");
+    options->umask = search_key (LOGIN_DEFS);
   if (options->umask == NULL)
-    options->umask = search_key ("/etc/default/login");
+    options->umask = search_key (LOGIN_CONF);
 
   return 0;
 }
@@ -175,8 +179,9 @@ set_umask (const char *value)
   mode_t mask;
   char *endptr;
 
-  mask = strtol (value, &endptr, 8) & 0777;
-  if ((mask == 0) && (value_orig == endptr))
+  mask = strtoul (value, &endptr, 8) & 0777;
+  if (((mask == 0) && (value_orig == endptr)) ||
+      ((mask == ULONG_MAX) && (errno == ERANGE)))
     return;
   umask (mask);
   return;
