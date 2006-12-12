@@ -22,17 +22,20 @@
 #define PAMAUDIT_LOGGED 1
 
 static int
-_pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type, 
+_pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type,
 	const char *message, int retval)
 {
   int rc;
   char buf[256];
 
-  snprintf(buf, sizeof(buf), "PAM: %s acct=%s ", message, 
+  snprintf(buf, sizeof(buf), "PAM: %s acct=%s ", message,
 	(retval != PAM_USER_UNKNOWN && pamh->user) ? pamh->user : "?");
 
   rc = audit_log_user_message( audit_fd, type, buf,
         pamh->rhost, NULL, pamh->tty, retval == PAM_SUCCESS );
+
+  if (rc == -1)
+    pam_syslog(pamh, LOG_CRIT, "audit_log_user_message() failed: %m");
 
   pamh->audit_state |= PAMAUDIT_LOGGED;
   return rc;
@@ -59,7 +62,7 @@ _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags)
     pam_syslog(pamh, LOG_CRIT, "audit_open() failed: %m");
     return PAM_SYSTEM_ERR;
   }
-                          
+
   switch (action) {
   case PAM_AUTHENTICATE:
     message = "authentication";
@@ -105,7 +108,7 @@ _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags)
 
   if (_pam_audit_writelog(pamh, audit_fd, type, message, retval) < 0)
     retval = PAM_SYSTEM_ERR;
-  
+
   audit_close(audit_fd);
   return retval;
 }

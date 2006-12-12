@@ -1,3 +1,8 @@
+2006-12-12  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpam/pam_audit.c (_pam_audit_writelog): Print error
+	message on failure to syslog.
+
 2006-12-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_umask/pam_umask.c: Use strtoul instead of strtol,
