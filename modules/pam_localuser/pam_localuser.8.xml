@@ -83,8 +83,8 @@
   <refsect1 id="pam_localuser-services">
     <title>MODULE SERVICES PROVIDED</title>
     <para>
-      The <emphasis remap='B'>auth</emphasis> and
-      <emphasis remap='B'>account</emphasis> services are supported.
+      All services (<option>account</option>, <option>auth</option>,
+      <option>password</option> and <option>session</option>) are supported.
     </para>
   </refsect1>
 

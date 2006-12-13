@@ -1,11 +1,11 @@
 .\"     Title: pam_localuser
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/09/2006
+.\" Generator: DocBook XSL Stylesheets v1.71.0 <http://docbook.sf.net/>
+.\"      Date: 12/13/2006
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM_LOCALUSER" "8" "06/09/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_LOCALUSER" "8" "12/13/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -22,31 +22,41 @@ pam_localuser is a PAM module to help implementing site\-wide login policies, wh
 This could also be implemented using pam_listfile.so and a very short awk script invoked by cron, but it's common enough to have been separated out.
 .SH "OPTIONS"
 .PP
-.TP 3n
+.PP
 \fBdebug\fR
+.RS 3n
 Print debug information.
-.TP 3n
+.RE
+.PP
 \fBfile=\fR\fB\fI/path/passwd\fR\fR
+.RS 3n
 Use a file other than
 \fI/etc/passwd\fR.
+.RE
 .SH "MODULE SERVICES PROVIDED"
 .PP
-The
-\fBauth\fR
+All services (\fBaccount\fR,
+\fBauth\fR,
+\fBpassword\fR
 and
-\fBaccount\fR
-services are supported.
+\fBsession\fR) are supported.
 .SH "RETURN VALUES"
 .PP
-.TP 3n
+.PP
 PAM_SUCCESS
+.RS 3n
 The new localuser was set successfull.
-.TP 3n
+.RE
+.PP
 PAM_SERVICE_ERR
+.RS 3n
 No username was given.
-.TP 3n
+.RE
+.PP
 PAM_USER_UNKNOWN
+.RS 3n
 User not known.
+.RE
 .SH "EXAMPLES"
 .PP
 Add the following line to
@@ -62,9 +72,11 @@ account required pam_wheel.so
 .RE
 .sp
 .SH "FILES"
-.TP 3n
+.PP
 \fI/etc/passwd\fR
+.RS 3n
 Local user account information.
+.RE
 .SH "SEE ALSO"
 .PP
 

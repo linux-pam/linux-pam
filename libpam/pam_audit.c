@@ -25,6 +25,7 @@ static int
 _pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type,
 	const char *message, int retval)
 {
+  static int old_errno = -1;
   int rc;
   char buf[256];
 
@@ -34,8 +35,11 @@ _pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type,
   rc = audit_log_user_message( audit_fd, type, buf,
         pamh->rhost, NULL, pamh->tty, retval == PAM_SUCCESS );
 
-  if (rc == -1)
-    pam_syslog(pamh, LOG_CRIT, "audit_log_user_message() failed: %m");
+  if (rc == -1 && errno != old_errno)
+    {
+      old_errno = errno;
+      pam_syslog(pamh, LOG_CRIT, "audit_log_user_message() failed: %m");
+    }
 
   pamh->audit_state |= PAMAUDIT_LOGGED;
   return rc;
