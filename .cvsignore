@@ -22,3 +22,4 @@ ltmain.sh
 compile
 missing
 depcomp
+ylwrap

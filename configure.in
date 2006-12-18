@@ -466,10 +466,8 @@ dnl
 dnl Check for the availability of the kernel key management facility
 dnl - The pam_keyinit module only requires the syscalls, not the error codes
 dnl
-have_key_syscalls=0
-AC_CHECK_DECL(__NR_keyctl, [have_key_syscalls=1],,[#include <sys/syscall.h>])
-have_key_errors=0
-AC_CHECK_DECL(ENOKEY, [have_key_errors=1])
+AC_CHECK_DECL(__NR_keyctl, [have_key_syscalls=1],[have_key_syscalls=0],[#include <sys/syscall.h>])
+AC_CHECK_DECL(ENOKEY, [have_key_errors=1],[have_key_errors=0],[#include <errno.h>])
 
 HAVE_KEY_MANAGEMENT=0
 if test $have_key_syscalls$have_key_errors = 11
