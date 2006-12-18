@@ -1,6 +1,5 @@
-/* pam_stress module */
-
-/* $Id$
+/*
+ * pam_stress module
  *
  * created by Andrew Morgan <morgan@linux.kernel.org> 1996/3/12
  */
@@ -474,12 +473,12 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	       }
 	       pmsg[0] = &msg[0];
 	       msg[0].msg_style = PAM_TEXT_INFO;
-#define _LOCAL_STRESS_COMMENT _("Changing STRESS password for ")
-	       txt = (char *) malloc(strlen(_LOCAL_STRESS_COMMENT)
-				     +strlen(username)+1);
-	       strcpy(txt, _LOCAL_STRESS_COMMENT);
-#undef _LOCAL_STRESS_COMMENT
-	       strcat(txt, username);
+	       if (asprintf(&txt, _("Changing STRESS password for %s."),
+			    (const char *)username) < 0) {
+		    pam_syslog(pamh, LOG_CRIT, "out of memory");
+		    return PAM_BUF_ERR;
+	       }
+
 	       msg[0].msg = txt;
 	       i = 1;
 	  } else {

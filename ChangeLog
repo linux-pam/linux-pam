@@ -1,9 +1,15 @@
+2006-12-18  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_stress/pam_stress.c (pam_sm_chauthtok): Fix
+	localisation of message printed to user.
+	* po/de.po: Adjust translation.
+
 2006-12-18  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_unix/pam_unix_passwd.c (pam_sm_chauthtok): Localize
 	message printed to user.
 
-2006-12-13  Thorsten Kukuk  <kukuk@suse.de>
+2006-12-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_localuser/pam_localuser.c: Add support for session
 	and chauthtok [SF#1606180].

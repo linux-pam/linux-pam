@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-12-06 14:36+0100\n"
-"PO-Revision-Date: 2006-12-06 14:37+0100\n"
+"POT-Creation-Date: 2006-12-18 15:41+0100\n"
+"PO-Revision-Date: 2006-12-18 15:50+01:00\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
@@ -193,7 +193,7 @@ msgstr "ist ein Palindrome"
 
 #: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
-msgstr "Nur Änderungen bei der Groß-/Kleinschreibung"
+msgstr "nur Änderungen bei der Groß-/Kleinschreibung"
 
 #: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
@@ -331,23 +331,23 @@ msgstr "Möchten Sie einen anderen auswählen? [n]"
 
 #: modules/pam_selinux/pam_selinux.c:112
 msgid "Enter number of choice: "
-msgstr "Geben Sie die gewünschte Nummer ein:"
+msgstr "Geben Sie die gewünschte Nummer ein: "
 
 #: modules/pam_selinux/pam_selinux.c:152
 msgid "Would you like to enter a security context? [y] "
-msgstr "Möchten Sie einen Sicherheitskontext eingeben? [j]"
+msgstr "Möchten Sie einen Sicherheitskontext eingeben? [j] "
 
 #: modules/pam_selinux/pam_selinux.c:169
 msgid "role: "
-msgstr "Funktion:"
+msgstr "Funktion: "
 
 #: modules/pam_selinux/pam_selinux.c:177
 msgid "type: "
-msgstr "Typ:"
+msgstr "Typ: "
 
 #: modules/pam_selinux/pam_selinux.c:187
 msgid "level: "
-msgstr "Stufe:"
+msgstr "Stufe: "
 
 #: modules/pam_selinux/pam_selinux.c:203
 msgid "Not a valid security context"
@@ -373,19 +373,20 @@ msgstr "Fehler bei pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "Anmeldung: Fehler bei Abspaltung: %m"
 
-#: modules/pam_stress/pam_stress.c:477
-msgid "Changing STRESS password for "
-msgstr "Ändern des STRESS-Passworts für"
+#: modules/pam_stress/pam_stress.c:476
+#, c-format
+msgid "Changing STRESS password for %s."
+msgstr "Ändern des STRESS-Passworts für %s."
 
-#: modules/pam_stress/pam_stress.c:491
+#: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
-msgstr "Geben Sie ein neues STRESS-Passwort ein:"
+msgstr "Geben Sie ein neues STRESS-Passwort ein: "
 
-#: modules/pam_stress/pam_stress.c:494
+#: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
-msgstr "Geben Sie das neue STRESS-Passwort erneut ein:"
+msgstr "Geben Sie das neue STRESS-Passwort erneut ein: "
 
-#: modules/pam_stress/pam_stress.c:523
+#: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
 msgstr "Bestätigungspasswort falsch eingegeben; Passwort nicht geändert"
 
@@ -470,18 +471,23 @@ msgstr "Sie müssen ein längeres Passwort auswählen."
 msgid "Password has been already used. Choose another."
 msgstr "Passwort wurde bereits verwendet. Wählen Sie ein anderes aus."
 
-#: modules/pam_unix/pam_unix_passwd.c:1125
+#: modules/pam_unix/pam_unix_passwd.c:1109
+#, c-format
+msgid "Changing password for %s."
+msgstr "Ändern des Passworts für %s."
+
+#: modules/pam_unix/pam_unix_passwd.c:1120
 msgid "(current) UNIX password: "
 msgstr "(aktuelles) UNIX Passwort: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1160
+#: modules/pam_unix/pam_unix_passwd.c:1155
 msgid "You must wait longer to change your password"
-msgstr "Sie können Ihr Passwort noch nicht ändern."
+msgstr "Sie können Ihr Passwort noch nicht ändern"
 
-#: modules/pam_unix/pam_unix_passwd.c:1220
+#: modules/pam_unix/pam_unix_passwd.c:1215
 msgid "Enter new UNIX password: "
 msgstr "Geben Sie ein neues UNIX Passwort ein: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1221
+#: modules/pam_unix/pam_unix_passwd.c:1216
 msgid "Retype new UNIX password: "
 msgstr "Geben Sie das neue UNIX Passwort erneut ein: "
