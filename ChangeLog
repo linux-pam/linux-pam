@@ -16,6 +16,9 @@
 
 	* modules/pam_unix/pam_unix_passwd.c (pam_sm_chauthtok): Localize
 	message printed to user.
+	
+	* modules/pam_unix/support.c (_unix_verify_password): Use strncmp
+	only for bigcrypt result.
 
 2006-12-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 

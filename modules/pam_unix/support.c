@@ -693,6 +693,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 		retval = PAM_AUTH_ERR;
 	    } else {
 		if (!strncmp(salt, "$1$", 3)) {
+		    salt_len = 0;
 		    pp = Goodcrypt_md5(p, salt);
 		    if (strcmp(pp, salt) != 0) {
 			_pam_delete(pp);
@@ -703,6 +704,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 		     * Ok, we don't know the crypt algorithm, but maybe
 		     * libcrypt nows about it? We should try it.
 		     */
+		    salt_len = 0;
 		    pp = x_strdup (crypt(p, salt));
 		} else {
 		    pp = bigcrypt(p, salt);
@@ -721,7 +723,8 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 		 * stored string with the subset of bigcrypt's result.
 		 * Bug 521314: The strncmp comparison is for legacy support.
 		 */
-		if (strncmp(pp, salt, salt_len) == 0) {
+		if ((!salt_len && strcmp(pp, salt) == 0) || 
+		    (salt_len && strncmp(pp, salt, salt_len) == 0)) {
 		    retval = PAM_SUCCESS;
 		} else {
 		    retval = PAM_AUTH_ERR;
