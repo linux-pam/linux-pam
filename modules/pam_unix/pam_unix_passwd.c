@@ -1105,18 +1105,13 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		if (_unix_blankpasswd(pamh, ctrl, user)) {
 			return PAM_SUCCESS;
 		} else if (off(UNIX__IAMROOT, ctrl)) {
-
 			/* instruct user what is happening */
-#define greeting "Changing password for "
-			Announce = (char *) malloc(sizeof(greeting) + strlen(user));
-			if (Announce == NULL) {
+			if (asprintf(&Announce, _("Changing password for %s."),
+				user) < 0) {
 				pam_syslog(pamh, LOG_CRIT,
 				         "password - out of memory");
 				return PAM_BUF_ERR;
 			}
-			(void) strcpy(Announce, greeting);
-			(void) strcpy(Announce + sizeof(greeting) - 1, user);
-#undef greeting
 
 			lctrl = ctrl;
 			set(UNIX__OLD_PASSWD, lctrl);
