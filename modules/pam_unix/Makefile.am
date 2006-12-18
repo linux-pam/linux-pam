@@ -18,8 +18,6 @@ secureconfdir = $(SCONFIGDIR)
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	-DCHKPWD_HELPER=\"$(sbindir)/unix_chkpwd\"
 
-AM_LDFLAGS = -L$(top_builddir)/libpam -lpam @LIBCRYPT@ @LIBSELINUX@
-
 if HAVE_LIBSELINUX
   AM_CFLAGS += -D"WITH_SELINUX"
 endif
@@ -28,7 +26,8 @@ if HAVE_LIBCRACK
 endif
 
 pam_unix_la_LDFLAGS = -no-undefined -avoid-version -module \
-	@LIBCRACK@ @LIBNSL@
+	@LIBCRACK@ @LIBNSL@ -L$(top_builddir)/libpam -lpam \
+	@LIBCRYPT@ @LIBSELINUX@
 if HAVE_VERSIONING
   pam_unix_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
@@ -47,10 +46,12 @@ pam_unix_la_SOURCES = bigcrypt.c pam_unix_acct.c \
 
 bigcrypt_SOURCES = bigcrypt.c bigcrypt_main.c
 bigcrypt_CFLAGS = $(AM_CFLAGS)
+bigcrypt_LDFLAGS = @LIBCRYPT@
 
 unix_chkpwd_SOURCES = unix_chkpwd.c md5_good.c md5_broken.c bigcrypt.c
 unix_chkpwd_CFLAGS = $(AM_CFLAGS) @PIE_CFLAGS@
-unix_chkpwd_LDFLAGS = @PIE_LDFLAGS@
+unix_chkpwd_LDFLAGS = @PIE_LDFLAGS@ -L$(top_builddir)/libpam -lpam \
+	@LIBCRYPT@ @LIBSELINUX@
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README

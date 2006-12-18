@@ -17,9 +17,9 @@ secureconfdir = $(SCONFIGDIR)
 noinst_HEADERS = faillog.h
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
-AM_LDFLAGS = -L$(top_builddir)/libpam -lpam
 
-pam_tally_la_LDFLAGS = -no-undefined -avoid-version -module
+pam_tally_la_LDFLAGS = -no-undefined -avoid-version -module \
+	-L$(top_builddir)/libpam -lpam
 if HAVE_VERSIONING
   pam_tally_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
@@ -28,6 +28,7 @@ securelib_LTLIBRARIES = pam_tally.la
 sbin_PROGRAMS = pam_tally
 
 pam_tally_SOURCES = pam_tally_app.c
+pam_tally_LDFLAGS = -L$(top_builddir)/libpam -lpam
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README

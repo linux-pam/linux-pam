@@ -8,19 +8,20 @@ if HAVE_LIBSELINUX
   AM_CFLAGS += -D"WITH_SELINUX"
 endif
 
-AM_LDFLAGS = $(LIBPRELUDE_LIBS) @LIBDL@
-
 CLEANFILES = *~
 
 EXTRA_DIST = libpam.map
 
-include_HEADERS = $(addprefix include/security/, _pam_compat.h _pam_macros.h _pam_types.h \
-	pam_appl.h pam_modules.h pam_ext.h pam_modutil.h)
+include_HEADERS = include/security/_pam_compat.h \
+	include/security/_pam_macros.h include/security/_pam_types.h \
+	include/security/pam_appl.h include/security/pam_modules.h \
+	include/security/pam_ext.h include/security/pam_modutil.h
 
 noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h \
 		pam_modutil_private.h pam_static_modules.h
 
-libpam_la_LDFLAGS = -no-undefined -version-info 81:6:81 @LIBAUDIT@
+libpam_la_LDFLAGS = -no-undefined -version-info 81:6:81 \
+	@LIBAUDIT@ $(LIBPRELUDE_LIBS) @LIBDL@
 if STATIC_MODULES
   libpam_la_LDFLAGS += `ls ../modules/pam_*/*.lo` \
 	@LIBDB@ @LIBCRYPT@ @LIBNSL@ @LIBCRACK@ -lutil

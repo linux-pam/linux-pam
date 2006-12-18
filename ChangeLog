@@ -1,5 +1,10 @@
 2006-12-18  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* configure.in: Add AM_PROG_CC_C_O.
+	* libpam/Makefile.am: Add content of AM_LDFLAGS to *_LDFLAGS.
+	* modules/pam_tally/Makefile.am: Likewise.
+	* modules/pam_unix/Makefile.am: Likewise.
+
 	* modules/pam_stress/pam_stress.c (pam_sm_chauthtok): Fix
 	localisation of message printed to user.
 	* po/de.po: Adjust translation.
