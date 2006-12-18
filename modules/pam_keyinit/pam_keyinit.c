@@ -132,20 +132,20 @@ static void kill_keyrings(pam_handle_t *pamh)
 	if (my_session_keyring > 0) {
 		debug(pamh, "REVOKE %d", my_session_keyring);
 
-		old_uid = getuid();
-		old_gid = getgid();
+		old_uid = geteuid();
+		old_gid = getegid();
 		debug(pamh, "UID:%d [%d]  GID:%d [%d]",
 		      revoke_as_uid, old_uid, revoke_as_gid, old_gid);
 
 		/* switch to the real UID and GID so that we have permission to
 		 * revoke the key */
-		if (revoke_as_uid != old_uid && setreuid(-1, revoke_as_uid) < 0)
-			error(pamh, "Unable to change UID to %d temporarily\n",
-			      revoke_as_uid);
-
 		if (revoke_as_gid != old_gid && setregid(-1, revoke_as_gid) < 0)
 			error(pamh, "Unable to change GID to %d temporarily\n",
 			      revoke_as_gid);
+
+		if (revoke_as_uid != old_uid && setreuid(-1, revoke_as_uid) < 0)
+			error(pamh, "Unable to change UID to %d temporarily\n",
+			      revoke_as_uid);
 
 		syscall(__NR_keyctl,
 			KEYCTL_REVOKE,
@@ -211,12 +211,14 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 
 	/* switch to the real UID and GID so that the keyring ends up owned by
 	 * the right user */
-	if (uid != old_uid && setreuid(uid, -1) < 0)
-		return error(pamh, "Unable to change UID to %d temporarily\n", uid);
-
 	if (gid != old_gid && setregid(gid, -1) < 0) {
 		error(pamh, "Unable to change GID to %d temporarily\n", gid);
-		setreuid(old_uid, -1);
+		return PAM_SESSION_ERR;
+	}
+
+	if (uid != old_uid && setreuid(uid, -1) < 0) {
+		error(pamh, "Unable to change UID to %d temporarily\n", uid);
+		setregid(old_gid, -1);
 		return PAM_SESSION_ERR;
 	}
 
