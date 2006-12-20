@@ -1,3 +1,9 @@
+2006-12-20  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/pam_unix_passwd.c (pam_sm_chauthtok): Forbid
+	only '+' and '-' as first characters for account names.
+	* modules/pam_unix/pam_unix_auth.c (pam_sm_authenticate): Likewise.
+
 2006-12-18  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Fix ENOKEY check (specify errno.h as header
@@ -16,14 +22,14 @@
 
 	* modules/pam_unix/pam_unix_passwd.c (pam_sm_chauthtok): Localize
 	message printed to user.
-	
+
 	* modules/pam_unix/support.c (_unix_verify_password): Use strncmp
 	only for bigcrypt result.
-	
+
 	* modules/pam_keyinit/pam_keyinit.c (kill_keyrings): Switch to new
 	egid first, euid next. Revert euid/egid to old euid/egid and not
 	ruid/rgid.
-	(pam_sm_open_session): Switch to new rgid first, ruid next. 
+	(pam_sm_open_session): Switch to new rgid first, ruid next.
 
 2006-12-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 

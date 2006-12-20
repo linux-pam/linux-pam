@@ -124,11 +124,10 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 	if (retval == PAM_SUCCESS) {
 		/*
 		 * Various libraries at various times have had bugs related to
-		 * '+' or '-' as the first character of a user name. Don't take
-		 * any chances here. Require that the username starts with an
-		 * alphanumeric character.
+		 * '+' or '-' as the first character of a user name. Don't
+		 * allow this characters here.
 		 */
-		if (name == NULL || !isalnum(*name)) {
+		if (name == NULL || name[0] == '-' || name[0] == '+') {
 			pam_syslog(pamh, LOG_ERR, "bad username [%s]", name);
 			retval = PAM_USER_UNKNOWN;
 			AUTH_RETURN;

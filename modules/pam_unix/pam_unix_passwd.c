@@ -1037,11 +1037,10 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 	if (retval == PAM_SUCCESS) {
 		/*
 		 * Various libraries at various times have had bugs related to
-		 * '+' or '-' as the first character of a user name. Don't take
-		 * any chances here. Require that the username starts with an
-		 * alphanumeric character.
+		 * '+' or '-' as the first character of a user name. Don't
+		 * allow them.
 		 */
-		if (user == NULL || !isalnum(*user)) {
+		if (user == NULL || user[0] == '-' || user[0] == '+') {
 			pam_syslog(pamh, LOG_ERR, "bad username [%s]", user);
 			return PAM_USER_UNKNOWN;
 		}
