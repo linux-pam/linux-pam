@@ -155,7 +155,9 @@
             prior <emphasis>required</emphasis> module has failed the
             success of this one is <emphasis>ignored</emphasis>). A failure
             of this module is not deemed as fatal to satisfying the
-            application that this type has succeeded.
+            application that this type has succeeded. If the module succeeds 
+            the PAM framework returns success to the application immediately
+            without trying any other modules.
           </para>
         </listitem>
       </varlistentry>
