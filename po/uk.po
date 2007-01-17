@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.uk\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-12-06 14:36+0100\n"
+"POT-Creation-Date: 2007-01-17 11:53+0100\n"
 "PO-Revision-Date: 2006-05-03 18:59+0200\n"
 "Last-Translator: Ivan Petrouchtchak <ivanpetrouchtchak@yahoo.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -371,19 +371,20 @@ msgstr "помилка pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "вхід: помилка розгалуження: %m"
 
-#: modules/pam_stress/pam_stress.c:477
-msgid "Changing STRESS password for "
+#: modules/pam_stress/pam_stress.c:476
+#, fuzzy, c-format
+msgid "Changing STRESS password for %s."
 msgstr "Зміна пароля STRESS для "
 
-#: modules/pam_stress/pam_stress.c:491
+#: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
 msgstr "Введіть новий пароль STRESS: "
 
-#: modules/pam_stress/pam_stress.c:494
+#: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
 msgstr "Повторіть новий пароль STRESS: "
 
-#: modules/pam_stress/pam_stress.c:523
+#: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
 msgstr "Перевірку не пройдено; пароль не змінено"
 
@@ -455,7 +456,7 @@ msgstr[2] "Попередження: ваш пароль застаріє чер
 msgid "Warning: your password will expire in %d days"
 msgstr "Попередження: ваш пароль застаріє через %d дні(в) %.2s"
 
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "Пароль: "
 
@@ -471,19 +472,24 @@ msgstr "Необхідно вибрати довший пароль"
 msgid "Password has been already used. Choose another."
 msgstr "Пароль вже вживається. Виберіть інший."
 
-#: modules/pam_unix/pam_unix_passwd.c:1125
+#: modules/pam_unix/pam_unix_passwd.c:1108
+#, fuzzy, c-format
+msgid "Changing password for %s."
+msgstr "Зміна пароля STRESS для "
+
+#: modules/pam_unix/pam_unix_passwd.c:1119
 msgid "(current) UNIX password: "
 msgstr "(поточний) пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1160
+#: modules/pam_unix/pam_unix_passwd.c:1154
 msgid "You must wait longer to change your password"
 msgstr "Ви повинні зачекати довше, щоб змінити ваш пароль"
 
-#: modules/pam_unix/pam_unix_passwd.c:1220
+#: modules/pam_unix/pam_unix_passwd.c:1214
 msgid "Enter new UNIX password: "
 msgstr "Введіть новий пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1221
+#: modules/pam_unix/pam_unix_passwd.c:1215
 msgid "Retype new UNIX password: "
 msgstr "Повторіть новий пароль UNIX: "
 

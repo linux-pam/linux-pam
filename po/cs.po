@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-12-06 14:36+0100\n"
-"PO-Revision-Date: 2006-05-04 08:44+0200\n"
-"Last-Translator: Klara Cihlarova <koty@seznam.cz>\n"
+"POT-Creation-Date: 2007-01-17 11:53+0100\n"
+"PO-Revision-Date: 2007-01-17 11:54+0100\n"
+"Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,7 +44,7 @@ msgstr "Kritická chyba - okamžité ukončení"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr ""
+msgstr "Nepodařilo se nahrát modul"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -227,22 +227,22 @@ msgstr "ŠPATNÉ HESLO: %s"
 #: modules/pam_exec/pam_exec.c:118
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr ""
+msgstr "%s selhal: návratový kód %d"
 
 #: modules/pam_exec/pam_exec.c:126
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr ""
+msgstr "%s selhal: dostal signál %d%s"
 
 #: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr ""
+msgstr "%s selhal: neznámý kód stavu 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:190
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr " %a %b %e %H:%M:%S %Z %Y"
+msgstr " %a %d.%m.%Y %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:199
@@ -310,12 +310,12 @@ msgstr "Máte poštu ve složce %s."
 #: modules/pam_mkhomedir/pam_mkhomedir.c:140
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "Vytváření adresáře '%s'."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:145
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "Nezdařilo se vytvořit adresář %s: %m"
 
 #: modules/pam_selinux/pam_selinux.c:102
 #, c-format
@@ -370,19 +370,19 @@ msgstr "chyba pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "login: chyba forku: %m"
 
-#: modules/pam_stress/pam_stress.c:477
-msgid "Changing STRESS password for "
-msgstr "Změna STRESS hesla pro "
+#: modules/pam_stress/pam_stress.c:476
+msgid "Changing STRESS password for %s."
+msgstr "Změna STRESS hesla pro %s."
 
-#: modules/pam_stress/pam_stress.c:491
+#: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
 msgstr "Zadejte nové STRESS heslo: "
 
-#: modules/pam_stress/pam_stress.c:494
+#: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
 msgstr "Opakujte nové STRESS heslo: "
 
-#: modules/pam_stress/pam_stress.c:523
+#: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
 msgstr "Chybné potvrzení. Heslo nezměněno"
 
@@ -438,12 +438,12 @@ msgid "You are required to change your password immediately (password aged)"
 msgstr "Musíte okamžitě změnit své heslo (heslo vypršelo)"
 
 #: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "Varování: Počet dní do vypršení hesla: %d"
-msgstr[1] "Varování: Počet dní do vypršení hesla: %d"
-msgstr[2] "Varování: Počet dní do vypršení hesla: %d"
+msgstr[0] "Varování: Vaše heslo vyprší za %d den"
+msgstr[1] "Varování: Vaše heslo vyprší za %d dny"
+msgstr[2] "Varování: Vaše heslo vyprší za %d dní"
 
 #. TRANSLATORS: only used if dngettext is not support
 #. ed
@@ -452,7 +452,7 @@ msgstr[2] "Varování: Počet dní do vypršení hesla: %d"
 msgid "Warning: your password will expire in %d days"
 msgstr "Varování: Počet dní do vypršení hesla: %d"
 
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "Heslo: "
 
@@ -468,24 +468,23 @@ msgstr "Musíte zvolit delší heslo"
 msgid "Password has been already used. Choose another."
 msgstr "Heslo již bylo použito. Zvolte jiné."
 
-#: modules/pam_unix/pam_unix_passwd.c:1125
+#: modules/pam_unix/pam_unix_passwd.c:1108
+#, c-format
+msgid "Changing password for %s."
+msgstr "Změna hesla pro %s."
+
+#: modules/pam_unix/pam_unix_passwd.c:1119
 msgid "(current) UNIX password: "
 msgstr "(současné) UNIX heslo: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1160
+#: modules/pam_unix/pam_unix_passwd.c:1154
 msgid "You must wait longer to change your password"
 msgstr "Na změnu svého hesla musíte počkat déle"
 
-#: modules/pam_unix/pam_unix_passwd.c:1220
+#: modules/pam_unix/pam_unix_passwd.c:1214
 msgid "Enter new UNIX password: "
 msgstr "Zadejte nové UNIX heslo: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1221
+#: modules/pam_unix/pam_unix_passwd.c:1215
 msgid "Retype new UNIX password: "
 msgstr "Opakujte nové UNIX heslo: "
-
-#~ msgid "Warning: your password will expire in one day"
-#~ msgstr "Varování: Počet dní do vypršení hesla: 1"
-
-#~ msgid "dlopen() failure"
-#~ msgstr "Selhání dlopen()"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-12-06 14:36+0100\n"
+"POT-Creation-Date: 2007-01-17 11:53+0100\n"
 "PO-Revision-Date: 2006-05-04 08:30+0200\n"
 "Last-Translator: Jyri Palokangas <jmp@netti.fi>\n"
 "Language-Team:  <yast-trans-fi@kotoistaminen.novell.fi>\n"
@@ -372,19 +372,20 @@ msgstr "pam_set_item() kutsu epäonnistui\n"
 msgid "login: failure forking: %m"
 msgstr "sisäänkirjautuminen: virhe haarautumisessa: %m"
 
-#: modules/pam_stress/pam_stress.c:477
-msgid "Changing STRESS password for "
+#: modules/pam_stress/pam_stress.c:476
+#, fuzzy, c-format
+msgid "Changing STRESS password for %s."
 msgstr "Vaihdetaan STRESS-salasana "
 
-#: modules/pam_stress/pam_stress.c:491
+#: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
 msgstr "Anna uusi STRESS-salasana: "
 
-#: modules/pam_stress/pam_stress.c:494
+#: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
 msgstr "Anna uusi STRESS-salasana uudelleen: "
 
-#: modules/pam_stress/pam_stress.c:523
+#: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
 msgstr "Salasanat eivät ole samat; salasanaa ei vaihdettu"
 
@@ -453,7 +454,7 @@ msgstr[1] "Varoitus: salasanasi vanhenee %d päivässä%.2s"
 msgid "Warning: your password will expire in %d days"
 msgstr "Varoitus: salasanasi vanhenee %d päivässä%.2s"
 
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "Salasana: "
 
@@ -469,19 +470,24 @@ msgstr "Salasanan tulee olla pidempi"
 msgid "Password has been already used. Choose another."
 msgstr "Salasana on jo käytetty. Valitse toinen."
 
-#: modules/pam_unix/pam_unix_passwd.c:1125
+#: modules/pam_unix/pam_unix_passwd.c:1108
+#, fuzzy, c-format
+msgid "Changing password for %s."
+msgstr "Vaihdetaan STRESS-salasana "
+
+#: modules/pam_unix/pam_unix_passwd.c:1119
 msgid "(current) UNIX password: "
 msgstr "(nykyinen) UNIX salasana: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1160
+#: modules/pam_unix/pam_unix_passwd.c:1154
 msgid "You must wait longer to change your password"
 msgstr "Sinun täytyy odottaa kauemmin vaihtaaksesi salasanan"
 
-#: modules/pam_unix/pam_unix_passwd.c:1220
+#: modules/pam_unix/pam_unix_passwd.c:1214
 msgid "Enter new UNIX password: "
 msgstr "Anna uusi UNIX-salasana: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1221
+#: modules/pam_unix/pam_unix_passwd.c:1215
 msgid "Retype new UNIX password: "
 msgstr "Anna uusi UNIX-salasana uudelleen: "
 

@@ -1,3 +1,8 @@
+2007-07-17  Tomas Mraz  <t8m@centrum.cz>
+
+	* po/*.po: Updated strings to translate.
+	* po/Linux-PAM.pot: Likewise.
+
 2007-07-16  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam.conf-syntax.xml: Improve documentation about

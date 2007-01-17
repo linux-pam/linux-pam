@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-12-06 14:36+0100\n"
+"POT-Creation-Date: 2007-01-17 11:53+0100\n"
 "PO-Revision-Date: 2006-05-03 18:59+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -368,19 +368,20 @@ msgstr "未能 pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "登录：故障派生：%m"
 
-#: modules/pam_stress/pam_stress.c:477
-msgid "Changing STRESS password for "
+#: modules/pam_stress/pam_stress.c:476
+#, fuzzy, c-format
+msgid "Changing STRESS password for %s."
 msgstr "更改 STRESS 口令以"
 
-#: modules/pam_stress/pam_stress.c:491
+#: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
 msgstr "输入新的 STRESS 口令："
 
-#: modules/pam_stress/pam_stress.c:494
+#: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
 msgstr "重新输入新的 STRESS 口令："
 
-#: modules/pam_stress/pam_stress.c:523
+#: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
 msgstr "校验类型错误；口令未更改"
 
@@ -447,7 +448,7 @@ msgstr[1] ""
 msgid "Warning: your password will expire in %d days"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "口令："
 
@@ -463,19 +464,24 @@ msgstr "必须选择更长的口令"
 msgid "Password has been already used. Choose another."
 msgstr "口令已使用。请选择其他口令。"
 
-#: modules/pam_unix/pam_unix_passwd.c:1125
+#: modules/pam_unix/pam_unix_passwd.c:1108
+#, fuzzy, c-format
+msgid "Changing password for %s."
+msgstr "更改 STRESS 口令以"
+
+#: modules/pam_unix/pam_unix_passwd.c:1119
 msgid "(current) UNIX password: "
 msgstr "（当前）UNIX 口令："
 
-#: modules/pam_unix/pam_unix_passwd.c:1160
+#: modules/pam_unix/pam_unix_passwd.c:1154
 msgid "You must wait longer to change your password"
 msgstr "您必须等待更长时间以更改口令"
 
-#: modules/pam_unix/pam_unix_passwd.c:1220
+#: modules/pam_unix/pam_unix_passwd.c:1214
 msgid "Enter new UNIX password: "
 msgstr "输入新的 UNIX 口令："
 
-#: modules/pam_unix/pam_unix_passwd.c:1221
+#: modules/pam_unix/pam_unix_passwd.c:1215
 msgid "Retype new UNIX password: "
 msgstr "重新输入新的 UNIX 口令："
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2006-12-06 14:36+0100\n"
+"POT-Creation-Date: 2007-01-17 11:53+0100\n"
 "PO-Revision-Date: 2006-05-03 21:55+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -368,19 +368,20 @@ msgstr "falha em pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "login: falha na bifurcação: %m"
 
-#: modules/pam_stress/pam_stress.c:477
-msgid "Changing STRESS password for "
+#: modules/pam_stress/pam_stress.c:476
+#, fuzzy, c-format
+msgid "Changing STRESS password for %s."
 msgstr "Mudando senha STRESS para"
 
-#: modules/pam_stress/pam_stress.c:491
+#: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
 msgstr "Digite a nova senha STRESS:"
 
-#: modules/pam_stress/pam_stress.c:494
+#: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
 msgstr "Digite novamente a nova senha STRESS:"
 
-#: modules/pam_stress/pam_stress.c:523
+#: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
 msgstr "Verificação digitada incorretamente; senha inalterada"
 
@@ -448,7 +449,7 @@ msgstr[1] "Aviso: sua senha expirará em %d dia%.2s"
 msgid "Warning: your password will expire in %d days"
 msgstr "Aviso: sua senha expirará em %d dia%.2s"
 
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:61
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "Senha:"
 
@@ -464,19 +465,24 @@ msgstr "Escolha uma senha mais longa"
 msgid "Password has been already used. Choose another."
 msgstr "A senha já foi usada. Escolha outra."
 
-#: modules/pam_unix/pam_unix_passwd.c:1125
+#: modules/pam_unix/pam_unix_passwd.c:1108
+#, fuzzy, c-format
+msgid "Changing password for %s."
+msgstr "Mudando senha STRESS para"
+
+#: modules/pam_unix/pam_unix_passwd.c:1119
 msgid "(current) UNIX password: "
 msgstr "Senha UNIX (atual):"
 
-#: modules/pam_unix/pam_unix_passwd.c:1160
+#: modules/pam_unix/pam_unix_passwd.c:1154
 msgid "You must wait longer to change your password"
 msgstr "Aguarde mais tempo para mudar a senha"
 
-#: modules/pam_unix/pam_unix_passwd.c:1220
+#: modules/pam_unix/pam_unix_passwd.c:1214
 msgid "Enter new UNIX password: "
 msgstr "Digite a nova senha UNIX:"
 
-#: modules/pam_unix/pam_unix_passwd.c:1221
+#: modules/pam_unix/pam_unix_passwd.c:1215
 msgid "Retype new UNIX password: "
 msgstr "Redigite a nova senha UNIX:"
 
