@@ -1,8 +1,13 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
-* Add manual page for pam_unix.so
+Release 0.99.7.0
+
+* Add manual page for pam_unix.so.
 * Add pam_faildelay module to set pam_fail_delay() value.
+* Fix possible seg.fault in libpam/pam_set_data().
+* Cleanup of configure options.
+* Update hungarian translation, fix german translation.
 
 Release 0.99.6.3
 

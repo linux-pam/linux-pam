@@ -1,3 +1,12 @@
+2007-01-17  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release 0.99.7.0
+
+	* configure.in: Set version number to 0.99.7.0
+
+	* Makefile.am (M4_FILES): Replace GNU make extension by listing
+	all m4 files.
+
 2007-07-17  Tomas Mraz  <t8m@centrum.cz>
 
 	* po/*.po: Updated strings to translate.

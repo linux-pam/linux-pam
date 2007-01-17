@@ -371,6 +371,7 @@ msgid "login: failure forking: %m"
 msgstr "login: chyba forku: %m"
 
 #: modules/pam_stress/pam_stress.c:476
+#, c-format
 msgid "Changing STRESS password for %s."
 msgstr "Změna STRESS hesla pro %s."
 
