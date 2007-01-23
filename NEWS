@@ -1,6 +1,11 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
+Release 0.99.7.1
+
+* Security fix for pam_unix.so (CVE-2007-0003).
+
+
 Release 0.99.7.0
 
 * Add manual page for pam_unix.so.
@@ -8,6 +13,7 @@ Release 0.99.7.0
 * Fix possible seg.fault in libpam/pam_set_data().
 * Cleanup of configure options.
 * Update hungarian translation, fix german translation.
+
 
 Release 0.99.6.3
 

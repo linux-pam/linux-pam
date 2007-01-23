@@ -693,38 +693,29 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 		retval = PAM_AUTH_ERR;
 	    } else {
 		if (!strncmp(salt, "$1$", 3)) {
-		    salt_len = 0;
 		    pp = Goodcrypt_md5(p, salt);
 		    if (strcmp(pp, salt) != 0) {
 			_pam_delete(pp);
 			pp = Brokencrypt_md5(p, salt);
 		    }
-		} else if (*salt == '$') {
+		} else if (*salt != '$' && salt_len >= 13) {
+		    pp = bigcrypt(p, salt);
+		    if (strlen(pp) > salt_len) {
+			pp[salt_len] = '\0';
+		    }
+		} else {
                     /*
 		     * Ok, we don't know the crypt algorithm, but maybe
 		     * libcrypt nows about it? We should try it.
 		     */
-		    salt_len = 0;
 		    pp = x_strdup (crypt(p, salt));
-		} else {
-		    pp = bigcrypt(p, salt);
 		}
 		p = NULL;		/* no longer needed here */
 
 		/* the moment of truth -- do we agree with the password? */
 		D(("comparing state of pp[%s] and salt[%s]", pp, salt));
 
-		/*
-		 * Note, we are comparing the bigcrypt of the password with
-		 * the contents of the password field. If the latter was
-		 * encrypted with regular crypt (and not bigcrypt) it will
-		 * have been truncated for storage relative to the output
-		 * of bigcrypt here. As such we need to compare only the
-		 * stored string with the subset of bigcrypt's result.
-		 * Bug 521314: The strncmp comparison is for legacy support.
-		 */
-		if ((!salt_len && strcmp(pp, salt) == 0) || 
-		    (salt_len && strncmp(pp, salt, salt_len) == 0)) {
+		if (strcmp(pp, salt) == 0) {
 		    retval = PAM_SUCCESS;
 		} else {
 		    retval = PAM_AUTH_ERR;
