@@ -1,3 +1,11 @@
+2007-01-23  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_loginuid/Makefile.am (AM_LDFLAGS): Add LIBAUDIT.
+
+	* modules/pam_selinux/Makefile.am (pam_selinux_check_LDFLAGS): Add
+	AM_LDFLAGS.
+	(pam_selinux_la_LDFLAGS): Likewise.
+
 2007-01-17  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release 0.99.7.0
