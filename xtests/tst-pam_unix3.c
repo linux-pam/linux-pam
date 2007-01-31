@@ -31,6 +31,13 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/*
+ * Check bigcrypt handling
+ * First use exact password, 9 characters (24 characters crypt)
+ * Second use shorter password, 8 characters
+ * Third use wrong password, 9 characters
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -39,13 +46,14 @@
 #include <string.h>
 #include <security/pam_appl.h>
 
+static int in_test;
+
 /* A conversation function which uses an internally-stored value for
    the responses. */
 static int
 fake_conv (int num_msg, const struct pam_message **msgm UNUSED,
 	   struct pam_response **response, void *appdata_ptr UNUSED)
 {
-  static int calls = 0;
   struct pam_response *reply;
   int count;
 
@@ -62,14 +70,13 @@ fake_conv (int num_msg, const struct pam_message **msgm UNUSED,
   for (count = 0; count < num_msg; ++count)
     {
       reply[count].resp_retcode = 0;
-      /* first call get a password, second one NULL */
-      if (calls)
-	reply[count].resp = NULL;
+      /* first call get a password, second one a too long one */
+      if (in_test == 1)
+	reply[count].resp = strdup ("pamunix01");
+      else if (in_test == 2)
+	reply[count].resp = strdup ("pamunix0");
       else
-	{
-	  ++calls;
-	  reply[count].resp = strdup ("Kindergarten");
-	}
+	reply[count].resp = strdup ("pamunix11");
     }
 
   /* Set the pointers in the response structure and return. */
@@ -90,36 +97,48 @@ int
 main(int argc, char *argv[])
 {
   pam_handle_t *pamh=NULL;
-  const char *user="root";
+  const char *user="tstpamunix";
   int retval;
   int debug = 0;
 
   if (argc > 1 && strcmp (argv[1], "-d") == 0)
     debug = 1;
 
-  retval = pam_start("tst-pam_cracklib1", user, &conv, &pamh);
+  retval = pam_start("tst-pam_unix3", user, &conv, &pamh);
   if (retval != PAM_SUCCESS)
     {
       if (debug)
-	fprintf (stderr, "cracklib1: pam_start returned %d\n", retval);
+	fprintf (stderr, "unix3: pam_start returned %d\n", retval);
       return 1;
     }
 
   /* Try one, first input is correct, second is NULL */
-  retval = pam_chauthtok (pamh, 0);
-  if (retval != PAM_AUTHTOK_RECOVERY_ERR)
+  in_test = 1;
+  retval = pam_authenticate (pamh, 0);
+  if (retval != PAM_SUCCESS)
     {
       if (debug)
-	fprintf (stderr, "cracklib1-1: pam_chauthtok returned %d\n", retval);
+	fprintf (stderr, "unix3-1: pam_authenticate returned %d\n", retval);
       return 1;
     }
 
-  /* Try two, second input is NULL */
-  retval = pam_chauthtok (pamh, 0);
-  if (retval != PAM_AUTHTOK_RECOVERY_ERR)
+  /* Try two, second input is too long  */
+  in_test = 2;
+  retval = pam_authenticate (pamh, 0);
+  if (retval != PAM_AUTH_ERR)
     {
       if (debug)
-        fprintf (stderr, "cracklib1-2: pam_chauthtok returned %d\n", retval);
+        fprintf (stderr, "unix3-2: pam_authenticate returned %d\n", retval);
+      return 1;
+    }
+
+  /* Third try, third input is wrong  */
+  in_test = 3;
+  retval = pam_authenticate (pamh, 0);
+  if (retval != PAM_AUTH_ERR)
+    {
+      if (debug)
+        fprintf (stderr, "unix3-3: pam_authenticate returned %d\n", retval);
       return 1;
     }
 
@@ -128,7 +147,7 @@ main(int argc, char *argv[])
   if (retval != PAM_SUCCESS)
     {
       if (debug)
-	fprintf (stderr, "cracklib1: pam_end returned %d\n", retval);
+	fprintf (stderr, "unix3: pam_end returned %d\n", retval);
       return 1;
     }
   return 0;

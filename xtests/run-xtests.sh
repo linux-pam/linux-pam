@@ -5,8 +5,7 @@ if test `id -u` -ne 0 ; then
   exit 1
 fi
 
-XTESTS="tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
-	tst-pam_dispatch4 tst-pam_cracklib1"
+XTESTS="$@"
 
 failed=0
 pass=0
@@ -14,7 +13,11 @@ all=0
 
 for testname in $XTESTS ; do
 	  install -m 644 $testname.pamd /etc/pam.d/$testname
-	  ./$testname > /dev/null
+	  if test -x ./$testname.sh ; then
+            ./$testname.sh > /dev/null
+          else
+	    ./$testname > /dev/null
+	  fi
 	  if test $? -ne 0 ; then
 	    echo "FAIL: $testname"
 	    failed=`expr $failed + 1`

@@ -1,3 +1,19 @@
+2007-01-31  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* xtests/Makefile.am: Add new pam_unix.so tests
+	* xtests/run-xtests.sh: Prefer shell scripts (wrapper)
+	over binaries.
+	* xtests/tst-pam_cracklib1.c: Fix typo.
+	* xtests/tst-pam_unix1.c: New, for sucurity fix.
+	* xtests/tst-pam_unix1.pamd: New.
+	* xtests/tst-pam_unix1.sh: New.
+	* xtests/tst-pam_unix2.c: New, for crypt checks.
+	* xtests/tst-pam_unix2.pamd: New.
+	* xtests/tst-pam_unix2.sh: New.
+	* xtests/tst-pam_unix3.c: New, for bigcrypt checks.
+	* xtests/tst-pam_unix3.pamd: New.
+	* xtests/tst-pam_unix3.sh: New.
+
 2007-01-23  Thorsten Kukuk  <kukuk@suse.de>
 
 	* release 0.99.7.1
