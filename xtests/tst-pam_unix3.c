@@ -70,7 +70,7 @@ fake_conv (int num_msg, const struct pam_message **msgm UNUSED,
   for (count = 0; count < num_msg; ++count)
     {
       reply[count].resp_retcode = 0;
-      /* first call get a password, second one a too long one */
+      /* first call get a password, second one a too short one */
       if (in_test == 1)
 	reply[count].resp = strdup ("pamunix01");
       else if (in_test == 2)
@@ -122,7 +122,7 @@ main(int argc, char *argv[])
       return 1;
     }
 
-  /* Try two, second input is too long  */
+  /* Try two, second input is too short  */
   in_test = 2;
   retval = pam_authenticate (pamh, 0);
   if (retval != PAM_AUTH_ERR)

@@ -144,7 +144,7 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 	char *salt = NULL;
 	char *pp = NULL;
 	int retval = PAM_AUTH_ERR;
-	int salt_len;
+	size_t salt_len;
 
 	/* UNIX passwords area */
 	setpwent();
@@ -189,6 +189,8 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 		return (nullok == 0) ? PAM_AUTH_ERR : PAM_SUCCESS;
 	}
 	if (p == NULL || strlen(p) == 0) {
+		_pam_overwrite(salt);
+		_pam_drop(salt);
 		return PAM_AUTHTOK_ERR;
 	}
 
@@ -196,11 +198,13 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 	retval = PAM_AUTH_ERR;
 	if (!strncmp(salt, "$1$", 3)) {
 		pp = Goodcrypt_md5(p, salt);
-		if (strcmp(pp, salt) == 0) {
+		if (pp && strcmp(pp, salt) == 0) {
 			retval = PAM_SUCCESS;
 		} else {
+			_pam_overwrite(pp);
+			_pam_drop(pp);
 			pp = Brokencrypt_md5(p, salt);
-			if (strcmp(pp, salt) == 0)
+			if (pp && strcmp(pp, salt) == 0)
 				retval = PAM_SUCCESS;
 		}
 	} else if (*salt == '$') {
@@ -209,10 +213,10 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 		 * libcrypt nows about it? We should try it.
 		 */
 	        pp = x_strdup (crypt(p, salt));
-		if (strcmp(pp, salt) == 0) {
+		if (pp && strcmp(pp, salt) == 0) {
 			retval = PAM_SUCCESS;
 		}
-	} else if ((*salt == '*') || (salt_len < 13)) {
+	} else if (*salt == '*' || *salt == '!' || salt_len < 13) {
 	    retval = PAM_AUTH_ERR;
 	} else {
 		pp = bigcrypt(p, salt);
@@ -223,24 +227,21 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 		 * have been truncated for storage relative to the output
 		 * of bigcrypt here. As such we need to compare only the
 		 * stored string with the subset of bigcrypt's result.
-		 * Bug 521314: the strncmp comparison is for legacy support.
+		 * Bug 521314.
 		 */
-		if (strncmp(pp, salt, salt_len) == 0) {
+		if (salt_len == 13 && strlen(pp) > salt_len) {
+		    _pam_overwrite(pp+salt_len);
+		}
+		
+		if (strcmp(pp, salt) == 0) {
 			retval = PAM_SUCCESS;
 		}
 	}
 	p = NULL;		/* no longer needed here */
 
 	/* clean up */
-	{
-		char *tp = pp;
-		if (pp != NULL) {
-			while (tp && *tp)
-				*tp++ = '\0';
-			free(pp);
-		}
-		pp = tp = NULL;
-	}
+	_pam_overwrite(pp);
+	_pam_drop(pp);
 
 	return retval;
 }

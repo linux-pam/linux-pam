@@ -1,3 +1,13 @@
+2007-02-01  Tomas Mraz  <t8m@centrum.cz>
+
+	* xtests/tst-pam_unix3.c: Fix typos in comments.
+	
+	* modules/pam_unix/support.c (_unix_verify_password): Explicitly
+	disallow '!' in the beginning of password hash. Treat only
+	13 bytes password hash specifically. (Suggested by Solar Designer.)
+	Fix a warning and test for allocation failure.
+	* modules/pam_unix/unix_chkpwd.c (_unix_verify_password): Likewise.
+
 2007-01-31  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* xtests/Makefile.am: Add new pam_unix.so tests
@@ -21,7 +31,7 @@
 	* configure.in: Set version number to 0.99.7.1
 
 2007-01-23  Thorsten Kukuk  <kukuk@thukuk.de>
-	    Tomas Mraz  <t2m@centrum.cz>
+	    Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_unix/support.c (_unix_verify_password): Always
 	compare full encrypted passwords (CVE-2007-0003).

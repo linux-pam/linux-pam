@@ -679,7 +679,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			}
 		}
 	} else {
-	    int salt_len = strlen(salt);
+	    size_t salt_len = strlen(salt);
 	    if (!salt_len) {
 		/* the stored password is NULL */
 		if (off(UNIX__NONULL, ctrl)) {/* this means we've succeeded */
@@ -689,19 +689,19 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 		    D(("user has empty password - access denied"));
 		    retval = PAM_AUTH_ERR;
 		}
-	    } else if (!p || (*salt == '*')) {
+	    } else if (!p || *salt == '*' || *salt == '!') {
 		retval = PAM_AUTH_ERR;
 	    } else {
 		if (!strncmp(salt, "$1$", 3)) {
 		    pp = Goodcrypt_md5(p, salt);
-		    if (strcmp(pp, salt) != 0) {
+		    if (pp && strcmp(pp, salt) != 0) {
 			_pam_delete(pp);
 			pp = Brokencrypt_md5(p, salt);
 		    }
 		} else if (*salt != '$' && salt_len >= 13) {
 		    pp = bigcrypt(p, salt);
-		    if (strlen(pp) > salt_len) {
-			pp[salt_len] = '\0';
+		    if (pp && salt_len == 13 && strlen(pp) > salt_len) {
+			_pam_overwrite(pp + salt_len);
 		    }
 		} else {
                     /*
@@ -715,7 +715,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 		/* the moment of truth -- do we agree with the password? */
 		D(("comparing state of pp[%s] and salt[%s]", pp, salt));
 
-		if (strcmp(pp, salt) == 0) {
+		if (pp && strcmp(pp, salt) == 0) {
 		    retval = PAM_SUCCESS;
 		} else {
 		    retval = PAM_AUTH_ERR;
