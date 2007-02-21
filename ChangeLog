@@ -1,3 +1,11 @@
+2007-02-21  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_unix/unix_chkpwd.c (_unix_verify_password): Test for
+	allocation failure in bigcrypt().
+	
+	* modules/pam_unix/pam_unix_passwd.c (pam_sm_chauthtok): Allow modification
+	of '*' password by root.
+
 2007-02-06  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_loginuid/pam_loginuid.c (set_loginuid): Remove

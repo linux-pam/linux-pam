@@ -1077,13 +1077,6 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 				user);
 			return PAM_USER_UNKNOWN;
 		}
-		if (!_unix_shadowed(pwd) &&
-		    (strchr(pwd->pw_passwd, '*') != NULL)) {
-			pam_syslog(pamh, LOG_DEBUG,
-				"user \"%s\" does not have modifiable password",
-				user);
-			return PAM_USER_UNKNOWN;
-		}
 	}
 
 	/*

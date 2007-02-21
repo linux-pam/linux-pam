@@ -229,11 +229,11 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 		 * stored string with the subset of bigcrypt's result.
 		 * Bug 521314.
 		 */
-		if (salt_len == 13 && strlen(pp) > salt_len) {
+		if (pp && salt_len == 13 && strlen(pp) > salt_len) {
 		    _pam_overwrite(pp+salt_len);
 		}
 		
-		if (strcmp(pp, salt) == 0) {
+		if (pp && strcmp(pp, salt) == 0) {
 			retval = PAM_SUCCESS;
 		}
 	}
