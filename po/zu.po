@@ -1,232 +1,224 @@
-# translation of Linux-PAM.pa.po to Panjabi
-# translation of Linux-PAM.po to Panjabi
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR Linux-PAM Project.
-# Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
+# Copyright (C) 2006 SuSE Linux Products GmbH, Nuernberg
+# This file is distributed under the same license as the package.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM.pa\n"
+"Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2007-03-12 13:15+0100\n"
-"PO-Revision-Date: 2005-08-06 08:34+0530\n"
-"Last-Translator: Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>\n"
-"Language-Team: Panjabi <pa@li.org>\n"
+"PO-Revision-Date: 2006-11-03 12:03\n"
+"Last-Translator: Novell Language <language@novell.com>\n"
+"Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
-msgstr "...ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਰਿਹਾ ਹੈ...\n"
+msgstr "...Isikhathi siyaphela...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "...ਅਫ਼ਸੋਸ, ਤੁਹਾਡਾ ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਗਿਆ ਹੈ!\n"
+msgstr "...Uxolo, isikhathi sakho sesiphelile!\n"
 
 #: libpam_misc/misc_conv.c:343
 #, c-format
 msgid "erroneous conversation (%d)\n"
-msgstr ""
+msgstr "ingxoxo enephutha (%d)\n"
 
 #: libpam/pam_item.c:271
 msgid "login:"
-msgstr ""
+msgstr "ngena:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
-msgstr "ਸਫ਼ਲ"
+msgstr "Impumelelo"
 
 #: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
-msgstr "ਨਾਜ਼ੁਕ ਗਲਤੀ - ਤਰੁੰਤ ਅਧੂਰਾ ਛੱਡਿਆ"
+msgstr "Iphutha elibucayi - yeka ngokushesha"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr ""
+msgstr "Ihlulekile ukunezela umkhiqizo owenezelwayo"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
-msgstr "ਨਿਸ਼ਾਨ ਨਹੀਂ ਮਿਲਿਆ"
+msgstr "Uphawu alutholakali"
 
 #: libpam/pam_strerror.c:48
 msgid "Error in service module"
-msgstr "ਸੇਵਾ ਮੈਡੀਊਲ ਵਿੱਚ ਗਲਤੀ"
+msgstr "Iphutha kwimoduli yesevisi"
 
 #: libpam/pam_strerror.c:50
 msgid "System error"
-msgstr "ਸਿਸਟਮ ਗਲਤੀ"
+msgstr "Iphutha lesistimu"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
-msgstr "ਮੈਮੋਰੀ ਬਫ਼ਰ ਗਲਤੀ"
+msgstr "Iphutha lengobo yesikhashana yememori"
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
-msgstr "ਅਧਿਕਾਰ ਪਾਬੰਦੀ"
+msgstr "Imvume inqatshiwe"
 
 #: libpam/pam_strerror.c:56
 msgid "Authentication failure"
-msgstr "ਪਰਮਾਣਕਿਤਾ ਫੇਲ"
+msgstr "Ukwehluleka kokugunyaza"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
+msgstr "Izinhlamvu zamagama ezinganele zokungena ekwazisweni kokugunyaza"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr ""
+msgstr "Isevisi yokugunyaza ayikwazi ukulanda ukwaziswa kokugunyaza"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr ""
+msgstr "Umsebenzisi akaziwa kwimoduli yokugunyaza engabonakali"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
-msgstr ""
+msgstr "Isifinyelele ekugcineni kwezikhathi ezivumelekile zokuzama le sevisi"
 
 #: libpam/pam_strerror.c:66
-#, fuzzy
 msgid "Authentication token is no longer valid; new one required"
-msgstr "ਪਰਮਾਣਕਿਤਾ ਟੋਕਨ ਦੀ ਮਿਆਦ ਪੁੱਗ ਚੁੱਕੀ ਹੈ"
+msgstr "Isiqinisekiso sokugunyaza asisasebenzi, kudingeka esisha"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
-msgstr "ਉਪਭੋਗੀ ਖਾਤੇ ਦੀ ਮਿਆਦ ਪੁੱਗ ਚੁੱਕੀ ਹੈ"
+msgstr "I-akhawunti yomsebenzisi iphelelwe isikhathi"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr ""
+msgstr "Ayikwazi ukwakha/ukususa okufakiwe kohlelo olubonisiwe"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
+msgstr "Isevisi yokugunyaza ayikwazi ukulanda izinhlamvu zomsebenzisi"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr ""
+msgstr "Izinhlamvu zomsebenzisi ziphelelwe isikhathi"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr ""
+msgstr "Ukwehluleka ukusetha izinhlamvu zomsebenzisi"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
-msgstr ""
+msgstr "Akukho ukwaziswa okuthile kwemoduli okutholakalayo"
 
 #: libpam/pam_strerror.c:80
 msgid "Bad item passed to pam_*_item()"
-msgstr ""
+msgstr "Into embi idluliselwe kwi-pam_*_item()"
 
 #: libpam/pam_strerror.c:82
 msgid "Conversation error"
-msgstr "ਤਬਦੀਲੀ ਗਲਤੀ"
+msgstr "Iphutha lengxoxo"
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
-msgstr ""
+msgstr "Iphutha lokufaka isiqinisekiso sokugunyaza"
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
-msgstr ""
+msgstr "Ukwaziswa kokugunyaza akukwazi ukubuyiseka"
 
 #: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
-msgstr ""
+msgstr "Isihluthulelo sesiqinisekiso sokugunyaza simatasa"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr ""
+msgstr "Ukuphela kwesikhathi sesiqinisekiso sokugunyaza kucishiwe"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr ""
+msgstr "Ukuhlola kokuqala okuhlulekile ngesevisi yephasiwedi"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr ""
+msgstr "I-value yokubuyisa kufanele inganakwa ukuthumela kwe-PAM "
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
-msgstr "ਮੈਡੀਊਲ ਅਣਜਾਣ ਹੈ"
+msgstr "Imoduli ayaziwa"
 
 #: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
-msgstr "ਪਰਮਾਣਕਿਤਾ ਟੋਕਨ ਦੀ ਮਿਆਦ ਪੁੱਗ ਚੁੱਕੀ ਹੈ"
+msgstr "Isiqinisekiso sokugunyaza siphelelwe isikhathi"
 
 #: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
-msgstr ""
+msgstr "Ingxoxo ilinde isenzakalo"
 
 #: libpam/pam_strerror.c:102
 msgid "Application needs to call libpam again"
-msgstr ""
+msgstr "Uhlelo ludinga ukubiza i-libpam futhi"
 
 #: libpam/pam_strerror.c:105
 msgid "Unknown PAM error"
-msgstr "ਅਣਜਾਣ PAM ਗਲਤੀ"
+msgstr "Iphutha le-PAM elingaziwa"
 
 #: modules/pam_cracklib/pam_cracklib.c:60
-#, fuzzy, c-format
+#, c-format
 msgid "New %s%spassword: "
-msgstr "ਗੁਪਤ-ਕੋਡ ਨਾ-ਤਬਦੀਲ ਹੈ"
+msgstr "%s%siphasiwedi entsha: "
 
 #: modules/pam_cracklib/pam_cracklib.c:62
-#, fuzzy, c-format
+#, c-format
 msgid "Retype new %s%spassword: "
-msgstr "ਨਵਾਂ STRESS ਗੁਪਤ-ਕੋਡ ਮੁੜ-ਲਿਖੋ: "
+msgstr "Thayipha kabusha %s%siphasiwedi entsha: "
 
 #: modules/pam_cracklib/pam_cracklib.c:63
-#, fuzzy
 msgid "Sorry, passwords do not match."
-msgstr "NIS ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ।"
+msgstr "Uxolo, amaphasiwedi awahambelani."
 
 #: modules/pam_cracklib/pam_cracklib.c:378
 msgid "is the same as the old one"
-msgstr ""
+msgstr "iyafana nendala"
 
 #: modules/pam_cracklib/pam_cracklib.c:389
 msgid "is a palindrome"
-msgstr ""
+msgstr "iyi-palindrome"
 
 #: modules/pam_cracklib/pam_cracklib.c:392
 msgid "case changes only"
-msgstr ""
+msgstr "kushintshe onobumba kuphela"
 
 #: modules/pam_cracklib/pam_cracklib.c:395
 msgid "is too similar to the old one"
-msgstr ""
+msgstr "ifana kakhulu nendala"
 
 #: modules/pam_cracklib/pam_cracklib.c:398
 msgid "is too simple"
-msgstr ""
+msgstr "ilula kakhulu"
 
 #: modules/pam_cracklib/pam_cracklib.c:401
 msgid "is rotated"
-msgstr ""
+msgstr "ijikelezisiwe"
 
 #: modules/pam_cracklib/pam_cracklib.c:436
-#, fuzzy
 msgid "has been already used"
-msgstr "ਗੁਪਤ-ਕੋਡ ਪਹਿਲਾਂ ਵੀ ਵਰਤਿਆ ਗਿਆ ਹੈ। ਵੱਖਰਾ ਚੁਣੋ।"
+msgstr "isisetshenziswe ngothile."
 
 #: modules/pam_cracklib/pam_cracklib.c:464
 #: modules/pam_unix/pam_unix_passwd.c:975
 msgid "No password supplied"
-msgstr "ਕੋਈ ਗੁਪਤ-ਕੋਡ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ"
+msgstr "Ayikho iphasiwedi enikeziwe"
 
 #: modules/pam_cracklib/pam_cracklib.c:464
 #: modules/pam_unix/pam_unix_passwd.c:975
 msgid "Password unchanged"
-msgstr "ਗੁਪਤ-ਕੋਡ ਨਾ-ਤਬਦੀਲ ਹੈ"
+msgstr "Iphasiwedi ayishintshwanga"
 
 #: modules/pam_cracklib/pam_cracklib.c:487
 #: modules/pam_cracklib/pam_cracklib.c:615
 #, c-format
 msgid "BAD PASSWORD: %s"
-msgstr ""
+msgstr "IPHASIWEDI ENGASEBENZI: %s"
 
 #: modules/pam_exec/pam_exec.c:118
 #, c-format
@@ -246,70 +238,70 @@ msgstr ""
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:190
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr ""
+msgstr "%a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:199
 #, c-format
 msgid " from %.*s"
-msgstr ""
+msgstr "kusukela %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:211
 #, c-format
 msgid " on %.*s"
-msgstr ""
+msgstr "ku-%.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:220
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr ""
+msgstr "Ukungena kokugcina:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:226
 msgid "Welcome to your new account!"
-msgstr ""
+msgstr "Uyamukelwa kwi-akhawunti yakho entsha!"
 
 #: modules/pam_limits/pam_limits.c:647
 #, c-format
 msgid "Too many logins for '%s'."
-msgstr ""
+msgstr "Kuningi kakhulu ukungena kwi- '%s' osekwenziwe."
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
-msgstr ""
+msgstr "Ayikho imeyili."
 
 #: modules/pam_mail/pam_mail.c:316
 msgid "You have new mail."
-msgstr ""
+msgstr "Unemeyili entsha."
 
 #: modules/pam_mail/pam_mail.c:319
 msgid "You have old mail."
-msgstr ""
+msgstr "Unemeyili endala."
 
 #: modules/pam_mail/pam_mail.c:323
 msgid "You have mail."
-msgstr ""
+msgstr "Unemeyili."
 
 #: modules/pam_mail/pam_mail.c:330
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr ""
+msgstr "Akukho meyili onayo kwifolda %s."
 
 #: modules/pam_mail/pam_mail.c:334
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr ""
+msgstr "Unemeyili entsha kwifolda %s."
 
 #: modules/pam_mail/pam_mail.c:338
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr ""
+msgstr "Unemeyili endala kwifolda %s."
 
 #: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have mail in folder %s."
-msgstr ""
+msgstr "Unemeyili kwifolda %s."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:140
 #, c-format
@@ -324,98 +316,98 @@ msgstr ""
 #: modules/pam_selinux/pam_selinux.c:102
 #, c-format
 msgid "Your default context is %s. \n"
-msgstr "ਤੁਹਾਡਾ ਮੁੱਲ ਪਰਸੰਗ %s ਹੈ \n"
+msgstr "Indawo okuyo yohlelo ingu-%s. \n"
 
 #: modules/pam_selinux/pam_selinux.c:105
 msgid "Do you want to choose a different one? [n]"
-msgstr "ਕੀ ਤੁਸੀਂ ਵੱਖਰੇ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ? [n]"
+msgstr "Ingabe ufuna ukukhetha ehlukile? [n]"
 
 #: modules/pam_selinux/pam_selinux.c:112
 msgid "Enter number of choice: "
-msgstr "ਚੋਣ ਦਾ ਨੰਬਰ ਦਿਓ: "
+msgstr "Faka inombolo oyikhethile: "
 
 #: modules/pam_selinux/pam_selinux.c:152
 msgid "Would you like to enter a security context? [y] "
-msgstr "ਕੀ ਤੁਸੀਂ ਇੱਕ ਸੁਰੱਖਿਆ ਪਰਸੰਗ ਦੇਣਾ ਚਾਹੁੰਦੇ ਹੋ? [y] "
+msgstr "Ungathanda ukufaka indawo yokuphepha (security context) [y]"
 
 #: modules/pam_selinux/pam_selinux.c:169
 msgid "role: "
-msgstr "ਰੋਲ: "
+msgstr "indima: "
 
 #: modules/pam_selinux/pam_selinux.c:177
 msgid "type: "
-msgstr "ਕਿਸਮ: "
+msgstr "uhlobo: "
 
 #: modules/pam_selinux/pam_selinux.c:187
 msgid "level: "
-msgstr "ਪੱਧਰ: "
+msgstr "Izinga: "
 
 #: modules/pam_selinux/pam_selinux.c:203
 msgid "Not a valid security context"
-msgstr "ਇੱਕ ਠੀਕ ਸੁਰੱਖਿਆ ਪਰਸੰਗ ਨਹੀਂ"
+msgstr "Akuyona indawo yokuphepha esemthethweni"
 
 #: modules/pam_selinux/pam_selinux.c:417
 #, c-format
 msgid "Security Context %s Assigned"
-msgstr ""
+msgstr "Indawo %s Yokuphepha Yabelwe"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
-msgstr "PAM ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਫੇਲ\n"
+msgstr "Ihlulekile ukulungiselela ukuqalisa i-PAM \n"
 
 #: modules/pam_selinux/pam_selinux_check.c:105
 #, c-format
 msgid "failed to pam_set_item()\n"
-msgstr "pam_set_item() ਲਈ ਫੇਲ\n"
+msgstr "Ihlulekile ukwenza i-pam_set_item()\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr ""
+msgstr "ngena: Ihlulekile ukuhlukanisa: %m"
 
 #: modules/pam_stress/pam_stress.c:476
 #, fuzzy, c-format
 msgid "Changing STRESS password for %s."
-msgstr "ਨਵਾਂ STRESS ਗੁਪਤ-ਕੋਡ ਦਿਓ: "
+msgstr "Ukushintsha iphasiwedi ye-STRESS ye-"
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
-msgstr "ਨਵਾਂ STRESS ਗੁਪਤ-ਕੋਡ ਦਿਓ: "
+msgstr "Faka iphasiwedi entsha ye-STRESS: "
 
 #: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
-msgstr "ਨਵਾਂ STRESS ਗੁਪਤ-ਕੋਡ ਮੁੜ-ਲਿਖੋ: "
+msgstr "Thayipha iphasiwedi entsha ye-STRESS: "
 
 #: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
-msgstr ""
+msgstr "Ukufakazela akuthayiphiwanga kahle; iphasiwedi ayishintshwanga"
 
 #: modules/pam_tally/pam_tally.c:741
 msgid "Authentication error"
-msgstr "ਪਰਮਾਣਕਿਤਾ ਗਲਤੀ"
+msgstr "Iphutha lokugunyaza"
 
 #: modules/pam_tally/pam_tally.c:742
 msgid "Service error"
-msgstr "ਸੇਵਾ ਗਲਤੀ"
+msgstr "Iphutha lesevisi"
 
 #: modules/pam_tally/pam_tally.c:743
 msgid "Unknown user"
-msgstr "ਅਣਜਾਣ ਉਪਭੋਗੀ"
+msgstr "Umsebenzisi ongaziwa"
 
 #: modules/pam_tally/pam_tally.c:744
 msgid "Unknown error"
-msgstr "ਅਣਜਾਣੀ ਗਲਤੀ"
+msgstr "Iphutha elingaziwa"
 
 #: modules/pam_tally/pam_tally.c:760
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
-msgstr "%s: --reset= ਲਈ ਗਲਤ ਨੰਬਰ ਦਿੱਤਾ ਗਿਆ\n"
+msgstr "%s: Inombolo eyiphutha enikeziwe ukuba --uqale kabusha=\n"
 
 #: modules/pam_tally/pam_tally.c:764
 #, c-format
 msgid "%s: Unrecognised option %s\n"
-msgstr "%s: ਬੇਪਛਾਣ ਚੋਣ %s\n"
+msgstr "%s: Okukhethile okungaziwa %s\n"
 
 #: modules/pam_tally/pam_tally.c:776
 #, c-format
@@ -428,80 +420,76 @@ msgstr ""
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
+"%s: Ayikwazi ukusetha kabusha bonke abasebenzisi ibase enombolweni ongelona "
+"iqanda\n"
 
 #: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
+"I-akhawunti yakho isiphelelwe isikhathi, sicela uthintana nomqondisi "
+"wesistimu yakho"
 
 #: modules/pam_unix/pam_unix_acct.c:283
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
+"Kudingeka ukuba ushintshe iphasiwedi yakho ngokushesha (iphoqelelwa "
+"ngumqondisi)"
 
 #: modules/pam_unix/pam_unix_acct.c:310
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
+"Kudingeka ukuba ushintshe iphasiwedi yakho ngokushesha (iphasiwedi indala)"
 
 #: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "ਸਾਵਧਾਨ: ਤੁਹਾਡਾ ਗੁਪਤ-ਕੋਡ ਦੀ ਮਿਆਦ %d ਦਿਨ%.2s 'ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
-msgstr[1] "ਸਾਵਧਾਨ: ਤੁਹਾਡਾ ਗੁਪਤ-ਕੋਡ ਦੀ ਮਿਆਦ %d ਦਿਨ%.2s 'ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
+msgstr[0] "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
+msgstr[1] "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
 
 #. TRANSLATORS: only used if dngettext is not support
 #. ed
 #: modules/pam_unix/pam_unix_acct.c:336
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "ਸਾਵਧਾਨ: ਤੁਹਾਡਾ ਗੁਪਤ-ਕੋਡ ਦੀ ਮਿਆਦ %d ਦਿਨ%.2s 'ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
+msgstr "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
 
 #: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
-#, fuzzy
 msgid "Password: "
-msgstr "ਗੁਪਤ-ਕੋਡ ਨਾ-ਤਬਦੀਲ ਹੈ"
+msgstr "Iphasiwedi: "
 
 #: modules/pam_unix/pam_unix_passwd.c:819
 msgid "NIS password could not be changed."
-msgstr "NIS ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ।"
+msgstr "Iphasiwedi ye-NIS ayivumanga ukushintshwa."
 
 #: modules/pam_unix/pam_unix_passwd.c:996
 msgid "You must choose a longer password"
-msgstr "ਤੁਹਾਨੂੰ ਲੰਮੇ ਗੁਪਤ-ਕੋਡ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ"
+msgstr "Kumelwe ukhethe iphasiwedi ethe ukuba yinjana"
 
 #: modules/pam_unix/pam_unix_passwd.c:1001
 msgid "Password has been already used. Choose another."
-msgstr "ਗੁਪਤ-ਕੋਡ ਪਹਿਲਾਂ ਵੀ ਵਰਤਿਆ ਗਿਆ ਹੈ। ਵੱਖਰਾ ਚੁਣੋ।"
+msgstr "Le phasiwedi isetshenziswa ngothile. Khetha enye."
 
 #: modules/pam_unix/pam_unix_passwd.c:1108
-#, c-format
+#, fuzzy, c-format
 msgid "Changing password for %s."
-msgstr ""
+msgstr "Ukushintsha iphasiwedi ye-STRESS ye-"
 
 #: modules/pam_unix/pam_unix_passwd.c:1119
 msgid "(current) UNIX password: "
-msgstr ""
+msgstr "Iphasiwedi ye-UNIX (yamanje): "
 
 #: modules/pam_unix/pam_unix_passwd.c:1154
 msgid "You must wait longer to change your password"
-msgstr ""
+msgstr "Kumelwe ulinde isikhashana ukuze ushintshe iphasiwedi yakho"
 
 #: modules/pam_unix/pam_unix_passwd.c:1214
-#, fuzzy
 msgid "Enter new UNIX password: "
-msgstr "ਨਵਾਂ STRESS ਗੁਪਤ-ਕੋਡ ਦਿਓ: "
+msgstr "Faka iphasiwedi entsha ye-UNIX: "
 
 #: modules/pam_unix/pam_unix_passwd.c:1215
-#, fuzzy
 msgid "Retype new UNIX password: "
-msgstr "ਨਵਾਂ STRESS ਗੁਪਤ-ਕੋਡ ਮੁੜ-ਲਿਖੋ: "
-
-#, fuzzy
-#~ msgid "Warning: your password will expire in one day"
-#~ msgstr "ਸਾਵਧਾਨ: ਤੁਹਾਡਾ ਗੁਪਤ-ਕੋਡ ਦੀ ਮਿਆਦ %d ਦਿਨ%.2s 'ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
+msgstr "Thayipha iphasiwedi entsha ye-UNIX: "
 
 #~ msgid "dlopen() failure"
-#~ msgstr "dlopen() ਫੇਲ"
-
-#, fuzzy
-#~ msgid "%s: set %s security context to %s"
-#~ msgstr "ਇੱਕ ਠੀਕ ਸੁਰੱਖਿਆ ਪਰਸੰਗ ਨਹੀਂ"
+#~ msgstr "ukwehluleka kwe-dlopen()"

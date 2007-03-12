@@ -1,6 +1,12 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
+Release X.XX.X.X
+
+* Add translations for ar, ca, da, ru, sv and zu
+* Update hungarian translation
+
+
 Release 0.99.7.1
 
 * Security fix for pam_unix.so (CVE-2007-0003).
