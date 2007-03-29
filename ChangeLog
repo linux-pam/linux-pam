@@ -9,6 +9,13 @@
 	* modules/pam_unix/pam_unix_passwd.c (check_old_password,
 	save_old_password): Likewise.
 
+	* modules/pam_limits/Makefile.am: Define limits.d dir and install it.
+	* modules/pam_limits/pam_limits.8.xml: Describe limits.d parsing.
+	* modules/pam_limits/pam_limits.c (pam_limit_s): Make conf_file ptr.
+	(pam_parse): conf_file is now ptr.
+	(pam_sm_open_session): Add parsing files from limits.d subdir using
+	glob, change pl to pointer.
+
 2007-03-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/ar.po: New translation.

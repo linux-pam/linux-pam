@@ -31,7 +31,7 @@
 #include <sys/stat.h>
 #include <sys/resource.h>
 #include <limits.h>
-
+#include <glob.h>
 #include <utmp.h>
 #ifndef UT_USER  /* some systems have ut_name instead of ut_user */
 #define UT_USER ut_user
@@ -75,7 +75,7 @@ struct pam_limit_s {
 			      specific user or to count all logins */
     int priority;	 /* the priority to run user process with */
     struct user_limits_struct limits[RLIM_NLIMITS];
-    char conf_file[BUFSIZ];
+    const char *conf_file;
     int utmp_after_pam_call;
     char login_group[LINE_LENGTH];
 };
@@ -101,6 +101,11 @@ struct pam_limit_s {
 #define PAM_DO_SETREUID     0x0002
 #define PAM_UTMP_EARLY      0x0004
 
+/* Limits from globbed files. */
+#define LIMITS_CONF_GLOB LIMITS_FILE_DIR
+
+#define CONF_FILE (pl->conf_file != NULL)?pl->conf_file:LIMITS_FILE
+
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	    struct pam_limit_s *pl)
@@ -115,7 +120,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	if (!strcmp(*argv,"debug")) {
 	    ctrl |= PAM_DEBUG_ARG;
 	} else if (!strncmp(*argv,"conf=",5)) {
-	    strncpy(pl->conf_file,*argv+5,sizeof(pl->conf_file)-1);
+	    pl->conf_file = *argv+5;
 	} else if (!strncmp(*argv,"change_uid",10)) {
 	    ctrl |= PAM_DO_SETREUID;
 	} else if (!strcmp(*argv,"utmp_early")) {
@@ -124,7 +129,6 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
     }
-    pl->conf_file[sizeof(pl->conf_file) - 1] = '\0';
 
     return ctrl;
 }
@@ -434,7 +438,6 @@ static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
     FILE *fil;
     char buf[LINE_LENGTH];
 
-#define CONF_FILE (pl->conf_file[0])?pl->conf_file:LIMITS_FILE
     /* check for the LIMITS_FILE */
     if (ctrl & PAM_DEBUG_ARG)
         pam_syslog(pamh, LOG_DEBUG, "reading settings from '%s'", CONF_FILE);
@@ -444,7 +447,6 @@ static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
 		    "cannot read settings from %s: %m", CONF_FILE);
         return PAM_SERVICE_ERR;
     }
-#undef CONF_FILE
 
     /* init things */
     memset(buf, 0, sizeof(buf));
@@ -599,16 +601,22 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
     int retval;
+    int i;
+    int glob_rc;
     char *user_name;
     struct passwd *pwd;
     int ctrl;
-    struct pam_limit_s pl;
+    struct pam_limit_s plstruct;
+    struct pam_limit_s *pl = &plstruct;
+    glob_t globbuf;
+    const char *oldlocale;
 
     D(("called."));
 
-    memset(&pl, 0, sizeof(pl));
+    memset(pl, 0, sizeof(*pl));
+    memset(&globbuf, 0, sizeof(globbuf));
 
-    ctrl = _pam_parse(pamh, argc, argv, &pl);
+    ctrl = _pam_parse(pamh, argc, argv, pl);
     retval = pam_get_item( pamh, PAM_USER, (void*) &user_name );
     if ( user_name == NULL || retval != PAM_SUCCESS ) {
         pam_syslog(pamh, LOG_CRIT, "open_session - error recovering username");
@@ -623,26 +631,60 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
         return PAM_USER_UNKNOWN;
     }
 
-    retval = init_limits(&pl);
+    retval = init_limits(pl);
     if (retval != PAM_SUCCESS) {
         pam_syslog(pamh, LOG_WARNING, "cannot initialize");
         return PAM_ABORT;
     }
 
-    retval = parse_config_file(pamh, pwd->pw_name, ctrl, &pl);
+    retval = parse_config_file(pamh, pwd->pw_name, ctrl, pl);
     if (retval == PAM_IGNORE) {
-	D(("the configuration file has an applicable '<domain> -' entry"));
+	D(("the configuration file ('%s') has an applicable '<domain> -' entry", CONF_FILE));
 	return PAM_SUCCESS;
     }
-    if (retval != PAM_SUCCESS) {
-        pam_syslog(pamh, LOG_WARNING, "error parsing the configuration file");
-        return retval;
+    if (retval != PAM_SUCCESS || pl->conf_file != NULL)
+	/* skip reading limits.d if config file explicitely specified */
+	goto out;
+
+    /* Read subsequent *.conf files, if they exist. */
+
+    /* set the LC_COLLATE so the sorting order doesn't depend
+	on system locale */
+
+    oldlocale = setlocale(LC_COLLATE, "C");
+    glob_rc = glob(LIMITS_CONF_GLOB, GLOB_ERR, NULL, &globbuf);
+
+    if (oldlocale != NULL)
+	setlocale (LC_COLLATE, oldlocale);
+
+    if (!glob_rc) {
+	/* Parse the *.conf files. */
+	for (i = 0; globbuf.gl_pathv[i] != NULL; i++) {
+	    pl->conf_file = globbuf.gl_pathv[i];
+    	    retval = parse_config_file(pamh, pwd->pw_name, ctrl, pl);
+    	    if (retval == PAM_IGNORE) {
+		D(("the configuration file ('%s') has an applicable '<domain> -' entry", pl->conf_file));
+		globfree(&globbuf);
+		return PAM_SUCCESS;
+      	    }
+	    if (retval != PAM_SUCCESS)
+		goto out;
+        }
+    }
+
+out:
+    globfree(&globbuf);
+    if (retval != PAM_SUCCESS) 
+    {
+       	pam_syslog(pamh, LOG_WARNING, "error parsing the configuration file: '%s' ",CONF_FILE);
+	return retval;
     }
 
     if (ctrl & PAM_DO_SETREUID) {
 	setreuid(pwd->pw_uid, -1);
     }
-    retval = setup_limits(pamh, pwd->pw_name, pwd->pw_uid, ctrl, &pl);
+
+    retval = setup_limits(pamh, pwd->pw_name, pwd->pw_uid, ctrl, pl);
     if (retval & LOGIN_ERR)
 	pam_error(pamh, _("Too many logins for '%s'."), pwd->pw_name);
     if (retval != LIMITED_OK) {

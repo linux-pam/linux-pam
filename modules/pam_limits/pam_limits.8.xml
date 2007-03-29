@@ -47,7 +47,15 @@
     </para>
     <para>
       By default limits are taken from the <filename>/etc/security/limits.conf</filename>
-      config file.
+      config file. Then individual files from the <filename>/etc/security/limits.d/</filename>
+      directory are read. The files are parsed one after another in the order of "C" locale.
+      The effect of the individual files is the same as if all the files were
+      concatenated together in the order of parsing.
+      If a config file is explicitely specified with a module option then the
+      files in the above directory are not parsed.
+    </para>
+    <para>
+      The module must not be called by a multithreaded application.
     </para>
   </refsect1>
 
