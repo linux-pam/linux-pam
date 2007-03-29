@@ -79,10 +79,11 @@ static int lookup(const char *name, const char *list, const char **_user)
     if (list && *list) {
 	const char *l;
 	char *list_copy, *x;
+	char *sptr;
 
 	list_copy = x_strdup(list);
 	x = list_copy;
-	while (list_copy && (l = strtok(x, ","))) {
+	while (list_copy && (l = strtok_r(x, ",", &sptr))) {
 	    x = NULL;
 	    if (!strcmp(name, l)) {
 		*_user = list;
@@ -170,11 +171,12 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	  /* XXX: Some effort should be made to verify this email address! */
 
 	    if (!(ctrl & PAM_IGNORE_EMAIL)) {
-		token = strtok(resp, "@");
+		char *sptr;
+		token = strtok_r(resp, "@", &sptr);
 		retval = pam_set_item(pamh, PAM_RUSER, token);
 
 		if ((token) && (retval == PAM_SUCCESS)) {
-		    token = strtok(NULL, "@");
+		    token = strtok_r(NULL, "@", &sptr);
 		    retval = pam_set_item(pamh, PAM_RHOST, token);
 		}
 	    }

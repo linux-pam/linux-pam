@@ -330,11 +330,12 @@ static int check_old_password(const char *forwho, const char *newpass)
 
 	while (fgets(buf, 16380, opwfile)) {
 		if (!strncmp(buf, forwho, strlen(forwho))) {
+			char *sptr;
 			buf[strlen(buf) - 1] = '\0';
-			s_luser = strtok(buf, ":,");
-			s_uid = strtok(NULL, ":,");
-			s_npas = strtok(NULL, ":,");
-			s_pas = strtok(NULL, ":,");
+			s_luser = strtok_r(buf, ":,", &sptr);
+			s_uid = strtok_r(NULL, ":,", &sptr);
+			s_npas = strtok_r(NULL, ":,", &sptr);
+			s_pas = strtok_r(NULL, ":,", &sptr);
 			while (s_pas != NULL) {
 				char *md5pass = Goodcrypt_md5(newpass, s_pas);
 				if (!strcmp(md5pass, s_pas)) {
@@ -342,7 +343,7 @@ static int check_old_password(const char *forwho, const char *newpass)
 					retval = PAM_AUTHTOK_ERR;
 					break;
 				}
-				s_pas = strtok(NULL, ":,");
+				s_pas = strtok_r(NULL, ":,", &sptr);
 				_pam_delete(md5pass);
 			}
 			break;
@@ -432,11 +433,12 @@ static int save_old_password(pam_handle_t *pamh,
 
     while (fgets(buf, 16380, opwfile)) {
 	if (!strncmp(buf, forwho, strlen(forwho))) {
+	    char *sptr;
 	    buf[strlen(buf) - 1] = '\0';
-	    s_luser = strtok(buf, ":");
-	    s_uid = strtok(NULL, ":");
-	    s_npas = strtok(NULL, ":");
-	    s_pas = strtok(NULL, ":");
+	    s_luser = strtok_r(buf, ":", &sptr);
+	    s_uid = strtok_r(NULL, ":", &sptr);
+	    s_npas = strtok_r(NULL, ":", &sptr);
+	    s_pas = strtok_r(NULL, ":", &sptr);
 	    npas = strtol(s_npas, NULL, 10) + 1;
 	    while (npas > howmany) {
 		s_pas = strpbrk(s_pas, ",");

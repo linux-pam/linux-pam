@@ -1,3 +1,14 @@
+2007-03-29  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_access/pam_access.c (login_access, list_match):
+	Replace strtok with strtok_r.
+	* modules/pam_cracklib/pam_cracklib.c (check_old_password):
+	Likewise.
+	* modules/pam_ftp/pam_ftp.c (lookup, pam_authenticate):
+	Likewise.
+	* modules/pam_unix/pam_unix_passwd.c (check_old_password,
+	save_old_password): Likewise.
+
 2007-03-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/ar.po: New translation.

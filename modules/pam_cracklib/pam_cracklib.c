@@ -426,17 +426,18 @@ static const char * check_old_password(const char *forwho, const char *newpass)
 
 	while (fgets(buf, 16380, opwfile)) {
 		if (!strncmp(buf, forwho, strlen(forwho))) {
+			char *sptr;
 			buf[strlen(buf)-1] = '\0';
-			s_luser = strtok(buf, ":,");
-			s_uid   = strtok(NULL, ":,");
-			s_npas  = strtok(NULL, ":,");
-			s_pas   = strtok(NULL, ":,");
+			s_luser = strtok_r(buf, ":,", &sptr);
+			s_uid   = strtok_r(NULL, ":,", &sptr);
+			s_npas  = strtok_r(NULL, ":,", &sptr);
+			s_pas   = strtok_r(NULL, ":,", &sptr);
 			while (s_pas != NULL) {
 				if (!strcmp(crypt(newpass, s_pas), s_pas)) {
 					msg = _("has been already used");
 					break;
 				}
-				s_pas = strtok(NULL, ":,");
+				s_pas = strtok_r(NULL, ":,", &sptr);
 			}
 			break;
 		}

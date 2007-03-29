@@ -321,6 +321,7 @@ login_access (pam_handle_t *pamh, struct login_info *item)
     int     match = NO;
     int     end;
     int     lineno = 0;		/* for diagnostics */
+    char   *sptr;
 
     if (pam_access_debug)
       pam_syslog (pamh, LOG_DEBUG,
@@ -354,9 +355,9 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 		continue;
 
 	    /* Allow field seperator in last field of froms */
-	    if (!(perm = strtok(line, fs))
-		|| !(users = strtok((char *) 0, fs))
-  	        || !(froms = strtok((char *) 0, "\n"))) {
+	    if (!(perm = strtok_r(line, fs, &sptr))
+		|| !(users = strtok_r(NULL, fs, &sptr))
+  	        || !(froms = strtok_r(NULL, "\n", &sptr))) {
 		pam_syslog(pamh, LOG_ERR, "%s: line %d: bad field count",
 			   item->config_file, lineno);
 		continue;
@@ -398,6 +399,7 @@ static int list_match(pam_handle_t *pamh,
 {
     char   *tok;
     int     match = NO;
+    char   *sptr;
 
     /*
      * Process tokens one at a time. We have exhausted all possible matches
@@ -406,7 +408,8 @@ static int list_match(pam_handle_t *pamh,
      * the match is affected by any exceptions.
      */
 
-    for (tok = strtok(list, sep); tok != 0; tok = strtok((char *) 0, sep)) {
+    for (tok = strtok_r(list, sep, &sptr); tok != 0;
+	 tok = strtok_r(NULL, sep, &sptr)) {
 	if (strcasecmp(tok, "EXCEPT") == 0)	/* EXCEPT: give up */
 	    break;
 	if ((match = (*match_fn) (pamh, tok, item)))	/* YES */
@@ -415,7 +418,7 @@ static int list_match(pam_handle_t *pamh,
     /* Process exceptions to matches. */
 
     if (match != NO) {
-	while ((tok = strtok((char *) 0, sep)) && strcasecmp(tok, "EXCEPT"))
+	while ((tok = strtok_r(NULL, sep, &sptr)) && strcasecmp(tok, "EXCEPT"))
 	     /* VOID */ ;
 	if (tok == 0 || list_match(pamh, (char *) 0, item, match_fn) == NO)
 	    return (match);
