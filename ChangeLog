@@ -96,12 +96,12 @@
 	* Makefile.am (M4_FILES): Replace GNU make extension by listing
 	all m4 files.
 
-2007-07-17  Tomas Mraz  <t8m@centrum.cz>
+2007-01-17  Tomas Mraz  <t8m@centrum.cz>
 
 	* po/*.po: Updated strings to translate.
 	* po/Linux-PAM.pot: Likewise.
 
-2007-07-16  Thorsten Kukuk  <kukuk@thkukuk.de>
+2007-01-16  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam.conf-syntax.xml: Improve documentation about
 	sufficient keyword (Patch by Petteri Räty <betelgeuse@gentoo.org>)
