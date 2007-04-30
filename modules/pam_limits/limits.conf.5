@@ -1,11 +1,11 @@
 .\"     Title: limits.conf
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/22/2006
+.\" Generator: DocBook XSL Stylesheets v1.71.1 <http://docbook.sf.net/>
+.\"      Date: 04/30/2007
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "LIMITS.CONF" "5" "06/22/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "LIMITS.CONF" "5" "04/30/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -23,38 +23,44 @@ The syntax of the lines is as follows:
 \fI<value>\fR
 .PP
 The fields listed above should be filled as follows:
-.TP 3n
+.PP
 \fB<domain>\fR
-.RS 3n
-.TP 3n
+.RS 4
+.RS 4
+.TP 4
 \(bu
 a username
-.TP 3n
+.TP 4
 \(bu
 a groupname, with
 \fB@group\fR
 syntax. This should not be confused with netgroups.
-.TP 3n
+.TP 4
 \(bu
 the wildcard
 \fB*\fR, for default entry.
-.TP 3n
+.TP 4
 \(bu
 the wildcard
 \fB%\fR, for maxlogins limit only, can also be used with
 \fI%group\fR
 syntax.
 .RE
-.TP 3n
+.RE
+.PP
 \fB<type>\fR
-.RS 3n
-.TP 3n
+.RS 4
+.RS 4
+.PP
 \fBhard\fR
+.RS 4
 for enforcing
 \fBhard\fR
 resource limits. These limits are set by the superuser and enforced by the Kernel. The user cannot raise his requirement of system resources above such values.
-.TP 3n
+.RE
+.PP
 \fBsoft\fR
+.RS 4
 for enforcing
 \fBsoft\fR
 resource limits. These limits are ones that the user can move up or down within the permitted range by any pre\-exisiting
@@ -62,8 +68,10 @@ resource limits. These limits are ones that the user can move up or down within 
 limits. The values specified with this token can be thought of as
 \fIdefault\fR
 values, for normal system usage.
-.TP 3n
+.RE
+.PP
 \fB\-\fR
+.RS 4
 for enforcing both
 \fBsoft\fR
 and
@@ -72,63 +80,103 @@ resource limits together.
 .sp
 Note, if you specify a type of '\-' but neglect to supply the item and value fields then the module will never enforce any limits on the specified user/group etc. .
 .RE
-.TP 3n
+.RE
+.RE
+.PP
 \fB<item>\fR
-.RS 3n
-.TP 3n
+.RS 4
+.RS 4
+.PP
 \fBcore\fR
+.RS 4
 limits the core file size (KB)
-.TP 3n
+.RE
+.PP
 \fBdata\fR
+.RS 4
 maximum data size (KB)
-.TP 3n
+.RE
+.PP
 \fBfsize\fR
+.RS 4
 maximum filesize (KB)
-.TP 3n
+.RE
+.PP
 \fBmemlock\fR
+.RS 4
 maximum locked\-in\-memory address space (KB)
-.TP 3n
+.RE
+.PP
 \fBnofile\fR
+.RS 4
 maximum number of open files
-.TP 3n
+.RE
+.PP
 \fBrss\fR
+.RS 4
 maximum resident set size (KB)
-.TP 3n
+.RE
+.PP
 \fBstack\fR
+.RS 4
 maximum stack size (KB)
-.TP 3n
+.RE
+.PP
 \fBcpu\fR
+.RS 4
 maximum CPU time (minutes)
-.TP 3n
+.RE
+.PP
 \fBnproc\fR
+.RS 4
 maximum number of processes
-.TP 3n
+.RE
+.PP
 \fBas\fR
-address space limit
-.TP 3n
+.RS 4
+address space limit (KB)
+.RE
+.PP
 \fBmaxlogins\fR
+.RS 4
 maximum number of logins for this user
-.TP 3n
+.RE
+.PP
 \fBmaxsyslogins\fR
+.RS 4
 maximum number of logins on system
-.TP 3n
+.RE
+.PP
 \fBpriority\fR
+.RS 4
 the priority to run user process with (negative values boost process priority)
-.TP 3n
+.RE
+.PP
 \fBlocks\fR
+.RS 4
 maximum locked files (Linux 2.4 and higher)
-.TP 3n
+.RE
+.PP
 \fBsigpending\fR
+.RS 4
 maximum number of pending signals (Linux 2.6 and higher)
-.TP 3n
+.RE
+.PP
 \fBmsqqueue\fR
+.RS 4
 maximum memory used by POSIX message queues (bytes) (Linux 2.6 and higher)
-.TP 3n
+.RE
+.PP
 \fBnice\fR
+.RS 4
 maximum nice priority allowed to raise to (Linux 2.6.12 and higher)
-.TP 3n
+.RE
+.PP
 \fBrtprio\fR
+.RS 4
 maximum realtime priority allowed for non\-privileged processes (Linux 2.6.12 and higher)
+.RE
+.RE
 .RE
 .PP
 In general, individual limits have priority over group limits, so if you impose no limits for
@@ -149,7 +197,7 @@ The pam_limits module does its best to report configuration problems found in it
 These are some example lines which might be specified in
 \fI/etc/security/limits.conf\fR.
 .sp
-.RS 3n
+.RS 4
 .nf
 *               soft    core            0
 *               hard    rss             10000

@@ -1,5 +1,9 @@
 2007-04-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_limits/limits.conf: Address space limit is KB.
+	* modules/pam_limits/limits.conf.5.xml: Likewise.
+	Reported by Thomas Vander Stichele <thomas@apestaart.org>.
+
 	* modules/pam_mail/pam_mail.c (_do_mail): Remove duplicate
 	check for PAM_SILENT and don't bail out if it is set [#1706247].
 

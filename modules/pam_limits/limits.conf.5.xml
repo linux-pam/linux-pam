@@ -169,7 +169,7 @@
             <varlistentry>
               <term><option>as</option></term>
               <listitem>
-                <para>address space limit</para>
+                <para>address space limit (KB)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
