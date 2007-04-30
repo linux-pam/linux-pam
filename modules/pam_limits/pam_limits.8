@@ -1,11 +1,11 @@
 .\"     Title: pam_limits
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/17/2006
+.\" Generator: DocBook XSL Stylesheets v1.71.1 <http://docbook.sf.net/>
+.\"      Date: 04/30/2007
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM_LIMITS" "8" "06/17/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_LIMITS" "8" "04/30/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -23,58 +23,86 @@ are affected by this limits, too.
 .PP
 By default limits are taken from the
 \fI/etc/security/limits.conf\fR
-config file.
+config file. Then individual files from the
+\fI/etc/security/limits.d/\fR
+directory are read. The files are parsed one after another in the order of "C" locale. The effect of the individual files is the same as if all the files were concatenated together in the order of parsing. If a config file is explicitely specified with a module option then the files in the above directory are not parsed.
+.PP
+The module must not be called by a multithreaded application.
 .SH "OPTIONS"
-.TP 3n
+.PP
 \fBchange_uid\fR
+.RS 4
 Change real uid to the user for who the limits are set up. Use this option if you have problems like login not forking a shell for user who has no processes. Be warned that something else may break when you do this.
-.TP 3n
+.RE
+.PP
 \fBconf=\fR\fB\fI/path/to/limits.conf\fR\fR
+.RS 4
 Indicate an alternative limits.conf style configuration file to override the default.
-.TP 3n
+.RE
+.PP
 \fBdebug\fR
+.RS 4
 Print debug information.
-.TP 3n
+.RE
+.PP
 \fButmp_early\fR
+.RS 4
 Some broken applications actually allocate a utmp entry for the user before the user is admitted to the system. If some of the services you are configuring PAM for do this, you can selectively use this module argument to compensate for this behavior and at the same time maintain system\-wide consistency with a single limits.conf file.
+.RE
 .SH "MODULE SERVICES PROVIDED"
 .PP
 Only the
 \fBsession\fR
 service is supported.
 .SH "RETURN VALUES"
-.TP 3n
+.PP
 PAM_ABORT
+.RS 4
 Cannot get current limits.
-.TP 3n
+.RE
+.PP
 PAM_IGNORE
+.RS 4
 No limits found for this user.
-.TP 3n
+.RE
+.PP
 PAM_PERM_DENIED
+.RS 4
 New limits could not be set.
-.TP 3n
+.RE
+.PP
 PAM_SERVICE_ERR
+.RS 4
 Cannot read config file.
-.TP 3n
+.RE
+.PP
 PAM_SESSEION_ERR
+.RS 4
 Error recovering account name.
-.TP 3n
+.RE
+.PP
 PAM_SUCCESS
+.RS 4
 Limits were changed.
-.TP 3n
+.RE
+.PP
 PAM_USER_UNKNOWN
+.RS 4
 The user is not known to the system.
+.RE
 .SH "FILES"
-.TP 3n
+.PP
 \fI/etc/security/limits.conf\fR
+.RS 4
 Default configuration file
+.RE
 .SH "EXAMPLES"
 .PP
 For the services you need resources limits (login for example) put a the following line in
 \fI/etc/pam.d/login\fR
 as the last line for that service (usually after the pam_unix session line):
 .sp
-.RS 3n
+.RS 4
 .nf
 #%PAM\-1.0
 #

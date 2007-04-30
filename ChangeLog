@@ -1,3 +1,8 @@
+2007-04-30  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_mail/pam_mail.c (_do_mail): Remove duplicate
+	check for PAM_SILENT and don't bail out if it is set [#1706247].
+
 2007-03-29  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_access/pam_access.c (login_access, list_match):
@@ -32,7 +37,7 @@
 
 	* modules/pam_unix/unix_chkpwd.c (_unix_verify_password): Test for
 	allocation failure in bigcrypt().
-	
+
 	* modules/pam_unix/pam_unix_passwd.c (pam_sm_chauthtok): Allow
 	modification of '*' password by root.
 
@@ -44,7 +49,7 @@
 2007-02-01  Tomas Mraz  <t8m@centrum.cz>
 
 	* xtests/tst-pam_unix3.c: Fix typos in comments.
-	
+
 	* modules/pam_unix/support.c (_unix_verify_password): Explicitly
 	disallow '!' in the beginning of password hash. Treat only
 	13 bytes password hash specifically. (Suggested by Solar Designer.)

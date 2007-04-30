@@ -411,11 +411,6 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 
     ctrl = _pam_parse(pamh, flags, argc, argv, &path_mail, &hashcount);
 
-    /* Do we have anything to do? */
-
-    if (flags & PAM_SILENT)
-	return PAM_SUCCESS;
-
     /* which folder? */
 
     retval = get_folder(pamh, ctrl, path_mail, &folder, hashcount);

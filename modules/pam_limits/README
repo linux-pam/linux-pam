@@ -8,6 +8,13 @@ The pam_limits PAM module sets limits on the system resources that can be
 obtained in a user-session. Users of uid=0 are affected by this limits, too.
 
 By default limits are taken from the /etc/security/limits.conf config file.
+Then individual files from the /etc/security/limits.d/ directory are read. The
+files are parsed one after another in the order of "C" locale. The effect of
+the individual files is the same as if all the files were concatenated together
+in the order of parsing. If a config file is explicitely specified with a
+module option then the files in the above directory are not parsed.
+
+The module must not be called by a multithreaded application.
 
 OPTIONS
 
