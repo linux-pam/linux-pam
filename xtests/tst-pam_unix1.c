@@ -106,7 +106,7 @@ main(int argc, char *argv[])
   if (retval != PAM_AUTH_ERR)
     {
       if (debug)
-	fprintf (stderr, "pam_unix1: pam_athenticate returned %d\n", retval);
+	fprintf (stderr, "pam_unix1: pam_authenticate returned %d\n", retval);
       return 1;
     }
 

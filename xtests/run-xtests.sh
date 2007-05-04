@@ -1,5 +1,9 @@
 #!/bin/bash
 
+SRCDIR=$1
+shift 1
+[ -z "${SRCDIR}" ] && SRCDIR='.'
+
 if test `id -u` -ne 0 ; then
   echo "You need to be root to run the tests"
   exit 1
@@ -12,9 +16,9 @@ pass=0
 all=0
 
 for testname in $XTESTS ; do
-	  install -m 644 $testname.pamd /etc/pam.d/$testname
-	  if test -x ./$testname.sh ; then
-            ./$testname.sh > /dev/null
+	  install -m 644 "${SRCDIR}"/$testname.pamd /etc/pam.d/$testname
+	  if test -x "${SRCDIR}"/$testname.sh ; then
+            "${SRCDIR}"/$testname.sh > /dev/null
           else
 	    ./$testname > /dev/null
 	  fi

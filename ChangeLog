@@ -1,3 +1,10 @@
+2007-05-04  Thorsten Kukuk  <kukuk@suse.de>
+
+	* xtests/run-xtests.sh: Use SRCDIR to find PAM config files.
+	* xtests/Makefile.am:Call run-xtests.sh with srcdir as first
+	argument.
+	Based on patch by Bernard Leak <thisisnotapipe@hotmail.com>.
+
 2007-04-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_limits/limits.conf: Address space limit is KB.

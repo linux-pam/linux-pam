@@ -22,4 +22,4 @@ XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 noinst_PROGRAMS = $(XTESTS)
 
 xtests: $(XTESTS) run-xtests.sh
-	$(srcdir)/run-xtests.sh ${XTESTS}
+	"$(srcdir)"/run-xtests.sh "$(srcdir)" ${XTESTS}
