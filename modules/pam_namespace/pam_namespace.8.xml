@@ -43,6 +43,9 @@
       <arg choice="opt">
         ignore_instance_parent_mode
       </arg>
+      <arg choice="opt">
+        no_unmount_on_close
+      </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -175,6 +178,22 @@
 	    can choose to ignore the mode of the instance parent. This option
             should be used with caution as it will reduce security and
             isolation goals of the polyinstantiation mechanism.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>no_unmount_on_close</option>
+        </term>
+        <listitem>
+          <para>
+           For certain trusted programs such as newrole, open session
+           is called from a child process while the parent perfoms
+           close session and pam end functions. For these commands
+           use this option to instruct pam_close_session to not
+           unmount the bind mounted polyinstantiated directory in the
+            parent.
           </para>
         </listitem>
       </varlistentry>

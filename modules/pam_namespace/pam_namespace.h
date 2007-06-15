@@ -63,6 +63,7 @@
 
 #ifdef WITH_SELINUX
 #include <selinux/selinux.h>
+#include <selinux/context.h>
 #endif
 
 #ifndef CLONE_NEWNS
@@ -86,15 +87,19 @@
 #define PAMNS_GEN_HASH        0x00002000 /* Generate md5 hash for inst names */
 #define PAMNS_IGN_CONFIG_ERR  0x00004000 /* Ignore format error in conf file */
 #define PAMNS_IGN_INST_PARENT_MODE  0x00008000 /* Ignore instance parent mode */
+#define PAMNS_NO_UNMOUNT_ON_CLOSE  0x00010000 /* no unmount at session close */
+
+#define NAMESPACE_MAX_DIR_LEN 80
 
 /*
  * Polyinstantiation method options, based on user, security context
  * or both
  */
 enum polymethod {
+    NONE,
     USER,
     CONTEXT,
-    BOTH,
+    LEVEL,
 };
 
 /*

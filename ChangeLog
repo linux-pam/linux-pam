@@ -1,7 +1,36 @@
+2007-06-15  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_namespace/README.xml: Avoid duplication of
+	documentation.
+	* modules/pam_namespace/namespace.conf: More real life example
+	from MLS support.
+	* modules/pam_namespace/namespace.conf.5.xml: Likewise plus
+	properly describe how instance directory names are formed.
+	* modules/pam_namespace/namespace.init: Preserve euid when
+	called from setuid apps (su, newrole).
+	* modules/pam_namespace/pam_namespace.8.xml: Added option
+	no_unmount_on_close.
+	* modules/pam_namespace/pam_namespace.c (process_line): Polyinst
+	methods are now user, level and context. Fix crash on unknown
+	override user in config file.
+	(ns_override): Add explicit uid parameter.
+	(form_context): Skip for user method. Implement level based
+	polyinstantiation.
+	(poly_name): Initialize contexts. Add level based polyinst,
+	remove 'both' metod. Use raw contexts for instance names,
+	truncate long instance names and add hash.
+	(ns_setup): Hashing moved to poly_name().
+	(setup_namespace): Handle correctly override users for
+	su (when unmnt_remnt is used).
+	(pam_sm_close_session): Added no_unmount_on_close option.
+	* modules/pam_namespace/pam_namespace.h: Added
+	no_unmount_on_close_option, level method, limit on instance
+	directory name length.
+
 2007-05-04  Thorsten Kukuk  <kukuk@suse.de>
 
 	* xtests/run-xtests.sh: Use SRCDIR to find PAM config files.
-	* xtests/Makefile.am:Call run-xtests.sh with srcdir as first
+	* xtests/Makefile.am: Call run-xtests.sh with srcdir as first
 	argument.
 	Based on patch by Bernard Leak <thisisnotapipe@hotmail.com>.
 

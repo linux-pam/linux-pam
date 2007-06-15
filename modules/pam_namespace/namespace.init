@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -p
 # This is only a boilerplate for the instance initialization script.
 # It receives polydir path as $1 and the instance path as $2.
 #

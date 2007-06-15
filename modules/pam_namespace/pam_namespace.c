@@ -244,23 +244,29 @@ static int process_line(char *line, const char *home,
     }
     strcpy(poly.dir, dir);
     strcpy(poly.instance_prefix, instance_prefix);
-    if (strcmp(method, "user") == 0)
-        poly.method = USER;
+
+    poly.method = NONE;
+    if (strcmp(method, "user") == 0) 
+	    poly.method = USER;
+
 #ifdef WITH_SELINUX
-    else if (strcmp(method, "context") == 0) {
+    if (strcmp(method, "level") == 0) {
         if (idata->flags & PAMNS_CTXT_BASED_INST)
-            poly.method = CONTEXT;
+            poly.method = LEVEL;
 	else
             poly.method = USER;
-    } else if (strcmp(method, "both") == 0) {
+    }
+
+    if (strcmp(method, "context") == 0) {
         if (idata->flags & PAMNS_CTXT_BASED_INST)
-            poly.method = BOTH;
+            poly.method = CONTEXT;
 	else
             poly.method = USER;
     }
 
 #endif
-    else {
+
+    if ( poly.method == NONE) {
         pam_syslog(idata->pamh, LOG_NOTICE, "Illegal method");
         goto skipping;
     }
@@ -296,11 +302,14 @@ static int process_line(char *line, const char *home,
                 *tptr = '\0';
 
             pwd = pam_modutil_getpwnam(idata->pamh, ustr);
-            *uidptr = pwd->pw_uid;
-            if (i < count - 1) {
-                ustr = tptr + 1;
+            if (pwd == NULL) {
+        	pam_syslog(idata->pamh, LOG_ERR, "Unknown user %s in configuration", ustr);
+        	poly.num_uids--;	
+            } else {
+                *uidptr = pwd->pw_uid;
                 uidptr++;
             }
+            ustr = tptr + 1;
         }
     }
 
@@ -411,22 +420,53 @@ static int parse_config_file(struct instance_data *idata)
  * uids for the polyinstantiated directory, polyinstantiation is not
  * performed for that user for that directory.
  */
-static int ns_override(struct polydir_s *polyptr, struct instance_data *idata)
+static int ns_override(struct polydir_s *polyptr, struct instance_data *idata,
+		uid_t uid)
 {
     unsigned int i;
 
     if (idata->flags & PAMNS_DEBUG)
     	pam_syslog(idata->pamh, LOG_DEBUG,
 		"Checking for ns override in dir %s for uid %d",
-		polyptr->dir, idata->uid);
+		polyptr->dir, uid);
 
     for (i = 0; i < polyptr->num_uids; i++) {
-        if (idata->uid == polyptr->uid[i]) {
+        if (uid == polyptr->uid[i]) {
             return 1;
         }
     }
 
     return 0;
+}
+
+/*
+ * md5hash generates a hash of the passed in instance directory name.
+ */
+static char *md5hash(const char *instname, struct instance_data *idata)
+{
+    int i;
+    char *md5inst = NULL;
+    char *to;
+    unsigned char inst_digest[MD5_DIGEST_LENGTH];
+
+    /*
+     * Create MD5 hashes for instance pathname.
+     */
+
+    MD5((const unsigned char *)instname, strlen(instname), inst_digest);
+
+    if ((md5inst = malloc(MD5_DIGEST_LENGTH * 2 + 1)) == NULL) {
+        pam_syslog(idata->pamh, LOG_ERR, "Unable to allocate buffer");
+        return NULL;
+    }
+
+    to = md5inst;
+    for (i = 0; i < MD5_DIGEST_LENGTH; i++) {
+        snprintf(to, 3, "%02x", (unsigned int)inst_digest[i]);
+        to += 2;
+    }
+
+    return md5inst;
 }
 
 #ifdef WITH_SELINUX
@@ -448,19 +488,23 @@ static int form_context(const struct polydir_s *polyptr,
 		return PAM_SESSION_ERR;
 	}
 
+	if (polyptr->method == USER) return PAM_SUCCESS;
+
+	rc = getexeccon(&scon);
+	if (rc < 0 || scon == NULL) {
+		pam_syslog(idata->pamh, LOG_ERR, 
+			   "Error getting exec context, %m");
+		return PAM_SESSION_ERR;
+	}
+
 	/*
 	 * If polyinstantiating based on security context, get current
 	 * process security context, get security class for directories,
 	 * and ask the policy to provide security context of the
 	 * polyinstantiated instance directory.
 	 */
-	if ((polyptr->method == CONTEXT) || (polyptr->method == BOTH)) {
-		rc = getexeccon(&scon);
-		if (rc < 0 || scon == NULL) {
-			pam_syslog(idata->pamh, LOG_ERR,
-					"Error getting exec context, %m");
-			return PAM_SESSION_ERR;
-		}
+
+	if (polyptr->method == CONTEXT) {
 		tclass = string_to_security_class("dir");
 
 		if (security_compute_member(scon, *origcon, tclass,
@@ -473,7 +517,48 @@ static int form_context(const struct polydir_s *polyptr,
 			pam_syslog(idata->pamh, LOG_DEBUG,
 					"member context returned by policy %s", *i_context);
 		freecon(scon);
+		return PAM_SUCCESS;
 	}
+
+	/*
+	 * If polyinstantiating based on security level, get current
+	 * process security context, get security class for directories,
+	 * and change the directories MLS Level to match process.
+	 */
+
+	if (polyptr->method == LEVEL) {
+		context_t scontext = NULL;
+		context_t fcontext = NULL;
+		rc = PAM_SESSION_ERR;
+
+		scontext = context_new(scon);
+		if (! scontext) {
+			pam_syslog(idata->pamh, LOG_ERR, "out of memory");
+			goto fail;
+		}
+		fcontext = context_new(*origcon);
+		if (! fcontext) {
+			pam_syslog(idata->pamh, LOG_ERR, "out of memory");
+			goto fail;
+		}
+		if (context_range_set(fcontext, context_range_get(scontext)) != 0) {
+			pam_syslog(idata->pamh, LOG_ERR, "Unable to set MLS Componant of context");
+			goto fail;
+		}
+		*i_context=strdup(context_str(fcontext));
+		if (! *i_context) {
+			pam_syslog(idata->pamh, LOG_ERR, "out of memory");
+			goto fail;
+		}
+
+		rc = PAM_SUCCESS;
+ fail:
+		context_free(scontext);
+		context_free(fcontext);
+		freecon(scon);
+		return rc;
+	}
+	/* Should never get here */
 	return PAM_SUCCESS;
 }
 #endif
@@ -495,12 +580,21 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 #endif
 {
     int rc;
-
-# ifdef WITH_SELINUX
-    rc = form_context(polyptr, i_context, origcon, idata);
+    char *hash = NULL;
+#ifdef WITH_SELINUX
+    security_context_t rawcon = NULL;
 #endif
-    rc = PAM_SUCCESS;
 
+    *i_name = NULL;
+#ifdef WITH_SELINUX
+    *i_context = NULL;
+    *origcon = NULL;
+    if ((rc=form_context(polyptr, i_context, origcon, idata)) != PAM_SUCCESS) {
+	return rc;
+    }
+#endif
+
+    rc = PAM_SESSION_ERR;
     /*
      * Set the name of the polyinstantiated instance dir based on the
      * polyinstantiation method.
@@ -509,35 +603,70 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
         case USER:
 	    if (asprintf(i_name, "%s", idata->user) < 0) {
 		*i_name = NULL;
-		rc = PAM_SESSION_ERR;
-	    }
+		goto fail;
+	    }	    
     	    break;
 
 #ifdef WITH_SELINUX
+    	case LEVEL:
         case CONTEXT:
-	    if (asprintf(i_name, "%s", *i_context) < 0) {
+	    if (selinux_trans_to_raw_context(*i_context, &rawcon) < 0) {
+		pam_syslog(idata->pamh, LOG_ERR, "Error translating directory context");
+		goto fail;
+	    }    	     
+	    if (asprintf(i_name, "%s_%s", rawcon, idata->user) < 0) {
 		*i_name = NULL;
-		rc = PAM_SESSION_ERR;
+		goto fail;
 	    }
     	    break;
 
-    	case BOTH:
-	    if (asprintf(i_name, "%s_%s", *i_context, idata->user) < 0) {
-		*i_name = NULL;
-		rc = PAM_SESSION_ERR;
-	    }
-    	    break;
 #endif /* WITH_SELINUX */
 
     	default:
     	    if (idata->flags & PAMNS_DEBUG)
     	        pam_syslog(idata->pamh, LOG_ERR, "Unknown method");
-    	    rc = PAM_SESSION_ERR;
+    	    goto fail;
     }
 
-    if ((idata->flags & PAMNS_DEBUG) && rc == PAM_SUCCESS)
+    if (idata->flags & PAMNS_DEBUG)
         pam_syslog(idata->pamh, LOG_DEBUG, "poly_name %s", *i_name);
 
+    if ((idata->flags & PAMNS_GEN_HASH) || strlen(*i_name) > NAMESPACE_MAX_DIR_LEN) {
+        hash = md5hash(*i_name, idata);
+        if (hash == NULL) {
+    	    goto fail;
+        }
+        if (idata->flags & PAMNS_GEN_HASH) {
+    	    free(*i_name);
+	    *i_name = hash;
+	    hash = NULL;
+        } else {
+    	    char *newname;
+    	    if (asprintf(&newname, "%.*s_%s", NAMESPACE_MAX_DIR_LEN-1-strlen(hash),
+    		*i_name, hash) < 0) {
+    		goto fail;
+    	    }
+    	    free(*i_name);
+    	    *i_name = newname;
+        }
+    }
+    rc = PAM_SUCCESS;
+    
+fail:
+    free(hash);
+#ifdef WITH_SELINUX
+    freecon(rawcon);
+#endif
+    if (rc != PAM_SUCCESS) {
+#ifdef WITH_SELINUX
+	freecon(*i_context);
+	*i_context = NULL;
+	freecon(*origcon);
+	*origcon = NULL;
+#endif
+	free(*i_name);
+	*i_name = NULL;
+    }
     return rc;
 }
 
@@ -785,39 +914,6 @@ inst_init:
 
 
 /*
- * md5hash generates a hash of the passed in instance directory name.
- */
-static int md5hash(char **instname, struct instance_data *idata)
-{
-    int i;
-    char *md5inst = NULL;
-    char *to;
-    unsigned char inst_digest[MD5_DIGEST_LENGTH];
-
-    /*
-     * Create MD5 hashes for instance pathname.
-     */
-
-    MD5((unsigned char *)*instname, strlen(*instname), inst_digest);
-
-    if ((md5inst = malloc(MD5_DIGEST_LENGTH * 2 + 1)) == NULL) {
-        pam_syslog(idata->pamh, LOG_ERR, "Unable to allocate buffer");
-        return PAM_SESSION_ERR;
-    }
-
-    to = md5inst;
-    for (i = 0; i < MD5_DIGEST_LENGTH; i++) {
-        snprintf(to, 3, "%02x", (unsigned int)inst_digest[i]);
-        to += 3;
-    }
-
-    free(*instname);
-    *instname = md5inst;
-
-    return PAM_SUCCESS;
-}
-
-/*
  * This function performs the namespace setup for a particular directory
  * that is being polyinstantiated. It creates an MD5 hash of instance
  * directory, calls create_dirs to create it with appropriate
@@ -865,14 +961,6 @@ static int ns_setup(const struct polydir_s *polyptr,
             pam_syslog(idata->pamh, LOG_DEBUG, "Inst ctxt %s Orig ctxt %s",
 		 instcontext, origcontext);
 #endif
-    }
-
-    if (idata->flags & PAMNS_GEN_HASH) {
-        retval = md5hash(&instname, idata);
-        if (retval < 0) {
-            pam_syslog(idata->pamh, LOG_ERR, "Error generating md5 hash");
-            goto error_out;
-        }
     }
 
     if (asprintf(&inst_dir, "%s%s", polyptr->instance_prefix, instname) < 0)
@@ -967,21 +1055,46 @@ static int setup_namespace(struct instance_data *idata, enum unmnt_op unmnt)
     int retval = 0, need_poly = 0, changing_dir = 0;
     char *cptr, *fptr, poly_parent[PATH_MAX];
     struct polydir_s *pptr;
+    uid_t req_uid;
+    const void *ruser_name;
+    struct passwd *pwd;
 
     if (idata->flags & PAMNS_DEBUG)
         pam_syslog(idata->pamh, LOG_DEBUG, "Set up namespace for pid %d",
 		getpid());
+
+    retval = pam_get_item(idata->pamh, PAM_RUSER, &ruser_name);
+    if (ruser_name == NULL || retval != PAM_SUCCESS) {
+	retval = PAM_SUCCESS;
+	req_uid = getuid();
+    } else {
+        pwd = pam_modutil_getpwnam(idata->pamh, ruser_name);
+        if (pwd != NULL) {
+    	    req_uid = pwd->pw_uid;
+        } else {
+	    req_uid = getuid();
+        }
+    }
 
     /*
      * Cycle through all polyinstantiated directory entries to see if
      * polyinstantiation is needed at all.
      */
     for (pptr = idata->polydirs_ptr; pptr; pptr = pptr->next) {
-        if (ns_override(pptr, idata)) {
-            if (idata->flags & PAMNS_DEBUG)
-                pam_syslog(idata->pamh, LOG_DEBUG,
+        if (ns_override(pptr, idata, idata->uid)) {
+    	    if (unmnt == NO_UNMNT || ns_override(pptr, idata, req_uid)) {
+        	if (idata->flags & PAMNS_DEBUG)
+        	    pam_syslog(idata->pamh, LOG_DEBUG,
 			"Overriding poly for user %d for dir %s",
 			idata->uid, pptr->dir);
+	    } else {
+        	if (idata->flags & PAMNS_DEBUG)
+            	    pam_syslog(idata->pamh, LOG_DEBUG,
+			"Need unmount ns for user %d for dir %s",
+			idata->uid, pptr->dir);
+		need_poly = 1;
+		break;
+	    }
             continue;
         } else {
             if (idata->flags & PAMNS_DEBUG)
@@ -1011,15 +1124,20 @@ static int setup_namespace(struct instance_data *idata, enum unmnt_op unmnt)
      * call ns_setup to setup polyinstantiation for a particular entry.
      */
     for (pptr = idata->polydirs_ptr; pptr; pptr = pptr->next) {
-        if (ns_override(pptr, idata))
-            continue;
-        else {
-            if (idata->flags & PAMNS_DEBUG)
+	enum unmnt_op dir_unmnt = unmnt;
+        if (ns_override(pptr, idata, idata->uid)) {
+    	    if (unmnt == NO_UNMNT || ns_override(pptr, idata, req_uid)) {
+    		continue;
+	    } else {
+		dir_unmnt = UNMNT_ONLY;
+	    }
+	}
+	if (idata->flags & PAMNS_DEBUG)
                 pam_syslog(idata->pamh, LOG_DEBUG,
 			"Setting poly ns for user %d for dir %s",
                       idata->uid, pptr->dir);
 
-            if ((unmnt == UNMNT_REMNT) || (unmnt == UNMNT_ONLY)) {
+	if ((dir_unmnt == UNMNT_REMNT) || (dir_unmnt == UNMNT_ONLY)) {
                 /*
                  * Check to see if process current directory is in the
                  * bind mounted instance_parent directory that we are trying to
@@ -1059,13 +1177,12 @@ static int setup_namespace(struct instance_data *idata, enum unmnt_op unmnt)
                 } else if (idata->flags & PAMNS_DEBUG)
                     pam_syslog(idata->pamh, LOG_DEBUG, "Umount succeeded %s",
 				pptr->dir);
-            }
+	}
 
-	    if (unmnt != UNMNT_ONLY) {
+	if (dir_unmnt != UNMNT_ONLY) {
                 retval = ns_setup(pptr, idata);
                 if (retval != PAM_SUCCESS)
                      break;
-	    }
         }
     }
 
@@ -1092,7 +1209,7 @@ static int orig_namespace(struct instance_data *idata)
      * appropriate polyinstantiated instance directories.
      */
     for (pptr = idata->polydirs_ptr; pptr; pptr = pptr->next) {
-        if (ns_override(pptr, idata))
+        if (ns_override(pptr, idata, idata->uid))
             continue;
         else {
             if (idata->flags & PAMNS_DEBUG)
@@ -1158,7 +1275,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 #ifdef WITH_SELINUX
     if (is_selinux_enabled())
         idata.flags |= PAMNS_SELINUX_ENABLED;
-    if (ctxt_based_inst_needed())
+    if (ctxt_based_inst_needed()) 
         idata.flags |= PAMNS_CTXT_BASED_INST;
 #endif
 
@@ -1266,12 +1383,30 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
             idata.flags |= PAMNS_DEBUG;
         if (strcmp(argv[i], "ignore_config_error") == 0)
             idata.flags |= PAMNS_IGN_CONFIG_ERR;
+        if (strcmp(argv[i], "no_unmount_on_close") == 0)
+            idata.flags |= PAMNS_NO_UNMOUNT_ON_CLOSE;
     }
 
     if (idata.flags & PAMNS_DEBUG)
         pam_syslog(idata.pamh, LOG_DEBUG, "close_session - start");
 
     /*
+     * For certain trusted programs such as newrole, open session
+     * is called from a child process while the parent perfoms
+     * close session and pam end functions. For these commands
+     * pam_close_session should not perform the unmount of the
+     * polyinstantiatied directory because it will result in
+     * undoing of parents polyinstantiatiaion. These commands
+     * will invoke pam_namespace with the "no_unmount_on_close"
+     * argument.
+     */
+    if (idata.flags & PAMNS_NO_UNMOUNT_ON_CLOSE) {
+	if (idata.flags & PAMNS_DEBUG)
+	    pam_syslog(idata.pamh, LOG_DEBUG, "close_session - sucessful");
+        return PAM_SUCCESS;
+    }
+
+    /* 
      * Lookup user and fill struct items
      */
     retval = pam_get_item(idata.pamh, PAM_USER, (void*) &user_name );

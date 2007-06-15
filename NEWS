@@ -6,6 +6,8 @@ Release X.XX.X.X
 * Add translations for ar, ca, da, ru, sv and zu.
 * Update hungarian translation.
 * Add support for limits.d directory to pam_limits.
+* Improve pam_namespace module tobe more useful
+  for MLS, fixed crash with bad config files.
 
 Release 0.99.7.1
 

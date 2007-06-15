@@ -22,7 +22,7 @@
     <para>
       This module allows setup of private namespaces with polyinstantiated
       directories. Directories can be polyinstantiated based on user name
-      or, in the case of SELinux, user name, security context or both.  If an
+      or, in the case of SELinux, user name, sensitivity level or complete security context.  If an
       executable script <filename>/etc/security/namespace.init</filename>
       exists, it is used to initialize the namespace every time a new instance
       directory is setup. The script receives the polyinstantiated
@@ -56,26 +56,27 @@
     <para>
       The second field, <replaceable>instance_prefix</replaceable> is
       the string prefix used to build the pathname for the instantiation
-      of &lt;polydir&gt;. The directory security context, or optionally its
-      md5sum string (32 hex characters), is appended to the prefix to
-      generate the final instance directory path. This directory is
-      created if it did not exist already, and is then bind mounted on the
-      &lt;polydir&gt; to provide an instance of &lt;polydir&gt; based on the
-      &lt;method&gt; column. The special string $HOME is replaced with the
-      user's home directory, and $USER with the username. This field cannot
-      be blank. The directory where polyinstantiated instances are to be
+      of &lt;polydir&gt;. Depending on the polyinstantiation 
+      <replaceable>method</replaceable> it is then appended with
+      "instance differentiation string" to generate the final
+      instance directory path. This directory is created if it did not exist
+      already, and is then bind mounted on the &lt;polydir&gt; to provide an
+      instance of &lt;polydir&gt; based on the &lt;method&gt; column.
+      The special string $HOME is replaced with the user's home directory,
+      and $USER with the username. This field cannot be blank. 
+      The directory where polyinstantiated instances are to be
       created, must exist and must have, by default, the mode of 000.  The
       requirement that the instance parent be of mode 000 can be overridden
-      with the command line option &lt;ignore_instance_parent_mode&gt;
+      with the command line option <replaceable>ignore_instance_parent_mode</replaceable>
     </para>
 
     <para>
       The third field, <replaceable>method</replaceable>, is the method
       used for polyinstantiation. It can take 3 different values; "user"
-      for polyinstantiation based on user name, "context" for
-      polyinstantiation based on process security context, and "both"
-      for polyinstantiation based on both user name and security context.
-      Methods "context" and "both" are only available with SELinux. This
+      for polyinstantiation based on user name, "level" for 
+      polyinstantiation based on process MLS level and user name, and "context" for
+      polyinstantiation based on process security context and user name
+      Methods "context" and "level" are only available with SELinux. This
       field cannot be blank.
     </para>
 
@@ -84,6 +85,24 @@
       a comma separated list of user names for whom the polyinstantiation
       is not performed. If left blank, polyinstantiation will be performed
       for all users.
+    </para>
+
+    <para>
+      In case of context or level polyinstantiation the SELinux context
+      which is used for polyinstantiation is the context used for executing
+      a new process as obtained by getexeccon. This context must be set
+      by the calling application or <filename>pam_selinux.so</filename>
+      module. If this context is not set the polyinstatiation will be
+      based just on user name.
+    </para>
+
+    <para>
+      The "instance differentiation string" is &lt;user name&gt; for "user"
+      method and &lt;user name&gt;_&lt;raw directory context&gt; for "context"
+      and "level" methods. If the whole string is too long the end of it is
+      replaced with md5sum of itself. Also when command line option
+      <replaceable>gen_hash</replaceable> is used the whole string is replaced
+      with md5sum of itself.
     </para>
 
   </refsect1>
@@ -98,9 +117,9 @@
     <literallayout>
       # The following three lines will polyinstantiate /tmp,
       # /var/tmp and user's home directories. /tmp and /var/tmp
-      # will be polyinstantiated based on both security context
+      # will be polyinstantiated based on the security level
       # as well as user name, whereas home directory will be
-      # polyinstantiated based on security context only.
+      # polyinstantiated based on the full security context and user name.
       # Polyinstantiation will not be performed for user root
       # and adm for directories /tmp and /var/tmp, whereas home
       # directories will be polyinstantiated for all users.
@@ -112,8 +131,8 @@
       # will reside within the directories that are being
       # polyinstantiated.
       #
-      /tmp     /tmp-inst/       	both      root,adm
-      /var/tmp /var/tmp/tmp-inst/   	both      root,adm
+      /tmp     /tmp-inst/               level      root,adm
+      /var/tmp /var/tmp/tmp-inst/   	level      root,adm
       $HOME    $HOME/$USER.inst/inst- context
     </literallayout>
 
