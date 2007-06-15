@@ -8,6 +8,8 @@ Release X.XX.X.X
 * Add support for limits.d directory to pam_limits.
 * Improve pam_namespace module tobe more useful
   for MLS, fixed crash with bad config files.
+* Improve pam_selinux module to be more useful
+  for MLS.
 
 Release 0.99.7.1
 

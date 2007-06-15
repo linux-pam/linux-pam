@@ -1,5 +1,20 @@
 2007-06-15  Tomas Mraz  <t8m@centrum.cz>
 
+	* modules/pam_selinux/pam_selinux.8.xml: Remove multiple option,
+	add select_context and use_current_range options.
+	* modules/pam_selinux/pam_selinux.c (send_audit_message): Added
+	function for auditing role/level changes.
+	(query_response): Add default response.
+	(select_context): Removed.
+	(manual_context): Query only role and level.
+	(mls_range_allowed): Added function for range check.
+	(config_context): Added function for role and level override.
+	(pam_sm_open_session): Remove multiple option, add select_context
+	and use_current_range_options. Use getseuserbyname to obtain
+	SELinux user and level. Audit role/level changes. Call setkeycreatecon
+	to assign key creation context. Don't fail on errors when SELinux
+	is not in enforcing mode.
+
 	* modules/pam_namespace/README.xml: Avoid duplication of
 	documentation.
 	* modules/pam_namespace/namespace.conf: More real life example

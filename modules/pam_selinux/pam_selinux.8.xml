@@ -25,9 +25,6 @@
 	debug
       </arg>
       <arg choice="opt">
-	multiple
-      </arg>
-      <arg choice="opt">
 	open
       </arg>
       <arg choice="opt">
@@ -35,6 +32,12 @@
       </arg>
       <arg choice="opt">
 	verbose
+      </arg>
+      <arg choice="opt">
+	select_context
+      </arg>
+      <arg choice="opt">
+	use_current_range
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
@@ -93,18 +96,6 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>multiple</option>
-        </term>
-        <listitem>
-          <para>
-            Tells pam_selinux.so to allow the user to  select  the
-            security context  they  will  login  with, if the user has
-            more than one role.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
           <option>open</option>
         </term>
         <listitem>
@@ -130,6 +121,28 @@
         <listitem>
           <para>
             attempt to inform the user when security context is set.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>select_context</option>
+        </term>
+        <listitem>
+          <para>
+            Attempt to ask the user for a custom security context role.
+            If MLS is on ask also for sensitivity level.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>use_current_range</option>
+        </term>
+        <listitem>
+          <para>
+            Use the sensitivity range of the process for the user context.
+            This option and the select_context option are mutually exclusive.
           </para>
         </listitem>
       </varlistentry>
