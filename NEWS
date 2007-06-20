@@ -10,6 +10,7 @@ Release X.XX.X.X
   for MLS, fixed crash with bad config files.
 * Improve pam_selinux module to be more useful
   for MLS.
+* Add minclass option to pam_cracklib
 
 Release 0.99.7.1
 

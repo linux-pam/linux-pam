@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-03-12 13:15+0100\n"
+"POT-Creation-Date: 2007-06-20 15:36+0200\n"
 "PO-Revision-Date: 2006-01-04 08:58+0100\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -187,47 +187,51 @@ msgstr "Повторите ввод нового пароля %s%s: "
 msgid "Sorry, passwords do not match."
 msgstr "Извините, но пароли не совпадают."
 
-#: modules/pam_cracklib/pam_cracklib.c:378
+#: modules/pam_cracklib/pam_cracklib.c:427
 msgid "is the same as the old one"
 msgstr "совпадает со старым"
 
-#: modules/pam_cracklib/pam_cracklib.c:389
+#: modules/pam_cracklib/pam_cracklib.c:440
 msgid "is a palindrome"
 msgstr "является палиндромом"
 
-#: modules/pam_cracklib/pam_cracklib.c:392
+#: modules/pam_cracklib/pam_cracklib.c:443
 msgid "case changes only"
 msgstr "изменения только в регистре"
 
-#: modules/pam_cracklib/pam_cracklib.c:395
+#: modules/pam_cracklib/pam_cracklib.c:446
 msgid "is too similar to the old one"
 msgstr "слишком похож на старый"
 
-#: modules/pam_cracklib/pam_cracklib.c:398
+#: modules/pam_cracklib/pam_cracklib.c:449
 msgid "is too simple"
 msgstr "слишком простой"
 
-#: modules/pam_cracklib/pam_cracklib.c:401
+#: modules/pam_cracklib/pam_cracklib.c:452
 msgid "is rotated"
 msgstr "является результатом чередования"
 
-#: modules/pam_cracklib/pam_cracklib.c:436
+#: modules/pam_cracklib/pam_cracklib.c:455
+msgid "not enough character classes"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "has been already used"
 msgstr "уже был использован"
 
-#: modules/pam_cracklib/pam_cracklib.c:464
-#: modules/pam_unix/pam_unix_passwd.c:975
+#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_unix/pam_unix_passwd.c:977
 msgid "No password supplied"
 msgstr "Пароль не указан"
 
 # password dialog title
-#: modules/pam_cracklib/pam_cracklib.c:464
-#: modules/pam_unix/pam_unix_passwd.c:975
+#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_unix/pam_unix_passwd.c:977
 msgid "Password unchanged"
 msgstr "Пароль не изменен"
 
-#: modules/pam_cracklib/pam_cracklib.c:487
-#: modules/pam_cracklib/pam_cracklib.c:615
+#: modules/pam_cracklib/pam_cracklib.c:544
+#: modules/pam_cracklib/pam_cracklib.c:672
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "НЕВЕРНЫЙ ПАРОЛЬ: %s"
@@ -274,7 +278,7 @@ msgstr "Последний вход в систему:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Добро пожаловать в новую учетную запись!"
 
-#: modules/pam_limits/pam_limits.c:647
+#: modules/pam_limits/pam_limits.c:689
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Слишком много регистраций в системе для '%s'."
@@ -325,43 +329,80 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:102
-#, c-format
-msgid "Your default context is %s. \n"
+#: modules/pam_selinux/pam_selinux.c:94
+msgid "Error connecting to audit system."
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:98
+#, fuzzy
+msgid "Error translating default context."
 msgstr "Контекст по умолчанию - %s. \n"
 
-#: modules/pam_selinux/pam_selinux.c:105
-msgid "Do you want to choose a different one? [n]"
-msgstr "Выбрать другой? [n]"
+#: modules/pam_selinux/pam_selinux.c:102
+msgid "Error translating selected context."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:112
-msgid "Enter number of choice: "
-msgstr "Введите выбранный номер: "
+#: modules/pam_selinux/pam_selinux.c:113
+msgid "Error sending audit message."
+msgstr ""
 
 # power-off message
-#: modules/pam_selinux/pam_selinux.c:152
-msgid "Would you like to enter a security context? [y] "
+#: modules/pam_selinux/pam_selinux.c:164
+#, fuzzy
+msgid "Would you like to enter a security context? [N] "
 msgstr "Хотите ввести контекст безопасности? [y]"
 
-#: modules/pam_selinux/pam_selinux.c:169
-msgid "role: "
+#: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
+#, fuzzy
+msgid "role:"
 msgstr "роль: "
 
-#: modules/pam_selinux/pam_selinux.c:177
-msgid "type: "
-msgstr "тип: "
-
-#: modules/pam_selinux/pam_selinux.c:187
-msgid "level: "
+#: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
+#, fuzzy
+msgid "level:"
 msgstr "уровень: "
 
-#: modules/pam_selinux/pam_selinux.c:203
+#: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
 msgstr "Неверный контекст безопасности"
 
-#: modules/pam_selinux/pam_selinux.c:417
+#: modules/pam_selinux/pam_selinux.c:251
+#, fuzzy, c-format
+msgid "Default Security Context %s\n"
+msgstr "Контекст безопасности %s назначен"
+
+# power-off message
+#: modules/pam_selinux/pam_selinux.c:255
+#, fuzzy
+msgid "Would you like to enter a different role or level?"
+msgstr "Хотите ввести контекст безопасности? [y]"
+
+#: modules/pam_selinux/pam_selinux.c:269
+#, c-format
+msgid "No default type for role %s\n"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:512
+msgid "Out of memory"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
+#, c-format
+msgid "Unable to get valid context for %s"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:578
+msgid "Requested MLS level not in permitted range"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:628
 #, c-format
 msgid "Security Context %s Assigned"
+msgstr "Контекст безопасности %s назначен"
+
+#: modules/pam_selinux/pam_selinux.c:649
+#, fuzzy, c-format
+msgid "Key Creation Context %s Assigned"
 msgstr "Контекст безопасности %s назначен"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
@@ -471,40 +512,49 @@ msgid "Password: "
 msgstr "Пароль: "
 
 # password dialog title
-#: modules/pam_unix/pam_unix_passwd.c:819
+#: modules/pam_unix/pam_unix_passwd.c:821
 msgid "NIS password could not be changed."
 msgstr "Пароль NIS изменить нельзя."
 
-#: modules/pam_unix/pam_unix_passwd.c:996
+#: modules/pam_unix/pam_unix_passwd.c:998
 msgid "You must choose a longer password"
 msgstr "Выберите пароль большей длины"
 
-#: modules/pam_unix/pam_unix_passwd.c:1001
+#: modules/pam_unix/pam_unix_passwd.c:1003
 msgid "Password has been already used. Choose another."
 msgstr "Этот пароль уже был использован. Выберите другой."
 
-#: modules/pam_unix/pam_unix_passwd.c:1108
+#: modules/pam_unix/pam_unix_passwd.c:1103
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "Смена пароля STRESS для"
 
 # Keep the newlines and spaces after ':'!
-#: modules/pam_unix/pam_unix_passwd.c:1119
+#: modules/pam_unix/pam_unix_passwd.c:1114
 msgid "(current) UNIX password: "
 msgstr "(текущий) пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1154
+#: modules/pam_unix/pam_unix_passwd.c:1149
 msgid "You must wait longer to change your password"
 msgstr "До смены пароля должно пройти больше времени"
 
-#: modules/pam_unix/pam_unix_passwd.c:1214
+#: modules/pam_unix/pam_unix_passwd.c:1209
 msgid "Enter new UNIX password: "
 msgstr "Введите новый пароль UNIX: "
 
 # Keep the newlines and spaces after ':'!
-#: modules/pam_unix/pam_unix_passwd.c:1215
+#: modules/pam_unix/pam_unix_passwd.c:1210
 msgid "Retype new UNIX password: "
 msgstr "Повторите ввод нового пароля UNIX: "
+
+#~ msgid "Do you want to choose a different one? [n]"
+#~ msgstr "Выбрать другой? [n]"
+
+#~ msgid "Enter number of choice: "
+#~ msgstr "Введите выбранный номер: "
+
+#~ msgid "type: "
+#~ msgstr "тип: "
 
 #~ msgid "dlopen() failure"
 #~ msgstr "сбой dlopen()"

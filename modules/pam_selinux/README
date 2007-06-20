@@ -31,11 +31,6 @@ debug
 
     Turns on debugging via syslog(3).
 
-multiple
-
-    Tells pam_selinux.so to allow the user to select the security context they
-    will login with, if the user has more than one role.
-
 open
 
     Only execute the open_session portion of the module.
@@ -47,6 +42,16 @@ nottys
 verbose
 
     attempt to inform the user when security context is set.
+
+select_context
+
+    Attempt to ask the user for a custom security context role. If MLS is on
+    ask also for sensitivity level.
+
+use_current_range
+
+    Use the sensitivity range of the process for the user context. This option
+    and the select_context option are mutually exclusive.
 
 EXAMPLES
 

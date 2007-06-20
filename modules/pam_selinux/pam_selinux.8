@@ -1,11 +1,11 @@
 .\"     Title: pam_selinux
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/18/2006
+.\" Generator: DocBook XSL Stylesheets v1.71.1 <http://docbook.sf.net/>
+.\"      Date: 06/20/2007
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM_SELINUX" "8" "06/18/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_SELINUX" "8" "06/20/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -14,7 +14,7 @@
 pam_selinux \- PAM module to set the default security context
 .SH "SYNOPSIS"
 .HP 15
-\fBpam_selinux.so\fR [close] [debug] [multiple] [open] [nottys] [verbose]
+\fBpam_selinux.so\fR [close] [debug] [open] [nottys] [verbose] [select_context] [use_current_range]
 .SH "DESCRIPTION"
 .PP
 In a nutshell, pam_selinux sets up the default security context for the next execed shell.
@@ -23,43 +23,66 @@ When an application opens a session using pam_selinux, the shell that gets execu
 .PP
 Adding pam_selinux into a pam file could cause other pam modules to change their behavior if the exec another application. The close and open option help mitigate this problem. close option will only cause the close portion of the pam_selinux to execute, and open will only cause the open portion to run. You can add pam_selinux to the config file twice. Add the pam_selinux close as the executes the open pass through the modules, pam_selinux open_session will happen last. When PAM executes the close pass through the modules pam_selinux close_session will happen first.
 .SH "OPTIONS"
-.TP 3n
+.PP
 \fBclose\fR
+.RS 4
 Only execute the close_session portion of the module.
-.TP 3n
+.RE
+.PP
 \fBdebug\fR
+.RS 4
 Turns on debugging via
 \fBsyslog\fR(3).
-.TP 3n
-\fBmultiple\fR
-Tells pam_selinux.so to allow the user to select the security context they will login with, if the user has more than one role.
-.TP 3n
+.RE
+.PP
 \fBopen\fR
+.RS 4
 Only execute the open_session portion of the module.
-.TP 3n
+.RE
+.PP
 \fBnottys\fR
+.RS 4
 Do not try to setup the ttys security context.
-.TP 3n
+.RE
+.PP
 \fBverbose\fR
+.RS 4
 attempt to inform the user when security context is set.
+.RE
+.PP
+\fBselect_context\fR
+.RS 4
+Attempt to ask the user for a custom security context role. If MLS is on ask also for sensitivity level.
+.RE
+.PP
+\fBuse_current_range\fR
+.RS 4
+Use the sensitivity range of the process for the user context. This option and the select_context option are mutually exclusive.
+.RE
 .SH "MODULE SERVICES PROVIDED"
 .PP
 Only the
 \fBsession\fR
 service is supported.
 .SH "RETURN VALUES"
-.TP 3n
+.PP
 PAM_AUTH_ERR
+.RS 4
 Unable to get or set a valid context.
-.TP 3n
+.RE
+.PP
 PAM_SUCCESS
+.RS 4
 The security context was set successfull.
-.TP 3n
+.RE
+.PP
 PAM_USER_UNKNOWN
+.RS 4
 The user is not known to the system.
+.RE
 .SH "EXAMPLES"
 .sp
-.RS 3n
+.RS 4
 .nf
 auth     required  pam_unix.so
 session  required  pam_permit.so    

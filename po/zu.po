@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-03-12 13:15+0100\n"
+"POT-Creation-Date: 2007-06-20 15:36+0200\n"
 "PO-Revision-Date: 2006-11-03 12:03\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -176,46 +176,50 @@ msgstr "Thayipha kabusha %s%siphasiwedi entsha: "
 msgid "Sorry, passwords do not match."
 msgstr "Uxolo, amaphasiwedi awahambelani."
 
-#: modules/pam_cracklib/pam_cracklib.c:378
+#: modules/pam_cracklib/pam_cracklib.c:427
 msgid "is the same as the old one"
 msgstr "iyafana nendala"
 
-#: modules/pam_cracklib/pam_cracklib.c:389
+#: modules/pam_cracklib/pam_cracklib.c:440
 msgid "is a palindrome"
 msgstr "iyi-palindrome"
 
-#: modules/pam_cracklib/pam_cracklib.c:392
+#: modules/pam_cracklib/pam_cracklib.c:443
 msgid "case changes only"
 msgstr "kushintshe onobumba kuphela"
 
-#: modules/pam_cracklib/pam_cracklib.c:395
+#: modules/pam_cracklib/pam_cracklib.c:446
 msgid "is too similar to the old one"
 msgstr "ifana kakhulu nendala"
 
-#: modules/pam_cracklib/pam_cracklib.c:398
+#: modules/pam_cracklib/pam_cracklib.c:449
 msgid "is too simple"
 msgstr "ilula kakhulu"
 
-#: modules/pam_cracklib/pam_cracklib.c:401
+#: modules/pam_cracklib/pam_cracklib.c:452
 msgid "is rotated"
 msgstr "ijikelezisiwe"
 
-#: modules/pam_cracklib/pam_cracklib.c:436
+#: modules/pam_cracklib/pam_cracklib.c:455
+msgid "not enough character classes"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "has been already used"
 msgstr "isisetshenziswe ngothile."
 
-#: modules/pam_cracklib/pam_cracklib.c:464
-#: modules/pam_unix/pam_unix_passwd.c:975
+#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_unix/pam_unix_passwd.c:977
 msgid "No password supplied"
 msgstr "Ayikho iphasiwedi enikeziwe"
 
-#: modules/pam_cracklib/pam_cracklib.c:464
-#: modules/pam_unix/pam_unix_passwd.c:975
+#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_unix/pam_unix_passwd.c:977
 msgid "Password unchanged"
 msgstr "Iphasiwedi ayishintshwanga"
 
-#: modules/pam_cracklib/pam_cracklib.c:487
-#: modules/pam_cracklib/pam_cracklib.c:615
+#: modules/pam_cracklib/pam_cracklib.c:544
+#: modules/pam_cracklib/pam_cracklib.c:672
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "IPHASIWEDI ENGASEBENZI: %s"
@@ -262,7 +266,7 @@ msgstr "Ukungena kokugcina:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Uyamukelwa kwi-akhawunti yakho entsha!"
 
-#: modules/pam_limits/pam_limits.c:647
+#: modules/pam_limits/pam_limits.c:689
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Kuningi kakhulu ukungena kwi- '%s' osekwenziwe."
@@ -313,42 +317,78 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:102
-#, c-format
-msgid "Your default context is %s. \n"
+#: modules/pam_selinux/pam_selinux.c:94
+msgid "Error connecting to audit system."
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:98
+#, fuzzy
+msgid "Error translating default context."
 msgstr "Indawo okuyo yohlelo ingu-%s. \n"
 
-#: modules/pam_selinux/pam_selinux.c:105
-msgid "Do you want to choose a different one? [n]"
-msgstr "Ingabe ufuna ukukhetha ehlukile? [n]"
+#: modules/pam_selinux/pam_selinux.c:102
+msgid "Error translating selected context."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:112
-msgid "Enter number of choice: "
-msgstr "Faka inombolo oyikhethile: "
+#: modules/pam_selinux/pam_selinux.c:113
+msgid "Error sending audit message."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:152
-msgid "Would you like to enter a security context? [y] "
+#: modules/pam_selinux/pam_selinux.c:164
+#, fuzzy
+msgid "Would you like to enter a security context? [N] "
 msgstr "Ungathanda ukufaka indawo yokuphepha (security context) [y]"
 
-#: modules/pam_selinux/pam_selinux.c:169
-msgid "role: "
+#: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
+#, fuzzy
+msgid "role:"
 msgstr "indima: "
 
-#: modules/pam_selinux/pam_selinux.c:177
-msgid "type: "
-msgstr "uhlobo: "
-
-#: modules/pam_selinux/pam_selinux.c:187
-msgid "level: "
+#: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
+#, fuzzy
+msgid "level:"
 msgstr "Izinga: "
 
-#: modules/pam_selinux/pam_selinux.c:203
+#: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
 msgstr "Akuyona indawo yokuphepha esemthethweni"
 
-#: modules/pam_selinux/pam_selinux.c:417
+#: modules/pam_selinux/pam_selinux.c:251
+#, fuzzy, c-format
+msgid "Default Security Context %s\n"
+msgstr "Indawo %s Yokuphepha Yabelwe"
+
+#: modules/pam_selinux/pam_selinux.c:255
+#, fuzzy
+msgid "Would you like to enter a different role or level?"
+msgstr "Ungathanda ukufaka indawo yokuphepha (security context) [y]"
+
+#: modules/pam_selinux/pam_selinux.c:269
+#, c-format
+msgid "No default type for role %s\n"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:512
+msgid "Out of memory"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
+#, c-format
+msgid "Unable to get valid context for %s"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:578
+msgid "Requested MLS level not in permitted range"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:628
 #, c-format
 msgid "Security Context %s Assigned"
+msgstr "Indawo %s Yokuphepha Yabelwe"
+
+#: modules/pam_selinux/pam_selinux.c:649
+#, fuzzy, c-format
+msgid "Key Creation Context %s Assigned"
 msgstr "Indawo %s Yokuphepha Yabelwe"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
@@ -458,38 +498,47 @@ msgstr "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
 msgid "Password: "
 msgstr "Iphasiwedi: "
 
-#: modules/pam_unix/pam_unix_passwd.c:819
+#: modules/pam_unix/pam_unix_passwd.c:821
 msgid "NIS password could not be changed."
 msgstr "Iphasiwedi ye-NIS ayivumanga ukushintshwa."
 
-#: modules/pam_unix/pam_unix_passwd.c:996
+#: modules/pam_unix/pam_unix_passwd.c:998
 msgid "You must choose a longer password"
 msgstr "Kumelwe ukhethe iphasiwedi ethe ukuba yinjana"
 
-#: modules/pam_unix/pam_unix_passwd.c:1001
+#: modules/pam_unix/pam_unix_passwd.c:1003
 msgid "Password has been already used. Choose another."
 msgstr "Le phasiwedi isetshenziswa ngothile. Khetha enye."
 
-#: modules/pam_unix/pam_unix_passwd.c:1108
+#: modules/pam_unix/pam_unix_passwd.c:1103
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "Ukushintsha iphasiwedi ye-STRESS ye-"
 
-#: modules/pam_unix/pam_unix_passwd.c:1119
+#: modules/pam_unix/pam_unix_passwd.c:1114
 msgid "(current) UNIX password: "
 msgstr "Iphasiwedi ye-UNIX (yamanje): "
 
-#: modules/pam_unix/pam_unix_passwd.c:1154
+#: modules/pam_unix/pam_unix_passwd.c:1149
 msgid "You must wait longer to change your password"
 msgstr "Kumelwe ulinde isikhashana ukuze ushintshe iphasiwedi yakho"
 
-#: modules/pam_unix/pam_unix_passwd.c:1214
+#: modules/pam_unix/pam_unix_passwd.c:1209
 msgid "Enter new UNIX password: "
 msgstr "Faka iphasiwedi entsha ye-UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1215
+#: modules/pam_unix/pam_unix_passwd.c:1210
 msgid "Retype new UNIX password: "
 msgstr "Thayipha iphasiwedi entsha ye-UNIX: "
+
+#~ msgid "Do you want to choose a different one? [n]"
+#~ msgstr "Ingabe ufuna ukukhetha ehlukile? [n]"
+
+#~ msgid "Enter number of choice: "
+#~ msgstr "Faka inombolo oyikhethile: "
+
+#~ msgid "type: "
+#~ msgstr "uhlobo: "
 
 #~ msgid "dlopen() failure"
 #~ msgstr "ukwehluleka kwe-dlopen()"

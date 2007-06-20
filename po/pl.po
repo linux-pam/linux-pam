@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-03-12 13:15+0100\n"
+"POT-Creation-Date: 2007-06-20 15:36+0200\n"
 "PO-Revision-Date: 2006-05-03 21:58+0200\n"
 "Last-Translator: Wojciech Kapusta <wojciech@aviary.pl>\n"
 "Language-Team:  <pl@li.org>\n"
@@ -183,46 +183,50 @@ msgstr "Powtórzenie nowego hasła %s%s: "
 msgid "Sorry, passwords do not match."
 msgstr "Podane hasła nie są zgodne."
 
-#: modules/pam_cracklib/pam_cracklib.c:378
+#: modules/pam_cracklib/pam_cracklib.c:427
 msgid "is the same as the old one"
 msgstr "jest identyczne ze starym"
 
-#: modules/pam_cracklib/pam_cracklib.c:389
+#: modules/pam_cracklib/pam_cracklib.c:440
 msgid "is a palindrome"
 msgstr "jest palindromem"
 
-#: modules/pam_cracklib/pam_cracklib.c:392
+#: modules/pam_cracklib/pam_cracklib.c:443
 msgid "case changes only"
 msgstr "ma zmienioną tylko wielkość znaków"
 
-#: modules/pam_cracklib/pam_cracklib.c:395
+#: modules/pam_cracklib/pam_cracklib.c:446
 msgid "is too similar to the old one"
 msgstr "jest zbyt podobne do poprzedniego"
 
-#: modules/pam_cracklib/pam_cracklib.c:398
+#: modules/pam_cracklib/pam_cracklib.c:449
 msgid "is too simple"
 msgstr "jest zbyt proste"
 
-#: modules/pam_cracklib/pam_cracklib.c:401
+#: modules/pam_cracklib/pam_cracklib.c:452
 msgid "is rotated"
 msgstr "jest obrócone"
 
-#: modules/pam_cracklib/pam_cracklib.c:436
+#: modules/pam_cracklib/pam_cracklib.c:455
+msgid "not enough character classes"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "has been already used"
 msgstr "było już używane"
 
-#: modules/pam_cracklib/pam_cracklib.c:464
-#: modules/pam_unix/pam_unix_passwd.c:975
+#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_unix/pam_unix_passwd.c:977
 msgid "No password supplied"
 msgstr "Nie podano hasła"
 
-#: modules/pam_cracklib/pam_cracklib.c:464
-#: modules/pam_unix/pam_unix_passwd.c:975
+#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_unix/pam_unix_passwd.c:977
 msgid "Password unchanged"
 msgstr "Hasło nie zmienione"
 
-#: modules/pam_cracklib/pam_cracklib.c:487
-#: modules/pam_cracklib/pam_cracklib.c:615
+#: modules/pam_cracklib/pam_cracklib.c:544
+#: modules/pam_cracklib/pam_cracklib.c:672
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ZŁE HASŁO: %s"
@@ -269,7 +273,7 @@ msgstr "Ostatnie logowanie:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Witaj na swoim nowym koncie!"
 
-#: modules/pam_limits/pam_limits.c:647
+#: modules/pam_limits/pam_limits.c:689
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Zbyt wiele prób zalogowania na '%s'."
@@ -320,42 +324,78 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:102
-#, c-format
-msgid "Your default context is %s. \n"
+#: modules/pam_selinux/pam_selinux.c:94
+msgid "Error connecting to audit system."
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:98
+#, fuzzy
+msgid "Error translating default context."
 msgstr "Domyślny kontekst: %s. \n"
 
-#: modules/pam_selinux/pam_selinux.c:105
-msgid "Do you want to choose a different one? [n]"
-msgstr "Czy powtórzyć wybieranie? [n]"
+#: modules/pam_selinux/pam_selinux.c:102
+msgid "Error translating selected context."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:112
-msgid "Enter number of choice: "
-msgstr "Wybrana liczba: "
+#: modules/pam_selinux/pam_selinux.c:113
+msgid "Error sending audit message."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:152
-msgid "Would you like to enter a security context? [y] "
+#: modules/pam_selinux/pam_selinux.c:164
+#, fuzzy
+msgid "Would you like to enter a security context? [N] "
 msgstr "Czy wejść w kontekst bezpieczeństwa? [y]"
 
-#: modules/pam_selinux/pam_selinux.c:169
-msgid "role: "
+#: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
+#, fuzzy
+msgid "role:"
 msgstr "rola: "
 
-#: modules/pam_selinux/pam_selinux.c:177
-msgid "type: "
-msgstr "typ:"
-
-#: modules/pam_selinux/pam_selinux.c:187
-msgid "level: "
+#: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
+#, fuzzy
+msgid "level:"
 msgstr "poziom: "
 
-#: modules/pam_selinux/pam_selinux.c:203
+#: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
 msgstr "Nieważny kontekst bezpieczeństwa"
 
-#: modules/pam_selinux/pam_selinux.c:417
+#: modules/pam_selinux/pam_selinux.c:251
+#, fuzzy, c-format
+msgid "Default Security Context %s\n"
+msgstr "Kontekst bezpieczeństwa %s przypisany"
+
+#: modules/pam_selinux/pam_selinux.c:255
+#, fuzzy
+msgid "Would you like to enter a different role or level?"
+msgstr "Czy wejść w kontekst bezpieczeństwa? [y]"
+
+#: modules/pam_selinux/pam_selinux.c:269
+#, c-format
+msgid "No default type for role %s\n"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:512
+msgid "Out of memory"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
+#, c-format
+msgid "Unable to get valid context for %s"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:578
+msgid "Requested MLS level not in permitted range"
+msgstr ""
+
+#: modules/pam_selinux/pam_selinux.c:628
 #, c-format
 msgid "Security Context %s Assigned"
+msgstr "Kontekst bezpieczeństwa %s przypisany"
+
+#: modules/pam_selinux/pam_selinux.c:649
+#, fuzzy, c-format
+msgid "Key Creation Context %s Assigned"
 msgstr "Kontekst bezpieczeństwa %s przypisany"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
@@ -459,38 +499,47 @@ msgstr "Ostrzeżenie: hasło wygaśnie za %d dni%.2s"
 msgid "Password: "
 msgstr "Hasło: "
 
-#: modules/pam_unix/pam_unix_passwd.c:819
+#: modules/pam_unix/pam_unix_passwd.c:821
 msgid "NIS password could not be changed."
 msgstr "Nie można zmienić hasła NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:996
+#: modules/pam_unix/pam_unix_passwd.c:998
 msgid "You must choose a longer password"
 msgstr "Proszę podać dłuższe hasło"
 
-#: modules/pam_unix/pam_unix_passwd.c:1001
+#: modules/pam_unix/pam_unix_passwd.c:1003
 msgid "Password has been already used. Choose another."
 msgstr "Hasło było już używane. Proszę wybrać inne."
 
-#: modules/pam_unix/pam_unix_passwd.c:1108
+#: modules/pam_unix/pam_unix_passwd.c:1103
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "Zmiana hasła STRESS dla "
 
-#: modules/pam_unix/pam_unix_passwd.c:1119
+#: modules/pam_unix/pam_unix_passwd.c:1114
 msgid "(current) UNIX password: "
 msgstr "Bieżące hasło UNIX:"
 
-#: modules/pam_unix/pam_unix_passwd.c:1154
+#: modules/pam_unix/pam_unix_passwd.c:1149
 msgid "You must wait longer to change your password"
 msgstr "Proszę poczekać dłużej aby zmienić hasło"
 
-#: modules/pam_unix/pam_unix_passwd.c:1214
+#: modules/pam_unix/pam_unix_passwd.c:1209
 msgid "Enter new UNIX password: "
 msgstr "Nowe hasło UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1215
+#: modules/pam_unix/pam_unix_passwd.c:1210
 msgid "Retype new UNIX password: "
 msgstr "Powtórzenie hasła UNIX: "
+
+#~ msgid "Do you want to choose a different one? [n]"
+#~ msgstr "Czy powtórzyć wybieranie? [n]"
+
+#~ msgid "Enter number of choice: "
+#~ msgstr "Wybrana liczba: "
+
+#~ msgid "type: "
+#~ msgstr "typ:"
 
 #, fuzzy
 #~ msgid "Warning: your password will expire in one day"

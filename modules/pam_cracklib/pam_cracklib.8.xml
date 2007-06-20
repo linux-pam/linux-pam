@@ -331,6 +331,24 @@
 
         <varlistentry>
           <term>
+            <option>minclass=<replaceable>N</replaceable></option>
+          </term>
+          <listitem>
+            <para>
+              The minimum number of required classes of characters for
+              the new password. The default number is zero. The four
+              classes are digits, upper and lower letters and other
+              characters.
+              The difference to the <option>credit</option> check is
+              that a specific class if of characters is not required.
+              Instead <replaceable>N</replaceable> out of four of the
+              classes are required.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
             <option>use_authtok</option>
           </term>
           <listitem>

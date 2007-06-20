@@ -1,11 +1,11 @@
 .\"     Title: pam_cracklib
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/02/2006
+.\" Generator: DocBook XSL Stylesheets v1.71.1 <http://docbook.sf.net/>
+.\"      Date: 06/20/2007
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM_CRACKLIB" "8" "06/02/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_CRACKLIB" "8" "06/20/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -28,14 +28,19 @@ The first action is to prompt for a single password, check its strength and then
 The strength checks works in the following manner: at first the
 \fBCracklib\fR
 routine is called to check if the password is part of a dictionary; if this is not the case an additional set of strength checks is done. These checks are:
-.TP 3n
+.PP
 Palindrome
+.RS 4
 Is the new password a palindrome of the old one?
-.TP 3n
+.RE
+.PP
 Case Change Only
+.RS 4
 Is the new password the the old one with only a change of case?
-.TP 3n
+.RE
+.PP
 Similar
+.RS 4
 Is the new password too much like the old one? This is primarily controlled by one argument,
 \fBdifok\fR
 which is a number of characters that if different between the old and new are enough to accept the new password, this defaults to 10 or 1/2 the size of the new password whichever is smaller.
@@ -47,52 +52,70 @@ is available. This argument can be used to specify the minimum length a new pass
 value is ignored. The default value for
 \fBdifignore\fR
 is 23.
-.TP 3n
+.RE
+.PP
 Simple
+.RS 4
 Is the new password too small? This is controlled by 5 arguments
 \fBminlen\fR,
 \fBdcredit\fR,
 \fBucredit\fR,
 \fBlcredit\fR, and
 \fBocredit\fR. See the section on the arguments for the details of how these work and there defaults.
-.TP 3n
+.RE
+.PP
 Rotated
+.RS 4
 Is the new password a rotated version of the old password?
-.TP 3n
+.RE
+.PP
 Already used
+.RS 4
 Was the password used in the past? Previously used passwords are to be found in
 \fI/etc/security/opasswd\fR.
+.RE
 .PP
 This module with no arguments will work well for standard unix password encryption. With md5 encryption, passwords can be longer than 8 characters and the default settings for this module can make it hard for the user to choose a satisfactory new password. Notably, the requirement that the new password contain no more than 1/2 of the characters in the old password becomes a non\-trivial constraint. For example, an old password of the form "the quick brown fox jumped over the lazy dogs" would be difficult to change... In addition, the default action is to allow passwords as small as 5 characters in length. For a md5 systems it can be a good idea to increase the required minimum size of a password. One can then allow more credit for different kinds of characters but accept that the new password may share most of these characters with the old password.
 .SH "OPTIONS"
 .PP
-.TP 3n
+.PP
 \fBdebug\fR
+.RS 4
 This option makes the module write information to
 \fBsyslog\fR(3)
 indicating the behavior of the module (this option does not write password information to the log file).
-.TP 3n
+.RE
+.PP
 \fBtype=\fR\fB\fIXXX\fR\fR
+.RS 4
 The default action is for the module to use the following prompts when requesting passwords: "New UNIX password: " and "Retype UNIX password: ". The default word
 \fIUNIX\fR
 can be replaced with this option.
-.TP 3n
+.RE
+.PP
 \fBretry=\fR\fB\fIN\fR\fR
+.RS 4
 Prompt user at most
 \fIN\fR
 times before returning with error. The default is
 \fI1\fR
-.TP 3n
+.RE
+.PP
 \fBdifok=\fR\fB\fIN\fR\fR
+.RS 4
 This argument will change the default of
 \fI5\fR
 for the number of characters in the new password that must not be present in the old password. In addition, if 1/2 of the characters in the new password are different then the new password will be accepted anyway.
-.TP 3n
+.RE
+.PP
 \fBdifignore=\fR\fB\fIN\fR\fR
+.RS 4
 How many characters should the password have before difok will be ignored. The default is
 \fI23\fR.
-.TP 3n
+.RE
+.PP
 \fBminlen=\fR\fB\fIN\fR\fR
+.RS 4
 The minimum acceptable size for the new password (plus one if credits are not disabled which is the default). In addition to the number of characters in the new password, credit (of +1 in length) is given for each different kind of character (\fIother\fR,
 \fIupper\fR,
 \fIlower\fR
@@ -103,8 +126,10 @@ which is good for a old style UNIX password all of the same type of character bu
 \fICracklib\fR
 itself, a "way too short" limit of 4 which is hard coded in and a defined limit (6) that will be checked without reference to
 \fBminlen\fR. If you want to allow passwords as short as 5 characters you should not use this module.
-.TP 3n
+.RE
+.PP
 \fBdcredit=\fR\fB\fIN\fR\fR
+.RS 4
 (N >= 0) This is the maximum credit for having digits in the new password. If you have less than or
 \fIN\fR
 digits, each digit will count +1 towards meeting the current
@@ -116,8 +141,10 @@ is 1 which is the recommended value for
 less than 10.
 .sp
 (N < 0) This is the minimum number of digits that must be met for a new password.
-.TP 3n
+.RE
+.PP
 \fBucredit=\fR\fB\fIN\fR\fR
+.RS 4
 (N >= 0) This is the maximum credit for having upper case letters in the new password. If you have less than or
 \fIN\fR
 upper case letters each letter will count +1 towards meeting the current
@@ -131,8 +158,10 @@ which is the recommended value for
 less than 10.
 .sp
 (N > 0) This is the minimum number of upper case letters that must be met for a new password.
-.TP 3n
+.RE
+.PP
 \fBlcredit=\fR\fB\fIN\fR\fR
+.RS 4
 (N >= 0) This is the maximum credit for having lower case letters in the new password. If you have less than or
 \fIN\fR
 lower case letters, each letter will count +1 towards meeting the current
@@ -144,8 +173,10 @@ is 1 which is the recommended value for
 less than 10.
 .sp
 (N < 0) This is the minimum number of lower case letters that must be met for a new password.
-.TP 3n
+.RE
+.PP
 \fBocredit=\fR\fB\fIN\fR\fR
+.RS 4
 (N >= 0) This is the maximum credit for having other characters in the new password. If you have less than or
 \fIN\fR
 other characters, each character will count +1 towards meeting the current
@@ -157,16 +188,30 @@ is 1 which is the recommended value for
 less than 10.
 .sp
 (N < 0) This is the minimum number of other characters that must be met for a new password.
-.TP 3n
+.RE
+.PP
+\fBminclass=\fR\fB\fIN\fR\fR
+.RS 4
+The minimum number of required classes of characters for the new password. The default number is zero. The four classes are digits, upper and lower letters and other characters. The difference to the
+\fBcredit\fR
+check is that a specific class if of characters is not required. Instead
+\fIN\fR
+out of four of the classes are required.
+.RE
+.PP
 \fBuse_authtok\fR
+.RS 4
 This argument is used to
 \fIforce\fR
 the module to not prompt the user for a new password but use the one provided by the previously stacked
 \fIpassword\fR
 module.
-.TP 3n
+.RE
+.PP
 \fBdictpath=\fR\fB\fI/path/to/dict\fR\fR
+.RS 4
 Path to the cracklib dictionaries.
+.RE
 .SH "MODULE SERVICES PROVIDED"
 .PP
 Only he
@@ -174,26 +219,34 @@ Only he
 service is supported.
 .SH "RETURN VALUES"
 .PP
-.TP 3n
+.PP
 PAM_SUCCESS
+.RS 4
 The new password passes all checks.
-.TP 3n
+.RE
+.PP
 PAM_AUTHTOK_ERR
+.RS 4
 No new password was entered, the username could not be determined or the new password fails the strength checks.
-.TP 3n
+.RE
+.PP
 PAM_AUTHTOK_RECOVERY_ERR
+.RS 4
 The old password was not supplied by a previous stackked module or got not requested from the user. The first error can happen if
 \fBuse_authtok\fR
 is specified.
-.TP 3n
+.RE
+.PP
 PAM_SERVICE_ERR
+.RS 4
 A internal error occured.
+.RE
 .SH "EXAMPLES"
 .PP
 For an example of the use of this module, we show how it may be stacked with the password component of
 \fBpam_unix\fR(8)
 .sp
-.RS 3n
+.RS 4
 .nf
 #
 # These lines stack two password type modules. In this example the
@@ -213,7 +266,7 @@ Another example (in the
 \fI/etc/pam.d/passwd\fR
 format) is for the case that you want to use md5 password encryption:
 .sp
-.RS 3n
+.RS 4
 .nf
 #%PAM\-1.0
 #
@@ -232,7 +285,7 @@ password  required pam_unix.so use_authtok nullok md5
 .PP
 And here is another example in case you don't want to use credits:
 .sp
-.RS 3n
+.RS 4
 .nf
 #%PAM\-1.0
 #

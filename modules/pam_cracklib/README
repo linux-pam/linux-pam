@@ -152,6 +152,14 @@ ocredit=N
     (N < 0) This is the minimum number of other characters that must be met for
     a new password.
 
+minclass=N
+
+    The minimum number of required classes of characters for the new password.
+    The default number is zero. The four classes are digits, upper and lower
+    letters and other characters. The difference to the credit check is that a
+    specific class if of characters is not required. Instead N out of four of
+    the classes are required.
+
 use_authtok
 
     This argument is used to force the module to not prompt the user for a new

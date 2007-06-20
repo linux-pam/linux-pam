@@ -23,3 +23,4 @@ compile
 missing
 depcomp
 ylwrap
+Linux-PAM-*.tar.*

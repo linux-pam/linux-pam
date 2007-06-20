@@ -92,6 +92,7 @@ struct cracklib_options {
 	int up_credit;
 	int low_credit;
 	int oth_credit;
+        int min_class;
 	int use_authtok;
 	char prompt_type[BUFSIZ];
         char cracklib_dictpath[PATH_MAX];
@@ -156,6 +157,12 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
 	     opt->oth_credit = strtol(*argv+8,&ep,10);
 	     if (!ep)
 		 opt->oth_credit = 0;
+         } else if (!strncmp(*argv,"minclass=",9)) {
+             opt->min_class = strtol(*argv+9,&ep,10);
+             if (!ep)
+                 opt->min_class = 0;
+                 if (opt->min_class > 4)
+                     opt->min_class = 4 ;
 	 } else if (!strncmp(*argv,"use_authtok",11)) {
 		 opt->use_authtok = 1;
 	 } else if (!strncmp(*argv,"dictpath=",9)) {
@@ -290,6 +297,47 @@ static int similar(struct cracklib_options *opt,
 }
 
 /*
+ * enough classes of charecters
+ */
+
+static int minclass (struct cracklib_options *opt,
+		     const char *new)
+{
+    int digits = 0;
+    int uppers = 0;
+    int lowers = 0;
+    int others = 0;
+    int total_class;
+    int i;
+    int retval;
+
+    D(( "called" ));
+    for (i = 0; new[i]; i++)
+       {
+	 if (isdigit (new[i]))
+             digits = 1;
+	 else if (isupper (new[i]))
+             uppers = 1;
+	 else if (islower (new[i]))
+             lowers = 1;
+	 else
+             others = 1;
+       }
+
+    total_class = digits + uppers + lowers + others;
+
+    D (("total class: %d\tmin_class: %d", total_class, opt->min_class));
+
+    if (total_class >= opt->min_class)
+        retval = 0;
+    else
+      retval = 1;
+
+    return retval;
+}
+
+
+/*
  * a nice mix of characters.
  */
 static int simple(struct cracklib_options *opt, const char *new)
@@ -369,43 +417,51 @@ static char * str_lower(char *string)
 	return string;
 }
 
-static const char * password_check(struct cracklib_options *opt, const char *old, const char *new)
+static const char *password_check(struct cracklib_options *opt,
+				  const char *old, const char *new)
 {
 	const char *msg = NULL;
-	char *oldmono, *newmono, *wrapped;
+	char *oldmono = NULL, *newmono, *wrapped = NULL;
 
-	if (strcmp(new, old) == 0) {
-        msg = _("is the same as the old one");
-        return msg;
-    }
+	if (old && strcmp(new, old) == 0) {
+	    msg = _("is the same as the old one");
+	    return msg;
+	}
 
 	newmono = str_lower(x_strdup(new));
-	oldmono = str_lower(x_strdup(old));
-	wrapped = malloc(strlen(oldmono) * 2 + 1);
-	strcpy (wrapped, oldmono);
-	strcat (wrapped, oldmono);
+	if (old) {
+	  oldmono = str_lower(x_strdup(old));
+	  wrapped = malloc(strlen(oldmono) * 2 + 1);
+	  strcpy (wrapped, oldmono);
+	  strcat (wrapped, oldmono);
+	}
 
 	if (palindrome(newmono))
 		msg = _("is a palindrome");
 
-	if (!msg && strcmp(oldmono, newmono) == 0)
+	if (!msg && oldmono && strcmp(oldmono, newmono) == 0)
 		msg = _("case changes only");
 
-	if (!msg && similar(opt, oldmono, newmono))
+	if (!msg && oldmono && similar(opt, oldmono, newmono))
 		msg = _("is too similar to the old one");
 
 	if (!msg && simple(opt, new))
 		msg = _("is too simple");
 
-	if (!msg && strstr(wrapped, newmono))
+	if (!msg && wrapped && strstr(wrapped, newmono))
 		msg = _("is rotated");
 
+	if (!msg && minclass (opt, new))
+	        msg = _("not enough character classes");
+
 	memset(newmono, 0, strlen(newmono));
-	memset(oldmono, 0, strlen(oldmono));
-	memset(wrapped, 0, strlen(wrapped));
 	free(newmono);
-	free(oldmono);
-	free(wrapped);
+	if (old) {
+	  memset(oldmono, 0, strlen(oldmono));
+	  memset(wrapped, 0, strlen(wrapped));
+	  free(oldmono);
+	  free(wrapped);
+	}
 
 	return msg;
 }
@@ -470,7 +526,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
      * if one wanted to hardwire authentication token strength
      * checking this would be the place
      */
-    msg = password_check(opt, pass_old,pass_new);
+    msg = password_check(opt, pass_old, pass_new);
     if (!msg) {
 	retval = pam_get_item(pamh, PAM_USER, &user);
 	if (retval != PAM_SUCCESS || user == NULL) {
@@ -621,15 +677,13 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
             } else {
                 /* check it for strength too... */
 		D(("for strength"));
-                if (oldtoken) {
-                    retval = _pam_unix_approve_pass(pamh,ctrl,&options,
-                                               oldtoken,token1);
-                    if (retval != PAM_SUCCESS) {
-                        if (getuid() || (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
-			    retval = PAM_AUTHTOK_ERR;
-			else
-			    retval = PAM_SUCCESS;
-		    }
+                retval = _pam_unix_approve_pass (pamh, ctrl, &options,
+						 oldtoken, token1);
+		if (retval != PAM_SUCCESS) {
+		    if (getuid() || (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
+		        retval = PAM_AUTHTOK_ERR;
+		    else
+		        retval = PAM_SUCCESS;
                 }
             }
         }

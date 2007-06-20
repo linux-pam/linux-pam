@@ -1,3 +1,18 @@
+2007-06-20  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_cracklib/pam_cracklib.8.xml: Document new minclass
+	option.
+	* modules/pam_cracklib/pam_cracklib.c: Add support for minimum
+	character classes [#1688777]. Based on patch from Keith Schincke.
+
+	* xtests/tst-pam_cracklib2.c: New, test case for minclass option.
+	* xtests/tst-pam_cracklib2.pamd: New, PAM config file for test case.
+	* xtests/Makefile.am: Add new testcase.
+
+	* xtests/pam_cracklib.c: Fix comment what this application tests.
+
+	* configure.in: Use /lib64 on x86-64, ppc64, s390x, sparc64
+
 2007-06-15  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_selinux/pam_selinux.8.xml: Remove multiple option,

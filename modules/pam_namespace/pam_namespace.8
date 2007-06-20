@@ -1,11 +1,11 @@
 .\"     Title: pam_namespace
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/27/2006
+.\" Generator: DocBook XSL Stylesheets v1.71.1 <http://docbook.sf.net/>
+.\"      Date: 06/20/2007
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM_NAMESPACE" "8" "06/27/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_NAMESPACE" "8" "06/20/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -14,7 +14,7 @@
 pam_namespace \- PAM module for configuring namespace for a session
 .SH "SYNOPSIS"
 .HP 17
-\fBpam_namespace.so\fR [debug] [unmnt_remnt] [unmnt_only] [require_selinux] [gen_hash] [ignore_config_error] [ignore_instance_parent_mode]
+\fBpam_namespace.so\fR [debug] [unmnt_remnt] [unmnt_only] [require_selinux] [gen_hash] [ignore_config_error] [ignore_instance_parent_mode] [no_unmount_on_close]
 .SH "DESCRIPTION"
 .PP
 The pam_namespace PAM module sets up a private namespace for a session with polyinstantiated directories. A polyinstantiated directory provides a different instance of itself based on user name, or when using SELinux, user name, security context or both. If an executable script
@@ -23,46 +23,73 @@ exists, it is used to initialize the namespace every time a new instance directo
 .PP
 The pam_namespace module disassociates the session namespace from the parent namespace. Any mounts/unmounts performed in the parent namespace, such as mounting of devices, are not reflected in the session namespace. To propagate selected mount/unmount events from the parent namespace into the disassociated session namespace, an administrator may use the special shared\-subtree feature. For additional information on shared\-subtree feature, please refer to the mount(8) man page and the shared\-subtree description at http://lwn.net/Articles/159077 and http://lwn.net/Articles/159092.
 .SH "OPTIONS"
-.TP 3n
+.PP
 \fBdebug\fR
+.RS 4
 A lot of debug information is logged using syslog
-.TP 3n
+.RE
+.PP
 \fBunmnt_remnt\fR
+.RS 4
 For programs such as su and newrole, the login session has already setup a polyinstantiated namespace. For these programs, polyinstantiation is performed based on new user id or security context, however the command first needs to undo the polyinstantiation performed by login. This argument instructs the command to first undo previous polyinstantiation before proceeding with new polyinstantiation based on new id/context
-.TP 3n
+.RE
+.PP
 \fBunmnt_only\fR
+.RS 4
 For trusted programs that want to undo any existing bind mounts and process instance directories on their own, this argument allows them to unmount currently mounted instance directories
-.TP 3n
+.RE
+.PP
 \fBrequire_selinux\fR
+.RS 4
 If selinux is not enabled, return failure
-.TP 3n
+.RE
+.PP
 \fBgen_hash\fR
+.RS 4
 Instead of using the security context string for the instance name, generate and use its md5 hash.
-.TP 3n
+.RE
+.PP
 \fBignore_config_error\fR
+.RS 4
 If a line in the configuration file corresponding to a polyinstantiated directory contains format error, skip that line process the next line. Without this option, pam will return an error to the calling program resulting in termination of the session.
-.TP 3n
+.RE
+.PP
 \fBignore_instance_parent_mode\fR
+.RS 4
 Instance parent directories by default are expected to have the restrictive mode of 000. Using this option, an administrator can choose to ignore the mode of the instance parent. This option should be used with caution as it will reduce security and isolation goals of the polyinstantiation mechanism.
+.RE
+.PP
+\fBno_unmount_on_close\fR
+.RS 4
+For certain trusted programs such as newrole, open session is called from a child process while the parent perfoms close session and pam end functions. For these commands use this option to instruct pam_close_session to not unmount the bind mounted polyinstantiated directory in the parent.
+.RE
 .SH "MODULE SERVICES PROVIDED"
 .PP
 The
 \fBsession\fR
 service is supported.
 .SH "RETURN VALUES"
-.TP 3n
+.PP
 PAM_SUCCESS
+.RS 4
 Namespace setup was successful.
-.TP 3n
+.RE
+.PP
 PAM_SERVICE_ERR
+.RS 4
 Unexpected system error occurred while setting up namespace.
-.TP 3n
+.RE
+.PP
 PAM_SESSION_ERR
+.RS 4
 Unexpected namespace configuration error occurred.
+.RE
 .SH "FILES"
-.TP 3n
+.PP
 \fI/etc/security/namespace.conf\fR
+.RS 4
 Configuration file
+.RE
 .SH "EXAMPLES"
 .PP
 For the <service>s you need polyinstantiation (login for example) put the following line in /etc/pam.d/<service> as the last line for session group:
@@ -80,7 +107,7 @@ to ensure that the X server and its clients can appropriately access the communi
 .PP
 
 .sp
-.RS 3n
+.RS 4
 .nf
       1. Disable the use of font server by commenting out "FontPath"
          line in /etc/X11/xorg.conf. If you do want to use the font server
