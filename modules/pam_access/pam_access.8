@@ -1,11 +1,11 @@
 .\"     Title: pam_access
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets vsnapshot_2006\-08\-24_0226 <http://docbook.sf.net/>
-.\"      Date: 08/31/2006
+.\" Generator: DocBook XSL Stylesheets v1.71.1 <http://docbook.sf.net/>
+.\"      Date: 06/22/2007
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "PAM_ACCESS" "8" "08/31/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_ACCESS" "8" "06/22/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -14,7 +14,7 @@
 pam_access \- PAM module for logdaemon style login access control
 .SH "SYNOPSIS"
 .HP 14
-\fBpam_access.so\fR [debug] [accessfile=\fIfile\fR] [fieldsep=\fIsep\fR] [listsep=\fIsep\fR]
+\fBpam_access.so\fR [debug] [nodefgroup] [accessfile=\fIfile\fR] [fieldsep=\fIsep\fR] [listsep=\fIsep\fR]
 .SH "DESCRIPTION"
 .PP
 The pam_access PAM module is mainly for access management. It provides logdaemon style login access control based on login names, host or domain names, internet addresses or network numbers, or on terminal line names in case of non\-networked logins.
@@ -23,52 +23,77 @@ By default rules for access management are taken from config file
 \fI/etc/security/access.conf\fR
 if you don't specify another file.
 .SH "OPTIONS"
-.TP 3n
+.PP
 \fBaccessfile=\fR\fB\fI/path/to/access.conf\fR\fR
+.RS 4
 Indicate an alternative
 \fIaccess.conf\fR
 style configuration file to override the default. This can be useful when different services need different access lists.
-.TP 3n
+.RE
+.PP
 \fBdebug\fR
+.RS 4
 A lot of debug informations are printed with
 \fBsyslog\fR(3).
-.TP 3n
+.RE
+.PP
 \fBfieldsep=\fR\fB\fIseparators\fR\fR
+.RS 4
 This option modifies the field separator character that pam_access will recognize when parsing the access configuration file. For example:
 \fBfieldsep=|\fR
 will cause the default `:' character to be treated as part of a field value and `|' becomes the field separator. Doing this may be useful in conjuction with a system that wants to use pam_access with X based applications, since the
 \fBPAM_TTY\fR
 item is likely to be of the form "hostname:0" which includes a `:' character in its value. But you should not need this.
-.TP 3n
+.RE
+.PP
 \fBlistsep=\fR\fB\fIseparators\fR\fR
+.RS 4
 This option modifies the list separator character that pam_access will recognize when parsing the access configuration file. For example:
 \fBlistsep=,\fR
 will cause the default ` ' (space) and `\\t' (tab) characters to be treated as part of a list element value and `,' becomes the only list element separator. Doing this may be useful on a system with group information obtained from a Windows domain, where the default built\-in groups "Domain Users", "Domain Admins" contain a space.
+.RE
+.PP
+\fBnodefgroup\fR
+.RS 4
+The group database will not be used for tokens not identified as account name.
+.RE
 .SH "MODULE SERVICES PROVIDED"
 .PP
 All services are supported.
 .SH "RETURN VALUES"
-.TP 3n
+.PP
 PAM_SUCCESS
+.RS 4
 Access was granted.
-.TP 3n
+.RE
+.PP
 PAM_PERM_DENIED
+.RS 4
 Access was not granted.
-.TP 3n
+.RE
+.PP
 PAM_IGNORE
+.RS 4
 
 \fBpam_setcred\fR
 was called which does nothing.
-.TP 3n
+.RE
+.PP
 PAM_ABORT
+.RS 4
 Not all relevant data or options could be gotten.
-.TP 3n
+.RE
+.PP
 PAM_USER_UNKNOWN
+.RS 4
 The user is not known to the system.
+.RE
 .SH "FILES"
-.TP 3n
+.PP
 \fI/etc/security/access.conf\fR
+.RS 4
 Default configuration file
+.RE
 .SH "SEE ALSO"
 .PP
 

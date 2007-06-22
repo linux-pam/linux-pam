@@ -26,6 +26,9 @@
         debug
       </arg>
       <arg choice="opt">
+        nodefgroup
+      </arg>
+      <arg choice="opt">
         accessfile=<replaceable>file</replaceable>
       </arg>
       <arg choice="opt">
@@ -119,6 +122,18 @@
             with group information obtained from a Windows domain,
             where the default built-in groups "Domain Users",
             "Domain Admins" contain a space.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>nodefgroup</option>
+        </term>
+        <listitem>
+          <para>
+            The group database will not be used for tokens not
+            identified as account name.
           </para>
         </listitem>
       </varlistentry>

@@ -1,11 +1,11 @@
 .\"     Title: access.conf
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/21/2006
+.\" Generator: DocBook XSL Stylesheets v1.71.1 <http://docbook.sf.net/>
+.\"      Date: 06/22/2007
 .\"    Manual: Linux\-PAM Manual
 .\"    Source: Linux\-PAM Manual
 .\"
-.TH "ACCESS.CONF" "5" "06/21/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "ACCESS.CONF" "5" "06/22/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -16,32 +16,33 @@ access.conf \- the login access control table file
 .PP
 The
 \fI/etc/security/access.conf\fR
-file specifies (\fIuser\fR,
-\fIhost\fR), (\fIuser\fR,
-\fInetwork/netmask\fR) or (\fIuser\fR,
+file specifies (\fIuser/group\fR,
+\fIhost\fR), (\fIuser/group\fR,
+\fInetwork/netmask\fR) or (\fIuser/group\fR,
 \fItty\fR) combinations for which a login will be either accepted or refused.
 .PP
 When someone logs in, the file
 \fIaccess.conf\fR
-is scanned for the first entry that matches the (\fIuser\fR,
-\fIhost\fR) or (\fIuser\fR,
-\fInetwork/netmask\fR) combination, or, in case of non\-networked logins, the first entry that matches the (\fIuser\fR,
+is scanned for the first entry that matches the (\fIuser/group\fR,
+\fIhost\fR) or (\fIuser/group\fR,
+\fInetwork/netmask\fR) combination, or, in case of non\-networked logins, the first entry that matches the (\fIuser/group\fR,
 \fItty\fR) combination. The permissions field of that table entry determines whether the login will be accepted or refused.
 .PP
 Each line of the login access control table has three fields separated by a ":" character (colon):
 .PP
 
-\fIpermission\fR:\fIusers\fR:\fIorigins\fR
+\fIpermission\fR:\fIusers/groups\fR:\fIorigins\fR
 .PP
 The first field, the
 \fIpermission\fR
 field, can be either a "\fI+\fR" character (plus) for access granted or a "\fI\-\fR" character (minus) for access denied.
 .PP
 The second field, the
-\fIusers\fR
+\fIusers\fR/\fIgroup\fR
 field, should be a list of one or more login names, group names, or
 \fIALL\fR
-(which always matches).
+(which always matches). To differentiate user entries from group entries, group entries should be written with brackets, e.g.
+\fI(group)\fR.
 .PP
 The third field, the
 \fIorigins\fR
@@ -54,10 +55,12 @@ field, should be a list of one or more tty names (for non\-networked logins), ho
 in host or user patterns.
 .PP
 The
-\fIexcept\fR
+\fIEXCEPT\fR
 operator makes it possible to write very compact rules.
 .PP
-The group file is searched only when a name does not match that of the logged\-in user. Only groups are matched in which users are explicitly listed. However the PAM module does not look at the primary group id of a user.
+If the
+\fBnodefgroup\fR
+is not set, the group file is searched when a name does not match that of the logged\-in user. Only groups are matched in which users are explicitly listed. However the PAM module does not look at the primary group id of a user.
 .PP
 The "\fI#\fR" character at start of line (no space at front) can be used to mark this line as a comment line.
 .SH "EXAMPLES"
@@ -142,6 +145,10 @@ User
 should get access from IPv6 net/mask.
 .PP
 + : john : 2001:4ca0:0:101::/64
+.PP
+Disallow console logins to all but the shutdown, sync and all other accounts, which are a member of the wheel group.
+.PP
+\-:ALL EXCEPT (wheel) shutdown sync:LOCAL
 .PP
 All other users should be denied to get access from all sources.
 .PP

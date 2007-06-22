@@ -45,6 +45,11 @@ listsep=separators
     information obtained from a Windows domain, where the default built-in
     groups "Domain Users", "Domain Admins" contain a space.
 
+nodefgroup
+
+    The group database will not be used for tokens not identified as account
+    name.
+
 EXAMPLES
 
 These are some example lines which might be specified in /etc/security/
@@ -96,6 +101,11 @@ User john and foo should get access from IPv6 host address.
 User john should get access from IPv6 net/mask.
 
 + : john : 2001:4ca0:0:101::/64
+
+Disallow console logins to all but the shutdown, sync and all other accounts,
+which are a member of the wheel group.
+
+-:ALL EXCEPT (wheel) shutdown sync:LOCAL
 
 All other users should be denied to get access from all sources.
 

@@ -20,19 +20,19 @@
     <title>DESCRIPTION</title>
     <para>
       The <filename>/etc/security/access.conf</filename> file specifies
-      (<replaceable>user</replaceable>, <replaceable>host</replaceable>),
-      (<replaceable>user</replaceable>, <replaceable>network/netmask</replaceable>) or
-      (<replaceable>user</replaceable>, <replaceable>tty</replaceable>)
+      (<replaceable>user/group</replaceable>, <replaceable>host</replaceable>),
+      (<replaceable>user/group</replaceable>, <replaceable>network/netmask</replaceable>) or
+      (<replaceable>user/group</replaceable>, <replaceable>tty</replaceable>)
       combinations for which a login will be either accepted or refused.
     </para>
     <para>
       When someone logs in, the file <filename>access.conf</filename> is
       scanned for the first entry that matches the
-      (<replaceable>user</replaceable>, <replaceable>host</replaceable>) or
-      (<replaceable>user</replaceable>, <replaceable>network/netmask</replaceable>)
+      (<replaceable>user/group</replaceable>, <replaceable>host</replaceable>) or
+      (<replaceable>user/group</replaceable>, <replaceable>network/netmask</replaceable>)
       combination, or, in case of non-networked logins, the first entry
       that matches the
-      (<replaceable>user</replaceable>, <replaceable>tty</replaceable>)
+      (<replaceable>user/group</replaceable>, <replaceable>tty</replaceable>)
       combination.  The permissions field of that table entry determines
       whether the login will be accepted or refused.
    </para>
@@ -43,7 +43,7 @@
     </para>
 
     <para>
-      <replaceable>permission</replaceable>:<replaceable>users</replaceable>:<replaceable>origins</replaceable>
+      <replaceable>permission</replaceable>:<replaceable>users/groups</replaceable>:<replaceable>origins</replaceable>
     </para>
 
 
@@ -54,9 +54,12 @@
     </para>
 
     <para>
-      The second field, the <replaceable>users</replaceable>
+      The second field, the
+      <replaceable>users</replaceable>/<replaceable>group</replaceable>
       field, should be a list of one or more login names, group names, or
-      <emphasis>ALL</emphasis> (which always matches).
+      <emphasis>ALL</emphasis> (which always matches). To differentiate
+      user entries from group entries, group entries should be written
+      with brackets, e.g. <emphasis>(group)</emphasis>.
     </para>
 
     <para>
@@ -72,15 +75,15 @@
     </para>
 
     <para>
-      The <replaceable>except</replaceable> operator makes it possible to
+      The <replaceable>EXCEPT</replaceable> operator makes it possible to
       write very compact rules.
     </para>
 
     <para>
-       The group file is searched only when a name does not match that of
-       the logged-in user. Only groups are matched in which users are
-       explicitly listed. However the PAM module does not look at the
-       primary group id of a user.
+       If the <option>nodefgroup</option> is not set, the group file
+       is searched when a name does not match that of the logged-in
+       user. Only groups are matched in which users are explicitly listed.
+       However the PAM module does not look at the primary group id of a user.
     </para>
 
 
@@ -161,6 +164,12 @@
       User <emphasis>john</emphasis> should get access from IPv6 net/mask.
     </para>
     <para>+ : john : 2001:4ca0:0:101::/64</para>
+
+    <para>
+      Disallow console logins to all but the shutdown, sync and all
+      other accounts, which are a member of the wheel group.
+    </para>
+    <para>-:ALL EXCEPT (wheel) shutdown sync:LOCAL</para>
 
     <para>
       All other users should be denied to get access from all sources.

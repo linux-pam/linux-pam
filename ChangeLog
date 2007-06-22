@@ -1,3 +1,13 @@
+2007-06-22  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_access/pam_access.c: Add new syntax for groups
+	in access.conf to differentiate group names from account names.
+	Based on patch from Julien Lecomte <julien@famille-lecomte.net>,
+	solves feature request [#411390].
+	* modules/pam_access/access.conf: Add example for new group
+	syntax.
+	* modules/pam_access/access.conf.5.xml: Document new syntax.
+
 2007-06-20  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_cracklib/pam_cracklib.8.xml: Document new minclass
