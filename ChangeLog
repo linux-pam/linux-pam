@@ -1,5 +1,11 @@
 2007-06-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_loginuid/pam_loginuid.c (set_loginuid): Print
+	better error message if /proc/self/loginuid cannot be opened.
+
+	* modules/pam_limits/pam_limits.c (process_limit): Check for
+	variable overflow after multiplication [bnc#283001].
+
 	* modules/pam_access/pam_access.c: Add new syntax for groups
 	in access.conf to differentiate group names from account names.
 	Based on patch from Julien Lecomte <julien@famille-lecomte.net>,

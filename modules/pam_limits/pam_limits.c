@@ -374,8 +374,13 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 
     switch(limit_item) {
         case RLIMIT_CPU:
-         if (rlimit_value != RLIM_INFINITY)
-            rlimit_value *= 60;
+	  if (rlimit_value != RLIM_INFINITY)
+	    {
+	      if (rlimit_value >= RLIM_INFINITY/60)
+		rlimit_value = RLIM_INFINITY;
+	      else
+		rlimit_value *= 60;
+	    }
          break;
         case RLIMIT_FSIZE:
         case RLIMIT_DATA:
@@ -385,7 +390,12 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
         case RLIMIT_MEMLOCK:
         case RLIMIT_AS:
          if (rlimit_value != RLIM_INFINITY)
-            rlimit_value *= 1024;
+	   {
+	     if (rlimit_value >= RLIM_INFINITY/1024)
+	       rlimit_value = RLIM_INFINITY;
+	     else
+	       rlimit_value *= 1024;
+	   }
     	 break;
 #ifdef RLIMIT_NICE
 	case RLIMIT_NICE:
@@ -674,7 +684,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 
 out:
     globfree(&globbuf);
-    if (retval != PAM_SUCCESS) 
+    if (retval != PAM_SUCCESS)
     {
        	pam_syslog(pamh, LOG_WARNING, "error parsing the configuration file: '%s' ",CONF_FILE);
 	return retval;

@@ -58,7 +58,8 @@ static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 	if (fd < 0) {
 		if (errno != ENOENT) {
 			rc = 1;
-			pam_syslog(pamh, LOG_ERR, "set_loginuid failed opening loginuid");
+			pam_syslog(pamh, LOG_ERR,
+				   "Cannot open /proc/self/loginuid: %m");
 		}
 		return rc;
 	}
