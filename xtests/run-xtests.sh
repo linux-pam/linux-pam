@@ -15,6 +15,9 @@ failed=0
 pass=0
 all=0
 
+mkdir -p /etc/security
+cp /etc/security/access.conf /etc/security/access.conf-pam-xtests
+install -m 644 "${SRCDIR}"/access.conf /etc/security/access.conf
 for testname in $XTESTS ; do
 	  install -m 644 "${SRCDIR}"/$testname.pamd /etc/pam.d/$testname
 	  if test -x "${SRCDIR}"/$testname.sh ; then
@@ -31,15 +34,16 @@ for testname in $XTESTS ; do
           fi
 	  all=`expr $all + 1`
 	  rm -f /etc/pam.d/$testname
-	done
-	if test "$failed" -ne 0; then
+done
+mv /etc/security/access.conf-pam-xtests /etc/security/access.conf
+if test "$failed" -ne 0; then
 	  echo "==================="
 	  echo "$failed of $all tests failed"
 	  echo "==================="
 	  exit 1
-	else
+else
 	  echo "=================="
 	  echo "All $all tests passed"
 	  echo "=================="
-	fi
+fi
 exit 0

@@ -407,6 +407,10 @@ static int list_match(pam_handle_t *pamh,
     int     match = NO;
     char   *sptr;
 
+    if (pam_access_debug)
+      pam_syslog (pamh, LOG_DEBUG,
+		  "list_match: list=%s, item=%s", list, item->user->pw_name);
+
     /*
      * Process tokens one at a time. We have exhausted all possible matches
      * when we reach an "EXCEPT" token or the end of the list. If we do find
@@ -426,7 +430,7 @@ static int list_match(pam_handle_t *pamh,
     if (match != NO) {
 	while ((tok = strtok_r(NULL, sep, &sptr)) && strcasecmp(tok, "EXCEPT"))
 	     /* VOID */ ;
-	if (tok == 0 || list_match(pamh, (char *) 0, item, match_fn) == NO)
+	if (tok == 0 || list_match(pamh, sptr, item, match_fn) == NO)
 	    return (match);
     }
     return (NO);
@@ -434,7 +438,7 @@ static int list_match(pam_handle_t *pamh,
 
 /* myhostname - figure out local machine name */
 
-static char * myhostname(void)
+static char *myhostname(void)
 {
     static char name[MAXHOSTNAMELEN + 1];
 

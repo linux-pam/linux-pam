@@ -1,3 +1,23 @@
+2007-06-25  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_access/pam_access.c (list_match): Use saveptr of strtok_r
+	result for recursive calls.
+	* xtests/Makefile.am: Add new pam_access test cases.
+	* xtests/pam_access1.c: New test case.
+	* xtests/pam_access2.c: Likewise.
+	* xtests/pam_access3.c: Likewise.
+	* xtests/pam_access4.c: Likewise.
+	* xtests/pam_access1.sh: Wrapper to create user accounts.
+	* xtests/pam_access2.sh: Likewise.
+	* xtests/pam_access3.sh: Likewise.
+	* xtests/pam_access4.sh: Likewise.
+	* xtests/pam_access1.pamd: PAM config file for pam_access tests.
+	* xtests/pam_access2.pamd: Likewise.
+	* xtests/pam_access3.pamd: Likewise.
+	* xtests/pam_access4.pamd: Likewise.
+	* xtests/access.conf: Config file for pam_access tests.
+	* xtests/run-tests.sh: Install access.conf into system.
+
 2007-06-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_loginuid/pam_loginuid.c (set_loginuid): Print

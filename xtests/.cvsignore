@@ -2,6 +2,10 @@ Makefile
 Makefile.in
 .deps
 .libs
+tst-pam_access1
+tst-pam_access2
+tst-pam_access3
+tst-pam_access4
 tst-pam_dispatch1
 tst-pam_dispatch2
 tst-pam_dispatch3

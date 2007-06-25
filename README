@@ -33,6 +33,10 @@ You can run additional checks after installing by executing
 
 as root.
 
+WARNING: Running "make xtests" can overwrite configuration data
+or make the system insecure/unfunctional for a short time!
+Backup all important data before!
+
 If you do not wish to make the modules dynamically loadable, but
 build a static libpam including all PAM modules, you have to call:
 
