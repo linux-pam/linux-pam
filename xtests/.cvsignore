@@ -12,6 +12,7 @@ tst-pam_dispatch3
 tst-pam_dispatch4
 tst-pam_cracklib1
 tst-pam_cracklib2
+tst-pam_limits1
 tst-pam_unix1
 tst-pam_unix2
 tst-pam_unix3
