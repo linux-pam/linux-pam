@@ -1,3 +1,13 @@
+2007-06-26  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_limits/pam_limits.c (process_limit): Check upper and
+	lower limit of nice value, fix off-by-one in conversation to rlim_t.
+	* xtests/Makefile.am: Add new pam_limits test case.
+	* xtests/limits.conf: New, config file for test case.
+	* xtests/pam_limits1.c: New, test case for RLIMIT_NICE.
+	* xtests/pam_limits1.sh: Likewise.
+	* xtests/pam_limits1.pamd: Likewise.
+
 2007-06-25  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_access/pam_access.c (list_match): Use saveptr of strtok_r

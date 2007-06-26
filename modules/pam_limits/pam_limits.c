@@ -401,7 +401,9 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	case RLIMIT_NICE:
 	 if (int_value > 19)
 	    int_value = 19;
-	 rlimit_value = 19 - int_value;
+	 if (int_value < -20)
+	   int_value = -20;
+	 rlimit_value = 20 - int_value;
 #endif
          break;
     }
