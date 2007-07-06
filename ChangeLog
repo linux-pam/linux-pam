@@ -1,3 +1,20 @@
+2007-07-06  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 0.99.8.0
+
+	* configure.in: Check for audit_log_acct_message instead of
+	audit_log_user_message.
+	* libpam/pam_audit.c: Use audit_log_acct_message.
+	Based on patch from Mark J Cox <mjc@redhat.com>.
+	* libpam/Makefile.am: Bump version number of libpam.
+
+	* modules/pam_umask/pam_umask.c (set_umask): mode_t is 32bit,
+	not 64bit.
+
+	* xtests/tst-pam_limits1.c: Fix printf arguments.
+
+	* po/*.po: Merge po files with latest code changes.
+
 2007-06-26  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_limits/pam_limits.c (process_limit): Check upper and

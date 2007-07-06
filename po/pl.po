@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-06-20 15:36+0200\n"
+"POT-Creation-Date: 2007-07-05 12:48+0200\n"
 "PO-Revision-Date: 2006-05-03 21:58+0200\n"
 "Last-Translator: Wojciech Kapusta <wojciech@aviary.pl>\n"
 "Language-Team:  <pl@li.org>\n"
@@ -273,7 +273,7 @@ msgstr "Ostatnie logowanie:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Witaj na swoim nowym koncie!"
 
-#: modules/pam_limits/pam_limits.c:689
+#: modules/pam_limits/pam_limits.c:701
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Zbyt wiele prób zalogowania na '%s'."
@@ -314,12 +314,12 @@ msgstr "Stare wiadomości katalogu %s."
 msgid "You have mail in folder %s."
 msgstr "Wiadomości w katalogu %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:140
+#: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
 msgstr ""
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:145
+#: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
 msgstr ""

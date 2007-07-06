@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-06-20 15:36+0200\n"
+"POT-Creation-Date: 2007-07-05 12:48+0200\n"
 "PO-Revision-Date: 2006-05-03 18:55+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -268,7 +268,7 @@ msgstr "上一次登入：%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "歡迎使用您的新帳號！"
 
-#: modules/pam_limits/pam_limits.c:689
+#: modules/pam_limits/pam_limits.c:701
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "對 '%s' 進行太多次登入。"
@@ -309,12 +309,12 @@ msgstr "資料夾 %s 中有您的舊郵件。"
 msgid "You have mail in folder %s."
 msgstr "資料夾 %s 中有您的郵件。"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:140
+#: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
 msgstr ""
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:145
+#: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
 msgstr ""

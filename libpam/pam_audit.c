@@ -27,18 +27,18 @@ _pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type,
 {
   static int old_errno = -1;
   int rc;
-  char buf[256];
+  char buf[32];
 
-  snprintf(buf, sizeof(buf), "PAM: %s acct=%s ", message,
-	(retval != PAM_USER_UNKNOWN && pamh->user) ? pamh->user : "?");
+  snprintf(buf, sizeof(buf), "PAM:%s", message);
 
-  rc = audit_log_user_message( audit_fd, type, buf,
-        pamh->rhost, NULL, pamh->tty, retval == PAM_SUCCESS );
+  rc = audit_log_acct_message (audit_fd, type, NULL, buf,
+       (retval != PAM_USER_UNKNOWN && pamh->user) ? pamh->user : "?",
+	-1, pamh->rhost, NULL, pamh->tty, retval == PAM_SUCCESS );
 
   if (rc == -1 && errno != old_errno)
     {
       old_errno = errno;
-      pam_syslog(pamh, LOG_CRIT, "audit_log_user_message() failed: %m");
+      pam_syslog (pamh, LOG_CRIT, "audit_log_acct_message() failed: %m");
     }
 
   pamh->audit_state |= PAMAUDIT_LOGGED;
@@ -73,11 +73,11 @@ _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags)
     type = AUDIT_USER_AUTH;
     break;
   case PAM_OPEN_SESSION:
-    message = "session open";
+    message = "session_open";
     type = AUDIT_USER_START;
     break;
   case PAM_CLOSE_SESSION:
-    message = "session close";
+    message = "session_close";
     type = AUDIT_USER_END;
     break;
   case PAM_ACCOUNT:

@@ -58,7 +58,7 @@
 
 
 /* argument parsing */
-#define MKHOMEDIR_DEBUG      020	/* keep quiet about things */
+#define MKHOMEDIR_DEBUG      020	/* be verbose about things */
 #define MKHOMEDIR_QUIET      040	/* keep quiet about things */
 
 static unsigned int UMask = 0022;
@@ -78,6 +78,8 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv)
    {
       if (!strcmp(*argv, "silent")) {
 	 ctrl |= MKHOMEDIR_QUIET;
+      } else if (!strcmp(*argv, "debug")) {
+         ctrl |= MKHOMEDIR_DEBUG;
       } else if (!strncmp(*argv,"umask=",6)) {
 	 UMask = strtol(*argv+6,0,0);
       } else if (!strncmp(*argv,"skel=",5)) {

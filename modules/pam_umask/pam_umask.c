@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@thkukuk.de>
+ * Copyright (c) 2005, 2006, 2007 Thorsten Kukuk <kukuk@thkukuk.de>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -181,7 +181,7 @@ set_umask (const char *value)
 
   mask = strtoul (value, &endptr, 8) & 0777;
   if (((mask == 0) && (value_orig == endptr)) ||
-      ((mask == ULONG_MAX) && (errno == ERANGE)))
+      ((mask == UINT_MAX) && (errno == ERANGE)))
     return;
   umask (mask);
   return;

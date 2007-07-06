@@ -132,8 +132,8 @@ main(int argc, char *argv[])
   if (rlim.rlim_cur != 1 && rlim.rlim_max != 40)
     {
       if (debug)
-	fprintf (stderr, "pam_limits1: getrlimit failed, soft=%d, hard=%d\n",
-		 rlim.rlim_cur, rlim.rlim_max);
+	fprintf (stderr, "pam_limits1: getrlimit failed, soft=%u, hard=%u\n",
+		 (unsigned int) rlim.rlim_cur, (unsigned int) rlim.rlim_max);
       return 1;
     }
 

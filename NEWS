@@ -1,7 +1,7 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
-Release X.XX.X.X
+Release 0.99.8.0
 
 * Add translations for ar, ca, da, ru, sv and zu.
 * Update hungarian translation.
@@ -11,6 +11,8 @@ Release X.XX.X.X
 * Improve pam_selinux module to be more useful
   for MLS.
 * Add minclass option to pam_cracklib
+* Add new group syntax to pam_access
+
 
 Release 0.99.7.1
 

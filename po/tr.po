@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-06-20 15:36+0200\n"
+"POT-Creation-Date: 2007-07-05 12:48+0200\n"
 "PO-Revision-Date: 2006-05-03 19:00+0200\n"
 "Last-Translator: Koray Löker <loker@pardus.org.tr>\n"
 "Language-Team: Türkçe <tr@li.org>\n"
@@ -270,7 +270,7 @@ msgstr "Son giriş: %s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Yeni hesabınıza hoşgeldiniz"
 
-#: modules/pam_limits/pam_limits.c:689
+#: modules/pam_limits/pam_limits.c:701
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "%s için fazla giriş "
@@ -311,12 +311,12 @@ msgstr "%s dizininde okunmuş iletiniz var"
 msgid "You have mail in folder %s."
 msgstr "%s dizininde iletiniz var"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:140
+#: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
 msgstr ""
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:145
+#: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
 msgstr ""
