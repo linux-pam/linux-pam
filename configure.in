@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(conf/pam_conv1/pam_conv_y.y)
-AM_INIT_AUTOMAKE("Linux-PAM", 0.99.8.0)
+AM_INIT_AUTOMAKE("Linux-PAM", 0.99.8.1)
 AC_PREREQ([2.60])
 AM_CONFIG_HEADER(config.h)
 AC_CANONICAL_HOST
@@ -351,11 +351,13 @@ dnl libraries are unuseable, so try libdb first.
 AC_ARG_ENABLE([db],
         AC_HELP_STRING([--enable-db=(db|ndbm|yes|no)],[Default behavior 'yes', which is to check for libdb first, followed by ndbm. Use 'no' to disable db support.]),
         WITH_DB=$enableval, WITH_DB=yes)
+AC_ARG_WITH([db-uniquename],
+	AC_HELP_STRING([--with-db-uniquename=extension],[Unique name for db libraries and functions.]))
 if test x"$WITH_DB" != xno ; then
         if test x"$WITH_DB" = xyes -o x"$WITH_DB" = xdb ; then
-              AC_CHECK_LIB([db], [db_create], LIBDB="-ldb", LIBDB="")
+              AC_CHECK_LIB([db$with_db_uniquename], [db_create$with_db_uniquename], LIBDB="-ldb$with_db_uniquename", LIBDB="")
               if test -z "$LIBDB" ; then
-                  AC_CHECK_LIB([db], [dbm_store], LIBDB="-ldb", LIBDB="")
+                  AC_CHECK_LIB([db$with_db_uniquename], [dbm_store$with_db_uniquename], LIBDB="-ldb$with_db_uniquename", LIBDB="")
               fi
         fi
         if test -z "$LIBDB" ; then

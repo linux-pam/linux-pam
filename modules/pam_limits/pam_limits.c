@@ -39,6 +39,7 @@
 
 #include <grp.h>
 #include <pwd.h>
+#include <locale.h>
 
 /* Module defines */
 #define LINE_LENGTH 1024

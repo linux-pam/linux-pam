@@ -1,3 +1,11 @@
+2007-07-10  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Add --with-db-uniquename option to support
+	db libraries and functions with unique name extension.
+	Patch from Diego 'Flameeyes' Pettenò <flameeyes@gmail.com>.
+
+	* modules/pam_limits/pam_limits.c: Include locale.h.
+
 2007-07-06  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.8.0
