@@ -35,14 +35,24 @@ _pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type,
        (retval != PAM_USER_UNKNOWN && pamh->user) ? pamh->user : "?",
 	-1, pamh->rhost, NULL, pamh->tty, retval == PAM_SUCCESS );
 
-  if (rc == -1 && errno != old_errno)
+  /* libaudit sets errno to his own negative error code. This can be
+     an official errno number, but must not. It can also be a audit
+     internal error code. Which makes errno useless :-((. Try the
+     best to fix it. */
+  errno = -rc;
+
+  if (rc < 0 && errno != old_errno)
     {
       old_errno = errno;
       pam_syslog (pamh, LOG_CRIT, "audit_log_acct_message() failed: %m");
     }
 
   pamh->audit_state |= PAMAUDIT_LOGGED;
-  return rc;
+
+  if (rc == -EPERM && getuid () != 0)
+    return 0;
+  else
+    return rc;
 }
 
 int

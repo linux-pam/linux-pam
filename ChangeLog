@@ -1,3 +1,9 @@
+2007-07-12  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpam/pam_audit.c (_pam_audit_writelog): Don't return
+	error if application runs as normal user. Fixes regression
+	introduced with last change.
+
 2007-07-10  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Add --with-db-uniquename option to support
