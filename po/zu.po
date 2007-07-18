@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-07-05 12:48+0200\n"
+"POT-Creation-Date: 2007-07-18 10:59+0200\n"
 "PO-Revision-Date: 2006-11-03 12:03\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -266,7 +266,7 @@ msgstr "Ukungena kokugcina:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Uyamukelwa kwi-akhawunti yakho entsha!"
 
-#: modules/pam_limits/pam_limits.c:701
+#: modules/pam_limits/pam_limits.c:702
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Kuningi kakhulu ukungena kwi- '%s' osekwenziwe."

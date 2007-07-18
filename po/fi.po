@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-07-05 12:48+0200\n"
+"POT-Creation-Date: 2007-07-18 10:59+0200\n"
 "PO-Revision-Date: 2006-05-04 08:30+0200\n"
 "Last-Translator: Jyri Palokangas <jmp@netti.fi>\n"
 "Language-Team:  <yast-trans-fi@kotoistaminen.novell.fi>\n"
@@ -272,7 +272,7 @@ msgstr "Viimeinen kirjautuminen:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Tervetuloa uudella käyttäjätilillä!"
 
-#: modules/pam_limits/pam_limits.c:701
+#: modules/pam_limits/pam_limits.c:702
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Liian monta kirjautumista '%s'."

@@ -1,3 +1,10 @@
+2007-07-18  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 0.99.8.1
+
+	* libpam/pam_audit.c: Include unistd.h for getuid().
+	* libpam/Makefile.am: Bump version number.
+
 2007-07-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/pam_audit.c (_pam_audit_writelog): Don't return

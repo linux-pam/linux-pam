@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006, 2007 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
 AM_CFLAGS = -DDEFAULT_MODULE_PATH=\"$(SECUREDIR)/\" -DLIBPAM_COMPILE \
@@ -20,7 +20,7 @@ include_HEADERS = include/security/_pam_compat.h \
 noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h \
 		pam_modutil_private.h pam_static_modules.h
 
-libpam_la_LDFLAGS = -no-undefined -version-info 81:7:81 \
+libpam_la_LDFLAGS = -no-undefined -version-info 81:8:81 \
 	@LIBAUDIT@ $(LIBPRELUDE_LIBS) @LIBDL@
 if STATIC_MODULES
   libpam_la_LDFLAGS += `ls ../modules/pam_*/*.lo` \

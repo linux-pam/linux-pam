@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-07-05 12:48+0200\n"
+"POT-Creation-Date: 2007-07-18 10:59+0200\n"
 "PO-Revision-Date: 2005-09-18 19:09+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -274,7 +274,7 @@ msgstr "Senaste inloggningen:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Välkommen till ditt nya konto!"
 
-#: modules/pam_limits/pam_limits.c:701
+#: modules/pam_limits/pam_limits.c:702
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "För många inloggningar för %s."
