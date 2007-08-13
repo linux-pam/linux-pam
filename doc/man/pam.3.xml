@@ -57,7 +57,7 @@
         <citerefentry>
           <refentrytitle>pam_end</refentrytitle><manvolnum>3</manvolnum>
         </citerefentry> function terminates the PAM transaction and is the last
-        function an application should call in the PAM contenxt. Upon return
+        function an application should call in the PAM context. Upon return
         the handle pamh is no longer valid and all memory associated with it
         will be invalid. It can be called at any time to terminate a PAM
         transaction.

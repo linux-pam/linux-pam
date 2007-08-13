@@ -1,3 +1,10 @@
+2007-08-13  Olivier Blin <blino@mandriva.com>
+
+	* doc/man/pam.3.xml: Fix typo.
+	* doc/man/pam.3: Likewise.
+	* doc/man/pam_end.3.xml: Likewise.
+	* doc/man/pam_end.3: Likewise.
+
 2007-07-18  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.8.1

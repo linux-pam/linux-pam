@@ -34,7 +34,7 @@
     <para>
       The <function>pam_end</function> function terminates the PAM
       transaction and is the last function an application should call
-      in the PAM contenxt.  Upon return the handle <emphasis>pamh</emphasis>
+      in the PAM context.  Upon return the handle <emphasis>pamh</emphasis>
       is no longer valid and all memory associated with it will be
       invalid.
     </para>
