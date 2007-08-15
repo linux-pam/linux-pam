@@ -1,3 +1,8 @@
+2007-08-15  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_access/pam_access.c (list_match): Add explicit
+	sptr argument for strtok_r, otherwise the code is not portable.
+
 2007-08-13  Olivier Blin <blino@mandriva.com>
 
 	* doc/man/pam.3.xml: Fix typo.

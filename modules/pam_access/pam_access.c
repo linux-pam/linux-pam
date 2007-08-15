@@ -153,7 +153,7 @@ parse_args(pam_handle_t *pamh, struct login_info *loginfo,
 
 typedef int match_func (pam_handle_t *, char *, struct login_info *);
 
-static int list_match (pam_handle_t *, char *, struct login_info *,
+static int list_match (pam_handle_t *, char *, char *, struct login_info *,
 		       match_func *);
 static int user_match (pam_handle_t *, char *, struct login_info *);
 static int group_match (pam_handle_t *, const char *, const char *);
@@ -376,11 +376,11 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	    if (pam_access_debug)
 	      pam_syslog (pamh, LOG_DEBUG,
 			  "line %d: %s : %s : %s", lineno, perm, users, froms);
-	    match = list_match(pamh, froms, item, from_match);
+	    match = list_match(pamh, froms, NULL, item, from_match);
 	    if (pam_access_debug)
 	      pam_syslog (pamh, LOG_DEBUG,
 			  "from_match=%d, \"%s\"", match, item->from);
-	    match = match && list_match (pamh, users, item, user_match);
+	    match = match && list_match (pamh, users, NULL, item, user_match);
 	    if (pam_access_debug)
 	      pam_syslog (pamh, LOG_DEBUG, "user_match=%d, \"%s\"",
 			  match, item->user->pw_name);
@@ -400,14 +400,14 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 
 /* list_match - match an item against a list of tokens with exceptions */
 
-static int list_match(pam_handle_t *pamh,
-		      char *list, struct login_info *item, match_func *match_fn)
+static int
+list_match(pam_handle_t *pamh, char *list, char *sptr,
+	   struct login_info *item, match_func *match_fn)
 {
     char   *tok;
     int     match = NO;
-    char   *sptr;
 
-    if (pam_access_debug)
+    if (pam_access_debug && list != NULL)
       pam_syslog (pamh, LOG_DEBUG,
 		  "list_match: list=%s, item=%s", list, item->user->pw_name);
 
@@ -430,7 +430,7 @@ static int list_match(pam_handle_t *pamh,
     if (match != NO) {
 	while ((tok = strtok_r(NULL, sep, &sptr)) && strcasecmp(tok, "EXCEPT"))
 	     /* VOID */ ;
-	if (tok == 0 || list_match(pamh, sptr, item, match_fn) == NO)
+	if (tok == 0 || list_match(pamh, NULL, sptr, item, match_fn) == NO)
 	    return (match);
     }
     return (NO);
