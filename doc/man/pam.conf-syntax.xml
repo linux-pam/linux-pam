@@ -211,7 +211,8 @@
       <emphasis>authtok_disable_aging</emphasis>,
       <emphasis>try_again</emphasis>, <emphasis>ignore</emphasis>,
       <emphasis>abort</emphasis>, <emphasis>authtok_expired</emphasis>,
-      <emphasis>module_unknown</emphasis>, <emphasis>bad_item</emphasis>
+      <emphasis>module_unknown</emphasis>, <emphasis>bad_item</emphasis>,
+      <emphasis>conv_again</emphasis>, <emphasis>incomplete</emphasis>,
       and <emphasis>default</emphasis>.
     </para>
     <para>

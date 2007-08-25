@@ -1,3 +1,10 @@
+2007-08-25  Steve Langasek  <vorlon@debian.org>
+
+	* doc/man/pam.conf-syntax.xml, doc/man/pam.conf.5:
+	Document "new" control options conv_again and incomplete, supported
+	in pam.d's extended syntax.
+	Patch from Ben Collins <bcollins@debian.org>.
+
 2007-08-15  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_access/pam_access.c (list_match): Add explicit
