@@ -1,3 +1,8 @@
+2007-08-26  Andrew Morgan  <morgan@kernel.org>
+
+	* doc/man/pam.conf-syntax.xml
+	Minor fixes: '\[' -> '\]'.
+
 2007-08-25  Steve Langasek  <vorlon@debian.org>
 
 	* doc/man/pam.conf-syntax.xml, doc/man/pam.conf.5:

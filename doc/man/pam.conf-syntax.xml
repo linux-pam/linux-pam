@@ -222,7 +222,7 @@
       <filename>/usr/include/security/_pam_types.h</filename>. The
       <emphasis>actionN</emphasis> can be: an unsigned integer,
       <emphasis>n</emphasis>, signifying an action of 'jump over the
-      next <emphasis>n</emphasis> modules in the stack', or take one
+      next <emphasis>n</emphasis> modules in the stack'; or take one
       of the following forms:
     </para>
     <variablelist>
@@ -356,7 +356,7 @@
       When using this convention, you can include `[' characters
       inside the string, and if you wish to include a `]' character
       inside the string that will survive the argument parsing, you
-      should use `\['. In other words:
+      should use `\]'. In other words:
     </para>
     <programlisting>
     [..[..\]..]    -->   ..[..]..
