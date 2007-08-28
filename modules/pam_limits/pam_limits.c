@@ -14,7 +14,7 @@
  */
 
 #if !defined(linux) && !defined(__linux)
-#error THIS CODE IS KNOWN TO WORK ONLY ON LINUX !!!
+#warning THIS CODE IS KNOWN TO WORK ONLY ON LINUX !!!
 #endif
 
 #include "config.h"
@@ -281,8 +281,10 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	limit_item = RLIMIT_NOFILE;
     else if (strcmp(lim_item, "memlock") == 0)
 	limit_item = RLIMIT_MEMLOCK;
+#ifdef RLIMIT_AS
     else if (strcmp(lim_item, "as") == 0)
 	limit_item = RLIMIT_AS;
+#endif /*RLIMIT_AS*/
 #ifdef RLIMIT_LOCKS
     else if (strcmp(lim_item, "locks") == 0)
 	limit_item = RLIMIT_LOCKS;
@@ -389,7 +391,9 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
         case RLIMIT_CORE:
         case RLIMIT_RSS:
         case RLIMIT_MEMLOCK:
+#ifdef RLIMIT_AS
         case RLIMIT_AS:
+#endif
          if (rlimit_value != RLIM_INFINITY)
 	   {
 	     if (rlimit_value >= RLIM_INFINITY/1024)

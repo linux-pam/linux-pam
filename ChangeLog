@@ -1,3 +1,24 @@
+2007-08-27  Steve Langasek <vorlon@debian.org>
+
+	* modules/pam_limits/pam_limits.c: when building on non-Linux
+	systems, give a warning only, not an error; no one seems to
+	remember why this error was here in the first place, but leave
+	something in that might still grab the attention of non-Linux
+	users.
+	Patch from Michal Suchanek <hramrach_l@centrum.cz>.
+	* configure.in, modules/pam_rhosts/pam_rhosts_auth.c: check for
+	the presence of net/if.h before using, required for Hurd
+	compatibility.
+	Patch from Igor Khavkine <i_khavki@alcor.concordia.ca>.
+	* modules/pam_limits/pam_limits.c: conditionalize the use of
+	RLIMIT_AS, which is not present on the Hurd.
+	Patch from Igor Khavkine <i_khavki@alcor.concordia.ca>.
+	* modules/pam_rhosts/pam_rhosts_auth.c: use getline() instead of
+	a static buffer when available; fixes the build on systems
+	without MAXHOSTNAMELEN (i.e., the Hurd).
+	* modules/pam_xauth/pam_xauth.c: make sure PATH_MAX is defined
+	before using it.
+
 2007-08-26  Andrew Morgan  <morgan@kernel.org>
 
 	* doc/man/pam.conf-syntax.xml

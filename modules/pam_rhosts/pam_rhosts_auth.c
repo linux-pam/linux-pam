@@ -64,11 +64,10 @@
 #include <sys/fsuid.h>
 #endif /* HAVE_SYS_FSUID_H */
 #ifdef HAVE_NET_IF_H
-#include <sys/if.h>
+#include <net/if.h>
 #endif
 #include <sys/types.h>
 #include <sys/uio.h>
-#include <net/if.h>
 #include <netinet/in.h>
 
 #ifndef MAXDNAME
@@ -294,7 +293,6 @@ __icheckuser (pam_handle_t *pamh, struct _options *opts,
     /*
       luser is user entry from .rhosts/hosts.equiv file
       ruser is user id on remote host
-      rhost is the remote host name
       */
     const void *user;
 
@@ -349,11 +347,17 @@ __ivaliduser (pam_handle_t *pamh, struct _options *opts,
     register const char *user;
     register char *p;
     int hcheck, ucheck;
+    int retval = 1;
+#ifdef HAVE_GETLINE
+    char *buf=NULL;
+    int buflen=0;
+
+    while (getline(&buf,&buflen,hostf)) {
+#else
     char buf[MAXHOSTNAMELEN + 128];                       /* host + login */
 
-    buf[sizeof (buf)-1] = '\0';                 	/* terminate line */
-
     while (fgets(buf, sizeof(buf), hostf) != NULL) {   /* hostf file line */
+#endif
         p = buf;                              /* from beginning of file.. */
 
 	/* Skip empty or comment lines */
@@ -402,7 +406,7 @@ __ivaliduser (pam_handle_t *pamh, struct _options *opts,
 	hcheck=__icheckhost(pamh, opts, raddr, buf, rhost);
 
 	if (hcheck<0)
-	    return(1);
+	    break;
 
 	if (hcheck) {
 	    /* Then check user part */
@@ -412,18 +416,23 @@ __ivaliduser (pam_handle_t *pamh, struct _options *opts,
 	    ucheck=__icheckuser(pamh, opts, user, ruser);
 
 	    /* Positive 'host user' match? */
-	    if (ucheck>0)
-		return(0);
+	    if (ucheck>0) {
+		retval = 0;
+		break;
+	    }
 
 	    /* Negative 'host -user' match? */
 	    if (ucheck<0)
-		return(1);
+		break;
 
 	    /* Neither, go on looking for match */
 	}
     }
+#ifdef HAVE_GETLINE
+    if(buf)free(buf);
+#endif
 
-    return (1);
+    return retval;
 }
 
 /*

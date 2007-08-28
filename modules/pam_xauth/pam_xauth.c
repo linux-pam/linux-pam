@@ -63,6 +63,11 @@
 #define XAUTHDEF ".Xauthority"
 #define XAUTHTMP ".xauthXXXXXX"
 
+/* Hurd compatibility */
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif
+
 /* Possible paths to xauth executable */
 static const char * const xauthpaths[] = {
 #ifdef PAM_PATH_XAUTH
