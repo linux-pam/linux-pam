@@ -1,3 +1,10 @@
+2007-08-29  Steve Langasek <vorlon@debian.org>
+
+	* modules/pam_rhosts/pam_rhosts_auth.c: getline returns -1 at
+	EOF, not 0.  Check accordingly to fix an infinite loop.  Thanks
+	to Stephan Springl <springl-rhosts@bfw-online.de> for catching
+	this.
+
 2007-08-28  Steve Langasek <vorlon@debian.org>
 
 	* configure.in: call AC_CHECK_HEADERS instead of AC_CHECK_HEADER

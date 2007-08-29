@@ -352,7 +352,7 @@ __ivaliduser (pam_handle_t *pamh, struct _options *opts,
     char *buf=NULL;
     int buflen=0;
 
-    while (getline(&buf,&buflen,hostf)) {
+    while (getline(&buf,&buflen,hostf) > 0) {
 #else
     char buf[MAXHOSTNAMELEN + 128];                       /* host + login */
 
