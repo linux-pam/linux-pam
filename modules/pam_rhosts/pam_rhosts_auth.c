@@ -267,7 +267,7 @@ __icheckhost (pam_handle_t *pamh, struct _options *opts, u_int32_t raddr
 
 
     /* Try for raw ip address first. */
-    if (isdigit(*lhost) && (long)(laddr = inet_addr(lhost)) != -1)
+    if (isdigit(*lhost) && (int32_t)(laddr = inet_addr(lhost) != -1))
 	return (negate*(! (raddr ^ laddr)));
 
     /* Better be a hostname. */
@@ -350,7 +350,7 @@ __ivaliduser (pam_handle_t *pamh, struct _options *opts,
     int retval = 1;
 #ifdef HAVE_GETLINE
     char *buf=NULL;
-    int buflen=0;
+    size_t buflen=0;
 
     while (getline(&buf,&buflen,hostf) > 0) {
 #else

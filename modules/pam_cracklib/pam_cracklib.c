@@ -99,7 +99,7 @@ struct cracklib_options {
         int min_class;
 	int use_authtok;
 	char prompt_type[BUFSIZ];
-        char *cracklib_dictpath;
+        const char *cracklib_dictpath;
 };
 
 #define CO_RETRY_TIMES  1

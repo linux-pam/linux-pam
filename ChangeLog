@@ -1,3 +1,11 @@
+2007-08-29  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_rhosts/pam_rhosts_auth.c: buflen needs to be size_t.
+	(__icheckhost): Cast to int32_t to fix limited range error.
+
+	* modules/pam_cracklib/pam_cracklib.c: Mark cracklib_dictpath
+	as const.
+
 2007-08-29  Steve Langasek <vorlon@debian.org>
 
 	* modules/pam_rhosts/pam_rhosts_auth.c: getline returns -1 at
