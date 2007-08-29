@@ -56,6 +56,10 @@
 extern char *FascistCheck(char *pw, const char *dictpath);
 #endif
 
+#ifndef CRACKLIB_DICT
+#define CRACKLIB_DICT NULL
+#endif
+
 /* For Translators: "%s%s" could be replaced with "<service> " or "". */
 #define PROMPT1 _("New %s%spassword: ")
 /* For Translators: "%s%s" could be replaced with "<service> " or "". */
@@ -95,7 +99,7 @@ struct cracklib_options {
         int min_class;
 	int use_authtok;
 	char prompt_type[BUFSIZ];
-        char cracklib_dictpath[PATH_MAX];
+        char *cracklib_dictpath;
 };
 
 #define CO_RETRY_TIMES  1
@@ -166,14 +170,15 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
 	 } else if (!strncmp(*argv,"use_authtok",11)) {
 		 opt->use_authtok = 1;
 	 } else if (!strncmp(*argv,"dictpath=",9)) {
-	     strncpy(opt->cracklib_dictpath, *argv+9,
-		     sizeof(opt->cracklib_dictpath) - 1);
+	     opt->cracklib_dictpath = *argv+9;
+	     if (!*(opt->cracklib_dictpath)) {
+		 opt->cracklib_dictpath = CRACKLIB_DICT;
+	     }
 	 } else {
 	     pam_syslog(pamh,LOG_ERR,"pam_parse: unknown option; %s",*argv);
 	 }
      }
      opt->prompt_type[sizeof(opt->prompt_type) - 1] = '\0';
-     opt->cracklib_dictpath[sizeof(opt->cracklib_dictpath) - 1] = '\0';
 
      return ctrl;
 }
@@ -571,8 +576,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
     options.use_authtok = CO_USE_AUTHTOK;
     memset(options.prompt_type, 0, BUFSIZ);
     strcpy(options.prompt_type,"UNIX");
-    memset(options.cracklib_dictpath, 0,
-	   sizeof (options.cracklib_dictpath));
+    options.cracklib_dictpath = CRACKLIB_DICT;
 
     ctrl = _pam_parse(pamh, &options, argc, argv);
 
@@ -666,7 +670,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
             const char *crack_msg;
 
 	    D(("against cracklib"));
-            if ((crack_msg = FascistCheck(token1,options.cracklib_dictpath[0] == '\0'?NULL:options.cracklib_dictpath))) {
+            if ((crack_msg = FascistCheck(token1,options.cracklib_dictpath))) {
                 if (ctrl & PAM_DEBUG_ARG)
                     pam_syslog(pamh,LOG_DEBUG,"bad password: %s",crack_msg);
                 pam_error(pamh, _("BAD PASSWORD: %s"), crack_msg);

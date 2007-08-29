@@ -1,3 +1,13 @@
+2007-08-28  Steve Langasek <vorlon@debian.org>
+
+	* configure.in: call AC_CHECK_HEADERS instead of AC_CHECK_HEADER
+	for crack.h, so we get a HAVE_CRACK_H define.
+	* modules/pam_cracklib/pam_cracklib.c: don't copy around the
+	cracklib dictpath into a fixed-width buffer, when we can just
+	point at the existing strings; and allow users to override the
+	default cracklib path with -DCRACKLIB_DICT, required for
+	compatibility with cracklib 2.7.
+
 2007-08-27  Steve Langasek <vorlon@debian.org>
 
 	* modules/pam_limits/pam_limits.c: when building on non-Linux
