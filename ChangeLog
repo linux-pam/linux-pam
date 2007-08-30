@@ -1,5 +1,11 @@
 2007-08-29  Steve Langasek  <vorlon@debian.org>
 
+	* libpam/pam_modutil_getgrgid.c, libpam/pam_modutil_getgrnam.c,
+	libpam/pam_modutil_getpwnam.c, libpam/pam_modutil_getpwuid.c,
+	libpam/pam_modutil_getspnam.c: don't use pthread mutexes in libpam
+	unnecessarily; this avoids linking problems on non-Linux
+	platforms.
+
 	* modules/pam_listfile/pam_listfile.c, modules/pam_listfile/README,
 	modules/pam_listfile/pam_listfile.8,
 	modules/pam_listfile/pam_listfile.8.xml: add a 'quiet' option to

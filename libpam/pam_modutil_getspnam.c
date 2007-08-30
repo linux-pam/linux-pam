@@ -11,20 +11,9 @@
 
 #include <errno.h>
 #include <limits.h>
-#include <pthread.h>
 #include <shadow.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-static pthread_mutex_t _pammodutil_mutex = PTHREAD_MUTEX_INITIALIZER;
-static void _pammodutil_lock(void)
-{
-	pthread_mutex_lock(&_pammodutil_mutex);
-}
-static void _pammodutil_unlock(void)
-{
-	pthread_mutex_unlock(&_pammodutil_mutex);
-}
 
 static int intlen(int number)
 { 
@@ -84,13 +73,11 @@ pam_modutil_getspnam(pam_handle_t *pamh, const char *user)
 	    if (pamh != NULL) {
 	        for (i = 0; i < INT_MAX; i++) {
 	            sprintf(data_name, "_pammodutil_getspnam_%s_%d", user, i);
-	            _pammodutil_lock();
 		    status = PAM_NO_MODULE_DATA;
 	            if (pam_get_data(pamh, data_name, &ignore) != PAM_SUCCESS) {
 		        status = pam_set_data(pamh, data_name,
 					      result, pam_modutil_cleanup);
 		    }
-	            _pammodutil_unlock();
 		    if (status == PAM_SUCCESS) {
 		        break;
 		    }
