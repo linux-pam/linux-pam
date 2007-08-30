@@ -68,7 +68,7 @@ PAM_EXTERN int
 pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
-    int retval, i, citem=0, extitem=0, onerr=PAM_SERVICE_ERR, sense=2;
+    int retval, i, citem=0, extitem=0, onerr=PAM_SERVICE_ERR, sense=2, quiet=0;
     const void *void_citemp;
     const char *citemp;
     char *ifname=NULL;
@@ -155,6 +155,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		    apply_type=APPLY_TYPE_USER;
 		    strncpy(apply_val,myval,sizeof(apply_val)-1);
 		}
+	    } else if (!strcmp(mybuf,"quiet")) {
+		quiet = 1;
 	    } else {
 		free(ifname);
 		pam_syslog(pamh,LOG_ERR, "Unknown option: %s",mybuf);
@@ -399,8 +401,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 #endif
 	(void) pam_get_item(pamh, PAM_SERVICE, &service);
 	(void) pam_get_user(pamh, &user_name, NULL);
-	pam_syslog (pamh, LOG_ALERT, "Refused user %s for service %s",
-		    user_name, (const char *)service);
+	if (!quiet)
+	    pam_syslog (pamh, LOG_ALERT, "Refused user %s for service %s",
+	                user_name, (const char *)service);
 	return PAM_AUTH_ERR;
     }
 }

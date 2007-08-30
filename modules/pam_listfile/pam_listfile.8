@@ -1,11 +1,11 @@
 .\"     Title: pam_listfile
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/22/2006
-.\"    Manual: Linux\-PAM Manual
-.\"    Source: Linux\-PAM Manual
+.\" Generator: DocBook XSL Stylesheets v1.72.0 <http://docbook.sf.net/>
+.\"      Date: 08/25/2007
+.\"    Manual: Linux-PAM Manual
+.\"    Source: Linux-PAM Manual
 .\"
-.TH "PAM_LISTFILE" "8" "06/22/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_LISTFILE" "8" "08/25/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -14,7 +14,7 @@
 pam_listfile \- deny or allow services based on an arbitrary file
 .SH "SYNOPSIS"
 .HP 16
-\fBpam_listfile.so\fR item=[tty|user|rhost|ruser|group|shell] sense=[allow|deny] file=\fI/path/filename\fR onerr=[succeed|fail] [apply=[\fIuser\fR|\fI@group\fR]]
+\fBpam_listfile.so\fR item=[tty|user|rhost|ruser|group|shell] sense=[allow|deny] file=\fI/path/filename\fR onerr=[succeed|fail] [apply=[\fIuser\fR|\fI@group\fR]] [quiet]
 .SH "DESCRIPTION"
 .PP
 pam_listfile is a PAM module which provides a way to deny or allow services based on an arbitrary file.
@@ -64,25 +64,40 @@ Besides this last one, all arguments should be specified; do not count on any de
 No credentials are awarded by this module.
 .SH "OPTIONS"
 .PP
-.TP 3n
+.PP
 \fBitem=[tty|user|rhost|ruser|group|shell]\fR
+.RS 4
 What is listed in the file and should be checked for.
-.TP 3n
+.RE
+.PP
 \fBsense=[allow|deny]\fR
+.RS 4
 Action to take if found in file, if the item is NOT found in the file, then the opposite action is requested.
-.TP 3n
+.RE
+.PP
 \fBfile=\fR\fB\fI/path/filename\fR\fR
+.RS 4
 File containing one item per line. The file needs to be a plain file and not world writeable.
-.TP 3n
+.RE
+.PP
 \fBonerr=[succeed|fail]\fR
+.RS 4
 What to do if something weird happens like being unable to open the file.
-.TP 3n
+.RE
+.PP
 \fBapply=[\fR\fB\fIuser\fR\fR\fB|\fR\fB\fI@group\fR\fR\fB]\fR
+.RS 4
 Restrict the user class for which the restriction apply. Note that with
 \fBitem=[user|ruser|group]\fR
 this oes not make sense, but for
 \fBitem=[tty|rhost|shell]\fR
 it have a meaning.
+.RE
+.PP
+\fBquiet\fR
+.RS 4
+Do not treat service refusals or missing list files as errors that need to be logged.
+.RE
 .SH "MODULE SERVICES PROVIDED"
 .PP
 The services
@@ -94,34 +109,44 @@ and
 are supported.
 .SH "RETURN VALUES"
 .PP
-.TP 3n
+.PP
 PAM_AUTH_ERR
+.RS 4
 Authentication failure.
-.TP 3n
+.RE
+.PP
 PAM_BUF_ERR
+.RS 4
 Memory buffer error.
-.TP 3n
+.RE
+.PP
 PAM_IGNORE
+.RS 4
 The rule does not apply to the
 \fBapply\fR
 option.
-.TP 3n
+.RE
+.PP
 PAM_SERVICE_ERR
+.RS 4
 Error in service module.
-.TP 3n
+.RE
+.PP
 PAM_SUCCESS
+.RS 4
 Success.
+.RE
 .SH "EXAMPLES"
 .PP
 Classic 'ftpusers' authentication can be implemented with this entry in
 \fI/etc/pam.d/ftpd\fR:
 .sp
-.RS 3n
+.RS 4
 .nf
 #
 # deny ftp\-access to users listed in the /etc/ftpusers file
 #
-auth    required       pam_listfile.so \\
+auth    required       pam_listfile.so \e
         onerr=succeed item=user sense=deny file=/etc/ftpusers
       
 .fi
@@ -137,12 +162,12 @@ To allow login access only for certain users, you can use a
 \fI/etc/pam.d/login\fR
 entry like this:
 .sp
-.RS 3n
+.RS 4
 .nf
 #
 # permit login to users listed in /etc/loginusers
 #
-auth    required       pam_listfile.so \\
+auth    required       pam_listfile.so \e
         onerr=fail item=user sense=allow file=/etc/loginusers
       
 .fi

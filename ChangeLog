@@ -1,3 +1,11 @@
+2007-08-29  Steve Langasek  <vorlon@debian.org>
+
+	* modules/pam_listfile/pam_listfile.c, modules/pam_listfile/README,
+	modules/pam_listfile/pam_listfile.8,
+	modules/pam_listfile/pam_listfile.8.xml: add a 'quiet' option to
+	avoid logging errors any time a user is refused service by this
+	module.
+
 2007-08-29  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_rhosts/pam_rhosts_auth.c: buflen needs to be size_t.

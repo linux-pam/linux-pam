@@ -33,6 +33,9 @@
       <arg choice="opt">
         apply=[<replaceable>user</replaceable>|<replaceable>@group</replaceable>]
       </arg>
+      <arg choice="opt">
+        quiet
+      </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -152,6 +155,18 @@
               Restrict the user class for which the restriction apply. Note that
               with <option>item=[user|ruser|group]</option> this oes not make sense,
               but for <option>item=[tty|rhost|shell]</option> it have a meaning.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>quiet</option>
+          </term>
+          <listitem>
+            <para>
+              Do not treat service refusals or missing list files as
+              errors that need to be logged.
             </para>
           </listitem>
         </varlistentry>

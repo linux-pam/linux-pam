@@ -58,6 +58,11 @@ apply=[user|@group]
     item=[user|ruser|group] this oes not make sense, but for item=[tty|rhost|
     shell] it have a meaning.
 
+quiet
+
+    Do not treat service refusals or missing list files as errors that need to
+    be logged.
+
 EXAMPLES
 
 Classic 'ftpusers' authentication can be implemented with this entry in /etc/
