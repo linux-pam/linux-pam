@@ -1,11 +1,11 @@
 .\"     Title: limits.conf
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.71.1 <http://docbook.sf.net/>
-.\"      Date: 04/30/2007
-.\"    Manual: Linux\-PAM Manual
-.\"    Source: Linux\-PAM Manual
+.\" Generator: DocBook XSL Stylesheets v1.72.0 <http://docbook.sf.net/>
+.\"      Date: 08/30/2007
+.\"    Manual: Linux-PAM Manual
+.\"    Source: Linux-PAM Manual
 .\"
-.TH "LIMITS.CONF" "5" "04/30/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "LIMITS.CONF" "5" "08/30/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -27,21 +27,19 @@ The fields listed above should be filled as follows:
 \fB<domain>\fR
 .RS 4
 .RS 4
-.TP 4
-\(bu
-a username
-.TP 4
-\(bu
-a groupname, with
+\h'-04'\(bu\h'+03'a username
+.RE
+.RS 4
+\h'-04'\(bu\h'+03'a groupname, with
 \fB@group\fR
 syntax. This should not be confused with netgroups.
-.TP 4
-\(bu
-the wildcard
+.RE
+.RS 4
+\h'-04'\(bu\h'+03'the wildcard
 \fB*\fR, for default entry.
-.TP 4
-\(bu
-the wildcard
+.RE
+.RS 4
+\h'-04'\(bu\h'+03'the wildcard
 \fB%\fR, for maxlogins limit only, can also be used with
 \fI%group\fR
 syntax.
@@ -139,7 +137,8 @@ address space limit (KB)
 .PP
 \fBmaxlogins\fR
 .RS 4
-maximum number of logins for this user
+maximum number of logins for this user except for this with
+\fIuid=0\fR
 .RE
 .PP
 \fBmaxsyslogins\fR

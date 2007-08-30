@@ -175,7 +175,8 @@
             <varlistentry>
               <term><option>maxlogins</option></term>
               <listitem>
-                <para>maximum number of logins for this user</para>
+                <para>maximum number of logins for this user except
+                      for this with <emphasis>uid=0</emphasis></para>
               </listitem>
             </varlistentry>
             <varlistentry>

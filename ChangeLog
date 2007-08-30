@@ -1,3 +1,8 @@
+2007-08-30  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_limits/limits.conf.5.xml: Document that maxlogins
+	is ignored for users with UID 0.
+
 2007-08-30  Steve Langasek  <vorlon@debian.org>
 
 	* modules/pam_cracklib/pam_cracklib.c:
