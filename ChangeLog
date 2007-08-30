@@ -5,6 +5,11 @@
 
 2007-08-30  Steve Langasek  <vorlon@debian.org>
 
+	* modules/pam_unix/support.c, modules/pam_unix/unix_chkpwd.c:
+	A wrong username doesn't need to be logged at LOG_ALERT;
+	LOG_WARNING should be sufficient.
+	Patch from Sam Hartman <hartmans@debian.org>.
+
 	* modules/pam_cracklib/pam_cracklib.c:
 	s/CRACKLIB_DICT/CRACKLIB_DICTS/, for consistency with existing
 	#define in pam_unix

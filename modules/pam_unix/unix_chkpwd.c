@@ -179,7 +179,7 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 		}
 	}
 	if (pwd == NULL || salt == NULL) {
-		_log_err(LOG_ALERT, "check pass; user unknown");
+		_log_err(LOG_WARNING, "check pass; user unknown");
 		p = NULL;
 		return PAM_USER_UNKNOWN;
 	}

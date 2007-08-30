@@ -665,12 +665,12 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			if (on(UNIX_AUDIT, ctrl)) {
 				/* this might be a typo and the user has given a password
 				   instead of a username. Careful with this. */
-				pam_syslog(pamh, LOG_ALERT,
+				pam_syslog(pamh, LOG_WARNING,
 				         "check pass; user (%s) unknown", name);
 			} else {
 				name = NULL;
 				if (on(UNIX_DEBUG, ctrl) || pwd == NULL) {
-				    pam_syslog(pamh, LOG_ALERT,
+				    pam_syslog(pamh, LOG_WARNING,
 				            "check pass; user unknown");
 				} else {
 				    /* don't log failure as another pam module can succeed */
