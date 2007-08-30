@@ -1,3 +1,9 @@
+2007-08-30  Steve Langasek  <vorlon@debian.org>
+
+	* modules/pam_cracklib/pam_cracklib.c:
+	s/CRACKLIB_DICT/CRACKLIB_DICTS/, for consistency with existing
+	#define in pam_unix
+
 2007-08-29  Steve Langasek  <vorlon@debian.org>
 
 	* libpam/pam_modutil_getgrgid.c, libpam/pam_modutil_getgrnam.c,

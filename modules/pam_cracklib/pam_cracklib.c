@@ -56,8 +56,8 @@
 extern char *FascistCheck(char *pw, const char *dictpath);
 #endif
 
-#ifndef CRACKLIB_DICT
-#define CRACKLIB_DICT NULL
+#ifndef CRACKLIB_DICTS
+#define CRACKLIB_DICTS NULL
 #endif
 
 /* For Translators: "%s%s" could be replaced with "<service> " or "". */
@@ -172,7 +172,7 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
 	 } else if (!strncmp(*argv,"dictpath=",9)) {
 	     opt->cracklib_dictpath = *argv+9;
 	     if (!*(opt->cracklib_dictpath)) {
-		 opt->cracklib_dictpath = CRACKLIB_DICT;
+		 opt->cracklib_dictpath = CRACKLIB_DICTS;
 	     }
 	 } else {
 	     pam_syslog(pamh,LOG_ERR,"pam_parse: unknown option; %s",*argv);
@@ -576,7 +576,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
     options.use_authtok = CO_USE_AUTHTOK;
     memset(options.prompt_type, 0, BUFSIZ);
     strcpy(options.prompt_type,"UNIX");
-    options.cracklib_dictpath = CRACKLIB_DICT;
+    options.cracklib_dictpath = CRACKLIB_DICTS;
 
     ctrl = _pam_parse(pamh, &options, argc, argv);
 
