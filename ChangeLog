@@ -1,3 +1,9 @@
+2007-08-31  Steve Langasek  <vorlon@debian.org>
+
+	* modules/pam_group/group.conf: don't use "games" as an example
+	group, on some distros this is a pre-existing group that it would
+	be a security hole to give users access to.
+
 2007-08-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_limits/limits.conf.5.xml: Document that maxlogins
