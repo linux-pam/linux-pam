@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006, 2007 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
 SUBDIRS = upperLOWER
@@ -15,13 +15,13 @@ securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
-AM_LDFLAGS = -no-undefined -avoid-version -module \
-	-L$(top_builddir)/libpam -lpam
+AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
 include_HEADERS=pam_filter.h
+pam_filter_la_LIBADD = -L$(top_builddir)/libpam -lpam
 
 securelib_LTLIBRARIES = pam_filter.la
 TESTS = tst-pam_filter

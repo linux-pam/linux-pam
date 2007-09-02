@@ -4,7 +4,7 @@
 
 AM_CFLAGS = -DLIBPAM_COMPILE -I$(top_srcdir)/libpam/include \
 		-I$(top_srcdir)/libpam
-AM_LDFLAGS = -L$(top_builddir)/libpam -lpam
+LDADD = -L$(top_builddir)/libpam -lpam
 
 CLEANFILES = *~
 
@@ -15,5 +15,5 @@ TESTS = tst-pam_start tst-pam_end tst-pam_fail_delay tst-pam_open_session \
 
 check_PROGRAMS = ${TESTS} tst-dlopen
 
-tst_dlopen_LDADD = -L$(top_builddir)/libpam -lpam -ldl
+tst_dlopen_LDADD = -ldl
 

@@ -25,12 +25,12 @@ if HAVE_LIBCRACK
   AM_CFLAGS += -D"USE_CRACKLIB"
 endif
 
-pam_unix_la_LDFLAGS = -no-undefined -avoid-version -module \
-	@LIBCRACK@ @LIBNSL@ -L$(top_builddir)/libpam -lpam \
-	@LIBCRYPT@ @LIBSELINUX@
+pam_unix_la_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   pam_unix_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
+pam_unix_la_LIBADD = @LIBCRACK@ @LIBNSL@ -L$(top_builddir)/libpam -lpam \
+	@LIBCRYPT@ @LIBSELINUX@
 
 securelib_LTLIBRARIES = pam_unix.la
 
@@ -46,12 +46,12 @@ pam_unix_la_SOURCES = bigcrypt.c pam_unix_acct.c \
 
 bigcrypt_SOURCES = bigcrypt.c bigcrypt_main.c
 bigcrypt_CFLAGS = $(AM_CFLAGS)
-bigcrypt_LDFLAGS = @LIBCRYPT@
+bigcrypt_LDADD = @LIBCRYPT@
 
 unix_chkpwd_SOURCES = unix_chkpwd.c md5_good.c md5_broken.c bigcrypt.c
 unix_chkpwd_CFLAGS = $(AM_CFLAGS) @PIE_CFLAGS@
-unix_chkpwd_LDFLAGS = @PIE_LDFLAGS@ -L$(top_builddir)/libpam -lpam \
-	@LIBCRYPT@ @LIBSELINUX@
+unix_chkpwd_LDFLAGS = @PIE_LDFLAGS@ 
+unix_chkpwd_LDADD = -L$(top_builddir)/libpam -lpam @LIBCRYPT@ @LIBSELINUX@
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README

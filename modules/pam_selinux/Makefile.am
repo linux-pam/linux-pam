@@ -19,15 +19,15 @@ secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	-I$(top_srcdir)/libpam_misc/include
-AM_LDFLAGS = -no-undefined \
-	-L$(top_builddir)/libpam -lpam @LIBSELINUX@
 
-pam_selinux_check_LDFLAGS = $(AM_LDFLAGS) -L$(top_builddir)/libpam_misc -lpam_misc
+pam_selinux_check_LDFLAGS = $(AM_LDFLAGS) \
+	-L$(top_builddir)/libpam -lpam \
+	-L$(top_builddir)/libpam_misc -lpam_misc
 
-pam_selinux_la_LDFLAGS = $(AM_LDFLAGS)
+pam_selinux_la_LIBADD = -L$(top_builddir)/libpam -lpam @LIBSELINUX@
+pam_selinux_la_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
-  pam_selinux_la_LDFLAGS += -avoid-version -module \
-	-Wl,--version-script=$(srcdir)/../modules.map
+  pam_selinux_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
 if HAVE_LIBSELINUX

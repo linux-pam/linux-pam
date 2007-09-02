@@ -1,3 +1,45 @@
+2007-09-02  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* examples/Makefile.am: Fix usage of LIBADD, LDADD and LDFLAGS.
+	* libpam/Makefile.am: Likewise.
+	* modules/pam_access/Makefile.am: Likewise.
+	* modules/pam_cracklib/Makefile.am: Likewise.
+	* modules/pam_debug/Makefile.am: Likewise.
+	* modules/pam_deny/Makefile.am: Likewise.
+	* modules/pam_echo/Makefile.am: Likewise.
+	* modules/pam_env/Makefile.am: Likewise.
+	* modules/pam_exec/Makefile.am: Likewise.
+	* modules/pam_faildelay/Makefile.am: Likewise.
+	* modules/pam_filter/Makefile.am: Likewise.
+	* modules/pam_filter/upperLOWER/Makefile.am: Likewise.
+	* modules/pam_ftp/Makefile.am: Likewise.
+	* modules/pam_group/Makefile.am: Likewise.
+	* modules/pam_issue/Makefile.am: Likewise.
+	* modules/pam_keyinit/Makefile.am: Likewise.
+	* modules/pam_lastlog/Makefile.am: Likewise.
+	* modules/pam_limits/Makefile.am: Likewise.
+	* modules/pam_listfile/Makefile.am: Likewise.
+	* modules/pam_localuser/Makefile.am: Likewise.
+	* modules/pam_loginuid/Makefile.am: Likewise.
+	* modules/pam_mail/Makefile.am: Likewise.
+	* modules/pam_mkhomedir/Makefile.am: Likewise.
+	* modules/pam_motd/Makefile.am: Likewise.
+	* modules/pam_namespace/Makefile.am: Likewise.
+	* modules/pam_nologin/Makefile.am: Likewise.
+	* modules/pam_permit/Makefile.am: Likewise.
+	* modules/pam_rhosts/Makefile.am: Likewise.
+	* modules/pam_rootok/Makefile.am: Likewise.
+	* modules/pam_securetty/Makefile.am: Likewise.
+	* modules/pam_selinux/Makefile.am: Likewise.
+	* modules/pam_shells/Makefile.am: Likewise.
+	* modules/pam_stress/Makefile.am: Likewise.
+	* modules/pam_succeed_if/Makefile.am: Likewise.
+	* modules/pam_tally/Makefile.am: Likewise.
+	* modules/pam_time/Makefile.am: Likewise.
+	* modules/pam_umask/Makefile.am: Likewise.
+	* modules/pam_unix/Makefile.am: Likewise.
+	* tests/Makefile.am: Likewise.
+
 2007-08-31  Steve Langasek  <vorlon@debian.org>
 
 	* modules/pam_group/group.conf: don't use "games" as an example

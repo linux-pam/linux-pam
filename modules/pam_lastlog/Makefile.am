@@ -15,13 +15,13 @@ XMLS = README.xml pam_lastlog.8.xml
 TESTS = tst-pam_lastlog
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
-AM_LDFLAGS = -no-undefined -avoid-version -module \
-	-L$(top_builddir)/libpam -lpam -lutil
+AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
 securelib_LTLIBRARIES = pam_lastlog.la
+pam_lastlog_la_LIBADD = -L$(top_builddir)/libpam -lpam -lutil
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
