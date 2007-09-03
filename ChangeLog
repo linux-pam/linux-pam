@@ -1,5 +1,9 @@
 2007-09-03  Steve Langasek  <vorlon@debian.org>
 
+	* modules/pam_limits/pam_limits.c: remove a number of unnecessary
+	string manipulations, including a strncpy() that was acting on
+	overlapping memory.
+
 	* libpam_misc/misc_conv.c: don't block SIGINT in misc_conv; it's
 	perfectly valid to allow the user to interrupt at a prompt.  If
 	an application wants prompts to not be interruptable, the
