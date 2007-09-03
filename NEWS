@@ -1,5 +1,7 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+* misc_conv no longer blocks SIGINT; applications that don't want
+  user-interruptable prompts should block SIGINT themselves.
 
 Release 0.99.8.1
 * Fix a regression in audit code introduced with last release

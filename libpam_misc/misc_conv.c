@@ -150,12 +150,11 @@ static int read_string(int echo, const char *prompt, char **retstr)
 	have_term = 1;
 
 	/*
-	 * We make a simple attempt to block TTY signals from terminating
+	 * We make a simple attempt to block TTY signals from suspending
 	 * the conversation without giving PAM a chance to clean up.
 	 */
 
 	sigemptyset(&nset);
-	sigaddset(&nset, SIGINT);
 	sigaddset(&nset, SIGTSTP);
 	(void) sigprocmask(SIG_BLOCK, &nset, &oset);
 

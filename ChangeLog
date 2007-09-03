@@ -1,3 +1,10 @@
+2007-09-03  Steve Langasek  <vorlon@debian.org>
+
+	* libpam_misc/misc_conv.c: don't block SIGINT in misc_conv; it's
+	perfectly valid to allow the user to interrupt at a prompt.  If
+	an application wants prompts to not be interruptable, the
+	application should take responsibility for blocking SIGINT.
+
 2007-09-02  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* examples/Makefile.am: Fix usage of LIBADD, LDADD and LDFLAGS.
