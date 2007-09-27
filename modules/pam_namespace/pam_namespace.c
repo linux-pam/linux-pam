@@ -589,8 +589,9 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 #ifdef WITH_SELINUX
     *i_context = NULL;
     *origcon = NULL;
-    if ((rc=form_context(polyptr, i_context, origcon, idata)) != PAM_SUCCESS) {
-	return rc;
+    if ((idata->flags & PAMNS_SELINUX_ENABLED) &&
+	(rc=form_context(polyptr, i_context, origcon, idata)) != PAM_SUCCESS) {
+	    return rc;
     }
 #endif
 

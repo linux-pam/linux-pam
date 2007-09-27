@@ -1,3 +1,10 @@
+2007-09-27  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_succeed_if/pam_succeed_if.c (evaluate_inlist): Fix in
+	operator rhbz #295151.
+	* modules/pam_namespace/pam_namespace.c (poly_name): Do not try to
+	get context when SELinux is disabled.
+
 2007-09-27  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* xtests/tst-pam_succeed_if1.c: New test case for
