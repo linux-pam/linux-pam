@@ -191,13 +191,19 @@ static int
 evaluate_inlist(const char *left, const char *right)
 {
 	char *p;
-	if ((p=strstr(right, left)) == NULL)
-		return PAM_AUTH_ERR;
-	if (p == right || *(p-1) == ':') { /* ':' is a list separator */
-		p += strlen(left);
-		if (*p == '\0' || *p == ':') {
-		    return PAM_SUCCESS;
+	/* Don't care about left containing ':'. */
+	while ((p=strstr(right, left)) != NULL) {
+		if (p == right || *(p-1) == ':') { /* ':' is a list separator */
+			p += strlen(left);
+			if (*p == '\0' || *p == ':') {
+				return PAM_SUCCESS;
+			}
 		}
+		right = strchr(p, ':');
+		if (right == NULL)
+			break;
+		else
+			++right;
 	}
 	return PAM_AUTH_ERR;
 }
