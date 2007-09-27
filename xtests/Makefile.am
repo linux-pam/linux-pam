@@ -18,13 +18,14 @@ EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 	tst-pam_access2.pamd tst-pam_access2.sh \
 	tst-pam_access3.pamd tst-pam_access3.sh \
 	tst-pam_access4.pamd tst-pam_access4.sh \
-	limits.conf tst-pam_limits1.pamd tst-pam_limits1.sh
+	limits.conf tst-pam_limits1.pamd tst-pam_limits1.sh \
+	tst-pam_succeed_if1.pamd tst-pam_succeed_if.sh
 
 XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 	tst-pam_dispatch4 tst-pam_cracklib1 tst-pam_cracklib2 \
 	tst-pam_unix1 tst-pam_unix2 tst-pam_unix3 \
 	tst-pam_access1 tst-pam_access2 tst-pam_access3 \
-	tst-pam_access4 tst-pam_limits1
+	tst-pam_access4 tst-pam_limits1 tst-pam_succeed_if1
 
 noinst_PROGRAMS = $(XTESTS)
 
