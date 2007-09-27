@@ -1,3 +1,9 @@
+2007-09-27  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* xtests/run-xtests.sh: Add support to skip tests.
+	* xtests/tst-pam_limits1.c: Skip test if RLIMIT_NICE is not
+	defined.
+
 2007-09-03  Steve Langasek  <vorlon@debian.org>
 
 	* modules/pam_limits/pam_limits.c: remove a number of unnecessary

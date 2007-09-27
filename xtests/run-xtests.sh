@@ -13,6 +13,7 @@ XTESTS="$@"
 
 failed=0
 pass=0
+skiped=0
 all=0
 
 mkdir -p /etc/security
@@ -27,7 +28,11 @@ for testname in $XTESTS ; do
           else
 	    ./$testname > /dev/null
 	  fi
-	  if test $? -ne 0 ; then
+          RETVAL=$?
+          if test $RETVAL -eq 77 ; then
+            echo "SKIP: $testname"
+            skiped=`expr $skiped + 1`
+	  elif test $RETVAL -ne 0 ; then
 	    echo "FAIL: $testname"
 	    failed=`expr $failed + 1`
           else
@@ -42,11 +47,13 @@ mv /etc/security/limits.conf-pam-xtests /etc/security/limits.conf
 if test "$failed" -ne 0; then
 	  echo "==================="
 	  echo "$failed of $all tests failed"
+          echo "$skiped tests not run"
 	  echo "==================="
 	  exit 1
 else
 	  echo "=================="
-	  echo "All $all tests passed"
+	  echo "$all tests passed"
+	  echo "$skiped tests not run"
 	  echo "=================="
 fi
 exit 0

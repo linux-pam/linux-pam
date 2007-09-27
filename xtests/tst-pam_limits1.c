@@ -98,6 +98,7 @@ main(int argc, char *argv[])
   if (argc > 1 && strcmp (argv[1], "-d") == 0)
     debug = 1;
 
+#ifdef RLIMIT_NICE
   retval = pam_start("tst-pam_limits1", user, &conv, &pamh);
   if (retval != PAM_SUCCESS)
     {
@@ -145,4 +146,10 @@ main(int argc, char *argv[])
       return 1;
     }
   return 0;
+#else
+  if (debug)
+    fprintf (stderr, "pam_limits1: RLIMIT_NICE does not exist)\n");
+
+  return 77;
+#endif
 }
