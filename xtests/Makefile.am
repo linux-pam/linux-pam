@@ -19,7 +19,7 @@ EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 	tst-pam_access3.pamd tst-pam_access3.sh \
 	tst-pam_access4.pamd tst-pam_access4.sh \
 	limits.conf tst-pam_limits1.pamd tst-pam_limits1.sh \
-	tst-pam_succeed_if1.pamd tst-pam_succeed_if.sh \
+	tst-pam_succeed_if1.pamd tst-pam_succeed_if1.sh \
 	group.conf tst-pam_group1.pamd tst-pam_group1.sh
 
 XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
