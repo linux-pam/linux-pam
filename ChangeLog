@@ -1,3 +1,18 @@
+2007-10-01  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* xtests/tst-pam_group1.c: New test case for user compare in pam_group.
+	* xtests/tst-pam_group1.sh: Script to run test case.
+	* xtests/tst-pam_group1.pamd: Config for test case.
+	* xtests/Makefile.am: Add tst-pam_group1 test case.
+	* xtests/run-xtests.sh: Save/restore group.conf.
+	* xtests/group.conf: New.
+
+	* modules/pam_xauth/pam_xauth.c (pam_sm_open_session): Don't
+	free arguments used for putenv().
+
+	* doc/man/pam_putenv.3.xml: Document that application has to free
+	the memory.
+
 2007-09-27  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_succeed_if/pam_succeed_if.c (evaluate_inlist): Fix in

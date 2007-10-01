@@ -578,6 +578,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 				   "can't set environment variable '%s'",
 				   xauthority);
 		putenv (xauthority); /* The environment owns this string now. */
+		xauthority = NULL; /* Don't free environment variables. */
 
 		/* set $DISPLAY in pam handle to make su - work */
 		{

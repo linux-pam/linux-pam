@@ -1,22 +1,22 @@
 .\"     Title: pam_putenv
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/27/2006
-.\"    Manual: Linux\-PAM Manual
-.\"    Source: Linux\-PAM Manual
+.\" Generator: DocBook XSL Stylesheets v1.73.1 <http://docbook.sf.net/>
+.\"      Date: 09/28/2007
+.\"    Manual: Linux-PAM Manual
+.\"    Source: Linux-PAM Manual
 .\"
-.TH "PAM_PUTENV" "3" "06/27/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_PUTENV" "3" "09/28/2007" "Linux-PAM Manual" "Linux-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
 .ad l
 .SH "NAME"
-pam_putenv \- set or change PAM environment variable
+pam_putenv - set or change PAM environment variable
 .SH "SYNOPSIS"
 .sp
 .ft B
 .nf
-#include <security/pam_appl.h>
+#include <security/pam_appl\.h>
 .fi
 .ft
 .HP 15
@@ -27,43 +27,65 @@ The
 \fBpam_putenv\fR
 function is used to add or change the value of PAM environment variables as associated with the
 \fIpamh\fR
-handle.
+handle\.
 .PP
 The
 \fIpamh\fR
-argument is an authentication handle obtained by a prior call to pam_start(). The
+argument is an authentication handle obtained by a prior call to pam_start()\. The
 \fIname_value\fR
 argument is a single NUL terminated string of one of the following forms:
-.TP 3n
+.PP
 NAME=value of variable
+.RS 4
 In this case the environment variable of the given NAME is set to the indicated value:
-\fIvalue of variable\fR. If this variable is already known, it is overwritten. Otherwise it is added to the PAM environment.
-.TP 3n
+\fIvalue of variable\fR\. If this variable is already known, it is overwritten\. Otherwise it is added to the PAM environment\.
+.RE
+.PP
 NAME=
-This function sets the variable to an empty value. It is listed separately to indicate that this is the correct way to achieve such a setting.
-.TP 3n
+.RS 4
+This function sets the variable to an empty value\. It is listed separately to indicate that this is the correct way to achieve such a setting\.
+.RE
+.PP
 NAME
-Without an '=' the pam_putenv() function will delete the corresponding variable from the PAM environment.
+.RS 4
+Without an \'=\' the
+\fBpam_putenv\fR() function will delete the corresponding variable from the PAM environment\.
+.RE
+.PP
+
+\fBpam_putenv\fR() operates on a copy of
+\fIname_value\fR, which means in contrast to
+\fBputenv\fR(3), the application is responsible to free the data\.
 .SH "RETURN VALUES"
-.TP 3n
+.PP
 PAM_PERM_DENIED
+.RS 4
 Argument
 \fIname_value\fR
-given is a NULL pointer.
-.TP 3n
+given is a NULL pointer\.
+.RE
+.PP
 PAM_BAD_ITEM
-Variable requested (for deletion) is not currently set.
-.TP 3n
+.RS 4
+Variable requested (for deletion) is not currently set\.
+.RE
+.PP
 PAM_ABORT
+.RS 4
 The
 \fIpamh\fR
-handle is corrupt.
-.TP 3n
+handle is corrupt\.
+.RE
+.PP
 PAM_BUF_ERR
-Memory buffer error.
-.TP 3n
+.RS 4
+Memory buffer error\.
+.RE
+.PP
 PAM_SUCCESS
-The environment variable was successfully updated.
+.RS 4
+The environment variable was successfully updated\.
+.RE
 .SH "SEE ALSO"
 .PP
 

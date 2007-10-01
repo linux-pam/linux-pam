@@ -16,3 +16,5 @@ tst-pam_limits1
 tst-pam_unix1
 tst-pam_unix2
 tst-pam_unix3
+tst-pam_succeed_if1
+tst-pam_group1

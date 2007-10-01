@@ -67,12 +67,20 @@
         <term>NAME</term>
         <listitem>
           <para>
-            Without an '=' the pam_putenv() function will delete the
+            Without an '=' the <function>pam_putenv</function>() function
+            will delete the
             corresponding variable from the PAM environment.
           </para>
         </listitem>
       </varlistentry>
     </variablelist>
+    <para>
+      <function>pam_putenv</function>() operates on a copy of
+      <emphasis>name_value</emphasis>, which means in contrast to
+      <citerefentry>
+        <refentrytitle>putenv</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>, the application is responsible to free the data.
+    </para>
   </refsect1>
 
   <refsect1 id="pam_putenv-return_values">
