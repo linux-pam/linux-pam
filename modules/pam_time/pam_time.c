@@ -59,7 +59,7 @@ shift_bytes(char *mem, int from, int by)
 }
 
 static int
-read_field(pam_handle_t *pamh, int fd, char **buf, int *from, int *to)
+read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *to)
 {
     /* is buf set ? */
 
@@ -137,6 +137,7 @@ read_field(pam_handle_t *pamh, int fd, char **buf, int *from, int *to)
 	    switch ((*buf)[i]) {
 		int j,c;
 	    case '#':
+                c = 0;
 		for (j=i; j < *to && (c = (*buf)[j]) != '\n'; ++j);
 		if (j >= *to) {
 		    (*buf)[*to = ++i] = '\0';
@@ -324,6 +325,13 @@ is_same(pam_handle_t *pamh UNUSED, const void *A, const char *b,
 		    return FALSE;
 	  }
      }
+
+     /* Ok, we know that b is a substring from A and does not contain
+        wildcards, but now the length of both strings must be the same,
+        too. */
+     if (strlen (a) != strlen(b))
+          return FALSE;
+
      return ( !len );
 }
 

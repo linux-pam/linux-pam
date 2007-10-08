@@ -329,6 +329,13 @@ is_same (const pam_handle_t *pamh UNUSED,
 		    return FALSE;
 	  }
      }
+
+     /* Ok, we know that b is a substring from A and does not contain
+	wildcards, but now the length of both strings must be the same,
+	too. */
+     if (strlen (a) != strlen(b))
+       return FALSE;
+
      return ( !len );
 }
 

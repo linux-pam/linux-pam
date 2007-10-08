@@ -1,3 +1,9 @@
+2007-10-08  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_time/pam_time.c (is_same): Length of strings without
+	wildcard needs to be the same.
+	* modules/pam_group/pam_group.c (is_same): Likewise.
+
 2007-10-01  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* xtests/tst-pam_group1.c: New test case for user compare in pam_group.
