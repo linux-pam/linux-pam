@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pa\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-07-18 10:59+0200\n"
+"POT-Creation-Date: 2007-10-01 12:19+0200\n"
 "PO-Revision-Date: 2005-08-06 08:34+0530\n"
 "Last-Translator: Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>\n"
 "Language-Team: Panjabi <pa@li.org>\n"
@@ -26,7 +26,7 @@ msgstr "...ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਰਿਹਾ ਹੈ...\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "...ਅਫ਼ਸੋਸ, ਤੁਹਾਡਾ ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਗਿਆ ਹੈ!\n"
 
-#: libpam_misc/misc_conv.c:343
+#: libpam_misc/misc_conv.c:342
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr ""
@@ -168,66 +168,66 @@ msgstr ""
 msgid "Unknown PAM error"
 msgstr "ਅਣਜਾਣ PAM ਗਲਤੀ"
 
-#: modules/pam_cracklib/pam_cracklib.c:60
+#: modules/pam_cracklib/pam_cracklib.c:64
 #, fuzzy, c-format
 msgid "New %s%spassword: "
 msgstr "ਗੁਪਤ-ਕੋਡ ਨਾ-ਤਬਦੀਲ ਹੈ"
 
-#: modules/pam_cracklib/pam_cracklib.c:62
+#: modules/pam_cracklib/pam_cracklib.c:66
 #, fuzzy, c-format
 msgid "Retype new %s%spassword: "
 msgstr "ਨਵਾਂ STRESS ਗੁਪਤ-ਕੋਡ ਮੁੜ-ਲਿਖੋ: "
 
-#: modules/pam_cracklib/pam_cracklib.c:63
+#: modules/pam_cracklib/pam_cracklib.c:67
 #, fuzzy
 msgid "Sorry, passwords do not match."
 msgstr "NIS ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ।"
 
-#: modules/pam_cracklib/pam_cracklib.c:427
+#: modules/pam_cracklib/pam_cracklib.c:432
 msgid "is the same as the old one"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:440
+#: modules/pam_cracklib/pam_cracklib.c:445
 msgid "is a palindrome"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:443
+#: modules/pam_cracklib/pam_cracklib.c:448
 msgid "case changes only"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:446
+#: modules/pam_cracklib/pam_cracklib.c:451
 msgid "is too similar to the old one"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:449
+#: modules/pam_cracklib/pam_cracklib.c:454
 msgid "is too simple"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:452
+#: modules/pam_cracklib/pam_cracklib.c:457
 msgid "is rotated"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:455
+#: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:493
+#: modules/pam_cracklib/pam_cracklib.c:498
 #, fuzzy
 msgid "has been already used"
 msgstr "ਗੁਪਤ-ਕੋਡ ਪਹਿਲਾਂ ਵੀ ਵਰਤਿਆ ਗਿਆ ਹੈ। ਵੱਖਰਾ ਚੁਣੋ।"
 
-#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:977
 msgid "No password supplied"
 msgstr "ਕੋਈ ਗੁਪਤ-ਕੋਡ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ"
 
-#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:977
 msgid "Password unchanged"
 msgstr "ਗੁਪਤ-ਕੋਡ ਨਾ-ਤਬਦੀਲ ਹੈ"
 
-#: modules/pam_cracklib/pam_cracklib.c:544
-#: modules/pam_cracklib/pam_cracklib.c:672
+#: modules/pam_cracklib/pam_cracklib.c:549
+#: modules/pam_cracklib/pam_cracklib.c:676
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr ""
@@ -274,7 +274,7 @@ msgstr ""
 msgid "Welcome to your new account!"
 msgstr ""
 
-#: modules/pam_limits/pam_limits.c:702
+#: modules/pam_limits/pam_limits.c:698
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr ""

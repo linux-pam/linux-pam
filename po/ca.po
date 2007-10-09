@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-07-18 10:59+0200\n"
+"POT-Creation-Date: 2007-10-01 12:19+0200\n"
 "PO-Revision-Date: 2007-02-22 20:57+0100\n"
 "Last-Translator: Anna <blabla@blabla.es>\n"
 "Language-Team: Catalan\n"
@@ -25,7 +25,7 @@ msgstr "...S'acaba el temps...\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "...S'ha acabat el temps.\n"
 
-#: libpam_misc/misc_conv.c:343
+#: libpam_misc/misc_conv.c:342
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "conversa errònia (%d)\n"
@@ -167,64 +167,64 @@ msgstr "L'aplicació necessita cridar novament libpam"
 msgid "Unknown PAM error"
 msgstr "Error de PAM desconegut"
 
-#: modules/pam_cracklib/pam_cracklib.c:60
+#: modules/pam_cracklib/pam_cracklib.c:64
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nova contrasenya de %s%s: "
 
-#: modules/pam_cracklib/pam_cracklib.c:62
+#: modules/pam_cracklib/pam_cracklib.c:66
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Torneu a escriure la nova contrasenya de %s%s: "
 
-#: modules/pam_cracklib/pam_cracklib.c:63
+#: modules/pam_cracklib/pam_cracklib.c:67
 msgid "Sorry, passwords do not match."
 msgstr "Les contrasenyes no coincideixen."
 
-#: modules/pam_cracklib/pam_cracklib.c:427
+#: modules/pam_cracklib/pam_cracklib.c:432
 msgid "is the same as the old one"
 msgstr "és la mateixa que l'antiga"
 
-#: modules/pam_cracklib/pam_cracklib.c:440
+#: modules/pam_cracklib/pam_cracklib.c:445
 msgid "is a palindrome"
 msgstr "és un palíndrom"
 
-#: modules/pam_cracklib/pam_cracklib.c:443
+#: modules/pam_cracklib/pam_cracklib.c:448
 msgid "case changes only"
 msgstr "només canvien les majúscules i minúscules"
 
-#: modules/pam_cracklib/pam_cracklib.c:446
+#: modules/pam_cracklib/pam_cracklib.c:451
 msgid "is too similar to the old one"
 msgstr "és massa semblant a l'antiga"
 
-#: modules/pam_cracklib/pam_cracklib.c:449
+#: modules/pam_cracklib/pam_cracklib.c:454
 msgid "is too simple"
 msgstr "és massa senzilla"
 
-#: modules/pam_cracklib/pam_cracklib.c:452
+#: modules/pam_cracklib/pam_cracklib.c:457
 msgid "is rotated"
 msgstr "està girada"
 
-#: modules/pam_cracklib/pam_cracklib.c:455
+#: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:493
+#: modules/pam_cracklib/pam_cracklib.c:498
 msgid "has been already used"
 msgstr "ja s'ha fet servir"
 
-#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:977
 msgid "No password supplied"
 msgstr "No s'ha proporcionat cap contrasenya"
 
-#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:977
 msgid "Password unchanged"
 msgstr "No s'ha canviat la contrasenya"
 
-#: modules/pam_cracklib/pam_cracklib.c:544
-#: modules/pam_cracklib/pam_cracklib.c:672
+#: modules/pam_cracklib/pam_cracklib.c:549
+#: modules/pam_cracklib/pam_cracklib.c:676
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "CONTRASENYA INCORRECTA: %s"
@@ -271,7 +271,7 @@ msgstr "Darrera entrada:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Benvingut al vostre nou compte."
 
-#: modules/pam_limits/pam_limits.c:702
+#: modules/pam_limits/pam_limits.c:698
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Massa entrades per a '%s'."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-07-18 10:59+0200\n"
+"POT-Creation-Date: 2007-10-01 12:19+0200\n"
 "PO-Revision-Date: 2006-01-04 08:58+0100\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -26,7 +26,7 @@ msgstr "...Время истекает...\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "...Извините, ваше время истекло!\n"
 
-#: libpam_misc/misc_conv.c:343
+#: libpam_misc/misc_conv.c:342
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "ошибочный диалог (%d)\n"
@@ -172,66 +172,66 @@ msgstr "Приложение должно повторно вызвать libpam
 msgid "Unknown PAM error"
 msgstr "Неизвестная ошибка PAM"
 
-#: modules/pam_cracklib/pam_cracklib.c:60
+#: modules/pam_cracklib/pam_cracklib.c:64
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Новый пароль %s%s: "
 
 # Keep the newlines and spaces after ':'!
-#: modules/pam_cracklib/pam_cracklib.c:62
+#: modules/pam_cracklib/pam_cracklib.c:66
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Повторите ввод нового пароля %s%s: "
 
-#: modules/pam_cracklib/pam_cracklib.c:63
+#: modules/pam_cracklib/pam_cracklib.c:67
 msgid "Sorry, passwords do not match."
 msgstr "Извините, но пароли не совпадают."
 
-#: modules/pam_cracklib/pam_cracklib.c:427
+#: modules/pam_cracklib/pam_cracklib.c:432
 msgid "is the same as the old one"
 msgstr "совпадает со старым"
 
-#: modules/pam_cracklib/pam_cracklib.c:440
+#: modules/pam_cracklib/pam_cracklib.c:445
 msgid "is a palindrome"
 msgstr "является палиндромом"
 
-#: modules/pam_cracklib/pam_cracklib.c:443
+#: modules/pam_cracklib/pam_cracklib.c:448
 msgid "case changes only"
 msgstr "изменения только в регистре"
 
-#: modules/pam_cracklib/pam_cracklib.c:446
+#: modules/pam_cracklib/pam_cracklib.c:451
 msgid "is too similar to the old one"
 msgstr "слишком похож на старый"
 
-#: modules/pam_cracklib/pam_cracklib.c:449
+#: modules/pam_cracklib/pam_cracklib.c:454
 msgid "is too simple"
 msgstr "слишком простой"
 
-#: modules/pam_cracklib/pam_cracklib.c:452
+#: modules/pam_cracklib/pam_cracklib.c:457
 msgid "is rotated"
 msgstr "является результатом чередования"
 
-#: modules/pam_cracklib/pam_cracklib.c:455
+#: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:493
+#: modules/pam_cracklib/pam_cracklib.c:498
 msgid "has been already used"
 msgstr "уже был использован"
 
-#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:977
 msgid "No password supplied"
 msgstr "Пароль не указан"
 
 # password dialog title
-#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:977
 msgid "Password unchanged"
 msgstr "Пароль не изменен"
 
-#: modules/pam_cracklib/pam_cracklib.c:544
-#: modules/pam_cracklib/pam_cracklib.c:672
+#: modules/pam_cracklib/pam_cracklib.c:549
+#: modules/pam_cracklib/pam_cracklib.c:676
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "НЕВЕРНЫЙ ПАРОЛЬ: %s"
@@ -278,7 +278,7 @@ msgstr "Последний вход в систему:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Добро пожаловать в новую учетную запись!"
 
-#: modules/pam_limits/pam_limits.c:702
+#: modules/pam_limits/pam_limits.c:698
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Слишком много регистраций в системе для '%s'."

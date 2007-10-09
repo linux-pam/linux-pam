@@ -1,3 +1,14 @@
+2007-10-09  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 0.99.9.0
+
+	* configure.in: Increase vesion number.
+
+	* libpam/Makefile.am: Increase release number.
+	* libpam_misc/Makefile.am: Increase release number.
+
+	* po/*.po: Regenerate.
+
 2007-10-08  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_time/pam_time.c (is_same): Length of strings without

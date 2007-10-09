@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hu.new\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-07-18 10:59+0200\n"
+"POT-Creation-Date: 2007-10-01 12:19+0200\n"
 "PO-Revision-Date: 2007-02-15 17:40+0100\n"
 "Last-Translator: Kalman Kemenczy <kkemenczy@novell.com>\n"
 "Language-Team:  <hu@li.org>\n"
@@ -29,7 +29,7 @@ msgstr "...Kifut az időből...\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "...Elnézést, de az idő lejárt!\n"
 
-#: libpam_misc/misc_conv.c:343
+#: libpam_misc/misc_conv.c:342
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "hibás beszélgetés (%d)\n"
@@ -173,64 +173,64 @@ msgstr "Az alkalmazásnak újra meg kell hívnia a libpam modult"
 msgid "Unknown PAM error"
 msgstr "Ismeretlen PAM-hiba"
 
-#: modules/pam_cracklib/pam_cracklib.c:60
+#: modules/pam_cracklib/pam_cracklib.c:64
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Az új %s%sjelszó: "
 
-#: modules/pam_cracklib/pam_cracklib.c:62
+#: modules/pam_cracklib/pam_cracklib.c:66
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Írja be újra az új %s%sjelszót: "
 
-#: modules/pam_cracklib/pam_cracklib.c:63
+#: modules/pam_cracklib/pam_cracklib.c:67
 msgid "Sorry, passwords do not match."
 msgstr "Sajnálom, de a jelszavak nem egyeznek."
 
-#: modules/pam_cracklib/pam_cracklib.c:427
+#: modules/pam_cracklib/pam_cracklib.c:432
 msgid "is the same as the old one"
 msgstr "ugyanaz, mint a régi"
 
-#: modules/pam_cracklib/pam_cracklib.c:440
+#: modules/pam_cracklib/pam_cracklib.c:445
 msgid "is a palindrome"
 msgstr "A jelszó egy palindrom"
 
-#: modules/pam_cracklib/pam_cracklib.c:443
+#: modules/pam_cracklib/pam_cracklib.c:448
 msgid "case changes only"
 msgstr "A jelszó csak a kis/nagybetűkben változott"
 
-#: modules/pam_cracklib/pam_cracklib.c:446
+#: modules/pam_cracklib/pam_cracklib.c:451
 msgid "is too similar to the old one"
 msgstr "A jelszó túl hasonló a régihez"
 
-#: modules/pam_cracklib/pam_cracklib.c:449
+#: modules/pam_cracklib/pam_cracklib.c:454
 msgid "is too simple"
 msgstr "A jelszó túl egyszerű"
 
-#: modules/pam_cracklib/pam_cracklib.c:452
+#: modules/pam_cracklib/pam_cracklib.c:457
 msgid "is rotated"
 msgstr "A jelszó át lett forgatva"
 
-#: modules/pam_cracklib/pam_cracklib.c:455
+#: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:493
+#: modules/pam_cracklib/pam_cracklib.c:498
 msgid "has been already used"
 msgstr "A jelszót már használta. Válasszon egy másikat."
 
-#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:977
 msgid "No password supplied"
 msgstr "Nem lett megadva jelszó"
 
-#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:977
 msgid "Password unchanged"
 msgstr "A jelszó nem változott"
 
-#: modules/pam_cracklib/pam_cracklib.c:544
-#: modules/pam_cracklib/pam_cracklib.c:672
+#: modules/pam_cracklib/pam_cracklib.c:549
+#: modules/pam_cracklib/pam_cracklib.c:676
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ROSSZ JELSZÓ: %s"
@@ -277,7 +277,7 @@ msgstr "Utolsó belépés:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Üdvözöljük az új fiókjában!"
 
-#: modules/pam_limits/pam_limits.c:702
+#: modules/pam_limits/pam_limits.c:698
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Túl sok belépés '%s' részéről."
