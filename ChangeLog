@@ -1,3 +1,7 @@
+2007-10-09  Tomas Mraz  <t8m@centrum.cz>
+	* modules/pam_tally/pam_tally.8.xml: Document audit option
+	correctly.
+
 2007-10-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.9.0

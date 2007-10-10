@@ -146,7 +146,7 @@
               </term>
               <listitem>
                 <para>
-                  Will display the username typed if the user is not found.
+                  Will log the user name into the system log if the user is not found.
                 </para>
               </listitem>
             </varlistentry>
@@ -235,16 +235,6 @@
               <listitem>
                 <para>
                   Don't reset count on successful entry, only decrement.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                <option>even_deny_root_account</option>
-              </term>
-              <listitem>
-                <para>
-                  Root account can become unavailable.
                 </para>
               </listitem>
             </varlistentry>
