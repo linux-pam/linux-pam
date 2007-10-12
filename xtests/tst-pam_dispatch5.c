@@ -46,8 +46,7 @@ static struct pam_conv conv = {
 };
 
 
-/* Check that errors of optional modules are ignored and that
-   required modules after a sufficient one are not executed.  */
+/* jump after the end of the stack and make sure we don't seg.fault. */
 
 int
 main(int argc, char *argv[])
@@ -60,27 +59,19 @@ main(int argc, char *argv[])
   if (argc > 1 && strcmp (argv[1], "-d") == 0)
     debug = 1;
 
-  retval = pam_start("tst-pam_dispatch4", user, &conv, &pamh);
+  retval = pam_start("tst-pam_dispatch5", user, &conv, &pamh);
   if (retval != PAM_SUCCESS)
     {
       if (debug)
-	fprintf (stderr, "pam_dispatch4: pam_start returned %d\n", retval);
+	fprintf (stderr, "pam_dispatch5: pam_start returned %d\n", retval);
       return 1;
     }
 
   retval = pam_authenticate (pamh, 0);
-  if (retval != PAM_SUCCESS)
+  if (retval != PAM_PERM_DENIED)
     {
       if (debug)
-	fprintf (stderr, "pam_dispatch4: pam_authenticate returned %d\n", retval);
-      return 1;
-    }
-
-  retval = pam_acct_mgmt (pamh, 0);
-  if (retval == PAM_SUCCESS)
-    {
-      if (debug)
-	fprintf (stderr, "pam_dispatch4: pam_acct_mgmt returned %d\n", retval);
+	fprintf (stderr, "pam_dispatch5: pam_authenticate returned %d\n", retval);
       return 1;
     }
 
@@ -88,7 +79,7 @@ main(int argc, char *argv[])
   if (retval != PAM_SUCCESS)
     {
       if (debug)
-	fprintf (stderr, "test4: pam_end returned %d\n", retval);
+	fprintf (stderr, "pam_dispatch5: pam_end returned %d\n", retval);
       return 1;
     }
   return 0;

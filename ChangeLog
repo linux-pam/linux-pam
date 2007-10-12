@@ -1,3 +1,9 @@
+2007-10-12  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* xtests/Makefile.am: Add tst-pam_dispatch5 sources
+	* xtests/tst-pam_dispatch5.c: New test for jump too far.
+	* xtests/tst-pam_dispatch5.pamd: New test configuration.
+
 2007-10-09  Tomas Mraz  <t8m@centrum.cz>
 	* modules/pam_tally/pam_tally.8.xml: Document audit option
 	correctly.
