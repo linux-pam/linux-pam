@@ -46,8 +46,7 @@ static struct pam_conv conv = {
 };
 
 
-/* Check that errors of optional modules are ignored and that
-   required modules after a sufficient one are not executed.  */
+/* Check that jumps are processed correctly. */
 
 int
 main(int argc, char *argv[])

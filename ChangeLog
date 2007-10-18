@@ -1,3 +1,7 @@
+2007-10-18  Tomas Mraz  <t8m@centrum.cz>
+	* xtests/tst-pam_dispatch4.c: Fix comment about the test.
+	* xtests/tst-pam_dispatch4.pamd: Improve the testcase.
+
 2007-10-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* xtests/Makefile.am: Add tst-pam_dispatch5 sources
