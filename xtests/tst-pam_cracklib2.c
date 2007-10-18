@@ -43,10 +43,12 @@
 #include <string.h>
 #include <security/pam_appl.h>
 
+int debug = 0;
+
 /* A conversation function which uses an internally-stored value for
    the responses. */
 static int
-fake_conv (int num_msg, const struct pam_message **msgm UNUSED,
+fake_conv (int num_msg, const struct pam_message **msgm,
 	   struct pam_response **response, void *appdata_ptr UNUSED)
 {
   static int calls = 0;
@@ -65,6 +67,8 @@ fake_conv (int num_msg, const struct pam_message **msgm UNUSED,
   /* Each prompt elicits the same response. */
   for (count = 0; count < num_msg; ++count)
     {
+      if (debug)
+        fprintf(stderr,"Query: %s\n", (*msgm)[count].msg);
       reply[count].resp_retcode = 0;
       /* first tow calls get a correct password, second a too
 	 easy one. */
@@ -75,6 +79,8 @@ fake_conv (int num_msg, const struct pam_message **msgm UNUSED,
 	  ++calls;
 	  reply[count].resp = strdup ("1a9C*8dK");
 	}
+	if (debug)
+          fprintf(stderr,"Response: %s\n", reply[count].resp);
     }
 
   /* Set the pointers in the response structure and return. */
@@ -94,10 +100,6 @@ main(int argc, char *argv[])
   pam_handle_t *pamh=NULL;
   const char *user="root";
   int retval;
-  int debug = 0;
-
-  /* Simulate passwd call by normal user */
-  setuid (65534);
 
   if (argc > 1 && strcmp (argv[1], "-d") == 0)
     debug = 1;
@@ -110,8 +112,8 @@ main(int argc, char *argv[])
       return 1;
     }
 
-  /* Try one, first input is correct, second is NULL */
-  retval = pam_chauthtok (pamh, 0);
+  /* Try one, first input is correct */
+  retval = pam_chauthtok (pamh, PAM_CHANGE_EXPIRED_AUTHTOK);
   if (retval != PAM_SUCCESS)
     {
       if (debug)
@@ -119,8 +121,8 @@ main(int argc, char *argv[])
       return 1;
     }
 
-  /* Try two, second input is NULL */
-  retval = pam_chauthtok (pamh, 0);
+  /* Try two, second input is wrong */
+  retval = pam_chauthtok (pamh, PAM_CHANGE_EXPIRED_AUTHTOK);
   if (retval != PAM_AUTHTOK_ERR)
     {
       if (debug)

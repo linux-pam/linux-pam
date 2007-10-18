@@ -1,6 +1,7 @@
 2007-10-18  Tomas Mraz  <t8m@centrum.cz>
 	* xtests/tst-pam_dispatch4.c: Fix comment about the test.
 	* xtests/tst-pam_dispatch4.pamd: Improve the testcase.
+	* xtests/tst-pam_cracklib2.c: Make the testcase more robust.
 
 2007-10-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
