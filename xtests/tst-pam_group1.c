@@ -36,10 +36,10 @@
 
   Check the following line in group.conf:
 
-  tst-pam_group1;*;tstpamgrp;Al0000-2400;tstpamgrp
+  tst-pam_group1;*;tstpamgrp;Al0000-2400;tstpamgrpg
 
 
-  pam_group should add group tstpamgrp to user tstpamgrp, but not
+  pam_group should add group tstpamgrpg to user tstpamgrp, but not
   to tstpamgrp2.
 */
 
@@ -193,7 +193,7 @@ main(int argc, char *argv[])
   if (argc > 1 && strcmp (argv[1], "-d") == 0)
     debug = 1;
 
-  grp = getgrnam ("tstpamgrp");
+  grp = getgrnam ("tstpamgrpg");
   if (grp == NULL)
     return 1;
   grpid = grp->gr_gid;

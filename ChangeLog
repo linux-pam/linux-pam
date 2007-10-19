@@ -1,3 +1,55 @@
+2007-10-19  Tomas Mraz  <t8m@centrum.cz>
+
+	* xtests/tst-pam_access1.c: Use different name for user and group.
+	* xtests/tst-pam_access1.sh: Likewise.
+	* xtests/tst-pam_access2.c: Likewise.
+	* xtests/tst-pam_access2.sh: Likewise.
+	* xtests/tst-pam_access4.c: Likewise.
+	* xtests/tst-pam_access4.sh: Likewise.
+	* xtests/group.conf: Likewise.
+	* xtests/tst-pam_group1.c: Likewise.
+	* xtests/tst-pam_group1.sh: Likewise.
+
+	* libpam/pam_dispatch.c (_pam_dispatch_aux): Save states for substacks,
+	record substack level, skip over virtual substack modules, implement
+	evaluation of done, die, reset and jumps in substacks. Also fixes
+	too far jumps in substacks.
+	* libpam/pam_end.c (pam_end): Drop substack evaluation states.
+	* libpam/pam_handlers.c (_pam_parse_conf_file): Add substack level
+	parameter, instead of must_fail use handler_type needed for virtual
+	substack modules.
+	(_pam_load_conf_file): Add substack level parameter.
+	(_pam_init_handlers): Substack level parameter added to
+	_pam_parse_conf_file() calls.
+	(_pam_load_module): New function.
+	(_pam_add_handler): Refactor code into the _pam_load_module(). Add
+	support for virtual substack modules.
+	* libpam/pam_private.h: Rename must_fail to handler_type, add stack_level
+	to struct handler. Define handler type constants. Add struct
+	for substack evaluation states. Define constant for maximum
+	substack level. Add substack states pointer to former state struct.
+	* libpam/pam_start.c (pam_start): Initialize pointer to substack states.
+	* doc/man/pam.conf-syntax.xml: Document substack control.
+	* xtests/Makefile.am: Add new tests for substack evaluation.
+	* xtests/run_xtests.sh: Support multiple .pamd files in a test.
+	* xtests/tst-pam_authfail.pamd: New tests for substack evaluation.
+	* xtests/tst-pam_authsucceed.pamd: Likewise.
+	* xtests/tst-pam_substack1.pamd: Likewise.
+	* xtests/tst-pam_substack1a.pamd: Likewise.
+	* xtests/tst-pam_substack1.sh: Likewise.
+	* xtests/tst-pam_substack2.pamd: Likewise.
+	* xtests/tst-pam_substack2a.pamd: Likewise.
+	* xtests/tst-pam_substack2.sh: Likewise.
+	* xtests/tst-pam_substack3.pamd: Likewise.
+	* xtests/tst-pam_substack3a.pamd: Likewise.
+	* xtests/tst-pam_substack3.sh: Likewise.
+	* xtests/tst-pam_substack4.pamd: Likewise.
+	* xtests/tst-pam_substack4a.pamd: Likewise.
+	* xtests/tst-pam_substack4.sh: Likewise.
+	* xtests/tst-pam_substack5.pamd: Likewise.
+	* xtests/tst-pam_substack5a.pamd: Likewise.
+	* xtests/tst-pam_substack5.sh: Likewise.
+
 2007-10-18  Tomas Mraz  <t8m@centrum.cz>
 	* xtests/tst-pam_dispatch4.c: Fix comment about the test.
 	* xtests/tst-pam_dispatch4.pamd: Improve the testcase.

@@ -24,7 +24,9 @@ install -m 644 "${SRCDIR}"/group.conf /etc/security/group.conf
 cp /etc/security/limits.conf /etc/security/limits.conf-pam-xtests
 install -m 644 "${SRCDIR}"/limits.conf /etc/security/limits.conf
 for testname in $XTESTS ; do
-	  install -m 644 "${SRCDIR}"/$testname.pamd /etc/pam.d/$testname
+	  for cfg in "${SRCDIR}"/$testname*.pamd ; do
+	    install -m 644 $cfg /etc/pam.d/$(basename $cfg .pamd)
+	  done
 	  if test -x "${SRCDIR}"/$testname.sh ; then
             "${SRCDIR}"/$testname.sh > /dev/null
           else
@@ -42,7 +44,7 @@ for testname in $XTESTS ; do
 	    pass=`expr $pass + 1`
           fi
 	  all=`expr $all + 1`
-	  rm -f /etc/pam.d/$testname
+	  rm -f /etc/pam.d/$testname*
 done
 mv /etc/security/access.conf-pam-xtests /etc/security/access.conf
 mv /etc/security/group.conf-pam-xtests /etc/security/group.conf

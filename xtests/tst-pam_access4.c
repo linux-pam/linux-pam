@@ -87,7 +87,7 @@ int
 main(int argc, char *argv[])
 {
   pam_handle_t *pamh = NULL;
-  const char *user="tstpamaccess";
+  const char *user="tstpamaccess4";
   int retval;
   int debug = 0;
 

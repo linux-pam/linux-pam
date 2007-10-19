@@ -71,6 +71,8 @@ int pam_end(pam_handle_t *pamh, int pam_status)
     _pam_drop(pamh->pam_conversation);
     pamh->fail_delay.delay_fn_ptr = NULL;
 
+    _pam_drop(pamh->former.substates);
+
     /* and finally liberate the memory for the pam_handle structure */
 
     _pam_drop(pamh);

@@ -34,7 +34,8 @@
 static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 			     _pam_boolean resumed, int use_cached_chain)
 {
-    int depth, impression, status, skip_depth;
+    int depth, impression, status, skip_depth, prev_level, stack_level;
+    struct _pam_substack_state *substates = NULL;
 
     IF_NO_PAMH("_pam_dispatch_aux", pamh, PAM_SYSTEM_ERR);
 
@@ -54,27 +55,51 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	skip_depth = pamh->former.depth;
 	status = pamh->former.status;
 	impression = pamh->former.impression;
+	substates = pamh->former.substates;
 	/* forget all that */
 	pamh->former.impression = _PAM_UNDEF;
 	pamh->former.status = PAM_MUST_FAIL_CODE;
 	pamh->former.depth = 0;
+	pamh->former.substates = NULL;
     } else {
 	skip_depth = 0;
-	impression = _PAM_UNDEF;
-	status = PAM_MUST_FAIL_CODE;
+	substates = malloc(PAM_SUBSTACK_MAX_LEVEL * sizeof(*substates));
+	if (substates == NULL) {
+	    pam_syslog(pamh, LOG_CRIT,
+		       "_pam_dispatch_aux: no memory for substack states");
+	    return PAM_BUF_ERR;
+	}
+	substates[0].impression = impression = _PAM_UNDEF;
+	substates[0].status = status = PAM_MUST_FAIL_CODE;
     }
 
+    prev_level = 0;
+
     /* Loop through module logic stack */
-    for (depth=0 ; h != NULL ; h = h->next, ++depth) {
+    for (depth=0 ; h != NULL ; prev_level = stack_level, h = h->next, ++depth) {
 	int retval, cached_retval, action;
+
+        stack_level = h->stack_level;
 
 	/* skip leading modules if they have already returned */
 	if (depth < skip_depth) {
 	    continue;
 	}
 
+	/* remember state if we are entering a substack */
+	if (prev_level < stack_level) { 
+	    substates[stack_level].impression = impression;
+	    substates[stack_level].status = status;
+	}
+
 	/* attempt to call the module */
-	if (h->func == NULL) {
+	if (h->handler_type == PAM_HT_MUST_FAIL) {
+	    D(("module poorly listed in PAM config; forcing failure"));
+	    retval = PAM_MUST_FAIL_CODE;
+	} else if (h->handler_type == PAM_HT_SUBSTACK) {
+	    D(("skipping substack handler"));
+	    continue;
+	} else if (h->func == NULL) {
 	    D(("module function is not defined, indicating failure"));
 	    retval = PAM_MODULE_UNKNOWN;
 	} else {
@@ -83,10 +108,6 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	    retval = h->func(pamh, flags, h->argc, h->argv);
 	    pamh->mod_name=NULL;
 	    D(("module returned: %s", pam_strerror(pamh, retval)));
-	    if (h->must_fail) {
-		D(("module poorly listed in PAM config; forcing failure"));
-		retval = PAM_MUST_FAIL_CODE;
-	    }
 	}
 
 	/*
@@ -100,6 +121,7 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	    pamh->former.impression = impression;
 	    pamh->former.status = status;
 	    pamh->former.depth = depth;
+	    pamh->former.substates = substates;
 
 	    D(("module %d returned PAM_INCOMPLETE", depth));
 	    return retval;
@@ -176,8 +198,8 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	switch (action) {
 	case _PAM_ACTION_RESET:
 
-	    impression = _PAM_UNDEF;
-	    status = PAM_MUST_FAIL_CODE;
+	    impression = substates[stack_level].impression;
+	    status = substates[stack_level].status;
 	    break;
 
 	case _PAM_ACTION_OK:
@@ -244,9 +266,13 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 		}
 
 		/* this means that we need to skip #action stacked modules */
-		do {
- 		    h = h->next;
-		} while ( --action > 0 && h != NULL );
+		while (h->next != NULL && h->next->stack_level >= stack_level && action > 0) {
+ 		    do {
+			h = h->next;
+			++depth;
+		    } while (h->next != NULL && h->next->stack_level > stack_level);
+		    --action;
+		}
 
 		/* note if we try to skip too many modules action is
                    still non-zero and we snag the next if. */
@@ -254,14 +280,19 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 
 	    /* this case is a syntax error: we can't succeed */
 	    if (action) {
-		D(("action syntax error"));
+		pam_syslog(pamh, LOG_ERR, "bad jump in stack");
 		impression = _PAM_NEGATIVE;
 		status = PAM_MUST_FAIL_CODE;
 	    }
 	}
-    }
-
+	continue;
+	
 decision_made:     /* by getting  here we have made a decision */
+	while (h->next != NULL && h->next->stack_level >= stack_level) {
+	    h = h->next;
+	    ++depth;
+	}
+    }
 
     /* Sanity check */
     if ( status == PAM_SUCCESS && impression != _PAM_POSITIVE ) {
@@ -269,6 +300,7 @@ decision_made:     /* by getting  here we have made a decision */
 	status = PAM_MUST_FAIL_CODE;
     }
 
+    free(substates);
     /* We have made a decision about the modules executed */
     return status;
 }

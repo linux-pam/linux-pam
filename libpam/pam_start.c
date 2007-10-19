@@ -88,6 +88,7 @@ int pam_start (
     (*pamh)->oldauthtok = NULL;
     (*pamh)->fail_delay.delay_fn_ptr = NULL;
     (*pamh)->former.choice = PAM_NOT_STACKED;
+    (*pamh)->former.substates = NULL;
 #ifdef HAVE_LIBAUDIT
     (*pamh)->audit_state = 0;
 #endif

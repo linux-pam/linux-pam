@@ -180,6 +180,24 @@
           </para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term>substack</term>
+        <listitem>
+          <para>
+            include all lines of given type from the configuration
+            file specified as an argument to this control. This differs from
+            <emphasis>include</emphasis> in that evaluation of the
+            <emphasis>done</emphasis> and <emphasis>die</emphasis> actions
+            in a substack does not cause skipping the rest of the complete
+            module stack, but only of the substack. Jumps in a substack
+            also can not make evaluation jump out of it, and the whole substack
+            is counted as one module when the jump is done in a parent stack.
+            The <emphasis>reset</emphasis> action will reset the state of a
+            module stack to the state it was in as of beginning of the substack
+            evaluation.
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
 
     <para>

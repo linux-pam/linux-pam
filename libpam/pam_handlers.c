@@ -18,7 +18,7 @@
 
 #define BUF_SIZE                  1024
 #define MODULE_CHUNK              4
-#define UNKNOWN_MODULE_PATH       "<*unknown module path*>"
+#define UNKNOWN_MODULE       "<*unknown module*>"
 #ifndef _PAM_ISA
 #define _PAM_ISA "."
 #endif
@@ -28,7 +28,7 @@ static int _pam_assemble_line(FILE *f, char *buf, int buf_len);
 static void _pam_free_handlers_aux(struct handler **hp);
 
 static int _pam_add_handler(pam_handle_t *pamh
-		     , int must_fail, int other, int type
+		     , int must_fail, int other, int stack_level, int type
 		     , int *actions, const char *mod_path
 		     , int argc, char **argv, int argvlen);
 
@@ -43,6 +43,7 @@ static int _pam_add_handler(pam_handle_t *pamh
 static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
 				, const char *service /* specific file */
 				, int module_type /* specific type */
+				, int stack_level /* level of substack */
 #ifdef PAM_READ_BOTH_CONFS
 				, int not_other
 #endif /* PAM_READ_BOTH_CONFS */
@@ -51,6 +52,7 @@ static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
 static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 				, const char *known_service /* specific file */
 				, int requested_module_type /* specific type */
+				, int stack_level /* level of substack */
 #ifdef PAM_READ_BOTH_CONFS
 				, int not_other
 #endif /* PAM_READ_BOTH_CONFS */
@@ -68,7 +70,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	int module_type, actions[_PAM_RETURN_VALUES];
 	int other;            /* set if module is for PAM_DEFAULT_SERVICE */
 	int res;              /* module added successfully? */
-	int must_fail=0;      /* a badly formatted line must fail when used */
+	int handler_type = PAM_HT_MODULE; /* regular handler from a module */
 	int argc;
 	char **argv;
 	int argvlen;
@@ -92,6 +94,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	/* accept "service name" or PAM_DEFAULT_SERVICE modules */
 	if (!strcasecmp(this_service, pamh->service_name) || other) {
 	    int pam_include = 0;
+	    int substack = 0;
 
 	    /* This is a service we are looking for */
 	    D(("_pam_init_handlers: Found PAM config entry for: %s"
@@ -105,7 +108,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 			   "(%s) empty module type", this_service);
 	        module_type = (requested_module_type != PAM_T_ANY) ?
 		  requested_module_type : PAM_T_AUTH;	/* most sensitive */
-	        must_fail = 1; /* install as normal but fail when dispatched */
+	        handler_type = PAM_HT_MUST_FAIL; /* install as normal but fail when dispatched */
 	    } else if (!strcasecmp("auth", tok)) {
 		module_type = PAM_T_AUTH;
 	    } else if (!strcasecmp("session", tok)) {
@@ -121,9 +124,9 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 			   this_service, tok);
 		module_type = (requested_module_type != PAM_T_ANY) ?
 			      requested_module_type : PAM_T_AUTH;	/* most sensitive */
-		must_fail = 1; /* install as normal but fail when dispatched */
+		handler_type = PAM_HT_MUST_FAIL; /* install as normal but fail when dispatched */
 	    }
-	    D(("Using %s config entry: %s", must_fail?"BAD ":"", tok));
+	    D(("Using %s config entry: %s", handler_type?"BAD ":"", tok));
 	    if (requested_module_type != PAM_T_ANY &&
 	        module_type != requested_module_type) {
 		D(("Skipping config entry: %s (requested=%d, found=%d)",
@@ -145,7 +148,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		pam_syslog(pamh, LOG_ERR,
 			   "(%s) no control flag supplied", this_service);
 		_pam_set_default_control(actions, _PAM_ACTION_BAD);
-		must_fail = 1;
+		handler_type = PAM_HT_MUST_FAIL;
 	    } else if (!strcasecmp("required", tok)) {
 		D(("*PAM_F_REQUIRED*"));
 		actions[PAM_SUCCESS] = _PAM_ACTION_OK;
@@ -171,6 +174,11 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    } else if (!strcasecmp("include", tok)) {
 		D(("*PAM_F_INCLUDE*"));
 		pam_include = 1;
+		substack = 0;
+	    } else if (!strcasecmp("substack", tok)) {
+		D(("*PAM_F_SUBSTACK*"));
+		pam_include = 1;
+		substack = 1;
 	    } else {
 		D(("will need to parse %s", tok));
 		_pam_parse_control(actions, tok);
@@ -180,7 +188,18 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 
 	    tok = _pam_StrTok(NULL, " \n\t", &nexttok);
 	    if (pam_include) {
-		if (_pam_load_conf_file(pamh, tok, this_service, module_type
+	    	if (substack) {
+		    res = _pam_add_handler(pamh, PAM_HT_SUBSTACK, other,
+		    		stack_level, module_type, actions, tok,
+		    		0, NULL, 0);
+		    if (res != PAM_SUCCESS) {
+			pam_syslog(pamh, LOG_ERR, "error adding substack %s", tok);
+			D(("failed to load module - aborting"));
+			return PAM_ABORT;
+		    }  	    
+	    	}
+		if (_pam_load_conf_file(pamh, tok, this_service, module_type,
+		    stack_level + substack
 #ifdef PAM_READ_BOTH_CONFS
 					      , !other
 #endif /* PAM_READ_BOTH_CONFS */
@@ -188,7 +207,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		    continue;
 		_pam_set_default_control(actions, _PAM_ACTION_BAD);
 		mod_path = NULL;
-		must_fail = 1;
+		handler_type = PAM_HT_MUST_FAIL;
 		nexttok = NULL;
 	    } else if (tok != NULL) {
 		mod_path = tok;
@@ -199,7 +218,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		pam_syslog(pamh, LOG_ERR,
 		           "(%s) no module name supplied", this_service);
 		mod_path = NULL;
-		must_fail = 1;
+		handler_type = PAM_HT_MUST_FAIL;
 	    }
 
 	    /* nexttok points to remaining arguments... */
@@ -219,7 +238,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		int y;
 
 		D(("CONF%s: %s%s %d %s %d"
-		   , must_fail?"<*will fail*>":""
+		   , handler_type==PAM_HT_MUST_FAIL?"<*will fail*>":""
 		   , this_service, other ? "(backup)":""
 		   , module_type
 		   , mod_path, argc));
@@ -235,7 +254,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    }
 #endif
 
-	    res = _pam_add_handler(pamh, must_fail, other
+	    res = _pam_add_handler(pamh, handler_type, other, stack_level
 				   , module_type, actions, mod_path
 				   , argc, argv, argvlen);
 	    if (res != PAM_SUCCESS) {
@@ -252,6 +271,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
 				, const char *service /* specific file */
 				, int module_type /* specific type */
+				, int stack_level /* level of substack */
 #ifdef PAM_READ_BOTH_CONFS
 				, int not_other
 #endif /* PAM_READ_BOTH_CONFS */
@@ -262,6 +282,12 @@ static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
     int retval = PAM_ABORT;
 
     D(("_pam_load_conf_file called"));
+
+    if (stack_level >= PAM_SUBSTACK_MAX_LEVEL) {
+	D(("maximum level of substacks reached"));
+	pam_syslog(pamh, LOG_ERR, "maximum level of substacks reached");
+	return PAM_ABORT;
+    }
 
     if (config_name == NULL) {
 	D(("no config file supplied"));
@@ -280,7 +306,7 @@ static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
     D(("opening %s", config_name));
     f = fopen(config_name, "r");
     if (f != NULL) {
-	retval = _pam_parse_conf_file(pamh, f, service, module_type
+	retval = _pam_parse_conf_file(pamh, f, service, module_type, stack_level
 #ifdef PAM_READ_BOTH_CONFS
 					      , not_other
 #endif /* PAM_READ_BOTH_CONFS */
@@ -379,7 +405,8 @@ int _pam_init_handlers(pam_handle_t *pamh)
 	    f = fopen(filename, "r");
 	    if (f != NULL) {
 		/* would test magic here? */
-		retval = _pam_parse_conf_file(pamh, f, pamh->service_name, PAM_T_ANY
+		retval = _pam_parse_conf_file(pamh, f, pamh->service_name,
+		    PAM_T_ANY, 0
 #ifdef PAM_READ_BOTH_CONFS
 					      , 0
 #endif /* PAM_READ_BOTH_CONFS */
@@ -400,7 +427,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 		D(("checking %s", PAM_CONFIG));
 
 		if ((f = fopen(PAM_CONFIG,"r")) != NULL) {
-		    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY, 1);
+		    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY, 0, 1);
 		    fclose(f);
 		} else
 #endif /* PAM_READ_BOTH_CONFS */
@@ -419,9 +446,8 @@ int _pam_init_handlers(pam_handle_t *pamh)
 		f = fopen(PAM_DEFAULT_SERVICE_FILE, "r");
 		if (f != NULL) {
 		    /* would test magic here? */
-		    retval = _pam_parse_conf_file(pamh, f
-						  , PAM_DEFAULT_SERVICE
-						  , PAM_T_ANY
+		    retval = _pam_parse_conf_file(pamh, f, PAM_DEFAULT_SERVICE,
+			PAM_T_ANY, 0
 #ifdef PAM_READ_BOTH_CONFS
 						  , 0
 #endif /* PAM_READ_BOTH_CONFS */
@@ -454,7 +480,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 		return PAM_ABORT;
 	    }
 
-	    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY
+	    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY, 0
 #ifdef PAM_READ_BOTH_CONFS
 					  , 0
 #endif /* PAM_READ_BOTH_CONFS */
@@ -581,46 +607,19 @@ extract_modulename(const char *mod_path)
   return retval;
 }
 
-int _pam_add_handler(pam_handle_t *pamh
-		     , int must_fail, int other, int type
-		     , int *actions, const char *mod_path
-		     , int argc, char **argv, int argvlen)
+static struct loaded_module *
+_pam_load_module(pam_handle_t *pamh, const char *mod_path)
 {
-    struct loaded_module *mod;
     int x = 0;
-    struct handler **handler_p;
-    struct handler **handler_p2;
-    struct handlers *the_handlers;
-    const char *sym, *sym2;
-    char *mod_full_path=NULL;
+    int success;
 #ifndef PAM_STATIC
     char *mod_full_isa_path=NULL, *isa=NULL;
 #endif
-    servicefn func, func2;
-    int success;
+    struct loaded_module *mod;
 
-    D(("called."));
-    IF_NO_PAMH("_pam_add_handler",pamh,PAM_SYSTEM_ERR);
-
-    /* if NULL set to something that can be searched for */
-    switch (mod_path != NULL) {
-    default:
-	if (mod_path[0] == '/') {
-	    break;
-	}
-	if (asprintf(&mod_full_path, "%s%s",
-		     DEFAULT_MODULE_PATH, mod_path) >= 0) {
-	    mod_path = mod_full_path;
-	    break;
-	}
-	mod_full_path = NULL;
-	pam_syslog(pamh, LOG_CRIT, "cannot malloc full mod path");
-    case 0:
-	mod_path = UNKNOWN_MODULE_PATH;
-    }
-
-    D(("_pam_add_handler: adding type %d, module `%s'",type,mod_path));
-    mod  = pamh->handlers.module;
+    D(("_pam_load_module: loading module `%s'", mod_path));
+    
+    mod = pamh->handlers.module;
 
     /* First, ensure the module is loaded */
     while (x < pamh->handlers.modules_used) {
@@ -639,9 +638,8 @@ int _pam_add_handler(pam_handle_t *pamh
 	    if (tmp == NULL) {
 		D(("cannot enlarge module pointer memory"));
 		pam_syslog(pamh, LOG_ERR,
-				"realloc returned NULL in _pam_add_handler");
-		_pam_drop(mod_full_path);
-		return PAM_ABORT;
+				"realloc returned NULL in _pam_load_module");
+		return NULL;
 	    }
 	    pamh->handlers.module = tmp;
 	    pamh->handlers.modules_allocated += MODULE_CHUNK;
@@ -654,10 +652,10 @@ int _pam_add_handler(pam_handle_t *pamh
 	/* Only load static function if function was not found dynamically.
 	 * This code should work even if no dynamic loading is available. */
 	if (success != PAM_SUCCESS) {
-	    D(("_pam_add_handler: open static handler %s", mod_path));
+	    D(("_pam_load_module: open static handler %s", mod_path));
 	    mod->dl_handle = _pam_open_static_handler(pamh, mod_path);
 	    if (mod->dl_handle == NULL) {
-	        D(("_pam_add_handler: unable to find static handler %s",
+	        D(("_pam_load_module: unable to find static handler %s",
 		   mod_path));
 		pam_syslog(pamh, LOG_ERR,
 				"unable to open static handler %s", mod_path);
@@ -670,15 +668,15 @@ int _pam_add_handler(pam_handle_t *pamh
 	    }
 	}
 #else
-	D(("_pam_add_handler: _pam_dlopen(%s)", mod_path));
+	D(("_pam_load_module: _pam_dlopen(%s)", mod_path));
 	mod->dl_handle = _pam_dlopen(mod_path);
-	D(("_pam_add_handler: _pam_dlopen'ed"));
-	D(("_pam_add_handler: dlopen'ed"));
+	D(("_pam_load_module: _pam_dlopen'ed"));
+	D(("_pam_load_module: dlopen'ed"));
 	if (mod->dl_handle == NULL) {
 	    if (strstr(mod_path, "$ISA")) {
 		mod_full_isa_path = malloc(strlen(mod_path) + strlen(_PAM_ISA) + 1);
 		if (mod_full_isa_path == NULL) {
-		    D(("_pam_handler: couldn't get memory for mod_path"));
+		    D(("_pam_load_module: couldn't get memory for mod_path"));
 		    pam_syslog(pamh, LOG_ERR, "no memory for module path");
 		    success = PAM_ABORT;
 		} else {
@@ -694,9 +692,9 @@ int _pam_add_handler(pam_handle_t *pamh
 	    }
 	}
 	if (mod->dl_handle == NULL) {
-	    D(("_pam_add_handler: _pam_dlopen(%s) failed", mod_path));
-	    pam_syslog(pamh, LOG_ERR, "unable to dlopen(%s)", mod_path);
-	    pam_syslog(pamh, LOG_ERR, "[error: %s]", _pam_dlerror());
+	    D(("_pam_load_module: _pam_dlopen(%s) failed", mod_path));
+	    pam_syslog(pamh, LOG_ERR, "unable to dlopen(%s): %s", mod_path,
+	        _pam_dlerror());
 	    /* Don't abort yet; static code may be able to find function.
 	     * But defaults to abort if nothing found below... */
 	} else {
@@ -717,7 +715,7 @@ int _pam_add_handler(pam_handle_t *pamh
 
 	/* indicate its name - later we will search for it by this */
 	if ((mod->name = _pam_strdup(mod_path)) == NULL) {
-	    D(("_pam_handler: couldn't get memory for mod_path"));
+	    D(("_pam_load_module: couldn't get memory for mod_path"));
 	    pam_syslog(pamh, LOG_ERR, "no memory for module path");
 	    success = PAM_ABORT;
 	}
@@ -726,18 +724,54 @@ int _pam_add_handler(pam_handle_t *pamh
 	mod += x;                                    /* the located module */
 	success = PAM_SUCCESS;
     }
+    return success == PAM_SUCCESS ? mod : NULL;
+}
 
-    _pam_drop(mod_full_path);
-    mod_path = NULL;                        /* no longer needed or trusted */
+int _pam_add_handler(pam_handle_t *pamh
+		     , int handler_type, int other, int stack_level, int type
+		     , int *actions, const char *mod_path
+		     , int argc, char **argv, int argvlen)
+{
+    struct loaded_module *mod = NULL;
+    struct handler **handler_p;
+    struct handler **handler_p2;
+    struct handlers *the_handlers;
+    const char *sym, *sym2;
+    char *mod_full_path;
+    servicefn func, func2;
+    int mod_type = PAM_MT_FAULTY_MOD;
 
-    /* Now return error if necessary after trying all possible ways... */
-    if (success != PAM_SUCCESS)
-	return(success);
+    D(("called."));
+    IF_NO_PAMH("_pam_add_handler",pamh,PAM_SYSTEM_ERR);
+
+    D(("_pam_add_handler: adding type %d, handler_type %d, module `%s'",
+	type, handler_type, mod_path));
+
+    if (handler_type == PAM_HT_MODULE && mod_path != NULL) {
+	if (mod_path[0] == '/') {
+	    mod = _pam_load_module(pamh, mod_path);
+	} else if (asprintf(&mod_full_path, "%s%s",
+			     DEFAULT_MODULE_PATH, mod_path) >= 0) {
+	    mod = _pam_load_module(pamh, mod_full_path);
+	    _pam_drop(mod_full_path);
+	} else {
+	    pam_syslog(pamh, LOG_CRIT, "cannot malloc full mod path");
+	    return PAM_ABORT;
+	}
+
+	if (mod == NULL) {
+	    /* if we get here with NULL it means allocation error */
+	    return PAM_ABORT;
+	}
+	
+	mod_type = mod->type;
+    }
+    
+    if (mod_path == NULL)
+    	mod_path = UNKNOWN_MODULE;
 
     /*
-     * At this point 'mod' points to the stored/loaded module. If its
-     * dl_handle is unknown, then we must be able to indicate dispatch
-     * failure with 'must_fail'
+     * At this point 'mod' points to the stored/loaded module.
      */
 
     /* Now define the handler(s) based on mod->dlhandle and type */
@@ -780,43 +814,43 @@ int _pam_add_handler(pam_handle_t *pamh
     /* are the modules reliable? */
     if (
 #ifdef PAM_STATIC
-	 mod->type != PAM_MT_STATIC_MOD
+	 mod_type != PAM_MT_STATIC_MOD
 	 &&
 #else
-	 mod->type != PAM_MT_DYNAMIC_MOD
+	 mod_type != PAM_MT_DYNAMIC_MOD
 	 &&
 #endif
-	 mod->type != PAM_MT_FAULTY_MOD
+	 mod_type != PAM_MT_FAULTY_MOD
 	) {
-	D(("_pam_add_handlers: illegal module library type; %d", mod->type));
+	D(("_pam_add_handlers: illegal module library type; %d", mod_type));
 	pam_syslog(pamh, LOG_ERR,
 			"internal error: module library type not known: %s;%d",
-			sym, mod->type);
+			sym, mod_type);
 	return PAM_ABORT;
     }
 
     /* now identify this module's functions - for non-faulty modules */
 
 #ifdef PAM_STATIC
-    if ((mod->type == PAM_MT_STATIC_MOD) &&
+    if ((mod_type == PAM_MT_STATIC_MOD) &&
         (func = (servicefn)_pam_get_static_sym(mod->dl_handle, sym)) == NULL) {
 	pam_syslog(pamh, LOG_ERR, "unable to resolve static symbol: %s", sym);
     }
 #else
-    if ((mod->type == PAM_MT_DYNAMIC_MOD) &&
+    if ((mod_type == PAM_MT_DYNAMIC_MOD) &&
         !(func = _pam_dlsym(mod->dl_handle, sym)) ) {
 	pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym);
     }
 #endif
     if (sym2) {
 #ifdef PAM_STATIC
-	if ((mod->type == PAM_MT_STATIC_MOD) &&
+	if ((mod_type == PAM_MT_STATIC_MOD) &&
 	    (func2 = (servicefn)_pam_get_static_sym(mod->dl_handle, sym2))
 	    == NULL) {
 	    pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym2);
 	}
 #else
-	if ((mod->type == PAM_MT_DYNAMIC_MOD) &&
+	if ((mod_type == PAM_MT_DYNAMIC_MOD) &&
 	    !(func2 = _pam_dlsym(mod->dl_handle, sym2)) ) {
 	    pam_syslog(pamh, LOG_ERR, "unable to resolve symbol: %s", sym2);
 	}
@@ -835,14 +869,15 @@ int _pam_add_handler(pam_handle_t *pamh
 	return (PAM_ABORT);
     }
 
-    (*handler_p)->must_fail = must_fail;        /* failure forced? */
+    (*handler_p)->handler_type = handler_type;
+    (*handler_p)->stack_level = stack_level;
     (*handler_p)->func = func;
     memcpy((*handler_p)->actions,actions,sizeof((*handler_p)->actions));
     (*handler_p)->cached_retval = _PAM_INVALID_RETVAL;
     (*handler_p)->cached_retval_p = &((*handler_p)->cached_retval);
     (*handler_p)->argc = argc;
     (*handler_p)->argv = argv;                       /* not a copy */
-    (*handler_p)->mod_name = extract_modulename(mod->name);
+    (*handler_p)->mod_name = extract_modulename(mod_path);
     (*handler_p)->next = NULL;
 
     /* some of the modules have a second calling function */
@@ -857,7 +892,8 @@ int _pam_add_handler(pam_handle_t *pamh
 	    return (PAM_ABORT);
 	}
 
-	(*handler_p2)->must_fail = must_fail;        /* failure forced? */
+	(*handler_p2)->handler_type = handler_type;
+	(*handler_p2)->stack_level = stack_level;
 	(*handler_p2)->func = func2;
 	memcpy((*handler_p2)->actions,actions,sizeof((*handler_p2)->actions));
 	(*handler_p2)->cached_retval =  _PAM_INVALID_RETVAL;     /* ignored */
@@ -873,7 +909,7 @@ int _pam_add_handler(pam_handle_t *pamh
 	} else {
 	    (*handler_p2)->argv = NULL;              /* no arguments */
 	}
-	(*handler_p2)->mod_name = extract_modulename(mod->name);
+	(*handler_p2)->mod_name = extract_modulename(mod_path);
 	(*handler_p2)->next = NULL;
     }
 
