@@ -1,3 +1,11 @@
+2007-10-25  Steve Langasek  <vorlon@debian.org>
+
+	* modules/pam_tally/pam_tally.c: fix the definition of OPT_AUDIT
+	to be octal instead of decimal, so that it works properly in a
+	bit field instead of forcing the "even_deny_root_account" and
+	"no_reset" options to on.
+	Patch from Corey Wright <undefined@pobox.com>.
+
 2007-10-19  Tomas Mraz  <t8m@centrum.cz>
 
 	* xtests/tst-pam_access1.c: Use different name for user and group.

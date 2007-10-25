@@ -94,7 +94,7 @@ struct tally_options {
 #define OPT_PER_USER			 010
 #define	OPT_NO_LOCK_TIME		 020
 #define OPT_NO_RESET			 040
-#define OPT_AUDIT                        100
+#define OPT_AUDIT                       0100
 
 
 /*---------------------------------------------------------------------*/
