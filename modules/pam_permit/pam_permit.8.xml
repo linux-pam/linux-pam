@@ -44,7 +44,7 @@
   <refsect1 id="pam_permit-options">
 
     <title>OPTIONS</title>
-    <para> This module does not recognice any options.</para>
+    <para> This module does not recognise any options.</para>
   </refsect1>
 
   <refsect1 id="pam_permit-services">

@@ -55,7 +55,7 @@ onerr=[succeed|fail]
 apply=[user|@group]
 
     Restrict the user class for which the restriction apply. Note that with
-    item=[user|ruser|group] this oes not make sense, but for item=[tty|rhost|
+    item=[user|ruser|group] this does not make sense, but for item=[tty|rhost|
     shell] it have a meaning.
 
 quiet

@@ -412,7 +412,7 @@
           <term>PAM_AUTHTOK_RECOVERY_ERR</term>
           <listitem>
             <para>
-              The old password was not supplied by a previous stackked
+              The old password was not supplied by a previous stacked
               module or got not requested from the user.
               The first error can happen if <option>use_authtok</option>
               is specified.

@@ -1,28 +1,28 @@
 .\"     Title: pam_warn
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/09/2006
-.\"    Manual: Linux\-PAM Manual
-.\"    Source: Linux\-PAM Manual
+.\" Generator: DocBook XSL Stylesheets v1.73.1 <http://docbook.sf.net/>
+.\"      Date: 11/06/2007
+.\"    Manual: Linux-PAM Manual
+.\"    Source: Linux-PAM Manual
 .\"
-.TH "PAM_WARN" "8" "06/09/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_WARN" "8" "11/06/2007" "Linux-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
 .ad l
 .SH "NAME"
-pam_warn \- PAM module which logs all PAM items if called
+pam_warn - PAM module which logs all PAM items if called
 .SH "SYNOPSIS"
 .HP 12
-\fBpam_warn.so\fR
+\fBpam_warn\.so\fR
 .SH "DESCRIPTION"
 .PP
 pam_warn is a PAM module that logs the service, terminal, user, remote user and remote host to
-\fBsyslog\fR(3). The items are not probed for, but instead obtained from the standard PAM items. The module always returns
-\fBPAM_IGNORE\fR, indicating that it does not want to affect the authentication process.
+\fBsyslog\fR(3)\. The items are not probed for, but instead obtained from the standard PAM items\. The module always returns
+\fBPAM_IGNORE\fR, indicating that it does not want to affect the authentication process\.
 .SH "OPTIONS"
 .PP
-This module does not recognice any options.
+This module does not recognise any options\.
 .SH "MODULE SERVICES PROVIDED"
 .PP
 The services
@@ -31,28 +31,30 @@ The services
 \fBpassword\fR
 and
 \fBsession\fR
-are supported.
+are supported\.
 .SH "RETURN VALUES"
-.TP 3n
+.PP
 PAM_IGNORE
-This module always returns PAM_IGNORE.
+.RS 4
+This module always returns PAM_IGNORE\.
+.RE
 .SH "EXAMPLES"
 .sp
-.RS 3n
+.RS 4
 .nf
-#%PAM\-1.0
+#%PAM\-1\.0
 #
-# If we don't have config entries for a service, the
-# OTHER entries are used. To be secure, warn and deny
-# access to everything.
-other auth     required       pam_warn.so
-other auth     required       pam_deny.so
-other account  required       pam_warn.so
-other account  required       pam_deny.so
-other password required       pam_warn.so
-other password required       pam_deny.so
-other session  required       pam_warn.so
-other session  required       pam_deny.so
+# If we don\'t have config entries for a service, the
+# OTHER entries are used\. To be secure, warn and deny
+# access to everything\.
+other auth     required       pam_warn\.so
+other auth     required       pam_deny\.so
+other account  required       pam_warn\.so
+other account  required       pam_deny\.so
+other password required       pam_warn\.so
+other password required       pam_deny\.so
+other session  required       pam_warn\.so
+other session  required       pam_deny\.so
       
 .fi
 .RE
@@ -64,4 +66,4 @@ other session  required       pam_deny.so
 \fBpam\fR(8)
 .SH "AUTHOR"
 .PP
-pam_warn was written by Andrew G. Morgan <morgan@kernel.org>.
+pam_warn was written by Andrew G\. Morgan <morgan@kernel\.org>\.

@@ -1,17 +1,17 @@
 .\"     Title: limits.conf
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.72.0 <http://docbook.sf.net/>
-.\"      Date: 08/30/2007
+.\" Generator: DocBook XSL Stylesheets v1.73.1 <http://docbook.sf.net/>
+.\"      Date: 11/06/2007
 .\"    Manual: Linux-PAM Manual
 .\"    Source: Linux-PAM Manual
 .\"
-.TH "LIMITS.CONF" "5" "08/30/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "LIMITS\.CONF" "5" "11/06/2007" "Linux-PAM Manual" "Linux\-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
 .ad l
 .SH "NAME"
-limits.conf \- configuration file for the pam_limits module
+limits.conf - configuration file for the pam_limits module
 .SH "DESCRIPTION"
 .PP
 The syntax of the lines is as follows:
@@ -26,46 +26,49 @@ The fields listed above should be filled as follows:
 .PP
 \fB<domain>\fR
 .RS 4
+.sp
 .RS 4
 \h'-04'\(bu\h'+03'a username
 .RE
+.sp
 .RS 4
 \h'-04'\(bu\h'+03'a groupname, with
 \fB@group\fR
-syntax. This should not be confused with netgroups.
+syntax\. This should not be confused with netgroups\.
 .RE
+.sp
 .RS 4
 \h'-04'\(bu\h'+03'the wildcard
-\fB*\fR, for default entry.
+\fB*\fR, for default entry\.
 .RE
+.sp
 .RS 4
 \h'-04'\(bu\h'+03'the wildcard
 \fB%\fR, for maxlogins limit only, can also be used with
 \fI%group\fR
-syntax.
+syntax\.
 .RE
 .RE
 .PP
 \fB<type>\fR
 .RS 4
-.RS 4
 .PP
 \fBhard\fR
 .RS 4
 for enforcing
 \fBhard\fR
-resource limits. These limits are set by the superuser and enforced by the Kernel. The user cannot raise his requirement of system resources above such values.
+resource limits\. These limits are set by the superuser and enforced by the Kernel\. The user cannot raise his requirement of system resources above such values\.
 .RE
 .PP
 \fBsoft\fR
 .RS 4
 for enforcing
 \fBsoft\fR
-resource limits. These limits are ones that the user can move up or down within the permitted range by any pre\-exisiting
+resource limits\. These limits are ones that the user can move up or down within the permitted range by any pre\-existing
 \fBhard\fR
-limits. The values specified with this token can be thought of as
+limits\. The values specified with this token can be thought of as
 \fIdefault\fR
-values, for normal system usage.
+values, for normal system usage\.
 .RE
 .PP
 \fB\-\fR
@@ -74,15 +77,13 @@ for enforcing both
 \fBsoft\fR
 and
 \fBhard\fR
-resource limits together.
+resource limits together\.
 .sp
-Note, if you specify a type of '\-' but neglect to supply the item and value fields then the module will never enforce any limits on the specified user/group etc. .
-.RE
+Note, if you specify a type of \'\-\' but neglect to supply the item and value fields then the module will never enforce any limits on the specified user/group etc\. \.
 .RE
 .RE
 .PP
 \fB<item>\fR
-.RS 4
 .RS 4
 .PP
 \fBcore\fR
@@ -153,48 +154,47 @@ the priority to run user process with (negative values boost process priority)
 .PP
 \fBlocks\fR
 .RS 4
-maximum locked files (Linux 2.4 and higher)
+maximum locked files (Linux 2\.4 and higher)
 .RE
 .PP
 \fBsigpending\fR
 .RS 4
-maximum number of pending signals (Linux 2.6 and higher)
+maximum number of pending signals (Linux 2\.6 and higher)
 .RE
 .PP
 \fBmsqqueue\fR
 .RS 4
-maximum memory used by POSIX message queues (bytes) (Linux 2.6 and higher)
+maximum memory used by POSIX message queues (bytes) (Linux 2\.6 and higher)
 .RE
 .PP
 \fBnice\fR
 .RS 4
-maximum nice priority allowed to raise to (Linux 2.6.12 and higher)
+maximum nice priority allowed to raise to (Linux 2\.6\.12 and higher)
 .RE
 .PP
 \fBrtprio\fR
 .RS 4
-maximum realtime priority allowed for non\-privileged processes (Linux 2.6.12 and higher)
-.RE
+maximum realtime priority allowed for non\-privileged processes (Linux 2\.6\.12 and higher)
 .RE
 .RE
 .PP
 In general, individual limits have priority over group limits, so if you impose no limits for
 \fIadmin\fR
-group, but one of the members in this group have a limits line, the user will have its limits set according to this line.
+group, but one of the members in this group have a limits line, the user will have its limits set according to this line\.
 .PP
 Also, please note that all limit settings are set
-\fIper login\fR. They are not global, nor are they permanent; existing only for the duration of the session.
+\fIper login\fR\. They are not global, nor are they permanent; existing only for the duration of the session\.
 .PP
 In the
 \fIlimits\fR
-configuration file, the '\fB#\fR' character introduces a comment \- after which the rest of the line is ignored.
+configuration file, the \'\fB#\fR\' character introduces a comment \- after which the rest of the line is ignored\.
 .PP
 The pam_limits module does its best to report configuration problems found in its configuration file via
-\fBsyslog\fR(3).
+\fBsyslog\fR(3)\.
 .SH "EXAMPLES"
 .PP
 These are some example lines which might be specified in
-\fI/etc/security/limits.conf\fR.
+\fI/etc/security/limits\.conf\fR\.
 .sp
 .RS 4
 .nf
@@ -216,4 +216,4 @@ ftp             hard    nproc           0
 \fBpam\fR(8)
 .SH "AUTHOR"
 .PP
-pam_limits was initially written by Cristian Gafton <gafton@redhat.com>
+pam_limits was initially written by Cristian Gafton <gafton@redhat\.com>

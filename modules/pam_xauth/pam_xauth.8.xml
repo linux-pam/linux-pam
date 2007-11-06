@@ -237,7 +237,7 @@ session  optional  pam_xauth.so
       pam_xauth calls
       <citerefentry>
        <refentrytitle>xauth</refentrytitle><manvolnum>1</manvolnum>
-      </citerefentry> the source user to extract the key for $DISPLAY,
+      </citerefentry> as the source user to extract the key for $DISPLAY,
       then calls xauth as the target user to merge the key into the a
       temporary database and later remove the database.
     </para>

@@ -2,7 +2,23 @@
 
 	* libpam/pam_static_modules.h: Fix name of pam_namespace variable.
 
+2007-11-01  Peter Breitenlohner <peb@mppmu.mpg.de>
+
+	* doc/man/pam_conv.3.xml: Correct typo.
+
 2007-10-30  Peter Breitenlohner <peb@mppmu.mpg.de>
+
+	* modules/pam_cracklib/pam_cracklib.8.xml: Correct typo.
+	* modules/pam_limits/limits.conf.5.xml: Likewise.
+	* modules/pam_listfile/pam_listfile.8.xml: Likewise.
+	* modules/pam_xauth/pam_xauth.8.xml: Likewise.
+
+	* modules/pam_deny/pam_deny.8.xml: Correct spelling.
+	* modules/pam_group/pam_group.8.xml: Likewise.
+	* modules/pam_permit/pam_permit.8.xml: Likewise.
+	* modules/pam_shells/pam_shells.8.xml: Likewise.
+	* modules/pam_time/pam_time.8.xml: Likewise.
+	* modules/pam_warn/pam_warn.8.xml: Likewise.
 
 	* tests/tst-dlopen.c: Return 77 in case of static modules, such that
 	all modules/pam_*/tst-pam_* tests yield SKIP instead of FAIL.
@@ -74,6 +90,7 @@
 	* xtests/tst-pam_substack5.sh: Likewise.
 
 2007-10-18  Tomas Mraz  <t8m@centrum.cz>
+
 	* xtests/tst-pam_dispatch4.c: Fix comment about the test.
 	* xtests/tst-pam_dispatch4.pamd: Improve the testcase.
 	* xtests/tst-pam_cracklib2.c: Make the testcase more robust.
@@ -85,6 +102,7 @@
 	* xtests/tst-pam_dispatch5.pamd: New test configuration.
 
 2007-10-09  Tomas Mraz  <t8m@centrum.cz>
+
 	* modules/pam_tally/pam_tally.8.xml: Document audit option
 	correctly.
 

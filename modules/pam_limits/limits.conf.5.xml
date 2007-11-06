@@ -82,7 +82,7 @@
                 <para>
                   for enforcing <emphasis remap='B'>soft</emphasis> resource limits.
                   These limits are ones that the user can move up or down within the
-                  permitted range by any pre-exisiting <emphasis remap='B'>hard</emphasis>
+                  permitted range by any pre-existing <emphasis remap='B'>hard</emphasis>
                   limits. The values specified with this token can be thought of as
                   <emphasis>default</emphasis> values, for normal system usage.
                 </para>

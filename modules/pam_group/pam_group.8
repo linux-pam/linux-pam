@@ -1,80 +1,94 @@
 .\"     Title: pam_group
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.70.1 <http://docbook.sf.net/>
-.\"      Date: 06/22/2006
-.\"    Manual: Linux\-PAM Manual
-.\"    Source: Linux\-PAM Manual
+.\" Generator: DocBook XSL Stylesheets v1.73.1 <http://docbook.sf.net/>
+.\"      Date: 11/06/2007
+.\"    Manual: Linux-PAM Manual
+.\"    Source: Linux-PAM Manual
 .\"
-.TH "PAM_GROUP" "8" "06/22/2006" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_GROUP" "8" "11/06/2007" "Linux-PAM Manual" "Linux-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
 .ad l
 .SH "NAME"
-pam_group \- PAM module for group access
+pam_group - PAM module for group access
 .SH "SYNOPSIS"
 .HP 13
-\fBpam_group.so\fR
+\fBpam_group\.so\fR
 .SH "DESCRIPTION"
 .PP
-The pam_group PAM module does not authenticate the user, but instead it grants group memberships (in the credential setting phase of the authentication module) to the user. Such memberships are based on the service they are applying for.
+The pam_group PAM module does not authenticate the user, but instead it grants group memberships (in the credential setting phase of the authentication module) to the user\. Such memberships are based on the service they are applying for\.
 .PP
 By default rules for group memberships are taken from config file
-\fI/etc/security/group.conf\fR.
+\fI/etc/security/group\.conf\fR\.
 .PP
-This module's usefulness relies on the file\-systems accessible to the user. The point being that once granted the membership of a group, the user may attempt to create a
+This module\'s usefulness relies on the file\-systems accessible to the user\. The point being that once granted the membership of a group, the user may attempt to create a
 \fBsetgid\fR
-binary with a restricted group ownership. Later, when the user is not given membership to this group, they can recover group membership with the precompiled binary. The reason that the file\-systems that the user has access to are so significant, is the fact that when a system is mounted
+binary with a restricted group ownership\. Later, when the user is not given membership to this group, they can recover group membership with the precompiled binary\. The reason that the file\-systems that the user has access to are so significant, is the fact that when a system is mounted
 \fInosuid\fR
-the user is unable to create or execute such a binary file. For this module to provide any level of security, all file\-systems that the user has write access to should be mounted
-\fInosuid\fR.
+the user is unable to create or execute such a binary file\. For this module to provide any level of security, all file\-systems that the user has write access to should be mounted
+\fInosuid\fR\.
 .PP
 The pam_group module fuctions in parallel with the
 \fI/etc/group\fR
-file. If the user is granted any groups based on the behavior of this module, they are granted
+file\. If the user is granted any groups based on the behavior of this module, they are granted
 \fIin addition\fR
 to those entries
 \fI/etc/group\fR
-(or equivalent).
+(or equivalent)\.
 .SH "OPTIONS"
 .PP
-This module does not recognice any options.
+This module does not recognise any options\.
 .SH "MODULE SERVICES PROVIDED"
 .PP
 Only the
 \fBauth\fR
-service is supported.
+service is supported\.
 .SH "RETURN VALUES"
-.TP 3n
+.PP
 PAM_SUCCESS
-group membership was granted.
-.TP 3n
+.RS 4
+group membership was granted\.
+.RE
+.PP
 PAM_ABORT
-Not all relevant data could be gotten.
-.TP 3n
+.RS 4
+Not all relevant data could be gotten\.
+.RE
+.PP
 PAM_BUF_ERR
-Memory buffer error.
-.TP 3n
+.RS 4
+Memory buffer error\.
+.RE
+.PP
 PAM_CRED_ERR
-Group membership was not granted.
-.TP 3n
+.RS 4
+Group membership was not granted\.
+.RE
+.PP
 PAM_IGNORE
+.RS 4
 
 \fBpam_sm_authenticate\fR
-was called which does nothing.
-.TP 3n
+was called which does nothing\.
+.RE
+.PP
 PAM_USER_UNKNOWN
-The user is not known to the system.
+.RS 4
+The user is not known to the system\.
+.RE
 .SH "FILES"
-.TP 3n
-\fI/etc/security/group.conf\fR
+.PP
+\fI/etc/security/group\.conf\fR
+.RS 4
 Default configuration file
+.RE
 .SH "SEE ALSO"
 .PP
 
 \fBgroup.conf\fR(5),
 \fBpam.d\fR(8),
-\fBpam\fR(8).
+\fBpam\fR(8)\.
 .SH "AUTHORS"
 .PP
-pam_group was written by Andrew G. Morgan <morgan@kernel.org>.
+pam_group was written by Andrew G\. Morgan <morgan@kernel\.org>\.

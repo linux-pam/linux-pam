@@ -142,10 +142,10 @@ struct pam_conv {
   const struct pam_message *msg[] (which, in spirit, is consistent with
   the commonly used prototypes for argv argument to the familiar main()
   function: char **argv; and char *argv[]). Said another way Linux-PAM
-  interprets the msg argument as a pointer to an array of num_meg read
+  interprets the msg argument as a pointer to an array of num_msg read
   only 'struct pam_message' pointers.  Solaris' PAM implementation
   interprets this argument as a pointer to a pointer to an array of
-  num_meg pam_message structures.  Fortunately, perhaps, for most
+  num_msg pam_message structures.  Fortunately, perhaps, for most
   module/application developers when num_msg has a value of one these
   two definitions are entirely equivalent. Unfortunately, casually
   raising this number to two has led to unanticipated compatibility

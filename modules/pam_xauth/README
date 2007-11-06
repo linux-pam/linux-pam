@@ -77,9 +77,9 @@ pam_open_session() and pam_close_session() with the ruid set to the uid of the
 calling user and the euid set to root, and must have provided as the PAM_USER
 item the name of the target user.
 
-pam_xauth calls xauth(1) the source user to extract the key for $DISPLAY, then
-calls xauth as the target user to merge the key into the a temporary database
-and later remove the database.
+pam_xauth calls xauth(1) as the source user to extract the key for $DISPLAY,
+then calls xauth as the target user to merge the key into the a temporary
+database and later remove the database.
 
 pam_xauth cannot be told to not remove the keys when the session is closed.
 
