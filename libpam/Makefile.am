@@ -24,7 +24,7 @@ libpam_la_LDFLAGS = -no-undefined -version-info 81:9:81
 libpam_la_LIBADD = @LIBAUDIT@ $(LIBPRELUDE_LIBS) @LIBDL@
 
 if STATIC_MODULES
-  libpam_la_LIBADD += `ls ../modules/pam_*/*.lo` \
+  libpam_la_LIBADD += $(shell ls ../modules/pam_*/*.lo) \
 	@LIBDB@ @LIBCRYPT@ @LIBNSL@ @LIBCRACK@ -lutil
 endif
 if HAVE_VERSIONING

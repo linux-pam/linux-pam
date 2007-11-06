@@ -216,7 +216,7 @@ int pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
 
 /* static module data */
 
-struct pam_module _pam_rootok_modstruct = {
+struct pam_module _pam_faildelay_modstruct = {
     "pam_faildelay",
     pam_sm_authenticate,
     pam_sm_setcred,

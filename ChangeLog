@@ -1,3 +1,18 @@
+2007-11-06  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpam/pam_static_modules.h: Fix name of pam_namespace variable.
+
+2007-10-30  Peter Breitenlohner <peb@mppmu.mpg.de>
+
+	* tests/tst-dlopen.c: Return 77 in case of static modules, such that
+	all modules/pam_*/tst-pam_* tests yield SKIP instead of FAIL.
+	* libpam/Makefile.am (libpam_la_LIBADD): Use "$(shell ls ...)" instead
+	of "`ls ...`", to allow for static modules.
+	* libpam/pam_static_modules.h: Make pam_keyinit module depend on
+	HAVE_KEY_MANAGEMENT; correct name of pam_faildelay pam_module struct.
+	* modules/pam_faildelay/pam_faildelay.c: Correct name of pam_module
+	struct.
+
 2007-10-25  Steve Langasek  <vorlon@debian.org>
 
 	* modules/pam_tally/pam_tally.c: fix the definition of OPT_AUDIT

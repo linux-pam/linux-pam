@@ -39,7 +39,7 @@ GLOBAL OPTIONS
 
     audit
 
-        Will display the username typed if the user is not found.
+        Will log the user name into the system log if the user is not found.
 
 AUTH OPTIONS
 
@@ -76,10 +76,6 @@ AUTH OPTIONS
     no_reset
 
         Don't reset count on successful entry, only decrement.
-
-    even_deny_root_account
-
-        Root account can become unavailable.
 
     even_deny_root_account
 

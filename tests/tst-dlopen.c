@@ -19,6 +19,9 @@
 /* Simple program to see if dlopen() would succeed. */
 int main(int argc, char **argv)
 {
+#ifdef PAM_STATIC
+  return 77;
+#else
   int i;
   struct stat st;
   char buf[PATH_MAX];
@@ -40,5 +43,6 @@ int main(int argc, char **argv)
     }
   }
   return 0;
+#endif
 }
 
