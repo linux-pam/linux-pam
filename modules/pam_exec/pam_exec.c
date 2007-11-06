@@ -208,7 +208,7 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
 	exit (ENOMEM);
 
       for (i = 0; i < (argc - optargc); i++)
-	arggv[i] = argv[i+optargc];
+	arggv[i] = strdup(argv[i+optargc]);
       arggv[i] = NULL;
 
       if (debug)

@@ -267,7 +267,7 @@ __icheckhost (pam_handle_t *pamh, struct _options *opts, u_int32_t raddr
 
 
     /* Try for raw ip address first. */
-    if (isdigit(*lhost) && (int32_t)(laddr = inet_addr(lhost) != -1))
+    if (isdigit(*lhost) && (int32_t)(laddr = inet_addr(lhost)) != -1)
 	return (negate*(! (raddr ^ laddr)));
 
     /* Better be a hostname. */

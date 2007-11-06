@@ -274,8 +274,7 @@ struct pam_module _pam_wheel_modstruct = {
     pam_sm_acct_mgmt,
     NULL,
     NULL,
-    NULL,
-    NULL,
+    NULL
 };
 
 #endif /* PAM_STATIC */

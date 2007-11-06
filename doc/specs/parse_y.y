@@ -229,7 +229,7 @@ void set_label(const char *label, const char *target)
 {
     if (target == NULL) {
 	yyerror("no hanging value for label");
-	target = "<??>";
+	target = "<??" ">";	/* avoid trigraph warning */
     }
     label_root = set_key(label_root, label, target);
 }
@@ -242,7 +242,7 @@ char *new_counter(const char *key)
 
     if (key[i++] != '#') {
 	yyerror("bad index");
-	return strdup("<???>");
+	return strdup("<???" ">");	/* avoid trigraph warning */
     }
 
     while (key[i] == '$') {

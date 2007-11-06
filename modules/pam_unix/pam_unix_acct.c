@@ -317,7 +317,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		pam_syslog(pamh, LOG_DEBUG,
 			 "password for user %s will expire in %d days",
 			 uname, daysleft);
-#ifdef HAVE_DNGETTEXT
+#if defined HAVE_DNGETTEXT && defined ENABLE_NLS
 		snprintf (buf, sizeof (buf),
 			  dngettext(PACKAGE,
 				    "Warning: your password will expire in %d day",

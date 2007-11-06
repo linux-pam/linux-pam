@@ -1,5 +1,18 @@
 2007-11-06  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* xtests/tst-pam_group1.c: Include stdlib.h
+	* xtests/tst-pam_succeed_if1.c: Likewise.
+	* xtests/tst-pam_limits1.c: Likewise.
+	* xtests/tst-pam_access1.c: Likewise.
+	* xtests/tst-pam_access2.c: Likewise.
+	* xtests/tst-pam_access3.c: Likewise.
+	* xtests/tst-pam_access4.c: Likewise.
+	* xtests/tst-pam_unix1.c: Likewise.
+	* xtests/tst-pam_unix2.c: Likewise.
+	* xtests/tst-pam_unix3.c: Likewise.
+	* xtests/tst-pam_cracklib1.c: Likewise.
+	* xtests/tst-pam_cracklib2.c: Likewise.
+
 	* libpam/pam_static_modules.h: Fix name of pam_namespace variable.
 
 2007-11-01  Peter Breitenlohner <peb@mppmu.mpg.de>
@@ -7,6 +20,16 @@
 	* doc/man/pam_conv.3.xml: Correct typo.
 
 2007-10-30  Peter Breitenlohner <peb@mppmu.mpg.de>
+
+	* modules/pam_rhosts/pam_rhosts_auth.c (__icheckhost): Correct
+	misplaced parenthesis.
+	* modules/pam_unix/pam_unix_acct.c (pam_sm_acct_mgmt): Prevent use of
+	dngettext() when NLS is disabled.
+	* modules/pam_exec/pam_exec.c (call_exec): Avoid gcc warning.
+	* doc/specs/parse_y.y (set_label, new_counter): Break trigraphs to
+	avoid gcc warning.
+	* modules/pam_wheel/pam_wheel.c: Remove excessive initializer
+	elements.
 
 	* modules/pam_cracklib/pam_cracklib.8.xml: Correct typo.
 	* modules/pam_limits/limits.conf.5.xml: Likewise.
