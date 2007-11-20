@@ -28,11 +28,9 @@ securelib_LTLIBRARIES = pam_tally.la
 sbin_PROGRAMS = pam_tally
 
 pam_tally_SOURCES = pam_tally_app.c
-pam_tally_LDADD = -L$(top_builddir)/libpam -lpam
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
 README: pam_tally.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
-

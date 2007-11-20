@@ -37,14 +37,16 @@
  * modules include file to define the function prototypes.
  */
 
+#ifndef MAIN
 #define PAM_SM_AUTH
 #define PAM_SM_ACCOUNT
 /* #define PAM_SM_SESSION  */
 /* #define PAM_SM_PASSWORD */
 
-#include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#endif
+#include <security/pam_modules.h>
 
 #ifndef TRUE
 #define TRUE  1L
@@ -115,6 +117,9 @@ tally_log (const pam_handle_t *pamh UNUSED, int priority UNUSED,
 	fprintf(stderr,"\n");
 	va_end(args);
 }
+
+#define pam_modutil_getpwnam(pamh,user) getpwnam(user)
+
 #endif
 
 /*---------------------------------------------------------------------*/
@@ -353,7 +358,7 @@ get_tally(pam_handle_t *pamh, tally_t *tally, uid_t uid,
           return PAM_AUTH_ERR;
     }
 
-    if ( fileinfo.st_size <= uid * sizeof(struct faillog) ) {
+    if ( (size_t)fileinfo.st_size <= uid * sizeof(struct faillog) ) {
 
 	memset(fsp, 0, sizeof(struct faillog));
 	*tally=0;

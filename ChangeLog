@@ -1,3 +1,11 @@
+2007-11-20  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_tally/pam_tally.c (tally_log): Map
+	pam_modutil_getpwnam to getpwnam if we don't compile
+	as module.
+	* modules/pam_tally/Makefile.am: Don't link pam_tally_app
+	against libpam (#1822779).
+
 2007-11-06  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* xtests/tst-pam_group1.c: Include stdlib.h
