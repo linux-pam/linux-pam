@@ -1,5 +1,8 @@
 2007-11-20  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_unix/Makefile.am (unix_chkpwd_LDADD): Don't link
+	unix_chkpwd unnecessary against libpam (#1822779).
+
 	* modules/pam_tally/pam_tally.c (tally_log): Map
 	pam_modutil_getpwnam to getpwnam if we don't compile
 	as module.
