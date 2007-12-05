@@ -84,6 +84,7 @@ static security_context_t prev_context=NULL;
 #include "yppasswd.h"
 #include "md5.h"
 #include "support.h"
+#include "passverify.h"
 #include "bigcrypt.h"
 
 #if !((__GLIBC__ == 2) && (__GLIBC_MINOR__ >= 1))

@@ -1,3 +1,19 @@
+2007-12-05  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_unix/Makefile.am: Add passverify.h and passverify.c
+	as first part of pam_unix refactorization.
+	* modules/pam_unix/pam_unix/pam_unix_acct.c: Include passverify.h.
+	* modules/pam_unix/pam_unix_passwd.c: Likewise.
+	* modules/pam_unix/passverify.c: New file with common functions.
+	* modules/pam_unix/passverify.h: Prototypes for the common functions.
+	* modules/pam_unix/support.c: Include passverify.h, move
+	_unix_shadowed() to passverify.c.
+	(_unix_verify_password): Refactor out verify_pwd_hash() function.
+	* modules/pam_unix/support.h: Move _unix_shadowed() prototype to
+	passverify.h
+	* modules/pam_unix/unix_chkpwd.c: Use _unix_shadowed() and
+	verify_pwd_hash() from passverify.c.
+
 2007-11-20  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_unix/Makefile.am (unix_chkpwd_LDADD): Don't link

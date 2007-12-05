@@ -39,8 +39,7 @@ static int selinux_enabled=-1;
 #include <security/_pam_types.h>
 #include <security/_pam_macros.h>
 
-#include "md5.h"
-#include "bigcrypt.h"
+#include "passverify.h"
 
 /* syslogging function for errors and other information */
 
@@ -53,24 +52,6 @@ static void _log_err(int err, const char *format,...)
 	vsyslog(err, format, args);
 	va_end(args);
 	closelog();
-}
-
-static int _unix_shadowed(const struct passwd *pwd)
-{
-	char hashpass[1024];
-	if (pwd != NULL) {
-		if (strcmp(pwd->pw_passwd, "x") == 0) {
-			return 1;
-		}
-		if (strlen(pwd->pw_name) < sizeof(hashpass) - 2) {
-			strcpy(hashpass, "##");
-			strcpy(hashpass + 2, pwd->pw_name);
-			if (strcmp(pwd->pw_passwd, hashpass) == 0) {
-				return 1;
-			}
-		}
-	}
-	return 0;
 }
 
 static void su_sighandler(int sig)
@@ -142,9 +123,7 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 	struct passwd *pwd = NULL;
 	struct spwd *spwdent = NULL;
 	char *salt = NULL;
-	char *pp = NULL;
 	int retval = PAM_AUTH_ERR;
-	size_t salt_len;
 
 	/* UNIX passwords area */
 	setpwent();
@@ -180,68 +159,17 @@ static int _unix_verify_password(const char *name, const char *p, int nullok)
 	}
 	if (pwd == NULL || salt == NULL) {
 		_log_err(LOG_WARNING, "check pass; user unknown");
-		p = NULL;
-		return PAM_USER_UNKNOWN;
+		retval = PAM_USER_UNKNOWN;
+	} else {
+		retval = verify_pwd_hash(p, salt, nullok);
 	}
 
-	salt_len = strlen(salt);
-	if (salt_len == 0) {
-		return (nullok == 0) ? PAM_AUTH_ERR : PAM_SUCCESS;
-	}
-	if (p == NULL || strlen(p) == 0) {
+	if (salt) {
 		_pam_overwrite(salt);
 		_pam_drop(salt);
-		return PAM_AUTHTOK_ERR;
 	}
 
-	/* the moment of truth -- do we agree with the password? */
-	retval = PAM_AUTH_ERR;
-	if (!strncmp(salt, "$1$", 3)) {
-		pp = Goodcrypt_md5(p, salt);
-		if (pp && strcmp(pp, salt) == 0) {
-			retval = PAM_SUCCESS;
-		} else {
-			_pam_overwrite(pp);
-			_pam_drop(pp);
-			pp = Brokencrypt_md5(p, salt);
-			if (pp && strcmp(pp, salt) == 0)
-				retval = PAM_SUCCESS;
-		}
-	} else if (*salt == '$') {
-	        /*
-		 * Ok, we don't know the crypt algorithm, but maybe
-		 * libcrypt nows about it? We should try it.
-		 */
-	        pp = x_strdup (crypt(p, salt));
-		if (pp && strcmp(pp, salt) == 0) {
-			retval = PAM_SUCCESS;
-		}
-	} else if (*salt == '*' || *salt == '!' || salt_len < 13) {
-	    retval = PAM_AUTH_ERR;
-	} else {
-		pp = bigcrypt(p, salt);
-		/*
-		 * Note, we are comparing the bigcrypt of the password with
-		 * the contents of the password field. If the latter was
-		 * encrypted with regular crypt (and not bigcrypt) it will
-		 * have been truncated for storage relative to the output
-		 * of bigcrypt here. As such we need to compare only the
-		 * stored string with the subset of bigcrypt's result.
-		 * Bug 521314.
-		 */
-		if (pp && salt_len == 13 && strlen(pp) > salt_len) {
-		    _pam_overwrite(pp+salt_len);
-		}
-		
-		if (pp && strcmp(pp, salt) == 0) {
-			retval = PAM_SUCCESS;
-		}
-	}
 	p = NULL;		/* no longer needed here */
-
-	/* clean up */
-	_pam_overwrite(pp);
-	_pam_drop(pp);
 
 	return retval;
 }

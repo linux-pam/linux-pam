@@ -34,7 +34,7 @@ pam_unix_la_LIBADD = @LIBCRACK@ @LIBNSL@ -L$(top_builddir)/libpam -lpam \
 
 securelib_LTLIBRARIES = pam_unix.la
 
-noinst_HEADERS = md5.h support.h yppasswd.h bigcrypt.h
+noinst_HEADERS = md5.h support.h yppasswd.h bigcrypt.h passverify.h
 
 sbin_PROGRAMS = unix_chkpwd
 
@@ -42,13 +42,14 @@ noinst_PROGRAMS = bigcrypt
 
 pam_unix_la_SOURCES = bigcrypt.c pam_unix_acct.c \
 	pam_unix_auth.c pam_unix_passwd.c pam_unix_sess.c support.c \
-	yppasswd_xdr.c md5_good.c md5_broken.c
+	passverify.c yppasswd_xdr.c md5_good.c md5_broken.c
 
 bigcrypt_SOURCES = bigcrypt.c bigcrypt_main.c
 bigcrypt_CFLAGS = $(AM_CFLAGS)
 bigcrypt_LDADD = @LIBCRYPT@
 
-unix_chkpwd_SOURCES = unix_chkpwd.c md5_good.c md5_broken.c bigcrypt.c
+unix_chkpwd_SOURCES = unix_chkpwd.c md5_good.c md5_broken.c bigcrypt.c \
+	passverify.c
 unix_chkpwd_CFLAGS = $(AM_CFLAGS) @PIE_CFLAGS@
 unix_chkpwd_LDFLAGS = @PIE_LDFLAGS@ 
 unix_chkpwd_LDADD = @LIBCRYPT@ @LIBSELINUX@

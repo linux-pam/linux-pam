@@ -26,9 +26,8 @@
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
-#include "md5.h"
 #include "support.h"
-#include "bigcrypt.h"
+#include "passverify.h"
 #ifdef WITH_SELINUX
 #include <selinux/selinux.h>
 #define SELINUX_ENABLED is_selinux_enabled()>0
@@ -579,7 +578,6 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	struct passwd *pwd = NULL;
 	struct spwd *spwdent = NULL;
 	char *salt = NULL;
-	char *pp = NULL;
 	char *data_name;
 	int retval;
 
@@ -679,48 +677,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			}
 		}
 	} else {
-	    size_t salt_len = strlen(salt);
-	    if (!salt_len) {
-		/* the stored password is NULL */
-		if (off(UNIX__NONULL, ctrl)) {/* this means we've succeeded */
-		    D(("user has empty password - access granted"));
-		    retval = PAM_SUCCESS;
-		} else {
-		    D(("user has empty password - access denied"));
-		    retval = PAM_AUTH_ERR;
-		}
-	    } else if (!p || *salt == '*' || *salt == '!') {
-		retval = PAM_AUTH_ERR;
-	    } else {
-		if (!strncmp(salt, "$1$", 3)) {
-		    pp = Goodcrypt_md5(p, salt);
-		    if (pp && strcmp(pp, salt) != 0) {
-			_pam_delete(pp);
-			pp = Brokencrypt_md5(p, salt);
-		    }
-		} else if (*salt != '$' && salt_len >= 13) {
-		    pp = bigcrypt(p, salt);
-		    if (pp && salt_len == 13 && strlen(pp) > salt_len) {
-			_pam_overwrite(pp + salt_len);
-		    }
-		} else {
-                    /*
-		     * Ok, we don't know the crypt algorithm, but maybe
-		     * libcrypt nows about it? We should try it.
-		     */
-		    pp = x_strdup (crypt(p, salt));
-		}
-		p = NULL;		/* no longer needed here */
-
-		/* the moment of truth -- do we agree with the password? */
-		D(("comparing state of pp[%s] and salt[%s]", pp, salt));
-
-		if (pp && strcmp(pp, salt) == 0) {
-		    retval = PAM_SUCCESS;
-		} else {
-		    retval = PAM_AUTH_ERR;
-		}
-	    }
+		retval = verify_pwd_hash(p, salt, off(UNIX__NONULL, ctrl));
 	}
 
 	if (retval == PAM_SUCCESS) {
@@ -809,8 +766,6 @@ cleanup:
 		_pam_delete(data_name);
 	if (salt)
 		_pam_delete(salt);
-	if (pp)
-		_pam_delete(pp);
 
 	D(("done [%d].", retval));
 
@@ -969,21 +924,6 @@ int _unix_read_password(pam_handle_t * pamh
 	}
 
 	return PAM_SUCCESS;
-}
-
-int _unix_shadowed(const struct passwd *pwd)
-{
-	if (pwd != NULL) {
-		if (strcmp(pwd->pw_passwd, "x") == 0) {
-			return 1;
-		}
-		if ((pwd->pw_passwd[0] == '#') &&
-		    (pwd->pw_passwd[1] == '#') &&
-		    (strcmp(pwd->pw_name, pwd->pw_passwd + 2) == 0)) {
-			return 1;
-		}
-	}
-	return 0;
 }
 
 /* ****************************************************************** *

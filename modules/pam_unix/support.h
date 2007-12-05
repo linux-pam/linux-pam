@@ -149,7 +149,6 @@ extern int _unix_read_password(pam_handle_t * pamh
 			,const char *prompt2
 			,const char *data_name
 			,const void **pass);
-extern int _unix_shadowed(const struct passwd *pwd);
 
 extern struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, const char *user);
 #endif /* _PAM_UNIX_SUPPORT_H */

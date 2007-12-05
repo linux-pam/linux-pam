@@ -63,6 +63,7 @@
 #include <security/pam_modutil.h>
 
 #include "support.h"
+#include "passverify.h"
 
 #ifdef WITH_SELINUX
 
