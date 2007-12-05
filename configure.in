@@ -331,15 +331,24 @@ AC_ARG_ENABLE([audit],
         WITH_LIBAUDIT=$enableval, WITH_LIBAUDIT=yes)
 if test x"$WITH_LIBAUDIT" != xno ; then
         AC_CHECK_HEADER([libaudit.h],
-              [AC_CHECK_LIB(audit, audit_log_acct_message, LIBAUDIT=-laudit, LIBAUDIT="")]
+              [AC_CHECK_LIB(audit, audit_log_acct_message, LIBAUDIT=-laudit, LIBAUDIT="")
+	       AC_CHECK_TYPE([struct audit_tty_status],
+		             [HAVE_AUDIT_TTY_STATUS=yes],
+			     [HAVE_AUDIT_TTY_STATUS=""],
+			     [#include <libaudit.h>])]
         )
         if test ! -z "$LIBAUDIT" -a "ac_cv_header_libaudit_h" != "no" ; then
-            AC_DEFINE([HAVE_LIBAUDIT], 1, [Defined if audit support should be compiled in])
+            AC_DEFINE([HAVE_LIBAUDIT], 1, [Define to 1 if audit support should be compiled in.])
+        fi
+        if test ! -z "$HAVE_AUDIT_TTY_STATUS" ; then
+            AC_DEFINE([HAVE_AUDIT_TTY_STATUS], 1, [Define to 1 if struct audit_tty_status exists.])
         fi
 else
 	LIBAUDIT=""
 fi
 AC_SUBST(LIBAUDIT)
+AM_CONDITIONAL([HAVE_AUDIT_TTY_STATUS],
+	       [test "x$HAVE_AUDIT_TTY_STATUS" = xyes])
 
 BACKUP_LIBS=$LIBS
 AC_SEARCH_LIBS([crypt],[xcrypt crypt], LIBCRYPT="-l$ac_lib", LIBCRYPT="")
@@ -513,7 +522,8 @@ AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	modules/pam_securetty/Makefile modules/pam_selinux/Makefile \
 	modules/pam_shells/Makefile modules/pam_stress/Makefile \
 	modules/pam_succeed_if/Makefile modules/pam_tally/Makefile \
-	modules/pam_time/Makefile modules/pam_umask/Makefile \
+	modules/pam_time/Makefile modules/pam_tty_audit/Makefile \
+	modules/pam_umask/Makefile \
 	modules/pam_unix/Makefile modules/pam_userdb/Makefile \
 	modules/pam_warn/Makefile modules/pam_wheel/Makefile \
 	modules/pam_xauth/Makefile doc/Makefile doc/specs/Makefile \

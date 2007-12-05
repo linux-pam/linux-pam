@@ -1,3 +1,13 @@
+2007-12-05  Miloslav Trmac  <mitr@redhat.com>
+
+	* configure.in: Add test for audit_tty_status struct. Add
+	pam_tty_audit module.
+	* libpam/pam_static_modules.h: Add pam_tty_audit module.
+	* modules/pam_tty_audit/Makefile.am: New file.
+	* modules/pam_tty_audit/README.xml: Likewise.
+	* modules/pam_tty_audit/pam_tty_audit.8.xml: Likewise.
+	* modules/pam_tty_audit/pam_tty_audit.c: Likewise.
+
 2007-12-05  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_unix/Makefile.am: Add passverify.h and passverify.c

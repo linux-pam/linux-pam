@@ -73,6 +73,9 @@ extern struct pam_module _pam_stress_modstruct;
 extern struct pam_module _pam_succeed_if_modstruct;
 extern struct pam_module _pam_tally_modstruct;
 extern struct pam_module _pam_time_modstruct;
+#ifdef HAVE_AUDIT_TTY_STATUS
+extern struct pam_module _pam_tty_audit_modstruct;
+#endif
 extern struct pam_module _pam_umask_modstruct;
 extern struct pam_module _pam_unix_acct_modstruct;
 extern struct pam_module _pam_unix_auth_modstruct;
@@ -127,6 +130,9 @@ static struct pam_module *static_modules[] = {
   &_pam_succeed_if_modstruct,
   &_pam_tally_modstruct,
   &_pam_time_modstruct,
+#ifdef HAVE_AUDIT_TTY_STATUS
+  &_pam_tty_audit_modstruct,
+#endif
   &_pam_umask_modstruct,
   &_pam_unix_acct_modstruct,
   &_pam_unix_auth_modstruct,
