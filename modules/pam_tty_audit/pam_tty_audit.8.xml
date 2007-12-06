@@ -104,7 +104,7 @@
     <para>
       Audit all administrative actions.
       <programlisting>
-auth	required	pam_tty_audit.so enable=root
+session		required	pam_tty_audit.so enable=root
       </programlisting>
     </para>
   </refsect1>

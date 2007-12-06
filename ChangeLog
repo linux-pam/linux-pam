@@ -1,3 +1,7 @@
+2007-12-06  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_tty_audit/pam_tty_audit.8.xml: Fix example.
+
 2007-12-05  Miloslav Trmac  <mitr@redhat.com>
 
 	* configure.in: Add test for audit_tty_status struct. Add
