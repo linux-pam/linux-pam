@@ -152,9 +152,11 @@ struct pam_handle {
     char *rhost;
     char *ruser;
     char *tty;
+    char *xdisplay;
     struct pam_data *data;
     struct pam_environ *env;      /* structure to maintain environment list */
     struct _pam_fail_delay fail_delay;   /* helper function for easy delays */
+    struct pam_xauth_data xauth;        /* auth info for X display */
     struct service handlers;
     struct _pam_former_state former;  /* library state - support for
 					 event driven applications */
@@ -266,6 +268,8 @@ void _pam_free_data(pam_handle_t *pamh, int status);
 char *_pam_StrTok(char *from, const char *format, char **next);
 
 char *_pam_strdup(const char *s);
+
+char *_pam_memdup(const char *s, int len);
 
 int _pam_mkargv(char *s, char ***argv, int *argc);
 

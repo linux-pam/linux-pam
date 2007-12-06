@@ -1,3 +1,25 @@
+2007-12-06  Eamon Walsh <ewalsh@tycho.nsa.gov>
+
+	* libpam/include/security/_pam_macros.h: Add _pam_overwrite_n()
+	macro.
+	* libpam/include/security/_pam_types.h: Add PAM_XDISPLAY,
+	PAM_XAUTHDATA items, pam_xauth_data struct.
+	* libpam/pam_item.c (pam_set_item, pam_get_item): Handle
+	PAM_XDISPLAY and PAM_XAUTHDATA items.
+	* libpam/pam_end.c (pam_end): Destroy the new items.
+	* libpam/pam_private.h (pam_handle): Add data members for new
+	items. Add prototype for _pam_memdup.
+	* libpam/pam_misc.c: Add _pam_memdup.
+	* doc/man/Makefile.am: Add pam_xauth_data.3. Replace
+	pam_item_types.inc.xml with pam_item_types_std.inc.xml and
+	pam_item_types_ext.inc.xml.
+	* doc/man/pam_get_item.3.xml: Replace pam_item_types.inc.xml
+	with pam_item_types_std.inc.xml and pam_item_types_ext.inc.xml.
+	* doc/man/pam_set_item.3.xml: Likewise.
+	* doc/man/pam_item_types.inc.xml: Removed file.
+	* doc/man/pam_item_types_ext.inc.xml: New file.
+	* doc/man/pam_item_types_std.inc.xml: New file.
+
 2007-12-06  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_tty_audit/pam_tty_audit.8.xml: Fix example.

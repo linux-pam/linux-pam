@@ -138,6 +138,24 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	pamh->fail_delay.delay_fn_ptr = item;
 	break;
 
+    case PAM_XDISPLAY:
+	RESET(pamh->xdisplay, item);
+	break;
+
+    case PAM_XAUTHDATA:
+	if (pamh->xauth.namelen) {
+	    _pam_overwrite(pamh->xauth.name);
+	    free(pamh->xauth.name);
+	}
+	if (pamh->xauth.datalen) {
+	    _pam_overwrite_n(pamh->xauth.data, pamh->xauth.datalen);
+	    free(pamh->xauth.data);
+	}
+	pamh->xauth = *((const struct pam_xauth_data *) item);
+	pamh->xauth.name = _pam_strdup(pamh->xauth.name);
+	pamh->xauth.data = _pam_memdup(pamh->xauth.data, pamh->xauth.datalen);
+	break;
+
     default:
 	retval = PAM_BAD_ITEM;
     }
@@ -218,6 +236,14 @@ int pam_get_item (const pam_handle_t *pamh, int item_type, const void **item)
 
     case PAM_FAIL_DELAY:
 	*item = pamh->fail_delay.delay_fn_ptr;
+	break;
+
+    case PAM_XDISPLAY:
+	*item = pamh->xdisplay;
+	break;
+
+    case PAM_XAUTHDATA:
+	*item = &pamh->xauth;
 	break;
 
     default:

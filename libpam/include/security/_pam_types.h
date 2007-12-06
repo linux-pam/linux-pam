@@ -138,8 +138,11 @@ typedef struct pam_handle pam_handle_t;
 #define PAM_OLDAUTHTOK     7	/* The old authentication token */
 #define PAM_RUSER          8	/* The remote user name */
 #define PAM_USER_PROMPT    9    /* the prompt for getting a username */
+/* Linux-PAM extensions */
 #define PAM_FAIL_DELAY     10   /* app supplied function to override failure
 				   delays */
+#define PAM_XDISPLAY       11   /* X display name */
+#define PAM_XAUTHDATA      12   /* X server authentication data */
 
 /* -------------- Special defines used by Linux-PAM -------------- */
 
@@ -277,6 +280,17 @@ struct pam_conv {
     int (*conv)(int num_msg, const struct pam_message **msg,
 		struct pam_response **resp, void *appdata_ptr);
     void *appdata_ptr;
+};
+
+/* Used by the PAM_XAUTHDATA pam item.  Contains X authentication
+   data used by modules to connect to the user's X display.  Note:
+   this structure is intentionally compatible with xcb_auth_info_t. */
+
+struct pam_xauth_data {
+    int namelen;
+    char *name;
+    int datalen;
+    char *data;
 };
 
 /* ... adapted from the pam_appl.h file created by Theodore Ts'o and

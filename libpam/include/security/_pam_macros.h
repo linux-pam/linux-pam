@@ -25,6 +25,15 @@ do {                             \
                *__xx__++ = '\0'; \
 } while (0)
 
+#define _pam_overwrite_n(x,n)   \
+do {                             \
+     register char *__xx__;      \
+     register int __i__ = 0;    \
+     if ((__xx__=(x)))           \
+        for (;__i__<n; __i__++) \
+            __xx__[__i__] = 0; \
+} while (0)
+
 /*
  * Don't just free it, forget it too.
  */

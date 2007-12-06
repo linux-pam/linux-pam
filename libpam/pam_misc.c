@@ -137,6 +137,28 @@ char *_pam_strdup(const char *x)
      return new;                 /* return the duplicate or NULL on error */
 }
 
+/*
+ * Safe duplication of memory buffers. "Paranoid"; don't leave
+ * evidence of old token around for later stack analysis.
+ */
+
+char *_pam_memdup(const char *x, int len)
+{
+     register char *new=NULL;
+
+     if (x != NULL) {
+         if ((new = malloc(len)) == NULL) {
+             len = 0;
+             pam_syslog(NULL, LOG_CRIT, "_pam_memdup: failed to get memory");
+         } else {
+             memcpy (new, x, len);
+         }
+         x = NULL;
+     }
+
+     return new;                 /* return the duplicate or NULL on error */
+}
+
 /* Generate argv, argc from s */
 /* caller must free(argv)     */
 

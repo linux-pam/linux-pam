@@ -3,7 +3,8 @@
                    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd"
 [
 <!--
-<!ENTITY accessconf SYSTEM "pam_item_types.inc.xml">
+<!ENTITY accessconf SYSTEM "pam_item_types_std.inc.xml">
+<!ENTITY accessconf SYSTEM "pam_item_types_ext.inc.xml">
 -->
 ]>
 
@@ -55,7 +56,15 @@
    </para>
 
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_item_types.inc.xml"/>
+      href="pam_item_types_std.inc.xml"/>
+
+   <para>
+     The following additional items are specific to Linux-PAM and should not be used in
+     portable applications:
+   </para>
+
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+      href="pam_item_types_ext.inc.xml"/>
 
     <para>
       If a service module wishes to obtain the name of the user,

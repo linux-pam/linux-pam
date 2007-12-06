@@ -73,6 +73,15 @@ int pam_end(pam_handle_t *pamh, int pam_status)
 
     _pam_drop(pamh->former.substates);
 
+    _pam_overwrite(pamh->xdisplay);
+    _pam_drop(pamh->xdisplay);
+
+    _pam_overwrite(pamh->xauth.name);
+    _pam_drop(pamh->xauth.name);
+    _pam_overwrite_n(pamh->xauth.data, pamh->xauth.datalen);
+    _pam_drop(pamh->xauth.data);
+    _pam_overwrite_n(&pamh->xauth, sizeof(pamh->xauth));
+
     /* and finally liberate the memory for the pam_handle structure */
 
     _pam_drop(pamh);

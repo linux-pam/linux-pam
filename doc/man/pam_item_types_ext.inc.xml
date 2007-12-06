@@ -1,0 +1,45 @@
+<!-- this file is included by pam_set_item and pam_get_item -->
+
+    <variablelist>
+      <varlistentry>
+        <term>PAM_FAIL_DELAY</term>
+        <listitem>
+          <para>
+            A function pointer to redirect centrally managed
+            failure delays. See
+            <citerefentry>
+              <refentrytitle>pam_fail_delay</refentrytitle><manvolnum>3</manvolnum>
+            </citerefentry>.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>PAM_XDISPLAY</term>
+        <listitem>
+          <para>
+            The name of the X display.  For graphical, X-based applications the
+	    value for this item should be the <emphasis>$DISPLAY</emphasis>
+	    variable.  This value should be used instead of
+	    <emphasis>PAM_TTY</emphasis> for passing the
+	    name of the display where possible.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>PAM_XAUTHDATA</term>
+        <listitem>
+          <para>
+            A pointer to a structure containing the X authentication data
+	    required to make a connection to the display specified by
+	    <emphasis>PAM_XDISPLAY</emphasis>, if such information is
+	    necessary.  See
+            <citerefentry>
+              <refentrytitle>pam_xauth_data</refentrytitle><manvolnum>3</manvolnum>
+            </citerefentry>.
+          </para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
