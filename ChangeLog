@@ -1,3 +1,7 @@
+2007-12-07  Luca Bruno <luca.br@uno.it>
+
+	* po/it.po: Updated translations.
+
 2007-12-06  Eamon Walsh <ewalsh@tycho.nsa.gov>
 
 	* libpam/include/security/_pam_macros.h: Add _pam_overwrite_n()
