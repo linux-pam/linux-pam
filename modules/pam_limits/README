@@ -16,6 +16,9 @@ module option then the files in the above directory are not parsed.
 
 The module must not be called by a multithreaded application.
 
+If Linux PAM is compiled with audit support the module will report when it
+denies access based on limit of maximum number of concurrent login sessions.
+
 OPTIONS
 
 change_uid
@@ -40,6 +43,10 @@ utmp_early
     configuring PAM for do this, you can selectively use this module argument
     to compensate for this behavior and at the same time maintain system-wide
     consistency with a single limits.conf file.
+
+noaudit
+
+    Do not report exceeded maximum logins count to the audit subsystem.
 
 EXAMPLES
 

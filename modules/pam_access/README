@@ -12,6 +12,9 @@ of non-networked logins.
 By default rules for access management are taken from config file /etc/security
 /access.conf if you don't specify another file.
 
+If Linux PAM is compiled with audit support the module will report when it
+denies access based on origin (host or tty).
+
 OPTIONS
 
 accessfile=/path/to/access.conf
@@ -23,6 +26,10 @@ accessfile=/path/to/access.conf
 debug
 
     A lot of debug informations are printed with syslog(3).
+
+noaudit
+
+    Do not report logins from disallowed hosts and ttys to the audit subsystem.
 
 fieldsep=separators
 

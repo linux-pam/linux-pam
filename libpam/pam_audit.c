@@ -56,6 +56,28 @@ _pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type,
     return rc;
 }
 
+static int
+_pam_audit_open(pam_handle_t *pamh)
+{
+  int audit_fd;
+  audit_fd = audit_open();
+  if (audit_fd < 0) {
+    /* You get these error codes only when the kernel doesn't have
+     * audit compiled in. */
+    if (errno == EINVAL || errno == EPROTONOSUPPORT ||
+        errno == EAFNOSUPPORT)
+        return -2;
+
+    /* this should only fail in case of extreme resource shortage,
+     * need to prevent login in that case for CAPP compliance.
+     */
+    pam_syslog(pamh, LOG_CRIT, "audit_open() failed: %m");
+    return -1;
+  }
+
+  return audit_fd;
+}
+
 int
 _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags)
 {
@@ -63,19 +85,10 @@ _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags)
   int type;
   int audit_fd;
 
-  audit_fd = audit_open();
-  if (audit_fd < 0) {
-    /* You get these error codes only when the kernel doesn't have
-     * audit compiled in. */
-    if (errno == EINVAL || errno == EPROTONOSUPPORT ||
-        errno == EAFNOSUPPORT)
-        return retval;
-
-    /* this should only fail in case of extreme resource shortage,
-     * need to prevent login in that case for CAPP compliance.
-     */
-    pam_syslog(pamh, LOG_CRIT, "audit_open() failed: %m");
+  if ((audit_fd=_pam_audit_open(pamh)) == -1) {
     return PAM_SYSTEM_ERR;
+  } else if (audit_fd == -2) {
+    return retval;
   }
 
   switch (action) {
@@ -142,4 +155,30 @@ _pam_audit_end(pam_handle_t *pamh, int status UNUSED)
   return 0;
 }
 
+int
+pam_modutil_audit_write(pam_handle_t *pamh, int type,
+    const char *message, int retval)
+{
+  int audit_fd;
+  int rc;
+	
+  if ((audit_fd=_pam_audit_open(pamh)) == -1) {
+    return PAM_SYSTEM_ERR;
+  } else if (audit_fd == -2) {
+    return retval;
+  }
+
+  rc = _pam_audit_writelog(pamh, audit_fd, type, message, retval);
+
+  audit_close(audit_fd);
+  
+  return rc < 0 ? PAM_SYSTEM_ERR : PAM_SUCCESS;
+}
+
+#else
+int pam_modutil_audit_write(pam_handle_t *pamh UNUSED, int type UNUSED,
+    const char *message UNUSED, int retval UNUSED)
+{
+  return PAM_SUCCESS;
+}
 #endif /* HAVE_LIBAUDIT */

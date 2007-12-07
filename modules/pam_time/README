@@ -14,6 +14,9 @@ from which they are making their request.
 By default rules for time/port access are taken from config file /etc/security/
 time.conf.
 
+If Linux PAM is compiled with audit support the module will report when it
+denies access.
+
 EXAMPLES
 
 These are some example lines which might be specified in /etc/security/

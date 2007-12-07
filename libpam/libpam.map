@@ -45,3 +45,8 @@ LIBPAM_MODUTIL_1.0 {
     pam_modutil_read;
     pam_modutil_write;
 };
+
+LIBPAM_MODUTIL_1.1 {
+  global:
+    pam_modutil_audit_write;
+} LIBPAM_MODUTIL_1.0;

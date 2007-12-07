@@ -41,6 +41,10 @@
 #include <pwd.h>
 #include <locale.h>
 
+#ifdef HAVE_LIBAUDIT
+#include <libaudit.h>                                                                                                                                            
+#endif
+
 /* Module defines */
 #define LINE_LENGTH 1024
 
@@ -101,6 +105,7 @@ struct pam_limit_s {
 #define PAM_DEBUG_ARG       0x0001
 #define PAM_DO_SETREUID     0x0002
 #define PAM_UTMP_EARLY      0x0004
+#define PAM_NO_AUDIT        0x0008
 
 /* Limits from globbed files. */
 #define LIMITS_CONF_GLOB LIMITS_FILE_DIR
@@ -126,6 +131,8 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	    ctrl |= PAM_DO_SETREUID;
 	} else if (!strcmp(*argv,"utmp_early")) {
 	    ctrl |= PAM_UTMP_EARLY;
+	} else if (!strcmp(*argv,"noaudit")) {
+	    ctrl |= PAM_NO_AUDIT;
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
@@ -595,6 +602,13 @@ static int setup_limits(pam_handle_t *pamh,
 	D(("skip login limit check for uid=0"));
     } else if (pl->login_limit > 0) {
         if (check_logins(pamh, uname, pl->login_limit, ctrl, pl) == LOGIN_ERR) {
+#ifdef HAVE_LIBAUDIT
+	    if (!(ctrl & PAM_NO_AUDIT)) {
+        	pam_modutil_audit_write(pamh, AUDIT_ANOM_LOGIN_SESSIONS,
+            	    "pam_limits", PAM_PERM_DENIED);
+		/* ignore return value as we fail anyway */
+            }
+#endif
             retval |= LOGIN_ERR;
 	}
     } else if (pl->login_limit == 0) {

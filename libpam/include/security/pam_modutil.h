@@ -97,6 +97,9 @@ pam_modutil_read(int fd, char *buffer, int count);
 extern int
 pam_modutil_write(int fd, const char *buffer, int count);
 
+extern int PAM_NONNULL((1,3))
+pam_modutil_audit_write(pam_handle_t *pamh, int type,
+			const char *message, int retval);
 #ifdef __cplusplus
 }
 #endif

@@ -34,6 +34,9 @@
       <arg choice="opt">
         utmp_early
       </arg>
+      <arg choice="opt">
+        noaudit
+      </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -56,6 +59,11 @@
     </para>
     <para>
       The module must not be called by a multithreaded application.
+    </para>
+    <para>
+      If Linux PAM is compiled with audit support the module will report
+      when it denies access based on limit of maximum number of concurrent
+      login sessions.
     </para>
   </refsect1>
 
@@ -108,6 +116,16 @@
             selectively use this module argument to compensate for this
             behavior and at the same time maintain system-wide consistency
             with a single limits.conf file.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>noaudit</option>
+        </term>
+        <listitem>
+          <para>
+            Do not report exceeded maximum logins count to the audit subsystem.
           </para>
         </listitem>
       </varlistentry>

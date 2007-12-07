@@ -22,6 +22,12 @@
   <refsynopsisdiv>
     <cmdsynopsis id="pam_time-cmdsynopsis">
       <command>pam_time.so</command>
+      <arg choice="opt">
+        debug
+      </arg>
+      <arg choice="opt">
+        noaudit
+      </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -41,11 +47,40 @@
       By default rules for time/port access are taken from config file
       <filename>/etc/security/time.conf</filename>.
     </para>
+    <para>
+      If Linux PAM is compiled with audit support the module will report
+      when it denies access. 
+    </para>
   </refsect1>
 
   <refsect1 id="pam_time-options">
     <title>OPTIONS</title>
-    <para>This module does not recognise any options.</para>
+    <variablelist>
+
+      <varlistentry>
+        <term>
+          <option>debug</option>
+        </term>
+        <listitem>
+          <para>
+            Some debug informations are printed with
+            <citerefentry><refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>noaudit</option>
+        </term>
+        <listitem>
+          <para>
+            Do not report logins at disallowed time to the audit subsystem.
+          </para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
   </refsect1>
 
   <refsect1 id="pam_time-services">

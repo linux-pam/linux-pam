@@ -22,8 +22,15 @@
 #include <fcntl.h>
 #include <netdb.h>
 
+#ifdef HAVE_LIBAUDIT
+#include <libaudit.h>                                                                                                                                            
+#endif
+
 #define PAM_TIME_BUFLEN        1000
 #define FIELD_SEPARATOR        ';'   /* this is new as of .02 */
+
+#define PAM_DEBUG_ARG       0x0001
+#define PAM_NO_AUDIT        0x0002
 
 #ifndef TRUE
 # define TRUE 1
@@ -46,6 +53,29 @@ typedef enum { AND, OR } operator;
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
+#include <security/pam_modutil.h>
+
+static int
+_pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
+{
+    int ctrl = 0;
+
+    /* step through arguments */
+    for (; argc-- > 0; ++argv) {
+
+	/* generic options */
+
+	if (!strcmp(*argv, "debug")) {
+	    ctrl |= PAM_DEBUG_ARG;
+	} else if (!strcmp(*argv, "noaudit")) {
+	    ctrl |= PAM_NO_AUDIT;
+	} else {
+	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
+	}
+    }
+
+    return ctrl;
+}
 
 /* --- static functions for checking whether the user should be let in --- */
 
@@ -567,11 +597,15 @@ check_account(pam_handle_t *pamh, const char *service,
 
 PAM_EXTERN int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
-		 int argc UNUSED, const char **argv UNUSED)
+		 int argc, const char **argv)
 {
     const void *service=NULL, *void_tty=NULL;
     const char *tty;
     const char *user=NULL;
+    int ctrl;
+    int rv;
+
+    ctrl = _pam_parse(pamh, argc, argv);
 
     /* set service name */
 
@@ -620,7 +654,19 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
     D(("user=%s", user));
     D(("tty=%s", tty));
 
-    return check_account(pamh, service, tty, user);
+    rv = check_account(pamh, service, tty, user);
+    if (rv != PAM_SUCCESS) {
+#ifdef HAVE_LIBAUDIT
+	if (!(ctrl & PAM_NO_AUDIT)) {
+            pam_modutil_audit_write(pamh, AUDIT_ANOM_LOGIN_TIME,
+            	    "pam_time", rv); /* ignore return value as we fail anyway */
+        }
+#endif
+	if (ctrl & PAM_DEBUG_ARG) {
+	    pam_syslog(pamh, LOG_DEBUG, "user %s rejected", user);
+	}
+    }
+    return rv;
 }
 
 /* end of module definition */

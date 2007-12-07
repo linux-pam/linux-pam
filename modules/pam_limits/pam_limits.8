@@ -1,125 +1,132 @@
 .\"     Title: pam_limits
 .\"    Author: 
-.\" Generator: DocBook XSL Stylesheets v1.71.1 <http://docbook.sf.net/>
-.\"      Date: 04/30/2007
-.\"    Manual: Linux\-PAM Manual
-.\"    Source: Linux\-PAM Manual
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 12/06/2007
+.\"    Manual: Linux-PAM Manual
+.\"    Source: Linux-PAM Manual
 .\"
-.TH "PAM_LIMITS" "8" "04/30/2007" "Linux\-PAM Manual" "Linux\-PAM Manual"
+.TH "PAM_LIMITS" "8" "12/06/2007" "Linux-PAM Manual" "Linux-PAM Manual"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
 .ad l
 .SH "NAME"
-pam_limits \- PAM module to limit resources
+pam_limits - PAM module to limit resources
 .SH "SYNOPSIS"
 .HP 14
-\fBpam_limits.so\fR [change_uid] [conf=\fI/path/to/limits.conf\fR] [debug] [utmp_early]
+\fBpam_limits\.so\fR [change_uid] [conf=\fI/path/to/limits\.conf\fR] [debug] [utmp_early] [noaudit]
 .SH "DESCRIPTION"
 .PP
-The pam_limits PAM module sets limits on the system resources that can be obtained in a user\-session. Users of
+The pam_limits PAM module sets limits on the system resources that can be obtained in a user\-session\. Users of
 \fIuid=0\fR
-are affected by this limits, too.
+are affected by this limits, too\.
 .PP
 By default limits are taken from the
-\fI/etc/security/limits.conf\fR
-config file. Then individual files from the
-\fI/etc/security/limits.d/\fR
-directory are read. The files are parsed one after another in the order of "C" locale. The effect of the individual files is the same as if all the files were concatenated together in the order of parsing. If a config file is explicitely specified with a module option then the files in the above directory are not parsed.
+\fI/etc/security/limits\.conf\fR
+config file\. Then individual files from the
+\fI/etc/security/limits\.d/\fR
+directory are read\. The files are parsed one after another in the order of "C" locale\. The effect of the individual files is the same as if all the files were concatenated together in the order of parsing\. If a config file is explicitely specified with a module option then the files in the above directory are not parsed\.
 .PP
-The module must not be called by a multithreaded application.
+The module must not be called by a multithreaded application\.
+.PP
+If Linux PAM is compiled with audit support the module will report when it denies access based on limit of maximum number of concurrent login sessions\.
 .SH "OPTIONS"
 .PP
 \fBchange_uid\fR
 .RS 4
-Change real uid to the user for who the limits are set up. Use this option if you have problems like login not forking a shell for user who has no processes. Be warned that something else may break when you do this.
+Change real uid to the user for who the limits are set up\. Use this option if you have problems like login not forking a shell for user who has no processes\. Be warned that something else may break when you do this\.
 .RE
 .PP
-\fBconf=\fR\fB\fI/path/to/limits.conf\fR\fR
+\fBconf=\fR\fB\fI/path/to/limits\.conf\fR\fR
 .RS 4
-Indicate an alternative limits.conf style configuration file to override the default.
+Indicate an alternative limits\.conf style configuration file to override the default\.
 .RE
 .PP
 \fBdebug\fR
 .RS 4
-Print debug information.
+Print debug information\.
 .RE
 .PP
 \fButmp_early\fR
 .RS 4
-Some broken applications actually allocate a utmp entry for the user before the user is admitted to the system. If some of the services you are configuring PAM for do this, you can selectively use this module argument to compensate for this behavior and at the same time maintain system\-wide consistency with a single limits.conf file.
+Some broken applications actually allocate a utmp entry for the user before the user is admitted to the system\. If some of the services you are configuring PAM for do this, you can selectively use this module argument to compensate for this behavior and at the same time maintain system\-wide consistency with a single limits\.conf file\.
+.RE
+.PP
+\fBnoaudit\fR
+.RS 4
+Do not report exceeded maximum logins count to the audit subsystem\.
 .RE
 .SH "MODULE SERVICES PROVIDED"
 .PP
 Only the
 \fBsession\fR
-service is supported.
+service is supported\.
 .SH "RETURN VALUES"
 .PP
 PAM_ABORT
 .RS 4
-Cannot get current limits.
+Cannot get current limits\.
 .RE
 .PP
 PAM_IGNORE
 .RS 4
-No limits found for this user.
+No limits found for this user\.
 .RE
 .PP
 PAM_PERM_DENIED
 .RS 4
-New limits could not be set.
+New limits could not be set\.
 .RE
 .PP
 PAM_SERVICE_ERR
 .RS 4
-Cannot read config file.
+Cannot read config file\.
 .RE
 .PP
 PAM_SESSEION_ERR
 .RS 4
-Error recovering account name.
+Error recovering account name\.
 .RE
 .PP
 PAM_SUCCESS
 .RS 4
-Limits were changed.
+Limits were changed\.
 .RE
 .PP
 PAM_USER_UNKNOWN
 .RS 4
-The user is not known to the system.
+The user is not known to the system\.
 .RE
 .SH "FILES"
 .PP
-\fI/etc/security/limits.conf\fR
+\fI/etc/security/limits\.conf\fR
 .RS 4
 Default configuration file
 .RE
 .SH "EXAMPLES"
 .PP
 For the services you need resources limits (login for example) put a the following line in
-\fI/etc/pam.d/login\fR
+\fI/etc/pam\.d/login\fR
 as the last line for that service (usually after the pam_unix session line):
 .sp
 .RS 4
 .nf
-#%PAM\-1.0
+#%PAM\-1\.0
 #
 # Resource limits imposed on login sessions via pam_limits
 #
-session  required  pam_limits.so
+session  required  pam_limits\.so
     
 .fi
 .RE
 .PP
-Replace "login" for each service you are using this module.
+Replace "login" for each service you are using this module\.
 .SH "SEE ALSO"
 .PP
 
 \fBlimits.conf\fR(5),
 \fBpam.d\fR(8),
-\fBpam\fR(8).
+\fBpam\fR(8)\.
 .SH "AUTHORS"
 .PP
-pam_limits was initially written by Cristian Gafton <gafton@redhat.com>
+pam_limits was initially written by Cristian Gafton <gafton@redhat\.com>

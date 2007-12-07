@@ -29,6 +29,9 @@
         nodefgroup
       </arg>
       <arg choice="opt">
+        noaudit
+      </arg>
+      <arg choice="opt">
         accessfile=<replaceable>file</replaceable>
       </arg>
       <arg choice="opt">
@@ -53,6 +56,10 @@
       By default rules for access management are taken from config file
       <filename>/etc/security/access.conf</filename> if you don't specify
       another file.
+    </para>
+    <para>
+      If Linux PAM is compiled with audit support the module will report
+      when it denies access based on origin (host or tty). 
     </para>
   </refsect1>
 
@@ -81,6 +88,17 @@
           <para>
             A lot of debug informations are printed with
             <citerefentry><refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>noaudit</option>
+        </term>
+        <listitem>
+          <para>
+            Do not report logins from disallowed hosts and ttys to the audit subsystem.
           </para>
         </listitem>
       </varlistentry>
