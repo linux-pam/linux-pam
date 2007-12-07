@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2007-10-01 12:19+0200\n"
-"PO-Revision-Date: 2007-01-17 11:54+0100\n"
+"PO-Revision-Date: 2007-10-01 15:54+0100\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -206,7 +206,7 @@ msgstr "je posunuté"
 
 #: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
-msgstr ""
+msgstr "nemá dostatek různých druhů znaků"
 
 #: modules/pam_cracklib/pam_cracklib.c:498
 msgid "has been already used"
@@ -339,51 +339,47 @@ msgid "Error sending audit message."
 msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:164
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "Chcete zadat bezpečnostní kontext? [y]"
+msgstr "Chcete zadat bezpečnostní kontext? [N] "
 
 #: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
-#, fuzzy
 msgid "role:"
-msgstr "role: "
+msgstr "role:"
 
 #: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "level:"
-msgstr "úroveň: "
+msgstr "úroveň:"
 
 #: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
 msgstr "Neplatný bezpečnostní kontext"
 
 #: modules/pam_selinux/pam_selinux.c:251
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "Bezpečnostní kontext %s přidělen"
+msgstr "Výchozí bezpečnostní kontext %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:255
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "Chcete zadat bezpečnostní kontext? [y]"
+msgstr "Chcete zadat jinou roli nebo úroveň?"
 
 #: modules/pam_selinux/pam_selinux.c:269
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "Chybí výchozí typ pro roli %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:512
 msgid "Out of memory"
-msgstr ""
+msgstr "Nedostatek paměti"
 
 #: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to get valid context for %s"
-msgstr "Nezdařilo se vytvořit adresář %s: %m"
+msgstr "Nezdařilo se najít platný bezpečnostní kontext pro %s"
 
 #: modules/pam_selinux/pam_selinux.c:578
 msgid "Requested MLS level not in permitted range"
-msgstr ""
+msgstr "Požadovaná úroveň MLS není v povoleném rozsahu"
 
 #: modules/pam_selinux/pam_selinux.c:628
 #, c-format
@@ -391,9 +387,9 @@ msgid "Security Context %s Assigned"
 msgstr "Bezpečnostní kontext %s přidělen"
 
 #: modules/pam_selinux/pam_selinux.c:649
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "Bezpečnostní kontext %s přidělen"
+msgstr "Bezpečnostní kontext pro vytváření klíčů %s přidělen"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -529,12 +525,3 @@ msgstr "Zadejte nové UNIX heslo: "
 #: modules/pam_unix/pam_unix_passwd.c:1210
 msgid "Retype new UNIX password: "
 msgstr "Opakujte nové UNIX heslo: "
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "Chcete zvolit jiný? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "Zadejte číslo volby: "
-
-#~ msgid "type: "
-#~ msgstr "typ: "
