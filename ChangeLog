@@ -1,6 +1,42 @@
+2007-12-12  Eamon Walsh <ewalsh@tycho.nsa.gov>
+
+	* doc/man/pam_item_types_ext.inc.xml: More appropriate wording
+	for PAM_XDISPLAY doc.
+
 2007-12-07  Tomas Mraz  <t8m@centrum.cz>
 
 	* po/cs.po: Updated translations.
+
+	* libpam/libpam.map: Add LIBPAM_MODUTIL_1.1 version.
+	* libpam/pam_audit.c: Add _pam_audit_open() and
+	pam_modutil_audit_write().
+	(_pam_auditlog): Call _pam_audit_open().
+	* libpam/include/security/pam_modutil.h: Add pam_modutil_audit_write().
+	* modules/pam_access/pam_access.8.xml: Add noaudit option.
+	Document auditing.
+	* modules/pam_access/pam_access.c: Move fs, sep, pam_access_debug, and
+	only_new_group_syntax variables to struct login_info. Add noaudit
+	member.
+	(_parse_args): Adjust for the move of variables and add support for
+	noaudit option.
+	(group_match): Add debug parameter.
+	(string_match): Likewise.
+	(network_netmask_match): Likewise.
+	(login_access): Adjust for the move of variables. Add nonall_match.
+	Add call to pam_modutil_audit_write().
+	(list_match): Adjust for the move of variables.
+	(user_match): Likewise.
+	(from_match): Likewise.
+	(pam_sm_authenticate): Call _parse_args() earlier.
+	* modules/pam_limits/pam_limits.8.xml: Add noaudit option.
+	Document auditing.
+	* modules/pam_limits/pam_limits.c (_pam_parse): Add noaudit option.
+	(setup_limits): Call pam_modutil_audit_write().
+	* modules/pam_time/pam_time.8.xml: Add debug and noaudit options.
+	Document auditing.
+	* modules/pam_time/pam_time.c: Add option parsing (_pam_parse()).
+	(check_account): Call _pam_parse(). Call pam_modutil_audit_write()
+	and pam_syslog() on login denials.
 
 2007-12-07  Luca Bruno <luca.br@uno.it>
 

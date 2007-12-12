@@ -20,9 +20,9 @@
           <para>
             The name of the X display.  For graphical, X-based applications the
 	    value for this item should be the <emphasis>$DISPLAY</emphasis>
-	    variable.  This value should be used instead of
+	    variable.  This value may be used independently of
 	    <emphasis>PAM_TTY</emphasis> for passing the
-	    name of the display where possible.
+	    name of the display.
           </para>
         </listitem>
       </varlistentry>
