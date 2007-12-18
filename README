@@ -15,7 +15,16 @@ To make sure everything was compiled correct, run:
 
       make check
 
-If a test failes, you should not continue to install this build.
+If a test fails, you should not continue to install this build.
+These tests require a suitable file /etc/pam.d/other; if necessary,
+create such a file containing, e.g., these five lines (not indented)
+
+	#%PAM-1.0
+	auth	 required	pam_deny.so
+	account	 required	pam_deny.so
+	password required	pam_deny.so
+	session	 required	pam_deny.so
+
 
 Note, if you are worried - don't even think about doing the next line
 (most Linux distributions already support PAM out of the box, so if
@@ -37,6 +46,7 @@ WARNING: Running "make xtests" can overwrite configuration data
 or make the system insecure/unfunctional for a short time!
 Backup all important data before!
 
+
 If you do not wish to make the modules dynamically loadable, but
 build a static libpam including all PAM modules, you have to call:
 
@@ -45,6 +55,10 @@ build a static libpam including all PAM modules, you have to call:
 In this case you cannot use pam_unix in the PAM config files instead you
 have to use pam_unix_acct, pam_unix_auth, pam_unix_passwd and
 pam_unix_session.
+
+To run the build checks with static modules, you need to run the
+following command: make -C test check && make check
+
 
 To regenerate manual pages from the XML source files you need the
 docbook-xsl stylesheets in version 1.69.1 or newer, older versions had

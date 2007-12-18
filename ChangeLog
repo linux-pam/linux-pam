@@ -1,3 +1,12 @@
+2007-12-18  Thorsten Kukuk <kukuk@thkukuk.de>
+
+	* README: Document how to run make check with static modules
+	(SF#1822779).
+
+2007-12-18  Peter Breitenlohner <peb@mppmu.mpg.de>
+	* README: Document that "make check" requires a file
+	/etc/pam.d/other (SF#1822764).
+
 2007-12-12  Eamon Walsh <ewalsh@tycho.nsa.gov>
 
 	* doc/man/pam_item_types_ext.inc.xml: More appropriate wording
