@@ -248,7 +248,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 			setreuid( -1, save_euid );
 		}
 
-	} else if (_unix_shadowed (pwent))
+	} else if (is_pwd_shadowed (pwent))
 		spent = pam_modutil_getspnam (pamh, uname);
 	else
 		return PAM_SUCCESS;

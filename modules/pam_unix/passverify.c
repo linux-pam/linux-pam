@@ -7,11 +7,30 @@
 #include "support.h"
 #include <stdio.h>
 #include <string.h>
+#include <sys/types.h>
 #include <unistd.h>
+#include <pwd.h>
+#include <shadow.h>
+#include <syslog.h>
+#include <stdarg.h>
 
 #include "md5.h"
 #include "bigcrypt.h"
 #include "passverify.h"
+
+#ifdef WITH_SELINUX
+#include <selinux/selinux.h>
+#define SELINUX_ENABLED is_selinux_enabled()>0
+#else
+#define SELINUX_ENABLED 0
+#endif
+
+#ifdef HELPER_COMPILE
+#define pam_modutil_getpwnam(h,n) getpwnam(n)
+#define pam_modutil_getspnam(h,n) getspnam(n)
+#else
+#include <security/pam_modutil.h>
+#endif
 
 int
 verify_pwd_hash(const char *p, const char *hash, unsigned int nullok)
@@ -70,7 +89,8 @@ verify_pwd_hash(const char *p, const char *hash, unsigned int nullok)
 	return retval;
 }
 
-int _unix_shadowed(const struct passwd *pwd)
+int
+is_pwd_shadowed(const struct passwd *pwd)
 {
 	if (pwd != NULL) {
 		if (strcmp(pwd->pw_passwd, "x") == 0) {
@@ -85,6 +105,123 @@ int _unix_shadowed(const struct passwd *pwd)
 	return 0;
 }
 
+#ifdef HELPER_COMPILE
+int
+get_pwd_hash(const char *name,
+	struct passwd **pwd, char **hash)
+#else
+int
+get_pwd_hash(pam_handle_t *pamh, const char *name,
+	struct passwd **pwd, char **hash)
+#endif
+{
+	struct spwd *spwdent = NULL;
+
+	/* UNIX passwords area */
+	*pwd = pam_modutil_getpwnam(pamh, name);	/* Get password file entry... */
+	*hash = NULL;
+
+	if (*pwd != NULL) {
+		if (strcmp((*pwd)->pw_passwd, "*NP*") == 0)
+		{ /* NIS+ */
+#ifdef HELPER_COMPILE
+			uid_t save_euid, save_uid;
+
+			save_euid = geteuid();
+			save_uid = getuid();
+			if (save_uid == (*pwd)->pw_uid)
+				setreuid(save_euid, save_uid);
+			else  {
+				setreuid(0, -1);
+				if (setreuid(-1, (*pwd)->pw_uid) == -1) {
+					setreuid(-1, 0);
+					setreuid(0, -1);
+					if(setreuid(-1, (*pwd)->pw_uid) == -1)
+						return PAM_CRED_INSUFFICIENT;
+				}
+			}
+
+			spwdent = pam_modutil_getspnam(pamh, name);
+			if (save_uid == (*pwd)->pw_uid)
+				setreuid(save_uid, save_euid);
+			else {
+				setreuid(-1, 0);
+				setreuid(save_uid, -1);
+				setreuid(-1, save_euid);
+			}
+
+			if (spwdent == NULL || spwdent->sp_pwdp == NULL)
+				return PAM_AUTHINFO_UNAVAIL;
+#else
+			/* we must run helper for NIS+ passwords */
+			return PAM_UNIX_RUN_HELPER;
+#endif
+		} else if (is_pwd_shadowed(*pwd)) {
+			/*
+			 * ...and shadow password file entry for this user,
+			 * if shadowing is enabled
+			 */
+#ifndef HELPER_COMPILE
+			if (geteuid() || SELINUX_ENABLED)
+				return PAM_UNIX_RUN_HELPER;
+#endif
+			spwdent = pam_modutil_getspnam(pamh, name);
+			if (spwdent == NULL || spwdent->sp_pwdp == NULL)
+				return PAM_AUTHINFO_UNAVAIL;
+		}
+		if (spwdent)
+			*hash = x_strdup(spwdent->sp_pwdp);
+		else
+			*hash = x_strdup((*pwd)->pw_passwd);
+		if (*hash == NULL)
+			return PAM_BUF_ERR;
+	} else {
+		return PAM_USER_UNKNOWN;
+	}
+	return PAM_SUCCESS;
+}
+
+#ifdef HELPER_COMPILE
+
+int
+helper_verify_password(const char *name, const char *p, int nullok)
+{
+	struct passwd *pwd = NULL;
+	char *salt = NULL;
+	int retval;
+
+	retval = get_pwd_hash(name, &pwd, &salt);
+
+	if (pwd == NULL || salt == NULL) {
+		helper_log_err(LOG_WARNING, "check pass; user unknown");
+		retval = PAM_USER_UNKNOWN;
+	} else {
+		retval = verify_pwd_hash(p, salt, nullok);
+	}
+
+	if (salt) {
+		_pam_overwrite(salt);
+		_pam_drop(salt);
+	}
+
+	p = NULL;		/* no longer needed here */
+
+	return retval;
+}
+
+void
+helper_log_err(int err, const char *format, ...)
+{
+	va_list args;
+
+	va_start(args, format);
+	openlog(HELPER_COMPILE, LOG_CONS | LOG_PID, LOG_AUTHPRIV);
+	vsyslog(err, format, args);
+	va_end(args);
+	closelog();
+}
+
+#endif
 /* ****************************************************************** *
  * Copyright (c) Jan Rêkorajski 1999.
  * Copyright (c) Andrew G. Morgan 1996-8.

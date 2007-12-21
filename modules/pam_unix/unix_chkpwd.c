@@ -13,7 +13,6 @@
 
 #include "config.h"
 
-#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -43,17 +42,6 @@ static int selinux_enabled=-1;
 
 /* syslogging function for errors and other information */
 
-static void _log_err(int err, const char *format,...)
-{
-	va_list args;
-
-	va_start(args, format);
-	openlog("unix_chkpwd", LOG_CONS | LOG_PID, LOG_AUTHPRIV);
-	vsyslog(err, format, args);
-	va_end(args);
-	closelog();
-}
-
 static void su_sighandler(int sig)
 {
 #ifndef SA_RESETHAND
@@ -62,7 +50,7 @@ static void su_sighandler(int sig)
 		signal(sig, SIG_DFL);
 #endif
 	if (sig > 0) {
-		_log_err(LOG_NOTICE, "caught signal %d.", sig);
+		helper_log_err(LOG_NOTICE, "caught signal %d.", sig);
 		exit(sig);
 	}
 }
@@ -98,13 +86,13 @@ static int _verify_account(const char * const uname)
 
 	pwent = getpwnam(uname);
 	if (!pwent) {
-		_log_err(LOG_ALERT, "could not identify user (from getpwnam(%s))", uname);
+		helper_log_err(LOG_ALERT, "could not identify user (from getpwnam(%s))", uname);
 		return PAM_USER_UNKNOWN;
 	}
 
 	spent = getspnam( uname );
 	if (!spent) {
-		_log_err(LOG_ALERT, "could not get username from shadow (%s))", uname);
+		helper_log_err(LOG_ALERT, "could not get username from shadow (%s))", uname);
 		return PAM_AUTHINFO_UNAVAIL;	/* Couldn't get username from shadow */
 	}
 	printf("%ld:%ld:%ld:%ld:%ld:%ld",
@@ -116,62 +104,6 @@ static int _verify_account(const char * const uname)
                  spent->sp_expire); /* date when account expires */
 
 	return PAM_SUCCESS;
-}
-
-static int _unix_verify_password(const char *name, const char *p, int nullok)
-{
-	struct passwd *pwd = NULL;
-	struct spwd *spwdent = NULL;
-	char *salt = NULL;
-	int retval = PAM_AUTH_ERR;
-
-	/* UNIX passwords area */
-	setpwent();
-	pwd = getpwnam(name);	/* Get password file entry... */
-	endpwent();
-	if (pwd != NULL) {
-		if (_unix_shadowed(pwd)) {
-			/*
-			 * ...and shadow password file entry for this user,
-			 * if shadowing is enabled
-			 */
-			setspent();
-			spwdent = getspnam(name);
-			endspent();
-			if (spwdent != NULL)
-				salt = x_strdup(spwdent->sp_pwdp);
-			else
-				pwd = NULL;
-		} else {
-			if (strcmp(pwd->pw_passwd, "*NP*") == 0) {	/* NIS+ */
-				uid_t save_uid;
-
-				save_uid = geteuid();
-				seteuid(pwd->pw_uid);
-				spwdent = getspnam(name);
-				seteuid(save_uid);
-
-				salt = x_strdup(spwdent->sp_pwdp);
-			} else {
-				salt = x_strdup(pwd->pw_passwd);
-			}
-		}
-	}
-	if (pwd == NULL || salt == NULL) {
-		_log_err(LOG_WARNING, "check pass; user unknown");
-		retval = PAM_USER_UNKNOWN;
-	} else {
-		retval = verify_pwd_hash(p, salt, nullok);
-	}
-
-	if (salt) {
-		_pam_overwrite(salt);
-		_pam_drop(salt);
-	}
-
-	p = NULL;		/* no longer needed here */
-
-	return retval;
 }
 
 static char *getuidname(uid_t uid)
@@ -207,19 +139,19 @@ static int _update_shadow(const char *forwho)
 
     if (npass < 0) {	/* is it a valid password? */
 
-      _log_err(LOG_DEBUG, "no password supplied");
+      helper_log_err(LOG_DEBUG, "no password supplied");
       return PAM_AUTHTOK_ERR;
 
     } else if (npass >= MAXPASS) {
 
-      _log_err(LOG_DEBUG, "password too long");
+      helper_log_err(LOG_DEBUG, "password too long");
       return PAM_AUTHTOK_ERR;
 
     } else {
       /* does pass agree with the official one? */
       int retval=0;
       pass[npass] = '\0';	/* NUL terminate */
-      retval = _unix_verify_password(forwho, pass, 0);
+      retval = helper_verify_password(forwho, pass, 0);
       if (retval != PAM_SUCCESS) {
 	return retval;
       }
@@ -231,12 +163,12 @@ static int _update_shadow(const char *forwho)
 
     if (npass < 0) {	/* is it a valid password? */
 
-      _log_err(LOG_DEBUG, "no new password supplied");
+      helper_log_err(LOG_DEBUG, "no new password supplied");
       return PAM_AUTHTOK_ERR;
 
     } else if (npass >= MAXPASS) {
 
-      _log_err(LOG_DEBUG, "new password too long");
+      helper_log_err(LOG_DEBUG, "new password too long");
       return PAM_AUTHTOK_ERR;
 
     }
@@ -355,7 +287,7 @@ int main(int argc, char *argv[])
 	char pass[MAXPASS + 1];
 	char *option;
 	int npass, nullok;
-	int force_failure = 0;
+	int blankpass;
 	int retval = PAM_AUTH_ERR;
 	char *user;
 
@@ -374,7 +306,7 @@ int main(int argc, char *argv[])
 	 */
 
 	if (isatty(STDIN_FILENO) || argc != 3 ) {
-		_log_err(LOG_NOTICE
+		helper_log_err(LOG_NOTICE
 		      ,"inappropriate use of Unix helper binary [UID=%d]"
 			 ,getuid());
 		fprintf(stderr
@@ -426,23 +358,24 @@ int main(int argc, char *argv[])
 
 	if (npass < 0) {	/* is it a valid password? */
 
-		_log_err(LOG_DEBUG, "no password supplied");
+		helper_log_err(LOG_DEBUG, "no password supplied");
 
 	} else if (npass >= MAXPASS) {
 
-		_log_err(LOG_DEBUG, "password too long");
+		helper_log_err(LOG_DEBUG, "password too long");
 
 	} else {
 		if (npass == 0) {
 			/* the password is NULL */
-
-			retval = _unix_verify_password(user, NULL, nullok);
+			blankpass = 1;
+			retval = helper_verify_password(user, NULL, nullok);
 
 		} else {
 			/* does pass agree with the official one? */
-
+			if (pass[0] == '\0')
+				blankpass = 1;
 			pass[npass] = '\0';	/* NUL terminate */
-			retval = _unix_verify_password(user, pass, nullok);
+			retval = helper_verify_password(user, pass, nullok);
 
 		}
 	}
@@ -451,16 +384,19 @@ int main(int argc, char *argv[])
 
 	/* return pass or fail */
 
-	if ((retval != PAM_SUCCESS) || force_failure) {
-	    _log_err(LOG_NOTICE, "password check failed for user (%s)", user);
-	    return PAM_AUTH_ERR;
+	if (retval != PAM_SUCCESS) {
+		if (!nullok || !blankpass)
+			/* no need to log blank pass test */
+			helper_log_err(LOG_NOTICE, "password check failed for user (%s)", user);
+		return PAM_AUTH_ERR;
 	} else {
-	    return PAM_SUCCESS;
+		return PAM_SUCCESS;
 	}
 }
 
 /*
  * Copyright (c) Andrew G. Morgan, 1996. All rights reserved
+ * Copyright (c) Red Hat, Inc., 2007. All rights reserved
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions

@@ -1,11 +1,35 @@
 /*
  * Copyright information at end of file.
  */
+
+#include <pwd.h>
+#include <security/pam_modules.h>
+
+#define PAM_UNIX_RUN_HELPER PAM_CRED_INSUFFICIENT
+
 int
 verify_pwd_hash(const char *p, const char *hash, unsigned int nullok);
 
 int
-_unix_shadowed(const struct passwd *pwd);
+is_pwd_shadowed(const struct passwd *pwd);
+
+#ifdef HELPER_COMPILE
+void
+helper_log_err(int err, const char *format,...);
+
+int
+helper_verify_password(const char *name, const char *p, int nullok);
+
+int
+get_pwd_hash(const char *name,
+	struct passwd **pwd, char **hash);
+
+#else
+
+int
+get_pwd_hash(pam_handle_t *pamh, const char *name,
+	struct passwd **pwd, char **hash);
+#endif
 
 /* ****************************************************************** *
  * Copyright (c) Red Hat, Inc. 2007.

@@ -854,14 +854,14 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 			retval = PAM_AUTHTOK_ERR;
 			goto done;
 		}
-		if (on(UNIX_SHADOW, ctrl) || _unix_shadowed(pwd)) {
+		if (on(UNIX_SHADOW, ctrl) || is_pwd_shadowed(pwd)) {
 			retval = _update_shadow(pamh, forwho, towhat);
 #ifdef WITH_SELINUX
  		        if (retval != PAM_SUCCESS && SELINUX_ENABLED)
 			  retval = _unix_run_shadow_binary(pamh, ctrl, forwho, fromwhat, towhat);
 #endif
 			if (retval == PAM_SUCCESS)
-				if (!_unix_shadowed(pwd))
+				if (!is_pwd_shadowed(pwd))
 					retval = _update_passwd(pamh, forwho, "x");
 		} else {
 			retval = _update_passwd(pamh, forwho, towhat);
@@ -889,7 +889,7 @@ static int _unix_verify_shadow(pam_handle_t *pamh, const char *user, unsigned in
 	if (pwd == NULL)
 		return PAM_AUTHINFO_UNAVAIL;	/* We don't need to do the rest... */
 
-	if (_unix_shadowed(pwd)) {
+	if (is_pwd_shadowed(pwd)) {
 		/* ...and shadow password file entry for this user, if shadowing
 		   is enabled */
 		setspent();
