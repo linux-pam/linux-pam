@@ -150,5 +150,6 @@ extern int _unix_read_password(pam_handle_t * pamh
 			,const char *data_name
 			,const void **pass);
 
-extern struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, const char *user);
+extern int _unix_run_verify_binary(pam_handle_t *pamh,
+			unsigned int ctrl, const char *user, int *daysleft);
 #endif /* _PAM_UNIX_SUPPORT_H */

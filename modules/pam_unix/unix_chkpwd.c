@@ -79,31 +79,28 @@ static void setup_signals(void)
 	(void) sigaction(SIGQUIT, &action, NULL);
 }
 
-static int _verify_account(const char * const uname)
+static int _check_expiry(const char *uname)
 {
 	struct spwd *spent;
 	struct passwd *pwent;
+	int retval;
+	int daysleft;
 
-	pwent = getpwnam(uname);
-	if (!pwent) {
-		helper_log_err(LOG_ALERT, "could not identify user (from getpwnam(%s))", uname);
-		return PAM_USER_UNKNOWN;
+	retval = get_account_info(uname, &pwent, &spent);
+	if (retval != PAM_SUCCESS) {
+		helper_log_err(LOG_ALERT, "could not obtain user info (%s)", uname);
+		printf("-1\n");
+		return retval;
+	}
+	
+	if (spent == NULL) {
+		printf("-1\n");
+		return retval;
 	}
 
-	spent = getspnam( uname );
-	if (!spent) {
-		helper_log_err(LOG_ALERT, "could not get username from shadow (%s))", uname);
-		return PAM_AUTHINFO_UNAVAIL;	/* Couldn't get username from shadow */
-	}
-	printf("%ld:%ld:%ld:%ld:%ld:%ld",
-		 spent->sp_lstchg, /* last password change */
-                 spent->sp_min, /* days until change allowed. */
-                 spent->sp_max, /* days before change required */
-                 spent->sp_warn, /* days warning for expiration */
-                 spent->sp_inact, /* days before account inactive */
-                 spent->sp_expire); /* date when account expires */
-
-	return PAM_SUCCESS;
+	retval = check_shadow_expiry(spent, &daysleft);
+	printf("%d\n", daysleft);
+	return retval;
 }
 
 static char *getuidname(uid_t uid)
@@ -318,11 +315,9 @@ int main(int argc, char *argv[])
 
 	/*
 	 * Determine what the current user's name is.
-	 * On a SELinux enabled system with a strict policy leaving the
-	 * existing check prevents shadow password authentication from working.
 	 * We must thus skip the check if the real uid is 0.
 	 */
-	if (SELINUX_ENABLED && getuid() == 0) {
+	if (getuid() == 0) {
 	  user=argv[1];
 	}
 	else {
@@ -336,9 +331,10 @@ int main(int argc, char *argv[])
 
 	option=argv[2];
 
-	if (strncmp(argv[2], "verify", 8) == 0) {
-	  /* Get the account information from the shadow file */
-	  return _verify_account(argv[1]);
+	if (strncmp(argv[2], "chkexpiry", 8) == 0) {
+	  /* Check account information from the shadow file */
+	  return _check_expiry(argv[1]);
+	  
 	}
 
 	if (strncmp(option, "shadow", 8) == 0) {

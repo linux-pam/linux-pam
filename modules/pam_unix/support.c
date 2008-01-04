@@ -429,7 +429,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	  }
 	}
 
-	if (SELINUX_ENABLED && geteuid() == 0) {
+	if (geteuid() == 0) {
           /* must set the real uid to 0 so the helper will not error
 	     out if pam is called from setuid binary (su, sudo...) */
 	  setuid(0);

@@ -879,81 +879,30 @@ done:
 
 static int _unix_verify_shadow(pam_handle_t *pamh, const char *user, unsigned int ctrl)
 {
-	struct passwd *pwd = NULL;	/* Password and shadow password */
-	struct spwd *spwdent = NULL;	/* file entries for the user */
-	time_t curdays;
-	int retval = PAM_SUCCESS;
+	struct passwd *pwent = NULL;	/* Password and shadow password */
+	struct spwd *spent = NULL;	/* file entries for the user */
+	int daysleft;
+	int retval;
 
-	/* UNIX passwords area */
-	pwd = getpwnam(user);	/* Get password file entry... */
-	if (pwd == NULL)
-		return PAM_AUTHINFO_UNAVAIL;	/* We don't need to do the rest... */
-
-	if (is_pwd_shadowed(pwd)) {
-		/* ...and shadow password file entry for this user, if shadowing
-		   is enabled */
-		setspent();
-		spwdent = getspnam(user);
-		endspent();
-
-#ifdef WITH_SELINUX
-		if (spwdent == NULL && SELINUX_ENABLED )
-		    spwdent = _unix_run_verify_binary(pamh, ctrl, user);
-#endif
-		if (spwdent == NULL)
-			return PAM_AUTHINFO_UNAVAIL;
-	} else {
-		if (strcmp(pwd->pw_passwd,"*NP*") == 0) { /* NIS+ */
-			uid_t save_uid;
-
-			save_uid = geteuid();
-			seteuid (pwd->pw_uid);
-			spwdent = getspnam( user );
-			seteuid (save_uid);
-
-			if (spwdent == NULL)
-				return PAM_AUTHINFO_UNAVAIL;
-		} else
-			spwdent = NULL;
+	retval = get_account_info(pamh, user, &pwent, &spent);
+	if (retval == PAM_USER_UNKNOWN) {
+		return retval;
 	}
 
-	if (spwdent != NULL) {
-		/* We have the user's information, now let's check if their account
-		   has expired (60 * 60 * 24 = number of seconds in a day) */
+	if (retval == PAM_SUCCESS && spent == NULL)
+		return PAM_SUCCESS;
 
-		if (off(UNIX__IAMROOT, ctrl)) {
-			/* Get the current number of days since 1970 */
-			curdays = time(NULL) / (60 * 60 * 24);
-			if (curdays < spwdent->sp_lstchg) {
-				pam_syslog(pamh, LOG_DEBUG,
-					"account %s has password changed in future",
-					user);
-				curdays = spwdent->sp_lstchg;
-			}
-			if ((curdays - spwdent->sp_lstchg < spwdent->sp_min)
-				 && (spwdent->sp_min != -1))
-				/*
-				 * The last password change was too recent.
-				 */
-				retval = PAM_AUTHTOK_ERR;
-			else if ((curdays - spwdent->sp_lstchg > spwdent->sp_max)
-				 && (curdays - spwdent->sp_lstchg > spwdent->sp_inact)
-				 && (curdays - spwdent->sp_lstchg >
-				     spwdent->sp_max + spwdent->sp_inact)
-				 && (spwdent->sp_max != -1) && (spwdent->sp_inact != -1)
-				 && (spwdent->sp_lstchg != 0))
-				/*
-				 * Their password change has been put off too long,
-				 */
-				retval = PAM_ACCT_EXPIRED;
-			else if ((curdays > spwdent->sp_expire) && (spwdent->sp_expire != -1)
-				 && (spwdent->sp_lstchg != 0))
-				/*
-				 * OR their account has just plain expired
-				 */
-				retval = PAM_ACCT_EXPIRED;
-		}
+	if (retval == PAM_UNIX_RUN_HELPER) {
+		retval = _unix_run_verify_binary(pamh, ctrl, user, &daysleft);
+		if (retval == PAM_AUTH_ERR || retval == PAM_USER_UNKNOWN)
+			return retval;
 	}
+	else if (retval == PAM_SUCCESS)
+		retval = check_shadow_expiry(pamh, spent, &daysleft);
+
+	if (on(UNIX__IAMROOT, ctrl) || retval == PAM_NEW_AUTHTOK_REQD)
+		return PAM_SUCCESS;
+
 	return retval;
 }
 

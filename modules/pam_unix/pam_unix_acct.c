@@ -47,10 +47,6 @@
 #include <time.h>		/* for time() */
 #include <errno.h>
 #include <sys/wait.h>
-#ifdef WITH_SELINUX
-#include <selinux/selinux.h>
-#define SELINUX_ENABLED is_selinux_enabled()>0
-#endif
 
 #include <security/_pam_macros.h>
 
@@ -65,11 +61,8 @@
 #include "support.h"
 #include "passverify.h"
 
-#ifdef WITH_SELINUX
-
-struct spwd spwd;
-
-struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, const char *user)
+int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
+	const char *user, int *daysleft)
 {
   int retval=0, child, fds[2];
   void (*sighandler)(int) = NULL;
@@ -79,7 +72,7 @@ struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, cons
   if (pipe(fds) != 0) {
     D(("could not make pipe"));
     pam_syslog(pamh, LOG_ERR, "Could not make pipe: %m");
-    return NULL;
+    return PAM_AUTH_ERR;
   }
   D(("called."));
 
@@ -118,7 +111,7 @@ struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, cons
       }
     }
 
-    if (SELINUX_ENABLED && geteuid() == 0) {
+    if (geteuid() == 0) {
       /* must set the real uid to 0 so the helper will not error
          out if pam is called from setuid binary (su, sudo...) */
       setuid(0);
@@ -127,7 +120,7 @@ struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, cons
     /* exec binary helper */
     args[0] = x_strdup(CHKPWD_HELPER);
     args[1] = x_strdup(user);
-    args[2] = x_strdup("verify");
+    args[2] = x_strdup("chkexpiry");
 
     execve(CHKPWD_HELPER, args, envp);
 
@@ -135,11 +128,12 @@ struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, cons
     /* should not get here: exit with error */
     close (fds[1]);
     D(("helper binary is not available"));
+    printf("-1\n");
     exit(PAM_AUTHINFO_UNAVAIL);
   } else {
     close(fds[1]);
     if (child > 0) {
-      char buf[1024];
+      char buf[32];
       int rc=0;
       rc=waitpid(child, &retval, 0);  /* wait for helper to complete */
       if (rc<0) {
@@ -147,22 +141,16 @@ struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, cons
 	retval = PAM_AUTH_ERR;
       } else {
 	retval = WEXITSTATUS(retval);
-	if (retval != PAM_AUTHINFO_UNAVAIL) {
-          rc = pam_modutil_read(fds[0], buf, sizeof(buf) - 1);
-	  if(rc > 0) {
+        rc = pam_modutil_read(fds[0], buf, sizeof(buf) - 1);
+	if(rc > 0) {
 	      buf[rc] = '\0';
-	      if (sscanf(buf,"%ld:%ld:%ld:%ld:%ld:%ld",
-		     &spwd.sp_lstchg, /* last password change */
-		     &spwd.sp_min, /* days until change allowed. */
-		     &spwd.sp_max, /* days before change required */
-		     &spwd.sp_warn, /* days warning for expiration */
-		     &spwd.sp_inact, /* days before account inactive */
-		     &spwd.sp_expire) /* date when account expires */ != 6 ) retval = PAM_AUTH_ERR;
+	      if (sscanf(buf,"%d", daysleft) != 1 )
+	        retval = PAM_AUTH_ERR;
 	    }
-	  else {
-	    pam_syslog(pamh, LOG_ERR, " ERROR %d: %m", rc); retval = PAM_AUTH_ERR;
+	else {
+	    pam_syslog(pamh, LOG_ERR, "read unix_chkpwd output error %d: %m", rc);
+	    retval = PAM_AUTH_ERR;
 	  }
-	}
       }
     } else {
       pam_syslog(pamh, LOG_ERR, "Fork failed: %m");
@@ -175,14 +163,8 @@ struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, cons
     (void) signal(SIGCHLD, sighandler);   /* restore old signal handler */
   }
   D(("Returning %d",retval));
-  if (retval != PAM_SUCCESS) {
-    return NULL;
-  }
-  return &spwd;
+  return retval;
 }
-
-#endif
-
 
 /*
  * PAM framework looks for this entry-point to pass control to the
@@ -225,17 +207,18 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 	if (retval == PAM_SUCCESS && spent == NULL)
 		return PAM_SUCCESS;
 
-	if (retval == PAM_UNIX_RUN_HELPER)
-	    spent = _unix_run_verify_binary(pamh, ctrl, uname);
-
-	if (retval != PAM_SUCCESS) {
+	if (retval == PAM_UNIX_RUN_HELPER) {
+		retval = _unix_run_verify_binary(pamh, ctrl, uname, &daysleft);
+		if (retval == PAM_AUTHINFO_UNAVAIL &&
+			on(UNIX_BROKEN_SHADOW, ctrl))
+			return PAM_SUCCESS;
+	} else if (retval != PAM_SUCCESS) {
 		if (on(UNIX_BROKEN_SHADOW,ctrl))
 			return PAM_SUCCESS;
 		else
 			return retval;
-	}
-
-	retval = check_shadow_expiry(pamh, spent, &daysleft);
+	} else
+		retval = check_shadow_expiry(pamh, spent, &daysleft);
 
 	switch (retval) {
 	case PAM_ACCT_EXPIRED:
