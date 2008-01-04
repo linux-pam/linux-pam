@@ -21,14 +21,27 @@ int
 helper_verify_password(const char *name, const char *p, int nullok);
 
 int
+get_account_info(const char *name,
+	struct passwd **pwd, struct spwd **spwdent);
+
+int
 get_pwd_hash(const char *name,
 	struct passwd **pwd, char **hash);
 
+int
+check_shadow_expiry(struct spwd *spent, int *daysleft);
+
 #else
+int
+get_account_info(pam_handle_t *pamh, const char *name,
+	struct passwd **pwd,  struct spwd **spwdent);
 
 int
 get_pwd_hash(pam_handle_t *pamh, const char *name,
 	struct passwd **pwd, char **hash);
+
+int
+check_shadow_expiry(pam_handle_t *pamh, struct spwd *spent, int *daysleft);
 #endif
 
 /* ****************************************************************** *

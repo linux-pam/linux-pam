@@ -13,6 +13,7 @@
 #include <shadow.h>
 #include <syslog.h>
 #include <stdarg.h>
+#include <time.h>
 
 #include "md5.h"
 #include "bigcrypt.h"
@@ -28,8 +29,10 @@
 #ifdef HELPER_COMPILE
 #define pam_modutil_getpwnam(h,n) getpwnam(n)
 #define pam_modutil_getspnam(h,n) getspnam(n)
+#define pam_syslog(h,a,b,c) helper_log_err(a,b,c)
 #else
 #include <security/pam_modutil.h>
+#include <security/pam_ext.h>
 #endif
 
 int
@@ -107,19 +110,17 @@ is_pwd_shadowed(const struct passwd *pwd)
 
 #ifdef HELPER_COMPILE
 int
-get_pwd_hash(const char *name,
-	struct passwd **pwd, char **hash)
+get_account_info(const char *name,
+	struct passwd **pwd, struct spwd **spwdent)
 #else
 int
-get_pwd_hash(pam_handle_t *pamh, const char *name,
-	struct passwd **pwd, char **hash)
+get_account_info(pam_handle_t *pamh, const char *name,
+	struct passwd **pwd,  struct spwd **spwdent)
 #endif
 {
-	struct spwd *spwdent = NULL;
-
 	/* UNIX passwords area */
 	*pwd = pam_modutil_getpwnam(pamh, name);	/* Get password file entry... */
-	*hash = NULL;
+	*spwdent = NULL;
 
 	if (*pwd != NULL) {
 		if (strcmp((*pwd)->pw_passwd, "*NP*") == 0)
@@ -141,7 +142,7 @@ get_pwd_hash(pam_handle_t *pamh, const char *name,
 				}
 			}
 
-			spwdent = pam_modutil_getspnam(pamh, name);
+			*spwdent = pam_modutil_getspnam(pamh, name);
 			if (save_uid == (*pwd)->pw_uid)
 				setreuid(save_uid, save_euid);
 			else {
@@ -150,7 +151,7 @@ get_pwd_hash(pam_handle_t *pamh, const char *name,
 				setreuid(-1, save_euid);
 			}
 
-			if (spwdent == NULL || spwdent->sp_pwdp == NULL)
+			if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL)
 				return PAM_AUTHINFO_UNAVAIL;
 #else
 			/* we must run helper for NIS+ passwords */
@@ -165,20 +166,94 @@ get_pwd_hash(pam_handle_t *pamh, const char *name,
 			if (geteuid() || SELINUX_ENABLED)
 				return PAM_UNIX_RUN_HELPER;
 #endif
-			spwdent = pam_modutil_getspnam(pamh, name);
-			if (spwdent == NULL || spwdent->sp_pwdp == NULL)
+			*spwdent = pam_modutil_getspnam(pamh, name);
+			if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL)
 				return PAM_AUTHINFO_UNAVAIL;
 		}
-		if (spwdent)
-			*hash = x_strdup(spwdent->sp_pwdp);
-		else
-			*hash = x_strdup((*pwd)->pw_passwd);
-		if (*hash == NULL)
-			return PAM_BUF_ERR;
 	} else {
 		return PAM_USER_UNKNOWN;
 	}
 	return PAM_SUCCESS;
+}
+
+#ifdef HELPER_COMPILE
+int
+get_pwd_hash(const char *name,
+	struct passwd **pwd, char **hash)
+#else
+int
+get_pwd_hash(pam_handle_t *pamh, const char *name,
+	struct passwd **pwd, char **hash)
+#endif
+{
+	int retval;
+	struct spwd *spwdent = NULL;
+
+#ifdef HELPER_COMPILE
+	retval = get_account_info(name, pwd, &spwdent);
+#else
+	retval = get_account_info(pamh, name, pwd, &spwdent);
+#endif	
+	if (retval != PAM_SUCCESS) {
+		return retval;
+	}
+
+	if (spwdent)
+		*hash = x_strdup(spwdent->sp_pwdp);
+	else
+		*hash = x_strdup((*pwd)->pw_passwd);
+	if (*hash == NULL)
+		return PAM_BUF_ERR;
+
+	return PAM_SUCCESS;
+}
+
+#ifdef HELPER_COMPILE
+int
+check_shadow_expiry(struct spwd *spent, int *daysleft)
+#else
+int
+check_shadow_expiry(pam_handle_t *pamh, struct spwd *spent, int *daysleft)
+#endif
+{
+	long int curdays;
+	*daysleft = -1;
+	curdays = (long int)(time(NULL) / (60 * 60 * 24));
+	D(("today is %d, last change %d", curdays, spent->sp_lstchg));
+	if ((curdays > spent->sp_expire) && (spent->sp_expire != -1)) {
+		D(("account expired"));
+		return PAM_ACCT_EXPIRED;
+	}
+	if (spent->sp_lstchg == 0) {
+		D(("need a new password"));
+		*daysleft = 0;
+		return PAM_NEW_AUTHTOK_REQD;
+	}
+	if (curdays < spent->sp_lstchg) {
+		pam_syslog(pamh, LOG_DEBUG,
+			 "account %s has password changed in future",
+			 spent->sp_namp);
+		return PAM_SUCCESS;
+	}
+	if ((curdays - spent->sp_lstchg > spent->sp_max)
+	    && (curdays - spent->sp_lstchg > spent->sp_inact)
+	    && (curdays - spent->sp_lstchg > spent->sp_max + spent->sp_inact)
+	    && (spent->sp_max != -1) && (spent->sp_inact != -1)) {
+		*daysleft = (int)((spent->sp_lstchg + spent->sp_max) - curdays);
+		D(("authtok expired"));
+		return PAM_AUTHTOK_EXPIRED;
+	}
+	if ((curdays - spent->sp_lstchg > spent->sp_max) && (spent->sp_max != -1)) {
+		D(("need a new password 2"));
+		return PAM_NEW_AUTHTOK_REQD;
+	}
+	if ((curdays - spent->sp_lstchg > spent->sp_max - spent->sp_warn)
+	    && (spent->sp_max != -1) && (spent->sp_warn != -1)) {
+		*daysleft = (int)((spent->sp_lstchg + spent->sp_max) - curdays);
+		D(("warn before expiry"));
+	}
+	return PAM_SUCCESS;
+
 }
 
 #ifdef HELPER_COMPILE
