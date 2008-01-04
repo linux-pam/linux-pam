@@ -13,6 +13,7 @@
 
 #include "config.h"
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,45 +25,96 @@
 #include <shadow.h>
 #include <signal.h>
 #include <time.h>
+#include <sys/time.h>
+#ifdef WITH_SELINUX
+#include <selinux/selinux.h>
+#define SELINUX_ENABLED (selinux_enabled!=-1 ? selinux_enabled : (selinux_enabled=is_selinux_enabled()>0))
+static int selinux_enabled=-1;
+#else
+#define SELINUX_ENABLED 0
+#endif
 
 #include <security/_pam_types.h>
 #include <security/_pam_macros.h>
 
 #include "passverify.h"
 
-static int _check_expiry(const char *uname)
+static int
+set_password(const char *forwho, const char *shadow, const char *remember)
 {
-	struct spwd *spent;
-	struct passwd *pwent;
-	int retval;
-	int daysleft;
+    struct passwd *pwd = NULL;
+    int retval;
+    char pass[MAXPASS + 1];
+    char towhat[MAXPASS + 1];
+    int npass = 0;
+    /* we don't care about number format errors because the helper
+       should be called internally only */
+    int doshadow = atoi(shadow);
+    int nremember = atoi(remember);
+    char *passwords[] = { pass, towhat };
 
-	retval = get_account_info(uname, &pwent, &spent);
-	if (retval != PAM_SUCCESS) {
-		helper_log_err(LOG_ALERT, "could not obtain user info (%s)", uname);
-		printf("-1\n");
-		return retval;
-	}
-	
-	if (spent == NULL) {
-		printf("-1\n");
-		return retval;
-	}
+    /* read the password from stdin (a pipe from the pam_unix module) */
 
-	retval = check_shadow_expiry(spent, &daysleft);
-	printf("%d\n", daysleft);
-	return retval;
+    npass = read_passwords(STDIN_FILENO, 2, passwords);
+
+    if (npass != 2) {	/* is it a valid password? */
+      if (npass == 1) {
+        helper_log_err(LOG_DEBUG, "no new password supplied");
+	memset(pass, '\0', MAXPASS);
+      } else {
+        helper_log_err(LOG_DEBUG, "no valid passwords supplied");
+      }
+      return PAM_AUTHTOK_ERR;
+    }
+
+    if (lock_pwdf() != PAM_SUCCESS)
+    	return PAM_AUTHTOK_LOCK_BUSY;
+
+    pwd = getpwnam(forwho);
+    
+    if (pwd == NULL) {
+        retval = PAM_USER_UNKNOWN;
+        goto done;
+    }
+
+    /* does pass agree with the official one? 
+       we always allow change from null pass */
+    retval = helper_verify_password(forwho, pass, 1);
+    if (retval != PAM_SUCCESS) {
+	goto done;
+    }
+
+    /* first, save old password */
+    if (save_old_password(forwho, pass, nremember)) {
+	retval = PAM_AUTHTOK_ERR;
+	goto done;
+    }
+
+    if (doshadow || is_pwd_shadowed(pwd)) {
+	retval = unix_update_shadow(forwho, towhat);
+	if (retval == PAM_SUCCESS)
+	    if (!is_pwd_shadowed(pwd))
+		retval = unix_update_passwd(forwho, "x");
+    } else {
+	retval = unix_update_passwd(forwho, towhat);
+    }
+
+done:
+    memset(pass, '\0', MAXPASS);
+    memset(towhat, '\0', MAXPASS);
+
+    unlock_pwdf();
+
+    if (retval == PAM_SUCCESS) {
+	return PAM_SUCCESS;
+    } else {
+	return PAM_AUTHTOK_ERR;
+    }
 }
 
 int main(int argc, char *argv[])
 {
-	char pass[MAXPASS + 1];
 	char *option;
-	int npass, nullok;
-	int blankpass = 0;
-	int retval = PAM_AUTH_ERR;
-	char *user;
-	char *passwords[] = { pass };
 
 	/*
 	 * Catch or ignore as many signal as possible.
@@ -78,7 +130,7 @@ int main(int argc, char *argv[])
 	 * account).
 	 */
 
-	if (isatty(STDIN_FILENO) || argc != 3 ) {
+	if (isatty(STDIN_FILENO) || argc != 5 ) {
 		helper_log_err(LOG_NOTICE
 		      ,"inappropriate use of Unix helper binary [UID=%d]"
 			 ,getuid());
@@ -89,67 +141,25 @@ int main(int argc, char *argv[])
 		return PAM_SYSTEM_ERR;
 	}
 
-	/*
-	 * Determine what the current user's name is.
-	 * We must thus skip the check if the real uid is 0.
+	/* We must be root to read/update shadow.
 	 */
-	if (getuid() == 0) {
-	  user=argv[1];
+	if (geteuid() != 0) {
+	    return PAM_CRED_INSUFFICIENT;
 	}
-	else {
-	  user = getuidname(getuid());
-	  /* if the caller specifies the username, verify that user
-	     matches it */
-	  if (strcmp(user, argv[1])) {
-	    return PAM_AUTH_ERR;
-	  }
-	}
+	
+	option = argv[2];
 
-	option=argv[2];
-
-	if (strcmp(option, "chkexpiry") == 0)
-	  /* Check account information from the shadow file */
-	  return _check_expiry(argv[1]);	  
-	/* read the nullok/nonull option */
-	else if (strcmp(option, "nullok") == 0)
-	  nullok = 1;
-	else if (strcmp(option, "nonull") == 0)
-	  nullok = 0;
-	else
-	  return PAM_SYSTEM_ERR;
-
-	/* read the password from stdin (a pipe from the pam_unix module) */
-
-	npass = read_passwords(STDIN_FILENO, 1, passwords);
-
-	if (npass != 1) {	/* is it a valid password? */
-		helper_log_err(LOG_DEBUG, "no password supplied");
-		*pass = '\0';
+	if (strcmp(option, "update") == 0) {
+	    /* Attempting to change the password */
+	    return set_password(argv[1], argv[3], argv[4]);
 	}
 
-	if (*pass == '\0') {
-		blankpass = 1;
-	}
-
-	retval = helper_verify_password(user, pass, nullok);
-
-	memset(pass, '\0', MAXPASS);	/* clear memory of the password */
-
-	/* return pass or fail */
-
-	if (retval != PAM_SUCCESS) {
-		if (!nullok || !blankpass)
-			/* no need to log blank pass test */
-			helper_log_err(LOG_NOTICE, "password check failed for user (%s)", user);
-		return PAM_AUTH_ERR;
-	} else {
-		return PAM_SUCCESS;
-	}
+	return PAM_SYSTEM_ERR;
 }
 
 /*
  * Copyright (c) Andrew G. Morgan, 1996. All rights reserved
- * Copyright (c) Red Hat, Inc., 2007,2008. All rights reserved
+ * Copyright (c) Red Hat, Inc., 2007, 2008. All rights reserved
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions

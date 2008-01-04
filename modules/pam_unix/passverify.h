@@ -2,10 +2,18 @@
  * Copyright information at end of file.
  */
 
+#include <sys/types.h>
 #include <pwd.h>
 #include <security/pam_modules.h>
 
 #define PAM_UNIX_RUN_HELPER PAM_CRED_INSUFFICIENT
+
+#define MAXPASS		200	/* the maximum length of a password */
+
+#define OLD_PASSWORDS_FILE      "/etc/security/opasswd"
+
+#define ascii_to_bin(c) ((c)>='a'?(c-59):(c)>='A'?((c)-53):(c)-'.')
+#define bin_to_ascii(c) ((c)>=38?((c)-38+'a'):(c)>=12?((c)-12+'A'):(c)+'.')
 
 int
 verify_pwd_hash(const char *p, const char *hash, unsigned int nullok);
@@ -13,12 +21,37 @@ verify_pwd_hash(const char *p, const char *hash, unsigned int nullok);
 int
 is_pwd_shadowed(const struct passwd *pwd);
 
+char *
+crypt_md5_wrapper(const char *pass_new);
+
+int
+unix_selinux_confined(void);
+
+int
+lock_pwdf(void);
+
+void
+unlock_pwdf(void);
+
+int
+save_old_password(const char *forwho, const char *oldpass,
+		  int howmany);
+
 #ifdef HELPER_COMPILE
 void
 helper_log_err(int err, const char *format,...);
 
 int
 helper_verify_password(const char *name, const char *p, int nullok);
+
+void
+setup_signals(void);
+
+char *
+getuidname(uid_t uid);
+
+int
+read_passwords(int fd, int npass, char **passwords);
 
 int
 get_account_info(const char *name,
@@ -31,6 +64,11 @@ get_pwd_hash(const char *name,
 int
 check_shadow_expiry(struct spwd *spent, int *daysleft);
 
+int
+unix_update_passwd(const char *forwho, const char *towhat);
+
+int
+unix_update_shadow(const char *forwho, char *towhat);
 #else
 int
 get_account_info(pam_handle_t *pamh, const char *name,
@@ -42,6 +80,12 @@ get_pwd_hash(pam_handle_t *pamh, const char *name,
 
 int
 check_shadow_expiry(pam_handle_t *pamh, struct spwd *spent, int *daysleft);
+
+int
+unix_update_passwd(pam_handle_t *pamh, const char *forwho, const char *towhat);
+
+int
+unix_update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat);
 #endif
 
 /* ****************************************************************** *
