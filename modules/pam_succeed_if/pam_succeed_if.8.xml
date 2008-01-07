@@ -120,7 +120,7 @@
         <term><option>field eq number</option></term>
         <listitem>
           <para>
-            Field has a value numerically less equal to number.
+            Field has a value numerically equal to number.
           </para>
         </listitem>
       </varlistentry>

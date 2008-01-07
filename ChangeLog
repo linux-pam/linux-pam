@@ -7,7 +7,9 @@
 	* doc/man/pam_xauth_data.3: Likewise.
 	* modules/pam_tty_audit/README: Likewise.
 	* modules/pam_tty_audit/pam_tty_audit.8: Likewise.
-	* po/sv.po: Update swedish translation [#1857531]
+	* po/sv.po: Update swedish translation [#1857531].
+	* modules/pam_succeed_if/pam_succeed_if.8.xml: Fix
+	cut & paste error [#1863490].
  
 2007-12-18  Thorsten Kukuk <kukuk@thkukuk.de>
 

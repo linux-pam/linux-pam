@@ -50,7 +50,7 @@ field <= number
 
 field eq number
 
-    Field has a value numerically less equal to number.
+    Field has a value numerically equal to number.
 
 field >= number
 
