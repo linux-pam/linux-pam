@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-10-01 12:19+0200\n"
+"POT-Creation-Date: 2008-01-07 15:09+0100\n"
 "PO-Revision-Date: 2006-11-03 12:03\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -26,7 +26,7 @@ msgstr "...Uxolo, isikhathi sakho sesiphelile!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "ingxoxo enephutha (%d)\n"
 
-#: libpam/pam_item.c:271
+#: libpam/pam_item.c:297
 msgid "login:"
 msgstr "ngena:"
 
@@ -209,12 +209,12 @@ msgid "has been already used"
 msgstr "isisetshenziswe ngothile."
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:978
 msgid "No password supplied"
 msgstr "Ayikho iphasiwedi enikeziwe"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:978
 msgid "Password unchanged"
 msgstr "Iphasiwedi ayishintshwanga"
 
@@ -266,7 +266,7 @@ msgstr "Ukungena kokugcina:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Uyamukelwa kwi-akhawunti yakho entsha!"
 
-#: modules/pam_limits/pam_limits.c:698
+#: modules/pam_limits/pam_limits.c:712
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Kuningi kakhulu ukungena kwi- '%s' osekwenziwe."
@@ -423,64 +423,64 @@ msgstr "Thayipha iphasiwedi entsha ye-STRESS: "
 msgid "Verification mis-typed; password unchanged"
 msgstr "Ukufakazela akuthayiphiwanga kahle; iphasiwedi ayishintshwanga"
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:746
 msgid "Authentication error"
 msgstr "Iphutha lokugunyaza"
 
-#: modules/pam_tally/pam_tally.c:742
+#: modules/pam_tally/pam_tally.c:747
 msgid "Service error"
 msgstr "Iphutha lesevisi"
 
-#: modules/pam_tally/pam_tally.c:743
+#: modules/pam_tally/pam_tally.c:748
 msgid "Unknown user"
 msgstr "Umsebenzisi ongaziwa"
 
-#: modules/pam_tally/pam_tally.c:744
+#: modules/pam_tally/pam_tally.c:749
 msgid "Unknown error"
 msgstr "Iphutha elingaziwa"
 
-#: modules/pam_tally/pam_tally.c:760
+#: modules/pam_tally/pam_tally.c:765
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Inombolo eyiphutha enikeziwe ukuba --uqale kabusha=\n"
 
-#: modules/pam_tally/pam_tally.c:764
+#: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Okukhethile okungaziwa %s\n"
 
-#: modules/pam_tally/pam_tally.c:776
+#: modules/pam_tally/pam_tally.c:781
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:850
+#: modules/pam_tally/pam_tally.c:855
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 "%s: Ayikwazi ukusetha kabusha bonke abasebenzisi ibase enombolweni ongelona "
 "iqanda\n"
 
-#: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
+#: modules/pam_unix/pam_unix_acct.c:275 modules/pam_unix/pam_unix_acct.c:302
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "I-akhawunti yakho isiphelelwe isikhathi, sicela uthintana nomqondisi "
 "wesistimu yakho"
 
-#: modules/pam_unix/pam_unix_acct.c:283
+#: modules/pam_unix/pam_unix_acct.c:284
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 "Kudingeka ukuba ushintshe iphasiwedi yakho ngokushesha (iphoqelelwa "
 "ngumqondisi)"
 
-#: modules/pam_unix/pam_unix_acct.c:310
+#: modules/pam_unix/pam_unix_acct.c:311
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "Kudingeka ukuba ushintshe iphasiwedi yakho ngokushesha (iphasiwedi indala)"
 
-#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
+#: modules/pam_unix/pam_unix_acct.c:324 modules/pam_unix/pam_unix_acct.c:331
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -489,7 +489,7 @@ msgstr[1] "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
 
 #. TRANSLATORS: only used if dngettext is not support
 #. ed
-#: modules/pam_unix/pam_unix_acct.c:336
+#: modules/pam_unix/pam_unix_acct.c:337
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
@@ -498,36 +498,36 @@ msgstr "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
 msgid "Password: "
 msgstr "Iphasiwedi: "
 
-#: modules/pam_unix/pam_unix_passwd.c:821
+#: modules/pam_unix/pam_unix_passwd.c:822
 msgid "NIS password could not be changed."
 msgstr "Iphasiwedi ye-NIS ayivumanga ukushintshwa."
 
-#: modules/pam_unix/pam_unix_passwd.c:998
+#: modules/pam_unix/pam_unix_passwd.c:999
 msgid "You must choose a longer password"
 msgstr "Kumelwe ukhethe iphasiwedi ethe ukuba yinjana"
 
-#: modules/pam_unix/pam_unix_passwd.c:1003
+#: modules/pam_unix/pam_unix_passwd.c:1004
 msgid "Password has been already used. Choose another."
 msgstr "Le phasiwedi isetshenziswa ngothile. Khetha enye."
 
-#: modules/pam_unix/pam_unix_passwd.c:1103
+#: modules/pam_unix/pam_unix_passwd.c:1104
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "Ukushintsha iphasiwedi ye-STRESS ye-"
 
-#: modules/pam_unix/pam_unix_passwd.c:1114
+#: modules/pam_unix/pam_unix_passwd.c:1115
 msgid "(current) UNIX password: "
 msgstr "Iphasiwedi ye-UNIX (yamanje): "
 
-#: modules/pam_unix/pam_unix_passwd.c:1149
+#: modules/pam_unix/pam_unix_passwd.c:1150
 msgid "You must wait longer to change your password"
 msgstr "Kumelwe ulinde isikhashana ukuze ushintshe iphasiwedi yakho"
 
-#: modules/pam_unix/pam_unix_passwd.c:1209
+#: modules/pam_unix/pam_unix_passwd.c:1210
 msgid "Enter new UNIX password: "
 msgstr "Faka iphasiwedi entsha ye-UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1210
+#: modules/pam_unix/pam_unix_passwd.c:1211
 msgid "Retype new UNIX password: "
 msgstr "Thayipha iphasiwedi entsha ye-UNIX: "
 

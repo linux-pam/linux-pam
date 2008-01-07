@@ -1,8 +1,6 @@
 ./libpamc/pamc_client.c
 ./libpamc/pamc_converse.c
 ./libpamc/pamc_load.c
-./libpamc/test/modules/pam_secret.c
-./libpamc/test/regress/test.libpamc.c
 ./libpam_misc/help_env.c
 ./libpam_misc/misc_conv.c
 ./libpam/pam_account.c
@@ -72,6 +70,7 @@
 ./modules/pam_tally/pam_tally_app.c
 ./modules/pam_tally/pam_tally.c
 ./modules/pam_time/pam_time.c
+./modules/pam_tty_audit/pam_tty_audit.c
 ./modules/pam_umask/pam_umask.c
 ./modules/pam_unix/bigcrypt.c
 ./modules/pam_unix/bigcrypt_main.c
@@ -83,6 +82,7 @@
 ./modules/pam_unix/pam_unix_auth.c
 ./modules/pam_unix/pam_unix_passwd.c
 ./modules/pam_unix/pam_unix_sess.c
+./modules/pam_unix/passverify.c
 ./modules/pam_unix/support.c
 ./modules/pam_unix/unix_chkpwd.c
 ./modules/pam_unix/yppasswd_xdr.c

@@ -1,0 +1,70 @@
+.\"     Title: pam_xauth_data
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.1 <http://docbook.sf.net/>
+.\"      Date: 01/07/2008
+.\"    Manual: Linux-PAM Manual
+.\"    Source: Linux-PAM Manual
+.\"
+.TH "PAM_XAUTH_DATA" "3" "01/07/2008" "Linux-PAM Manual" "Linux-PAM Manual"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+pam_xauth_data - structure containing X authentication data
+.SH "SYNOPSIS"
+.sp
+.ft B
+.nf
+#include <security/pam_appl\.h>
+.fi
+.ft
+.sp
+.RS 4
+.nf
+struct pam_xauth_data {
+    int namelen;
+    char *name;
+    int datalen;
+    char *data;
+};
+    
+.fi
+.RE
+.SH "DESCRIPTION"
+.PP
+The
+\fBpam_xauth_data\fR
+structure contains X authentication data used to make a connection to an X display\. Using this mechanism, an application can communicate X authentication data to PAM service modules\. This allows modules to make a connection to the user\'s X display in order to label the user\'s session on login, display visual feedback or for other purposes\.
+.PP
+The
+\fIname\fR
+field contains the name of the authentication method, such as "MIT\-MAGIC\-COOKIE\-1"\. The
+\fInamelen\fR
+field contains the length of this string, not including the trailing NUL character\.
+.PP
+The
+\fIdata\fR
+field contains the authentication method\-specific data corresponding to the specified name\. The
+\fIdatalen\fR
+field contains its length in bytes\.
+.PP
+The X authentication data can be changed with the
+\fIPAM_XAUTH_DATA\fR
+item\. It can be queried and set with
+\fBpam_get_item\fR(3)
+and
+\fBpam_set_item \fR(3)
+respectively\. The value used to set it should be a pointer to a pam_xauth_data structure\. An internal copy of both the structure itself and its fields is made by PAM when setting the item\.
+.SH "SEE ALSO"
+.PP
+
+\fBpam_start\fR(3),
+\fBpam_get_item\fR(3),
+.SH "STANDARDS"
+.PP
+The
+\fBpam_xauth_data\fR
+structure and
+\fIPAM_XAUTH_DATA\fR
+item are Linux\-PAM extensions\.

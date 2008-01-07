@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.uk\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-10-01 12:19+0200\n"
+"POT-Creation-Date: 2008-01-07 15:09+0100\n"
 "PO-Revision-Date: 2006-05-03 18:59+0200\n"
 "Last-Translator: Ivan Petrouchtchak <ivanpetrouchtchak@yahoo.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -31,7 +31,7 @@ msgstr "...Вибачте, ваш час закінчився!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "помилкова розмова (%d)\n"
 
-#: libpam/pam_item.c:271
+#: libpam/pam_item.c:297
 msgid "login:"
 msgstr "користувач:"
 
@@ -214,12 +214,12 @@ msgid "has been already used"
 msgstr "вже вживався"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:978
 msgid "No password supplied"
 msgstr "Не встановлений пароль"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:978
 msgid "Password unchanged"
 msgstr "Пароль не змінено"
 
@@ -271,7 +271,7 @@ msgstr "Останній вхід: %s%s%s"
 msgid "Welcome to your new account!"
 msgstr "Ласкаво просимо до вашого нового рахунку!"
 
-#: modules/pam_limits/pam_limits.c:698
+#: modules/pam_limits/pam_limits.c:712
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Забагато входів в для \"%s\"."
@@ -428,33 +428,33 @@ msgstr "Повторіть новий пароль STRESS: "
 msgid "Verification mis-typed; password unchanged"
 msgstr "Перевірку не пройдено; пароль не змінено"
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:746
 msgid "Authentication error"
 msgstr "Помилка автентифікації"
 
-#: modules/pam_tally/pam_tally.c:742
+#: modules/pam_tally/pam_tally.c:747
 msgid "Service error"
 msgstr "Помилка служби"
 
-#: modules/pam_tally/pam_tally.c:743
+#: modules/pam_tally/pam_tally.c:748
 msgid "Unknown user"
 msgstr "Невідомий користувач"
 
-#: modules/pam_tally/pam_tally.c:744
+#: modules/pam_tally/pam_tally.c:749
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
-#: modules/pam_tally/pam_tally.c:760
+#: modules/pam_tally/pam_tally.c:765
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Погане число дано для --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:764
+#: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Нерозпізнано параметр %s\n"
 
-#: modules/pam_tally/pam_tally.c:776
+#: modules/pam_tally/pam_tally.c:781
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
@@ -462,26 +462,26 @@ msgstr ""
 "%s: [--file rooted-filename] [--user ім'я користувача] [--reset[=n]] [--"
 "quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:850
+#: modules/pam_tally/pam_tally.c:855
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Не вдається скинути всіх користувачів до не-нуль\n"
 
-#: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
+#: modules/pam_unix/pam_unix_acct.c:275 modules/pam_unix/pam_unix_acct.c:302
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "Ваш рахунок застарів, будь ласка, зверніться до вашого системного "
 "адміністратора"
 
-#: modules/pam_unix/pam_unix_acct.c:283
+#: modules/pam_unix/pam_unix_acct.c:284
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Вам необхідно негайно змінити пароль (вимога адміністратора)"
 
-#: modules/pam_unix/pam_unix_acct.c:310
+#: modules/pam_unix/pam_unix_acct.c:311
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Вам необхідно негайно змінити пароль (поточний пароль застарів)"
 
-#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
+#: modules/pam_unix/pam_unix_acct.c:324 modules/pam_unix/pam_unix_acct.c:331
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -491,7 +491,7 @@ msgstr[2] "Попередження: ваш пароль застаріє чер
 
 #. TRANSLATORS: only used if dngettext is not support
 #. ed
-#: modules/pam_unix/pam_unix_acct.c:336
+#: modules/pam_unix/pam_unix_acct.c:337
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Попередження: ваш пароль застаріє через %d дні(в) %.2s"
@@ -500,36 +500,36 @@ msgstr "Попередження: ваш пароль застаріє чере�
 msgid "Password: "
 msgstr "Пароль: "
 
-#: modules/pam_unix/pam_unix_passwd.c:821
+#: modules/pam_unix/pam_unix_passwd.c:822
 msgid "NIS password could not be changed."
 msgstr "Не вдалося змінити пароль NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:998
+#: modules/pam_unix/pam_unix_passwd.c:999
 msgid "You must choose a longer password"
 msgstr "Необхідно вибрати довший пароль"
 
-#: modules/pam_unix/pam_unix_passwd.c:1003
+#: modules/pam_unix/pam_unix_passwd.c:1004
 msgid "Password has been already used. Choose another."
 msgstr "Пароль вже вживається. Виберіть інший."
 
-#: modules/pam_unix/pam_unix_passwd.c:1103
+#: modules/pam_unix/pam_unix_passwd.c:1104
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "Зміна пароля STRESS для "
 
-#: modules/pam_unix/pam_unix_passwd.c:1114
+#: modules/pam_unix/pam_unix_passwd.c:1115
 msgid "(current) UNIX password: "
 msgstr "(поточний) пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1149
+#: modules/pam_unix/pam_unix_passwd.c:1150
 msgid "You must wait longer to change your password"
 msgstr "Ви повинні зачекати довше, щоб змінити ваш пароль"
 
-#: modules/pam_unix/pam_unix_passwd.c:1209
+#: modules/pam_unix/pam_unix_passwd.c:1210
 msgid "Enter new UNIX password: "
 msgstr "Введіть новий пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1210
+#: modules/pam_unix/pam_unix_passwd.c:1211
 msgid "Retype new UNIX password: "
 msgstr "Повторіть новий пароль UNIX: "
 

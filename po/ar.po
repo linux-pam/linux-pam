@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2007-10-01 12:19+0200\n"
+"POT-Creation-Date: 2008-01-07 15:09+0100\n"
 "PO-Revision-Date: 2001-07-13 15:36+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -29,7 +29,7 @@ msgstr "...عذرًا، انتهى الوقت!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "محادثة خاطئة (%d)\n"
 
-#: libpam/pam_item.c:271
+#: libpam/pam_item.c:297
 msgid "login:"
 msgstr "تسجيل الدخول:"
 
@@ -212,12 +212,12 @@ msgid "has been already used"
 msgstr "كلمة السر مستخدمة بالفعل"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:978
 msgid "No password supplied"
 msgstr "لم يتم إدخال كلمة السر"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:977
+#: modules/pam_unix/pam_unix_passwd.c:978
 msgid "Password unchanged"
 msgstr "لم يتم تغيير كلمة السر"
 
@@ -269,7 +269,7 @@ msgstr "تسجيل الدخول الأخير:%s%s%s"
 msgid "Welcome to your new account!"
 msgstr "مرحبًا بك في حسابك الجديد!"
 
-#: modules/pam_limits/pam_limits.c:698
+#: modules/pam_limits/pam_limits.c:712
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "مرات تسجيل دخول كثيرة جدًا لـ '%s'."
@@ -426,57 +426,57 @@ msgstr "أعد كتابة كلمة سر STRESS الجديدة: "
 msgid "Verification mis-typed; password unchanged"
 msgstr "إعادة كتابة كلمة السر غير صحيحة؛ كلمة السر لم تتغير"
 
-#: modules/pam_tally/pam_tally.c:741
+#: modules/pam_tally/pam_tally.c:746
 msgid "Authentication error"
 msgstr "خطأ في التصديق"
 
-#: modules/pam_tally/pam_tally.c:742
+#: modules/pam_tally/pam_tally.c:747
 msgid "Service error"
 msgstr "خطأ في الخدمة"
 
-#: modules/pam_tally/pam_tally.c:743
+#: modules/pam_tally/pam_tally.c:748
 msgid "Unknown user"
 msgstr "مستخدم غير معروف"
 
-#: modules/pam_tally/pam_tally.c:744
+#: modules/pam_tally/pam_tally.c:749
 msgid "Unknown error"
 msgstr "خطأ غير معروف"
 
-#: modules/pam_tally/pam_tally.c:760
+#: modules/pam_tally/pam_tally.c:765
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s:  تم إعطاء رقم خطأ لـ --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:764
+#: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s:  خيار غير معروف %s\n"
 
-#: modules/pam_tally/pam_tally.c:776
+#: modules/pam_tally/pam_tally.c:781
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:850
+#: modules/pam_tally/pam_tally.c:855
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s:  لا يمكن إعادة تعيين كافة المستخدمين إلى رقم غير الصفر\n"
 
-#: modules/pam_unix/pam_unix_acct.c:274 modules/pam_unix/pam_unix_acct.c:301
+#: modules/pam_unix/pam_unix_acct.c:275 modules/pam_unix/pam_unix_acct.c:302
 msgid "Your account has expired; please contact your system administrator"
 msgstr "انتهت مدة صلاحية الحساب الخاص بك؛ الرجاء الاتصال بمسؤول النظام"
 
-#: modules/pam_unix/pam_unix_acct.c:283
+#: modules/pam_unix/pam_unix_acct.c:284
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "مطلوب منك تغيير كلمة السر على الفور (مفروض بواسطة المسؤول)"
 
-#: modules/pam_unix/pam_unix_acct.c:310
+#: modules/pam_unix/pam_unix_acct.c:311
 msgid "You are required to change your password immediately (password aged)"
 msgstr "مطلوب منك تغيير كلمة السر على الفور (كلمة السر قديمة جدًا)"
 
-#: modules/pam_unix/pam_unix_acct.c:323 modules/pam_unix/pam_unix_acct.c:330
+#: modules/pam_unix/pam_unix_acct.c:324 modules/pam_unix/pam_unix_acct.c:331
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -485,7 +485,7 @@ msgstr[1] "تحذير: سوف تنتهي مدة صلاحية كلمة السر �
 
 #. TRANSLATORS: only used if dngettext is not support
 #. ed
-#: modules/pam_unix/pam_unix_acct.c:336
+#: modules/pam_unix/pam_unix_acct.c:337
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "تحذير: سوف تنتهي مدة صلاحية كلمة السر الخاصة بك خلال %d يوم%.2s"
@@ -494,36 +494,36 @@ msgstr "تحذير: سوف تنتهي مدة صلاحية كلمة السر ال
 msgid "Password: "
 msgstr "كلمة السر: "
 
-#: modules/pam_unix/pam_unix_passwd.c:821
+#: modules/pam_unix/pam_unix_passwd.c:822
 msgid "NIS password could not be changed."
 msgstr "تعذر تغيير كلمة السر الخاصة بـ NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:998
+#: modules/pam_unix/pam_unix_passwd.c:999
 msgid "You must choose a longer password"
 msgstr "يجب اختيار كلمة سر أطول"
 
-#: modules/pam_unix/pam_unix_passwd.c:1003
+#: modules/pam_unix/pam_unix_passwd.c:1004
 msgid "Password has been already used. Choose another."
 msgstr "كلمة السر التي تم إدخالها مستخدمة بالفعل. اختر كلمة سر أخرى."
 
-#: modules/pam_unix/pam_unix_passwd.c:1103
+#: modules/pam_unix/pam_unix_passwd.c:1104
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "تغيير كلمة سر STRESS لـ"
 
-#: modules/pam_unix/pam_unix_passwd.c:1114
+#: modules/pam_unix/pam_unix_passwd.c:1115
 msgid "(current) UNIX password: "
 msgstr "كلمة سر UNIX (الحالية): "
 
-#: modules/pam_unix/pam_unix_passwd.c:1149
+#: modules/pam_unix/pam_unix_passwd.c:1150
 msgid "You must wait longer to change your password"
 msgstr "يجب الانتظار فترة أطول لتغيير كلمة السر"
 
-#: modules/pam_unix/pam_unix_passwd.c:1209
+#: modules/pam_unix/pam_unix_passwd.c:1210
 msgid "Enter new UNIX password: "
 msgstr "أدخل كلمة سر UNIX الجديدة: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1210
+#: modules/pam_unix/pam_unix_passwd.c:1211
 msgid "Retype new UNIX password: "
 msgstr "أعد كتابة كلمة سر UNIX  الجديدة: "
 
