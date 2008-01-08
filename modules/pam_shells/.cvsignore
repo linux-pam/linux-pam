@@ -4,3 +4,5 @@
 .libs
 Makefile
 Makefile.in
+README
+pam_shells.8

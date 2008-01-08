@@ -4,3 +4,6 @@
 .libs
 Makefile
 Makefile.in
+README
+access.conf.5
+pam_access.8

@@ -4,3 +4,6 @@
 .libs
 Makefile
 Makefile.in
+README
+group.conf.5
+pam_group.8

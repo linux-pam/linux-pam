@@ -4,3 +4,6 @@
 .libs
 Makefile
 Makefile.in
+README
+limits.conf.5
+pam_limits.8

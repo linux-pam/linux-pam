@@ -4,3 +4,6 @@
 .libs
 Makefile
 Makefile.in
+README
+pam_time.8
+time.conf.5

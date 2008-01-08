@@ -6,3 +6,5 @@
 .libs
 Makefile
 Makefile.in
+README
+pam_succeed_if.8

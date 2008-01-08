@@ -6,3 +6,5 @@
 .libs
 Makefile
 Makefile.in
+README
+pam_umask.8

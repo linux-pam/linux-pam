@@ -5,3 +5,5 @@
 Makefile
 Makefile.in
 pam_loginuid
+README
+pam_loginuid.8
