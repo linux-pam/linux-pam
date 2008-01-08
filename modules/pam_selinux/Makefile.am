@@ -1,8 +1,9 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@thkukuk.de>
+# Copyright (c) 2005, 2006, 2007 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(XMLS) pam_selinux.8 pam_selinux_check.8 \
 		tst-pam_selinux

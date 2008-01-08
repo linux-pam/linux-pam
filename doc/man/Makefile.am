@@ -1,8 +1,9 @@
 #
-# Copyright (c) 2006 Thorsten Kukuk <kukuk@thkukuk.de>
+# Copyright (c) 2006, 2007 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS)
 
 EXTRA_DIST = $(MANS) $(XMLS)
 
@@ -44,6 +45,10 @@ XMLS = pam.3.xml pam.8.xml \
 	pam_misc_setenv.3.xml
 
 if ENABLE_REGENERATE_MAN
+PAM.8: pam.8
+pam.d.5: pam.conf.5
+	test -f pam\\.d.5 && mv pam\\.d.5 pam.d.5
+
 pam_get_item.3: pam_item_types_std.inc.xml pam_item_types_ext.inc.xml
 pam_set_data.3: pam_item_types_std.inc.xml pam_item_types_ext.inc.xml
 pam.conf.5: pam.conf-desc.xml pam.conf-dir.xml pam.conf-syntax.xml

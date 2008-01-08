@@ -214,7 +214,7 @@
             <varlistentry>
               <term><option>nice</option></term>
               <listitem>
-                <para>maximum nice priority allowed to raise to (Linux 2.6.12 and higher)</para>
+                <para>maximum nice priority allowed to raise to (Linux 2.6.12 and higher) values: [-20,19]</para>
               </listitem>
             </varlistentry>
             <varlistentry>

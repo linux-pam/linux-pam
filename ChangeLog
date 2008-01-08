@@ -1,4 +1,9 @@
-2008-01-07  Thorsten Kukuk <kukuk@thkukuk.de>
+2008-01-08  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/Makefile.am: Fix manual page dependencies,
+	add hack for bug in xsl stylestheets.
+
+2008-01-07  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/it.po: Fix typos.
 	* po/de.po: Few new translations.
@@ -10,17 +15,22 @@
 	* po/sv.po: Update swedish translation [#1857531].
 	* modules/pam_succeed_if/pam_succeed_if.8.xml: Fix
 	cut & paste error [#1863490].
- 
-2007-12-18  Thorsten Kukuk <kukuk@thkukuk.de>
+
+2008-01-02  Petteri Räty  <betelgeuse@gentoo.org>
+	* modules/pam_limits/limits.conf: document allowed values for
+	nice.
+	* modules/pam_limits/limits.conf.5.xml: Likewise.
+
+2007-12-18  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* README: Document how to run make check with static modules
 	(SF#1822779).
 
-2007-12-18  Peter Breitenlohner <peb@mppmu.mpg.de>
+2007-12-18  Peter Breitenlohner  <peb@mppmu.mpg.de>
 	* README: Document that "make check" requires a file
 	/etc/pam.d/other (SF#1822764).
 
-2007-12-12  Eamon Walsh <ewalsh@tycho.nsa.gov>
+2007-12-12  Eamon Walsh  <ewalsh@tycho.nsa.gov>
 
 	* doc/man/pam_item_types_ext.inc.xml: More appropriate wording
 	for PAM_XDISPLAY doc.
@@ -60,11 +70,11 @@
 	(check_account): Call _pam_parse(). Call pam_modutil_audit_write()
 	and pam_syslog() on login denials.
 
-2007-12-07  Luca Bruno <luca.br@uno.it>
+2007-12-07  Luca Bruno  <luca.br@uno.it>
 
 	* po/it.po: Updated translations.
 
-2007-12-06  Eamon Walsh <ewalsh@tycho.nsa.gov>
+2007-12-06  Eamon Walsh  <ewalsh@tycho.nsa.gov>
 
 	* libpam/include/security/_pam_macros.h: Add _pam_overwrite_n()
 	macro.
