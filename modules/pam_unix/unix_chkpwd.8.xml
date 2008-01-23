@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+
+<refentry id="unix_chkpwd">
+
+  <refmeta>
+    <refentrytitle>unix_chkpwd</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id="unix_chkpwd-name">
+    <refname>unix_chkpwd</refname>
+    <refpurpose>Helper binary that verifies the password of the current user</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis id="unix_chkpwd-cmdsynopsis">
+      <command>unix_chkpwd</command>
+      <arg choice="opt">
+        ...
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="unix_chkpwd-description">
+
+    <title>DESCRIPTION</title>
+
+    <para>
+      <emphasis>unix_chkpwd</emphasis> is a helper program for the
+      <emphasis>pam_unix</emphasis> module that verifies the
+      password of the current user. It also checks password and account
+      expiration dates in <emphasis>shadow</emphasis>. It is not intended to
+      be run directly from the command line and logs a security violation if
+      done so.
+    </para>
+
+    <para>
+      It is typically installed setuid root or setgid shadow.
+    </para>
+
+    <para>
+      The interface of the helper - command line options, and input/output
+      data format are internal to the <emphasis>pam_unix</emphasis>
+      module and it should not be called directly from applications.
+    </para>
+  </refsect1>
+
+  <refsect1 id='unix_chkpwd-see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+	<refentrytitle>pam_unix</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
+
+  <refsect1 id='unix_chkpwd-author'>
+    <title>AUTHOR</title>
+      <para>
+        Written by Andrew Morgan and other various people.
+      </para>
+  </refsect1>
+
+</refentry>

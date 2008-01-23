@@ -352,8 +352,19 @@ AM_CONDITIONAL([HAVE_AUDIT_TTY_STATUS],
 
 BACKUP_LIBS=$LIBS
 AC_SEARCH_LIBS([crypt],[xcrypt crypt], LIBCRYPT="-l$ac_lib", LIBCRYPT="")
+AC_CHECK_FUNCS(crypt_r)
 LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCRYPT)
+
+AC_ARG_WITH([randomdev], AC_HELP_STRING([--with-randomdev=(<path>|yes|no)], [use specified random device instead of /dev/urandom or 'no' to disable]), opt_randomdev=$withval)
+if test "$opt_randomdev" = yes -o -z "$opt_randomdev"; then
+       opt_randomdev="/dev/urandom"
+elif test "$opt_randomdev" = no; then
+       opt_randomdev=
+fi
+if test -n "$opt_randomdev"; then
+       AC_DEFINE_UNQUOTED(PAM_PATH_RANDOMDEV, "$opt_randomdev", [Random device path.])
+fi
 
 dnl check for libdb or libndbm as fallback. Some libndbm compat
 dnl libraries are unuseable, so try libdb first.

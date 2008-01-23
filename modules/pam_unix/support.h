@@ -84,8 +84,12 @@ typedef struct {
 #define UNIX_NOREAP              21     /* don't reap child process */
 #define UNIX_BROKEN_SHADOW       22     /* ignore errors reading password aging
 					 * information during acct management */
+#define UNIX_SHA256_PASS         23	/* new password hashes will use SHA256 */
+#define UNIX_SHA512_PASS         24	/* new password hashes will use SHA512 */
+#define UNIX_ALGO_ROUNDS         25	/* optional number of rounds for new 
+					   password hash algorithms */
 /* -------------- */
-#define UNIX_CTRLS_              23	/* number of ctrl arguments defined */
+#define UNIX_CTRLS_              26	/* number of ctrl arguments defined */
 
 
 static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
@@ -116,6 +120,9 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX_REMEMBER_PASSWD */ {"remember=",       _ALL_ON_,            02000000},
 /* UNIX_NOREAP */          {"noreap",          _ALL_ON_,            04000000},
 /* UNIX_BROKEN_SHADOW */   {"broken_shadow",   _ALL_ON_,           010000000},
+/* UNIX_SHA256_PASS */     {"sha256",        _ALL_ON_^(040420000), 020000000},
+/* UNIX_SHA512_PASS */     {"sha512",        _ALL_ON_^(020420000), 040000000},
+/* UNIX_ALGO_ROUNDS */     {"rounds=",         _ALL_ON_,          0100000000},
 };
 
 #define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)
@@ -131,8 +138,8 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 
 extern int _make_remark(pam_handle_t * pamh, unsigned int ctrl
 		       ,int type, const char *text);
-extern int _set_ctrl(pam_handle_t * pamh, int flags, int *remember, int argc,
-		     const char **argv);
+extern int _set_ctrl(pam_handle_t * pamh, int flags, int *remember, int *rounds,
+		     int argc, const char **argv);
 extern int _unix_getpwnam (pam_handle_t *pamh,
 			   const char *name, int files, int nis,
 			   struct passwd **ret);
@@ -150,5 +157,6 @@ extern int _unix_read_password(pam_handle_t * pamh
 			,const char *data_name
 			,const void **pass);
 
-extern struct spwd *_unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl, const char *user);
+extern int _unix_run_verify_binary(pam_handle_t *pamh,
+			unsigned int ctrl, const char *user, int *daysleft);
 #endif /* _PAM_UNIX_SUPPORT_H */

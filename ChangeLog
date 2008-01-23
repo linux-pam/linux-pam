@@ -1,3 +1,66 @@
+2008-01-23  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_unix/Makefile.am: Add unix_update.8 manpage generated from
+	XML, generate also unix_chkpwd.8 from XML.
+	* modules/pam_unix/pam_unix_acct.c: Add rounds parameter to _set_ctrl().
+	* modules/pam_unix/pam_unix_auth.c: Likewise.
+	* modules/pam_unix/pam_unix_sess.c: Likewise.
+	* modules/pam_unix/pam_unix_passwd.c: Likewise.
+	* modules/pam_unix/support.c(_set_ctrl): Likewise.
+	* modules/pam_unix/support.h: Likewise. Add UNIX_SHA256_PASS,
+	UNIX_SHA512_PASS, and UNIX_ALGO_ROUNDS ctrls.
+	(pam_sm_chauthtok): Refactor out new password encryption.
+	* modules/pam_unix/passverify.c(crypt_make_salt): New function.
+	(crypt_md5_wrapper): Call crypt_make_salt().
+	(create_password_hash): New function refactored out of
+	pam_sm_chauthtok(). Support for new password hashes.
+	* modules/pam_unix/passverify.h: Drop ascii_to_bin() and bin_to_ascii()
+	macros. Add prototype for create_password_hash().
+	* modules/pam_unix/unix_update.8.xml: New file.
+	* modules/pam_unix/unix_chkpwd.8.xml: Likewise.
+	
+	* modules/pam_unix/Makefile.am: Add unix_update helper.
+	* modules/pam_unix/pam_unix_passwd.c: Move functions i64c(),
+	crypt_md5_wrapper(), save_old_password(), _update_passwd() and
+	_update_shadow() to passverify.c file. Rename _unix_run_shadow_binary()
+	to _unix_run_update_binary(), which also verifies old password and
+	does all writing.
+	(_do_setpass, pam_sm_chauthtok): lckpwdf()->lock_pwdf(), the same for unlock.
+	Call _unix_run_update_binary() appropriately.
+	_update_passwd()->unix_update_passwd(), the same for shadow.
+	* modules/pam_unix/passverify.c: Add new functions moved from
+	pam_unix_passwd.c and unix_chkpwd.c.
+	* modules/pam_unix/passverify.h: Likewise.
+	* modules/pam_unix/unix_chkpwd.c: Remove SELinux checks. Move
+	su_sighandler(), setup_signals(), getuidname() to passverify.c.
+	(main): Remove 'shadow' option. Refactor out read_passwords() and
+	call it. More strict checking how the binary is called.
+	* modules/pam_unix/unix_update.c: New helper binary - non-setuid,
+	called from SELinux confined apps only.
+
+	* modules/pam_unix/pam_unix_acct.c (_unix_run_verify_binary): Return
+	status and daysleft instead of fake shadow entry.
+	(pam_sm_acct_mgmt): Call _unix_run_verify_binary() appropriately.
+	* modules/pam_unix/pam_unix_passwd.c (_unix_verify_shadow): Call
+	get_account_info() and check_shadow_expiry().
+	* modules/pam_unix/support.h: Adjust _unix_run_verify_binary()
+	prototype.
+	* modules/pam_unix/support.c (_unix_run_helper_binary): Remove check
+	on selinux enabled/disabled.
+	* modules/pam_unix/unix_chkpwd.c (_verify_account): Rename to
+	_check_expiry(), now checks shadow expiry info.
+	(main): Remove check on selinux enabled/disabled. Check shadow
+	expiry through _check_expiry().
+
+	* modules/pam_unix/pam_unix_acct.c (pam_sm_acct_mgmt): Call
+	get_account_info() and check_shadow_expiry().
+	* modules/pam_unix/passverify.c: Add get_account_info() to
+	obtain shadow and passwd entry. Add check_shadow_expiry() to
+	for shadow password expiry check.
+	(get_pwd_hash): Call get_account_info().
+	* modules/pam_unix/passverify.h: Add prototypes for get_account_info()
+	and check_shadow_expiry().
+
 2008-01-08  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/Makefile.am: Fix manual page dependencies,

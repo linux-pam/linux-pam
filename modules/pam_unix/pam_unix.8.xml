@@ -260,6 +260,43 @@
       </varlistentry>
       <varlistentry>
         <term>
+          <option>sha256</option>
+        </term>
+        <listitem>
+          <para>
+            When a user changes their password next,
+            encrypt it with the SHA256 algorithm. If the
+            SHA256 algorithm is not known to the libcrypt,
+            fall back to MD5.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>sha512</option>
+        </term>
+        <listitem>
+          <para>
+            When a user changes their password next,
+            encrypt it with the SHA512 algorithm. If the
+            SHA512 algorithm is not known to the libcrypt,
+            fall back to MD5.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>rounds=<replaceable>n</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            Set the optional number of rounds of the SHA256 and SHA512
+            password hashing algorithms to <replaceable>n</replaceable>.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
           <option>broken_shadow</option>
         </term>
         <listitem>

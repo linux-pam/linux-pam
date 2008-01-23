@@ -1,11 +1,92 @@
 /*
  * Copyright information at end of file.
  */
+
+#include <sys/types.h>
+#include <pwd.h>
+#include <security/pam_modules.h>
+
+#define PAM_UNIX_RUN_HELPER PAM_CRED_INSUFFICIENT
+
+#define MAXPASS		200	/* the maximum length of a password */
+
+#define OLD_PASSWORDS_FILE      "/etc/security/opasswd"
+
 int
 verify_pwd_hash(const char *p, const char *hash, unsigned int nullok);
 
 int
-_unix_shadowed(const struct passwd *pwd);
+is_pwd_shadowed(const struct passwd *pwd);
+
+char *
+crypt_md5_wrapper(const char *pass_new);
+
+char *
+create_password_hash(const char *password, unsigned int ctrl, int rounds);
+
+int
+unix_selinux_confined(void);
+
+int
+lock_pwdf(void);
+
+void
+unlock_pwdf(void);
+
+int
+save_old_password(const char *forwho, const char *oldpass,
+		  int howmany);
+
+#ifdef HELPER_COMPILE
+void
+helper_log_err(int err, const char *format,...);
+
+int
+helper_verify_password(const char *name, const char *p, int nullok);
+
+void
+setup_signals(void);
+
+char *
+getuidname(uid_t uid);
+
+int
+read_passwords(int fd, int npass, char **passwords);
+
+int
+get_account_info(const char *name,
+	struct passwd **pwd, struct spwd **spwdent);
+
+int
+get_pwd_hash(const char *name,
+	struct passwd **pwd, char **hash);
+
+int
+check_shadow_expiry(struct spwd *spent, int *daysleft);
+
+int
+unix_update_passwd(const char *forwho, const char *towhat);
+
+int
+unix_update_shadow(const char *forwho, char *towhat);
+#else
+int
+get_account_info(pam_handle_t *pamh, const char *name,
+	struct passwd **pwd,  struct spwd **spwdent);
+
+int
+get_pwd_hash(pam_handle_t *pamh, const char *name,
+	struct passwd **pwd, char **hash);
+
+int
+check_shadow_expiry(pam_handle_t *pamh, struct spwd *spent, int *daysleft);
+
+int
+unix_update_passwd(pam_handle_t *pamh, const char *forwho, const char *towhat);
+
+int
+unix_update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat);
+#endif
 
 /* ****************************************************************** *
  * Copyright (c) Red Hat, Inc. 2007.

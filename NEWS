@@ -4,6 +4,10 @@ Linux-PAM NEWS -- history of user-visible changes.
 * New module pam_tty_audit.so for enabling and disabling tty
   auditing.
 * New PAM items PAM_XDISPLAY and PAM_XAUTHDATA.
+* Auditing login denials based by origin (pam_access), time (pam_time),
+  and number of sessions (pam_limits) to the Linux audit subsystem.
+* Support sha256 and sha512 algorithms in pam_unix when they are supported
+  by crypt().
 
 Release 0.99.9.0
 * misc_conv no longer blocks SIGINT; applications that don't want
