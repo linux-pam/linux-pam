@@ -19,6 +19,9 @@
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#ifdef HAVE_CRYPT_H
+#include <crypt.h>
+#endif
 
 #include "md5.h"
 #include "bigcrypt.h"
@@ -44,14 +47,32 @@
 # include "./lckpwdf.-c"
 #endif
 
-int
-verify_pwd_hash(const char *p, const char *hash, unsigned int nullok)
+static void
+strip_hpux_aging(char *hash)
 {
-	size_t hash_len = strlen(hash);
+	static const char valid[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		"abcdefghijklmnopqrstuvwxyz"
+		"0123456789./";
+	if ((*hash != '$') && (strlen(hash) > 13)) {
+		for (hash += 13; *hash != '\0'; hash++) {
+			if (strchr(valid, *hash) == NULL) {
+				*hash = '\0';
+				break;
+			}
+		}
+	}
+}
+
+int
+verify_pwd_hash(const char *p, char *hash, unsigned int nullok)
+{
+	size_t hash_len;
 	char *pp = NULL;
 	int retval;
 	D(("called"));
 
+	strip_hpux_aging(hash);
+	hash_len = strlen(hash);
 	if (!hash_len) {
 		/* the stored password is NULL */
 		if (nullok) { /* this means we've succeeded */
@@ -78,9 +99,20 @@ verify_pwd_hash(const char *p, const char *hash, unsigned int nullok)
 		} else {
                 	/*
 			 * Ok, we don't know the crypt algorithm, but maybe
-			 * libcrypt nows about it? We should try it.
+			 * libcrypt knows about it? We should try it.
 			 */
+#ifdef HAVE_CRYPT_R
+			struct crypt_data *cdata;
+			cdata = malloc(sizeof(*cdata));
+			if (cdata != NULL) {
+				cdata->initialized = 0;
+				pp = x_strdup(crypt_r(p, hash, cdata));
+				memset(cdata, '\0', sizeof(*cdata));
+				free(cdata);
+			}
+#else
 			pp = x_strdup(crypt(p, hash));
+#endif
 		}
 		p = NULL;		/* no longer needed here */
 

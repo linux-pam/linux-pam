@@ -1,4 +1,16 @@
+2008-01-24  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_unix/bigcrypt.c (bigcrypt): Use crypt_r() when
+	available.
+	* modules/pam_unix/passverify.c (strip_hpux_aging): New function
+	to strip HP/UX aging info from password hash.
+	(verify_pwd_hash): Call strip_hpux_aging(), use crypt_r() when
+	available.
+
 2008-01-23  Tomas Mraz  <t8m@centrum.cz>
+
+	* configure.in: Add test for crypt_r(). Add setting/disabling random
+	device support.
 
 	* modules/pam_unix/Makefile.am: Add unix_update.8 manpage generated from
 	XML, generate also unix_chkpwd.8 from XML.

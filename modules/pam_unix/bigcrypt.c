@@ -51,7 +51,9 @@
 char *bigcrypt(const char *key, const char *salt)
 {
 	char *dec_c2_cryptbuf;
-
+#ifdef HAVE_CRYPT_R
+	struct crypt_data *cdata;
+#endif
 	unsigned long int keylen, n_seg, j;
 	char *cipher_ptr, *plaintext_ptr, *tmp_ptr, *salt_ptr;
 	char keybuf[KEYBUF_SIZE + 1];
@@ -63,6 +65,14 @@ char *bigcrypt(const char *key, const char *salt)
 	if (!dec_c2_cryptbuf) {
 		return NULL;
 	}
+#ifdef HAVE_CRYPT_R
+	cdata = malloc(sizeof(*cdata));
+	if(!cdata) {
+		free(dec_c2_cryptbuf);
+		return NULL;
+	}
+	cdata->initialized = 0;
+#endif
 	memset(keybuf, 0, KEYBUF_SIZE + 1);
 	memset(dec_c2_cryptbuf, 0, CBUF_SIZE);
 
@@ -92,8 +102,11 @@ char *bigcrypt(const char *key, const char *salt)
 	plaintext_ptr = keybuf;
 
 	/* do the first block with supplied salt */
+#ifdef HAVE_CRYPT_R
+	tmp_ptr = crypt_r(plaintext_ptr, salt, cdata);	/* libc crypt_r() */
+#else
 	tmp_ptr = crypt(plaintext_ptr, salt);	/* libc crypt() */
-
+#endif
 	/* and place in the static area */
 	strncpy(cipher_ptr, tmp_ptr, 13);
 	cipher_ptr += ESEGMENT_SIZE + SALT_SIZE;
@@ -110,7 +123,11 @@ char *bigcrypt(const char *key, const char *salt)
 	if (n_seg > 1) {
 		for (j = 2; j <= n_seg; j++) {
 
+#ifdef HAVE_CRYPT_R
+			tmp_ptr = crypt_r(plaintext_ptr, salt_ptr, cdata);
+#else
 			tmp_ptr = crypt(plaintext_ptr, salt_ptr);
+#endif
 
 			/* skip the salt for seg!=0 */
 			strncpy(cipher_ptr, (tmp_ptr + SALT_SIZE), ESEGMENT_SIZE);
@@ -122,7 +139,10 @@ char *bigcrypt(const char *key, const char *salt)
 	}
 	D(("key=|%s|, salt=|%s|\nbuf=|%s|\n", key, salt, dec_c2_cryptbuf));
 
-	/* this is the <NUL> terminated encrypted password */
+#ifdef HAVE_CRYPT_R
+	free(cdata);
+#endif
 
+	/* this is the <NUL> terminated encrypted password */
 	return dec_c2_cryptbuf;
 }

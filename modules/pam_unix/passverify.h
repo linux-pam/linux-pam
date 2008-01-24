@@ -13,7 +13,7 @@
 #define OLD_PASSWORDS_FILE      "/etc/security/opasswd"
 
 int
-verify_pwd_hash(const char *p, const char *hash, unsigned int nullok);
+verify_pwd_hash(const char *p, char *hash, unsigned int nullok);
 
 int
 is_pwd_shadowed(const struct passwd *pwd);
