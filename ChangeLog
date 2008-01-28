@@ -1,4 +1,12 @@
-2008-01-28  Thorsten Kukuk  <kukuk@suse.de>
+2008-01-28  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpam/pam_audit.c: Include pam_modutil_private.h.
+
+	* libpam/pam_item.c (pam_set_item): Fix compiler warning.
+
+	* libpam/pam_end.c (pam_end): Cast to correct pointer type.
+	* libpam/include/security/_pam_macros.h (_pam_overwrite_n): Use
+	unsigned int.
 
 	* modules/pam_unix/passverify.c: Fix compiling without SELinux
 	support.

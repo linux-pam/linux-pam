@@ -148,7 +148,8 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	    free(pamh->xauth.name);
 	}
 	if (pamh->xauth.datalen) {
-	    _pam_overwrite_n(pamh->xauth.data, pamh->xauth.datalen);
+	  _pam_overwrite_n(pamh->xauth.data,
+			   (unsigned int) pamh->xauth.datalen);
 	    free(pamh->xauth.data);
 	}
 	pamh->xauth = *((const struct pam_xauth_data *) item);

@@ -6,9 +6,10 @@
    Authors:
    Steve Grubb <sgrubb@redhat.com> */
 
-#include "pam_private.h"
 #include <stdio.h>
 #include <syslog.h>
+#include "pam_private.h"
+#include "pam_modutil_private.h"
 
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
