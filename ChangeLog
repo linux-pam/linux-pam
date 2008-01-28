@@ -1,3 +1,8 @@
+2008-01-28  Thorsten Kukuk  <kukuk@suse.de>
+
+	* modules/pam_unix/passverify.c: Fix compiling without SELinux
+	support.
+
 2008-01-24  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_unix/bigcrypt.c (bigcrypt): Use crypt_r() when
@@ -30,7 +35,7 @@
 	macros. Add prototype for create_password_hash().
 	* modules/pam_unix/unix_update.8.xml: New file.
 	* modules/pam_unix/unix_chkpwd.8.xml: Likewise.
-	
+
 	* modules/pam_unix/Makefile.am: Add unix_update helper.
 	* modules/pam_unix/pam_unix_passwd.c: Move functions i64c(),
 	crypt_md5_wrapper(), save_old_password(), _update_passwd() and

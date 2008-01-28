@@ -125,7 +125,7 @@ verify_pwd_hash(const char *p, char *hash, unsigned int nullok)
 			retval = PAM_AUTH_ERR;
 		}
 	}
-	
+
 	if (pp)
 		_pam_delete(pp);
 	D(("done [%d].", retval));
@@ -234,7 +234,7 @@ get_pwd_hash(pam_handle_t *pamh, const char *name,
 	retval = get_account_info(name, pwd, &spwdent);
 #else
 	retval = get_account_info(pamh, name, pwd, &spwdent);
-#endif	
+#endif
 	if (retval != PAM_SUCCESS) {
 		return retval;
 	}
@@ -329,7 +329,7 @@ i64c(int i)
 /* <where> must point to a buffer of at least <length>+1 length */
 static void
 crypt_make_salt(char *where, int length)
-{	
+{
         struct timeval tv;
         MD5_CTX ctx;
         unsigned char tmp[16];
@@ -428,7 +428,7 @@ create_password_hash(const char *password, unsigned int ctrl, int rounds)
 		memset(sp, '\0', strlen(sp));
 		return crypt_md5_wrapper(password);
 	}
-	
+
 	return x_strdup(sp);
 }
 
@@ -448,7 +448,7 @@ unix_selinux_confined(void)
        	confined = 0;
        	return confined;
     }
-    
+
     /* let's try opening shadow read only */
     if ((fd=open("/etc/shadow", O_RDONLY)) != -1) {
         close(fd);
@@ -460,8 +460,8 @@ unix_selinux_confined(void)
 	confined = 1;
 	return confined;
     }
-    
-    /* shadow opening failed because of other reasons let's try 
+
+    /* shadow opening failed because of other reasons let's try
        creating a file in /etc */
     if ((fd=mkstemp(tempfile)) != -1) {
         unlink(tempfile);
@@ -469,7 +469,7 @@ unix_selinux_confined(void)
         confined = 0;
         return confined;
     }
-    
+
     confined = 1;
     return confined;
 }
@@ -549,7 +549,9 @@ save_old_password(const char *forwho, const char *oldpass,
     int found = 0;
     struct passwd *pwd = NULL;
     struct stat st;
+#ifdef WITH_SELINUX
     security_context_t prev_context=NULL;
+#endif
 
     if (howmany < 0) {
 	return PAM_SUCCESS;
@@ -706,7 +708,9 @@ unix_update_passwd(pam_handle_t *pamh, const char *forwho, const char *towhat)
     FILE *pwfile, *opwfile;
     int err = 1;
     int oldmask;
+#ifdef WITH_SELINUX
     security_context_t prev_context=NULL;
+#endif
 
     oldmask = umask(077);
 #ifdef WITH_SELINUX
@@ -794,7 +798,7 @@ done:
 #ifdef HELPER_COMPILE
 	    helper_log_err(
 #else
-	    pam_syslog(pamh, 
+	    pam_syslog(pamh,
 #endif
 		LOG_NOTICE, "password changed for %s", forwho);
 	else
@@ -831,7 +835,9 @@ unix_update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat)
     FILE *pwfile, *opwfile;
     int err = 1;
     int oldmask;
+#ifdef WITH_SELINUX
     security_context_t prev_context=NULL;
+#endif
 
     spwdent = getspnam(forwho);
     if (spwdent == NULL) {
@@ -922,7 +928,7 @@ unix_update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat)
 #ifdef HELPER_COMPILE
 	    helper_log_err(
 #else
-	    pam_syslog(pamh, 
+	    pam_syslog(pamh,
 #endif
 		LOG_NOTICE, "password changed for %s", forwho);
 	else
@@ -1072,7 +1078,7 @@ read_passwords(int fd, int npass, char **passwords)
                         }
                 }
                 offset += rbytes;
-        }               
+        }
 
         /* clear up */
         if (offset > 0 && npass > 0) {
