@@ -1,0 +1,405 @@
+/******************************************************************************
+ * A module for Linux-PAM that allows/denies acces based on SELinux state.
+ *
+ * Copyright (c) 2007, 2008 Red Hat, Inc.
+ * Originally written by Tomas Mraz <tmraz@redhat.com>
+ * Contributions by Dan Walsh <dwalsh@redhat.com>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, and the entire permission notice in its entirety,
+ *    including the disclaimer of warranties.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. The name of the author may not be used to endorse or promote
+ *    products derived from this software without specific prior
+ *    written permission.
+ *
+ * ALTERNATIVELY, this product may be distributed under the terms of
+ * the GNU Public License, in which case the provisions of the GPL are
+ * required INSTEAD OF the above restrictions.  (This clause is
+ * necessary due to a potential bad interaction between the GPL and
+ * the restrictions contained in a BSD-style copyright.)
+ *
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+#include "config.h"
+
+#include <errno.h>
+#include <pwd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <syslog.h>
+#include <ctype.h>
+#include <signal.h>
+#include <limits.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <pwd.h>
+#include <dirent.h>
+
+#define PAM_SM_AUTH
+#define PAM_SM_ACCOUNT
+
+#include <security/pam_modules.h>
+#include <security/_pam_macros.h>
+#include <security/pam_modutil.h>
+#include <security/pam_ext.h>
+
+#include <selinux/selinux.h>
+
+#define MODULE "pam_sepermit"
+#define OPT_DELIM ":"
+
+struct lockfd {
+	uid_t uid;
+	int fd;
+        int debug;
+};
+
+#define PROC_BASE "/proc"
+#define MAX_NAMES (int)(sizeof(unsigned long)*8)
+
+static int
+match_process_uid(pid_t pid, uid_t uid)
+{
+	char buf[128];
+	uid_t puid;
+	FILE *f;
+	int re = 0;
+	
+	snprintf (buf, sizeof buf, PROC_BASE "/%d/status", pid);
+	if (!(f = fopen (buf, "r")))
+		return 0;
+	
+	while (fgets(buf, sizeof buf, f)) {
+		if (sscanf (buf, "Uid:\t%d", &puid)) {
+			re = uid == puid;
+			break;
+		}
+	}
+	fclose(f);
+	return re;
+}
+
+static int
+check_running (pam_handle_t *pamh, uid_t uid, int killall, int debug)
+{
+	DIR *dir;
+	struct dirent *de;
+	pid_t *pid_table, pid, self;
+	int i;
+	int pids, max_pids;
+	int running = 0;
+	self = getpid();
+	if (!(dir = opendir(PROC_BASE))) {
+		pam_syslog(pamh, LOG_ERR, "Failed to open proc directory file %s:", PROC_BASE);
+		return -1;
+	}
+	max_pids = 256;
+	pid_table = malloc(max_pids * sizeof (pid_t));
+	if (!pid_table) {
+		pam_syslog(pamh, LOG_CRIT, "Memory allocation error");
+		return -1;
+	}
+	pids = 0;
+	while ((de = readdir (dir)) != NULL) {
+		if (!(pid = (pid_t)atoi(de->d_name)) || pid == self)
+			continue;
+
+		if (pids == max_pids) {
+			if (!(pid_table = realloc(pid_table, 2*pids*sizeof(pid_t)))) {
+				pam_syslog(pamh, LOG_CRIT, "Memory allocation error");
+				return -1;
+			}
+			max_pids *= 2;
+		}
+		pid_table[pids++] = pid;
+	}
+
+	(void)closedir(dir);
+
+	for (i = 0; i < pids; i++) {
+		pid_t id;
+
+		if (match_process_uid(pid_table[i], uid) == 0)
+			continue;
+		id = pid_table[i];
+
+		if (killall) {
+			if (debug)
+				pam_syslog(pamh, LOG_NOTICE, "Attempting to kill %d", id);
+			kill(id, SIGKILL);
+		}
+		running++;
+	}
+
+	free(pid_table);
+	return running;
+}
+
+static void
+sepermit_unlock(pam_handle_t *pamh, void *plockfd, int error_status UNUSED)
+{
+	struct lockfd *lockfd = plockfd;
+	struct flock fl;
+
+	memset(&fl, 0, sizeof(fl));
+	fl.l_type = F_UNLCK;
+	fl.l_whence = SEEK_SET;
+
+	if (lockfd->debug)
+		pam_syslog(pamh, LOG_ERR, "Unlocking fd: %d uid: %d", lockfd->fd, lockfd->uid);
+
+	/* Don't kill uid==0 */
+	if (lockfd->uid)
+		/* This is a DOS but it prevents an app from forking to prevent killing */
+		while(check_running(pamh, lockfd->uid, 1, lockfd->debug) > 0)
+			continue;
+
+	fcntl(lockfd->fd, F_SETLK, &fl);
+	close(lockfd->fd);
+	free(lockfd);
+}
+
+static int
+sepermit_lock(pam_handle_t *pamh, const char *user, int debug)
+{
+	char buf[PATH_MAX];
+	struct flock fl;
+
+	memset(&fl, 0, sizeof(fl));
+	fl.l_type = F_WRLCK;
+	fl.l_whence = SEEK_SET;
+
+	struct passwd *pw = pam_modutil_getpwnam( pamh, user );
+	if (!pw) {
+		pam_syslog(pamh, LOG_ERR, "Unable to find uid for user %s", user);
+		return -1;
+	}
+	if (check_running(pamh, pw->pw_uid, 0, debug) > 0)  {
+		pam_syslog(pamh, LOG_ERR, "User %s processes are running. Exclusive login not allowed", user);
+		return -1;
+	}
+
+	snprintf(buf, sizeof(buf), "%s/%d.lock", SEPERMIT_LOCKDIR, pw->pw_uid);
+	int fd = open(buf, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	if (fd < 0) {
+		pam_syslog(pamh, LOG_ERR, "Unable to open lock file %s/%d.lock", SEPERMIT_LOCKDIR, pw->pw_uid);
+		return -1;
+	}
+
+	if (fcntl(fd, F_SETLK, &fl) == -1) {
+		pam_syslog(pamh, LOG_ERR, "User %s with exclusive login already logged in", user);
+		close(fd);
+		return -1;
+	}
+	struct lockfd *lockfd=calloc(1, sizeof(struct lockfd));
+	if (!lockfd) {
+		close(fd);
+		pam_syslog(pamh, LOG_CRIT, "Memory allocation error");
+		return -1;
+	}
+	lockfd->uid = pw->pw_uid;
+	lockfd->debug = debug;
+	lockfd->fd=fd;
+        pam_set_data(pamh, MODULE, lockfd, sepermit_unlock);
+	return 0;
+}
+
+/* return 0 when matched, -1 when unmatched, pam error otherwise */
+static int
+sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
+	       const char *seuser, int debug)
+{
+	FILE *f;
+	char *line = NULL;
+	char *start;
+	size_t len = 0;
+	int matched = 0;
+	int exclusive = 0;
+	
+	f = fopen(cfgfile, "r");
+	
+	if (!f) {
+		pam_syslog(pamh, LOG_ERR, "Failed to open config file %s: %m", cfgfile);
+		return PAM_SERVICE_ERR;
+	}
+
+	while (!matched && getline(&line, &len, f) != -1) {
+		size_t n;
+		char *sptr;
+		char *opt;
+
+		if (line[0] == '#')
+			continue;
+
+		start = line;
+		while (isspace(*start))
+			++start;
+		n = strlen(start);
+		while (n > 0 && isspace(start[n-1])) {
+			--n;
+		}
+		if (n == 0)
+			continue;
+
+		start[n] = '\0';
+		start = strtok_r(start, OPT_DELIM, &sptr);
+
+		switch (start[0]) {
+			case '@': 
+				++start;
+				if (debug)
+					pam_syslog(pamh, LOG_NOTICE, "Matching user %s against group %s", user, start);
+				if (pam_modutil_user_in_group_nam_nam(pamh, user, start)) {
+					matched = 1;
+				}
+				break;
+			case '%':
+				++start;
+				if (debug)
+					pam_syslog(pamh, LOG_NOTICE, "Matching seuser %s against seuser %s", seuser, start);
+				if (strcmp(seuser, start) == 0) {
+					matched = 1;					
+				}
+				break;
+			default:
+				if (debug)
+					pam_syslog(pamh, LOG_NOTICE, "Matching user %s against user %s", user, start);
+				if (strcmp(user, start) == 0) {
+					matched = 1;
+				}
+		}
+		if (matched)
+			while ((opt=strtok_r(NULL, OPT_DELIM, &sptr)) != NULL) {
+				if (strcmp(opt, "exclusive") == 0)
+					exclusive = 1;
+				else if (debug) {
+					pam_syslog(pamh, LOG_NOTICE, "Unknown user option: %s", opt);
+				}
+			}
+	}
+
+	free(line);
+	fclose(f);
+	if (matched) 
+		return exclusive ? sepermit_lock(pamh, user, debug) : 0;
+	else
+		return -1;
+}
+
+PAM_EXTERN int
+pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
+		    int argc, const char **argv)
+{
+	int i;
+	int rv;
+	int debug = 0;
+	int sense = PAM_AUTH_ERR;
+	const char *user = NULL;
+	char *seuser = NULL;
+	char *level = NULL;
+	const char *cfgfile = SEPERMIT_CONF_FILE;
+
+	/* Parse arguments. */
+	for (i = 0; i < argc; i++) {
+		if (strcmp(argv[i], "debug") == 0) {
+			debug = 1;
+		}
+		if (strcmp(argv[i], "conf=") == 0) {
+			cfgfile = argv[i] + 5;
+		}
+	}
+
+	if (debug)
+		pam_syslog(pamh, LOG_NOTICE, "Parsing config file: %s", cfgfile);
+
+	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || user == NULL
+		|| *user == '\0') {
+		pam_syslog(pamh, LOG_ERR, "Cannot determine the user's name");
+		return PAM_USER_UNKNOWN;
+	}
+
+	if (is_selinux_enabled() > 0) {
+		if (security_getenforce() == 1) {
+			if (debug)
+				pam_syslog(pamh, LOG_NOTICE, "Enforcing mode, access will be allowed on match");
+			sense = PAM_SUCCESS;
+		}
+
+		if (getseuserbyname(user, &seuser, &level) != 0) {
+			seuser = NULL;
+			level = NULL;
+			pam_syslog(pamh, LOG_ERR, "getseuserbyname failed: %m");
+		}
+	}
+
+	if (debug && sense != PAM_SUCCESS)
+		pam_syslog(pamh, LOG_NOTICE, "Access will not be allowed on match");
+
+	rv = sepermit_match(pamh, cfgfile, user, seuser, debug);
+
+	if (debug)
+		pam_syslog(pamh, LOG_NOTICE, "sepermit_match returned: %d", rv);
+
+	free(seuser);
+	free(level);
+
+	switch (rv) {
+		case -1:
+			return PAM_IGNORE;
+		case 0:
+			return sense;
+	}
+
+	return rv;
+}
+
+PAM_EXTERN int
+pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
+                int argc UNUSED, const char **argv UNUSED)
+{
+	return PAM_IGNORE;
+}
+
+PAM_EXTERN int
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
+		     int argc, const char **argv)
+{
+	return pam_sm_authenticate(pamh, flags, argc, argv);
+}
+
+#ifdef PAM_STATIC
+    
+/* static module data */
+    
+struct pam_module _pam_access_modstruct = {
+    "pam_sepermit",
+    pam_sm_authenticate,
+    pam_sm_setcred,
+    pam_sm_acct_mgmt,
+    NULL,
+    NULL,
+    NULL
+};
+#endif
+

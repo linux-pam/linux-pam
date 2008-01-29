@@ -1,3 +1,19 @@
+2008-01-29  Tomas Mraz  <t8m@centrum.cz>
+
+	* configure.in: Test for setkeycreatecon needs libselinux.
+	Add new module pam_sepermit.
+	* modules/Makefile.am: Add new module pam_sepermit.
+	* modules/pam_sepermit/.cvsignore: New file.
+	* modules/pam_sepermit/Makefile.am: Likewise.
+	* modules/pam_sepermit/README.xml: Likewise.
+	* modules/pam_sepermit/pam_sepermit.8.xml: Likewise.
+	* modules/pam_sepermit/pam_sepermit.c: Likewise.
+	* modules/pam_sepermit/sepermit.conf: Likewise.
+	* modules/pam_sepermit/tst-pam_sepermit: Likewise.
+	* doc/sag/pam_sepermit.xml: Likewise.
+
+	* doc/sag/pam_tty_audit.xml: Add pam_tty_audit to SAG.
+
 2008-01-29  Miloslav Trmac  <mitr@redhat.com>
 
 	* modules/pam_tty_audit/README.xml: Add notes section.

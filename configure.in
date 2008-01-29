@@ -393,6 +393,7 @@ AC_SUBST(LIBDB)
 AM_CONDITIONAL([HAVE_LIBDB], [test ! -z "$LIBDB"])
 
 AC_CHECK_LIB([nsl],[yp_get_default_domain], LIBNSL="-lnsl", LIBNSL="")
+BACKUP_LIBS=$LIBS
 LIBS="$LIBS $LIBNSL"
 AC_CHECK_FUNCS(yp_get_default_domain)
 LIBS=$BACKUP_LIBS
@@ -410,6 +411,10 @@ AC_SUBST(LIBSELINUX)
 AM_CONDITIONAL([HAVE_LIBSELINUX], [test ! -z "$LIBSELINUX"])
 if test ! -z "$LIBSELINUX" ; then
     AC_DEFINE([WITH_SELINUX], 1, [Defined if SE Linux support is compiled in])
+    BACKUP_LIBS=$LIBS
+    LIBS="$LIBS $LIBSELINUX"
+    AC_CHECK_FUNCS(setkeycreatecon)
+    LIBS=$BACKUP_LIBS
 fi
 
 dnl Checks for header files.
@@ -442,7 +447,7 @@ AC_CHECK_FUNCS(fseeko gethostname gettimeofday lckpwdf mkdir select)
 AC_CHECK_FUNCS(strcspn strdup strspn strstr strtol uname)
 AC_CHECK_FUNCS(getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r)
 AC_CHECK_FUNCS(getgrouplist getline getdelim)
-AC_CHECK_FUNCS(inet_ntop inet_pton ruserok_af setkeycreatecon)
+AC_CHECK_FUNCS(inet_ntop inet_pton ruserok_af)
 
 AC_CHECK_FUNCS(unshare, [UNSHARE=yes], [UNSHARE=no])
 AM_CONDITIONAL([HAVE_UNSHARE], [test "$UNSHARE" = yes])
@@ -531,6 +536,7 @@ AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	modules/pam_rhosts/Makefile \
 	modules/pam_rootok/Makefile modules/pam_exec/Makefile \
 	modules/pam_securetty/Makefile modules/pam_selinux/Makefile \
+	modules/pam_sepermit/Makefile \
 	modules/pam_shells/Makefile modules/pam_stress/Makefile \
 	modules/pam_succeed_if/Makefile modules/pam_tally/Makefile \
 	modules/pam_time/Makefile modules/pam_tty_audit/Makefile \

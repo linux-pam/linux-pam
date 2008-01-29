@@ -1,0 +1,10 @@
+*.la
+*.lo
+*.so
+*~
+.deps
+.libs
+Makefile
+Makefile.in
+README
+pam_sepermit.8
