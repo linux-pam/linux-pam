@@ -1,4 +1,4 @@
-/* Copyright © 2007 Red Hat, Inc. All rights reserved.
+/* Copyright © 2007, 2008 Red Hat, Inc. All rights reserved.
    Red Hat author: Miloslav Trmač <mitr@redhat.com>
 
    Redistribution and use in source and binary forms of Linux-PAM, with
@@ -37,7 +37,7 @@
    DAMAGE. */
 
 #include <errno.h>
-#include <pwd.h>
+#include <fnmatch.h>
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
@@ -200,9 +200,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
   enum command command;
   struct audit_tty_status *old_status, new_status;
   const char *user;
-  uid_t user_uid;
-  struct passwd *pwd;
-  int i, fd;
+  int i, fd, open_only;
 
   (void)flags;
 
@@ -211,15 +209,9 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
       pam_syslog (pamh, LOG_ERR, "error determining target user's name");
       return PAM_SESSION_ERR;
     }
-  pwd = pam_modutil_getpwnam (pamh, user);
-  if (pwd == NULL)
-    {
-      pam_syslog (pamh, LOG_ERR, "error determining target user's UID: %m");
-      return PAM_SESSION_ERR;
-    }
-  user_uid = pwd->pw_uid;
 
   command = CMD_NONE;
+  open_only = 0;
   for (i = 0; i < argc; i++)
     {
       if (strncmp (argv[i], "enable=", 7) == 0
@@ -235,19 +227,20 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	  for (tok = strtok_r (copy, ",", &tok_data); tok != NULL;
 	       tok = strtok_r (NULL, ",", &tok_data))
 	    {
-	      pwd = pam_modutil_getpwnam (pamh, tok);
-	      if (pwd == NULL)
-		{
-		  pam_syslog (pamh, LOG_WARNING, "unknown user %s", tok);
-		  continue;
-		}
-	      if (pwd->pw_uid == user_uid)
+	      if (fnmatch (tok, user, 0) == 0)
 		{
 		  command = this_command;
 		  break;
 		}
 	    }
 	  free (copy);
+	}
+      else if (strcmp (argv[i], "open_only") == 0)
+	open_only = 1;
+      else
+	{
+	  pam_syslog (pamh, LOG_ERR, "unknown option `%s'", argv[i]);
+	  return PAM_SESSION_ERR;
 	}
     }
   if (command == CMD_NONE)
@@ -269,13 +262,15 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
       return PAM_SESSION_ERR;
     }
 
-  if (old_status->enabled == (command == CMD_ENABLE ? 1 : 0))
+  new_status.enabled = (command == CMD_ENABLE ? 1 : 0);
+  if (old_status->enabled == new_status.enabled)
     {
       free (old_status);
       goto ok_fd;
     }
 
-  if (pam_set_data (pamh, DATANAME, old_status, cleanup_old_status)
+  if (open_only == 0
+      && pam_set_data (pamh, DATANAME, old_status, cleanup_old_status)
       != PAM_SUCCESS)
     {
       pam_syslog (pamh, LOG_ERR, "error saving old audit status");
@@ -284,13 +279,14 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
       return PAM_SESSION_ERR;
     }
 
-  new_status.enabled = (command == CMD_ENABLE ? 1 : 0);
   if (nl_send (fd, AUDIT_TTY_SET, NLM_F_ACK, &new_status,
 	       sizeof (new_status)) != 0
       || nl_recv_ack (fd) != 0)
     {
       pam_syslog (pamh, LOG_ERR, "error setting current audit status: %m");
       close (fd);
+      if (open_only != 0)
+	free (old_status);
       return PAM_SESSION_ERR;
     }
   /* Fall through */
@@ -298,6 +294,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
   close (fd);
   pam_syslog (pamh, LOG_DEBUG, "changed status from %d to %d",
 	      old_status->enabled, new_status.enabled);
+  if (open_only != 0)
+    free (old_status);
   return PAM_SUCCESS;
 }
 

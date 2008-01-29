@@ -1,3 +1,11 @@
+2008-01-29  Miloslav Trmac  <mitr@redhat.com>
+
+	* modules/pam_tty_audit/README.xml: Add notes section.
+	* modules/pam_tty_audit/pam_tty_audit.8.xml: Describe patterns
+	support and open_only option. Add notes.
+	* modules/pam_tty_audit/pam_tty_audit.c(pam_sm_open_session): Add
+	support for pattern matching and the open_only option.
+
 2008-01-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/pam_audit.c: Include pam_modutil_private.h.

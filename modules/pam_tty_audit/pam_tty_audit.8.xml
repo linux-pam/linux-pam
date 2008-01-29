@@ -19,10 +19,10 @@
     <cmdsynopsis id="pam_tty_audit-cmdsynopsis">
       <command>pam_tty_audit.so</command>
       <arg choice="opt">
-	disable=<replaceable>usernames</replaceable>
+	disable=<replaceable>patterns</replaceable>
       </arg>
       <arg choice="opt">
-	enable=<replaceable>usernames</replaceable>
+	enable=<replaceable>patterns</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
@@ -40,27 +40,40 @@
     <variablelist>
       <varlistentry>
         <term>
-          <option>disable=<replaceable>usernames</replaceable></option>
+          <option>disable=<replaceable>patterns</replaceable></option>
         </term>
         <listitem>
           <para>
-	    For each user matching one of comma-separated
-	    <option><replaceable>usernames</replaceable></option>, disable
+	    For each user matching one of comma-separated glob
+	    <option><replaceable>patterns</replaceable></option>, disable
 	    TTY auditing.  This overrides any previous <option>enable</option>
-	    option for the same user name on the command line.
+	    option matchin the same user name on the command line.
           </para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>
-          <option>enable=<replaceable>usernames</replaceable></option>
+          <option>enable=<replaceable>patterns</replaceable></option>
         </term>
         <listitem>
           <para>
-	    For each user matching one of comma-separated
-	    <option><replaceable>usernames</replaceable></option>, enable
+	    For each user matching one of comma-separated glob
+	    <option><replaceable>patterns</replaceable></option>, enable
 	    TTY auditing.  This overrides any previous <option>disable</option>
-	    option for the same user name on the command line.
+	    option matching the same user name on the command line.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>open_only</option>
+        </term>
+        <listitem>
+          <para>
+           Set the TTY audit flag when opening the session, but do not restore
+           it when closing the session.  Using this option is necessary for
+           some services that don't <function>fork()</function> to run the
+           authenticated session, such as <command>sudo</command>.
           </para>
         </listitem>
       </varlistentry>
@@ -99,12 +112,24 @@
     </variablelist>
   </refsect1>
 
+  <refsect1 id='pam_tty_audit-notes'>
+    <title>NOTES</title>
+    <para>
+      When TTY auditing is enabled, it is inherited by all processes started by
+      that user.  In particular, daemons restarted by an user will still have
+      TTY auditing enabled, and audit TTY input even by other users unless
+      auditing for these users is explicitly disabled.  Therefore, it is
+      recommended to use <option>disable=*</option> as the first option for
+      most daemons using PAM.
+    </para>
+  </refsect1>
+
   <refsect1 id='pam_tty_audit-examples'>
     <title>EXAMPLES</title>
     <para>
       Audit all administrative actions.
       <programlisting>
-session		required	pam_tty_audit.so enable=root
+session	required pam_tty_audit.so disable=* enable=root
       </programlisting>
     </para>
   </refsect1>

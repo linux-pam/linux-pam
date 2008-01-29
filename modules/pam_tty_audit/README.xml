@@ -25,6 +25,11 @@
 
   <section>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+      href="pam_tty_audit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tty_audit-notes"]/*)'/>
+  </section>
+
+  <section>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
       href="pam_tty_audit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tty_audit-examples"]/*)'/>
   </section>
 
