@@ -1,3 +1,28 @@
+2008-02-01  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_namespace/namespace.conf.5.xml: Add documentation for
+	tmpfs and tmpdir polyinst and for ~ user list modifier.
+	* modules/pam_namespace/namespace.init: Add documentation for the
+	new init parameter. Add home directory initialization script.
+	* modules/pam_namespace/pam_namespace.8.xml: Document the new
+	init parameter of the namespace.init script.
+	* modules/pam_namespace/pam_namespace.c(copy_ent): Copy exclusive flag.
+	(cleanup_data): New function.
+	(process_line): Set exclusive flag. Add tmpfs and tmpdir methods.
+	(ns_override): Change behavior on the exclusive flag.
+	(poly_name): Process tmpfs and tmpdir methods.
+	(inst_init): Add flag for new directory initialization.
+	(create_dirs): Process the tmpdir method, add the new directory
+	flag.
+	(ns_setup): Remove unused code. Process the tmpfs method.
+	(cleanup_tmpdirs): New function.
+	(setup_namespace): Set data for proper cleanup. Cleanup the tmpdirs
+	on failures.
+	(pam_sm_close_session): Instead of parsing the config file again use
+	the previously set data for cleanup.
+	* modules/pam_namespace/pam_namespace.h: Add TMPFS and TMPDIR methods
+	and exclusive flag.
+
 2008-01-29  Tomas Mraz  <t8m@centrum.cz>
 
 	* configure.in: Test for setkeycreatecon needs libselinux.

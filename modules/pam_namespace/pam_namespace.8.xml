@@ -60,7 +60,9 @@
       script <filename>/etc/security/namespace.init</filename> exists, it
       is used to initialize the namespace every time a new instance
       directory is setup. The script receives the polyinstantiated
-      directory path and the instance directory path as its arguments.
+      directory path, the instance directory path, flag whether the instance
+      directory was newly created (0 for no, 1 for yes), and the user name
+      as its arguments.
     </para>
 
     <para>

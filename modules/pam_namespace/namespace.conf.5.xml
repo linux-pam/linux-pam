@@ -72,10 +72,13 @@
 
     <para>
       The third field, <replaceable>method</replaceable>, is the method
-      used for polyinstantiation. It can take 3 different values; "user"
+      used for polyinstantiation. It can take these values; "user"
       for polyinstantiation based on user name, "level" for 
-      polyinstantiation based on process MLS level and user name, and "context" for
-      polyinstantiation based on process security context and user name
+      polyinstantiation based on process MLS level and user name, "context" for
+      polyinstantiation based on process security context and user name,
+      "tmpfs" for mounting tmpfs filesystem as an instance dir, and
+      "tmpdir" for creating temporary directory as an instance dir which is
+      removed when the user's session is closed.
       Methods "context" and "level" are only available with SELinux. This
       field cannot be blank.
     </para>
@@ -84,7 +87,8 @@
       The fourth field, <replaceable>list_of_uids</replaceable>, is
       a comma separated list of user names for whom the polyinstantiation
       is not performed. If left blank, polyinstantiation will be performed
-      for all users.
+      for all users. If the list is preceded with a single "~" character,
+      polyinstantiation is performed only for users in the list.
     </para>
 
     <para>

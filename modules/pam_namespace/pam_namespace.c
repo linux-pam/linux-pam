@@ -43,6 +43,7 @@ static int copy_ent(const struct polydir_s *ent, struct polydir_s *pent)
 	strcpy(pent->instance_prefix, ent->instance_prefix);
 	pent->method = ent->method;
 	pent->num_uids = ent->num_uids;
+	pent->exclusive = ent->exclusive;
 	if (ent->num_uids) {
 		uid_t *pptr, *eptr;
 
@@ -120,6 +121,10 @@ static void del_polydir_list(struct polydir_s *polydirs_ptr)
 	}
 }
 
+static void cleanup_data(pam_handle_t *pamh UNUSED , void *data, int err UNUSED)
+{
+	del_polydir_list(data);
+}
 
 /*
  * Called from parse_config_file, this function processes a single line
@@ -140,6 +145,7 @@ static int process_line(char *line, const char *home,
 
     poly.uid = NULL;
     poly.num_uids = 0;
+    poly.exclusive = 0;
 
     /*
      * skip the leading white space
@@ -223,24 +229,13 @@ static int process_line(char *line, const char *home,
     }
 
     /*
-     * Ensure that all pathnames are absolute path names.
-     */
-    if ((dir[0] != '/') || (instance_prefix[0] != '/')) {
-        pam_syslog(idata->pamh, LOG_NOTICE,"Pathnames must start with '/'");
-        goto skipping;
-    }
-    if (strstr(dir, "..") || strstr(instance_prefix, "..")) {
-        pam_syslog(idata->pamh, LOG_NOTICE,"Pathnames must not contain '..'");
-        goto skipping;
-    }
-
-    /*
      * Populate polyinstantiated directory structure with appropriate
      * pathnames and the method with which to polyinstantiate.
      */
     if (strlen(dir) >= sizeof(poly.dir)
 	|| strlen(instance_prefix) >= sizeof(poly.instance_prefix)) {
 	pam_syslog(idata->pamh, LOG_NOTICE, "Pathnames too long");
+	goto skipping;
     }
     strcpy(poly.dir, dir);
     strcpy(poly.instance_prefix, instance_prefix);
@@ -248,6 +243,18 @@ static int process_line(char *line, const char *home,
     poly.method = NONE;
     if (strcmp(method, "user") == 0) 
 	    poly.method = USER;
+    
+    if (strcmp(method, "tmpdir") == 0) {
+    	    poly.method = TMPDIR;
+    	    if (sizeof(poly.instance_prefix) - strlen(poly.instance_prefix) < 7) {
+    		pam_syslog(idata->pamh, LOG_NOTICE, "Pathnames too long");
+    		goto skipping;
+    	    }
+    	    strcat(poly.instance_prefix, "XXXXXX");
+    }
+    
+    if (strcmp(method, "tmpfs") == 0)
+            poly.method = TMPFS;
 
 #ifdef WITH_SELINUX
     if (strcmp(method, "level") == 0) {
@@ -266,8 +273,20 @@ static int process_line(char *line, const char *home,
 
 #endif
 
-    if ( poly.method == NONE) {
+    if (poly.method == NONE) {
         pam_syslog(idata->pamh, LOG_NOTICE, "Illegal method");
+        goto skipping;
+    }
+
+    /*
+     * Ensure that all pathnames are absolute path names.
+     */
+    if ((dir[0] != '/') || (poly.method != TMPFS && instance_prefix[0] != '/')) {
+        pam_syslog(idata->pamh, LOG_NOTICE, "Pathnames must start with '/'");
+        goto skipping;
+    }
+    if (strstr(dir, "..") || strstr(instance_prefix, "..")) {
+        pam_syslog(idata->pamh, LOG_NOTICE, "Pathnames must not contain '..'");
         goto skipping;
     }
 
@@ -281,7 +300,11 @@ static int process_line(char *line, const char *home,
         uid_t *uidptr;
         const char *ustr, *sstr;
         int count, i;
-
+	
+	if (*uids == '~') {
+		poly.exclusive = 1;
+		uids++;
+	}
         for (count = 0, ustr = sstr = uids; sstr; ustr = sstr + 1, count++)
            sstr = strchr(ustr, ',');
 
@@ -419,6 +442,7 @@ static int parse_config_file(struct instance_data *idata)
  * directory's list of override uids. If the uid is one of the override
  * uids for the polyinstantiated directory, polyinstantiation is not
  * performed for that user for that directory.
+ * If exclusive is set the returned values are opposite.
  */
 static int ns_override(struct polydir_s *polyptr, struct instance_data *idata,
 		uid_t uid)
@@ -432,11 +456,11 @@ static int ns_override(struct polydir_s *polyptr, struct instance_data *idata,
 
     for (i = 0; i < polyptr->num_uids; i++) {
         if (uid == polyptr->uid[i]) {
-            return 1;
+            return !polyptr->exclusive;
         }
     }
 
-    return 0;
+    return polyptr->exclusive;
 }
 
 /*
@@ -623,6 +647,12 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 
 #endif /* WITH_SELINUX */
 
+	case TMPDIR:
+	case TMPFS:
+	    if ((*i_name=strdup("")) == NULL)
+	    	goto fail;
+	    return PAM_SUCCESS;
+
     	default:
     	    if (idata->flags & PAMNS_DEBUG)
     	        pam_syslog(idata->pamh, LOG_ERR, "Unknown method");
@@ -643,7 +673,7 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 	    hash = NULL;
         } else {
     	    char *newname;
-    	    if (asprintf(&newname, "%.*s_%s", NAMESPACE_MAX_DIR_LEN-1-strlen(hash),
+    	    if (asprintf(&newname, "%.*s_%s", NAMESPACE_MAX_DIR_LEN-1-(int)strlen(hash),
     		*i_name, hash) < 0) {
     		goto fail;
     	    }
@@ -726,8 +756,8 @@ static int check_inst_parent(char *ipath, struct instance_data *idata)
 * execute it and pass directory to polyinstantiate and instance
 * directory as arguments.
 */
-static int inst_init(const struct polydir_s *polyptr, char *ipath,
-	   struct instance_data *idata)
+static int inst_init(const struct polydir_s *polyptr, const char *ipath,
+	   struct instance_data *idata, int newdir)
 {
 	pid_t rc, pid;
 	sighandler_t osighand = NULL;
@@ -757,7 +787,7 @@ static int inst_init(const struct polydir_s *polyptr, char *ipath,
 				}
 #endif
 				if (execl(NAMESPACE_INIT_SCRIPT, NAMESPACE_INIT_SCRIPT,
-							polyptr->dir, ipath, (char *)NULL) < 0)
+					polyptr->dir, ipath, newdir?"1":"0", idata->user, (char *)NULL) < 0)
 					exit(1);
 			} else if (pid > 0) {
 				while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
@@ -792,16 +822,17 @@ out:
  * Create polyinstantiated instance directory (ipath).
  */
 #ifdef WITH_SELINUX
-static int create_dirs(const struct polydir_s *polyptr, char *ipath,
+static int create_dirs(struct polydir_s *polyptr, char *ipath,
         security_context_t icontext, security_context_t ocontext,
 	struct instance_data *idata)
 #else
-static int create_dirs(const struct polydir_s *polyptr, char *ipath,
+static int create_dirs(struct polydir_s *polyptr, char *ipath,
 	struct instance_data *idata)
 #endif
 {
 	struct stat statbuf, newstatbuf;
 	int rc, fd;
+	int newdir = 0;
 
     /*
      * stat the directory to polyinstantiate, so its owner-group-mode
@@ -835,7 +866,17 @@ static int create_dirs(const struct polydir_s *polyptr, char *ipath,
      * attributes to match that of the original directory that is being
      * polyinstantiated.
      */
-    if (mkdir(ipath, S_IRUSR) < 0) {
+    
+    if (polyptr->method == TMPDIR) {
+    	if (mkdtemp(polyptr->instance_prefix) == NULL) {
+            pam_syslog(idata->pamh, LOG_ERR, "Error creating temporary instance %s, %m",
+			polyptr->instance_prefix);
+	    polyptr->method = NONE; /* do not clean up! */
+	    return PAM_SESSION_ERR;
+    	}
+	/* copy the actual directory name to ipath */
+	strcpy(ipath, polyptr->instance_prefix);
+    } else if (mkdir(ipath, S_IRUSR) < 0) {
         if (errno == EEXIST)
             goto inst_init;
         else {
@@ -845,6 +886,7 @@ static int create_dirs(const struct polydir_s *polyptr, char *ipath,
         }
     }
 
+    newdir = 1;
     /* Open a descriptor to it to prevent races */
     fd = open(ipath, O_DIRECTORY | O_RDONLY);
     if (fd < 0) {
@@ -909,7 +951,7 @@ static int create_dirs(const struct polydir_s *polyptr, char *ipath,
      */
 
 inst_init:
-	rc = inst_init(polyptr, ipath, idata);
+    rc = inst_init(polyptr, ipath, idata, newdir);
     return rc;
 }
 
@@ -921,13 +963,12 @@ inst_init:
  * security attributes, and performs bind mount to setup the process
  * namespace.
  */
-static int ns_setup(const struct polydir_s *polyptr,
+static int ns_setup(struct polydir_s *polyptr,
 	struct instance_data *idata)
 {
     int retval = 0;
     char *inst_dir = NULL;
     char *instname = NULL;
-    char *dir;
 #ifdef WITH_SELINUX
     security_context_t instcontext = NULL, origcontext = NULL;
 #endif
@@ -936,9 +977,15 @@ static int ns_setup(const struct polydir_s *polyptr,
         pam_syslog(idata->pamh, LOG_DEBUG,
                "Set namespace for directory %s", polyptr->dir);
 
-    dir = strrchr(polyptr->dir, '/');
-    if (dir && strlen(dir) > 1)
-        dir++;
+    if (polyptr->method == TMPFS) {
+	if (mount("tmpfs", polyptr->dir, "tmpfs", 0, NULL) < 0) {
+	    pam_syslog(idata->pamh, LOG_ERR, "Error mounting tmpfs on %s, %m",
+        	polyptr->dir);
+            return PAM_SESSION_ERR;
+	}
+	/* we must call inst_init after the mount in this case */
+	return inst_init(polyptr, "tmpfs", idata, 1);
+    }
 
     /*
      * Obtain the name of instance pathname based on the
@@ -1044,6 +1091,58 @@ static int cwd_in(char *dir, struct instance_data *idata)
     return retval;
 }
 
+static int cleanup_tmpdirs(struct instance_data *idata)
+{
+    struct polydir_s *pptr;
+    pid_t rc, pid;
+    sighandler_t osighand = NULL;
+    int status;
+
+    osighand = signal(SIGCHLD, SIG_DFL);
+    if (osighand == SIG_ERR) {
+	pam_syslog(idata->pamh, LOG_ERR, "Cannot set signal value");
+	rc = PAM_SESSION_ERR;
+	goto out;
+    }
+
+    for (pptr = idata->polydirs_ptr; pptr; pptr = pptr->next) {
+	if (pptr->method == TMPDIR && access(pptr->instance_prefix, F_OK) == 0) {
+	    pid = fork();
+	    if (pid == 0) {
+#ifdef WITH_SELINUX
+		if (idata->flags & PAMNS_SELINUX_ENABLED) {
+		    if (setexeccon(NULL) < 0)
+			exit(1);
+		}
+#endif
+		if (execl("/bin/rm", "/bin/rm", "-rf", pptr->instance_prefix, (char *)NULL) < 0)
+			exit(1);
+	    } else if (pid > 0) {
+		while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
+		    (errno == EINTR));
+		if (rc == (pid_t)-1) {
+		    pam_syslog(idata->pamh, LOG_ERR, "waitpid failed- %m");
+		    rc = PAM_SESSION_ERR;
+		    goto out;
+		}
+		if (!WIFEXITED(status) || WIFSIGNALED(status) > 0) {
+		    pam_syslog(idata->pamh, LOG_ERR,
+		    	"Error removing %s", pptr->instance_prefix);
+		}
+	    } else if (pid < 0) {
+		pam_syslog(idata->pamh, LOG_ERR,
+			"Cannot fork to run namespace init script, %m");
+		rc = PAM_SESSION_ERR;
+		goto out;
+	    }
+        }
+    }
+
+    rc = PAM_SUCCESS;
+out:
+    signal(SIGCHLD, osighand);
+    return rc;
+}
 
 /*
  * This function checks to see if polyinstantiation is needed for any
@@ -1112,13 +1211,22 @@ static int setup_namespace(struct instance_data *idata, enum unmnt_op unmnt)
      * disassociate from the parent namespace.
      */
     if (need_poly) {
+	if (pam_set_data(idata->pamh, NAMESPACE_POLYDIR_DATA, idata->polydirs_ptr,
+    		cleanup_data) != PAM_SUCCESS) {
+    	    pam_syslog(idata->pamh, LOG_ERR,
+    	    	"Unable to set namespace data");
+    	    return PAM_SYSTEM_ERR;
+    	}
         if (unshare(CLONE_NEWNS) < 0) {
-            pam_syslog(idata->pamh, LOG_ERR,
+		pam_set_data(idata->pamh, NAMESPACE_POLYDIR_DATA, NULL, NULL);
+		pam_syslog(idata->pamh, LOG_ERR,
 		"Unable to unshare from parent namespace, %m");
             return PAM_SESSION_ERR;
         }
-    } else
+    } else {
+    	del_polydir_list(idata->polydirs_ptr);
         return PAM_SUCCESS;
+    }
 
     /*
      * Again cycle through all polyinstantiated directories, this time,
@@ -1145,7 +1253,8 @@ static int setup_namespace(struct instance_data *idata, enum unmnt_op unmnt)
                  * umount
                  */
                 if ((changing_dir = cwd_in(pptr->dir, idata)) < 0) {
-                    return PAM_SESSION_ERR;
+                    retval = PAM_SESSION_ERR;
+                    goto out;
                 } else if (changing_dir) {
                     if (idata->flags & PAMNS_DEBUG)
                         pam_syslog(idata->pamh, LOG_DEBUG, "changing cwd");
@@ -1173,8 +1282,10 @@ static int setup_namespace(struct instance_data *idata, enum unmnt_op unmnt)
             	    int saved_errno = errno;
             	    pam_syslog(idata->pamh, LOG_ERR, "Unmount of %s failed, %m",
                     	pptr->dir);
-            	    if (saved_errno != EINVAL)
-                	return PAM_SESSION_ERR;
+            	    if (saved_errno != EINVAL) {
+                	retval = PAM_SESSION_ERR;
+                	goto out;
+                    }
                 } else if (idata->flags & PAMNS_DEBUG)
                     pam_syslog(idata->pamh, LOG_DEBUG, "Umount succeeded %s",
 				pptr->dir);
@@ -1186,7 +1297,9 @@ static int setup_namespace(struct instance_data *idata, enum unmnt_op unmnt)
                      break;
         }
     }
-
+out:
+    if (retval != PAM_SUCCESS)
+    	cleanup_tmpdirs(idata);
     return retval;
 }
 
@@ -1225,8 +1338,10 @@ static int orig_namespace(struct instance_data *idata)
             } else if (idata->flags & PAMNS_DEBUG)
                 pam_syslog(idata->pamh, LOG_DEBUG, "Unmount of %s succeeded",
 			pptr->dir);
-        }
+	}
     }
+
+    cleanup_tmpdirs(idata);
     return 0;
 }
 
@@ -1351,7 +1466,8 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     } else if (idata.flags & PAMNS_DEBUG)
         pam_syslog(idata.pamh, LOG_DEBUG, "Nothing to polyinstantiate");
 
-    del_polydir_list(idata.polydirs_ptr);
+    if (retval != PAM_SUCCESS)
+	del_polydir_list(idata.polydirs_ptr);
     return retval;
 }
 
@@ -1366,6 +1482,7 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
     struct instance_data idata;
     char *user_name;
     struct passwd *pwd;
+    void *polyptr;
 
     /* init instance data */
     idata.flags = 0;
@@ -1429,16 +1546,12 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
     strncat(idata.user, user_name, sizeof(idata.user) - 1);
     idata.uid = pwd->pw_uid;
 
-    /*
-     * Parse namespace configuration file which lists directories that
-     * are polyinstantiated, directories where instance directories are
-     * created and the method used for polyinstantiation.
-     */
-    retval = parse_config_file(&idata);
-    if ((retval != PAM_SUCCESS) || !idata.polydirs_ptr) {
-	del_polydir_list(idata.polydirs_ptr);
-        return PAM_SESSION_ERR;
-    }
+    retval = pam_get_data(idata.pamh, NAMESPACE_POLYDIR_DATA, (const void **)&polyptr);
+    if (retval != PAM_SUCCESS || polyptr == NULL)
+    	/* nothing to reset */
+    	return PAM_SUCCESS;
+    	
+    idata.polydirs_ptr = polyptr;
 
     if (idata.flags & PAMNS_DEBUG)
         pam_syslog(idata.pamh, LOG_DEBUG, "Resetting namespace for pid %d",
@@ -1453,7 +1566,9 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
             pam_syslog(idata.pamh, LOG_DEBUG,
 		"resetting namespace ok for pid %d", getpid());
     }
-    del_polydir_list(idata.polydirs_ptr);
+
+    pam_set_data(idata.pamh, NAMESPACE_POLYDIR_DATA, NULL, NULL);
+    
     return PAM_SUCCESS;
 }
 

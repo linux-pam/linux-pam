@@ -90,6 +90,7 @@
 #define PAMNS_NO_UNMOUNT_ON_CLOSE  0x00010000 /* no unmount at session close */
 
 #define NAMESPACE_MAX_DIR_LEN 80
+#define NAMESPACE_POLYDIR_DATA "pam_namespace:polydir_data"
 
 /*
  * Polyinstantiation method options, based on user, security context
@@ -100,6 +101,8 @@ enum polymethod {
     USER,
     CONTEXT,
     LEVEL,
+    TMPDIR,
+    TMPFS
 };
 
 /*
@@ -128,6 +131,7 @@ struct polydir_s {
     enum polymethod method;		/* method used to polyinstantiate */
     unsigned int num_uids;		/* number of override uids */
     uid_t *uid;				/* list of override uids */
+    int exclusive;			/* polyinstatiate exclusively for override uids */
     struct polydir_s *next;		/* pointer to the next polydir entry */
 };
 

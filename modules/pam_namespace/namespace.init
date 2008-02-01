@@ -1,24 +1,24 @@
 #!/bin/sh -p
-# This is only a boilerplate for the instance initialization script.
-# It receives polydir path as $1 and the instance path as $2.
+# It receives polydir path as $1, the instance path as $2, 
+# a flag whether the instance dir was newly created (0 - no, 1 - yes) in $3,
+# and user name in $4.
 #
-# If you intend to polyinstantiate /tmp and you also want to use the X windows
-# environment, you will have to use this script to bind mount the socket that
-# is used by the X server to communicate with its clients. X server places
-# this socket in /tmp/.X11-unix directory, which will get obscured by
-# polyinstantiation. Uncommenting the following lines will bind mount
-# the relevant directory at an alternative location (/.tmp/.X11-unix) such
-# that the X server, window manager and X clients, can still find the
-# socket X0 at the polyinstanted /tmp/.X11-unix.
-#
-#if [ $1 = /tmp ]; then
-#	if [ ! -f /.tmp/.X11-unix ]; then
-#		mkdir -p /.tmp/.X11-unix
-#	fi
-#	mount --bind /tmp/.X11-unix /.tmp/.X11-unix
-#	cp -fp -- /tmp/.X0-lock "$2/.X0-lock"
-#	mkdir -- "$2/.X11-unix"
-#	ln -fs -- /.tmp/.X11-unix/X0 "$2/.X11-unix/X0"
-#fi
+# The following section will copy the contents of /etc/skel if this is a
+# newly created home directory.
+if [ "$3" = 1 ]; then
+        # This line will fix the labeling on all newly created directories
+        [ -x /sbin/restorecon ] && /sbin/restorecon "$1"
+        user="$4"
+        passwd=$(getent passwd "$user")
+        homedir=$(echo "$passwd" | cut -f6 -d":")
+        if [ "$1" = "$homedir" ]; then
+                gid=$(echo "$passwd" | cut -f4 -d":")
+                cp -rT /etc/skel "$homedir"
+                chown -R "$user":"$gid" "$homedir"
+                mode=$(awk '/^UMASK/{gsub("#.*$", "", $2); printf "%o", and(0777,compl(strtonum("0" $2))); exit}' /etc/login.defs)
+                chmod ${mode:-700} "$homedir"
+                [ -x /sbin/restorecon ] && /sbin/restorecon -R "$homedir"
+        fi
+fi
 
 exit 0
