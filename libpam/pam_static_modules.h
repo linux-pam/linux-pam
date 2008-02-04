@@ -67,6 +67,7 @@ extern struct pam_module _pam_rootok_modstruct;
 extern struct pam_module _pam_securetty_modstruct;
 #ifdef WITH_SELINUX
 extern struct pam_module _pam_selinux_modstruct;
+extern struct pam_module _pam_sepermit_modstruct;
 #endif
 extern struct pam_module _pam_shells_modstruct;
 extern struct pam_module _pam_stress_modstruct;
@@ -124,6 +125,7 @@ static struct pam_module *static_modules[] = {
   &_pam_securetty_modstruct,
 #ifdef WITH_SELINUX
   &_pam_selinux_modstruct,
+  &_pam_sepermit_modstruct,
 #endif
   &_pam_shells_modstruct,
   &_pam_stress_modstruct,

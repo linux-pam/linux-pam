@@ -47,7 +47,7 @@ XMLS = pam.3.xml pam.8.xml \
 if ENABLE_REGENERATE_MAN
 PAM.8: pam.8
 pam.d.5: pam.conf.5
-	test -f pam\\.d.5 && mv pam\\.d.5 pam.d.5
+	test -f $(srcdir)/pam\\.d.5 && mv $(srcdir)/pam\\.d.5 $(srcdir)/pam.d.5 ||:
 
 pam_get_item.3: pam_item_types_std.inc.xml pam_item_types_ext.inc.xml
 pam_set_data.3: pam_item_types_std.inc.xml pam_item_types_ext.inc.xml

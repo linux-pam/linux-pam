@@ -392,7 +392,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
     
 /* static module data */
     
-struct pam_module _pam_access_modstruct = {
+struct pam_module _pam_sepermit_modstruct = {
     "pam_sepermit",
     pam_sm_authenticate,
     pam_sm_setcred,
