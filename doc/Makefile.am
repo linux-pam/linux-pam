@@ -14,7 +14,7 @@ releasedocs: all
 	$(mkinstalldirs) $(top_builddir)/Linux-PAM-$(VERSION)/doc/specs
 	cp -av specs/draft-morgan-pam-current.txt \
 		$(top_builddir)/Linux-PAM-$(VERSION)/doc/specs/
-	cp -av specs/rfc86.0.txt \
+	cp -av $(srcdir)/specs/rfc86.0.txt \
 		$(top_builddir)/Linux-PAM-$(VERSION)/doc/specs/
 	make -C sag releasedocs
 	make -C adg releasedocs

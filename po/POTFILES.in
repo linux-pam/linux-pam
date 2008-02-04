@@ -64,6 +64,7 @@
 ./modules/pam_securetty/pam_securetty.c
 ./modules/pam_selinux/pam_selinux.c
 ./modules/pam_selinux/pam_selinux_check.c
+./modules/pam_sepermit/pam_sepermit.c
 ./modules/pam_shells/pam_shells.c
 ./modules/pam_stress/pam_stress.c
 ./modules/pam_succeed_if/pam_succeed_if.c

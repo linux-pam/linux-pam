@@ -2,6 +2,8 @@
 
 	* libpam/pam_static_modules.h: Add _pam_sepermit_modstruct.
 	* modules/pam_sepermit/pam_sepermit.c: Fix typo.
+	* modules/pam_sepermit/Makefile.am: Install config file only
+	if we build the module.
 
 	* README: Add --disable-pie to configure options for static library.
 
@@ -10,6 +12,10 @@
 	* libpam/Makefile.am: Bump version number of libpam.
 
 	* modules/Makefile.am: Add pam_sepermit.
+
+	* doc/Makefile.am: Fix build out of source directory.
+
+	* po/POTFILES.in: Add pam_sepermit.c.
 
 2008-02-01  Tomas Mraz  <t8m@centrum.cz>
 

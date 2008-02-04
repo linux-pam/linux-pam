@@ -17,7 +17,7 @@ XMLS = README.xml pam_sepermit.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
-sepermitlockdir = /var/run/sepermit
+sepermitlockdir = ${localstatedir}/run/sepermit
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	-I$(top_srcdir)/libpam_misc/include \
@@ -30,10 +30,10 @@ if HAVE_VERSIONING
   pam_sepermit_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
-secureconf_DATA = sepermit.conf
-sepermitlock_DATA =
-
 if HAVE_LIBSELINUX
+  secureconf_DATA = sepermit.conf
+  sepermitlock_DATA =
+
   securelib_LTLIBRARIES = pam_sepermit.la
 endif
 if ENABLE_REGENERATE_MAN
