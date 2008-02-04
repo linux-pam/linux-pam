@@ -7,6 +7,10 @@
 
 	* doc/man/Makefile.am: Fix building outside of src directory.
 
+	* libpam/Makefile.am: Bump version number of libpam.
+
+	* modules/Makefile.am: Add pam_sepermit.
+
 2008-02-01  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_namespace/namespace.conf.5.xml: Add documentation for
