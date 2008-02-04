@@ -17,6 +17,11 @@
 
 	* po/POTFILES.in: Add pam_sepermit.c.
 
+	* modules/pam_exec/pam_exec.c: Set PAM environment variables and
+	add 'quiet' option.
+	* modules/pam_exec/pam_exec.8.xml: Document new behavior.
+	Patch from Julien Lecomte <julien@lecomte.at>.
+
 2008-02-01  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_namespace/namespace.conf.5.xml: Add documentation for

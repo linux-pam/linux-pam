@@ -25,6 +25,9 @@
         seteuid
       </arg>
       <arg choice="opt">
+        quiet
+      </arg>
+      <arg choice="opt">
         log=<replaceable>file</replaceable>
       </arg>
       <arg choice="plain">
@@ -43,6 +46,18 @@
     <para>
       pam_exec is a PAM module that can be used to run
       an external command.
+    </para>
+
+    <para>
+     The child's environment is set to the current PAM environment list, as
+     returned by
+     <citerefentry>
+        <refentrytitle>pam_getenvlist</refentrytitle><manvolnum>3</manvolnum>
+     </citerefentry>
+     In addition, the following PAM items are
+     exported as environment variables: <emphasis>PAM_RHOST</emphasis>,
+     <emphasis>PAM_RUSER</emphasis>, <emphasis>PAM_SERVICE</emphasis>,
+     <emphasis>PAM_TTY</emphasis>, and <emphasis>PAM_USER</emphasis>.
     </para>
 
   </refsect1>
@@ -75,6 +90,19 @@
             </para>
           </listitem>
 	</varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>quiet</option>
+          </term>
+          <listitem>
+            <para>
+  	      Per default pam_exec.so will echo the exit status of the
+     	      external command if it fails.
+              Specifying this option will suppress the message.
+            </para>
+          </listitem>
+        </varlistentry>
 
         <varlistentry>
           <term>

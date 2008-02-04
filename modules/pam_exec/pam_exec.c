@@ -59,11 +59,24 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
+#define ENV_ITEM(n) { (n), #n }
+static struct {
+  int item;
+  const char *name;
+} env_items[] = {
+  ENV_ITEM(PAM_SERVICE),
+  ENV_ITEM(PAM_USER),
+  ENV_ITEM(PAM_TTY),
+  ENV_ITEM(PAM_RHOST),
+  ENV_ITEM(PAM_RUSER),
+};
+
 static int
 call_exec (pam_handle_t *pamh, int argc, const char **argv)
 {
   int debug = 0;
   int call_setuid = 0;
+  int quiet = 0;
   int optargc;
   const char *logfile = NULL;
   pid_t pid;
@@ -85,6 +98,8 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
 	logfile = &argv[optargc][4];
       else if (strcasecmp (argv[optargc], "seteuid") == 0)
 	call_setuid = 1;
+      else if (strcasecmp (argv[optargc], "quiet") == 0)
+	quiet = 1;
       else
 	break; /* Unknown option, assume program to execute. */
     }
@@ -115,6 +130,7 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
 	    {
 	      pam_syslog (pamh, LOG_ERR, "%s failed: exit code %d",
 			  argv[optargc], WEXITSTATUS(status));
+		if (!quiet)
 	      pam_error (pamh, _("%s failed: exit code %d"),
 			 argv[optargc], WEXITSTATUS(status));
 	    }
@@ -123,6 +139,7 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
 	      pam_syslog (pamh, LOG_ERR, "%s failed: caught signal %d%s",
 			  argv[optargc], WTERMSIG(status),
 			  WCOREDUMP(status) ? " (core dumped)" : "");
+		if (!quiet)
 	      pam_error (pamh, _("%s failed: caught signal %d%s"),
 			 argv[optargc], WTERMSIG(status),
 			 WCOREDUMP(status) ? " (core dumped)" : "");
@@ -131,6 +148,7 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
 	    {
 	      pam_syslog (pamh, LOG_ERR, "%s failed: unknown status 0x%x",
 			  argv[optargc], status);
+		if (!quiet)
 	      pam_error (pamh, _("%s failed: unknown status 0x%x"),
 			 argv[optargc], status);
 	    }
@@ -211,19 +229,58 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
 	arggv[i] = strdup(argv[i+optargc]);
       arggv[i] = NULL;
 
+      char **envlist, **tmp;
+      int envlen, nitems;
+
+      /*
+       * Set up the child's environment list.  It consists of the PAM
+       * environment, plus a few hand-picked PAM items.
+       */
+      envlist = pam_getenvlist(pamh);
+      for (envlen = 0; envlist[envlen] != NULL; ++envlen)
+        /* nothing */ ;
+      nitems = sizeof(env_items) / sizeof(*env_items);
+      tmp = realloc(envlist, (envlen + nitems + 1) * sizeof(*envlist));
+      if (tmp == NULL)
+      {
+        free(envlist);
+        pam_syslog (pamh, LOG_ERR, "realloc environment failed : %m");
+        exit (ENOMEM); 
+      }
+      envlist = tmp;
+      for (i = 0; i < nitems; ++i)
+      {
+        const void *item;
+        char *envstr;
+
+        if (pam_get_item(pamh, env_items[i].item, &item) != PAM_SUCCESS || item == NULL)
+          continue;
+        asprintf(&envstr, "%s=%s", env_items[i].name, (const char *)item);
+        if (envstr == NULL)
+        {
+          free(envlist);
+          pam_syslog (pamh, LOG_ERR, "prepare environment failed : %m");
+          exit (ENOMEM);
+        }
+        envlist[envlen++] = envstr;
+        envlist[envlen] = NULL;
+      }
+
       if (debug)
 	pam_syslog (pamh, LOG_DEBUG, "Calling %s ...", arggv[0]);
 
-      if (execv (arggv[0], arggv) == -1)
+      if (execve (arggv[0], arggv, envlist) == -1)
 	{
 	  int err = errno;
-	  pam_syslog (pamh, LOG_ERR, "execv(%s,...) failed: %m",
+	  pam_syslog (pamh, LOG_ERR, "execve(%s,...) failed: %m",
 		      arggv[0]);
+          free(envlist);
 	  exit (err);
 	}
+      free(envlist);
       exit (1); /* should never be reached. */
     }
-  return PAM_SYSTEM_ERR;
+  return PAM_SYSTEM_ERR; /* will never be reached. */
 }
 
 PAM_EXTERN int
