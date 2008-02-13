@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-01-07 15:09+0100\n"
+"POT-Creation-Date: 2008-02-04 16:29+0100\n"
 "PO-Revision-Date: 2006-05-03 22:00+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -28,7 +28,7 @@ msgstr "...時間切れです。\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "誤った会話(%d)\n"
 
-#: libpam/pam_item.c:297
+#: libpam/pam_item.c:298
 msgid "login:"
 msgstr "ログイン::"
 
@@ -211,12 +211,12 @@ msgid "has been already used"
 msgstr "パスワードはすでに使用されています。"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:978
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "No password supplied"
 msgstr "パスワードが与えられていません"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:978
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "Password unchanged"
 msgstr "パスワードが変更されていません"
 
@@ -226,17 +226,17 @@ msgstr "パスワードが変更されていません"
 msgid "BAD PASSWORD: %s"
 msgstr "よくないパスワード: %s"
 
-#: modules/pam_exec/pam_exec.c:118
+#: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:126
+#: modules/pam_exec/pam_exec.c:143
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:134
+#: modules/pam_exec/pam_exec.c:152
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
@@ -463,29 +463,28 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: すべてのユーザを非ゼロにリセットできません\n"
 
-#: modules/pam_unix/pam_unix_acct.c:275 modules/pam_unix/pam_unix_acct.c:302
+#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "アカウントの有効期限が切れました。システム管理者にお問い合わせください。"
 
-#: modules/pam_unix/pam_unix_acct.c:284
+#: modules/pam_unix/pam_unix_acct.c:237
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "パスワードを直ちに変更する必要があります(強制されたルート)"
 
-#: modules/pam_unix/pam_unix_acct.c:311
+#: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (password aged)"
 msgstr "パスワードを直ちに変更する必要があります(古いパスワード)"
 
-#: modules/pam_unix/pam_unix_acct.c:324 modules/pam_unix/pam_unix_acct.c:331
+#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
 msgstr[0] "警告: パスワードは%d日で有効期限が切れます。%.2s"
 msgstr[1] "警告: パスワードは%d日で有効期限が切れます。%.2s"
 
-#. TRANSLATORS: only used if dngettext is not support
-#. ed
-#: modules/pam_unix/pam_unix_acct.c:337
+#. TRANSLATORS: only used if dngettext is not supported
+#: modules/pam_unix/pam_unix_acct.c:273
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "警告: パスワードは%d日で有効期限が切れます。%.2s"
@@ -494,37 +493,37 @@ msgstr "警告: パスワードは%d日で有効期限が切れます。%.2s"
 msgid "Password: "
 msgstr "パスワード:"
 
-#: modules/pam_unix/pam_unix_passwd.c:822
+#: modules/pam_unix/pam_unix_passwd.c:366
 msgid "NIS password could not be changed."
 msgstr "NISパスワードを変更できませんでした。"
 
-#: modules/pam_unix/pam_unix_passwd.c:999
+#: modules/pam_unix/pam_unix_passwd.c:477
 msgid "You must choose a longer password"
 msgstr "長いパスワードを選択する必要があります"
 
-#: modules/pam_unix/pam_unix_passwd.c:1004
+#: modules/pam_unix/pam_unix_passwd.c:482
 msgid "Password has been already used. Choose another."
 msgstr ""
 "パスワードはすでに使用されています。 別のパスワードを選択してください。"
 
-#: modules/pam_unix/pam_unix_passwd.c:1104
+#: modules/pam_unix/pam_unix_passwd.c:583
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "STRESSパスワードの変更元"
 
-#: modules/pam_unix/pam_unix_passwd.c:1115
+#: modules/pam_unix/pam_unix_passwd.c:594
 msgid "(current) UNIX password: "
 msgstr "現在のUNIXパスワード:"
 
-#: modules/pam_unix/pam_unix_passwd.c:1150
+#: modules/pam_unix/pam_unix_passwd.c:629
 msgid "You must wait longer to change your password"
 msgstr "パスワードを変更するには長く待つ必要があります"
 
-#: modules/pam_unix/pam_unix_passwd.c:1210
+#: modules/pam_unix/pam_unix_passwd.c:689
 msgid "Enter new UNIX password: "
 msgstr "新しいUNIXパスワードを入力してください:"
 
-#: modules/pam_unix/pam_unix_passwd.c:1211
+#: modules/pam_unix/pam_unix_passwd.c:690
 msgid "Retype new UNIX password: "
 msgstr "新しいUNIX パスワードを再入力してください:"
 

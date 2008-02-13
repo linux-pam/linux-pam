@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-01-07 15:09+0100\n"
-"PO-Revision-Date: 2008-01-07 14:59+01:00\n"
+"POT-Creation-Date: 2008-02-04 16:29+0100\n"
+"PO-Revision-Date: 2008-02-06 15:19+01:00\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "...Ihre Zeit ist abgelaufen.\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "fehlerhafte Kommunikation (%d)\n"
 
-#: libpam/pam_item.c:297
+#: libpam/pam_item.c:298
 msgid "login:"
 msgstr "login:"
 
@@ -216,12 +216,12 @@ msgid "has been already used"
 msgstr "es wurde bereits verwendet"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:978
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "No password supplied"
 msgstr "Kein Passwort angegeben"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:978
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "Password unchanged"
 msgstr "Passwort nicht geändert"
 
@@ -231,17 +231,17 @@ msgstr "Passwort nicht geändert"
 msgid "BAD PASSWORD: %s"
 msgstr "Schlechtes Passwort: %s"
 
-#: modules/pam_exec/pam_exec.c:118
+#: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s schlug fehl: Fehlercode %d"
 
-#: modules/pam_exec/pam_exec.c:126
+#: modules/pam_exec/pam_exec.c:143
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s schlug fehl: Signal %d%s erhalten"
 
-#: modules/pam_exec/pam_exec.c:134
+#: modules/pam_exec/pam_exec.c:152
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s schlug fehl: Unbekannter Status 0x%x"
@@ -326,7 +326,7 @@ msgstr "Verzeichnis %s kann nicht erstellt werden: %m"
 
 #: modules/pam_selinux/pam_selinux.c:94
 msgid "Error connecting to audit system."
-msgstr ""
+msgstr "Fehler beim Zugriff auf das Audit-Subsystem."
 
 #: modules/pam_selinux/pam_selinux.c:98
 msgid "Error translating default context."
@@ -338,7 +338,7 @@ msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:113
 msgid "Error sending audit message."
-msgstr ""
+msgstr "Fehler beim Schreiben einer Audit-Meldung."
 
 #: modules/pam_selinux/pam_selinux.c:164
 msgid "Would you like to enter a security context? [N] "
@@ -464,28 +464,27 @@ msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 "%s: Es können nicht alle Benutzer auf Nicht-null zurückgesetzt werden\n"
 
-#: modules/pam_unix/pam_unix_acct.c:275 modules/pam_unix/pam_unix_acct.c:302
+#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Ihr Konto ist abgelaufen. Wenden Sie sich an den Systemadministrator"
 
-#: modules/pam_unix/pam_unix_acct.c:284
+#: modules/pam_unix/pam_unix_acct.c:237
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Sie müssen Ihr Passwort sofort ändern (von Root erzwungen)."
 
-#: modules/pam_unix/pam_unix_acct.c:311
+#: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Sie müssen Ihr Passwort sofort ändern (Passwortablauf)."
 
-#: modules/pam_unix/pam_unix_acct.c:324 modules/pam_unix/pam_unix_acct.c:331
+#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
 msgstr[0] "Warnung: Ihr Passwort läuft in %d Tag ab."
 msgstr[1] "Warnung: Ihr Passwort läuft in %d Tagen ab."
 
-#. TRANSLATORS: only used if dngettext is not support
-#. ed
-#: modules/pam_unix/pam_unix_acct.c:337
+#. TRANSLATORS: only used if dngettext is not supported
+#: modules/pam_unix/pam_unix_acct.c:273
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Warnung: Ihr Passwort läuft in %d Tagen ab."
@@ -494,36 +493,36 @@ msgstr "Warnung: Ihr Passwort läuft in %d Tagen ab."
 msgid "Password: "
 msgstr "Passwort: "
 
-#: modules/pam_unix/pam_unix_passwd.c:822
+#: modules/pam_unix/pam_unix_passwd.c:366
 msgid "NIS password could not be changed."
 msgstr "Änderung des NIS-Passworts nicht möglich."
 
-#: modules/pam_unix/pam_unix_passwd.c:999
+#: modules/pam_unix/pam_unix_passwd.c:477
 msgid "You must choose a longer password"
 msgstr "Sie müssen ein längeres Passwort auswählen."
 
-#: modules/pam_unix/pam_unix_passwd.c:1004
+#: modules/pam_unix/pam_unix_passwd.c:482
 msgid "Password has been already used. Choose another."
 msgstr "Passwort wurde bereits verwendet. Wählen Sie ein anderes aus."
 
-#: modules/pam_unix/pam_unix_passwd.c:1104
+#: modules/pam_unix/pam_unix_passwd.c:583
 #, c-format
 msgid "Changing password for %s."
 msgstr "Ändern des Passworts für %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:1115
+#: modules/pam_unix/pam_unix_passwd.c:594
 msgid "(current) UNIX password: "
 msgstr "(aktuelles) UNIX Passwort: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1150
+#: modules/pam_unix/pam_unix_passwd.c:629
 msgid "You must wait longer to change your password"
 msgstr "Sie können Ihr Passwort noch nicht ändern"
 
-#: modules/pam_unix/pam_unix_passwd.c:1210
+#: modules/pam_unix/pam_unix_passwd.c:689
 msgid "Enter new UNIX password: "
 msgstr "Geben Sie ein neues UNIX Passwort ein: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1211
+#: modules/pam_unix/pam_unix_passwd.c:690
 msgid "Retype new UNIX password: "
 msgstr "Geben Sie das neue UNIX Passwort erneut ein: "
 

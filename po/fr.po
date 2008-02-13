@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-01-07 15:09+0100\n"
+"POT-Creation-Date: 2008-02-04 16:29+0100\n"
 "PO-Revision-Date: 2006-05-04 08:29+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -28,7 +28,7 @@ msgstr "...Votre temps est épuisé !\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "erreurs de conversation (%d)\n"
 
-#: libpam/pam_item.c:297
+#: libpam/pam_item.c:298
 msgid "login:"
 msgstr "login : "
 
@@ -219,12 +219,12 @@ msgid "has been already used"
 msgstr "a déjà été utilisé"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:978
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "No password supplied"
 msgstr "Aucun mot de passe fourni"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:978
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "Password unchanged"
 msgstr "Mot de passe inchangé"
 
@@ -234,17 +234,17 @@ msgstr "Mot de passe inchangé"
 msgid "BAD PASSWORD: %s"
 msgstr "MOT DE PASSE INCORRECT : %s"
 
-#: modules/pam_exec/pam_exec.c:118
+#: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:126
+#: modules/pam_exec/pam_exec.c:143
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:134
+#: modules/pam_exec/pam_exec.c:152
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
@@ -471,29 +471,28 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Impossible de réinitialiser tous les utilisateurs à non-zéro\n"
 
-#: modules/pam_unix/pam_unix_acct.c:275 modules/pam_unix/pam_unix_acct.c:302
+#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Votre compte a expiré. Contactez votre administrateur système"
 
-#: modules/pam_unix/pam_unix_acct.c:284
+#: modules/pam_unix/pam_unix_acct.c:237
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Vous devez changer votre mot de passe immédiatement (imposé par root)"
 
-#: modules/pam_unix/pam_unix_acct.c:311
+#: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "Vous devez changer votre mot de passe immédiatement (mot de passe périmé)"
 
-#: modules/pam_unix/pam_unix_acct.c:324 modules/pam_unix/pam_unix_acct.c:331
+#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
 msgstr[0] "Avertissement : votre mot de passe expire dans %d jour%.2s"
 msgstr[1] "Avertissement : votre mot de passe expire dans %d jour%.2s"
 
-#. TRANSLATORS: only used if dngettext is not support
-#. ed
-#: modules/pam_unix/pam_unix_acct.c:337
+#. TRANSLATORS: only used if dngettext is not supported
+#: modules/pam_unix/pam_unix_acct.c:273
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Avertissement : votre mot de passe expire dans %d jour%.2s"
@@ -502,36 +501,36 @@ msgstr "Avertissement : votre mot de passe expire dans %d jour%.2s"
 msgid "Password: "
 msgstr "Mot de passe : "
 
-#: modules/pam_unix/pam_unix_passwd.c:822
+#: modules/pam_unix/pam_unix_passwd.c:366
 msgid "NIS password could not be changed."
 msgstr "Le mot de passe NIS n'a pas pu être changé."
 
-#: modules/pam_unix/pam_unix_passwd.c:999
+#: modules/pam_unix/pam_unix_passwd.c:477
 msgid "You must choose a longer password"
 msgstr "Vous devez choisir un mot de passe plus long"
 
-#: modules/pam_unix/pam_unix_passwd.c:1004
+#: modules/pam_unix/pam_unix_passwd.c:482
 msgid "Password has been already used. Choose another."
 msgstr "Mot de passe déjà utilisé. Choisissez-en un autre."
 
-#: modules/pam_unix/pam_unix_passwd.c:1104
+#: modules/pam_unix/pam_unix_passwd.c:583
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "Changement du mot de passe STRESS pour "
 
-#: modules/pam_unix/pam_unix_passwd.c:1115
+#: modules/pam_unix/pam_unix_passwd.c:594
 msgid "(current) UNIX password: "
 msgstr "Mot de passe UNIX (actuel) : "
 
-#: modules/pam_unix/pam_unix_passwd.c:1150
+#: modules/pam_unix/pam_unix_passwd.c:629
 msgid "You must wait longer to change your password"
 msgstr "Vous devez encore attendre avant de changer votre mot de passe"
 
-#: modules/pam_unix/pam_unix_passwd.c:1210
+#: modules/pam_unix/pam_unix_passwd.c:689
 msgid "Enter new UNIX password: "
 msgstr "Entrez le nouveau mot de passe UNIX : "
 
-#: modules/pam_unix/pam_unix_passwd.c:1211
+#: modules/pam_unix/pam_unix_passwd.c:690
 msgid "Retype new UNIX password: "
 msgstr "Retapez le nouveau mot de passe UNIX : "
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-01-07 15:09+0100\n"
+"POT-Creation-Date: 2008-02-04 16:29+0100\n"
 "PO-Revision-Date: 2007-02-22 20:57+0100\n"
 "Last-Translator: Anna <blabla@blabla.es>\n"
 "Language-Team: Catalan\n"
@@ -30,7 +30,7 @@ msgstr "...S'ha acabat el temps.\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "conversa errònia (%d)\n"
 
-#: libpam/pam_item.c:297
+#: libpam/pam_item.c:298
 msgid "login:"
 msgstr "entrada:"
 
@@ -214,12 +214,12 @@ msgid "has been already used"
 msgstr "ja s'ha fet servir"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:978
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "No password supplied"
 msgstr "No s'ha proporcionat cap contrasenya"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:978
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "Password unchanged"
 msgstr "No s'ha canviat la contrasenya"
 
@@ -229,17 +229,17 @@ msgstr "No s'ha canviat la contrasenya"
 msgid "BAD PASSWORD: %s"
 msgstr "CONTRASENYA INCORRECTA: %s"
 
-#: modules/pam_exec/pam_exec.c:118
+#: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:126
+#: modules/pam_exec/pam_exec.c:143
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:134
+#: modules/pam_exec/pam_exec.c:152
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
@@ -467,29 +467,28 @@ msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 "%s: no es poden restablir tots els usuaris a un valor diferent de zero\n"
 
-#: modules/pam_unix/pam_unix_acct.c:275 modules/pam_unix/pam_unix_acct.c:302
+#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
 msgid "Your account has expired; please contact your system administrator"
 msgstr "El vostre compte ha caducat. Contacteu amb l'administrador del sistema"
 
-#: modules/pam_unix/pam_unix_acct.c:284
+#: modules/pam_unix/pam_unix_acct.c:237
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 "Heu de canviar la contrasenya immediatament (us hi obliga l'usuari primari)"
 
-#: modules/pam_unix/pam_unix_acct.c:311
+#: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Heu de canviar la contrasenya immediatament (la contrasenya és antiga)"
 
-#: modules/pam_unix/pam_unix_acct.c:324 modules/pam_unix/pam_unix_acct.c:331
+#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
 msgstr[0] "Atenció: la contrasenya venç d'aquí a %d dia%.2s"
 msgstr[1] "Atenció: la contrasenya venç d'aquí a %d dia%.2s"
 
-#. TRANSLATORS: only used if dngettext is not support
-#. ed
-#: modules/pam_unix/pam_unix_acct.c:337
+#. TRANSLATORS: only used if dngettext is not supported
+#: modules/pam_unix/pam_unix_acct.c:273
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Atenció: la contrasenya venç d'aquí a %d dia%.2s"
@@ -498,36 +497,36 @@ msgstr "Atenció: la contrasenya venç d'aquí a %d dia%.2s"
 msgid "Password: "
 msgstr "Contrasenya: "
 
-#: modules/pam_unix/pam_unix_passwd.c:822
+#: modules/pam_unix/pam_unix_passwd.c:366
 msgid "NIS password could not be changed."
 msgstr "No s'ha pogut canviar la contrasenya NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:999
+#: modules/pam_unix/pam_unix_passwd.c:477
 msgid "You must choose a longer password"
 msgstr "Heu de triar una contrasenya més llarga"
 
-#: modules/pam_unix/pam_unix_passwd.c:1004
+#: modules/pam_unix/pam_unix_passwd.c:482
 msgid "Password has been already used. Choose another."
 msgstr "Aquesta contrasenya ja s'ha fet servir. Trieu-ne una altra."
 
-#: modules/pam_unix/pam_unix_passwd.c:1104
+#: modules/pam_unix/pam_unix_passwd.c:583
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "S'està canviant la contrasenya d'STRESS per a "
 
-#: modules/pam_unix/pam_unix_passwd.c:1115
+#: modules/pam_unix/pam_unix_passwd.c:594
 msgid "(current) UNIX password: "
 msgstr "contrasenya (actual) d'UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1150
+#: modules/pam_unix/pam_unix_passwd.c:629
 msgid "You must wait longer to change your password"
 msgstr "Heu d'esperar més temps abans de canviar la contrasenya"
 
-#: modules/pam_unix/pam_unix_passwd.c:1210
+#: modules/pam_unix/pam_unix_passwd.c:689
 msgid "Enter new UNIX password: "
 msgstr "Introduïu la nova contrasenya d'UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:1211
+#: modules/pam_unix/pam_unix_passwd.c:690
 msgid "Retype new UNIX password: "
 msgstr "Torneu a escriure la nova contrasenya d'UNIX: "
 

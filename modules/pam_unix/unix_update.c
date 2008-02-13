@@ -26,13 +26,6 @@
 #include <signal.h>
 #include <time.h>
 #include <sys/time.h>
-#ifdef WITH_SELINUX
-#include <selinux/selinux.h>
-#define SELINUX_ENABLED (selinux_enabled!=-1 ? selinux_enabled : (selinux_enabled=is_selinux_enabled()>0))
-static int selinux_enabled=-1;
-#else
-#define SELINUX_ENABLED 0
-#endif
 
 #include <security/_pam_types.h>
 #include <security/_pam_macros.h>
@@ -71,13 +64,13 @@ set_password(const char *forwho, const char *shadow, const char *remember)
     	return PAM_AUTHTOK_LOCK_BUSY;
 
     pwd = getpwnam(forwho);
-    
+
     if (pwd == NULL) {
         retval = PAM_USER_UNKNOWN;
         goto done;
     }
 
-    /* does pass agree with the official one? 
+    /* does pass agree with the official one?
        we always allow change from null pass */
     retval = helper_verify_password(forwho, pass, 1);
     if (retval != PAM_SUCCESS) {
@@ -146,7 +139,7 @@ int main(int argc, char *argv[])
 	if (geteuid() != 0) {
 	    return PAM_CRED_INSUFFICIENT;
 	}
-	
+
 	option = argv[2];
 
 	if (strcmp(option, "update") == 0) {

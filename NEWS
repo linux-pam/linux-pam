@@ -1,5 +1,7 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 0.99.10.0
+
 * New substack directive in config file syntax.
 * New module pam_tty_audit.so for enabling and disabling tty
   auditing.
@@ -12,16 +14,22 @@ Linux-PAM NEWS -- history of user-visible changes.
   SELinux mode.
 * Improved functionality of pam_namespace.so module (method flags,
   namespace.d configuration directory, new options).
+* Finaly removed deprecated pam_rhosts_auth module.
+
 
 Release 0.99.9.0
+
 * misc_conv no longer blocks SIGINT; applications that don't want
   user-interruptable prompts should block SIGINT themselves
 * Merge fixes from Debian
 * Fix parser for pam_group and pam_time
 
+
 Release 0.99.8.1
+
 * Fix a regression in audit code introduced with last release
 * Fix compiling with --disable-nls
+
 
 Release 0.99.8.0
 

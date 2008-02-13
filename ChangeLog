@@ -1,3 +1,12 @@
+2008-02-13  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_rhosts/Makefile.am: Remove pam_rhosts_auth.
+	* modules/pam_rhosts/pam_rhosts_auth.c: Removed.
+	* modules/pam_rhosts/tst-pam_rhosts_auth: Removed.
+
+	* modules/pam_namespace/Makefile.am (noinst_HEADERS): Add
+	pam_namespace.h.
+
 2008-02-13  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_namespace/Makefile.am: Add argv_parse files and namespace.d
@@ -38,6 +47,14 @@
 	(pam_sm_open_session): Check for use_current_context and
 	use_default_context options. Call get_user_data().
 	(pam_sm_close_session): Call get_user_data().
+
+2008-02-06  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* po/de.po: Translate some more strings.
+
+2008-02-05  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/unix_update.c: Remove unused declarations.
 
 2008-02-04  Thorsten Kukuk  <kukuk@thkukuk.de>
 

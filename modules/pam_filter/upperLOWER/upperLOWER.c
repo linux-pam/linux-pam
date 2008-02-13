@@ -7,6 +7,7 @@
 
 #include "config.h"
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <syslog.h>
@@ -15,13 +16,9 @@
 #include <unistd.h>
 
 #include "pam_filter.h"
-#include <security/pam_modules.h>
-#include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
 
 /* ---------------------------------------------------------------- */
-
-#include <ctype.h>
 
 static void do_transpose(char *buffer,int len)
 {

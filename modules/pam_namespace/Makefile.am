@@ -15,7 +15,7 @@ endif
 
 EXTRA_DIST = README namespace.conf namespace.init $(MAN5) $(MAN8) $(XMLS) tst-pam_namespace
 
-noinst_HEADERS = md5.h argv_parse.h
+noinst_HEADERS = md5.h pam_namespace.h argv_parse.h
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

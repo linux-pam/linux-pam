@@ -1,12 +1,12 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006, 2008 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
 
-EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_rhosts_auth tst-pam_rhosts
+EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_rhosts
 
-TESTS = tst-pam_rhosts_auth tst-pam_rhosts
+TESTS = tst-pam_rhosts
 
 man_MANS = pam_rhosts.8
 
@@ -21,8 +21,7 @@ if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
-securelib_LTLIBRARIES = pam_rhosts_auth.la pam_rhosts.la
-pam_rhosts_auth_la_LIBADD = -L$(top_builddir)/libpam -lpam
+securelib_LTLIBRARIES = pam_rhosts.la
 pam_rhosts_la_LIBADD = -L$(top_builddir)/libpam -lpam
 
 if ENABLE_REGENERATE_MAN
