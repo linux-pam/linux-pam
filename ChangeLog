@@ -1,5 +1,9 @@
 2008-02-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* release version 0.99.10.0
+
+	* configure.in: set version number.
+
 	* modules/pam_rhosts/Makefile.am: Remove pam_rhosts_auth.
 	* modules/pam_rhosts/pam_rhosts_auth.c: Removed.
 	* modules/pam_rhosts/tst-pam_rhosts_auth: Removed.
