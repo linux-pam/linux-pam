@@ -46,6 +46,12 @@
       <arg choice="opt">
         no_unmount_on_close
       </arg>
+      <arg choice="opt">
+        use_current_context
+      </arg>
+      <arg choice="opt">
+        use_default_context
+      </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -200,13 +206,42 @@
         </listitem>
       </varlistentry>
 
+      <varlistentry>
+        <term>
+          <option>use_current_context</option>
+        </term>
+        <listitem>
+          <para>
+	    Useful for services which do not change the SELinux context
+	    with setexeccon call. The module will use the current SELinux
+	    context of the calling process for the level and context
+	    polyinstantiation.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>use_default_context</option>
+        </term>
+        <listitem>
+          <para>
+	    Useful for services which do not use pam_selinux for changing
+	    the SELinux context with setexeccon call. The module will use
+	    the default SELinux context of the user for the level and context
+	    polyinstantiation.
+          </para>
+        </listitem>
+      </varlistentry>
+
     </variablelist>
   </refsect1>
 
   <refsect1 id="pam_namespace-services">
     <title>MODULE SERVICES PROVIDED</title>
     <para>
-      The <option>session</option> service is supported.
+      The <option>session</option> service is supported. The module must not
+      be called from multithreaded processes.
     </para>
   </refsect1>
 
@@ -246,7 +281,21 @@
       <varlistentry>
         <term><filename>/etc/security/namespace.conf</filename></term>
         <listitem>
-          <para>Configuration file</para>
+          <para>Main configuration file</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>/etc/security/namespace.d</filename></term>
+        <listitem>
+          <para>Directory for additional configuration files</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>/etc/security/namespace.init</filename></term>
+        <listitem>
+          <para>Init script for instance directories</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -332,7 +381,10 @@
     <para>
       The namespace setup scheme was designed by Stephen Smalley, Janak Desai
       and Chad Sellers.
-      The pam_namespace PAM module was developed by Janak Desai &lt;janak@us.ibm.com&gt;, Chad Sellers &lt;csellers@tresys.com&gt; and Steve Grubb &lt;sgrubb@redhat.com&gt;.
+      The pam_namespace PAM module was developed by Janak Desai &lt;janak@us.ibm.com&gt;,
+      Chad Sellers &lt;csellers@tresys.com&gt; and Steve Grubb &lt;sgrubb@redhat.com&gt;.
+      Additional improvements by Xavier Toth &lt;txtoth@gmail.com&gt; and Tomas Mraz
+      &lt;tmraz@redhat.com&gt;.
     </para>
   </refsect1>
 </refentry>

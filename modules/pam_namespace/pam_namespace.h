@@ -47,6 +47,7 @@
 #include <dlfcn.h>
 #include <stdarg.h>
 #include <pwd.h>
+#include <grp.h>
 #include <limits.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -56,6 +57,8 @@
 #include <libgen.h>
 #include <fcntl.h>
 #include <sched.h>
+#include <glob.h>
+#include <locale.h>
 #include "security/pam_modules.h"
 #include "security/pam_modutil.h"
 #include "security/pam_ext.h"
@@ -63,6 +66,7 @@
 
 #ifdef WITH_SELINUX
 #include <selinux/selinux.h>
+#include <selinux/get_context_list.h>
 #include <selinux/context.h>
 #endif
 
@@ -73,14 +77,16 @@
 /*
  * Module defines
  */
-#ifndef PAM_NAMESPACE_CONFIG
-#define PAM_NAMESPACE_CONFIG "/etc/security/namespace.conf"
+#ifndef SECURECONF_DIR
+#define SECURECONF_DIR "/etc/security/"
 #endif
 
-#ifndef NAMESPACE_INIT_SCRIPT
-#define NAMESPACE_INIT_SCRIPT "/etc/security/namespace.init"
-#endif
+#define PAM_NAMESPACE_CONFIG (SECURECONF_DIR "namespace.conf")
+#define NAMESPACE_INIT_SCRIPT (SECURECONF_DIR "namespace.init")
+#define NAMESPACE_D_DIR (SECURECONF_DIR "namespace.d/")
+#define NAMESPACE_D_GLOB (SECURECONF_DIR "namespace.d/*.conf")
 
+/* module flags */
 #define PAMNS_DEBUG           0x00000100 /* Running in debug mode */
 #define PAMNS_SELINUX_ENABLED 0x00000400 /* SELinux is enabled */
 #define PAMNS_CTXT_BASED_INST 0x00000800 /* Context based instance needed */
@@ -88,6 +94,16 @@
 #define PAMNS_IGN_CONFIG_ERR  0x00004000 /* Ignore format error in conf file */
 #define PAMNS_IGN_INST_PARENT_MODE  0x00008000 /* Ignore instance parent mode */
 #define PAMNS_NO_UNMOUNT_ON_CLOSE  0x00010000 /* no unmount at session close */
+#define PAMNS_USE_CURRENT_CONTEXT  0x00020000 /* use getcon instead of getexeccon */
+#define PAMNS_USE_DEFAULT_CONTEXT  0x00040000 /* use get_default_context instead of getexeccon */
+
+/* polydir flags */
+#define POLYDIR_EXCLUSIVE     0x00000001 /* polyinstatiate exclusively for override uids */
+#define POLYDIR_CREATE        0x00000002 /* create the polydir */
+#define POLYDIR_NOINIT        0x00000004 /* no init script */
+#define POLYDIR_SHARED        0x00000008 /* share context/level instances among users */
+#define POLYDIR_ISCRIPT       0x00000010 /* non default init script */
+
 
 #define NAMESPACE_MAX_DIR_LEN 80
 #define NAMESPACE_POLYDIR_DATA "pam_namespace:polydir_data"
@@ -127,11 +143,16 @@ enum unmnt_op {
  */
 struct polydir_s {
     char dir[PATH_MAX];    	       	/* directory to polyinstantiate */
+    char rdir[PATH_MAX];    	       	/* directory to unmount (based on RUSER) */
     char instance_prefix[PATH_MAX];	/* prefix for instance dir path name */
     enum polymethod method;		/* method used to polyinstantiate */
     unsigned int num_uids;		/* number of override uids */
     uid_t *uid;				/* list of override uids */
-    int exclusive;			/* polyinstatiate exclusively for override uids */
+    unsigned int flags;			/* polydir flags */
+    char *init_script;			/* path to init script */
+    uid_t owner;			/* user which should own the polydir */
+    gid_t group;			/* group which should own the polydir */
+    mode_t mode;			/* mode of the polydir */
     struct polydir_s *next;		/* pointer to the next polydir entry */
 };
 
@@ -139,6 +160,9 @@ struct instance_data {
     pam_handle_t *pamh;		/* The pam handle for this instance */
     struct polydir_s *polydirs_ptr; /* The linked list pointer */
     char user[LOGIN_NAME_MAX];	/* User name */
+    char ruser[LOGIN_NAME_MAX];	/* Requesting user name */
     uid_t uid;			/* The uid of the user */
-    unsigned long flags;		/* Flags for debug, selinux etc */
+    gid_t gid;			/* The gid of the user's primary group */
+    uid_t ruid;			/* The uid of the requesting user */
+    unsigned long flags;	/* Flags for debug, selinux etc */
 };

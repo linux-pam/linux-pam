@@ -20,8 +20,9 @@
     <title>DESCRIPTION</title>
 
     <para>
-      This module allows setup of private namespaces with polyinstantiated
-      directories. Directories can be polyinstantiated based on user name
+      The <emphasis>pam_namespace.so</emphasis> module allows setup of
+      private namespaces with polyinstantiated directories.
+      Directories can be polyinstantiated based on user name
       or, in the case of SELinux, user name, sensitivity level or complete security context.  If an
       executable script <filename>/etc/security/namespace.init</filename>
       exists, it is used to initialize the namespace every time a new instance
@@ -38,19 +39,23 @@
 
     <para>
       When someone logs in, the file <filename>namespace.conf</filename> is
-      scanned where each non comment line represents one polyinstantiated
-      directory with space separated fields as follows:
+      scanned. Comments are marked by <emphasis>#</emphasis> characters.
+      Each non comment line represents one polyinstantiated
+      directory. The fields are separated by spaces but can be quoted by
+      <emphasis>"</emphasis> characters also escape
+      sequences <emphasis>\b</emphasis>, <emphasis>\n</emphasis>, and
+      <emphasis>\t</emphasis> are recognized. The fields are as follows:
    </para>
 
-    <para>
-      <replaceable>polydir</replaceable> <replaceable> instance_prefix</replaceable> <replaceable> method</replaceable> <replaceable> list_of_uids</replaceable>
+    <para><replaceable>polydir</replaceable> <replaceable>instance_prefix</replaceable> <replaceable>method</replaceable> <replaceable>list_of_uids</replaceable>
     </para>
 
     <para>
       The first field, <replaceable>polydir</replaceable>, is the absolute
-      pathname of the directory to polyinstantiate. Special entry $HOME is
-      supported to designate user's home directory. This field cannot be
-      blank.
+      pathname of the directory to polyinstantiate. The special string
+      <emphasis>$HOME</emphasis> is replaced with the user's home directory,
+      and <emphasis>$USER</emphasis> with the username. This field cannot
+      be blank.
     </para>
 
     <para>
@@ -62,12 +67,9 @@
       instance directory path. This directory is created if it did not exist
       already, and is then bind mounted on the &lt;polydir&gt; to provide an
       instance of &lt;polydir&gt; based on the &lt;method&gt; column.
-      The special string $HOME is replaced with the user's home directory,
-      and $USER with the username. This field cannot be blank. 
-      The directory where polyinstantiated instances are to be
-      created, must exist and must have, by default, the mode of 000.  The
-      requirement that the instance parent be of mode 000 can be overridden
-      with the command line option <replaceable>ignore_instance_parent_mode</replaceable>
+      The special string <emphasis>$HOME</emphasis> is replaced with the
+      user's home directory, and <emphasis>$USER</emphasis> with the username.
+      This field cannot be blank.
     </para>
 
     <para>
@@ -92,6 +94,39 @@
     </para>
 
     <para>
+      The <replaceable>method</replaceable> field can contain also following
+      optional flags separated by <emphasis>:</emphasis> characters.
+    </para>
+    
+    <para><emphasis>create</emphasis>=<replaceable>mode</replaceable>,<replaceable>owner</replaceable>,<replaceable>group</replaceable>
+      - create the polyinstantiated directory. The mode, owner and group parameters
+      are optional. The default for mode is determined by umask, the default
+      owner is the user whose session is opened, the default group is the
+      primary group of the user.
+    </para>
+
+    <para><emphasis>iscript</emphasis>=<replaceable>path</replaceable>
+      - path to the instance directory init script. The base directory for relative
+      paths is <filename>/etc/security/namespace.d</filename>.
+    </para>
+
+    <para><emphasis>noinit</emphasis>
+      - instance directory init script will not be executed.
+    </para>
+
+    <para><emphasis>shared</emphasis>
+      - the instance directories for "context" and "level" methods will not
+      contain the user name and will be shared among all users.
+    </para>
+
+    <para>
+      The directory where polyinstantiated instances are to be
+      created, must exist and must have, by default, the mode of 0000.  The
+      requirement that the instance parent be of mode 0000 can be overridden
+      with the command line option <emphasis>ignore_instance_parent_mode</emphasis>
+    </para>
+
+    <para>
       In case of context or level polyinstantiation the SELinux context
       which is used for polyinstantiation is the context used for executing
       a new process as obtained by getexeccon. This context must be set
@@ -105,7 +140,7 @@
       method and &lt;user name&gt;_&lt;raw directory context&gt; for "context"
       and "level" methods. If the whole string is too long the end of it is
       replaced with md5sum of itself. Also when command line option
-      <replaceable>gen_hash</replaceable> is used the whole string is replaced
+      <emphasis>gen_hash</emphasis> is used the whole string is replaced
       with md5sum of itself.
     </para>
 
@@ -169,6 +204,7 @@
     <title>AUTHORS</title>
     <para>
       The namespace.conf manual page was written by Janak Desai &lt;janak@us.ibm.com&gt;.
+      More features added by Tomas Mraz &lt;tmraz@redhat.com&gt;.
     </para>
   </refsect1>
 </refentry>

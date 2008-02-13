@@ -15,13 +15,14 @@ endif
 
 EXTRA_DIST = README namespace.conf namespace.init $(MAN5) $(MAN8) $(XMLS) tst-pam_namespace
 
-noinst_HEADERS = md5.h
+noinst_HEADERS = md5.h argv_parse.h
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
+namespaceddir = $(SCONFIGDIR)/namespace.d
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-        -DPAM_NAMESPACE_CONFIG=\"$(SCONFIGDIR)/namespace.conf\"
+        -DSECURECONF_DIR=\"$(SCONFIGDIR)/\"
 AM_LDFLAGS =  -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
@@ -29,11 +30,13 @@ endif
 
 if HAVE_UNSHARE
 securelib_LTLIBRARIES = pam_namespace.la
-pam_namespace_la_SOURCES = pam_namespace.c pam_namespace.h md5.c md5.h
+pam_namespace_la_SOURCES = pam_namespace.c md5.c argv_parse.c
 pam_namespace_la_LIBADD = -L$(top_builddir)/libpam -lpam @LIBSELINUX@
 
 secureconf_DATA = namespace.conf
 secureconf_SCRIPTS = namespace.init
+namespaced_DATA =
+
 TESTS = tst-pam_namespace
 man_MANS = $(MAN5) $(MAN8)
 endif

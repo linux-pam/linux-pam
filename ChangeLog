@@ -1,3 +1,44 @@
+2008-02-13  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_namespace/Makefile.am: Add argv_parse files and namespace.d
+	dir.
+	* modules/pam_namespace/argv_parse.c: New file.
+	* modules/pam_namespace/argv_parse.h: New file.
+	* modules/pam_namespace/namespace.conf.5.xml: Document new features.
+	* modules/pam_namespace/pam_namespace.8.xml: Likewise.
+	* modules/pam_namespace/pam_namespace.h: Use SECURECONF_DIR define.
+	Define NAMESPACE_D_DIR and NAMESPACE_D_GLOB. Define new option flags
+	and polydir flags.
+	(polydir_s): Add rdir, replace exclusive with flags, add init_script,
+	owner, group, and mode.
+	(instance_data): Add ruser, gid, and ruid.
+	* modules/pam_namespace/pam_namespace.c: Remove now unused copy_ent().
+	(add_polydir_entry): Add the entry directly, no copy.
+	(del_polydir): New function.
+	(del_polydir_list): Call del_polydir().
+	(expand_variables, parse_create_params, parse_iscript_params,
+	parse_method): New functions.
+	(process_line): Call expand_variables() on polydir and instance prefix.
+	Call argv_parse() instead of strtok_r(). Allocate struct polydir_s on heap.
+	(parse_config_file): Parse .conf files from namespace.d dir after
+	namespace.conf.
+	(form_context): Call getcon() or get_default_context_with_level() when
+	appropriate flags are set.
+	(poly_name): Handle shared polydir flag.
+	(inst_init): Execute non-default init script when specified.
+	(create_polydir): New function.
+	(create_dirs): Remove the code which checks the polydir. Do not call
+	inst_init() when noinit flag is set.
+	(ns_setup): Check the polydir and eventually create it if the create flag
+	is set.
+	(setup_namespace): Use ruser uid from idata. Set the namespace polydir
+	pam data only when namespace was set up correctly. Unmount polydir
+	based on ruser.
+	(get_user_data): New function.
+	(pam_sm_open_session): Check for use_current_context and
+	use_default_context options. Call get_user_data().
+	(pam_sm_close_session): Call get_user_data().
+
 2008-02-04  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/pam_static_modules.h: Add _pam_sepermit_modstruct.
