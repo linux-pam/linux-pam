@@ -1,5 +1,13 @@
 2008-02-18  Dmitry V. Levin  <ldv@altlinux.org>
 
+	* libpam/pam_handlers.c (_pam_assemble_line): Fix potential
+	buffer overflow.
+	* xtests/tst-pam_assemble_line.pamd: New test for
+	_pam_assemble_line.
+	* xtests/tst-pam_assemble_line.sh: New script for
+	tst-pam_assemble_line.
+	* xtests/Makefile.am (NOSRCTESTS): Add tst-pam_assemble_line.
+
 	* modules/pam_exec/pam_exec.c (call_exec): Fix asprintf return
 	code check.
 

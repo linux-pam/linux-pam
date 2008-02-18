@@ -511,6 +511,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
 {
     char *p = buffer;
+    char *endp = buffer + buf_len;
     char *s, *os;
     int used = 0;
 
@@ -518,12 +519,12 @@ static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
 
     D(("called."));
     for (;;) {
-	if (used >= buf_len) {
+	if (p >= endp) {
 	    /* Overflow */
 	    D(("_pam_assemble_line: overflow"));
 	    return -1;
 	}
-	if (fgets(p, buf_len - used, f) == NULL) {
+	if (fgets(p, endp - p, f) == NULL) {
 	    if (used) {
 		/* Incomplete read */
 		return -1;

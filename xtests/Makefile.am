@@ -38,7 +38,7 @@ XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 	tst-pam_group1 tst-pam_authfail tst-pam_authsucceed
 
 NOSRCTESTS = tst-pam_substack1 tst-pam_substack2 tst-pam_substack3 \
-	tst-pam_substack4 tst-pam_substack5
+	tst-pam_substack4 tst-pam_substack5 tst-pam_assemble_line
 
 
 noinst_PROGRAMS = $(XTESTS)
