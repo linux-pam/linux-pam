@@ -28,7 +28,7 @@ EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 	tst-pam_substack3.pamd tst-pam_substack3a.pamd tst-pam_substack3.sh \
 	tst-pam_substack4.pamd tst-pam_substack4a.pamd tst-pam_substack4.sh \
 	tst-pam_substack5.pamd tst-pam_substack5a.pamd tst-pam_substack5.sh \
-	tst-pam_assemble_line.pamd tst-pam_assemble_line.sh
+	tst-pam_assemble_line1.pamd tst-pam_assemble_line1.sh
 
 XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 	tst-pam_dispatch4 tst-pam_dispatch5 \
@@ -39,7 +39,7 @@ XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 	tst-pam_group1 tst-pam_authfail tst-pam_authsucceed
 
 NOSRCTESTS = tst-pam_substack1 tst-pam_substack2 tst-pam_substack3 \
-	tst-pam_substack4 tst-pam_substack5 tst-pam_assemble_line
+	tst-pam_substack4 tst-pam_substack5 tst-pam_assemble_line1
 
 
 noinst_PROGRAMS = $(XTESTS)
