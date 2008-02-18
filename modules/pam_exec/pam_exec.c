@@ -244,8 +244,8 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
       if (tmp == NULL)
       {
         free(envlist);
-        pam_syslog (pamh, LOG_ERR, "realloc environment failed : %m");
-        exit (ENOMEM); 
+        pam_syslog (pamh, LOG_ERR, "realloc environment failed: %m");
+        exit (ENOMEM);
       }
       envlist = tmp;
       for (i = 0; i < nitems; ++i)
@@ -255,11 +255,10 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
 
         if (pam_get_item(pamh, env_items[i].item, &item) != PAM_SUCCESS || item == NULL)
           continue;
-        asprintf(&envstr, "%s=%s", env_items[i].name, (const char *)item);
-        if (envstr == NULL)
+        if (asprintf(&envstr, "%s=%s", env_items[i].name, (const char *)item) < 0)
         {
           free(envlist);
-          pam_syslog (pamh, LOG_ERR, "prepare environment failed : %m");
+          pam_syslog (pamh, LOG_ERR, "prepare environment failed: %m");
           exit (ENOMEM);
         }
         envlist[envlen++] = envstr;

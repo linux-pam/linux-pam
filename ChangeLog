@@ -1,3 +1,8 @@
+2008-02-18  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* modules/pam_exec/pam_exec.c (call_exec): Fix asprintf return
+	code check.
+
 2008-02-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 0.99.10.0
