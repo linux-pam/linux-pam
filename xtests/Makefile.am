@@ -27,7 +27,8 @@ EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 	tst-pam_substack2.pamd tst-pam_substack2a.pamd tst-pam_substack2.sh \
 	tst-pam_substack3.pamd tst-pam_substack3a.pamd tst-pam_substack3.sh \
 	tst-pam_substack4.pamd tst-pam_substack4a.pamd tst-pam_substack4.sh \
-	tst-pam_substack5.pamd tst-pam_substack5a.pamd tst-pam_substack5.sh
+	tst-pam_substack5.pamd tst-pam_substack5a.pamd tst-pam_substack5.sh \
+	tst-pam_assemble_line.pamd tst-pam_assemble_line.sh
 
 XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 	tst-pam_dispatch4 tst-pam_dispatch5 \
