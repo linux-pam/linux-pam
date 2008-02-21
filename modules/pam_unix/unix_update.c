@@ -1,11 +1,12 @@
 /*
- * This program is designed to run setuid(root) or with sufficient
- * privilege to read all of the unix password databases. It is designed
- * to provide a mechanism for the current user (defined by this
- * process' uid) to verify their own password.
+ * This program is designed to run with sufficient privilege
+ * to read and write all of the unix password databases.
+ * Its purpose is to allow updating the databases when
+ * SELinux confinement of the caller domain prevents them to
+ * do that themselves.
  *
  * The password is read from the standard input. The exit status of
- * this program indicates whether the user is authenticated or not.
+ * this program indicates whether the password was updated or not.
  *
  * Copyright information is located at the end of the file.
  *

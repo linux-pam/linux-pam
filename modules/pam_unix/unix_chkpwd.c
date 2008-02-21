@@ -101,7 +101,10 @@ int main(int argc, char *argv[])
 	  /* if the caller specifies the username, verify that user
 	     matches it */
 	  if (strcmp(user, argv[1])) {
-	    return PAM_AUTH_ERR;
+	    user = argv[1];
+	    /* no match -> permanently change to the real user and proceed */
+	    if (setuid(getuid()) != 0)
+		return PAM_AUTH_ERR;
 	  }
 	}
 

@@ -43,18 +43,17 @@ _pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type,
      best to fix it. */
   errno = -rc;
 
-  if (rc < 0 && errno != old_errno)
-    {
-      old_errno = errno;
-      pam_syslog (pamh, LOG_CRIT, "audit_log_acct_message() failed: %m");
-    }
-
   pamh->audit_state |= PAMAUDIT_LOGGED;
 
-  if (rc == -EPERM && getuid () != 0)
-    return 0;
-  else
-    return rc;
+  if (rc < 0) {
+      if (rc == -EPERM && getuid() != 0)
+          return 0;
+      if (errno != old_errno) {
+          old_errno = errno;
+          pam_syslog (pamh, LOG_CRIT, "audit_log_acct_message() failed: %m");
+      }
+  }
+  return rc;
 }
 
 static int
