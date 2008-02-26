@@ -15,6 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -479,11 +480,11 @@ msgstr ""
 "È richiesta la modifica immediata della password (password troppo vecchia)"
 
 #: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
 msgstr[0] "Avviso: la password scadrà tra %d giorno"
-msgstr[1] "Avviso: la password scadrà tra %d giorno"
+msgstr[1] "Avviso: la password scadrà tra %d giorni"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:273

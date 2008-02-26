@@ -1,22 +1,26 @@
+# translation of Linux-PAM.tip.po to Russian
+# translation of ru.po to
 # @TITLE@
 # Copyright (C) 2006, SUSE Linux GmbH, Nuremberg
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # This file is distributed under the same license as @PACKAGE@ package. FIRST
 #
+# Yulia Poyarkova <yulia.poyarkova@redhat.com>, 2007.
+# Andrew Martynov <andrewm@inventa.ru>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: @PACKAGE@\n"
+"Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-02-04 16:29+0100\n"
-"PO-Revision-Date: 2006-01-04 08:58+0100\n"
-"Last-Translator: Novell Language <language@novell.com>\n"
-"Language-Team: Novell Language <language@novell.com>\n"
+"PO-Revision-Date: 2008-02-23 20:11+0300\n"
+"Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
+"Language-Team: Russian <fedora-trans-ru@redhat,com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -44,9 +48,8 @@ msgid "Critical error - immediate abort"
 msgstr "Критическая ошибка - незамедлительное прерывание операции"
 
 #: libpam/pam_strerror.c:44
-#, fuzzy
 msgid "Failed to load module"
-msgstr "Не удалось загрузить модуль  \"%s\"."
+msgstr "Не удалось загрузить модуль"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -91,9 +94,8 @@ msgid "Have exhausted maximum number of retries for service"
 msgstr "Использовано максимальное число попыток, заданное для службы"
 
 #: libpam/pam_strerror.c:66
-#, fuzzy
 msgid "Authentication token is no longer valid; new one required"
-msgstr "Маркер проверки подлинности более недействителен; требуется новый."
+msgstr "Маркер проверки подлинности более недействителен; требуется новый"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -237,19 +239,19 @@ msgid "BAD PASSWORD: %s"
 msgstr "НЕВЕРНЫЙ ПАРОЛЬ: %s"
 
 #: modules/pam_exec/pam_exec.c:134
-#, fuzzy, c-format
+#, c-format
 msgid "%s failed: exit code %d"
-msgstr "Ошибочное выполнение скрипта '{0}' с кодом '{1}'"
+msgstr "Сбой %s. Код выхода: %d"
 
 #: modules/pam_exec/pam_exec.c:143
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr ""
+msgstr "Сбой %s. Получен сигнал %d%s"
 
 #: modules/pam_exec/pam_exec.c:152
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr ""
+msgstr "Сбой %s. Неизвестный статус 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:190
@@ -322,78 +324,73 @@ msgstr "Есть почта в папке %s."
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "Создание каталога '%s'."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "Невозможно создать каталог %s: %m"
 
 #: modules/pam_selinux/pam_selinux.c:94
 msgid "Error connecting to audit system."
-msgstr ""
+msgstr "Ошибка подключения к системе аудита."
 
 #: modules/pam_selinux/pam_selinux.c:98
-#, fuzzy
 msgid "Error translating default context."
-msgstr "Контекст по умолчанию - %s. \n"
+msgstr "Ошибка перевода контекста по умолчанию."
 
 #: modules/pam_selinux/pam_selinux.c:102
 msgid "Error translating selected context."
-msgstr ""
+msgstr "Ошибка перевода выбранного контекста."
 
 #: modules/pam_selinux/pam_selinux.c:113
 msgid "Error sending audit message."
-msgstr ""
+msgstr "Ошибка при посылке сообщения аудита."
 
 # power-off message
 #: modules/pam_selinux/pam_selinux.c:164
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "Хотите ввести контекст безопасности? [y]"
+msgstr "Хотите ввести контекст безопасности? [N] "
 
 #: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
-#, fuzzy
 msgid "role:"
-msgstr "роль: "
+msgstr "роль:"
 
 #: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "level:"
-msgstr "уровень: "
+msgstr "уровень:"
 
 #: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
 msgstr "Неверный контекст безопасности"
 
 #: modules/pam_selinux/pam_selinux.c:251
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "Контекст безопасности %s назначен"
+msgstr "Контекст безопасности по умолчанию %s\n"
 
 # power-off message
 #: modules/pam_selinux/pam_selinux.c:255
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "Хотите ввести контекст безопасности? [y]"
+msgstr "Хотите ввести другую роль или уровень?"
 
 #: modules/pam_selinux/pam_selinux.c:269
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "Для роли %s нет типа по умолчанию\n"
 
 #: modules/pam_selinux/pam_selinux.c:512
 msgid "Out of memory"
-msgstr ""
+msgstr "Нехватка памяти"
 
 #: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "Невозможно получить корректный контекст для %s"
 
 #: modules/pam_selinux/pam_selinux.c:578
 msgid "Requested MLS level not in permitted range"
-msgstr ""
+msgstr "Запрошенный уровень MLS вне границ разрешенного диапазона"
 
 #: modules/pam_selinux/pam_selinux.c:628
 #, c-format
@@ -401,9 +398,9 @@ msgid "Security Context %s Assigned"
 msgstr "Контекст безопасности %s назначен"
 
 #: modules/pam_selinux/pam_selinux.c:649
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "Контекст безопасности %s назначен"
+msgstr "Контекст, используемый при создании ключей, %s назначен"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -421,9 +418,9 @@ msgid "login: failure forking: %m"
 msgstr "регистрация: сбой при создании нового процесса: %m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "Смена пароля STRESS для"
+msgstr "Смена пароля STRESS для %s."
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -493,18 +490,18 @@ msgid "You are required to change your password immediately (password aged)"
 msgstr "Вам необходимо немедленно сменить пароль (пароль устарел)"
 
 #: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "Предупреждение: срок действия пароля истекает через %d дней"
+msgstr[0] "Предупреждение: срок действия пароля истекает через %d день"
 msgstr[1] "Предупреждение: срок действия пароля истекает через %d дней"
 msgstr[2] "Предупреждение: срок действия пароля истекает через %d дней"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:273
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "Предупреждение: срок действия пароля истекает через %d дней"
+msgstr "Предупреждение: срок действия пароля истекает через %d дн(я)(ей)"
 
 #: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
@@ -524,9 +521,9 @@ msgid "Password has been already used. Choose another."
 msgstr "Этот пароль уже был использован. Выберите другой."
 
 #: modules/pam_unix/pam_unix_passwd.c:583
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "Смена пароля STRESS для"
+msgstr "Смена пароля для %s."
 
 # Keep the newlines and spaces after ':'!
 #: modules/pam_unix/pam_unix_passwd.c:594
@@ -554,6 +551,3 @@ msgstr "Повторите ввод нового пароля UNIX: "
 
 #~ msgid "type: "
 #~ msgstr "тип: "
-
-#~ msgid "dlopen() failure"
-#~ msgstr "сбой dlopen()"

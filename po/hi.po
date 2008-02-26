@@ -1,208 +1,210 @@
-# translation of zh_CN.po to
+# translation of hi.po to Hindi
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Xi HUANG <xhuang@redhat.com>, 2007.
+# Rajesh Ranjan <rranjan@redhat.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: zh_CN\n"
+"Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-02-04 16:29+0100\n"
-"PO-Revision-Date: 2007-06-25 15:00+1000\n"
-"Last-Translator: Xi HUANG <xhuang@redhat.com>\n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2007-06-21 15:22+0530\n"
+"Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
+"Language-Team: Hindi <hindi.sf.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+"\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
-msgstr "...时间即将耗尽...\n"
+msgstr "...समय बीत रहा है...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "...对不起，您的时间已经耗尽！\n"
+msgstr "...क्षमा करें, आपका समय समाप्त हो गया!\n"
 
 #: libpam_misc/misc_conv.c:342
 #, c-format
 msgid "erroneous conversation (%d)\n"
-msgstr "有错误的转换 (%d)\n"
+msgstr "अनियमित बातचीत (%d)\n"
 
 #: libpam/pam_item.c:298
 msgid "login:"
-msgstr "登录："
+msgstr "लॉगिन:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
-msgstr "成功"
+msgstr "सफल"
 
 #: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
-msgstr "严重错误 - 立即中止"
+msgstr "गंभीर त्रुटि - तत्काल छोड़ें"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr "装载模块失败"
+msgstr "मॉड्यूल लोड करने में विफल"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
-msgstr "找不到符号"
+msgstr "संकेत नहीं मिला"
 
 #: libpam/pam_strerror.c:48
 msgid "Error in service module"
-msgstr "服务模块存在错误"
+msgstr "सेवा मॉड्यूल में त्रुटि"
 
 #: libpam/pam_strerror.c:50
 msgid "System error"
-msgstr "系统错误"
+msgstr "सिस्टम त्रुटि"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
-msgstr "内存缓冲区错误"
+msgstr "स्मृति बफर त्रुटि"
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
-msgstr "拒绝权限"
+msgstr "अनुमति मनाही"
 
 #: libpam/pam_strerror.c:56
 msgid "Authentication failure"
-msgstr "鉴定故障"
+msgstr "सत्यापन विफलता"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr "没有足够的身份凭证以访问鉴定数据"
+msgstr "सत्यापन आंकड़ा की पहुँच में अपर्याप्त श्रेय"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "鉴定服务无法检索到鉴定信息"
+msgstr "सत्यापन सेवा सत्यापन सूचना नहीं हासिल कर सकता है"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr "底层的鉴定模块无法识别用户"
+msgstr "उपयोक्ता अंतर्निहित सत्यापन मॉड्यूल से परिचित नहीं हैं"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
-msgstr "已经超出服务重试的最多次数"
+msgstr "सेवा के लिए अधिकतम संख्या में फिर कोशिश करना समाप्त कर चुका है"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr "鉴定令牌不再有效；需要新的鉴定令牌"
+msgstr "सत्यापन टोकन अब वैध नहीं है; नया जरूरी है"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
-msgstr "用户帐户已失效"
+msgstr "उपयोक्ता खाता की अवधि समाप्त हो चुकी है"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr "无法为指定的会话创建／去除项。"
+msgstr "विशेष सत्र के लिए एक प्रविष्टि नहीं बना/हटा सकता है"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr "鉴定服务无法检索到用户身份凭证"
+msgstr "सत्यापन सेवा उपयोक्ता श्रेय फिर हासिल नहीं कर सकता है"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr "用户身份凭证失效"
+msgstr "उपयोक्ता श्रेय समाप्त"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr "设置用户身份凭证时出现故障"
+msgstr "विफल जमावट उपयोक्ता श्रेय"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
-msgstr "不存在特定于模块的数据"
+msgstr "कोई मॉड्यूल विशेष आंकड़ा मौजूद है"
 
 #: libpam/pam_strerror.c:80
 msgid "Bad item passed to pam_*_item()"
-msgstr "传递至 pam_*_item() 的项目无效"
+msgstr "खराब मद pam_*_item() में भेजा गया"
 
 #: libpam/pam_strerror.c:82
 msgid "Conversation error"
-msgstr "转换错误"
+msgstr "रूपांतरक त्रुटि"
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
-msgstr "鉴定令牌操作错误"
+msgstr "सत्यापन टोकन मैनिपुलेशन त्रुटि"
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
-msgstr "无法恢复鉴定信息"
+msgstr "सत्यापन सूचना फिर हासिल नहीं किया जा सकता है"
 
 #: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
-msgstr "鉴定令牌锁忙碌"
+msgstr "सत्यापन टोकन लॉक व्यस्त"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr "已禁用鉴定令牌过期处理"
+msgstr "सत्यापन टोकन एजिंग निष्क्रिय"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr "口令服务初步检查失败"
+msgstr "शब्दकूट सेवा के द्वारा प्राथमिक जांच पूरी"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "返回值应该被 PAM dispatch 忽略"
+msgstr "लौटाए मान को PAM डिस्पैच के द्वारा अनदेखा किया जाना चाहिए"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
-msgstr "模块未知"
+msgstr "मॉड्यूल अनजान है"
 
 #: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
-msgstr "鉴定令牌失效"
+msgstr "सत्यापन टोकन समाप्त"
 
 #: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
-msgstr "转换正在等待事件"
+msgstr "रूपांतरण घटना के प्रतीक्षारत"
 
 #: libpam/pam_strerror.c:102
 msgid "Application needs to call libpam again"
-msgstr "应用程序需要再次调用 libpam"
+msgstr "अनुप्रयोग के libpam फिर आह्वान जरूरी"
 
 #: libpam/pam_strerror.c:105
 msgid "Unknown PAM error"
-msgstr "未知的 PAM 错误"
+msgstr "अनजान PAM त्रुटि"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
 #, c-format
 msgid "New %s%spassword: "
-msgstr "新的 %s%s口令："
+msgstr "नया %s%spassword: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "重新输入新的 %s%s口令："
+msgstr "नया %s%spassword फिर टाइप करें: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
 msgid "Sorry, passwords do not match."
-msgstr "抱歉，口令不匹配。"
+msgstr "क्षमा करें, शब्दकूट नहीं मिलते हैं."
 
 #: modules/pam_cracklib/pam_cracklib.c:432
 msgid "is the same as the old one"
-msgstr "与旧口令相同"
+msgstr "पुराने की तरह समान है"
 
 #: modules/pam_cracklib/pam_cracklib.c:445
 msgid "is a palindrome"
-msgstr "是回文"
+msgstr "एक पालिनड्रोम है"
 
 #: modules/pam_cracklib/pam_cracklib.c:448
 msgid "case changes only"
-msgstr "仅更改了大小写"
+msgstr "स्थिति परिवर्तन सिर्फ"
 
 #: modules/pam_cracklib/pam_cracklib.c:451
 msgid "is too similar to the old one"
-msgstr "与旧口令过于相似"
+msgstr "पुराने के बहुत समान है"
 
 #: modules/pam_cracklib/pam_cracklib.c:454
 msgid "is too simple"
-msgstr "过于简单"
+msgstr "बहुत सरल है"
 
 #: modules/pam_cracklib/pam_cracklib.c:457
 msgid "is rotated"
-msgstr "是旧口令的循环"
+msgstr "घुमाया गया है"
 
 #: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
@@ -210,106 +212,106 @@ msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:498
 msgid "has been already used"
-msgstr "已使用"
+msgstr "को पहले से प्रयोग किया गया है"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:456
 msgid "No password supplied"
-msgstr "口令未提供"
+msgstr "कोई कूटशब्द नहीं दिया गया है"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:456
 msgid "Password unchanged"
-msgstr "口令未更改"
+msgstr "शब्दकूट परिवर्तित"
 
 #: modules/pam_cracklib/pam_cracklib.c:549
 #: modules/pam_cracklib/pam_cracklib.c:676
 #, c-format
 msgid "BAD PASSWORD: %s"
-msgstr "无效的口令： %s"
+msgstr "खराब शब्दकूट: %s"
 
 #: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr "%s 失败：退出代码 %d"
+msgstr "%s विफल: निकास कोड %d"
 
 #: modules/pam_exec/pam_exec.c:143
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr "%s 失败：捕获的信号 %d%s"
+msgstr "%s विफल: संकेत घेरा %d%s"
 
 #: modules/pam_exec/pam_exec.c:152
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr "%s 失败：未知的状态 0x%x"
+msgstr "%s विफल: अनजान स्थिति 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:190
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr "%a %b %e %H:%M:%S %Z %Y"
+msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:199
 #, c-format
 msgid " from %.*s"
-msgstr "从 %.*s"
+msgstr "  %.*s से"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:211
 #, c-format
 msgid " on %.*s"
-msgstr "%.*s 上"
+msgstr " %.*s पर"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:220
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr "上一次登录：%s%s%s"
+msgstr "अंतिम लॉगिन:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:226
 msgid "Welcome to your new account!"
-msgstr "欢迎使用新帐户！"
+msgstr "नए खाता में आपका स्वागत है!"
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
 msgid "Too many logins for '%s'."
-msgstr "'%s'登录过多。"
+msgstr "'%s' के लिए बहुत लॉगिन."
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
-msgstr "无邮件。"
+msgstr "कोई मेल नहीं."
 
 #: modules/pam_mail/pam_mail.c:316
 msgid "You have new mail."
-msgstr "您有新邮件。"
+msgstr "आपके लिए नया मेल है."
 
 #: modules/pam_mail/pam_mail.c:319
 msgid "You have old mail."
-msgstr "您有旧邮件。"
+msgstr "आपके पास पुराना मेल है."
 
 #: modules/pam_mail/pam_mail.c:323
 msgid "You have mail."
-msgstr "您有邮件。"
+msgstr "आपके पास मेल है."
 
 #: modules/pam_mail/pam_mail.c:330
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr "您在文件夹 %s 中无邮件。"
+msgstr "आपके पास %s फोल्डर में कोई मेल नहीं है."
 
 #: modules/pam_mail/pam_mail.c:334
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "您在文件夹 %s 中有新邮件。"
+msgstr "आपके लिए %s फोल्डर में नया मेल है."
 
 #: modules/pam_mail/pam_mail.c:338
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr "您在文件夹 %s 中有旧邮件。"
+msgstr "आपके लिए %s फोल्डर में पुराना मेल है."
 
 #: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have mail in folder %s."
-msgstr "您在文件夹 %s 中有邮件。"
+msgstr "आपके लिए %s फोल्डर में मेल है."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
@@ -328,7 +330,7 @@ msgstr ""
 #: modules/pam_selinux/pam_selinux.c:98
 #, fuzzy
 msgid "Error translating default context."
-msgstr "您的默认环境为 %s。\n"
+msgstr "आपका मूलभूत संदर्भ %s है. \n"
 
 #: modules/pam_selinux/pam_selinux.c:102
 msgid "Error translating selected context."
@@ -341,31 +343,31 @@ msgstr ""
 #: modules/pam_selinux/pam_selinux.c:164
 #, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "是否愿意输入安全性环境？[y]"
+msgstr "क्या आप सुरक्षा संदर्भ डालना चाहेंगे? [y] "
 
 #: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
 #, fuzzy
 msgid "role:"
-msgstr "职能："
+msgstr "भूमिका: "
 
 #: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
 #, fuzzy
 msgid "level:"
-msgstr "级别："
+msgstr "स्तर: "
 
 #: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
-msgstr "不是有效的安全性环境"
+msgstr "एक वैध सुरक्षा संदर्भ नहीं"
 
 #: modules/pam_selinux/pam_selinux.c:251
 #, fuzzy, c-format
 msgid "Default Security Context %s\n"
-msgstr "已指派安全性环境 %s"
+msgstr "सुरक्षा संदर्भ %s नियत"
 
 #: modules/pam_selinux/pam_selinux.c:255
 #, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "是否愿意输入安全性环境？[y]"
+msgstr "क्या आप सुरक्षा संदर्भ डालना चाहेंगे? [y] "
 
 #: modules/pam_selinux/pam_selinux.c:269
 #, c-format
@@ -388,148 +390,150 @@ msgstr ""
 #: modules/pam_selinux/pam_selinux.c:628
 #, c-format
 msgid "Security Context %s Assigned"
-msgstr "已指派安全性环境 %s"
+msgstr "सुरक्षा संदर्भ %s नियत"
 
 #: modules/pam_selinux/pam_selinux.c:649
 #, fuzzy, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "已指派安全性环境 %s"
+msgstr "सुरक्षा संदर्भ %s नियत"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
-msgstr "未能初始化 PAM\n"
+msgstr "PAM को आरंभ करने में विफल\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:105
 #, c-format
 msgid "failed to pam_set_item()\n"
-msgstr "未能 pam_set_item()\n"
+msgstr "pam_set_item() में विफल\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr "登录：故障派生：%m"
+msgstr "लॉगिन: विफल फोर्किंग: %m"
 
 #: modules/pam_stress/pam_stress.c:476
 #, fuzzy, c-format
 msgid "Changing STRESS password for %s."
-msgstr "更改 STRESS 口令以"
+msgstr "इसके लिए स्ट्रेस शब्दकूट बदल रहा है "
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
-msgstr "输入新的 STRESS 口令："
+msgstr "नया स्ट्रेस शब्दकूट दें: "
 
 #: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
-msgstr "重新输入新的 STRESS 口令："
+msgstr "नया शब्दकूट फिर टाइप करें: "
 
 #: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
-msgstr "校验类型错误；口令未更改"
+msgstr "जांच गलत टाइप किया गया; शब्दकूट बदला गया"
 
 #: modules/pam_tally/pam_tally.c:746
 msgid "Authentication error"
-msgstr "鉴定错误"
+msgstr "सत्यापन त्रुटि"
 
 #: modules/pam_tally/pam_tally.c:747
 msgid "Service error"
-msgstr "服务错误"
+msgstr "सेवा त्रुटि"
 
 #: modules/pam_tally/pam_tally.c:748
 msgid "Unknown user"
-msgstr "未知的用户"
+msgstr "अनजान उपयोक्ता"
 
 #: modules/pam_tally/pam_tally.c:749
 msgid "Unknown error"
-msgstr "未知的错误"
+msgstr "अनजान त्रुटि"
 
 #: modules/pam_tally/pam_tally.c:765
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
-msgstr "%s: 给定的数字无效 --重设置=\n"
+msgstr "%s: खराब संख्या को --reset= में दिया गया\n"
 
 #: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Unrecognised option %s\n"
-msgstr "%s: 未识别的选项 %s\n"
+msgstr "%s: अपरिचित विकल्प %s\n"
 
 #: modules/pam_tally/pam_tally.c:781
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--文件 根文件名] [--用户 用户名] [--重设置[=n]] [--安静]\n"
+msgstr ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:855
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: 无法将所有用户重设置为非零\n"
+msgstr "%s: सभी उपयोक्ता को गैर शून्य में फिर सेट नहीं कर सकता है\n"
 
 #: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
 msgid "Your account has expired; please contact your system administrator"
-msgstr "您的帐户已失效；请与系统管理员取得联系"
+msgstr "आपका खाता समाप्त हो चुका है; कृपया अपने सिस्टम प्रशासक को संपर्क करें"
 
 #: modules/pam_unix/pam_unix_acct.c:237
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "您需要立即更改口令（root 强制）"
+msgstr "आपके लिए अपना शब्दकूट तत्काल बदलना जरूरी है (रूट पुनर्बलित)"
 
 #: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (password aged)"
-msgstr "您需要立即更改口令（口令过期）"
+msgstr "आपके लिए अपना शब्दकूट तत्काल बदलना जरूरी है (शब्दकूट एज्ड)"
 
 #: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "警告：您的密码将在 %d 天后过期"
+msgstr[0] "चेतावनी: आपका शब्दकूट %d दिन में समाप्त हो जायेगा"
+msgstr[1] "चेतावनी: आपका शब्दकूट %d दिन में समाप्त हो जायेगा"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:273
 #, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "警告：您的密码将在 %d 天后过期"
+msgstr "चेतावनी: आपका शब्दकूट %d दिनों में समाप्त हो जायेगा"
 
 #: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
-msgstr "口令："
+msgstr "शब्दकूट: "
 
 #: modules/pam_unix/pam_unix_passwd.c:366
 msgid "NIS password could not be changed."
-msgstr "无法更改 NIS 口令。"
+msgstr "NIS शब्दकूट बदला नहीं जा सका."
 
 #: modules/pam_unix/pam_unix_passwd.c:477
 msgid "You must choose a longer password"
-msgstr "必须选择更长的口令"
+msgstr "आपको जरूर एक लंबा शब्दकूट चुनना चाहिए"
 
 #: modules/pam_unix/pam_unix_passwd.c:482
 msgid "Password has been already used. Choose another."
-msgstr "口令已使用。请选择其他口令。"
+msgstr "शब्दकूट को पहले ही बदला जा चुका है. दूसरा चुनें."
 
 #: modules/pam_unix/pam_unix_passwd.c:583
 #, fuzzy, c-format
 msgid "Changing password for %s."
-msgstr "更改 STRESS 口令以"
+msgstr "इसके लिए स्ट्रेस शब्दकूट बदल रहा है "
 
 #: modules/pam_unix/pam_unix_passwd.c:594
 msgid "(current) UNIX password: "
-msgstr "（当前）UNIX 口令："
+msgstr "(मौजूदा) UNIX शब्दकूट: "
 
 #: modules/pam_unix/pam_unix_passwd.c:629
 msgid "You must wait longer to change your password"
-msgstr "您必须等待更长时间以更改口令"
+msgstr "आपको अपना शब्दकूट बदलने के लिए लंबी प्रतीक्षा करनी होगी"
 
 #: modules/pam_unix/pam_unix_passwd.c:689
 msgid "Enter new UNIX password: "
-msgstr "输入新的 UNIX 口令："
+msgstr "नया UNIX शब्दकूट दें: "
 
 #: modules/pam_unix/pam_unix_passwd.c:690
 msgid "Retype new UNIX password: "
-msgstr "重新输入新的 UNIX 口令："
+msgstr "नया UNIX शब्दकूट फिर टाइप करें: "
 
 #~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "是否想要选择另一个？[n]"
+#~ msgstr "क्या आप एक भिन्न चुनना चाहते हैं? [n]"
 
 #~ msgid "Enter number of choice: "
-#~ msgstr "输入选项的数字："
+#~ msgstr "पसंद की संख्या दें: "
 
 #~ msgid "type: "
-#~ msgstr "类型："
+#~ msgstr "प्रकार: "

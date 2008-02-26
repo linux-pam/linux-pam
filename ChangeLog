@@ -1,3 +1,25 @@
+2008-02-26  Tomas Mraz <t8m@centrum.cz>
+
+	* po/LINUGAS: New languages added.
+	* po/es.po: Updated translations.
+	* po/fr.po: Likewise.
+	* po/it.po: Likewise.
+	* po/ja.po: Likewise.
+	* po/nl.po: Likewise.
+	* po/pl.po: Likewise.
+	* po/pt_BR.po: Likewise.
+	* po/ru.po: Likewise.
+	* po/zh_CN.po: Likewise.
+	* po/as.po: New file.
+	* po/gu.po: Likewise.
+	* po/hi.po: Likewise.
+	* po/kn.po: Likewise.
+	* po/ko.po: Likewise.
+	* po/ml.po: Likewise.
+	* po/or.po: Likewise.
+	* po/si.po: Likewise.
+	* po/ta.po: Likewise.
+
 2008-02-21  Tomas Mraz <t8m@centrum.cz>
 
 	* libpam/pam_audit.c (_pam_audit_writelog): Silence syslog

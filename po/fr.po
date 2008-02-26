@@ -1,19 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
+# translation of fr-RHEL5.po to french
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# myriam malga <mmalga@redhat.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM\n"
+"Project-Id-Version: fr-RHEL5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-02-04 16:29+0100\n"
-"PO-Revision-Date: 2006-05-04 08:29+0200\n"
-"Last-Translator: Novell Language <language@novell.com>\n"
-"Language-Team: Novell Language <language@novell.com>\n"
+"PO-Revision-Date: 2007-06-25 10:52+1000\n"
+"Last-Translator: myriam malga <mmalga@redhat.com>\n"
+"Language-Team: french <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -42,7 +44,7 @@ msgstr "Erreur critique - abandon immédiat"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr ""
+msgstr "Échec de chargement du module"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -237,17 +239,17 @@ msgstr "MOT DE PASSE INCORRECT : %s"
 #: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr ""
+msgstr "%s échec : code de sortie %d"
 
 #: modules/pam_exec/pam_exec.c:143
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr ""
+msgstr "%s échec : signal capté %d%s"
 
 #: modules/pam_exec/pam_exec.c:152
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr ""
+msgstr "%s échec : statut 0x inconnu%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:190
@@ -419,7 +421,7 @@ msgstr "login : échec d'autoclonage : %m"
 #: modules/pam_stress/pam_stress.c:476
 #, fuzzy, c-format
 msgid "Changing STRESS password for %s."
-msgstr "Changement du mot de passe STRESS pour "
+msgstr "Changement du mot de passe STRESS pour  "
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -485,17 +487,17 @@ msgstr ""
 "Vous devez changer votre mot de passe immédiatement (mot de passe périmé)"
 
 #: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "Avertissement : votre mot de passe expire dans %d jour%.2s"
-msgstr[1] "Avertissement : votre mot de passe expire dans %d jour%.2s"
+msgstr[0] "Avertissement : votre mot de passe expire dans %d jour."
+msgstr[1] "Avertissement : votre mot de passe expire dans %d jours"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:273
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "Avertissement : votre mot de passe expire dans %d jour%.2s"
+msgstr "Avertissement : votre mot de passe expire dans %d jours"
 
 #: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
@@ -516,7 +518,7 @@ msgstr "Mot de passe déjà utilisé. Choisissez-en un autre."
 #: modules/pam_unix/pam_unix_passwd.c:583
 #, fuzzy, c-format
 msgid "Changing password for %s."
-msgstr "Changement du mot de passe STRESS pour "
+msgstr "Changement du mot de passe STRESS pour  "
 
 #: modules/pam_unix/pam_unix_passwd.c:594
 msgid "(current) UNIX password: "
@@ -542,13 +544,3 @@ msgstr "Retapez le nouveau mot de passe UNIX : "
 
 #~ msgid "type: "
 #~ msgstr "type :"
-
-#, fuzzy
-#~ msgid "Warning: your password will expire in one day"
-#~ msgstr "Avertissement : votre mot de passe expire dans %d jour%.2s"
-
-#~ msgid "dlopen() failure"
-#~ msgstr "échec de dlopen()"
-
-#~ msgid "%s: set %s security context to %s"
-#~ msgstr "Contexte de sécurité non valide"
