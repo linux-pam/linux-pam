@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-02-04 16:29+0100\n"
-"PO-Revision-Date: 2008-02-19 23:10+0200\n"
+"PO-Revision-Date: 2008-02-26 19:23+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -207,7 +207,7 @@ msgstr "jest obrócone"
 
 #: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
-msgstr ""
+msgstr "za mało klas znaków"
 
 #: modules/pam_cracklib/pam_cracklib.c:498
 msgid "has been already used"
@@ -315,76 +315,71 @@ msgstr "Wiadomości w folderze %s."
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "Tworzenie folderu \"%s\"."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "Nie można utworzyć folderu %s: %m"
 
 #: modules/pam_selinux/pam_selinux.c:94
 msgid "Error connecting to audit system."
-msgstr ""
+msgstr "Błąd podczas łączenia z systemem audytu."
 
 #: modules/pam_selinux/pam_selinux.c:98
-#, fuzzy
 msgid "Error translating default context."
-msgstr "Domyślny kontekst to %s. \n"
+msgstr "Błąd podczas tłumaczenia domyślnego kontekstu."
 
 #: modules/pam_selinux/pam_selinux.c:102
 msgid "Error translating selected context."
-msgstr ""
+msgstr "Błąd podczas tłumaczenia wybranego kontekstu."
 
 #: modules/pam_selinux/pam_selinux.c:113
 msgid "Error sending audit message."
-msgstr ""
+msgstr "Błąd podczas wysyłania komunikatu audytu."
 
 #: modules/pam_selinux/pam_selinux.c:164
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "Czy chcesz podać kontekst bezpieczeństwa? [y]"
+msgstr "Czy chcesz podać kontekst bezpieczeństwa? [N]"
 
 #: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
-#, fuzzy
 msgid "role:"
-msgstr "rola: "
+msgstr "rola:"
 
 #: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "level:"
-msgstr "poziom: "
+msgstr "poziom:"
 
 #: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
 msgstr "Nieprawidłowy kontekst bezpieczeństwa"
 
 #: modules/pam_selinux/pam_selinux.c:251
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "Kontekst bezpieczeństwa %s został przypisany"
+msgstr "Domyślny kontekst bezpieczeństwa %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:255
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "Czy chcesz podać kontekst bezpieczeństwa? [y]"
+msgstr "Czy chcesz podać inną rolę lub poziom?"
 
 #: modules/pam_selinux/pam_selinux.c:269
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "Brak domyślnego typu dla roli %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:512
 msgid "Out of memory"
-msgstr ""
+msgstr "Brak pamięci"
 
 #: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "Nie można uzyskać prawidłowego kontekstu dla %s"
 
 #: modules/pam_selinux/pam_selinux.c:578
 msgid "Requested MLS level not in permitted range"
-msgstr ""
+msgstr "Żądany poziom MLS nie jest w dozwolonym zakresie"
 
 #: modules/pam_selinux/pam_selinux.c:628
 #, c-format
@@ -392,9 +387,9 @@ msgid "Security Context %s Assigned"
 msgstr "Kontekst bezpieczeństwa %s został przypisany"
 
 #: modules/pam_selinux/pam_selinux.c:649
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "Kontekst bezpieczeństwa %s został przypisany"
+msgstr "Kontekst tworzenia klucza %s został przypisany"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -412,9 +407,9 @@ msgid "login: failure forking: %m"
 msgstr "login: rozdzielenie nie powiodło się: %m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "Zmienianie hasła STRESS dla "
+msgstr "Zmienianie hasła STRESS dla %s."
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -510,9 +505,9 @@ msgid "Password has been already used. Choose another."
 msgstr "Hasło było już używane. Wybierz inne."
 
 #: modules/pam_unix/pam_unix_passwd.c:583
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "Zmienianie hasła STRESS dla "
+msgstr "Zmienianie hasła dla %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:594
 msgid "(current) UNIX password: "
@@ -529,12 +524,3 @@ msgstr "Podaj nowe hasło UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:690
 msgid "Retype new UNIX password: "
 msgstr "Ponownie podaj hasło UNIX: "
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "Czy chcesz wybrać inny? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "Wybrana liczba: "
-
-#~ msgid "type: "
-#~ msgstr "typ:"
