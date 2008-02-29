@@ -1,3 +1,9 @@
+2008-02-26  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_unix/Makefile.am: Do not link to cracklib.
+	* modules/pam_unix/pam_unix_passwd.c(_pam_unix_approve_pass):
+	Do not call FascistCheck() from cracklib.
+
 2008-02-29  Fabian Affolter <fab@fedoraproject.org>
 
 	* po/de.po: Updated translation.

@@ -67,10 +67,6 @@ static int selinux_enabled=-1;
 #define SELINUX_ENABLED (selinux_enabled!=-1 ? selinux_enabled : (selinux_enabled=is_selinux_enabled()>0))
 #endif
 
-#ifdef USE_CRACKLIB
-#include <crack.h>
-#endif
-
 #include <security/_pam_macros.h>
 
 /* indicate the following groups are defined */
@@ -106,9 +102,6 @@ extern int getrpcport(const char *host, unsigned long prognum,
 #define _UNIX_NEW_AUTHTOK	"-UN*X-NEW-PASS"
 
 #define MAX_PASSWD_TRIES	3
-#ifndef CRACKLIB_DICTS
-#define CRACKLIB_DICTS		NULL
-#endif
 
 static char *getNISserver(pam_handle_t *pamh)
 {
@@ -469,14 +462,9 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 		}
 	}
 	if (off(UNIX__IAMROOT, ctrl)) {
-#ifdef USE_CRACKLIB
-		remark = FascistCheck (pass_new, CRACKLIB_DICTS);
-		D(("called cracklib [%s]", remark));
-#else
 		if (strlen(pass_new) < 6)
 		  remark = _("You must choose a longer password");
 		D(("length check [%s]", remark));
-#endif
 		if (on(UNIX_REMEMBER_PASSWD, ctrl)) {
 			if ((retval = check_old_password(user, pass_new)) == PAM_AUTHTOK_ERR)
 			  remark = _("Password has been already used. Choose another.");

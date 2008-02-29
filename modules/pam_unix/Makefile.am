@@ -22,15 +22,12 @@ AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 if HAVE_LIBSELINUX
   AM_CFLAGS += -D"WITH_SELINUX"
 endif
-if HAVE_LIBCRACK
-  AM_CFLAGS += -D"USE_CRACKLIB"
-endif
 
 pam_unix_la_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   pam_unix_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
-pam_unix_la_LIBADD = @LIBCRACK@ @LIBNSL@ -L$(top_builddir)/libpam -lpam \
+pam_unix_la_LIBADD = @LIBNSL@ -L$(top_builddir)/libpam -lpam \
 	@LIBCRYPT@ @LIBSELINUX@
 
 securelib_LTLIBRARIES = pam_unix.la
