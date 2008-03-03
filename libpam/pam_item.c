@@ -11,14 +11,13 @@
 #include <string.h>
 #include <syslog.h>
 
-#define RESET(X, Y)                    \
+#define TRY_SET(X, Y)                  \
 {                                      \
-    char *_TMP_ = (X);                 \
-    if (_TMP_ != (Y)) {                \
-	 (X) = (Y) ? _pam_strdup(Y) : NULL; \
-	 if (_TMP_)                    \
-	      free(_TMP_);             \
-    }                                  \
+    char *_TMP_ = _pam_strdup(Y);      \
+    if (_TMP_ == NULL && (Y) != NULL)  \
+	 return PAM_BUF_ERR;           \
+    free(X);                           \
+    (X) = _TMP_;                       \
 }
 
 /* functions */
@@ -40,7 +39,7 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	 * to be reloaded on the next call to a service module.
 	 */
 	pamh->handlers.handlers_loaded = 0;
-	RESET(pamh->service_name, item);
+	TRY_SET(pamh->service_name, item);
 	{
 	    char *tmp;
 	    for (tmp=pamh->service_name; *tmp; ++tmp)
@@ -49,26 +48,26 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	break;
 
     case PAM_USER:
-	RESET(pamh->user, item);
+	TRY_SET(pamh->user, item);
 	pamh->former.fail_user = PAM_SUCCESS;
 	break;
 
     case PAM_USER_PROMPT:
-	RESET(pamh->prompt, item);
+	TRY_SET(pamh->prompt, item);
 	pamh->former.fail_user = PAM_SUCCESS;
 	break;
 
     case PAM_TTY:
 	D(("setting tty to %s", item));
-	RESET(pamh->tty, item);
+	TRY_SET(pamh->tty, item);
 	break;
 
     case PAM_RUSER:
-	RESET(pamh->ruser, item);
+	TRY_SET(pamh->ruser, item);
 	break;
 
     case PAM_RHOST:
-	RESET(pamh->rhost, item);
+	TRY_SET(pamh->rhost, item);
 	break;
 
     case PAM_AUTHTOK:
@@ -77,14 +76,8 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	 * modules.
 	 */
 	if (__PAM_FROM_MODULE(pamh)) {
-	    char *_TMP_ = pamh->authtok;
-	    if (_TMP_ == item)            /* not changed so leave alone */
-		break;
-	    pamh->authtok = (item) ? _pam_strdup(item) : NULL;
-	    if (_TMP_) {
-		_pam_overwrite(_TMP_);
-		free(_TMP_);
-	    }
+	    _pam_overwrite(pamh->authtok);
+	    TRY_SET(pamh->authtok, item);
 	} else {
 	    retval = PAM_BAD_ITEM;
 	}
@@ -97,14 +90,8 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	 * modules.
 	 */
 	if (__PAM_FROM_MODULE(pamh)) {
-	    char *_TMP_ = pamh->oldauthtok;
-	    if (_TMP_ == item)            /* not changed so leave alone */
-		break;
-	    pamh->oldauthtok = (item) ? _pam_strdup(item) : NULL;
-	    if (_TMP_) {
-		_pam_overwrite(_TMP_);
-		free(_TMP_);
-	    }
+	    _pam_overwrite(pamh->oldauthtok);
+	    TRY_SET(pamh->oldauthtok, item);
 	} else {
 	    retval = PAM_BAD_ITEM;
 	}
@@ -139,7 +126,7 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	break;
 
     case PAM_XDISPLAY:
-	RESET(pamh->xdisplay, item);
+	TRY_SET(pamh->xdisplay, item);
 	break;
 
     case PAM_XAUTHDATA:
@@ -148,13 +135,22 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	    free(pamh->xauth.name);
 	}
 	if (pamh->xauth.datalen) {
-	  _pam_overwrite_n(pamh->xauth.data,
+	    _pam_overwrite_n(pamh->xauth.data,
 			   (unsigned int) pamh->xauth.datalen);
 	    free(pamh->xauth.data);
 	}
 	pamh->xauth = *((const struct pam_xauth_data *) item);
-	pamh->xauth.name = _pam_strdup(pamh->xauth.name);
-	pamh->xauth.data = _pam_memdup(pamh->xauth.data, pamh->xauth.datalen);
+	if ((pamh->xauth.name=_pam_strdup(pamh->xauth.name)) == NULL) {
+	    memset(&pamh->xauth, '\0', sizeof(pamh->xauth));
+	    return PAM_BUF_ERR;
+	}	
+	if ((pamh->xauth.data=_pam_memdup(pamh->xauth.data,
+	    pamh->xauth.datalen)) == NULL) {
+	    _pam_overwrite(pamh->xauth.name);
+	    free(pamh->xauth.name);
+	    memset(&pamh->xauth, '\0', sizeof(pamh->xauth));
+	    return PAM_BUF_ERR;
+	}
 	break;
 
     default:
@@ -336,7 +332,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 	D(("conversation function is not ready yet"));
 	pamh->former.want_user = PAM_TRUE;
 	pamh->former.prompt = _pam_strdup(use_prompt);
-    } else if (resp == NULL) {
+    } else if (resp == NULL || resp->resp == NULL) {
 	/*
 	 * conversation should have given a response
 	 */
@@ -349,7 +345,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 	 * releases. However, reading the Sun manual, it is part of
 	 * the standard API.
 	 */
-	RESET(pamh->user, resp->resp);
+	retval = pam_set_item(pamh, PAM_USER, resp->resp);
 	*user = pamh->user;
     } else
 	pamh->former.fail_user = retval;

@@ -3,6 +3,12 @@
 	* modules/pam_selinux/pam_selinux.c: Do not translate syslog messages.
 	* po/Linux-PAM.pot: Update.
 
+	* libpam/pam_item.c(RESET): Rename to TRY_SET, handle strdup failure.
+	(pam_set_item): Use TRY_SET() also for PAM_AUTHTOK and PAM_OLDAUTHTOK.
+	Handle allocation failure for PAM_XAUTHDATA.
+	(pam_get_user): Return error when conversation returns NULL user.
+	Call pam_set_item() instead of RESET().
+
 2008-02-26  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_unix/Makefile.am: Do not link to cracklib.
