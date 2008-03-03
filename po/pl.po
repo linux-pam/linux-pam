@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-03-03 09:06+0100\n"
-"PO-Revision-Date: 2008-02-26 19:23+0200\n"
+"PO-Revision-Date: 2008-03-03 21:59+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -504,18 +504,3 @@ msgstr "Podaj nowe hasło UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Ponownie podaj hasło UNIX: "
-
-#~ msgid "Error connecting to audit system."
-#~ msgstr "Błąd podczas łączenia z systemem audytu."
-
-#~ msgid "Error translating default context."
-#~ msgstr "Błąd podczas tłumaczenia domyślnego kontekstu."
-
-#~ msgid "Error translating selected context."
-#~ msgstr "Błąd podczas tłumaczenia wybranego kontekstu."
-
-#~ msgid "Error sending audit message."
-#~ msgstr "Błąd podczas wysyłania komunikatu audytu."
-
-#~ msgid "Out of memory"
-#~ msgstr "Brak pamięci"
