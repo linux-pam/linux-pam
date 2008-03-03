@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-02-04 16:29+0100\n"
+"POT-Creation-Date: 2008-03-03 09:06+0100\n"
 "PO-Revision-Date: 2008-02-23 20:11+0300\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat,com>\n"
@@ -35,7 +35,7 @@ msgstr "...Извините, ваше время истекло!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "ошибочный диалог (%d)\n"
 
-#: libpam/pam_item.c:298
+#: libpam/pam_item.c:297
 msgid "login:"
 msgstr "регистрация:"
 
@@ -222,13 +222,13 @@ msgid "has been already used"
 msgstr "уже был использован"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Пароль не указан"
 
 # password dialog title
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Пароль не изменен"
 
@@ -331,22 +331,6 @@ msgstr "Создание каталога '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Невозможно создать каталог %s: %m"
 
-#: modules/pam_selinux/pam_selinux.c:94
-msgid "Error connecting to audit system."
-msgstr "Ошибка подключения к системе аудита."
-
-#: modules/pam_selinux/pam_selinux.c:98
-msgid "Error translating default context."
-msgstr "Ошибка перевода контекста по умолчанию."
-
-#: modules/pam_selinux/pam_selinux.c:102
-msgid "Error translating selected context."
-msgstr "Ошибка перевода выбранного контекста."
-
-#: modules/pam_selinux/pam_selinux.c:113
-msgid "Error sending audit message."
-msgstr "Ошибка при посылке сообщения аудита."
-
 # power-off message
 #: modules/pam_selinux/pam_selinux.c:164
 msgid "Would you like to enter a security context? [N] "
@@ -379,11 +363,7 @@ msgstr "Хотите ввести другую роль или уровень?"
 msgid "No default type for role %s\n"
 msgstr "Для роли %s нет типа по умолчанию\n"
 
-#: modules/pam_selinux/pam_selinux.c:512
-msgid "Out of memory"
-msgstr "Нехватка памяти"
-
-#: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
+#: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Невозможно получить корректный контекст для %s"
@@ -508,40 +488,55 @@ msgid "Password: "
 msgstr "Пароль: "
 
 # password dialog title
-#: modules/pam_unix/pam_unix_passwd.c:366
+#: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
 msgstr "Пароль NIS изменить нельзя."
 
-#: modules/pam_unix/pam_unix_passwd.c:477
+#: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
 msgstr "Выберите пароль большей длины"
 
-#: modules/pam_unix/pam_unix_passwd.c:482
+#: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Этот пароль уже был использован. Выберите другой."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
 msgstr "Смена пароля для %s."
 
 # Keep the newlines and spaces after ':'!
-#: modules/pam_unix/pam_unix_passwd.c:594
+#: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
 msgstr "(текущий) пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:617
 msgid "You must wait longer to change your password"
 msgstr "До смены пароля должно пройти больше времени"
 
-#: modules/pam_unix/pam_unix_passwd.c:689
+#: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Enter new UNIX password: "
 msgstr "Введите новый пароль UNIX: "
 
 # Keep the newlines and spaces after ':'!
-#: modules/pam_unix/pam_unix_passwd.c:690
+#: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Повторите ввод нового пароля UNIX: "
+
+#~ msgid "Error connecting to audit system."
+#~ msgstr "Ошибка подключения к системе аудита."
+
+#~ msgid "Error translating default context."
+#~ msgstr "Ошибка перевода контекста по умолчанию."
+
+#~ msgid "Error translating selected context."
+#~ msgstr "Ошибка перевода выбранного контекста."
+
+#~ msgid "Error sending audit message."
+#~ msgstr "Ошибка при посылке сообщения аудита."
+
+#~ msgid "Out of memory"
+#~ msgstr "Нехватка памяти"
 
 #~ msgid "Do you want to choose a different one? [n]"
 #~ msgstr "Выбрать другой? [n]"

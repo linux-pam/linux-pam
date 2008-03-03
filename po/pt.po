@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-02-04 16:29+0100\n"
+"POT-Creation-Date: 2008-03-03 09:06+0100\n"
 "PO-Revision-Date: 2006-05-03 21:54+0200\n"
 "Last-Translator: Antonio Cardoso Martins <digiplan@netvisao.pt>\n"
 "Language-Team: portuguese\n"
@@ -29,7 +29,7 @@ msgstr "...Lamento, o seu tempo esgotou-se!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "conversação errónea (%d)\n"
 
-#: libpam/pam_item.c:298
+#: libpam/pam_item.c:297
 msgid "login:"
 msgstr "login:"
 
@@ -213,12 +213,12 @@ msgid "has been already used"
 msgstr "já foi utilizada"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Não foi fornecida uma palavra passe"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Palavra passe inalterada"
 
@@ -321,23 +321,6 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:94
-msgid "Error connecting to audit system."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:98
-#, fuzzy
-msgid "Error translating default context."
-msgstr "O seu contexto pré-definido é %s: \n"
-
-#: modules/pam_selinux/pam_selinux.c:102
-msgid "Error translating selected context."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:113
-msgid "Error sending audit message."
-msgstr ""
-
 #: modules/pam_selinux/pam_selinux.c:164
 #, fuzzy
 msgid "Would you like to enter a security context? [N] "
@@ -372,11 +355,7 @@ msgstr "Pretende introduzir um contexto de segurança? [y]"
 msgid "No default type for role %s\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:512
-msgid "Out of memory"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
+#: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr ""
@@ -498,38 +477,42 @@ msgstr "Aviso: a sua palavra passe expira em %d dia%.2s"
 msgid "Password: "
 msgstr "Palavra passe: "
 
-#: modules/pam_unix/pam_unix_passwd.c:366
+#: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
 msgstr "A palavra passe de NIS não pode ser alterada."
 
-#: modules/pam_unix/pam_unix_passwd.c:477
+#: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
 msgstr "Deve escolher uma palavra passe mais longa"
 
-#: modules/pam_unix/pam_unix_passwd.c:482
+#: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "A palavra passe já foi anteriormente utilizada. Escolha outra."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:571
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "A alterar a palavra passe de STRESS para "
 
-#: modules/pam_unix/pam_unix_passwd.c:594
+#: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
 msgstr "palavra passe UNIX (actual): "
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:617
 msgid "You must wait longer to change your password"
 msgstr "Tem de esperar mais antes de poder alterar a sua palavra passe"
 
-#: modules/pam_unix/pam_unix_passwd.c:689
+#: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Enter new UNIX password: "
 msgstr "Digite a nova palavra passe UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:690
+#: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Digite novamente a nova palavra passe UNIX: "
+
+#, fuzzy
+#~ msgid "Error translating default context."
+#~ msgstr "O seu contexto pré-definido é %s: \n"
 
 #~ msgid "Do you want to choose a different one? [n]"
 #~ msgstr "Pretende escolher um diferente? [n]"

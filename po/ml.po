@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-02-04 16:29+0100\n"
+"POT-Creation-Date: 2008-03-03 09:06+0100\n"
 "PO-Revision-Date: 2007-06-22 17:15+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <en@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "...ക്ഷമിക്കണം, നിങ്ങളുടെ സമയ
 msgid "erroneous conversation (%d)\n"
 msgstr "തെറ്റായ സംവാദം (%d)\n"
 
-#: libpam/pam_item.c:298
+#: libpam/pam_item.c:297
 msgid "login:"
 msgstr "ലോഗിന്‍:"
 
@@ -213,12 +213,12 @@ msgid "has been already used"
 msgstr "ഉപയോഗത്തിലാണ്"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "പാസ്‌വേറ്‍ഡ് നല്‍കിയിട്ടില്ല"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "പാസ്‌വേറ്‍ഡ് മാറ്റിയിട്ടില്ല"
 
@@ -321,23 +321,6 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:94
-msgid "Error connecting to audit system."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:98
-#, fuzzy
-msgid "Error translating default context."
-msgstr "%s ആണ് നിങ്ങളുടെ ഡീഫോള്‍ട്ട് കോണ്‍ടെക്സ്റ്റ്. \n"
-
-#: modules/pam_selinux/pam_selinux.c:102
-msgid "Error translating selected context."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:113
-msgid "Error sending audit message."
-msgstr ""
-
 #: modules/pam_selinux/pam_selinux.c:164
 #, fuzzy
 msgid "Would you like to enter a security context? [N] "
@@ -372,11 +355,7 @@ msgstr "നിങ്ങള്‍ക്ക് ഒരു സെക്യൂരി�
 msgid "No default type for role %s\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:512
-msgid "Out of memory"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
+#: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr ""
@@ -496,38 +475,42 @@ msgstr "മുന്നറിയിപ്പ്: നിങ്ങളുടെ പ
 msgid "Password: "
 msgstr "പാസ്‌വേറ്‍ഡ്:"
 
-#: modules/pam_unix/pam_unix_passwd.c:366
+#: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
 msgstr "NIS പാസ്‌വേറ്‍ഡ് മാറ്റുവാന്‍ സാധ്യമാകുന്നില്ല."
 
-#: modules/pam_unix/pam_unix_passwd.c:477
+#: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
 msgstr "ഇതിലും വലിയ പാസ്‌വേറ്‍ഡ് തിരഞ്ഞെടുക്കുക"
 
-#: modules/pam_unix/pam_unix_passwd.c:482
+#: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "പാസ്‌വേറ്‍ഡ് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:571
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "%s-നുളള STRESS പാസ്‌വേറ്‍ഡ് മാറ്റുന്ന."
 
-#: modules/pam_unix/pam_unix_passwd.c:594
+#: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
 msgstr "(നിലവിലുളളത്) UNIX പാസ്‌വേറ്‍ഡ്: "
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:617
 msgid "You must wait longer to change your password"
 msgstr "നിങ്ങളുടെ പാസ്‌വേറ്‍ഡ് മാറ്റുന്നതിനായി ഇനിയും കാത്തിരിക്കേണ്ടതാണ്."
 
-#: modules/pam_unix/pam_unix_passwd.c:689
+#: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Enter new UNIX password: "
 msgstr "പുതിയ UNIX പാസ്‌വേറ്‍ഡ് നല്‍കുക: "
 
-#: modules/pam_unix/pam_unix_passwd.c:690
+#: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "പുതിയ UNIX പാസ്‌വേറ്‍ഡ് വീണ്ടും ടൈപ്പ് ചെയ്യുക: "
+
+#, fuzzy
+#~ msgid "Error translating default context."
+#~ msgstr "%s ആണ് നിങ്ങളുടെ ഡീഫോള്‍ട്ട് കോണ്‍ടെക്സ്റ്റ്. \n"
 
 #~ msgid "Do you want to choose a different one? [n]"
 #~ msgstr "നിങ്ങള്‍ക്ക് മറ്റൊരെണ്ണം തിരഞ്ഞെടുക്കണമോ? [n]"

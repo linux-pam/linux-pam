@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-02-04 16:29+0100\n"
+"POT-Creation-Date: 2008-03-03 09:06+0100\n"
 "PO-Revision-Date: 2008-02-22 23:33+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
@@ -32,7 +32,7 @@ msgstr "...Sorry, uw tijd is verlopen!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "foute conversatie (%d)\n"
 
-#: libpam/pam_item.c:298
+#: libpam/pam_item.c:297
 msgid "login:"
 msgstr "gebruikersnaam:"
 
@@ -215,12 +215,12 @@ msgid "has been already used"
 msgstr "is al gebruikt"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Geen wachtwoord opgegeven"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Wachtwoord is niet gewijzigd"
 
@@ -323,22 +323,6 @@ msgstr "Aanmaken van map '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Niet in staat om map %s aan te maken: %m"
 
-#: modules/pam_selinux/pam_selinux.c:94
-msgid "Error connecting to audit system."
-msgstr "Fout bij verbinden met het auditsysteem."
-
-#: modules/pam_selinux/pam_selinux.c:98
-msgid "Error translating default context."
-msgstr "Fout bij vertalen van standaardcontext."
-
-#: modules/pam_selinux/pam_selinux.c:102
-msgid "Error translating selected context."
-msgstr "Fout bij vertalen van geselecteerde context."
-
-#: modules/pam_selinux/pam_selinux.c:113
-msgid "Error sending audit message."
-msgstr "Fout bij versturen van auditmelding."
-
 #: modules/pam_selinux/pam_selinux.c:164
 msgid "Would you like to enter a security context? [N] "
 msgstr "Wilt u een beveiligingscontext invoeren? [N] "
@@ -369,11 +353,7 @@ msgstr "Wilt u een andere rol of een ander niveau invoeren?"
 msgid "No default type for role %s\n"
 msgstr "Geen standaardtype voor rol %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:512
-msgid "Out of memory"
-msgstr "Onvoldoende geheugen"
-
-#: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
+#: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Niet in staat om geldige context voor %s te verkrijgen"
@@ -494,38 +474,53 @@ msgstr "Waarschuwing: uw wachtwoord zal over %d dagen verlopen"
 msgid "Password: "
 msgstr "Wachtwoord: "
 
-#: modules/pam_unix/pam_unix_passwd.c:366
+#: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
 msgstr "NIS-wachtwoord kon niet worden gewijzigd."
 
-#: modules/pam_unix/pam_unix_passwd.c:477
+#: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
 msgstr "U moet een langer wachtwoord kiezen"
 
-#: modules/pam_unix/pam_unix_passwd.c:482
+#: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Wachtwoord is al gebruikt. Kies een ander wachtwoord."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
 msgstr "Veranderen van wachtwoord voor %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:594
+#: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
 msgstr "(huidig) UNIX-wachtwoord: "
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:617
 msgid "You must wait longer to change your password"
 msgstr "U moet langer wachten om uw wachtwoord te wijzigen"
 
-#: modules/pam_unix/pam_unix_passwd.c:689
+#: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Enter new UNIX password: "
 msgstr "Nieuw UNIX-wachtwoord invoeren: "
 
-#: modules/pam_unix/pam_unix_passwd.c:690
+#: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Nieuw UNIX-wachtwoord herhalen: "
+
+#~ msgid "Error connecting to audit system."
+#~ msgstr "Fout bij verbinden met het auditsysteem."
+
+#~ msgid "Error translating default context."
+#~ msgstr "Fout bij vertalen van standaardcontext."
+
+#~ msgid "Error translating selected context."
+#~ msgstr "Fout bij vertalen van geselecteerde context."
+
+#~ msgid "Error sending audit message."
+#~ msgstr "Fout bij versturen van auditmelding."
+
+#~ msgid "Out of memory"
+#~ msgstr "Onvoldoende geheugen"
 
 #~ msgid "Do you want to choose a different one? [n]"
 #~ msgstr "Wilt u een andere kiezen? [n]"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-02-04 16:29+0100\n"
+"POT-Creation-Date: 2008-03-03 09:06+0100\n"
 "PO-Revision-Date: 2008-02-26 19:23+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "... czas minął.\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "błędna rozmowa (%d)\n"
 
-#: libpam/pam_item.c:298
+#: libpam/pam_item.c:297
 msgid "login:"
 msgstr "login:"
 
@@ -214,12 +214,12 @@ msgid "has been already used"
 msgstr "było już używane"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Nie podano hasła"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Hasło nie zostało zmienione"
 
@@ -322,22 +322,6 @@ msgstr "Tworzenie folderu \"%s\"."
 msgid "Unable to create directory %s: %m"
 msgstr "Nie można utworzyć folderu %s: %m"
 
-#: modules/pam_selinux/pam_selinux.c:94
-msgid "Error connecting to audit system."
-msgstr "Błąd podczas łączenia z systemem audytu."
-
-#: modules/pam_selinux/pam_selinux.c:98
-msgid "Error translating default context."
-msgstr "Błąd podczas tłumaczenia domyślnego kontekstu."
-
-#: modules/pam_selinux/pam_selinux.c:102
-msgid "Error translating selected context."
-msgstr "Błąd podczas tłumaczenia wybranego kontekstu."
-
-#: modules/pam_selinux/pam_selinux.c:113
-msgid "Error sending audit message."
-msgstr "Błąd podczas wysyłania komunikatu audytu."
-
 #: modules/pam_selinux/pam_selinux.c:164
 msgid "Would you like to enter a security context? [N] "
 msgstr "Czy chcesz podać kontekst bezpieczeństwa? [N]"
@@ -368,11 +352,7 @@ msgstr "Czy chcesz podać inną rolę lub poziom?"
 msgid "No default type for role %s\n"
 msgstr "Brak domyślnego typu dla roli %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:512
-msgid "Out of memory"
-msgstr "Brak pamięci"
-
-#: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
+#: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Nie można uzyskać prawidłowego kontekstu dla %s"
@@ -492,35 +472,50 @@ msgstr "Ostrzeżenie: hasło wygaśnie za %d dni"
 msgid "Password: "
 msgstr "Hasło: "
 
-#: modules/pam_unix/pam_unix_passwd.c:366
+#: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
 msgstr "Nie można zmienić hasła NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:477
+#: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
 msgstr "Wybierz dłuższe hasło"
 
-#: modules/pam_unix/pam_unix_passwd.c:482
+#: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Hasło było już używane. Wybierz inne."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
 msgstr "Zmienianie hasła dla %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:594
+#: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
 msgstr "Bieżące hasło UNIX:"
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:617
 msgid "You must wait longer to change your password"
 msgstr "Poczekaj dłużej, aby zmienić hasło"
 
-#: modules/pam_unix/pam_unix_passwd.c:689
+#: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Enter new UNIX password: "
 msgstr "Podaj nowe hasło UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:690
+#: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Ponownie podaj hasło UNIX: "
+
+#~ msgid "Error connecting to audit system."
+#~ msgstr "Błąd podczas łączenia z systemem audytu."
+
+#~ msgid "Error translating default context."
+#~ msgstr "Błąd podczas tłumaczenia domyślnego kontekstu."
+
+#~ msgid "Error translating selected context."
+#~ msgstr "Błąd podczas tłumaczenia wybranego kontekstu."
+
+#~ msgid "Error sending audit message."
+#~ msgstr "Błąd podczas wysyłania komunikatu audytu."
+
+#~ msgid "Out of memory"
+#~ msgstr "Brak pamięci"

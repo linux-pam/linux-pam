@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-02-04 16:29+0100\n"
+"POT-Creation-Date: 2008-03-03 09:06+0100\n"
 "PO-Revision-Date: 2005-08-16 20:00+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -31,7 +31,7 @@ msgstr "...Din tid er desværre gået!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "konversationsfejl (%d)\n"
 
-#: libpam/pam_item.c:298
+#: libpam/pam_item.c:297
 msgid "login:"
 msgstr "login:"
 
@@ -217,12 +217,12 @@ msgid "has been already used"
 msgstr "er allerede blevet brugt"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Der er ikke angivet nogen adgangskode"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Adgangskoden er uændret"
 
@@ -325,23 +325,6 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:94
-msgid "Error connecting to audit system."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:98
-#, fuzzy
-msgid "Error translating default context."
-msgstr "Din standardkontekst er %s. \n"
-
-#: modules/pam_selinux/pam_selinux.c:102
-msgid "Error translating selected context."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:113
-msgid "Error sending audit message."
-msgstr ""
-
 # power-off message
 #: modules/pam_selinux/pam_selinux.c:164
 #, fuzzy
@@ -378,11 +361,7 @@ msgstr "Vil du angive en sikkerhedskontekst? [y]"
 msgid "No default type for role %s\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:512
-msgid "Out of memory"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
+#: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr ""
@@ -500,38 +479,42 @@ msgstr "Advarsel: Din adgangskode udløber om %d dage%.2s"
 msgid "Password: "
 msgstr "Adgangskode: "
 
-#: modules/pam_unix/pam_unix_passwd.c:366
+#: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
 msgstr "NIS-adgangskoden kunne ikke ændres."
 
-#: modules/pam_unix/pam_unix_passwd.c:477
+#: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
 msgstr "Du skal vælge en længere adgangskode"
 
-#: modules/pam_unix/pam_unix_passwd.c:482
+#: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Adgangskoden er allerede blevet brugt. Vælg en anden."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:571
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "Ændrer STRESS-adgangskode for"
 
-#: modules/pam_unix/pam_unix_passwd.c:594
+#: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
 msgstr "(nuværende) UNIX-adgangskode: "
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:617
 msgid "You must wait longer to change your password"
 msgstr "Du skal vente lidt længere for at ændre din adgangskode"
 
-#: modules/pam_unix/pam_unix_passwd.c:689
+#: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Enter new UNIX password: "
 msgstr "Indtast ny UNIX-adgangskode: "
 
-#: modules/pam_unix/pam_unix_passwd.c:690
+#: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Genindtast ny UNIX-adgangskode: "
+
+#, fuzzy
+#~ msgid "Error translating default context."
+#~ msgstr "Din standardkontekst er %s. \n"
 
 #~ msgid "Do you want to choose a different one? [n]"
 #~ msgstr "Vil du vælge en anden? [n]"

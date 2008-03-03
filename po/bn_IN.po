@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-02-04 16:29+0100\n"
+"POT-Creation-Date: 2008-03-03 09:06+0100\n"
 "PO-Revision-Date: 2007-06-21 15:05+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali (India) <en@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "...দুঃখিত, সময় সমাপ্ত!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "ত্রুটিপূর্ণ তথ্যবিনিময় (conversation) (%d)\n"
 
-#: libpam/pam_item.c:298
+#: libpam/pam_item.c:297
 msgid "login:"
 msgstr "লগ-ইন:"
 
@@ -213,12 +213,12 @@ msgid "has been already used"
 msgstr "পূর্বে ব্যবহৃত হয়েছে"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "কোনো পাসওয়ার্ড উল্লিখিত হয়নি"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "পাসওয়ার্ড পরিবর্তন করা হয়নি"
 
@@ -321,23 +321,6 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:94
-msgid "Error connecting to audit system."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:98
-#, fuzzy
-msgid "Error translating default context."
-msgstr "ডিফল্ট কনটেক্সট হল %s। \n"
-
-#: modules/pam_selinux/pam_selinux.c:102
-msgid "Error translating selected context."
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:113
-msgid "Error sending audit message."
-msgstr ""
-
 #: modules/pam_selinux/pam_selinux.c:164
 #, fuzzy
 msgid "Would you like to enter a security context? [N] "
@@ -372,11 +355,7 @@ msgstr "নিরাপত্তা সংক্রান্ত context উল�
 msgid "No default type for role %s\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:512
-msgid "Out of memory"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:520 modules/pam_selinux/pam_selinux.c:522
+#: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr ""
@@ -496,38 +475,42 @@ msgstr "সতর্কবাণী: %d দিন পরে পাসওয়া�
 msgid "Password: "
 msgstr "পাসওয়ার্ড: "
 
-#: modules/pam_unix/pam_unix_passwd.c:366
+#: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
 msgstr "NIS পাসওয়ার্ড পরিবর্তন করা সম্ভব হয়নি।"
 
-#: modules/pam_unix/pam_unix_passwd.c:477
+#: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
 msgstr "চিহ্নিত পাসওয়ার্ডের থেকে লম্বা পাসওয়ার্ড উল্লেখ করা আবশ্যক"
 
-#: modules/pam_unix/pam_unix_passwd.c:482
+#: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হয়েছে। একটি পৃথক পাসওয়ার্ড নির্বাচন করুন।"
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:571
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "STRESS পাসওয়ার্ড পরিবর্তন করা হচ্ছে "
 
-#: modules/pam_unix/pam_unix_passwd.c:594
+#: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
 msgstr "(বর্তমান) UNIX পাসওয়ার্ড: "
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:617
 msgid "You must wait longer to change your password"
 msgstr "কিছু কাল পরে পাসওয়ার্ড পরিবর্তন করা সম্ভব হবে"
 
-#: modules/pam_unix/pam_unix_passwd.c:689
+#: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Enter new UNIX password: "
 msgstr "নতুন UNIX পাসওয়ার্ড উল্লেখ করুন: "
 
-#: modules/pam_unix/pam_unix_passwd.c:690
+#: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX পাসওয়ার্ড পুনরায় লিখুন: "
+
+#, fuzzy
+#~ msgid "Error translating default context."
+#~ msgstr "ডিফল্ট কনটেক্সট হল %s। \n"
 
 #~ msgid "Do you want to choose a different one? [n]"
 #~ msgstr "ভিন্ন নির্বাচন করতে ইচ্ছুক কি? [n]"

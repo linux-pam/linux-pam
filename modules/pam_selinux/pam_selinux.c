@@ -91,26 +91,26 @@ int send_audit_message(pam_handle_t *pamh, int success, security_context_t defau
 		if (errno == EINVAL || errno == EPROTONOSUPPORT ||
                                         errno == EAFNOSUPPORT)
                         return 0; /* No audit support in kernel */
-		pam_syslog(pamh, LOG_ERR, _("Error connecting to audit system."));
+		pam_syslog(pamh, LOG_ERR, "Error connecting to audit system.");
 		return rc;
 	}
 	if (selinux_trans_to_raw_context(default_context, &default_raw) < 0) {
-		pam_syslog(pamh, LOG_ERR, _("Error translating default context."));
+		pam_syslog(pamh, LOG_ERR, "Error translating default context.");
 		default_raw = NULL;
 	}
 	if (selinux_trans_to_raw_context(selected_context, &selected_raw) < 0) {
-		pam_syslog(pamh, LOG_ERR, _("Error translating selected context."));
+		pam_syslog(pamh, LOG_ERR, "Error translating selected context.");
 		selected_raw = NULL;
 	}
 	if (asprintf(&msg, "pam: default-context=%s selected-context=%s",
 		     default_raw ? default_raw : (default_context ? default_context : "?"),
 		     selected_raw ? selected_raw : (selected_context ? selected_context : "?")) < 0) {
-		pam_syslog(pamh, LOG_ERR, ("Error allocating memory."));
+		pam_syslog(pamh, LOG_ERR, "Error allocating memory.");
 		goto out;
 	}
 	if (audit_log_user_message(audit_fd, AUDIT_USER_ROLE_CHANGE,
 				   msg, NULL, NULL, NULL, success) <= 0) {
-		pam_syslog(pamh, LOG_ERR, _("Error sending audit message."));
+		pam_syslog(pamh, LOG_ERR, "Error sending audit message.");
 		goto out;
 	}
 	rc = 0;
@@ -509,7 +509,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     default_user_context=strdup(contextlist[0]);
     freeconary(contextlist);
     if (default_user_context == NULL) {
-	  pam_syslog(pamh, LOG_ERR, _("Out of memory"));
+	  pam_syslog(pamh, LOG_ERR, "Out of memory");
           return PAM_AUTH_ERR;
     }
     user_context = default_user_context;
@@ -517,7 +517,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
       user_context = config_context(pamh, default_user_context, debug);
       if (user_context == NULL) {
 	freecon(default_user_context);
-	pam_syslog(pamh, LOG_ERR, _("Unable to get valid context for %s"),
+	pam_syslog(pamh, LOG_ERR, "Unable to get valid context for %s",
 		    username);
 	pam_prompt (pamh, PAM_ERROR_MSG, NULL,  _("Unable to get valid context for %s"), username);
         if (security_getenforce() == 1)

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-02-04 16:29+0100\n"
+"POT-Creation-Date: 2008-03-03 09:06+0100\n"
 "PO-Revision-Date: 2008-02-29 12:59+0100\n"
 "Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
@@ -29,7 +29,7 @@ msgstr "...Ihre Zeit ist abgelaufen.\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "fehlerhafte Kommunikation (%d)\n"
 
-#: libpam/pam_item.c:298
+#: libpam/pam_item.c:297
 msgid "login:"
 msgstr "Login:"
 
@@ -71,11 +71,14 @@ msgstr "Fehler bei Authentifizierung"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr "Berechtigungsnachweis für Zugriff auf Authentifizierungsdaten nicht ausreichend"
+msgstr ""
+"Berechtigungsnachweis für Zugriff auf Authentifizierungsdaten nicht "
+"ausreichend"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "Authentifizierungsdienst kann Authentifizierungsinformationen nicht abrufen"
+msgstr ""
+"Authentifizierungsdienst kann Authentifizierungsinformationen nicht abrufen"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -95,7 +98,8 @@ msgstr "Benutzerkonto ist abgelaufen"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr "Erstellen/Entfernen eines Eintrags für die angegebene Sitzung nicht möglich"
+msgstr ""
+"Erstellen/Entfernen eines Eintrags für die angegebene Sitzung nicht möglich"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
@@ -212,12 +216,12 @@ msgid "has been already used"
 msgstr "es wurde bereits verwendet"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Kein Passwort angegeben"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Passwort nicht geändert"
 
@@ -320,38 +324,19 @@ msgstr "Erstelle Verzeichnis '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Verzeichnis %s kann nicht erstellt werden: %m"
 
-#: modules/pam_selinux/pam_selinux.c:94
-msgid "Error connecting to audit system."
-msgstr "Fehler beim Zugriff auf das Audit-Subsystem."
-
-#: modules/pam_selinux/pam_selinux.c:98
-msgid "Error translating default context."
-msgstr "Fehler beim Übersetzen des Standard-Kontexts."
-
-#: modules/pam_selinux/pam_selinux.c:102
-msgid "Error translating selected context."
-msgstr "Fehler beim Übersetzen des gewählten Kontexts."
-
-#: modules/pam_selinux/pam_selinux.c:113
-msgid "Error sending audit message."
-msgstr "Fehler beim Schreiben einer Audit-Meldung."
-
 #: modules/pam_selinux/pam_selinux.c:164
 msgid "Would you like to enter a security context? [N] "
 msgstr "Möchten Sie einen Sicherheitskontext eingeben? [N] "
 
-#: modules/pam_selinux/pam_selinux.c:181
-#: modules/pam_selinux/pam_selinux.c:265
+#: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
 msgid "role:"
 msgstr "Funktion:"
 
-#: modules/pam_selinux/pam_selinux.c:193
-#: modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
 msgid "level:"
 msgstr "Stufe:"
 
-#: modules/pam_selinux/pam_selinux.c:206
-#: modules/pam_selinux/pam_selinux.c:313
+#: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
 msgstr "Kein gültiger Sicherheitskontext"
 
@@ -369,11 +354,6 @@ msgstr "Wollen Sie eine andere Rolle oder Stufe eingeben?"
 msgid "No default type for role %s\n"
 msgstr "Keinen Standard-Typ für Rolle %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:512
-msgid "Out of memory"
-msgstr "Kein freier Speicher mehr vorhanden"
-
-#: modules/pam_selinux/pam_selinux.c:520
 #: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
@@ -453,16 +433,18 @@ msgstr "%s: Nicht erkannte Option: %s\n"
 
 #: modules/pam_tally/pam_tally.c:781
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:855
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: Es können nicht alle Benutzer auf Nicht-null zurückgesetzt werden\n"
+msgstr ""
+"%s: Es können nicht alle Benutzer auf Nicht-null zurückgesetzt werden\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229
-#: modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Ihr Konto ist abgelaufen. Wenden Sie sich an den Systemadministrator"
 
@@ -474,8 +456,7 @@ msgstr "Sie müssen Ihr Passwort sofort ändern (von root erzwungen)."
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Sie müssen Ihr Passwort sofort ändern (Passwortablauf)."
 
-#: modules/pam_unix/pam_unix_acct.c:261
-#: modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -488,48 +469,63 @@ msgstr[1] "Warnung: Ihr Passwort läuft in %d Tagen ab."
 msgid "Warning: your password will expire in %d days"
 msgstr "Warnung: Ihr Passwort läuft in %d Tagen ab."
 
-#: modules/pam_unix/pam_unix_auth.c:159
-#: modules/pam_userdb/pam_userdb.c:61
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "Passwort: "
 
-#: modules/pam_unix/pam_unix_passwd.c:366
+#: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
 msgstr "Änderung des NIS-Passworts nicht möglich."
 
-#: modules/pam_unix/pam_unix_passwd.c:477
+#: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
 msgstr "Sie müssen ein längeres Passwort auswählen."
 
-#: modules/pam_unix/pam_unix_passwd.c:482
+#: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Passwort wurde bereits verwendet. Wählen Sie ein anderes aus."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
 msgstr "Ändern des Passworts für %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:594
+#: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
 msgstr "(aktuelles) UNIX-Passwort: "
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:617
 msgid "You must wait longer to change your password"
 msgstr "Sie können Ihr Passwort noch nicht ändern"
 
-#: modules/pam_unix/pam_unix_passwd.c:689
+#: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Enter new UNIX password: "
 msgstr "Geben Sie ein neues UNIX-Passwort ein: "
 
-#: modules/pam_unix/pam_unix_passwd.c:690
+#: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Geben Sie das neue UNIX-Passwort erneut ein: "
 
+#~ msgid "Error connecting to audit system."
+#~ msgstr "Fehler beim Zugriff auf das Audit-Subsystem."
+
+#~ msgid "Error translating default context."
+#~ msgstr "Fehler beim Übersetzen des Standard-Kontexts."
+
+#~ msgid "Error translating selected context."
+#~ msgstr "Fehler beim Übersetzen des gewählten Kontexts."
+
+#~ msgid "Error sending audit message."
+#~ msgstr "Fehler beim Schreiben einer Audit-Meldung."
+
+#~ msgid "Out of memory"
+#~ msgstr "Kein freier Speicher mehr vorhanden"
+
 #~ msgid "Do you want to choose a different one? [n]"
 #~ msgstr "Möchten Sie einen anderen auswählen? [n]"
+
 #~ msgid "Enter number of choice: "
 #~ msgstr "Geben Sie die gewünschte Nummer ein: "
+
 #~ msgid "type: "
 #~ msgstr "Typ: "
-

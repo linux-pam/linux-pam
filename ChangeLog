@@ -1,3 +1,8 @@
+2008-03-03  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_selinux/pam_selinux.c: Do not translate syslog messages.
+	* po/Linux-PAM.pot: Update.
+
 2008-02-26  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_unix/Makefile.am: Do not link to cracklib.
