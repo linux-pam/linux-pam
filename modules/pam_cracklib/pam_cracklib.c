@@ -642,16 +642,12 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 				 options.prompt_type[0]?" ":"");
 
 	    if (retval == PAM_SUCCESS) {     /* a good conversation */
-	        token1 = x_strdup(resp);
+	        token1 = resp;
                 if (token1 == NULL) {
 		    pam_syslog(pamh, LOG_NOTICE,
                                "could not recover authentication token 1");
 		    retval = PAM_AUTHTOK_RECOVERY_ERR;
 		}
-                /*
-                 * tidy up the conversation (resp_retcode) is ignored
-                 */
-                _pam_drop(resp);
             } else {
                 retval = (retval == PAM_SUCCESS) ?
                          PAM_AUTHTOK_RECOVERY_ERR:retval ;
@@ -710,16 +706,12 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 				 PROMPT2, options.prompt_type,
 				 options.prompt_type[0]?" ":"");
 	    if (retval == PAM_SUCCESS) {     /* a good conversation */
-	        token2 = x_strdup(resp);
+	        token2 = resp;
 	        if (token2 == NULL) {
 		    pam_syslog(pamh,LOG_NOTICE,
 			       "could not recover authentication token 2");
 		    retval = PAM_AUTHTOK_RECOVERY_ERR;
 		}
-                /*
-                 * tidy up the conversation (resp_retcode) is ignored
-                 */
-	        _pam_drop(resp);
             }
 
 	    /* No else, the a retval == PAM_SUCCESS path can change retval

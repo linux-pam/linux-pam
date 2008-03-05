@@ -1,3 +1,10 @@
+2008-03-05  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_cracklib/pam_cracklib.c(pam_sm_chauthtok): Avoid
+	unnecessary x_strdup() of resp.
+	* modules/pam_ftp/pam_ftp(pam_sm_authenticate): Call _pam_overwrite()
+	before dropping password resp.
+
 2008-03-03  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_selinux/pam_selinux.c: Do not translate syslog messages.
