@@ -1,14 +1,14 @@
-# translation of gu.po to Gujarati
+# translation of Linux-PAM.tip.gu.po to Gujarati
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Ankit Patel <ankit@redhat.com>, 2007.
+# Ankit Patel <ankit@redhat.com>, 2007, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: gu\n"
+"Project-Id-Version: Linux-PAM.tip.gu\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-03-03 09:06+0100\n"
-"PO-Revision-Date: 2007-06-21 12:11+0530\n"
+"PO-Revision-Date: 2008-03-13 14:29+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -208,7 +208,7 @@ msgstr "એ ફેરવાયેલ છે"
 
 #: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
-msgstr ""
+msgstr "પૂરતા અક્ષર વર્ગો નથી"
 
 #: modules/pam_cracklib/pam_cracklib.c:498
 msgid "has been already used"
@@ -316,55 +316,51 @@ msgstr "તમારી પાસે ફોલ્ડર %s માં મેઈ�
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "ડિરેક્ટરી '%s' બનાવી રહ્યા છીએ."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "ડિરેક્ટરી %s બનાવવામાં અસમર્થ: %m"
 
 #: modules/pam_selinux/pam_selinux.c:164
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "શું તમે સુરક્ષા સંદર્ભ દાખલ કરવા ઈચ્છો છો? [y] "
+msgstr "શું તમે સુરક્ષા સંદર્ભ દાખલ કરવા ઈચ્છો છો? [N] "
 
 #: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
-#, fuzzy
 msgid "role:"
-msgstr "ભૂમિકા: "
+msgstr "ભૂમિકા:"
 
 #: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "level:"
-msgstr "સ્તર: "
+msgstr "સ્તર:"
 
 #: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
 msgstr "માન્ય સુરક્ષા સંદર્ભ નથી"
 
 #: modules/pam_selinux/pam_selinux.c:251
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "સુરક્ષા સંદર્ભ %s સોંપાયેલ"
+msgstr "મૂળભૂત સુરક્ષા સંદર્ભ %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:255
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "શું તમે સુરક્ષા સંદર્ભ દાખલ કરવા ઈચ્છો છો? [y] "
+msgstr "શું તમે અલગ ભૂમિકા કે સ્તર દાખલ કરવા ઈચ્છો છો?"
 
 #: modules/pam_selinux/pam_selinux.c:269
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "ભૂમિકા %s માટે કોઈ મૂળભૂત પ્રકાર નથી\n"
 
 #: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "%s માટે માન્ય સંદર્ભ મેળવવામાં અસમર્થ"
 
 #: modules/pam_selinux/pam_selinux.c:578
 msgid "Requested MLS level not in permitted range"
-msgstr ""
+msgstr "અરજી થયેલ MLS સ્તર એ પરવાનગીય વિસ્તારમાં નથી"
 
 #: modules/pam_selinux/pam_selinux.c:628
 #, c-format
@@ -372,9 +368,9 @@ msgid "Security Context %s Assigned"
 msgstr "સુરક્ષા સંદર્ભ %s સોંપાયેલ"
 
 #: modules/pam_selinux/pam_selinux.c:649
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "સુરક્ષા સંદર્ભ %s સોંપાયેલ"
+msgstr "કી બનાવટ સંદર્ભ %s સોંપાયેલ"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -392,9 +388,9 @@ msgid "login: failure forking: %m"
 msgstr "પ્રવેશ: ફોર્કમાં નિષ્ફળ: %m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "માટે STRESS પાસવર્ડ બદલી રહ્યા છીએ "
+msgstr "STRESS પાસવર્ડ %s માટે બદલો."
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -436,10 +432,8 @@ msgstr "%s: નહિં ઓળખાતો વિકલ્પ %s\n"
 
 #: modules/pam_tally/pam_tally.c:781
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:855
 #, c-format
@@ -488,9 +482,9 @@ msgid "Password has been already used. Choose another."
 msgstr "પાસવર્ડ પહેલાથી જ વપરાઈ ગયેલ છે. બીજો પસંદ કરો."
 
 #: modules/pam_unix/pam_unix_passwd.c:571
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "માટે STRESS પાસવર્ડ બદલી રહ્યા છીએ "
+msgstr "%s માટે પાસવર્ડ બદલવાનું."
 
 #: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
@@ -508,15 +502,3 @@ msgstr "નવો UNIX પાસવર્ડ દાખલ કરો: "
 msgid "Retype new UNIX password: "
 msgstr "નવો UNIX પાસવર્ડ ફરીથી લખો: "
 
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "%s તમારો મૂળભૂત સંદર્ભ છે. \n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "શું તમે કંઈક અલગ પસંદ કરવા માંગો છો? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "પસંદગીનો નંબર દાખલ કરો: "
-
-#~ msgid "type: "
-#~ msgstr "પ્રકાર: "
