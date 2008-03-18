@@ -1,16 +1,17 @@
-# translation of fr-RHEL5.po to french
+# translation of pam.fr2.po to Français
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
 # myriam malga <mmalga@redhat.com>, 2007.
+# Canniot Thomas <thomas.canniot@mrtomlinux.org>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: fr-RHEL5\n"
+"Project-Id-Version: pam.fr2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-03-03 09:06+0100\n"
-"PO-Revision-Date: 2007-06-25 10:52+1000\n"
-"Last-Translator: myriam malga <mmalga@redhat.com>\n"
-"Language-Team: french <en@li.org>\n"
+"PO-Revision-Date: 2008-03-12 12:17+0100\n"
+"Last-Translator: Canniot Thomas <thomas.canniot@mrtomlinux.org>\n"
+"Language-Team: Français <fedora-trans-fr@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,7 +29,7 @@ msgstr "...Votre temps est épuisé !\n"
 #: libpam_misc/misc_conv.c:342
 #, c-format
 msgid "erroneous conversation (%d)\n"
-msgstr "erreurs de conversation (%d)\n"
+msgstr "conversation erronnée (%d)\n"
 
 #: libpam/pam_item.c:297
 msgid "login:"
@@ -60,7 +61,7 @@ msgstr "Erreur système"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
-msgstr "Erreur tampon mémoire"
+msgstr "Erreur du tampon mémoire"
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
@@ -73,13 +74,13 @@ msgstr "Échec d'authentification"
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
 msgstr ""
-"Infos d'identification insuffisantes pour accéder aux données "
+"Informations d'identification insuffisantes pour accéder aux données "
 "d'authentification"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
 msgstr ""
-"Le service d'authentification n'a pas pu récupérer les infos "
+"Le service d'authentification n'a pas pu récupérer les informations "
 "d'authentification"
 
 #: libpam/pam_strerror.c:62
@@ -92,8 +93,7 @@ msgstr "Nombre maximum de tentatives épuisées pour le service"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr ""
-"Le jeton d'authentification n'est plus valide ; un nouveau jeton est requis"
+msgstr "Le jeton d'authentification n'est plus valide ; un nouveau jeton est requis"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -106,17 +106,16 @@ msgstr "Impossible de créer/supprimer une entrée pour la session spécifiée"
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
 msgstr ""
-"Le service d'authentification n'a pas pu récupérer les infos "
+"Le service d'authentification n'a pas pu récupérer les informations "
 "d'identification de l'utilisateur"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr "Infos d'identification de l'utilisateur expirées"
+msgstr "Informations d'identification de l'utilisateur expirées"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr ""
-"Échec lors de la définition des infos d'identification de l'utilisateur"
+msgstr "Échec lors de la définition des informations d'identification de l'utilisateur"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
@@ -214,7 +213,7 @@ msgstr "est inversé"
 
 #: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
-msgstr ""
+msgstr "les caractères utilisés ne sont pas suffisamment variés"
 
 #: modules/pam_cracklib/pam_cracklib.c:498
 msgid "has been already used"
@@ -281,7 +280,7 @@ msgstr "Bienvenue sur votre nouveau compte !"
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
 msgid "Too many logins for '%s'."
-msgstr "Trop de connexions pour '%s'."
+msgstr "Trop de connexions pour « %s »."
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
@@ -322,55 +321,51 @@ msgstr "Vous avez des messages dans le dossier %s."
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "Création du répertoire « %s »."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "Impossible de créer le répertoire %s : %m"
 
 #: modules/pam_selinux/pam_selinux.c:164
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "Voulez-vous entrer un contexte de sécurité ? [o]"
+msgstr "Voulez-vous entrer un contexte de sécurité ? [N]"
 
 #: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
-#, fuzzy
 msgid "role:"
 msgstr "rôle :"
 
 #: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "level:"
 msgstr "niveau :"
 
 #: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
-msgstr "Contexte de sécurité non valide"
+msgstr "Contexte de sécurité invalide"
 
 #: modules/pam_selinux/pam_selinux.c:251
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "Contexte de sécurité %s attribué"
+msgstr "Contexte de sécurité par défaut %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:255
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "Voulez-vous entrer un contexte de sécurité ? [o]"
+msgstr "Voulez-vous entrer un niveau ou un rôle différent ?"
 
 #: modules/pam_selinux/pam_selinux.c:269
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "Aucun type par défaut pour le rôle %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "Impossible d'obtenir un contexte valide pour %s"
 
 #: modules/pam_selinux/pam_selinux.c:578
 msgid "Requested MLS level not in permitted range"
-msgstr ""
+msgstr "Niveau MLS demandé hors de la plage autorisée"
 
 #: modules/pam_selinux/pam_selinux.c:628
 #, c-format
@@ -378,14 +373,14 @@ msgid "Security Context %s Assigned"
 msgstr "Contexte de sécurité %s attribué"
 
 #: modules/pam_selinux/pam_selinux.c:649
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "Contexte de sécurité %s attribué"
+msgstr "Contexte de création de clés %s attribué"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
-msgstr "échec d'initialisation PAM\n"
+msgstr "échec de l'initialisation de PAM\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:105
 #, c-format
@@ -395,12 +390,12 @@ msgstr "échec de pam_set_item()\n"
 #: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr "login : échec d'autoclonage : %m"
+msgstr "login : échec d'autoclônage : %m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "Changement du mot de passe STRESS pour  "
+msgstr "Changement du mot de passe STRESS pour %s."
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -412,7 +407,7 @@ msgstr "Retaper le nouveau mot de passe STRESS : "
 
 #: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
-msgstr "Verification erronée : mot de passe inchangé"
+msgstr "Vérification erronée : mot de passe inchangé"
 
 #: modules/pam_tally/pam_tally.c:746
 msgid "Authentication error"
@@ -442,10 +437,8 @@ msgstr "%s : Option non reconnue %s\n"
 
 #: modules/pam_tally/pam_tally.c:781
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:855
 #, c-format
@@ -462,8 +455,7 @@ msgstr "Vous devez changer votre mot de passe immédiatement (imposé par root)"
 
 #: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
-"Vous devez changer votre mot de passe immédiatement (mot de passe périmé)"
+msgstr "Vous devez changer votre mot de passe immédiatement, il est périmé"
 
 #: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
 #, c-format
@@ -495,9 +487,9 @@ msgid "Password has been already used. Choose another."
 msgstr "Mot de passe déjà utilisé. Choisissez-en un autre."
 
 #: modules/pam_unix/pam_unix_passwd.c:571
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "Changement du mot de passe STRESS pour  "
+msgstr "Changement du mot de passe pour %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
@@ -515,15 +507,3 @@ msgstr "Entrez le nouveau mot de passe UNIX : "
 msgid "Retype new UNIX password: "
 msgstr "Retapez le nouveau mot de passe UNIX : "
 
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "Votre contexte par défaut est %s. \n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "Voulez-vous en choisir un autre ? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "Entrer le numéro du choix :"
-
-#~ msgid "type: "
-#~ msgstr "type :"
