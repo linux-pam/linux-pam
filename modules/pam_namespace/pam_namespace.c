@@ -822,10 +822,11 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
      */
 
     pm = polyptr->method;
-    if (pm == LEVEL || pm == USER) {
+    if (pm == LEVEL || pm == CONTEXT)
 #ifdef WITH_SELINUX
-        if (!(idata->flags & PAMNS_CTXT_BASED_INST))
+        if (!(idata->flags & PAMNS_CTXT_BASED_INST)) {
 #else
+    {
 	pam_syslog(idata->pamh, LOG_NOTICE,
 		"Context and level methods not available, using user method");
 #endif
@@ -1528,13 +1529,18 @@ static int setup_namespace(struct instance_data *idata, enum unmnt_op unmnt)
      */
     for (pptr = idata->polydirs_ptr; pptr; pptr = pptr->next) {
 	enum unmnt_op dir_unmnt = unmnt;
-        if (ns_override(pptr, idata, idata->uid)) {
-    	    if (unmnt == NO_UNMNT || ns_override(pptr, idata, idata->ruid)) {
-    		continue;
+
+	if (ns_override(pptr, idata, idata->ruid)) {
+	    dir_unmnt = NO_UNMNT;
+	}
+	if (ns_override(pptr, idata, idata->uid)) {
+	    if (dir_unmnt == NO_UNMNT) {
+		continue;
 	    } else {
 		dir_unmnt = UNMNT_ONLY;
 	    }
 	}
+
 	if (idata->flags & PAMNS_DEBUG)
                 pam_syslog(idata->pamh, LOG_DEBUG,
 			"Setting poly ns for user %d for dir %s",

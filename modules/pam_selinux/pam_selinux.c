@@ -672,7 +672,7 @@ PAM_EXTERN int
 pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
-  int i, debug = 0,status=0, open_session=0;
+  int i, debug = 0, status = PAM_SUCCESS, open_session = 0;
   if (! (selinux_enabled ))
       return PAM_SUCCESS;
 
@@ -702,19 +702,21 @@ pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
     free(ttyn);
     ttyn=NULL;
   }
-  status=setexeccon(prev_user_context);
-  freecon(prev_user_context);
-  if (status) {
-    pam_syslog(pamh, LOG_ERR, "Error!  Unable to set executable context %s.",
+  if (prev_user_context) {
+    if (setexeccon(prev_user_context)) {
+      pam_syslog(pamh, LOG_ERR, "Unable to restore executable context %s.",
 	       prev_user_context);
-    if (security_getenforce() == 1)
-       return PAM_AUTH_ERR;
-    else
-       return PAM_SUCCESS;
+      if (security_getenforce() == 1)
+         status = PAM_AUTH_ERR;
+      else
+         status = PAM_SUCCESS;
+    }
+    freecon(prev_user_context);
+    prev_user_context = NULL;
   }
 
   if (debug)
     pam_syslog(pamh, LOG_NOTICE, "setcontext back to orginal");
 
-  return PAM_SUCCESS;
+  return status;
 }

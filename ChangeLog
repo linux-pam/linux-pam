@@ -1,3 +1,12 @@
+2008-03-20  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_namespace/pam_namespace.c(poly_name): Switch to USER
+	method only when appropriate.
+	(setup_namespace): Do not umount when not mounted with RUSER.
+	
+	* modules/pam_selinux/pam_selinux.c(pam_sm_close_session): Call
+	freecontext() after the context is logged not before.
+
 2008-03-18  Canniot Thomas <thomas.canniot@mrtomlinux.org>
 
 	* po/fr.po: Updated translation.
