@@ -1,16 +1,18 @@
+# translation of Linux-PAM.tip.po to Simplified Chinese
 # translation of zh_CN.po to
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Xi HUANG <xhuang@redhat.com>, 2007.
+# Leah Liu <lliu@redhat.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: zh_CN\n"
+"Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-03-03 09:06+0100\n"
-"PO-Revision-Date: 2007-06-25 15:00+1000\n"
-"Last-Translator: Xi HUANG <xhuang@redhat.com>\n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2008-03-25 15:11+1000\n"
+"Last-Translator: Leah Liu <lliu@redhat.com>\n"
+"Language-Team: Simplified Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -140,7 +142,7 @@ msgstr "已禁用鉴定令牌过期处理"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr "口令服务初步检查失败"
+msgstr "密码服务初步检查失败"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
@@ -169,20 +171,20 @@ msgstr "未知的 PAM 错误"
 #: modules/pam_cracklib/pam_cracklib.c:64
 #, c-format
 msgid "New %s%spassword: "
-msgstr "新的 %s%s口令："
+msgstr "新的 %s%s密码："
 
 #: modules/pam_cracklib/pam_cracklib.c:66
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "重新输入新的 %s%s口令："
+msgstr "重新输入新的 %s%s密码："
 
 #: modules/pam_cracklib/pam_cracklib.c:67
 msgid "Sorry, passwords do not match."
-msgstr "抱歉，口令不匹配。"
+msgstr "抱歉，密码不匹配。"
 
 #: modules/pam_cracklib/pam_cracklib.c:432
 msgid "is the same as the old one"
-msgstr "与旧口令相同"
+msgstr "与旧密码相同"
 
 #: modules/pam_cracklib/pam_cracklib.c:445
 msgid "is a palindrome"
@@ -194,7 +196,7 @@ msgstr "仅更改了大小写"
 
 #: modules/pam_cracklib/pam_cracklib.c:451
 msgid "is too similar to the old one"
-msgstr "与旧口令过于相似"
+msgstr "与旧密码过于相似"
 
 #: modules/pam_cracklib/pam_cracklib.c:454
 msgid "is too simple"
@@ -202,11 +204,11 @@ msgstr "过于简单"
 
 #: modules/pam_cracklib/pam_cracklib.c:457
 msgid "is rotated"
-msgstr "是旧口令的循环"
+msgstr "是旧密码的循环"
 
 #: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
-msgstr ""
+msgstr "没有足够的字符分类"
 
 #: modules/pam_cracklib/pam_cracklib.c:498
 msgid "has been already used"
@@ -215,18 +217,18 @@ msgstr "已使用"
 #: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
-msgstr "口令未提供"
+msgstr "密码未提供"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
-msgstr "口令未更改"
+msgstr "密码未更改"
 
 #: modules/pam_cracklib/pam_cracklib.c:549
 #: modules/pam_cracklib/pam_cracklib.c:676
 #, c-format
 msgid "BAD PASSWORD: %s"
-msgstr "无效的口令： %s"
+msgstr "无效的密码： %s"
 
 #: modules/pam_exec/pam_exec.c:134
 #, c-format
@@ -314,25 +316,22 @@ msgstr "您在文件夹 %s 中有邮件。"
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "创建目录 '%s'。"
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "无法创建目录  %s：%m"
 
 #: modules/pam_selinux/pam_selinux.c:164
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "是否愿意输入安全性环境？[y]"
+msgstr "是否愿意进入安全性环境？[N]"
 
 #: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
-#, fuzzy
 msgid "role:"
-msgstr "职能："
+msgstr "角色："
 
 #: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "level:"
 msgstr "级别："
 
@@ -341,28 +340,27 @@ msgid "Not a valid security context"
 msgstr "不是有效的安全性环境"
 
 #: modules/pam_selinux/pam_selinux.c:251
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "已指派安全性环境 %s"
+msgstr "默认安全性环境 %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:255
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "是否愿意输入安全性环境？[y]"
+msgstr "您是否愿意进入不同的角色或者级别？"
 
 #: modules/pam_selinux/pam_selinux.c:269
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "没有角色 %s 默认类型\n"
 
 #: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "无法为 %s 获得有效环境"
 
 #: modules/pam_selinux/pam_selinux.c:578
 msgid "Requested MLS level not in permitted range"
-msgstr ""
+msgstr "请求的 MLS 级别不在允许范围内"
 
 #: modules/pam_selinux/pam_selinux.c:628
 #, c-format
@@ -370,9 +368,9 @@ msgid "Security Context %s Assigned"
 msgstr "已指派安全性环境 %s"
 
 #: modules/pam_selinux/pam_selinux.c:649
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "已指派安全性环境 %s"
+msgstr "已分配密钥生成环境 %s"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -390,21 +388,21 @@ msgid "login: failure forking: %m"
 msgstr "登录：故障派生：%m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "更改 STRESS 口令以"
+msgstr "为 %s 更改 STRESS 密码。"
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
-msgstr "输入新的 STRESS 口令："
+msgstr "输入新的 STRESS 密码："
 
 #: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
-msgstr "重新输入新的 STRESS 口令："
+msgstr "重新输入新的 STRESS 密码："
 
 #: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
-msgstr "校验类型错误；口令未更改"
+msgstr "校验类型错误；密码未更改"
 
 #: modules/pam_tally/pam_tally.c:746
 msgid "Authentication error"
@@ -434,8 +432,7 @@ msgstr "%s: 未识别的选项 %s\n"
 
 #: modules/pam_tally/pam_tally.c:781
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr "%s: [--文件 根文件名] [--用户 用户名] [--重设置[=n]] [--安静]\n"
 
 #: modules/pam_tally/pam_tally.c:855
@@ -449,11 +446,11 @@ msgstr "您的帐户已失效；请与系统管理员取得联系"
 
 #: modules/pam_unix/pam_unix_acct.c:237
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "您需要立即更改口令（root 强制）"
+msgstr "您需要立即更改密码（root 强制）"
 
 #: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (password aged)"
-msgstr "您需要立即更改口令（口令过期）"
+msgstr "您需要立即更改密码（密码过期）"
 
 #: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
 #, c-format
@@ -469,50 +466,38 @@ msgstr "警告：您的密码将在 %d 天后过期"
 
 #: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
-msgstr "口令："
+msgstr "密码："
 
 #: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
-msgstr "无法更改 NIS 口令。"
+msgstr "无法更改 NIS 密码。"
 
 #: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
-msgstr "必须选择更长的口令"
+msgstr "必须选择更长的密码"
 
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
-msgstr "口令已使用。请选择其他口令。"
+msgstr "密码已使用。请选择其他密码。"
 
 #: modules/pam_unix/pam_unix_passwd.c:571
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "更改 STRESS 口令以"
+msgstr "为 %s 更改 STRESS 密码。"
 
 #: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
-msgstr "（当前）UNIX 口令："
+msgstr "（当前）UNIX 密码："
 
 #: modules/pam_unix/pam_unix_passwd.c:617
 msgid "You must wait longer to change your password"
-msgstr "您必须等待更长时间以更改口令"
+msgstr "您必须等待更长时间以更改密码"
 
 #: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Enter new UNIX password: "
-msgstr "输入新的 UNIX 口令："
+msgstr "输入新的 UNIX 密码："
 
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
-msgstr "重新输入新的 UNIX 口令："
+msgstr "重新输入新的 UNIX 密码："
 
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "您的默认环境为 %s。\n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "是否想要选择另一个？[n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "输入选项的数字："
-
-#~ msgid "type: "
-#~ msgstr "类型："
