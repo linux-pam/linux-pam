@@ -207,6 +207,9 @@ sepermit_lock(pam_handle_t *pamh, const char *user, int debug)
 		return -1;
 	}
 
+	/* Need to close on exec */
+	fcntl(fd, F_SETFD, FD_CLOEXEC);
+
 	if (fcntl(fd, F_SETLK, &fl) == -1) {
 		pam_syslog(pamh, LOG_ERR, "User %s with exclusive login already logged in", user);
 		close(fd);

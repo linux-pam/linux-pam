@@ -1,3 +1,8 @@
+2008-03-31  Dan Walsh <dwalsh@redhat.com>
+
+	* modules/pam_sepermit/pam_sepermit.c(sepermit_lock): Mark lock fd to
+	be closed on exec.
+
 2008-03-25  Leah Liu <lliu@redhat.com>
 
 	* po/zh_CN.po: Updated translation.
