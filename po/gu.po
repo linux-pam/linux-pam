@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip.gu\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-03-03 09:06+0100\n"
+"POT-Creation-Date: 2008-04-03 14:13+0200\n"
 "PO-Revision-Date: 2008-03-13 14:29+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
@@ -32,7 +32,7 @@ msgstr "...માફ કરજો, તમારો સમય સમાપ્ત 
 msgid "erroneous conversation (%d)\n"
 msgstr "ક્ષતિયુક્ત વાર્તાલાપ (%d)\n"
 
-#: libpam/pam_item.c:297
+#: libpam/pam_item.c:294
 msgid "login:"
 msgstr "પ્રવેશ:"
 
@@ -225,7 +225,7 @@ msgid "Password unchanged"
 msgstr "પાસવર્ડ બદલાયેલ નથી"
 
 #: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:676
+#: modules/pam_cracklib/pam_cracklib.c:672
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ખરાબ પાસવર્ડ: %s"
@@ -432,8 +432,10 @@ msgstr "%s: નહિં ઓળખાતો વિકલ્પ %s\n"
 
 #: modules/pam_tally/pam_tally.c:781
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:855
 #, c-format
@@ -501,4 +503,3 @@ msgstr "નવો UNIX પાસવર્ડ દાખલ કરો: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "નવો UNIX પાસવર્ડ ફરીથી લખો: "
-

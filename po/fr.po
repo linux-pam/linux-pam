@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.fr2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-03-03 09:06+0100\n"
+"POT-Creation-Date: 2008-04-03 14:13+0200\n"
 "PO-Revision-Date: 2008-03-12 12:17+0100\n"
 "Last-Translator: Canniot Thomas <thomas.canniot@mrtomlinux.org>\n"
 "Language-Team: Français <fedora-trans-fr@redhat.com>\n"
@@ -31,7 +31,7 @@ msgstr "...Votre temps est épuisé !\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "conversation erronnée (%d)\n"
 
-#: libpam/pam_item.c:297
+#: libpam/pam_item.c:294
 msgid "login:"
 msgstr "login : "
 
@@ -93,7 +93,8 @@ msgstr "Nombre maximum de tentatives épuisées pour le service"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr "Le jeton d'authentification n'est plus valide ; un nouveau jeton est requis"
+msgstr ""
+"Le jeton d'authentification n'est plus valide ; un nouveau jeton est requis"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -115,7 +116,9 @@ msgstr "Informations d'identification de l'utilisateur expirées"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr "Échec lors de la définition des informations d'identification de l'utilisateur"
+msgstr ""
+"Échec lors de la définition des informations d'identification de "
+"l'utilisateur"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
@@ -230,7 +233,7 @@ msgid "Password unchanged"
 msgstr "Mot de passe inchangé"
 
 #: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:676
+#: modules/pam_cracklib/pam_cracklib.c:672
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "MOT DE PASSE INCORRECT : %s"
@@ -437,8 +440,10 @@ msgstr "%s : Option non reconnue %s\n"
 
 #: modules/pam_tally/pam_tally.c:781
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:855
 #, c-format
@@ -506,4 +511,3 @@ msgstr "Entrez le nouveau mot de passe UNIX : "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Retapez le nouveau mot de passe UNIX : "
-

@@ -1,3 +1,13 @@
+2008-04-03  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 1.0.0
+
+	* configure.in: Set version number to 1.0.0.
+	* libpam/Makefile.am: Bump patchlevel of libpam.
+	* doc/adg/Linux-PAM_ADG.xml: Update version/date.
+	* doc/mwg/Linux-PAM_MWG.xml: Likewise.
+	* doc/sag/Linux-PAM_SAG.xml: Likewise.
+
 2008-03-31  Dan Walsh <dwalsh@redhat.com>
 
 	* modules/pam_sepermit/pam_sepermit.c(sepermit_lock): Mark lock fd to

@@ -1,5 +1,12 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+
+Release 1.0.0
+
+* Small bug fixes
+* Translation updates
+
+
 Release 0.99.10.0
 
 * New substack directive in config file syntax.

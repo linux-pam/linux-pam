@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-03-03 09:06+0100\n"
+"POT-Creation-Date: 2008-04-03 14:13+0200\n"
 "PO-Revision-Date: 2007-06-22 13:29+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "...ಕ್ಷಮಿಸಿ, ನಿಮ್ಮ ಸಮಯ ಮುಗಿಯಿ�
 msgid "erroneous conversation (%d)\n"
 msgstr "ದೋಷಪೂರಿತ ಸಂವಾದ (%d)\n"
 
-#: libpam/pam_item.c:297
+#: libpam/pam_item.c:294
 msgid "login:"
 msgstr "ಲಾಗಿನ್:"
 
@@ -223,7 +223,7 @@ msgid "Password unchanged"
 msgstr "ಗುಪ್ತಪದ ಬದಲಾಗಿಲ್ಲ"
 
 #: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:676
+#: modules/pam_cracklib/pam_cracklib.c:672
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ಕೆಟ್ಟ ಗುಪ್ತಪದ: %s"
