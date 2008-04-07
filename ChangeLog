@@ -1,3 +1,13 @@
+2008-04-07  Miloš Komarčević <kmilos@gmail.com>
+
+	* po/sr.po: New file with translation.
+	* po/sr@latin.po: Likewise.
+	* po/LINGUAS: Add sr and sr@latin.
+
+2008-03-25  Leah Liu <lliu@redhat.com>
+
+	* po/zh_CN.po: Updated translation.
+
 2008-04-03  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 1.0.0
