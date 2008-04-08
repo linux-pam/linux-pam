@@ -11,13 +11,15 @@
 #include <string.h>
 #include <syslog.h>
 
-#define TRY_SET(X, Y)                  \
-{                                      \
-    char *_TMP_ = _pam_strdup(Y);      \
-    if (_TMP_ == NULL && (Y) != NULL)  \
-	 return PAM_BUF_ERR;           \
-    free(X);                           \
-    (X) = _TMP_;                       \
+#define TRY_SET(X, Y)                      \
+{                                          \
+    if ((X) != (Y)) {		           \
+	char *_TMP_ = _pam_strdup(Y);      \
+	if (_TMP_ == NULL && (Y) != NULL)  \
+	    return PAM_BUF_ERR;            \
+	free(X);                           \
+	(X) = _TMP_;                       \
+    }					   \
 }
 
 /* functions */
@@ -76,8 +78,10 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	 * modules.
 	 */
 	if (__PAM_FROM_MODULE(pamh)) {
-	    _pam_overwrite(pamh->authtok);
-	    TRY_SET(pamh->authtok, item);
+	    if (pamh->authtok != item) {
+		_pam_overwrite(pamh->authtok);
+		TRY_SET(pamh->authtok, item);
+	    }
 	} else {
 	    retval = PAM_BAD_ITEM;
 	}
@@ -90,8 +94,10 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	 * modules.
 	 */
 	if (__PAM_FROM_MODULE(pamh)) {
-	    _pam_overwrite(pamh->oldauthtok);
-	    TRY_SET(pamh->oldauthtok, item);
+	    if (pamh->oldauthtok != item) {
+		_pam_overwrite(pamh->oldauthtok);
+		TRY_SET(pamh->oldauthtok, item);
+	    }
 	} else {
 	    retval = PAM_BAD_ITEM;
 	}
@@ -130,6 +136,8 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	break;
 
     case PAM_XAUTHDATA:
+	if (&pamh->xauth == item)
+	    break;
 	if (pamh->xauth.namelen) {
 	    _pam_overwrite(pamh->xauth.name);
 	    free(pamh->xauth.name);
