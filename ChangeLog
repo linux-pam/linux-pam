@@ -3,6 +3,11 @@
 	* modules/pam_xauth/pam_xauth.c(run_coprocess): Avoid multiple
 	calls to sysconf() (based on patch by Sami Farin).
 
+        * libpam/pam_item.c (TRY_SET): Do not set when destination
+        is identical to source.
+        (pam_set_item): Do not overwrite destination when it
+        is identical to source.
+
 2008-04-07  Miloš Komarčević <kmilos@gmail.com>
 
 	* po/sr.po: New file with translation.
