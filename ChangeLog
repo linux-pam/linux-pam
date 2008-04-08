@@ -1,3 +1,8 @@
+2008-04-08  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_xauth/pam_xauth.c(run_coprocess): Avoid multiple
+	calls to sysconf() (based on patch by Sami Farin).
+
 2008-04-07  Miloš Komarčević <kmilos@gmail.com>
 
 	* po/sr.po: New file with translation.

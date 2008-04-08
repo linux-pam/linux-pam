@@ -118,6 +118,7 @@ run_coprocess(const char *input, char **output,
 		size_t j;
 		char *args[10];
 		const char *tmp;
+		int maxopened;
 		/* Drop privileges. */
 		setgid(gid);
 		setgroups(0, NULL);
@@ -129,7 +130,8 @@ run_coprocess(const char *input, char **output,
 		 * descriptors. */
 		dup2(ipipe[0], STDIN_FILENO);
 		dup2(opipe[1], STDOUT_FILENO);
-		for (i = 0; i < sysconf(_SC_OPEN_MAX); i++) {
+		maxopened = (int)sysconf(_SC_OPEN_MAX);
+		for (i = 0; i < maxopened; i++) {
 			if ((i != STDIN_FILENO) && (i != STDOUT_FILENO)) {
 				close(i);
 			}
