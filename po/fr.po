@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.fr2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-16 11:18+0200\n"
 "PO-Revision-Date: 2008-03-12 12:17+0100\n"
 "Last-Translator: Canniot Thomas <thomas.canniot@mrtomlinux.org>\n"
 "Language-Team: Français <fedora-trans-fr@redhat.com>\n"
@@ -31,7 +31,7 @@ msgstr "...Votre temps est épuisé !\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "conversation erronnée (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "login : "
 

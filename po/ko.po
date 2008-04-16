@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-16 11:18+0200\n"
 "PO-Revision-Date: 2007-06-22 10:02+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "...죄송합니다. 시간이 초과되었습니다!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "잘못된 인증 대화 (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "로그인:"
 

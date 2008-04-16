@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip.gu\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-16 11:18+0200\n"
 "PO-Revision-Date: 2008-03-13 14:29+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
@@ -32,7 +32,7 @@ msgstr "...માફ કરજો, તમારો સમય સમાપ્ત 
 msgid "erroneous conversation (%d)\n"
 msgstr "ક્ષતિયુક્ત વાર્તાલાપ (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "પ્રવેશ:"
 

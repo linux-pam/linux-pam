@@ -1,3 +1,10 @@
+2008-04-16  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 1.0.1
+
+	* configure.in: Bump version number
+	* libpam/Makefile.am: Bump version number
+
 2008-04-08  Tomas Mraz <t8m@centrum.cz>
 
 	* libpam/pam_item.c (TRY_SET): Do not set when destination

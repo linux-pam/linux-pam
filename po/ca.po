@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-16 11:18+0200\n"
 "PO-Revision-Date: 2007-02-22 20:57+0100\n"
 "Last-Translator: Anna <blabla@blabla.es>\n"
 "Language-Team: Catalan\n"
@@ -30,7 +30,7 @@ msgstr "...S'ha acabat el temps.\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "conversa errònia (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "entrada:"
 

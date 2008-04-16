@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-16 11:18+0200\n"
 "PO-Revision-Date: 2007-12-24 13:39+0100\n"
 "Last-Translator: Christer Andersson <klamm@comhem.se>\n"
 "Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
@@ -29,7 +29,7 @@ msgstr "...Ledsen, din tid är ute!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "felaktig konversation (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "inloggning:"
 

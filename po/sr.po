@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-03-03 09:06+0100\n"
+"POT-Creation-Date: 2008-04-16 11:18+0200\n"
 "PO-Revision-Date: 2008-04-05 10:48+0100\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora-trans-sr@redhat.com>\n"
@@ -33,7 +33,7 @@ msgstr "...Извините, ваше време је истекло!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "неисправне везе (%d)\n"
 
-#: libpam/pam_item.c:297
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "пријава:"
 
@@ -147,7 +147,8 @@ msgstr "Неуспешна прва провера услуге лозинке"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "Повратна вредност би требало да буде занемарена од стране PAM диспечера"
+msgstr ""
+"Повратна вредност би требало да буде занемарена од стране PAM диспечера"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
@@ -226,7 +227,7 @@ msgid "Password unchanged"
 msgstr "Лозинка непромењена"
 
 #: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:676
+#: modules/pam_cracklib/pam_cracklib.c:672
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ЛОША ЛОЗИНКА: %s"
@@ -507,4 +508,3 @@ msgstr "Унесите нову UNIX лозинку: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Поново унесите нову UNIX лозинку: "
-
