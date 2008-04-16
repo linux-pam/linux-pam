@@ -24,6 +24,10 @@
 #include <shadow.h>
 #include <signal.h>
 #include <time.h>
+#include <errno.h>
+#ifdef HAVE_LIBAUDIT
+#include <libaudit.h>
+#endif
 
 #include <security/_pam_types.h>
 #include <security/_pam_macros.h>
@@ -54,6 +58,37 @@ static int _check_expiry(const char *uname)
 	return retval;
 }
 
+static int _audit_log(int type, const char *uname, int rc)
+{
+#ifdef HAVE_LIBAUDIT
+	int audit_fd;
+
+	audit_fd = audit_open();
+	if (audit_fd < 0) {
+		/* You get these error codes only when the kernel doesn't have
+		 * audit compiled in. */
+		if (errno == EINVAL || errno == EPROTONOSUPPORT ||
+			errno == EAFNOSUPPORT)
+			return PAM_SUCCESS;
+
+		helper_log_err(LOG_CRIT, "audit_open() failed: %m");
+		return PAM_AUTH_ERR;
+	}
+
+	rc = audit_log_acct_message(audit_fd, type, NULL, "PAM:unix_chkpwd",
+		uname, -1, NULL, NULL, NULL, rc == PAM_SUCCESS);
+	if (rc == -EPERM && geteuid() != 0) {
+		rc = 0;
+	}
+
+	audit_close(audit_fd);
+
+	return rc < 0 ? PAM_AUTH_ERR : PAM_SUCCESS;
+#else
+	return PAM_SUCCESS;
+#endif
+}
+
 int main(int argc, char *argv[])
 {
 	char pass[MAXPASS + 1];
@@ -82,6 +117,7 @@ int main(int argc, char *argv[])
 		helper_log_err(LOG_NOTICE
 		      ,"inappropriate use of Unix helper binary [UID=%d]"
 			 ,getuid());
+		_audit_log(AUDIT_ANOM_EXEC, getuidname(getuid()), PAM_SYSTEM_ERR);
 		fprintf(stderr
 		 ,"This binary is not designed for running in this way\n"
 		      "-- the system administrator has been informed\n");
@@ -118,9 +154,10 @@ int main(int argc, char *argv[])
 	  nullok = 1;
 	else if (strcmp(option, "nonull") == 0)
 	  nullok = 0;
-	else
+	else {
+	  _audit_log(AUDIT_ANOM_EXEC, getuidname(getuid()), PAM_SYSTEM_ERR);
 	  return PAM_SYSTEM_ERR;
-
+	}
 	/* read the password from stdin (a pipe from the pam_unix module) */
 
 	npass = read_passwords(STDIN_FILENO, 1, passwords);
@@ -141,11 +178,16 @@ int main(int argc, char *argv[])
 	/* return pass or fail */
 
 	if (retval != PAM_SUCCESS) {
-		if (!nullok || !blankpass)
+		if (!nullok || !blankpass) {
 			/* no need to log blank pass test */
+			if (getuid() != 0)
+				_audit_log(AUDIT_USER_AUTH, user, PAM_AUTH_ERR);
 			helper_log_err(LOG_NOTICE, "password check failed for user (%s)", user);
+		}
 		return PAM_AUTH_ERR;
 	} else {
+		if (getuid() != 0)
+			return _audit_log(AUDIT_USER_AUTH, user, PAM_SUCCESS);
 		return PAM_SUCCESS;
 	}
 }
