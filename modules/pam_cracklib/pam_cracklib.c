@@ -98,6 +98,7 @@ struct cracklib_options {
 	int oth_credit;
         int min_class;
 	int use_authtok;
+	int try_first_pass;
 	char prompt_type[BUFSIZ];
         const char *cracklib_dictpath;
 };
@@ -169,6 +170,10 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
                      opt->min_class = 4 ;
 	 } else if (!strncmp(*argv,"use_authtok",11)) {
 		 opt->use_authtok = 1;
+	 } else if (!strncmp(*argv,"use_first_pass",14)) {
+		 opt->use_authtok = 1;
+	 } else if (!strncmp(*argv,"try_first_pass",14)) {
+		 opt->try_first_pass = 1;
 	 } else if (!strncmp(*argv,"dictpath=",9)) {
 	     opt->cracklib_dictpath = *argv+9;
 	     if (!*(opt->cracklib_dictpath)) {
@@ -619,7 +624,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
          * set PAM_AUTHTOK and return
          */
 
-	if (options.use_authtok == 1) {
+	if (options.use_authtok == 1 || options.try_first_pass == 1) {
 	    const void *item = NULL;
 
 	    retval = pam_get_item(pamh, PAM_AUTHTOK, &item);
@@ -630,11 +635,13 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	    } else if (item != NULL) {      /* we have a password! */
 		token1 = x_strdup(item);
 		item = NULL;
+		options.use_authtok = 1;    /* don't ask for the password again */
 	    } else {
 		retval = PAM_AUTHTOK_RECOVERY_ERR;         /* didn't work */
 	    }
-
-	} else {
+	}
+	
+	if (options.use_authtok != 1) {
             /* Prepare to ask the user for the first time */
             resp = NULL;
 	    retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp,

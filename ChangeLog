@@ -1,9 +1,12 @@
 2008-04-16  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_unix/Makefile.am: Link unix_chkpwd with libaudit.
-	
 	* modules/pam_unix/unix_chkpwd.c(_audit_log): New function for audit.
 	(main): Call _audit_log() when appropriate.
+
+	* modules/pam_cracklib/pam_cracklib.c(_pam_parse): Recognize also
+	try_first_pass and use_first_pass options.
+	(pam_sm_chauthtok): Implement the new options.
 
 2008-04-08  Tomas Mraz <t8m@centrum.cz>
 
