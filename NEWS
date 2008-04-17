@@ -1,5 +1,12 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+* Supply hostname of the machine to netgroup match call in pam_access.
+
+
+Release 1.0.1
+
+* Regression fixed in pam_set_item().
+
 
 Release 1.0.0
 

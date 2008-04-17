@@ -1,3 +1,11 @@
+2008-04-17  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_access/pam_access.c(myhostname): Removed function.
+	(user_match): Supply hostname of the machine to the netgroup_match().
+	Use hostname from the loginfo instead of calling myhostname().
+	(pam_sm_authenticate): Call gethostname() to fill hostname in the
+	loginfo.
+
 2008-04-16  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_unix/Makefile.am: Link unix_chkpwd with libaudit.

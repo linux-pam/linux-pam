@@ -98,6 +98,7 @@ struct login_info {
     const struct passwd *user;
     const char *from;
     const char *config_file;
+    const char *hostname;
     int debug;              		/* Print debugging messages. */
     int only_new_group_syntax;		/* Only allow group entries of the form "(xyz)" */
     int noaudit;			/* Do not audit denials */
@@ -457,19 +458,6 @@ list_match(pam_handle_t *pamh, char *list, char *sptr,
     return (NO);
 }
 
-/* myhostname - figure out local machine name */
-
-static char *myhostname(void)
-{
-    static char name[MAXHOSTNAMELEN + 1];
-
-    if (gethostname(name, MAXHOSTNAMELEN) == 0) {
-      name[MAXHOSTNAMELEN] = 0;
-      return (name);
-    }
-    return NULL;
-}
-
 /* netgroup_match - match group against machine or user */
 
 static int
@@ -515,15 +503,17 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
      */
 
     if ((at = strchr(tok + 1, '@')) != 0) {	/* split user@host pattern */
+	if (item->hostname == NULL)
+	    return NO;
+	fake_item.from = item->hostname;
 	*at = 0;
-	fake_item.from = myhostname();
-	if (fake_item.from == NULL)
-	  return NO;
 	return (user_match (pamh, tok, item) &&
 		from_match (pamh, at + 1, &fake_item));
-    } else if (tok[0] == '@') /* netgroup */
-      return (netgroup_match (pamh, tok + 1, (char *) 0, string, item->debug));
-    else if (tok[0] == '(' && tok[strlen(tok) - 1] == ')')
+    } else if (tok[0] == '@') {			/* netgroup */
+	if (item->hostname == NULL)
+	    return NO;
+        return (netgroup_match (pamh, tok + 1, item->hostname, string, item->debug));
+    } else if (tok[0] == '(' && tok[strlen(tok) - 1] == ')')
       return (group_match (pamh, tok, string, item->debug));
     else if ((rv=string_match (pamh, tok, string, item->debug)) != NO) /* ALL or exact match */
       return rv;
@@ -787,6 +777,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     const void *void_from=NULL;
     const char *from;
     struct passwd *user_pw;
+    char hostname[MAXHOSTNAMELEN + 1];
+
 
     /* set username */
 
@@ -859,6 +851,14 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     }
 
     loginfo.from = from;
+
+    hostname[sizeof(hostname)-1] = '\0';
+    if (gethostname(hostname, sizeof(hostname)-1) == 0)
+	loginfo.hostname = hostname;
+    else {
+	pam_syslog (pamh, LOG_ERR, "gethostname failed: %m");
+	loginfo.hostname = NULL;
+    }
 
     if (login_access(pamh, &loginfo)) {
 	return (PAM_SUCCESS);
