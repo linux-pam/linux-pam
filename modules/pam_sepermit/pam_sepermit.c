@@ -305,7 +305,7 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 	free(line);
 	fclose(f);
 	if (matched) 
-		return exclusive ? sepermit_lock(pamh, user, debug) : 0;
+		return (geteuid() == 0 && exclusive) ? sepermit_lock(pamh, user, debug) : 0;
 	else
 		return -1;
 }

@@ -6,6 +6,9 @@
 	(pam_sm_authenticate): Call gethostname() to fill hostname in the
 	loginfo.
 
+	* modules/pam_sepermit/pam_sepermit.c(sepermit_match): Do not try
+	to lock if euid != 0.
+
 2008-04-16  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_unix/Makefile.am: Link unix_chkpwd with libaudit.
