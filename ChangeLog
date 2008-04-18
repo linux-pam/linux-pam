@@ -1,3 +1,29 @@
+2008-04-18  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_namespace/pam_namespace.c: New functions
+	unprotect_dirs(), cleanup_protect_data(), protect_mount(),
+	protect_dir() to protect directory by bind mount.
+	(cleanup_data): Renamed to cleanup_polydir_data().
+	(parse_create_params): Allow missing specification of mode
+	or owner.
+	(check_inst_parent): Call protect_dir() on the instance parent
+	directory. The directory is created when it doesn't exist.
+	(create_polydir): Protect and make the polydir by protect_dir(),
+	remove potential races.
+	(create_dirs): Renamed to create_instance(), remove call to
+	inst_init().
+	(ns_setup): Call protect_dir() on the polydir if it already exists.
+	Call inst_init() after the polydir is mounted.
+	(setup_namespace): Set the namespace protect data to be cleaned up
+	on pam_close_session()/pam_end().
+	(pam_sm_open_session): Initialize the protect_dirs.
+	(pam_sm_close_session): Cleanup namespace protect data.
+	* modules/pam_namespace/pam_namespace.h: Define struct for the
+	stack of protected dirs.
+	* modules/pam_namespace/pam_namespace.8.xml: Document when the
+	instance init script is called.
+	* modules/pam_namespace/namespace.conf.5.xml: Likewise.
+
 2008-04-17  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_access/pam_access.c(myhostname): Removed function.

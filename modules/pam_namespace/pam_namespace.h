@@ -107,6 +107,7 @@
 
 #define NAMESPACE_MAX_DIR_LEN 80
 #define NAMESPACE_POLYDIR_DATA "pam_namespace:polydir_data"
+#define NAMESPACE_PROTECT_DATA "pam_namespace:protect_data"
 
 /*
  * Polyinstantiation method options, based on user, security context
@@ -156,9 +157,15 @@ struct polydir_s {
     struct polydir_s *next;		/* pointer to the next polydir entry */
 };
 
+struct protect_dir_s {
+    char *dir;				/* protected directory */
+    struct protect_dir_s *next;		/* next entry */
+};
+
 struct instance_data {
     pam_handle_t *pamh;		/* The pam handle for this instance */
     struct polydir_s *polydirs_ptr; /* The linked list pointer */
+    struct protect_dir_s *protect_dirs;	/* The pointer to stack of mount-protected dirs */
     char user[LOGIN_NAME_MAX];	/* User name */
     char ruser[LOGIN_NAME_MAX];	/* Requesting user name */
     uid_t uid;			/* The uid of the user */
@@ -166,3 +173,4 @@ struct instance_data {
     uid_t ruid;			/* The uid of the requesting user */
     unsigned long flags;	/* Flags for debug, selinux etc */
 };
+

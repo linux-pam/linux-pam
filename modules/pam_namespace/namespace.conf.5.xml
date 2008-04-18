@@ -25,8 +25,8 @@
       Directories can be polyinstantiated based on user name
       or, in the case of SELinux, user name, sensitivity level or complete security context.  If an
       executable script <filename>/etc/security/namespace.init</filename>
-      exists, it is used to initialize the namespace every time a new instance
-      directory is setup. The script receives the polyinstantiated
+      exists, it is used to initialize the namespace every time an instance
+      directory is set up and mounted. The script receives the polyinstantiated
       directory path and the instance directory path as its arguments.
     </para>
 
