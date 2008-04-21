@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-18 14:20+0200\n"
 "PO-Revision-Date: 2007-06-21 15:33+0530\n"
 "Last-Translator: I felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <fedora-trans-ta@redhat.com>\n"
@@ -32,7 +32,7 @@ msgstr "... உங்கள் நேரம் முடிந்தது!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "பிழையான உரையாடல் (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "புகுபதிவு:"
 
@@ -182,50 +182,50 @@ msgstr "புதிய %s%spassword மீண்டும் உள்ளிட
 msgid "Sorry, passwords do not match."
 msgstr "கடவுச்சொல் பொருந்தவில்லை."
 
-#: modules/pam_cracklib/pam_cracklib.c:432
+#: modules/pam_cracklib/pam_cracklib.c:437
 msgid "is the same as the old one"
 msgstr "இது பழையதைப் போல உள்ளது"
 
-#: modules/pam_cracklib/pam_cracklib.c:445
+#: modules/pam_cracklib/pam_cracklib.c:450
 msgid "is a palindrome"
 msgstr "இது ஒரு palindrome"
 
-#: modules/pam_cracklib/pam_cracklib.c:448
+#: modules/pam_cracklib/pam_cracklib.c:453
 msgid "case changes only"
 msgstr "எழுத்து வகை மாற்றங்கள் மட்டும்"
 
-#: modules/pam_cracklib/pam_cracklib.c:451
+#: modules/pam_cracklib/pam_cracklib.c:456
 msgid "is too similar to the old one"
 msgstr "இது பழையதை ஒத்தே உள்ளது"
 
-#: modules/pam_cracklib/pam_cracklib.c:454
+#: modules/pam_cracklib/pam_cracklib.c:459
 msgid "is too simple"
 msgstr "இது மிகவும் எளிதாக உள்ளது"
 
-#: modules/pam_cracklib/pam_cracklib.c:457
+#: modules/pam_cracklib/pam_cracklib.c:462
 msgid "is rotated"
 msgstr "இது சுழலக்கூடியது"
 
-#: modules/pam_cracklib/pam_cracklib.c:460
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:498
+#: modules/pam_cracklib/pam_cracklib.c:503
 msgid "has been already used"
 msgstr "இது ஏற்கனவே பயன்படுத்தப்பட்டது"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "கடவுச்சொல் கொடுக்கப்படவில்லை"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "கடவுச்சொல் மாற்றப்படவில்லை"
 
-#: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:672
+#: modules/pam_cracklib/pam_cracklib.c:554
+#: modules/pam_cracklib/pam_cracklib.c:679
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "தவறான கடவுச்சொல்: %s"

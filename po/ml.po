@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-18 14:20+0200\n"
 "PO-Revision-Date: 2007-06-22 17:15+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <en@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "...ക്ഷമിക്കണം, നിങ്ങളുടെ സമയ
 msgid "erroneous conversation (%d)\n"
 msgstr "തെറ്റായ സംവാദം (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "ലോഗിന്‍:"
 
@@ -180,50 +180,50 @@ msgstr "വീണ്ടും %s%s പാസ്‌വേറ്‍ഡ് ടൈ�
 msgid "Sorry, passwords do not match."
 msgstr "ക്ഷമിക്കണം, പാസ്‌വേറ്‍ഡുകള്‍ തമ്മില്‍ ചേരുന്നില്ല."
 
-#: modules/pam_cracklib/pam_cracklib.c:432
+#: modules/pam_cracklib/pam_cracklib.c:437
 msgid "is the same as the old one"
 msgstr "പഴയത് പോലെ തന്നെയാകുന്നു"
 
-#: modules/pam_cracklib/pam_cracklib.c:445
+#: modules/pam_cracklib/pam_cracklib.c:450
 msgid "is a palindrome"
 msgstr "ഒരു പാലിന്‍ഡ്രോം ആണ്"
 
-#: modules/pam_cracklib/pam_cracklib.c:448
+#: modules/pam_cracklib/pam_cracklib.c:453
 msgid "case changes only"
 msgstr "അക്ഷരങ്ങളുടെ വലിപ്പം മാറുന്നു എന്ന മാത്റം"
 
-#: modules/pam_cracklib/pam_cracklib.c:451
+#: modules/pam_cracklib/pam_cracklib.c:456
 msgid "is too similar to the old one"
 msgstr "പഴയതിന് സാമ്യമുള്ളതാകുന്നു"
 
-#: modules/pam_cracklib/pam_cracklib.c:454
+#: modules/pam_cracklib/pam_cracklib.c:459
 msgid "is too simple"
 msgstr "സാധാരണയുള്ളതാണ്"
 
-#: modules/pam_cracklib/pam_cracklib.c:457
+#: modules/pam_cracklib/pam_cracklib.c:462
 msgid "is rotated"
 msgstr "is rotated"
 
-#: modules/pam_cracklib/pam_cracklib.c:460
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:498
+#: modules/pam_cracklib/pam_cracklib.c:503
 msgid "has been already used"
 msgstr "ഉപയോഗത്തിലാണ്"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "പാസ്‌വേറ്‍ഡ് നല്‍കിയിട്ടില്ല"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "പാസ്‌വേറ്‍ഡ് മാറ്റിയിട്ടില്ല"
 
-#: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:672
+#: modules/pam_cracklib/pam_cracklib.c:554
+#: modules/pam_cracklib/pam_cracklib.c:679
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "BAD PASSWORD: %s"

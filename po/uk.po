@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.uk\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-18 14:20+0200\n"
 "PO-Revision-Date: 2006-05-03 18:59+0200\n"
 "Last-Translator: Ivan Petrouchtchak <ivanpetrouchtchak@yahoo.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -31,7 +31,7 @@ msgstr "...Вибачте, ваш час закінчився!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "помилкова розмова (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "користувач:"
 
@@ -181,50 +181,50 @@ msgstr "Повторіть новий пароль %s%s: "
 msgid "Sorry, passwords do not match."
 msgstr "Ваші нові паролі не співпадають."
 
-#: modules/pam_cracklib/pam_cracklib.c:432
+#: modules/pam_cracklib/pam_cracklib.c:437
 msgid "is the same as the old one"
 msgstr "такий самий як і старий"
 
-#: modules/pam_cracklib/pam_cracklib.c:445
+#: modules/pam_cracklib/pam_cracklib.c:450
 msgid "is a palindrome"
 msgstr "- це паліндром"
 
-#: modules/pam_cracklib/pam_cracklib.c:448
+#: modules/pam_cracklib/pam_cracklib.c:453
 msgid "case changes only"
 msgstr "тільки зміни в регістрі"
 
-#: modules/pam_cracklib/pam_cracklib.c:451
+#: modules/pam_cracklib/pam_cracklib.c:456
 msgid "is too similar to the old one"
 msgstr "занадто подібний до старого"
 
-#: modules/pam_cracklib/pam_cracklib.c:454
+#: modules/pam_cracklib/pam_cracklib.c:459
 msgid "is too simple"
 msgstr "занадто простий"
 
-#: modules/pam_cracklib/pam_cracklib.c:457
+#: modules/pam_cracklib/pam_cracklib.c:462
 msgid "is rotated"
 msgstr "чергується"
 
-#: modules/pam_cracklib/pam_cracklib.c:460
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:498
+#: modules/pam_cracklib/pam_cracklib.c:503
 msgid "has been already used"
 msgstr "вже вживався"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Не встановлений пароль"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Пароль не змінено"
 
-#: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:672
+#: modules/pam_cracklib/pam_cracklib.c:554
+#: modules/pam_cracklib/pam_cracklib.c:679
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ПОГАНИЙ ПАРОЛЬ: %s"

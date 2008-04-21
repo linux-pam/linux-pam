@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-18 14:20+0200\n"
 "PO-Revision-Date: 2008-02-22 23:33+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
@@ -32,7 +32,7 @@ msgstr "...Sorry, uw tijd is verlopen!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "foute conversatie (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "gebruikersnaam:"
 
@@ -182,50 +182,50 @@ msgstr "Nieuw %s%swachtwoord herhalen: "
 msgid "Sorry, passwords do not match."
 msgstr "Sorry, wachtwoorden komen niet overeen."
 
-#: modules/pam_cracklib/pam_cracklib.c:432
+#: modules/pam_cracklib/pam_cracklib.c:437
 msgid "is the same as the old one"
 msgstr "is hetzelfde als het oude wachtwoord"
 
-#: modules/pam_cracklib/pam_cracklib.c:445
+#: modules/pam_cracklib/pam_cracklib.c:450
 msgid "is a palindrome"
 msgstr "is een palindroom"
 
-#: modules/pam_cracklib/pam_cracklib.c:448
+#: modules/pam_cracklib/pam_cracklib.c:453
 msgid "case changes only"
 msgstr "alleen veranderingen aan hoofd/kleine letters"
 
-#: modules/pam_cracklib/pam_cracklib.c:451
+#: modules/pam_cracklib/pam_cracklib.c:456
 msgid "is too similar to the old one"
 msgstr "lijkt te veel op het oude wachtwoord"
 
-#: modules/pam_cracklib/pam_cracklib.c:454
+#: modules/pam_cracklib/pam_cracklib.c:459
 msgid "is too simple"
 msgstr "is te eenvoudig"
 
-#: modules/pam_cracklib/pam_cracklib.c:457
+#: modules/pam_cracklib/pam_cracklib.c:462
 msgid "is rotated"
 msgstr "is omgedraaid"
 
-#: modules/pam_cracklib/pam_cracklib.c:460
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:498
+#: modules/pam_cracklib/pam_cracklib.c:503
 msgid "has been already used"
 msgstr "is al gebruikt"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Geen wachtwoord opgegeven"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Wachtwoord is niet gewijzigd"
 
-#: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:672
+#: modules/pam_cracklib/pam_cracklib.c:554
+#: modules/pam_cracklib/pam_cracklib.c:679
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "SLECHT WACHTWOORD: %s"

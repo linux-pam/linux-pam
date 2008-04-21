@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-18 14:20+0200\n"
 "PO-Revision-Date: 2006-11-03 12:03\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -26,7 +26,7 @@ msgstr "...Uxolo, isikhathi sakho sesiphelile!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "ingxoxo enephutha (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "ngena:"
 
@@ -176,50 +176,50 @@ msgstr "Thayipha kabusha %s%siphasiwedi entsha: "
 msgid "Sorry, passwords do not match."
 msgstr "Uxolo, amaphasiwedi awahambelani."
 
-#: modules/pam_cracklib/pam_cracklib.c:432
+#: modules/pam_cracklib/pam_cracklib.c:437
 msgid "is the same as the old one"
 msgstr "iyafana nendala"
 
-#: modules/pam_cracklib/pam_cracklib.c:445
+#: modules/pam_cracklib/pam_cracklib.c:450
 msgid "is a palindrome"
 msgstr "iyi-palindrome"
 
-#: modules/pam_cracklib/pam_cracklib.c:448
+#: modules/pam_cracklib/pam_cracklib.c:453
 msgid "case changes only"
 msgstr "kushintshe onobumba kuphela"
 
-#: modules/pam_cracklib/pam_cracklib.c:451
+#: modules/pam_cracklib/pam_cracklib.c:456
 msgid "is too similar to the old one"
 msgstr "ifana kakhulu nendala"
 
-#: modules/pam_cracklib/pam_cracklib.c:454
+#: modules/pam_cracklib/pam_cracklib.c:459
 msgid "is too simple"
 msgstr "ilula kakhulu"
 
-#: modules/pam_cracklib/pam_cracklib.c:457
+#: modules/pam_cracklib/pam_cracklib.c:462
 msgid "is rotated"
 msgstr "ijikelezisiwe"
 
-#: modules/pam_cracklib/pam_cracklib.c:460
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:498
+#: modules/pam_cracklib/pam_cracklib.c:503
 msgid "has been already used"
 msgstr "isisetshenziswe ngothile."
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Ayikho iphasiwedi enikeziwe"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Iphasiwedi ayishintshwanga"
 
-#: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:672
+#: modules/pam_cracklib/pam_cracklib.c:554
+#: modules/pam_cracklib/pam_cracklib.c:679
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "IPHASIWEDI ENGASEBENZI: %s"

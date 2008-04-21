@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-18 14:20+0200\n"
 "PO-Revision-Date: 2007-06-22 16:45+0530\n"
 "Last-Translator: Subhransu Behera <arya_subhransu@yahoo.co.in>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
@@ -33,7 +33,7 @@ msgstr "...କ୍ଷମା କରିବେ, ଆପଣଙ୍କ ସମୟ ସମ�
 msgid "erroneous conversation (%d)\n"
 msgstr "ତୃଟିପୂର୍ଣ୍ଣ କଥୋପକଥନ (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "ଲଗଇନ:"
 
@@ -183,50 +183,50 @@ msgstr "ନୂତନ %s%s ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନ�
 msgid "Sorry, passwords do not match."
 msgstr "କ୍ଷମା କରିବେ, ପ୍ରବେଶ ସଙ୍କେତ ମିଶୁ ନାହିଁ।"
 
-#: modules/pam_cracklib/pam_cracklib.c:432
+#: modules/pam_cracklib/pam_cracklib.c:437
 msgid "is the same as the old one"
 msgstr "ପୁରୁଣା ପ୍ରବେଶ ସଙ୍କେତ ସହିତ ଏହା ସମାନ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:445
+#: modules/pam_cracklib/pam_cracklib.c:450
 msgid "is a palindrome"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ଗୋଟିଏ ପାଲିନଡ୍ରୋମ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:448
+#: modules/pam_cracklib/pam_cracklib.c:453
 msgid "case changes only"
 msgstr "କେବଳ ଅକ୍ଷର ପ୍ରକାର ପରିବର୍ତ୍ତିତ ହୋଇଥାଏ"
 
-#: modules/pam_cracklib/pam_cracklib.c:451
+#: modules/pam_cracklib/pam_cracklib.c:456
 msgid "is too similar to the old one"
 msgstr "ଏହା ପୂର୍ବ ପ୍ରବେଶ ସଙ୍କେତ ସହିତ ବହୁତ ସମାନ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:454
+#: modules/pam_cracklib/pam_cracklib.c:459
 msgid "is too simple"
 msgstr "ଏହା ଅତି ସହଜ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:457
+#: modules/pam_cracklib/pam_cracklib.c:462
 msgid "is rotated"
 msgstr "ଏହା ଘୂର୍ଣ୍ଣୟମାନ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:460
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:498
+#: modules/pam_cracklib/pam_cracklib.c:503
 msgid "has been already used"
 msgstr "ଏହାକୁ ପୂର୍ବରୁ ବ୍ଯବହାର କରାଯାଇଛି"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "କୌଣସି ପ୍ରବେଶ ସଙ୍କେତ ପ୍ରଦାନ କରାଯାଇ ନାହିଁ"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଅପରିବର୍ତ୍ତିତ ଅଛି"
 
-#: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:672
+#: modules/pam_cracklib/pam_cracklib.c:554
+#: modules/pam_cracklib/pam_cracklib.c:679
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ଖରାପ ପ୍ରବେଶ ସଙ୍କେତ: %s"

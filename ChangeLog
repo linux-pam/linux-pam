@@ -1,3 +1,11 @@
+2008-04-21  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_access/access.conf.5.xml: Document changed behavior
+	of LOCAL keyword.
+	* modules/pam_access/pam_access.c: Add from_remote_host to
+	struct login_info to change behavior of LOCAL keyword: if
+	PAM_RHOST is not set, LOCAL will be true.
+
 2008-04-18  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_namespace/pam_namespace.c: New functions
@@ -89,7 +97,7 @@
 	* modules/pam_namespace/pam_namespace.c(poly_name): Switch to USER
 	method only when appropriate.
 	(setup_namespace): Do not umount when not mounted with RUSER.
-	
+
 	* modules/pam_selinux/pam_selinux.c(pam_sm_close_session): Call
 	freecontext() after the context is logged not before.
 

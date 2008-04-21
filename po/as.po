@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"POT-Creation-Date: 2008-04-18 14:20+0200\n"
 "PO-Revision-Date: 2007-06-22 13:19+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: Assamese <fedora-trans-as@redhat.com>\n"
@@ -30,7 +30,7 @@ msgstr "...ক্ষমা কৰিব, আপোনাৰ বাবে সম�
 msgid "erroneous conversation (%d)\n"
 msgstr "ভুল সম্বাদ (%d)\n"
 
-#: libpam/pam_item.c:294
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "প্ৰৱেশ:"
 
@@ -180,50 +180,50 @@ msgstr "নতুন %s%s গুপ্তশব্দ পুনঃ লিখক:
 msgid "Sorry, passwords do not match."
 msgstr "ক্ষমা কৰিব, গুপ্তশব্দৰ অমিল "
 
-#: modules/pam_cracklib/pam_cracklib.c:432
+#: modules/pam_cracklib/pam_cracklib.c:437
 msgid "is the same as the old one"
 msgstr "পুৰণিটোৰ সৈতে একেই"
 
-#: modules/pam_cracklib/pam_cracklib.c:445
+#: modules/pam_cracklib/pam_cracklib.c:450
 msgid "is a palindrome"
 msgstr "এটা অনুলোম‌-বিলোম বাক্য"
 
-#: modules/pam_cracklib/pam_cracklib.c:448
+#: modules/pam_cracklib/pam_cracklib.c:453
 msgid "case changes only"
 msgstr "অকল কেচ সলনি কৰা"
 
-#: modules/pam_cracklib/pam_cracklib.c:451
+#: modules/pam_cracklib/pam_cracklib.c:456
 msgid "is too similar to the old one"
 msgstr "পৰণিটোৰ সৈতে বহুত একেই"
 
-#: modules/pam_cracklib/pam_cracklib.c:454
+#: modules/pam_cracklib/pam_cracklib.c:459
 msgid "is too simple"
 msgstr "বৰ সৰল"
 
-#: modules/pam_cracklib/pam_cracklib.c:457
+#: modules/pam_cracklib/pam_cracklib.c:462
 msgid "is rotated"
 msgstr "পকোৱা"
 
-#: modules/pam_cracklib/pam_cracklib.c:460
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:498
+#: modules/pam_cracklib/pam_cracklib.c:503
 msgid "has been already used"
 msgstr "ইতিমধ্যে ব্যৱহাৰ হৈছে"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "কোনো গুপ্তশব্দ দিয়া হোৱা নাই"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "গুপ্ত শব্দ অপৰিবৰ্ত্তিত"
 
-#: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:672
+#: modules/pam_cracklib/pam_cracklib.c:554
+#: modules/pam_cracklib/pam_cracklib.c:679
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "বেয়া গুপ্তশব্দ: %s"

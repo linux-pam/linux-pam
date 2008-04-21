@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-03-03 09:06+0100\n"
+"POT-Creation-Date: 2008-04-18 14:20+0200\n"
 "PO-Revision-Date: 2008-04-05 10:48+0100\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora-trans-sr@redhat.com>\n"
@@ -33,7 +33,7 @@ msgstr "...Извините, ваше време је истекло!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "неисправне везе (%d)\n"
 
-#: libpam/pam_item.c:297
+#: libpam/pam_item.c:302
 msgid "login:"
 msgstr "пријава:"
 
@@ -147,7 +147,8 @@ msgstr "Неуспешна прва провера услуге лозинке"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "Повратна вредност би требало да буде занемарена од стране PAM диспечера"
+msgstr ""
+"Повратна вредност би требало да буде занемарена од стране PAM диспечера"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
@@ -183,50 +184,50 @@ msgstr "Поновите нову %s%sлозинку: "
 msgid "Sorry, passwords do not match."
 msgstr "Извините, лозинке се не подударају."
 
-#: modules/pam_cracklib/pam_cracklib.c:432
+#: modules/pam_cracklib/pam_cracklib.c:437
 msgid "is the same as the old one"
 msgstr "је иста као и стара"
 
-#: modules/pam_cracklib/pam_cracklib.c:445
+#: modules/pam_cracklib/pam_cracklib.c:450
 msgid "is a palindrome"
 msgstr "је палиндром"
 
-#: modules/pam_cracklib/pam_cracklib.c:448
+#: modules/pam_cracklib/pam_cracklib.c:453
 msgid "case changes only"
 msgstr "само промене малих и великих слова"
 
-#: modules/pam_cracklib/pam_cracklib.c:451
+#: modules/pam_cracklib/pam_cracklib.c:456
 msgid "is too similar to the old one"
 msgstr "је сувише слична старој"
 
-#: modules/pam_cracklib/pam_cracklib.c:454
+#: modules/pam_cracklib/pam_cracklib.c:459
 msgid "is too simple"
 msgstr "је сувише једноставна"
 
-#: modules/pam_cracklib/pam_cracklib.c:457
+#: modules/pam_cracklib/pam_cracklib.c:462
 msgid "is rotated"
 msgstr "је ротирана"
 
-#: modules/pam_cracklib/pam_cracklib.c:460
+#: modules/pam_cracklib/pam_cracklib.c:465
 msgid "not enough character classes"
 msgstr "нема довољно класа знакова"
 
-#: modules/pam_cracklib/pam_cracklib.c:498
+#: modules/pam_cracklib/pam_cracklib.c:503
 msgid "has been already used"
 msgstr "је већ у у потреби"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Лозинка није задата"
 
-#: modules/pam_cracklib/pam_cracklib.c:526
+#: modules/pam_cracklib/pam_cracklib.c:531
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Лозинка непромењена"
 
-#: modules/pam_cracklib/pam_cracklib.c:549
-#: modules/pam_cracklib/pam_cracklib.c:676
+#: modules/pam_cracklib/pam_cracklib.c:554
+#: modules/pam_cracklib/pam_cracklib.c:679
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ЛОША ЛОЗИНКА: %s"
@@ -507,4 +508,3 @@ msgstr "Унесите нову UNIX лозинку: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Поново унесите нову UNIX лозинку: "
-

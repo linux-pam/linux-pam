@@ -69,8 +69,11 @@
       internet network numbers (end with "."), internet network addresses
       with network mask (where network mask can be a decimal number or an
       internet address also), <emphasis>ALL</emphasis> (which always matches)
-      or <emphasis>LOCAL</emphasis> (which matches any string that does not
-      contain a "." character). If supported by the system you can use
+      or <emphasis>LOCAL</emphasis>. <emphasis>LOCAL</emphasis>
+      keyword matches if and only if the <emphasis>PAM_RHOST</emphasis> is
+      not set and &lt;origin&gt; field is thus set from
+      <emphasis>PAM_TTY</emphasis> or <emphasis>PAM_SERVICE</emphasis>".
+      If supported by the system you can use
       <emphasis>@netgroupname</emphasis> in host or user patterns.
     </para>
 

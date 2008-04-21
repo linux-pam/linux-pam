@@ -48,7 +48,7 @@
 
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
-#endif                                                                                                                                         
+#endif
 
 /*
  * here, we make definitions for the externally accessible functions
@@ -104,6 +104,7 @@ struct login_info {
     int noaudit;			/* Do not audit denials */
     const char *fs;			/* field separator */
     const char *sep;			/* list-element separator */
+    int from_remote_host;               /* If PAM_RHOST was used for from */
 };
 
 /* Parse module config arguments */
@@ -113,7 +114,7 @@ parse_args(pam_handle_t *pamh, struct login_info *loginfo,
            int argc, const char **argv)
 {
     int i;
-    
+
     loginfo->noaudit = NO;
     loginfo->debug = NO;
     loginfo->only_new_group_syntax = NO;
@@ -571,8 +572,8 @@ from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
      * If a token has the magic value "ALL" the match always succeeds. Return
      * YES if the token fully matches the string. If the token is a domain
      * name, return YES if it matches the last fields of the string. If the
-     * token has the magic value "LOCAL", return YES if the string does not
-     * contain a "." character. If the token is a network number, return YES
+     * token has the magic value "LOCAL", return YES if the from field was
+     * not taken by PAM_RHOST. If the token is a network number, return YES
      * if it matches the head of the string.
      */
 
@@ -587,8 +588,8 @@ from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
 	if ((str_len = strlen(string)) > (tok_len = strlen(tok))
 	    && strcasecmp(tok, string + str_len - tok_len) == 0)
 	    return (YES);
-    } else if (strcasecmp(tok, "LOCAL") == 0) {	/* local: no dots */
-	if (strchr(string, '.') == 0)
+    } else if (strcasecmp(tok, "LOCAL") == 0) {	/* local: no PAM_RHOSTS */
+	if (item->from_remote_host == 0)
 	    return (YES);
     } else if (tok[(tok_len = strlen(tok)) - 1] == '.') {
       struct addrinfo *res;
@@ -817,6 +818,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 
         /* local login, set tty name */
 
+        loginfo.from_remote_host = 0;
+
         if (pam_get_item(pamh, PAM_TTY, &void_from) != PAM_SUCCESS
             || void_from == NULL) {
             D(("PAM_TTY not set, probing stdin"));
@@ -849,6 +852,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	    }
 	}
     }
+    else
+      loginfo.from_remote_host = 1;
 
     loginfo.from = from;
 
