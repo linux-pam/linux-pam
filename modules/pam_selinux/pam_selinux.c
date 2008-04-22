@@ -702,21 +702,21 @@ pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
     free(ttyn);
     ttyn=NULL;
   }
-  if (prev_user_context) {
-    if (setexeccon(prev_user_context)) {
+
+  if (setexeccon(prev_user_context)) {
       pam_syslog(pamh, LOG_ERR, "Unable to restore executable context %s.",
-	       prev_user_context);
+	       prev_user_context ? prev_user_context : "");
       if (security_getenforce() == 1)
          status = PAM_AUTH_ERR;
       else
          status = PAM_SUCCESS;
-    }
+  } else if (debug)
+      pam_syslog(pamh, LOG_NOTICE, "Executable context back to original");
+
+  if (prev_user_context) {
     freecon(prev_user_context);
     prev_user_context = NULL;
   }
-
-  if (debug)
-    pam_syslog(pamh, LOG_NOTICE, "setcontext back to orginal");
 
   return status;
 }
