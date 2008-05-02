@@ -138,15 +138,22 @@ send_text (pam_handle_t *pamh, const char *text, int debug)
  */
 static int
 query_response (pam_handle_t *pamh, const char *text, const char *def,
-		char **responses, int debug)
+		char **response, int debug)
 {
   int rc;
   if (def) 
-    rc = pam_prompt (pamh, PAM_PROMPT_ECHO_ON, responses, "%s [%s] ", text, def);
+    rc = pam_prompt (pamh, PAM_PROMPT_ECHO_ON, response, "%s [%s] ", text, def);
   else
-    rc = pam_prompt (pamh, PAM_PROMPT_ECHO_ON, responses, "%s ", text);
-  if (debug)
-    pam_syslog(pamh, LOG_NOTICE, "%s %s", text, responses[0]);
+    rc = pam_prompt (pamh, PAM_PROMPT_ECHO_ON, response, "%s ", text);
+
+  if (*response == NULL) {
+    rc = PAM_CONV_ERR;
+  }
+  
+  if (rc != PAM_SUCCESS) {
+    pam_syslog(pamh, LOG_WARNING, "No response to query: %s", text);
+  } else  if (debug)
+    pam_syslog(pamh, LOG_NOTICE, "%s %s", text, *response);
   return rc;
 }
 
@@ -157,13 +164,15 @@ manual_context (pam_handle_t *pamh, const char *user, int debug)
   context_t new_context;
   int mls_enabled = is_selinux_mls_enabled();
   char *type=NULL;
-  char *responses=NULL;
+  char *response=NULL;
 
   while (1) {
-    query_response(pamh,
-		   _("Would you like to enter a security context? [N] "), NULL, 
-		   &responses,debug);
-    if ((responses[0] == 'y') || (responses[0] == 'Y'))
+    if (query_response(pamh,
+		   _("Would you like to enter a security context? [N] "), NULL,
+		   &response, debug) != PAM_SUCCESS)
+	return NULL;
+
+    if ((response[0] == 'y') || (response[0] == 'Y'))
       {
 	if (mls_enabled)
 	  new_context = context_new ("user:role:type:level");
@@ -176,26 +185,29 @@ manual_context (pam_handle_t *pamh, const char *user, int debug)
 	if (context_user_set (new_context, user))
               goto fail_set;
 
-	_pam_drop(responses);
+	_pam_drop(response);
 	/* Allow the user to enter each field of the context individually */
-	query_response(pamh,_("role:"), NULL, &responses,debug);
-	if (responses[0] != '\0') {
-	   if (context_role_set (new_context, responses)) 
+	if (query_response(pamh, _("role:"), NULL, &response, debug) == PAM_SUCCESS &&
+	    response[0] != '\0') {
+	   if (context_role_set (new_context, response)) 
               goto fail_set;
-	   if (get_default_type(responses, &type)) 
+	   if (get_default_type(response, &type)) 
               goto fail_set;
 	   if (context_type_set (new_context, type)) 
               goto fail_set;
 	}
-	_pam_drop(responses);
+	_pam_drop(response);
+
 	if (mls_enabled)
 	  {
-	    query_response(pamh,_("level:"), NULL, &responses,debug);
-	    if (responses[0] != '\0') {
-	      if (context_range_set (new_context, responses))
+	    if (query_response(pamh, _("level:"), NULL, &response, debug) == PAM_SUCCESS &&
+		response[0] != '\0') {
+	      if (context_range_set (new_context, response))
 		goto fail_set;
 	    }
+	    _pam_drop(response);
 	  }
+
 	/* Get the string value of the context and see if it is valid. */
 	if (!security_check_context(context_str(new_context))) {
 	  newcon = strdup(context_str(new_context));
@@ -204,16 +216,17 @@ manual_context (pam_handle_t *pamh, const char *user, int debug)
 	}
 	else
 	  send_text(pamh,_("Not a valid security context"),debug);
-	context_free (new_context);
+
+        context_free (new_context);
       }
     else {
-      _pam_drop(responses);
+      _pam_drop(response);
       return NULL;
     }
   } /* end while */
  fail_set:
   free(type);
-  _pam_drop(responses);
+  _pam_drop(response);
   context_free (new_context);
   return NULL;
 }
@@ -244,49 +257,52 @@ config_context (pam_handle_t *pamh, security_context_t puser_context, int debug)
   security_context_t newcon=NULL;
   context_t new_context;
   int mls_enabled = is_selinux_mls_enabled();
-  char *responses=NULL;
+  char *response=NULL;
   char *type=NULL;
   char resp_val = 0;
 
   pam_prompt (pamh, PAM_TEXT_INFO, NULL, _("Default Security Context %s\n"), puser_context);
 
   while (1) {
-    query_response(pamh,
+    if (query_response(pamh,
 		   _("Would you like to enter a different role or level?"), "n", 
-		   &responses,debug);
-
-    resp_val = responses[0];
-    _pam_drop(responses);
+		   &response, debug) == PAM_SUCCESS) {
+	resp_val = response[0];
+	_pam_drop(response);
+    } else {
+	resp_val = 'N';
+    }
     if ((resp_val == 'y') || (resp_val == 'Y'))
       {
-        new_context = context_new(puser_context);
-        
+        if ((new_context = context_new(puser_context)) == NULL)
+    	    goto fail_set;
+
 	/* Allow the user to enter role and level individually */
-	query_response(pamh,_("role:"), context_role_get(new_context), 
-		       &responses, debug);
-	if (responses[0]) {
-	  if (get_default_type(responses, &type)) {
-	    pam_prompt (pamh, PAM_ERROR_MSG, NULL, _("No default type for role %s\n"), responses);
-	    _pam_drop(responses);
+	if (query_response(pamh, _("role:"), context_role_get(new_context), 
+		       &response, debug) == PAM_SUCCESS && response[0]) {
+	  if (get_default_type(response, &type)) {
+	    pam_prompt (pamh, PAM_ERROR_MSG, NULL, _("No default type for role %s\n"), response);
+	    _pam_drop(response);
 	    continue;
 	  } else {
-	    if (context_role_set(new_context, responses)) 
+	    if (context_role_set(new_context, response)) 
 	      goto fail_set;
 	    if (context_type_set (new_context, type))
 	      goto fail_set;
 	  } 
 	}
-	_pam_drop(responses);
+	_pam_drop(response);
+
 	if (mls_enabled)
 	  {
-	    query_response(pamh,_("level:"), context_range_get(new_context), 
-			   &responses, debug);
-	    if (responses[0]) {
-	      if (context_range_set(new_context, responses))
+	    if (query_response(pamh, _("level:"), context_range_get(new_context), 
+			   &response, debug) == PAM_SUCCESS && response[0]) {
+	      if (context_range_set(new_context, response))
 		goto fail_set;
 	    } 
-	    _pam_drop(responses);
+	    _pam_drop(response);
 	  }
+
 	if (debug)
 	  pam_syslog(pamh, LOG_NOTICE, "Selected Security Context %s", context_str(new_context));
 
@@ -322,7 +338,7 @@ config_context (pam_handle_t *pamh, security_context_t puser_context, int debug)
 
  fail_set:
   free(type);
-  _pam_drop(responses);
+  _pam_drop(response);
   context_free (new_context);
   send_audit_message(pamh, 0, puser_context, NULL);
  fail_range:
@@ -439,7 +455,7 @@ PAM_EXTERN int
 pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 		    int argc, const char **argv)
 {
-  int i, debug = 0, ttys=1, has_tty=isatty(0);
+  int i, debug = 0, ttys=1;
   int verbose=0, close_session=0;
   int select_context = 0;
   int use_current_range = 0;
@@ -513,7 +529,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
           return PAM_AUTH_ERR;
     }
     user_context = default_user_context;
-    if (select_context && has_tty) {
+    if (select_context) {
       user_context = config_context(pamh, default_user_context, debug);
       if (user_context == NULL) {
 	freecon(default_user_context);
@@ -528,7 +544,6 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     } 
   }
   else { 
-    if (has_tty) {
       user_context = manual_context(pamh,seuser,debug);
       if (user_context == NULL) {
 	pam_syslog (pamh, LOG_ERR, "Unable to get valid context for %s",
@@ -538,15 +553,6 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
         else
           return PAM_SUCCESS;
       }
-    } else {
-        pam_syslog (pamh, LOG_ERR,
-		    "Unable to get valid context for %s, No valid tty",
-		    username);
-        if (security_getenforce() == 1)
-          return PAM_AUTH_ERR;
-        else
-          return PAM_SUCCESS;
-    }
   }
 
   if (use_current_range && is_selinux_mls_enabled()) {
@@ -613,7 +619,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
       }
     }
   }
-  if(ttys && tty ) {
+  if (ttys && tty) {
     ttyn=strdup(tty);
     ttyn_context=security_label_tty(pamh,ttyn,user_context);
   }

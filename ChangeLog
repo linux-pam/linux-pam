@@ -1,3 +1,12 @@
+2008-05-02  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_selinux/pam_selinux.c(query_response): Add handling
+	for NULL response.
+	(manual_context): Handle failed query_response() properly. Rename
+	variable responses to response which is more correct name.
+	(config_context): Likewise.
+	(pam_sm_open_session): Do not base decision on whether there is a tty.
+
 2008-04-22  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_selinux/pam_selinux.c(pam_sm_close_sesion): Fix
@@ -74,10 +83,6 @@
 	* po/sr.po: New file with translation.
 	* po/sr@latin.po: Likewise.
 	* po/LINGUAS: Add sr and sr@latin.
-
-2008-03-25  Leah Liu <lliu@redhat.com>
-
-	* po/zh_CN.po: Updated translation.
 
 2008-04-03  Thorsten Kukuk  <kukuk@thkukuk.de>
 
