@@ -1,19 +1,20 @@
 # translation of Linux-PAM.po to
 # Olav Pettershagen <olav.pet@online.no>, 2005, 2006.
+# Kjartan Maraas <kmaraas@gnome.org>, 2008.
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR Linux-PAM Project.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-18 14:20+0200\n"
-"PO-Revision-Date: 2006-05-03 22:04+0200\n"
+"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"PO-Revision-Date: 2008-04-30 12:59+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@online.no>\n"
 "Language-Team:  <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -28,7 +29,7 @@ msgstr "...Beklager, tiden er utløpt!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "mislykket dialog (%d)\n"
 
-#: libpam/pam_item.c:302
+#: libpam/pam_item.c:294
 msgid "login:"
 msgstr "logg inn:"
 
@@ -42,7 +43,7 @@ msgstr "Kritisk feil - avbryter straks"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr ""
+msgstr "Klarte ikke å laste modul"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -178,50 +179,50 @@ msgstr "Bekreft nytt %s%s-passord: "
 msgid "Sorry, passwords do not match."
 msgstr "Beklager, ikke samsvar mellom passord."
 
-#: modules/pam_cracklib/pam_cracklib.c:437
+#: modules/pam_cracklib/pam_cracklib.c:432
 msgid "is the same as the old one"
 msgstr "er det samme som det gamle"
 
-#: modules/pam_cracklib/pam_cracklib.c:450
+#: modules/pam_cracklib/pam_cracklib.c:445
 msgid "is a palindrome"
 msgstr "er et palindrom"
 
-#: modules/pam_cracklib/pam_cracklib.c:453
+#: modules/pam_cracklib/pam_cracklib.c:448
 msgid "case changes only"
 msgstr "kun endring av små/store bokstaver"
 
-#: modules/pam_cracklib/pam_cracklib.c:456
+#: modules/pam_cracklib/pam_cracklib.c:451
 msgid "is too similar to the old one"
 msgstr "er for likt det gamle"
 
-#: modules/pam_cracklib/pam_cracklib.c:459
+#: modules/pam_cracklib/pam_cracklib.c:454
 msgid "is too simple"
 msgstr "er for enkelt"
 
-#: modules/pam_cracklib/pam_cracklib.c:462
+#: modules/pam_cracklib/pam_cracklib.c:457
 msgid "is rotated"
 msgstr "er rotert"
 
-#: modules/pam_cracklib/pam_cracklib.c:465
+#: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
-msgstr ""
+msgstr "ikke nok tegnklasser"
 
-#: modules/pam_cracklib/pam_cracklib.c:503
+#: modules/pam_cracklib/pam_cracklib.c:498
 msgid "has been already used"
 msgstr "er allerede benyttet"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Passord ikke angitt"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Passord uendret"
 
-#: modules/pam_cracklib/pam_cracklib.c:554
-#: modules/pam_cracklib/pam_cracklib.c:679
+#: modules/pam_cracklib/pam_cracklib.c:549
+#: modules/pam_cracklib/pam_cracklib.c:672
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "SVAKT PASSORD: %s"
@@ -229,17 +230,17 @@ msgstr "SVAKT PASSORD: %s"
 #: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr ""
+msgstr "%s feilet: sluttkode %d"
 
 #: modules/pam_exec/pam_exec.c:143
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr ""
+msgstr "%s feilet: fikk signal %d%s"
 
 #: modules/pam_exec/pam_exec.c:152
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr ""
+msgstr "%s feilet: ukjent status 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:190
@@ -312,55 +313,51 @@ msgstr "Du har e-post i mappen %s."
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "Oppretter katalog «%s»."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "Kan ikke opprette katalog %s: %m"
 
 #: modules/pam_selinux/pam_selinux.c:164
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "Vil du angi en sikkerhetskontekst? [y] "
+msgstr "Vil du angi sikkerhetskontekst? [N] "
 
 #: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
-#, fuzzy
 msgid "role:"
-msgstr "rolle: "
+msgstr "rolle:"
 
 #: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "level:"
-msgstr "nivå: "
+msgstr "nivå:"
 
 #: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
 msgstr "Ikke en gyldig sikkerhetskontekst"
 
 #: modules/pam_selinux/pam_selinux.c:251
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "Sikkerhetskontekst %s tilordnet"
+msgstr "Forvalgt sikkerhetskontekst %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:255
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "Vil du angi en sikkerhetskontekst? [y] "
+msgstr "Vil du angi en annen rolle eller nivå?"
 
 #: modules/pam_selinux/pam_selinux.c:269
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "Ingen forvalgt type for rolle %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "Kan ikke finne gyldig kontekst for %s"
 
 #: modules/pam_selinux/pam_selinux.c:578
 msgid "Requested MLS level not in permitted range"
-msgstr ""
+msgstr "Forespurt MLS-nivå er ikke i tillatt område"
 
 #: modules/pam_selinux/pam_selinux.c:628
 #, c-format
@@ -368,9 +365,9 @@ msgid "Security Context %s Assigned"
 msgstr "Sikkerhetskontekst %s tilordnet"
 
 #: modules/pam_selinux/pam_selinux.c:649
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "Sikkerhetskontekst %s tilordnet"
+msgstr "Kontekst %s for oppretting av nøkkel tilordnet"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -388,9 +385,9 @@ msgid "login: failure forking: %m"
 msgstr "login: feil under forgrening: %m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "Endrer STRESS-passord for "
+msgstr "Endrer STRESS-passord for %s."
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -455,17 +452,17 @@ msgid "You are required to change your password immediately (password aged)"
 msgstr "Du må straks endre passordet ditt (passord for gammelt)"
 
 #: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "Advarsel: passordet ditt vil utløpe om %d dager%.2s"
-msgstr[1] "Advarsel: passordet ditt vil utløpe om %d dager%.2s"
+msgstr[0] "Advarsel: passordet ditt vil utløpe om %d dag"
+msgstr[1] "Advarsel: passordet ditt vil utløpe om %d dager"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:273
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "Advarsel: passordet ditt vil utløpe om %d dager%.2s"
+msgstr "Advarsel: passordet ditt vil utløpe om %d dager"
 
 #: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
@@ -484,9 +481,9 @@ msgid "Password has been already used. Choose another."
 msgstr "Passordet er allerede benyttet. Velg et annet."
 
 #: modules/pam_unix/pam_unix_passwd.c:571
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "Endrer STRESS-passord for "
+msgstr "Endrer passord for %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
@@ -503,23 +500,3 @@ msgstr "Angi nytt UNIX-passord: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Bekreft nytt UNIX-passord: "
-
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "Din standardkontekst er %s. \n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "Vil du velge en annen? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "Angi et tall: "
-
-#~ msgid "type: "
-#~ msgstr "type: "
-
-#, fuzzy
-#~ msgid "Warning: your password will expire in one day"
-#~ msgstr "Advarsel: passordet ditt vil utløpe om %d dager%.2s"
-
-#~ msgid "dlopen() failure"
-#~ msgstr "dlopen()-feil"

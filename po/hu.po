@@ -9,34 +9,37 @@
 # Kalman Kemenczy <kkemenczy@novell.com>, 2006, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: hu.new\n"
+"Project-Id-Version: pam\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-18 14:20+0200\n"
-"PO-Revision-Date: 2007-02-15 17:40+0100\n"
-"Last-Translator: Kalman Kemenczy <kkemenczy@novell.com>\n"
-"Language-Team:  <hu@li.org>\n"
+"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"PO-Revision-Date: 2008-04-30 08:23+0100\n"
+"Last-Translator: Sulyok Péter <peti@sulyok.hu>\n"
+"Language-Team: Hungarian <fedora-trans-hu@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Poedit-Language: Hungarian\n"
+"X-Poedit-Country: HUNGARY\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
-msgstr "...Kifut az időből...\n"
+msgstr "...Fogy az idő...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "...Elnézést, de az idő lejárt!\n"
+msgstr "...Sajnos lejárt az idő!\n"
 
 #: libpam_misc/misc_conv.c:342
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "hibás beszélgetés (%d)\n"
 
-#: libpam/pam_item.c:302
+#: libpam/pam_item.c:294
 msgid "login:"
-msgstr "belépés:"
+msgstr "belépő:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
@@ -76,7 +79,7 @@ msgstr "Hitelesítési hiba"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr "Nem elegendő azonosítási adat a hitelesítési adatok eléréséhez"
+msgstr "Elégtelen azonosító adat a hitelesítési adatok eléréséhez"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
@@ -84,7 +87,7 @@ msgstr "A hitelesítési szolgáltatás nem tudja lekérni a hitelesítési adat
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr "Az alsóbb szintű hitelesítési modul nem ismeri a felhasználót"
+msgstr "Az alsóbb szintű hitelesítési modul nem ismeri a használót"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
@@ -97,7 +100,7 @@ msgstr "A hitelesítési token már nem érvényes; újra van szükség"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
-msgstr "A felhasználói fiók lejárt"
+msgstr "Használó számla lejárt"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
@@ -106,16 +109,15 @@ msgstr "Nem készíthető/törölhető bejegyzés az adott munkamenethez"
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
 msgstr ""
-"A hitelesítési szolgáltatás nem tudja lekérni a felhasználó hitelesítési "
-"adatait"
+"A hitelesítő szolgáltatás nem tudja lekérni a felhasználó hitelesítő adatait"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr "A felhasználó hitelesítési adatai lejártak"
+msgstr "A használó hitelesítő adatai lejártak"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr "Hiba a felhasználó hitelesítési adatainak beállítása közben"
+msgstr "Hiba a felhasználó hitelesítő adatainak beállítása közben"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
@@ -131,19 +133,19 @@ msgstr "Beszélgetési hiba"
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
-msgstr "Hitelesítésitoken-kezelési hiba"
+msgstr "Hitelesítő tokenkezelés hiba"
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
-msgstr "A hitelesítési adatok nem állíthatók helyre"
+msgstr "A hitelesítő adatok nem állíthatók helyre"
 
 #: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
-msgstr "Hitelesítési token zár foglalt"
+msgstr "Hitelesítő token zár foglalt"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr "Hitelesítési token lejárat kikapcsolva"
+msgstr "Hitelesítő token lejárat kikapcsolva"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
@@ -159,7 +161,7 @@ msgstr "A modul ismeretlen"
 
 #: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
-msgstr "A hitelesítési token lejárt"
+msgstr "A hitelesítő token lejárt"
 
 #: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
@@ -171,66 +173,66 @@ msgstr "Az alkalmazásnak újra meg kell hívnia a libpam modult"
 
 #: libpam/pam_strerror.c:105
 msgid "Unknown PAM error"
-msgstr "Ismeretlen PAM-hiba"
+msgstr "Ismeretlen PAM hiba"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
 #, c-format
 msgid "New %s%spassword: "
-msgstr "Az új %s%sjelszó: "
+msgstr "Új %s%sjelszó: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "Írja be újra az új %s%sjelszót: "
+msgstr "Ismét az új %s%sjelszó: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
 msgid "Sorry, passwords do not match."
 msgstr "Sajnálom, de a jelszavak nem egyeznek."
 
-#: modules/pam_cracklib/pam_cracklib.c:437
+#: modules/pam_cracklib/pam_cracklib.c:432
 msgid "is the same as the old one"
 msgstr "ugyanaz, mint a régi"
 
-#: modules/pam_cracklib/pam_cracklib.c:450
+#: modules/pam_cracklib/pam_cracklib.c:445
 msgid "is a palindrome"
-msgstr "A jelszó egy palindrom"
+msgstr "palindrom"
 
-#: modules/pam_cracklib/pam_cracklib.c:453
+#: modules/pam_cracklib/pam_cracklib.c:448
 msgid "case changes only"
-msgstr "A jelszó csak a kis/nagybetűkben változott"
+msgstr "csak a kis/nagybetűkben változott"
 
-#: modules/pam_cracklib/pam_cracklib.c:456
+#: modules/pam_cracklib/pam_cracklib.c:451
 msgid "is too similar to the old one"
-msgstr "A jelszó túl hasonló a régihez"
+msgstr "túl hasonló a régihez"
 
-#: modules/pam_cracklib/pam_cracklib.c:459
+#: modules/pam_cracklib/pam_cracklib.c:454
 msgid "is too simple"
-msgstr "A jelszó túl egyszerű"
+msgstr "túl egyszerű"
 
-#: modules/pam_cracklib/pam_cracklib.c:462
+#: modules/pam_cracklib/pam_cracklib.c:457
 msgid "is rotated"
-msgstr "A jelszó át lett forgatva"
+msgstr "forgatva"
 
-#: modules/pam_cracklib/pam_cracklib.c:465
+#: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
-msgstr ""
+msgstr "elégtelen betűosztály"
 
-#: modules/pam_cracklib/pam_cracklib.c:503
+#: modules/pam_cracklib/pam_cracklib.c:498
 msgid "has been already used"
-msgstr "A jelszót már használta. Válasszon egy másikat."
+msgstr "használt"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
-msgstr "Nem lett megadva jelszó"
+msgstr "Nincs jelszó megadva"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
-msgstr "A jelszó nem változott"
+msgstr "Változatlan jelszó"
 
-#: modules/pam_cracklib/pam_cracklib.c:554
-#: modules/pam_cracklib/pam_cracklib.c:679
+#: modules/pam_cracklib/pam_cracklib.c:549
+#: modules/pam_cracklib/pam_cracklib.c:672
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ROSSZ JELSZÓ: %s"
@@ -238,17 +240,17 @@ msgstr "ROSSZ JELSZÓ: %s"
 #: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr "%s hiba: kimeneti érték %d"
+msgstr "%s hiba: kilépő kód %d"
 
 #: modules/pam_exec/pam_exec.c:143
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr "%s hiba: kimeneti signal %d%s"
+msgstr "%s hiba: %d%s jelzés elkapva"
 
 #: modules/pam_exec/pam_exec.c:152
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr "%s hiba: ismeretlen állapot 0x%x"
+msgstr "%s hiba: 0x%x ismeretlen állapot"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:190
@@ -275,12 +277,12 @@ msgstr "Utolsó belépés:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:226
 msgid "Welcome to your new account!"
-msgstr "Üdvözöljük az új fiókjában!"
+msgstr "Üdvözöljük az új számláján!"
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
 msgid "Too many logins for '%s'."
-msgstr "Túl sok belépés '%s' részéről."
+msgstr "Túl sok belépés \"%s\" részéről."
 
 #: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
@@ -301,85 +303,81 @@ msgstr "Önnek levele van."
 #: modules/pam_mail/pam_mail.c:330
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr "%s könyvtárban nincs levél."
+msgstr "%s mappában nincs levél."
 
 #: modules/pam_mail/pam_mail.c:334
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "%s könyvtárban új levél van."
+msgstr "%s mappában új levél van."
 
 #: modules/pam_mail/pam_mail.c:338
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr "%s könyvtárban régi levél van."
+msgstr "%s mappában régi levél van."
 
 #: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have mail in folder %s."
-msgstr "%s könyvtárban levelek vannak."
+msgstr "%s mappában levelek vannak."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "\"%s\" mappa teremtése"
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "%s mapa nem teremthető meg: %m"
 
 #: modules/pam_selinux/pam_selinux.c:164
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "Kíván megadni egy biztonsági kontextust? [y] "
+msgstr "Kíván biztonsági környezetet megadni? [N]"
 
 #: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
-#, fuzzy
 msgid "role:"
-msgstr "szerep: "
+msgstr "szerep:"
 
 #: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "level:"
-msgstr "szint: "
+msgstr "szint:"
 
 #: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
-msgstr "Nem érvényes biztonsági kontextus"
+msgstr "Nem érvényes biztonsági környezet"
 
 #: modules/pam_selinux/pam_selinux.c:251
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "%s biztonsági kontextus hozzárendelve"
+msgstr "Alapértelemezett %s biztonsági környezet\n"
 
 #: modules/pam_selinux/pam_selinux.c:255
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "Kíván megadni egy biztonsági kontextust? [y] "
+msgstr "Kíván más szerepet vagy szintet megadni?"
 
 #: modules/pam_selinux/pam_selinux.c:269
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "Nincs alapértelmezett típus %s szerephez\n"
 
 #: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "Nincs meg %s érvényes környezete"
 
 #: modules/pam_selinux/pam_selinux.c:578
 msgid "Requested MLS level not in permitted range"
-msgstr ""
+msgstr "Nincs az engedélyezett intervallumban a kért MLS szint"
 
 #: modules/pam_selinux/pam_selinux.c:628
 #, c-format
 msgid "Security Context %s Assigned"
-msgstr "%s biztonsági kontextus hozzárendelve"
+msgstr "%s biztonsági környezet hozzárendelve"
 
 #: modules/pam_selinux/pam_selinux.c:649
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "%s biztonsági kontextus hozzárendelve"
+msgstr "%s kulcsteremtő környezet hozzárendelve"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -394,12 +392,12 @@ msgstr "pam_set_item() meghiúsult\n"
 #: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr "bejelentkezés: hiba az elágazás közben: %m"
+msgstr "bejelentkezés: elágazás hiba: %m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "STRESS jelszó megváltoztatása - "
+msgstr "%s STRESS jelszavának megváltoztatása."
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -407,7 +405,7 @@ msgstr "Új STRESS jelszó: "
 
 #: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
-msgstr "Írja be mégegyszer az új STRESS jelszót: "
+msgstr "Ismét az új STRESS jelszó: "
 
 #: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
@@ -432,32 +430,32 @@ msgstr "Ismeretlen hiba"
 #: modules/pam_tally/pam_tally.c:765
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
-msgstr "%s: Rossz szám lett megadva: --reset=\n"
+msgstr "%s: Rossz szám a --reset= opcióban\n"
 
 #: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Unrecognised option %s\n"
-msgstr "%s: Fel nem ismert paraméter (%s)\n"
+msgstr "%s: %s ismeretlen opció\n"
 
 #: modules/pam_tally/pam_tally.c:781
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file rooted-fájlnév] [--user felhasználónév] [--reset[=n]] [--quiet]\n"
+"%s: [--file rooted-fájlnév] [--user használó] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:855
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: Nem állítható vissza minden felhasználó nem nullára\n"
+msgstr "%s: Nem állítható vissza minden használó nem nullára\n"
 
 #: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
 msgid "Your account has expired; please contact your system administrator"
-msgstr "A fiók érvényessége lejárt; keresse meg a rendszergazdát"
+msgstr "A számla érvényessége lejárt; kérem keresse meg a rendszergazdát"
 
 #: modules/pam_unix/pam_unix_acct.c:237
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Azonnal meg kell változtatnia a jelszavát (a root írta elő)"
+msgstr "Azonnal meg kell változtatnia a jelszavát (rendszergazda erőlteti)"
 
 #: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (password aged)"
@@ -467,14 +465,14 @@ msgstr "Azonnal meg kell változtatnia a jelszavát (a jelszó elévült)"
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "Figyelmeztetés: a jelszava lejár %d nap múlva"
-msgstr[1] "Figyelmeztetés: a jelszava lejár %d nap múlva"
+msgstr[0] "Figyelmeztetés: a jelszava %d nap múlva lejár"
+msgstr[1] "Figyelmeztetés: a jelszava %d nap múlva lejár"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:273
 #, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "Figyelmeztetés: a jelszava lejár %d nap múlva"
+msgstr "Figyelmeztetés: a jelszava %d nap múlva lejár"
 
 #: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
@@ -482,20 +480,20 @@ msgstr "Jelszó: "
 
 #: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
-msgstr "A NIS-jelszó nem módosítható."
+msgstr "NIS jelszót nem sikerült módosítani."
 
 #: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
-msgstr "Hosszabb jelszót kell választania"
+msgstr "Hosszabb jelszót kell választani"
 
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
-msgstr "A jelszót már használta. Válasszon egy másikat."
+msgstr "A jelszót már használta. Válasszon másikat!"
 
 #: modules/pam_unix/pam_unix_passwd.c:571
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "STRESS jelszó megváltoztatása - "
+msgstr "%s jelszavának megváltoztatása."
 
 #: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
@@ -512,16 +510,3 @@ msgstr "Adja meg az új UNIX jelszót: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Írja be újra a UNIX jelszót: "
-
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "Az Ön alapértelmezett kontextusa: %s. \n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "Kíván másikat választani? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "Adja meg a kívánt lehetőség számát: "
-
-#~ msgid "type: "
-#~ msgstr "típus: "
