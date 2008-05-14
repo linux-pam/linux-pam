@@ -743,11 +743,11 @@ int _unix_read_password(pam_handle_t * pamh
 			return retval;
 		} else if (*pass != NULL) {	/* we have a password! */
 			return PAM_SUCCESS;
-		} else if (on(UNIX_USE_FIRST_PASS, ctrl)) {
-			return PAM_AUTHTOK_RECOVERY_ERR;	  /* didn't work */
 		} else if (on(UNIX_USE_AUTHTOK, ctrl)
 			   && off(UNIX__OLD_PASSWD, ctrl)) {
 			return PAM_AUTHTOK_ERR;
+		} else if (on(UNIX_USE_FIRST_PASS, ctrl)) {
+			return PAM_AUTHTOK_RECOVERY_ERR;	  /* didn't work */
 		}
 	}
 	/*

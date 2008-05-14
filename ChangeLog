@@ -8,6 +8,11 @@
 	* libpam/pam_modutil_getspnam.c: Likewise.
 	* libpam/pam_modutil_private.h: Adjust values for PWD_ constants.
 
+	* modules/pam_unix/pam_unix_passwd.c(pam_sm_chauthtok): Unset authtok
+	item when password is not approved.
+	* modules/pam_unix/support.c(_unix_read_password): UNIX_USE_FIRST_PASS
+	is always set when UNIX_AUTHTOK	is set, change order of conditions.
+
 2008-05-02  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_selinux/pam_selinux.c(query_response): Add handling

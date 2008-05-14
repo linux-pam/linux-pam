@@ -699,6 +699,10 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 				pass_new = NULL;
 			}
 			retval = _pam_unix_approve_pass(pamh, ctrl, pass_old, pass_new);
+			
+			if (retval != PAM_SUCCESS && off(UNIX_NOT_SET_PASS, ctrl)) {
+				pam_set_item(pamh, PAM_AUTHTOK, NULL);
+			}
 		}
 
 		if (retval != PAM_SUCCESS) {
