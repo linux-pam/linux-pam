@@ -115,7 +115,7 @@ pam_modutil_getgrgid(pam_handle_t *pamh, gid_t gid)
 		break;
 	}
 	
-	length <<= 2;
+	length <<= PWD_LENGTH_SHIFT;
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
 

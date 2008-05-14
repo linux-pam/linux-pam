@@ -104,7 +104,7 @@ pam_modutil_getgrnam(pam_handle_t *pamh, const char *group)
                 break;
         }
 	
-	length <<= 2;
+	length <<= PWD_LENGTH_SHIFT;
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
 

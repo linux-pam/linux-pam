@@ -1,3 +1,13 @@
+2008-05-14  Tomas Mraz <t8m@centrum.cz>
+
+	* libpam/pam_modutil_getgrgid.c: Replace hardcoded constant with
+	define PWD_LENGTH_SHIFT.
+	* libpam/pam_modutil_getgrnam.c: Likewise.
+	* libpam/pam_modutil_getpwnam.c: Likewise.
+	* libpam/pam_modutil_getpwuid.c: Likewise.
+	* libpam/pam_modutil_getspnam.c: Likewise.
+	* libpam/pam_modutil_private.h: Adjust values for PWD_ constants.
+
 2008-05-02  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_selinux/pam_selinux.c(query_response): Add handling

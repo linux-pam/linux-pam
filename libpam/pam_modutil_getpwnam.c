@@ -104,7 +104,7 @@ pam_modutil_getpwnam(pam_handle_t *pamh, const char *user)
                 break;
         }
 	
-	length <<= 2;
+	length <<= PWD_LENGTH_SHIFT;
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
 

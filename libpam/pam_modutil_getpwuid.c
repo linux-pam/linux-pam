@@ -115,7 +115,7 @@ pam_modutil_getpwuid(pam_handle_t *pamh, uid_t uid)
                 break;
         }
 	
-	length <<= 2;
+	length <<= PWD_LENGTH_SHIFT;
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
 
