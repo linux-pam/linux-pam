@@ -44,7 +44,11 @@
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_prompt</function> function constructs a message
-      from the specified format string and arguments and passes it to
+      from the specified format string and arguments and passes it to the
+      conversation function as set by the service. Upon successful return,
+      <emphasis>response</emphasis> is set to point to a string
+      returned from the conversation function. This string is allocated
+      on heap and should be freed.
     </para>
   </refsect1>
 

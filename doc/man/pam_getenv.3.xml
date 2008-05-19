@@ -32,9 +32,9 @@
     <para>
       The <function>pam_getenv</function> function searches the
       PAM environment list as associated with the handle
-      <emphasis>pamh</emphasis> for a string that matches the string
-      pointed to by <emphasis>name</emphasis>. The return values are
-      of the form: "<emphasis>name=value</emphasis>".
+      <emphasis>pamh</emphasis> for an item that matches the string
+      pointed to by <emphasis>name</emphasis> and returns the value
+      of the environment variable.
     </para>
   </refsect1>
 
