@@ -72,7 +72,7 @@ fi
 AM_CONDITIONAL([STATIC_MODULES], [test "$STATIC_MODULES" != "no"])
 
 dnl Checks for programs.
-AC_GNU_SOURCE
+AC_USE_SYSTEM_EXTENSIONS
 AC_PROG_CC
 AC_PROG_YACC
 AM_PROG_LEX
@@ -491,8 +491,7 @@ AM_GNU_GETTEXT_VERSION
 AM_GNU_GETTEXT([external])
 AC_CHECK_FUNCS(dngettext)
 
-AH_VERBATIM([_ZZENABLE_NLS],
-[#ifdef ENABLE_NLS
+AH_BOTTOM([#ifdef ENABLE_NLS
 #include <libintl.h>
 #define _(msgid) dgettext(PACKAGE, msgid)
 #define N_(msgid) msgid
