@@ -443,10 +443,38 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	}
 
 	/* Walk the argument list. */
-	i = count = 0;
+	count = 0;
 	left = qual = right = NULL;
-	while (i <= argc) {
-		if ((left != NULL) && (qual != NULL) && (right != NULL)) {
+	for (i = 0; i < argc; i++) {
+		if (strcmp(argv[i], "debug") == 0) {
+			continue;
+		}
+		if (strcmp(argv[i], "use_uid") == 0) {
+			continue;
+		}
+		if (strcmp(argv[i], "quiet") == 0) {
+			continue;
+		}
+		if (strcmp(argv[i], "quiet_fail") == 0) {
+			continue;
+		}
+		if (strcmp(argv[i], "quiet_success") == 0) {
+			continue;
+		}
+		if (left == NULL) {
+			left = argv[i];
+			continue;
+		}
+		if (qual == NULL) {
+			qual = argv[i];
+			continue;
+		}
+		if (right == NULL) {
+			right = argv[i];
+			if (right == NULL)
+				continue;
+
+			count++;
 			ret = evaluate(pamh, debug,
 				       left, qual, right,
 				       pwd);
@@ -456,6 +484,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 						   "requirement \"%s %s %s\" "
 						   "not met by user \"%s\"",
 						   left, qual, right, user);
+				left = qual = right = NULL;
 				break;
 			}
 			else
@@ -465,43 +494,17 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 						   "was met by user \"%s\"",
 						   left, qual, right, user);
 			left = qual = right = NULL;
-		}
-		if ((i < argc) && (strcmp(argv[i], "debug") == 0)) {
-			i++;
 			continue;
 		}
-		if ((i < argc) && (strcmp(argv[i], "use_uid") == 0)) {
-			i++;
-			continue;
-		}
-		if ((i < argc) && (strcmp(argv[i], "quiet") == 0)) {
-			i++;
-			continue;
-		}
-		if ((i < argc) && (strcmp(argv[i], "quiet_fail") == 0)) {
-			i++;
-			continue;
-		}
-		if ((i < argc) && (strcmp(argv[i], "quiet_success") == 0)) {
-			i++;
-			continue;
-		}
-		if ((i < argc) && (left == NULL)) {
-			left = argv[i++];
-			count++;
-			continue;
-		}
-		if ((i < argc) && (qual == NULL)) {
-			qual = argv[i++];
-			count++;
-			continue;
-		}
-		if ((i < argc) && (right == NULL)) {
-			right = argv[i++];
-			count++;
-			continue;
-		}
-		i++;
+	}
+
+	if (left || qual || right) {
+		ret = PAM_SERVICE_ERR;
+		pam_syslog(pamh, LOG_CRIT,
+			"incomplete condition detected");
+	} else if (count == 0) {
+		pam_syslog(pamh, LOG_INFO,
+			"no condition detected; module succeeded");
 	}
 
 	return ret;

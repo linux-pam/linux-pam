@@ -1,3 +1,8 @@
+2008-06-19  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_succeed_if/pam_succeed_if.c (pam_sm_authenticate):
+	Detect configuration errors. Fail on incomplete condition.
+
 2008-05-20  Tomas Mraz <t8m@centrum.cz>
 
 	* configure.in: Work correctly with autoconf-2.62.

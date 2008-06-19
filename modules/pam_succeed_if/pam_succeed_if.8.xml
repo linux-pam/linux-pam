@@ -249,7 +249,7 @@
           <listitem>
             <para>
               A service error occured or the arguments can't be
-              parsed as numbers.
+              parsed correctly.
             </para>
           </listitem>
         </varlistentry>
