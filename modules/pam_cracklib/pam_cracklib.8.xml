@@ -281,7 +281,7 @@
               than 10.
             </para>
             <para>
-              (N &gt; 0) This is the minimum number of upper
+              (N &lt; 0) This is the minimum number of upper
               case letters that must be met for a new password.
             </para>
           </listitem>

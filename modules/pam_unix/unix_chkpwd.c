@@ -47,7 +47,7 @@ static int _check_expiry(const char *uname)
 		printf("-1\n");
 		return retval;
 	}
-	
+
 	if (spent == NULL) {
 		printf("-1\n");
 		return retval;
@@ -58,9 +58,9 @@ static int _check_expiry(const char *uname)
 	return retval;
 }
 
+#ifdef HAVE_LIBAUDIT
 static int _audit_log(int type, const char *uname, int rc)
 {
-#ifdef HAVE_LIBAUDIT
 	int audit_fd;
 
 	audit_fd = audit_open();
@@ -84,10 +84,8 @@ static int _audit_log(int type, const char *uname, int rc)
 	audit_close(audit_fd);
 
 	return rc < 0 ? PAM_AUTH_ERR : PAM_SUCCESS;
-#else
-	return PAM_SUCCESS;
-#endif
 }
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -117,7 +115,9 @@ int main(int argc, char *argv[])
 		helper_log_err(LOG_NOTICE
 		      ,"inappropriate use of Unix helper binary [UID=%d]"
 			 ,getuid());
+#ifdef HAVE_LIBAUDIT
 		_audit_log(AUDIT_ANOM_EXEC, getuidname(getuid()), PAM_SYSTEM_ERR);
+#endif
 		fprintf(stderr
 		 ,"This binary is not designed for running in this way\n"
 		      "-- the system administrator has been informed\n");
@@ -148,14 +148,16 @@ int main(int argc, char *argv[])
 
 	if (strcmp(option, "chkexpiry") == 0)
 	  /* Check account information from the shadow file */
-	  return _check_expiry(argv[1]);	  
+	  return _check_expiry(argv[1]);
 	/* read the nullok/nonull option */
 	else if (strcmp(option, "nullok") == 0)
 	  nullok = 1;
 	else if (strcmp(option, "nonull") == 0)
 	  nullok = 0;
 	else {
+#ifdef HAVE_LIBAUDIT
 	  _audit_log(AUDIT_ANOM_EXEC, getuidname(getuid()), PAM_SYSTEM_ERR);
+#endif
 	  return PAM_SYSTEM_ERR;
 	}
 	/* read the password from stdin (a pipe from the pam_unix module) */
@@ -180,14 +182,21 @@ int main(int argc, char *argv[])
 	if (retval != PAM_SUCCESS) {
 		if (!nullok || !blankpass) {
 			/* no need to log blank pass test */
+#ifdef HAVE_LIBAUDIT
 			if (getuid() != 0)
 				_audit_log(AUDIT_USER_AUTH, user, PAM_AUTH_ERR);
+#endif
 			helper_log_err(LOG_NOTICE, "password check failed for user (%s)", user);
 		}
 		return PAM_AUTH_ERR;
 	} else {
-		if (getuid() != 0)
+	        if (getuid() != 0) {
+#ifdef HAVE_LIBAUDIT
 			return _audit_log(AUDIT_USER_AUTH, user, PAM_SUCCESS);
+#else
+		        return PAM_SUCCESS;
+#endif
+	        }
 		return PAM_SUCCESS;
 	}
 }

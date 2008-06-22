@@ -1,3 +1,11 @@
+2008-06-22  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/unix_chkpwd.c (main): Fix compiling without
+	audit support.
+
+	* modules/pam_cracklib/pam_cracklib.8.xml: Fix typo in ucredit
+	description (reported by Wayne Pollock <pollock@acm.org>)
+
 2008-06-19  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_succeed_if/pam_succeed_if.c (pam_sm_authenticate):
