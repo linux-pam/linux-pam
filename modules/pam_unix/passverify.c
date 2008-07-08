@@ -117,7 +117,7 @@ verify_pwd_hash(const char *p, char *hash, unsigned int nullok)
 		p = NULL;		/* no longer needed here */
 
 		/* the moment of truth -- do we agree with the password? */
-		D(("comparing state of pp[%s] and salt[%s]", pp, salt));
+		D(("comparing state of pp[%s] and hash[%s]", pp, hash));
 
 		if (pp && strcmp(pp, hash) == 0) {
 			retval = PAM_SUCCESS;
