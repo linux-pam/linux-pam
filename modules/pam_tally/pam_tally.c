@@ -97,6 +97,8 @@ struct tally_options {
 #define	OPT_NO_LOCK_TIME		 020
 #define OPT_NO_RESET			 040
 #define OPT_AUDIT                       0100
+#define OPT_SILENT                      0200
+#define OPT_NOLOGNOTICE                 0400
 
 
 /*---------------------------------------------------------------------*/
@@ -204,6 +206,12 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
       }
       else if ( ! strcmp ( *argv, "audit") ) {
 	opts->ctrl |= OPT_AUDIT;
+      }
+      else if ( ! strcmp ( *argv, "silent") ) {
+	opts->ctrl |= OPT_SILENT;
+      }
+      else if ( ! strcmp ( *argv, "no_log_info") ) {
+	opts->ctrl |= OPT_NOLOGNOTICE;
       }
       else {
         pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
@@ -524,12 +532,17 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
       {
       	if ( lock_time + oldtime > time(NULL) )
       	{
-      		pam_syslog(pamh, LOG_NOTICE,
-			 "user %s (%lu) has time limit [%lds left]"
-			 " since last failure.",
-			 user, (unsigned long int) uid,
-			 oldtime+lock_time
-			 -time(NULL));
+	  if (!(opts->ctrl & OPT_SILENT))
+	       pam_info (pamh,
+			 _("Account temporary locked (%lds seconds left)"),
+			 oldtime+lock_time-time(NULL));
+
+	  if (!(opts->ctrl & OPT_NOLOGNOTICE))
+	       pam_syslog (pamh, LOG_NOTICE,
+		 	   "user %s (%lu) has time limit [%lds left]"
+			   " since last failure.",
+			   user, (unsigned long int) uid,
+			   oldtime+lock_time-time(NULL));
       		return PAM_AUTH_ERR;
       	}
       }
@@ -545,9 +558,14 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
         ( tally > deny ) &&                  /* tally>deny means exceeded    */
         ( ((opts->ctrl & OPT_DENY_ROOT) || uid) )    /* even_deny stops uid check    */
         ) {
-        pam_syslog(pamh, LOG_NOTICE,
-		   "user %s (%lu) tally "TALLY_FMT", deny "TALLY_FMT,
-		   user, (unsigned long int) uid, tally, deny);
+	if (!(opts->ctrl & OPT_SILENT))
+	  pam_info (pamh, _("Accounted locked due to "TALLY_FMT" failed login"),
+		    tally);
+
+	if (!(opts->ctrl & OPT_NOLOGNOTICE))
+	  pam_syslog(pamh, LOG_NOTICE,
+		     "user %s (%lu) tally "TALLY_FMT", deny "TALLY_FMT,
+		     user, (unsigned long int) uid, tally, deny);
         return PAM_AUTH_ERR;                 /* Only unconditional failure   */
       }
     }
@@ -594,7 +612,7 @@ tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts)
 #ifdef PAM_SM_AUTH
 
 PAM_EXTERN int
-pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
+pam_sm_authenticate(pam_handle_t *pamh, int flags,
 		    int argc, const char **argv)
 {
   int
@@ -612,6 +630,9 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
   if ( rvcheck != PAM_SUCCESS )
       RETURN_ERROR( rvcheck );
 
+  if (flags & PAM_SILENT)
+    opts->ctrl |= OPT_SILENT;
+
   rvcheck = pam_get_uid(pamh, &uid, &user, opts);
   if ( rvcheck != PAM_SUCCESS )
       RETURN_ERROR( rvcheck );
@@ -625,7 +646,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 }
 
 PAM_EXTERN int
-pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
+pam_sm_setcred(pam_handle_t *pamh, int flags,
 	       int argc, const char **argv)
 {
   int
@@ -642,6 +663,9 @@ pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
   rv = tally_parse_args(pamh, opts, PHASE_AUTH, argc, argv);
   if ( rv != PAM_SUCCESS )
       RETURN_ERROR( rv );
+
+  if (flags & PAM_SILENT)
+    opts->ctrl |= OPT_SILENT;
 
   rv = pam_get_uid(pamh, &uid, &user, opts);
   if ( rv != PAM_SUCCESS )
@@ -667,7 +691,7 @@ pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
 /* To reset failcount of user on successfull login */
 
 PAM_EXTERN int
-pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 		 int argc, const char **argv)
 {
   int
@@ -684,6 +708,9 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
   rv = tally_parse_args(pamh, opts, PHASE_ACCOUNT, argc, argv);
   if ( rv != PAM_SUCCESS )
       RETURN_ERROR( rv );
+
+  if (flags & PAM_SILENT)
+    opts->ctrl |= OPT_SILENT;
 
   rv = pam_get_uid(pamh, &uid, &user, opts);
   if ( rv != PAM_SUCCESS )

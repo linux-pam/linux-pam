@@ -3,11 +3,13 @@ Linux-PAM NEWS -- history of user-visible changes.
 
 Release 1.0.90
 
-* Supply hostname of the machine to netgroup match call in pam_access.
+* Supply hostname of the machine to netgroup match call in pam_access
 * Make pam_namespace to work safe on child directories of parent directories
-  owned by users.
+  owned by users
 * Redifine LOCAL keyword of pam_access configuration file
 * Add support fro try_first_pass and use_first_pass to pam_cracklib
+* Print informative messages for rejected login and add silent and
+  no_log_info options to pam_tally
 
 
 Release 1.0.1
