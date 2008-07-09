@@ -1,5 +1,7 @@
 2008-07-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_securetty/pam_securetty.8.xml: Replace
+	PAM_IGNORE with PAM_USER_UNKNOWN (#1994330)
 	* modules/pam_tally/pam_tally.c: Add support for silent and
 	no_log_info options.
 	* modules/pam_tally/pam_tally.8.xml: Document silent and

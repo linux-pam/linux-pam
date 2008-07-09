@@ -116,7 +116,7 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term>PAM_IGNORE</term>
+        <term>PAM_USER_UNKNOWN</term>
         <listitem>
           <para>
             The module could not find the user name in the
