@@ -100,6 +100,7 @@ run_test (const char *user, gid_t groupid, int needit)
 {
   pam_handle_t *pamh = NULL;
   int retval;
+  int no_grps;
 
   retval = pam_start("tst-pam_group1", user, &conv, &pamh);
   if (retval != PAM_SUCCESS)
@@ -136,7 +137,7 @@ run_test (const char *user, gid_t groupid, int needit)
     }
 
 
-  int no_grps = getgroups(0, NULL); /* find the current number of groups */
+  no_grps = getgroups(0, NULL); /* find the current number of groups */
   if (no_grps > 0)
     {
       int i, found;

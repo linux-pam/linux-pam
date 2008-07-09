@@ -1,7 +1,14 @@
 2008-07-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_exec/pam_exec.c (call_exec): Move all variable
+	declaration to begin of a block (#1976310).
+
+	* xtests/tst-pam_group1.c (run_test): Move no_grps declaration
+	to begin of function (#1976310).
+
 	* modules/pam_securetty/pam_securetty.8.xml: Replace
-	PAM_IGNORE with PAM_USER_UNKNOWN (#1994330)
+	PAM_IGNORE with PAM_USER_UNKNOWN (#1994330).
+
 	* modules/pam_tally/pam_tally.c: Add support for silent and
 	no_log_info options.
 	* modules/pam_tally/pam_tally.8.xml: Document silent and

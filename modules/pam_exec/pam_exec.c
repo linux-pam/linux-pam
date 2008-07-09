@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Thorsten Kukuk <kukuk@thkukuk.de>
+ * Copyright (c) 2006, 2008 Thorsten Kukuk <kukuk@thkukuk.de>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -117,6 +117,7 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
     {
       int status = 0;
       pid_t retval;
+
       while ((retval = waitpid (pid, &status, 0)) == -1 &&
 	     errno == EINTR);
       if (retval == (pid_t)-1)
@@ -160,6 +161,8 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
     {
       char **arggv;
       int i;
+      char **envlist, **tmp;
+      int envlen, nitems;
 
       for (i = 0; i < sysconf (_SC_OPEN_MAX); i++)
 	close (i);
@@ -228,9 +231,6 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
       for (i = 0; i < (argc - optargc); i++)
 	arggv[i] = strdup(argv[i+optargc]);
       arggv[i] = NULL;
-
-      char **envlist, **tmp;
-      int envlen, nitems;
 
       /*
        * Set up the child's environment list.  It consists of the PAM
