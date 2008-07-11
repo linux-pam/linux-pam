@@ -427,14 +427,14 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 
 	/* XXX - should really tidy up PAM here too */
 
-	close(0); close(1);
 	/* reopen stdin as pipe */
-	close(fds[1]);
 	dup2(fds[0], STDIN_FILENO);
 
 	if (getrlimit(RLIMIT_NOFILE,&rlim)==0) {
-	  for (i=2; i < (int)rlim.rlim_max; i++) {
-		if (fds[0] != i)
+          if (rlim.rlim_max >= MAX_FD_NO)
+                rlim.rlim_max = MAX_FD_NO;
+	  for (i=0; i < (int)rlim.rlim_max; i++) {
+		if (i != STDIN_FILENO)
 	  	   close(i);
 	  }
 	}

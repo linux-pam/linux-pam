@@ -163,7 +163,7 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
     /* fork */
     child = fork();
     if (child == 0) {
-        size_t i=0;
+        int i=0;
         struct rlimit rlim;
 	static char *envp[] = { NULL };
 	char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL };
@@ -171,14 +171,14 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 
 	/* XXX - should really tidy up PAM here too */
 
-	close(0); close(1);
 	/* reopen stdin as pipe */
-	close(fds[1]);
 	dup2(fds[0], STDIN_FILENO);
 
 	if (getrlimit(RLIMIT_NOFILE,&rlim)==0) {
-	  for (i=2; i < rlim.rlim_max; i++) {
-	    if ((unsigned int)fds[0] != i)
+	  if (rlim.rlim_max >= MAX_FD_NO)
+	    rlim.rlim_max = MAX_FD_NO;
+	  for (i=0; i < (int)rlim.rlim_max; i++) {
+	    if (i != STDIN_FILENO)
 	  	   close(i);
 	  }
 	}

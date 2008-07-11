@@ -91,7 +91,6 @@ typedef struct {
 /* -------------- */
 #define UNIX_CTRLS_              26	/* number of ctrl arguments defined */
 
-
 static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 {
 /* symbol                  token name          ctrl mask             ctrl     *
@@ -127,6 +126,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 
 #define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)
 
+#define MAX_FD_NO 2000000
 
 /* use this to free strings. ESPECIALLY password strings */
 

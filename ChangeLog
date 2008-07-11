@@ -1,3 +1,13 @@
+2008-07-11  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_unix/pam_unix_acct.c (_unix_run_verify_binary): Do
+	not close the pipe descriptor in borderline case (#2009766)
+	* modules/pam_unix/pam_unix_passwd.c (_unix_run_update_binary):
+	Likewise.
+	* modules/pam_unix/support.c (_unix_run_helper_binary): Likewise.
+	* modules/pam_unix/support.h: Define upper limit of fds we will
+	attempt to close.
+
 2008-07-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_exec/pam_exec.c (call_exec): Move all variable

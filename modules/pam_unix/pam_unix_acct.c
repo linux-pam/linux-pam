@@ -91,21 +91,21 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
   /* fork */
   child = fork();
   if (child == 0) {
-    size_t i=0;
+    int i=0;
     struct rlimit rlim;
     static char *envp[] = { NULL };
     char *args[] = { NULL, NULL, NULL, NULL };
 
-    close(0); close(1);
-    /* reopen stdin as pipe */
-    close(fds[0]);
+    /* reopen stdout as pipe */
     dup2(fds[1], STDOUT_FILENO);
 
     /* XXX - should really tidy up PAM here too */
 
     if (getrlimit(RLIMIT_NOFILE,&rlim)==0) {
-      for (i=2; i < rlim.rlim_max; i++) {
-	if ((unsigned int)fds[1] != i) {
+      if (rlim.rlim_max >= MAX_FD_NO)
+        rlim.rlim_max = MAX_FD_NO;
+      for (i=0; i < (int)rlim.rlim_max; i++) {
+	if (i != STDOUT_FILENO) {
 	  close(i);
 	}
       }
@@ -126,7 +126,6 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
 
     pam_syslog(pamh, LOG_ERR, "helper binary execve failed: %m");
     /* should not get here: exit with error */
-    close (fds[1]);
     D(("helper binary is not available"));
     printf("-1\n");
     exit(PAM_AUTHINFO_UNAVAIL);
