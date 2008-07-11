@@ -8,6 +8,16 @@
 	* modules/pam_unix/support.h: Define upper limit of fds we will
 	attempt to close.
 
+	* modules/pam_selinux/pam_selinux.c (config_context): Do not
+	ask for the level if use_current_range is set.
+	(context_from_env): New function to obtain the context from
+	PAM environment variables.
+	(pam_sm_open_session): Call context_from_env() if env_params option
+	is present. use_current_range now modifies behavior of the
+	context_from_env and config_context options.
+	* modules/pam_selinux/pam_selinux.8.xml: Describe the env_params
+	option. Adjust description of use_current_range option.
+
 2008-07-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_exec/pam_exec.c (call_exec): Move all variable

@@ -37,6 +37,9 @@
 	select_context
       </arg>
       <arg choice="opt">
+	env_params
+      </arg>
+      <arg choice="opt">
 	use_current_range
       </arg>
     </cmdsynopsis>
@@ -137,12 +140,30 @@
       </varlistentry>
       <varlistentry>
         <term>
+          <option>env_params</option>
+        </term>
+        <listitem>
+          <para>
+            Attempt to obtain a custom security context role from PAM environment.
+            If MLS is on obtain also sensitivity level. This option and the
+            select_context option are mutually exclusive. The respective PAM
+            environment variables are <emphasis>SELINUX_ROLE_REQUESTED</emphasis>,
+            <emphasis>SELINUX_LEVEL_REQUESTED</emphasis>, and
+            <emphasis>SELINUX_USE_CURRENT_RANGE</emphasis>. The first two variables
+            are self describing and the last one if set to 1 makes the PAM module behave as
+            if the use_current_range was specified on the command line of the module.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
           <option>use_current_range</option>
         </term>
         <listitem>
           <para>
-            Use the sensitivity range of the process for the user context.
-            This option and the select_context option are mutually exclusive.
+            Use the sensitivity level of the current process for the user context
+            instead of the default level. Also supresses asking of the
+            sensitivity level from the user or obtaining it from PAM environment.
           </para>
         </listitem>
       </varlistentry>
