@@ -196,8 +196,9 @@
   <refsect1 id="pam_mail-services">
     <title>MODULE SERVICES PROVIDED</title>
     <para>
-      The <emphasis remap='B'>auth</emphasis> and
-      <emphasis remap='B'>account</emphasis> services are supported.
+      The <emphasis remap='B'>session</emphasis> and
+      <emphasis remap='B'>auth</emphasis> (on establishment and
+      deletion of credentials) services are supported. 
     </para>
   </refsect1>
 
