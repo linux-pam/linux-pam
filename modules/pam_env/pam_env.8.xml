@@ -53,7 +53,7 @@
     </para>
     <para>
       This module can also parse a file with simple
-      <emphasis>KEY=VAL</emphasis> pairs on seperate lines
+      <emphasis>KEY=VAL</emphasis> pairs on separate lines
       (<filename>/etc/environment</filename> by default). You can
       change the default file to parse, with the <emphasis>envfile</emphasis>
       flag and turn it on or off by setting the <emphasis>readenv</emphasis>

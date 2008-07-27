@@ -2,6 +2,8 @@
 
 	* modules/pam_*/pam_*.8.xml: fix up the references to pam.d,
 	which is in manpage section 5, not 8.
+	* modules/pam_env/environment, modules/pam_env/pam_env.8.xml:
+	spelling fix, seperate -> separate
 
 2008-07-26  Steve Langasek <vorlon@debian.org>
 
