@@ -1,3 +1,8 @@
+2008-07-27  Steve Langasek <vorlon@debian.org>
+
+	* modules/pam_*/pam_*.8.xml: fix up the references to pam.d,
+	which is in manpage section 5, not 8.
+
 2008-07-26  Steve Langasek <vorlon@debian.org>
 
 	* modules/pam_env/pam_env.c: Fix module to skip over

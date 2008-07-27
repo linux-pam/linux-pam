@@ -365,7 +365,7 @@
         <refentrytitle>namespace.conf</refentrytitle><manvolnum>5</manvolnum>
       </citerefentry>,
       <citerefentry>
-        <refentrytitle>pam.d</refentrytitle><manvolnum>8</manvolnum>
+        <refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum>
       </citerefentry>,
       <citerefentry>
         <refentrytitle>mount</refentrytitle><manvolnum>8</manvolnum>
