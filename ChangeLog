@@ -1,3 +1,9 @@
+2008-07-26  Steve Langasek <vorlon@debian.org>
+
+	* modules/pam_env/pam_env.c: Fix module to skip over
+	non-alphanumeric variable names, and to handle the case when
+	asked to delete a non-existent variable.
+
 2008-07-13  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_mail/pam_mail.8.xml: Module supports session and

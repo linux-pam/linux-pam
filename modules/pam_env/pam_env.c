@@ -232,9 +232,14 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *env_file)
 
 	for ( i = 0 ; key[i] != '=' && key[i] != '\0' ; i++ )
 	    if (!isalnum(key[i]) && key[i] != '_') {
-		D(("key is not alpha numeric - '%s', ignoring", key));
-		continue;
+		pam_syslog(pamh, LOG_ERR,
+		           "non-alphanumeric key '%s' in %s', ignoring",
+		           key, file);
+		break;
 	    }
+	/* non-alphanumeric key, ignore this line */
+	if (key[i] != '=' && key[i] != '\0')
+	    continue;
 
 	/* now we try to be smart about quotes around the value,
 	   but not too smart, we can't get all fancy with escaped
@@ -247,6 +252,14 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *env_file)
 		    key[i++] = key[t];
 	    key[i] = '\0';
 	}
+
+	/* if this is a request to delete a variable, check that it's
+	   actually set first, so we don't get a vague error back from
+	   pam_putenv() */
+	for (i = 0; key[i] != '=' && key[i] != '\0'; i++);
+
+	if (key[i] == '\0' && !pam_getenv(pamh,key))
+	    continue;
 
 	/* set the env var, if it fails, we break out of the loop */
 	retval = pam_putenv(pamh, key);
