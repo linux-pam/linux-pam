@@ -1,3 +1,9 @@
+2008-07-28  Steve Langasek <vorlon@debian.org>
+
+	* libpamc/test/regress/test.libpamc.c: use standard u_int8_t
+	type instead of __u8, as elsewhere.
+	Patch from Roger Leigh <rleigh@debian.org>.
+
 2008-07-27  Steve Langasek <vorlon@debian.org>
 
 	* modules/pam_*/pam_*.8.xml: fix up the references to pam.d,

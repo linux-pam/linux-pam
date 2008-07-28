@@ -157,7 +157,7 @@ char *create_digest(int length, const char *raw)
     return temp_packet.buffer;
 }
 
-void packet_to_prompt(pamc_bp_t *prompt_p, __u8 control,
+void packet_to_prompt(pamc_bp_t *prompt_p, u_int8_t control,
 		      struct internal_packet *packet)
 {
     PAM_BP_RENEW(prompt_p, control, packet->at);
