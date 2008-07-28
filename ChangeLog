@@ -3,6 +3,11 @@
 	* libpamc/test/regress/test.libpamc.c: use standard u_int8_t
 	type instead of __u8, as elsewhere.
 	Patch from Roger Leigh <rleigh@debian.org>.
+	* modules/pam_unix/passverify.c: make save_old_password()
+	thread-safe by using pam_modutil_getpwnam() instead of getpwnam()
+	* modules/pam_unix/passverify.c, modules/pam_unix/passverify.h,
+	modules/pam_unix/pam_unix_passwd.c: add pamh argument to
+	save_old_password()
 
 2008-07-27  Steve Langasek <vorlon@debian.org>
 

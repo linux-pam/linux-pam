@@ -535,9 +535,15 @@ unlock_pwdf(void)
 }
 #endif
 
+#ifdef HELPER_COMPILE
 int
 save_old_password(const char *forwho, const char *oldpass,
 		  int howmany)
+#else
+int
+save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
+		  int howmany)
+#endif
 {
     static char buf[16384];
     static char nbuf[16384];
@@ -653,7 +659,7 @@ save_old_password(const char *forwho, const char *oldpass,
     fclose(opwfile);
 
     if (!found) {
-	pwd = getpwnam(forwho);
+	pwd = pam_modutil_getpwnam(pamh, forwho);
 	if (pwd == NULL) {
 	    err = 1;
 	} else {

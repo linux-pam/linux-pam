@@ -378,7 +378,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 			  return _unix_run_update_binary(pamh, ctrl, forwho, fromwhat, towhat, remember);
 #endif
 		/* first, save old password */
-		if (save_old_password(forwho, fromwhat, remember)) {
+		if (save_old_password(pamh, forwho, fromwhat, remember)) {
 			retval = PAM_AUTHTOK_ERR;
 			goto done;
 		}
