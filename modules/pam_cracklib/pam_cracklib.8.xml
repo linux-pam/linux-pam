@@ -379,7 +379,7 @@
   <refsect1 id="pam_cracklib-services">
     <title>MODULE SERVICES PROVIDED</title>
     <para>
-      Only he <option>password</option> service is supported.
+      Only the <option>password</option> service is supported.
     </para>
   </refsect1>
 

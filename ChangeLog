@@ -1,3 +1,8 @@
+2008-07-29  Steve Langasek <vorlon@debian.org>
+
+	* modules/pam_cracklib/pam_cracklib.8.xml: correct a typo,
+	"Only he" -> "Only the"
+
 2008-07-28  Steve Langasek <vorlon@debian.org>
 
 	* libpamc/test/regress/test.libpamc.c: use standard u_int8_t
