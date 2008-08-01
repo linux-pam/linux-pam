@@ -1,3 +1,10 @@
+2008-08-01  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* acincludde.m4: Rename to ...
+	* m4/jh_path_xml_catalog.m4: ... this.
+
+	* m4/*.m4: Remove all autoconf m4 files.
+
 2008-07-29  Steve Langasek <vorlon@debian.org>
 
 	* modules/pam_cracklib/pam_cracklib.8.xml: correct a typo,
