@@ -1,5 +1,11 @@
 2008-08-01  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* configure.in: Add version for gettext, add search path
+	for m4 directory, fix handling of --disable-* options.
+	Patches from Diego Pettenò <flameeyes@gmail.com>.
+
+	* configure.in: Run autoupdate on it.
+
 	* acincludde.m4: Rename to ...
 	* m4/jh_path_xml_catalog.m4: ... this.
 

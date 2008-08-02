@@ -1,8 +1,10 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(conf/pam_conv1/pam_conv_y.y)
+AC_INIT
+AC_CONFIG_SRCDIR([conf/pam_conv1/pam_conv_y.y])
 AM_INIT_AUTOMAKE("Linux-PAM", 1.0.90)
-AC_PREREQ([2.60])
+AC_PREREQ(2.61)
 AM_CONFIG_HEADER(config.h)
+AC_CONFIG_MACRO_DIR([m4])
 AC_CANONICAL_HOST
 
 AC_SUBST(PACKAGE)
@@ -218,7 +220,7 @@ dnl options and defaults
 dnl
 
 AC_ARG_ENABLE([prelude],
-	AC_HELP_STRING([--disable-prelude],[do not use prelude]),
+	AS_HELP_STRING([--disable-prelude],[do not use prelude]),
 	WITH_PRELUDE=$enableval, WITH_PRELUDE=yes)
 if test "$WITH_PRELUDE" == "yes" ; then
   AM_PATH_LIBPRELUDE([0.9.0])
@@ -229,20 +231,20 @@ fi
 
 dnl lots of debugging information goes to /var/run/pam-debug.log
 AC_ARG_ENABLE([debug],
-    AC_HELP_STRING([--enable-debug],
-	[specify you are building with debugging on]),
-	WITH_DEBUG=yes ; AC_DEFINE([DEBUG],,
-		[lots of stuff gets written to /var/run/pam-debug.log]),
-		WITH_DEBUG=no)
-AC_SUBST(WITH_DEBUG)
+    AS_HELP_STRING([--enable-debug],[specify you are building with debugging on]))
+
+if test x"$enable_debug" = x"yes" ; then
+   AC_DEFINE([DEBUG],,
+		[lots of stuff gets written to /var/run/pam-debug.log])
+fi
 
 AC_ARG_ENABLE(securedir,
-	AC_HELP_STRING([--enable-securedir=DIR],[path to location of PAMs @<:@default=$libdir/security@:>@]),
+	AS_HELP_STRING([--enable-securedir=DIR],[path to location of PAMs @<:@default=$libdir/security@:>@]),
 	SECUREDIR=$enableval, SECUREDIR=$libdir/security)
 AC_SUBST(SECUREDIR)
 
 AC_ARG_ENABLE([isadir],
-	AC_HELP_STRING([--enable-isadir=DIR],[path to arch-specific module files @<:@default=../../(basename of $libdir)/security@:>@]),
+	AS_HELP_STRING([--enable-isadir=DIR],[path to arch-specific module files @<:@default=../../(basename of $libdir)/security@:>@]),
 ISA=$enableval,
 ISA=../../`basename $libdir`/security)
 unset mylibdirbase
@@ -250,25 +252,28 @@ AC_DEFINE_UNQUOTED(_PAM_ISA,"$ISA",[Define to the path, relative to SECUREDIR, w
 AC_MSG_RESULT([Defining \$ISA to "$ISA"])
 
 AC_ARG_ENABLE(sconfigdir,
-	AC_HELP_STRING([--enable-sconfigdir=DIR],[path to module conf files @<:@default=$sysconfdir/security@:>@]),
+	AS_HELP_STRING([--enable-sconfigdir=DIR],[path to module conf files @<:@default=$sysconfdir/security@:>@]),
 	SCONFIGDIR=$enableval, SCONFIGDIR=$sysconfdir/security)
 AC_SUBST(SCONFIGDIR)
 
 AC_ARG_ENABLE(pamlocking,
-	AC_HELP_STRING([--enable-pamlocking],[configure libpam to observe a global authentication lock]),
-	WITH_PAMLOCKING=yes ; AC_DEFINE([PAM_LOCKING],,
-		[libpam should observe a global authentication lock]),
-		WITH_PAMLOCKING=no)
-AC_SUBST(WITH_PAMLOCKING)
+	AS_HELP_STRING([--enable-pamlocking],[configure libpam to observe a global authentication lock]))
+
+if test x"$enable_pamlocking" = "xyes"; then
+   AC_DEFINE([PAM_LOCKING],,
+	[libpam should observe a global authentication lock])
+fi
 
 AC_ARG_ENABLE(read-both-confs,
-	AC_HELP_STRING([--enable-read-both-confs],[read both /etc/pam.d and /etc/pam.conf files]),
-	AC_DEFINE([PAM_READ_BOTH_CONFS],,
-		[read both /etc/pam.d and /etc/pam.conf files]))
-AC_SUBST(PAM_READ_BOTH_CONFS)
+	AS_HELP_STRING([--enable-read-both-confs],[read both /etc/pam.d and /etc/pam.conf files]))
+
+if test x"$enable_read_both_confs" = "xyes"; then
+   AC_DEFINE([PAM_READ_BOTH_CONFS],,
+		[read both /etc/pam.d and /etc/pam.conf files])
+fi
 
 AC_ARG_ENABLE([lckpwdf],
-	AC_HELP_STRING([--disable-lckpwdf],[do not use the lckpwdf function]),
+	AS_HELP_STRING([--disable-lckpwdf],[do not use the lckpwdf function]),
 	WITH_LCKPWDF=$enableval, WITH_LCKPWDF=yes)
 if test "$WITH_LCKPWDF" == "yes" ; then
     AC_DEFINE([USE_LCKPWDF], 1,
@@ -283,7 +288,7 @@ with_mailspool=${withval})
 if test x$with_mailspool != x ; then
 	pam_mail_spool="\"$with_mailspool\""
 else
-	AC_TRY_RUN([
+	AC_RUN_IFELSE([AC_LANG_SOURCE([[
 #include <paths.h>
 int main() {
 #ifdef _PATH_MAILDIR
@@ -291,9 +296,7 @@ exit(0);
 #else
 exit(1);
 #endif
-}], pam_mail_spool="_PATH_MAILDIR",
-pam_mail_spool="\"/var/spool/mail\"",
-pam_mail_spool="\"/var/spool/mail\"")
+}]])],[pam_mail_spool="_PATH_MAILDIR"],[pam_mail_spool="\"/var/spool/mail\""],[pam_mail_spool="\"/var/spool/mail\""])
 fi
 AC_DEFINE_UNQUOTED(PAM_PATH_MAILDIR, $pam_mail_spool,
 	[Path where mails are stored])
@@ -321,7 +324,7 @@ AC_SUBST(LIBDL)
 
 # Check for cracklib
 AC_ARG_ENABLE([cracklib],
-        AC_HELP_STRING([--disable-cracklib],[do not use cracklib]),
+        AS_HELP_STRING([--disable-cracklib],[do not use cracklib]),
         WITH_CRACKLIB=$enableval, WITH_CRACKLIB=yes)
 if test x"$WITH_CRACKLIB" != xno ; then
         AC_CHECK_HEADERS([crack.h],
@@ -334,7 +337,7 @@ AM_CONDITIONAL([HAVE_LIBCRACK], [test ! -z "$LIBCRACK"])
 
 dnl Look for Linux Auditing library - see documentation
 AC_ARG_ENABLE([audit],
-        AC_HELP_STRING([--disable-audit],[do not enable audit support]),
+        AS_HELP_STRING([--disable-audit],[do not enable audit support]),
         WITH_LIBAUDIT=$enableval, WITH_LIBAUDIT=yes)
 if test x"$WITH_LIBAUDIT" != xno ; then
         AC_CHECK_HEADER([libaudit.h],
@@ -363,7 +366,7 @@ AC_CHECK_FUNCS(crypt_r)
 LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCRYPT)
 
-AC_ARG_WITH([randomdev], AC_HELP_STRING([--with-randomdev=(<path>|yes|no)], [use specified random device instead of /dev/urandom or 'no' to disable]), opt_randomdev=$withval)
+AC_ARG_WITH([randomdev], AS_HELP_STRING([--with-randomdev=(<path>|yes|no)],[use specified random device instead of /dev/urandom or 'no' to disable]), opt_randomdev=$withval)
 if test "$opt_randomdev" = yes -o -z "$opt_randomdev"; then
        opt_randomdev="/dev/urandom"
 elif test "$opt_randomdev" = no; then
@@ -376,10 +379,10 @@ fi
 dnl check for libdb or libndbm as fallback. Some libndbm compat
 dnl libraries are unuseable, so try libdb first.
 AC_ARG_ENABLE([db],
-        AC_HELP_STRING([--enable-db=(db|ndbm|yes|no)],[Default behavior 'yes', which is to check for libdb first, followed by ndbm. Use 'no' to disable db support.]),
+        AS_HELP_STRING([--enable-db=(db|ndbm|yes|no)],[Default behavior 'yes', which is to check for libdb first, followed by ndbm. Use 'no' to disable db support.]),
         WITH_DB=$enableval, WITH_DB=yes)
 AC_ARG_WITH([db-uniquename],
-	AC_HELP_STRING([--with-db-uniquename=extension],[Unique name for db libraries and functions.]))
+	AS_HELP_STRING([--with-db-uniquename=extension],[Unique name for db libraries and functions.]))
 if test x"$WITH_DB" != xno ; then
         if test x"$WITH_DB" = xyes -o x"$WITH_DB" = xdb ; then
               AC_CHECK_LIB([db$with_db_uniquename], [db_create$with_db_uniquename], LIBDB="-ldb$with_db_uniquename", LIBDB="")
@@ -407,7 +410,7 @@ LIBS=$BACKUP_LIBS
 AC_SUBST(LIBNSL)
 
 AC_ARG_ENABLE([selinux],
-        AC_HELP_STRING([--disable-selinux],[do not use SELinux]),
+        AS_HELP_STRING([--disable-selinux],[do not use SELinux]),
         WITH_SELINUX=$enableval, WITH_SELINUX=yes)
 if test "$WITH_SELINUX" == "yes" ; then
   AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
@@ -487,7 +490,7 @@ AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_man != xno)
 AM_CONDITIONAL(ENABLE_GENERATE_PDF, test ! -z "$FO2PDF")
 
 
-AM_GNU_GETTEXT_VERSION
+AM_GNU_GETTEXT_VERSION([0.15])
 AM_GNU_GETTEXT([external])
 AC_CHECK_FUNCS(dngettext)
 
@@ -522,7 +525,7 @@ AC_SUBST([HAVE_KEY_MANAGEMENT], $HAVE_KEY_MANAGEMENT)
 AM_CONDITIONAL([HAVE_KEY_MANAGEMENT], [test "$have_key_syscalls" = 1])
 
 dnl Files to be created from when we run configure
-AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
+AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	libpam_misc/Makefile conf/Makefile conf/pam_conv1/Makefile \
 	po/Makefile.in \
 	modules/Makefile \
@@ -552,4 +555,5 @@ AC_OUTPUT(Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	modules/pam_xauth/Makefile doc/Makefile doc/specs/Makefile \
 	doc/man/Makefile doc/sag/Makefile doc/adg/Makefile \
 	doc/mwg/Makefile examples/Makefile tests/Makefile \
-	xtests/Makefile)
+	xtests/Makefile])
+AC_OUTPUT
