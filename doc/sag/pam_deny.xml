@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(//refsect1[@id = "pam_deny-options"]/*)'/>
   </section>
-  <section id='sag-pam_deny-services'>
+  <section id='sag-pam_deny-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(//refsect1[@id = "pam_deny-services"]/*)'/>
+     href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(//refsect1[@id = "pam_deny-types"]/*)'/>
   </section>
   <section id='sag-pam_deny-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

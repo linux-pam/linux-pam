@@ -140,10 +140,10 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_lastlog-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_lastlog-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      Only the <option>session</option> service is supported.
+      Only the <option>session</option> module type is provided.
     </para>
   </refsect1>
 

@@ -118,11 +118,11 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_env-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_env-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      The <option>auth</option> and <option>session</option> services
-      are supported.
+      The <option>auth</option> and <option>session</option> module
+      types are provided.
     </para>
   </refsect1>
 

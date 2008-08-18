@@ -215,10 +215,11 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_succeed_if-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_succeed_if-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      All services are supported.
+      All module types (<option>account</option>, <option>auth</option>,
+      <option>password</option> and <option>session</option>) are provided.
     </para>
   </refsect1>
 

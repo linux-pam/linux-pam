@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-18 14:20+0200\n"
+"POT-Creation-Date: 2008-08-14 17:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -228,17 +228,17 @@ msgstr ""
 msgid "BAD PASSWORD: %s"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:134
+#: modules/pam_exec/pam_exec.c:135
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:143
+#: modules/pam_exec/pam_exec.c:144
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:152
+#: modules/pam_exec/pam_exec.c:153
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
@@ -321,51 +321,47 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:164
+#: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
+#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
 msgid "role:"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
 msgid "level:"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
+#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
 msgid "Not a valid security context"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:251
+#: modules/pam_selinux/pam_selinux.c:265
 #, c-format
 msgid "Default Security Context %s\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:255
+#: modules/pam_selinux/pam_selinux.c:269
 msgid "Would you like to enter a different role or level?"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:269
+#: modules/pam_selinux/pam_selinux.c:285
 #, c-format
 msgid "No default type for role %s\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:522
+#: modules/pam_selinux/pam_selinux.c:661
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:578
-msgid "Requested MLS level not in permitted range"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:628
+#: modules/pam_selinux/pam_selinux.c:712
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:649
+#: modules/pam_selinux/pam_selinux.c:733
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr ""
@@ -402,56 +398,65 @@ msgstr ""
 msgid "Verification mis-typed; password unchanged"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:537
+#, c-format
+msgid "Account temporary locked (%lds seconds left)"
+msgstr ""
+
+#: modules/pam_tally/pam_tally.c:562
+msgid "Accounted locked due to "
+msgstr ""
+
+#: modules/pam_tally/pam_tally.c:773
 msgid "Authentication error"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:774
 msgid "Service error"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:748
+#: modules/pam_tally/pam_tally.c:775
 msgid "Unknown user"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:749
+#: modules/pam_tally/pam_tally.c:776
 msgid "Unknown error"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:765
+#: modules/pam_tally/pam_tally.c:792
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:769
+#: modules/pam_tally/pam_tally.c:796
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:781
+#: modules/pam_tally/pam_tally.c:808
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:855
+#: modules/pam_tally/pam_tally.c:882
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:236
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:242
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:260 modules/pam_unix/pam_unix_acct.c:267
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -459,7 +464,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:272
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr ""

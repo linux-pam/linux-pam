@@ -237,11 +237,11 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_namespace-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_namespace-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      The <option>session</option> service is supported. The module must not
-      be called from multithreaded processes.
+      Only the <option>session</option> module type is provided.
+      The module must not be called from multithreaded processes.
     </para>
   </refsect1>
 

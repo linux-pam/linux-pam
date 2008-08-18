@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_succeed_if/pam_succeed_if.8.xml" xpointer='xpointer(//refsect1[@id = "pam_succeed_if-options"]/*)'/>
   </section>
-  <section id='sag-pam_succeed_if-services'>
+  <section id='sag-pam_succeed_if-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_succeed_if/pam_succeed_if.8.xml" xpointer='xpointer(//refsect1[@id = "pam_succeed_if-services"]/*)'/>
+     href="../../modules/pam_succeed_if/pam_succeed_if.8.xml" xpointer='xpointer(//refsect1[@id = "pam_succeed_if-types"]/*)'/>
   </section>
   <section id='sag-pam_succeed_if-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

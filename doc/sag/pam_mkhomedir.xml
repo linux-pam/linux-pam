@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_mkhomedir/pam_mkhomedir.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mkhomedir-options"]/*)'/>
   </section>
-  <section id='sag-pam_mkhomedir-services'>
+  <section id='sag-pam_mkhomedir-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_mkhomedir/pam_mkhomedir.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mkhomedir-services"]/*)'/>
+     href="../../modules/pam_mkhomedir/pam_mkhomedir.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mkhomedir-types"]/*)'/>
   </section>
   <section id='sag-pam_mkhomedir-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

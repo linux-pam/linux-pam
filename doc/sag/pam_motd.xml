@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(//refsect1[@id = "pam_motd-options"]/*)'/>
   </section>
-  <section id='sag-pam_motd-services'>
+  <section id='sag-pam_motd-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(//refsect1[@id = "pam_motd-services"]/*)'/>
+     href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(//refsect1[@id = "pam_motd-types"]/*)'/>
   </section>
   <section id='sag-pam_motd-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

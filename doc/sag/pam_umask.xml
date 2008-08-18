@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_umask/pam_umask.8.xml" xpointer='xpointer(//refsect1[@id = "pam_umask-options"]/*)'/>
   </section>
-  <section id='sag-pam_umask-services'>
+  <section id='sag-pam_umask-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_umask/pam_umask.8.xml" xpointer='xpointer(//refsect1[@id = "pam_umask-services"]/*)'/>
+     href="../../modules/pam_umask/pam_umask.8.xml" xpointer='xpointer(//refsect1[@id = "pam_umask-types"]/*)'/>
   </section>
   <section id='sag-pam_umask-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

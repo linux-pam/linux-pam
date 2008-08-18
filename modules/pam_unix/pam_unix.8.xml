@@ -85,7 +85,7 @@
     </para>
 
     <para>
-      The session component of this module logs when a user logins 
+      The session component of this module logs when a user logins
       or leave the system.
     </para>
 
@@ -314,10 +314,11 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_unix-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_unix-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      All service are supported.
+      All module types (<option>account</option>, <option>auth</option>,
+      <option>password</option> and <option>session</option>) are provided.
     </para>
   </refsect1>
 

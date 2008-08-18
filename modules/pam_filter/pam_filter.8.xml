@@ -188,11 +188,11 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_filter-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_filter-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      The services <option>auth</option>, <option>account</option>,
-      <option>password</option> and <option>session</option> are supported.
+      All module types (<option>auth</option>, <option>account</option>,
+      <option>password</option> and <option>session</option>) are provided.
     </para>
   </refsect1>
 

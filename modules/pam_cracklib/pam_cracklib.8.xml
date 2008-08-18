@@ -376,10 +376,10 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_cracklib-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_cracklib-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      Only the <option>password</option> service is supported.
+      Only the <option>password</option> module type is provided.
     </para>
   </refsect1>
 

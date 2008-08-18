@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_localuser/pam_localuser.8.xml" xpointer='xpointer(//refsect1[@id = "pam_localuser-options"]/*)'/>
   </section>
-  <section id='sag-pam_localuser-services'>
+  <section id='sag-pam_localuser-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_localuser/pam_localuser.8.xml" xpointer='xpointer(//refsect1[@id = "pam_localuser-services"]/*)'/>
+     href="../../modules/pam_localuser/pam_localuser.8.xml" xpointer='xpointer(//refsect1[@id = "pam_localuser-types"]/*)'/>
   </section>
   <section id='sag-pam_localuser-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

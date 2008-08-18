@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_listfile/pam_listfile.8.xml" xpointer='xpointer(//refsect1[@id = "pam_listfile-options"]/*)'/>
   </section>
-  <section id='sag-pam_listfile-services'>
+  <section id='sag-pam_listfile-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_listfile/pam_listfile.8.xml" xpointer='xpointer(//refsect1[@id = "pam_listfile-services"]/*)'/>
+     href="../../modules/pam_listfile/pam_listfile.8.xml" xpointer='xpointer(//refsect1[@id = "pam_listfile-types"]/*)'/>
   </section>
   <section id='sag-pam_listfile-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

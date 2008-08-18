@@ -19,9 +19,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_namespace/pam_namespace.8.xml" xpointer='xpointer(//refsect1[@id = "pam_namespace-options"]/*)'/>
   </section>
-  <section id='sag-pam_namespace-services'>
+  <section id='sag-pam_namespace-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_namespace/pam_namespace.8.xml" xpointer='xpointer(//refsect1[@id = "pam_namespace-services"]/*)'/>
+     href="../../modules/pam_namespace/pam_namespace.8.xml" xpointer='xpointer(//refsect1[@id = "pam_namespace-types"]/*)'/>
   </section>
   <section id='sag-pam_namespace-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

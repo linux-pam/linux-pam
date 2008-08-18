@@ -41,11 +41,11 @@
     <para> This module does not recognise any options.</para>
   </refsect1>
 
-  <refsect1 id="pam_shells-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_shells-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      The services <option>auth</option> and <option>account</option>
-      are supported.
+      The <option>auth</option> and <option>account</option>
+      module types are provided.
     </para>
   </refsect1>
 

@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faildelay-options"]/*)'/>
   </section>
-  <section id='sag-pam_faildelay-services'>
+  <section id='sag-pam_faildelay-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faildelay-services"]/*)'/>
+     href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faildelay-types"]/*)'/>
   </section>
   <section id='sag-pam_faildelay-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

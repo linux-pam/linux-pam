@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_debug/pam_debug.8.xml" xpointer='xpointer(//refsect1[@id = "pam_debug-options"]/*)'/>
   </section>
-  <section id='sag-pam_debug-services'>
+  <section id='sag-pam_debug-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_debug/pam_debug.8.xml" xpointer='xpointer(//refsect1[@id = "pam_debug-services"]/*)'/>
+     href="../../modules/pam_debug/pam_debug.8.xml" xpointer='xpointer(//refsect1[@id = "pam_debug-types"]/*)'/>
   </section>
   <section id='sag-pam_debug-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

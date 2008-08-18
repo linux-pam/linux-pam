@@ -80,10 +80,10 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_tty_audit-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_tty_audit-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      Only the <emphasis remap='B'>session</emphasis> service is supported.
+      Only the <emphasis remap='B'>session</emphasis> type is supported.
     </para>
   </refsect1>
 

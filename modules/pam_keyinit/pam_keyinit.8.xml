@@ -121,10 +121,10 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_keyinit-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_keyinit-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      Only the <emphasis remap='B'>session</emphasis> service is supported.
+      Only the <option>session</option> module type is provided.
     </para>
   </refsect1>
 

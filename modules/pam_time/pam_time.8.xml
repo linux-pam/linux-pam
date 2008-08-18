@@ -49,7 +49,7 @@
     </para>
     <para>
       If Linux PAM is compiled with audit support the module will report
-      when it denies access. 
+      when it denies access.
     </para>
   </refsect1>
 
@@ -83,10 +83,10 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_time-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_time-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      Only the <option>account</option> service is supported.
+      Only the <option>account</option> type is provided.
     </para>
   </refsect1>
 

@@ -19,9 +19,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_access/pam_access.8.xml" xpointer='xpointer(//refsect1[@id = "pam_access-options"]/*)'/>
   </section>
-  <section id='sag-pam_access-services'>
+  <section id='sag-pam_access-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_access/pam_access.8.xml" xpointer='xpointer(//refsect1[@id = "pam_access-services"]/*)'/>
+     href="../../modules/pam_access/pam_access.8.xml" xpointer='xpointer(//refsect1[@id = "pam_access-types"]/*)'/>
   </section>
   <section id='sag-pam_access-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

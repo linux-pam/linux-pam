@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_xauth/pam_xauth.8.xml" xpointer='xpointer(//refsect1[@id = "pam_xauth-options"]/*)'/>
   </section>
-  <section id='sag-pam_xauth-services'>
+  <section id='sag-pam_xauth-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_xauth/pam_xauth.8.xml" xpointer='xpointer(//refsect1[@id = "pam_xauth-services"]/*)'/>
+     href="../../modules/pam_xauth/pam_xauth.8.xml" xpointer='xpointer(//refsect1[@id = "pam_xauth-types"]/*)'/>
   </section>
   <section id='sag-pam_xauth-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_nologin/pam_nologin.8.xml" xpointer='xpointer(//refsect1[@id = "pam_nologin-options"]/*)'/>
   </section>
-  <section id='sag-pam_nologin-services'>
+  <section id='sag-pam_nologin-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_nologin/pam_nologin.8.xml" xpointer='xpointer(//refsect1[@id = "pam_nologin-services"]/*)'/>
+     href="../../modules/pam_nologin/pam_nologin.8.xml" xpointer='xpointer(//refsect1[@id = "pam_nologin-types"]/*)'/>
   </section>
   <section id='sag-pam_nologin-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

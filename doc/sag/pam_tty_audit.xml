@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_tty_audit/pam_tty_audit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tty_audit-options"]/*)'/>
   </section>
-  <section id='sag-pam_tty_audit-services'>
+  <section id='sag-pam_tty_audit-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_tty_audit/pam_tty_audit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tty_audit-services"]/*)'/>
+     href="../../modules/pam_tty_audit/pam_tty_audit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tty_audit-types"]/*)'/>
   </section>
   <section id='sag-pam_tty_audit-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

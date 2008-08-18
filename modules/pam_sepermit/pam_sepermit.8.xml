@@ -87,11 +87,11 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_sepermit-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_sepermit-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      Only the <option>auth</option> and <option>account</option>
-      services are supported.
+      The <option>auth</option> and <option>account</option>
+      module types are provided.
     </para>
   </refsect1>
 

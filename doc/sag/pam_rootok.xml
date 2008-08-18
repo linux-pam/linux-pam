@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_rootok/pam_rootok.8.xml" xpointer='xpointer(//refsect1[@id = "pam_rootok-options"]/*)'/>
   </section>
-  <section id='sag-pam_rootok-services'>
+  <section id='sag-pam_rootok-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_rootok/pam_rootok.8.xml" xpointer='xpointer(//refsect1[@id = "pam_rootok-services"]/*)'/>
+     href="../../modules/pam_rootok/pam_rootok.8.xml" xpointer='xpointer(//refsect1[@id = "pam_rootok-types"]/*)'/>
   </section>
   <section id='sag-pam_rootok-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

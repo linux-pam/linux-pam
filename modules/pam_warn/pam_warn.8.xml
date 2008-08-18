@@ -38,11 +38,12 @@
     <para>This module does not recognise any options.</para>
   </refsect1>
 
-  <refsect1 id="pam_warn-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_warn-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      The services <option>auth</option>, <option>account</option>,
-      <option>password</option> and <option>session</option> are supported.
+      The <option>auth</option>, <option>account</option>,
+      <option>password</option> and <option>session</option> module
+      types are provided.
     </para>
   </refsect1>
 

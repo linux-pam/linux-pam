@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(//refsect1[@id = "pam_shells-options"]/*)'/>
   </section>
-  <section id='sag-pam_shells-services'>
+  <section id='sag-pam_shells-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(//refsect1[@id = "pam_shells-services"]/*)'/>
+     href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(//refsect1[@id = "pam_shells-types"]/*)'/>
   </section>
   <section id='sag-pam_shells-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

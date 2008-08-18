@@ -57,10 +57,10 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_loginuid-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_loginuid-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      The <option>session</option> service is supported.
+      Only the <option>session</option> module type is provided.
     </para>
   </refsect1>
 

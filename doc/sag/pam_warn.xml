@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(//refsect1[@id = "pam_warn-options"]/*)'/>
   </section>
-  <section id='sag-pam_warn-services'>
+  <section id='sag-pam_warn-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(//refsect1[@id = "pam_warn-services"]/*)'/>
+     href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(//refsect1[@id = "pam_warn-types"]/*)'/>
   </section>
   <section id='sag-pam_warn-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

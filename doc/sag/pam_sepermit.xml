@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_sepermit-options"]/*)'/>
   </section>
-  <section id='sag-pam_sepermit-services'>
+  <section id='sag-pam_sepermit-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_sepermit-services"]/*)'/>
+     href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_sepermit-types"]/*)'/>
   </section>
   <section id='sag-pam_sepermit-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

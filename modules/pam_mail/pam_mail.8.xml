@@ -193,12 +193,12 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_mail-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_mail-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      The <emphasis remap='B'>session</emphasis> and
-      <emphasis remap='B'>auth</emphasis> (on establishment and
-      deletion of credentials) services are supported. 
+      The <option>session</option> and
+      <option>auth</option> (on establishment and
+      deletion of credentials) module types are provided.
     </para>
   </refsect1>
 

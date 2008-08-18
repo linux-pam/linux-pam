@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_cracklib/pam_cracklib.8.xml" xpointer='xpointer(//refsect1[@id = "pam_cracklib-options"]/*)'/>
   </section>
-  <section id='sag-pam_cracklib-services'>
+  <section id='sag-pam_cracklib-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_cracklib/pam_cracklib.8.xml" xpointer='xpointer(//refsect1[@id = "pam_cracklib-services"]/*)'/>
+     href="../../modules/pam_cracklib/pam_cracklib.8.xml" xpointer='xpointer(//refsect1[@id = "pam_cracklib-types"]/*)'/>
   </section>
   <section id='sag-pam_cracklib-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

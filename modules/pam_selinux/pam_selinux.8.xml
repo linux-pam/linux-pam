@@ -170,10 +170,10 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_selinux-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_selinux-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      Only the <option>session</option> service is supported.
+      Only the <option>session</option> module type is provided.
     </para>
   </refsect1>
 
@@ -211,7 +211,7 @@
     <title>EXAMPLES</title>
     <programlisting>
 auth     required  pam_unix.so
-session  required  pam_permit.so    
+session  required  pam_permit.so
 session  optional  pam_selinux.so
     </programlisting>
   </refsect1>

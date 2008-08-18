@@ -119,7 +119,7 @@
         <listitem>
           <para>
             This can be used for <emphasis>auth</emphasis> and
-            <emphasis>account</emphasis> services.
+            <emphasis>account</emphasis> module types.
           </para>
           <variablelist>
             <varlistentry>
@@ -348,11 +348,11 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_tally-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_tally-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
       The <option>auth</option> and <option>account</option>
-      services are supported.
+      module types are provided.
     </para>
   </refsect1>
 

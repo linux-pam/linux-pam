@@ -15,9 +15,9 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(//refsect1[@id = "pam_loginuid-options"]/*)'/>
   </section>
-  <section id='sag-pam_loginuid-services'>
+  <section id='sag-pam_loginuid-types'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(//refsect1[@id = "pam_loginuid-services"]/*)'/>
+     href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(//refsect1[@id = "pam_loginuid-types"]/*)'/>
   </section>
   <section id='sag-pam_loginuid-return_values'>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

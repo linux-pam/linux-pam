@@ -59,7 +59,7 @@
     </para>
     <para>
       If Linux PAM is compiled with audit support the module will report
-      when it denies access based on origin (host or tty). 
+      when it denies access based on origin (host or tty).
     </para>
   </refsect1>
 
@@ -159,10 +159,11 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_access-services">
-    <title>MODULE SERVICES PROVIDED</title>
+  <refsect1 id="pam_access-types">
+    <title>MODULE TYPES PROVIDED</title>
     <para>
-      All services are supported.
+      All module types (<option>auth</option>, <option>account</option>,
+      <option>password</option> and <option>session</option>) are provided.
     </para>
   </refsect1>
 
