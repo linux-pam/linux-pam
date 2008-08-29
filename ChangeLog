@@ -1,3 +1,7 @@
+2008-08-29  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 1.0.2
+
 2008-08-29  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_loginuid/pam_loginuid.c(set_loginuid): Uids
