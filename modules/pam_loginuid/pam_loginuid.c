@@ -53,7 +53,7 @@ static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 	int fd, count, rc = 0;
 	char loginuid[24];
 
-	count = snprintf(loginuid, sizeof(loginuid), "%d", uid);
+	count = snprintf(loginuid, sizeof(loginuid), "%lu", (unsigned long)uid);
 	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_WRONLY|O_TRUNC);
 	if (fd < 0) {
 		if (errno != ENOENT) {
