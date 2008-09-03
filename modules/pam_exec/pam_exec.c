@@ -58,6 +58,7 @@
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include <security/_pam_macros.h>
 
 #define ENV_ITEM(n) { (n), #n }
 static struct {
@@ -71,15 +72,20 @@ static struct {
   ENV_ITEM(PAM_RUSER),
 };
 
+
 static int
-call_exec (pam_handle_t *pamh, int argc, const char **argv)
+call_exec (const char *pam_type, pam_handle_t *pamh,
+	   int argc, const char **argv)
 {
   int debug = 0;
   int call_setuid = 0;
   int quiet = 0;
+  int expose_authtok = 0;
   int optargc;
   const char *logfile = NULL;
+  const char *authtok = NULL;
   pid_t pid;
+  int fds[2];
 
   if (argc < 1) {
     pam_syslog (pamh, LOG_ERR,
@@ -100,10 +106,63 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
 	call_setuid = 1;
       else if (strcasecmp (argv[optargc], "quiet") == 0)
 	quiet = 1;
+      else if (strcasecmp (argv[optargc], "expose_authtok") == 0)
+	expose_authtok = 1;
       else
 	break; /* Unknown option, assume program to execute. */
     }
 
+  if (expose_authtok == 1)
+    {
+      if (strcmp (pam_type, "auth") != 0)
+	{
+	  pam_syslog (pamh, LOG_ERR,
+		      "expose_authtok not supported for type %s", pam_type);
+	  expose_authtok = 0;
+	}
+      else
+	{
+	  const void *void_pass;
+	  int retval;
+
+	  retval = pam_get_item (pamh, PAM_AUTHTOK, &void_pass);
+	  if (retval != PAM_SUCCESS)
+	    {
+	      if (debug)
+		pam_syslog (pamh, LOG_DEBUG,
+			    "pam_get_item (PAM_AUTHTOK) failed, return %d",
+			    retval);
+	      return retval;
+	    }
+	  else if (void_pass == NULL)
+	    {
+	      char *resp = NULL;
+
+	      retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF,
+				   &resp, _("Password: "));
+
+	      if (retval != PAM_SUCCESS)
+		{
+		  _pam_drop (resp);
+		  if (retval == PAM_CONV_AGAIN)
+		    retval = PAM_INCOMPLETE;
+		  return retval;
+		}
+
+	      pam_set_item (pamh, PAM_AUTHTOK, resp);
+	      authtok = strdupa (resp);
+	      _pam_drop (resp);
+	    }
+	  else
+	    authtok = void_pass;
+
+	  if (pipe(fds) != 0)
+	    {
+	      pam_syslog (pamh, LOG_ERR, "Could not create pipe: %m");
+	      return PAM_SYSTEM_ERR;
+	    }
+	}
+    }
 
   if (optargc >= argc) {
     pam_syslog (pamh, LOG_ERR, "No path given as argument");
@@ -117,6 +176,27 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
     {
       int status = 0;
       pid_t retval;
+
+      if (expose_authtok) /* send the password to the child */
+	{
+	  if (authtok != NULL)
+	    {            /* send the password to the child */
+	      if (debug)
+		pam_syslog (pamh, LOG_DEBUG, "send password to child");
+	      if (write(fds[1], authtok, strlen(authtok)+1) == -1)
+		pam_syslog (pamh, LOG_ERR,
+			    "sending password to child failed: %m");
+	      authtok = NULL;
+	    }
+	  else
+	    {
+	      if (write(fds[1], "", 1) == -1)   /* blank password */
+		pam_syslog (pamh, LOG_ERR,
+			    "sending password to child failed: %m");
+	    }
+        close(fds[0]);       /* close here to avoid possible SIGPIPE above */
+        close(fds[1]);
+	}
 
       while ((retval = waitpid (pid, &status, 0)) == -1 &&
 	     errno == EINTR);
@@ -163,17 +243,38 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
       int i;
       char **envlist, **tmp;
       int envlen, nitems;
+      char *envstr;
 
-      for (i = 0; i < sysconf (_SC_OPEN_MAX); i++)
-	close (i);
-
-      /* New stdin.  */
-      if ((i = open ("/dev/null", O_RDWR)) < 0)
+      if (expose_authtok)
 	{
-	  int err = errno;
-	  pam_syslog (pamh, LOG_ERR, "open of /dev/null failed: %m");
-	  exit (err);
+	  /* reopen stdin as pipe */
+	  if (dup2(fds[0], STDIN_FILENO) == -1)
+	    {
+	      int err = errno;
+	      pam_syslog (pamh, LOG_ERR, "dup2 of STDIN failed: %m");
+	      exit (err);
+	    }
+
+	  for (i = 0; i < sysconf (_SC_OPEN_MAX); i++)
+	    {
+	      if (i != STDIN_FILENO)
+		close (i);
+	    }
 	}
+      else
+	{
+	  for (i = 0; i < sysconf (_SC_OPEN_MAX); i++)
+	    close (i);
+
+	  /* New stdin.  */
+	  if ((i = open ("/dev/null", O_RDWR)) < 0)
+	    {
+	      int err = errno;
+	      pam_syslog (pamh, LOG_ERR, "open of /dev/null failed: %m");
+	      exit (err);
+	    }
+	}
+
       /* New stdout and stderr.  */
       if (logfile)
 	{
@@ -195,18 +296,22 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
 	    }
 	}
       else
-	if (dup (i) == -1)
-	  {
-	    int err = errno;
-	    pam_syslog (pamh, LOG_ERR, "dup failed: %m");
-	    exit (err);
-	  }
+	{
+	  /* New stdout/stderr.  */
+	  if ((i = open ("/dev/null", O_RDWR)) < 0)
+	    {
+	      int err = errno;
+	      pam_syslog (pamh, LOG_ERR, "open of /dev/null failed: %m");
+	      exit (err);
+	    }
+	}
+
       if (dup (i) == -1)
-        {
+	{
 	  int err = errno;
 	  pam_syslog (pamh, LOG_ERR, "dup failed: %m");
-          exit (err);
-        }
+	  exit (err);
+	}
 
       if (call_setuid)
 	if (setuid (geteuid ()) == -1)
@@ -240,7 +345,8 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
       for (envlen = 0; envlist[envlen] != NULL; ++envlen)
         /* nothing */ ;
       nitems = sizeof(env_items) / sizeof(*env_items);
-      tmp = realloc(envlist, (envlen + nitems + 1) * sizeof(*envlist));
+      /* + 2 because of PAM_TYPE and NULL entry */
+      tmp = realloc(envlist, (envlen + nitems + 2) * sizeof(*envlist));
       if (tmp == NULL)
       {
         free(envlist);
@@ -251,7 +357,6 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
       for (i = 0; i < nitems; ++i)
       {
         const void *item;
-        char *envstr;
 
         if (pam_get_item(pamh, env_items[i].item, &item) != PAM_SUCCESS || item == NULL)
           continue;
@@ -264,6 +369,15 @@ call_exec (pam_handle_t *pamh, int argc, const char **argv)
         envlist[envlen++] = envstr;
         envlist[envlen] = NULL;
       }
+
+      if (asprintf(&envstr, "PAM_TYPE=%s", pam_type) < 0)
+        {
+          free(envlist);
+          pam_syslog (pamh, LOG_ERR, "prepare environment failed: %m");
+          exit (ENOMEM);
+        }
+      envlist[envlen++] = envstr;
+      envlist[envlen] = NULL;
 
       if (debug)
 	pam_syslog (pamh, LOG_DEBUG, "Calling %s ...", arggv[0]);
@@ -286,7 +400,7 @@ PAM_EXTERN int
 pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
-  return call_exec (pamh, argc, argv);
+  return call_exec ("auth", pamh, argc, argv);
 }
 
 PAM_EXTERN int
@@ -304,28 +418,28 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 {
   if (flags & PAM_PRELIM_CHECK)
     return PAM_SUCCESS;
-  return call_exec (pamh, argc, argv);
+  return call_exec ("password", pamh, argc, argv);
 }
 
 PAM_EXTERN int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 		 int argc, const char **argv)
 {
-  return call_exec (pamh, argc, argv);
+  return call_exec ("account", pamh, argc, argv);
 }
 
 PAM_EXTERN int
 pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 		    int argc, const char **argv)
 {
-  return call_exec (pamh, argc, argv);
+  return call_exec ("open_session", pamh, argc, argv);
 }
 
 PAM_EXTERN int
 pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
-  return call_exec (pamh, argc, argv);
+  return call_exec ("close_session", pamh, argc, argv);
 }
 
 #ifdef PAM_STATIC

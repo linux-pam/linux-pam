@@ -22,6 +22,9 @@
 	debug
       </arg>
       <arg choice="opt">
+         expose_authtok
+      </arg>
+      <arg choice="opt">
         seteuid
       </arg>
       <arg choice="opt">
@@ -57,7 +60,11 @@
      In addition, the following PAM items are
      exported as environment variables: <emphasis>PAM_RHOST</emphasis>,
      <emphasis>PAM_RUSER</emphasis>, <emphasis>PAM_SERVICE</emphasis>,
-     <emphasis>PAM_TTY</emphasis>, and <emphasis>PAM_USER</emphasis>.
+     <emphasis>PAM_TTY</emphasis>, <emphasis>PAM_USER</emphasis> and
+     <emphasis>PAM_TYPE</emphasis>, which contains one of the module
+     types: <option>account</option>, <option>auth</option>,
+     <option>password</option>, <option>open_session</option> and
+     <option>close_session</option>.
     </para>
 
   </refsect1>
@@ -75,6 +82,20 @@
           <listitem>
             <para>
 	      Print debug information.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>expose_authtok</option>
+          </term>
+          <listitem>
+            <para>
+              During authentication the calling command can read
+              the password from <citerefentry>
+              <refentrytitle>stdin</refentrytitle><manvolnum>3</manvolnum>
+              </citerefentry>.
             </para>
           </listitem>
         </varlistentry>
