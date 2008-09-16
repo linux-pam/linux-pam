@@ -1,3 +1,7 @@
+2008-09-16  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/pam_unix.8.xml: Fix typo.
+
 2008-09-03  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_exec/pam_exec.c: Expose authtok if requested,
