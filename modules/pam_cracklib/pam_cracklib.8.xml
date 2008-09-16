@@ -184,7 +184,7 @@
             <para>
               Prompt user at most <replaceable>N</replaceable> times
               before returning with error. The default is
-              <emphasis>1</emphasis>
+              <emphasis>1</emphasis>.
             </para>
           </listitem>
         </varlistentry>
