@@ -1,3 +1,14 @@
+2008-09-19  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_cracklib/pam_cracklib.8.xml: Fix description
+	of the palindrome test. Document new options maxrepeat and
+	reject_username.
+	* modules/pam_cracklib/pam_cracklib.c(_pam_parse): Parse
+	the maxrepeat and reject_username options.
+	(password_check): Call the new tests usercheck() and
+	consecutive().
+	(_pam_unix_approve_pass): Pass user name to the password_check().
+
 2008-09-16  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_cracklib/pam_cracklib.8.xml: Fix typo.

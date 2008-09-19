@@ -59,7 +59,7 @@
         <term>Palindrome</term>
         <listitem>
           <para>
-            Is the new password a palindrome of the old one?
+            Is the new password a palindrome?
           </para>
         </listitem>
       </varlistentry>
@@ -117,6 +117,23 @@
           <para>
             Was the password used in the past? Previously used passwords
             are to be found in <filename>/etc/security/opasswd</filename>.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Same consecutive characters</term>
+        <listitem>
+          <para>
+            Optional check for same consecutive characters.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Contains user name</term>
+        <listitem>
+          <para>
+            Optional check whether the password contains the user's name
+            in some form.
           </para>
         </listitem>
       </varlistentry>
@@ -343,6 +360,32 @@
               that a specific class if of characters is not required.
               Instead <replaceable>N</replaceable> out of four of the
               classes are required.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>maxrepeat=<replaceable>N</replaceable></option>
+          </term>
+          <listitem>
+            <para>
+              Reject passwords which contain more than N same consecutive
+              characters. The default is 0 which means that this check
+              is disabled.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>reject_username</option>
+          </term>
+          <listitem>
+            <para>
+              Check whether the name of the user in straight or reversed
+              form is contained in the new password. If it is found the
+              new password is rejected.
             </para>
           </listitem>
         </varlistentry>

@@ -99,6 +99,8 @@ struct cracklib_options {
         int min_class;
 	int use_authtok;
 	int try_first_pass;
+	int max_repeat;
+	int reject_user;
 	char prompt_type[BUFSIZ];
         const char *cracklib_dictpath;
 };
@@ -166,8 +168,14 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
              opt->min_class = strtol(*argv+9,&ep,10);
              if (!ep)
                  opt->min_class = 0;
-                 if (opt->min_class > 4)
-                     opt->min_class = 4 ;
+             if (opt->min_class > 4)
+                 opt->min_class = 4;
+         } else if (!strncmp(*argv,"maxrepeat=",10)) {
+             opt->max_repeat = strtol(*argv+10,&ep,10);
+             if (!ep)
+                 opt->max_repeat = 0;
+	 } else if (!strncmp(*argv,"reject_username",15)) {
+		 opt->reject_user = 1;
 	 } else if (!strncmp(*argv,"use_authtok",11)) {
 		 opt->use_authtok = 1;
 	 } else if (!strncmp(*argv,"use_first_pass",14)) {
@@ -418,6 +426,58 @@ static int simple(struct cracklib_options *opt, const char *new)
     return 1;
 }
 
+static int consecutive(struct cracklib_options *opt, const char *new)
+{
+    char c;
+    int i;
+    int same;
+
+    if (opt->max_repeat == 0)
+	return 0;
+
+    for (i = 0; new[i]; i++) {
+	if (i > 0 && new[i] == c) {
+	    ++same;
+	    if (same > opt->max_repeat)
+		return 1;
+	} else {
+	    c = new[i];
+	    same = 1;
+	}
+    }
+    return 0;
+}
+
+static int usercheck(struct cracklib_options *opt, const char *new,
+		     char *user)
+{
+    char *f, *b;
+
+    if (!opt->reject_user)
+	return 0;
+
+    if (strstr(new, user) != NULL)
+	return 1;
+
+    /* now reverse the username, we can do that in place
+       as it is strdup-ed */
+    f = user;
+    b = user+strlen(user)-1;    
+    while (f < b) {
+	char c;
+
+	c = *f;
+	*f = *b;
+	*b = c;
+	--b;
+	++f;
+    }
+
+    if (strstr(new, user) != NULL)
+	return 1;
+    return 0;
+}
+
 static char * str_lower(char *string)
 {
 	char *cp;
@@ -428,10 +488,12 @@ static char * str_lower(char *string)
 }
 
 static const char *password_check(struct cracklib_options *opt,
-				  const char *old, const char *new)
+				  const char *old, const char *new,
+				  const char *user)
 {
 	const char *msg = NULL;
 	char *oldmono = NULL, *newmono, *wrapped = NULL;
+	char *usermono = NULL;
 
 	if (old && strcmp(new, old) == 0) {
 	    msg = _("is the same as the old one");
@@ -439,6 +501,7 @@ static const char *password_check(struct cracklib_options *opt,
 	}
 
 	newmono = str_lower(x_strdup(new));
+	usermono = str_lower(x_strdup(user));
 	if (old) {
 	  oldmono = str_lower(x_strdup(old));
 	  wrapped = malloc(strlen(oldmono) * 2 + 1);
@@ -464,8 +527,15 @@ static const char *password_check(struct cracklib_options *opt,
 	if (!msg && minclass (opt, new))
 	        msg = _("not enough character classes");
 
+	if (!msg && consecutive(opt, new))
+	        msg = _("contains too many same characters consecutively");
+
+	if (!msg && usercheck(opt, newmono, usermono))
+	        msg = _("contains the user name in some form");
+
 	memset(newmono, 0, strlen(newmono));
 	free(newmono);
+	free(usermono);
 	if (old) {
 	  memset(oldmono, 0, strlen(oldmono));
 	  memset(wrapped, 0, strlen(wrapped));
@@ -532,18 +602,18 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
         return PAM_AUTHTOK_ERR;
     }
 
+    retval = pam_get_item(pamh, PAM_USER, &user);
+    if (retval != PAM_SUCCESS || user == NULL) {
+	if (ctrl & PAM_DEBUG_ARG)
+		pam_syslog(pamh,LOG_ERR,"Can not get username");
+	return PAM_AUTHTOK_ERR;
+    }
     /*
      * if one wanted to hardwire authentication token strength
      * checking this would be the place
      */
-    msg = password_check(opt, pass_old, pass_new);
+    msg = password_check(opt, pass_old, pass_new, user);
     if (!msg) {
-	retval = pam_get_item(pamh, PAM_USER, &user);
-	if (retval != PAM_SUCCESS || user == NULL) {
-	    if (ctrl & PAM_DEBUG_ARG)
-		pam_syslog(pamh,LOG_ERR,"Can not get username");
-	    return PAM_AUTHTOK_ERR;
-	}
 	msg = check_old_password(user, pass_new);
     }
 
