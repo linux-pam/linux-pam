@@ -145,7 +145,7 @@
             <varlistentry>
               <term><option>rss</option></term>
               <listitem>
-                <para>maximum resident set size (KB)</para>
+                <para>maximum resident set size (KB) (Ignored in Linux 2.4.30 and higher)</para>
               </listitem>
             </varlistentry>
             <varlistentry>

@@ -1,3 +1,8 @@
+2008-09-23  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_limits/limits.conf.5.xml: Comment that rss limit is
+	ignored.
+
 2008-09-19  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_cracklib/pam_cracklib.8.xml: Fix description
