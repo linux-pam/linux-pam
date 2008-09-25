@@ -40,7 +40,7 @@
 	nopen
       </arg>
       <arg choice="opt">
-	quit
+	quiet
       </arg>
       <arg choice="opt">
 	standard

@@ -1,3 +1,10 @@
+2008-09-25  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_mail/pam_mail.c (report_mail): Fix logic of
+	"quiet" option (Patch from Andreas Henriksson <andreas@fatal.se>)
+
+	* modules/pam_mail/pam_mail.8.xml: Fix typo.
+
 2008-09-23  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_limits/limits.conf.5.xml: Comment that rss limit is

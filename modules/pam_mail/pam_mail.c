@@ -303,8 +303,13 @@ report_mail(pam_handle_t *pamh, int ctrl, int type, const char *folder)
 {
     int retval;
 
-    if (!(ctrl & PAM_MAIL_SILENT) ||
-	((ctrl & PAM_QUIET_MAIL) && type == HAVE_NEW_MAIL))
+    if ((ctrl & PAM_MAIL_SILENT) ||
+	((ctrl & PAM_QUIET_MAIL) && type != HAVE_NEW_MAIL))
+      {
+	D(("keeping quiet"));
+	retval = PAM_SUCCESS;
+      }
+    else
       {
 	if (ctrl & PAM_STANDARD_MAIL)
 	  switch (type)
@@ -344,11 +349,6 @@ report_mail(pam_handle_t *pamh, int ctrl, int type, const char *folder)
 				 folder);
 	      break;
 	    }
-      }
-    else
-      {
-	D(("keeping quiet"));
-	retval = PAM_SUCCESS;
       }
 
     D(("returning %s", pam_strerror(pamh, retval)));
