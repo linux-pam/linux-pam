@@ -1,3 +1,9 @@
+2008-09-25  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_tally/pam_tally.c(get_tally): Fix syslog message.
+	(tally_check): Open faillog read only. Close file descriptor.
+	Fix typos in messages.
+
 2008-09-25  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_mail/pam_mail.c (report_mail): Fix logic of
