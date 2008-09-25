@@ -342,7 +342,7 @@ get_tally(pam_handle_t *pamh, tally_t *tally, uid_t uid,
     }
 
     if ( ! ( *TALLY = fopen(filename,(*tally!=TALLY_HI)?"r+":"r") ) ) {
-      pam_syslog(pamh, LOG_ALERT, "Error opening %s for update", filename);
+      pam_syslog(pamh, LOG_ALERT, "Error opening %s for %s", filename, *tally!=TALLY_HI?"update":"read");
 
 /* Discovering why account service fails: e/uid are target user.
  *
@@ -496,7 +496,7 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
   tally_t
     deny          = opts->deny;
   tally_t
-    tally         = 0;  /* !TALLY_HI --> Log opened for update */
+    tally         = TALLY_HI;
   long
     lock_time     = opts->lock_time;
 
@@ -506,6 +506,10 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
 
     i=get_tally(pamh, &tally, uid, opts->filename, &TALLY, fsp);
     if ( i != PAM_SUCCESS ) { RETURN_ERROR( i ); }
+
+    if ( TALLY != NULL ) {
+      fclose(TALLY);
+    }
 
     if ( !(opts->ctrl & OPT_MAGIC_ROOT) || getuid() ) {       /* magic_root skips tally check */
 
