@@ -41,7 +41,7 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis remap='B'>%h</emphasis></term>
+        <term><emphasis>%h</emphasis></term>
         <listitem>
           <para>The name of the local host.</para>
         </listitem>
