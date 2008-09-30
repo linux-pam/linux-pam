@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-18 14:20+0200\n"
+"POT-Creation-Date: 2008-09-30 16:45+0200\n"
 "PO-Revision-Date: 2006-05-04 08:30+0200\n"
 "Last-Translator: Jyri Palokangas <jmp@netti.fi>\n"
 "Language-Team:  <yast-trans-fi@kotoistaminen.novell.fi>\n"
@@ -182,133 +182,166 @@ msgstr "Anna uudelleen uusi %s%ssalasana: "
 msgid "Sorry, passwords do not match."
 msgstr "Salasanat eivät täsmää."
 
-#: modules/pam_cracklib/pam_cracklib.c:437
+#: modules/pam_cracklib/pam_cracklib.c:499
 msgid "is the same as the old one"
 msgstr "on sama kuin vanha"
 
-#: modules/pam_cracklib/pam_cracklib.c:450
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is a palindrome"
 msgstr "on palindromi"
 
-#: modules/pam_cracklib/pam_cracklib.c:453
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "case changes only"
 msgstr "vain kirjainkoko muutos"
 
-#: modules/pam_cracklib/pam_cracklib.c:456
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "is too similar to the old one"
 msgstr "on liian samankaltainen vanhan kanssa"
 
-#: modules/pam_cracklib/pam_cracklib.c:459
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "is too simple"
 msgstr "on liian yksinkertainen"
 
-#: modules/pam_cracklib/pam_cracklib.c:462
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "is rotated"
 msgstr "on kierrätetty"
 
-#: modules/pam_cracklib/pam_cracklib.c:465
+#: modules/pam_cracklib/pam_cracklib.c:528
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:503
+#: modules/pam_cracklib/pam_cracklib.c:531
+msgid "contains too many same characters consecutively"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:534
+msgid "contains the user name in some form"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:573
 msgid "has been already used"
 msgstr "on jo käytetty"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:601
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Et antanut salasanaa"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:601
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Salasanaa ei vaihdettu"
 
-#: modules/pam_cracklib/pam_cracklib.c:554
-#: modules/pam_cracklib/pam_cracklib.c:679
+#: modules/pam_cracklib/pam_cracklib.c:624
+#: modules/pam_cracklib/pam_cracklib.c:749
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "HUONO SALASANA: %s"
 
-#: modules/pam_exec/pam_exec.c:134
+#: modules/pam_exec/pam_exec.c:142 modules/pam_unix/pam_unix_auth.c:159
+#: modules/pam_userdb/pam_userdb.c:61
+msgid "Password: "
+msgstr "Salasana: "
+
+#: modules/pam_exec/pam_exec.c:215
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:143
+#: modules/pam_exec/pam_exec.c:224
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:152
+#: modules/pam_exec/pam_exec.c:233
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:190
+#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:429
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:199
+#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
 #, c-format
 msgid " from %.*s"
 msgstr " koneelta %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:211
+#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
 #, c-format
 msgid " on %.*s"
 msgstr " päätteellä %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:220
+#: modules/pam_lastlog/pam_lastlog.c:232
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Viimeinen kirjautuminen:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:226
+#: modules/pam_lastlog/pam_lastlog.c:238
 msgid "Welcome to your new account!"
 msgstr "Tervetuloa uudella käyttäjätilillä!"
+
+#. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
+#: modules/pam_lastlog/pam_lastlog.c:460
+#, fuzzy, c-format
+msgid "Last failed login:%s%s%s"
+msgstr "Viimeinen kirjautuminen:%s%s%s"
+
+#: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
+#, c-format
+msgid "There was %d failed login attempt since the last successful login."
+msgid_plural ""
+"There were %d failed login attempts since the last successful login."
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: only used if dngettext is not supported
+#: modules/pam_lastlog/pam_lastlog.c:481
+#, c-format
+msgid "There were %d failed login attempts since the last successful login."
+msgstr ""
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Liian monta kirjautumista '%s'."
 
-#: modules/pam_mail/pam_mail.c:313
+#: modules/pam_mail/pam_mail.c:318
 msgid "No mail."
 msgstr "Ei postia."
 
-#: modules/pam_mail/pam_mail.c:316
+#: modules/pam_mail/pam_mail.c:321
 msgid "You have new mail."
 msgstr "Sinulle on uutta postia."
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:324
 msgid "You have old mail."
 msgstr "Sinulla on vanha posti."
 
-#: modules/pam_mail/pam_mail.c:323
+#: modules/pam_mail/pam_mail.c:328
 msgid "You have mail."
 msgstr "Sinulle on postia."
 
-#: modules/pam_mail/pam_mail.c:330
+#: modules/pam_mail/pam_mail.c:335
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Sinulla ei ole postia kansiossa %s."
 
-#: modules/pam_mail/pam_mail.c:334
+#: modules/pam_mail/pam_mail.c:339
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Sinulla on postia kansiossa %s."
 
-#: modules/pam_mail/pam_mail.c:338
+#: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Sinulla on vanhaa postia kansiossa %s."
 
-#: modules/pam_mail/pam_mail.c:343
+#: modules/pam_mail/pam_mail.c:348
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Sinulla on postia kansiossa %s."
@@ -323,55 +356,51 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:164
+#: modules/pam_selinux/pam_selinux.c:172
 #, fuzzy
 msgid "Would you like to enter a security context? [N] "
 msgstr "Haluatko valita tietoturvaympäristön? [y] "
 
-#: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
+#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
 #, fuzzy
 msgid "role:"
 msgstr "rooli: "
 
-#: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
 #, fuzzy
 msgid "level:"
 msgstr "taso: "
 
-#: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
+#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
 msgid "Not a valid security context"
 msgstr "Ei kelvollinen tietoturvaympäristö"
 
-#: modules/pam_selinux/pam_selinux.c:251
+#: modules/pam_selinux/pam_selinux.c:265
 #, fuzzy, c-format
 msgid "Default Security Context %s\n"
 msgstr "Tietoturvaympäristö %s asetettiin"
 
-#: modules/pam_selinux/pam_selinux.c:255
+#: modules/pam_selinux/pam_selinux.c:269
 #, fuzzy
 msgid "Would you like to enter a different role or level?"
 msgstr "Haluatko valita tietoturvaympäristön? [y] "
 
-#: modules/pam_selinux/pam_selinux.c:269
+#: modules/pam_selinux/pam_selinux.c:285
 #, c-format
 msgid "No default type for role %s\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:522
+#: modules/pam_selinux/pam_selinux.c:661
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:578
-msgid "Requested MLS level not in permitted range"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:628
+#: modules/pam_selinux/pam_selinux.c:712
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Tietoturvaympäristö %s asetettiin"
 
-#: modules/pam_selinux/pam_selinux.c:649
+#: modules/pam_selinux/pam_selinux.c:733
 #, fuzzy, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Tietoturvaympäristö %s asetettiin"
@@ -408,33 +437,43 @@ msgstr "Anna uusi STRESS-salasana uudelleen: "
 msgid "Verification mis-typed; password unchanged"
 msgstr "Salasanat eivät ole samat; salasanaa ei vaihdettu"
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:541
+#, c-format
+msgid "Account temporary locked (%ld seconds left)"
+msgstr ""
+
+#: modules/pam_tally/pam_tally.c:566
+#, c-format
+msgid "Account locked due to %u failed logins"
+msgstr ""
+
+#: modules/pam_tally/pam_tally.c:777
 msgid "Authentication error"
 msgstr "Tunnistautumisvirhe"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:778
 msgid "Service error"
 msgstr "Palveluvirhe"
 
-#: modules/pam_tally/pam_tally.c:748
+#: modules/pam_tally/pam_tally.c:779
 msgid "Unknown user"
 msgstr "Tuntematon käyttäjä"
 
-#: modules/pam_tally/pam_tally.c:749
+#: modules/pam_tally/pam_tally.c:780
 msgid "Unknown error"
 msgstr "Tuntematon virhe"
 
-#: modules/pam_tally/pam_tally.c:765
+#: modules/pam_tally/pam_tally.c:796
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Väärä numero annettu valinnalle --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:769
+#: modules/pam_tally/pam_tally.c:800
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Tunnistamaton valinta %s\n"
 
-#: modules/pam_tally/pam_tally.c:781
+#: modules/pam_tally/pam_tally.c:812
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
@@ -442,24 +481,24 @@ msgstr ""
 "%s: [--file juurrutettu-tiedostonimi] [--user käyttäjätunnus] [--reset[=n]] "
 "[--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:855
+#: modules/pam_tally/pam_tally.c:886
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Ei voida palauttaa kaikkia käyttäjiä ei-nolliksi\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Käyttäjätilisi on vanhentunut; ota yhteyttä järjestelmän ylläpitäjään"
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:236
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Salasanasi täytyy vaihtaa heti (pääkäyttäjän vaatimus)"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:242
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Salasanasi täytyy vaihtaa heti (salasana vanhentunut)"
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:260 modules/pam_unix/pam_unix_acct.c:267
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -467,14 +506,10 @@ msgstr[0] "Varoitus: salasanasi vanhenee %d päivässä%.2s"
 msgstr[1] "Varoitus: salasanasi vanhenee %d päivässä%.2s"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:272
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Varoitus: salasanasi vanhenee %d päivässä%.2s"
-
-#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "Salasana: "
 
 #: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."

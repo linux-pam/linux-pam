@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-18 14:20+0200\n"
+"POT-Creation-Date: 2008-09-30 16:45+0200\n"
 "PO-Revision-Date: 2008-02-29 12:59+0100\n"
 "Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
@@ -183,133 +183,166 @@ msgstr "Geben Sie das neue %s%sPasswort erneut ein: "
 msgid "Sorry, passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
-#: modules/pam_cracklib/pam_cracklib.c:437
+#: modules/pam_cracklib/pam_cracklib.c:499
 msgid "is the same as the old one"
 msgstr "ist das gleiche wie das Alte"
 
-#: modules/pam_cracklib/pam_cracklib.c:450
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is a palindrome"
 msgstr "ist ein Palindrome"
 
-#: modules/pam_cracklib/pam_cracklib.c:453
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "case changes only"
 msgstr "nur Änderungen bei der Gross-/Kleinschreibung"
 
-#: modules/pam_cracklib/pam_cracklib.c:456
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "is too similar to the old one"
 msgstr "ist dem alten zu ähnlich"
 
-#: modules/pam_cracklib/pam_cracklib.c:459
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "is too simple"
 msgstr "ist zu einfach"
 
-#: modules/pam_cracklib/pam_cracklib.c:462
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "is rotated"
 msgstr "wurde gedreht"
 
-#: modules/pam_cracklib/pam_cracklib.c:465
+#: modules/pam_cracklib/pam_cracklib.c:528
 msgid "not enough character classes"
 msgstr "Nicht genug unterschiedliche Arten von Zeichen"
 
-#: modules/pam_cracklib/pam_cracklib.c:503
+#: modules/pam_cracklib/pam_cracklib.c:531
+msgid "contains too many same characters consecutively"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:534
+msgid "contains the user name in some form"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:573
 msgid "has been already used"
 msgstr "es wurde bereits verwendet"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:601
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Kein Passwort angegeben"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:601
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Passwort nicht geändert"
 
-#: modules/pam_cracklib/pam_cracklib.c:554
-#: modules/pam_cracklib/pam_cracklib.c:679
+#: modules/pam_cracklib/pam_cracklib.c:624
+#: modules/pam_cracklib/pam_cracklib.c:749
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "Schlechtes Passwort: %s"
 
-#: modules/pam_exec/pam_exec.c:134
+#: modules/pam_exec/pam_exec.c:142 modules/pam_unix/pam_unix_auth.c:159
+#: modules/pam_userdb/pam_userdb.c:61
+msgid "Password: "
+msgstr "Passwort: "
+
+#: modules/pam_exec/pam_exec.c:215
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s schlug fehl: Fehlercode %d"
 
-#: modules/pam_exec/pam_exec.c:143
+#: modules/pam_exec/pam_exec.c:224
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s schlug fehl: Signal %d%s erhalten"
 
-#: modules/pam_exec/pam_exec.c:152
+#: modules/pam_exec/pam_exec.c:233
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s schlug fehl: Unbekannter Status 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:190
+#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:429
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %A, den %d. %B %Y, %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:199
+#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
 #, c-format
 msgid " from %.*s"
 msgstr " von %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:211
+#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
 #, c-format
 msgid " on %.*s"
 msgstr " auf %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:220
+#: modules/pam_lastlog/pam_lastlog.c:232
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Letzte Anmeldung:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:226
+#: modules/pam_lastlog/pam_lastlog.c:238
 msgid "Welcome to your new account!"
 msgstr "Willkommen in Ihrem neuen Account!"
+
+#. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
+#: modules/pam_lastlog/pam_lastlog.c:460
+#, fuzzy, c-format
+msgid "Last failed login:%s%s%s"
+msgstr "Letzte Anmeldung:%s%s%s"
+
+#: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
+#, c-format
+msgid "There was %d failed login attempt since the last successful login."
+msgid_plural ""
+"There were %d failed login attempts since the last successful login."
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: only used if dngettext is not supported
+#: modules/pam_lastlog/pam_lastlog.c:481
+#, c-format
+msgid "There were %d failed login attempts since the last successful login."
+msgstr ""
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Zu viele Anmeldungen für '%s'."
 
-#: modules/pam_mail/pam_mail.c:313
+#: modules/pam_mail/pam_mail.c:318
 msgid "No mail."
 msgstr "Keine Nachrichten."
 
-#: modules/pam_mail/pam_mail.c:316
+#: modules/pam_mail/pam_mail.c:321
 msgid "You have new mail."
 msgstr "Sie haben neue Nachrichten."
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:324
 msgid "You have old mail."
 msgstr "Sie haben alte Nachrichten."
 
-#: modules/pam_mail/pam_mail.c:323
+#: modules/pam_mail/pam_mail.c:328
 msgid "You have mail."
 msgstr "Sie haben Nachrichten."
 
-#: modules/pam_mail/pam_mail.c:330
+#: modules/pam_mail/pam_mail.c:335
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Sie haben keine Nachrichten in %s."
 
-#: modules/pam_mail/pam_mail.c:334
+#: modules/pam_mail/pam_mail.c:339
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Sie haben neue Nachrichten in %s."
 
-#: modules/pam_mail/pam_mail.c:338
+#: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Sie haben alte Nachrichten in %s."
 
-#: modules/pam_mail/pam_mail.c:343
+#: modules/pam_mail/pam_mail.c:348
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Sie haben Nachrichten in %s."
@@ -324,51 +357,47 @@ msgstr "Erstelle Verzeichnis '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Verzeichnis %s kann nicht erstellt werden: %m"
 
-#: modules/pam_selinux/pam_selinux.c:164
+#: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
 msgstr "Möchten Sie einen Sicherheitskontext eingeben? [N] "
 
-#: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
+#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
 msgid "role:"
 msgstr "Funktion:"
 
-#: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
 msgid "level:"
 msgstr "Stufe:"
 
-#: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
+#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
 msgid "Not a valid security context"
 msgstr "Kein gültiger Sicherheitskontext"
 
-#: modules/pam_selinux/pam_selinux.c:251
+#: modules/pam_selinux/pam_selinux.c:265
 #, c-format
 msgid "Default Security Context %s\n"
 msgstr "Standard-Sicherheitskontext %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:255
+#: modules/pam_selinux/pam_selinux.c:269
 msgid "Would you like to enter a different role or level?"
 msgstr "Wollen Sie eine andere Rolle oder Stufe eingeben?"
 
-#: modules/pam_selinux/pam_selinux.c:269
+#: modules/pam_selinux/pam_selinux.c:285
 #, c-format
 msgid "No default type for role %s\n"
 msgstr "Keinen Standard-Typ für Rolle %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:522
+#: modules/pam_selinux/pam_selinux.c:661
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Unfähig einen gültigen Kontext zu erhalten für %s"
 
-#: modules/pam_selinux/pam_selinux.c:578
-msgid "Requested MLS level not in permitted range"
-msgstr "Angeforderte MLS-Stufe ist nicht im erlaubten Bereich"
-
-#: modules/pam_selinux/pam_selinux.c:628
+#: modules/pam_selinux/pam_selinux.c:712
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Sicherheitskontext %s zugewiesen"
 
-#: modules/pam_selinux/pam_selinux.c:649
+#: modules/pam_selinux/pam_selinux.c:733
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Schlüssel-Erzeugungskontext %s zugeordnet"
@@ -405,58 +434,68 @@ msgstr "Geben Sie das neue STRESS-Passwort erneut ein: "
 msgid "Verification mis-typed; password unchanged"
 msgstr "Bestätigungspasswort falsch eingegeben; Passwort nicht geändert"
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:541
+#, c-format
+msgid "Account temporary locked (%ld seconds left)"
+msgstr ""
+
+#: modules/pam_tally/pam_tally.c:566
+#, c-format
+msgid "Account locked due to %u failed logins"
+msgstr ""
+
+#: modules/pam_tally/pam_tally.c:777
 msgid "Authentication error"
 msgstr "Authentifizierungsfehler"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:778
 msgid "Service error"
 msgstr "Dienstfehler"
 
-#: modules/pam_tally/pam_tally.c:748
+#: modules/pam_tally/pam_tally.c:779
 msgid "Unknown user"
 msgstr "Unbekannter Benutzer"
 
-#: modules/pam_tally/pam_tally.c:749
+#: modules/pam_tally/pam_tally.c:780
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: modules/pam_tally/pam_tally.c:765
+#: modules/pam_tally/pam_tally.c:796
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Ungültige Nummer für --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:769
+#: modules/pam_tally/pam_tally.c:800
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Nicht erkannte Option: %s\n"
 
-#: modules/pam_tally/pam_tally.c:781
+#: modules/pam_tally/pam_tally.c:812
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:855
+#: modules/pam_tally/pam_tally.c:886
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 "%s: Es können nicht alle Benutzer auf Nicht-null zurückgesetzt werden\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Ihr Konto ist abgelaufen. Wenden Sie sich an den Systemadministrator"
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:236
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Sie müssen Ihr Passwort sofort ändern (von root erzwungen)."
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:242
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Sie müssen Ihr Passwort sofort ändern (Passwortablauf)."
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:260 modules/pam_unix/pam_unix_acct.c:267
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -464,14 +503,10 @@ msgstr[0] "Warnung: Ihr Passwort läuft in %d Tag ab."
 msgstr[1] "Warnung: Ihr Passwort läuft in %d Tagen ab."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:272
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Warnung: Ihr Passwort läuft in %d Tagen ab."
-
-#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "Passwort: "
 
 #: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
@@ -505,6 +540,9 @@ msgstr "Geben Sie ein neues UNIX-Passwort ein: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Geben Sie das neue UNIX-Passwort erneut ein: "
+
+#~ msgid "Requested MLS level not in permitted range"
+#~ msgstr "Angeforderte MLS-Stufe ist nicht im erlaubten Bereich"
 
 #~ msgid "Error connecting to audit system."
 #~ msgstr "Fehler beim Zugriff auf das Audit-Subsystem."

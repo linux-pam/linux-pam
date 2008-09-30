@@ -1,17 +1,18 @@
 # translation of Linux-PAM.tip.po to Brazilian Portuguese
 # Copyright (C) YEAR Linux-PAM Project
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the pam package.
 #
 # Glaucia Cintra <gcintra@redhat.com>, 2007.
 # Diego Búrigo Zacarão <diegobz@projetofedora.org>, 2008.
+# Taylon Silmer <taylonsilva@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-18 14:20+0200\n"
-"PO-Revision-Date: 2008-02-21 14:13-0300\n"
-"Last-Translator: Diego Búrigo Zacarão <diegobz@projetofedora.org>\n"
-"Language-Team: Brazilian Portuguese <fedora-docs-br@redhat.com>\n"
+"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"PO-Revision-Date: 2008-08-18 13:41-0300\n"
+"Last-Translator: Taylon <taylonsilva@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,11 +21,11 @@ msgstr ""
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
-msgstr "...Tempo acabando...\n"
+msgstr "...O tempo está acabando...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "...Tempo contando.\n"
+msgstr "...Desculpe, seu tempo está aumentando!\n"
 
 #: libpam_misc/misc_conv.c:342
 #, c-format
@@ -89,7 +90,7 @@ msgstr "Esgotado o número máximo de tentativas para serviço"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr "O token de autenticação não é mais válido; token novo necessário"
+msgstr "O token de autenticação não é mais válido; é necessario um novo token"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -97,11 +98,11 @@ msgstr "A conta do usuário expirou"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr "Impossível fazer/remover entrada para a sessão específica"
+msgstr "Impossível fazer/remover uma entrada para a sessão específica"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr "O serviço de autenticação não recuperou credenciais do usuário"
+msgstr "O serviço de autenticação não recuperou as credenciais do usuário"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -181,133 +182,166 @@ msgstr "Redigite a nova %s%ssenha:"
 msgid "Sorry, passwords do not match."
 msgstr "As senhas não são iguais."
 
-#: modules/pam_cracklib/pam_cracklib.c:437
+#: modules/pam_cracklib/pam_cracklib.c:499
 msgid "is the same as the old one"
 msgstr "é igual à antiga senha"
 
-#: modules/pam_cracklib/pam_cracklib.c:450
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is a palindrome"
 msgstr "é um palíndromo"
 
-#: modules/pam_cracklib/pam_cracklib.c:453
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "case changes only"
 msgstr "mudou apenas maiúsculas/minúsculas"
 
-#: modules/pam_cracklib/pam_cracklib.c:456
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "is too similar to the old one"
 msgstr "é muito semelhante à antiga"
 
-#: modules/pam_cracklib/pam_cracklib.c:459
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "is too simple"
 msgstr "é simples demais"
 
-#: modules/pam_cracklib/pam_cracklib.c:462
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "is rotated"
 msgstr "foi invertida"
 
-#: modules/pam_cracklib/pam_cracklib.c:465
+#: modules/pam_cracklib/pam_cracklib.c:528
 msgid "not enough character classes"
+msgstr "classes de caractere insuficientes"
+
+#: modules/pam_cracklib/pam_cracklib.c:531
+msgid "contains too many same characters consecutively"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:503
+#: modules/pam_cracklib/pam_cracklib.c:534
+msgid "contains the user name in some form"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:573
 msgid "has been already used"
 msgstr "já foi usada"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:601
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Nenhuma senha informada"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:601
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Senha inalterada"
 
-#: modules/pam_cracklib/pam_cracklib.c:554
-#: modules/pam_cracklib/pam_cracklib.c:679
+#: modules/pam_cracklib/pam_cracklib.c:624
+#: modules/pam_cracklib/pam_cracklib.c:749
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "SENHA INCORRETA: %s"
 
-#: modules/pam_exec/pam_exec.c:134
+#: modules/pam_exec/pam_exec.c:142 modules/pam_unix/pam_unix_auth.c:159
+#: modules/pam_userdb/pam_userdb.c:61
+msgid "Password: "
+msgstr "Senha:"
+
+#: modules/pam_exec/pam_exec.c:215
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s falhou: código de saída %d"
 
-#: modules/pam_exec/pam_exec.c:143
+#: modules/pam_exec/pam_exec.c:224
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s falhou: detectou sinal %d%s"
 
-#: modules/pam_exec/pam_exec.c:152
+#: modules/pam_exec/pam_exec.c:233
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s falhou: status desconhecido 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:190
+#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:429
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr "%a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:199
+#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
 #, c-format
 msgid " from %.*s"
 msgstr "de %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:211
+#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
 #, c-format
 msgid " on %.*s"
 msgstr "em %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:220
+#: modules/pam_lastlog/pam_lastlog.c:232
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Último login:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:226
+#: modules/pam_lastlog/pam_lastlog.c:238
 msgid "Welcome to your new account!"
 msgstr "Bem-vindo à sua nova conta!"
+
+#. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
+#: modules/pam_lastlog/pam_lastlog.c:460
+#, fuzzy, c-format
+msgid "Last failed login:%s%s%s"
+msgstr "Último login:%s%s%s"
+
+#: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
+#, c-format
+msgid "There was %d failed login attempt since the last successful login."
+msgid_plural ""
+"There were %d failed login attempts since the last successful login."
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: only used if dngettext is not supported
+#: modules/pam_lastlog/pam_lastlog.c:481
+#, c-format
+msgid "There were %d failed login attempts since the last successful login."
+msgstr ""
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Há logins demais para '%s'."
 
-#: modules/pam_mail/pam_mail.c:313
+#: modules/pam_mail/pam_mail.c:318
 msgid "No mail."
 msgstr "Não há mensagens."
 
-#: modules/pam_mail/pam_mail.c:316
+#: modules/pam_mail/pam_mail.c:321
 msgid "You have new mail."
 msgstr "Há novas mensagens."
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:324
 msgid "You have old mail."
 msgstr "Há mensagens antigas."
 
-#: modules/pam_mail/pam_mail.c:323
+#: modules/pam_mail/pam_mail.c:328
 msgid "You have mail."
 msgstr "Há mensagens."
 
-#: modules/pam_mail/pam_mail.c:330
+#: modules/pam_mail/pam_mail.c:335
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Não há mensagens na pasta %s."
 
-#: modules/pam_mail/pam_mail.c:334
+#: modules/pam_mail/pam_mail.c:339
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Há novas mensagens na pasta %s."
 
-#: modules/pam_mail/pam_mail.c:338
+#: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Há mensagens antigas na pasta %s."
 
-#: modules/pam_mail/pam_mail.c:343
+#: modules/pam_mail/pam_mail.c:348
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Há mensagens na pasta %s."
@@ -322,51 +356,47 @@ msgstr "Criando o diretório '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Impossível criar o diretório %s: %m"
 
-#: modules/pam_selinux/pam_selinux.c:164
+#: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
 msgstr "Deseja digitar um contexto de segurança? [N]"
 
-#: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
+#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
 msgid "role:"
 msgstr "função:"
 
-#: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
 msgid "level:"
 msgstr "nível:"
 
-#: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
+#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
 msgid "Not a valid security context"
 msgstr "Não é um contexto de segurança válido"
 
-#: modules/pam_selinux/pam_selinux.c:251
+#: modules/pam_selinux/pam_selinux.c:265
 #, c-format
 msgid "Default Security Context %s\n"
 msgstr "Contexto de Segurança Padrão %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:255
+#: modules/pam_selinux/pam_selinux.c:269
 msgid "Would you like to enter a different role or level?"
 msgstr "Deseja digitar uma função ou nível diferente?"
 
-#: modules/pam_selinux/pam_selinux.c:269
+#: modules/pam_selinux/pam_selinux.c:285
 #, c-format
 msgid "No default type for role %s\n"
 msgstr "Não existe tipo padrão para a função %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:522
+#: modules/pam_selinux/pam_selinux.c:661
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Impossível obter um contexto válido para %s"
 
-#: modules/pam_selinux/pam_selinux.c:578
-msgid "Requested MLS level not in permitted range"
-msgstr "Nível MLS requerido fora da faixa permitida"
-
-#: modules/pam_selinux/pam_selinux.c:628
+#: modules/pam_selinux/pam_selinux.c:712
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Contexto de Segurança %s Atribuído"
 
-#: modules/pam_selinux/pam_selinux.c:649
+#: modules/pam_selinux/pam_selinux.c:733
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Contexto de Criação de Chave %s Atribuído"
@@ -403,57 +433,67 @@ msgstr "Digite novamente a nova senha STRESS:"
 msgid "Verification mis-typed; password unchanged"
 msgstr "Verificação digitada incorretamente; senha inalterada"
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:541
+#, c-format
+msgid "Account temporary locked (%ld seconds left)"
+msgstr ""
+
+#: modules/pam_tally/pam_tally.c:566
+#, c-format
+msgid "Account locked due to %u failed logins"
+msgstr ""
+
+#: modules/pam_tally/pam_tally.c:777
 msgid "Authentication error"
 msgstr "Erro de autenticação"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:778
 msgid "Service error"
 msgstr "Erro de serviço"
 
-#: modules/pam_tally/pam_tally.c:748
+#: modules/pam_tally/pam_tally.c:779
 msgid "Unknown user"
 msgstr "Usuário desconhecido"
 
-#: modules/pam_tally/pam_tally.c:749
+#: modules/pam_tally/pam_tally.c:780
 msgid "Unknown error"
 msgstr "Erro desconhecido"
 
-#: modules/pam_tally/pam_tally.c:765
+#: modules/pam_tally/pam_tally.c:796
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Número insuficiente fornecido para --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:769
+#: modules/pam_tally/pam_tally.c:800
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Opção não reconhecida %s\n"
 
-#: modules/pam_tally/pam_tally.c:781
+#: modules/pam_tally/pam_tally.c:812
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:855
+#: modules/pam_tally/pam_tally.c:886
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Impossível redefinir todos os usuários para não-zero\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Sua conta expirou; entre em contato com o administrador do sistema"
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:236
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Mude sua senha imediatamente (aplicado pela raiz)"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:242
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Mude sua senha imediatamente (senha expirada)"
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:260 modules/pam_unix/pam_unix_acct.c:267
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -461,14 +501,10 @@ msgstr[0] "Aviso: sua senha irá expirar em %d dia"
 msgstr[1] "Aviso: sua senha irá expirar em %d dias"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:272
 #, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "Aviso: sua senha expirará em %d dias"
-
-#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "Senha:"
+msgstr "Aviso: sua senha irá expirar em %d dias"
 
 #: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
@@ -502,6 +538,9 @@ msgstr "Digite a nova senha UNIX:"
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Redigite a nova senha UNIX:"
+
+#~ msgid "Requested MLS level not in permitted range"
+#~ msgstr "Nível MLS requerido fora da faixa permitida"
 
 #~ msgid "Error connecting to audit system."
 #~ msgstr "Erro ao conectar o sistema audit."
