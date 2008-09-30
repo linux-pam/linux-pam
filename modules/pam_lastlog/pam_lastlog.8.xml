@@ -39,6 +39,12 @@
       <arg choice="opt">
         nowtmp
       </arg>
+      <arg choice="opt">
+        noupdate
+      </arg>
+      <arg choice="opt">
+        showfailed
+      </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -134,6 +140,28 @@
         <listitem>
           <para>
             Don't update the wtmp entry.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>noupdate</option>
+        </term>
+        <listitem>
+          <para>
+            Don't update any file.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>showfailed</option>
+        </term>
+        <listitem>
+          <para>
+            Display number of failed login attempts and the date of the
+            last failed attempt from btmp. The date is not displayed
+            when <option>nodate</option> is specified.
           </para>
         </listitem>
       </varlistentry>

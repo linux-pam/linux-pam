@@ -46,6 +46,10 @@ struct lastlog {
 };
 #endif /* hpux */
 
+#ifndef _PATH_BTMP
+# define _PATH_BTMP "/var/log/btmp"
+#endif
+
 /* XXX - time before ignoring lock. Is 1 sec enough? */
 #define LASTLOG_IGNORE_LOCK_TIME     1
 
@@ -75,11 +79,13 @@ struct lastlog {
 #define LASTLOG_DEBUG      020  /* send info to syslog(3) */
 #define LASTLOG_QUIET      040  /* keep quiet about things */
 #define LASTLOG_WTMP      0100  /* log to wtmp as well as lastlog */
+#define LASTLOG_BTMP      0200  /* display failed login info from btmp */
+#define LASTLOG_UPDATE    0400  /* update the lastlog and wtmp files (default) */
 
 static int
 _pam_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
-    int ctrl=(LASTLOG_DATE|LASTLOG_HOST|LASTLOG_LINE|LASTLOG_WTMP);
+    int ctrl=(LASTLOG_DATE|LASTLOG_HOST|LASTLOG_LINE|LASTLOG_WTMP|LASTLOG_UPDATE);
 
     /* does the appliction require quiet? */
     if (flags & PAM_SILENT) {
@@ -105,6 +111,10 @@ _pam_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	    ctrl |= LASTLOG_NEVER;
 	} else if (!strcmp(*argv,"nowtmp")) {
 	    ctrl &= ~LASTLOG_WTMP;
+	} else if (!strcmp(*argv,"noupdate")) {
+	    ctrl &= ~(LASTLOG_WTMP|LASTLOG_UPDATE);
+	} else if (!strcmp(*argv,"showfailed")) {
+	    ctrl |= LASTLOG_BTMP;
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
@@ -135,7 +145,7 @@ get_tty(pam_handle_t *pamh)
 }
 
 static int
-last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
+last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid, time_t *lltime)
 {
     struct flock last_lock;
     struct lastlog last_login;
@@ -166,6 +176,7 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
     last_lock.l_type = F_UNLCK;
     (void) fcntl(last_fd, F_SETLK, &last_lock);        /* unlock */
 
+    *lltime = last_login.ll_time;
     if (!last_login.ll_time) {
         if (announce & LASTLOG_DEBUG) {
 	    pam_syslog(pamh, LOG_DEBUG,
@@ -216,8 +227,9 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid)
 		}
 	    }
 
-		/* TRANSLATORS: "Last login: <date> from <host> on <terminal>" */
-	    retval = pam_info(pamh, _("Last login:%s%s%s"),
+	    if (date != NULL || host != NULL || line != NULL)
+		    /* TRANSLATORS: "Last login: <date> from <host> on <terminal>" */
+		    retval = pam_info(pamh, _("Last login:%s%s%s"),
 			      date ? date : "",
 			      host ? host : "",
 			      line ? line : "");
@@ -320,13 +332,13 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
 }
 
 static int
-last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user)
+last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user, time_t *lltime)
 {
     int retval;
     int last_fd;
 
     /* obtain the last login date and all the relevant info */
-    last_fd = open(_PATH_LASTLOG, O_RDWR);
+    last_fd = open(_PATH_LASTLOG, announce&LASTLOG_UPDATE ? O_RDWR : O_RDONLY);
     if (last_fd < 0) {
         if (errno == ENOENT) {
 	     last_fd = open(_PATH_LASTLOG, O_RDWR|O_CREAT,
@@ -353,7 +365,7 @@ last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user)
 	return PAM_SERVICE_ERR;
     }
 
-    retval = last_login_read(pamh, announce, last_fd, uid);
+    retval = last_login_read(pamh, announce, last_fd, uid, lltime);
     if (retval != PAM_SUCCESS)
       {
 	close(last_fd);
@@ -361,10 +373,127 @@ last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user)
 	return retval;
       }
 
-    retval = last_login_write(pamh, announce, last_fd, uid, user);
+    if (announce & LASTLOG_UPDATE) {
+	retval = last_login_write(pamh, announce, last_fd, uid, user);
+    }
 
     close(last_fd);
     D(("all done with last login"));
+
+    return retval;
+}
+
+static int
+last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t lltime)
+{
+    int retval;
+    int fd;
+    struct utmp ut;
+    struct utmp utuser;
+    int failed = 0;
+    char the_time[256];
+    char *date = NULL;
+    char *host = NULL;
+    char *line = NULL;
+
+    if (strlen(user) > UT_NAMESIZE) {
+	pam_syslog(pamh, LOG_WARNING, "username too long, output might be inaccurate");
+    }
+
+    /* obtain the failed login attempt records from btmp */
+    fd = open(_PATH_BTMP, O_RDONLY);
+    if (fd < 0) {
+	pam_syslog(pamh, LOG_ERR, "unable to open %s: %m", _PATH_BTMP);
+	D(("unable to open %s file", _PATH_BTMP));
+	return PAM_SERVICE_ERR;
+    }
+
+    while ((retval=pam_modutil_read(fd, (void *)&ut,
+			 sizeof(ut))) == sizeof(ut)) {
+	if (ut.ut_tv.tv_sec >= lltime && strncmp(ut.ut_user, user, UT_NAMESIZE) == 0) {
+	    memcpy(&utuser, &ut, sizeof(utuser));
+	    failed++;
+	}
+    }
+
+    if (failed) {
+	/* we want the date? */
+	if (announce & LASTLOG_DATE) {
+	    struct tm *tm, tm_buf;
+	    time_t lf_time;
+
+	    lf_time = utuser.ut_tv.tv_sec;
+	    tm = localtime_r (&lf_time, &tm_buf);
+	    strftime (the_time, sizeof (the_time),
+	        /* TRANSLATORS: "strftime options for date of last login" */
+		_(" %a %b %e %H:%M:%S %Z %Y"), tm);
+
+	    date = the_time;
+	}
+
+	/* we want & have the host? */
+	if ((announce & LASTLOG_HOST)
+		&& (utuser.ut_host[0] != '\0')) {
+	    /* TRANSLATORS: " from <host>" */
+	    if (asprintf(&host, _(" from %.*s"), UT_HOSTSIZE,
+		    utuser.ut_host) < 0) {
+		pam_syslog(pamh, LOG_ERR, "out of memory");
+		retval = PAM_BUF_ERR;
+		goto cleanup;
+	    }
+	}
+
+	/* we want and have the terminal? */
+	if ((announce & LASTLOG_LINE)
+		&& (utuser.ut_line[0] != '\0')) {
+	    /* TRANSLATORS: " on <terminal>" */
+	    if (asprintf(&line, _(" on %.*s"), UT_LINESIZE,
+			utuser.ut_line) < 0) {
+		pam_syslog(pamh, LOG_ERR, "out of memory");
+		retval = PAM_BUF_ERR;
+		goto cleanup;
+	    }
+	}
+	
+	if (line != NULL || date != NULL || host != NULL) {
+	    /* TRANSLATORS: "Last failed login: <date> from <host> on <terminal>" */
+	    pam_info(pamh, _("Last failed login:%s%s%s"),
+			      date ? date : "",
+			      host ? host : "",
+			      line ? line : "");
+	}
+
+	_pam_drop(line);
+#if defined HAVE_DNGETTEXT && defined ENABLE_NLS
+        retval = asprintf (&line, dngettext(PACKAGE,
+		"There was %d failed login attempt since the last successful login.",
+		"There were %d failed login attempts since the last successful login.",
+		failed),
+	    failed);
+#else
+	if (daysleft == 1)
+	    retval = asprintf(&line,
+		_("There was %d failed login attempt since the last successful login."),
+		failed);
+	else
+	    retval = asprintf(&line,
+		/* TRANSLATORS: only used if dngettext is not supported */
+		_("There were %d failed login attempts since the last successful login."),
+		failed);
+#endif
+	if (retval >= 0)
+		retval = pam_info(pamh, "%s", line);
+	else {
+		retval = PAM_BUF_ERR;
+		line = NULL;
+	}
+    }
+
+cleanup:
+    free(host);
+    free(line);
+    close(fd);
+    D(("all done with btmp"));
 
     return retval;
 }
@@ -379,6 +508,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags,
     const void *user;
     const struct passwd *pwd;
     uid_t uid;
+    time_t lltime = 0;
 
     /*
      * this module gets the uid of the PAM_USER. Uses it to display
@@ -407,7 +537,11 @@ pam_sm_open_session(pam_handle_t *pamh, int flags,
 
     /* process the current login attempt (indicate last) */
 
-    retval = last_login_date(pamh, ctrl, uid, user);
+    retval = last_login_date(pamh, ctrl, uid, user, &lltime);
+
+    if ((ctrl & LASTLOG_BTMP) && retval == PAM_SUCCESS) {
+	    retval = last_login_failed(pamh, ctrl, user, lltime);
+    }
 
     /* indicate success or failure */
 

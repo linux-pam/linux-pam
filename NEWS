@@ -7,11 +7,13 @@ Release 1.0.90
 * Make pam_namespace to work safe on child directories of parent directories
   owned by users
 * Redefine LOCAL keyword of pam_access configuration file
-* Add support fro try_first_pass and use_first_pass to pam_cracklib
+* Add support for try_first_pass and use_first_pass to pam_cracklib
 * Print informative messages for rejected login and add silent and
   no_log_info options to pam_tally
 * Add support for passing PAM_AUTHTOK to stdin of helpers from pam_exec
 * New password quality tests in pam_cracklib
+* New options for pam_lastlog to show last failed login attempt and
+  to disable lastlog update
 
 Release 1.0.1
 

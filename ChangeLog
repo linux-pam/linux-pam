@@ -1,3 +1,18 @@
+2008-09-30  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_lastlog/pam_lastlog.8.xml: Document new options
+	noupdate and showfailed.
+	* modules/pam_lastlog/pam_lastlog.c(pam_parse): Recognize the new
+	options.
+	(last_login_read): New output parameter lltime. Do not display
+	the last login message if it would be empty.
+	(last_login_date): New output parameter lltime. Do not write the
+	last login info when LASTLOG_UPDATE is not set.
+	(last_login_failed): New function to display the last bad login
+	attempt from btmp.
+	(pam_sm_open_session): Obtain lltime from last_login_date() and
+	call last_login_failed() when appropriate.
+
 2008-09-29  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_echo/pam_echo.8.xml: Fix format error.
