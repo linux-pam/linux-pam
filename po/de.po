@@ -209,15 +209,15 @@ msgstr "wurde gedreht"
 
 #: modules/pam_cracklib/pam_cracklib.c:528
 msgid "not enough character classes"
-msgstr "Nicht genug unterschiedliche Arten von Zeichen"
+msgstr "nicht genug unterschiedliche Arten von Zeichen"
 
 #: modules/pam_cracklib/pam_cracklib.c:531
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "das gleiche Zeichen wurde so oft hintereinander verwendet"
 
 #: modules/pam_cracklib/pam_cracklib.c:534
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "enthält den Benutzernamen in irgendeiner Form"
 
 #: modules/pam_cracklib/pam_cracklib.c:573
 msgid "has been already used"
@@ -437,12 +437,12 @@ msgstr "Bestätigungspasswort falsch eingegeben; Passwort nicht geändert"
 #: modules/pam_tally/pam_tally.c:541
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "Account temporär gesperrt (noch %ld Sekunden)"
 
 #: modules/pam_tally/pam_tally.c:566
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "Der Account ist wegen %u fehlgeschlagener Login-Versuche gesperrt"
 
 #: modules/pam_tally/pam_tally.c:777
 msgid "Authentication error"
@@ -540,30 +540,3 @@ msgstr "Geben Sie ein neues UNIX-Passwort ein: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Geben Sie das neue UNIX-Passwort erneut ein: "
-
-#~ msgid "Requested MLS level not in permitted range"
-#~ msgstr "Angeforderte MLS-Stufe ist nicht im erlaubten Bereich"
-
-#~ msgid "Error connecting to audit system."
-#~ msgstr "Fehler beim Zugriff auf das Audit-Subsystem."
-
-#~ msgid "Error translating default context."
-#~ msgstr "Fehler beim Übersetzen des Standard-Kontexts."
-
-#~ msgid "Error translating selected context."
-#~ msgstr "Fehler beim Übersetzen des gewählten Kontexts."
-
-#~ msgid "Error sending audit message."
-#~ msgstr "Fehler beim Schreiben einer Audit-Meldung."
-
-#~ msgid "Out of memory"
-#~ msgstr "Kein freier Speicher mehr vorhanden"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "Möchten Sie einen anderen auswählen? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "Geben Sie die gewünschte Nummer ein: "
-
-#~ msgid "type: "
-#~ msgstr "Typ: "
