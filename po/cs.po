@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2008-09-19 15:54+0100\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
@@ -167,16 +167,19 @@ msgid "Unknown PAM error"
 msgstr "Neznámá chyba PAM"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nové %s%sheslo: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Opakujte nové %s%sheslo: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "Hesla se neshodují."
 
@@ -355,6 +358,18 @@ msgstr "Vytváření adresáře '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Nezdařilo se vytvořit adresář %s: %m"
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "Heslo nebylo změněno"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "Heslo již bylo použito. Zvolte jiné."
+
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
 msgstr "Chcete zadat bezpečnostní kontext? [N] "
@@ -515,10 +530,6 @@ msgstr "NIS heslo se nepodařilo změnit."
 msgid "You must choose a longer password"
 msgstr "Musíte zvolit delší heslo"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "Heslo již bylo použito. Zvolte jiné."
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
@@ -539,3 +550,7 @@ msgstr "Zadejte nové UNIX heslo: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Opakujte nové UNIX heslo: "
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "Heslo již bylo použito. Zvolte jiné."

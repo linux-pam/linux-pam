@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2008-02-22 23:33+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
@@ -169,16 +169,19 @@ msgid "Unknown PAM error"
 msgstr "Onbekende PAM-fout"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nieuw %s%swachtwoord: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Nieuw %s%swachtwoord herhalen: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "Sorry, wachtwoorden komen niet overeen."
 
@@ -356,6 +359,18 @@ msgstr "Aanmaken van map '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Niet in staat om map %s aan te maken: %m"
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "Wachtwoord is niet gewijzigd"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "Wachtwoord is al gebruikt. Kies een ander wachtwoord."
+
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
 msgstr "Wilt u een beveiligingscontext invoeren? [N] "
@@ -517,10 +532,6 @@ msgstr "NIS-wachtwoord kon niet worden gewijzigd."
 msgid "You must choose a longer password"
 msgstr "U moet een langer wachtwoord kiezen"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "Wachtwoord is al gebruikt. Kies een ander wachtwoord."
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
@@ -541,6 +552,10 @@ msgstr "Nieuw UNIX-wachtwoord invoeren: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Nieuw UNIX-wachtwoord herhalen: "
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "Wachtwoord is al gebruikt. Kies een ander wachtwoord."
 
 #~ msgid "Requested MLS level not in permitted range"
 #~ msgstr "Aangevraagd MLS-niveau niet in toegestaan bereik"

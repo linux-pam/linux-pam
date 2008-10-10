@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2008-03-25 15:11+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
@@ -169,16 +169,19 @@ msgid "Unknown PAM error"
 msgstr "未知的 PAM 错误"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "新的 %s%s密码："
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "重新输入新的 %s%s密码："
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "抱歉，密码不匹配。"
 
@@ -355,6 +358,18 @@ msgstr "创建目录 '%s'。"
 msgid "Unable to create directory %s: %m"
 msgstr "无法创建目录  %s：%m"
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "密码未更改"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "密码已使用。请选择其他密码。"
+
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
 msgstr "是否愿意进入安全性环境？[N]"
@@ -511,10 +526,6 @@ msgstr "无法更改 NIS 密码。"
 msgid "You must choose a longer password"
 msgstr "必须选择更长的密码"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "密码已使用。请选择其他密码。"
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
@@ -535,6 +546,10 @@ msgstr "输入新的 UNIX 密码："
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "重新输入新的 UNIX 密码："
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "密码已使用。请选择其他密码。"
 
 #~ msgid "Requested MLS level not in permitted range"
 #~ msgstr "请求的 MLS 级别不在允许范围内"

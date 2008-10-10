@@ -443,6 +443,8 @@ session   required   pam_warn.so
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_permit.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="pam_pwhistory.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_rhosts.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_rootok.xml"/>

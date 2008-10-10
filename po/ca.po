@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2007-02-22 20:57+0100\n"
 "Last-Translator: Anna <blabla@blabla.es>\n"
 "Language-Team: Catalan\n"
@@ -168,16 +168,19 @@ msgid "Unknown PAM error"
 msgstr "Error de PAM desconegut"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nova contrasenya de %s%s: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Torneu a escriure la nova contrasenya de %s%s: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "Les contrasenyes no coincideixen."
 
@@ -355,6 +358,18 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "No s'ha canviat la contrasenya"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "Aquesta contrasenya ja s'ha fet servir. Trieu-ne una altra."
+
 #: modules/pam_selinux/pam_selinux.c:172
 #, fuzzy
 msgid "Would you like to enter a security context? [N] "
@@ -519,10 +534,6 @@ msgstr "No s'ha pogut canviar la contrasenya NIS."
 msgid "You must choose a longer password"
 msgstr "Heu de triar una contrasenya més llarga"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "Aquesta contrasenya ja s'ha fet servir. Trieu-ne una altra."
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, fuzzy, c-format
 msgid "Changing password for %s."
@@ -543,6 +554,10 @@ msgstr "Introduïu la nova contrasenya d'UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Torneu a escriure la nova contrasenya d'UNIX: "
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "Aquesta contrasenya ja s'ha fet servir. Trieu-ne una altra."
 
 #, fuzzy
 #~ msgid "Error translating default context."

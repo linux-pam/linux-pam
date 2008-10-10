@@ -1,3 +1,25 @@
+2008-10-10  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: add modules/pam_pwhistory/Makefile.
+	* doc/sag/Linux-PAM_SAG.xml: Include pam_pwhistory.xml.
+	* doc/sag/pam_pwhistory.xml: New.
+	* libpam/pam_static_modules.h: Add pam_pwhistory data.
+	* modules/Makefile.am: Add pam_pwhistory directory.
+	* modules/pam_pwhistory/Makefile.am: New.
+	* modules/pam_pwhistory/README.xml: New.
+	* modules/pam_pwhistory/opasswd.c: New.
+	* modules/pam_pwhistory/opasswd.h: New.
+	* modules/pam_pwhistory/pam_pwhistory.8.xml: New.
+	* modules/pam_pwhistory/pam_pwhistory.c: New.
+	* modules/pam_pwhistory/tst-pam_pwhistory: New.
+	* xtests/Makefile.am: New.
+	* xtests/run-xtests.sh: New.
+	* xtests/tst-pam_pwhistory1.c: New.
+	* xtests/tst-pam_pwhistory1.pamd: New.
+	* xtests/tst-pam_pwhistory1.sh: New.
+	* po/POTFILES.in: Add modules/pam_pwhistory/.
+	* po/de.po: Update translations.
+
 2008-10-02  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/de.po: Update translations.

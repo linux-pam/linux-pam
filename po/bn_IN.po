@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2007-06-21 15:05+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali (India) <en@li.org>\n"
@@ -167,16 +167,19 @@ msgid "Unknown PAM error"
 msgstr "PAM সংক্রান্ত অজানা ত্রুটি"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "নতুন %s%s পাসওয়ার্ড: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "নতুন %s%s পাসওয়ার্ড পুনরায় লিখুন: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "দুঃখিত, পাসওয়ার্ড দুটি এক নয়।"
 
@@ -354,6 +357,18 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "পাসওয়ার্ড পরিবর্তন করা হয়নি"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হয়েছে। একটি পৃথক পাসওয়ার্ড নির্বাচন করুন।"
+
 #: modules/pam_selinux/pam_selinux.c:172
 #, fuzzy
 msgid "Would you like to enter a security context? [N] "
@@ -518,10 +533,6 @@ msgstr "NIS পাসওয়ার্ড পরিবর্তন করা স�
 msgid "You must choose a longer password"
 msgstr "চিহ্নিত পাসওয়ার্ডের থেকে লম্বা পাসওয়ার্ড উল্লেখ করা আবশ্যক"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হয়েছে। একটি পৃথক পাসওয়ার্ড নির্বাচন করুন।"
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, fuzzy, c-format
 msgid "Changing password for %s."
@@ -542,6 +553,10 @@ msgstr "নতুন UNIX পাসওয়ার্ড উল্লেখ কর�
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX পাসওয়ার্ড পুনরায় লিখুন: "
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হয়েছে। একটি পৃথক পাসওয়ার্ড নির্বাচন করুন।"
 
 #, fuzzy
 #~ msgid "Error translating default context."

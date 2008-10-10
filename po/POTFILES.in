@@ -58,6 +58,8 @@
 ./modules/pam_namespace/pam_namespace.c
 ./modules/pam_nologin/pam_nologin.c
 ./modules/pam_permit/pam_permit.c
+./modules/pam_pwhistory/opasswd.c
+./modules/pam_pwhistory/pam_pwhistory.c
 ./modules/pam_rhosts/pam_rhosts.c
 ./modules/pam_rootok/pam_rootok.c
 ./modules/pam_securetty/pam_securetty.c

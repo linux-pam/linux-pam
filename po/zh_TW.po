@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux_PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2006-05-03 18:55+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -165,16 +165,19 @@ msgid "Unknown PAM error"
 msgstr "未知的 PAM 錯誤"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "新 %s%s密碼："
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "再次輸入新的 %s%s密碼："
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "抱歉，密碼不符合。"
 
@@ -352,6 +355,18 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "密碼未變更"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "密碼已經由其他使用者使用。請選擇其他密碼。"
+
 #: modules/pam_selinux/pam_selinux.c:172
 #, fuzzy
 msgid "Would you like to enter a security context? [N] "
@@ -514,10 +529,6 @@ msgstr "無法變更 NIS 密碼。"
 msgid "You must choose a longer password"
 msgstr "您必須選擇更長的密碼"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "密碼已經由其他使用者使用。請選擇其他密碼。"
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, fuzzy, c-format
 msgid "Changing password for %s."
@@ -538,6 +549,10 @@ msgstr "輸入新的 UNIX 密碼："
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "再次輸入新的 UNIX 密碼："
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "密碼已經由其他使用者使用。請選擇其他密碼。"
 
 #, fuzzy
 #~ msgid "Error translating default context."

@@ -14,6 +14,12 @@ Release 1.0.90
 * New password quality tests in pam_cracklib
 * New options for pam_lastlog to show last failed login attempt and
   to disable lastlog update
+* New pam_pwhistory module to store last used passwords
+
+Release 1.0.2
+
+* Regression fixed in pam_selinux
+* Problem with big UIDs fixed in pam_loginuid
 
 Release 1.0.1
 

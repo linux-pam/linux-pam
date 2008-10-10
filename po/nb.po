@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2008-04-30 12:59+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@online.no>\n"
 "Language-Team:  <nb@li.org>\n"
@@ -166,16 +166,19 @@ msgid "Unknown PAM error"
 msgstr "Ukjent PAM-feil"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nytt %s%spassord: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Bekreft nytt %s%s-passord: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "Beklager, ikke samsvar mellom passord."
 
@@ -353,6 +356,18 @@ msgstr "Oppretter katalog «%s»."
 msgid "Unable to create directory %s: %m"
 msgstr "Kan ikke opprette katalog %s: %m"
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "Passord uendret"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "Passordet er allerede benyttet. Velg et annet."
+
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
 msgstr "Vil du angi sikkerhetskontekst? [N] "
@@ -511,10 +526,6 @@ msgstr "NIS-passord kunne ikke endres."
 msgid "You must choose a longer password"
 msgstr "Du må velge et lengre passord"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "Passordet er allerede benyttet. Velg et annet."
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
@@ -535,6 +546,10 @@ msgstr "Angi nytt UNIX-passord: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Bekreft nytt UNIX-passord: "
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "Passordet er allerede benyttet. Velg et annet."
 
 #~ msgid "Requested MLS level not in permitted range"
 #~ msgstr "Forespurt MLS-nivå er ikke i tillatt område"

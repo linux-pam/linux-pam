@@ -21,3 +21,4 @@ tst-pam_succeed_if1
 tst-pam_group1
 tst-pam_authfail
 tst-pam_authsucceed
+tst-pam_pwhistory1

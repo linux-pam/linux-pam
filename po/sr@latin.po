@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2008-04-05 10:48+0100\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora-trans-sr@redhat.com>\n"
@@ -171,16 +171,19 @@ msgid "Unknown PAM error"
 msgstr "Nepoznata PAM greška"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nova %s%slozinka: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Ponovite novu %s%slozinku: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "Izvinite, lozinke se ne podudaraju."
 
@@ -359,6 +362,18 @@ msgstr "Pravim direktorijum „%s“."
 msgid "Unable to create directory %s: %m"
 msgstr "Ne mogu da napravim direktorijum %s: %m"
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "Lozinka nepromenjena"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "Lozinka je već u upotrebi. Izaberite drugu."
+
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
 msgstr "Da li želite da uđete u sigurnosni kontekst? [N]"
@@ -520,10 +535,6 @@ msgstr "NIS lozinka ne može biti promenjena."
 msgid "You must choose a longer password"
 msgstr "Morate izabrati dužu lozinku"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "Lozinka je već u upotrebi. Izaberite drugu."
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
@@ -544,6 +555,10 @@ msgstr "Unesite novu UNIX lozinku: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Ponovo unesite novu UNIX lozinku: "
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "Lozinka je već u upotrebi. Izaberite drugu."
 
 #~ msgid "Requested MLS level not in permitted range"
 #~ msgstr "Zahtevani MLS nivo nije u dozvoljenom opsegu"

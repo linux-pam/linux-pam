@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2008-03-03 21:59+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -168,16 +168,19 @@ msgid "Unknown PAM error"
 msgstr "Nieznany błąd PAM"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nowe hasło %s%s: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Ponownie podaj nowe hasło %s%s: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "Podane hasła nie są zgodne."
 
@@ -356,6 +359,18 @@ msgstr "Tworzenie folderu \"%s\"."
 msgid "Unable to create directory %s: %m"
 msgstr "Nie można utworzyć folderu %s: %m"
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "Hasło nie zostało zmienione"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "Hasło było już używane. Wybierz inne."
+
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
 msgstr "Czy chcesz podać kontekst bezpieczeństwa? [N]"
@@ -516,10 +531,6 @@ msgstr "Nie można zmienić hasła NIS."
 msgid "You must choose a longer password"
 msgstr "Wybierz dłuższe hasło"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "Hasło było już używane. Wybierz inne."
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
@@ -540,6 +551,10 @@ msgstr "Podaj nowe hasło UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Ponownie podaj hasło UNIX: "
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "Hasło było już używane. Wybierz inne."
 
 #~ msgid "Requested MLS level not in permitted range"
 #~ msgstr "Żądany poziom MLS nie jest w dozwolonym zakresie"

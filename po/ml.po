@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2007-06-22 17:15+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <en@li.org>\n"
@@ -167,16 +167,19 @@ msgid "Unknown PAM error"
 msgstr "അപരിചിതമായ PAM പിശക്"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "പുതിയ %s%s പാസ്‌വേറ്‍ഡ്: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "വീണ്ടും %s%s പാസ്‌വേറ്‍ഡ് ടൈപ്പ് ചെയ്യുക: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "ക്ഷമിക്കണം, പാസ്‌വേറ്‍ഡുകള്‍ തമ്മില്‍ ചേരുന്നില്ല."
 
@@ -354,6 +357,18 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "പാസ്‌വേറ്‍ഡ് മാറ്റിയിട്ടില്ല"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "പാസ്‌വേറ്‍ഡ് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
+
 #: modules/pam_selinux/pam_selinux.c:172
 #, fuzzy
 msgid "Would you like to enter a security context? [N] "
@@ -518,10 +533,6 @@ msgstr "NIS പാസ്‌വേറ്‍ഡ് മാറ്റുവാന്�
 msgid "You must choose a longer password"
 msgstr "ഇതിലും വലിയ പാസ്‌വേറ്‍ഡ് തിരഞ്ഞെടുക്കുക"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "പാസ്‌വേറ്‍ഡ് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, fuzzy, c-format
 msgid "Changing password for %s."
@@ -542,6 +553,10 @@ msgstr "പുതിയ UNIX പാസ്‌വേറ്‍ഡ് നല്‍�
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "പുതിയ UNIX പാസ്‌വേറ്‍ഡ് വീണ്ടും ടൈപ്പ് ചെയ്യുക: "
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "പാസ്‌വേറ്‍ഡ് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
 
 #, fuzzy
 #~ msgid "Error translating default context."

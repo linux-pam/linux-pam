@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_pwhistory'>
+  <title>pam_pwhistory - grant access using .pwhistory file</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_pwhistory/pam_pwhistory.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_pwhistory-cmdsynopsis"]/*)'/>
+  </cmdsynopsis>
+  <section id='sag-pam_pwhistory-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_pwhistory/pam_pwhistory.8.xml" xpointer='xpointer(//refsect1[@id = "pam_pwhistory-description"]/*)'/>
+  </section>
+  <section id='sag-pam_pwhistory-options'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_pwhistory/pam_pwhistory.8.xml" xpointer='xpointer(//refsect1[@id = "pam_pwhistory-options"]/*)'/>
+  </section>
+  <section id='sag-pam_pwhistory-types'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_pwhistory/pam_pwhistory.8.xml" xpointer='xpointer(//refsect1[@id = "pam_pwhistory-types"]/*)'/>
+  </section>
+  <section id='sag-pam_pwhistory-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_pwhistory/pam_pwhistory.8.xml" xpointer='xpointer(//refsect1[@id = "pam_pwhistory-return_values"]/*)'/>
+  </section>
+  <section id='sag-pam_pwhistory-files'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_pwhistory/pam_pwhistory.8.xml" xpointer='xpointer(//refsect1[@id = "pam_pwhistory-files"]/*)'/>
+  </section>
+  <section id='sag-pam_pwhistory-examples'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_pwhistory/pam_pwhistory.8.xml" xpointer='xpointer(//refsect1[@id = "pam_pwhistory-examples"]/*)'/>
+  </section>
+  <section id='sag-pam_pwhistory-author'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_pwhistory/pam_pwhistory.8.xml" xpointer='xpointer(//refsect1[@id = "pam_pwhistory-author"]/*)'/>
+  </section>
+</section>

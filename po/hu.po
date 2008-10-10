@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2008-04-30 08:23+0100\n"
 "Last-Translator: Sulyok Péter <peti@sulyok.hu>\n"
 "Language-Team: Hungarian <fedora-trans-hu@redhat.com>\n"
@@ -176,16 +176,19 @@ msgid "Unknown PAM error"
 msgstr "Ismeretlen PAM hiba"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Új %s%sjelszó: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Ismét az új %s%sjelszó: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "Sajnálom, de a jelszavak nem egyeznek."
 
@@ -363,6 +366,18 @@ msgstr "\"%s\" mappa teremtése"
 msgid "Unable to create directory %s: %m"
 msgstr "%s mapa nem teremthető meg: %m"
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "Változatlan jelszó"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "A jelszót már használta. Válasszon másikat!"
+
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
 msgstr "Kíván biztonsági környezetet megadni? [N]"
@@ -521,10 +536,6 @@ msgstr "NIS jelszót nem sikerült módosítani."
 msgid "You must choose a longer password"
 msgstr "Hosszabb jelszót kell választani"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "A jelszót már használta. Válasszon másikat!"
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
@@ -545,6 +556,10 @@ msgstr "Adja meg az új UNIX jelszót: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Írja be újra a UNIX jelszót: "
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "A jelszót már használta. Válasszon másikat!"
 
 #~ msgid "Requested MLS level not in permitted range"
 #~ msgstr "Nincs az engedélyezett intervallumban a kért MLS szint"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-09-30 16:45+0200\n"
+"POT-Creation-Date: 2008-10-10 08:49+0200\n"
 "PO-Revision-Date: 2008-08-18 13:41-0300\n"
 "Last-Translator: Taylon <taylonsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
@@ -169,16 +169,19 @@ msgid "Unknown PAM error"
 msgstr "Erro desconhecido no PAM"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
+#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nova %s%ssenha:"
 
 #: modules/pam_cracklib/pam_cracklib.c:66
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Redigite a nova %s%ssenha:"
 
 #: modules/pam_cracklib/pam_cracklib.c:67
+#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "As senhas não são iguais."
 
@@ -356,6 +359,18 @@ msgstr "Criando o diretório '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Impossível criar o diretório %s: %m"
 
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:258
+#, fuzzy
+msgid "Password change aborted."
+msgstr "Senha inalterada"
+
+#: modules/pam_pwhistory/pam_pwhistory.c:235
+#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "A senha já foi usada. Escolha outra."
+
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
 msgstr "Deseja digitar um contexto de segurança? [N]"
@@ -514,10 +529,6 @@ msgstr "A senha NIS não pôde ser mudada."
 msgid "You must choose a longer password"
 msgstr "Escolha uma senha mais longa"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "A senha já foi usada. Escolha outra."
-
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
 msgid "Changing password for %s."
@@ -538,6 +549,10 @@ msgstr "Digite a nova senha UNIX:"
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Redigite a nova senha UNIX:"
+
+#, fuzzy
+#~ msgid "Password has been used already. Choose another."
+#~ msgstr "A senha já foi usada. Escolha outra."
 
 #~ msgid "Requested MLS level not in permitted range"
 #~ msgstr "Nível MLS requerido fora da faixa permitida"

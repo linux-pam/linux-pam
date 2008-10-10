@@ -23,6 +23,8 @@ cp /etc/security/group.conf /etc/security/group.conf-pam-xtests
 install -m 644 "${SRCDIR}"/group.conf /etc/security/group.conf
 cp /etc/security/limits.conf /etc/security/limits.conf-pam-xtests
 install -m 644 "${SRCDIR}"/limits.conf /etc/security/limits.conf
+mv /etc/security/opasswd /etc/security/opasswd-pam-xtests
+
 for testname in $XTESTS ; do
 	  for cfg in "${SRCDIR}"/$testname*.pamd ; do
 	    install -m 644 $cfg /etc/pam.d/$(basename $cfg .pamd)
@@ -49,6 +51,7 @@ done
 mv /etc/security/access.conf-pam-xtests /etc/security/access.conf
 mv /etc/security/group.conf-pam-xtests /etc/security/group.conf
 mv /etc/security/limits.conf-pam-xtests /etc/security/limits.conf
+mv /etc/security/opasswd-pam-xtests /etc/security/opasswd
 if test "$failed" -ne 0; then
 	  echo "==================="
 	  echo "$failed of $all tests failed"
