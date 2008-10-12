@@ -112,15 +112,6 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term>Already used</term>
-        <listitem>
-          <para>
-            Was the password used in the past? Previously used passwords
-            are to be found in <filename>/etc/security/opasswd</filename>.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
         <term>Same consecutive characters</term>
         <listitem>
           <para>

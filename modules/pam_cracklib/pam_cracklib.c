@@ -462,7 +462,7 @@ static int usercheck(struct cracklib_options *opt, const char *new,
     /* now reverse the username, we can do that in place
        as it is strdup-ed */
     f = user;
-    b = user+strlen(user)-1;    
+    b = user+strlen(user)-1;
     while (f < b) {
 	char c;
 
@@ -547,43 +547,6 @@ static const char *password_check(struct cracklib_options *opt,
 }
 
 
-#define OLD_PASSWORDS_FILE	"/etc/security/opasswd"
-
-static const char * check_old_password(const char *forwho, const char *newpass)
-{
-	static char buf[16384];
-	char *s_luser, *s_uid, *s_npas, *s_pas;
-	const char *msg = NULL;
-	FILE *opwfile;
-
-	opwfile = fopen(OLD_PASSWORDS_FILE, "r");
-	if (opwfile == NULL)
-		return NULL;
-
-	while (fgets(buf, 16380, opwfile)) {
-		if (!strncmp(buf, forwho, strlen(forwho))) {
-			char *sptr;
-			buf[strlen(buf)-1] = '\0';
-			s_luser = strtok_r(buf, ":,", &sptr);
-			s_uid   = strtok_r(NULL, ":,", &sptr);
-			s_npas  = strtok_r(NULL, ":,", &sptr);
-			s_pas   = strtok_r(NULL, ":,", &sptr);
-			while (s_pas != NULL) {
-				if (!strcmp(crypt(newpass, s_pas), s_pas)) {
-					msg = _("has been already used");
-					break;
-				}
-				s_pas = strtok_r(NULL, ":,", &sptr);
-			}
-			break;
-		}
-	}
-	fclose(opwfile);
-
-	return msg;
-}
-
-
 static int _pam_unix_approve_pass(pam_handle_t *pamh,
                                   unsigned int ctrl,
 				  struct cracklib_options *opt,
@@ -613,9 +576,6 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
      * checking this would be the place
      */
     msg = password_check(opt, pass_old, pass_new, user);
-    if (!msg) {
-	msg = check_old_password(user, pass_new);
-    }
 
     if (msg) {
         if (ctrl & PAM_DEBUG_ARG)
@@ -710,7 +670,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		retval = PAM_AUTHTOK_RECOVERY_ERR;         /* didn't work */
 	    }
 	}
-	
+
 	if (options.use_authtok != 1) {
             /* Prepare to ask the user for the first time */
             resp = NULL;

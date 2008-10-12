@@ -1,5 +1,10 @@
 2008-10-10  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_cracklib/pam_cracklib.c (_pam_unix_approve_pass):
+	Remove check for re-used passwords.
+	* modules/pam_cracklib/pam_cracklib.8.xml: Remove documentation
+	of re-used password check.
+
 	* configure.in: add modules/pam_pwhistory/Makefile.
 	* doc/sag/Linux-PAM_SAG.xml: Include pam_pwhistory.xml.
 	* doc/sag/pam_pwhistory.xml: New.
