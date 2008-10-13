@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-10 08:49+0200\n"
+"POT-Creation-Date: 2008-10-13 21:53+0200\n"
 "PO-Revision-Date: 2008-04-30 12:59+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@online.no>\n"
 "Language-Team:  <nb@li.org>\n"
@@ -218,22 +218,18 @@ msgstr ""
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:573
-msgid "has been already used"
-msgstr "er allerede benyttet"
-
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Passord ikke angitt"
 
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Passord uendret"
 
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:749
+#: modules/pam_cracklib/pam_cracklib.c:584
+#: modules/pam_cracklib/pam_cracklib.c:709
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "SVAKT PASSORD: %s"
@@ -546,6 +542,9 @@ msgstr "Angi nytt UNIX-passord: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Bekreft nytt UNIX-passord: "
+
+#~ msgid "has been already used"
+#~ msgstr "er allerede benyttet"
 
 #, fuzzy
 #~ msgid "Password has been used already. Choose another."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-10 08:49+0200\n"
+"POT-Creation-Date: 2008-10-13 21:53+0200\n"
 "PO-Revision-Date: 2007-06-22 13:29+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
@@ -219,22 +219,18 @@ msgstr ""
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:573
-msgid "has been already used"
-msgstr "ಇದು ಈಗಾಗಲೆ ಬಳಸಲ್ಪಟ್ಟಿದೆ"
-
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "ಯಾವುದೇ ಗುಪ್ತಪದ ನೀಡಲಾಗಿಲ್ಲ"
 
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "ಗುಪ್ತಪದ ಬದಲಾಗಿಲ್ಲ"
 
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:749
+#: modules/pam_cracklib/pam_cracklib.c:584
+#: modules/pam_cracklib/pam_cracklib.c:709
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ಕೆಟ್ಟ ಗುಪ್ತಪದ: %s"
@@ -552,6 +548,9 @@ msgstr "ಹೊಸ UNIX ಗುಪ್ತಪದವನ್ನು ದಾಖಲಿಸ�
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "ಹೊಸ UNIX ಗುಪ್ತಪದವನ್ನು ಪುನಃ ಟೈಪಿಸಿ: "
+
+#~ msgid "has been already used"
+#~ msgstr "ಇದು ಈಗಾಗಲೆ ಬಳಸಲ್ಪಟ್ಟಿದೆ"
 
 #, fuzzy
 #~ msgid "Password has been used already. Choose another."

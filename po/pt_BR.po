@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-10 08:49+0200\n"
+"POT-Creation-Date: 2008-10-13 21:53+0200\n"
 "PO-Revision-Date: 2008-08-18 13:41-0300\n"
 "Last-Translator: Taylon <taylonsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
@@ -221,22 +221,18 @@ msgstr ""
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:573
-msgid "has been already used"
-msgstr "já foi usada"
-
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Nenhuma senha informada"
 
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Senha inalterada"
 
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:749
+#: modules/pam_cracklib/pam_cracklib.c:584
+#: modules/pam_cracklib/pam_cracklib.c:709
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "SENHA INCORRETA: %s"
@@ -549,6 +545,9 @@ msgstr "Digite a nova senha UNIX:"
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Redigite a nova senha UNIX:"
+
+#~ msgid "has been already used"
+#~ msgstr "já foi usada"
 
 #, fuzzy
 #~ msgid "Password has been used already. Choose another."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.fr2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-10 08:49+0200\n"
+"POT-Creation-Date: 2008-10-13 21:53+0200\n"
 "PO-Revision-Date: 2008-03-12 12:17+0100\n"
 "Last-Translator: Canniot Thomas <thomas.canniot@mrtomlinux.org>\n"
 "Language-Team: Français <fedora-trans-fr@redhat.com>\n"
@@ -229,22 +229,18 @@ msgstr ""
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:573
-msgid "has been already used"
-msgstr "a déjà été utilisé"
-
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Aucun mot de passe fourni"
 
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Mot de passe inchangé"
 
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:749
+#: modules/pam_cracklib/pam_cracklib.c:584
+#: modules/pam_cracklib/pam_cracklib.c:709
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "MOT DE PASSE INCORRECT : %s"
@@ -557,6 +553,9 @@ msgstr "Entrez le nouveau mot de passe UNIX : "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Retapez le nouveau mot de passe UNIX : "
+
+#~ msgid "has been already used"
+#~ msgstr "a déjà été utilisé"
 
 #, fuzzy
 #~ msgid "Password has been used already. Choose another."

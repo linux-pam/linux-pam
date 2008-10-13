@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-10 08:49+0200\n"
+"POT-Creation-Date: 2008-10-13 21:53+0200\n"
 "PO-Revision-Date: 2007-06-21 15:05+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali (India) <en@li.org>\n"
@@ -219,22 +219,18 @@ msgstr ""
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:573
-msgid "has been already used"
-msgstr "পূর্বে ব্যবহৃত হয়েছে"
-
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "কোনো পাসওয়ার্ড উল্লিখিত হয়নি"
 
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "পাসওয়ার্ড পরিবর্তন করা হয়নি"
 
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:749
+#: modules/pam_cracklib/pam_cracklib.c:584
+#: modules/pam_cracklib/pam_cracklib.c:709
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "পাসওয়ার্ড ভাল নয়: %s"
@@ -553,6 +549,9 @@ msgstr "নতুন UNIX পাসওয়ার্ড উল্লেখ কর�
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX পাসওয়ার্ড পুনরায় লিখুন: "
+
+#~ msgid "has been already used"
+#~ msgstr "পূর্বে ব্যবহৃত হয়েছে"
 
 #, fuzzy
 #~ msgid "Password has been used already. Choose another."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-10 08:49+0200\n"
+"POT-Creation-Date: 2008-10-13 21:53+0200\n"
 "PO-Revision-Date: 2008-10-10 08:53+0200\n"
 "Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
@@ -222,22 +222,18 @@ msgstr "das gleiche Zeichen wurde so oft hintereinander verwendet"
 msgid "contains the user name in some form"
 msgstr "enthält den Benutzernamen in irgendeiner Form"
 
-#: modules/pam_cracklib/pam_cracklib.c:573
-msgid "has been already used"
-msgstr "es wurde bereits verwendet"
-
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Kein Passwort angegeben"
 
-#: modules/pam_cracklib/pam_cracklib.c:601
+#: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Passwort nicht geändert"
 
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:749
+#: modules/pam_cracklib/pam_cracklib.c:584
+#: modules/pam_cracklib/pam_cracklib.c:709
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "Schlechtes Passwort: %s"
@@ -300,8 +296,10 @@ msgstr "Letzte fehlgeschlagene Anmeldung:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] "Es gab %d fehlgeschagenen Versuch seit der letzten erfolgreichen Anmeldung."
-msgstr[1] "Es gab %d fehlgeschlagene Versuche seit der letzten erfolgreichen Anmeldung."
+msgstr[0] ""
+"Es gab %d fehlgeschagenen Versuch seit der letzten erfolgreichen Anmeldung."
+msgstr[1] ""
+"Es gab %d fehlgeschlagene Versuche seit der letzten erfolgreichen Anmeldung."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
@@ -551,6 +549,9 @@ msgstr "Geben Sie ein neues UNIX-Passwort ein: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Geben Sie das neue UNIX-Passwort erneut ein: "
+
+#~ msgid "has been already used"
+#~ msgstr "es wurde bereits verwendet"
 
 #, fuzzy
 #~ msgid "Password has been used already. Choose another."
