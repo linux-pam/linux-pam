@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-10-13 21:53+0200\n"
-"PO-Revision-Date: 2008-03-03 21:59+0200\n"
+"PO-Revision-Date: 2008-10-14 23:49+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "...czas mija...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "... czas minął.\n"
+msgstr "...czas minął.\n"
 
 #: libpam_misc/misc_conv.c:342
 #, c-format
@@ -36,7 +36,7 @@ msgstr "login:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
-msgstr "Powiodło się"
+msgstr "Powodzenie"
 
 #: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
@@ -214,11 +214,11 @@ msgstr "za mało klas znaków"
 
 #: modules/pam_cracklib/pam_cracklib.c:531
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "zawiera za dużo takich samych znaków po sobie"
 
 #: modules/pam_cracklib/pam_cracklib.c:534
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "zawiera nazwę użytkownika w pewnej formie"
 
 #: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
@@ -285,9 +285,9 @@ msgstr "Witaj na swoim nowym koncie!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "Ostatnie logowanie:%s%s%s"
+msgstr "Ostatnie nieudane logowanie:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
@@ -295,14 +295,18 @@ msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
 msgstr[0] ""
+"Nastąpiła %d nieudana próba zalogowania od ostatniego udanego logowania."
 msgstr[1] ""
+"Nastąpiły %d nieudane próby zalogowania od ostatniego udanego logowania."
 msgstr[2] ""
+"Nastąpiło %d nieudanych prób zalogowania od ostatniego udanego logowania."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
+"Nastąpiło %d nieudanych prób zalogowania od ostatniego udanego logowania."
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
@@ -348,18 +352,17 @@ msgstr "Wiadomości w folderze %s."
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr "Tworzenie folderu \"%s\"."
+msgstr "Tworzenie katalogu \"%s\"."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr "Nie można utworzyć folderu %s: %m"
+msgstr "Nie można utworzyć katalogu %s: %m"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
 #: modules/pam_pwhistory/pam_pwhistory.c:258
-#, fuzzy
 msgid "Password change aborted."
-msgstr "Hasło nie zostało zmienione"
+msgstr "Przerwano zmianę hasła."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:235
 #: modules/pam_pwhistory/pam_pwhistory.c:295
@@ -447,12 +450,12 @@ msgstr "Sprawdzenie nie powiodło się; hasło nie zostało zmienione"
 #: modules/pam_tally/pam_tally.c:541
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "Konto zostało tymczasowo zablokowane (pozostało %ld sekund)"
 
 #: modules/pam_tally/pam_tally.c:566
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "Konto zostało zablokowane z powodu %u nieudanych logowań"
 
 #: modules/pam_tally/pam_tally.c:777
 msgid "Authentication error"
@@ -547,13 +550,3 @@ msgstr "Podaj nowe hasło UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Ponownie podaj hasło UNIX: "
-
-#~ msgid "has been already used"
-#~ msgstr "było już używane"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "Hasło było już używane. Wybierz inne."
-
-#~ msgid "Requested MLS level not in permitted range"
-#~ msgstr "Żądany poziom MLS nie jest w dozwolonym zakresie"

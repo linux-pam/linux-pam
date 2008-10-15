@@ -1,3 +1,32 @@
+2008-10-15  Piotr Drąg <piotrdrag@gmail.com>
+
+	* po/pl.po: Updated translations.
+
+2008-10-13  Tomas Mraz <t8m@centrum.cz>
+
+	* po/LINGUAS: New languages.
+	* po/cs.po: Updated translations.
+
+2008-10-13  Amitakhya Phukan <aphukan@redhat.com>
+
+	* po/as.po: Updated translations.
+
+2008-10-13  Shankar Prasad <svenkate@redhat.com>
+
+	* po/kn.po: Updated translations.
+
+2008-10-13  Sandeep Sheshrao Shedmake <sshedmak@redhat.com>
+
+	* po/mr.po: New translation to Marathi.
+
+2008-10-13  Runa Bhattacharjee <runab@redhat.com>
+
+	* po/bn_IN.po: Updated translations.
+
+2008-10-13  Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>
+
+	* po/ms.po: New translation to Malay.
+
 2008-10-10  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_cracklib/pam_cracklib.c (_pam_unix_approve_pass):
@@ -32,10 +61,6 @@
 2008-09-30  Manoj Kumar Giri <mgiri@redhat.com>
 
 	* po/or.po: Updated translations.
-
-2008-09-30  Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>
-
-	* po/ms.po: New translation to Malay.
 
 2008-09-30  Taylon Silmer Lacerda Silva <taylonsilva@gmail.com>
 
