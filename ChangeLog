@@ -1,3 +1,12 @@
+2008-10-17  Xavier Queralt Mateu <xqueralt@gmail.com>
+
+	* po/ca.po: Updated translations.
+
+2008-10-15  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_keyinit/pam_keyinit.c (kill_keyrings): Save the old
+	euid to suid to be able to restore it.
+
 2008-10-15  Piotr Drąg <piotrdrag@gmail.com>
 
 	* po/pl.po: Updated translations.
