@@ -15,6 +15,8 @@ Release 1.0.90
 * New options for pam_lastlog to show last failed login attempt and
   to disable lastlog update
 * New pam_pwhistory module to store last used passwords
+* New pam_tally2 module similar to pam_tally with wordsize independent
+  tally data format
 
 Release 1.0.2
 

@@ -1,0 +1,9 @@
+*.la
+*.lo
+.deps
+.libs
+Makefile
+Makefile.in
+pam_tally2
+README
+pam_tally2.8

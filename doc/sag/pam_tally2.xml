@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<section id='sag-pam_tally2'>
+  <title>pam_tally2 - login counter (tallying) module</title>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_tally2/pam_tally2.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_tally2-cmdsynopsis1"]/*)'/>
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_tally2/pam_tally2.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_tally2-cmdsynopsis2"]/*)'/>
+  </cmdsynopsis>
+  <section id='sag-pam_tally2-description'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_tally2/pam_tally2.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tally2-description"]/*)'/>
+  </section>
+  <section id='sag-pam_tally2-options'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_tally2/pam_tally2.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tally2-options"]/*)'/>
+  </section>
+  <section id='sag-pam_tally2-types'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_tally2/pam_tally2.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tally2-types"]/*)'/>
+  </section>
+  <section id='sag-pam_tally2-return_values'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_tally2/pam_tally2.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tally2-return_values"]/*)'/>
+  </section>
+  <section id='sag-pam_tally2-notes'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_tally2/pam_tally2.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tally2-notes"]/*)'/>
+  </section>
+  <section id='sag-pam_tally2-examples'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_tally2/pam_tally2.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tally2-examples"]/*)'/>
+  </section>
+  <section id='sag-pam_tally2-files'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_tally2/pam_tally2.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tally2-files"]/*)'/>
+  </section>
+  <section id='sag-pam_tally2-author'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="../../modules/pam_tally2/pam_tally2.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tally2-author"]/*)'/>
+  </section>
+</section>

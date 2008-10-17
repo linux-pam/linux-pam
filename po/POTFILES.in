@@ -71,6 +71,8 @@
 ./modules/pam_succeed_if/pam_succeed_if.c
 ./modules/pam_tally/pam_tally_app.c
 ./modules/pam_tally/pam_tally.c
+./modules/pam_tally2/pam_tally2_app.c
+./modules/pam_tally2/pam_tally2.c
 ./modules/pam_time/pam_time.c
 ./modules/pam_tty_audit/pam_tty_audit.c
 ./modules/pam_umask/pam_umask.c

@@ -9,7 +9,7 @@ SUBDIRS = pam_access pam_cracklib pam_debug pam_deny pam_echo \
 	pam_mkhomedir pam_motd pam_namespace pam_nologin \
 	pam_permit pam_pwhistory pam_rhosts pam_rootok pam_securetty \
 	pam_selinux pam_sepermit pam_shells pam_stress \
-	pam_succeed_if pam_tally pam_time pam_tty_audit pam_umask \
+	pam_succeed_if pam_tally pam_tally2 pam_time pam_tty_audit pam_umask \
 	pam_unix pam_userdb pam_warn pam_wheel pam_xauth
 
 CLEANFILES = *~

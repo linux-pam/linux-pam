@@ -459,6 +459,8 @@ session   required   pam_warn.so
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_tally.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="pam_tally2.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_time.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_umask.xml"/>
