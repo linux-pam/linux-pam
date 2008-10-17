@@ -1,3 +1,8 @@
+2008-10-17  Tomas Mraz <t8m@centrum.cz> 
+
+        * modules/pam_keyinit/pam_keyinit.c (kill_keyrings): Save the old
+        euid to suid to be able to restore it.
+
 2008-09-25  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_tally/pam_tally.c(get_tally): Fix syslog message.

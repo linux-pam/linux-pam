@@ -143,7 +143,7 @@ static void kill_keyrings(pam_handle_t *pamh)
 			error(pamh, "Unable to change GID to %d temporarily\n",
 			      revoke_as_gid);
 
-		if (revoke_as_uid != old_uid && setreuid(-1, revoke_as_uid) < 0)
+		if (revoke_as_uid != old_uid && setresuid(-1, revoke_as_uid, old_uid) < 0)
 			error(pamh, "Unable to change UID to %d temporarily\n",
 			      revoke_as_uid);
 
