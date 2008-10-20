@@ -1,16 +1,16 @@
-# translation of bn_IN.po to Bengali (India)
+# translation of Linux-PAM.tip.po to Bengali INDIA
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Runa Bhattacharjee <runab@redhat.com>, 2007.
+# Runa Bhattacharjee <runab@redhat.com>, 2007, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: bn_IN\n"
+"Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-10-13 21:53+0200\n"
-"PO-Revision-Date: 2007-06-21 15:05+0530\n"
+"PO-Revision-Date: 2008-10-20 12:40+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
-"Language-Team: Bengali (India) <en@li.org>\n"
+"Language-Team: Bengali INDIA <fedora-trans-bn_IN@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -209,15 +209,15 @@ msgstr "ঘোরানো হয়েছে"
 
 #: modules/pam_cracklib/pam_cracklib.c:528
 msgid "not enough character classes"
-msgstr ""
+msgstr "পর্যাপ্ত অক্ষর শ্রেণী উপস্থিত নেই"
 
 #: modules/pam_cracklib/pam_cracklib.c:531
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "একই অক্ষর অত্যাধিক বার ক্রমাগত ব্যবহার করা হয়েছে"
 
 #: modules/pam_cracklib/pam_cracklib.c:534
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "কোনো রূপে ব্যবহারকারী নাম অন্তর্ভুক্ত হয়েছে"
 
 #: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
@@ -284,23 +284,22 @@ msgstr "নতুন অ্যাকাউন্টে স্বাগতম!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "সর্বশেষ লগ-ইন:%s%s%s"
+msgstr "সর্বশেষ বিফল লগ-ইন:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-msgstr[1] ""
+msgid_plural "There were %d failed login attempts since the last successful login."
+msgstr[0] "সর্বশেষ সফল লগ-ইনের পরে %d-টি ব্যর্থ লগ-ইনের প্রচেষ্টা করা হয়েছে।"
+msgstr[1] "সর্বশেষ সফল লগ-ইনের পরে %d-টি ব্যর্থ লগ-ইনের প্রচেষ্টা করা হয়েছে।"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
+msgstr "সর্বশেষ সফল লগ-ইনের পরে %d-টি ব্যর্থ লগ-ইনের প্রচেষ্টা করা হয়েছে।"
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
@@ -346,18 +345,17 @@ msgstr "%s ফোল্ডারে মেইল উপস্থিত রয়ে
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "'%s' ডিরেক্টরি নির্মাণ করা হচ্ছে।"
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "ডিরেক্টরি %s নির্মাণ করতে ব্যর্থ: %m"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
 #: modules/pam_pwhistory/pam_pwhistory.c:258
-#, fuzzy
 msgid "Password change aborted."
-msgstr "পাসওয়ার্ড পরিবর্তন করা হয়নি"
+msgstr "পাসওয়ার্ড পরিবর্তনের কর্ম পরিত্যাগ করা হয়েছে।"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:235
 #: modules/pam_pwhistory/pam_pwhistory.c:295
@@ -366,17 +364,14 @@ msgid "Password has been already used. Choose another."
 msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হয়েছে। একটি পৃথক পাসওয়ার্ড নির্বাচন করুন।"
 
 #: modules/pam_selinux/pam_selinux.c:172
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "নিরাপত্তা সংক্রান্ত context উল্লেখ করতে ইচ্ছুক কি? [y] "
+msgstr "নিরাপত্তা সংক্রান্ত context উল্লেখ করতে ইচ্ছুক কি? [N] "
 
 #: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "role:"
 msgstr "role: "
 
 #: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
-#, fuzzy
 msgid "level:"
 msgstr "level: "
 
@@ -385,24 +380,23 @@ msgid "Not a valid security context"
 msgstr "বৈধ নিরাপত্তা সংক্রান্ত context নয়"
 
 #: modules/pam_selinux/pam_selinux.c:265
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "Security Context %s ধার্য করা হয়েছে"
+msgstr "ডিফল্ট Security Context %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:269
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "নিরাপত্তা সংক্রান্ত context উল্লেখ করতে ইচ্ছুক কি? [y] "
+msgstr "ভিন্ন role অথবা level লিখতে ইচ্ছুক কি?"
 
 #: modules/pam_selinux/pam_selinux.c:285
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "role %s-র জন্য কোনো ডিফল্ট type উপস্থিত নেই\n"
 
 #: modules/pam_selinux/pam_selinux.c:661
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "%s-র বৈধ context প্রাপ্ত করতে ব্যর্থ"
 
 #: modules/pam_selinux/pam_selinux.c:712
 #, c-format
@@ -410,9 +404,9 @@ msgid "Security Context %s Assigned"
 msgstr "Security Context %s ধার্য করা হয়েছে"
 
 #: modules/pam_selinux/pam_selinux.c:733
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "Security Context %s ধার্য করা হয়েছে"
+msgstr "কি নির্মাণের Context %s ধার্য করা হয়েছে"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -430,9 +424,9 @@ msgid "login: failure forking: %m"
 msgstr "লগ-ইন: fork করতে ব্যর্থ: %m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "STRESS পাসওয়ার্ড পরিবর্তন করা হচ্ছে "
+msgstr "%s-র STRESS পাসওয়ার্ড পরিবর্তন করা হচ্ছে।"
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -449,12 +443,12 @@ msgstr "নিশ্চায়ন কাল ভুল টাইপ করা হ�
 #: modules/pam_tally/pam_tally.c:541
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "সাময়িকরূপে অ্যাকাউন্ট লক করা হয়েছে (%ld সেকেন্ড অবশিষ্ট)"
 
 #: modules/pam_tally/pam_tally.c:566
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "%u ব্যর্থ লগ-ইনের ফলে অ্যাকাউন্ট লক করা হয়েছে"
 
 #: modules/pam_tally/pam_tally.c:777
 msgid "Authentication error"
@@ -484,10 +478,8 @@ msgstr "%s: অজানা বিকল্প %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886
 #, c-format
@@ -530,9 +522,9 @@ msgid "You must choose a longer password"
 msgstr "চিহ্নিত পাসওয়ার্ডের থেকে লম্বা পাসওয়ার্ড উল্লেখ করা আবশ্যক"
 
 #: modules/pam_unix/pam_unix_passwd.c:571
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "STRESS পাসওয়ার্ড পরিবর্তন করা হচ্ছে "
+msgstr "%s-র পাসওয়ার্ড পরিবর্তন করা হচ্ছে।"
 
 #: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
@@ -550,22 +542,21 @@ msgstr "নতুন UNIX পাসওয়ার্ড উল্লেখ কর�
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX পাসওয়ার্ড পুনরায় লিখুন: "
 
-#~ msgid "has been already used"
-#~ msgstr "পূর্বে ব্যবহৃত হয়েছে"
+msgid "has been already used"
+msgstr "পূর্বে ব্যবহৃত হয়েছে"
 
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হয়েছে। একটি পৃথক পাসওয়ার্ড নির্বাচন করুন।"
+msgid "Password has been used already. Choose another."
+msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হয়েছে। একটি পৃথক পাসওয়ার্ড নির্বাচন করুন।"
 
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "ডিফল্ট কনটেক্সট হল %s। \n"
+msgid "Error translating default context."
+msgstr "ডিফল্ট কনটেক্সট অনুবাদ করতে সমস্যা।"
 
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "ভিন্ন নির্বাচন করতে ইচ্ছুক কি? [n]"
+msgid "Do you want to choose a different one? [n]"
+msgstr "ভিন্ন নির্বাচন করতে ইচ্ছুক কি? [n]"
 
-#~ msgid "Enter number of choice: "
-#~ msgstr "পছন্দের সংখ্যা লিখুন: "
+msgid "Enter number of choice: "
+msgstr "পছন্দের সংখ্যা লিখুন: "
 
-#~ msgid "type: "
-#~ msgstr "type: "
+msgid "type: "
+msgstr "type: "
+
