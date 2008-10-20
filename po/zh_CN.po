@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-10-13 21:53+0200\n"
-"PO-Revision-Date: 2008-03-25 15:11+1000\n"
+"PO-Revision-Date: 2008-10-20 15:43+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -215,11 +215,11 @@ msgstr "没有足够的字符分类"
 
 #: modules/pam_cracklib/pam_cracklib.c:531
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "包含过多连续相同的字符"
 
 #: modules/pam_cracklib/pam_cracklib.c:534
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "以某些形式包含用户名"
 
 #: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
@@ -286,22 +286,21 @@ msgstr "欢迎使用新帐户！"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "上一次登录：%s%s%s"
+msgstr "最后一次失败的登录：%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
-msgstr[0] ""
+msgid_plural "There were %d failed login attempts since the last successful login."
+msgstr[0] "最有一次成功登录后有 %d 次失败的登录尝试"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
+msgstr "最有一次成功登录后有 %d 次失败的登录尝试。"
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
@@ -356,9 +355,8 @@ msgstr "无法创建目录  %s：%m"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
 #: modules/pam_pwhistory/pam_pwhistory.c:258
-#, fuzzy
 msgid "Password change aborted."
-msgstr "密码未更改"
+msgstr "密码更改取消。"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:235
 #: modules/pam_pwhistory/pam_pwhistory.c:295
@@ -446,12 +444,12 @@ msgstr "校验类型错误；密码未更改"
 #: modules/pam_tally/pam_tally.c:541
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "帐户暂时锁住（还有 %ld 秒）"
 
 #: modules/pam_tally/pam_tally.c:566
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "因为 %u 失败登录而锁定帐户"
 
 #: modules/pam_tally/pam_tally.c:777
 msgid "Authentication error"
@@ -481,8 +479,7 @@ msgstr "%s: 未识别的选项 %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr "%s: [--文件 根文件名] [--用户 用户名] [--重设置[=n]] [--安静]\n"
 
 #: modules/pam_tally/pam_tally.c:886
@@ -543,12 +540,3 @@ msgstr "输入新的 UNIX 密码："
 msgid "Retype new UNIX password: "
 msgstr "重新输入新的 UNIX 密码："
 
-#~ msgid "has been already used"
-#~ msgstr "已使用"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "密码已使用。请选择其他密码。"
-
-#~ msgid "Requested MLS level not in permitted range"
-#~ msgstr "请求的 MLS 级别不在允许范围内"
