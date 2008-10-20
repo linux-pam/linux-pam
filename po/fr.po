@@ -1,22 +1,23 @@
 # translation of pam.fr2.po to Français
-# Copyright (C) YEAR Linux-PAM Project
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) 2008 Linux-PAM Project
+# This file is distributed under the same license as the pam package.
 #
 # myriam malga <mmalga@redhat.com>, 2007.
 # Canniot Thomas <thomas.canniot@mrtomlinux.org>, 2008.
+# Pablo Martin-Gomez <pablo.martin-gomez@laposte.net>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: pam.fr2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-10-13 21:53+0200\n"
-"PO-Revision-Date: 2008-03-12 12:17+0100\n"
-"Last-Translator: Canniot Thomas <thomas.canniot@mrtomlinux.org>\n"
+"PO-Revision-Date: 2008-10-19 18:59+0200\n"
+"Last-Translator: Pablo Martin-Gomez <pablo.martin-gomez@laposte.net> \n"
 "Language-Team: Français <fedora-trans-fr@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.2\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -223,11 +224,11 @@ msgstr "les caractères utilisés ne sont pas suffisamment variés"
 
 #: modules/pam_cracklib/pam_cracklib.c:531
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "contient trop de caractères consécutifs identiques"
 
 #: modules/pam_cracklib/pam_cracklib.c:534
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "contient le nom d'utilisateur d'une certaine manière"
 
 #: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
@@ -294,9 +295,9 @@ msgstr "Bienvenue sur votre nouveau compte !"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "Dernière connexion :%s%s%s"
+msgstr "Dernière connexion échoué : %s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
@@ -304,6 +305,8 @@ msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
 msgstr[0] ""
+"Il y a eu une tentative de connexion échouée depuis la dernière connexion "
+"réussie."
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
@@ -311,6 +314,8 @@ msgstr[1] ""
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
+"Il y a eu %d tentatives de connexion échouées depuis la dernière connexion "
+"réussie."
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
@@ -365,9 +370,8 @@ msgstr "Impossible de créer le répertoire %s : %m"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
 #: modules/pam_pwhistory/pam_pwhistory.c:258
-#, fuzzy
 msgid "Password change aborted."
-msgstr "Mot de passe inchangé"
+msgstr "Changement du mot de passe avorté."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:235
 #: modules/pam_pwhistory/pam_pwhistory.c:295
@@ -455,12 +459,12 @@ msgstr "Vérification erronée : mot de passe inchangé"
 #: modules/pam_tally/pam_tally.c:541
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "Compte temporairement verrouillé (%ld secondes restantes)"
 
 #: modules/pam_tally/pam_tally.c:566
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "Compte temporairement verrouillé dû à l'échec de %u connexions"
 
 #: modules/pam_tally/pam_tally.c:777
 msgid "Authentication error"
@@ -563,3 +567,4 @@ msgstr "Retapez le nouveau mot de passe UNIX : "
 
 #~ msgid "Requested MLS level not in permitted range"
 #~ msgstr "Niveau MLS demandé hors de la plage autorisée"
+
