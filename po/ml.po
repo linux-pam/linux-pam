@@ -1,16 +1,16 @@
-# translation of ml.po to Malayalam
+# translation of Linux-PAM.tip.ml.po to
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Ani Peter <apeter@redhat.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ml\n"
+"Project-Id-Version: Linux-PAM.tip.ml\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-10-13 21:53+0200\n"
-"PO-Revision-Date: 2007-06-22 17:15+0530\n"
-"Last-Translator: Ani Peter <apeter@redhat.com>\n"
-"Language-Team: Malayalam <en@li.org>\n"
+"PO-Revision-Date: 2008-10-20 12:50+0530\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -209,15 +209,15 @@ msgstr "is rotated"
 
 #: modules/pam_cracklib/pam_cracklib.c:528
 msgid "not enough character classes"
-msgstr ""
+msgstr "മതിയായ ക്യാരക്ടര്‍ ക്ലാസ്സുകള്‍ ലഭ്യമല്ല"
 
 #: modules/pam_cracklib/pam_cracklib.c:531
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "അടുത്തടുത്ത് ഒരേപോലുള്ള അനവധി അക്ഷരങ്ങളുണ്ടു്"
 
 #: modules/pam_cracklib/pam_cracklib.c:534
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "ഉപയോക്താവിന്റെ നാമം ഏതെങ്കിലും ഒരു തരത്തിലുണ്ടു്"
 
 #: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
@@ -284,23 +284,22 @@ msgstr "നിങ്ങളുടെ പുതിയ അക്കൌണ്ടി�
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "അവസാനം ലോഗിന്‍ ചെയ്തത്:%s%s%s"
+msgstr "അവസാനം ലോഗിന്‍ ചെയ്തതു് പരാജയപ്പെട്ടു:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-msgstr[1] ""
+msgid_plural "There were %d failed login attempts since the last successful login."
+msgstr[0] "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
+msgstr[1] "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
+msgstr "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
@@ -346,18 +345,17 @@ msgstr "%s ഫോള്‍ഡറില്‍ നിങ്ങള്‍ക്ക�
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "'%s' ഡയറക്ടറി ഉണ്ടാക്കുന്നു."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "%s ഡയറക്ടറി ഉണ്ടാക്കുവാന്‍ സാധ്യമായില്ല: %m"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
 #: modules/pam_pwhistory/pam_pwhistory.c:258
-#, fuzzy
 msgid "Password change aborted."
-msgstr "പാസ്‌വേറ്‍ഡ് മാറ്റിയിട്ടില്ല"
+msgstr "അടയാളവാക്ക് മാറ്റം വരുത്തുന്നതു് നിര്‍ത്തിയിരിക്കുന്നു."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:235
 #: modules/pam_pwhistory/pam_pwhistory.c:295
@@ -366,43 +364,39 @@ msgid "Password has been already used. Choose another."
 msgstr "പാസ്‌വേറ്‍ഡ് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
 
 #: modules/pam_selinux/pam_selinux.c:172
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "നിങ്ങള്‍ക്ക് ഒരു സെക്യൂരിറ്റി കോണ്‍ടെക്സ്റ്റ് നല്‍കണമോ? [y] "
+msgstr "നിങ്ങള്‍ക്ക് ഒരു സെക്യൂരിറ്റി കോണ്‍ടെക്സ്റ്റ് നല്‍കണമോ? [N] "
 
 #: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "role:"
-msgstr "role: "
+msgstr "ജോലി:"
 
 #: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
-#, fuzzy
 msgid "level:"
-msgstr "level: "
+msgstr "നില: "
 
 #: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
 msgid "Not a valid security context"
 msgstr "ശരിയായ സെക്യൂരിറ്റി കോണ്‍ടെക്സ്റ്റ് അല്ല"
 
 #: modules/pam_selinux/pam_selinux.c:265
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "%s എന്ന സെക്യൂരിറ്റി കോണ്‍ടെക്സ്റ്റ് നല്‍കിയിരിക്കുന്നു"
+msgstr "സ്വതവേയുള്ള സെക്യൂരിറ്റി കോണ്‍ടെക്സ്റ്റ് %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:269
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "നിങ്ങള്‍ക്ക് ഒരു സെക്യൂരിറ്റി കോണ്‍ടെക്സ്റ്റ് നല്‍കണമോ? [y] "
+msgstr "നിങ്ങള്‍ക്കു് മറ്റൊരു ജോലി അല്ലെങ്കില്‍ നില നല്‍കണമോ?"
 
 #: modules/pam_selinux/pam_selinux.c:285
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "%s ജോലിയ്ക്കു് സ്വതവേയുള്ള തരം ലഭ്യമല്ല\n"
 
 #: modules/pam_selinux/pam_selinux.c:661
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "%s-നുള്ള ശരിയായ കോണ്‍ടെക്സ്റ്റ് ലഭ്യമല്ല"
 
 #: modules/pam_selinux/pam_selinux.c:712
 #, c-format
@@ -410,9 +404,9 @@ msgid "Security Context %s Assigned"
 msgstr "%s എന്ന സെക്യൂരിറ്റി കോണ്‍ടെക്സ്റ്റ് നല്‍കിയിരിക്കുന്നു"
 
 #: modules/pam_selinux/pam_selinux.c:733
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "%s എന്ന സെക്യൂരിറ്റി കോണ്‍ടെക്സ്റ്റ് നല്‍കിയിരിക്കുന്നു"
+msgstr "കീ ഉണ്ടാക്കുന്നതിനുള്ള കോണ്‍ടെക്സ്റ്റ് ആയ %s നല്‍കിയിരിക്കുന്നു"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -430,9 +424,9 @@ msgid "login: failure forking: %m"
 msgstr "login: ഫോറ്‍ക്ക് ചെയ്യുന്നതില്‍ പരാജയം: %m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "%s-നുളള STRESS പാസ്‌വേറ്‍ഡ് മാറ്റുന്ന."
+msgstr "%s-നുളള STRESS അടയാളവാക്ക് മാറ്റുന്നു."
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -449,12 +443,12 @@ msgstr "പാസ്‌വേറ്‍ഡ് ഉറപ്പാക്കുന�
 #: modules/pam_tally/pam_tally.c:541
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "അക്കൌണ്ട് താല്‍ക്കാലികമായി പൂട്ടിയിരിക്കുന്നു (%ld നിമിഷങ്ങള്‍ ബാക്കി)"
 
 #: modules/pam_tally/pam_tally.c:566
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "%u പരാജയപ്പെട്ട ലോഗിനുകള്‍ കാരണം അക്കൌണ്ട് താല്‍ക്കാലികമായി പൂട്ടിയിരിക്കുന്നു"
 
 #: modules/pam_tally/pam_tally.c:777
 msgid "Authentication error"
@@ -484,10 +478,8 @@ msgstr "%s: Unrecognised ഉപാധി %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886
 #, c-format
@@ -530,9 +522,9 @@ msgid "You must choose a longer password"
 msgstr "ഇതിലും വലിയ പാസ്‌വേറ്‍ഡ് തിരഞ്ഞെടുക്കുക"
 
 #: modules/pam_unix/pam_unix_passwd.c:571
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "%s-നുളള STRESS പാസ്‌വേറ്‍ഡ് മാറ്റുന്ന."
+msgstr "%s-നുളള അടയാളവാക്ക് മാറ്റുന്നു."
 
 #: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
@@ -550,22 +542,3 @@ msgstr "പുതിയ UNIX പാസ്‌വേറ്‍ഡ് നല്‍�
 msgid "Retype new UNIX password: "
 msgstr "പുതിയ UNIX പാസ്‌വേറ്‍ഡ് വീണ്ടും ടൈപ്പ് ചെയ്യുക: "
 
-#~ msgid "has been already used"
-#~ msgstr "ഉപയോഗത്തിലാണ്"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "പാസ്‌വേറ്‍ഡ് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
-
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "%s ആണ് നിങ്ങളുടെ ഡീഫോള്‍ട്ട് കോണ്‍ടെക്സ്റ്റ്. \n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "നിങ്ങള്‍ക്ക് മറ്റൊരെണ്ണം തിരഞ്ഞെടുക്കണമോ? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "നിങ്ങള്‍ക്ക് ഇഷ്ടമുള്ളത് തിരഞ്ഞെടുക്കുക: "
-
-#~ msgid "type: "
-#~ msgstr "type: "
