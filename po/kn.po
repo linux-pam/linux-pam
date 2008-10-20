@@ -1,14 +1,14 @@
-# translation of kn.po to Kannada
+# translation of Linux-PAM.tip.kn.po to Kannada
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Shankar Prasad <svenkate@redhat.com>, 2007.
+# Shankar Prasad <svenkate@redhat.com>, 2007, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: kn\n"
+"Project-Id-Version: Linux-PAM.tip.kn\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-10-13 21:53+0200\n"
-"PO-Revision-Date: 2007-06-22 13:29+0530\n"
+"PO-Revision-Date: 2008-10-20 12:29+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -209,15 +209,15 @@ msgstr "ಇದು ತಿರುಗಿಸಲಾಗಿದೆ"
 
 #: modules/pam_cracklib/pam_cracklib.c:528
 msgid "not enough character classes"
-msgstr ""
+msgstr "ಸಾಕಷ್ಟು ಕ್ಯಾರೆಕ್ಟರ್ ವರ್ಗಗಳು ಇಲ್ಲ"
 
 #: modules/pam_cracklib/pam_cracklib.c:531
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "ಇದು ಒಂದೇ ಬಗೆಯ ಬಹಳಷ್ಟು ಕ್ಯಾರೆಕ್ಟರುಗಳನ್ನು ಅನುಕ್ರಮವಾಗಿ ಹೊಂದಿದೆ"
 
 #: modules/pam_cracklib/pam_cracklib.c:534
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "ಇದು ಯಾವುದೊ ಒಂದು ಬಗೆಯಲ್ಲಿ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ಒಳಗೊಂಡಿದೆ"
 
 #: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
@@ -284,23 +284,22 @@ msgstr "ನಿಮ್ಮ ಹೊಸ ಖಾತೆಗೆ ಸುಸ್ವಾಗತ!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "ಕೊನೆಯ ಲಾಗಿನ್:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-msgstr[1] ""
+msgid_plural "There were %d failed login attempts since the last successful login."
+msgstr[0] "ಕೊನೆಯ ಬಾರಿಯ ಯಶಸ್ವಿ ಪ್ರವೇಶದ ನಂತರ %d ಪ್ರವೇಶದ ಪ್ರಯತ್ನವು ವಿಫಲಗೊಂಡಿದೆ."
+msgstr[1] "ಕೊನೆಯ ಬಾರಿಯ ಯಶಸ್ವಿ ಪ್ರವೇಶದ ನಂತರ %d ಪ್ರವೇಶದ ಪ್ರಯತ್ನಗಳು ವಿಫಲಗೊಂಡಿದೆ."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
+msgstr "ಕೊನೆಯ ಬಾರಿಯ ಯಶಸ್ವಿ ಪ್ರವೇಶದ ನಂತರ %d ಪ್ರವೇಶದ ಪ್ರಯತ್ನಗಳು ವಿಫಲಗೊಂಡಿದೆ."
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
@@ -346,18 +345,17 @@ msgstr "%s ಫೋಲ್ಡರಿನಲ್ಲಿ ನಿಮಗಾಗಿ ಮೈಲ�
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "ಕೋಶ '%s' ಅನ್ನು ರಚಿಸಲಾಗುತ್ತಿದೆ."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "ಕೋಶ '%s' ಅನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ.: %m"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
 #: modules/pam_pwhistory/pam_pwhistory.c:258
-#, fuzzy
 msgid "Password change aborted."
-msgstr "ಗುಪ್ತಪದ ಬದಲಾಗಿಲ್ಲ"
+msgstr "ಗುಪ್ತಪದ ಬದಲಾವಣೆಯನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:235
 #: modules/pam_pwhistory/pam_pwhistory.c:295
@@ -366,43 +364,39 @@ msgid "Password has been already used. Choose another."
 msgstr "ಗುಪ್ತಪದವು ಈಗಾಗಲೆ ಬಳಸಲ್ಪಟ್ಟಿದೆ. ಬೇರೊಂದನ್ನು ಬಳಸಿ."
 
 #: modules/pam_selinux/pam_selinux.c:172
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "ನೀವು ಒಂದು ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶವನ್ನು ದಾಖಲಿಸಲು ಇಚ್ಛಿಸುತ್ತೀರ? [y]"
+msgstr "ನೀವು ಒಂದು ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶವನ್ನು ದಾಖಲಿಸಲು ಇಚ್ಛಿಸುತ್ತೀರ? [N]"
 
 #: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "role:"
-msgstr "ಪಾತ್ರ: "
+msgstr "ಪಾತ್ರ:"
 
 #: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
-#, fuzzy
 msgid "level:"
-msgstr "ಮಟ್ಟ: "
+msgstr "ಮಟ್ಟ:"
 
 #: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
 msgid "Not a valid security context"
 msgstr "ಸಮಂಜಸವಾದ ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶ ಅಲ್ಲ"
 
 #: modules/pam_selinux/pam_selinux.c:265
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶ %s ವನ್ನು ನಿಯೋಜಿಸಲಾಗಿದೆ"
+msgstr "ಡೀಫಾಲ್ಟ್‍ ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶ %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:269
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "ನೀವು ಒಂದು ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶವನ್ನು ದಾಖಲಿಸಲು ಇಚ್ಛಿಸುತ್ತೀರ? [y]"
+msgstr "ನೀವು ನೀವು ಬೇರೊಂದು ಪಾತ್ರ ಅಥವ ಮಟ್ಟವನ್ನು ದಾಖಲಿಸಲು ಇಚ್ಛಿಸುತ್ತೀರ?"
 
 #: modules/pam_selinux/pam_selinux.c:285
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "%s ಪಾತ್ರಕ್ಕಾಗಿ ಯಾವುದೆ ಡೀಫಾಲ್ಟ್‍ ಬಗೆ ಇಲ್ಲ\n"
 
 #: modules/pam_selinux/pam_selinux.c:661
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "%s ಗಾಗಿ ಮಾನ್ಯವಾದ ಸನ್ನಿವೇಶವನ್ನು ಪಡೆದುಕೊಳ್ಳಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
 #: modules/pam_selinux/pam_selinux.c:712
 #, c-format
@@ -410,9 +404,9 @@ msgid "Security Context %s Assigned"
 msgstr "ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶ %s ವನ್ನು ನಿಯೋಜಿಸಲಾಗಿದೆ"
 
 #: modules/pam_selinux/pam_selinux.c:733
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶ %s ವನ್ನು ನಿಯೋಜಿಸಲಾಗಿದೆ"
+msgstr "ಕೀಲಿ ನಿರ್ಮಾಣ ಸನ್ನಿವೇಶ %s ವನ್ನು ನಿಯೋಜಿಸಲಾಗಿದೆ"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -430,9 +424,9 @@ msgid "login: failure forking: %m"
 msgstr "ಲಾಗಿನ್: ಫೋರ್ಕಿಂಗ್ ಮಾಡುವಲ್ಲಿ ವಿಫಲತೆ:%m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "ಇದಕ್ಕೆ STRESS ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲಾಗುತ್ತಿದೆ"
+msgstr "%s ಗಾಗಿ STRESS ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲಾಗುತ್ತಿದೆ."
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -449,12 +443,12 @@ msgstr "ತಪಾಸಣೆಗೆ ಟೈಪಿಸಿದ್ದು ತಪ್ಪಾ�
 #: modules/pam_tally/pam_tally.c:541
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "ಖಾತೆಯನ್ನು ತಾತ್ಕಾಲಿಕವಾಗಿ ಲಾಕ್ ಮಾಡಲಾಗಿದೆ (%ld ಸೆಕೆಂಡುಗಳು ಉಳಿದಿವೆ)"
 
 #: modules/pam_tally/pam_tally.c:566
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "ವಿಫಲಗೊಂಡ %u ಪ್ರವೇಶಗಳಿಂದಾಗಿ ಖಾತೆಯನ್ನು ಲಾಕ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
 #: modules/pam_tally/pam_tally.c:777
 msgid "Authentication error"
@@ -484,10 +478,8 @@ msgstr "%s: ಗುರುತಿಸಲಾಗದ ಆಯ್ಕೆ %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886
 #, c-format
@@ -504,8 +496,7 @@ msgstr "ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದ�
 
 #: modules/pam_unix/pam_unix_acct.c:242
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
-"ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸುವ ಅಗತ್ಯವಿದೆ (ಗುಪ್ತಪದವು ಬಹಳ ಹಳೆಯದಾಗಿದೆ)"
+msgstr "ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸುವ ಅಗತ್ಯವಿದೆ (ಗುಪ್ತಪದವು ಬಹಳ ಹಳೆಯದಾಗಿದೆ)"
 
 #: modules/pam_unix/pam_unix_acct.c:260 modules/pam_unix/pam_unix_acct.c:267
 #, c-format
@@ -529,9 +520,9 @@ msgid "You must choose a longer password"
 msgstr "ನೀವು ಒಂದು ಉದ್ದವಾದ ಗುಪ್ತಪದವನ್ನು ಆರಿಸಬೇಕು"
 
 #: modules/pam_unix/pam_unix_passwd.c:571
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "ಇದಕ್ಕೆ STRESS ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲಾಗುತ್ತಿದೆ"
+msgstr "%s ಗಾಗಿ ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲಾಗುತ್ತಿದೆ."
 
 #: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
@@ -549,22 +540,3 @@ msgstr "ಹೊಸ UNIX ಗುಪ್ತಪದವನ್ನು ದಾಖಲಿಸ�
 msgid "Retype new UNIX password: "
 msgstr "ಹೊಸ UNIX ಗುಪ್ತಪದವನ್ನು ಪುನಃ ಟೈಪಿಸಿ: "
 
-#~ msgid "has been already used"
-#~ msgstr "ಇದು ಈಗಾಗಲೆ ಬಳಸಲ್ಪಟ್ಟಿದೆ"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "ಗುಪ್ತಪದವು ಈಗಾಗಲೆ ಬಳಸಲ್ಪಟ್ಟಿದೆ. ಬೇರೊಂದನ್ನು ಬಳಸಿ."
-
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "ನಿಮ್ಮ ಡಿಫಾಲ್ಟ್ ಸನ್ನಿವೇಶವು %s ಆಗಿದೆ. \n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "ನೀವು ಬೇರೊಂದನ್ನು ಆರಿಸಲು ಬಯಸುತ್ತೀರ? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "ನಿಮ್ಮ ಇಚ್ಛೆಯ ಸಂಖ್ಯೆಯನ್ನು ದಾಖಲಿಸಿ: "
-
-#~ msgid "type: "
-#~ msgstr "ಪ್ರಕಾರ: "
