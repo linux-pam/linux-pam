@@ -1,3 +1,8 @@
+2008-10-20  Ondrej Sulek <feonsu@gmail.com>
+
+	* po/LINGUAS: New language.
+	* po/sk.po: New translation to Slovak.
+
 2008-10-17  Tomas Mraz <t8m@centrum.cz>
 
 	* configure.in: Add modules/pam_tally2/Makefile.
