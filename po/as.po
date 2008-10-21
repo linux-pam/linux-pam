@@ -1,16 +1,17 @@
-# translation of as.po to Assamese
+# translation of Linux-PAM.tip.po to Assamese
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Amitakhya Phukan <aphukan@redhat.com>, 2007.
+# Amitakhya Phukan <aphukan@fedoraproject.org>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: as\n"
+"Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-13 21:53+0200\n"
-"PO-Revision-Date: 2007-06-22 13:19+0530\n"
-"Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
-"Language-Team: Assamese <fedora-trans-as@redhat.com>\n"
+"POT-Creation-Date: 2008-04-03 14:13+0200\n"
+"PO-Revision-Date: 2008-10-13 11:23+0530\n"
+"Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
+"Language-Team: Assamese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,7 +31,7 @@ msgstr "...ক্ষমা কৰিব, আপোনাৰ বাবে সম�
 msgid "erroneous conversation (%d)\n"
 msgstr "ভুল সম্বাদ (%d)\n"
 
-#: libpam/pam_item.c:302
+#: libpam/pam_item.c:294
 msgid "login:"
 msgstr "প্ৰৱেশ:"
 
@@ -167,178 +168,146 @@ msgid "Unknown PAM error"
 msgstr "অজ্ঞাত PAM ভুল"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "নতুন %s%s গুপ্তশব্দ: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "নতুন %s%s গুপ্তশব্দ পুনঃ লিখক: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "ক্ষমা কৰিব, গুপ্তশব্দৰ অমিল "
 
-#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:432
 msgid "is the same as the old one"
 msgstr "পুৰণিটোৰ সৈতে একেই"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:445
 msgid "is a palindrome"
 msgstr "এটা অনুলোম‌-বিলোম বাক্য"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:448
 msgid "case changes only"
 msgstr "অকল কেচ সলনি কৰা"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:451
 msgid "is too similar to the old one"
 msgstr "পৰণিটোৰ সৈতে বহুত একেই"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:454
 msgid "is too simple"
 msgstr "বৰ সৰল"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:457
 msgid "is rotated"
-msgstr "পকোৱা"
+msgstr "পকোৱা হৈছে"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
-msgstr ""
+msgstr "পৰ্যাপ্ত character classes নাই"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
-msgid "contains too many same characters consecutively"
-msgstr ""
+#: modules/pam_cracklib/pam_cracklib.c:498
+msgid "has been already used"
+msgstr "ইতিমধ্যে ব্যৱহাৰ হৈছে"
 
-#: modules/pam_cracklib/pam_cracklib.c:534
-msgid "contains the user name in some form"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "কোনো গুপ্তশব্দ দিয়া হোৱা নাই"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "গুপ্ত শব্দ অপৰিবৰ্ত্তিত"
 
-#: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:549
+#: modules/pam_cracklib/pam_cracklib.c:672
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "বেয়া গুপ্তশব্দ: %s"
 
-#: modules/pam_exec/pam_exec.c:142 modules/pam_unix/pam_unix_auth.c:159
-#: modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "গুপ্তশব্দ:"
-
-#: modules/pam_exec/pam_exec.c:215
+#: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s বিফল: প্ৰস্থানৰ কোড %d"
 
-#: modules/pam_exec/pam_exec.c:224
+#: modules/pam_exec/pam_exec.c:143
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s বিফল: %d%s সঙ্কেত ধৰা গ'ল"
 
-#: modules/pam_exec/pam_exec.c:233
+#: modules/pam_exec/pam_exec.c:152
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s বিফল: অজ্ঞাত অৱস্থা 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:429
+#: modules/pam_lastlog/pam_lastlog.c:190
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
+#: modules/pam_lastlog/pam_lastlog.c:199
 #, c-format
 msgid " from %.*s"
 msgstr " %.*s ৰ পৰা"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
+#: modules/pam_lastlog/pam_lastlog.c:211
 #, c-format
 msgid " on %.*s"
 msgstr " %.*s ত"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:232
+#: modules/pam_lastlog/pam_lastlog.c:220
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "শেহতীয়া প্ৰৱেশ:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:238
+#: modules/pam_lastlog/pam_lastlog.c:226
 msgid "Welcome to your new account!"
 msgstr "আপোনাৰ নতুন হিচাপলৈ স্বাগতম!"
-
-#. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
-msgid "Last failed login:%s%s%s"
-msgstr "শেহতীয়া প্ৰৱেশ:%s%s%s"
-
-#: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
-#, c-format
-msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-msgstr[1] ""
-
-#. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:481
-#, c-format
-msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "'%s' ৰ বাবে বহুতো প্ৰৱেশ ।"
 
-#: modules/pam_mail/pam_mail.c:318
+#: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
 msgstr "কোনো ডাক নাই ।"
 
-#: modules/pam_mail/pam_mail.c:321
+#: modules/pam_mail/pam_mail.c:316
 msgid "You have new mail."
 msgstr "আপোনাৰ নতুন ডাক আহিছে ।"
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:319
 msgid "You have old mail."
 msgstr "আপেনাৰ ওচৰত পুৰণি ডাক আছে ।"
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:323
 msgid "You have mail."
 msgstr "আপোনাৰ ডাক আহিছে ।"
 
-#: modules/pam_mail/pam_mail.c:335
+#: modules/pam_mail/pam_mail.c:330
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "%s ফোল্ডাৰত আপোনাৰ কোনো ডাক নাই ।"
 
-#: modules/pam_mail/pam_mail.c:339
+#: modules/pam_mail/pam_mail.c:334
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "%s ফোল্ডাৰত আপোনাৰ নতুন ডাক আছে ।"
 
-#: modules/pam_mail/pam_mail.c:343
+#: modules/pam_mail/pam_mail.c:338
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "%s ফোলডাৰত আপোনাৰ পুৰণি ডাক আছে ।"
 
-#: modules/pam_mail/pam_mail.c:348
+#: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "%s ফোল্ডাৰত আপোনাৰ ডাক আছে ।"
@@ -346,73 +315,61 @@ msgstr "%s ফোল্ডাৰত আপোনাৰ ডাক আছে ।"
 #: modules/pam_mkhomedir/pam_mkhomedir.c:142
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "'%s' পঞ্জিকা সৃষ্টি কৰা হৈছে ।"
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:147
 #, c-format
 msgid "Unable to create directory %s: %m"
-msgstr ""
+msgstr "%s পঞ্জিকা সৃষ্টি কৰিব নোৱাৰি: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
-#, fuzzy
-msgid "Password change aborted."
-msgstr "গুপ্ত শব্দ অপৰিবৰ্ত্তিত"
-
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "গুপ্তশব্দ ইতিমধ্যে ব্যৱহৃত । অন্য এটা বাচি লওক ।"
-
-#: modules/pam_selinux/pam_selinux.c:172
-#, fuzzy
+#: modules/pam_selinux/pam_selinux.c:164
 msgid "Would you like to enter a security context? [N] "
-msgstr "সুৰক্ষাৰ সন্দৰ্ভ নিবেশ কৰিব খোজে নেকি? [y] "
+msgstr "সুৰক্ষাৰ সন্দৰ্ভ নিবেশ কৰিব খোজে নেকি ? [N] "
 
-#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
+#: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
 msgid "role:"
 msgstr "ভূমিকা: "
 
-#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
-#, fuzzy
+#: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
 msgid "level:"
 msgstr "স্তৰ: "
 
-#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
+#: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
 msgstr "এটা বৈধ সুৰক্ষাৰ সন্দৰ্ভ নহয়"
 
-#: modules/pam_selinux/pam_selinux.c:265
-#, fuzzy, c-format
+#: modules/pam_selinux/pam_selinux.c:251
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "সুৰক্ষাৰ সন্দৰ্ভ %s নিযুক্ত কৰা হ'ল"
+msgstr "অবিকল্পিত সুৰক্ষাৰ সন্দৰ্ভ %s\n"
+
+#: modules/pam_selinux/pam_selinux.c:255
+msgid "Would you like to enter a different role or level?"
+msgstr "বেলেগ এটা সুৰক্ষাৰ ভূমিকা বা স্তৰ নিবেশ কৰিব খোজে নেকি ?"
 
 #: modules/pam_selinux/pam_selinux.c:269
-#, fuzzy
-msgid "Would you like to enter a different role or level?"
-msgstr "সুৰক্ষাৰ সন্দৰ্ভ নিবেশ কৰিব খোজে নেকি? [y] "
-
-#: modules/pam_selinux/pam_selinux.c:285
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "%s ভূমিকা বাবে অবিকল্পিত ধৰণ নাই\n"
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "%s ৰ বাবে বৈধ সন্দৰ্ভ পোৱা ন'গ'ল"
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:578
+msgid "Requested MLS level not in permitted range"
+msgstr "অনুৰোধ কৰা MLS স্তৰ অনুমতি থকা সীমাত নাই"
+
+#: modules/pam_selinux/pam_selinux.c:628
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "সুৰক্ষাৰ সন্দৰ্ভ %s নিযুক্ত কৰা হ'ল"
 
-#: modules/pam_selinux/pam_selinux.c:733
-#, fuzzy, c-format
+#: modules/pam_selinux/pam_selinux.c:649
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "সুৰক্ষাৰ সন্দৰ্ভ %s নিযুক্ত কৰা হ'ল"
+msgstr "চাবি নিৰ্মাণৰ সন্দৰ্ভ %s নিযুক্ত কৰা হ'ল"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -430,9 +387,9 @@ msgid "login: failure forking: %m"
 msgstr "প্ৰৱেশ: forking ত বিফল: %m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "STRESS গুপ্তশব্দ সলনি কৰা হৈছে"
+msgstr "%s ৰ বাবে STRESS গুপ্তশব্দ সলনি কৰা হৈছে ।"
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -446,67 +403,55 @@ msgstr "নতুন STRESS গুপ্তশব্দ পুনঃ লিখ�
 msgid "Verification mis-typed; password unchanged"
 msgstr "সত্যৰ প্ৰতিপাদন ভুলকৈ লিখা গ'ল;গুপ্তশব্দ অপৰিবৰ্ত্তিত"
 
-#: modules/pam_tally/pam_tally.c:541
-#, c-format
-msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:566
-#, c-format
-msgid "Account locked due to %u failed logins"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:777
+#: modules/pam_tally/pam_tally.c:746
 msgid "Authentication error"
 msgstr "প্ৰমাণীকৰণত ভুল"
 
-#: modules/pam_tally/pam_tally.c:778
+#: modules/pam_tally/pam_tally.c:747
 msgid "Service error"
 msgstr "সেৱাৰ ভুল"
 
-#: modules/pam_tally/pam_tally.c:779
+#: modules/pam_tally/pam_tally.c:748
 msgid "Unknown user"
 msgstr "অজ্ঞাত ব্যৱহাৰকৰোঁতা"
 
-#: modules/pam_tally/pam_tally.c:780
+#: modules/pam_tally/pam_tally.c:749
 msgid "Unknown error"
 msgstr "অজ্ঞাত ভুল"
 
-#: modules/pam_tally/pam_tally.c:796
+#: modules/pam_tally/pam_tally.c:765
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: --reset= লৈ বেয়া সংখ্যা দিয়া গৈছে\n"
 
-#: modules/pam_tally/pam_tally.c:800
+#: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: অপৰিচিত বিকল্প %s\n"
 
-#: modules/pam_tally/pam_tally.c:812
+#: modules/pam_tally/pam_tally.c:781
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:886
+#: modules/pam_tally/pam_tally.c:855
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: সকলো ব্যৱহাৰকৰোঁতাক শূণ্য নোহোৱা অৱস্থালৈ পুনঃ প্ৰতিষ্ঠা কৰিব নোৱাৰি\n"
 
-#: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
 msgid "Your account has expired; please contact your system administrator"
 msgstr "আপোনাৰ হিচাপ অন্ত হ'ল; অনুগ্ৰহ কৰি আপোনাৰ ব্যৱাস্থাপ্ৰণালীৰ "
 
-#: modules/pam_unix/pam_unix_acct.c:236
+#: modules/pam_unix/pam_unix_acct.c:237
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "আপুনি আপোনাৰ গুপ্তশব্দ সলনি কৰাটো প্ৰয়োজনীয় হৈ পৰিছে (ৰূটৰ দ্বাৰা বলবৎ)"
 
-#: modules/pam_unix/pam_unix_acct.c:242
+#: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (password aged)"
 msgstr "আপুনি আপোনাৰ গুপ্তশব্দ সলনি কৰাটো প্ৰয়োজনীয় হৈ পৰিছে (গুপ্তশব্দ পুৰণি হ'ল)"
 
-#: modules/pam_unix/pam_unix_acct.c:260 modules/pam_unix/pam_unix_acct.c:267
+#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -514,10 +459,14 @@ msgstr[0] "সকীয়নী: আপোনাৰ গুপ্তশব্দ %d
 msgstr[1] "সকীয়নী: আপোনাৰ গুপ্তশব্দ %d দিনত অন্ত হ'ব"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:272
+#: modules/pam_unix/pam_unix_acct.c:273
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "সকীয়নী: আপোনাৰ গুপ্তশব্দ %d দিনত অন্ত হ'ব"
+
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
+msgid "Password: "
+msgstr "গুপ্তশব্দ:"
 
 #: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
@@ -527,10 +476,14 @@ msgstr "NIS গুপ্তশব্দ সলনি কৰিব পৰা ন�
 msgid "You must choose a longer password"
 msgstr "আপুনি ইয়াতকৈ এটা দীঘল গুপ্তশব্দ নিৰ্ব্বাচন কৰিব লাগিব"
 
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "গুপ্তশব্দ ইতিমধ্যে ব্যৱহৃত । অন্য এটা বাচি লওক ।"
+
 #: modules/pam_unix/pam_unix_passwd.c:571
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "STRESS গুপ্তশব্দ সলনি কৰা হৈছে"
+msgstr "%s ৰ বাবে গুপ্তশব্দ সলনি কৰা হৈছে ।"
 
 #: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
@@ -548,22 +501,3 @@ msgstr "নতুন UNIX গুপ্তশব্দ দিয়ক: "
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX গুপ্তশব্দ পুনঃ লিখক: "
 
-#~ msgid "has been already used"
-#~ msgstr "ইতিমধ্যে ব্যৱহাৰ হৈছে"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "গুপ্তশব্দ ইতিমধ্যে ব্যৱহৃত । অন্য এটা বাচি লওক ।"
-
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "আপোনাৰ অবিকল্পিত সন্দৰ্ভ হ'ল %s. \n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "অন্য এটা নিৰ্ব্বাচন কৰিব খোজে নেকি? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "পছন্দৰ সংখ্যা দিয়ক: "
-
-#~ msgid "type: "
-#~ msgstr "ধৰণ: "

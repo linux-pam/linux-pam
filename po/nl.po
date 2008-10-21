@@ -10,13 +10,12 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-10-13 21:53+0200\n"
-"PO-Revision-Date: 2008-02-22 23:33+0100\n"
+"PO-Revision-Date: 2008-10-20 23:45+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: libpam_misc/misc_conv.c:33
@@ -30,7 +29,7 @@ msgstr "...Sorry, uw tijd is verlopen!\n"
 #: libpam_misc/misc_conv.c:342
 #, c-format
 msgid "erroneous conversation (%d)\n"
-msgstr "foute conversatie (%d)\n"
+msgstr "foutieve conversatie (%d)\n"
 
 #: libpam/pam_item.c:302
 msgid "login:"
@@ -211,15 +210,15 @@ msgstr "is omgedraaid"
 
 #: modules/pam_cracklib/pam_cracklib.c:528
 msgid "not enough character classes"
-msgstr ""
+msgstr "niet genoeg tekenklassen"
 
 #: modules/pam_cracklib/pam_cracklib.c:531
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "bevat teveel dezelfde opeenvolgende tekens"
 
 #: modules/pam_cracklib/pam_cracklib.c:534
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "bevat de gebruikersnaam in een of andere vorm"
 
 #: modules/pam_cracklib/pam_cracklib.c:564
 #: modules/pam_unix/pam_unix_passwd.c:449
@@ -278,7 +277,7 @@ msgstr " op %.*s"
 #: modules/pam_lastlog/pam_lastlog.c:232
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr "Laatste keer aangemeld:%s%s%s"
+msgstr "Laatste aanmelding:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:238
 msgid "Welcome to your new account!"
@@ -286,9 +285,9 @@ msgstr "Welkom bij uw nieuwe account!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "Laatste keer aangemeld:%s%s%s"
+msgstr "Laatste mislukte aanmelding:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
@@ -296,13 +295,18 @@ msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
 msgstr[0] ""
+"Er was %d mislukte aanmeldpoging sinds de laatste succesvolle aanmelding."
 msgstr[1] ""
+"Er waren %d mislukte aanmeldpogingen sinds de laatste successvolle "
+"aanmelding."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
+"Er waren %d mislukte aanmeldpogingen sinds de laatste successvolle "
+"aanmelding."
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
@@ -357,9 +361,8 @@ msgstr "Niet in staat om map %s aan te maken: %m"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
 #: modules/pam_pwhistory/pam_pwhistory.c:258
-#, fuzzy
 msgid "Password change aborted."
-msgstr "Wachtwoord is niet gewijzigd"
+msgstr "Wachtwoord wijzigen afgebroken."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:235
 #: modules/pam_pwhistory/pam_pwhistory.c:295
@@ -415,7 +418,7 @@ msgstr "Sleutel aanmaakcontext %s toegewezen"
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
-msgstr "Initialiseren van PAM is mislukt\n"
+msgstr "initialiseren van PAM is mislukt\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:105
 #, c-format
@@ -447,12 +450,12 @@ msgstr "Verificatie onjuist getypt; wachtwoord blijft ongewijzigd"
 #: modules/pam_tally/pam_tally.c:541
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "Account tijdelijk vergrendeld (%ld seconden resterend)"
 
 #: modules/pam_tally/pam_tally.c:566
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "Account vergrendeld wegens %u mislukte aanmeldingen"
 
 #: modules/pam_tally/pam_tally.c:777
 msgid "Authentication error"
