@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip.or\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-13 21:53+0200\n"
+"POT-Creation-Date: 2008-04-03 14:13+0200\n"
 "PO-Revision-Date: 2008-09-30 11:42+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya\n"
@@ -34,7 +34,7 @@ msgstr "...କ୍ଷମା କରିବେ, ଆପଣଙ୍କ ସମୟ ସମ�
 msgid "erroneous conversation (%d)\n"
 msgstr "ତୃଟିପୂର୍ଣ୍ଣ କଥୋପକଥନ (%d)\n"
 
-#: libpam/pam_item.c:302
+#: libpam/pam_item.c:294
 msgid "login:"
 msgstr "ଲଗଇନ:"
 
@@ -171,178 +171,146 @@ msgid "Unknown PAM error"
 msgstr "ଅଜଣା PAM ତୃଟି"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
 #, c-format
 msgid "New %s%spassword: "
 msgstr "ନୂତନ %s%s ପ୍ରବେଶ ସଙ୍କେତ: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "ନୂତନ %s%s ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
 msgid "Sorry, passwords do not match."
 msgstr "କ୍ଷମା କରିବେ, ପ୍ରବେଶ ସଙ୍କେତ ମିଶୁ ନାହିଁ।"
 
-#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:432
 msgid "is the same as the old one"
 msgstr "ପୁରୁଣା ପ୍ରବେଶ ସଙ୍କେତ ସହିତ ଏହା ସମାନ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:445
 msgid "is a palindrome"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ଗୋଟିଏ ପାଲିନଡ୍ରୋମ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:448
 msgid "case changes only"
 msgstr "କେବଳ ଅକ୍ଷର ପ୍ରକାର ପରିବର୍ତ୍ତିତ ହୋଇଥାଏ"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:451
 msgid "is too similar to the old one"
 msgstr "ଏହା ପୂର୍ବ ପ୍ରବେଶ ସଙ୍କେତ ସହିତ ବହୁତ ସମାନ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:454
 msgid "is too simple"
 msgstr "ଏହା ଅତି ସହଜ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:457
 msgid "is rotated"
 msgstr "ଏହା ଘୂର୍ଣ୍ଣୟମାନ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:460
 msgid "not enough character classes"
 msgstr "ଯଥେଷ୍ଟ ବର୍ଣ୍ଣ ଶ୍ରେଣୀ ନାହିଁ"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
-msgid "contains too many same characters consecutively"
-msgstr ""
+#: modules/pam_cracklib/pam_cracklib.c:498
+msgid "has been already used"
+msgstr "ଏହାକୁ ପୂର୍ବରୁ ବ୍ଯବହାର କରାଯାଇଛି"
 
-#: modules/pam_cracklib/pam_cracklib.c:534
-msgid "contains the user name in some form"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "କୌଣସି ପ୍ରବେଶ ସଙ୍କେତ ପ୍ରଦାନ କରାଯାଇ ନାହିଁ"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:526
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଅପରିବର୍ତ୍ତିତ ଅଛି"
 
-#: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:549
+#: modules/pam_cracklib/pam_cracklib.c:672
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ଖରାପ ପ୍ରବେଶ ସଙ୍କେତ: %s"
 
-#: modules/pam_exec/pam_exec.c:142 modules/pam_unix/pam_unix_auth.c:159
-#: modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "ପ୍ରବେଶ ସଙ୍କେତ: "
-
-#: modules/pam_exec/pam_exec.c:215
+#: modules/pam_exec/pam_exec.c:134
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s ବିଫଳ: %d ସଙ୍କେତରୁ ପ୍ରସ୍ଥାନ କରୁଅଛି"
 
-#: modules/pam_exec/pam_exec.c:224
+#: modules/pam_exec/pam_exec.c:143
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s ବିଫଳ: %d%s ସଙ୍କେତ ପାଇଲା"
 
-#: modules/pam_exec/pam_exec.c:233
+#: modules/pam_exec/pam_exec.c:152
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s ବିଫଳ: ଅଜଣା ଅବସ୍ଥିତି 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:429
+#: modules/pam_lastlog/pam_lastlog.c:190
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
+#: modules/pam_lastlog/pam_lastlog.c:199
 #, c-format
 msgid " from %.*s"
 msgstr " %.*s ରୁ"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
+#: modules/pam_lastlog/pam_lastlog.c:211
 #, c-format
 msgid " on %.*s"
 msgstr " %.*s ରେ"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:232
+#: modules/pam_lastlog/pam_lastlog.c:220
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "ଅନ୍ତିମ ଲଗଇନ:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:238
+#: modules/pam_lastlog/pam_lastlog.c:226
 msgid "Welcome to your new account!"
 msgstr "ଆପଣଙ୍କ ନୂତନ ଖାତାରେ ଆପଣଙ୍କ ସ୍ବାଗତ!"
-
-#. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
-msgid "Last failed login:%s%s%s"
-msgstr "ଅନ୍ତିମ ଲଗଇନ:%s%s%s"
-
-#: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
-#, c-format
-msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-msgstr[1] ""
-
-#. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:481
-#, c-format
-msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
 
 #: modules/pam_limits/pam_limits.c:712
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "'%s' ପାଇଁ ଅତ୍ଯଧିକ ସଂଖ୍ଯକ ଲଗଇନ।"
 
-#: modules/pam_mail/pam_mail.c:318
+#: modules/pam_mail/pam_mail.c:313
 msgid "No mail."
 msgstr "କୌଣସି ଚିଠି ନାହିଁ।"
 
-#: modules/pam_mail/pam_mail.c:321
+#: modules/pam_mail/pam_mail.c:316
 msgid "You have new mail."
 msgstr "ଆପଣଙ୍କ ପାଇଁ ଗୋଟିଏ ନୂଆ ଚିଠି ଆସିଛି।"
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:319
 msgid "You have old mail."
 msgstr "ଆପଣଙ୍କ ନିକଟରେ ଗୋଟିଏ ପୁରୁଣା ଚିଠି ଅଛି।"
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:323
 msgid "You have mail."
 msgstr "ଆପଣଙ୍କ ନିକଟରେ ଚିଠି ଅଛି।"
 
-#: modules/pam_mail/pam_mail.c:335
+#: modules/pam_mail/pam_mail.c:330
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "ଆପଣଙ୍କ ନିକଟରେ %s ଫୋଲଡରରେ କୌଣସି ଚିଠି ନାହିଁ।"
 
-#: modules/pam_mail/pam_mail.c:339
+#: modules/pam_mail/pam_mail.c:334
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "ଆପଣଙ୍କ ନିକଟରେ %s ଫୋଲଡରରେ ନୂଆ ଚିଠି ଅଛି।"
 
-#: modules/pam_mail/pam_mail.c:343
+#: modules/pam_mail/pam_mail.c:338
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "ଆପଣଙ୍କ ନିକଟରେ %s ଫୋଲଡରରେ ପୁରୁଣା ଚିଠି ଅଛି।"
 
-#: modules/pam_mail/pam_mail.c:348
+#: modules/pam_mail/pam_mail.c:343
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "ଆପଣଙ୍କ ନିକଟରେ %s ଫୋଲଡରରେ ଚିଠି ଅଛି।"
@@ -357,59 +325,51 @@ msgstr "ଡ଼ିରେକ୍ଟୋରୀ '%s' ନିର୍ମାଣ କରୁ�
 msgid "Unable to create directory %s: %m"
 msgstr "ଡ଼ିରେକ୍ଟୋରୀ '%s' ନିର୍ମାଣ କରିବାରେ ଅସମର୍ଥ: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
-#, fuzzy
-msgid "Password change aborted."
-msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଅପରିବର୍ତ୍ତିତ ଅଛି"
-
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
-#: modules/pam_unix/pam_unix_passwd.c:470
-msgid "Password has been already used. Choose another."
-msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ପୂର୍ବରୁ ବ୍ଯବହୃତ ହେଉଛି। ଅନ୍ଯ ଗୋଟିଏ ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରନ୍ତୁ।"
-
-#: modules/pam_selinux/pam_selinux.c:172
+#: modules/pam_selinux/pam_selinux.c:164
 msgid "Would you like to enter a security context? [N] "
 msgstr "ଆପଣ ଗୋଟିଏ ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ଭରଣ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି? [N]"
 
-#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:181 modules/pam_selinux/pam_selinux.c:265
 msgid "role:"
 msgstr "ଭୂମିକା:"
 
-#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
+#: modules/pam_selinux/pam_selinux.c:193 modules/pam_selinux/pam_selinux.c:282
 msgid "level:"
 msgstr "ସ୍ତର:"
 
-#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
+#: modules/pam_selinux/pam_selinux.c:206 modules/pam_selinux/pam_selinux.c:313
 msgid "Not a valid security context"
 msgstr "ଏହା ଗୋଟିଏ ବୈଧ ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ନୁହେଁ"
 
-#: modules/pam_selinux/pam_selinux.c:265
+#: modules/pam_selinux/pam_selinux.c:251
 #, c-format
 msgid "Default Security Context %s\n"
 msgstr "ପୂର୍ବନିର୍ଦ୍ଧାରିତ ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:269
+#: modules/pam_selinux/pam_selinux.c:255
 msgid "Would you like to enter a different role or level?"
 msgstr "ଆପଣ ଭିନ୍ନ ଏକ ଭୂମିକା କିମ୍ବା ସ୍ତର ଭରଣ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
-#: modules/pam_selinux/pam_selinux.c:285
+#: modules/pam_selinux/pam_selinux.c:269
 #, c-format
 msgid "No default type for role %s\n"
 msgstr "ଭୂମିକା %s ପାଇଁ କୌଣସି ପୂର୍ବନିର୍ଦ୍ଧାରିତ ପ୍ରକାର ନାହିଁ \n"
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:522
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "%s ପାଇଁ ବୈଧ ପ୍ରସଙ୍ଗ ପାଇବାରେ ଅସମର୍ଥ"
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:578
+msgid "Requested MLS level not in permitted range"
+msgstr "ଅନୁରୋଧିତ MSL ସ୍ତର ଅନୁମୋଦିତ ପରିସର ମଧ୍ଯରେ ନାହିଁ"
+
+#: modules/pam_selinux/pam_selinux.c:628
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "%s ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ନ୍ଯସ୍ତ କରାଯାଇଛି"
 
-#: modules/pam_selinux/pam_selinux.c:733
+#: modules/pam_selinux/pam_selinux.c:649
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "କି ନିର୍ମାଣ୍ଣ ପ୍ରସଙ୍ଗ %s ନ୍ଯସ୍ତ କରାଯାଇଛି"
@@ -446,68 +406,55 @@ msgstr "ନୂତନ STRESS ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁ�
 msgid "Verification mis-typed; password unchanged"
 msgstr "ଯାଞ୍ଚକରଣ ସମୟରେ ଭୂଲ ଟାଇପ କରିଛନ୍ତି, ପ୍ରବେଶ ସଙ୍କେତଟି ବଦଳି ନାହିଁ"
 
-#: modules/pam_tally/pam_tally.c:541
-#, c-format
-msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:566
-#, c-format
-msgid "Account locked due to %u failed logins"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:777
+#: modules/pam_tally/pam_tally.c:746
 msgid "Authentication error"
 msgstr "ବୈଧିକରଣ ତୃଟି"
 
-#: modules/pam_tally/pam_tally.c:778
+#: modules/pam_tally/pam_tally.c:747
 msgid "Service error"
 msgstr "ସେବା ତୃଟି"
 
-#: modules/pam_tally/pam_tally.c:779
+#: modules/pam_tally/pam_tally.c:748
 msgid "Unknown user"
 msgstr "ଅଜଣା ଚାଳକ"
 
-#: modules/pam_tally/pam_tally.c:780
+#: modules/pam_tally/pam_tally.c:749
 msgid "Unknown error"
 msgstr "ଅଜଣା ତୃଟି"
 
-#: modules/pam_tally/pam_tally.c:796
+#: modules/pam_tally/pam_tally.c:765
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: --reset= ପାଇଁ ଖରାପ ସଂଖ୍ଯା ଦିଆଯାଇଛି\n"
 
-#: modules/pam_tally/pam_tally.c:800
+#: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: ଅଚିହ୍ନିତ ବିକଳ୍ପ %s\n"
 
-#: modules/pam_tally/pam_tally.c:812
+#: modules/pam_tally/pam_tally.c:781
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:886
+#: modules/pam_tally/pam_tally.c:855
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: ସମସ୍ତ ଚାଳକ ମାନଙ୍କୁ ଶୂନ୍ଯ ବିହୀନ ଭାବରେ ପୁନର୍ବାର ବିନ୍ଯାସ କରିପାରିବ ନାହିଁ\n"
 
-#: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
 msgid "Your account has expired; please contact your system administrator"
 msgstr "ଆପଣଙ୍କର ଖାତା ଅଚଳ ହୋଇଯାଇଛି; ଦୟାକରି ଆପଣଙ୍କ ତନ୍ତ୍ର ପ୍ରଶାସକଙ୍କ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ"
 
-#: modules/pam_unix/pam_unix_acct.c:236
+#: modules/pam_unix/pam_unix_acct.c:237
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ରୁଟ ହେବା ବାଧ୍ଯତାମୂଳକ)"
 
-#: modules/pam_unix/pam_unix_acct.c:242
+#: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
-"ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ପ୍ରବେଶ ସଙ୍କେତ ବହୁତ ପୁରୁଣା ହୋଇଯାଇଛି)"
+msgstr "ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ପ୍ରବେଶ ସଙ୍କେତ ବହୁତ ପୁରୁଣା ହୋଇଯାଇଛି)"
 
-#: modules/pam_unix/pam_unix_acct.c:260 modules/pam_unix/pam_unix_acct.c:267
+#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -515,10 +462,14 @@ msgstr[0] "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ�
 msgstr[1] "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:272
+#: modules/pam_unix/pam_unix_acct.c:273
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ"
+
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:61
+msgid "Password: "
+msgstr "ପ୍ରବେଶ ସଙ୍କେତ: "
 
 #: modules/pam_unix/pam_unix_passwd.c:359
 msgid "NIS password could not be changed."
@@ -527,6 +478,10 @@ msgstr "NIS ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇ ହେ�
 #: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
 msgstr "ଆପଣ ଗୋଟିଏ ଲମ୍ବା ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରିବା ଉଚିତ"
+
+#: modules/pam_unix/pam_unix_passwd.c:470
+msgid "Password has been already used. Choose another."
+msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ପୂର୍ବରୁ ବ୍ଯବହୃତ ହେଉଛି। ଅନ୍ଯ ଗୋଟିଏ ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରନ୍ତୁ।"
 
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
@@ -549,12 +504,3 @@ msgstr "ନୂତନ UNIX ପ୍ରବେଶ ସଙ୍କେତ ଭରଣ କର
 msgid "Retype new UNIX password: "
 msgstr "ନୂତନ UNIX ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ: "
 
-#~ msgid "has been already used"
-#~ msgstr "ଏହାକୁ ପୂର୍ବରୁ ବ୍ଯବହାର କରାଯାଇଛି"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ପୂର୍ବରୁ ବ୍ଯବହୃତ ହେଉଛି। ଅନ୍ଯ ଗୋଟିଏ ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରନ୍ତୁ।"
-
-#~ msgid "Requested MLS level not in permitted range"
-#~ msgstr "ଅନୁରୋଧିତ MSL ସ୍ତର ଅନୁମୋଦିତ ପରିସର ମଧ୍ଯରେ ନାହିଁ"

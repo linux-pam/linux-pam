@@ -1,3 +1,16 @@
+2008-10-23  Taylon Silmer Lacerda Silva <taylonsilva@gmail.com>
+
+	* po/pt_BR.po: Updated translations.
+
+2008-10-23  Krishna Babu K <kkrothap@redhat.com>
+
+	* po/LINGUAS: New language.
+	* po/te.po: New translation to Telugu.
+
+2008-10-23  Manoj Kumar Giri <mgiri@redhat.com>
+
+	* po/or.po: Updated translations.
+
 2008-10-21  Amitakhya Phukan <aphukan@redhat.com>
 
 	* po/as.po: Updated translations.
