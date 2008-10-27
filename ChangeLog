@@ -1,3 +1,11 @@
+2008-10-27  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/pam_setcred.3.xml: Document when credentials
+	should be deleted.
+	* po/ja.po: Fix syntax error.
+	* po/de.po: Update translations.
+	* po/*.po: Regenerate with pam_tally2 added.
+
 2008-10-23  Taylon Silmer Lacerda Silva <taylonsilva@gmail.com>
 
 	* po/pt_BR.po: Updated translations.

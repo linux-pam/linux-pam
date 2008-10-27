@@ -35,10 +35,14 @@
     <para>
       The <function>pam_setcred</function> function is used to establish,
       maintain and delete the credentials of a user. It should be called
-      after a user has been authenticated and before a session is opened
-      for the user (with
+      to set the credentials after a user has been authenticated and before
+      a session is opened for the user (with
       <citerefentry>
         <refentrytitle>pam_open_session</refentrytitle><manvolnum>3</manvolnum>
+       </citerefentry>). The credentials should be deleted after the sesseion
+      has been closed (with
+      <citerefentry>
+        <refentrytitle>pam_close_session</refentrytitle><manvolnum>3</manvolnum>
        </citerefentry>).
      </para>
 
@@ -164,6 +168,9 @@
       </citerefentry>,
       <citerefentry>
          <refentrytitle>pam_open_session</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+         <refentrytitle>pam_close_session</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>,
       <citerefentry>
         <refentrytitle>pam_strerror</refentrytitle><manvolnum>3</manvolnum>
