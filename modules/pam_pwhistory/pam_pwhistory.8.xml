@@ -33,6 +33,9 @@
       <arg choice="opt">
         retry=<replaceable>N</replaceable>
       </arg>
+      <arg choice="opt">
+        type=<replaceable>STRING</replaceable>
+      </arg>
 
     </cmdsynopsis>
   </refsynopsisdiv>
@@ -115,6 +118,21 @@
               Prompt user at most <replaceable>N</replaceable> times
               before returning with error. The default is
               <emphasis>1</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>type=<replaceable>STRING</replaceable></option>
+          </term>
+          <listitem>
+            <para>
+              The default action is for the module to use the
+              following prompts when requesting passwords:
+              "New UNIX password: " and "Retype UNIX password: ".
+              The default word <emphasis>UNIX</emphasis> can
+              be replaced with this option.
             </para>
           </listitem>
         </varlistentry>

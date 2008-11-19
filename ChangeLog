@@ -1,3 +1,11 @@
+2008-11-19  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_pwhistory/pam_pwhistory.c (pam_sm_chauthtok): Finish
+	implementation of type=STRING option.
+
+	* modules/pam_pwhistory/pam_pwhistory.8.xml: Document
+	"type=STRING" option.
+
 2008-10-27  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam_setcred.3.xml: Document when credentials

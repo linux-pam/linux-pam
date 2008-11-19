@@ -58,7 +58,9 @@
 
 #include "opasswd.h"
 
+/* For Translators: "%s%s" could be replaced with "<service> " or "". */
 #define NEW_PASSWORD_PROMPT _("New %s%spassword: ")
+/* For Translators: "%s%s" could be replaced with "<service> " or "". */
 #define AGAIN_PASSWORD_PROMPT _("Retype new %s%spassword: ")
 #define MISTYPED_PASSWORD _("Sorry, passwords do not match.")
 
@@ -70,6 +72,7 @@ struct options_t {
   int enforce_for_root;
   int remember;
   int tries;
+  const char *prompt_type;
 };
 typedef struct options_t options_t;
 
@@ -101,6 +104,8 @@ parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
     }
   else if (strcasecmp (argv, "enforce_for_root") == 0)
     options->enforce_for_root = 1;
+  else if (strncasecmp (argv, "type=", 5) == 0)
+    options->prompt_type = &argv[5];
   else
     pam_syslog (pamh, LOG_ERR, "pam_pwhistory: unknown option: %s", argv);
 }
@@ -121,6 +126,7 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
   /* Set some default values, which could be overwritten later.  */
   options.remember = 10;
   options.tries = 1;
+  options.prompt_type = "UNIX";
 
   /* Parse parameters for module */
   for ( ; argc-- > 0; argv++)
@@ -209,7 +215,8 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
       while ((newpass == NULL) && (tries++ < options.tries))
 	{
 	  retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &newpass,
-			       NEW_PASSWORD_PROMPT, "UNIX", " ");
+			       NEW_PASSWORD_PROMPT, options.prompt_type,
+			       strlen (options.prompt_type) > 0?" ":"");
 	  if (retval != PAM_SUCCESS)
 	    {
 	      _pam_drop (newpass);
@@ -249,7 +256,9 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	      char *new2;
 
 	      retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &new2,
-				   AGAIN_PASSWORD_PROMPT, "UNIX", " ");
+				   AGAIN_PASSWORD_PROMPT,
+				   options.prompt_type,
+				   strlen (options.prompt_type) > 0?" ":"");
               if (retval != PAM_SUCCESS)
 		return retval;
 
