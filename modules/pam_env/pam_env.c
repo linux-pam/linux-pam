@@ -11,9 +11,6 @@
 #define DEFAULT_ETC_ENVFILE     "/etc/environment"
 #define DEFAULT_READ_ENVFILE    1
 
-#define DEFAULT_USER_ENVFILE    ".environment"
-#define DEFAULT_USER_READ_ENVFILE 1
-
 #include "config.h"
 
 #include <ctype.h>
@@ -78,19 +75,16 @@ static char quote='Z';
 /* argument parsing */
 
 #define PAM_DEBUG_ARG       0x01
+#define PAM_NEW_CONF_FILE   0x02
+#define PAM_ENV_SILENT      0x04
+#define PAM_NEW_ENV_FILE    0x10
 
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
-	    char **conffile, char **envfile, int *readenv,
-	    char **user_envfile, int *user_readenv)
+	    const char **conffile, const char **envfile, int *readenv)
 {
     int ctrl=0;
 
-    *user_envfile = strdup (DEFAULT_USER_ENVFILE);
-    *envfile = strdup (DEFAULT_ETC_ENVFILE);
-    *readenv = DEFAULT_READ_ENVFILE;
-    *user_readenv = DEFAULT_USER_READ_ENVFILE;
-    *conffile = strdup (DEFAULT_CONF_FILE);
 
     /* step through arguments */
     for (; argc-- > 0; ++argv) {
@@ -100,54 +94,49 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	if (!strcmp(*argv,"debug"))
 	    ctrl |= PAM_DEBUG_ARG;
 	else if (!strncmp(*argv,"conffile=",9)) {
-	  if (*argv+9 == '\0') {
-	    pam_syslog(pamh, LOG_ERR,
-		       "conffile= specification missing argument - ignored");
-	  } else {
-	    free(*conffile);
-	    *conffile = x_strdup(9+*argv);
-	    D(("new Configuration File: %s", *conffile));
-	  }
+	    *conffile = 9 + *argv;
+	    if (**conffile != '\0') {
+		D(("new Configuration File: %s", *conffile));
+		ctrl |= PAM_NEW_CONF_FILE;
+	    } else {
+		pam_syslog(pamh, LOG_ERR,
+			 "conffile= specification missing argument - ignored");
+	    }
 	} else if (!strncmp(*argv,"envfile=",8)) {
-	  if (*argv+8 == '\0') {
-	    pam_syslog (pamh, LOG_ERR,
-			"envfile= specification missing argument - ignored");
-	  } else {
-	    free(*envfile);
-	    *envfile = x_strdup(8+*argv);
-	    D(("new Env File: %s", *envfile));
-	  }
-	} else if (!strncmp(*argv,"user_envfile=",13)) {
-	  if (*argv+13 == '\0') {
-	    pam_syslog (pamh, LOG_ERR,
-			"user_envfile= specification missing argument - ignored");
-	  } else {
-	    free(*user_envfile);
-	    *user_envfile = x_strdup(13+*argv);
-	    D(("new User Env File: %s", *user_env_file));
-	  }
+	    *envfile = 8 + *argv;
+	    if (**envfile != '\0') {
+		D(("new Env File: %s", *envfile));
+		ctrl |= PAM_NEW_ENV_FILE;
+	    } else {
+		pam_syslog (pamh, LOG_ERR,
+			 "envfile= specification missing argument - ignored");
+	    }
 	} else if (!strncmp(*argv,"readenv=",8))
-	  *readenv = atoi(8+*argv);
-	else if (!strncmp(*argv,"user_readenv=",13))
-	  *user_readenv = atoi(13+*argv);
+	    *readenv = atoi(8+*argv);
 	else
-	  pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
+	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
     }
 
     return ctrl;
 }
 
 static int
-_parse_config_file(pam_handle_t *pamh, char *file)
+_parse_config_file(pam_handle_t *pamh, int ctrl, const char *conffile)
 {
     int retval;
+    const char *file;
     char buffer[BUF_SIZE];
     FILE *conf;
     VAR Var, *var=&Var;
 
+    var->name=NULL; var->defval=NULL; var->override=NULL;
     D(("Called."));
 
-    var->name=NULL; var->defval=NULL; var->override=NULL;
+    if (ctrl & PAM_NEW_CONF_FILE) {
+	file = conffile;
+    } else {
+	file = DEFAULT_CONF_FILE;
+    }
 
     D(("Config file name is: %s", file));
 
@@ -195,11 +184,17 @@ _parse_config_file(pam_handle_t *pamh, char *file)
 }
 
 static int
-_parse_env_file(pam_handle_t *pamh, char *file)
+_parse_env_file(pam_handle_t *pamh, int ctrl, const char *env_file)
 {
     int retval=PAM_SUCCESS, i, t;
+    const char *file;
     char buffer[BUF_SIZE], *key, *mark;
     FILE *conf;
+
+    if (ctrl & PAM_NEW_ENV_FILE)
+	file = env_file;
+    else
+	file = DEFAULT_ETC_ENVFILE;
 
     D(("Env file name is: %s", file));
 
@@ -707,7 +702,7 @@ static int _define_var(pam_handle_t *pamh, VAR *var)
     pam_syslog(pamh, LOG_ERR, "out of memory");
     return PAM_BUF_ERR;
   }
-
+  
   retval = pam_putenv(pamh, envvar);
   _pam_drop(envvar);
   D(("Exit."));
@@ -756,60 +751,24 @@ pam_sm_setcred (pam_handle_t *pamh, int flags UNUSED,
 		int argc, const char **argv)
 {
   int retval, ctrl, readenv=DEFAULT_READ_ENVFILE;
-  int user_readenv = DEFAULT_USER_READ_ENVFILE;
-  char *conf_file = NULL, *env_file = NULL, *user_env_file = NULL;
-
+  const char *conf_file = NULL, *env_file = NULL;
 
   /*
    * this module sets environment variables read in from a file
    */
 
   D(("Called."));
-  ctrl = _pam_parse(pamh, argc, argv, &conf_file, &env_file,
-		    &readenv, &user_env_file, &user_readenv);
+  ctrl = _pam_parse(pamh, argc, argv, &conf_file, &env_file, &readenv);
 
-  retval = _parse_config_file(pamh, conf_file);
+  retval = _parse_config_file(pamh, ctrl, conf_file);
 
   if(readenv && retval == PAM_SUCCESS) {
-    retval = _parse_env_file(pamh, env_file);
+    retval = _parse_env_file(pamh, ctrl, env_file);
     if (retval == PAM_IGNORE)
       retval = PAM_SUCCESS;
   }
 
-  if(user_readenv && retval == PAM_SUCCESS) {
-    char *envpath = NULL;
-    struct passwd *user_entry;
-    const char *username;
-    struct stat statbuf;
-
-    username = _pam_get_item_byname(pamh, "PAM_USER");
-
-    user_entry = getpwnam(username);
-    if (!user_entry) {
-      pam_syslog(pamh, LOG_ERR, "No such user!?");
-    }
-    else {
-      if (asprintf(&envpath, "%s/%s", user_entry->pw_dir, user_env_file) < 0)
-	{
-	  pam_syslog(pamh, LOG_ERR, "Out of memory");
-	  free (conf_file);
-	  free (env_file);
-	  free (user_env_file);
-	  return PAM_BUF_ERR;
-	}
-      if (stat(envpath, &statbuf) == 0) {
-        retval = _parse_config_file(pamh, envpath);
-        if (retval == PAM_IGNORE)
-          retval = PAM_SUCCESS;
-      }
-      free(envpath);
-    }
-  }
-
   /* indicate success or failure */
-  free (conf_file);
-  free (env_file);
-  free (user_env_file);
 
   D(("Exit."));
   return retval;
@@ -827,9 +786,28 @@ PAM_EXTERN int
 pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
-  /* Function was identical to pam_sm_setcred, so call it instead */
-  D(("Called -- calling pam_sm_setcred instead..."));
-  return pam_sm_setcred(pamh, flags, argc, argv);
+  int retval, ctrl, readenv=DEFAULT_READ_ENVFILE;
+  const char *conf_file = NULL, *env_file = NULL;
+
+  /*
+   * this module sets environment variables read in from a file
+   */
+
+  D(("Called."));
+  ctrl = _pam_parse(pamh, argc, argv, &conf_file, &env_file, &readenv);
+
+  retval = _parse_config_file(pamh, ctrl, conf_file);
+
+  if(readenv && retval == PAM_SUCCESS) {
+    retval = _parse_env_file(pamh, ctrl, env_file);
+    if (retval == PAM_IGNORE)
+      retval = PAM_SUCCESS;
+  }
+
+  /* indicate success or failure */
+
+  D(("Exit."));
+  return retval;
 }
 
 PAM_EXTERN int
