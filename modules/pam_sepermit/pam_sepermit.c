@@ -231,7 +231,7 @@ sepermit_lock(pam_handle_t *pamh, const char *user, int debug)
 /* return 0 when matched, -1 when unmatched, pam error otherwise */
 static int
 sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
-	       const char *seuser, int debug)
+	       const char *seuser, int debug, int sense)
 {
 	FILE *f;
 	char *line = NULL;
@@ -278,6 +278,8 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 				}
 				break;
 			case '%':
+				if (seuser == NULL)
+					break;
 				++start;
 				if (debug)
 					pam_syslog(pamh, LOG_NOTICE, "Matching seuser %s against seuser %s", seuser, start);
@@ -304,8 +306,12 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 
 	free(line);
 	fclose(f);
-	if (matched) 
-		return (geteuid() == 0 && exclusive) ? sepermit_lock(pamh, user, debug) : 0;
+	if (matched) {
+		if (sense == PAM_SUCCESS && geteuid() == 0 && exclusive)
+			return sepermit_lock(pamh, user, debug);
+		else
+			return 0;
+	}
 	else
 		return -1;
 }
@@ -348,18 +354,18 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 				pam_syslog(pamh, LOG_NOTICE, "Enforcing mode, access will be allowed on match");
 			sense = PAM_SUCCESS;
 		}
+	}
 
-		if (getseuserbyname(user, &seuser, &level) != 0) {
-			seuser = NULL;
-			level = NULL;
-			pam_syslog(pamh, LOG_ERR, "getseuserbyname failed: %m");
-		}
+	if (getseuserbyname(user, &seuser, &level) != 0) {
+		seuser = NULL;
+		level = NULL;
+		pam_syslog(pamh, LOG_ERR, "getseuserbyname failed: %m");
 	}
 
 	if (debug && sense != PAM_SUCCESS)
 		pam_syslog(pamh, LOG_NOTICE, "Access will not be allowed on match");
 
-	rv = sepermit_match(pamh, cfgfile, user, seuser, debug);
+	rv = sepermit_match(pamh, cfgfile, user, seuser, debug, sense);
 
 	if (debug)
 		pam_syslog(pamh, LOG_NOTICE, "sepermit_match returned: %d", rv);

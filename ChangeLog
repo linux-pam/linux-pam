@@ -1,3 +1,11 @@
+2008-11-20  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_sepermit/pam_sepermit.c (sepermit_match): Do not
+	call sepermit_lock() if sense is deny. Do not crash on NULL seuser
+	match.
+	(pam_sm_authenticate): Try to call getseuserbyname() even if
+	SELinux is disabled.
+
 2008-11-19  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_xauth/pam_xauth.c (pam_sm_open_session):
