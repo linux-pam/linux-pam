@@ -1,3 +1,11 @@
+2008-11-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* xtests/Makefile.am: Add pam_time1 tests.
+	* xtests/tst-pam_time1.c: New test case.
+	* xtests/tst-pam_time1.pamd: New.
+	* xtests/time.conf: New.
+	* xtests/run-xtests.sh: Copy time.conf.
+
 2008-11-24  Tomas Mraz <t8m@centrum.cz>
 
 	* libpam/pam_handlers.c (_pam_parse_conf_file): '-' at

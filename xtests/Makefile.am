@@ -29,7 +29,8 @@ EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 	tst-pam_substack4.pamd tst-pam_substack4a.pamd tst-pam_substack4.sh \
 	tst-pam_substack5.pamd tst-pam_substack5a.pamd tst-pam_substack5.sh \
 	tst-pam_assemble_line1.pamd tst-pam_assemble_line1.sh \
-	tst-pam_pwhistory1.pamd tst-pam_pwhistory1.sh
+	tst-pam_pwhistory1.pamd tst-pam_pwhistory1.sh \
+	tst-pam_time1.pamd
 
 XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 	tst-pam_dispatch4 tst-pam_dispatch5 \
@@ -38,7 +39,7 @@ XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 	tst-pam_access1 tst-pam_access2 tst-pam_access3 \
 	tst-pam_access4 tst-pam_limits1 tst-pam_succeed_if1 \
 	tst-pam_group1 tst-pam_authfail tst-pam_authsucceed \
-	tst-pam_pwhistory1
+	tst-pam_pwhistory1 tst-pam_time1
 
 NOSRCTESTS = tst-pam_substack1 tst-pam_substack2 tst-pam_substack3 \
 	tst-pam_substack4 tst-pam_substack5 tst-pam_assemble_line1
