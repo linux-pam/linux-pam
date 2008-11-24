@@ -211,7 +211,7 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *env_file)
 	key += strspn(key, " \n\t");
 
 	/* skip blanks lines and comments */
-	if (!key || key[0] == '#')
+	if (key[0] == '#')
 	    continue;
 
 	/* skip over "export " if present so we can be compat with

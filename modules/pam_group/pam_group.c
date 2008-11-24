@@ -603,7 +603,7 @@ static int check_account(pam_handle_t *pamh, const char *service,
 	if (getgroups(no_grps, grps) < 0) {
 	    D(("getgroups call failed"));
 	    no_grps = 0;
-	    grps = NULL;
+	    _pam_drop(grps);
 	}
 #ifdef DEBUG
 	{

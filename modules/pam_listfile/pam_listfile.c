@@ -239,6 +239,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     retval = pam_get_item(pamh,citem,&void_citemp);
     citemp = void_citemp;
     if(retval != PAM_SUCCESS) {
+	free(ifname);
 	return onerr;
     }
     if((citem == PAM_USER) && !citemp) {

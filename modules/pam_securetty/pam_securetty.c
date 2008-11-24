@@ -152,7 +152,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 
 	    retval = PAM_AUTH_ERR;
     } else {
-	if ((retval == PAM_SUCCESS) && (ctrl & PAM_DEBUG_ARG)) {
+	if (ctrl & PAM_DEBUG_ARG) {
 	    pam_syslog(pamh, LOG_DEBUG, "access allowed for '%s' on '%s'",
 		     username, uttyname);
 	}

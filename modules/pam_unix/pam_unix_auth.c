@@ -132,7 +132,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
 			retval = PAM_USER_UNKNOWN;
 			AUTH_RETURN;
 		}
-		if (retval == PAM_SUCCESS && on(UNIX_DEBUG, ctrl))
+		if (on(UNIX_DEBUG, ctrl))
 			D(("username [%s] obtained", name));
 	} else {
 		D(("trouble reading username"));

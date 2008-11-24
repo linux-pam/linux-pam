@@ -692,6 +692,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	}
 
         if (retval != PAM_SUCCESS) {
+	    token1 = _pam_delete(token1);
             if (ctrl & PAM_DEBUG_ARG)
                 pam_syslog(pamh,LOG_DEBUG,"unable to obtain a password");
             continue;
@@ -756,6 +757,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	    if (retval != PAM_SUCCESS) {
 	      if (ctrl & PAM_DEBUG_ARG)
                 pam_syslog(pamh,LOG_DEBUG,"unable to obtain retyped password");
+	      token1 = _pam_delete(token1);
 	      continue;
 	    }
 

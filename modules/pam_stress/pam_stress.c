@@ -197,8 +197,7 @@ static int stress_get_password(pam_handle_t *pamh, int flags
                }
 	       return PAM_CONV_ERR;
 	  }
-	  if (resp)
-	       free(resp);
+	  free(resp);
      }
 
      *password = pass;             /* this *MUST* be free()'d by this module */
@@ -238,7 +237,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
 	      retval = PAM_USER_UNKNOWN; /* username was null */
 	  return retval;
      }
-     else if ((ctrl & PAM_ST_DEBUG) && (retval == PAM_SUCCESS)) {
+     else if (ctrl & PAM_ST_DEBUG) {
 	  pam_syslog(pamh, LOG_DEBUG,
 		     "pam_sm_authenticate: username = %s", username);
      }
@@ -426,7 +425,7 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	  if (ctrl & PAM_ST_FAIL_1)
 	       return PAM_AUTHTOK_LOCK_BUSY;
 
-	  if ( !(ctrl && PAM_ST_EXPIRED)
+	  if ( !(ctrl & PAM_ST_EXPIRED)
 	       && (flags & PAM_CHANGE_EXPIRED_AUTHTOK)
 	       && (pam_get_data(pamh,"stress_new_pwd", &text)
 		      != PAM_SUCCESS || strcmp(text,"yes"))) {

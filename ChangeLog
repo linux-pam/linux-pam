@@ -1,3 +1,31 @@
+2008-11-24  Tomas Mraz <t8m@centrum.cz>
+
+	* libpam/pam_handlers.c (_pam_parse_conf_file): '-' at
+	beginning of type token marks silent module.
+	(_pam_load_module): Add handler_type parameter. Do not log
+	module load error if module is silent.
+	(_pam_add_handler): Pass handler_type to _pam_load_module().
+	* libpam/pam_private.h: Add PAM_HT_SILENT_MODULE.
+	* doc/man/pam.conf-syntax.xml: Document the '-' at beginning
+	of type.
+
+	* modules/pam_cracklib/pam_cracklib.c(pam_sm_chauthtok): Fix leaks
+	in error path.
+	* modules/pam_env/pam_env.c(_parse_env_file): Remove superfluous
+	condition.
+	* modules/pam_group/pam_group.c(check_account): Fix leak
+	in error path.
+	* modules/pam_listfile/pam_listfile.c(pam_sm_authenticate): Fix leak
+	in error path.
+	* modules/pam_securetty/pam_securetty.c(securetty_perform_check): Remove
+	superfluous condition.
+	* modules/pam_stress/pam_stress.c(stress_get_password,pam_sm_authenticate):
+	Remove superfluous conditions.
+	(pam_sm_chauthtok): Fix mistaken && for &.
+	* modules/pam_unix/pam_unix_auth.c(pam_sm_authenticate): Remove
+	superfluous condition.
+	All the problems fixed in this commit were found by Steve Grubb.
+
 2008-11-20  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_sepermit/pam_sepermit.c (sepermit_match): Do not
