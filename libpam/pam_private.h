@@ -60,6 +60,7 @@ struct handler {
 #define PAM_HT_MODULE       0
 #define PAM_HT_MUST_FAIL    1
 #define PAM_HT_SUBSTACK     2
+#define PAM_HT_SILENT_MODULE 3
 
 struct loaded_module {
     char *name;

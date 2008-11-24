@@ -109,22 +109,28 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	        module_type = (requested_module_type != PAM_T_ANY) ?
 		  requested_module_type : PAM_T_AUTH;	/* most sensitive */
 	        handler_type = PAM_HT_MUST_FAIL; /* install as normal but fail when dispatched */
-	    } else if (!strcasecmp("auth", tok)) {
-		module_type = PAM_T_AUTH;
-	    } else if (!strcasecmp("session", tok)) {
-		module_type = PAM_T_SESS;
-	    } else if (!strcasecmp("account", tok)) {
-		module_type = PAM_T_ACCT;
-	    } else if (!strcasecmp("password", tok)) {
-		module_type = PAM_T_PASS;
 	    } else {
-		/* Illegal module type */
-		D(("_pam_init_handlers: bad module type: %s", tok));
-		pam_syslog(pamh, LOG_ERR, "(%s) illegal module type: %s",
-			   this_service, tok);
-		module_type = (requested_module_type != PAM_T_ANY) ?
-			      requested_module_type : PAM_T_AUTH;	/* most sensitive */
-		handler_type = PAM_HT_MUST_FAIL; /* install as normal but fail when dispatched */
+		if (tok[0] == '-') { /* do not log module load errors */
+		    handler_type = PAM_HT_SILENT_MODULE;
+		    ++tok;
+		}
+		if (!strcasecmp("auth", tok)) {
+		    module_type = PAM_T_AUTH;
+		} else if (!strcasecmp("session", tok)) {
+		    module_type = PAM_T_SESS;
+		} else if (!strcasecmp("account", tok)) {
+		    module_type = PAM_T_ACCT;
+		} else if (!strcasecmp("password", tok)) {
+		    module_type = PAM_T_PASS;
+		} else {
+		    /* Illegal module type */
+		    D(("_pam_init_handlers: bad module type: %s", tok));
+		    pam_syslog(pamh, LOG_ERR, "(%s) illegal module type: %s",
+			    this_service, tok);
+		    module_type = (requested_module_type != PAM_T_ANY) ?
+			    requested_module_type : PAM_T_AUTH;	/* most sensitive */
+		    handler_type = PAM_HT_MUST_FAIL; /* install as normal but fail when dispatched */
+		}
 	    }
 	    D(("Using %s config entry: %s", handler_type?"BAD ":"", tok));
 	    if (requested_module_type != PAM_T_ANY &&
@@ -609,7 +615,7 @@ extract_modulename(const char *mod_path)
 }
 
 static struct loaded_module *
-_pam_load_module(pam_handle_t *pamh, const char *mod_path)
+_pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 {
     int x = 0;
     int success;
@@ -658,7 +664,8 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path)
 	    if (mod->dl_handle == NULL) {
 	        D(("_pam_load_module: unable to find static handler %s",
 		   mod_path));
-		pam_syslog(pamh, LOG_ERR,
+		if (handler_type != PAM_HT_SILENT_MODULE)
+		    pam_syslog(pamh, LOG_ERR,
 				"unable to open static handler %s", mod_path);
 		/* Didn't find module in dynamic or static..will mark bad */
 	    } else {
@@ -694,8 +701,9 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path)
 	}
 	if (mod->dl_handle == NULL) {
 	    D(("_pam_load_module: _pam_dlopen(%s) failed", mod_path));
-	    pam_syslog(pamh, LOG_ERR, "unable to dlopen(%s): %s", mod_path,
-	        _pam_dlerror());
+	    if (handler_type != PAM_HT_SILENT_MODULE)
+		pam_syslog(pamh, LOG_ERR, "unable to dlopen(%s): %s", mod_path,
+		    _pam_dlerror());
 	    /* Don't abort yet; static code may be able to find function.
 	     * But defaults to abort if nothing found below... */
 	} else {
@@ -710,7 +718,8 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path)
 	    mod->dl_handle = NULL;
 	    mod->type = PAM_MT_FAULTY_MOD;
 	    pamh->handlers.modules_used++;
-	    pam_syslog(pamh, LOG_ERR, "adding faulty module: %s", mod_path);
+	    if (handler_type != PAM_HT_SILENT_MODULE)
+		pam_syslog(pamh, LOG_ERR, "adding faulty module: %s", mod_path);
 	    success = PAM_SUCCESS;  /* We have successfully added a module */
 	}
 
@@ -748,12 +757,13 @@ int _pam_add_handler(pam_handle_t *pamh
     D(("_pam_add_handler: adding type %d, handler_type %d, module `%s'",
 	type, handler_type, mod_path));
 
-    if (handler_type == PAM_HT_MODULE && mod_path != NULL) {
+    if ((handler_type == PAM_HT_MODULE || handler_type == PAM_HT_SILENT_MODULE) &&
+	mod_path != NULL) {
 	if (mod_path[0] == '/') {
-	    mod = _pam_load_module(pamh, mod_path);
+	    mod = _pam_load_module(pamh, mod_path, handler_type);
 	} else if (asprintf(&mod_full_path, "%s%s",
 			     DEFAULT_MODULE_PATH, mod_path) >= 0) {
-	    mod = _pam_load_module(pamh, mod_full_path);
+	    mod = _pam_load_module(pamh, mod_full_path, handler_type);
 	    _pam_drop(mod_full_path);
 	} else {
 	    pam_syslog(pamh, LOG_CRIT, "cannot malloc full mod path");

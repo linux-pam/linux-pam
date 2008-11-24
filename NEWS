@@ -17,6 +17,7 @@ Release 1.0.90
 * New pam_pwhistory module to store last used passwords
 * New pam_tally2 module similar to pam_tally with wordsize independent
   tally data format
+* Make libpam not log missing module if its type is prepended with '-'
 
 Release 1.0.2
 

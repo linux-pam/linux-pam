@@ -102,6 +102,14 @@
         </listitem>
       </varlistentry>
     </variablelist>
+    <para>
+      If the <emphasis>type</emphasis> value from the list above is prepended
+      with a <emphasis>-</emphasis> character the PAM library will not log to
+      the system log if it is not possible to load the module because it is
+      missing in the system. This can be useful especially for modules which
+      are not always installed on the system and are not required for correct
+      authentication and authorization of the login session.
+    </para>
 
     <para>
       The third field, <emphasis>control</emphasis>, indicates the
