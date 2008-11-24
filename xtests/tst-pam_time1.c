@@ -59,10 +59,10 @@ struct test_t {
 static struct test_t tests[] = {
   {"xy", 0},
   {"yx", 0},
-  {"me", 7},
-  {"you", 7},
-  {"x",  7},
-  {"y",  7},
+  {"you",6},
+  {"me", 6},
+  {"x",  6},
+  {"y",  6},
 };
 
 static int num_tests = sizeof (tests) / sizeof (struct test_t);
