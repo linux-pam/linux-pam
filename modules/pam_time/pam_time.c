@@ -358,8 +358,8 @@ is_same(pam_handle_t *pamh UNUSED, const void *A, const char *b,
 
      /* Ok, we know that b is a substring from A and does not contain
         wildcards, but now the length of both strings must be the same,
-        too. */
-     if (strlen (a) != strlen(b))
+        too. In this case it means, a[i] has to be the end of the string. */
+     if (a[i] != '\0')
           return FALSE;
 
      return ( !len );

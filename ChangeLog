@@ -1,7 +1,12 @@
+2008-11-25  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_time/pam_time.c (is_same): Fix check
+	of correct string length (debian bug #326407).
+
 2008-10-17  Tomas Mraz <t8m@centrum.cz> 
 
-        * modules/pam_keyinit/pam_keyinit.c (kill_keyrings): Save the old
-        euid to suid to be able to restore it.
+	* modules/pam_keyinit/pam_keyinit.c (kill_keyrings): Save the old
+	euid to suid to be able to restore it.
 
 2008-09-25  Tomas Mraz <t8m@centrum.cz>
 
