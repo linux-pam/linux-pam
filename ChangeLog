@@ -1,3 +1,8 @@
+2008-11-25  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_time/pam_time.c (is_same): Fix check
+	of correct string length (debian bug #326407).
+
 2008-11-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* xtests/Makefile.am: Add pam_time1 tests.
