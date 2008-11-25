@@ -1,5 +1,7 @@
 2008-11-25  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_pwhistory/opasswd.c (save_old_password): Fix typo.
+
 	* modules/pam_time/pam_time.c (is_same): Fix check
 	of correct string length (debian bug #326407).
 

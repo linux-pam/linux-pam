@@ -381,7 +381,7 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
 		  }
 		else
 		  {
-		    if (asprintf (&out, "%s:%si%d:%s,%s\n",
+		    if (asprintf (&out, "%s:%s:%d:%s,%s\n",
 				  entry.user, entry.uid, entry.count,
 				  entry.old_passwords, oldpass) < 0)
 		      {
