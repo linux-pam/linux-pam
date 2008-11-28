@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip.ja\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-22 20:01+0200\n"
+"POT-Creation-Date: 2008-11-28 15:16+0100\n"
 "PO-Revision-Date: 2008-10-21 15:08+1000\n"
 "Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
@@ -168,19 +168,19 @@ msgid "Unknown PAM error"
 msgstr "不明なPAMエラー"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "New %s%spassword: "
 msgstr "新しい%s%sパスワード:"
 
 #: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
+#: modules/pam_pwhistory/pam_pwhistory.c:64
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "新しい%s%sパスワードを再入力してください:"
 
 #: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
+#: modules/pam_pwhistory/pam_pwhistory.c:65
 msgid "Sorry, passwords do not match."
 msgstr "パスワードが一致しません。"
 
@@ -231,7 +231,7 @@ msgid "Password unchanged"
 msgstr "パスワードが変更されていません"
 
 #: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:710
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "よくないパスワード: %s"
@@ -353,13 +353,13 @@ msgstr "ディレクトリ '%s' を作成中"
 msgid "Unable to create directory %s: %m"
 msgstr "ディレクトリ %s を作成できません: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
+#: modules/pam_pwhistory/pam_pwhistory.c:231
+#: modules/pam_pwhistory/pam_pwhistory.c:267
 msgid "Password change aborted."
 msgstr "パスワードの変更は放棄されました"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_pwhistory/pam_pwhistory.c:242
+#: modules/pam_pwhistory/pam_pwhistory.c:304
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr ""
@@ -425,20 +425,20 @@ msgstr "pam_set_item()に失敗しました\n"
 msgid "login: failure forking: %m"
 msgstr "ログイン: いまいましい失敗: %m"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:475
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "%s 用の STRESS パスワードを変更中"
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
 msgstr "新しいSTRESSパスワードを入力してください:"
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
 msgstr "新しいSTRESSパスワードを再入力してください:"
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
 msgstr "ミスタイプの確認、パスワードが変更されていません"
 
@@ -447,7 +447,7 @@ msgstr "ミスタイプの確認、パスワードが変更されていません
 msgid "Account temporary locked (%ld seconds left)"
 msgstr "アカウントは一時的にロックされています (残り %ld 秒)"
 
-#: modules/pam_tally/pam_tally.c:566
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr "%u のログイン失敗の理由で アカウントはロックされました"
@@ -490,11 +490,6 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: すべてのユーザを非ゼロにリセットできません\n"
 
-#: modules/pam_tally2/pam_tally2.c:520
-#, fuzzy, c-format
-msgid "Account locked due to %hu failed logins"
-msgstr "%u のログイン失敗の理由で アカウントはロックされました"
-
 #: modules/pam_tally2/pam_tally2.c:865
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
@@ -508,6 +503,11 @@ msgid ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+
+#: modules/pam_timestamp/pam_timestamp.c:339
+#, c-format
+msgid "Access granted (last access was %ld seconds ago)."
+msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
@@ -562,3 +562,7 @@ msgstr "新しいUNIXパスワードを入力してください:"
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "新しいUNIX パスワードを再入力してください:"
+
+#, fuzzy
+#~ msgid "Account locked due to %hu failed logins"
+#~ msgstr "%u のログイン失敗の理由で アカウントはロックされました"

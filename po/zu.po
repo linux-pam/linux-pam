@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-22 20:01+0200\n"
+"POT-Creation-Date: 2008-11-28 15:16+0100\n"
 "PO-Revision-Date: 2006-11-03 12:03\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -163,19 +163,19 @@ msgid "Unknown PAM error"
 msgstr "Iphutha le-PAM elingaziwa"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "New %s%spassword: "
 msgstr "%s%siphasiwedi entsha: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
+#: modules/pam_pwhistory/pam_pwhistory.c:64
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Thayipha kabusha %s%siphasiwedi entsha: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
+#: modules/pam_pwhistory/pam_pwhistory.c:65
 msgid "Sorry, passwords do not match."
 msgstr "Uxolo, amaphasiwedi awahambelani."
 
@@ -226,7 +226,7 @@ msgid "Password unchanged"
 msgstr "Iphasiwedi ayishintshwanga"
 
 #: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:710
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "IPHASIWEDI ENGASEBENZI: %s"
@@ -349,14 +349,14 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
+#: modules/pam_pwhistory/pam_pwhistory.c:231
+#: modules/pam_pwhistory/pam_pwhistory.c:267
 #, fuzzy
 msgid "Password change aborted."
 msgstr "Iphasiwedi ayishintshwanga"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_pwhistory/pam_pwhistory.c:242
+#: modules/pam_pwhistory/pam_pwhistory.c:304
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Le phasiwedi isetshenziswa ngothile. Khetha enye."
@@ -425,20 +425,20 @@ msgstr "Ihlulekile ukwenza i-pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "ngena: Ihlulekile ukuhlukanisa: %m"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:475
 #, fuzzy, c-format
 msgid "Changing STRESS password for %s."
 msgstr "Ukushintsha iphasiwedi ye-STRESS ye-"
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
 msgstr "Faka iphasiwedi entsha ye-STRESS: "
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
 msgstr "Thayipha iphasiwedi entsha ye-STRESS: "
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
 msgstr "Ukufakazela akuthayiphiwanga kahle; iphasiwedi ayishintshwanga"
 
@@ -447,7 +447,7 @@ msgstr "Ukufakazela akuthayiphiwanga kahle; iphasiwedi ayishintshwanga"
 msgid "Account temporary locked (%ld seconds left)"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:566
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr ""
@@ -492,11 +492,6 @@ msgstr ""
 "%s: Ayikwazi ukusetha kabusha bonke abasebenzisi ibase enombolweni ongelona "
 "iqanda\n"
 
-#: modules/pam_tally2/pam_tally2.c:520
-#, c-format
-msgid "Account locked due to %hu failed logins"
-msgstr ""
-
 #: modules/pam_tally2/pam_tally2.c:865
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
@@ -510,6 +505,11 @@ msgid ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+
+#: modules/pam_timestamp/pam_timestamp.c:339
+#, c-format
+msgid "Access granted (last access was %ld seconds ago)."
+msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"

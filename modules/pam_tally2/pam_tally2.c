@@ -517,8 +517,8 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
 #endif
 
         if (!(opts->ctrl & OPT_QUIET)) {
-            pam_info(pamh, _("Account locked due to %hu failed logins"),
-		    tally->fail_cnt);
+            pam_info(pamh, _("Account locked due to %u failed logins"),
+		    (unsigned int)tally->fail_cnt);
         }
 	if (!(opts->ctrl & OPT_NOLOGNOTICE)) {
             pam_syslog(pamh, LOG_NOTICE,

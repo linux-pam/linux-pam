@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-22 20:01+0200\n"
+"POT-Creation-Date: 2008-11-28 15:16+0100\n"
 "PO-Revision-Date: 2008-10-22 16:24+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -170,19 +170,19 @@ msgid "Unknown PAM error"
 msgstr "తెలియని PAM దోషము"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "New %s%spassword: "
 msgstr "కొత్త %s%sసంకేతపదము: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
+#: modules/pam_pwhistory/pam_pwhistory.c:64
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "కొత్త %s%sసంకేతపదమును మరలాటైపుచేయుము: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
+#: modules/pam_pwhistory/pam_pwhistory.c:65
 msgid "Sorry, passwords do not match."
 msgstr "క్షమించాలి, సంకేతపదము సరిపోలలేదు."
 
@@ -233,7 +233,7 @@ msgid "Password unchanged"
 msgstr "సంకేతపదము మార్చలేదు"
 
 #: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:710
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "చెడ్డ సంకేతపదము: %s"
@@ -356,13 +356,13 @@ msgstr "డెరెక్టరీ '%s' సృష్టించుట."
 msgid "Unable to create directory %s: %m"
 msgstr "డైరెక్టరీ %sను సృష్టించలేక పోయింది: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
+#: modules/pam_pwhistory/pam_pwhistory.c:231
+#: modules/pam_pwhistory/pam_pwhistory.c:267
 msgid "Password change aborted."
 msgstr "సంకేతపదము మార్పు తప్పించబడింది"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_pwhistory/pam_pwhistory.c:242
+#: modules/pam_pwhistory/pam_pwhistory.c:304
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "సంకేతపదము యిప్పటికే వుపయోగించబడింది. మరియొకదానిని యెంచుకొనుము."
@@ -427,20 +427,20 @@ msgstr "pam_set_item() విఫలమైంది\n"
 msgid "login: failure forking: %m"
 msgstr "login: failure forking: %m"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:475
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "STRESS సంకేతపదమును %sకొరకు మార్చబడింది."
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
 msgstr "కొత్త STRESS సంకేతపదమును ప్రవేశపెట్టుము: "
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
 msgstr "కొత్త STRESS సంకేతపదమును తిరిగిటైపుచేయుము: "
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
 msgstr "తప్పుగా-చేసినటైపు నిర్ధారణ; సంకేతపదము మార్చబడలేదు"
 
@@ -449,7 +449,7 @@ msgstr "తప్పుగా-చేసినటైపు నిర్ధార�
 msgid "Account temporary locked (%ld seconds left)"
 msgstr "ఖాతా తాత్కాలికంగా లాక్‌చేయబడింది (%ld సెకనులు మిగిలినవి)"
 
-#: modules/pam_tally/pam_tally.c:566
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr "%u లాగిన్‌ల వైఫల్యం కారణంగా ఖాతా లాక్అయింది"
@@ -492,11 +492,6 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: వినియోగదారులనందరిని సున్నా-కానిదానికి తిరిగివుంచలేము\n"
 
-#: modules/pam_tally2/pam_tally2.c:520
-#, fuzzy, c-format
-msgid "Account locked due to %hu failed logins"
-msgstr "%u లాగిన్‌ల వైఫల్యం కారణంగా ఖాతా లాక్అయింది"
-
 #: modules/pam_tally2/pam_tally2.c:865
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
@@ -510,6 +505,11 @@ msgid ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+
+#: modules/pam_timestamp/pam_timestamp.c:339
+#, c-format
+msgid "Access granted (last access was %ld seconds ago)."
+msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
@@ -564,3 +564,7 @@ msgstr "కొత్త UNIX సంకేతపదమును ప్రవే�
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "కొత్త UNIX సంకేతపదమును తిరిగిటైపు చేయుము: "
+
+#, fuzzy
+#~ msgid "Account locked due to %hu failed logins"
+#~ msgstr "%u లాగిన్‌ల వైఫల్యం కారణంగా ఖాతా లాక్అయింది"

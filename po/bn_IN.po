@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-22 20:01+0200\n"
+"POT-Creation-Date: 2008-11-28 15:16+0100\n"
 "PO-Revision-Date: 2008-10-20 12:40+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali INDIA <fedora-trans-bn_IN@redhat.com>\n"
@@ -167,19 +167,19 @@ msgid "Unknown PAM error"
 msgstr "PAM সংক্রান্ত অজানা ত্রুটি"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "New %s%spassword: "
 msgstr "নতুন %s%s পাসওয়ার্ড: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
+#: modules/pam_pwhistory/pam_pwhistory.c:64
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "নতুন %s%s পাসওয়ার্ড পুনরায় লিখুন: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
+#: modules/pam_pwhistory/pam_pwhistory.c:65
 msgid "Sorry, passwords do not match."
 msgstr "দুঃখিত, পাসওয়ার্ড দুটি এক নয়।"
 
@@ -230,7 +230,7 @@ msgid "Password unchanged"
 msgstr "পাসওয়ার্ড পরিবর্তন করা হয়নি"
 
 #: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:710
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "পাসওয়ার্ড ভাল নয়: %s"
@@ -353,13 +353,13 @@ msgstr "'%s' ডিরেক্টরি নির্মাণ করা হচ�
 msgid "Unable to create directory %s: %m"
 msgstr "ডিরেক্টরি %s নির্মাণ করতে ব্যর্থ: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
+#: modules/pam_pwhistory/pam_pwhistory.c:231
+#: modules/pam_pwhistory/pam_pwhistory.c:267
 msgid "Password change aborted."
 msgstr "পাসওয়ার্ড পরিবর্তনের কর্ম পরিত্যাগ করা হয়েছে।"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_pwhistory/pam_pwhistory.c:242
+#: modules/pam_pwhistory/pam_pwhistory.c:304
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হয়েছে। একটি পৃথক পাসওয়ার্ড নির্বাচন করুন।"
@@ -424,20 +424,20 @@ msgstr "pam_set_item() করতে ব্যর্থ\n"
 msgid "login: failure forking: %m"
 msgstr "লগ-ইন: fork করতে ব্যর্থ: %m"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:475
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "%s-র STRESS পাসওয়ার্ড পরিবর্তন করা হচ্ছে।"
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
 msgstr "নতুন STRESS পাসওয়ার্ড লিখুন: "
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
 msgstr "নতুন STRESS পাসওয়ার্ড পুনরায় লিখুন: "
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
 msgstr "নিশ্চায়ন কাল ভুল টাইপ করা হয়েছে; পাসওয়ার্ড পরিবর্তন করা হয়নি"
 
@@ -446,7 +446,7 @@ msgstr "নিশ্চায়ন কাল ভুল টাইপ করা হ�
 msgid "Account temporary locked (%ld seconds left)"
 msgstr "সাময়িকরূপে অ্যাকাউন্ট লক করা হয়েছে (%ld সেকেন্ড অবশিষ্ট)"
 
-#: modules/pam_tally/pam_tally.c:566
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr "%u ব্যর্থ লগ-ইনের ফলে অ্যাকাউন্ট লক করা হয়েছে"
@@ -489,11 +489,6 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: সব ব্যবহারকারীর জন্য শূণ্য-ভিন্ন মান ধার্য করতে ব্যর্থ\n"
 
-#: modules/pam_tally2/pam_tally2.c:520
-#, fuzzy, c-format
-msgid "Account locked due to %hu failed logins"
-msgstr "%u ব্যর্থ লগ-ইনের ফলে অ্যাকাউন্ট লক করা হয়েছে"
-
 #: modules/pam_tally2/pam_tally2.c:865
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
@@ -507,6 +502,11 @@ msgid ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+
+#: modules/pam_timestamp/pam_timestamp.c:339
+#, c-format
+msgid "Access granted (last access was %ld seconds ago)."
+msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
@@ -563,6 +563,10 @@ msgstr "নতুন UNIX পাসওয়ার্ড উল্লেখ কর�
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX পাসওয়ার্ড পুনরায় লিখুন: "
+
+#, fuzzy
+#~ msgid "Account locked due to %hu failed logins"
+#~ msgstr "%u ব্যর্থ লগ-ইনের ফলে অ্যাকাউন্ট লক করা হয়েছে"
 
 #~ msgid "has been already used"
 #~ msgstr "পূর্বে ব্যবহৃত হয়েছে"

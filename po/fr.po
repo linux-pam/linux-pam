@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.fr2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-22 20:01+0200\n"
+"POT-Creation-Date: 2008-11-28 15:16+0100\n"
 "PO-Revision-Date: 2008-10-19 18:59+0200\n"
 "Last-Translator: Pablo Martin-Gomez <pablo.martin-gomez@laposte.net> \n"
 "Language-Team: Français <fedora-trans-fr@redhat.com>\n"
@@ -178,19 +178,19 @@ msgid "Unknown PAM error"
 msgstr "Erreur PAM inconnue"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nouveau %s%smot de passe : "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
+#: modules/pam_pwhistory/pam_pwhistory.c:64
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Retapez le nouveau %s%smot de passe : "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
+#: modules/pam_pwhistory/pam_pwhistory.c:65
 msgid "Sorry, passwords do not match."
 msgstr "Les mots de passe ne correspondent pas."
 
@@ -241,7 +241,7 @@ msgid "Password unchanged"
 msgstr "Mot de passe inchangé"
 
 #: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:710
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "MOT DE PASSE INCORRECT : %s"
@@ -366,13 +366,13 @@ msgstr "Création du répertoire « %s »."
 msgid "Unable to create directory %s: %m"
 msgstr "Impossible de créer le répertoire %s : %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
+#: modules/pam_pwhistory/pam_pwhistory.c:231
+#: modules/pam_pwhistory/pam_pwhistory.c:267
 msgid "Password change aborted."
 msgstr "Changement du mot de passe avorté."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_pwhistory/pam_pwhistory.c:242
+#: modules/pam_pwhistory/pam_pwhistory.c:304
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Mot de passe déjà utilisé. Choisissez-en un autre."
@@ -437,20 +437,20 @@ msgstr "échec de pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "login : échec d'autoclônage : %m"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:475
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "Changement du mot de passe STRESS pour %s."
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
 msgstr "Entrer le nouveau mot de passe STRESS : "
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
 msgstr "Retaper le nouveau mot de passe STRESS : "
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
 msgstr "Vérification erronée : mot de passe inchangé"
 
@@ -459,7 +459,7 @@ msgstr "Vérification erronée : mot de passe inchangé"
 msgid "Account temporary locked (%ld seconds left)"
 msgstr "Compte temporairement verrouillé (%ld secondes restantes)"
 
-#: modules/pam_tally/pam_tally.c:566
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr "Compte temporairement verrouillé dû à l'échec de %u connexions"
@@ -502,11 +502,6 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Impossible de réinitialiser tous les utilisateurs à non-zéro\n"
 
-#: modules/pam_tally2/pam_tally2.c:520
-#, fuzzy, c-format
-msgid "Account locked due to %hu failed logins"
-msgstr "Compte temporairement verrouillé dû à l'échec de %u connexions"
-
 #: modules/pam_tally2/pam_tally2.c:865
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
@@ -520,6 +515,11 @@ msgid ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+
+#: modules/pam_timestamp/pam_timestamp.c:339
+#, c-format
+msgid "Access granted (last access was %ld seconds ago)."
+msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
@@ -574,6 +574,10 @@ msgstr "Entrez le nouveau mot de passe UNIX : "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Retapez le nouveau mot de passe UNIX : "
+
+#, fuzzy
+#~ msgid "Account locked due to %hu failed logins"
+#~ msgstr "Compte temporairement verrouillé dû à l'échec de %u connexions"
 
 #~ msgid "has been already used"
 #~ msgstr "a déjà été utilisé"

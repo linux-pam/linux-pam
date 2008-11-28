@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-22 20:01+0200\n"
+"POT-Creation-Date: 2008-11-28 15:16+0100\n"
 "PO-Revision-Date: 2008-10-22 17:25-0300\n"
 "Last-Translator: Taylon <taylonsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
@@ -169,19 +169,19 @@ msgid "Unknown PAM error"
 msgstr "Erro desconhecido no PAM"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nova %s%ssenha:"
 
 #: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
+#: modules/pam_pwhistory/pam_pwhistory.c:64
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Redigite a nova %s%ssenha:"
 
 #: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
+#: modules/pam_pwhistory/pam_pwhistory.c:65
 msgid "Sorry, passwords do not match."
 msgstr "As senhas não são iguais."
 
@@ -232,7 +232,7 @@ msgid "Password unchanged"
 msgstr "Senha inalterada"
 
 #: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:710
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "SENHA INCORRETA: %s"
@@ -355,13 +355,13 @@ msgstr "Criando o diretório '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Impossível criar o diretório %s: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
+#: modules/pam_pwhistory/pam_pwhistory.c:231
+#: modules/pam_pwhistory/pam_pwhistory.c:267
 msgid "Password change aborted."
 msgstr "A alteração de senha foi abortada."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_pwhistory/pam_pwhistory.c:242
+#: modules/pam_pwhistory/pam_pwhistory.c:304
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "A senha já foi usada. Escolha outra."
@@ -426,20 +426,20 @@ msgstr "falha em pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "login: falha na bifurcação: %m"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:475
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "Mudando senha STRESS para %s."
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
 msgstr "Digite a nova senha STRESS:"
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
 msgstr "Digite novamente a nova senha STRESS:"
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
 msgstr "Verificação digitada incorretamente; senha inalterada"
 
@@ -448,7 +448,7 @@ msgstr "Verificação digitada incorretamente; senha inalterada"
 msgid "Account temporary locked (%ld seconds left)"
 msgstr "Conta temporariamente bloqueada (restam %ld segundos)"
 
-#: modules/pam_tally/pam_tally.c:566
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr "Conta bloqueada devido a %u falhas de login"
@@ -491,11 +491,6 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Impossível redefinir todos os usuários para não-zero\n"
 
-#: modules/pam_tally2/pam_tally2.c:520
-#, fuzzy, c-format
-msgid "Account locked due to %hu failed logins"
-msgstr "Conta bloqueada devido a %u falhas de login"
-
 #: modules/pam_tally2/pam_tally2.c:865
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
@@ -509,6 +504,11 @@ msgid ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+
+#: modules/pam_timestamp/pam_timestamp.c:339
+#, c-format
+msgid "Access granted (last access was %ld seconds ago)."
+msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
@@ -563,6 +563,10 @@ msgstr "Digite a nova senha UNIX:"
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Redigite a nova senha UNIX:"
+
+#, fuzzy
+#~ msgid "Account locked due to %hu failed logins"
+#~ msgstr "Conta bloqueada devido a %u falhas de login"
 
 #~ msgid "has been already used"
 #~ msgstr "já foi usada"

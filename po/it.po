@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-22 20:01+0200\n"
+"POT-Creation-Date: 2008-11-28 15:16+0100\n"
 "PO-Revision-Date: 2008-10-21 13:21+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <it@li.org>\n"
@@ -173,19 +173,19 @@ msgid "Unknown PAM error"
 msgstr "Errore PAM sconosciuto"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nuova password%s%s: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
+#: modules/pam_pwhistory/pam_pwhistory.c:64
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Reimmettere la nuova password%s%s: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
+#: modules/pam_pwhistory/pam_pwhistory.c:65
 msgid "Sorry, passwords do not match."
 msgstr "Le password non corrispondono."
 
@@ -236,7 +236,7 @@ msgid "Password unchanged"
 msgstr "Password non modificata"
 
 #: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:710
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "PASSWORD ERRATA: %s"
@@ -365,13 +365,13 @@ msgstr "Creazione della directory \"%s\"."
 msgid "Unable to create directory %s: %m"
 msgstr "Impossibile creare la directory %s: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
+#: modules/pam_pwhistory/pam_pwhistory.c:231
+#: modules/pam_pwhistory/pam_pwhistory.c:267
 msgid "Password change aborted."
 msgstr "Cambio della password abortito."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_pwhistory/pam_pwhistory.c:242
+#: modules/pam_pwhistory/pam_pwhistory.c:304
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Password già utilizzata. Sceglierne un'altra."
@@ -436,20 +436,20 @@ msgstr "Impossibile eseguire pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "login: forking fallito: %m"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:475
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "Cambio password STRESS per %s."
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
 msgstr "Immettere nuova password STRESS: "
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
 msgstr "Reimmettere la nuova password STRESS: "
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
 msgstr "Errore di digitazione per verifica; password non cambiata"
 
@@ -458,7 +458,7 @@ msgstr "Errore di digitazione per verifica; password non cambiata"
 msgid "Account temporary locked (%ld seconds left)"
 msgstr "Account momentaneamente bloccato (%ld secondi rimanenti)"
 
-#: modules/pam_tally/pam_tally.c:566
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr "Account bloccato a causa di %u login falliti"
@@ -501,11 +501,6 @@ msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 "%s: Impossibile ripristinare tutti gli utenti a valori diversi da zero\n"
 
-#: modules/pam_tally2/pam_tally2.c:520
-#, fuzzy, c-format
-msgid "Account locked due to %hu failed logins"
-msgstr "Account bloccato a causa di %u login falliti"
-
 #: modules/pam_tally2/pam_tally2.c:865
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
@@ -518,6 +513,11 @@ msgid ""
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr "%s: [--file NOMEFILE] [--user NOMEUTENTE] [--reset[=N]] [--quiet]\n"
+
+#: modules/pam_timestamp/pam_timestamp.c:339
+#, c-format
+msgid "Access granted (last access was %ld seconds ago)."
+msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
@@ -575,3 +575,7 @@ msgstr "Immettere nuova password UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Reimmettere la nuova password UNIX: "
+
+#, fuzzy
+#~ msgid "Account locked due to %hu failed logins"
+#~ msgstr "Account bloccato a causa di %u login falliti"

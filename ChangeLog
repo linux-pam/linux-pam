@@ -3,6 +3,30 @@
 	* modules/pam_unix/unix_update.c (set_password): Allow root to change
 	passwords without verification of the old ones.
 
+	* modules/pam_tally2/pam_tally2.c (tally_check): Fix info format
+	to be the same as in pam_tally.
+
+	* configure.in: Add modules/pam_timestamp/Makefile.
+	* doc/sag/Linux-PAM_SAG.xml: Include pam_timestamp.xml.
+	* doc/sag/pam_timestamp.xml: New.
+	* libpam/pam_static_modules.h: Add pam_timestamp static struct.
+	* modules/Makefile.am: Add pam_timestamp directory.
+	* modules/pam_timestamp/Makefile.am: New.
+	* modules/pam_timestamp/README.xml: New.
+	* modules/pam_timestamp/hmacsha1.h: New.
+	* modules/pam_timestamp/sha1.h: New.
+	* modules/pam_timestamp/pam_timestamp.8.xml: New.
+	* modules/pam_timestamp/pam_timestamp_check.8.xml: New.
+	* modules/pam_timestamp/pam_timestamp.c: New.
+	* modules/pam_timestamp/pam_timestamp_check.c: New.
+	* modules/pam_timestamp/hmacfile.c: New.
+	* modules/pam_timestamp/hmacsha1.c: New.
+	* modules/pam_timestamp/sha1.c: New.
+	* modules/pam_timestamp/tst-pam_timestamp: New.
+	* po/POTFILES.in: Add pam_timestamp sources.
+	* po/*.po: Regenerate.
+	* po/cs.po: Updated translations.
+
 2008-11-25  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_pwhistory/opasswd.c (save_old_password): Fix typo.

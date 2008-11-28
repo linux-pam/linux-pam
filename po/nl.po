@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-22 20:01+0200\n"
+"POT-Creation-Date: 2008-11-28 15:16+0100\n"
 "PO-Revision-Date: 2008-10-20 23:45+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
@@ -168,19 +168,19 @@ msgid "Unknown PAM error"
 msgstr "Onbekende PAM-fout"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nieuw %s%swachtwoord: "
 
 #: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
+#: modules/pam_pwhistory/pam_pwhistory.c:64
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Nieuw %s%swachtwoord herhalen: "
 
 #: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
+#: modules/pam_pwhistory/pam_pwhistory.c:65
 msgid "Sorry, passwords do not match."
 msgstr "Sorry, wachtwoorden komen niet overeen."
 
@@ -231,7 +231,7 @@ msgid "Password unchanged"
 msgstr "Wachtwoord is niet gewijzigd"
 
 #: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:710
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "SLECHT WACHTWOORD: %s"
@@ -359,13 +359,13 @@ msgstr "Aanmaken van map '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Niet in staat om map %s aan te maken: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
+#: modules/pam_pwhistory/pam_pwhistory.c:231
+#: modules/pam_pwhistory/pam_pwhistory.c:267
 msgid "Password change aborted."
 msgstr "Wachtwoord wijzigen afgebroken."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_pwhistory/pam_pwhistory.c:242
+#: modules/pam_pwhistory/pam_pwhistory.c:304
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Wachtwoord is al gebruikt. Kies een ander wachtwoord."
@@ -430,20 +430,20 @@ msgstr "pam_set_item() is mislukt\n"
 msgid "login: failure forking: %m"
 msgstr "login: beginnen van nieuw proces mislukt: %m"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:475
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "Veranderen van STRESS-wachtwoord voor %s."
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
 msgstr "Nieuw STRESS-wachtwoord invoeren: "
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
 msgstr "Nieuw STRESS-wachtwoord herhalen: "
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
 msgstr "Verificatie onjuist getypt; wachtwoord blijft ongewijzigd"
 
@@ -452,7 +452,7 @@ msgstr "Verificatie onjuist getypt; wachtwoord blijft ongewijzigd"
 msgid "Account temporary locked (%ld seconds left)"
 msgstr "Account tijdelijk vergrendeld (%ld seconden resterend)"
 
-#: modules/pam_tally/pam_tally.c:566
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr "Account vergrendeld wegens %u mislukte aanmeldingen"
@@ -496,11 +496,6 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: kan niet alle gebruikers terugzetten naar non-zero\n"
 
-#: modules/pam_tally2/pam_tally2.c:520
-#, fuzzy, c-format
-msgid "Account locked due to %hu failed logins"
-msgstr "Account vergrendeld wegens %u mislukte aanmeldingen"
-
 #: modules/pam_tally2/pam_tally2.c:865
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
@@ -515,6 +510,11 @@ msgid ""
 msgstr ""
 "%s [--file rooted-bestandsnaam] [--user gebruikersnaam] [--reset[=n]] [--"
 "quiet]\n"
+
+#: modules/pam_timestamp/pam_timestamp.c:339
+#, c-format
+msgid "Access granted (last access was %ld seconds ago)."
+msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
@@ -571,6 +571,10 @@ msgstr "Nieuw UNIX-wachtwoord invoeren: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Nieuw UNIX-wachtwoord herhalen: "
+
+#, fuzzy
+#~ msgid "Account locked due to %hu failed logins"
+#~ msgstr "Account vergrendeld wegens %u mislukte aanmeldingen"
 
 #~ msgid "has been already used"
 #~ msgstr "is al gebruikt"

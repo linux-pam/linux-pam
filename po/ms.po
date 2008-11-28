@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linux-pam\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-22 20:01+0200\n"
+"POT-Creation-Date: 2008-11-28 15:16+0100\n"
 "PO-Revision-Date: 2008-09-25 23:52+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
@@ -182,19 +182,19 @@ msgid "Unknown PAM error"
 msgstr "Ralat sistem tidak diketahui"
 
 #: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
+#: modules/pam_pwhistory/pam_pwhistory.c:62
 #, fuzzy, c-format
 msgid "New %s%spassword: "
 msgstr "&Tetingkap Baru"
 
 #: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
+#: modules/pam_pwhistory/pam_pwhistory.c:64
 #, fuzzy, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Baru me&nggunakan Template"
 
 #: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
+#: modules/pam_pwhistory/pam_pwhistory.c:65
 #, fuzzy
 msgid "Sorry, passwords do not match."
 msgstr "Sijil dan kekunci diberi tidak sepadan."
@@ -254,7 +254,7 @@ msgid "Password unchanged"
 msgstr "Biarkan tanpa diubah"
 
 #: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:710
 #, fuzzy, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "Katalaluan Tidak Betul"
@@ -382,14 +382,14 @@ msgstr "Menbuat direktori initrd"
 msgid "Unable to create directory %s: %m"
 msgstr "gagal untuk mencipta direktori %s: %s\n"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
+#: modules/pam_pwhistory/pam_pwhistory.c:231
+#: modules/pam_pwhistory/pam_pwhistory.c:267
 #, fuzzy
 msgid "Password change aborted."
 msgstr "Biarkan tanpa diubah"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_pwhistory/pam_pwhistory.c:242
+#: modules/pam_pwhistory/pam_pwhistory.c:304
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr ""
@@ -458,21 +458,21 @@ msgstr ""
 msgid "login: failure forking: %m"
 msgstr "Ben_arkan logmasuk luartalian"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:475
 #, fuzzy, c-format
 msgid "Changing STRESS password for %s."
 msgstr "Greek 'astator' untuk 'menukar'"
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:489
 #, fuzzy
 msgid "Enter new STRESS password: "
 msgstr "Masukkkan Katalaluan Pemuat But"
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
 msgstr ""
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
 msgstr ""
 
@@ -481,7 +481,7 @@ msgstr ""
 msgid "Account temporary locked (%ld seconds left)"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:566
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr ""
@@ -527,11 +527,6 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 
-#: modules/pam_tally2/pam_tally2.c:520
-#, c-format
-msgid "Account locked due to %hu failed logins"
-msgstr ""
-
 #: modules/pam_tally2/pam_tally2.c:865
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
@@ -543,6 +538,11 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
+msgstr ""
+
+#: modules/pam_timestamp/pam_timestamp.c:339
+#, c-format
+msgid "Access granted (last access was %ld seconds ago)."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
