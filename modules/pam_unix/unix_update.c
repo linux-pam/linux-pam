@@ -71,11 +71,14 @@ set_password(const char *forwho, const char *shadow, const char *remember)
         goto done;
     }
 
-    /* does pass agree with the official one?
-       we always allow change from null pass */
-    retval = helper_verify_password(forwho, pass, 1);
-    if (retval != PAM_SUCCESS) {
-	goto done;
+    /* If real caller uid is not root we must verify that
+       received old pass agrees with the current one.
+       We always allow change from null pass. */
+    if (getuid()) {
+	retval = helper_verify_password(forwho, pass, 1);
+	if (retval != PAM_SUCCESS) {
+	    goto done;
+	}
     }
 
     /* first, save old password */
