@@ -430,4 +430,10 @@
       </citerefentry>
     </para>
   </refsect1>
+  <refsect1 id='pam3-notes'><title>NOTES</title>
+    <para>
+      The <emphasis>libpam</emphasis> interfaces are only thread-safe if each
+      thread within the multithreaded application uses its own PAM handle.
+    </para>
+  </refsect1>
 </refentry>

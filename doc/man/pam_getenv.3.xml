@@ -33,8 +33,9 @@
       The <function>pam_getenv</function> function searches the
       PAM environment list as associated with the handle
       <emphasis>pamh</emphasis> for an item that matches the string
-      pointed to by <emphasis>name</emphasis> and returns the value
-      of the environment variable.
+      pointed to by <emphasis>name</emphasis> and returns a pointer
+      to the value of the environment variable. The application is
+      not allowed to free the data.
     </para>
   </refsect1>
 

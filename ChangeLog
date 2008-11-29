@@ -1,3 +1,11 @@
+2008-11-29  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/pam_getenv.3.xml: Document that application should
+	not free return value.
+
+	* doc/man/pam.3.xml: Add Note about thread-safeness of libpam
+	functions.
+
 2008-11-28  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_unix/unix_update.c (set_password): Allow root to change
