@@ -19,7 +19,9 @@
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#ifdef HAVE_CRYPT_H
+#ifdef HAVE_LIBXCRYPT
+#include <xcrypt.h>
+#elif defined(HAVE_CRYPT_H)
 #include <crypt.h>
 #endif
 

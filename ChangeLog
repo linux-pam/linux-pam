@@ -1,5 +1,13 @@
 2008-11-29  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* configure.in: Check for xcrypt.h, fix typo in libaudit check.
+	* modules/pam_cracklib/pam_cracklib.c: Include xcrypt.h if
+	available.
+	* modules/pam_unix/bigcrypt.c: Likewise.
+	* modules/pam_unix/passverify.c: Likewise.
+	* modules/pam_userdb/pam_userdb.c: Likewise.
+	Patch from Diego Flameeyes Pettenò <flameeyes@gmail.com>
+
 	* doc/man/pam_getenv.3.xml: Document that application should
 	not free return value.
 

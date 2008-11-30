@@ -29,7 +29,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <security/_pam_macros.h>
-#ifdef HAVE_CRYPT_H
+#ifdef HAVE_LIBXCRYPT
+#include <xcrypt.h>
+#elif defined(HAVE_CRYPT_H)
 #include <crypt.h>
 #endif
 
