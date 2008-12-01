@@ -150,8 +150,10 @@
         </term>
         <listitem>
           <para>
-            The group database will not be used for tokens not
-            identified as account name.
+            User tokens which are not enclosed in parentheses will not be
+	    matched against the group database. The backwards compatible default is
+            to try the group database match even for tokens not enclosed
+            in parentheses.
           </para>
         </listitem>
       </varlistentry>

@@ -1,3 +1,11 @@
+2008-12-01  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_access/pam_access.8.xml: Fix description of nodefgroup
+	option.
+
+	* modules/pam_group/pam_group.c (is_same): Fix check for correct
+	string length.
+
 2008-11-29  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Check for xcrypt.h, fix typo in libaudit check.
