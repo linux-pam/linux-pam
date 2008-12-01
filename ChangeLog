@@ -11,7 +11,7 @@
 	prototype.
 	* modules/pam_unix/support.c: Add support for blowfish option.
 	* modules/pam_unix/support.h: Add defines for blowfish option.
-	Patch from Diego Flameeyes Pettenò <flameeyes@gmail.com>
+	Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
 
 2008-12-01  Tomas Mraz <t8m@centrum.cz>
 
@@ -29,7 +29,7 @@
 	* modules/pam_unix/bigcrypt.c: Likewise.
 	* modules/pam_unix/passverify.c: Likewise.
 	* modules/pam_userdb/pam_userdb.c: Likewise.
-	Patch from Diego Flameeyes Pettenò <flameeyes@gmail.com>
+	Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
 
 	* doc/man/pam_getenv.3.xml: Document that application should
 	not free return value.
