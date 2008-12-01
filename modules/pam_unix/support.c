@@ -109,16 +109,8 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 						*remember = 400;
 				}
 			}
-			if (rounds != NULL) {
-				if (j == UNIX_ALGO_ROUNDS) {
-					*rounds = strtol(*argv + 7, NULL, 10);
-					if ((*rounds < 1000) || (*rounds == INT_MAX))
-						/* don't care about bogus values */
-						unset(UNIX_ALGO_ROUNDS, ctrl);
-					if (*rounds >= 10000000)
-						*rounds = 9999999;
-				}
-			}
+			if (rounds != NULL && j == UNIX_ALGO_ROUNDS)
+				*rounds = strtol(*argv + 7, NULL, 10);
 		}
 
 		++argv;		/* step to next argument */
@@ -127,6 +119,26 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 	if (flags & PAM_DISALLOW_NULL_AUTHTOK) {
 		D(("DISALLOW_NULL_AUTHTOK"));
 		set(UNIX__NONULL, ctrl);
+	}
+	
+	/* Set default rounds for blowfish */
+	if (on(UNIX_BLOWFISH_PASS, ctrl) && off(UNIX_ALGO_ROUNDS, ctrl)) {
+		*rounds = 5;
+		set(UNIX_ALGO_ROUNDS, ctrl);
+	}
+	
+	/* Enforce sane "rounds" values */
+	if (on(UNIX_ALGO_ROUNDS, ctrl)) {
+		if (on(UNIX_BLOWFISH_PASS, ctrl)) {
+			if (*rounds < 4 || *rounds > 31)
+				*rounds = 5;
+		} else if (on(UNIX_SHA256_PASS, ctrl) || on(UNIX_SHA512_PASS, ctrl)) {
+			if ((*rounds < 1000) || (*rounds == INT_MAX))
+				/* don't care about bogus values */
+				unset(UNIX_ALGO_ROUNDS, ctrl);
+			if (*rounds >= 10000000)
+				*rounds = 9999999;
+		}
 	}
 
 	/* auditing is a more sensitive version of debug */

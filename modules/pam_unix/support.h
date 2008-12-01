@@ -88,8 +88,9 @@ typedef struct {
 #define UNIX_SHA512_PASS         24	/* new password hashes will use SHA512 */
 #define UNIX_ALGO_ROUNDS         25	/* optional number of rounds for new 
 					   password hash algorithms */
+#define UNIX_BLOWFISH_PASS       26	/* new password hashes will use blowfish */
 /* -------------- */
-#define UNIX_CTRLS_              26	/* number of ctrl arguments defined */
+#define UNIX_CTRLS_              27	/* number of ctrl arguments defined */
 
 static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 {
@@ -122,6 +123,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX_SHA256_PASS */     {"sha256",        _ALL_ON_^(040420000), 020000000},
 /* UNIX_SHA512_PASS */     {"sha512",        _ALL_ON_^(020420000), 040000000},
 /* UNIX_ALGO_ROUNDS */     {"rounds=",         _ALL_ON_,          0100000000},
+/* UNIX_BLOWFISH_PASS */   {"blowfish",      _ALL_ON_^(060420000),0200000000},
 };
 
 #define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)

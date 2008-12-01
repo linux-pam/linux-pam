@@ -21,9 +21,6 @@ is_pwd_shadowed(const struct passwd *pwd);
 char *
 crypt_md5_wrapper(const char *pass_new);
 
-char *
-create_password_hash(const char *password, unsigned int ctrl, int rounds);
-
 int
 unix_selinux_confined(void);
 
@@ -58,41 +55,33 @@ getuidname(uid_t uid);
 
 int
 read_passwords(int fd, int npass, char **passwords);
-
-int
-get_account_info(const char *name,
-	struct passwd **pwd, struct spwd **spwdent);
-
-int
-get_pwd_hash(const char *name,
-	struct passwd **pwd, char **hash);
-
-int
-check_shadow_expiry(struct spwd *spent, int *daysleft);
-
-int
-unix_update_passwd(const char *forwho, const char *towhat);
-
-int
-unix_update_shadow(const char *forwho, char *towhat);
-#else
-int
-get_account_info(pam_handle_t *pamh, const char *name,
-	struct passwd **pwd,  struct spwd **spwdent);
-
-int
-get_pwd_hash(pam_handle_t *pamh, const char *name,
-	struct passwd **pwd, char **hash);
-
-int
-check_shadow_expiry(pam_handle_t *pamh, struct spwd *spent, int *daysleft);
-
-int
-unix_update_passwd(pam_handle_t *pamh, const char *forwho, const char *towhat);
-
-int
-unix_update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat);
 #endif
+
+#ifdef HELPER_COMPILE
+#define PAMH_ARG_DECL(fname, ...)	fname(__VA_ARGS__)
+#define PAMH_ARG(...)			__VA_ARGS__
+#else
+#define PAMH_ARG_DECL(fname, ...)	fname(pam_handle_t *pamh, __VA_ARGS__)
+#define PAMH_ARG(...)			pamh, __VA_ARGS__
+#endif
+
+PAMH_ARG_DECL(char * create_password_hash,
+	const char *password, unsigned int ctrl, int rounds);
+
+PAMH_ARG_DECL(int get_account_info,
+	const char *name, struct passwd **pwd, struct spwd **spwdent);
+
+PAMH_ARG_DECL(int get_pwd_hash,
+	const char *name, struct passwd **pwd, char **hash);
+
+PAMH_ARG_DECL(int check_shadow_expiry,
+	struct spwd *spent, int *daysleft);
+
+PAMH_ARG_DECL(int unix_update_passwd,
+	const char *forwho, const char *towhat);
+
+PAMH_ARG_DECL(int unix_update_shadow,
+	const char *forwho, char *towhat);
 
 /* ****************************************************************** *
  * Copyright (c) Red Hat, Inc. 2007.

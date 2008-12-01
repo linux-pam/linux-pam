@@ -1,3 +1,18 @@
+2008-12-01  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/pam_unix.8.xml: Document blowfish option.
+
+	* configure.in: Check for crypt_gensalt_rn.
+	* modules/pam_unix/pam_unix_passwd.c: Pass pamh to
+	create_password_hash function.
+	* modules/pam_unix/passverify.c (create_password_hash): Add
+	blowfish support.
+	* modules/pam_unix/passverify.h: Adjust create_password_hash
+	prototype.
+	* modules/pam_unix/support.c: Add support for blowfish option.
+	* modules/pam_unix/support.h: Add defines for blowfish option.
+	Patch from Diego Flameeyes Pettenò <flameeyes@gmail.com>
+
 2008-12-01  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_access/pam_access.8.xml: Fix description of nodefgroup

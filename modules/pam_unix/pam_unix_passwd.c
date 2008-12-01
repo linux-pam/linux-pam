@@ -749,7 +749,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 		 * First we encrypt the new password.
 		 */
 
-		tpass = create_password_hash(pass_new, ctrl, rounds);
+		tpass = create_password_hash(pamh, pass_new, ctrl, rounds);
 		if (tpass == NULL) {
 			pam_syslog(pamh, LOG_CRIT,
 				"out of memory for password");

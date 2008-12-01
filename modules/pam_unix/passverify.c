@@ -151,15 +151,8 @@ is_pwd_shadowed(const struct passwd *pwd)
 	return 0;
 }
 
-#ifdef HELPER_COMPILE
-int
-get_account_info(const char *name,
-	struct passwd **pwd, struct spwd **spwdent)
-#else
-int
-get_account_info(pam_handle_t *pamh, const char *name,
-	struct passwd **pwd,  struct spwd **spwdent)
-#endif
+PAMH_ARG_DECL(int get_account_info,
+	const char *name, struct passwd **pwd, struct spwd **spwdent)
 {
 	/* UNIX passwords area */
 	*pwd = pam_modutil_getpwnam(pamh, name);	/* Get password file entry... */
@@ -219,24 +212,13 @@ get_account_info(pam_handle_t *pamh, const char *name,
 	return PAM_SUCCESS;
 }
 
-#ifdef HELPER_COMPILE
-int
-get_pwd_hash(const char *name,
-	struct passwd **pwd, char **hash)
-#else
-int
-get_pwd_hash(pam_handle_t *pamh, const char *name,
-	struct passwd **pwd, char **hash)
-#endif
+PAMH_ARG_DECL(int get_pwd_hash,
+	const char *name, struct passwd **pwd, char **hash)
 {
 	int retval;
 	struct spwd *spwdent = NULL;
 
-#ifdef HELPER_COMPILE
-	retval = get_account_info(name, pwd, &spwdent);
-#else
-	retval = get_account_info(pamh, name, pwd, &spwdent);
-#endif
+	retval = get_account_info(PAMH_ARG(name, pwd, &spwdent));
 	if (retval != PAM_SUCCESS) {
 		return retval;
 	}
@@ -251,13 +233,8 @@ get_pwd_hash(pam_handle_t *pamh, const char *name,
 	return PAM_SUCCESS;
 }
 
-#ifdef HELPER_COMPILE
-int
-check_shadow_expiry(struct spwd *spent, int *daysleft)
-#else
-int
-check_shadow_expiry(pam_handle_t *pamh, struct spwd *spent, int *daysleft)
-#endif
+PAMH_ARG_DECL(int check_shadow_expiry,
+	struct spwd *spent, int *daysleft)
 {
 	long int curdays;
 	*daysleft = -1;
@@ -386,17 +363,19 @@ crypt_md5_wrapper(const char *pass_new)
         return cp;
 }
 
-char *
-create_password_hash(const char *password, unsigned int ctrl, int rounds)
+PAMH_ARG_DECL(char * create_password_hash,
+	const char *password, unsigned int ctrl, int rounds)
 {
 	const char *algoid;
 	char salt[64]; /* contains rounds number + max 16 bytes of salt + algo id */
 	char *sp;
 
 	if (on(UNIX_MD5_PASS, ctrl)) {
+		/* algoid = "$1" */
 		return crypt_md5_wrapper(password);
-	}
-	if (on(UNIX_SHA256_PASS, ctrl)) {
+	} else if (on(UNIX_BLOWFISH_PASS, ctrl)) {
+		algoid = "$2a$";
+	} else if (on(UNIX_SHA256_PASS, ctrl)) {
 		algoid = "$5$";
 	} else if (on(UNIX_SHA512_PASS, ctrl)) {
 		algoid = "$6$";
@@ -416,17 +395,35 @@ create_password_hash(const char *password, unsigned int ctrl, int rounds)
 		return crypted;
 	}
 
-	sp = stpcpy(salt, algoid);
-	if (on(UNIX_ALGO_ROUNDS, ctrl)) {
-		sp += snprintf(sp, sizeof(salt) - 3, "rounds=%u$", rounds);
+#ifdef HAVE_CRYPT_GENSALT_RN
+	if (on(UNIX_BLOWFISH_PASS, ctrl)) {
+		char entropy[17];
+		crypt_make_salt(entropy, sizeof(entropy) - 1);
+		sp = crypt_gensalt_rn(algoid, rounds,
+				      entropy, sizeof(entropy),
+				      salt, sizeof(salt));
+	} else {
+#endif
+		sp = stpcpy(salt, algoid);
+		if (on(UNIX_ALGO_ROUNDS, ctrl)) {
+			sp += snprintf(sp, sizeof(salt) - 3, "rounds=%u$", rounds);
+		}
+		crypt_make_salt(sp, 8);
+		/* For now be conservative so the resulting hashes
+		 * are not too long. 8 bytes of salt prevents dictionary
+		 * attacks well enough. */
+#ifdef HAVE_CRYPT_GENSALT_RN
 	}
-	crypt_make_salt(sp, 8);
-	/* For now be conservative so the resulting hashes
-	 * are not too long. 8 bytes of salt prevents dictionary
-	 * attacks well enough. */
+#endif
 	sp = crypt(password, salt);
 	if (strncmp(algoid, sp, strlen(algoid)) != 0) {
-	/* libc doesn't know the algorithm, use MD5 */
+		/* libxcrypt/libc doesn't know the algorithm, use MD5 */
+		pam_syslog(pamh, LOG_ERR,
+			   "Algo %s not supported by the crypto backend, "
+			   "falling back to MD5\n",
+			   on(UNIX_BLOWFISH_PASS, ctrl) ? "blowfish" :
+			   on(UNIX_SHA256_PASS, ctrl) ? "sha256" :
+			   on(UNIX_SHA512_PASS, ctrl) ? "sha512" : algoid);
 		memset(sp, '\0', strlen(sp));
 		return crypt_md5_wrapper(password);
 	}
@@ -703,13 +700,8 @@ done:
     }
 }
 
-#ifdef HELPER_COMPILE
-int
-unix_update_passwd(const char *forwho, const char *towhat)
-#else
-int
-unix_update_passwd(pam_handle_t *pamh, const char *forwho, const char *towhat)
-#endif
+PAMH_ARG_DECL(int unix_update_passwd,
+	const char *forwho, const char *towhat)
 {
     struct passwd *tmpent = NULL;
     struct stat st;
@@ -803,11 +795,7 @@ unix_update_passwd(pam_handle_t *pamh, const char *forwho, const char *towhat)
 done:
     if (!err) {
 	if (!rename(PW_TMPFILE, "/etc/passwd"))
-#ifdef HELPER_COMPILE
-	    helper_log_err(
-#else
 	    pam_syslog(pamh,
-#endif
 		LOG_NOTICE, "password changed for %s", forwho);
 	else
 	    err = 1;
@@ -830,13 +818,8 @@ done:
     }
 }
 
-#ifdef HELPER_COMPILE
-int
-unix_update_shadow(const char *forwho, char *towhat)
-#else
-int
-unix_update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat)
-#endif
+PAMH_ARG_DECL(int unix_update_shadow,
+	const char *forwho, char *towhat)
 {
     struct spwd *spwdent = NULL, *stmpent = NULL;
     struct stat st;
@@ -933,11 +916,7 @@ unix_update_shadow(pam_handle_t *pamh, const char *forwho, char *towhat)
  done:
     if (!err) {
 	if (!rename(SH_TMPFILE, "/etc/shadow"))
-#ifdef HELPER_COMPILE
-	    helper_log_err(
-#else
 	    pam_syslog(pamh,
-#endif
 		LOG_NOTICE, "password changed for %s", forwho);
 	else
 	    err = 1;

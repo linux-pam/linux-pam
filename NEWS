@@ -20,6 +20,7 @@ Release 1.0.90
 * Make libpam not log missing module if its type is prepended with '-'
 * New pam_timestamp module for authentication based on recent successful
   login.
+* Add blowfish support to pam_unix.
 
 Release 1.0.2
 
