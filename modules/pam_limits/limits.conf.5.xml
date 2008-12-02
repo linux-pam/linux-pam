@@ -230,6 +230,11 @@
 
     </variablelist>
     <para>
+      All items support the values <emphasis>-1</emphasis>, 
+      <emphasis>unlimited</emphasis> or <emphasis>infinity</emphasis> indicating no limit,
+      except for <emphasis remap='B'>priority</emphasis> and <emphasis remap='B'>nice</emphasis>.
+    </para>
+    <para>
       In general, individual limits have priority over group limits, so if
       you impose no limits for <emphasis>admin</emphasis> group, but one of
       the members in this group have a limits line, the user will have its
@@ -274,7 +279,8 @@ ftp             hard    nproc           0
     <para>
       <citerefentry><refentrytitle>pam_limits</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-      <citerefentry><refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+      <citerefentry><refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>getrlimit</refentrytitle><manvolnum>2</manvolnum></citerefentry>
     </para>
   </refsect1>
 

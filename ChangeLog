@@ -1,3 +1,8 @@
+2008-12-02  Michael Calmer  <mc@suse.de>
+
+	* modules/pam_limits/limits.conf.5.xml: Document valid values
+	for limits (bnc#448314).
+
 2008-12-02  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_env/pam_env.c: Add support for user specific
