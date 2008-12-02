@@ -1,3 +1,9 @@
+2008-12-02  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_env/pam_env.c: Add support for user specific
+	environment file. Based on a patch from Ubuntu.
+	* modules/pam_env/pam_env.8.xml: Document new options.
+
 2008-12-02  Olivier Fourdan <ofourdan@redhat.com>
 
 	* modules/pam_filter/pam_filter.c (master): Use /dev/ptmx
