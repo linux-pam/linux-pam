@@ -1,3 +1,13 @@
+2008-12-02  Olivier Fourdan <ofourdan@redhat.com>
+
+	* modules/pam_filter/pam_filter.c (master): Use /dev/ptmx
+	instead of the old BSD pseudoterminal API.
+	(set_filter): Call grantpt(), unlockpt() and ptsname(). Do not
+	close pseudoterminal handle in filter child.
+	* modules/pam_filter/upperLOWER/upperLOWER.c (main): Use
+	regular read() instead of pam_modutil_read() to allow for
+	short reads.
+
 2008-12-02  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_timestamp/Makefile.am: Add hmacfile to tests.

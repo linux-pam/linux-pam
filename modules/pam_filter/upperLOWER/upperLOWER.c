@@ -89,7 +89,7 @@ int main(int argc, char **argv UNUSED)
 	  /* application errors */
 
 	  if ( FD_ISSET(APPERR_FILENO,&readers) ) {
-	       int got = pam_modutil_read(APPERR_FILENO, buffer, BUFSIZ);
+	       int got = read(APPERR_FILENO, buffer, BUFSIZ);
 	       if (got <= 0) {
 		    break;
 	       } else {
@@ -102,7 +102,7 @@ int main(int argc, char **argv UNUSED)
 		    }
 	       }
 	  } else if ( FD_ISSET(APPOUT_FILENO,&readers) ) {    /* app output */
-	       int got = pam_modutil_read(APPOUT_FILENO, buffer, BUFSIZ);
+	       int got = read(APPOUT_FILENO, buffer, BUFSIZ);
 	       if (got <= 0) {
 		    break;
 	       } else {
@@ -117,7 +117,7 @@ int main(int argc, char **argv UNUSED)
 	  }
 
 	  if ( FD_ISSET(STDIN_FILENO, &readers) ) {  /* user input */
-	       int got = pam_modutil_read(STDIN_FILENO, buffer, BUFSIZ);
+	       int got = read(STDIN_FILENO, buffer, BUFSIZ);
 	       if (got < 0) {
 		    syslog(LOG_WARNING,"user input junked");
 		    break;

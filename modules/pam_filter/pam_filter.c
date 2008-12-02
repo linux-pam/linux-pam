@@ -48,41 +48,18 @@
 
 #include <stdarg.h>
 
-#define TERMINAL_LEN 12
+#define DEV_PTMX "/dev/ptmx"
 
 static int
-master (const pam_handle_t *pamh, char *terminal)
-/*
- * try to open all of the terminals in sequence return first free one,
- * or -1
- */
+master (void)
 {
-     const char ptys[] = "pqrs", *pty = ptys;
-     const char hexs[] = "0123456789abcdef", *hex;
-     struct stat tstat;
-     int fd;
+    int fd;
 
-     strcpy(terminal, "/dev/pty??");
+    if ((fd = open(DEV_PTMX, O_RDWR)) >= 0) {
+	return fd;
+    }
 
-     while (*pty) {                   /* step through four types */
-	  terminal[8] = *pty++;
-	  terminal[9] = '0';
-	  if (stat(terminal,&tstat) < 0) {
-	       pam_syslog(pamh, LOG_WARNING,
-			  "unknown pseudo terminal: %s", terminal);
-	       break;
-	  }
-	  for (hex = hexs; *hex; ) {  /* step through 16 of these */
-	       terminal[9] = *hex++;
-	       if ((fd = open(terminal, O_RDWR)) >= 0) {
-		    return fd;
-	       }
-	  }
-     }
-
-     /* no terminal found */
-
-     return -1;
+    return -1;
 }
 
 static int process_args(pam_handle_t *pamh
@@ -279,7 +256,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    const char **evp, const char *filtername)
 {
     int status=-1;
-    char terminal[TERMINAL_LEN];
+    char* terminal = NULL;
     struct termios stored_mode;           /* initial terminal mode settings */
     int fd[2], child=0, child2=0, aterminal;
 
@@ -299,7 +276,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
 	/* open the master pseudo terminal */
 
-	fd[0] = master(pamh,terminal);
+	fd[0] = master();
 	if (fd[0] < 0) {
 	    pam_syslog(pamh, LOG_CRIT, "no master terminal");
 	    return PAM_AUTH_ERR;
@@ -392,8 +369,27 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 		return PAM_ABORT;
 	    }
 
+	    /* grant slave terminal */
+	    if (grantpt (fd[0]) < 0) {
+		pam_syslog(pamh, LOG_WARNING, "Cannot grant acccess to slave terminal");
+		return PAM_ABORT;
+	    }
+
+	    /* unlock slave terminal */
+	    if (unlockpt (fd[0]) < 0) {
+		pam_syslog(pamh, LOG_WARNING, "Cannot unlock slave terminal");
+		return PAM_ABORT;
+	    }
+
 	    /* find slave's name */
-	    terminal[5] = 't';             /* want to open slave terminal */
+	    terminal = ptsname(fd[0]); /* returned value should not be freed */
+
+	    if (terminal == NULL) {
+		pam_syslog(pamh, LOG_WARNING,
+			   "Cannot get the name of the slave terminal: %m");
+		return PAM_ABORT;
+	    }
+
 	    fd[1] = open(terminal, O_RDWR);
 	    close(fd[0]);      /* process is the child -- uses line fd[1] */
 
@@ -412,7 +408,6 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 		close(fd[1]);
 		return PAM_ABORT;
 	    }
-
 	} else {
 
 	    /* nothing to do for a simple stream socket */
@@ -449,13 +444,6 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
 	return PAM_SUCCESS;
     }
-
-    /*
-     * process is the parent here. So we can close the application's
-     * input/output
-     */
-
-    close(fd[1]);
 
     /* Clear out passwords... there is a security problem here in
      * that this process never executes pam_end.  Consequently, any
