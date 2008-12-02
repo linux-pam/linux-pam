@@ -63,11 +63,13 @@ testvectors(void)
 		"b617318655057264e28bc0b6fb378c8ef146be00",
 		},
 
+#ifdef HMAC_ALLOW_SHORT_KEYS 
 		{
 		"Jefe", 4,
 		"what do ya want for nothing?", 28,
 		"effcdf6ae5eb2fa2d27416d5f184df9c259a7c79",
 		},
+#endif
 
 		{
 		"\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa", 20,

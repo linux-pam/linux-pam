@@ -1,3 +1,9 @@
+2008-12-02  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_timestamp/Makefile.am: Add hmacfile to tests.
+	* modules/pam_timestamp/hmacfile.c: Do not try the short key
+	testvector.
+
 2008-12-01  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_unix/support.h: Fix masks for cipher algorithm
