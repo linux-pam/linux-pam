@@ -161,12 +161,12 @@
       User <emphasis>john</emphasis> and <emphasis>foo</emphasis>
       should get access from IPv6 host address.
     </para>
-    <para>+ : john foo : 2001:4ca0:0:101::1</para>
+    <para>+ : john foo : 2001:db8:0:101::1</para>
 
     <para>
       User <emphasis>john</emphasis> should get access from IPv6 net/mask.
     </para>
-    <para>+ : john : 2001:4ca0:0:101::/64</para>
+    <para>+ : john : 2001:db8:0:101::/64</para>
 
     <para>
       Disallow console logins to all but the shutdown, sync and all

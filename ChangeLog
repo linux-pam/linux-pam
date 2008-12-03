@@ -1,4 +1,7 @@
-2008-12-03  Thorsten Kukuk  <kukuk@suse.de>
+2008-12-03  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_access/access.conf.5.xml: Replace
+	2001:4ca0 with 2001:db8:: [bug#2356400].
 
 	* doc/man/Makefile.am: Add pam_get_authtok.3.xml.
 	* doc/man/pam_get_authtok.3.xml: New.
