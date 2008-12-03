@@ -1,3 +1,23 @@
+2008-12-03  Thorsten Kukuk  <kukuk@suse.de>
+
+	* doc/man/Makefile.am: Add pam_get_authtok.3.xml.
+	* doc/man/pam_get_authtok.3.xml: New.
+	* libpam/Makefile.am: Add pam_get_authtok.c.
+	* libpam/libpam.map: Export pam_get_authtok.
+	* libpam/pam_get_authtok.c: New.
+	* libpam/pam_private.h: Add mod_argc and mod_argv to pam_handle.
+	* libpam_include/security/pam_ext.h: Add pam_get_authtok
+	prototype.
+	* modules/pam_cracklib/pam_cracklib.c: Use pam_get_authtok.
+	* modules/pam_pwhistory/pam_pwhistory.c: Likewise.
+	* po/POTFILES.in: Add libpam/pam_get_authtok.c.
+	* xtests/tst-pam_cracklib1.c: Adjust error codes.
+
+	* modules/pam_timestamp/Makefile.am: Remove hmactest.c from
+	EXTRA_DIST.
+
+	* po/*.po: Regenerated.
+
 2008-12-02  Michael Calmer  <mc@suse.de>
 
 	* modules/pam_limits/limits.conf.5.xml: Document valid values

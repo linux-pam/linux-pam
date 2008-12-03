@@ -162,6 +162,8 @@ struct pam_handle {
     struct _pam_former_state former;  /* library state - support for
 					 event driven applications */
     const char *mod_name;	/* Name of the module currently executed */
+    int mod_argc;               /* Number of module arguments */
+    char **mod_argv;            /* module arguments */
     int choice;			/* Which function we call from the module */
 
 #ifdef HAVE_LIBAUDIT

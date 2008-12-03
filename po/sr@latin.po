@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-11-28 15:16+0100\n"
+"POT-Creation-Date: 2008-12-02 23:14+0100\n"
 "PO-Revision-Date: 2008-04-05 10:48+0100\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora-trans-sr@redhat.com>\n"
@@ -32,6 +32,35 @@ msgstr "...Izvinite, vaše vreme je isteklo!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "neispravne veze (%d)\n"
+
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
+msgid "Password: "
+msgstr "Lozinka: "
+
+#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
+#, c-format
+msgid "New %s%spassword: "
+msgstr "Nova %s%slozinka: "
+
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#, c-format
+msgid "Retype new %s%spassword: "
+msgstr "Ponovite novu %s%slozinku: "
+
+#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
+msgid "Sorry, passwords do not match."
+msgstr "Izvinite, lozinke se ne podudaraju."
+
+#: libpam/pam_get_authtok.c:123
+#, c-format
+msgid "Retype %s"
+msgstr ""
+
+#: libpam/pam_get_authtok.c:142
+#, fuzzy
+msgid "Password change aborted."
+msgstr "Lozinka nepromenjena"
 
 #: libpam/pam_item.c:302
 msgid "login:"
@@ -170,79 +199,57 @@ msgstr "Aplikacija treba ponovo da pozove libpam "
 msgid "Unknown PAM error"
 msgstr "Nepoznata PAM greška"
 
-#: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:62
-#, c-format
-msgid "New %s%spassword: "
-msgstr "Nova %s%slozinka: "
-
-#: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:64
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "Ponovite novu %s%slozinku: "
-
-#: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:65
-msgid "Sorry, passwords do not match."
-msgstr "Izvinite, lozinke se ne podudaraju."
-
-#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "is the same as the old one"
 msgstr "je ista kao i stara"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:507
 msgid "is a palindrome"
 msgstr "je palindrom"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:510
 msgid "case changes only"
 msgstr "samo promene malih i velikih slova"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is too similar to the old one"
 msgstr "je suviše slična staroj"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "is too simple"
 msgstr "je suviše jednostavna"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "is rotated"
 msgstr "je rotirana"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "not enough character classes"
 msgstr "nema dovoljno klasa znakova"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains too many same characters consecutively"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:534
+#: modules/pam_cracklib/pam_cracklib.c:528
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Lozinka nije zadata"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Lozinka nepromenjena"
 
-#: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:710
+#: modules/pam_cracklib/pam_cracklib.c:578
+#: modules/pam_cracklib/pam_cracklib.c:664
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "LOŠA LOZINKA: %s"
-
-#: modules/pam_exec/pam_exec.c:142 modules/pam_unix/pam_unix_auth.c:159
-#: modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "Lozinka: "
 
 #: modules/pam_exec/pam_exec.c:215
 #, c-format
@@ -358,14 +365,7 @@ msgstr "Pravim direktorijum „%s“."
 msgid "Unable to create directory %s: %m"
 msgstr "Ne mogu da napravim direktorijum %s: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:231
-#: modules/pam_pwhistory/pam_pwhistory.c:267
-#, fuzzy
-msgid "Password change aborted."
-msgstr "Lozinka nepromenjena"
-
-#: modules/pam_pwhistory/pam_pwhistory.c:242
-#: modules/pam_pwhistory/pam_pwhistory.c:304
+#: modules/pam_pwhistory/pam_pwhistory.c:220
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Lozinka je već u upotrebi. Izaberite drugu."

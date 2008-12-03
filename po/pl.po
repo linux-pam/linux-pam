@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-11-28 15:16+0100\n"
+"POT-Creation-Date: 2008-12-02 23:14+0100\n"
 "PO-Revision-Date: 2008-10-14 23:49+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -29,6 +29,34 @@ msgstr "...czas minął.\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "błędna rozmowa (%d)\n"
+
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
+msgid "Password: "
+msgstr "Hasło: "
+
+#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
+#, c-format
+msgid "New %s%spassword: "
+msgstr "Nowe hasło %s%s: "
+
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#, c-format
+msgid "Retype new %s%spassword: "
+msgstr "Ponownie podaj nowe hasło %s%s: "
+
+#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
+msgid "Sorry, passwords do not match."
+msgstr "Podane hasła nie są zgodne."
+
+#: libpam/pam_get_authtok.c:123
+#, c-format
+msgid "Retype %s"
+msgstr ""
+
+#: libpam/pam_get_authtok.c:142
+msgid "Password change aborted."
+msgstr "Przerwano zmianę hasła."
 
 #: libpam/pam_item.c:302
 msgid "login:"
@@ -167,79 +195,57 @@ msgstr "Aplikacja musi jeszcze raz wywołać libpam"
 msgid "Unknown PAM error"
 msgstr "Nieznany błąd PAM"
 
-#: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:62
-#, c-format
-msgid "New %s%spassword: "
-msgstr "Nowe hasło %s%s: "
-
-#: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:64
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "Ponownie podaj nowe hasło %s%s: "
-
-#: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:65
-msgid "Sorry, passwords do not match."
-msgstr "Podane hasła nie są zgodne."
-
-#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "is the same as the old one"
 msgstr "jest identyczne ze starym"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:507
 msgid "is a palindrome"
 msgstr "jest palindromem"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:510
 msgid "case changes only"
 msgstr "ma zmienioną tylko wielkość znaków"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is too similar to the old one"
 msgstr "jest za bardzo podobne do poprzedniego"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "is too simple"
 msgstr "jest za proste"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "is rotated"
 msgstr "jest obrócone"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "not enough character classes"
 msgstr "za mało klas znaków"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains too many same characters consecutively"
 msgstr "zawiera za dużo takich samych znaków po sobie"
 
-#: modules/pam_cracklib/pam_cracklib.c:534
+#: modules/pam_cracklib/pam_cracklib.c:528
 msgid "contains the user name in some form"
 msgstr "zawiera nazwę użytkownika w pewnej formie"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Nie podano hasła"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Hasło nie zostało zmienione"
 
-#: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:710
+#: modules/pam_cracklib/pam_cracklib.c:578
+#: modules/pam_cracklib/pam_cracklib.c:664
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "BŁĘDNE HASŁO: %s"
-
-#: modules/pam_exec/pam_exec.c:142 modules/pam_unix/pam_unix_auth.c:159
-#: modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "Hasło: "
 
 #: modules/pam_exec/pam_exec.c:215
 #, c-format
@@ -359,13 +365,7 @@ msgstr "Tworzenie katalogu \"%s\"."
 msgid "Unable to create directory %s: %m"
 msgstr "Nie można utworzyć katalogu %s: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:231
-#: modules/pam_pwhistory/pam_pwhistory.c:267
-msgid "Password change aborted."
-msgstr "Przerwano zmianę hasła."
-
-#: modules/pam_pwhistory/pam_pwhistory.c:242
-#: modules/pam_pwhistory/pam_pwhistory.c:304
+#: modules/pam_pwhistory/pam_pwhistory.c:220
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Hasło było już używane. Wybierz inne."

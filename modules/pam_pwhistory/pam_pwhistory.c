@@ -58,17 +58,10 @@
 
 #include "opasswd.h"
 
-/* For Translators: "%s%s" could be replaced with "<service> " or "". */
-#define NEW_PASSWORD_PROMPT _("New %s%spassword: ")
-/* For Translators: "%s%s" could be replaced with "<service> " or "". */
-#define AGAIN_PASSWORD_PROMPT _("Retype new %s%spassword: ")
-#define MISTYPED_PASSWORD _("Sorry, passwords do not match.")
-
 #define DEFAULT_BUFLEN 2048
 
 struct options_t {
   int debug;
-  int use_authtok;
   int enforce_for_root;
   int remember;
   int tries;
@@ -80,12 +73,12 @@ typedef struct options_t options_t;
 static void
 parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
 {
-  if (strcasecmp (argv, "use_first_pass") == 0)
+  if (strcasecmp (argv, "try_first_pass") == 0)
     /* ignore */;
   else if (strcasecmp (argv, "use_first_pass") == 0)
     /* ignore */;
   else if (strcasecmp (argv, "use_authtok") == 0)
-    options->use_authtok = 1;
+    /* ignore, handled by pam_get_authtok */;
   else if (strcasecmp (argv, "debug") == 0)
     options->debug = 1;
   else if (strncasecmp (argv, "remember=", 9) == 0)
@@ -115,10 +108,9 @@ PAM_EXTERN int
 pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
   struct passwd *pwd;
-  char *newpass;
+  const char *newpass;
   const char *user;
-  void *newpass_void;
-  int retval, tries;
+    int retval, tries;
   options_t options;
 
   memset (&options, 0, sizeof (options));
@@ -191,126 +183,57 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	return retval;
     }
 
-  retval = pam_get_item (pamh, PAM_AUTHTOK, (const void **) &newpass_void);
-  newpass = (char *) newpass_void;
-  if (retval != PAM_SUCCESS)
-    return retval;
-  if (options.debug)
+  newpass = NULL;
+  tries = 0;
+  while ((newpass == NULL) && (tries < options.tries))
     {
-      if (newpass)
-	pam_syslog (pamh, LOG_DEBUG, "got new auth token");
-      else
-	pam_syslog (pamh, LOG_DEBUG, "new auth token not set");
-    }
+      retval = pam_get_authtok (pamh, PAM_AUTHTOK, &newpass, NULL);
+      if (retval != PAM_SUCCESS && retval != PAM_TRY_AGAIN)
+	return retval;
+      tries++;
 
-  /* If we haven't been given a password yet, prompt for one... */
-  if (newpass == NULL)
-    {
-      if (options.use_authtok)
-	/* We are not allowed to ask for a new password */
-	return PAM_AUTHTOK_ERR;
+      if (newpass == NULL || retval == PAM_TRY_AGAIN)
+	continue;
 
-      tries = 0;
-
-      while ((newpass == NULL) && (tries++ < options.tries))
+      if (options.debug)
 	{
-	  retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &newpass,
-			       NEW_PASSWORD_PROMPT, options.prompt_type,
-			       strlen (options.prompt_type) > 0?" ":"");
-	  if (retval != PAM_SUCCESS)
-	    {
-	      _pam_drop (newpass);
-	      if (retval == PAM_CONV_AGAIN)
-		retval = PAM_INCOMPLETE;
-	      return retval;
-	    }
-
-	  if (newpass == NULL)
-	    {
-	      /* We want to abort the password change */
-	      pam_error (pamh, _("Password change aborted."));
-	      return PAM_AUTHTOK_ERR;
-	    }
-
-	  if (options.debug)
-	    pam_syslog (pamh, LOG_DEBUG, "check against old password file");
-
-	  if (check_old_password (pamh, user, newpass,
-				  options.debug) != PAM_SUCCESS)
-	    {
-	      pam_error (pamh,
-			 _("Password has been already used. Choose another."));
-	      _pam_overwrite (newpass);
-	      _pam_drop (newpass);
-	      if (tries >= options.tries)
-		{
-		  if (options.debug)
-		    pam_syslog (pamh, LOG_DEBUG,
-				"Aborted, too many tries");
-		  return PAM_MAXTRIES;
-		}
-	    }
+	  if (newpass)
+	    pam_syslog (pamh, LOG_DEBUG, "got new auth token");
 	  else
-	    {
-	      int failed;
-	      char *new2;
-
-	      retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &new2,
-				   AGAIN_PASSWORD_PROMPT,
-				   options.prompt_type,
-				   strlen (options.prompt_type) > 0?" ":"");
-              if (retval != PAM_SUCCESS)
-		return retval;
-
-              if (new2 == NULL)
-                {                       /* Aborting password change... */
-		  pam_error (pamh, _("Password change aborted."));
-                  return PAM_AUTHTOK_ERR;
-                }
-
-              failed = (strcmp (newpass, new2) != 0);
-
-              _pam_overwrite (new2);
-              _pam_drop (new2);
-
-	      if (failed)
-                {
-                  pam_error (pamh, MISTYPED_PASSWORD);
-		  _pam_overwrite (newpass);
-                  _pam_drop (newpass);
-		  if (tries >= options.tries)
-		    {
-		      if (options.debug)
-			pam_syslog (pamh, LOG_DEBUG,
-				    "Aborted, too many tries");
-		      return PAM_MAXTRIES;
-		    }
-                }
-	    }
+	    pam_syslog (pamh, LOG_DEBUG, "got no auth token");
 	}
 
-      /* Remember new password */
-      pam_set_item (pamh, PAM_AUTHTOK, (void *) newpass);
-    }
-  else /* newpass != NULL, we found an old password */
-    {
+      if (retval != PAM_SUCCESS || newpass == NULL)
+	{
+	  if (retval == PAM_CONV_AGAIN)
+	    retval = PAM_INCOMPLETE;
+	  return retval;
+	}
+
       if (options.debug)
-        pam_syslog (pamh, LOG_DEBUG, "look in old password file");
+	pam_syslog (pamh, LOG_DEBUG, "check against old password file");
 
       if (check_old_password (pamh, user, newpass,
 			      options.debug) != PAM_SUCCESS)
 	{
 	  pam_error (pamh,
 		     _("Password has been already used. Choose another."));
-	  /* We are only here, because old password was set.
-             So overwrite it, else it will be stored! */
+	  newpass = NULL;
+	  /* Remove password item, else following module will use it */
           pam_set_item (pamh, PAM_AUTHTOK, (void *) NULL);
-
-	  return PAM_AUTHTOK_ERR;
+	  continue;
 	}
     }
 
-  return PAM_SUCCESS;
+  if (newpass == NULL && tries >= options.tries)
+    {
+      if (options.debug)
+	pam_syslog (pamh, LOG_DEBUG, "Aborted, too many tries");
+      return PAM_MAXTRIES;
+    }
+
+  /* Remember new password */
+  return pam_set_item (pamh, PAM_AUTHTOK, newpass);
 }
 
 

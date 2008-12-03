@@ -12,8 +12,8 @@ man_MANS = pam.3 PAM.8 pam.8 pam.conf.5 pam.d.5 \
 	pam_chauthtok.3 pam_close_session.3 pam_conv.3 \
 	pam_end.3 pam_error.3 \
 	pam_fail_delay.3 pam_xauth_data.3 \
-	pam_get_data.3 pam_get_item.3 pam_get_user.3 pam_getenv.3 \
-	pam_getenvlist.3 \
+	pam_get_authtok.3 pam_get_data.3 pam_get_item.3 pam_get_user.3 \
+	pam_getenv.3 pam_getenvlist.3 \
 	pam_info.3 \
 	pam_open_session.3 \
 	pam_prompt.3 pam_putenv.3 \
@@ -29,8 +29,8 @@ XMLS = pam.3.xml pam.8.xml \
 	pam_chauthtok.3.xml pam_close_session.3.xml pam_conv.3.xml \
 	pam_end.3.xml pam_error.3.xml \
 	pam_fail_delay.3.xml pam_xauth_data.3 \
-	pam_get_data.3.xml pam_get_item.3.xml pam_get_user.3.xml \
-	pam_getenv.3.xml pam_getenvlist.3.xml \
+	pam_get_authtok.3.xml pam_get_data.3.xml pam_get_item.3.xml \
+	pam_get_user.3.xml pam_getenv.3.xml pam_getenvlist.3.xml \
         pam_info.3.xml \
 	pam_open_session.3.xml \
 	pam_prompt.3.xml pam_putenv.3.xml \

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-11-28 15:16+0100\n"
+"POT-Creation-Date: 2008-12-02 23:14+0100\n"
 "PO-Revision-Date: 2005-08-16 20:00+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -30,6 +30,35 @@ msgstr "...Din tid er desværre gået!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "konversationsfejl (%d)\n"
+
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
+msgid "Password: "
+msgstr "Adgangskode: "
+
+#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
+#, c-format
+msgid "New %s%spassword: "
+msgstr "Ny %s%sadgangskode: "
+
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#, c-format
+msgid "Retype new %s%spassword: "
+msgstr "Genindtast ny %s%sadgangskode: "
+
+#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
+msgid "Sorry, passwords do not match."
+msgstr "Adgangskoderne stemmer desværre ikke overens."
+
+#: libpam/pam_get_authtok.c:123
+#, fuzzy, c-format
+msgid "Retype %s"
+msgstr "type: "
+
+#: libpam/pam_get_authtok.c:142
+#, fuzzy
+msgid "Password change aborted."
+msgstr "Adgangskoden er uændret"
 
 #: libpam/pam_item.c:302
 msgid "login:"
@@ -170,79 +199,57 @@ msgstr "Programmet skal kalde libpam igen"
 msgid "Unknown PAM error"
 msgstr "Ukendt PAM-fejl"
 
-#: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:62
-#, c-format
-msgid "New %s%spassword: "
-msgstr "Ny %s%sadgangskode: "
-
-#: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:64
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "Genindtast ny %s%sadgangskode: "
-
-#: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:65
-msgid "Sorry, passwords do not match."
-msgstr "Adgangskoderne stemmer desværre ikke overens."
-
-#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "is the same as the old one"
 msgstr "er den samme som den gamle"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:507
 msgid "is a palindrome"
 msgstr "det staves ens forfra og bagfra"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:510
 msgid "case changes only"
 msgstr "kun forskel i store/små bogstaver"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is too similar to the old one"
 msgstr "ligner for meget den gamle"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "is too simple"
 msgstr "er for enkel"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "is rotated"
 msgstr "er roteret"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains too many same characters consecutively"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:534
+#: modules/pam_cracklib/pam_cracklib.c:528
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Der er ikke angivet nogen adgangskode"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Adgangskoden er uændret"
 
-#: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:710
+#: modules/pam_cracklib/pam_cracklib.c:578
+#: modules/pam_cracklib/pam_cracklib.c:664
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "DÅRLIG ADGANGSKODE: %s"
-
-#: modules/pam_exec/pam_exec.c:142 modules/pam_unix/pam_unix_auth.c:159
-#: modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "Adgangskode: "
 
 #: modules/pam_exec/pam_exec.c:215
 #, fuzzy, c-format
@@ -357,14 +364,7 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_pwhistory/pam_pwhistory.c:231
-#: modules/pam_pwhistory/pam_pwhistory.c:267
-#, fuzzy
-msgid "Password change aborted."
-msgstr "Adgangskoden er uændret"
-
-#: modules/pam_pwhistory/pam_pwhistory.c:242
-#: modules/pam_pwhistory/pam_pwhistory.c:304
+#: modules/pam_pwhistory/pam_pwhistory.c:220
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Adgangskoden er allerede blevet brugt. Vælg en anden."
@@ -589,9 +589,6 @@ msgstr "Genindtast ny UNIX-adgangskode: "
 
 #~ msgid "Enter number of choice: "
 #~ msgstr "Angiv nummer for valg: "
-
-#~ msgid "type: "
-#~ msgstr "type: "
 
 #~ msgid "dlopen() failure"
 #~ msgstr "dlopen() fejl"

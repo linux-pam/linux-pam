@@ -12,6 +12,7 @@
 ./libpam/pam_dynamic.c
 ./libpam/pam_end.c
 ./libpam/pam_env.c
+./libpam/pam_get_authtok.c
 ./libpam/pam_handlers.c
 ./libpam/pam_item.c
 ./libpam/pam_misc.c

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-11-28 15:16+0100\n"
+"POT-Creation-Date: 2008-12-02 23:14+0100\n"
 "PO-Revision-Date: 2008-11-28 15:22+0100\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
@@ -29,6 +29,34 @@ msgstr "...Čas vypršel!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "nesprávná konverzace (%d)\n"
+
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
+msgid "Password: "
+msgstr "Heslo: "
+
+#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
+#, c-format
+msgid "New %s%spassword: "
+msgstr "Nové %s%sheslo: "
+
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#, c-format
+msgid "Retype new %s%spassword: "
+msgstr "Opakujte nové %s%sheslo: "
+
+#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
+msgid "Sorry, passwords do not match."
+msgstr "Hesla se neshodují."
+
+#: libpam/pam_get_authtok.c:123
+#, c-format
+msgid "Retype %s"
+msgstr ""
+
+#: libpam/pam_get_authtok.c:142
+msgid "Password change aborted."
+msgstr "Změna hesla přerušena."
 
 #: libpam/pam_item.c:302
 msgid "login:"
@@ -166,79 +194,57 @@ msgstr "Aplikace musí znovu zavolat libpam"
 msgid "Unknown PAM error"
 msgstr "Neznámá chyba PAM"
 
-#: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:62
-#, c-format
-msgid "New %s%spassword: "
-msgstr "Nové %s%sheslo: "
-
-#: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:64
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "Opakujte nové %s%sheslo: "
-
-#: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:65
-msgid "Sorry, passwords do not match."
-msgstr "Hesla se neshodují."
-
-#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "is the same as the old one"
 msgstr "je stejné jako předcházející"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:507
 msgid "is a palindrome"
 msgstr "je palindrom"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:510
 msgid "case changes only"
 msgstr "pouze mění velikost"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is too similar to the old one"
 msgstr "je příliš podobné předcházejícímu"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "is too simple"
 msgstr "je příliš jednoduché"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "is rotated"
 msgstr "je posunuté"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "not enough character classes"
 msgstr "nemá dostatek různých druhů znaků"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains too many same characters consecutively"
 msgstr "obsahuje příliš mnoho stejných znaků za sebou"
 
-#: modules/pam_cracklib/pam_cracklib.c:534
+#: modules/pam_cracklib/pam_cracklib.c:528
 msgid "contains the user name in some form"
 msgstr "obsahuje v nějaké formě uživatelské jméno"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Nezadáno heslo"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Heslo nebylo změněno"
 
-#: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:710
+#: modules/pam_cracklib/pam_cracklib.c:578
+#: modules/pam_cracklib/pam_cracklib.c:664
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ŠPATNÉ HESLO: %s"
-
-#: modules/pam_exec/pam_exec.c:142 modules/pam_unix/pam_unix_auth.c:159
-#: modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "Heslo: "
 
 #: modules/pam_exec/pam_exec.c:215
 #, c-format
@@ -354,13 +360,7 @@ msgstr "Vytváření adresáře '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Nezdařilo se vytvořit adresář %s: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:231
-#: modules/pam_pwhistory/pam_pwhistory.c:267
-msgid "Password change aborted."
-msgstr "Změna hesla přerušena."
-
-#: modules/pam_pwhistory/pam_pwhistory.c:242
-#: modules/pam_pwhistory/pam_pwhistory.c:304
+#: modules/pam_pwhistory/pam_pwhistory.c:220
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Heslo již bylo použito. Zvolte jiné."

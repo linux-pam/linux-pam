@@ -107,7 +107,7 @@ main(int argc, char *argv[])
 
   /* Try one, first input is correct, second is NULL */
   retval = pam_chauthtok (pamh, 0);
-  if (retval != PAM_AUTHTOK_RECOVERY_ERR)
+  if (retval != PAM_AUTHTOK_ERR)
     {
       if (debug)
 	fprintf (stderr, "cracklib1-1: pam_chauthtok returned %d\n", retval);
@@ -116,7 +116,7 @@ main(int argc, char *argv[])
 
   /* Try two, second input is NULL */
   retval = pam_chauthtok (pamh, 0);
-  if (retval != PAM_AUTHTOK_RECOVERY_ERR)
+  if (retval != PAM_AUTHTOK_ERR)
     {
       if (debug)
         fprintf (stderr, "cracklib1-2: pam_chauthtok returned %d\n", retval);

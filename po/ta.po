@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-11-28 15:16+0100\n"
+"POT-Creation-Date: 2008-12-02 23:14+0100\n"
 "PO-Revision-Date: 2007-06-21 15:33+0530\n"
 "Last-Translator: I felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <fedora-trans-ta@redhat.com>\n"
@@ -31,6 +31,35 @@ msgstr "... உங்கள் நேரம் முடிந்தது!\n"
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "பிழையான உரையாடல் (%d)\n"
+
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
+msgid "Password: "
+msgstr "கடவுச்சொல்:"
+
+#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
+#, c-format
+msgid "New %s%spassword: "
+msgstr "புதிய %s%spassword: "
+
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#, c-format
+msgid "Retype new %s%spassword: "
+msgstr "புதிய %s%spassword மீண்டும் உள்ளிடவும்: "
+
+#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
+msgid "Sorry, passwords do not match."
+msgstr "கடவுச்சொல் பொருந்தவில்லை."
+
+#: libpam/pam_get_authtok.c:123
+#, fuzzy, c-format
+msgid "Retype %s"
+msgstr "வகை:"
+
+#: libpam/pam_get_authtok.c:142
+#, fuzzy
+msgid "Password change aborted."
+msgstr "கடவுச்சொல் மாற்றப்படவில்லை"
 
 #: libpam/pam_item.c:302
 msgid "login:"
@@ -168,79 +197,57 @@ msgstr "பயன்பாடு libpam ஐ மீண்டும் அழை�
 msgid "Unknown PAM error"
 msgstr "தெரியாத PAM பிழை"
 
-#: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:62
-#, c-format
-msgid "New %s%spassword: "
-msgstr "புதிய %s%spassword: "
-
-#: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:64
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "புதிய %s%spassword மீண்டும் உள்ளிடவும்: "
-
-#: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:65
-msgid "Sorry, passwords do not match."
-msgstr "கடவுச்சொல் பொருந்தவில்லை."
-
-#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "is the same as the old one"
 msgstr "இது பழையதைப் போல உள்ளது"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:507
 msgid "is a palindrome"
 msgstr "இது ஒரு palindrome"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:510
 msgid "case changes only"
 msgstr "எழுத்து வகை மாற்றங்கள் மட்டும்"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is too similar to the old one"
 msgstr "இது பழையதை ஒத்தே உள்ளது"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "is too simple"
 msgstr "இது மிகவும் எளிதாக உள்ளது"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "is rotated"
 msgstr "இது சுழலக்கூடியது"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains too many same characters consecutively"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:534
+#: modules/pam_cracklib/pam_cracklib.c:528
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "கடவுச்சொல் கொடுக்கப்படவில்லை"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "கடவுச்சொல் மாற்றப்படவில்லை"
 
-#: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:710
+#: modules/pam_cracklib/pam_cracklib.c:578
+#: modules/pam_cracklib/pam_cracklib.c:664
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "தவறான கடவுச்சொல்: %s"
-
-#: modules/pam_exec/pam_exec.c:142 modules/pam_unix/pam_unix_auth.c:159
-#: modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "கடவுச்சொல்:"
 
 #: modules/pam_exec/pam_exec.c:215
 #, c-format
@@ -355,14 +362,7 @@ msgstr ""
 msgid "Unable to create directory %s: %m"
 msgstr ""
 
-#: modules/pam_pwhistory/pam_pwhistory.c:231
-#: modules/pam_pwhistory/pam_pwhistory.c:267
-#, fuzzy
-msgid "Password change aborted."
-msgstr "கடவுச்சொல் மாற்றப்படவில்லை"
-
-#: modules/pam_pwhistory/pam_pwhistory.c:242
-#: modules/pam_pwhistory/pam_pwhistory.c:304
+#: modules/pam_pwhistory/pam_pwhistory.c:220
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "கடவுச்சொல் ஏற்கனவே பயன்படுத்தப்பட்டது. வேறொன்றை பயன்படுத்தவும்."
@@ -585,6 +585,3 @@ msgstr "புதிய UNIX கடவுச்சொல்லை மீண்�
 
 #~ msgid "Enter number of choice: "
 #~ msgstr "விருப்பங்களின் எண்ணை உள்ளிடவும்:"
-
-#~ msgid "type: "
-#~ msgstr "வகை:"

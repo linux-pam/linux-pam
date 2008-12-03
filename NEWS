@@ -22,6 +22,7 @@ Release 1.0.90
   login.
 * Add blowfish support to pam_unix.
 * Add support for user specific environment file to pam_env.
+* Add pam_get_authtok to libpam as Linux-PAM extension.
 
 Release 1.0.2
 

@@ -30,6 +30,11 @@ LIBPAM_EXTENSION_1.0 {
     pam_vsyslog;
 };
 
+LIBPAM_EXTENSION_1.1 {
+  global:
+    pam_get_authtok;
+} LIBPAM_EXTENSION_1.0;
+
 LIBPAM_MODUTIL_1.0 {
   global:
     pam_modutil_getpwnam;

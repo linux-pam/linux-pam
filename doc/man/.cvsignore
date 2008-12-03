@@ -18,6 +18,7 @@ pam_fail_delay.3
 pam_get_data.3
 pam_getenv.3
 pam_getenvlist.3
+pam_get_authtok.3
 pam_get_item.3
 pam_get_user.3
 pam_info.3

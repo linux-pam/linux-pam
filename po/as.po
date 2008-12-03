@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-11-28 15:16+0100\n"
+"POT-Creation-Date: 2008-12-02 23:14+0100\n"
 "PO-Revision-Date: 2008-10-13 11:23+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
 "Language-Team: Assamese\n"
@@ -30,6 +30,35 @@ msgstr "...ক্ষমা কৰিব, আপোনাৰ বাবে সম�
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "ভুল সম্বাদ (%d)\n"
+
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
+msgid "Password: "
+msgstr "গুপ্তশব্দ:"
+
+#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
+#, c-format
+msgid "New %s%spassword: "
+msgstr "নতুন %s%s গুপ্তশব্দ: "
+
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#, c-format
+msgid "Retype new %s%spassword: "
+msgstr "নতুন %s%s গুপ্তশব্দ পুনঃ লিখক: "
+
+#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
+msgid "Sorry, passwords do not match."
+msgstr "ক্ষমা কৰিব, গুপ্তশব্দৰ অমিল "
+
+#: libpam/pam_get_authtok.c:123
+#, c-format
+msgid "Retype %s"
+msgstr ""
+
+#: libpam/pam_get_authtok.c:142
+#, fuzzy
+msgid "Password change aborted."
+msgstr "গুপ্ত শব্দ অপৰিবৰ্ত্তিত"
 
 #: libpam/pam_item.c:302
 msgid "login:"
@@ -167,79 +196,57 @@ msgstr "অনুপ্ৰয়োগে আকৌ libpam ক মাতিব ল�
 msgid "Unknown PAM error"
 msgstr "অজ্ঞাত PAM ভুল"
 
-#: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:62
-#, c-format
-msgid "New %s%spassword: "
-msgstr "নতুন %s%s গুপ্তশব্দ: "
-
-#: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:64
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "নতুন %s%s গুপ্তশব্দ পুনঃ লিখক: "
-
-#: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:65
-msgid "Sorry, passwords do not match."
-msgstr "ক্ষমা কৰিব, গুপ্তশব্দৰ অমিল "
-
-#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "is the same as the old one"
 msgstr "পুৰণিটোৰ সৈতে একেই"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:507
 msgid "is a palindrome"
 msgstr "এটা অনুলোম‌-বিলোম বাক্য"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:510
 msgid "case changes only"
 msgstr "অকল কেচ সলনি কৰা"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is too similar to the old one"
 msgstr "পৰণিটোৰ সৈতে বহুত একেই"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "is too simple"
 msgstr "বৰ সৰল"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "is rotated"
 msgstr "পকোৱা হৈছে"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "not enough character classes"
 msgstr "পৰ্যাপ্ত character classes নাই"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains too many same characters consecutively"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:534
+#: modules/pam_cracklib/pam_cracklib.c:528
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "কোনো গুপ্তশব্দ দিয়া হোৱা নাই"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:558
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "গুপ্ত শব্দ অপৰিবৰ্ত্তিত"
 
-#: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:710
+#: modules/pam_cracklib/pam_cracklib.c:578
+#: modules/pam_cracklib/pam_cracklib.c:664
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "বেয়া গুপ্তশব্দ: %s"
-
-#: modules/pam_exec/pam_exec.c:142 modules/pam_unix/pam_unix_auth.c:159
-#: modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "গুপ্তশব্দ:"
 
 #: modules/pam_exec/pam_exec.c:215
 #, c-format
@@ -354,14 +361,7 @@ msgstr "'%s' পঞ্জিকা সৃষ্টি কৰা হৈছে ।
 msgid "Unable to create directory %s: %m"
 msgstr "%s পঞ্জিকা সৃষ্টি কৰিব নোৱাৰি: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:231
-#: modules/pam_pwhistory/pam_pwhistory.c:267
-#, fuzzy
-msgid "Password change aborted."
-msgstr "গুপ্ত শব্দ অপৰিবৰ্ত্তিত"
-
-#: modules/pam_pwhistory/pam_pwhistory.c:242
-#: modules/pam_pwhistory/pam_pwhistory.c:304
+#: modules/pam_pwhistory/pam_pwhistory.c:220
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "গুপ্তশব্দ ইতিমধ্যে ব্যৱহৃত । অন্য এটা বাচি লওক ।"

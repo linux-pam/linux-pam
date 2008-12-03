@@ -87,7 +87,7 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	}
 
 	/* remember state if we are entering a substack */
-	if (prev_level < stack_level) { 
+	if (prev_level < stack_level) {
 	    substates[stack_level].impression = impression;
 	    substates[stack_level].status = status;
 	}
@@ -105,8 +105,12 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	} else {
 	    D(("passing control to module..."));
 	    pamh->mod_name=h->mod_name;
+	    pamh->mod_argc = h->argc;
+	    pamh->mod_argv = h->argv;
 	    retval = h->func(pamh, flags, h->argc, h->argv);
 	    pamh->mod_name=NULL;
+	    pamh->mod_argc = 0;
+	    pamh->mod_argv = NULL;
 	    D(("module returned: %s", pam_strerror(pamh, retval)));
 	}
 
@@ -286,7 +290,7 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	    }
 	}
 	continue;
-	
+
 decision_made:     /* by getting  here we have made a decision */
 	while (h->next != NULL && h->next->stack_level >= stack_level) {
 	    h = h->next;
