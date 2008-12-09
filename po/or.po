@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-16 11:18+0200\n"
+"POT-Creation-Date: 2008-12-06 13:06+0100\n"
 "PO-Revision-Date: 2007-06-22 16:45+0530\n"
 "Last-Translator: Subhransu Behera <arya_subhransu@yahoo.co.in>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
@@ -409,40 +409,40 @@ msgstr "ନୂତନ STRESS ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁ�
 msgid "Verification mis-typed; password unchanged"
 msgstr "ଯାଞ୍ଚକରଣ ସମୟରେ ଭୂଲ ଟାଇପ କରିଛନ୍ତି, ପ୍ରବେଶ ସଙ୍କେତଟି ବଦଳି ନାହିଁ"
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:750
 msgid "Authentication error"
 msgstr "ବୈଧିକରଣ ତୃଟି"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:751
 msgid "Service error"
 msgstr "ସେବା ତୃଟି"
 
-#: modules/pam_tally/pam_tally.c:748
+#: modules/pam_tally/pam_tally.c:752
 msgid "Unknown user"
 msgstr "ଅଜଣା ଚାଳକ"
 
-#: modules/pam_tally/pam_tally.c:749
+#: modules/pam_tally/pam_tally.c:753
 msgid "Unknown error"
 msgstr "ଅଜଣା ତୃଟି"
 
-#: modules/pam_tally/pam_tally.c:765
+#: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: --reset= ପାଇଁ ଖରାପ ସଂଖ୍ଯା ଦିଆଯାଇଛି\n"
 
-#: modules/pam_tally/pam_tally.c:769
+#: modules/pam_tally/pam_tally.c:773
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: ଅଚିହ୍ନିତ ବିକଳ୍ପ %s\n"
 
-#: modules/pam_tally/pam_tally.c:781
+#: modules/pam_tally/pam_tally.c:785
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:855
+#: modules/pam_tally/pam_tally.c:859
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: ସମସ୍ତ ଚାଳକ ମାନଙ୍କୁ ଶୂନ୍ଯ ବିହୀନ ଭାବରେ ପୁନର୍ବାର ବିନ୍ଯାସ କରିପାରିବ ନାହିଁ\n"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-16 11:18+0200\n"
+"POT-Creation-Date: 2008-12-06 13:06+0100\n"
 "PO-Revision-Date: 2007-06-22 10:02+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -406,40 +406,40 @@ msgstr "새 STRESS 암호를 재입력:"
 msgid "Verification mis-typed; password unchanged"
 msgstr "암호 확인에서 잘못 입력됨; 암호가 변경되지 않음"
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:750
 msgid "Authentication error"
 msgstr "인증 오류"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:751
 msgid "Service error"
 msgstr "서비스 오류"
 
-#: modules/pam_tally/pam_tally.c:748
+#: modules/pam_tally/pam_tally.c:752
 msgid "Unknown user"
 msgstr "알 수 없는 사용자"
 
-#: modules/pam_tally/pam_tally.c:749
+#: modules/pam_tally/pam_tally.c:753
 msgid "Unknown error"
 msgstr "알 수 없는 오류"
 
-#: modules/pam_tally/pam_tally.c:765
+#: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: 잘못된 숫자가 --reset=에 설정됨\n"
 
-#: modules/pam_tally/pam_tally.c:769
+#: modules/pam_tally/pam_tally.c:773
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: 알려지지 않은 옵션 %s\n"
 
-#: modules/pam_tally/pam_tally.c:781
+#: modules/pam_tally/pam_tally.c:785
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:855
+#: modules/pam_tally/pam_tally.c:859
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: 모든 사용자를 영이 아닌 값으로 설정할 수 없음\n"

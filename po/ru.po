@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-16 11:18+0200\n"
+"POT-Creation-Date: 2008-12-06 13:06+0100\n"
 "PO-Revision-Date: 2008-02-23 20:11+0300\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat,com>\n"
@@ -415,33 +415,33 @@ msgstr "Повторите ввод нового пароля STRESS: "
 msgid "Verification mis-typed; password unchanged"
 msgstr "Подтверждение введено неправильно; пароль не изменен"
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:750
 msgid "Authentication error"
 msgstr "Ошибка при проверке подлинности"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:751
 msgid "Service error"
 msgstr "Ошибка службы"
 
-#: modules/pam_tally/pam_tally.c:748
+#: modules/pam_tally/pam_tally.c:752
 msgid "Unknown user"
 msgstr "Неизвестный пользователь"
 
-#: modules/pam_tally/pam_tally.c:749
+#: modules/pam_tally/pam_tally.c:753
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 
-#: modules/pam_tally/pam_tally.c:765
+#: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: указано неверное число для --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:769
+#: modules/pam_tally/pam_tally.c:773
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: неопознанный параметр %s\n"
 
-#: modules/pam_tally/pam_tally.c:781
+#: modules/pam_tally/pam_tally.c:785
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
@@ -449,7 +449,7 @@ msgstr ""
 "%s: [--file имя_корневого_файла] [--user имя_пользователя] [--reset[=n]] [--"
 "quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:855
+#: modules/pam_tally/pam_tally.c:859
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-16 11:18+0200\n"
+"POT-Creation-Date: 2008-12-06 13:06+0100\n"
 "PO-Revision-Date: 2006-03-17 10:32+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -409,40 +409,40 @@ msgstr "វាយ​ពាក្យ​សម្ងាត់ STRESS ថ្មី�
 msgid "Verification mis-typed; password unchanged"
 msgstr "ផ្ទៀងផ្ទាត់​អក្ខរាវិរុទ្ធ​ដែល​បាន​វាយខុស ពាក្យ​សម្ងាត់​មិន​បានផ្លាស់ប្ដូរ​"
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:750
 msgid "Authentication error"
 msgstr "កំហុស​ក្នុង​ការ​ផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:751
 msgid "Service error"
 msgstr "កំហុស​សេវា"
 
-#: modules/pam_tally/pam_tally.c:748
+#: modules/pam_tally/pam_tally.c:752
 msgid "Unknown user"
 msgstr "មិន​ស្គាល់​អ្នក​ប្រើ"
 
-#: modules/pam_tally/pam_tally.c:749
+#: modules/pam_tally/pam_tally.c:753
 msgid "Unknown error"
 msgstr "មិន​ស្គាល់​កំហុស"
 
-#: modules/pam_tally/pam_tally.c:765
+#: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s ៖ លេខ​មិន​ល្អ​បាន​ផ្ដល់​ទៅ --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:769
+#: modules/pam_tally/pam_tally.c:773
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s ៖ ជម្រើស​ដែល​មិន​ស្គាល់ %s\n"
 
-#: modules/pam_tally/pam_tally.c:781
+#: modules/pam_tally/pam_tally.c:785
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s ៖ [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:855
+#: modules/pam_tally/pam_tally.c:859
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s ៖ មិន​អាច​កំណត់​អ្នក​ប្រើ​ទាំងអស់​ទៅ​មិនមែន​សូន្យ​ឡើងវិញ​បានទេ\n"

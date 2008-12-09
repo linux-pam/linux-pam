@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-04-16 11:18+0200\n"
+"POT-Creation-Date: 2008-12-06 13:06+0100\n"
 "PO-Revision-Date: 2007-06-22 13:29+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
@@ -406,40 +406,40 @@ msgstr "ಹೊಸ STRESS ಗುಪ್ತಪದವನ್ನು ಪುನಃ ಟ�
 msgid "Verification mis-typed; password unchanged"
 msgstr "ತಪಾಸಣೆಗೆ ಟೈಪಿಸಿದ್ದು ತಪ್ಪಾಗಿದೆ; ಗುಪ್ತಪದ ಬದಲಾಗಿಲ್ಲ"
 
-#: modules/pam_tally/pam_tally.c:746
+#: modules/pam_tally/pam_tally.c:750
 msgid "Authentication error"
 msgstr "ದೃಢೀಕರಣ ದೋಷ"
 
-#: modules/pam_tally/pam_tally.c:747
+#: modules/pam_tally/pam_tally.c:751
 msgid "Service error"
 msgstr "ಸೇವಾ ದೋಷ"
 
-#: modules/pam_tally/pam_tally.c:748
+#: modules/pam_tally/pam_tally.c:752
 msgid "Unknown user"
 msgstr "ಗೊತ್ತಿರದ ಬಳಕೆದಾರ"
 
-#: modules/pam_tally/pam_tally.c:749
+#: modules/pam_tally/pam_tally.c:753
 msgid "Unknown error"
 msgstr "ಗೊತ್ತಿರದ ದೋಷ"
 
-#: modules/pam_tally/pam_tally.c:765
+#: modules/pam_tally/pam_tally.c:769
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: --reset= ಗೆ ಕೊಡಲಾದ ಕೆಟ್ಟ ಸಂಖ್ಯೆ\n"
 
-#: modules/pam_tally/pam_tally.c:769
+#: modules/pam_tally/pam_tally.c:773
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: ಗುರುತಿಸಲಾಗದ ಆಯ್ಕೆ %s\n"
 
-#: modules/pam_tally/pam_tally.c:781
+#: modules/pam_tally/pam_tally.c:785
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:855
+#: modules/pam_tally/pam_tally.c:859
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: ಎಲ್ಲಾ ಬಳಕೆದಾರರನ್ನು ಶೂನ್ಯವಲ್ಲದುದಕ್ಕೆ ಪುನರ್ ಸಂಯೋಜಿಸಲು ಆಗುವುದಿಲ್ಲ\n"

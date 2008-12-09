@@ -1,3 +1,9 @@
+2008-12-09  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 1.0.3
+
+	* configure.in: ENABLE_NLS needs to be at the bottom of config.h
+
 2008-11-25  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_time/pam_time.c (is_same): Fix check

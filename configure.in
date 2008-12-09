@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(conf/pam_conv1/pam_conv_y.y)
-AM_INIT_AUTOMAKE("Linux-PAM", 1.0.2)
+AM_INIT_AUTOMAKE("Linux-PAM", 1.0.3)
 AC_PREREQ([2.60])
 AM_CONFIG_HEADER(config.h)
 AC_CANONICAL_HOST
@@ -491,8 +491,7 @@ AM_GNU_GETTEXT_VERSION
 AM_GNU_GETTEXT([external])
 AC_CHECK_FUNCS(dngettext)
 
-AH_VERBATIM([_ZZENABLE_NLS],
-[#ifdef ENABLE_NLS
+AH_BOTTOM([#ifdef ENABLE_NLS
 #include <libintl.h>
 #define _(msgid) dgettext(PACKAGE, msgid)
 #define N_(msgid) msgid
