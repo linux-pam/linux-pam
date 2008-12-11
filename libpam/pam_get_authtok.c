@@ -77,7 +77,7 @@ pam_get_authtok (pam_handle_t *pamh, int item, const char **authtok,
 {
   char *resp[2] = {NULL, NULL};
   const void* prevauthtok;
-  const char *type = "";
+  const char *authtok_type = "";
   int ask_twice = 0; /* Password change, ask twice for it */
   int retval;
 
@@ -89,9 +89,13 @@ pam_get_authtok (pam_handle_t *pamh, int item, const char **authtok,
   if (item == PAM_AUTHTOK && pamh->choice == PAM_CHAUTHTOK)
     {
       ask_twice = 1;
-      type = get_option (pamh, "type");
-      if (type == NULL)
-	type = "";
+      authtok_type = get_option (pamh, "authtok_type");
+      if (authtok_type == NULL)
+	{
+	  retval = pam_get_item (pamh, PAM_AUTHTOK_TYPE, (const void **)&authtok_type);
+	  if (retval != PAM_SUCCESS || authtok_type == NULL)
+	    authtok_type = "";
+	}
     }
 
   retval = pam_get_item (pamh, item, &prevauthtok);
@@ -125,12 +129,12 @@ pam_get_authtok (pam_handle_t *pamh, int item, const char **authtok,
   else if (ask_twice)
     {
       retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0],
-			   PROMPT1, type,
-			   strlen (type) > 0?" ":"");
+			   PROMPT1, authtok_type,
+			   strlen (authtok_type) > 0?" ":"");
       if (retval == PAM_SUCCESS && ask_twice && resp[0] != NULL)
 	retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[1],
-			     PROMPT2, type,
-			     strlen (type) > 0?" ":"");
+			     PROMPT2, authtok_type,
+			     strlen (authtok_type) > 0?" ":"");
     }
   else
     retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0], "%s",

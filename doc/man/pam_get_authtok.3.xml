@@ -121,6 +121,20 @@
           </para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term>
+          <option>authtok_type=<replaceable>XXX</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            The default action is for the module to use the
+            following prompts when requesting passwords:
+            "New UNIX password: " and "Retype UNIX password: ".
+            The example word <emphasis>UNIX</emphasis> can
+            be replaced with this option, by default it is empty.
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
   </refsect1>
 

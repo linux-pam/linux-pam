@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-02 23:14+0100\n"
+"POT-Creation-Date: 2008-12-11 20:40+0100\n"
 "PO-Revision-Date: 2008-10-21 09:13+0200\n"
 "Last-Translator: Ondrej Šulek <feonsu@gmail.com>\n"
 "Language-Team: Slovak <fedora-trans-sk@redhat.com>\n"
@@ -48,16 +48,16 @@ msgstr "Opakujte nové %s%sheslo: "
 msgid "Sorry, passwords do not match."
 msgstr "Heslá sa nezhodujú."
 
-#: libpam/pam_get_authtok.c:123
+#: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
 msgstr ""
 
-#: libpam/pam_get_authtok.c:142
+#: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
 msgstr "Zmena hesla prerušená."
 
-#: libpam/pam_item.c:302
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "login:"
 
@@ -193,54 +193,54 @@ msgstr "Aplikácia musí znovu zavolať libpam"
 msgid "Unknown PAM error"
 msgstr "Neznáme chyba PAM"
 
-#: modules/pam_cracklib/pam_cracklib.c:493
+#: modules/pam_cracklib/pam_cracklib.c:490
 msgid "is the same as the old one"
 msgstr "je rovnaké ako predchádzajúce"
 
-#: modules/pam_cracklib/pam_cracklib.c:507
+#: modules/pam_cracklib/pam_cracklib.c:504
 msgid "is a palindrome"
 msgstr "je palindróm"
 
-#: modules/pam_cracklib/pam_cracklib.c:510
+#: modules/pam_cracklib/pam_cracklib.c:507
 msgid "case changes only"
 msgstr "len zmena veľkosti"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:510
 msgid "is too similar to the old one"
 msgstr "je príliš podobné predchádzajúcemu"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is too simple"
 msgstr "je príliš jednoduché"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "is rotated"
 msgstr "je otočené"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "not enough character classes"
 msgstr "dostatok rôznych druhov znakov"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "contains too many same characters consecutively"
 msgstr "obsahuje príliš veľa rovnakých znakov za sebou"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains the user name in some form"
 msgstr "obsahuje v nejakej forme používateľské meno"
 
-#: modules/pam_cracklib/pam_cracklib.c:558
+#: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Heslo nezadané"
 
-#: modules/pam_cracklib/pam_cracklib.c:558
+#: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Heslo nebolo zmenené"
 
-#: modules/pam_cracklib/pam_cracklib.c:578
-#: modules/pam_cracklib/pam_cracklib.c:664
+#: modules/pam_cracklib/pam_cracklib.c:575
+#: modules/pam_cracklib/pam_cracklib.c:658
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "NESPRÁVNE HESLO: %s"

@@ -99,11 +99,8 @@ struct cracklib_options {
 	int low_credit;
 	int oth_credit;
         int min_class;
-	int use_authtok;
-	int try_first_pass;
 	int max_repeat;
 	int reject_user;
-	char prompt_type[BUFSIZ];
         const char *cracklib_dictpath;
 };
 
@@ -116,7 +113,6 @@ struct cracklib_options {
 #define CO_UP_CREDIT    1
 #define CO_LOW_CREDIT   1
 #define CO_OTH_CREDIT   1
-#define CO_USE_AUTHTOK  0
 
 static int
 _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
@@ -133,7 +129,7 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
 	 if (!strcmp(*argv,"debug"))
 	     ctrl |= PAM_DEBUG_ARG;
 	 else if (!strncmp(*argv,"type=",5))
-	     strncpy(opt->prompt_type, *argv+5, sizeof(opt->prompt_type) - 1);
+	     pam_set_item (pamh, PAM_AUTHTOK_TYPE, *argv+5);
 	 else if (!strncmp(*argv,"retry=",6)) {
 	     opt->retry_times = strtol(*argv+6,&ep,10);
 	     if (!ep || (opt->retry_times < 1))
@@ -178,12 +174,14 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
                  opt->max_repeat = 0;
 	 } else if (!strncmp(*argv,"reject_username",15)) {
 		 opt->reject_user = 1;
+	 } else if (!strncmp(*argv,"authtok_type",12)) {
+	   /* for pam_get_authtok, ignore */;
 	 } else if (!strncmp(*argv,"use_authtok",11)) {
-		 opt->use_authtok = 1;
+           /* for pam_get_authtok, ignore */;
 	 } else if (!strncmp(*argv,"use_first_pass",14)) {
-		 opt->use_authtok = 1;
+	   /* for pam_get_authtok, ignore */;
 	 } else if (!strncmp(*argv,"try_first_pass",14)) {
-		 opt->try_first_pass = 1;
+	   /* for pam_get_authtok, ignore */;
 	 } else if (!strncmp(*argv,"dictpath=",9)) {
 	     opt->cracklib_dictpath = *argv+9;
 	     if (!*(opt->cracklib_dictpath)) {
@@ -193,7 +191,6 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
 	     pam_syslog(pamh,LOG_ERR,"pam_parse: unknown option; %s",*argv);
 	 }
      }
-     opt->prompt_type[sizeof(opt->prompt_type) - 1] = '\0';
 
      return ctrl;
 }
@@ -602,9 +599,6 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
     options.up_credit = CO_UP_CREDIT;
     options.low_credit = CO_LOW_CREDIT;
     options.oth_credit = CO_OTH_CREDIT;
-    options.use_authtok = CO_USE_AUTHTOK;
-    memset(options.prompt_type, 0, BUFSIZ);
-    strcpy(options.prompt_type,"UNIX");
     options.cracklib_dictpath = CRACKLIB_DICTS;
 
     ctrl = _pam_parse(pamh, &options, argc, argv);

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-02 23:14+0100\n"
+"POT-Creation-Date: 2008-12-11 20:40+0100\n"
 "PO-Revision-Date: 2008-10-20 15:43+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
@@ -51,16 +51,16 @@ msgstr "重新输入新的 %s%s密码："
 msgid "Sorry, passwords do not match."
 msgstr "抱歉，密码不匹配。"
 
-#: libpam/pam_get_authtok.c:123
+#: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
 msgstr ""
 
-#: libpam/pam_get_authtok.c:142
+#: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
 msgstr "密码更改取消。"
 
-#: libpam/pam_item.c:302
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "登录："
 
@@ -196,54 +196,54 @@ msgstr "应用程序需要再次调用 libpam"
 msgid "Unknown PAM error"
 msgstr "未知的 PAM 错误"
 
-#: modules/pam_cracklib/pam_cracklib.c:493
+#: modules/pam_cracklib/pam_cracklib.c:490
 msgid "is the same as the old one"
 msgstr "与旧密码相同"
 
-#: modules/pam_cracklib/pam_cracklib.c:507
+#: modules/pam_cracklib/pam_cracklib.c:504
 msgid "is a palindrome"
 msgstr "是回文"
 
-#: modules/pam_cracklib/pam_cracklib.c:510
+#: modules/pam_cracklib/pam_cracklib.c:507
 msgid "case changes only"
 msgstr "仅更改了大小写"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:510
 msgid "is too similar to the old one"
 msgstr "与旧密码过于相似"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is too simple"
 msgstr "过于简单"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "is rotated"
 msgstr "是旧密码的循环"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "not enough character classes"
 msgstr "没有足够的字符分类"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "contains too many same characters consecutively"
 msgstr "包含过多连续相同的字符"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains the user name in some form"
 msgstr "以某些形式包含用户名"
 
-#: modules/pam_cracklib/pam_cracklib.c:558
+#: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "密码未提供"
 
-#: modules/pam_cracklib/pam_cracklib.c:558
+#: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "密码未更改"
 
-#: modules/pam_cracklib/pam_cracklib.c:578
-#: modules/pam_cracklib/pam_cracklib.c:664
+#: modules/pam_cracklib/pam_cracklib.c:575
+#: modules/pam_cracklib/pam_cracklib.c:658
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "无效的密码： %s"

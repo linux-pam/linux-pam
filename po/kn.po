@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip.kn\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-02 23:14+0100\n"
+"POT-Creation-Date: 2008-12-11 20:40+0100\n"
 "PO-Revision-Date: 2008-10-20 12:29+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
@@ -49,16 +49,16 @@ msgstr "ಹೊಸ %s%sಗುಪ್ತಪದವನ್ನು ಪುನರ್ ಟ�
 msgid "Sorry, passwords do not match."
 msgstr "ಕ್ಷಮಿಸಿ, ಗುಪ್ತಪದಗಳು ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ."
 
-#: libpam/pam_get_authtok.c:123
+#: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
 msgstr ""
 
-#: libpam/pam_get_authtok.c:142
+#: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
 msgstr "ಗುಪ್ತಪದ ಬದಲಾವಣೆಯನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ."
 
-#: libpam/pam_item.c:302
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "ಲಾಗಿನ್:"
 
@@ -194,54 +194,54 @@ msgstr "ಅನ್ವಯವು libpam ಅನ್ನು ಪುನಃ ಕರೆಯ�
 msgid "Unknown PAM error"
 msgstr "ಗೊತ್ತಿರದ PAM ದೋಷ"
 
-#: modules/pam_cracklib/pam_cracklib.c:493
+#: modules/pam_cracklib/pam_cracklib.c:490
 msgid "is the same as the old one"
 msgstr "ಇದು ಹಳೆಯದರ ಹಾಗೆಯೇ ಇದೆ"
 
-#: modules/pam_cracklib/pam_cracklib.c:507
+#: modules/pam_cracklib/pam_cracklib.c:504
 msgid "is a palindrome"
 msgstr "ಇದು ಒಂದು ಸಮಾನ ಪೂರ್ವಾಪರವಾಗಿದೆ (palindrome)"
 
-#: modules/pam_cracklib/pam_cracklib.c:510
+#: modules/pam_cracklib/pam_cracklib.c:507
 msgid "case changes only"
 msgstr "ಕೇವಲ ಕೇಸ್ ಗಳ ಬದಲಾವಣೆಯಾಗಿದೆ ಅಷ್ಟೆ"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:510
 msgid "is too similar to the old one"
 msgstr "ಇದು ಹಳೆಯದಕ್ಕೆ ಬಹಳಷ್ಟು ಹೋಲುತ್ತದೆ"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is too simple"
 msgstr "ಇದು ಬಹಳ ಸರಳವಾಗಿದೆ"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "is rotated"
 msgstr "ಇದು ತಿರುಗಿಸಲಾಗಿದೆ"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "not enough character classes"
 msgstr "ಸಾಕಷ್ಟು ಕ್ಯಾರೆಕ್ಟರ್ ವರ್ಗಗಳು ಇಲ್ಲ"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "contains too many same characters consecutively"
 msgstr "ಇದು ಒಂದೇ ಬಗೆಯ ಬಹಳಷ್ಟು ಕ್ಯಾರೆಕ್ಟರುಗಳನ್ನು ಅನುಕ್ರಮವಾಗಿ ಹೊಂದಿದೆ"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains the user name in some form"
 msgstr "ಇದು ಯಾವುದೊ ಒಂದು ಬಗೆಯಲ್ಲಿ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ಒಳಗೊಂಡಿದೆ"
 
-#: modules/pam_cracklib/pam_cracklib.c:558
+#: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "ಯಾವುದೇ ಗುಪ್ತಪದ ನೀಡಲಾಗಿಲ್ಲ"
 
-#: modules/pam_cracklib/pam_cracklib.c:558
+#: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "ಗುಪ್ತಪದ ಬದಲಾಗಿಲ್ಲ"
 
-#: modules/pam_cracklib/pam_cracklib.c:578
-#: modules/pam_cracklib/pam_cracklib.c:664
+#: modules/pam_cracklib/pam_cracklib.c:575
+#: modules/pam_cracklib/pam_cracklib.c:658
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ಕೆಟ್ಟ ಗುಪ್ತಪದ: %s"

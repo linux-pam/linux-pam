@@ -143,6 +143,7 @@ typedef struct pam_handle pam_handle_t;
 				   delays */
 #define PAM_XDISPLAY       11   /* X display name */
 #define PAM_XAUTHDATA      12   /* X server authentication data */
+#define PAM_AUTHTOK_TYPE   13   /* The type for pam_get_authtok */
 
 /* -------------- Special defines used by Linux-PAM -------------- */
 

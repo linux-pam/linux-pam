@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-02 23:14+0100\n"
+"POT-Creation-Date: 2008-12-11 20:40+0100\n"
 "PO-Revision-Date: 2007-06-22 10:02+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -49,17 +49,17 @@ msgstr "새 %s%s 암호 재입력:"
 msgid "Sorry, passwords do not match."
 msgstr "죄송합니다. 암호가 일치하지 않습니다."
 
-#: libpam/pam_get_authtok.c:123
+#: libpam/pam_get_authtok.c:127
 #, fuzzy, c-format
 msgid "Retype %s"
 msgstr "유형:"
 
-#: libpam/pam_get_authtok.c:142
+#: libpam/pam_get_authtok.c:146
 #, fuzzy
 msgid "Password change aborted."
 msgstr "암호가 변경되지 않음"
 
-#: libpam/pam_item.c:302
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "로그인:"
 
@@ -195,54 +195,54 @@ msgstr "libpam을 다시 불러오려면 응용 프로그램이 필요함"
 msgid "Unknown PAM error"
 msgstr "알 수 없는 PAM 오류"
 
-#: modules/pam_cracklib/pam_cracklib.c:493
+#: modules/pam_cracklib/pam_cracklib.c:490
 msgid "is the same as the old one"
 msgstr "이전 암호와 같음"
 
-#: modules/pam_cracklib/pam_cracklib.c:507
+#: modules/pam_cracklib/pam_cracklib.c:504
 msgid "is a palindrome"
 msgstr "앞뒤 어느쪽에서 읽어도 같은 문맥임"
 
-#: modules/pam_cracklib/pam_cracklib.c:510
+#: modules/pam_cracklib/pam_cracklib.c:507
 msgid "case changes only"
 msgstr "대소문자만 변경"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:510
 msgid "is too similar to the old one"
 msgstr "이전 암호와 유사함"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is too simple"
 msgstr "너무 간단함"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "is rotated"
 msgstr "교체됨"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "contains too many same characters consecutively"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:558
+#: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "암호가 없음"
 
-#: modules/pam_cracklib/pam_cracklib.c:558
+#: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "암호가 변경되지 않음"
 
-#: modules/pam_cracklib/pam_cracklib.c:578
-#: modules/pam_cracklib/pam_cracklib.c:664
+#: modules/pam_cracklib/pam_cracklib.c:575
+#: modules/pam_cracklib/pam_cracklib.c:658
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "잘못된 암호: %s"

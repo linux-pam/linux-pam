@@ -51,7 +51,7 @@ int pam_start (
        else. Forbid paths. */
     if (strrchr(service_name, '/') != NULL)
 	service_name = strrchr(service_name, '/') + 1;
-    
+
     /* Mark the caller as the application - permission to do certain
        things is limited to a module or an application */
 
@@ -92,6 +92,9 @@ int pam_start (
 #ifdef HAVE_LIBAUDIT
     (*pamh)->audit_state = 0;
 #endif
+    (*pamh)->xdisplay = NULL;
+    (*pamh)->authtok_type = NULL;
+    memset (&((*pamh)->xauth), 0, sizeof ((*pamh)->xauth));
 
     if (((*pamh)->pam_conversation = (struct pam_conv *)
 	  malloc(sizeof(struct pam_conv))) == NULL) {
@@ -129,7 +132,7 @@ int pam_start (
 	_pam_drop(*pamh);
 	return PAM_ABORT;
     }
-    
+
     D(("exiting pam_start successfully"));
 
     return PAM_SUCCESS;

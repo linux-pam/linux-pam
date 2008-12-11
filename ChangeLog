@@ -1,3 +1,26 @@
+2008-12-10  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/pam_item_types_ext.inc.xml: Document PAM_AUTHTOK_TYPE.
+	* libpam/pam_end.c (pam_end): Free authtok_type.
+	* tests/tst-pam_get_item.c: Add PAM_AUTHTOK_TYPE
+	as test case.
+	* tests/tst-pam_set_item.c: Likewise.
+	* libpam/pam_start.c (pam_start): Initialize xdisplay,
+	xauth and authtok_type.
+	* libpam/pam_get_authtok.c (pam_get_authtok): Rename "type"
+	to "authtok_type".
+	* modules/pam_cracklib/pam_cracklib.8.xml: Replace "type=" with
+	"authtok_type=".
+	* doc/man/pam_get_authtok.3.xml: Document authtok_type argument.
+	* modules/pam_cracklib/pam_cracklib.c (pam_sm_chauthtok): Set
+	type= argument as PAM_AUTHTOK_TYPE item.
+	* libpam/pam_get_authtok.c (pam_get_authtok): If no type
+	argument given, use PAM_AUTHTOK_TYPE item.
+	* libpam/pam_item.c (pam_get_item): Fetch PAM_AUTHTOK_TYPE item.
+	(pam_set_item): Store PAM_AUTHTOK_TYPE item.
+	* libpam/pam_private.h: Add authtok_type to pam_handle.
+	* libpam/include/security/_pam_types.h (PAM_AUTHTOK_TYPE): New.
+
 2008-12-03  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_access/access.conf.5.xml: Replace

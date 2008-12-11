@@ -82,6 +82,9 @@ int pam_end(pam_handle_t *pamh, int pam_status)
     _pam_drop(pamh->xauth.data);
     _pam_overwrite_n((char *)&pamh->xauth, sizeof(pamh->xauth));
 
+    _pam_overwrite(pamh->authtok_type);
+    _pam_drop(pamh->authtok_type);
+
     /* and finally liberate the memory for the pam_handle structure */
 
     _pam_drop(pamh);

@@ -42,4 +42,20 @@
         </listitem>
       </varlistentry>
 
+      <varlistentry>
+        <term>PAM_AUTHTOK_TYPE</term>
+        <listitem>
+          <para>
+            The default action is for the module to use the
+            following prompts when requesting passwords:
+            "New UNIX password: " and "Retype UNIX password: ".
+            The example word <emphasis>UNIX</emphasis> can
+            be replaced with this item, by default it is empty.
+            This item is used by <citerefentry>
+            <refentrytitle>pam_get_authtok</refentrytitle><manvolnum>3</manvolnum>
+            </citerefentry>.
+          </para>
+        </listitem>
+      </varlistentry>
+
     </variablelist>

@@ -23,11 +23,18 @@ Release 1.0.90
 * Add blowfish support to pam_unix.
 * Add support for user specific environment file to pam_env.
 * Add pam_get_authtok to libpam as Linux-PAM extension.
+* Rename type option of pam_cracklib to authtok_type.
+
+Release 1.0.3
+
+* Small bug fix release
+
 
 Release 1.0.2
 
 * Regression fixed in pam_selinux
 * Problem with big UIDs fixed in pam_loginuid
+
 
 Release 1.0.1
 

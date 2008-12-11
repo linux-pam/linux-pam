@@ -154,6 +154,7 @@ struct pam_handle {
     char *ruser;
     char *tty;
     char *xdisplay;
+    char *authtok_type;          /* PAM_AUTHTOK_TYPE */
     struct pam_data *data;
     struct pam_environ *env;      /* structure to maintain environment list */
     struct _pam_fail_delay fail_delay;   /* helper function for easy delays */
