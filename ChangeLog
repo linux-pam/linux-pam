@@ -1,3 +1,9 @@
+2008-12-12  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_tally2/pam_tally2.c (get_tally): Test for EACCES
+	instead of EPERM.
+	* modules/pam_tally2/pam_tally2.8.xml: Fix documentation.
+
 2008-12-10  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam_item_types_ext.inc.xml: Document PAM_AUTHTOK_TYPE.

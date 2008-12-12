@@ -351,7 +351,7 @@ get_tally(pam_handle_t *pamh, uid_t uid, const char *filename,
       umask(oldmask);
       if ( !*tfile ) {
 #ifndef MAIN
-        if (save_errno == EPERM) {
+        if (save_errno == EACCES) {
 	    return PAM_IGNORE; /* called with insufficient access rights */
 	}
 #endif
@@ -380,7 +380,7 @@ get_tally(pam_handle_t *pamh, uid_t uid, const char *filename,
 
     if (!(*tfile = fopen(filename, "r+"))) {
 #ifndef MAIN
-      if (errno == EPERM) /* called with insufficient access rights */
+      if (errno == EACCES) /* called with insufficient access rights */
       	  return PAM_IGNORE;
 #endif 
       pam_syslog(pamh, LOG_ALERT, "Error opening %s for update: %m", filename);

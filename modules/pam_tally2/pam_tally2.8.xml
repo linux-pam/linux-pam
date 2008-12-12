@@ -370,7 +370,7 @@
       xscreensaver. As this would make it impossible to share PAM configuration
       with such services the following workaround is used: If the data file
       cannot be opened because of insufficient permissions
-      (<errorcode>EPERM</errorcode>) the module returns
+      (<errorcode>EACCES</errorcode>) the module returns
       <errorcode>PAM_IGNORE</errorcode>.
     </para>
   </refsect1>
