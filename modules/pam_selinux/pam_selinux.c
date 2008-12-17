@@ -577,11 +577,16 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
   security_context_t* contextlist = NULL;
   int num_contexts = 0;
   int env_params = 0;
-  const char *username = NULL;
+  const char *username;
+  const void *void_username;
   const void *tty = NULL;
   char *seuser=NULL;
   char *level=NULL;
   security_context_t default_user_context=NULL;
+#ifdef HAVE_GETSEUSER
+  const void *void_service;
+  const char *service;
+#endif
 
   /* Parse arguments. */
   for (i = 0; i < argc; i++) {
@@ -623,12 +628,23 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
   if (!(selinux_enabled = is_selinux_enabled()>0) )
       return PAM_SUCCESS;
 
-  if (pam_get_item(pamh, PAM_USER, (void *) &username) != PAM_SUCCESS ||
-                   username == NULL) {
+  if (pam_get_item(pamh, PAM_USER, &void_username) != PAM_SUCCESS ||
+                   void_username == NULL) {
     return PAM_USER_UNKNOWN;
   }
+  username = void_username;
 
-  if (getseuserbyname(username, &seuser, &level)==0) {
+#ifdef HAVE_GETSEUSER
+  if (pam_get_item(pamh, PAM_SERVICE, (void *) &void_service) != PAM_SUCCESS ||
+                   void_service == NULL) {
+    return PAM_SESSION_ERR;
+  }
+  service = void_service;
+
+  if (getseuser(username, service, &seuser, &level) == 0) {
+#else
+  if (getseuserbyname(username, &seuser, &level) == 0) {
+#endif
 	  num_contexts = get_ordered_context_list_with_level(seuser, 
 							     level,
 							     NULL, 

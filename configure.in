@@ -428,6 +428,7 @@ if test ! -z "$LIBSELINUX" ; then
     BACKUP_LIBS=$LIBS
     LIBS="$LIBS $LIBSELINUX"
     AC_CHECK_FUNCS(setkeycreatecon)
+    AC_CHECK_FUNCS(getseuser)
     LIBS=$BACKUP_LIBS
 fi
 

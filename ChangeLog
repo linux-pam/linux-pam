@@ -4,6 +4,10 @@
 	not abort on unknown option. Avoid double free of old_status.
 	(pam_sm_close_session): Use LOG_DEBUG for restored status message.
 
+	* configure.in: Test for getseuser().
+	* modules/pam_selinux/pam_selinux.c (pam_sm_open_session): Call getseuser()
+	instead of getseuserbyname() if the function is available.
+
 2008-12-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 1.0.90
