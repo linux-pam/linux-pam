@@ -1,3 +1,9 @@
+2008-12-17  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_tty_audit/pam_tty_audit.c (pam_sm_open_session): Do
+	not abort on unknown option. Avoid double free of old_status.
+	(pam_sm_close_session): Use LOG_DEBUG for restored status message.
+
 2008-12-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 1.0.90

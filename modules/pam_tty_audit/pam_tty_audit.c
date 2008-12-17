@@ -240,7 +240,6 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
       else
 	{
 	  pam_syslog (pamh, LOG_ERR, "unknown option `%s'", argv[i]);
-	  return PAM_SESSION_ERR;
 	}
     }
   if (command == CMD_NONE)
@@ -265,7 +264,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
   new_status.enabled = (command == CMD_ENABLE ? 1 : 0);
   if (old_status->enabled == new_status.enabled)
     {
-      free (old_status);
+      open_only = 1; /* to clean up old_status */
       goto ok_fd;
     }
 
@@ -327,7 +326,7 @@ pam_sm_close_session (pam_handle_t *pamh, int flags, int argc,
 	  return PAM_SESSION_ERR;
 	}
       close (fd);
-      pam_syslog (pamh, LOG_ERR, "restored status to %d", status->enabled);
+      pam_syslog (pamh, LOG_DEBUG, "restored status to %d", status->enabled);
     }
   return PAM_SUCCESS;
 }
