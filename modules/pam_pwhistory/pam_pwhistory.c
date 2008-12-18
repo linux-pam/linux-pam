@@ -65,7 +65,6 @@ struct options_t {
   int enforce_for_root;
   int remember;
   int tries;
-  const char *prompt_type;
 };
 typedef struct options_t options_t;
 
@@ -97,8 +96,8 @@ parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
     }
   else if (strcasecmp (argv, "enforce_for_root") == 0)
     options->enforce_for_root = 1;
-  else if (strncasecmp (argv, "type=", 5) == 0)
-    options->prompt_type = &argv[5];
+  else if (strncasecmp (argv, "authtok_type=", 13) == 0)
+    { /* ignore, for pam_get_authtok */; }
   else
     pam_syslog (pamh, LOG_ERR, "pam_pwhistory: unknown option: %s", argv);
 }
@@ -118,7 +117,6 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
   /* Set some default values, which could be overwritten later.  */
   options.remember = 10;
   options.tries = 1;
-  options.prompt_type = "UNIX";
 
   /* Parse parameters for module */
   for ( ; argc-- > 0; argv++)
