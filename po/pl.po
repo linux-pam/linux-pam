@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-12-11 20:40+0100\n"
-"PO-Revision-Date: 2008-10-14 23:49+0200\n"
+"PO-Revision-Date: 2008-12-20 00:42+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "Ponownie podaj nowe hasło %s%s: "
 
 #: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
 msgid "Sorry, passwords do not match."
-msgstr "Podane hasła nie są zgodne."
+msgstr "Podane hasła nie zgadzają się."
 
 #: libpam/pam_get_authtok.c:127
 #, c-format
@@ -271,7 +271,7 @@ msgstr " %a %b %e %H:%M:%S %Z %Y"
 #: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
 #, c-format
 msgid " from %.*s"
-msgstr " od %.*s"
+msgstr " z %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
@@ -476,7 +476,7 @@ msgstr "Nieznany błąd"
 #: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:834
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
-msgstr "%s: błędny numer podany dla --reset=\n"
+msgstr "%s: podano błędny numer dla --reset=\n"
 
 #: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:838
 #, c-format
@@ -499,22 +499,23 @@ msgstr "%s: nie można przywrócić wszystkich użytkowników\n"
 #: modules/pam_tally2/pam_tally2.c:865
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr ""
+msgstr "Login           Niepowodzenia Ostatnie niepowodzenie     Z\n"
 
 #: modules/pam_tally2/pam_tally2.c:881
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file nazwa-pliku-root] [--user nazwa-użytkownika] [--reset[=n]] [--"
-"quiet]\n"
+"%s: [-f nazwa-pliku-root] [--file nazwa-pliku-root]\n"
+"   [-u nazwa-użytkownika] [--user nazwa-użytkownika]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "Nadano dostęp (ostatni dostęp %ld sekund temu)."
 
 #: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
@@ -522,7 +523,7 @@ msgstr "Konto wygasło; skontaktuj się z administratorem systemu"
 
 #: modules/pam_unix/pam_unix_acct.c:236
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Wymagana jest zmiana hasła (wymuszone przez administratora)"
+msgstr "Wymagana jest natychmiastowa zmiana hasła (wymuszone przez roota)"
 
 #: modules/pam_unix/pam_unix_acct.c:242
 msgid "You are required to change your password immediately (password aged)"
@@ -557,7 +558,7 @@ msgstr "Zmienianie hasła dla %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:582
 msgid "(current) UNIX password: "
-msgstr "Bieżące hasło UNIX:"
+msgstr "(obecne) hasło UNIX:"
 
 #: modules/pam_unix/pam_unix_passwd.c:617
 msgid "You must wait longer to change your password"
@@ -570,7 +571,3 @@ msgstr "Podaj nowe hasło UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:678
 msgid "Retype new UNIX password: "
 msgstr "Ponownie podaj hasło UNIX: "
-
-#, fuzzy
-#~ msgid "Account locked due to %hu failed logins"
-#~ msgstr "Konto zostało zablokowane z powodu %u nieudanych logowań"

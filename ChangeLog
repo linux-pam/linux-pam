@@ -1,3 +1,7 @@
+2008-12-23  Piotr Drąg <piotrdrag@gmail.com>
+
+	* po/pl.po: Updated translations.
+
 2008-12-18  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_pwhistory/pam_pwhistory.c (parse_option): Rename
