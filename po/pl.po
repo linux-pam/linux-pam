@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2008-12-11 20:40+0100\n"
-"PO-Revision-Date: 2008-12-20 00:42+0100\n"
+"PO-Revision-Date: 2009-01-04 23:16+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "Podane hasła nie zgadzają się."
 #: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Podaj ponownie %s"
 
 #: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
@@ -549,7 +549,7 @@ msgstr "Nie można zmienić hasła NIS."
 
 #: modules/pam_unix/pam_unix_passwd.c:466
 msgid "You must choose a longer password"
-msgstr "Wybierz dłuższe hasło"
+msgstr "Należy wybrać dłuższe hasło"
 
 #: modules/pam_unix/pam_unix_passwd.c:571
 #, c-format
