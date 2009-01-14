@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-11 20:40+0100\n"
-"PO-Revision-Date: 2008-10-27 07:45+0100\n"
+"POT-Creation-Date: 2009-01-14 10:12+0100\n"
+"PO-Revision-Date: 2009-01-14 10:03+0100\n"
 "Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr "Die Passwörter stimmen nicht überein."
 #: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Erneute Eingabe: %s"
 
 #: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
@@ -365,7 +365,7 @@ msgstr "Erstelle Verzeichnis '%s'."
 msgid "Unable to create directory %s: %m"
 msgstr "Verzeichnis %s kann nicht erstellt werden: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
+#: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Passwort wurde bereits verwendet. Wählen Sie ein anderes aus."
@@ -400,17 +400,17 @@ msgstr "Wollen Sie eine andere Rolle oder Stufe eingeben?"
 msgid "No default type for role %s\n"
 msgstr "Keinen Standard-Typ für Rolle %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:677
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Unfähig einen gültigen Kontext zu erhalten für %s"
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:728
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Sicherheitskontext %s zugewiesen"
 
-#: modules/pam_selinux/pam_selinux.c:733
+#: modules/pam_selinux/pam_selinux.c:749
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Schlüssel-Erzeugungskontext %s zugeordnet"
@@ -515,7 +515,7 @@ msgstr ""
 #: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "Zugriff gewährt (letztes Mal war %ld Sekunden zurück)."
 
 #: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
