@@ -1,3 +1,16 @@
+2009-01-19  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_mkhomedir/Makefile.am: Add mkhomedir_helper.
+	* modules/pam_mkhomedir/mkhomedir_helper.8.xml: New file. Manual page
+	for mkhomedir_helper.
+	* modules/pam_mkhomedir/mkhomedir_helper.c: New file. Source
+	for mkhomedir_helper. Most of the code moved from pam_mkhomedir.c.
+	* modules/pam_mkhomedir/pam_mkhomedir.c (_pam_parse): Do not convert umask
+	to integer.
+	(rec_mkdir): Moved to mkhomedir_helper.c.
+	(create_homedir): Just exec the helper.
+	(pam_sm_open_session): Improve logging.
+
 2009-01-19  Daniel Cabrera <h.daniel.cabrera@gmail.com>
 
 	* po/es.po: Updated translations.
