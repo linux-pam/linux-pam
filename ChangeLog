@@ -1,3 +1,7 @@
+2009-01-29  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/pam_sm_setcred.3.xml: Document PAM_ESTABLISHED_CRED.
+
 2009-01-19  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_mkhomedir/Makefile.am: Add mkhomedir_helper.

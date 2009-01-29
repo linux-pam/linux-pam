@@ -62,6 +62,12 @@
         </listitem>
       </varlistentry>
       <varlistentry>
+        <term>PAM_ESTABLISH_CRED</term>
+        <listitem>
+          <para>Initialize the credentials for the user.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
         <term>PAM_DELETE_CRED</term>
         <listitem>
           <para>
@@ -87,15 +93,15 @@
       </varlistentry>
     </variablelist>
     <para>
-      The way the <emphasis remap='B'>auth</emphasis> stack is 
+      The way the <emphasis remap='B'>auth</emphasis> stack is
       navigated in order to evaluate the <function>pam_setcred</function>()
-      function call, independent of the <function>pam_sm_setcred</function>() 
+      function call, independent of the <function>pam_sm_setcred</function>()
       return codes, is exactly the same way that it was navigated when
       evaluating the <function>pam_authenticate</function>() library
       call. Typically, if a stack entry was ignored in evaluating
       <function>pam_authenticate</function>(), it will be ignored when
-      libpam evaluates the <function>pam_setcred</function>() function 
-      call. Otherwise, the return codes from each module specific 
+      libpam evaluates the <function>pam_setcred</function>() function
+      call. Otherwise, the return codes from each module specific
       <function>pam_sm_setcred</function>() call are treated as
       <emphasis remap='B'>required</emphasis>.
     </para>
@@ -146,9 +152,9 @@
       </varlistentry>
     </variablelist>
     <para>
-      These, non-<emphasis>PAM_SUCCESS</emphasis>, return values will 
+      These, non-<emphasis>PAM_SUCCESS</emphasis>, return values will
       typically lead to the credential stack <emphasis>failing</emphasis>.
-      The first such error will dominate in the return value of 
+      The first such error will dominate in the return value of
       <function>pam_setcred</function>().
     </para>
   </refsect1>
