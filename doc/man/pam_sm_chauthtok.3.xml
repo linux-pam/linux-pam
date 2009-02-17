@@ -40,7 +40,7 @@
       </citerefentry> interface.
     </para>
     <para>
-      This function is used to (re-)set the authentication token of the user. 
+      This function is used to (re-)set the authentication token of the user.
     </para>
     <para>
        Valid flags, which may be logically OR'd with
@@ -60,10 +60,10 @@
         <listitem>
           <para>
             This argument indicates to the module that the users
-            authentication token (password) should only be changed if 
-            it has expired. This flag is optional and 
-            <emphasis>must</emphasis> be combined with one of the 
-            following two flags. Note, however, the following two options 
+            authentication token (password) should only be changed if
+            it has expired. This flag is optional and
+            <emphasis>must</emphasis> be combined with one of the
+            following two flags. Note, however, the following two options
             are <emphasis>mutually exclusive</emphasis>.
           </para>
         </listitem>
@@ -72,14 +72,19 @@
         <term>PAM_PRELIM_CHECK</term>
         <listitem>
           <para>
-            This indicates that the modules are being probed as to 
-            their ready status for altering the user's authentication 
-            token. If the module requires access to another system over 
-            some network it should attempt to verify it can connect to 
-            this system on receiving this flag. If a module cannot establish 
-            it is ready to update the user's authentication token it should 
+            This indicates that the modules are being probed as to
+            their ready status for altering the user's authentication
+            token. If the module requires access to another system over
+            some network it should attempt to verify it can connect to
+            this system on receiving this flag. If a module cannot establish
+            it is ready to update the user's authentication token it should
             return <emphasis remap='B'>PAM_TRY_AGAIN</emphasis>, this
             information will be passed back to the application.
+          </para>
+          <para>
+             If the control value <emphasis>sufficient</emphasis> is used in
+             the password stack, the <emphasis>PAM_PRELIM_CHECK</emphasis> section
+             of the modules following that control value is not always executed.
           </para>
         </listitem>
       </varlistentry>
@@ -89,18 +94,18 @@
           <para>
             This informs the module that this is the call it should change
             the authorization tokens. If the flag is logically OR'd with
-            <emphasis remap='B'>PAM_CHANGE_EXPIRED_AUTHTOK</emphasis>, the 
+            <emphasis remap='B'>PAM_CHANGE_EXPIRED_AUTHTOK</emphasis>, the
             token is only changed if it has actually expired.
           </para>
         </listitem>
       </varlistentry>
     </variablelist>
     <para>
-      The PAM library calls this function twice in succession. The first 
-      time with <emphasis remap='B'>PAM_PRELIM_CHECK</emphasis> and then, 
-      if the module does not return 
+      The PAM library calls this function twice in succession. The first
+      time with <emphasis remap='B'>PAM_PRELIM_CHECK</emphasis> and then,
+      if the module does not return
       <emphasis remap='B'>PAM_TRY_AGAIN</emphasis>, subsequently with
-      <emphasis remap='B'>PAM_UPDATE_AUTHTOK</emphasis>. It is only on 
+      <emphasis remap='B'>PAM_UPDATE_AUTHTOK</emphasis>. It is only on
       the second call that the authorization token is (possibly) changed.
     </para>
   </refsect1>

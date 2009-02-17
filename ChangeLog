@@ -1,3 +1,11 @@
+2009-02-17  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/pam_sm_chauthtok.3.xml: Document that sufficient
+	can break the PRELIM_CHECK chain.
+
+	* libpam/pam_dispatch.c: Don't freeze chain for chauthtok
+	[bugzilla.novell.com#470337]
+
 2009-02-11  Daniel Nylander <po@danielnylander.se>
 
 	* po/sv.po: Updated translations.
