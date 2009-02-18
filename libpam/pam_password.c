@@ -24,6 +24,13 @@ int pam_chauthtok(pam_handle_t *pamh, int flags)
 	return PAM_SYSTEM_ERR;
     }
 
+    /* applications are not allowed to set this flags */
+    if (flags & (PAM_PRELIM_CHECK | PAM_UPDATE_AUTHTOK)) {
+      pam_syslog (pamh, LOG_ERR,
+		  "PAM_PRELIM_CHECK or PAM_UPDATE_AUTHTOK set by application");
+      return PAM_SYSTEM_ERR;
+    }
+
     if (pamh->former.choice == PAM_NOT_STACKED) {
 	_pam_start_timer(pamh);    /* we try to make the time for a failure
 				      independent of the time it takes to
@@ -58,4 +65,3 @@ int pam_chauthtok(pam_handle_t *pamh, int flags)
 
     return retval;
 }
-
