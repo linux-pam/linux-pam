@@ -230,9 +230,16 @@
 
     </variablelist>
     <para>
-      All items support the values <emphasis>-1</emphasis>, 
+      All items support the values <emphasis>-1</emphasis>,
       <emphasis>unlimited</emphasis> or <emphasis>infinity</emphasis> indicating no limit,
       except for <emphasis remap='B'>priority</emphasis> and <emphasis remap='B'>nice</emphasis>.
+    </para>
+    <para>
+      If a hard limit or soft limit of a resource is set to a valid value,
+      but outside of the supported range of the local system, the system
+      may reject the new limit or unexpected behavior may occur. If the
+      control value <emphasis>required</emphasis>  is used, the module will
+      reject the login if a limit could not be set.
     </para>
     <para>
       In general, individual limits have priority over group limits, so if
@@ -251,8 +258,8 @@
       - after which the rest of the line is ignored.
     </para>
     <para>
-      The pam_limits module does its best to report configuration problems
-      found in its configuration file via <citerefentry>
+      The pam_limits module does report configuration problems
+      found in its configuration file and errors via <citerefentry>
       <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
     </para>
   </refsect1>
@@ -281,6 +288,7 @@ ftp             hard    nproc           0
       <citerefentry><refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>getrlimit</refentrytitle><manvolnum>2</manvolnum></citerefentry>
+      <citerefentry><refentrytitle>getrlimit</refentrytitle><manvolnum>3p</manvolnum></citerefentry>
     </para>
   </refsect1>
 

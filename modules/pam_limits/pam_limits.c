@@ -42,7 +42,7 @@
 #include <locale.h>
 
 #ifdef HAVE_LIBAUDIT
-#include <libaudit.h>                                                                                                                                            
+#include <libaudit.h>
 #endif
 
 /* Module defines */
@@ -139,6 +139,73 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
     }
 
     return ctrl;
+}
+
+static const char *
+rlimit2str (int i)
+{
+  switch (i) {
+  case RLIMIT_CPU:
+    return "cpu";
+    break;
+  case RLIMIT_FSIZE:
+    return "fsize";
+    break;
+  case RLIMIT_DATA:
+    return "data";
+    break;
+  case RLIMIT_STACK:
+    return "stack";
+    break;
+  case RLIMIT_CORE:
+    return "core";
+    break;
+  case RLIMIT_RSS:
+    return "rss";
+    break;
+  case RLIMIT_NPROC:
+    return "nproc";
+    break;
+  case RLIMIT_NOFILE:
+    return "nofile";
+    break;
+  case RLIMIT_MEMLOCK:
+    return "memlock";
+    break;
+#ifdef RLIMIT_AS
+  case RLIMIT_AS:
+    return "as";
+    break;
+#endif
+#ifdef RLIMIT_LOCKS
+  case RLIMIT_LOCKS:
+    return "locks";
+    break;
+#endif
+#ifdef RLIMIT_SIGPENDING
+  case RLIMIT_SIGPENDING:
+    return "sigpending";
+    break;
+#endif
+#ifdef RLIMIT_MSGQUEUE
+  case RLIMIT_MSGQUEUE:
+    return "msgqueue";
+    break;
+#endif
+#ifdef RLIMIT_NICE
+  case RLIMIT_NICE:
+    return "nice";
+    break;
+#endif
+#ifdef RLIMIT_RTPRIO
+  case RLIMIT_RTPRIO:
+    return "rtprio";
+    break;
+#endif
+  default:
+    return "UNKNOWN";
+    break;
+  }
 }
 
 
@@ -416,8 +483,8 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	 if (int_value < -20)
 	   int_value = -20;
 	 rlimit_value = 20 - int_value;
-#endif
          break;
+#endif
     }
 
     if ( (limit_item != LIMIT_LOGIN)
@@ -575,6 +642,8 @@ static int setup_limits(pam_handle_t *pamh,
     int retval = LIMITED_OK;
 
     for (i=0, status=LIMITED_OK; i<RLIM_NLIMITS; i++) {
+      int res;
+
 	if (!pl->limits[i].supported) {
 	    /* skip it if its not known to the system */
 	    continue;
@@ -586,7 +655,11 @@ static int setup_limits(pam_handle_t *pamh,
 	}
         if (pl->limits[i].limit.rlim_cur > pl->limits[i].limit.rlim_max)
             pl->limits[i].limit.rlim_cur = pl->limits[i].limit.rlim_max;
-	status |= setrlimit(i, &pl->limits[i].limit);
+	res = setrlimit(i, &pl->limits[i].limit);
+	if (res != 0)
+	  pam_syslog(pamh, LOG_ERR, "Could not set limit for '%s': %m",
+		     rlimit2str(i));
+	status |= res;
     }
 
     if (status) {
@@ -595,6 +668,7 @@ static int setup_limits(pam_handle_t *pamh,
 
     status = setpriority(PRIO_PROCESS, 0, pl->priority);
     if (status != 0) {
+        pam_syslog(pamh, LOG_ERR, "Could not set limit for PRIO_PROCESS: %m");
         retval = LIMIT_ERR;
     }
 

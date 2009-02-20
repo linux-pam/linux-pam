@@ -1,3 +1,10 @@
+2009-02-20  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_limits/limits.conf.5.xml: Document that the kernel
+	can refuse values out of range for the local system.
+	* modules/pam_limits/pam_limits.c (setup_limits): Log if setrlimit
+	fails.
+
 2009-02-18  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/pam_password.c (pam_chauthtok): Make sure applications
