@@ -1,3 +1,11 @@
+2009-02-25  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+        * libpam/pam_misc.c (_pam_StrTok): Use unsigned char
+        instead of int. Reported by Marcus Granado.
+        * tests/Makefile.am (TESTS): Add tst-pam_mkargv.
+        * tests/tst-pam_mkargv.c (main): Test case for
+        _pam_mkargv.
+
 2008-12-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 1.0.3

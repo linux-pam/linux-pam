@@ -18,3 +18,4 @@ tst-pam_set_data
 tst-pam_set_item
 tst-pam_setcred
 tst-pam_start
+tst-pam_mkargv
