@@ -1,3 +1,14 @@
+2009-02-25  Tomas Mraz <t8m@centrum.cz>
+
+	* xtests/access.conf: Add a line for name resolution test case.
+	* xtests/tst-pam_access4.c (main): Set PAM_RHOST for testing the LOCAL
+        keyword. Add a test case for name resolution.
+
+	* modules/pam_access/pam_access.c (from_match): Move name resolution
+	to network_netmask_match().
+        (network_netmask_match): Do a name resolution of the origin only if
+        matching against a real network/netmask.
+
 2009-02-25  Fabian Affolter <fabian@bernewireless.net>
 
 	* po/de.po: Updated translations.

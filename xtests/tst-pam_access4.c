@@ -34,10 +34,12 @@
 /*
   test case:
 
-  Check the following line in access.conf:
+  Check the following lines in access.conf:
   -:ALL EXCEPT tstpamaccess3 :LOCAL
+  -:ALL:127.0.0.1
 
-  pam_authenticate should fail for /dev/tty1 and pass for www.example.com
+  pam_authenticate should fail for /dev/tty1, pass for www.example.com,
+  and fail again for localhost
 */
 
 #ifdef HAVE_CONFIG_H
@@ -121,12 +123,12 @@ main(int argc, char *argv[])
       return 1;
     }
 
-  retval = pam_set_item (pamh, PAM_TTY, "www.example.com");
+  retval = pam_set_item (pamh, PAM_RHOST, "www.example.com");
   if (retval != PAM_SUCCESS)
     {
       if (debug)
         fprintf (stderr,
-                 "pam_access4-2: pam_set_item(PAM_TTY) returned %d\n",
+                 "pam_access4-2: pam_set_item(PAM_RHOST) returned %d\n",
                  retval);
       return 1;
     }
@@ -136,6 +138,24 @@ main(int argc, char *argv[])
     {
       if (debug)
         fprintf (stderr, "pam_access4-2: pam_authenticate returned %d\n", retval);
+      return 1;
+    }
+
+  retval = pam_set_item (pamh, PAM_RHOST, "localhost");
+  if (retval != PAM_SUCCESS)
+    {
+      if (debug)
+        fprintf (stderr,
+                 "pam_access4-3: pam_set_item(PAM_RHOST) returned %d\n",
+                 retval);
+      return 1;
+    }
+
+  retval = pam_authenticate (pamh, 0);
+  if (retval != PAM_PERM_DENIED)
+    {
+      if (debug)
+        fprintf (stderr, "pam_access4-3: pam_authenticate returned %d\n", retval);
       return 1;
     }
 
