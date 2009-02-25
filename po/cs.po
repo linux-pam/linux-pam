@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-11 20:40+0100\n"
+"POT-Creation-Date: 2009-02-25 17:13+0100\n"
 "PO-Revision-Date: 2008-11-28 15:22+0100\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
@@ -309,7 +309,7 @@ msgstr[2] "Od posledního úspěšného došlo k %d neúspěšným pokusům o p�
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "Od posledního úspěšného došlo k %d neúspěšným pokusům o přihlášení."
 
-#: modules/pam_limits/pam_limits.c:712
+#: modules/pam_limits/pam_limits.c:786
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Příliš mnoho přihlášení pro '%s'."
@@ -350,17 +350,17 @@ msgstr "Máte starou poštu ve složce %s."
 msgid "You have mail in folder %s."
 msgstr "Máte poštu ve složce %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:142
+#: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Vytváření adresáře '%s'."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:147
-#, c-format
-msgid "Unable to create directory %s: %m"
+#: modules/pam_mkhomedir/pam_mkhomedir.c:178
+#, fuzzy, c-format
+msgid "Unable to create and initialize directory '%s'."
 msgstr "Nezdařilo se vytvořit adresář %s: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
+#: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Heslo již bylo použito. Zvolte jiné."
@@ -395,17 +395,17 @@ msgstr "Chcete zadat jinou roli nebo úroveň?"
 msgid "No default type for role %s\n"
 msgstr "Chybí výchozí typ pro roli %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:677
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Nezdařilo se najít platný bezpečnostní kontext pro %s"
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:728
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Bezpečnostní kontext %s přidělen"
 
-#: modules/pam_selinux/pam_selinux.c:733
+#: modules/pam_selinux/pam_selinux.c:749
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Bezpečnostní kontext pro vytváření klíčů %s přidělen"

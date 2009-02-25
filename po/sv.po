@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-10-13 21:53+0200\n"
+"POT-Creation-Date: 2009-02-25 17:13+0100\n"
 "PO-Revision-Date: 2009-02-11 12:22+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -30,7 +30,35 @@ msgstr "...Tyvärr, din tid är ute!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "felaktig konversation (%d)\n"
 
-#: libpam/pam_item.c:302
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
+msgid "Password: "
+msgstr "Lösenord: "
+
+#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
+#, c-format
+msgid "New %s%spassword: "
+msgstr "Nytt %s%slösenord: "
+
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#, c-format
+msgid "Retype new %s%spassword: "
+msgstr "Ange nytt %s%slösenord igen: "
+
+#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
+msgid "Sorry, passwords do not match."
+msgstr "Tyvärr, lösenorden stämmer inte överens."
+
+#: libpam/pam_get_authtok.c:127
+#, c-format
+msgid "Retype %s"
+msgstr ""
+
+#: libpam/pam_get_authtok.c:146
+msgid "Password change aborted."
+msgstr "Ändring av lösenordet avbröts."
+
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "inloggning:"
 
@@ -166,80 +194,57 @@ msgstr "Programmet behöver anropa libpam igen"
 msgid "Unknown PAM error"
 msgstr "Okänt PAM-fel"
 
-#: modules/pam_cracklib/pam_cracklib.c:64
-#: modules/pam_pwhistory/pam_pwhistory.c:61
-#, c-format
-msgid "New %s%spassword: "
-msgstr "Nytt %s%slösenord: "
-
-#: modules/pam_cracklib/pam_cracklib.c:66
-#: modules/pam_pwhistory/pam_pwhistory.c:62
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "Ange nytt %s%slösenord igen: "
-
-#: modules/pam_cracklib/pam_cracklib.c:67
-#: modules/pam_pwhistory/pam_pwhistory.c:63
-msgid "Sorry, passwords do not match."
-msgstr "Tyvärr, lösenorden stämmer inte överens."
-
-#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:490
 msgid "is the same as the old one"
 msgstr "är samma som det gamla"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:504
 msgid "is a palindrome"
 msgstr "är ett palindrom"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:507
 msgid "case changes only"
 msgstr "endast ändringar i gemener och versaler"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:510
 msgid "is too similar to the old one"
 msgstr "är för likt det gamla"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:513
 msgid "is too simple"
 msgstr "är för enkelt"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:516
 msgid "is rotated"
 msgstr "är roterat"
 
-#: modules/pam_cracklib/pam_cracklib.c:528
+#: modules/pam_cracklib/pam_cracklib.c:519
 msgid "not enough character classes"
 msgstr "för få teckenklasser"
 
-#: modules/pam_cracklib/pam_cracklib.c:531
+#: modules/pam_cracklib/pam_cracklib.c:522
 msgid "contains too many same characters consecutively"
 msgstr "innehåller för många tecken av samma sort i följd"
 
-#: modules/pam_cracklib/pam_cracklib.c:534
+#: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains the user name in some form"
 msgstr "innehåller användarnamnet i någon form"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "No password supplied"
 msgstr "Inget lösenord angivet"
 
-#: modules/pam_cracklib/pam_cracklib.c:564
+#: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:449
 msgid "Password unchanged"
 msgstr "Oförändrat lösenord"
 
-#: modules/pam_cracklib/pam_cracklib.c:584
-#: modules/pam_cracklib/pam_cracklib.c:709
+#: modules/pam_cracklib/pam_cracklib.c:575
+#: modules/pam_cracklib/pam_cracklib.c:658
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "DÅLIGT LÖSENORD: %s"
-
-#: modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:159
-#: modules/pam_userdb/pam_userdb.c:61
-msgid "Password: "
-msgstr "Lösenord: "
 
 #: modules/pam_exec/pam_exec.c:215
 #, c-format
@@ -257,21 +262,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s misslyckades: okänd status 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:201
-#: modules/pam_lastlog/pam_lastlog.c:429
+#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:429
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %e %b %Y %H.%M.%S %Z"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:210
-#: modules/pam_lastlog/pam_lastlog.c:438
+#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
 #, c-format
 msgid " from %.*s"
 msgstr " från %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:222
-#: modules/pam_lastlog/pam_lastlog.c:450
+#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
 #, c-format
 msgid " on %.*s"
 msgstr " på %.*s"
@@ -292,21 +294,27 @@ msgstr "Välkommen till ditt nya konto!"
 msgid "Last failed login:%s%s%s"
 msgstr "Senaste misslyckade inloggning:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:469
-#: modules/pam_lastlog/pam_lastlog.c:476
+#: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural "There were %d failed login attempts since the last successful login."
-msgstr[0] "Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta inloggning."
-msgstr[1] "Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta inloggning."
+msgid_plural ""
+"There were %d failed login attempts since the last successful login."
+msgstr[0] ""
+"Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta "
+"inloggning."
+msgstr[1] ""
+"Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta "
+"inloggning."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr "Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta inloggning."
+msgstr ""
+"Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta "
+"inloggning."
 
-#: modules/pam_limits/pam_limits.c:712
+#: modules/pam_limits/pam_limits.c:786
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "För många inloggningar för \"%s\"."
@@ -347,23 +355,17 @@ msgstr "Du har gamla brev i katalogen %s."
 msgid "You have mail in folder %s."
 msgstr "Du har brev i katalogen %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:142
+#: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Skapar katalogen \"%s\"."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:147
-#, c-format
-msgid "Unable to create directory %s: %m"
+#: modules/pam_mkhomedir/pam_mkhomedir.c:178
+#, fuzzy, c-format
+msgid "Unable to create and initialize directory '%s'."
 msgstr "Kan inte skapa katalogen %s: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
-#: modules/pam_pwhistory/pam_pwhistory.c:258
-msgid "Password change aborted."
-msgstr "Ändring av lösenordet avbröts."
-
-#: modules/pam_pwhistory/pam_pwhistory.c:235
-#: modules/pam_pwhistory/pam_pwhistory.c:295
+#: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Lösenordet har redan används. Välj ett annat."
@@ -372,18 +374,15 @@ msgstr "Lösenordet har redan används. Välj ett annat."
 msgid "Would you like to enter a security context? [N] "
 msgstr "Vill du ange en säkerhetskontext? [N]"
 
-#: modules/pam_selinux/pam_selinux.c:191
-#: modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
 msgid "role:"
 msgstr "roll:"
 
-#: modules/pam_selinux/pam_selinux.c:204
-#: modules/pam_selinux/pam_selinux.c:316
+#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
 msgid "level:"
 msgstr "nivå:"
 
-#: modules/pam_selinux/pam_selinux.c:219
-#: modules/pam_selinux/pam_selinux.c:349
+#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
 msgid "Not a valid security context"
 msgstr "Inte en giltig säkerhetskontext"
 
@@ -401,17 +400,17 @@ msgstr "Vill du ange en annan roll eller nivå?"
 msgid "No default type for role %s\n"
 msgstr "Ingen standardttyp för %s-roll\n"
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:677
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Kan inte hämta giltig kontext för %s"
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:728
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Säkerhetskontext %s tilldelad"
 
-#: modules/pam_selinux/pam_selinux.c:733
+#: modules/pam_selinux/pam_selinux.c:749
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Nyckelskapandekontext %s tilldelad"
@@ -431,71 +430,91 @@ msgstr "pam_set_item() misslyckades\n"
 msgid "login: failure forking: %m"
 msgstr "inloggning: fel vid grening: %m"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:475
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "Ändrar STRESS-lösenord för %s."
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
 msgstr "Ange nytt STRESS-lösenord: "
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
 msgstr "Ange nytt STRESS-lösenord igen: "
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
 msgstr "Felskriven verifikation, lösenord oförändrat"
 
-#: modules/pam_tally/pam_tally.c:541
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:541
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
 msgstr "Kontot är temporärt låst (%ld sekunder kvar)"
 
-#: modules/pam_tally/pam_tally.c:566
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr "Kontot är låst på grund av %u misslyckade inloggningar"
 
-#: modules/pam_tally/pam_tally.c:777
+#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:812
 msgid "Authentication error"
 msgstr "Autentiseringsfel"
 
-#: modules/pam_tally/pam_tally.c:778
+#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:813
 msgid "Service error"
 msgstr "Tjänstefel"
 
-#: modules/pam_tally/pam_tally.c:779
+#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:814
 msgid "Unknown user"
 msgstr "Okänd användare"
 
-#: modules/pam_tally/pam_tally.c:780
+#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:815
 msgid "Unknown error"
 msgstr "Okänt fel"
 
-#: modules/pam_tally/pam_tally.c:796
+#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:834
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Felaktigt nummer till --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:800
+#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:838
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Okänd flagga %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file absolut-filnamn] [--user användarnamn] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file absolut-filnamn] [--user användarnamn] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:886
+#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:964
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Kan inte ställa om alla användare till nollskilt värde\n"
 
-#: modules/pam_unix/pam_unix_acct.c:228
-#: modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_tally2/pam_tally2.c:865
+#, c-format
+msgid "Login           Failures Latest failure     From\n"
+msgstr ""
+
+#: modules/pam_tally2/pam_tally2.c:881
+#, fuzzy, c-format
+msgid ""
+"%s: [-f rooted-filename] [--file rooted-filename]\n"
+"   [-u username] [--user username]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file absolut-filnamn] [--user användarnamn] [--reset[=n]] [--quiet]\n"
+
+#: modules/pam_timestamp/pam_timestamp.c:339
+#, c-format
+msgid "Access granted (last access was %ld seconds ago)."
+msgstr ""
+
+#: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Ditt konto har gått ut. Kontakta din systemadministratör"
 
@@ -507,8 +526,7 @@ msgstr "Du måste ändra ditt lösenord omedelbart (påtvingat av root)"
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Du måste ändra ditt lösenord omedelbart (lösenord för gammalt)"
 
-#: modules/pam_unix/pam_unix_acct.c:260
-#: modules/pam_unix/pam_unix_acct.c:267
+#: modules/pam_unix/pam_unix_acct.c:260 modules/pam_unix/pam_unix_acct.c:267
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -556,16 +574,21 @@ msgstr "Ange nytt UNIX-lösenord igen: "
 #, fuzzy
 #~ msgid "Password has been used already. Choose another."
 #~ msgstr "Lösenordet har redan används. Välj ett annat."
+
 #~ msgid "Requested MLS level not in permitted range"
 #~ msgstr "Begärd MLS-nivå utanför giltigt intervall"
+
 #~ msgid "Error connecting to audit system."
 #~ msgstr "Fel vid anslutning till granskningssystem."
+
 #~ msgid "Error translating default context."
 #~ msgstr "Fel vid översättning av standardkontext."
+
 #~ msgid "Error translating selected context."
 #~ msgstr "Fel vid översättning av kontext."
+
 #~ msgid "Error sending audit message."
 #~ msgstr "Fel vid sändande av granskningsmeddelande"
+
 #~ msgid "Out of memory"
 #~ msgstr "Slut på minne"
-

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-11 20:40+0100\n"
+"POT-Creation-Date: 2009-02-25 17:13+0100\n"
 "PO-Revision-Date: 2008-10-21 13:21+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <it@li.org>\n"
@@ -320,7 +320,7 @@ msgstr ""
 "Si sono verificati alcuni tentativi di login %d falliti dall'ultimo "
 "tentativo di login con successo."
 
-#: modules/pam_limits/pam_limits.c:712
+#: modules/pam_limits/pam_limits.c:786
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Ci sono troppi accessi per \"%s\"."
@@ -361,17 +361,17 @@ msgstr "La cartella %s contiene vecchie email."
 msgid "You have mail in folder %s."
 msgstr "La cartella %s contiene email."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:142
+#: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Creazione della directory \"%s\"."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:147
-#, c-format
-msgid "Unable to create directory %s: %m"
+#: modules/pam_mkhomedir/pam_mkhomedir.c:178
+#, fuzzy, c-format
+msgid "Unable to create and initialize directory '%s'."
 msgstr "Impossibile creare la directory %s: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
+#: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Password già utilizzata. Sceglierne un'altra."
@@ -406,17 +406,17 @@ msgstr "Immettere un ruolo o livello differente?"
 msgid "No default type for role %s\n"
 msgstr "Nessun tipo predefinito per il ruolo %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:677
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Impossibile ottenere un contesto valido per %s"
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:728
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Contesto di sicurezza %s assegnato"
 
-#: modules/pam_selinux/pam_selinux.c:733
+#: modules/pam_selinux/pam_selinux.c:749
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Contesto di creazione chiave %s assegnato"

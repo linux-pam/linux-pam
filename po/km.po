@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-11 20:40+0100\n"
+"POT-Creation-Date: 2009-02-25 17:13+0100\n"
 "PO-Revision-Date: 2006-03-17 10:32+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -312,7 +312,7 @@ msgstr[1] ""
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
 
-#: modules/pam_limits/pam_limits.c:712
+#: modules/pam_limits/pam_limits.c:786
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "មាន​ការ​ចូល​ច្រើន​ពេក​សម្រាប់ '%s' ។"
@@ -353,17 +353,17 @@ msgstr "អ្នក​មាន​សំបុត្រ​ចាស់​នៅ
 msgid "You have mail in folder %s."
 msgstr "អ្នក​មាន​សំបុត្រ​នៅ​ក្នុង​ថត %s ។"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:142
+#: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, c-format
 msgid "Creating directory '%s'."
 msgstr ""
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:147
+#: modules/pam_mkhomedir/pam_mkhomedir.c:178
 #, c-format
-msgid "Unable to create directory %s: %m"
+msgid "Unable to create and initialize directory '%s'."
 msgstr ""
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
+#: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "ពាក្យសម្ងាត់​ត្រូវ​បាន​ប្រើ​រួច​ហើយ ។ សូម​ជ្រើស​មួយ​ទៀត ។"
@@ -402,17 +402,17 @@ msgstr "តើ​អ្នក​ចង់​បញ្ចូល​បរិបទ
 msgid "No default type for role %s\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:677
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:728
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "បរិបទ​សុវត្ថិភាព %s បាន​ផ្ដល់​តម្លៃ​"
 
-#: modules/pam_selinux/pam_selinux.c:733
+#: modules/pam_selinux/pam_selinux.c:749
 #, fuzzy, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "បរិបទ​សុវត្ថិភាព %s បាន​ផ្ដល់​តម្លៃ​"

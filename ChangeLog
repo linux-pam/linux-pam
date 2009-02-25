@@ -1,3 +1,13 @@
+2009-02-25  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpam/pam_misc.c (_pam_StrTok): Use unsigned char
+	instead of int. Reported by Marcus Granado.
+	* tests/Makefile.am (TESTS): Add tst-pam_mkargv.
+	* tests/tst-pam_mkargv.c (main): Test case for
+	_pam_mkargv.
+
+	* po/de.po: Update fuzzy translations.
+
 2009-02-25  Tomas Mraz <t8m@centrum.cz>
 
 	* xtests/access.conf: Add a line for name resolution test case.
@@ -2303,7 +2313,7 @@
 	libdb available.
 	* tests/tst-dlopen.c: Include config.h.
 
-2006-07-03  Dan Yefimov  <dan@D00M.lightwave.net.ru>
+2006-07-03  Dan Yefimov
 
 	* configure.in: Fixed have_key_syscalls test.
 

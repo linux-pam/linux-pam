@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linux-pam\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-11 20:40+0100\n"
+"POT-Creation-Date: 2009-02-25 17:13+0100\n"
 "PO-Revision-Date: 2008-09-25 23:52+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
@@ -334,7 +334,7 @@ msgstr[0] ""
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
 
-#: modules/pam_limits/pam_limits.c:712
+#: modules/pam_limits/pam_limits.c:786
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr ""
@@ -379,17 +379,17 @@ msgstr ""
 msgid "You have mail in folder %s."
 msgstr "Pemindahan mel dalam proses"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:142
+#: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, fuzzy, c-format
 msgid "Creating directory '%s'."
 msgstr "Menbuat direktori initrd"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:147
+#: modules/pam_mkhomedir/pam_mkhomedir.c:178
 #, fuzzy, c-format
-msgid "Unable to create directory %s: %m"
+msgid "Unable to create and initialize directory '%s'."
 msgstr "gagal untuk mencipta direktori %s: %s\n"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
+#: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr ""
@@ -428,17 +428,17 @@ msgstr ""
 "$$ untuk hukum pertengahan pada $%d bagi `%s' tidak mempunyai jenis "
 "dinyatakan"
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:677
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:728
 #, fuzzy, c-format
 msgid "Security Context %s Assigned"
 msgstr "ketika mengulangtetap konteks"
 
-#: modules/pam_selinux/pam_selinux.c:733
+#: modules/pam_selinux/pam_selinux.c:749
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr ""

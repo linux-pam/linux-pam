@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-11 20:40+0100\n"
+"POT-Creation-Date: 2009-02-25 17:13+0100\n"
 "PO-Revision-Date: 2008-10-21 09:13+0200\n"
 "Last-Translator: Ondrej Šulek <feonsu@gmail.com>\n"
 "Language-Team: Slovak <fedora-trans-sk@redhat.com>\n"
@@ -316,7 +316,7 @@ msgstr ""
 "Od posledného úspešného prihlásenia došlo k %d neúspešným pokusom o "
 "prihlásenie."
 
-#: modules/pam_limits/pam_limits.c:712
+#: modules/pam_limits/pam_limits.c:786
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Príliš veľa prihlásení pre '%s'."
@@ -357,17 +357,17 @@ msgstr "Máte starú poštu v priečinku %s."
 msgid "You have mail in folder %s."
 msgstr "Máte poštu v priečinku %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:142
+#: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Vytváranie priečinka '%s'."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:147
-#, c-format
-msgid "Unable to create directory %s: %m"
+#: modules/pam_mkhomedir/pam_mkhomedir.c:178
+#, fuzzy, c-format
+msgid "Unable to create and initialize directory '%s'."
 msgstr "Nedá sa vytvoriť priečinok %s: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
+#: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Heslo už bolo použité. Vyberte iné."
@@ -402,17 +402,17 @@ msgstr "Chcete zadať inú rolu alebo úroveň?"
 msgid "No default type for role %s\n"
 msgstr "Chýba predvolený typ pre rolu %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:677
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Nepodaril sa získať platný kontext zabezpečenia pre %s"
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:728
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Kontext zabezpečenia %s pridelený"
 
-#: modules/pam_selinux/pam_selinux.c:733
+#: modules/pam_selinux/pam_selinux.c:749
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Kontext zabezpečenia pre vytváranie kľúčov %s pridelený"

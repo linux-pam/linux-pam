@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.fr2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-11 20:40+0100\n"
+"POT-Creation-Date: 2009-02-25 17:13+0100\n"
 "PO-Revision-Date: 2008-10-19 18:59+0200\n"
 "Last-Translator: Pablo Martin-Gomez <pablo.martin-gomez@laposte.net> \n"
 "Language-Team: Français <fedora-trans-fr@redhat.com>\n"
@@ -321,7 +321,7 @@ msgstr ""
 "Il y a eu %d tentatives de connexion échouées depuis la dernière connexion "
 "réussie."
 
-#: modules/pam_limits/pam_limits.c:712
+#: modules/pam_limits/pam_limits.c:786
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Trop de connexions pour « %s »."
@@ -362,17 +362,17 @@ msgstr "Vous avez un ancien message dans le dossier %s."
 msgid "You have mail in folder %s."
 msgstr "Vous avez des messages dans le dossier %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:142
+#: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Création du répertoire « %s »."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:147
-#, c-format
-msgid "Unable to create directory %s: %m"
+#: modules/pam_mkhomedir/pam_mkhomedir.c:178
+#, fuzzy, c-format
+msgid "Unable to create and initialize directory '%s'."
 msgstr "Impossible de créer le répertoire %s : %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
+#: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Mot de passe déjà utilisé. Choisissez-en un autre."
@@ -407,17 +407,17 @@ msgstr "Voulez-vous entrer un niveau ou un rôle différent ?"
 msgid "No default type for role %s\n"
 msgstr "Aucun type par défaut pour le rôle %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:677
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Impossible d'obtenir un contexte valide pour %s"
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:728
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Contexte de sécurité %s attribué"
 
-#: modules/pam_selinux/pam_selinux.c:733
+#: modules/pam_selinux/pam_selinux.c:749
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Contexte de création de clés %s attribué"

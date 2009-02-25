@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-11 20:40+0100\n"
+"POT-Creation-Date: 2009-02-25 17:13+0100\n"
 "PO-Revision-Date: 2008-10-13 11:23+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
 "Language-Team: Assamese\n"
@@ -310,7 +310,7 @@ msgstr[1] ""
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
 
-#: modules/pam_limits/pam_limits.c:712
+#: modules/pam_limits/pam_limits.c:786
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "'%s' ৰ বাবে বহুতো প্ৰৱেশ ।"
@@ -351,17 +351,17 @@ msgstr "%s ফোলডাৰত আপোনাৰ পুৰণি ডাক �
 msgid "You have mail in folder %s."
 msgstr "%s ফোল্ডাৰত আপোনাৰ ডাক আছে ।"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:142
+#: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "'%s' পঞ্জিকা সৃষ্টি কৰা হৈছে ।"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:147
-#, c-format
-msgid "Unable to create directory %s: %m"
+#: modules/pam_mkhomedir/pam_mkhomedir.c:178
+#, fuzzy, c-format
+msgid "Unable to create and initialize directory '%s'."
 msgstr "%s পঞ্জিকা সৃষ্টি কৰিব নোৱাৰি: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
+#: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "গুপ্তশব্দ ইতিমধ্যে ব্যৱহৃত । অন্য এটা বাচি লওক ।"
@@ -396,17 +396,17 @@ msgstr "বেলেগ এটা সুৰক্ষাৰ ভূমিকা �
 msgid "No default type for role %s\n"
 msgstr "%s ভূমিকা বাবে অবিকল্পিত ধৰণ নাই\n"
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:677
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "%s ৰ বাবে বৈধ সন্দৰ্ভ পোৱা ন'গ'ল"
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:728
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "সুৰক্ষাৰ সন্দৰ্ভ %s নিযুক্ত কৰা হ'ল"
 
-#: modules/pam_selinux/pam_selinux.c:733
+#: modules/pam_selinux/pam_selinux.c:749
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "চাবি নিৰ্মাণৰ সন্দৰ্ভ %s নিযুক্ত কৰা হ'ল"

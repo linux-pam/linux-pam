@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-11 20:40+0100\n"
+"POT-Creation-Date: 2009-02-25 17:13+0100\n"
 "PO-Revision-Date: 2008-10-15 16:10+0200\n"
 "Last-Translator: Xavier Queralt Mateu <xqueralt@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
@@ -318,7 +318,7 @@ msgstr[1] "S'ha intentat entrar %d cops des de l'última entrada correcta."
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "S'ha intentat entrar %d cops des de l'última entrada correcta."
 
-#: modules/pam_limits/pam_limits.c:712
+#: modules/pam_limits/pam_limits.c:786
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Massa entrades per a '%s'."
@@ -359,17 +359,17 @@ msgstr "Teniu correu antic a la carpeta %s."
 msgid "You have mail in folder %s."
 msgstr "Teniu correu a la carpeta %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:142
+#: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Creant el directori '%s'."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:147
-#, c-format
-msgid "Unable to create directory %s: %m"
+#: modules/pam_mkhomedir/pam_mkhomedir.c:178
+#, fuzzy, c-format
+msgid "Unable to create and initialize directory '%s'."
 msgstr "No s'ha pogut crear el directori %s: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
+#: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:470
 msgid "Password has been already used. Choose another."
 msgstr "Aquesta contrasenya ja s'ha fet servir. Trieu-ne una altra."
@@ -404,17 +404,17 @@ msgstr "Voleu introduir un rol o nivell diferent?"
 msgid "No default type for role %s\n"
 msgstr "El rol %s no disposa de cap tipus per defecte\n"
 
-#: modules/pam_selinux/pam_selinux.c:661
+#: modules/pam_selinux/pam_selinux.c:677
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "No s'ha pogut obtenir el context vàlid per a %s"
 
-#: modules/pam_selinux/pam_selinux.c:712
+#: modules/pam_selinux/pam_selinux.c:728
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Context de seguretat %s assignat"
 
-#: modules/pam_selinux/pam_selinux.c:733
+#: modules/pam_selinux/pam_selinux.c:749
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Context de creació de claus %s assignat"

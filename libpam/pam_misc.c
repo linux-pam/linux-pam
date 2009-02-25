@@ -59,10 +59,11 @@ char *_pam_StrTok(char *from, const char *format, char **next)
 
      /* initialize table */
      for (i=1; i<256; table[i++] = '\0');
-     for (i=0; format[i] ; table[(int)format[i++]] = 'y');
+     for (i=0; format[i] ;
+	  table[(unsigned char)format[i++]] = 'y');
 
      /* look for first non-format char */
-     while (*from && table[(int)*from]) {
+     while (*from && table[(unsigned char)*from]) {
 	  ++from;
      }
 
@@ -92,7 +93,7 @@ char *_pam_StrTok(char *from, const char *format, char **next)
             remains */
      } else if (*from) {
 	 /* simply look for next blank char */
-	 for (end=from; *end && !table[(int)*end]; ++end);
+	 for (end=from; *end && !table[(unsigned char)*end]; ++end);
      } else {
 	 return (*next = NULL);                    /* no tokens left */
      }
