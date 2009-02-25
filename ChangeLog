@@ -1,3 +1,15 @@
+2009-02-25  Fabian Affolter <fabian@bernewireless.net>
+
+	* po/de.po: Updated translations.
+
+2009-02-25  Taylon Silmer Lacerda Silva <taylonsilva@gmail.com>
+
+	* po/pt_BR.po: Updated translations.
+
+2009-02-25  Domingo Becker <domingobecker@gmail.com>
+
+	* po/es.po: Updated translations.
+
 2009-02-20  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_limits/limits.conf.5.xml: Document that the kernel
