@@ -1,3 +1,8 @@
+2009-02-26  Timur Birsh <taem@linukz.org>
+
+	* po/LINGUAS: New Kazakh translation.
+	* po/kk.po: New Kazakh translation.
+
 2009-02-25  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* libpam/pam_misc.c (_pam_StrTok): Use unsigned char
