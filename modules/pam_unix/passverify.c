@@ -293,8 +293,16 @@ check_shadow_expiry(pam_handle_t *pamh, struct spwd *spent, int *daysleft)
 		*daysleft = (int)((spent->sp_lstchg + spent->sp_max) - curdays);
 		D(("warn before expiry"));
 	}
+	if ((curdays - spent->sp_lstchg < spent->sp_min)
+	    && (spent->sp_min != -1)) {
+		/* 
+		 * The last password change was too recent. This error will be ignored
+		 * if no password change is attempted.
+		 */
+		D(("password change too recent"));
+		return PAM_AUTHTOK_ERR;
+	}
 	return PAM_SUCCESS;
-
 }
 
 /* passwd/salt conversion macros */
