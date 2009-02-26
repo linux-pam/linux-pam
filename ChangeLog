@@ -1,3 +1,16 @@
+2009-02-26  Tomas Mraz <t8m@centrum.cz>
+
+	* xtests/Makefile.am: Add tst-pam_unix4.
+	* xtests/tst-pam_unix4.c: New test for password change
+        and shadow min days limit.
+	* xtests/tst-pam_unix4.pamd: Likewise.
+	* xtests/tst-pam_unix4.sh: Likewise.
+
+	* modules/pam_unix/pam_unix_acct.c (pam_sm_acct_mgmt): Ignore
+        PAM_AUTHTOK_ERR on shadow verification.
+	* modules/pam_unix/passverify.c (check_shadow_expiry): Return
+        PAM_AUTHTOK_ERR if sp_min limit for password change is defied.
+
 2009-02-26  Timur Birsh <taem@linukz.org>
 
 	* po/LINGUAS: New Kazakh translation.

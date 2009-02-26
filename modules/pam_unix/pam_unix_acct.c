@@ -249,6 +249,9 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
 			_("Your account has expired; please contact your system administrator"));
 		break;
+	case PAM_AUTHTOK_ERR:
+		retval = PAM_SUCCESS;
+		/* fallthrough */
 	case PAM_SUCCESS:
 		if (daysleft >= 0) {
 			pam_syslog(pamh, LOG_DEBUG,

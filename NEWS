@@ -1,5 +1,6 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+* Fixed CVE-2009-0579 (minimum days limit on password change is ignored).
 
 Release 1.0.90
 
