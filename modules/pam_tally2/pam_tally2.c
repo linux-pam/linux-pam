@@ -63,6 +63,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/param.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <signal.h>
 #include "tallylog.h"
 
 #ifndef TRUE
@@ -87,9 +90,9 @@
 /* #define PAM_SM_SESSION  */
 /* #define PAM_SM_PASSWORD */
 
-#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 #endif
+#include <security/pam_modutil.h>
 #include <security/pam_modules.h>
 
 /*---------------------------------------------------------------------*/
@@ -120,7 +123,9 @@ struct tally_options {
 #define OPT_QUIET                        040
 #define OPT_AUDIT                       0100
 #define OPT_NOLOGNOTICE                 0400
+#define OPT_SERIALIZE                  01000
 
+#define MAX_LOCK_WAITING_TIME 10
 
 /*---------------------------------------------------------------------*/
 
@@ -187,6 +192,9 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
       }
       else if ( ! strcmp( *argv, "magic_root" ) ) {
         opts->ctrl |= OPT_MAGIC_ROOT;
+      }
+      else if ( ! strcmp( *argv, "serialize" ) ) {
+        opts->ctrl |= OPT_SERIALIZE;
       }
       else if ( ! strcmp( *argv, "even_deny_root_account" ) ||
                 ! strcmp( *argv, "even_deny_root" ) ) {
@@ -291,34 +299,44 @@ pam_get_uid(pam_handle_t *pamh, uid_t *uid, const char **userp, struct tally_opt
 
 #ifndef MAIN
 
+struct tally_data {
+    time_t time;
+    int    tfile;
+};
+
 static void
-_cleanup(pam_handle_t *pamh UNUSED, void *data, int error_status UNUSED)
+_cleanup(pam_handle_t *pamh UNUSED, void *void_data, int error_status UNUSED)
 {
+    struct tally_data *data = void_data;
+    if (data->tfile != -1)
+	close(data->tfile);
     free(data);
 }
 
-
 static void
-tally_set_data( pam_handle_t *pamh, time_t oldtime )
+tally_set_data( pam_handle_t *pamh, time_t oldtime, int tfile )
 {
-    time_t *data;
+    struct tally_data *data;
 
-    if ( (data=malloc(sizeof(time_t))) != NULL ) {
-        *data = oldtime;
+    if ( (data=malloc(sizeof(*data))) != NULL ) {
+        data->time = oldtime;
+        data->tfile = tfile;
         pam_set_data(pamh, MODULE_NAME, (void *)data, _cleanup);
     }
 }
 
 static int
-tally_get_data( pam_handle_t *pamh, time_t *oldtime )
+tally_get_data( pam_handle_t *pamh, time_t *oldtime, int *tfile )
 {
     int rv;
-    const void *data;
+    const void *void_data;
+    const struct tally_data *data;
 
-    rv = pam_get_data(pamh, MODULE_NAME, &data);
-    if ( rv == PAM_SUCCESS && data != NULL && oldtime != NULL ) {
-      *oldtime = *(const time_t *)data;
-      pam_set_data(pamh, MODULE_NAME, NULL, NULL);
+    rv = pam_get_data(pamh, MODULE_NAME, &void_data);
+    if ( rv == PAM_SUCCESS && void_data != NULL && oldtime != NULL ) {
+      data = void_data;
+      *oldtime = data->time;
+      *tfile = data->tfile;
     }
     else {
       rv = -1;
@@ -334,35 +352,43 @@ tally_get_data( pam_handle_t *pamh, time_t *oldtime )
 
 /* If on entry tallyfile doesn't exist, creation is attempted. */
 
+static void
+alarm_handler(int sig UNUSED)
+{   /* we just need to ignore it */
+}
+
 static int
 get_tally(pam_handle_t *pamh, uid_t uid, const char *filename,
-        FILE **tfile, struct tallylog *tally)
+        int *tfile, struct tallylog *tally, unsigned int ctrl)
 {
     struct stat fileinfo;
     int lstat_ret;
+    void *void_tally = tally;
+    int preopened = 0;
+
+    if (*tfile != -1) {
+	preopened = 1;
+	goto skip_open;
+    }
 
     lstat_ret = lstat(filename, &fileinfo);
     if (lstat_ret) {
-      int save_errno;
-      int oldmask = umask(077);
-      *tfile=fopen(filename, "a");
-      save_errno = errno;
+      *tfile=open(filename, O_APPEND|O_CREAT, 0700);
       /* Create file, or append-open in pathological case. */
-      umask(oldmask);
-      if ( !*tfile ) {
+      if (*tfile == -1) {
 #ifndef MAIN
-        if (save_errno == EACCES) {
+        if (errno == EACCES) {
 	    return PAM_IGNORE; /* called with insufficient access rights */
 	}
 #endif
-	errno = save_errno;
         pam_syslog(pamh, LOG_ALERT, "Couldn't create %s: %m", filename);
         return PAM_AUTH_ERR;
       }
-      lstat_ret = fstat(fileno(*tfile),&fileinfo);
-      fclose(*tfile);
-      *tfile = NULL;
+      lstat_ret = fstat(*tfile, &fileinfo);
+      close(*tfile);
     }
+
+    *tfile = -1;
 
     if ( lstat_ret ) {
       pam_syslog(pamh, LOG_ALERT, "Couldn't stat %s", filename);
@@ -378,7 +404,7 @@ get_tally(pam_handle_t *pamh, uid_t uid, const char *filename,
       return PAM_AUTH_ERR;
     }
 
-    if (!(*tfile = fopen(filename, "r+"))) {
+    if ((*tfile = open(filename, O_RDWR)) == -1) {
 #ifndef MAIN
       if (errno == EACCES) /* called with insufficient access rights */
       	  return PAM_IGNORE;
@@ -388,16 +414,46 @@ get_tally(pam_handle_t *pamh, uid_t uid, const char *filename,
       return PAM_AUTH_ERR;
     }
 
-    if (fseeko(*tfile, (off_t)uid*(off_t)sizeof(*tally), SEEK_SET)) {
-        pam_syslog(pamh, LOG_ALERT, "fseek failed for %s: %m", filename);
-        fclose(*tfile);
-        *tfile = NULL;
+skip_open:
+    if (lseek(*tfile, (off_t)uid*(off_t)sizeof(*tally), SEEK_SET) == (off_t)-1) {
+        pam_syslog(pamh, LOG_ALERT, "lseek failed for %s: %m", filename);
+        if (!preopened) {
+    	    close(*tfile);
+            *tfile = -1;
+        }
         return PAM_AUTH_ERR;
+    }
+
+    if (!preopened && (ctrl & OPT_SERIALIZE)) {
+	/* this code is not thread safe as it uses fcntl locks and alarm()
+	   so never use serialize with multithreaded services */
+	struct sigaction newsa, oldsa;
+	unsigned int oldalarm;
+	int rv;
+
+	memset(&newsa, '\0', sizeof(newsa));
+	newsa.sa_handler = alarm_handler;
+	sigaction(SIGALRM, &newsa, &oldsa);
+	oldalarm = alarm(MAX_LOCK_WAITING_TIME);
+
+	rv = lockf(*tfile, F_LOCK, sizeof(*tally));
+	/* lock failure is not fatal, we attempt to read the tally anyway */
+	
+	/* reinstate the eventual old alarm handler */
+	if (rv == -1 && errno == EINTR) {
+	    if (oldalarm > MAX_LOCK_WAITING_TIME) {
+		oldalarm -= MAX_LOCK_WAITING_TIME;
+	    } else if (oldalarm > 0) {
+		oldalarm = 1;
+	    }
+	}
+	sigaction(SIGALRM, &oldsa, NULL);
+	alarm(oldalarm);
     }
 
     if (fileinfo.st_size < (off_t)(uid+1)*(off_t)sizeof(*tally)) {
 	memset(tally, 0, sizeof(*tally));
-    } else if (fread(tally, sizeof(*tally), 1, *tfile) == 0) {
+    } else if (pam_modutil_read(*tfile, void_tally, sizeof(*tally)) != sizeof(*tally)) {
 	memset(tally, 0, sizeof(*tally));
 	/* Shouldn't happen */
     }
@@ -409,29 +465,28 @@ get_tally(pam_handle_t *pamh, uid_t uid, const char *filename,
 
 /*---------------------------------------------------------------------*/
 
-/* --- Support function: update and close tallyfile with tally!=TALLY_HI --- */
+/* --- Support function: update tallyfile with tally!=TALLY_HI --- */
 
 static int
 set_tally(pam_handle_t *pamh, uid_t uid,
-	  const char *filename, FILE **tfile, struct tallylog *tally)
+	  const char *filename, int *tfile, struct tallylog *tally)
 {
+    void *void_tally = tally;
     if (tally->fail_cnt != TALLY_HI) {
-        if (fseeko(*tfile, (off_t)uid * sizeof(*tally), SEEK_SET)) {
-                  pam_syslog(pamh, LOG_ALERT, "fseek failed for %s: %m", filename);
+        if (lseek(*tfile, (off_t)uid * sizeof(*tally), SEEK_SET) == (off_t)-1) {
+                  pam_syslog(pamh, LOG_ALERT, "lseek failed for %s: %m", filename);
                             return PAM_AUTH_ERR;
         }
-        if (fwrite(tally, sizeof(*tally), 1, *tfile) == 0) {
-	    pam_syslog(pamh, LOG_ALERT, "update (fwrite) failed for %s: %m", filename);
+        if (pam_modutil_write(*tfile, void_tally, sizeof(*tally)) != sizeof(*tally)) {
+	    pam_syslog(pamh, LOG_ALERT, "update (write) failed for %s: %m", filename);
 	    return PAM_AUTH_ERR;
         }
     }
 
-    if (fclose(*tfile)) {
-      *tfile = NULL;
-      pam_syslog(pamh, LOG_ALERT, "update (fclose) failed for %s: %m", filename);
+    if (fsync(*tfile)) {
+      pam_syslog(pamh, LOG_ALERT, "update (fsync) failed for %s: %m", filename);
       return PAM_AUTH_ERR;
     }
-    *tfile=NULL;
     return PAM_SUCCESS;
 }
 
@@ -566,20 +621,21 @@ cleanup:
 
 static int
 tally_bump (int inc, time_t *oldtime, pam_handle_t *pamh,
-            uid_t uid, const char *user, struct tally_options *opts) 
+            uid_t uid, const char *user, struct tally_options *opts, int *tfile) 
 {
     struct tallylog tally;
     tally_t oldcnt;
-    FILE *tfile = NULL;
     const void *remote_host = NULL;
     int i, rv;
 
     tally.fail_cnt = 0;  /* !TALLY_HI --> Log opened for update */
     
-    i = get_tally(pamh, uid, opts->filename, &tfile, &tally);
+    i = get_tally(pamh, uid, opts->filename, tfile, &tally, opts->ctrl);
     if (i != PAM_SUCCESS) {
-        if (tfile)
-            fclose(tfile);
+        if (*tfile != -1) {
+            close(*tfile);
+            *tfile = -1;
+        }
         RETURN_ERROR(i);
     }
 
@@ -617,23 +673,28 @@ tally_bump (int inc, time_t *oldtime, pam_handle_t *pamh,
 
     rv = tally_check(oldcnt, *oldtime, pamh, uid, user, opts, &tally);
 
-    i = set_tally(pamh, uid, opts->filename, &tfile, &tally);
+    i = set_tally(pamh, uid, opts->filename, tfile, &tally);
     if (i != PAM_SUCCESS) {
-        if (tfile)
-            fclose(tfile);
+        if (*tfile != -1) {
+            close(*tfile);
+            *tfile = -1;
+        }
         if (rv == PAM_SUCCESS)
 	    RETURN_ERROR( i );
 	/* fallthrough */
+    } else if (!(opts->ctrl & OPT_SERIALIZE)) {
+	close(*tfile);
+	*tfile = -1;
     }
 
     return rv;
 }
 
 static int
-tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts)
+tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts, int old_tfile)
 {
     struct tallylog tally; 
-    FILE *tfile = NULL;
+    int tfile = old_tfile;
     int i;
     
     /* resets only if not magic root */
@@ -644,10 +705,10 @@ tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts)
 
     tally.fail_cnt = 0;  /* !TALLY_HI --> Log opened for update */
 
-    i=get_tally(pamh, uid, opts->filename, &tfile, &tally);
+    i=get_tally(pamh, uid, opts->filename, &tfile, &tally, opts->ctrl);
     if (i != PAM_SUCCESS) {
-        if (tfile) 
-            fclose(tfile);
+        if (tfile != old_tfile) /* the descriptor is not owned by pam data */
+            close(tfile);
         RETURN_ERROR(i);
     }
     
@@ -655,10 +716,13 @@ tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts)
     
     i=set_tally(pamh, uid, opts->filename, &tfile, &tally);
     if (i != PAM_SUCCESS) {
-        if (tfile) 
-            fclose(tfile);
+        if (tfile != old_tfile) /* the descriptor is not owned by pam data */
+            close(tfile);
         RETURN_ERROR(i);
     }
+
+    if (tfile != old_tfile)
+	close(tfile);
 
     return PAM_SUCCESS;
 }
@@ -672,7 +736,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 		    int argc, const char **argv)
 {
   int
-    rv;
+    rv, tfile = -1;
   time_t
     oldtime = 0;
   struct tally_options
@@ -693,9 +757,9 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
   if (rv != PAM_SUCCESS)
       RETURN_ERROR(rv);
 
-  rv = tally_bump(1, &oldtime, pamh, uid, user, opts);
+  rv = tally_bump(1, &oldtime, pamh, uid, user, opts, &tfile);
 
-  tally_set_data(pamh, oldtime);
+  tally_set_data(pamh, oldtime, tfile);
 
   return rv;
 }
@@ -705,7 +769,7 @@ pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
 	       int argc, const char **argv)
 {
   int
-    rv;
+    rv, tfile = -1;
   time_t
     oldtime = 0;
   struct tally_options
@@ -723,11 +787,15 @@ pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
   if ( rv != PAM_SUCCESS )
       RETURN_ERROR( rv );
 
-  if ( tally_get_data(pamh, &oldtime) != 0 )
+  if ( tally_get_data(pamh, &oldtime, &tfile) != 0 )
   /* no data found */
       return PAM_SUCCESS;
 
-  return tally_reset(pamh, uid, opts);
+  rv = tally_reset(pamh, uid, opts, tfile);
+
+  pam_set_data(pamh, MODULE_NAME, NULL, NULL);
+
+  return rv;
 }
 
 /*---------------------------------------------------------------------*/
@@ -741,7 +809,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 		 int argc, const char **argv)
 {
   int
-    rv;
+    rv, tfile = -1;
   time_t
     oldtime = 0;
   struct tally_options
@@ -759,11 +827,15 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
   if ( rv != PAM_SUCCESS )
       RETURN_ERROR( rv );
 
-  if ( tally_get_data(pamh, &oldtime) != 0 )
+  if ( tally_get_data(pamh, &oldtime, &tfile) != 0 )
   /* no data found */
       return PAM_SUCCESS;
 
-  return tally_reset(pamh, uid, opts);
+  rv = tally_reset(pamh, uid, opts, tfile);
+
+  pam_set_data(pamh, MODULE_NAME, NULL, NULL);
+
+  return rv;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -895,7 +967,7 @@ main( int argc UNUSED, char **argv )
 
   if ( cline_user ) {
     uid_t uid;
-    FILE *tfile=0;
+    int tfile = -1;
     struct tally_options opts;
     int i;
 
@@ -907,10 +979,10 @@ main( int argc UNUSED, char **argv )
       exit(1);
     }
 
-    i=get_tally(NULL, uid, cline_filename, &tfile, &tally);
+    i=get_tally(NULL, uid, cline_filename, &tfile, &tally, 0);
     if ( i != PAM_SUCCESS ) {
-      if (tfile)
-          fclose(tfile);
+      if (tfile != -1)
+          close(tfile);
       fprintf(stderr, "%s: %s\n", *argv, pam_errors(i));
       exit(1);
     }
@@ -934,13 +1006,13 @@ main( int argc UNUSED, char **argv )
             tally.fail_cnt = cline_reset;
         }
         i=set_tally(NULL, uid, cline_filename, &tfile, &tally);
+        close(tfile);
         if (i != PAM_SUCCESS) {
-            if (tfile) fclose(tfile);
             fprintf(stderr,"%s: %s\n",*argv,pam_errors(i));
             exit(1);
         }
     } else {
-        fclose(tfile);
+        close(tfile);
     }
   }
   else /* !cline_user (ie, operate on all users) */ {

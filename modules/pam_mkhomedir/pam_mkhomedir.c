@@ -104,7 +104,7 @@ create_homedir (pam_handle_t *pamh, int ctrl,
 		const struct passwd *pwd)
 {
    int retval, child;
-   void (*sighandler)(int) = NULL;
+   struct sigaction newsa, oldsa;
 
    /* Mention what is happening, if the notification fails that is OK */
    if (!(ctrl & MKHOMEDIR_QUIET))
@@ -118,8 +118,10 @@ create_homedir (pam_handle_t *pamh, int ctrl,
     * the application to receive a signal it is not expecting - which
     * may kill the application or worse.
     */
-   sighandler = signal(SIGCHLD, SIG_DFL);
-
+   memset(&newsa, '\0', sizeof(newsa));
+   newsa.sa_handler = SIG_DFL;
+   sigaction(SIGCHLD, &newsa, &oldsa);
+ 
    if (ctrl & MKHOMEDIR_DEBUG) {
         pam_syslog(pamh, LOG_DEBUG, "Executing mkhomedir_helper.");
    }
@@ -166,9 +168,7 @@ create_homedir (pam_handle_t *pamh, int ctrl,
 	retval = PAM_SYSTEM_ERR;
    }
 
-   if (sighandler != SIG_ERR) {
-        (void) signal(SIGCHLD, sighandler);   /* restore old signal handler */
-   }
+   sigaction(SIGCHLD, &oldsa, NULL);   /* restore old signal handler */
 
    if (ctrl & MKHOMEDIR_DEBUG) {
         pam_syslog(pamh, LOG_DEBUG, "mkhomedir_helper returned %d", retval);

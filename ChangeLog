@@ -1,3 +1,32 @@
+2009-02-27  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_mkhomedir/pam_mkhomedir.c(create_homedir): Replace
+	signal() with sigaction().
+	* modules/pam_namespace/pam_namespace.c(inst_init, cleanup_tmpdirs):
+	Likewise.
+	* modules/pam_unix/pam_unix_acct.c(_unix_run_verify_binary): Likewise.
+	* modules/pam_unix/pam_unix_passwd.c(_unix_run_update_binary):
+	Likewise.
+	* modules/pam_unix/passverify.c(su_sighandler): Likewise.
+	* modules/pam_unix/support.c(_unix_run_helper_binary): Likewise.
+
+	* modules/pam_tally2/Makefile.am: Link the pam_tally2 app to libpam
+	for auxiliary functions.
+	* modules/pam_tally2/pam_tally2.8.xml: Drop non-existing no_reset
+	option.	Document new serialize option.
+	* modules/pam_tally2/pam_tally2.c: Add support for the new serialize
+	option.
+	(_cleanup, tally_set_data, tally_get_data): Add tally file handle to
+	tally PAM data. Needed for fcntl() locking.
+	(get_tally): Use low level file access instead of stdio buffered FILE.
+	If serialize option is used lock the tally file access.
+	(set_tally, tally_bump, tally_reset): Use low level file access instead
+	of stdio buffered FILE. Close the file handle only when it is not owned
+	by PAM data.
+	(pam_sm_authenticate, pam_sm_setcred, pam_sm_acct_mgmt): Pass the tally
+	file handle to tally_set_data(). Get it from tally_get_data().
+	(main): Use low level file access instead of stdio buffered FILE.
+
 2009-02-26  Tomas Mraz <t8m@centrum.cz>
 
 	* xtests/Makefile.am: Add tst-pam_unix4.

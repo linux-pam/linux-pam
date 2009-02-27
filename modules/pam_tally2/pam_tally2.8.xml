@@ -43,6 +43,9 @@
         root_unlock_time=<replaceable>n</replaceable>
       </arg>
       <arg choice="opt">
+        serialize
+      </arg>
+      <arg choice="opt">
         audit
       </arg>
       <arg choice="opt">
@@ -246,16 +249,6 @@
             </varlistentry>
             <varlistentry>
               <term>
-                <option>no_reset</option>
-              </term>
-              <listitem>
-                <para>
-                  Don't reset count on successful entry, only decrement.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
                 <option>even_deny_root</option>
               </term>
               <listitem>
@@ -275,6 +268,23 @@
                   to root acccount after failed attempt. If this option is used
                   the root user will be locked out for the specified amount of
                   time after he exceeded his maximum allowed attempts.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                <option>serialize</option>
+              </term>
+              <listitem>
+                <para>
+                  Serialize access to the tally file using locks. This option might
+                  be used only for non-multithreaded services because it depends on
+                  the fcntl locking of the tally file. Also it is a good idea to use
+                  this option only in such configurations where the time between auth
+                  phase and account or setcred phase is not dependent on the
+                  authenticating client. Otherwise the authenticating client will be
+                  able to prevent simultaneous authentications by the same user by
+                  simply artificially prolonging the time the file record lock is held.
                 </para>
               </listitem>
             </varlistentry>
@@ -431,7 +441,7 @@ session  optional       pam_mail.so standard
   <refsect1 id='pam_tally2-author'>
     <title>AUTHOR</title>
       <para>
-        pam_tally was written by Tim Baverstock and Tomas Mraz.
+        pam_tally2 was written by Tim Baverstock and Tomas Mraz.
       </para>
   </refsect1>
 

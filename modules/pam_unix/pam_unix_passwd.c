@@ -139,7 +139,7 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
     const char *fromwhat, const char *towhat, int remember)
 {
     int retval, child, fds[2];
-    void (*sighandler)(int) = NULL;
+    struct sigaction newsa, oldsa;
 
     D(("called."));
     /* create a pipe for the password */
@@ -157,7 +157,9 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	 * The "noreap" module argument is provided so that the admin can
 	 * override this behavior.
 	 */
-	sighandler = signal(SIGCHLD, SIG_DFL);
+        memset(&newsa, '\0', sizeof(newsa));
+        newsa.sa_handler = SIG_DFL;
+        sigaction(SIGCHLD, &newsa, &oldsa);
     }
 
     /* fork */
@@ -236,8 +238,8 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	retval = PAM_AUTH_ERR;
     }
 
-    if (sighandler != SIG_ERR) {
-        (void) signal(SIGCHLD, sighandler);   /* restore old signal handler */
+    if (off(UNIX_NOREAP, ctrl)) {
+        sigaction(SIGCHLD, &oldsa, NULL);   /* restore old signal handler */
     }
 
     return retval;

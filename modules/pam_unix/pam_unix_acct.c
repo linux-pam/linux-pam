@@ -65,7 +65,7 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
 	const char *user, int *daysleft)
 {
   int retval=0, child, fds[2];
-  void (*sighandler)(int) = NULL;
+  struct sigaction newsa, oldsa;
   D(("running verify_binary"));
 
   /* create a pipe for the messages */
@@ -85,7 +85,9 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
      * The "noreap" module argument is provided so that the admin can
      * override this behavior.
      */
-    sighandler = signal(SIGCHLD, SIG_DFL);
+     memset(&newsa, '\0', sizeof(newsa));
+     newsa.sa_handler = SIG_DFL;
+     sigaction(SIGCHLD, &newsa, &oldsa);
   }
 
   /* fork */
@@ -158,9 +160,11 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
     }
     close(fds[0]);
   }
-  if (sighandler != SIG_ERR) {
-    (void) signal(SIGCHLD, sighandler);   /* restore old signal handler */
+
+  if (off(UNIX_NOREAP, ctrl)) {
+        sigaction(SIGCHLD, &oldsa, NULL);   /* restore old signal handler */
   }
+
   D(("Returning %d",retval));
   return retval;
 }

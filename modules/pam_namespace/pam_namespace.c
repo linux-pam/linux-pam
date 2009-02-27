@@ -1157,15 +1157,15 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 	   struct instance_data *idata, int newdir)
 {
 	pid_t rc, pid;
-	sighandler_t osighand = NULL;
+	struct sigaction newsa, oldsa;
 	int status;
 	const char *init_script = NAMESPACE_INIT_SCRIPT;
 
-	osighand = signal(SIGCHLD, SIG_DFL);
-	if (osighand == SIG_ERR) {
+	memset(&newsa, '\0', sizeof(newsa));
+        newsa.sa_handler = SIG_DFL;
+	if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
 		pam_syslog(idata->pamh, LOG_ERR, "Cannot set signal value");
-		rc = PAM_SESSION_ERR;
-		goto out;
+		return PAM_SESSION_ERR;
 	}
 
 	if ((polyptr->flags & POLYDIR_ISCRIPT) && polyptr->init_script)
@@ -1214,7 +1214,7 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 	}
 	rc = PAM_SUCCESS;
 out:
-   (void) signal(SIGCHLD, osighand);
+   (void) sigaction(SIGCHLD, &oldsa, NULL);
 
    return rc;
 }
@@ -1594,14 +1594,14 @@ static int cleanup_tmpdirs(struct instance_data *idata)
 {
     struct polydir_s *pptr;
     pid_t rc, pid;
-    sighandler_t osighand = NULL;
+    struct sigaction newsa, oldsa;
     int status;
 
-    osighand = signal(SIGCHLD, SIG_DFL);
-    if (osighand == SIG_ERR) {
+    memset(&newsa, '\0', sizeof(newsa));
+    newsa.sa_handler = SIG_DFL;
+    if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
 	pam_syslog(idata->pamh, LOG_ERR, "Cannot set signal value");
-	rc = PAM_SESSION_ERR;
-	goto out;
+	return PAM_SESSION_ERR;
     }
 
     for (pptr = idata->polydirs_ptr; pptr; pptr = pptr->next) {
@@ -1639,7 +1639,7 @@ static int cleanup_tmpdirs(struct instance_data *idata)
 
     rc = PAM_SUCCESS;
 out:
-    signal(SIGCHLD, osighand);
+    sigaction(SIGCHLD, &oldsa, NULL);
     return rc;
 }
 

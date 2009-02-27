@@ -994,8 +994,12 @@ su_sighandler(int sig)
 {
 #ifndef SA_RESETHAND
         /* emulate the behaviour of the SA_RESETHAND flag */
-        if ( sig == SIGILL || sig == SIGTRAP || sig == SIGBUS || sig = SIGSERV )
-                signal(sig, SIG_DFL);
+        if ( sig == SIGILL || sig == SIGTRAP || sig == SIGBUS || sig = SIGSERV ) {
+		struct sigaction sa;
+		memset(&sa, '\0, sizeof(sa));
+		sa.sa_handler = SIG_DFL;
+                sigaction(sig, &sa, NULL);
+	}
 #endif
         if (sig > 0) {
                 _exit(sig);
