@@ -1,3 +1,11 @@
+2009-03-03  Tomas Mraz <t8m@centrum.cz> 
+
+        * modules/pam_unix/pam_unix_acct.c(_unix_run_verify_binary): Test
+        for abnormal exit of the helper binary.
+        * modules/pam_unix/pam_unix_passwd.c(_unix_run_update_binary): Likewise.
+        * modules/pam_unix/support.c(_unix_run_helper_binary): Likewise.
+	* modules/pam_mkhomedir/pam_mkhomedir.c(create_homedir): Likewise.
+
 2009-02-27  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_mkhomedir/pam_mkhomedir.c(create_homedir): Replace

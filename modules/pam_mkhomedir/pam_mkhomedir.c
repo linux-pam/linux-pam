@@ -159,7 +159,10 @@ create_homedir (pam_handle_t *pamh, int ctrl,
 	if (rc < 0) {
 	  pam_syslog(pamh, LOG_ERR, "waitpid failed: %m");
 	  retval = PAM_SYSTEM_ERR;
-	} else {
+	} else if (!WIFEXITED(retval)) {
+          pam_syslog(pamh, LOG_ERR, "mkhomedir_helper abnormal exit: %d", retval);
+          retval = PAM_SYSTEM_ERR;
+        } else {
 	  retval = WEXITSTATUS(retval);
 	}
    } else {

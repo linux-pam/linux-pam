@@ -489,6 +489,9 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	if (rc<0) {
 	  pam_syslog(pamh, LOG_ERR, "unix_chkpwd waitpid returned %d: %m", rc);
 	  retval = PAM_AUTH_ERR;
+	} else if (!WIFEXITED(retval)) {
+	  pam_syslog(pamh, LOG_ERR, "unix_chkpwd abnormal exit: %d", retval);
+	  retval = PAM_AUTH_ERR;
 	} else {
 	  retval = WEXITSTATUS(retval);
 	}
