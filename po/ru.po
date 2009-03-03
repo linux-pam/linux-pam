@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-06 13:06+0100\n"
+"POT-Creation-Date: 2009-03-03 10:25+0100\n"
 "PO-Revision-Date: 2008-02-23 20:11+0300\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat,com>\n"
@@ -222,13 +222,13 @@ msgid "has been already used"
 msgstr "уже был использован"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "No password supplied"
 msgstr "Пароль не указан"
 
 # password dialog title
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "Password unchanged"
 msgstr "Пароль не изменен"
 
@@ -455,21 +455,21 @@ msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
 "%s: не удается выполнить сброс всех пользователей в ненулевое значение\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "Срок действия учетной записи истек; обратитесь к системному администратору"
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:240
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 "Вам необходимо немедленно сменить пароль (по требованию пользователя root)"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:246
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Вам необходимо немедленно сменить пароль (пароль устарел)"
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -478,7 +478,7 @@ msgstr[1] "Предупреждение: срок действия пароля 
 msgstr[2] "Предупреждение: срок действия пароля истекает через %d дней"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:279
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Предупреждение: срок действия пароля истекает через %d дн(я)(ей)"
@@ -488,38 +488,38 @@ msgid "Password: "
 msgstr "Пароль: "
 
 # password dialog title
-#: modules/pam_unix/pam_unix_passwd.c:359
+#: modules/pam_unix/pam_unix_passwd.c:362
 msgid "NIS password could not be changed."
 msgstr "Пароль NIS изменить нельзя."
 
-#: modules/pam_unix/pam_unix_passwd.c:466
+#: modules/pam_unix/pam_unix_passwd.c:469
 msgid "You must choose a longer password"
 msgstr "Выберите пароль большей длины"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:473
 msgid "Password has been already used. Choose another."
 msgstr "Этот пароль уже был использован. Выберите другой."
 
-#: modules/pam_unix/pam_unix_passwd.c:571
+#: modules/pam_unix/pam_unix_passwd.c:574
 #, c-format
 msgid "Changing password for %s."
 msgstr "Смена пароля для %s."
 
 # Keep the newlines and spaces after ':'!
-#: modules/pam_unix/pam_unix_passwd.c:582
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "(current) UNIX password: "
 msgstr "(текущий) пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:617
+#: modules/pam_unix/pam_unix_passwd.c:620
 msgid "You must wait longer to change your password"
 msgstr "До смены пароля должно пройти больше времени"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:680
 msgid "Enter new UNIX password: "
 msgstr "Введите новый пароль UNIX: "
 
 # Keep the newlines and spaces after ':'!
-#: modules/pam_unix/pam_unix_passwd.c:678
+#: modules/pam_unix/pam_unix_passwd.c:681
 msgid "Retype new UNIX password: "
 msgstr "Повторите ввод нового пароля UNIX: "
 

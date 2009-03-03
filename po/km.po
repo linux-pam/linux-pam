@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-06 13:06+0100\n"
+"POT-Creation-Date: 2009-03-03 10:25+0100\n"
 "PO-Revision-Date: 2006-03-17 10:32+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -216,12 +216,12 @@ msgid "has been already used"
 msgstr "បាន​ប្រើ​រួច​ហើយ"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "No password supplied"
 msgstr "មិន​បាន​ផ្ដល់​ពាក្យសម្ងាត់"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "Password unchanged"
 msgstr "ពាក្យសម្ងាត់​មិន​បាន​ផ្លាស់ប្ដូរ​ឡើយ"
 
@@ -447,19 +447,19 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s ៖ មិន​អាច​កំណត់​អ្នក​ប្រើ​ទាំងអស់​ទៅ​មិនមែន​សូន្យ​ឡើងវិញ​បានទេ\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator"
 msgstr "គណនី​របស់​អ្នក​បាន​ផុតកំណត់​ហើយ សូម​ទាក់ទង​អ្នក​គ្រប់គ្រង​ប្រព័ន្ធ​របស់​អ្នក"
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:240
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "អ្នក​ត្រូវ​តែ​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់​របស់​អ្នក​ឥឡូវ​នេះ (root បាន​ចេញ​បញ្ជា)"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:246
 msgid "You are required to change your password immediately (password aged)"
 msgstr "អ្នក​ត្រូវ​តែ​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់​របស់​អ្នក​ឥឡូវ​នេះ (ពាក្យសម្ងាត់​ចាស់​ហើយ)"
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -467,7 +467,7 @@ msgstr[0] "ការ​ព្រមាន ៖ ពាក្យសម្ងាត
 msgstr[1] "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់​របស់​អ្នក​នឹង​ផុតកំណត់​ក្នុង​រយៈពេល %d ថ្ងៃ %.2s ។"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:279
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់​របស់​អ្នក​នឹង​ផុតកំណត់​ក្នុង​រយៈពេល %d ថ្ងៃ %.2s ។"
@@ -476,36 +476,36 @@ msgstr "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់
 msgid "Password: "
 msgstr "ពាក្យសម្ងាត់ ៖ "
 
-#: modules/pam_unix/pam_unix_passwd.c:359
+#: modules/pam_unix/pam_unix_passwd.c:362
 msgid "NIS password could not be changed."
 msgstr "មិន​អាច​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់ NIS បាន​ឡើយ ។"
 
-#: modules/pam_unix/pam_unix_passwd.c:466
+#: modules/pam_unix/pam_unix_passwd.c:469
 msgid "You must choose a longer password"
 msgstr "អ្នក​ត្រូវ​តែ​ជ្រើស​ពាក្យសម្ងាត់​វែង​ជាង​នេះ"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:473
 msgid "Password has been already used. Choose another."
 msgstr "ពាក្យសម្ងាត់​ត្រូវ​បាន​ប្រើ​រួច​ហើយ ។ សូម​ជ្រើស​មួយ​ទៀត ។"
 
-#: modules/pam_unix/pam_unix_passwd.c:571
+#: modules/pam_unix/pam_unix_passwd.c:574
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "ការ​ផ្លាស់ប្ដូរ​ពាក្យ​សម្ងាត់ STRESS សម្រាប់ "
 
-#: modules/pam_unix/pam_unix_passwd.c:582
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "(current) UNIX password: "
 msgstr "(បច្ចុប្បន្ន) ពាក្យ​សម្ងាត់ UNIX ៖"
 
-#: modules/pam_unix/pam_unix_passwd.c:617
+#: modules/pam_unix/pam_unix_passwd.c:620
 msgid "You must wait longer to change your password"
 msgstr "អ្នក​ត្រូវ​តែ​រង់ចាំ​បន្តិច ដើម្បី​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់​របស់​អ្នក"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:680
 msgid "Enter new UNIX password: "
 msgstr "បញ្ចូល​ពាក្យ​សម្ងាត់ UNIX ថ្មី ៖ "
 
-#: modules/pam_unix/pam_unix_passwd.c:678
+#: modules/pam_unix/pam_unix_passwd.c:681
 msgid "Retype new UNIX password: "
 msgstr "វាយ​ពាក្យ​សម្ងាត់ UNIX ថ្មី​ម្ដង​ទៀត ៖ "
 

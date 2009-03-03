@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.pt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-06 13:06+0100\n"
+"POT-Creation-Date: 2009-03-03 10:25+0100\n"
 "PO-Revision-Date: 2006-05-03 21:54+0200\n"
 "Last-Translator: Antonio Cardoso Martins <digiplan@netvisao.pt>\n"
 "Language-Team: portuguese\n"
@@ -213,12 +213,12 @@ msgid "has been already used"
 msgstr "já foi utilizada"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "No password supplied"
 msgstr "Não foi fornecida uma palavra passe"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "Password unchanged"
 msgstr "Palavra passe inalterada"
 
@@ -444,23 +444,23 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Não foi possível reiniciar todos os utilizadores para não zero\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "A sua conta de utilizador expirou; por favor contacte o seu administrador de "
 "sistema"
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:240
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 "É obrigatório que altere de imediato a sua palavra passe (forçado pelo root)"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:246
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "É obrigatório que altere de imediato a sua palavra passe (forçado pela idade)"
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -468,7 +468,7 @@ msgstr[0] "Aviso: a sua palavra passe expira em %d dia%.2s"
 msgstr[1] "Aviso: a sua palavra passe expira em %d dia%.2s"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:279
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Aviso: a sua palavra passe expira em %d dia%.2s"
@@ -477,36 +477,36 @@ msgstr "Aviso: a sua palavra passe expira em %d dia%.2s"
 msgid "Password: "
 msgstr "Palavra passe: "
 
-#: modules/pam_unix/pam_unix_passwd.c:359
+#: modules/pam_unix/pam_unix_passwd.c:362
 msgid "NIS password could not be changed."
 msgstr "A palavra passe de NIS não pode ser alterada."
 
-#: modules/pam_unix/pam_unix_passwd.c:466
+#: modules/pam_unix/pam_unix_passwd.c:469
 msgid "You must choose a longer password"
 msgstr "Deve escolher uma palavra passe mais longa"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:473
 msgid "Password has been already used. Choose another."
 msgstr "A palavra passe já foi anteriormente utilizada. Escolha outra."
 
-#: modules/pam_unix/pam_unix_passwd.c:571
+#: modules/pam_unix/pam_unix_passwd.c:574
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "A alterar a palavra passe de STRESS para "
 
-#: modules/pam_unix/pam_unix_passwd.c:582
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "(current) UNIX password: "
 msgstr "palavra passe UNIX (actual): "
 
-#: modules/pam_unix/pam_unix_passwd.c:617
+#: modules/pam_unix/pam_unix_passwd.c:620
 msgid "You must wait longer to change your password"
 msgstr "Tem de esperar mais antes de poder alterar a sua palavra passe"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:680
 msgid "Enter new UNIX password: "
 msgstr "Digite a nova palavra passe UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:678
+#: modules/pam_unix/pam_unix_passwd.c:681
 msgid "Retype new UNIX password: "
 msgstr "Digite novamente a nova palavra passe UNIX: "
 

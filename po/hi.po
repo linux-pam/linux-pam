@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-06 13:06+0100\n"
+"POT-Creation-Date: 2009-03-03 10:25+0100\n"
 "PO-Revision-Date: 2007-06-21 15:22+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
@@ -215,12 +215,12 @@ msgid "has been already used"
 msgstr "को पहले से प्रयोग किया गया है"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "No password supplied"
 msgstr "कोई कूटशब्द नहीं दिया गया है"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "Password unchanged"
 msgstr "शब्दकूट परिवर्तित"
 
@@ -446,19 +446,19 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: सभी उपयोक्ता को गैर शून्य में फिर सेट नहीं कर सकता है\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator"
 msgstr "आपका खाता समाप्त हो चुका है; कृपया अपने सिस्टम प्रशासक को संपर्क करें"
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:240
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "आपके लिए अपना शब्दकूट तत्काल बदलना जरूरी है (रूट पुनर्बलित)"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:246
 msgid "You are required to change your password immediately (password aged)"
 msgstr "आपके लिए अपना शब्दकूट तत्काल बदलना जरूरी है (शब्दकूट एज्ड)"
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -466,7 +466,7 @@ msgstr[0] "चेतावनी: आपका शब्दकूट %d दि�
 msgstr[1] "चेतावनी: आपका शब्दकूट %d दिन में समाप्त हो जायेगा"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:279
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "चेतावनी: आपका शब्दकूट %d दिनों में समाप्त हो जायेगा"
@@ -475,36 +475,36 @@ msgstr "चेतावनी: आपका शब्दकूट %d दिन�
 msgid "Password: "
 msgstr "शब्दकूट: "
 
-#: modules/pam_unix/pam_unix_passwd.c:359
+#: modules/pam_unix/pam_unix_passwd.c:362
 msgid "NIS password could not be changed."
 msgstr "NIS शब्दकूट बदला नहीं जा सका."
 
-#: modules/pam_unix/pam_unix_passwd.c:466
+#: modules/pam_unix/pam_unix_passwd.c:469
 msgid "You must choose a longer password"
 msgstr "आपको जरूर एक लंबा शब्दकूट चुनना चाहिए"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:473
 msgid "Password has been already used. Choose another."
 msgstr "शब्दकूट को पहले ही बदला जा चुका है. दूसरा चुनें."
 
-#: modules/pam_unix/pam_unix_passwd.c:571
+#: modules/pam_unix/pam_unix_passwd.c:574
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "इसके लिए स्ट्रेस शब्दकूट बदल रहा है "
 
-#: modules/pam_unix/pam_unix_passwd.c:582
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "(current) UNIX password: "
 msgstr "(मौजूदा) UNIX शब्दकूट: "
 
-#: modules/pam_unix/pam_unix_passwd.c:617
+#: modules/pam_unix/pam_unix_passwd.c:620
 msgid "You must wait longer to change your password"
 msgstr "आपको अपना शब्दकूट बदलने के लिए लंबी प्रतीक्षा करनी होगी"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:680
 msgid "Enter new UNIX password: "
 msgstr "नया UNIX शब्दकूट दें: "
 
-#: modules/pam_unix/pam_unix_passwd.c:678
+#: modules/pam_unix/pam_unix_passwd.c:681
 msgid "Retype new UNIX password: "
 msgstr "नया UNIX शब्दकूट फिर टाइप करें: "
 

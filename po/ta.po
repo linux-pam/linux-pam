@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-06 13:06+0100\n"
+"POT-Creation-Date: 2009-03-03 10:25+0100\n"
 "PO-Revision-Date: 2007-06-21 15:33+0530\n"
 "Last-Translator: I felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <fedora-trans-ta@redhat.com>\n"
@@ -215,12 +215,12 @@ msgid "has been already used"
 msgstr "இது ஏற்கனவே பயன்படுத்தப்பட்டது"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "No password supplied"
 msgstr "கடவுச்சொல் கொடுக்கப்படவில்லை"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "Password unchanged"
 msgstr "கடவுச்சொல் மாற்றப்படவில்லை"
 
@@ -446,19 +446,19 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: பூஜ்ஜியமில்லாததற்கு அனைத்து பயனர்களையும் மறு அமைக்க முடியவில்லை\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator"
 msgstr "உங்கள் கணக்கு முடிவுற்றது, உங்கள் கணினி நிர்வாகியை அணுகவும்"
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:240
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "நீங்கள் உங்கள் கடவுச்சொல்லை உடனடியாக மாற்ற வேண்டும் (ரூட் வலியுறுத்துகிறது)"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:246
 msgid "You are required to change your password immediately (password aged)"
 msgstr "நீங்கள் உங்கள் கடவுச்சொல்லை உடனடியாக மாற்ற வேண்டும் (கடவுச்சொல் மூப்பாகிவிட்டது)"
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -466,7 +466,7 @@ msgstr[0] "எச்சரிக்கை: கடவுச்சொல் %d ந
 msgstr[1] "எச்சரிக்கை: கடவுச்சொல் %d நாட்களில் முடிவுறும்"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:279
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "எச்சரிக்கை: கடவுச்சொல் %d நாட்களில் முடிவுறும்"
@@ -475,36 +475,36 @@ msgstr "எச்சரிக்கை: கடவுச்சொல் %d நா
 msgid "Password: "
 msgstr "கடவுச்சொல்:"
 
-#: modules/pam_unix/pam_unix_passwd.c:359
+#: modules/pam_unix/pam_unix_passwd.c:362
 msgid "NIS password could not be changed."
 msgstr "NIS கடவுச்சொல்லை மாற்ற முடியாது."
 
-#: modules/pam_unix/pam_unix_passwd.c:466
+#: modules/pam_unix/pam_unix_passwd.c:469
 msgid "You must choose a longer password"
 msgstr "நீங்கள் நீண்ட கடவுச்சொல்லை தேர்ந்தெடுக்க வேண்டும்"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:473
 msgid "Password has been already used. Choose another."
 msgstr "கடவுச்சொல் ஏற்கனவே பயன்படுத்தப்பட்டது. வேறொன்றை பயன்படுத்தவும்."
 
-#: modules/pam_unix/pam_unix_passwd.c:571
+#: modules/pam_unix/pam_unix_passwd.c:574
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "STRESS கடவுச்சொல்லை மாற்றுகிறது"
 
-#: modules/pam_unix/pam_unix_passwd.c:582
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "(current) UNIX password: "
 msgstr "(நடப்பு) UNIX கடவுச்சொல்: "
 
-#: modules/pam_unix/pam_unix_passwd.c:617
+#: modules/pam_unix/pam_unix_passwd.c:620
 msgid "You must wait longer to change your password"
 msgstr "உங்கள் கடவுச்சொல்லை மாற்ற சிறிது காத்திருக்க வேண்டும்"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:680
 msgid "Enter new UNIX password: "
 msgstr "புதிய UNIX கடவுச்சொல்லை உள்ளிடவும்: "
 
-#: modules/pam_unix/pam_unix_passwd.c:678
+#: modules/pam_unix/pam_unix_passwd.c:681
 msgid "Retype new UNIX password: "
 msgstr "புதிய UNIX கடவுச்சொல்லை மீண்டும் உள்ளிடவும்: "
 

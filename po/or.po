@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-06 13:06+0100\n"
+"POT-Creation-Date: 2009-03-03 10:25+0100\n"
 "PO-Revision-Date: 2007-06-22 16:45+0530\n"
 "Last-Translator: Subhransu Behera <arya_subhransu@yahoo.co.in>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
@@ -216,12 +216,12 @@ msgid "has been already used"
 msgstr "ଏହାକୁ ପୂର୍ବରୁ ବ୍ଯବହାର କରାଯାଇଛି"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "No password supplied"
 msgstr "କୌଣସି ପ୍ରବେଶ ସଙ୍କେତ ପ୍ରଦାନ କରାଯାଇ ନାହିଁ"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "Password unchanged"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଅପରିବର୍ତ୍ତିତ ଅଛି"
 
@@ -447,20 +447,20 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: ସମସ୍ତ ଚାଳକ ମାନଙ୍କୁ ଶୂନ୍ଯ ବିହୀନ ଭାବରେ ପୁନର୍ବାର ବିନ୍ଯାସ କରିପାରିବ ନାହିଁ\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator"
 msgstr "ଆପଣଙ୍କର ଖାତା ଅଚଳ ହୋଇଯାଇଛି; ଦୟାକରି ଆପଣଙ୍କ ତନ୍ତ୍ର ପ୍ରଶାସକଙ୍କ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ"
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:240
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ରୁଟ ହେବା ବାଧ୍ଯତାମୂଳକ)"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:246
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ପ୍ରବେଶ ସଙ୍କେତ ବହୁତ ପୁରୁଣା ହୋଇଯାଇଛି)"
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -468,7 +468,7 @@ msgstr[0] "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ�
 msgstr[1] "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:279
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ"
@@ -477,36 +477,36 @@ msgstr "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍�
 msgid "Password: "
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ: "
 
-#: modules/pam_unix/pam_unix_passwd.c:359
+#: modules/pam_unix/pam_unix_passwd.c:362
 msgid "NIS password could not be changed."
 msgstr "NIS ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇ ହେଲା ନାହିଁ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:466
+#: modules/pam_unix/pam_unix_passwd.c:469
 msgid "You must choose a longer password"
 msgstr "ଆପଣ ଗୋଟିଏ ଲମ୍ବା ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରିବା ଉଚିତ"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:473
 msgid "Password has been already used. Choose another."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ପୂର୍ବରୁ ବ୍ଯବହୃତ ହେଉଛି। ଅନ୍ଯ ଗୋଟିଏ ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରନ୍ତୁ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:571
+#: modules/pam_unix/pam_unix_passwd.c:574
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "ଏହା ପାଇଁ STRESS ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଉଛି "
 
-#: modules/pam_unix/pam_unix_passwd.c:582
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "(current) UNIX password: "
 msgstr "(ବର୍ତ୍ତମାନ ଥିବା) UNIX ପ୍ରବେଶ ସଙ୍କେତ: "
 
-#: modules/pam_unix/pam_unix_passwd.c:617
+#: modules/pam_unix/pam_unix_passwd.c:620
 msgid "You must wait longer to change your password"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇବା ପାଇଁ ଆପଣ ଅଧିକ ସମୟ ଅପେକ୍ଷା କରିବା ଉଚିତ"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:680
 msgid "Enter new UNIX password: "
 msgstr "ନୂତନ UNIX ପ୍ରବେଶ ସଙ୍କେତ ଭରଣ କରନ୍ତୁ: "
 
-#: modules/pam_unix/pam_unix_passwd.c:678
+#: modules/pam_unix/pam_unix_passwd.c:681
 msgid "Retype new UNIX password: "
 msgstr "ନୂତନ UNIX ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ: "
 

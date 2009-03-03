@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-06 13:06+0100\n"
+"POT-Creation-Date: 2009-03-03 10:25+0100\n"
 "PO-Revision-Date: 2006-11-03 12:03\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -209,12 +209,12 @@ msgid "has been already used"
 msgstr "isisetshenziswe ngothile."
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "No password supplied"
 msgstr "Ayikho iphasiwedi enikeziwe"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "Password unchanged"
 msgstr "Iphasiwedi ayishintshwanga"
 
@@ -442,24 +442,24 @@ msgstr ""
 "%s: Ayikwazi ukusetha kabusha bonke abasebenzisi ibase enombolweni ongelona "
 "iqanda\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "I-akhawunti yakho isiphelelwe isikhathi, sicela uthintana nomqondisi "
 "wesistimu yakho"
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:240
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 "Kudingeka ukuba ushintshe iphasiwedi yakho ngokushesha (iphoqelelwa "
 "ngumqondisi)"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:246
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "Kudingeka ukuba ushintshe iphasiwedi yakho ngokushesha (iphasiwedi indala)"
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -467,7 +467,7 @@ msgstr[0] "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
 msgstr[1] "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:279
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
@@ -476,36 +476,36 @@ msgstr "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
 msgid "Password: "
 msgstr "Iphasiwedi: "
 
-#: modules/pam_unix/pam_unix_passwd.c:359
+#: modules/pam_unix/pam_unix_passwd.c:362
 msgid "NIS password could not be changed."
 msgstr "Iphasiwedi ye-NIS ayivumanga ukushintshwa."
 
-#: modules/pam_unix/pam_unix_passwd.c:466
+#: modules/pam_unix/pam_unix_passwd.c:469
 msgid "You must choose a longer password"
 msgstr "Kumelwe ukhethe iphasiwedi ethe ukuba yinjana"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:473
 msgid "Password has been already used. Choose another."
 msgstr "Le phasiwedi isetshenziswa ngothile. Khetha enye."
 
-#: modules/pam_unix/pam_unix_passwd.c:571
+#: modules/pam_unix/pam_unix_passwd.c:574
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "Ukushintsha iphasiwedi ye-STRESS ye-"
 
-#: modules/pam_unix/pam_unix_passwd.c:582
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "(current) UNIX password: "
 msgstr "Iphasiwedi ye-UNIX (yamanje): "
 
-#: modules/pam_unix/pam_unix_passwd.c:617
+#: modules/pam_unix/pam_unix_passwd.c:620
 msgid "You must wait longer to change your password"
 msgstr "Kumelwe ulinde isikhashana ukuze ushintshe iphasiwedi yakho"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:680
 msgid "Enter new UNIX password: "
 msgstr "Faka iphasiwedi entsha ye-UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:678
+#: modules/pam_unix/pam_unix_passwd.c:681
 msgid "Retype new UNIX password: "
 msgstr "Thayipha iphasiwedi entsha ye-UNIX: "
 

@@ -12,7 +12,7 @@
 
 #include <stdio.h>
 
-#include "libpam/pam_misc.c"
+#include "pam_misc.c"
 
 /* Simple program to see if _pam_mkargv() would succeed. */
 int main(void)

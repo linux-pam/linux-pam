@@ -1,3 +1,11 @@
+2009-03-03  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 1.0.4
+
+	* libpam/Makefile.am (libpam_la_LDFLAGS): Bump version number.
+	* tests/tst-pam_mkargv.c: Fix include for out of tree build.
+	* xtests/Makefile.am: Add tst-pam_unix4.pamd and tst-pam_unix4.sh.
+
 2009-03-03  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_unix/pam_unix_acct.c(_unix_run_verify_binary): Test

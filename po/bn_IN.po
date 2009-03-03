@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2008-12-06 13:06+0100\n"
+"POT-Creation-Date: 2009-03-03 10:25+0100\n"
 "PO-Revision-Date: 2007-06-21 15:05+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali (India) <en@li.org>\n"
@@ -213,12 +213,12 @@ msgid "has been already used"
 msgstr "পূর্বে ব্যবহৃত হয়েছে"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "No password supplied"
 msgstr "কোনো পাসওয়ার্ড উল্লিখিত হয়নি"
 
 #: modules/pam_cracklib/pam_cracklib.c:526
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:452
 msgid "Password unchanged"
 msgstr "পাসওয়ার্ড পরিবর্তন করা হয়নি"
 
@@ -444,21 +444,21 @@ msgstr ""
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: সব ব্যবহারকারীর জন্য শূণ্য-ভিন্ন মান ধার্য করতে ব্যর্থ\n"
 
-#: modules/pam_unix/pam_unix_acct.c:229 modules/pam_unix/pam_unix_acct.c:251
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "আপনার অ্যাকাউন্টের মেয়াদপূর্ণ হয়েছে; অনুগ্রহ করে সিস্টেম অ্যাডমিনিস্ট্রেটরের সাথে "
 "যোগাযোগ করুন।"
 
-#: modules/pam_unix/pam_unix_acct.c:237
+#: modules/pam_unix/pam_unix_acct.c:240
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "আপনার পাসওয়ার্ড এই মুহূর্তে পরিবর্তন করা আবশ্যক (root দ্বারা কার্যকরী)"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:246
 msgid "You are required to change your password immediately (password aged)"
 msgstr "আপনার পাসওয়ার্ড এই মুহূর্তে পরিবর্তন করা আবশ্যক (password-র মেয়াদ পূর্ণ হয়েছে)"
 
-#: modules/pam_unix/pam_unix_acct.c:261 modules/pam_unix/pam_unix_acct.c:268
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -466,7 +466,7 @@ msgstr[0] "সতর্কবাণী: %d দিন পরে পাসওয়�
 msgstr[1] "সতর্কবাণী: %d দিন পরে পাসওয়ার্ডের মেয়াদপূর্ণ হবে"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:273
+#: modules/pam_unix/pam_unix_acct.c:279
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "সতর্কবাণী: %d দিন পরে পাসওয়ার্ডের মেয়াদপূর্ণ হবে"
@@ -475,36 +475,36 @@ msgstr "সতর্কবাণী: %d দিন পরে পাসওয়া�
 msgid "Password: "
 msgstr "পাসওয়ার্ড: "
 
-#: modules/pam_unix/pam_unix_passwd.c:359
+#: modules/pam_unix/pam_unix_passwd.c:362
 msgid "NIS password could not be changed."
 msgstr "NIS পাসওয়ার্ড পরিবর্তন করা সম্ভব হয়নি।"
 
-#: modules/pam_unix/pam_unix_passwd.c:466
+#: modules/pam_unix/pam_unix_passwd.c:469
 msgid "You must choose a longer password"
 msgstr "চিহ্নিত পাসওয়ার্ডের থেকে লম্বা পাসওয়ার্ড উল্লেখ করা আবশ্যক"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:473
 msgid "Password has been already used. Choose another."
 msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হয়েছে। একটি পৃথক পাসওয়ার্ড নির্বাচন করুন।"
 
-#: modules/pam_unix/pam_unix_passwd.c:571
+#: modules/pam_unix/pam_unix_passwd.c:574
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "STRESS পাসওয়ার্ড পরিবর্তন করা হচ্ছে "
 
-#: modules/pam_unix/pam_unix_passwd.c:582
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "(current) UNIX password: "
 msgstr "(বর্তমান) UNIX পাসওয়ার্ড: "
 
-#: modules/pam_unix/pam_unix_passwd.c:617
+#: modules/pam_unix/pam_unix_passwd.c:620
 msgid "You must wait longer to change your password"
 msgstr "কিছু কাল পরে পাসওয়ার্ড পরিবর্তন করা সম্ভব হবে"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:680
 msgid "Enter new UNIX password: "
 msgstr "নতুন UNIX পাসওয়ার্ড উল্লেখ করুন: "
 
-#: modules/pam_unix/pam_unix_passwd.c:678
+#: modules/pam_unix/pam_unix_passwd.c:681
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX পাসওয়ার্ড পুনরায় লিখুন: "
 
