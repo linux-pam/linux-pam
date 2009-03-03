@@ -139,6 +139,9 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
       if (rc<0) {
 	pam_syslog(pamh, LOG_ERR, "unix_chkpwd waitpid returned %d: %m", rc);
 	retval = PAM_AUTH_ERR;
+      } else if (!WIFEXITED(retval)) {
+        pam_syslog(pamh, LOG_ERR, "unix_chkpwd abnormal exit: %d", retval);
+        retval = PAM_AUTH_ERR;
       } else {
 	retval = WEXITSTATUS(retval);
         rc = pam_modutil_read(fds[0], buf, sizeof(buf) - 1);

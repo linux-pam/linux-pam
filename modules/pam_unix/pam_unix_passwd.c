@@ -225,8 +225,11 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	rc=waitpid(child, &retval, 0);  /* wait for helper to complete */
 	if (rc<0) {
 	  pam_syslog(pamh, LOG_ERR, "unix_update waitpid failed: %m");
-	  retval = PAM_AUTH_ERR;
-	} else {
+	  retval = PAM_AUTHTOK_ERR;
+	} else if (!WIFEXITED(retval)) {
+          pam_syslog(pamh, LOG_ERR, "unix_update abnormal exit: %d", retval);
+          retval = PAM_AUTHTOK_ERR;
+        } else {
 	  retval = WEXITSTATUS(retval);
 	}
     } else {
