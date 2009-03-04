@@ -1,3 +1,7 @@
+2009-03-03  Dmitry V. Levin  <ldv@altlinux.org>
+
+        * tests/tst-pam_mkargv.c (main): Fix for non-64bit architectures.
+
 2009-03-03  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 1.0.4

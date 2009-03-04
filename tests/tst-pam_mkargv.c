@@ -11,6 +11,7 @@
 #endif
 
 #include <stdio.h>
+#include <string.h>
 
 #include "pam_misc.c"
 
@@ -23,8 +24,10 @@ int main(void)
   int myargc;
   char **myargv;
   int argvlen;
+  int explen;
   int i;
 
+  explen = (strlen(argvstring) + 1) * ((sizeof(char)) + sizeof(char *));
   argvlen = _pam_mkargv(argvstring, &myargv, &myargc);
 
 #if 0
@@ -35,7 +38,7 @@ int main(void)
   printf ("\n");
 #endif
 
-  if (argvlen != 333)
+  if (argvlen != explen)
     return 1;
 
   if (myargc != 4)
