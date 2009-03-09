@@ -14,7 +14,9 @@ EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 	tst-pam_dispatch5.pamd \
 	tst-pam_cracklib1.pamd tst-pam_cracklib2.pamd \
 	tst-pam_unix1.pamd tst-pam_unix2.pamd tst-pam_unix3.pamd \
+	tst-pam_unix4.pamd \
 	tst-pam_unix1.sh tst-pam_unix2.sh tst-pam_unix3.sh \
+	tst-pam_unix4.sh \
 	access.conf tst-pam_access1.pamd tst-pam_access1.sh \
 	tst-pam_access2.pamd tst-pam_access2.sh \
 	tst-pam_access3.pamd tst-pam_access3.sh \
@@ -30,7 +32,7 @@ EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 	tst-pam_substack5.pamd tst-pam_substack5a.pamd tst-pam_substack5.sh \
 	tst-pam_assemble_line1.pamd tst-pam_assemble_line1.sh \
 	tst-pam_pwhistory1.pamd tst-pam_pwhistory1.sh \
-	tst-pam_time1.pamd
+	tst-pam_time1.pamd time.conf
 
 XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 	tst-pam_dispatch4 tst-pam_dispatch5 \

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-02-25 17:13+0100\n"
+"POT-Creation-Date: 2009-03-03 14:56+0100\n"
 "PO-Revision-Date: 2006-03-17 10:32+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -235,12 +235,12 @@ msgid "contains the user name in some form"
 msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:454
 msgid "No password supplied"
 msgstr "មិន​បាន​ផ្ដល់​ពាក្យសម្ងាត់"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:454
 msgid "Password unchanged"
 msgstr "ពាក្យសម្ងាត់​មិន​បាន​ផ្លាស់ប្ដូរ​ឡើយ"
 
@@ -358,13 +358,13 @@ msgstr "អ្នក​មាន​សំបុត្រ​នៅ​ក្នុ
 msgid "Creating directory '%s'."
 msgstr ""
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:178
+#: modules/pam_mkhomedir/pam_mkhomedir.c:181
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr ""
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password has been already used. Choose another."
 msgstr "ពាក្យសម្ងាត់​ត្រូវ​បាន​ប្រើ​រួច​ហើយ ។ សូម​ជ្រើស​មួយ​ទៀត ។"
 
@@ -449,38 +449,38 @@ msgstr "វាយ​ពាក្យ​សម្ងាត់ STRESS ថ្មី�
 msgid "Verification mis-typed; password unchanged"
 msgstr "ផ្ទៀងផ្ទាត់​អក្ខរាវិរុទ្ធ​ដែល​បាន​វាយខុស ពាក្យ​សម្ងាត់​មិន​បានផ្លាស់ប្ដូរ​"
 
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:541
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:812
+#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
 msgid "Authentication error"
 msgstr "កំហុស​ក្នុង​ការ​ផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ"
 
-#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:813
+#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:885
 msgid "Service error"
 msgstr "កំហុស​សេវា"
 
-#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:814
+#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:886
 msgid "Unknown user"
 msgstr "មិន​ស្គាល់​អ្នក​ប្រើ"
 
-#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:815
+#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:887
 msgid "Unknown error"
 msgstr "មិន​ស្គាល់​កំហុស"
 
-#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:834
+#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:906
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s ៖ លេខ​មិន​ល្អ​បាន​ផ្ដល់​ទៅ --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:838
+#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:910
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s ៖ ជម្រើស​ដែល​មិន​ស្គាល់ %s\n"
@@ -492,17 +492,17 @@ msgid ""
 msgstr ""
 "%s ៖ [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:964
+#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s ៖ មិន​អាច​កំណត់​អ្នក​ប្រើ​ទាំងអស់​ទៅ​មិនមែន​សូន្យ​ឡើងវិញ​បានទេ\n"
 
-#: modules/pam_tally2/pam_tally2.c:865
+#: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr ""
 
-#: modules/pam_tally2/pam_tally2.c:881
+#: modules/pam_tally2/pam_tally2.c:953
 #, fuzzy, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -516,19 +516,19 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
 msgid "Your account has expired; please contact your system administrator"
 msgstr "គណនី​របស់​អ្នក​បាន​ផុតកំណត់​ហើយ សូម​ទាក់ទង​អ្នក​គ្រប់គ្រង​ប្រព័ន្ធ​របស់​អ្នក"
 
-#: modules/pam_unix/pam_unix_acct.c:236
+#: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "អ្នក​ត្រូវ​តែ​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់​របស់​អ្នក​ឥឡូវ​នេះ (root បាន​ចេញ​បញ្ជា)"
 
-#: modules/pam_unix/pam_unix_acct.c:242
+#: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (password aged)"
 msgstr "អ្នក​ត្រូវ​តែ​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់​របស់​អ្នក​ឥឡូវ​នេះ (ពាក្យសម្ងាត់​ចាស់​ហើយ)"
 
-#: modules/pam_unix/pam_unix_acct.c:260 modules/pam_unix/pam_unix_acct.c:267
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -536,37 +536,37 @@ msgstr[0] "ការ​ព្រមាន ៖ ពាក្យសម្ងាត
 msgstr[1] "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់​របស់​អ្នក​នឹង​ផុតកំណត់​ក្នុង​រយៈពេល %d ថ្ងៃ %.2s ។"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:272
+#: modules/pam_unix/pam_unix_acct.c:282
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់​របស់​អ្នក​នឹង​ផុតកំណត់​ក្នុង​រយៈពេល %d ថ្ងៃ %.2s ។"
 
-#: modules/pam_unix/pam_unix_passwd.c:359
+#: modules/pam_unix/pam_unix_passwd.c:364
 msgid "NIS password could not be changed."
 msgstr "មិន​អាច​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់ NIS បាន​ឡើយ ។"
 
-#: modules/pam_unix/pam_unix_passwd.c:466
+#: modules/pam_unix/pam_unix_passwd.c:471
 msgid "You must choose a longer password"
 msgstr "អ្នក​ត្រូវ​តែ​ជ្រើស​ពាក្យសម្ងាត់​វែង​ជាង​នេះ"
 
-#: modules/pam_unix/pam_unix_passwd.c:571
+#: modules/pam_unix/pam_unix_passwd.c:576
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "ការ​ផ្លាស់ប្ដូរ​ពាក្យ​សម្ងាត់ STRESS សម្រាប់ "
 
-#: modules/pam_unix/pam_unix_passwd.c:582
+#: modules/pam_unix/pam_unix_passwd.c:587
 msgid "(current) UNIX password: "
 msgstr "(បច្ចុប្បន្ន) ពាក្យ​សម្ងាត់ UNIX ៖"
 
-#: modules/pam_unix/pam_unix_passwd.c:617
+#: modules/pam_unix/pam_unix_passwd.c:622
 msgid "You must wait longer to change your password"
 msgstr "អ្នក​ត្រូវ​តែ​រង់ចាំ​បន្តិច ដើម្បី​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់​របស់​អ្នក"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:682
 msgid "Enter new UNIX password: "
 msgstr "បញ្ចូល​ពាក្យ​សម្ងាត់ UNIX ថ្មី ៖ "
 
-#: modules/pam_unix/pam_unix_passwd.c:678
+#: modules/pam_unix/pam_unix_passwd.c:683
 msgid "Retype new UNIX password: "
 msgstr "វាយ​ពាក្យ​សម្ងាត់ UNIX ថ្មី​ម្ដង​ទៀត ៖ "
 

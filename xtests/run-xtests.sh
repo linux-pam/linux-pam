@@ -27,7 +27,8 @@ for testname in $XTESTS ; do
 	  for cfg in "${SRCDIR}"/$testname*.pamd ; do
 	    install -m 644 $cfg /etc/pam.d/$(basename $cfg .pamd)
 	  done
-	  if test -x "${SRCDIR}"/$testname.sh ; then
+	  if test -f "${SRCDIR}"/$testname.sh ; then
+            test -x "${SRCDIR}"/$testname.sh || chmod 755 "${SRCDIR}"/$testname.sh
             "${SRCDIR}"/$testname.sh > /dev/null
           else
 	    ./$testname > /dev/null

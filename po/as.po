@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-02-25 17:13+0100\n"
+"POT-Creation-Date: 2009-03-03 14:56+0100\n"
 "PO-Revision-Date: 2008-10-13 11:23+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
 "Language-Team: Assamese\n"
@@ -233,12 +233,12 @@ msgid "contains the user name in some form"
 msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:454
 msgid "No password supplied"
 msgstr "কোনো গুপ্তশব্দ দিয়া হোৱা নাই"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:454
 msgid "Password unchanged"
 msgstr "গুপ্ত শব্দ অপৰিবৰ্ত্তিত"
 
@@ -356,13 +356,13 @@ msgstr "%s ফোল্ডাৰত আপোনাৰ ডাক আছে ।"
 msgid "Creating directory '%s'."
 msgstr "'%s' পঞ্জিকা সৃষ্টি কৰা হৈছে ।"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:178
+#: modules/pam_mkhomedir/pam_mkhomedir.c:181
 #, fuzzy, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "%s পঞ্জিকা সৃষ্টি কৰিব নোৱাৰি: %m"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password has been already used. Choose another."
 msgstr "গুপ্তশব্দ ইতিমধ্যে ব্যৱহৃত । অন্য এটা বাচি লওক ।"
 
@@ -443,38 +443,38 @@ msgstr "নতুন STRESS গুপ্তশব্দ পুনঃ লিখ�
 msgid "Verification mis-typed; password unchanged"
 msgstr "সত্যৰ প্ৰতিপাদন ভুলকৈ লিখা গ'ল;গুপ্তশব্দ অপৰিবৰ্ত্তিত"
 
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:541
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:812
+#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
 msgid "Authentication error"
 msgstr "প্ৰমাণীকৰণত ভুল"
 
-#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:813
+#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:885
 msgid "Service error"
 msgstr "সেৱাৰ ভুল"
 
-#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:814
+#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:886
 msgid "Unknown user"
 msgstr "অজ্ঞাত ব্যৱহাৰকৰোঁতা"
 
-#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:815
+#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:887
 msgid "Unknown error"
 msgstr "অজ্ঞাত ভুল"
 
-#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:834
+#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:906
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: --reset= লৈ বেয়া সংখ্যা দিয়া গৈছে\n"
 
-#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:838
+#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:910
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: অপৰিচিত বিকল্প %s\n"
@@ -486,17 +486,17 @@ msgid ""
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:964
+#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: সকলো ব্যৱহাৰকৰোঁতাক শূণ্য নোহোৱা অৱস্থালৈ পুনঃ প্ৰতিষ্ঠা কৰিব নোৱাৰি\n"
 
-#: modules/pam_tally2/pam_tally2.c:865
+#: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr ""
 
-#: modules/pam_tally2/pam_tally2.c:881
+#: modules/pam_tally2/pam_tally2.c:953
 #, fuzzy, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -510,19 +510,19 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
 msgid "Your account has expired; please contact your system administrator"
 msgstr "আপোনাৰ হিচাপ অন্ত হ'ল; অনুগ্ৰহ কৰি আপোনাৰ ব্যৱাস্থাপ্ৰণালীৰ "
 
-#: modules/pam_unix/pam_unix_acct.c:236
+#: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "আপুনি আপোনাৰ গুপ্তশব্দ সলনি কৰাটো প্ৰয়োজনীয় হৈ পৰিছে (ৰূটৰ দ্বাৰা বলবৎ)"
 
-#: modules/pam_unix/pam_unix_acct.c:242
+#: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (password aged)"
 msgstr "আপুনি আপোনাৰ গুপ্তশব্দ সলনি কৰাটো প্ৰয়োজনীয় হৈ পৰিছে (গুপ্তশব্দ পুৰণি হ'ল)"
 
-#: modules/pam_unix/pam_unix_acct.c:260 modules/pam_unix/pam_unix_acct.c:267
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -530,37 +530,37 @@ msgstr[0] "সকীয়নী: আপোনাৰ গুপ্তশব্দ %d
 msgstr[1] "সকীয়নী: আপোনাৰ গুপ্তশব্দ %d দিনত অন্ত হ'ব"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:272
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "সকীয়নী: আপোনাৰ গুপ্তশব্দ %d দিনত অন্ত হ'ব"
 
-#: modules/pam_unix/pam_unix_passwd.c:359
+#: modules/pam_unix/pam_unix_passwd.c:364
 msgid "NIS password could not be changed."
 msgstr "NIS গুপ্তশব্দ সলনি কৰিব পৰা নহয় ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:466
+#: modules/pam_unix/pam_unix_passwd.c:471
 msgid "You must choose a longer password"
 msgstr "আপুনি ইয়াতকৈ এটা দীঘল গুপ্তশব্দ নিৰ্ব্বাচন কৰিব লাগিব"
 
-#: modules/pam_unix/pam_unix_passwd.c:571
+#: modules/pam_unix/pam_unix_passwd.c:576
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s ৰ বাবে গুপ্তশব্দ সলনি কৰা হৈছে ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:582
+#: modules/pam_unix/pam_unix_passwd.c:587
 msgid "(current) UNIX password: "
 msgstr "(বৰ্ত্তমানৰ) UNIX গুপ্তশব্দ: "
 
-#: modules/pam_unix/pam_unix_passwd.c:617
+#: modules/pam_unix/pam_unix_passwd.c:622
 msgid "You must wait longer to change your password"
 msgstr "আপোনাৰ গুপ্তশব্দ সলনি কৰিবলৈ আপুনি আৰু কিছু পৰ অপেক্ষা কৰিব লাগিব"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:682
 msgid "Enter new UNIX password: "
 msgstr "নতুন UNIX গুপ্তশব্দ দিয়ক: "
 
-#: modules/pam_unix/pam_unix_passwd.c:678
+#: modules/pam_unix/pam_unix_passwd.c:683
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX গুপ্তশব্দ পুনঃ লিখক: "
 

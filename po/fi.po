@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-02-25 17:13+0100\n"
+"POT-Creation-Date: 2009-03-03 14:56+0100\n"
 "PO-Revision-Date: 2006-05-04 08:30+0200\n"
 "Last-Translator: Jyri Palokangas <jmp@netti.fi>\n"
 "Language-Team:  <yast-trans-fi@kotoistaminen.novell.fi>\n"
@@ -234,12 +234,12 @@ msgid "contains the user name in some form"
 msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:454
 msgid "No password supplied"
 msgstr "Et antanut salasanaa"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:449
+#: modules/pam_unix/pam_unix_passwd.c:454
 msgid "Password unchanged"
 msgstr "Salasanaa ei vaihdettu"
 
@@ -357,13 +357,13 @@ msgstr "Sinulla on postia kansiossa %s."
 msgid "Creating directory '%s'."
 msgstr ""
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:178
+#: modules/pam_mkhomedir/pam_mkhomedir.c:181
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr ""
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password has been already used. Choose another."
 msgstr "Salasana on jo käytetty. Valitse toinen."
 
@@ -448,38 +448,38 @@ msgstr "Anna uusi STRESS-salasana uudelleen: "
 msgid "Verification mis-typed; password unchanged"
 msgstr "Salasanat eivät ole samat; salasanaa ei vaihdettu"
 
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:541
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:520
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr ""
 
-#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:812
+#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
 msgid "Authentication error"
 msgstr "Tunnistautumisvirhe"
 
-#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:813
+#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:885
 msgid "Service error"
 msgstr "Palveluvirhe"
 
-#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:814
+#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:886
 msgid "Unknown user"
 msgstr "Tuntematon käyttäjä"
 
-#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:815
+#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:887
 msgid "Unknown error"
 msgstr "Tuntematon virhe"
 
-#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:834
+#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:906
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Väärä numero annettu valinnalle --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:838
+#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:910
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Tunnistamaton valinta %s\n"
@@ -492,17 +492,17 @@ msgstr ""
 "%s: [--file juurrutettu-tiedostonimi] [--user käyttäjätunnus] [--reset[=n]] "
 "[--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:964
+#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Ei voida palauttaa kaikkia käyttäjiä ei-nolliksi\n"
 
-#: modules/pam_tally2/pam_tally2.c:865
+#: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr ""
 
-#: modules/pam_tally2/pam_tally2.c:881
+#: modules/pam_tally2/pam_tally2.c:953
 #, fuzzy, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -517,19 +517,19 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:228 modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Käyttäjätilisi on vanhentunut; ota yhteyttä järjestelmän ylläpitäjään"
 
-#: modules/pam_unix/pam_unix_acct.c:236
+#: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Salasanasi täytyy vaihtaa heti (pääkäyttäjän vaatimus)"
 
-#: modules/pam_unix/pam_unix_acct.c:242
+#: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Salasanasi täytyy vaihtaa heti (salasana vanhentunut)"
 
-#: modules/pam_unix/pam_unix_acct.c:260 modules/pam_unix/pam_unix_acct.c:267
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -537,37 +537,37 @@ msgstr[0] "Varoitus: salasanasi vanhenee %d päivässä%.2s"
 msgstr[1] "Varoitus: salasanasi vanhenee %d päivässä%.2s"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:272
+#: modules/pam_unix/pam_unix_acct.c:282
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Varoitus: salasanasi vanhenee %d päivässä%.2s"
 
-#: modules/pam_unix/pam_unix_passwd.c:359
+#: modules/pam_unix/pam_unix_passwd.c:364
 msgid "NIS password could not be changed."
 msgstr "NIS-salasanaa ei voitu vaihtaa."
 
-#: modules/pam_unix/pam_unix_passwd.c:466
+#: modules/pam_unix/pam_unix_passwd.c:471
 msgid "You must choose a longer password"
 msgstr "Salasanan tulee olla pidempi"
 
-#: modules/pam_unix/pam_unix_passwd.c:571
+#: modules/pam_unix/pam_unix_passwd.c:576
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "Vaihdetaan STRESS-salasana "
 
-#: modules/pam_unix/pam_unix_passwd.c:582
+#: modules/pam_unix/pam_unix_passwd.c:587
 msgid "(current) UNIX password: "
 msgstr "(nykyinen) UNIX salasana: "
 
-#: modules/pam_unix/pam_unix_passwd.c:617
+#: modules/pam_unix/pam_unix_passwd.c:622
 msgid "You must wait longer to change your password"
 msgstr "Sinun täytyy odottaa kauemmin vaihtaaksesi salasanan"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:682
 msgid "Enter new UNIX password: "
 msgstr "Anna uusi UNIX-salasana: "
 
-#: modules/pam_unix/pam_unix_passwd.c:678
+#: modules/pam_unix/pam_unix_passwd.c:683
 msgid "Retype new UNIX password: "
 msgstr "Anna uusi UNIX-salasana uudelleen: "
 

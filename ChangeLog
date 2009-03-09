@@ -1,3 +1,11 @@
+2009-03-09  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+        * release version 1.0.91
+
+        * libpam/Makefile.am (libpam_la_LDFLAGS): Bump version number.
+        * xtests/Makefile.am: Add tst-pam_unix4.pamd, tst-pam_unix4.sh
+	and time.conf.
+
 2009-03-03  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* tests/tst-pam_mkargv.c (main): Fix for non-64bit architectures.

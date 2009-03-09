@@ -1,6 +1,15 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+
+Release 1.0.91
+
 * Fixed CVE-2009-0579 (minimum days limit on password change is ignored).
+* Fix libpam internal config/argument parser
+* Add optional file locking to pam_tally2
+* Update translations
+* pam_access improvements
+* Changes in the behavior of the password stack. Results of PRELIM_CHECK
+  are not used for the final run.
 
 Release 1.0.90
 
