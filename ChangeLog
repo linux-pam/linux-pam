@@ -5,6 +5,8 @@
 	(unix_update_passwd, unix_update_shadow): Likewise.
 	* modules/pam_pwhistory/opasswd.c(save_old_password): Likewise.
 
+	* po/cs.po: Updated translations.
+
 2009-03-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
         * release version 1.0.91

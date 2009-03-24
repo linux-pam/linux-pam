@@ -1,14 +1,14 @@
 # translation of Linux-PAM.po to cs_CZ
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR Linux-PAM Project.
+# This file is distributed under the same license as the Linux-PAM package.
+# Copyright (C) 2005-2009 Linux-PAM Project.
 # Klara Cihlarova <koty@seznam.cz>, 2005, 2006.
-# Tomas Mraz <t8m@centrum.cz>, 2005, 2008.
+# Tomas Mraz <t8m@centrum.cz>, 2005, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2009-03-03 14:56+0100\n"
-"PO-Revision-Date: 2008-11-28 15:22+0100\n"
+"PO-Revision-Date: 2009-03-24 15:22+0100\n"
 "Last-Translator: Tomas Mraz <t8m@centrum.cz>\n"
 "Language-Team: cs_CZ <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "Hesla se neshodují."
 #: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Opakujte %s"
 
 #: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
@@ -356,9 +356,9 @@ msgid "Creating directory '%s'."
 msgstr "Vytváření adresáře '%s'."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "Nezdařilo se vytvořit adresář %s: %m"
+msgstr "Nezdařilo se vytvořit a inicializovat adresář '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475
