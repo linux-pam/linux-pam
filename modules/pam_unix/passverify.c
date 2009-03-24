@@ -680,8 +680,13 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 	}
     }
 
+    if (fflush(pwfile) || fsync(fileno(pwfile))) {
+	D(("fflush or fsync error writing entries to old passwords file: %m"));
+	err = 1;
+    }
+    
     if (fclose(pwfile)) {
-	D(("error writing entries to old passwords file: %m"));
+	D(("fclose error writing entries to old passwords file: %m"));
 	err = 1;
     }
 
@@ -795,8 +800,13 @@ PAMH_ARG_DECL(int unix_update_passwd,
     }
     fclose(opwfile);
 
+    if (fflush(pwfile) || fsync(fileno(pwfile))) {
+	D(("fflush or fsync error writing entries to password file: %m"));
+	err = 1;
+    }
+    
     if (fclose(pwfile)) {
-	D(("error writing entries to password file: %m"));
+	D(("fclose error writing entries to password file: %m"));
 	err = 1;
     }
 
@@ -916,8 +926,13 @@ PAMH_ARG_DECL(int unix_update_shadow,
     }
     fclose(opwfile);
 
+    if (fflush(pwfile) || fsync(fileno(pwfile))) {
+	D(("fflush or fsync error writing entries to shadow file: %m"));
+	err = 1;
+    }
+    
     if (fclose(pwfile)) {
-	D(("error writing entries to shadow file: %m"));
+	D(("fclose error writing entries to shadow file: %m"));
 	err = 1;
     }
 

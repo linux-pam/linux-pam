@@ -452,6 +452,15 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
 	goto error_opasswd;
       }
 
+  if (fflush (newpf) != 0 || fsync (fileno (newpf)) != 0)
+    {
+      pam_syslog (pamh, LOG_ERR,
+		  "Error while syncing temporary opasswd file: %m");
+      retval = PAM_AUTHTOK_ERR;
+      fclose (newpf);
+      goto error_opasswd;
+    }
+
   if (fclose (newpf) != 0)
     {
       pam_syslog (pamh, LOG_ERR,

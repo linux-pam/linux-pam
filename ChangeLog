@@ -1,3 +1,10 @@
+2009-03-24  Tomas Mraz <t8m@centrum.cz>
+
+	* modules/pam_unix/passverify.c(save_old_password): Call fflush() and
+	fsync().
+	(unix_update_passwd, unix_update_shadow): Likewise.
+	* modules/pam_pwhistory/opasswd.c(save_old_password): Likewise.
+
 2009-03-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
         * release version 1.0.91
