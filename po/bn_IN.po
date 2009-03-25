@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-03-03 14:56+0100\n"
+"POT-Creation-Date: 2009-03-25 11:53+0100\n"
 "PO-Revision-Date: 2008-10-20 12:40+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali INDIA <fedora-trans-bn_IN@redhat.com>\n"
@@ -349,12 +349,12 @@ msgstr "%s ফোল্ডারে পুরোনো মেইল উপস্
 msgid "You have mail in folder %s."
 msgstr "%s ফোল্ডারে মেইল উপস্থিত রয়েছে।"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:111
+#: modules/pam_mkhomedir/pam_mkhomedir.c:113
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "'%s' ডিরেক্টরি নির্মাণ করা হচ্ছে।"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:181
+#: modules/pam_mkhomedir/pam_mkhomedir.c:183
 #, fuzzy, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "ডিরেক্টরি %s নির্মাণ করতে ব্যর্থ: %m"

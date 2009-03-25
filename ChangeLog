@@ -1,3 +1,14 @@
+2009-03-25  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_mkhomedir/pam_mkhomedir.c: Make option handling
+	reentrant (#2487654)
+	(_pam_parse): Fix umask option.
+
+	* modules/pam_unix/passverify.c: Fix typo.
+
+	* modules/pam_issue/pam_issue.c: Fix compiler warning.
+	* modules/pam_ftp/pam_ftp.c: Likewise.
+
 2009-03-25  Pavol Šimo <palo.simo@gmail.com>
 
 	* po/sk.po: Updated translations.
@@ -39,7 +50,7 @@
 
 	* tests/tst-pam_mkargv.c (main): Fix for non-64bit architectures.
 
-2009-03-03  Tomas Mraz <t8m@centrum.cz> 
+2009-03-03  Tomas Mraz <t8m@centrum.cz>
 
         * modules/pam_unix/pam_unix_acct.c(_unix_run_verify_binary): Test
         for abnormal exit of the helper binary.

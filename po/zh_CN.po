@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-03-03 14:56+0100\n"
+"POT-Creation-Date: 2009-03-25 11:53+0100\n"
 "PO-Revision-Date: 2008-10-20 15:43+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
@@ -350,12 +350,12 @@ msgstr "您在文件夹 %s 中有旧邮件。"
 msgid "You have mail in folder %s."
 msgstr "您在文件夹 %s 中有邮件。"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:111
+#: modules/pam_mkhomedir/pam_mkhomedir.c:113
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "创建目录 '%s'。"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:181
+#: modules/pam_mkhomedir/pam_mkhomedir.c:183
 #, fuzzy, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "无法创建目录  %s：%m"

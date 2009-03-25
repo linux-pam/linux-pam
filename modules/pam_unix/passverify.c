@@ -1011,7 +1011,7 @@ su_sighandler(int sig)
         /* emulate the behaviour of the SA_RESETHAND flag */
         if ( sig == SIGILL || sig == SIGTRAP || sig == SIGBUS || sig = SIGSERV ) {
 		struct sigaction sa;
-		memset(&sa, '\0, sizeof(sa));
+		memset(&sa, '\0', sizeof(sa));
 		sa.sa_handler = SIG_DFL;
                 sigaction(sig, &sa, NULL);
 	}

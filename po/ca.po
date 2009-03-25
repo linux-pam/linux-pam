@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-03-03 14:56+0100\n"
+"POT-Creation-Date: 2009-03-25 11:53+0100\n"
 "PO-Revision-Date: 2008-10-15 16:10+0200\n"
 "Last-Translator: Xavier Queralt Mateu <xqueralt@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
@@ -359,12 +359,12 @@ msgstr "Teniu correu antic a la carpeta %s."
 msgid "You have mail in folder %s."
 msgstr "Teniu correu a la carpeta %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:111
+#: modules/pam_mkhomedir/pam_mkhomedir.c:113
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Creant el directori '%s'."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:181
+#: modules/pam_mkhomedir/pam_mkhomedir.c:183
 #, fuzzy, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "No s'ha pogut crear el directori %s: %m"

@@ -145,7 +145,7 @@ read_issue_raw(pam_handle_t *pamh, FILE *fp, char **prompt)
 	return PAM_BUF_ERR;
     }
 
-    if (fread(issue, 1, st.st_size, fp) != st.st_size) {
+    if ((off_t)fread(issue, 1, st.st_size, fp) != st.st_size) {
 	pam_syslog(pamh, LOG_ERR, "read error: %m");
 	_pam_drop(issue);
 	return PAM_SERVICE_ERR;

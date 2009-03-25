@@ -172,7 +172,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	  /* XXX: Some effort should be made to verify this email address! */
 
 	    if (!(ctrl & PAM_IGNORE_EMAIL)) {
-		char *sptr;
+		char *sptr = NULL;
 		token = strtok_r(resp, "@", &sptr);
 		retval = pam_set_item(pamh, PAM_RUSER, token);
 

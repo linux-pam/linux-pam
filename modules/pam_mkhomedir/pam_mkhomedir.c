@@ -64,50 +64,52 @@
 #define MKHOMEDIR_DEBUG      020	/* be verbose about things */
 #define MKHOMEDIR_QUIET      040	/* keep quiet about things */
 
-static char UMask[16] = "0022";
-static char SkelDir[BUFSIZ] = "/etc/skel"; /* THIS MODULE IS NOT THREAD SAFE */
+struct options_t {
+  int ctrl;
+  const char *umask;
+  const char *skeldir;
+};
+typedef struct options_t options_t;
 
-static int
-_pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv)
+static void
+_pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
+	    options_t *opt)
 {
-   int ctrl = 0;
+   opt->ctrl = 0;
+   opt->umask = "0022";
+   opt->skeldir = "/etc/skel";
 
    /* does the appliction require quiet? */
    if ((flags & PAM_SILENT) == PAM_SILENT)
-      ctrl |= MKHOMEDIR_QUIET;
+      opt->ctrl |= MKHOMEDIR_QUIET;
 
    /* step through arguments */
    for (; argc-- > 0; ++argv)
    {
       if (!strcmp(*argv, "silent")) {
-	 ctrl |= MKHOMEDIR_QUIET;
+	 opt->ctrl |= MKHOMEDIR_QUIET;
       } else if (!strcmp(*argv, "debug")) {
-         ctrl |= MKHOMEDIR_DEBUG;
+         opt->ctrl |= MKHOMEDIR_DEBUG;
       } else if (!strncmp(*argv,"umask=",6)) {
-	 strncpy(SkelDir,*argv+6,sizeof(UMask));
-	 UMask[sizeof(UMask)-1] = '\0';
+	 opt->umask = *argv+6;
       } else if (!strncmp(*argv,"skel=",5)) {
-	 strncpy(SkelDir,*argv+5,sizeof(SkelDir));
-	 SkelDir[sizeof(SkelDir)-1] = '\0';
+	 opt->skeldir = *argv+5;
       } else {
 	 pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
       }
    }
-
-   D(("ctrl = %o", ctrl));
-   return ctrl;
 }
 
 /* Do the actual work of creating a home dir */
 static int
-create_homedir (pam_handle_t *pamh, int ctrl,
+create_homedir (pam_handle_t *pamh, options_t *opt,
 		const struct passwd *pwd)
 {
    int retval, child;
    struct sigaction newsa, oldsa;
 
    /* Mention what is happening, if the notification fails that is OK */
-   if (!(ctrl & MKHOMEDIR_QUIET))
+   if (!(opt->ctrl & MKHOMEDIR_QUIET))
       pam_info(pamh, _("Creating directory '%s'."), pwd->pw_dir);
 
 
@@ -121,8 +123,8 @@ create_homedir (pam_handle_t *pamh, int ctrl,
    memset(&newsa, '\0', sizeof(newsa));
    newsa.sa_handler = SIG_DFL;
    sigaction(SIGCHLD, &newsa, &oldsa);
- 
-   if (ctrl & MKHOMEDIR_DEBUG) {
+
+   if (opt->ctrl & MKHOMEDIR_DEBUG) {
         pam_syslog(pamh, LOG_DEBUG, "Executing mkhomedir_helper.");
    }
 
@@ -145,8 +147,8 @@ create_homedir (pam_handle_t *pamh, int ctrl,
 	/* exec the mkhomedir helper */
 	args[0] = x_strdup(MKHOMEDIR_HELPER);
 	args[1] = pwd->pw_name;
-	args[2] = UMask;
-	args[3] = SkelDir;
+	args[2] = x_strdup(opt->umask);
+	args[3] = x_strdup(opt->skeldir);
 
 	execve(MKHOMEDIR_HELPER, args, envp);
 
@@ -173,11 +175,11 @@ create_homedir (pam_handle_t *pamh, int ctrl,
 
    sigaction(SIGCHLD, &oldsa, NULL);   /* restore old signal handler */
 
-   if (ctrl & MKHOMEDIR_DEBUG) {
+   if (opt->ctrl & MKHOMEDIR_DEBUG) {
         pam_syslog(pamh, LOG_DEBUG, "mkhomedir_helper returned %d", retval);
    }
 
-   if (retval != PAM_SUCCESS && !(ctrl & MKHOMEDIR_QUIET)) {
+   if (retval != PAM_SUCCESS && !(opt->ctrl & MKHOMEDIR_QUIET)) {
 	pam_error(pamh, _("Unable to create and initialize directory '%s'."),
 	    pwd->pw_dir);
    }
@@ -192,13 +194,14 @@ PAM_EXTERN int
 pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
 		     const char **argv)
 {
-   int retval, ctrl;
+   int retval;
+   options_t opt;
    const void *user;
    const struct passwd *pwd;
    struct stat St;
 
    /* Parse the flag values */
-   ctrl = _pam_parse(pamh, flags, argc, argv);
+   _pam_parse(pamh, flags, argc, argv, &opt);
 
    /* Determine the user name so we can get the home directory */
    retval = pam_get_item(pamh, PAM_USER, &user);
@@ -220,14 +223,14 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
    /* Stat the home directory, if something exists then we assume it is
       correct and return a success*/
    if (stat(pwd->pw_dir, &St) == 0) {
-      if (ctrl & MKHOMEDIR_DEBUG) {
+      if (opt.ctrl & MKHOMEDIR_DEBUG) {
           pam_syslog(pamh, LOG_DEBUG, "Home directory %s already exists.",
               pwd->pw_dir);
       }
       return PAM_SUCCESS;
    }
 
-   return create_homedir(pamh, ctrl, pwd);
+   return create_homedir(pamh, &opt, pwd);
 }
 
 /* Ignore */
