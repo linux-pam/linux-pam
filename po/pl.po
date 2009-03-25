@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2009-03-03 14:56+0100\n"
-"PO-Revision-Date: 2009-01-04 23:16+0100\n"
+"PO-Revision-Date: 2009-02-26 22:10+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -361,9 +361,9 @@ msgid "Creating directory '%s'."
 msgstr "Tworzenie katalogu \"%s\"."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "Nie można utworzyć katalogu %s: %m"
+msgstr "Nie można utworzyć i zainicjować katalogu \"%s\"."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475

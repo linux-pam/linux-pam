@@ -358,9 +358,9 @@ msgid "Creating directory '%s'."
 msgstr "Criando o diretório '%s'."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "Impossível criar o diretório %s: %m"
+msgstr "Impossível criar e inicializar o diretório \"%s\"."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475

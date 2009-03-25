@@ -1,3 +1,23 @@
+2009-03-25  Pavol Šimo <palo.simo@gmail.com>
+
+	* po/sk.po: Updated translations.
+
+2009-03-24  Sulyok Péter <peti@sulyok.hu>
+
+	* po/hu.po: Updated translations.
+
+2009-03-24  Domingo Becker <domingobecker@gmail.com>
+
+	* po/es.po: Updated translations.
+
+2009-03-24  Diego Búrigo Zacarão <diegobz@projetofedora.org>
+
+	* po/pt_BR.po: Updated translations.
+
+2009-03-24  Piotr Drąg <piotrdrag@gmail.com>
+
+	* po/pl.po: Updated translations.
+
 2009-03-24  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_unix/passverify.c(save_old_password): Call fflush() and

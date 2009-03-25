@@ -2,27 +2,24 @@
 # translation of Linux-pam.po to
 # translation of hu.po to
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR Linux-PAM Project.
-#
+# Copyright (C) 2009 Linux-PAM Project.
 # Papp Zsolt <zpapp@novell.com>, 2006.
 # Keresztes Ákos <xsak@c2.hu>, 2006.
 # Kalman Kemenczy <kkemenczy@novell.com>, 2006, 2007.
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: pam\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2009-03-03 14:56+0100\n"
-"PO-Revision-Date: 2008-04-30 08:23+0100\n"
+"PO-Revision-Date: 2009-03-20 20:53+0100\n"
 "Last-Translator: Sulyok Péter <peti@sulyok.hu>\n"
 "Language-Team: Hungarian <fedora-trans-hu@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Poedit-Language: Hungarian\n"
-"X-Poedit-Country: HUNGARY\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -59,12 +56,11 @@ msgstr "Sajnálom, de a jelszavak nem egyeznek."
 #: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Ismét %s"
 
 #: libpam/pam_get_authtok.c:146
-#, fuzzy
 msgid "Password change aborted."
-msgstr "Változatlan jelszó"
+msgstr "Jelszó változtatás elvetve."
 
 #: libpam/pam_item.c:310
 msgid "login:"
@@ -234,11 +230,11 @@ msgstr "elégtelen betűosztály"
 
 #: modules/pam_cracklib/pam_cracklib.c:522
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "túl sok egymást követő betű egyezik meg"
 
 #: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "valahogy tartalmazza a használó nevét"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:454
@@ -300,23 +296,23 @@ msgstr "Üdvözöljük az új számláján!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "Utolsó belépés:%s%s%s"
+msgstr "Utolsó sikertelen belépés:%s %s %s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d sikertelen belépés kísérlet volt az utolsó sikeres belépés óta."
+msgstr[1] "%d sikertelen belépés kísérlet volt az utolsó sikeres belépés óta."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
+msgstr "%d sikertelen belépés kísérlet volt az utolsó sikeres belépés óta."
 
 #: modules/pam_limits/pam_limits.c:786
 #, c-format
@@ -365,9 +361,9 @@ msgid "Creating directory '%s'."
 msgstr "\"%s\" mappa teremtése"
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "%s mapa nem teremthető meg: %m"
+msgstr "„%s” mapa nem teremthető meg."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475
@@ -454,12 +450,12 @@ msgstr "Az ellenőrző jelszó nem egyezik; a jelszó nem került módosításra
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "Számla ideiglenesen lakat alatt (még %ld másodpercig)"
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "Számla lakat alatt %u sikertelen belépés miatt"
 
 #: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
 msgid "Authentication error"
@@ -502,21 +498,23 @@ msgstr "%s: Nem állítható vissza minden használó nem nullára\n"
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr ""
+msgstr "Belépés          bukások Utolsó bukás      innen\n"
 
 #: modules/pam_tally2/pam_tally2.c:953
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file rooted-fájlnév] [--user használó] [--reset[=n]] [--quiet]\n"
+"%s: [-f rooted-fájlnév] [--file rooted-fájlnév]\n"
+"   [-u használó] [--user használó]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "Hozzáférés megadva (utolsó hozzáférés %ld másodperce volt)."
 
 #: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
 msgid "Your account has expired; please contact your system administrator"
@@ -571,6 +569,13 @@ msgstr "Adja meg az új UNIX jelszót: "
 #: modules/pam_unix/pam_unix_passwd.c:683
 msgid "Retype new UNIX password: "
 msgstr "Írja be újra a UNIX jelszót: "
+
+#~ msgid ""
+#~ "There was %d failed login attempt since the last successful login.There "
+#~ "were %d failed login attempts since the last successful login."
+#~ msgstr ""
+#~ "%d sikertelen belépés kísérlet volt az utolsó sikeres belépés óta.%d "
+#~ "sikertelen belépés kísérlet volt az utolsó sikeres belépés óta."
 
 #~ msgid "has been already used"
 #~ msgstr "használt"
