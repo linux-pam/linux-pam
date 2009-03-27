@@ -9,8 +9,8 @@
 #ifndef PAM_CLIENT_H
 #define PAM_CLIENT_H
 
-#ifdef __cplusplus 
-extern "C" { 
+#ifdef __cplusplus
+extern "C" {
 #endif /* def __cplusplus */
 
 #include <unistd.h>
@@ -74,8 +74,12 @@ char **pamc_list_agents(pamc_handle_t pch);
 #include <unistd.h>
 
 #ifndef PAM_BP_ASSERT
-# define PAM_BP_ASSERT(x)   do { printf(__FILE__ "(%d): %s\n", \
-					__LINE__, x) ; exit(1); } while (0)
+# ifdef NDEBUG
+#  define PAM_BP_ASSERT(x)   do {} while (0)
+# else
+#  define PAM_BP_ASSERT(x)   do { printf(__FILE__ "(%d): %s\n", \
+					 __LINE__, x) ; exit(1); } while (0)
+# endif /* NDEBUG */
 #endif /* PAM_BP_ASSERT */
 
 #ifndef PAM_BP_CALLOC

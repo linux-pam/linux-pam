@@ -120,13 +120,13 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 		D(("DISALLOW_NULL_AUTHTOK"));
 		set(UNIX__NONULL, ctrl);
 	}
-	
+
 	/* Set default rounds for blowfish */
 	if (on(UNIX_BLOWFISH_PASS, ctrl) && off(UNIX_ALGO_ROUNDS, ctrl)) {
 		*rounds = 5;
 		set(UNIX_ALGO_ROUNDS, ctrl);
 	}
-	
+
 	/* Enforce sane "rounds" values */
 	if (on(UNIX_ALGO_ROUNDS, ctrl)) {
 		if (on(UNIX_BLOWFISH_PASS, ctrl)) {
@@ -478,10 +478,18 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	/* if the stored password is NULL */
         int rc=0;
 	if (passwd != NULL) {            /* send the password to the child */
-	    write(fds[1], passwd, strlen(passwd)+1);
+	    if (write(fds[1], passwd, strlen(passwd)+1) == -1) {
+	      pam_syslog (pamh, LOG_ERR, "Cannot send password to helper: %m");
+	      close(fds[1]);
+	      retval = PAM_AUTH_ERR;
+	    }
 	    passwd = NULL;
-	} else {
-	    write(fds[1], "", 1);                        /* blank password */
+	} else {                         /* blank password */
+	    if (write(fds[1], "", 1) == -1) {
+	      pam_syslog (pamh, LOG_ERR, "Cannot send password to helper: %m");
+	      close(fds[1]);
+	      retval = PAM_AUTH_ERR;
+	    }
 	}
 	close(fds[0]);       /* close here to avoid possible SIGPIPE above */
 	close(fds[1]);
@@ -871,7 +879,7 @@ int _unix_read_password(pam_handle_t * pamh
 }
 
 /* ****************************************************************** *
- * Copyright (c) Jan Rêkorajski 1999.
+ * Copyright (c) Jan RÃªkorajski 1999.
  * Copyright (c) Andrew G. Morgan 1996-8.
  * Copyright (c) Alex O. Yuriev, 1996.
  * Copyright (c) Cristian Gafton 1996.

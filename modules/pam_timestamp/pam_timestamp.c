@@ -194,7 +194,7 @@ timestamp_good(time_t then, time_t now, time_t interval)
 }
 
 static int
-check_login_time(const char *ruser, time_t timestamp) 
+check_login_time(const char *ruser, time_t timestamp)
 {
 	struct utmp utbuf, *ut;
 	time_t oldest_login = 0;
@@ -237,14 +237,14 @@ get_ruser(pam_handle_t *pamh, char *ruserbuf, size_t ruserbuflen)
 		if (pwd != NULL) {
 			ruser = pwd->pw_name;
 		}
-	}	
+	}
 	if (ruser == NULL || strlen(ruser) >= ruserbuflen) {
 		*ruserbuf = '\0';
 		return -1;
 	}
 	strcpy(ruserbuf, ruser);
 	return 0;
-}	    
+}
 
 /* Get the path to the timestamp to use. */
 static int
@@ -299,7 +299,7 @@ get_timestamp_name(pam_handle_t *pamh, int argc, const char **argv,
 		tty = NULL;
 	} else {
 		tty = void_tty;
-	}	
+	}
 	if ((tty == NULL) || (strlen(tty) == 0)) {
 		tty = ttyname(STDIN_FILENO);
 		if ((tty == NULL) || (strlen(tty) == 0)) {
@@ -413,7 +413,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		int count;
 		void *mac;
 		size_t maclen;
-		char ruser[BUFLEN];		
+		char ruser[BUFLEN];
 
 		/* Check that the file is owned by the superuser. */
 		if ((st.st_uid != 0) || (st.st_gid != 0)) {
@@ -483,7 +483,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		free(mac);
 		memmove(&then, message + strlen(path) + 1, sizeof(then));
 		free(message);
-		
+
 		/* Check oldest login against timestamp */
 		if (get_ruser(pamh, ruser, sizeof(ruser)))
 		{
@@ -565,7 +565,14 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED, int argc, const char *
 			subdir[i] = '\0';
 			if (mkdir(subdir, 0700) == 0) {
 				/* Attempt to set the owner to the superuser. */
-				lchown(subdir, 0, 0);
+			        if (lchown(subdir, 0, 0) != 0) {
+					if (debug) {
+						pam_syslog(pamh, LOG_DEBUG,
+						    "error setting permissions on `%s': %m",
+						    subdir);
+					}
+					return PAM_SESSION_ERR;
+				}
 			} else {
 				if (errno != EEXIST) {
 					if (debug) {
@@ -617,7 +624,15 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED, int argc, const char *
 	}
 
 	/* Attempt to set the owner to the superuser. */
-	fchown(fd, 0, 0);
+	if (fchown(fd, 0, 0) != 0) {
+	  if (debug) {
+	    pam_syslog(pamh, LOG_DEBUG,
+		       "error setting ownership of `%s': %m",
+		       path);
+	  }
+	  return PAM_SESSION_ERR;
+	}
+
 
 	/* Write the timestamp to the file. */
 	if (write(fd, text, p - text) != p - text) {

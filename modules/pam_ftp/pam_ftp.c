@@ -79,7 +79,7 @@ static int lookup(const char *name, const char *list, const char **_user)
     if (list && *list) {
 	const char *l;
 	char *list_copy, *x;
-	char *sptr;
+	char *sptr = NULL;
 
 	list_copy = x_strdup(list);
 	x = list_copy;
