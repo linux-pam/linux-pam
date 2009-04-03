@@ -1,14 +1,14 @@
-# translation of Linux-PAM.tip.kn.po to Kannada
+# translation of pam.tip.kn.po to Kannada
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Shankar Prasad <svenkate@redhat.com>, 2007, 2008.
+# Shankar Prasad <svenkate@redhat.com>, 2007, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM.tip.kn\n"
+"Project-Id-Version: pam.tip.kn\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-03-25 11:53+0100\n"
-"PO-Revision-Date: 2008-10-20 12:29+0530\n"
+"POT-Creation-Date: 2009-03-03 14:56+0100\n"
+"PO-Revision-Date: 2009-04-03 12:24+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "ಕ್ಷಮಿಸಿ, ಗುಪ್ತಪದಗಳು ತಾಳೆಯಾ
 #: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "%s ಅನ್ನು ಮರಳಿ ನಮೂದಿಸಿ"
 
 #: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
@@ -297,8 +297,7 @@ msgstr "ಕೊನೆಯ ಲಾಗಿನ್:%s%s%s"
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
+msgid_plural "There were %d failed login attempts since the last successful login."
 msgstr[0] "ಕೊನೆಯ ಬಾರಿಯ ಯಶಸ್ವಿ ಪ್ರವೇಶದ ನಂತರ %d ಪ್ರವೇಶದ ಪ್ರಯತ್ನವು ವಿಫಲಗೊಂಡಿದೆ."
 msgstr[1] "ಕೊನೆಯ ಬಾರಿಯ ಯಶಸ್ವಿ ಪ್ರವೇಶದ ನಂತರ %d ಪ್ರವೇಶದ ಪ್ರಯತ್ನಗಳು ವಿಫಲಗೊಂಡಿದೆ."
 
@@ -349,15 +348,15 @@ msgstr "%s ಫೋಲ್ಡರಿನಲ್ಲಿ ನಿಮಗಾಗಿ ಹಳೆ 
 msgid "You have mail in folder %s."
 msgstr "%s ಫೋಲ್ಡರಿನಲ್ಲಿ ನಿಮಗಾಗಿ ಮೈಲ್ ಇದೆ."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:113
+#: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "ಕೋಶ '%s' ಅನ್ನು ರಚಿಸಲಾಗುತ್ತಿದೆ."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:183
-#, fuzzy, c-format
+#: modules/pam_mkhomedir/pam_mkhomedir.c:181
+#, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "ಕೋಶ '%s' ಅನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ.: %m"
+msgstr "ಕೋಶ '%s' ಅನ್ನು ರಚಿಸಲು ಹಾಗು ಆರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475
@@ -479,10 +478,8 @@ msgstr "%s: ಗುರುತಿಸಲಾಗದ ಆಯ್ಕೆ %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -492,21 +489,23 @@ msgstr "%s: ಎಲ್ಲಾ ಬಳಕೆದಾರರನ್ನು ಶೂನ್ಯ
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr ""
+msgstr "ಪ್ರವೇಶ           ವಿಫಲತೆಗಳು ಇತ್ತೀಚಿನ ವಿಫಲತೆ     ಇಂದ\n"
 
 #: modules/pam_tally2/pam_tally2.c:953
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+"%s: [-f rooted-filename] [--file rooted-filename]\n"
+"   [-u username] [--user username]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "ಅನುಮತಿಯನ್ನು ನೀಡಲಾಗಿದೆ (ಕೊನೆಯ ಬಾರಿಗೆ %ld ಸೆಕೆಂಡುಗಳ ಹಿಂದೆ ನಿಲುಕಿಸಿಕೊಳ್ಳಲಾಗಿತ್ತು)."
 
 #: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
 msgid "Your account has expired; please contact your system administrator"
@@ -518,8 +517,7 @@ msgstr "ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದ�
 
 #: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
-"ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸುವ ಅಗತ್ಯವಿದೆ (ಗುಪ್ತಪದವು ಬಹಳ ಹಳೆಯದಾಗಿದೆ)"
+msgstr "ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸುವ ಅಗತ್ಯವಿದೆ (ಗುಪ್ತಪದವು ಬಹಳ ಹಳೆಯದಾಗಿದೆ)"
 
 #: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
@@ -563,6 +561,3 @@ msgstr "ಹೊಸ UNIX ಗುಪ್ತಪದವನ್ನು ದಾಖಲಿಸ�
 msgid "Retype new UNIX password: "
 msgstr "ಹೊಸ UNIX ಗುಪ್ತಪದವನ್ನು ಪುನಃ ಟೈಪಿಸಿ: "
 
-#, fuzzy
-#~ msgid "Account locked due to %hu failed logins"
-#~ msgstr "ವಿಫಲಗೊಂಡ %u ಪ್ರವೇಶಗಳಿಂದಾಗಿ ಖಾತೆಯನ್ನು ಲಾಕ್ ಮಾಡಲಾಗುತ್ತಿದೆ"

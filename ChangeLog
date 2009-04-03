@@ -1,3 +1,20 @@
+2009-04-03  Shankar Prasad <svenkate@redhat.com>
+
+	* po/kn.po: Updated translations.
+
+2009-04-03  Manoj Kumar Giri <mgiri@redhat.com>
+
+	* po/or.po: Updated translations.
+
+2009-04-03  Miloš Komarčević <kmilos@gmail.com>
+
+	* po/sr.po: Updated translations.
+	* po/sr@latin.po: Updated translations.
+
+2009-04-03  Leah Liu <lliu@redhat.com>
+
+	* po/zh_CN.po: Updated translations.
+
 2009-04-03  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* libpamc/pamc_load.c (__pamc_exec_agent): Replace call to exit(3)
