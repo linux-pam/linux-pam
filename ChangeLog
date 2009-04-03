@@ -1,3 +1,20 @@
+2009-04-03  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* libpamc/pamc_load.c (__pamc_exec_agent): Replace call to exit(3)
+	in child process with call to _exit(2).
+	* modules/pam_mkhomedir/pam_mkhomedir.c (create_homedir): Likewise.
+	* modules/pam_unix/pam_unix_acct.c (_unix_run_verify_binary):
+	Likewise.
+	* modules/pam_unix/pam_unix_passwd.c (_unix_run_update_binary):
+	Likewise.
+	* modules/pam_unix/support.c (_unix_run_helper_binary): Likewise.
+	* modules/pam_xauth/pam_xauth.c (run_coprocess): Likewise.
+	* modules/pam_exec/pam_exec.c (call_exec): Replace all calls to
+	exit(3) in child process with calls to _exit(2).
+	* modules/pam_filter/pam_filter.c (set_filter): Likewise.
+	* modules/pam_namespace/pam_namespace.c (inst_init,
+	cleanup_tmpdirs): Likewise.
+
 2009-03-27  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_unix/support.c (_unix_run_helper_binary): Don't

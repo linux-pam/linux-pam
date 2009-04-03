@@ -1184,12 +1184,12 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 #ifdef WITH_SELINUX
 				if (idata->flags & PAMNS_SELINUX_ENABLED) {
 					if (setexeccon(NULL) < 0)
-						exit(1);
+						_exit(1);
 				}
 #endif
 				if (execl(init_script, init_script,
 					polyptr->dir, ipath, newdir?"1":"0", idata->user, (char *)NULL) < 0)
-					exit(1);
+					_exit(1);
 			} else if (pid > 0) {
 				while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
 						(errno == EINTR));
@@ -1611,16 +1611,16 @@ static int cleanup_tmpdirs(struct instance_data *idata)
 #ifdef WITH_SELINUX
 		if (idata->flags & PAMNS_SELINUX_ENABLED) {
 		    if (setexeccon(NULL) < 0)
-			exit(1);
+			_exit(1);
 		}
 #endif
 		if (execl("/bin/rm", "/bin/rm", "-rf", pptr->instance_prefix, (char *)NULL) < 0)
-			exit(1);
+			_exit(1);
 	    } else if (pid > 0) {
 		while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
 		    (errno == EINTR));
 		if (rc == (pid_t)-1) {
-		    pam_syslog(idata->pamh, LOG_ERR, "waitpid failed- %m");
+		    pam_syslog(idata->pamh, LOG_ERR, "waitpid failed: %m");
 		    rc = PAM_SESSION_ERR;
 		    goto out;
 		}

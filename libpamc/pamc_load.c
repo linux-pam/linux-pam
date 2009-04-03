@@ -121,7 +121,7 @@ static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 	execle(full_path, "pam-agent", NULL, NULL);
 
 	D(("exec failed"));
-	exit(1);
+	_exit(1);
 
     }
 

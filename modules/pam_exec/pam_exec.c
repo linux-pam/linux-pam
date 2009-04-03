@@ -252,7 +252,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	    {
 	      int err = errno;
 	      pam_syslog (pamh, LOG_ERR, "dup2 of STDIN failed: %m");
-	      exit (err);
+	      _exit (err);
 	    }
 
 	  for (i = 0; i < sysconf (_SC_OPEN_MAX); i++)
@@ -271,7 +271,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	    {
 	      int err = errno;
 	      pam_syslog (pamh, LOG_ERR, "open of /dev/null failed: %m");
-	      exit (err);
+	      _exit (err);
 	    }
 	}
 
@@ -287,7 +287,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	      int err = errno;
 	      pam_syslog (pamh, LOG_ERR, "open of %s failed: %m",
 			  logfile);
-	      exit (err);
+	      _exit (err);
 	    }
 	  if (asprintf (&buffer, "*** %s", ctime (&tm)) > 0)
 	    {
@@ -302,7 +302,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	    {
 	      int err = errno;
 	      pam_syslog (pamh, LOG_ERR, "open of /dev/null failed: %m");
-	      exit (err);
+	      _exit (err);
 	    }
 	}
 
@@ -310,7 +310,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	{
 	  int err = errno;
 	  pam_syslog (pamh, LOG_ERR, "dup failed: %m");
-	  exit (err);
+	  _exit (err);
 	}
 
       if (call_setuid)
@@ -319,19 +319,19 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	    int err = errno;
 	    pam_syslog (pamh, LOG_ERR, "setuid(%lu) failed: %m",
 			(unsigned long) geteuid ());
-	    exit (err);
+	    _exit (err);
 	  }
 
       if (setsid () == -1)
 	{
 	  int err = errno;
 	  pam_syslog (pamh, LOG_ERR, "setsid failed: %m");
-	  exit (err);
+	  _exit (err);
 	}
 
       arggv = calloc (argc + 4, sizeof (char *));
       if (arggv == NULL)
-	exit (ENOMEM);
+	_exit (ENOMEM);
 
       for (i = 0; i < (argc - optargc); i++)
 	arggv[i] = strdup(argv[i+optargc]);
@@ -351,7 +351,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       {
         free(envlist);
         pam_syslog (pamh, LOG_ERR, "realloc environment failed: %m");
-        exit (ENOMEM);
+        _exit (ENOMEM);
       }
       envlist = tmp;
       for (i = 0; i < nitems; ++i)
@@ -364,7 +364,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
         {
           free(envlist);
           pam_syslog (pamh, LOG_ERR, "prepare environment failed: %m");
-          exit (ENOMEM);
+          _exit (ENOMEM);
         }
         envlist[envlen++] = envstr;
         envlist[envlen] = NULL;
@@ -374,7 +374,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
         {
           free(envlist);
           pam_syslog (pamh, LOG_ERR, "prepare environment failed: %m");
-          exit (ENOMEM);
+          _exit (ENOMEM);
         }
       envlist[envlen++] = envstr;
       envlist[envlen] = NULL;
@@ -382,16 +382,11 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       if (debug)
 	pam_syslog (pamh, LOG_DEBUG, "Calling %s ...", arggv[0]);
 
-      if (execve (arggv[0], arggv, envlist) == -1)
-	{
-	  int err = errno;
-	  pam_syslog (pamh, LOG_ERR, "execve(%s,...) failed: %m",
-		      arggv[0]);
-          free(envlist);
-	  exit (err);
-	}
+      execve (arggv[0], arggv, envlist);
+      i = errno;
+      pam_syslog (pamh, LOG_ERR, "execve(%s,...) failed: %m", arggv[0]);
       free(envlist);
-      exit (1); /* should never be reached. */
+      _exit (i);
     }
   return PAM_SYSTEM_ERR; /* will never be reached. */
 }

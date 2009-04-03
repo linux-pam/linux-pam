@@ -154,7 +154,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));
-	exit(PAM_SYSTEM_ERR);
+	_exit(PAM_SYSTEM_ERR);
    } else if (child > 0) {
 	int rc;
 	while ((rc=waitpid(child, &retval, 0)) < 0 && errno == EINTR);

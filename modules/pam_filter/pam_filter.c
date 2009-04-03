@@ -468,7 +468,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    pam_syslog(pamh, LOG_WARNING,
 		       "unable to re-assign APPIN/OUT/ERR: %m");
 	    close(fd[0]);
-	    exit(1);
+	    _exit(1);
 	}
 
 	/* make sure that file descriptors survive 'exec's */
@@ -481,7 +481,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    close(APPIN_FILENO);
 	    close(APPOUT_FILENO);
 	    close(APPERR_FILENO);
-	    exit(1);
+	    _exit(1);
 	}
 
 	/* now the user input is read from the parent through filter */
@@ -491,6 +491,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	/* getting to here is an error */
 
 	pam_syslog(pamh, LOG_ALERT, "filter: %s: %m", filtername);
+	_exit(1);
 
     } else {           /* wait for either of the two children to exit */
 

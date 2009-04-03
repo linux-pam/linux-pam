@@ -130,7 +130,8 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
     /* should not get here: exit with error */
     D(("helper binary is not available"));
     printf("-1\n");
-    exit(PAM_AUTHINFO_UNAVAIL);
+    fflush(stdout);
+    _exit(PAM_AUTHINFO_UNAVAIL);
   } else {
     close(fds[1]);
     if (child > 0) {

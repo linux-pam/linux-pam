@@ -207,7 +207,7 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));
-	exit(PAM_AUTHINFO_UNAVAIL);
+	_exit(PAM_AUTHINFO_UNAVAIL);
     } else if (child > 0) {
 	/* wait for child */
 	/* if the stored password is NULL */

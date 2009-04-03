@@ -149,7 +149,7 @@ run_coprocess(const char *input, char **output,
 		/* Run the command. */
 		execv(command, args);
 		/* Never reached. */
-		exit(1);
+		_exit(1);
 	}
 
 	/* We're the parent, so close the other ends of the pipes. */
