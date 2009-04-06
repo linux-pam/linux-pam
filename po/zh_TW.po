@@ -1,14 +1,15 @@
+# translation of pam.tip.po to
 # translation of Linux-PAM.tip.po to
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Terry Chuang <tchuang@redhat.com>, 2008.
+# Terry Chuang <tchuang@redhat.com>, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM.tip\n"
+"Project-Id-Version: pam.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2009-03-25 11:53+0100\n"
-"PO-Revision-Date: 2008-10-21 15:51+1000\n"
+"PO-Revision-Date: 2009-04-06 21:21+1000\n"
 "Last-Translator: Terry Chuang <tchuang@redhat.com>\n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -52,12 +53,11 @@ msgstr "抱歉，密碼不符合。"
 #: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "重新輸入 %s"
 
 #: libpam/pam_get_authtok.c:146
-#, fuzzy
 msgid "Password change aborted."
-msgstr "密碼未變更"
+msgstr "已終止密碼變更作業。"
 
 #: libpam/pam_item.c:310
 msgid "login:"
@@ -69,7 +69,7 @@ msgstr "成功"
 
 #: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
-msgstr "嚴重錯誤 - 立即中止"
+msgstr "嚴重錯誤 - 立即終止"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
@@ -225,11 +225,11 @@ msgstr "字元類別不足"
 
 #: modules/pam_cracklib/pam_cracklib.c:522
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "包含了太多連續的相同字元"
 
 #: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "包含了某些格式的用戶名稱"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:454
@@ -291,23 +291,22 @@ msgstr "歡迎使用您的新帳號！"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "上一次登入：%s%s%s"
+msgstr "上一次失敗的登入：%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-msgstr[1] ""
+msgid_plural "There were %d failed login attempts since the last successful login."
+msgstr[0] "自從上次成功登入後有 %d 次嘗試登入失敗。"
+msgstr[1] "自從上次成功登入後有 %d 次嘗試登入失敗。"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
+msgstr "自從上次成功登入後有 %d 次嘗試登入失敗。"
 
 #: modules/pam_limits/pam_limits.c:786
 #, c-format
@@ -356,9 +355,9 @@ msgid "Creating directory '%s'."
 msgstr "建立目錄「%s」。"
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:183
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "無法建立 %s 目錄：%m"
+msgstr "無法建立和初始化「%s」目錄。"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475
@@ -445,12 +444,12 @@ msgstr "確認錯誤輸入；密碼未變更"
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "帳號暫時被鎖住（還剩下 %ld 秒）"
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "因為嘗試登入 %u 次失敗，帳號已被封鎖"
 
 #: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
 msgid "Authentication error"
@@ -480,10 +479,8 @@ msgstr "%s: 未識別的選項 %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -493,21 +490,23 @@ msgstr "%s: 無法將所有使用者重新設定為非零\n"
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr ""
+msgstr "Login           Failures Latest failure     From\n"
 
 #: modules/pam_tally2/pam_tally2.c:953
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+"%s: [-f rooted-filename] [--file rooted-filename]\n"
+"   [-u username] [--user username]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "已賦予存取權限（最後一次存取為 %ld 秒前）。"
 
 #: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
 msgid "Your account has expired; please contact your system administrator"
@@ -563,8 +562,3 @@ msgstr "輸入新的 UNIX 密碼："
 msgid "Retype new UNIX password: "
 msgstr "再次輸入新的 UNIX 密碼："
 
-#~ msgid "has been already used"
-#~ msgstr "已經由其他使用者使用"
-
-#~ msgid "Requested MLS level not in permitted range"
-#~ msgstr "請求的 MLS 層級不在允許的範圍內"
