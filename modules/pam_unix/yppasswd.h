@@ -1,9 +1,9 @@
 /*
  * yppasswdd
- * Copyright 1994, 1995, 1996 Olaf Kirch, <okir@monad.swb.de>
+ * Copyright 1994, 1995, 1996 Olaf Kirch, <okir@lst.de>
  *
- * This program is covered by the GNU General Public License, version 2.
- * It is provided in the hope that it is useful. However, the author
+ * This program is covered by the GNU General Public License, version 2
+ * or later. It is provided in the hope that it is useful. However, the author
  * disclaims ALL WARRANTIES, expressed or implied. See the GPL for details.
  *
  * This file was generated automatically by rpcgen from yppasswd.x, and

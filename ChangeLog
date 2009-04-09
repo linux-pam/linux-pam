@@ -1,3 +1,9 @@
+2009-04-09  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/yppasswd.h: Update license to GPLv2 or later
+	on request of Olaf Kirch (Author).
+	* modules/pam_unix/yppasswd_xdr.c: Likewise.
+
 2009-04-06  R.E. van der Luit <nippur@fedoraproject.org>
 
 	* po/nl.po: Updated translations.
