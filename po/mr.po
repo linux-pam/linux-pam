@@ -1,14 +1,14 @@
-# translation of Linux-PAM.tip.po to marathi
+# translation of pam.tip.mr.po to marathi
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Sandeep Shedmake <sandeep.shedmake@gmail.com>, 2008.
+# Sandeep Shedmake <sandeep.shedmake@gmail.com>, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM.tip\n"
+"Project-Id-Version: pam.tip.mr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2009-03-25 11:53+0100\n"
-"PO-Revision-Date: 2008-10-10 07:07+0530\n"
+"PO-Revision-Date: 2009-04-14 11:31+0530\n"
 "Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
 "Language-Team: marathi\n"
 "MIME-Version: 1.0\n"
@@ -38,12 +38,12 @@ msgstr "गुप्तशब्द: "
 #: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
 #, c-format
 msgid "New %s%spassword: "
-msgstr "नविन गुप्तशब्द %s%sp: "
+msgstr "नवीन गुप्तशब्द %s%sp: "
 
 #: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "नविन गुप्तशब्द %s%sp पुन्हा टाइप करा: "
+msgstr "नवीन गुप्तशब्द %s%sp पुन्हा टाइप करा: "
 
 #: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
 msgid "Sorry, passwords do not match."
@@ -52,12 +52,11 @@ msgstr "माफ करा, गुप्तशब्द जुळत नाह�
 #: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "%s पुन्हा प्रविष्ट करा"
 
 #: libpam/pam_get_authtok.c:146
-#, fuzzy
 msgid "Password change aborted."
-msgstr "गुप्तशब्द बदलविला नाही"
+msgstr "परवलीचा शब्द रद्द केले."
 
 #: libpam/pam_item.c:310
 msgid "login:"
@@ -117,7 +116,7 @@ msgstr "सेवा करीताचे कमाल पुन्हप्र
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr "अधिप्रमाणन टोकन यापुढे वैध नाही; नविन आवश्यक आहे"
+msgstr "अधिप्रमाणन टोकन यापुढे वैध नाही; नवीन आवश्यक आहे"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -225,11 +224,11 @@ msgstr "अतिरिक्त अक्षर गट उपलब्ध न�
 
 #: modules/pam_cracklib/pam_cracklib.c:522
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "पाठोपाठ खूप जास्त समान अक्षर आढळले"
 
 #: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "कुठल्यातरी स्वरूपात वापरकर्ता नाव आढळले"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:454
@@ -287,40 +286,39 @@ msgstr "शेवटचे दाखलन:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:238
 msgid "Welcome to your new account!"
-msgstr "नविन खातेवर स्वागत आहे!"
+msgstr "नवीन खात्यावर स्वागत आहे!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "शेवटचे दाखलन:%s%s%s"
+msgstr "शेवटचे अपयशी दाखलन:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-msgstr[1] ""
+msgid_plural "There were %d failed login attempts since the last successful login."
+msgstr[0] "शेवटचे यशस्वी प्रवेश पासून %d अपयशी प्रवेश प्रयत्न आढळले."
+msgstr[1] "शेवटचे यशस्वी प्रवेश पासून %d अपयशी प्रवेश प्रयत्न आढळले गेले."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
+msgstr "शेवटचे यशस्वी प्रवेश पासून %d अपयशी प्रवेश प्रयत्न आढळले."
 
 #: modules/pam_limits/pam_limits.c:786
 #, c-format
 msgid "Too many logins for '%s'."
-msgstr "'%s' करीता एकापेक्षा जास्त दाखलन."
+msgstr "'%s' करीता एकापेक्षा जास्त प्रवेश."
 
 #: modules/pam_mail/pam_mail.c:318
 msgid "No mail."
-msgstr "मेल नाही."
+msgstr "मेल आढळले नाही."
 
 #: modules/pam_mail/pam_mail.c:321
 msgid "You have new mail."
-msgstr "नविन मेल प्राप्त झाले."
+msgstr "नवीन मेल प्राप्त झाले."
 
 #: modules/pam_mail/pam_mail.c:324
 msgid "You have old mail."
@@ -338,7 +336,7 @@ msgstr "संचयीका %s अंतर्गत मेल आढळले
 #: modules/pam_mail/pam_mail.c:339
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "संचयीका %s अंतर्गत नविन मेल आढळले."
+msgstr "संचयीका %s अंतर्गत नवीन मेल आढळले."
 
 #: modules/pam_mail/pam_mail.c:343
 #, c-format
@@ -356,9 +354,9 @@ msgid "Creating directory '%s'."
 msgstr "संचयीका '%s' बनवित आहे."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:183
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "संचयीका %s बनवू शकत नाही: %m"
+msgstr "डिरेक्ट्री '%s' बनवण्यास व प्रारंभ करण्यास अशक्य."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475
@@ -432,11 +430,11 @@ msgstr "%s करीता STRESS गुप्तशब्द बदलवित
 
 #: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
-msgstr "नविन STRESS गुप्तशब्द प्रविष्ट करा: "
+msgstr "नवीन STRESS गुप्तशब्द प्रविष्ट करा: "
 
 #: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
-msgstr "नविन STRESS गुप्तशब्द पुन्हा प्रविष्ट करा: "
+msgstr "नवीन STRESS गुप्तशब्द पुन्हा प्रविष्ट करा: "
 
 #: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
@@ -445,12 +443,12 @@ msgstr "तपासणी पूर्ण झाली नाही; गुप�
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "खातं तात्पूर्ते कुलूपबंद केले (%ld सेकंद शिल्लक)"
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "%u अपयशी प्रवेश मुळे खाते कुलूपबंद केले"
 
 #: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
 msgid "Authentication error"
@@ -480,10 +478,8 @@ msgstr "%s: अपरिचीत पर्याय %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file रूटेड-फाइलनाव] [--user वापरकर्त्याचे नाव] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file रूटेड-फाइलनाव] [--user वापरकर्त्याचे नाव] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -493,21 +489,23 @@ msgstr "%s: सर्व वापरकर्ता विना-शून्�
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr ""
+msgstr "प्रवेश           अपयशी अलिकडील अपयश     पासून\n"
 
 #: modules/pam_tally2/pam_tally2.c:953
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file रूटेड-फाइलनाव] [--user वापरकर्त्याचे नाव] [--reset[=n]] [--quiet]\n"
+"%s: [-f rooted-filename] [--file rooted-filename]\n"
+"   [-u username] [--user username]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "प्रवेश स्वीकारले (शेवटचा प्रवेश %ld सेकंद पूर्वी आढळला)."
 
 #: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
 msgid "Your account has expired; please contact your system administrator"
@@ -557,14 +555,9 @@ msgstr "तुमचा गुप्तशब्द बदलण्यासा�
 
 #: modules/pam_unix/pam_unix_passwd.c:682
 msgid "Enter new UNIX password: "
-msgstr "नविन UNIX गुप्तशब्द प्रविष्ट करा: "
+msgstr "नवीन UNIX गुप्तशब्द प्रविष्ट करा: "
 
 #: modules/pam_unix/pam_unix_passwd.c:683
 msgid "Retype new UNIX password: "
-msgstr "नविन UNIX गुप्तशब्द पुन्हा टाइप करा: "
+msgstr "नवीन UNIX गुप्तशब्द पुन्हा टाइप करा: "
 
-#~ msgid "has been already used"
-#~ msgstr "आधिपासूनच वापरणीत आहे"
-
-#~ msgid "Requested MLS level not in permitted range"
-#~ msgstr "विनंतीकृत MLS स्तर परवानगीय क्षेत्र अंतर्गत नाही"

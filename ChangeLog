@@ -1,3 +1,31 @@
+2009-04-14  Amitakhya Phukan <aphukan@fedoraproject.org>
+
+	* po/as.po: Updated translations.
+
+2009-04-14  Runa Bhattacharjee <runab@fedoraproject.org>
+
+	* po/bn_IN.po: Updated translations.
+
+2009-04-14  Sweta Kothari <swkothar@redhat.com>
+
+	* po/gu.po: Updated translations.
+
+2009-04-14  Sandeep Shedmake <sandeep.shedmake@gmail.com>
+
+	* po/mr.po: Updated translations.
+
+2009-04-14  Rui Gouveia <rui.gouveia@globaltek.pt>
+
+	* po/pt.po: Updated translations.
+
+2009-04-14  I. Felix <ifelix@redhat.com>
+
+	* po/ta.po: Updated translations.
+
+2009-04-14  Krishna Babu K <kkrothap@redhat.com>
+
+	* po/te.po: Updated translations.
+
 2009-04-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_unix/yppasswd.h: Update license to GPLv2 or later

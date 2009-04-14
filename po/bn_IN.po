@@ -1,16 +1,17 @@
-# translation of Linux-PAM.tip.po to Bengali INDIA
+# translation of pam.tip.po to Bengali INDIA
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Runa Bhattacharjee <runab@redhat.com>, 2007, 2008.
+# Runa Bhattacharjee <runab@fedoraproject.org>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM.tip\n"
+"Project-Id-Version: pam.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2009-03-25 11:53+0100\n"
-"PO-Revision-Date: 2008-10-20 12:40+0530\n"
-"Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
-"Language-Team: Bengali INDIA <fedora-trans-bn_IN@redhat.com>\n"
+"PO-Revision-Date: 2009-04-08 18:30+0530\n"
+"Last-Translator: Runa Bhattacharjee <runab@fedoraproject.org>\n"
+"Language-Team: Bengali INDIA <fedora-trans-bn_in@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -50,9 +51,9 @@ msgid "Sorry, passwords do not match."
 msgstr "দুঃখিত, পাসওয়ার্ড দুটি এক নয়।"
 
 #: libpam/pam_get_authtok.c:127
-#, fuzzy, c-format
+#, c-format
 msgid "Retype %s"
-msgstr "type: "
+msgstr "%s পুনরায় লিখুন"
 
 #: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
@@ -297,8 +298,7 @@ msgstr "সর্বশেষ বিফল লগ-ইন:%s%s%s"
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
+msgid_plural "There were %d failed login attempts since the last successful login."
 msgstr[0] "সর্বশেষ সফল লগ-ইনের পরে %d-টি ব্যর্থ লগ-ইনের প্রচেষ্টা করা হয়েছে।"
 msgstr[1] "সর্বশেষ সফল লগ-ইনের পরে %d-টি ব্যর্থ লগ-ইনের প্রচেষ্টা করা হয়েছে।"
 
@@ -355,9 +355,9 @@ msgid "Creating directory '%s'."
 msgstr "'%s' ডিরেক্টরি নির্মাণ করা হচ্ছে।"
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:183
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "ডিরেক্টরি %s নির্মাণ করতে ব্যর্থ: %m"
+msgstr "ডিরেক্টরি '%s' নির্মাণ ও আরম্ভ করতে ব্যর্থ।"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475
@@ -479,10 +479,8 @@ msgstr "%s: অজানা বিকল্প %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -492,21 +490,23 @@ msgstr "%s: সব ব্যবহারকারীর জন্য শূণ�
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr ""
+msgstr "লগ-ইন           বিফলতা সর্বশেষ বিফলতা     চিহ্নিত স্থান থেকে\n"
 
 #: modules/pam_tally2/pam_tally2.c:953
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+"%s: [-f rooted-filename] [--file rooted-filename]\n"
+"   [-u username] [--user username]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "প্রবেশাধিকার প্রদান করা হয়েছে (%ld পূর্বে সর্বশেষ লগ-ইন করা হয়েছে)।"
 
 #: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
 msgid "Your account has expired; please contact your system administrator"
@@ -564,21 +564,3 @@ msgstr "নতুন UNIX পাসওয়ার্ড উল্লেখ কর�
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX পাসওয়ার্ড পুনরায় লিখুন: "
 
-#, fuzzy
-#~ msgid "Account locked due to %hu failed logins"
-#~ msgstr "%u ব্যর্থ লগ-ইনের ফলে অ্যাকাউন্ট লক করা হয়েছে"
-
-#~ msgid "has been already used"
-#~ msgstr "পূর্বে ব্যবহৃত হয়েছে"
-
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হয়েছে। একটি পৃথক পাসওয়ার্ড নির্বাচন করুন।"
-
-#~ msgid "Error translating default context."
-#~ msgstr "ডিফল্ট কনটেক্সট অনুবাদ করতে সমস্যা।"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "ভিন্ন নির্বাচন করতে ইচ্ছুক কি? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "পছন্দের সংখ্যা লিখুন: "
