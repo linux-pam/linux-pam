@@ -250,7 +250,7 @@ evaluate_notinnetgr(const char *host, const char *user, const char *group)
 static int
 evaluate(pam_handle_t *pamh, int debug,
 	 const char *left, const char *qual, const char *right,
-	 struct passwd *pwd)
+	 struct passwd *pwd, const char *user)
 {
 	char buf[LINE_MAX] = "";
 	const char *attribute = left;
@@ -258,7 +258,7 @@ evaluate(pam_handle_t *pamh, int debug,
 	if ((strcasecmp(left, "login") == 0) ||
 	    (strcasecmp(left, "name") == 0) ||
 	    (strcasecmp(left, "user") == 0)) {
-		snprintf(buf, sizeof(buf), "%s", pwd->pw_name);
+		snprintf(buf, sizeof(buf), "%s", user);
 		left = buf;
 	}
 	if (strcasecmp(left, "uid") == 0) {
@@ -350,25 +350,25 @@ evaluate(pam_handle_t *pamh, int debug,
 	}
 	/* User is in this group. */
 	if (strcasecmp(qual, "ingroup") == 0) {
-		return evaluate_ingroup(pamh, pwd->pw_name, right);
+		return evaluate_ingroup(pamh, user, right);
 	}
 	/* User is not in this group. */
 	if (strcasecmp(qual, "notingroup") == 0) {
-		return evaluate_notingroup(pamh, pwd->pw_name, right);
+		return evaluate_notingroup(pamh, user, right);
 	}
 	/* (Rhost, user) is in this netgroup. */
 	if (strcasecmp(qual, "innetgr") == 0) {
 		const void *rhost;
 		if (pam_get_item(pamh, PAM_RHOST, &rhost) != PAM_SUCCESS)
 			rhost = NULL;
-		return evaluate_innetgr(rhost, pwd->pw_name, right);
+		return evaluate_innetgr(rhost, user, right);
 	}
 	/* (Rhost, user) is not in this group. */
 	if (strcasecmp(qual, "notinnetgr") == 0) {
 		const void *rhost;
 		if (pam_get_item(pamh, PAM_RHOST, &rhost) != PAM_SUCCESS)
 			rhost = NULL;
-		return evaluate_notinnetgr(rhost, pwd->pw_name, right);
+		return evaluate_notinnetgr(rhost, user, right);
 	}
 	/* Fail closed. */
 	return PAM_SERVICE_ERR;
@@ -477,7 +477,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			count++;
 			ret = evaluate(pamh, debug,
 				       left, qual, right,
-				       pwd);
+				       pwd, user);
 			if (ret != PAM_SUCCESS) {
 				if(!quiet_fail)
 					pam_syslog(pamh, LOG_INFO,

@@ -1,3 +1,9 @@
+2009-04-16  Tomáš Mráz <t8m@centrum.cz>
+
+	* modules/pam_succeed_if/pam_succeed_if.c (evaluate): Add user
+	parameter. Use user instead of pwd->pw_name in comparsions.
+	(pam_sm_authenticate): Pass the original user to evaluate().
+
 2009-04-14  Amitakhya Phukan <aphukan@fedoraproject.org>
 
 	* po/as.po: Updated translations.
