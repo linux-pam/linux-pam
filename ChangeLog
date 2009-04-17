@@ -1,3 +1,7 @@
+2009-04-17  Fabian Affolter <fab@fedoraproject.org>
+
+	* po/de.po: Updated translations.
+
 2009-04-16  Tomáš Mráz <t8m@centrum.cz>
 
 	* modules/pam_succeed_if/pam_succeed_if.c (evaluate): Add user
