@@ -2,22 +2,23 @@
 # Italian translation of Linux-PAM.
 # Copyright (C) 2007 Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
+# TODO: uniformare la traduzione di alcune stringhe con shadow.
 # Novell Language <language@novell.com>, 2007.
 # Luca Bruno <luca.br@uno.it>, 2007.
-# TODO: uniformare la traduzione di alcune stringhe con shadow.
+# mario_santagiuliana <mario at marionline.it>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2009-03-25 11:53+0100\n"
-"PO-Revision-Date: 2008-10-21 13:21+1000\n"
-"Last-Translator: \n"
-"Language-Team:  <it@li.org>\n"
+"PO-Revision-Date: 2009-04-20 18:31+0200\n"
+"Last-Translator: mario_santagiuliana <mario at marionline.it>\n"
+"Language-Team: Italian <fedora-trans-it at redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -54,7 +55,7 @@ msgstr "Le password non corrispondono."
 #: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Reimmettere %s"
 
 #: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
@@ -366,10 +367,9 @@ msgstr "La cartella %s contiene email."
 msgid "Creating directory '%s'."
 msgstr "Creazione della directory \"%s\"."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:183
-#, fuzzy, c-format
+#: modules/pam_mkhomedir/pam_mkhomedir.c:183, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "Impossibile creare la directory %s: %m"
+msgstr "Impossibile creare e inizializzare la directory '%s'"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475
@@ -504,20 +504,22 @@ msgstr ""
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr ""
+msgstr "Login           Ultimi Fallimenti             Da\n"
 
-#: modules/pam_tally2/pam_tally2.c:953
-#, fuzzy, c-format
+#: modules/pam_tally2/pam_tally2.c:953, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file NOMEFILE] [--user NOMEUTENTE] [--reset[=N]] [--quiet]\n"
+msgstr ""
+"%s: [-f rooted-filename] [--file rooted-filename]\n"
+"   [-u username] [--user username]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "Accesso permesso (ultimo accesso risale a %ld secondi fa)."
 
 #: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
 msgid "Your account has expired; please contact your system administrator"
