@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-03-25 11:53+0100\n"
+"POT-Creation-Date: 2009-05-05 14:52+0200\n"
 "PO-Revision-Date: 2009-04-17 11:53+0100\n"
 "Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
@@ -31,27 +31,22 @@ msgstr "...Ihre Zeit ist abgelaufen.\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "fehlerhafte Kommunikation (%d)\n"
 
-#: libpam/pam_get_authtok.c:39
-#: modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:159
-#: modules/pam_userdb/pam_userdb.c:63
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
 msgid "Password: "
 msgstr "Passwort: "
 
-#: libpam/pam_get_authtok.c:41
-#: modules/pam_cracklib/pam_cracklib.c:66
+#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Geben Sie ein neues %s%sPasswort ein: "
 
-#: libpam/pam_get_authtok.c:43
-#: modules/pam_cracklib/pam_cracklib.c:68
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Geben Sie das neue %s%sPasswort erneut ein: "
 
-#: libpam/pam_get_authtok.c:44
-#: modules/pam_cracklib/pam_cracklib.c:69
+#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
 msgid "Sorry, passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
@@ -106,11 +101,14 @@ msgstr "Fehler bei Authentifizierung"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr "Berechtigungsnachweis für Zugriff auf Authentifizierungsdaten nicht ausreichend"
+msgstr ""
+"Berechtigungsnachweis für Zugriff auf Authentifizierungsdaten nicht "
+"ausreichend"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "Authentifizierungsdienst kann Authentifizierungsinformationen nicht abrufen"
+msgstr ""
+"Authentifizierungsdienst kann Authentifizierungsinformationen nicht abrufen"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -130,7 +128,8 @@ msgstr "Benutzerkonto ist abgelaufen"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr "Erstellen/Entfernen eines Eintrags für die angegebene Sitzung nicht möglich"
+msgstr ""
+"Erstellen/Entfernen eines Eintrags für die angegebene Sitzung nicht möglich"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
@@ -268,21 +267,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s schlug fehl: Unbekannter Status 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:201
-#: modules/pam_lastlog/pam_lastlog.c:429
+#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:429
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %A, den %d. %B %Y, %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:210
-#: modules/pam_lastlog/pam_lastlog.c:438
+#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
 #, c-format
 msgid " from %.*s"
 msgstr " von %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:222
-#: modules/pam_lastlog/pam_lastlog.c:450
+#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
 #, c-format
 msgid " on %.*s"
 msgstr " auf %.*s"
@@ -303,19 +299,22 @@ msgstr "Willkommen in Ihrem neuen Konto!"
 msgid "Last failed login:%s%s%s"
 msgstr "Letzte fehlgeschlagene Anmeldung:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:469
-#: modules/pam_lastlog/pam_lastlog.c:476
+#: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural "There were %d failed login attempts since the last successful login."
-msgstr[0] "Es gab %d fehlgeschagenen Versuch seit der letzten erfolgreichen Anmeldung."
-msgstr[1] "Es gab %d fehlgeschlagene Versuche seit der letzten erfolgreichen Anmeldung."
+msgid_plural ""
+"There were %d failed login attempts since the last successful login."
+msgstr[0] ""
+"Es gab %d fehlgeschagenen Versuch seit der letzten erfolgreichen Anmeldung."
+msgstr[1] ""
+"Es gab %d fehlgeschlagene Versuche seit der letzten erfolgreichen Anmeldung."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr "Es gab %d fehlgeschlagene Versuche seit der letzten erfolgreichen Anmeldung."
+msgstr ""
+"Es gab %d fehlgeschlagene Versuche seit der letzten erfolgreichen Anmeldung."
 
 #: modules/pam_limits/pam_limits.c:786
 #, c-format
@@ -377,18 +376,15 @@ msgstr "Passwort wurde bereits verwendet. Wählen Sie ein anderes aus."
 msgid "Would you like to enter a security context? [N] "
 msgstr "Möchten Sie einen Sicherheitskontext eingeben? [N] "
 
-#: modules/pam_selinux/pam_selinux.c:191
-#: modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
 msgid "role:"
 msgstr "Funktion:"
 
-#: modules/pam_selinux/pam_selinux.c:204
-#: modules/pam_selinux/pam_selinux.c:316
+#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
 msgid "level:"
 msgstr "Stufe:"
 
-#: modules/pam_selinux/pam_selinux.c:219
-#: modules/pam_selinux/pam_selinux.c:349
+#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
 msgid "Not a valid security context"
 msgstr "Kein gültiger Sicherheitskontext"
 
@@ -453,60 +449,54 @@ msgstr "Geben Sie das neue STRESS-Passwort erneut ein: "
 msgid "Verification mis-typed; password unchanged"
 msgstr "Bestätigungspasswort falsch eingegeben; Passwort nicht geändert"
 
-#: modules/pam_tally/pam_tally.c:541
-#: modules/pam_tally2/pam_tally2.c:596
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
 msgstr "Konto temporär gesperrt (noch %ld Sekunden)"
 
-#: modules/pam_tally/pam_tally.c:566
-#: modules/pam_tally2/pam_tally2.c:575
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr "Das Konto ist wegen %u fehlgeschlagener Anmelde-Versuche gesperrt"
 
-#: modules/pam_tally/pam_tally.c:777
-#: modules/pam_tally2/pam_tally2.c:884
+#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
 msgid "Authentication error"
 msgstr "Authentifizierungsfehler"
 
-#: modules/pam_tally/pam_tally.c:778
-#: modules/pam_tally2/pam_tally2.c:885
+#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:885
 msgid "Service error"
 msgstr "Dienstfehler"
 
-#: modules/pam_tally/pam_tally.c:779
-#: modules/pam_tally2/pam_tally2.c:886
+#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:886
 msgid "Unknown user"
 msgstr "Unbekannter Benutzer"
 
-#: modules/pam_tally/pam_tally.c:780
-#: modules/pam_tally2/pam_tally2.c:887
+#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:887
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: modules/pam_tally/pam_tally.c:796
-#: modules/pam_tally2/pam_tally2.c:906
+#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:906
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Ungültige Nummer für --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:800
-#: modules/pam_tally2/pam_tally2.c:910
+#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:910
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Nicht erkannte Option: %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:886
-#: modules/pam_tally2/pam_tally2.c:1036
+#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: Es können nicht alle Benutzer auf Nicht-null zurückgesetzt werden\n"
+msgstr ""
+"%s: Es können nicht alle Benutzer auf Nicht-null zurückgesetzt werden\n"
 
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
@@ -529,21 +519,19 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "Zugriff erlaubt (letzter Zugriff war vor %ld Sekunden)."
 
-#: modules/pam_unix/pam_unix_acct.c:235
-#: modules/pam_unix/pam_unix_acct.c:257
+#: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Ihr Konto ist abgelaufen. Wenden Sie sich an den Systemadministrator"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Sie müssen Ihr Passwort sofort ändern (von root erzwungen)."
 
-#: modules/pam_unix/pam_unix_acct.c:249
+#: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Sie müssen Ihr Passwort sofort ändern (Passwortablauf)."
 
-#: modules/pam_unix/pam_unix_acct.c:270
-#: modules/pam_unix/pam_unix_acct.c:277
+#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -551,7 +539,7 @@ msgstr[0] "Warnung: Ihr Passwort läuft in %d Tag ab."
 msgstr[1] "Warnung: Ihr Passwort läuft in %d Tagen ab."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:282
+#: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Warnung: Ihr Passwort läuft in %d Tagen ab."
@@ -587,10 +575,10 @@ msgstr "Geben Sie das neue UNIX-Passwort erneut ein: "
 
 #~ msgid "Account locked due to %hu failed logins"
 #~ msgstr "Der Account ist wegen %hu fehlgeschlagener Login-Versuche gesperrt"
+
 #~ msgid "has been already used"
 #~ msgstr "es wurde bereits verwendet"
 
 #, fuzzy
 #~ msgid "Password has been used already. Choose another."
 #~ msgstr "Passwort wurde bereits verwendet. Wählen Sie ein anderes aus."
-

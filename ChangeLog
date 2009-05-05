@@ -1,3 +1,8 @@
+2009-05-05  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* libpamc/Makefile.am (libpamc_la_LDFLAGS): Increase revesion.
+	* configure.in: Increase version to 1.0.92.
+
 2009-04-20  Mario Santagiuliana <mario@marionline.it>
 
 	* po/it.po: Updated translations.

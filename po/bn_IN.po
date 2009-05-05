@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-03-25 11:53+0100\n"
+"POT-Creation-Date: 2009-05-05 14:52+0200\n"
 "PO-Revision-Date: 2009-04-08 18:30+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@fedoraproject.org>\n"
 "Language-Team: Bengali INDIA <fedora-trans-bn_in@redhat.com>\n"
@@ -298,7 +298,8 @@ msgstr "সর্বশেষ বিফল লগ-ইন:%s%s%s"
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural "There were %d failed login attempts since the last successful login."
+msgid_plural ""
+"There were %d failed login attempts since the last successful login."
 msgstr[0] "সর্বশেষ সফল লগ-ইনের পরে %d-টি ব্যর্থ লগ-ইনের প্রচেষ্টা করা হয়েছে।"
 msgstr[1] "সর্বশেষ সফল লগ-ইনের পরে %d-টি ব্যর্থ লগ-ইনের প্রচেষ্টা করা হয়েছে।"
 
@@ -479,8 +480,10 @@ msgstr "%s: অজানা বিকল্প %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -508,21 +511,21 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "প্রবেশাধিকার প্রদান করা হয়েছে (%ld পূর্বে সর্বশেষ লগ-ইন করা হয়েছে)।"
 
-#: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
+#: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "আপনার অ্যাকাউন্টের মেয়াদপূর্ণ হয়েছে; অনুগ্রহ করে সিস্টেম অ্যাডমিনিস্ট্রেটরের সাথে "
 "যোগাযোগ করুন।"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "আপনার পাসওয়ার্ড এই মুহূর্তে পরিবর্তন করা আবশ্যক (root দ্বারা কার্যকরী)"
 
-#: modules/pam_unix/pam_unix_acct.c:249
+#: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
 msgstr "আপনার পাসওয়ার্ড এই মুহূর্তে পরিবর্তন করা আবশ্যক (password-র মেয়াদ পূর্ণ হয়েছে)"
 
-#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
+#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -530,7 +533,7 @@ msgstr[0] "সতর্কবাণী: %d দিন পরে পাসওয়�
 msgstr[1] "সতর্কবাণী: %d দিন পরে পাসওয়ার্ডের মেয়াদপূর্ণ হবে"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:282
+#: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "সতর্কবাণী: %d দিন পরে পাসওয়ার্ডের মেয়াদপূর্ণ হবে"
@@ -563,4 +566,3 @@ msgstr "নতুন UNIX পাসওয়ার্ড উল্লেখ কর�
 #: modules/pam_unix/pam_unix_passwd.c:683
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX পাসওয়ার্ড পুনরায় লিখুন: "
-

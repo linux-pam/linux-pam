@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-03-25 11:53+0100\n"
+"POT-Creation-Date: 2009-05-05 14:52+0200\n"
 "PO-Revision-Date: 2006-11-03 12:03\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -511,24 +511,24 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
+#: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "I-akhawunti yakho isiphelelwe isikhathi, sicela uthintana nomqondisi "
 "wesistimu yakho"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 "Kudingeka ukuba ushintshe iphasiwedi yakho ngokushesha (iphoqelelwa "
 "ngumqondisi)"
 
-#: modules/pam_unix/pam_unix_acct.c:249
+#: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "Kudingeka ukuba ushintshe iphasiwedi yakho ngokushesha (iphasiwedi indala)"
 
-#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
+#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -536,7 +536,7 @@ msgstr[0] "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
 msgstr[1] "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:282
+#: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-03-25 11:53+0100\n"
+"POT-Creation-Date: 2009-05-05 14:52+0200\n"
 "PO-Revision-Date: 2009-04-20 18:31+0200\n"
 "Last-Translator: mario_santagiuliana <mario at marionline.it>\n"
 "Language-Team: Italian <fedora-trans-it at redhat.com>\n"
@@ -367,7 +367,8 @@ msgstr "La cartella %s contiene email."
 msgid "Creating directory '%s'."
 msgstr "Creazione della directory \"%s\"."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:183, c-format
+#: modules/pam_mkhomedir/pam_mkhomedir.c:183
+#, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Impossibile creare e inizializzare la directory '%s'"
 
@@ -506,7 +507,8 @@ msgstr ""
 msgid "Login           Failures Latest failure     From\n"
 msgstr "Login           Ultimi Fallimenti             Da\n"
 
-#: modules/pam_tally2/pam_tally2.c:953, c-format
+#: modules/pam_tally2/pam_tally2.c:953
+#, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
@@ -521,22 +523,22 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "Accesso permesso (ultimo accesso risale a %ld secondi fa)."
 
-#: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
+#: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Account scaduto; contattare l'amministratore di sistema"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 "È richiesta la modifica immediata della password (imposto "
 "dall'amministratore)"
 
-#: modules/pam_unix/pam_unix_acct.c:249
+#: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "È richiesta la modifica immediata della password (password troppo vecchia)"
 
-#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
+#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -544,7 +546,7 @@ msgstr[0] "Avviso: la password scadrà tra %d giorno"
 msgstr[1] "Avviso: la password scadrà tra %d giorni"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:282
+#: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Avviso: la password scadrà tra %d giorni"

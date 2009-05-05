@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip.nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-03-25 11:53+0100\n"
+"POT-Creation-Date: 2009-05-05 14:52+0200\n"
 "PO-Revision-Date: 2009-04-04 17:55+0200\n"
 "Last-Translator: R.E. van der Luit <nippur@fedoraproject.org>\n"
 "Language-Team: Dutch <nippur@fedoraproject.org>\n"
@@ -301,8 +301,10 @@ msgstr "Laatste mislukte aanmelding:%s%s%s"
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural "There were %d failed login attempts since the last successful login."
-msgstr[0] "Er was %d mislukte aanmeldpoging sinds de laatste succesvolle aanmelding."
+msgid_plural ""
+"There were %d failed login attempts since the last successful login."
+msgstr[0] ""
+"Er was %d mislukte aanmeldpoging sinds de laatste succesvolle aanmelding."
 msgstr[1] ""
 "Er waren %d mislukte aanmeldpogingen sinds de laatste successvolle "
 "aanmelding."
@@ -486,7 +488,8 @@ msgstr "%s: niet-herkende optie %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s [--file rooted-bestandsnaam] [--user gebruikersnaam] [--reset[=n]] [--"
 "quiet]\n"
@@ -517,19 +520,21 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "Toegang wordt verleend (laatste toegang was %ld seconden geleden)."
 
-#: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
+#: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Uw account is verlopen; neem contact op met uw systeembeheerder"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "U dient onmiddellijk uw wachtwoord te wijzigen (op last van systeembeheerder)"
+msgstr ""
+"U dient onmiddellijk uw wachtwoord te wijzigen (op last van systeembeheerder)"
 
-#: modules/pam_unix/pam_unix_acct.c:249
+#: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
-msgstr "U dient onmiddellijk uw wachtwoord te wijzigen (wachtwoord is verouderd)"
+msgstr ""
+"U dient onmiddellijk uw wachtwoord te wijzigen (wachtwoord is verouderd)"
 
-#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
+#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -537,7 +542,7 @@ msgstr[0] "Waarschuwing: uw wachtwoord zal over %d dag verlopen"
 msgstr[1] "Waarschuwing: uw wachtwoord zal over %d dagen verlopen"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:282
+#: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Waarschuwing: uw wachtwoord zal over %d dagen verlopen"
@@ -570,4 +575,3 @@ msgstr "Nieuw UNIX-wachtwoord invoeren: "
 #: modules/pam_unix/pam_unix_passwd.c:683
 msgid "Retype new UNIX password: "
 msgstr "Nieuw UNIX-wachtwoord herhalen: "
-
