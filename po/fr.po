@@ -5,19 +5,20 @@
 # myriam malga <mmalga@redhat.com>, 2007.
 # Canniot Thomas <thomas.canniot@mrtomlinux.org>, 2008.
 # Pablo Martin-Gomez <pablo.martin-gomez@laposte.net>, 2008.
+# Charles-Antoine Couret <cacouret@wanadoo.fr>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: pam.fr2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-05-05 14:52+0200\n"
-"PO-Revision-Date: 2008-10-19 18:59+0200\n"
-"Last-Translator: Pablo Martin-Gomez <pablo.martin-gomez@laposte.net> \n"
-"Language-Team: Français <fedora-trans-fr@redhat.com>\n"
+"POT-Creation-Date: 2009-03-25 11:53+0100\n"
+"PO-Revision-Date: 2009-04-15 23:00+0200\n"
+"Last-Translator: Charles-Antoine Couret <cacouret@wanadoo.fr>\n"
+"Language-Team: French <fedora-trans-fr@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
-"X-Generator: Lokalize 0.2\n"
+"X-Generator: Lokalize 0.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -54,7 +55,7 @@ msgstr "Les mots de passe ne correspondent pas."
 #: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Retapez %s"
 
 #: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
@@ -311,7 +312,11 @@ msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
 msgstr[0] ""
+"Il y a %d tentative échouée de connexion depuis la dernière connexion "
+"réussie."
 msgstr[1] ""
+"Il y a %d tentatives échouées de connexion depuis la dernière connexion "
+"réussie."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
@@ -367,10 +372,9 @@ msgstr "Vous avez des messages dans le dossier %s."
 msgid "Creating directory '%s'."
 msgstr "Création du répertoire « %s »."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:183
-#, fuzzy, c-format
+#: modules/pam_mkhomedir/pam_mkhomedir.c:183, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "Impossible de créer le répertoire %s : %m"
+msgstr "Impossible de créer et d'initialiser le répertoire « %s »."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475
@@ -495,7 +499,8 @@ msgstr "%s : Option non reconnue %s\n"
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+"%s: [--file chemin du fichier] [--user nom d'utilisateur] [--reset[=n]] "
+"[--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -505,35 +510,36 @@ msgstr "%s: Impossible de réinitialiser tous les utilisateurs à non-zéro\n"
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr ""
+msgstr "Connexion           Échecs Dernier échec     De\n"
 
-#: modules/pam_tally2/pam_tally2.c:953
-#, fuzzy, c-format
+#: modules/pam_tally2/pam_tally2.c:953, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+"%s: [-f chemin du fichier] [--file chemin du fichier]\n"
+"   [-u nom d'utilisateur] [--user nom d'utilisateur]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "Accès accordé (dernier accès il y a %ld secondes)."
 
-#: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
+#: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Votre compte a expiré. Contactez votre administrateur système"
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:243
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Vous devez changer votre mot de passe immédiatement (imposé par root)"
 
-#: modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Vous devez changer votre mot de passe immédiatement, il est périmé"
 
-#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -541,7 +547,7 @@ msgstr[0] "Avertissement : votre mot de passe expire dans %d jour."
 msgstr[1] "Avertissement : votre mot de passe expire dans %d jours"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:283
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Avertissement : votre mot de passe expire dans %d jours"

@@ -1,3 +1,11 @@
+2009-05-11  Ani Peter <anipeter@fedoraproject.org>
+
+	* po/ml.po: Updated translations.
+
+2009-05-11  Charles-Antoine Couret <cacouret@wanadoo.fr>
+
+	* po/fr.po: Updated translations.
+
 2009-05-11  Tomáš Mráz <t8m@centrum.cz>
 
 	* modules/pam_unix/pam_unix_passwd.c (_unix_run_update_binary): Remove
