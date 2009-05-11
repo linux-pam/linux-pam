@@ -1,3 +1,8 @@
+2009-05-11  Tomáš Mráz <t8m@centrum.cz>
+
+	* modules/pam_unix/pam_unix_passwd.c (_unix_run_update_binary): Remove
+	unnecessary setuid() call.
+
 2009-05-05  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 1.0.92
