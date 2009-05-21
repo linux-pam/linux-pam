@@ -13,13 +13,17 @@
 #   http://www.softcatala.org/projectes/fedora/
 #   i contacteu l'anterior traductor/a.
 #
+# TRADUCTORS
+# Xavier Queralt Mateu <xqueralt@gmail.com>, 2008
+# Albert Carabasa Giribet <albertc@asic.udl.cat>, 2009
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2009-05-05 14:52+0200\n"
-"PO-Revision-Date: 2008-10-15 16:10+0200\n"
-"Last-Translator: Xavier Queralt Mateu <xqueralt@gmail.com>\n"
+"PO-Revision-Date: 2009-05-18 16:10+0200\n"
+"Last-Translator: Albert Carabasa Giribet <albertc@asic.udl.cat>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,9 +63,9 @@ msgid "Sorry, passwords do not match."
 msgstr "Les contrasenyes no coincideixen."
 
 #: libpam/pam_get_authtok.c:127
-#, fuzzy, c-format
+#, c-format
 msgid "Retype %s"
-msgstr "tipus: "
+msgstr "Torneu a escriure %s"
 
 #: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
@@ -109,8 +113,7 @@ msgstr "Error d'autenticació"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
-"No teniu suficients credencials per a accedir a les dades d'autenticació"
+msgstr "No teniu suficients credencials per a accedir a les dades d'autenticació"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
@@ -305,12 +308,13 @@ msgid "Last failed login:%s%s%s"
 msgstr "Darrera entrada fallida:%s des de %s a %s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] "S'ha intentat entrar %d cops des de l'última entrada correcta."
-msgstr[1] "S'ha intentat entrar %d cops des de l'última entrada correcta."
+msgstr[0] "S'ha intentat entrar %d cop des de l'última entrada correcta."
+msgstr[1] ""
+"S'ha intentat entrar %d cops des de l'última entrada correcta."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
@@ -365,9 +369,9 @@ msgid "Creating directory '%s'."
 msgstr "Creant el directori '%s'."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:183
-#, fuzzy, c-format
+# c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "No s'ha pogut crear el directori %s: %m"
+msgstr "No s'ha pogut crear i inicialitzar el directori '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475
@@ -449,8 +453,7 @@ msgstr "Torneu a escriure la nova contrasenya d'STRESS: "
 
 #: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
-msgstr ""
-"Error d'escriptura durant la verificació; no s'ha canviat la contrasenya"
+msgstr "Error d'escriptura durant la verificació; no s'ha canviat la contrasenya"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
@@ -460,8 +463,7 @@ msgstr "Compte bloquejat temporalment (queden %ld segons)"
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
-"El compte ha estat bloquejat ja que s'ha intentat entrar %u cops sense èxit"
+msgstr "El compte ha estat bloquejat ja que s'ha intentat entrar %u cops sense èxit"
 
 #: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
 msgid "Authentication error"
@@ -499,27 +501,28 @@ msgstr ""
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr ""
-"%s: no es poden restablir tots els usuaris a un valor diferent de zero\n"
+msgstr "%s: no es poden restablir tots els usuaris a un valor diferent de zero\n"
 
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr ""
+msgstr "Entrada           Fallades Última fallada     Des de\n"
 
 #: modules/pam_tally2/pam_tally2.c:953
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file nom_fitxer_arrel] [--user nom_usuari] [--reset[=n]] [--quiet]\n"
+"%s: [-f nom_fitxer_arrel] [--file nom_fitxer_arrel]\n"
+"   [-u nom_usuari] [--user nom_usuari]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "Accés permès (l'últim accés va ser fa %ld segons)."
 
 #: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
@@ -527,8 +530,7 @@ msgstr "El vostre compte ha caducat. Contacteu amb l'administrador del sistema"
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
-"Heu de canviar la contrasenya immediatament (us hi obliga l'administrador)"
+msgstr "Heu de canviar la contrasenya immediatament (us hi obliga l'administrador)"
 
 #: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
