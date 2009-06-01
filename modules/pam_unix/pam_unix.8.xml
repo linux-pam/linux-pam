@@ -321,7 +321,7 @@
         </term>
         <listitem>
           <para>
-            Ignore errors reading shadow inforation for
+            Ignore errors reading shadow information for
             users in the account management module.
           </para>
         </listitem>

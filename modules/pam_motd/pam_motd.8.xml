@@ -30,7 +30,7 @@
 
     <para>
       pam_motd is a PAM module that can be used to display
-      arbitrary motd (message of the day) files after a succesful
+      arbitrary motd (message of the day) files after a successful
       login. By default the <filename>/etc/motd</filename> file is
       shown. The message size is limited to 64KB.
     </para>

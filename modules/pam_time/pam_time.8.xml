@@ -63,7 +63,7 @@
         </term>
         <listitem>
           <para>
-            Some debug informations are printed with
+            Some debug information is printed with
             <citerefentry><refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
           </para>
         </listitem>

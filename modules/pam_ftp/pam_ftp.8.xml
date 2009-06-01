@@ -121,7 +121,7 @@
           <term>PAM_SUCCESS</term>
           <listitem>
             <para>
-              The authentication was successfull.
+              The authentication was successful.
             </para>
           </listitem>
         </varlistentry>

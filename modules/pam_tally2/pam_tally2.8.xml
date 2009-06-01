@@ -122,7 +122,7 @@
               <listitem>
                 <para>
                   If something weird happens (like unable to open the file),
-                  return with <errorcode>PAM_SUCESS</errorcode> if
+                  return with <errorcode>PAM_SUCCESS</errorcode> if
                   <option>onerr=<replaceable>succeed</replaceable></option>
                   is given, else with the corresponding PAM error code.
                 </para>
@@ -230,7 +230,7 @@
               <listitem>
                 <para>
                   If the module is invoked by a user with uid=0 the
-                  counter is not incremented. The sys-admin should use this
+                  counter is not incremented. The sysadmin should use this
                   for user launched services, like <command>su</command>,
                   otherwise this argument should be omitted.
                 </para>
@@ -265,7 +265,7 @@
                 <para>
                   This option implies <option>even_deny_root</option> option.
                   Allow access after <replaceable>n</replaceable> seconds
-                  to root acccount after failed attempt. If this option is used
+                  to root account after failed attempt. If this option is used
                   the root user will be locked out for the specified amount of
                   time after he exceeded his maximum allowed attempts.
                 </para>
@@ -301,7 +301,7 @@
           <para>
             Account phase resets attempts counter if the user is
             <emphasis remap='B'>not</emphasis> magic root.
-            This phase can be used optionaly for services which don't call
+            This phase can be used optionally for services which don't call
             <citerefentry>
 	      <refentrytitle>pam_setcred</refentrytitle><manvolnum>3</manvolnum>
             </citerefentry> correctly or if the reset should be done regardless
@@ -315,7 +315,7 @@
               <listitem>
                 <para>
                   If the module is invoked by a user with uid=0 the
-                  counter is not changed. The sys-admin should use this
+                  counter is not changed. The sysadmin should use this
                   for user launched services, like <command>su</command>,
                   otherwise this argument should be omitted.
                 </para>
@@ -343,7 +343,7 @@
         <listitem>
           <para>
             A invalid option was given, the module was not able
-            to retrive the user name, no valid counter file
+            to retrieve the user name, no valid counter file
             was found, or too many failed logins.
           </para>
         </listitem>
@@ -352,7 +352,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
           <para>
-            Everything was successfull.
+            Everything was successful.
           </para>
         </listitem>
       </varlistentry>

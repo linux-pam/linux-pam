@@ -162,7 +162,7 @@
         <listitem>
           <para>
             Use the sensitivity level of the current process for the user context
-            instead of the default level. Also supresses asking of the
+            instead of the default level. Also suppresses asking of the
             sensitivity level from the user or obtaining it from PAM environment.
           </para>
         </listitem>
@@ -192,7 +192,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
           <para>
-            The security context was set successfull.
+            The security context was set successfully.
           </para>
         </listitem>
       </varlistentry>

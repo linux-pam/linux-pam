@@ -84,7 +84,7 @@
         <listitem>
           <para>
             Don't inform the user about any previous login,
-            just upate the <filename>/var/log/lastlog</filename> file.
+            just update the <filename>/var/log/lastlog</filename> file.
           </para>
         </listitem>
       </varlistentry>
@@ -184,7 +184,7 @@
           <term>PAM_SUCCESS</term>
           <listitem>
             <para>
-              Everything was successfull.
+              Everything was successful.
             </para>
           </listitem>
         </varlistentry>

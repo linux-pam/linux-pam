@@ -458,7 +458,7 @@
           <term>PAM_SERVICE_ERR</term>
           <listitem>
             <para>
-              A internal error occured.
+              A internal error occurred.
             </para>
           </listitem>
         </varlistentry>

@@ -104,7 +104,7 @@ file as grounds for succeeding.
         <term>PAM_AUTH_ERR</term>
         <listitem>
           <para>
-            The module was not able to retrive the user name or
+            The module was not able to retrieve the user name or
             no valid timestamp file was found.
           </para>
         </listitem>
@@ -113,7 +113,7 @@ file as grounds for succeeding.
         <term>PAM_SUCCESS</term>
         <listitem>
           <para>
-            Everything was successfull.
+            Everything was successful.
           </para>
         </listitem>
       </varlistentry>

@@ -157,7 +157,7 @@
           <term>PAM_SUCCESS</term>
           <listitem>
             <para>
-              The new umask was set successfull.
+              The new umask was set successfully.
             </para>
           </listitem>
         </varlistentry>

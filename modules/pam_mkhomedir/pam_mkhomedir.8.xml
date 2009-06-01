@@ -44,7 +44,7 @@
       without using a distributed file system or pre-creating a large
       number of directories. The skeleton directory (usually
       <filename>/etc/skel/</filename>) is used to copy default files
-      and also set's a umask for the creation.
+      and also sets a umask for the creation.
     </para>
     <para>
       The new users home directory will not be removed after logout

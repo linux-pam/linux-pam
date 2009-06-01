@@ -47,7 +47,7 @@
 	    For each user matching one of comma-separated glob
 	    <option><replaceable>patterns</replaceable></option>, disable
 	    TTY auditing.  This overrides any previous <option>enable</option>
-	    option matchin the same user name on the command line.
+	    option matching the same user name on the command line.
           </para>
         </listitem>
       </varlistentry>

@@ -180,7 +180,7 @@
           <term>PAM_SERVICE_ERR</term>
           <listitem>
             <para>
-	      A service module error occured.
+	      A service module error occurred.
             </para>
           </listitem>
         </varlistentry>
@@ -189,7 +189,7 @@
           <term>PAM_SUCCESS</term>
           <listitem>
             <para>
-              The new prompt was set successfull.
+              The new prompt was set successfully.
             </para>
           </listitem>
         </varlistentry>

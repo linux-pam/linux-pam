@@ -43,7 +43,7 @@
       Without pam_xauth, when xauth is enabled and a user uses the
        <citerefentry>
         <refentrytitle>su</refentrytitle><manvolnum>1</manvolnum>
-      </citerefentry> command to assume another user's priviledges,
+      </citerefentry> command to assume another user's privileges,
       that user is no longer able to access the original user's X display
       because the new user does not have the key needed to access the
       display. pam_xauth solves the problem by forwarding the key from
@@ -55,7 +55,7 @@
       This means, for example, that when you run
        <citerefentry>
         <refentrytitle>su</refentrytitle><manvolnum>1</manvolnum>
-      </citerefentry> from an xterm sesssion, you will be able to run
+      </citerefentry> from an xterm session, you will be able to run
       X programs without explicitly dealing with the
       <citerefentry>
         <refentrytitle>xauth</refentrytitle><manvolnum>1</manvolnum>

@@ -1,3 +1,36 @@
+2009-06-01  Ville Skyttä <ville.skytta@iki.fi>
+
+	* modules/pam_limits/pam_limits.8.xml: Only *.conf
+	files are parsed. Spelling fixes.
+	* modules/pam_access/pam_access.8.xml: Spelling fixes.
+	* modules/pam_cracklib/pam_cracklib.8.xml: Likewise.
+	* modules/pam_echo/pam_echo.8.xml: Likewise.
+	* modules/pam_env/pam_env.8.xml: Likewise.
+	* modules/pam_exec/pam_exec.8.xml: Likewise.
+	* modules/pam_filter/pam_filter.8.xml: Likewise.
+	* modules/pam_ftp/pam_ftp.8.xml: Likewise.
+	* modules/pam_group/pam_group.8.xml: Likewise.
+	* modules/pam_issue/pam_issue.8.xml: Likewise.
+	* modules/pam_lastlog/pam_lastlog.8.xml: Likewise.
+	* modules/pam_listfile/pam_listfile.8.xml: Likewise.
+	* modules/pam_localuser/pam_localuser.8.xml: Likewise.
+	* modules/pam_loginuid/pam_loginuid.8.xml: Likewise.
+	* modules/pam_mkhomedir/pam_mkhomedir.8.xml: Likewise.
+	* modules/pam_motd/pam_motd.8.xml: Likewise.
+	* modules/pam_namespace/pam_namespace.8.xml: Likewise.
+	* modules/pam_pwhistory/pam_pwhistory.8.xml: Likewise.
+	* modules/pam_selinux/pam_selinux.8.xml: Likewise.
+	* modules/pam_succeed_if/pam_succeed_if.8.xml: Likewise.
+	* modules/pam_tally/pam_tally.8.xml: Likewise.
+	* modules/pam_tally2/pam_tally2.8.xml: Likewise.
+	* modules/pam_time/pam_time.8.xml: Likewise.
+	* modules/pam_timestamp/pam_timestamp.8.xml: Likewise.
+	* modules/pam_timestamp/pam_timestamp_check.8.xml: Likewise.
+	* modules/pam_tty_audit/pam_tty_audit.8.xml: Likewise.
+	* modules/pam_umask/pam_umask.8.xml: Likewise.
+	* modules/pam_unix/pam_unix.8.xml: Likewise.
+	* modules/pam_xauth/pam_xauth.8.xml: Likewise.
+
 2009-05-28  Jaswinder Singh <jsingh@redhat.com>
 
 	* po/pa.po: Updated translations.

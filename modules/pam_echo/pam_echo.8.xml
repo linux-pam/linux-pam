@@ -141,7 +141,7 @@
     <title>EXAMPLES</title>
     <para>
       For an example of the use of this module, we show how it may be
-      used to print informations about good passwords:
+      used to print information about good passwords:
       <programlisting>
 password optional pam_echo.so file=/usr/share/doc/good-password.txt
 password required pam_unix.so

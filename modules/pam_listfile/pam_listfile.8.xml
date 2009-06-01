@@ -129,7 +129,7 @@
           <listitem>
             <para>
               File containing one item per line. The file needs to be a plain
-              file and not world writeable.
+              file and not world writable.
             </para>
           </listitem>
 	</varlistentry>

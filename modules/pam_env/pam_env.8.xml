@@ -90,7 +90,7 @@
         </term>
         <listitem>
           <para>
-            A lot of debug informations are printed with
+            A lot of debug information is printed with
             <citerefentry><refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
           </para>
         </listitem>
@@ -130,7 +130,7 @@
           <para>
             Indicate an alternative <filename>.pam_environment</filename>
             file to override the default. This can be useful when different
-            services need different environments. The filename is relativ to
+            services need different environments. The filename is relative to
             the user home directory.
           </para>
         </listitem>

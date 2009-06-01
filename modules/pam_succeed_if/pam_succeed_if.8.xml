@@ -249,7 +249,7 @@
           <term>PAM_SERVICE_ERR</term>
           <listitem>
             <para>
-              A service error occured or the arguments can't be
+              A service error occurred or the arguments can't be
               parsed correctly.
             </para>
           </listitem>

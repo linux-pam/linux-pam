@@ -72,7 +72,7 @@
           <term>PAM_SESSION_ERR</term>
           <listitem>
             <para>
-              An error occured during session management.
+              An error occurred during session management.
             </para>
           </listitem>
         </varlistentry>

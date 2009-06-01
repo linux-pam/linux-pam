@@ -97,7 +97,7 @@
           <term>PAM_SUCCESS</term>
           <listitem>
             <para>
-              The new localuser was set successfull.
+              The new localuser was set successfully.
             </para>
           </listitem>
         </varlistentry>

@@ -161,7 +161,7 @@
           <term>PAM_SUCCESS</term>
           <listitem>
             <para>
-              The external command runs successfull.
+              The external command was run successfully.
             </para>
           </listitem>
         </varlistentry>
@@ -179,7 +179,7 @@
           <term>PAM_SYSTEM_ERR</term>
           <listitem>
             <para>
-	      A system error occured or the command to execute failed.
+	      A system error occurred or the command to execute failed.
             </para>
           </listitem>
         </varlistentry>
