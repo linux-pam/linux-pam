@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pam.tip.pa\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2009-05-05 14:52+0200\n"
-"PO-Revision-Date: 2009-05-28 13:59+0530\n"
+"PO-Revision-Date: 2009-06-01 16:19+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <Punjabi-users@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "...ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਰਿਹਾ ਹੈ...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "...ਅਫ਼ਸੋਸ, ਤੁਹਾਡਾ ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਗਿਆ ਹੈ!\n"
+msgstr "...ਅਫਸੋਸ, ਤੁਹਾਡਾ ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਗਿਆ ਹੈ!\n"
 
 #: libpam_misc/misc_conv.c:342
 #, c-format
@@ -57,7 +57,7 @@ msgstr "ਮੁੜ-ਲਿਖੋ %s"
 
 #: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
-msgstr "ਪਾਸਵਰਡ ਤਬਦੀਲ ਅਧੂਰੀ ਛੱਡੀ ਗਈ।"
+msgstr "ਪਾਸਵਰਡ ਤਬਦੀਲੀ ਅਧੂਰੀ ਛੱਡੀ ਗਈ।"
 
 #: libpam/pam_item.c:310
 msgid "login:"
