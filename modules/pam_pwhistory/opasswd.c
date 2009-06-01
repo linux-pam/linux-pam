@@ -244,7 +244,8 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
     {
       pam_syslog (pamh, LOG_ERR, "Cannot create %s temp file: %m",
 		  OLD_PASSWORDS_FILE);
-      fclose (oldpf);
+      if (oldpf)
+	fclose (oldpf);
       return PAM_AUTHTOK_ERR;
     }
   if (do_create)
@@ -273,7 +274,8 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
   if (newpf == NULL)
     {
       pam_syslog (pamh, LOG_ERR, "Cannot fdopen %s: %m", opasswd_tmp);
-      fclose (oldpf);
+      if (oldpf)
+	fclose (oldpf);
       close (newpf_fd);
       retval = PAM_AUTHTOK_ERR;
       goto error_opasswd;
