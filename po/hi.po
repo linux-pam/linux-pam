@@ -1,27 +1,28 @@
-# translation of hi.po to Hindi
+# translation of pam.tip.po to Hindi
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Rajesh Ranjan <rranjan@redhat.com>, 2007.
+# Rajesh Ranjan <rajesh672@gmail.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: hi\n"
+"Project-Id-Version: pam.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2009-05-05 14:52+0200\n"
-"PO-Revision-Date: 2007-06-21 15:22+0530\n"
-"Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
+"PO-Revision-Date: 2009-06-08 12:22+0530\n"
+"Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
-msgstr "...समय बीत रहा है...\n"
+msgstr "...समय समाप्त हो रहा है...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
@@ -52,14 +53,13 @@ msgid "Sorry, passwords do not match."
 msgstr "क्षमा करें, शब्दकूट नहीं मिलते हैं."
 
 #: libpam/pam_get_authtok.c:127
-#, fuzzy, c-format
+#, c-format
 msgid "Retype %s"
-msgstr "प्रकार: "
+msgstr "फिर टाइप करें %s"
 
 #: libpam/pam_get_authtok.c:146
-#, fuzzy
 msgid "Password change aborted."
-msgstr "शब्दकूट परिवर्तित"
+msgstr "कूटशब्द परिवर्तन छोड़ा गया."
 
 #: libpam/pam_item.c:310
 msgid "login:"
@@ -223,15 +223,15 @@ msgstr "घुमाया गया है"
 
 #: modules/pam_cracklib/pam_cracklib.c:519
 msgid "not enough character classes"
-msgstr ""
+msgstr "पर्याप्त वर्ण वर्ग नहीं"
 
 #: modules/pam_cracklib/pam_cracklib.c:522
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "कई समान वर्ण लगातार  समाहित करता है"
 
 #: modules/pam_cracklib/pam_cracklib.c:525
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "कुछ रूप में उपयोक्ता नाम समाहित करता है"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:454
@@ -293,23 +293,22 @@ msgstr "नए खाता में आपका स्वागत है!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "अंतिम लॉगिन:%s%s%s"
+msgstr "अंतिम लॉगिन विफल:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-msgstr[1] ""
+msgid_plural "There were %d failed login attempts since the last successful login."
+msgstr[0] "%d विफल लॉगिन प्रयास था अंतिम सफल लॉगिन के बाद."
+msgstr[1] "%d विफल लॉगिन प्रयास थे अंतिम सफल लॉगिन के बाद."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
+msgstr "%d विफल लॉगिन प्रयास थे अंतिम सफल लॉगिन के बाद."
 
 #: modules/pam_limits/pam_limits.c:786
 #, c-format
@@ -355,12 +354,12 @@ msgstr "आपके लिए %s फोल्डर में मेल है.
 #: modules/pam_mkhomedir/pam_mkhomedir.c:113
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "निर्देशिका '%s' बना रहा है."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:183
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr ""
+msgstr "निर्देशिका '%s' बनाने और आरंभ करने में असमर्थ."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:475
@@ -368,17 +367,14 @@ msgid "Password has been already used. Choose another."
 msgstr "शब्दकूट को पहले ही बदला जा चुका है. दूसरा चुनें."
 
 #: modules/pam_selinux/pam_selinux.c:172
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "क्या आप सुरक्षा संदर्भ डालना चाहेंगे? [y] "
+msgstr "क्या आप सुरक्षा संदर्भ दाखिल करना चाहते हैं? [N] "
 
 #: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
-#, fuzzy
 msgid "role:"
 msgstr "भूमिका: "
 
 #: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
-#, fuzzy
 msgid "level:"
 msgstr "स्तर: "
 
@@ -387,24 +383,23 @@ msgid "Not a valid security context"
 msgstr "एक वैध सुरक्षा संदर्भ नहीं"
 
 #: modules/pam_selinux/pam_selinux.c:265
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "सुरक्षा संदर्भ %s नियत"
+msgstr "तयशुदा सुरक्षा संदर्भ %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:269
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "क्या आप सुरक्षा संदर्भ डालना चाहेंगे? [y] "
+msgstr "क्या आप भिन्न भूमिका या स्तर दाखिल करना चाहेंगे?"
 
 #: modules/pam_selinux/pam_selinux.c:285
 #, c-format
 msgid "No default type for role %s\n"
-msgstr ""
+msgstr "भूमिका %s के लिए कोई तयशुदा प्रकार नहीं\n"
 
 #: modules/pam_selinux/pam_selinux.c:677
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "%s के लिए वैध संदर्भ पाने में असमर्थ"
 
 #: modules/pam_selinux/pam_selinux.c:728
 #, c-format
@@ -412,9 +407,9 @@ msgid "Security Context %s Assigned"
 msgstr "सुरक्षा संदर्भ %s नियत"
 
 #: modules/pam_selinux/pam_selinux.c:749
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "सुरक्षा संदर्भ %s नियत"
+msgstr "कुंजी निर्माण संदर्भ %s नियत"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -432,9 +427,9 @@ msgid "login: failure forking: %m"
 msgstr "लॉगिन: विफल फोर्किंग: %m"
 
 #: modules/pam_stress/pam_stress.c:475
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "इसके लिए स्ट्रेस शब्दकूट बदल रहा है "
+msgstr "STRESS कूटशब्द को %s के लिए बदल रहा है."
 
 #: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
@@ -451,12 +446,12 @@ msgstr "जांच गलत टाइप किया गया; शब्द
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr ""
+msgstr "खाता अस्थायी रूप से लॉक (%ld seconds left)"
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
+msgstr "खाता %u विफल लॉगिन के कारण लॉक"
 
 #: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
 msgid "Authentication error"
@@ -486,10 +481,8 @@ msgstr "%s: अपरिचित विकल्प %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -499,21 +492,23 @@ msgstr "%s: सभी उपयोक्ता को गैर शून्य 
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr ""
+msgstr "Login           Failures Latest failure     From\n"
 
 #: modules/pam_tally2/pam_tally2.c:953
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+"%s: [-f rooted-filename] [--file rooted-filename]\n"
+"   [-u username] [--user username]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "पहुँच दिया गया (last access was %ld seconds ago)."
 
 #: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
@@ -549,9 +544,9 @@ msgid "You must choose a longer password"
 msgstr "आपको जरूर एक लंबा शब्दकूट चुनना चाहिए"
 
 #: modules/pam_unix/pam_unix_passwd.c:576
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "इसके लिए स्ट्रेस शब्दकूट बदल रहा है "
+msgstr "%s के लिए कूटशब्द बदल रहा है"
 
 #: modules/pam_unix/pam_unix_passwd.c:587
 msgid "(current) UNIX password: "
@@ -569,19 +564,3 @@ msgstr "नया UNIX शब्दकूट दें: "
 msgid "Retype new UNIX password: "
 msgstr "नया UNIX शब्दकूट फिर टाइप करें: "
 
-#~ msgid "has been already used"
-#~ msgstr "को पहले से प्रयोग किया गया है"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "शब्दकूट को पहले ही बदला जा चुका है. दूसरा चुनें."
-
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "आपका मूलभूत संदर्भ %s है. \n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "क्या आप एक भिन्न चुनना चाहते हैं? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "पसंद की संख्या दें: "
