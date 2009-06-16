@@ -23,7 +23,7 @@
         about the <emphasis remap='B'>Linux-PAM</emphasis> library. It
         describes how an application might use the
         <emphasis remap='B'>Linux-PAM</emphasis> library to authenticate
-        users. In addition it contains a description of the funtions
+        users. In addition it contains a description of the functions
         to be found in <filename>libpam_misc</filename> library, that can
         be used in general applications. Finally, it contains some comments
         on PAM related security issues for the application developer.
@@ -380,7 +380,7 @@ cc -o application .... -lpam -lpam_misc
       </para>
     </section>
 
-    <section id="adg-security-usre-identity">
+    <section id="adg-security-user-identity">
       <title>The identity of the user</title>
       <para>
         The <emphasis remap='B'>Linux-PAM</emphasis> modules will need
@@ -395,9 +395,9 @@ cc -o application .... -lpam -lpam_misc
         issue of security. One convention that is actively used by
         some modules is that the identity of the user requesting a
         service should be the current <emphasis>UID</emphasis>
-        (userid) of the running process; the identity of the
+        (user ID) of the running process; the identity of the
         privilege granting user is the <emphasis>EUID</emphasis>
-        (effective userid) of the running process; the identity of
+        (effective user ID) of the running process; the identity of
         the user, under whose name the service will be executed, is
         given by the contents of the <emphasis>PAM_USER</emphasis>
         <citerefentry>
@@ -459,7 +459,7 @@ cc -o application .... -lpam -lpam_misc
         This is also true of conversation prompts. The application should not
         accept prompts of arbitrary length with out checking for resource
         allocation failure and dealing with such extreme conditions gracefully
-        and in a mannor that preserves the PAM API. Such tolerance may be
+        and in a manner that preserves the PAM API. Such tolerance may be
         especially important when attempting to track a malicious adversary.
       </para>
     </section>
@@ -470,7 +470,7 @@ cc -o application .... -lpam -lpam_misc
     <para>
       To aid the work of the application developer a library of
       miscellaneous functions is provided.  It is called
-      <command>libpam_miscy</command>, and contains a text based
+      <command>libpam_misc</command>, and contains a text based
       conversation function, and routines for enhancing the standard
       PAM-environment variable support.
     </para>
@@ -520,8 +520,9 @@ cc -o application .... -lpam -lpam_misc
       being be attached to it. The point being that the "standard"
       pop-authentication protocol(s) [which will be needed to satisfy
       inflexible/legacy clients] would be supported by inserting an
-      appropriate pam_qpopper module(s).  However, having rewritten popd
-      once in this way any new protocols can be implemented in-situ.
+      appropriate pam_qpopper module(s).  However, having rewritten
+      <command>popd</command> once in this way any new protocols can be
+      implemented in-situ.
     </para>
     <para>
       One simple test of a ported application would be to insert the
@@ -558,7 +559,7 @@ cc -o application .... -lpam -lpam_misc
             him/herself in a variety of ways. Updating the user's
             authentication token thus corresponds to
             <emphasis>refreshing</emphasis> the object they use to
-            authenticate themself with the system. The word password is
+            authenticate them self with the system. The word password is
             avoided to keep open the possibility that the authentication
             involves a retinal scan or other non-textual mode of
             challenge/response.

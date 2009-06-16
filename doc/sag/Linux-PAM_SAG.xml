@@ -27,7 +27,7 @@
     </abstract>
   </bookinfo>
 
-  <chapter id='sag-introductoin'>
+  <chapter id='sag-introduction'>
     <title>Introduction</title>
     <para>
       <emphasis remap='B'>Linux-PAM</emphasis> (Pluggable Authentication
@@ -85,7 +85,7 @@
       here for locating these files are those of the relevant RFC (RFC-86.0,
       see <link linkend="sag-see-also">bibliography"</link>). If you are
       using a distribution of Linux (or some other operating system) that
-      supports PAM but chooses to distribute these files in a diferent way
+      supports PAM but chooses to distribute these files in a different way
       you should be careful when copying examples directly from the text.
     </para>
     <para>
@@ -210,7 +210,7 @@
       If a program is going to use PAM, then it has to have PAM
       functions explicitly coded into the program. If you have
       access to the source code you can add the appropriate PAM
-      functions. If you do not have accessto the source code, and
+      functions. If you do not have access to the source code, and
       the binary does not have the PAM functions included, then
       it is not possible to use PAM.
     </para>
@@ -227,7 +227,7 @@
         href="../man/pam.conf-syntax.xml"
         xpointer='xpointer(//section[@id = "pam.conf-syntax"]/*)' />
      </section>
-     <section id='sag-configuratin-dirctory'>
+     <section id='sag-configuration-directory'>
        <title>Directory based configuration</title>
        <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
         href="../man/pam.conf-dir.xml"
@@ -333,7 +333,7 @@ session  required       pam_unix.so
 
   <chapter id='sag-security-issues'>
     <title>Security issues</title>
-    <section id='sag-scurity-issues-wrong'>
+    <section id='sag-security-issues-wrong'>
       <title>If something goes wrong</title>
       <para>
         <emphasis remap='B'>Linux-PAM</emphasis> has the potential
@@ -341,7 +341,7 @@ session  required       pam_unix.so
         choose to have no security or absolute security (no access
         permitted). In general, <emphasis remap='B'>Linux-PAM</emphasis>
         errs towards the latter. Any number of configuration errors
-        can dissable access to your system partially, or completely.
+        can disable access to your system partially, or completely.
       </para>
       <para>
         The most dramatic problem that is likely to be encountered when

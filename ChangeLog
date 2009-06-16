@@ -1,3 +1,9 @@
+2009-06-16  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/sag/Linux-PAM_SAG.xml: Fix typos.
+	* doc/adg/Linux-PAM_ADG.xml: Likewise.
+	* doc/mwg/Linux-PAM_MWG.xml: Likewise.
+
 2009-06-08  Rajesh Ranjan <rajesh672@gmail.com>
 
 	* po/hi.po: Updated translations.

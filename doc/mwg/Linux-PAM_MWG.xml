@@ -71,7 +71,7 @@
       </para>
     </section>
 
-    <section id="mwg-introducton-synopsis">
+    <section id="mwg-introduction-synopsis">
       <title>Synopsis</title>
       <programlisting>
 #include &lt;security/pam_modules.h&gt;
@@ -97,7 +97,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
         First, we cover what the module should expect from the
         <emphasis remap='B'>Linux-PAM</emphasis> library and a
         <emphasis remap='B'>Linux-PAM</emphasis> aware application.
-        Essesntially this is the <filename>libpam.*</filename> library.
+        Essentially this is the <filename>libpam.*</filename> library.
       </para>
       <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
        href="pam_set_data.xml"/>
@@ -169,7 +169,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
           token of some lesser user. In other cases it may not be
           appropriate: when <command>joe</command> maliciously wants
           to reset <command>alice</command>'s password; or when anyone
-          other than the user themself wishes to reset their
+          other than the user them self wishes to reset their
           <emphasis>KERBEROS</emphasis> authentication token. A policy
           for this action should be defined by any reasonable
           authentication scheme, the module writer should consider
