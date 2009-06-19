@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip.ml\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-03-25 11:53+0100\n"
+"POT-Creation-Date: 2009-06-16 10:39+0200\n"
 "PO-Revision-Date: 2009-05-06 13:03+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -232,12 +232,12 @@ msgid "contains the user name in some form"
 msgstr "ഉപയോക്താവിന്റെ നാമം ഏതെങ്കിലും ഒരു തരത്തിലുണ്ടു്"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:454
+#: modules/pam_unix/pam_unix_passwd.c:448
 msgid "No password supplied"
 msgstr "പാസ്‌വേറ്‍ഡ് നല്‍കിയിട്ടില്ല"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:454
+#: modules/pam_unix/pam_unix_passwd.c:448
 msgid "Password unchanged"
 msgstr "പാസ്‌വേറ്‍ഡ് മാറ്റിയിട്ടില്ല"
 
@@ -298,7 +298,8 @@ msgstr "അവസാനം ലോഗിന്‍ ചെയ്തതു് പര
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural "There were %d failed login attempts since the last successful login."
+msgid_plural ""
+"There were %d failed login attempts since the last successful login."
 msgstr[0] "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
 msgstr[1] "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
 
@@ -360,7 +361,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "%s ഡയറക്ടറി ഉണ്ടാക്കുവാനും ആരംഭിക്കുവാനും സാധ്യമായില്ല."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:475
+#: modules/pam_unix/pam_unix_passwd.c:469
 msgid "Password has been already used. Choose another."
 msgstr "പാസ്‌വേറ്‍ഡ് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
 
@@ -479,8 +480,10 @@ msgstr "%s: Unrecognised ഉപാധി %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -508,21 +511,21 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "അനുവാദം നല്‍കിയിരിക്കുന്നു (ഒടുവില്‍ പ്രവേശിച്ചതു് %ld സെക്കന്‍ഡുകള്‍ക്കു് മുമ്പാണു്)."
 
-#: modules/pam_unix/pam_unix_acct.c:235 modules/pam_unix/pam_unix_acct.c:257
+#: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "നിങ്ങളുടെ അക്കൌണ്ടിന്‍റെ കാലാവധി അവസാനിച്ചിരിക്കുന്നു; ദയവായി സിസ്റ്റം അഡ്മിനിസ്ട്രേറ്ററുമായി "
 "ബന്ധപ്പെടുക"
 
-#: modules/pam_unix/pam_unix_acct.c:243
+#: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "നിങ്ങളുടെ പാസ്‌വേറ്‍ഡ് ഉടനെ മാറ്റേണ്ടതുണ്ട് (root enforced)"
 
-#: modules/pam_unix/pam_unix_acct.c:249
+#: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
 msgstr "നിങ്ങളുടെ പാസ്‌വേറ്‍ഡ് ഉടനെ മാറ്റേണ്ടതുണ്ട് (പാസ്‌വേറ്‍ഡ് മാറ്റുന്നതിന് സമയമായി)"
 
-#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
+#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -530,37 +533,36 @@ msgstr[0] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ 
 msgstr[1] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ പാസ്‌വേറ്‍ഡിന്‍റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:282
+#: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "മുന്നറിയിപ്പ്: നിങ്ങളുടെ പാസ്‌വേറ്‍ഡിന്‍റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
 
-#: modules/pam_unix/pam_unix_passwd.c:364
+#: modules/pam_unix/pam_unix_passwd.c:358
 msgid "NIS password could not be changed."
 msgstr "NIS പാസ്‌വേറ്‍ഡ് മാറ്റുവാന്‍ സാധ്യമാകുന്നില്ല."
 
-#: modules/pam_unix/pam_unix_passwd.c:471
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "You must choose a longer password"
 msgstr "ഇതിലും വലിയ പാസ്‌വേറ്‍ഡ് തിരഞ്ഞെടുക്കുക"
 
-#: modules/pam_unix/pam_unix_passwd.c:576
+#: modules/pam_unix/pam_unix_passwd.c:570
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s-നുളള അടയാളവാക്ക് മാറ്റുന്നു."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:581
 msgid "(current) UNIX password: "
 msgstr "(നിലവിലുളളത്) UNIX പാസ്‌വേറ്‍ഡ്: "
 
-#: modules/pam_unix/pam_unix_passwd.c:622
+#: modules/pam_unix/pam_unix_passwd.c:616
 msgid "You must wait longer to change your password"
 msgstr "നിങ്ങളുടെ പാസ്‌വേറ്‍ഡ് മാറ്റുന്നതിനായി ഇനിയും കാത്തിരിക്കേണ്ടതാണ്."
 
-#: modules/pam_unix/pam_unix_passwd.c:682
+#: modules/pam_unix/pam_unix_passwd.c:676
 msgid "Enter new UNIX password: "
 msgstr "പുതിയ UNIX പാസ്‌വേറ്‍ഡ് നല്‍കുക: "
 
-#: modules/pam_unix/pam_unix_passwd.c:683
+#: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Retype new UNIX password: "
 msgstr "പുതിയ UNIX പാസ്‌വേറ്‍ഡ് വീണ്ടും ടൈപ്പ് ചെയ്യുക: "
-

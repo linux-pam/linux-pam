@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-05-05 14:52+0200\n"
+"POT-Creation-Date: 2009-06-16 10:39+0200\n"
 "PO-Revision-Date: 2009-05-18 16:10+0200\n"
 "Last-Translator: Albert Carabasa Giribet <albertc@asic.udl.cat>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
@@ -113,7 +113,8 @@ msgstr "Error d'autenticació"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr "No teniu suficients credencials per a accedir a les dades d'autenticació"
+msgstr ""
+"No teniu suficients credencials per a accedir a les dades d'autenticació"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
@@ -244,12 +245,12 @@ msgid "contains the user name in some form"
 msgstr "conté el nom d'usuari d'alguna forma"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:454
+#: modules/pam_unix/pam_unix_passwd.c:448
 msgid "No password supplied"
 msgstr "No s'ha proporcionat cap contrasenya"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:454
+#: modules/pam_unix/pam_unix_passwd.c:448
 msgid "Password unchanged"
 msgstr "No s'ha canviat la contrasenya"
 
@@ -313,8 +314,7 @@ msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
 msgstr[0] "S'ha intentat entrar %d cop des de l'última entrada correcta."
-msgstr[1] ""
-"S'ha intentat entrar %d cops des de l'última entrada correcta."
+msgstr[1] "S'ha intentat entrar %d cops des de l'última entrada correcta."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
@@ -368,13 +368,14 @@ msgstr "Teniu correu a la carpeta %s."
 msgid "Creating directory '%s'."
 msgstr "Creant el directori '%s'."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:183
 # c-format
+#: modules/pam_mkhomedir/pam_mkhomedir.c:183
+#, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "No s'ha pogut crear i inicialitzar el directori '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:475
+#: modules/pam_unix/pam_unix_passwd.c:469
 msgid "Password has been already used. Choose another."
 msgstr "Aquesta contrasenya ja s'ha fet servir. Trieu-ne una altra."
 
@@ -453,7 +454,8 @@ msgstr "Torneu a escriure la nova contrasenya d'STRESS: "
 
 #: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
-msgstr "Error d'escriptura durant la verificació; no s'ha canviat la contrasenya"
+msgstr ""
+"Error d'escriptura durant la verificació; no s'ha canviat la contrasenya"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
@@ -463,7 +465,8 @@ msgstr "Compte bloquejat temporalment (queden %ld segons)"
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr "El compte ha estat bloquejat ja que s'ha intentat entrar %u cops sense èxit"
+msgstr ""
+"El compte ha estat bloquejat ja que s'ha intentat entrar %u cops sense èxit"
 
 #: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
 msgid "Authentication error"
@@ -501,7 +504,8 @@ msgstr ""
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: no es poden restablir tots els usuaris a un valor diferent de zero\n"
+msgstr ""
+"%s: no es poden restablir tots els usuaris a un valor diferent de zero\n"
 
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
@@ -530,7 +534,8 @@ msgstr "El vostre compte ha caducat. Contacteu amb l'administrador del sistema"
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Heu de canviar la contrasenya immediatament (us hi obliga l'administrador)"
+msgstr ""
+"Heu de canviar la contrasenya immediatament (us hi obliga l'administrador)"
 
 #: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
@@ -549,32 +554,32 @@ msgstr[1] "Atenció: la contrasenya venç d'aquí a %d dies"
 msgid "Warning: your password will expire in %d days"
 msgstr "Atenció: la contrasenya venç d'aquí a %d dies"
 
-#: modules/pam_unix/pam_unix_passwd.c:364
+#: modules/pam_unix/pam_unix_passwd.c:358
 msgid "NIS password could not be changed."
 msgstr "No s'ha pogut canviar la contrasenya NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:471
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "You must choose a longer password"
 msgstr "Heu de triar una contrasenya més llarga"
 
-#: modules/pam_unix/pam_unix_passwd.c:576
+#: modules/pam_unix/pam_unix_passwd.c:570
 #, c-format
 msgid "Changing password for %s."
 msgstr "S'està canviant la contrasenya de %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:581
 msgid "(current) UNIX password: "
 msgstr "contrasenya (actual) d'UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:622
+#: modules/pam_unix/pam_unix_passwd.c:616
 msgid "You must wait longer to change your password"
 msgstr "Heu d'esperar més temps abans de canviar la contrasenya"
 
-#: modules/pam_unix/pam_unix_passwd.c:682
+#: modules/pam_unix/pam_unix_passwd.c:676
 msgid "Enter new UNIX password: "
 msgstr "Introduïu la nova contrasenya d'UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:683
+#: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Retype new UNIX password: "
 msgstr "Torneu a escriure la nova contrasenya d'UNIX: "
 

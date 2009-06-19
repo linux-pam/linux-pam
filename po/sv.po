@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-05-05 14:52+0200\n"
+"POT-Creation-Date: 2009-06-16 10:39+0200\n"
 "PO-Revision-Date: 2009-02-11 12:22+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -231,12 +231,12 @@ msgid "contains the user name in some form"
 msgstr "innehåller användarnamnet i någon form"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:454
+#: modules/pam_unix/pam_unix_passwd.c:448
 msgid "No password supplied"
 msgstr "Inget lösenord angivet"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:454
+#: modules/pam_unix/pam_unix_passwd.c:448
 msgid "Password unchanged"
 msgstr "Oförändrat lösenord"
 
@@ -366,7 +366,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Kan inte skapa katalogen %s: %m"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:475
+#: modules/pam_unix/pam_unix_passwd.c:469
 msgid "Password has been already used. Choose another."
 msgstr "Lösenordet har redan används. Välj ett annat."
 
@@ -539,32 +539,32 @@ msgstr[1] "Varning: ditt lösenord går ut om %d dagar"
 msgid "Warning: your password will expire in %d days"
 msgstr "Varning: ditt lösenord går ut om %d dagar"
 
-#: modules/pam_unix/pam_unix_passwd.c:364
+#: modules/pam_unix/pam_unix_passwd.c:358
 msgid "NIS password could not be changed."
 msgstr "NIS-lösenord kunde inte ändras."
 
-#: modules/pam_unix/pam_unix_passwd.c:471
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "You must choose a longer password"
 msgstr "Du måste välja ett längre lösenord"
 
-#: modules/pam_unix/pam_unix_passwd.c:576
+#: modules/pam_unix/pam_unix_passwd.c:570
 #, c-format
 msgid "Changing password for %s."
 msgstr "Ändrar lösenord för %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:581
 msgid "(current) UNIX password: "
 msgstr "(nuvarande) UNIX-lösenord: "
 
-#: modules/pam_unix/pam_unix_passwd.c:622
+#: modules/pam_unix/pam_unix_passwd.c:616
 msgid "You must wait longer to change your password"
 msgstr "Du måste vänta längre innan du kan ändra lösenord"
 
-#: modules/pam_unix/pam_unix_passwd.c:682
+#: modules/pam_unix/pam_unix_passwd.c:676
 msgid "Enter new UNIX password: "
 msgstr "Ange nytt UNIX-lösenord: "
 
-#: modules/pam_unix/pam_unix_passwd.c:683
+#: modules/pam_unix/pam_unix_passwd.c:677
 msgid "Retype new UNIX password: "
 msgstr "Ange nytt UNIX-lösenord igen: "
 
