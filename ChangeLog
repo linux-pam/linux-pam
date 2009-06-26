@@ -1,3 +1,8 @@
+2009-06-26  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_lastlog/pam_lastlog.c (last_login_failed): Fix
+	usage of wrong variable [bug#2809661].
+
 2009-06-25  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Rename crypt_gensalt_rn to crypt_gensalt_r

@@ -454,7 +454,7 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 		goto cleanup;
 	    }
 	}
-	
+
 	if (line != NULL || date != NULL || host != NULL) {
 	    /* TRANSLATORS: "Last failed login: <date> from <host> on <terminal>" */
 	    pam_info(pamh, _("Last failed login:%s%s%s"),
@@ -471,7 +471,7 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 		failed),
 	    failed);
 #else
-	if (daysleft == 1)
+	if (failed == 1)
 	    retval = asprintf(&line,
 		_("There was %d failed login attempt since the last successful login."),
 		failed);
