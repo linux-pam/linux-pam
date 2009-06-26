@@ -1,5 +1,8 @@
 2009-06-26  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_unix/pam_unix_passwd.c: Remove dead SELinux
+	code.
+
 	* modules/pam_lastlog/pam_lastlog.c (last_login_failed): Fix
 	usage of wrong variable [bug#2809661].
 

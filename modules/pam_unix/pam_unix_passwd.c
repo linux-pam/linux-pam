@@ -1,7 +1,7 @@
 /*
  * Main coding by Elliot Lee <sopwith@redhat.com>, Red Hat Software.
  * Copyright (C) 1996.
- * Copyright (c) Jan Rêkorajski, 1999.
+ * Copyright (c) Jan RÃªkorajski, 1999.
  * Copyright (c) Red Hat, Inc., 2007, 2008.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,11 +61,6 @@
 #include <signal.h>
 #include <errno.h>
 #include <sys/wait.h>
-#ifdef WITH_SELINUX
-static int selinux_enabled=-1;
-#include <selinux/selinux.h>
-#define SELINUX_ENABLED (selinux_enabled!=-1 ? selinux_enabled : (selinux_enabled=is_selinux_enabled()>0))
-#endif
 
 #include <security/_pam_macros.h>
 
@@ -196,7 +191,7 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 
         snprintf(buffer, sizeof(buffer), "%d", remember);
         args[4] = x_strdup(buffer);
-	
+
 	execve(UPDATE_HELPER, args, envp);
 
 	/* should not get here: exit with error */
@@ -698,7 +693,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 				pass_new = NULL;
 			}
 			retval = _pam_unix_approve_pass(pamh, ctrl, pass_old, pass_new);
-			
+
 			if (retval != PAM_SUCCESS && off(UNIX_NOT_SET_PASS, ctrl)) {
 				pam_set_item(pamh, PAM_AUTHTOK, NULL);
 			}
