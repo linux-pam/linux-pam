@@ -274,7 +274,7 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 	}
 	if ((curdays - spent->sp_lstchg < spent->sp_min)
 	    && (spent->sp_min != -1)) {
-		/* 
+		/*
 		 * The last password change was too recent. This error will be ignored
 		 * if no password change is attempted.
 		 */
@@ -403,11 +403,11 @@ PAMH_ARG_DECL(char * create_password_hash,
 		return crypted;
 	}
 
-#ifdef HAVE_CRYPT_GENSALT_RN
+#ifdef HAVE_CRYPT_GENSALT_R
 	if (on(UNIX_BLOWFISH_PASS, ctrl)) {
 		char entropy[17];
 		crypt_make_salt(entropy, sizeof(entropy) - 1);
-		sp = crypt_gensalt_rn(algoid, rounds,
+		sp = crypt_gensalt_r (algoid, rounds,
 				      entropy, sizeof(entropy),
 				      salt, sizeof(salt));
 	} else {
@@ -420,7 +420,7 @@ PAMH_ARG_DECL(char * create_password_hash,
 		/* For now be conservative so the resulting hashes
 		 * are not too long. 8 bytes of salt prevents dictionary
 		 * attacks well enough. */
-#ifdef HAVE_CRYPT_GENSALT_RN
+#ifdef HAVE_CRYPT_GENSALT_R
 	}
 #endif
 	sp = crypt(password, salt);
@@ -684,7 +684,7 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 	D(("fflush or fsync error writing entries to old passwords file: %m"));
 	err = 1;
     }
-    
+
     if (fclose(pwfile)) {
 	D(("fclose error writing entries to old passwords file: %m"));
 	err = 1;
@@ -804,7 +804,7 @@ PAMH_ARG_DECL(int unix_update_passwd,
 	D(("fflush or fsync error writing entries to password file: %m"));
 	err = 1;
     }
-    
+
     if (fclose(pwfile)) {
 	D(("fclose error writing entries to password file: %m"));
 	err = 1;
@@ -930,7 +930,7 @@ PAMH_ARG_DECL(int unix_update_shadow,
 	D(("fflush or fsync error writing entries to shadow file: %m"));
 	err = 1;
     }
-    
+
     if (fclose(pwfile)) {
 	D(("fclose error writing entries to shadow file: %m"));
 	err = 1;
