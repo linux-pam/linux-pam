@@ -1,8 +1,9 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2009 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README pam_env.conf $(MANS) $(XMLS) tst-pam_env environment
 

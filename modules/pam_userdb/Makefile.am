@@ -1,12 +1,17 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006, 2009 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) create.pl tst-pam_userdb
+EXTRA_DIST = README $(XMLS) pam_userdb.8 create.pl tst-pam_userdb
 
-man_MANS = pam_userdb.8
+if HAVE_LIBDB
+  man_MANS = pam_userdb.8
+  TESTS = tst-pam_userdb
+endif
+
 XMLS = README.xml pam_userdb.8.xml
 
 securelibdir = $(SECUREDIR)
@@ -21,13 +26,12 @@ endif
 
 if HAVE_LIBDB
   securelib_LTLIBRARIES = pam_userdb.la
-  TESTS = tst-pam_userdb
 endif
 
 noinst_HEADERS = pam_userdb.h
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+noinst_DATA = README pam_userdb.8
 README: pam_userdb.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif

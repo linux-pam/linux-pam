@@ -1,9 +1,10 @@
 #
-# Copyright (c) 2005 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2009 Thorsten Kukuk <kukuk@suse.de>
 # Copyright (c) 2005, 2008 Red Hat, Inc.
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
 XMLS = README.xml pam_timestamp.8.xml pam_timestamp_check.8.xml
 man_MANS = pam_timestamp.8 pam_timestamp_check.8
@@ -44,4 +45,4 @@ README: pam_timestamp.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
 
-noinst_PROGRAMS = hmacfile 
+noinst_PROGRAMS = hmacfile

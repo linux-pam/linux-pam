@@ -1,12 +1,16 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006, 2009 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_cracklib
+EXTRA_DIST = README $(XMLS) pam_cracklib.8 tst-pam_cracklib
 
-man_MANS = pam_cracklib.8
+if HAVE_LIBCRACK
+  TESTS = tst-pam_cracklib
+  man_MANS = pam_cracklib.8
+endif
 
 XMLS = README.xml pam_cracklib.8.xml
 
@@ -18,21 +22,14 @@ AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
-
-if HAVE_LIBCRACK
-securelib_LTLIBRARIES = pam_cracklib.la
-
-TESTS = tst-pam_cracklib
-endif
-
 pam_cracklib_la_LIBADD = -L$(top_builddir)/libpam -lpam \
 	@LIBCRACK@ @LIBCRYPT@
+if HAVE_LIBCRACK
+  securelib_LTLIBRARIES = pam_cracklib.la
+endif
 
 if ENABLE_REGENERATE_MAN
-
-noinst_DATA = README
-
+noinst_DATA = README pam_cracklib.8
 README: pam_cracklib.8.xml
-
 -include $(top_srcdir)/Make.xml.rules
 endif

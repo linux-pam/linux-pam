@@ -1,8 +1,9 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006, 2009 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -28,4 +29,3 @@ noinst_DATA = README
 README: pam_lastlog.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
-

@@ -120,7 +120,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 			"user_envfile= specification missing argument - ignored");
 	  } else {
 	    *user_envfile = 13+*argv;
-	    D(("new User Env File: %s", *user_env_file));
+	    D(("new User Env File: %s", *user_envfile));
 	  }
 	} else if (!strncmp(*argv,"readenv=",8))
 	  *readenv = atoi(8+*argv);

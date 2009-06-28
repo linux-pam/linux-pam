@@ -1,8 +1,9 @@
 #
-# Copyright (c) 2008 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2008, 2009 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_pwhistory
 
@@ -32,4 +33,3 @@ noinst_DATA = README
 README: pam_pwhistory.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
-

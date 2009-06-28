@@ -1,9 +1,10 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006, 2009 Thorsten Kukuk <kukuk@suse.de>
 # Copyright (c) 2008 Red Hat, Inc.
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_mkhomedir
 
@@ -36,4 +37,3 @@ noinst_DATA = README
 README: pam_mkhomedir.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
-

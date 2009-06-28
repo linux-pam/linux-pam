@@ -1,8 +1,9 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006, 2009 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) limits.conf tst-pam_limits
 

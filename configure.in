@@ -465,31 +465,33 @@ AC_CHECK_FUNCS(inet_ntop inet_pton ruserok_af)
 AC_CHECK_FUNCS(unshare, [UNSHARE=yes], [UNSHARE=no])
 AM_CONDITIONAL([HAVE_UNSHARE], [test "$UNSHARE" = yes])
 
+AC_ARG_ENABLE([regenerate-docu],
+  AC_HELP_STRING([--disable-regenerate-docu], [Don't re-build documentation from XML souces]),
+  [enable_docu=$enableval], [enable_docu=yes])
 dnl
 dnl Check for xsltproc
 dnl
-enable_man=yes
 AC_PATH_PROG([XSLTPROC], [xsltproc])
 if test -z "$XSLTPROC"; then
-     enable_man=no
+     enable_docu=no
 fi
 AC_PATH_PROG([XMLLINT], [xmllint],[/bin/true])
 dnl check for DocBook DTD and stylesheets in the local catalog.
 JH_CHECK_XML_CATALOG([-//OASIS//DTD DocBook XML V4.4//EN],
-                [DocBook XML DTD V4.4], [], enable_man=no)
+                [DocBook XML DTD V4.4], [], enable_docu=no)
 JH_CHECK_XML_CATALOG([http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl],
-                [DocBook XSL Stylesheets], [], enable_man=no)
+                [DocBook XSL Stylesheets], [], enable_docu=no)
 
 AC_PATH_PROG([BROWSER], [w3m])
 if test ! -z "$BROWSER"; then
      BROWSER="$BROWSER -T text/html -dump"
 else
-     enable_man=no
+     enable_docu=no
 fi
 
 AC_PATH_PROG([FO2PDF], [fop])
 
-AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_man != xno)
+AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_docu != xno)
 AM_CONDITIONAL(ENABLE_GENERATE_PDF, test ! -z "$FO2PDF")
 
 

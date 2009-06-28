@@ -1,5 +1,55 @@
 2009-06-26  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_namespace/Makefile.am: Fix make maintainer-clean,
+	fix docu dependencies.
+
+	* modules/pam_xauth/Makefile.am: Fix make maintainer-clean.
+	* modules/pam_access/Makefile.am: Likewise.
+	* modules/pam_debug/Makefile.am: Likewise.
+	* modules/pam_deny/Makefile.am: Likewise.
+	* modules/pam_echo/Makefile.am: Likewise.
+	* modules/pam_env/Makefile.am: Likewise.
+	* modules/pam_faildelay/Makefile.am: Likewise.
+	* modules/pam_ftp/Makefile.am: Likewise.
+	* modules/pam_group/Makefile.am: Likewise.
+	* modules/pam_issue/Makefile.am: Likewise.
+	* modules/pam_keyinit/Makefile.am: Likewise.
+	* modules/pam_lastlog/Makefile.am: Likewise.
+	* modules/pam_limits/Makefile.am: Likewise.
+	* modules/pam_listfile/Makefile.am: Likewise.
+	* modules/pam_localuser/Makefile.am: Likewise.
+	* modules/pam_loginuid/Makefile.am: Likewise.
+	* modules/pam_mail/Makefile.am: Likewise.
+	* modules/pam_mkhomedir/Makefile.am: Likewise.
+	* modules/pam_motd/Makefile.am: Likewise.
+	* modules/pam_nologin/Makefile.am: Likewise.
+	* modules/pam_pwhistory/Makefile.am: Likewise.
+	* modules/pam_rhosts/Makefile.am: Likewise.
+	* modules/pam_rootok/Makefile.am: Likewise.
+	* modules/pam_securetty/Makefile.am: Likewise.
+	* modules/pam_shells/Makefile.am: Likewise.
+	* modules/pam_succeed_if/Makefile.am: Likewise.
+	* modules/pam_tally2/Makefile.am: Likewise.
+	* modules/pam_tally/Makefile.am: Likewise.
+	* modules/pam_time/Makefile.am: Likewise.
+	* modules/pam_timestamp/Makefile.am: Likewise.
+	* modules/pam_tty_audit/Makefile.am: Likewise.
+	* modules/pam_umask/Makefile.am: Likewise.
+	* modules/pam_unix/Makefile.am: Likewise.
+	* modules/pam_warn/Makefile.am: Likewise.
+	* modules/pam_wheel/Makefile.am: Likewise.
+	* modules/pam_filter/Makefile.am: Likewise.
+
+	* configure.in: Make regeneration of docu configureable,
+	rename enable_man to enable_docu.
+
+	* modules/pam_env/pam_env.c (_pam_parse): Fix typo in debug
+	code.
+
+	* modules/pam_cracklib/Makefile.am: Don't install docu if
+	module is disabled for building.
+	* modules/pam_userdb/Makefile.am: Likewise.
+
 	* modules/pam_unix/pam_unix_passwd.c: Remove dead SELinux
 	code.
 

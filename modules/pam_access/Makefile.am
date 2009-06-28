@@ -1,8 +1,9 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@thkukuk.de>
+# Copyright (c) 2005, 2006, 2009 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README access.conf $(MANS) $(XMLS) tst-pam_access
 

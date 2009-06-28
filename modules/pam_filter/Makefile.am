@@ -1,10 +1,11 @@
 #
-# Copyright (c) 2005, 2006, 2007 Thorsten Kukuk <kukuk@thkukuk.de>
+# Copyright (c) 2005, 2006, 2007, 2009 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
 SUBDIRS = upperLOWER
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_filter
 
@@ -31,4 +32,3 @@ noinst_DATA = README
 README: pam_filter.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
-

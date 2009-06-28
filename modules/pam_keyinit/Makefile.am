@@ -1,8 +1,9 @@
 #
-# Copyright (c) 2006 David Howells <dhowells@redhat.com>
+# Copyright (c) 2006, 2009 David Howells <dhowells@redhat.com>
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(XMLS) pam_keyinit.8 tst-pam_keyinit
 XMLS = README.xml pam_keyinit.8.xml

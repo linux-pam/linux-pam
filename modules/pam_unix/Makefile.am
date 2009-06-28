@@ -1,11 +1,12 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006, 2009 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README md5.c md5_crypt.c lckpwdf.-c $(MANS) CHANGELOG \
-		tst-pam_unix $(XMLS) 
+		tst-pam_unix $(XMLS)
 
 man_MANS = pam_unix.8 unix_chkpwd.8 unix_update.8
 XMLS = README.xml pam_unix.8.xml unix_chkpwd.8.xml unix_update.8.xml
@@ -49,13 +50,13 @@ bigcrypt_LDADD = @LIBCRYPT@
 unix_chkpwd_SOURCES = unix_chkpwd.c md5_good.c md5_broken.c bigcrypt.c \
 	passverify.c
 unix_chkpwd_CFLAGS = $(AM_CFLAGS) @PIE_CFLAGS@ -DHELPER_COMPILE=\"unix_chkpwd\"
-unix_chkpwd_LDFLAGS = @PIE_LDFLAGS@ 
+unix_chkpwd_LDFLAGS = @PIE_LDFLAGS@
 unix_chkpwd_LDADD = @LIBCRYPT@ @LIBSELINUX@ @LIBAUDIT@
 
 unix_update_SOURCES = unix_update.c md5_good.c md5_broken.c bigcrypt.c \
 	passverify.c
 unix_update_CFLAGS = $(AM_CFLAGS) @PIE_CFLAGS@ -DHELPER_COMPILE=\"unix_update\"
-unix_update_LDFLAGS = @PIE_LDFLAGS@ 
+unix_update_LDFLAGS = @PIE_LDFLAGS@
 unix_update_LDADD = @LIBCRYPT@ @LIBSELINUX@
 
 if ENABLE_REGENERATE_MAN
@@ -63,4 +64,3 @@ noinst_DATA = README
 README: pam_unix.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
-
