@@ -296,7 +296,7 @@
           <para>
             When a user changes their password next,
             encrypt it with the blowfish algorithm. If the
-            SHA512 algorithm is not known to the <citerefentry>
+            blowfish algorithm is not known to the <citerefentry>
 	    <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
             </citerefentry> function,
             fall back to MD5.
