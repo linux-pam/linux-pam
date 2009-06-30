@@ -19,7 +19,9 @@
 #include <ctype.h>
 #include <syslog.h>
 #include <sys/resource.h>
+#ifdef HAVE_RPCSVC_YPCLNT_H
 #include <rpcsvc/ypclnt.h>
+#endif
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
@@ -275,6 +277,7 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 		}
 	}
 
+#if defined(HAVE_YP_GET_DEFAULT_DOMAIN) && defined (HAVE_YP_BIND) && defined (HAVE_YP_MATCH) && defined (HAVE_YP_UNBIND)
 	if (!matched && nis) {
 		char *userinfo = NULL, *domain = NULL;
 		int len = 0, i;
@@ -293,6 +296,10 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 			}
 		}
 	}
+#else
+	/* we don't have NIS support, make compiler happy. */
+	nis = 0;
+#endif
 
 	if (matched && (ret != NULL)) {
 		*ret = NULL;

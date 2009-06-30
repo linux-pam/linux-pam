@@ -1,3 +1,24 @@
+2009-06-29  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/yppasswd_xdr.c: Remove unnecessary header files.
+
+	* modules/pam_unix/support.c (_unix_getpwnam): Only compile in NIS
+	support if all necessary functions exist.
+
+	* modules/pam_unix/pam_unix_passwd.c (getNISserver): Add debug
+	option, handle correct if OS has no NIS support.
+
+	* modules/pam_access/pam_access.c (netgroup_match): Check if
+	yp_get_default_domain and innetgr are available at compile time.
+
+	* configure.in: Check for functions: innetgr, getdomainname
+	check for headers: rpcsvc/ypclnt.h, rpcsvc/yp_prot.h.
+
+2009-06-29  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/pam_unix.8.xml: Fix blowfish description.
+	Reported by Diego E. “Flameeyes” Pettenò.
+
 2009-06-26  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_namespace/Makefile.am: Fix make maintainer-clean,

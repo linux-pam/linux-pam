@@ -41,11 +41,12 @@
 #include <errno.h>
 #include <ctype.h>
 #include <sys/utsname.h>
-#include <rpcsvc/ypclnt.h>
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <sys/socket.h>
-
+#ifdef HAVE_RPCSVC_YPCLNT_H
+#include <rpcsvc/ypclnt.h>
+#endif
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
 #endif
@@ -465,13 +466,31 @@ static int
 netgroup_match (pam_handle_t *pamh, const char *netgroup,
 		const char *machine, const char *user, int debug)
 {
-  char *mydomain = NULL;
   int retval;
+  char *mydomain = NULL;
 
+#ifdef HAVE_YP_GET_DEFAUTL_DOMAIN
   yp_get_default_domain(&mydomain);
+#elif defined(HAVE_GETDOMAINNAME)
+  char domainname_res[256];
 
+  if (getdomainname (domainname_res, sizeof (domainname_res)) == 0)
+    {
+      if (strcmp (domainname_res, "(none)") == 0)
+        {
+          /* If domainname is not set, some systems will return "(none)" */
+	  domainname_res[0] = '\0';
+	}
+      mydomain = domainname_res;
+    }
+#endif
 
+#ifdef HAVE_INNETGR
   retval = innetgr (netgroup, machine, user, mydomain);
+#else
+  retval = 0;
+  pam_syslog (pamh, LOG_ERR, "pam_access does not have netgroup support");
+#endif
   if (debug == YES)
     pam_syslog (pamh, LOG_DEBUG,
 		"netgroup_match: %d (netgroup=%s, machine=%s, user=%s, domain=%s)",
@@ -479,7 +498,6 @@ netgroup_match (pam_handle_t *pamh, const char *netgroup,
 		machine ? machine : "NULL",
 		user ? user : "NULL", mydomain ? mydomain : "NULL");
   return retval;
-
 }
 
 /* user_match - match a username against one token */
