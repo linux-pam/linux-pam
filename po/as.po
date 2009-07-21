@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-16 10:39+0200\n"
+"POT-Creation-Date: 2009-06-30 12:29+0200\n"
 "PO-Revision-Date: 2009-04-09 19:25+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
 "Language-Team: Assamese <fedora-trans-as@redhat.com>\n"
@@ -232,12 +232,12 @@ msgid "contains the user name in some form"
 msgstr "কিবা ধৰনত ব্যৱহাৰকৰ্তাৰ নাম আছে"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "No password supplied"
 msgstr "কোনো গুপ্তশব্দ দিয়া হোৱা নাই"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password unchanged"
 msgstr "গুপ্ত শব্দ অপৰিবৰ্ত্তিত"
 
@@ -361,7 +361,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "%s পঞ্জিকা সৃষ্টি আৰু আৰম্ভ কৰিব পৰা নাই ।"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:469
+#: modules/pam_unix/pam_unix_passwd.c:496
 msgid "Password has been already used. Choose another."
 msgstr "গুপ্তশব্দ ইতিমধ্যে ব্যৱহৃত । অন্য এটা বাচি লওক ।"
 
@@ -536,32 +536,32 @@ msgstr[1] "সকীয়নী: আপোনাৰ গুপ্তশব্দ %d
 msgid "Warning: your password will expire in %d days"
 msgstr "সকীয়নী: আপোনাৰ গুপ্তশব্দ %d দিনত অন্ত হ'ব"
 
-#: modules/pam_unix/pam_unix_passwd.c:358
+#: modules/pam_unix/pam_unix_passwd.c:385
 msgid "NIS password could not be changed."
 msgstr "NIS গুপ্তশব্দ সলনি কৰিব পৰা নহয় ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:492
 msgid "You must choose a longer password"
 msgstr "আপুনি ইয়াতকৈ এটা দীঘল গুপ্তশব্দ নিৰ্ব্বাচন কৰিব লাগিব"
 
-#: modules/pam_unix/pam_unix_passwd.c:570
+#: modules/pam_unix/pam_unix_passwd.c:597
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s ৰ বাবে গুপ্তশব্দ সলনি কৰা হৈছে ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:608
 msgid "(current) UNIX password: "
 msgstr "(বৰ্ত্তমানৰ) UNIX গুপ্তশব্দ: "
 
-#: modules/pam_unix/pam_unix_passwd.c:616
+#: modules/pam_unix/pam_unix_passwd.c:643
 msgid "You must wait longer to change your password"
 msgstr "আপোনাৰ গুপ্তশব্দ সলনি কৰিবলৈ আপুনি আৰু কিছু পৰ অপেক্ষা কৰিব লাগিব"
 
-#: modules/pam_unix/pam_unix_passwd.c:676
+#: modules/pam_unix/pam_unix_passwd.c:703
 msgid "Enter new UNIX password: "
 msgstr "নতুন UNIX গুপ্তশব্দ দিয়ক: "
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX গুপ্তশব্দ পুনঃ লিখক: "
 

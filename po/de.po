@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-16 10:39+0200\n"
+"POT-Creation-Date: 2009-06-30 12:29+0200\n"
 "PO-Revision-Date: 2009-04-17 11:53+0100\n"
 "Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
@@ -236,12 +236,12 @@ msgid "contains the user name in some form"
 msgstr "enthält den Benutzernamen in irgendeiner Form"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "No password supplied"
 msgstr "Kein Passwort angegeben"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password unchanged"
 msgstr "Passwort nicht geändert"
 
@@ -368,7 +368,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Verzeichnis %s kann nicht erstellt und initialisiert werden: %m"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:469
+#: modules/pam_unix/pam_unix_passwd.c:496
 msgid "Password has been already used. Choose another."
 msgstr "Passwort wurde bereits verwendet. Wählen Sie ein anderes aus."
 
@@ -544,32 +544,32 @@ msgstr[1] "Warnung: Ihr Passwort läuft in %d Tagen ab."
 msgid "Warning: your password will expire in %d days"
 msgstr "Warnung: Ihr Passwort läuft in %d Tagen ab."
 
-#: modules/pam_unix/pam_unix_passwd.c:358
+#: modules/pam_unix/pam_unix_passwd.c:385
 msgid "NIS password could not be changed."
 msgstr "Änderung des NIS-Passworts nicht möglich."
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:492
 msgid "You must choose a longer password"
 msgstr "Sie müssen ein längeres Passwort auswählen."
 
-#: modules/pam_unix/pam_unix_passwd.c:570
+#: modules/pam_unix/pam_unix_passwd.c:597
 #, c-format
 msgid "Changing password for %s."
 msgstr "Ändern des Passworts für %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:608
 msgid "(current) UNIX password: "
 msgstr "(aktuelles) UNIX-Passwort: "
 
-#: modules/pam_unix/pam_unix_passwd.c:616
+#: modules/pam_unix/pam_unix_passwd.c:643
 msgid "You must wait longer to change your password"
 msgstr "Sie können Ihr Passwort noch nicht ändern"
 
-#: modules/pam_unix/pam_unix_passwd.c:676
+#: modules/pam_unix/pam_unix_passwd.c:703
 msgid "Enter new UNIX password: "
 msgstr "Geben Sie ein neues UNIX-Passwort ein: "
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
 msgstr "Geben Sie das neue UNIX-Passwort erneut ein: "
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-16 10:39+0200\n"
+"POT-Creation-Date: 2009-06-30 12:29+0200\n"
 "PO-Revision-Date: 2009-04-09 16:42+0100\n"
 "Last-Translator: Rui Gouveia <rui.gouveia@globaltek.pt>\n"
 "Language-Team: pt <fedora-trans-pt@redhat.com>\n"
@@ -235,12 +235,12 @@ msgid "contains the user name in some form"
 msgstr "contém, de alguma forma, o nome do utilizador"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "No password supplied"
 msgstr "Não foi fornecida uma senha"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password unchanged"
 msgstr "Senha inalterada"
 
@@ -370,7 +370,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Não foi possível criar e inicializar o directório '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:469
+#: modules/pam_unix/pam_unix_passwd.c:496
 msgid "Password has been already used. Choose another."
 msgstr "A senha já foi utilizada anteriormente. Escolha outra."
 
@@ -546,32 +546,32 @@ msgstr[1] "Aviso: a sua senha expira em %d dias"
 msgid "Warning: your password will expire in %d days"
 msgstr "Aviso: a sua palavra passe expira em %d dias"
 
-#: modules/pam_unix/pam_unix_passwd.c:358
+#: modules/pam_unix/pam_unix_passwd.c:385
 msgid "NIS password could not be changed."
 msgstr "A senha NIS não pode ser alterada."
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:492
 msgid "You must choose a longer password"
 msgstr "Deve escolher uma senha mais longa"
 
-#: modules/pam_unix/pam_unix_passwd.c:570
+#: modules/pam_unix/pam_unix_passwd.c:597
 #, c-format
 msgid "Changing password for %s."
 msgstr "A alterar senha para %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:608
 msgid "(current) UNIX password: "
 msgstr "senha UNIX (actual): "
 
-#: modules/pam_unix/pam_unix_passwd.c:616
+#: modules/pam_unix/pam_unix_passwd.c:643
 msgid "You must wait longer to change your password"
 msgstr "Tem de esperar mais antes de poder alterar a sua senha"
 
-#: modules/pam_unix/pam_unix_passwd.c:676
+#: modules/pam_unix/pam_unix_passwd.c:703
 msgid "Enter new UNIX password: "
 msgstr "Digite a nova senha UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
 msgstr "Digite novamente a nova senha UNIX: "
 

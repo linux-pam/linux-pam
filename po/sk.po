@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-16 10:39+0200\n"
+"POT-Creation-Date: 2009-06-30 12:29+0200\n"
 "PO-Revision-Date: 2009-03-24 22:24+0100\n"
 "Last-Translator: Pavol Šimo <palo.simo@gmail.com>\n"
 "Language-Team: Slovak <fedora-trans-sk@redhat.com>\n"
@@ -230,12 +230,12 @@ msgid "contains the user name in some form"
 msgstr "obsahuje v nejakej forme používateľské meno"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "No password supplied"
 msgstr "Heslo nezadané"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password unchanged"
 msgstr "Heslo nebolo zmenené"
 
@@ -368,7 +368,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Nedá sa vytvoriť a inicializovať priečinok '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:469
+#: modules/pam_unix/pam_unix_passwd.c:496
 msgid "Password has been already used. Choose another."
 msgstr "Heslo už bolo použité. Zvoľte si iné."
 
@@ -546,32 +546,32 @@ msgstr[2] "Upozornenie: vaše heslo vyprší za %d dní"
 msgid "Warning: your password will expire in %d days"
 msgstr "Upozornenie: vaše heslo vyprší za %d dní"
 
-#: modules/pam_unix/pam_unix_passwd.c:358
+#: modules/pam_unix/pam_unix_passwd.c:385
 msgid "NIS password could not be changed."
 msgstr "Nie je možné zmeniť NIS heslo."
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:492
 msgid "You must choose a longer password"
 msgstr "Musíte si zvoliť dlhšie heslo"
 
-#: modules/pam_unix/pam_unix_passwd.c:570
+#: modules/pam_unix/pam_unix_passwd.c:597
 #, c-format
 msgid "Changing password for %s."
 msgstr "Zmena hesla pre %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:608
 msgid "(current) UNIX password: "
 msgstr "(aktuálne) UNIX heslo: "
 
-#: modules/pam_unix/pam_unix_passwd.c:616
+#: modules/pam_unix/pam_unix_passwd.c:643
 msgid "You must wait longer to change your password"
 msgstr "Na zmenu svojho hesla musíte počkať dlhšie"
 
-#: modules/pam_unix/pam_unix_passwd.c:676
+#: modules/pam_unix/pam_unix_passwd.c:703
 msgid "Enter new UNIX password: "
 msgstr "Zadajte nové UNIX heslo: "
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
 msgstr "Opakujte nové UNIX heslo: "
 

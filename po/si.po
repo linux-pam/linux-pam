@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-16 10:39+0200\n"
+"POT-Creation-Date: 2009-06-30 12:29+0200\n"
 "PO-Revision-Date: 2007-06-22 12:24+0530\n"
 "Last-Translator: Danishka Navin <snavin@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
@@ -232,12 +232,12 @@ msgid "contains the user name in some form"
 msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "No password supplied"
 msgstr "රහස්පදය සපයා නැත"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password unchanged"
 msgstr "රහස්පදය වෙනස් නොවිනි"
 
@@ -361,7 +361,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr ""
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:469
+#: modules/pam_unix/pam_unix_passwd.c:496
 msgid "Password has been already used. Choose another."
 msgstr "රහස්පදය දැනටමත් භාවිතා වේ. වෙනත් එකක් තෝරාගන්න."
 
@@ -538,32 +538,32 @@ msgstr[1] "අවවාදයි: ඔබගේ රහස්පදය දින %
 msgid "Warning: your password will expire in %d days"
 msgstr "අවවාදයි: ඔබගේ රහස්පදය දින %d කින් කල්ඉකුත් වේ"
 
-#: modules/pam_unix/pam_unix_passwd.c:358
+#: modules/pam_unix/pam_unix_passwd.c:385
 msgid "NIS password could not be changed."
 msgstr "NIS රහස්පදය වෙනස් කළ නොහැක."
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:492
 msgid "You must choose a longer password"
 msgstr "ඔබ විසින් දිගු රහස්පදයක් තෝරාගත යුතුම වේ"
 
-#: modules/pam_unix/pam_unix_passwd.c:570
+#: modules/pam_unix/pam_unix_passwd.c:597
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "STRESS රහස්පදය වෙනස් කරමින්"
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:608
 msgid "(current) UNIX password: "
 msgstr "(දැනට ඇති) UNIX රහස්පදය: "
 
-#: modules/pam_unix/pam_unix_passwd.c:616
+#: modules/pam_unix/pam_unix_passwd.c:643
 msgid "You must wait longer to change your password"
 msgstr "ඔබගේ රහස්පදය වෙනස් කිරීමට බොහෝ වෙලාවක් රැදී සිටීය යුතුම වේ"
 
-#: modules/pam_unix/pam_unix_passwd.c:676
+#: modules/pam_unix/pam_unix_passwd.c:703
 msgid "Enter new UNIX password: "
 msgstr "නව UNIX රහස්පදය ඇතුළත් කරන්න:"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
 msgstr "නව UNIX රහස්පදය නැවත ඇතුළත් කරන්න:"
 

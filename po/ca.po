@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-16 10:39+0200\n"
+"POT-Creation-Date: 2009-06-30 12:29+0200\n"
 "PO-Revision-Date: 2009-05-18 16:10+0200\n"
 "Last-Translator: Albert Carabasa Giribet <albertc@asic.udl.cat>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
@@ -245,12 +245,12 @@ msgid "contains the user name in some form"
 msgstr "conté el nom d'usuari d'alguna forma"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "No password supplied"
 msgstr "No s'ha proporcionat cap contrasenya"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password unchanged"
 msgstr "No s'ha canviat la contrasenya"
 
@@ -375,7 +375,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "No s'ha pogut crear i inicialitzar el directori '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:469
+#: modules/pam_unix/pam_unix_passwd.c:496
 msgid "Password has been already used. Choose another."
 msgstr "Aquesta contrasenya ja s'ha fet servir. Trieu-ne una altra."
 
@@ -554,32 +554,32 @@ msgstr[1] "Atenció: la contrasenya venç d'aquí a %d dies"
 msgid "Warning: your password will expire in %d days"
 msgstr "Atenció: la contrasenya venç d'aquí a %d dies"
 
-#: modules/pam_unix/pam_unix_passwd.c:358
+#: modules/pam_unix/pam_unix_passwd.c:385
 msgid "NIS password could not be changed."
 msgstr "No s'ha pogut canviar la contrasenya NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:492
 msgid "You must choose a longer password"
 msgstr "Heu de triar una contrasenya més llarga"
 
-#: modules/pam_unix/pam_unix_passwd.c:570
+#: modules/pam_unix/pam_unix_passwd.c:597
 #, c-format
 msgid "Changing password for %s."
 msgstr "S'està canviant la contrasenya de %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:608
 msgid "(current) UNIX password: "
 msgstr "contrasenya (actual) d'UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:616
+#: modules/pam_unix/pam_unix_passwd.c:643
 msgid "You must wait longer to change your password"
 msgstr "Heu d'esperar més temps abans de canviar la contrasenya"
 
-#: modules/pam_unix/pam_unix_passwd.c:676
+#: modules/pam_unix/pam_unix_passwd.c:703
 msgid "Enter new UNIX password: "
 msgstr "Introduïu la nova contrasenya d'UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
 msgstr "Torneu a escriure la nova contrasenya d'UNIX: "
 
