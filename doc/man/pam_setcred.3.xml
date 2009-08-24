@@ -39,7 +39,7 @@
       a session is opened for the user (with
       <citerefentry>
         <refentrytitle>pam_open_session</refentrytitle><manvolnum>3</manvolnum>
-       </citerefentry>). The credentials should be deleted after the sesseion
+       </citerefentry>). The credentials should be deleted after the session
       has been closed (with
       <citerefentry>
         <refentrytitle>pam_close_session</refentrytitle><manvolnum>3</manvolnum>
