@@ -169,7 +169,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
           token of some lesser user. In other cases it may not be
           appropriate: when <command>joe</command> maliciously wants
           to reset <command>alice</command>'s password; or when anyone
-          other than the user them self wishes to reset their
+          other than the user themself wishes to reset their
           <emphasis>KERBEROS</emphasis> authentication token. A policy
           for this action should be defined by any reasonable
           authentication scheme, the module writer should consider

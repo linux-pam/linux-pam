@@ -162,7 +162,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Authentication token was successful retrieved.
+             Authentication token was successfully retrieved.
           </para>
         </listitem>
       </varlistentry>
