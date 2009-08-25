@@ -37,17 +37,17 @@ msgstr "conversación incorrecta (%d)\n"
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
 #: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
 msgid "Password: "
-msgstr "Contraseña:"
+msgstr "Contraseña: "
 
 #: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
 #, c-format
 msgid "New %s%spassword: "
-msgstr "Nueva %s%scontraseña:"
+msgstr "Nueva %s%scontraseña: "
 
 #: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "Vuelva a escribir la nueva %s%scontraseña:"
+msgstr "Vuelva a escribir la nueva %s%scontraseña: "
 
 #: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
 msgid "Sorry, passwords do not match."
@@ -439,11 +439,11 @@ msgstr "Cambiando la contraseña STRESS para %s."
 
 #: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
-msgstr "Introduzca la nueva contraseña STRESS:"
+msgstr "Introduzca la nueva contraseña STRESS: "
 
 #: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
-msgstr "Vuelva a escribir la nueva contraseña STRESS:"
+msgstr "Vuelva a escribir la nueva contraseña STRESS: "
 
 #: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
@@ -563,7 +563,7 @@ msgstr "Cambiando la contraseña de %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:608
 msgid "(current) UNIX password: "
-msgstr "(actual) contraseña de UNIX:"
+msgstr "(actual) contraseña de UNIX: "
 
 #: modules/pam_unix/pam_unix_passwd.c:643
 msgid "You must wait longer to change your password"
@@ -571,11 +571,11 @@ msgstr "Debe esperar más tiempo para cambiar la contraseña"
 
 #: modules/pam_unix/pam_unix_passwd.c:703
 msgid "Enter new UNIX password: "
-msgstr "Introduzca la nueva contraseña de UNIX:"
+msgstr "Introduzca la nueva contraseña de UNIX: "
 
 #: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
-msgstr "Vuelva a escribir la nueva contraseña de UNIX:"
+msgstr "Vuelva a escribir la nueva contraseña de UNIX: "
 
 #~ msgid "has been already used"
 #~ msgstr "ya se ha utilizado"

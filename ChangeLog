@@ -2,6 +2,7 @@
 
 	* modules/pam_sepermit/pam_sepermit.8.xml: fix up one reference
 	to pam.d(8) left behind because I've forgotten how CVS works
+	* po/es.po: fix missing whitespace in password prompts.
 
 2009-08-24  Steve Langasek  <vorlon@debian.org>
 
