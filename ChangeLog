@@ -1,3 +1,8 @@
+2009-08-25  Steve Langasek  <vorlon@debian.org>
+
+	* modules/pam_sepermit/pam_sepermit.8.xml: fix up one reference
+	to pam.d(8) left behind because I've forgotten how CVS works
+
 2009-08-24  Steve Langasek  <vorlon@debian.org>
 
 	* doc/pam_get_authtok.3.xml: grammar fix.
