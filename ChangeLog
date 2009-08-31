@@ -1,3 +1,8 @@
+2009-08-31  Steve Langasek  <vorlon@debian.org>
+
+	* modules/pam_namespace/namespace.init: make this portable to POSIX
+	awk, instead of using GNU awk extensions.
+
 2009-08-25  Steve Langasek  <vorlon@debian.org>
 
 	* modules/pam_sepermit/pam_sepermit.8.xml: fix up one reference
