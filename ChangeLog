@@ -1,3 +1,10 @@
+2009-09-10  Steve Langasek  <vorlon@debian.org>
+
+	* modules/pam_securetty/pam_securetty.c: pam_securetty should not
+	return PAM_USER_UNKNOWN when the tty is secure, regardless of what
+	was entered as a username.
+	Patch from Nicolas François <nicolas.francois@centraliens.net>.
+
 2009-08-31  Steve Langasek  <vorlon@debian.org>
 
 	* modules/pam_namespace/namespace.init: make this portable to POSIX

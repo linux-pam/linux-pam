@@ -86,13 +86,11 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
     }
 
     user_pwd = pam_modutil_getpwnam(pamh, username);
-    if (user_pwd == NULL) {
-	return PAM_USER_UNKNOWN;
-    } else if (user_pwd->pw_uid != 0) { /* If the user is not root,
-					   securetty's does not apply
-					   to them */
+    if (user_pwd != NULL && user_pwd->pw_uid != 0) {
+	/* If the user is not root, securetty's does not apply to them */
 	return PAM_SUCCESS;
     }
+    /* The user is now either root or an invalid / mistyped username */
 
     retval = pam_get_item(pamh, PAM_TTY, &void_uttyname);
     uttyname = void_uttyname;
@@ -151,6 +149,9 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 		     uttyname);
 
 	    retval = PAM_AUTH_ERR;
+	    if (user_pwd == NULL) {
+		retval = PAM_USER_UNKNOWN;
+	    }
     } else {
 	if (ctrl & PAM_DEBUG_ARG) {
 	    pam_syslog(pamh, LOG_DEBUG, "access allowed for '%s' on '%s'",
