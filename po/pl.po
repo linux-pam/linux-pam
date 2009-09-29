@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2009-06-30 12:29+0200\n"
-"PO-Revision-Date: 2009-02-26 22:10+0100\n"
+"PO-Revision-Date: 2009-09-27 13:48+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"Language-Team: Polish <fedora-trans-pl@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -43,7 +43,7 @@ msgstr "Nowe hasło %s%s: "
 #: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "Ponownie podaj nowe hasło %s%s: "
+msgstr "Proszę ponownie podać nowe hasło %s%s: "
 
 #: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
 msgid "Sorry, passwords do not match."
@@ -52,7 +52,7 @@ msgstr "Podane hasła nie zgadzają się."
 #: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
-msgstr "Podaj ponownie %s"
+msgstr "Proszę ponownie podać %s"
 
 #: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
@@ -76,7 +76,7 @@ msgstr "Wczytanie modułu nie powiodło się"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
-msgstr "Nie znaleziono symbolu"
+msgstr "Nie odnaleziono symbolu"
 
 #: libpam/pam_strerror.c:48
 msgid "Error in service module"
@@ -368,11 +368,11 @@ msgstr "Nie można utworzyć i zainicjować katalogu \"%s\"."
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:496
 msgid "Password has been already used. Choose another."
-msgstr "Hasło było już używane. Wybierz inne."
+msgstr "Hasło było już używane. Proszę wybrać inne."
 
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
-msgstr "Czy chcesz podać kontekst bezpieczeństwa? [N]"
+msgstr "Podać kontekst bezpieczeństwa? [N]"
 
 #: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
 msgid "role:"
@@ -393,7 +393,7 @@ msgstr "Domyślny kontekst bezpieczeństwa %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:269
 msgid "Would you like to enter a different role or level?"
-msgstr "Czy chcesz podać inną rolę lub poziom?"
+msgstr "Podać inną rolę lub poziom?"
 
 #: modules/pam_selinux/pam_selinux.c:285
 #, c-format
@@ -437,11 +437,11 @@ msgstr "Zmienianie hasła STRESS dla %s."
 
 #: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
-msgstr "Podaj nowe hasło STRESS: "
+msgstr "Proszę podać nowe hasło STRESS: "
 
 #: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
-msgstr "Ponownie podaj hasła STRESS: "
+msgstr "Proszę ponownie podać hasło STRESS: "
 
 #: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
@@ -519,7 +519,7 @@ msgstr "Nadano dostęp (ostatni dostęp %ld sekund temu)."
 
 #: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
-msgstr "Konto wygasło; skontaktuj się z administratorem systemu"
+msgstr "Konto wygasło; proszę skontaktować się z administratorem systemu"
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
@@ -562,12 +562,12 @@ msgstr "(obecne) hasło UNIX:"
 
 #: modules/pam_unix/pam_unix_passwd.c:643
 msgid "You must wait longer to change your password"
-msgstr "Poczekaj dłużej, aby zmienić hasło"
+msgstr "Należy poczekać dłużej, aby zmienić hasło"
 
 #: modules/pam_unix/pam_unix_passwd.c:703
 msgid "Enter new UNIX password: "
-msgstr "Podaj nowe hasło UNIX: "
+msgstr "Proszę podać nowe hasło UNIX: "
 
 #: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
-msgstr "Ponownie podaj hasło UNIX: "
+msgstr "Proszę ponownie podać hasło UNIX: "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-16 10:39+0200\n"
+"POT-Creation-Date: 2009-06-30 12:29+0200\n"
 "PO-Revision-Date: 2009-08-30 11:39+0900\n"
 "Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
@@ -232,12 +232,12 @@ msgid "contains the user name in some form"
 msgstr "なんらかの形式のユーザー名を含みます"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "No password supplied"
 msgstr "パスワードが与えられていません"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password unchanged"
 msgstr "パスワードが変更されていません"
 
@@ -298,7 +298,8 @@ msgstr "最後の失敗ログイン:%s%s%s"
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural "There were %d failed login attempts since the last successful login."
+msgid_plural ""
+"There were %d failed login attempts since the last successful login."
 msgstr[0] "最後の正しいログインの後に %d 回の失敗ログインの試行があります"
 
 #. TRANSLATORS: only used if dngettext is not supported
@@ -359,9 +360,10 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "ディレクトリ %s を作成して初期化できません。"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:469
+#: modules/pam_unix/pam_unix_passwd.c:496
 msgid "Password has been already used. Choose another."
-msgstr "パスワードはすでに使用されています。 別のパスワードを選択してください。"
+msgstr ""
+"パスワードはすでに使用されています。 別のパスワードを選択してください。"
 
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
@@ -478,8 +480,10 @@ msgstr "%s: 未認識オプション%s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -509,7 +513,8 @@ msgstr "アクセスを許可 （最後のアクセスは %ld 秒前でした）
 
 #: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
-msgstr "アカウントの有効期限が切れました。システム管理者にお問い合わせください。"
+msgstr ""
+"アカウントの有効期限が切れました。システム管理者にお問い合わせください。"
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
@@ -531,32 +536,31 @@ msgstr[0] "警告: パスワードは%d日で有効期限が切れます。"
 msgid "Warning: your password will expire in %d days"
 msgstr "警告: パスワードは %d 日で有効期限が切れます。"
 
-#: modules/pam_unix/pam_unix_passwd.c:358
+#: modules/pam_unix/pam_unix_passwd.c:385
 msgid "NIS password could not be changed."
 msgstr "NISパスワードを変更できませんでした。"
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:492
 msgid "You must choose a longer password"
 msgstr "長いパスワードを選択する必要があります"
 
-#: modules/pam_unix/pam_unix_passwd.c:570
+#: modules/pam_unix/pam_unix_passwd.c:597
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s 用にパスワードを変更中"
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:608
 msgid "(current) UNIX password: "
 msgstr "現在のUNIXパスワード:"
 
-#: modules/pam_unix/pam_unix_passwd.c:616
+#: modules/pam_unix/pam_unix_passwd.c:643
 msgid "You must wait longer to change your password"
 msgstr "パスワードを変更するには長く待つ必要があります"
 
-#: modules/pam_unix/pam_unix_passwd.c:676
+#: modules/pam_unix/pam_unix_passwd.c:703
 msgid "Enter new UNIX password: "
 msgstr "新しいUNIXパスワードを入力してください:"
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
 msgstr "新しいUNIX パスワードを再入力してください:"
-
