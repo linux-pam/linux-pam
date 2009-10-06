@@ -82,7 +82,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     /* Stuff for "extended" items */
     struct passwd *userinfo;
     struct group *grpinfo;
-    char *itemlist[256]; /* Maximum of 256 items */
 
     apply_type=APPLY_TYPE_NULL;
     memset(apply_val,0,sizeof(apply_val));
@@ -265,30 +264,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     if(extitem) {
 	switch(extitem) {
 	    case EI_GROUP:
-		userinfo = pam_modutil_getpwnam(pamh, citemp);
-		if (userinfo == NULL) {
-		    pam_syslog(pamh,LOG_ERR, "getpwnam(%s) failed",
-			     citemp);
-		    free(ifname);
-		    return onerr;
-		}
-		grpinfo = pam_modutil_getgrgid(pamh, userinfo->pw_gid);
-		if (grpinfo == NULL) {
-		    pam_syslog(pamh,LOG_ERR, "getgrgid(%d) failed",
-			     (int)userinfo->pw_gid);
-		    free(ifname);
-		    return onerr;
-		}
-		itemlist[0] = x_strdup(grpinfo->gr_name);
-		setgrent();
-		for (i=1; (i < (int)(sizeof(itemlist)/sizeof(itemlist[0])-1)) &&
-			 (grpinfo = getgrent()); ) {
-		    if (is_on_list(grpinfo->gr_mem,citemp)) {
-			itemlist[i++] = x_strdup(grpinfo->gr_name);
-		    }
-                }
-		endgrent();
-		itemlist[i] = NULL;
+		/* Just ignore, call pam_modutil_in_group... later */
 		break;
 	    case EI_SHELL:
 		/* Assume that we have already gotten PAM_USER in
@@ -352,38 +328,30 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     assert(PAM_SUCCESS == 0);
     assert(PAM_AUTH_ERR != 0);
 #endif
-    if(extitem == EI_GROUP) {
-	while((fgets(aline,sizeof(aline),inf) != NULL)
-	      && retval) {
-            if(strlen(aline) == 0)
-		continue;
-	    if(aline[strlen(aline) - 1] == '\n')
-		aline[strlen(aline) - 1] = '\0';
-	    for(i=0;itemlist[i];)
-		/* If any of the items match, strcmp() == 0, and we get out
-		   of this loop */
-		retval = (strcmp(aline,itemlist[i++]) && retval);
+    while((fgets(aline,sizeof(aline),inf) != NULL)
+	  && retval) {
+	char *a = aline;
+
+	if(strlen(aline) == 0)
+	    continue;
+	if(aline[strlen(aline) - 1] == '\n')
+	    aline[strlen(aline) - 1] = '\0';
+	if(strlen(aline) == 0)
+	    continue;
+	if(aline[strlen(aline) - 1] == '\r')
+	    aline[strlen(aline) - 1] = '\0';
+	if(citem == PAM_TTY) {
+	    if(strncmp(a, "/dev/", 5) == 0)
+		a += 5;
 	}
-	for(i=0;itemlist[i];)
-	    free(itemlist[i++]);
-    } else {
-	while((fgets(aline,sizeof(aline),inf) != NULL)
-	      && retval) {
-            char *a = aline;
-            if(strlen(aline) == 0)
-		continue;
-	    if(aline[strlen(aline) - 1] == '\n')
-		aline[strlen(aline) - 1] = '\0';
-            if(strlen(aline) == 0)
-		continue;
-	    if(aline[strlen(aline) - 1] == '\r')
-		aline[strlen(aline) - 1] = '\0';
-	    if(citem == PAM_TTY)
-	        if(strncmp(a, "/dev/", 5) == 0)
-	            a += 5;
-	    retval = strcmp(a,citemp);
+	if (extitem == EI_GROUP) {
+	    retval = !pam_modutil_user_in_group_nam_nam(pamh,
+		citemp, aline);
+	} else {
+	    retval = strcmp(a, citemp);
 	}
     }
+
     fclose(inf);
     free(ifname);
     if ((sense && retval) || (!sense && !retval)) {

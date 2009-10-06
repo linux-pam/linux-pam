@@ -1,3 +1,9 @@
+2009-10-06  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_listfile/pam_listfile.c(pam_sm_authenticate): Just
+	call pam_modutil_user_in_group_nam_nam() instead of reimplementation
+	of group matching.
+
 2009-10-05  Kris Thomsen  <lakristho@gmail.com>
 
 	* po/da.po: Updated translations.
