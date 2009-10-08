@@ -1,3 +1,8 @@
+2009-10-08  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_tty_audit/pam_tty_audit.8.xml: Add notice about aureport
+	add SEE ALSO section.
+
 2009-10-06  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_listfile/pam_listfile.c(pam_sm_authenticate): Just

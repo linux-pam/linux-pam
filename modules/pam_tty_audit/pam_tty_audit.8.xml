@@ -122,6 +122,10 @@
       recommended to use <option>disable=*</option> as the first option for
       most daemons using PAM.
     </para>
+    <para>
+      To view the data that was logged by the kernel to audit use
+      the command <command>aureport --tty</command>.
+    </para>
   </refsect1>
 
   <refsect1 id='pam_tty_audit-examples'>
@@ -131,6 +135,24 @@
       <programlisting>
 session	required pam_tty_audit.so disable=* enable=root
       </programlisting>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_tty_audit-see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+	<refentrytitle>aureport</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
     </para>
   </refsect1>
 
