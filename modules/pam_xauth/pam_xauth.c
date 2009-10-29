@@ -57,6 +57,12 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
+#ifdef WITH_SELINUX
+#include <selinux/selinux.h>
+#include <selinux/label.h>
+#include <sys/stat.h>
+#endif
+
 #define DATANAME "pam_xauth_cookie_file"
 #define XAUTHENV "XAUTHORITY"
 #define HOMEENV  "HOME"
@@ -461,6 +467,10 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			  getuid(), getgid(),
 			  xauth, "-f", cookiefile, "nlist", display,
 			  NULL) == 0) {
+		int save_errno;
+#ifdef WITH_SELINUX
+		security_context_t context = NULL;
+#endif
 		/* Check that we got a cookie.  If not, we get creative. */
 		if (((cookie == NULL) || (strlen(cookie) == 0)) &&
 		    ((strncmp(display, "localhost:", 10) == 0) ||
@@ -545,12 +555,41 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		/* Generate a new file to hold the data. */
 		euid = geteuid();
 		setfsuid(tpwd->pw_uid);
-		fd = mkstemp(xauthority + strlen(XAUTHENV) + 1);
+		
+#ifdef WITH_SELINUX
+		if (is_selinux_enabled() > 0) {
+			struct selabel_handle *ctx = selabel_open(SELABEL_CTX_FILE, NULL, 0);
+			if (ctx != NULL) {
+				if (selabel_lookup(ctx, &context,
+						   xauthority + sizeof(XAUTHENV), S_IFREG) != 0) {
+					pam_syslog(pamh, LOG_WARNING,
+						   "could not get SELinux label for '%s'",
+						   xauthority + sizeof(XAUTHENV));
+				}
+				selabel_close(ctx);
+				if (setfscreatecon(context)) {
+					pam_syslog(pamh, LOG_WARNING,
+						   "setfscreatecon(%s) failed: %m", context);
+				}
+			}
+		}
+		fd = mkstemp(xauthority + sizeof(XAUTHENV));
+		save_errno = errno;
+		if (context != NULL) {
+			free(context);
+			setfscreatecon(NULL);
+		}
+#else
+		fd = mkstemp(xauthority + sizeof(XAUTHENV));
+		save_errno = errno;
+#endif
+
 		setfsuid(euid);
 		if (fd == -1) {
+			errno = save_errno;
 			pam_syslog(pamh, LOG_ERR,
 				   "error creating temporary file `%s': %m",
-				   xauthority + strlen(XAUTHENV) + 1);
+				   xauthority + sizeof(XAUTHENV));
 			retval = PAM_SESSION_ERR;
 			goto cleanup;
 		}
@@ -563,7 +602,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		/* Get a copy of the filename to save as a data item for
 		 * removal at session-close time. */
 		free(cookiefile);
-		cookiefile = strdup(xauthority + strlen(XAUTHENV) + 1);
+		cookiefile = strdup(xauthority + sizeof(XAUTHENV));
 
 		/* Save the filename. */
 		if (pam_set_data(pamh, DATANAME, cookiefile, cleanup) != PAM_SUCCESS) {

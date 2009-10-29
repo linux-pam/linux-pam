@@ -1,3 +1,10 @@
+2009-10-29  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_xauth/Makefile.am: Link with libselinux.
+	* modules/pam_xauth/pam_xauth.c(pam_sm_open_session): Call
+	setfscreatecon() if selinux is enabled to create the .xauth file
+	with the right label. Original idea by Dan Walsh.
+
 2009-10-08  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_tty_audit/pam_tty_audit.8.xml: Add notice about aureport
