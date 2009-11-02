@@ -1,3 +1,13 @@
+2009-11-02  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_sepermit/Makefile.am: Add sepermit.conf(5) manual page.
+	* modules/pam_sepermit/pam_sepermit.8.xml: Add reference to
+	sepermit.conf(5). Drop some redundant text.
+	* modules/pam_sepermit/sepermit.conf.5.xml: New file.
+
+	* modules/pam_sepermit/pam_sepermit.c(sepermit_match): Implement the ignore
+	option in sepermit.conf.
+
 2009-10-29  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_xauth/Makefile.am: Link with libselinux.

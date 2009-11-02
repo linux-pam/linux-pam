@@ -1,7 +1,7 @@
 /******************************************************************************
  * A module for Linux-PAM that allows/denies acces based on SELinux state.
  *
- * Copyright (c) 2007, 2008 Red Hat, Inc.
+ * Copyright (c) 2007, 2008, 2009 Red Hat, Inc.
  * Originally written by Tomas Mraz <tmraz@redhat.com>
  * Contributions by Dan Walsh <dwalsh@redhat.com>
  *
@@ -231,7 +231,7 @@ sepermit_lock(pam_handle_t *pamh, const char *user, int debug)
 /* return 0 when matched, -1 when unmatched, pam error otherwise */
 static int
 sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
-	       const char *seuser, int debug, int sense)
+	       const char *seuser, int debug, int *sense)
 {
 	FILE *f;
 	char *line = NULL;
@@ -239,6 +239,7 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 	size_t len = 0;
 	int matched = 0;
 	int exclusive = 0;
+	int ignore = 0;
 	
 	f = fopen(cfgfile, "r");
 	
@@ -284,7 +285,7 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 				if (debug)
 					pam_syslog(pamh, LOG_NOTICE, "Matching seuser %s against seuser %s", seuser, start);
 				if (strcmp(seuser, start) == 0) {
-					matched = 1;					
+					matched = 1;
 				}
 				break;
 			default:
@@ -298,6 +299,8 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 			while ((opt=strtok_r(NULL, OPT_DELIM, &sptr)) != NULL) {
 				if (strcmp(opt, "exclusive") == 0)
 					exclusive = 1;
+				else if (strcmp(opt, "ignore") == 0)
+					ignore = 1;
 				else if (debug) {
 					pam_syslog(pamh, LOG_NOTICE, "Unknown user option: %s", opt);
 				}
@@ -307,10 +310,13 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 	free(line);
 	fclose(f);
 	if (matched) {
-		if (sense == PAM_SUCCESS && geteuid() == 0 && exclusive)
-			return sepermit_lock(pamh, user, debug);
-		else
-			return 0;
+		if (*sense == PAM_SUCCESS) {
+			if (ignore)
+				*sense = PAM_IGNORE;
+			if (geteuid() == 0 && exclusive)
+				return sepermit_lock(pamh, user, debug);
+		}
+		return 0;
 	}
 	else
 		return -1;
@@ -365,7 +371,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	if (debug && sense != PAM_SUCCESS)
 		pam_syslog(pamh, LOG_NOTICE, "Access will not be allowed on match");
 
-	rv = sepermit_match(pamh, cfgfile, user, seuser, debug, sense);
+	rv = sepermit_match(pamh, cfgfile, user, seuser, debug, &sense);
 
 	if (debug)
 		pam_syslog(pamh, LOG_NOTICE, "sepermit_match returned: %d", rv);

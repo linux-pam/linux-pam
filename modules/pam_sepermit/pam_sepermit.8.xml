@@ -40,7 +40,7 @@
       the pam_sepermit module returns PAM_IGNORE return value.
     </para>
     <para>
-      The config file contains a simple list of user names one per line. If the
+      The config file contains a list of user names one per line with optional arguments. If the
       <replaceable>name</replaceable> is prefixed with <emphasis>@</emphasis> character it means that all
       users in the group <replaceable>name</replaceable> match. If it is prefixed
       with a <emphasis>%</emphasis> character the SELinux user is used to match against the <replaceable>name</replaceable>
@@ -50,12 +50,11 @@
       will return PAM_IGNORE.
     </para>
     <para>
-      Each user name in the configuration file can have optional arguments separated
-      by <emphasis>:</emphasis> character. The only currently recognized argument is <emphasis>exclusive</emphasis>.
-      The pam_sepermit module will allow only single concurrent user session for
-      the user with this argument specified and it will attempt to kill all processes
-      of the user after logout.
+      See <citerefentry>
+      <refentrytitle>sepermit.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry> for details.
     </para>
+
   </refsect1>
 
   <refsect1 id="pam_sepermit-options">
@@ -168,6 +167,9 @@ session  required  pam_permit.so
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
+	<refentrytitle>sepermit.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
 	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
       </citerefentry>,
       <citerefentry>
@@ -176,13 +178,16 @@ session  required  pam_permit.so
       <citerefentry>
 	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
       </citerefentry>
+      <citerefentry>
+	<refentrytitle>selinux</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
     </para>
   </refsect1>
 
   <refsect1 id='pam_sepermit-author'>
     <title>AUTHOR</title>
       <para>
-        pam_sepermit was written by Tomas Mraz &lt;tmraz@redhat.com&gt;.
+        pam_sepermit and this manual page were written by Tomas Mraz &lt;tmraz@redhat.com&gt;.
       </para>
   </refsect1>
 

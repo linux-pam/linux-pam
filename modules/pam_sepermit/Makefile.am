@@ -1,19 +1,19 @@
 #
 # Copyright (c) 2005, 2006, 2007 Thorsten Kukuk <kukuk@thkukuk.de>
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008, 2009 Red Hat, Inc.
 #
 
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(XMLS) pam_sepermit.8 sepermit.conf tst-pam_sepermit
+EXTRA_DIST = README $(XMLS) pam_sepermit.8 sepermit.conf sepermit.conf.5 tst-pam_sepermit
 
 if HAVE_LIBSELINUX
   TESTS = tst-pam_sepermit
-  man_MANS = pam_sepermit.8
+  man_MANS = pam_sepermit.8 sepermit.conf.5
 endif
 
-XMLS = README.xml pam_sepermit.8.xml
+XMLS = README.xml pam_sepermit.8.xml sepermit.conf.5.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -37,7 +37,7 @@ if HAVE_LIBSELINUX
   securelib_LTLIBRARIES = pam_sepermit.la
 endif
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README pam_sepermit.8
+noinst_DATA = README pam_sepermit.8 sepermit.conf.5
 README: pam_sepermit.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
