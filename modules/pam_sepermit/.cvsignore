@@ -8,3 +8,4 @@ Makefile
 Makefile.in
 README
 pam_sepermit.8
+sepermit.conf.5
