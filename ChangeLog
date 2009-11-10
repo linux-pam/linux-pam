@@ -1,4 +1,23 @@
-2009-11-02  Ani Peter <anipeter@fedoraproject.org> 
+2009-11-10  Thorsten Kukuk  <kukuk@suse.de>
+
+	* doc/man/pam_get_authtok.3.xml: Document pam_get_authtok_noverify
+	and pam_get_authtok_verify.
+
+	* libpam/Makefile.am (libpam_la_LDFLAGS): Bump revesion of libpam.
+
+	* libpam/pam_get_authtok.c (pam_get_authtok_internal): Renamed
+	from pam_get_authtok, add flags argument, always check return
+	values.
+
+	* modules/pam_cracklib/pam_cracklib.c (pam_sm_chauthtok): Use
+	pam_get_authtok_noverify and pam_get_authtok_verify.
+
+	* libpam/include/security/pam_ext.h: Add prototypes for
+	pam_get_authtok_noverify and pam_get_authtok_verify.
+
+	* libpam/libpam.map: Add new pam_get_authtok_* functions.
+
+2009-11-02  Ani Peter <anipeter@fedoraproject.org>
 
 	* po/ml.po: Updated translations.
 

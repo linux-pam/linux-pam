@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-16 10:39+0200\n"
+"POT-Creation-Date: 2009-11-10 16:40+0100\n"
 "PO-Revision-Date: 2009-10-04 18:01+0200\n"
 "Last-Translator: Kris Thomsen <lakristho@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -49,12 +49,12 @@ msgstr "Genindtast ny %s%sadgangskode: "
 msgid "Sorry, passwords do not match."
 msgstr "Adgangskoderne stemmer ikke overens."
 
-#: libpam/pam_get_authtok.c:127
+#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
 #, c-format
 msgid "Retype %s"
 msgstr "Genindtast %s"
 
-#: libpam/pam_get_authtok.c:146
+#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
 msgid "Password change aborted."
 msgstr "Ændring af adgangskode afbrudt."
 
@@ -231,12 +231,12 @@ msgid "contains the user name in some form"
 msgstr "indeholder brugernavnet i en eller anden form"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "No password supplied"
 msgstr "Ingen adgangskode angivet"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:448
+#: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password unchanged"
 msgstr "Adgangskoden er uændret"
 
@@ -300,8 +300,7 @@ msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
 msgstr[0] "Der var %d fejlende logindforsøg siden sidste succesfulde logind."
-msgstr[1] ""
-"Der var %d fejlende logindforsøg siden sidste succesfulde logind."
+msgstr[1] "Der var %d fejlende logindforsøg siden sidste succesfulde logind."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:481
@@ -361,7 +360,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Kunne ikke oprette og initialisere mappe \"%s\"."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:469
+#: modules/pam_unix/pam_unix_passwd.c:496
 msgid "Password has been already used. Choose another."
 msgstr "Adgangskoden er allerede blevet brugt. Vælg en anden."
 
@@ -538,32 +537,32 @@ msgstr[1] "Advarsel: Din adgangskode udløber om %d dage"
 msgid "Warning: your password will expire in %d days"
 msgstr "Advarsel: din adgangskode udløber om %d dage"
 
-#: modules/pam_unix/pam_unix_passwd.c:358
+#: modules/pam_unix/pam_unix_passwd.c:385
 msgid "NIS password could not be changed."
 msgstr "NIS-adgangskoden kunne ikke ændres."
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:492
 msgid "You must choose a longer password"
 msgstr "Du skal vælge en længere adgangskode"
 
-#: modules/pam_unix/pam_unix_passwd.c:570
+#: modules/pam_unix/pam_unix_passwd.c:597
 #, c-format
 msgid "Changing password for %s."
 msgstr "Ændrer adgangskode for %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:608
 msgid "(current) UNIX password: "
 msgstr "(nuværende) UNIX-adgangskode: "
 
-#: modules/pam_unix/pam_unix_passwd.c:616
+#: modules/pam_unix/pam_unix_passwd.c:643
 msgid "You must wait longer to change your password"
 msgstr "Du skal vente lidt længere for at ændre din adgangskode"
 
-#: modules/pam_unix/pam_unix_passwd.c:676
+#: modules/pam_unix/pam_unix_passwd.c:703
 msgid "Enter new UNIX password: "
 msgstr "Indtast ny UNIX-adgangskode: "
 
-#: modules/pam_unix/pam_unix_passwd.c:677
+#: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
 msgstr "Genindtast ny UNIX-adgangskode: "
 

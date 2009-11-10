@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"POT-Creation-Date: 2009-11-10 16:40+0100\n"
 "PO-Revision-Date: 2009-09-27 13:48+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <fedora-trans-pl@redhat.com>\n"
@@ -49,12 +49,12 @@ msgstr "Proszę ponownie podać nowe hasło %s%s: "
 msgid "Sorry, passwords do not match."
 msgstr "Podane hasła nie zgadzają się."
 
-#: libpam/pam_get_authtok.c:127
+#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
 #, c-format
 msgid "Retype %s"
 msgstr "Proszę ponownie podać %s"
 
-#: libpam/pam_get_authtok.c:146
+#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
 msgid "Password change aborted."
 msgstr "Przerwano zmianę hasła."
 

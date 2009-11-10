@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"POT-Creation-Date: 2009-11-10 16:40+0100\n"
 "PO-Revision-Date: 2009-04-09 19:25+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
 "Language-Team: Assamese <fedora-trans-as@redhat.com>\n"
@@ -50,12 +50,12 @@ msgstr "নতুন %s%s গুপ্তশব্দ পুনঃ লিখক:
 msgid "Sorry, passwords do not match."
 msgstr "ক্ষমা কৰিব, গুপ্তশব্দৰ অমিল "
 
-#: libpam/pam_get_authtok.c:127
+#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
 #, c-format
 msgid "Retype %s"
 msgstr "%s পুনঃ লিখক"
 
-#: libpam/pam_get_authtok.c:146
+#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
 msgid "Password change aborted."
 msgstr "গুপ্ত শব্দ সলনি কৰা বাতিল কৰা হ'ল ।"
 

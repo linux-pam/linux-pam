@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.uk\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"POT-Creation-Date: 2009-11-10 16:40+0100\n"
 "PO-Revision-Date: 2006-05-03 18:59+0200\n"
 "Last-Translator: Ivan Petrouchtchak <ivanpetrouchtchak@yahoo.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -50,12 +50,12 @@ msgstr "Повторіть новий пароль %s%s: "
 msgid "Sorry, passwords do not match."
 msgstr "Ваші нові паролі не співпадають."
 
-#: libpam/pam_get_authtok.c:127
+#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
 #, fuzzy, c-format
 msgid "Retype %s"
 msgstr "тип: "
 
-#: libpam/pam_get_authtok.c:146
+#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
 #, fuzzy
 msgid "Password change aborted."
 msgstr "Пароль не змінено"

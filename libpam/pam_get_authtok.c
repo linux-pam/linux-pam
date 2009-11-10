@@ -43,6 +43,8 @@
 #define PROMPT2 _("Retype new %s%spassword: ")
 #define MISTYPED_PASS _("Sorry, passwords do not match.")
 
+#define PAM_GETAUTHTOK_NOVERIFY  1
+
 static const char *
 get_option (pam_handle_t *pamh, const char *option)
 {
@@ -70,13 +72,14 @@ get_option (pam_handle_t *pamh, const char *option)
 }
 
 
-int
-pam_get_authtok (pam_handle_t *pamh, int item, const char **authtok,
-		 const char *prompt)
+static int
+pam_get_authtok_internal (pam_handle_t *pamh, int item,
+			  const char **authtok, const char *prompt,
+			  unsigned int flags)
 
 {
   char *resp[2] = {NULL, NULL};
-  const void* prevauthtok;
+  const void *prevauthtok;
   const char *authtok_type = "";
   int ask_twice = 0; /* Password change, ask twice for it */
   int retval;
@@ -88,7 +91,9 @@ pam_get_authtok (pam_handle_t *pamh, int item, const char **authtok,
      which needs to be verified. */
   if (item == PAM_AUTHTOK && pamh->choice == PAM_CHAUTHTOK)
     {
-      ask_twice = 1;
+      if (!(flags & PAM_GETAUTHTOK_NOVERIFY))
+	ask_twice = 1;
+
       authtok_type = get_option (pamh, "authtok_type");
       if (authtok_type == NULL)
 	{
@@ -140,7 +145,8 @@ pam_get_authtok (pam_handle_t *pamh, int item, const char **authtok,
     retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0], "%s",
 			 PROMPT);
 
-  if (resp[0] == NULL || (ask_twice && resp[1] == NULL))
+  if (retval != PAM_SUCCESS || resp[0] == NULL ||
+      (ask_twice && resp[1] == NULL))
     {
       /* We want to abort the password change */
       pam_error (pamh, _("Password change aborted."));
@@ -167,4 +173,69 @@ pam_get_authtok (pam_handle_t *pamh, int item, const char **authtok,
     return retval;
 
   return pam_get_item(pamh, item, (const void **)authtok);
+}
+
+int
+pam_get_authtok (pam_handle_t *pamh, int item, const char **authtok,
+		 const char *prompt)
+{
+  return pam_get_authtok_internal (pamh, item, authtok, prompt, 0);
+}
+
+
+int
+pam_get_authtok_noverify (pam_handle_t *pamh, const char **authtok,
+			  const char *prompt)
+{
+  return pam_get_authtok_internal (pamh, PAM_AUTHTOK, authtok, prompt,
+				   PAM_GETAUTHTOK_NOVERIFY);
+}
+
+int
+pam_get_authtok_verify (pam_handle_t *pamh, const char **authtok,
+			const char *prompt)
+{
+  char *resp = NULL;
+  const char *authtok_type = "";
+  int retval;
+
+  if (authtok == NULL || pamh->choice != PAM_CHAUTHTOK)
+    return PAM_SYSTEM_ERR;
+
+  if (prompt != NULL)
+    {
+      retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp,
+			   _("Retype %s"), prompt);
+    }
+  else
+    {
+      retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp,
+			   PROMPT2, authtok_type,
+			   strlen (authtok_type) > 0?" ":"");
+    }
+
+  if (retval != PAM_SUCCESS || resp == NULL)
+    {
+      /* We want to abort the password change */
+      pam_set_item (pamh, PAM_AUTHTOK, NULL);
+      pam_error (pamh, _("Password change aborted."));
+      return PAM_AUTHTOK_ERR;
+    }
+
+  if (strcmp (*authtok, resp) != 0)
+    {
+      pam_set_item (pamh, PAM_AUTHTOK, NULL);
+      pam_error (pamh, MISTYPED_PASS);
+      _pam_overwrite (resp);
+      _pam_drop (resp);
+      return PAM_TRY_AGAIN;
+    }
+
+  retval = pam_set_item (pamh, PAM_AUTHTOK, resp);
+  _pam_overwrite (resp);
+  _pam_drop (resp);
+  if (retval != PAM_SUCCESS)
+    return retval;
+
+  return pam_get_item(pamh, PAM_AUTHTOK, (const void **)authtok);
 }

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"POT-Creation-Date: 2009-11-10 16:40+0100\n"
 "PO-Revision-Date: 2009-03-24 22:24+0100\n"
 "Last-Translator: Pavol Šimo <palo.simo@gmail.com>\n"
 "Language-Team: Slovak <fedora-trans-sk@redhat.com>\n"
@@ -48,12 +48,12 @@ msgstr "Opakujte nové %s%sheslo: "
 msgid "Sorry, passwords do not match."
 msgstr "Prepáčte, heslá sa nezhodujú."
 
-#: libpam/pam_get_authtok.c:127
+#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
 #, c-format
 msgid "Retype %s"
 msgstr "Opakujte %s"
 
-#: libpam/pam_get_authtok.c:146
+#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
 msgid "Password change aborted."
 msgstr "Zmena hesla zrušená."
 

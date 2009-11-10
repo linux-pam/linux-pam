@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005, 2006, 2008 Thorsten Kukuk.
+ * Copyright (C) 2005, 2006, 2008, 2009 Thorsten Kukuk.
  *
  * <security/pam_ext.h>
  *
@@ -77,6 +77,13 @@ pam_prompt (pam_handle_t *pamh, int style, char **response,
 extern int PAM_NONNULL((1,3))
 pam_get_authtok (pam_handle_t *pamh, int item, const char **authtok,
 		 const char *prompt);
+extern int PAM_NONNULL((1,2))
+pam_get_authtok_noverify (pam_handle_t *pamh, const char **authtok,
+			  const char *prompt);
+extern int PAM_NONNULL((1,2))
+pam_get_authtok_verify (pam_handle_t *pamh, const char **authtok,
+			const char *prompt);
+
 #ifdef __cplusplus
 }
 #endif

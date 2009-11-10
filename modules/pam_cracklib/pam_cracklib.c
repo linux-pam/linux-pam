@@ -639,9 +639,9 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	   * set PAM_AUTHTOK and return
 	   */
 
-	  retval = pam_get_authtok (pamh, PAM_AUTHTOK, &newtoken, NULL);
+	  retval = pam_get_authtok_noverify (pamh, &newtoken, NULL);
 	  if (retval != PAM_SUCCESS) {
-	    pam_syslog(pamh, LOG_ERR, "pam_get_authtok returned error: %s",
+	    pam_syslog(pamh, LOG_ERR, "pam_get_authtok_noverify returned error: %s",
 		       pam_strerror (pamh, retval));
 	    continue;
 	  } else if (newtoken == NULL) {      /* user aborted password change, quit */
@@ -676,6 +676,17 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		continue;
 	      }
 	  }
+
+	  retval = pam_get_authtok_verify (pamh, &newtoken, NULL);
+	  if (retval != PAM_SUCCESS) {
+	    pam_syslog(pamh, LOG_ERR, "pam_get_authtok_verify returned error: %s",
+		       pam_strerror (pamh, retval));
+	    pam_set_item(pamh, PAM_AUTHTOK, NULL);
+	    continue;
+	  } else if (newtoken == NULL) {      /* user aborted password change, quit */
+	    return PAM_AUTHTOK_ERR;
+	  }
+
 	  return PAM_SUCCESS;
         }
 

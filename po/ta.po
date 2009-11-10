@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip.ta\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"POT-Creation-Date: 2009-11-10 16:40+0100\n"
 "PO-Revision-Date: 2009-04-03 22:27+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <fedora-trans-ta@redhat.com>\n"
@@ -53,12 +53,12 @@ msgstr "புதிய %s%spassword மீண்டும் உள்ளிட
 msgid "Sorry, passwords do not match."
 msgstr "கடவுச்சொல் பொருந்தவில்லை."
 
-#: libpam/pam_get_authtok.c:127
+#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
 #, c-format
 msgid "Retype %s"
 msgstr "%sஐ மறு தட்டச்சு செய்"
 
-#: libpam/pam_get_authtok.c:146
+#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
 msgid "Password change aborted."
 msgstr "கடவுச்சொல் மாற்றம் கைவிடப்பட்டது."
 

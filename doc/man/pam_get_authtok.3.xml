@@ -27,6 +27,18 @@
         <paramdef>const char **<parameter>authtok</parameter></paramdef>
         <paramdef>const char *<parameter>prompt</parameter></paramdef>
       </funcprototype>
+      <funcprototype>
+        <funcdef>int <function>pam_get_authtok_noverify</function></funcdef>
+        <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
+        <paramdef>const char **<parameter>authtok</parameter></paramdef>
+        <paramdef>const char *<parameter>prompt</parameter></paramdef>
+      </funcprototype>
+      <funcprototype>
+        <funcdef>int <function>pam_get_authtok_verify</function></funcdef>
+        <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
+        <paramdef>const char **<parameter>authtok</parameter></paramdef>
+        <paramdef>const char *<parameter>prompt</parameter></paramdef>
+      </funcprototype>
     </funcsynopsis>
   </refsynopsisdiv>
 
@@ -74,6 +86,35 @@
         </listitem>
       </varlistentry>
     </variablelist>
+    <para>
+      The <function>pam_get_authtok_noverify</function> function can
+      only be used for changing the password
+      (from <citerefentry>
+        <refentrytitle>pam_sm_chauthtok</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>). It returns the cached
+      authentication token, or prompts the user if no token is
+      currently cached. The difference to <function>pam_get_authtok</function>
+      is, that this function does not ask a second time for the password
+      to verify it. Upon successful return, <emphasis>authtok</emphasis>
+      contains a pointer to the value of the authentication token. Note,
+      this is a pointer to the
+      <emphasis>actual</emphasis> data and should
+      <emphasis remap="B">not</emphasis> be <emphasis>free()</emphasis>'ed or
+      over-written!
+    </para>
+    <para>
+      The <function>pam_get_authtok_verify</function> function can
+      only be used to verify a password for mistypes gotten by
+     <citerefentry>
+        <refentrytitle>pam_get_authtok_noverify</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>. This function asks a second time for the password
+      and verify it with the password provided by <emphasis>authtok</emphasis>
+      argument. In case of an error, the value of <emphasis>authtok</emphasis>
+      is undefined. Else this argument will point to the
+      <emphasis>actual</emphasis> data and should
+      <emphasis remap="B">not</emphasis> be <emphasis>free()</emphasis>'ed or
+      over-written!
+    </para>
   </refsect1>
 
   <refsect1 id="pam_get_authtok-options">

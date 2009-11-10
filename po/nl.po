@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip.nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"POT-Creation-Date: 2009-11-10 16:40+0100\n"
 "PO-Revision-Date: 2009-04-04 17:55+0200\n"
 "Last-Translator: R.E. van der Luit <nippur@fedoraproject.org>\n"
 "Language-Team: Dutch <nippur@fedoraproject.org>\n"
@@ -53,12 +53,12 @@ msgstr "Nieuw %s%swachtwoord herhalen: "
 msgid "Sorry, passwords do not match."
 msgstr "Sorry, wachtwoorden komen niet overeen."
 
-#: libpam/pam_get_authtok.c:127
+#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
 #, c-format
 msgid "Retype %s"
 msgstr "Voer opnieuw in %s"
 
-#: libpam/pam_get_authtok.c:146
+#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
 msgid "Password change aborted."
 msgstr "Wachtwoord wijzigen afgebroken."
 

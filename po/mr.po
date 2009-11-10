@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip.mr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"POT-Creation-Date: 2009-11-10 16:40+0100\n"
 "PO-Revision-Date: 2009-04-14 11:31+0530\n"
 "Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
 "Language-Team: marathi\n"
@@ -49,12 +49,12 @@ msgstr "नवीन गुप्तशब्द %s%sp पुन्हा टा
 msgid "Sorry, passwords do not match."
 msgstr "माफ करा, गुप्तशब्द जुळत नाही."
 
-#: libpam/pam_get_authtok.c:127
+#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
 #, c-format
 msgid "Retype %s"
 msgstr "%s पुन्हा प्रविष्ट करा"
 
-#: libpam/pam_get_authtok.c:146
+#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
 msgid "Password change aborted."
 msgstr "परवलीचा शब्द रद्द केले."
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"POT-Creation-Date: 2009-11-10 16:40+0100\n"
 "PO-Revision-Date: 2006-03-17 10:32+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -49,12 +49,12 @@ msgstr "វាយ​ពាក្យ​សម្ងាត់ %s%s ថ្មី​
 msgid "Sorry, passwords do not match."
 msgstr "សូម​ទោស ពាក្យ​សម្ងាត់​មិន​ដូច​គ្នា​ឡើយ ។"
 
-#: libpam/pam_get_authtok.c:127
+#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
 #, fuzzy, c-format
 msgid "Retype %s"
 msgstr "ប្រភេទ ៖ "
 
-#: libpam/pam_get_authtok.c:146
+#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
 #, fuzzy
 msgid "Password change aborted."
 msgstr "ពាក្យសម្ងាត់​មិន​បាន​ផ្លាស់ប្ដូរ​ឡើយ"
