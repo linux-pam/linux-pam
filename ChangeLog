@@ -1,3 +1,11 @@
+2009-11-18  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_access/pam_access.c(user_match): Revert the netgroup
+	match to the original behavior, add new syntax for adding the local
+	hostname.
+	* modules/pam_access/access.conf.5.xml: Document the new syntax
+	for adding the local hostname to the netgroup match.
+
 2009-11-10  Thorsten Kukuk  <kukuk@suse.de>
 
 	* doc/man/pam_get_authtok.3.xml: Document pam_get_authtok_noverify

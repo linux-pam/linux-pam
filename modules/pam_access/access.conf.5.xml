@@ -74,7 +74,12 @@
       not set and &lt;origin&gt; field is thus set from
       <emphasis>PAM_TTY</emphasis> or <emphasis>PAM_SERVICE</emphasis>".
       If supported by the system you can use
-      <emphasis>@netgroupname</emphasis> in host or user patterns.
+      <emphasis>@netgroupname</emphasis> in host or user patterns. The
+      <emphasis>@@netgroupname</emphasis> syntax is supported in the user
+      pattern only and it makes the local system hostname to be passed
+      to the netgroup match call in addition to the user name. This might not
+      work correctly on some libc implementations causing the match to
+      always fail.
     </para>
 
     <para>

@@ -529,9 +529,14 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 	return (user_match (pamh, tok, item) &&
 		from_match (pamh, at + 1, &fake_item));
     } else if (tok[0] == '@') {			/* netgroup */
-	if (item->hostname == NULL)
-	    return NO;
-        return (netgroup_match (pamh, tok + 1, item->hostname, string, item->debug));
+	const char *hostname = NULL;
+	if (tok[1] == '@') {			/* add hostname to netgroup match */
+		if (item->hostname == NULL)
+		    return NO;
+		++tok;
+		hostname = item->hostname;
+	}
+        return (netgroup_match (pamh, tok + 1, hostname, string, item->debug));
     } else if (tok[0] == '(' && tok[strlen(tok) - 1] == ')')
       return (group_match (pamh, tok, string, item->debug));
     else if ((rv=string_match (pamh, tok, string, item->debug)) != NO) /* ALL or exact match */
