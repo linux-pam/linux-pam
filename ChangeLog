@@ -1,3 +1,8 @@
+2009-11-19  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_sepermit/pam_sepermit.c(sepermit_match): Return
+	PAM_AUTH_ERR from the module if sepermit_lock() fails.
+
 2009-11-18  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_access/pam_access.c(user_match): Revert the netgroup

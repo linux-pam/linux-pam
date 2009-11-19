@@ -314,7 +314,8 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 			if (ignore)
 				*sense = PAM_IGNORE;
 			if (geteuid() == 0 && exclusive)
-				return sepermit_lock(pamh, user, debug);
+				if (sepermit_lock(pamh, user, debug) < 0)
+					*sense = PAM_AUTH_ERR;
 		}
 		return 0;
 	}
