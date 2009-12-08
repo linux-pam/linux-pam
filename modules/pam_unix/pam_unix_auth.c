@@ -35,8 +35,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* #define DEBUG */
-
 #include "config.h"
 
 #include <stdio.h>

@@ -1,3 +1,17 @@
+2009-12-08  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Rename DEBUG to PAM_DEBUG.
+	* libpam/pam_env.c: Likewise
+	* libpam/pam_handlers.c: Likewise
+	* libpam/pam_miscc.c: Likewise
+	* libpam/pam_password.c: Likewise
+	* libpam/include/security/_pam_macros.h: Likewise
+	* libpamc/test/modules/pam_secret.c: Likewise
+	* modules/pam_group/pam_group.c: Likewise
+	* modules/pam_listfile/pam_listfile.c: Likewise
+	* modules/pam_unix/pam_unix_auth.c: Likewise
+	* modules/pam_unix/pam_unix_passwd.c: Likewise
+
 2009-12-08  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_unix/passverify.c(unix_update_shadow): Create a shadow

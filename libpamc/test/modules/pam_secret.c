@@ -9,8 +9,6 @@
  *          NEEDS TO BE INTEGRATED MORE NATIVELY.
  */
 
-/* #define DEBUG */
-
 #include <fcntl.h>
 #include <pwd.h>
 #include <stdio.h>
@@ -178,7 +176,7 @@ static int converse(pam_handle_t *pamh, struct ps_state_s *new)
 	}
     }
 
-#ifdef DEBUG
+#ifdef PAM_DEBUG
     if (retval == PAM_SUCCESS) {
 	D(("reply has length=%d and control=%u",
 	   PAM_BP_LENGTH(new->current_reply),

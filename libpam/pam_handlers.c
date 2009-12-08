@@ -239,7 +239,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		argv = NULL;
 	    }
 
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 	    {
 		int y;
 

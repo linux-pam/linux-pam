@@ -4,8 +4,6 @@
  * $Id$
  */
 
-/* #define DEBUG */
-
 #include "pam_private.h"
 
 #include <stdio.h>

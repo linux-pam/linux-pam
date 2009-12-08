@@ -171,7 +171,7 @@ int _pam_mkargv(char *s, char ***argv, int *argc)
     char **our_argv = NULL;
     char **argvbuf;
     char *argvbufp;
-#ifdef DEBUG
+#ifdef PAM_DEBUG
     int count=0;
 #endif
 

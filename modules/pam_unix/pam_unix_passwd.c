@@ -385,7 +385,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 				_("NIS password could not be changed."));
 			retval = PAM_TRY_AGAIN;
 		}
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 		sleep(5);
 #endif
 	    } else {

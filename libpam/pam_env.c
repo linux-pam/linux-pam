@@ -21,7 +21,7 @@
 
 /* helper functions */
 
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 static void _pam_dump_env(pam_handle_t *pamh)
 {
     int i;

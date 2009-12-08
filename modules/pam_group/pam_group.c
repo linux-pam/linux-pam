@@ -605,7 +605,7 @@ static int check_account(pam_handle_t *pamh, const char *service,
 	    no_grps = 0;
 	    _pam_drop(grps);
 	}
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 	{
 	    int z;
 	    for (z=0; z<no_grps; ++z) {
@@ -719,11 +719,11 @@ static int check_account(pam_handle_t *pamh, const char *service,
     /* now set the groups for the user */
 
     if (no_grps > 0) {
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 	int err;
 #endif
 	D(("trying to set %d groups", no_grps));
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 	for (err=0; err<no_grps; ++err) {
 	    D(("gid[%d]=%d", err, grps[err]));
 	}

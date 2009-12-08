@@ -18,7 +18,7 @@
 #include <pwd.h>
 #include <grp.h>
 
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 #include <assert.h>
 #endif
 
@@ -199,23 +199,23 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	    if(apply_type==APPLY_TYPE_USER) {
 		if(strcmp(user_name, apply_val)) {
 		    /* Does not apply to this user */
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 		    pam_syslog(pamh,LOG_DEBUG,
 			      "don't apply: apply=%s, user=%s",
 			     apply_val,user_name);
-#endif /* DEBUG */
+#endif /* PAM_DEBUG */
 		    free(ifname);
 		    return PAM_IGNORE;
 		}
 	    } else if(apply_type==APPLY_TYPE_GROUP) {
 		if(!pam_modutil_user_in_group_nam_nam(pamh,user_name,apply_val)) {
 		    /* Not a member of apply= group */
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 		    pam_syslog(pamh,LOG_DEBUG,
 
 			     "don't apply: %s not a member of group %s",
 			     user_name,apply_val);
-#endif /* DEBUG */
+#endif /* PAM_DEBUG */
 		    free(ifname);
 		    return PAM_IGNORE;
 		}
@@ -276,7 +276,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		return onerr;
 	}
     }
-#ifdef DEBUG
+#ifdef PAM_DEBUG
     pam_syslog(pamh,LOG_INFO,
 
 	     "Got file = %s, item = %d, value = %s, sense = %d",
@@ -312,7 +312,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     retval=PAM_AUTH_ERR;
     /* This loop assumes that PAM_SUCCESS == 0
        and PAM_AUTH_ERR != 0 */
-#ifdef DEBUG
+#ifdef PAM_DEBUG
     assert(PAM_SUCCESS == 0);
     assert(PAM_AUTH_ERR != 0);
 #endif
@@ -343,7 +343,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     fclose(inf);
     free(ifname);
     if ((sense && retval) || (!sense && !retval)) {
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 	pam_syslog(pamh,LOG_INFO,
 		 "Returning PAM_SUCCESS, retval = %d", retval);
 #endif
@@ -352,7 +352,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     else {
 	const void *service;
 	const char *user_name;
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 	pam_syslog(pamh,LOG_INFO,
 		 "Returning PAM_AUTH_ERR, retval = %d", retval);
 #endif

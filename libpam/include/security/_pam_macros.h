@@ -62,7 +62,7 @@ do {                                              \
 
 /* some debugging code */
 
-#ifdef DEBUG
+#ifdef PAM_DEBUG
 
 /*
  * This provides the necessary function to do debugging in PAM.
@@ -191,6 +191,6 @@ do {                                                                        \
 #define _pam_show_mem(X,XS)              do { } while (0)
 #define _pam_show_reply(reply, replies)  do { } while (0)
 
-#endif /* DEBUG */
+#endif /* PAM_DEBUG */
 
 #endif  /* PAM_MACROS_H */
