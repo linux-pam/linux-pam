@@ -839,19 +839,16 @@ done:
 PAMH_ARG_DECL(int unix_update_shadow,
 	const char *forwho, char *towhat)
 {
-    struct spwd *spwdent = NULL, *stmpent = NULL;
+    struct spwd spwdent, *stmpent = NULL;
     struct stat st;
     FILE *pwfile, *opwfile;
-    int err = 1;
+    int err = 0;
     int oldmask;
+    int wroteentry = 0;
 #ifdef WITH_SELINUX
     security_context_t prev_context=NULL;
 #endif
 
-    spwdent = getspnam(forwho);
-    if (spwdent == NULL) {
-	return PAM_USER_UNKNOWN;
-    }
     oldmask = umask(077);
 
 #ifdef WITH_SELINUX
@@ -912,7 +909,7 @@ PAMH_ARG_DECL(int unix_update_shadow,
 	if (!strcmp(stmpent->sp_namp, forwho)) {
 	    stmpent->sp_pwdp = towhat;
 	    stmpent->sp_lstchg = time(NULL) / (60 * 60 * 24);
-	    err = 0;
+	    wroteentry = 1;
 	    D(("Set password %s for %s", stmpent->sp_pwdp, forwho));
 	}
 
@@ -924,7 +921,21 @@ PAMH_ARG_DECL(int unix_update_shadow,
 
 	stmpent = fgetspent(opwfile);
     }
+
     fclose(opwfile);
+
+    if (!wroteentry && !err) {
+	spwdent.sp_namp = forwho;
+	spwdent.sp_pwdp = towhat;
+	spwdent.sp_lstchg = time(NULL) / (60 * 60 * 24);
+	spwdent.sp_min = spwdent.sp_max = spwdent.sp_warn = spwdent.sp_inact =
+	    spwdent.sp_expire = -1;
+	spwdent.sp_flag = (unsigned long)-1l;
+	if (putspent(&spwdent, pwfile)) {
+	    D(("error writing entry to shadow file: %m"));
+	    err = 1;
+	}
+    }
 
     if (fflush(pwfile) || fsync(fileno(pwfile))) {
 	D(("fflush or fsync error writing entries to shadow file: %m"));

@@ -1,5 +1,8 @@
 2009-12-08  Tomas Mraz  <t8m@centrum.cz>
 
+	* modules/pam_unix/passverify.c(unix_update_shadow): Create a shadow
+	entry if not present in the file.
+
 	* modules/pam_listfile/pam_listfile.c(pam_sm_authenticate): Remove
 	unused function and variable.
 
