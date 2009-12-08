@@ -1,3 +1,8 @@
+2009-12-08  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_listfile/pam_listfile.c(pam_sm_authenticate): Remove
+	unused function and variable.
+
 2009-11-19  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_sepermit/pam_sepermit.c(sepermit_match): Return

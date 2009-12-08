@@ -39,17 +39,6 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
-/* checks if a user is on a list of members */
-static int is_on_list(char * const *list, const char *member)
-{
-    while (*list) {
-        if (strcmp(*list, member) == 0)
-            return 1;
-        list++;
-    }
-    return 0;
-}
-
 /* --- authentication management functions (only) --- */
 
 /* Extended Items that are not directly available via pam_get_item() */
@@ -81,7 +70,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 
     /* Stuff for "extended" items */
     struct passwd *userinfo;
-    struct group *grpinfo;
 
     apply_type=APPLY_TYPE_NULL;
     memset(apply_val,0,sizeof(apply_val));
