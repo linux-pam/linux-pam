@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-11-10 16:40+0100\n"
+"POT-Creation-Date: 2009-12-09 13:20+0100\n"
 "PO-Revision-Date: 2009-05-18 16:10+0200\n"
 "Last-Translator: Albert Carabasa Giribet <albertc@asic.udl.cat>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
@@ -44,7 +44,7 @@ msgid "erroneous conversation (%d)\n"
 msgstr "conversa errònia (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
+#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:63
 msgid "Password: "
 msgstr "Contrasenya: "
 

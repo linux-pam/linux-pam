@@ -1,6 +1,16 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
+Release 1.1.1
+
+* Update translations
+* pam_access: Revert netgroup match to original behavior, add new
+  syntax for adding the local hostname to netgroup match
+* libpam: Add new functions pam_get_authtok_noverify() and 
+  pam_get_authtok_verify()
+* Add sepermit.conf.5 manual page
+* Lot of bug fixes
+
 Release 1.1.0
 
 * Update translations

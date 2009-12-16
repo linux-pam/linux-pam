@@ -1,3 +1,14 @@
+2009-12-16  Thorsten Kukuk  <kukuk@suse.de>
+
+	* release version 1.1.1
+	
+	* NEWS: Adjust for 1.1.1
+	* configure.in: Likewise.
+	* doc/adg/Linux-PAM_ADG.xml: Likewise.
+	* doc/mwg/Linux-PAM_MWG.xml: Likewise.
+	* doc/sag/Linux-PAM_SAG.xml: Likewise.
+	* po/*.po: Regenerated.
+
 2009-12-08  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Rename DEBUG to PAM_DEBUG.
