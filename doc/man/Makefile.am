@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2006, 2007 Thorsten Kukuk <kukuk@thkukuk.de>
+# Copyright (c) 2006, 2007, 2009 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
 CLEANFILES = *~
@@ -42,7 +42,7 @@ XMLS = pam.3.xml pam.8.xml \
 	pam_item_types_std.inc.xml pam_item_types_ext.inc.xml \
 	pam.conf-desc.xml pam.conf-dir.xml pam.conf-syntax.xml \
 	misc_conv.3.xml pam_misc_paste_env.3.xml pam_misc_drop_env.3.xml \
-	pam_misc_setenv.3.xml
+	pam_misc_setenv.3.xml pam_xauth_data.3.xml
 
 if ENABLE_REGENERATE_MAN
 PAM.8: pam.8

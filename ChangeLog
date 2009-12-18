@@ -1,3 +1,7 @@
+2009-12-18  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/Makefile.am (XMLS): Add pam_xauth_data.3.xml.
+
 2009-03-03  Dmitry V. Levin  <ldv@altlinux.org>
 
         * tests/tst-pam_mkargv.c (main): Fix for non-64bit architectures.
@@ -49,7 +53,7 @@
 	* modules/pam_time/pam_time.c (is_same): Fix check
 	of correct string length (debian bug #326407).
 
-2008-10-17  Tomas Mraz <t8m@centrum.cz> 
+2008-10-17  Tomas Mraz <t8m@centrum.cz>
 
 	* modules/pam_keyinit/pam_keyinit.c (kill_keyrings): Save the old
 	euid to suid to be able to restore it.
@@ -122,7 +126,7 @@
 	* modules/pam_namespace/pam_namespace.c(poly_name): Switch to USER
 	method only when appropriate.
 	(setup_namespace): Do not umount when not mounted with RUSER.
-	
+
 	* modules/pam_selinux/pam_selinux.c(pam_sm_close_session): Call
 	freecontext() after the context is logged not before.
 
