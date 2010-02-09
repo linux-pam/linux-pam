@@ -81,7 +81,7 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
   char *resp[2] = {NULL, NULL};
   const void *prevauthtok;
   const char *authtok_type = "";
-  int ask_twice = 0; /* Password change, ask twice for it */
+  int chpass = 0; /* Password change, ask twice for it */
   int retval;
 
   if (authtok == NULL)
@@ -91,8 +91,9 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
      which needs to be verified. */
   if (item == PAM_AUTHTOK && pamh->choice == PAM_CHAUTHTOK)
     {
+      chpass = 1;
       if (!(flags & PAM_GETAUTHTOK_NOVERIFY))
-	ask_twice = 1;
+	++chpass;
 
       authtok_type = get_option (pamh, "authtok_type");
       if (authtok_type == NULL)
@@ -110,11 +111,11 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
       return PAM_SUCCESS;
     }
   else if (get_option (pamh, "use_first_pass") ||
-	   (ask_twice && get_option (pamh, "use_authtok")))
+	   (chpass && get_option (pamh, "use_authtok")))
     {
       if (prevauthtok == NULL)
 	{
-	  if (ask_twice)
+	  if (chpass)
 	    return PAM_AUTHTOK_ERR;
 	  else
 	    return PAM_AUTH_ERR;
@@ -127,16 +128,16 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
     {
       retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0],
 			   "%s", prompt);
-      if (retval == PAM_SUCCESS && ask_twice && resp[0] != NULL)
+      if (retval == PAM_SUCCESS && chpass > 1 && resp[0] != NULL)
 	retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[1],
 			     _("Retype %s"), prompt);
     }
-  else if (ask_twice)
+  else if (chpass)
     {
       retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0],
 			   PROMPT1, authtok_type,
 			   strlen (authtok_type) > 0?" ":"");
-      if (retval == PAM_SUCCESS && ask_twice && resp[0] != NULL)
+      if (retval == PAM_SUCCESS && chpass > 1 && resp[0] != NULL)
 	retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[1],
 			     PROMPT2, authtok_type,
 			     strlen (authtok_type) > 0?" ":"");
@@ -146,14 +147,14 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
 			 PROMPT);
 
   if (retval != PAM_SUCCESS || resp[0] == NULL ||
-      (ask_twice && resp[1] == NULL))
+      (chpass > 1 && resp[1] == NULL))
     {
       /* We want to abort the password change */
       pam_error (pamh, _("Password change aborted."));
       return PAM_AUTHTOK_ERR;
     }
 
-  if (ask_twice && strcmp (resp[0], resp[1]) != 0)
+  if (chpass > 1 && strcmp (resp[0], resp[1]) != 0)
     {
       pam_error (pamh, MISTYPED_PASS);
       _pam_overwrite (resp[0]);
