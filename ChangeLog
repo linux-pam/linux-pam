@@ -1,3 +1,7 @@
+2010-03-08  Yuri Chornoivan  <yurchor@ukr.net>
+
+	* po/uk.po: Updated translations.
+
 2010-02-09  Tomas Mraz  <t8m@centrum.cz>
 
 	* libpam/pam_get_authtok.c (pam_get_authtok_internal): Fix
