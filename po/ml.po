@@ -1,3 +1,4 @@
+# translation of pam.default.ml.po to
 # translation of ml.po to
 # translation of pam.tip.ml.po to
 # translation of Linux-PAM.tip.ml.po to
@@ -7,10 +8,10 @@
 # Ani Peter <apeter@redhat.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ml\n"
+"Project-Id-Version: pam.default.ml\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-12-09 13:20+0100\n"
-"PO-Revision-Date: 2009-11-02 13:05+0530\n"
+"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"PO-Revision-Date: 2010-03-24 14:41+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,32 +34,32 @@ msgid "erroneous conversation (%d)\n"
 msgstr "തെറ്റായ സംവാദം (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:63
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
 msgid "Password: "
-msgstr "രഹസ്യവാക്ക്: "
+msgstr "അടയാളവാക്ക്: "
 
 #: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
 #, c-format
 msgid "New %s%spassword: "
-msgstr "പുതിയ %s%s രഹസ്യവാക്ക്: "
+msgstr "പുതിയ %s%s അടയാളവാക്ക്: "
 
 #: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "വീണ്ടും %s%s രഹസ്യവാക്ക് ടൈപ്പ് ചെയ്യുക: "
+msgstr "വീണ്ടും %s%s അടയാളവാക്ക് ടൈപ്പ് ചെയ്യുക: "
 
 #: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
 msgid "Sorry, passwords do not match."
-msgstr "ക്ഷമിക്കണം, രഹസ്യവാക്കുകള്‍ തമ്മില്‍ ചേരുന്നില്ല."
+msgstr "ക്ഷമിക്കണം, അടയാളവാക്കുകള്‍ തമ്മില്‍ ചേരുന്നില്ല."
 
-#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
+#: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
 msgstr "%s വീണ്ടും ടൈപ്പ് ചെയ്യുക"
 
-#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
+#: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
-msgstr "രഹസ്യവാക്ക് മാറ്റം വരുത്തുന്നതു് നിര്‍ത്തിയിരിക്കുന്നു."
+msgstr "അടയാളവാക്ക് മാറ്റം വരുത്തുന്നതു് നിര്‍ത്തിയിരിക്കുന്നു."
 
 #: libpam/pam_item.c:310
 msgid "login:"
@@ -170,7 +171,7 @@ msgstr "ഓഥന്റിക്കേഷന്‍ ടോക്കന്‍ ഏ�
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr "രഹസ്യവാക്ക് സര്‍വീസിന്റെ  ആദ്യത്തെ പരിശോധന പരാജയപ്പെട്ടു"
+msgstr "അടയാളവാക്ക് സര്‍വീസിന്റെ  ആദ്യത്തെ പരിശോധന പരാജയപ്പെട്ടു"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
@@ -235,18 +236,18 @@ msgstr "ഉപയോക്താവിന്റെ നാമം ഏതെങ്�
 #: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:475
 msgid "No password supplied"
-msgstr "രഹസ്യവാക്ക് നല്‍കിയിട്ടില്ല"
+msgstr "അടയാളവാക്ക് നല്‍കിയിട്ടില്ല"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
 #: modules/pam_unix/pam_unix_passwd.c:475
 msgid "Password unchanged"
-msgstr "രഹസ്യവാക്ക് മാറ്റിയിട്ടില്ല"
+msgstr "അടയാളവാക്ക് മാറ്റിയിട്ടില്ല"
 
 #: modules/pam_cracklib/pam_cracklib.c:575
 #: modules/pam_cracklib/pam_cracklib.c:658
 #, c-format
 msgid "BAD PASSWORD: %s"
-msgstr "BAD PASSWORD: %s"
+msgstr "തെറ്റായ അടയാളവാക്ക്: %s"
 
 #: modules/pam_exec/pam_exec.c:215
 #, c-format
@@ -299,8 +300,7 @@ msgstr "അവസാനം ലോഗിന്‍ ചെയ്തതു് പര
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
+msgid_plural "There were %d failed login attempts since the last successful login."
 msgstr[0] "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
 msgstr[1] "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
 
@@ -364,7 +364,7 @@ msgstr "%s ഡയറക്ടറി ഉണ്ടാക്കുവാനും �
 #: modules/pam_pwhistory/pam_pwhistory.c:218
 #: modules/pam_unix/pam_unix_passwd.c:496
 msgid "Password has been already used. Choose another."
-msgstr "രഹസ്യവാക്ക് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
+msgstr "അടയാളവാക്ക് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
 
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
@@ -429,19 +429,19 @@ msgstr "login: ഫോര്‍ക്ക് ചെയ്യുന്നതില�
 #: modules/pam_stress/pam_stress.c:475
 #, c-format
 msgid "Changing STRESS password for %s."
-msgstr "%s-നുളള STRESS രഹസ്യവാക്ക് മാറ്റുന്നു."
+msgstr "%s-നുളള STRESS അടയാളവാക്ക് മാറ്റുന്നു."
 
 #: modules/pam_stress/pam_stress.c:489
 msgid "Enter new STRESS password: "
-msgstr "പുതിയ STRESS രഹസ്യവാക്ക് നല്‍കുക: "
+msgstr "പുതിയ STRESS അടയാളവാക്ക് നല്‍കുക: "
 
 #: modules/pam_stress/pam_stress.c:492
 msgid "Retype new STRESS password: "
-msgstr "പുതിയ STRESS രഹസ്യവാക്ക് വീണ്ടും ടൈപ്പ് ചെയ്യുക: "
+msgstr "പുതിയ STRESS അടയാളവാക്ക് വീണ്ടും ടൈപ്പ് ചെയ്യുക: "
 
 #: modules/pam_stress/pam_stress.c:521
 msgid "Verification mis-typed; password unchanged"
-msgstr "രഹസ്യവാക്ക് ഉറപ്പാക്കുന്നതിനായി ടൈപ്പ് ചെയ്തത് തെറ്റാണ്; രഹസ്യവാക്ക് മാറ്റിയിട്ടില്ല"
+msgstr "അടയാളവാക്ക് ഉറപ്പാക്കുന്നതിനായി ടൈപ്പ് ചെയ്തത് തെറ്റാണ്; അടയാളവാക്ക് മാറ്റിയിട്ടില്ല"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
@@ -481,10 +481,8 @@ msgstr "%s: Unrecognised ഉപാധി %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -520,50 +518,51 @@ msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "നിങ്ങളുടെ രഹസ്യവാക്ക് ഉടനെ മാറ്റേണ്ടതുണ്ട് (root enforced)"
+msgstr "നിങ്ങളുടെ അടയാളവാക്ക് ഉടനെ മാറ്റേണ്ടതുണ്ട് (root enforced)"
 
 #: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
-msgstr "നിങ്ങളുടെ രഹസ്യവാക്ക് ഉടനെ മാറ്റേണ്ടതുണ്ട് (രഹസ്യവാക്ക് മാറ്റുന്നതിന് സമയമായി)"
+msgstr "നിങ്ങളുടെ അടയാളവാക്ക് ഉടനെ മാറ്റേണ്ടതുണ്ട് (അടയാളവാക്ക് മാറ്റുന്നതിന് സമയമായി)"
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ രഹസ്യവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
-msgstr[1] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ രഹസ്യവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
+msgstr[0] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
+msgstr[1] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "മുന്നറിയിപ്പ്: നിങ്ങളുടെ രഹസ്യവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
+msgstr "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
 
 #: modules/pam_unix/pam_unix_passwd.c:385
 msgid "NIS password could not be changed."
-msgstr "NIS രഹസ്യവാക്ക് മാറ്റുവാന്‍ സാധ്യമാകുന്നില്ല."
+msgstr "NIS അടയാളവാക്ക് മാറ്റുവാന്‍ സാധ്യമാകുന്നില്ല."
 
 #: modules/pam_unix/pam_unix_passwd.c:492
 msgid "You must choose a longer password"
-msgstr "ഇതിലും വലിയ രഹസ്യവാക്ക് തിരഞ്ഞെടുക്കുക"
+msgstr "ഇതിലും വലിയ അടയാളവാക്ക് തിരഞ്ഞെടുക്കുക"
 
 #: modules/pam_unix/pam_unix_passwd.c:597
 #, c-format
 msgid "Changing password for %s."
-msgstr "%s-നുളള രഹസ്യവാക്ക് മാറ്റുന്നു."
+msgstr "%s-നുളള അടയാളവാക്ക് മാറ്റുന്നു."
 
 #: modules/pam_unix/pam_unix_passwd.c:608
 msgid "(current) UNIX password: "
-msgstr "(നിലവിലുളളത്) UNIX രഹസ്യവാക്ക്: "
+msgstr "(നിലവിലുളളത്) UNIX രഅടയാളവാക്ക്: "
 
 #: modules/pam_unix/pam_unix_passwd.c:643
 msgid "You must wait longer to change your password"
-msgstr "നിങ്ങളുടെ രഹസ്യവാക്ക് മാറ്റുന്നതിനായി ഇനിയും കാത്തിരിക്കേണ്ടതാണ്."
+msgstr "നിങ്ങളുടെ അടയാളവാക്ക് മാറ്റുന്നതിനായി ഇനിയും കാത്തിരിക്കേണ്ടതാണ്."
 
 #: modules/pam_unix/pam_unix_passwd.c:703
 msgid "Enter new UNIX password: "
-msgstr "പുതിയ UNIX രഹസ്യവാക്ക് നല്‍കുക: "
+msgstr "പുതിയ UNIX അടയാളവാക്ക് നല്‍കുക: "
 
 #: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
-msgstr "പുതിയ UNIX രഹസ്യവാക്ക് വീണ്ടും ടൈപ്പ് ചെയ്യുക: "
+msgstr "പുതിയ UNIX അടയാളവാക്ക് വീണ്ടും ടൈപ്പ് ചെയ്യുക: "
+
