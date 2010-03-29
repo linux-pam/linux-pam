@@ -8,13 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-12-09 13:20+0100\n"
+"POT-Creation-Date: 2010-03-28 08:33+0200\n"
 "PO-Revision-Date: 2001-07-13 15:36+0200\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -48,12 +49,12 @@ msgstr "أعد كتابة كلمة سر %s%s الجديدة: "
 msgid "Sorry, passwords do not match."
 msgstr "عذرًا، يوجد عدم تطابق بين كلمات السر."
 
-#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
+#: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
 #, fuzzy, c-format
 msgid "Retype %s"
 msgstr "النوع: "
 
-#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
+#: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
 #, fuzzy
 msgid "Password change aborted."
 msgstr "لم يتم تغيير كلمة السر"

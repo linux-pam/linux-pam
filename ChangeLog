@@ -1,3 +1,7 @@
+2010-03-29  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* po/ar.po: Add missing Plural-Forms entry to header.
+
 2010-03-25  Daniel Nylander <po@danielnylander.se>
 
 	* po/sv.po: Updated translations.
@@ -23,7 +27,7 @@
 2009-12-16  Thorsten Kukuk  <kukuk@suse.de>
 
 	* release version 1.1.1
-	
+
 	* NEWS: Adjust for 1.1.1
 	* configure.in: Likewise.
 	* doc/adg/Linux-PAM_ADG.xml: Likewise.
