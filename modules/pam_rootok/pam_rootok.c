@@ -55,16 +55,11 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
     return ctrl;
 }
 
-/* --- authentication management functions (only) --- */
-
-PAM_EXTERN int
-pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
-		     int argc, const char **argv)
+static int
+check_for_root (pam_handle_t *pamh, int ctrl)
 {
-    int ctrl;
     int retval = PAM_AUTH_ERR;
 
-    ctrl = _pam_parse(pamh, argc, argv);
     if (getuid() == 0)
 #ifdef WITH_SELINUX
       if (is_selinux_enabled()<1 || checkPasswdAccess(PASSWD__ROOTOK)==0)
@@ -72,11 +67,24 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	retval = PAM_SUCCESS;
 
     if (ctrl & PAM_DEBUG_ARG) {
-	pam_syslog(pamh, LOG_DEBUG, "authentication %s",
-		   (retval==PAM_SUCCESS) ? "succeeded" : "failed");
+       pam_syslog(pamh, LOG_DEBUG, "root check %s",
+	          (retval==PAM_SUCCESS) ? "succeeded" : "failed");
     }
 
     return retval;
+}
+
+/* --- management functions --- */
+
+PAM_EXTERN int
+pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
+{
+    int ctrl;
+
+    ctrl = _pam_parse(pamh, argc, argv);
+
+    return check_for_root (pamh, ctrl);
 }
 
 PAM_EXTERN int
@@ -86,6 +94,27 @@ pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
     return PAM_SUCCESS;
 }
 
+PAM_EXTERN int
+pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
+		  int argc, const char **argv)
+{
+    int ctrl;
+
+    ctrl = _pam_parse(pamh, argc, argv);
+
+    return check_for_root (pamh, ctrl);
+}
+
+PAM_EXTERN int
+pam_sm_chauthtok (pam_handle_t *pamh, int flags UNUSED,
+		  int argc, const char **argv)
+{
+    int ctrl;
+
+    ctrl = _pam_parse(pamh, argc, argv);
+
+    return check_for_root (pamh, ctrl);
+}
 
 #ifdef PAM_STATIC
 
@@ -95,10 +124,10 @@ struct pam_module _pam_rootok_modstruct = {
     "pam_rootok",
     pam_sm_authenticate,
     pam_sm_setcred,
+    pam_sm_acct_mgmt,
     NULL,
     NULL,
-    NULL,
-    NULL,
+    pam_sm_chauthtok,
 };
 
 #endif

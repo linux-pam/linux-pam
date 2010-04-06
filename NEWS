@@ -1,6 +1,11 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
+Release 1.X.Y
+
+* pam_rootok: Add support for chauthtok and acct_mgmt
+* Update translations
+
 Release 1.1.1
 
 * Update translations

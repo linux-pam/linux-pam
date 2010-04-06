@@ -1,3 +1,10 @@
+2010-04-06  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_rootok/pam_rootok.c: Add support for acct_mgmt
+	and chauthtok.
+	* modules/pam_rootok/pam_rootok.8.xml: Document new module
+	types.
+
 2010-03-29  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* po/ar.po: Add missing Plural-Forms entry to header.

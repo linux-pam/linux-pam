@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-12-09 13:20+0100\n"
+"POT-Creation-Date: 2010-03-28 08:33+0200\n"
 "PO-Revision-Date: 2008-04-30 12:59+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@online.no>\n"
 "Language-Team:  <nb@li.org>\n"
@@ -48,12 +48,12 @@ msgstr "Bekreft nytt %s%s-passord: "
 msgid "Sorry, passwords do not match."
 msgstr "Beklager, ikke samsvar mellom passord."
 
-#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
+#: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
 #, c-format
 msgid "Retype %s"
 msgstr ""
 
-#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
+#: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
 #, fuzzy
 msgid "Password change aborted."
 msgstr "Passord uendret"

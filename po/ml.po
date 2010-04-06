@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.default.ml\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"POT-Creation-Date: 2010-03-28 08:33+0200\n"
 "PO-Revision-Date: 2010-03-24 14:41+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -34,7 +34,7 @@ msgid "erroneous conversation (%d)\n"
 msgstr "തെറ്റായ സംവാദം (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
+#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:63
 msgid "Password: "
 msgstr "അടയാളവാക്ക്: "
 
@@ -52,12 +52,12 @@ msgstr "വീണ്ടും %s%s അടയാളവാക്ക് ടൈപ�
 msgid "Sorry, passwords do not match."
 msgstr "ക്ഷമിക്കണം, അടയാളവാക്കുകള്‍ തമ്മില്‍ ചേരുന്നില്ല."
 
-#: libpam/pam_get_authtok.c:127
+#: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
 #, c-format
 msgid "Retype %s"
 msgstr "%s വീണ്ടും ടൈപ്പ് ചെയ്യുക"
 
-#: libpam/pam_get_authtok.c:146
+#: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
 msgid "Password change aborted."
 msgstr "അടയാളവാക്ക് മാറ്റം വരുത്തുന്നതു് നിര്‍ത്തിയിരിക്കുന്നു."
 
@@ -300,7 +300,8 @@ msgstr "അവസാനം ലോഗിന്‍ ചെയ്തതു് പര
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural "There were %d failed login attempts since the last successful login."
+msgid_plural ""
+"There were %d failed login attempts since the last successful login."
 msgstr[0] "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
 msgstr[1] "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
 
@@ -481,8 +482,10 @@ msgstr "%s: Unrecognised ഉപാധി %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -565,4 +568,3 @@ msgstr "പുതിയ UNIX അടയാളവാക്ക് നല്‍ക�
 #: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
 msgstr "പുതിയ UNIX അടയാളവാക്ക് വീണ്ടും ടൈപ്പ് ചെയ്യുക: "
-

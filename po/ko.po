@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-12-09 13:20+0100\n"
+"POT-Creation-Date: 2010-03-28 08:33+0200\n"
 "PO-Revision-Date: 2009-09-04 16:29+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -49,12 +49,12 @@ msgstr "새 %s%s 암호 재입력:"
 msgid "Sorry, passwords do not match."
 msgstr "죄송합니다. 암호가 일치하지 않습니다."
 
-#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
+#: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
 #, c-format
 msgid "Retype %s"
 msgstr "다시 입력 %s "
 
-#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
+#: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
 msgid "Password change aborted."
 msgstr "암호가 변경되지 않습니다.  "
 

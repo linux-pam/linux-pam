@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip.pa\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-12-09 13:20+0100\n"
+"POT-Creation-Date: 2010-03-28 08:33+0200\n"
 "PO-Revision-Date: 2009-06-01 16:19+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <Punjabi-users@lists.sourceforge.net>\n"
@@ -50,12 +50,12 @@ msgstr "ਨਵਾਂ %s%sਪਾਸਵਰਡ ਮੁੜ-ਲਿਖੋ: "
 msgid "Sorry, passwords do not match."
 msgstr "ਮਾਫ ਕਰਨਾ ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।"
 
-#: libpam/pam_get_authtok.c:132 libpam/pam_get_authtok.c:208
+#: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
 #, c-format
 msgid "Retype %s"
 msgstr "ਮੁੜ-ਲਿਖੋ %s"
 
-#: libpam/pam_get_authtok.c:152 libpam/pam_get_authtok.c:221
+#: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
 msgid "Password change aborted."
 msgstr "ਪਾਸਵਰਡ ਤਬਦੀਲੀ ਅਧੂਰੀ ਛੱਡੀ ਗਈ।"
 

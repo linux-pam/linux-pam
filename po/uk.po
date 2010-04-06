@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM.uk\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"POT-Creation-Date: 2010-03-28 08:33+0200\n"
 "PO-Revision-Date: 2010-03-07 13:00+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -33,7 +33,7 @@ msgid "erroneous conversation (%d)\n"
 msgstr "помилкова розмова (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
+#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:63
 msgid "Password: "
 msgstr "Пароль: "
 
@@ -51,12 +51,12 @@ msgstr "Повторіть новий пароль %s%s: "
 msgid "Sorry, passwords do not match."
 msgstr "Вибачте, паролі не збігаються."
 
-#: libpam/pam_get_authtok.c:127
+#: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
 #, c-format
 msgid "Retype %s"
 msgstr "Повторне введення %s"
 
-#: libpam/pam_get_authtok.c:146
+#: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
 msgid "Password change aborted."
 msgstr "Зміну пароля перервано."
 
@@ -106,8 +106,7 @@ msgstr "Недостатньо прав для доступу до даних р
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr ""
-"Службі розпізнавання не вдалося отримати інформацію щодо розпізнавання"
+msgstr "Службі розпізнавання не вдалося отримати інформацію щодо розпізнавання"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -494,9 +493,8 @@ msgstr "%s: нерозпізнано параметр %s\n"
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file назва-файла-користувача-root] [--user ім'я користувача] "
-"[--reset[=n]] [--"
-"quiet]\n"
+"%s: [--file назва-файла-користувача-root] [--user ім'я користувача] [--reset"
+"[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -515,8 +513,7 @@ msgid ""
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [-f назва-файла-користувача-root] [--file "
-"назва-файла-користувача-root]\n"
+"%s: [-f назва-файла-користувача-root] [--file назва-файла-користувача-root]\n"
 "   [-u користувач] [--user користувач]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 
