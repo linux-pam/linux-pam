@@ -246,10 +246,7 @@
       <emphasis>valueN</emphasis>'s not mentioned explicitly. Note, the
       full list of PAM errors is available in
       <filename>/usr/include/security/_pam_types.h</filename>. The
-      <emphasis>actionN</emphasis> can be: an unsigned integer,
-      <emphasis>n</emphasis>, signifying an action of 'jump over the
-      next <emphasis>n</emphasis> modules in the stack'; or take one
-      of the following forms:
+      <emphasis>actionN</emphasis> can take one of the following forms:
     </para>
     <variablelist>
       <varlistentry>
@@ -303,6 +300,16 @@
            <para>
              equivalent to ok with the side effect of terminating the module
              stack and PAM immediately returning to the application.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>N (an unsigned integer)</term>
+        <listitem>
+           <para>
+	     equivalent to ok with the side effect of jumping over the
+	     next N modules in the stack. Note that N equal to 0 is not
+	     allowed (and it would be identical to ok in such case).
           </para>
         </listitem>
       </varlistentry>

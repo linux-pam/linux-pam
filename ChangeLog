@@ -1,3 +1,8 @@
+2010-04-12  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/man/pam.conf-syntax.xml: Better documentation of
+	"actionN". Patch from Michal Soltys <soltys@ziu.info>.
+
 2010-04-06  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_rootok/pam_rootok.c: Add support for acct_mgmt
