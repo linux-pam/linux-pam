@@ -200,7 +200,13 @@ check_login_time(const char *ruser, time_t timestamp)
 	time_t oldest_login = 0;
 
 	setutent();
-	while(!getutent_r(&utbuf, &ut)) {
+	while(
+#ifdef HAVE_GETUTENT_R
+	      !getutent_r(&utbuf, &ut)
+#else
+	      (ut = getutent()) != NULL
+#endif
+	      ) {
 		if (ut->ut_type != USER_PROCESS) {
 			continue;
 		}

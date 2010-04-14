@@ -1,3 +1,12 @@
+2010-04-13  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_pwhistory/opasswd.c: Fix compilation if
+	cyprt_r() is not available.
+	* configure.in: check for getutent_r.
+	* modules/pam_timestamp/pam_timestamp.c: Use getutent()
+	if getutent_r() does not exist.
+	Patch from Diego Elio “Flameeyes” Pettenò.
+
 2010-04-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam.conf-syntax.xml: Better documentation of

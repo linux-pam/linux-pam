@@ -94,6 +94,23 @@ parse_entry (char *line, opwd *data)
   return 0;
 }
 
+static int
+compare_password(const char *newpass, const char *oldpass)
+{
+  char *outval;
+#ifdef HAVE_CRYPT_R
+  struct crypt_data output;
+
+  output.initialized = 0;
+
+  outval = crypt_r (newpass, oldpass, &output);
+#else
+  outval = crypt (newpass, oldpass);
+#endif
+
+  return strcmp(outval, oldpass) == 0;
+}
+
 /* Check, if the new password is already in the opasswd file.  */
 int
 check_old_password (pam_handle_t *pamh, const char *user,
@@ -167,11 +184,8 @@ check_old_password (pam_handle_t *pamh, const char *user,
   if (found)
     {
       const char delimiters[] = ",";
-      struct crypt_data output;
       char *running;
       char *oldpass;
-
-      memset (&output, 0, sizeof (output));
 
       running = strdupa (entry.old_passwords);
       if (running == NULL)
@@ -180,7 +194,7 @@ check_old_password (pam_handle_t *pamh, const char *user,
       do {
 	oldpass = strsep (&running, delimiters);
 	if (oldpass && strlen (oldpass) > 0 &&
-	    strcmp (crypt_r (newpass, oldpass, &output), oldpass) == 0)
+	    compare_password(newpass, oldpass) )
 	  {
 	    if (debug)
 	      pam_syslog (pamh, LOG_DEBUG, "New password already used");
