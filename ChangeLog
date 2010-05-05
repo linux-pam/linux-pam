@@ -1,3 +1,7 @@
+2010-04-15  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_exec/pam_exec.8.xml: Fix example.
+
 2010-04-13  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_pwhistory/opasswd.c: Fix compilation if

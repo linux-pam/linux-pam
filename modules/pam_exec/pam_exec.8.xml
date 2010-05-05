@@ -204,7 +204,7 @@
       Add the following line to <filename>/etc/pam.d/passwd</filename> to
       rebuild the NIS database after each local password change:
       <programlisting>
-        passwd optional pam_exec.so seteuid make -C /var/yp
+        password optional pam_exec.so seteuid /usr/bin/make -C /var/yp
       </programlisting>
 
       This will execute the command
