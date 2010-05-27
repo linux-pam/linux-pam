@@ -1,3 +1,8 @@
+2010-05-27  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_userdb/pam_userdb.c: Define HAVE_DBM
+	for BerkDB 5.0 support. Patch by Diego Elio Pettenò.
+
 2010-04-15  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_exec/pam_exec.8.xml: Fix example.

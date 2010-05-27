@@ -30,6 +30,7 @@
 #else
 # ifdef HAVE_DB_H
 #  define DB_DBM_HSEARCH    1 /* use the dbm interface */
+#  define HAVE_DBM	      /* for BerkDB 5.0 and later */
 #  include <db.h>
 # else
 #  error "failed to find a libdb or equivalent"
