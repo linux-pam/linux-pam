@@ -1,3 +1,9 @@
+2010-06-07  Steve Langasek  <vorlon@debian.org>
+
+	* modules/pam_tty_audit/Makefile.am: If we don't have the libraries
+	required for building pam_tty_audit, we shouldn't install the manpage
+	either.
+
 2010-05-27  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_userdb/pam_userdb.c: Define HAVE_DBM

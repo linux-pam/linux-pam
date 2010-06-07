@@ -5,9 +5,11 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS)
+EXTRA_DIST = README pam_tty_audit.8 $(XMLS)
 
-man_MANS = pam_tty_audit.8
+if HAVE_AUDIT_TTY_STATUS
+  man_MANS = pam_tty_audit.8
+endif
 XMLS = README.xml pam_tty_audit.8.xml
 
 securelibdir = $(SECUREDIR)
