@@ -1,3 +1,8 @@
+2010-06-09  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_tty_audit/Makefile.am (TESTS): Add tst-pam_tty_audit.
+	* modules/pam_tty_audit/tst-pam_tty_audit: New.
+
 2010-06-07  Steve Langasek  <vorlon@debian.org>
 
 	* modules/pam_tty_audit/Makefile.am: If we don't have the libraries
