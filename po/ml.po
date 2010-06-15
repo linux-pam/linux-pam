@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.default.ml\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-03-28 08:33+0200\n"
+"POT-Creation-Date: 2010-05-05 10:03+0200\n"
 "PO-Revision-Date: 2010-03-24 14:41+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -508,7 +508,7 @@ msgstr ""
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_timestamp/pam_timestamp.c:339
+#: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "അനുവാദം നല്‍കിയിരിക്കുന്നു (ഒടുവില്‍ പ്രവേശിച്ചതു് %ld സെക്കന്‍ഡുകള്‍ക്കു് മുമ്പാണു്)."

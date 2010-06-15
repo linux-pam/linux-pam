@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-03-28 08:33+0200\n"
+"POT-Creation-Date: 2010-05-05 10:03+0200\n"
 "PO-Revision-Date: 2009-03-25 22:53+0100\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora-trans-sr@redhat.com>\n"
@@ -510,7 +510,7 @@ msgstr ""
 "   [-u korisničkoime] [--user korisničkoime]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_timestamp/pam_timestamp.c:339
+#: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "Pristup je odobren (poslednji pristup je bio pre %ld sekundi)."

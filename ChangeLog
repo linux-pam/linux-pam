@@ -1,3 +1,9 @@
+2010-06-15  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_xauth/pam_xauth.c (pam_sm_close_session): Call
+	setfsuid to be allowed to remove temporary files (#3010705).
+	(pam_sm_open_session): Call fchown with correct permissions.
+
 2010-06-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_tty_audit/Makefile.am (TESTS): Add tst-pam_tty_audit.

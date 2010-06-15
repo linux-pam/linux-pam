@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-03-28 08:33+0200\n"
+"POT-Creation-Date: 2010-05-05 10:03+0200\n"
 "PO-Revision-Date: 2009-05-18 16:10+0200\n"
 "Last-Translator: Albert Carabasa Giribet <albertc@asic.udl.cat>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
@@ -523,7 +523,7 @@ msgstr ""
 "   [-u nom_usuari] [--user nom_usuari]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_timestamp/pam_timestamp.c:339
+#: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "Accés permès (l'últim accés va ser fa %ld segons)."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.fr2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-03-28 08:33+0200\n"
+"POT-Creation-Date: 2010-05-05 10:03+0200\n"
 "PO-Revision-Date: 2009-04-15 23:00+0200\n"
 "Last-Translator: Charles-Antoine Couret <cacouret@wanadoo.fr>\n"
 "Language-Team: French <fedora-trans-fr@redhat.com>\n"
@@ -524,7 +524,7 @@ msgstr ""
 "   [-u nom d'utilisateur] [--user nom d'utilisateur]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_timestamp/pam_timestamp.c:339
+#: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "Accès accordé (dernier accès il y a %ld secondes)."
