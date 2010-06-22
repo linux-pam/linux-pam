@@ -361,10 +361,14 @@ AM_CONDITIONAL([HAVE_AUDIT_TTY_STATUS],
 	       [test "x$HAVE_AUDIT_TTY_STATUS" = xyes])
 
 AC_CHECK_HEADERS(xcrypt.h crypt.h)
+AS_IF([test "x$ac_cv_header_xcrypt_h" = "xyes"],
+  [crypt_libs="xcrypt crypt"],
+  [crypt_libs="crypt"])
+
 BACKUP_LIBS=$LIBS
-AC_SEARCH_LIBS([crypt],[xcrypt crypt], LIBCRYPT="-l$ac_lib", LIBCRYPT="")
+AC_SEARCH_LIBS([crypt],[$crypt_libs], LIBCRYPT="-l$ac_lib", LIBCRYPT="")
 AC_CHECK_FUNCS(crypt_r crypt_gensalt_r)
-Libs=$BACKUP_LIBS
+LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCRYPT)
 if test "$LIBCRYPT" = "-lxcrypt" -a "$ac_cv_header_xcrypt_h" = "yes" ; then
 	AC_DEFINE([HAVE_LIBXCRYPT], 1, [Define to 1 if xcrypt support should be compiled in.])
