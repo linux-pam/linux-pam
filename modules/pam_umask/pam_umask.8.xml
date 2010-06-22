@@ -115,10 +115,9 @@
           </term>
           <listitem>
             <para>
-              If the user is not root, and the user ID is equal to the
-              group ID, and the username is the same as primary group name,
-              the umask group bits are set to be the same as
-              owner bits (examples: 022 -> 002, 077 -> 007).
+              If the user is not root and the username is the same as
+              primary group name, the umask group bits are set to be the
+              same as owner bits (examples: 022 -> 002, 077 -> 007).
             </para>
           </listitem>
         </varlistentry>

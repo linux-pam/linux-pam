@@ -1,5 +1,10 @@
 2010-06-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_umask/pam_umask.8.xml: Remove comparisation of
+	gid and uid for usergroups.
+	* modules/pam_umask/pam_umask.c (setup_limits_from_gecos): Likewise.
+	Bug #3004656
+
 	* configure.in: Don't check for libxcrypt if no xcrypt.h exists,
 	fix typo introduced with 1.1.1.
 	Reported by Diego Elio “Flameeyes” Pettenò.

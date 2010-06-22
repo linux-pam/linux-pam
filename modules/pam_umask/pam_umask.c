@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2006, 2007 Thorsten Kukuk <kukuk@thkukuk.de>
+ * Copyright (c) 2005, 2006, 2007, 2010 Thorsten Kukuk <kukuk@thkukuk.de>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -197,10 +197,10 @@ setup_limits_from_gecos (pam_handle_t *pamh, options_t *options,
 
   if (options->usergroups)
     {
-      /* if not root, and UID == GID, and username is the same as
-	 primary group name, set umask group bits to be the same as
-	 owner bits (examples: 022 -> 002, 077 -> 007).  */
-      if (pw->pw_uid != 0 && pw->pw_uid == pw->pw_gid)
+      /* if not root and username is the same as primary group name,
+         set umask group bits to be the same as owner bits
+	 (examples: 022 -> 002, 077 -> 007).  */
+      if (pw->pw_uid != 0)
 	{
 	  struct group *grp = pam_modutil_getgrgid (pamh, pw->pw_gid);
 	  if (grp && (strcmp (pw->pw_name, grp->gr_name) == 0))
