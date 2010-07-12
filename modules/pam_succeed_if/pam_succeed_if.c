@@ -383,7 +383,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	struct passwd *pwd;
 	int ret, i, count, use_uid, debug;
 	const char *left, *right, *qual;
-	int quiet_fail, quiet_succ;
+	int quiet_fail, quiet_succ, audit;
 
 	/* Get the user prompt. */
 	ret = pam_get_item(pamh, PAM_USER_PROMPT, &prompt);
@@ -393,6 +393,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 
 	quiet_fail = 0;
 	quiet_succ = 0;
+	audit = 0;
 	for (use_uid = 0, debug = 0, i = 0; i < argc; i++) {
 		if (strcmp(argv[i], "debug") == 0) {
 			debug++;
@@ -409,6 +410,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		}
 		if (strcmp(argv[i], "quiet_success") == 0) {
 			quiet_succ++;
+		}
+		if (strcmp(argv[i], "audit") == 0) {
+			audit++;
 		}
 	}
 
@@ -435,9 +439,10 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		/* Get information about the user. */
 		pwd = pam_modutil_getpwnam(pamh, user);
 		if (pwd == NULL) {
-			pam_syslog(pamh, LOG_CRIT,
-				   "error retrieving information about user %s",
-				   user);
+			if(audit)
+				pam_syslog(pamh, LOG_NOTICE,
+					   "error retrieving information about user %s",
+					   user);
 			return PAM_USER_UNKNOWN;
 		}
 	}
@@ -459,6 +464,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			continue;
 		}
 		if (strcmp(argv[i], "quiet_success") == 0) {
+			continue;
+		}
+		if (strcmp(argv[i], "audit") == 0) {
 			continue;
 		}
 		if (left == NULL) {

@@ -88,6 +88,14 @@
           </para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term><option>audit</option></term>
+        <listitem>
+          <para>
+            Log unknown users to the system log.
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
 
     <para>

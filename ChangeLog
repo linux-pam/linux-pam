@@ -1,3 +1,11 @@
+2010-07-12  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_succeed_if/pam_succeed_if.c (pam_sm_authenticate): Add
+	audit flag to enable logging about unknown user (#2917257).
+	* modules/pam_succeed_if/pam_succeed_if.8.xml: Document audit.
+	* modules/pam_succeed_if/pam_succeed_if.8: Regenerated from xml.
+	* modules/pam_succeed_if/README: Regenerated from xml.
+
 2010-06-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_umask/pam_umask.8.xml: Remove comparisation of
@@ -82,7 +90,7 @@
 	* po/he.po: New translation to Hebrew.
 	* po/LINGUAS: Add Hebrew to the list.
 
-2009-12-16  Thorsten Kukuk  <kukuk@suse.de>
+2009-12-16  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 1.1.1
 
