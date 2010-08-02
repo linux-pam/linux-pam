@@ -1,3 +1,9 @@
+2010-08-02  Steve Langasek  <vorlon@debian.org>
+
+	* modules/pam_mkhomedir/Makefile.am: don't pass --version-script
+	options when linking executables, only when linking libraries
+	Patch from Julien Cristau <jcristau@debian.org>
+
 2010-07-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_succeed_if/pam_succeed_if.c (pam_sm_authenticate): Add
