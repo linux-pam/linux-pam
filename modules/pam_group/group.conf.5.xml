@@ -52,13 +52,15 @@
 
     <para>
       The third field, the <replaceable>users</replaceable>
-      field, is a logic list of users or a netgroup of users to whom this
-      rule applies.
+      field, is a logic list of users, or a UNIX group, or a netgroup of
+      users to whom this rule applies. Group names are preceded by a '%'
+      symbol, while netgroup names are preceded by a '@' symbol.
     </para>
 
     <para>
       For these items the simple wildcard '*' may be used only once.
-      With netgroups no wildcards or logic operators are allowed.
+      With UNIX groups or netgroups no wildcards or logic operators
+      are allowed.
     </para>
 
     <para>
@@ -111,6 +113,14 @@
 xsh; tty* ;sword;!Wk0900-1800;games, sound
 xsh; tty* ;*;Al0900-1800;floppy
     </programlisting>
+    <para>
+      Any member of the group 'admin' running 'xsh' on tty*,
+      is granted access (at any time) to the group 'plugdev'
+    </para>
+    <programlisting>
+xsh; tty* ;%admin;Al0000-2400;plugdev
+     </programlisting>
+
   </refsect1>
 
   <refsect1 id="group.conf-see_also">

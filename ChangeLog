@@ -1,3 +1,14 @@
+2010-08-04  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_access/pam_access.c (user_match): Make sure
+	that user@host will not match @@netgroup. Bug #3035919.
+
+	* modules/pam_group/pam_group.c (check_account): Add '%' for
+	UNIX groups.
+	* modules/pam_group/group.conf: Add example for '%'.
+	* modules/pam_group/group.conf.5.xml: Document '%' syntax.
+	Bug #3002340, #3037155.
+
 2010-08-02  Steve Langasek  <vorlon@debian.org>
 
 	* modules/pam_mkhomedir/Makefile.am: don't pass --version-script

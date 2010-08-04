@@ -521,7 +521,8 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
      * name of the user's primary group.
      */
 
-    if ((at = strchr(tok + 1, '@')) != 0) {	/* split user@host pattern */
+    if (tok[0] != '@' && (at = strchr(tok + 1, '@')) != 0) {
+        /* split user@host pattern */
 	if (item->hostname == NULL)
 	    return NO;
 	fake_item.from = item->hostname;

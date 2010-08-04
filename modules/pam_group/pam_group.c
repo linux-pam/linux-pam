@@ -660,6 +660,9 @@ static int check_account(pam_handle_t *pamh, const char *service,
 	/* If buffer starts with @, we are using netgroups */
 	if (buffer[0] == '@')
 	  good &= innetgr (&buffer[1], NULL, user, NULL);
+	/* otherwise, if the buffer starts with %, it's a UNIX group */
+	else if (buffer[0] == '%')
+          good &= pam_modutil_user_in_group_nam_nam(pamh, user, &buffer[1]);
 	else
 	  good &= logic_field(pamh,user, buffer, count, is_same);
 	D(("with user: %s", good ? "passes":"fails" ));
