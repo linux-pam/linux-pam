@@ -909,6 +909,9 @@ PAMH_ARG_DECL(int unix_update_shadow,
 	if (!strcmp(stmpent->sp_namp, forwho)) {
 	    stmpent->sp_pwdp = towhat;
 	    stmpent->sp_lstchg = time(NULL) / (60 * 60 * 24);
+	    if (stmpent->sp_lstchg == 0)
+	        stmpent->sp_lstchg = -1; /* Don't request passwort change
+					    only because time isn't set yet. */
 	    wroteentry = 1;
 	    D(("Set password %s for %s", stmpent->sp_pwdp, forwho));
 	}
@@ -928,6 +931,9 @@ PAMH_ARG_DECL(int unix_update_shadow,
 	spwdent.sp_namp = forwho;
 	spwdent.sp_pwdp = towhat;
 	spwdent.sp_lstchg = time(NULL) / (60 * 60 * 24);
+	if (spwdent.sp_lstchg == 0)
+	    spwdent.sp_lstchg = -1; /* Don't request passwort change
+				       only because time isn't set yet. */
 	spwdent.sp_min = spwdent.sp_max = spwdent.sp_warn = spwdent.sp_inact =
 	    spwdent.sp_expire = -1;
 	spwdent.sp_flag = (unsigned long)-1l;

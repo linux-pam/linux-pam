@@ -1,5 +1,8 @@
 2010-08-04  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_unix/passverify.c (PAMH_ARG_DECL): Don't request
+	password change if time is not yet set (1.1.1970). Bug #2730965.
+
 	* modules/pam_access/pam_access.c (user_match): Make sure
 	that user@host will not match @@netgroup. Bug #3035919.
 
