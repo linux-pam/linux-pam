@@ -1,5 +1,10 @@
 2010-08-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_tally/pam_tally.8.xml: Document that pam_tally is
+	deprecated.
+
+	* modules/pam_tty_audit/Makefile.am (EXTRA_DIST): Fix make dist.
+
 	* modules/pam_unix/passverify.c (check_shadow_expiry): Correct
 	check for expired date.
 

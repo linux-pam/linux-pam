@@ -81,7 +81,13 @@
 
     <para>
       This module maintains a count of attempted accesses, can
-      reset count on success, can deny access if too many attempts fail.
+      reset count on success, can deny access if too many attempts
+      fail.
+    </para>
+    <para>
+      pam_tally has several limitations, which are solved with
+      pam_tally2. For this reason pam_tally is deprecated and
+      will be removed in a future release.
     </para>
     <para>
       pam_tally comes in two parts:
