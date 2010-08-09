@@ -488,9 +488,6 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 		}
 	}
 	if (off(UNIX__IAMROOT, ctrl)) {
-		if (strlen(pass_new) < 6)
-		  remark = _("You must choose a longer password");
-		D(("length check [%s]", remark));
 		if (on(UNIX_REMEMBER_PASSWD, ctrl)) {
 			if ((retval = check_old_password(user, pass_new)) == PAM_AUTHTOK_ERR)
 			  remark = _("Password has been already used. Choose another.");

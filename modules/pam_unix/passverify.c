@@ -240,7 +240,7 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 	*daysleft = -1;
 	curdays = (long int)(time(NULL) / (60 * 60 * 24));
 	D(("today is %d, last change %d", curdays, spent->sp_lstchg));
-	if ((curdays > spent->sp_expire) && (spent->sp_expire != -1)) {
+	if ((curdays >= spent->sp_expire) && (spent->sp_expire != -1)) {
 		D(("account expired"));
 		return PAM_ACCT_EXPIRED;
 	}

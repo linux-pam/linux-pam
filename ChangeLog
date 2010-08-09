@@ -1,3 +1,11 @@
+2010-08-09  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/passverify.c (check_shadow_expiry): Correct
+	check for expired date.
+
+	* modules/pam_unix/pam_unix_passwd.c (_pam_unix_approve_pass): Remove
+	check for password length. Bug #2923437.
+
 2010-08-04  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_tally2/pam_tally2.c (get_tally): Create file
