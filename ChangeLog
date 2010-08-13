@@ -1,3 +1,17 @@
+2010-08-12  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_mail/pam_mail.c: Check for mail only with user
+	privilegs.
+
+	* modules/pam_xauth/pam_xauth.c (run_coprocess): Check return
+	value of setgid, setgroups and setuid.
+
+	* modules/pam_xauth/pam_xauth.c (check_acl): Save errno for
+	later usage.
+
+	* modules/pam_env/pam_env.c (handle_env): Check if user exists,
+	read local user config only with user privilegs.`
+
 2010-08-09  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_tally/pam_tally.8.xml: Document that pam_tally is

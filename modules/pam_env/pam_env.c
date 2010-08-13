@@ -23,6 +23,7 @@
 #include <string.h>
 #include <syslog.h>
 #include <sys/stat.h>
+#include <sys/fsuid.h>
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -772,13 +773,14 @@ handle_env (pam_handle_t *pamh, int argc, const char **argv)
 
   if(user_readenv && retval == PAM_SUCCESS) {
     char *envpath = NULL;
-    struct passwd *user_entry;
+    struct passwd *user_entry = NULL;
     const char *username;
     struct stat statbuf;
 
     username = _pam_get_item_byname(pamh, "PAM_USER");
 
-    user_entry = pam_modutil_getpwnam (pamh, username);
+    if (username)
+      user_entry = pam_modutil_getpwnam (pamh, username);
     if (!user_entry) {
       pam_syslog(pamh, LOG_ERR, "No such user!?");
     }
@@ -789,7 +791,10 @@ handle_env (pam_handle_t *pamh, int argc, const char **argv)
 	  return PAM_BUF_ERR;
 	}
       if (stat(envpath, &statbuf) == 0) {
+	uid_t euid = geteuid();
+        setfsuid (user_entry->pw_uid);
         retval = _parse_config_file(pamh, envpath);
+	setfsuid (euid);
         if (retval == PAM_IGNORE)
           retval = PAM_SUCCESS;
       }

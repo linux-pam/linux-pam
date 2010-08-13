@@ -17,6 +17,7 @@
 #include <syslog.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/fsuid.h>
 #include <unistd.h>
 #include <dirent.h>
 #include <errno.h>
@@ -124,29 +125,16 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc,
 
 static int
 get_folder(pam_handle_t *pamh, int ctrl,
-	   const char *path_mail, char **folder_p, size_t hashcount)
+	   const char *path_mail, char **folder_p, size_t hashcount,
+	   const struct passwd *pwd)
 {
     int retval;
-    const char *user, *path;
+    const char *path;
     char *folder = NULL;
-    const struct passwd *pwd = NULL;
-
-    retval = pam_get_user(pamh, &user, NULL);
-    if (retval != PAM_SUCCESS || user == NULL) {
-	pam_syslog(pamh, LOG_ERR, "cannot determine username");
-	retval = PAM_USER_UNKNOWN;
-	goto get_folder_cleanup;
-    }
 
     if (ctrl & PAM_NEW_MAIL_DIR) {
 	path = path_mail;
 	if (*path == '~') {	/* support for $HOME delivery */
-	    pwd = pam_modutil_getpwnam(pamh, user);
-	    if (pwd == NULL) {
-		pam_syslog(pamh, LOG_ERR, "user unknown");
-		retval = PAM_USER_UNKNOWN;
-		goto get_folder_cleanup;
-	    }
 	    /*
 	     * "~/xxx" and "~xxx" are treated as same
 	     */
@@ -168,18 +156,11 @@ get_folder(pam_handle_t *pamh, int ctrl,
 
     /* put folder together */
 
-    hashcount = hashcount < strlen(user) ? hashcount : strlen(user);
+    hashcount = hashcount < strlen(pwd->pw_name) ?
+      hashcount : strlen(pwd->pw_name);
 
     retval = PAM_BUF_ERR;
     if (ctrl & PAM_HOME_MAIL) {
-        if (pwd == NULL) {
-	    pwd = pam_modutil_getpwnam(pamh, user);
-	    if (pwd == NULL) {
-		pam_syslog(pamh, LOG_ERR, "user unknown");
-		retval = PAM_USER_UNKNOWN;
-		goto get_folder_cleanup;
-	    }
-	}
 	if (asprintf(&folder, MAIL_FILE_FORMAT, pwd->pw_dir, "", path) < 0)
 	    goto get_folder_cleanup;
     } else {
@@ -192,11 +173,11 @@ get_folder(pam_handle_t *pamh, int ctrl,
 
 	for (i = 0; i < hashcount; i++) {
 	    hash[2 * i] = '/';
-	    hash[2 * i + 1] = user[i];
+	    hash[2 * i + 1] = pwd->pw_name[i];
 	}
 	hash[2 * i] = '\0';
 
-	rc = asprintf(&folder, MAIL_FILE_FORMAT, path, hash, user);
+	rc = asprintf(&folder, MAIL_FILE_FORMAT, path, hash, pwd->pw_name);
 	_pam_overwrite(hash);
 	_pam_drop(hash);
 	if (rc < 0)
@@ -208,7 +189,6 @@ get_folder(pam_handle_t *pamh, int ctrl,
     /* tidy up */
 
   get_folder_cleanup:
-    user = NULL;
     path = NULL;
 
     *folder_p = folder;
@@ -402,7 +382,9 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
     int retval, ctrl, type;
     size_t hashcount;
     char *folder = NULL;
+    const char *user;
     const char *path_mail = NULL;
+    const struct passwd *pwd = NULL;
 
     /*
      * this module (un)sets the MAIL environment variable, and checks if
@@ -411,9 +393,21 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 
     ctrl = _pam_parse(pamh, flags, argc, argv, &path_mail, &hashcount);
 
+    retval = pam_get_user(pamh, &user, NULL);
+    if (retval != PAM_SUCCESS || user == NULL) {
+	pam_syslog(pamh, LOG_ERR, "cannot determine username");
+	return PAM_USER_UNKNOWN;
+    }
+
+    pwd = pam_modutil_getpwnam (pamh, user);
+    if (pwd == NULL) {
+        pam_syslog(pamh, LOG_ERR, "user unknown");
+        return PAM_USER_UNKNOWN;
+    }
+
     /* which folder? */
 
-    retval = get_folder(pamh, ctrl, path_mail, &folder, hashcount);
+    retval = get_folder(pamh, ctrl, path_mail, &folder, hashcount, pwd);
     if (retval != PAM_SUCCESS) {
 	D(("failed to find folder"));
 	return retval;
@@ -450,7 +444,12 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 
     if ((est && !(ctrl & PAM_NO_LOGIN))
 	|| (!est && (ctrl & PAM_LOGOUT_TOO))) {
+        uid_t euid = geteuid();
+
+        setfsuid (pwd->pw_uid);
 	type = get_mail_status(pamh, ctrl, folder);
+	setfsuid (euid);
+
 	if (type != 0) {
 	    retval = report_mail(pamh, ctrl, type, folder);
 	    type = 0;
