@@ -86,11 +86,14 @@ typedef struct {
 					 * information during acct management */
 #define UNIX_SHA256_PASS         23	/* new password hashes will use SHA256 */
 #define UNIX_SHA512_PASS         24	/* new password hashes will use SHA512 */
-#define UNIX_ALGO_ROUNDS         25	/* optional number of rounds for new 
+#define UNIX_ALGO_ROUNDS         25	/* optional number of rounds for new
 					   password hash algorithms */
 #define UNIX_BLOWFISH_PASS       26	/* new password hashes will use blowfish */
+#define UNIX_MIN_PASS_LEN        27	/* min length for password */
 /* -------------- */
-#define UNIX_CTRLS_              27	/* number of ctrl arguments defined */
+#define UNIX_CTRLS_              28	/* number of ctrl arguments defined */
+
+#define UNIX_DES_CRYPT(ctrl)	(off(UNIX_MD5_PASS,ctrl)&&off(UNIX_BIGCRYPT,ctrl)&&off(UNIX_SHA256_PASS,ctrl)&&off(UNIX_SHA512_PASS,ctrl)&&off(UNIX_BLOWFISH_PASS,ctrl))
 
 static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 {
@@ -124,6 +127,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX_SHA512_PASS */     {"sha512",       _ALL_ON_^(0260420000), 040000000},
 /* UNIX_ALGO_ROUNDS */     {"rounds=",         _ALL_ON_,          0100000000},
 /* UNIX_BLOWFISH_PASS */   {"blowfish",    _ALL_ON_^(0260420000), 0200000000},
+/* UNIX_MIN_PASS_LEN */    {"minlen=",		_ALL_ON_,          0400000000},
 };
 
 #define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)
@@ -141,7 +145,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 extern int _make_remark(pam_handle_t * pamh, unsigned int ctrl
 		       ,int type, const char *text);
 extern int _set_ctrl(pam_handle_t * pamh, int flags, int *remember, int *rounds,
-		     int argc, const char **argv);
+		     int *pass_min_len, int argc, const char **argv);
 extern int _unix_getpwnam (pam_handle_t *pamh,
 			   const char *name, int files, int nis,
 			   struct passwd **ret);

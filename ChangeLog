@@ -1,3 +1,17 @@
+2010-08-17  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/pam_unix_passwd.c: Implement minlen option.
+	* modules/pam_unix/support.c: Likewise.
+	* modules/pam_unix/support.h: Likewise.
+
+	* modules/pam_unix/pam_unix_acct.c (pam_sm_acct_mgmt): Adjust
+	arguments for _set_ctrl call.
+	* modules/pam_unix/pam_unix_auth.c (pam_sm_authenticate): Likewise.
+	* modules/pam_unix/pam_unix_session.c: Likewise.
+
+	* modules/pam_unix/pam_unix.8.xml: Document minlen option.
+	Based on patch by Steve Langasek.
+
 2010-08-12  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_mail/pam_mail.c: Check for mail only with user

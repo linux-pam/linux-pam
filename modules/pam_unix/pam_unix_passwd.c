@@ -457,7 +457,8 @@ static int _unix_verify_shadow(pam_handle_t *pamh, const char *user, unsigned in
 static int _pam_unix_approve_pass(pam_handle_t * pamh
 				  ,unsigned int ctrl
 				  ,const char *pass_old
-				  ,const char *pass_new)
+				  ,const char *pass_new,
+                                  int pass_min_len)
 {
 	const void *user;
 	const char *remark = NULL;
@@ -488,6 +489,9 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 		}
 	}
 	if (off(UNIX__IAMROOT, ctrl)) {
+		if (strlen(pass_new) < pass_min_len)
+		  remark = _("You must choose a longer password");
+		D(("length check [%s]", remark));
 		if (on(UNIX_REMEMBER_PASSWD, ctrl)) {
 			if ((retval = check_old_password(user, pass_new)) == PAM_AUTHTOK_ERR)
 			  remark = _("Password has been already used. Choose another.");
@@ -513,6 +517,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 	int retval;
 	int remember = -1;
 	int rounds = -1;
+	int pass_min_len = 0;
 
 	/* <DO NOT free() THESE> */
 	const char *user;
@@ -521,7 +526,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 	D(("called."));
 
-	ctrl = _set_ctrl(pamh, flags, &remember, &rounds, argc, argv);
+	ctrl = _set_ctrl(pamh, flags, &remember, &rounds, &pass_min_len,
+	                 argc, argv);
 
 	/*
 	 * First get the name of a user
@@ -721,7 +727,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 			if (*(const char *)pass_new == '\0') {	/* "\0" password = NULL */
 				pass_new = NULL;
 			}
-			retval = _pam_unix_approve_pass(pamh, ctrl, pass_old, pass_new);
+			retval = _pam_unix_approve_pass(pamh, ctrl, pass_old,
+			                                pass_new, pass_min_len);
 
 			if (retval != PAM_SUCCESS && off(UNIX_NOT_SET_PASS, ctrl)) {
 				pam_set_item(pamh, PAM_AUTHTOK, NULL);
@@ -754,7 +761,8 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 			return retval;
 		}
 
-		retval = _pam_unix_approve_pass(pamh, ctrl, pass_old, pass_new);
+		retval = _pam_unix_approve_pass(pamh, ctrl, pass_old, pass_new,
+		                                pass_min_len);
 		if (retval != PAM_SUCCESS) {
 			pam_syslog(pamh, LOG_NOTICE,
 			         "new password not acceptable 2");

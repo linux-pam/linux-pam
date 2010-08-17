@@ -73,7 +73,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t * pamh, int flags,
 
 	D(("called."));
 
-	ctrl = _set_ctrl(pamh, flags, NULL, NULL, argc, argv);
+	ctrl = _set_ctrl(pamh, flags, NULL, NULL, NULL, argc, argv);
 
 	retval = pam_get_item(pamh, PAM_USER, (void *) &user_name);
 	if (user_name == NULL || *user_name == '\0' || retval != PAM_SUCCESS) {
@@ -107,7 +107,7 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t * pamh, int flags,
 
 	D(("called."));
 
-	ctrl = _set_ctrl(pamh, flags, NULL, NULL, argc, argv);
+	ctrl = _set_ctrl(pamh, flags, NULL, NULL, NULL, argc, argv);
 
 	retval = pam_get_item(pamh, PAM_USER, (void *) &user_name);
 	if (user_name == NULL || *user_name == '\0' || retval != PAM_SUCCESS) {

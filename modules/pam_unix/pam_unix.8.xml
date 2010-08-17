@@ -326,6 +326,18 @@
           </para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term>
+          <option>minlen=<replaceable>n</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            Set a minimum password length of <replaceable>n</replaceable>
+            characters. The max. for DES crypt based passwords are 8
+            characters.
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
     <para>
       Invalid arguments are logged with  <citerefentry>

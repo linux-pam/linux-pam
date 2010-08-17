@@ -55,7 +55,7 @@ int _make_remark(pam_handle_t * pamh, unsigned int ctrl,
  */
 
 int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
-	      int argc, const char **argv)
+	      int *pass_min_len, int argc, const char **argv)
 {
 	unsigned int ctrl;
 
@@ -102,21 +102,29 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 			ctrl &= unix_args[j].mask;	/* for turning things off */
 			ctrl |= unix_args[j].flag;	/* for turning things on  */
 
-			if (remember != NULL) {
-				if (j == UNIX_REMEMBER_PASSWD) {
-					*remember = strtol(*argv + 9, NULL, 10);
-					if ((*remember == INT_MIN) || (*remember == INT_MAX))
-						*remember = -1;
-					if (*remember > 400)
-						*remember = 400;
-				}
-			}
+			/* special cases */
+			if (remember != NULL && j == UNIX_REMEMBER_PASSWD) {
+				*remember = strtol(*argv + 9, NULL, 10);
+				if ((*remember == INT_MIN) || (*remember == INT_MAX))
+					*remember = -1;
+				if (*remember > 400)
+					*remember = 400;
+			} else if (pass_min_len && j == UNIX_MIN_PASS_LEN) {
+				*pass_min_len = atoi(*argv + 7);
+ 			}
 			if (rounds != NULL && j == UNIX_ALGO_ROUNDS)
 				*rounds = strtol(*argv + 7, NULL, 10);
 		}
 
 		++argv;		/* step to next argument */
 	}
+
+	if (UNIX_DES_CRYPT(ctrl)
+	    && pass_min_len && *pass_min_len > 8)
+	  {
+	    pam_syslog (pamh, LOG_NOTICE, "Password minlen reset to 8 characters");
+	    *pass_min_len = 8;
+	  }
 
 	if (flags & PAM_DISALLOW_NULL_AUTHTOK) {
 		D(("DISALLOW_NULL_AUTHTOK"));

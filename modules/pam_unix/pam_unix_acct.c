@@ -191,7 +191,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 
 	D(("called."));
 
-	ctrl = _set_ctrl(pamh, flags, NULL, NULL, argc, argv);
+	ctrl = _set_ctrl(pamh, flags, NULL, NULL, NULL, argc, argv);
 
 	retval = pam_get_item(pamh, PAM_USER, &void_uname);
 	uname = void_uname;
