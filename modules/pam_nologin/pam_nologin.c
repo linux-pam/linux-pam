@@ -33,6 +33,9 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
+#define DEFAULT_NOLOGIN_PATH "/var/run/nologin"
+#define COMPAT_NOLOGIN_PATH "/etc/nologin"
+
 /*
  * parse some command line options
  */
@@ -49,7 +52,6 @@ parse_args(pam_handle_t *pamh, int argc, const char **argv, struct opt_s *opts)
     memset(opts, 0, sizeof(*opts));
 
     opts->retval_when_nofile = PAM_IGNORE;
-    opts->nologin_file = "/etc/nologin";
 
     for (i=0; i<argc; ++i) {
 	if (!strcmp("successok", argv[i])) {
@@ -70,14 +72,22 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 {
     const char *username;
     int retval = opts->retval_when_nofile;
-    int fd;
+    int fd = -1;
 
     if ((pam_get_user(pamh, &username, NULL) != PAM_SUCCESS) || !username) {
 	pam_syslog(pamh, LOG_WARNING, "cannot determine username");
 	return PAM_USER_UNKNOWN;
     }
 
-    if ((fd = open(opts->nologin_file, O_RDONLY, 0)) >= 0) {
+    if (opts->nologin_file == NULL) {
+	if ((fd = open(DEFAULT_NOLOGIN_PATH, O_RDONLY, 0)) < 0) {
+		fd = open(COMPAT_NOLOGIN_PATH, O_RDONLY, 0);
+	}
+    } else {
+	fd = open(opts->nologin_file, O_RDONLY, 0);
+    }
+
+    if (fd >= 0) {
 
 	char *mtmp=NULL;
 	int msg_style = PAM_TEXT_INFO;

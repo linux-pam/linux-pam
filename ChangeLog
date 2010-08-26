@@ -1,3 +1,10 @@
+2010-08-26  Tomas Mraz  <t8m@centrum.cz>
+
+	* modules/pam_nologin/pam_nologin.c (perform_check): Try first
+	 /var/run/nologin if the nologin file is not explicitly specified.
+	* modules/pam_nologin/pam_nologin.8.xml: Document that /var/run/nologin
+	is tried first.
+
 2010-08-26  Sweta Kothari  <swkothar@redhat.com>
 
 	* po/gu.po: Updated translations.
