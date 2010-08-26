@@ -1,3 +1,11 @@
+2010-08-26  Sweta Kothari  <swkothar@redhat.com>
+
+	* po/gu.po: Updated translations.
+
+2010-08-26  Geert Warrink  <geert.warrink@onsnet.nu>
+
+	* po/nl.po: Updated translations.
+
 2010-08-26  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/specs/Makefile.am: Use CC_FOR_BUILD as compiler (cross

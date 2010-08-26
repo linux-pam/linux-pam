@@ -1,15 +1,15 @@
-# translation of gu.po to Gujarati
+# translation of pam.default.gu.po to Gujarati
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Ankit Patel <ankit@redhat.com>, 2007, 2008.
-# Sweta Kothari <swkothar@redhat.com>, 2009.
+# Sweta Kothari <swkothar@redhat.com>, 2009, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: gu\n"
+"Project-Id-Version: pam.default.gu\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-05-05 10:03+0200\n"
-"PO-Revision-Date: 2009-04-14 11:37+0530\n"
+"POT-Creation-Date: 2009-06-30 12:29+0200\n"
+"PO-Revision-Date: 2010-08-02 18:15+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgid "erroneous conversation (%d)\n"
 msgstr "ક્ષતિયુક્ત વાર્તાલાપ (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:63
+#: modules/pam_unix/pam_unix_auth.c:159 modules/pam_userdb/pam_userdb.c:63
 msgid "Password: "
 msgstr "પાસવર્ડ: "
 
@@ -52,12 +52,12 @@ msgstr "નવો %s%sપાસવર્ડ ફરી લખો: "
 msgid "Sorry, passwords do not match."
 msgstr "માફ કરજો, પાસવર્ડો બંધબેસતા નથી."
 
-#: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
+#: libpam/pam_get_authtok.c:127
 #, c-format
 msgid "Retype %s"
 msgstr "%s ને પુન:ટાઇપ કરો"
 
-#: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
+#: libpam/pam_get_authtok.c:146
 msgid "Password change aborted."
 msgstr "પાસવર્ડ બદલાવનો અંત આવેલ છે."
 
@@ -115,7 +115,7 @@ msgstr "સત્તાધિકરણ મોડ્યુલથી વપરા�
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
-msgstr "સેવા માટે મહત્તમ સંખ્યાના પ્રયાસો ફેંકી દીધા"
+msgstr "સેવા માટે મહત્તમ પ્રયાસો કર્યા"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
@@ -300,8 +300,7 @@ msgstr "છેલ્લો નિષ્ફળ થયેલ પ્રવેશ:%s
 #: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
-msgid_plural ""
-"There were %d failed login attempts since the last successful login."
+msgid_plural "There were %d failed login attempts since the last successful login."
 msgstr[0] "છેલ્લે સફળ પ્રવેશ સુધી પ્રવેશનો પ્રયત્ન કરવામાં %d નિષ્ફળ થયેલ હતુ."
 msgstr[1] "છેલ્લે સફળ પ્રવેશ સુધી પ્રવેશનો પ્રયત્નો કરવામાં %d નિષ્ફળ થયેલ હતુ."
 
@@ -482,10 +481,8 @@ msgstr "%s: નહિં ઓળખાતો વિકલ્પ %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -508,7 +505,7 @@ msgstr ""
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_timestamp/pam_timestamp.c:345
+#: modules/pam_timestamp/pam_timestamp.c:339
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "પ્રવેશની મંજૂરી આપેલ છે (છેલ્લો પ્રવેશ એ %ld સેકંડો પહેલા હતો)."
@@ -566,3 +563,4 @@ msgstr "નવો UNIX પાસવર્ડ દાખલ કરો: "
 #: modules/pam_unix/pam_unix_passwd.c:704
 msgid "Retype new UNIX password: "
 msgstr "નવો UNIX પાસવર્ડ ફરીથી લખો: "
+
