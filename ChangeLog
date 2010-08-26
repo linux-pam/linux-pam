@@ -1,3 +1,10 @@
+2010-08-26  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* doc/specs/Makefile.am: Use CC_FOR_BUILD as compiler (cross
+	compile support).
+	* configure.in: Check for host compiler if cross compiling.
+	Bug #2315432, debian#284854#42.
+
 2010-08-17  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_unix/pam_unix_passwd.c: Implement minlen option.

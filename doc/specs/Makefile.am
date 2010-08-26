@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2005, 2006 Thorsten Kukuk <kukuk@suse.de>
+# Copyright (c) 2005, 2006, 2010 Thorsten Kukuk <kukuk@suse.de>
 #
 
 CLEANFILES = draft-morgan-pam-current.txt *~
@@ -10,6 +10,8 @@ draft-morgan-pam-current.txt: padout draft-morgan-pam.raw
 	./padout < $(srcdir)/draft-morgan-pam.raw > draft-morgan-pam-current.txt
 
 AM_YFLAGS = -d
+
+CC = @CC_FOR_BUILD@
 
 BUILT_SOURCES = parse_y.h
 
