@@ -1,3 +1,15 @@
+2010-08-31  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 1.1.2
+
+	* configure.in: Bump version number.
+	* NEWS: Document changes since 1.1.1.
+	* doc/adg/Linux-PAM_ADG.xml: Bump version number.
+	* doc/mwg/Linux-PAM_MWG.xml: Likewise.
+	* doc/sag/Linux-PAM_SAG.xml: Likewise.
+	* libpam/Makefile.am: Bump revision of shared library.
+	* po/*.po: Regenerate.
+
 2010-08-26  Tomas Mraz  <t8m@centrum.cz>
 
 	* modules/pam_nologin/pam_nologin.c (perform_check): Try first

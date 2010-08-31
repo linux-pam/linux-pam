@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip.mr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-05-05 10:03+0200\n"
+"POT-Creation-Date: 2010-08-17 13:15+0200\n"
 "PO-Revision-Date: 2009-04-14 11:31+0530\n"
 "Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
 "Language-Team: marathi\n"
@@ -31,7 +31,7 @@ msgid "erroneous conversation (%d)\n"
 msgstr "सदोषीत संवाद (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:63
+#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:64
 msgid "Password: "
 msgstr "गुप्तशब्द: "
 
@@ -231,12 +231,12 @@ msgid "contains the user name in some form"
 msgstr "कुठल्यातरी स्वरूपात वापरकर्ता नाव आढळले"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:475
+#: modules/pam_unix/pam_unix_passwd.c:476
 msgid "No password supplied"
 msgstr "गुप्तशब्द दिलेला नाही"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:475
+#: modules/pam_unix/pam_unix_passwd.c:476
 msgid "Password unchanged"
 msgstr "गुप्तशब्द बदलविला नाही"
 
@@ -313,38 +313,38 @@ msgstr "शेवटचे यशस्वी प्रवेश पासून
 msgid "Too many logins for '%s'."
 msgstr "'%s' करीता एकापेक्षा जास्त प्रवेश."
 
-#: modules/pam_mail/pam_mail.c:318
+#: modules/pam_mail/pam_mail.c:298
 msgid "No mail."
 msgstr "मेल आढळले नाही."
 
-#: modules/pam_mail/pam_mail.c:321
+#: modules/pam_mail/pam_mail.c:301
 msgid "You have new mail."
 msgstr "नवीन मेल प्राप्त झाले."
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:304
 msgid "You have old mail."
 msgstr "जुणे मेल आढळले गेले."
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:308
 msgid "You have mail."
 msgstr "मेल आढळले गेले."
 
-#: modules/pam_mail/pam_mail.c:335
+#: modules/pam_mail/pam_mail.c:315
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "संचयीका %s अंतर्गत मेल आढळले नाही."
 
-#: modules/pam_mail/pam_mail.c:339
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "संचयीका %s अंतर्गत नवीन मेल आढळले."
 
-#: modules/pam_mail/pam_mail.c:343
+#: modules/pam_mail/pam_mail.c:323
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "संचयीका %s अंतर्गत जुणे मेल आढळले."
 
-#: modules/pam_mail/pam_mail.c:348
+#: modules/pam_mail/pam_mail.c:328
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "संचयीका %s अंतर्गत मेल आढळले गेले."
@@ -360,7 +360,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "डिरेक्ट्री '%s' बनवण्यास व प्रारंभ करण्यास अशक्य."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:496
+#: modules/pam_unix/pam_unix_passwd.c:497
 msgid "Password has been already used. Choose another."
 msgstr "ह्या गुप्तशब्दचा आधीच वापर झाला आहे. दुसरा निवडा."
 
@@ -539,27 +539,27 @@ msgstr "सावधानता: तुमचे गुप्तशब्द %d
 msgid "NIS password could not be changed."
 msgstr "NIS गुप्तशब्द बदलविले जाऊ शकत नाही."
 
-#: modules/pam_unix/pam_unix_passwd.c:492
+#: modules/pam_unix/pam_unix_passwd.c:493
 msgid "You must choose a longer password"
 msgstr "तुम्ही मोठा गुप्तशब्द निवडला पाहीजे"
 
-#: modules/pam_unix/pam_unix_passwd.c:597
+#: modules/pam_unix/pam_unix_passwd.c:600
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s करीता गुप्तशब्द बदलवित आहे."
 
-#: modules/pam_unix/pam_unix_passwd.c:608
+#: modules/pam_unix/pam_unix_passwd.c:611
 msgid "(current) UNIX password: "
 msgstr "(चालू) UNIX गुप्तशब्द: "
 
-#: modules/pam_unix/pam_unix_passwd.c:643
+#: modules/pam_unix/pam_unix_passwd.c:646
 msgid "You must wait longer to change your password"
 msgstr "तुमचा गुप्तशब्द बदलण्यासाठी तुम्हाला बराच वेळ वाट पहावी लागेल"
 
-#: modules/pam_unix/pam_unix_passwd.c:703
+#: modules/pam_unix/pam_unix_passwd.c:706
 msgid "Enter new UNIX password: "
 msgstr "नवीन UNIX गुप्तशब्द प्रविष्ट करा: "
 
-#: modules/pam_unix/pam_unix_passwd.c:704
+#: modules/pam_unix/pam_unix_passwd.c:707
 msgid "Retype new UNIX password: "
 msgstr "नवीन UNIX गुप्तशब्द पुन्हा टाइप करा: "

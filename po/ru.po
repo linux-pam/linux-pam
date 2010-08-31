@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-05-05 10:03+0200\n"
+"POT-Creation-Date: 2010-08-17 13:15+0200\n"
 "PO-Revision-Date: 2009-08-21 15:33+1000\n"
 "Last-Translator: Yulia Poyarkova <yulia.poyarkova@redhat.com>\n"
 "Language-Team: \n"
@@ -35,7 +35,7 @@ msgid "erroneous conversation (%d)\n"
 msgstr "ошибочный диалог (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:63
+#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:64
 msgid "Password: "
 msgstr "Пароль: "
 
@@ -240,13 +240,13 @@ msgid "contains the user name in some form"
 msgstr "содержит имя пользователя"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:475
+#: modules/pam_unix/pam_unix_passwd.c:476
 msgid "No password supplied"
 msgstr "Пароль не указан"
 
 # password dialog title
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:475
+#: modules/pam_unix/pam_unix_passwd.c:476
 msgid "Password unchanged"
 msgstr "Пароль не изменен"
 
@@ -324,38 +324,38 @@ msgstr "Число неудачных попыток со времени пос�
 msgid "Too many logins for '%s'."
 msgstr "Слишком много регистраций в системе для «%s»."
 
-#: modules/pam_mail/pam_mail.c:318
+#: modules/pam_mail/pam_mail.c:298
 msgid "No mail."
 msgstr "Почты нет."
 
-#: modules/pam_mail/pam_mail.c:321
+#: modules/pam_mail/pam_mail.c:301
 msgid "You have new mail."
 msgstr "Есть новая почта."
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:304
 msgid "You have old mail."
 msgstr "Есть старая почта."
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:308
 msgid "You have mail."
 msgstr "Есть почта."
 
-#: modules/pam_mail/pam_mail.c:335
+#: modules/pam_mail/pam_mail.c:315
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Нет почты в папке %s."
 
-#: modules/pam_mail/pam_mail.c:339
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Есть новая почта в папке %s."
 
-#: modules/pam_mail/pam_mail.c:343
+#: modules/pam_mail/pam_mail.c:323
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Есть старая почта в папке %s."
 
-#: modules/pam_mail/pam_mail.c:348
+#: modules/pam_mail/pam_mail.c:328
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Есть почта в папке %s."
@@ -371,7 +371,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Не удалось создать и инициализировать каталог %s."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:496
+#: modules/pam_unix/pam_unix_passwd.c:497
 msgid "Password has been already used. Choose another."
 msgstr "Этот пароль уже был использован. Выберите другой."
 
@@ -561,29 +561,29 @@ msgstr "Предупреждение: срок действия пароля и�
 msgid "NIS password could not be changed."
 msgstr "Пароль NIS изменить нельзя."
 
-#: modules/pam_unix/pam_unix_passwd.c:492
+#: modules/pam_unix/pam_unix_passwd.c:493
 msgid "You must choose a longer password"
 msgstr "Выберите пароль большей длины"
 
-#: modules/pam_unix/pam_unix_passwd.c:597
+#: modules/pam_unix/pam_unix_passwd.c:600
 #, c-format
 msgid "Changing password for %s."
 msgstr "Смена пароля для %s."
 
 # Keep the newlines and spaces after ':'!
-#: modules/pam_unix/pam_unix_passwd.c:608
+#: modules/pam_unix/pam_unix_passwd.c:611
 msgid "(current) UNIX password: "
 msgstr "(текущий) пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:643
+#: modules/pam_unix/pam_unix_passwd.c:646
 msgid "You must wait longer to change your password"
 msgstr "До смены пароля должно пройти больше времени"
 
-#: modules/pam_unix/pam_unix_passwd.c:703
+#: modules/pam_unix/pam_unix_passwd.c:706
 msgid "Enter new UNIX password: "
 msgstr "Введите новый пароль UNIX: "
 
 # Keep the newlines and spaces after ':'!
-#: modules/pam_unix/pam_unix_passwd.c:704
+#: modules/pam_unix/pam_unix_passwd.c:707
 msgid "Retype new UNIX password: "
 msgstr "Повторите ввод нового пароля UNIX: "

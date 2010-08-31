@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-05-05 10:03+0200\n"
+"POT-Creation-Date: 2010-08-17 13:15+0200\n"
 "PO-Revision-Date: 2009-06-08 12:22+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
@@ -35,7 +35,7 @@ msgid "erroneous conversation (%d)\n"
 msgstr "अनियमित बातचीत (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:63
+#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:64
 msgid "Password: "
 msgstr "शब्दकूट: "
 
@@ -235,12 +235,12 @@ msgid "contains the user name in some form"
 msgstr "कुछ रूप में उपयोक्ता नाम समाहित करता है"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:475
+#: modules/pam_unix/pam_unix_passwd.c:476
 msgid "No password supplied"
 msgstr "कोई कूटशब्द नहीं दिया गया है"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:475
+#: modules/pam_unix/pam_unix_passwd.c:476
 msgid "Password unchanged"
 msgstr "शब्दकूट परिवर्तित"
 
@@ -317,38 +317,38 @@ msgstr "%d विफल लॉगिन प्रयास थे अंति�
 msgid "Too many logins for '%s'."
 msgstr "'%s' के लिए बहुत लॉगिन."
 
-#: modules/pam_mail/pam_mail.c:318
+#: modules/pam_mail/pam_mail.c:298
 msgid "No mail."
 msgstr "कोई मेल नहीं."
 
-#: modules/pam_mail/pam_mail.c:321
+#: modules/pam_mail/pam_mail.c:301
 msgid "You have new mail."
 msgstr "आपके लिए नया मेल है."
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:304
 msgid "You have old mail."
 msgstr "आपके पास पुराना मेल है."
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:308
 msgid "You have mail."
 msgstr "आपके पास मेल है."
 
-#: modules/pam_mail/pam_mail.c:335
+#: modules/pam_mail/pam_mail.c:315
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "आपके पास %s फोल्डर में कोई मेल नहीं है."
 
-#: modules/pam_mail/pam_mail.c:339
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "आपके लिए %s फोल्डर में नया मेल है."
 
-#: modules/pam_mail/pam_mail.c:343
+#: modules/pam_mail/pam_mail.c:323
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "आपके लिए %s फोल्डर में पुराना मेल है."
 
-#: modules/pam_mail/pam_mail.c:348
+#: modules/pam_mail/pam_mail.c:328
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "आपके लिए %s फोल्डर में मेल है."
@@ -364,7 +364,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "निर्देशिका '%s' बनाने और आरंभ करने में असमर्थ."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:496
+#: modules/pam_unix/pam_unix_passwd.c:497
 msgid "Password has been already used. Choose another."
 msgstr "शब्दकूट को पहले ही बदला जा चुका है. दूसरा चुनें."
 
@@ -543,27 +543,27 @@ msgstr "चेतावनी: आपका शब्दकूट %d दिन�
 msgid "NIS password could not be changed."
 msgstr "NIS शब्दकूट बदला नहीं जा सका."
 
-#: modules/pam_unix/pam_unix_passwd.c:492
+#: modules/pam_unix/pam_unix_passwd.c:493
 msgid "You must choose a longer password"
 msgstr "आपको जरूर एक लंबा शब्दकूट चुनना चाहिए"
 
-#: modules/pam_unix/pam_unix_passwd.c:597
+#: modules/pam_unix/pam_unix_passwd.c:600
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s के लिए कूटशब्द बदल रहा है"
 
-#: modules/pam_unix/pam_unix_passwd.c:608
+#: modules/pam_unix/pam_unix_passwd.c:611
 msgid "(current) UNIX password: "
 msgstr "(मौजूदा) UNIX शब्दकूट: "
 
-#: modules/pam_unix/pam_unix_passwd.c:643
+#: modules/pam_unix/pam_unix_passwd.c:646
 msgid "You must wait longer to change your password"
 msgstr "आपको अपना शब्दकूट बदलने के लिए लंबी प्रतीक्षा करनी होगी"
 
-#: modules/pam_unix/pam_unix_passwd.c:703
+#: modules/pam_unix/pam_unix_passwd.c:706
 msgid "Enter new UNIX password: "
 msgstr "नया UNIX शब्दकूट दें: "
 
-#: modules/pam_unix/pam_unix_passwd.c:704
+#: modules/pam_unix/pam_unix_passwd.c:707
 msgid "Retype new UNIX password: "
 msgstr "नया UNIX शब्दकूट फिर टाइप करें: "

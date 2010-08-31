@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-05-05 10:03+0200\n"
+"POT-Creation-Date: 2010-08-17 13:15+0200\n"
 "PO-Revision-Date: 2006-11-03 12:03\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -27,7 +27,7 @@ msgid "erroneous conversation (%d)\n"
 msgstr "ingxoxo enephutha (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:63
+#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:64
 msgid "Password: "
 msgstr "Iphasiwedi: "
 
@@ -228,12 +228,12 @@ msgid "contains the user name in some form"
 msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:475
+#: modules/pam_unix/pam_unix_passwd.c:476
 msgid "No password supplied"
 msgstr "Ayikho iphasiwedi enikeziwe"
 
 #: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:475
+#: modules/pam_unix/pam_unix_passwd.c:476
 msgid "Password unchanged"
 msgstr "Iphasiwedi ayishintshwanga"
 
@@ -310,38 +310,38 @@ msgstr ""
 msgid "Too many logins for '%s'."
 msgstr "Kuningi kakhulu ukungena kwi- '%s' osekwenziwe."
 
-#: modules/pam_mail/pam_mail.c:318
+#: modules/pam_mail/pam_mail.c:298
 msgid "No mail."
 msgstr "Ayikho imeyili."
 
-#: modules/pam_mail/pam_mail.c:321
+#: modules/pam_mail/pam_mail.c:301
 msgid "You have new mail."
 msgstr "Unemeyili entsha."
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:304
 msgid "You have old mail."
 msgstr "Unemeyili endala."
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:308
 msgid "You have mail."
 msgstr "Unemeyili."
 
-#: modules/pam_mail/pam_mail.c:335
+#: modules/pam_mail/pam_mail.c:315
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Akukho meyili onayo kwifolda %s."
 
-#: modules/pam_mail/pam_mail.c:339
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Unemeyili entsha kwifolda %s."
 
-#: modules/pam_mail/pam_mail.c:343
+#: modules/pam_mail/pam_mail.c:323
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Unemeyili endala kwifolda %s."
 
-#: modules/pam_mail/pam_mail.c:348
+#: modules/pam_mail/pam_mail.c:328
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Unemeyili kwifolda %s."
@@ -357,7 +357,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr ""
 
 #: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:496
+#: modules/pam_unix/pam_unix_passwd.c:497
 msgid "Password has been already used. Choose another."
 msgstr "Le phasiwedi isetshenziswa ngothile. Khetha enye."
 
@@ -545,28 +545,28 @@ msgstr "Isexwayiso: Iphasiwedi yakho izophelelwa isikhathi %d usuku%.2s[T1]"
 msgid "NIS password could not be changed."
 msgstr "Iphasiwedi ye-NIS ayivumanga ukushintshwa."
 
-#: modules/pam_unix/pam_unix_passwd.c:492
+#: modules/pam_unix/pam_unix_passwd.c:493
 msgid "You must choose a longer password"
 msgstr "Kumelwe ukhethe iphasiwedi ethe ukuba yinjana"
 
-#: modules/pam_unix/pam_unix_passwd.c:597
+#: modules/pam_unix/pam_unix_passwd.c:600
 #, fuzzy, c-format
 msgid "Changing password for %s."
 msgstr "Ukushintsha iphasiwedi ye-STRESS ye-"
 
-#: modules/pam_unix/pam_unix_passwd.c:608
+#: modules/pam_unix/pam_unix_passwd.c:611
 msgid "(current) UNIX password: "
 msgstr "Iphasiwedi ye-UNIX (yamanje): "
 
-#: modules/pam_unix/pam_unix_passwd.c:643
+#: modules/pam_unix/pam_unix_passwd.c:646
 msgid "You must wait longer to change your password"
 msgstr "Kumelwe ulinde isikhashana ukuze ushintshe iphasiwedi yakho"
 
-#: modules/pam_unix/pam_unix_passwd.c:703
+#: modules/pam_unix/pam_unix_passwd.c:706
 msgid "Enter new UNIX password: "
 msgstr "Faka iphasiwedi entsha ye-UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:704
+#: modules/pam_unix/pam_unix_passwd.c:707
 msgid "Retype new UNIX password: "
 msgstr "Thayipha iphasiwedi entsha ye-UNIX: "
 

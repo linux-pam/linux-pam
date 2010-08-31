@@ -1,8 +1,11 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 
-Release 1.X.Y
+Release 1.1.2
 
+* pam_unix: Add minlen= option
+* pam_group: Add support for UNIX groups beside netgroups
+* pam_tally: Document that it is deprecated
 * pam_rootok: Add support for chauthtok and acct_mgmt
 * Update translations
 
