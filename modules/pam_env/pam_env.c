@@ -791,10 +791,9 @@ handle_env (pam_handle_t *pamh, int argc, const char **argv)
 	  return PAM_BUF_ERR;
 	}
       if (stat(envpath, &statbuf) == 0) {
-	uid_t euid = geteuid();
-        setfsuid (user_entry->pw_uid);
+	uid_t fsuid = setfsuid(user_entry->pw_uid);
         retval = _parse_config_file(pamh, envpath);
-	setfsuid (euid);
+	setfsuid(fsuid);
         if (retval == PAM_IGNORE)
           retval = PAM_SUCCESS;
       }

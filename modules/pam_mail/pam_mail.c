@@ -444,11 +444,9 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 
     if ((est && !(ctrl & PAM_NO_LOGIN))
 	|| (!est && (ctrl & PAM_LOGOUT_TOO))) {
-        uid_t euid = geteuid();
-
-        setfsuid (pwd->pw_uid);
+	uid_t fsuid = setfsuid(pwd->pw_uid);
 	type = get_mail_status(pamh, ctrl, folder);
-	setfsuid (euid);
+	setfsuid(fsuid);
 
 	if (type != 0) {
 	    retval = report_mail(pamh, ctrl, type, folder);

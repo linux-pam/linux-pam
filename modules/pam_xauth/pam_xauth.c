@@ -234,7 +234,7 @@ check_acl(pam_handle_t *pamh,
 	struct passwd *pwd;
 	FILE *fp;
 	int i, save_errno;
-	uid_t euid;
+	uid_t fsuid;
 	/* Check this user's <sense> file. */
 	pwd = pam_modutil_getpwnam(pamh, this_user);
 	if (pwd == NULL) {
@@ -250,11 +250,10 @@ check_acl(pam_handle_t *pamh,
 			   "name of user's home directory is too long");
 		return PAM_SESSION_ERR;
 	}
-	euid = geteuid();
-	setfsuid(pwd->pw_uid);
+	fsuid = setfsuid(pwd->pw_uid);
 	fp = fopen(path, "r");
 	save_errno = errno;
-	setfsuid(euid);
+	setfsuid(fsuid);
 	if (fp != NULL) {
 		char buf[LINE_MAX], *tmp;
 		/* Scan the file for a list of specs of users to "trust". */
@@ -324,7 +323,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	struct passwd *tpwd, *rpwd;
 	int fd, i, debug = 0;
 	int retval = PAM_SUCCESS;
-	uid_t systemuser = 499, targetuser = 0, euid;
+	uid_t systemuser = 499, targetuser = 0, fsuid;
 
 	/* Parse arguments.  We don't understand many, so no sense in breaking
 	 * this into a separate function. */
@@ -572,8 +571,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		}
 
 		/* Generate a new file to hold the data. */
-		euid = geteuid();
-		setfsuid(tpwd->pw_uid);
+		fsuid = setfsuid(tpwd->pw_uid);
 
 #ifdef WITH_SELINUX
 		if (is_selinux_enabled() > 0) {
@@ -603,7 +601,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		save_errno = errno;
 #endif
 
-		setfsuid(euid);
+		setfsuid(fsuid);
 		if (fd == -1) {
 			errno = save_errno;
 			pam_syslog(pamh, LOG_ERR,
@@ -617,7 +615,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		setfsuid(tpwd->pw_uid);
 		if (fchown(fd, tpwd->pw_uid, tpwd->pw_gid) < 0)
 		  pam_syslog (pamh, LOG_ERR, "fchown: %m");
-		setfsuid(euid);
+		setfsuid(fsuid);
 		close(fd);
 
 		/* Get a copy of the filename to save as a data item for
@@ -715,9 +713,8 @@ pam_sm_close_session (pam_handle_t *pamh, int flags UNUSED,
 	void *cookiefile;
 	int i, debug = 0;
 	const char* user;
-	struct passwd *tpwd;
-	uid_t unlinkuid, euid;
-	unlinkuid = euid = geteuid ();
+	struct passwd *tpwd = NULL;
+	uid_t unlinkuid, fsuid;
 
 	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS)
 		pam_syslog(pamh, LOG_ERR, "error determining target user's name");
@@ -759,9 +756,11 @@ pam_sm_close_session (pam_handle_t *pamh, int flags UNUSED,
 				       (char*)cookiefile);
 			}
 			/* NFS with root_squash requires non-root user */
-			setfsuid (unlinkuid);
+			if (tpwd)
+				fsuid = setfsuid(unlinkuid);
 			unlink((char*)cookiefile);
-			setfsuid (euid);
+			if (tpwd)
+				setfsuid(fsuid);
 			*((char*)cookiefile) = '\0';
 		}
 	}

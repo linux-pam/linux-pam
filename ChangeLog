@@ -1,3 +1,10 @@
+2010-09-16  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* modules/pam_env/pam_env.c (handle_env): Use setfsuid() return code.
+	* modules/pam_mail/pam_mail.c (_do_mail): Likewise.
+	* modules/pam_xauth/pam_xauth.c (check_acl, pam_sm_open_session,
+	pam_sm_close_session): Likewise.
+
 2010-08-31  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 1.1.2
