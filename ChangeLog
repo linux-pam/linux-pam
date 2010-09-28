@@ -1,5 +1,10 @@
 2010-09-27  Dmitry V. Levin  <ldv@altlinux.org>
 
+	* modules/pam_xauth/pam_xauth.c (pam_sm_close_session): Return
+	PAM_SUCCESS immediately if no cookie file is defined.  Return
+	PAM_SESSION_ERR if cookie file is defined but target uid cannot be
+	determined.  Do not modify cookiefile string returned by pam_get_data.
+
 	* modules/pam_xauth/pam_xauth.c (check_acl): Ensure that the given
 	access control file is a regular file.
 
