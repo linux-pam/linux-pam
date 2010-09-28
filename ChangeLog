@@ -1,3 +1,8 @@
+2010-09-27  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* modules/pam_xauth/pam_xauth.c (check_acl): Ensure that the given
+	access control file is a regular file.
+
 2010-09-16  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* modules/pam_env/pam_env.c (handle_env): Use setfsuid() return code.

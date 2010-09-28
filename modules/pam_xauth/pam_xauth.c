@@ -37,6 +37,9 @@
 #include <sys/types.h>
 #include <sys/fsuid.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include <errno.h>
 #include <fnmatch.h>
 #include <grp.h>
@@ -232,9 +235,10 @@ check_acl(pam_handle_t *pamh,
 {
 	char path[PATH_MAX];
 	struct passwd *pwd;
-	FILE *fp;
-	int i, save_errno;
+	FILE *fp = NULL;
+	int i, fd = -1, save_errno;
 	uid_t fsuid;
+	struct stat st;
 	/* Check this user's <sense> file. */
 	pwd = pam_modutil_getpwnam(pamh, this_user);
 	if (pwd == NULL) {
@@ -251,10 +255,27 @@ check_acl(pam_handle_t *pamh,
 		return PAM_SESSION_ERR;
 	}
 	fsuid = setfsuid(pwd->pw_uid);
-	fp = fopen(path, "r");
+	if (!stat(path, &st)) {
+		if (!S_ISREG(st.st_mode))
+			errno = EINVAL;
+		else
+			fd = open(path, O_RDONLY | O_NOCTTY);
+	}
 	save_errno = errno;
 	setfsuid(fsuid);
-	if (fp != NULL) {
+	if (fd >= 0) {
+		if (!fstat(fd, &st)) {
+			if (!S_ISREG(st.st_mode))
+				errno = EINVAL;
+			else
+				fp = fdopen(fd, "r");
+		}
+		if (!fp) {
+			save_errno = errno;
+			close(fd);
+		}
+	}
+	if (fp) {
 		char buf[LINE_MAX], *tmp;
 		/* Scan the file for a list of specs of users to "trust". */
 		while (fgets(buf, sizeof(buf), fp) != NULL) {
