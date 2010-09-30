@@ -775,7 +775,8 @@ pam_sm_close_session (pam_handle_t *pamh, int flags UNUSED,
 	if (debug)
 		pam_syslog(pamh, LOG_DEBUG, "removing `%s'", cookiefile);
 	fsuid = setfsuid(tpwd->pw_uid);
-	unlink(cookiefile);
+	if (unlink(cookiefile) == -1 && errno != ENOENT)
+	  pam_syslog(pamh, LOG_WARNING, "Couldn't remove `%s': %m", cookiefile);
 	setfsuid(fsuid);
 
 	return PAM_SUCCESS;
