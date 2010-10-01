@@ -12,6 +12,8 @@ draft-morgan-pam-current.txt: padout draft-morgan-pam.raw
 AM_YFLAGS = -d
 
 CC = @CC_FOR_BUILD@
+CFLAGS = @BUILD_CFLAGS@
+LDFLAGS = @BUILD_LDFLAGS@
 
 BUILT_SOURCES = parse_y.h
 

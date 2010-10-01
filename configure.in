@@ -86,12 +86,6 @@ AM_PROG_CC_C_O
 PAM_LD_AS_NEEDED
 PAM_LD_O1
 
-if test x"$cross_compiling" = xyes; then
-	AC_CHECK_PROGS(CC_FOR_BUILD, gcc cc)
-else
-	CC_FOR_BUILD="$CC"
-fi
-
 dnl Largefile support
 AC_SYS_LARGEFILE
 
@@ -133,6 +127,35 @@ if eval "test x$CC = xicc"; then
     JAPHAR_GREP_CFLAGS($flag, [ CFLAGS="$CFLAGS $flag" ])
   done
 fi
+
+if test "x${CC_FOR_BUILD+set}" != "xset" ; then
+  if test "x$cross_compiling" = "xyes" ; then
+    AC_CHECK_PROGS(CC_FOR_BUILD, gcc cc)
+  else
+    CC_FOR_BUILD=${CC}
+  fi
+fi
+AC_MSG_CHECKING([for CC_FOR_BUILD])
+AC_MSG_RESULT([$CC_FOR_BUILD])
+AC_SUBST(CC_FOR_BUILD)
+
+if test "x${BUILD_CFLAGS+set}" != "xset" ; then
+  if test "x$cross_compiling" = "xyes" ; then
+    BUILD_CFLAGS=
+  else
+    BUILD_CFLAGS=${CFLAGS}
+  fi
+fi
+AC_SUBST(BUILD_CFLAGS)
+
+if test "x${BUILD_LDFLAGS+set}" != "xset" ; then
+  if test "x$cross_compiling" = "xyes" ; then
+    BUILD_LDFLAGS=
+  else
+    BUILD_LDFLAGS=${LDFLAGS}
+  fi
+fi
+AC_SUBST(BUILD_LDFLAGS)
 
 AC_C___ATTRIBUTE__
 

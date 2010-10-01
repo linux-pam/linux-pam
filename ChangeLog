@@ -1,3 +1,10 @@
+2010-10-01  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Extend cross compiling check.
+	* doc/specs/Makefile.am: Set CFLAGS and LDFLAGS to BUILD_CFLAGS
+	and BUILD_LDFLAGS.
+	Bug #3078936 / gentoo #339174
+
 2010-09-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_xauth/pam_xauth.c (pam_sm_close_session): Warn if
