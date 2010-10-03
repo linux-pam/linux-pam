@@ -100,6 +100,30 @@ pam_modutil_write(int fd, const char *buffer, int count);
 extern int PAM_NONNULL((1,3))
 pam_modutil_audit_write(pam_handle_t *pamh, int type,
 			const char *message, int retval);
+
+struct pam_modutil_privs {
+	gid_t *grplist;
+	int number_of_groups;
+	int allocated;
+	gid_t old_gid;
+	uid_t old_uid;
+	int is_dropped;
+};
+
+#define PAM_MODUTIL_NGROUPS     64
+#define PAM_MODUTIL_DEF_PRIVS(n) \
+	gid_t n##_grplist[PAM_MODUTIL_NGROUPS]; \
+	struct pam_modutil_privs n = { n##_grplist, PAM_MODUTIL_NGROUPS, 0, -1, -1, 0 }
+
+extern int PAM_NONNULL((1,2,3))
+pam_modutil_drop_priv(pam_handle_t *pamh,
+		      struct pam_modutil_privs *p,
+		      const struct passwd *pw);
+
+extern int PAM_NONNULL((1,2))
+pam_modutil_regain_priv(pam_handle_t *pamh,
+		      struct pam_modutil_privs *p);
+
 #ifdef __cplusplus
 }
 #endif

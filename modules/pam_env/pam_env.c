@@ -23,7 +23,6 @@
 #include <string.h>
 #include <syslog.h>
 #include <sys/stat.h>
-#include <sys/fsuid.h>
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -791,9 +790,15 @@ handle_env (pam_handle_t *pamh, int argc, const char **argv)
 	  return PAM_BUF_ERR;
 	}
       if (stat(envpath, &statbuf) == 0) {
-	uid_t fsuid = setfsuid(user_entry->pw_uid);
-        retval = _parse_config_file(pamh, envpath);
-	setfsuid(fsuid);
+	PAM_MODUTIL_DEF_PRIVS(privs);
+
+	if (pam_modutil_drop_priv(pamh, &privs, user_entry)) {
+	  retval = PAM_SESSION_ERR;
+	} else {
+	  retval = _parse_config_file(pamh, envpath);
+	  if (pam_modutil_regain_priv(pamh, &privs))
+	    retval = PAM_SESSION_ERR;
+	}
         if (retval == PAM_IGNORE)
           retval = PAM_SUCCESS;
       }

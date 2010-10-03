@@ -35,7 +35,6 @@
 
 #include "config.h"
 #include <sys/types.h>
-#include <sys/fsuid.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -237,8 +236,9 @@ check_acl(pam_handle_t *pamh,
 	struct passwd *pwd;
 	FILE *fp = NULL;
 	int i, fd = -1, save_errno;
-	uid_t fsuid;
 	struct stat st;
+	PAM_MODUTIL_DEF_PRIVS(privs);
+
 	/* Check this user's <sense> file. */
 	pwd = pam_modutil_getpwnam(pamh, this_user);
 	if (pwd == NULL) {
@@ -254,7 +254,8 @@ check_acl(pam_handle_t *pamh,
 			   "name of user's home directory is too long");
 		return PAM_SESSION_ERR;
 	}
-	fsuid = setfsuid(pwd->pw_uid);
+	if (pam_modutil_drop_priv(pamh, &privs, pwd))
+		return PAM_SESSION_ERR;
 	if (!stat(path, &st)) {
 		if (!S_ISREG(st.st_mode))
 			errno = EINVAL;
@@ -262,7 +263,11 @@ check_acl(pam_handle_t *pamh,
 			fd = open(path, O_RDONLY | O_NOCTTY);
 	}
 	save_errno = errno;
-	setfsuid(fsuid);
+	if (pam_modutil_regain_priv(pamh, &privs)) {
+		if (fd >= 0)
+			close(fd);
+		return PAM_SESSION_ERR;
+	}
 	if (fd >= 0) {
 		if (!fstat(fd, &st)) {
 			if (!S_ISREG(st.st_mode))
@@ -344,7 +349,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	struct passwd *tpwd, *rpwd;
 	int fd, i, debug = 0;
 	int retval = PAM_SUCCESS;
-	uid_t systemuser = 499, targetuser = 0, fsuid;
+	uid_t systemuser = 499, targetuser = 0;
 
 	/* Parse arguments.  We don't understand many, so no sense in breaking
 	 * this into a separate function. */
@@ -506,10 +511,11 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			  getuid(), getgid(),
 			  xauth, "-f", cookiefile, "nlist", display,
 			  NULL) == 0) {
-		int save_errno;
 #ifdef WITH_SELINUX
 		security_context_t context = NULL;
 #endif
+		PAM_MODUTIL_DEF_PRIVS(privs);
+
 		/* Check that we got a cookie.  If not, we get creative. */
 		if (((cookie == NULL) || (strlen(cookie) == 0)) &&
 		    ((strncmp(display, "localhost:", 10) == 0) ||
@@ -592,8 +598,10 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		}
 
 		/* Generate a new file to hold the data. */
-		fsuid = setfsuid(tpwd->pw_uid);
-
+		if (pam_modutil_drop_priv(pamh, &privs, tpwd)) {
+			retval = PAM_SESSION_ERR;
+			goto cleanup;
+		}
 #ifdef WITH_SELINUX
 		if (is_selinux_enabled() > 0) {
 			struct selabel_handle *ctx = selabel_open(SELABEL_CTX_FILE, NULL, 0);
@@ -611,33 +619,24 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 				}
 			}
 		}
+#endif /* WITH_SELINUX */
 		fd = mkstemp(xauthority + sizeof(XAUTHENV));
-		save_errno = errno;
+		if (fd < 0)
+			pam_syslog(pamh, LOG_ERR,
+				   "error creating temporary file `%s': %m",
+				   xauthority + sizeof(XAUTHENV));
+#ifdef WITH_SELINUX
 		if (context != NULL) {
 			free(context);
 			setfscreatecon(NULL);
 		}
-#else
-		fd = mkstemp(xauthority + sizeof(XAUTHENV));
-		save_errno = errno;
-#endif
-
-		setfsuid(fsuid);
-		if (fd == -1) {
-			errno = save_errno;
-			pam_syslog(pamh, LOG_ERR,
-				   "error creating temporary file `%s': %m",
-				   xauthority + sizeof(XAUTHENV));
+#endif /* WITH_SELINUX */
+		if (fd >= 0)
+			close(fd);
+		if (pam_modutil_regain_priv(pamh, &privs) || fd < 0) {
 			retval = PAM_SESSION_ERR;
 			goto cleanup;
 		}
-		/* Set permissions on the new file and dispose of the
-		 * descriptor. */
-		setfsuid(tpwd->pw_uid);
-		if (fchown(fd, tpwd->pw_uid, tpwd->pw_gid) < 0)
-		  pam_syslog (pamh, LOG_ERR, "fchown: %m");
-		setfsuid(fsuid);
-		close(fd);
 
 		/* Get a copy of the filename to save as a data item for
 		 * removal at session-close time. */
@@ -736,7 +735,7 @@ pam_sm_close_session (pam_handle_t *pamh, int flags UNUSED,
 	const void *data;
 	const char *cookiefile;
 	struct passwd *tpwd;
-	uid_t fsuid;
+	PAM_MODUTIL_DEF_PRIVS(privs);
 
 	/* Try to retrieve the name of a file we created when
 	 * the session was opened. */
@@ -774,10 +773,12 @@ pam_sm_close_session (pam_handle_t *pamh, int flags UNUSED,
 
 	if (debug)
 		pam_syslog(pamh, LOG_DEBUG, "removing `%s'", cookiefile);
-	fsuid = setfsuid(tpwd->pw_uid);
+	if (pam_modutil_drop_priv(pamh, &privs, tpwd))
+		return PAM_SESSION_ERR;
 	if (unlink(cookiefile) == -1 && errno != ENOENT)
 	  pam_syslog(pamh, LOG_WARNING, "Couldn't remove `%s': %m", cookiefile);
-	setfsuid(fsuid);
+	if (pam_modutil_regain_priv(pamh, &privs))
+		return PAM_SESSION_ERR;
 
 	return PAM_SUCCESS;
 }

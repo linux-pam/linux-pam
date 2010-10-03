@@ -17,7 +17,6 @@
 #include <syslog.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/fsuid.h>
 #include <unistd.h>
 #include <dirent.h>
 #include <errno.h>
@@ -444,9 +443,18 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 
     if ((est && !(ctrl & PAM_NO_LOGIN))
 	|| (!est && (ctrl & PAM_LOGOUT_TOO))) {
-	uid_t fsuid = setfsuid(pwd->pw_uid);
-	type = get_mail_status(pamh, ctrl, folder);
-	setfsuid(fsuid);
+	PAM_MODUTIL_DEF_PRIVS(privs);
+
+	if (pam_modutil_drop_priv(pamh, &privs, pwd)) {
+	  retval = PAM_SESSION_ERR;
+	  goto do_mail_cleanup;
+	} else {
+	  type = get_mail_status(pamh, ctrl, folder);
+	  if (pam_modutil_regain_priv(pamh, &privs)) {
+	    retval = PAM_SESSION_ERR;
+	    goto do_mail_cleanup;
+	  }
+	}
 
 	if (type != 0) {
 	    retval = report_mail(pamh, ctrl, type, folder);
