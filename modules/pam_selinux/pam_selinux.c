@@ -545,9 +545,9 @@ static void
 verbose_message(pam_handle_t *pamh, char *msg, int debug)
 {
   if (debug)
-    pam_syslog(pamh, LOG_NOTICE, msg);
+    pam_syslog(pamh, LOG_NOTICE, "%s", msg);
 
-  pam_info (pamh, "%s", msg);
+  pam_info(pamh, "%s", msg);
 }
 
 PAM_EXTERN int
