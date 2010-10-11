@@ -1,8 +1,3 @@
-2010-10-11  Tomas Mraz  <t8m@centrum.cz>
-
-	* modules/pam_env/pam_env.c: Change default for user_readenv to 0.
-	* modules/pam_env/pam_env.8.xml: Document the new default for user_readenv.
-
 2010-10-07  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* modules/pam_selinux/pam_selinux.c (verbose_message): Fix format
@@ -45,7 +40,6 @@
 	* modules/pam_xauth/pam_xauth.c (check_acl): Ensure that the given
 	access control file is a regular file.
 
->>>>>>> 1.530
 2010-09-16  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* modules/pam_env/pam_env.c (handle_env): Use setfsuid() return code.

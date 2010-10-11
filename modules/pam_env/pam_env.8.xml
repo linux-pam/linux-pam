@@ -143,10 +143,7 @@
         <listitem>
           <para>
             Turns on or off the reading of the user specific environment
-            file. 0 is off, 1 is on. By default this option is off as user
-            supplied environment variables in the PAM environment could affect
-            behavior of subsequent modules in the stack without the consent
-            of the system administrator.
+            file. 0 is off, 1 is on. By default this option is on.
           </para>
         </listitem>
       </varlistentry>
