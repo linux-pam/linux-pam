@@ -10,7 +10,7 @@
 #define DEFAULT_READ_ENVFILE    1
 
 #define DEFAULT_USER_ENVFILE    ".pam_environment"
-#define DEFAULT_USER_READ_ENVFILE 1
+#define DEFAULT_USER_READ_ENVFILE 0
 
 #include "config.h"
 
