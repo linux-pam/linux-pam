@@ -3,6 +3,8 @@
 	* modules/pam_selinux/Makefile.am (pam_selinux_la_LIBADD): Add
 	@LIBAUDIT@.
 
+	* m4/ld-O1.m4 (PAM_LD_O1): Fix typo.
+
 2010-10-19  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_env/pam_env.8.xml: Document side effects of

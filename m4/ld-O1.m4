@@ -1,4 +1,4 @@
-# ld-O1.m4 serial 2
+# ld-O1.m4 serial 3
 
 # Test if ld supports -O1
 
@@ -19,6 +19,6 @@ EOF
     pam_cv_ld_O1=no
   fi
   rm -f conftest*])
-  AC_SUBST(pam_cv_ld_as_needed)
+  AC_SUBST(pam_cv_ld_O1)
   ]
 )
