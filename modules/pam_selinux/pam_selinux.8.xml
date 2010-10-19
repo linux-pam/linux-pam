@@ -19,16 +19,19 @@
     <cmdsynopsis id="pam_selinux-cmdsynopsis">
       <command>pam_selinux.so</command>
       <arg choice="opt">
-	close
-      </arg>
-      <arg choice="opt">
-	debug
-      </arg>
-      <arg choice="opt">
 	open
       </arg>
       <arg choice="opt">
+	close
+      </arg>
+      <arg choice="opt">
+	restore
+      </arg>
+      <arg choice="opt">
 	nottys
+      </arg>
+      <arg choice="opt">
+	debug
       </arg>
       <arg choice="opt">
 	verbose
@@ -48,26 +51,31 @@
   <refsect1 id="pam_selinux-description">
     <title>DESCRIPTION</title>
     <para>
-      In a nutshell, pam_selinux sets up the default security context for the
-      next execed shell.
+      pam_selinux is a PAM module that sets up the default SELinux security
+      context for the next executed process.
     </para>
     <para>
-      When an application opens a session using pam_selinux, the  shell  that
-      gets  executed  will  be run in the default security context, or if the
-      user chooses and the pam file allows  the  selected  security  context.
-      Also  the  controlling  tty will have it's security context modified to
-      match the users.
+      When a new session is started, the open_session part of the module
+      computes and sets up the execution security context used for the next
+      <citerefentry>
+        <refentrytitle>execve</refentrytitle><manvolnum>2</manvolnum>
+      </citerefentry>
+      call, the file security context for the controlling terminal, and
+      the security context used for creating a new kernel keyring.
     </para>
     <para>
-      Adding pam_selinux into a pam file could cause  other  pam  modules  to
-      change  their  behavior if the exec another application.  The close and
-      open option help mitigate this problem.  close option will  only  cause
-      the  close  portion  of  the pam_selinux to execute, and open will only
-      cause the open portion to run.  You can add pam_selinux to  the  config
-      file  twice.   Add  the pam_selinux close as the executes the open pass
-      through the modules,  pam_selinux open_session will happen last.
-      When PAM executes the close pass through the modules pam_selinux
-      close_session will happen first.
+      When the session is ended, the close_session part of the module restores
+      old security contexts that were in effect before the change made
+      by the open_session part of the module.
+    </para>
+    <para>
+      Adding pam_selinux into the PAM stack might disrupt behavior of other
+      PAM modules which execute applications.  To avoid that,
+      <emphasis>pam_selinux.so open</emphasis> should be placed after such
+      modules in the PAM stack, and <emphasis>pam_selinux.so close</emphasis>
+      should be placed before them.  When such a placement is not feasible,
+      <emphasis>pam_selinux.so restore</emphasis> could be used to temporary
+      restore original security contexts.
     </para>
   </refsect1>
 
@@ -76,34 +84,34 @@
     <variablelist>
       <varlistentry>
         <term>
-          <option>close</option>
-        </term>
-        <listitem>
-          <para>
-            Only execute the close_session portion of the module.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <option>debug</option>
-        </term>
-        <listitem>
-          <para>
-           Turns on debugging via
-	    <citerefentry>
-              <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum>
-            </citerefentry>.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
           <option>open</option>
         </term>
         <listitem>
           <para>
-            Only execute the open_session portion of the module.
+            Only execute the open_session part of the module.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>close</option>
+        </term>
+        <listitem>
+          <para>
+            Only execute the close_session part of the module.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>restore</option>
+        </term>
+        <listitem>
+          <para>
+            In open_session part of the module, temporarily restore the
+            security contexts as they were before the previous call of
+            the module.  Another call of this module without the restore
+            option will set up the new security contexts again.
           </para>
         </listitem>
       </varlistentry>
@@ -113,7 +121,20 @@
         </term>
         <listitem>
           <para>
-            Do not try to setup the ttys security context.
+            Do not setup security context of the controlling terminal.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>debug</option>
+        </term>
+        <listitem>
+          <para>
+            Turn on debug messages via
+            <citerefentry>
+              <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum>
+            </citerefentry>.
           </para>
         </listitem>
       </varlistentry>
@@ -123,7 +144,7 @@
         </term>
         <listitem>
           <para>
-            attempt to inform the user when security context is set.
+            Attempt to inform the user when security context is set.
           </para>
         </listitem>
       </varlistentry>
@@ -134,7 +155,7 @@
         <listitem>
           <para>
             Attempt to ask the user for a custom security context role.
-            If MLS is on ask also for sensitivity level.
+            If MLS is on, ask also for sensitivity level.
           </para>
         </listitem>
       </varlistentry>
@@ -145,11 +166,11 @@
         <listitem>
           <para>
             Attempt to obtain a custom security context role from PAM environment.
-            If MLS is on obtain also sensitivity level. This option and the
-            select_context option are mutually exclusive. The respective PAM
+            If MLS is on, obtain also sensitivity level.  This option and the
+            select_context option are mutually exclusive.  The respective PAM
             environment variables are <emphasis>SELINUX_ROLE_REQUESTED</emphasis>,
             <emphasis>SELINUX_LEVEL_REQUESTED</emphasis>, and
-            <emphasis>SELINUX_USE_CURRENT_RANGE</emphasis>. The first two variables
+            <emphasis>SELINUX_USE_CURRENT_RANGE</emphasis>.  The first two variables
             are self describing and the last one if set to 1 makes the PAM module behave as
             if the use_current_range was specified on the command line of the module.
           </para>
@@ -181,14 +202,6 @@
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
-        <term>PAM_AUTH_ERR</term>
-        <listitem>
-          <para>
-            Unable to get or set a valid context.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
         <term>PAM_SUCCESS</term>
         <listitem>
           <para>
@@ -197,10 +210,26 @@
         </listitem>
       </varlistentry>
       <varlistentry>
+        <term>PAM_SESSION_ERR</term>
+        <listitem>
+          <para>
+            Unable to get or set a valid context.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
         <term>PAM_USER_UNKNOWN</term>
         <listitem>
           <para>
             The user is not known to the system.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_BUF_ERR</term>
+        <listitem>
+          <para>
+            Memory allocation error.
           </para>
         </listitem>
       </varlistentry>
@@ -220,13 +249,19 @@ session  optional  pam_selinux.so
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
-	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
+	<refentrytitle>execve</refentrytitle><manvolnum>2</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>tty</refentrytitle><manvolnum>4</manvolnum>
       </citerefentry>,
       <citerefentry>
 	<refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum>
       </citerefentry>,
       <citerefentry>
 	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>selinux</refentrytitle><manvolnum>8</manvolnum>
       </citerefentry>
     </para>
   </refsect1>
