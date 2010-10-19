@@ -1,3 +1,10 @@
+2010-10-19  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_env/pam_env.8.xml: Document side effects of
+	environment variables in the stack.
+	* modules/pam_exec/pam_exec.8.xml: Document that user can
+	have controll over the environment.
+
 2010-10-07  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* modules/pam_selinux/pam_selinux.c (verbose_message): Fix format

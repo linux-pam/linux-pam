@@ -67,6 +67,11 @@
      <option>close_session</option>.
     </para>
 
+    <para>
+      Commands called by pam_exec need to be aware of that the user
+      can have controll over the environment.
+    </para>
+
   </refsect1>
 
   <refsect1 id="pam_exec-options">

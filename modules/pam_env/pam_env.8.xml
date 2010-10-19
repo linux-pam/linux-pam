@@ -65,6 +65,10 @@
       flag and turn it on or off by setting the <emphasis>readenv</emphasis>
       flag to 1 or 0 respectively.
     </para>
+    <para>
+      Since setting of PAM environment variables can have side effects
+      to other modules, this module should be the last one on the stack.
+    </para>
   </refsect1>
 
   <refsect1 id="pam_env-options">
