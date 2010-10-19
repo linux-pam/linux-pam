@@ -849,7 +849,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 		    int argc, const char **argv)
 {
   const module_data_t *data;
-  int i, debug = 0, verbose = 0, close_session = 0;
+  int i, debug = 0, verbose = 0, close_session = 0, restore = 0;
 
   /* Parse arguments. */
   for (i = 0; i < argc; i++) {
@@ -862,6 +862,9 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     if (strcmp(argv[i], "close") == 0) {
       close_session = 1;
     }
+    if (strcmp(argv[i], "restore") == 0) {
+      restore = 1;
+    }
   }
 
   if (debug)
@@ -872,6 +875,10 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     return PAM_SUCCESS;
 
   data = get_module_data(pamh);
+
+  /* Is this module supposed only to restore original context? */
+  if (restore)
+    return restore_context(pamh, data, debug);
 
   /* If there is a saved context, this module is supposed to set it again. */
   return data ? set_context(pamh, data, debug, verbose) :
