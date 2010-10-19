@@ -5,6 +5,10 @@
 
 	* m4/ld-O1.m4 (PAM_LD_O1): Fix typo.
 
+	* m4/ld-no-undefined.m4: New file.
+	* configure.in: Use PAM_LD_NO_UNDEFINED.
+	* Makefile.am (M4_FILES): Add m4/ld-no-undefined.m4.
+
 2010-10-19  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_env/pam_env.8.xml: Document side effects of
