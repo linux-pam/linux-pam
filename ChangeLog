@@ -1,3 +1,8 @@
+2010-10-19  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* modules/pam_selinux/Makefile.am (pam_selinux_la_LIBADD): Add
+	@LIBAUDIT@.
+
 2010-10-19  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_env/pam_env.8.xml: Document side effects of

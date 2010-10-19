@@ -25,7 +25,7 @@ pam_selinux_check_LDFLAGS = $(AM_LDFLAGS) \
 	-L$(top_builddir)/libpam -lpam \
 	-L$(top_builddir)/libpam_misc -lpam_misc
 
-pam_selinux_la_LIBADD = -L$(top_builddir)/libpam -lpam @LIBSELINUX@
+pam_selinux_la_LIBADD = -L$(top_builddir)/libpam -lpam @LIBSELINUX@ @LIBAUDIT@
 pam_selinux_la_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   pam_selinux_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
