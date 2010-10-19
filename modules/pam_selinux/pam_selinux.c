@@ -540,16 +540,6 @@ static security_context_t ttyn_context=NULL;  /* The current context of ttyn dev
 static int selinux_enabled=0;
 static char *ttyn=NULL;
 
-/* Tell the user that access has been granted. */
-static void
-verbose_message(pam_handle_t *pamh, char *msg, int debug)
-{
-  if (debug)
-    pam_syslog(pamh, LOG_NOTICE, "%s", msg);
-
-  pam_info(pamh, "%s", msg);
-}
-
 PAM_EXTERN int
 pam_sm_authenticate(pam_handle_t *pamh UNUSED, int flags UNUSED,
 		    int argc UNUSED, const char **argv UNUSED)
@@ -726,7 +716,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     char msg[PATH_MAX];
     snprintf(msg, sizeof(msg),
 	     _("Security Context %s Assigned"), user_context);
-    verbose_message(pamh, msg, debug);
+    send_text(pamh, msg, debug);
   }
   if (ret) {
     pam_syslog(pamh, LOG_ERR,
@@ -747,7 +737,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     char msg[PATH_MAX];
     snprintf(msg, sizeof(msg),
 	     _("Key Creation Context %s Assigned"), user_context);
-    verbose_message(pamh, msg, debug);
+    send_text(pamh, msg, debug);
   }
   if (ret) {
     pam_syslog(pamh, LOG_ERR,

@@ -9,6 +9,9 @@
 	* configure.in: Use PAM_LD_NO_UNDEFINED.
 	* Makefile.am (M4_FILES): Add m4/ld-no-undefined.m4.
 
+	* modules/pam_selinux/pam_selinux.c (verbose_message): Remove.
+	(pam_sm_open_session): Call send_text() instead of verbose_message().
+
 2010-10-19  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_env/pam_env.8.xml: Document side effects of
