@@ -7,7 +7,7 @@ AM_CFLAGS = -DLIBPAM_COMPILE -I$(top_srcdir)/libpam/include \
 AM_LDFLAGS = -L$(top_builddir)/libpam -lpam \
 	-L$(top_builddir)/libpam_misc -lpam_misc
 
-CLEANFILES = *~
+CLEANFILES = *~ $(XTESTS)
 
 EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 	tst-pam_dispatch3.pamd tst-pam_dispatch4.pamd \
@@ -47,7 +47,7 @@ NOSRCTESTS = tst-pam_substack1 tst-pam_substack2 tst-pam_substack3 \
 	tst-pam_substack4 tst-pam_substack5 tst-pam_assemble_line1
 
 
-noinst_PROGRAMS = $(XTESTS)
+EXTRA_PROGRAMS = $(XTESTS)
 
 xtests: $(XTESTS) run-xtests.sh
 	"$(srcdir)"/run-xtests.sh "$(srcdir)" ${XTESTS} ${NOSRCTESTS}

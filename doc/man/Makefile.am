@@ -47,6 +47,8 @@ XMLS = pam.3.xml pam.8.xml \
 
 if ENABLE_REGENERATE_MAN
 PAM.8: pam.8
+pam_get_authtok_noverify.3: pam_get_authtok.3
+pam_get_authtok_verify.3: pam_get_authtok.3
 pam.d.5: pam.conf.5
 	test -f $(srcdir)/pam\\.d.5 && mv $(srcdir)/pam\\.d.5 $(srcdir)/pam.d.5 ||:
 

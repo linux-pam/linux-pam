@@ -1,5 +1,8 @@
 2010-10-20  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* doc/man/Makefile.am: Fix build dependencys of pam_get_authtok.3.
+
+	* xtests/Makefile.am: Only build xtests if we run xtests.
 	* configure.in: Check for libdb with symbol versions, too.
 	Patch from Diego Elio Pettenò.
 
