@@ -1,5 +1,7 @@
 2010-10-20  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* doc/man/pam_get_authtok.3.xml: Fix xml code.
+
 	* doc/man/Makefile.am: Fix build dependencys of pam_get_authtok.3.
 
 	* xtests/Makefile.am: Only build xtests if we run xtests.

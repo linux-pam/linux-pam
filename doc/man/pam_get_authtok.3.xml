@@ -12,6 +12,8 @@
 
   <refnamediv id="pam_get_authtok-name">
     <refname>pam_get_authtok</refname>
+    <refname>pam_get_authtok_verify</refname>
+    <refname>pam_get_authtok_noverify</refname>
     <refpurpose>get authentication token</refpurpose>
   </refnamediv>
 
