@@ -1,3 +1,9 @@
+2010-10-20  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_mkhomedir/mkhomedir_helper.c (rec_mkdir): Create
+	parent directories always with mode 0755.
+	(create_homedir): Create main directory with mode 0700 at first.
+
 2010-10-19  Dmitry V. Levin  <ldv@altlinux.org>
 
 	* modules/pam_selinux/Makefile.am (pam_selinux_la_LIBADD): Add

@@ -46,7 +46,7 @@ rec_mkdir(const char *dir, mode_t mode)
 
       *cp++ = '\0';
       if (stat(parent, &st) == -1 && errno == ENOENT)
-        if (rec_mkdir(parent, mode) != 0)
+        if (rec_mkdir(parent, 0755) != 0)
 	  {
 	    free(parent);
 	    return 1;
@@ -72,7 +72,7 @@ create_homedir(const struct passwd *pwd,
    int retval = PAM_SESSION_ERR;
 
    /* Create the new directory */
-   if (rec_mkdir(dest, 0755) != 0)
+   if (rec_mkdir(dest, 0700) != 0)
    {
       pam_syslog(NULL, LOG_ERR, "unable to create directory %s: %m", dest);
       return PAM_PERM_DENIED;
@@ -419,4 +419,3 @@ main(int argc, char *argv[])
 
    return create_homedir(pwd, skeldir, pwd->pw_dir);
 }
-
