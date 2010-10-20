@@ -1,5 +1,8 @@
 2010-10-20  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* configure.in: Check for libdb with symbol versions, too.
+	Patch from Diego Elio Pettenò.
+
 	* modules/pam_mkhomedir/mkhomedir_helper.c (rec_mkdir): Create
 	parent directories always with mode 0755.
 	(create_homedir): Create main directory with mode 0700 at first.

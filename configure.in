@@ -423,10 +423,11 @@ AC_ARG_WITH([db-uniquename],
 	AS_HELP_STRING([--with-db-uniquename=extension],[Unique name for db libraries and functions.]))
 if test x"$WITH_DB" != xno ; then
         if test x"$WITH_DB" = xyes -o x"$WITH_DB" = xdb ; then
-              AC_CHECK_LIB([db$with_db_uniquename], [db_create$with_db_uniquename], LIBDB="-ldb$with_db_uniquename", LIBDB="")
-              if test -z "$LIBDB" ; then
-                  AC_CHECK_LIB([db$with_db_uniquename], [dbm_store$with_db_uniquename], LIBDB="-ldb$with_db_uniquename", LIBDB="")
-              fi
+              old_libs=$LIBS
+              LIBS="$LIBS -ldb$with_db_uniquename"
+              AC_CHECK_FUNCS([db_create$with_db_uniquename db_create dbm_store$with_db_uniquename dbm_store],
+                [LIBDB="-ldb$with_db_uniquename"; break])
+              LIBS=$old_libs
         fi
         if test -z "$LIBDB" ; then
             AC_CHECK_LIB([ndbm],[dbm_store], LIBDB="-lndbm", LIBDB="")
