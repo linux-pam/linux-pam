@@ -29,38 +29,6 @@
 static unsigned long u_mask = 0022;
 static char skeldir[BUFSIZ] = "/etc/skel";
 
-static int
-rec_mkdir(const char *dir, mode_t mode)
-{
-  char *cp;
-  char *parent = strdup(dir);
-
-  if (parent == NULL)
-    return 1;
-
-  cp = strrchr(parent, '/');
-
-  if (cp != NULL && cp != parent)
-    {
-      struct stat st;
-
-      *cp++ = '\0';
-      if (stat(parent, &st) == -1 && errno == ENOENT)
-        if (rec_mkdir(parent, 0755) != 0)
-	  {
-	    free(parent);
-	    return 1;
-	  }
-    }
-
-  free(parent);
-
-  if (mkdir(dir, mode) != 0 && errno != EEXIST)
-    return 1;
-
-  return 0;
-}
-
 /* Do the actual work of creating a home dir */
 static int
 create_homedir(const struct passwd *pwd,
@@ -72,7 +40,7 @@ create_homedir(const struct passwd *pwd,
    int retval = PAM_SESSION_ERR;
 
    /* Create the new directory */
-   if (rec_mkdir(dest, 0700) != 0)
+   if (mkdir(dest, 0700) && errno != EEXIST)
    {
       pam_syslog(NULL, LOG_ERR, "unable to create directory %s: %m", dest);
       return PAM_PERM_DENIED;
@@ -377,10 +345,36 @@ create_homedir(const struct passwd *pwd,
    return retval;
 }
 
+static int
+make_parent_dirs(char *dir, int make)
+{
+  int rc = PAM_SUCCESS;
+  char *cp = strrchr(dir, '/');
+  struct stat st;
+
+  if (!cp || cp == dir)
+    return rc;
+
+  *cp = '\0';
+  if (stat(dir, &st) && errno == ENOENT)
+    rc = make_parent_dirs(dir, 1);
+  *cp = '/';
+
+  if (rc != PAM_SUCCESS)
+    return rc;
+
+  if (make && mkdir(dir, 0755) && errno != EEXIST) {
+    pam_syslog(NULL, LOG_ERR, "unable to create directory %s: %m", dir);
+    return PAM_PERM_DENIED;
+  }
+
+  return rc;
+}
+
 int
 main(int argc, char *argv[])
 {
-   const struct passwd *pwd;
+   struct passwd *pwd;
    struct stat st;
 
    if (argc < 2) {
@@ -416,6 +410,9 @@ main(int argc, char *argv[])
       correct and return a success */
    if (stat(pwd->pw_dir, &st) == 0)
 	return PAM_SUCCESS;
+
+   if (make_parent_dirs(pwd->pw_dir, 0) != PAM_SUCCESS)
+	return PAM_PERM_DENIED;
 
    return create_homedir(pwd, skeldir, pwd->pw_dir);
 }

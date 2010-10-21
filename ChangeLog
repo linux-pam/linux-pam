@@ -1,3 +1,11 @@
+2010-10-21  Dmitry V. Levin  <ldv@altlinux.org>
+
+	* modules/pam_mkhomedir/mkhomedir_helper.c (rec_mkdir): Remove.
+	(create_homedir): Use mkdir() instead of rec_mkdir().
+	(make_parent_dirs): New function.
+	(main): Use make_parent_dirs() to create parent directories only
+	for the home directory itself.
+
 2010-10-21  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_unix/support.c (_unix_getpwnam): Don't allocate
