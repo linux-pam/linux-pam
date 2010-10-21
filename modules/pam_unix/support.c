@@ -353,8 +353,6 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 		buflen = sizeof(struct passwd) +
 			 strlen(slogin) + 1 +
 			 strlen(spasswd) + 1 +
-			 strlen(suid) + 1 +
-			 strlen(sgid) + 1 +
 			 strlen(sgecos) + 1 +
 			 strlen(shome) + 1 +
 			 strlen(sshell) + 1;

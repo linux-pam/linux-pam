@@ -1,3 +1,8 @@
+2010-10-21  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_unix/support.c (_unix_getpwnam): Don't allocate
+	unneeded buffer for uid/gid [sf#3059572].
+
 2010-10-20  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* doc/man/pam_get_authtok.3.xml: Fix xml code.
