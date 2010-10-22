@@ -1181,14 +1181,15 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 		} else {
 			pid = fork();
 			if (pid == 0) {
+				static char *envp[] = { NULL };
 #ifdef WITH_SELINUX
 				if (idata->flags & PAMNS_SELINUX_ENABLED) {
 					if (setexeccon(NULL) < 0)
 						_exit(1);
 				}
 #endif
-				if (execl(init_script, init_script,
-					polyptr->dir, ipath, newdir?"1":"0", idata->user, (char *)NULL) < 0)
+				if (execle(init_script, init_script,
+					polyptr->dir, ipath, newdir?"1":"0", idata->user, NULL, envp) < 0)
 					_exit(1);
 			} else if (pid > 0) {
 				while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
@@ -1608,13 +1609,14 @@ static int cleanup_tmpdirs(struct instance_data *idata)
 	if (pptr->method == TMPDIR && access(pptr->instance_prefix, F_OK) == 0) {
 	    pid = fork();
 	    if (pid == 0) {
+		static char *envp[] = { NULL };
 #ifdef WITH_SELINUX
 		if (idata->flags & PAMNS_SELINUX_ENABLED) {
 		    if (setexeccon(NULL) < 0)
 			_exit(1);
 		}
 #endif
-		if (execl("/bin/rm", "/bin/rm", "-rf", pptr->instance_prefix, (char *)NULL) < 0)
+		if (execle("/bin/rm", "/bin/rm", "-rf", pptr->instance_prefix, NULL, envp) < 0)
 			_exit(1);
 	    } else if (pid > 0) {
 		while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
