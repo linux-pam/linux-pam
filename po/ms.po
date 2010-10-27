@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linux-pam\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-08-17 13:15+0200\n"
+"POT-Creation-Date: 2010-10-20 15:15+0200\n"
 "PO-Revision-Date: 2008-09-25 23:52+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
@@ -339,42 +339,42 @@ msgstr ""
 msgid "Too many logins for '%s'."
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:298
+#: modules/pam_mail/pam_mail.c:297
 #, fuzzy
 msgid "No mail."
 msgstr "Gabung &Mel"
 
-#: modules/pam_mail/pam_mail.c:301
+#: modules/pam_mail/pam_mail.c:300
 #, fuzzy
 msgid "You have new mail."
 msgstr "Medan Gabung &Mel"
 
-#: modules/pam_mail/pam_mail.c:304
+#: modules/pam_mail/pam_mail.c:303
 #, fuzzy
 msgid "You have old mail."
 msgstr "Medan Gabung &Mel"
 
-#: modules/pam_mail/pam_mail.c:308
+#: modules/pam_mail/pam_mail.c:307
 #, fuzzy
 msgid "You have mail."
 msgstr "Gabung &Mel"
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:318
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:323
+#: modules/pam_mail/pam_mail.c:322
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr ""
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:327
 #, fuzzy, c-format
 msgid "You have mail in folder %s."
 msgstr "Pemindahan mel dalam proses"
@@ -428,17 +428,17 @@ msgstr ""
 "$$ untuk hukum pertengahan pada $%d bagi `%s' tidak mempunyai jenis "
 "dinyatakan"
 
-#: modules/pam_selinux/pam_selinux.c:677
+#: modules/pam_selinux/pam_selinux.c:667
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:728
+#: modules/pam_selinux/pam_selinux.c:718
 #, fuzzy, c-format
 msgid "Security Context %s Assigned"
 msgstr "ketika mengulangtetap konteks"
 
-#: modules/pam_selinux/pam_selinux.c:749
+#: modules/pam_selinux/pam_selinux.c:739
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr ""

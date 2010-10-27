@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-08-17 13:15+0200\n"
+"POT-Creation-Date: 2010-10-20 15:15+0200\n"
 "PO-Revision-Date: 2009-04-08 18:30+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@fedoraproject.org>\n"
 "Language-Team: Bengali INDIA <fedora-trans-bn_in@redhat.com>\n"
@@ -314,38 +314,38 @@ msgstr "সর্বশেষ সফল লগ-ইনের পরে %d-টি 
 msgid "Too many logins for '%s'."
 msgstr "'%s'-র ক্ষেত্রে অত্যাধিক লগ-ইন"
 
-#: modules/pam_mail/pam_mail.c:298
+#: modules/pam_mail/pam_mail.c:297
 msgid "No mail."
 msgstr "কোনো মেইল নেই।"
 
-#: modules/pam_mail/pam_mail.c:301
+#: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
 msgstr "নতুন মেইল প্রাপ্ত।"
 
-#: modules/pam_mail/pam_mail.c:304
+#: modules/pam_mail/pam_mail.c:303
 msgid "You have old mail."
 msgstr "পুরোনো মেইল রয়েছে।"
 
-#: modules/pam_mail/pam_mail.c:308
+#: modules/pam_mail/pam_mail.c:307
 msgid "You have mail."
 msgstr "মেইল রয়েছে।"
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "%s ফোল্ডারে কোনো মেইল উপস্থিত নেই।"
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:318
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "%s ফোল্ডারে নতুন মেইল উপস্থিত।"
 
-#: modules/pam_mail/pam_mail.c:323
+#: modules/pam_mail/pam_mail.c:322
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "%s ফোল্ডারে পুরোনো মেইল উপস্থিত রয়েছে।"
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:327
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "%s ফোল্ডারে মেইল উপস্থিত রয়েছে।"
@@ -395,17 +395,17 @@ msgstr "ভিন্ন role অথবা level লিখতে ইচ্ছু�
 msgid "No default type for role %s\n"
 msgstr "role %s-র জন্য কোনো ডিফল্ট type উপস্থিত নেই\n"
 
-#: modules/pam_selinux/pam_selinux.c:677
+#: modules/pam_selinux/pam_selinux.c:667
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "%s-র বৈধ context প্রাপ্ত করতে ব্যর্থ"
 
-#: modules/pam_selinux/pam_selinux.c:728
+#: modules/pam_selinux/pam_selinux.c:718
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Security Context %s ধার্য করা হয়েছে"
 
-#: modules/pam_selinux/pam_selinux.c:749
+#: modules/pam_selinux/pam_selinux.c:739
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "কি নির্মাণের Context %s ধার্য করা হয়েছে"

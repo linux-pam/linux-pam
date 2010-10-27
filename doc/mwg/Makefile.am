@@ -45,6 +45,7 @@ html/Linux-PAM_MWG.html: $(XMLS) $(DEP_XMLS)
 	  --stringparam section.autolabel 1 \
 	  --stringparam section.label.includes.component.label 1 \
 	  --stringparam toc.max.depth 3 --xinclude --nonet \
+	  --stringparam chunker.output.encoding UTF-8 \
 	  http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl $<
 
 distclean-local:

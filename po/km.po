@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-08-17 13:15+0200\n"
+"POT-Creation-Date: 2010-10-20 15:15+0200\n"
 "PO-Revision-Date: 2006-03-17 10:32+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -317,38 +317,38 @@ msgstr ""
 msgid "Too many logins for '%s'."
 msgstr "មាន​ការ​ចូល​ច្រើន​ពេក​សម្រាប់ '%s' ។"
 
-#: modules/pam_mail/pam_mail.c:298
+#: modules/pam_mail/pam_mail.c:297
 msgid "No mail."
 msgstr "គ្មាន​សំបុត្រ ។"
 
-#: modules/pam_mail/pam_mail.c:301
+#: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
 msgstr "អ្នក​មាន​សំបុត្រ​ថ្មី ។"
 
-#: modules/pam_mail/pam_mail.c:304
+#: modules/pam_mail/pam_mail.c:303
 msgid "You have old mail."
 msgstr "អ្នក​មាន​សំបុត្រ​ចាស់ ។"
 
-#: modules/pam_mail/pam_mail.c:308
+#: modules/pam_mail/pam_mail.c:307
 msgid "You have mail."
 msgstr "អ្នក​មាន​សំបុត្រ ។"
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "អ្នក​គ្មានសំបុត្រនៅ​ក្នុង​ថត %s ។"
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:318
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "អ្នក​មាន​សំបុត្រ​ថ្មី​នៅ​ក្នុង​ថត %s ។"
 
-#: modules/pam_mail/pam_mail.c:323
+#: modules/pam_mail/pam_mail.c:322
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "អ្នក​មាន​សំបុត្រ​ចាស់​នៅ​ក្នុង​ថត %s ។"
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:327
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "អ្នក​មាន​សំបុត្រ​នៅ​ក្នុង​ថត %s ។"
@@ -402,17 +402,17 @@ msgstr "តើ​អ្នក​ចង់​បញ្ចូល​បរិបទ
 msgid "No default type for role %s\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:677
+#: modules/pam_selinux/pam_selinux.c:667
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:728
+#: modules/pam_selinux/pam_selinux.c:718
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "បរិបទ​សុវត្ថិភាព %s បាន​ផ្ដល់​តម្លៃ​"
 
-#: modules/pam_selinux/pam_selinux.c:749
+#: modules/pam_selinux/pam_selinux.c:739
 #, fuzzy, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "បរិបទ​សុវត្ថិភាព %s បាន​ផ្ដល់​តម្លៃ​"

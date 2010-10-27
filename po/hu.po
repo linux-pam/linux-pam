@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-08-17 13:15+0200\n"
+"POT-Creation-Date: 2010-10-20 15:15+0200\n"
 "PO-Revision-Date: 2009-03-20 20:53+0100\n"
 "Last-Translator: Sulyok Péter <peti@sulyok.hu>\n"
 "Language-Team: Hungarian <fedora-trans-hu@redhat.com>\n"
@@ -319,38 +319,38 @@ msgstr "%d sikertelen belépés kísérlet volt az utolsó sikeres belépés ót
 msgid "Too many logins for '%s'."
 msgstr "Túl sok belépés \"%s\" részéről."
 
-#: modules/pam_mail/pam_mail.c:298
+#: modules/pam_mail/pam_mail.c:297
 msgid "No mail."
 msgstr "Nincs levél."
 
-#: modules/pam_mail/pam_mail.c:301
+#: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
 msgstr "Új levele érkezett."
 
-#: modules/pam_mail/pam_mail.c:304
+#: modules/pam_mail/pam_mail.c:303
 msgid "You have old mail."
 msgstr "Régebbi levelei vannak."
 
-#: modules/pam_mail/pam_mail.c:308
+#: modules/pam_mail/pam_mail.c:307
 msgid "You have mail."
 msgstr "Önnek levele van."
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "%s mappában nincs levél."
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:318
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "%s mappában új levél van."
 
-#: modules/pam_mail/pam_mail.c:323
+#: modules/pam_mail/pam_mail.c:322
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "%s mappában régi levél van."
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:327
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "%s mappában levelek vannak."
@@ -400,17 +400,17 @@ msgstr "Kíván más szerepet vagy szintet megadni?"
 msgid "No default type for role %s\n"
 msgstr "Nincs alapértelmezett típus %s szerephez\n"
 
-#: modules/pam_selinux/pam_selinux.c:677
+#: modules/pam_selinux/pam_selinux.c:667
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Nincs meg %s érvényes környezete"
 
-#: modules/pam_selinux/pam_selinux.c:728
+#: modules/pam_selinux/pam_selinux.c:718
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "%s biztonsági környezet hozzárendelve"
 
-#: modules/pam_selinux/pam_selinux.c:749
+#: modules/pam_selinux/pam_selinux.c:739
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "%s kulcsteremtő környezet hozzárendelve"

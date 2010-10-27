@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-08-17 13:15+0200\n"
+"POT-Creation-Date: 2010-10-20 15:15+0200\n"
 "PO-Revision-Date: 2008-04-30 12:59+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@online.no>\n"
 "Language-Team:  <nb@li.org>\n"
@@ -313,38 +313,38 @@ msgstr ""
 msgid "Too many logins for '%s'."
 msgstr "For mange innlogginger for '%s'."
 
-#: modules/pam_mail/pam_mail.c:298
+#: modules/pam_mail/pam_mail.c:297
 msgid "No mail."
 msgstr "Ingen e-post."
 
-#: modules/pam_mail/pam_mail.c:301
+#: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
 msgstr "Du har fått ny e-post."
 
-#: modules/pam_mail/pam_mail.c:304
+#: modules/pam_mail/pam_mail.c:303
 msgid "You have old mail."
 msgstr "Du har ulest e-post."
 
-#: modules/pam_mail/pam_mail.c:308
+#: modules/pam_mail/pam_mail.c:307
 msgid "You have mail."
 msgstr "Du har fått e-post."
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Du har ingen e-post i mappen %s."
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:318
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Du har ny e-post i mappen %s."
 
-#: modules/pam_mail/pam_mail.c:323
+#: modules/pam_mail/pam_mail.c:322
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Du har ulest e-post i mappen %s."
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:327
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Du har e-post i mappen %s."
@@ -394,17 +394,17 @@ msgstr "Vil du angi en annen rolle eller nivå?"
 msgid "No default type for role %s\n"
 msgstr "Ingen forvalgt type for rolle %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:677
+#: modules/pam_selinux/pam_selinux.c:667
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Kan ikke finne gyldig kontekst for %s"
 
-#: modules/pam_selinux/pam_selinux.c:728
+#: modules/pam_selinux/pam_selinux.c:718
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Sikkerhetskontekst %s tilordnet"
 
-#: modules/pam_selinux/pam_selinux.c:749
+#: modules/pam_selinux/pam_selinux.c:739
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Kontekst %s for oppretting av nøkkel tilordnet"

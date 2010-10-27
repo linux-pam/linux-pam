@@ -1,3 +1,9 @@
+2010-10-27  Thorsten Kukuk <kukuk@thkukuk.de>
+
+	* doc/adg/Makefile.am: Use UTF-8 for html docu.
+	* doc/mwg/Makefile.am: Likewise.
+	* doc/sag/Makefile.am: Likewise.
+
 2010-10-22  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_namespace/pam_namespace.c (inst_init): Use execle()

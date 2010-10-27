@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip.ta\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-08-17 13:15+0200\n"
+"POT-Creation-Date: 2010-10-20 15:15+0200\n"
 "PO-Revision-Date: 2009-04-03 22:27+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <fedora-trans-ta@redhat.com>\n"
@@ -317,38 +317,38 @@ msgstr "கடைசி புகுபதிவிலிருந்து %d �
 msgid "Too many logins for '%s'."
 msgstr "'%s'க்கு பல புகுபதிவுகள் உள்ளன."
 
-#: modules/pam_mail/pam_mail.c:298
+#: modules/pam_mail/pam_mail.c:297
 msgid "No mail."
 msgstr "அஞ்சல் இல்லை."
 
-#: modules/pam_mail/pam_mail.c:301
+#: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
 msgstr "உங்களுக்கு புதிய அஞ்சல் உள்ளது."
 
-#: modules/pam_mail/pam_mail.c:304
+#: modules/pam_mail/pam_mail.c:303
 msgid "You have old mail."
 msgstr "உங்களுக்கு பழைய அஞ்சல் உள்ளது."
 
-#: modules/pam_mail/pam_mail.c:308
+#: modules/pam_mail/pam_mail.c:307
 msgid "You have mail."
 msgstr "உங்களுக்கு அஞ்சல் உள்ளது."
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "உங்களுக்கு %s அடைவில் அஞ்சல் இல்லை."
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:318
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "உங்களுக்கு %s அடைவில் புதிய அஞ்சல் உள்ளது."
 
-#: modules/pam_mail/pam_mail.c:323
+#: modules/pam_mail/pam_mail.c:322
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "உங்களுக்கு %s அடைவில் பழைய அஞ்சல் உள்ளது."
 
-#: modules/pam_mail/pam_mail.c:328
+#: modules/pam_mail/pam_mail.c:327
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "உங்களுக்கு %s அடைவில் அஞ்சல் உள்ளது."
@@ -398,17 +398,17 @@ msgstr "நீங்கள் வேறு பங்கு அல்லது �
 msgid "No default type for role %s\n"
 msgstr "பங்கு %sக்கு முன்னிருப்பு வகை இல்லை\n"
 
-#: modules/pam_selinux/pam_selinux.c:677
+#: modules/pam_selinux/pam_selinux.c:667
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "%sக்கு சரியான சூழல் பெற முடியவில்லை"
 
-#: modules/pam_selinux/pam_selinux.c:728
+#: modules/pam_selinux/pam_selinux.c:718
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "பாதுகாப்பு சூழல் %s ஒதுக்கப்பட்டது"
 
-#: modules/pam_selinux/pam_selinux.c:749
+#: modules/pam_selinux/pam_selinux.c:739
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "விசை உருவாக்க சூழல் %s ஒதுக்கப்பட்டுள்ளது"
