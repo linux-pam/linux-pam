@@ -307,10 +307,6 @@ static int process_line(char *line, const char *home, const char *rhome,
     const char *rvar_values[] = {rhome, idata->ruser};
     int len;
 
-    poly = calloc(1, sizeof(*poly));
-    if (poly == NULL)
-    	goto erralloc;
-
     /*
      * skip the leading white space
      */
@@ -336,6 +332,10 @@ static int process_line(char *line, const char *home, const char *rhome,
      */
     if (line[0] == 0)
         return 0;
+
+    poly = calloc(1, sizeof(*poly));
+    if (poly == NULL)
+    	goto erralloc;
 
     /*
      * Initialize and scan the five strings from the line from the

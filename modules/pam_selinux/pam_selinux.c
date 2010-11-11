@@ -642,10 +642,10 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 	  if (debug)
 		  pam_syslog(pamh, LOG_DEBUG, "Username= %s SELinux User = %s Level= %s",
                              username, seuser, level);
-	  free(seuser);
 	  free(level);
   }
   if (num_contexts > 0) {
+    free(seuser);
     default_user_context=strdup(contextlist[0]);
     freeconary(contextlist);
     if (default_user_context == NULL) {
@@ -672,7 +672,10 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     }
   }
   else { 
-      user_context = manual_context(pamh,seuser,debug);
+      if (seuser != NULL) {
+	user_context = manual_context(pamh,seuser,debug);
+	free(seuser);
+      }
       if (user_context == NULL) {
 	pam_syslog (pamh, LOG_ERR, "Unable to get valid context for %s",
 		    username);

@@ -1,3 +1,11 @@
+2010-11-11  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_selinux/pam_selinux.c (pam_sm_open_session): Fix
+	potential use after free in case SELinux is misconfigured.
+
+	* modules/pam_namespace/pam_namespace.c (process_line): Fix memory
+	leak when parsing empty config file lines.
+
 2010-10-28  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 1.1.3
