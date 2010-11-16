@@ -187,11 +187,12 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
     {
       retval = pam_get_authtok (pamh, PAM_AUTHTOK, &newpass, NULL);
       if (retval != PAM_SUCCESS && retval != PAM_TRY_AGAIN)
-	return retval;
+	{
+	  if (retval == PAM_CONV_AGAIN)
+	    retval = PAM_INCOMPLETE;
+	  return retval;
+	}
       tries++;
-
-      if (newpass == NULL || retval == PAM_TRY_AGAIN)
-	continue;
 
       if (options.debug)
 	{
@@ -201,12 +202,8 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	    pam_syslog (pamh, LOG_DEBUG, "got no auth token");
 	}
 
-      if (retval != PAM_SUCCESS || newpass == NULL)
-	{
-	  if (retval == PAM_CONV_AGAIN)
-	    retval = PAM_INCOMPLETE;
-	  return retval;
-	}
+      if (newpass == NULL || retval == PAM_TRY_AGAIN)
+	continue;
 
       if (options.debug)
 	pam_syslog (pamh, LOG_DEBUG, "check against old password file");
@@ -219,7 +216,6 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	  newpass = NULL;
 	  /* Remove password item, else following module will use it */
           pam_set_item (pamh, PAM_AUTHTOK, (void *) NULL);
-	  continue;
 	}
     }
 
@@ -230,8 +226,7 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
       return PAM_MAXTRIES;
     }
 
-  /* Remember new password */
-  return pam_set_item (pamh, PAM_AUTHTOK, newpass);
+  return PAM_SUCCESS;
 }
 
 

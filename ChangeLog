@@ -1,3 +1,9 @@
+2010-11-16  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_pwhistory/pam_pwhistory.c (pam_sm_chauthtok): Remove
+	dead and duplicate code. Return PAM_INCOMPLETE instead of
+	PAM_CONV_AGAIN.
+
 2010-11-11  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_selinux/pam_selinux.c (pam_sm_open_session): Fix
