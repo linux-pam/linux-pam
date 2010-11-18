@@ -103,7 +103,6 @@ struct pam_limit_s {
 /* argument parsing */
 
 #define PAM_DEBUG_ARG       0x0001
-#define PAM_DO_SETREUID     0x0002
 #define PAM_UTMP_EARLY      0x0004
 #define PAM_NO_AUDIT        0x0008
 
@@ -127,8 +126,6 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	    ctrl |= PAM_DEBUG_ARG;
 	} else if (!strncmp(*argv,"conf=",5)) {
 	    pl->conf_file = *argv+5;
-	} else if (!strncmp(*argv,"change_uid",10)) {
-	    ctrl |= PAM_DO_SETREUID;
 	} else if (!strcmp(*argv,"utmp_early")) {
 	    ctrl |= PAM_UTMP_EARLY;
 	} else if (!strcmp(*argv,"noaudit")) {
@@ -775,10 +772,6 @@ out:
     {
        	pam_syslog(pamh, LOG_WARNING, "error parsing the configuration file: '%s' ",CONF_FILE);
 	return retval;
-    }
-
-    if (ctrl & PAM_DO_SETREUID) {
-	setreuid(pwd->pw_uid, -1);
     }
 
     retval = setup_limits(pamh, pwd->pw_name, pwd->pw_uid, ctrl, pl);

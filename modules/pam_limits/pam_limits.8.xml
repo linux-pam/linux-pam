@@ -23,9 +23,6 @@
     <cmdsynopsis id="pam_limits-cmdsynopsis">
       <command>pam_limits.so</command>
       <arg choice="opt">
-        change_uid
-      </arg>
-      <arg choice="opt">
         conf=<replaceable>/path/to/limits.conf</replaceable>
       </arg>
       <arg choice="opt">
@@ -70,19 +67,6 @@
   <refsect1 id="pam_limits-options">
     <title>OPTIONS</title>
     <variablelist>
-      <varlistentry>
-        <term>
-          <option>change_uid</option>
-        </term>
-        <listitem>
-          <para>
-            Change real uid to the user for who the limits are set up. Use this
-            option if you have problems like login not forking a shell for user
-            who has no processes. Be warned that something else may break when
-            you do this.
-          </para>
-        </listitem>
-      </varlistentry>
       <varlistentry>
         <term>
           <option>conf=<replaceable>/path/to/limits.conf</replaceable></option>
