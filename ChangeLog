@@ -1,3 +1,11 @@
+2010-11-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_securetty/pam_securetty.c: Parse console= kernel
+	option, add noconsole option.
+	* modules/pam_securetty/pam_securetty.8.xml: Document new behavior
+	for serial console.
+	Patch from Lennart Poettering.
+
 2010-11-24  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_limits/limits.conf.5.xml: Document the %group syntax.

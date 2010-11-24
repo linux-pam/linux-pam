@@ -61,6 +61,19 @@
           </para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term>
+          <option>noconsole</option>
+        </term>
+        <listitem>
+          <para>
+            By default pam_securetty will allow root logins on the
+            kernel console device, as specified with the console=
+            switch on the kernel command line. Use this switch to turn
+            of this behaviour.
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
   </refsect1>
 

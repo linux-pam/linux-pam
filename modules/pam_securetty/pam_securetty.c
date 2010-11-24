@@ -2,6 +2,7 @@
 
 #define SECURETTY_FILE "/etc/securetty"
 #define TTY_PREFIX     "/dev/"
+#define CMDLINE_FILE   "/proc/cmdline"
 
 /*
  * by Elliot Lee <sopwith@redhat.com>, Red Hat Software.
@@ -22,6 +23,7 @@
 #include <pwd.h>
 #include <string.h>
 #include <ctype.h>
+#include <limits.h>
 
 /*
  * here, we make a definition for the externally accessible function
@@ -38,6 +40,7 @@
 #include <security/pam_ext.h>
 
 #define PAM_DEBUG_ARG       0x0001
+#define PAM_NOCONSOLE_ARG   0x0002
 
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
@@ -51,6 +54,8 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
 
 	if (!strcmp(*argv,"debug"))
 	    ctrl |= PAM_DEBUG_ARG;
+        else if (!strcmp(*argv, "noconsole"))
+            ctrl |= PAM_NOCONSOLE_ARG;
 	else {
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
@@ -143,6 +148,40 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 		   && (!ptname[0] || strcmp(ptname, uttyname)) );
     }
     fclose(ttyfile);
+
+    if (retval && !(ctrl & PAM_NOCONSOLE_ARG)) {
+        FILE *cmdlinefile;
+
+        /* Allow access from the kernel console, if enabled */
+        cmdlinefile = fopen(CMDLINE_FILE, "r");
+
+        if (cmdlinefile != NULL) {
+            char line[LINE_MAX], *p;
+
+            line[0] = 0;
+            fgets(line, sizeof(line), cmdlinefile);
+            fclose(cmdlinefile);
+
+            for (p = line; p; p = strstr(p+1, "console=")) {
+                char *e;
+
+                /* Test whether this is a beginning of a word? */
+                if (p > line && p[-1] != ' ')
+                    continue;
+
+                /* Ist this our console? */
+                if (strncmp(p + 8, uttyname, strlen(uttyname)))
+                    continue;
+
+                /* Is there any garbage after the TTY name? */
+                e = p + 8 + strlen(uttyname);
+                if (*e == ',' || *e == ' ' || *e == '\n' || *e == 0) {
+                    retval = 0;
+                    break;
+                }
+            }
+        }
+    }
 
     if (retval) {
 	    pam_syslog(pamh, LOG_WARNING, "access denied: tty '%s' is not secure !",
