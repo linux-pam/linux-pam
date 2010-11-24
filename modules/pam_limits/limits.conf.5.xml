@@ -53,7 +53,11 @@
             <listitem>
               <para>
                 the wildcard <emphasis remap='B'>%</emphasis>, for maxlogins limit only,
-                can also be used with <emphasis remap='b'>%group</emphasis> syntax.
+                can also be used with <emphasis remap='B'>%group</emphasis> syntax. If the
+                <emphasis remap='B'>%</emphasis> wildcard is used alone it is identical
+                to using <emphasis remap='B'>*</emphasis> with maxsyslogins limit. With
+                a group specified after <emphasis remap='B'>%</emphasis> it limits the total
+                number of logins of all users that are member of the group.
               </para>
             </listitem>
           </itemizedlist>
@@ -182,7 +186,7 @@
             <varlistentry>
               <term><option>maxsyslogins</option></term>
               <listitem>
-                <para>maximum number of logins on system</para>
+                <para>maximum number of all logins on system</para>
               </listitem>
             </varlistentry>
             <varlistentry>

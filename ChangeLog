@@ -1,3 +1,7 @@
+2010-11-24  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_limits/limits.conf.5.xml: Document the %group syntax.
+
 2010-11-18  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_limits/pam_limits.c (pam_parse,pam_sm_open_session):
