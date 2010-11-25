@@ -33,7 +33,9 @@
       user is logging in on a "secure" tty, as defined by the listing
       in <filename>/etc/securetty</filename>. pam_securetty also checks
       to make sure that <filename>/etc/securetty</filename> is a plain
-      file and not world writable.
+      file and not world writable. It will also allow root logins on
+      the tty specified with <option>console=</option> switch on the
+      kernel command line.
     </para>
     <para>
       This module has no effect on non-root users and requires that the
@@ -67,10 +69,9 @@
         </term>
         <listitem>
           <para>
-            By default pam_securetty will allow root logins on the
-            kernel console device, as specified with the console=
-            switch on the kernel command line. Use this switch to turn
-            of this behaviour.
+            Do not automatically allow root logins on the kernel console
+            device, as specified on the kernel command line, if it is
+            not also specified in the <filename>/etc/securetty</filename> file.
           </para>
         </listitem>
       </varlistentry>
