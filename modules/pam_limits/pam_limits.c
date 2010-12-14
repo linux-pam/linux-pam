@@ -55,6 +55,12 @@
 #define LIMITS_DEF_DEFAULT  4 /* limit was set by an default entry */
 #define LIMITS_DEF_NONE     5 /* this limit was not set yet */
 
+#define LIMIT_RANGE_ERR    -1 /* error in specified uid/gid range */
+#define LIMIT_RANGE_NONE    0 /* no range specified */
+#define LIMIT_RANGE_ONE     1 /* exact uid/gid specified (:max_uid)*/
+#define LIMIT_RANGE_MIN     2 /* only minimum uid/gid specified (min_uid:) */
+#define LIMIT_RANGE_MM      3 /* both min and max uid/gid specified (min_uid:max_uid) */
+
 static const char *limits_def_names[] = {
        "USER",
        "GROUP",
@@ -520,8 +526,57 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
     return;
 }
 
-static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
-			     struct pam_limit_s *pl)
+static int
+parse_uid_range(pam_handle_t *pamh, const char *domain,
+		uid_t *min_uid, uid_t *max_uid)
+{
+    const char *range = domain;
+    char *pmax;
+    char *endptr;
+    int rv = LIMIT_RANGE_MM;
+
+    if ((pmax=strchr(range, ':')) == NULL)
+	return LIMIT_RANGE_NONE;
+    ++pmax;
+
+    if (range[0] == '@' || range[0] == '%')
+	++range;
+
+    if (range[0] == ':')
+	rv = LIMIT_RANGE_ONE;
+    else {
+	    errno = 0;
+	    *min_uid = strtoul (range, &endptr, 10);
+	    if (errno != 0 || (range == endptr) || *endptr != ':') {
+		pam_syslog(pamh, LOG_DEBUG,
+			   "wrong min_uid/gid value in '%s'", domain);
+		return LIMIT_RANGE_ERR;
+	    }
+    }
+
+    if (*pmax == '\0') {
+	if (rv == LIMIT_RANGE_ONE)
+	    return LIMIT_RANGE_ERR;
+	else
+	    return LIMIT_RANGE_MIN;
+    }
+
+    errno = 0;
+    *max_uid = strtoul (pmax, &endptr, 10);
+    if (errno != 0 || (pmax == endptr) || *endptr != '\0') {
+	pam_syslog(pamh, LOG_DEBUG,
+		   "wrong max_uid/gid value in '%s'", domain);
+	return LIMIT_RANGE_ERR;
+    }
+
+    if (rv == LIMIT_RANGE_ONE)
+	*min_uid = *max_uid;
+    return rv;
+}
+
+static int
+parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
+			     int ctrl, struct pam_limit_s *pl)
 {
     FILE *fil;
     char buf[LINE_LENGTH];
@@ -543,8 +598,10 @@ static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
         char item[LINE_LENGTH];
         char value[LINE_LENGTH];
         int i;
+        int rngtype;
         size_t j;
         char *tptr,*line;
+        uid_t min_uid = (uid_t)-1, max_uid = (uid_t)-1;
 
         line = buf;
         /* skip the leading white space */
@@ -572,6 +629,11 @@ static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
         for(j=0; j < strlen(ltype); j++)
             ltype[j]=tolower(ltype[j]);
 
+	if ((rngtype=parse_uid_range(pamh, domain, &min_uid, &max_uid)) < 0) {
+	    pam_syslog(pamh, LOG_WARNING, "invalid uid range '%s' - skipped", domain);
+	    continue;
+	}
+
         if (i == 4) { /* a complete line */
 	    for(j=0; j < strlen(item); j++)
 		item[j]=tolower(item[j]);
@@ -581,47 +643,133 @@ static int parse_config_file(pam_handle_t *pamh, const char *uname, int ctrl,
             if (strcmp(uname, domain) == 0) /* this user have a limit */
                 process_limit(pamh, LIMITS_DEF_USER, ltype, item, value, ctrl, pl);
             else if (domain[0]=='@') {
-		    if (ctrl & PAM_DEBUG_ARG) {
+		if (ctrl & PAM_DEBUG_ARG) {
 			pam_syslog(pamh, LOG_DEBUG,
 				   "checking if %s is in group %s",
 				   uname, domain + 1);
-		    }
-                if (pam_modutil_user_in_group_nam_nam(pamh, uname, domain+1))
-                    process_limit(pamh, LIMITS_DEF_GROUP, ltype, item, value, ctrl,
-				  pl);
-            } else if (domain[0]=='%') {
-		    if (ctrl & PAM_DEBUG_ARG) {
-			pam_syslog(pamh, LOG_DEBUG,
-				   "checking if %s is in group %s",
-				   uname, domain + 1);
-		    }
-		if (strcmp(domain,"%") == 0)
-		    process_limit(pamh, LIMITS_DEF_ALL, ltype, item, value, ctrl,
-				  pl);
-		else if (pam_modutil_user_in_group_nam_nam(pamh, uname, domain+1)) {
-		    strcpy(pl->login_group, domain+1);
-                    process_limit(pamh, LIMITS_DEF_ALLGROUP, ltype, item, value, ctrl,
-				  pl);
 		}
-            } else if (strcmp(domain, "*") == 0)
-                process_limit(pamh, LIMITS_DEF_DEFAULT, ltype, item, value, ctrl,
-			      pl);
+		switch(rngtype) {
+		    case LIMIT_RANGE_NONE:
+			if (pam_modutil_user_in_group_nam_nam(pamh, uname, domain+1))
+			    process_limit(pamh, LIMITS_DEF_GROUP, ltype, item, value, ctrl,
+					  pl);
+			break;
+		    case LIMIT_RANGE_ONE:
+			if (pam_modutil_user_in_group_nam_gid(pamh, uname, (gid_t)max_uid))
+			    process_limit(pamh, LIMITS_DEF_GROUP, ltype, item, value, ctrl,
+				  pl);
+			break;
+		    case LIMIT_RANGE_MM:
+			if (gid > (gid_t)max_uid)
+			    break;
+			/* fallthrough */
+		    case LIMIT_RANGE_MIN:
+			if (gid >= (gid_t)min_uid)
+			    process_limit(pamh, LIMITS_DEF_GROUP, ltype, item, value, ctrl,
+					  pl);
+		}
+            } else if (domain[0]=='%') {
+		if (ctrl & PAM_DEBUG_ARG) {
+			pam_syslog(pamh, LOG_DEBUG,
+				   "checking if %s is in group %s",
+				   uname, domain + 1);
+		}
+		switch(rngtype) {
+		    case LIMIT_RANGE_NONE:
+			if (strcmp(domain,"%") == 0)
+			    process_limit(pamh, LIMITS_DEF_ALL, ltype, item, value, ctrl,
+					  pl);
+			else if (pam_modutil_user_in_group_nam_nam(pamh, uname, domain+1)) {
+			    strcpy(pl->login_group, domain+1);
+			    process_limit(pamh, LIMITS_DEF_ALLGROUP, ltype, item, value, ctrl,
+					  pl);
+			}
+			break;
+		    case LIMIT_RANGE_ONE:
+			if (pam_modutil_user_in_group_nam_gid(pamh, uname, (gid_t)max_uid)) {
+			    struct group *grp;
+			    grp = pam_modutil_getgrgid(pamh, (gid_t)max_uid);
+			    strncpy(pl->login_group, grp->gr_name, sizeof(pl->login_group));
+			    pl->login_group[sizeof(pl->login_group)-1] = '\0';
+			    process_limit(pamh, LIMITS_DEF_ALLGROUP, ltype, item, value, ctrl,
+					  pl);
+			}
+			break;
+		    case LIMIT_RANGE_MIN:
+		    case LIMIT_RANGE_MM:
+			pam_syslog(pamh, LOG_WARNING, "range unsupported for %%group matching - ignored");
+		}
+            } else {
+		switch(rngtype) {
+		    case LIMIT_RANGE_NONE:
+			if (strcmp(domain, "*") == 0)
+			    process_limit(pamh, LIMITS_DEF_DEFAULT, ltype, item, value, ctrl,
+					  pl);
+			break;
+		    case LIMIT_RANGE_ONE:
+			if (uid != max_uid)
+			    break;
+			/* fallthrough */
+		    case LIMIT_RANGE_MM:
+			if (uid > max_uid)
+			    break;
+			/* fallthrough */
+		    case LIMIT_RANGE_MIN:
+			if (uid >= min_uid)
+			    process_limit(pamh, LIMITS_DEF_USER, ltype, item, value, ctrl, pl);
+		}
+	    }
 	} else if (i == 2 && ltype[0] == '-') { /* Probably a no-limit line */
 	    if (strcmp(uname, domain) == 0) {
 		if (ctrl & PAM_DEBUG_ARG) {
 		    pam_syslog(pamh, LOG_DEBUG, "no limits for '%s'", uname);
 		}
-		fclose(fil);
-		return PAM_IGNORE;
-	    } else if (domain[0] == '@' && pam_modutil_user_in_group_nam_nam(pamh, uname, domain+1)) {
+	    } else if (domain[0] == '@') {
+		switch(rngtype) {
+		    case LIMIT_RANGE_NONE:
+			if (!pam_modutil_user_in_group_nam_nam(pamh, uname, domain+1))
+			    continue; /* next line */
+			break;
+		    case LIMIT_RANGE_ONE:
+			if (!pam_modutil_user_in_group_nam_gid(pamh, uname, (gid_t)max_uid))
+			    continue; /* next line */
+			break;
+		    case LIMIT_RANGE_MM:
+			if (gid > (gid_t)max_uid)
+			    continue;  /* next line */
+			/* fallthrough */
+		    case LIMIT_RANGE_MIN:
+			if (gid < (gid_t)min_uid)
+			    continue;  /* next line */
+		}
 		if (ctrl & PAM_DEBUG_ARG) {
 		    pam_syslog(pamh, LOG_DEBUG,
 			       "no limits for '%s' in group '%s'",
 			       uname, domain+1);
 		}
-		fclose(fil);
-		return PAM_IGNORE;
+	    } else {
+		switch(rngtype) {
+		    case LIMIT_RANGE_NONE:
+			continue;  /* next line */
+		    case LIMIT_RANGE_ONE:
+			if (uid != max_uid)
+			    continue;  /* next line */
+			break;
+		    case LIMIT_RANGE_MM:
+			if (uid > max_uid)
+			    continue;  /* next line */
+			/* fallthrough */
+		    case LIMIT_RANGE_MIN:
+			if (uid >= min_uid)
+			    break;
+			continue;  /* next line */
+		}
+		if (ctrl & PAM_DEBUG_ARG) {
+		    pam_syslog(pamh, LOG_DEBUG, "no limits for '%s'", uname);
+		}
 	    }
+	    fclose(fil);
+	    return PAM_IGNORE;
         } else {
             pam_syslog(pamh, LOG_WARNING, "invalid line '%s' - skipped", line);
 	}
@@ -731,7 +879,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
         return PAM_ABORT;
     }
 
-    retval = parse_config_file(pamh, pwd->pw_name, ctrl, pl);
+    retval = parse_config_file(pamh, pwd->pw_name, pwd->pw_uid, pwd->pw_gid, ctrl, pl);
     if (retval == PAM_IGNORE) {
 	D(("the configuration file ('%s') has an applicable '<domain> -' entry", CONF_FILE));
 	return PAM_SUCCESS;
@@ -755,7 +903,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	/* Parse the *.conf files. */
 	for (i = 0; globbuf.gl_pathv[i] != NULL; i++) {
 	    pl->conf_file = globbuf.gl_pathv[i];
-    	    retval = parse_config_file(pamh, pwd->pw_name, ctrl, pl);
+    	    retval = parse_config_file(pamh, pwd->pw_name, pwd->pw_uid, pwd->pw_gid, ctrl, pl);
     	    if (retval == PAM_IGNORE) {
 		D(("the configuration file ('%s') has an applicable '<domain> -' entry", pl->conf_file));
 		globfree(&globbuf);

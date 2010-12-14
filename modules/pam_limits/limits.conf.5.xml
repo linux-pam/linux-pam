@@ -60,6 +60,33 @@
                 number of logins of all users that are member of the group.
               </para>
             </listitem>
+            <listitem>
+              <para>
+                an uid range specified as <replaceable>&lt;min_uid&gt;</replaceable><emphasis
+                remap='B'>:</emphasis><replaceable>&lt;max_uid&gt;</replaceable>. If min_uid
+                is omitted, the match is exact for the max_uid. If max_uid is omitted, all
+                uids greater than or equal min_uid match.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                a gid range specified as <emphasis
+                remap='B'>@</emphasis><replaceable>&lt;min_gid&gt;</replaceable><emphasis
+                remap='B'>:</emphasis><replaceable>&lt;max_gid&gt;</replaceable>. If min_gid
+                is omitted, the match is exact for the max_gid. If max_gid is omitted, all
+                gids greater than or equal min_gid match. For the exact match all groups including
+                the user's supplementary groups are examined. For the range matches only
+                the user's primary group is examined.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                a gid specified as <emphasis
+                remap='B'>%:</emphasis><replaceable>&lt;gid&gt;</replaceable> applicable
+                to maxlogins limit only. It limits the total number of logins of all users
+                that are member of the group with the specified gid.
+              </para>
+            </listitem>
           </itemizedlist>
         </listitem>
       </varlistentry>
@@ -276,12 +303,15 @@
     </para>
     <programlisting>
 *               soft    core            0
-*               hard    rss             10000
+*               hard    nofile          512
 @student        hard    nproc           20
 @faculty        soft    nproc           20
 @faculty        hard    nproc           50
 ftp             hard    nproc           0
 @student        -       maxlogins       4
+:123            hard    cpu             5000
+@500:           soft    cpu             10000
+600:700         hard    locks           10
     </programlisting>
   </refsect1>
 

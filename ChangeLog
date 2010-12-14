@@ -1,3 +1,14 @@
+2010-12-14  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_limits/pam_limits.c (parse_uid_range): New function
+	to parse the range of uids or gids.
+	(parse_config_file): Call parse_uid_range() and if uid/gid range
+	is identified, setup the limits if the range matches. New parameters
+	containing user's uid and primary gid.
+	(pam_sm_open_session): Pass the user's uid and primary gid to
+	parse_config_file().
+	* modules/pam_limits/limits.conf.5.xml: Document the uid/gid ranges.
+
 2010-12-14  Bahadır Kandemir <bahadir@pardus.org.tr>
 
 	* po/tr.po: Updated translations.
