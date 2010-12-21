@@ -1,3 +1,8 @@
+2010-12-21  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_selinux/pam_selinux.c (mls_range_allowed): Unhardcode
+	values for security class and av permission bit.
+
 2010-12-14  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_limits/pam_limits.c (parse_uid_range): New function

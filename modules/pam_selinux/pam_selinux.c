@@ -236,19 +236,35 @@ static int mls_range_allowed(pam_handle_t *pamh, security_context_t src, securit
 {
   struct av_decision avd;
   int retval;
-  unsigned int bit = CONTEXT__CONTAINS;
-  context_t src_context = context_new (src);
-  context_t dst_context = context_new (dst);
+  security_class_t class;
+  access_vector_t bit;
+  context_t src_context;
+  context_t dst_context;
+
+  class = string_to_security_class("context");
+  if (!class) {
+    pam_syslog(pamh, LOG_ERR, "Failed to translate security class context. %m");
+    return 0;
+  }
+
+  bit = string_to_av_perm(class, "contains");
+  if (!bit) {
+    pam_syslog(pamh, LOG_ERR, "Failed to translate av perm contains. %m");
+    return 0;
+  }
+
+  src_context = context_new (src);
+  dst_context = context_new (dst);
   context_range_set(dst_context, context_range_get(src_context));
   if (debug)
     pam_syslog(pamh, LOG_NOTICE, "Checking if %s mls range valid for  %s", dst, context_str(dst_context));
 
-  retval = security_compute_av(context_str(dst_context), dst, SECCLASS_CONTEXT, bit, &avd);
+  retval = security_compute_av(context_str(dst_context), dst, class, bit, &avd);
   context_free(src_context);
   context_free(dst_context);
   if (retval || ((bit & avd.allowed) != bit))
     return 0;
-  
+
   return 1;
 }
 
