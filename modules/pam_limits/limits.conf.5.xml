@@ -236,7 +236,7 @@
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>msqqueue</option></term>
+              <term><option>msgqueue</option></term>
               <listitem>
                 <para>maximum memory used by POSIX message queues (bytes)
                   (Linux 2.6 and higher)</para>

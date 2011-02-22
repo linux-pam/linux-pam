@@ -1,3 +1,8 @@
+2011-02-22  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_nologin/pam_nologin.8.xml: Add missing space.
+	* modules/pam_limits/limits.conf.5.xml: Fix typo.
+
 2010-12-21  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_selinux/pam_selinux.c (mls_range_allowed): Unhardcode

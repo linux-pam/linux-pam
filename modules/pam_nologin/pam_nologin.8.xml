@@ -34,7 +34,7 @@
     <para>
       pam_nologin is a PAM module that prevents users from logging into
       the system when <filename>/var/run/nologin</filename> or
-      <filename>/etc/nologin</filename>exists. The contents
+      <filename>/etc/nologin</filename> exists. The contents
       of the file are displayed to the user. The pam_nologin module
       has no effect on the root user's ability to log in.
     </para>
