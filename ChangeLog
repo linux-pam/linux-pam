@@ -1,3 +1,12 @@
+2011-03-17  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_selinux/pam_selinux.c (config_context): Fix leak of type.
+	(manual_context): Likewise.
+	(context_from_env): Remove extraneous auditing in success case.
+
+	* modules/pam_unix/support.c (_unix_run_helper_binary): Remove extra
+	close() call.
+
 2011-02-22  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_nologin/pam_nologin.8.xml: Add missing space.

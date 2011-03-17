@@ -196,6 +196,7 @@ manual_context (pam_handle_t *pamh, const char *user, int debug)
               goto fail_set;
 	   if (context_type_set (new_context, type)) 
               goto fail_set;
+	   _pam_drop(type);
 	}
 	_pam_drop(response);
 
@@ -306,6 +307,7 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
 	      goto fail_set;
 	    if (context_type_set (new_context, type))
 	      goto fail_set;
+	    _pam_drop(type);
 	  } 
 	}
 	_pam_drop(response);
@@ -390,6 +392,7 @@ context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_par
   int mls_enabled = is_selinux_mls_enabled();
   const char *env = NULL;
   char *type = NULL;
+  int fail = 1;
 
   if ((new_context = context_new(defaultcon)) == NULL)
     goto fail_set;
@@ -450,9 +453,6 @@ context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_par
   /* Get the string value of the context and see if it is valid. */
   if (security_check_context(newcon)) {
     pam_syslog(pamh, LOG_NOTICE, "Not a valid security context %s", newcon);
-    send_audit_message(pamh, 0, defaultcon, newcon);
-    freecon(newcon);
-    newcon = NULL;
 
     goto fail_set;
   }
@@ -462,16 +462,21 @@ context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_par
      be checked at setexeccon time */
   if (mls_enabled && !mls_range_allowed(pamh, defaultcon, newcon, debug)) {
     pam_syslog(pamh, LOG_NOTICE, "Security context %s is not allowed for %s", defaultcon, newcon);
-    send_audit_message(pamh, 0, defaultcon, newcon);
-    freecon(newcon);
-    newcon = NULL;
+
+    goto fail_set;
   }
+
+  fail = 0;
 
  fail_set:
   free(type);
   context_free(my_context);
   context_free(new_context);
-  send_audit_message(pamh, 0, defaultcon, NULL);
+  if (fail) {
+    send_audit_message(pamh, 0, defaultcon, newcon);
+    freecon(newcon);
+    newcon = NULL;
+  }
   return newcon;
 }
 
