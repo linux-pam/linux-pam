@@ -44,15 +44,15 @@ int argv_parse(const char *in_buf, int *ret_argc, char ***ret_argv)
 {
 	int	argc = 0, max_argc = 0;
 	char 	**argv, **new_argv, *buf, ch;
-	const char *cp = 0;
-	char    *outcp = 0;
+	const char *cp = NULL;
+	char    *outcp = NULL;
 	int	state = STATE_WHITESPACE;
 
 	buf = malloc(strlen(in_buf)+1);
 	if (!buf)
 		return -1;
 
-	max_argc = 0; argc = 0; argv = 0;
+	argv = NULL;
 	outcp = buf;
 	for (cp = in_buf; (ch = *cp); cp++) {
 		if (state == STATE_WHITESPACE) {
@@ -111,23 +111,30 @@ int argv_parse(const char *in_buf, int *ret_argc, char ***ret_argv)
 	}
 	if (state != STATE_WHITESPACE)
 		*outcp++ = '\0';
-	if (argv == 0) {
-		argv = malloc(sizeof(char *));
+	if (ret_argv) {
+		if (argv == NULL) {
+			free(buf);
+			if ((argv=malloc(sizeof(char *))) == NULL)
+				return -1;
+		}
+		argv[argc] = NULL;
+		*ret_argv = argv;
+	} else {
 		free(buf);
+		free(argv);
 	}
-	argv[argc] = 0;
 	if (ret_argc)
 		*ret_argc = argc;
-	if (ret_argv)
-		*ret_argv = argv;
 	return 0;
 }
 
 void argv_free(char **argv)
 {
-	if (*argv)
-		free(*argv);
-	free(argv);
+	if (argv) {
+		if (*argv)
+			free(*argv);
+		free(argv);
+	}
 }
 
 #ifdef DEBUG_ARGV_PARSE

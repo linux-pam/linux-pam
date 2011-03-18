@@ -61,9 +61,11 @@ static void add_polydir_entry(struct instance_data *idata,
 
 static void del_polydir(struct polydir_s *poly)
 {
-	free(poly->uid);
-	free(poly->init_script);
-	free(poly);
+	if (poly) {
+		free(poly->uid);
+		free(poly->init_script);
+		free(poly);
+	}
 }
 
 /*
@@ -1093,7 +1095,7 @@ static int protect_dir(const char *path, mode_t mode, int do_mkdir,
 error:
 	save_errno = errno;
 	free(p);
-	if (dfd != AT_FDCWD)
+	if (dfd != AT_FDCWD && dfd >= 0)
 		close(dfd);
 	errno = save_errno;
 
@@ -1453,8 +1455,9 @@ static int ns_setup(struct polydir_s *polyptr,
 	return PAM_SESSION_ERR;    
     }
 
-    if (retval < 0 && (polyptr->flags & POLYDIR_CREATE)) {
-	if (create_polydir(polyptr, idata) != PAM_SUCCESS)
+    if (retval < 0) {
+ 	if ((polyptr->flags & POLYDIR_CREATE) &&
+		create_polydir(polyptr, idata) != PAM_SUCCESS)
 		return PAM_SESSION_ERR;
     } else {
     	close(retval);
@@ -1966,7 +1969,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
         if (strcmp(argv[i], "unmnt_only") == 0)
             unmnt = UNMNT_ONLY;
 	if (strcmp(argv[i], "require_selinux") == 0) {
-		if (~(idata.flags & PAMNS_SELINUX_ENABLED)) {
+		if (!(idata.flags & PAMNS_SELINUX_ENABLED)) {
         		pam_syslog(idata.pamh, LOG_ERR,
 		    "selinux_required option given and selinux is disabled");
 			return PAM_SESSION_ERR;

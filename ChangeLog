@@ -1,3 +1,11 @@
+2011-03-18  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_namespace/md5.c (MD5Final): Clear the whole ctx.
+	* modules/pam_namespace/pam_namespace.c (del_polydir): Guard for NULL poly.
+	(protect_dir): Guard for -1 passing to close().
+	(ns_setup): Likewise.
+	(pam_sm_open_session): Correctly test for SELinux enabled flag.
+
 2011-03-17  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_selinux/pam_selinux.c (config_context): Fix leak of type.
