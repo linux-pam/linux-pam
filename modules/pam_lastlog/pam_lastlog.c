@@ -403,9 +403,13 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
     /* obtain the failed login attempt records from btmp */
     fd = open(_PATH_BTMP, O_RDONLY);
     if (fd < 0) {
+        int save_errno = errno;
 	pam_syslog(pamh, LOG_ERR, "unable to open %s: %m", _PATH_BTMP);
 	D(("unable to open %s file", _PATH_BTMP));
-	return PAM_SERVICE_ERR;
+        if (save_errno == ENOENT)
+	  return PAM_SUCCESS;
+	else
+	  return PAM_SERVICE_ERR;
     }
 
     while ((retval=pam_modutil_read(fd, (void *)&ut,

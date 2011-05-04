@@ -1,4 +1,10 @@
+2011-05-04  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_lastlog/pam_lastlog.c (last_login_failed): Don't
+	abort with error if btmp file does not exist.
+
 2011-03-21  Tomas Mraz  <tm@t8m.info>
+
 	* modules/pam_unix/md5.c (MD5Final): Clear the whole ctx.
 
 2011-03-18  Tomas Mraz  <tm@t8m.info>
