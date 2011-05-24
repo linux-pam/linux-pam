@@ -78,8 +78,14 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	{
 	    const char *junk;
 
+	    /* option quiet has no value */
+	    if(!strcmp(argv[i],"quiet")) {
+		quiet = 1;
+		continue;
+	    }
+
 	    memset(mybuf,'\0',sizeof(mybuf));
-	    memset(myval,'\0',sizeof(mybuf));
+	    memset(myval,'\0',sizeof(myval));
 	    junk = strchr(argv[i], '=');
 	    if((junk == NULL) || (junk - argv[i]) >= (int) sizeof(mybuf)) {
 		pam_syslog(pamh,LOG_ERR, "Bad option: \"%s\"",
@@ -142,8 +148,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		    apply_type=APPLY_TYPE_USER;
 		    strncpy(apply_val,myval,sizeof(apply_val)-1);
 		}
-	    } else if (!strcmp(mybuf,"quiet")) {
-		quiet = 1;
 	    } else {
 		free(ifname);
 		pam_syslog(pamh,LOG_ERR, "Unknown option: %s",mybuf);
@@ -283,7 +287,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	     ifname, citem, citemp, sense);
 #endif
     if(lstat(ifname,&fileinfo)) {
-	pam_syslog(pamh,LOG_ERR, "Couldn't open %s",ifname);
+	if(!quiet)
+		pam_syslog(pamh,LOG_ERR, "Couldn't open %s",ifname);
 	free(ifname);
 	return onerr;
     }

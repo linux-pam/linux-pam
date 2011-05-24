@@ -1,3 +1,9 @@
+2011-05-24  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_listfile/pam_listfile.c (pam_sm_authenticate): quiet
+	option has no argument, print no missing file if quiet is set
+	[sf#3194930].
+
 2011-05-04  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_lastlog/pam_lastlog.c (last_login_failed): Don't
