@@ -116,7 +116,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
 }
 
 static int converse(pam_handle_t *pamh, int nargs
-		    , struct pam_message **message
+		    , const struct pam_message **message
 		    , struct pam_response **response)
 {
      int retval;
@@ -126,8 +126,7 @@ static int converse(pam_handle_t *pamh, int nargs
      retval = pam_get_item(pamh,PAM_CONV,&void_conv);
      conv = void_conv;
      if (retval == PAM_SUCCESS && conv) {
-	  retval = conv->conv(nargs, (const struct pam_message **) message
-			      , response, conv->appdata_ptr);
+	  retval = conv->conv(nargs, message, response, conv->appdata_ptr);
 	  if (retval != PAM_SUCCESS) {
 	       pam_syslog(pamh, LOG_ERR, "converse returned %d: %s",
 			retval, pam_strerror(pamh, retval));
@@ -159,7 +158,8 @@ static int stress_get_password(pam_handle_t *pamh, int flags
 	  pam_syslog(pamh, LOG_WARNING, "no forwarded password");
 	  return PAM_PERM_DENIED;
      } else {                                /* we will have to get one */
-	  struct pam_message msg[1],*pmsg[1];
+	  struct pam_message msg[1];
+	  const struct pam_message *pmsg[1];
 	  struct pam_response *resp;
 	  int retval;
 
@@ -412,7 +412,8 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
 	  return PAM_SUCCESS;
      } else if (flags & PAM_UPDATE_AUTHTOK) {  /* second call */
-	  struct pam_message msg[3],*pmsg[3];
+	  struct pam_message msg[3];
+	  const struct pam_message *pmsg[3];
 	  struct pam_response *resp;
 	  const void *text;
 	  char *txt=NULL;

@@ -1,5 +1,16 @@
 2011-05-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
+	* modules/pam_timestamp/pam_timestamp.c (main): Remove unsused
+	variable pretval.
+
+	* modules/pam_stress/pam_stress.c (converse): **message is const.
+	(stress_get_password): pmsg is const.
+	(pam_sm_chauthtok): Likewise.
+	* libpam/pam_item.c (pam_get_user): Make pmsg const and remove
+	casts.
+
+2011-05-30  Thorsten Kukuk  <kukuk@thkukuk.de>
+
 	* modules/pam_env/pam_env.c (_pam_parse): Implement debug option.
 	Based on patch by Tomas Mraz.
 

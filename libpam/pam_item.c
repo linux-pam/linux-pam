@@ -274,7 +274,8 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 {
     const char *use_prompt;
     int retval;
-    struct pam_message msg,*pmsg;
+    struct pam_message msg;
+    const struct pam_message *pmsg;
     struct pam_response *resp;
 
     D(("called."));
@@ -340,8 +341,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
     resp = NULL;
 
     retval = pamh->pam_conversation->
-	conv(1, (const struct pam_message **) &pmsg, &resp,
-	     pamh->pam_conversation->appdata_ptr);
+	conv(1, &pmsg, &resp, pamh->pam_conversation->appdata_ptr);
 
     if (retval == PAM_CONV_AGAIN) {
 	/* conversation function is waiting for an event - save state */
