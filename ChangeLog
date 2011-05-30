@@ -1,3 +1,8 @@
+2011-05-30  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_env/pam_env.c (_pam_parse): Implement debug option.
+	Based on patch by Tomas Mraz.
+
 2011-05-24  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_listfile/pam_listfile.c (pam_sm_authenticate): quiet

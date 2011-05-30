@@ -68,8 +68,8 @@ static int  _check_var(pam_handle_t *, VAR *);           /* This is the real mea
 static void _clean_var(VAR *);
 static int  _expand_arg(pam_handle_t *, char **);
 static const char * _pam_get_item_byname(pam_handle_t *, const char *);
-static int  _define_var(pam_handle_t *, VAR *);
-static int  _undefine_var(pam_handle_t *, VAR *);
+static int  _define_var(pam_handle_t *, int, VAR *);
+static int  _undefine_var(pam_handle_t *, int, VAR *);
 
 /* This is a flag used to designate an empty string */
 static char quote='Z';
@@ -134,7 +134,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 }
 
 static int
-_parse_config_file(pam_handle_t *pamh, const char *file)
+_parse_config_file(pam_handle_t *pamh, int ctrl, const char *file)
 {
     int retval;
     char buffer[BUF_SIZE];
@@ -168,10 +168,10 @@ _parse_config_file(pam_handle_t *pamh, const char *file)
 	retval = _check_var(pamh, var);
 
 	if (DEFINE_VAR == retval) {
-	  retval = _define_var(pamh, var);
+	  retval = _define_var(pamh, ctrl, var);
 
 	} else if (UNDEFINE_VAR == retval) {
-	  retval = _undefine_var(pamh, var);
+	  retval = _undefine_var(pamh, ctrl, var);
 	}
       }
       if (PAM_SUCCESS != retval && ILLEGAL_VAR != retval
@@ -191,7 +191,7 @@ _parse_config_file(pam_handle_t *pamh, const char *file)
 }
 
 static int
-_parse_env_file(pam_handle_t *pamh, const char *file)
+_parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
 {
     int retval=PAM_SUCCESS, i, t;
     char buffer[BUF_SIZE], *key, *mark;
@@ -267,6 +267,9 @@ _parse_env_file(pam_handle_t *pamh, const char *file)
 	if (retval != PAM_SUCCESS) {
 	    D(("error setting env \"%s\"", key));
 	    break;
+	} else if (ctrl & PAM_DEBUG_ARG) {
+	    pam_syslog(pamh, LOG_DEBUG,
+		       "pam_putenv(\"%s\")", key);
 	}
     }
 
@@ -691,7 +694,7 @@ static const char * _pam_get_item_byname(pam_handle_t *pamh, const char *name)
   return itemval;
 }
 
-static int _define_var(pam_handle_t *pamh, VAR *var)
+static int _define_var(pam_handle_t *pamh, int ctrl, VAR *var)
 {
   /* We have a variable to define, this is a simple function */
 
@@ -705,16 +708,22 @@ static int _define_var(pam_handle_t *pamh, VAR *var)
   }
 
   retval = pam_putenv(pamh, envvar);
+  if (ctrl & PAM_DEBUG_ARG) {
+    pam_syslog(pamh, LOG_DEBUG, "pam_putenv(\"%s\")", envvar);
+  }
   _pam_drop(envvar);
   D(("Exit."));
   return retval;
 }
 
-static int _undefine_var(pam_handle_t *pamh, VAR *var)
+static int _undefine_var(pam_handle_t *pamh, int ctrl, VAR *var)
 {
   /* We have a variable to undefine, this is a simple function */
 
   D(("Called and exit."));
+  if (ctrl & PAM_DEBUG_ARG) {
+    pam_syslog(pamh, LOG_DEBUG, "remove variable \"%s\"", var->name);
+  }
   return pam_putenv(pamh, var->name);
 }
 
@@ -762,10 +771,10 @@ handle_env (pam_handle_t *pamh, int argc, const char **argv)
   ctrl = _pam_parse(pamh, argc, argv, &conf_file, &env_file,
 		    &readenv, &user_env_file, &user_readenv);
 
-  retval = _parse_config_file(pamh, conf_file);
+  retval = _parse_config_file(pamh, ctrl, conf_file);
 
   if(readenv && retval == PAM_SUCCESS) {
-    retval = _parse_env_file(pamh, env_file);
+    retval = _parse_env_file(pamh, ctrl, env_file);
     if (retval == PAM_IGNORE)
       retval = PAM_SUCCESS;
   }
@@ -795,7 +804,7 @@ handle_env (pam_handle_t *pamh, int argc, const char **argv)
 	if (pam_modutil_drop_priv(pamh, &privs, user_entry)) {
 	  retval = PAM_SESSION_ERR;
 	} else {
-	  retval = _parse_config_file(pamh, envpath);
+	  retval = _parse_config_file(pamh, ctrl, envpath);
 	  if (pam_modutil_regain_priv(pamh, &privs))
 	    retval = PAM_SESSION_ERR;
 	}
