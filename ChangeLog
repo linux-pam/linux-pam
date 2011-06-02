@@ -1,3 +1,14 @@
+2011-06-02  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_namespace/pam_namespace.c (protect_dir): Add parameter
+	to always do protect mount the last directory in the path.
+	(check_inst_parent, create_polydir): Update the protect_dir() call.
+	(ns_setup): Likewise and add the MS_PRIVATE mount() call.
+	(pam_sm_open_session): Check the mount_private option.
+	* modules/pam_namespace/pam_namespace.h: Add the PAMNS_MOUNT_PRIVATE.
+	* modules/pam_namespace/pam_namespace.8.xml: Document the mount_private
+	option.
+
 2011-05-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_timestamp/pam_timestamp.c (main): Remove unsused

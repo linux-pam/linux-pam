@@ -96,6 +96,7 @@
 #define PAMNS_NO_UNMOUNT_ON_CLOSE  0x00010000 /* no unmount at session close */
 #define PAMNS_USE_CURRENT_CONTEXT  0x00020000 /* use getcon instead of getexeccon */
 #define PAMNS_USE_DEFAULT_CONTEXT  0x00040000 /* use get_default_context instead of getexeccon */
+#define PAMNS_MOUNT_PRIVATE   0x00080000 /* Make the polydir mounts private */
 
 /* polydir flags */
 #define POLYDIR_EXCLUSIVE     0x00000001 /* polyinstatiate exclusively for override uids */

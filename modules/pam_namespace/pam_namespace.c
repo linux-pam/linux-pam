@@ -1003,7 +1003,7 @@ static int protect_mount(int dfd, const char *path, struct instance_data *idata)
 	return 0;
 }
 
-static int protect_dir(const char *path, mode_t mode, int do_mkdir,
+static int protect_dir(const char *path, mode_t mode, int do_mkdir, int always,
 	struct instance_data *idata)
 {
 	char *p = strdup(path);
@@ -1082,7 +1082,7 @@ static int protect_dir(const char *path, mode_t mode, int do_mkdir,
 		}
 	}
 
-	if (flags & O_NOFOLLOW) { 
+	if ((flags & O_NOFOLLOW) || always) { 
 		/* we are inside user-owned dir - protect */
 		if (protect_mount(rv, p, idata) == -1) {
 			save_errno = errno;
@@ -1124,7 +1124,7 @@ static int check_inst_parent(char *ipath, struct instance_data *idata)
 	if (trailing_slash)
 		*trailing_slash = '\0';
 
-	dfd = protect_dir(inst_parent, 0, 1, idata);
+	dfd = protect_dir(inst_parent, 0, 1, 0, idata);
 
 	if (dfd == -1 || fstat(dfd, &instpbuf) < 0) {
 		pam_syslog(idata->pamh, LOG_ERR,
@@ -1259,7 +1259,7 @@ static int create_polydir(struct polydir_s *polyptr,
     }
 #endif
 
-    rc = protect_dir(dir, mode, 1, idata);
+    rc = protect_dir(dir, mode, 1, idata->flags & PAMNS_MOUNT_PRIVATE, idata);
     if (rc == -1) {
             pam_syslog(idata->pamh, LOG_ERR,
                        "Error creating directory %s: %m", dir);
@@ -1447,7 +1447,7 @@ static int ns_setup(struct polydir_s *polyptr,
         pam_syslog(idata->pamh, LOG_DEBUG,
                "Set namespace for directory %s", polyptr->dir);
 
-    retval = protect_dir(polyptr->dir, 0, 0, idata);
+    retval = protect_dir(polyptr->dir, 0, 0, idata->flags & PAMNS_MOUNT_PRIVATE, idata);
 
     if (retval < 0 && errno != ENOENT) {
 	pam_syslog(idata->pamh, LOG_ERR, "Polydir %s access error: %m",
@@ -1532,6 +1532,22 @@ static int ns_setup(struct polydir_s *polyptr,
 
     if (retval != PAM_SUCCESS) {
         goto error_out;
+    }
+
+    if (idata->flags & PAMNS_MOUNT_PRIVATE) {
+        /*
+         * Make the polyinstantiated dir private mount. This depends
+         * on making the dir a mount point in the protect_dir call.
+         */
+        if (mount(polyptr->dir, polyptr->dir, NULL, MS_PRIVATE|MS_REC, NULL) < 0) {
+            pam_syslog(idata->pamh, LOG_ERR, "Error making %s a private mount, %m",
+                       polyptr->dir);
+            goto error_out;
+        }
+        if (idata->flags & PAMNS_DEBUG)
+            pam_syslog(idata->pamh, LOG_DEBUG,
+                      "Polyinstantiated directory %s made as private mount", polyptr->dir);
+
     }
 
     /*
@@ -1963,6 +1979,9 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
         if (strcmp(argv[i], "use_default_context") == 0) {
             idata.flags |= PAMNS_USE_DEFAULT_CONTEXT;
             idata.flags |= PAMNS_CTXT_BASED_INST;
+        }
+        if (strcmp(argv[i], "mount_private") == 0) {
+            idata.flags |= PAMNS_MOUNT_PRIVATE;
         }
         if (strcmp(argv[i], "unmnt_remnt") == 0)
             unmnt = UNMNT_REMNT;
