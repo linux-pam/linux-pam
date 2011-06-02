@@ -177,8 +177,8 @@ static int process_args(pam_handle_t *pamh
 #define USER_OFFSET    5                          /*  strlen('USER=');  */
 #define USER_NAME      "USER="
 
-	pam_get_user(pamh, &user, NULL);
-	if (user == NULL) {
+	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS ||
+	    user == NULL) {
 	    user = "<unknown>";
 	}
 	size = USER_OFFSET+strlen(user);

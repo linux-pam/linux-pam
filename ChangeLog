@@ -13,6 +13,9 @@
 	on NULL strings.
 	(password_check): Guard for NULLs returned from memory allocation.
 
+	* modules/pam_filter/pam_filter.c (process_args): Guard for error return
+	from pam_get_user().
+
 2011-05-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_timestamp/pam_timestamp.c (main): Remove unsused
