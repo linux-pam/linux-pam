@@ -473,6 +473,9 @@ static char * str_lower(char *string)
 {
 	char *cp;
 
+	if (!string)
+		return NULL;
+
 	for (cp = string; *cp; cp++)
 		*cp = tolower(*cp);
 	return string;
@@ -492,15 +495,26 @@ static const char *password_check(struct cracklib_options *opt,
 	}
 
 	newmono = str_lower(x_strdup(new));
+	if (!newmono)
+		msg = _("memory allocation error");
+
 	usermono = str_lower(x_strdup(user));
-	if (old) {
-	  oldmono = str_lower(x_strdup(old));
-	  wrapped = malloc(strlen(oldmono) * 2 + 1);
-	  strcpy (wrapped, oldmono);
-	  strcat (wrapped, oldmono);
+	if (!usermono)
+		msg = _("memory allocation error");
+
+	if (!msg && old) {
+		oldmono = str_lower(x_strdup(old));
+		if (oldmono)
+			wrapped = malloc(strlen(oldmono) * 2 + 1);
+		if (wrapped) {
+			strcpy (wrapped, oldmono);
+			strcat (wrapped, oldmono);
+		} else {
+			msg = _("memory allocation error");
+		}
 	}
 
-	if (palindrome(newmono))
+	if (!msg && palindrome(newmono))
 		msg = _("is a palindrome");
 
 	if (!msg && oldmono && strcmp(oldmono, newmono) == 0)
@@ -524,13 +538,17 @@ static const char *password_check(struct cracklib_options *opt,
 	if (!msg && usercheck(opt, newmono, usermono))
 	        msg = _("contains the user name in some form");
 
-	memset(newmono, 0, strlen(newmono));
-	free(newmono);
 	free(usermono);
-	if (old) {
+	if (newmono) {
+		memset(newmono, 0, strlen(newmono));
+		free(newmono);
+	}
+	if (oldmono) {
 	  memset(oldmono, 0, strlen(oldmono));
-	  memset(wrapped, 0, strlen(wrapped));
 	  free(oldmono);
+	}
+	if (wrapped) {
+	  memset(wrapped, 0, strlen(wrapped));
 	  free(wrapped);
 	}
 

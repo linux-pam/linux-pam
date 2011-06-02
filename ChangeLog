@@ -9,6 +9,10 @@
 	* modules/pam_namespace/pam_namespace.8.xml: Document the mount_private
 	option.
 
+	* modules/pam_cracklib/pam_cracklib.c (str_lower): Make it no-op
+	on NULL strings.
+	(password_check): Guard for NULLs returned from memory allocation.
+
 2011-05-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_timestamp/pam_timestamp.c (main): Remove unsused
