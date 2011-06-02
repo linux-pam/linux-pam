@@ -119,7 +119,10 @@ replace_and_print (pam_handle_t *pamh, const char *mesg)
 	    str = &myhostname;
 	}
       else
-	pam_get_item (pamh, item, &str);
+	{
+	  if (pam_get_item (pamh, item, &str) != PAM_SUCCESS)
+	    str = NULL;
+	}
       if (str == NULL)
 	str = "(null)";
       for (q = str; *q != '\0' && len < length - 1; ++q)

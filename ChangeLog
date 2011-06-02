@@ -16,6 +16,9 @@
 	* modules/pam_filter/pam_filter.c (process_args): Guard for error return
 	from pam_get_user().
 
+	* modules/pam_echo/pam_echo.c (replace_and_print): Guard for error return
+	from pam_get_item().
+
 2011-05-30  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_timestamp/pam_timestamp.c (main): Remove unsused
