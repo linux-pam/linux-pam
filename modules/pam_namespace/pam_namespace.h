@@ -74,6 +74,14 @@
 #define CLONE_NEWNS 0x00020000 /* Flag to create new namespace */
 #endif
 
+/* mount flags for mount_private */
+#ifndef MS_REC
+#define MS_REC (1<<14)
+#endif
+#ifndef MS_PRIVATE
+#define MS_PRIVATE (1<<18)
+#endif
+
 /*
  * Module defines
  */

@@ -11,6 +11,9 @@
 	(check_account): read_field() now uses state information. No
 	extra read_field() call at the end of configuration line.
 
+	* modules/pam_namespace/pam_namespace.h: Define the MS_PRIVATE and
+	MS_REC flags if they are not in sys/mount.h.
+
 2011-06-06  Nguyễn Thái Ngọc Duy <pclouds@gmail.com>
 
 	* po/LINGUAS: Add vietnamese.
