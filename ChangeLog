@@ -1,3 +1,8 @@
+2011-06-06  Nguyễn Thái Ngọc Duy <pclouds@gmail.com>
+
+	* po/LINGUAS: Add vietnamese.
+	* po/vi.po: Add vietnamese translation.
+
 2011-06-02  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_namespace/pam_namespace.c (protect_dir): Add parameter
