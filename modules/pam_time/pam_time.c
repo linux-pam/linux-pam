@@ -4,6 +4,7 @@
  * Written by Andrew Morgan <morgan@linux.kernel.org> 1996/6/22
  * (File syntax and much other inspiration from the shadow package
  * shadow-960129)
+ * Field parsing rewritten by Tomas Mraz <tm@t8m.info>
  */
 
 #include "config.h"
@@ -23,7 +24,7 @@
 #include <netdb.h>
 
 #ifdef HAVE_LIBAUDIT
-#include <libaudit.h>                                                                                                                                            
+#include <libaudit.h>
 #endif
 
 #define PAM_TIME_BUFLEN        1000
@@ -79,163 +80,157 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
 
 /* --- static functions for checking whether the user should be let in --- */
 
-static void
-shift_bytes(char *mem, int from, int by)
+static char *
+shift_buf(char *mem, int from)
 {
-    while (by-- > 0) {
-	*mem = mem[from];
+    char *start = mem;
+    while ((*mem = mem[from]) != '\0')
 	++mem;
+    memset(mem, '\0', PAM_TIME_BUFLEN - (mem - start));
+    return mem;
+}
+
+static void
+trim_spaces(char *buf, char *from)
+{
+    while (from > buf) {
+	--from;
+	if (*from == ' ')
+	    *from = '\0';
+	else
+	    break;
     }
 }
 
-static int
-read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *to)
-{
-    /* is buf set ? */
+#define STATE_NL       0 /* new line starting */
+#define STATE_COMMENT  1 /* inside comment */
+#define STATE_FIELD    2 /* field following */
+#define STATE_EOF      3 /* end of file or error */
 
+static int
+read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state)
+{
+    char *to;
+    char *src;
+    int i;
+    char c;
+    int onspace;
+
+    /* is buf set ? */
     if (! *buf) {
-	*buf = (char *) malloc(PAM_TIME_BUFLEN);
+	*buf = (char *) calloc(1, PAM_TIME_BUFLEN+1);
 	if (! *buf) {
 	    pam_syslog(pamh, LOG_ERR, "out of memory");
 	    D(("no memory"));
+	    *state = STATE_EOF;
 	    return -1;
 	}
-	*from = *to = 0;
+	*from = 0;
+        *state = STATE_NL;
 	fd = open(PAM_TIME_CONF, O_RDONLY);
+	if (fd < 0) {
+	    pam_syslog(pamh, LOG_ERR, "error opening %s: %m", PAM_TIME_CONF);
+	    _pam_drop(*buf);
+	    *state = STATE_EOF;
+	    return -1;
+	}
     }
+ 
 
-    /* do we have a file open ? return error */
+    if (*from > 0)
+	to = shift_buf(*buf, *from);
+    else
+	to = *buf;
 
-    if (fd < 0 && *to <= 0) {
-	pam_syslog(pamh, LOG_ERR, "error opening %s: %m", PAM_TIME_CONF);
-	memset(*buf, 0, PAM_TIME_BUFLEN);
-	_pam_drop(*buf);
-	return -1;
-    }
-
-    /* check if there was a newline last time */
-
-    if ((*to > *from) && (*to > 0)
-	&& ((*buf)[*from] == '\0')) { /* previous line ended */
-	(*from)++;
-	(*buf)[0] = '\0';
-	return fd;
-    }
-
-    /* ready for more data: first shift the buffer's remaining data */
-
-    *to -= *from;
-    shift_bytes(*buf, *from, *to);
-    *from = 0;
-    (*buf)[*to] = '\0';
-
-    while (fd >= 0 && *to < PAM_TIME_BUFLEN) {
-	int i;
-
-	/* now try to fill the remainder of the buffer */
-
-	i = read(fd, *to + *buf, PAM_TIME_BUFLEN - *to);
+    while (fd != -1 && to - *buf < PAM_TIME_BUFLEN) {
+	i = pam_modutil_read(fd, to, PAM_TIME_BUFLEN - (to - *buf));
 	if (i < 0) {
 	    pam_syslog(pamh, LOG_ERR, "error reading %s: %m", PAM_TIME_CONF);
 	    close(fd);
+	    memset(*buf, 0, PAM_TIME_BUFLEN);
+	    _pam_drop(*buf);
+	    *state = STATE_EOF;
 	    return -1;
 	} else if (!i) {
 	    close(fd);
 	    fd = -1;          /* end of file reached */
-	} else
-	    *to += i;
-
-	/*
-	 * contract the buffer. Delete any comments, and replace all
-	 * multiple spaces with single commas
-	 */
-
-	i = 0;
-#ifdef DEBUG_DUMP
-	D(("buffer=<%s>",*buf));
-#endif
-	while (i < *to) {
-	    if ((*buf)[i] == ',') {
-		int j;
-
-		for (j=++i; j<*to && (*buf)[j] == ','; ++j);
-		if (j!=i) {
-		    shift_bytes(i + (*buf), j-i, (*to) - j);
-		    *to -= j-i;
-		}
-	    }
-	    switch ((*buf)[i]) {
-		int j,c;
-	    case '#':
-                c = 0;
-		for (j=i; j < *to && (c = (*buf)[j]) != '\n'; ++j);
-		if (j >= *to) {
-		    (*buf)[*to = ++i] = '\0';
-		} else if (c == '\n') {
-		    shift_bytes(i + (*buf), j-i, (*to) - j);
-		    *to -= j-i;
-		    ++i;
-		} else {
-		    pam_syslog(pamh, LOG_CRIT,
-			       "internal error in file %s at line %d",
-			       __FILE__, __LINE__);
-		    close(fd);
-		    return -1;
-		}
-		break;
-	    case '\\':
-		if ((*buf)[i+1] == '\n') {
-		    shift_bytes(i + *buf, 2, *to - (i+2));
-		    *to -= 2;
-		} else {
-		    ++i;   /* we don't escape non-newline characters */
-		}
-		break;
-	    case '!':
-	    case ' ':
-	    case '\t':
-		if ((*buf)[i] != '!')
-		    (*buf)[i] = ',';
-		/* delete any trailing spaces */
-		for (j=++i; j < *to && ( (c = (*buf)[j]) == ' '
-					 || c == '\t' ); ++j);
-		shift_bytes(i + *buf, j-i, (*to)-j );
-		*to -= j-i;
-		break;
-	    default:
-		++i;
-	    }
 	}
+
+	to += i;
     }
 
-    (*buf)[*to] = '\0';
+    if (to == *buf) {
+	/* nothing previously in buf, nothing read */
+	_pam_drop(*buf);
+	*state = STATE_EOF;
+	return -1;
+    }
 
-    /* now return the next field (set the from/to markers) */
-    {
-	int i;
+    memset(to, '\0', PAM_TIME_BUFLEN - (to - *buf));
 
-	for (i=0; i<*to; ++i) {
-	    switch ((*buf)[i]) {
-	    case '#':
-	    case '\n':               /* end of the line/file */
-		(*buf)[i] = '\0';
-		*from = i;
+    to = *buf;
+    onspace = 1; /* delete any leading spaces */
+
+    for (src = to; (c=*src) != '\0'; ++src) {
+	if (*state == STATE_COMMENT && c != '\n') {
+		continue;
+	}
+
+	switch (c) {
+	    case '\n':
+		*state = STATE_NL;
+                *to = '\0';
+		*from = (src - *buf) + 1;
+		trim_spaces(*buf, to);
 		return fd;
-	    case FIELD_SEPARATOR:    /* end of the field */
-		(*buf)[i] = '\0';
-	    *from = ++i;
-	    return fd;
-	    }
+
+	    case '\t':
+            case ' ':
+		if (!onspace) {
+		    onspace = 1;
+		    *to++ = ' ';
+		}
+		break;
+
+            case '!':
+		onspace = 1; /* ignore following spaces */
+		*to++ = '!';
+		break;
+
+	    case '#':
+		*state = STATE_COMMENT;
+		break;
+
+	    case FIELD_SEPARATOR:
+		*state = STATE_FIELD;
+                *to = '\0';
+		*from = (src - *buf) + 1;
+		trim_spaces(*buf, to);
+		return fd;
+
+	    case '\\':
+		if (src[1] == '\n') {
+		    ++src; /* skip it */
+		    break;
+		}
+	    default:
+		*to++ = c;
+		onspace = 0;
 	}
-	*from = i;
-	(*buf)[*from] = '\0';
+	if (src > to)
+	    *src = '\0'; /* clearing */
     }
 
-    if (*to <= 0) {
-	D(("[end of text]"));
-	*buf = NULL;
+    if (*state != STATE_COMMENT) {
+	*state = STATE_COMMENT;
+	pam_syslog(pamh, LOG_ERR, "field too long - ignored");
+	**buf = '\0';
+    } else {
+	*to = '\0';
+	trim_spaces(*buf, to);
     }
 
+    *from = 0;
     return fd;
 }
 
@@ -511,7 +506,7 @@ static int
 check_account(pam_handle_t *pamh, const char *service,
 	      const char *tty, const char *user)
 {
-     int from=0,to=0,fd=-1;
+     int from=0, state=STATE_NL, fd=-1;
      char *buffer=NULL;
      int count=0;
      TIME here_and_now;
@@ -523,23 +518,28 @@ check_account(pam_handle_t *pamh, const char *service,
 
 	  /* here we get the service name field */
 
-	  fd = read_field(pamh, fd, &buffer, &from, &to);
-
+	  fd = read_field(pamh, fd, &buffer, &from, &state);
 	  if (!buffer || !buffer[0]) {
 	       /* empty line .. ? */
 	       continue;
 	  }
 	  ++count;
 
+	  if (state != STATE_FIELD) {
+	       pam_syslog(pamh, LOG_ERR,
+			  "%s: malformed rule #%d", PAM_TIME_CONF, count);
+	       continue;
+	  }
+
 	  good = logic_field(pamh, service, buffer, count, is_same);
 	  D(("with service: %s", good ? "passes":"fails" ));
 
 	  /* here we get the terminal name field */
 
-	  fd = read_field(pamh, fd, &buffer, &from, &to);
-	  if (!buffer || !buffer[0]) {
+	  fd = read_field(pamh, fd, &buffer, &from, &state);
+	  if (state != STATE_FIELD) {
 	       pam_syslog(pamh, LOG_ERR,
-			  "%s: no tty entry #%d", PAM_TIME_CONF, count);
+			  "%s: malformed rule #%d", PAM_TIME_CONF, count);
 	       continue;
 	  }
 	  good &= logic_field(pamh, tty, buffer, count, is_same);
@@ -547,10 +547,10 @@ check_account(pam_handle_t *pamh, const char *service,
 
 	  /* here we get the username field */
 
-	  fd = read_field(pamh, fd, &buffer, &from, &to);
-	  if (!buffer || !buffer[0]) {
+	  fd = read_field(pamh, fd, &buffer, &from, &state);
+	  if (state != STATE_FIELD) {
 	       pam_syslog(pamh, LOG_ERR,
-			  "%s: no user entry #%d", PAM_TIME_CONF, count);
+			  "%s: malformed rule #%d", PAM_TIME_CONF, count);
 	       continue;
 	  }
 	  /* If buffer starts with @, we are using netgroups */
@@ -562,22 +562,15 @@ check_account(pam_handle_t *pamh, const char *service,
 
 	  /* here we get the time field */
 
-	  fd = read_field(pamh, fd, &buffer, &from, &to);
-	  if (!buffer || !buffer[0]) {
+	  fd = read_field(pamh, fd, &buffer, &from, &state);
+	  if (state == STATE_FIELD) {
 	       pam_syslog(pamh, LOG_ERR,
-			  "%s: no time entry #%d", PAM_TIME_CONF, count);
+			  "%s: poorly terminated rule #%d", PAM_TIME_CONF, count);
 	       continue;
 	  }
 
 	  intime = logic_field(pamh, &here_and_now, buffer, count, check_time);
 	  D(("with time: %s", intime ? "passes":"fails" ));
-
-	  fd = read_field(pamh, fd, &buffer, &from, &to);
-	  if (buffer && buffer[0]) {
-	       pam_syslog(pamh, LOG_ERR,
-			   "%s: poorly terminated rule #%d", PAM_TIME_CONF, count);
-	       continue;
-	  }
 
 	  if (good && !intime) {
 	       /*
@@ -588,7 +581,7 @@ check_account(pam_handle_t *pamh, const char *service,
 	  } else {
 	       D(("rule passed"));
 	  }
-     } while (buffer);
+     } while (state != STATE_EOF);
 
      return retval;
 }

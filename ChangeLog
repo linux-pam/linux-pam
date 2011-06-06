@@ -1,3 +1,16 @@
+2011-06-06  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_group/pam_group.c (shift_bytes): Removed.
+	(shift_buf, trim_spaces): Added new functions.
+	(read_field): Thorough rewrite of the parsing.
+	(check_account): read_field() now uses state information. No
+	extra read_field() call at the end of configuration line.
+	* modules/pam_time/pam_time.c (shift_bytes): Removed.
+	(shift_buf, trim_spaces): Added new functions.
+	(read_field): Thorough rewrite of the parsing.
+	(check_account): read_field() now uses state information. No
+	extra read_field() call at the end of configuration line.
+
 2011-06-06  Nguyễn Thái Ngọc Duy <pclouds@gmail.com>
 
 	* po/LINGUAS: Add vietnamese.
