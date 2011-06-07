@@ -1890,6 +1890,53 @@ static int ctxt_based_inst_needed(void)
 }
 #endif
 
+static int root_shared(void)
+{
+    FILE *f;
+    char *line = NULL;
+    size_t n = 0;
+    int rv = 0;
+
+    f = fopen("/proc/self/mountinfo", "r");
+
+    if (f == NULL)
+        return 0;
+
+    while(getline(&line, &n, f) != -1) {
+        char *l;
+        char *sptr;
+        int i;
+
+        l = line;
+        sptr = NULL;
+        for (i = 0; i < 7; i++) {
+             char *tok;
+
+             tok = strtok_r(l, " ", &sptr);
+             l = NULL;
+             if (tok == NULL)
+                 /* next mountinfo line */
+                 break;
+
+             if (i == 4 && strcmp(tok, "/") != 0)
+                 /* next mountinfo line */
+                 break;
+
+             if (i == 6) {
+                if (strncmp(tok, "shared:", 7) == 0)
+                 /* there might be more / mounts, the last one counts */
+                    rv = 1;
+                else
+                    rv = 0;
+             }
+        }
+    }
+
+    free(line);
+    fclose(f);
+
+    return rv;
+}
 
 static int get_user_data(struct instance_data *idata)
 {
@@ -2001,6 +2048,10 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     retval = get_user_data(&idata);
     if (retval != PAM_SUCCESS)
     	return retval;
+
+    if (root_shared()) {
+	idata.flags |= PAMNS_MOUNT_PRIVATE;
+    }
 
     /*
      * Parse namespace configuration file which lists directories to

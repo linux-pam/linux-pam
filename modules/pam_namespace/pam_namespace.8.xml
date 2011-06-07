@@ -243,11 +243,14 @@
         </term>
         <listitem>
           <para>
-	    This option should be used on systems where the / mount point and
+	    This option can be used on systems where the / mount point or
 	    its submounts are made shared (for example with a
 	    <command>mount --make-rshared /</command> command).
 	    The module will make the polyinstantiated directory mount points
-	    private.
+	    private. Normally the pam_namespace will try to detect the
+	    shared / mount point and make the polyinstantiated directories
+	    private automatically. This option has to be used just when
+	    only a subtree is shared and / is not.
           </para>
         </listitem>
       </varlistentry>
