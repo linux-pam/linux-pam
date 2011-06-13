@@ -1,3 +1,10 @@
+2011-06-13  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_securetty/pam_securetty.c (securetty_perform_check): Test
+	also whether the tty is in the /sys/class/tty/console/active file.
+	* modules/pam_securetty/pam_securetty.8.xml: Document the new check of
+	/sys/class/tty/console/active/file.
+
 2011-06-07  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_namespace/pam_namespace.c (root_shared): New

@@ -3,6 +3,7 @@
 #define SECURETTY_FILE "/etc/securetty"
 #define TTY_PREFIX     "/dev/"
 #define CMDLINE_FILE   "/proc/cmdline"
+#define CONSOLEACTIVE_FILE	"/sys/class/tty/console/active"
 
 /*
  * by Elliot Lee <sopwith@redhat.com>, Red Hat Software.
@@ -169,7 +170,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
                 if (p > line && p[-1] != ' ')
                     continue;
 
-                /* Ist this our console? */
+                /* Is this our console? */
                 if (strncmp(p + 8, uttyname, strlen(uttyname)))
                     continue;
 
@@ -181,6 +182,36 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
                 }
             }
         }
+    }
+    if (retval && !(ctrl & PAM_NOCONSOLE_ARG)) {
+        FILE *consoleactivefile;
+
+        /* Allow access from the active console */
+        consoleactivefile = fopen(CONSOLEACTIVE_FILE, "r");
+
+        if (consoleactivefile != NULL) {
+            char line[LINE_MAX], *p, *n;
+
+            line[0] = 0;
+            p = fgets(line, sizeof(line), consoleactivefile);
+            fclose(consoleactivefile);
+
+	    if (p) {
+		/* remove the newline character at end */
+		if (line[strlen(line)-1] == '\n')
+		    line[strlen(line)-1] = 0;
+
+		for (n = p; n != NULL; p = n+1) {
+		    if ((n = strchr(p, ' ')) != NULL)
+		    	*n = '\0';
+
+            	    if (strcmp(p, uttyname) == 0) {
+			retval = 0;
+			break;
+		    }
+		}
+	    }
+	}
     }
 
     if (retval) {

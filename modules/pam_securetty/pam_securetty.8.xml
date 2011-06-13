@@ -35,7 +35,8 @@
       to make sure that <filename>/etc/securetty</filename> is a plain
       file and not world writable. It will also allow root logins on
       the tty specified with <option>console=</option> switch on the
-      kernel command line.
+      kernel command line and on ttys from the
+      <filename>/sys/class/tty/console/active</filename>.
     </para>
     <para>
       This module has no effect on non-root users and requires that the
@@ -70,8 +71,9 @@
         <listitem>
           <para>
             Do not automatically allow root logins on the kernel console
-            device, as specified on the kernel command line, if it is
-            not also specified in the <filename>/etc/securetty</filename> file.
+            device, as specified on the kernel command line or by the sys file,
+            if it is not also specified in the
+            <filename>/etc/securetty</filename> file.
           </para>
         </listitem>
       </varlistentry>
