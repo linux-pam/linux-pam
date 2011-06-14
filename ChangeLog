@@ -1,3 +1,13 @@
+2011-06-14  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Check for libtirpc bye default.
+	* libpam/Makefile.am: Add support for libtirpc.
+	* modules/pam_access/Makefile.am: Likewise.
+	* modules/pam_unix/Makefile.am: Likewise.
+	* modules/pam_unix/pam_unix_passwd.c: Change ifdefs for
+	new libtirpc support.
+	* modules/pam_unix/yppasswd_xdr.c: Only compile if we have rpc/rpc.h.
+
 2011-06-13  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_securetty/pam_securetty.c (securetty_perform_check): Test

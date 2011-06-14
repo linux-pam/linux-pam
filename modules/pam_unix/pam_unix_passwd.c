@@ -54,13 +54,6 @@
 #include <ctype.h>
 #include <sys/time.h>
 #include <sys/stat.h>
-#include <rpc/rpc.h>
-#ifdef HAVE_RPCSVC_YP_PROT_H
-#include <rpcsvc/yp_prot.h>
-#endif
-#ifdef HAVE_RPCSVC_YPCLNT_H
-#include <rpcsvc/ypclnt.h>
-#endif
 
 #include <signal.h>
 #include <errno.h>
@@ -76,16 +69,33 @@
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
-#include "yppasswd.h"
 #include "md5.h"
 #include "support.h"
 #include "passverify.h"
 #include "bigcrypt.h"
 
-#if !((__GLIBC__ == 2) && (__GLIBC_MINOR__ >= 1))
+#if (HAVE_YP_GET_DEFAULT_DOMAIN || HAVE_GETDOMAINNAME) && HAVE_YP_MASTER
+# define HAVE_NIS
+#endif
+
+#ifdef HAVE_NIS
+# include <rpc/rpc.h>
+
+# if HAVE_RPCSVC_YP_PROT_H
+#  include <rpcsvc/yp_prot.h>
+# endif
+
+# if HAVE_RPCSVC_YPCLNT_H
+#  include <rpcsvc/ypclnt.h>
+# endif
+
+# include "yppasswd.h"
+
+# if !HAVE_DECL_GETRPCPORT
 extern int getrpcport(const char *host, unsigned long prognum,
 		      unsigned long versnum, unsigned int proto);
-#endif				/* GNU libc 2.1 */
+# endif				/* GNU libc 2.1 */
+#endif
 
 /*
    How it works:
@@ -102,9 +112,9 @@ extern int getrpcport(const char *host, unsigned long prognum,
 
 #define MAX_PASSWD_TRIES	3
 
+#ifdef HAVE_NIS
 static char *getNISserver(pam_handle_t *pamh, unsigned int ctrl)
 {
-#if (defined(HAVE_YP_GET_DEFAULT_DOMAIN) || defined(HAVE_GETDOMAINNAME)) && defined(HAVE_YP_MASTER)
 	char *master;
 	char *domainname;
 	int port, err;
@@ -151,14 +161,8 @@ static char *getNISserver(pam_handle_t *pamh, unsigned int ctrl)
 		     master, port);
 	}
 	return master;
-#else
-	if (on(UNIX_DEBUG, ctrl)) {
-	  pam_syslog(pamh, LOG_DEBUG, "getNISserver: No NIS support available");
-	}
-
-	return NULL;
-#endif
 }
+#endif
 
 #ifdef WITH_SELINUX
 
@@ -326,6 +330,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 	}
 
 	if (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, forwho, 0, 1)) {
+#ifdef HAVE_NIS
 	  if ((master=getNISserver(pamh, ctrl)) != NULL) {
 		struct timeval timeout;
 		struct yppasswd yppwd;
@@ -391,6 +396,13 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 	    } else {
 		    retval = PAM_TRY_AGAIN;
 	    }
+#else
+          if (on(UNIX_DEBUG, ctrl)) {
+            pam_syslog(pamh, LOG_DEBUG, "No NIS support available");
+          }
+
+          retval = PAM_TRY_AGAIN;
+#endif
 	}
 
 	if (_unix_comesfromsource(pamh, forwho, 1, 0)) {

@@ -12,6 +12,8 @@
 
 #include "config.h"
 
+#ifdef HAVE_RPC_RPC_H
+
 #include <rpc/rpc.h>
 #include "yppasswd.h"
 
@@ -34,3 +36,5 @@ xdr_yppasswd(XDR * xdrs, yppasswd * objp)
 	return xdr_string(xdrs, &objp->oldpass, ~0)
 	    && xdr_xpasswd(xdrs, &objp->newpw);
 }
+
+#endif

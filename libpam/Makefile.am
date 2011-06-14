@@ -25,7 +25,8 @@ libpam_la_LIBADD = @LIBAUDIT@ $(LIBPRELUDE_LIBS) @LIBDL@
 
 if STATIC_MODULES
   libpam_la_LIBADD += $(shell ls ../modules/pam_*/*.lo) \
-	@LIBDB@ @LIBCRYPT@ @LIBNSL@ @LIBCRACK@ -lutil
+	@LIBDB@ @LIBCRYPT@ $(NIS_LIBS) @LIBCRACK@ -lutil
+  AM_CFLAGS += $(NIS_CFLAGS)
 endif
 if HAVE_VERSIONING
   libpam_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libpam.map
