@@ -1,6 +1,6 @@
 2011-06-14  Thorsten Kukuk  <kukuk@thkukuk.de>
 
-	* configure.in: Check for libtirpc bye default.
+	* configure.in: Check for libtirpc by default.
 	* libpam/Makefile.am: Add support for libtirpc.
 	* modules/pam_access/Makefile.am: Likewise.
 	* modules/pam_unix/Makefile.am: Likewise.
