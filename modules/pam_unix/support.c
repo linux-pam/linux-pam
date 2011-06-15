@@ -83,7 +83,7 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 	}
 	/* now parse the arguments to this module */
 
-	while (argc-- > 0) {
+	for (; argc-- > 0; ++argv) {
 		int j;
 
 		D(("pam_unix arg: %s", *argv));
@@ -99,24 +99,37 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 			pam_syslog(pamh, LOG_ERR,
 			         "unrecognized option [%s]", *argv);
 		} else {
-			ctrl &= unix_args[j].mask;	/* for turning things off */
-			ctrl |= unix_args[j].flag;	/* for turning things on  */
-
 			/* special cases */
-			if (remember != NULL && j == UNIX_REMEMBER_PASSWD) {
+			if (j == UNIX_REMEMBER_PASSWD) {
+				if (remember == NULL) {
+					pam_syslog(pamh, LOG_ERR,
+					    "option remember not allowed for this module type");
+					continue;
+				}
 				*remember = strtol(*argv + 9, NULL, 10);
 				if ((*remember == INT_MIN) || (*remember == INT_MAX))
 					*remember = -1;
 				if (*remember > 400)
 					*remember = 400;
-			} else if (pass_min_len && j == UNIX_MIN_PASS_LEN) {
+			} else if (j == UNIX_MIN_PASS_LEN) {
+				if (pass_min_len == NULL) {
+					pam_syslog(pamh, LOG_ERR,
+					    "option minlen not allowed for this module type");
+					continue;
+				}
 				*pass_min_len = atoi(*argv + 7);
- 			}
-			if (rounds != NULL && j == UNIX_ALGO_ROUNDS)
+			} else if (j == UNIX_ALGO_ROUNDS) {
+				if (rounds == NULL) {
+					pam_syslog(pamh, LOG_ERR,
+					    "option rounds not allowed for this module type");
+					continue;
+				}
 				*rounds = strtol(*argv + 7, NULL, 10);
-		}
+			}
 
-		++argv;		/* step to next argument */
+			ctrl &= unix_args[j].mask;	/* for turning things off */
+			ctrl |= unix_args[j].flag;	/* for turning things on  */
+		}
 	}
 
 	if (UNIX_DES_CRYPT(ctrl)
@@ -132,7 +145,7 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 	}
 
 	/* Set default rounds for blowfish */
-	if (on(UNIX_BLOWFISH_PASS, ctrl) && off(UNIX_ALGO_ROUNDS, ctrl)) {
+	if (on(UNIX_BLOWFISH_PASS, ctrl) && off(UNIX_ALGO_ROUNDS, ctrl) && rounds != NULL) {
 		*rounds = 5;
 		set(UNIX_ALGO_ROUNDS, ctrl);
 	}

@@ -11,6 +11,9 @@
 	* modules/pam_pwhistory/pam_pwhistory.8.xml: Document the
 	special meaning of remember=0.
 
+	* modules/pam_unix/support.c (_set_ctrl): Do not crash when remember,
+	minlen, or rounds options are used with wrong module type.
+
 2011-06-14  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Check for libtirpc by default.
