@@ -2,7 +2,14 @@
 
 	* modules/pam_sepermit/pam_sepermit.c (check_running): Avoid
 	leaking memory and dir handle on realloc failure.
-	(sepermit_unlock) Cast fcntl() and close() calls to void.
+	(sepermit_unlock): Cast fcntl() and close() calls to void.
+
+	* modules/pam_pwhistory/opasswd.c (check_old_password): Do not
+	needlessly call strdupa().
+	(save_old_password): Avoid memleaks in error paths. Avoid memleak of
+	buf. Make the opasswd entry parsing more robust.
+	* modules/pam_pwhistory/pam_pwhistory.8.xml: Document the
+	special meaning of remember=0.
 
 2011-06-14  Thorsten Kukuk  <kukuk@thkukuk.de>
 

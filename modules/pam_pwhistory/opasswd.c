@@ -181,15 +181,13 @@ check_old_password (pam_handle_t *pamh, const char *user,
 
   fclose (oldpf);
 
-  if (found)
+  if (found && entry.old_passwords)
     {
       const char delimiters[] = ",";
       char *running;
       char *oldpass;
 
-      running = strdupa (entry.old_passwords);
-      if (running == NULL)
-	return PAM_BUF_ERR;
+      running = entry.old_passwords;
 
       do {
 	oldpass = strsep (&running, delimiters);
@@ -311,8 +309,12 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
 	    buflen = DEFAULT_BUFLEN;
 	    buf = malloc (buflen);
 	    if (buf == NULL)
-	      return PAM_BUF_ERR;
-
+              {
+		fclose (oldpf);
+		fclose (newpf);
+		retval = PAM_BUF_ERR;
+		goto error_opasswd;
+              }
 	  }
 	buf[0] = '\0';
 	fgets (buf, buflen - 1, oldpf);
@@ -322,7 +324,12 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
 	cp = buf;
 	save = strdup (buf); /* Copy to write the original data back.  */
 	if (save == NULL)
-	  return PAM_BUF_ERR;
+          {
+	    fclose (oldpf);
+	    fclose (newpf);
+	    retval = PAM_BUF_ERR;
+	    goto error_opasswd;
+          }
 
 	if (n < 1)
 	  break;
@@ -351,31 +358,30 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
 		found = 1;
 
 		/* Don't save the current password twice */
-		if (entry.old_passwords)
+		if (entry.old_passwords && entry.old_passwords[0] != '\0')
 		  {
-		    /* there is only one password */
-		    if (strcmp (entry.old_passwords, oldpass) == 0)
-		      goto write_old_data;
-		    else
-		      {
-			/* check last entry */
-			cp = strstr (entry.old_passwords, oldpass);
+		    char *last = entry.old_passwords;
 
-			if (cp && strcmp (cp, oldpass) == 0)
-			  {  /* the end is the same, check that there
-				is a "," before. */
-			    --cp;
-			    if (*cp == ',')
-			      goto write_old_data;
-			  }
+		    cp = entry.old_passwords;
+		    entry.count = 1;  /* Don't believe the count */
+		    while ((cp = strchr (cp, ',')) != NULL)
+		      {
+			entry.count++;
+			last = ++cp;
 		      }
+
+		    /* compare the last password */
+		    if (strcmp (last, oldpass) == 0)
+		      goto write_old_data;
 		  }
+		else
+		  entry.count = 0;
 
 		/* increase count.  */
 		entry.count++;
 
 		/* check that we don't remember to many passwords.  */
-		while (entry.count > howmany)
+		while (entry.count > howmany && entry.count > 1)
 		  {
 		    char *p = strpbrk (entry.old_passwords, ",");
 		    if (p != NULL)
@@ -383,12 +389,13 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
 		    entry.count--;
 		  }
 
-		if (entry.old_passwords == NULL)
+		if (entry.count == 1)
 		  {
 		    if (asprintf (&out, "%s:%s:%d:%s\n",
 				  entry.user, entry.uid, entry.count,
 				  oldpass) < 0)
 		      {
+    		        free (save);
 			retval = PAM_AUTHTOK_ERR;
 			fclose (oldpf);
 			fclose (newpf);
@@ -401,6 +408,7 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
 				  entry.user, entry.uid, entry.count,
 				  entry.old_passwords, oldpass) < 0)
 		      {
+    		        free (save);
 			retval = PAM_AUTHTOK_ERR;
 			fclose (oldpf);
 			fclose (newpf);
@@ -493,6 +501,7 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
   rename (opasswd_tmp, OLD_PASSWORDS_FILE);
  error_opasswd:
   unlink (opasswd_tmp);
+  free (buf);
 
   return retval;
 }

@@ -105,7 +105,9 @@
           <para>
             The last <replaceable>N</replaceable> passwords for each
             user are saved in <filename>/etc/security/opasswd</filename>.
-            The default is <emphasis>10</emphasis>.
+            The default is <emphasis>10</emphasis>. Value of
+            <emphasis>0</emphasis> makes the module to keep the existing
+            contents of the <filename>opasswd</filename> file unchanged.
           </para>
         </listitem>
       </varlistentry>
