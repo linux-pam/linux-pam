@@ -18,6 +18,9 @@
 	memleak in error path.
 	(pam_sm_open_session): Avoid memleak and fd leak in error path.
 
+	* modules/pam_access/pam_access.c (user_match): Initialize the
+	fake_item from item.
+
 2011-06-14  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Check for libtirpc by default.

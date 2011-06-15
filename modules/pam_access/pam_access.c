@@ -525,6 +525,7 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
         /* split user@host pattern */
 	if (item->hostname == NULL)
 	    return NO;
+	memcpy (&fake_item, item, sizeof(fake_item));
 	fake_item.from = item->hostname;
 	*at = 0;
 	return (user_match (pamh, tok, item) &&
