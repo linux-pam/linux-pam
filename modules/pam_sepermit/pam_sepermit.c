@@ -117,6 +117,7 @@ check_running (pam_handle_t *pamh, uid_t uid, int killall, int debug)
 	max_pids = 256;
 	pid_table = malloc(max_pids * sizeof (pid_t));
 	if (!pid_table) {
+		(void)closedir(dir);
 		pam_syslog(pamh, LOG_CRIT, "Memory allocation error");
 		return -1;
 	}
@@ -126,10 +127,15 @@ check_running (pam_handle_t *pamh, uid_t uid, int killall, int debug)
 			continue;
 
 		if (pids == max_pids) {
-			if (!(pid_table = realloc(pid_table, 2*pids*sizeof(pid_t)))) {
+			pid_t *npt;
+
+			if (!(npt = realloc(pid_table, 2*pids*sizeof(pid_t)))) {
+				free(pid_table);
+				(void)closedir(dir);
 				pam_syslog(pamh, LOG_CRIT, "Memory allocation error");
 				return -1;
 			}
+			pid_table = npt;
 			max_pids *= 2;
 		}
 		pid_table[pids++] = pid;
@@ -175,8 +181,8 @@ sepermit_unlock(pam_handle_t *pamh, void *plockfd, int error_status UNUSED)
 		while(check_running(pamh, lockfd->uid, 1, lockfd->debug) > 0)
 			continue;
 
-	fcntl(lockfd->fd, F_SETLK, &fl);
-	close(lockfd->fd);
+	(void)fcntl(lockfd->fd, F_SETLK, &fl);
+	(void)close(lockfd->fd);
 	free(lockfd);
 }
 

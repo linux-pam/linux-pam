@@ -1,3 +1,9 @@
+2011-06-15  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_sepermit/pam_sepermit.c (check_running): Avoid
+	leaking memory and dir handle on realloc failure.
+	(sepermit_unlock) Cast fcntl() and close() calls to void.
+
 2011-06-14  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Check for libtirpc by default.
