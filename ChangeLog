@@ -14,6 +14,10 @@
 	* modules/pam_unix/support.c (_set_ctrl): Do not crash when remember,
 	minlen, or rounds options are used with wrong module type.
 
+	* modules/pam_timestamp/pam_timestamp.c (pam_sm_authenticate): Avoid
+	memleak in error path.
+	(pam_sm_open_session): Avoid memleak and fd leak in error path.
+
 2011-06-14  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* configure.in: Check for libtirpc by default.

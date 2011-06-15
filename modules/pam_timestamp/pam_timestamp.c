@@ -483,6 +483,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			pam_syslog(pamh, LOG_NOTICE, "timestamp file `%s' is "
 				"corrupted", path);
 			close(fd);
+			free(mac);
 			free(message);
 			return PAM_AUTH_ERR;
 		}
@@ -636,6 +637,8 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED, int argc, const char *
 		       "error setting ownership of `%s': %m",
 		       path);
 	  }
+	  close(fd);
+	  free(text);
 	  return PAM_SESSION_ERR;
 	}
 
