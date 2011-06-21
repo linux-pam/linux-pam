@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-10-20 15:15+0200\n"
+"POT-Creation-Date: 2011-06-21 12:57+0200\n"
 "PO-Revision-Date: 2008-04-30 12:59+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@online.no>\n"
 "Language-Team:  <nb@li.org>\n"
@@ -58,7 +58,7 @@ msgstr ""
 msgid "Password change aborted."
 msgstr "Passord uendret"
 
-#: libpam/pam_item.c:310
+#: libpam/pam_item.c:311
 msgid "login:"
 msgstr "logg inn:"
 
@@ -194,54 +194,61 @@ msgstr "Programmet må spørre libpam på nytt"
 msgid "Unknown PAM error"
 msgstr "Ukjent PAM-feil"
 
-#: modules/pam_cracklib/pam_cracklib.c:490
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "is the same as the old one"
 msgstr "er det samme som det gamle"
 
-#: modules/pam_cracklib/pam_cracklib.c:504
+#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:503
+#: modules/pam_cracklib/pam_cracklib.c:513
+#, fuzzy
+msgid "memory allocation error"
+msgstr "Dialogfeil"
+
+#: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
 msgstr "er et palindrom"
 
-#: modules/pam_cracklib/pam_cracklib.c:507
+#: modules/pam_cracklib/pam_cracklib.c:521
 msgid "case changes only"
 msgstr "kun endring av små/store bokstaver"
 
-#: modules/pam_cracklib/pam_cracklib.c:510
+#: modules/pam_cracklib/pam_cracklib.c:524
 msgid "is too similar to the old one"
 msgstr "er for likt det gamle"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:527
 msgid "is too simple"
 msgstr "er for enkelt"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:530
 msgid "is rotated"
 msgstr "er rotert"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:533
 msgid "not enough character classes"
 msgstr "ikke nok tegnklasser"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:536
 msgid "contains too many same characters consecutively"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:539
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:476
+#: modules/pam_cracklib/pam_cracklib.c:573
+#: modules/pam_unix/pam_unix_passwd.c:488
 msgid "No password supplied"
 msgstr "Passord ikke angitt"
 
-#: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:476
+#: modules/pam_cracklib/pam_cracklib.c:573
+#: modules/pam_unix/pam_unix_passwd.c:488
 msgid "Password unchanged"
 msgstr "Passord uendret"
 
-#: modules/pam_cracklib/pam_cracklib.c:575
-#: modules/pam_cracklib/pam_cracklib.c:658
+#: modules/pam_cracklib/pam_cracklib.c:593
+#: modules/pam_cracklib/pam_cracklib.c:676
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "SVAKT PASSORD: %s"
@@ -262,18 +269,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s feilet: ukjent status 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:429
+#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:433
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
+#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:442
 #, c-format
 msgid " from %.*s"
 msgstr " fra %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
+#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:454
 #, c-format
 msgid " on %.*s"
 msgstr " på %.*s"
@@ -289,12 +296,12 @@ msgid "Welcome to your new account!"
 msgstr "Velkommen til din nye konto!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:460
+#: modules/pam_lastlog/pam_lastlog.c:464
 #, fuzzy, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "Siste innlogging:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
+#: modules/pam_lastlog/pam_lastlog.c:473 modules/pam_lastlog/pam_lastlog.c:480
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -303,12 +310,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:481
+#: modules/pam_lastlog/pam_lastlog.c:485
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
 
-#: modules/pam_limits/pam_limits.c:786
+#: modules/pam_limits/pam_limits.c:1079
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "For mange innlogginger for '%s'."
@@ -359,8 +366,8 @@ msgstr "Oppretter katalog «%s»."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Kan ikke opprette katalog %s: %m"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:497
+#: modules/pam_pwhistory/pam_pwhistory.c:215
+#: modules/pam_unix/pam_unix_passwd.c:509
 msgid "Password has been already used. Choose another."
 msgstr "Passordet er allerede benyttet. Velg et annet."
 
@@ -368,43 +375,43 @@ msgstr "Passordet er allerede benyttet. Velg et annet."
 msgid "Would you like to enter a security context? [N] "
 msgstr "Vil du angi sikkerhetskontekst? [N] "
 
-#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:299
 msgid "role:"
 msgstr "rolle:"
 
-#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
+#: modules/pam_selinux/pam_selinux.c:205 modules/pam_selinux/pam_selinux.c:334
 msgid "level:"
 msgstr "nivå:"
 
-#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
+#: modules/pam_selinux/pam_selinux.c:220 modules/pam_selinux/pam_selinux.c:367
 msgid "Not a valid security context"
 msgstr "Ikke en gyldig sikkerhetskontekst"
 
-#: modules/pam_selinux/pam_selinux.c:265
+#: modules/pam_selinux/pam_selinux.c:282
 #, c-format
 msgid "Default Security Context %s\n"
 msgstr "Forvalgt sikkerhetskontekst %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:269
+#: modules/pam_selinux/pam_selinux.c:286
 msgid "Would you like to enter a different role or level?"
 msgstr "Vil du angi en annen rolle eller nivå?"
 
-#: modules/pam_selinux/pam_selinux.c:285
+#: modules/pam_selinux/pam_selinux.c:302
 #, c-format
 msgid "No default type for role %s\n"
 msgstr "Ingen forvalgt type for rolle %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:667
+#: modules/pam_selinux/pam_selinux.c:688
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Kan ikke finne gyldig kontekst for %s"
 
-#: modules/pam_selinux/pam_selinux.c:718
+#: modules/pam_selinux/pam_selinux.c:742
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Sikkerhetskontekst %s tilordnet"
 
-#: modules/pam_selinux/pam_selinux.c:739
+#: modules/pam_selinux/pam_selinux.c:763
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Kontekst %s for oppretting av nøkkel tilordnet"
@@ -424,20 +431,20 @@ msgstr "kunne ikke pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "login: feil under forgrening: %m"
 
-#: modules/pam_stress/pam_stress.c:475
+#: modules/pam_stress/pam_stress.c:476
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "Endrer STRESS-passord for %s."
 
-#: modules/pam_stress/pam_stress.c:489
+#: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
 msgstr "Angi nytt STRESS-passord: "
 
-#: modules/pam_stress/pam_stress.c:492
+#: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
 msgstr "Bekreft nytt STRESS-passord: "
 
-#: modules/pam_stress/pam_stress.c:521
+#: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
 msgstr "Bekreftelse feil skrevet; passord uendret"
 
@@ -533,32 +540,32 @@ msgstr[1] "Advarsel: passordet ditt vil utløpe om %d dager"
 msgid "Warning: your password will expire in %d days"
 msgstr "Advarsel: passordet ditt vil utløpe om %d dager"
 
-#: modules/pam_unix/pam_unix_passwd.c:385
+#: modules/pam_unix/pam_unix_passwd.c:390
 msgid "NIS password could not be changed."
 msgstr "NIS-passord kunne ikke endres."
 
-#: modules/pam_unix/pam_unix_passwd.c:493
+#: modules/pam_unix/pam_unix_passwd.c:505
 msgid "You must choose a longer password"
 msgstr "Du må velge et lengre passord"
 
-#: modules/pam_unix/pam_unix_passwd.c:600
+#: modules/pam_unix/pam_unix_passwd.c:612
 #, c-format
 msgid "Changing password for %s."
 msgstr "Endrer passord for %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:611
+#: modules/pam_unix/pam_unix_passwd.c:623
 msgid "(current) UNIX password: "
 msgstr "(gjeldende) UNIX-passord: "
 
-#: modules/pam_unix/pam_unix_passwd.c:646
+#: modules/pam_unix/pam_unix_passwd.c:658
 msgid "You must wait longer to change your password"
 msgstr "Du må vente lenger før du kan endre passordet"
 
-#: modules/pam_unix/pam_unix_passwd.c:706
+#: modules/pam_unix/pam_unix_passwd.c:718
 msgid "Enter new UNIX password: "
 msgstr "Angi nytt UNIX-passord: "
 
-#: modules/pam_unix/pam_unix_passwd.c:707
+#: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "Bekreft nytt UNIX-passord: "
 

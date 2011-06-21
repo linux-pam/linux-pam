@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip.ta\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-10-20 15:15+0200\n"
+"POT-Creation-Date: 2011-06-21 12:57+0200\n"
 "PO-Revision-Date: 2009-04-03 22:27+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <fedora-trans-ta@redhat.com>\n"
@@ -62,7 +62,7 @@ msgstr "%sஐ மறு தட்டச்சு செய்"
 msgid "Password change aborted."
 msgstr "கடவுச்சொல் மாற்றம் கைவிடப்பட்டது."
 
-#: libpam/pam_item.c:310
+#: libpam/pam_item.c:311
 msgid "login:"
 msgstr "புகுபதிவு:"
 
@@ -198,54 +198,61 @@ msgstr "பயன்பாடு libpam ஐ மீண்டும் அழை�
 msgid "Unknown PAM error"
 msgstr "தெரியாத PAM பிழை"
 
-#: modules/pam_cracklib/pam_cracklib.c:490
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "is the same as the old one"
 msgstr "இது பழையதைப் போல உள்ளது"
 
-#: modules/pam_cracklib/pam_cracklib.c:504
+#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:503
+#: modules/pam_cracklib/pam_cracklib.c:513
+#, fuzzy
+msgid "memory allocation error"
+msgstr "உரையாடல் பிழை"
+
+#: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
 msgstr "இது ஒரு palindrome"
 
-#: modules/pam_cracklib/pam_cracklib.c:507
+#: modules/pam_cracklib/pam_cracklib.c:521
 msgid "case changes only"
 msgstr "எழுத்து வகை மாற்றங்கள் மட்டும்"
 
-#: modules/pam_cracklib/pam_cracklib.c:510
+#: modules/pam_cracklib/pam_cracklib.c:524
 msgid "is too similar to the old one"
 msgstr "இது பழையதை ஒத்தே உள்ளது"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:527
 msgid "is too simple"
 msgstr "இது மிகவும் எளிதாக உள்ளது"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:530
 msgid "is rotated"
 msgstr "இது சுழலக்கூடியது"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:533
 msgid "not enough character classes"
 msgstr "போதிய எழுத்து வகுப்புகள் இல்லை"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:536
 msgid "contains too many same characters consecutively"
 msgstr "நிறைய அதே எழுத்துக்கள் தொடர்ந்து கொண்டுள்ளது"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:539
 msgid "contains the user name in some form"
 msgstr "சில வடிவல் பயனர் பெயரை கொண்டுள்ளது"
 
-#: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:476
+#: modules/pam_cracklib/pam_cracklib.c:573
+#: modules/pam_unix/pam_unix_passwd.c:488
 msgid "No password supplied"
 msgstr "கடவுச்சொல் கொடுக்கப்படவில்லை"
 
-#: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:476
+#: modules/pam_cracklib/pam_cracklib.c:573
+#: modules/pam_unix/pam_unix_passwd.c:488
 msgid "Password unchanged"
 msgstr "கடவுச்சொல் மாற்றப்படவில்லை"
 
-#: modules/pam_cracklib/pam_cracklib.c:575
-#: modules/pam_cracklib/pam_cracklib.c:658
+#: modules/pam_cracklib/pam_cracklib.c:593
+#: modules/pam_cracklib/pam_cracklib.c:676
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "தவறான கடவுச்சொல்: %s"
@@ -266,18 +273,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s செயலிழக்கப்பட்டது: தெரியாத நிலை 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:429
+#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:433
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
+#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:442
 #, c-format
 msgid " from %.*s"
 msgstr "%.*s இலிருந்து"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
+#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:454
 #, c-format
 msgid " on %.*s"
 msgstr " %.*s இல்"
@@ -293,12 +300,12 @@ msgid "Welcome to your new account!"
 msgstr "உங்கள் புதிய கணக்கு வரவேற்கப்படுகிறீர்கள்!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:460
+#: modules/pam_lastlog/pam_lastlog.c:464
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "கடைசி தோல்வியடைந்த புகுபதிவு:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
+#: modules/pam_lastlog/pam_lastlog.c:473 modules/pam_lastlog/pam_lastlog.c:480
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -307,12 +314,12 @@ msgstr[0] "கடைசி புகுபதிவிலிருந்து %
 msgstr[1] "கடைசி புகுபதிவிலிருந்து %d புகுபதிவு முயற்சிகள் தோல்வியடைந்தன."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:481
+#: modules/pam_lastlog/pam_lastlog.c:485
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "கடைசி புகுபதிவிலிருந்து %d புகுபதிவு முயற்சி தோல்வியடைந்தன."
 
-#: modules/pam_limits/pam_limits.c:786
+#: modules/pam_limits/pam_limits.c:1079
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "'%s'க்கு பல புகுபதிவுகள் உள்ளன."
@@ -363,8 +370,8 @@ msgstr "அடைவு '%s'ஐ உருவாக்குகிறது."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "அடைவு '%s'ஐ உருவாக்க மற்றும் துவக்க முடியவில்லை."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:497
+#: modules/pam_pwhistory/pam_pwhistory.c:215
+#: modules/pam_unix/pam_unix_passwd.c:509
 msgid "Password has been already used. Choose another."
 msgstr "கடவுச்சொல் ஏற்கனவே பயன்படுத்தப்பட்டது. வேறொன்றை பயன்படுத்தவும்."
 
@@ -372,43 +379,43 @@ msgstr "கடவுச்சொல் ஏற்கனவே பயன்பட�
 msgid "Would you like to enter a security context? [N] "
 msgstr "நீங்கள் ஒரு பாதுகாப்பு சூழலை உள்ளிட வேண்டுமா? [N]"
 
-#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:299
 msgid "role:"
 msgstr "பங்கு:"
 
-#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
+#: modules/pam_selinux/pam_selinux.c:205 modules/pam_selinux/pam_selinux.c:334
 msgid "level:"
 msgstr "நிலை:"
 
-#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
+#: modules/pam_selinux/pam_selinux.c:220 modules/pam_selinux/pam_selinux.c:367
 msgid "Not a valid security context"
 msgstr "இது சரியான பாதுகாப்பு சூழல் இல்லை"
 
-#: modules/pam_selinux/pam_selinux.c:265
+#: modules/pam_selinux/pam_selinux.c:282
 #, c-format
 msgid "Default Security Context %s\n"
 msgstr "முன்னிருப்பு பாதுகாப்பு சூழல் %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:269
+#: modules/pam_selinux/pam_selinux.c:286
 msgid "Would you like to enter a different role or level?"
 msgstr "நீங்கள் வேறு பங்கு அல்லது நிலையை உள்ளிட வேண்டுமா?"
 
-#: modules/pam_selinux/pam_selinux.c:285
+#: modules/pam_selinux/pam_selinux.c:302
 #, c-format
 msgid "No default type for role %s\n"
 msgstr "பங்கு %sக்கு முன்னிருப்பு வகை இல்லை\n"
 
-#: modules/pam_selinux/pam_selinux.c:667
+#: modules/pam_selinux/pam_selinux.c:688
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "%sக்கு சரியான சூழல் பெற முடியவில்லை"
 
-#: modules/pam_selinux/pam_selinux.c:718
+#: modules/pam_selinux/pam_selinux.c:742
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "பாதுகாப்பு சூழல் %s ஒதுக்கப்பட்டது"
 
-#: modules/pam_selinux/pam_selinux.c:739
+#: modules/pam_selinux/pam_selinux.c:763
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "விசை உருவாக்க சூழல் %s ஒதுக்கப்பட்டுள்ளது"
@@ -428,20 +435,20 @@ msgstr "pam_set_item() செயலிழக்கப்பட்டது\n"
 msgid "login: failure forking: %m"
 msgstr "login: failure forking: %m"
 
-#: modules/pam_stress/pam_stress.c:475
+#: modules/pam_stress/pam_stress.c:476
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "%sக்கு STRESS கடவுச்சொல்லை மாற்றுகிறது."
 
-#: modules/pam_stress/pam_stress.c:489
+#: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
 msgstr "புதிய STRESS கடவுச்சொல்லை உள்ளிடவும்: "
 
-#: modules/pam_stress/pam_stress.c:492
+#: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
 msgstr "புதிய STRESS கடவுச்சொல்லை மீண்டும் உள்ளிடவும்: "
 
-#: modules/pam_stress/pam_stress.c:521
+#: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
 msgstr "உறுதிப்படுத்தல் முரண்பாடு; கடவுச்சொல் மாற்றப்படவில்லை"
 
@@ -539,31 +546,31 @@ msgstr[1] "எச்சரிக்கை: கடவுச்சொல் %d ந
 msgid "Warning: your password will expire in %d days"
 msgstr "எச்சரிக்கை: கடவுச்சொல் %d நாட்களில் முடிவுறும்"
 
-#: modules/pam_unix/pam_unix_passwd.c:385
+#: modules/pam_unix/pam_unix_passwd.c:390
 msgid "NIS password could not be changed."
 msgstr "NIS கடவுச்சொல்லை மாற்ற முடியாது."
 
-#: modules/pam_unix/pam_unix_passwd.c:493
+#: modules/pam_unix/pam_unix_passwd.c:505
 msgid "You must choose a longer password"
 msgstr "நீங்கள் நீண்ட கடவுச்சொல்லை தேர்ந்தெடுக்க வேண்டும்"
 
-#: modules/pam_unix/pam_unix_passwd.c:600
+#: modules/pam_unix/pam_unix_passwd.c:612
 #, c-format
 msgid "Changing password for %s."
 msgstr "%sக்கு கடவுச்சொல்லை மாற்றுகிறது."
 
-#: modules/pam_unix/pam_unix_passwd.c:611
+#: modules/pam_unix/pam_unix_passwd.c:623
 msgid "(current) UNIX password: "
 msgstr "(நடப்பு) UNIX கடவுச்சொல்: "
 
-#: modules/pam_unix/pam_unix_passwd.c:646
+#: modules/pam_unix/pam_unix_passwd.c:658
 msgid "You must wait longer to change your password"
 msgstr "உங்கள் கடவுச்சொல்லை மாற்ற சிறிது காத்திருக்க வேண்டும்"
 
-#: modules/pam_unix/pam_unix_passwd.c:706
+#: modules/pam_unix/pam_unix_passwd.c:718
 msgid "Enter new UNIX password: "
 msgstr "புதிய UNIX கடவுச்சொல்லை உள்ளிடவும்: "
 
-#: modules/pam_unix/pam_unix_passwd.c:707
+#: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "புதிய UNIX கடவுச்சொல்லை மீண்டும் உள்ளிடவும்: "

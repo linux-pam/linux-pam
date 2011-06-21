@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-10-20 15:15+0200\n"
+"POT-Creation-Date: 2011-06-21 12:57+0200\n"
 "PO-Revision-Date: 2011-06-04 17:58+0700\n"
 "Last-Translator: Lê Trường An <truongan@linuxmail.org>\n"
 "Language-Team: Vietnamese <du-an-most@lists.hanoilug.org>\n"
-"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2011-06-04 10:52+0000\n"
 "X-Generator: Launchpad (build 13144)\n"
@@ -60,7 +60,7 @@ msgstr "Nhập lại %s"
 msgid "Password change aborted."
 msgstr "Hủy bỏ việc thay đổi mật khẩu."
 
-#: libpam/pam_item.c:310
+#: libpam/pam_item.c:311
 msgid "login:"
 msgstr "Đăng nhập:"
 
@@ -196,54 +196,61 @@ msgstr "Ứng dụng cần gọi libpam lần nữa"
 msgid "Unknown PAM error"
 msgstr "Không biết lỗi PAM"
 
-#: modules/pam_cracklib/pam_cracklib.c:490
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "is the same as the old one"
 msgstr "là giống như cũ"
 
-#: modules/pam_cracklib/pam_cracklib.c:504
+#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:503
+#: modules/pam_cracklib/pam_cracklib.c:513
+#, fuzzy
+msgid "memory allocation error"
+msgstr "Lỗi giao tiếp"
+
+#: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
 msgstr "là một xâu palindrome"
 
-#: modules/pam_cracklib/pam_cracklib.c:507
+#: modules/pam_cracklib/pam_cracklib.c:521
 msgid "case changes only"
 msgstr "chỉ thay đổi chữ thường/hoa"
 
-#: modules/pam_cracklib/pam_cracklib.c:510
+#: modules/pam_cracklib/pam_cracklib.c:524
 msgid "is too similar to the old one"
 msgstr "quá giống cái cũ"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:527
 msgid "is too simple"
 msgstr "quá đơn giản"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:530
 msgid "is rotated"
 msgstr "được sử dụng lại"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:533
 msgid "not enough character classes"
 msgstr "không đủ các lớp nhân vật"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:536
 msgid "contains too many same characters consecutively"
 msgstr "chứa quá nhiều kí tự giống nhau liên tiếp"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:539
 msgid "contains the user name in some form"
 msgstr "chứa tên user trong một số biểu mẫu"
 
-#: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:476
+#: modules/pam_cracklib/pam_cracklib.c:573
+#: modules/pam_unix/pam_unix_passwd.c:488
 msgid "No password supplied"
 msgstr "Không có mật khẩu được cung cấp"
 
-#: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:476
+#: modules/pam_cracklib/pam_cracklib.c:573
+#: modules/pam_unix/pam_unix_passwd.c:488
 msgid "Password unchanged"
 msgstr "Chưa thay đổi mật khẩu"
 
-#: modules/pam_cracklib/pam_cracklib.c:575
-#: modules/pam_cracklib/pam_cracklib.c:658
+#: modules/pam_cracklib/pam_cracklib.c:593
+#: modules/pam_cracklib/pam_cracklib.c:676
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "Mật khẩu không an toàn: %s"
@@ -264,18 +271,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s thất bại: không rõ tình trạng 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:429
+#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:433
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
+#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:442
 #, c-format
 msgid " from %.*s"
 msgstr " từ %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
+#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:454
 #, c-format
 msgid " on %.*s"
 msgstr " trên %.*s"
@@ -291,12 +298,12 @@ msgid "Welcome to your new account!"
 msgstr "Chào mừng bạn đến tài khoản mới của bạn!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:460
+#: modules/pam_lastlog/pam_lastlog.c:464
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "Lần đăng nhập thất bại trước:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
+#: modules/pam_lastlog/pam_lastlog.c:473 modules/pam_lastlog/pam_lastlog.c:480
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -305,13 +312,13 @@ msgstr[0] ""
 "Đã có %d lần đăng nhập thất bại kể từ lần đăng nhập thành công trước đó."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:481
+#: modules/pam_lastlog/pam_lastlog.c:485
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
 "Có %d lần đăng nhập không thành công kể từ lần đăng nhập thành công trước."
 
-#: modules/pam_limits/pam_limits.c:786
+#: modules/pam_limits/pam_limits.c:1079
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "Quá nhiều lần đăng nhập cho '%s'."
@@ -362,8 +369,8 @@ msgstr "Tạo thư mục '%s'."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Không thể khởi tạo thư mục '%s'."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:497
+#: modules/pam_pwhistory/pam_pwhistory.c:215
+#: modules/pam_unix/pam_unix_passwd.c:509
 msgid "Password has been already used. Choose another."
 msgstr "Mật khẩu đã được dùng. Hãy chọn mật khẩu khác."
 
@@ -371,43 +378,43 @@ msgstr "Mật khẩu đã được dùng. Hãy chọn mật khẩu khác."
 msgid "Would you like to enter a security context? [N] "
 msgstr "Bạn có muốn nhập một bối cảnh an ninh? [N] "
 
-#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:299
 msgid "role:"
 msgstr "Vai trò:"
 
-#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
+#: modules/pam_selinux/pam_selinux.c:205 modules/pam_selinux/pam_selinux.c:334
 msgid "level:"
 msgstr "trình độ:"
 
-#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
+#: modules/pam_selinux/pam_selinux.c:220 modules/pam_selinux/pam_selinux.c:367
 msgid "Not a valid security context"
 msgstr "Không phải là một bối cảnh an ninh hợp lệ"
 
-#: modules/pam_selinux/pam_selinux.c:265
+#: modules/pam_selinux/pam_selinux.c:282
 #, c-format
 msgid "Default Security Context %s\n"
 msgstr "Bối cảnh an ninh mặc định %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:269
+#: modules/pam_selinux/pam_selinux.c:286
 msgid "Would you like to enter a different role or level?"
 msgstr "Bạn có muốn nhập một vai trò khác nhau hoặc cấp?"
 
-#: modules/pam_selinux/pam_selinux.c:285
+#: modules/pam_selinux/pam_selinux.c:302
 #, c-format
 msgid "No default type for role %s\n"
 msgstr "Không có loại mặc định cho vai trò %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:667
+#: modules/pam_selinux/pam_selinux.c:688
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Không thể có được bối cảnh hợp lệ cho %s"
 
-#: modules/pam_selinux/pam_selinux.c:718
+#: modules/pam_selinux/pam_selinux.c:742
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Bối cảnh an ninh %s Giao"
 
-#: modules/pam_selinux/pam_selinux.c:739
+#: modules/pam_selinux/pam_selinux.c:763
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Sáng tạo Context phím %s Giao"
@@ -427,20 +434,20 @@ msgstr "không pam_set_item ()\n"
 msgid "login: failure forking: %m"
 msgstr "đăng nhập: thất bại forking: %m"
 
-#: modules/pam_stress/pam_stress.c:475
+#: modules/pam_stress/pam_stress.c:476
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "Thay đổi mật khẩu căng thẳng cho %s."
 
-#: modules/pam_stress/pam_stress.c:489
+#: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
 msgstr "Nhập mật khẩu căng thẳng mới: "
 
-#: modules/pam_stress/pam_stress.c:492
+#: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
 msgstr "Nhập lại mật khẩu mới căng thẳng: "
 
-#: modules/pam_stress/pam_stress.c:521
+#: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
 msgstr "Mã xác nhận mis-đánh máy; mật khẩu không thay đổi"
 
@@ -539,32 +546,32 @@ msgstr[0] "Cảnh báo: mật khẩu của bạn sẽ hết hạn trong %d ngày
 msgid "Warning: your password will expire in %d days"
 msgstr "Cảnh báo: mật khẩu của bạn sẽ hết hạn trong %d ngày"
 
-#: modules/pam_unix/pam_unix_passwd.c:385
+#: modules/pam_unix/pam_unix_passwd.c:390
 msgid "NIS password could not be changed."
 msgstr "NIS mật khẩu không thể được thay đổi."
 
-#: modules/pam_unix/pam_unix_passwd.c:493
+#: modules/pam_unix/pam_unix_passwd.c:505
 msgid "You must choose a longer password"
 msgstr "Bạn phải chọn mật khẩu dài hơn"
 
-#: modules/pam_unix/pam_unix_passwd.c:600
+#: modules/pam_unix/pam_unix_passwd.c:612
 #, c-format
 msgid "Changing password for %s."
 msgstr "Thay đổi mật khẩu cho %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:611
+#: modules/pam_unix/pam_unix_passwd.c:623
 msgid "(current) UNIX password: "
 msgstr "hiện hành UNIX mật khẩu: "
 
-#: modules/pam_unix/pam_unix_passwd.c:646
+#: modules/pam_unix/pam_unix_passwd.c:658
 msgid "You must wait longer to change your password"
 msgstr "Bạn phải đợi thêm nữa, để thay đổi mật khẩu"
 
-#: modules/pam_unix/pam_unix_passwd.c:706
+#: modules/pam_unix/pam_unix_passwd.c:718
 msgid "Enter new UNIX password: "
 msgstr "Nhập mật khẩu UNIX mới: "
 
-#: modules/pam_unix/pam_unix_passwd.c:707
+#: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "Nhập lại mật khẩu UNIX mới: "
 

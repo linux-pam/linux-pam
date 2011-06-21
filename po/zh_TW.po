@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam.tip\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2010-10-20 15:15+0200\n"
+"POT-Creation-Date: 2011-06-21 12:57+0200\n"
 "PO-Revision-Date: 2009-04-06 21:21+1000\n"
 "Last-Translator: Terry Chuang <tchuang@redhat.com>\n"
 "Language-Team:  <zh@li.org>\n"
@@ -59,7 +59,7 @@ msgstr "重新輸入 %s"
 msgid "Password change aborted."
 msgstr "已終止密碼變更作業。"
 
-#: libpam/pam_item.c:310
+#: libpam/pam_item.c:311
 msgid "login:"
 msgstr "登入："
 
@@ -195,54 +195,61 @@ msgstr "應用程式需要再次呼叫 libpam"
 msgid "Unknown PAM error"
 msgstr "未知的 PAM 錯誤"
 
-#: modules/pam_cracklib/pam_cracklib.c:490
+#: modules/pam_cracklib/pam_cracklib.c:493
 msgid "is the same as the old one"
 msgstr "與舊的密碼相同"
 
-#: modules/pam_cracklib/pam_cracklib.c:504
+#: modules/pam_cracklib/pam_cracklib.c:499
+#: modules/pam_cracklib/pam_cracklib.c:503
+#: modules/pam_cracklib/pam_cracklib.c:513
+#, fuzzy
+msgid "memory allocation error"
+msgstr "交談錯誤"
+
+#: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
 msgstr "是一個回文"
 
-#: modules/pam_cracklib/pam_cracklib.c:507
+#: modules/pam_cracklib/pam_cracklib.c:521
 msgid "case changes only"
 msgstr "僅變更大小寫"
 
-#: modules/pam_cracklib/pam_cracklib.c:510
+#: modules/pam_cracklib/pam_cracklib.c:524
 msgid "is too similar to the old one"
 msgstr "與舊的密碼太相似"
 
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:527
 msgid "is too simple"
 msgstr "太簡單"
 
-#: modules/pam_cracklib/pam_cracklib.c:516
+#: modules/pam_cracklib/pam_cracklib.c:530
 msgid "is rotated"
 msgstr "已旋轉"
 
-#: modules/pam_cracklib/pam_cracklib.c:519
+#: modules/pam_cracklib/pam_cracklib.c:533
 msgid "not enough character classes"
 msgstr "字元類別不足"
 
-#: modules/pam_cracklib/pam_cracklib.c:522
+#: modules/pam_cracklib/pam_cracklib.c:536
 msgid "contains too many same characters consecutively"
 msgstr "包含了太多連續的相同字元"
 
-#: modules/pam_cracklib/pam_cracklib.c:525
+#: modules/pam_cracklib/pam_cracklib.c:539
 msgid "contains the user name in some form"
 msgstr "包含了某些格式的用戶名稱"
 
-#: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:476
+#: modules/pam_cracklib/pam_cracklib.c:573
+#: modules/pam_unix/pam_unix_passwd.c:488
 msgid "No password supplied"
 msgstr "未提供密碼"
 
-#: modules/pam_cracklib/pam_cracklib.c:555
-#: modules/pam_unix/pam_unix_passwd.c:476
+#: modules/pam_cracklib/pam_cracklib.c:573
+#: modules/pam_unix/pam_unix_passwd.c:488
 msgid "Password unchanged"
 msgstr "密碼未變更"
 
-#: modules/pam_cracklib/pam_cracklib.c:575
-#: modules/pam_cracklib/pam_cracklib.c:658
+#: modules/pam_cracklib/pam_cracklib.c:593
+#: modules/pam_cracklib/pam_cracklib.c:676
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "不良的密碼： %s"
@@ -263,18 +270,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s 失敗：不明狀態 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:429
+#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:433
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr "%a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:438
+#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:442
 #, c-format
 msgid " from %.*s"
 msgstr "從 %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:450
+#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:454
 #, c-format
 msgid " on %.*s"
 msgstr "在 %.*s"
@@ -290,12 +297,12 @@ msgid "Welcome to your new account!"
 msgstr "歡迎使用您的新帳號！"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:460
+#: modules/pam_lastlog/pam_lastlog.c:464
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "上一次失敗的登入：%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:469 modules/pam_lastlog/pam_lastlog.c:476
+#: modules/pam_lastlog/pam_lastlog.c:473 modules/pam_lastlog/pam_lastlog.c:480
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -304,12 +311,12 @@ msgstr[0] "自從上次成功登入後有 %d 次嘗試登入失敗。"
 msgstr[1] "自從上次成功登入後有 %d 次嘗試登入失敗。"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:481
+#: modules/pam_lastlog/pam_lastlog.c:485
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "自從上次成功登入後有 %d 次嘗試登入失敗。"
 
-#: modules/pam_limits/pam_limits.c:786
+#: modules/pam_limits/pam_limits.c:1079
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "對 '%s' 進行太多次登入。"
@@ -360,8 +367,8 @@ msgstr "建立目錄「%s」。"
 msgid "Unable to create and initialize directory '%s'."
 msgstr "無法建立和初始化「%s」目錄。"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:218
-#: modules/pam_unix/pam_unix_passwd.c:497
+#: modules/pam_pwhistory/pam_pwhistory.c:215
+#: modules/pam_unix/pam_unix_passwd.c:509
 msgid "Password has been already used. Choose another."
 msgstr "密碼已經由其他使用者使用。請選擇其他密碼。"
 
@@ -369,43 +376,43 @@ msgstr "密碼已經由其他使用者使用。請選擇其他密碼。"
 msgid "Would you like to enter a security context? [N] "
 msgstr "您是否要輸入安全性 context？[否]"
 
-#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:282
+#: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:299
 msgid "role:"
 msgstr "角色："
 
-#: modules/pam_selinux/pam_selinux.c:204 modules/pam_selinux/pam_selinux.c:316
+#: modules/pam_selinux/pam_selinux.c:205 modules/pam_selinux/pam_selinux.c:334
 msgid "level:"
 msgstr "層級："
 
-#: modules/pam_selinux/pam_selinux.c:219 modules/pam_selinux/pam_selinux.c:349
+#: modules/pam_selinux/pam_selinux.c:220 modules/pam_selinux/pam_selinux.c:367
 msgid "Not a valid security context"
 msgstr "不是有效的安全網路位置"
 
-#: modules/pam_selinux/pam_selinux.c:265
+#: modules/pam_selinux/pam_selinux.c:282
 #, c-format
 msgid "Default Security Context %s\n"
 msgstr "預設的安全網路位置 %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:269
+#: modules/pam_selinux/pam_selinux.c:286
 msgid "Would you like to enter a different role or level?"
 msgstr "您是否希望輸入不同的角色或層級？"
 
-#: modules/pam_selinux/pam_selinux.c:285
+#: modules/pam_selinux/pam_selinux.c:302
 #, c-format
 msgid "No default type for role %s\n"
 msgstr "%s 沒有預設的類型\n"
 
-#: modules/pam_selinux/pam_selinux.c:667
+#: modules/pam_selinux/pam_selinux.c:688
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "無法取得 %s 的有效 context"
 
-#: modules/pam_selinux/pam_selinux.c:718
+#: modules/pam_selinux/pam_selinux.c:742
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "已指定安全網路位置 %s"
 
-#: modules/pam_selinux/pam_selinux.c:739
+#: modules/pam_selinux/pam_selinux.c:763
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "已指建置金鑰的定安全網路位置 %s"
@@ -425,20 +432,20 @@ msgstr "pam_set_item() 失敗\n"
 msgid "login: failure forking: %m"
 msgstr "登入：失敗的分叉：%m"
 
-#: modules/pam_stress/pam_stress.c:475
+#: modules/pam_stress/pam_stress.c:476
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "正在更改 %s 的 STRESS 密碼。"
 
-#: modules/pam_stress/pam_stress.c:489
+#: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
 msgstr "輸入新的 STRESS 密碼："
 
-#: modules/pam_stress/pam_stress.c:492
+#: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
 msgstr "再次輸入新的 STRESS 密碼："
 
-#: modules/pam_stress/pam_stress.c:521
+#: modules/pam_stress/pam_stress.c:522
 msgid "Verification mis-typed; password unchanged"
 msgstr "確認錯誤輸入；密碼未變更"
 
@@ -536,31 +543,31 @@ msgstr[1] "警告：您的密碼將在 %d 天之後過期。"
 msgid "Warning: your password will expire in %d days"
 msgstr "警告：您的密碼將在 %d 天之後過期。"
 
-#: modules/pam_unix/pam_unix_passwd.c:385
+#: modules/pam_unix/pam_unix_passwd.c:390
 msgid "NIS password could not be changed."
 msgstr "無法變更 NIS 密碼。"
 
-#: modules/pam_unix/pam_unix_passwd.c:493
+#: modules/pam_unix/pam_unix_passwd.c:505
 msgid "You must choose a longer password"
 msgstr "您必須選擇更長的密碼"
 
-#: modules/pam_unix/pam_unix_passwd.c:600
+#: modules/pam_unix/pam_unix_passwd.c:612
 #, c-format
 msgid "Changing password for %s."
 msgstr "正在更改 %s 的 STRESS 密碼。"
 
-#: modules/pam_unix/pam_unix_passwd.c:611
+#: modules/pam_unix/pam_unix_passwd.c:623
 msgid "(current) UNIX password: "
 msgstr "（目前的）UNIX 密碼："
 
-#: modules/pam_unix/pam_unix_passwd.c:646
+#: modules/pam_unix/pam_unix_passwd.c:658
 msgid "You must wait longer to change your password"
 msgstr "您必須久候，以更改您的密碼"
 
-#: modules/pam_unix/pam_unix_passwd.c:706
+#: modules/pam_unix/pam_unix_passwd.c:718
 msgid "Enter new UNIX password: "
 msgstr "輸入新的 UNIX 密碼："
 
-#: modules/pam_unix/pam_unix_passwd.c:707
+#: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "再次輸入新的 UNIX 密碼："

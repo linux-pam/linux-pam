@@ -1,5 +1,15 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 1.1.4
+
+* Add vietnamese translation
+* pam_namepace: Add new functionality
+* pam_securetty: Honour console= kernel option, add noconsole option
+* pam_limits: Add %group syntax, drop change_uid option, add set_all option
+* Lot of small bug fixes
+* Lot of compiler warnings fixed
+* Add support for libtirpc
+
 
 Release 1.1.3
 

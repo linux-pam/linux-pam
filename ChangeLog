@@ -1,3 +1,10 @@
+2011-06-22  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* configure.in: Bump version number.
+	* NEWS: Document changes since 1.1.3
+	* libpam/Makefile.am: Bump release number of shared library
+	* po/de.po: Translate new string.
+
 2011-06-21  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* modules/pam_limits/pam_limits.c: Add set_all option,
