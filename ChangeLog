@@ -1,3 +1,11 @@
+2011-06-21  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* modules/pam_limits/pam_limits.c: Add set_all option,
+	read limits from PID one if no limit is specified and set_all
+	is set.
+	* modules/pam_limits/pam_limits.8.xml: Document set_all option.
+	Based on Patch by Kees Cook.
+
 2011-06-15  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_sepermit/pam_sepermit.c (check_running): Avoid

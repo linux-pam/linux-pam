@@ -51,9 +51,10 @@
 #define LIMITS_DEF_USER     0 /* limit was set by an user entry */
 #define LIMITS_DEF_GROUP    1 /* limit was set by a group entry */
 #define LIMITS_DEF_ALLGROUP 2 /* limit was set by a group entry */
-#define LIMITS_DEF_ALL      3 /* limit was set by an default entry */
-#define LIMITS_DEF_DEFAULT  4 /* limit was set by an default entry */
-#define LIMITS_DEF_NONE     5 /* this limit was not set yet */
+#define LIMITS_DEF_ALL      3 /* limit was set by an all entry */
+#define LIMITS_DEF_DEFAULT  4 /* limit was set by a default entry */
+#define LIMITS_DEF_KERNEL   5 /* limit was set from /proc/1/limits */
+#define LIMITS_DEF_NONE     6 /* this limit was not set yet */
 
 #define LIMIT_RANGE_ERR    -1 /* error in specified uid/gid range */
 #define LIMIT_RANGE_NONE    0 /* no range specified */
@@ -67,6 +68,7 @@ static const char *limits_def_names[] = {
        "ALLGROUP",
        "ALL",
        "DEFAULT",
+       "KERNEL",
        "NONE",
        NULL
 };
@@ -111,6 +113,7 @@ struct pam_limit_s {
 #define PAM_DEBUG_ARG       0x0001
 #define PAM_UTMP_EARLY      0x0004
 #define PAM_NO_AUDIT        0x0008
+#define PAM_SET_ALL         0x0010
 
 /* Limits from globbed files. */
 #define LIMITS_CONF_GLOB LIMITS_FILE_DIR
@@ -136,6 +139,8 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	    ctrl |= PAM_UTMP_EARLY;
 	} else if (!strcmp(*argv,"noaudit")) {
 	    ctrl |= PAM_NO_AUDIT;
+	} else if (!strcmp(*argv,"set_all")) {
+	    ctrl |= PAM_SET_ALL;
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
@@ -292,7 +297,140 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
     return 0;
 }
 
-static int init_limits(struct pam_limit_s *pl)
+static const char *lnames[RLIM_NLIMITS] = {
+        [RLIMIT_CPU] = "Max cpu time",
+        [RLIMIT_FSIZE] = "Max file size",
+        [RLIMIT_DATA] = "Max data size",
+        [RLIMIT_STACK] = "Max stack size",
+        [RLIMIT_CORE] = "Max core file size",
+        [RLIMIT_RSS] = "Max resident set",
+        [RLIMIT_NPROC] = "Max processes",
+        [RLIMIT_NOFILE] = "Max open files",
+        [RLIMIT_MEMLOCK] = "Max locked memory",
+#ifdef RLIMIT_AS
+        [RLIMIT_AS] = "Max address space",
+#endif
+#ifdef RLIMIT_LOCKS
+        [RLIMIT_LOCKS] = "Max file locks",
+#endif
+#ifdef RLIMIT_SIGPENDING
+        [RLIMIT_SIGPENDING] = "Max pending signals",
+#endif
+#ifdef RLIMIT_MSGQUEUE
+        [RLIMIT_MSGQUEUE] = "Max msgqueue size",
+#endif
+#ifdef RLIMIT_NICE
+        [RLIMIT_NICE] = "Max nice priority",
+#endif
+#ifdef RLIMIT_RTPRIO
+        [RLIMIT_RTPRIO] = "Max realtime priority",
+#endif
+#ifdef RLIMIT_RTTIME
+        [RLIMIT_RTTIME] = "Max realtime timeout",
+#endif
+};
+
+static int str2rlimit(char *name) {
+    int i;
+    if (!name || *name == '\0')
+        return -1;
+    for(i = 0; i < RLIM_NLIMITS; i++) {
+        if (strcmp(name, lnames[i]) == 0) return i;
+    }
+    return -1;
+}
+
+static rlim_t str2rlim_t(char *value) {
+    unsigned long long rlimit = 0;
+
+    if (!value) return (rlim_t)rlimit;
+    if (strcmp(value, "unlimited") == 0) {
+        return RLIM_INFINITY;
+    }
+    rlimit = strtoull(value, NULL, 10);
+    return (rlim_t)rlimit;
+}
+
+#define LIMITS_SKIP_WHITESPACE { \
+        /* step backwards over spaces */ \
+        pos--; \
+        while (pos && line[pos] == ' ') pos--; \
+        if (!pos) continue; \
+        line[pos+1] = '\0'; \
+}
+#define LIMITS_MARK_ITEM(item) { \
+        /* step backwards over non-spaces */ \
+        pos--; \
+        while (pos && line[pos] != ' ') pos--; \
+        if (!pos) continue; \
+        item = line + pos + 1; \
+}
+
+static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)
+{
+    int i, maxlen = 0;
+    FILE *limitsfile;
+    const char *proclimits = "/proc/1/limits";
+    char line[256];
+    char *units, *hard, *soft, *name;
+
+    if (!(limitsfile = fopen(proclimits, "r"))) {
+        pam_syslog(pamh, LOG_WARNING, "Could not read %s (%s), using PAM defaults", proclimits, strerror(errno));
+        return;
+    }
+
+    while (fgets(line, 256, limitsfile)) {
+        int pos = strlen(line);
+        if (pos < 2) continue;
+
+        /* drop trailing newline */
+        if (line[pos-1] == '\n') {
+            pos--;
+            line[pos] = '\0';
+        }
+
+        /* determine formatting boundry of limits report */
+        if (!maxlen && strncmp(line, "Limit", 5) == 0) {
+            maxlen = pos;
+            continue;
+        }
+
+        if (pos == maxlen) {
+            /* step backwards over "Units" name */
+            LIMITS_SKIP_WHITESPACE;
+            LIMITS_MARK_ITEM(units);
+        }
+        else {
+            units = "";
+        }
+
+        /* step backwards over "Hard Limit" value */
+        LIMITS_SKIP_WHITESPACE;
+        LIMITS_MARK_ITEM(hard);
+
+        /* step backwards over "Soft Limit" value */
+        LIMITS_SKIP_WHITESPACE;
+        LIMITS_MARK_ITEM(soft);
+
+        /* step backwards over name of limit */
+        LIMITS_SKIP_WHITESPACE;
+        name = line;
+
+        i = str2rlimit(name);
+        if (i < 0 || i >= RLIM_NLIMITS) {
+            if (ctrl & PAM_DEBUG_ARG)
+                pam_syslog(pamh, LOG_DEBUG, "Unknown kernel rlimit '%s' ignored", name);
+            continue;
+        }
+        pl->limits[i].limit.rlim_cur = str2rlim_t(soft);
+        pl->limits[i].limit.rlim_max = str2rlim_t(hard);
+        pl->limits[i].src_soft = LIMITS_DEF_KERNEL;
+        pl->limits[i].src_hard = LIMITS_DEF_KERNEL;
+    }
+    fclose(limitsfile);
+}
+
+static int init_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)
 {
     int i;
     int retval = PAM_SUCCESS;
@@ -312,6 +450,20 @@ static int init_limits(struct pam_limit_s *pl)
 	    pl->limits[i].src_hard = LIMITS_DEF_NONE;
 	}
     }
+
+#ifdef __linux__
+    if (ctrl & PAM_SET_ALL) {
+      parse_kernel_limits(pamh, pl, ctrl);
+
+      for(i = 0; i < RLIM_NLIMITS; i++) {
+	if (pl->limits[i].supported &&
+	    (pl->limits[i].src_soft == LIMITS_DEF_NONE ||
+	     pl->limits[i].src_hard == LIMITS_DEF_NONE)) {
+	  pam_syslog(pamh, LOG_WARNING, "Did not find kernel RLIMIT for %s, using PAM default", rlimit2str(i));
+	}
+      }
+    }
+#endif
 
     errno = 0;
     pl->priority = getpriority (PRIO_PROCESS, 0);
@@ -873,7 +1025,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
         return PAM_USER_UNKNOWN;
     }
 
-    retval = init_limits(pl);
+    retval = init_limits(pamh, pl, ctrl);
     if (retval != PAM_SUCCESS) {
         pam_syslog(pamh, LOG_WARNING, "cannot initialize");
         return PAM_ABORT;
