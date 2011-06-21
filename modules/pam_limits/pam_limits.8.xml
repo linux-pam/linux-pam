@@ -29,6 +29,9 @@
         debug
       </arg>
       <arg choice="opt">
+        set_all
+      </arg>
+      <arg choice="opt">
         utmp_early
       </arg>
       <arg choice="opt">
@@ -85,6 +88,18 @@
         <listitem>
           <para>
             Print debug information.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>set_all</option>
+        </term>
+        <listitem>
+          <para>
+            Set the limits for which no value is specified in the
+            configuration file to the one from the process with the
+            PID 1.
           </para>
         </listitem>
       </varlistentry>
