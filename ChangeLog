@@ -1,3 +1,7 @@
+2011-08-23  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_env/pam_env.c (_pam_parse): Fix missing dereference.
+
 2011-06-22  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 1.1.4

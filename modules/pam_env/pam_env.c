@@ -99,7 +99,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	if (!strcmp(*argv,"debug"))
 	    ctrl |= PAM_DEBUG_ARG;
 	else if (!strncmp(*argv,"conffile=",9)) {
-	  if (*argv+9 == '\0') {
+	  if ((*argv)[9] == '\0') {
 	    pam_syslog(pamh, LOG_ERR,
 		       "conffile= specification missing argument - ignored");
 	  } else {
@@ -107,7 +107,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	    D(("new Configuration File: %s", *conffile));
 	  }
 	} else if (!strncmp(*argv,"envfile=",8)) {
-	  if (*argv+8 == '\0') {
+	  if ((*argv)[8] == '\0') {
 	    pam_syslog (pamh, LOG_ERR,
 			"envfile= specification missing argument - ignored");
 	  } else {
@@ -115,7 +115,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	    D(("new Env File: %s", *envfile));
 	  }
 	} else if (!strncmp(*argv,"user_envfile=",13)) {
-	  if (*argv+13 == '\0') {
+	  if ((*argv)[13] == '\0') {
 	    pam_syslog (pamh, LOG_ERR,
 			"user_envfile= specification missing argument - ignored");
 	  } else {
