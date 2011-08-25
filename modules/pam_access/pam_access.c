@@ -521,7 +521,10 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
      * name of the user's primary group.
      */
 
-    if (tok[0] != '@' && (at = strchr(tok + 1, '@')) != 0) {
+    /* Try to split on a pattern (@*[^@]+)(@+.*) */
+    for (at = tok; *at == '@'; ++at);
+
+    if ((at = strchr(at, '@')) != NULL) {
         /* split user@host pattern */
 	if (item->hostname == NULL)
 	    return NO;

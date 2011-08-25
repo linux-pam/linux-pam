@@ -1,3 +1,8 @@
+2011-08-25  Tomas Mraz  <tm@t8m.info>
+
+	* modules/pam_access/pam_access.c (user_match): Fix the split
+	  on @ in the user field. (Red Hat Bug #732081)
+
 2011-08-23  Tomas Mraz  <tm@t8m.info>
 
 	* modules/pam_env/pam_env.c (_pam_parse): Fix missing dereference.
