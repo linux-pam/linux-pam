@@ -143,7 +143,8 @@
           <para>
             like <emphasis>required</emphasis>, however, in the case that
             such a module returns a failure, control is directly returned
-            to the application. The return value is that associated with
+            to the application or to the superior PAM stack.
+            The return value is that associated with
             the first required or requisite module to fail. Note, this flag
             can be used to protect against the possibility of a user getting
             the opportunity to enter a password over an unsafe medium. It is
@@ -158,14 +159,12 @@
         <term>sufficient</term>
         <listitem>
           <para>
-            success of such a module is enough to satisfy the
-            authentication requirements of the stack of modules (if a
-            prior <emphasis>required</emphasis> module has failed the
-            success of this one is <emphasis>ignored</emphasis>). A failure
-            of this module is not deemed as fatal to satisfying the
-            application that this type has succeeded. If the module succeeds 
-            the PAM framework returns success to the application immediately
-            without trying any other modules.
+            if such a module succeeds and no prior <emphasis>required</emphasis>
+            module has failed the PAM framework returns success to
+            the application or to the superior PAM stack immediately without
+            calling any further modules in the stack. A failure of a
+            <emphasis>sufficient</emphasis> module is ignored and processing
+            of the PAM module stack continues unaffected.
           </para>
         </listitem>
       </varlistentry>
