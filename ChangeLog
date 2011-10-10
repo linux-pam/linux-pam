@@ -8,6 +8,9 @@
 	(network_netmask_match): Cache the getaddrinfo() result.
 	(pam_sm_authenticate): Free the getaddrinfo() result.
 
+	* modules/pam_access/pam_access.c (netgroup_match): If getdomainname()
+	fails or domainname not set use NULL as domain in innetgr().
+
 2011-09-30  Tomas Mraz  <tm@t8m.info>
 
 	* doc/man/pam.conf-syntax.xml: Improve documentation of the

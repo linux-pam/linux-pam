@@ -478,12 +478,10 @@ netgroup_match (pam_handle_t *pamh, const char *netgroup,
 
   if (getdomainname (domainname_res, sizeof (domainname_res)) == 0)
     {
-      if (strcmp (domainname_res, "(none)") == 0)
+      if (domainname_res[0] != '\0' && strcmp (domainname_res, "(none)") != 0)
         {
-          /* If domainname is not set, some systems will return "(none)" */
-	  domainname_res[0] = '\0';
-	}
-      mydomain = domainname_res;
+          mydomain = domainname_res;
+        }
     }
 #endif
 
