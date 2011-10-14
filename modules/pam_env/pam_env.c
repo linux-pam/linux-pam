@@ -570,6 +570,7 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
 	D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
 	pam_syslog (pamh, LOG_ERR, "Variable buffer overflow: <%s> + <%s>",
 		 tmp, tmpptr);
+	return PAM_BUF_ERR;
       }
       continue;
     }
@@ -631,6 +632,7 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
 	    D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
 	    pam_syslog (pamh, LOG_ERR,
 			"Variable buffer overflow: <%s> + <%s>", tmp, tmpptr);
+	    return PAM_BUF_ERR;
 	  }
 	}
       }           /* if ('{' != *orig++) */
@@ -642,6 +644,7 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
 	D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
 	pam_syslog(pamh, LOG_ERR,
 		   "Variable buffer overflow: <%s> + <%s>", tmp, tmpptr);
+	return PAM_BUF_ERR;
       }
     }
   }              /* for (;*orig;) */

@@ -1,5 +1,10 @@
 2011-10-14  Kees Cook <kees@debian.org>
 
+	* modules/pam_env/pam_env.c (_expand_arg): Abort when encountering an
+	overflowed environment variable expansion.
+	Fixes CVE-2011-3149.
+	Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/pam/+bug/874565
+
 	* modules/pam_env/pam_env.c (_assemble_line): Correctly count leading
 	whitespace.
 	Fixes CVE-2011-3148.
