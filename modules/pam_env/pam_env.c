@@ -290,6 +290,7 @@ static int _assemble_line(FILE *f, char *buffer, int buf_len)
     char *p = buffer;
     char *s, *os;
     int used = 0;
+    int whitespace;
 
     /* loop broken with a 'break' when a non-'\\n' ended line is read */
 
@@ -312,8 +313,10 @@ static int _assemble_line(FILE *f, char *buffer, int buf_len)
 
 	/* skip leading spaces --- line may be blank */
 
-	s = p + strspn(p, " \n\t");
+	whitespace = strspn(p, " \n\t");
+	s = p + whitespace;
 	if (*s && (*s != '#')) {
+	    used += whitespace;
 	    os = s;
 
 	    /*
