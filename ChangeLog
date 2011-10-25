@@ -1,3 +1,12 @@
+2011-10-25  Thorsten Kukuk  <kukuk@thkukuk.de>
+
+	* release version 1.1.5
+
+	* configure.in: Bump version number.
+
+	* modules/pam_tally2/pam_tally2.8.xml: Remove never used option
+	"no_lock_time".
+
 2011-10-14  Kees Cook <kees@debian.org>
 
 	* modules/pam_env/pam_env.c (_expand_arg): Abort when encountering an

@@ -459,24 +459,33 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		goto cleanup;
 	}
 
-	/* Check that both users are amenable to this.  By default, this
-	 * boils down to this policy:
-	 * export(ruser=root): only if <user> is listed in .xauth/export
-	 * export(ruser=*) if <user> is listed in .xauth/export, or
-	 *                 if .xauth/export does not exist
-	 * import(user=*): if <ruser> is listed in .xauth/import, or
-	 *                 if .xauth/import does not exist */
-	i = (getuid() != 0 || tpwd->pw_uid == 0) ? PAM_SUCCESS : PAM_PERM_DENIED;
-	i = check_acl(pamh, "export", rpwd->pw_name, user, i, debug);
-	if (i != PAM_SUCCESS) {
-		retval = PAM_SESSION_ERR;
-		goto cleanup;
-	}
-	i = PAM_SUCCESS;
-	i = check_acl(pamh, "import", user, rpwd->pw_name, i, debug);
-	if (i != PAM_SUCCESS) {
-		retval = PAM_SESSION_ERR;
-		goto cleanup;
+
+	/* If current user and the target user are the same, don't
+	   check the ACL list, but forward X11 */
+	if (strcmp (rpwd->pw_name, tpwd->pw_name) != 0) {
+
+	  /* Check that both users are amenable to this.  By default, this
+	   * boils down to this policy:
+	   * export(ruser=root): only if <user> is listed in .xauth/export
+	   * export(ruser=*) if <user> is listed in .xauth/export, or
+	   *                 if .xauth/export does not exist
+	   * import(user=*): if <ruser> is listed in .xauth/import, or
+	   *                 if .xauth/import does not exist */
+	  i = (getuid() != 0 || tpwd->pw_uid == 0) ? PAM_SUCCESS : PAM_PERM_DENIED;
+	  i = check_acl(pamh, "export", rpwd->pw_name, user, i, debug);
+	  if (i != PAM_SUCCESS) {
+	    retval = PAM_SESSION_ERR;
+	    goto cleanup;
+	  }
+	  i = PAM_SUCCESS;
+	  i = check_acl(pamh, "import", user, rpwd->pw_name, i, debug);
+	  if (i != PAM_SUCCESS) {
+	    retval = PAM_SESSION_ERR;
+	    goto cleanup;
+	  }
+	}  else {
+	  if (debug)
+	    pam_syslog (pamh, LOG_DEBUG, "current and target user are the same, forward X11");
 	}
 
 	/* Figure out where the source user's .Xauthority file is. */

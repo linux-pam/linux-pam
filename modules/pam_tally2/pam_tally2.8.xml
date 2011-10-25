@@ -238,17 +238,6 @@
             </varlistentry>
             <varlistentry>
               <term>
-                <option>no_lock_time</option>
-              </term>
-              <listitem>
-                <para>
-                  Do not use the .fail_locktime field in
-                  <filename>/var/log/faillog</filename> for this user.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
                 <option>even_deny_root</option>
               </term>
               <listitem>
@@ -446,4 +435,3 @@ session  optional       pam_mail.so standard
   </refsect1>
 
 </refentry>
-
