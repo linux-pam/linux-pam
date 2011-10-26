@@ -25,7 +25,7 @@ static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 	    return PAM_BPC_FAIL;
 	}
     }
-    
+
     /* enough memory for any path + this agent */
     reset_length = 3 + pch->max_path + agent->id_length;
     D(("reset_length = %d (3+%d+%d)",
@@ -57,7 +57,7 @@ static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 	D(("no agent was found"));
 	goto free_and_return;
     }
-	
+
     if (pipe(to_agent)) {
 	D(("failed to open pipe to agent"));
 	goto free_and_return;
@@ -262,7 +262,7 @@ int pamc_load(pamc_handle_t pch, const char *agent_id)
 	D(("sorry agent is disabled"));
 	return PAM_BPC_FALSE;
     }
-    
+
     length = strlen(agent_id);
 
     /* scan list to see if agent is loaded */
@@ -296,7 +296,7 @@ int pamc_load(pamc_handle_t pch, const char *agent_id)
 
     agent->next = pch->chain;
     pch->chain = agent;
-    
+
     return PAM_BPC_TRUE;
 
 fail_free_agent_id:

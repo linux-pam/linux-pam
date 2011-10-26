@@ -194,16 +194,16 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 
 	    tok = _pam_StrTok(NULL, " \n\t", &nexttok);
 	    if (pam_include) {
-	    	if (substack) {
+		if (substack) {
 		    res = _pam_add_handler(pamh, PAM_HT_SUBSTACK, other,
-		    		stack_level, module_type, actions, tok,
-		    		0, NULL, 0);
+				stack_level, module_type, actions, tok,
+				0, NULL, 0);
 		    if (res != PAM_SUCCESS) {
 			pam_syslog(pamh, LOG_ERR, "error adding substack %s", tok);
 			D(("failed to load module - aborting"));
 			return PAM_ABORT;
-		    }  	    
-	    	}
+		    }
+		}
 		if (_pam_load_conf_file(pamh, tok, this_service, module_type,
 		    stack_level + substack
 #ifdef PAM_READ_BOTH_CONFS
@@ -625,7 +625,7 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
     struct loaded_module *mod;
 
     D(("_pam_load_module: loading module `%s'", mod_path));
-    
+
     mod = pamh->handlers.module;
 
     /* First, ensure the module is loaded */
@@ -774,12 +774,12 @@ int _pam_add_handler(pam_handle_t *pamh
 	    /* if we get here with NULL it means allocation error */
 	    return PAM_ABORT;
 	}
-	
+
 	mod_type = mod->type;
     }
-    
+
     if (mod_path == NULL)
-    	mod_path = UNKNOWN_MODULE;
+	mod_path = UNKNOWN_MODULE;
 
     /*
      * At this point 'mod' points to the stored/loaded module.

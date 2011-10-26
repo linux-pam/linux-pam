@@ -180,7 +180,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
 	    if (have_term)
 		nc = read(STDIN_FILENO, line, INPUTSIZE-1);
 	    else                             /* we must read one line only */
-    		for (nc = 0; nc < INPUTSIZE-1 && (nc?line[nc-1]:0) != '\n';
+		for (nc = 0; nc < INPUTSIZE-1 && (nc?line[nc-1]:0) != '\n';
 		     nc++) {
 		    int rv;
 		    if ((rv=read(STDIN_FILENO, line+nc, 1)) != 1) {

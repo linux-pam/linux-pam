@@ -100,7 +100,7 @@ struct login_info {
     const char *from;
     const char *config_file;
     const char *hostname;
-    int debug;              		/* Print debugging messages. */
+    int debug;				/* Print debugging messages. */
     int only_new_group_syntax;		/* Only allow group entries of the form "(xyz)" */
     int noaudit;			/* Do not audit denials */
     const char *fs;			/* field separator */
@@ -375,7 +375,7 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	    /* Allow field seperator in last field of froms */
 	    if (!(perm = strtok_r(line, item->fs, &sptr))
 		|| !(users = strtok_r(NULL, item->fs, &sptr))
-  	        || !(froms = strtok_r(NULL, "\n", &sptr))) {
+		|| !(froms = strtok_r(NULL, "\n", &sptr))) {
 		pam_syslog(pamh, LOG_ERR, "%s: line %d: bad field count",
 			   item->config_file, lineno);
 		continue;
@@ -398,8 +398,8 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 		    nonall_match = YES;
 		}
 		if (item->debug)
-	    	    pam_syslog (pamh, LOG_DEBUG,
-			  "from_match=%d, \"%s\"", match, item->from);
+		    pam_syslog (pamh, LOG_DEBUG,
+				"from_match=%d, \"%s\"", match, item->from);
 	    }
 	}
 	(void) fclose(fp);

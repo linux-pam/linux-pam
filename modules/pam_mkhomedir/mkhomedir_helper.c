@@ -272,8 +272,8 @@ create_homedir(const struct passwd *pwd,
       }
 
       /* Set the proper ownership and permissions for the module. We make
-       	 the file a+w and then mask it with the set mask. This preseves
-       	 execute bits */
+         the file a+w and then mask it with the set mask. This preseves
+	 execute bits */
       if (fchmod(destfd, (st.st_mode | 0222) & (~u_mask)) != 0 ||
 	  fchown(destfd, pwd->pw_uid, pwd->pw_gid) != 0)
       {
@@ -384,8 +384,8 @@ main(int argc, char *argv[])
 
    pwd = getpwnam(argv[1]);
    if (pwd == NULL) {
-   	pam_syslog(NULL, LOG_ERR, "User unknown.");
-   	return PAM_CRED_INSUFFICIENT;
+	pam_syslog(NULL, LOG_ERR, "User unknown.");
+	return PAM_CRED_INSUFFICIENT;
    }
 
    if (argc >= 3) {
@@ -399,11 +399,11 @@ main(int argc, char *argv[])
    }
 
    if (argc >= 4) {
-   	if (strlen(argv[3]) >= sizeof(skeldir)) {
+	if (strlen(argv[3]) >= sizeof(skeldir)) {
 		pam_syslog(NULL, LOG_ERR, "Too long skeldir path.");
 		return PAM_SESSION_ERR;
-   	}
-   	strcpy(skeldir, argv[3]);
+	}
+	strcpy(skeldir, argv[3]);
    }
 
    /* Stat the home directory, if something exists then we assume it is

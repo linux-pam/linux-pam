@@ -40,7 +40,7 @@
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_set_data</function> function associates a pointer
-      to an object with the (hopefully) unique string 
+      to an object with the (hopefully) unique string
       <emphasis>module_data_name</emphasis> in the PAM context specified
       by the <emphasis>pamh</emphasis> argument.
     </para>

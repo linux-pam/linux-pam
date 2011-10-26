@@ -35,7 +35,7 @@ struct pam_xauth_data {
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_xauth_data</function> structure contains X
-      authentication data used to make a connection to an X display.  
+      authentication data used to make a connection to an X display.
       Using this mechanism, an application can communicate X
       authentication data to PAM service modules.  This allows modules to
       make a connection to the user's X display in order to label the

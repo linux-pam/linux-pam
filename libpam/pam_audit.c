@@ -161,7 +161,7 @@ pam_modutil_audit_write(pam_handle_t *pamh, int type,
 {
   int audit_fd;
   int rc;
-	
+
   if ((audit_fd=_pam_audit_open(pamh)) == -1) {
     return PAM_SYSTEM_ERR;
   } else if (audit_fd == -2) {
@@ -171,7 +171,7 @@ pam_modutil_audit_write(pam_handle_t *pamh, int type,
   rc = _pam_audit_writelog(pamh, audit_fd, type, message, retval);
 
   audit_close(audit_fd);
-  
+
   return rc < 0 ? PAM_SYSTEM_ERR : PAM_SUCCESS;
 }
 

@@ -16,7 +16,7 @@
 #include <stdlib.h>
 
 static int intlen(int number)
-{ 
+{
     int len = 2;
     while (number != 0) {
         number /= 10;
@@ -62,7 +62,7 @@ pam_modutil_getgrnam(pam_handle_t *pamh, const char *group)
 	    int i;
 
 	    data_name = malloc(strlen("_pammodutil_getgrnam") + 1 +
-	    		       strlen(group) + 1 + intlen(INT_MAX) + 1);
+			       strlen(group) + 1 + intlen(INT_MAX) + 1);
 	    if ((pamh != NULL) && (data_name == NULL)) {
 	        D(("was unable to register the data item [%s]",
 	           pam_strerror(pamh, status)));
@@ -103,7 +103,7 @@ pam_modutil_getgrnam(pam_handle_t *pamh, const char *group)
                 /* no sense in repeating the call */
                 break;
         }
-	
+
 	length <<= PWD_LENGTH_SHIFT;
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
@@ -120,7 +120,7 @@ pam_modutil_getgrnam(pam_handle_t *pamh, const char *group)
      * Sorry, there does not appear to be a reentrant version of
      * getgrnam(). So, we use the standard libc function.
      */
-    
+
     return getgrnam(group);
 
 #endif /* def HAVE_GETGRNAM_R */

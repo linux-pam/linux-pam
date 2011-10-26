@@ -664,6 +664,6 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags,
 
     old_data = NULL;
     D(("done (%d)", retval));
-    
+
     return retval;
 }

@@ -16,13 +16,13 @@
  * 3. The name of the author may not be used to endorse or promote
  *    products derived from this software without specific prior
  *    written permission.
- * 
+ *
  * ALTERNATIVELY, this product may be distributed under the terms of
  * the GNU Public License, in which case the provisions of the GPL are
  * required INSTEAD OF the above restrictions.  (This clause is
  * necessary due to a potential bad interaction between the GPL and
  * the restrictions contained in a BSD-style copyright.)
- * 
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -140,4 +140,3 @@ struct pam_module _pam_unix_session_modstruct = {
     NULL,
 };
 #endif
-

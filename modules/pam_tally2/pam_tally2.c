@@ -159,7 +159,7 @@ static void
 log_phase_no_auth(pam_handle_t *pamh, int phase, const char *argv)
 {
     if ( phase != PHASE_AUTH ) {
-    	pam_syslog(pamh, LOG_ERR,
+	pam_syslog(pamh, LOG_ERR,
 		   "option %s allowed in auth phase only", argv);
     }
 }
@@ -407,7 +407,7 @@ get_tally(pam_handle_t *pamh, uid_t uid, const char *filename,
     if ((*tfile = open(filename, O_RDWR)) == -1) {
 #ifndef MAIN
       if (errno == EACCES) /* called with insufficient access rights */
-      	  return PAM_IGNORE;
+	  return PAM_IGNORE;
 #endif
       pam_syslog(pamh, LOG_ALERT, "Error opening %s for update: %m", filename);
 
@@ -418,7 +418,7 @@ skip_open:
     if (lseek(*tfile, (off_t)uid*(off_t)sizeof(*tally), SEEK_SET) == (off_t)-1) {
         pam_syslog(pamh, LOG_ALERT, "lseek failed for %s: %m", filename);
         if (!preopened) {
-    	    close(*tfile);
+	    close(*tfile);
             *tfile = -1;
         }
         return PAM_AUTH_ERR;
@@ -536,30 +536,30 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
         if (uid) {
             /* Unlock time check */
             if (opts->unlock_time && oldtime) {
-                if (opts->unlock_time + oldtime <= time(NULL)) 	{
+                if (opts->unlock_time + oldtime <= time(NULL)) {
                     /* ignore deny check after unlock_time elapsed */
 #ifdef HAVE_LIBAUDIT
                     snprintf(buf, sizeof(buf), "pam_tally2 uid=%u ", uid);
                     audit_log_user_message(audit_fd, AUDIT_RESP_ACCT_UNLOCK_TIMED, buf,
                                    NULL, NULL, NULL, 1);
 #endif
-      	            rv = PAM_SUCCESS;
-      		    goto cleanup;
-      	        }
+	            rv = PAM_SUCCESS;
+		    goto cleanup;
+	        }
             }
         } else {
             /* Root unlock time check */
             if (opts->root_unlock_time && oldtime) {
                 if (opts->root_unlock_time + oldtime <= time(NULL)) {
-      	            /* ignore deny check after unlock_time elapsed */
+	            /* ignore deny check after unlock_time elapsed */
 #ifdef HAVE_LIBAUDIT
                     snprintf(buf, sizeof(buf), "pam_tally2 uid=%u ", uid);
                     audit_log_user_message(audit_fd, AUDIT_RESP_ACCT_UNLOCK_TIMED, buf,
                                    NULL, NULL, NULL, 1);
 #endif
-      	            rv = PAM_SUCCESS;
-      	            goto cleanup;
-      	        }
+	            rv = PAM_SUCCESS;
+	            goto cleanup;
+	        }
             }
         }
 
@@ -597,7 +597,7 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
                          oldtime+opts->lock_time-time(NULL));
             }
 	    if (!(opts->ctrl & OPT_NOLOGNOTICE)) {
-      	    	pam_syslog(pamh, LOG_NOTICE,
+		pam_syslog(pamh, LOG_NOTICE,
 	               "user %s (%lu) has time limit [%lds left]"
 	               " since last failure.",
                        user, (unsigned long)uid,
@@ -605,7 +605,7 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
 	    }
 	    rv = PAM_AUTH_ERR;
 	    goto cleanup;
-      	}
+	}
     }
 
 cleanup:
@@ -648,10 +648,10 @@ tally_bump (int inc, time_t *oldtime, pam_handle_t *pamh,
 
     (void) pam_get_item(pamh, PAM_RHOST, &remote_host);
     if (!remote_host) {
-    	(void) pam_get_item(pamh, PAM_TTY, &remote_host);
+	(void) pam_get_item(pamh, PAM_TTY, &remote_host);
 	if (!remote_host) {
-    	    remote_host = "unknown";
-    	}
+	    remote_host = "unknown";
+	}
     }
 
     strncpy(tally.fail_line, remote_host,
@@ -1019,14 +1019,14 @@ main( int argc UNUSED, char **argv )
     FILE *tfile=fopen(cline_filename, "r");
     uid_t uid=0;
     if (!tfile  && cline_reset != 0) {
-    	perror(*argv);
-    	exit(1);
+	perror(*argv);
+	exit(1);
     }
 
     for ( ; tfile && !feof(tfile); uid++ ) {
       if ( !fread(&tally, sizeof(tally), 1, tfile)
 	   || !tally.fail_cnt ) {
-      	 continue;
+	 continue;
       }
       print_one(&tally, uid);
     }

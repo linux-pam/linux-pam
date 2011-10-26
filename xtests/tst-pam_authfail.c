@@ -60,14 +60,14 @@ main(int argc, char *argv[])
   if (argc > 2) {
     stack = argv[2];
   }
-  
+
   if (argc > 1) {
     if (strcmp (argv[1], "-d") == 0)
       debug = 1;
     else
       stack = argv[1];
   }
-    
+
 
   retval = pam_start(stack, user, &conv, &pamh);
   if (retval != PAM_SUCCESS)

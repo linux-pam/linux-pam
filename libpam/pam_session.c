@@ -24,7 +24,7 @@ int pam_open_session(pam_handle_t *pamh, int flags)
 
 #ifdef HAVE_LIBAUDIT
     retval = _pam_auditlog(pamh, PAM_OPEN_SESSION, retval, flags);
-#endif                                                                                
+#endif
     return retval;
 }
 

@@ -6,8 +6,8 @@
 #include <security/pam_appl.h>
 #include <security/pam_client.h>
 
-#ifdef __cplusplus 
-extern "C" { 
+#ifdef __cplusplus
+extern "C" {
 #endif /* __cplusplus */
 
 /* include some useful macros */

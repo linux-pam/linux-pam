@@ -89,17 +89,17 @@ verify_pwd_hash(const char *p, char *hash, unsigned int nullok)
 	} else {
 		if (!strncmp(hash, "$1$", 3)) {
 			pp = Goodcrypt_md5(p, hash);
-		    	if (pp && strcmp(pp, hash) != 0) {
+			if (pp && strcmp(pp, hash) != 0) {
 				_pam_delete(pp);
 				pp = Brokencrypt_md5(p, hash);
-		    	}
+			}
 		} else if (*hash != '$' && hash_len >= 13) {
-		    	pp = bigcrypt(p, hash);
-		    	if (pp && hash_len == 13 && strlen(pp) > hash_len) {
+			pp = bigcrypt(p, hash);
+			if (pp && hash_len == 13 && strlen(pp) > hash_len) {
 				_pam_overwrite(pp + hash_len);
-		    	}
+			}
 		} else {
-                	/*
+			/*
 			 * Ok, we don't know the crypt algorithm, but maybe
 			 * libcrypt knows about it? We should try it.
 			 */
@@ -448,12 +448,12 @@ unix_selinux_confined(void)
     char tempfile[]="/etc/.pwdXXXXXX";
 
     if (confined != -1)
-    	return confined;
+	return confined;
 
     /* cannot be confined without SELinux enabled */
     if (!SELINUX_ENABLED){
-       	confined = 0;
-       	return confined;
+	confined = 0;
+	return confined;
     }
 
     /* let's try opening shadow read only */
@@ -633,7 +633,7 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 	    char *sptr = NULL;
 	    found = 1;
 	    if (howmany == 0)
-	    	continue;
+		continue;
 	    buf[strlen(buf) - 1] = '\0';
 	    s_luser = strtok_r(buf, ":", &sptr);
 	    s_uid = strtok_r(NULL, ":", &sptr);

@@ -312,7 +312,7 @@ void _pam_parse_control(int *control_array, char *tok)
 		break;
 	    }
 	}
- 	if (act > 0) {
+	if (act > 0) {
 	    /*
 	     * Either we have a number or we have hit an error.  In
 	     * principle, there is nothing to stop us accepting

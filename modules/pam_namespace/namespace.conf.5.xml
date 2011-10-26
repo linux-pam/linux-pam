@@ -61,7 +61,7 @@
     <para>
       The second field, <replaceable>instance_prefix</replaceable> is
       the string prefix used to build the pathname for the instantiation
-      of &lt;polydir&gt;. Depending on the polyinstantiation 
+      of &lt;polydir&gt;. Depending on the polyinstantiation
       <replaceable>method</replaceable> it is then appended with
       "instance differentiation string" to generate the final
       instance directory path. This directory is created if it did not exist
@@ -75,7 +75,7 @@
     <para>
       The third field, <replaceable>method</replaceable>, is the method
       used for polyinstantiation. It can take these values; "user"
-      for polyinstantiation based on user name, "level" for 
+      for polyinstantiation based on user name, "level" for
       polyinstantiation based on process MLS level and user name, "context" for
       polyinstantiation based on process security context and user name,
       "tmpfs" for mounting tmpfs filesystem as an instance dir, and
@@ -97,7 +97,7 @@
       The <replaceable>method</replaceable> field can contain also following
       optional flags separated by <emphasis>:</emphasis> characters.
     </para>
-    
+
     <para><emphasis>create</emphasis>=<replaceable>mode</replaceable>,<replaceable>owner</replaceable>,<replaceable>group</replaceable>
       - create the polyinstantiated directory. The mode, owner and group parameters
       are optional. The default for mode is determined by umask, the default

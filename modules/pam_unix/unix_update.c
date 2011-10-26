@@ -62,7 +62,7 @@ set_password(const char *forwho, const char *shadow, const char *remember)
     }
 
     if (lock_pwdf() != PAM_SUCCESS)
-    	return PAM_AUTHTOK_LOCK_BUSY;
+	return PAM_AUTHTOK_LOCK_BUSY;
 
     pwd = getpwnam(forwho);
 

@@ -74,7 +74,7 @@ pam_modutil_user_in_group_common(pam_handle_t *pamh UNUSED,
 	return 0;
 }
 
-int 
+int
 pam_modutil_user_in_group_nam_nam(pam_handle_t *pamh,
 				 const char *user, const char *group)
 {

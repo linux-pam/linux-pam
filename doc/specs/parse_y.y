@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-    
+
 #define MAXLINE  1000
 #define INDENT_STRING "  "
 #define PAPER_WIDTH   74
@@ -86,7 +86,7 @@ doc:
     printf("%s%s%s", $2, fixed, $4);
     free($2);
     free($4);
-    
+
     l = (len+1)/2;
     memset(fixed, ' ', l);
     fixed[l] = '\0';
@@ -113,7 +113,7 @@ doc:
     printf("%s%s%s", $2, fixed, $4);
     free($2);
     free($4);
-    
+
     l = (len+1)/2;
     memset(fixed, ' ', l);
     fixed[l] = '\0';
@@ -281,7 +281,7 @@ char *new_counter(const char *key)
     sprintf(new+j, "%d", ++i);
 
     counter_root = set_key(counter_root, key, new);
-    
+
     if (last_label) {
 	free(last_label);
     }

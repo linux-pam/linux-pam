@@ -85,11 +85,11 @@ match_process_uid(pid_t pid, uid_t uid)
 	uid_t puid;
 	FILE *f;
 	int re = 0;
-	
+
 	snprintf (buf, sizeof buf, PROC_BASE "/%d/status", pid);
 	if (!(f = fopen (buf, "r")))
 		return 0;
-	
+
 	while (fgets(buf, sizeof buf, f)) {
 		if (sscanf (buf, "Uid:\t%d", &puid)) {
 			re = uid == puid;
@@ -246,9 +246,9 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 	int matched = 0;
 	int exclusive = 0;
 	int ignore = 0;
-	
+
 	f = fopen(cfgfile, "r");
-	
+
 	if (!f) {
 		pam_syslog(pamh, LOG_ERR, "Failed to open config file %s: %m", cfgfile);
 		return PAM_SERVICE_ERR;
@@ -276,7 +276,7 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 		start = strtok_r(start, OPT_DELIM, &sptr);
 
 		switch (start[0]) {
-			case '@': 
+			case '@':
 				++start;
 				if (debug)
 					pam_syslog(pamh, LOG_NOTICE, "Matching user %s against group %s", user, start);
@@ -411,9 +411,9 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 }
 
 #ifdef PAM_STATIC
-    
+
 /* static module data */
-    
+
 struct pam_module _pam_sepermit_modstruct = {
     "pam_sepermit",
     pam_sm_authenticate,
@@ -424,4 +424,3 @@ struct pam_module _pam_sepermit_modstruct = {
     NULL
 };
 #endif
-

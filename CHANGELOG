@@ -129,17 +129,17 @@ bug report - outstanding bugs are listed here:
 * libpam: Fix debug code (kukuk)
 * pam_limits: Fix order of LIMITS_DEF_* priorities (kukuk)
 * pam_xauth: preserve DISPLAY variable (Novell #66885 - kukuk)
-* libpam: Add prelude ids (http://www.prelude-ids.org) support, 
+* libpam: Add prelude ids (http://www.prelude-ids.org) support,
   as experimental. (toady)
-* configure: Add the directory where new versions of cracklib is 
-  installed (from Jim Gifford - toady) 
+* configure: Add the directory where new versions of cracklib is
+  installed (from Jim Gifford - toady)
 * libpamc: Use standard u_intX_t types instead of __uX (kukuk)
 
 0.78: Do Nov 18 14:48:36 CET 2004
 
 * pam_unix: change the order of trying password changes - local first,
   NIS second (t8m)
-* pam_wheel: add option only_root to make it affect authentication 
+* pam_wheel: add option only_root to make it affect authentication
   to root account only
 * pam_unix: test return values on renaming files and report error to
   syslog and to user
@@ -175,7 +175,7 @@ bug report - outstanding bugs are listed here:
   The whole idea is to create few "systemwide" pam configs and include
   parts of them in application pam configs.
   (patch by "Dmitry V. Levin" <ldv@altlinux.org>) (Bug 812567 - baggins).
-* doc/modules/pam_mkhomedir.sgml: Remove wrong debug options 
+* doc/modules/pam_mkhomedir.sgml: Remove wrong debug options
   (Bug 591605 - kukuk)
 * pam_unix: Call password checking helper whenever the password field
   contains only one character (Bug 1027903 - kukuk)
@@ -1050,7 +1050,7 @@ libpam. Prior versions were buggy - see bugfix for Bug 129775.
 	  (otherwise /etc/pam.conf is treated as before)
 	- given /etc/pam.d/
 	  . config files are named (in lower case) by service-name
-	  . config files have same syntax as /etc/pam.conf except	
+	  . config files have same syntax as /etc/pam.conf except
 	    that the "service-name" field is not present. (there
 	    are thus three manditory fields (and arguments are
 	    optional):
@@ -1207,7 +1207,7 @@ Sat Nov 30 19:30:20 PST 1996, Andrew Morgan <morgan@parc.power.net>
   also some coverage of libpam_misc in the App. Developers' guide.
 
 * Cristian's patches to pam_limits and pam_pwdb. Fixing bugs. (MORE added)
-  
+
 * adopted Cristian's _pam_macros.h file to help with common macros and
   debugging stuff, gone through tree tidying up debugging lines to use
   this [not complete].
@@ -1287,7 +1287,7 @@ A brief summary of what has changed:
 
 * removed <bf/ .. / from documentation titles. This was not giving
   politically correct html..
- 
+
 ----- My vvvvvvvvvvvvvvvvvvv was a long time ago ;*] -----
 
 Wed Sep  4 23:57:19 PDT 1996 (Andrew Morgan <morgan@physics.ucla.edu>
@@ -1345,7 +1345,7 @@ PASSWD  - Elliot's account management included, and enhanced by Cristian Gafton.
 
   *** If anyone has any trouble, please *say*. Your problem will be
       fixed in the next release. Also please feel free to scour the
-      code for race conditions etc... 
+      code for race conditions etc...
 
 [* The above change requires that you purge your /usr/lib/security
    directory of the old pam_unix_XXX.so modules: they will NOT be deleted
@@ -1533,7 +1533,7 @@ CFLAGS* added 'make sterile' to top level makefile. This does extraclean and rem
   future documentation of static module support in pam_modules.sgml)
 * libpam; many changes to makefiles and also automated the inclusion of
   static module objects in pam_static.c
-* modified modules for automated static/dynamic support. Added static & 
+* modified modules for automated static/dynamic support. Added static &
   dynamic subdirectories, as instructed by Michael
 * removed an annoying syslog message from pam_filter: "parent exited.."
 * updated todo list (anyone know anything about svgalib/X? we probably should
@@ -1763,4 +1763,3 @@ Sat Feb 17 17:30:24 EST 1996 (Alexander O. Yuriev alex@bach.cis.temple.edu)
 	* stable code from pam_unix is added to modules/pam_unix
 	* test/test.c now requests username and password and attempts
 	  to perform authentication
-

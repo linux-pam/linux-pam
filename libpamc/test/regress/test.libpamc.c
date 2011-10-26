@@ -172,7 +172,7 @@ void prompt_to_packet(pamc_bp_t prompt, struct internal_packet *packet)
     data_length = PAM_BP_LENGTH(prompt);
     packet->at = 0;
     append_data(packet, data_length, NULL);
-    
+
     PAM_BP_EXTRACT(prompt, 0, data_length, packet->buffer);
 
     fprintf(stderr, "server received[%d]: {%d|0x%.2x|%s}\n",
@@ -332,7 +332,7 @@ int main(int argc, char **argv)
 		digest);
     }
 
-    
+
     retval = pamc_end(&pch);
 
     fprintf(stderr, "server: agent(s) were %shappy to terminate\n",

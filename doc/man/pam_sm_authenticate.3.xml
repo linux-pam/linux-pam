@@ -62,7 +62,7 @@
             Return <emphasis remap='B'>PAM_AUTH_ERR</emphasis> if the
             database of authentication tokens for this authentication
             mechanism has a <emphasis>NULL</emphasis> entry for the user.
-            Without this flag, such a <emphasis>NULL</emphasis> token 
+            Without this flag, such a <emphasis>NULL</emphasis> token
             will lead to a success without the user being prompted.
           </para>
         </listitem>
@@ -95,7 +95,7 @@
         <listitem>
           <para>
             The modules were not able to access the authentication
-            information. This might be due to a network or hardware 
+            information. This might be due to a network or hardware
             failure etc.
           </para>
         </listitem>

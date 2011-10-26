@@ -21,7 +21,7 @@
 
     <para>
       The <filename>/etc/security/pam_env.conf</filename> file specifies
-      the environment variables to be set, unset or modified by 
+      the environment variables to be set, unset or modified by
       <citerefentry><refentrytitle>pam_env</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
       When someone logs in, this file is read and the environment
       variables are set according.

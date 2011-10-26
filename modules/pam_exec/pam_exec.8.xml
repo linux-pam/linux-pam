@@ -123,8 +123,8 @@
           </term>
           <listitem>
             <para>
-  	      Per default pam_exec.so will echo the exit status of the
-     	      external command if it fails.
+              Per default pam_exec.so will echo the exit status of the
+              external command if it fails.
               Specifying this option will suppress the message.
             </para>
           </listitem>
@@ -136,8 +136,8 @@
           </term>
           <listitem>
             <para>
-  	      Per default pam_exec.so will execute the external command
-     	      with the real user ID of the calling process.
+              Per default pam_exec.so will execute the external command
+              with the real user ID of the calling process.
               Specifying this option means the command is run
               with the effective user ID.
             </para>

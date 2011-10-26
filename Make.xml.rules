@@ -22,4 +22,3 @@ README: README.xml
 	$(XSLTPROC) -o $(srcdir)/$@ --path $(srcdir) --xinclude --nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
 
 #CLEANFILES += $(man_MANS) README
-

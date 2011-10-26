@@ -19,4 +19,3 @@ releasedocs: all
 	make -C sag releasedocs
 	make -C adg releasedocs
 	make -C mwg releasedocs
-	

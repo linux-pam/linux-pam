@@ -10,4 +10,3 @@ application it might be a place to start...
 
 xsh is new as of Linux-PAM-0.31, it is identical to blank, but invokes
 /bin/sh if the user is authenticated.
-

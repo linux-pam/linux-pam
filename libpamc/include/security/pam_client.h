@@ -121,7 +121,7 @@ do {                                                                       \
                                                                            \
 	    __size = PAM_BP_MIN_SIZE + data_length;                        \
 	    if ((*(old_p) = PAM_BP_CALLOC(1, 1+__size))) {                 \
- 		__PAM_BP_WOCTET(*(old_p), 3) =  __size      & 0xFF;        \
+		__PAM_BP_WOCTET(*(old_p), 3) =  __size      & 0xFF;        \
 		__PAM_BP_WOCTET(*(old_p), 2) = (__size>>=8) & 0xFF;        \
 		__PAM_BP_WOCTET(*(old_p), 1) = (__size>>=8) & 0xFF;        \
 		__PAM_BP_WOCTET(*(old_p), 0) = (__size>>=8) & 0xFF;        \

@@ -6,4 +6,3 @@ creates the pam.d/ directory in the current directory.
 The program will fail if ./pam.d/ already exists.
 
 Andrew Morgan, February 1997
-

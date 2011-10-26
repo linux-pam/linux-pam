@@ -227,7 +227,7 @@ o Anyone can define additional agents by using names in the format
   your agent has as an identifier, they you are entitled to use
   this identifier.) It is up to each domain how it manages its local
   namespace.
- 
+
 The '/' character is a mandatory delimiter, indicating the end of the
 agent_id. The trailing data is of a format specific to the agent with
 the given agent_id.
@@ -377,7 +377,7 @@ conversation function with which it encapsulates module-generated
 requests and exchanges them with the client. Every message sent by a
 module should be acknowledged.
 
-General conversation functions can support the following five 
+General conversation functions can support the following five
 conversation requests:
 
    echo text string
@@ -617,7 +617,7 @@ Following a call to pamc_end, the pamc_handle_t will be invalid.
 
 The return value for this function is one of the following:
 
-  	PAM_BPC_TRUE	- all invoked agents are content with
+	PAM_BPC_TRUE	- all invoked agents are content with
 			  authentication (the server is _not_ judged
 			  _un_trustworthy by any agent)
 

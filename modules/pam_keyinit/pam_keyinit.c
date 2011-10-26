@@ -266,4 +266,3 @@ struct pam_module _pam_keyinit_modstruct = {
      NULL
 };
 #endif
-

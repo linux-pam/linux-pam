@@ -45,4 +45,3 @@ else
 fi
 AC_MSG_RESULT($ac_cv___attribute__)
 ])
-

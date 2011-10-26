@@ -8,7 +8,7 @@ $Id$
 - temporarily removed the crypt16 stuff. I'm really paranoid about
   crypto stuff and exporting it, and there are a few too many 's-box'
   references in the code for my liking..
- 
+
 * Wed Jun 30 1999 Steve Langasek <vorlon@netexpress.net>
 - further NIS+ fixes
 
@@ -50,6 +50,5 @@ $Id$
   is too lame to use it in real life)
 
 * Sun Mar 21 1999 Jan Rêkorajski <baggins@mimuw.edu.pl>
-- pam_unix_auth now correctly behave when user has NULL AUTHTOK 
+- pam_unix_auth now correctly behave when user has NULL AUTHTOK
 - pam_unix_auth returns PAM_PERM_DENIED when seteuid fails
-

@@ -47,5 +47,3 @@ int main(void)
     pam_end(pamh, res);
     exit(0);
 }
-
-

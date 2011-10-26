@@ -62,7 +62,7 @@ _pam_report (const pam_handle_t *pamh, int ctrl, const char *name,
 	  pam_syslog(pamh, LOG_DEBUG, "CALLED: %s", name);
 	  pam_syslog(pamh, LOG_DEBUG, "FLAGS : 0%o%s",
 		     flags, (flags & PAM_SILENT) ? " (silent)":"");
- 	  pam_syslog(pamh, LOG_DEBUG, "CTRL  = 0%o", ctrl);
+	  pam_syslog(pamh, LOG_DEBUG, "CTRL  = 0%o", ctrl);
 	  pam_syslog(pamh, LOG_DEBUG, "ARGV  :");
 	  while (argc--) {
 	       pam_syslog(pamh, LOG_DEBUG, " \"%s\"", *argv++);

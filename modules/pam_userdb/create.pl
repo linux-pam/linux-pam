@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# this program creates a database in ARGV[1] from pairs given on 
+# this program creates a database in ARGV[1] from pairs given on
 # stdandard input
 #
 # $Id$
@@ -19,5 +19,3 @@ while (<STDIN>) {
   $lusers{$user} = $pass;
 }
 untie %lusers;
-
-

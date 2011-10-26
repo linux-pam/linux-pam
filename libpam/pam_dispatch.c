@@ -261,16 +261,16 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 		    if (impression == _PAM_UNDEF
 			|| (impression == _PAM_POSITIVE
 			    && status == PAM_SUCCESS) ) {
-                	if ( retval != PAM_IGNORE || cached_retval == retval ) {
+			if ( retval != PAM_IGNORE || cached_retval == retval ) {
 			    impression = _PAM_POSITIVE;
-                    	    status = retval;
-                	}
+			    status = retval;
+			}
 		    }
 		}
 
 		/* this means that we need to skip #action stacked modules */
 		while (h->next != NULL && h->next->stack_level >= stack_level && action > 0) {
- 		    do {
+		    do {
 			h = h->next;
 			++depth;
 		    } while (h->next != NULL && h->next->stack_level > stack_level);

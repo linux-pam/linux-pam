@@ -2,7 +2,7 @@
 #ifndef _PAM_USERSDB_H
 #define _PAM_USERSDB_H
 /* $Id$ */
-   
+
 /* Header files */
 #include <security/pam_appl.h>
 

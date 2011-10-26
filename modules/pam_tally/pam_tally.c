@@ -134,7 +134,7 @@ static void
 log_phase_no_auth(pam_handle_t *pamh, int phase, const char *argv)
 {
     if ( phase != PHASE_AUTH ) {
-    	pam_syslog(pamh, LOG_ERR,
+	pam_syslog(pamh, LOG_ERR,
 		   "option %s allowed in auth phase only", argv);
     }
 }
@@ -194,12 +194,12 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
       else if ( ! strcmp( *argv, "per_user" ) )
       {
 	log_phase_no_auth(pamh, phase, *argv);
-      	opts->ctrl |= OPT_PER_USER;
+	opts->ctrl |= OPT_PER_USER;
       }
       else if ( ! strcmp( *argv, "no_lock_time") )
       {
 	log_phase_no_auth(pamh, phase, *argv);
-      	opts->ctrl |= OPT_NO_LOCK_TIME;
+	opts->ctrl |= OPT_NO_LOCK_TIME;
       }
       else if ( ! strcmp( *argv, "no_reset" ) ) {
         opts->ctrl |= OPT_NO_RESET;
@@ -463,19 +463,19 @@ tally_bump (int inc, time_t *oldtime, pam_handle_t *pamh,
     (void) pam_get_item(pamh, PAM_RHOST, &remote_host);
     if (!remote_host) {
 
-    	(void) pam_get_item(pamh, PAM_TTY, &cur_tty);
+	(void) pam_get_item(pamh, PAM_TTY, &cur_tty);
 	if (!cur_tty) {
-    	    strncpy(fsp->fs_faillog.fail_line, "unknown",
+	    strncpy(fsp->fs_faillog.fail_line, "unknown",
 		    sizeof(fsp->fs_faillog.fail_line) - 1);
 	    fsp->fs_faillog.fail_line[sizeof(fsp->fs_faillog.fail_line)-1] = 0;
 	} else {
-    	    strncpy(fsp->fs_faillog.fail_line, cur_tty,
+	    strncpy(fsp->fs_faillog.fail_line, cur_tty,
 		    sizeof(fsp->fs_faillog.fail_line)-1);
 	    fsp->fs_faillog.fail_line[sizeof(fsp->fs_faillog.fail_line)-1] = 0;
 	}
 
     } else {
-    	strncpy(fsp->fs_faillog.fail_line, remote_host,
+	strncpy(fsp->fs_faillog.fail_line, remote_host,
 		(size_t)sizeof(fsp->fs_faillog.fail_line));
 	fsp->fs_faillog.fail_line[sizeof(fsp->fs_faillog.fail_line)-1] = 0;
     }
@@ -534,8 +534,8 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
       if (lock_time && oldtime
 	  && !(opts->ctrl & OPT_NO_LOCK_TIME) )
       {
-      	if ( lock_time + oldtime > time(NULL) )
-      	{
+	if ( lock_time + oldtime > time(NULL) )
+	{
 	  if (!(opts->ctrl & OPT_SILENT))
 	       pam_info (pamh,
 			 _("Account temporary locked (%ld seconds left)"),
@@ -543,19 +543,19 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
 
 	  if (!(opts->ctrl & OPT_NOLOGNOTICE))
 	       pam_syslog (pamh, LOG_NOTICE,
-		 	   "user %s (%lu) has time limit [%lds left]"
+			   "user %s (%lu) has time limit [%lds left]"
 			   " since last failure.",
 			   user, (unsigned long int) uid,
 			   oldtime+lock_time-time(NULL));
-      		return PAM_AUTH_ERR;
-      	}
+		return PAM_AUTH_ERR;
+	}
       }
       if (opts->unlock_time && oldtime)
       {
-      	if ( opts->unlock_time + oldtime <= time(NULL) )
-      	{       /* ignore deny check after unlock_time elapsed */
-      		return PAM_SUCCESS;
-      	}
+	if ( opts->unlock_time + oldtime <= time(NULL) )
+	{       /* ignore deny check after unlock_time elapsed */
+		return PAM_SUCCESS;
+	}
       }
       if (
         ( deny != 0 ) &&                     /* deny==0 means no deny        */
@@ -599,8 +599,8 @@ tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts)
 
     if (tally == 0)
     {
-    	fsp->fs_faillog.fail_time = (time_t) 0;
-    	strcpy(fsp->fs_faillog.fail_line, "");
+	fsp->fs_faillog.fail_time = (time_t) 0;
+	strcpy(fsp->fs_faillog.fail_line, "");
     }
 
     i=set_tally(pamh, tally, uid, opts->filename, &TALLY, fsp);
@@ -866,8 +866,8 @@ int main ( int argc UNUSED, char **argv )
       if ( ! fread((char *) &fsp->fs_faillog,
 		   sizeof (struct faillog), 1, TALLY)
 	   || ! fsp->fs_faillog.fail_cnt ) {
-      	continue;
-      	}
+	continue;
+      }
       tally = fsp->fs_faillog.fail_cnt;
 
       if ( ( pw=getpwuid(uid) ) ) {

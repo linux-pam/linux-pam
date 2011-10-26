@@ -13,4 +13,3 @@
 void prelude_send_alert(pam_handle_t *pamh, int authval);
 
 #endif /* _SECURITY_PAM_PRELUDE_H */
-

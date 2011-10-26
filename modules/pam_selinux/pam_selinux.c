@@ -142,7 +142,7 @@ query_response (pam_handle_t *pamh, const char *text, const char *def,
 		char **response, int debug)
 {
   int rc;
-  if (def) 
+  if (def)
     rc = pam_prompt (pamh, PAM_PROMPT_ECHO_ON, response, "%s [%s] ", text, def);
   else
     rc = pam_prompt (pamh, PAM_PROMPT_ECHO_ON, response, "%s ", text);
@@ -150,7 +150,7 @@ query_response (pam_handle_t *pamh, const char *text, const char *def,
   if (*response == NULL) {
     rc = PAM_CONV_ERR;
   }
-  
+
   if (rc != PAM_SUCCESS) {
     pam_syslog(pamh, LOG_WARNING, "No response to query: %s", text);
   } else  if (debug)
@@ -190,11 +190,11 @@ manual_context (pam_handle_t *pamh, const char *user, int debug)
 	/* Allow the user to enter each field of the context individually */
 	if (query_response(pamh, _("role:"), NULL, &response, debug) == PAM_SUCCESS &&
 	    response[0] != '\0') {
-	   if (context_role_set (new_context, response)) 
+	   if (context_role_set (new_context, response))
               goto fail_set;
-	   if (get_default_type(response, &type)) 
+	   if (get_default_type(response, &type))
               goto fail_set;
-	   if (context_type_set (new_context, type)) 
+	   if (context_type_set (new_context, type))
               goto fail_set;
 	   _pam_drop(type);
 	}
@@ -283,7 +283,7 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
 
   while (1) {
     if (query_response(pamh,
-		   _("Would you like to enter a different role or level?"), "n", 
+		   _("Would you like to enter a different role or level?"), "n",
 		   &response, debug) == PAM_SUCCESS) {
 	resp_val = response[0];
 	_pam_drop(response);
@@ -293,22 +293,22 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
     if ((resp_val == 'y') || (resp_val == 'Y'))
       {
         if ((new_context = context_new(defaultcon)) == NULL)
-    	    goto fail_set;
+	    goto fail_set;
 
 	/* Allow the user to enter role and level individually */
-	if (query_response(pamh, _("role:"), context_role_get(new_context), 
+	if (query_response(pamh, _("role:"), context_role_get(new_context),
 		       &response, debug) == PAM_SUCCESS && response[0]) {
 	  if (get_default_type(response, &type)) {
 	    pam_prompt (pamh, PAM_ERROR_MSG, NULL, _("No default type for role %s\n"), response);
 	    _pam_drop(response);
 	    continue;
 	  } else {
-	    if (context_role_set(new_context, response)) 
+	    if (context_role_set(new_context, response))
 	      goto fail_set;
 	    if (context_type_set (new_context, type))
 	      goto fail_set;
 	    _pam_drop(type);
-	  } 
+	  }
 	}
 	_pam_drop(response);
 
@@ -320,9 +320,9 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
 
 		if (getcon(&mycon) != 0)
 		    goto fail_set;
-    		my_context = context_new(mycon);
+		my_context = context_new(mycon);
 	        if (my_context == NULL) {
-    		    freecon(mycon);
+		    freecon(mycon);
 		    goto fail_set;
 		}
 		freecon(mycon);
@@ -331,11 +331,11 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
 		    goto fail_set;
 		}
 		context_free(my_context);
-	    } else if (query_response(pamh, _("level:"), context_range_get(new_context), 
+	    } else if (query_response(pamh, _("level:"), context_range_get(new_context),
 			   &response, debug) == PAM_SUCCESS && response[0]) {
 		if (context_range_set(new_context, response))
 		    goto fail_set;
-	    } 
+	    }
 	    _pam_drop(response);
 	  }
 
@@ -355,7 +355,7 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
           if (mls_enabled && !mls_range_allowed(pamh, defaultcon, newcon, debug)) {
 	    pam_syslog(pamh, LOG_NOTICE, "Security context %s is not allowed for %s", defaultcon, newcon);
 
-    	    send_audit_message(pamh, 0, defaultcon, newcon);
+	    send_audit_message(pamh, 0, defaultcon, newcon);
 
 	    free(newcon);
             goto fail_range;
@@ -380,7 +380,7 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
   context_free (new_context);
   send_audit_message(pamh, 0, defaultcon, NULL);
  fail_range:
-  return NULL;  
+  return NULL;
 }
 
 static security_context_t
@@ -405,7 +405,7 @@ context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_par
 	pam_syslog(pamh, LOG_NOTICE, "No default type for role %s", env);
 	goto fail_set;
     } else {
-	if (context_role_set(new_context, env)) 
+	if (context_role_set(new_context, env))
 	    goto fail_set;
 	if (context_type_set(new_context, type))
 	    goto fail_set;
@@ -449,7 +449,7 @@ context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_par
 
   if (debug)
     pam_syslog(pamh, LOG_NOTICE, "Selected Security Context %s", newcon);
-  
+
   /* Get the string value of the context and see if it is valid. */
   if (security_check_context(newcon)) {
     pam_syslog(pamh, LOG_NOTICE, "Not a valid security context %s", newcon);
@@ -623,7 +623,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
       env_params = 1;
     }
   }
-  
+
   if (debug)
     pam_syslog(pamh, LOG_NOTICE, "Open Session");
 
@@ -656,9 +656,9 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 #else
   if (getseuserbyname(username, &seuser, &level) == 0) {
 #endif
-	  num_contexts = get_ordered_context_list_with_level(seuser, 
+	  num_contexts = get_ordered_context_list_with_level(seuser,
 							     level,
-							     NULL, 
+							     NULL,
 							     &contextlist);
 	  if (debug)
 		  pam_syslog(pamh, LOG_DEBUG, "Username= %s SELinux User = %s Level= %s",
@@ -692,7 +692,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
           return PAM_SUCCESS;
     }
   }
-  else { 
+  else {
       if (seuser != NULL) {
 	user_context = manual_context(pamh,seuser,debug);
 	free(seuser);

@@ -135,7 +135,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state)
 	    return -1;
 	}
     }
- 
+
 
     if (*from > 0)
 	to = shift_buf(*buf, *from);
@@ -652,7 +652,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 #ifdef HAVE_LIBAUDIT
 	if (!(ctrl & PAM_NO_AUDIT)) {
             pam_modutil_audit_write(pamh, AUDIT_ANOM_LOGIN_TIME,
-            	    "pam_time", rv); /* ignore return value as we fail anyway */
+		    "pam_time", rv); /* ignore return value as we fail anyway */
         }
 #endif
 	if (ctrl & PAM_DEBUG_ARG) {

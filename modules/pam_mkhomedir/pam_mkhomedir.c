@@ -140,7 +140,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
           if (rlim.rlim_max >= MAX_FD_NO)
                 rlim.rlim_max = MAX_FD_NO;
 	  for (i=0; i < (int)rlim.rlim_max; i++) {
-	  	close(i);
+		close(i);
 	  }
 	}
 

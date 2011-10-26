@@ -16,7 +16,7 @@
 #include <stdlib.h>
 
 static int intlen(int number)
-{ 
+{
     int len = 2;
     while (number != 0) {
         number /= 10;
@@ -26,7 +26,7 @@ static int intlen(int number)
 }
 
 static int longlen(long number)
-{ 
+{
     int len = 2;
     while (number != 0) {
         number /= 10;
@@ -72,7 +72,7 @@ pam_modutil_getgrgid(pam_handle_t *pamh, gid_t gid)
 	    int i;
 
 	    data_name = malloc(strlen("_pammodutil_getgrgid") + 1 +
-	    		       longlen((long)gid) + 1 + intlen(INT_MAX) + 1);
+			       longlen((long)gid) + 1 + intlen(INT_MAX) + 1);
 	    if ((pamh != NULL) && (data_name == NULL)) {
 	        D(("was unable to register the data item [%s]",
 	           pam_strerror(pamh, status)));
@@ -83,7 +83,7 @@ pam_modutil_getgrgid(pam_handle_t *pamh, gid_t gid)
 	    if (pamh != NULL) {
 	        for (i = 0; i < INT_MAX; i++) {
 	            sprintf(data_name, "_pammodutil_getgrgid_%ld_%d",
-		   	    (long) gid, i);
+			    (long) gid, i);
 		    status = PAM_NO_MODULE_DATA;
 	            if (pam_get_data(pamh, data_name, &ignore) != PAM_SUCCESS) {
 		        status = pam_set_data(pamh, data_name,
@@ -114,7 +114,7 @@ pam_modutil_getgrgid(pam_handle_t *pamh, gid_t gid)
 		/* no sense in repeating the call */
 		break;
 	}
-	
+
 	length <<= PWD_LENGTH_SHIFT;
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
@@ -131,7 +131,7 @@ pam_modutil_getgrgid(pam_handle_t *pamh, gid_t gid)
      * Sorry, there does not appear to be a reentrant version of
      * getgrgid(). So, we use the standard libc function.
      */
-    
+
     return getgrgid(gid);
 
 #endif /* def HAVE_GETGRGID_R */

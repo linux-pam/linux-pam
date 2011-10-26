@@ -395,7 +395,7 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
 				  entry.user, entry.uid, entry.count,
 				  oldpass) < 0)
 		      {
-    		        free (save);
+		        free (save);
 			retval = PAM_AUTHTOK_ERR;
 			fclose (oldpf);
 			fclose (newpf);
@@ -408,7 +408,7 @@ save_old_password (pam_handle_t *pamh, const char *user, uid_t uid,
 				  entry.user, entry.uid, entry.count,
 				  entry.old_passwords, oldpass) < 0)
 		      {
-    		        free (save);
+		        free (save);
 			retval = PAM_AUTHTOK_ERR;
 			fclose (oldpf);
 			fclose (newpf);

@@ -206,7 +206,7 @@ pam_sm_setcred (pam_handle_t *pamh, int flags UNUSED,
 	   don't worry about an explicit check of argv. */
 	if (pam_get_data(pamh, "unix_setcred_return", &pretval) == PAM_SUCCESS
 	    && pretval) {
- 	        retval = *(const int *)pretval;
+	        retval = *(const int *)pretval;
 		pam_set_data(pamh, "unix_setcred_return", NULL, NULL);
 		D(("recovered data indicates that old retval was %d", retval));
 	}

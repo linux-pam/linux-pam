@@ -203,9 +203,9 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 
 		for (n = p; n != NULL; p = n+1) {
 		    if ((n = strchr(p, ' ')) != NULL)
-		    	*n = '\0';
+			*n = '\0';
 
-            	    if (strcmp(p, uttyname) == 0) {
+		    if (strcmp(p, uttyname) == 0) {
 			retval = 0;
 			break;
 		    }

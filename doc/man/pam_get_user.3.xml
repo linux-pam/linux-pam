@@ -42,7 +42,7 @@
       name of the user specified by
       <citerefentry>
         <refentrytitle>pam_start</refentrytitle><manvolnum>3</manvolnum>
-      </citerefentry>. If no user was specified it what 
+      </citerefentry>. If no user was specified it what
       <function>pam_get_item (pamh, PAM_USER, ... );</function> would
       have returned. If this is NULL it obtains the username via the
       <citerefentry>
@@ -70,14 +70,14 @@
     </itemizedlist>
     <para>
       By whatever means the username is obtained, a pointer to it is
-      returned as the contents of <emphasis>*user</emphasis>. Note, 
-      this memory should <emphasis remap="B">not</emphasis> be 
+      returned as the contents of <emphasis>*user</emphasis>. Note,
+      this memory should <emphasis remap="B">not</emphasis> be
       <emphasis>free()</emphasis>'d or <emphasis>modified</emphasis>
       by the module.
     </para>
     <para>
       This function sets the <emphasis>PAM_USER</emphasis> item
-      associated with the 
+      associated with the
       <citerefentry>
         <refentrytitle>pam_set_item</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry> and

@@ -10,7 +10,7 @@ EXTRA_DIST = README $(XMLS) pam_selinux.8 pam_selinux_check.8 \
 
 if HAVE_LIBSELINUX
   TESTS = tst-pam_selinux
-  man_MANS = pam_selinux.8 
+  man_MANS = pam_selinux.8
 endif
 
 XMLS = README.xml pam_selinux.8.xml
@@ -40,4 +40,3 @@ noinst_DATA = README pam_selinux.8
 README: pam_selinux.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
-

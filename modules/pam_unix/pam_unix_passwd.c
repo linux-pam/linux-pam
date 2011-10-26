@@ -212,7 +212,7 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	    rlim.rlim_max = MAX_FD_NO;
 	  for (i=0; i < (int)rlim.rlim_max; i++) {
 	    if (i != STDIN_FILENO)
-	  	   close(i);
+		close(i);
 	  }
 	}
 
@@ -262,7 +262,7 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
     } else {
 	D(("fork failed"));
 	close(fds[0]);
- 	close(fds[1]);
+	close(fds[1]);
 	retval = PAM_AUTH_ERR;
     }
 

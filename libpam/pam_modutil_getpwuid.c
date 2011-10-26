@@ -16,7 +16,7 @@
 #include <stdlib.h>
 
 static int intlen(int number)
-{ 
+{
     int len = 2;
     while (number != 0) {
         number /= 10;
@@ -26,7 +26,7 @@ static int intlen(int number)
 }
 
 static int longlen(long number)
-{ 
+{
     int len = 2;
     while (number != 0) {
         number /= 10;
@@ -72,7 +72,7 @@ pam_modutil_getpwuid(pam_handle_t *pamh, uid_t uid)
 	    int i;
 
 	    data_name = malloc(strlen("_pammodutil_getpwuid") + 1 +
-	    		       longlen((long) uid) + 1 + intlen(INT_MAX) + 1);
+			       longlen((long) uid) + 1 + intlen(INT_MAX) + 1);
 	    if ((pamh != NULL) && (data_name == NULL)) {
 	        D(("was unable to register the data item [%s]",
 	           pam_strerror(pamh, status)));
@@ -83,7 +83,7 @@ pam_modutil_getpwuid(pam_handle_t *pamh, uid_t uid)
 	    if (pamh != NULL) {
 	        for (i = 0; i < INT_MAX; i++) {
 	            sprintf(data_name, "_pammodutil_getpwuid_%ld_%d",
-		   	    (long) uid, i);
+			    (long) uid, i);
 		    status = PAM_NO_MODULE_DATA;
 	            if (pam_get_data(pamh, data_name, &ignore) != PAM_SUCCESS) {
 		        status = pam_set_data(pamh, data_name,
@@ -114,7 +114,7 @@ pam_modutil_getpwuid(pam_handle_t *pamh, uid_t uid)
                 /* no sense in repeating the call */
                 break;
         }
-	
+
 	length <<= PWD_LENGTH_SHIFT;
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
@@ -131,7 +131,7 @@ pam_modutil_getpwuid(pam_handle_t *pamh, uid_t uid)
      * Sorry, there does not appear to be a reentrant version of
      * getpwuid(). So, we use the standard libc function.
      */
-    
+
     return getpwuid(uid);
 
 #endif /* def HAVE_GETPWUID_R */

@@ -185,7 +185,7 @@ size_t
 sha1_output(struct sha1_context *ctx, unsigned char *out)
 {
 	struct sha1_context ctx2;
-	
+
 	/* Output the sum. */
 	if (out != NULL) {
 		u_int32_t c;

@@ -1843,9 +1843,3 @@
 
 
    Samar, Schemers                                                  Page 28
-
-
-
-
-
-

@@ -35,7 +35,7 @@
       associated with the handle <emphasis>pamh</emphasis>).
     </para>
     <para>
-      The <emphasis>pamh</emphasis> argument is an authentication 
+      The <emphasis>pamh</emphasis> argument is an authentication
       handle obtained by a prior call to pam_start().
       The flags argument is the binary or of zero or more of the
       following values:

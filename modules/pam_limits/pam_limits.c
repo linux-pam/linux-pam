@@ -630,7 +630,7 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	     else
 	       rlimit_value *= 1024;
 	   }
-    	 break;
+	 break;
 #ifdef RLIMIT_NICE
 	case RLIMIT_NICE:
 	 if (int_value > 19)
@@ -672,7 +672,7 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	        } else {
 	            pl->login_limit = int_value;
 	            pl->login_limit_def = source;
-        	}
+		}
 	}
     }
     return;
@@ -975,8 +975,8 @@ static int setup_limits(pam_handle_t *pamh,
         if (check_logins(pamh, uname, pl->login_limit, ctrl, pl) == LOGIN_ERR) {
 #ifdef HAVE_LIBAUDIT
 	    if (!(ctrl & PAM_NO_AUDIT)) {
-        	pam_modutil_audit_write(pamh, AUDIT_ANOM_LOGIN_SESSIONS,
-            	    "pam_limits", PAM_PERM_DENIED);
+		pam_modutil_audit_write(pamh, AUDIT_ANOM_LOGIN_SESSIONS,
+		    "pam_limits", PAM_PERM_DENIED);
 		/* ignore return value as we fail anyway */
             }
 #endif
@@ -1055,12 +1055,12 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	/* Parse the *.conf files. */
 	for (i = 0; globbuf.gl_pathv[i] != NULL; i++) {
 	    pl->conf_file = globbuf.gl_pathv[i];
-    	    retval = parse_config_file(pamh, pwd->pw_name, pwd->pw_uid, pwd->pw_gid, ctrl, pl);
-    	    if (retval == PAM_IGNORE) {
+	    retval = parse_config_file(pamh, pwd->pw_name, pwd->pw_uid, pwd->pw_gid, ctrl, pl);
+	    if (retval == PAM_IGNORE) {
 		D(("the configuration file ('%s') has an applicable '<domain> -' entry", pl->conf_file));
 		globfree(&globbuf);
 		return PAM_SUCCESS;
-      	    }
+	    }
 	    if (retval != PAM_SUCCESS)
 		goto out;
         }
@@ -1070,7 +1070,7 @@ out:
     globfree(&globbuf);
     if (retval != PAM_SUCCESS)
     {
-       	pam_syslog(pamh, LOG_WARNING, "error parsing the configuration file: '%s' ",CONF_FILE);
+	pam_syslog(pamh, LOG_WARNING, "error parsing the configuration file: '%s' ",CONF_FILE);
 	return retval;
     }
 

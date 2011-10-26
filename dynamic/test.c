@@ -16,8 +16,8 @@ int main(int argc, char **argv)
     }
 
     /* handle->XXX points to each of the PAM functions */
-    
-    
+
+
     if (dlclose(handle)) {
 	fprintf(stderr, "failed to unload pam.so: %s\n", dlerror());
 	exit(1);

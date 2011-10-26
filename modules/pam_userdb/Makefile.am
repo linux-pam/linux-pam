@@ -35,4 +35,3 @@ noinst_DATA = README pam_userdb.8
 README: pam_userdb.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
-

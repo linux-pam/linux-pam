@@ -1,5 +1,5 @@
 /******************************************************************************
- * A module for Linux-PAM that will set the default namespace after 
+ * A module for Linux-PAM that will set the default namespace after
  * establishing a session via PAM.
  *
  * (C) Copyright IBM Corporation 2005
@@ -134,9 +134,9 @@ enum polymethod {
 /*
  * Depending on the application using this namespace module, we
  * may need to unmount priviously bind mounted instance directory.
- * Applications such as login and sshd, that establish a new 
+ * Applications such as login and sshd, that establish a new
  * session unmount of instance directory is not needed. For applications
- * such as su and newrole, that switch the identity, this module 
+ * such as su and newrole, that switch the identity, this module
  * has to unmount previous instance directory first and re-mount
  * based on the new indentity. For other trusted applications that
  * just want to undo polyinstantiation, only unmount of previous
@@ -182,4 +182,3 @@ struct instance_data {
     uid_t ruid;			/* The uid of the requesting user */
     unsigned long flags;	/* Flags for debug, selinux etc */
 };
-

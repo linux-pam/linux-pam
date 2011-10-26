@@ -55,8 +55,8 @@ void *_pam_dlopen(const char *mod_path)
 	NSObjectFileImage ofile;
 	void *ret = NULL;
 
-	if (NSCreateObjectFileImageFromFile(mod_path, &ofile) != 
-			NSObjectFileImageSuccess ) 
+	if (NSCreateObjectFileImageFromFile(mod_path, &ofile) !=
+			NSObjectFileImageSuccess )
 		return NULL;
 
 	ret = NSLinkModule(ofile, mod_path, NSLINKMODULE_OPTION_PRIVATE | NSLINKMODULE_OPTION_BINDNOW);
@@ -68,7 +68,7 @@ void *_pam_dlopen(const char *mod_path)
 #endif
 }
 
-servicefn _pam_dlsym(void *handle, const char *symbol) 
+servicefn _pam_dlsym(void *handle, const char *symbol)
 {
 #ifdef PAM_SHL
 	char *_symbol = NULL;
@@ -83,7 +83,7 @@ servicefn _pam_dlsym(void *handle, const char *symbol)
 			return NULL;
 		strcpy(_symbol, SHLIB_SYM_PREFIX);
 		strcat(_symbol, symbol);
-		if( shl_findsym(&handle, _symbol, 
+		if( shl_findsym(&handle, _symbol,
 				(short) TYPE_PROCEDURE, &ret ){
 			free(_symbol);
 			return NULL;
@@ -92,7 +92,7 @@ servicefn _pam_dlsym(void *handle, const char *symbol)
 	}
 
 	return ret;
-	
+
 #elif defined(PAM_DYLD)
 	NSSymbol nsSymbol;
 	char *_symbol;

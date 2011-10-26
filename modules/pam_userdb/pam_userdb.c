@@ -145,7 +145,7 @@ _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
  * return values:
  *	 1  = User not found
  *	 0  = OK
- * 	-1  = Password incorrect
+ *	-1  = Password incorrect
  *	-2  = System error
  */
 static int
@@ -362,12 +362,12 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
      retval = pam_get_item(pamh, PAM_AUTHTOK, &password);
      if (retval != PAM_SUCCESS || password == NULL) {
         if ((ctrl & PAM_TRY_FPASS_ARG) != 0) {
-    	    /* Converse to obtain a password */
-    	    retval = obtain_authtok(pamh);
-    	    if (retval != PAM_SUCCESS) {
+	    /* Converse to obtain a password */
+	    retval = obtain_authtok(pamh);
+	    if (retval != PAM_SUCCESS) {
 	        pam_syslog(pamh, LOG_ERR, "can not obtain password from user");
 		return retval;
-    	    }
+	    }
 	    retval = pam_get_item(pamh, PAM_AUTHTOK, &password);
 	}
 	if (retval != PAM_SUCCESS || password == NULL) {

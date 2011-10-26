@@ -57,7 +57,7 @@ static int perform_check(pam_handle_t *pamh)
 	    return PAM_SERVICE_ERR;
 
 	/* It could still be NULL the second time. */
-    	if (!userName || (userName[0] == '\0'))
+	if (!userName || (userName[0] == '\0'))
 	    return PAM_SERVICE_ERR;
     }
 

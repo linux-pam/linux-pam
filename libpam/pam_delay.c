@@ -156,4 +156,3 @@ int pam_fail_delay(pam_handle_t *pamh, unsigned int usec)
 
      return PAM_SUCCESS;
 }
-

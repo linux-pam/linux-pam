@@ -66,7 +66,7 @@ pamc_handle_t pamc_start(void)
 	if ( default_path[i] == PAMC_SYSTEM_AGENT_SEPARATOR
 	     || !default_path[i] ) {
 	    int length;
-	    
+
 	    pch->agent_paths[this] = malloc(length = 1+i-last);
 
 	    if (pch->agent_paths[this] == NULL) {
@@ -102,7 +102,7 @@ drop_pch:
 }
 
 /*
- * shutdown each of the loaded agents and 
+ * shutdown each of the loaded agents and
  */
 
 static int __pamc_shutdown_agents(pamc_handle_t pch)
@@ -110,7 +110,7 @@ static int __pamc_shutdown_agents(pamc_handle_t pch)
     int retval = PAM_BPC_TRUE;
 
     D(("called"));
-    
+
     while (pch->chain) {
 	pid_t pid;
 	int status;

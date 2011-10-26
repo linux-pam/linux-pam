@@ -4,4 +4,3 @@
 
 #define MAIN
 #include "pam_tally2.c"
-

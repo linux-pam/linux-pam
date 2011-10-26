@@ -315,8 +315,8 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
     if (pamh->former.want_user) {
 	/* must have a prompt to resume with */
 	if (! pamh->former.prompt) {
-	    	    pam_syslog(pamh, LOG_ERR,
-				   "pam_get_user: failed to resume with prompt"
+	    pam_syslog(pamh, LOG_ERR,
+		       "pam_get_user: failed to resume with prompt"
 			);
 	    return PAM_ABORT;
 	}
@@ -324,7 +324,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 	/* must be the same prompt as last time */
 	if (strcmp(pamh->former.prompt, use_prompt)) {
 	    pam_syslog(pamh, LOG_ERR,
-			    "pam_get_user: resumed with different prompt");
+		       "pam_get_user: resumed with different prompt");
 	    return PAM_ABORT;
 	}
 
