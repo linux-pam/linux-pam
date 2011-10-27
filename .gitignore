@@ -24,4 +24,6 @@ missing
 depcomp
 ylwrap
 Linux-PAM-*.tar.*
+/ABOUT-NLS
 /ChangeLog
+/INSTALL

@@ -12,8 +12,7 @@ endif
 
 CLEANFILES = *~
 
-EXTRA_DIST = config.rpath mkinstalldirs pgp.keys.asc CHANGELOG \
-		ChangeLog-CVS Copyright Make.xml.rules
+EXTRA_DIST = pgp.keys.asc CHANGELOG ChangeLog-CVS Copyright Make.xml.rules
 
 ACLOCAL_AMFLAGS = -I m4
 
