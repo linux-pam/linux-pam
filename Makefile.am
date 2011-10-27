@@ -50,3 +50,5 @@ gen-ChangeLog:
 
 dist-hook: gen-ChangeLog
 .PHONY: gen-ChangeLog
+
+export TAR_OPTIONS = --owner=0 --group=0 --numeric-owner --mode=go-w,go+rX
