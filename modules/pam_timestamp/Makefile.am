@@ -8,9 +8,11 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 XMLS = README.xml pam_timestamp.8.xml pam_timestamp_check.8.xml
 man_MANS = pam_timestamp.8 pam_timestamp_check.8
-TESTS = tst-pam_timestamp hmacfile
+dist_TESTS = tst-pam_timestamp
+nodist_TESTS = hmacfile
+TESTS = $(dist_TESTS) $(nodist_TESTS)
 
-EXTRA_DIST = $(man_MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(man_MANS) $(XMLS) $(dist_TESTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
