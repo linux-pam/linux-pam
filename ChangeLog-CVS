@@ -1,3 +1,8 @@
+2011-10-26  Dmitry V. Levin  <ldv@altlinux.org>
+
+	NB: ChangeLog file is no longer manually maintained.
+	See README-hacking for details.
+
 2011-10-25  Thorsten Kukuk  <kukuk@thkukuk.de>
 
 	* release version 1.1.5

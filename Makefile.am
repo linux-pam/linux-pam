@@ -13,7 +13,7 @@ endif
 CLEANFILES = *~
 
 EXTRA_DIST = config.rpath mkinstalldirs pgp.keys.asc CHANGELOG \
-		Copyright Make.xml.rules
+		ChangeLog-CVS Copyright Make.xml.rules
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -35,3 +35,18 @@ xtests:
 	make -C xtests xtests
 
 .PHONY: xtests
+
+gen_changelog_start_date = 2011-10-26
+gen-ChangeLog:
+	if test -d .git; then						\
+		( $(top_srcdir)/gitlog-to-changelog --append-dot	\
+		  --since=$(gen_changelog_start_date) &&		\
+		  echo && echo &&					\
+		  echo 'See ChangeLog-CVS for earlier changes.'		\
+		) > $(distdir)/ChangeLog.new &&				\
+		rm -f $(distdir)/ChangeLog &&				\
+		mv $(distdir)/ChangeLog.new $(distdir)/ChangeLog;	\
+	fi
+
+dist-hook: gen-ChangeLog
+.PHONY: gen-ChangeLog

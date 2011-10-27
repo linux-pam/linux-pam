@@ -1,0 +1,17 @@
+No more ChangeLog file
+======================
+Do not create or modify the ChangeLog files.  Starting at 2011-10-26, the
+policy changed.  Before, we would insert the exact same text (or worse,
+sometimes slightly differing) into both the ChangeLog file and the commit
+log.  Now we put that information only in the commit log, and generate
+the ChangeLog file from logs at "make dist" time.  As such, there are
+strict requirements on the form of the commit log messages.
+
+
+Commit log requirements
+=======================
+Each commit log should always start with a one-line summary, the second
+line should be blank, and the remaining lines are usually ChangeLog-style
+entries for all affected files, except the leading TABs which should
+be omitted.  It's OK to write a few lines of prose describing the change,
+when the summary and ChangeLog entries don't give enough of the big picture.
