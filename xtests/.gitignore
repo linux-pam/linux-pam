@@ -1,7 +1,3 @@
-Makefile
-Makefile.in
-.deps
-.libs
 tst-pam_access1
 tst-pam_access2
 tst-pam_access3

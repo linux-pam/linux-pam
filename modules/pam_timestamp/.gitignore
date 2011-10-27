@@ -1,13 +1,2 @@
-*.la
-*.lo
-*.so
-*~
-.deps
-.libs
-Makefile
-Makefile.in
-README
-pam_timestamp.8
-pam_timestamp_check.8
 hmacfile
 pam_timestamp_check

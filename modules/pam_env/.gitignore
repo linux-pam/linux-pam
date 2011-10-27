@@ -1,9 +1,0 @@
-*.la
-*.lo
-.deps
-.libs
-Makefile
-Makefile.in
-README
-pam_env.8
-pam_env.conf.5

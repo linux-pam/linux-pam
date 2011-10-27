@@ -1,14 +1,3 @@
-*.la
-*.lo
-*.so
-.deps
-.libs
-Makefile
-Makefile.in
 bigcrypt
 unix_chkpwd
 unix_update
-README
-pam_unix.8
-unix_chkpwd.8
-unix_update.8

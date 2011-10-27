@@ -1,10 +1,1 @@
-*.la
-*.lo
-.deps
-.libs
-Makefile
-Makefile.in
-README
-pam_mkhomedir.8
 mkhomedir_helper
-mkhomedir_helper.8

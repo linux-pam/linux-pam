@@ -1,11 +1,2 @@
-*.la
-*.lo
-*.so
-*~
-.deps
-.libs
-Makefile
-Makefile.in
 pam_selinux_check
-README
-pam_selinux.8
+!pam_selinux_check.8

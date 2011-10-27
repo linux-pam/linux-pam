@@ -1,9 +1,0 @@
-*.la
-*.lo
-.deps
-.libs
-Makefile
-Makefile.in
-security
-README
-pam_filter.8

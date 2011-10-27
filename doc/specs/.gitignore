@@ -1,10 +1,5 @@
 draft-morgan-pam-*.txt
-Makefile
-Makefile.in
 parse.c
-lex.yy.c
-.deps
-.libs
 padout
 parse_l.c
 parse_y.c

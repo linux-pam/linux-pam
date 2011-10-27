@@ -1,9 +1,1 @@
-*.la
-*.lo
-.deps
-.libs
-Makefile
-Makefile.in
 pam_tally
-README
-pam_tally.8
