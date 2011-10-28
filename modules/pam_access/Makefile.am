@@ -22,7 +22,7 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_access.la
-pam_access_la_LIBADD = -L$(top_builddir)/libpam -lpam $(NIS_LIBS)
+pam_access_la_LIBADD = $(top_builddir)/libpam/libpam.la $(NIS_LIBS)
 
 secureconf_DATA = access.conf
 

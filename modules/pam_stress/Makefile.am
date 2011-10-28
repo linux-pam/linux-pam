@@ -17,4 +17,4 @@ if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 securelib_LTLIBRARIES = pam_stress.la
-pam_stress_la_LIBADD = -L$(top_builddir)/libpam -lpam
+pam_stress_la_LIBADD = $(top_builddir)/libpam/libpam.la

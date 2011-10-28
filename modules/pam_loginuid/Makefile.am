@@ -21,7 +21,7 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_loginuid.la
-pam_loginuid_la_LIBADD = -L$(top_builddir)/libpam -lpam @LIBAUDIT@
+pam_loginuid_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBAUDIT@
 
 if ENABLE_REGENERATE_MAN
 

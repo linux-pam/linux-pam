@@ -25,7 +25,7 @@ endif
 noinst_HEADERS = opasswd.h
 
 securelib_LTLIBRARIES = pam_pwhistory.la
-pam_pwhistory_la_LIBADD = -L$(top_builddir)/libpam -lpam @LIBCRYPT@
+pam_pwhistory_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBCRYPT@
 pam_pwhistory_la_SOURCES = pam_pwhistory.c opasswd.c
 
 if ENABLE_REGENERATE_MAN

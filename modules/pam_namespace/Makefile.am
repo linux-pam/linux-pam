@@ -34,7 +34,7 @@ noinst_HEADERS = md5.h pam_namespace.h argv_parse.h
 if HAVE_UNSHARE
   securelib_LTLIBRARIES = pam_namespace.la
   pam_namespace_la_SOURCES = pam_namespace.c md5.c argv_parse.c
-  pam_namespace_la_LIBADD = -L$(top_builddir)/libpam -lpam @LIBSELINUX@
+  pam_namespace_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@
 
   secureconf_DATA = namespace.conf
   secureconf_SCRIPTS = namespace.init

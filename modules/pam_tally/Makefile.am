@@ -20,7 +20,7 @@ noinst_HEADERS = faillog.h
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
 
 pam_tally_la_LDFLAGS = -no-undefined -avoid-version -module
-pam_tally_la_LIBADD = -L$(top_builddir)/libpam -lpam
+pam_tally_la_LIBADD = $(top_builddir)/libpam/libpam.la
 if HAVE_VERSIONING
   pam_tally_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif

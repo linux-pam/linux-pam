@@ -25,7 +25,7 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_limits.la
-pam_limits_la_LIBADD = -L$(top_builddir)/libpam -lpam
+pam_limits_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 secureconf_DATA = limits.conf
 

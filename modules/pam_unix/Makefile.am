@@ -29,7 +29,7 @@ pam_unix_la_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   pam_unix_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
-pam_unix_la_LIBADD = -L$(top_builddir)/libpam -lpam \
+pam_unix_la_LIBADD = $(top_builddir)/libpam/libpam.la \
 	@LIBCRYPT@ @LIBSELINUX@ $(NIS_LIBS)
 
 securelib_LTLIBRARIES = pam_unix.la

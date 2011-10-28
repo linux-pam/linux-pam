@@ -20,7 +20,7 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_ftp.la
-pam_ftp_la_LIBADD = -L$(top_builddir)/libpam -lpam
+pam_ftp_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 TESTS = tst-pam_ftp
 

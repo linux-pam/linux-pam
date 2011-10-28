@@ -25,7 +25,7 @@ endif
 
 if HAVE_LIBDB
   securelib_LTLIBRARIES = pam_userdb.la
-  pam_userdb_la_LIBADD = -L$(top_builddir)/libpam -lpam
+  pam_userdb_la_LIBADD = $(top_builddir)/libpam/libpam.la
 endif
 
 noinst_HEADERS = pam_userdb.h

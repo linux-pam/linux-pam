@@ -22,7 +22,7 @@ if HAVE_VERSIONING
 endif
 
 if HAVE_AUDIT_TTY_STATUS
-  pam_tty_audit_la_LIBADD = -L$(top_builddir)/libpam -lpam
+  pam_tty_audit_la_LIBADD = $(top_builddir)/libpam/libpam.la
   securelib_LTLIBRARIES = pam_tty_audit.la
 endif
 

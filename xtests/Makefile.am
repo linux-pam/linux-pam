@@ -4,8 +4,8 @@
 
 AM_CFLAGS = -DLIBPAM_COMPILE -I$(top_srcdir)/libpam/include \
 	-I$(top_srcdir)/libpamc/include -I$(top_srcdir)/libpam_misc/include
-LDADD = -L$(top_builddir)/libpam -lpam \
-	-L$(top_builddir)/libpam_misc -lpam_misc
+LDADD = $(top_builddir)/libpam/libpam.la \
+	$(top_builddir)/libpam_misc/libpam_misc.la
 
 CLEANFILES = *~ $(XTESTS)
 

@@ -23,7 +23,7 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_succeed_if.la
-pam_succeed_if_la_LIBADD = -L$(top_builddir)/libpam -lpam
+pam_succeed_if_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README

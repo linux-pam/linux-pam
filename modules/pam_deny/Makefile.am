@@ -21,7 +21,7 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_deny.la
-pam_deny_la_LIBADD = -L$(top_builddir)/libpam -lpam
+pam_deny_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
 

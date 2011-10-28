@@ -21,12 +21,12 @@ noinst_HEADERS = tallylog.h
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
 
 pam_tally2_la_LDFLAGS = -no-undefined -avoid-version -module
-pam_tally2_la_LIBADD = -L$(top_builddir)/libpam -lpam $(LIBAUDIT)
+pam_tally2_la_LIBADD = $(top_builddir)/libpam/libpam.la $(LIBAUDIT)
 if HAVE_VERSIONING
   pam_tally2_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
-pam_tally2_LDADD = -L$(top_builddir)/libpam -lpam $(LIBAUDIT)
+pam_tally2_LDADD = $(top_builddir)/libpam/libpam.la $(LIBAUDIT)
 
 securelib_LTLIBRARIES = pam_tally2.la
 sbin_PROGRAMS = pam_tally2

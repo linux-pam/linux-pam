@@ -22,7 +22,7 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_env.la
-pam_env_la_LIBADD = -L$(top_builddir)/libpam -lpam
+pam_env_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 secureconf_DATA = pam_env.conf
 sysconf_DATA = environment

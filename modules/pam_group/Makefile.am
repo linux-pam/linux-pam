@@ -21,7 +21,7 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_group.la
-pam_group_la_LIBADD = -L$(top_builddir)/libpam -lpam
+pam_group_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 secureconf_DATA = group.conf
 

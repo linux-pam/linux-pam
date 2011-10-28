@@ -31,4 +31,4 @@ endif
 if HAVE_KEY_MANAGEMENT
   securelib_LTLIBRARIES = pam_keyinit.la
 endif
-pam_keyinit_la_LIBADD = -L$(top_builddir)/libpam -lpam
+pam_keyinit_la_LIBADD = $(top_builddir)/libpam/libpam.la

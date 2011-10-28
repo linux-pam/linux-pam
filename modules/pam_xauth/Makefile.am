@@ -22,7 +22,7 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_xauth.la
-pam_xauth_la_LIBADD = -L$(top_builddir)/libpam -lpam @LIBSELINUX@
+pam_xauth_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README

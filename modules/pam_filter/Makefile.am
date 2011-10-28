@@ -22,7 +22,7 @@ if HAVE_VERSIONING
 endif
 
 include_HEADERS=pam_filter.h
-pam_filter_la_LIBADD = -L$(top_builddir)/libpam -lpam
+pam_filter_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 securelib_LTLIBRARIES = pam_filter.la
 TESTS = tst-pam_filter

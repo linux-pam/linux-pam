@@ -22,7 +22,7 @@ AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
-pam_cracklib_la_LIBADD = -L$(top_builddir)/libpam -lpam \
+pam_cracklib_la_LIBADD = $(top_builddir)/libpam/libpam.la \
 	@LIBCRACK@ @LIBCRYPT@
 if HAVE_LIBCRACK
   securelib_LTLIBRARIES = pam_cracklib.la
