@@ -111,6 +111,7 @@ int pam_start (
     (*pamh)->data = NULL;
     if ( _pam_make_env(*pamh) != PAM_SUCCESS ) {
 	pam_syslog(*pamh,LOG_ERR,"pam_start: failed to initialize environment");
+	_pam_drop((*pamh)->pam_conversation);
 	_pam_drop((*pamh)->service_name);
 	_pam_drop((*pamh)->user);
 	_pam_drop(*pamh);
@@ -127,6 +128,7 @@ int pam_start (
     if ( _pam_init_handlers(*pamh) != PAM_SUCCESS ) {
 	pam_syslog(*pamh, LOG_ERR, "pam_start: failed to initialize handlers");
 	_pam_drop_env(*pamh);                 /* purge the environment */
+	_pam_drop((*pamh)->pam_conversation);
 	_pam_drop((*pamh)->service_name);
 	_pam_drop((*pamh)->user);
 	_pam_drop(*pamh);
