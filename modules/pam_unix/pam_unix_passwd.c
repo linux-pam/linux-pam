@@ -280,13 +280,15 @@ static int check_old_password(const char *forwho, const char *newpass)
 	char *s_luser, *s_uid, *s_npas, *s_pas;
 	int retval = PAM_SUCCESS;
 	FILE *opwfile;
+	size_t len = strlen(forwho);
 
 	opwfile = fopen(OLD_PASSWORDS_FILE, "r");
 	if (opwfile == NULL)
 		return PAM_ABORT;
 
 	while (fgets(buf, 16380, opwfile)) {
-		if (!strncmp(buf, forwho, strlen(forwho))) {
+		if (!strncmp(buf, forwho, len) && (buf[len] == ':' ||
+			buf[len] == ',')) {
 			char *sptr;
 			buf[strlen(buf) - 1] = '\0';
 			s_luser = strtok_r(buf, ":,", &sptr);

@@ -562,6 +562,7 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
     int found = 0;
     struct passwd *pwd = NULL;
     struct stat st;
+    size_t len = strlen(forwho);
 #ifdef WITH_SELINUX
     security_context_t prev_context=NULL;
 #endif
@@ -629,7 +630,7 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
     }
 
     while (fgets(buf, 16380, opwfile)) {
-	if (!strncmp(buf, forwho, strlen(forwho))) {
+	if (!strncmp(buf, forwho, len) && strchr(":,\n", buf[len]) != NULL) {
 	    char *sptr = NULL;
 	    found = 1;
 	    if (howmany == 0)
