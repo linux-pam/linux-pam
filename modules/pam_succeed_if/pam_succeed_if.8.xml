@@ -33,8 +33,8 @@
     <para>
       pam_succeed_if.so is designed to succeed or fail authentication
       based on characteristics of the account belonging to the user being
-      authenticated. One use is to select whether to load other modules based
-      on this test.
+      authenticated or values of other PAM items. One use is to select whether
+      to load other modules based on this test.
     </para>
 
     <para>
@@ -105,8 +105,9 @@
     <para>
       Available fields are <emphasis>user</emphasis>,
       <emphasis>uid</emphasis>, <emphasis>gid</emphasis>,
-      <emphasis>shell</emphasis>, <emphasis>home</emphasis>
-      and <emphasis>service</emphasis>:
+      <emphasis>shell</emphasis>, <emphasis>home</emphasis>,
+      <emphasis>ruser</emphasis>, <emphasis>rhost</emphasis>,
+      <emphasis>tty</emphasis> and <emphasis>service</emphasis>:
     </para>
 
     <variablelist>

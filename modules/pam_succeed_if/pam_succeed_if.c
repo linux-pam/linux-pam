@@ -281,9 +281,35 @@ evaluate(pam_handle_t *pamh, int debug,
 	}
 	if (strcasecmp(left, "service") == 0) {
 		const void *svc;
-		if (pam_get_item(pamh, PAM_SERVICE, &svc) != PAM_SUCCESS)
+		if (pam_get_item(pamh, PAM_SERVICE, &svc) != PAM_SUCCESS ||
+			svc == NULL)
 			svc = "";
 		snprintf(buf, sizeof(buf), "%s", (const char *)svc);
+		left = buf;
+	}
+	if (strcasecmp(left, "ruser") == 0) {
+		const void *ruser;
+		if (pam_get_item(pamh, PAM_RUSER, &ruser) != PAM_SUCCESS ||
+			ruser == NULL)
+			ruser = "";
+		snprintf(buf, sizeof(buf), "%s", (const char *)ruser);
+		left = buf;
+		user = buf;
+	}
+	if (strcasecmp(left, "rhost") == 0) {
+		const void *rhost;
+		if (pam_get_item(pamh, PAM_SERVICE, &rhost) != PAM_SUCCESS ||
+			rhost == NULL)
+			rhost = "";
+		snprintf(buf, sizeof(buf), "%s", (const char *)rhost);
+		left = buf;
+	}
+	if (strcasecmp(left, "tty") == 0) {
+		const void *tty;
+		if (pam_get_item(pamh, PAM_SERVICE, &tty) != PAM_SUCCESS ||
+			tty == NULL)
+			tty = "";
+		snprintf(buf, sizeof(buf), "%s", (const char *)tty);
 		left = buf;
 	}
 	/* If we have no idea what's going on, return an error. */
