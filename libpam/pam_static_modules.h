@@ -63,7 +63,6 @@ extern struct pam_module _pam_nologin_modstruct;
 extern struct pam_module _pam_permit_modstruct;
 extern struct pam_module _pam_pwhistory_modstruct;
 extern struct pam_module _pam_rhosts_modstruct;
-extern struct pam_module _pam_rhosts_auth_modstruct;
 extern struct pam_module _pam_rootok_modstruct;
 extern struct pam_module _pam_securetty_modstruct;
 #ifdef WITH_SELINUX
@@ -124,7 +123,6 @@ static struct pam_module *static_modules[] = {
   &_pam_permit_modstruct,
   &_pam_pwhistory_modstruct,
   &_pam_rhosts_modstruct,
-  &_pam_rhosts_auth_modstruct,
   &_pam_rootok_modstruct,
   &_pam_securetty_modstruct,
 #ifdef WITH_SELINUX

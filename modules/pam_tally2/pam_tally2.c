@@ -844,7 +844,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 
 /* static module data */
 
-struct pam_module _pam_tally_modstruct = {
+struct pam_module _pam_tally2_modstruct = {
      MODULE_NAME,
 #ifdef PAM_SM_AUTH
      pam_sm_authenticate,

@@ -36,10 +36,10 @@
 #ifndef __OPASSWD_H__
 #define __OPASSWD_H__
 
-extern int check_old_password (pam_handle_t *pamh, const char *user,
-			       const char *newpass, int debug);
-extern int save_old_password (pam_handle_t *pamh, const char *user,
-			      uid_t uid, const char *oldpass,
-			      int howmany, int debug);
+extern int check_old_pass (pam_handle_t *pamh, const char *user,
+			   const char *newpass, int debug);
+extern int save_old_pass (pam_handle_t *pamh, const char *user,
+			  uid_t uid, const char *oldpass,
+			  int howmany, int debug);
 
 #endif /* __OPASSWD_H__ */

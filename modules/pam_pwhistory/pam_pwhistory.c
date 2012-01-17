@@ -168,15 +168,15 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
       if (spw == NULL)
 	return PAM_USER_UNKNOWN;
 
-      retval = save_old_password (pamh, user, pwd->pw_uid, spw->sp_pwdp,
-				  options.remember, options.debug);
+      retval = save_old_pass (pamh, user, pwd->pw_uid, spw->sp_pwdp,
+			      options.remember, options.debug);
       if (retval != PAM_SUCCESS)
 	return retval;
     }
   else
     {
-      retval = save_old_password (pamh, user, pwd->pw_uid, pwd->pw_passwd,
-				  options.remember, options.debug);
+      retval = save_old_pass (pamh, user, pwd->pw_uid, pwd->pw_passwd,
+			      options.remember, options.debug);
       if (retval != PAM_SUCCESS)
 	return retval;
     }
@@ -208,8 +208,8 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
       if (options.debug)
 	pam_syslog (pamh, LOG_DEBUG, "check against old password file");
 
-      if (check_old_password (pamh, user, newpass,
-			      options.debug) != PAM_SUCCESS)
+      if (check_old_pass (pamh, user, newpass,
+			  options.debug) != PAM_SUCCESS)
 	{
 	  pam_error (pamh,
 		     _("Password has been already used. Choose another."));
