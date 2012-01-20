@@ -443,7 +443,7 @@ AC_SUBST(LIBDB)
 AM_CONDITIONAL([HAVE_LIBDB], [test ! -z "$LIBDB"])
 
 AC_ARG_ENABLE([nis],
-        AS_HELP_STRING([-disable-nis], [Disable building NIS/YP support in pam_unix and pam_access]))
+        AS_HELP_STRING([--disable-nis], [Disable building NIS/YP support in pam_unix and pam_access]))
 
 AS_IF([test "x$enable_nis" != "xno"], [
   CFLAGS=$old_CFLAGS
