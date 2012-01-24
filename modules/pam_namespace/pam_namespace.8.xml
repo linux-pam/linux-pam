@@ -246,11 +246,17 @@
 	    This option can be used on systems where the / mount point or
 	    its submounts are made shared (for example with a
 	    <command>mount --make-rshared /</command> command).
-	    The module will make the polyinstantiated directory mount points
-	    private. Normally the pam_namespace will try to detect the
+	    The module will mark the whole directory tree so any mount and
+	    unmount operations in the polyinstantiation namespace are private.
+	    Normally the pam_namespace will try to detect the
 	    shared / mount point and make the polyinstantiated directories
 	    private automatically. This option has to be used just when
 	    only a subtree is shared and / is not.
+          </para>
+          <para>
+	    Note that mounts and unmounts done in the private namespace will not
+	    affect the parent namespace if this option is used or when the
+	    shared / mount point is autodetected.
           </para>
         </listitem>
       </varlistentry>
