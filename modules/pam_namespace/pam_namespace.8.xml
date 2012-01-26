@@ -44,7 +44,7 @@
         ignore_instance_parent_mode
       </arg>
       <arg choice="opt">
-        no_unmount_on_close
+        unmount_on_close
       </arg>
       <arg choice="opt">
         use_current_context
@@ -195,16 +195,17 @@
 
       <varlistentry>
         <term>
-          <option>no_unmount_on_close</option>
+          <option>unmount_on_close</option>
         </term>
         <listitem>
           <para>
-           For certain trusted programs such as newrole, open session
-           is called from a child process while the parent performs
-           close session and pam end functions. For these commands
-           use this option to instruct pam_close_session to not
-           unmount the bind mounted polyinstantiated directory in the
-            parent.
+           Explicitly unmount the polyinstantiated directories instead
+           of relying on automatic namespace destruction after the last
+           process in a namespace exits. This option should be used
+           only in case it is ensured by other means that there cannot be
+           any processes running in the private namespace left after the
+           session close. It is also useful only in case there are
+           multiple pam session calls in sequence from the same process.
           </para>
         </listitem>
       </varlistentry>

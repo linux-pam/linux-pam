@@ -2108,24 +2108,26 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
             idata.flags |= PAMNS_DEBUG;
         if (strcmp(argv[i], "ignore_config_error") == 0)
             idata.flags |= PAMNS_IGN_CONFIG_ERR;
-        if (strcmp(argv[i], "no_unmount_on_close") == 0)
-            idata.flags |= PAMNS_NO_UNMOUNT_ON_CLOSE;
+        if (strcmp(argv[i], "unmount_on_close") == 0)
+            idata.flags |= PAMNS_UNMOUNT_ON_CLOSE;
     }
 
     if (idata.flags & PAMNS_DEBUG)
         pam_syslog(idata.pamh, LOG_DEBUG, "close_session - start");
 
     /*
-     * For certain trusted programs such as newrole, open session
-     * is called from a child process while the parent perfoms
-     * close session and pam end functions. For these commands
-     * pam_close_session should not perform the unmount of the
-     * polyinstantiatied directory because it will result in
-     * undoing of parents polyinstantiatiaion. These commands
-     * will invoke pam_namespace with the "no_unmount_on_close"
-     * argument.
+     * Normally the unmount is implicitly done when the last
+     * process in the private namespace exits.
+     * If it is ensured that there are no child processes left in
+     * the private namespace by other means and if there are
+     * multiple sessions opened and closed sequentially by the
+     * same process, the "unmount_on_close" option might be
+     * used to unmount the polydirs explicitly.
      */
-    if (idata.flags & PAMNS_NO_UNMOUNT_ON_CLOSE) {
+    if (!(idata.flags & PAMNS_UNMOUNT_ON_CLOSE)) {
+	pam_set_data(idata.pamh, NAMESPACE_POLYDIR_DATA, NULL, NULL);
+	pam_set_data(idata.pamh, NAMESPACE_PROTECT_DATA, NULL, NULL);
+
 	if (idata.flags & PAMNS_DEBUG)
 	    pam_syslog(idata.pamh, LOG_DEBUG, "close_session - sucessful");
         return PAM_SUCCESS;
