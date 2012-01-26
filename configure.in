@@ -363,8 +363,11 @@ if test x"$WITH_CRACKLIB" != xno ; then
 else
 	LIBCRACK=""
 fi
+if test -n "$LIBCRACK"; then
+	AC_DEFINE([HAVE_LIBCRACK], [1], [Define to 1 if you have cracklib.])
+fi
 AC_SUBST(LIBCRACK)
-AM_CONDITIONAL([HAVE_LIBCRACK], [test ! -z "$LIBCRACK"])
+AM_CONDITIONAL([HAVE_LIBCRACK], [test -n "$LIBCRACK"])
 
 dnl Look for Linux Auditing library - see documentation
 AC_ARG_ENABLE([audit],

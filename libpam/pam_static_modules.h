@@ -94,7 +94,9 @@ extern struct pam_module _pam_xauth_modstruct;
 
 static struct pam_module *static_modules[] = {
   &_pam_access_modstruct,
+#ifdef HAVE_LIBCRACK
   &_pam_cracklib_modstruct,
+#endif
   &_pam_debug_modstruct,
   &_pam_deny_modstruct,
   &_pam_echo_modstruct,
