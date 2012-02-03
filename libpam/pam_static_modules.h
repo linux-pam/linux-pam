@@ -80,10 +80,7 @@ extern struct pam_module _pam_timestamp_modstruct;
 extern struct pam_module _pam_tty_audit_modstruct;
 #endif
 extern struct pam_module _pam_umask_modstruct;
-extern struct pam_module _pam_unix_acct_modstruct;
-extern struct pam_module _pam_unix_auth_modstruct;
-extern struct pam_module _pam_unix_passwd_modstruct;
-extern struct pam_module _pam_unix_session_modstruct;
+extern struct pam_module _pam_unix_modstruct;
 extern struct pam_module _pam_userdb_modstruct;
 extern struct pam_module _pam_warn_modstruct;
 extern struct pam_module _pam_wheel_modstruct;
@@ -142,10 +139,7 @@ static struct pam_module *static_modules[] = {
   &_pam_tty_audit_modstruct,
 #endif
   &_pam_umask_modstruct,
-  &_pam_unix_acct_modstruct,
-  &_pam_unix_auth_modstruct,
-  &_pam_unix_passwd_modstruct,
-  &_pam_unix_session_modstruct,
+  &_pam_unix_modstruct,
   &_pam_userdb_modstruct,
   &_pam_warn_modstruct,
   &_pam_wheel_modstruct,

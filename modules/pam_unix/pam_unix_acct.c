@@ -52,7 +52,11 @@
 
 /* indicate that the following groups are defined */
 
-#define PAM_SM_ACCOUNT
+#ifdef PAM_STATIC
+# include "pam_unix_static.h"
+#else
+# define PAM_SM_ACCOUNT
+#endif
 
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
@@ -178,8 +182,8 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
  * account management module.
  */
 
-PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
-				int argc, const char **argv)
+int
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	unsigned int ctrl;
 	const void *void_uname;
@@ -291,17 +295,3 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags,
 
 	return retval;
 }
-
-
-/* static module data */
-#ifdef PAM_STATIC
-struct pam_module _pam_unix_acct_modstruct = {
-    "pam_unix_acct",
-    NULL,
-    NULL,
-    pam_sm_acct_mgmt,
-    NULL,
-    NULL,
-    NULL,
-};
-#endif

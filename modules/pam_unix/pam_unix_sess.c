@@ -49,7 +49,11 @@
 
 /* indicate the following groups are defined */
 
-#define PAM_SM_SESSION
+#ifdef PAM_STATIC
+# include "pam_unix_static.h"
+#else
+# define PAM_SM_SESSION
+#endif
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
@@ -63,8 +67,8 @@
  * session module.
  */
 
-PAM_EXTERN int pam_sm_open_session(pam_handle_t * pamh, int flags,
-				   int argc, const char **argv)
+int
+pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	char *user_name, *service;
 	unsigned int ctrl;
@@ -98,8 +102,8 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t * pamh, int flags,
 	return PAM_SUCCESS;
 }
 
-PAM_EXTERN int pam_sm_close_session(pam_handle_t * pamh, int flags,
-				    int argc, const char **argv)
+int
+pam_sm_close_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	char *user_name, *service;
 	unsigned int ctrl;
@@ -127,16 +131,3 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t * pamh, int flags,
 
 	return PAM_SUCCESS;
 }
-
-/* static module data */
-#ifdef PAM_STATIC
-struct pam_module _pam_unix_session_modstruct = {
-    "pam_unix_session",
-    NULL,
-    NULL,
-    NULL,
-    pam_sm_open_session,
-    pam_sm_close_session,
-    NULL,
-};
-#endif

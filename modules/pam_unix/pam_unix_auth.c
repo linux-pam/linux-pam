@@ -50,7 +50,11 @@
 
 /* indicate the following groups are defined */
 
-#define PAM_SM_AUTH
+#ifdef PAM_STATIC
+# include "pam_unix_static.h"
+#else
+# define PAM_SM_AUTH
+#endif
 
 #define _PAM_EXTERN_FUNCTIONS
 #include <security/_pam_macros.h>
@@ -98,9 +102,8 @@ setcred_free (pam_handle_t *pamh UNUSED, void *ptr, int err UNUSED)
 		free (ptr);
 }
 
-
-PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
-				   ,int argc, const char **argv)
+int
+pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	unsigned int ctrl;
 	int retval, *ret_data = NULL;
@@ -190,7 +193,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags
  * warned you. -- AOY
  */
 
-PAM_EXTERN int
+int
 pam_sm_setcred (pam_handle_t *pamh, int flags UNUSED,
 		int argc UNUSED, const char **argv UNUSED)
 {
@@ -213,15 +216,3 @@ pam_sm_setcred (pam_handle_t *pamh, int flags UNUSED,
 
 	return retval;
 }
-
-#ifdef PAM_STATIC
-struct pam_module _pam_unix_auth_modstruct = {
-    "pam_unix_auth",
-    pam_sm_authenticate,
-    pam_sm_setcred,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-};
-#endif

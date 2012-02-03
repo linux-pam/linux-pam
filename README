@@ -52,10 +52,6 @@ build a static libpam including all PAM modules, you have to call:
 
       ./configure --enable-static-modules --disable-pie
 
-In this case you cannot use pam_unix in the PAM config files instead you
-have to use pam_unix_acct, pam_unix_auth, pam_unix_passwd and
-pam_unix_session.
-
 To run the build checks with static modules, you need to run the
 following command: make -C test check && make check
 

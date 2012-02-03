@@ -63,7 +63,11 @@
 
 /* indicate the following groups are defined */
 
-#define PAM_SM_PASSWORD
+#ifdef PAM_STATIC
+# include "pam_unix_static.h"
+#else
+# define PAM_SM_PASSWORD
+#endif
 
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
@@ -523,9 +527,8 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 	return retval;
 }
 
-
-PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
-				int argc, const char **argv)
+int
+pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	unsigned int ctrl, lctrl;
 	int retval;
@@ -823,17 +826,3 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t * pamh, int flags,
 
 	return retval;
 }
-
-
-/* static module data */
-#ifdef PAM_STATIC
-struct pam_module _pam_unix_passwd_modstruct = {
-    "pam_unix_passwd",
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    pam_sm_chauthtok,
-};
-#endif
