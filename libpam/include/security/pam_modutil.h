@@ -47,6 +47,11 @@
 #ifndef _SECURITY__PAM_MODUTIL_H
 #define _SECURITY__PAM_MODUTIL_H
 
+#include <sys/types.h>
+#include <pwd.h>
+#include <grp.h>
+#include <shadow.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
