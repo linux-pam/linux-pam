@@ -424,7 +424,7 @@ PAMH_ARG_DECL(char * create_password_hash,
 	}
 #endif
 	sp = crypt(password, salt);
-	if (strncmp(algoid, sp, strlen(algoid)) != 0) {
+	if (!sp || strncmp(algoid, sp, strlen(algoid)) != 0) {
 		/* libxcrypt/libc doesn't know the algorithm, use MD5 */
 		pam_syslog(pamh, LOG_ERR,
 			   "Algo %s not supported by the crypto backend, "
@@ -432,7 +432,9 @@ PAMH_ARG_DECL(char * create_password_hash,
 			   on(UNIX_BLOWFISH_PASS, ctrl) ? "blowfish" :
 			   on(UNIX_SHA256_PASS, ctrl) ? "sha256" :
 			   on(UNIX_SHA512_PASS, ctrl) ? "sha512" : algoid);
-		memset(sp, '\0', strlen(sp));
+		if(sp) {
+		   memset(sp, '\0', strlen(sp));
+		}
 		return crypt_md5_wrapper(password);
 	}
 

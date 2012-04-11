@@ -800,7 +800,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		tpass = create_password_hash(pamh, pass_new, ctrl, rounds);
 		if (tpass == NULL) {
 			pam_syslog(pamh, LOG_CRIT,
-				"out of memory for password");
+				"crypt() failure or out of memory for password");
 			pass_new = pass_old = NULL;	/* tidy up */
 			unlock_pwdf();
 			return PAM_BUF_ERR;
