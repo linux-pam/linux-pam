@@ -45,6 +45,9 @@
       <arg choice="opt">
         showfailed
       </arg>
+      <arg choice="opt">
+        inactive=&lt;days&gt;
+      </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -165,13 +168,30 @@
           </para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term>
+          <option>inactive=&lt;days&gt;</option>
+        </term>
+        <listitem>
+          <para>
+            This option is specific for the auth or account phase. It
+            specifies the number of days after the last login of the user
+            when the user will be locked out by the module. The default
+            value is 90.
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
   </refsect1>
 
   <refsect1 id="pam_lastlog-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
-      Only the <option>session</option> module type is provided.
+      The <option>auth</option> and <option>account</option> module type
+      allows to lock out users which did not login recently enough.
+      The <option>session</option> module type is provided for displaying
+      the information about the last login and/or updating the lastlog and
+      wtmp files.
     </para>
   </refsect1>
 
@@ -207,6 +227,27 @@
           </listitem>
         </varlistentry>
 
+        <varlistentry>
+          <term>PAM_AUTH_ERR</term>
+          <listitem>
+            <para>
+	      User locked out in the auth or account phase due to
+	      inactivity.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>PAM_IGNORE</term>
+          <listitem>
+            <para>
+	      There was an error during reading the lastlog file
+	      in the auth or account phase and thus inactivity
+	      of the user cannot be determined.
+            </para>
+          </listitem>
+        </varlistentry>
+
       </variablelist>
     </para>
   </refsect1>
@@ -219,6 +260,13 @@
     </para>
       <programlisting>
     session  required  pam_lastlog.so nowtmp
+      </programlisting>
+    <para>
+     To reject the user if he did not login during the previous 50 days
+     the following line can be used:
+    </para>
+      <programlisting>
+    auth  required  pam_lastlog.so inactive=50
       </programlisting>
   </refsect1>
 
@@ -253,6 +301,9 @@
     <title>AUTHOR</title>
       <para>
         pam_lastlog was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.
+      </para>
+      <para>
+        Inactive account lock out added by Tomáš Mráz &lt;tm@t8m.info&gt;.
       </para>
   </refsect1>
 

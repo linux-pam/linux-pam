@@ -56,6 +56,9 @@ struct lastlog {
 #define DEFAULT_HOST     ""  /* "[no.where]" */
 #define DEFAULT_TERM     ""  /* "tt???" */
 
+#define DEFAULT_INACTIVE_DAYS 90
+#define MAX_INACTIVE_DAYS 100000
+
 /*
  * here, we make a definition for the externally accessible function
  * in this file (this definition is required for static a module
@@ -64,6 +67,8 @@ struct lastlog {
  */
 
 #define PAM_SM_SESSION
+#define PAM_SM_AUTH
+#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
@@ -83,7 +88,45 @@ struct lastlog {
 #define LASTLOG_UPDATE    0400  /* update the lastlog and wtmp files (default) */
 
 static int
-_pam_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
+_pam_auth_parse(pam_handle_t *pamh, int flags, int argc, const char **argv,
+    time_t *inactive)
+{
+    int ctrl = 0;
+
+    *inactive = DEFAULT_INACTIVE_DAYS;
+
+    /* does the appliction require quiet? */
+    if (flags & PAM_SILENT) {
+	ctrl |= LASTLOG_QUIET;
+    }
+
+    /* step through arguments */
+    for (; argc-- > 0; ++argv) {
+        char *ep = NULL;
+        long l;
+
+	if (!strcmp(*argv,"debug")) {
+	    ctrl |= LASTLOG_DEBUG;
+	} else if (!strcmp(*argv,"silent")) {
+	    ctrl |= LASTLOG_QUIET;
+	} else if (!strncmp(*argv,"inactive=", 9)) {
+            l = strtol(*argv+9, &ep, 10);
+            if (ep != *argv+9 && l > 0 && l < MAX_INACTIVE_DAYS)
+                *inactive = l;
+            else {
+                pam_syslog(pamh, LOG_ERR, "bad option value: %s", *argv);
+            }
+	} else {
+	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
+	}
+    }
+
+    D(("ctrl = %o", ctrl));
+    return ctrl;
+}
+
+static int
+_pam_session_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
     int ctrl=(LASTLOG_DATE|LASTLOG_HOST|LASTLOG_LINE|LASTLOG_WTMP|LASTLOG_UPDATE);
 
@@ -143,6 +186,44 @@ get_tty(pam_handle_t *pamh)
     D(("terminal = %s", terminal_line));
     return terminal_line;
 }
+
+static int
+last_login_open(pam_handle_t *pamh, int announce, uid_t uid)
+{
+    int last_fd;
+
+    /* obtain the last login date and all the relevant info */
+    last_fd = open(_PATH_LASTLOG, announce&LASTLOG_UPDATE ? O_RDWR : O_RDONLY);
+    if (last_fd < 0) {
+        if (errno == ENOENT && (announce & LASTLOG_UPDATE)) {
+	     last_fd = open(_PATH_LASTLOG, O_RDWR|O_CREAT,
+                            S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+             if (last_fd < 0) {
+	          pam_syslog(pamh, LOG_ERR,
+                             "unable to create %s: %m", _PATH_LASTLOG);
+		  D(("unable to create %s file", _PATH_LASTLOG));
+		  return -1;
+	     }
+	     pam_syslog(pamh, LOG_WARNING,
+			"file %s created", _PATH_LASTLOG);
+	     D(("file %s created", _PATH_LASTLOG));
+	} else {
+	  pam_syslog(pamh, LOG_ERR, "unable to open %s: %m", _PATH_LASTLOG);
+	  D(("unable to open %s file", _PATH_LASTLOG));
+	  return -1;
+	}
+    }
+
+    if (lseek(last_fd, sizeof(struct lastlog) * (off_t) uid, SEEK_SET) < 0) {
+	pam_syslog(pamh, LOG_ERR, "failed to lseek %s: %m", _PATH_LASTLOG);
+	D(("unable to lseek %s file", _PATH_LASTLOG));
+        close(last_fd);
+	return -1;
+    }
+
+    return last_fd;
+}
+
 
 static int
 last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid, time_t *lltime)
@@ -338,31 +419,9 @@ last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user, t
     int last_fd;
 
     /* obtain the last login date and all the relevant info */
-    last_fd = open(_PATH_LASTLOG, announce&LASTLOG_UPDATE ? O_RDWR : O_RDONLY);
+    last_fd = last_login_open(pamh, announce, uid);
     if (last_fd < 0) {
-        if (errno == ENOENT) {
-	     last_fd = open(_PATH_LASTLOG, O_RDWR|O_CREAT,
-                            S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
-             if (last_fd < 0) {
-	          pam_syslog(pamh, LOG_ERR,
-                             "unable to create %s: %m", _PATH_LASTLOG);
-		  D(("unable to create %s file", _PATH_LASTLOG));
-		  return PAM_SERVICE_ERR;
-	     }
-	     pam_syslog(pamh, LOG_WARNING,
-			"file %s created", _PATH_LASTLOG);
-	     D(("file %s created", _PATH_LASTLOG));
-	} else {
-	  pam_syslog(pamh, LOG_ERR, "unable to open %s: %m", _PATH_LASTLOG);
-	  D(("unable to open %s file", _PATH_LASTLOG));
-	  return PAM_SERVICE_ERR;
-	}
-    }
-
-    if (lseek(last_fd, sizeof(struct lastlog) * (off_t) uid, SEEK_SET) < 0) {
-	pam_syslog(pamh, LOG_ERR, "failed to lseek %s: %m", _PATH_LASTLOG);
-	D(("unable to lseek %s file", _PATH_LASTLOG));
-	return PAM_SERVICE_ERR;
+        return PAM_SERVICE_ERR;
     }
 
     retval = last_login_read(pamh, announce, last_fd, uid, lltime);
@@ -502,7 +561,89 @@ cleanup:
     return retval;
 }
 
-/* --- authentication management functions (only) --- */
+/* --- authentication (locking out inactive users) functions --- */
+PAM_EXTERN int
+pam_sm_authenticate(pam_handle_t *pamh, int flags,
+		    int argc, const char **argv)
+{
+    int retval, ctrl;
+    const char *user = NULL;
+    const struct passwd *pwd;
+    uid_t uid;
+    time_t lltime = 0;
+    time_t inactive_days = 0;
+    int last_fd;
+
+    /*
+     * Lock out the user if he did not login recently enough.
+     */
+
+    ctrl = _pam_auth_parse(pamh, flags, argc, argv, &inactive_days);
+
+    /* which user? */
+
+    if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || user == NULL
+        || *user == '\0') {
+        pam_syslog(pamh, LOG_ERR, "cannot determine the user's name");
+        return PAM_USER_UNKNOWN;
+    }
+
+    /* what uid? */
+
+    pwd = pam_modutil_getpwnam (pamh, user);
+    if (pwd == NULL) {
+        pam_syslog(pamh, LOG_ERR, "user unknown");
+	return PAM_USER_UNKNOWN;
+    }
+    uid = pwd->pw_uid;
+    pwd = NULL;                                         /* tidy up */
+
+
+    /* obtain the last login date and all the relevant info */
+    last_fd = last_login_open(pamh, ctrl, uid);
+    if (last_fd < 0) {
+	return PAM_IGNORE;
+    }
+
+    retval = last_login_read(pamh, ctrl|LASTLOG_QUIET, last_fd, uid, &lltime);
+    close(last_fd);
+
+    if (retval != PAM_SUCCESS) {
+	D(("error while reading lastlog file"));
+	return PAM_IGNORE;
+    }
+
+    if (lltime == 0) { /* user never logged in before */
+        if (ctrl & LASTLOG_DEBUG)
+            pam_syslog(pamh, LOG_DEBUG, "user never logged in - pass");
+        return PAM_SUCCESS;
+    }
+
+    lltime = (time(NULL) - lltime) / (24*60*60);
+
+    if (lltime > inactive_days) {
+        pam_syslog(pamh, LOG_INFO, "user %s inactive for %d days - denied", user, lltime);
+        return PAM_AUTH_ERR;
+    }
+
+    return PAM_SUCCESS;
+}
+
+PAM_EXTERN int
+pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
+		    int argc UNUSED, const char **argv UNUSED)
+{
+    return PAM_SUCCESS;
+}
+
+PAM_EXTERN int
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
+		    int argc, const char **argv)
+{
+    return pam_sm_authenticate(pamh, flags, argc, argv);
+}
+
+/* --- session management functions --- */
 
 PAM_EXTERN int
 pam_sm_open_session(pam_handle_t *pamh, int flags,
@@ -519,7 +660,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags,
      * last login info and then updates the lastlog for that user.
      */
 
-    ctrl = _pam_parse(pamh, flags, argc, argv);
+    ctrl = _pam_session_parse(pamh, flags, argc, argv);
 
     /* which user? */
 
@@ -560,7 +701,7 @@ pam_sm_close_session (pam_handle_t *pamh, int flags,
 {
     const char *terminal_line;
 
-    if (!(_pam_parse(pamh, flags, argc, argv) & LASTLOG_WTMP))
+    if (!(_pam_session_parse(pamh, flags, argc, argv) & LASTLOG_WTMP))
 	return PAM_SUCCESS;
 
     terminal_line = get_tty(pamh);
@@ -577,9 +718,9 @@ pam_sm_close_session (pam_handle_t *pamh, int flags,
 
 struct pam_module _pam_lastlog_modstruct = {
      "pam_lastlog",
-     NULL,
-     NULL,
-     NULL,
+     pam_sm_authenticate,
+     pam_sm_setcred,
+     pam_sm_acct_mgmt,
      pam_sm_open_session,
      pam_sm_close_session,
      NULL,
