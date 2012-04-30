@@ -51,6 +51,8 @@
 #include <sys/stat.h>
 #include <ctype.h>
 #include <limits.h>
+#include <pwd.h>
+#include <security/pam_modutil.h>
 
 #ifdef HAVE_CRACK_H
 #include <crack.h>
@@ -92,7 +94,6 @@ extern char *FascistCheck(char *pw, const char *dictpath);
 struct cracklib_options {
 	int retry_times;
 	int diff_ok;
-	int diff_ignore;
 	int min_length;
 	int dig_credit;
 	int up_credit;
@@ -100,19 +101,21 @@ struct cracklib_options {
 	int oth_credit;
         int min_class;
 	int max_repeat;
+        int max_class_repeat;
 	int reject_user;
+        int gecos_check;
         const char *cracklib_dictpath;
 };
 
 #define CO_RETRY_TIMES  1
 #define CO_DIFF_OK      5
-#define CO_DIFF_IGNORE  23
 #define CO_MIN_LENGTH   9
 # define CO_MIN_LENGTH_BASE 5
 #define CO_DIG_CREDIT   1
 #define CO_UP_CREDIT    1
 #define CO_LOW_CREDIT   1
 #define CO_OTH_CREDIT   1
+#define CO_MIN_WORD_LENGTH 4
 
 static int
 _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
@@ -139,9 +142,7 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
 	     if (!ep || (opt->diff_ok < 0))
 		 opt->diff_ok = CO_DIFF_OK;
 	 } else if (!strncmp(*argv,"difignore=",10)) {
-	     opt->diff_ignore = strtol(*argv+10,&ep,10);
-	     if (!ep || (opt->diff_ignore < 0))
-		 opt->diff_ignore = CO_DIFF_IGNORE;
+		/* just ignore */
 	 } else if (!strncmp(*argv,"minlen=",7)) {
 	     opt->min_length = strtol(*argv+7,&ep,10);
 	     if (!ep || (opt->min_length < CO_MIN_LENGTH_BASE))
@@ -172,8 +173,14 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
              opt->max_repeat = strtol(*argv+10,&ep,10);
              if (!ep)
                  opt->max_repeat = 0;
+         } else if (!strncmp(*argv,"maxclassrepeat=",15)) {
+             opt->max_class_repeat = strtol(*argv+15,&ep,10);
+             if (!ep)
+                 opt->max_class_repeat = 0;
 	 } else if (!strncmp(*argv,"reject_username",15)) {
 		 opt->reject_user = 1;
+	 } else if (!strncmp(*argv,"gecoscheck",10)) {
+		 opt->gecos_check = 1;
 	 } else if (!strncmp(*argv,"authtok_type",12)) {
 	   /* for pam_get_authtok, ignore */;
 	 } else if (!strncmp(*argv,"use_authtok",11)) {
@@ -357,16 +364,45 @@ static int simple(struct cracklib_options *opt, const char *new)
     int	others = 0;
     int	size;
     int	i;
+    enum { NONE, DIGIT, UCASE, LCASE, OTHER } prevclass = NONE;
+    int sameclass = 0;
 
     for (i = 0;new[i];i++) {
-	if (isdigit (new[i]))
+	if (isdigit (new[i])) {
 	    digits++;
-	else if (isupper (new[i]))
+            if (prevclass != DIGIT) {
+                prevclass = DIGIT;
+                sameclass = 1;
+            } else
+                sameclass++;
+        }
+	else if (isupper (new[i])) {
 	    uppers++;
-	else if (islower (new[i]))
+            if (prevclass != UCASE) {
+                prevclass = UCASE;
+                sameclass = 1;
+            } else
+                sameclass++;
+        }
+	else if (islower (new[i])) {
 	    lowers++;
-	else
+            if (prevclass != LCASE) {
+                prevclass = LCASE;
+                sameclass = 1;
+            } else
+                sameclass++;
+        }
+	else {
 	    others++;
+            if (prevclass != OTHER) {
+                prevclass = OTHER;
+                sameclass = 1;
+            } else
+                sameclass++;
+        }
+        if (opt->max_class_repeat > 1 && sameclass > opt->max_class_repeat) {
+                return 1;
+        }
     }
 
     /*
@@ -439,21 +475,17 @@ static int consecutive(struct cracklib_options *opt, const char *new)
     return 0;
 }
 
-static int usercheck(struct cracklib_options *opt, const char *new,
-		     char *user)
+static int wordcheck(const char *new, char *word)
 {
     char *f, *b;
 
-    if (!opt->reject_user)
-	return 0;
-
-    if (strstr(new, user) != NULL)
+    if (strstr(new, word) != NULL)
 	return 1;
 
-    /* now reverse the username, we can do that in place
+    /* now reverse the word, we can do that in place
        as it is strdup-ed */
-    f = user;
-    b = user+strlen(user)-1;
+    f = word;
+    b = word+strlen(word)-1;
     while (f < b) {
 	char c;
 
@@ -464,9 +496,18 @@ static int usercheck(struct cracklib_options *opt, const char *new,
 	++f;
     }
 
-    if (strstr(new, user) != NULL)
+    if (strstr(new, word) != NULL)
 	return 1;
     return 0;
+}
+
+static int usercheck(struct cracklib_options *opt, const char *new,
+		     char *user)
+{
+    if (!opt->reject_user)
+        return 0;
+
+    return wordcheck(new, user);
 }
 
 static char * str_lower(char *string)
@@ -481,7 +522,50 @@ static char * str_lower(char *string)
 	return string;
 }
 
-static const char *password_check(struct cracklib_options *opt,
+static int gecoscheck(pam_handle_t *pamh, struct cracklib_options *opt, const char *new,
+		     const char *user)
+{
+    struct passwd *pwd;
+    char *list;
+    char *p;
+    char *next;
+
+    if (!opt->gecos_check)
+        return 0;
+
+    if ((pwd = pam_modutil_getpwnam(pamh, user)) == NULL) {
+        return 0;
+    }
+
+    list = strdup(pwd->pw_gecos);
+
+    if (list == NULL || *list == '\0') {
+        free(list);
+        return 0;
+    }
+
+    for (p = list;;p = next + 1) {
+         next = strchr(p, ' ');
+         if (next)
+             *next = '\0';
+
+         if (strlen(p) >= CO_MIN_WORD_LENGTH) {
+             str_lower(p);
+             if (wordcheck(new, p)) {
+                 free(list);
+                 return 1;
+             }
+         }
+
+         if (!next)
+             break;
+    }
+
+    free(list);
+    return 0;
+}
+
+static const char *password_check(pam_handle_t *pamh, struct cracklib_options *opt,
 				  const char *old, const char *new,
 				  const char *user)
 {
@@ -535,7 +619,7 @@ static const char *password_check(struct cracklib_options *opt,
 	if (!msg && consecutive(opt, new))
 	        msg = _("contains too many same characters consecutively");
 
-	if (!msg && usercheck(opt, newmono, usermono))
+	if (!msg && (usercheck(opt, newmono, usermono) || gecoscheck(pamh, opt, newmono, user)))
 	        msg = _("contains the user name in some form");
 
 	free(usermono);
@@ -584,7 +668,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
      * if one wanted to hardwire authentication token strength
      * checking this would be the place
      */
-    msg = password_check(opt, pass_old, pass_new, user);
+    msg = password_check(pamh, opt, pass_old, pass_new, user);
 
     if (msg) {
         if (ctrl & PAM_DEBUG_ARG)
@@ -611,7 +695,6 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
     memset(&options, 0, sizeof(options));
     options.retry_times = CO_RETRY_TIMES;
     options.diff_ok = CO_DIFF_OK;
-    options.diff_ignore = CO_DIFF_IGNORE;
     options.min_length = CO_MIN_LENGTH;
     options.dig_credit = CO_DIG_CREDIT;
     options.up_credit = CO_UP_CREDIT;

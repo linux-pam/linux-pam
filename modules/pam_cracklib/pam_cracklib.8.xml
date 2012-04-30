@@ -77,17 +77,10 @@
           <para>
             Is the new password too much like the old one?
             This is primarily controlled by one argument,
-            <option>difok</option> which is a number of characters
-            that if different between the old and new are enough to accept
-            the new password, this defaults to 10 or 1/2 the size of the
-            new password whichever is smaller.
-          </para>
-          <para>
-            To avoid the lockup associated with trying to change a long and
-            complicated password, <option>difignore</option> is available.
-            This argument can be used to specify the minimum length a new
-            password needs to be before the <option>difok</option> value is
-            ignored. The default value for <option>difignore</option> is 23.
+            <option>difok</option> which is a number of character changes
+            (inserts, removals, or replacements) between the old and new
+            password that are enough to accept the new password.
+            This defaults to 5 changes.
           </para>
         </listitem>
       </varlistentry>
@@ -96,7 +89,8 @@
         <listitem>
           <para>
              Is the new password too small?
-             This is controlled by 5 arguments <option>minlen</option>,
+             This is controlled by 6 arguments <option>minlen</option>,
+             <option>maxclassrepeat</option>,
              <option>dcredit</option>, <option>ucredit</option>,
              <option>lcredit</option>, and <option>ocredit</option>. See the section
              on the arguments for the details of how these work and there defaults.
@@ -204,24 +198,9 @@
           <listitem>
             <para>
               This argument will change the default of
-              <emphasis>5</emphasis> for the number of characters in
-              the new password that must not be present in the old
-              password. In addition, if 1/2 of the characters in the
-              new password are different then the new password will
-              be accepted anyway.
-            </para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>
-            <option>difignore=<replaceable>N</replaceable></option>
-          </term>
-          <listitem>
-            <para>
-              How many characters should the password have before
-              difok will be ignored. The default is
-              <emphasis>23</emphasis>.
+              <emphasis>5</emphasis> for the number of character
+              changes in the new password that differentiate it
+              from the old password.
             </para>
           </listitem>
         </varlistentry>
@@ -370,6 +349,19 @@
 
         <varlistentry>
           <term>
+            <option>maxclassrepeat=<replaceable>N</replaceable></option>
+          </term>
+          <listitem>
+            <para>
+              Reject passwords which contain more than N consecutive
+              characters of the same class. The default is 0 which means
+              that this check is disabled.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
             <option>reject_username</option>
           </term>
           <listitem>
@@ -377,6 +369,20 @@
               Check whether the name of the user in straight or reversed
               form is contained in the new password. If it is found the
               new password is rejected.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>gecoscheck</option>
+          </term>
+          <listitem>
+            <para>
+              Check whether the words from the GECOS field (usualy full name
+              of the user) longer than 3 characters in straight or reversed
+              form are contained in the new password. If any such word is
+              found the new password is rejected.
             </para>
           </listitem>
         </varlistentry>
