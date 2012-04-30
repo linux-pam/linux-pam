@@ -12,7 +12,7 @@
 
   <refnamediv id="pam_lastlog-name">
     <refname>pam_lastlog</refname>
-    <refpurpose>PAM module to display date of last login</refpurpose>
+    <refpurpose>PAM module to display date of last login and perform inactive account lock out</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -63,6 +63,12 @@
     <para>
       Some applications may perform this function themselves. In such
       cases, this module is not necessary.
+    </para>
+    <para>
+      If the module is called in the auth or account phase, the accounts that
+      were not used recently enough will be disallowed to log in. The
+      check is not performed for the root account so the root is never
+      locked out.
     </para>
   </refsect1>
 

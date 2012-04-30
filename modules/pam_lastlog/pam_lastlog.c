@@ -598,6 +598,8 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
     uid = pwd->pw_uid;
     pwd = NULL;                                         /* tidy up */
 
+    if (uid == 0)
+	return PAM_SUCCESS;
 
     /* obtain the last login date and all the relevant info */
     last_fd = last_login_open(pamh, ctrl, uid);
