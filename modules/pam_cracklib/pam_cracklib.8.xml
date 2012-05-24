@@ -389,6 +389,20 @@
 
         <varlistentry>
           <term>
+            <option>enforce_for_root</option>
+          </term>
+          <listitem>
+            <para>
+              The module will return error on failed check also if the user
+              changing the password is root. This option is off by default
+              which means that just the message about the failed check is
+              printed but root can change the password anyway.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
             <option>use_authtok</option>
           </term>
           <listitem>

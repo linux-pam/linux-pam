@@ -104,6 +104,7 @@ struct cracklib_options {
         int max_class_repeat;
 	int reject_user;
         int gecos_check;
+        int enforce_for_root;
         const char *cracklib_dictpath;
 };
 
@@ -181,6 +182,8 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
 		 opt->reject_user = 1;
 	 } else if (!strncmp(*argv,"gecoscheck",10)) {
 		 opt->gecos_check = 1;
+	 } else if (!strncmp(*argv,"enforce_for_root",16)) {
+		  opt->enforce_for_root = 1;
 	 } else if (!strncmp(*argv,"authtok_type",12)) {
 	   /* for pam_get_authtok, ignore */;
 	 } else if (!strncmp(*argv,"use_authtok",11)) {
@@ -757,7 +760,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	    if (ctrl & PAM_DEBUG_ARG)
 	      pam_syslog(pamh,LOG_DEBUG,"bad password: %s",crack_msg);
 	    pam_error (pamh, _("BAD PASSWORD: %s"), crack_msg);
-	    if (getuid() || (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
+	    if (getuid() || options.enforce_for_root || (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
 	      {
 		pam_set_item (pamh, PAM_AUTHTOK, NULL);
 		retval = PAM_AUTHTOK_ERR;
@@ -770,7 +773,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	  retval = _pam_unix_approve_pass (pamh, ctrl, &options,
 					   oldtoken, newtoken);
 	  if (retval != PAM_SUCCESS) {
-	    if (getuid() || (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
+	    if (getuid() || options.enforce_for_root || (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
 	      {
 		pam_set_item(pamh, PAM_AUTHTOK, NULL);
 		retval = PAM_AUTHTOK_ERR;
