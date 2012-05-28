@@ -1,21 +1,23 @@
-# translation of pam.tip.kn.po to Kannada
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
+#   <prasad.mvs@gmail.com>, 2012.
 # Shankar Prasad <svenkate@redhat.com>, 2007, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: pam.tip.kn\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Project-Id-Version: Linux-PAM\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2009-04-03 12:24+0530\n"
-"Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
-"Language-Team: Kannada <en@li.org>\n"
+"PO-Revision-Date: 2012-02-28 11:57+0000\n"
+"Last-Translator: shanky <prasad.mvs@gmail.com>\n"
+"Language-Team: Kannada (http://www.transifex.net/projects/p/fedora/language/kn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"Language: kn\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -201,9 +203,8 @@ msgstr "ಇದು ಹಳೆಯದರ ಹಾಗೆಯೇ ಇದೆ"
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "ಸಂವಾದಾತ್ಮಕ ದೋಷ"
+msgstr "ಮೆಮೊರಿ ನಿಯೋಜನಾ ದೋಷ"
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -306,8 +307,7 @@ msgstr "ಕೊನೆಯ ಲಾಗಿನ್:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] "ಕೊನೆಯ ಬಾರಿಯ ಯಶಸ್ವಿ ಪ್ರವೇಶದ ನಂತರ %d ಪ್ರವೇಶದ ಪ್ರಯತ್ನವು ವಿಫಲಗೊಂಡಿದೆ."
-msgstr[1] "ಕೊನೆಯ ಬಾರಿಯ ಯಶಸ್ವಿ ಪ್ರವೇಶದ ನಂತರ %d ಪ್ರವೇಶದ ಪ್ರಯತ್ನಗಳು ವಿಫಲಗೊಂಡಿದೆ."
+msgstr[0] "ಕೊನೆಯ ಬಾರಿಯ ಯಶಸ್ವಿ ಪ್ರವೇಶದ ನಂತರ %d ವಿಫಲಗೊಂಡ ಪ್ರಯತ್ನಗಳಿವೆ."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:485
@@ -486,10 +486,8 @@ msgstr "%s: ಗುರುತಿಸಲಾಗದ ಆಯ್ಕೆ %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -507,16 +505,12 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filename] [--file rooted-filename]\n   [-u username] [--user username]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr ""
-"ಅನುಮತಿಯನ್ನು ನೀಡಲಾಗಿದೆ (ಕೊನೆಯ ಬಾರಿಗೆ %ld ಸೆಕೆಂಡುಗಳ ಹಿಂದೆ ನಿಲುಕಿಸಿಕೊಳ್ಳಲಾಗಿತ್ತು)."
+msgstr "ಅನುಮತಿಯನ್ನು ನೀಡಲಾಗಿದೆ (ಕೊನೆಯ ಬಾರಿಗೆ %ld ಸೆಕೆಂಡುಗಳ ಹಿಂದೆ ನಿಲುಕಿಸಿಕೊಳ್ಳಲಾಗಿತ್ತು)."
 
 #: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
@@ -528,15 +522,13 @@ msgstr "ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದ�
 
 #: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
-"ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸುವ ಅಗತ್ಯವಿದೆ (ಗುಪ್ತಪದವು ಬಹಳ ಹಳೆಯದಾಗಿದೆ)"
+msgstr "ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸುವ ಅಗತ್ಯವಿದೆ (ಗುಪ್ತಪದವು ಬಹಳ ಹಳೆಯದಾಗಿದೆ)"
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "ಎಚ್ಚರಿಕೆ: %d ದಿನದಲ್ಲಿ ನಿಮ್ಮ ಗುಪ್ತಪದದ ಅವಧಿ ಅಂತ್ಯಗೊಳ್ಳುತ್ತದೆ"
-msgstr[1] "ಎಚ್ಚರಿಕೆ: %d ದಿನಗಳಲ್ಲಿ ನಿಮ್ಮ ಗುಪ್ತಪದದ ಅವಧಿ ಅಂತ್ಯಗೊಳ್ಳುತ್ತದೆ"
+msgstr[0] "ಎಚ್ಚರಿಕೆ: ನಿಮ್ಮ ಗುಪ್ತಪದದ ವಾಯಿದೆಯು %d ದಿನಗಳ ನಂತರ ತೀರಿಹೋಗುತ್ತದೆ"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283

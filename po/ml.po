@@ -1,24 +1,22 @@
-# translation of pam.default.ml.po to
-# translation of ml.po to
-# translation of pam.tip.ml.po to
-# translation of Linux-PAM.tip.ml.po to
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Ani Peter <apeter@redhat.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: pam.default.ml\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Project-Id-Version: Linux-PAM\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2010-03-24 14:41+0530\n"
-"Last-Translator: \n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2011-11-30 12:00+0000\n"
+"Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
+"Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ml\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -204,9 +202,8 @@ msgstr "പഴയത് പോലെ തന്നെയാകുന്നതു�
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "സംവാദത്തിലുളള പിശക്"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -489,10 +486,8 @@ msgstr "%s: Unrecognised ഉപാധി %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -510,10 +505,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filename] [--file rooted-filename]\n   [-u username] [--user username]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -522,9 +514,7 @@ msgstr "അനുവാദം നല്‍കിയിരിക്കുന്�
 
 #: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"നിങ്ങളുടെ അക്കൌണ്ടിന്റെ കാലാവധി അവസാനിച്ചിരിക്കുന്നു; ദയവായി സിസ്റ്റം അഡ്മിനിസ്ട്രേറ്ററുമായി "
-"ബന്ധപ്പെടുക"
+msgstr "നിങ്ങളുടെ അക്കൌണ്ടിന്റെ കാലാവധി അവസാനിച്ചിരിക്കുന്നു; ദയവായി സിസ്റ്റം അഡ്മിനിസ്ട്രേറ്ററുമായി ബന്ധപ്പെടുക"
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"

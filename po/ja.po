@@ -1,22 +1,24 @@
-# translation of ja.po to Japanese
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR Linux-PAM Project.
 #
-# Noriko Mizumoto <noriko@redhat.com>, 2007.
+# Translators:
 # Kiyoto Hashida <khashida@redhat.com>, 2008, 2009.
+# Noriko Mizumoto <noriko@redhat.com>, 2007.
+# Tomoyuki KATO <tomo@dream.daynight.jp>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: ja\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Project-Id-Version: Linux-PAM\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2009-08-30 11:39+0900\n"
-"Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
-"Language-Team: Japanese <jp@li.org>\n"
+"PO-Revision-Date: 2012-01-26 13:44+0000\n"
+"Last-Translator: Tomoyuki KATO <tomo@dream.daynight.jp>\n"
+"Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -61,7 +63,7 @@ msgstr "パスワードの変更は放棄されました"
 
 #: libpam/pam_item.c:311
 msgid "login:"
-msgstr "ログイン::"
+msgstr "ログイン:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
@@ -89,7 +91,7 @@ msgstr "システムエラー"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
-msgstr "メモリバッファエラー"
+msgstr "メモリーバッファエラー"
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
@@ -109,7 +111,7 @@ msgstr "認証サービスが認証情報を検索できません"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr "基礎となる認証モジュールを知らないユーザ"
+msgstr "基礎となる認証モジュールを知らないユーザー"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
@@ -121,7 +123,7 @@ msgstr "認証トークンはもはや有効ではありません。新しい認
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
-msgstr "ユーザアカウントの有効期限が切れました"
+msgstr "ユーザーアカウントの有効期限が切れました"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
@@ -129,15 +131,15 @@ msgstr "指定したセッションに対するエントリを作成/削除で�
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr "認証サービスがユーザ資格認定を検索できません"
+msgstr "認証サービスがユーザー資格認定を検索できません"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr "ユーザ資格認定の有効期限切れ"
+msgstr "ユーザー資格認定の有効期限切れ"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr "ユーザ資格認定の設定に失敗しました"
+msgstr "ユーザー資格認定の設定に失敗しました"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
@@ -173,7 +175,7 @@ msgstr "パスワードサービスによる予備チェックに失敗しまし
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "戻り値はPAMタスク指名により無視する必要があります"
+msgstr "戻り値は PAM タスク指名により無視する必要があります"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
@@ -193,7 +195,7 @@ msgstr "アプリケーションはlibpamを再び呼び出す必要がありま
 
 #: libpam/pam_strerror.c:105
 msgid "Unknown PAM error"
-msgstr "不明なPAMエラー"
+msgstr "不明な PAM エラー"
 
 #: modules/pam_cracklib/pam_cracklib.c:493
 msgid "is the same as the old one"
@@ -202,9 +204,8 @@ msgstr "パスワードが古いものと同じです。"
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "会話エラー"
+msgstr "メモリー割り当てエラー"
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -369,8 +370,7 @@ msgstr "ディレクトリ %s を作成して初期化できません。"
 #: modules/pam_pwhistory/pam_pwhistory.c:215
 #: modules/pam_unix/pam_unix_passwd.c:509
 msgid "Password has been already used. Choose another."
-msgstr ""
-"パスワードはすでに使用されています。 別のパスワードを選択してください。"
+msgstr "パスワードはすでに使用されています。 別のパスワードを選択してください。"
 
 #: modules/pam_selinux/pam_selinux.c:172
 msgid "Would you like to enter a security context? [N] "
@@ -469,7 +469,7 @@ msgstr "サービスエラー"
 
 #: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:886
 msgid "Unknown user"
-msgstr "不明なユーザ"
+msgstr "不明なユーザー"
 
 #: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:887
 msgid "Unknown error"
@@ -487,15 +487,13 @@ msgstr "%s: 未認識オプション%s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: すべてのユーザを非ゼロにリセットできません\n"
+msgstr "%s: すべてのユーザーを非ゼロにリセットできません\n"
 
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
@@ -508,10 +506,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filename] [--file rooted-filename]\n   [-u username] [--user username]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -520,8 +515,7 @@ msgstr "アクセスを許可 （最後のアクセスは %ld 秒前でした）
 
 #: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"アカウントの有効期限が切れました。システム管理者にお問い合わせください。"
+msgstr "アカウントの有効期限が切れました。システム管理者にお問い合わせください。"
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
@@ -545,7 +539,7 @@ msgstr "警告: パスワードは %d 日で有効期限が切れます。"
 
 #: modules/pam_unix/pam_unix_passwd.c:390
 msgid "NIS password could not be changed."
-msgstr "NISパスワードを変更できませんでした。"
+msgstr "NIS パスワードを変更できませんでした。"
 
 #: modules/pam_unix/pam_unix_passwd.c:505
 msgid "You must choose a longer password"
@@ -558,7 +552,7 @@ msgstr "%s 用にパスワードを変更中"
 
 #: modules/pam_unix/pam_unix_passwd.c:623
 msgid "(current) UNIX password: "
-msgstr "現在のUNIXパスワード:"
+msgstr "現在の UNIX パスワード:"
 
 #: modules/pam_unix/pam_unix_passwd.c:658
 msgid "You must wait longer to change your password"
@@ -566,8 +560,8 @@ msgstr "パスワードを変更するには長く待つ必要があります"
 
 #: modules/pam_unix/pam_unix_passwd.c:718
 msgid "Enter new UNIX password: "
-msgstr "新しいUNIXパスワードを入力してください:"
+msgstr "新しい UNIX パスワードを入力してください:"
 
 #: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
-msgstr "新しいUNIX パスワードを再入力してください:"
+msgstr "新しい UNIX パスワードを再入力してください:"

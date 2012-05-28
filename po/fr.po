@@ -1,24 +1,26 @@
-# translation of pam.fr2.po to Français
-# Copyright (C) 2008 Linux-PAM Project
-# This file is distributed under the same license as the pam package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Linux-PAM Project
+# This file is distributed under the same license as the PACKAGE package.
 #
-# myriam malga <mmalga@redhat.com>, 2007.
+# Translators:
 # Canniot Thomas <thomas.canniot@mrtomlinux.org>, 2008.
-# Pablo Martin-Gomez <pablo.martin-gomez@laposte.net>, 2008.
 # Charles-Antoine Couret <cacouret@wanadoo.fr>, 2009.
+# Kévin Raymond <shaiton@fedoraproject.org>, 2012.
+# myriam malga <mmalga@redhat.com>, 2007.
+# Pablo Martin-Gomez <pablo.martin-gomez@laposte.net>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: pam.fr2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Project-Id-Version: Linux-PAM\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2009-04-15 23:00+0200\n"
-"Last-Translator: Charles-Antoine Couret <cacouret@wanadoo.fr>\n"
-"Language-Team: French <fedora-trans-fr@redhat.com>\n"
+"PO-Revision-Date: 2012-03-12 22:10+0000\n"
+"Last-Translator: Kévin Raymond <shaiton@fedoraproject.org>\n"
+"Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
-"X-Generator: Lokalize 0.3\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -103,15 +105,11 @@ msgstr "Échec d'authentification"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
-"Informations d'identification insuffisantes pour accéder aux données "
-"d'authentification"
+msgstr "Informations d'identification insuffisantes pour accéder aux données d'authentification"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr ""
-"Le service d'authentification n'a pas pu récupérer les informations "
-"d'authentification"
+msgstr "Le service d'authentification n'a pas pu récupérer les informations d'authentification"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -123,8 +121,7 @@ msgstr "Nombre maximum de tentatives épuisées pour le service"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr ""
-"Le jeton d'authentification n'est plus valide ; un nouveau jeton est requis"
+msgstr "Le jeton d'authentification n'est plus valide ; un nouveau jeton est requis"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -136,9 +133,7 @@ msgstr "Impossible de créer/supprimer une entrée pour la session spécifiée"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
-"Le service d'authentification n'a pas pu récupérer les informations "
-"d'identification de l'utilisateur"
+msgstr "Le service d'authentification n'a pas pu récupérer les informations d'identification de l'utilisateur"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -146,9 +141,7 @@ msgstr "Informations d'identification de l'utilisateur expirées"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr ""
-"Échec lors de la définition des informations d'identification de "
-"l'utilisateur"
+msgstr "Échec lors de la définition des informations d'identification de l'utilisateur"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
@@ -213,9 +206,8 @@ msgstr "est identique à l'ancien"
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "Erreur de conversation"
+msgstr "erreur d'allocation de mémoire"
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -318,20 +310,14 @@ msgstr "Dernière connexion échoué : %s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"Il y a %d tentative échouée de connexion depuis la dernière connexion "
-"réussie."
-msgstr[1] ""
-"Il y a %d tentatives échouées de connexion depuis la dernière connexion "
-"réussie."
+msgstr[0] "Il y a %d tentative échouée de connexion depuis la dernière connexion réussie."
+msgstr[1] "Il y a %d tentatives échouées de connexion depuis la dernière connexion réussie."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:485
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
-"Il y a eu %d tentatives de connexion échouées depuis la dernière connexion "
-"réussie."
+msgstr "Il y a eu %d tentatives de connexion échouées depuis la dernière connexion réussie."
 
 #: modules/pam_limits/pam_limits.c:1079
 #, c-format
@@ -504,11 +490,8 @@ msgstr "%s : Option non reconnue %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file chemin du fichier] [--user nom d'utilisateur] [--reset[=n]] [--"
-"quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file chemin du fichier] [--user nom d'utilisateur] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -526,10 +509,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f chemin du fichier] [--file chemin du fichier]\n"
-"   [-u nom d'utilisateur] [--user nom d'utilisateur]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f chemin du fichier] [--file chemin du fichier]\n   [-u nom d'utilisateur] [--user nom d'utilisateur]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -589,17 +569,3 @@ msgstr "Entrez le nouveau mot de passe UNIX : "
 #: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "Retapez le nouveau mot de passe UNIX : "
-
-#, fuzzy
-#~ msgid "Account locked due to %hu failed logins"
-#~ msgstr "Compte temporairement verrouillé dû à l'échec de %u connexions"
-
-#~ msgid "has been already used"
-#~ msgstr "a déjà été utilisé"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "Mot de passe déjà utilisé. Choisissez-en un autre."
-
-#~ msgid "Requested MLS level not in permitted range"
-#~ msgstr "Niveau MLS demandé hors de la plage autorisée"

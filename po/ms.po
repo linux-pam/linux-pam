@@ -1,25 +1,26 @@
-# linux-pam Bahasa Melayu (Malay) (ms)
-# Copyright (C) 2008 Linux-PAM Project
-# This file is distributed under the same license as the linux-pam package.
-# Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2008.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Linux-PAM Project
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
+# Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: linux-pam\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Project-Id-Version: Linux-PAM\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2008-09-25 23:52+0800\n"
-"Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
-"Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2011-11-30 12:01+0000\n"
+"Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ms\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: libpam_misc/misc_conv.c:33
-#, fuzzy
 msgid "...Time is running out...\n"
-msgstr "Amarok tidak dilaksanakan!"
+msgstr ""
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
@@ -32,24 +33,22 @@ msgstr ""
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
 #: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:64
-#, fuzzy
 msgid "Password: "
-msgstr "Katalaluan:"
+msgstr ""
 
 #: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
-#, fuzzy, c-format
+#, c-format
 msgid "New %s%spassword: "
-msgstr "&Tetingkap Baru"
+msgstr ""
 
 #: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
-#, fuzzy, c-format
+#, c-format
 msgid "Retype new %s%spassword: "
-msgstr "Baru me&nggunakan Template"
+msgstr ""
 
 #: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
-#, fuzzy
 msgid "Sorry, passwords do not match."
-msgstr "Sijil dan kekunci diberi tidak sepadan."
+msgstr ""
 
 #: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
 #, c-format
@@ -57,58 +56,48 @@ msgid "Retype %s"
 msgstr ""
 
 #: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
-#, fuzzy
 msgid "Password change aborted."
-msgstr "Biarkan tanpa diubah"
+msgstr ""
 
 #: libpam/pam_item.c:311
-#, fuzzy
 msgid "login:"
-msgstr "Login:"
+msgstr ""
 
 #: libpam/pam_strerror.c:40
-#, fuzzy
 msgid "Success"
-msgstr "Berjaya"
+msgstr ""
 
 #: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
 msgstr ""
 
 #: libpam/pam_strerror.c:44
-#, fuzzy
 msgid "Failed to load module"
-msgstr "Gagal untuk mencari seksyen: %s"
+msgstr ""
 
 #: libpam/pam_strerror.c:46
-#, fuzzy
 msgid "Symbol not found"
-msgstr "Fail %s tidak dijumpai"
+msgstr ""
 
 #: libpam/pam_strerror.c:48
-#, fuzzy
 msgid "Error in service module"
-msgstr "Comment=Ralat dalam sintaks"
+msgstr ""
 
 #: libpam/pam_strerror.c:50
-#, fuzzy
 msgid "System error"
-msgstr "Ralat sistem tidak diketahui"
+msgstr ""
 
 #: libpam/pam_strerror.c:52
-#, fuzzy
 msgid "Memory buffer error"
-msgstr "Ralat dalaman dalam pengumpukan memori."
+msgstr ""
 
 #: libpam/pam_strerror.c:54
-#, fuzzy
 msgid "Permission denied"
-msgstr "Izin ditolak"
+msgstr ""
 
 #: libpam/pam_strerror.c:56
-#, fuzzy
 msgid "Authentication failure"
-msgstr "Kegagalan Scriptlet"
+msgstr ""
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
@@ -131,9 +120,8 @@ msgid "Authentication token is no longer valid; new one required"
 msgstr ""
 
 #: libpam/pam_strerror.c:68
-#, fuzzy
 msgid "User account has expired"
-msgstr "Sesi diminta telah tamat tempoh."
+msgstr ""
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
@@ -144,9 +132,8 @@ msgid "Authentication service cannot retrieve user credentials"
 msgstr ""
 
 #: libpam/pam_strerror.c:74
-#, fuzzy
 msgid "User credentials expired"
-msgstr "Bahasa Antaramuka Pengguna"
+msgstr ""
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
@@ -161,9 +148,8 @@ msgid "Bad item passed to pam_*_item()"
 msgstr ""
 
 #: libpam/pam_strerror.c:82
-#, fuzzy
 msgid "Conversation error"
-msgstr "Ralat KMail"
+msgstr ""
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
@@ -190,14 +176,12 @@ msgid "The return value should be ignored by PAM dispatch"
 msgstr ""
 
 #: libpam/pam_strerror.c:96
-#, fuzzy
 msgid "Module is unknown"
-msgstr "Fail %s adalah dari jenis tidak diketahui"
+msgstr ""
 
 #: libpam/pam_strerror.c:98
-#, fuzzy
 msgid "Authentication token expired"
-msgstr "Guna Pengesahan LDAP"
+msgstr ""
 
 #: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
@@ -208,50 +192,42 @@ msgid "Application needs to call libpam again"
 msgstr ""
 
 #: libpam/pam_strerror.c:105
-#, fuzzy
 msgid "Unknown PAM error"
-msgstr "Ralat sistem tidak diketahui"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:493
-#, fuzzy
 msgid "is the same as the old one"
-msgstr "  --src          - pakej berikut adalah pakej sumber (sama dgn -s).\n"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "Ralat KMail"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:518
-#, fuzzy
 msgid "is a palindrome"
-msgstr "seadanya"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:521
-#, fuzzy
 msgid "case changes only"
-msgstr "Tetapkan hanya kad \"%s\"%s"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:524
 msgid "is too similar to the old one"
 msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:527
-#, fuzzy
 msgid "is too simple"
-msgstr "Nama terlalu panjang"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:530
-#, fuzzy
 msgid "is rotated"
-msgstr "seadanya"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:533
-#, fuzzy
 msgid "not enough character classes"
-msgstr "Tidak cukup volum fizikal"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:536
 msgid "contains too many same characters consecutively"
@@ -263,31 +239,29 @@ msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:573
 #: modules/pam_unix/pam_unix_passwd.c:488
-#, fuzzy
 msgid "No password supplied"
-msgstr "Kata Laluan & Akaun Pengguna"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:573
 #: modules/pam_unix/pam_unix_passwd.c:488
-#, fuzzy
 msgid "Password unchanged"
-msgstr "Biarkan tanpa diubah"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:593
 #: modules/pam_cracklib/pam_cracklib.c:676
-#, fuzzy, c-format
+#, c-format
 msgid "BAD PASSWORD: %s"
-msgstr "Katalaluan Tidak Betul"
+msgstr ""
 
 #: modules/pam_exec/pam_exec.c:215
-#, fuzzy, c-format
+#, c-format
 msgid "%s failed: exit code %d"
-msgstr "Pengesahan Message Authentication Code gagal."
+msgstr ""
 
 #: modules/pam_exec/pam_exec.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr "Pelaksanaan gpg gagal (%d)\n"
+msgstr ""
 
 #: modules/pam_exec/pam_exec.c:233
 #, c-format
@@ -301,32 +275,31 @@ msgstr ""
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:442
-#, fuzzy, c-format
+#, c-format
 msgid " from %.*s"
-msgstr "Dari: "
+msgstr ""
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:454
-#, fuzzy, c-format
+#, c-format
 msgid " on %.*s"
-msgstr "\"%s\" (pada %s)"
+msgstr ""
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:232
-#, fuzzy, c-format
+#, c-format
 msgid "Last login:%s%s%s"
-msgstr "Pengurus Login"
+msgstr ""
 
 #: modules/pam_lastlog/pam_lastlog.c:238
-#, fuzzy
 msgid "Welcome to your new account!"
-msgstr "Menambah klien baru pada rangkaian anda"
+msgstr ""
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:464
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "Pengurus Login"
+msgstr ""
 
 #: modules/pam_lastlog/pam_lastlog.c:473 modules/pam_lastlog/pam_lastlog.c:480
 #, c-format
@@ -347,24 +320,20 @@ msgid "Too many logins for '%s'."
 msgstr ""
 
 #: modules/pam_mail/pam_mail.c:297
-#, fuzzy
 msgid "No mail."
-msgstr "Gabung &Mel"
+msgstr ""
 
 #: modules/pam_mail/pam_mail.c:300
-#, fuzzy
 msgid "You have new mail."
-msgstr "Medan Gabung &Mel"
+msgstr ""
 
 #: modules/pam_mail/pam_mail.c:303
-#, fuzzy
 msgid "You have old mail."
-msgstr "Medan Gabung &Mel"
+msgstr ""
 
 #: modules/pam_mail/pam_mail.c:307
-#, fuzzy
 msgid "You have mail."
-msgstr "Gabung &Mel"
+msgstr ""
 
 #: modules/pam_mail/pam_mail.c:314
 #, c-format
@@ -382,19 +351,19 @@ msgid "You have old mail in folder %s."
 msgstr ""
 
 #: modules/pam_mail/pam_mail.c:327
-#, fuzzy, c-format
+#, c-format
 msgid "You have mail in folder %s."
-msgstr "Pemindahan mel dalam proses"
+msgstr ""
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:113
-#, fuzzy, c-format
+#, c-format
 msgid "Creating directory '%s'."
-msgstr "Menbuat direktori initrd"
+msgstr ""
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:183
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "gagal untuk mencipta direktori %s: %s\n"
+msgstr ""
 
 #: modules/pam_pwhistory/pam_pwhistory.c:215
 #: modules/pam_unix/pam_unix_passwd.c:509
@@ -410,30 +379,26 @@ msgid "role:"
 msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:205 modules/pam_selinux/pam_selinux.c:334
-#, fuzzy
 msgid "level:"
-msgstr "Tahap 1"
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:220 modules/pam_selinux/pam_selinux.c:367
-#, fuzzy
 msgid "Not a valid security context"
-msgstr "%s adalah nama hos yang tidak sah"
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:282
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "ketika mengulangtetap konteks"
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:286
 msgid "Would you like to enter a different role or level?"
 msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:302
-#, fuzzy, c-format
+#, c-format
 msgid "No default type for role %s\n"
 msgstr ""
-"$$ untuk hukum pertengahan pada $%d bagi `%s' tidak mempunyai jenis "
-"dinyatakan"
 
 #: modules/pam_selinux/pam_selinux.c:688
 #, c-format
@@ -441,9 +406,9 @@ msgid "Unable to get valid context for %s"
 msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:742
-#, fuzzy, c-format
+#, c-format
 msgid "Security Context %s Assigned"
-msgstr "ketika mengulangtetap konteks"
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:763
 #, c-format
@@ -451,9 +416,9 @@ msgid "Key Creation Context %s Assigned"
 msgstr ""
 
 #: modules/pam_selinux/pam_selinux_check.c:99
-#, fuzzy, c-format
+#, c-format
 msgid "failed to initialize PAM\n"
-msgstr "Gagal untuk mencari seksyen: %s"
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux_check.c:105
 #, c-format
@@ -461,19 +426,18 @@ msgid "failed to pam_set_item()\n"
 msgstr ""
 
 #: modules/pam_selinux/pam_selinux_check.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "login: failure forking: %m"
-msgstr "Ben_arkan logmasuk luartalian"
+msgstr ""
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "Greek 'astator' untuk 'menukar'"
+msgstr ""
 
 #: modules/pam_stress/pam_stress.c:490
-#, fuzzy
 msgid "Enter new STRESS password: "
-msgstr "Masukkkan Katalaluan Pemuat But"
+msgstr ""
 
 #: modules/pam_stress/pam_stress.c:493
 msgid "Retype new STRESS password: "
@@ -494,24 +458,20 @@ msgid "Account locked due to %u failed logins"
 msgstr ""
 
 #: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
-#, fuzzy
 msgid "Authentication error"
-msgstr "Ralat KMail"
+msgstr ""
 
 #: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:885
-#, fuzzy
 msgid "Service error"
-msgstr "Ralat servis"
+msgstr ""
 
 #: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:886
-#, fuzzy
 msgid "Unknown user"
-msgstr "Antaramuka Pengguna"
+msgstr ""
 
 #: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:887
-#, fuzzy
 msgid "Unknown error"
-msgstr "ralat tidak diketahui"
+msgstr ""
 
 #: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:906
 #, c-format
@@ -519,14 +479,13 @@ msgid "%s: Bad number given to --reset=\n"
 msgstr ""
 
 #: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:910
-#, fuzzy, c-format
+#, c-format
 msgid "%s: Unrecognised option %s\n"
-msgstr "Pilihan Kernel"
+msgstr ""
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
@@ -569,7 +528,6 @@ msgstr ""
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
 msgstr[0] ""
-msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
@@ -605,7 +563,3 @@ msgstr "Masukkan katalaluan UNIX baru:"
 #: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr ""
-
-#, fuzzy
-#~ msgid "has been already used"
-#~ msgstr "Huruf ini telah diteka."

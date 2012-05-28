@@ -1,21 +1,22 @@
-# translation of si.po to Sinhala
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Danishka Navin <snavin@redhat.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: si\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Project-Id-Version: Linux-PAM\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2007-06-22 12:24+0530\n"
-"Last-Translator: Danishka Navin <snavin@redhat.com>\n"
-"Language-Team: Sinhala <en@li.org>\n"
+"PO-Revision-Date: 2011-11-30 12:01+0000\n"
+"Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
+"Language-Team: Sinhala (http://www.transifex.net/projects/p/fedora/language/si/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"Language: si\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -50,14 +51,13 @@ msgid "Sorry, passwords do not match."
 msgstr "සමාවෙන්න, රහස්පද ගැලපෙන්නේ නැත."
 
 #: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
-#, fuzzy, c-format
+#, c-format
 msgid "Retype %s"
-msgstr "වර්‍ගය:"
+msgstr ""
 
 #: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
-#, fuzzy
 msgid "Password change aborted."
-msgstr "රහස්පදය වෙනස් නොවිනි"
+msgstr ""
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -202,9 +202,8 @@ msgstr "එය පැරණි රහස්පදය හා සමාන වේ"
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "පරිවර්තන දෝෂය"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -298,9 +297,9 @@ msgstr "ඔබගේ නව ගිණුමට සාදරයෙන් පි�
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:464
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "අවසාන පිවිසුම:%s%s%s"
+msgstr ""
 
 #: modules/pam_lastlog/pam_lastlog.c:473 modules/pam_lastlog/pam_lastlog.c:480
 #, c-format
@@ -373,33 +372,29 @@ msgid "Password has been already used. Choose another."
 msgstr "රහස්පදය දැනටමත් භාවිතා වේ. වෙනත් එකක් තෝරාගන්න."
 
 #: modules/pam_selinux/pam_selinux.c:172
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "ඔබ ආරක්‍ෂක ප්‍රකරණයක් ඇතුළත් කිරීමට කැමති ද? [y] "
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:299
-#, fuzzy
 msgid "role:"
-msgstr "කාරිය:"
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:205 modules/pam_selinux/pam_selinux.c:334
-#, fuzzy
 msgid "level:"
-msgstr "මට්ටම:"
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:220 modules/pam_selinux/pam_selinux.c:367
 msgid "Not a valid security context"
 msgstr "නිරවද්‍ය ආරක්‍ෂක ප්‍රකරණයක් නොවේ"
 
 #: modules/pam_selinux/pam_selinux.c:282
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "%s ආරක්‍ෂක ප්‍රකරණය යොදවා ඇත"
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:286
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "ඔබ ආරක්‍ෂක ප්‍රකරණයක් ඇතුළත් කිරීමට කැමති ද? [y] "
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:302
 #, c-format
@@ -417,9 +412,9 @@ msgid "Security Context %s Assigned"
 msgstr "%s ආරක්‍ෂක ප්‍රකරණය යොදවා ඇත"
 
 #: modules/pam_selinux/pam_selinux.c:763
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "%s ආරක්‍ෂක ප්‍රකරණය යොදවා ඇත"
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -437,9 +432,9 @@ msgid "login: failure forking: %m"
 msgstr "පිවිසුම: ෆොර්කින් බිදවැටීමක්: %m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "STRESS රහස්පදය වෙනස් කරමින්"
+msgstr ""
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -491,10 +486,8 @@ msgstr "%s: %s හදුනා නොගත් විකල්පයකි\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -507,13 +500,12 @@ msgid "Login           Failures Latest failure     From\n"
 msgstr ""
 
 #: modules/pam_tally2/pam_tally2.c:953
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -554,9 +546,9 @@ msgid "You must choose a longer password"
 msgstr "ඔබ විසින් දිගු රහස්පදයක් තෝරාගත යුතුම වේ"
 
 #: modules/pam_unix/pam_unix_passwd.c:612
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "STRESS රහස්පදය වෙනස් කරමින්"
+msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:623
 msgid "(current) UNIX password: "
@@ -573,20 +565,3 @@ msgstr "නව UNIX රහස්පදය ඇතුළත් කරන්න:"
 #: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "නව UNIX රහස්පදය නැවත ඇතුළත් කරන්න:"
-
-#~ msgid "has been already used"
-#~ msgstr "දැනටමත් භාවිතයේ ඇත"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "රහස්පදය දැනටමත් භාවිතා වේ. වෙනත් එකක් තෝරාගන්න."
-
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "ඔබගේ ප්‍රකෘති ප්‍රකරණය %s වේ. \n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "ඔබට වෙනස් එකක් තෝරාගැනීමට අවශ්‍යද? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "තෝරාගැනිම් සංඛ්‍යාව ඇතුළත් කරන්න:"

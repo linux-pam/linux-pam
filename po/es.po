@@ -1,25 +1,25 @@
-# translation of Linux-PAM to Spanish
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
-# This file is distributed under the same license as the Linux-PAM package.
+# This file is distributed under the same license as the PACKAGE package.
 #
-# Manuel Ospina <mospina@redhat.com>, 2007.
+# Translators:
+# Andrei Garza <adimgar@gmail.com>, 2012.
 # Domingo Becker <domingobecker@gmail.com>, 2008.
 # Héctor Daniel Cabrera <h.daniel.cabrera@gmail.com>, 2009.
-#
+# Manuel Ospina <mospina@redhat.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM.tip.es\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Project-Id-Version: Linux-PAM\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2009-03-18 22:51-0300\n"
-"Last-Translator: Domingo Becker <domingobecker@gmail.com>\n"
-"Language-Team: Fedora Spanish <fedora-trans-es@redhat.com>\n"
+"PO-Revision-Date: 2012-02-22 00:23+0000\n"
+"Last-Translator: Andrei Garza <adimgar@gmail.com>\n"
+"Language-Team: Spanish (Castilian) <trans-es@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
-"X-Generator: KBabel 1.11.4\n"
-"X-Poedit-Language: Spanish\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -108,9 +108,7 @@ msgstr "Credenciales insuficientes para acceder a los datos de autenticación"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr ""
-"El servicio de autenticación no puede recuperar la información de "
-"autenticación"
+msgstr "El servicio de autenticación no puede recuperar la información de autenticación"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -134,8 +132,7 @@ msgstr "No es posible crear o eliminar una entrada de la sesión especificada"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
-"El servicio de autenticación no puede recuperar las credenciales del usuario"
+msgstr "El servicio de autenticación no puede recuperar las credenciales del usuario"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -208,9 +205,8 @@ msgstr "es igual que la antigua"
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "Error de conversación"
+msgstr "error de asignación de memoria"
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -314,8 +310,7 @@ msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
 msgstr[0] "Hubo %d intento de logueo fallido desde el último logueo exitosoo."
-msgstr[1] ""
-"Hubo %d intentos de logueo fallidos desde el último logueo exitoso. "
+msgstr[1] "Hubo %d intentos de logueo fallidos desde el último logueo exitoso. "
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:485
@@ -494,18 +489,13 @@ msgstr "%s: Opción no reconocida %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file nombre de archivo-raíz] [--user nombre de usuario] [--reset[=n]] "
-"[--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file nombre de archivo-raíz] [--user nombre de usuario] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr ""
-"%s: No es posible restaurar a todos los usuarios a un número distinto de "
-"cero\n"
+msgstr "%s: No es posible restaurar a todos los usuarios a un número distinto de cero\n"
 
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
@@ -518,10 +508,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f nombre-arch-completo] [--file nombre-arch-completo]\n"
-"   [-u nombre-de-usuario] [--user nombre-de-usuario]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f nombre-arch-completo] [--file nombre-arch-completo]\n   [-u nombre-de-usuario] [--user nombre-de-usuario]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -530,13 +517,11 @@ msgstr "Acceso permitido (el último acceso fué hace %ld segundos)."
 
 #: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"La cuenta ha caducado, póngase en contacto con el administrador del sistema"
+msgstr "La cuenta ha caducado, póngase en contacto con el administrador del sistema"
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
-"Debe cambiar la contraseña inmediatamente (aplicado por el usuario root)"
+msgstr "Debe cambiar la contraseña inmediatamente (aplicado por el usuario root)"
 
 #: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
@@ -583,28 +568,3 @@ msgstr "Introduzca la nueva contraseña de UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "Vuelva a escribir la nueva contraseña de UNIX: "
-
-#~ msgid "has been already used"
-#~ msgstr "ya se ha utilizado"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "La contraseña ya se ha utilizado. Seleccione otra."
-
-#~ msgid "Requested MLS level not in permitted range"
-#~ msgstr "El nivel MLS requerido no está en el rango permitido"
-
-#~ msgid "Error connecting to audit system."
-#~ msgstr "Error al conectar al sistema de auditoría."
-
-#~ msgid "Error translating default context."
-#~ msgstr "Error traduciendo el contexto predeterminado."
-
-#~ msgid "Error translating selected context."
-#~ msgstr "Error al traducir el contexto seleccionado."
-
-#~ msgid "Error sending audit message."
-#~ msgstr "Error al enviar el mensaje de auditoría."
-
-#~ msgid "Out of memory"
-#~ msgstr "Falta memoria"

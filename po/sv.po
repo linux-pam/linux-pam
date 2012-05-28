@@ -1,21 +1,24 @@
-# Swedish translation of Linux-PAM messages.
-# Copyright (C) 2007, 2009, 2010 Free Software Foundation, Inc.
-# This file is distributed under the same license as the Linux-PAM package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Linux-PAM Project
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
 # Christer Andersson <klamm@comhem.se>, 2007.
 # Daniel Nylander <po@danielnylander.se>, 2009, 2010.
-#
+# Göran Uddeborg <goeran@uddeborg.se>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2010-03-25 19:44+0100\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"PO-Revision-Date: 2012-02-18 15:01+0000\n"
+"Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
+"Language-Team: Swedish (http://www.transifex.net/projects/p/fedora/language/sv/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -201,9 +204,8 @@ msgstr "är samma som det gamla"
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "Konversationsfel"
+msgstr "minnesallokeringsfel"
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -306,20 +308,14 @@ msgstr "Senaste misslyckade inloggning:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta "
-"inloggning."
-msgstr[1] ""
-"Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta "
-"inloggning."
+msgstr[0] "Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta inloggning."
+msgstr[1] "Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta inloggning."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:485
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
-"Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta "
-"inloggning."
+msgstr "Det har skett %d misslyckade inloggningsförsök sedan senaste korrekta inloggning."
 
 #: modules/pam_limits/pam_limits.c:1079
 #, c-format
@@ -492,10 +488,8 @@ msgstr "%s: Okänd flagga %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file absolut-filnamn] [--user användarnamn] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file absolut-filnamn] [--user användarnamn] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -513,10 +507,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filnamn] [--file rooted-filnamn]\n"
-"   [-u användarnamn] [--user användarnamn]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filnamn] [--file rooted-filnamn]\n   [-u användarnamn] [--user användarnamn]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -576,28 +567,3 @@ msgstr "Ange nytt UNIX-lösenord: "
 #: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "Ange nytt UNIX-lösenord igen: "
-
-#~ msgid "has been already used"
-#~ msgstr "har redan använts"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "Lösenordet har redan används. Välj ett annat."
-
-#~ msgid "Requested MLS level not in permitted range"
-#~ msgstr "Begärd MLS-nivå utanför giltigt intervall"
-
-#~ msgid "Error connecting to audit system."
-#~ msgstr "Fel vid anslutning till granskningssystem."
-
-#~ msgid "Error translating default context."
-#~ msgstr "Fel vid översättning av standardkontext."
-
-#~ msgid "Error translating selected context."
-#~ msgstr "Fel vid översättning av kontext."
-
-#~ msgid "Error sending audit message."
-#~ msgstr "Fel vid sändande av granskningsmeddelande"
-
-#~ msgid "Out of memory"
-#~ msgstr "Slut på minne"

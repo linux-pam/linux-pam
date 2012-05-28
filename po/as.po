@@ -1,22 +1,24 @@
-# translation of Linux-PAM.tip.po to Assamese
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Amitakhya Phukan <aphukan@redhat.com>, 2007.
+# Translators:
 # Amitakhya Phukan <aphukan@fedoraproject.org>, 2008, 2009.
+# Amitakhya Phukan <aphukan@redhat.com>, 2007.
+# Nilamdyuti Goswami <ngoswami@redhat.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM.tip\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Project-Id-Version: Linux-PAM\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2009-04-09 19:25+0530\n"
-"Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
-"Language-Team: Assamese <fedora-trans-as@redhat.com>\n"
+"PO-Revision-Date: 2012-02-15 08:46+0000\n"
+"Last-Translator: ngoswami <ngoswami@redhat.com>\n"
+"Language-Team: Assamese (http://www.transifex.net/projects/p/fedora/language/as/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1)\n"
-"X-Generator: Lokalize 0.3\n"
+"Language: as\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -202,9 +204,8 @@ msgstr "পুৰণিটোৰ সৈতে একেই"
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "সম্বাদৰ ভুল"
+msgstr "মেমৰি আবন্টন ত্ৰুটি"
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -487,10 +488,8 @@ msgstr "%s: অপৰিচিত বিকল্প %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -508,10 +507,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filename] [--file rooted-filename]\n   [-u username] [--user username]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -571,9 +567,3 @@ msgstr "নতুন UNIX গুপ্তশব্দ দিয়ক: "
 #: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "নতুন UNIX গুপ্তশব্দ পুনঃ লিখক: "
-
-#~ msgid "has been already used"
-#~ msgstr "ইতিমধ্যে ব্যৱহাৰ হৈছে"
-
-#~ msgid "Requested MLS level not in permitted range"
-#~ msgstr "অনুৰোধ কৰা MLS স্তৰ অনুমতি থকা সীমাত নাই"

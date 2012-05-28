@@ -1,23 +1,21 @@
-# Vietnamese translation for pam
-# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
-# This file is distributed under the same license as the pam package.
-# Ubuntu Vietname translators <ubuntu-l10n-vi@lists.launchpad.net>, 2009-2011.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Linux-PAM Project
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: pam\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Project-Id-Version: Linux-PAM\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2011-06-04 17:58+0700\n"
-"Last-Translator: Lê Trường An <truongan@linuxmail.org>\n"
-"Language-Team: Vietnamese <du-an-most@lists.hanoilug.org>\n"
+"PO-Revision-Date: 2011-11-30 11:56+0000\n"
+"Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
+"Language-Team: Vietnamese (http://www.transifex.net/projects/p/fedora/language/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: vi\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-06-04 10:52+0000\n"
-"X-Generator: Launchpad (build 13144)\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -203,9 +201,8 @@ msgstr "là giống như cũ"
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "Lỗi giao tiếp"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -308,15 +305,13 @@ msgstr "Lần đăng nhập thất bại trước:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"Đã có %d lần đăng nhập thất bại kể từ lần đăng nhập thành công trước đó."
+msgstr[0] "Đã có %d lần đăng nhập thất bại kể từ lần đăng nhập thành công trước đó."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:485
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
-"Có %d lần đăng nhập không thành công kể từ lần đăng nhập thành công trước."
+msgstr "Có %d lần đăng nhập không thành công kể từ lần đăng nhập thành công trước."
 
 #: modules/pam_limits/pam_limits.c:1079
 #, c-format
@@ -489,11 +484,8 @@ msgstr "%s: Được thừa nhận lựa chọn%s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [- tập bắt rễ-filename] [- người sử dụng tên người dùng] [- đặt lại [= "
-"n]] [- yên tĩnh]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [- tập bắt rễ-filename] [- người sử dụng tên người dùng] [- đặt lại [= n]] [- yên tĩnh]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -511,10 +503,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filename] [--file rooted-filename]\n   [-u username] [--user username]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -523,8 +512,7 @@ msgstr "Được phép truy cập (lần truy cập trước %ld giây trước)
 
 #: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"Tài khoản của bạn đã hết hạn dùng: hãy liên lạc với nhà quản trị hệ thống"
+msgstr "Tài khoản của bạn đã hết hạn dùng: hãy liên lạc với nhà quản trị hệ thống"
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
@@ -574,12 +562,3 @@ msgstr "Nhập mật khẩu UNIX mới: "
 #: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "Nhập lại mật khẩu UNIX mới: "
-
-#~ msgid "has been already used"
-#~ msgstr "đã được đã được sử dụng"
-
-#~ msgid "Unable to create directory %s: %m"
-#~ msgstr "Không thể tạo thư mục %s: %m"
-
-#~ msgid "Requested MLS level not in permitted range"
-#~ msgstr "Số MLS yêu cầu cấp không được cho phép trong phạm vi"

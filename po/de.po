@@ -1,22 +1,21 @@
-# German translation of pam
-# Copyright (C) 2005, 2011 Linux-PAM Project
-# This file is distributed under the same license as the pam package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Linux-PAM Project
+# This file is distributed under the same license as the PACKAGE package.
 #
-# Fabian Affolter <fab@fedoraproject.org>, 2008-2009.
-#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2011-06-21 13:27+02:00\n"
-"Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
-"Language-Team: German <fedora-trans-de@redhat.com>\n"
+"PO-Revision-Date: 2011-11-30 11:59+0000\n"
+"Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
+"Language-Team: German <trans-de@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: German\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -101,14 +100,11 @@ msgstr "Fehler bei Authentifizierung"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
-"Berechtigungsnachweis für Zugriff auf Authentifizierungsdaten nicht "
-"ausreichend"
+msgstr "Berechtigungsnachweis für Zugriff auf Authentifizierungsdaten nicht ausreichend"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr ""
-"Authentifizierungsdienst kann Authentifizierungsinformationen nicht abrufen"
+msgstr "Authentifizierungsdienst kann Authentifizierungsinformationen nicht abrufen"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -128,8 +124,7 @@ msgstr "Benutzerkonto ist abgelaufen"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr ""
-"Erstellen/Entfernen eines Eintrags für die angegebene Sitzung nicht möglich"
+msgstr "Erstellen/Entfernen eines Eintrags für die angegebene Sitzung nicht möglich"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
@@ -310,17 +305,14 @@ msgstr "Letzte fehlgeschlagene Anmeldung:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"Es gab %d fehlgeschagenen Versuch seit der letzten erfolgreichen Anmeldung."
-msgstr[1] ""
-"Es gab %d fehlgeschlagene Versuche seit der letzten erfolgreichen Anmeldung."
+msgstr[0] "Es gab %d fehlgeschagenen Versuch seit der letzten erfolgreichen Anmeldung."
+msgstr[1] "Es gab %d fehlgeschlagene Versuche seit der letzten erfolgreichen Anmeldung."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:485
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
-"Es gab %d fehlgeschlagene Versuche seit der letzten erfolgreichen Anmeldung."
+msgstr "Es gab %d fehlgeschlagene Versuche seit der letzten erfolgreichen Anmeldung."
 
 #: modules/pam_limits/pam_limits.c:1079
 #, c-format
@@ -493,16 +485,13 @@ msgstr "%s: Nicht erkannte Option: %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr ""
-"%s: Es können nicht alle Benutzer auf Nicht-null zurückgesetzt werden\n"
+msgstr "%s: Es können nicht alle Benutzer auf Nicht-null zurückgesetzt werden\n"
 
 #: modules/pam_tally2/pam_tally2.c:937
 #, c-format
@@ -515,10 +504,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"    [-u username] [--user username]\n"
-"    [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filename] [--file rooted-filename]\n    [-u username] [--user username]\n    [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -578,13 +564,3 @@ msgstr "Geben Sie ein neues UNIX-Passwort ein: "
 #: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "Geben Sie das neue UNIX-Passwort erneut ein: "
-
-#~ msgid "Account locked due to %hu failed logins"
-#~ msgstr "Der Account ist wegen %hu fehlgeschlagener Login-Versuche gesperrt"
-
-#~ msgid "has been already used"
-#~ msgstr "es wurde bereits verwendet"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "Passwort wurde bereits verwendet. Wählen Sie ein anderes aus."

@@ -1,23 +1,23 @@
-# translation of Linux-PAM.uk.po to Ukrainian
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Ivan Petrouchtchak <ivanpetrouchtchak@yahoo.com>, 2006.
-# Yuri Chornoivan <yurchor@ukr.net>, 2010.
+# Yuri Chornoivan <yurchor@ukr.net>, 2010, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Linux-PAM.uk\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Project-Id-Version: Linux-PAM\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2010-03-07 13:00+0200\n"
+"PO-Revision-Date: 2012-02-28 05:22+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -203,9 +203,8 @@ msgstr "такий самий, як і старий"
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "Помилка обміну даними"
+msgstr "помилка під час спроби отримання області у пам’яті"
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -308,23 +307,15 @@ msgstr "Останній невдалий вхід: %s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"Після останнього успішного входу було виконано %d спробу входу, яка "
-"завершилася помилкою."
-msgstr[1] ""
-"Після останнього успішного входу було виконано %d спроби входу, які "
-"завершилися помилками."
-msgstr[2] ""
-"Після останнього успішного входу було виконано %d спроб входу, які "
-"завершилися помилками."
+msgstr[0] "Після останнього успішного входу було виконано %d спробу входу, яка завершилася помилкою."
+msgstr[1] "Після останнього успішного входу було виконано %d спроби входу, які завершилися помилками."
+msgstr[2] "Після останнього успішного входу було виконано %d спроб входу, які завершилися помилками."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:485
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
-"Після останнього успішного входу було виконано %d спроби входу, які "
-"завершилися помилками."
+msgstr "Після останнього успішного входу було виконано %d спроби входу, які завершилися помилками."
 
 #: modules/pam_limits/pam_limits.c:1079
 #, c-format
@@ -497,11 +488,8 @@ msgstr "%s: нерозпізнано параметр %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file назва-файла-користувача-root] [--user ім'я користувача] [--reset"
-"[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file назва-файла-користувача-root] [--user ім'я користувача] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -519,10 +507,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f назва-файла-користувача-root] [--file назва-файла-користувача-root]\n"
-"   [-u користувач] [--user користувач]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f назва-файла-користувача-root] [--file назва-файла-користувача-root]\n   [-u користувач] [--user користувач]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -531,9 +516,7 @@ msgstr "Надано доступ (остання спроба доступу с
 
 #: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"Ваш обліковий запис застарів, будь ласка, зверніться до вашого системного "
-"адміністратора"
+msgstr "Ваш обліковий запис застарів, будь ласка, зверніться до вашого системного адміністратора"
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
@@ -585,27 +568,3 @@ msgstr "Введіть новий пароль UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "Повторіть новий пароль UNIX: "
-
-#~ msgid "has been already used"
-#~ msgstr "вже вживався"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "Пароль вже вживається. Виберіть інший."
-
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "Ваш типовий контекст - %s. \n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "Хочете вибрати якийсь інший? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "Вкажіть номер вибору: "
-
-#, fuzzy
-#~ msgid "Warning: your password will expire in one day"
-#~ msgstr "Попередження: ваш пароль застаріє через %d дні(в) %.2s"
-
-#~ msgid "dlopen() failure"
-#~ msgstr "Помилка dlopen()"

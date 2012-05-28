@@ -1,21 +1,23 @@
-# translation of Linux-PAM.po to Khmer
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Leang Chumsoben <soben@khmeros.info>, 2006.
+# Translators:
 # Khoem Sokhem <khoemsokhem@khmeros.info>, 2006.
+# Leang Chumsoben <soben@khmeros.info>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2006-03-17 10:32+0700\n"
-"Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
-"Language-Team: Khmer <support@khmeros.info>\n"
+"PO-Revision-Date: 2011-11-30 12:00+0000\n"
+"Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11\n"
+"Language: km\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -50,14 +52,13 @@ msgid "Sorry, passwords do not match."
 msgstr "សូម​ទោស ពាក្យ​សម្ងាត់​មិន​ដូច​គ្នា​ឡើយ ។"
 
 #: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
-#, fuzzy, c-format
+#, c-format
 msgid "Retype %s"
-msgstr "ប្រភេទ ៖ "
+msgstr ""
 
 #: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
-#, fuzzy
 msgid "Password change aborted."
-msgstr "ពាក្យសម្ងាត់​មិន​បាន​ផ្លាស់ប្ដូរ​ឡើយ"
+msgstr ""
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -104,23 +105,20 @@ msgid "Insufficient credentials to access authentication data"
 msgstr "លិខិត​សម្គាល់​មិន​គ្រប់គ្រាន់ដើម្បី​ចូល​ដំណើរ​ការ​ទិន្នន័យ​ដែល​មាន​ការ​ផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ"
 
 #: libpam/pam_strerror.c:60
-#, fuzzy
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "សេវា​ផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ​មិន​អាច​ទៅ​យក​ព័ត៌មាន​ផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ ។"
+msgstr ""
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
 msgstr "អ្នក​ប្រើ មិន​ស្គាល់​ម៉ូឌុលផ្ទៀងផ្ទាត់​ភាពត្រឹមត្រូវមូលដ្ឋាន"
 
 #: libpam/pam_strerror.c:64
-#, fuzzy
 msgid "Have exhausted maximum number of retries for service"
-msgstr "បាន​ប្រើ​អស់​ចំនួន​ព្យាយាម​អតិបរមា​សម្រាប់សេវា ។"
+msgstr ""
 
 #: libpam/pam_strerror.c:66
-#, fuzzy
 msgid "Authentication token is no longer valid; new one required"
-msgstr "ថូខឹនផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ​លែង​ត្រឹមត្រូវ​ទៀត​ហើយ ត្រូវ​ការ​ថូខឹនថ្មី​មួយ ។"
+msgstr ""
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -205,9 +203,8 @@ msgstr "ដូច​គ្នា​នឹង​ពាក្យ​សម្ងា
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "កំហុស​សន្ទនា"
+msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -301,9 +298,9 @@ msgstr "សូម​ស្វាគមន៍​មក​កាន់​គណន
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:464
-#, fuzzy, c-format
+#, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "ចូល​ចុងក្រោយ ៖%s%s%s"
+msgstr ""
 
 #: modules/pam_lastlog/pam_lastlog.c:473 modules/pam_lastlog/pam_lastlog.c:480
 #, c-format
@@ -311,7 +308,6 @@ msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
 msgstr[0] ""
-msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:485
@@ -376,33 +372,29 @@ msgid "Password has been already used. Choose another."
 msgstr "ពាក្យសម្ងាត់​ត្រូវ​បាន​ប្រើ​រួច​ហើយ ។ សូម​ជ្រើស​មួយ​ទៀត ។"
 
 #: modules/pam_selinux/pam_selinux.c:172
-#, fuzzy
 msgid "Would you like to enter a security context? [N] "
-msgstr "តើ​អ្នក​ចង់​បញ្ចូល​បរិបទ​សុវត្ថិភាព​មួយ​ឬ​ទេ ? [y] "
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:191 modules/pam_selinux/pam_selinux.c:299
-#, fuzzy
 msgid "role:"
-msgstr "តួនាទី ៖ "
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:205 modules/pam_selinux/pam_selinux.c:334
-#, fuzzy
 msgid "level:"
-msgstr "កម្រិត ៖ "
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:220 modules/pam_selinux/pam_selinux.c:367
 msgid "Not a valid security context"
 msgstr "មិន​មែន​ជា​បរិបទ​សុវត្ថិភាព​ត្រឹមត្រូវ​មួយឡើយ"
 
 #: modules/pam_selinux/pam_selinux.c:282
-#, fuzzy, c-format
+#, c-format
 msgid "Default Security Context %s\n"
-msgstr "បរិបទ​សុវត្ថិភាព %s បាន​ផ្ដល់​តម្លៃ​"
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:286
-#, fuzzy
 msgid "Would you like to enter a different role or level?"
-msgstr "តើ​អ្នក​ចង់​បញ្ចូល​បរិបទ​សុវត្ថិភាព​មួយ​ឬ​ទេ ? [y] "
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:302
 #, c-format
@@ -420,9 +412,9 @@ msgid "Security Context %s Assigned"
 msgstr "បរិបទ​សុវត្ថិភាព %s បាន​ផ្ដល់​តម្លៃ​"
 
 #: modules/pam_selinux/pam_selinux.c:763
-#, fuzzy, c-format
+#, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "បរិបទ​សុវត្ថិភាព %s បាន​ផ្ដល់​តម្លៃ​"
+msgstr ""
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -440,9 +432,9 @@ msgid "login: failure forking: %m"
 msgstr "ចូល ៖ ចម្លង​ខ្លួន​ឯង​មិន​បាន​ជោគជ័យ ៖ %m"
 
 #: modules/pam_stress/pam_stress.c:476
-#, fuzzy, c-format
+#, c-format
 msgid "Changing STRESS password for %s."
-msgstr "ការ​ផ្លាស់ប្ដូរ​ពាក្យ​សម្ងាត់ STRESS សម្រាប់ "
+msgstr ""
 
 #: modules/pam_stress/pam_stress.c:490
 msgid "Enter new STRESS password: "
@@ -494,10 +486,8 @@ msgstr "%s ៖ ជម្រើស​ដែល​មិន​ស្គាល់ 
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s ៖ [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s ៖ [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -510,13 +500,12 @@ msgid "Login           Failures Latest failure     From\n"
 msgstr ""
 
 #: modules/pam_tally2/pam_tally2.c:953
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s ៖ [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -536,17 +525,16 @@ msgid "You are required to change your password immediately (password aged)"
 msgstr "អ្នក​ត្រូវ​តែ​ផ្លាស់ប្ដូរ​ពាក្យសម្ងាត់​របស់​អ្នក​ឥឡូវ​នេះ (ពាក្យសម្ងាត់​ចាស់​ហើយ)"
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់​របស់​អ្នក​នឹង​ផុតកំណត់​ក្នុង​រយៈពេល %d ថ្ងៃ %.2s ។"
-msgstr[1] "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់​របស់​អ្នក​នឹង​ផុតកំណត់​ក្នុង​រយៈពេល %d ថ្ងៃ %.2s ។"
+msgstr[0] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់​របស់​អ្នក​នឹង​ផុតកំណត់​ក្នុង​រយៈពេល %d ថ្ងៃ %.2s ។"
+msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:390
 msgid "NIS password could not be changed."
@@ -557,9 +545,9 @@ msgid "You must choose a longer password"
 msgstr "អ្នក​ត្រូវ​តែ​ជ្រើស​ពាក្យសម្ងាត់​វែង​ជាង​នេះ"
 
 #: modules/pam_unix/pam_unix_passwd.c:612
-#, fuzzy, c-format
+#, c-format
 msgid "Changing password for %s."
-msgstr "ការ​ផ្លាស់ប្ដូរ​ពាក្យ​សម្ងាត់ STRESS សម្រាប់ "
+msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:623
 msgid "(current) UNIX password: "
@@ -576,27 +564,3 @@ msgstr "បញ្ចូល​ពាក្យ​សម្ងាត់ UNIX ថ្
 #: modules/pam_unix/pam_unix_passwd.c:719
 msgid "Retype new UNIX password: "
 msgstr "វាយ​ពាក្យ​សម្ងាត់ UNIX ថ្មី​ម្ដង​ទៀត ៖ "
-
-#~ msgid "has been already used"
-#~ msgstr "បាន​ប្រើ​រួច​ហើយ"
-
-#, fuzzy
-#~ msgid "Password has been used already. Choose another."
-#~ msgstr "ពាក្យសម្ងាត់​ត្រូវ​បាន​ប្រើ​រួច​ហើយ ។ សូម​ជ្រើស​មួយ​ទៀត ។"
-
-#, fuzzy
-#~ msgid "Error translating default context."
-#~ msgstr "បរិបទ​លំនាំដើម​របស់​អ្នក​គឺ %s ។ \n"
-
-#~ msgid "Do you want to choose a different one? [n]"
-#~ msgstr "តើ​អ្នក​ចង់​ជ្រើស​មួយ​ទៀត​ទេ ? [n]"
-
-#~ msgid "Enter number of choice: "
-#~ msgstr "បញ្ចូល​លេខ​ជម្រើស ៖ "
-
-#, fuzzy
-#~ msgid "Warning: your password will expire in one day"
-#~ msgstr "ការ​ព្រមាន ៖ ពាក្យសម្ងាត់​របស់​អ្នក​នឹង​ផុតកំណត់​ក្នុង​រយៈពេល %d ថ្ងៃ %.2s ។"
-
-#~ msgid "dlopen() failure"
-#~ msgstr "បរាជ័យ dlopen()"

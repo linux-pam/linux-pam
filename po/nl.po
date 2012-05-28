@@ -1,26 +1,26 @@
-# translation of pam.tip.nl.po to Dutch
-# translation of Linux-PAM to Dutch
-# This file is distributed under the same license as the Linux-PAM package.
-# Copyright (C) 2005, 2006, 2008, 2009 Free Software Foundation, Inc.
-# Rinse de Vries <rinsedevries@kde.nl>, 2005, 2006.
-# R.F. Pels <ruurd@tiscali.nl>, 2005.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Linux-PAM Project
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Geert Warrink <geert.warrink@onsnet.nu>, 2010, 2012.
 # Peter van Egdom <p.van.egdom@gmail.com>, 2008.
 # R.E. van der Luit <nippur@fedoraproject.org>, 2009.
-# Geert Warrink <geert.warrink@onsnet.nu>, 2010.
+# R.F. Pels <ruurd@tiscali.nl>, 2005.
+# Rinse de Vries <rinsedevries@kde.nl>, 2005, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: pam.tip.nl\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Project-Id-Version: Linux-PAM\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2011-06-21 12:57+0200\n"
-"PO-Revision-Date: 2010-07-13 14:11+0200\n"
+"PO-Revision-Date: 2012-02-16 09:29+0000\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
-"Language-Team: Fedora\n"
+"Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.6.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -206,9 +206,8 @@ msgstr "is hetzelfde als het oude"
 #: modules/pam_cracklib/pam_cracklib.c:499
 #: modules/pam_cracklib/pam_cracklib.c:503
 #: modules/pam_cracklib/pam_cracklib.c:513
-#, fuzzy
 msgid "memory allocation error"
-msgstr "Conversatie fout"
+msgstr "geheugentoekenningsfout"
 
 #: modules/pam_cracklib/pam_cracklib.c:518
 msgid "is a palindrome"
@@ -312,15 +311,13 @@ msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
 msgstr[0] "Er was %d mislukte inlog poging sinds de laatste succesvolle inlog."
-msgstr[1] ""
-"Er waren %d mislukte inlog pogingen sinds de laatste succesvolle inlog."
+msgstr[1] "Er waren %d mislukte inlog pogingen sinds de laatste succesvolle inlog."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:485
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
-"Er waren %d mislukte inlog pogingen sinds de laatste succesvolle inlog."
+msgstr "Er waren %d mislukte inlog pogingen sinds de laatste succesvolle inlog."
 
 #: modules/pam_limits/pam_limits.c:1079
 #, c-format
@@ -493,11 +490,8 @@ msgstr "%s: Niet-herkende optie %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s [--file rooted-bestandsnaam] [--user gebruikersnaam] [--reset[=n]] [--"
-"quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s [--file rooted-bestandsnaam] [--user gebruikersnaam] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -515,10 +509,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-bestandsnaam] [--file rooted-bestand]\n"
-"   [-u username] [--user gebruikersnaam]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-bestandsnaam] [--file rooted-bestand]\n   [-u username] [--user gebruikersnaam]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -531,13 +522,11 @@ msgstr "Jouw account is verlopen; neem contact op met jouw systeembeheerder"
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
-"Je moet onmiddellijk jouw wachtwoord wijzigen (op last van systeembeheerder)"
+msgstr "Je moet onmiddellijk jouw wachtwoord wijzigen (op last van systeembeheerder)"
 
 #: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
-"Je moet onmiddellijk jouw wachtwoord wijzigen (wachtwoord is verouderd)"
+msgstr "Je moet onmiddellijk jouw wachtwoord wijzigen (wachtwoord is verouderd)"
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
