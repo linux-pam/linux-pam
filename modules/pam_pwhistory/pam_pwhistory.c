@@ -155,10 +155,6 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
   if (pwd == NULL)
     return PAM_USER_UNKNOWN;
 
-  /* Ignore root if not enforced */
-  if (pwd->pw_uid == 0 && !options.enforce_for_root)
-    return PAM_SUCCESS;
-
   if ((strcmp(pwd->pw_passwd, "x") == 0)  ||
       ((pwd->pw_passwd[0] == '#') &&
        (pwd->pw_passwd[1] == '#') &&
@@ -211,11 +207,18 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
       if (check_old_pass (pamh, user, newpass,
 			  options.debug) != PAM_SUCCESS)
 	{
-	  pam_error (pamh,
-		     _("Password has been already used. Choose another."));
-	  newpass = NULL;
-	  /* Remove password item, else following module will use it */
-          pam_set_item (pamh, PAM_AUTHTOK, (void *) NULL);
+	  if (getuid() || options.enforce_for_root ||
+	      (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
+	    {
+	      pam_error (pamh,
+		         _("Password has been already used. Choose another."));
+	      newpass = NULL;
+	      /* Remove password item, else following module will use it */
+	      pam_set_item (pamh, PAM_AUTHTOK, (void *) NULL);
+	    }
+	  else
+	    pam_info (pamh,
+		       _("Password has been already used."));
 	}
     }
 
