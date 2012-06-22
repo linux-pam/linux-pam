@@ -101,6 +101,7 @@ struct cracklib_options {
 	int oth_credit;
         int min_class;
 	int max_repeat;
+	int max_sequence;
         int max_class_repeat;
 	int reject_user;
         int gecos_check;
@@ -174,6 +175,10 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
              opt->max_repeat = strtol(*argv+10,&ep,10);
              if (!ep)
                  opt->max_repeat = 0;
+         } else if (!strncmp(*argv,"maxsequence=",12)) {
+             opt->max_sequence = strtol(*argv+12,&ep,10);
+             if (!ep)
+                 opt->max_sequence = 0;
          } else if (!strncmp(*argv,"maxclassrepeat=",15)) {
              opt->max_class_repeat = strtol(*argv+15,&ep,10);
              if (!ep)
@@ -478,6 +483,39 @@ static int consecutive(struct cracklib_options *opt, const char *new)
     return 0;
 }
 
+static int sequence(struct cracklib_options *opt, const char *new)
+{
+    char c;
+    int i;
+    int sequp = 1;
+    int seqdown = 1;
+
+    if (opt->max_sequence == 0)
+	return 0;
+
+    if (new[0] == '\0')
+        return 0;
+
+    for (i = 1; new[i]; i++) {
+        c = new[i-1];
+	if (new[i] == c+1) {
+	    ++sequp;
+	    if (sequp > opt->max_sequence)
+		return 1;
+	    seqdown = 1;
+	} else if (new[i] == c-1) {
+	    ++seqdown;
+	    if (seqdown > opt->max_sequence)
+		return 1;
+	    sequp = 1;
+	} else {
+	    sequp = 1;
+            seqdown = 1;
+        }
+    }
+    return 0;
+}
+
 static int wordcheck(const char *new, char *word)
 {
     char *f, *b;
@@ -621,6 +659,9 @@ static const char *password_check(pam_handle_t *pamh, struct cracklib_options *o
 
 	if (!msg && consecutive(opt, new))
 	        msg = _("contains too many same characters consecutively");
+
+	if (!msg && sequence(opt, new))
+	        msg = _("contains too long of a monotonic character sequence");
 
 	if (!msg && (usercheck(opt, newmono, usermono) || gecoscheck(pamh, opt, newmono, user)))
 	        msg = _("contains the user name in some form");

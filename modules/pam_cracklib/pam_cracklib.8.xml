@@ -114,6 +114,14 @@
         </listitem>
       </varlistentry>
       <varlistentry>
+        <term>Too long monotonic character sequence</term>
+        <listitem>
+          <para>
+            Optional check for too long monotonic character sequence.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
         <term>Contains user name</term>
         <listitem>
           <para>
@@ -343,6 +351,21 @@
               Reject passwords which contain more than N same consecutive
               characters. The default is 0 which means that this check
               is disabled.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>maxsequence=<replaceable>N</replaceable></option>
+          </term>
+          <listitem>
+            <para>
+              Reject passwords which contain monotonic character sequences
+              longer than N. The default is 0 which means that this check
+              is disabled. Examples of such sequence are '12345' or 'fedcb'.
+              Note that most such passwords will not pass the simplicity
+              check unless the sequence is only a minor part of the password.
             </para>
           </listitem>
         </varlistentry>
