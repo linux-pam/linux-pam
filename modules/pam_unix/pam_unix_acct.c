@@ -41,6 +41,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/resource.h>
 #include <syslog.h>
 #include <pwd.h>
 #include <shadow.h>
