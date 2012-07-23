@@ -38,7 +38,9 @@ if HAVE_UNSHARE
 
   secureconf_DATA = namespace.conf
   secureconf_SCRIPTS = namespace.init
-  namespaced_DATA =
+
+install-data-local:
+	mkdir -p $(namespaceddir)
 endif
 
 
