@@ -18,6 +18,14 @@
   <refsect1 id='limits.conf-description'>
     <title>DESCRIPTION</title>
     <para>
+      The <emphasis>pam_limits.so</emphasis> module applies ulimit limits,
+      nice priority and number of simultaneous login sessions limit to user
+      login sessions. This description of the configuration file syntax
+      applies to the <filename>/etc/security/limits.conf</filename> file and
+      <filename>*.conf</filename> files in the
+      <filename>/etc/security/limits.d</filename> directory.
+    </para>
+    <para>
       The syntax of the lines is as follows:
     </para>
     <para>
