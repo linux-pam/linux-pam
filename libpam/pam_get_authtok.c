@@ -102,6 +102,8 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
 	  if (retval != PAM_SUCCESS || authtok_type == NULL)
 	    authtok_type = "";
 	}
+      else
+        pam_set_item(pamh, PAM_AUTHTOK_TYPE, authtok_type);
     }
 
   retval = pam_get_item (pamh, item, &prevauthtok);
@@ -210,6 +212,9 @@ pam_get_authtok_verify (pam_handle_t *pamh, const char **authtok,
     }
   else
     {
+      retval = pam_get_item (pamh, PAM_AUTHTOK_TYPE, (const void **)&authtok_type);
+      if (retval != PAM_SUCCESS || authtok_type == NULL)
+        authtok_type = "";
       retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp,
 			   PROMPT2, authtok_type,
 			   strlen (authtok_type) > 0?" ":"");
