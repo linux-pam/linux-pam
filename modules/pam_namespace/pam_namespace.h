@@ -81,6 +81,10 @@
 #ifndef MS_PRIVATE
 #define MS_PRIVATE (1<<18)
 #endif
+#ifndef MS_SLAVE
+#define MS_SLAVE (1<<19)
+#endif
+
 
 /*
  * Module defines

@@ -290,6 +290,9 @@
       Also, please note that all limit settings are set
       <emphasis>per login</emphasis>. They are not global, nor are they
       permanent; existing only for the duration of the session.
+      One exception is the <emphasis>maxlogin</emphasis> option, this one
+      is system wide. But there is a race, concurrent logins at the same
+      time will not always be detect as such but only counted as one.
     </para>
     <para>
       In the <emphasis>limits</emphasis> configuration file, the

@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2008 Thorsten Kukuk
- * Author: Thorsten Kukuk <kukuk@suse.de>
+ * Copyright (c) 2008, 2012 Thorsten Kukuk
+ * Author: Thorsten Kukuk <kukuk@thkukuk.de>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -102,6 +102,9 @@ parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
     pam_syslog (pamh, LOG_ERR, "pam_pwhistory: unknown option: %s", argv);
 }
 
+
+/* This module saves the current crypted password in /etc/security/opasswd
+   and then compares the new password with all entries in this file. */
 
 PAM_EXTERN int
 pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)

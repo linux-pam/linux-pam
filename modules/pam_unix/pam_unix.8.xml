@@ -223,6 +223,8 @@
             user are saved in <filename>/etc/security/opasswd</filename>
             in order to force password change history and keep the user
             from alternating between the same password too frequently.
+            Instead of this option the <command>pam_pwhistory</command>
+            module should be used.
           </para>
         </listitem>
       </varlistentry>
