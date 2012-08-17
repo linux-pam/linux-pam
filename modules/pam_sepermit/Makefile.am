@@ -35,7 +35,7 @@ if HAVE_LIBSELINUX
   securelib_LTLIBRARIES = pam_sepermit.la
 
 install-data-local:
-	mkdir -p $(sepermitlockdir)
+	mkdir -p $(DESTDIR)$(sepermitlockdir)
 endif
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README pam_sepermit.8 sepermit.conf.5

@@ -40,7 +40,7 @@ if HAVE_UNSHARE
   secureconf_SCRIPTS = namespace.init
 
 install-data-local:
-	mkdir -p $(namespaceddir)
+	mkdir -p $(DESTDIR)$(namespaceddir)
 endif
 
 
