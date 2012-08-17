@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
-"POT-Creation-Date: 2011-06-21 12:57+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"POT-Creation-Date: 2012-08-17 11:35+0200\n"
 "PO-Revision-Date: 2011-11-30 11:59+0000\n"
 "Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sr@latin\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -35,30 +36,30 @@ msgid "erroneous conversation (%d)\n"
 msgstr "razgovor pun grešaka (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:64
+#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:64
 msgid "Password: "
 msgstr "Lozinka: "
 
-#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
+#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nova %s%slozinka: "
 
-#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:70
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Ponovo unesite novu %s%slozinku: "
 
-#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
+#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:71
 msgid "Sorry, passwords do not match."
 msgstr "Izvinite, lozinke se ne podudaraju."
 
-#: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
+#: libpam/pam_get_authtok.c:135 libpam/pam_get_authtok.c:211
 #, c-format
 msgid "Retype %s"
 msgstr "Ponovo unesite %s"
 
-#: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
+#: libpam/pam_get_authtok.c:155 libpam/pam_get_authtok.c:227
 msgid "Password change aborted."
 msgstr "Promena lozinke je prekinuta."
 
@@ -198,60 +199,65 @@ msgstr "Program mora ponovo da pozove libpam"
 msgid "Unknown PAM error"
 msgstr "Nepoznata PAM greška"
 
-#: modules/pam_cracklib/pam_cracklib.c:493
+#: modules/pam_cracklib/pam_cracklib.c:618
 msgid "is the same as the old one"
 msgstr "ista je kao i stara"
 
-#: modules/pam_cracklib/pam_cracklib.c:499
-#: modules/pam_cracklib/pam_cracklib.c:503
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:624
+#: modules/pam_cracklib/pam_cracklib.c:628
+#: modules/pam_cracklib/pam_cracklib.c:638
 msgid "memory allocation error"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:518
+#: modules/pam_cracklib/pam_cracklib.c:643
 msgid "is a palindrome"
 msgstr "palindrom je"
 
-#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_cracklib/pam_cracklib.c:646
 msgid "case changes only"
 msgstr "samo promene veličine slova"
 
-#: modules/pam_cracklib/pam_cracklib.c:524
+#: modules/pam_cracklib/pam_cracklib.c:649
 msgid "is too similar to the old one"
 msgstr "suviše je slična prethodnoj"
 
-#: modules/pam_cracklib/pam_cracklib.c:527
+#: modules/pam_cracklib/pam_cracklib.c:652
 msgid "is too simple"
 msgstr "suviše je jednostavna"
 
-#: modules/pam_cracklib/pam_cracklib.c:530
+#: modules/pam_cracklib/pam_cracklib.c:655
 msgid "is rotated"
 msgstr "izokrenuta je"
 
-#: modules/pam_cracklib/pam_cracklib.c:533
+#: modules/pam_cracklib/pam_cracklib.c:658
 msgid "not enough character classes"
 msgstr "nema dovoljno klasa znakova"
 
-#: modules/pam_cracklib/pam_cracklib.c:536
+#: modules/pam_cracklib/pam_cracklib.c:661
 msgid "contains too many same characters consecutively"
 msgstr "sadrži previše istih znakova uzastopno"
 
-#: modules/pam_cracklib/pam_cracklib.c:539
+#: modules/pam_cracklib/pam_cracklib.c:664
+#, fuzzy
+msgid "contains too long of a monotonic character sequence"
+msgstr "sadrži previše istih znakova uzastopno"
+
+#: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
 msgstr "sadrži korisničko ime u nekom obliku"
 
-#: modules/pam_cracklib/pam_cracklib.c:573
-#: modules/pam_unix/pam_unix_passwd.c:488
+#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_unix/pam_unix_passwd.c:494
 msgid "No password supplied"
 msgstr "Nije ponuđena lozinka"
 
-#: modules/pam_cracklib/pam_cracklib.c:573
-#: modules/pam_unix/pam_unix_passwd.c:488
+#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_unix/pam_unix_passwd.c:494
 msgid "Password unchanged"
 msgstr "Lozinka nije promenjena"
 
-#: modules/pam_cracklib/pam_cracklib.c:593
-#: modules/pam_cracklib/pam_cracklib.c:676
+#: modules/pam_cracklib/pam_cracklib.c:721
+#: modules/pam_cracklib/pam_cracklib.c:803
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "LOŠA LOZINKA: %s"
@@ -272,39 +278,39 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s neuspeh: nepoznat status 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:433
+#: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:492
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %e. %b %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:442
+#: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:501
 #, c-format
 msgid " from %.*s"
 msgstr " sa %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:454
+#: modules/pam_lastlog/pam_lastlog.c:303 modules/pam_lastlog/pam_lastlog.c:513
 #, c-format
 msgid " on %.*s"
 msgstr " na %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:232
+#: modules/pam_lastlog/pam_lastlog.c:313
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Poslednja prijava:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:238
+#: modules/pam_lastlog/pam_lastlog.c:319
 msgid "Welcome to your new account!"
 msgstr "Dobro došli na vaš novi nalog!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:464
+#: modules/pam_lastlog/pam_lastlog.c:523
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "Poslednja neuspešna prijava:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:473 modules/pam_lastlog/pam_lastlog.c:480
+#: modules/pam_lastlog/pam_lastlog.c:532 modules/pam_lastlog/pam_lastlog.c:539
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -314,7 +320,7 @@ msgstr[1] "Bilo je %d neuspela pokušaja prijave od poslednje uspešne prijave."
 msgstr[2] "Bilo je %d neuspelih pokušaja prijave od poslednje uspešne prijave."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:485
+#: modules/pam_lastlog/pam_lastlog.c:544
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "Bilo je %d neuspelih pokušaja prijave od poslednje uspešne prijave."
@@ -370,9 +376,14 @@ msgstr "Pravim direktorijum „%s“."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Ne mogu da napravim direktorijum „%s“."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:215
-#: modules/pam_unix/pam_unix_passwd.c:509
+#: modules/pam_pwhistory/pam_pwhistory.c:217
+#: modules/pam_unix/pam_unix_passwd.c:515
 msgid "Password has been already used. Choose another."
+msgstr "Lozinka je već u upotrebi. Izaberite drugu."
+
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#, fuzzy
+msgid "Password has been already used."
 msgstr "Lozinka je već u upotrebi. Izaberite drugu."
 
 #: modules/pam_selinux/pam_selinux.c:172
@@ -405,17 +416,17 @@ msgstr "Da li želite da unesete drugu ulogu ili nivo?"
 msgid "No default type for role %s\n"
 msgstr "Nema podrazumevane vrste za ulogu %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:688
+#: modules/pam_selinux/pam_selinux.c:616
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "Ne mogu da pribavim ispravan kontekst za %s"
 
-#: modules/pam_selinux/pam_selinux.c:742
+#: modules/pam_selinux/pam_selinux.c:735
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "Bezbednosni kontekst %s je dodeljen"
 
-#: modules/pam_selinux/pam_selinux.c:763
+#: modules/pam_selinux/pam_selinux.c:751
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "Kontekst pravljenja ključa %s je dodeljen"
@@ -490,8 +501,11 @@ msgstr "%s: nije prepoznata opcija %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file korenski-nazivdatoteke] [--user korisničkoime] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file korenski-nazivdatoteke] [--user korisničkoime] [--reset[=n]] [--"
+"quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -509,26 +523,29 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [- korenski-nazivdatoteke] [--file korenski-nazivdatoteke]\n   [-u korisničkoime] [--user korisničkoime]\n   [-r] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [- korenski-nazivdatoteke] [--file korenski-nazivdatoteke]\n"
+"   [-u korisničkoime] [--user korisničkoime]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "Pristup je odobren (poslednji pristup je bio pre %ld sekundi)."
 
-#: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
+#: modules/pam_unix/pam_unix_acct.c:241 modules/pam_unix/pam_unix_acct.c:263
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Vaš nalog je istekao; obratite se administratoru sistema"
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Morate odmah da promenite vašu lozinku (nametnuo root)"
 
-#: modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:255
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Morate odmah da promenite vašu lozinku (zastarela je)"
 
-#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
+#: modules/pam_unix/pam_unix_acct.c:276 modules/pam_unix/pam_unix_acct.c:283
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -537,36 +554,36 @@ msgstr[1] "Upozorenje: vaša lozinka će isteći kroz %d dana"
 msgstr[2] "Upozorenje: vaša lozinka će isteći kroz %d dana"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:283
+#: modules/pam_unix/pam_unix_acct.c:288
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Upozorenje: vaša lozinka će isteći kroz %d dana"
 
-#: modules/pam_unix/pam_unix_passwd.c:390
+#: modules/pam_unix/pam_unix_passwd.c:396
 msgid "NIS password could not be changed."
 msgstr "NIS lozinka ne može biti promenjena."
 
-#: modules/pam_unix/pam_unix_passwd.c:505
+#: modules/pam_unix/pam_unix_passwd.c:511
 msgid "You must choose a longer password"
 msgstr "Morate izabrati dužu lozinku"
 
-#: modules/pam_unix/pam_unix_passwd.c:612
+#: modules/pam_unix/pam_unix_passwd.c:617
 #, c-format
 msgid "Changing password for %s."
 msgstr "Menjam lozinku za %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:623
+#: modules/pam_unix/pam_unix_passwd.c:628
 msgid "(current) UNIX password: "
 msgstr "(trenutna) UNIX lozinka: "
 
-#: modules/pam_unix/pam_unix_passwd.c:658
+#: modules/pam_unix/pam_unix_passwd.c:663
 msgid "You must wait longer to change your password"
 msgstr "Morate duže sačekati na promenu lozinke"
 
-#: modules/pam_unix/pam_unix_passwd.c:718
+#: modules/pam_unix/pam_unix_passwd.c:723
 msgid "Enter new UNIX password: "
 msgstr "Unesite novu UNIX lozinku: "
 
-#: modules/pam_unix/pam_unix_passwd.c:719
+#: modules/pam_unix/pam_unix_passwd.c:724
 msgid "Retype new UNIX password: "
 msgstr "Ponovo unesite novu UNIX lozinku: "

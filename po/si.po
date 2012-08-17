@@ -7,11 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
-"POT-Creation-Date: 2011-06-21 12:57+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"POT-Creation-Date: 2012-08-17 11:35+0200\n"
 "PO-Revision-Date: 2011-11-30 12:01+0000\n"
 "Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
-"Language-Team: Sinhala (http://www.transifex.net/projects/p/fedora/language/si/)\n"
+"Language-Team: Sinhala (http://www.transifex.net/projects/p/fedora/language/"
+"si/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,30 +33,30 @@ msgid "erroneous conversation (%d)\n"
 msgstr "වැරදි සගත පරිවර්තනයක්(%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
-#: modules/pam_unix/pam_unix_auth.c:157 modules/pam_userdb/pam_userdb.c:64
+#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:64
 msgid "Password: "
 msgstr "රහස්පදය: "
 
-#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:66
+#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
 msgid "New %s%spassword: "
 msgstr "නව %s%sරහස්පදය: "
 
-#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:70
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "නව %s%sරහස්පදය නැවත ඇතුළත් කරන්න: "
 
-#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:69
+#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:71
 msgid "Sorry, passwords do not match."
 msgstr "සමාවෙන්න, රහස්පද ගැලපෙන්නේ නැත."
 
-#: libpam/pam_get_authtok.c:133 libpam/pam_get_authtok.c:209
+#: libpam/pam_get_authtok.c:135 libpam/pam_get_authtok.c:211
 #, c-format
 msgid "Retype %s"
 msgstr ""
 
-#: libpam/pam_get_authtok.c:153 libpam/pam_get_authtok.c:222
+#: libpam/pam_get_authtok.c:155 libpam/pam_get_authtok.c:227
 msgid "Password change aborted."
 msgstr ""
 
@@ -195,60 +196,64 @@ msgstr "යෙදුමට පැරණි libpam ඇමතීමට අවශ�
 msgid "Unknown PAM error"
 msgstr "නොදන්නා PAM දෝෂය"
 
-#: modules/pam_cracklib/pam_cracklib.c:493
+#: modules/pam_cracklib/pam_cracklib.c:618
 msgid "is the same as the old one"
 msgstr "එය පැරණි රහස්පදය හා සමාන වේ"
 
-#: modules/pam_cracklib/pam_cracklib.c:499
-#: modules/pam_cracklib/pam_cracklib.c:503
-#: modules/pam_cracklib/pam_cracklib.c:513
+#: modules/pam_cracklib/pam_cracklib.c:624
+#: modules/pam_cracklib/pam_cracklib.c:628
+#: modules/pam_cracklib/pam_cracklib.c:638
 msgid "memory allocation error"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:518
+#: modules/pam_cracklib/pam_cracklib.c:643
 msgid "is a palindrome"
 msgstr "එය පැලින්ඩ්‍රොමයකි"
 
-#: modules/pam_cracklib/pam_cracklib.c:521
+#: modules/pam_cracklib/pam_cracklib.c:646
 msgid "case changes only"
 msgstr "කැපිටල් සිම්පල් වෙනස්කම් පමණි"
 
-#: modules/pam_cracklib/pam_cracklib.c:524
+#: modules/pam_cracklib/pam_cracklib.c:649
 msgid "is too similar to the old one"
 msgstr "එය පැරණි රහස්පදය බොගොදුරට  සමාන වේ"
 
-#: modules/pam_cracklib/pam_cracklib.c:527
+#: modules/pam_cracklib/pam_cracklib.c:652
 msgid "is too simple"
 msgstr "එය සරළ වැඩි වේ"
 
-#: modules/pam_cracklib/pam_cracklib.c:530
+#: modules/pam_cracklib/pam_cracklib.c:655
 msgid "is rotated"
 msgstr "භ්‍රමණය වි ඇත"
 
-#: modules/pam_cracklib/pam_cracklib.c:533
+#: modules/pam_cracklib/pam_cracklib.c:658
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:536
+#: modules/pam_cracklib/pam_cracklib.c:661
 msgid "contains too many same characters consecutively"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:539
+#: modules/pam_cracklib/pam_cracklib.c:664
+msgid "contains too long of a monotonic character sequence"
+msgstr ""
+
+#: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:573
-#: modules/pam_unix/pam_unix_passwd.c:488
+#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_unix/pam_unix_passwd.c:494
 msgid "No password supplied"
 msgstr "රහස්පදය සපයා නැත"
 
-#: modules/pam_cracklib/pam_cracklib.c:573
-#: modules/pam_unix/pam_unix_passwd.c:488
+#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_unix/pam_unix_passwd.c:494
 msgid "Password unchanged"
 msgstr "රහස්පදය වෙනස් නොවිනි"
 
-#: modules/pam_cracklib/pam_cracklib.c:593
-#: modules/pam_cracklib/pam_cracklib.c:676
+#: modules/pam_cracklib/pam_cracklib.c:721
+#: modules/pam_cracklib/pam_cracklib.c:803
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "BAD PASSWORD: %s"
@@ -269,39 +274,39 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s අසමත් විය: නොදන්නා තත්වය 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:201 modules/pam_lastlog/pam_lastlog.c:433
+#: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:492
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:210 modules/pam_lastlog/pam_lastlog.c:442
+#: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:501
 #, c-format
 msgid " from %.*s"
 msgstr "%.*s වෙතින්"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:222 modules/pam_lastlog/pam_lastlog.c:454
+#: modules/pam_lastlog/pam_lastlog.c:303 modules/pam_lastlog/pam_lastlog.c:513
 #, c-format
 msgid " on %.*s"
 msgstr "%.*s වෙනිදා"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:232
+#: modules/pam_lastlog/pam_lastlog.c:313
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "අවසාන පිවිසුම:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:238
+#: modules/pam_lastlog/pam_lastlog.c:319
 msgid "Welcome to your new account!"
 msgstr "ඔබගේ නව ගිණුමට සාදරයෙන් පිළිගනිමු!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:464
+#: modules/pam_lastlog/pam_lastlog.c:523
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr ""
 
-#: modules/pam_lastlog/pam_lastlog.c:473 modules/pam_lastlog/pam_lastlog.c:480
+#: modules/pam_lastlog/pam_lastlog.c:532 modules/pam_lastlog/pam_lastlog.c:539
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -310,7 +315,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:485
+#: modules/pam_lastlog/pam_lastlog.c:544
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
@@ -366,9 +371,14 @@ msgstr ""
 msgid "Unable to create and initialize directory '%s'."
 msgstr ""
 
-#: modules/pam_pwhistory/pam_pwhistory.c:215
-#: modules/pam_unix/pam_unix_passwd.c:509
+#: modules/pam_pwhistory/pam_pwhistory.c:217
+#: modules/pam_unix/pam_unix_passwd.c:515
 msgid "Password has been already used. Choose another."
+msgstr "රහස්පදය දැනටමත් භාවිතා වේ. වෙනත් එකක් තෝරාගන්න."
+
+#: modules/pam_pwhistory/pam_pwhistory.c:224
+#, fuzzy
+msgid "Password has been already used."
 msgstr "රහස්පදය දැනටමත් භාවිතා වේ. වෙනත් එකක් තෝරාගන්න."
 
 #: modules/pam_selinux/pam_selinux.c:172
@@ -401,17 +411,17 @@ msgstr ""
 msgid "No default type for role %s\n"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:688
+#: modules/pam_selinux/pam_selinux.c:616
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:742
+#: modules/pam_selinux/pam_selinux.c:735
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "%s ආරක්‍ෂක ප්‍රකරණය යොදවා ඇත"
 
-#: modules/pam_selinux/pam_selinux.c:763
+#: modules/pam_selinux/pam_selinux.c:751
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr ""
@@ -486,8 +496,10 @@ msgstr "%s: %s හදුනා නොගත් විකල්පයකි\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
@@ -512,19 +524,19 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:236 modules/pam_unix/pam_unix_acct.c:258
+#: modules/pam_unix/pam_unix_acct.c:241 modules/pam_unix/pam_unix_acct.c:263
 msgid "Your account has expired; please contact your system administrator"
 msgstr "ඔබගේ ගිණුම කල්ඉකුත් වී ඇත; කරුණාකර ඔබගේ පද්ධති කළමණාකරු හමුවන්න"
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "ඔබගේ රහස්පදය හැකි ඉක්මනින් වෙනස් කළ යුතුව ඇත (root බලකර සිටී)"
 
-#: modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:255
 msgid "You are required to change your password immediately (password aged)"
 msgstr "ඔබගේ රහස්පදය හැකි ඉක්මනින් වෙනස් කළ යුතුව ඇත (රහස්පදය පැරණියි)"
 
-#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
+#: modules/pam_unix/pam_unix_acct.c:276 modules/pam_unix/pam_unix_acct.c:283
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -532,36 +544,36 @@ msgstr[0] "අවවාදයි: ඔබගේ රහස්පදය දින %
 msgstr[1] "අවවාදයි: ඔබගේ රහස්පදය දින %d කින් කල්ඉකුත් වේ"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:283
+#: modules/pam_unix/pam_unix_acct.c:288
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "අවවාදයි: ඔබගේ රහස්පදය දින %d කින් කල්ඉකුත් වේ"
 
-#: modules/pam_unix/pam_unix_passwd.c:390
+#: modules/pam_unix/pam_unix_passwd.c:396
 msgid "NIS password could not be changed."
 msgstr "NIS රහස්පදය වෙනස් කළ නොහැක."
 
-#: modules/pam_unix/pam_unix_passwd.c:505
+#: modules/pam_unix/pam_unix_passwd.c:511
 msgid "You must choose a longer password"
 msgstr "ඔබ විසින් දිගු රහස්පදයක් තෝරාගත යුතුම වේ"
 
-#: modules/pam_unix/pam_unix_passwd.c:612
+#: modules/pam_unix/pam_unix_passwd.c:617
 #, c-format
 msgid "Changing password for %s."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:623
+#: modules/pam_unix/pam_unix_passwd.c:628
 msgid "(current) UNIX password: "
 msgstr "(දැනට ඇති) UNIX රහස්පදය: "
 
-#: modules/pam_unix/pam_unix_passwd.c:658
+#: modules/pam_unix/pam_unix_passwd.c:663
 msgid "You must wait longer to change your password"
 msgstr "ඔබගේ රහස්පදය වෙනස් කිරීමට බොහෝ වෙලාවක් රැදී සිටීය යුතුම වේ"
 
-#: modules/pam_unix/pam_unix_passwd.c:718
+#: modules/pam_unix/pam_unix_passwd.c:723
 msgid "Enter new UNIX password: "
 msgstr "නව UNIX රහස්පදය ඇතුළත් කරන්න:"
 
-#: modules/pam_unix/pam_unix_passwd.c:719
+#: modules/pam_unix/pam_unix_passwd.c:724
 msgid "Retype new UNIX password: "
 msgstr "නව UNIX රහස්පදය නැවත ඇතුළත් කරන්න:"

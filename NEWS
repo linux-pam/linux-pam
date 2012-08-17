@@ -1,5 +1,12 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 1.1.6
+* Update translations
+* pam_cracklib: Add more checks for weak passwords
+* pam_lastlog: Never lock out root
+* Lot of bug fixes and smaller enhancements
+
+
 Release 1.1.5
 * pam_env: Fix CVE-2011-3148 and CVE-2011-3149
 * pam_access: Add hostname resolution cache
