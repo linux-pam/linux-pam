@@ -87,6 +87,7 @@ int send_audit_message(pam_handle_t *pamh, int success, security_context_t defau
 	int audit_fd = audit_open();
 	security_context_t default_raw=NULL;
 	security_context_t selected_raw=NULL;
+	const void *tty = NULL, *rhost = NULL;
 	rc = -1;
 	if (audit_fd < 0) {
 		if (errno == EINVAL || errno == EPROTONOSUPPORT ||
@@ -95,6 +96,8 @@ int send_audit_message(pam_handle_t *pamh, int success, security_context_t defau
 		pam_syslog(pamh, LOG_ERR, "Error connecting to audit system.");
 		return rc;
 	}
+	(void)pam_get_item(pamh, PAM_TTY, &tty);
+	(void)pam_get_item(pamh, PAM_RHOST, &rhost);
 	if (selinux_trans_to_raw_context(default_context, &default_raw) < 0) {
 		pam_syslog(pamh, LOG_ERR, "Error translating default context.");
 		default_raw = NULL;
@@ -110,7 +113,7 @@ int send_audit_message(pam_handle_t *pamh, int success, security_context_t defau
 		goto out;
 	}
 	if (audit_log_user_message(audit_fd, AUDIT_USER_ROLE_CHANGE,
-				   msg, NULL, NULL, NULL, success) <= 0) {
+				   msg, rhost, NULL, tty, success) <= 0) {
 		pam_syslog(pamh, LOG_ERR, "Error sending audit message.");
 		goto out;
 	}
