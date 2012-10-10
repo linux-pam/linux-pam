@@ -119,6 +119,14 @@
       contain the user name and will be shared among all users.
     </para>
 
+    <para><emphasis>mntopts</emphasis>=<replaceable>value</replaceable>
+      - value of this flag is passed to the mount call when the tmpfs mount is
+      done. It allows for example the specification of the maximum size of the
+      tmpfs instance that is created by the mount call. See <citerefentry>
+      <refentrytitle>mount</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry> for details.
+    </para>
+
     <para>
       The directory where polyinstantiated instances are to be
       created, must exist and must have, by default, the mode of 0000.  The

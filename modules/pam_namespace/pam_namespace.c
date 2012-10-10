@@ -64,6 +64,7 @@ static void del_polydir(struct polydir_s *poly)
 	if (poly) {
 		free(poly->uid);
 		free(poly->init_script);
+		free(poly->mount_opts);
 		free(poly);
 	}
 }
@@ -237,9 +238,9 @@ static int parse_method(char *method, struct polydir_s *poly,
     static const char *method_names[] = { "user", "context", "level", "tmpdir",
 	"tmpfs", NULL };
     static const char *flag_names[] = { "create", "noinit", "iscript",
-	"shared", NULL };
+	"shared", "mntopts", NULL };
     static const unsigned int flag_values[] = { POLYDIR_CREATE, POLYDIR_NOINIT,
-	POLYDIR_ISCRIPT, POLYDIR_SHARED };
+	POLYDIR_ISCRIPT, POLYDIR_SHARED, POLYDIR_MNTOPTS };
     int i;
     char *flag;
 
@@ -278,6 +279,20 @@ static int parse_method(char *method, struct polydir_s *poly,
 				        pam_syslog(idata->pamh, LOG_CRIT, "Memory allocation error");
 					return -1;
 				};
+				break;
+
+			    case POLYDIR_MNTOPTS:
+				if (flag[namelen] != '=')
+					break;
+				if (poly->method != TMPFS) {
+					pam_syslog(idata->pamh, LOG_WARNING, "Mount options applicable only to tmpfs method");
+					break;
+				}
+				free(poly->mount_opts); /* if duplicate mntopts specified */
+				if ((poly->mount_opts = strdup(flag+namelen+1)) == NULL) {
+					pam_syslog(idata->pamh, LOG_CRIT, "Memory allocation error");
+					return -1;
+				}
 				break;
 			}
 		}
@@ -1464,7 +1479,7 @@ static int ns_setup(struct polydir_s *polyptr,
     }
 
     if (polyptr->method == TMPFS) {
-	if (mount("tmpfs", polyptr->dir, "tmpfs", 0, NULL) < 0) {
+	if (mount("tmpfs", polyptr->dir, "tmpfs", 0, polyptr->mount_opts) < 0) {
 	    pam_syslog(idata->pamh, LOG_ERR, "Error mounting tmpfs on %s, %m",
 		polyptr->dir);
             return PAM_SESSION_ERR;
