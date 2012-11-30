@@ -161,81 +161,6 @@ query_response (pam_handle_t *pamh, const char *text, const char *def,
   return rc;
 }
 
-static security_context_t
-manual_context (pam_handle_t *pamh, const char *user, int debug)
-{
-  security_context_t newcon=NULL;
-  context_t new_context;
-  int mls_enabled = is_selinux_mls_enabled();
-  char *type=NULL;
-  char *response=NULL;
-
-  while (1) {
-    if (query_response(pamh,
-		   _("Would you like to enter a security context? [N] "), NULL,
-		   &response, debug) != PAM_SUCCESS)
-	return NULL;
-
-    if ((response[0] == 'y') || (response[0] == 'Y'))
-      {
-	if (mls_enabled)
-	  new_context = context_new ("user:role:type:level");
-	else
-	  new_context = context_new ("user:role:type");
-
-	if (!new_context)
-              goto fail_set;
-
-	if (context_user_set (new_context, user))
-              goto fail_set;
-
-	_pam_drop(response);
-	/* Allow the user to enter each field of the context individually */
-	if (query_response(pamh, _("role:"), NULL, &response, debug) == PAM_SUCCESS &&
-	    response[0] != '\0') {
-	   if (context_role_set (new_context, response))
-              goto fail_set;
-	   if (get_default_type(response, &type))
-              goto fail_set;
-	   if (context_type_set (new_context, type))
-              goto fail_set;
-	   _pam_drop(type);
-	}
-	_pam_drop(response);
-
-	if (mls_enabled)
-	  {
-	    if (query_response(pamh, _("level:"), NULL, &response, debug) == PAM_SUCCESS &&
-		response[0] != '\0') {
-	      if (context_range_set (new_context, response))
-		goto fail_set;
-	    }
-	    _pam_drop(response);
-	  }
-
-	/* Get the string value of the context and see if it is valid. */
-	if (!security_check_context(context_str(new_context))) {
-	  newcon = strdup(context_str(new_context));
-	  context_free (new_context);
-	  return newcon;
-	}
-	else
-	  send_text(pamh,_("Not a valid security context"),debug);
-
-        context_free (new_context);
-      }
-    else {
-      _pam_drop(response);
-      return NULL;
-    }
-  } /* end while */
- fail_set:
-  free(type);
-  _pam_drop(response);
-  context_free (new_context);
-  return NULL;
-}
-
 static int mls_range_allowed(pam_handle_t *pamh, security_context_t src, security_context_t dst, int debug)
 {
   struct av_decision avd;
@@ -606,11 +531,6 @@ compute_exec_context(pam_handle_t *pamh, module_data_t *data,
       data->exec_context = context_from_env(pamh, data->default_user_context,
 					    env_params, use_current_range,
 					    debug);
-  } else {
-    if (seuser) {
-      data->exec_context = manual_context(pamh, seuser, debug);
-      free(seuser);
-    }
   }
 
   if (!data->exec_context) {
