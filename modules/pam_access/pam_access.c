@@ -471,7 +471,7 @@ netgroup_match (pam_handle_t *pamh, const char *netgroup,
   int retval;
   char *mydomain = NULL;
 
-#ifdef HAVE_YP_GET_DEFAUTL_DOMAIN
+#ifdef HAVE_YP_GET_DEFAULT_DOMAIN
   yp_get_default_domain(&mydomain);
 #elif defined(HAVE_GETDOMAINNAME)
   char domainname_res[256];
