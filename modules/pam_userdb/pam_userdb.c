@@ -214,17 +214,13 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	  /* crypt(3) password storage */
 
 	  char *cryptpw;
-	  char salt[2];
 
-	  if (data.dsize != 13) {
+	  if (data.dsize < 13) {
 	    compare = -2;
 	  } else if (ctrl & PAM_ICASE_ARG) {
 	    compare = -2;
 	  } else {
-	    salt[0] = *data.dptr;
-	    salt[1] = *(data.dptr + 1);
-
-	    cryptpw = crypt (pass, salt);
+	    cryptpw = crypt (pass, data.dptr);
 
 	    if (cryptpw) {
 	      compare = strncasecmp (data.dptr, cryptpw, data.dsize);
