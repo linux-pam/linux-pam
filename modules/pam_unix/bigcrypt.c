@@ -109,6 +109,10 @@ char *bigcrypt(const char *key, const char *salt)
 #else
 	tmp_ptr = crypt(plaintext_ptr, salt);	/* libc crypt() */
 #endif
+	if (tmp_ptr == NULL) {
+		free(dec_c2_cryptbuf);
+		return NULL;
+	}
 	/* and place in the static area */
 	strncpy(cipher_ptr, tmp_ptr, 13);
 	cipher_ptr += ESEGMENT_SIZE + SALT_SIZE;
@@ -130,6 +134,11 @@ char *bigcrypt(const char *key, const char *salt)
 #else
 			tmp_ptr = crypt(plaintext_ptr, salt_ptr);
 #endif
+			if (tmp_ptr == NULL) {
+				_pam_overwrite(dec_c2_cryptbuf);
+				free(dec_c2_cryptbuf);
+				return NULL;
+			}
 
 			/* skip the salt for seg!=0 */
 			strncpy(cipher_ptr, (tmp_ptr + SALT_SIZE), ESEGMENT_SIZE);

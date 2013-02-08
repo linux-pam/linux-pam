@@ -108,7 +108,7 @@ compare_password(const char *newpass, const char *oldpass)
   outval = crypt (newpass, oldpass);
 #endif
 
-  return strcmp(outval, oldpass) == 0;
+  return outval != NULL && strcmp(outval, oldpass) == 0;
 }
 
 /* Check, if the new password is already in the opasswd file.  */
