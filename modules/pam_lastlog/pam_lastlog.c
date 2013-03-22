@@ -479,6 +479,10 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 	}
     }
 
+    if (retval != 0)
+	pam_syslog(pamh, LOG_WARNING, "corruption detected in %s", _PATH_BTMP);
+    retval = PAM_SUCCESS;
+
     if (failed) {
 	/* we want the date? */
 	if (announce & LASTLOG_DATE) {
