@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2006, 2007, 2010 Thorsten Kukuk <kukuk@thkukuk.de>
+ * Copyright (c) 2005, 2006, 2007, 2010, 2013 Thorsten Kukuk <kukuk@thkukuk.de>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -112,6 +112,10 @@ search_key (const char *filename)
         {
           buflen = BUF_SIZE;
           buf = malloc (buflen);
+	  if (buf == NULL) {
+	    fclose (fp);
+	    return NULL;
+	  }
         }
       buf[0] = '\0';
       if (fgets (buf, buflen - 1, fp) == NULL)

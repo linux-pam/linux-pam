@@ -81,7 +81,9 @@
 
     <para>
       The password component of this module performs the task of updating
-      the user's password.
+      the user's password. The default encryption hash is taken from the
+      <emphasis remap='B'>ENCRYPT_METHOD</emphasis> variable from
+      <emphasis>/etc/login.defs</emphasis>
     </para>
 
     <para>
@@ -392,6 +394,9 @@ session    required   pam_unix.so
   <refsect1 id='pam_unix-see_also'>
     <title>SEE ALSO</title>
     <para>
+      <citerefentry>
+	<refentrytitle>login.defs</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
       <citerefentry>
 	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
       </citerefentry>,
