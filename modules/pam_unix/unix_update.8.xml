@@ -38,7 +38,7 @@
     <para>
       The purpose of the helper is to enable tighter confinement of
       login and password changing services. The helper is thus called only
-      when SELinux is enabled and in the enforcing mode on the system.
+      when SELinux is enabled on the system.
     </para>
 
     <para>
