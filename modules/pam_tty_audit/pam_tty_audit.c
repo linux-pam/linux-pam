@@ -201,6 +201,9 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
   struct audit_tty_status *old_status, new_status;
   const char *user;
   int i, fd, open_only;
+#ifdef HAVE_AUDIT_TTY_STATUS_LOG_PASSWD
+  int log_passwd;
+#endif /* HAVE_AUDIT_TTY_STATUS_LOG_PASSWD */
 
   (void)flags;
 
@@ -212,6 +215,9 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
 
   command = CMD_NONE;
   open_only = 0;
+#ifdef HAVE_AUDIT_TTY_STATUS_LOG_PASSWD
+  log_passwd = 0;
+#endif /* HAVE_AUDIT_TTY_STATUS_LOG_PASSWD */
   for (i = 0; i < argc; i++)
     {
       if (strncmp (argv[i], "enable=", 7) == 0
@@ -237,6 +243,14 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	}
       else if (strcmp (argv[i], "open_only") == 0)
 	open_only = 1;
+      else if (strcmp (argv[i], "log_passwd") == 0)
+#ifdef HAVE_AUDIT_TTY_STATUS_LOG_PASSWD
+        log_passwd = 1;
+#else /* HAVE_AUDIT_TTY_STATUS_LOG_PASSWD */
+        pam_syslog (pamh, LOG_WARNING,
+                    "The log_passwd option was not available at compile time.");
+#warning "pam_tty_audit: The log_passwd option is not available.  Please upgrade your headers/kernel."
+#endif /* HAVE_AUDIT_TTY_STATUS_LOG_PASSWD */
       else
 	{
 	  pam_syslog (pamh, LOG_ERR, "unknown option `%s'", argv[i]);
@@ -262,7 +276,14 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
     }
 
   new_status.enabled = (command == CMD_ENABLE ? 1 : 0);
-  if (old_status->enabled == new_status.enabled)
+#ifdef HAVE_AUDIT_TTY_STATUS_LOG_PASSWD
+  new_status.log_passwd = log_passwd;
+#endif /* HAVE_AUDIT_TTY_STATUS_LOG_PASSWD */
+  if (old_status->enabled == new_status.enabled
+#ifdef HAVE_AUDIT_TTY_STATUS_LOG_PASSWD
+      && old_status->log_passwd == new_status.log_passwd
+#endif /* HAVE_AUDIT_TTY_STATUS_LOG_PASSWD */
+     )
     {
       open_only = 1; /* to clean up old_status */
       goto ok_fd;

@@ -386,6 +386,10 @@ if test x"$WITH_LIBAUDIT" != xno ; then
         fi
         if test ! -z "$HAVE_AUDIT_TTY_STATUS" ; then
             AC_DEFINE([HAVE_AUDIT_TTY_STATUS], 1, [Define to 1 if struct audit_tty_status exists.])
+
+            AC_CHECK_MEMBERS([struct audit_tty_status.log_passwd], [],
+                            AC_MSG_WARN([audit_tty_status.log_passwd is not available.  The log_passwd option is disabled.]),
+                            [[#include <libaudit.h>]])
         fi
 else
 	LIBAUDIT=""
@@ -393,6 +397,8 @@ fi
 AC_SUBST(LIBAUDIT)
 AM_CONDITIONAL([HAVE_AUDIT_TTY_STATUS],
 	       [test "x$HAVE_AUDIT_TTY_STATUS" = xyes])
+AM_CONDITIONAL([HAVE_AUDIT_TTY_STATUS_LOG_PASSWD],
+	       [test "x$ac_cv_member_audit_tty_status_log_passwd" = xyes])
 
 AC_CHECK_HEADERS(xcrypt.h crypt.h)
 AS_IF([test "x$ac_cv_header_xcrypt_h" = "xyes"],

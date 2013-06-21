@@ -77,6 +77,19 @@
           </para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term>
+          <option>log_passwd</option>
+        </term>
+        <listitem>
+          <para>
+	   Log keystrokes when ECHO mode is off but ICANON mode is active.
+	   This is the mode in which the tty is placed during password entry.
+	   By default, passwords are not logged.  This option may not be
+	   available on older kernels (3.9?).
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
   </refsect1>
 
@@ -161,6 +174,8 @@ session	required pam_tty_audit.so disable=* enable=root
       <para>
         pam_tty_audit was written by Miloslav Trma&ccaron;
 	&lt;mitr@redhat.com&gt;.
+        The log_passwd option was added by Richard Guy Briggs
+        &lt;rgb@redhat.com&gt;.
       </para>
   </refsect1>
 
