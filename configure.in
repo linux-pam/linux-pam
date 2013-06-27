@@ -397,8 +397,6 @@ fi
 AC_SUBST(LIBAUDIT)
 AM_CONDITIONAL([HAVE_AUDIT_TTY_STATUS],
 	       [test "x$HAVE_AUDIT_TTY_STATUS" = xyes])
-AM_CONDITIONAL([HAVE_AUDIT_TTY_STATUS_LOG_PASSWD],
-	       [test "x$ac_cv_member_audit_tty_status_log_passwd" = xyes])
 
 AC_CHECK_HEADERS(xcrypt.h crypt.h)
 AS_IF([test "x$ac_cv_header_xcrypt_h" = "xyes"],
