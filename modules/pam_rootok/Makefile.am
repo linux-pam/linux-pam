@@ -25,7 +25,7 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_rootok.la
-pam_rootok_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@
+pam_rootok_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@ @LIBAUDIT@
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
