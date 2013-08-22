@@ -1,23 +1,22 @@
-# Kazakh translation for Linux-PAM.
-# Copyright (C) 2012 Linux-PAM's COPYRIGHT HOLDER
-# This file is distributed under the same license as the Linux-PAM package.
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2009-2012.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Linux-PAM Project
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2012-05-11 23:45+0600\n"
+"PO-Revision-Date: 2013-06-11 09:53+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
-"Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
-"Language: kk\n"
+"Language-Team: Kazakh (http://www.transifex.com/projects/p/fedora/language/kk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Poedit-Language: Kazakh\n"
-"X-Poedit-Country: KAZAKHSTAN\n"
+"Language: kk\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -40,12 +39,12 @@ msgstr "Пароль:"
 #: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
 msgid "New %s%spassword: "
-msgstr "%s%sүшін жаңа пароль: "
+msgstr "%s%s үшін жаңа пароль: "
 
 #: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:70
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr "%s%sүшін жаңа парольді қайта енгізіңіз: "
+msgstr "%s%s үшін жаңа парольді қайта енгізіңіз: "
 
 #: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:71
 msgid "Sorry, passwords do not match."
@@ -102,9 +101,7 @@ msgstr "Шындылықты тексеру қатесі"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
-"Шындылықты тексеру мәліметтерге қол жеткізу үшін тіркелгі ақпараты "
-"жеткіліксіз"
+msgstr "Шындылықты тексеру мәліметтерге қол жеткізу үшін тіркелгі ақпараты жеткіліксіз"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
@@ -237,9 +234,8 @@ msgid "contains too many same characters consecutively"
 msgstr "құрамында бірдей таңбалардың тізбегі бар"
 
 #: modules/pam_cracklib/pam_cracklib.c:664
-#, fuzzy
 msgid "contains too long of a monotonic character sequence"
-msgstr "құрамында бірдей таңбалардың тізбегі бар"
+msgstr "құрамында біркелкі таңбалардың тым ұзын тізбегі бар"
 
 #: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
@@ -285,13 +281,13 @@ msgstr " %a %b %e %H:%M:%S %Z %Y"
 #: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:501
 #, c-format
 msgid " from %.*s"
-msgstr "қайдан: %.*s"
+msgstr " қайдан: %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:303 modules/pam_lastlog/pam_lastlog.c:513
 #, c-format
 msgid " on %.*s"
-msgstr "қайда: %.*s"
+msgstr " қайда: %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:313
@@ -379,9 +375,8 @@ msgid "Password has been already used. Choose another."
 msgstr "Пароль осыған дейін қолданған. Басқасын таңдаңыз."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
-#, fuzzy
 msgid "Password has been already used."
-msgstr "Пароль осыған дейін қолданған. Басқасын таңдаңыз."
+msgstr "Пароль осыған дейін қолданылған."
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
@@ -494,10 +489,8 @@ msgstr "%s: %s опциясы белгісіз\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file түбірлік_файл_аты] [--user пайдаланушы] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file түбірлік_файл_аты] [--user пайдаланушы] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
 #, c-format
@@ -515,10 +508,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f түбірлік_файл_аты] [--file түбірлік_файл_аты]\n"
-"   [-u пайдаланушы_аты] [--user пайдаланушы_аты]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f түбірлік_файл_аты] [--file түбірлік_файл_аты]\n   [-u пайдаланушы_аты] [--user пайдаланушы_аты]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -527,8 +517,7 @@ msgstr "Рұқсат расталған (соңғы рет %ld секунд бұ
 
 #: modules/pam_unix/pam_unix_acct.c:241 modules/pam_unix/pam_unix_acct.c:263
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"Тіркелгіңіздің мерзімі аяқталған; жүйелік администраторыңызға хабарласыңыз"
+msgstr "Тіркелгіңіздің мерзімі аяқталған; жүйелік администраторыңызға хабарласыңыз"
 
 #: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (root enforced)"
@@ -578,6 +567,3 @@ msgstr "Жаңа UNIX паролін енгізіңіз: "
 #: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Retype new UNIX password: "
 msgstr "Жаңа UNIX паролін қайта енгізіңіз: "
-
-#~ msgid "Would you like to enter a security context? [N] "
-#~ msgstr "Қауіпсіздік контексті енгізуді қалайсыз ба? [N] "

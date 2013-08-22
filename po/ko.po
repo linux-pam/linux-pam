@@ -3,22 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eunju Kim <eukim@redhat.com>, 2007, 2009.
-# Eun-Ju Kim <eukim@redhat.com>, 2012.
+# eukim <eukim@redhat.com>, 2013
+# eukim <eukim@redhat.com>, 2007,2009
+# eukim <eukim@redhat.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2012-03-07 03:21+0000\n"
+"PO-Revision-Date: 2013-04-16 13:34+0000\n"
 "Last-Translator: eukim <eukim@redhat.com>\n"
-"Language-Team: Korean (http://www.transifex.net/projects/p/fedora/language/"
-"ko/)\n"
-"Language: ko\n"
+"Language-Team: Korean (http://www.transifex.com/projects/p/fedora/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -236,9 +236,8 @@ msgid "contains too many same characters consecutively"
 msgstr "너무 많은 동일한 문자가 연속적으로 포함되어있습니다   "
 
 #: modules/pam_cracklib/pam_cracklib.c:664
-#, fuzzy
 msgid "contains too long of a monotonic character sequence"
-msgstr "너무 많은 동일한 문자가 연속적으로 포함되어있습니다   "
+msgstr "너무 길게 단순한 문자가 연속적으로 포함되어 있습니다 "
 
 #: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
@@ -378,9 +377,8 @@ msgid "Password has been already used. Choose another."
 msgstr "이미 사용되고 있는 암호입니다. 다른 암호를 선택해 주십시오."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
-#, fuzzy
 msgid "Password has been already used."
-msgstr "이미 사용되고 있는 암호입니다. 다른 암호를 선택해 주십시오."
+msgstr "이미 사용되고 있는 암호입니다."
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
@@ -493,10 +491,8 @@ msgstr "%s: 알려지지 않은 옵션 %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
 #, c-format
@@ -514,10 +510,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filename] [--file rooted-filename]\n   [-u username] [--user username]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -576,6 +569,3 @@ msgstr "새 UNIX 암호 입력:"
 #: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Retype new UNIX password: "
 msgstr "새 UNIX 암호 재입력:"
-
-#~ msgid "Would you like to enter a security context? [N] "
-#~ msgstr "보안 문맥을 입력하시겠습니까? [N]  "

@@ -3,22 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Kiyoto Hashida <khashida@redhat.com>, 2008, 2009.
-# Noriko Mizumoto <noriko@redhat.com>, 2007.
-# Tomoyuki KATO <tomo@dream.daynight.jp>, 2012.
+# Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2013
+# Kiyoto Hashida <khashida@redhat.com>, 2008-2009
+# Noriko Mizumoto <noriko@redhat.com>, 2007
+# Tomoyuki KATO <tomo@dream.daynight.jp>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2012-01-26 13:44+0000\n"
-"Last-Translator: Tomoyuki KATO <tomo@dream.daynight.jp>\n"
+"PO-Revision-Date: 2013-05-07 12:44+0000\n"
+"Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -236,9 +237,8 @@ msgid "contains too many same characters consecutively"
 msgstr "連続的な同一文字が多く含まれ過ぎです"
 
 #: modules/pam_cracklib/pam_cracklib.c:664
-#, fuzzy
 msgid "contains too long of a monotonic character sequence"
-msgstr "連続的な同一文字が多く含まれ過ぎです"
+msgstr "単調な文字列が数多く含まれています"
 
 #: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
@@ -278,7 +278,7 @@ msgstr "%s 失敗: 不明な状態 0x%x"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:492
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr "%a %b %e %H:%M:%S %Z %Y"
+msgstr " %Y/%m/%d (%a) %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:501
@@ -375,14 +375,11 @@ msgstr "ディレクトリ %s を作成して初期化できません。"
 #: modules/pam_pwhistory/pam_pwhistory.c:217
 #: modules/pam_unix/pam_unix_passwd.c:516
 msgid "Password has been already used. Choose another."
-msgstr ""
-"パスワードはすでに使用されています。 別のパスワードを選択してください。"
+msgstr "パスワードはすでに使用されています。 別のパスワードを選択してください。"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
-#, fuzzy
 msgid "Password has been already used."
-msgstr ""
-"パスワードはすでに使用されています。 別のパスワードを選択してください。"
+msgstr "パスワードはすでに使用されています。"
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
@@ -495,10 +492,8 @@ msgstr "%s: 未認識オプション%s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
 #, c-format
@@ -516,10 +511,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filename] [--file rooted-filename]\n   [-u username] [--user username]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -528,8 +520,7 @@ msgstr "アクセスを許可 （最後のアクセスは %ld 秒前でした）
 
 #: modules/pam_unix/pam_unix_acct.c:241 modules/pam_unix/pam_unix_acct.c:263
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"アカウントの有効期限が切れました。システム管理者にお問い合わせください。"
+msgstr "アカウントの有効期限が切れました。システム管理者にお問い合わせください。"
 
 #: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (root enforced)"
@@ -579,6 +570,3 @@ msgstr "新しい UNIX パスワードを入力してください:"
 #: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Retype new UNIX password: "
 msgstr "新しい UNIX パスワードを再入力してください:"
-
-#~ msgid "Would you like to enter a security context? [N] "
-#~ msgstr "セキュリティコンテキストを入力しますか? [N] "

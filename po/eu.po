@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Asier Iturralde Sarasola <asier.iturralde@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2011-11-30 11:56+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Basque (http://www.transifex.com/projects/p/fedora/language/"
-"eu/)\n"
-"Language: eu\n"
+"PO-Revision-Date: 2012-12-24 13:54+0000\n"
+"Last-Translator: Asier Iturralde Sarasola <asier.iturralde@gmail.com>\n"
+"Language-Team: Basque (http://www.transifex.com/projects/p/fedora/language/eu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: libpam_misc/misc_conv.c:33
@@ -34,17 +34,17 @@ msgstr ""
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:64
 msgid "Password: "
-msgstr ""
+msgstr "Pasahitza: "
 
 #: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
 msgid "New %s%spassword: "
-msgstr ""
+msgstr "%s%sPasahitz berria: "
 
 #: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:70
 #, c-format
 msgid "Retype new %s%spassword: "
-msgstr ""
+msgstr "Idatzi berriz %s%spasahitz berria: "
 
 #: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:71
 msgid "Sorry, passwords do not match."
@@ -53,7 +53,7 @@ msgstr ""
 #: libpam/pam_get_authtok.c:135 libpam/pam_get_authtok.c:211
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Idatzi berriz %s"
 
 #: libpam/pam_get_authtok.c:155 libpam/pam_get_authtok.c:227
 msgid "Password change aborted."
@@ -85,7 +85,7 @@ msgstr ""
 
 #: libpam/pam_strerror.c:50
 msgid "System error"
-msgstr ""
+msgstr "Sistemaren errorea"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
@@ -399,7 +399,7 @@ msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:262
 msgid "level:"
-msgstr ""
+msgstr "maila:"
 
 #: modules/pam_selinux/pam_selinux.c:295
 msgid "Not a valid security context"
@@ -476,7 +476,7 @@ msgstr ""
 
 #: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:890
 msgid "Unknown error"
-msgstr ""
+msgstr "Errore ezezaguna"
 
 #: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:909
 #, c-format
@@ -490,8 +490,7 @@ msgstr ""
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039

@@ -3,22 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Antonio Cardoso Martins <digiplan@netvisao.pt>, 2005, 2006.
-# Rui Gouveia <rui.gouveia@globaltek.pt>, 2009.
-# Rui Gouveia <rui.gouveia@gmail.com>, 2012.
+# Antonio Cardoso Martins <digiplan@netvisao.pt>, 2005-2006
+# Ricardo Pinto <ricardo.bigote@gmail.com>, 2013
+# Rui Gouveia <rui.gouveia@globaltek.pt>, 2009
+# Rui Gouveia <rui.gouveia@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2012-02-14 17:21+0000\n"
-"Last-Translator: Rui Gouveia <rui.gouveia@gmail.com>\n"
+"PO-Revision-Date: 2013-01-28 11:21+0000\n"
+"Last-Translator: Ricardo Pinto <ricardo.bigote@gmail.com>\n"
 "Language-Team: Portuguese <trans-pt@lists.fedoraproject.org>\n"
-"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -131,8 +132,7 @@ msgstr "Não é possível criar/remover uma entrada para a sessão especificada"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
-"O serviço de autenticação não consegue obter as credenciais do utilizador"
+msgstr "O serviço de autenticação não consegue obter as credenciais do utilizador"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -237,7 +237,6 @@ msgid "contains too many same characters consecutively"
 msgstr "contém demasiados caracteres iguais consecutivos"
 
 #: modules/pam_cracklib/pam_cracklib.c:664
-#, fuzzy
 msgid "contains too long of a monotonic character sequence"
 msgstr "contém demasiados caracteres iguais consecutivos"
 
@@ -314,20 +313,14 @@ msgstr "Último início de sessão falhado:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"Houve %d tentativa falhada de início de sessão desde o último início de "
-"sessão com sucesso."
-msgstr[1] ""
-"Houve %d tentativas falhadas de início de sessão desde o último início de "
-"sessão com sucesso."
+msgstr[0] "Houve %d tentativa falhada de início de sessão desde o último início de sessão com sucesso."
+msgstr[1] "Houve %d tentativas falhadas de início de sessão desde o último início de sessão com sucesso."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:544
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
-"Houve %d tentativas falhadas de início de sessão desde o último início de "
-"sessão com sucesso."
+msgstr "Houve %d tentativas falhadas de início de sessão desde o último início de sessão com sucesso."
 
 #: modules/pam_limits/pam_limits.c:1079
 #, c-format
@@ -386,9 +379,8 @@ msgid "Password has been already used. Choose another."
 msgstr "A senha já foi utilizada anteriormente. Escolha outra."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
-#, fuzzy
 msgid "Password has been already used."
-msgstr "A senha já foi utilizada anteriormente. Escolha outra."
+msgstr "A senha já foi utilizada anteriormente."
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
@@ -501,10 +493,8 @@ msgstr "%s: Opção não reconhecida %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file ficheiro-raiz] [--user nome-utilizador] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file ficheiro-raiz] [--user nome-utilizador] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
 #, c-format
@@ -522,10 +512,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u nome-de-utilizador] [--user nome-de-utilizador]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filename] [--file rooted-filename]\n   [-u nome-de-utilizador] [--user nome-de-utilizador]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -542,8 +529,7 @@ msgstr "É obrigatório que altere de imediato a sua senha (politica do sistema)
 
 #: modules/pam_unix/pam_unix_acct.c:255
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
-"É obrigatório que altere de imediato a sua senha (antiguidade da password)"
+msgstr "É obrigatório que altere de imediato a sua senha (antiguidade da password)"
 
 #: modules/pam_unix/pam_unix_acct.c:276 modules/pam_unix/pam_unix_acct.c:283
 #, c-format
@@ -586,6 +572,3 @@ msgstr "Digite a nova senha UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Retype new UNIX password: "
 msgstr "Digite novamente a nova senha UNIX: "
-
-#~ msgid "Would you like to enter a security context? [N] "
-#~ msgstr "Pretende inserir um contexto de segurança? [N]"

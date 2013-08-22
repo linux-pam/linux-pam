@@ -3,22 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Seán de Búrca <leftmostcat@gmail.com>, 2012.
+# leftmostcat <leftmostcat@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2012-10-08 20:33+0000\n"
+"PO-Revision-Date: 2013-07-27 13:47+0000\n"
 "Last-Translator: leftmostcat <leftmostcat@gmail.com>\n"
-"Language-Team: Irish (http://www.transifex.com/projects/p/fedora/language/"
-"ga/)\n"
-"Language: ga\n"
+"Language-Team: Irish (http://www.transifex.com/projects/p/fedora/language/ga/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : "
-"4);\n"
+"Language: ga\n"
+"Plural-Forms: nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -107,8 +105,7 @@ msgstr "Níl cead agat sonraí fhíordheimhnithe a rochtain"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr ""
-"Ní féidir leis an tseirbhís fhíordheimhnithe eolas fíordheimhnithe a fháil"
+msgstr "Ní féidir leis an tseirbhís fhíordheimhnithe eolas fíordheimhnithe a fháil"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -120,8 +117,7 @@ msgstr "Líon uasta na hatrialacha don tseirbhís ídithe"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr ""
-"Níl an ceadchomhartha fíordheimhnithe bailí a thuilleadh; ceann nua de dhíth"
+msgstr "Níl an ceadchomhartha fíordheimhnithe bailí a thuilleadh; ceann nua de dhíth"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -133,8 +129,7 @@ msgstr "Ní féidir iontráil don tseirbhís sonraithe a dhéanamh/bhaint"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
-"Ní féidir leis an tseirbhís fhíordheimhnithe dintiúir úsáideora a fháil"
+msgstr "Ní féidir leis an tseirbhís fhíordheimhnithe dintiúir úsáideora a fháil"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -239,9 +234,8 @@ msgid "contains too many same characters consecutively"
 msgstr "tá an iomarca carachtar céanna ann go leantach"
 
 #: modules/pam_cracklib/pam_cracklib.c:664
-#, fuzzy
 msgid "contains too long of a monotonic character sequence"
-msgstr "tá an iomarca carachtar céanna ann go leantach"
+msgstr "tá seicheamh carachtar aontonach ró-fhada ann"
 
 #: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
@@ -316,29 +310,17 @@ msgstr "Logáil isteach teipthe is déanaí:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\n"
-"d'éirigh leis."
-msgstr[1] ""
-"Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\n"
-"d'éirigh leis."
-msgstr[2] ""
-"Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\n"
-"d'éirigh leis."
-msgstr[3] ""
-"Bhí %d n-iarracht logála isteach teipthe ann ón logáil isteach is déanaí\n"
-"a d'éirigh leis."
-msgstr[4] ""
-"Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\n"
-"d'éirigh leis."
+msgstr[0] "Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\nd'éirigh leis."
+msgstr[1] "Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\nd'éirigh leis."
+msgstr[2] "Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\nd'éirigh leis."
+msgstr[3] "Bhí %d n-iarracht logála isteach teipthe ann ón logáil isteach is déanaí\na d'éirigh leis."
+msgstr[4] "Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\nd'éirigh leis."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:544
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
-"Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\n"
-"d'éirigh leis."
+msgstr "Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\nd'éirigh leis."
 
 #: modules/pam_limits/pam_limits.c:1079
 #, c-format
@@ -397,9 +379,8 @@ msgid "Password has been already used. Choose another."
 msgstr "Úsáidtear an focal faire cheana. Roghnaigh ceann eile."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
-#, fuzzy
 msgid "Password has been already used."
-msgstr "Úsáidtear an focal faire cheana. Roghnaigh ceann eile."
+msgstr "Úsáidtear an focal faire cheana."
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
@@ -512,11 +493,8 @@ msgstr "%s: Rogha anaithnid %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file ainm-comhad-le-fréamh] [--user úsáideoir] [--reset[=u]]\n"
-"[--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file ainm-comhad-le-fréamh] [--user úsáideoir] [--reset[=u]]\n[--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
 #, c-format
@@ -534,10 +512,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f ainm-comhad-le-fréamh] [--file ainm-comhad-le-fréamh]\n"
-"   [-u úsáideoir] [--user úsáideoir]\n"
-"   [-r] [--reset[=u]] [--quiet]\n"
+msgstr "%s: [-f ainm-comhad-le-fréamh] [--file ainm-comhad-le-fréamh]\n   [-u úsáideoir] [--user úsáideoir]\n   [-r] [--reset[=u]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -546,9 +521,7 @@ msgstr "Bronnadh rochtain (bhí an rochtain is déanaí %ld soicind ó shin)."
 
 #: modules/pam_unix/pam_unix_acct.c:241 modules/pam_unix/pam_unix_acct.c:263
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"Chuaigh do chuntas as feidhm; déan téagmháil le do riarthóir córais, le do "
-"thoil"
+msgstr "Chuaigh do chuntas as feidhm; déan téagmháil le do riarthóir córais, le do thoil"
 
 #: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (root enforced)"
@@ -556,8 +529,7 @@ msgstr "Ní mór duit d'fhocal faire a athrú láithreach (forfheidhmítear fré
 
 #: modules/pam_unix/pam_unix_acct.c:255
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
-"Ní mór duit d'fhocal faire a athrú láithreach (chuaigh focal faire in aos)"
+msgstr "Ní mór duit d'fhocal faire a athrú láithreach (chuaigh focal faire in aos)"
 
 #: modules/pam_unix/pam_unix_acct.c:276 modules/pam_unix/pam_unix_acct.c:283
 #, c-format
@@ -603,6 +575,3 @@ msgstr "Iontráil focal faire UNIX nua: "
 #: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Retype new UNIX password: "
 msgstr "Iontráil focal faire UNIX nua arís:"
-
-#~ msgid "Would you like to enter a security context? [N] "
-#~ msgstr "Ar mhaith leat comhthéacs slándála a iontráil? [N] "

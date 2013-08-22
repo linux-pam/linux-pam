@@ -3,22 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arun Prakash  <arunprakash.pts@gmail.com>, 2012.
-# I felix <ifelix@redhat.com>, 2007.
-# I. Felix <ifelix@redhat.com>, 2009.
+# Arun Prakash <arunprakash.pts@gmail.com>, 2012
+# I felix <ifelix@redhat.com>, 2007
+# I. Felix <ifelix@redhat.com>, 2009
+# shkumar <shkumar@redhat.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2012-03-01 16:01+0000\n"
-"Last-Translator: Arun Prakash <arunprakash.pts@gmail.com>\n"
+"PO-Revision-Date: 2013-04-10 14:40+0000\n"
+"Last-Translator: shkumar <shkumar@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
-"Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language: ta\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -236,9 +237,8 @@ msgid "contains too many same characters consecutively"
 msgstr "நிறைய அதே எழுத்துக்கள் தொடர்ந்து கொண்டுள்ளது"
 
 #: modules/pam_cracklib/pam_cracklib.c:664
-#, fuzzy
 msgid "contains too long of a monotonic character sequence"
-msgstr "நிறைய அதே எழுத்துக்கள் தொடர்ந்து கொண்டுள்ளது"
+msgstr "நீளமான ஒரு மோனோடோனிக் எழுத்துத் தொடரைக் கொண்டுள்ளது"
 
 #: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
@@ -379,9 +379,8 @@ msgid "Password has been already used. Choose another."
 msgstr "கடவுச்சொல் ஏற்கனவே பயன்படுத்தப்பட்டது. வேறொன்றை பயன்படுத்தவும்."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
-#, fuzzy
 msgid "Password has been already used."
-msgstr "கடவுச்சொல் ஏற்கனவே பயன்படுத்தப்பட்டது. வேறொன்றை பயன்படுத்தவும்."
+msgstr "கடவுச்சொல் ஏற்கனவே பயன்படுத்தப்பட்டுள்ளது."
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
@@ -494,10 +493,8 @@ msgstr "%s: அங்கீகரிக்கப்படாத விருப�
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
 #, c-format
@@ -515,10 +512,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filename] [--file rooted-filename]\n   [-u username] [--user username]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -578,6 +572,3 @@ msgstr "புதிய UNIX கடவுச்சொல்லை உள்ள�
 #: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Retype new UNIX password: "
 msgstr "புதிய UNIX கடவுச்சொல்லை மீண்டும் உள்ளிடவும்: "
-
-#~ msgid "Would you like to enter a security context? [N] "
-#~ msgstr "நீங்கள் ஒரு பாதுகாப்பு சூழலை உள்ளிட வேண்டுமா? [N]"

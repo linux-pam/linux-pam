@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Valentin Laskov <laskov@festa.bg>, 2012.
+# Valentin Laskov <laskov@festa.bg>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2012-03-14 20:04+0000\n"
+"PO-Revision-Date: 2013-08-09 14:31+0000\n"
 "Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
 "Language-Team: Bulgarian <trans-bg@lists.fedoraproject.org>\n"
-"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: libpam_misc/misc_conv.c:33
@@ -101,8 +101,7 @@ msgstr "Грешка при удостоверяване"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
-"Недостатъчно данни за удостоверяване за достъп до удостоверителни данни"
+msgstr "Недостатъчно данни за удостоверяване за достъп до удостоверителни данни"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
@@ -130,9 +129,7 @@ msgstr "Не мога да създам/премахна запис за зад�
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
-"Удостоверяващата услуга не може да извлече данните за удостоверяване на "
-"потребителя"
+msgstr "Удостоверяващата услуга не може да извлече данните за удостоверяване на потребителя"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -237,9 +234,8 @@ msgid "contains too many same characters consecutively"
 msgstr "съдържа твърде много еднакви последователни знаци"
 
 #: modules/pam_cracklib/pam_cracklib.c:664
-#, fuzzy
 msgid "contains too long of a monotonic character sequence"
-msgstr "съдържа твърде много еднакви последователни знаци"
+msgstr "съдържа твърде дълга еднообразна последователност знаци"
 
 #: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
@@ -314,10 +310,8 @@ msgstr "Последно неуспешно влизане:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"След последното успешно влизане, имаше %d неуспешен опит за влизане."
-msgstr[1] ""
-"След последното успешно влизане, имаше %d неуспешни опита за влизане."
+msgstr[0] "След последното успешно влизане, имаше %d неуспешен опит за влизане."
+msgstr[1] "След последното успешно влизане, имаше %d неуспешни опита за влизане."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:544
@@ -382,9 +376,8 @@ msgid "Password has been already used. Choose another."
 msgstr "Паролата вече е използвана. Изберете друга."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
-#, fuzzy
 msgid "Password has been already used."
-msgstr "Паролата вече е използвана. Изберете друга."
+msgstr "Паролата вече е използвана."
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
@@ -497,10 +490,8 @@ msgstr "%s: Неразпозната опция %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
 #, c-format
@@ -518,10 +509,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f rooted-filename] [--file rooted-filename]\n   [-u username] [--user username]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -530,9 +518,7 @@ msgstr "Достъпът е предоставен (последният дос�
 
 #: modules/pam_unix/pam_unix_acct.c:241 modules/pam_unix/pam_unix_acct.c:263
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"Срокът на акаунта Ви е изтекъл; моля, свържете се с администратора на "
-"системата"
+msgstr "Срокът на акаунта Ви е изтекъл; моля, свържете се с администратора на системата"
 
 #: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (root enforced)"
@@ -583,6 +569,3 @@ msgstr "Въведете нова UNIX парола: "
 #: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Retype new UNIX password: "
 msgstr "Отново новата UNIX парола: "
-
-#~ msgid "Would you like to enter a security context? [N] "
-#~ msgstr "Искате ли да въведете контекст за сигурност? [N] "

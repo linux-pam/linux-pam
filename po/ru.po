@@ -3,23 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Aleksandr Brezhnev <abrezhnev@gmail.com>, 2012.
-# Andrew Martynov <andrewm@inventa.ru>, 2008.
-# Yulia Poyarkova <yulia.poyarkova@redhat.com>, 2007, 2009.
+# Aleksandr Brezhnev <abrezhnev@gmail.com>, 2012
+# Andrew Martynov <andrewm@inventa.ru>, 2008
+# Yulia <yulia.poyarkova@redhat.com>, 2007,2009
+# Yulia <yulia.poyarkova@redhat.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2012-02-18 17:40+0000\n"
-"Last-Translator: Aleksandr Brezhnev <abrezhnev@gmail.com>\n"
+"PO-Revision-Date: 2013-04-09 01:12+0000\n"
+"Last-Translator: Yulia <yulia.poyarkova@redhat.com>\n"
 "Language-Team: Russian <trans-ru@lists.fedoraproject.org>\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -108,8 +108,7 @@ msgstr "Недостаточно учетных данных для доступ
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr ""
-"Службе проверки подлинности не удается загрузить сведения аутентификации"
+msgstr "Службе проверки подлинности не удается загрузить сведения аутентификации"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -133,8 +132,7 @@ msgstr "Не удалось создать/удалить запись для у
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
-"Службе проверки подлинности не удается загрузить учетные данные пользователя"
+msgstr "Службе проверки подлинности не удается загрузить учетные данные пользователя"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -239,9 +237,8 @@ msgid "contains too many same characters consecutively"
 msgstr "содержит слишком длинную последовательность одинаковых символов"
 
 #: modules/pam_cracklib/pam_cracklib.c:664
-#, fuzzy
 msgid "contains too long of a monotonic character sequence"
-msgstr "содержит слишком длинную последовательность одинаковых символов"
+msgstr "содержит слишком много повторяющихся символов"
 
 #: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
@@ -383,9 +380,8 @@ msgid "Password has been already used. Choose another."
 msgstr "Этот пароль уже был использован. Выберите другой."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
-#, fuzzy
 msgid "Password has been already used."
-msgstr "Этот пароль уже был использован. Выберите другой."
+msgstr "Этот пароль уже использовался."
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
@@ -468,9 +464,7 @@ msgstr "Учетная запись временно заблокирована 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:578
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr ""
-"Учетная запись заблокирована как следствие неудачных попыток входа (всего -- "
-"%u)."
+msgstr "Учетная запись заблокирована как следствие неудачных попыток входа (всего -- %u)."
 
 #: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:887
 msgid "Authentication error"
@@ -500,17 +494,13 @@ msgstr "%s: неопознанный параметр %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file имя_корневого_файла] [--user имя_пользователя] [--reset[=n]] [--"
-"quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file имя_корневого_файла] [--user имя_пользователя] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr ""
-"%s: не удается выполнить сброс всех пользователей в ненулевое значение\n"
+msgstr "%s: не удается выполнить сброс всех пользователей в ненулевое значение\n"
 
 #: modules/pam_tally2/pam_tally2.c:940
 #, c-format
@@ -523,10 +513,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f имя_корневого_файла] [--file имя_корневого_файла]\n"
-"   [-u имя_пользователя] [--user имя_пользователя]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f имя_корневого_файла] [--file имя_корневого_файла]\n   [-u имя_пользователя] [--user имя_пользователя]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -535,13 +522,11 @@ msgstr "Доступ предоставлен (последнее обращен
 
 #: modules/pam_unix/pam_unix_acct.c:241 modules/pam_unix/pam_unix_acct.c:263
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"Срок действия учетной записи истек; обратитесь к системному администратору"
+msgstr "Срок действия учетной записи истек; обратитесь к системному администратору"
 
 #: modules/pam_unix/pam_unix_acct.c:249
 msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
-"Вам необходимо немедленно сменить пароль (в принудительном режиме root)"
+msgstr "Вам необходимо немедленно сменить пароль (в принудительном режиме root)"
 
 #: modules/pam_unix/pam_unix_acct.c:255
 msgid "You are required to change your password immediately (password aged)"
@@ -589,6 +574,3 @@ msgstr "Введите новый пароль UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Retype new UNIX password: "
 msgstr "Повторите ввод нового пароля UNIX: "
-
-#~ msgid "Would you like to enter a security context? [N] "
-#~ msgstr "Ввести контекст безопасности? [N] "

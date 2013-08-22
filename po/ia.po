@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Nik Kalach <nikka@fedoraproject.org>, 2012.
-# Nik Kalach <nik.kalach@inbox.ru>, 2012.
+# Nik Kalach <nikka@fedoraproject.org>, 2012
+# Nik Kalach <nik.kalach@inbox.ru>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2012-12-10 06:54+0000\n"
+"PO-Revision-Date: 2012-12-17 22:00+0000\n"
 "Last-Translator: Nik Kalach <nik.kalach@inbox.ru>\n"
 "Language-Team: Interlingua <trans-ia@lists.fedoraproject.org>\n"
-"Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ia\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: libpam_misc/misc_conv.c:33
@@ -74,7 +74,7 @@ msgstr "Error critic - abandono immediate"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr "Insuccesso al cargar le modulo"
+msgstr "Insuccesso de cargar un modulo"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -106,9 +106,7 @@ msgstr "Credentiales insufficiente pro acceder a datos de authentication"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr ""
-"Le servicio de authentication non pote recuperar le information de "
-"authentication"
+msgstr "Le servicio de authentication non pote recuperar le information de authentication"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -120,8 +118,7 @@ msgstr "Il ha superate le numero maxime de tentativas pro le servicio"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr ""
-"Le token de authentication non es jam valide; un nove token es necessari"
+msgstr "Le token de authentication non es jam valide; un nove token es necessari"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -133,8 +130,7 @@ msgstr "Impossibile de crear o eliminar un entrata pro le session specificate"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
-"Le servicio de authentication non pote obtener le credentiales del usator"
+msgstr "Le servicio de authentication non pote obtener le credentiales del usator"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -142,7 +138,7 @@ msgstr "Credentiales del usator perimite"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr "Insuccesso al definir le credentiales del usator"
+msgstr "Insuccesso al definition de credentiales de usator"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
@@ -239,9 +235,8 @@ msgid "contains too many same characters consecutively"
 msgstr "nove contrasigno contine troppo de characteres identic consequente"
 
 #: modules/pam_cracklib/pam_cracklib.c:664
-#, fuzzy
 msgid "contains too long of a monotonic character sequence"
-msgstr "nove contrasigno contine troppo de characteres identic consequente"
+msgstr "nove contrasigno contine tro de characteres monotone in un sequentia"
 
 #: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
@@ -316,17 +311,14 @@ msgstr "Ultime connexion fallite:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"Il esseva %d insuccesso a initiar le session desde le ultime connexion."
-msgstr[1] ""
-"Il esseva %d insuccessos a initiar le session desde le ultime connexion."
+msgstr[0] "Il esseva %d insuccesso de initiar le session desde le ultime connexion."
+msgstr[1] "Il esseva %d insuccessos de initiar le session desde le ultime connexion."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:544
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
-"Il esseva %d insuccessos a initiar le session desde le ultime connexion."
+msgstr "Il esseva %d insuccessos a initiar le session desde le ultime connexion."
 
 #: modules/pam_limits/pam_limits.c:1079
 #, c-format
@@ -385,9 +377,8 @@ msgid "Password has been already used. Choose another."
 msgstr "Le contrasigno jam se ha utilisate. Selige un altere."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
-#, fuzzy
 msgid "Password has been already used."
-msgstr "Le contrasigno jam se ha utilisate. Selige un altere."
+msgstr "Le contrasigno se ha jam usate."
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
@@ -500,10 +491,8 @@ msgstr "%s: Option non recognoscite %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file percurso-integre] [--user usator] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file percurso-integre] [--user usator] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
 #, c-format
@@ -521,10 +510,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f percurso-integre] [--file percurso-integre]\n"
-"   [-u usator] [--user usator]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f percurso-integre] [--file percurso-integre]\n   [-u usator] [--user usator]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -584,6 +570,3 @@ msgstr "Introduce le nove contrasigno UNIX: "
 #: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Retype new UNIX password: "
 msgstr "Repete le nove contrasigno UNIX: "
-
-#~ msgid "Would you like to enter a security context? [N] "
-#~ msgstr "Velle tu introducer un contexto de securitate? [N]"

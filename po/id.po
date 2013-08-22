@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# sentabi, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2011-11-30 11:56+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2013-04-22 05:07+0000\n"
+"Last-Translator: sentabi\n"
 "Language-Team: Indonesian <trans-id@lists.fedoraproject.org>\n"
-"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: id\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: libpam_misc/misc_conv.c:33
@@ -33,7 +34,7 @@ msgstr ""
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:64
 msgid "Password: "
-msgstr ""
+msgstr "Sandi:"
 
 #: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
@@ -47,124 +48,124 @@ msgstr ""
 
 #: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:71
 msgid "Sorry, passwords do not match."
-msgstr ""
+msgstr "Maaf, sandi yang anda masukkan tidak sama."
 
 #: libpam/pam_get_authtok.c:135 libpam/pam_get_authtok.c:211
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Ketik ulang %s"
 
 #: libpam/pam_get_authtok.c:155 libpam/pam_get_authtok.c:227
 msgid "Password change aborted."
-msgstr ""
+msgstr "Pergantian sandi digagalkan."
 
 #: libpam/pam_item.c:311
 msgid "login:"
-msgstr ""
+msgstr "Masuk:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
-msgstr ""
+msgstr "Berhasil"
 
 #: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
-msgstr ""
+msgstr "Kesalahan kritis - Langsung ditunda"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr ""
+msgstr "Gagal memuat modul"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
-msgstr ""
+msgstr "Simbol tidak ditemukan"
 
 #: libpam/pam_strerror.c:48
 msgid "Error in service module"
-msgstr ""
+msgstr "Kesalahan di servis modul"
 
 #: libpam/pam_strerror.c:50
 msgid "System error"
-msgstr ""
+msgstr "Kesalahan sistem"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
-msgstr ""
+msgstr "Kesalahan buffer memory"
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
-msgstr ""
+msgstr "Izin ditolak"
 
 #: libpam/pam_strerror.c:56
 msgid "Authentication failure"
-msgstr ""
+msgstr "Otentikasi gagal"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
+msgstr "Tidak cukup hak akses untuk mengakses data"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr ""
+msgstr "Servis otentikasi tidak mendapatkan info otentikasi"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr ""
+msgstr "Pengguna tidak dikenal oleh modul otentikasi"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
-msgstr ""
+msgstr "Sudah melebihi batas percobaan servis"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr ""
+msgstr "Token otentikasi tidak valid, dibutuhkan otentikasi yang baru"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
-msgstr ""
+msgstr "Akun pengguna sudah berakhir"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr ""
+msgstr "Tidak dapat membuat/menghapus entri untuk sesion"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
+msgstr "Otentikasi servis tidak mendapat kredential pengguna"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr ""
+msgstr "Kredential pengguna telah berakhir"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr ""
+msgstr "Gagal dalam mengkonfigurasi izin pengguna"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
-msgstr ""
+msgstr "Tidak ada modul yang ditampilkan"
 
 #: libpam/pam_strerror.c:80
 msgid "Bad item passed to pam_*_item()"
-msgstr ""
+msgstr "Kesalahan item diteruskan ke pam_*_item()"
 
 #: libpam/pam_strerror.c:82
 msgid "Conversation error"
-msgstr ""
+msgstr "Terjadi kesalahan percakapan "
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
-msgstr ""
+msgstr "Kesalahan di token otentikasi "
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
-msgstr ""
+msgstr "Informasi otentikasi tidak dapat dikembalikan"
 
 #: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
-msgstr ""
+msgstr "Kunci otentikasi sedang sibuk"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr ""
+msgstr "Batas token otentikasi tidak aktif"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
@@ -234,7 +235,7 @@ msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:664
 msgid "contains too long of a monotonic character sequence"
-msgstr ""
+msgstr "terlalu panjang karakter berurutan"
 
 #: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
@@ -328,30 +329,30 @@ msgstr ""
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
-msgstr ""
+msgstr "Anda menerima surel baru."
 
 #: modules/pam_mail/pam_mail.c:303
 msgid "You have old mail."
-msgstr ""
+msgstr "Anda memiliki surel lama"
 
 #: modules/pam_mail/pam_mail.c:307
 msgid "You have mail."
-msgstr ""
+msgstr "Anda menerima surel"
 
 #: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr ""
+msgstr "Anda tidak memiliki surel di folder %s."
 
 #: modules/pam_mail/pam_mail.c:318
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr ""
+msgstr "Anda memiliki surel baru di folder %s."
 
 #: modules/pam_mail/pam_mail.c:322
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr ""
+msgstr "Anda memiliki email lama di folder %s."
 
 #: modules/pam_mail/pam_mail.c:327
 #, c-format
@@ -361,21 +362,21 @@ msgstr ""
 #: modules/pam_mkhomedir/pam_mkhomedir.c:113
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "Membuat direktori '%s'."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:183
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr ""
+msgstr "Tidak dapat membuat direktori '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
 #: modules/pam_unix/pam_unix_passwd.c:516
 msgid "Password has been already used. Choose another."
-msgstr ""
+msgstr "Sandi sudah digunakan sebelumnya. Pilih sandi yang lain."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
 msgid "Password has been already used."
-msgstr ""
+msgstr "Sandi sudah digunakan."
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
@@ -384,11 +385,11 @@ msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:214
 msgid "Would you like to enter a different role or level?"
-msgstr ""
+msgstr "Apakah anda mau menambah izin atau level yang berbeda?"
 
 #: modules/pam_selinux/pam_selinux.c:227
 msgid "role:"
-msgstr ""
+msgstr "Sebagai:"
 
 #: modules/pam_selinux/pam_selinux.c:230
 #, c-format
@@ -397,16 +398,16 @@ msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:262
 msgid "level:"
-msgstr ""
+msgstr "Level:"
 
 #: modules/pam_selinux/pam_selinux.c:295
 msgid "Not a valid security context"
-msgstr ""
+msgstr "Konteks sekuriti tidak benar."
 
 #: modules/pam_selinux/pam_selinux.c:539
 #, c-format
 msgid "Unable to get valid context for %s"
-msgstr ""
+msgstr "Tidak mendapat valid konten untuk %s"
 
 #: modules/pam_selinux/pam_selinux.c:658
 #, c-format
@@ -488,8 +489,7 @@ msgstr ""
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
@@ -562,8 +562,8 @@ msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:724
 msgid "Enter new UNIX password: "
-msgstr ""
+msgstr "Masukkan sandi Unix yang baru :"
 
 #: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Retype new UNIX password: "
-msgstr ""
+msgstr "Ketik ulang sandi Unix:"
