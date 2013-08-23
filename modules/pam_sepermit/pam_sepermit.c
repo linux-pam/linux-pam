@@ -162,6 +162,40 @@ check_running (pam_handle_t *pamh, uid_t uid, int killall, int debug)
 	return running;
 }
 
+/*
+ * This function reads the loginuid from the /proc system. It returns
+ * (uid_t)-1 on failure.
+ */
+static uid_t get_loginuid(pam_handle_t *pamh)
+{
+	int fd, count;
+	char loginuid[24];
+	char *eptr;
+	uid_t rv = (uid_t)-1;
+
+	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_RDONLY);
+	if (fd < 0) {
+		if (errno != ENOENT) {
+			pam_syslog(pamh, LOG_ERR,
+				   "Cannot open /proc/self/loginuid: %m");
+		}
+		return rv;
+	}
+	if ((count = pam_modutil_read(fd, loginuid, sizeof(loginuid)-1)) < 1) {
+		close(fd);
+		return rv;
+	}
+	loginuid[count] = '\0';
+	close(fd);
+
+	errno = 0;
+	rv = strtoul(loginuid, &eptr, 10);
+	if (errno != 0 || eptr == loginuid)
+		rv = (uid_t) -1;
+
+	return rv;
+}
+
 static void
 sepermit_unlock(pam_handle_t *pamh, void *plockfd, int error_status UNUSED)
 {
@@ -319,7 +353,7 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 		if (*sense == PAM_SUCCESS) {
 			if (ignore)
 				*sense = PAM_IGNORE;
-			if (geteuid() == 0 && exclusive)
+			if (geteuid() == 0 && exclusive && get_loginuid(pamh) == -1)
 				if (sepermit_lock(pamh, user, debug) < 0)
 					*sense = PAM_AUTH_ERR;
 		}
