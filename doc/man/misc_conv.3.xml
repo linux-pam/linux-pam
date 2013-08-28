@@ -21,7 +21,7 @@
     <funcsynopsis id="misc_conv-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_misc.h&gt;</funcsynopsisinfo>
       <funcprototype>
-        <funcdef>void <function>misc_conv</function></funcdef>
+        <funcdef>int <function>misc_conv</function></funcdef>
         <paramdef>int <parameter>num_msg</parameter></paramdef>
         <paramdef>const struct pam_message **<parameter>msgm</parameter></paramdef>
         <paramdef>struct pam_response **<parameter>response</parameter></paramdef>
