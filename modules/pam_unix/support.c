@@ -621,7 +621,8 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	}
 	close(fds[0]);       /* close here to avoid possible SIGPIPE above */
 	close(fds[1]);
-	rc=waitpid(child, &retval, 0);  /* wait for helper to complete */
+	/* wait for helper to complete: */
+	while ((rc=waitpid(child, &retval, 0)) < 0 && errno == EINTR);
 	if (rc<0) {
 	  pam_syslog(pamh, LOG_ERR, "unix_chkpwd waitpid returned %d: %m", rc);
 	  retval = PAM_AUTH_ERR;
