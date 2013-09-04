@@ -31,7 +31,13 @@
         quiet
       </arg>
       <arg choice="opt">
+        stdout
+      </arg>
+      <arg choice="opt">
         log=<replaceable>file</replaceable>
+      </arg>
+      <arg choice="opt">
+        type=<replaceable>type</replaceable>
       </arg>
       <arg choice="plain">
        <replaceable>command</replaceable>
@@ -119,6 +125,28 @@
 
         <varlistentry>
           <term>
+            <option>type=<replaceable>type</replaceable></option>
+          </term>
+          <listitem>
+            <para>
+              Only run the command if the module type matches the given type.
+            </para>
+          </listitem>
+	</varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>stdout</option>
+          </term>
+          <listitem>
+            <para>
+              Per default the output of the executed command is written to <filename>/dev/null</filename>. With this option, the stdout output of the executed command is redirected to the calling application. It's in the responsibility of this application what happens with the output. The <option>log</option> option is ignored.
+            </para>
+          </listitem>
+       </varlistentry>
+
+        <varlistentry>
+          <term>
             <option>quiet</option>
           </term>
           <listitem>
@@ -194,7 +222,8 @@
           <listitem>
             <para>
 	      <function>pam_setcred</function> was called, which
-	      does not execute the command.
+	      does not execute the command.  Or, the value given for the type=
+	      parameter did not match the module type.
             </para>
           </listitem>
         </varlistentry>
@@ -236,7 +265,8 @@
   <refsect1 id='pam_exec-author'>
     <title>AUTHOR</title>
       <para>
-        pam_exec was written by Thorsten Kukuk &lt;kukuk@thkukuk.de&gt;.
+        pam_exec was written by Thorsten Kukuk &lt;kukuk@thkukuk.de&gt; and
+        Josh Triplett &lt;josh@joshtriplett.org&gt;.
       </para>
   </refsect1>
 
