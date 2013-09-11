@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
-"POT-Creation-Date: 2012-12-12 18:31+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
+"POT-Creation-Date: 2013-09-11 16:34+0200\n"
 "PO-Revision-Date: 2013-04-09 01:12+0000\n"
 "Last-Translator: Yulia <yulia.poyarkova@redhat.com>\n"
 "Language-Team: Russian <trans-ru@lists.fedoraproject.org>\n"
@@ -19,7 +19,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -34,7 +35,7 @@ msgstr "...Извините, ваше время истекло!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "ошибочный диалог (%d)\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:142
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:170
 #: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:64
 msgid "Password: "
 msgstr "Пароль: "
@@ -108,7 +109,8 @@ msgstr "Недостаточно учетных данных для доступ
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "Службе проверки подлинности не удается загрузить сведения аутентификации"
+msgstr ""
+"Службе проверки подлинности не удается загрузить сведения аутентификации"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -132,7 +134,8 @@ msgstr "Не удалось создать/удалить запись для у
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr "Службе проверки подлинности не удается загрузить учетные данные пользователя"
+msgstr ""
+"Службе проверки подлинности не удается загрузить учетные данные пользователя"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -245,12 +248,12 @@ msgid "contains the user name in some form"
 msgstr "содержит имя пользователя"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:495
+#: modules/pam_unix/pam_unix_passwd.c:496
 msgid "No password supplied"
 msgstr "Пароль не указан"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:495
+#: modules/pam_unix/pam_unix_passwd.c:496
 msgid "Password unchanged"
 msgstr "Пароль не изменен"
 
@@ -260,34 +263,34 @@ msgstr "Пароль не изменен"
 msgid "BAD PASSWORD: %s"
 msgstr "НЕУДАЧНЫЙ ПАРОЛЬ: %s"
 
-#: modules/pam_exec/pam_exec.c:215
+#: modules/pam_exec/pam_exec.c:273
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "Сбой %s. Код выхода: %d"
 
-#: modules/pam_exec/pam_exec.c:224
+#: modules/pam_exec/pam_exec.c:282
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "Сбой %s. Получен сигнал %d%s"
 
-#: modules/pam_exec/pam_exec.c:233
+#: modules/pam_exec/pam_exec.c:291
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "Сбой %s. Неизвестный статус 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:492
+#: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:496
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr "%a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:501
+#: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:505
 #, c-format
 msgid " from %.*s"
 msgstr "с %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:303 modules/pam_lastlog/pam_lastlog.c:513
+#: modules/pam_lastlog/pam_lastlog.c:303 modules/pam_lastlog/pam_lastlog.c:517
 #, c-format
 msgid " on %.*s"
 msgstr "на %.*s"
@@ -303,12 +306,12 @@ msgid "Welcome to your new account!"
 msgstr "Добро пожаловать в новую учетную запись!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:523
+#: modules/pam_lastlog/pam_lastlog.c:527
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "Последняя неудачная попытка входа в систему:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:532 modules/pam_lastlog/pam_lastlog.c:539
+#: modules/pam_lastlog/pam_lastlog.c:536 modules/pam_lastlog/pam_lastlog.c:543
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -318,7 +321,7 @@ msgstr[1] "Число неудачных попыток со времени по
 msgstr[2] "Число неудачных попыток со времени последнего входа: %d."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:544
+#: modules/pam_lastlog/pam_lastlog.c:548
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "Число неудачных попыток со времени последнего входа: %d."
@@ -375,7 +378,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Не удалось создать и инициализировать каталог %s."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:516
+#: modules/pam_unix/pam_unix_passwd.c:517
 msgid "Password has been already used. Choose another."
 msgstr "Этот пароль уже был использован. Выберите другой."
 
@@ -464,7 +467,9 @@ msgstr "Учетная запись временно заблокирована 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:578
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr "Учетная запись заблокирована как следствие неудачных попыток входа (всего -- %u)."
+msgstr ""
+"Учетная запись заблокирована как следствие неудачных попыток входа (всего -- "
+"%u)."
 
 #: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:887
 msgid "Authentication error"
@@ -494,13 +499,17 @@ msgstr "%s: неопознанный параметр %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [--file имя_корневого_файла] [--user имя_пользователя] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [--file имя_корневого_файла] [--user имя_пользователя] [--reset[=n]] [--"
+"quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: не удается выполнить сброс всех пользователей в ненулевое значение\n"
+msgstr ""
+"%s: не удается выполнить сброс всех пользователей в ненулевое значение\n"
 
 #: modules/pam_tally2/pam_tally2.c:940
 #, c-format
@@ -513,26 +522,31 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr "%s: [-f имя_корневого_файла] [--file имя_корневого_файла]\n   [-u имя_пользователя] [--user имя_пользователя]\n   [-r] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"%s: [-f имя_корневого_файла] [--file имя_корневого_файла]\n"
+"   [-u имя_пользователя] [--user имя_пользователя]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "Доступ предоставлен (последнее обращение было %ld сек. назад)."
 
-#: modules/pam_unix/pam_unix_acct.c:241 modules/pam_unix/pam_unix_acct.c:263
+#: modules/pam_unix/pam_unix_acct.c:242 modules/pam_unix/pam_unix_acct.c:264
 msgid "Your account has expired; please contact your system administrator"
-msgstr "Срок действия учетной записи истек; обратитесь к системному администратору"
+msgstr ""
+"Срок действия учетной записи истек; обратитесь к системному администратору"
 
-#: modules/pam_unix/pam_unix_acct.c:249
+#: modules/pam_unix/pam_unix_acct.c:250
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Вам необходимо немедленно сменить пароль (в принудительном режиме root)"
+msgstr ""
+"Вам необходимо немедленно сменить пароль (в принудительном режиме root)"
 
-#: modules/pam_unix/pam_unix_acct.c:255
+#: modules/pam_unix/pam_unix_acct.c:256
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Вам необходимо немедленно сменить пароль (пароль устарел)"
 
-#: modules/pam_unix/pam_unix_acct.c:276 modules/pam_unix/pam_unix_acct.c:283
+#: modules/pam_unix/pam_unix_acct.c:277 modules/pam_unix/pam_unix_acct.c:284
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -541,36 +555,36 @@ msgstr[1] "Предупреждение: срок действия пароля 
 msgstr[2] "Предупреждение: срок действия пароля истекает через %d дней"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:288
+#: modules/pam_unix/pam_unix_acct.c:289
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Предупреждение: срок действия пароля истекает через %d дн(я)(ей)"
 
-#: modules/pam_unix/pam_unix_passwd.c:397
+#: modules/pam_unix/pam_unix_passwd.c:398
 msgid "NIS password could not be changed."
 msgstr "Пароль NIS изменить нельзя."
 
-#: modules/pam_unix/pam_unix_passwd.c:512
+#: modules/pam_unix/pam_unix_passwd.c:513
 msgid "You must choose a longer password"
 msgstr "Выберите пароль большей длины"
 
-#: modules/pam_unix/pam_unix_passwd.c:618
+#: modules/pam_unix/pam_unix_passwd.c:619
 #, c-format
 msgid "Changing password for %s."
 msgstr "Смена пароля для %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:630
 msgid "(current) UNIX password: "
 msgstr "(текущий) пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:664
+#: modules/pam_unix/pam_unix_passwd.c:665
 msgid "You must wait longer to change your password"
 msgstr "До смены пароля должно пройти больше времени"
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Enter new UNIX password: "
 msgstr "Введите новый пароль UNIX: "
 
-#: modules/pam_unix/pam_unix_passwd.c:725
+#: modules/pam_unix/pam_unix_passwd.c:726
 msgid "Retype new UNIX password: "
 msgstr "Повторите ввод нового пароля UNIX: "
