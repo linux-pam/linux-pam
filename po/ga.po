@@ -4,12 +4,13 @@
 #
 # Translators:
 # leftmostcat <leftmostcat@gmail.com>, 2012
+# leftmostcat <leftmostcat@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/linux-pam/report\n"
 "POT-Creation-Date: 2012-12-12 18:31+0100\n"
-"PO-Revision-Date: 2013-07-27 13:47+0000\n"
+"PO-Revision-Date: 2013-09-10 18:14+0000\n"
 "Last-Translator: leftmostcat <leftmostcat@gmail.com>\n"
 "Language-Team: Irish (http://www.transifex.com/projects/p/fedora/language/ga/)\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +49,7 @@ msgstr "Iontráil focal faire%2$s%1$s nua arís: "
 
 #: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:71
 msgid "Sorry, passwords do not match."
-msgstr "Tá brón orm, níl na focail faire comhoiriúnach."
+msgstr "Tá brón orm, ní ionann na focail fhaire."
 
 #: libpam/pam_get_authtok.c:135 libpam/pam_get_authtok.c:211
 #, c-format
@@ -105,7 +106,7 @@ msgstr "Níl cead agat sonraí fhíordheimhnithe a rochtain"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "Ní féidir leis an tseirbhís fhíordheimhnithe eolas fíordheimhnithe a fháil"
+msgstr "Ní féidir leis an tseirbhís fhíordheimhnithe faisnéis fhíordheimhnithe a fháil"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -157,7 +158,7 @@ msgstr "Earráid ionramháil an cheadchomhartha fíordheimhnithe"
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
-msgstr "Ní féidir eolas fíordheimhnithe a fháil ar ais"
+msgstr "Ní féidir faisnéis fhíordheimhnithe a fháil ar ais"
 
 #: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
@@ -346,22 +347,22 @@ msgstr "Tá post agat."
 #: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr "Níl aon phost agat san fhillteán %s."
+msgstr "Níl aon phost agat i bhfillteán %s."
 
 #: modules/pam_mail/pam_mail.c:318
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "Tá post nua agat san fhillteán %s."
+msgstr "Tá post nua agat i bhfillteán %s."
 
 #: modules/pam_mail/pam_mail.c:322
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr "Tá seanphost agat san fhillteán %s."
+msgstr "Tá seanphost agat i bhfillteán %s."
 
 #: modules/pam_mail/pam_mail.c:327
 #, c-format
 msgid "You have mail in folder %s."
-msgstr "Tá post agat san fhillteán %s."
+msgstr "Tá post agat i bhfillteán %s."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:113
 #, c-format
@@ -385,11 +386,11 @@ msgstr "Úsáidtear an focal faire cheana."
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
 msgid "Default Security Context %s\n"
-msgstr "Comhthéacs Slándála Réamhshocraithe %s\n"
+msgstr "Comhthéacs Réamhshocraithe Slándála %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:214
 msgid "Would you like to enter a different role or level?"
-msgstr "Ar mhaith leat ról nó leibhéal difriúil a iontráil?"
+msgstr "An bhfuil fonn ort ról nó leibhéal difriúil a iontráil?"
 
 #: modules/pam_selinux/pam_selinux.c:227
 msgid "role:"
@@ -406,7 +407,7 @@ msgstr "leibhéal:"
 
 #: modules/pam_selinux/pam_selinux.c:295
 msgid "Not a valid security context"
-msgstr "Ní comhthéacs slándála bailí é"
+msgstr "Ní comhthéacs bailí slándála é"
 
 #: modules/pam_selinux/pam_selinux.c:539
 #, c-format
@@ -416,12 +417,12 @@ msgstr "Ní féidir comhthéacs bailí a fháil do %s"
 #: modules/pam_selinux/pam_selinux.c:658
 #, c-format
 msgid "Security Context %s Assigned"
-msgstr "Sanntar Comhthéacs Slándála %s"
+msgstr "Sannadh Comhthéacs Slándála %s"
 
 #: modules/pam_selinux/pam_selinux.c:674
 #, c-format
 msgid "Key Creation Context %s Assigned"
-msgstr "Sanntar Comhthéacs Chruthú Eochracha %s"
+msgstr "Sannadh Comhthéacs Chruthú Eochracha %s"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
