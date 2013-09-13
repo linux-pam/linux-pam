@@ -255,7 +255,7 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	close(fds[0]);       /* close here to avoid possible SIGPIPE above */
 	close(fds[1]);
 	/* wait for helper to complete: */
-	while ((rc=waitpid(child, &retval, 0) < 0 && errno == EINTR);
+	while ((rc=waitpid(child, &retval, 0)) < 0 && errno == EINTR);
 	if (rc<0) {
 	  pam_syslog(pamh, LOG_ERR, "unix_update waitpid failed: %m");
 	  retval = PAM_AUTHTOK_ERR;
