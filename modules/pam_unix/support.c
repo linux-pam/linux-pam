@@ -176,7 +176,7 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 	  free (val);
 
 	  /* read number of rounds for crypt algo */
-	  if (on(UNIX_SHA256_PASS, ctrl) || on(UNIX_SHA512_PASS, ctrl)) {
+	  if (rounds && (on(UNIX_SHA256_PASS, ctrl) || on(UNIX_SHA512_PASS, ctrl))) {
 	    val=search_key ("SHA_CRYPT_MAX_ROUNDS", LOGIN_DEFS);
 
 	    if (val) {
