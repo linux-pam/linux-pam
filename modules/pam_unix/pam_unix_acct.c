@@ -121,7 +121,12 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
     if (geteuid() == 0) {
       /* must set the real uid to 0 so the helper will not error
          out if pam is called from setuid binary (su, sudo...) */
-      setuid(0);
+      if (setuid(0) == -1) {
+          pam_syslog(pamh, LOG_ERR, "setuid failed: %m");
+          printf("-1\n");
+          fflush(stdout);
+          _exit(PAM_AUTHINFO_UNAVAIL);
+      }
     }
 
     /* exec binary helper */

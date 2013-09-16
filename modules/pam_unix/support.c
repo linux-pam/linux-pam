@@ -586,7 +586,10 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	if (geteuid() == 0) {
           /* must set the real uid to 0 so the helper will not error
 	     out if pam is called from setuid binary (su, sudo...) */
-	  setuid(0);
+	  if (setuid(0) == -1) {
+             D(("setuid failed"));
+	     _exit(PAM_AUTHINFO_UNAVAIL);
+          }
 	}
 
 	/* exec binary helper */
