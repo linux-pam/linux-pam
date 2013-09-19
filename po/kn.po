@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2013-09-11 16:34+0200\n"
+"POT-Creation-Date: 2013-09-19 10:02+0200\n"
 "PO-Revision-Date: 2013-04-15 08:49+0000\n"
 "Last-Translator: shanky <prasad.mvs@gmail.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/"
@@ -524,27 +524,27 @@ msgid "Access granted (last access was %ld seconds ago)."
 msgstr ""
 "ಅನುಮತಿಯನ್ನು ನೀಡಲಾಗಿದೆ (ಕೊನೆಯ ಬಾರಿಗೆ %ld ಸೆಕೆಂಡುಗಳ ಹಿಂದೆ ನಿಲುಕಿಸಿಕೊಳ್ಳಲಾಗಿತ್ತು)."
 
-#: modules/pam_unix/pam_unix_acct.c:242 modules/pam_unix/pam_unix_acct.c:264
+#: modules/pam_unix/pam_unix_acct.c:247 modules/pam_unix/pam_unix_acct.c:269
 msgid "Your account has expired; please contact your system administrator"
 msgstr "ನಿಮ್ಮ ಖಾತೆಯ ಅವಧಿ ಅಂತ್ಯಗೊಂಡಿದೆ; ದಯವಿಟ್ಟು ನಿಮ್ಮ ಗಣಕ ವ್ಯವಸ್ಥಾಪಕರನ್ನು ಸಂಪರ್ಕಿಸಿ"
 
-#: modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:255
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸುವ ಅಗತ್ಯವಿದೆ (ಮೂಲದಿಂದ ಒತ್ತಾಯಿತವಾಗಿದೆ)"
 
-#: modules/pam_unix/pam_unix_acct.c:256
+#: modules/pam_unix/pam_unix_acct.c:261
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸುವ ಅಗತ್ಯವಿದೆ (ಗುಪ್ತಪದವು ಬಹಳ ಹಳೆಯದಾಗಿದೆ)"
 
-#: modules/pam_unix/pam_unix_acct.c:277 modules/pam_unix/pam_unix_acct.c:284
+#: modules/pam_unix/pam_unix_acct.c:282 modules/pam_unix/pam_unix_acct.c:289
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
 msgstr[0] "ಎಚ್ಚರಿಕೆ: ನಿಮ್ಮ ಗುಪ್ತಪದದ ವಾಯಿದೆಯು %d ದಿನಗಳ ನಂತರ ತೀರಿಹೋಗುತ್ತದೆ"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:289
+#: modules/pam_unix/pam_unix_acct.c:294
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "ಎಚ್ಚರಿಕೆ: %d ದಿನಗಳಲ್ಲಿ ನಿಮ್ಮ ಗುಪ್ತಪದದ ಅವಧಿ ಅಂತ್ಯಗೊಳ್ಳುತ್ತದೆ"

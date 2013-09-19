@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2013-09-11 16:34+0200\n"
+"POT-Creation-Date: 2013-09-19 10:02+0200\n"
 "PO-Revision-Date: 2013-09-10 18:14+0000\n"
 "Last-Translator: leftmostcat <leftmostcat@gmail.com>\n"
 "Language-Team: Irish (http://www.transifex.com/projects/p/fedora/language/"
@@ -544,22 +544,22 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "Bronnadh rochtain (bhí an rochtain is déanaí %ld soicind ó shin)."
 
-#: modules/pam_unix/pam_unix_acct.c:242 modules/pam_unix/pam_unix_acct.c:264
+#: modules/pam_unix/pam_unix_acct.c:247 modules/pam_unix/pam_unix_acct.c:269
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "Chuaigh do chuntas as feidhm; déan téagmháil le do riarthóir córais, le do "
 "thoil"
 
-#: modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:255
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Ní mór duit d'fhocal faire a athrú láithreach (forfheidhmítear fréamh)"
 
-#: modules/pam_unix/pam_unix_acct.c:256
+#: modules/pam_unix/pam_unix_acct.c:261
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "Ní mór duit d'fhocal faire a athrú láithreach (chuaigh focal faire in aos)"
 
-#: modules/pam_unix/pam_unix_acct.c:277 modules/pam_unix/pam_unix_acct.c:284
+#: modules/pam_unix/pam_unix_acct.c:282 modules/pam_unix/pam_unix_acct.c:289
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -570,7 +570,7 @@ msgstr[3] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
 msgstr[4] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:289
+#: modules/pam_unix/pam_unix_acct.c:294
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2013-09-11 16:34+0200\n"
+"POT-Creation-Date: 2013-09-19 10:02+0200\n"
 "PO-Revision-Date: 2013-04-16 13:34+0000\n"
 "Last-Translator: eukim <eukim@redhat.com>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/fedora/language/"
@@ -523,26 +523,26 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "액세스 허용 (%ld 초 전 마지막으로 액세스되었습니다) "
 
-#: modules/pam_unix/pam_unix_acct.c:242 modules/pam_unix/pam_unix_acct.c:264
+#: modules/pam_unix/pam_unix_acct.c:247 modules/pam_unix/pam_unix_acct.c:269
 msgid "Your account has expired; please contact your system administrator"
 msgstr "계정이 만료되었습니다: 시스템 관리자에게 알려 주십시오"
 
-#: modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:255
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "암호를 즉시 변경해 주십시오 (root가 강제 설정함)"
 
-#: modules/pam_unix/pam_unix_acct.c:256
+#: modules/pam_unix/pam_unix_acct.c:261
 msgid "You are required to change your password immediately (password aged)"
 msgstr "암호를 즉시 변경해 주십시오 (오래된 암호)"
 
-#: modules/pam_unix/pam_unix_acct.c:277 modules/pam_unix/pam_unix_acct.c:284
+#: modules/pam_unix/pam_unix_acct.c:282 modules/pam_unix/pam_unix_acct.c:289
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
 msgstr[0] "경고: %d일 내로 암호가 만료됩니다"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:289
+#: modules/pam_unix/pam_unix_acct.c:294
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "경고: %d일 내로 암호가 만료됩니다"

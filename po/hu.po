@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2013-09-11 16:34+0200\n"
+"POT-Creation-Date: 2013-09-19 10:02+0200\n"
 "PO-Revision-Date: 2013-01-08 15:13+0000\n"
 "Last-Translator: Zoltan Hoppár <hopparz@gmail.com>\n"
 "Language-Team: Hungarian <trans-hu@lists.fedoraproject.org>\n"
@@ -526,22 +526,22 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "Hozzáférés megadva (utolsó hozzáférés %ld másodperce volt)."
 
-#: modules/pam_unix/pam_unix_acct.c:242 modules/pam_unix/pam_unix_acct.c:264
+#: modules/pam_unix/pam_unix_acct.c:247 modules/pam_unix/pam_unix_acct.c:269
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 "A felhasználói azonosító érvényessége lejárt; kérem keresse meg a "
 "rendszergazdát"
 
-#: modules/pam_unix/pam_unix_acct.c:250
+#: modules/pam_unix/pam_unix_acct.c:255
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 "Azonnal meg kell változtatnia a jelszavát (rendszergazda által erőltetve)"
 
-#: modules/pam_unix/pam_unix_acct.c:256
+#: modules/pam_unix/pam_unix_acct.c:261
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Azonnal meg kell változtatnia a jelszavát (a jelszó elévült)"
 
-#: modules/pam_unix/pam_unix_acct.c:277 modules/pam_unix/pam_unix_acct.c:284
+#: modules/pam_unix/pam_unix_acct.c:282 modules/pam_unix/pam_unix_acct.c:289
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -549,7 +549,7 @@ msgstr[0] "Figyelmeztetés: a jelszava %d nap múlva lejár"
 msgstr[1] "Figyelmeztetés: a jelszava %d nap múlva lejár"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:289
+#: modules/pam_unix/pam_unix_acct.c:294
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Figyelmeztetés: a jelszava %d nap múlva lejár"

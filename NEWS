@@ -1,5 +1,9 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 1.1.8
+* pam_unix: bug fix for compiling with SELinux, fix crash at login time
+
+
 Release 1.1.7
 * Update translations
 * pam_exec: add stdout and type= options
@@ -8,6 +12,7 @@ Release 1.1.7
 * pam_userdb: Allow modern password hashes
 * pam_selinux/pam_tally2: Add tty and rhost to audit data
 * Lot of docu and code fixes
+
 
 Release 1.1.6
 * Update translations
