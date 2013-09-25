@@ -36,6 +36,7 @@
    USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
    DAMAGE. */
 
+#include "config.h"
 #include <errno.h>
 #include <fnmatch.h>
 #include <stdlib.h>
@@ -274,6 +275,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
       free (old_status);
       return PAM_SESSION_ERR;
     }
+
+  memcpy(&new_status, old_status, sizeof(new_status));
 
   new_status.enabled = (command == CMD_ENABLE ? 1 : 0);
 #ifdef HAVE_STRUCT_AUDIT_TTY_STATUS_LOG_PASSWD
