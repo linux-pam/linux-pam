@@ -22,7 +22,7 @@
     <funcsynopsis>
       <funcsynopsisinfo>#include &lt;security/pam_ext.h&gt;</funcsynopsisinfo>
       <funcprototype>
-        <funcdef>void <function>pam_prompt</function></funcdef>
+        <funcdef>int <function>pam_prompt</function></funcdef>
         <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
         <paramdef>int <parameter>style</parameter></paramdef>
         <paramdef>char **<parameter>response</parameter></paramdef>
@@ -30,7 +30,7 @@
         <paramdef><parameter>...</parameter></paramdef>
       </funcprototype>
       <funcprototype>
-        <funcdef>void <function>pam_vprompt</function></funcdef>
+        <funcdef>int <function>pam_vprompt</function></funcdef>
         <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
         <paramdef>int <parameter>style</parameter></paramdef>
         <paramdef>char **<parameter>response</parameter></paramdef>
@@ -75,7 +75,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Transaction was successful created.
+              Conversation succeded, response is set.
           </para>
         </listitem>
       </varlistentry>
