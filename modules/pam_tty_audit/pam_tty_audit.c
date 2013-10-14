@@ -109,7 +109,7 @@ nl_recv (int fd, unsigned type, void *buf, size_t size)
   struct msghdr msg;
   struct nlmsghdr nlm;
   struct iovec iov[2];
-  ssize_t res;
+  ssize_t res, resdiff;
 
  again:
   iov[0].iov_base = &nlm;
@@ -161,11 +161,16 @@ nl_recv (int fd, unsigned type, void *buf, size_t size)
   res = recvmsg (fd, &msg, 0);
   if (res == -1)
     return -1;
-  if ((size_t)res != NLMSG_LENGTH (size)
+  resdiff = NLMSG_LENGTH(size) - (size_t)res;
+  if (resdiff < 0
       || nlm.nlmsg_type != type)
     {
       errno = EIO;
       return -1;
+    }
+  else if (resdiff > 0)
+    {
+      memset((char *)buf + size - resdiff, 0, resdiff);
     }
   return 0;
 }
