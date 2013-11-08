@@ -97,8 +97,9 @@ typedef struct {
 					   password hash algorithms */
 #define UNIX_BLOWFISH_PASS       26	/* new password hashes will use blowfish */
 #define UNIX_MIN_PASS_LEN        27	/* min length for password */
+#define UNIX_DES                 28     /* DES, default */
 /* -------------- */
-#define UNIX_CTRLS_              28	/* number of ctrl arguments defined */
+#define UNIX_CTRLS_              29	/* number of ctrl arguments defined */
 
 #define UNIX_DES_CRYPT(ctrl)	(off(UNIX_MD5_PASS,ctrl)&&off(UNIX_BIGCRYPT,ctrl)&&off(UNIX_SHA256_PASS,ctrl)&&off(UNIX_SHA512_PASS,ctrl)&&off(UNIX_BLOWFISH_PASS,ctrl))
 
@@ -135,6 +136,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX_ALGO_ROUNDS */     {"rounds=",         _ALL_ON_,          0100000000, 0},
 /* UNIX_BLOWFISH_PASS */   {"blowfish",    _ALL_ON_^(0260420000), 0200000000, 1},
 /* UNIX_MIN_PASS_LEN */    {"minlen=",		_ALL_ON_,         0400000000, 0},
+/* UNIX_DES */             {"des",             _ALL_ON_^(0260420000),      0, 1},
 };
 
 #define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)
