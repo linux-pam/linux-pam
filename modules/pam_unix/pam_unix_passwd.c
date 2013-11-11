@@ -614,7 +614,8 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 
 		if (_unix_blankpasswd(pamh, ctrl, user)) {
 			return PAM_SUCCESS;
-		} else if (off(UNIX__IAMROOT, ctrl)) {
+		} else if (off(UNIX__IAMROOT, ctrl) ||
+			   (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, user, 0, 1))) {
 			/* instruct user what is happening */
 			if (asprintf(&Announce, _("Changing password for %s."),
 				user) < 0) {
