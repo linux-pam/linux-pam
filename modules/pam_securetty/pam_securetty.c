@@ -159,11 +159,10 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
         if (cmdlinefile != NULL) {
             char line[LINE_MAX], *p;
 
-            line[0] = 0;
-            fgets(line, sizeof(line), cmdlinefile);
+            p = fgets(line, sizeof(line), cmdlinefile);
             fclose(cmdlinefile);
 
-            for (p = line; p; p = strstr(p+1, "console=")) {
+            for (; p; p = strstr(p+1, "console=")) {
                 char *e;
 
                 /* Test whether this is a beginning of a word? */
