@@ -3,7 +3,6 @@ AC_INIT
 AC_CONFIG_SRCDIR([conf/pam_conv1/pam_conv_y.y])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE("Linux-PAM", 1.1.8)
-LT_INIT([disable-static])
 AC_PREREQ([2.61])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
@@ -58,6 +57,11 @@ dnl Add /var directory
 
 fi
 
+dnl This should be called before any macros that run the C compiler.
+AC_USE_SYSTEM_EXTENSIONS
+
+LT_INIT([disable-static])
+
 dnl
 dnl check if we should link everything static into libpam
 dnl
@@ -76,7 +80,6 @@ fi
 AM_CONDITIONAL([STATIC_MODULES], [test "$STATIC_MODULES" != "no"])
 
 dnl Checks for programs.
-AC_USE_SYSTEM_EXTENSIONS
 AC_PROG_CC
 AC_PROG_YACC
 AM_PROG_LEX
