@@ -33,7 +33,7 @@
      value = value ? value : default_value ;                    \
 } while (0)
 
-static void log_items(pam_handle_t *pamh, const char *function)
+static void log_items(pam_handle_t *pamh, const char *function, int flags)
 {
      const void *service=NULL, *user=NULL, *terminal=NULL,
 	 *rhost=NULL, *ruser=NULL;
@@ -45,8 +45,8 @@ static void log_items(pam_handle_t *pamh, const char *function)
      OBTAIN(PAM_RHOST, rhost, "<unknown>");
 
      pam_syslog(pamh, LOG_NOTICE,
-		"function=[%s] service=[%s] terminal=[%s] user=[%s]"
-		" ruser=[%s] rhost=[%s]\n", function,
+		"function=[%s] flags=%#x service=[%s] terminal=[%s] user=[%s]"
+		" ruser=[%s] rhost=[%s]\n", function, flags,
 		(const char *) service, (const char *) terminal,
 		(const char *) user, (const char *) ruser,
 		(const char *) rhost);
@@ -55,52 +55,52 @@ static void log_items(pam_handle_t *pamh, const char *function)
 /* --- authentication management functions (only) --- */
 
 PAM_EXTERN
-int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
+int pam_sm_authenticate(pam_handle_t *pamh, int flags,
 			int argc UNUSED, const char **argv UNUSED)
 {
-    log_items(pamh, __FUNCTION__);
+    log_items(pamh, __FUNCTION__, flags);
     return PAM_IGNORE;
 }
 
 PAM_EXTERN
-int pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
+int pam_sm_setcred(pam_handle_t *pamh, int flags,
 		   int argc UNUSED, const char **argv UNUSED)
 {
-    log_items(pamh, __FUNCTION__);
+    log_items(pamh, __FUNCTION__, flags);
     return PAM_IGNORE;
 }
 
 /* password updating functions */
 
 PAM_EXTERN
-int pam_sm_chauthtok(pam_handle_t *pamh, int flags UNUSED,
+int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		     int argc UNUSED, const char **argv UNUSED)
 {
-    log_items(pamh, __FUNCTION__);
+    log_items(pamh, __FUNCTION__, flags);
     return PAM_IGNORE;
 }
 
 PAM_EXTERN int
-pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 		 int argc UNUSED, const char **argv UNUSED)
 {
-    log_items(pamh, __FUNCTION__);
+    log_items(pamh, __FUNCTION__, flags);
     return PAM_IGNORE;
 }
 
 PAM_EXTERN int
-pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
+pam_sm_open_session(pam_handle_t *pamh, int flags,
 		    int argc UNUSED, const char **argv UNUSED)
 {
-    log_items(pamh, __FUNCTION__);
+    log_items(pamh, __FUNCTION__, flags);
     return PAM_IGNORE;
 }
 
 PAM_EXTERN int
-pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
+pam_sm_close_session(pam_handle_t *pamh, int flags,
 		     int argc UNUSED, const char **argv UNUSED)
 {
-    log_items(pamh, __FUNCTION__);
+    log_items(pamh, __FUNCTION__, flags);
     return PAM_IGNORE;
 }
 
