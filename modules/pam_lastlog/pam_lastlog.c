@@ -628,7 +628,8 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
     lltime = (time(NULL) - lltime) / (24*60*60);
 
     if (lltime > inactive_days) {
-        pam_syslog(pamh, LOG_INFO, "user %s inactive for %d days - denied", user, lltime);
+        pam_syslog(pamh, LOG_INFO, "user %s inactive for %ld days - denied",
+		   user, (long) lltime);
         return PAM_AUTH_ERR;
     }
 
