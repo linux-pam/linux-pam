@@ -52,10 +52,10 @@
 static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 {
 	int fd, count, rc = 0;
-	char loginuid[24];
+	char loginuid[24], buf[24];
 
 	count = snprintf(loginuid, sizeof(loginuid), "%lu", (unsigned long)uid);
-	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_WRONLY|O_TRUNC);
+	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_RDWR);
 	if (fd < 0) {
 		if (errno != ENOENT) {
 			rc = 1;
@@ -64,8 +64,13 @@ static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 		}
 		return rc;
 	}
-	if (pam_modutil_write(fd, loginuid, count) != count)
+	if (pam_modutil_read(fd, buf, sizeof(buf)) == count &&
+	    memcmp(buf, loginuid, count) == 0)
+		goto done;	/* already correct */
+	if (lseek(fd, 0, SEEK_SET) == -1 || (ftruncate(fd, 0) == -1 ||
+	    pam_modutil_write(fd, loginuid, count) != count))
 		rc = 1;
+ done:
 	close(fd);
 	return rc;
 }
