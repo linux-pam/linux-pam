@@ -573,7 +573,7 @@ group_match (pam_handle_t *pamh, const char *tok, const char* usr,
 
     if (debug)
         pam_syslog (pamh, LOG_DEBUG,
-		    "group_match: grp=%s, user=%s", grptok, usr);
+		    "group_match: grp=%s, user=%s", tok, usr);
 
     if (strlen(tok) < 3)
         return NO;
