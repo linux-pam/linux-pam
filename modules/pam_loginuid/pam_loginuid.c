@@ -47,29 +47,35 @@
 
 /*
  * This function writes the loginuid to the /proc system. It returns
- * 0 on success and 1 on failure.
+ * PAM_SUCCESS on success,
+ * PAM_IGNORE when /proc/self/loginuid does not exist,
+ * PAM_SESSION_ERR in case of any other error.
  */
 static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 {
-	int fd, count, rc = 0;
+	int fd, count, rc = PAM_SESSION_ERR;
 	char loginuid[24], buf[24];
 
 	count = snprintf(loginuid, sizeof(loginuid), "%lu", (unsigned long)uid);
 	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_RDWR);
 	if (fd < 0) {
-		if (errno != ENOENT) {
-			rc = 1;
+		if (errno == ENOENT) {
+			rc = PAM_IGNORE;
+		} else {
 			pam_syslog(pamh, LOG_ERR,
 				   "Cannot open /proc/self/loginuid: %m");
 		}
 		return rc;
 	}
+
 	if (pam_modutil_read(fd, buf, sizeof(buf)) == count &&
-	    memcmp(buf, loginuid, count) == 0)
+	    memcmp(buf, loginuid, count) == 0) {
+		rc = PAM_SUCCESS;
 		goto done;	/* already correct */
-	if (lseek(fd, 0, SEEK_SET) == -1 || (ftruncate(fd, 0) == -1 ||
-	    pam_modutil_write(fd, loginuid, count) != count))
-		rc = 1;
+	}
+	if (lseek(fd, 0, SEEK_SET) == 0 && ftruncate(fd, 0) == 0 &&
+	    pam_modutil_write(fd, loginuid, count) == count)
+		rc = PAM_SUCCESS;
  done:
 	close(fd);
 	return rc;
@@ -170,6 +176,7 @@ _pam_loginuid(pam_handle_t *pamh, int flags UNUSED,
 {
         const char *user = NULL;
 	struct passwd *pwd;
+	int ret;
 #ifdef HAVE_LIBAUDIT
 	int require_auditd = 0;
 #endif
@@ -188,9 +195,14 @@ _pam_loginuid(pam_handle_t *pamh, int flags UNUSED,
 		return PAM_SESSION_ERR;
 	}
 
-	if (set_loginuid(pamh, pwd->pw_uid)) {
-		pam_syslog(pamh, LOG_ERR, "set_loginuid failed\n");
-		return PAM_SESSION_ERR;
+	ret = set_loginuid(pamh, pwd->pw_uid);
+	switch (ret) {
+		case PAM_SUCCESS:
+		case PAM_IGNORE:
+			break;
+		default:
+			pam_syslog(pamh, LOG_ERR, "set_loginuid failed");
+			return ret;
 	}
 
 #ifdef HAVE_LIBAUDIT
@@ -200,11 +212,12 @@ _pam_loginuid(pam_handle_t *pamh, int flags UNUSED,
 		argv++;
 	}
 
-	if (require_auditd)
-		return check_auditd();
-	else
+	if (require_auditd) {
+		int rc = check_auditd();
+		return rc != PAM_SUCCESS ? rc : ret;
+	} else
 #endif
-		return PAM_SUCCESS;
+		return ret;
 }
 
 /*
