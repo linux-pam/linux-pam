@@ -1205,6 +1205,11 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 						_exit(1);
 				}
 #endif
+				/* Pass maximum privs when we exec() */
+				if (setuid(geteuid()) < 0) {
+					/* ignore failures, they don't matter */
+				}
+
 				if (execle(init_script, init_script,
 					polyptr->dir, ipath, newdir?"1":"0", idata->user, NULL, envp) < 0)
 					_exit(1);

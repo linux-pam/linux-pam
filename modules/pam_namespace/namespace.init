@@ -1,4 +1,4 @@
-#!/bin/sh -p
+#!/bin/sh
 # It receives polydir path as $1, the instance path as $2,
 # a flag whether the instance dir was newly created (0 - no, 1 - yes) in $3,
 # and user name in $4.
