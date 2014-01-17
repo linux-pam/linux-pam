@@ -58,21 +58,22 @@ static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 	static const char host_uid_map[] = "         0          0 4294967295\n";
 	char uid_map[sizeof(host_uid_map)];
 
+	/* loginuid in user namespaces currently isn't writable and in some
+	   case, not even readable, so consider any failure as ignorable (but try
+	   anyway, in case we hit a kernel which supports it). */
+	fd = open("/proc/self/uid_map", O_RDONLY);
+	if (fd >= 0) {
+		count = pam_modutil_read(fd, uid_map, sizeof(uid_map));
+		if (strncmp(uid_map, host_uid_map, count) != 0)
+			rc = PAM_IGNORE;
+		close(fd);
+	}
+
 	count = snprintf(loginuid, sizeof(loginuid), "%lu", (unsigned long)uid);
 	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_RDWR);
 	if (fd < 0) {
 		if (errno == ENOENT) {
 			rc = PAM_IGNORE;
-		} else if (errno == EACCES) {
-			fd = open("/proc/self/uid_map", O_RDONLY);
-			if (fd >= 0) {
-				count = pam_modutil_read(fd, uid_map, sizeof(uid_map));
-				if (strncmp(uid_map, host_uid_map, count) != 0)
-					rc = PAM_IGNORE;
-				close(fd);
-			}
-			if (rc != PAM_IGNORE)
-				errno = EACCES;
 		}
 		if (rc != PAM_IGNORE) {
 			pam_syslog(pamh, LOG_ERR,
