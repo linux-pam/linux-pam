@@ -69,7 +69,6 @@ static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 		close(fd);
 	}
 
-	count = snprintf(loginuid, sizeof(loginuid), "%lu", (unsigned long)uid);
 	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_RDWR);
 	if (fd < 0) {
 		if (errno == ENOENT) {
@@ -82,6 +81,7 @@ static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 		return rc;
 	}
 
+	count = snprintf(loginuid, sizeof(loginuid), "%lu", (unsigned long)uid);
 	if (pam_modutil_read(fd, buf, sizeof(buf)) == count &&
 	    memcmp(buf, loginuid, count) == 0) {
 		rc = PAM_SUCCESS;
