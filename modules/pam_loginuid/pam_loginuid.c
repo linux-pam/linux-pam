@@ -75,8 +75,8 @@ static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 			rc = PAM_IGNORE;
 		}
 		if (rc != PAM_IGNORE) {
-			pam_syslog(pamh, LOG_ERR,
-				   "Cannot open /proc/self/loginuid: %m");
+			pam_syslog(pamh, LOG_ERR, "Cannot open %s: %m",
+				   "/proc/self/loginuid");
 		}
 		return rc;
 	}
@@ -88,8 +88,14 @@ static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 		goto done;	/* already correct */
 	}
 	if (lseek(fd, 0, SEEK_SET) == 0 && ftruncate(fd, 0) == 0 &&
-	    pam_modutil_write(fd, loginuid, count) == count)
+	    pam_modutil_write(fd, loginuid, count) == count) {
 		rc = PAM_SUCCESS;
+	} else {
+		if (rc != PAM_IGNORE) {
+			pam_syslog(pamh, LOG_ERR, "Error writing %s: %m",
+				   "/proc/self/loginuid");
+		}
+	}
  done:
 	close(fd);
 	return rc;
