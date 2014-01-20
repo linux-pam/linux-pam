@@ -103,14 +103,14 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
 /* Do the actual work of creating a home dir */
 static int
 create_homedir (pam_handle_t *pamh, options_t *opt,
-		const struct passwd *pwd)
+		const char *user, const char *dir)
 {
    int retval, child;
    struct sigaction newsa, oldsa;
 
    /* Mention what is happening, if the notification fails that is OK */
    if (!(opt->ctrl & MKHOMEDIR_QUIET))
-      pam_info(pamh, _("Creating directory '%s'."), pwd->pw_dir);
+      pam_info(pamh, _("Creating directory '%s'."), dir);
 
 
    D(("called."));
@@ -146,7 +146,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 
 	/* exec the mkhomedir helper */
 	args[0] = x_strdup(MKHOMEDIR_HELPER);
-	args[1] = pwd->pw_name;
+	args[1] = (char *) user;
 	args[2] = x_strdup(opt->umask);
 	args[3] = x_strdup(opt->skeldir);
 
@@ -181,7 +181,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 
    if (retval != PAM_SUCCESS && !(opt->ctrl & MKHOMEDIR_QUIET)) {
 	pam_error(pamh, _("Unable to create and initialize directory '%s'."),
-	    pwd->pw_dir);
+		  dir);
    }
 
    D(("returning %d", retval));
@@ -230,7 +230,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
       return PAM_SUCCESS;
    }
 
-   return create_homedir(pamh, &opt, pwd);
+   return create_homedir(pamh, &opt, user, pwd->pw_dir);
 }
 
 /* Ignore */
