@@ -27,6 +27,7 @@
 #include <errno.h>
 #include <syslog.h>
 #include <stdarg.h>
+#include <signal.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/resource.h>
@@ -278,6 +279,12 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
 	    if ((pl->login_limit_def == LIMITS_DEF_ALLGROUP)
 		&& !pam_modutil_user_in_group_nam_nam(pamh, ut->UT_USER, pl->login_group)) {
                 continue;
+	    }
+	    if (kill(ut->ut_pid, 0) == -1 && errno == ESRCH) {
+		/* process does not exist anymore */
+		pam_syslog(pamh, LOG_WARNING,
+			"Stale utmp entry (pid %d) for '%s' ignored", ut->ut_pid, name);
+		continue;
 	    }
 	}
 	if (++count > limit) {
