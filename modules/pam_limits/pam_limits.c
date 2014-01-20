@@ -270,20 +270,25 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
             continue;
 	}
         if (!pl->flag_numsyslogins) {
+	    char user[sizeof(ut->UT_USER) + 1];
+	    user[0] = '\0';
+	    strncat(user, ut->UT_USER, sizeof(ut->UT_USER));
+
 	    if (((pl->login_limit_def == LIMITS_DEF_USER)
 	         || (pl->login_limit_def == LIMITS_DEF_GROUP)
 		 || (pl->login_limit_def == LIMITS_DEF_DEFAULT))
-		&& strncmp(name, ut->UT_USER, sizeof(ut->UT_USER)) != 0) {
+		&& strcmp(name, user) != 0) {
                 continue;
 	    }
 	    if ((pl->login_limit_def == LIMITS_DEF_ALLGROUP)
-		&& !pam_modutil_user_in_group_nam_nam(pamh, ut->UT_USER, pl->login_group)) {
+		&& !pam_modutil_user_in_group_nam_nam(pamh, user, pl->login_group)) {
                 continue;
 	    }
 	    if (kill(ut->ut_pid, 0) == -1 && errno == ESRCH) {
 		/* process does not exist anymore */
 		pam_syslog(pamh, LOG_WARNING,
-			"Stale utmp entry (pid %d) for '%s' ignored", ut->ut_pid, name);
+			   "Stale utmp entry (pid %d) for '%s' ignored",
+			   ut->ut_pid, user);
 		continue;
 	    }
 	}
