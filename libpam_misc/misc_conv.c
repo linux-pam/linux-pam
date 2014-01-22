@@ -210,8 +210,12 @@ static int read_string(int echo, const char *prompt, char **retstr)
 		    }
 		    line[nc] = '\0';
 		}
-		*retstr = x_strdup(line);
+		*retstr = strdup(line);
 		_pam_overwrite(line);
+		if (!*retstr) {
+		    D(("no memory for response string"));
+		    nc = -1;
+		}
 
 		goto cleanexit;                /* return malloc()ed string */
 
