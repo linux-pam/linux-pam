@@ -179,12 +179,12 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 	}
 
 	/* We're the parent, so close the other ends of the pipes. */
-	close(ipipe[0]);
 	close(opipe[1]);
 	/* Send input to the process (if we have any), then send an EOF. */
 	if (input) {
 		(void)pam_modutil_write(ipipe[1], input, strlen(input));
 	}
+	close(ipipe[0]); /* close here to avoid possible SIGPIPE above */
 	close(ipipe[1]);
 
 	/* Read data output until we run out of stuff to read. */
