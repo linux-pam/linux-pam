@@ -134,7 +134,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
         int i;
         struct rlimit rlim;
 	static char *envp[] = { NULL };
-	char *args[] = { NULL, NULL, NULL, NULL, NULL };
+	const char *args[] = { NULL, NULL, NULL, NULL, NULL };
 
 	if (getrlimit(RLIMIT_NOFILE, &rlim)==0) {
           if (rlim.rlim_max >= MAX_FD_NO)
@@ -145,12 +145,12 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 	}
 
 	/* exec the mkhomedir helper */
-	args[0] = x_strdup(MKHOMEDIR_HELPER);
-	args[1] = (char *) user;
-	args[2] = x_strdup(opt->umask);
-	args[3] = x_strdup(opt->skeldir);
+	args[0] = MKHOMEDIR_HELPER;
+	args[1] = user;
+	args[2] = opt->umask;
+	args[3] = opt->skeldir;
 
-	execve(MKHOMEDIR_HELPER, args, envp);
+	execve(MKHOMEDIR_HELPER, (char *const *) args, envp);
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));

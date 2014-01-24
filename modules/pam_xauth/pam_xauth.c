@@ -127,8 +127,7 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 	if (child == 0) {
 		/* We're the child. */
 		size_t j;
-		char *args[10];
-		const char *tmp;
+		const char *args[10];
 		int maxopened;
 		/* Drop privileges. */
 		if (setgid(gid) == -1)
@@ -166,16 +165,15 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 		}
 		/* Convert the varargs list into a regular array of strings. */
 		va_start(ap, command);
-		args[0] = strdup(command);
+		args[0] = command;
 		for (j = 1; j < ((sizeof(args) / sizeof(args[0])) - 1); j++) {
-			tmp = va_arg(ap, const char*);
-			if (tmp == NULL) {
+			args[j] = va_arg(ap, const char*);
+			if (args[j] == NULL) {
 				break;
 			}
-			args[j] = strdup(tmp);
 		}
 		/* Run the command. */
-		execv(command, args);
+		execv(command, (char *const *) args);
 		/* Never reached. */
 		_exit(1);
 	}

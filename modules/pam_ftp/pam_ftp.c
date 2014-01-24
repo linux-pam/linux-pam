@@ -81,7 +81,7 @@ static int lookup(const char *name, const char *list, const char **_user)
 	char *list_copy, *x;
 	char *sptr = NULL;
 
-	list_copy = x_strdup(list);
+	list_copy = strdup(list);
 	x = list_copy;
 	while (list_copy && (l = strtok_r(x, ",", &sptr))) {
 	    x = NULL;

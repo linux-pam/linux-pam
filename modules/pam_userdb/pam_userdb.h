@@ -15,9 +15,6 @@
 #define PAM_USE_FPASS_ARG	0x0040
 #define PAM_TRY_FPASS_ARG	0x0080
 
-/* Useful macros */
-#define  x_strdup(s)  ( (s) ? strdup(s):NULL )
-
 /* The name of the module we are compiling */
 #ifndef MODULE_NAME
 #define MODULE_NAME	"pam_userdb"

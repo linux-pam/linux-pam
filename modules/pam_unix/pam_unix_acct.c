@@ -101,7 +101,7 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
     int i=0;
     struct rlimit rlim;
     static char *envp[] = { NULL };
-    char *args[] = { NULL, NULL, NULL, NULL };
+    const char *args[] = { NULL, NULL, NULL, NULL };
 
     /* reopen stdout as pipe */
     dup2(fds[1], STDOUT_FILENO);
@@ -130,11 +130,11 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
     }
 
     /* exec binary helper */
-    args[0] = x_strdup(CHKPWD_HELPER);
-    args[1] = x_strdup(user);
-    args[2] = x_strdup("chkexpiry");
+    args[0] = CHKPWD_HELPER;
+    args[1] = user;
+    args[2] = "chkexpiry";
 
-    execve(CHKPWD_HELPER, args, envp);
+    execve(CHKPWD_HELPER, (char *const *) args, envp);
 
     pam_syslog(pamh, LOG_ERR, "helper binary execve failed: %m");
     /* should not get here: exit with error */

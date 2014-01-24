@@ -204,7 +204,7 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
         int i=0;
         struct rlimit rlim;
 	static char *envp[] = { NULL };
-	char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL };
+	const char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL };
         char buffer[16];
 
 	/* XXX - should really tidy up PAM here too */
@@ -222,18 +222,18 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	}
 
 	/* exec binary helper */
-	args[0] = x_strdup(UPDATE_HELPER);
-	args[1] = x_strdup(user);
-	args[2] = x_strdup("update");
+	args[0] = UPDATE_HELPER;
+	args[1] = user;
+	args[2] = "update";
 	if (on(UNIX_SHADOW, ctrl))
-		args[3] = x_strdup("1");
+		args[3] = "1";
 	else
-		args[3] = x_strdup("0");
+		args[3] = "0";
 
         snprintf(buffer, sizeof(buffer), "%d", remember);
-        args[4] = x_strdup(buffer);
+        args[4] = buffer;
 
-	execve(UPDATE_HELPER, args, envp);
+	execve(UPDATE_HELPER, (char *const *) args, envp);
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));

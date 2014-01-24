@@ -619,16 +619,16 @@ static const char *password_check(pam_handle_t *pamh, struct cracklib_options *o
 	    return msg;
 	}
 
-	newmono = str_lower(x_strdup(new));
+	newmono = str_lower(strdup(new));
 	if (!newmono)
 		msg = _("memory allocation error");
 
-	usermono = str_lower(x_strdup(user));
+	usermono = str_lower(strdup(user));
 	if (!usermono)
 		msg = _("memory allocation error");
 
 	if (!msg && old) {
-		oldmono = str_lower(x_strdup(old));
+		oldmono = str_lower(strdup(old));
 		if (oldmono)
 			wrapped = malloc(strlen(oldmono) * 2 + 1);
 		if (wrapped) {

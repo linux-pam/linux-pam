@@ -567,7 +567,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
         int i=0;
         struct rlimit rlim;
 	static char *envp[] = { NULL };
-	char *args[] = { NULL, NULL, NULL, NULL };
+	const char *args[] = { NULL, NULL, NULL, NULL };
 
 	/* XXX - should really tidy up PAM here too */
 
@@ -593,15 +593,15 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	}
 
 	/* exec binary helper */
-	args[0] = strdup(CHKPWD_HELPER);
-	args[1] = x_strdup(user);
+	args[0] = CHKPWD_HELPER;
+	args[1] = user;
 	if (off(UNIX__NONULL, ctrl)) {	/* this means we've succeeded */
-	  args[2]=strdup("nullok");
+	  args[2]="nullok";
 	} else {
-	  args[2]=strdup("nonull");
+	  args[2]="nonull";
 	}
 
-	execve(CHKPWD_HELPER, args, envp);
+	execve(CHKPWD_HELPER, (char *const *) args, envp);
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));
@@ -788,10 +788,10 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 				login_name = "";
 			    }
 
-			        new->user = x_strdup(name ? name : "");
+			        new->user = strdup(name ? name : "");
 				new->uid = getuid();
 				new->euid = geteuid();
-				new->name = x_strdup(login_name);
+				new->name = strdup(login_name);
 
 				/* any previous failures for this user ? */
 				if (pam_get_data(pamh, data_name, &void_old)

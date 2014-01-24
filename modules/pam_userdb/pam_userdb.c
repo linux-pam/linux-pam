@@ -184,7 +184,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	else
 	    key.dsize = strlen(key.dptr);
     } else {
-        key.dptr = x_strdup(user);
+        key.dptr = strdup(user);
         key.dsize = strlen(user);
     }
 
