@@ -222,12 +222,15 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	  } else {
 	    cryptpw = crypt (pass, data.dptr);
 
-	    if (cryptpw) {
-	      compare = strncasecmp (data.dptr, cryptpw, data.dsize);
+	    if (cryptpw && strlen(cryptpw) == (size_t)data.dsize) {
+	      compare = memcmp(data.dptr, cryptpw, data.dsize);
 	    } else {
 	      compare = -2;
 	      if (ctrl & PAM_DEBUG_ARG) {
-		pam_syslog(pamh, LOG_INFO, "crypt() returned NULL");
+		if (cryptpw)
+		  pam_syslog(pamh, LOG_INFO, "lengths of computed and stored hashes differ");
+		else
+		  pam_syslog(pamh, LOG_INFO, "crypt() returned NULL");
 	      }
 	    };
 
