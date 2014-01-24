@@ -302,6 +302,10 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       char **envlist, **tmp;
       int envlen, nitems;
       char *envstr;
+      enum pam_modutil_redirect_fd redirect_stdin =
+	      expose_authtok ? PAM_MODUTIL_IGNORE_FD : PAM_MODUTIL_PIPE_FD;
+      enum pam_modutil_redirect_fd redirect_stdout =
+	      (use_stdout || logfile) ? PAM_MODUTIL_IGNORE_FD : PAM_MODUTIL_NULL_FD;
 
       /* First, move all the pipes off of stdin, stdout, and stderr, to ensure
        * that calls to dup2 won't close them. */
@@ -327,18 +331,6 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	    {
 	      int err = errno;
 	      pam_syslog (pamh, LOG_ERR, "dup2 of STDIN failed: %m");
-	      _exit (err);
-	    }
-	}
-      else
-	{
-	  close (STDIN_FILENO);
-
-	  /* New stdin.  */
-	  if ((i = open ("/dev/null", O_RDWR)) < 0)
-	    {
-	      int err = errno;
-	      pam_syslog (pamh, LOG_ERR, "open of /dev/null failed: %m");
 	      _exit (err);
 	    }
 	}
@@ -374,26 +366,18 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	      free (buffer);
 	    }
 	}
-      else
-	{
-	  close (STDOUT_FILENO);
-	  if ((i = open ("/dev/null", O_RDWR)) < 0)
-	    {
-	      int err = errno;
-	      pam_syslog (pamh, LOG_ERR, "open of /dev/null failed: %m");
-	      _exit (err);
-	    }
-	}
 
-      if (dup2 (STDOUT_FILENO, STDERR_FILENO) == -1)
+      if ((use_stdout || logfile) &&
+	  dup2 (STDOUT_FILENO, STDERR_FILENO) == -1)
 	{
 	  int err = errno;
 	  pam_syslog (pamh, LOG_ERR, "dup2 failed: %m");
 	  _exit (err);
 	}
 
-      for (i = 3; i < sysconf (_SC_OPEN_MAX); i++)
-	close (i);
+      if (pam_modutil_sanitize_helper_fds(pamh, redirect_stdin,
+					  redirect_stdout, redirect_stdout) < 0)
+	_exit(1);
 
       if (call_setuid)
 	if (setuid (geteuid ()) == -1)

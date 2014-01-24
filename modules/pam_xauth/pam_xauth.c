@@ -128,7 +128,6 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 		/* We're the child. */
 		size_t j;
 		const char *args[10];
-		int maxopened;
 		/* Drop privileges. */
 		if (setgid(gid) == -1)
 		  {
@@ -150,19 +149,26 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 				(unsigned long) geteuid ());
 		    _exit (err);
 		  }
-		/* Initialize the argument list. */
-		memset(args, 0, sizeof(args));
 		/* Set the pipe descriptors up as stdin and stdout, and close
 		 * everything else, including the original values for the
 		 * descriptors. */
-		dup2(ipipe[0], STDIN_FILENO);
-		dup2(opipe[1], STDOUT_FILENO);
-		maxopened = (int)sysconf(_SC_OPEN_MAX);
-		for (i = 0; i < maxopened; i++) {
-			if ((i != STDIN_FILENO) && (i != STDOUT_FILENO)) {
-				close(i);
-			}
+		if (dup2(ipipe[0], STDIN_FILENO) != STDIN_FILENO) {
+		    int err = errno;
+		    pam_syslog(pamh, LOG_ERR, "dup2 of %s failed: %m", "stdin");
+		    _exit(err);
 		}
+		if (dup2(opipe[1], STDOUT_FILENO) != STDOUT_FILENO) {
+		    int err = errno;
+		    pam_syslog(pamh, LOG_ERR, "dup2 of %s failed: %m", "stdout");
+		    _exit(err);
+		}
+		if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_IGNORE_FD,
+						    PAM_MODUTIL_IGNORE_FD,
+						    PAM_MODUTIL_NULL_FD) < 0) {
+		    _exit(1);
+		}
+		/* Initialize the argument list. */
+		memset(args, 0, sizeof(args));
 		/* Convert the varargs list into a regular array of strings. */
 		va_start(ap, command);
 		args[0] = command;

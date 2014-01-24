@@ -201,8 +201,6 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
     /* fork */
     child = fork();
     if (child == 0) {
-        int i=0;
-        struct rlimit rlim;
 	static char *envp[] = { NULL };
 	const char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL };
         char buffer[16];
@@ -210,15 +208,15 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	/* XXX - should really tidy up PAM here too */
 
 	/* reopen stdin as pipe */
-	dup2(fds[0], STDIN_FILENO);
+	if (dup2(fds[0], STDIN_FILENO) != STDIN_FILENO) {
+		pam_syslog(pamh, LOG_ERR, "dup2 of %s failed: %m", "stdin");
+		_exit(PAM_AUTHINFO_UNAVAIL);
+	}
 
-	if (getrlimit(RLIMIT_NOFILE,&rlim)==0) {
-	  if (rlim.rlim_max >= MAX_FD_NO)
-	    rlim.rlim_max = MAX_FD_NO;
-	  for (i=0; i < (int)rlim.rlim_max; i++) {
-	    if (i != STDIN_FILENO)
-		close(i);
-	  }
+	if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_IGNORE_FD,
+					    PAM_MODUTIL_PIPE_FD,
+					    PAM_MODUTIL_PIPE_FD) < 0) {
+		_exit(PAM_AUTHINFO_UNAVAIL);
 	}
 
 	/* exec binary helper */

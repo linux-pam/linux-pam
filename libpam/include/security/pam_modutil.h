@@ -129,6 +129,19 @@ extern int PAM_NONNULL((1,2))
 pam_modutil_regain_priv(pam_handle_t *pamh,
 		      struct pam_modutil_privs *p);
 
+enum pam_modutil_redirect_fd {
+	PAM_MODUTIL_IGNORE_FD,	/* do not redirect */
+	PAM_MODUTIL_PIPE_FD,	/* redirect to a pipe */
+	PAM_MODUTIL_NULL_FD,	/* redirect to /dev/null */
+};
+
+/* redirect standard descriptors, close all other descriptors. */
+extern int PAM_NONNULL((1))
+pam_modutil_sanitize_helper_fds(pam_handle_t *pamh,
+				enum pam_modutil_redirect_fd redirect_stdin,
+				enum pam_modutil_redirect_fd redirect_stdout,
+				enum pam_modutil_redirect_fd redirect_stderr);
+
 #ifdef __cplusplus
 }
 #endif

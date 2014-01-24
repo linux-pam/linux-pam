@@ -98,24 +98,21 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
   /* fork */
   child = fork();
   if (child == 0) {
-    int i=0;
-    struct rlimit rlim;
     static char *envp[] = { NULL };
     const char *args[] = { NULL, NULL, NULL, NULL };
 
-    /* reopen stdout as pipe */
-    dup2(fds[1], STDOUT_FILENO);
-
     /* XXX - should really tidy up PAM here too */
 
-    if (getrlimit(RLIMIT_NOFILE,&rlim)==0) {
-      if (rlim.rlim_max >= MAX_FD_NO)
-        rlim.rlim_max = MAX_FD_NO;
-      for (i=0; i < (int)rlim.rlim_max; i++) {
-	if (i != STDOUT_FILENO) {
-	  close(i);
-	}
-      }
+    /* reopen stdout as pipe */
+    if (dup2(fds[1], STDOUT_FILENO) != STDOUT_FILENO) {
+      pam_syslog(pamh, LOG_ERR, "dup2 of %s failed: %m", "stdout");
+      _exit(PAM_AUTHINFO_UNAVAIL);
+    }
+
+    if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_PIPE_FD,
+					PAM_MODUTIL_IGNORE_FD,
+					PAM_MODUTIL_PIPE_FD) < 0) {
+      _exit(PAM_AUTHINFO_UNAVAIL);
     }
 
     if (geteuid() == 0) {

@@ -67,3 +67,8 @@ LIBPAM_MODUTIL_1.1.3 {
     pam_modutil_drop_priv;
     pam_modutil_regain_priv;
 } LIBPAM_MODUTIL_1.1;
+
+LIBPAM_MODUTIL_1.1.9 {
+  global:
+    pam_modutil_sanitize_helper_fds;
+} LIBPAM_MODUTIL_1.1.3;

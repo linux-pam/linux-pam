@@ -58,8 +58,6 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
-#define MAX_FD_NO 10000
-
 /* argument parsing */
 #define MKHOMEDIR_DEBUG      020	/* be verbose about things */
 #define MKHOMEDIR_QUIET      040	/* keep quiet about things */
@@ -131,18 +129,13 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
    /* fork */
    child = fork();
    if (child == 0) {
-        int i;
-        struct rlimit rlim;
 	static char *envp[] = { NULL };
 	const char *args[] = { NULL, NULL, NULL, NULL, NULL };
 
-	if (getrlimit(RLIMIT_NOFILE, &rlim)==0) {
-          if (rlim.rlim_max >= MAX_FD_NO)
-                rlim.rlim_max = MAX_FD_NO;
-	  for (i=0; i < (int)rlim.rlim_max; i++) {
-		close(i);
-	  }
-	}
+	if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_PIPE_FD,
+					    PAM_MODUTIL_PIPE_FD,
+					    PAM_MODUTIL_PIPE_FD) < 0)
+		_exit(PAM_SYSTEM_ERR);
 
 	/* exec the mkhomedir helper */
 	args[0] = MKHOMEDIR_HELPER;

@@ -141,8 +141,6 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 
 #define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)
 
-#define MAX_FD_NO 2000000
-
 /* use this to free strings. ESPECIALLY password strings */
 
 #define _pam_delete(xx)		\
