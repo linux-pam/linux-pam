@@ -103,9 +103,11 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 
 	/* Create stdio pipery. */
 	if (pipe(ipipe) == -1) {
+		pam_syslog(pamh, LOG_ERR, "Could not create pipe: %m");
 		return -1;
 	}
 	if (pipe(opipe) == -1) {
+		pam_syslog(pamh, LOG_ERR, "Could not create pipe: %m");
 		close(ipipe[0]);
 		close(ipipe[1]);
 		return -1;
@@ -114,6 +116,7 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 	/* Fork off a child. */
 	child = fork();
 	if (child == -1) {
+		pam_syslog(pamh, LOG_ERR, "Could not fork: %m");
 		close(ipipe[0]);
 		close(ipipe[1]);
 		close(opipe[0]);
