@@ -491,11 +491,16 @@ compute_exec_context(pam_handle_t *pamh, module_data_t *data,
   char *level = NULL;
   security_context_t *contextlist = NULL;
   int num_contexts = 0;
+  const struct passwd *pwd;
 
   if (!(username = get_item(pamh, PAM_USER))) {
     pam_syslog(pamh, LOG_ERR, "Cannot obtain the user name");
     return PAM_USER_UNKNOWN;
   }
+
+  if ((pwd = pam_modutil_getpwnam(pamh, username)) != NULL) {
+    username = pwd->pw_name;
+  } /* ignore error and keep using original username */
 
   /* compute execute context */
 #ifdef HAVE_GETSEUSER
