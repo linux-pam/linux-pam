@@ -89,7 +89,8 @@
             Use the <filename>/path/database</filename> database for
             performing lookup. There is no default; the module will
             return <emphasis remap='B'>PAM_IGNORE</emphasis> if no
-            database is provided.
+            database is provided. Note that the path to the database file
+            should be specified without the <filename>.db</filename> suffix.
           </para>
         </listitem>
       </varlistentry>
@@ -260,7 +261,7 @@
   <refsect1 id='pam_userdb-examples'>
     <title>EXAMPLES</title>
     <programlisting>
-auth  sufficient pam_userdb.so icase db=/etc/dbtest.db
+auth  sufficient pam_userdb.so icase db=/etc/dbtest
     </programlisting>
   </refsect1>
 
