@@ -61,7 +61,7 @@ install-data-local:
 	    $(install_sh_DATA) html/Linux-PAM_ADG.html html/adg-*.html \
 		$(DESTDIR)$(htmldir)/ || \
 	    $(install_sh_DATA) $(srcdir)/html/Linux-PAM_ADG.html \
-		$(srcdir)/html/sag-*.html \
+		$(srcdir)/html/adg-*.html \
 		$(DESTDIR)$(htmldir)/
 	test -f Linux-PAM_ADG.txt || exit 0; \
 	    $(install_sh_DATA) Linux-PAM_ADG.txt $(DESTDIR)$(docdir)/ || \

@@ -61,7 +61,7 @@ install-data-local:
 	    $(install_sh_DATA) html/Linux-PAM_MWG.html html/mwg-*.html \
 		$(DESTDIR)$(htmldir)/ || \
 	    $(install_sh_DATA) $(srcdir)/html/Linux-PAM_MWG.html \
-		$(srcdir)/html/sag-*.html \
+		$(srcdir)/html/mwg-*.html \
 		$(DESTDIR)$(htmldir)/
 	test -f Linux-PAM_MWG.txt || exit 0; \
 	    $(install_sh_DATA) Linux-PAM_MWG.txt $(DESTDIR)$(docdir)/ || \
