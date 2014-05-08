@@ -57,20 +57,26 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(docdir)
 	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)
-	test -f html/Linux-PAM_ADG.html || exit 0; \
+	if test -f html/Linux-PAM_ADG.html; then \
 	    $(install_sh_DATA) html/Linux-PAM_ADG.html html/adg-*.html \
-		$(DESTDIR)$(htmldir)/ || \
+		$(DESTDIR)$(htmldir)/; \
+	elif test -f $(srcdir)/html/Linux-PAM_ADG.html; then \
 	    $(install_sh_DATA) $(srcdir)/html/Linux-PAM_ADG.html \
 		$(srcdir)/html/adg-*.html \
-		$(DESTDIR)$(htmldir)/
-	test -f Linux-PAM_ADG.txt || exit 0; \
-	    $(install_sh_DATA) Linux-PAM_ADG.txt $(DESTDIR)$(docdir)/ || \
+		$(DESTDIR)$(htmldir)/; \
+	fi
+	if test -f Linux-PAM_ADG.txt; then \
+	    $(install_sh_DATA) Linux-PAM_ADG.txt $(DESTDIR)$(docdir)/; \
+	elif test -f $(srcdir)/Linux-PAM_ADG.txt; then \
 	    $(install_sh_DATA) $(srcdir)/Linux-PAM_ADG.txt \
-		$(DESTDIR)$(docdir)/
-	test -f Linux-PAM_ADG.pdf || exit 0; \
-	    $(install_sh_DATA) Linux-PAM_ADG.pdf $(DESTDIR)$(pdfdir)/ || \
+		$(DESTDIR)$(docdir)/; \
+	fi
+	if test -f Linux-PAM_ADG.pdf; then \
+	    $(install_sh_DATA) Linux-PAM_ADG.pdf $(DESTDIR)$(pdfdir)/; \
+	elif test -f $(srcdir)/Linux-PAM_ADG.pdf; then \
 	    $(install_sh_DATA) $(srcdir)/Linux-PAM_ADG.pdf \
-		$(DESTDIR)$(pdfdir)/
+		$(DESTDIR)$(pdfdir)/; \
+	fi
 
 uninstall-local:
 	-rm $(DESTDIR)$(htmldir)/Linux-PAM_ADG.html
@@ -80,19 +86,28 @@ uninstall-local:
 
 releasedocs: all
 	$(mkinstalldirs) $(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/html
-	test -f html/Linux-PAM_ADG.html || exit 0; \
+	if test -f html/Linux-PAM_ADG.html; then \
 	    cp -ap html/Linux-PAM_ADG.html html/adg-*.html \
-		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/html/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/html/; \
+	elif test -f $(srcdir)/html/Linux-PAM_ADG.html; then \
 	    cp -ap $(srcdir)/html/Linux-PAM_ADG.html \
 		$(srcdir)/html/adg-*.html \
-		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/html/
-	test -f Linux-PAM_ADG.txt || exit 0; \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/html/; \
+	else exit 1; \
+	fi
+	if test -f Linux-PAM_ADG.txt; then \
 	    cp -p Linux-PAM_ADG.txt \
-		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/; \
+	elif test -f $(srcdir)/Linux-PAM_ADG.txt; then \
 	    cp -p $(srcdir)/Linux-PAM_ADG.txt \
-		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/
-	test -f Linux-PAM_ADG.pdf || exit 0; \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/; \
+	else exit 1; \
+	fi
+	if test -f Linux-PAM_ADG.pdf; then \
 	    cp -p Linux-PAM_ADG.pdf \
-		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/ || \
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/; \
+	elif test -f $(srcdir)/Linux-PAM_ADG.pdf; then \
 	    cp -p $(srcdir)/Linux-PAM_ADG.pdf \
-		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/
+		$(top_builddir)/Linux-PAM-$(VERSION)/doc/adg/; \
+	else exit 1; \
+	fi
