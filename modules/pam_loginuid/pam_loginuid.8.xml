@@ -69,14 +69,29 @@
     <para>
       <variablelist>
         <varlistentry>
-          <term>PAM_SESSION_ERR</term>
+          <term>PAM_SUCCESS</term>
           <listitem>
             <para>
-              An error occurred during session management.
+              The loginuid value is set and auditd is running if check requested.
             </para>
           </listitem>
         </varlistentry>
-
+        <varlistentry>
+          <term>PAM_IGNORE</term>
+          <listitem>
+            <para>
+              The /proc/self/loginuid file is not present on the system.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>PAM_SESSION_ERR</term>
+          <listitem>
+            <para>
+              Any other error prevented setting loginuid or auditd is not running.
+            </para>
+          </listitem>
+        </varlistentry>
       </variablelist>
     </para>
   </refsect1>
