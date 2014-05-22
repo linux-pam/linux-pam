@@ -80,7 +80,9 @@
           <term>PAM_IGNORE</term>
           <listitem>
             <para>
-              The /proc/self/loginuid file is not present on the system.
+              The /proc/self/loginuid file is not present on the system or the
+              login process runs inside uid namespace and kernel does not support
+              overwriting loginuid.
             </para>
           </listitem>
         </varlistentry>
