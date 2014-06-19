@@ -51,6 +51,8 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 	/* TODO: now that we're using malloc'ed memory, get rid of the
 	   strange constant buffer size. */
 	passwd = malloc(120);
+	if (passwd == NULL)
+		return NULL;
 
 	/* If it starts with the magic string, then skip that */
 	if (!strncmp(sp, magic, strlen(magic)))
