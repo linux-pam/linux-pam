@@ -301,7 +301,7 @@ static int check_old_password(const char *forwho, const char *newpass)
 			s_pas = strtok_r(NULL, ":,", &sptr);
 			while (s_pas != NULL) {
 				char *md5pass = Goodcrypt_md5(newpass, s_pas);
-				if (!strcmp(md5pass, s_pas)) {
+				if (md5pass == NULL || !strcmp(md5pass, s_pas)) {
 					_pam_delete(md5pass);
 					retval = PAM_AUTHTOK_ERR;
 					break;
