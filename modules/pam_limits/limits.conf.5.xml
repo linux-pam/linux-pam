@@ -214,14 +214,17 @@
             <varlistentry>
               <term><option>maxlogins</option></term>
               <listitem>
-                <para>maximum number of logins for this user except
-                      for this with <emphasis>uid=0</emphasis></para>
+                <para>maximum number of logins for this user (this limit does
+                  not apply to user with <emphasis>uid=0</emphasis>)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
               <term><option>maxsyslogins</option></term>
               <listitem>
-                <para>maximum number of all logins on system</para>
+                <para>maximum number of all logins on system; user is not
+                  allowed to log-in if total number of all users' logins is
+                  greater than specified number (this limit does not apply to
+                  user with <emphasis>uid=0</emphasis>)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
