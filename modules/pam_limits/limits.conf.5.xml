@@ -178,7 +178,7 @@
             <varlistentry>
               <term><option>nofile</option></term>
               <listitem>
-                <para>maximum number of open files</para>
+                <para>maximum number of open file descriptors</para>
               </listitem>
             </varlistentry>
             <varlistentry>
