@@ -639,11 +639,23 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 		continue;
 	    buf[strlen(buf) - 1] = '\0';
 	    s_luser = strtok_r(buf, ":", &sptr);
+	    if (s_luser == NULL) {
+		found = 0;
+		continue;
+	    }
 	    s_uid = strtok_r(NULL, ":", &sptr);
+	    if (s_uid == NULL) {
+		found = 0;
+		continue;
+	    }
 	    s_npas = strtok_r(NULL, ":", &sptr);
+	    if (s_npas == NULL) {
+		found = 0;
+		continue;
+	    }
 	    s_pas = strtok_r(NULL, ":", &sptr);
 	    npas = strtol(s_npas, NULL, 10) + 1;
-	    while (npas > howmany) {
+	    while (npas > howmany && s_pas != NULL) {
 		s_pas = strpbrk(s_pas, ",");
 		if (s_pas != NULL)
 		    s_pas++;
