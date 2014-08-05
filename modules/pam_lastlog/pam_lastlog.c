@@ -350,6 +350,8 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
 	return PAM_SERVICE_ERR;
     }
 
+    memset(&last_login, 0, sizeof(last_login));
+
     /* set this login date */
     D(("set the most recent login time"));
     (void) time(&ll_time);    /* set the time */
@@ -364,14 +366,12 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
     }
 
     /* copy to last_login */
-    last_login.ll_host[0] = '\0';
     strncat(last_login.ll_host, remote_host, sizeof(last_login.ll_host)-1);
 
     /* set the terminal line */
     terminal_line = get_tty(pamh);
 
     /* copy to last_login */
-    last_login.ll_line[0] = '\0';
     strncat(last_login.ll_line, terminal_line, sizeof(last_login.ll_line)-1);
     terminal_line = NULL;
 
