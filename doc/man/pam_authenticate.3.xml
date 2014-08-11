@@ -37,7 +37,7 @@
     </para>
     <para>
       The PAM service module may request that the user enter their
-      username vio the the conversation mechanism (see
+      username via the conversation mechanism (see
       <citerefentry>
         <refentrytitle>pam_start</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry> and
