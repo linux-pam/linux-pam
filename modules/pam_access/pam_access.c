@@ -412,8 +412,8 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	return NO;
     }
 #ifdef HAVE_LIBAUDIT
-    if (!item->noaudit && line[0] == '-' && (match == YES || (match == ALL &&
-	nonall_match == YES))) {
+    if (!item->noaudit && (match == YES || (match == ALL &&
+	nonall_match == YES)) && line[0] == '-') {
 	pam_modutil_audit_write(pamh, AUDIT_ANOM_LOGIN_LOCATION,
 	    "pam_access", 0);
     }
