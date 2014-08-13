@@ -120,6 +120,7 @@ nl_recv (int fd, unsigned type, void *buf, size_t size)
   msg.msg_iovlen = 1;
   msg.msg_control = NULL;
   msg.msg_controllen = 0;
+  msg.msg_flags = 0;
   if (type != NLMSG_ERROR)
     {
       res = recvmsg (fd, &msg, MSG_PEEK);
