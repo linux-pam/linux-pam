@@ -451,11 +451,8 @@ skip_open:
 	alarm(oldalarm);
     }
 
-    if (fileinfo.st_size < (off_t)(uid+1)*(off_t)sizeof(*tally)) {
+    if (pam_modutil_read(*tfile, void_tally, sizeof(*tally)) != sizeof(*tally)) {
 	memset(tally, 0, sizeof(*tally));
-    } else if (pam_modutil_read(*tfile, void_tally, sizeof(*tally)) != sizeof(*tally)) {
-	memset(tally, 0, sizeof(*tally));
-	/* Shouldn't happen */
     }
 
     tally->fail_line[sizeof(tally->fail_line)-1] = '\0';
