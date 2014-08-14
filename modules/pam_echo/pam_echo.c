@@ -180,16 +180,23 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
 
       /* load file into message buffer. */
       if ((fstat (fd, &st) < 0) || !st.st_size)
-	return PAM_IGNORE;
+	{
+	  close (fd);
+	  return PAM_IGNORE;
+	}
 
       mtmp = malloc (st.st_size + 1);
       if (!mtmp)
-	return PAM_BUF_ERR;
+	{
+	  close (fd);
+	  return PAM_BUF_ERR;
+	}
 
       if (pam_modutil_read (fd, mtmp, st.st_size) == -1)
 	{
 	  pam_syslog (pamh, LOG_ERR, "Error while reading %s: %m", file);
 	  free (mtmp);
+	  close (fd);
 	  return PAM_IGNORE;
 	}
 
