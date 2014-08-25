@@ -341,6 +341,11 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	pam_syslog(pamh, LOG_WARNING, "first fork failed: %m");
 	if (aterminal) {
 		(void) tcsetattr(STDIN_FILENO, TCSAFLUSH, &stored_mode);
+		close(fd[0]);
+	} else {
+		/* Socket pair */
+		close(fd[0]);
+		close(fd[1]);
 	}
 
 	return PAM_AUTH_ERR;
