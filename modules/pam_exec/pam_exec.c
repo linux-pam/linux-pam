@@ -360,9 +360,19 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 			  logfile);
 	      _exit (err);
 	    }
+	  if (i != STDOUT_FILENO)
+	    {
+	      if (dup2 (i, STDOUT_FILENO) == -1)
+		{
+		  int err = errno;
+		  pam_syslog (pamh, LOG_ERR, "dup2 failed: %m");
+		  _exit (err);
+		}
+	      close (i);
+	    }
 	  if (asprintf (&buffer, "*** %s", ctime (&tm)) > 0)
 	    {
-	      pam_modutil_write (i, buffer, strlen (buffer));
+	      pam_modutil_write (STDOUT_FILENO, buffer, strlen (buffer));
 	      free (buffer);
 	    }
 	}
