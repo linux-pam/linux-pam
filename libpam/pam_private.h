@@ -55,6 +55,7 @@ struct handler {
     struct handler *next;
     char *mod_name;
     int stack_level;
+    int grantor;
 };
 
 #define PAM_HT_MODULE       0
@@ -316,7 +317,7 @@ if ((pamh) == NULL) {                             \
         do { (pamh)->caller_is = _PAM_CALLED_FROM_APP; } while (0)
 
 #ifdef HAVE_LIBAUDIT
-extern int _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags);
+extern int _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags, struct handler *h);
 extern int _pam_audit_end(pam_handle_t *pamh, int pam_status);
 #endif
 

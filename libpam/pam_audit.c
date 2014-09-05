@@ -6,12 +6,12 @@
    Authors:
    Steve Grubb <sgrubb@redhat.com> */
 
-#include <stdio.h>
-#include <syslog.h>
 #include "pam_private.h"
 #include "pam_modutil_private.h"
 
 #ifdef HAVE_LIBAUDIT
+#include <stdio.h>
+#include <syslog.h>
 #include <libaudit.h>
 #include <pwd.h>
 #include <netdb.h>
@@ -25,17 +25,24 @@
 
 static int
 _pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type,
-	const char *message, int retval)
+	const char *message, const char *grantors, int retval)
 {
   static int old_errno = -1;
-  int rc;
-  char buf[32];
+  int rc = -ENOMEM;
+  char *buf;
+  const char *grantors_field = " grantors=";
 
-  snprintf(buf, sizeof(buf), "PAM:%s", message);
+  if (grantors == NULL) {
+      grantors = "";
+      grantors_field = "";
+  }
 
-  rc = audit_log_acct_message (audit_fd, type, NULL, buf,
-       (retval != PAM_USER_UNKNOWN && pamh->user) ? pamh->user : "?",
-	-1, pamh->rhost, NULL, pamh->tty, retval == PAM_SUCCESS );
+  if (asprintf(&buf, "PAM:%s%s%s", message, grantors_field, grantors) >= 0) {
+      rc = audit_log_acct_message(audit_fd, type, NULL, buf,
+	(retval != PAM_USER_UNKNOWN && pamh->user) ? pamh->user : "?",
+	-1, pamh->rhost, NULL, pamh->tty, retval == PAM_SUCCESS);
+      free(buf);
+  }
 
   /* libaudit sets errno to his own negative error code. This can be
      an official errno number, but must not. It can also be a audit
@@ -78,12 +85,54 @@ _pam_audit_open(pam_handle_t *pamh)
   return audit_fd;
 }
 
+static int
+_pam_list_grantors(struct handler *hlist, int retval, char **list)
+{
+  *list = NULL;
+
+  if (retval == PAM_SUCCESS) {
+    struct handler *h;
+    char *p = NULL;
+    size_t len = 0;
+
+    for (h = hlist; h != NULL; h = h->next) {
+      if (h->grantor) {
+        len += strlen(h->mod_name) + 1;
+      }
+    }
+
+    if (len == 0) {
+      return 0;
+    }
+
+    *list = malloc(len);
+    if (*list == NULL) {
+      return -1;
+    }
+
+    for (h = hlist; h != NULL; h = h->next) {
+      if (h->grantor) {
+        if (p == NULL) {
+          p = *list;
+        } else {
+          p = stpcpy(p, ",");
+        }
+
+        p = stpcpy(p, h->mod_name);
+      }
+    }
+  }
+
+  return 0;
+}
+
 int
-_pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags)
+_pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags, struct handler *h)
 {
   const char *message;
   int type;
   int audit_fd;
+  char *grantors;
 
   if ((audit_fd=_pam_audit_open(pamh)) == -1) {
     return PAM_SYSTEM_ERR;
@@ -134,8 +183,17 @@ _pam_auditlog(pam_handle_t *pamh, int action, int retval, int flags)
     retval = PAM_SYSTEM_ERR;
   }
 
-  if (_pam_audit_writelog(pamh, audit_fd, type, message, retval) < 0)
+  if (_pam_list_grantors(h, retval, &grantors) < 0) {
+    /* allocation failure */
+    pam_syslog(pamh, LOG_CRIT, "_pam_list_grantors() failed: %m");
     retval = PAM_SYSTEM_ERR;
+  }
+
+  if (_pam_audit_writelog(pamh, audit_fd, type, message,
+      grantors ? grantors : "?", retval) < 0)
+    retval = PAM_SYSTEM_ERR;
+
+  free(grantors);
 
   audit_close(audit_fd);
   return retval;
@@ -149,7 +207,7 @@ _pam_audit_end(pam_handle_t *pamh, int status UNUSED)
      * stacks having been run. Assume that this is sshd faking
      * things for an unknown user.
      */
-    _pam_auditlog(pamh, _PAM_ACTION_DONE, PAM_USER_UNKNOWN, 0);
+    _pam_auditlog(pamh, _PAM_ACTION_DONE, PAM_USER_UNKNOWN, 0, NULL);
   }
 
   return 0;
@@ -168,7 +226,7 @@ pam_modutil_audit_write(pam_handle_t *pamh, int type,
     return retval;
   }
 
-  rc = _pam_audit_writelog(pamh, audit_fd, type, message, retval);
+  rc = _pam_audit_writelog(pamh, audit_fd, type, message, NULL, retval);
 
   audit_close(audit_fd);
 

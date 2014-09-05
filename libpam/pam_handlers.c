@@ -611,6 +611,12 @@ extract_modulename(const char *mod_path)
   if (dot)
     *dot = '\0';
 
+  if (*retval == '\0' || strcmp(retval, "?") == 0) {
+    /* do not allow empty module name or "?" to avoid confusing audit trail */
+    _pam_drop(retval);
+    return NULL;
+  }
+
   return retval;
 }
 
@@ -888,7 +894,9 @@ int _pam_add_handler(pam_handle_t *pamh
     (*handler_p)->cached_retval_p = &((*handler_p)->cached_retval);
     (*handler_p)->argc = argc;
     (*handler_p)->argv = argv;                       /* not a copy */
-    (*handler_p)->mod_name = extract_modulename(mod_path);
+    if (((*handler_p)->mod_name = extract_modulename(mod_path)) == NULL)
+	return PAM_ABORT;
+    (*handler_p)->grantor = 0;
     (*handler_p)->next = NULL;
 
     /* some of the modules have a second calling function */
@@ -920,7 +928,9 @@ int _pam_add_handler(pam_handle_t *pamh
 	} else {
 	    (*handler_p2)->argv = NULL;              /* no arguments */
 	}
-	(*handler_p2)->mod_name = extract_modulename(mod_path);
+	if (((*handler_p2)->mod_name = extract_modulename(mod_path)) == NULL)
+	    return PAM_ABORT;
+	(*handler_p2)->grantor = 0;
 	(*handler_p2)->next = NULL;
     }
 

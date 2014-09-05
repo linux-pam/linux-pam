@@ -217,8 +217,14 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
                     status = retval;
                 }
 	    }
-	    if ( impression == _PAM_POSITIVE && action == _PAM_ACTION_DONE ) {
-		goto decision_made;
+	    if ( impression == _PAM_POSITIVE ) {
+		if ( retval == PAM_SUCCESS ) {
+		    h->grantor = 1;
+		}
+
+		if ( action == _PAM_ACTION_DONE ) {
+		    goto decision_made;
+		}
 	    }
 	    break;
 
@@ -262,6 +268,9 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 			|| (impression == _PAM_POSITIVE
 			    && status == PAM_SUCCESS) ) {
 			if ( retval != PAM_IGNORE || cached_retval == retval ) {
+			    if ( impression == _PAM_UNDEF && retval == PAM_SUCCESS ) {
+				h->grantor = 1;
+			    }
 			    impression = _PAM_POSITIVE;
 			    status = retval;
 			}
@@ -308,6 +317,13 @@ decision_made:     /* by getting  here we have made a decision */
     return status;
 }
 
+static void _pam_clear_grantors(struct handler *h)
+{
+    for (; h != NULL; h = h->next) {
+	h->grantor = 0;
+    }
+}
+
 /*
  * This function translates the module dispatch request into a pointer
  * to the stack of modules that will actually be run.  the
@@ -318,21 +334,21 @@ decision_made:     /* by getting  here we have made a decision */
 int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
 {
     struct handler *h = NULL;
-    int retval, use_cached_chain;
+    int retval = PAM_SYSTEM_ERR, use_cached_chain;
     _pam_boolean resumed;
 
     IF_NO_PAMH("_pam_dispatch", pamh, PAM_SYSTEM_ERR);
 
     if (__PAM_FROM_MODULE(pamh)) {
 	D(("called from a module!?"));
-	return PAM_SYSTEM_ERR;
+	goto end;
     }
 
     /* Load all modules, resolve all symbols */
 
     if ((retval = _pam_init_handlers(pamh)) != PAM_SUCCESS) {
 	pam_syslog(pamh, LOG_ERR, "unable to dispatch function");
-	return retval;
+	goto end;
     }
 
     use_cached_chain = _PAM_PLEASE_FREEZE;
@@ -360,7 +376,8 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
 	break;
     default:
 	pam_syslog(pamh, LOG_ERR, "undefined fn choice; %d", choice);
-	return PAM_ABORT;
+	retval = PAM_ABORT;
+	goto end;
     }
 
     if (h == NULL) {     /* there was no handlers.conf... entry; will use
@@ -393,11 +410,13 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
 	    pam_syslog(pamh, LOG_ERR,
 			    "application failed to re-exec stack [%d:%d]",
 			    pamh->former.choice, choice);
-	    return PAM_ABORT;
+	    retval = PAM_ABORT;
+	    goto end;
 	}
 	resumed = PAM_TRUE;
     } else {
 	resumed = PAM_FALSE;
+	_pam_clear_grantors(h);
     }
 
     __PAM_TO_MODULE(pamh);
@@ -416,6 +435,14 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
     } else {
 	pamh->former.choice = PAM_NOT_STACKED;
     }
+
+end:
+
+#ifdef HAVE_LIBAUDIT
+    if (choice != PAM_CHAUTHTOK || flags & PAM_UPDATE_AUTHTOK || retval != PAM_SUCCESS) {
+	retval = _pam_auditlog(pamh, choice, retval, flags, h);
+    }
+#endif
 
     return retval;
 }

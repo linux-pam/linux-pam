@@ -19,9 +19,5 @@ int pam_acct_mgmt(pam_handle_t *pamh, int flags)
 
     retval = _pam_dispatch(pamh, flags, PAM_ACCOUNT);
 
-#ifdef HAVE_LIBAUDIT
-    retval = _pam_auditlog(pamh, PAM_ACCOUNT, retval, flags);
-#endif
-
     return retval;
 }
