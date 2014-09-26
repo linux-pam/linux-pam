@@ -109,7 +109,7 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term>PAM_AUTHINFO_UNVAIL</term>
+        <term>PAM_AUTHINFO_UNAVAIL</term>
         <listitem>
           <para>
             The modules were not able to access the authentication
