@@ -68,20 +68,20 @@
  * PAM_SERVICE_ERR if the arguments can't be parsed as numbers. */
 static int
 evaluate_num(const pam_handle_t *pamh, const char *left,
-	     const char *right, int (*cmp)(int, int))
+	     const char *right, int (*cmp)(long long, long long))
 {
-	long l, r;
+	long long l, r;
 	char *p;
 	int ret = PAM_SUCCESS;
 
 	errno = 0;
-	l = strtol(left, &p, 0);
+	l = strtoll(left, &p, 0);
 	if ((p == NULL) || (*p != '\0') || errno) {
 		pam_syslog(pamh, LOG_INFO, "\"%s\" is not a number", left);
 		ret = PAM_SERVICE_ERR;
 	}
 
-	r = strtol(right, &p, 0);
+	r = strtoll(right, &p, 0);
 	if ((p == NULL) || (*p != '\0') || errno) {
 		pam_syslog(pamh, LOG_INFO, "\"%s\" is not a number", right);
 		ret = PAM_SERVICE_ERR;
@@ -96,32 +96,32 @@ evaluate_num(const pam_handle_t *pamh, const char *left,
 
 /* Simple numeric comparison callbacks. */
 static int
-eq(int i, int j)
+eq(long long i, long long j)
 {
 	return i == j;
 }
 static int
-ne(int i, int j)
+ne(long long i, long long j)
 {
 	return i != j;
 }
 static int
-lt(int i, int j)
+lt(long long i, long long j)
 {
 	return i < j;
 }
 static int
-le(int i, int j)
+le(long long i, long long j)
 {
 	return lt(i, j) || eq(i, j);
 }
 static int
-gt(int i, int j)
+gt(long long i, long long j)
 {
 	return i > j;
 }
 static int
-ge(int i, int j)
+ge(long long i, long long j)
 {
 	return gt(i, j) || eq(i, j);
 }
