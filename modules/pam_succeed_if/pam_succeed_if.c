@@ -298,7 +298,7 @@ evaluate(pam_handle_t *pamh, int debug,
 	}
 	if (strcasecmp(left, "rhost") == 0) {
 		const void *rhost;
-		if (pam_get_item(pamh, PAM_SERVICE, &rhost) != PAM_SUCCESS ||
+		if (pam_get_item(pamh, PAM_RHOST, &rhost) != PAM_SUCCESS ||
 			rhost == NULL)
 			rhost = "";
 		snprintf(buf, sizeof(buf), "%s", (const char *)rhost);
@@ -306,7 +306,7 @@ evaluate(pam_handle_t *pamh, int debug,
 	}
 	if (strcasecmp(left, "tty") == 0) {
 		const void *tty;
-		if (pam_get_item(pamh, PAM_SERVICE, &tty) != PAM_SUCCESS ||
+		if (pam_get_item(pamh, PAM_TTY, &tty) != PAM_SUCCESS ||
 			tty == NULL)
 			tty = "";
 		snprintf(buf, sizeof(buf), "%s", (const char *)tty);
