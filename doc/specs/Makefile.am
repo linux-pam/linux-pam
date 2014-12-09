@@ -21,6 +21,4 @@ noinst_PROGRAMS = padout
 
 padout_SOURCES = parse_l.l parse_y.y
 
-padout_LDADD = @LEXLIB@
-
 doc_DATA = draft-morgan-pam-current.txt rfc86.0.txt
