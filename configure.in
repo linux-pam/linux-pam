@@ -144,6 +144,15 @@ AC_MSG_CHECKING([for CC_FOR_BUILD])
 AC_MSG_RESULT([$CC_FOR_BUILD])
 AC_SUBST(CC_FOR_BUILD)
 
+if test "x${BUILD_CPPFLAGS+set}" != "xset" ; then
+  if test "x$cross_compiling" = "xyes" ; then
+    BUILD_CPPFLAGS=
+  else
+    BUILD_CPPFLAGS=${CPPFLAGS}
+  fi
+fi
+AC_SUBST(BUILD_CPPFLAGS)
+
 if test "x${BUILD_CFLAGS+set}" != "xset" ; then
   if test "x$cross_compiling" = "xyes" ; then
     BUILD_CFLAGS=
