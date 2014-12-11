@@ -6,9 +6,11 @@
 *.fo
 *.la
 *.lo
+*.log
 *.o
 *.pdf
 *.so
+*.trs
 *~
 .deps/
 .libs/
