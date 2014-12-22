@@ -151,8 +151,9 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
   if (retval != PAM_SUCCESS || resp[0] == NULL ||
       (chpass > 1 && resp[1] == NULL))
     {
-      /* We want to abort the password change */
-      pam_error (pamh, _("Password change aborted."));
+      /* We want to abort */
+      if (chpass)
+        pam_error (pamh, _("Password change aborted."));
       return PAM_AUTHTOK_ERR;
     }
 
