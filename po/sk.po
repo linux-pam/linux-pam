@@ -3,22 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ondrej Šulek <feonsu@gmail.com>, 2008.
-# Pavol Šimo <palo.simo@gmail.com>, 2009.
+# feonsu <feonsu@gmail.com>, 2008
+# feonsu <feonsu@gmail.com>, 2014
+# feonsu <feonsu@gmail.com>, 2008
+# Pavol Šimo <palo.simo@gmail.com>, 2009
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2013-09-19 10:02+0200\n"
-"PO-Revision-Date: 2011-11-30 12:01+0000\n"
-"Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
-"Language-Team: Slovak (http://www.transifex.net/projects/p/fedora/language/"
-"sk/)\n"
+"POT-Creation-Date: 2013-11-29 18:34+0100\n"
+"PO-Revision-Date: 2014-10-07 08:54+0000\n"
+"Last-Translator: feonsu <feonsu@gmail.com>\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/linux-pam/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -205,7 +206,7 @@ msgstr "je rovnaké ako predchádzajúce"
 #: modules/pam_cracklib/pam_cracklib.c:628
 #: modules/pam_cracklib/pam_cracklib.c:638
 msgid "memory allocation error"
-msgstr ""
+msgstr "chyba pridelenia pamäte"
 
 #: modules/pam_cracklib/pam_cracklib.c:643
 msgid "is a palindrome"
@@ -236,9 +237,8 @@ msgid "contains too many same characters consecutively"
 msgstr "obsahuje príliš veľa rovnakých znakov za sebou"
 
 #: modules/pam_cracklib/pam_cracklib.c:664
-#, fuzzy
 msgid "contains too long of a monotonic character sequence"
-msgstr "obsahuje príliš veľa rovnakých znakov za sebou"
+msgstr "obsahuje príliš jednotvárnu postupnosť znakov"
 
 #: modules/pam_cracklib/pam_cracklib.c:667
 msgid "contains the user name in some form"
@@ -313,23 +313,15 @@ msgstr "Posledné neúspešné prihlásenie:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"Od posledného úspešného prihlásenia došlo k %d neúspešnému pokusu o "
-"prihlásenie."
-msgstr[1] ""
-"Od posledného úspešného prihlásenia došlo k %d neúspešným pokusom o "
-"prihlásenie."
-msgstr[2] ""
-"Od posledného úspešného prihlásenia došlo k %d neúspešným pokusom o "
-"prihlásenie."
+msgstr[0] "Od posledného úspešného prihlásenia došlo k %d neúspešnému pokusu o prihlásenie."
+msgstr[1] "Od posledného úspešného prihlásenia došlo k %d neúspešným pokusom o prihlásenie."
+msgstr[2] "Od posledného úspešného prihlásenia došlo k %d neúspešným pokusom o prihlásenie."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:548
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
-"Od posledného úspešného prihlásenia došlo k %d neúspešným pokusom o "
-"prihlásenie."
+msgstr "Od posledného úspešného prihlásenia došlo k %d neúspešným pokusom o prihlásenie."
 
 #: modules/pam_limits/pam_limits.c:1079
 #, c-format
@@ -388,9 +380,8 @@ msgid "Password has been already used. Choose another."
 msgstr "Heslo už bolo použité. Zvoľte si iné."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
-#, fuzzy
 msgid "Password has been already used."
-msgstr "Heslo už bolo použité. Zvoľte si iné."
+msgstr "Heslo už bolo použité."
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
@@ -503,11 +494,8 @@ msgstr "%s: Neznáma voľba %s\n"
 
 #: modules/pam_tally/pam_tally.c:812
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file meno_suboru] [--user pouzivatelske_meno] [--reset[=n]] [--"
-"quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [--file meno_suboru] [--user pouzivatelske_meno] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
 #, c-format
@@ -525,10 +513,7 @@ msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f meno_suboru] [--file meno_suboru]\n"
-"   [-u pouzivatelske_meno] [--user pouzivatelske_meno]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
+msgstr "%s: [-f meno_suboru] [--file meno_suboru]\n   [-u pouzivatelske_meno] [--user pouzivatelske_meno]\n   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:345
 #, c-format
@@ -537,8 +522,7 @@ msgstr "Prístup povolený (ostatný prístup pred %ld sekundami)."
 
 #: modules/pam_unix/pam_unix_acct.c:247 modules/pam_unix/pam_unix_acct.c:269
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"Platnosť vášho účtu vypršala; kontaktujte prosím svojho správcu systému"
+msgstr "Platnosť vášho účtu vypršala; kontaktujte prosím svojho správcu systému"
 
 #: modules/pam_unix/pam_unix_acct.c:255
 msgid "You are required to change your password immediately (root enforced)"
@@ -570,26 +554,23 @@ msgstr "Nie je možné zmeniť NIS heslo."
 msgid "You must choose a longer password"
 msgstr "Musíte si zvoliť dlhšie heslo"
 
-#: modules/pam_unix/pam_unix_passwd.c:619
+#: modules/pam_unix/pam_unix_passwd.c:620
 #, c-format
 msgid "Changing password for %s."
 msgstr "Zmena hesla pre %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:630
+#: modules/pam_unix/pam_unix_passwd.c:631
 msgid "(current) UNIX password: "
 msgstr "(aktuálne) UNIX heslo: "
 
-#: modules/pam_unix/pam_unix_passwd.c:665
+#: modules/pam_unix/pam_unix_passwd.c:666
 msgid "You must wait longer to change your password"
 msgstr "Na zmenu svojho hesla musíte počkať dlhšie"
 
-#: modules/pam_unix/pam_unix_passwd.c:725
+#: modules/pam_unix/pam_unix_passwd.c:726
 msgid "Enter new UNIX password: "
 msgstr "Zadajte nové UNIX heslo: "
 
-#: modules/pam_unix/pam_unix_passwd.c:726
+#: modules/pam_unix/pam_unix_passwd.c:727
 msgid "Retype new UNIX password: "
 msgstr "Opakujte nové UNIX heslo: "
-
-#~ msgid "Would you like to enter a security context? [N] "
-#~ msgstr "Želáte si zadať kontext zabezpečenia? [N] "
