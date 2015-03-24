@@ -81,7 +81,7 @@ static unsigned int _pam_compute_delay(unsigned int seed, unsigned int base)
 /* **********************************************************************
  * the following function sleeps for a random time. The actual time
  * slept is computed above.. It is based on the requested time but will
- * differ by up to +/- 25%.
+ * differ by up to +/- 50%.
  */
 
 void _pam_await_timer(pam_handle_t *pamh, int status)

@@ -39,7 +39,7 @@
       <citerefentry>
         <refentrytitle>pam_authenticate</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry> fail, the failing return to the application is
-      delayed by an amount of time randomly distributed (by up to 25%)
+      delayed by an amount of time randomly distributed (by up to 50%)
       about this longest value.
     </para>
     <para>
