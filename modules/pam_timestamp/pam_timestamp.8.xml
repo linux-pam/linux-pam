@@ -19,6 +19,9 @@
     <cmdsynopsis id="pam_timestamp-cmdsynopsis">
       <command>pam_timestamp.so</command>
       <arg choice="opt">
+        timestampdir=<replaceable>directory</replaceable>
+      </arg>
+      <arg choice="opt">
         timestamp_timeout=<replaceable>number</replaceable>
       </arg>
       <arg choice="opt">
@@ -55,11 +58,23 @@ file as grounds for succeeding.
     <variablelist>
       <varlistentry>
          <term>
+            <option>timestampdir=<replaceable>directory</replaceable></option>
+         </term>
+         <listitem>
+            <para>
+               Specify an alternate directory where
+	       <emphasis>pam_timestamp</emphasis> creates timestamp files.
+            </para>
+         </listitem>
+      </varlistentry>
+      <varlistentry>
+         <term>
             <option>timestamp_timeout=<replaceable>number</replaceable></option>
          </term>
          <listitem>
             <para>
-               How long should pam_timestamp treat timestamp as valid after their
+               How long should <emphasis>pam_timestamp</emphasis>
+	       treat timestamp as valid after their
                last modification date (in seconds). Default is 300 seconds.
             </para>
          </listitem>
@@ -152,7 +167,7 @@ session optional pam_timestamp.so
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/var/run/sudo/...</filename></term>
+        <term><filename>/var/run/pam_timestamp/...</filename></term>
         <listitem>
           <para>timestamp files and directories</para>
         </listitem>
