@@ -106,11 +106,11 @@
     <programlisting>xsh;tty*&amp;!ttyp*;us;Al0000-2400;floppy</programlisting>
 
     <para>
-      Running 'xsh' on tty* (any ttyXXX device), the user 'sword' is given access
-      to games (through membership of the floppy group) after work hours.
+      Running 'xsh' on tty* (any ttyXXX device), the users 'sword', 'pike' and
+      'shield' are given access to games (through membership of the floppy group) after work hours.
     </para>
     <programlisting>
-xsh; tty* ;sword;!Wk0900-1800;games, sound
+xsh; tty* ;sword|pike|shield;!Wk0900-1800;games, sound
 xsh; tty* ;*;Al0900-1800;floppy
     </programlisting>
     <para>
