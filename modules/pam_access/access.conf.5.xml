@@ -21,8 +21,12 @@
     <para>
       The <filename>/etc/security/access.conf</filename> file specifies
       (<replaceable>user/group</replaceable>, <replaceable>host</replaceable>),
-      (<replaceable>user/group</replaceable>, <replaceable>network/netmask</replaceable>) or
-      (<replaceable>user/group</replaceable>, <replaceable>tty</replaceable>)
+      (<replaceable>user/group</replaceable>, <replaceable>network/netmask</replaceable>),
+      (<replaceable>user/group</replaceable>, <replaceable>tty</replaceable>),
+      (<replaceable>user/group</replaceable>,
+      <replaceable>X-$DISPLAY-value</replaceable>), or
+      (<replaceable>user/group</replaceable>,
+      <replaceable>pam-service-name</replaceable>)
       combinations for which a login will be either accepted or refused.
     </para>
     <para>
@@ -33,7 +37,14 @@
       combination, or, in case of non-networked logins, the first entry
       that matches the
       (<replaceable>user/group</replaceable>, <replaceable>tty</replaceable>)
-      combination.  The permissions field of that table entry determines
+      combination, or in the case of non-networked logins without a
+      tty, the first entry that matches the
+      (<replaceable>user/group</replaceable>,
+      <replaceable>X-$DISPLAY-value</replaceable>) or
+      (<replaceable>user/group</replaceable>,
+      <replaceable>pam-service-name/</replaceable>)
+      combination.  The permissions field of that table entry
+      determines
       whether the login will be accepted or refused.
    </para>
 
@@ -65,14 +76,27 @@
     <para>
       The third field, the <replaceable>origins</replaceable>
       field, should be a list of one or more tty names (for non-networked
-      logins), host names, domain names (begin with "."), host addresses,
+      logins), X <varname>$DISPLAY</varname> values or PAM service
+      names (for non-networked logins without a tty), host names,
+      domain names (begin with "."), host addresses,
       internet network numbers (end with "."), internet network addresses
       with network mask (where network mask can be a decimal number or an
       internet address also), <emphasis>ALL</emphasis> (which always matches)
-      or <emphasis>LOCAL</emphasis>. <emphasis>LOCAL</emphasis>
-      keyword matches if and only if the <emphasis>PAM_RHOST</emphasis> is
-      not set and &lt;origin&gt; field is thus set from
-      <emphasis>PAM_TTY</emphasis> or <emphasis>PAM_SERVICE</emphasis>".
+      or <emphasis>LOCAL</emphasis>. The <emphasis>LOCAL</emphasis>
+      keyword matches if and only if
+      <citerefentry><refentrytitle>pam_get_item</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      when called with an <parameter>item_type</parameter> of
+      <emphasis>PAM_RHOST</emphasis>, returns <code>NULL</code> or an
+      empty string (and therefore the
+      <replaceable>origins</replaceable> field is compared against the
+      return value of
+      <citerefentry><refentrytitle>pam_get_item</refentrytitle><manvolnum>3</manvolnum></citerefentry>
+      called with an <parameter>item_type</parameter> of
+      <emphasis>PAM_TTY</emphasis> or, absent that,
+      <emphasis>PAM_SERVICE</emphasis>).
+    </para>
+
+    <para>
       If supported by the system you can use
       <emphasis>@netgroupname</emphasis> in host or user patterns. The
       <emphasis>@@netgroupname</emphasis> syntax is supported in the user

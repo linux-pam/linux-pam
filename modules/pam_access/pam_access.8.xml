@@ -50,7 +50,8 @@
       The pam_access PAM module is mainly for access management.
       It provides logdaemon style login access control based on login
       names, host or domain names, internet addresses or network numbers,
-      or on terminal line names in case of non-networked logins.
+      or on terminal line names, X <varname>$DISPLAY</varname> values,
+      or PAM service names in case of non-networked logins.
     </para>
     <para>
       By default rules for access management are taken from config file
@@ -59,7 +60,7 @@
     </para>
     <para>
       If Linux PAM is compiled with audit support the module will report
-      when it denies access based on origin (host or tty).
+      when it denies access based on origin (host, tty, etc.).
     </para>
   </refsect1>
 
