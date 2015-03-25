@@ -52,6 +52,14 @@
       <filename>/etc/pam.conf</filename>.
     </para>
 
+    <para>
+      Vendor-supplied PAM configuration files might be installed in
+      the system directory <filename>/usr/lib/pam.d/</filename> instead
+      of the machine configuration directory <filename>/etc/pam.d/</filename>.
+      If no machine configuration file is found, the vendor-supplied file
+      is used. All files in <filename>/etc/pam.d/</filename> override
+      files with the same name in <filename>/usr/lib/pam.d/</filename>.
+    </para>
 
 <para>From the point of view of the system administrator, for whom this
 manual is provided, it is not of primary importance to understand the
@@ -137,6 +145,16 @@ closing hook for modules to affect the services available to a user.</para>
             the <emphasis remap='B'>Linux-PAM</emphasis> configuration
             directory. Generally, if this directory is present, the
             <filename>/etc/pam.conf</filename> file is ignored.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><filename>/usr/lib/pam.d</filename></term>
+        <listitem>
+          <para>
+            the <emphasis remap='B'>Linux-PAM</emphasis> vendor configuration
+            directory. Files in <filename>/etc/pam.d</filename> override
+            files with the same name in this directory.
           </para>
         </listitem>
       </varlistentry>

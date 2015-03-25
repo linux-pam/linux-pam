@@ -24,12 +24,13 @@
 
 /* the Linux-PAM configuration file */
 
-#define PAM_CONFIG    "/etc/pam.conf"
-#define PAM_CONFIG_D  "/etc/pam.d"
-#define PAM_CONFIG_DF "/etc/pam.d/%s"
+#define PAM_CONFIG         "/etc/pam.conf"
+#define PAM_CONFIG_D       "/etc/pam.d"
+#define PAM_CONFIG_DF      "/etc/pam.d/%s"
+#define PAM_CONFIG_DIST_D  "/usr/lib/pam.d"
+#define PAM_CONFIG_DIST_DF "/usr/lib/pam.d/%s"
 
 #define PAM_DEFAULT_SERVICE        "other"     /* lower case */
-#define PAM_DEFAULT_SERVICE_FILE   PAM_CONFIG_D "/" PAM_DEFAULT_SERVICE
 
 #ifdef PAM_LOCKING
 /*
