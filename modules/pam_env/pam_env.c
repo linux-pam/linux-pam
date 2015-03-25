@@ -676,7 +676,7 @@ static const char * _pam_get_item_byname(pam_handle_t *pamh, const char *name)
   const void *itemval;
 
   D(("Called."));
-  if (strcmp(name, "PAM_USER") == 0) {
+  if (strcmp(name, "PAM_USER") == 0 || strcmp(name, "HOME") == 0 || strcmp(name, "SHELL") == 0) {
     item = PAM_USER;
   } else if (strcmp(name, "PAM_USER_PROMPT") == 0) {
     item = PAM_USER_PROMPT;
@@ -696,6 +696,19 @@ static const char * _pam_get_item_byname(pam_handle_t *pamh, const char *name)
     D(("pam_get_item failed"));
     return NULL;     /* let pam_get_item() log the error */
   }
+
+  if (itemval && (strcmp(name, "HOME") == 0 || strcmp(name, "SHELL") == 0)) {
+    struct passwd *user_entry;
+    user_entry = pam_modutil_getpwnam (pamh, (char *) itemval);
+    if (!user_entry) {
+      pam_syslog(pamh, LOG_ERR, "No such user!?");
+      return NULL;
+    }
+    return (strcmp(name, "SHELL") == 0) ?
+      user_entry->pw_shell :
+      user_entry->pw_dir;
+  }
+
   D(("Exit."));
   return itemval;
 }

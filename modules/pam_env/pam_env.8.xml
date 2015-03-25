@@ -53,17 +53,23 @@
       <emphasis>PAM_RHOST</emphasis>.
     </para>
     <para>
-      By default rules for (un)setting of variables is taken from the
-      config file <filename>/etc/security/pam_env.conf</filename> if
-      no other file is specified.
+      By default rules for (un)setting of variables are taken from the
+      config file <filename>/etc/security/pam_env.conf</filename>. An
+      alternate file can be specified with the <emphasis>conffile</emphasis>
+      option.
     </para>
     <para>
-      This module can also parse a file with simple
-      <emphasis>KEY=VAL</emphasis> pairs on separate lines
-      (<filename>/etc/environment</filename> by default). You can
-      change the default file to parse, with the <emphasis>envfile</emphasis>
-      flag and turn it on or off by setting the <emphasis>readenv</emphasis>
-      flag to 1 or 0 respectively.
+      Second a file (<filename>/etc/environment</filename> by default) with simple
+      <emphasis>KEY=VAL</emphasis> pairs on separate lines will be read.
+      With the <emphasis>envfile</emphasis> option an alternate file can be specified.
+      And with the <emphasis>readenv</emphasis> option this can be completly disabled.
+    </para>
+    <para>
+      Third it will read a user configuration file
+      (<filename>$HOME/.pam_environment</filename> by default).
+      The default file file can be changed with the
+      <emphasis>user_envfile</emphasis> option
+      and it can be turned on and off with the <emphasis>user_readenv</emphasis> option.
     </para>
     <para>
       Since setting of PAM environment variables can have side effects
@@ -107,8 +113,11 @@
         <listitem>
           <para>
             Indicate an alternative <filename>environment</filename>
-            file to override the default. This can be useful when different
-            services need different environments.
+            file to override the default. The syntax are simple
+	    <emphasis>KEY=VAL</emphasis> pairs on separate lines. The
+	    <emphasis>export</emphasis> instruction can be specified for bash
+	    compatibility, but will be ignored.
+	    This can be useful when different  services need different environments.
           </para>
         </listitem>
       </varlistentry>
@@ -133,9 +142,11 @@
         <listitem>
           <para>
             Indicate an alternative <filename>.pam_environment</filename>
-            file to override the default. This can be useful when different
-            services need different environments. The filename is relative to
-            the user home directory.
+            file to override the default.The syntax is the same as
+	    for <emphasis>/etc/environment</emphasis>.
+	    The filename is relative to the user home directory.
+	    This can be useful when different services need different
+	    environments.
           </para>
         </listitem>
       </varlistentry>
