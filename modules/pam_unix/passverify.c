@@ -377,6 +377,9 @@ PAMH_ARG_DECL(char * create_password_hash,
 	const char *algoid;
 	char salt[64]; /* contains rounds number + max 16 bytes of salt + algo id */
 	char *sp;
+#ifdef HAVE_CRYPT_R
+	struct crypt_data *cdata = NULL;
+#endif
 
 	if (on(UNIX_MD5_PASS, ctrl)) {
 		/* algoid = "$1" */
@@ -423,7 +426,16 @@ PAMH_ARG_DECL(char * create_password_hash,
 #ifdef HAVE_CRYPT_GENSALT_R
 	}
 #endif
+#ifdef HAVE_CRYPT_R
+	sp = NULL;
+	cdata = malloc(sizeof(*cdata));
+	if (cdata != NULL) {
+		cdata->initialized = 0;
+		sp = crypt_r(password, salt, cdata);
+	}
+#else
 	sp = crypt(password, salt);
+#endif
 	if (!sp || strncmp(algoid, sp, strlen(algoid)) != 0) {
 		/* libxcrypt/libc doesn't know the algorithm, use MD5 */
 		pam_syslog(pamh, LOG_ERR,
@@ -435,10 +447,16 @@ PAMH_ARG_DECL(char * create_password_hash,
 		if(sp) {
 		   memset(sp, '\0', strlen(sp));
 		}
+#ifdef HAVE_CRYPT_R
+		free(cdata);
+#endif
 		return crypt_md5_wrapper(password);
 	}
-
-	return x_strdup(sp);
+	sp = x_strdup(sp);
+#ifdef HAVE_CRYPT_R
+	free(cdata);
+#endif
+	return sp;
 }
 
 #ifdef WITH_SELINUX

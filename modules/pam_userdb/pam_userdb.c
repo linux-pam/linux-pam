@@ -213,15 +213,23 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 
 	  /* crypt(3) password storage */
 
-	  char *cryptpw;
+	  char *cryptpw = NULL;
 
 	  if (data.dsize < 13) {
 	    compare = -2;
 	  } else if (ctrl & PAM_ICASE_ARG) {
 	    compare = -2;
 	  } else {
+#ifdef HAVE_CRYPT_R
+	    struct crypt_data *cdata = NULL;
+	    cdata = malloc(sizeof(*cdata));
+	    if (cdata != NULL) {
+		cdata->initialized = 0;
+		cryptpw = crypt_r(pass, data.dptr, cdata);
+	    }
+#else
 	    cryptpw = crypt (pass, data.dptr);
-
+#endif
 	    if (cryptpw && strlen(cryptpw) == (size_t)data.dsize) {
 	      compare = memcmp(data.dptr, cryptpw, data.dsize);
 	    } else {
@@ -232,9 +240,11 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 		else
 		  pam_syslog(pamh, LOG_INFO, "crypt() returned NULL");
 	      }
-	    };
-
-	  };
+	    }
+#ifdef HAVE_CRYPT_R
+	    free(cdata);
+#endif
+	  }
 
 	} else {
 
