@@ -95,7 +95,7 @@
       <command>pam_tally</command>. The former is the PAM module and
       the latter, a stand-alone program. <command>pam_tally</command>
       is an (optional) application which can be used to interrogate and
-      manipulate the counter file. It can display users' counts, set
+      manipulate the counter file. It can display user counts, set
       individual counts, or clear all counts. Setting artificially high
       counts may be useful for blocking users without changing their
       passwords. For example, one might find it useful to clear all counts

@@ -59,7 +59,7 @@
         <term>PAM_CHANGE_EXPIRED_AUTHTOK</term>
         <listitem>
           <para>
-            This argument indicates to the module that the users
+            This argument indicates to the module that the user's
             authentication token (password) should only be changed if
             it has expired. This flag is optional and
             <emphasis>must</emphasis> be combined with one of the

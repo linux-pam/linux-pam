@@ -31,7 +31,7 @@
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_acct_mgmt</function> function is used to determine
-      if the users account is valid. It checks for authentication token
+      if the user's account is valid. It checks for authentication token
       and account expiration and verifies access restrictions. It is
       typically called after the user has been authenticated.
     </para>

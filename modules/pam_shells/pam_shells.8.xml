@@ -27,7 +27,7 @@
 
     <para>
       pam_shells is a PAM module that only allows access to the
-      system if the users shell is listed in <filename>/etc/shells</filename>.
+      system if the user's shell is listed in <filename>/etc/shells</filename>.
     </para>
     <para>
       It also checks if <filename>/etc/shells</filename> is a plain
@@ -64,7 +64,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
           <para>
-            The users login shell was listed as valid shell in
+            The user's login shell was listed as valid shell in
             <filename>/etc/shells</filename>.
           </para>
         </listitem>

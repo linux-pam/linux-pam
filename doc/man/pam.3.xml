@@ -81,7 +81,7 @@
         <citerefentry>
           <refentrytitle>pam_setcred</refentrytitle><manvolnum>3</manvolnum>
         </citerefentry>
-        function manages the userscredentials.
+        function manages the user's credentials.
       </para>
     </refsect2>
 
@@ -91,7 +91,7 @@
         The
         <citerefentry>
           <refentrytitle>pam_acct_mgmt</refentrytitle><manvolnum>3</manvolnum>
-        </citerefentry> function is used to determine if the users account is
+        </citerefentry> function is used to determine if the user's account is
         valid. It checks for authentication token and account expiration and
         verifies access restrictions. It is typically called after the user
         has been authenticated.

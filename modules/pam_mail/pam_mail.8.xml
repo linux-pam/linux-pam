@@ -103,7 +103,7 @@
           </term>
           <listitem>
             <para>
-              Look for the users' mail in an alternative location defined by
+              Look for the user's mail in an alternative location defined by
              <filename>maildir/&lt;login&gt;</filename>.  The default
              location for mail is <filename>/var/mail/&lt;login&gt;</filename>.
              Note, if the supplied

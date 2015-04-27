@@ -102,7 +102,7 @@ int pam_sm_authenticate (pam_handle_t *pamh, int flags, int argc,
       lpwd = pam_modutil_getpwnam(pamh, luser);
       if (lpwd == NULL) {
 	if (opt_debug)
-	  /* don't print by default, could be the users password */
+	  /* don't print by default, could be the user's password */
 	  pam_syslog(pamh, LOG_DEBUG,
 		     "user '%s' unknown to this system", luser);
 	return PAM_USER_UNKNOWN;
