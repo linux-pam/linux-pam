@@ -1,6 +1,14 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 Release 1.2.0
+* Update documentation
+* Update translations
+* pam_unix: add quiet option
+* libpam: support alternative configuration files in /usr/lib/pam.d
+          as fallback
+* pam_env: add support for @{HOME} and @{SHELL}
+* libpam: add grantor field to audit records
+* libpam: Introduce pam_modutil_sanitize_helper_fds
 
 Release 1.1.8
 * pam_unix: bug fix for compiling with SELinux, fix crash at login time
