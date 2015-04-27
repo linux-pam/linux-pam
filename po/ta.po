@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2013-09-19 10:02+0200\n"
+"POT-Creation-Date: 2015-03-25 16:52+0100\n"
 "PO-Revision-Date: 2013-04-10 14:40+0000\n"
 "Last-Translator: shkumar <shkumar@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
+"Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ta\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: libpam_misc/misc_conv.c:33
@@ -29,7 +29,7 @@ msgstr "... நேரம் போய் கொண்டிருக்கிற
 msgid "...Sorry, your time is up!\n"
 msgstr "... உங்கள் நேரம் முடிந்தது!\n"
 
-#: libpam_misc/misc_conv.c:342
+#: libpam_misc/misc_conv.c:346
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "பிழையான உரையாடல் (%d)\n"
@@ -53,12 +53,12 @@ msgstr "புதிய %s%spassword மீண்டும் உள்ளிட
 msgid "Sorry, passwords do not match."
 msgstr "கடவுச்சொல் பொருந்தவில்லை."
 
-#: libpam/pam_get_authtok.c:135 libpam/pam_get_authtok.c:211
+#: libpam/pam_get_authtok.c:135 libpam/pam_get_authtok.c:212
 #, c-format
 msgid "Retype %s"
 msgstr "%sஐ மறு தட்டச்சு செய்"
 
-#: libpam/pam_get_authtok.c:155 libpam/pam_get_authtok.c:227
+#: libpam/pam_get_authtok.c:156 libpam/pam_get_authtok.c:228
 msgid "Password change aborted."
 msgstr "கடவுச்சொல் மாற்றம் கைவிடப்பட்டது."
 
@@ -245,12 +245,12 @@ msgid "contains the user name in some form"
 msgstr "சில வடிவல் பயனர் பெயரை கொண்டுள்ளது"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:496
+#: modules/pam_unix/pam_unix_passwd.c:494
 msgid "No password supplied"
 msgstr "கடவுச்சொல் கொடுக்கப்படவில்லை"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:496
+#: modules/pam_unix/pam_unix_passwd.c:494
 msgid "Password unchanged"
 msgstr "கடவுச்சொல் மாற்றப்படவில்லை"
 
@@ -322,7 +322,7 @@ msgstr[1] "கடைசி புகுபதிவிலிருந்து %
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "கடைசி புகுபதிவிலிருந்து %d புகுபதிவு முயற்சி தோல்வியடைந்தன."
 
-#: modules/pam_limits/pam_limits.c:1079
+#: modules/pam_limits/pam_limits.c:1091
 #, c-format
 msgid "Too many logins for '%s'."
 msgstr "'%s'க்கு பல புகுபதிவுகள் உள்ளன."
@@ -363,18 +363,18 @@ msgstr "உங்களுக்கு %s அடைவில் பழைய அ
 msgid "You have mail in folder %s."
 msgstr "உங்களுக்கு %s அடைவில் அஞ்சல் உள்ளது."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:113
+#: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "அடைவு '%s'ஐ உருவாக்குகிறது."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:183
+#: modules/pam_mkhomedir/pam_mkhomedir.c:176
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "அடைவு '%s'ஐ உருவாக்க மற்றும் துவக்க முடியவில்லை."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:517
+#: modules/pam_unix/pam_unix_passwd.c:515
 msgid "Password has been already used. Choose another."
 msgstr "கடவுச்சொல் ஏற்கனவே பயன்படுத்தப்பட்டது. வேறொன்றை பயன்படுத்தவும்."
 
@@ -408,17 +408,17 @@ msgstr "நிலை:"
 msgid "Not a valid security context"
 msgstr "இது சரியான பாதுகாப்பு சூழல் இல்லை"
 
-#: modules/pam_selinux/pam_selinux.c:539
+#: modules/pam_selinux/pam_selinux.c:544
 #, c-format
 msgid "Unable to get valid context for %s"
 msgstr "%sக்கு சரியான சூழல் பெற முடியவில்லை"
 
-#: modules/pam_selinux/pam_selinux.c:658
+#: modules/pam_selinux/pam_selinux.c:663
 #, c-format
 msgid "Security Context %s Assigned"
 msgstr "பாதுகாப்பு சூழல் %s ஒதுக்கப்பட்டது"
 
-#: modules/pam_selinux/pam_selinux.c:674
+#: modules/pam_selinux/pam_selinux.c:679
 #, c-format
 msgid "Key Creation Context %s Assigned"
 msgstr "விசை உருவாக்க சூழல் %s ஒதுக்கப்பட்டுள்ளது"
@@ -455,38 +455,38 @@ msgstr "புதிய STRESS கடவுச்சொல்லை மீண்
 msgid "Verification mis-typed; password unchanged"
 msgstr "உறுதிப்படுத்தல் முரண்பாடு; கடவுச்சொல் மாற்றப்படவில்லை"
 
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:599
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
 msgstr "கணக்கு தற்காலிகமாக பூட்டப்பட்டுள்ளது (%ld விநாடிகள் உள்ளன)"
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:578
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr "%u தோல்வி புகுபதிவுகளால் கணக்கு பூட்டப்பட்டுள்ளது"
 
-#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:887
+#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
 msgid "Authentication error"
 msgstr "உரிம பிழை"
 
-#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:888
+#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:885
 msgid "Service error"
 msgstr "சேவை பிழை"
 
-#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:889
+#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:886
 msgid "Unknown user"
 msgstr "தெரியாத பயனர்"
 
-#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:890
+#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:887
 msgid "Unknown error"
 msgstr "தெரியாத பிழை"
 
-#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:909
+#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:906
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: தவறான எண் --reset= க்கு கொடுக்கப்பட்டுள்ளது\n"
 
-#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:913
+#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:910
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: அங்கீகரிக்கப்படாத விருப்பம் %s\n"
@@ -498,17 +498,17 @@ msgid ""
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1039
+#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: பூஜ்ஜியமில்லாததற்கு அனைத்து பயனர்களையும் மறு அமைக்க முடியவில்லை\n"
 
-#: modules/pam_tally2/pam_tally2.c:940
+#: modules/pam_tally2/pam_tally2.c:937
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr "புகுபதிவு           கடைசி தோல்வி தோல்வியடைந்தது     இங்கிருந்து\n"
 
-#: modules/pam_tally2/pam_tally2.c:956
+#: modules/pam_tally2/pam_tally2.c:953
 #, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -519,24 +519,24 @@ msgstr ""
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_timestamp/pam_timestamp.c:345
+#: modules/pam_timestamp/pam_timestamp.c:357
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "அணுகல் வழங்கப்பட்டது (கடைசி அணுகல் %ld விநாடிகளுக்கு முன்)."
 
-#: modules/pam_unix/pam_unix_acct.c:247 modules/pam_unix/pam_unix_acct.c:269
+#: modules/pam_unix/pam_unix_acct.c:244 modules/pam_unix/pam_unix_acct.c:266
 msgid "Your account has expired; please contact your system administrator"
 msgstr "உங்கள் கணக்கு முடிவுற்றது, உங்கள் கணினி நிர்வாகியை அணுகவும்"
 
-#: modules/pam_unix/pam_unix_acct.c:255
+#: modules/pam_unix/pam_unix_acct.c:252
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "நீங்கள் உங்கள் கடவுச்சொல்லை உடனடியாக மாற்ற வேண்டும் (ரூட் வலியுறுத்துகிறது)"
 
-#: modules/pam_unix/pam_unix_acct.c:261
+#: modules/pam_unix/pam_unix_acct.c:258
 msgid "You are required to change your password immediately (password aged)"
 msgstr "நீங்கள் உங்கள் கடவுச்சொல்லை உடனடியாக மாற்ற வேண்டும் (கடவுச்சொல் மூப்பாகிவிட்டது)"
 
-#: modules/pam_unix/pam_unix_acct.c:282 modules/pam_unix/pam_unix_acct.c:289
+#: modules/pam_unix/pam_unix_acct.c:279 modules/pam_unix/pam_unix_acct.c:286
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -544,36 +544,36 @@ msgstr[0] "எச்சரிக்கை: கடவுச்சொல் %d ந
 msgstr[1] "எச்சரிக்கை: கடவுச்சொல் %d நாட்களில் முடிவுறும்"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:294
+#: modules/pam_unix/pam_unix_acct.c:291
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "எச்சரிக்கை: கடவுச்சொல் %d நாட்களில் முடிவுறும்"
 
-#: modules/pam_unix/pam_unix_passwd.c:398
+#: modules/pam_unix/pam_unix_passwd.c:396
 msgid "NIS password could not be changed."
 msgstr "NIS கடவுச்சொல்லை மாற்ற முடியாது."
 
-#: modules/pam_unix/pam_unix_passwd.c:513
+#: modules/pam_unix/pam_unix_passwd.c:511
 msgid "You must choose a longer password"
 msgstr "நீங்கள் நீண்ட கடவுச்சொல்லை தேர்ந்தெடுக்க வேண்டும்"
 
-#: modules/pam_unix/pam_unix_passwd.c:619
+#: modules/pam_unix/pam_unix_passwd.c:618
 #, c-format
 msgid "Changing password for %s."
 msgstr "%sக்கு கடவுச்சொல்லை மாற்றுகிறது."
 
-#: modules/pam_unix/pam_unix_passwd.c:630
+#: modules/pam_unix/pam_unix_passwd.c:629
 msgid "(current) UNIX password: "
 msgstr "(நடப்பு) UNIX கடவுச்சொல்: "
 
-#: modules/pam_unix/pam_unix_passwd.c:665
+#: modules/pam_unix/pam_unix_passwd.c:664
 msgid "You must wait longer to change your password"
 msgstr "உங்கள் கடவுச்சொல்லை மாற்ற சிறிது காத்திருக்க வேண்டும்"
 
-#: modules/pam_unix/pam_unix_passwd.c:725
+#: modules/pam_unix/pam_unix_passwd.c:724
 msgid "Enter new UNIX password: "
 msgstr "புதிய UNIX கடவுச்சொல்லை உள்ளிடவும்: "
 
-#: modules/pam_unix/pam_unix_passwd.c:726
+#: modules/pam_unix/pam_unix_passwd.c:725
 msgid "Retype new UNIX password: "
 msgstr "புதிய UNIX கடவுச்சொல்லை மீண்டும் உள்ளிடவும்: "
