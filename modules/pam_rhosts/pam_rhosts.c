@@ -35,6 +35,7 @@
 #include <pwd.h>
 #include <netdb.h>
 #include <string.h>
+#include <stdlib.h>
 #include <syslog.h>
 
 #define PAM_SM_AUTH  /* only defines this management group */
