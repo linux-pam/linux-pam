@@ -532,7 +532,10 @@ AC_CHECK_FUNCS(fseeko getdomainname gethostname gettimeofday lckpwdf mkdir selec
 AC_CHECK_FUNCS(strcspn strdup strspn strstr strtol uname)
 AC_CHECK_FUNCS(getutent_r getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r)
 AC_CHECK_FUNCS(getgrouplist getline getdelim)
-AC_CHECK_FUNCS(inet_ntop inet_pton innetgr ruserok_af)
+AC_CHECK_FUNCS(inet_ntop inet_pton innetgr)
+AC_CHECK_FUNCS([ruserok_af ruserok], [break])
+
+AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
 
 AC_CHECK_FUNCS(unshare, [UNSHARE=yes], [UNSHARE=no])
 AM_CONDITIONAL([HAVE_UNSHARE], [test "$UNSHARE" = yes])
