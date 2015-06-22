@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2015-03-25 16:52+0100\n"
+"POT-Creation-Date: 2015-06-22 14:16+0200\n"
 "PO-Revision-Date: 2013-08-30 12:55+0000\n"
 "Last-Translator: asaini <asaini@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -244,12 +244,12 @@ msgid "contains the user name in some form"
 msgstr "ਕੁਸੇ ਰੂਪ ਵਿੱਚ ਉਪਭੋਗੀ ਨਾਂ ਸ਼ਾਮਿਲ ਹੈ"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:494
+#: modules/pam_unix/pam_unix_passwd.c:501
 msgid "No password supplied"
 msgstr "ਕੋਈ ਪਾਸਵਰਡ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:494
+#: modules/pam_unix/pam_unix_passwd.c:501
 msgid "Password unchanged"
 msgstr "ਪਾਸਵਰਡ ਨਾ-ਤਬਦੀਲ ਹੈ"
 
@@ -373,7 +373,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "ਡਾਇਰੈਕਟਰੀ '%s' ਨੂੰ ਬਣਾਉਣ ਅਤੇ ਸ਼ੁਰੂ ਕਰਨ ਵਿੱਚ ਅਸਮਰਥ।"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:515
+#: modules/pam_unix/pam_unix_passwd.c:522
 msgid "Password has been already used. Choose another."
 msgstr "ਪਾਸਵਰਡ ਪਹਿਲਾਂ ਵੀ ਵਰਤਿਆ ਗਿਆ ਹੈ। ਵੱਖਰਾ ਚੁਣੋ।"
 
@@ -548,31 +548,31 @@ msgstr[1] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ �
 msgid "Warning: your password will expire in %d days"
 msgstr "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %d ਦਿਨਾਂ ਵਿੱਚ ਪੁੱਗ ਜਾਵੇਗੀ"
 
-#: modules/pam_unix/pam_unix_passwd.c:396
+#: modules/pam_unix/pam_unix_passwd.c:403
 msgid "NIS password could not be changed."
 msgstr "NIS ਪਾਸਵਰਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:511
+#: modules/pam_unix/pam_unix_passwd.c:518
 msgid "You must choose a longer password"
 msgstr "ਤੁਹਾਨੂੰ ਲੰਮੇ ਪਾਸਵਰਡ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ"
 
-#: modules/pam_unix/pam_unix_passwd.c:618
+#: modules/pam_unix/pam_unix_passwd.c:625
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s ਲਈ ਪਾਸਵਰਡ ਤਬਦੀਲ ਕਰ ਰਿਹਾ ਹੈ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:636
 msgid "(current) UNIX password: "
 msgstr "(ਮੌਜੂਦਾ) UNIX ਪਾਸਵਰਡ: "
 
-#: modules/pam_unix/pam_unix_passwd.c:664
+#: modules/pam_unix/pam_unix_passwd.c:671
 msgid "You must wait longer to change your password"
 msgstr "ਤੁਹਾਨੂੰ ਲੰਬੇ ਸਮੇਂ ਲਈ ਆਪਣੇ ਪਾਸਵਰਡ ਲਈ ਉਡੀਕ ਕਰਨੀ ਪਵੇਗੀ"
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:731
 msgid "Enter new UNIX password: "
 msgstr "ਨਵਾਂ ਯੂਨਿਕਸ ਪਾਸਵਰਡ ਦਿਓ: "
 
-#: modules/pam_unix/pam_unix_passwd.c:725
+#: modules/pam_unix/pam_unix_passwd.c:732
 msgid "Retype new UNIX password: "
 msgstr "ਨਵਾਂ ਯੂਨਿਕਸ ਪਾਸਵਰਡ ਮੁੜ-ਲਿਖੋ: "

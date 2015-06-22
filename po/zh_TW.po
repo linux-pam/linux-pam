@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2015-03-25 16:52+0100\n"
+"POT-Creation-Date: 2015-06-22 14:16+0200\n"
 "PO-Revision-Date: 2012-12-16 08:46+0000\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <trans-zh_TW@lists.fedoraproject.org>\n"
@@ -242,12 +242,12 @@ msgid "contains the user name in some form"
 msgstr "包含了某些格式的用戶名稱"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:494
+#: modules/pam_unix/pam_unix_passwd.c:501
 msgid "No password supplied"
 msgstr "未提供密碼"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:494
+#: modules/pam_unix/pam_unix_passwd.c:501
 msgid "Password unchanged"
 msgstr "密碼未變更"
 
@@ -370,7 +370,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "無法建立和初始化「%s」目錄。"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:515
+#: modules/pam_unix/pam_unix_passwd.c:522
 msgid "Password has been already used. Choose another."
 msgstr "密碼已經由其他使用者使用。請選擇其他密碼。"
 
@@ -544,31 +544,31 @@ msgstr[0] "警告：您的密碼將於 %d 天內過期"
 msgid "Warning: your password will expire in %d days"
 msgstr "警告：您的密碼將在 %d 天之後過期。"
 
-#: modules/pam_unix/pam_unix_passwd.c:396
+#: modules/pam_unix/pam_unix_passwd.c:403
 msgid "NIS password could not be changed."
 msgstr "無法變更 NIS 密碼。"
 
-#: modules/pam_unix/pam_unix_passwd.c:511
+#: modules/pam_unix/pam_unix_passwd.c:518
 msgid "You must choose a longer password"
 msgstr "您必須選擇更長的密碼"
 
-#: modules/pam_unix/pam_unix_passwd.c:618
+#: modules/pam_unix/pam_unix_passwd.c:625
 #, c-format
 msgid "Changing password for %s."
 msgstr "正在更改 %s 的 STRESS 密碼。"
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:636
 msgid "(current) UNIX password: "
 msgstr "（目前的）UNIX 密碼："
 
-#: modules/pam_unix/pam_unix_passwd.c:664
+#: modules/pam_unix/pam_unix_passwd.c:671
 msgid "You must wait longer to change your password"
 msgstr "您必須久候，以更改您的密碼"
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:731
 msgid "Enter new UNIX password: "
 msgstr "輸入新的 UNIX 密碼："
 
-#: modules/pam_unix/pam_unix_passwd.c:725
+#: modules/pam_unix/pam_unix_passwd.c:732
 msgid "Retype new UNIX password: "
 msgstr "再次輸入新的 UNIX 密碼："

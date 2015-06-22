@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2015-03-25 16:52+0100\n"
+"POT-Creation-Date: 2015-06-22 14:16+0200\n"
 "PO-Revision-Date: 2013-05-03 07:46+0000\n"
 "Last-Translator: sandeeps <sshedmak@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -244,12 +244,12 @@ msgid "contains the user name in some form"
 msgstr "कुठल्यातरी स्वरूपात वापरकर्ता नाव आढळले"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:494
+#: modules/pam_unix/pam_unix_passwd.c:501
 msgid "No password supplied"
 msgstr "गुप्तशब्द दिलेला नाही"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:494
+#: modules/pam_unix/pam_unix_passwd.c:501
 msgid "Password unchanged"
 msgstr "गुप्तशब्द बदलविला नाही"
 
@@ -373,7 +373,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "डिरेक्ट्री '%s' बनवण्यास व प्रारंभ करण्यास अशक्य."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:515
+#: modules/pam_unix/pam_unix_passwd.c:522
 msgid "Password has been already used. Choose another."
 msgstr "ह्या गुप्तशब्दचा आधीच वापर झाला आहे. दुसरा निवडा."
 
@@ -548,31 +548,31 @@ msgstr[1] "सावधानता: तुमचे गुप्तशब्द
 msgid "Warning: your password will expire in %d days"
 msgstr "सावधानता: तुमचे गुप्तशब्द %d दिवसात कालबाह्य होईल"
 
-#: modules/pam_unix/pam_unix_passwd.c:396
+#: modules/pam_unix/pam_unix_passwd.c:403
 msgid "NIS password could not be changed."
 msgstr "NIS गुप्तशब्द बदलविले जाऊ शकत नाही."
 
-#: modules/pam_unix/pam_unix_passwd.c:511
+#: modules/pam_unix/pam_unix_passwd.c:518
 msgid "You must choose a longer password"
 msgstr "तुम्ही मोठा गुप्तशब्द निवडला पाहीजे"
 
-#: modules/pam_unix/pam_unix_passwd.c:618
+#: modules/pam_unix/pam_unix_passwd.c:625
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s करीता गुप्तशब्द बदलवित आहे."
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:636
 msgid "(current) UNIX password: "
 msgstr "(चालू) UNIX गुप्तशब्द: "
 
-#: modules/pam_unix/pam_unix_passwd.c:664
+#: modules/pam_unix/pam_unix_passwd.c:671
 msgid "You must wait longer to change your password"
 msgstr "तुमचा गुप्तशब्द बदलण्यासाठी तुम्हाला बराच वेळ वाट पहावी लागेल"
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:731
 msgid "Enter new UNIX password: "
 msgstr "नवीन UNIX गुप्तशब्द प्रविष्ट करा: "
 
-#: modules/pam_unix/pam_unix_passwd.c:725
+#: modules/pam_unix/pam_unix_passwd.c:732
 msgid "Retype new UNIX password: "
 msgstr "नवीन UNIX गुप्तशब्द पुन्हा टाइप करा: "

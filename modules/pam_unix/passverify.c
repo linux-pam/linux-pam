@@ -1115,12 +1115,15 @@ getuidname(uid_t uid)
 int
 read_passwords(int fd, int npass, char **passwords)
 {
+        /* The passwords array must contain npass preallocated
+         * buffers of length MAXPASS + 1
+         */
         int rbytes = 0;
         int offset = 0;
         int i = 0;
         char *pptr;
         while (npass > 0) {
-                rbytes = read(fd, passwords[i]+offset, MAXPASS-offset);
+                rbytes = read(fd, passwords[i]+offset, MAXPASS+1-offset);
 
                 if (rbytes < 0) {
                         if (errno == EINTR) continue;

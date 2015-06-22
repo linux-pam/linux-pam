@@ -106,7 +106,8 @@
               During authentication the calling command can read
               the password from <citerefentry>
               <refentrytitle>stdin</refentrytitle><manvolnum>3</manvolnum>
-              </citerefentry>.
+              </citerefentry>. Only first <emphasis>PAM_MAX_RESP_SIZE</emphasis>
+              bytes of a password are provided to the command.
             </para>
           </listitem>
         </varlistentry>

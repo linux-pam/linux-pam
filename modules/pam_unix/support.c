@@ -609,7 +609,12 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	/* if the stored password is NULL */
         int rc=0;
 	if (passwd != NULL) {            /* send the password to the child */
-	    if (write(fds[1], passwd, strlen(passwd)+1) == -1) {
+	    int len = strlen(passwd);
+
+	    if (len > PAM_MAX_RESP_SIZE)
+	      len = PAM_MAX_RESP_SIZE;
+	    if (write(fds[1], passwd, len) == -1 ||
+	        write(fds[1], "", 1) == -1) {
 	      pam_syslog (pamh, LOG_ERR, "Cannot send password to helper: %m");
 	      retval = PAM_AUTH_ERR;
 	    }

@@ -240,15 +240,22 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const 
 	/* wait for child */
 	/* if the stored password is NULL */
         int rc=0;
-	if (fromwhat)
-	  pam_modutil_write(fds[1], fromwhat, strlen(fromwhat)+1);
-	else
-	  pam_modutil_write(fds[1], "", 1);
-	if (towhat) {
-	  pam_modutil_write(fds[1], towhat, strlen(towhat)+1);
+	if (fromwhat) {
+	    int len = strlen(fromwhat);
+
+	    if (len > PAM_MAX_RESP_SIZE)
+	      len = PAM_MAX_RESP_SIZE;
+	    pam_modutil_write(fds[1], fromwhat, len);
 	}
-	else
-	  pam_modutil_write(fds[1], "", 1);
+        pam_modutil_write(fds[1], "", 1);
+	if (towhat) {
+	    int len = strlen(towhat);
+
+	    if (len > PAM_MAX_RESP_SIZE)
+	      len = PAM_MAX_RESP_SIZE;
+	    pam_modutil_write(fds[1], towhat, len);
+        }
+        pam_modutil_write(fds[1], "", 1);
 
 	close(fds[0]);       /* close here to avoid possible SIGPIPE above */
 	close(fds[1]);

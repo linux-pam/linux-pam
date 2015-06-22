@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2015-03-25 16:52+0100\n"
+"POT-Creation-Date: 2015-06-22 14:16+0200\n"
 "PO-Revision-Date: 2013-04-30 11:58+0000\n"
 "Last-Translator: sudheesh001 <sudheesh1995@outlook.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
@@ -244,12 +244,12 @@ msgid "contains the user name in some form"
 msgstr "ఒకరకంగా వినియోగదారి నామమును కలిగివుంది"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:494
+#: modules/pam_unix/pam_unix_passwd.c:501
 msgid "No password supplied"
 msgstr "ఎటువంటి సంకేతపదము యివ్వలేదు"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:494
+#: modules/pam_unix/pam_unix_passwd.c:501
 msgid "Password unchanged"
 msgstr "సంకేతపదము మార్చలేదు"
 
@@ -373,7 +373,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "డైరెక్టరీ %sను సృష్టించలేక పోయింది మరియు సిద్దీకరించలేక పోయింది."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:515
+#: modules/pam_unix/pam_unix_passwd.c:522
 msgid "Password has been already used. Choose another."
 msgstr "సంకేతపదము యిప్పటికే వుపయోగించబడింది. మరియొకదానిని యెంచుకొనుము."
 
@@ -548,31 +548,31 @@ msgstr[1] "హెచ్చరిక: మీ సంకేతపదము %d ర�
 msgid "Warning: your password will expire in %d days"
 msgstr "హెచ్చరిక: మీ సంకేతపదము %d రోజులలో కాలముతీరుతుంది"
 
-#: modules/pam_unix/pam_unix_passwd.c:396
+#: modules/pam_unix/pam_unix_passwd.c:403
 msgid "NIS password could not be changed."
 msgstr "NIS సంకేతపదము మార్చబడ లేకపోయింది."
 
-#: modules/pam_unix/pam_unix_passwd.c:511
+#: modules/pam_unix/pam_unix_passwd.c:518
 msgid "You must choose a longer password"
 msgstr "మీరు తప్పక పొడవాటి సంకేతపదమును యెంచుకొనవలెను."
 
-#: modules/pam_unix/pam_unix_passwd.c:618
+#: modules/pam_unix/pam_unix_passwd.c:625
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s కొరకు సంకేతపదమును మార్చుతోంది"
 
-#: modules/pam_unix/pam_unix_passwd.c:629
+#: modules/pam_unix/pam_unix_passwd.c:636
 msgid "(current) UNIX password: "
 msgstr "(ప్రస్తుత) UNIX సంకేతపదము: "
 
-#: modules/pam_unix/pam_unix_passwd.c:664
+#: modules/pam_unix/pam_unix_passwd.c:671
 msgid "You must wait longer to change your password"
 msgstr "మీ సంకేతపదమును మార్చుటకు మీరు ఎక్కువసేపు వేచివుండాలి"
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:731
 msgid "Enter new UNIX password: "
 msgstr "కొత్త UNIX సంకేతపదమును ప్రవేశపెట్టుము: "
 
-#: modules/pam_unix/pam_unix_passwd.c:725
+#: modules/pam_unix/pam_unix_passwd.c:732
 msgid "Retype new UNIX password: "
 msgstr "కొత్త UNIX సంకేతపదమును తిరిగిటైపు చేయుము: "

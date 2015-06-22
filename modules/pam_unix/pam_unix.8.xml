@@ -80,6 +80,13 @@
     </para>
 
     <para>
+      The maximum length of a password supported by the pam_unix module
+      via the helper binary is <emphasis>PAM_MAX_RESP_SIZE</emphasis>
+      - currently 512 bytes. The rest of the password provided by the
+      conversation function to the module will be ignored.
+    </para>
+
+    <para>
       The password component of this module performs the task of updating
       the user's password. The default encryption hash is taken from the
       <emphasis remap='B'>ENCRYPT_METHOD</emphasis> variable from

@@ -178,11 +178,11 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 		}
 
 	      pam_set_item (pamh, PAM_AUTHTOK, resp);
-	      authtok = strdupa (resp);
+	      authtok = strndupa (resp, PAM_MAX_RESP_SIZE);
 	      _pam_drop (resp);
 	    }
 	  else
-	    authtok = void_pass;
+	    authtok = strndupa (void_pass, PAM_MAX_RESP_SIZE);
 
 	  if (pipe(fds) != 0)
 	    {
