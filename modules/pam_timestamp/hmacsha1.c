@@ -73,6 +73,7 @@ hmac_key_create(pam_handle_t *pamh, const char *filename, size_t key_size,
 
 	 if (fchown(keyfd, owner, group) == -1) {
 		pam_syslog(pamh, LOG_ERR, "Cannot chown %s: %m", filename);
+		close(keyfd);
 		return;
 	}
 
