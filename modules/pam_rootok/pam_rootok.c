@@ -106,7 +106,7 @@ selinux_check_root (void)
 	return status;
     }
 
-    status = selinux_check_access(user_context, user_context, "passwd", "passwd", NULL);
+    status = selinux_check_access(user_context, user_context, "passwd", "rootok", NULL);
 
     selinux_set_callback(SELINUX_CB_LOG, old_callback);
     freecon(user_context);
