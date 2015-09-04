@@ -568,7 +568,12 @@ AC_PATH_PROG([BROWSER], [w3m])
 if test ! -z "$BROWSER"; then
      BROWSER="$BROWSER -T text/html -dump"
 else
-     enable_docu=no
+     AC_PATH_PROG([BROWSER], [links])
+     if test ! -z "$BROWSER"; then
+          BROWSER="$BROWSER -no-numbering -no-references -dump"
+     else
+          enable_docu=no
+     fi
 fi
 
 AC_PATH_PROG([FO2PDF], [fop])
