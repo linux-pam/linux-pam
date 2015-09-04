@@ -24,7 +24,7 @@
         <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
         <paramdef>const char *<parameter>name</parameter></paramdef>
         <paramdef>const char *<parameter>value</parameter></paramdef>
-        <paramdef>int<parameter>readonly</parameter></paramdef>
+        <paramdef>int <parameter>readonly</parameter></paramdef>
       </funcprototype>
     </funcsynopsis>
   </refsynopsisdiv>
