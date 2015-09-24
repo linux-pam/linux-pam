@@ -234,6 +234,8 @@ _pam_loginuid(pam_handle_t *pamh, int flags UNUSED,
 
 	if (require_auditd) {
 		int rc = check_auditd();
+		if (rc != PAM_SUCCESS)
+			pam_syslog(pamh, LOG_ERR, "required running auditd not detected");
 		return rc != PAM_SUCCESS ? rc : ret;
 	} else
 #endif
