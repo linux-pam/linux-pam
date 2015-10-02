@@ -24,14 +24,14 @@
       <funcsynopsisinfo>#include &lt;security/pam_ext.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>void <function>pam_syslog</function></funcdef>
-        <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
+        <paramdef>const pam_handle_t *<parameter>pamh</parameter></paramdef>
         <paramdef>int <parameter>priority</parameter></paramdef>
         <paramdef>const char *<parameter>fmt</parameter></paramdef>
         <paramdef><parameter>...</parameter></paramdef>
       </funcprototype>
       <funcprototype>
         <funcdef>void <function>pam_vsyslog</function></funcdef>
-        <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
+        <paramdef>const pam_handle_t *<parameter>pamh</parameter></paramdef>
         <paramdef>int <parameter>priority</parameter></paramdef>
         <paramdef>const char *<parameter>fmt</parameter></paramdef>
         <paramdef>va_list <parameter>args</parameter></paramdef>
