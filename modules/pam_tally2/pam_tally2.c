@@ -124,6 +124,7 @@ struct tally_options {
 #define OPT_AUDIT                       0100
 #define OPT_NOLOGNOTICE                 0400
 #define OPT_SERIALIZE                  01000
+#define OPT_DEBUG                      02000
 
 #define MAX_LOCK_WAITING_TIME 10
 
@@ -195,6 +196,9 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
       }
       else if ( ! strcmp( *argv, "serialize" ) ) {
         opts->ctrl |= OPT_SERIALIZE;
+      }
+      else if ( ! strcmp( *argv, "debug" ) ) {
+        opts->ctrl |= OPT_DEBUG;
       }
       else if ( ! strcmp( *argv, "even_deny_root_account" ) ||
                 ! strcmp( *argv, "even_deny_root" ) ) {
@@ -503,6 +507,7 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
 	     struct tallylog *tally)
 {
     int rv = PAM_SUCCESS;
+    int loglevel = LOG_DEBUG;
 #ifdef HAVE_LIBAUDIT
     char buf[64];
     int audit_fd = -1;
@@ -575,11 +580,7 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
             pam_info(pamh, _("Account locked due to %u failed logins"),
 		    (unsigned int)tally->fail_cnt);
         }
-	if (!(opts->ctrl & OPT_NOLOGNOTICE)) {
-            pam_syslog(pamh, LOG_NOTICE,
-                   "user %s (%lu) tally %hu, deny %hu",
-		   user, (unsigned long)uid, tally->fail_cnt, opts->deny);
-	}
+	loglevel = LOG_NOTICE;
         rv = PAM_AUTH_ERR;                 /* Only unconditional failure   */
         goto cleanup;
     }
@@ -609,6 +610,11 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
     }
 
 cleanup:
+    if (!(opts->ctrl & OPT_NOLOGNOTICE) && (loglevel != LOG_DEBUG || opts->ctrl & OPT_DEBUG)) {
+        pam_syslog(pamh, loglevel,
+            "user %s (%lu) tally %hu, deny %hu",
+            user, (unsigned long)uid, tally->fail_cnt, opts->deny);
+    }
 #ifdef HAVE_LIBAUDIT
     if (audit_fd != -1) {
         close(audit_fd);

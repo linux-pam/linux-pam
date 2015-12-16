@@ -54,6 +54,9 @@
       <arg choice="opt">
         no_log_info
       </arg>
+      <arg choice="opt">
+        debug
+      </arg>
     </cmdsynopsis>
     <cmdsynopsis id="pam_tally2-cmdsynopsis2">
       <command>pam_tally2</command>
@@ -166,6 +169,16 @@
               <listitem>
                 <para>
                   Don't log informative messages via <citerefentry><refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                <option>debug</option>
+              </term>
+              <listitem>
+                <para>
+                  Always log tally count when it is incremented as a debug level message to the system log.
                 </para>
               </listitem>
             </varlistentry>
