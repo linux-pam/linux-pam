@@ -53,7 +53,7 @@ _pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type,
   pamh->audit_state |= PAMAUDIT_LOGGED;
 
   if (rc < 0) {
-      if (rc == -EPERM && getuid() != 0)
+      if (rc == -EPERM)
           return 0;
       if (errno != old_errno) {
           old_errno = errno;
