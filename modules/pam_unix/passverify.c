@@ -417,12 +417,9 @@ PAMH_ARG_DECL(char * create_password_hash,
 #endif
 		sp = stpcpy(salt, algoid);
 		if (on(UNIX_ALGO_ROUNDS, ctrl)) {
-			sp += snprintf(sp, sizeof(salt) - 3, "rounds=%u$", rounds);
+			sp += snprintf(sp, sizeof(salt) - (16 + 1 + (sp - salt)), "rounds=%u$", rounds);
 		}
-		crypt_make_salt(sp, 8);
-		/* For now be conservative so the resulting hashes
-		 * are not too long. 8 bytes of salt prevents dictionary
-		 * attacks well enough. */
+		crypt_make_salt(sp, 16);
 #ifdef HAVE_CRYPT_GENSALT_R
 	}
 #endif
