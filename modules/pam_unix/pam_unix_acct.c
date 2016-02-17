@@ -235,6 +235,19 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	} else
 		retval = check_shadow_expiry(pamh, spent, &daysleft);
 
+	if (on(UNIX_NO_PASS_EXPIRY, ctrl)) {
+		const void *pretval = NULL;
+		int authrv = PAM_AUTHINFO_UNAVAIL; /* authentication not called */
+
+		if (pam_get_data(pamh, "unix_setcred_return", &pretval) == PAM_SUCCESS
+			&& pretval)
+			authrv = *(const int *)pretval;
+
+		if (authrv != PAM_SUCCESS
+			&& (retval == PAM_NEW_AUTHTOK_REQD || retval == PAM_AUTHTOK_EXPIRED))
+			retval = PAM_SUCCESS;
+	}
+
 	switch (retval) {
 	case PAM_ACCT_EXPIRED:
 		pam_syslog(pamh, LOG_NOTICE,

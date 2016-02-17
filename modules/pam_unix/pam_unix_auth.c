@@ -82,14 +82,13 @@
 
 #define AUTH_RETURN						\
 do {								\
-	if (on(UNIX_LIKE_AUTH, ctrl) && ret_data) {		\
+	if (ret_data) {						\
 		D(("recording return code for next time [%d]",	\
 					retval));		\
 		*ret_data = retval;				\
 		pam_set_data(pamh, "unix_setcred_return",	\
 		             (void *) ret_data, setcred_free);	\
-	} else if (ret_data)					\
-	  free (ret_data);                                      \
+	}							\
 	D(("done. [%s]", pam_strerror(pamh, retval)));		\
 	return retval;						\
 } while (0)
@@ -115,9 +114,8 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	ctrl = _set_ctrl(pamh, flags, NULL, NULL, NULL, argc, argv);
 
 	/* Get a few bytes so we can pass our return value to
-	   pam_sm_setcred(). */
-	if (on(UNIX_LIKE_AUTH, ctrl))
-		ret_data = malloc(sizeof(int));
+	   pam_sm_setcred() and pam_sm_acct_mgmt(). */
+	ret_data = malloc(sizeof(int));
 
 	/* get the user'name' */
 
@@ -194,20 +192,24 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
  */
 
 int
-pam_sm_setcred (pam_handle_t *pamh, int flags UNUSED,
-		int argc UNUSED, const char **argv UNUSED)
+pam_sm_setcred (pam_handle_t *pamh, int flags,
+		int argc, const char **argv)
 {
 	int retval;
 	const void *pretval = NULL;
+	unsigned int ctrl;
 
 	D(("called."));
+
+	ctrl = _set_ctrl(pamh, flags, NULL, NULL, NULL, argc, argv);
 
 	retval = PAM_SUCCESS;
 
 	D(("recovering return code from auth call"));
 	/* We will only find something here if UNIX_LIKE_AUTH is set --
 	   don't worry about an explicit check of argv. */
-	if (pam_get_data(pamh, "unix_setcred_return", &pretval) == PAM_SUCCESS
+	if (on(UNIX_LIKE_AUTH, ctrl)
+	    && pam_get_data(pamh, "unix_setcred_return", &pretval) == PAM_SUCCESS
 	    && pretval) {
 	        retval = *(const int *)pretval;
 		pam_set_data(pamh, "unix_setcred_return", NULL, NULL);

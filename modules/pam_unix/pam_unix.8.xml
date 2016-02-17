@@ -364,6 +364,25 @@
           </para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term>
+          <option>no_pass_expiry</option>
+        </term>
+        <listitem>
+          <para>
+            When set ignore password expiration as defined by the
+            <emphasis>shadow</emphasis> entry of the user. The option has an
+            effect only in case <emphasis>pam_unix</emphasis> was not used
+            for the authentication or it returned authentication failure
+            meaning that other authentication source or method succeeded.
+            The example can be public key authentication in
+            <emphasis>sshd</emphasis>. The module will return
+            <emphasis remap='B'>PAM_SUCCESS</emphasis> instead of eventual
+            <emphasis remap='B'>PAM_NEW_AUTHTOK_REQD</emphasis> or
+            <emphasis remap='B'>PAM_AUTHTOK_EXPIRED</emphasis>.
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
     <para>
       Invalid arguments are logged with  <citerefentry>
