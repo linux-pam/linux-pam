@@ -247,6 +247,9 @@
       </citerefentry>,
       <citerefentry>
         <refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>environ</refentrytitle><manvolnum>7</manvolnum>
       </citerefentry>.
     </para>
   </refsect1>

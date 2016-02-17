@@ -12,7 +12,8 @@
 
   <refnamediv>
     <refname>pam_env.conf</refname>
-    <refpurpose>the environment variables config file</refpurpose>
+    <refname>environment</refname>
+    <refpurpose>the environment variables config files</refpurpose>
   </refnamediv>
 
 
@@ -60,6 +61,14 @@
       at front) can be used to mark this line as a comment line.
     </para>
 
+    <para>
+      The <filename>/etc/environment</filename> file specifies
+      the environment variables to be set. The file must consist of simple
+      <emphasis>NAME=VALUE</emphasis> pairs on separate lines.
+      The <citerefentry><refentrytitle>pam_env</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+      module will read the file after the <filename>pam_env.conf</filename>
+      file.
+    </para>
   </refsect1>
 
   <refsect1 id="pam_env.conf-examples">
@@ -113,7 +122,8 @@
     <para>
       <citerefentry><refentrytitle>pam_env</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-      <citerefentry><refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+      <citerefentry><refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>environ</refentrytitle><manvolnum>7</manvolnum></citerefentry>
     </para>
   </refsect1>
 

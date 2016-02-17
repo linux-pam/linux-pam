@@ -7,7 +7,7 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README pam_env.conf $(MANS) $(XMLS) tst-pam_env environment
 
-man_MANS = pam_env.conf.5 pam_env.8
+man_MANS = pam_env.conf.5 pam_env.8 environment.5
 
 XMLS = README.xml pam_env.conf.5.xml pam_env.8.xml
 
@@ -30,6 +30,7 @@ sysconf_DATA = environment
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
 README: pam_env.8.xml pam_env.conf.5.xml
+environment.5: pam_env.conf.5.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
 
