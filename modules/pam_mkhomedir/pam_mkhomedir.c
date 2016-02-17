@@ -59,8 +59,9 @@
 #include <security/pam_ext.h>
 
 /* argument parsing */
-#define MKHOMEDIR_DEBUG      020	/* be verbose about things */
-#define MKHOMEDIR_QUIET      040	/* keep quiet about things */
+#define MKHOMEDIR_DEBUG             0x20	/* be verbose about things */
+#define MKHOMEDIR_QUIET             0x40	/* keep quiet about things */
+#define MKHOMEDIR_USERPRIVATEGROUP  0x80	/* use user private groups */
 
 struct options_t {
   int ctrl;
@@ -88,6 +89,8 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
 	 opt->ctrl |= MKHOMEDIR_QUIET;
       } else if (!strcmp(*argv, "debug")) {
          opt->ctrl |= MKHOMEDIR_DEBUG;
+      } else if (!strcmp(*argv, "userprivategroup")) {
+         opt->ctrl |= MKHOMEDIR_USERPRIVATEGROUP;
       } else if (!strncmp(*argv,"umask=",6)) {
 	 opt->umask = *argv+6;
       } else if (!strncmp(*argv,"skel=",5)) {
@@ -131,6 +134,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
    if (child == 0) {
 	static char *envp[] = { NULL };
 	const char *args[] = { NULL, NULL, NULL, NULL, NULL };
+	const char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL };
 
 	if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_PIPE_FD,
 					    PAM_MODUTIL_PIPE_FD,
@@ -142,6 +146,11 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 	args[1] = user;
 	args[2] = opt->umask;
 	args[3] = opt->skeldir;
+
+	if (opt->ctrl & MKHOMEDIR_USERPRIVATEGROUP)
+	    args[4] = x_strdup("userprivategroup");
+	else
+	    args[4] = x_strdup("");
 
 	execve(MKHOMEDIR_HELPER, (char *const *) args, envp);
 

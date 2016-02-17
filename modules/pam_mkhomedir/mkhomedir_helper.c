@@ -16,6 +16,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <pwd.h>
+#include <grp.h>
 #include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -366,7 +367,8 @@ main(int argc, char *argv[])
    struct stat st;
 
    if (argc < 2) {
-	fprintf(stderr, "Usage: %s <username> [<umask> [<skeldir>]]\n", argv[0]);
+	fprintf(stderr, "Usage: %s <username> [<umask> [<skeldir> "
+	    "[userprivategroup]]]\n", argv[0]);
 	return PAM_SESSION_ERR;
    }
 
@@ -392,6 +394,14 @@ main(int argc, char *argv[])
 		return PAM_SESSION_ERR;
 	}
 	strcpy(skeldir, argv[3]);
+   }
+
+   if (argc >= 5 && !strcmp(argv[4], "userprivategroup")) {
+	struct group *grp;
+
+	grp = getgrnam(argv[1]);
+	if (grp != NULL)
+		pwd->pw_gid = grp->gr_gid;
    }
 
    /* Stat the home directory, if something exists then we assume it is
