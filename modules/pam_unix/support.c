@@ -30,12 +30,6 @@
 
 #include "support.h"
 #include "passverify.h"
-#ifdef WITH_SELINUX
-#include <selinux/selinux.h>
-#define SELINUX_ENABLED is_selinux_enabled()>0
-#else
-#define SELINUX_ENABLED 0
-#endif
 
 static char *
 search_key (const char *key, const char *filename)

@@ -31,7 +31,7 @@
 
 #ifdef WITH_SELINUX
 #include <selinux/selinux.h>
-#define SELINUX_ENABLED is_selinux_enabled()>0
+#define SELINUX_ENABLED (is_selinux_enabled()>0)
 #else
 #define SELINUX_ENABLED 0
 #endif
@@ -958,7 +958,7 @@ PAMH_ARG_DECL(int unix_update_shadow,
     fclose(opwfile);
 
     if (!wroteentry && !err) {
-	spwdent.sp_namp = forwho;
+	spwdent.sp_namp = (char *)forwho;
 	spwdent.sp_pwdp = towhat;
 	spwdent.sp_lstchg = time(NULL) / (60 * 60 * 24);
 	if (spwdent.sp_lstchg == 0)
