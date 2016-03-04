@@ -276,12 +276,12 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid, time_t
 		time_t ll_time;
 
 		ll_time = last_login.ll_time;
-		tm = localtime_r (&ll_time, &tm_buf);
-		strftime (the_time, sizeof (the_time),
-	        /* TRANSLATORS: "strftime options for date of last login" */
-			  _(" %a %b %e %H:%M:%S %Z %Y"), tm);
-
-		date = the_time;
+		if ((tm = localtime_r (&ll_time, &tm_buf)) != NULL) {
+			strftime (the_time, sizeof (the_time),
+		        /* TRANSLATORS: "strftime options for date of last login" */
+				  _(" %a %b %e %H:%M:%S %Z %Y"), tm);
+			date = the_time;
+		}
 	    }
 
 	    /* we want & have the host? */

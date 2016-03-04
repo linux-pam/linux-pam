@@ -924,7 +924,7 @@ static void
 print_one(const struct tallylog *tally, uid_t uid)
 {
    static int once;
-   char *cp;
+   char *cp = "[UNKNOWN]";
    time_t fail_time;
    struct tm *tm;
    struct passwd *pwent;
@@ -933,9 +933,10 @@ print_one(const struct tallylog *tally, uid_t uid)
 
    pwent = getpwuid(uid);
    fail_time = tally->fail_time;
-   tm = localtime(&fail_time);
-   strftime (ptime, sizeof (ptime), "%D %H:%M:%S", tm);
-   cp = ptime;
+   if ((tm = localtime(&fail_time)) != NULL) {
+        strftime (ptime, sizeof (ptime), "%D %H:%M:%S", tm);
+        cp = ptime;
+   }
    if (pwent) {
         username = pwent->pw_name;
    }
