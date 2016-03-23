@@ -15,14 +15,14 @@ securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	-DPAM_ACCESS_CONFIG=\"$(SCONFIGDIR)/access.conf\" $(NIS_CFLAGS)
+	-DPAM_ACCESS_CONFIG=\"$(SCONFIGDIR)/access.conf\"
 AM_LDFLAGS =  -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
 securelib_LTLIBRARIES = pam_access.la
-pam_access_la_LIBADD = $(top_builddir)/libpam/libpam.la $(NIS_LIBS)
+pam_access_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 secureconf_DATA = access.conf
 
