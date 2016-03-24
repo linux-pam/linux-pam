@@ -462,31 +462,32 @@ AC_SUBST(LIBDB)
 AM_CONDITIONAL([HAVE_LIBDB], [test ! -z "$LIBDB"])
 
 AC_ARG_ENABLE([nis],
-        AS_HELP_STRING([--disable-nis], [Disable building NIS/YP support in pam_unix and pam_access]))
+        AS_HELP_STRING([--disable-nis], [Disable building NIS/YP support in pam_unix]))
 
 AS_IF([test "x$enable_nis" != "xno"], [
-  CFLAGS=$old_CFLAGS
-  LIBS=$old_LIBS
+  old_CFLAGS=$CFLAGS
+  old_LIBS=$LIBS
 
   dnl if there's libtirpc available, prefer that over the system
   dnl implementation.
-  PKG_CHECK_MODULES([libtirpc], [libtirpc], [
-    CFLAGS="$CFLAGS $libtirpc_CFLAGS"
-    LIBS="$LIBS $libtirpc_LIBS"
+  PKG_CHECK_MODULES([TIRPC], [libtirpc], [
+    CFLAGS="$CFLAGS $TIRPC_CFLAGS"
+    LIBS="$LIBS $TIRPC_LIBS"
   ], [:;])
 
-  AC_SEARCH_LIBS([yp_get_default_domain], [nsl])
+  PKG_CHECK_MODULES([NSL], [libnsl], [],
+    [AC_CHECK_LIB([nsl],[yp_match],[NSL_LIBS="-lnsl"],[NSL_LIBS=""])])
+  CFLAGS="$CFLAGS $NSL_CFLAGS"
+  LIBS="$LIBS $NSL_LIBS"
 
   AC_CHECK_FUNCS([yp_get_default_domain yperr_string yp_master yp_bind yp_match yp_unbind])
+  AC_CHECK_FUNCS([getrpcport rpcb_getaddr])
   AC_CHECK_HEADERS([rpc/rpc.h rpcsvc/ypclnt.h rpcsvc/yp_prot.h])
   AC_CHECK_DECLS([getrpcport], , , [
     #if HAVE_RPC_RPC_H
     # include <rpc/rpc.h>
     #endif
   ])
-
-  NIS_CFLAGS="${CFLAGS%${old_CFLAGS}}"
-  NIS_LIBS="${LIBS%${old_LIBS}}"
 
   CFLAGS="$old_CFLAGS"
   LIBS="$old_LIBS"

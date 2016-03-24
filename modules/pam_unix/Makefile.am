@@ -19,7 +19,7 @@ secureconfdir = $(SCONFIGDIR)
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	-DCHKPWD_HELPER=\"$(sbindir)/unix_chkpwd\" \
 	-DUPDATE_HELPER=\"$(sbindir)/unix_update\" \
-	$(NIS_CFLAGS)
+	@TIRPC_CFLAGS@ @NSL_CFLAGS@
 
 if HAVE_LIBSELINUX
   AM_CFLAGS += -D"WITH_SELINUX"
@@ -30,7 +30,7 @@ if HAVE_VERSIONING
   pam_unix_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 pam_unix_la_LIBADD = $(top_builddir)/libpam/libpam.la \
-	@LIBCRYPT@ @LIBSELINUX@ $(NIS_LIBS)
+	@LIBCRYPT@ @LIBSELINUX@ @TIRPC_LIBS@ @NSL_LIBS@
 
 securelib_LTLIBRARIES = pam_unix.la
 
