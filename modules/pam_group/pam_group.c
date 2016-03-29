@@ -739,14 +739,14 @@ static int check_account(pam_handle_t *pamh, const char *service,
 
 /* --- public authentication management functions --- */
 
-PAM_EXTERN int
+int
 pam_sm_authenticate (pam_handle_t *pamh UNUSED, int flags UNUSED,
 		     int argc UNUSED, const char **argv UNUSED)
 {
     return PAM_IGNORE;
 }
 
-PAM_EXTERN int
+int
 pam_sm_setcred (pam_handle_t *pamh, int flags,
 		int argc UNUSED, const char **argv UNUSED)
 {
@@ -817,18 +817,3 @@ pam_sm_setcred (pam_handle_t *pamh, int flags,
 }
 
 /* end of module definition */
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_group_modstruct = {
-    "pam_group",
-    pam_sm_authenticate,
-    pam_sm_setcred,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-};
-#endif

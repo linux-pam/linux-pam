@@ -798,16 +798,3 @@ pam_sm_close_session (pam_handle_t *pamh, int flags UNUSED,
 
 	return PAM_SUCCESS;
 }
-
-/* static module data */
-#ifdef PAM_STATIC
-struct pam_module _pam_xauth_modstruct = {
-  "pam_xauth",
-  NULL,
-  NULL,
-  NULL,
-  pam_sm_open_session,
-  pam_sm_close_session,
-  NULL
-};
-#endif

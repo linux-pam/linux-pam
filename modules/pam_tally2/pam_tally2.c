@@ -737,7 +737,7 @@ tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts, int old_
 
 /* --- authentication management functions (only) --- */
 
-PAM_EXTERN int
+int
 pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 		    int argc, const char **argv)
 {
@@ -770,7 +770,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
   return rv;
 }
 
-PAM_EXTERN int
+int
 pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
 	       int argc, const char **argv)
 {
@@ -810,7 +810,7 @@ pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
 
 /* To reset failcount of user on successfull login */
 
-PAM_EXTERN int
+int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 		 int argc, const char **argv)
 {
@@ -843,33 +843,6 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 
   return rv;
 }
-
-/*-----------------------------------------------------------------------*/
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_tally2_modstruct = {
-     MODULE_NAME,
-#ifdef PAM_SM_AUTH
-     pam_sm_authenticate,
-     pam_sm_setcred,
-#else
-     NULL,
-     NULL,
-#endif
-#ifdef PAM_SM_ACCOUNT
-     pam_sm_acct_mgmt,
-#else
-     NULL,
-#endif
-     NULL,
-     NULL,
-     NULL,
-};
-
-#endif   /* #ifdef PAM_STATIC */
 
 /*-----------------------------------------------------------------------*/
 

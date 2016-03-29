@@ -213,7 +213,6 @@ wipe_up (pam_handle_t *pamh UNUSED, void *data, int error UNUSED)
      free(data);
 }
 
-PAM_EXTERN
 int pam_sm_authenticate(pam_handle_t *pamh, int flags,
 			int argc, const char **argv)
 {
@@ -281,7 +280,6 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
      return retval;
 }
 
-PAM_EXTERN
 int pam_sm_setcred(pam_handle_t *pamh, int flags,
 		   int argc, const char **argv)
 {
@@ -299,7 +297,6 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags,
 
 /* account management functions */
 
-PAM_EXTERN
 int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 		     int argc, const char **argv)
 {
@@ -334,7 +331,6 @@ int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
      return PAM_SUCCESS;
 }
 
-PAM_EXTERN
 int pam_sm_open_session(pam_handle_t *pamh, int flags,
 			int argc, const char **argv)
 {
@@ -362,7 +358,6 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
      return PAM_SUCCESS;
 }
 
-PAM_EXTERN
 int pam_sm_close_session(pam_handle_t *pamh, int flags,
 			 int argc, const char **argv)
 {
@@ -390,7 +385,6 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags,
      return PAM_SUCCESS;
 }
 
-PAM_EXTERN
 int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		     int argc, const char **argv)
 {
@@ -552,19 +546,3 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
      return retval;
 }
 
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_stress_modstruct = {
-    "pam_stress",
-    pam_sm_authenticate,
-    pam_sm_setcred,
-    pam_sm_acct_mgmt,
-    pam_sm_open_session,
-    pam_sm_close_session,
-    pam_sm_chauthtok
-};
-
-#endif

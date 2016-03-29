@@ -235,7 +235,6 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 
 /* --- authentication management functions --- */
 
-PAM_EXTERN
 int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED, int argc,
 			const char **argv)
 {
@@ -247,7 +246,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED, int argc,
     return securetty_perform_check(pamh, ctrl, __FUNCTION__);
 }
 
-PAM_EXTERN int
+int
 pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
 		int argc UNUSED, const char **argv UNUSED)
 {
@@ -256,7 +255,7 @@ pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
 
 /* --- account management functions --- */
 
-PAM_EXTERN int
+int
 pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
 		  int argc, const char **argv)
 {
@@ -268,22 +267,5 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
     /* take the easy route */
     return securetty_perform_check(pamh, ctrl, __FUNCTION__);
 }
-
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_securetty_modstruct = {
-     "pam_securetty",
-     pam_sm_authenticate,
-     pam_sm_setcred,
-     pam_sm_acct_mgmt,
-     NULL,
-     NULL,
-     NULL,
-};
-
-#endif /* PAM_STATIC */
 
 /* end of module definition */

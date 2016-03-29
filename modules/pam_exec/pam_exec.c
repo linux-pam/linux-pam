@@ -467,14 +467,14 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   return PAM_SYSTEM_ERR; /* will never be reached. */
 }
 
-PAM_EXTERN int
+int
 pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
   return call_exec ("auth", pamh, argc, argv);
 }
 
-PAM_EXTERN int
+int
 pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
 		int argc UNUSED, const char **argv UNUSED)
 {
@@ -483,7 +483,7 @@ pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
 
 /* password updating functions */
 
-PAM_EXTERN int
+int
 pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		 int argc, const char **argv)
 {
@@ -492,35 +492,23 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags,
   return call_exec ("password", pamh, argc, argv);
 }
 
-PAM_EXTERN int
+int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 		 int argc, const char **argv)
 {
   return call_exec ("account", pamh, argc, argv);
 }
 
-PAM_EXTERN int
+int
 pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 		    int argc, const char **argv)
 {
   return call_exec ("open_session", pamh, argc, argv);
 }
 
-PAM_EXTERN int
+int
 pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
   return call_exec ("close_session", pamh, argc, argv);
 }
-
-#ifdef PAM_STATIC
-struct pam_module _pam_exec_modstruct = {
-  "pam_exec",
-  pam_sm_authenticate,
-  pam_sm_setcred,
-  pam_sm_acct_mgmt,
-  pam_sm_open_session,
-  pam_sm_close_session,
-  pam_sm_chauthtok,
-};
-#endif

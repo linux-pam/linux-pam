@@ -39,7 +39,7 @@
 
 /* --- session management functions (only) --- */
 
-PAM_EXTERN int
+int
 pam_sm_close_session (pam_handle_t *pamh UNUSED, int flags UNUSED,
 		      int argc UNUSED, const char **argv UNUSED)
 {
@@ -48,7 +48,6 @@ pam_sm_close_session (pam_handle_t *pamh UNUSED, int flags UNUSED,
 
 static char default_motd[] = DEFAULT_MOTD;
 
-PAM_EXTERN
 int pam_sm_open_session(pam_handle_t *pamh, int flags,
 			int argc, const char **argv)
 {
@@ -109,22 +108,5 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 
      return retval;
 }
-
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_motd_modstruct = {
-     "pam_motd",
-     NULL,
-     NULL,
-     NULL,
-     pam_sm_open_session,
-     pam_sm_close_session,
-     NULL,
-};
-
-#endif
 
 /* end of module definition */

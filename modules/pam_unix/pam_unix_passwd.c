@@ -64,11 +64,7 @@
 
 /* indicate the following groups are defined */
 
-#ifdef PAM_STATIC
-# include "pam_unix_static.h"
-#else
-# define PAM_SM_PASSWORD
-#endif
+#define PAM_SM_PASSWORD
 
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>

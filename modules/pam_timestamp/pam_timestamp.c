@@ -357,7 +357,7 @@ verbose_success(pam_handle_t *pamh, long diff)
 	pam_info(pamh, _("Access granted (last access was %ld seconds ago)."), diff);
 }
 
-PAM_EXTERN int
+int
 pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	struct stat st;
@@ -547,13 +547,13 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	return PAM_AUTH_ERR;
 }
 
-PAM_EXTERN int
+int
 pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED, int argc UNUSED, const char **argv UNUSED)
 {
 	return PAM_SUCCESS;
 }
 
-PAM_EXTERN int
+int
 pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED, int argc, const char **argv)
 {
 	char path[BUFLEN], subdir[BUFLEN], *text, *p;
@@ -670,26 +670,11 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED, int argc, const char *
 	return PAM_SUCCESS;
 }
 
-PAM_EXTERN int
+int
 pam_sm_close_session(pam_handle_t *pamh UNUSED, int flags UNUSED, int argc UNUSED, const char **argv UNUSED)
 {
 	return PAM_SUCCESS;
 }
-
-#ifdef PAM_STATIC
-/* static module data */
-
-struct pam_module _pam_timestamp_modstruct = {
-	"pam_timestamp",
-	pam_sm_authenticate,
-	pam_sm_setcred,
-	NULL,
-	pam_sm_open_session,
-	pam_sm_close_session,
-	NULL
-};
-#endif
-
 
 #else /* PAM_TIMESTAMP_MAIN */
 

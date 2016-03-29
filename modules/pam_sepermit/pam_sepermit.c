@@ -363,7 +363,7 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 		return -1;
 }
 
-PAM_EXTERN int
+int
 pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 		    int argc, const char **argv)
 {
@@ -430,31 +430,17 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	return rv;
 }
 
-PAM_EXTERN int
+int
 pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
                 int argc UNUSED, const char **argv UNUSED)
 {
 	return PAM_IGNORE;
 }
 
-PAM_EXTERN int
+int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 		     int argc, const char **argv)
 {
 	return pam_sm_authenticate(pamh, flags, argc, argv);
 }
 
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_sepermit_modstruct = {
-    "pam_sepermit",
-    pam_sm_authenticate,
-    pam_sm_setcred,
-    pam_sm_acct_mgmt,
-    NULL,
-    NULL,
-    NULL
-};
-#endif

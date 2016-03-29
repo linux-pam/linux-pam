@@ -1002,7 +1002,7 @@ static int setup_limits(pam_handle_t *pamh,
 }
 
 /* now the session stuff */
-PAM_EXTERN int
+int
 pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
@@ -1096,28 +1096,13 @@ out:
     return PAM_SUCCESS;
 }
 
-PAM_EXTERN int
+int
 pam_sm_close_session (pam_handle_t *pamh UNUSED, int flags UNUSED,
 		      int argc UNUSED, const char **argv UNUSED)
 {
      /* nothing to do */
      return PAM_SUCCESS;
 }
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_limits_modstruct = {
-     "pam_limits",
-     NULL,
-     NULL,
-     NULL,
-     pam_sm_open_session,
-     pam_sm_close_session,
-     NULL
-};
-#endif
 
 /*
  * Copyright (c) Cristian Gafton, 1996-1997, <gafton@redhat.com>

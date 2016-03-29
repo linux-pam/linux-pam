@@ -588,7 +588,7 @@ check_account(pam_handle_t *pamh, const char *service,
 
 /* --- public account management functions --- */
 
-PAM_EXTERN int
+int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 		 int argc, const char **argv)
 {
@@ -663,18 +663,3 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 }
 
 /* end of module definition */
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_time_modstruct = {
-    "pam_time",
-    NULL,
-    NULL,
-    pam_sm_acct_mgmt,
-    NULL,
-    NULL,
-    NULL
-};
-#endif

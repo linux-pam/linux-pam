@@ -728,8 +728,8 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
 /* The Main Thing (by Cristian Gafton, CEO at this module :-)
  * (stolen from http://home.netscape.com)
  */
-PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
-				int argc, const char **argv)
+int
+pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
     unsigned int ctrl;
     struct cracklib_options options;
@@ -857,19 +857,6 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 }
 
 
-
-#ifdef PAM_STATIC
-/* static module data */
-struct pam_module _pam_cracklib_modstruct = {
-     "pam_cracklib",
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-     pam_sm_chauthtok
-};
-#endif
 
 /*
  * Copyright (c) Cristian Gafton <gafton@redhat.com>, 1996.

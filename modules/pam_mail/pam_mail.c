@@ -338,7 +338,7 @@ static int _do_mail(pam_handle_t *, int, int, const char **, int);
 
 /* --- authentication functions --- */
 
-PAM_EXTERN int
+int
 pam_sm_authenticate (pam_handle_t *pamh UNUSED, int flags UNUSED,
 		     int argc UNUSED, const char **argv UNUSED)
 {
@@ -346,7 +346,6 @@ pam_sm_authenticate (pam_handle_t *pamh UNUSED, int flags UNUSED,
 }
 
 /* Checking mail as part of authentication */
-PAM_EXTERN
 int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
     const char **argv)
 {
@@ -357,7 +356,6 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
 
 /* --- session management functions --- */
 
-PAM_EXTERN
 int pam_sm_close_session(pam_handle_t *pamh,int flags,int argc
 			 ,const char **argv)
 {
@@ -365,7 +363,6 @@ int pam_sm_close_session(pam_handle_t *pamh,int flags,int argc
 }
 
 /* Checking mail as part of the session management */
-PAM_EXTERN
 int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
     const char **argv)
 {
@@ -474,21 +471,5 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 
     return retval;
 }
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_mail_modstruct = {
-     "pam_mail",
-     pam_sm_authenticate,
-     pam_sm_setcred,
-     NULL,
-     pam_sm_open_session,
-     pam_sm_close_session,
-     NULL,
-};
-
-#endif
 
 /* end of module definition */

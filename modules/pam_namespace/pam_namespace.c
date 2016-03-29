@@ -2008,7 +2008,7 @@ static int get_user_data(struct instance_data *idata)
 /*
  * Entry point from pam_open_session call.
  */
-PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
+int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
                                    int argc, const char **argv)
 {
     int i, retval;
@@ -2104,7 +2104,7 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 /*
  * Entry point from pam_close_session call.
  */
-PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
+int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
                                     int argc, const char **argv)
 {
     int i, retval;
@@ -2183,18 +2183,3 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 
     return PAM_SUCCESS;
 }
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_namespace_modstruct = {
-     "pam_namespace",
-     NULL,
-     NULL,
-     NULL,
-     pam_sm_open_session,
-     pam_sm_close_session,
-     NULL
-};
-#endif

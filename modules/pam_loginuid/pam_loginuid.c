@@ -247,34 +247,21 @@ _pam_loginuid(pam_handle_t *pamh, int flags UNUSED,
  *
  * This is here for vsftpd which doesn't seem to run the session stack
  */
-PAM_EXTERN int
+int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	return _pam_loginuid(pamh, flags, argc, argv);
 }
 
-PAM_EXTERN int
+int
 pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	return _pam_loginuid(pamh, flags, argc, argv);
 }
 
-PAM_EXTERN int
+int
 pam_sm_close_session(pam_handle_t *pamh UNUSED, int flags UNUSED,
 		     int argc UNUSED, const char **argv UNUSED)
 {
 	return PAM_SUCCESS;
 }
-
-/* static module data */
-#ifdef PAM_STATIC
-struct pam_module _pam_loginuid_modstruct = {
-    "pam_loginuid",
-    NULL,
-    NULL,
-    pam_sm_acct_mgmt,
-    pam_sm_open_session,
-    pam_sm_close_session,
-    NULL
-};
-#endif

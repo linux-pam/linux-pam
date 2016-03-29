@@ -20,7 +20,7 @@
       <funcsynopsisinfo>#define PAM_SM_SESSION</funcsynopsisinfo>
       <funcsynopsisinfo>#include &lt;security/pam_modules.h&gt;</funcsynopsisinfo>
       <funcprototype>
-        <funcdef>PAM_EXTERN int <function>pam_sm_open_session</function></funcdef>
+        <funcdef>int <function>pam_sm_open_session</function></funcdef>
         <paramdef>pam_handle_t *<parameter>pamh</parameter></paramdef>
         <paramdef>int <parameter>flags</parameter></paramdef>
         <paramdef>int <parameter>argc</parameter></paramdef>

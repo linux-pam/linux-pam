@@ -61,23 +61,8 @@ dnl This should be called before any macros that run the C compiler.
 AC_USE_SYSTEM_EXTENSIONS
 
 LT_INIT([disable-static])
-
-dnl
-dnl check if we should link everything static into libpam
-dnl
-AC_ARG_ENABLE(static-modules,AS_HELP_STRING([--enable-static-modules],
-	[do not make the modules dynamically loadable]),
-	STATIC_MODULES=$enableval,STATIC_MODULES=no)
-if test "$STATIC_MODULES" != "no" ; then
-        CFLAGS="$CFLAGS -DPAM_STATIC"
-	AC_ENABLE_STATIC([yes])
-	AC_ENABLE_SHARED([no])
-else
-# per default don't build static libraries
-	AC_ENABLE_STATIC([no])
-	AC_ENABLE_SHARED([yes])
-fi
-AM_CONDITIONAL([STATIC_MODULES], [test "$STATIC_MODULES" != "no"])
+AC_ENABLE_STATIC([no])
+AC_ENABLE_SHARED([yes])
 
 dnl Checks for programs.
 AC_PROG_CC

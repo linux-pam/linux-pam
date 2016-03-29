@@ -360,16 +360,3 @@ pam_sm_close_session (pam_handle_t *pamh, int flags, int argc,
     }
   return PAM_SUCCESS;
 }
-
-/* static module data */
-#ifdef PAM_STATIC
-struct pam_module _pam_tty_audit_modstruct = {
-  "pam_tty_audit",
-  NULL,
-  NULL,
-  NULL,
-  pam_sm_open_session,
-  pam_sm_close_session,
-  NULL
-};
-#endif

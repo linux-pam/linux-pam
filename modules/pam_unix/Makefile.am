@@ -34,8 +34,7 @@ pam_unix_la_LIBADD = $(top_builddir)/libpam/libpam.la \
 
 securelib_LTLIBRARIES = pam_unix.la
 
-noinst_HEADERS = md5.h support.h yppasswd.h bigcrypt.h passverify.h \
-		 pam_unix_static.h
+noinst_HEADERS = md5.h support.h yppasswd.h bigcrypt.h passverify.h
 
 sbin_PROGRAMS = unix_chkpwd unix_update
 
@@ -44,9 +43,6 @@ noinst_PROGRAMS = bigcrypt
 pam_unix_la_SOURCES = bigcrypt.c pam_unix_acct.c \
 	pam_unix_auth.c pam_unix_passwd.c pam_unix_sess.c support.c \
 	passverify.c yppasswd_xdr.c md5_good.c md5_broken.c
-if STATIC_MODULES
-pam_unix_la_SOURCES += pam_unix_static.c
-endif
 
 bigcrypt_SOURCES = bigcrypt.c bigcrypt_main.c
 bigcrypt_CFLAGS = $(AM_CFLAGS)

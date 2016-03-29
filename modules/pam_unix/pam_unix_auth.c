@@ -50,11 +50,7 @@
 
 /* indicate the following groups are defined */
 
-#ifdef PAM_STATIC
-# include "pam_unix_static.h"
-#else
-# define PAM_SM_AUTH
-#endif
+#define PAM_SM_AUTH
 
 #define _PAM_EXTERN_FUNCTIONS
 #include <security/_pam_macros.h>

@@ -53,11 +53,7 @@
 
 /* indicate that the following groups are defined */
 
-#ifdef PAM_STATIC
-# include "pam_unix_static.h"
-#else
-# define PAM_SM_ACCOUNT
-#endif
+#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>

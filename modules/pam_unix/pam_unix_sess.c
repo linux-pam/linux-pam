@@ -49,11 +49,7 @@
 
 /* indicate the following groups are defined */
 
-#ifdef PAM_STATIC
-# include "pam_unix_static.h"
-#else
-# define PAM_SM_SESSION
-#endif
+#define PAM_SM_SESSION
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>

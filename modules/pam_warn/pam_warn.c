@@ -54,7 +54,6 @@ static void log_items(pam_handle_t *pamh, const char *function, int flags)
 
 /* --- authentication management functions (only) --- */
 
-PAM_EXTERN
 int pam_sm_authenticate(pam_handle_t *pamh, int flags,
 			int argc UNUSED, const char **argv UNUSED)
 {
@@ -62,7 +61,6 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
     return PAM_IGNORE;
 }
 
-PAM_EXTERN
 int pam_sm_setcred(pam_handle_t *pamh, int flags,
 		   int argc UNUSED, const char **argv UNUSED)
 {
@@ -72,7 +70,6 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags,
 
 /* password updating functions */
 
-PAM_EXTERN
 int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		     int argc UNUSED, const char **argv UNUSED)
 {
@@ -80,7 +77,7 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
     return PAM_IGNORE;
 }
 
-PAM_EXTERN int
+int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 		 int argc UNUSED, const char **argv UNUSED)
 {
@@ -88,7 +85,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
     return PAM_IGNORE;
 }
 
-PAM_EXTERN int
+int
 pam_sm_open_session(pam_handle_t *pamh, int flags,
 		    int argc UNUSED, const char **argv UNUSED)
 {
@@ -96,28 +93,12 @@ pam_sm_open_session(pam_handle_t *pamh, int flags,
     return PAM_IGNORE;
 }
 
-PAM_EXTERN int
+int
 pam_sm_close_session(pam_handle_t *pamh, int flags,
 		     int argc UNUSED, const char **argv UNUSED)
 {
     log_items(pamh, __FUNCTION__, flags);
     return PAM_IGNORE;
 }
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_warn_modstruct = {
-    "pam_warn",
-    pam_sm_authenticate,
-    pam_sm_setcred,
-    pam_sm_acct_mgmt,
-    pam_sm_open_session,
-    pam_sm_close_session,
-    pam_sm_chauthtok,
-};
-
-#endif
 
 /* end of module definition */

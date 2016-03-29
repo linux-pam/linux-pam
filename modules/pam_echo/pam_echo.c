@@ -262,18 +262,3 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc,
     return PAM_IGNORE;
 }
 
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_echo_modstruct = {
-  "pam_echo",
-  pam_sm_authenticate,
-  pam_sm_setcred,
-  pam_sm_acct_mgmt,
-  pam_sm_open_session,
-  pam_sm_close_session,
-  pam_sm_chauthtok,
-};
-
-#endif

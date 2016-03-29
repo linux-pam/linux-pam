@@ -104,14 +104,12 @@ static int perform_check(pam_handle_t *pamh)
 
 /* --- authentication management functions (only) --- */
 
-PAM_EXTERN
 int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 		        int argc UNUSED, const char **argv UNUSED)
 {
     return perform_check(pamh);
 }
 
-PAM_EXTERN
 int pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
 		   int argc UNUSED, const char **argv UNUSED)
 {
@@ -120,27 +118,10 @@ int pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
 
 /* --- account management functions (only) --- */
 
-PAM_EXTERN
 int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 		     int argc UNUSED, const char **argv UNUSED)
 {
     return perform_check(pamh);
 }
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_shells_modstruct = {
-     "pam_shells",
-     pam_sm_authenticate,
-     pam_sm_setcred,
-     pam_sm_acct_mgmt,
-     NULL,
-     NULL,
-     NULL,
-};
-
-#endif /* PAM_STATIC */
 
 /* end of module definition */

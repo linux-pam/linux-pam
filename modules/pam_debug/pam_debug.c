@@ -75,7 +75,6 @@ static int parse_args(int retval, const char *event,
     return retval;
 }
 
-PAM_EXTERN
 int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 			int argc, const char **argv)
 {
@@ -103,7 +102,6 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
     return retval;
 }
 
-PAM_EXTERN
 int pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
 		   int argc, const char **argv)
 {
@@ -112,7 +110,6 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
 
 /* --- account management functions --- */
 
-PAM_EXTERN
 int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
@@ -121,7 +118,6 @@ int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 
 /* --- password management --- */
 
-PAM_EXTERN
 int pam_sm_chauthtok(pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
@@ -134,14 +130,12 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags UNUSED,
 
 /* --- session management --- */
 
-PAM_EXTERN
 int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 			int argc, const char **argv)
 {
     return parse_args(PAM_SUCCESS, "open_session", pamh, argc, argv);
 }
 
-PAM_EXTERN
 int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 			 int argc, const char **argv)
 {
@@ -149,19 +143,3 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 }
 
 /* end of module definition */
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_debug_modstruct = {
-    "pam_debug",
-    pam_sm_authenticate,
-    pam_sm_setcred,
-    pam_sm_acct_mgmt,
-    pam_sm_open_session,
-    pam_sm_close_session,
-    pam_sm_chauthtok
-};
-
-#endif

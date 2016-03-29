@@ -42,7 +42,7 @@ static int read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt);
 
 /* --- authentication management functions (only) --- */
 
-PAM_EXTERN int
+int
 pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
@@ -120,7 +120,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     return (retval == PAM_SUCCESS) ? PAM_IGNORE : retval;
 }
 
-PAM_EXTERN int
+int
 pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
 		int argc UNUSED, const char **argv UNUSED)
 {
@@ -290,21 +290,5 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
     *prompt = issue;
     return PAM_SUCCESS;
 }
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_issue_modstruct = {
-     "pam_issue",
-     pam_sm_authenticate,
-     pam_sm_setcred,
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-};
-
-#endif
 
 /* end of module definition */

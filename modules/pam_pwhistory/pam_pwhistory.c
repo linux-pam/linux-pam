@@ -106,7 +106,7 @@ parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
 /* This module saves the current crypted password in /etc/security/opasswd
    and then compares the new password with all entries in this file. */
 
-PAM_EXTERN int
+int
 pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
   struct passwd *pwd;
@@ -235,16 +235,3 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
   return PAM_SUCCESS;
 }
 
-
-#ifdef PAM_STATIC
-/* static module data */
-struct pam_module _pam_pwhistory_modstruct = {
-  "pam_pwhistory",
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  pam_sm_chauthtok
-};
-#endif

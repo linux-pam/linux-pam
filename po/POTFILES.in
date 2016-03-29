@@ -29,7 +29,6 @@
 ./libpam/pam_prelude.c
 ./libpam/pam_session.c
 ./libpam/pam_start.c
-./libpam/pam_static.c
 ./libpam/pam_strerror.c
 ./libpam/pam_syslog.c
 ./libpam/pam_vprompt.c

@@ -232,7 +232,7 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
 
 /* --- authentication management functions --- */
 
-PAM_EXTERN int
+int
 pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
@@ -244,14 +244,14 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     return perform_check(pamh, ctrl, use_group);
 }
 
-PAM_EXTERN int
+int
 pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
 		int argc UNUSED, const char **argv UNUSED)
 {
     return PAM_SUCCESS;
 }
 
-PAM_EXTERN int
+int
 pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
 		  int argc, const char **argv)
 {
@@ -262,22 +262,6 @@ pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
 
     return perform_check(pamh, ctrl, use_group);
 }
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_wheel_modstruct = {
-    "pam_wheel",
-    pam_sm_authenticate,
-    pam_sm_setcred,
-    pam_sm_acct_mgmt,
-    NULL,
-    NULL,
-    NULL
-};
-
-#endif /* PAM_STATIC */
 
 /*
  * Copyright (c) Cristian Gafton <gafton@redhat.com>, 1996, 1997

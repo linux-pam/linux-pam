@@ -334,7 +334,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 
 /* --- authentication management functions (only) --- */
 
-PAM_EXTERN int
+int
 pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 		    int argc, const char **argv)
 {
@@ -423,14 +423,14 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
      return PAM_IGNORE;
 }
 
-PAM_EXTERN int
+int
 pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
 	       int argc UNUSED, const char **argv UNUSED)
 {
     return PAM_SUCCESS;
 }
 
-PAM_EXTERN int
+int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 		 int argc, const char **argv)
 {
@@ -474,23 +474,6 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 
     return PAM_SUCCESS;
 }
-
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_userdb_modstruct = {
-     "pam_userdb",
-     pam_sm_authenticate,
-     pam_sm_setcred,
-     pam_sm_acct_mgmt,
-     NULL,
-     NULL,
-     NULL,
-};
-
-#endif
 
 /*
  * Copyright (c) Cristian Gafton <gafton@redhat.com>, 1999

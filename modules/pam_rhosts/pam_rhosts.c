@@ -43,7 +43,6 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
-PAM_EXTERN
 int pam_sm_authenticate (pam_handle_t *pamh, int flags, int argc,
 			 const char **argv)
 {
@@ -130,26 +129,10 @@ int pam_sm_authenticate (pam_handle_t *pamh, int flags, int argc,
 }
 
 
-PAM_EXTERN int
+int
 pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
 		int argc UNUSED, const char **argv UNUSED)
 {
   return PAM_SUCCESS;
 }
 
-
-#ifdef PAM_STATIC
-
-/* static module data */
-
-struct pam_module _pam_rhosts_modstruct = {
-  "pam_rhosts",
-  pam_sm_authenticate,
-  pam_sm_setcred,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-};
-
-#endif
