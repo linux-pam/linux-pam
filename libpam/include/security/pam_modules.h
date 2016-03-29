@@ -75,6 +75,9 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
 #define PAM_DATA_REPLACE   0x20000000     /* used when replacing a data item */
 
+/* PAM_EXTERN isn't needed anymore, but don't remove it to not break
+   lot of external code using it. */
+#define PAM_EXTERN extern
 
 /* take care of any compatibility issues */
 #include <security/_pam_compat.h>
