@@ -135,4 +135,3 @@ pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
 {
   return PAM_SUCCESS;
 }
-

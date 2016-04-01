@@ -136,4 +136,3 @@ _pam_dlerror (void)
         return dlerror ();
 #endif
 }
-

@@ -232,4 +232,3 @@ int pam_sm_close_session (pam_handle_t * pamh UNUSED, int flags UNUSED,
 {
    return PAM_SUCCESS;
 }
-

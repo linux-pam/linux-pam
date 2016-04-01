@@ -443,4 +443,3 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 {
 	return pam_sm_authenticate(pamh, flags, argc, argv);
 }
-

@@ -261,4 +261,3 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc,
   else
     return PAM_IGNORE;
 }
-

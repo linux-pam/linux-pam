@@ -545,4 +545,3 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
      return retval;
 }
-
