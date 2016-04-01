@@ -451,18 +451,21 @@ AC_ARG_ENABLE([nis],
 
 AS_IF([test "x$enable_nis" != "xno"], [
   old_CFLAGS=$CFLAGS
+  old_CPPFLAGS=$CPPFLAGS
   old_LIBS=$LIBS
 
   dnl if there's libtirpc available, prefer that over the system
   dnl implementation.
   PKG_CHECK_MODULES([TIRPC], [libtirpc], [
     CFLAGS="$CFLAGS $TIRPC_CFLAGS"
+    CPPFLAGS="$CPPFLAGS $TIRPC_CFLAGS"
     LIBS="$LIBS $TIRPC_LIBS"
   ], [:;])
 
   PKG_CHECK_MODULES([NSL], [libnsl], [],
     [AC_CHECK_LIB([nsl],[yp_match],[NSL_LIBS="-lnsl"],[NSL_LIBS=""])])
   CFLAGS="$CFLAGS $NSL_CFLAGS"
+  CPPFLAGS="$CPPFLAGS $NSL_CFLAGS"
   LIBS="$LIBS $NSL_LIBS"
 
   AC_CHECK_FUNCS([yp_get_default_domain yperr_string yp_master yp_bind yp_match yp_unbind])
@@ -475,6 +478,7 @@ AS_IF([test "x$enable_nis" != "xno"], [
   ])
 
   CFLAGS="$old_CFLAGS"
+  CPPFLAGS="$old_CPPFLAGS"
   LIBS="$old_LIBS"
 ])
 
