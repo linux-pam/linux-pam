@@ -231,18 +231,27 @@ evaluate_notingroup(pam_handle_t *pamh, const char *user, const char *group)
 }
 /* Return PAM_SUCCESS if the (host,user) is in the netgroup. */
 static int
-evaluate_innetgr(const char *host, const char *user, const char *group)
+evaluate_innetgr(const pam_handle_t* pamh, const char *host, const char *user, const char *group)
 {
+#ifdef HAVE_INNETGR
 	if (innetgr(group, host, user, NULL) == 1)
 		return PAM_SUCCESS;
+#else
+	pam_syslog (pamh, LOG_ERR, "pam_succeed_if does not have netgroup support");
+#endif
+
 	return PAM_AUTH_ERR;
 }
 /* Return PAM_SUCCESS if the (host,user) is NOT in the netgroup. */
 static int
-evaluate_notinnetgr(const char *host, const char *user, const char *group)
+evaluate_notinnetgr(const pam_handle_t* pamh, const char *host, const char *user, const char *group)
 {
+#ifdef HAVE_INNETGR
 	if (innetgr(group, host, user, NULL) == 0)
 		return PAM_SUCCESS;
+#else
+	pam_syslog (pamh, LOG_ERR, "pam_succeed_if does not have netgroup support");
+#endif
 	return PAM_AUTH_ERR;
 }
 
@@ -387,14 +396,14 @@ evaluate(pam_handle_t *pamh, int debug,
 		const void *rhost;
 		if (pam_get_item(pamh, PAM_RHOST, &rhost) != PAM_SUCCESS)
 			rhost = NULL;
-		return evaluate_innetgr(rhost, user, right);
+		return evaluate_innetgr(pamh, rhost, user, right);
 	}
 	/* (Rhost, user) is not in this group. */
 	if (strcasecmp(qual, "notinnetgr") == 0) {
 		const void *rhost;
 		if (pam_get_item(pamh, PAM_RHOST, &rhost) != PAM_SUCCESS)
 			rhost = NULL;
-		return evaluate_notinnetgr(rhost, user, right);
+		return evaluate_notinnetgr(pamh, rhost, user, right);
 	}
 	/* Fail closed. */
 	return PAM_SERVICE_ERR;

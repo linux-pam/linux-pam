@@ -656,7 +656,11 @@ static int check_account(pam_handle_t *pamh, const char *service,
 	}
 	/* If buffer starts with @, we are using netgroups */
 	if (buffer[0] == '@')
+#ifdef HAVE_INNETGR
 	  good &= innetgr (&buffer[1], NULL, user, NULL);
+#else
+	  pam_syslog (pamh, LOG_ERR, "pam_group does not have netgroup support");
+#endif
 	/* otherwise, if the buffer starts with %, it's a UNIX group */
 	else if (buffer[0] == '%')
           good &= pam_modutil_user_in_group_nam_nam(pamh, user, &buffer[1]);

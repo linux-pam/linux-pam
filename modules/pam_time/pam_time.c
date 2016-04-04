@@ -555,7 +555,11 @@ check_account(pam_handle_t *pamh, const char *service,
 	  }
 	  /* If buffer starts with @, we are using netgroups */
 	  if (buffer[0] == '@')
+#ifdef HAVE_INNETGR
 	    good &= innetgr (&buffer[1], NULL, user, NULL);
+#else
+	    pam_syslog (pamh, LOG_ERR, "pam_time does not have netgroup support");
+#endif
 	  else
 	    good &= logic_field(pamh, user, buffer, count, is_same);
 	  D(("with user: %s", good ? "passes":"fails" ));
