@@ -258,13 +258,13 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 				"expired password for user %s (root enforced)",
 				uname);
 			_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-				_("You are required to change your password immediately (root enforced)"));
+				_("You are required to change your password immediately (administrator enforced)"));
 		} else {
 			pam_syslog(pamh, LOG_DEBUG,
 				"expired password for user %s (password aged)",
 				uname);
 			_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-				_("You are required to change your password immediately (password aged)"));
+				_("You are required to change your password immediately (password expired)"));
 		}
 		break;
 	case PAM_AUTHTOK_EXPIRED:
