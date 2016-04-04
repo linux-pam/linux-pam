@@ -27,7 +27,7 @@ dnl If we use /usr as prefix, use /etc for config files
         fi
 	if test ${libdir} = '${exec_prefix}/lib'
 	then
-		case "`uname -m`" in
+		case "$host_cpu" in
 		    x86_64|ppc64|s390x|sparc64)
 			libdir="/lib64" ;;
 		    *)
