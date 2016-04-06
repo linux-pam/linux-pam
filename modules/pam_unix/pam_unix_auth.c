@@ -103,7 +103,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	unsigned int ctrl;
 	int retval, *ret_data = NULL;
 	const char *name;
-	const void *p;
+	const char *p;
 
 	D(("called."));
 
@@ -151,8 +151,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	}
 	/* get this user's authentication token */
 
-	retval = _unix_read_password(pamh, ctrl, NULL, _("Password: "), NULL
-				     ,_UNIX_AUTHTOK, &p);
+	retval = pam_get_authtok(pamh, PAM_AUTHTOK, &p , NULL);
 	if (retval != PAM_SUCCESS) {
 		if (retval != PAM_CONV_AGAIN) {
 			pam_syslog(pamh, LOG_CRIT,

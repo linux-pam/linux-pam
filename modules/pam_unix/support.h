@@ -18,8 +18,6 @@
  * typed were not the same.
  */
 
-#define MISTYPED_PASS "Sorry, passwords do not match"
-
 /* type definition for the control options */
 
 typedef struct {
@@ -72,7 +70,7 @@ typedef struct {
 					   some information may be sensitive */
 #define UNIX_USE_FIRST_PASS       4
 #define UNIX_TRY_FIRST_PASS       5
-#define UNIX_NOT_SET_PASS         6	/* don't set the AUTHTOK items */
+#define UNIX_AUTHTOK_TYPE         6	/* TYPE for pam_get_authtok() */
 
 #define UNIX__PRELIM              7	/* internal */
 #define UNIX__UPDATE              8	/* internal */
@@ -116,7 +114,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX_AUDIT */           {"audit",           _ALL_ON_,                 010, 0},
 /* UNIX_USE_FIRST_PASS */  {"use_first_pass",  _ALL_ON_^(060),           020, 0},
 /* UNIX_TRY_FIRST_PASS */  {"try_first_pass",  _ALL_ON_^(060),           040, 0},
-/* UNIX_NOT_SET_PASS */    {"not_set_pass",    _ALL_ON_,                0100, 0},
+/* UNIX_AUTHTOK_TYPE */    {"authtok_type=",   _ALL_ON_,                0100, 0},
 /* UNIX__PRELIM */         {NULL,              _ALL_ON_^(0600),         0200, 0},
 /* UNIX__UPDATE */         {NULL,              _ALL_ON_^(0600),         0400, 0},
 /* UNIX__NONULL */         {NULL,              _ALL_ON_,               01000, 0},

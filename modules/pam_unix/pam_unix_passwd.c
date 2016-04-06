@@ -612,7 +612,8 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 
 	/* <DO NOT free() THESE> */
 	const char *user;
-	const void *pass_old, *pass_new;
+	const void *item;
+	const char *pass_old, *pass_new;
 	/* </DO NOT free() THESE> */
 
 	D(("called."));
@@ -680,8 +681,6 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		 * obtain and verify the current password (OLDAUTHTOK) for
 		 * the user.
 		 */
-		char *Announce;
-
 		D(("prelim check"));
 
 		if (_unix_blankpasswd(pamh, ctrl, user)) {
@@ -689,22 +688,12 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		} else if (off(UNIX__IAMROOT, ctrl) ||
 			   (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, user, 0, 1))) {
 			/* instruct user what is happening */
-			if (asprintf(&Announce, _("Changing password for %s."),
-				user) < 0) {
-				pam_syslog(pamh, LOG_CRIT,
-				         "password - out of memory");
-				return PAM_BUF_ERR;
+			if (off(UNIX__QUIET, ctrl)) {
+				retval = pam_info(pamh, _("Changing password for %s."), user);
+				if (retval != PAM_SUCCESS)
+					return retval;
 			}
-
-			lctrl = ctrl;
-			set(UNIX__OLD_PASSWD, lctrl);
-			retval = _unix_read_password(pamh, lctrl
-						     ,Announce
-					     ,_("(current) UNIX password: ")
-						     ,NULL
-						     ,_UNIX_OLD_AUTHTOK
-					     ,&pass_old);
-			free(Announce);
+			retval = pam_get_authtok(pamh, PAM_OLDAUTHTOK, &pass_old, NULL);
 
 			if (retval != PAM_SUCCESS) {
 				pam_syslog(pamh, LOG_NOTICE,
@@ -725,12 +714,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			pass_old = NULL;
 			return retval;
 		}
-		retval = pam_set_item(pamh, PAM_OLDAUTHTOK, (const void *) pass_old);
 		pass_old = NULL;
-		if (retval != PAM_SUCCESS) {
-			pam_syslog(pamh, LOG_CRIT,
-			         "failed to set PAM_OLDAUTHTOK");
-		}
 		retval = _unix_verify_shadow(pamh,user, ctrl);
 		if (retval == PAM_AUTHTOK_ERR) {
 			if (off(UNIX__IAMROOT, ctrl))
@@ -760,23 +744,14 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		 * previous call to this function].
 		 */
 
-		if (off(UNIX_NOT_SET_PASS, ctrl)) {
-			retval = pam_get_item(pamh, PAM_OLDAUTHTOK
-					      ,&pass_old);
-		} else {
-			retval = pam_get_data(pamh, _UNIX_OLD_AUTHTOK
-					      ,&pass_old);
-			if (retval == PAM_NO_MODULE_DATA) {
-				retval = PAM_SUCCESS;
-				pass_old = NULL;
-			}
-		}
-		D(("pass_old [%s]", pass_old));
+		retval = pam_get_item(pamh, PAM_OLDAUTHTOK, &item);
 
 		if (retval != PAM_SUCCESS) {
 			pam_syslog(pamh, LOG_NOTICE, "user not authenticated");
 			return retval;
 		}
+		pass_old = item;
+		D(("pass_old [%s]", pass_old));
 
 		D(("get new password now"));
 
@@ -785,7 +760,9 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		if (on(UNIX_USE_AUTHTOK, lctrl)) {
 			set(UNIX_USE_FIRST_PASS, lctrl);
 		}
-		retry = 0;
+		if (on(UNIX_USE_FIRST_PASS, lctrl)) {
+			retry = MAX_PASSWD_TRIES-1;
+		}
 		retval = PAM_AUTHTOK_ERR;
 		while ((retval != PAM_SUCCESS) && (retry++ < MAX_PASSWD_TRIES)) {
 			/*
@@ -793,12 +770,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			 * password -- needed for pluggable password strength checking
 			 */
 
-			retval = _unix_read_password(pamh, lctrl
-						     ,NULL
-					     ,_("Enter new UNIX password: ")
-					    ,_("Retype new UNIX password: ")
-						     ,_UNIX_NEW_AUTHTOK
-					     ,&pass_new);
+			retval = pam_get_authtok(pamh, PAM_AUTHTOK, &pass_new, NULL);
 
 			if (retval != PAM_SUCCESS) {
 				if (on(UNIX_DEBUG, ctrl)) {
@@ -822,7 +794,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			retval = _pam_unix_approve_pass(pamh, ctrl, pass_old,
 			                                pass_new, pass_min_len);
 
-			if (retval != PAM_SUCCESS && off(UNIX_NOT_SET_PASS, ctrl)) {
+			if (retval != PAM_SUCCESS) {
 				pam_set_item(pamh, PAM_AUTHTOK, NULL);
 			}
 		}

@@ -217,13 +217,13 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>not_set_pass</option>
+          <option>authtok_type=<replaceable>type</replaceable></option>
         </term>
         <listitem>
           <para>
-            This argument is used to inform the module that it is not to
-            pay attention to/make available the old or new passwords from/to
-            other (stacked) password modules.
+            This argument can be used to modify the password prompt
+            when changing passwords to include the type of the password.
+            Empty by default.
           </para>
         </listitem>
       </varlistentry>
