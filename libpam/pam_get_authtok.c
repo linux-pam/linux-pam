@@ -38,6 +38,8 @@
 
 #define PROMPT _("Password: ")
 /* For Translators: "%s%s" could be replaced with "<service> " or "". */
+#define PROMPTCURRENT _("Current %s%spassword: ")
+/* For Translators: "%s%s" could be replaced with "<service> " or "". */
 #define PROMPT1 _("New %s%spassword: ")
 /* For Translators: "%s%s" could be replaced with "<service> " or "". */
 #define PROMPT2 _("Retype new %s%spassword: ")
@@ -89,12 +91,14 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
 
   /* PAM_AUTHTOK in password stack returns new password,
      which needs to be verified. */
-  if (item == PAM_AUTHTOK && pamh->choice == PAM_CHAUTHTOK)
+  if (pamh->choice == PAM_CHAUTHTOK)
     {
-      chpass = 1;
-      if (!(flags & PAM_GETAUTHTOK_NOVERIFY))
-	++chpass;
-
+      if (item == PAM_AUTHTOK)
+	{
+	  chpass = 1;
+	  if (!(flags & PAM_GETAUTHTOK_NOVERIFY))
+	    ++chpass;
+	}
       authtok_type = get_option (pamh, "authtok_type");
       if (authtok_type == NULL)
 	{
@@ -144,6 +148,10 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
 			     PROMPT2, authtok_type,
 			     strlen (authtok_type) > 0?" ":"");
     }
+  else if (item == PAM_OLDAUTHTOK)
+    retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0],
+			 PROMPTCURRENT, authtok_type,
+			 strlen (authtok_type) > 0?" ":"");
   else
     retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0], "%s",
 			 PROMPT);
