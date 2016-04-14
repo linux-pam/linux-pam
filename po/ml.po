@@ -4,19 +4,21 @@
 #
 # Translators:
 # Ani Peter <apeter@redhat.com>, 2007,2013
+# Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2015-06-22 14:16+0200\n"
-"PO-Revision-Date: 2013-04-15 05:55+0000\n"
+"PO-Revision-Date: 2013-04-15 01:55-0400\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
-"Language: ml\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ml\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.8.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -32,30 +34,35 @@ msgid "erroneous conversation (%d)\n"
 msgstr "തെറ്റായ സംവാദം (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:170
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:64
+#: modules/pam_userdb/pam_userdb.c:64
 msgid "Password: "
 msgstr "അടയാളവാക്ക്: "
 
-#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:68
+#: libpam/pam_get_authtok.c:41
+#, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, c-format
+msgid "Current %s%spassword: "
+msgstr "പുതിയ %s%s അടയാളവാക്ക്: "
+
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
 msgid "New %s%spassword: "
 msgstr "പുതിയ %s%s അടയാളവാക്ക്: "
 
-#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:70
+#: libpam/pam_get_authtok.c:45 modules/pam_cracklib/pam_cracklib.c:70
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "വീണ്ടും %s%s അടയാളവാക്ക് ടൈപ്പ് ചെയ്യുക: "
 
-#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:71
+#: libpam/pam_get_authtok.c:46 modules/pam_cracklib/pam_cracklib.c:71
 msgid "Sorry, passwords do not match."
 msgstr "ക്ഷമിക്കണം, അടയാളവാക്കുകള്‍ തമ്മില്‍ ചേരുന്നില്ല."
 
-#: libpam/pam_get_authtok.c:135 libpam/pam_get_authtok.c:212
+#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:220
 #, c-format
 msgid "Retype %s"
 msgstr "%s വീണ്ടും ടൈപ്പ് ചെയ്യുക"
 
-#: libpam/pam_get_authtok.c:156 libpam/pam_get_authtok.c:228
+#: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
 msgid "Password change aborted."
 msgstr "അടയാളവാക്ക് മാറ്റം വരുത്തുന്നതു് നിര്‍ത്തിയിരിക്കുന്നു."
 
@@ -105,7 +112,9 @@ msgstr "ആധികാരികത ഉറപ്പാക്കുന്നത�
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "ആധികാരികത ഉറപ്പാക്കുന്ന സര്‍വീസിന്, ആവശ്യമുളള വിവരങ്ങള്‍ ലഭ്യമാക്കുവാന്‍ സാധ്യമായില്ല"
+msgstr ""
+"ആധികാരികത ഉറപ്പാക്കുന്ന സര്‍വീസിന്, ആവശ്യമുളള വിവരങ്ങള്‍ ലഭ്യമാക്കുവാന്‍ "
+"സാധ്യമായില്ല"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -125,11 +134,15 @@ msgstr "ഉപയോക്താവിന്റെ അക്കൌണ്ടി�
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr "പറഞ്ഞിരിക്കുന്ന സെഷന് ആവശ്യമുളള എന്‍ട്രി ഉണ്ടാക്കുവാനോ നീക്കുവാനോ സാധ്യമാകുന്നല്ല"
+msgstr ""
+"പറഞ്ഞിരിക്കുന്ന സെഷന് ആവശ്യമുളള എന്‍ട്രി ഉണ്ടാക്കുവാനോ നീക്കുവാനോ "
+"സാധ്യമാകുന്നല്ല"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr "ഓഥന്റിക്കേഷന്‍ സര്‍വീസിന് ഉപയോക്താവിന്റെ വിവരങ്ങള്‍ ലഭ്യമാക്കുവാന്‍ സാധ്യമായില്ല"
+msgstr ""
+"ഓഥന്റിക്കേഷന്‍ സര്‍വീസിന് ഉപയോക്താവിന്റെ വിവരങ്ങള്‍ ലഭ്യമാക്കുവാന്‍ "
+"സാധ്യമായില്ല"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -242,12 +255,12 @@ msgid "contains the user name in some form"
 msgstr "ഉപയോക്താവിന്റെ നാമം ഏതെങ്കിലും ഒരു തരത്തിലുണ്ടു്"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:501
+#: modules/pam_unix/pam_unix_passwd.c:568
 msgid "No password supplied"
 msgstr "അടയാളവാക്ക് നല്‍കിയിട്ടില്ല"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:501
+#: modules/pam_unix/pam_unix_passwd.c:568
 msgid "Password unchanged"
 msgstr "അടയാളവാക്ക് മാറ്റിയിട്ടില്ല"
 
@@ -371,7 +384,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "%s ഡയറക്ടറി ഉണ്ടാക്കുവാനും ആരംഭിക്കുവാനും സാധ്യമായില്ല."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:522
+#: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
 msgstr "അടയാളവാക്ക് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
 
@@ -435,77 +448,82 @@ msgstr "pam_set_item() ചെയ്യുന്നതില്‍ പരാജ�
 msgid "login: failure forking: %m"
 msgstr "login: ഫോര്‍ക്ക് ചെയ്യുന്നതില്‍ പരാജയം: %m"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:470
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "%s-നുളള STRESS അടയാളവാക്ക് മാറ്റുന്നു."
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:484
 msgid "Enter new STRESS password: "
 msgstr "പുതിയ STRESS അടയാളവാക്ക് നല്‍കുക: "
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:487
 msgid "Retype new STRESS password: "
 msgstr "പുതിയ STRESS അടയാളവാക്ക് വീണ്ടും ടൈപ്പ് ചെയ്യുക: "
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:516
 msgid "Verification mis-typed; password unchanged"
-msgstr "അടയാളവാക്ക് ഉറപ്പാക്കുന്നതിനായി ടൈപ്പ് ചെയ്തത് തെറ്റാണ്; അടയാളവാക്ക് മാറ്റിയിട്ടില്ല"
+msgstr ""
+"അടയാളവാക്ക് ഉറപ്പാക്കുന്നതിനായി ടൈപ്പ് ചെയ്തത് തെറ്റാണ്; അടയാളവാക്ക് "
+"മാറ്റിയിട്ടില്ല"
 
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
-msgstr "അക്കൌണ്ട് താല്‍ക്കാലികമായി പൂട്ടിയിരിക്കുന്നു (%ld നിമിഷങ്ങള്‍ ബാക്കി)"
+msgstr ""
+"അക്കൌണ്ട് താല്‍ക്കാലികമായി പൂട്ടിയിരിക്കുന്നു (%ld നിമിഷങ്ങള്‍ ബാക്കി)"
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
 #, c-format
 msgid "Account locked due to %u failed logins"
-msgstr "%u പരാജയപ്പെട്ട ലോഗിനുകള്‍ കാരണം അക്കൌണ്ട് താല്‍ക്കാലികമായി പൂട്ടിയിരിക്കുന്നു"
+msgstr ""
+"%u പരാജയപ്പെട്ട ലോഗിനുകള്‍ കാരണം അക്കൌണ്ട് താല്‍ക്കാലികമായി "
+"പൂട്ടിയിരിക്കുന്നു"
 
-#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
+#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
 msgid "Authentication error"
 msgstr "ആധികാരികത ഉറപ്പാക്കുന്നതില്‍ പിശക്"
 
-#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:885
+#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:864
 msgid "Service error"
 msgstr "സര്‍വീസ് പിശക്"
 
-#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:886
+#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:865
 msgid "Unknown user"
 msgstr "അപരിചിതമായ ഉപയോക്താവു്"
 
-#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:887
+#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:866
 msgid "Unknown error"
 msgstr "അപരിചിതമായ പിശക്"
 
-#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:906
+#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:885
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s:നല്‍കിയിരിക്കുന്ന നംബര്‍ തെറ്റാണ്, --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:910
+#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:889
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Unrecognised ഉപാധി %s\n"
 
-#: modules/pam_tally/pam_tally.c:812
+#: modules/pam_tally/pam_tally.c:785
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
+#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1016
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: എല്ലാ ഉപയോക്താക്കള്‍ക്കും പൂജ്യം അല്ലാതെ ക്രമികരിക്കുവാന്‍ സാധ്യമല്ല\n"
+msgstr ""
+"%s: എല്ലാ ഉപയോക്താക്കള്‍ക്കും പൂജ്യം അല്ലാതെ ക്രമികരിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: modules/pam_tally2/pam_tally2.c:937
+#: modules/pam_tally2/pam_tally2.c:917
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr "Login           Failures Latest failure     From\n"
 
-#: modules/pam_tally2/pam_tally2.c:953
+#: modules/pam_tally2/pam_tally2.c:933
 #, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -519,60 +537,63 @@ msgstr ""
 #: modules/pam_timestamp/pam_timestamp.c:357
 #, c-format
 msgid "Access granted (last access was %ld seconds ago)."
-msgstr "അനുവാദം നല്‍കിയിരിക്കുന്നു (ഒടുവില്‍ പ്രവേശിച്ചതു് %ld സെക്കന്‍ഡുകള്‍ക്കു് മുമ്പാണു്)."
+msgstr ""
+"അനുവാദം നല്‍കിയിരിക്കുന്നു (ഒടുവില്‍ പ്രവേശിച്ചതു് %ld സെക്കന്‍ഡുകള്‍ക്കു് "
+"മുമ്പാണു്)."
 
-#: modules/pam_unix/pam_unix_acct.c:244 modules/pam_unix/pam_unix_acct.c:266
+#: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
-"നിങ്ങളുടെ അക്കൌണ്ടിന്റെ കാലാവധി അവസാനിച്ചിരിക്കുന്നു; ദയവായി സിസ്റ്റം അഡ്മിനിസ്ട്രേറ്ററുമായി "
-"ബന്ധപ്പെടുക"
+"നിങ്ങളുടെ അക്കൌണ്ടിന്റെ കാലാവധി അവസാനിച്ചിരിക്കുന്നു; ദയവായി സിസ്റ്റം "
+"അഡ്മിനിസ്ട്രേറ്ററുമായി ബന്ധപ്പെടുക"
 
-#: modules/pam_unix/pam_unix_acct.c:252
-msgid "You are required to change your password immediately (root enforced)"
+#: modules/pam_unix/pam_unix_acct.c:261
+#, fuzzy
+msgid ""
+"You are required to change your password immediately (administrator "
+"enforced)"
 msgstr "നിങ്ങളുടെ അടയാളവാക്ക് ഉടനെ മാറ്റേണ്ടതുണ്ട് (root enforced)"
 
-#: modules/pam_unix/pam_unix_acct.c:258
-msgid "You are required to change your password immediately (password aged)"
-msgstr "നിങ്ങളുടെ അടയാളവാക്ക് ഉടനെ മാറ്റേണ്ടതുണ്ട് (അടയാളവാക്ക് മാറ്റുന്നതിന് സമയമായി)"
+#: modules/pam_unix/pam_unix_acct.c:267
+#, fuzzy
+msgid ""
+"You are required to change your password immediately (password expired)"
+msgstr ""
+"നിങ്ങളുടെ അടയാളവാക്ക് ഉടനെ മാറ്റേണ്ടതുണ്ട് (അടയാളവാക്ക് മാറ്റുന്നതിന് "
+"സമയമായി)"
 
-#: modules/pam_unix/pam_unix_acct.c:279 modules/pam_unix/pam_unix_acct.c:286
+#: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
-msgstr[1] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
+msgstr[0] ""
+"മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ "
+"അവസാനിക്കുന്നു"
+msgstr[1] ""
+"മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ "
+"അവസാനിക്കുന്നു"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:291
+#: modules/pam_unix/pam_unix_acct.c:300
 #, c-format
 msgid "Warning: your password will expire in %d days"
-msgstr "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
+msgstr ""
+"മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ "
+"അവസാനിക്കുന്നു"
 
-#: modules/pam_unix/pam_unix_passwd.c:403
+#: modules/pam_unix/pam_unix_passwd.c:470
 msgid "NIS password could not be changed."
 msgstr "NIS അടയാളവാക്ക് മാറ്റുവാന്‍ സാധ്യമാകുന്നില്ല."
 
-#: modules/pam_unix/pam_unix_passwd.c:518
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "You must choose a longer password"
 msgstr "ഇതിലും വലിയ അടയാളവാക്ക് തിരഞ്ഞെടുക്കുക"
 
-#: modules/pam_unix/pam_unix_passwd.c:625
+#: modules/pam_unix/pam_unix_passwd.c:692
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s-നുളള അടയാളവാക്ക് മാറ്റുന്നു."
 
-#: modules/pam_unix/pam_unix_passwd.c:636
-msgid "(current) UNIX password: "
-msgstr "(നിലവിലുളളത്) UNIX രഅടയാളവാക്ക്: "
-
-#: modules/pam_unix/pam_unix_passwd.c:671
+#: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "നിങ്ങളുടെ അടയാളവാക്ക് മാറ്റുന്നതിനായി ഇനിയും കാത്തിരിക്കേണ്ടതാണ്."
-
-#: modules/pam_unix/pam_unix_passwd.c:731
-msgid "Enter new UNIX password: "
-msgstr "പുതിയ UNIX അടയാളവാക്ക് നല്‍കുക: "
-
-#: modules/pam_unix/pam_unix_passwd.c:732
-msgid "Retype new UNIX password: "
-msgstr "പുതിയ UNIX അടയാളവാക്ക് വീണ്ടും ടൈപ്പ് ചെയ്യുക: "

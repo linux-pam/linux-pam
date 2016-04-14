@@ -6,28 +6,29 @@
 # Klara Cihlarova <koty@seznam.cz>, 2005, 2006.
 #   <tmraz@fedoraproject.org>, 2011.
 # Tomas Mraz <t8m@centrum.cz>, 2005, 2008, 2009.
+# Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2015-06-22 14:16+0200\n"
-"PO-Revision-Date: 2011-11-30 12:14+0000\n"
+"PO-Revision-Date: 2016-04-14 11:33-0400\n"
 "Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
-"Language-Team: Czech (http://www.transifex.net/projects/p/fedora/language/"
-"cs/)\n"
-"Language: cs\n"
+"Language-Team: Czech (http://www.transifex.net/projects/p/fedora/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+"X-Generator: Zanata 3.8.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
-msgstr "..Odpočet byl spuštěn...\n"
+msgstr "...Dochází čas...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "...Čas vypršel!\n"
+msgstr "...Promiňte, čas vypršel!\n"
 
 #: libpam_misc/misc_conv.c:346
 #, c-format
@@ -35,30 +36,35 @@ msgid "erroneous conversation (%d)\n"
 msgstr "nesprávná konverzace (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:170
-#: modules/pam_unix/pam_unix_auth.c:160 modules/pam_userdb/pam_userdb.c:64
+#: modules/pam_userdb/pam_userdb.c:64
 msgid "Password: "
 msgstr "Heslo: "
 
-#: libpam/pam_get_authtok.c:41 modules/pam_cracklib/pam_cracklib.c:68
+#: libpam/pam_get_authtok.c:41
+#, fuzzy, fuzzy, fuzzy, fuzzy, c-format
+msgid "Current %s%spassword: "
+msgstr "Současné %s%sheslo: "
+
+#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nové %s%sheslo: "
 
-#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:70
+#: libpam/pam_get_authtok.c:45 modules/pam_cracklib/pam_cracklib.c:70
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Opakujte nové %s%sheslo: "
 
-#: libpam/pam_get_authtok.c:44 modules/pam_cracklib/pam_cracklib.c:71
+#: libpam/pam_get_authtok.c:46 modules/pam_cracklib/pam_cracklib.c:71
 msgid "Sorry, passwords do not match."
 msgstr "Hesla se neshodují."
 
-#: libpam/pam_get_authtok.c:135 libpam/pam_get_authtok.c:212
+#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:220
 #, c-format
 msgid "Retype %s"
 msgstr "Opakujte %s"
 
-#: libpam/pam_get_authtok.c:156 libpam/pam_get_authtok.c:228
+#: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
 msgid "Password change aborted."
 msgstr "Změna hesla přerušena."
 
@@ -245,12 +251,12 @@ msgid "contains the user name in some form"
 msgstr "obsahuje v nějaké formě uživatelské jméno"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:501
+#: modules/pam_unix/pam_unix_passwd.c:568
 msgid "No password supplied"
 msgstr "Nezadáno heslo"
 
 #: modules/pam_cracklib/pam_cracklib.c:701
-#: modules/pam_unix/pam_unix_passwd.c:501
+#: modules/pam_unix/pam_unix_passwd.c:568
 msgid "Password unchanged"
 msgstr "Heslo nebylo změněno"
 
@@ -313,9 +319,12 @@ msgstr "Poslední neúspěšné přihlášení:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] "Od posledního úspěšného došlo k %d neúspěšnému pokusu o přihlášení."
-msgstr[1] "Od posledního úspěšného došlo k %d neúspěšným pokusům o přihlášení."
-msgstr[2] "Od posledního úspěšného došlo k %d neúspěšným pokusům o přihlášení."
+msgstr[0] ""
+"Od posledního úspěšného došlo k %d neúspěšnému pokusu o přihlášení."
+msgstr[1] ""
+"Od posledního úspěšného došlo k %d neúspěšným pokusům o přihlášení."
+msgstr[2] ""
+"Od posledního úspěšného došlo k %d neúspěšným pokusům o přihlášení."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:548
@@ -375,7 +384,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Nezdařilo se vytvořit a inicializovat adresář '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:522
+#: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
 msgstr "Heslo již bylo použito. Zvolte jiné."
 
@@ -439,78 +448,77 @@ msgstr "chyba pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "login: chyba forku: %m"
 
-#: modules/pam_stress/pam_stress.c:476
+#: modules/pam_stress/pam_stress.c:470
 #, c-format
 msgid "Changing STRESS password for %s."
 msgstr "Změna STRESS hesla pro %s."
 
-#: modules/pam_stress/pam_stress.c:490
+#: modules/pam_stress/pam_stress.c:484
 msgid "Enter new STRESS password: "
 msgstr "Zadejte nové STRESS heslo: "
 
-#: modules/pam_stress/pam_stress.c:493
+#: modules/pam_stress/pam_stress.c:487
 msgid "Retype new STRESS password: "
 msgstr "Opakujte nové STRESS heslo: "
 
-#: modules/pam_stress/pam_stress.c:522
+#: modules/pam_stress/pam_stress.c:516
 msgid "Verification mis-typed; password unchanged"
 msgstr "Chybné potvrzení. Heslo nezměněno"
 
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:596
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
 msgstr "Účet dočasně uzamčen (zbývá %ld vteřin)"
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
 #, c-format
 msgid "Account locked due to %u failed logins"
 msgstr "Účet uzamčen z důvodu %u neúspěšných pokusů o přihlášení"
 
-#: modules/pam_tally/pam_tally.c:777 modules/pam_tally2/pam_tally2.c:884
+#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
 msgid "Authentication error"
 msgstr "Chyba autentizace"
 
-#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:885
+#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:864
 msgid "Service error"
 msgstr "Chyba služby"
 
-#: modules/pam_tally/pam_tally.c:779 modules/pam_tally2/pam_tally2.c:886
+#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:865
 msgid "Unknown user"
 msgstr "Neznámý uživatel"
 
-#: modules/pam_tally/pam_tally.c:780 modules/pam_tally2/pam_tally2.c:887
+#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:866
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
-#: modules/pam_tally/pam_tally.c:796 modules/pam_tally2/pam_tally2.c:906
+#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:885
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: Zadána špatná hodnota --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:800 modules/pam_tally2/pam_tally2.c:910
+#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:889
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: Neznámá volba %s\n"
 
-#: modules/pam_tally/pam_tally.c:812
+#: modules/pam_tally/pam_tally.c:785
 #, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file jmeno_souboru] [--user uzivatelske_jmeno] [--reset[=n]] [--"
-"quiet]\n"
+"%s: [--file jmeno_souboru] [--user uzivatelske_jmeno] [--reset[=n]] "
+"[--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:886 modules/pam_tally2/pam_tally2.c:1036
+#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1016
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: Nelze resetovat všechny uživatele nenulově\n"
 
-#: modules/pam_tally2/pam_tally2.c:937
+#: modules/pam_tally2/pam_tally2.c:917
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr "Login          Selhání  Poslední selhání   Od\n"
 
-#: modules/pam_tally2/pam_tally2.c:953
+#: modules/pam_tally2/pam_tally2.c:933
 #, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -526,19 +534,22 @@ msgstr ""
 msgid "Access granted (last access was %ld seconds ago)."
 msgstr "Přístup povolen (poslední přístup před %ld vteřinami)."
 
-#: modules/pam_unix/pam_unix_acct.c:244 modules/pam_unix/pam_unix_acct.c:266
+#: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Váš účet vypršel; kontaktujte prosím svého správce systému"
 
-#: modules/pam_unix/pam_unix_acct.c:252
-msgid "You are required to change your password immediately (root enforced)"
-msgstr "Musíte okamžitě změnit své heslo (vynuceno rootem)"
+#: modules/pam_unix/pam_unix_acct.c:261
+msgid ""
+"You are required to change your password immediately (administrator "
+"enforced)"
+msgstr "Nyní musíte změnit své heslo (vynuceno administrátorem)"
 
-#: modules/pam_unix/pam_unix_acct.c:258
-msgid "You are required to change your password immediately (password aged)"
-msgstr "Musíte okamžitě změnit své heslo (heslo vypršelo)"
+#: modules/pam_unix/pam_unix_acct.c:267
+msgid ""
+"You are required to change your password immediately (password expired)"
+msgstr "Nyní musíte změnit své heslo (heslo vypršelo)"
 
-#: modules/pam_unix/pam_unix_acct.c:279 modules/pam_unix/pam_unix_acct.c:286
+#: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
 #, c-format
 msgid "Warning: your password will expire in %d day"
 msgid_plural "Warning: your password will expire in %d days"
@@ -547,36 +558,24 @@ msgstr[1] "Varování: Vaše heslo vyprší za %d dny"
 msgstr[2] "Varování: Vaše heslo vyprší za %d dní"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:291
+#: modules/pam_unix/pam_unix_acct.c:300
 #, c-format
 msgid "Warning: your password will expire in %d days"
 msgstr "Varování: Počet dní do vypršení hesla: %d"
 
-#: modules/pam_unix/pam_unix_passwd.c:403
+#: modules/pam_unix/pam_unix_passwd.c:470
 msgid "NIS password could not be changed."
 msgstr "NIS heslo se nepodařilo změnit."
 
-#: modules/pam_unix/pam_unix_passwd.c:518
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "You must choose a longer password"
 msgstr "Musíte zvolit delší heslo"
 
-#: modules/pam_unix/pam_unix_passwd.c:625
+#: modules/pam_unix/pam_unix_passwd.c:692
 #, c-format
 msgid "Changing password for %s."
 msgstr "Změna hesla pro %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:636
-msgid "(current) UNIX password: "
-msgstr "(současné) UNIX heslo: "
-
-#: modules/pam_unix/pam_unix_passwd.c:671
+#: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "Na změnu svého hesla musíte počkat déle"
-
-#: modules/pam_unix/pam_unix_passwd.c:731
-msgid "Enter new UNIX password: "
-msgstr "Zadejte nové UNIX heslo: "
-
-#: modules/pam_unix/pam_unix_passwd.c:732
-msgid "Retype new UNIX password: "
-msgstr "Opakujte nové UNIX heslo: "
