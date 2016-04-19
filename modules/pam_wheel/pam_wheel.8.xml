@@ -97,7 +97,8 @@
         </term>
         <listitem>
           <para>
-            The check for wheel membership is done only.
+            The check for wheel membership is done only when the target user
+            UID is 0.
           </para>
         </listitem>
       </varlistentry>
