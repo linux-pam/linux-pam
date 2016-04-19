@@ -247,6 +247,8 @@
             user are saved in <filename>/etc/security/opasswd</filename>
             in order to force password change history and keep the user
             from alternating between the same password too frequently.
+            The MD5 password hash algorithm is used for storing the
+            old passwords.
             Instead of this option the <command>pam_pwhistory</command>
             module should be used.
           </para>
