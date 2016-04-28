@@ -40,7 +40,7 @@ msgid "Password: "
 msgstr "Focal faire: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, fuzzy, fuzzy, fuzzy, c-format
+#, fuzzy, c-format
 msgid "Current %s%spassword: "
 msgstr "Focal faire%2$s%1$s nua: "
 

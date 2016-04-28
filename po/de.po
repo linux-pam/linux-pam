@@ -39,7 +39,7 @@ msgid "Password: "
 msgstr "Passwort: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, fuzzy, c-format
+#, fuzzy, c-format
 msgid "Current %s%spassword: "
 msgstr "Geben Sie ein neues %s%sPasswort ein: "
 

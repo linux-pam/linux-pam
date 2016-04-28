@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2015-06-22 14:16+0200\n"
-"PO-Revision-Date: 2016-04-14 11:33-0400\n"
+"PO-Revision-Date: 2016-04-22 06:30-0400\n"
 "Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
 "Language-Team: Czech (http://www.transifex.net/projects/p/fedora/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgid "Password: "
 msgstr "Heslo: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, fuzzy, fuzzy, fuzzy, c-format
+#, fuzzy, c-format
 msgid "Current %s%spassword: "
 msgstr "Současné %s%sheslo: "
 
@@ -94,7 +94,7 @@ msgstr "Chyba v modulu služby"
 
 #: libpam/pam_strerror.c:50
 msgid "System error"
-msgstr "Chyba systému"
+msgstr "Systémová chyba"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
@@ -174,7 +174,7 @@ msgstr "Autentizační token je uzamčen"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr "Stárnutí autentizačního tokenu zakázáno"
+msgstr "Stárnutí autentizačního tokenu vypnuto"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"

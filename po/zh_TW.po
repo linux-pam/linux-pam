@@ -39,7 +39,7 @@ msgid "Password: "
 msgstr "密碼："
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, fuzzy, c-format
+#, fuzzy, c-format
 msgid "Current %s%spassword: "
 msgstr "新 %s%s密碼："
 
