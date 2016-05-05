@@ -250,7 +250,7 @@ dnl
 AC_ARG_ENABLE([prelude],
 	AS_HELP_STRING([--disable-prelude],[do not use prelude]),
 	WITH_PRELUDE=$enableval, WITH_PRELUDE=yes)
-if test "$WITH_PRELUDE" == "yes" ; then
+if test "$WITH_PRELUDE" = "yes" ; then
   AM_PATH_LIBPRELUDE([0.9.0])
   if test "$LIBPRELUDE_CONFIG" != "no" ; then
     LIBPRELUDE_CFLAGS="$LIBPRELUDE_CFLAGS -DPRELUDE=1"
@@ -303,7 +303,7 @@ fi
 AC_ARG_ENABLE([lckpwdf],
 	AS_HELP_STRING([--disable-lckpwdf],[do not use the lckpwdf function]),
 	WITH_LCKPWDF=$enableval, WITH_LCKPWDF=yes)
-if test "$WITH_LCKPWDF" == "yes" ; then
+if test "$WITH_LCKPWDF" = "yes" ; then
     AC_DEFINE([USE_LCKPWDF], 1,
 		[Define to 1 if the lckpwdf function should be used])
 fi
@@ -333,10 +333,10 @@ AC_ARG_WITH(xauth,
 [  --with-xauth            additional path to check for xauth when it is called from pam_xauth
                           [added to the default of /usr/X11R6/bin/xauth, /usr/bin/xauth, /usr/bin/X11/xauth]],
 pam_xauth_path=${withval})
-if test x$with_xauth == x ; then
+if test x$with_xauth = x ; then
 	AC_PATH_PROG(pam_xauth_path, xauth)
 dnl There is no sense in adding the first default path
-	if test x$pam_xauth_path == x/usr/X11R6/bin/xauth ; then
+	if test x$pam_xauth_path = x/usr/X11R6/bin/xauth ; then
 		unset pam_xauth_path
 	fi
 fi
@@ -488,7 +488,7 @@ AC_SUBST([NIS_LIBS])
 AC_ARG_ENABLE([selinux],
         AS_HELP_STRING([--disable-selinux],[do not use SELinux]),
         WITH_SELINUX=$enableval, WITH_SELINUX=yes)
-if test "$WITH_SELINUX" == "yes" ; then
+if test "$WITH_SELINUX" = "yes" ; then
   AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
 else
   LIBSELINUX=""
