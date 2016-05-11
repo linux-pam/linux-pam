@@ -139,7 +139,7 @@
       <emphasis>tty1</emphasis>, ..., <emphasis>tty5</emphasis>,
       <emphasis>tty6</emphasis>.
     </para>
-    <para>+ : root : crond :0 tty1 tty2 tty3 tty4 tty5 tty6</para>
+    <para>+:root:crond :0 tty1 tty2 tty3 tty4 tty5 tty6</para>
 
     <para>
       User <emphasis>root</emphasis> should be allowed to get access from
@@ -147,8 +147,8 @@
       connection have to be a IPv4 one, a IPv6 connection from a host with
       one of this IPv4 addresses does work, too.
     </para>
-    <para>+ : root : 192.168.200.1 192.168.200.4 192.168.200.9</para>
-    <para>+ : root : 127.0.0.1</para>
+    <para>+:root:192.168.200.1 192.168.200.4 192.168.200.9</para>
+    <para>+:root:127.0.0.1</para>
 
     <para>
       User <emphasis>root</emphasis> should get access from network
@@ -158,44 +158,44 @@
       <emphasis>192.168.201.0/24</emphasis> or
       <emphasis>192.168.201.0/255.255.255.0</emphasis>.
     </para>
-    <para>+ : root : 192.168.201.</para>
+    <para>+:root:192.168.201.</para>
 
     <para>
       User <emphasis>root</emphasis> should be able to have access from hosts
       <emphasis>foo1.bar.org</emphasis> and <emphasis>foo2.bar.org</emphasis>
       (uses string matching also).
     </para>
-    <para>+ : root : foo1.bar.org foo2.bar.org</para>
+    <para>+:root:foo1.bar.org foo2.bar.org</para>
 
     <para>
       User <emphasis>root</emphasis> should be able to have access from
       domain <emphasis>foo.bar.org</emphasis> (uses string matching also).
     </para>
-    <para>+ : root : .foo.bar.org</para>
+    <para>+:root:.foo.bar.org</para>
 
     <para>
       User <emphasis>root</emphasis> should be denied to get access
       from all other sources.
     </para>
-    <para>- : root : ALL</para>
+    <para>-:root:ALL</para>
 
     <para>
       User <emphasis>foo</emphasis> and members of netgroup
       <emphasis>admins</emphasis> should be allowed to get access
       from all sources. This will only work if netgroup service is available.
     </para>
-    <para>+ : @admins foo : ALL</para>
+    <para>+:@admins foo:ALL</para>
 
     <para>
       User <emphasis>john</emphasis> and <emphasis>foo</emphasis>
       should get access from IPv6 host address.
     </para>
-    <para>+ : john foo : 2001:db8:0:101::1</para>
+    <para>+:john foo:2001:db8:0:101::1</para>
 
     <para>
       User <emphasis>john</emphasis> should get access from IPv6 net/mask.
     </para>
-    <para>+ : john : 2001:db8:0:101::/64</para>
+    <para>+:john:2001:db8:0:101::/64</para>
 
     <para>
       Disallow console logins to all but the shutdown, sync and all
@@ -206,7 +206,7 @@
     <para>
       All other users should be denied to get access from all sources.
     </para>
-    <para>- : ALL : ALL</para>
+    <para>-:ALL:ALL</para>
 
   </refsect1>
 
