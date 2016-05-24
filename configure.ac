@@ -428,7 +428,7 @@ AS_IF([test "x$ac_cv_header_xcrypt_h" = "xyes"],
   [crypt_libs="crypt"])
 
 BACKUP_LIBS=$LIBS
-AC_SEARCH_LIBS([crypt],[$crypt_libs], LIBCRYPT="${ac_cv_search_crypt}", LIBCRYPT="")
+AC_SEARCH_LIBS([crypt],[$crypt_libs], [test "$ac_cv_search_crypt" = "none required" || LIBCRYPT="$ac_cv_search_crypt"])
 AC_CHECK_FUNCS(crypt_r crypt_gensalt_r)
 LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCRYPT)
