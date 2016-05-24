@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 /usr/sbin/groupadd tstpamgrpg
 /usr/sbin/useradd -p '!!' tstpamgrp

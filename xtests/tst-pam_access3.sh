@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 /usr/sbin/useradd -p '!!' tstpamaccess3
 ./tst-pam_access3

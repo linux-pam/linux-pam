@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 /usr/sbin/useradd -p '!!' tstpamtest
 /usr/sbin/useradd -p '!!' pamtest

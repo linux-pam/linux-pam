@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 /usr/sbin/groupadd tstpamaccess
 /usr/sbin/useradd -p '!!' tstpamaccess2

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 /usr/sbin/useradd tstpampwhistory
 ./tst-pam_pwhistory1

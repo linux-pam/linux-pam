@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 SRCDIR=$1
 shift 1

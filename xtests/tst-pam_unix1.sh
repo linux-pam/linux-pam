@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 /usr/sbin/useradd -p '!!' tstpamunix
 ./tst-pam_unix1

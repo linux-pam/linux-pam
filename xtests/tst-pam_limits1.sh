@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 /usr/sbin/useradd -p '!!' tstpamlimits
 ./tst-pam_limits1

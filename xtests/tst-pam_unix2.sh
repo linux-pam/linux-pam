@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # pamunix0 = 0aXKZztA.d1KY
 /usr/sbin/useradd -p 0aXKZztA.d1KY  tstpamunix
