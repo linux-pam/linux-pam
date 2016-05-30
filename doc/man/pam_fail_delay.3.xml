@@ -135,7 +135,7 @@ void (*delay_fn)(int retval, unsigned usec_delay, void *appdata_ptr);
 
     <para>
       if the modules do not request a delay, the failure delay will be
-      between 2.25 and 3.75 seconds.
+      between 1.5 and 4.5 seconds.
     </para>
 
     <para>
@@ -150,7 +150,7 @@ module #2:    pam_fail_delay (pamh, 4000000);
 
     <para>
       in this case, it is the largest requested value that is used to
-      compute the actual failed delay: here between 3 and 5 seconds.
+      compute the actual failed delay: here between 2 and 6 seconds.
     </para>
   </refsect1>
 
