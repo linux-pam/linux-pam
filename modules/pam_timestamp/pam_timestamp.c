@@ -211,7 +211,7 @@ check_login_time(const char *ruser, time_t timestamp)
 		if (ut->ut_type != USER_PROCESS) {
 			continue;
 		}
-		if (strncmp(ruser, ut->ut_user, sizeof(ut->ut_user) != 0)) {
+		if (strncmp(ruser, ut->ut_user, sizeof(ut->ut_user)) != 0) {
 			continue;
 		}
 		if (oldest_login == 0 || oldest_login > ut->ut_tv.tv_sec) {
