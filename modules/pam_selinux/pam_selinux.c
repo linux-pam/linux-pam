@@ -524,7 +524,7 @@ compute_exec_context(pam_handle_t *pamh, module_data_t *data,
     data->default_user_context = strdup(contextlist[0]);
     freeconary(contextlist);
     if (!data->default_user_context) {
-      pam_syslog(pamh, LOG_ERR, "Out of memory");
+      pam_syslog(pamh, LOG_CRIT, "Out of memory");
       return PAM_BUF_ERR;
     }
 
@@ -573,7 +573,7 @@ compute_tty_context(const pam_handle_t *pamh, module_data_t *data)
   }
 
   if (!data->tty_path) {
-    pam_syslog(pamh, LOG_ERR, "Out of memory");
+    pam_syslog(pamh, LOG_CRIT, "Out of memory");
     return PAM_BUF_ERR;
   }
 
@@ -727,7 +727,7 @@ create_context(pam_handle_t *pamh, int argc, const char **argv,
   }
 
   if (!(data = calloc(1, sizeof(*data)))) {
-    pam_syslog(pamh, LOG_ERR, "Out of memory");
+    pam_syslog(pamh, LOG_CRIT, "Out of memory");
     return PAM_BUF_ERR;
   }
 

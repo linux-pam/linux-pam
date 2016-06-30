@@ -101,7 +101,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
     retval = pam_get_item(pamh, PAM_TTY, &void_uttyname);
     uttyname = void_uttyname;
     if (retval != PAM_SUCCESS || uttyname == NULL) {
-        pam_syslog (pamh, LOG_WARNING, "cannot determine user's tty");
+        pam_syslog (pamh, LOG_ERR, "cannot determine user's tty");
 	return PAM_SERVICE_ERR;
     }
 
@@ -214,7 +214,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
     }
 
     if (retval) {
-	    pam_syslog(pamh, LOG_WARNING, "access denied: tty '%s' is not secure !",
+	    pam_syslog(pamh, LOG_NOTICE, "access denied: tty '%s' is not secure !",
 		     uttyname);
 
 	    retval = PAM_AUTH_ERR;

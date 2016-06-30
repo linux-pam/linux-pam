@@ -78,13 +78,13 @@ static int process_args(pam_handle_t *pamh
 	} else if (strcmp("run1",*argv) == 0) {
 	    ctrl |= FILTER_RUN1;
 	    if (argc <= 0) {
-		pam_syslog(pamh, LOG_ALERT, "no run filter supplied");
+		pam_syslog(pamh, LOG_ERR, "no run filter supplied");
 	    } else
 		break;
 	} else if (strcmp("run2",*argv) == 0) {
 	    ctrl |= FILTER_RUN2;
 	    if (argc <= 0) {
-		pam_syslog(pamh, LOG_ALERT, "no run filter supplied");
+		pam_syslog(pamh, LOG_ERR, "no run filter supplied");
 	    } else
 		break;
 	} else {
@@ -261,7 +261,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
     int fd[2], child=0, child2=0, aterminal;
 
     if (filtername == NULL || *filtername != '/') {
-	pam_syslog(pamh, LOG_ALERT,
+	pam_syslog(pamh, LOG_ERR,
 		   "filtername not permitted; full pathname required");
 	return PAM_ABORT;
     }
@@ -310,7 +310,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    t_mode.c_cc[VTIME] = 0;          /* 0/10th second for chars */
 
 	    if ( tcsetattr(STDIN_FILENO, TCSAFLUSH, &t_mode) < 0 ) {
-		pam_syslog(pamh, LOG_WARNING,
+		pam_syslog(pamh, LOG_ERR,
 			   "couldn't put terminal in RAW mode: %m");
 		close(fd[0]);
 		return PAM_ABORT;
@@ -329,7 +329,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	 */
 
 	if ( socketpair(AF_UNIX, SOCK_STREAM, 0, fd) < 0 ) {
-	    pam_syslog(pamh, LOG_CRIT, "couldn't open a stream pipe: %m");
+	    pam_syslog(pamh, LOG_ERR, "couldn't open a stream pipe: %m");
 	    return PAM_ABORT;
 	}
     }
@@ -338,7 +338,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
     if ( (child = fork()) < 0 ) {
 
-	pam_syslog(pamh, LOG_WARNING, "first fork failed: %m");
+	pam_syslog(pamh, LOG_ERR, "first fork failed: %m");
 	if (aterminal) {
 		(void) tcsetattr(STDIN_FILENO, TCSAFLUSH, &stored_mode);
 		close(fd[0]);
@@ -369,20 +369,20 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
 	    /* make this process it's own process leader */
 	    if (setsid() == -1) {
-		pam_syslog(pamh, LOG_WARNING,
+		pam_syslog(pamh, LOG_ERR,
 			   "child cannot become new session: %m");
 		return PAM_ABORT;
 	    }
 
 	    /* grant slave terminal */
 	    if (grantpt (fd[0]) < 0) {
-		pam_syslog(pamh, LOG_WARNING, "Cannot grant acccess to slave terminal");
+		pam_syslog(pamh, LOG_ERR, "Cannot grant acccess to slave terminal");
 		return PAM_ABORT;
 	    }
 
 	    /* unlock slave terminal */
 	    if (unlockpt (fd[0]) < 0) {
-		pam_syslog(pamh, LOG_WARNING, "Cannot unlock slave terminal");
+		pam_syslog(pamh, LOG_ERR, "Cannot unlock slave terminal");
 		return PAM_ABORT;
 	    }
 
@@ -390,7 +390,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    terminal = ptsname(fd[0]); /* returned value should not be freed */
 
 	    if (terminal == NULL) {
-		pam_syslog(pamh, LOG_WARNING,
+		pam_syslog(pamh, LOG_ERR,
 			   "Cannot get the name of the slave terminal: %m");
 		return PAM_ABORT;
 	    }
@@ -399,7 +399,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    close(fd[0]);      /* process is the child -- uses line fd[1] */
 
 	    if (fd[1] < 0) {
-		pam_syslog(pamh, LOG_WARNING,
+		pam_syslog(pamh, LOG_ERR,
 			   "cannot open slave terminal: %s: %m", terminal);
 		return PAM_ABORT;
 	    }
@@ -408,7 +408,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	       parent's was before we set it into RAW mode */
 
 	    if ( tcsetattr(fd[1], TCSANOW, &stored_mode) < 0 ) {
-		pam_syslog(pamh, LOG_WARNING,
+		pam_syslog(pamh, LOG_ERR,
 			   "cannot set slave terminal mode: %s: %m", terminal);
 		close(fd[1]);
 		return PAM_ABORT;
@@ -424,7 +424,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	if ( dup2(fd[1],STDIN_FILENO) != STDIN_FILENO ||
 	     dup2(fd[1],STDOUT_FILENO) != STDOUT_FILENO ||
 	     dup2(fd[1],STDERR_FILENO) != STDERR_FILENO )  {
-	    pam_syslog(pamh, LOG_WARNING,
+	    pam_syslog(pamh, LOG_ERR,
 		       "unable to re-assign STDIN/OUT/ERR: %m");
 	    close(fd[1]);
 	    return PAM_ABORT;
@@ -435,7 +435,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	if ( fcntl(STDIN_FILENO, F_SETFD, 0) ||
 	     fcntl(STDOUT_FILENO,F_SETFD, 0) ||
 	     fcntl(STDERR_FILENO,F_SETFD, 0) ) {
-	    pam_syslog(pamh, LOG_WARNING,
+	    pam_syslog(pamh, LOG_ERR,
 		       "unable to re-assign STDIN/OUT/ERR: %m");
 	    return PAM_ABORT;
 	}
@@ -462,7 +462,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
     if ( (child2 = fork()) < 0 ) {
 
-	pam_syslog(pamh, LOG_WARNING, "filter fork failed: %m");
+	pam_syslog(pamh, LOG_ERR, "filter fork failed: %m");
 	child2 = 0;
 
     } else if ( child2 == 0 ) {              /* exec the child filter */
@@ -470,7 +470,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	if ( dup2(fd[0],APPIN_FILENO) != APPIN_FILENO ||
 	     dup2(fd[0],APPOUT_FILENO) != APPOUT_FILENO ||
 	     dup2(fd[0],APPERR_FILENO) != APPERR_FILENO )  {
-	    pam_syslog(pamh, LOG_WARNING,
+	    pam_syslog(pamh, LOG_ERR,
 		       "unable to re-assign APPIN/OUT/ERR: %m");
 	    close(fd[0]);
 	    _exit(1);
@@ -481,7 +481,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	if ( fcntl(APPIN_FILENO, F_SETFD, 0) == -1 ||
 	     fcntl(APPOUT_FILENO,F_SETFD, 0) == -1 ||
 	     fcntl(APPERR_FILENO,F_SETFD, 0) == -1 ) {
-	    pam_syslog(pamh, LOG_WARNING,
+	    pam_syslog(pamh, LOG_ERR,
 		       "unable to retain APPIN/OUT/ERR: %m");
 	    close(APPIN_FILENO);
 	    close(APPOUT_FILENO);
@@ -495,7 +495,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
 	/* getting to here is an error */
 
-	pam_syslog(pamh, LOG_ALERT, "filter: %s: %m", filtername);
+	pam_syslog(pamh, LOG_ERR, "filter: %s: %m", filtername);
 	_exit(1);
 
     } else {           /* wait for either of the two children to exit */
@@ -524,7 +524,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 		    child2 = 0;
 	    } else {
 
-		pam_syslog(pamh, LOG_ALERT,
+		pam_syslog(pamh, LOG_ERR,
 			   "programming error <chid=%d,lstatus=%x> "
 			   "in file %s at line %d",
 			   chid, lstatus, __FILE__, __LINE__);
@@ -562,7 +562,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
 	} else {
 
-	    pam_syslog(pamh, LOG_ALERT,
+	    pam_syslog(pamh, LOG_ERR,
 		       "programming error <chid=%d,lstatus=%x> "
 		       "in file %s at line %d",
 		       chid, lstatus, __FILE__, __LINE__);

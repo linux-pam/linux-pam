@@ -688,7 +688,7 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
                                *sizeof(struct loaded_module));
 	    if (tmp == NULL) {
 		D(("cannot enlarge module pointer memory"));
-		pam_syslog(pamh, LOG_ERR,
+		pam_syslog(pamh, LOG_CRIT,
 				"realloc returned NULL in _pam_load_module");
 		return NULL;
 	    }
@@ -708,7 +708,7 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 		mod_full_isa_path = malloc(strlen(mod_path) + strlen(_PAM_ISA) + 1);
 		if (mod_full_isa_path == NULL) {
 		    D(("_pam_load_module: couldn't get memory for mod_path"));
-		    pam_syslog(pamh, LOG_ERR, "no memory for module path");
+		    pam_syslog(pamh, LOG_CRIT, "no memory for module path");
 		    success = PAM_ABORT;
 		} else {
 		    strcpy(mod_full_isa_path, mod_path);
@@ -748,7 +748,7 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 	/* indicate its name - later we will search for it by this */
 	if ((mod->name = _pam_strdup(mod_path)) == NULL) {
 	    D(("_pam_load_module: couldn't get memory for mod_path"));
-	    pam_syslog(pamh, LOG_ERR, "no memory for module path");
+	    pam_syslog(pamh, LOG_CRIT, "no memory for module path");
 	    success = PAM_ABORT;
 	}
 

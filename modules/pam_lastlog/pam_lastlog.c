@@ -204,7 +204,7 @@ last_login_open(pam_handle_t *pamh, int announce, uid_t uid)
 		  D(("unable to create %s file", _PATH_LASTLOG));
 		  return -1;
 	     }
-	     pam_syslog(pamh, LOG_WARNING,
+	     pam_syslog(pamh, LOG_NOTICE,
 			"file %s created", _PATH_LASTLOG);
 	     D(("file %s created", _PATH_LASTLOG));
 	} else {
@@ -290,7 +290,7 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid, time_t
 		/* TRANSLATORS: " from <host>" */
 		if (asprintf(&host, _(" from %.*s"), UT_HOSTSIZE,
 			     last_login.ll_host) < 0) {
-		    pam_syslog(pamh, LOG_ERR, "out of memory");
+		    pam_syslog(pamh, LOG_CRIT, "out of memory");
 		    retval = PAM_BUF_ERR;
 		    goto cleanup;
 		}
@@ -302,7 +302,7 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid, time_t
 		/* TRANSLATORS: " on <terminal>" */
 		if (asprintf(&line, _(" on %.*s"), UT_LINESIZE,
 			     last_login.ll_line) < 0) {
-		    pam_syslog(pamh, LOG_ERR, "out of memory");
+		    pam_syslog(pamh, LOG_CRIT, "out of memory");
 		    retval = PAM_BUF_ERR;
 		    goto cleanup;
 		}
@@ -480,7 +480,7 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
     }
 
     if (retval != 0)
-	pam_syslog(pamh, LOG_WARNING, "corruption detected in %s", _PATH_BTMP);
+	pam_syslog(pamh, LOG_ERR, "corruption detected in %s", _PATH_BTMP);
     retval = PAM_SUCCESS;
 
     if (failed) {
@@ -504,7 +504,7 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 	    /* TRANSLATORS: " from <host>" */
 	    if (asprintf(&host, _(" from %.*s"), UT_HOSTSIZE,
 		    utuser.ut_host) < 0) {
-		pam_syslog(pamh, LOG_ERR, "out of memory");
+		pam_syslog(pamh, LOG_CRIT, "out of memory");
 		retval = PAM_BUF_ERR;
 		goto cleanup;
 	    }
@@ -516,7 +516,7 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 	    /* TRANSLATORS: " on <terminal>" */
 	    if (asprintf(&line, _(" on %.*s"), UT_LINESIZE,
 			utuser.ut_line) < 0) {
-		pam_syslog(pamh, LOG_ERR, "out of memory");
+		pam_syslog(pamh, LOG_CRIT, "out of memory");
 		retval = PAM_BUF_ERR;
 		goto cleanup;
 	    }

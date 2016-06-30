@@ -397,7 +397,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	     return PAM_SERVICE_ERR;
 	 case -1:
 	     /* incorrect password */
-	     pam_syslog(pamh, LOG_WARNING,
+	     pam_syslog(pamh, LOG_NOTICE,
 			"user `%s' denied access (incorrect password)",
 			username);
 	     return PAM_AUTH_ERR;

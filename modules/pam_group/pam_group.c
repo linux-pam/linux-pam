@@ -91,7 +91,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state)
     if (! *buf) {
 	*buf = (char *) calloc(1, PAM_GROUP_BUFLEN+1);
 	if (! *buf) {
-	    pam_syslog(pamh, LOG_ERR, "out of memory");
+	    pam_syslog(pamh, LOG_CRIT, "out of memory");
 	    D(("no memory"));
 	    *state = STATE_EOF;
 	    return -1;

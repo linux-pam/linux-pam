@@ -683,7 +683,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 
 		  if (asprintf(&d, "DISPLAY=%s", display) < 0)
 		    {
-		      pam_syslog(pamh, LOG_ERR, "out of memory");
+		      pam_syslog(pamh, LOG_CRIT, "out of memory");
 		      cookiefile = NULL;
 		      retval = PAM_SESSION_ERR;
 		      goto cleanup;
@@ -700,7 +700,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		  char *d;
 
 		  if (asprintf(&d, "XAUTHLOCALHOSTNAME=%s", xauthlocalhostname) < 0) {
-		    pam_syslog(pamh, LOG_ERR, "out of memory");
+		    pam_syslog(pamh, LOG_CRIT, "out of memory");
 		    retval = PAM_SESSION_ERR;
 		    goto cleanup;
 		  }

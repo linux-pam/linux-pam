@@ -75,7 +75,7 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
     int fd = -1;
 
     if ((pam_get_user(pamh, &username, NULL) != PAM_SUCCESS) || !username) {
-	pam_syslog(pamh, LOG_WARNING, "cannot determine username");
+	pam_syslog(pamh, LOG_ERR, "cannot determine username");
 	return PAM_USER_UNKNOWN;
     }
 
@@ -111,7 +111,7 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 
 	mtmp = malloc(st.st_size+1);
 	if (!mtmp) {
-	    pam_syslog(pamh, LOG_ERR, "out of memory");
+	    pam_syslog(pamh, LOG_CRIT, "out of memory");
 	    retval = PAM_BUF_ERR;
 	    goto clean_up_fd;
 	}

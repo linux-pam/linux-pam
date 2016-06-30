@@ -1023,7 +1023,7 @@ helper_verify_password(const char *name, const char *p, int nullok)
 	retval = get_pwd_hash(name, &pwd, &salt);
 
 	if (pwd == NULL || salt == NULL) {
-		helper_log_err(LOG_WARNING, "check pass; user unknown");
+		helper_log_err(LOG_NOTICE, "check pass; user unknown");
 		retval = PAM_USER_UNKNOWN;
 	} else {
 		retval = verify_pwd_hash(p, salt, nullok);

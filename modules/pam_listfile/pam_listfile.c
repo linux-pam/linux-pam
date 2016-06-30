@@ -364,7 +364,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	(void) pam_get_item(pamh, PAM_SERVICE, &service);
 	(void) pam_get_user(pamh, &user_name, NULL);
 	if (!quiet)
-	    pam_syslog (pamh, LOG_ALERT, "Refused user %s for service %s",
+	    pam_syslog (pamh, LOG_NOTICE, "Refused user %s for service %s",
 	                user_name, (const char *)service);
 	return PAM_AUTH_ERR;
     }

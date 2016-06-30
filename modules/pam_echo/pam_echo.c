@@ -76,7 +76,7 @@ replace_and_print (pam_handle_t *pamh, const char *mesg)
   output = malloc (length);
   if (output == NULL)
     {
-      pam_syslog (pamh, LOG_ERR, "running out of memory");
+      pam_syslog (pamh, LOG_CRIT, "running out of memory");
       return PAM_BUF_ERR;
     }
 

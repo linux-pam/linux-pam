@@ -105,7 +105,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	char *new_prompt = realloc(issue_prompt, size);
 
 	if (new_prompt == NULL) {
-	    pam_syslog(pamh, LOG_ERR, "out of memory");
+	    pam_syslog(pamh, LOG_CRIT, "out of memory");
 	    retval = PAM_BUF_ERR;
 	    goto out;
 	}
@@ -141,7 +141,7 @@ read_issue_raw(pam_handle_t *pamh, FILE *fp, char **prompt)
     }
 
     if ((issue = malloc(st.st_size + 1)) == NULL) {
-	pam_syslog(pamh, LOG_ERR, "out of memory");
+	pam_syslog(pamh, LOG_CRIT, "out of memory");
 	return PAM_BUF_ERR;
     }
 
@@ -167,7 +167,7 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
     *prompt = NULL;
 
     if ((issue = malloc(size)) == NULL) {
-	pam_syslog(pamh, LOG_ERR, "out of memory");
+	pam_syslog(pamh, LOG_CRIT, "out of memory");
 	return PAM_BUF_ERR;
     }
 

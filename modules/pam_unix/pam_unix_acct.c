@@ -201,7 +201,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	uname = void_uname;
 	D(("user = `%s'", uname));
 	if (retval != PAM_SUCCESS || uname == NULL) {
-		pam_syslog(pamh, LOG_ALERT,
+		pam_syslog(pamh, LOG_ERR,
 			 "could not identify user (from uid=%lu)",
 			 (unsigned long int)getuid());
 		return PAM_USER_UNKNOWN;
@@ -209,7 +209,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 
 	retval = get_account_info(pamh, uname, &pwent, &spent);
 	if (retval == PAM_USER_UNKNOWN) {
-		pam_syslog(pamh, LOG_ALERT,
+		pam_syslog(pamh, LOG_ERR,
 			 "could not identify user (from getpwnam(%s))",
 			 uname);
 		return retval;

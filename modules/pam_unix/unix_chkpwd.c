@@ -43,7 +43,7 @@ static int _check_expiry(const char *uname)
 
 	retval = get_account_info(uname, &pwent, &spent);
 	if (retval != PAM_SUCCESS) {
-		helper_log_err(LOG_ALERT, "could not obtain user info (%s)", uname);
+		helper_log_err(LOG_ERR, "could not obtain user info (%s)", uname);
 		printf("-1\n");
 		return retval;
 	}

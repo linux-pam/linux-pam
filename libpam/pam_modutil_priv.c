@@ -87,7 +87,7 @@ int pam_modutil_drop_priv(pam_handle_t *pamh,
 	if (res > p->number_of_groups) {
 		p->grplist = calloc(res, sizeof(gid_t));
 		if (!p->grplist) {
-			pam_syslog(pamh, LOG_ERR, "out of memory");
+			pam_syslog(pamh, LOG_CRIT, "out of memory");
 			return cleanup(p);
 		}
 		p->allocated = 1;

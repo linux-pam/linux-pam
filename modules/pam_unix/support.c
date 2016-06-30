@@ -345,7 +345,7 @@ static void _cleanup_failures(pam_handle_t * pamh, void *fl, int err)
 				);
 
 				if (failure->count > UNIX_MAX_RETRIES) {
-					pam_syslog(pamh, LOG_ALERT,
+					pam_syslog(pamh, LOG_NOTICE,
 						 "service(%s) ignoring max retries; %d > %d",
 						 service == NULL ? "**unknown**" : (const char *)service,
 						 failure->count,
@@ -744,12 +744,12 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			if (on(UNIX_AUDIT, ctrl)) {
 				/* this might be a typo and the user has given a password
 				   instead of a username. Careful with this. */
-				pam_syslog(pamh, LOG_WARNING,
+				pam_syslog(pamh, LOG_NOTICE,
 				         "check pass; user (%s) unknown", name);
 			} else {
 				name = NULL;
 				if (on(UNIX_DEBUG, ctrl) || pwd == NULL) {
-				    pam_syslog(pamh, LOG_WARNING,
+				    pam_syslog(pamh, LOG_NOTICE,
 				            "check pass; user unknown");
 				} else {
 				    /* don't log failure as another pam module can succeed */

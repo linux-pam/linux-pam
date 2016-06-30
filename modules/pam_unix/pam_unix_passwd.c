@@ -774,7 +774,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 
 			if (retval != PAM_SUCCESS) {
 				if (on(UNIX_DEBUG, ctrl)) {
-					pam_syslog(pamh, LOG_ALERT,
+					pam_syslog(pamh, LOG_ERR,
 						 "password - new password not obtained");
 				}
 				pass_old = NULL;	/* tidy up */
@@ -864,7 +864,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		_pam_delete(tpass);
 		pass_old = pass_new = NULL;
 	} else {		/* something has broken with the module */
-		pam_syslog(pamh, LOG_ALERT,
+		pam_syslog(pamh, LOG_CRIT,
 		         "password received unknown request");
 		retval = PAM_ABORT;
 	}

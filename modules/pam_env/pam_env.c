@@ -384,7 +384,7 @@ _parse_line (const pam_handle_t *pamh, char *buffer, VAR *var)
   length = strcspn(buffer," \t\n");
 
   if ((var->name = malloc(length + 1)) == NULL) {
-    pam_syslog(pamh, LOG_ERR, "Couldn't malloc %d bytes", length+1);
+    pam_syslog(pamh, LOG_CRIT, "Couldn't malloc %d bytes", length+1);
     return PAM_BUF_ERR;
   }
 
@@ -440,7 +440,7 @@ _parse_line (const pam_handle_t *pamh, char *buffer, VAR *var)
     if (length) {
       if ((*valptr = malloc(length + 1)) == NULL) {
 	D(("Couldn't malloc %d bytes", length+1));
-	pam_syslog(pamh, LOG_ERR, "Couldn't malloc %d bytes", length+1);
+	pam_syslog(pamh, LOG_CRIT, "Couldn't malloc %d bytes", length+1);
 	return PAM_BUF_ERR;
       }
       (void)strncpy(*valptr,ptr,length);
@@ -653,7 +653,7 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
     free(*value);
     if ((*value = malloc(strlen(tmp) +1)) == NULL) {
       D(("Couldn't malloc %d bytes for expanded var", strlen(tmp)+1));
-      pam_syslog (pamh, LOG_ERR, "Couldn't malloc %lu bytes for expanded var",
+      pam_syslog (pamh, LOG_CRIT, "Couldn't malloc %lu bytes for expanded var",
 	       (unsigned long)strlen(tmp)+1);
       return PAM_BUF_ERR;
     }
@@ -722,7 +722,7 @@ static int _define_var(pam_handle_t *pamh, int ctrl, VAR *var)
 
   D(("Called."));
   if (asprintf(&envvar, "%s=%s", var->name, var->value) < 0) {
-    pam_syslog(pamh, LOG_ERR, "out of memory");
+    pam_syslog(pamh, LOG_CRIT, "out of memory");
     return PAM_BUF_ERR;
   }
 
@@ -814,7 +814,7 @@ handle_env (pam_handle_t *pamh, int argc, const char **argv)
     else {
       if (asprintf(&envpath, "%s/%s", user_entry->pw_dir, user_env_file) < 0)
 	{
-	  pam_syslog(pamh, LOG_ERR, "Out of memory");
+	  pam_syslog(pamh, LOG_CRIT, "Out of memory");
 	  return PAM_BUF_ERR;
 	}
       if (stat(envpath, &statbuf) == 0) {

@@ -323,7 +323,7 @@ evaluate(pam_handle_t *pamh, int debug,
 	}
 	/* If we have no idea what's going on, return an error. */
 	if (left != buf) {
-		pam_syslog(pamh, LOG_CRIT, "unknown attribute \"%s\"", left);
+		pam_syslog(pamh, LOG_ERR, "unknown attribute \"%s\"", left);
 		return PAM_SERVICE_ERR;
 	}
 	if (debug) {
@@ -455,7 +455,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		/* Get information about the user. */
 		pwd = pam_modutil_getpwuid(pamh, getuid());
 		if (pwd == NULL) {
-			pam_syslog(pamh, LOG_CRIT,
+			pam_syslog(pamh, LOG_ERR,
 				   "error retrieving information about user %lu",
 				   (unsigned long)getuid());
 			return PAM_USER_UNKNOWN;
@@ -465,7 +465,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		/* Get the user's name. */
 		ret = pam_get_user(pamh, &user, prompt);
 		if ((ret != PAM_SUCCESS) || (user == NULL)) {
-			pam_syslog(pamh, LOG_CRIT,
+			pam_syslog(pamh, LOG_ERR,
 				   "error retrieving user name: %s",
 				   pam_strerror(pamh, ret));
 			return ret;
@@ -543,7 +543,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 
 	if (left || qual || right) {
 		ret = PAM_SERVICE_ERR;
-		pam_syslog(pamh, LOG_CRIT,
+		pam_syslog(pamh, LOG_ERR,
 			"incomplete condition detected");
 	} else if (count == 0) {
 		pam_syslog(pamh, LOG_INFO,
