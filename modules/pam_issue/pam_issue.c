@@ -277,8 +277,8 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 		return PAM_BUF_ERR;
 	    }
 	    issue = new_issue;
-	    strcat(issue, buf);
 	}
+	strcat(issue, buf);
     }
 
     if (ferror(fp)) {
