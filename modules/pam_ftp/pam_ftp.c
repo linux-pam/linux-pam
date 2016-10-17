@@ -71,11 +71,10 @@ _pam_parse(pam_handle_t *pamh, int argc, const char **argv, const char **users)
  * return 1 if listed 0 if not.
  */
 
-static int lookup(const char *name, const char *list, const char **_user)
+static int lookup(const char *name, const char *list, char **_user)
 {
     int anon = 0;
 
-    *_user = name;                 /* this is the default */
     if (list && *list) {
 	const char *l;
 	char *list_copy, *x;
@@ -86,12 +85,14 @@ static int lookup(const char *name, const char *list, const char **_user)
 	while (list_copy && (l = strtok_r(x, ",", &sptr))) {
 	    x = NULL;
 	    if (!strcmp(name, l)) {
-		*_user = list;
+		*_user = list_copy;
 		anon = 1;
+		break;
 	    }
 	}
-	_pam_overwrite(list_copy);
-	_pam_drop(list_copy);
+	if (*_user != list_copy) {
+	    free(list_copy);
+	}
     } else {
 #define MAX_L 2
 	static const char *l[MAX_L] = { "ftp", "anonymous" };
@@ -99,7 +100,7 @@ static int lookup(const char *name, const char *list, const char **_user)
 
 	for (i=0; i<MAX_L; ++i) {
 	    if (!strcmp(l[i], name)) {
-		*_user = l[0];
+		*_user = strdup(l[0]);
 		anon = 1;
 		break;
 	    }
@@ -117,6 +118,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 {
     int retval, anon=0, ctrl;
     const char *user;
+    char *anon_user = NULL;
     const char *users = NULL;
 
     /*
@@ -134,15 +136,16 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     }
 
     if (!(ctrl & PAM_NO_ANON)) {
-	anon = lookup(user, users, &user);
+	anon = lookup(user, users, &anon_user);
     }
 
     if (anon) {
-	retval = pam_set_item(pamh, PAM_USER, (const void *)user);
-	if (retval != PAM_SUCCESS || user == NULL) {
+	retval = pam_set_item(pamh, PAM_USER, (const void *)anon_user);
+	if (retval != PAM_SUCCESS || anon_user == NULL) {
 	    pam_syslog(pamh, LOG_ERR, "user resetting failed");
 	    return PAM_USER_UNKNOWN;
 	}
+	free(anon_user);
     }
 
     /*
