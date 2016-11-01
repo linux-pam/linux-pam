@@ -516,7 +516,9 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
     /* Try to split on a pattern (@*[^@]+)(@+.*) */
     for (at = tok; *at == '@'; ++at);
 
-    if ((at = strchr(at, '@')) != NULL) {
+    if (tok[0] == '(' && tok[strlen(tok) - 1] == ')') {
+      return (group_match (pamh, tok, string, item->debug));
+    } else if ((at = strchr(at, '@')) != NULL) {
         /* split user@host pattern */
 	if (item->hostname == NULL)
 	    return NO;
@@ -541,9 +543,7 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 		hostname = item->hostname;
 	}
         return (netgroup_match (pamh, tok + 1, hostname, string, item->debug));
-    } else if (tok[0] == '(' && tok[strlen(tok) - 1] == ')')
-      return (group_match (pamh, tok, string, item->debug));
-    else if ((rv=string_match (pamh, tok, string, item->debug)) != NO) /* ALL or exact match */
+    } else if ((rv=string_match (pamh, tok, string, item->debug)) != NO) /* ALL or exact match */
       return rv;
     else if (item->only_new_group_syntax == NO &&
 	     pam_modutil_user_in_group_nam_nam (pamh,
