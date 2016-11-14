@@ -558,7 +558,7 @@ AC_PATH_PROG([BROWSER], [w3m])
 if test ! -z "$BROWSER"; then
      BROWSER="$BROWSER -T text/html -dump"
 else
-     AC_PATH_PROG([BROWSER], [links])
+     AC_PATH_PROG([BROWSER], [elinks])
      if test ! -z "$BROWSER"; then
           BROWSER="$BROWSER -no-numbering -no-references -dump"
      else
