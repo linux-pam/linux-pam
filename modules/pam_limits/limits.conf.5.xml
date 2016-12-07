@@ -335,7 +335,7 @@ ftp             hard    nproc           0
       <citerefentry><refentrytitle>pam_limits</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-      <citerefentry><refentrytitle>getrlimit</refentrytitle><manvolnum>2</manvolnum></citerefentry>
+      <citerefentry><refentrytitle>getrlimit</refentrytitle><manvolnum>2</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>getrlimit</refentrytitle><manvolnum>3p</manvolnum></citerefentry>
     </para>
   </refsect1>
