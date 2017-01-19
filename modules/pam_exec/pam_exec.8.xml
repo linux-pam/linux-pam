@@ -22,7 +22,7 @@
 	debug
       </arg>
       <arg choice="opt">
-         expose_authtok
+         expose_authtok[=ask|get]
       </arg>
       <arg choice="opt">
         seteuid
@@ -99,7 +99,7 @@
 
         <varlistentry>
           <term>
-            <option>expose_authtok</option>
+            <option>expose_authtok[=ask|get]</option>
           </term>
           <listitem>
             <para>
@@ -107,7 +107,10 @@
               the password from <citerefentry>
               <refentrytitle>stdin</refentrytitle><manvolnum>3</manvolnum>
               </citerefentry>. Only first <emphasis>PAM_MAX_RESP_SIZE</emphasis>
-              bytes of a password are provided to the command.
+              bytes of a password are provided to the command. If expose_authtok=ask
+              is specified, pam_exec asks for a password. If expose_authtok=get
+              is specified, pam_exec assums another module has already set the password.
+              expose_authtok can be specified without an argument to maintain backward compatibility.
             </para>
           </listitem>
         </varlistentry>

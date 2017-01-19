@@ -95,10 +95,16 @@ static int
 call_exec (const char *pam_type, pam_handle_t *pamh,
 	   int argc, const char **argv)
 {
+  enum authtok_method {
+    NO_AUTHTOK,
+    AUTHTOK_AUTO,
+    AUTHTOK_GET,
+    AUTHTOK_ASK
+  };
   int debug = 0;
   int call_setuid = 0;
   int quiet = 0;
-  int expose_authtok = 0;
+  enum authtok_method expose_authtok = NO_AUTHTOK;
   int use_stdout = 0;
   int optargc;
   const char *logfile = NULL;
@@ -135,12 +141,16 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       else if (strcasecmp (argv[optargc], "quiet") == 0)
 	quiet = 1;
       else if (strcasecmp (argv[optargc], "expose_authtok") == 0)
-	expose_authtok = 1;
+        expose_authtok = AUTHTOK_AUTO;
+      else if (strcasecmp (argv[optargc], "expose_authtok=get") == 0)
+        expose_authtok = AUTHTOK_GET;
+      else if (strcasecmp (argv[optargc], "expose_authtok=ask") == 0)
+        expose_authtok = AUTHTOK_ASK;
       else
 	break; /* Unknown option, assume program to execute. */
     }
 
-  if (expose_authtok == 1)
+  if (expose_authtok != NO_AUTHTOK)
     {
       if (strcmp (pam_type, "auth") != 0)
 	{
@@ -150,10 +160,11 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	}
       else
 	{
-	  const void *void_pass;
-	  int retval;
+	  const void *void_pass = 0;
+	  int retval = PAM_SUCCESS;
 
-	  retval = pam_get_item (pamh, PAM_AUTHTOK, &void_pass);
+	  if (expose_authtok == AUTHTOK_GET || expose_authtok == AUTHTOK_AUTO)
+	    retval = pam_get_item (pamh, PAM_AUTHTOK, &void_pass);
 	  if (retval != PAM_SUCCESS)
 	    {
 	      if (debug)
@@ -162,7 +173,9 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 			    retval);
 	      return retval;
 	    }
-	  else if (void_pass == NULL)
+	  else if (void_pass)
+	    authtok = strndupa (void_pass, PAM_MAX_RESP_SIZE);
+	  else if (expose_authtok == AUTHTOK_AUTO || expose_authtok == AUTHTOK_ASK)
 	    {
 	      char *resp = NULL;
 
@@ -170,20 +183,20 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 				   &resp, _("Password: "));
 
 	      if (retval != PAM_SUCCESS)
-		{
+	        {
 		  _pam_drop (resp);
 		  if (retval == PAM_CONV_AGAIN)
 		    retval = PAM_INCOMPLETE;
-		  return retval;
+		    return retval;
 		}
-
 	      pam_set_item (pamh, PAM_AUTHTOK, resp);
-	      authtok = strndupa (resp, PAM_MAX_RESP_SIZE);
-	      _pam_drop (resp);
+	      if( resp )
+	        {
+		  authtok = strndupa (resp, PAM_MAX_RESP_SIZE);
+		  _pam_drop (resp);
+	        }
 	    }
-	  else
-	    authtok = strndupa (void_pass, PAM_MAX_RESP_SIZE);
-
+	  
 	  if (pipe(fds) != 0)
 	    {
 	      pam_syslog (pamh, LOG_ERR, "Could not create pipe: %m");
