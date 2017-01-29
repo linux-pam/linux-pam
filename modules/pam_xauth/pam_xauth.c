@@ -478,7 +478,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	   *                 if .xauth/export does not exist
 	   * import(user=*): if <ruser> is listed in .xauth/import, or
 	   *                 if .xauth/import does not exist */
-	  i = (getuid() != 0 || tpwd->pw_uid == 0) ? PAM_SUCCESS : PAM_PERM_DENIED;
+	  i = (rpwd->pw_uid != 0 || tpwd->pw_uid == 0) ? PAM_SUCCESS : PAM_PERM_DENIED;
 	  i = check_acl(pamh, "export", rpwd->pw_name, user, i, debug);
 	  if (i != PAM_SUCCESS) {
 	    retval = PAM_SESSION_ERR;
@@ -521,10 +521,10 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		pam_syslog(pamh, LOG_DEBUG,
 			   "running \"%s %s %s %s %s\" as %lu/%lu",
 			   xauth, "-f", cookiefile, "nlist", display,
-			   (unsigned long) getuid(), (unsigned long) getgid());
+			   (unsigned long) rpwd->pw_uid, (unsigned long) rpwd->pw_gid);
 	}
 	if (run_coprocess(pamh, NULL, &cookie,
-			  getuid(), getgid(),
+			  rpwd->pw_uid, rpwd->pw_gid,
 			  xauth, "-f", cookiefile, "nlist", display,
 			  NULL) == 0) {
 #ifdef WITH_SELINUX
@@ -579,11 +579,11 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 						       cookiefile,
 						       "nlist",
 						       t,
-						       (unsigned long) getuid(),
-						       (unsigned long) getgid());
+						       (unsigned long) rpwd->pw_uid,
+						       (unsigned long) rpwd->pw_gid);
 					}
 					run_coprocess(pamh, NULL, &cookie,
-						      getuid(), getgid(),
+						      rpwd->pw_uid, rpwd->pw_gid,
 						      xauth, "-f", cookiefile,
 						      "nlist", t, NULL);
 				}
