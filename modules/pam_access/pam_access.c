@@ -727,7 +727,7 @@ network_netmask_match (pam_handle_t *pamh,
 	  { /* netmask as integre value */
 	    char *endptr = NULL;
 	    netmask = strtol(netmask_ptr, &endptr, 0);
-	    if ((endptr == NULL) || (*endptr != '\0'))
+	    if ((endptr == netmask_ptr) || (*endptr != '\0'))
 		{ /* invalid netmask value */
 		  return NO;
 		}
