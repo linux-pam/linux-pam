@@ -692,7 +692,6 @@ string_match (pam_handle_t *pamh, const char *tok, const char *string,
     return (NO);
 }
 
-
 /* network_netmask_match - match a string against one token
  * where string is a hostname or ip (v4,v6) address and tok
  * represents either a single ip (v4,v6) address or a network/netmask
@@ -704,10 +703,15 @@ network_netmask_match (pam_handle_t *pamh,
     char *netmask_ptr;
     char netmask_string[MAXHOSTNAMELEN + 1];
     int addr_type;
+    struct addrinfo *ai, tok_ai;
+    struct sockaddr sa;
+    struct sockaddr_storage tok_addr;
+    int do_free_ai = 0;
 
     if (item->debug)
-    pam_syslog (pamh, LOG_DEBUG,
+      pam_syslog (pamh, LOG_DEBUG,
 		"network_netmask_match: tok=%s, item=%s", tok, string);
+
     /* OK, check if tok is of type addr/mask */
     if ((netmask_ptr = strchr(tok, '/')) != NULL)
       {
@@ -717,7 +721,7 @@ network_netmask_match (pam_handle_t *pamh,
 	*netmask_ptr = 0;
 	netmask_ptr++;
 
-	if (isipaddr(tok, &addr_type, NULL) == NO)
+	if (isipaddr(tok, &addr_type, &tok_addr) == NO)
 	  { /* no netaddr */
 	    return NO;
 	  }
@@ -739,13 +743,82 @@ network_netmask_match (pam_handle_t *pamh,
 	    netmask_ptr = number_to_netmask(netmask, addr_type,
 		netmask_string, MAXHOSTNAMELEN);
 	  }
-	}
-    else
-	/* NO, then check if it is only an addr */
-	if (isipaddr(tok, NULL, NULL) != YES)
+
+        memset(&tok_ai, 0, sizeof(struct addrinfo));
+	tok_ai.ai_addr = &sa;
+	tok_ai.ai_family = addr_type;
+	if (addr_type == AF_INET)
 	  {
+	    struct sockaddr_in *sai = (struct sockaddr_in *)&sa;
+
+	    tok_ai.ai_addrlen = sizeof(sai->sin_addr);
+	    memcpy(&sai->sin_addr, &tok_addr, sizeof(sai->sin_addr));
+	  }
+	else /* addr_type == AF_INET6 */
+	  {
+	    struct sockaddr_in6 *sai = (struct sockaddr_in6 *)&sa;
+
+	    tok_ai.ai_addrlen = sizeof(sai->sin6_addr);
+	    memcpy(&sai->sin6_addr, &tok_addr, sizeof(sai->sin6_addr));
+	  }
+
+	ai = &tok_ai;
+      }
+    else if (isipaddr(tok, &addr_type, &tok_addr) == YES)
+      {
+	/*
+	 * It is an IP address
+	 * Hand-craft a single struct addrinfo
+	 * which contains the IP address and
+	 * which identifies the address as AF_INET or AF_INET6
+	 */
+        memset(&tok_ai, 0, sizeof(struct addrinfo));
+	tok_ai.ai_addr = (struct sockaddr *) &tok_addr;
+	tok_ai.ai_family = addr_type;
+
+	if (addr_type == AF_INET)
+	  {
+	    struct sockaddr_in * sai = (struct sockaddr_in *)&sa;
+
+	    tok_ai.ai_addrlen = sizeof(sai->sin_addr);
+	    memcpy(&sai->sin_addr, &tok_addr, sizeof(sai->sin_addr));
+	  }
+	else /* addr_type == AF_INET6 */
+	  {
+	    struct sockaddr_in6 * sai = (struct sockaddr_in6 *)&sa;
+
+	    tok_ai.ai_addrlen = sizeof(sai->sin6_addr);
+	    memcpy(&sai->sin6_addr, &tok_addr, sizeof(sai->sin6_addr));
+	  }
+
+	ai = &tok_ai;
+
+	netmask_ptr = NULL;
+      }
+    else
+      {
+        /*
+	 * It is not an IP address,
+	 * check if it is a host name
+	 */
+	struct addrinfo hint;
+
+	memset (&hint, '\0', sizeof (hint));
+	hint.ai_flags = AI_CANONNAME;
+	hint.ai_family = AF_UNSPEC;
+
+	ai = NULL;	/* just to be on the safe side */
+
+	if (getaddrinfo (string, NULL, &hint, &ai) != 0)
+	  {
+	    pam_syslog(pamh, LOG_ERR, "cannot resolve hostname \"%s\"", string);
+
 	    return NO;
 	  }
+	netmask_ptr = NULL;
+
+	do_free_ai = 1;	/* call freeaddrinfo() at the end */
+      }
 
     if (isipaddr(string, NULL, NULL) != YES)
       {
@@ -764,6 +837,7 @@ network_netmask_match (pam_handle_t *pamh,
         else
 	  {
 	    struct addrinfo *runp = item->res;
+	    struct addrinfo *runp1;
 
 	    while (runp != NULL)
 	      {
@@ -775,16 +849,53 @@ network_netmask_match (pam_handle_t *pamh,
 			: (void *) &((struct sockaddr_in6 *) runp->ai_addr)->sin6_addr,
 			buf, sizeof (buf));
 
-		if (are_addresses_equal(buf, tok, netmask_ptr))
+		for (runp1 = ai; runp1 != NULL; runp1 = runp1->ai_next)
 		  {
-		    return YES;
+		    char buf1[INET6_ADDRSTRLEN];
+
+		    if (runp->ai_family != runp1->ai_family)
+		      continue;
+
+		    inet_ntop (runp1->ai_family,
+			runp1->ai_family == AF_INET
+			? (void *) &((struct sockaddr_in *) runp1->ai_addr)->sin_addr
+			: (void *) &((struct sockaddr_in6 *) runp1->ai_addr)->sin6_addr,
+			buf1, sizeof (buf1));
+		    if (are_addresses_equal(buf, buf1, netmask_ptr))
+		      {
+			if (do_free_ai)
+			  freeaddrinfo(ai);
+			return YES;
+		      }
 		  }
 		runp = runp->ai_next;
 	      }
 	  }
       }
     else
-      return (are_addresses_equal(string, tok, netmask_ptr));
+      {
+	struct addrinfo *runp1;
+
+	for (runp1 = ai; runp1 != NULL; runp1 = runp1->ai_next)
+	  {
+	    char buf1[INET6_ADDRSTRLEN];
+
+	    inet_ntop (runp1->ai_family,
+		runp1->ai_family == AF_INET
+		? (void *) &((struct sockaddr_in *) runp1->ai_addr)->sin_addr
+		: (void *) &((struct sockaddr_in6 *) runp1->ai_addr)->sin6_addr,
+			buf1, sizeof (buf1));
+	    if (are_addresses_equal(string, buf1, netmask_ptr))
+	      {
+		if (do_free_ai)
+		  freeaddrinfo(ai);
+		return YES;
+	      }
+	  }
+      }
+
+  if (ai != NULL && do_free_ai)
+    freeaddrinfo(ai);
 
   return NO;
 }
