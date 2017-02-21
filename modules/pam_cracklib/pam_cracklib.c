@@ -408,7 +408,7 @@ static int simple(struct cracklib_options *opt, const char *new)
             } else
                 sameclass++;
         }
-        if (opt->max_class_repeat > 1 && sameclass > opt->max_class_repeat) {
+        if (opt->max_class_repeat > 0 && sameclass > opt->max_class_repeat) {
                 return 1;
         }
     }
