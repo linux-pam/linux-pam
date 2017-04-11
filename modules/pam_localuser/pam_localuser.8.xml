@@ -127,8 +127,8 @@
   <refsect1 id='pam_localuser-examples'>
     <title>EXAMPLES</title>
     <para>
-      Add the following line to <filename>/etc/pam.d/su</filename> to
-      allow only local users in group wheel to use su.
+      Add the following lines to <filename>/etc/pam.d/su</filename> to
+      allow only local users or group wheel to use su.
       <programlisting>
 account sufficient pam_localuser.so
 account required pam_wheel.so
