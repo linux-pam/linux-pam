@@ -106,16 +106,16 @@
           <term>PAM_SERVICE_ERR</term>
           <listitem>
             <para>
-	      No username was given.
+              No username was given.
             </para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>PAM_USER_UNKNOWN</term>
+          <term>PAM_PERM_DENIED</term>
           <listitem>
             <para>
-	      User not known.
+              The user is not listed in the passwd file.
             </para>
           </listitem>
         </varlistentry>
