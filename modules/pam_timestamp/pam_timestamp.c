@@ -151,9 +151,10 @@ check_tty(const char *tty)
 	}
 	/* Pull out the meaningful part of the tty's name. */
 	if (strchr(tty, '/') != NULL) {
-		if (strncmp(tty, "/dev/", 5) != 0) {
+		if ((strncmp(tty, "/dev/", 5) != 0) && (strncmp(tty, "pts/", 4) != 0)) {
 			/* Make sure the device node is actually in /dev/,
-			 * noted by Michal Zalewski. */
+			 * noted by Michal Zalewski.
+			 * Still allow Unix98 ptys (pts/x) */
 			return NULL;
 		}
 		tty = strrchr(tty, '/') + 1;
