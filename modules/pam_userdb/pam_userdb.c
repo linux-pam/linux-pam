@@ -26,16 +26,10 @@
 
 #include "pam_userdb.h"
 
-#ifdef HAVE_NDBM_H
-# include <ndbm.h>
+#ifdef HAVE_DB_H
+# include <db.h>
 #else
-# ifdef HAVE_DB_H
-#  define DB_DBM_HSEARCH    1 /* use the dbm interface */
-#  define HAVE_DBM	      /* for BerkDB 5.0 and later */
-#  include <db.h>
-# else
-#  error "failed to find a libdb or equivalent"
-# endif
+# error "failed to find a libdb or equivalent"
 #endif
 
 /*
@@ -232,8 +226,8 @@ user_lookup (pam_handle_t *pamh, const char *database, e_hashmode hashmode, cons
 			data.flags = DB_DBT_REALLOC;
 			pam_syslog(pamh, LOG_INFO, "user_lookup: database dump:");
 			while (0 == (err = cur->get(cur, &key, &data, DB_NEXT))) {
-				*(char *)(key.data + key.size) = 0;
-				*(char *)(data.data + data.size) = 0;
+				*((char *)key.data + key.size) = 0;
+				*((char *)data.data + data.size) = 0;
 				pam_syslog(pamh, LOG_INFO, "key[len=%d] = `%s', data[len=%d] = `%s'\n", key.size, (char *)key.data, data.size, (char *)data.data);
 			}
 			if (err != DB_NOTFOUND)
@@ -245,7 +239,7 @@ user_lookup (pam_handle_t *pamh, const char *database, e_hashmode hashmode, cons
 	}
 
 	if (ctrl & PAM_DEBUG_ARG)
-		pam_syslog(pamh, LOG_INFO, "looking for `%s' len: %d", user, strlen(user));
+		pam_syslog(pamh, LOG_INFO, "looking for `%s' len: %d", user, (int) strlen(user));
 
 	if (ctrl & PAM_KEY_ONLY_ARG) { // key_only
 		err = dbp->cursor(dbp, NULL, &cur, 0);
@@ -264,13 +258,13 @@ user_lookup (pam_handle_t *pamh, const char *database, e_hashmode hashmode, cons
 
 		while (0 == (err = cur->get(cur, &key, &data, DB_NEXT))) {
 			if (ctrl & PAM_DEBUG_ARG)
-				pam_syslog(pamh, LOG_INFO, "checking db entry `%.*s' len %d", key.size, key.data, key.size);
+				pam_syslog(pamh, LOG_INFO, "checking db entry `%.*s' len %d", key.size, (char *)key.data, key.size);
 
-			*(char *)(key.data + key.size) = 0;
+			*((char *)key.data + key.size) = 0;
 			if ((key.size > strlen(user)) && (*((char *)key.data + strlen(user)) == '-') && (0 == strncmp(key.data, user, strlen(user)))) {
 				/* username matched and divider was in right position */
 				saw_user = 1;
-				const char *dbpass = key.data + strlen(user) + 1;
+				const char *dbpass = (char *)key.data + strlen(user) + 1;
 
 				compare = cmp_password(dbpass, pass, ctrl, hashmode);
 			}
@@ -296,20 +290,20 @@ user_lookup (pam_handle_t *pamh, const char *database, e_hashmode hashmode, cons
 		memset(&data, 0, sizeof(data));
 		data.flags = DB_DBT_REALLOC;
 
-		key.data = (char *)user;
+		key.data = user;
 		key.size = strlen(user);
 
 		err = dbp->get(dbp, NULL, &key, &data, 0);
 		if (err != 0) {
 			if ((ctrl & PAM_DEBUG_ARG) || (err != DB_NOTFOUND))
-				pam_syslog(pamh, LOG_INFO, "couldn't find `%.*s': %s", key.size, key.data, db_strerror(err));
+				pam_syslog(pamh, LOG_INFO, "couldn't find `%.*s': %s", key.size, (char *)key.data, db_strerror(err));
 			dbp->close(dbp, 0);
 			return 1;
 		}
 
 		/* found user */
 
-		*(char *)(data.data + data.size) = 0;
+		*((char *)data.data + data.size) = 0;
 
 		/* now check password considering all cases: normal, icase or hash  */
 		int compare = cmp_password(data.data, pass, ctrl, hashmode);
