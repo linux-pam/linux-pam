@@ -134,7 +134,7 @@ _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
 	  pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
     }
-    if ( (ctrl | PAM_HASH_ARG) && (ctrl | PAM_ICASE_ARG) )
+    if ( (ctrl & PAM_HASH_ARG) && (ctrl & PAM_ICASE_ARG) )
 	pam_syslog(pamh, LOG_ERR, "Warning: icase doesn't work with hashed passwords");
   return ctrl;
 }
@@ -195,7 +195,7 @@ user_lookup (pam_handle_t *pamh, const char *database, e_hashmode hashmode, cons
 	DBC *cur;
 	int err;
 
-	if (ctrl & PAM_DUMP_ARG) {
+	if (ctrl & PAM_DEBUG_ARG) {
 #define ARG_ACTIVE(a) ((ctrl & a) == a)
 		pam_syslog(pamh, LOG_INFO, "user_lookup key_only:%d icase:%d hash:%d unknown_ok:%d use_fpass:%d try_fpass:%d hashmode:%d database:`%s'", ARG_ACTIVE(PAM_KEY_ONLY_ARG), ARG_ACTIVE(PAM_ICASE_ARG), ARG_ACTIVE(PAM_HASH_ARG), ARG_ACTIVE(PAM_UNKNOWN_OK_ARG), ARG_ACTIVE(PAM_USE_FPASS_ARG), ARG_ACTIVE(PAM_TRY_FPASS_ARG), hashmode, database);
 	}
@@ -237,9 +237,6 @@ user_lookup (pam_handle_t *pamh, const char *database, e_hashmode hashmode, cons
 			cur->close(cur);
 		}
 	}
-
-	if (ctrl & PAM_DEBUG_ARG)
-		pam_syslog(pamh, LOG_INFO, "looking for `%s' len: %d", user, (int) strlen(user));
 
 	if (ctrl & PAM_KEY_ONLY_ARG) { // key_only
 		err = dbp->cursor(dbp, NULL, &cur, 0);
