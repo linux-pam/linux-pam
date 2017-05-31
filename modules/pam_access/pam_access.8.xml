@@ -57,6 +57,14 @@
       By default rules for access management are taken from config file
       <filename>/etc/security/access.conf</filename> if you don't specify
       another file.
+      Then individual <filename>*.conf</filename> files from the
+      <filename>/etc/security/access.d/</filename> directory are read.
+      The files are parsed one after another in the order of the system locale.
+      The effect of the individual files is the same as if all the files were
+      concatenated together in the order of parsing. This means that once
+      a pattern is matched in some file no further files are parsed.
+      If a config file is explicitly specified with the <option>accessfile</option>
+      option the files in the above directory are not parsed.
     </para>
     <para>
       If Linux PAM is compiled with audit support the module will report

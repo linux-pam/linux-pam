@@ -15,7 +15,8 @@ securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	-DPAM_ACCESS_CONFIG=\"$(SCONFIGDIR)/access.conf\"
+	-DPAM_ACCESS_CONFIG=\"$(SCONFIGDIR)/access.conf\" \
+	-DACCESS_CONF_GLOB=\"$(SCONFIGDIR)/access.d/*.conf\"
 AM_LDFLAGS =  -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map

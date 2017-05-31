@@ -44,6 +44,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <sys/socket.h>
+#include <glob.h>
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
 #endif
@@ -87,6 +88,7 @@
 #define ALL             2
 #define YES             1
 #define NO              0
+#define NOMATCH        -1
 
  /*
   * A structure to bundle up all login-related information to keep the
@@ -415,7 +417,11 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	    "pam_access", 0);
     }
 #endif
-    return (match == NO || (line[0] == '+'));
+    if (match == NO)
+	return NOMATCH;
+    if (line[0] == '+')
+	return YES;
+    return NO;
 }
 
 
@@ -800,6 +806,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     const char *user=NULL;
     const void *void_from=NULL;
     const char *from;
+    const char const *default_config = PAM_ACCESS_CONFIG;
     struct passwd *user_pw;
     char hostname[MAXHOSTNAMELEN + 1];
     int rv;
@@ -821,7 +828,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
      */
     memset(&loginfo, '\0', sizeof(loginfo));
     loginfo.user = user_pw;
-    loginfo.config_file = PAM_ACCESS_CONFIG;
+    loginfo.config_file = default_config;
 
     /* parse the argument list */
 
@@ -891,6 +898,26 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     }
 
     rv = login_access(pamh, &loginfo);
+
+    if (rv == NOMATCH && loginfo.config_file == default_config) {
+	glob_t globbuf;
+	int i, glob_rv;
+
+	/* We do not manipulate locale as setlocale() is not
+	 * thread safe. We could use uselocale() in future.
+	 */
+	glob_rv = glob(ACCESS_CONF_GLOB, GLOB_ERR, NULL, &globbuf);
+	if (!glob_rv) {
+	    /* Parse the *.conf files. */
+	    for (i = 0; globbuf.gl_pathv[i] != NULL; i++) {
+		loginfo.config_file = globbuf.gl_pathv[i];
+		rv = login_access(pamh, &loginfo);
+		if (rv != NOMATCH)
+		    break;
+	    }
+	    globfree(&globbuf);
+	}
+    }
 
     if (loginfo.gai_rv == 0 && loginfo.res)
 	freeaddrinfo(loginfo.res);
