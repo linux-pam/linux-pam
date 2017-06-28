@@ -44,10 +44,10 @@
         </term>
         <listitem>
           <para>
-	    For each user matching one of comma-separated glob
-	    <option><replaceable>patterns</replaceable></option>, disable
-	    TTY auditing.  This overrides any previous <option>enable</option>
-	    option matching the same user name on the command line.
+	    For each user matching <option><replaceable>patterns</replaceable></option>,
+	    disable TTY auditing.  This overrides any previous <option>enable</option>
+	    option matching the same user name on the command line. See NOTES
+	    for further description of <option><replaceable>patterns</replaceable></option>.
           </para>
         </listitem>
       </varlistentry>
@@ -57,10 +57,10 @@
         </term>
         <listitem>
           <para>
-	    For each user matching one of comma-separated glob
-	    <option><replaceable>patterns</replaceable></option>, enable
-	    TTY auditing.  This overrides any previous <option>disable</option>
-	    option matching the same user name on the command line.
+	    For each user matching <option><replaceable>patterns</replaceable></option>,
+	    enable TTY auditing.  This overrides any previous <option>disable</option>
+	    option matching the same user name on the command line. See NOTES
+	    for further description of <option><replaceable>patterns</replaceable></option>.
           </para>
         </listitem>
       </varlistentry>
@@ -138,6 +138,16 @@
     <para>
       To view the data that was logged by the kernel to audit use
       the command <command>aureport --tty</command>.
+    </para>
+    <para>
+      The <option><replaceable>patterns</replaceable></option> are comma separated
+      lists of glob patterns or ranges of uids. A range is specified as
+      <replaceable>min_uid</replaceable>:<replaceable>max_uid</replaceable> where
+      one of these values can be empty. If <replaceable>min_uid</replaceable> is
+      empty only user with the uid <replaceable>max_uid</replaceable> will be
+      matched. If <replaceable>max_uid</replaceable> is empty users with the uid
+      greater than or equal to <replaceable>min_uid</replaceable> will be
+      matched.
     </para>
   </refsect1>
 
