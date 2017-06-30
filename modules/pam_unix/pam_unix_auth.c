@@ -77,14 +77,12 @@
 #define _UNIX_AUTHTOK  "-UN*X-PASS"
 
 #define AUTH_RETURN						\
-do {								\
-	if (ret_data) {						\
-		D(("recording return code for next time [%d]",	\
-					retval));		\
-		*ret_data = retval;				\
-		pam_set_data(pamh, "unix_setcred_return",	\
-		             (void *) ret_data, setcred_free);	\
-	}							\
+do {									\
+	D(("recording return code for next time [%d]",		\
+				retval));			\
+	*ret_data = retval;					\
+	pam_set_data(pamh, "unix_setcred_return",		\
+			 (void *) ret_data, setcred_free);	\
 	D(("done. [%s]", pam_strerror(pamh, retval)));		\
 	return retval;						\
 } while (0)
@@ -112,6 +110,12 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	/* Get a few bytes so we can pass our return value to
 	   pam_sm_setcred() and pam_sm_acct_mgmt(). */
 	ret_data = malloc(sizeof(int));
+	if (!ret_data) {
+		D(("cannot malloc ret_data"));
+		pam_syslog(pamh, LOG_CRIT,
+				"pam_unix_auth: cannot allocate ret_data");
+		return PAM_BUF_ERR;
+	}
 
 	/* get the user'name' */
 
