@@ -326,7 +326,7 @@ msgstr "Último inicio de sesión fallido:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] "Hubo %d intento de logueo fallido desde el último logueo exitosoo."
+msgstr[0] "Hubo %d intento de logueo fallido desde el último logueo exitoso."
 msgstr[1] ""
 "Hubo %d intentos de logueo fallidos desde el último logueo exitoso. "
 
