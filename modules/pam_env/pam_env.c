@@ -72,7 +72,7 @@ static int  _define_var(pam_handle_t *, int, VAR *);
 static int  _undefine_var(pam_handle_t *, int, VAR *);
 
 /* This is a flag used to designate an empty string */
-static char quote='Z';
+#define PAM_EMPTY_STRING 'Z'
 
 /* argument parsing */
 
@@ -480,6 +480,7 @@ static int _check_var(pam_handle_t *pamh, VAR *var)
    */
 
   int retval;
+  char quote = PAM_EMPTY_STRING;
 
   D(("Called."));
 
