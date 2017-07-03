@@ -378,6 +378,7 @@ _parse_line (const pam_handle_t *pamh, char *buffer, VAR *var)
 
   int length, quoteflg=0;
   char *ptr, **valptr, *tmpptr;
+  char quote = PAM_EMPTY_STRING;
 
   D(("Called buffer = <%s>", buffer));
 
@@ -749,6 +750,8 @@ static int _undefine_var(pam_handle_t *pamh, int ctrl, VAR *var)
 
 static void   _clean_var(VAR *var)
 {
+    char quote = PAM_EMPTY_STRING;
+
     if (var->name) {
       free(var->name);
     }
