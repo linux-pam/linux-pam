@@ -54,7 +54,7 @@ matrix:
 
 install:
   - sudo apt-get -qq update
-  - sudo apt-get -qq install automake autopoint gettext xsltproc docbook-xml docbook-xsl
+  - sudo apt-get -qq install automake autopoint gettext xsltproc docbook-xml docbook-xsl libxml2-utils
 
 script:
   - $COMPILER --version
