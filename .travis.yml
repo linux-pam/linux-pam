@@ -4,55 +4,11 @@ language: c
 
 matrix:
   fast_finish: true
+  # list only supported gcc versions: https://gcc.gnu.org/
+  # for package names see:
+  # https://wiki.ubuntu.com/ToolChain#GCC
+  # https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test
   include:
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - gcc-4.4
-      env: COMPILER=gcc-4.4
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - gcc-4.5
-      env: COMPILER=gcc-4.5
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - gcc-4.6
-      env: COMPILER=gcc-4.6
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - gcc-4.7
-      env: COMPILER=gcc-4.7
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - gcc-4.8
-      env: COMPILER=gcc-4.8
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - gcc-4.9
-      env: COMPILER=gcc-4.9
     - compiler: gcc
       addons:
         apt:
@@ -69,6 +25,14 @@ matrix:
           packages:
             - gcc-6
       env: COMPILER=gcc-6
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-7
+      env: COMPILER=gcc-7
     - compiler: clang
       addons:
         apt:
