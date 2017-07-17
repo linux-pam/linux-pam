@@ -5,10 +5,9 @@ language: c
 matrix:
   fast_finish: true
   # list only supported gcc versions: https://gcc.gnu.org/
-  # for package names see:
-  # https://wiki.ubuntu.com/ToolChain#GCC
-  # https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test
   include:
+    # https://wiki.ubuntu.com/ToolChain#GCC
+    # https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test
     - compiler: gcc
       addons:
         apt:
@@ -33,39 +32,25 @@ matrix:
           packages:
             - gcc-7
       env: COMPILER=gcc-7
-    - compiler: clang
-      addons:
-        apt:
-          packages:
-            - clang-3.4
-      env: COMPILER=clang
+    # http://releases.llvm.org/
     - compiler: clang
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.5
+            - llvm-toolchain-precise-3.8
           packages:
-            - clang-3.5
-      env: COMPILER=clang-3.5
+            - clang-3.8
+      env: COMPILER=clang-3.8
     - compiler: clang
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.6
+            - llvm-toolchain-precise-3.9
           packages:
-            - clang-3.6
-      env: COMPILER=clang-3.6
-    - compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.7
-          packages:
-            - clang-3.7
-      env: COMPILER=clang-3.7
+            - clang-3.9
+      env: COMPILER=clang-3.9
 
 install:
   - sudo apt-get -qq update
