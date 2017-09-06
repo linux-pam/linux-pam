@@ -48,8 +48,7 @@
       can be set by individual configuration files located in the
       <filename>/etc/pam.d/</filename> directory. The presence of this
       directory will cause <emphasis remap='B'>Linux-PAM</emphasis> to
-      <emphasis remap='I'>ignore</emphasis>
-      <filename>/etc/pam.conf</filename>.
+      <emphasis remap='I'>ignore</emphasis> <filename>/etc/pam.conf</filename>.
     </para>
 
     <para>
