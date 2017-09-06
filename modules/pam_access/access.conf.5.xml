@@ -210,6 +210,18 @@
 
   </refsect1>
 
+  <refsect1 id="access.conf-notes">
+    <title>NOTES</title>
+    <para>
+      The default separators of list items in a field are space, ',', and tabulator
+      characters. Thus conveniently if spaces are put at the beginning and the end of
+      the fields they are ignored. However if the list separator is changed with the
+      <emphasis>listsep</emphasis> option, the spaces will become part of the actual
+      item and the line will be most probably ignored. For this reason, it is not
+      recommended to put spaces around the ':' characters.
+    </para>
+  </refsect1>
+
   <refsect1 id="access.conf-see_also">
     <title>SEE ALSO</title>
     <para>
