@@ -207,16 +207,13 @@ parse_uid_range(pam_handle_t *pamh, const char *s,
                 uid_t *min_uid, uid_t *max_uid)
 {
     const char *range = s;
-    char *pmax;
+    const char *pmax;
     char *endptr;
     enum uid_range rv = UID_RANGE_MM;
 
     if ((pmax=strchr(range, ':')) == NULL)
         return UID_RANGE_NONE;
     ++pmax;
-
-    if (range[0] == '@' || range[0] == '%')
-        ++range;
 
     if (range[0] == ':')
         rv = UID_RANGE_ONE;
@@ -298,7 +295,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	  if (copy == NULL)
 	    return PAM_SESSION_ERR;
 	  for (tok = strtok_r (copy, ",", &tok_data);
-	       tok != NULL && command == CMD_NONE;
+	       tok != NULL && command != this_command;
 	       tok = strtok_r (NULL, ",", &tok_data))
 	    {
 	      uid_t min_uid = 0, max_uid = 0;
@@ -319,6 +316,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
 		case UID_RANGE_ONE:
 		    if (pwd->pw_uid == max_uid)
 			command = this_command;
+		    break;
 		case UID_RANGE_ERR:
 		    break;
 		}
