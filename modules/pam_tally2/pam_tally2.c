@@ -97,6 +97,7 @@
 
 /*---------------------------------------------------------------------*/
 
+#define DEFAULT_CMD_ONERR ""
 #define DEFAULT_LOGFILE "/var/log/tallylog"
 #define MODULE_NAME     "pam_tally2"
 
@@ -104,6 +105,7 @@
 #define TALLY_HI   ((tally_t)~0L)
 
 struct tally_options {
+    const char *cmd_onerr;
     const char *filename;
     tally_t deny;
     long lock_time;
@@ -170,6 +172,7 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
 		    int phase, int argc, const char **argv)
 {
     memset(opts, 0, sizeof(*opts));
+    opts->cmd_onerr = DEFAULT_CMD_ONERR;
     opts->filename = DEFAULT_LOGFILE;
     opts->ctrl = OPT_FAIL_ON_ERROR;
     opts->root_unlock_time = -1;
@@ -190,6 +193,14 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
       }
       else if ( ! strcmp( *argv, "onerr=succeed" ) ) {
         opts->ctrl &= ~OPT_FAIL_ON_ERROR;
+      }
+      else if ( ! strncmp( *argv, "cmd_onerr=", 10 ) ) {
+        const char *cmd = *argv + 10;
+        if ( ! *cmd == NULL ) { 
+            pam_syslog(pamh, LOG_ERR, "zero length onerr command supplied");
+            return PAM_AUTH_ERR; 
+        }
+        opts->cmd_onerr = cmd;
       }
       else if ( ! strcmp( *argv, "magic_root" ) ) {
         opts->ctrl |= OPT_MAGIC_ROOT;
