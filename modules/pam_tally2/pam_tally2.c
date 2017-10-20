@@ -519,6 +519,7 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
 {
     int rv = PAM_SUCCESS;
     int loglevel = LOG_DEBUG;
+    int r
 #ifdef HAVE_LIBAUDIT
     char buf[64];
     int audit_fd = -1;
@@ -631,6 +632,12 @@ cleanup:
         close(audit_fd);
     }
 #endif
+    if (( rv != PAM_SUCCESS ) && (opts->cmd_onerr != NULL) { 
+        if (!(opts->ctrl & OPT_NOLOGNOTICE) && (loglevel != LOG_DEBUG || opts->ctrl & OPT_DEBUG)) {
+           pam_syslog(pamh, loglevel, "executing pam tally onerr cmd %s", opts->cmd_onerr);
+        }
+        r=system(opts->cmd_onerr);
+    }
     return rv;
 }
 
