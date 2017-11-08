@@ -959,6 +959,18 @@ main( int argc UNUSED, char **argv )
       exit(1);
     }
 
+    if (cline_reset == 0) {
+      struct stat st;
+
+      if (stat(cline_filename, &st) && errno == ENOENT) {
+	if (!cline_quiet) {
+	  memset(&tally, 0, sizeof(tally));
+	  print_one(&tally, uid);
+	}
+	return 0;	/* no file => nothing to reset */
+      }
+    }
+
     i=get_tally(NULL, uid, cline_filename, &tfile, &tally, 0);
     if ( i != PAM_SUCCESS ) {
       if (tfile != -1)
