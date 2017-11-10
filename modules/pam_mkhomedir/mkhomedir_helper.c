@@ -338,16 +338,18 @@ make_parent_dirs(char *dir, int make)
   char *cp = strrchr(dir, '/');
   struct stat st;
 
-  if (!cp || cp == dir)
+  if (!cp)
     return rc;
 
-  *cp = '\0';
-  if (stat(dir, &st) && errno == ENOENT)
-    rc = make_parent_dirs(dir, 1);
-  *cp = '/';
+  if (cp != dir) {
+    *cp = '\0';
+    if (stat(dir, &st) && errno == ENOENT)
+      rc = make_parent_dirs(dir, 1);
+    *cp = '/';
 
-  if (rc != PAM_SUCCESS)
-    return rc;
+    if (rc != PAM_SUCCESS)
+      return rc;
+  }
 
   if (make && mkdir(dir, 0755) && errno != EEXIST) {
     pam_syslog(NULL, LOG_ERR, "unable to create directory %s: %m", dir);
