@@ -196,7 +196,7 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
       }
       else if ( ! strncmp( *argv, "cmd_onerr=", 10 ) ) {
         const char *cmd = *argv + 10;
-        if ( ! *cmd == NULL ) { 
+        if ( strncmp( *cmd, "", 1 ) ) { 
             pam_syslog(pamh, LOG_ERR, "zero length onerr command supplied");
             return PAM_AUTH_ERR; 
         }
@@ -632,7 +632,7 @@ cleanup:
         close(audit_fd);
     }
 #endif
-    if (( rv != PAM_SUCCESS ) && (opts->cmd_onerr != NULL) { 
+    if (( rv != PAM_SUCCESS ) && (opts->cmd_onerr != NULL)) { 
         if (!(opts->ctrl & OPT_NOLOGNOTICE) && (loglevel != LOG_DEBUG || opts->ctrl & OPT_DEBUG)) {
            pam_syslog(pamh, loglevel, "executing pam tally onerr cmd %s", opts->cmd_onerr);
         }
