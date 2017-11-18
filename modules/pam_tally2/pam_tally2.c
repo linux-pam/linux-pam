@@ -196,7 +196,7 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
       }
       else if ( ! strncmp( *argv, "cmd_onerr=", 10 ) ) {
         const char *cmd = *argv + 10;
-        if ( strncmp( *cmd, "", 1 ) ) { 
+        if ( ! strncmp( cmd, "", 1 ) ) { 
             pam_syslog(pamh, LOG_ERR, "zero length onerr command supplied");
             return PAM_AUTH_ERR; 
         }
@@ -519,7 +519,7 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
 {
     int rv = PAM_SUCCESS;
     int loglevel = LOG_DEBUG;
-    int r
+    int r;
 #ifdef HAVE_LIBAUDIT
     char buf[64];
     int audit_fd = -1;
