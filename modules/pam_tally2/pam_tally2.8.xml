@@ -43,6 +43,9 @@
         root_unlock_time=<replaceable>n</replaceable>
       </arg>
       <arg choice="opt">
+        cmd_onerr=<replaceable>/path/to/halt</replaceable>
+      </arg>
+      <arg choice="opt">
         serialize
       </arg>
       <arg choice="opt">
@@ -139,6 +142,19 @@
                 <para>
                   File where to keep counts. Default is
                   <filename>/var/log/tallylog</filename>.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                <option>cmd_onerr=<replaceable>/path/to/halt</replaceable></option>
+              </term>
+              <listitem>
+                <para>
+                  Optional path to a command that is executed if a login is denied. For example 
+                  <filename>/sbin/halt</filename>. This can be used together with disk encryption 
+                  to automatically shut down your computer if someone starts messing around, assuming 
+                  that unlocked disk encryption is harder to break than a running os. 
                 </para>
               </listitem>
             </varlistentry>
