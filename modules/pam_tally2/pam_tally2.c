@@ -122,6 +122,12 @@ struct tally_options {
 #define OPT_MAGIC_ROOT			  01
 #define OPT_FAIL_ON_ERROR		  02
 #define OPT_DENY_ROOT			  04
+/* 
+   enable tally user access, this one requires filename 
+   to be a directory which is read and accessable by others. (755) 
+   within this directory every user gets its own tallylog file. 
+*/
+#define OPT_TALLY_USER_ACCESS            010
 #define OPT_QUIET                        040
 #define OPT_AUDIT                       0100
 #define OPT_NOLOGNOTICE                 0400
@@ -187,6 +193,9 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
           return PAM_AUTH_ERR;
         }
         opts->filename = from;
+      }
+      else if ( ! strcmp( *argv, "user_access" ) ) {
+        opts->ctrl |= OPT_TALLY_USER_ACCESS;
       }
       else if ( ! strcmp( *argv, "onerr=fail" ) ) {
         opts->ctrl |= OPT_FAIL_ON_ERROR;
@@ -378,6 +387,7 @@ get_tally(pam_handle_t *pamh, uid_t uid, const char *filename,
 {
     struct stat fileinfo;
     int lstat_ret;
+    int chown_ret;
     void *void_tally = tally;
     int preopened = 0;
 
@@ -399,6 +409,13 @@ get_tally(pam_handle_t *pamh, uid_t uid, const char *filename,
         pam_syslog(pamh, LOG_ALERT, "Couldn't create %s: %m", filename);
         return PAM_AUTH_ERR;
       }
+      if (ctrl & OPT_TALLY_USER_ACCESS) {
+         chown_ret=chown(filename, uid, 0);
+         if ( chown_ret == -1 ) {
+            pam_syslog(pamh, LOG_ALERT, "Couldn't create %s: %m", filename);
+            return PAM_AUTH_ERR;
+         }
+      } 
       lstat_ret = fstat(*tfile, &fileinfo);
       close(*tfile);
     }
@@ -641,6 +658,26 @@ cleanup:
     return rv;
 }
 
+// This function builds a filename out of tally options and the user name 
+// it is either path/username or just path depending on the fact if user 
+// access was set. 
+char * build_filename(struct tally_options *opts, const char *user) {
+    if (opts->ctrl & OPT_TALLY_USER_ACCESS) {
+       return strcat(
+          strcat(
+             strcopy(
+               malloc(strlen(opts->filename)+1+strlen(user)+1),
+               opts->filename
+             ),
+             "/"
+          ),
+          user
+       )
+    } else {
+       return opts->filename;
+    }
+}
+
 /* --- tally bump function: bump tally for uid by (signed) inc --- */
 
 static int
@@ -654,7 +691,7 @@ tally_bump (int inc, time_t *oldtime, pam_handle_t *pamh,
 
     tally.fail_cnt = 0;  /* !TALLY_HI --> Log opened for update */
 
-    i = get_tally(pamh, uid, opts->filename, tfile, &tally, opts->ctrl);
+    i = get_tally(pamh, uid, build_filename(opts, user), tfile, &tally, opts->ctrl);
     if (i != PAM_SUCCESS) {
         if (*tfile != -1) {
             close(*tfile);
@@ -715,7 +752,7 @@ tally_bump (int inc, time_t *oldtime, pam_handle_t *pamh,
 }
 
 static int
-tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts, int old_tfile)
+tally_reset (pam_handle_t *pamh, uid_t uid, const char *user, struct tally_options *opts, int old_tfile)
 {
     struct tallylog tally;
     int tfile = old_tfile;
@@ -729,7 +766,7 @@ tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts, int old_
 
     tally.fail_cnt = 0;  /* !TALLY_HI --> Log opened for update */
 
-    i=get_tally(pamh, uid, opts->filename, &tfile, &tally, opts->ctrl);
+    i=get_tally(pamh, uid, build_filename(opts, user), &tfile, &tally, opts->ctrl);
     if (i != PAM_SUCCESS) {
         if (tfile != old_tfile) /* the descriptor is not owned by pam data */
             close(tfile);
@@ -815,7 +852,7 @@ pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
   /* no data found */
       return PAM_SUCCESS;
 
-  rv = tally_reset(pamh, uid, opts, tfile);
+  rv = tally_reset(pamh, uid, user, opts, tfile);
 
   pam_set_data(pamh, MODULE_NAME, NULL, NULL);
 
@@ -855,7 +892,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
   /* no data found */
       return PAM_SUCCESS;
 
-  rv = tally_reset(pamh, uid, opts, tfile);
+  rv = tally_reset(pamh, uid, user, opts, tfile);
 
   pam_set_data(pamh, MODULE_NAME, NULL, NULL);
 
