@@ -665,14 +665,14 @@ char * build_filename(struct tally_options *opts, const char *user) {
     if (opts->ctrl & OPT_TALLY_USER_ACCESS) {
        return strcat(
           strcat(
-             strcopy(
+             strcpy(
                malloc(strlen(opts->filename)+1+strlen(user)+1),
                opts->filename
              ),
              "/"
           ),
           user
-       )
+       );
     } else {
        return opts->filename;
     }
