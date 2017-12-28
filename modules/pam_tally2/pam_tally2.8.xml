@@ -25,6 +25,9 @@
         onerr=[<replaceable>fail</replaceable>|<replaceable>succeed</replaceable>]
       </arg>
       <arg choice="opt">
+        user_access
+      </arg>
+      <arg choice="opt">
         magic_root
       </arg>
       <arg choice="opt">
@@ -155,6 +158,19 @@
                   <filename>/sbin/halt</filename>. This can be used together with disk encryption 
                   to automatically shut down your computer if someone starts messing around, assuming 
                   that unlocked disk encryption is harder to break than a running os. 
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                <option>user_access</option>
+              </term>
+              <listitem>
+                <para>
+                  This parameter will allow users to access the tallylog and enables pam_tally2 will work 
+                  with non suid screenlockers. The parameter changes the behavior of the parameter file=. It expects /var/log/tallylog 
+                  or whatever you have set to be a directory writeable by root and accessable by others. Within that 
+                  directory each user gets its own logfile, named by the username.
                 </para>
               </listitem>
             </varlistentry>
