@@ -286,7 +286,7 @@ msgstr "%s ha fallat: estat 0x%x desconegut"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:496
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr " %a %b %e %H:%M:%S %Z %Y"
+msgstr " %a %-d %b de %Y, %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:505
