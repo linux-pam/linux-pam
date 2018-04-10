@@ -42,7 +42,7 @@
       name of the user specified by
       <citerefentry>
         <refentrytitle>pam_start</refentrytitle><manvolnum>3</manvolnum>
-      </citerefentry>. If no user was specified it what
+      </citerefentry>. If no user was specified it returns what
       <function>pam_get_item (pamh, PAM_USER, ... );</function> would
       have returned. If this is NULL it obtains the username via the
       <citerefentry>
