@@ -48,22 +48,22 @@
       <itemizedlist>
         <listitem>
           <para>
-            umask= argument
-          </para>
-        </listitem>
-        <listitem>
-          <para>
             umask= entry in the user's GECOS field
           </para>
         </listitem>
         <listitem>
           <para>
-            UMASK= entry from /etc/default/login
+            umask= argument
           </para>
         </listitem>
         <listitem>
           <para>
             UMASK entry from /etc/login.defs
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            UMASK= entry from /etc/default/login
           </para>
         </listitem>
       </itemizedlist>
