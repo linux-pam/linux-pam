@@ -15,14 +15,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2015-06-22 14:16+0200\n"
+"POT-Creation-Date: 2018-05-18 12:58+0200\n"
 "PO-Revision-Date: 2013-07-10 09:21-0400\n"
 "Last-Translator: hamaryns <hendrik@hendrikmaryns.name>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
+"nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.8.3\n"
 
@@ -49,17 +50,17 @@ msgstr "Wachtwoord:"
 msgid "Current %s%spassword: "
 msgstr "Nieuw %s%swachtwoord:"
 
-#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#: libpam/pam_get_authtok.c:43
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nieuw %s%swachtwoord:"
 
-#: libpam/pam_get_authtok.c:45 modules/pam_cracklib/pam_cracklib.c:70
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Nieuw %s%swachtwoord herhalen: "
 
-#: libpam/pam_get_authtok.c:46 modules/pam_cracklib/pam_cracklib.c:71
+#: libpam/pam_get_authtok.c:46
 msgid "Sorry, passwords do not match."
 msgstr "Sorry, wachtwoorden komen niet overeen."
 
@@ -209,79 +210,79 @@ msgstr "Toepassing moet libpam nogmaals aanroepen"
 msgid "Unknown PAM error"
 msgstr "Onbekende PAM-fout"
 
-#: modules/pam_cracklib/pam_cracklib.c:618
+#: modules/pam_cracklib/pam_cracklib.c:612
 msgid "is the same as the old one"
 msgstr "is hetzelfde als het oude"
 
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:628
-#: modules/pam_cracklib/pam_cracklib.c:638
+#: modules/pam_cracklib/pam_cracklib.c:618
+#: modules/pam_cracklib/pam_cracklib.c:622
+#: modules/pam_cracklib/pam_cracklib.c:632
 msgid "memory allocation error"
 msgstr "geheugentoekenningsfout"
 
-#: modules/pam_cracklib/pam_cracklib.c:643
+#: modules/pam_cracklib/pam_cracklib.c:637
 msgid "is a palindrome"
 msgstr "is een palindroom"
 
-#: modules/pam_cracklib/pam_cracklib.c:646
+#: modules/pam_cracklib/pam_cracklib.c:640
 msgid "case changes only"
 msgstr "alleen veranderingen in hoofd-/kleine letters"
 
-#: modules/pam_cracklib/pam_cracklib.c:649
+#: modules/pam_cracklib/pam_cracklib.c:643
 msgid "is too similar to the old one"
 msgstr "lijkt te veel op het oude"
 
-#: modules/pam_cracklib/pam_cracklib.c:652
+#: modules/pam_cracklib/pam_cracklib.c:646
 msgid "is too simple"
 msgstr "is te eenvoudig"
 
-#: modules/pam_cracklib/pam_cracklib.c:655
+#: modules/pam_cracklib/pam_cracklib.c:649
 msgid "is rotated"
 msgstr "is omgedraaid"
 
-#: modules/pam_cracklib/pam_cracklib.c:658
+#: modules/pam_cracklib/pam_cracklib.c:652
 msgid "not enough character classes"
 msgstr "onvoldoende tekensoorten"
 
-#: modules/pam_cracklib/pam_cracklib.c:661
+#: modules/pam_cracklib/pam_cracklib.c:655
 msgid "contains too many same characters consecutively"
 msgstr "bevat teveel dezelfde opeenvolgende karakters"
 
-#: modules/pam_cracklib/pam_cracklib.c:664
+#: modules/pam_cracklib/pam_cracklib.c:658
 msgid "contains too long of a monotonic character sequence"
 msgstr "bevat een te lange monotone tekenreeks"
 
-#: modules/pam_cracklib/pam_cracklib.c:667
+#: modules/pam_cracklib/pam_cracklib.c:661
 msgid "contains the user name in some form"
 msgstr "bevat de gebruikersnaam in een of andere vorm"
 
-#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:568
 msgid "No password supplied"
 msgstr "Geen wachtwoord opgegeven"
 
-#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:568
 msgid "Password unchanged"
 msgstr "Wachtwoord is ongewijzigd"
 
-#: modules/pam_cracklib/pam_cracklib.c:721
-#: modules/pam_cracklib/pam_cracklib.c:803
+#: modules/pam_cracklib/pam_cracklib.c:715
+#: modules/pam_cracklib/pam_cracklib.c:797
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "SLECHT WACHTWOORD: %s"
 
-#: modules/pam_exec/pam_exec.c:273
+#: modules/pam_exec/pam_exec.c:276
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s is mislukt: afsluitcode %d"
 
-#: modules/pam_exec/pam_exec.c:282
+#: modules/pam_exec/pam_exec.c:285
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s is mislukt: signaal %d%s ontvangen"
 
-#: modules/pam_exec/pam_exec.c:291
+#: modules/pam_exec/pam_exec.c:294
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s is mislukt: onbekende status 0x%x"
@@ -327,16 +328,14 @@ msgid_plural ""
 msgstr[0] ""
 "Er was %d mislukte aanmeldpoging sinds de laatste succesvolle aanmelding."
 msgstr[1] ""
-"Er waren %d mislukte aanmeldpogingen sinds de laatste succesvolle "
-"aanmelding."
+"Er waren %d mislukte aanmeldpogingen sinds de laatste succesvolle aanmelding."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:548
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
-"Er waren %d mislukte aanmeldpogingen sinds de laatste succesvolle "
-"aanmelding."
+"Er waren %d mislukte aanmeldpogingen sinds de laatste succesvolle aanmelding."
 
 #: modules/pam_limits/pam_limits.c:1091
 #, c-format
@@ -509,12 +508,13 @@ msgstr "%s: Niet-herkende optie %s\n"
 
 #: modules/pam_tally/pam_tally.c:785
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s [--file rooted-bestandsnaam] [--user gebruikersnaam] [--reset[=n]] "
-"[--quiet]\n"
+"%s [--file rooted-bestandsnaam] [--user gebruikersnaam] [--reset[=n]] [--"
+"quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1016
+#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1028
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: kan niet alle gebruikers terugzetten naar non-zero\n"
@@ -548,15 +548,13 @@ msgstr ""
 #: modules/pam_unix/pam_unix_acct.c:261
 #, fuzzy
 msgid ""
-"You are required to change your password immediately (administrator "
-"enforced)"
+"You are required to change your password immediately (administrator enforced)"
 msgstr ""
 "U moet onmiddellijk uw wachtwoord wijzigen (op last van systeembeheerder)"
 
 #: modules/pam_unix/pam_unix_acct.c:267
 #, fuzzy
-msgid ""
-"You are required to change your password immediately (password expired)"
+msgid "You are required to change your password immediately (password expired)"
 msgstr "U moet onmiddellijk uw wachtwoord wijzigen (wachtwoord is verouderd)"
 
 #: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295

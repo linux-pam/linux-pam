@@ -8,15 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2015-06-22 14:16+0200\n"
+"POT-Creation-Date: 2018-05-18 12:58+0200\n"
 "PO-Revision-Date: 2011-11-30 06:57-0500\n"
 "Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
 "Language-Team: Arabic <trans-ar@lists.fedoraproject.org>\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5\n"
 "X-Generator: Zanata 3.8.3\n"
 
 #: libpam_misc/misc_conv.c:33
@@ -42,17 +43,17 @@ msgstr "كلمة السر: "
 msgid "Current %s%spassword: "
 msgstr "كلمة سر %s%s الجديدة: "
 
-#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#: libpam/pam_get_authtok.c:43
 #, c-format
 msgid "New %s%spassword: "
 msgstr "كلمة سر %s%s الجديدة: "
 
-#: libpam/pam_get_authtok.c:45 modules/pam_cracklib/pam_cracklib.c:70
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "أعد كتابة كلمة سر %s%s الجديدة: "
 
-#: libpam/pam_get_authtok.c:46 modules/pam_cracklib/pam_cracklib.c:71
+#: libpam/pam_get_authtok.c:46
 msgid "Sorry, passwords do not match."
 msgstr "عذرًا، يوجد عدم تطابق بين كلمات السر."
 
@@ -201,79 +202,79 @@ msgstr "يحتاج التطبيق إلى استدعاء libpam مرة أخرى"
 msgid "Unknown PAM error"
 msgstr "خطأ PAM  غير معروف"
 
-#: modules/pam_cracklib/pam_cracklib.c:618
+#: modules/pam_cracklib/pam_cracklib.c:612
 msgid "is the same as the old one"
 msgstr "لا يوجد اختلاف عن كلمة السر القديمة"
 
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:628
-#: modules/pam_cracklib/pam_cracklib.c:638
+#: modules/pam_cracklib/pam_cracklib.c:618
+#: modules/pam_cracklib/pam_cracklib.c:622
+#: modules/pam_cracklib/pam_cracklib.c:632
 msgid "memory allocation error"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:643
+#: modules/pam_cracklib/pam_cracklib.c:637
 msgid "is a palindrome"
 msgstr "كلمة سر يمكن قراءتها من الجهتين"
 
-#: modules/pam_cracklib/pam_cracklib.c:646
+#: modules/pam_cracklib/pam_cracklib.c:640
 msgid "case changes only"
 msgstr "لم يتم سوى تغيير حالة الأحرف"
 
-#: modules/pam_cracklib/pam_cracklib.c:649
+#: modules/pam_cracklib/pam_cracklib.c:643
 msgid "is too similar to the old one"
 msgstr "كلمة السر الجديدة شديدة الشبه بكلمة السر القديمة"
 
-#: modules/pam_cracklib/pam_cracklib.c:652
+#: modules/pam_cracklib/pam_cracklib.c:646
 msgid "is too simple"
 msgstr "كلمة السر شديدة البساطة"
 
-#: modules/pam_cracklib/pam_cracklib.c:655
+#: modules/pam_cracklib/pam_cracklib.c:649
 msgid "is rotated"
 msgstr "كلمة مرور ملتفة"
 
-#: modules/pam_cracklib/pam_cracklib.c:658
+#: modules/pam_cracklib/pam_cracklib.c:652
 msgid "not enough character classes"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:661
+#: modules/pam_cracklib/pam_cracklib.c:655
 msgid "contains too many same characters consecutively"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:664
+#: modules/pam_cracklib/pam_cracklib.c:658
 msgid "contains too long of a monotonic character sequence"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:667
+#: modules/pam_cracklib/pam_cracklib.c:661
 msgid "contains the user name in some form"
 msgstr ""
 
-#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:568
 msgid "No password supplied"
 msgstr "لم يتم إدخال كلمة السر"
 
-#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:568
 msgid "Password unchanged"
 msgstr "لم يتم تغيير كلمة السر"
 
-#: modules/pam_cracklib/pam_cracklib.c:721
-#: modules/pam_cracklib/pam_cracklib.c:803
+#: modules/pam_cracklib/pam_cracklib.c:715
+#: modules/pam_cracklib/pam_cracklib.c:797
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "كلمة سر سيئة: %s"
 
-#: modules/pam_exec/pam_exec.c:273
+#: modules/pam_exec/pam_exec.c:276
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:282
+#: modules/pam_exec/pam_exec.c:285
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:291
+#: modules/pam_exec/pam_exec.c:294
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
@@ -501,11 +502,12 @@ msgstr "%s:  خيار غير معروف %s\n"
 
 #: modules/pam_tally/pam_tally.c:785
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1016
+#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1028
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s:  لا يمكن إعادة تعيين كافة المستخدمين إلى رقم غير الصفر\n"
@@ -535,14 +537,12 @@ msgstr "انتهت مدة صلاحية الحساب الخاص بك؛ الرجا
 #: modules/pam_unix/pam_unix_acct.c:261
 #, fuzzy
 msgid ""
-"You are required to change your password immediately (administrator "
-"enforced)"
+"You are required to change your password immediately (administrator enforced)"
 msgstr "مطلوب منك تغيير كلمة السر على الفور (مفروض بواسطة المسؤول)"
 
 #: modules/pam_unix/pam_unix_acct.c:267
 #, fuzzy
-msgid ""
-"You are required to change your password immediately (password expired)"
+msgid "You are required to change your password immediately (password expired)"
 msgstr "مطلوب منك تغيير كلمة السر على الفور (كلمة السر قديمة جدًا)"
 
 #: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295

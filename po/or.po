@@ -11,14 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2015-06-22 14:16+0200\n"
+"POT-Creation-Date: 2018-05-18 12:58+0200\n"
 "PO-Revision-Date: 2013-04-15 10:35-0400\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
-"Language-Team: Oriya (http://www.transifex.com/projects/p/fedora/language/or/)\n"
+"Language-Team: Oriya (http://www.transifex.com/projects/p/fedora/language/"
+"or/)\n"
+"Language: or\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: or\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.8.3\n"
 
@@ -45,17 +46,17 @@ msgstr "ପ୍ରବେଶ ସଙ୍କେତ: "
 msgid "Current %s%spassword: "
 msgstr "ନୂତନ %s%s ପ୍ରବେଶ ସଙ୍କେତ: "
 
-#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#: libpam/pam_get_authtok.c:43
 #, c-format
 msgid "New %s%spassword: "
 msgstr "ନୂତନ %s%s ପ୍ରବେଶ ସଙ୍କେତ: "
 
-#: libpam/pam_get_authtok.c:45 modules/pam_cracklib/pam_cracklib.c:70
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "ନୂତନ %s%s ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ: "
 
-#: libpam/pam_get_authtok.c:46 modules/pam_cracklib/pam_cracklib.c:71
+#: libpam/pam_get_authtok.c:46
 msgid "Sorry, passwords do not match."
 msgstr "କ୍ଷମା କରିବେ, ପ୍ରବେଶ ସଙ୍କେତ ମିଶୁ ନାହିଁ।"
 
@@ -122,8 +123,7 @@ msgstr "ନିମ୍ନଲିଖିତ ବୈଧିକରଣ ଏକକାଂଶ�
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
-msgstr ""
-"ସେବା ପାଇଁ ସର୍ବାଧିକ ସଂଖ୍ଯକ ପୁନଃପ୍ରଚେଷ୍ଟା ପୂର୍ଣ୍ଣ ମାତ୍ରାରେ ସମାପ୍ତ ହୋଇଯାଇଛି"
+msgstr "ସେବା ପାଇଁ ସର୍ବାଧିକ ସଂଖ୍ଯକ ପୁନଃପ୍ରଚେଷ୍ଟା ପୂର୍ଣ୍ଣ ମାତ୍ରାରେ ସମାପ୍ତ ହୋଇଯାଇଛି"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
@@ -205,79 +205,79 @@ msgstr "ପ୍ରୟୋଗ libpam କୁ ପୁନର୍ବାର ଆହ୍ବ�
 msgid "Unknown PAM error"
 msgstr "ଅଜଣା PAM ତୃଟି"
 
-#: modules/pam_cracklib/pam_cracklib.c:618
+#: modules/pam_cracklib/pam_cracklib.c:612
 msgid "is the same as the old one"
 msgstr "ପୁରୁଣା ପ୍ରବେଶ ସଙ୍କେତ ସହିତ ଏହା ସମାନ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:628
-#: modules/pam_cracklib/pam_cracklib.c:638
+#: modules/pam_cracklib/pam_cracklib.c:618
+#: modules/pam_cracklib/pam_cracklib.c:622
+#: modules/pam_cracklib/pam_cracklib.c:632
 msgid "memory allocation error"
 msgstr "ସ୍ମୃତିସ୍ଥାନ ବଣ୍ଟନ ତ୍ରୁଟି"
 
-#: modules/pam_cracklib/pam_cracklib.c:643
+#: modules/pam_cracklib/pam_cracklib.c:637
 msgid "is a palindrome"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ଗୋଟିଏ ପାଲିନଡ୍ରୋମ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:646
+#: modules/pam_cracklib/pam_cracklib.c:640
 msgid "case changes only"
 msgstr "କେବଳ ଅକ୍ଷର ପ୍ରକାର ପରିବର୍ତ୍ତିତ ହୋଇଥାଏ"
 
-#: modules/pam_cracklib/pam_cracklib.c:649
+#: modules/pam_cracklib/pam_cracklib.c:643
 msgid "is too similar to the old one"
 msgstr "ଏହା ପୂର୍ବ ପ୍ରବେଶ ସଙ୍କେତ ସହିତ ବହୁତ ସମାନ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:652
+#: modules/pam_cracklib/pam_cracklib.c:646
 msgid "is too simple"
 msgstr "ଏହା ଅତି ସହଜ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:655
+#: modules/pam_cracklib/pam_cracklib.c:649
 msgid "is rotated"
 msgstr "ଏହା ଘୂର୍ଣ୍ଣୟମାନ ଅଟେ"
 
-#: modules/pam_cracklib/pam_cracklib.c:658
+#: modules/pam_cracklib/pam_cracklib.c:652
 msgid "not enough character classes"
 msgstr "ଯଥେଷ୍ଟ ବର୍ଣ୍ଣ ଶ୍ରେଣୀ ନାହିଁ"
 
-#: modules/pam_cracklib/pam_cracklib.c:661
+#: modules/pam_cracklib/pam_cracklib.c:655
 msgid "contains too many same characters consecutively"
 msgstr "ଅତ୍ୟଧିକ ସମାନ ଅକ୍ଷରକୁ ଲଗାତାର ଧାରଣ କରିଥାଏ"
 
-#: modules/pam_cracklib/pam_cracklib.c:664
+#: modules/pam_cracklib/pam_cracklib.c:658
 msgid "contains too long of a monotonic character sequence"
 msgstr "ନିରସ ବର୍ଣ୍ଣର ବଡ଼ କ୍ରମ ଧାରଣ କରିଅଛି"
 
-#: modules/pam_cracklib/pam_cracklib.c:667
+#: modules/pam_cracklib/pam_cracklib.c:661
 msgid "contains the user name in some form"
 msgstr "ଚାଳକ ନାମକୁ କୌଣସି ଉପାୟରେ ଧାରଣ କରିଥାଏ"
 
-#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:568
 msgid "No password supplied"
 msgstr "କୌଣସି ପ୍ରବେଶ ସଙ୍କେତ ପ୍ରଦାନ କରାଯାଇ ନାହିଁ"
 
-#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:568
 msgid "Password unchanged"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଅପରିବର୍ତ୍ତିତ ଅଛି"
 
-#: modules/pam_cracklib/pam_cracklib.c:721
-#: modules/pam_cracklib/pam_cracklib.c:803
+#: modules/pam_cracklib/pam_cracklib.c:715
+#: modules/pam_cracklib/pam_cracklib.c:797
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ଖରାପ ପ୍ରବେଶ ସଙ୍କେତ: %s"
 
-#: modules/pam_exec/pam_exec.c:273
+#: modules/pam_exec/pam_exec.c:276
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s ବିଫଳ: %d ସଙ୍କେତରୁ ପ୍ରସ୍ଥାନ କରୁଅଛି"
 
-#: modules/pam_exec/pam_exec.c:282
+#: modules/pam_exec/pam_exec.c:285
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s ବିଫଳ: %d%s ସଙ୍କେତ ପାଇଲା"
 
-#: modules/pam_exec/pam_exec.c:291
+#: modules/pam_exec/pam_exec.c:294
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s ବିଫଳ: ଅଜଣା ଅବସ୍ଥିତି 0x%x"
@@ -383,8 +383,7 @@ msgstr "ଡ଼ିରେକ୍ଟୋରୀ '%s'କୁ ନିର୍ମାଣ ଏ�
 #: modules/pam_pwhistory/pam_pwhistory.c:217
 #: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
-msgstr ""
-"ପ୍ରବେଶ ସଙ୍କେତଟି ପୂର୍ବରୁ ବ୍ଯବହୃତ ହେଉଛି। ଅନ୍ଯ ଗୋଟିଏ ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରନ୍ତୁ।"
+msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ପୂର୍ବରୁ ବ୍ଯବହୃତ ହେଉଛି। ଅନ୍ଯ ଗୋଟିଏ ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରନ୍ତୁ।"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:224
 msgid "Password has been already used."
@@ -501,15 +500,15 @@ msgstr "%s: ଅଚିହ୍ନିତ ବିକଳ୍ପ %s\n"
 
 #: modules/pam_tally/pam_tally.c:785
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1016
+#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1028
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr ""
-"%s: ସମସ୍ତ ଚାଳକ ମାନଙ୍କୁ ଶୂନ୍ଯ ବିହୀନ ଭାବରେ ପୁନର୍ବାର ବିନ୍ଯାସ କରିପାରିବ ନାହିଁ\n"
+msgstr "%s: ସମସ୍ତ ଚାଳକ ମାନଙ୍କୁ ଶୂନ୍ଯ ବିହୀନ ଭାବରେ ପୁନର୍ବାର ବିନ୍ଯାସ କରିପାରିବ ନାହିଁ\n"
 
 #: modules/pam_tally2/pam_tally2.c:917
 #, c-format
@@ -534,25 +533,19 @@ msgstr "ଅଭିଗମ୍ୟତା ଗ୍ରହଣୀୟ ହୋଇଛି (ଅ�
 
 #: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"ଆପଣଙ୍କର ଖାତା ଅଚଳ ହୋଇଯାଇଛି; ଦୟାକରି ଆପଣଙ୍କ ତନ୍ତ୍ର ପ୍ରଶାସକଙ୍କ ସହିତ ଯୋଗାଯୋଗ "
-"କରନ୍ତୁ"
+msgstr "ଆପଣଙ୍କର ଖାତା ଅଚଳ ହୋଇଯାଇଛି; ଦୟାକରି ଆପଣଙ୍କ ତନ୍ତ୍ର ପ୍ରଶାସକଙ୍କ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ"
 
 #: modules/pam_unix/pam_unix_acct.c:261
 #, fuzzy
 msgid ""
-"You are required to change your password immediately (administrator "
-"enforced)"
-msgstr ""
-"ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ରୁଟ ହେବା ବାଧ୍ଯତାମୂଳକ)"
+"You are required to change your password immediately (administrator enforced)"
+msgstr "ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ରୁଟ ହେବା ବାଧ୍ଯତାମୂଳକ)"
 
 #: modules/pam_unix/pam_unix_acct.c:267
 #, fuzzy
-msgid ""
-"You are required to change your password immediately (password expired)"
+msgid "You are required to change your password immediately (password expired)"
 msgstr ""
-"ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ପ୍ରବେଶ ସଙ୍କେତ ବହୁତ "
-"ପୁରୁଣା ହୋଇଯାଇଛି)"
+"ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ପ୍ରବେଶ ସଙ୍କେତ ବହୁତ ପୁରୁଣା ହୋଇଯାଇଛି)"
 
 #: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
 #, c-format

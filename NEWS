@@ -1,5 +1,22 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 1.3.1
+* pam_motd: add support for a motd.d directory
+* pam_umask: Fix documentation to align with order of loading umask
+* pam_get_user.3: Fix missing word in documentation
+* pam_tally2 --reset: avoid creating a missing tallylog file
+* pam_mkhomedir: Allow creating parent of homedir under /
+* access.conf.5: Add note about spaces around ':'
+* pam.8: Workaround formatting problem
+* pam_unix: Check return value of malloc used for setcred data
+* pam_cracklib: Drop unused prompt macros
+* pam_tty_audit: Support matching users by uid range
+* pam_access: support parsing files in /etc/security/access.d/*.conf
+* pam_localuser: Correct documentation
+* pam_issue: Fix no prompting in parse escape codes mode
+* Unification and cleanup of syslog log levels
+
+
 Release 1.3.0
 * Remove of static modules support
 * pam_unix: pass_not_set was removed

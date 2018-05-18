@@ -13,14 +13,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2015-06-22 14:16+0200\n"
+"POT-Creation-Date: 2018-05-18 12:58+0200\n"
 "PO-Revision-Date: 2013-04-08 11:03-0400\n"
 "Last-Translator: fvalen <fvalen@redhat.com>\n"
 "Language-Team: Italian <trans-it@lists.fedoraproject.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.8.3\n"
 
@@ -47,17 +47,17 @@ msgstr "Password: "
 msgid "Current %s%spassword: "
 msgstr "Nuova password%s%s: "
 
-#: libpam/pam_get_authtok.c:43 modules/pam_cracklib/pam_cracklib.c:68
+#: libpam/pam_get_authtok.c:43
 #, c-format
 msgid "New %s%spassword: "
 msgstr "Nuova password%s%s: "
 
-#: libpam/pam_get_authtok.c:45 modules/pam_cracklib/pam_cracklib.c:70
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "Retype new %s%spassword: "
 msgstr "Reimmettere la nuova password%s%s: "
 
-#: libpam/pam_get_authtok.c:46 modules/pam_cracklib/pam_cracklib.c:71
+#: libpam/pam_get_authtok.c:46
 msgid "Sorry, passwords do not match."
 msgstr "Le password non corrispondono."
 
@@ -210,79 +210,79 @@ msgstr "L'applicazione richiede una nuova chiamata a libpam"
 msgid "Unknown PAM error"
 msgstr "Errore PAM sconosciuto"
 
-#: modules/pam_cracklib/pam_cracklib.c:618
+#: modules/pam_cracklib/pam_cracklib.c:612
 msgid "is the same as the old one"
 msgstr "è la stessa di quella precedente"
 
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:628
-#: modules/pam_cracklib/pam_cracklib.c:638
+#: modules/pam_cracklib/pam_cracklib.c:618
+#: modules/pam_cracklib/pam_cracklib.c:622
+#: modules/pam_cracklib/pam_cracklib.c:632
 msgid "memory allocation error"
 msgstr "errore allocazione memoria"
 
-#: modules/pam_cracklib/pam_cracklib.c:643
+#: modules/pam_cracklib/pam_cracklib.c:637
 msgid "is a palindrome"
 msgstr "è un palindromo"
 
-#: modules/pam_cracklib/pam_cracklib.c:646
+#: modules/pam_cracklib/pam_cracklib.c:640
 msgid "case changes only"
 msgstr "cambiano solo le maiuscole/minuscole"
 
-#: modules/pam_cracklib/pam_cracklib.c:649
+#: modules/pam_cracklib/pam_cracklib.c:643
 msgid "is too similar to the old one"
 msgstr "è troppo simile alla precedente"
 
-#: modules/pam_cracklib/pam_cracklib.c:652
+#: modules/pam_cracklib/pam_cracklib.c:646
 msgid "is too simple"
 msgstr "è troppo semplice"
 
-#: modules/pam_cracklib/pam_cracklib.c:655
+#: modules/pam_cracklib/pam_cracklib.c:649
 msgid "is rotated"
 msgstr "è una rotazione della precedente"
 
-#: modules/pam_cracklib/pam_cracklib.c:658
+#: modules/pam_cracklib/pam_cracklib.c:652
 msgid "not enough character classes"
 msgstr "non ha abbastanza classi di caratteri"
 
-#: modules/pam_cracklib/pam_cracklib.c:661
+#: modules/pam_cracklib/pam_cracklib.c:655
 msgid "contains too many same characters consecutively"
 msgstr "contiene troppi caratteri simili consecutivi"
 
-#: modules/pam_cracklib/pam_cracklib.c:664
+#: modules/pam_cracklib/pam_cracklib.c:658
 msgid "contains too long of a monotonic character sequence"
 msgstr "contiene una sequenza troppo lunga di caratteri simili "
 
-#: modules/pam_cracklib/pam_cracklib.c:667
+#: modules/pam_cracklib/pam_cracklib.c:661
 msgid "contains the user name in some form"
 msgstr "contiene il nome utente in alcune forme"
 
-#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:568
 msgid "No password supplied"
 msgstr "Nessuna password fornita"
 
-#: modules/pam_cracklib/pam_cracklib.c:701
+#: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:568
 msgid "Password unchanged"
 msgstr "Password non modificata"
 
-#: modules/pam_cracklib/pam_cracklib.c:721
-#: modules/pam_cracklib/pam_cracklib.c:803
+#: modules/pam_cracklib/pam_cracklib.c:715
+#: modules/pam_cracklib/pam_cracklib.c:797
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "PASSWORD ERRATA: %s"
 
-#: modules/pam_exec/pam_exec.c:273
+#: modules/pam_exec/pam_exec.c:276
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s fallita: codice d'uscita %d"
 
-#: modules/pam_exec/pam_exec.c:282
+#: modules/pam_exec/pam_exec.c:285
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s fallita: intercettato il segnale %d%s"
 
-#: modules/pam_exec/pam_exec.c:291
+#: modules/pam_exec/pam_exec.c:294
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s fallita: stato sconosciuto 0x%x"
@@ -511,10 +511,11 @@ msgstr "%s: Opzione non riconosciuta %s\n"
 
 #: modules/pam_tally/pam_tally.c:785
 #, c-format
-msgid "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgid ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr "%s: [--file NOMEFILE] [--user NOMEUTENTE] [--reset[=N]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1016
+#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1028
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr ""
@@ -548,16 +549,14 @@ msgstr "Account scaduto; contattare l'amministratore di sistema"
 #: modules/pam_unix/pam_unix_acct.c:261
 #, fuzzy
 msgid ""
-"You are required to change your password immediately (administrator "
-"enforced)"
+"You are required to change your password immediately (administrator enforced)"
 msgstr ""
 "È richiesta la modifica immediata della password (imposto "
 "dall'amministratore)"
 
 #: modules/pam_unix/pam_unix_acct.c:267
 #, fuzzy
-msgid ""
-"You are required to change your password immediately (password expired)"
+msgid "You are required to change your password immediately (password expired)"
 msgstr ""
 "È richiesta la modifica immediata della password (password troppo vecchia)"
 
