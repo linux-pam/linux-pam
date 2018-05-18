@@ -2,7 +2,7 @@
 # Copyright (c) 2005, 2006, 2007 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
-AUTOMAKE_OPTIONS = 1.9 gnu dist-bzip2 check-news
+AUTOMAKE_OPTIONS = 1.9 gnu dist-bzip2 dist-xz check-news
 
 SUBDIRS = libpam tests libpamc libpam_misc modules po conf doc examples xtests
 
@@ -24,6 +24,8 @@ releasedocs:
 		Linux-PAM-$(VERSION)/doc
 	tar jfc Linux-PAM-$(VERSION)-docs.tar.bz2 \
 		Linux-PAM-$(VERSION)/doc
+	tar Jfc Linux-PAM-$(VERSION)-docs.tar.xz \
+                Linux-PAM-$(VERSION)/doc
 	rm -rf Linux-PAM-$(VERSION)
 
 xtests:
