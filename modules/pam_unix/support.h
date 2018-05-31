@@ -164,13 +164,6 @@ extern int _unix_blankpasswd(pam_handle_t *pamh,unsigned int ctrl,
 			     const char *name);
 extern int _unix_verify_password(pam_handle_t * pamh, const char *name
 			  ,const char *p, unsigned int ctrl);
-extern int _unix_read_password(pam_handle_t * pamh
-			,unsigned int ctrl
-			,const char *comment
-			,const char *prompt1
-			,const char *prompt2
-			,const char *data_name
-			,const void **pass);
 
 extern int _unix_run_verify_binary(pam_handle_t *pamh,
 			unsigned int ctrl, const char *user, int *daysleft);
