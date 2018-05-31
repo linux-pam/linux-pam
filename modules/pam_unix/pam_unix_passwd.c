@@ -106,11 +106,6 @@ extern int getrpcport(const char *host, unsigned long prognum,
    Sets it.
  */
 
-/* data tokens */
-
-#define _UNIX_OLD_AUTHTOK	"-UN*X-OLD-PASS"
-#define _UNIX_NEW_AUTHTOK	"-UN*X-NEW-PASS"
-
 #define MAX_PASSWD_TRIES	3
 
 #ifdef HAVE_NIS

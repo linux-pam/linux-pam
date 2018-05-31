@@ -74,8 +74,6 @@
  *      onto a normal UNIX authentication
  */
 
-#define _UNIX_AUTHTOK  "-UN*X-PASS"
-
 #define AUTH_RETURN						\
 do {									\
 	D(("recording return code for next time [%d]",		\
