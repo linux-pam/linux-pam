@@ -14,14 +14,6 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - gcc-5
-      env: COMPILER=gcc-5
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
             - gcc-6
       env: COMPILER=gcc-6
     - compiler: gcc
@@ -32,29 +24,44 @@ matrix:
           packages:
             - gcc-7
       env: COMPILER=gcc-7
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+      env: COMPILER=gcc-8
     # http://releases.llvm.org/
     - compiler: clang
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.8
+            - llvm-toolchain-trusty-4.0
           packages:
-            - clang-3.8
-      env: COMPILER=clang-3.8
+            - clang-4.0
+      env: COMPILER=clang-4.0
+    - compiler: clang
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - clang-5.0
+      env: COMPILER=clang-5.0
     - compiler: clang
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.9
+            - llvm-toolchain-trusty-6.0
           packages:
-            - clang-3.9
-      env: COMPILER=clang-3.9
+            - clang-6.0
+      env: COMPILER=clang-6.0
 
-install:
+before_install:
   - sudo apt-get -qq update
-  - sudo apt-get -qq install automake autopoint gettext xsltproc docbook-xml docbook-xsl libxml2-utils
+  - sudo apt-get -qq install autopoint xsltproc docbook-xml docbook-xsl libxml2-utils
 
 script:
   - $COMPILER --version
