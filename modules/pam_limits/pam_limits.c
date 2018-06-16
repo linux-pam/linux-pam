@@ -33,7 +33,11 @@
 #include <sys/resource.h>
 #include <limits.h>
 #include <glob.h>
-#include <utmp.h>
+#ifdef HAVE_UTMPX_H
+# include <utmpx.h>
+#else
+# include <utmp.h>
+#endif
 #ifndef UT_USER  /* some systems have ut_name instead of ut_user */
 #define UT_USER ut_user
 #endif
@@ -227,7 +231,11 @@ static int
 check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
               struct pam_limit_s *pl)
 {
+#ifdef HAVE_UTMPX_H
+    struct utmpx *ut;
+#else
     struct utmp *ut;
+#endif
     int count;
 
     if (ctrl & PAM_DEBUG_ARG) {
@@ -242,12 +250,16 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
         return LOGIN_ERR;
     }
 
+#ifdef HAVE_UTMPX_H
+    setutxent();
+#else
     setutent();
+#endif
 
     /* Because there is no definition about when an application
        actually adds a utmp entry, some applications bizarrely do the
-       utmp call before the have PAM authenticate them to the system:
-       you're logged it, sort of...? Anyway, you can use the
+       utmp call before they have PAM authenticate them to the system:
+       you're logged in, sort of...? Anyway, you can use the
        "utmp_early" module argument in your PAM config file to make
        allowances for this sort of problem. (There should be a PAM
        standard for this, since if a module wants to actually map a
@@ -260,7 +272,11 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
 	count = 1;
     }
 
+#ifdef HAVE_UTMPX_H
+    while((ut = getutxent())) {
+#else
     while((ut = getutent())) {
+#endif
 #ifdef USER_PROCESS
         if (ut->ut_type != USER_PROCESS) {
             continue;
@@ -296,7 +312,11 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
 	    break;
 	}
     }
+#ifdef HAVE_UTMPX_H
+    endutxent();
+#else
     endutent();
+#endif
     if (count > limit) {
 	if (name) {
 	    pam_syslog(pamh, LOG_NOTICE,
