@@ -13,6 +13,9 @@
 #include <fcntl.h>
 #include <time.h>
 #include <errno.h>
+#ifdef HAVE_UTMPX_H
+# include <utmpx.h>
+#endif
 #ifdef HAVE_UTMP_H
 # include <utmp.h>
 #else
@@ -447,8 +450,13 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 {
     int retval;
     int fd;
+#ifdef HAVE_UTMPX_H
+    struct utmpx ut;
+    struct utmpx utuser;
+#else
     struct utmp ut;
     struct utmp utuser;
+#endif
     int failed = 0;
     char the_time[256];
     char *date = NULL;
