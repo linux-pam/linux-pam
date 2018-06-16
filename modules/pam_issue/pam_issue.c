@@ -25,7 +25,13 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/utsname.h>
-#include <utmp.h>
+#if defined(HAVE_UTMPX_H)
+#    include <utmpx.h>
+#elif defined(HAVE_UTMP_H)
+#    include <utmp.h>
+#else
+#    error You must have either utmpx.h or utmp.h.
+#endif
 #include <time.h>
 #include <syslog.h>
 
@@ -246,6 +252,15 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 	      case 'U':
 		{
 		    unsigned int users = 0;
+#if defined(HAVE_UTMPX_H)
+		    struct utmpx *utx;
+		    setutxent();
+		    while ((utx = getutxent())) {
+			if (utx->ut_type == USER_PROCESS)
+			    ++users;
+		    }
+		    endutxent();
+#elif defined(HAVE_UTMP_H)
 		    struct utmp *ut;
 		    setutent();
 		    while ((ut = getutent())) {
@@ -253,6 +268,7 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 			    ++users;
 		    }
 		    endutent();
+#endif
 		    if (c == 'U')
 			snprintf (buf, sizeof buf, "%u %s", users,
 			          (users == 1) ? "user" : "users");
