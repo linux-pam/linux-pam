@@ -467,7 +467,7 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	       }
 	       pmsg[0] = &msg[0];
 	       msg[0].msg_style = PAM_TEXT_INFO;
-	       if (asprintf(&txt, _("Changing STRESS password for %s."),
+	       if (asprintf(&txt, "Changing STRESS password for %s.",
 			    (const char *)username) < 0) {
 		    pam_syslog(pamh, LOG_CRIT, "out of memory");
 		    return PAM_BUF_ERR;
@@ -481,10 +481,10 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 
 	  pmsg[i] = &msg[i];
 	  msg[i].msg_style = PAM_PROMPT_ECHO_OFF;
-	  msg[i++].msg = _("Enter new STRESS password: ");
+	  msg[i++].msg = "Enter new STRESS password: ";
 	  pmsg[i] = &msg[i];
 	  msg[i].msg_style = PAM_PROMPT_ECHO_OFF;
-	  msg[i++].msg = _("Retype new STRESS password: ");
+	  msg[i++].msg = "Retype new STRESS password: ";
 	  resp = NULL;
 
 	  retval = converse(pamh,i,pmsg,&resp);
@@ -513,8 +513,8 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 		    if (!(flags & PAM_SILENT) && !(ctrl & PAM_ST_NO_WARN)) {
 			 pmsg[0] = &msg[0];
 			 msg[0].msg_style = PAM_ERROR_MSG;
-			 msg[0].msg = _("Verification mis-typed; "
-					"password unchanged");
+			 msg[0].msg = "Verification mis-typed; "
+				      "password unchanged";
 			 resp = NULL;
 			 (void) converse(pamh,1,pmsg,&resp);
 			 if (resp) {

@@ -440,23 +440,6 @@ msgstr ""
 msgid "login: failure forking: %m"
 msgstr ""
 
-#: modules/pam_stress/pam_stress.c:470
-#, c-format
-msgid "Changing STRESS password for %s."
-msgstr ""
-
-#: modules/pam_stress/pam_stress.c:484
-msgid "Enter new STRESS password: "
-msgstr ""
-
-#: modules/pam_stress/pam_stress.c:487
-msgid "Retype new STRESS password: "
-msgstr ""
-
-#: modules/pam_stress/pam_stress.c:516
-msgid "Verification mis-typed; password unchanged"
-msgstr ""
-
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
 #, c-format
 msgid "Account temporary locked (%ld seconds left)"
