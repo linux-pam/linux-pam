@@ -692,7 +692,8 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
         if (ctrl & PAM_DEBUG_ARG)
             pam_syslog(pamh, LOG_DEBUG, "bad authentication token");
         pam_error(pamh, "%s", pass_new == NULL ?
-		   _("No password supplied"):_("Password unchanged"));
+		   _("No password has been supplied.") :
+		   _("The password has not been changed."));
         return PAM_AUTHTOK_ERR;
     }
 

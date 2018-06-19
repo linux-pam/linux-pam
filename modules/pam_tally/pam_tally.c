@@ -538,7 +538,7 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
 	{
 	  if (!(opts->ctrl & OPT_SILENT))
 	       pam_info (pamh,
-			 _("Account temporary locked (%ld seconds left)"),
+			 _("Account is temporary locked (%ld seconds left)."),
 			 oldtime+lock_time-time(NULL));
 
 	  if (!(opts->ctrl & OPT_NOLOGNOTICE))
@@ -563,7 +563,7 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
         ( ((opts->ctrl & OPT_DENY_ROOT) || uid) )    /* even_deny stops uid check    */
         ) {
 	if (!(opts->ctrl & OPT_SILENT))
-	  pam_info (pamh, _("Account locked due to %u failed logins"),
+	  pam_info (pamh, _("Account is locked due to %u failed logins."),
 		    (unsigned int)tally);
 
 	if (!(opts->ctrl & OPT_NOLOGNOTICE))

@@ -577,7 +577,7 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
 #endif
 
         if (!(opts->ctrl & OPT_QUIET)) {
-            pam_info(pamh, _("Account locked due to %u failed logins"),
+            pam_info(pamh, _("Account is locked due to %u failed logins."),
 		    (unsigned int)tally->fail_cnt);
         }
 	loglevel = LOG_NOTICE;
@@ -594,7 +594,7 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
 	    tally->fail_time = oldtime;
 
 	    if (!(opts->ctrl & OPT_QUIET)) {
-	        pam_info(pamh, _("Account temporary locked (%ld seconds left)"),
+	        pam_info(pamh, _("Account is temporary locked (%ld seconds left)."),
                          oldtime+opts->lock_time-time(NULL));
             }
 	    if (!(opts->ctrl & OPT_NOLOGNOTICE)) {

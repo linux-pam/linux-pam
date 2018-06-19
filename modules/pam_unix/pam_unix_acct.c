@@ -250,7 +250,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			"account %s has expired (account expired)",
 			uname);
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-			_("Your account has expired; please contact your system administrator"));
+			_("Your account has expired; please contact your system administrator."));
 		break;
 	case PAM_NEW_AUTHTOK_REQD:
 		if (daysleft == 0) {
@@ -258,13 +258,13 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 				"expired password for user %s (root enforced)",
 				uname);
 			_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-				_("You are required to change your password immediately (administrator enforced)"));
+				_("You are required to change your password immediately (administrator enforced)."));
 		} else {
 			pam_syslog(pamh, LOG_DEBUG,
 				"expired password for user %s (password aged)",
 				uname);
 			_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-				_("You are required to change your password immediately (password expired)"));
+				_("You are required to change your password immediately (password expired)."));
 		}
 		break;
 	case PAM_AUTHTOK_EXPIRED:
@@ -272,7 +272,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			"account %s has expired (failed to change password)",
 			uname);
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-			_("Your account has expired; please contact your system administrator"));
+			_("Your account has expired; please contact your system administrator."));
 		break;
 	case PAM_AUTHTOK_ERR:
 		retval = PAM_SUCCESS;
@@ -285,19 +285,19 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 #if defined HAVE_DNGETTEXT && defined ENABLE_NLS
 			snprintf (buf, sizeof (buf),
 				dngettext(PACKAGE,
-				  "Warning: your password will expire in %d day",
-				  "Warning: your password will expire in %d days",
+				  "Warning: your password will expire in %d day.",
+				  "Warning: your password will expire in %d days.",
 				  daysleft),
 				daysleft);
 #else
 			if (daysleft == 1)
 			    snprintf(buf, sizeof (buf),
-				_("Warning: your password will expire in %d day"),
+				_("Warning: your password will expire in %d day."),
 				daysleft);
 			else
 			    snprintf(buf, sizeof (buf),
 			    /* TRANSLATORS: only used if dngettext is not supported */
-				_("Warning: your password will expire in %d days"),
+				_("Warning: your password will expire in %d days."),
 				daysleft);
 #endif
 			_make_remark(pamh, ctrl, PAM_TEXT_INFO, buf);

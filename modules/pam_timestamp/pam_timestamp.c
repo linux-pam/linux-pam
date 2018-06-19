@@ -354,7 +354,8 @@ get_timestamp_name(pam_handle_t *pamh, int argc, const char **argv,
 static void
 verbose_success(pam_handle_t *pamh, long diff)
 {
-	pam_info(pamh, _("Access granted (last access was %ld seconds ago)."), diff);
+	pam_info(pamh, _("Access has been granted"
+			 " (last access was %ld seconds ago)."), diff);
 }
 
 int

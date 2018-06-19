@@ -1088,7 +1088,8 @@ out:
 
     retval = setup_limits(pamh, pwd->pw_name, pwd->pw_uid, ctrl, pl);
     if (retval & LOGIN_ERR)
-	pam_error(pamh, _("Too many logins for '%s'."), pwd->pw_name);
+	pam_error(pamh, _("There were too many logins for '%s'."),
+		  pwd->pw_name);
     if (retval != LIMITED_OK) {
         return PAM_PERM_DENIED;
     }

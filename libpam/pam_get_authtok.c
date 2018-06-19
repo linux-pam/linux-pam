@@ -161,7 +161,7 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
     {
       /* We want to abort */
       if (chpass)
-        pam_error (pamh, _("Password change aborted."));
+        pam_error (pamh, _("Password change has been aborted."));
       return PAM_AUTHTOK_ERR;
     }
 
@@ -233,7 +233,7 @@ pam_get_authtok_verify (pam_handle_t *pamh, const char **authtok,
     {
       /* We want to abort the password change */
       pam_set_item (pamh, PAM_AUTHTOK, NULL);
-      pam_error (pamh, _("Password change aborted."));
+      pam_error (pamh, _("Password change has been aborted."));
       return PAM_AUTHTOK_ERR;
     }
 

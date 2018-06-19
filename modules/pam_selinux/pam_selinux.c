@@ -207,7 +207,7 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
   char *type=NULL;
   char resp_val = 0;
 
-  pam_prompt (pamh, PAM_TEXT_INFO, NULL, _("Default Security Context %s\n"), defaultcon);
+  pam_prompt (pamh, PAM_TEXT_INFO, NULL, _("The default security context is %s."), defaultcon);
 
   while (1) {
     if (query_response(pamh,
@@ -227,7 +227,8 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
 	if (query_response(pamh, _("role:"), context_role_get(new_context),
 		       &response, debug) == PAM_SUCCESS && response[0]) {
 	  if (get_default_type(response, &type)) {
-	    pam_prompt (pamh, PAM_ERROR_MSG, NULL, _("No default type for role %s\n"), response);
+	    pam_prompt(pamh, PAM_ERROR_MSG, NULL,
+		       _("There is no default type for role %s."), response);
 	    _pam_drop(response);
 	    continue;
 	  } else {
@@ -292,7 +293,7 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
 	}
 	else {
 	  send_audit_message(pamh, 0, defaultcon, context_str(new_context));
-	  send_text(pamh,_("Not a valid security context"),debug);
+	  send_text(pamh,_("This is not a valid security context."),debug);
 	}
         context_free(new_context); /* next time around allocates another */
       }
@@ -541,7 +542,7 @@ compute_exec_context(pam_handle_t *pamh, module_data_t *data,
   if (!data->exec_context) {
     pam_syslog(pamh, LOG_ERR, "Unable to get valid context for %s", username);
     pam_prompt(pamh, PAM_ERROR_MSG, NULL,
-	       _("Unable to get valid context for %s"), username);
+	       _("A valid context for %s could not be obtained."), username);
   }
 
   if (getexeccon(&data->prev_exec_context) < 0)
@@ -660,7 +661,7 @@ set_context(pam_handle_t *pamh, const module_data_t *data,
     char msg[PATH_MAX];
 
     snprintf(msg, sizeof(msg),
-	     _("Security Context %s Assigned"), data->exec_context);
+	     _("Security context %s has been assigned."), data->exec_context);
     send_text(pamh, msg, debug);
   }
 #ifdef HAVE_SETKEYCREATECON
@@ -676,7 +677,7 @@ set_context(pam_handle_t *pamh, const module_data_t *data,
     char msg[PATH_MAX];
 
     snprintf(msg, sizeof(msg),
-	     _("Key Creation Context %s Assigned"), data->exec_context);
+	     _("Key creation context %s has been assigned."), data->exec_context);
     send_text(pamh, msg, debug);
   }
 #endif

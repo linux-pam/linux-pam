@@ -560,7 +560,8 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 			pam_syslog(pamh, LOG_DEBUG, "bad authentication token");
 		}
 		_make_remark(pamh, ctrl, PAM_ERROR_MSG, pass_new == NULL ?
-			_("No password supplied") : _("Password unchanged"));
+			_("No password has been supplied.") :
+			_("The password has not been changed."));
 		return PAM_AUTHTOK_ERR;
 	}
 	/*
@@ -577,7 +578,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 	}
 	if (off(UNIX__IAMROOT, ctrl)) {
 		if (strlen(pass_new) < pass_min_len)
-		  remark = _("You must choose a longer password");
+		  remark = _("You must choose a longer password.");
 		D(("length check [%s]", remark));
 		if (on(UNIX_REMEMBER_PASSWD, ctrl)) {
 			if ((retval = check_old_password(user, pass_new)) == PAM_AUTHTOK_ERR)
@@ -714,7 +715,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		if (retval == PAM_AUTHTOK_ERR) {
 			if (off(UNIX__IAMROOT, ctrl))
 				_make_remark(pamh, ctrl, PAM_ERROR_MSG,
-					     _("You must wait longer to change your password"));
+					     _("You must wait longer to change your password."));
 			else
 				retval = PAM_SUCCESS;
 		}

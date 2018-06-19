@@ -294,7 +294,7 @@ report_mail(pam_handle_t *pamh, int ctrl, int type, const char *folder)
 	  switch (type)
 	    {
 	    case HAVE_NO_MAIL:
-	      retval = pam_info (pamh, "%s", _("No mail."));
+	      retval = pam_info (pamh, "%s", _("You have no mail."));
 	      break;
 	    case HAVE_NEW_MAIL:
 	      retval = pam_info (pamh, "%s", _("You have new mail."));
