@@ -442,12 +442,12 @@ msgstr ""
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
 #, c-format
-msgid "Account is temporary locked (%ld seconds left)."
+msgid "The account is temporarily locked (%ld seconds left)."
 msgstr ""
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
 #, c-format
-msgid "Account is locked due to %u failed logins."
+msgid "The account is locked due to %u failed logins."
 msgstr ""
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
