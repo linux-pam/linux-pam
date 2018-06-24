@@ -231,6 +231,9 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
 	* sanity check, the key must be alpha-numeric
 	*/
 
+	if (key[0] == '=')
+	    continue;
+
 	for ( i = 0 ; key[i] != '=' && key[i] != '\0' ; i++ )
 	    if (!isalnum(key[i]) && key[i] != '_') {
 		pam_syslog(pamh, LOG_ERR,
