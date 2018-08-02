@@ -260,10 +260,11 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
 /*---------------------------------------------------------------------*/
 
 /* --- Support function: get uid (and optionally username) from PAM or
-        cline_user --- */
+        cline_user or cline_userid --- */
 
 #ifdef MAIN
 static char *cline_user=0;  /* cline_user is used in the administration prog */
+static int cline_userid=-1;  /* cline_userid is used in the administration prog */
 #endif
 
 static int
@@ -274,6 +275,11 @@ pam_get_uid(pam_handle_t *pamh, uid_t *uid, const char **userp, struct tally_opt
 
 #ifdef MAIN
     user = cline_user;
+
+    if (cline_userid > -1) {
+        if ( uid ) *uid = cline_userid;
+        return PAM_SUCCESS;
+    }
 #else
     if ((pam_get_user( pamh, &user, NULL )) != PAM_SUCCESS) {
       user = NULL;
@@ -878,6 +884,20 @@ getopts( char **argv )
     else if ( !strcmp (*argv,"--user")    ) cline_user=*++argv;
     else if ( !strcmp (*argv,"-u")        ) cline_user=*++argv;
     else if ( !strncmp(*argv,"--user=",7) ) cline_user=*argv+7;
+
+    else if ( !strcmp (*argv,"-U")    ) {
+      if ( sscanf(*++argv, "%d", &cline_userid) != 1 )
+        fprintf(stderr,_("%s: Bad number given to -U\n"),pname), exit(0);
+    }
+    else if ( !strcmp (*argv,"--uid")    ) {
+      if ( sscanf(*++argv, "%d", &cline_userid) != 1 )
+        fprintf(stderr,_("%s: Bad number given to --uid\n"),pname), exit(0);
+    }
+    else if ( !strncmp(*argv,"--uid=",6) ) {
+      if ( sscanf(*argv+6, "%d", &cline_userid) != 1 )
+        fprintf(stderr,_("%s: Bad number given to --uid=\n"),pname), exit(0);
+    }
+
     else if ( !strcmp (*argv,"--reset")   ) cline_reset=0;
     else if ( !strcmp (*argv,"-r")        ) cline_reset=0;
     else if ( !strncmp(*argv,"--reset=",8)) {
@@ -889,6 +909,10 @@ getopts( char **argv )
       fprintf(stderr,_("%s: Unrecognised option %s\n"),pname,*argv);
       return FALSE;
     }
+  }
+  if (cline_user && cline_userid > -1) {
+    fprintf(stderr,_("%s: Error, both user and userid options specified\n"),pname);
+    exit(0);
   }
   return TRUE;
 }
@@ -932,8 +956,10 @@ main( int argc UNUSED, char **argv )
   if ( ! getopts( argv+1 ) ) {
     printf(_("%s: [-f rooted-filename] [--file rooted-filename]\n"
              "   [-u username] [--user username]\n"
+             "   [-U uid] [--uid userid] [--uid=userid]\n"
 	     "   [-r] [--reset[=n]] [--quiet]\n"),
            *argv);
+    printf (_("If specifying a user, only specify username or uid, not both\n"));
     exit(2);
   }
 
@@ -945,7 +971,7 @@ main( int argc UNUSED, char **argv )
    *  without --user it handles all users, sniffing cline_filename for nonzeros
    */
 
-  if ( cline_user ) {
+  if ( cline_user || cline_userid > -1 ) {
     uid_t uid;
     int tfile = -1;
     struct tally_options opts;
