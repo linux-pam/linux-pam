@@ -833,6 +833,7 @@ static int ns_override(struct polydir_s *polyptr, struct instance_data *idata,
         if (pam_modutil_user_in_group_uid_gid(idata->pamh, uid, polyptr->gid[i])) {
             return !(polyptr->flags & POLYDIR_EXCLUSIVE);
         }
+    }
 
     return !!(polyptr->flags & POLYDIR_EXCLUSIVE);
 }
