@@ -104,7 +104,8 @@
       is not performed. If left blank, polyinstantiation will be performed
       for all users. If the list is preceded with a single "~" character,
       polyinstantiation is performed only for users and groups in the list.
-      To specify groups, add "@" prefix to the group's name.
+      To enable group support, first add "enable_groups" argument to pam_namespace module.
+      Then use "@" prefix in the group's name in the configuration file.
     </para>
 
     <para>
