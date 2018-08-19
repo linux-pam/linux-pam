@@ -461,8 +461,11 @@ static int parse_method(char *method, struct polydir_s *poly,
     return 0;
 }
 
-static int is_valid_user_and_group_def(const char *ugdef)
+static int is_valid_user_and_group_def(const char *ugdef, int enable_groups)
 {
+	if (!enable_groups)
+		return 1;
+
 	/* No ugdef that starts or ends with ',' */
 	if (ugdef[0] == ',' || ugdef[strlen(ugdef)-1] == ',')
 		return 0;
@@ -477,11 +480,14 @@ static int is_valid_user_and_group_def(const char *ugdef)
 	return 1;
 }
 
+/* 0) if groups are not enabled, then preserve old behaviour */
 /* 1) No lone '@' */
 /* 2) No whitespace anywhere */
 /* 3) No '@' except possibly as the first character */
-static int is_valid_user_or_group(const char *ug)
+static int is_valid_user_or_group(const char *ug, int enable_groups)
 {
+	if (!enable_groups)
+		return 1;
 	return !(
 		(ug[0] == '@' && ug[1] == '\0') ||
 		strpbrk(ug, " \t\r\v") ||
@@ -491,12 +497,12 @@ static int is_valid_user_or_group(const char *ug)
 
 /* count_users_and_groups() will mangle ugdef, so callers must provide
  * a pointer to a mutable buffer */
-static int count_users_and_groups(struct instance_data *idata, char *ugdef, unsigned int *nuid, unsigned int *ngid)
+static int count_users_and_groups(struct instance_data *idata, char *ugdef, unsigned int *nuid, unsigned int *ngid, int enable_groups)
 {
 	char *token;
 	char *saveptr;
 
-	if (!is_valid_user_and_group_def(ugdef)) {
+	if (!is_valid_user_and_group_def(ugdef, enable_groups)) {
 		if (idata->flags & PAMNS_DEBUG)
 			pam_syslog(idata->pamh, LOG_DEBUG, "Invalid user and group definition syntax: '%s'", ugdef);
 		return -1;
@@ -505,7 +511,7 @@ static int count_users_and_groups(struct instance_data *idata, char *ugdef, unsi
 	if ((token = strtok_r(ugdef, ",", &saveptr)) == NULL)
 		return -2;
 
-	if (!is_valid_user_or_group(token)) {
+	if (!is_valid_user_or_group(token, enable_groups)) {
 		if (idata->flags & PAMNS_DEBUG)
 			pam_syslog(idata->pamh, LOG_DEBUG, "Invalid user or group syntax: '%s'", token);
 		return -3;
@@ -513,21 +519,28 @@ static int count_users_and_groups(struct instance_data *idata, char *ugdef, unsi
 
 	*nuid = *ngid = 0;
 
-	token[0] == '@'? (*ngid)++ : (*nuid)++;
+	if (enable_groups)
+		token[0] == '@'? (*ngid)++ : (*nuid)++;
+	else
+		(*nuid)++;
 
 	while ((token = strtok_r(NULL, ",", &saveptr))) {
-		if (!is_valid_user_or_group(token)) {
+		if (!is_valid_user_or_group(token, enable_groups)) {
 			if (idata->flags & PAMNS_DEBUG)
 				pam_syslog(idata->pamh, LOG_DEBUG, "Invalid user or group syntax: '%s'", token);
 			return -3;
 		}
-		token[0] == '@'? (*ngid)++ : (*nuid)++;
+
+		if (enable_groups)
+			token[0] == '@'? (*ngid)++ : (*nuid)++;
+		else
+			(*nuid)++;
 	}
 
 	return 0;
 }
 
-static void insert_uids_and_gids_to_poly(pam_handle_t *pamh, struct polydir_s *poly, char *users_and_groups)
+static void insert_uids_and_gids_to_poly(pam_handle_t *pamh, struct polydir_s *poly, char *users_and_groups, int enable_groups)
 {
 	struct passwd *pwd;
 	struct group *grp;
@@ -551,7 +564,7 @@ static void insert_uids_and_gids_to_poly(pam_handle_t *pamh, struct polydir_s *p
 		if (terminating_ptr)
 			*terminating_ptr = '\0';
 
-		if (ugstr[0] == '@') {
+		if (ugstr[0] == '@' && enable_groups) {
 			grp = pam_modutil_getgrnam(pamh, ugstr+1);
 			if (grp == NULL) {
 				pam_syslog(pamh, LOG_ERR, "Unknown group %s in configuration", ugstr+1);
@@ -575,7 +588,7 @@ static void insert_uids_and_gids_to_poly(pam_handle_t *pamh, struct polydir_s *p
 	}
 }
 
-static int process_users_and_groups(struct instance_data *idata, struct polydir_s *poly, char *users_and_groups)
+static int process_users_and_groups(struct instance_data *idata, struct polydir_s *poly, char *users_and_groups, int enable_groups)
 {
 	unsigned int ucount;
 	unsigned int gcount;
@@ -598,7 +611,7 @@ static int process_users_and_groups(struct instance_data *idata, struct polydir_
 		return -2;
 	}
 
-	rc = count_users_and_groups(idata, copy, &ucount, &gcount);
+	rc = count_users_and_groups(idata, copy, &ucount, &gcount, enable_groups);
 	free(copy);
 
 	if (rc < 0) {
@@ -620,7 +633,7 @@ static int process_users_and_groups(struct instance_data *idata, struct polydir_
 		return -2;
 	}
 
-	insert_uids_and_gids_to_poly(idata->pamh, poly, users_and_groups);
+	insert_uids_and_gids_to_poly(idata->pamh, poly, users_and_groups, enable_groups);
 
 	return 0;
 }
@@ -799,7 +812,7 @@ static int process_line(char *line, const char *home, const char *rhome,
      * directory structure.
      */
     if (users_and_groups) {
-        if (process_users_and_groups(idata, poly, users_and_groups) < 0)
+        if (process_users_and_groups(idata, poly, users_and_groups, idata->flags & PAMNS_ENABLE_GROUPS) < 0)
                 goto skipping;
     }
 
@@ -2380,6 +2393,8 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
             unmnt = UNMNT_REMNT;
         if (strcmp(argv[i], "unmnt_only") == 0)
             unmnt = UNMNT_ONLY;
+        if (strcmp(argv[i], "enable_groups") == 0)
+            idata.flags |= PAMNS_ENABLE_GROUPS;
 	if (strcmp(argv[i], "require_selinux") == 0) {
 		if (!(idata.flags & PAMNS_SELINUX_ENABLED)) {
 			pam_syslog(idata.pamh, LOG_ERR,
