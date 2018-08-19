@@ -166,6 +166,8 @@ struct polydir_s {
     enum polymethod method;		/* method used to polyinstantiate */
     unsigned int num_uids;		/* number of override uids */
     uid_t *uid;				/* list of override uids */
+    unsigned int num_gids;		/* number of override gids */
+    gid_t *gid;				/* list of override gids */
     unsigned int flags;			/* polydir flags */
     char *init_script;			/* path to init script */
     char *mount_opts;			/* mount options for tmpfs mount */
