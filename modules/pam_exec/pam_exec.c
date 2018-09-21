@@ -103,10 +103,17 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   int optargc;
   const char *logfile = NULL;
   const char *authtok = NULL;
+#if ! defined(__GNUC__)
+  char authtok_buf[PAM_MAX_RESP_SIZE+1];
+#endif
   pid_t pid;
   int fds[2];
   int stdout_fds[2];
   FILE *stdout_file = NULL;
+
+#if ! defined(__GNUC__)
+  memset(authtok_buf, 0, sizeof(authtok_buf));
+#endif
 
   if (argc < 1) {
     pam_syslog (pamh, LOG_ERR,
@@ -180,12 +187,20 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	      if (resp)
 		{
 		  pam_set_item (pamh, PAM_AUTHTOK, resp);
+#ifdef __GNUC__
 		  authtok = strndupa (resp, PAM_MAX_RESP_SIZE);
+#else
+		  authtok = strncpy(authtok_buf, resp, sizeof(authtok_buf));
+#endif
 		  _pam_drop (resp);
 		}
 	    }
 	  else
+#ifdef __GNUC__
 	    authtok = strndupa (void_pass, PAM_MAX_RESP_SIZE);
+#else
+	    authtok = strncpy(authtok_buf, void_pass, sizeof(authtok_buf));
+#endif
 
 	  if (pipe(fds) != 0)
 	    {
