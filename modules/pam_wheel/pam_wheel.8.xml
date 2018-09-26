@@ -43,8 +43,8 @@
     <title>DESCRIPTION</title>
     <para>
       The pam_wheel PAM module is used to enforce the so-called
-      <emphasis>wheel</emphasis> group. By default it permits root
-      access to the system if the applicant user is a member of the
+      <emphasis>wheel</emphasis> group. By default it permits
+      access to the target user if the applicant user is a member of the
       <emphasis>wheel</emphasis> group. If no group with this name exist,
       the module is using the group with the group-ID
       <emphasis remap='B'>0</emphasis>.
