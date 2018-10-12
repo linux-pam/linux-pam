@@ -21,6 +21,9 @@
       <arg choice="opt">
         motd=<replaceable>/path/filename</replaceable>
       </arg>
+      <arg choice="opt">
+        motd_dir=<replaceable>/path/dirname.d</replaceable>
+      </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -31,10 +34,49 @@
     <para>
       pam_motd is a PAM module that can be used to display
       arbitrary motd (message of the day) files after a successful
-      login. By default the <filename>/etc/motd</filename> file is
-      shown. The message size is limited to 64KB.
+      login. By default, pam_motd shows files in the
+      following locations:
     </para>
-
+    <para>
+      <simplelist type='vert'>
+        <member><filename>/etc/motd</filename></member>
+        <member><filename>/run/motd</filename></member>
+        <member><filename>/usr/lib/motd</filename></member>
+        <member><filename>/etc/motd.d/</filename></member>
+        <member><filename>/run/motd.d/</filename></member>
+        <member><filename>/usr/lib/motd.d/</filename></member>
+      </simplelist>
+    </para>
+    <para>
+      Each message size is limited to 64KB.
+    </para>
+    <para>
+      If <filename>/etc/motd</filename> does not exist,
+      then <filename>/run/motd</filename> is shown. If
+      <filename>/run/motd</filename> does not exist, then
+      <filename>/usr/lib/motd</filename> is shown.
+    </para>
+    <para>
+      Similar overriding behavior applies to the directories.
+      Files in <filename>/etc/motd.d/</filename> override files
+      with the same name in <filename>/run/motd.d/</filename> and
+      <filename>/usr/lib/motd.d/</filename>. Files in <filename>/run/motd.d/</filename>
+      override files with the same name in <filename>/usr/lib/motd.d/</filename>.
+    </para>
+    <para>
+      Files the in the directories listed above are displayed in
+      lexicographic order by name.
+    </para>
+    <para>
+      To silence a message,
+      a symbolic link with target <filename>/dev/null</filename>
+      may be placed in <filename>/etc/motd.d</filename> with
+      the same filename as the message to be silenced. Example:
+      Creating a symbolic link as follows silences <filename>/usr/lib/motd.d/my_motd</filename>.
+    </para>
+    <para>
+      <command>ln -s /dev/null /etc/motd.d/my_motd</command>
+    </para>
   </refsect1>
 
   <refsect1 id="pam_motd-options">
@@ -47,8 +89,10 @@
         </term>
         <listitem>
           <para>
-	    The <filename>/path/filename</filename> file is displayed
-            as message of the day.
+            The <filename>/path/filename</filename> file is displayed
+            as message of the day. Multiple paths to try can be
+            specified as a colon-separated list. By default this option
+            is set to <filename>/etc/motd:/run/motd:/usr/lib/motd</filename>.
           </para>
         </listitem>
       </varlistentry>
@@ -59,16 +103,17 @@
         <listitem>
           <para>
             The <filename>/path/dirname.d</filename> directory is scanned
-            and each file contained inside of it is displayed.
+            and each file contained inside of it is displayed. Multiple
+            directories to scan can be specified as a colon-separated list.
+            By default this option is set to <filename>/etc/motd.d:/run/motd.d:/usr/lib/motd.d</filename>.
           </para>
         </listitem>
       </varlistentry>
     </variablelist>
     <para>
-      When no options are given, the default is to display both
-      <filename>/etc/motd</filename> and the contents of
-      <filename>/etc/motd.d</filename>.  Specifying either option (or both)
-      will disable this default behavior.
+      When no options are given, the default behavior applies for both
+      options. Specifying either option (or both) will disable the
+      default behavior for both options.
     </para>
   </refsect1>
 
