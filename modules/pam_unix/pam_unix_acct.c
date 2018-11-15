@@ -62,7 +62,7 @@
 #include "support.h"
 #include "passverify.h"
 
-int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
+int _unix_run_verify_binary(pam_handle_t *pamh, unsigned long long ctrl,
 	const char *user, int *daysleft)
 {
   int retval=0, child, fds[2];
@@ -185,7 +185,7 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned int ctrl,
 int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
-	unsigned int ctrl;
+	unsigned long long ctrl;
 	const void *void_uname;
 	const char *uname;
 	int retval, daysleft;

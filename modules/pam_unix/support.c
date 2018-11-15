@@ -107,7 +107,7 @@ search_key (const char *key, const char *filename)
 
 /* this is a front-end for module-application conversations */
 
-int _make_remark(pam_handle_t * pamh, unsigned int ctrl,
+int _make_remark(pam_handle_t * pamh, unsigned long long ctrl,
 		    int type, const char *text)
 {
 	int retval = PAM_SUCCESS;
@@ -122,10 +122,11 @@ int _make_remark(pam_handle_t * pamh, unsigned int ctrl,
  * set the control flags for the UNIX module.
  */
 
-int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
-	      int *pass_min_len, int argc, const char **argv)
+unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
+			     int *rounds, int *pass_min_len, int argc,
+			     const char **argv)
 {
-	unsigned int ctrl;
+	unsigned long long ctrl;
 	char *val;
 	int j;
 
@@ -243,15 +244,23 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 		set(UNIX__NONULL, ctrl);
 	}
 
-	/* Set default rounds for blowfish */
-	if (on(UNIX_BLOWFISH_PASS, ctrl) && off(UNIX_ALGO_ROUNDS, ctrl) && rounds != NULL) {
-		*rounds = 5;
-		set(UNIX_ALGO_ROUNDS, ctrl);
+	/* Set default rounds for blowfish, gost-yescrypt and yescrypt */
+	if (off(UNIX_ALGO_ROUNDS, ctrl) && rounds != NULL) {
+		if (on(UNIX_BLOWFISH_PASS, ctrl) ||
+		    on(UNIX_GOST_YESCRYPT_PASS, ctrl) ||
+		    on(UNIX_YESCRYPT_PASS, ctrl)) {
+			*rounds = 5;
+			set(UNIX_ALGO_ROUNDS, ctrl);
+		}
 	}
 
 	/* Enforce sane "rounds" values */
 	if (on(UNIX_ALGO_ROUNDS, ctrl)) {
-		if (on(UNIX_BLOWFISH_PASS, ctrl)) {
+		if (on(UNIX_GOST_YESCRYPT_PASS, ctrl) ||
+		    on(UNIX_YESCRYPT_PASS, ctrl)) {
+			if (*rounds < 3 || *rounds > 11)
+				*rounds = 5;
+		} else if (on(UNIX_BLOWFISH_PASS, ctrl)) {
 			if (*rounds < 4 || *rounds > 31)
 				*rounds = 5;
 		} else if (on(UNIX_SHA256_PASS, ctrl) || on(UNIX_SHA512_PASS, ctrl)) {
@@ -532,7 +541,7 @@ int _unix_comesfromsource(pam_handle_t *pamh,
 #include <sys/wait.h>
 
 static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
-				   unsigned int ctrl, const char *user)
+				   unsigned long long ctrl, const char *user)
 {
     int retval, child, fds[2];
     struct sigaction newsa, oldsa;
@@ -658,7 +667,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
  */
 
 int
-_unix_blankpasswd (pam_handle_t *pamh, unsigned int ctrl, const char *name)
+_unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name)
 {
 	struct passwd *pwd = NULL;
 	char *salt = NULL;
@@ -706,7 +715,7 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned int ctrl, const char *name)
 }
 
 int _unix_verify_password(pam_handle_t * pamh, const char *name
-			  ,const char *p, unsigned int ctrl)
+			  ,const char *p, unsigned long long ctrl)
 {
 	struct passwd *pwd = NULL;
 	char *salt = NULL;

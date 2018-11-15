@@ -333,12 +333,43 @@
       </varlistentry>
       <varlistentry>
         <term>
+          <option>gost_yescrypt</option>
+        </term>
+        <listitem>
+          <para>
+            When a user changes their password next,
+            encrypt it with the gost-yescrypt algorithm. If the
+            gost-yescrypt algorithm is not known to the <citerefentry>
+	    <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
+            </citerefentry> function,
+            fall back to MD5.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>yescrypt</option>
+        </term>
+        <listitem>
+          <para>
+            When a user changes their password next,
+            encrypt it with the yescrypt algorithm. If the
+            yescrypt algorithm is not known to the <citerefentry>
+	    <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
+            </citerefentry> function,
+            fall back to MD5.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
           <option>rounds=<replaceable>n</replaceable></option>
         </term>
         <listitem>
           <para>
-            Set the optional number of rounds of the SHA256, SHA512
-            and blowfish password hashing algorithms to
+            Set the optional number of rounds of the SHA256, SHA512,
+            blowfish, gost-yescrypt, and yescrypt password hashing
+            algorithms to
             <replaceable>n</replaceable>.
           </para>
         </listitem>

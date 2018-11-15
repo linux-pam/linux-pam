@@ -138,7 +138,7 @@ __taddr2port (const struct netconfig *nconf, const struct netbuf *nbuf)
 }
 #endif
 
-static char *getNISserver(pam_handle_t *pamh, unsigned int ctrl)
+static char *getNISserver(pam_handle_t *pamh, unsigned long long ctrl)
 {
 	char *master;
 	char *domainname;
@@ -233,7 +233,7 @@ static char *getNISserver(pam_handle_t *pamh, unsigned int ctrl)
 
 #ifdef WITH_SELINUX
 
-static int _unix_run_update_binary(pam_handle_t *pamh, unsigned int ctrl, const char *user,
+static int _unix_run_update_binary(pam_handle_t *pamh, unsigned long long ctrl, const char *user,
     const char *fromwhat, const char *towhat, int remember)
 {
     int retval, child, fds[2];
@@ -388,7 +388,7 @@ static int check_old_password(const char *forwho, const char *newpass)
 
 static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 		       const char *fromwhat,
-		       char *towhat, unsigned int ctrl, int remember)
+		       char *towhat, unsigned long long ctrl, int remember)
 {
 	struct passwd *pwd = NULL;
 	int retval = 0;
@@ -512,7 +512,7 @@ done:
 	return retval;
 }
 
-static int _unix_verify_shadow(pam_handle_t *pamh, const char *user, unsigned int ctrl)
+static int _unix_verify_shadow(pam_handle_t *pamh, const char *user, unsigned long long ctrl)
 {
 	struct passwd *pwent = NULL;	/* Password and shadow password */
 	struct spwd *spent = NULL;	/* file entries for the user */
@@ -542,7 +542,7 @@ static int _unix_verify_shadow(pam_handle_t *pamh, const char *user, unsigned in
 }
 
 static int _pam_unix_approve_pass(pam_handle_t * pamh
-				  ,unsigned int ctrl
+				  ,unsigned long long ctrl
 				  ,const char *pass_old
 				  ,const char *pass_new,
                                   int pass_min_len)
@@ -600,7 +600,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 int
 pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
-	unsigned int ctrl, lctrl;
+	unsigned long long ctrl, lctrl;
 	int retval;
 	int remember = -1;
 	int rounds = 0;

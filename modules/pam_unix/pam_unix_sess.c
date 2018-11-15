@@ -67,7 +67,7 @@ int
 pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	char *user_name, *service;
-	unsigned int ctrl;
+	unsigned long long ctrl;
 	int retval;
     const char *login_name;
 
@@ -103,7 +103,7 @@ int
 pam_sm_close_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
 	char *user_name, *service;
-	unsigned int ctrl;
+	unsigned long long ctrl;
 	int retval;
 
 	D(("called."));

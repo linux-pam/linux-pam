@@ -22,8 +22,8 @@
 
 typedef struct {
 	const char *token;
-	unsigned int mask;	/* shall assume 32 bits of flags */
-	unsigned int flag;
+	unsigned long long mask;	/* shall assume 64 bits of flags */
+	unsigned long long flag;
         unsigned int is_hash_algo;
 } UNIX_Ctrls;
 
@@ -48,7 +48,7 @@ typedef struct {
 
 /* the generic mask */
 
-#define _ALL_ON_  (~0U)
+#define _ALL_ON_  (~0ULL)
 
 /* end of macro definitions definitions for the control flags */
 
@@ -98,47 +98,51 @@ typedef struct {
 #define UNIX_QUIET		 28	/* Don't print informational messages */
 #define UNIX_NO_PASS_EXPIRY      29     /* Don't check for password expiration if not used for authentication */
 #define UNIX_DES                 30     /* DES, default */
+#define UNIX_GOST_YESCRYPT_PASS  31     /* new password hashes will use gost-yescrypt */
+#define UNIX_YESCRYPT_PASS       32     /* new password hashes will use yescrypt */
 /* -------------- */
-#define UNIX_CTRLS_              31	/* number of ctrl arguments defined */
+#define UNIX_CTRLS_              33	/* number of ctrl arguments defined */
 
-#define UNIX_DES_CRYPT(ctrl)	(off(UNIX_MD5_PASS,ctrl)&&off(UNIX_BIGCRYPT,ctrl)&&off(UNIX_SHA256_PASS,ctrl)&&off(UNIX_SHA512_PASS,ctrl)&&off(UNIX_BLOWFISH_PASS,ctrl))
+#define UNIX_DES_CRYPT(ctrl)	(off(UNIX_MD5_PASS,ctrl)&&off(UNIX_BIGCRYPT,ctrl)&&off(UNIX_SHA256_PASS,ctrl)&&off(UNIX_SHA512_PASS,ctrl)&&off(UNIX_BLOWFISH_PASS,ctrl)&&off(UNIX_GOST_YESCRYPT_PASS,ctrl)&&off(UNIX_YESCRYPT_PASS,ctrl))
 
 static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 {
-/* symbol                  token name          ctrl mask             ctrl     *
- * ----------------------- ------------------- --------------------- -------- */
+/* symbol                      token name          ctrl mask                  ctrl             *
+ * --------------------------- -------------------- ------------------------- ---------------- */
 
-/* UNIX__OLD_PASSWD */     {NULL,              _ALL_ON_,                  01, 0},
-/* UNIX__VERIFY_PASSWD */  {NULL,              _ALL_ON_,                  02, 0},
-/* UNIX__IAMROOT */        {NULL,              _ALL_ON_,                  04, 0},
-/* UNIX_AUDIT */           {"audit",           _ALL_ON_,                 010, 0},
-/* UNIX_USE_FIRST_PASS */  {"use_first_pass",  _ALL_ON_^(060),           020, 0},
-/* UNIX_TRY_FIRST_PASS */  {"try_first_pass",  _ALL_ON_^(060),           040, 0},
-/* UNIX_AUTHTOK_TYPE */    {"authtok_type=",   _ALL_ON_,                0100, 0},
-/* UNIX__PRELIM */         {NULL,              _ALL_ON_^(0600),         0200, 0},
-/* UNIX__UPDATE */         {NULL,              _ALL_ON_^(0600),         0400, 0},
-/* UNIX__NONULL */         {NULL,              _ALL_ON_,               01000, 0},
-/* UNIX__QUIET */          {NULL,              _ALL_ON_,               02000, 0},
-/* UNIX_USE_AUTHTOK */     {"use_authtok",     _ALL_ON_,               04000, 0},
-/* UNIX_SHADOW */          {"shadow",          _ALL_ON_,              010000, 0},
-/* UNIX_MD5_PASS */        {"md5",            _ALL_ON_^(0260420000),  020000, 1},
-/* UNIX__NULLOK */         {"nullok",          _ALL_ON_^(01000),           0, 0},
-/* UNIX_DEBUG */           {"debug",           _ALL_ON_,              040000, 0},
-/* UNIX_NODELAY */         {"nodelay",         _ALL_ON_,             0100000, 0},
-/* UNIX_NIS */             {"nis",             _ALL_ON_,             0200000, 0},
-/* UNIX_BIGCRYPT */        {"bigcrypt",       _ALL_ON_^(0260420000), 0400000, 1},
-/* UNIX_LIKE_AUTH */       {"likeauth",        _ALL_ON_,            01000000, 0},
-/* UNIX_REMEMBER_PASSWD */ {"remember=",       _ALL_ON_,            02000000, 0},
-/* UNIX_NOREAP */          {"noreap",          _ALL_ON_,            04000000, 0},
-/* UNIX_BROKEN_SHADOW */   {"broken_shadow",   _ALL_ON_,           010000000, 0},
-/* UNIX_SHA256_PASS */     {"sha256",       _ALL_ON_^(0260420000), 020000000, 1},
-/* UNIX_SHA512_PASS */     {"sha512",       _ALL_ON_^(0260420000), 040000000, 1},
-/* UNIX_ALGO_ROUNDS */     {"rounds=",         _ALL_ON_,          0100000000, 0},
-/* UNIX_BLOWFISH_PASS */   {"blowfish",    _ALL_ON_^(0260420000), 0200000000, 1},
-/* UNIX_MIN_PASS_LEN */    {"minlen=",		_ALL_ON_,         0400000000, 0},
-/* UNIX_QUIET */           {"quiet",           _ALL_ON_,         01000000000, 0},
-/* UNIX_NO_PASS_EXPIRY */  {"no_pass_expiry",  _ALL_ON_,         02000000000, 0},
-/* UNIX_DES */             {"des",             _ALL_ON_^(0260420000),      0, 1},
+/* UNIX__OLD_PASSWD */         {NULL,               _ALL_ON_,                              01, 0},
+/* UNIX__VERIFY_PASSWD */      {NULL,               _ALL_ON_,                              02, 0},
+/* UNIX__IAMROOT */            {NULL,               _ALL_ON_,                              04, 0},
+/* UNIX_AUDIT */               {"audit",            _ALL_ON_,                             010, 0},
+/* UNIX_USE_FIRST_PASS */      {"use_first_pass",   _ALL_ON_^(060ULL),                    020, 0},
+/* UNIX_TRY_FIRST_PASS */      {"try_first_pass",   _ALL_ON_^(060ULL),                    040, 0},
+/* UNIX_AUTHTOK_TYPE */        {"authtok_type=",    _ALL_ON_,                            0100, 0},
+/* UNIX__PRELIM */             {NULL,               _ALL_ON_^(0600ULL),                  0200, 0},
+/* UNIX__UPDATE */             {NULL,               _ALL_ON_^(0600ULL),                  0400, 0},
+/* UNIX__NONULL */             {NULL,               _ALL_ON_,                           01000, 0},
+/* UNIX__QUIET */              {NULL,               _ALL_ON_,                           02000, 0},
+/* UNIX_USE_AUTHTOK */         {"use_authtok",      _ALL_ON_,                           04000, 0},
+/* UNIX_SHADOW */              {"shadow",           _ALL_ON_,                          010000, 0},
+/* UNIX_MD5_PASS */            {"md5",              _ALL_ON_^(015660420000ULL),        020000, 1},
+/* UNIX__NULLOK */             {"nullok",           _ALL_ON_^(01000ULL),                    0, 0},
+/* UNIX_DEBUG */               {"debug",            _ALL_ON_,                          040000, 0},
+/* UNIX_NODELAY */             {"nodelay",          _ALL_ON_,                         0100000, 0},
+/* UNIX_NIS */                 {"nis",              _ALL_ON_,                         0200000, 0},
+/* UNIX_BIGCRYPT */            {"bigcrypt",         _ALL_ON_^(015660420000ULL),       0400000, 1},
+/* UNIX_LIKE_AUTH */           {"likeauth",         _ALL_ON_,                        01000000, 0},
+/* UNIX_REMEMBER_PASSWD */     {"remember=",        _ALL_ON_,                        02000000, 0},
+/* UNIX_NOREAP */              {"noreap",           _ALL_ON_,                        04000000, 0},
+/* UNIX_BROKEN_SHADOW */       {"broken_shadow",    _ALL_ON_,                       010000000, 0},
+/* UNIX_SHA256_PASS */         {"sha256",           _ALL_ON_^(015660420000ULL),     020000000, 1},
+/* UNIX_SHA512_PASS */         {"sha512",           _ALL_ON_^(015660420000ULL),     040000000, 1},
+/* UNIX_ALGO_ROUNDS */         {"rounds=",          _ALL_ON_,                      0100000000, 0},
+/* UNIX_BLOWFISH_PASS */       {"blowfish",         _ALL_ON_^(015660420000ULL),    0200000000, 1},
+/* UNIX_MIN_PASS_LEN */        {"minlen=",          _ALL_ON_,                      0400000000, 0},
+/* UNIX_QUIET */               {"quiet",            _ALL_ON_,                     01000000000, 0},
+/* UNIX_NO_PASS_EXPIRY */      {"no_pass_expiry",   _ALL_ON_,                     02000000000, 0},
+/* UNIX_DES */                 {"des",              _ALL_ON_^(015660420000ULL),             0, 1},
+/* UNIX_GOST_YESCRYPT_PASS */  {"gost_yescrypt",    _ALL_ON_^(015660420000ULL),   04000000000, 1},
+/* UNIX_YESCRYPT_PASS */       {"yescrypt",         _ALL_ON_^(015660420000ULL),  010000000000, 1},
 };
 
 #define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)
@@ -151,20 +155,23 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 	_pam_drop(xx);		\
 }
 
-extern int _make_remark(pam_handle_t * pamh, unsigned int ctrl
-		       ,int type, const char *text);
-extern int _set_ctrl(pam_handle_t * pamh, int flags, int *remember, int *rounds,
-		     int *pass_min_len, int argc, const char **argv);
+extern int _make_remark(pam_handle_t * pamh, unsigned long long ctrl,
+		        int type, const char *text);
+extern unsigned long long _set_ctrl(pam_handle_t * pamh, int flags,
+				    int *remember, int *rounds,
+				    int *pass_min_len,
+				    int argc, const char **argv);
 extern int _unix_getpwnam (pam_handle_t *pamh,
 			   const char *name, int files, int nis,
 			   struct passwd **ret);
 extern int _unix_comesfromsource (pam_handle_t *pamh,
 				  const char *name, int files, int nis);
-extern int _unix_blankpasswd(pam_handle_t *pamh,unsigned int ctrl,
+extern int _unix_blankpasswd(pam_handle_t *pamh, unsigned long long ctrl,
 			     const char *name);
-extern int _unix_verify_password(pam_handle_t * pamh, const char *name
-			  ,const char *p, unsigned int ctrl);
+extern int _unix_verify_password(pam_handle_t * pamh, const char *name,
+				 const char *p, unsigned long long ctrl);
 
 extern int _unix_run_verify_binary(pam_handle_t *pamh,
-			unsigned int ctrl, const char *user, int *daysleft);
+				   unsigned long long ctrl,
+				   const char *user, int *daysleft);
 #endif /* _PAM_UNIX_SUPPORT_H */
