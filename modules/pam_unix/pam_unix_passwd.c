@@ -603,7 +603,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	unsigned int ctrl, lctrl;
 	int retval;
 	int remember = -1;
-	int rounds = -1;
+	int rounds = 0;
 	int pass_min_len = 0;
 
 	/* <DO NOT free() THESE> */

@@ -375,7 +375,12 @@ PAMH_ARG_DECL(char * create_password_hash,
 	const char *password, unsigned int ctrl, int rounds)
 {
 	const char *algoid;
+#if defined(CRYPT_GENSALT_OUTPUT_SIZE) && CRYPT_GENSALT_OUTPUT_SIZE > 64
+	/* Strings returned by crypt_gensalt_rn will be no longer than this. */
+	char salt[CRYPT_GENSALT_OUTPUT_SIZE];
+#else
 	char salt[64]; /* contains rounds number + max 16 bytes of salt + algo id */
+#endif
 	char *sp;
 #ifdef HAVE_CRYPT_R
 	struct crypt_data *cdata = NULL;
@@ -406,6 +411,13 @@ PAMH_ARG_DECL(char * create_password_hash,
 		return crypted;
 	}
 
+#if defined(CRYPT_GENSALT_IMPLEMENTS_AUTO_ENTROPY) && CRYPT_GENSALT_IMPLEMENTS_AUTO_ENTROPY
+	/*
+	 * Any version of libcrypt supporting auto entropy is
+	 * guaranteed to have crypt_gensalt_rn().
+	 */
+	sp = crypt_gensalt_rn(algoid, rounds, NULL, 0, salt, sizeof(salt));
+#else
 #ifdef HAVE_CRYPT_GENSALT_R
 	if (on(UNIX_BLOWFISH_PASS, ctrl)) {
 		char entropy[17];
@@ -423,6 +435,7 @@ PAMH_ARG_DECL(char * create_password_hash,
 #ifdef HAVE_CRYPT_GENSALT_R
 	}
 #endif
+#endif /* CRYPT_GENSALT_IMPLEMENTS_AUTO_ENTROPY */
 #ifdef HAVE_CRYPT_R
 	sp = NULL;
 	cdata = malloc(sizeof(*cdata));
