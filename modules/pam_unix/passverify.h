@@ -66,7 +66,7 @@ read_passwords(int fd, int npass, char **passwords);
 #endif
 
 PAMH_ARG_DECL(char * create_password_hash,
-	const char *password, unsigned int ctrl, int rounds);
+	const char *password, unsigned long long ctrl, int rounds);
 
 PAMH_ARG_DECL(int get_account_info,
 	const char *name, struct passwd **pwd, struct spwd **spwdent);

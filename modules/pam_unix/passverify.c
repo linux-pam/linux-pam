@@ -387,7 +387,7 @@ crypt_md5_wrapper(const char *pass_new)
 }
 
 PAMH_ARG_DECL(char * create_password_hash,
-	const char *password, unsigned int ctrl, int rounds)
+	const char *password, unsigned long long ctrl, int rounds)
 {
 	const char *algoid;
 #if defined(CRYPT_GENSALT_OUTPUT_SIZE) && CRYPT_GENSALT_OUTPUT_SIZE > 64
@@ -404,6 +404,10 @@ PAMH_ARG_DECL(char * create_password_hash,
 	if (on(UNIX_MD5_PASS, ctrl)) {
 		/* algoid = "$1" */
 		return crypt_md5_wrapper(password);
+	} else if (on(UNIX_YESCRYPT_PASS, ctrl)) {
+		algoid = "$y$";
+	} else if (on(UNIX_GOST_YESCRYPT_PASS, ctrl)) {
+		algoid = "$gy$";
 	} else if (on(UNIX_BLOWFISH_PASS, ctrl)) {
 		algoid = "$2b$";
 	} else if (on(UNIX_SHA256_PASS, ctrl)) {
@@ -466,6 +470,8 @@ PAMH_ARG_DECL(char * create_password_hash,
 		pam_syslog(pamh, LOG_ERR,
 			   "Algo %s not supported by the crypto backend, "
 			   "falling back to MD5\n",
+			   on(UNIX_YESCRYPT_PASS, ctrl) ? "yescrypt" :
+			   on(UNIX_GOST_YESCRYPT_PASS, ctrl) ? "gost_yescrypt" :
 			   on(UNIX_BLOWFISH_PASS, ctrl) ? "blowfish" :
 			   on(UNIX_SHA256_PASS, ctrl) ? "sha256" :
 			   on(UNIX_SHA512_PASS, ctrl) ? "sha512" : algoid);

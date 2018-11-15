@@ -96,7 +96,7 @@ setcred_free (pam_handle_t *pamh UNUSED, void *ptr, int err UNUSED)
 int
 pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
-	unsigned int ctrl;
+	unsigned long long ctrl;
 	int retval, *ret_data = NULL;
 	const char *name;
 	const char *p;
@@ -194,7 +194,7 @@ pam_sm_setcred (pam_handle_t *pamh, int flags,
 {
 	int retval;
 	const void *pretval = NULL;
-	unsigned int ctrl;
+	unsigned long long ctrl;
 
 	D(("called."));
 
