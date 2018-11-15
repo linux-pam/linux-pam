@@ -385,7 +385,7 @@ PAMH_ARG_DECL(char * create_password_hash,
 		/* algoid = "$1" */
 		return crypt_md5_wrapper(password);
 	} else if (on(UNIX_BLOWFISH_PASS, ctrl)) {
-		algoid = "$2a$";
+		algoid = "$2b$";
 	} else if (on(UNIX_SHA256_PASS, ctrl)) {
 		algoid = "$5$";
 	} else if (on(UNIX_SHA512_PASS, ctrl)) {
