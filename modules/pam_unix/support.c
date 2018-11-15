@@ -175,6 +175,7 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 
 	    if (val) {
 	      *rounds = strtol(val, NULL, 10);
+	      set(UNIX_ALGO_ROUNDS, ctrl);
 	      free (val);
 	    }
 	  }
@@ -254,11 +255,13 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 			if (*rounds < 4 || *rounds > 31)
 				*rounds = 5;
 		} else if (on(UNIX_SHA256_PASS, ctrl) || on(UNIX_SHA512_PASS, ctrl)) {
-			if ((*rounds < 1000) || (*rounds == INT_MAX))
+			if ((*rounds < 1000) || (*rounds == INT_MAX)) {
 				/* don't care about bogus values */
+				*rounds = 0;
 				unset(UNIX_ALGO_ROUNDS, ctrl);
-			if (*rounds >= 10000000)
+			} else if (*rounds >= 10000000) {
 				*rounds = 9999999;
+			{
 		}
 	}
 
