@@ -244,7 +244,13 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 		D(("account expired"));
 		return PAM_ACCT_EXPIRED;
 	}
+#if defined(CRYPT_CHECKSALT_AVAILABLE) && CRYPT_CHECKSALT_AVAILABLE
+	if (spent->sp_lstchg == 0 ||
+	    crypt_checksalt(spent->sp_pwdp) == CRYPT_SALT_METHOD_LEGACY ||
+	    crypt_checksalt(spent->sp_pwdp) == CRYPT_SALT_TOO_CHEAP) {
+#else
 	if (spent->sp_lstchg == 0) {
+#endif
 		D(("need a new password"));
 		*daysleft = 0;
 		return PAM_NEW_AUTHTOK_REQD;
@@ -255,10 +261,19 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 			 spent->sp_namp);
 		return PAM_SUCCESS;
 	}
+#if defined(CRYPT_CHECKSALT_AVAILABLE) && CRYPT_CHECKSALT_AVAILABLE
+	if (((curdays - spent->sp_lstchg > spent->sp_max)
+	    && (curdays - spent->sp_lstchg > spent->sp_inact)
+	    && (curdays - spent->sp_lstchg > spent->sp_max + spent->sp_inact)
+	    && (spent->sp_max != -1) && (spent->sp_inact != -1))
+	    || (crypt_checksalt(spent->sp_pwdp) == CRYPT_SALT_METHOD_DISABLED)
+	    || (crypt_checksalt(spent->sp_pwdp) == CRYPT_SALT_INVALID)) {
+#else
 	if ((curdays - spent->sp_lstchg > spent->sp_max)
 	    && (curdays - spent->sp_lstchg > spent->sp_inact)
 	    && (curdays - spent->sp_lstchg > spent->sp_max + spent->sp_inact)
 	    && (spent->sp_max != -1) && (spent->sp_inact != -1)) {
+#endif
 		*daysleft = (int)((spent->sp_lstchg + spent->sp_max) - curdays);
 		D(("authtok expired"));
 		return PAM_AUTHTOK_EXPIRED;
