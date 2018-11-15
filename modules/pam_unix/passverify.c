@@ -395,6 +395,14 @@ PAMH_ARG_DECL(char * create_password_hash,
 	if (on(UNIX_MD5_PASS, ctrl)) {
 		/* algoid = "$1" */
 		return crypt_md5_wrapper(password);
+#if (defined(CRYPT_PREFERRED_METHOD_AVAILABLE) && CRYPT_PREFERRED_METHOD_AVAILABLE)
+	} else if (on(UNIX_CRYPT_DEFAULT_PASS, ctrl)
+		  && crypt_preferred_method() != NULL) {
+		algoid = crypt_preferred_method();
+		rounds = 0; /* always use the system preset */
+#endif
+	} else if (on(UNIX_CRYPT_DEFAULT_PASS, ctrl)) {
+		algoid = "*0"; /* never ever a valid method */
 	} else if (on(UNIX_YESCRYPT_PASS, ctrl)) {
 		algoid = "$y$";
 	} else if (on(UNIX_GOST_YESCRYPT_PASS, ctrl)) {
@@ -461,6 +469,7 @@ PAMH_ARG_DECL(char * create_password_hash,
 		pam_syslog(pamh, LOG_ERR,
 			   "Algo %s not supported by the crypto backend, "
 			   "falling back to MD5\n",
+			   on(UNIX_CRYPT_DEFAULT_PASS, ctrl) ? "crypt_default \"" algoid "\"" :
 			   on(UNIX_YESCRYPT_PASS, ctrl) ? "yescrypt" :
 			   on(UNIX_GOST_YESCRYPT_PASS, ctrl) ? "gost_yescrypt" :
 			   on(UNIX_BLOWFISH_PASS, ctrl) ? "blowfish" :
