@@ -20,3 +20,4 @@ tst-pam_authfail
 tst-pam_authsucceed
 tst-pam_pwhistory1
 tst-pam_time1
+tst-pam_motd
