@@ -132,7 +132,6 @@ static int pam_split_string(const pam_handle_t *pamh, char *arg, char delim,
 	goto out;
     }
 
-
     arg_extracted = strtok_r(arg, delim_str, &arg);
     while (arg_extracted != NULL && i < num_strs) {
 	arg_split[i++] = arg_extracted;
@@ -363,15 +362,21 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 	motd_dir_path = default_motd_dir;
     }
 
-    motd_path_copy = strdup(motd_path);
+    if (motd_path != NULL) {
+	motd_path_copy = strdup(motd_path);
+    }
+
     if (motd_path_copy != NULL) {
-	if (pam_split_string(pamh, motd_path_copy, ':', &motd_path_split,
-		&num_motd_paths) == 0) {
+	if (pam_split_string(pamh, motd_path_copy, ':',
+		&motd_path_split, &num_motd_paths) == 0) {
 	    goto out;
 	}
     }
 
-    motd_dir_path_copy = strdup(motd_dir_path);
+    if (motd_dir_path != NULL) {
+	motd_dir_path_copy = strdup(motd_dir_path);
+    }
+
     if (motd_dir_path_copy != NULL) {
 	if (pam_split_string(pamh, motd_dir_path_copy, ':',
 		&motd_dir_path_split, &num_motd_dir_paths) == 0) {
