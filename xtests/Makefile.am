@@ -34,8 +34,8 @@ EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 	tst-pam_pwhistory1.pamd tst-pam_pwhistory1.sh \
 	tst-pam_time1.pamd time.conf \
 	tst-pam_motd.sh tst-pam_motd1.sh tst-pam_motd2.sh \
-	tst-pam_motd3.sh tst-pam_motd1.pamd \
-	tst-pam_motd2.pamd tst-pam_motd3.pamd
+	tst-pam_motd3.sh tst-pam_motd4.sh tst-pam_motd1.pamd \
+	tst-pam_motd2.pamd tst-pam_motd3.pamd tst-pam_motd4.pamd
 
 XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 	tst-pam_dispatch4 tst-pam_dispatch5 \
