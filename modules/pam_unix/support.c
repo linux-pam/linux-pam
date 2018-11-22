@@ -261,7 +261,7 @@ int _set_ctrl(pam_handle_t *pamh, int flags, int *remember, int *rounds,
 				unset(UNIX_ALGO_ROUNDS, ctrl);
 			} else if (*rounds >= 10000000) {
 				*rounds = 9999999;
-			{
+			}
 		}
 	}
 
