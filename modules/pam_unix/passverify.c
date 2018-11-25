@@ -266,8 +266,10 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 	    && (curdays - spent->sp_lstchg > spent->sp_inact)
 	    && (curdays - spent->sp_lstchg > spent->sp_max + spent->sp_inact)
 	    && (spent->sp_max != -1) && (spent->sp_inact != -1))
-	    || (crypt_checksalt(spent->sp_pwdp) == CRYPT_SALT_METHOD_DISABLED)
-	    || (crypt_checksalt(spent->sp_pwdp) == CRYPT_SALT_INVALID)) {
+	    || (((crypt_checksalt(spent->sp_pwdp) == CRYPT_SALT_METHOD_DISABLED)
+		 || (crypt_checksalt(spent->sp_pwdp) == CRYPT_SALT_INVALID))
+	        && ((spent->sp_pwdp != NULL)
+		    && !((spent->sp_pwdp[0] == '!') || (spent->sp_pwdp[0] == '*'))))) {
 #else
 	if ((curdays - spent->sp_lstchg > spent->sp_max)
 	    && (curdays - spent->sp_lstchg > spent->sp_inact)
