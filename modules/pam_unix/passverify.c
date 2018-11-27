@@ -65,6 +65,19 @@ strip_hpux_aging(char *hash)
 	}
 }
 
+static void
+verify_pwd_hash_log_err(int err, const char *format, ...)
+{
+	va_list args;
+
+	va_start(args, format);
+	openlog("pam_unix(verify_pwd_hash)",
+		LOG_CONS | LOG_PID, LOG_AUTHPRIV);
+	vsyslog(err, format, args);
+	va_end(args);
+	closelog();
+}
+
 int
 verify_pwd_hash(const char *p, char *hash, unsigned int nullok)
 {
@@ -116,11 +129,11 @@ verify_pwd_hash(const char *p, char *hash, unsigned int nullok)
 				 * pam_syslog() needs a pam handle,
 				 * but that's not available here.
 				 */
-				helper_log_err(LOG_ERR,
-				  "pam_unix(verify_pwd_hash): The method "
-				  "for computing the hash \"%.6s\" has been "
-				  "disabled in libcrypt by the preset from "
-				  "the system's vendor and/or administrator.",
+				verify_pwd_hash_log_err(LOG_ERR,
+				  "The method for computing the hash "
+				  "\"%.6s\" has been disabled in libcrypt "
+				  "by the preset from the system's vendor "
+				  "and/or administrator.",
 				  hash);
 			}
 			/*
@@ -132,10 +145,10 @@ verify_pwd_hash(const char *p, char *hash, unsigned int nullok)
 			 * recent implementations of libcrypt.
 			 */
 			if (retval_checksalt == CRYPT_SALT_INVALID) {
-				helper_log_err(LOG_ERR,
-				  "pam_unix(verify_pwd_hash): The hash \"%.6s\""
-				  "does not use a method known by the version "
-				  "of libcrypt this system is supplied with.",
+				verify_pwd_hash_log_err(LOG_ERR,
+				  "The hash \"%.6s\" does not use a method "
+				  "known by the version of libcrypt this "
+				  "system is supplied with.",
 				  hash);
 			}
 #endif
