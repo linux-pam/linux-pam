@@ -770,7 +770,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 			}
 		}
 	} else {
-		retval = verify_pwd_hash(p, salt, off(UNIX__NONULL, ctrl));
+		retval = verify_pwd_hash(pamh, p, salt, off(UNIX__NONULL, ctrl));
 	}
 
 	if (retval == PAM_SUCCESS) {

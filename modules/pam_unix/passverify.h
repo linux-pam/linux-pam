@@ -13,9 +13,6 @@
 #define OLD_PASSWORDS_FILE      "/etc/security/opasswd"
 
 int
-verify_pwd_hash(const char *p, char *hash, unsigned int nullok);
-
-int
 is_pwd_shadowed(const struct passwd *pwd);
 
 char *
@@ -64,6 +61,9 @@ read_passwords(int fd, int npass, char **passwords);
 #define PAMH_ARG_DECL(fname, ...)	fname(pam_handle_t *pamh, __VA_ARGS__)
 #define PAMH_ARG(...)			pamh, __VA_ARGS__
 #endif
+
+PAMH_ARG_DECL(int verify_pwd_hash,
+	const char *p, char *hash, unsigned int nullok);
 
 PAMH_ARG_DECL(char * create_password_hash,
 	const char *password, unsigned long long ctrl, int rounds);

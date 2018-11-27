@@ -65,8 +65,8 @@ strip_hpux_aging(char *hash)
 	}
 }
 
-int
-verify_pwd_hash(const char *p, char *hash, unsigned int nullok)
+PAMH_ARG_DECL(int verify_pwd_hash,
+	const char *p, char *hash, unsigned int nullok)
 {
 	size_t hash_len;
 	char *pp = NULL;
@@ -116,11 +116,10 @@ verify_pwd_hash(const char *p, char *hash, unsigned int nullok)
 				 * pam_syslog() needs a pam handle,
 				 * but that's not available here.
 				 */
-				helper_log_err(LOG_ERR,
-				  "pam_unix(verify_pwd_hash): The method "
-				  "for computing the hash \"%.6s\" has been "
-				  "disabled in libcrypt by the preset from "
-				  "the system's vendor and/or administrator.",
+				pam_syslog(pamh, LOG_ERR,
+				  "The support for password hash \"%.6s\" "
+				  "has been disabled in libcrypt "
+				  "configuration.",
 				  hash);
 			}
 			/*
@@ -132,12 +131,15 @@ verify_pwd_hash(const char *p, char *hash, unsigned int nullok)
 			 * recent implementations of libcrypt.
 			 */
 			if (retval_checksalt == CRYPT_SALT_INVALID) {
-				helper_log_err(LOG_ERR,
-				  "pam_unix(verify_pwd_hash): The hash \"%.6s\""
-				  "does not use a method known by the version "
-				  "of libcrypt this system is supplied with.",
+				pam_syslog(pamh, LOG_ERR,
+				  "The password hash \"%.6s\" is unknown to "
+				  "libcrypt.",
 				  hash);
 			}
+#else
+#ifndef HELPER_COMPILE
+			(void)pamh;
+#endif
 #endif
 #ifdef HAVE_CRYPT_R
 			struct crypt_data *cdata;
