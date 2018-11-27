@@ -363,23 +363,6 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>crypt_default</option>
-        </term>
-        <listitem>
-          <para>
-            When a user changes their password next,
-            encrypt it with the default algorithm and the default
-            amount of rounds provided by the system configuration
-            of libcrypt. If this default algorithm is not known to
-            the <citerefentry>
-	    <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
-            </citerefentry> function,
-            fall back to MD5.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
           <option>rounds=<replaceable>n</replaceable></option>
         </term>
         <listitem>
@@ -388,9 +371,6 @@
             blowfish, gost-yescrypt, and yescrypt password hashing
             algorithms to
             <replaceable>n</replaceable>.
-            This option will be ignored when the crypt_default option
-            is used, as the default algorithm always uses the value
-            from the system configuration of libcrypt.
           </para>
         </listitem>
       </varlistentry>

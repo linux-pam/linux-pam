@@ -100,11 +100,10 @@ typedef struct {
 #define UNIX_DES                 30     /* DES, default */
 #define UNIX_GOST_YESCRYPT_PASS  31     /* new password hashes will use gost-yescrypt */
 #define UNIX_YESCRYPT_PASS       32     /* new password hashes will use yescrypt */
-#define UNIX_CRYPT_DEFAULT_PASS  33     /* new password hashes will use the libcrypt default */
 /* -------------- */
-#define UNIX_CTRLS_              34	/* number of ctrl arguments defined */
+#define UNIX_CTRLS_              33	/* number of ctrl arguments defined */
 
-#define UNIX_DES_CRYPT(ctrl)	(off(UNIX_MD5_PASS,ctrl)&&off(UNIX_BIGCRYPT,ctrl)&&off(UNIX_SHA256_PASS,ctrl)&&off(UNIX_SHA512_PASS,ctrl)&&off(UNIX_BLOWFISH_PASS,ctrl)&&off(UNIX_GOST_YESCRYPT_PASS,ctrl)&&off(UNIX_YESCRYPT_PASS,ctrl)&&off(UNIX_CRYPT_DEFAULT_PASS,ctrl))
+#define UNIX_DES_CRYPT(ctrl)	(off(UNIX_MD5_PASS,ctrl)&&off(UNIX_BIGCRYPT,ctrl)&&off(UNIX_SHA256_PASS,ctrl)&&off(UNIX_SHA512_PASS,ctrl)&&off(UNIX_BLOWFISH_PASS,ctrl)&&off(UNIX_GOST_YESCRYPT_PASS,ctrl)&&off(UNIX_YESCRYPT_PASS,ctrl))
 
 static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 {
@@ -124,27 +123,26 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX__QUIET */              {NULL,               _ALL_ON_,                           02000, 0},
 /* UNIX_USE_AUTHTOK */         {"use_authtok",      _ALL_ON_,                           04000, 0},
 /* UNIX_SHADOW */              {"shadow",           _ALL_ON_,                          010000, 0},
-/* UNIX_MD5_PASS */            {"md5",              _ALL_ON_^(035660420000ULL),        020000, 1},
+/* UNIX_MD5_PASS */            {"md5",              _ALL_ON_^(015660420000ULL),        020000, 1},
 /* UNIX__NULLOK */             {"nullok",           _ALL_ON_^(01000ULL),                    0, 0},
 /* UNIX_DEBUG */               {"debug",            _ALL_ON_,                          040000, 0},
 /* UNIX_NODELAY */             {"nodelay",          _ALL_ON_,                         0100000, 0},
 /* UNIX_NIS */                 {"nis",              _ALL_ON_,                         0200000, 0},
-/* UNIX_BIGCRYPT */            {"bigcrypt",         _ALL_ON_^(035660420000ULL),       0400000, 1},
+/* UNIX_BIGCRYPT */            {"bigcrypt",         _ALL_ON_^(015660420000ULL),       0400000, 1},
 /* UNIX_LIKE_AUTH */           {"likeauth",         _ALL_ON_,                        01000000, 0},
 /* UNIX_REMEMBER_PASSWD */     {"remember=",        _ALL_ON_,                        02000000, 0},
 /* UNIX_NOREAP */              {"noreap",           _ALL_ON_,                        04000000, 0},
 /* UNIX_BROKEN_SHADOW */       {"broken_shadow",    _ALL_ON_,                       010000000, 0},
-/* UNIX_SHA256_PASS */         {"sha256",           _ALL_ON_^(035660420000ULL),     020000000, 1},
-/* UNIX_SHA512_PASS */         {"sha512",           _ALL_ON_^(035660420000ULL),     040000000, 1},
+/* UNIX_SHA256_PASS */         {"sha256",           _ALL_ON_^(015660420000ULL),     020000000, 1},
+/* UNIX_SHA512_PASS */         {"sha512",           _ALL_ON_^(015660420000ULL),     040000000, 1},
 /* UNIX_ALGO_ROUNDS */         {"rounds=",          _ALL_ON_,                      0100000000, 0},
-/* UNIX_BLOWFISH_PASS */       {"blowfish",         _ALL_ON_^(035660420000ULL),    0200000000, 1},
+/* UNIX_BLOWFISH_PASS */       {"blowfish",         _ALL_ON_^(015660420000ULL),    0200000000, 1},
 /* UNIX_MIN_PASS_LEN */        {"minlen=",          _ALL_ON_,                      0400000000, 0},
 /* UNIX_QUIET */               {"quiet",            _ALL_ON_,                     01000000000, 0},
 /* UNIX_NO_PASS_EXPIRY */      {"no_pass_expiry",   _ALL_ON_,                     02000000000, 0},
-/* UNIX_DES */                 {"des",              _ALL_ON_^(035660420000ULL),             0, 1},
-/* UNIX_GOST_YESCRYPT_PASS */  {"gost_yescrypt",    _ALL_ON_^(035660420000ULL),   04000000000, 1},
-/* UNIX_YESCRYPT_PASS */       {"yescrypt",         _ALL_ON_^(035660420000ULL),  010000000000, 1},
-/* UNIX_CRYPT_DEFAULT_PASS */  {"crypt_default",    _ALL_ON_^(035660420000ULL),  020000000000, 1},
+/* UNIX_DES */                 {"des",              _ALL_ON_^(015660420000ULL),             0, 1},
+/* UNIX_GOST_YESCRYPT_PASS */  {"gost_yescrypt",    _ALL_ON_^(015660420000ULL),   04000000000, 1},
+/* UNIX_YESCRYPT_PASS */       {"yescrypt",         _ALL_ON_^(015660420000ULL),  010000000000, 1},
 };
 
 #define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)
