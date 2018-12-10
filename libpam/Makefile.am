@@ -38,4 +38,4 @@ libpam_la_SOURCES = pam_account.c pam_auth.c pam_data.c pam_delay.c \
 	pam_modutil_cleanup.c pam_modutil_getpwnam.c pam_modutil_ioloop.c \
 	pam_modutil_getgrgid.c pam_modutil_getpwuid.c pam_modutil_getgrnam.c \
 	pam_modutil_getspnam.c pam_modutil_getlogin.c pam_modutil_ingroup.c \
-	pam_modutil_priv.c pam_modutil_sanitize.c
+	pam_modutil_priv.c pam_modutil_sanitize.c pam_modutil_searchkey.c

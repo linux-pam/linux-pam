@@ -142,6 +142,12 @@ pam_modutil_sanitize_helper_fds(pam_handle_t *pamh,
 				enum pam_modutil_redirect_fd redirect_stdout,
 				enum pam_modutil_redirect_fd redirect_stderr);
 
+/* lookup a value for key in login.defs file or similar key value format */
+extern char * PAM_NONNULL((1,2,3))
+pam_modutil_search_key(pam_handle_t *pamh,
+		       const char *file_name,
+		       const char *key);
+
 #ifdef __cplusplus
 }
 #endif

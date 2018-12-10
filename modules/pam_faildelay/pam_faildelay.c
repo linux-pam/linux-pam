@@ -75,80 +75,9 @@
 
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
+#include <security/pam_modutil.h>
 
-
-#define BUF_SIZE 8192
 #define LOGIN_DEFS "/etc/login.defs"
-
-static char *
-search_key (const char *filename)
-{
-  FILE *fp;
-  char *buf = NULL;
-  size_t buflen = 0;
-  char *retval = NULL;
-
-  fp = fopen (filename, "r");
-  if (NULL == fp)
-    return NULL;
-
-  while (!feof (fp))
-    {
-      char *tmp, *cp;
-#if defined(HAVE_GETLINE)
-      ssize_t n = getline (&buf, &buflen, fp);
-#elif defined (HAVE_GETDELIM)
-      ssize_t n = getdelim (&buf, &buflen, '\n', fp);
-#else
-      ssize_t n;
-
-      if (buf == NULL)
-        {
-          buflen = BUF_SIZE;
-          buf = malloc (buflen);
-        }
-      buf[0] = '\0';
-      if (fgets (buf, buflen - 1, fp) == NULL)
-        break;
-      else if (buf != NULL)
-        n = strlen (buf);
-      else
-        n = 0;
-#endif /* HAVE_GETLINE / HAVE_GETDELIM */
-      cp = buf;
-
-      if (n < 1)
-        break;
-
-      tmp = strchr (cp, '#');  /* remove comments */
-      if (tmp)
-        *tmp = '\0';
-      while (isspace ((int)*cp))    /* remove spaces and tabs */
-        ++cp;
-      if (*cp == '\0')        /* ignore empty lines */
-        continue;
-
-      if (cp[strlen (cp) - 1] == '\n')
-        cp[strlen (cp) - 1] = '\0';
-
-      tmp = strsep (&cp, " \t=");
-      if (cp != NULL)
-        while (isspace ((int)*cp) || *cp == '=')
-          ++cp;
-
-      if (strcasecmp (tmp, "FAIL_DELAY") == 0)
-        {
-          retval = strdup (cp);
-          break;
-        }
-    }
-  fclose (fp);
-
-  free (buf);
-
-  return retval;
-}
-
 
 /* --- authentication management functions (only) --- */
 
@@ -171,7 +100,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
     if (delay == -1)
       {
 	char *endptr;
-	char *val = search_key (LOGIN_DEFS);
+	char *val = pam_modutil_search_key (pamh, LOGIN_DEFS, "FAIL_DELAY");
 	const char *val_orig = val;
 
 	if (val == NULL)
