@@ -20,6 +20,7 @@
 #endif
 #include <pwd.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
@@ -48,6 +49,10 @@ struct lastlog {
 
 #ifndef _PATH_BTMP
 # define _PATH_BTMP "/var/log/btmp"
+#endif
+
+#ifndef PATH_LOGIN_DEFS
+# define PATH_LOGIN_DEFS "/etc/login.defs"
 #endif
 
 /* XXX - time before ignoring lock. Is 1 sec enough? */
@@ -185,6 +190,37 @@ get_tty(pam_handle_t *pamh)
     }
     D(("terminal = %s", terminal_line));
     return terminal_line;
+}
+
+#define MAX_UID_VALUE 0xFFFFFFFFUL
+
+static uid_t
+get_lastlog_uid_max(pam_handle_t *pamh)
+{
+    uid_t uid_max = MAX_UID_VALUE;
+    unsigned long ul;
+    char *s, *ep;
+
+    s = pam_modutil_search_key(pamh, PATH_LOGIN_DEFS, "LASTLOG_UID_MAX");
+    if (s == NULL)
+	return uid_max;
+
+    ep = s + strlen(s);
+    while (ep > s && isspace(*(--ep))) {
+	*ep = '\0';
+    }
+    errno = 0;
+    ul = strtoul(s, &ep, 10);
+    if (!(ul >= MAX_UID_VALUE
+	|| (uid_t)ul >= MAX_UID_VALUE
+	|| (errno != 0 && ul == 0)
+	|| s == ep
+	|| *ep != '\0')) {
+	uid_max = (uid_t)ul;
+    }
+    free(s);
+
+    return uid_max;
 }
 
 static int
@@ -418,6 +454,10 @@ last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user, t
     int retval;
     int last_fd;
 
+    if (uid > get_lastlog_uid_max(pamh)) {
+	return PAM_SUCCESS;
+    }
+
     /* obtain the last login date and all the relevant info */
     last_fd = last_login_open(pamh, announce, uid);
     if (last_fd < 0) {
@@ -602,7 +642,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
     uid = pwd->pw_uid;
     pwd = NULL;                                         /* tidy up */
 
-    if (uid == 0)
+    if (uid == 0 || uid > get_lastlog_uid_max(pamh))
 	return PAM_SUCCESS;
 
     /* obtain the last login date and all the relevant info */

@@ -65,10 +65,18 @@
       cases, this module is not necessary.
     </para>
     <para>
+      The module checks <option>LASTLOG_UID_MAX</option> option in
+      <filename>/etc/login.defs</filename> and does not update or display
+      last login records for users with UID higher than its value.
+      If the option is not present or its value is invalid, no user ID
+      limit is applied.
+    </para>
+    <para>
       If the module is called in the auth or account phase, the accounts that
       were not used recently enough will be disallowed to log in. The
       check is not performed for the root account so the root is never
-      locked out.
+      locked out. It is also not performed for users with UID higher
+      than the <option>LASTLOG_UID_MAX</option> value.
     </para>
   </refsect1>
 
