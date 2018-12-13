@@ -133,10 +133,10 @@ struct pam_conv {
       single form with many messages/prompts on at once.
     </para>
     <para>
-      In passing, it is worth noting that there is a descrepency between
+      In passing, it is worth noting that there is a discrepancy between
       the way Linux-PAM handles the const struct pam_message **msg
-      conversation function argument from the way that Solaris' PAM
-      (and derivitives, known to include HP/UX, are there others?) does.
+      conversation function argument and the way that Solaris' PAM
+      (and derivatives, known to include HP/UX, are there others?) does.
       Linux-PAM interprets the msg argument as entirely equivalent to the
       following prototype
   const struct pam_message *msg[] (which, in spirit, is consistent with
