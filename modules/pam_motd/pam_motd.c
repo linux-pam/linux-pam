@@ -22,6 +22,7 @@
 #include <sys/stat.h>
 #include <pwd.h>
 #include <syslog.h>
+#include <errno.h>
 
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
@@ -48,8 +49,8 @@ pam_sm_close_session (pam_handle_t *pamh UNUSED, int flags UNUSED,
      return PAM_IGNORE;
 }
 
-static char default_motd[] = DEFAULT_MOTD;
-static char default_motd_dir[] = DEFAULT_MOTD_D;
+static const char default_motd[] = DEFAULT_MOTD;
+static const char default_motd_dir[] = DEFAULT_MOTD_D;
 
 static void try_to_display_fd(pam_handle_t *pamh, int fd)
 {
@@ -75,28 +76,6 @@ static void try_to_display_fd(pam_handle_t *pamh, int fd)
     _pam_drop(mtmp);
 }
 
-static void try_to_display_directory(pam_handle_t *pamh, const char *dirname)
-{
-    DIR *dirp;
-
-    dirp = opendir(dirname);
-
-    if (dirp != NULL) {
-	struct dirent *entry;
-
-	while ((entry = readdir(dirp))) {
-	    int fd = openat(dirfd(dirp), entry->d_name, O_RDONLY);
-
-	    if (fd >= 0) {
-		try_to_display_fd(pamh, fd);
-		close(fd);
-	    }
-	}
-
-	closedir(dirp);
-    }
-}
-
 /*
  * Split a DELIM-separated string ARG into an array.
  * Outputs a newly allocated array of strings OUT_ARG_SPLIT
@@ -104,14 +83,14 @@ static void try_to_display_directory(pam_handle_t *pamh, const char *dirname)
  * Returns 0 in case of error, 1 in case of success.
  */
 static int pam_split_string(const pam_handle_t *pamh, char *arg, char delim,
-			    char ***out_arg_split, uint *out_num_strs)
+			    char ***out_arg_split, unsigned int *out_num_strs)
 {
     char *arg_extracted = NULL;
     const char *arg_ptr = arg;
     char **arg_split = NULL;
     char delim_str[2];
-    int i = 0;
-    uint num_strs = 0;
+    unsigned int i = 0;
+    unsigned int num_strs = 0;
     int retval = 0;
 
     delim_str[0] = delim;
@@ -126,7 +105,7 @@ static int pam_split_string(const pam_handle_t *pamh, char *arg, char delim,
 	arg_ptr = strchr(arg_ptr + sizeof(const char), delim);
     }
 
-    arg_split = (char **)calloc(num_strs, sizeof(char *));
+    arg_split = calloc(num_strs, sizeof(char *));
     if (arg_split == NULL) {
 	pam_syslog(pamh, LOG_CRIT, "pam_motd: failed to allocate string array");
 	goto out;
@@ -180,10 +159,10 @@ static int join_dir_strings(char **strp_out, const char *a_str, const char *b_st
     return retval;
 }
 
-static int compare_strings(const void * a, const void * b)
+static int compare_strings(const void *a, const void *b)
 {
-    const char *a_str = *(char **)a;
-    const char *b_str = *(char **)b;
+    const char *a_str = *(const char * const *)a;
+    const char *b_str = *(const char * const *)b;
 
     if (a_str == NULL && b_str == NULL) {
         return 0;
@@ -205,13 +184,13 @@ static int filter_dirents(const struct dirent *d)
 }
 
 static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
-	char **motd_dir_path_split, int num_motd_dirs)
+	char **motd_dir_path_split, unsigned int num_motd_dirs, int report_missing)
 {
     struct dirent ***dirscans = NULL;
-    int *dirscans_sizes = NULL;
-    int dirscans_size_total = 0;
+    unsigned int *dirscans_sizes = NULL;
+    unsigned int dirscans_size_total = 0;
     char **dirnames_all = NULL;
-    int i;
+    unsigned int i;
     int i_dirnames = 0;
 
     if (pamh == NULL || motd_dir_path_split == NULL) {
@@ -221,29 +200,31 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 	goto out;
     }
 
-    if ((dirscans = (struct dirent ***)calloc(num_motd_dirs,
-	    sizeof(struct dirent **))) == NULL) {
+    if ((dirscans = calloc(num_motd_dirs, sizeof(struct dirent **))) == NULL) {
 	pam_syslog(pamh, LOG_CRIT, "pam_motd: failed to allocate dirent arrays");
 	goto out;
     }
-    if ((dirscans_sizes = (int *)calloc(num_motd_dirs, sizeof(int))) == NULL) {
+    if ((dirscans_sizes = calloc(num_motd_dirs, sizeof(int))) == NULL) {
 	pam_syslog(pamh, LOG_CRIT, "pam_motd: failed to allocate dirent array sizes");
 	goto out;
     }
 
     for (i = 0; i < num_motd_dirs; i++) {
-	dirscans_sizes[i] = scandir(motd_dir_path_split[i], &(dirscans[i]),
+	int rv;
+	rv = scandir(motd_dir_path_split[i], &(dirscans[i]),
 		filter_dirents, alphasort);
-	if (dirscans_sizes[i] < 0) {
-	    pam_syslog(pamh, LOG_ERR, "pam_motd: error scanning directory %s", motd_dir_path_split[i]);
-	    dirscans_sizes[i] = 0;
+	if (rv < 0) {
+	    if (errno != ENOENT || report_missing) {
+		pam_syslog(pamh, LOG_ERR, "pam_motd: error scanning directory %s: %m",
+		    motd_dir_path_split[i]);
+	    }
+	    dirscans_sizes[i] = rv;
 	}
 	dirscans_size_total += dirscans_sizes[i];
     }
 
     /* Allocate space for all file names found in the directories, including duplicates. */
-    if ((dirnames_all = (char **)calloc(dirscans_size_total,
-	    sizeof(char *))) == NULL) {
+    if ((dirnames_all = calloc(dirscans_size_total, sizeof(char *))) == NULL) {
 	pam_syslog(pamh, LOG_CRIT, "pam_motd: failed to allocate dirname array");
 	goto out;
     }
@@ -253,7 +234,7 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
     }
 
     for (i = 0; i < num_motd_dirs; i++) {
-	int j;
+	unsigned int j;
 
 	for (j = 0; j < dirscans_sizes[i]; j++) {
 	    dirnames_all[i_dirnames] = dirscans[i][j]->d_name;
@@ -265,7 +246,7 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 	    sizeof(const char *), compare_strings);
 
     for (i = 0; i < dirscans_size_total; i++) {
-	int j;
+	unsigned int j;
 
 	if (dirnames_all[i] == NULL) {
 	    continue;
@@ -301,7 +282,8 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
   out:
     _pam_drop(dirnames_all);
     for (i = 0; i < num_motd_dirs; i++) {
-	int j;
+	unsigned int j;
+
 	for (j = 0; j < dirscans_sizes[i]; j++) {
 	    _pam_drop(dirscans[i][j]);
 	}
@@ -319,12 +301,13 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
     int retval = PAM_IGNORE;
     const char *motd_path = NULL;
     char *motd_path_copy = NULL;
-    int num_motd_paths = 0;
+    unsigned int num_motd_paths = 0;
     char **motd_path_split = NULL;
     const char *motd_dir_path = NULL;
     char *motd_dir_path_copy = NULL;
-    int num_motd_dir_paths = 0;
+    unsigned int num_motd_dir_paths = 0;
     char **motd_dir_path_split = NULL;
+    int report_missing;
 
     if (flags & PAM_SILENT) {
 	return retval;
@@ -360,6 +343,9 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
     if (motd_path == NULL && motd_dir_path == NULL) {
 	motd_path = default_motd;
 	motd_dir_path = default_motd_dir;
+	report_missing = 0;
+    } else {
+	report_missing = 1;
     }
 
     if (motd_path != NULL) {
@@ -385,7 +371,7 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
     }
 
     if (motd_path_split != NULL) {
-	int i;
+	unsigned int i;
 
 	for (i = 0; i < num_motd_paths; i++) {
 	    int fd = open(motd_path_split[i], O_RDONLY, 0);
@@ -402,7 +388,7 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 
     if (motd_dir_path_split != NULL)
 	try_to_display_directories_with_overrides(pamh, motd_dir_path_split,
-		num_motd_dir_paths);
+		num_motd_dir_paths, report_missing);
 
   out:
     _pam_drop(motd_path_copy);
