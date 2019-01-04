@@ -534,7 +534,10 @@ AC_CHECK_FUNCS(getutent_r getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r
 AC_CHECK_FUNCS(getgrouplist getline getdelim)
 AC_CHECK_FUNCS(inet_ntop inet_pton innetgr)
 AC_CHECK_FUNCS([ruserok_af ruserok], [break])
+BACKUP_LIBS=$LIBS
+LIBS="$LIBS -lutil"
 AC_CHECK_FUNCS([logwtmp])
+LIBS=$BACKUP_LIBS
 
 AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])

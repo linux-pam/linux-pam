@@ -3,11 +3,11 @@
 #
 
 if COND_BUILD_PAM_RHOSTS
-	MAYBE_PAM_RHOSTS = pam_rhosts
+ MAYBE_PAM_RHOSTS = pam_rhosts
 endif
 
 if COND_BUILD_PAM_LASTLOG
-	MAYBE_PAM_LASTLOG = pam_lastlog
+ MAYBE_PAM_LASTLOG = pam_lastlog
 endif
 
 SUBDIRS := pam_access pam_cracklib pam_debug pam_deny pam_echo \
