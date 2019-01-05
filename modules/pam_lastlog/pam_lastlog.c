@@ -135,11 +135,6 @@ _pam_session_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
     int ctrl=(LASTLOG_DATE|LASTLOG_HOST|LASTLOG_LINE|LASTLOG_WTMP|LASTLOG_UPDATE);
 
-    /* does the appliction require quiet? */
-    if (flags & PAM_SILENT) {
-	ctrl |= LASTLOG_QUIET;
-    }
-
     /* step through arguments */
     for (; argc-- > 0; ++argv) {
 
@@ -166,6 +161,12 @@ _pam_session_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
+    }
+
+    /* does the appliction require quiet? */
+    if (flags & PAM_SILENT) {
+	ctrl |= LASTLOG_QUIET;
+	ctrl &= ~LASTLOG_BTMP;
     }
 
     D(("ctrl = %o", ctrl));
