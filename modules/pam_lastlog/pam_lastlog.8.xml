@@ -102,6 +102,7 @@
           <para>
             Don't inform the user about any previous login,
             just update the <filename>/var/log/lastlog</filename> file.
+            This option does not affect display of bad login attempts.
           </para>
         </listitem>
       </varlistentry>
