@@ -576,9 +576,10 @@ AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(fseeko getdomainname gethostname gettimeofday lckpwdf mkdir select)
 AC_CHECK_FUNCS(strcspn strdup strspn strstr strtol uname)
-AC_CHECK_FUNCS(getutent_r getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r)
+AC_CHECK_FUNCS(getutent_r getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r getmntent_r)
 AC_CHECK_FUNCS(getgrouplist getline getdelim)
 AC_CHECK_FUNCS(inet_ntop inet_pton innetgr)
+AC_CHECK_FUNCS(quotactl)
 AC_CHECK_FUNCS([ruserok_af ruserok], [break])
 BACKUP_LIBS=$LIBS
 LIBS="$LIBS -lutil"
@@ -587,6 +588,7 @@ LIBS=$BACKUP_LIBS
 
 AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
 
 AC_CHECK_FUNCS(unshare, [UNSHARE=yes], [UNSHARE=no])
 AM_CONDITIONAL([HAVE_UNSHARE], [test "$UNSHARE" = yes])
@@ -703,7 +705,7 @@ AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile
 	modules/pam_pwhistory/Makefile modules/pam_rhosts/Makefile \
 	modules/pam_rootok/Makefile modules/pam_exec/Makefile \
 	modules/pam_securetty/Makefile modules/pam_selinux/Makefile \
-	modules/pam_sepermit/Makefile \
+	modules/pam_sepermit/Makefile modules/pam_setquota/Makefile \
 	modules/pam_shells/Makefile modules/pam_stress/Makefile \
 	modules/pam_succeed_if/Makefile modules/pam_tally/Makefile \
 	modules/pam_tally2/Makefile modules/pam_time/Makefile \
