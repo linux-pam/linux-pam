@@ -1080,21 +1080,21 @@ int
 helper_verify_password(const char *name, const char *p, int nullok)
 {
 	struct passwd *pwd = NULL;
-	char *salt = NULL;
+	char *hash = NULL;
 	int retval;
 
-	retval = get_pwd_hash(name, &pwd, &salt);
+	retval = get_pwd_hash(name, &pwd, &hash);
 
-	if (pwd == NULL || salt == NULL) {
+	if (pwd == NULL || hash == NULL) {
 		helper_log_err(LOG_NOTICE, "check pass; user unknown");
 		retval = PAM_USER_UNKNOWN;
 	} else {
-		retval = verify_pwd_hash(p, salt, nullok);
+		retval = verify_pwd_hash(p, hash, nullok);
 	}
 
-	if (salt) {
-		_pam_overwrite(salt);
-		_pam_drop(salt);
+	if (hash) {
+		_pam_overwrite(hash);
+		_pam_drop(hash);
 	}
 
 	p = NULL;		/* no longer needed here */
