@@ -58,7 +58,8 @@
         </listitem>
         <listitem>
           <para>
-            UMASK entry from /etc/login.defs
+            UMASK entry from /etc/login.defs (influenced by USERGROUPS_ENAB in
+	    /etc/login.defs)
           </para>
         </listitem>
         <listitem>
@@ -115,6 +116,11 @@
               If the user is not root and the username is the same as
               primary group name, the umask group bits are set to be the
               same as owner bits (examples: 022 -> 002, 077 -> 007).
+	      Note that using this option explicitly is discouraged. pam_umask
+	      enables this functionality by default if /etc/login.defs enables
+	      USERGROUPS_ENAB, and the umask is not set explicitly in other
+	      places than /etc/login.defs (this is compatible with login's
+	      behaviour without PAM).
             </para>
           </listitem>
         </varlistentry>

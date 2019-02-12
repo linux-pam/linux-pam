@@ -89,13 +89,32 @@ static int
 get_options (pam_handle_t *pamh, options_t *options,
 	     int argc, const char **argv)
 {
+  char *result;
+
   memset (options, 0, sizeof (options_t));
   /* Parse parameters for module */
   for ( ; argc-- > 0; argv++)
     parse_option (pamh, *argv, options);
 
   if (options->umask == NULL)
-    options->umask = pam_modutil_search_key (pamh, LOGIN_DEFS, "UMASK");
+    {
+      options->umask = pam_modutil_search_key (pamh, LOGIN_DEFS, "UMASK");
+      /* login.defs' USERGROUPS_ENAB will modify the UMASK setting there by way
+       * of usergroups; but we don't want it to influence umask definitions
+       * from other places (like GECOS). This restores compatibility with
+       * shadow from the pre-PAM age.
+       */
+      if (options->umask != NULL)
+        {
+	  result = search_key (LOGIN_DEFS, "USERGROUPS_ENAB");
+	  if (result != NULL)
+	    {
+	      options->usergroups = (strcasecmp (result, "yes") == 0);
+	      free (result);
+	    }
+	}
+    }
+
   if (options->umask == NULL)
     options->umask = pam_modutil_search_key (pamh, LOGIN_CONF, "UMASK");
 
