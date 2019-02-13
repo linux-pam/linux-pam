@@ -203,7 +203,7 @@
     <title>MODULE TYPES PROVIDED</title>
     <para>
       The <option>auth</option> and <option>account</option> module type
-      allows to lock out users which did not login recently enough.
+      allows one to lock out users who did not login recently enough.
       The <option>session</option> module type is provided for displaying
       the information about the last login and/or updating the lastlog and
       wtmp files.

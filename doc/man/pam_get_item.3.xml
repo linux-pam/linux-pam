@@ -19,7 +19,7 @@
   <refnamediv id='pam_get_item-name'>
     <refname>pam_get_item</refname>
     <refpurpose>
-       getting PAM informations
+       getting PAM information
     </refpurpose>
   </refnamediv>
 
@@ -45,7 +45,7 @@
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_get_item</function> function allows applications
-      and PAM service modules to access and retrieve PAM informations
+      and PAM service modules to access and retrieve PAM information
       of <emphasis>item_type</emphasis>. Upon successful return,
       <emphasis>item</emphasis> contains a pointer to the value of the
       corresponding item. Note, this is a pointer to the
