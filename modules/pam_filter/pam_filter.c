@@ -376,7 +376,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
 	    /* grant slave terminal */
 	    if (grantpt (fd[0]) < 0) {
-		pam_syslog(pamh, LOG_ERR, "Cannot grant acccess to slave terminal");
+		pam_syslog(pamh, LOG_ERR, "Cannot grant access to slave terminal");
 		return PAM_ABORT;
 	    }
 

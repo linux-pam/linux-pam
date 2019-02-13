@@ -74,7 +74,7 @@
     </para>
 
     <para>
-      Both, PAM_AUTHTOK and PAM_OLDAUTHTOK, will be reseted before
+      Both, PAM_AUTHTOK and PAM_OLDAUTHTOK, will be reset before
       returning to the application. Which means an application is not
       able to access the authentication tokens.
     </para>

@@ -2217,7 +2217,7 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 	pam_set_data(idata.pamh, NAMESPACE_PROTECT_DATA, NULL, NULL);
 
 	if (idata.flags & PAMNS_DEBUG)
-	    pam_syslog(idata.pamh, LOG_DEBUG, "close_session - sucessful");
+	    pam_syslog(idata.pamh, LOG_DEBUG, "close_session - successful");
         return PAM_SUCCESS;
     }
 

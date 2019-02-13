@@ -402,7 +402,7 @@
           </term>
           <listitem>
             <para>
-              Check whether the words from the GECOS field (usualy full name
+              Check whether the words from the GECOS field (usually full name
               of the user) longer than 3 characters in straight or reversed
               form are contained in the new password. If any such word is
               found the new password is rejected.
