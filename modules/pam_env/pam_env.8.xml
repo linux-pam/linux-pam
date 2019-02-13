@@ -62,7 +62,7 @@
       Second a file (<filename>/etc/environment</filename> by default) with simple
       <emphasis>KEY=VAL</emphasis> pairs on separate lines will be read.
       With the <emphasis>envfile</emphasis> option an alternate file can be specified.
-      And with the <emphasis>readenv</emphasis> option this can be completly disabled.
+      And with the <emphasis>readenv</emphasis> option this can be completely disabled.
     </para>
     <para>
       Third it will read a user configuration file

@@ -70,7 +70,7 @@
         <term><type>const char *</type><varname>pam_misc_conv_warn_line</varname>;</term>
         <listitem>
           <para>
-            Used in conjuction with
+            Used in conjunction with
             <varname>pam_misc_conv_warn_time</varname>, this variable is
             a pointer to the string that will be displayed when it becomes
             time to warn the user that the timeout is approaching. Its
@@ -103,7 +103,7 @@
         <term><type>const char *</type><varname>pam_misc_conv_die_line</varname>;</term>
         <listitem>
           <para>
-            Used in conjuction with
+            Used in conjunction with
             <varname>pam_misc_conv_die_time</varname>, this variable is
             a pointer to the string that will be displayed when the
             conversation times out. Its default value is a translated
