@@ -19,7 +19,7 @@
   <refnamediv id='pam_set_item-name'>
     <refname>pam_set_item</refname>
     <refpurpose>
-       set and update PAM informations
+       set and update PAM information
     </refpurpose>
   </refnamediv>
 
@@ -45,7 +45,7 @@
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_set_item</function> function allows applications
-      and PAM service modules to access and to update PAM informations
+      and PAM service modules to access and to update PAM information
       of <emphasis>item_type</emphasis>. For this a copy
       of the object pointed to by the <emphasis>item</emphasis> argument
       is created. The following <emphasis>item_type</emphasis>s are
