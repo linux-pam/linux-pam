@@ -207,6 +207,24 @@ evaluate_inlist(const char *left, const char *right)
 	}
 	return PAM_AUTH_ERR;
 }
+/* Check for groupname match */
+static int
+evaluate_groupname_list(pam_handle_t *pamh, const char *user, char *groups)
+{
+        char *ptr = NULL;
+        const char const *delim = ":";
+        char const *group = NULL;
+
+        group = strtok_r(groups, delim, &ptr);
+        while(group != NULL) {
+                if (pam_modutil_user_in_group_nam_nam(pamh, user, group) == 1) {
+                        return PAM_SUCCESS;
+                }
+                group = strtok_r(NULL, delim, &ptr);
+        }
+
+        return PAM_AUTH_ERR;
+}
 /* Check for list mismatch. */
 static int
 evaluate_notinlist(const char *left, const char *right)
@@ -220,6 +238,12 @@ evaluate_ingroup(pam_handle_t *pamh, const char *user, const char *group)
 	if (pam_modutil_user_in_group_nam_nam(pamh, user, group) == 1)
 		return PAM_SUCCESS;
 	return PAM_AUTH_ERR;
+}
+/* Return PAM_SUCCESS if the user is a member of any group in the list. */
+static int
+evaluate_membership(pam_handle_t *pamh, const char *user, char *groups)
+{
+        return evaluate_groupname_list(pamh, user, groups);
 }
 /* Return PAM_SUCCESS if the user is NOT in the group. */
 static int
@@ -407,10 +431,18 @@ evaluate(pam_handle_t *pamh, int debug,
 	if (strcasecmp(qual, "ingroup") == 0) {
 		return evaluate_ingroup(pamh, user, right);
 	}
+        /* User is a member of any group from the list. */
+        if (strcasecmp(qual, "ismemberof") == 0) {
+                return evaluate_membership(pamh, user, right);
+        }
 	/* User is not in this group. */
 	if (strcasecmp(qual, "notingroup") == 0) {
 		return evaluate_notingroup(pamh, user, right);
 	}
+        /* User is not a member of any group from the list. */
+        if (strcasecmp(qual, "isnonmemberof") == 0) {
+                return evaluate_nonmembership(pamh, user, right);
+        }
 	/* (Rhost, user) is in this netgroup. */
 	if (strcasecmp(qual, "innetgr") == 0) {
 		const void *rhost;
