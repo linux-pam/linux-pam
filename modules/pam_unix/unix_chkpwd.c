@@ -188,7 +188,14 @@ int main(int argc, char *argv[])
 #endif
 			helper_log_err(LOG_NOTICE, "password check failed for user (%s)", user);
 		}
-		return PAM_AUTH_ERR;
+		/* if helper_verify_password() returned PAM_USER_UNKNOWN, the
+		   most appropriate error to propagate to
+		   _unix_verify_password() is PAM_AUTHINFO_UNAVAIL; otherwise
+		   return general failure */
+		if (retval == PAM_USER_UNKNOWN)
+			return PAM_AUTHINFO_UNAVAIL;
+		else
+			return PAM_AUTH_ERR;
 	} else {
 	        if (getuid() != 0) {
 #ifdef HAVE_LIBAUDIT
