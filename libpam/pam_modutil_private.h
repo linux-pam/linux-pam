@@ -14,7 +14,7 @@
 #include <security/pam_modutil.h>
 
 #define PWD_INITIAL_LENGTH     0x400
-#define PWD_ABSURD_PWD_LENGTH  0x40001
+#define PWD_ABSURD_PWD_LENGTH  0x400001
 #define PWD_LENGTH_SHIFT 4 /* 2^4 == 16 */
 
 extern void
