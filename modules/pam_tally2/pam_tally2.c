@@ -484,10 +484,6 @@ set_tally(pam_handle_t *pamh, uid_t uid,
         }
     }
 
-    if (fsync(*tfile)) {
-      pam_syslog(pamh, LOG_ALERT, "update (fsync) failed for %s: %m", filename);
-      return PAM_AUTH_ERR;
-    }
     return PAM_SUCCESS;
 }
 
