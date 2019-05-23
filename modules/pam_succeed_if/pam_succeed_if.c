@@ -259,7 +259,7 @@ evaluate_notinnetgr(const pam_handle_t* pamh, const char *host, const char *user
 static int
 evaluate(pam_handle_t *pamh, int debug,
 	 const char *left, const char *qual, const char *right,
-	 struct passwd *pwd, const char *user)
+	 struct passwd **pwd, const char *user)
 {
 	char buf[LINE_MAX] = "";
 	const char *attribute = left;
@@ -270,22 +270,35 @@ evaluate(pam_handle_t *pamh, int debug,
 		snprintf(buf, sizeof(buf), "%s", user);
 		left = buf;
 	}
+	/* Get information about the user if needed. */
+	if ((*pwd == NULL) &&
+	    ((strcasecmp(left, "uid") == 0) ||
+	     (strcasecmp(left, "gid") == 0) ||
+	     (strcasecmp(left, "shell") == 0) ||
+	     (strcasecmp(left, "home") == 0) ||
+	     (strcasecmp(left, "dir") == 0) ||
+	     (strcasecmp(left, "homedir") == 0))) {
+		*pwd = pam_modutil_getpwnam(pamh, user);
+		if (*pwd == NULL) {
+			return PAM_USER_UNKNOWN;
+		}
+	}
 	if (strcasecmp(left, "uid") == 0) {
-		snprintf(buf, sizeof(buf), "%lu", (unsigned long) pwd->pw_uid);
+		snprintf(buf, sizeof(buf), "%lu", (unsigned long) (*pwd)->pw_uid);
 		left = buf;
 	}
 	if (strcasecmp(left, "gid") == 0) {
-		snprintf(buf, sizeof(buf), "%lu", (unsigned long) pwd->pw_gid);
+		snprintf(buf, sizeof(buf), "%lu", (unsigned long) (*pwd)->pw_gid);
 		left = buf;
 	}
 	if (strcasecmp(left, "shell") == 0) {
-		snprintf(buf, sizeof(buf), "%s", pwd->pw_shell);
+		snprintf(buf, sizeof(buf), "%s", (*pwd)->pw_shell);
 		left = buf;
 	}
 	if ((strcasecmp(left, "home") == 0) ||
 	    (strcasecmp(left, "dir") == 0) ||
 	    (strcasecmp(left, "homedir") == 0)) {
-		snprintf(buf, sizeof(buf), "%s", pwd->pw_dir);
+		snprintf(buf, sizeof(buf), "%s", (*pwd)->pw_dir);
 		left = buf;
 	}
 	if (strcasecmp(left, "service") == 0) {
@@ -415,7 +428,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 {
 	const void *prompt;
 	const char *user;
-	struct passwd *pwd;
+	struct passwd *pwd = NULL;
 	int ret, i, count, use_uid, debug;
 	const char *left, *right, *qual;
 	int quiet_fail, quiet_succ, audit;
@@ -471,15 +484,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			return ret;
 		}
 
-		/* Get information about the user. */
-		pwd = pam_modutil_getpwnam(pamh, user);
-		if (pwd == NULL) {
-			if(audit)
-				pam_syslog(pamh, LOG_NOTICE,
-					   "error retrieving information about user %s",
-					   user);
-			return PAM_USER_UNKNOWN;
-		}
+		/* Postpone requesting password data until it is needed */
 	}
 
 	/* Walk the argument list. */
@@ -520,9 +525,13 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			count++;
 			ret = evaluate(pamh, debug,
 				       left, qual, right,
-				       pwd, user);
+				       &pwd, user);
+			if (ret == PAM_USER_UNKNOWN && audit)
+				pam_syslog(pamh, LOG_NOTICE,
+					   "error retrieving information about user %s",
+					   user);
 			if (ret != PAM_SUCCESS) {
-				if(!quiet_fail)
+				if(!quiet_fail && ret != PAM_USER_UNKNOWN)
 					pam_syslog(pamh, LOG_INFO,
 						   "requirement \"%s %s %s\" "
 						   "not met by user \"%s\"",
