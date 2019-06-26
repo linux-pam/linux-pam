@@ -580,3 +580,6 @@ msgstr "S'està canviant la contrasenya de %s."
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "Heu d'esperar més temps abans de canviar la contrasenya"
+
+msgid "You must choose a shorter password."
+msgstr "Heu de triar una contrasenya més curta."

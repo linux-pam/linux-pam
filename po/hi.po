@@ -574,3 +574,6 @@ msgstr "%s के लिए कूटशब्द बदल रहा है"
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "आपको अपना शब्दकूट बदलने के लिए लंबी प्रतीक्षा करनी होगी"
+
+msgid "You must choose a shorter password."
+msgstr "आपको एक छोटा पासवर्ड चुनना होगा।"

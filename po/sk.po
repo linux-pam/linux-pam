@@ -588,3 +588,6 @@ msgstr "Zmena hesla pre %s."
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "Na zmenu svojho hesla musíte počkať dlhšie"
+
+msgid "You must choose a shorter password."
+msgstr "Musíte zvoliť kratšie heslo."

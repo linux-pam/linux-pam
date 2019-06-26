@@ -576,7 +576,11 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 			return PAM_AUTHTOK_ERR;
 		}
 	}
-	if (off(UNIX__IAMROOT, ctrl)) {
+
+	if (strlen(pass_new) > MAX_PASS) {
+		remark = _("You must choose a shorter password.");
+		D(("length exceeded [%s]", remark));
+	} else if (off(UNIX__IAMROOT, ctrl)) {
 		if (strlen(pass_new) < pass_min_len)
 		  remark = _("You must choose a longer password.");
 		D(("length check [%s]", remark));

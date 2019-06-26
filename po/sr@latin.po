@@ -581,3 +581,6 @@ msgstr "Menjam lozinku za %s."
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "Morate duže sačekati na promenu lozinke"
+
+msgid "You must choose a shorter password."
+msgstr ""

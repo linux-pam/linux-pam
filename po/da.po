@@ -572,3 +572,6 @@ msgstr "Ændrer adgangskode for %s."
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "Du skal vente lidt længere for at ændre din adgangskode"
+
+msgid "You must choose a shorter password."
+msgstr "Du skal vælge en kortere adgangskode."

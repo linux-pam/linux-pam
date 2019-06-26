@@ -575,3 +575,6 @@ msgstr "%s માટે પાસવર્ડ બદલવાનું."
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "તમારો પાસવર્ડ બદલવા માટે તમારે લાંબો સમય રાહ જોવી જ પડશે"
+
+msgid "You must choose a shorter password."
+msgstr "તમારે ટૂંકા પાસવર્ડને પસંદ કરવો આવશ્યક છે."

@@ -579,3 +579,6 @@ msgstr "Смяна на паролата за %s."
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "Трябва да изчакате повече, за да промените Вашата парола"
+
+msgid "You must choose a shorter password."
+msgstr "Трябва да изберете по-кратка парола."
