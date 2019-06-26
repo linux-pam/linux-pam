@@ -646,6 +646,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	struct passwd *pwd = NULL;
 	char *salt = NULL;
 	char *data_name;
+	char pw[MAX_PASS + 1];
 	int retval;
 
 
@@ -670,6 +671,11 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	} else {
 		strcpy(data_name, FAIL_PREFIX);
 		strcpy(data_name + sizeof(FAIL_PREFIX) - 1, name);
+	}
+
+	if (p != NULL && strlen(p) > MAX_PASS) {
+		memset(pw, 0, sizeof(pw));
+		p = strncpy(pw, p, sizeof(pw) - 1);
 	}
 
 	if (retval != PAM_SUCCESS) {
@@ -781,6 +787,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	}
 
 cleanup:
+	memset(pw, 0, sizeof(pw)); /* clear memory of the password */
 	if (data_name)
 		_pam_delete(data_name);
 	if (salt)
