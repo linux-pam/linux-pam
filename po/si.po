@@ -571,3 +571,6 @@ msgstr ""
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "ඔබගේ රහස්පදය වෙනස් කිරීමට බොහෝ වෙලාවක් රැදී සිටීය යුතුම වේ"
+
+msgid "You must choose a shorter password."
+msgstr "ඔබ කෙටි මුරපදයක් තෝරා ගත යුතුය."

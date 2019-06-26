@@ -564,3 +564,6 @@ msgstr "Menukar katalaluan untuk %s."
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr ""
+
+msgid "You must choose a shorter password."
+msgstr "Anda mesti memilih kata laluan yang lebih pendek."

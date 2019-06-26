@@ -584,3 +584,6 @@ msgstr "Vaihdetaan käyttäjän %s salasana."
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "Sinun täytyy odottaa kauemmin vaihtaaksesi salasanan"
+
+msgid "You must choose a shorter password."
+msgstr "Sinun on valittava lyhyempi salasana."

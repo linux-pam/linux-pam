@@ -580,3 +580,6 @@ msgstr "%s kullanıcısının parolası değiştiriliyor."
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "Parolanızı değiştirmek için daha sonra denemelisiniz"
+
+msgid "You must choose a shorter password."
+msgstr "Daha kısa bir şifre seçmelisiniz."

@@ -593,3 +593,6 @@ msgstr "Changement du mot de passe pour %s."
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "Vous devez encore attendre avant de changer votre mot de passe"
+
+msgid "You must choose a shorter password."
+msgstr "Vous devez choisir un mot de passe plus court."

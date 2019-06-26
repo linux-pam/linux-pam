@@ -573,3 +573,6 @@ msgstr "%s에 대한 암호 변경 중  "
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "암호 변경을 위해 조금더 기다려 주십시오."
+
+msgid "You must choose a shorter password."
+msgstr "더 짧은 암호를 선택해야합니다."

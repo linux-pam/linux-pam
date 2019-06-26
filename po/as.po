@@ -575,3 +575,6 @@ msgstr "%s ৰ বাবে গুপ্তশব্দ সলনি কৰা �
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "আপোনাৰ গুপ্তশব্দ সলনি কৰিবলৈ আপুনি আৰু কিছু পৰ অপেক্ষা কৰিব লাগিব"
+
+msgid "You must choose a shorter password."
+msgstr ""

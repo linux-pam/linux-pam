@@ -576,3 +576,6 @@ msgstr "%s ପାଇଁ ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳା
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇବା ପାଇଁ ଆପଣ ଅଧିକ ସମୟ ଅପେକ୍ଷା କରିବା ଉଚିତ"
+
+msgid "You must choose a shorter password."
+msgstr ""
