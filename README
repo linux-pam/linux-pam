@@ -7,7 +7,13 @@ NOTES:
 
 How to use it is as follows:
 
+If you check out the sources from git, install Autotools and generate
+configuration scripts:
+
       ./autogen.sh
+
+Then compile:
+
       ./configure --help | less
       ./configure <your-options>
       make
