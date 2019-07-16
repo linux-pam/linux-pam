@@ -7,6 +7,7 @@ NOTES:
 
 How to use it is as follows:
 
+      ./autogen.sh
       ./configure --help | less
       ./configure <your-options>
       make
