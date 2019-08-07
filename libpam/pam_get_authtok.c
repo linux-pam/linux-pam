@@ -140,6 +140,8 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
     }
   else if (chpass)
     {
+      pamh->authtok_verified = 0;
+
       retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0],
 			   PROMPT1, authtok_type,
 			   strlen (authtok_type) > 0?" ":"");
@@ -184,6 +186,9 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
   if (retval != PAM_SUCCESS)
     return retval;
 
+  if (chpass > 1)
+    pamh->authtok_verified = 1;
+
   return pam_get_item(pamh, item, (const void **)authtok);
 }
 
@@ -213,6 +218,9 @@ pam_get_authtok_verify (pam_handle_t *pamh, const char **authtok,
 
   if (authtok == NULL || pamh->choice != PAM_CHAUTHTOK)
     return PAM_SYSTEM_ERR;
+
+  if (pamh->authtok_verified)
+    return pam_get_item (pamh, PAM_AUTHTOK, (const void **)authtok);
 
   if (prompt != NULL)
     {
@@ -251,6 +259,8 @@ pam_get_authtok_verify (pam_handle_t *pamh, const char **authtok,
   _pam_drop (resp);
   if (retval != PAM_SUCCESS)
     return retval;
+
+  pamh->authtok_verified = 1;
 
   return pam_get_item(pamh, PAM_AUTHTOK, (const void **)authtok);
 }

@@ -172,6 +172,7 @@ struct pam_handle {
 #ifdef HAVE_LIBAUDIT
     int audit_state;             /* keep track of reported audit messages */
 #endif
+    int authtok_verified;
 };
 
 /* Values for select arg to _pam_dispatch() */

@@ -94,6 +94,7 @@ int pam_start (
 #endif
     (*pamh)->xdisplay = NULL;
     (*pamh)->authtok_type = NULL;
+    (*pamh)->authtok_verified = 0;
     memset (&((*pamh)->xauth), 0, sizeof ((*pamh)->xauth));
 
     if (((*pamh)->pam_conversation = (struct pam_conv *)
