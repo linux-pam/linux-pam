@@ -504,6 +504,23 @@ if test ! -z "$LIBSELINUX" ; then
     LIBS=$BACKUP_LIBS
 fi
 
+AC_ARG_ENABLE([econf],
+  AS_HELP_STRING([--disable-econf], [do not use libeconf]),
+  [WITH_ECONF=$enableval], WITH_ECONF=yes)
+if test "$WITH_ECONF" = "yes" ; then
+  PKG_CHECK_MODULES([ECONF], [libeconf], [],
+  [AC_CHECK_LIB([econf],[econf_readDirs],[ECONF_LIBS="-leconf"],[ECONF_LIBS=""])])
+  if test -n "$ECONF_LIBS" ; then
+    ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"
+  fi
+fi
+AC_SUBST([ECONF_CFLAGS])
+AC_SUBST([ECONF_LIBS])
+AC_ARG_ENABLE([vendordir],
+  AS_HELP_STRING([--enable-vendordir=DIR], [Directory for distribution provided configuration files]),,[])
+AC_SUBST([VENDORDIR], [$enable_vendordir])
+AM_CONDITIONAL([HAVE_VENDORDIR], [test "x$enable_vendordir" != x])
+
 dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC

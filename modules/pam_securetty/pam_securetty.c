@@ -1,6 +1,9 @@
 /* pam_securetty module */
 
 #define SECURETTY_FILE "/etc/securetty"
+#ifdef VENDORDIR
+#define SECURETTY2_FILE VENDORDIR"/securetty"
+#endif
 #define TTY_PREFIX     "/dev/"
 #define CMDLINE_FILE   "/proc/cmdline"
 #define CONSOLEACTIVE_FILE	"/sys/class/tty/console/active"
@@ -25,6 +28,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <limits.h>
+#include <errno.h>
 
 /*
  * here, we make a definition for the externally accessible function
@@ -70,6 +74,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 			 const char *function_name)
 {
     int retval = PAM_AUTH_ERR;
+    const char *securettyfile;
     const char *username;
     const char *uttyname;
     const void *void_uttyname;
@@ -111,10 +116,27 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
     }
 
     if (stat(SECURETTY_FILE, &ttyfileinfo)) {
+#ifdef VENDORDIR
+      if (errno == ENOENT) {
+	if (stat(SECURETTY2_FILE, &ttyfileinfo)) {
+	  pam_syslog(pamh, LOG_NOTICE,
+		     "Couldn't open %s: %m", SECURETTY2_FILE);
+	  return PAM_SUCCESS; /* for compatibility with old securetty handling,
+				 this needs to succeed.  But we still log the
+				 error. */
+	}
+	securettyfile = SECURETTY2_FILE;
+      } else {
+#endif
 	pam_syslog(pamh, LOG_NOTICE, "Couldn't open %s: %m", SECURETTY_FILE);
 	return PAM_SUCCESS; /* for compatibility with old securetty handling,
 			       this needs to succeed.  But we still log the
 			       error. */
+#ifdef VENDORDIR
+      }
+#endif
+    } else {
+      securettyfile = SECURETTY_FILE;
     }
 
     if ((ttyfileinfo.st_mode & S_IWOTH) || !S_ISREG(ttyfileinfo.st_mode)) {
@@ -122,13 +144,13 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 	   normal file, return error */
 	pam_syslog(pamh, LOG_ERR,
 		   "%s is either world writable or not a normal file",
-		   SECURETTY_FILE);
+		   securettyfile);
 	return PAM_AUTH_ERR;
     }
 
-    ttyfile = fopen(SECURETTY_FILE,"r");
+    ttyfile = fopen(securettyfile,"r");
     if (ttyfile == NULL) { /* Check that we opened it successfully */
-	pam_syslog(pamh, LOG_ERR, "Error opening %s: %m", SECURETTY_FILE);
+	pam_syslog(pamh, LOG_ERR, "Error opening %s: %m", securettyfile);
 	return PAM_SERVICE_ERR;
     }
 

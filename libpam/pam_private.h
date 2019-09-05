@@ -29,6 +29,11 @@
 #define PAM_CONFIG_DF      "/etc/pam.d/%s"
 #define PAM_CONFIG_DIST_D  "/usr/lib/pam.d"
 #define PAM_CONFIG_DIST_DF "/usr/lib/pam.d/%s"
+#ifdef VENDORDIR
+#define PAM_CONFIG_DIST2_D  VENDORDIR"/pam.d"
+#define PAM_CONFIG_DIST2_DF VENDORDIR"/pam.d/%s"
+#endif
+
 
 #define PAM_DEFAULT_SERVICE        "other"     /* lower case */
 
