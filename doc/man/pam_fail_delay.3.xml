@@ -75,7 +75,7 @@
       </citerefentry>
       and
       <citerefentry>
-        <refentrytitle>pam_set_item </refentrytitle><manvolnum>3</manvolnum>
+        <refentrytitle>pam_set_item</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>  respectively. The value used to set it should be
       a function pointer of the following prototype:
       <programlisting>
