@@ -79,9 +79,11 @@ static unsigned int _pam_compute_delay(unsigned int seed, unsigned int base)
 }
 
 /* **********************************************************************
- * the following function sleeps for a random time. The actual time
- * slept is computed above.. It is based on the requested time but will
- * differ by up to +/- 50%.
+ * By default, the following function sleeps for a random time. The
+ * actual time slept is computed above. It is based on the requested
+ * time but will differ by up to +/- 50%. If the PAM_FAIL_DELAY item is
+ * set by the client, this function will call the function referenced by
+ * that item, overriding the default behavior.
  */
 
 void _pam_await_timer(pam_handle_t *pamh, int status)
