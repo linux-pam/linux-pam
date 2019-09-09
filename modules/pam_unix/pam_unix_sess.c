@@ -69,7 +69,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	char *user_name, *service;
 	unsigned long long ctrl;
 	int retval;
-    const char *login_name;
+	const char *login_name;
 
 	D(("called."));
 
@@ -92,10 +92,17 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	if (login_name == NULL) {
 	    login_name = "";
 	}
-	if (off (UNIX_QUIET, ctrl))
-	  pam_syslog(pamh, LOG_INFO, "session opened for user %s by %s(uid=%lu)",
-		     user_name, login_name, (unsigned long)getuid());
-
+	if (off (UNIX_QUIET, ctrl)) {
+		char uid[32];
+		struct passwd *pwd = getpwnam (user_name);
+	if (pwd == NULL) {
+		snprintf (uid, 32, "getpwnam error");
+	}
+	else {
+		snprintf (uid, 32, "%u", pwd->pw_uid);
+	}
+	pam_syslog(pamh, LOG_INFO, "session opened for user %s(uid=%s) by %s(uid=%lu)", user_name, uid, login_name, (unsigned long)getuid());
+}
 	return PAM_SUCCESS;
 }
 
