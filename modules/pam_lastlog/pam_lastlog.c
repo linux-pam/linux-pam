@@ -25,6 +25,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/time.h>
+#include <sys/resource.h>
 #include <syslog.h>
 #include <unistd.h>
 
@@ -82,15 +84,16 @@ struct lastlog {
 
 /* argument parsing */
 
-#define LASTLOG_DATE        01  /* display the date of the last login */
-#define LASTLOG_HOST        02  /* display the last host used (if set) */
-#define LASTLOG_LINE        04  /* display the last terminal used */
-#define LASTLOG_NEVER      010  /* display a welcome message for first login */
-#define LASTLOG_DEBUG      020  /* send info to syslog(3) */
-#define LASTLOG_QUIET      040  /* keep quiet about things */
-#define LASTLOG_WTMP      0100  /* log to wtmp as well as lastlog */
-#define LASTLOG_BTMP      0200  /* display failed login info from btmp */
-#define LASTLOG_UPDATE    0400  /* update the lastlog and wtmp files (default) */
+#define LASTLOG_DATE          01  /* display the date of the last login */
+#define LASTLOG_HOST          02  /* display the last host used (if set) */
+#define LASTLOG_LINE          04  /* display the last terminal used */
+#define LASTLOG_NEVER        010  /* display a welcome message for first login */
+#define LASTLOG_DEBUG        020  /* send info to syslog(3) */
+#define LASTLOG_QUIET        040  /* keep quiet about things */
+#define LASTLOG_WTMP        0100  /* log to wtmp as well as lastlog */
+#define LASTLOG_BTMP        0200  /* display failed login info from btmp */
+#define LASTLOG_UPDATE      0400  /* update the lastlog and wtmp files (default) */
+#define LASTLOG_UNLIMITED  01000  /* unlimited file size (ignore 'fsize' limit) */
 
 static int
 _pam_auth_parse(pam_handle_t *pamh, int flags, int argc, const char **argv,
@@ -158,6 +161,8 @@ _pam_session_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	    ctrl &= ~(LASTLOG_WTMP|LASTLOG_UPDATE);
 	} else if (!strcmp(*argv,"showfailed")) {
 	    ctrl |= LASTLOG_BTMP;
+	} else if (!strcmp(*argv,"unlimited")) {
+	    ctrl |= LASTLOG_UNLIMITED;
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
@@ -373,6 +378,12 @@ static int
 last_login_write(pam_handle_t *pamh, int announce, int last_fd,
 		 uid_t uid, const char *user)
 {
+    static struct rlimit no_limit = {
+	RLIM_INFINITY,
+	RLIM_INFINITY
+    };
+    struct rlimit old_limit;
+    int setrlimit_res;
     struct flock last_lock;
     struct lastlog last_login;
     time_t ll_time;
@@ -427,11 +438,48 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
         sleep(LASTLOG_IGNORE_LOCK_TIME);
     }
 
+    /*
+     * Failing to set the 'fsize' limit is not a fatal error. We try to write
+     * lastlog anyway, under the risk of dying due to a SIGXFSZ.
+     */
+    D(("setting limit for 'fsize'"));
+
+    if ((announce & LASTLOG_UNLIMITED) == 0) {    /* don't set to unlimted */
+	setrlimit_res = -1;
+    } else if (getrlimit(RLIMIT_FSIZE, &old_limit) == 0) {
+	if (old_limit.rlim_cur == RLIM_INFINITY) {    /* already unlimited */
+	    setrlimit_res = -1;
+	} else {
+	    setrlimit_res = setrlimit(RLIMIT_FSIZE, &no_limit);
+	    if (setrlimit_res != 0)
+		pam_syslog(pamh, LOG_WARNING, "Could not set limit for 'fsize': %m");
+	}
+    } else {
+	setrlimit_res = -1;
+	if (errno == EINVAL) {
+	    pam_syslog(pamh, LOG_INFO, "Limit for 'fsize' not supported: %m");
+	} else {
+	    pam_syslog(pamh, LOG_WARNING, "Could not get limit for 'fsize': %m");
+	}
+    }
+
     D(("writing to the lastlog file"));
     if (pam_modutil_write (last_fd, (char *) &last_login,
 			   sizeof (last_login)) != sizeof(last_login)) {
 	pam_syslog(pamh, LOG_ERR, "failed to write %s: %m", _PATH_LASTLOG);
 	retval = PAM_SERVICE_ERR;
+    }
+
+    /*
+     * Failing to restore the 'fsize' limit is a fatal error.
+     */
+    D(("restoring limit for 'fsize'"));
+    if (setrlimit_res == 0) {
+	setrlimit_res = setrlimit(RLIMIT_FSIZE, &old_limit);
+	if (setrlimit_res != 0) {
+	    pam_syslog(pamh, LOG_ERR, "Could not restore limit for 'fsize': %m");
+	    retval = PAM_SERVICE_ERR;
+	}
     }
 
     last_lock.l_type = F_UNLCK;
