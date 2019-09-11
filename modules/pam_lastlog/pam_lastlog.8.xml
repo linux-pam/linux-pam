@@ -48,6 +48,9 @@
       <arg choice="opt">
         inactive=&lt;days&gt;
       </arg>
+      <arg choice="opt">
+        unlimited
+      </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -196,6 +199,18 @@
           </para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term>
+          <option>unlimited</option>
+        </term>
+        <listitem>
+          <para>
+	    If the <emphasis>fsize</emphasis> limit is set, this option can be
+	    used to override it, preventing failures on systems with large UID
+	    values that lead lastlog to become a huge sparse file.
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
   </refsect1>
 
@@ -300,6 +315,9 @@
   <refsect1 id='pam_lastlog-see_also'>
     <title>SEE ALSO</title>
     <para>
+      <citerefentry>
+	<refentrytitle>limits.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
       <citerefentry>
 	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
       </citerefentry>,
