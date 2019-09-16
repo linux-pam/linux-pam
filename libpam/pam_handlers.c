@@ -280,9 +280,14 @@ _pam_open_config_file(pam_handle_t *pamh
 			, char **path
 			, FILE **file)
 {
+    const char *pamd_dirs[] = { PAM_CONFIG_DF, PAM_CONFIG_DIST_DF
+#ifdef VENDORDIR
+                               , PAM_CONFIG_DIST2_DF
+#endif
+    };
     char *p;
     FILE *f;
-    int err = 0;
+    size_t i;
 
     /* Absolute path */
     if (service[0] == '/') {
@@ -303,33 +308,20 @@ _pam_open_config_file(pam_handle_t *pamh
 	return PAM_ABORT;
     }
 
-    /* Local Machine Configuration /etc/pam.d/ */
-    if (asprintf (&p, PAM_CONFIG_DF, service) < 0) {
-	pam_syslog(pamh, LOG_CRIT, "asprintf failed");
-	return PAM_BUF_ERR;
-    }
-    D(("opening %s", p));
-    f = fopen(p, "r");
-    if (f != NULL) {
+    for (i = 0; i < sizeof (pamd_dirs)/sizeof (char *); i++) {
+        if (asprintf (&p, pamd_dirs[i], service) < 0) {
+	    pam_syslog(pamh, LOG_CRIT, "asprintf failed");
+	    return PAM_BUF_ERR;
+	}
+	D(("opening %s", p));
+	f = fopen(p, "r");
+	if (f != NULL) {
 	    *path = p;
 	    *file = f;
 	    return PAM_SUCCESS;
+	}
+	_pam_drop(p);
     }
-
-    /* System Configuration /usr/lib/pam.d/ */
-    _pam_drop(p);
-    if (asprintf (&p, PAM_CONFIG_DIST_DF, service) < 0) {
-	pam_syslog(pamh, LOG_CRIT, "asprintf failed");
-	return PAM_BUF_ERR;
-    }
-    D(("opening %s", p));
-    f = fopen(p, "r");
-    if (f != NULL) {
-	    *path = p;
-	    *file = f;
-	    return PAM_SUCCESS;
-    }
-    _pam_drop(p);
 
     return PAM_ABORT;
 }
@@ -447,7 +439,12 @@ int _pam_init_handlers(pam_handle_t *pamh)
 
 	/* Is there a PAM_CONFIG_D directory? */
 	if ((stat(PAM_CONFIG_D, &test_d) == 0 && S_ISDIR(test_d.st_mode)) ||
-	    (stat(PAM_CONFIG_DIST_D, &test_d) == 0 && S_ISDIR(test_d.st_mode))) {
+	    (stat(PAM_CONFIG_DIST_D, &test_d) == 0 && S_ISDIR(test_d.st_mode))
+#ifdef PAM_CONFIG_DIST2_D
+	    || (stat(PAM_CONFIG_DIST2_D, &test_d) == 0
+		&& S_ISDIR(test_d.st_mode))
+#endif
+	   ) {
 	    char *path = NULL;
 	    int read_something=0;
 

@@ -31,9 +31,12 @@
     <para>
       pam_securetty is a PAM module that allows root logins only if the
       user is logging in on a "secure" tty, as defined by the listing
-      in <filename>/etc/securetty</filename>. pam_securetty also checks
-      to make sure that <filename>/etc/securetty</filename> is a plain
-      file and not world writable. It will also allow root logins on
+      in the <filename>securetty</filename> file. pam_securetty checks at
+      first, if <filename>/etc/securetty</filename> exists. If not and
+      it was built with vendordir support, it will use
+      <filename>%vendordir%/securetty</filename>. pam_securetty also
+      checks that the <filename>securetty</filename> files are plain
+      files and not world writable. It will also allow root logins on
       the tty specified with <option>console=</option> switch on the
       kernel command line and on ttys from the
       <filename>/sys/class/tty/console/active</filename>.
@@ -73,7 +76,7 @@
             Do not automatically allow root logins on the kernel console
             device, as specified on the kernel command line or by the sys file,
             if it is not also specified in the
-            <filename>/etc/securetty</filename> file.
+            <filename>securetty</filename> file.
           </para>
         </listitem>
       </varlistentry>
@@ -106,7 +109,7 @@
           <para>
             Authentication is rejected. Either root is attempting to
             log in via an unacceptable device, or the
-            <filename>/etc/securetty</filename> file is world writable or
+            <filename>securetty</filename> file is world writable or
             not a normal file.
           </para>
         </listitem>
@@ -127,7 +130,7 @@
           <para>
             An error occurred while the module was determining the
             user's name or tty, or the module could not open
-            <filename>/etc/securetty</filename>.
+            the <filename>securetty</filename> file.
           </para>
         </listitem>
       </varlistentry>
