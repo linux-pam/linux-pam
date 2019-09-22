@@ -80,7 +80,7 @@ dnl Largefile support
 AC_SYS_LARGEFILE
 
 dnl icc claims to be GCC compatible, but use other flags for warnings
-if eval "test x$GCC = xyes -a $CC != icc"; then
+if eval 'test "x$GCC" = "xyes" -a "$CC" != "icc"'; then
   for flag in \
       -W \
       -Wall \
@@ -100,7 +100,7 @@ if eval "test x$GCC = xyes -a $CC != icc"; then
   done
 fi
 dnl icc has special warning flags
-if eval "test x$CC = xicc"; then
+if eval 'test "x$CC" = "xicc"'; then
   for flag in \
       -Wall \
       -Wmissing-prototypes \
