@@ -26,6 +26,9 @@
         silent
       </arg>
       <arg choice="opt">
+        debug
+      </arg>
+      <arg choice="opt">
         umask=<replaceable>mode</replaceable>
       </arg>
       <arg choice="opt">
@@ -63,6 +66,20 @@
         <listitem>
           <para>
             Don't print informative messages.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>debug</option>
+        </term>
+        <listitem>
+          <para>
+           Turns on debugging via
+            <citerefentry>
+              <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum>
+            </citerefentry>.
           </para>
         </listitem>
       </varlistentry>
