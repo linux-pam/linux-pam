@@ -46,7 +46,7 @@
       The function exports five variables that can be used by an
       application programmer to limit the amount of time this conversation
       function will spend waiting for the user to type something. The
-      five variabls are as follows:
+      five variables are as follows:
     </para>
     <variablelist>
       <varlistentry>
@@ -70,7 +70,7 @@
         <term><type>const char *</type><varname>pam_misc_conv_warn_line</varname>;</term>
         <listitem>
           <para>
-            Used in conjuction with
+            Used in conjunction with
             <varname>pam_misc_conv_warn_time</varname>, this variable is
             a pointer to the string that will be displayed when it becomes
             time to warn the user that the timeout is approaching. Its
@@ -103,7 +103,7 @@
         <term><type>const char *</type><varname>pam_misc_conv_die_line</varname>;</term>
         <listitem>
           <para>
-            Used in conjuction with
+            Used in conjunction with
             <varname>pam_misc_conv_die_time</varname>, this variable is
             a pointer to the string that will be displayed when the
             conversation times out. Its default value is a translated
@@ -120,7 +120,7 @@
         <listitem>
           <para>
             Following a return from the <emphasis>Linux-PAM</emphasis>
-            libraray, the value of this variable indicates whether the
+            library, the value of this variable indicates whether the
             conversation has timed out. A value of
             <returnvalue>1</returnvalue> indicates the time-out occurred.
           </para>
