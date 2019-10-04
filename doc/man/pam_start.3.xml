@@ -83,7 +83,7 @@
       <citerefentry>
         <refentrytitle>pam_get_item</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>.
-      The PAM handle cannot be used for mulitiple authentications at the
+      The PAM handle cannot be used for multiple authentications at the
       same time as long as <function>pam_end</function> was not called on
       it before.
     </para>

@@ -67,7 +67,7 @@
         <term>Case Change Only</term>
         <listitem>
           <para>
-            Is the new password the the old one with  only a change of case?
+            Is the new password the old one with  only a change of case?
           </para>
         </listitem>
       </varlistentry>
