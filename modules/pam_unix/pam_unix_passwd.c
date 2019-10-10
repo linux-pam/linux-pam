@@ -1,7 +1,7 @@
 /*
  * Main coding by Elliot Lee <sopwith@redhat.com>, Red Hat Software.
  * Copyright (C) 1996.
- * Copyright (c) Jan Rêkorajski, 1999.
+ * Copyright (c) Jan Rękorajski, 1999.
  * Copyright (c) Red Hat, Inc., 2007, 2008.
  *
  * Redistribution and use in source and binary forms, with or without

@@ -1217,7 +1217,7 @@ read_passwords(int fd, int npass, char **passwords)
 
 #endif
 /* ****************************************************************** *
- * Copyright (c) Jan Rêkorajski 1999.
+ * Copyright (c) Jan Rękorajski 1999.
  * Copyright (c) Andrew G. Morgan 1996-8.
  * Copyright (c) Alex O. Yuriev, 1996.
  * Copyright (c) Cristian Gafton 1996.
