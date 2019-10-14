@@ -72,7 +72,7 @@
   <refsect1 id="pam_nologin-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
-      The <option>auth</option> and <option>acct</option> module
+      The <option>auth</option> and <option>account</option> module
       types are provided.
     </para>
   </refsect1>
