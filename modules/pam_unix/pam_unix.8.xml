@@ -165,6 +165,19 @@
       </varlistentry>
       <varlistentry>
         <term>
+          <option>nullresetok</option>
+        </term>
+        <listitem>
+          <para>
+            Allow users to authenticate with blank password if password reset
+            is enforced even if <option>nullok</option> is not set. If password
+            reset is not required and <option>nullok</option> is not set the
+            authentication with blank password will be denied.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
           <option>try_first_pass</option>
         </term>
         <listitem>
