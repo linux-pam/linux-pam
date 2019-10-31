@@ -595,6 +595,7 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 {
 	struct passwd *pwd = NULL;
 	char *salt = NULL;
+	int daysleft;
 	int retval;
 
 	D(("called"));
@@ -604,6 +605,15 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 	 * wrong, return FALSE and let this case to be treated somewhere
 	 * else (CG)
 	 */
+
+	if (on(UNIX_NULLRESETOK, ctrl)) {
+	    retval = _unix_verify_user(pamh, ctrl, name, &daysleft);
+	    if (retval == PAM_NEW_AUTHTOK_REQD) {
+	        /* password reset is enforced, allow authentication with empty password */
+	        pam_syslog(pamh, LOG_DEBUG, "user [%s] has expired blank password, enabling nullok", name);
+	        set(UNIX__NULLOK, ctrl);
+	    }
+	}
 
 	if (on(UNIX__NONULL, ctrl))
 		return 0;	/* will fail but don't let on yet */
@@ -794,6 +804,43 @@ cleanup:
 	D(("done [%d].", retval));
 
 	return retval;
+}
+
+int
+_unix_verify_user(pam_handle_t *pamh,
+                  unsigned long long ctrl,
+                  const char *name,
+                  int *daysleft)
+{
+    int retval;
+    struct spwd *spent;
+    struct passwd *pwent;
+
+    retval = get_account_info(pamh, name, &pwent, &spent);
+    if (retval == PAM_USER_UNKNOWN) {
+        pam_syslog(pamh, LOG_ERR,
+             "could not identify user (from getpwnam(%s))",
+             name);
+        return retval;
+    }
+
+    if (retval == PAM_SUCCESS && spent == NULL)
+        return PAM_SUCCESS;
+
+    if (retval == PAM_UNIX_RUN_HELPER) {
+        retval = _unix_run_verify_binary(pamh, ctrl, name, daysleft);
+        if (retval == PAM_AUTHINFO_UNAVAIL &&
+            on(UNIX_BROKEN_SHADOW, ctrl))
+            return PAM_SUCCESS;
+    } else if (retval != PAM_SUCCESS) {
+        if (on(UNIX_BROKEN_SHADOW,ctrl))
+            return PAM_SUCCESS;
+        else
+            return retval;
+    } else
+        retval = check_shadow_expiry(pamh, spent, daysleft);
+
+    return retval;
 }
 
 /* ****************************************************************** *
