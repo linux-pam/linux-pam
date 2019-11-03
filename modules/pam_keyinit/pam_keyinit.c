@@ -68,7 +68,7 @@ static int error(pam_handle_t *pamh, const char *fmt, ...)
 /*
  * initialise the session keyring for this process
  */
-static int init_keyrings(pam_handle_t *pamh, int force)
+static int init_keyrings(pam_handle_t *pamh, int force, int ERROR)
 {
 	int session, usession, ret;
 
@@ -85,7 +85,7 @@ static int init_keyrings(pam_handle_t *pamh, int force)
 			 * installed */
 			if (errno == ENOSYS)
 				return PAM_SUCCESS;
-			return PAM_SESSION_ERR;
+			return ERROR;
 		}
 
 		usession = syscall(__NR_keyctl,
@@ -94,7 +94,7 @@ static int init_keyrings(pam_handle_t *pamh, int force)
 				   0);
 		debug(pamh, "GET SESSION = %d", usession);
 		if (usession < 0)
-			return PAM_SESSION_ERR;
+			return ERROR;
 
 		/* if the user session keyring is our keyring, then we don't
 		 * need to do anything if we're not forcing */
@@ -108,7 +108,7 @@ static int init_keyrings(pam_handle_t *pamh, int force)
 		      NULL);
 	debug(pamh, "JOIN = %d", ret);
 	if (ret < 0)
-		return PAM_SESSION_ERR;
+		return ERROR;
 
 	my_session_keyring = ret;
 
@@ -118,7 +118,7 @@ static int init_keyrings(pam_handle_t *pamh, int force)
 		      KEY_SPEC_USER_KEYRING,
 		      KEY_SPEC_SESSION_KEYRING);
 
-	return ret < 0 ? PAM_SESSION_ERR : PAM_SUCCESS;
+	return ret < 0 ? ERROR : PAM_SUCCESS;
 }
 
 /*
@@ -162,11 +162,7 @@ static void kill_keyrings(pam_handle_t *pamh)
 	}
 }
 
-/*
- * open a PAM session by making sure there's a session keyring
- */
-int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
-			int argc, const char **argv)
+static int do_open_session(pam_handle_t *pamh, int argc, const char **argv, int ERROR)
 {
 	struct passwd *pw;
 	const char *username;
@@ -212,17 +208,17 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 	 * the right user */
 	if (gid != old_gid && setregid(gid, -1) < 0) {
 		error(pamh, "Unable to change GID to %d temporarily\n", gid);
-		return PAM_SESSION_ERR;
+		return ERROR;
 	}
 
 	if (uid != old_uid && setreuid(uid, -1) < 0) {
 		error(pamh, "Unable to change UID to %d temporarily\n", uid);
 		if (setregid(old_gid, -1) < 0)
 			error(pamh, "Unable to change GID back to %d\n", old_gid);
-		return PAM_SESSION_ERR;
+		return ERROR;
 	}
 
-	ret = init_keyrings(pamh, force);
+	ret = init_keyrings(pamh, force, ERROR);
 
 	/* return to the orignal UID and GID (probably root) */
 	if (uid != old_uid && setreuid(old_uid, -1) < 0)
@@ -232,6 +228,31 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 		ret = error(pamh, "Unable to change GID back to %d\n", old_gid);
 
 	return ret;
+}
+
+/*
+ * Dummy
+ */
+int pam_sm_authenticate(pam_handle_t *pamh UNUSED, int flags UNUSED,
+                   int argc UNUSED, const char **argv UNUSED)
+{
+  return PAM_SUCCESS;
+}
+
+/*
+ * since setcred and open_session are called in different orders, a
+ * session ring is invoked by the first of these functions called.
+ */
+int pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
+                   int argc, const char **argv)
+{
+  return do_open_session(pamh, argc, argv, PAM_CRED_ERR);
+}
+
+int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
+			int argc, const char **argv)
+{
+  return do_open_session(pamh, argc, argv, PAM_SESSION_ERR);
 }
 
 /*
