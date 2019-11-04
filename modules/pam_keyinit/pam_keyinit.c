@@ -30,9 +30,9 @@
 #define KEYCTL_REVOKE			3 /* revoke a key */
 #define KEYCTL_LINK			8 /* link a key into a keyring */
 
-static int my_session_keyring;
-static int session_counter;
-static int do_revoke;
+static int my_session_keyring = 0;
+static int session_counter = 0;
+static int do_revoke = 0;
 static int revoke_as_uid;
 static int revoke_as_gid;
 static int xdebug = 0;
@@ -68,7 +68,7 @@ static int error(pam_handle_t *pamh, const char *fmt, ...)
 /*
  * initialise the session keyring for this process
  */
-static int init_keyrings(pam_handle_t *pamh, int force, int ERROR)
+static int init_keyrings(pam_handle_t *pamh, int force, int error_ret)
 {
 	int session, usession, ret;
 
@@ -85,7 +85,7 @@ static int init_keyrings(pam_handle_t *pamh, int force, int ERROR)
 			 * installed */
 			if (errno == ENOSYS)
 				return PAM_SUCCESS;
-			return ERROR;
+			return error_ret;
 		}
 
 		usession = syscall(__NR_keyctl,
@@ -94,7 +94,7 @@ static int init_keyrings(pam_handle_t *pamh, int force, int ERROR)
 				   0);
 		debug(pamh, "GET SESSION = %d", usession);
 		if (usession < 0)
-			return ERROR;
+			return error_ret;
 
 		/* if the user session keyring is our keyring, then we don't
 		 * need to do anything if we're not forcing */
@@ -108,7 +108,7 @@ static int init_keyrings(pam_handle_t *pamh, int force, int ERROR)
 		      NULL);
 	debug(pamh, "JOIN = %d", ret);
 	if (ret < 0)
-		return ERROR;
+		return error_ret;
 
 	my_session_keyring = ret;
 
@@ -118,7 +118,7 @@ static int init_keyrings(pam_handle_t *pamh, int force, int ERROR)
 		      KEY_SPEC_USER_KEYRING,
 		      KEY_SPEC_SESSION_KEYRING);
 
-	return ret < 0 ? ERROR : PAM_SUCCESS;
+	return ret < 0 ? error_ret : PAM_SUCCESS;
 }
 
 /*
@@ -162,7 +162,7 @@ static void kill_keyrings(pam_handle_t *pamh)
 	}
 }
 
-static int do_open_session(pam_handle_t *pamh, int argc, const char **argv, int ERROR)
+static int do_keyinit(pam_handle_t *pamh, int argc, const char **argv, int error_ret)
 {
 	struct passwd *pw;
 	const char *username;
@@ -180,10 +180,6 @@ static int do_open_session(pam_handle_t *pamh, int argc, const char **argv, int 
 	/* don't do anything if already created a keyring (will be called
 	 * multiple times if mentioned more than once in a pam script)
 	 */
-	session_counter++;
-
-	debug(pamh, "OPEN %d", session_counter);
-
 	if (my_session_keyring > 0)
 		return PAM_SUCCESS;
 
@@ -208,17 +204,17 @@ static int do_open_session(pam_handle_t *pamh, int argc, const char **argv, int 
 	 * the right user */
 	if (gid != old_gid && setregid(gid, -1) < 0) {
 		error(pamh, "Unable to change GID to %d temporarily\n", gid);
-		return ERROR;
+		return error_ret;
 	}
 
 	if (uid != old_uid && setreuid(uid, -1) < 0) {
 		error(pamh, "Unable to change UID to %d temporarily\n", uid);
 		if (setregid(old_gid, -1) < 0)
 			error(pamh, "Unable to change GID back to %d\n", old_gid);
-		return ERROR;
+		return error_ret;
 	}
 
-	ret = init_keyrings(pamh, force, ERROR);
+	ret = init_keyrings(pamh, force, error_ret);
 
 	/* return to the orignal UID and GID (probably root) */
 	if (uid != old_uid && setreuid(old_uid, -1) < 0)
@@ -236,7 +232,7 @@ static int do_open_session(pam_handle_t *pamh, int argc, const char **argv, int 
 int pam_sm_authenticate(pam_handle_t *pamh UNUSED, int flags UNUSED,
                    int argc UNUSED, const char **argv UNUSED)
 {
-  return PAM_SUCCESS;
+  return PAM_IGNORE;
 }
 
 /*
@@ -246,13 +242,19 @@ int pam_sm_authenticate(pam_handle_t *pamh UNUSED, int flags UNUSED,
 int pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
                    int argc, const char **argv)
 {
-  return do_open_session(pamh, argc, argv, PAM_CRED_ERR);
+  debug(pamh, "SETCRED");
+
+  return do_keyinit(pamh, argc, argv, PAM_CRED_ERR);
 }
 
 int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 			int argc, const char **argv)
 {
-  return do_open_session(pamh, argc, argv, PAM_SESSION_ERR);
+  session_counter++;
+
+  debug(pamh, "OPEN %d", session_counter);
+
+  return do_keyinit(pamh, argc, argv, PAM_SESSION_ERR);
 }
 
 /*
@@ -266,7 +268,7 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 
 	session_counter--;
 
-	if (session_counter == 0 && my_session_keyring > 0 && do_revoke)
+	if (session_counter <= 0 && my_session_keyring > 0 && do_revoke)
 		kill_keyrings(pamh);
 
 	return PAM_SUCCESS;
