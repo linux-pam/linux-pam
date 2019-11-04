@@ -230,6 +230,73 @@ static int parse_iscript_params(char *params, struct polydir_s *poly)
     return 0;
 }
 
+struct mntflag {
+    const char *name;
+    size_t len;
+    unsigned long flag;
+};
+
+#define LITERAL_AND_LEN(x) x, sizeof(x) - 1
+
+static const struct mntflag mntflags[] = {
+	{ LITERAL_AND_LEN("noexec"), MS_NOEXEC },
+	{ LITERAL_AND_LEN("nosuid"), MS_NOSUID },
+	{ LITERAL_AND_LEN("nodev"), MS_NODEV }
+    };
+
+static int filter_mntopts(const char *opts, char **filtered,
+		unsigned long *mountflags)
+{
+    size_t origlen = strlen(opts);
+    const char *end;
+    char *dest;
+
+    dest = *filtered = NULL;
+    *mountflags = 0;
+
+    if (origlen == 0)
+	return 0;
+
+    do {
+	size_t len;
+	int i;
+
+	end = strchr(opts, ',');
+	if (end == NULL) {
+	    len = strlen(opts);
+	} else {
+	    len = end - opts;
+	}
+
+	for (i = 0; i < (int)(sizeof(mntflags)/sizeof(mntflags[0])); i++) {
+	    if (mntflags[i].len != len)
+		continue;
+	    if (memcmp(mntflags[i].name, opts, len) == 0) {
+		*mountflags |= mntflags[i].flag;
+		opts = end;
+		break;
+	    }
+	}
+
+	if (opts != end) {
+	    if (dest != NULL) {
+		*dest = ',';
+		++dest;
+	    } else {
+		dest = *filtered = calloc(1, origlen + 1);
+		if (dest == NULL)
+		    return -1;
+	    }
+	    memcpy(dest, opts, len);
+	    dest += len;
+	}
+
+	opts = end + 1;
+    } while (end != NULL);
+
+    return 0;
+}
+
 static int parse_method(char *method, struct polydir_s *poly,
 		struct instance_data *idata)
 {
@@ -289,7 +356,8 @@ static int parse_method(char *method, struct polydir_s *poly,
 					break;
 				}
 				free(poly->mount_opts); /* if duplicate mntopts specified */
-				if ((poly->mount_opts = strdup(flag+namelen+1)) == NULL) {
+				poly->mount_opts = NULL;
+				if (filter_mntopts(flag+namelen+1, &poly->mount_opts, &poly->mount_flags) != 0) {
 					pam_syslog(idata->pamh, LOG_CRIT, "Memory allocation error");
 					return -1;
 				}
@@ -1484,7 +1552,7 @@ static int ns_setup(struct polydir_s *polyptr,
     }
 
     if (polyptr->method == TMPFS) {
-	if (mount("tmpfs", polyptr->dir, "tmpfs", 0, polyptr->mount_opts) < 0) {
+	if (mount("tmpfs", polyptr->dir, "tmpfs", polyptr->mount_flags, polyptr->mount_opts) < 0) {
 	    pam_syslog(idata->pamh, LOG_ERR, "Error mounting tmpfs on %s, %m",
 		polyptr->dir);
             return PAM_SESSION_ERR;

@@ -166,6 +166,7 @@ struct polydir_s {
     unsigned int flags;			/* polydir flags */
     char *init_script;			/* path to init script */
     char *mount_opts;			/* mount options for tmpfs mount */
+    unsigned long mount_flags;		/* mount flags for tmpfs mount */
     uid_t owner;			/* user which should own the polydir */
     gid_t group;			/* group which should own the polydir */
     mode_t mode;			/* mode of the polydir */
