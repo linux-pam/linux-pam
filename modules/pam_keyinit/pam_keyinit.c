@@ -33,8 +33,8 @@
 static int my_session_keyring = 0;
 static int session_counter = 0;
 static int do_revoke = 0;
-static int revoke_as_uid;
-static int revoke_as_gid;
+static uid_t revoke_as_uid;
+static gid_t revoke_as_gid;
 static int xdebug = 0;
 
 static void debug(pam_handle_t *pamh, const char *fmt, ...)
@@ -51,18 +51,16 @@ static void debug(pam_handle_t *pamh, const char *fmt, ...)
 	}
 }
 
-static int error(pam_handle_t *pamh, const char *fmt, ...)
+static void error(pam_handle_t *pamh, const char *fmt, ...)
 	__attribute__((format(printf, 2, 3)));
 
-static int error(pam_handle_t *pamh, const char *fmt, ...)
+static void error(pam_handle_t *pamh, const char *fmt, ...)
 {
 	va_list va;
 
 	va_start(va, fmt);
 	pam_vsyslog(pamh, LOG_ERR, fmt, va);
 	va_end(va);
-
-	return PAM_SESSION_ERR;
 }
 
 /*
@@ -124,9 +122,11 @@ static int init_keyrings(pam_handle_t *pamh, int force, int error_ret)
 /*
  * revoke the session keyring for this process
  */
-static void kill_keyrings(pam_handle_t *pamh)
+static int kill_keyrings(pam_handle_t *pamh, int error_ret)
 {
-	int old_uid, old_gid;
+	uid_t old_uid;
+	gid_t old_gid;
+	int ret = PAM_SUCCESS;
 
 	/* revoke the session keyring we created earlier */
 	if (my_session_keyring > 0) {
@@ -139,34 +139,45 @@ static void kill_keyrings(pam_handle_t *pamh)
 
 		/* switch to the real UID and GID so that we have permission to
 		 * revoke the key */
-		if (revoke_as_gid != old_gid && setregid(-1, revoke_as_gid) < 0)
-			error(pamh, "Unable to change GID to %d temporarily\n",
-			      revoke_as_gid);
+		if (revoke_as_gid != old_gid && setregid(-1, revoke_as_gid) < 0) {
+			error(pamh, "Unable to change GID to %d temporarily\n", revoke_as_gid);
+			return error_ret;
+		}
 
-		if (revoke_as_uid != old_uid && setresuid(-1, revoke_as_uid, old_uid) < 0)
-			error(pamh, "Unable to change UID to %d temporarily\n",
-			      revoke_as_uid);
+		if (revoke_as_uid != old_uid && setresuid(-1, revoke_as_uid, old_uid) < 0) {
+			error(pamh, "Unable to change UID to %d temporarily\n", revoke_as_uid);
+			if (getegid() != old_gid && setregid(-1, old_gid) < 0)
+				error(pamh, "Unable to change GID back to %d\n", old_gid);
+			return error_ret;
+		}
 
-		syscall(__NR_keyctl,
-			KEYCTL_REVOKE,
-			my_session_keyring);
+		if (syscall(__NR_keyctl, KEYCTL_REVOKE, my_session_keyring) < 0) {
+			ret = error_ret;
+		}
 
 		/* return to the orignal UID and GID (probably root) */
-		if (revoke_as_uid != old_uid && setreuid(-1, old_uid) < 0)
+		if (revoke_as_uid != old_uid && setreuid(-1, old_uid) < 0) {
 			error(pamh, "Unable to change UID back to %d\n", old_uid);
+			ret = error_ret;
+		}
 
-		if (revoke_as_gid != old_gid && setregid(-1, old_gid) < 0)
+		if (revoke_as_gid != old_gid && setregid(-1, old_gid) < 0) {
 			error(pamh, "Unable to change GID back to %d\n", old_gid);
+			ret = error_ret;
+		}
 
 		my_session_keyring = 0;
 	}
+	return ret;
 }
 
 static int do_keyinit(pam_handle_t *pamh, int argc, const char **argv, int error_ret)
 {
 	struct passwd *pw;
 	const char *username;
-	int ret, old_uid, uid, old_gid, gid, loop, force = 0;
+	int ret, loop, force = 0;
+	uid_t old_uid, uid;
+	gid_t old_gid, gid;
 
 	for (loop = 0; loop < argc; loop++) {
 		if (strcmp(argv[loop], "force") == 0)
@@ -217,11 +228,15 @@ static int do_keyinit(pam_handle_t *pamh, int argc, const char **argv, int error
 	ret = init_keyrings(pamh, force, error_ret);
 
 	/* return to the orignal UID and GID (probably root) */
-	if (uid != old_uid && setreuid(old_uid, -1) < 0)
-		ret = error(pamh, "Unable to change UID back to %d\n", old_uid);
+	if (uid != old_uid && setreuid(old_uid, -1) < 0) {
+		error(pamh, "Unable to change UID back to %d\n", old_uid);
+		ret = error_ret;
+	}
 
-	if (gid != old_gid && setregid(old_gid, -1) < 0)
-		ret = error(pamh, "Unable to change GID back to %d\n", old_gid);
+	if (gid != old_gid && setregid(old_gid, -1) < 0) {
+		error(pamh, "Unable to change GID back to %d\n", old_gid);
+		ret = error_ret;
+	}
 
 	return ret;
 }
@@ -239,22 +254,28 @@ int pam_sm_authenticate(pam_handle_t *pamh UNUSED, int flags UNUSED,
  * since setcred and open_session are called in different orders, a
  * session ring is invoked by the first of these functions called.
  */
-int pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
+int pam_sm_setcred(pam_handle_t *pamh, int flags,
                    int argc, const char **argv)
 {
-  debug(pamh, "SETCRED");
-
-  return do_keyinit(pamh, argc, argv, PAM_CRED_ERR);
+	if (flags & PAM_ESTABLISH_CRED) {
+		debug(pamh, "ESTABLISH_CRED");
+		return do_keyinit(pamh, argc, argv, PAM_CRED_ERR);
+	}
+	if (flags & PAM_DELETE_CRED && my_session_keyring > 0 && do_revoke) {
+		debug(pamh, "DELETE_CRED");
+		return kill_keyrings(pamh, PAM_CRED_ERR);
+	}
+	return PAM_IGNORE;
 }
 
 int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 			int argc, const char **argv)
 {
-  session_counter++;
+	session_counter++;
 
-  debug(pamh, "OPEN %d", session_counter);
+	debug(pamh, "OPEN %d", session_counter);
 
-  return do_keyinit(pamh, argc, argv, PAM_SESSION_ERR);
+	return do_keyinit(pamh, argc, argv, PAM_SESSION_ERR);
 }
 
 /*
@@ -269,7 +290,7 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 	session_counter--;
 
 	if (session_counter <= 0 && my_session_keyring > 0 && do_revoke)
-		kill_keyrings(pamh);
+		kill_keyrings(pamh, PAM_SESSION_ERR);
 
 	return PAM_SUCCESS;
 }
