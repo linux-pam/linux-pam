@@ -125,7 +125,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		 * allow this characters here.
 		 */
 		if (name == NULL || name[0] == '-' || name[0] == '+') {
-			pam_syslog(pamh, LOG_ERR, "bad username [%s]", name);
+			pam_syslog(pamh, LOG_NOTICE, "bad username [%s]", name);
 			retval = PAM_USER_UNKNOWN;
 			AUTH_RETURN;
 		}

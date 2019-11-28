@@ -199,7 +199,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
     {
       if (name)
         {
-          pam_syslog (pamh, LOG_ERR, "bad username [%s]", name);
+          pam_syslog (pamh, LOG_NOTICE, "bad username [%s]", name);
           return PAM_USER_UNKNOWN;
         }
       return PAM_SERVICE_ERR;
