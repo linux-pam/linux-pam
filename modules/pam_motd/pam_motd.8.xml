@@ -77,6 +77,11 @@
     <para>
       <command>ln -s /dev/null /etc/motd.d/my_motd</command>
     </para>
+    <para>
+      The <emphasis remap='B'>MOTD_SHOWN=pam</emphasis> environment variable
+      is set after showing the motd files, even when all of them were silenced
+      using symbolic links.
+    </para>
   </refsect1>
 
   <refsect1 id="pam_motd-options">
