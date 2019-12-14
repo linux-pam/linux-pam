@@ -133,10 +133,26 @@
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
+        <term>PAM_ABORT</term>
+        <listitem>
+           <para>
+             Not all relevant data or options could be obtained.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_BUF_ERR</term>
+        <listitem>
+           <para>
+              Memory buffer error.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
         <term>PAM_IGNORE</term>
         <listitem>
           <para>
-            This is the only return value of this module.
+            This is the default return value of this module.
           </para>
         </listitem>
       </varlistentry>

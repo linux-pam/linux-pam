@@ -398,7 +398,7 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 
     retval = pam_putenv(pamh, "MOTD_SHOWN=pam");
 
-    return retval;
+    return retval == PAM_SUCCESS ? PAM_IGNORE : retval;
 }
 
 /* end of module definition */
