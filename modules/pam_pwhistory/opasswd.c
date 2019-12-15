@@ -49,7 +49,7 @@
 #include <syslog.h>
 #include <sys/stat.h>
 
-#if defined (HAVE_XCRYPT_H)
+#if defined HAVE_LIBXCRYPT
 #include <xcrypt.h>
 #elif defined (HAVE_CRYPT_H)
 #include <crypt.h>
