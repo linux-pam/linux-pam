@@ -229,9 +229,16 @@ evaluate_notingroup(pam_handle_t *pamh, const char *user, const char *group)
 		return PAM_SUCCESS;
 	return PAM_AUTH_ERR;
 }
+
+#ifdef HAVE_INNETGR
+# define SOMETIMES_UNUSED UNUSED
+#else
+# define SOMETIMES_UNUSED
+#endif
+
 /* Return PAM_SUCCESS if the (host,user) is in the netgroup. */
 static int
-evaluate_innetgr(const pam_handle_t* pamh, const char *host, const char *user, const char *group)
+evaluate_innetgr(const pam_handle_t* pamh SOMETIMES_UNUSED, const char *host, const char *user, const char *group)
 {
 #ifdef HAVE_INNETGR
 	if (innetgr(group, host, user, NULL) == 1)
@@ -244,7 +251,7 @@ evaluate_innetgr(const pam_handle_t* pamh, const char *host, const char *user, c
 }
 /* Return PAM_SUCCESS if the (host,user) is NOT in the netgroup. */
 static int
-evaluate_notinnetgr(const pam_handle_t* pamh, const char *host, const char *user, const char *group)
+evaluate_notinnetgr(const pam_handle_t* pamh SOMETIMES_UNUSED, const char *host, const char *user, const char *group)
 {
 #ifdef HAVE_INNETGR
 	if (innetgr(group, host, user, NULL) == 0)

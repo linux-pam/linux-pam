@@ -806,7 +806,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     const char *user=NULL;
     const void *void_from=NULL;
     const char *from;
-    const char const *default_config = PAM_ACCESS_CONFIG;
+    const char *default_config = PAM_ACCESS_CONFIG;
     struct passwd *user_pw;
     char hostname[MAXHOSTNAMELEN + 1];
     int rv;

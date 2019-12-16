@@ -384,7 +384,7 @@ static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int 
     FILE *limitsfile;
     const char *proclimits = "/proc/1/limits";
     char line[256];
-    char *units, *hard, *soft, *name;
+    char *hard, *soft, *name;
 
     if (!(limitsfile = fopen(proclimits, "r"))) {
         pam_syslog(pamh, LOG_WARNING, "Could not read %s (%s), using PAM defaults", proclimits, strerror(errno));
@@ -410,10 +410,7 @@ static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int 
         if (pos == maxlen) {
             /* step backwards over "Units" name */
             LIMITS_SKIP_WHITESPACE;
-            LIMITS_MARK_ITEM(units);
-        }
-        else {
-            units = "";
+            LIMITS_MARK_ITEM(hard); /* not a typo, units unused */
         }
 
         /* step backwards over "Hard Limit" value */

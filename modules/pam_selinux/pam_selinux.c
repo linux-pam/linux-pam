@@ -63,8 +63,6 @@
 
 #include <selinux/selinux.h>
 #include <selinux/get_context_list.h>
-#include <selinux/flask.h>
-#include <selinux/av_permissions.h>
 #include <selinux/selinux.h>
 #include <selinux/context.h>
 #include <selinux/get_default_type.h>
@@ -591,7 +589,7 @@ compute_tty_context(const pam_handle_t *pamh, module_data_t *data)
   }
 
   if (security_compute_relabel(data->exec_context, data->prev_tty_context,
-			       SECCLASS_CHR_FILE, &data->tty_context)) {
+			       string_to_security_class("chr_file"), &data->tty_context)) {
     data->tty_context = NULL;
     pam_syslog(pamh, LOG_ERR, "Failed to compute new context for %s: %m",
 	       data->tty_path);

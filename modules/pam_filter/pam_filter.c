@@ -120,8 +120,8 @@ static int process_args(pam_handle_t *pamh
 
 	/* the "ARGS" variable */
 
-#define ARGS_OFFSET    5                          /*  strlen('ARGS=');  */
 #define ARGS_NAME      "ARGS="
+#define ARGS_OFFSET    (sizeof(ARGS_NAME) - 1)
 
 	size += ARGS_OFFSET;
 
@@ -134,7 +134,7 @@ static int process_args(pam_handle_t *pamh
 	    return -1;
 	}
 
-	strncpy(levp[0],ARGS_NAME,ARGS_OFFSET);
+	strcpy(levp[0], ARGS_NAME);
 	for (i=0,size=ARGS_OFFSET; i<argc; ++i) {
 	    strcpy(levp[0]+size, argv[i]);
 	    size += strlen(argv[i]);
@@ -144,8 +144,8 @@ static int process_args(pam_handle_t *pamh
 
 	/* the "SERVICE" variable */
 
-#define SERVICE_OFFSET    8                    /*  strlen('SERVICE=');  */
 #define SERVICE_NAME      "SERVICE="
+#define SERVICE_OFFSET    (sizeof(SERVICE_NAME) - 1)
 
 	retval = pam_get_item(pamh, PAM_SERVICE, &tmp);
 	if (retval != PAM_SUCCESS || tmp == NULL) {
@@ -168,14 +168,14 @@ static int process_args(pam_handle_t *pamh
 	    return -1;
 	}
 
-	strncpy(levp[1],SERVICE_NAME,SERVICE_OFFSET);
+	strcpy(levp[1], SERVICE_NAME);
 	strcpy(levp[1]+SERVICE_OFFSET, tmp);
 	levp[1][size] = '\0';                      /* <NUL> terminate */
 
 	/* the "USER" variable */
 
-#define USER_OFFSET    5                          /*  strlen('USER=');  */
 #define USER_NAME      "USER="
+#define USER_OFFSET    (sizeof(USER_NAME) - 1)
 
 	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS ||
 	    user == NULL) {
@@ -194,14 +194,14 @@ static int process_args(pam_handle_t *pamh
 	    return -1;
 	}
 
-	strncpy(levp[2],USER_NAME,USER_OFFSET);
+	strcpy(levp[2], USER_NAME);
 	strcpy(levp[2]+USER_OFFSET, user);
 	levp[2][size] = '\0';                      /* <NUL> terminate */
 
 	/* the "USER" variable */
 
-#define TYPE_OFFSET    5                          /*  strlen('TYPE=');  */
 #define TYPE_NAME      "TYPE="
+#define TYPE_OFFSET    (sizeof(TYPE_NAME) - 1)
 
 	size = TYPE_OFFSET+strlen(type);
 
@@ -217,7 +217,7 @@ static int process_args(pam_handle_t *pamh
 	    return -1;
 	}
 
-	strncpy(levp[3],TYPE_NAME,TYPE_OFFSET);
+	strcpy(levp[3], TYPE_NAME);
 	strcpy(levp[3]+TYPE_OFFSET, type);
 	levp[3][size] = '\0';                      /* <NUL> terminate */
 

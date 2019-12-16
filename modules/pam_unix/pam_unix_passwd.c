@@ -350,7 +350,7 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned long long ctrl, 
 static int check_old_password(const char *forwho, const char *newpass)
 {
 	static char buf[16384];
-	char *s_luser, *s_uid, *s_npas, *s_pas;
+	char *s_pas;
 	int retval = PAM_SUCCESS;
 	FILE *opwfile;
 	size_t len = strlen(forwho);
@@ -364,9 +364,9 @@ static int check_old_password(const char *forwho, const char *newpass)
 			buf[len] == ',')) {
 			char *sptr;
 			buf[strlen(buf) - 1] = '\0';
-			s_luser = strtok_r(buf, ":,", &sptr);
-			s_uid = strtok_r(NULL, ":,", &sptr);
-			s_npas = strtok_r(NULL, ":,", &sptr);
+			/* s_luser = */ strtok_r(buf, ":,", &sptr);
+			/* s_uid = */ strtok_r(NULL, ":,", &sptr);
+			/* s_npas = */ strtok_r(NULL, ":,", &sptr);
 			s_pas = strtok_r(NULL, ":,", &sptr);
 			while (s_pas != NULL) {
 				char *md5pass = Goodcrypt_md5(newpass, s_pas);
@@ -581,7 +581,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 		remark = _("You must choose a shorter password.");
 		D(("length exceeded [%s]", remark));
 	} else if (off(UNIX__IAMROOT, ctrl)) {
-		if (strlen(pass_new) < pass_min_len)
+		if ((int)strlen(pass_new) < pass_min_len)
 		  remark = _("You must choose a longer password.");
 		D(("length check [%s]", remark));
 		if (on(UNIX_REMEMBER_PASSWD, ctrl)) {

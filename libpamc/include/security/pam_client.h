@@ -109,7 +109,7 @@ char **pamc_list_agents(pamc_handle_t pch);
 
 #define PAM_BP_RENEW(old_p, cntrl, data_length)                            \
 do {                                                                       \
-    if (old_p) {                                                           \
+    if ((old_p) != NULL) {                                                 \
 	if (*(old_p)) {                                                    \
 	    u_int32_t __size;                                              \
             __size = PAM_BP_SIZE(*(old_p));                                \

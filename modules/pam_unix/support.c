@@ -211,11 +211,6 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 	return ctrl;
 }
 
-static void _cleanup(pam_handle_t * pamh UNUSED, void *x, int error_status UNUSED)
-{
-	_pam_delete(x);
-}
-
 /* ************************************************************** *
  * Useful non-trivial functions                                   *
  * ************************************************************** */

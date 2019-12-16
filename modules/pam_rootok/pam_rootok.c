@@ -61,7 +61,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
 
 #ifdef WITH_SELINUX
 static int
-log_callback (int type, const char *fmt, ...)
+log_callback (int type UNUSED, const char *fmt, ...)
 {
     int audit_fd;
     va_list ap;

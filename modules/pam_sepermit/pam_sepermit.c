@@ -353,7 +353,7 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 		if (*sense == PAM_SUCCESS) {
 			if (ignore)
 				*sense = PAM_IGNORE;
-			if (geteuid() == 0 && exclusive && get_loginuid(pamh) == -1)
+			if (geteuid() == 0 && exclusive && get_loginuid(pamh) == (uid_t)-1)
 				if (sepermit_lock(pamh, user, debug) < 0)
 					*sense = PAM_AUTH_ERR;
 		}
