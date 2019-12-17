@@ -119,19 +119,14 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 #ifdef VENDORDIR
       if (errno == ENOENT) {
 	if (stat(SECURETTY2_FILE, &ttyfileinfo)) {
-	  pam_syslog(pamh, LOG_NOTICE,
-		     "Couldn't open %s: %m", SECURETTY2_FILE);
 	  return PAM_SUCCESS; /* for compatibility with old securetty handling,
-				 this needs to succeed.  But we still log the
-				 error. */
+				 this needs to succeed. */
 	}
 	securettyfile = SECURETTY2_FILE;
       } else {
 #endif
-	pam_syslog(pamh, LOG_NOTICE, "Couldn't open %s: %m", SECURETTY_FILE);
 	return PAM_SUCCESS; /* for compatibility with old securetty handling,
-			       this needs to succeed.  But we still log the
-			       error. */
+			       this needs to succeed.  */
 #ifdef VENDORDIR
       }
 #endif
