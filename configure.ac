@@ -96,7 +96,7 @@ if eval 'test "x$GCC" = "xyes" -a "$CC" != "icc"'; then
       -Winline \
       -Wshadow
   do
-    JAPHAR_GREP_CFLAGS($flag, [ CFLAGS="$CFLAGS $flag" ])
+    JAPHAR_GREP_CFLAGS($flag, [ WARN_CFLAGS="$WARN_CFLAGS $flag" ])
   done
 fi
 dnl icc has special warning flags
@@ -114,9 +114,11 @@ if eval 'test "x$CC" = "xicc"'; then
       -Wuninitialized \
       -Wmain
   do
-    JAPHAR_GREP_CFLAGS($flag, [ CFLAGS="$CFLAGS $flag" ])
+    JAPHAR_GREP_CFLAGS($flag, [ WARN_CFLAGS="$WARN_CFLAGS $flag" ])
   done
 fi
+
+AC_SUBST(WARN_CFLAGS)
 
 if test "x${CC_FOR_BUILD+set}" != "xset" ; then
   if test "x$cross_compiling" = "xyes" ; then

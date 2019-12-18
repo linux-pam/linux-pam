@@ -17,7 +17,8 @@ secureconfdir = $(SCONFIGDIR)
 
 noinst_HEADERS = faillog.h
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
+AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+	$(WARN_CFLAGS)
 
 pam_tally_la_LDFLAGS = -no-undefined -avoid-version -module
 pam_tally_la_LIBADD = $(top_builddir)/libpam/libpam.la

@@ -19,7 +19,7 @@ secureconfdir = $(SCONFIGDIR)
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	-DCHKPWD_HELPER=\"$(sbindir)/unix_chkpwd\" \
 	-DUPDATE_HELPER=\"$(sbindir)/unix_update\" \
-	@TIRPC_CFLAGS@ @NSL_CFLAGS@
+	@TIRPC_CFLAGS@ @NSL_CFLAGS@ $(WARN_CFLAGS)
 
 if HAVE_LIBSELINUX
   AM_CFLAGS += -D"WITH_SELINUX"

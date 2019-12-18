@@ -19,7 +19,7 @@ securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	-I$(top_srcdir)/libpam_misc/include
+	-I$(top_srcdir)/libpam_misc/include $(WARN_CFLAGS)
 
 pam_selinux_la_LDFLAGS = -no-undefined -avoid-version -module
 pam_selinux_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@ @LIBAUDIT@

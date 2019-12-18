@@ -18,7 +18,7 @@ securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	    -DMKHOMEDIR_HELPER=\"$(sbindir)/mkhomedir_helper\"
+	-DMKHOMEDIR_HELPER=\"$(sbindir)/mkhomedir_helper\" $(WARN_CFLAGS)
 
 securelib_LTLIBRARIES = pam_mkhomedir.la
 pam_mkhomedir_la_SOURCES = pam_mkhomedir.c

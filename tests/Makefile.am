@@ -3,7 +3,7 @@
 #
 
 AM_CFLAGS = -DLIBPAM_COMPILE -I$(top_srcdir)/libpam/include \
-		-I$(top_srcdir)/libpam
+		-I$(top_srcdir)/libpam $(WARN_CFLAGS)
 LDADD = $(top_builddir)/libpam/libpam.la
 
 CLEANFILES = *~
