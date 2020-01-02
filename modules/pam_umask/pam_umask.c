@@ -90,6 +90,9 @@ get_options (pam_handle_t *pamh, options_t *options,
 	     int argc, const char **argv)
 {
   memset (options, 0, sizeof (options_t));
+
+  options->usergroups = DEFAULT_USERGROUPS_SETTING;
+
   /* Parse parameters for module */
   for ( ; argc-- > 0; argv++)
     parse_option (pamh, *argv, options);

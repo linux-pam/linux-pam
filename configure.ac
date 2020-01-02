@@ -487,6 +487,17 @@ AS_IF([test "x$enable_nis" != "xno"], [
 AC_SUBST([NIS_CFLAGS])
 AC_SUBST([NIS_LIBS])
 
+AC_ARG_ENABLE([usergroups],
+  AS_HELP_STRING([--enable-usergroups], [sets the usergroups option default to enabled]),
+  [WITH_USERGROUPS=$enableval], WITH_USERGROUPS=no)
+if test "$WITH_USERGROUPS" = "yes" ; then
+   AC_DEFINE([DEFAULT_USERGROUPS_SETTING], 1,
+	     [Defines the value usergroups option should have by default])
+else
+   AC_DEFINE([DEFAULT_USERGROUPS_SETTING], 0,
+	     [Defines the value usergroups option should have by default])
+fi
+
 AC_ARG_ENABLE([selinux],
         AS_HELP_STRING([--disable-selinux],[do not use SELinux]),
         WITH_SELINUX=$enableval, WITH_SELINUX=yes)
