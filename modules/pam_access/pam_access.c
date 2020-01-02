@@ -737,7 +737,9 @@ network_netmask_match (pam_handle_t *pamh,
 		{ /* invalid netmask value */
 		  return NO;
 		}
-	    if ((netmask < 0) || (netmask >= 128))
+	    if ((netmask < 0)
+		|| (addr_type == AF_INET && netmask > 32)
+		|| (addr_type == AF_INET6 && netmask > 128))
 		{ /* netmask value out of range */
 		  return NO;
 		}
