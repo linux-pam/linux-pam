@@ -79,6 +79,8 @@ parse_option (const pam_handle_t *pamh, const char *argv, options_t *options)
     options->umask = strdup (&argv[6]);
   else if (strcasecmp (argv, "usergroups") == 0)
     options->usergroups = 1;
+  else if (strcasecmp (argv, "nousergroups") == 0)
+    options->usergroups = 0;
   else if (strcasecmp (argv, "silent") == 0)
     options->silent = 1;
   else
