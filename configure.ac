@@ -633,6 +633,27 @@ AC_SUBST([HAVE_KEY_MANAGEMENT], $HAVE_KEY_MANAGEMENT)
 
 AM_CONDITIONAL([HAVE_KEY_MANAGEMENT], [test "$have_key_syscalls" = 1])
 
+dnl
+dnl Get values for default uid ranges in login.defs used in pam_usertype
+dnl
+AC_ARG_WITH([uidmin], AS_HELP_STRING([--with-uidmin=<number>],[default value for regular user min uid (1000)]), opt_uidmin=$withval)
+if test x"$opt_uidmin" == x; then
+    opt_uidmin=1000
+fi
+AC_DEFINE_UNQUOTED(PAM_USERTYPE_UIDMIN, $opt_uidmin, [Minimum regular user uid.])
+
+AC_ARG_WITH([sysuidmin], AS_HELP_STRING([--with-sysuidmin=<number>],[default value for system user min uid (101)]), opt_sysuidmin=$withval)
+if test x"$opt_sysuidmin" == x; then
+    opt_sysuidmin=101
+fi
+AC_DEFINE_UNQUOTED(PAM_USERTYPE_SYSUIDMIN, $opt_sysuidmin, [Minimum system user uid.])
+
+AC_ARG_WITH([kerneloverflowuid], AS_HELP_STRING([--with-kernel-overflow-uid=<number>],[kernel overflow uid, default (uint16_t)-2=65534]), opt_kerneloverflowuid=$withval)
+if test x"$opt_kerneloverflowuid" == x; then
+    opt_kerneloverflowuid=65534
+fi
+AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel overflow uid.])
+
 dnl Files to be created from when we run configure
 AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	libpam_misc/Makefile conf/Makefile conf/pam_conv1/Makefile \
@@ -661,6 +682,7 @@ AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile
 	modules/pam_timestamp/Makefile modules/pam_tty_audit/Makefile \
 	modules/pam_umask/Makefile \
 	modules/pam_unix/Makefile modules/pam_userdb/Makefile \
+	modules/pam_usertype/Makefile \
 	modules/pam_warn/Makefile modules/pam_wheel/Makefile \
 	modules/pam_xauth/Makefile doc/Makefile doc/specs/Makefile \
 	doc/man/Makefile doc/sag/Makefile doc/adg/Makefile \
