@@ -19,7 +19,7 @@ SUBDIRS := pam_access pam_cracklib pam_debug pam_deny pam_echo \
 	pam_selinux pam_sepermit pam_shells pam_stress \
 	pam_succeed_if pam_tally pam_tally2 pam_time pam_timestamp \
 	pam_tty_audit pam_umask \
-	pam_unix pam_userdb pam_warn pam_wheel pam_xauth \
+	pam_unix pam_userdb pam_usertype pam_warn pam_wheel pam_xauth \
 	$(MAYBE_PAM_RHOSTS) $(MAYBE_PAM_LASTLOG)
 
 CLEANFILES = *~
