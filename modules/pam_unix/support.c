@@ -22,6 +22,11 @@
 #ifdef HAVE_RPCSVC_YPCLNT_H
 #include <rpcsvc/ypclnt.h>
 #endif
+#ifdef HAVE_LIBXCRYPT
+#include <xcrypt.h>
+#elif defined(HAVE_CRYPT_H)
+#include <crypt.h>
+#endif
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
@@ -151,6 +156,14 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 					continue;
 				}
 				*rounds = strtol(*argv + 7, NULL, 10);
+#if (defined(CRYPT_PREFERRED_METHOD_AVAILABLE) && CRYPT_PREFERRED_METHOD_AVAILABLE)
+			} else if (j == UNIX_CRYPT_DEFAULT_PASS && !crypt_preferred_method()) {
+#else
+			} else if (j == UNIX_CRYPT_DEFAULT_PASS) {
+#endif
+				pam_syslog(pamh, LOG_ERR,
+				    "crypt_default is NOT supported by this version of libcrypt");
+				continue;
 			}
 
 			ctrl &= unix_args[j].mask;	/* for turning things off */
