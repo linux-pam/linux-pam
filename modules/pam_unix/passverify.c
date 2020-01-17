@@ -311,7 +311,7 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 		D(("need a new password 2"));
 		return PAM_NEW_AUTHTOK_REQD;
 	}
-	if ((curdays - spent->sp_lstchg > spent->sp_max - spent->sp_warn)
+	if ((curdays - spent->sp_lstchg >= spent->sp_max - spent->sp_warn)
 	    && (spent->sp_max != -1) && (spent->sp_warn != -1)) {
 		*daysleft = (int)((spent->sp_lstchg + spent->sp_max) - curdays);
 		D(("warn before expiry"));
