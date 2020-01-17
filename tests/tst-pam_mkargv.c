@@ -18,16 +18,16 @@
 /* Simple program to see if _pam_mkargv() would succeed. */
 int main(void)
 {
-  char *argvstring = "user = XENDT\\userα user=XENDT\\user1";
-  const char *argvresult[] = {"user", "=", "XENDT\\userα",
-			      "user=XENDT\\user1"};
+  static const char argvstring[] = "user = XENDT\\userα user=XENDT\\user1";
+  static const char * const argvresult[] = {"user", "=", "XENDT\\userα",
+                                            "user=XENDT\\user1"};
   int myargc;
   char **myargv;
   int argvlen;
   int explen;
   int i;
 
-  explen = (strlen(argvstring) + 1) * ((sizeof(char)) + sizeof(char *));
+  explen = sizeof(argvstring) * ((sizeof(char)) + sizeof(char *));
   argvlen = _pam_mkargv(argvstring, &myargv, &myargc);
 
 #if 0

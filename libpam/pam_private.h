@@ -271,7 +271,7 @@ char *_pam_strdup(const char *s);
 
 char *_pam_memdup(const char *s, int len);
 
-int _pam_mkargv(char *s, char ***argv, int *argc);
+int _pam_mkargv(const char *s, char ***argv, int *argc);
 
 void _pam_sanitize(pam_handle_t *pamh);
 

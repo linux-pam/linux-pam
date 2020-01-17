@@ -163,7 +163,7 @@ char *_pam_memdup(const char *x, int len)
 /* Generate argv, argc from s */
 /* caller must free(argv)     */
 
-int _pam_mkargv(char *s, char ***argv, int *argc)
+int _pam_mkargv(const char *s, char ***argv, int *argc)
 {
     int l;
     int argvlen = 0;
