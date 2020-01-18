@@ -54,6 +54,8 @@
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 
+#include "pam_cc_compat.h"
+
 #define DATANAME "pam_tty_audit_last_state"
 
 /* Open an audit netlink socket */
@@ -79,7 +81,9 @@ nl_send (int fd, unsigned type, unsigned flags, const void *data, size_t size)
   nlm.nlmsg_pid = 0;
   iov[0].iov_base = &nlm;
   iov[0].iov_len = sizeof (nlm);
+  DIAG_PUSH_IGNORE_CAST_QUAL;
   iov[1].iov_base = (void *)data;
+  DIAG_POP_IGNORE_CAST_QUAL;
   iov[1].iov_len = size;
   addr.nl_family = AF_NETLINK;
   addr.nl_pid = 0;

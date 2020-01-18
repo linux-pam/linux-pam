@@ -34,6 +34,7 @@
 
 #define _ATFILE_SOURCE
 
+#include "pam_cc_compat.h"
 #include "pam_namespace.h"
 #include "argv_parse.h"
 
@@ -2230,7 +2231,9 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 	/* nothing to reset */
 	return PAM_SUCCESS;
 
+    DIAG_PUSH_IGNORE_CAST_QUAL;
     idata.polydirs_ptr = (void *)polyptr;
+    DIAG_POP_IGNORE_CAST_QUAL;
 
     if (idata.flags & PAMNS_DEBUG)
         pam_syslog(idata.pamh, LOG_DEBUG, "Resetting namespace for pid %d",

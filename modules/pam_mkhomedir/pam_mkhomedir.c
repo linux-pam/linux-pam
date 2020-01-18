@@ -58,6 +58,8 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
+#include "pam_cc_compat.h"
+
 /* argument parsing */
 #define MKHOMEDIR_DEBUG      020	/* be verbose about things */
 #define MKHOMEDIR_QUIET      040	/* keep quiet about things */
@@ -143,7 +145,9 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 	args[2] = opt->umask;
 	args[3] = opt->skeldir;
 
+	DIAG_PUSH_IGNORE_CAST_QUAL;
 	execve(MKHOMEDIR_HELPER, (char **)args, envp);
+	DIAG_POP_IGNORE_CAST_QUAL;
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));

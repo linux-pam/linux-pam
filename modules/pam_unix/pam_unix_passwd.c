@@ -70,6 +70,7 @@
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
+#include "pam_cc_compat.h"
 #include "md5.h"
 #include "support.h"
 #include "passverify.h"
@@ -293,7 +294,9 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned long long ctrl, 
         snprintf(buffer, sizeof(buffer), "%d", remember);
         args[4] = buffer;
 
+	DIAG_PUSH_IGNORE_CAST_QUAL;
 	execve(UPDATE_HELPER, (char *const *) args, envp);
+	DIAG_POP_IGNORE_CAST_QUAL;
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));

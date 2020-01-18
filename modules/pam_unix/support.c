@@ -28,6 +28,7 @@
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
+#include "pam_cc_compat.h"
 #include "support.h"
 #include "passverify.h"
 
@@ -526,7 +527,9 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	  args[2]="nonull";
 	}
 
+	DIAG_PUSH_IGNORE_CAST_QUAL;
 	execve(CHKPWD_HELPER, (char *const *) args, envp);
+	DIAG_POP_IGNORE_CAST_QUAL;
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));

@@ -59,6 +59,7 @@
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
+#include "pam_cc_compat.h"
 #include "support.h"
 #include "passverify.h"
 
@@ -127,7 +128,9 @@ int _unix_run_verify_binary(pam_handle_t *pamh, unsigned long long ctrl,
     args[1] = user;
     args[2] = "chkexpiry";
 
+    DIAG_PUSH_IGNORE_CAST_QUAL;
     execve(CHKPWD_HELPER, (char *const *) args, envp);
+    DIAG_POP_IGNORE_CAST_QUAL;
 
     pam_syslog(pamh, LOG_ERR, "helper binary execve failed: %m");
     /* should not get here: exit with error */

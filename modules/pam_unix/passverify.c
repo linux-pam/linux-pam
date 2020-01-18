@@ -25,6 +25,7 @@
 #include <crypt.h>
 #endif
 
+#include "pam_cc_compat.h"
 #include "md5.h"
 #include "bigcrypt.h"
 #include "passverify.h"
@@ -1020,7 +1021,9 @@ PAMH_ARG_DECL(int unix_update_shadow,
     fclose(opwfile);
 
     if (!wroteentry && !err) {
+	DIAG_PUSH_IGNORE_CAST_QUAL;
 	spwdent.sp_namp = (char *)forwho;
+	DIAG_POP_IGNORE_CAST_QUAL;
 	spwdent.sp_pwdp = towhat;
 	spwdent.sp_lstchg = time(NULL) / (60 * 60 * 24);
 	if (spwdent.sp_lstchg == 0)

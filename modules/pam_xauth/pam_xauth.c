@@ -65,6 +65,8 @@
 #include <sys/stat.h>
 #endif
 
+#include "pam_cc_compat.h"
+
 #define DATANAME "pam_xauth_cookie_file"
 #define XAUTHENV "XAUTHORITY"
 #define HOMEENV  "HOME"
@@ -179,7 +181,9 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 			}
 		}
 		/* Run the command. */
+		DIAG_PUSH_IGNORE_CAST_QUAL;
 		execv(command, (char *const *) args);
+		DIAG_POP_IGNORE_CAST_QUAL;
 		/* Never reached. */
 		_exit(1);
 	}

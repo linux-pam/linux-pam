@@ -23,7 +23,7 @@ include_HEADERS = include/security/_pam_compat.h \
 	include/security/pam_ext.h include/security/pam_modutil.h
 
 noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h \
-		pam_modutil_private.h
+		pam_modutil_private.h include/pam_cc_compat.h
 
 libpam_la_LDFLAGS = -no-undefined -version-info 84:2:84
 libpam_la_LIBADD = @LIBAUDIT@ $(LIBPRELUDE_LIBS) $(ECONF_LIBS) @LIBDL@
