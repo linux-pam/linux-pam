@@ -113,7 +113,7 @@ pam_modutil_search_key(pam_handle_t *pamh UNUSED,
 			while (isspace((int)*cp) || *cp == '=')
 				++cp;
 		else
-			cp = "";
+			cp = buf + n;   /* empty string */
 
 		if (strcasecmp(tmp, key) == 0) {
 			retval = strdup(cp);

@@ -893,7 +893,7 @@ static void
 print_one(const struct tallylog *tally, uid_t uid)
 {
    static int once;
-   char *cp = "[UNKNOWN]";
+   const char *cp = "[UNKNOWN]";
    time_t fail_time;
    struct tm *tm;
    struct passwd *pwent;

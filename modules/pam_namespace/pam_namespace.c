@@ -2177,7 +2177,7 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 {
     int i, retval;
     struct instance_data idata;
-    void *polyptr;
+    const void *polyptr;
 
     /* init instance data */
     idata.flags = 0;
@@ -2225,12 +2225,12 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
     if (retval != PAM_SUCCESS)
 	return retval;
 
-    retval = pam_get_data(idata.pamh, NAMESPACE_POLYDIR_DATA, (const void **)&polyptr);
+    retval = pam_get_data(idata.pamh, NAMESPACE_POLYDIR_DATA, &polyptr);
     if (retval != PAM_SUCCESS || polyptr == NULL)
 	/* nothing to reset */
 	return PAM_SUCCESS;
 
-    idata.polydirs_ptr = polyptr;
+    idata.polydirs_ptr = (void *)polyptr;
 
     if (idata.flags & PAMNS_DEBUG)
         pam_syslog(idata.pamh, LOG_DEBUG, "Resetting namespace for pid %d",

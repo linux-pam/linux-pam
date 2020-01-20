@@ -143,7 +143,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 	args[2] = opt->umask;
 	args[3] = opt->skeldir;
 
-	execve(MKHOMEDIR_HELPER, (char *const *) args, envp);
+	execve(MKHOMEDIR_HELPER, (char **)args, envp);
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));

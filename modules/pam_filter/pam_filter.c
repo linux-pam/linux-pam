@@ -253,7 +253,7 @@ static void free_evp(char *evp[])
 
 static int
 set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
-	    const char **evp, const char *filtername)
+	    char * const evp[], const char *filtername)
 {
     int status=-1;
     char* terminal = NULL;
@@ -632,8 +632,7 @@ static int need_a_filter(pam_handle_t *pamh
     }
 
     if (retval == PAM_SUCCESS && (ctrl & which_run)) {
-	retval = set_filter(pamh, flags, ctrl
-			    , (const char **)evp, filterfile);
+	retval = set_filter(pamh, flags, ctrl, evp, filterfile);
     }
 
     if (retval == PAM_SUCCESS
