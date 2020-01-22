@@ -223,7 +223,7 @@ evaluate_ingroup(pam_handle_t *pamh, const char *user, const char *group)
 
 	grp = strtok_r(group, delim, &ptr);
 	while(grp != NULL) {
-		if (pam_modutil_user_in_group_nam_nam(pamh, user, group) == 1)
+		if (pam_modutil_user_in_group_nam_nam(pamh, user, grp) == 1)
 			return PAM_SUCCESS;
 		grp = strtok_r(NULL, delim, &ptr);
 	}
@@ -239,11 +239,11 @@ evaluate_notingroup(pam_handle_t *pamh, const char *user, const char *group)
 
 	grp = strtok_r(group, delim, &ptr);
 	while(grp != NULL) {
-		if (pam_modutil_user_in_group_nam_nam(pamh, user, group) == 0)
-			return PAM_SUCCESS;
+		if (pam_modutil_user_in_group_nam_nam(pamh, user, grp) == 1)
+			return PAM_AUTH_ERR;
 		grp = strtok_r(NULL, delim, &ptr);
 	}
-	return PAM_AUTH_ERR;
+	return PAM_SUCCESS;
 }
 
 #ifdef HAVE_INNETGR
