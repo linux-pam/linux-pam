@@ -198,27 +198,15 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><option>user ingroup group</option></term>
+        <term><option>user ingroup group:group:...</option></term>
         <listitem>
-          <para>User is in given group.</para>
+          <para>User is in given group(s).</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><option>user ismemberof group:group:...</option></term>
+        <term><option>user notingroup group:group:...</option></term>
         <listitem>
-          <para>User is a member of any group in the list.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term><option>user notingroup group</option></term>
-        <listitem>
-          <para>User is not in given group.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term><option>user isnonmemberof group:group:...</option></term>
-        <listitem>
-          <para>User is not a member of any group in the list.</para>
+          <para>User is not in given group(s).</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -287,6 +275,7 @@
     </para>
     <programlisting>
 auth required pam_succeed_if.so quiet user ingroup wheel
+auth required pam_succeed_if.so quiet user ingroup group1:group2
     </programlisting>
 
     <para>
