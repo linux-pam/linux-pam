@@ -7,7 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_listfile
 
+if HAVE_DOC
 man_MANS = pam_listfile.8
+endif
 XMLS = README.xml pam_listfile.8.xml
 
 TESTS = tst-pam_listfile

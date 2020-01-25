@@ -7,7 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) time.conf tst-pam_time
 
+if HAVE_DOC
 man_MANS = time.conf.5 pam_time.8
+endif
 XMLS = README.xml time.conf.5.xml pam_time.8.xml
 
 TESTS = tst-pam_time

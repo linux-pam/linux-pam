@@ -10,7 +10,9 @@ EXTRA_DIST = README $(XMLS) pam_sepermit.8 sepermit.conf sepermit.conf.5 tst-pam
 
 if HAVE_LIBSELINUX
   TESTS = tst-pam_sepermit
+if HAVE_DOC
   man_MANS = pam_sepermit.8 sepermit.conf.5
+endif
 endif
 
 XMLS = README.xml pam_sepermit.8.xml sepermit.conf.5.xml

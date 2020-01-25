@@ -10,7 +10,9 @@ EXTRA_DIST = README $(XMLS) pam_selinux.8 pam_selinux_check.8 \
 
 if HAVE_LIBSELINUX
   TESTS = tst-pam_selinux
+if HAVE_DOC
   man_MANS = pam_selinux.8
+endif
 endif
 
 XMLS = README.xml pam_selinux.8.xml

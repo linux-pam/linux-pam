@@ -8,7 +8,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 EXTRA_DIST = README $(XMLS) pam_userdb.8 create.pl tst-pam_userdb
 
 if HAVE_LIBDB
+if HAVE_DOC
   man_MANS = pam_userdb.8
+endif
   TESTS = tst-pam_userdb
 endif
 

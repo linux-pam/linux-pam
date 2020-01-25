@@ -249,6 +249,11 @@ dnl
 dnl options and defaults
 dnl
 
+AC_ARG_ENABLE([doc],
+        AS_HELP_STRING([--disable-doc],[Do not generate or install documentation]),
+        WITH_DOC=$enableval, WITH_DOC=yes)
+AM_CONDITIONAL([HAVE_DOC], [test "x$WITH_DOC" = "xyes"])
+
 AC_ARG_ENABLE([prelude],
 	AS_HELP_STRING([--disable-prelude],[do not use prelude]),
 	WITH_PRELUDE=$enableval, WITH_PRELUDE=yes)
@@ -606,7 +611,7 @@ fi
 
 AC_PATH_PROG([FO2PDF], [fop])
 
-AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_docu != xno)
+AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_docu != xno -a x$enable_doc != xno)
 AM_CONDITIONAL(ENABLE_GENERATE_PDF, test ! -z "$FO2PDF")
 
 

@@ -9,7 +9,9 @@ EXTRA_DIST = README $(XMLS) pam_cracklib.8 tst-pam_cracklib
 
 if HAVE_LIBCRACK
   TESTS = tst-pam_cracklib
+if HAVE_DOC
   man_MANS = pam_cracklib.8
+endif
 endif
 
 XMLS = README.xml pam_cracklib.8.xml

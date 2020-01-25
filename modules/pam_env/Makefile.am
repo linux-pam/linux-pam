@@ -7,7 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README pam_env.conf $(MANS) $(XMLS) tst-pam_env environment
 
+if HAVE_DOC
 man_MANS = pam_env.conf.5 pam_env.8 environment.5
+endif
 
 XMLS = README.xml pam_env.conf.5.xml pam_env.8.xml
 

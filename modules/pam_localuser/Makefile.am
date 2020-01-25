@@ -9,7 +9,9 @@ EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_localuser
 
 TESTS = tst-pam_localuser
 
+if HAVE_DOC
 man_MANS = pam_localuser.8
+endif
 XMLS = README.xml pam_localuser.8.xml
 
 securelibdir = $(SECUREDIR)

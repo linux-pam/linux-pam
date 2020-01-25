@@ -7,7 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README access.conf $(MANS) $(XMLS) tst-pam_access
 
+if HAVE_DOC
 man_MANS = access.conf.5 pam_access.8
+endif
 
 XMLS = README.xml access.conf.5.xml pam_access.8.xml
 

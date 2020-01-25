@@ -10,7 +10,9 @@ secureconfdir = $(SCONFIGDIR)
 
 EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_lastlog
 
+if HAVE_DOC
 man_MANS = pam_lastlog.8
+endif
 XMLS = README.xml pam_lastlog.8.xml
 
 TESTS = tst-pam_lastlog

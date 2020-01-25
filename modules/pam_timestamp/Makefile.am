@@ -7,7 +7,9 @@ CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
 XMLS = README.xml pam_timestamp.8.xml pam_timestamp_check.8.xml
+if HAVE_DOC
 man_MANS = pam_timestamp.8 pam_timestamp_check.8
+endif
 dist_TESTS = tst-pam_timestamp
 nodist_TESTS = hmacfile
 TESTS = $(dist_TESTS) $(nodist_TESTS)

@@ -9,7 +9,9 @@ EXTRA_DIST = README pam_tty_audit.8 $(XMLS) tst-pam_tty_audit
 
 if HAVE_AUDIT_TTY_STATUS
   TESTS = tst-pam_tty_audit
+if HAVE_DOC
   man_MANS = pam_tty_audit.8
+endif
 endif
 XMLS = README.xml pam_tty_audit.8.xml
 
