@@ -7,7 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_ftp
 
+if HAVE_DOC
 man_MANS = pam_ftp.8
+endif
 XMLS = README.xml pam_ftp.8.xml
 
 securelibdir = $(SECUREDIR)

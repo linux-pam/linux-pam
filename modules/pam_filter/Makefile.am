@@ -9,7 +9,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_filter
 
+if HAVE_DOC
 man_MANS = pam_filter.8
+endif
 XMLS = README.xml pam_filter.8.xml
 
 securelibdir = $(SECUREDIR)

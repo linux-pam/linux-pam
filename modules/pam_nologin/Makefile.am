@@ -9,7 +9,9 @@ EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_nologin
 
 TESTS = tst-pam_nologin
 
+if HAVE_DOC
 man_MANS = pam_nologin.8
+endif
 XMLS = README.xml pam_nologin.8.xml
 
 securelibdir = $(SECUREDIR)

@@ -9,7 +9,9 @@ EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_rhosts
 
 TESTS = tst-pam_rhosts
 
+if HAVE_DOC
 man_MANS = pam_rhosts.8
+endif
 
 XMLS = README.xml pam_rhosts.8.xml
 

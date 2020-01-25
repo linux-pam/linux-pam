@@ -7,7 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README group.conf $(MANS) $(XMLS) tst-pam_group
 
+if HAVE_DOC
 man_MANS = group.conf.5 pam_group.8
+endif
 XMLS = README.xml group.conf.5.xml pam_group.8.xml
 
 securelibdir = $(SECUREDIR)

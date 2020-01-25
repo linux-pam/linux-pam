@@ -6,8 +6,10 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MAN5) $(MAN8) README
 
+if HAVE_DOC
 MAN5 = namespace.conf.5
 MAN8 = pam_namespace.8
+endif
 
 EXTRA_DIST = README namespace.conf namespace.init $(MAN5) $(MAN8) $(XMLS) tst-pam_namespace
 
