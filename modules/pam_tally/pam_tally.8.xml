@@ -168,7 +168,7 @@
               </term>
               <listitem>
                 <para>
-                  Don't print informative messages.
+                  Don't print informative messages. Without <emphasis>silent</emphasis> leaks presence of accounts on the system.
                 </para>
               </listitem>
             </varlistentry>
