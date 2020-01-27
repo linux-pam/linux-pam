@@ -158,7 +158,7 @@
               </term>
               <listitem>
                 <para>
-                  Don't print informative messages. Lock messages can be printed without the <emphasis>silent</emphasis> option. Similar messages are not printed for non-existing accounts.
+                  Don't print informative messages. The messages printed without the <emphasis>silent</emphasis> option leak presence of accounts on the system because they are not printed for non-existing accounts.
                 </para>
               </listitem>
             </varlistentry>
