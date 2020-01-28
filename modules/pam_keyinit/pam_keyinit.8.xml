@@ -233,7 +233,7 @@ session  required  pam_keyinit.so
       </citerefentry>,
       <citerefentry>
 	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
-      </citerefentry>
+      </citerefentry>,
       <citerefentry>
 	<refentrytitle>keyctl</refentrytitle><manvolnum>1</manvolnum>
       </citerefentry>
