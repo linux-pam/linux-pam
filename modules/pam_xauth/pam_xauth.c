@@ -50,7 +50,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
-#include <unistd.h>
 
 #define PAM_SM_SESSION
 
@@ -62,7 +61,6 @@
 #ifdef WITH_SELINUX
 #include <selinux/selinux.h>
 #include <selinux/label.h>
-#include <sys/stat.h>
 #endif
 
 #include "pam_cc_compat.h"

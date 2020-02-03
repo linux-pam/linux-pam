@@ -63,14 +63,12 @@
 
 #include <selinux/selinux.h>
 #include <selinux/get_context_list.h>
-#include <selinux/selinux.h>
 #include <selinux/context.h>
 #include <selinux/get_default_type.h>
 
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
 #include <sys/select.h>
-#include <errno.h>
 #endif
 
 /* Send audit message */

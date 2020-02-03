@@ -53,7 +53,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <pwd.h>
 #include <dirent.h>
 
 #define PAM_SM_AUTH
