@@ -215,34 +215,48 @@ evaluate_notinlist(const char *left, const char *right)
 }
 /* Return PAM_SUCCESS if the user is in the group. */
 static int
-evaluate_ingroup(pam_handle_t *pamh, const char *user, const char *group)
+evaluate_ingroup(pam_handle_t *pamh, const char *user, const char *grouplist)
 {
 	char *ptr = NULL;
-	const char const *delim = ":";
+	static const char delim[] = ":";
 	char const *grp = NULL;
+	char *group = strdup(grouplist);
+
+	if (group == NULL)
+		return PAM_BUF_ERR;
 
 	grp = strtok_r(group, delim, &ptr);
 	while(grp != NULL) {
-		if (pam_modutil_user_in_group_nam_nam(pamh, user, grp) == 1)
+		if (pam_modutil_user_in_group_nam_nam(pamh, user, grp) == 1) {
+			free(group);
 			return PAM_SUCCESS;
+		}
 		grp = strtok_r(NULL, delim, &ptr);
 	}
+	free(group);
 	return PAM_AUTH_ERR;
 }
 /* Return PAM_SUCCESS if the user is NOT in the group. */
 static int
-evaluate_notingroup(pam_handle_t *pamh, const char *user, const char *group)
+evaluate_notingroup(pam_handle_t *pamh, const char *user, const char *grouplist)
 {
 	char *ptr = NULL;
-	const char const *delim = ":";
+	static const char delim[] = ":";
 	char const *grp = NULL;
+	char *group = strdup(grouplist);
+
+	if (group == NULL)
+		return PAM_BUF_ERR;
 
 	grp = strtok_r(group, delim, &ptr);
 	while(grp != NULL) {
-		if (pam_modutil_user_in_group_nam_nam(pamh, user, grp) == 1)
+		if (pam_modutil_user_in_group_nam_nam(pamh, user, grp) == 1) {
+			free(group);
 			return PAM_AUTH_ERR;
+		}
 		grp = strtok_r(NULL, delim, &ptr);
 	}
+	free(group);
 	return PAM_SUCCESS;
 }
 

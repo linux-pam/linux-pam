@@ -271,7 +271,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
                     int argc, const char **argv)
 {
     struct pam_usertype_opts opts;
-    uid_t uid;
+    uid_t uid = -1;
     int ret;
 
     ret = pam_usertype_parse_args(&opts, pamh, argc, argv);
