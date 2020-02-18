@@ -217,17 +217,33 @@ evaluate_notinlist(const char *left, const char *right)
 static int
 evaluate_ingroup(pam_handle_t *pamh, const char *user, const char *group)
 {
-	if (pam_modutil_user_in_group_nam_nam(pamh, user, group) == 1)
-		return PAM_SUCCESS;
+	char *ptr = NULL;
+	const char const *delim = ":";
+	char const *grp = NULL;
+
+	grp = strtok_r(group, delim, &ptr);
+	while(grp != NULL) {
+		if (pam_modutil_user_in_group_nam_nam(pamh, user, grp) == 1)
+			return PAM_SUCCESS;
+		grp = strtok_r(NULL, delim, &ptr);
+	}
 	return PAM_AUTH_ERR;
 }
 /* Return PAM_SUCCESS if the user is NOT in the group. */
 static int
 evaluate_notingroup(pam_handle_t *pamh, const char *user, const char *group)
 {
-	if (pam_modutil_user_in_group_nam_nam(pamh, user, group) == 0)
-		return PAM_SUCCESS;
-	return PAM_AUTH_ERR;
+	char *ptr = NULL;
+	const char const *delim = ":";
+	char const *grp = NULL;
+
+	grp = strtok_r(group, delim, &ptr);
+	while(grp != NULL) {
+		if (pam_modutil_user_in_group_nam_nam(pamh, user, grp) == 1)
+			return PAM_AUTH_ERR;
+		grp = strtok_r(NULL, delim, &ptr);
+	}
+	return PAM_SUCCESS;
 }
 
 #ifdef HAVE_INNETGR
@@ -403,11 +419,11 @@ evaluate(pam_handle_t *pamh, int debug,
 	if (strcasecmp(qual, "notin") == 0) {
 		return evaluate_notinlist(left, right);
 	}
-	/* User is in this group. */
+	/* User is in this group(s). */
 	if (strcasecmp(qual, "ingroup") == 0) {
 		return evaluate_ingroup(pamh, user, right);
 	}
-	/* User is not in this group. */
+	/* User is not in this group(s). */
 	if (strcasecmp(qual, "notingroup") == 0) {
 		return evaluate_notingroup(pamh, user, right);
 	}
