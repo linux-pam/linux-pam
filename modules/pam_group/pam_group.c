@@ -298,6 +298,7 @@ logic_field (const pam_handle_t *pamh, const void *me,
 		    return FALSE;
 	       }
 	       next = VAL;
+	       not = FALSE;
 	  }
 	  at += l;
      }
