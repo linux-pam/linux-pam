@@ -52,7 +52,7 @@ typedef struct var {
   char *override;
 } VAR;
 
-#define BUF_SIZE 1024
+#define BUF_SIZE 8192
 #define MAX_ENV  8192
 
 #define GOOD_LINE    0
@@ -71,8 +71,8 @@ static const char * _pam_get_item_byname(pam_handle_t *, const char *);
 static int  _define_var(pam_handle_t *, int, VAR *);
 static int  _undefine_var(pam_handle_t *, int, VAR *);
 
-/* This is a flag used to designate an empty string */
-static char quote='Z';
+/* This is a special value used to designate an empty string */
+static char quote='\0';
 
 /* argument parsing */
 
@@ -231,6 +231,13 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
 	* sanity check, the key must be alpha-numeric
 	*/
 
+	if (key[0] == '=') {
+		pam_syslog(pamh, LOG_ERR,
+		           "missing key name '%s' in %s', ignoring",
+		           key, file);
+		continue;
+	}
+
 	for ( i = 0 ; key[i] != '=' && key[i] != '\0' ; i++ )
 	    if (!isalnum(key[i]) && key[i] != '_') {
 		pam_syslog(pamh, LOG_ERR,
@@ -309,6 +316,14 @@ static int _assemble_line(FILE *f, char *buffer, int buf_len)
 		/* EOF */
 		return 0;
 	    }
+	}
+	if (p[0] == '\0') {
+	    D(("_assemble_line: corrupted or binary file"));
+	    return -1;
+	}
+	if (p[strlen(p)-1] != '\n') {
+	    D(("_assemble_line: line too long"));
+	    return -1;
 	}
 
 	/* skip leading spaces --- line may be blank */
@@ -500,7 +515,7 @@ static int _check_var(pam_handle_t *pamh, VAR *var)
 
   /* Now its easy */
 
-  if (var->override && *(var->override) && &quote != var->override) {
+  if (var->override && *(var->override)) {
     /* if there is a non-empty string in var->override, we use it */
     D(("OVERRIDE variable <%s> being used: <%s>", var->name, var->override));
     var->value = var->override;
@@ -513,7 +528,6 @@ static int _check_var(pam_handle_t *pamh, VAR *var)
        * This means that the empty string was given for defval value
        * which indicates that a variable should be defined with no value
        */
-      *var->defval = '\0';
       D(("An empty variable: <%s>", var->name));
       retval = DEFINE_VAR;
     } else if (var->defval) {
@@ -543,9 +557,11 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
 
   /* I know this shouldn't be hard-coded but it's so much easier this way */
   char tmp[MAX_ENV];
+  size_t idx;
 
   D(("Remember to initialize tmp!"));
   memset(tmp, 0, MAX_ENV);
+  idx = 0;
 
   /*
    * (possibly non-existent) environment variables can be used as values
@@ -563,8 +579,8 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
 	pam_syslog(pamh, LOG_ERR,
 		   "Unrecognized escaped character: <%c> - ignoring",
 		   *orig);
-      } else if ((strlen(tmp) + 1) < MAX_ENV) {
-	tmp[strlen(tmp)] = *orig++;        /* Note the increment */
+      } else if (idx + 1 < MAX_ENV) {
+	tmp[idx++] = *orig++;        /* Note the increment */
       } else {
 	/* is it really a good idea to try to log this? */
 	D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
@@ -580,8 +596,8 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
 	   " <%s> - ignoring", orig));
 	pam_syslog(pamh, LOG_ERR, "Expandable variables must be wrapped in {}"
 		 " <%s> - ignoring", orig);
-	if ((strlen(tmp) + 1) < MAX_ENV) {
-	  tmp[strlen(tmp)] = *orig++;        /* Note the increment */
+	if (idx + 1 < MAX_ENV) {
+	  tmp[idx++] = *orig++;        /* Note the increment */
 	}
 	continue;
       } else {
@@ -625,8 +641,10 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
 	}         /* switch */
 
 	if (tmpptr) {
-	  if ((strlen(tmp) + strlen(tmpptr)) < MAX_ENV) {
-	    strcat(tmp, tmpptr);
+	  size_t len = strlen(tmpptr);
+	  if (idx + len < MAX_ENV) {
+	    strcpy(tmp + idx, tmpptr);
+	    idx += len;
 	  } else {
 	    /* is it really a good idea to try to log this? */
 	    D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
@@ -637,8 +655,8 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
 	}
       }           /* if ('{' != *orig++) */
     } else {      /* if ( '$' == *orig || '@' == *orig) */
-      if ((strlen(tmp) + 1) < MAX_ENV) {
-	tmp[strlen(tmp)] = *orig++;        /* Note the increment */
+      if (idx + 1 < MAX_ENV) {
+	tmp[idx++] = *orig++;        /* Note the increment */
       } else {
 	/* is it really a good idea to try to log this? */
 	D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
@@ -649,17 +667,17 @@ static int _expand_arg(pam_handle_t *pamh, char **value)
     }
   }              /* for (;*orig;) */
 
-  if (strlen(tmp) > strlen(*value)) {
+  if (idx > strlen(*value)) {
     free(*value);
-    if ((*value = malloc(strlen(tmp) +1)) == NULL) {
-      D(("Couldn't malloc %d bytes for expanded var", strlen(tmp)+1));
+    if ((*value = malloc(idx + 1)) == NULL) {
+      D(("Couldn't malloc %d bytes for expanded var", idx + 1));
       pam_syslog (pamh, LOG_CRIT, "Couldn't malloc %lu bytes for expanded var",
-	       (unsigned long)strlen(tmp)+1);
+	       (unsigned long)idx+1);
       return PAM_BUF_ERR;
     }
   }
   strcpy(*value, tmp);
-  memset(tmp,'\0',sizeof(tmp));
+  memset(tmp, '\0', sizeof(tmp));
   D(("Exit."));
 
   return PAM_SUCCESS;
@@ -699,7 +717,7 @@ static const char * _pam_get_item_byname(pam_handle_t *pamh, const char *name)
 
   if (itemval && (strcmp(name, "HOME") == 0 || strcmp(name, "SHELL") == 0)) {
     struct passwd *user_entry;
-    user_entry = pam_modutil_getpwnam (pamh, (char *) itemval);
+    user_entry = pam_modutil_getpwnam (pamh, itemval);
     if (!user_entry) {
       pam_syslog(pamh, LOG_ERR, "No such user!?");
       return NULL;
