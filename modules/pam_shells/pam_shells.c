@@ -2,6 +2,8 @@
 
 #define SHELL_FILE "/etc/shells"
 
+#define DEFAULT_SHELL "/bin/sh"
+
 /*
  * by Erik Troan <ewt@redhat.com>, Red Hat Software.
  * August 5, 1996.
@@ -37,7 +39,7 @@ static int perform_check(pam_handle_t *pamh)
 {
     int retval = PAM_AUTH_ERR;
     const char *userName;
-    char *userShell;
+    const char *userShell;
     char shellFileLine[256];
     struct stat sb;
     struct passwd * pw;
@@ -61,10 +63,12 @@ static int perform_check(pam_handle_t *pamh)
     }
 
     pw = pam_modutil_getpwnam(pamh, userName);
-    if (!pw) {
+    if (pw == NULL || pw->pw_shell == NULL) {
 	return PAM_AUTH_ERR;		/* user doesn't exist */
     }
     userShell = pw->pw_shell;
+    if (userShell[0] == '\0')
+	userShell = DEFAULT_SHELL;
 
     if (stat(SHELL_FILE,&sb)) {
 	pam_syslog(pamh, LOG_ERR, "Cannot stat %s: %m", SHELL_FILE);
