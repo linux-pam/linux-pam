@@ -1,74 +1,4 @@
 /*
- * <security/pam_appl.h>
- *
- * This header file collects definitions for the PAM API --- that is,
- * public interface between the PAM library and an application program
- * that wishes to use it.
- *
- * Note, the copyright information is at end of file.
- */
-
-#ifndef _SECURITY_PAM_APPL_H
-#define _SECURITY_PAM_APPL_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include <security/_pam_types.h>      /* Linux-PAM common defined types */
-
-/* -------------- The Linux-PAM Framework layer API ------------- */
-
-extern int PAM_NONNULL((1,3,4))
-pam_start(const char *service_name, const char *user,
-	  const struct pam_conv *pam_conversation,
-	  pam_handle_t **pamh);
-
-extern int PAM_NONNULL((1,3,5))
-pam_start_confdir(const char *service_name, const char *user,
-		  const struct pam_conv *pam_conversation,
-		  const char *confdir, pam_handle_t **pamh);
-
-extern int PAM_NONNULL((1))
-pam_end(pam_handle_t *pamh, int pam_status);
-
-/* Authentication API's */
-
-extern int PAM_NONNULL((1))
-pam_authenticate(pam_handle_t *pamh, int flags);
-
-extern int PAM_NONNULL((1))
-pam_setcred(pam_handle_t *pamh, int flags);
-
-/* Account Management API's */
-
-extern int PAM_NONNULL((1))
-pam_acct_mgmt(pam_handle_t *pamh, int flags);
-
-/* Session Management API's */
-
-extern int PAM_NONNULL((1))
-pam_open_session(pam_handle_t *pamh, int flags);
-
-extern int PAM_NONNULL((1))
-pam_close_session(pam_handle_t *pamh, int flags);
-
-/* Password Management API's */
-
-extern int PAM_NONNULL((1))
-pam_chauthtok(pam_handle_t *pamh, int flags);
-
-
-/* take care of any compatibility issues */
-#include <security/_pam_compat.h>
-
-#ifdef __cplusplus
-}
-#endif
-
-/*
- * Copyright Theodore Ts'o, 1996.  All rights reserved.
- *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -101,4 +31,69 @@ pam_chauthtok(pam_handle_t *pamh, int flags);
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#endif /* _SECURITY_PAM_APPL_H */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include <security/pam_appl.h>
+
+
+int
+main (void)
+{
+  const char *service = "confdir";
+  const char *xservice = "nonexistent-service";
+  const char *user = "root";
+  const char *confdir;
+  const char *xconfdir = "/nonexistent-confdir";
+  struct pam_conv conv;
+  pam_handle_t *pamh;
+  int retval;
+
+  confdir = getenv("srcdir");
+
+  if (confdir == NULL)
+    {
+      fprintf (stderr, "Error: srcdir not set\n");
+      return 1;
+    }
+
+  /* 1: check with valid arguments */
+  retval = pam_start_confdir (service, user, &conv, confdir, &pamh);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr, "pam_start_confdir (%s, %s, &conv, %s, &pamh) returned %d\n",
+	       service, user, confdir, retval);
+      return 1;
+    }
+  else if (pamh == NULL)
+    {
+      fprintf (stderr, "pam_start_confdir (%s, %s, &conv, %s, &pamh) returned NULL for pamh\n",
+	       service, user, confdir);
+      return 1;
+    }
+
+  /* 2: check with invalid service */
+  retval = pam_start_confdir (xservice, user, &conv, confdir, &pamh);
+  if (retval == PAM_SUCCESS)
+    {
+      fprintf (stderr, "pam_start_confdir (%s, %s, &conv, %s, &pamh) incorrectly succeeded\n",
+	       xservice, user, confdir);
+      return 1;
+    }
+
+  /* 3: check with invalid confdir */
+  retval = pam_start_confdir (service, user, &conv, xconfdir, &pamh);
+  if (retval == PAM_SUCCESS)
+    {
+      fprintf (stderr, "pam_start_confdir (%s, %s, &conv, %s, &pamh) incorrectly succeeded\n",
+	       service, user, xconfdir);
+      return 1;
+    }
+
+  return 0;
+}

@@ -77,3 +77,8 @@ LIBPAM_MODUTIL_1.3.2 {
   global:
     pam_modutil_search_key;
 } LIBPAM_MODUTIL_1.1.9;
+
+LIBPAM_1.4 {
+  global:
+    pam_start_confdir;
+} LIBPAM_1.0;

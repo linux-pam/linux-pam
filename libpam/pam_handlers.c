@@ -285,7 +285,7 @@ _pam_open_config_file(pam_handle_t *pamh
                                , PAM_CONFIG_DIST2_DF
 #endif
     };
-    char *p;
+    char *p = NULL;
     FILE *f;
     size_t i;
 
@@ -296,14 +296,21 @@ _pam_open_config_file(pam_handle_t *pamh
 	    pam_syslog(pamh, LOG_CRIT, "strdup failed");
 	    return PAM_BUF_ERR;
 	}
+    } else if (pamh->confdir != NULL) {
+        if (asprintf (&p, "%s/%s", pamh->confdir, service) < 0) {
+	    pam_syslog(pamh, LOG_CRIT, "asprintf failed");
+	    return PAM_BUF_ERR;
+	}
+    }
 
-	f = fopen(service, "r");
+    if (p != NULL) {
+	D(("opening %s", p));
+	f = fopen(p, "r");
 	if (f != NULL) {
 	    *path = p;
 	    *file = f;
 	    return PAM_SUCCESS;
 	}
-
 	_pam_drop(p);
 	return PAM_ABORT;
     }
@@ -313,6 +320,7 @@ _pam_open_config_file(pam_handle_t *pamh
 	    pam_syslog(pamh, LOG_CRIT, "asprintf failed");
 	    return PAM_BUF_ERR;
 	}
+
 	D(("opening %s", p));
 	f = fopen(p, "r");
 	if (f != NULL) {
@@ -438,7 +446,8 @@ int _pam_init_handlers(pam_handle_t *pamh)
 	struct stat test_d;
 
 	/* Is there a PAM_CONFIG_D directory? */
-	if ((stat(PAM_CONFIG_D, &test_d) == 0 && S_ISDIR(test_d.st_mode)) ||
+	if (pamh->confdir != NULL ||
+	    (stat(PAM_CONFIG_D, &test_d) == 0 && S_ISDIR(test_d.st_mode)) ||
 	    (stat(PAM_CONFIG_DIST_D, &test_d) == 0 && S_ISDIR(test_d.st_mode))
 #ifdef PAM_CONFIG_DIST2_D
 	    || (stat(PAM_CONFIG_DIST2_D, &test_d) == 0
@@ -471,7 +480,8 @@ int _pam_init_handlers(pam_handle_t *pamh)
 #ifdef PAM_READ_BOTH_CONFS
 		D(("checking %s", PAM_CONFIG));
 
-		if ((f = fopen(PAM_CONFIG,"r")) != NULL) {
+		if (pamh->confdir == NULL
+		    && (f = fopen(PAM_CONFIG,"r")) != NULL) {
 		    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY, 0, 1);
 		    fclose(f);
 		} else
