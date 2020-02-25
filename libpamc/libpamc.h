@@ -16,6 +16,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <sys/wait.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <ctype.h>

@@ -38,6 +38,7 @@
 #ifndef pam_timestamp_sha1_h
 #define pam_timestamp_sha1_h
 
+#include <stdint.h>
 #include <sys/types.h>
 
 #define SHA1_BLOCK_SIZE 64
@@ -45,9 +46,9 @@
 struct sha1_context {
 	size_t count;
 	unsigned char pending[SHA1_BLOCK_SIZE];
-	u_int32_t counts[2];
+	uint32_t counts[2];
 	size_t pending_count;
-	u_int32_t a, b, c, d, e;
+	uint32_t a, b, c, d, e;
 };
 
 #define SHA1_OUTPUT_SIZE 20

@@ -56,34 +56,34 @@ padding[SHA1_BLOCK_SIZE] = {
 	   0, 0, 0, 0, 0, 0, 0, 0,     0, 0, 0, 0, 0, 0, 0, 0,
 };
 
-static u_int32_t
-F(u_int32_t b, u_int32_t c, u_int32_t d)
+static uint32_t
+F(uint32_t b, uint32_t c, uint32_t d)
 {
 	return (b & c) | ((~b) & d);
 }
 
-static u_int32_t
-G(u_int32_t b, u_int32_t c, u_int32_t d)
+static uint32_t
+G(uint32_t b, uint32_t c, uint32_t d)
 {
 	return b ^ c ^ d;
 }
 
-static u_int32_t
-H(u_int32_t b, u_int32_t c, u_int32_t d)
+static uint32_t
+H(uint32_t b, uint32_t c, uint32_t d)
 {
 	return (b & c) | (b & d) | (c & d);
 }
 
-static u_int32_t
-RL(u_int32_t n, u_int32_t s)
+static uint32_t
+RL(uint32_t n, uint32_t s)
 {
 	return (n << s) | (n >> (32 - s));
 }
 
-static u_int32_t
-sha1_round(u_int32_t (*FUNC)(u_int32_t, u_int32_t, u_int32_t),
-      u_int32_t a, u_int32_t b, u_int32_t c, u_int32_t d, u_int32_t e,
-      u_int32_t i, u_int32_t n)
+static uint32_t
+sha1_round(uint32_t (*FUNC)(uint32_t, uint32_t, uint32_t),
+      uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t e,
+      uint32_t i, uint32_t n)
 {
 	return RL(a, 5) + FUNC(b, c, d) + e + i + n;
 }
@@ -100,10 +100,10 @@ sha1_init(struct sha1_context *ctx)
 }
 
 static void
-sha1_process(struct sha1_context *ctx, u_int32_t buffer[SHA1_BLOCK_SIZE / 4])
+sha1_process(struct sha1_context *ctx, uint32_t buffer[SHA1_BLOCK_SIZE / 4])
 {
-	u_int32_t a, b, c, d, e, temp;
-	u_int32_t data[80];
+	uint32_t a, b, c, d, e, temp;
+	uint32_t data[80];
 	int i;
 
 	for (i = 0; i < 16; i++) {
@@ -150,14 +150,14 @@ void
 sha1_update(struct sha1_context *ctx, const unsigned char *data, size_t length)
 {
 	size_t i = 0, l = length, c, t;
-	u_int32_t count = 0;
+	uint32_t count = 0;
 
 	/* Process any pending + data blocks. */
 	while (l + ctx->pending_count >= SHA1_BLOCK_SIZE) {
 		c = ctx->pending_count;
 		t = SHA1_BLOCK_SIZE - c;
 		memcpy(ctx->pending + c, &data[i], t);
-		sha1_process(ctx, (u_int32_t*) ctx->pending);
+		sha1_process(ctx, (uint32_t*) ctx->pending);
 		i += t;
 		l -= t;
 		ctx->pending_count = 0;
@@ -188,7 +188,7 @@ sha1_output(struct sha1_context *ctx, unsigned char *out)
 
 	/* Output the sum. */
 	if (out != NULL) {
-		u_int32_t c;
+		uint32_t c;
 		memcpy(&ctx2, ctx, sizeof(ctx2));
 
 		/* Pad this block. */
@@ -197,10 +197,10 @@ sha1_output(struct sha1_context *ctx, unsigned char *out)
 		       padding, SHA1_BLOCK_SIZE - c);
 
 		/* Do we need to process two blocks now? */
-		if (c >= (SHA1_BLOCK_SIZE - (sizeof(u_int32_t) * 2))) {
+		if (c >= (SHA1_BLOCK_SIZE - (sizeof(uint32_t) * 2))) {
 			/* Process this block. */
 			sha1_process(&ctx2,
-				    (u_int32_t*) ctx2.pending);
+				    (uint32_t*) ctx2.pending);
 			/* Set up another block. */
 			ctx2.pending_count = 0;
 			memset(ctx2.pending, 0, SHA1_BLOCK_SIZE);
@@ -218,10 +218,10 @@ sha1_output(struct sha1_context *ctx, unsigned char *out)
 		ctx2.counts[0] = htonl(ctx2.counts[0]);
 		ctx2.counts[1] = htonl(ctx2.counts[1]);
 		memcpy(ctx2.pending + 56,
-		       &ctx2.counts[1], sizeof(u_int32_t));
+		       &ctx2.counts[1], sizeof(uint32_t));
 		memcpy(ctx2.pending + 60,
-		       &ctx2.counts[0], sizeof(u_int32_t));
-		sha1_process(&ctx2, (u_int32_t*) ctx2.pending);
+		       &ctx2.counts[0], sizeof(uint32_t));
+		sha1_process(&ctx2, (uint32_t*) ctx2.pending);
 
 		/* Output the data. */
 		out[ 3] = (ctx2.a >>  0) & 0xff;

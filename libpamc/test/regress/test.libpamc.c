@@ -5,6 +5,7 @@
  */
 
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <security/pam_client.h>
 #include <ctype.h>
@@ -157,7 +158,7 @@ char *create_digest(int length, const char *raw)
     return temp_packet.buffer;
 }
 
-void packet_to_prompt(pamc_bp_t *prompt_p, u_int8_t control,
+void packet_to_prompt(pamc_bp_t *prompt_p, uint8_t control,
 		      struct internal_packet *packet)
 {
     PAM_BP_RENEW(prompt_p, control, packet->at);
