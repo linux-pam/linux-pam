@@ -34,8 +34,8 @@ static int __pamc_select_agent(pamc_handle_t pch, char *agent_id)
 
 int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
 {
-    u_int32_t size, offset=0;
-    u_int8_t control, raw[PAM_BP_MIN_SIZE];
+    uint32_t size, offset=0;
+    uint8_t control, raw[PAM_BP_MIN_SIZE];
 
     D(("called"));
 
@@ -110,7 +110,7 @@ int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
     /* pump all of the prompt into the agent */
     do {
 	int rval = write(pch->current->writer,
-			 offset + (const u_int8_t *) (*prompt_p),
+			 offset + (const uint8_t *) (*prompt_p),
 			 size - offset);
 	if (rval == -1) {
 	    switch (errno) {
@@ -172,7 +172,7 @@ int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
        value from the previous loop */
 
     while (offset < size) {
-	int rval = read(pch->current->reader, offset + (u_int8_t *) *prompt_p,
+	int rval = read(pch->current->reader, offset + (uint8_t *) *prompt_p,
 			size-offset);
 
 	if (rval == -1) {
