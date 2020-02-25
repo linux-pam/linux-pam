@@ -59,7 +59,7 @@
 
     <para>
       A logic list namely means individual tokens that are optionally prefixed
-      with '!' (logical not) and separated with '&' (logical and) and '|'
+      with '!' (logical not) and separated with '&amp;' (logical and) and '|'
       (logical or).
     </para>
 
