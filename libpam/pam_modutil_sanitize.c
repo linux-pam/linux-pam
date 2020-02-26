@@ -47,34 +47,6 @@ redirect_in_pipe(pam_handle_t *pamh, int fd, const char *name)
 }
 
 /*
- * Creates a pipe, closes its read end, redirects fd to its write end.
- * Returns fd on success, -1 otherwise.
- */
-static int
-redirect_out_pipe(pam_handle_t *pamh, int fd, const char *name)
-{
-	int out[2];
-
-	if (pipe(out) < 0) {
-		pam_syslog(pamh, LOG_ERR, "Could not create pipe: %m");
-		return -1;
-	}
-
-	close(out[0]);
-
-	if (out[1] == fd)
-		return fd;
-
-	if (dup2(out[1], fd) != fd) {
-		pam_syslog(pamh, LOG_ERR, "dup2 of %s failed: %m", name);
-		fd = -1;
-	}
-
-	close(out[1]);
-	return fd;
-}
-
-/*
  * Opens /dev/null for writing, redirects fd there.
  * Returns fd on success, -1 otherwise.
  */
@@ -106,7 +78,7 @@ redirect_out(pam_handle_t *pamh, enum pam_modutil_redirect_fd mode,
 {
 	switch (mode) {
 		case PAM_MODUTIL_PIPE_FD:
-			if (redirect_out_pipe(pamh, fd, name) < 0)
+			if (redirect_in_pipe(pamh, fd, name) < 0)
 				return -1;
 			break;
 		case PAM_MODUTIL_NULL_FD:
