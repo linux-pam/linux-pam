@@ -351,6 +351,14 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
 
   fd = nl_open ();
   if (fd == -1
+      && errno == EPROTONOSUPPORT)
+    {
+      pam_syslog (pamh, LOG_WARNING, "unable to open audit socket, audit not "
+                  "supported; tty_audit skipped");
+      free (old_status);
+      return PAM_IGNORE;
+    }
+  else if (fd == -1
       || nl_send (fd, AUDIT_TTY_GET, 0, NULL, 0) != 0
       || nl_recv (fd, AUDIT_TTY_GET, old_status, sizeof (*old_status)) != 0)
     {
