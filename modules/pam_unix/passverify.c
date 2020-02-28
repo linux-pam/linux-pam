@@ -19,9 +19,7 @@
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#ifdef HAVE_LIBXCRYPT
-#include <xcrypt.h>
-#elif defined(HAVE_CRYPT_H)
+#ifdef HAVE_CRYPT_H
 #include <crypt.h>
 #endif
 
@@ -467,23 +465,11 @@ PAMH_ARG_DECL(char * create_password_hash,
 	 */
 	sp = crypt_gensalt_rn(algoid, rounds, NULL, 0, salt, sizeof(salt));
 #else
-#ifdef HAVE_CRYPT_GENSALT_R
-	if (on(UNIX_BLOWFISH_PASS, ctrl)) {
-		char entropy[17];
-		crypt_make_salt(entropy, sizeof(entropy) - 1);
-		sp = crypt_gensalt_r (algoid, rounds,
-				      entropy, sizeof(entropy),
-				      salt, sizeof(salt));
-	} else {
-#endif
-		sp = stpcpy(salt, algoid);
-		if (on(UNIX_ALGO_ROUNDS, ctrl)) {
-			sp += snprintf(sp, sizeof(salt) - (16 + 1 + (sp - salt)), "rounds=%u$", rounds);
-		}
-		crypt_make_salt(sp, 16);
-#ifdef HAVE_CRYPT_GENSALT_R
+	sp = stpcpy(salt, algoid);
+	if (on(UNIX_ALGO_ROUNDS, ctrl)) {
+		sp += snprintf(sp, sizeof(salt) - (16 + 1 + (sp - salt)), "rounds=%u$", rounds);
 	}
-#endif
+	crypt_make_salt(sp, 16);
 #endif /* CRYPT_GENSALT_IMPLEMENTS_AUTO_ENTROPY */
 #ifdef HAVE_CRYPT_R
 	sp = NULL;

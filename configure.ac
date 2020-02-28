@@ -359,23 +359,17 @@ else
 fi
 AC_SUBST(LIBAUDIT)
 
-AC_CHECK_HEADERS(xcrypt.h crypt.h)
-AS_IF([test "x$ac_cv_header_xcrypt_h" = "xyes"],
-  [crypt_libs="xcrypt crypt"],
-  [crypt_libs="crypt"])
+AC_CHECK_HEADERS(crypt.h)
 
 BACKUP_LIBS=$LIBS
-AC_SEARCH_LIBS([crypt],[$crypt_libs])
+AC_SEARCH_LIBS([crypt],[crypt])
 case "$ac_cv_search_crypt" in
 	-l*) LIBCRYPT="$ac_cv_search_crypt" ;;
 	*) LIBCRYPT="" ;;
 esac
-AC_CHECK_FUNCS(crypt_r crypt_gensalt_r)
+AC_CHECK_FUNCS([crypt_r])
 LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCRYPT)
-if test "$LIBCRYPT" = "-lxcrypt" && test "$ac_cv_header_xcrypt_h" = "yes" ; then
-	AC_DEFINE([HAVE_LIBXCRYPT], 1, [Define to 1 if xcrypt support should be compiled in.])
-fi
 
 AC_ARG_WITH([randomdev], AS_HELP_STRING([--with-randomdev=(<path>|yes|no)],[use specified random device instead of /dev/urandom or 'no' to disable]), opt_randomdev=$withval)
 if test "$opt_randomdev" = yes || test -z "$opt_randomdev"; then
