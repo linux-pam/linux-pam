@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2018-05-18 12:58+0200\n"
+"POT-Creation-Date: 2018-06-19 00:00+0000\n"
 "PO-Revision-Date: 2013-09-10 02:14-0400\n"
 "Last-Translator: leftmostcat <leftmostcat@gmail.com>\n"
 "Language-Team: Irish (http://www.transifex.com/projects/p/fedora/language/"
@@ -66,7 +66,9 @@ msgid "Retype %s"
 msgstr "Iontráil %s arís"
 
 #: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
-msgid "Password change aborted."
+#, fuzzy
+#| msgid "Password change aborted."
+msgid "Password change has been aborted."
 msgstr "Tobscoireadh athrú focail faire."
 
 #: libpam/pam_item.c:311
@@ -256,17 +258,21 @@ msgid "contains the user name in some form"
 msgstr "tá an t-ainm úsáideora ann i bhfoirm éigin"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "No password supplied"
+#: modules/pam_unix/pam_unix_passwd.c:563
+#, fuzzy
+#| msgid "No password supplied"
+msgid "No password has been supplied."
 msgstr "Níor soláthraíodh aon fhocal faire"
 
-#: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "Password unchanged"
-msgstr "Níor athraíodh an focal faire"
+#: modules/pam_cracklib/pam_cracklib.c:696
+#: modules/pam_unix/pam_unix_passwd.c:564
+#, fuzzy
+#| msgid "NIS password could not be changed."
+msgid "The password has not been changed."
+msgstr "Níorbh fhéidir focal faire NIS a athrú."
 
-#: modules/pam_cracklib/pam_cracklib.c:715
-#: modules/pam_cracklib/pam_cracklib.c:797
+#: modules/pam_cracklib/pam_cracklib.c:716
+#: modules/pam_cracklib/pam_cracklib.c:798
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "DROCHFHOCAL FAIRE: %s"
@@ -349,13 +355,16 @@ msgstr ""
 "d'éirigh leis."
 
 #: modules/pam_limits/pam_limits.c:1091
-#, c-format
-msgid "Too many logins for '%s'."
+#, fuzzy, c-format
+#| msgid "Too many logins for '%s'."
+msgid "There were too many logins for '%s'."
 msgstr "An iomarca logálacha isteach do '%s'."
 
 #: modules/pam_mail/pam_mail.c:297
-msgid "No mail."
-msgstr "Níl aon phost ann."
+#, fuzzy
+#| msgid "You have new mail."
+msgid "You have no mail."
+msgstr "Tá post nua agat."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -400,7 +409,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Ní féidir comhadlann '%s' a chruthú agus a thúsú."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "Password has been already used. Choose another."
 msgstr "Úsáidtear an focal faire cheana. Roghnaigh ceann eile."
 
@@ -409,8 +418,9 @@ msgid "Password has been already used."
 msgstr "Úsáidtear an focal faire cheana."
 
 #: modules/pam_selinux/pam_selinux.c:210
-#, c-format
-msgid "Default Security Context %s\n"
+#, fuzzy, c-format
+#| msgid "Default Security Context %s\n"
+msgid "The default security context is %s."
 msgstr "Comhthéacs Réamhshocraithe Slándála %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:214
@@ -421,32 +431,37 @@ msgstr "An bhfuil fonn ort ról nó leibhéal difriúil a iontráil?"
 msgid "role:"
 msgstr "ról:"
 
-#: modules/pam_selinux/pam_selinux.c:230
-#, c-format
-msgid "No default type for role %s\n"
+#: modules/pam_selinux/pam_selinux.c:231
+#, fuzzy, c-format
+#| msgid "No default type for role %s\n"
+msgid "There is no default type for role %s."
 msgstr "Níl aon chineál réamhshocraithe ann do ról %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:262
+#: modules/pam_selinux/pam_selinux.c:263
 msgid "level:"
 msgstr "leibhéal:"
 
-#: modules/pam_selinux/pam_selinux.c:295
-msgid "Not a valid security context"
+#: modules/pam_selinux/pam_selinux.c:296
+#, fuzzy
+#| msgid "Not a valid security context"
+msgid "This is not a valid security context."
 msgstr "Ní comhthéacs bailí slándála é"
 
-#: modules/pam_selinux/pam_selinux.c:544
+#: modules/pam_selinux/pam_selinux.c:545
 #, c-format
-msgid "Unable to get valid context for %s"
-msgstr "Ní féidir comhthéacs bailí a fháil do %s"
+msgid "A valid context for %s could not be obtained."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:663
-#, c-format
-msgid "Security Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:664
+#, fuzzy, c-format
+#| msgid "Security Context %s Assigned"
+msgid "Security context %s has been assigned."
 msgstr "Sannadh Comhthéacs Slándála %s"
 
-#: modules/pam_selinux/pam_selinux.c:679
-#, c-format
-msgid "Key Creation Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:680
+#, fuzzy, c-format
+#| msgid "Key Creation Context %s Assigned"
+msgid "Key creation context %s has been assigned."
 msgstr "Sannadh Comhthéacs Chruthú Eochracha %s"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
@@ -464,31 +479,16 @@ msgstr "theip ar pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "logáil isteach: theip ar dhéanamh foirc: %m"
 
-#: modules/pam_stress/pam_stress.c:470
-#, c-format
-msgid "Changing STRESS password for %s."
-msgstr "Focal faire STRESS do %s á athrú."
-
-#: modules/pam_stress/pam_stress.c:484
-msgid "Enter new STRESS password: "
-msgstr "Iontráil focal faire STRESS nua: "
-
-#: modules/pam_stress/pam_stress.c:487
-msgid "Retype new STRESS password: "
-msgstr "Iontráil focal faire STRESS nua arís: "
-
-#: modules/pam_stress/pam_stress.c:516
-msgid "Verification mis-typed; password unchanged"
-msgstr "Clóscríobhadh deimhniú go mícheart; níor athraíodh focal faire"
-
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
-#, c-format
-msgid "Account temporary locked (%ld seconds left)"
+#, fuzzy, c-format
+#| msgid "Account temporary locked (%ld seconds left)"
+msgid "The account is temporarily locked (%ld seconds left)."
 msgstr "Cuireadh an cuntas faoi ghlas go sealadach (%ld soicind fágtha)"
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
-#, c-format
-msgid "Account locked due to %u failed logins"
+#, fuzzy, c-format
+#| msgid "Account locked due to %u failed logins"
+msgid "The account is locked due to %u failed logins."
 msgstr "Cuireadh an cuntas faoi ghlas mar gheall ar %u logáil isteach teipthe"
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
@@ -547,12 +547,15 @@ msgstr ""
 "   [-r] [--reset[=u]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, c-format
-msgid "Access granted (last access was %ld seconds ago)."
+#, fuzzy, c-format
+#| msgid "Access granted (last access was %ld seconds ago)."
+msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Bronnadh rochtain (bhí an rochtain is déanaí %ld soicind ó shin)."
 
 #: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
-msgid "Your account has expired; please contact your system administrator"
+#, fuzzy
+#| msgid "Your account has expired; please contact your system administrator"
+msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 "Chuaigh do chuntas as feidhm; déan téagmháil le do riarthóir córais, le do "
 "thoil"
@@ -560,19 +563,23 @@ msgstr ""
 #: modules/pam_unix/pam_unix_acct.c:261
 #, fuzzy
 msgid ""
-"You are required to change your password immediately (administrator enforced)"
+"You are required to change your password immediately (administrator "
+"enforced)."
 msgstr "Ní mór duit d'fhocal faire a athrú láithreach (forfheidhmítear fréamh)"
 
 #: modules/pam_unix/pam_unix_acct.c:267
 #, fuzzy
-msgid "You are required to change your password immediately (password expired)"
+msgid ""
+"You are required to change your password immediately (password expired)."
 msgstr ""
 "Ní mór duit d'fhocal faire a athrú láithreach (chuaigh focal faire in aos)"
 
 #: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
-#, c-format
-msgid "Warning: your password will expire in %d day"
-msgid_plural "Warning: your password will expire in %d days"
+#, fuzzy, c-format
+#| msgid "Warning: your password will expire in %d day"
+#| msgid_plural "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d day."
+msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
 msgstr[1] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
 msgstr[2] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
@@ -581,26 +588,52 @@ msgstr[4] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:300
-#, c-format
-msgid "Warning: your password will expire in %d days"
+#, fuzzy, c-format
+#| msgid "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d days."
 msgstr "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
 msgstr "Níorbh fhéidir focal faire NIS a athrú."
 
-#: modules/pam_unix/pam_unix_passwd.c:585
-msgid "You must choose a longer password"
+#: modules/pam_unix/pam_unix_passwd.c:581
+#, fuzzy
+#| msgid "You must choose a longer password"
+msgid "You must choose a longer password."
 msgstr "Caithfidh tú focal faire níos faide a roghnú"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:688
 #, c-format
 msgid "Changing password for %s."
 msgstr "Focal faire %s á athrú."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
-msgid "You must wait longer to change your password"
+#: modules/pam_unix/pam_unix_passwd.c:718
+#, fuzzy
+#| msgid "You must wait longer to change your password"
+msgid "You must wait longer to change your password."
 msgstr "Caithfidh tú fanacht níos faide chun d'fhocal faire a athrú"
 
-msgid "You must choose a shorter password."
-msgstr "Ní mór duit pasfhocal níos giorra a roghnú."
+#~ msgid "Password unchanged"
+#~ msgstr "Níor athraíodh an focal faire"
+
+#~ msgid "No mail."
+#~ msgstr "Níl aon phost ann."
+
+#~ msgid "Unable to get valid context for %s"
+#~ msgstr "Ní féidir comhthéacs bailí a fháil do %s"
+
+#~ msgid "Changing STRESS password for %s."
+#~ msgstr "Focal faire STRESS do %s á athrú."
+
+#~ msgid "Enter new STRESS password: "
+#~ msgstr "Iontráil focal faire STRESS nua: "
+
+#~ msgid "Retype new STRESS password: "
+#~ msgstr "Iontráil focal faire STRESS nua arís: "
+
+#~ msgid "Verification mis-typed; password unchanged"
+#~ msgstr "Clóscríobhadh deimhniú go mícheart; níor athraíodh focal faire"
+
+#~ msgid "You must choose a shorter password."
+#~ msgstr "Ní mór duit pasfhocal níos giorra a roghnú."

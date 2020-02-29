@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2018-05-18 12:58+0200\n"
+"POT-Creation-Date: 2018-06-19 00:00+0000\n"
 "PO-Revision-Date: 2013-01-26 10:08-0500\n"
 "Last-Translator: George Machitidze <giomac@gmail.com>\n"
 "Language-Team: Georgian (http://www.transifex.com/projects/p/fedora/language/"
@@ -64,8 +64,10 @@ msgid "Retype %s"
 msgstr "ხელახლა შეიყვანეთ %s"
 
 #: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
-msgid "Password change aborted."
-msgstr ""
+#, fuzzy
+#| msgid "Password has been already used."
+msgid "Password change has been aborted."
+msgstr "პაროლი უკვე იყო გამოყენებული."
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -250,17 +252,21 @@ msgid "contains the user name in some form"
 msgstr "რაღაც ფორმით გავს მომხმარებლის სახელს"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "No password supplied"
+#: modules/pam_unix/pam_unix_passwd.c:563
+#, fuzzy
+#| msgid "No password supplied"
+msgid "No password has been supplied."
 msgstr "პაროლი არ იქნა მითითებული"
 
-#: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "Password unchanged"
-msgstr "პაროლი არ შეცვლილა"
+#: modules/pam_cracklib/pam_cracklib.c:696
+#: modules/pam_unix/pam_unix_passwd.c:564
+#, fuzzy
+#| msgid "Password has been already used."
+msgid "The password has not been changed."
+msgstr "პაროლი უკვე იყო გამოყენებული."
 
-#: modules/pam_cracklib/pam_cracklib.c:715
-#: modules/pam_cracklib/pam_cracklib.c:797
+#: modules/pam_cracklib/pam_cracklib.c:716
+#: modules/pam_cracklib/pam_cracklib.c:798
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ცუდი პაროლი: %s"
@@ -328,12 +334,14 @@ msgstr ""
 
 #: modules/pam_limits/pam_limits.c:1091
 #, c-format
-msgid "Too many logins for '%s'."
+msgid "There were too many logins for '%s'."
 msgstr ""
 
 #: modules/pam_mail/pam_mail.c:297
-msgid "No mail."
-msgstr ""
+#, fuzzy
+#| msgid "You have new mail."
+msgid "You have no mail."
+msgstr "თქვენ გაქვთ ახალი წერილი."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -378,7 +386,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr ""
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "Password has been already used. Choose another."
 msgstr ""
 
@@ -388,7 +396,7 @@ msgstr "პაროლი უკვე იყო გამოყენებუ
 
 #: modules/pam_selinux/pam_selinux.c:210
 #, c-format
-msgid "Default Security Context %s\n"
+msgid "The default security context is %s."
 msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:214
@@ -399,32 +407,32 @@ msgstr ""
 msgid "role:"
 msgstr "როლი:"
 
-#: modules/pam_selinux/pam_selinux.c:230
+#: modules/pam_selinux/pam_selinux.c:231
 #, c-format
-msgid "No default type for role %s\n"
+msgid "There is no default type for role %s."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:262
+#: modules/pam_selinux/pam_selinux.c:263
 msgid "level:"
 msgstr "დონე:"
 
-#: modules/pam_selinux/pam_selinux.c:295
-msgid "Not a valid security context"
+#: modules/pam_selinux/pam_selinux.c:296
+msgid "This is not a valid security context."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:544
+#: modules/pam_selinux/pam_selinux.c:545
 #, c-format
-msgid "Unable to get valid context for %s"
+msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:663
+#: modules/pam_selinux/pam_selinux.c:664
 #, c-format
-msgid "Security Context %s Assigned"
+msgid "Security context %s has been assigned."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:679
+#: modules/pam_selinux/pam_selinux.c:680
 #, c-format
-msgid "Key Creation Context %s Assigned"
+msgid "Key creation context %s has been assigned."
 msgstr ""
 
 #: modules/pam_selinux/pam_selinux_check.c:99
@@ -442,31 +450,14 @@ msgstr ""
 msgid "login: failure forking: %m"
 msgstr ""
 
-#: modules/pam_stress/pam_stress.c:470
-#, c-format
-msgid "Changing STRESS password for %s."
-msgstr ""
-
-#: modules/pam_stress/pam_stress.c:484
-msgid "Enter new STRESS password: "
-msgstr ""
-
-#: modules/pam_stress/pam_stress.c:487
-msgid "Retype new STRESS password: "
-msgstr ""
-
-#: modules/pam_stress/pam_stress.c:516
-msgid "Verification mis-typed; password unchanged"
-msgstr ""
-
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
 #, c-format
-msgid "Account temporary locked (%ld seconds left)"
+msgid "The account is temporarily locked (%ld seconds left)."
 msgstr ""
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
 #, c-format
-msgid "Account locked due to %u failed logins"
+msgid "The account is locked due to %u failed logins."
 msgstr ""
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
@@ -521,50 +512,56 @@ msgstr ""
 
 #: modules/pam_timestamp/pam_timestamp.c:357
 #, c-format
-msgid "Access granted (last access was %ld seconds ago)."
+msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
-msgid "Your account has expired; please contact your system administrator"
+msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:261
 msgid ""
-"You are required to change your password immediately (administrator enforced)"
+"You are required to change your password immediately (administrator "
+"enforced)."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:267
-msgid "You are required to change your password immediately (password expired)"
+msgid ""
+"You are required to change your password immediately (password expired)."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
 #, c-format
-msgid "Warning: your password will expire in %d day"
-msgid_plural "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d day."
+msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:300
 #, c-format
-msgid "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d days."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:585
-msgid "You must choose a longer password"
-msgstr ""
+#: modules/pam_unix/pam_unix_passwd.c:581
+#, fuzzy
+#| msgid "You must choose a shorter password."
+msgid "You must choose a longer password."
+msgstr "თქვენ უნდა აირჩიოთ მოკლე პაროლი."
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:688
 #, c-format
 msgid "Changing password for %s."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:722
-msgid "You must wait longer to change your password"
-msgstr ""
-
-msgid "You must choose a shorter password."
+#: modules/pam_unix/pam_unix_passwd.c:718
+#, fuzzy
+#| msgid "You must choose a shorter password."
+msgid "You must wait longer to change your password."
 msgstr "თქვენ უნდა აირჩიოთ მოკლე პაროლი."
+
+#~ msgid "Password unchanged"
+#~ msgstr "პაროლი არ შეცვლილა"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2018-05-18 12:58+0200\n"
+"POT-Creation-Date: 2018-06-19 00:00+0000\n"
 "PO-Revision-Date: 2012-12-24 01:31-0500\n"
 "Last-Translator: Christopher Meng <cickumqt@gmail.com>\n"
 "Language-Team: Chinese (China) <trans-zh_cn@lists.fedoraproject.org>\n"
@@ -66,7 +66,9 @@ msgid "Retype %s"
 msgstr "重新输入 %s"
 
 #: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
-msgid "Password change aborted."
+#, fuzzy
+#| msgid "Password change aborted."
+msgid "Password change has been aborted."
 msgstr "密码更改取消。"
 
 #: libpam/pam_item.c:311
@@ -252,17 +254,21 @@ msgid "contains the user name in some form"
 msgstr "以某些形式包含用户名"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "No password supplied"
+#: modules/pam_unix/pam_unix_passwd.c:563
+#, fuzzy
+#| msgid "No password supplied"
+msgid "No password has been supplied."
 msgstr "密码未提供"
 
-#: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "Password unchanged"
-msgstr "密码未更改"
+#: modules/pam_cracklib/pam_cracklib.c:696
+#: modules/pam_unix/pam_unix_passwd.c:564
+#, fuzzy
+#| msgid "NIS password could not be changed."
+msgid "The password has not been changed."
+msgstr "无法更改 NIS 密码。"
 
-#: modules/pam_cracklib/pam_cracklib.c:715
-#: modules/pam_cracklib/pam_cracklib.c:797
+#: modules/pam_cracklib/pam_cracklib.c:716
+#: modules/pam_cracklib/pam_cracklib.c:798
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "无效的密码： %s"
@@ -329,13 +335,16 @@ msgid "There were %d failed login attempts since the last successful login."
 msgstr "最有一次成功登录后有 %d 次失败的登录尝试。"
 
 #: modules/pam_limits/pam_limits.c:1091
-#, c-format
-msgid "Too many logins for '%s'."
+#, fuzzy, c-format
+#| msgid "Too many logins for '%s'."
+msgid "There were too many logins for '%s'."
 msgstr "'%s'登录过多。"
 
 #: modules/pam_mail/pam_mail.c:297
-msgid "No mail."
-msgstr "无邮件。"
+#, fuzzy
+#| msgid "You have new mail."
+msgid "You have no mail."
+msgstr "您有新邮件。"
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -380,7 +389,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "无法创建和初始化目录 '%s'。"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "Password has been already used. Choose another."
 msgstr "密码已使用。请选择其他密码。"
 
@@ -389,8 +398,9 @@ msgid "Password has been already used."
 msgstr "密码已被使用。"
 
 #: modules/pam_selinux/pam_selinux.c:210
-#, c-format
-msgid "Default Security Context %s\n"
+#, fuzzy, c-format
+#| msgid "Default Security Context %s\n"
+msgid "The default security context is %s."
 msgstr "默认安全性环境 %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:214
@@ -401,32 +411,37 @@ msgstr "您是否愿意进入不同的角色或者级别？"
 msgid "role:"
 msgstr "角色："
 
-#: modules/pam_selinux/pam_selinux.c:230
-#, c-format
-msgid "No default type for role %s\n"
+#: modules/pam_selinux/pam_selinux.c:231
+#, fuzzy, c-format
+#| msgid "No default type for role %s\n"
+msgid "There is no default type for role %s."
 msgstr "没有角色 %s 默认类型\n"
 
-#: modules/pam_selinux/pam_selinux.c:262
+#: modules/pam_selinux/pam_selinux.c:263
 msgid "level:"
 msgstr "级别："
 
-#: modules/pam_selinux/pam_selinux.c:295
-msgid "Not a valid security context"
+#: modules/pam_selinux/pam_selinux.c:296
+#, fuzzy
+#| msgid "Not a valid security context"
+msgid "This is not a valid security context."
 msgstr "不是有效的安全性环境"
 
-#: modules/pam_selinux/pam_selinux.c:544
+#: modules/pam_selinux/pam_selinux.c:545
 #, c-format
-msgid "Unable to get valid context for %s"
-msgstr "无法为 %s 获得有效环境"
+msgid "A valid context for %s could not be obtained."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:663
-#, c-format
-msgid "Security Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:664
+#, fuzzy, c-format
+#| msgid "Security Context %s Assigned"
+msgid "Security context %s has been assigned."
 msgstr "已指派安全性环境 %s"
 
-#: modules/pam_selinux/pam_selinux.c:679
-#, c-format
-msgid "Key Creation Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:680
+#, fuzzy, c-format
+#| msgid "Key Creation Context %s Assigned"
+msgid "Key creation context %s has been assigned."
 msgstr "已分配密钥生成环境 %s"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
@@ -444,31 +459,16 @@ msgstr "未能 pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "登录：故障派生：%m"
 
-#: modules/pam_stress/pam_stress.c:470
-#, c-format
-msgid "Changing STRESS password for %s."
-msgstr "为 %s 更改 STRESS 密码。"
-
-#: modules/pam_stress/pam_stress.c:484
-msgid "Enter new STRESS password: "
-msgstr "输入新的 STRESS 密码："
-
-#: modules/pam_stress/pam_stress.c:487
-msgid "Retype new STRESS password: "
-msgstr "重新输入新的 STRESS 密码："
-
-#: modules/pam_stress/pam_stress.c:516
-msgid "Verification mis-typed; password unchanged"
-msgstr "校验类型错误；密码未更改"
-
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
-#, c-format
-msgid "Account temporary locked (%ld seconds left)"
+#, fuzzy, c-format
+#| msgid "Account temporary locked (%ld seconds left)"
+msgid "The account is temporarily locked (%ld seconds left)."
 msgstr "帐户暂时锁住（还有 %ld 秒）"
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
-#, c-format
-msgid "Account locked due to %u failed logins"
+#, fuzzy, c-format
+#| msgid "Account locked due to %u failed logins"
+msgid "The account is locked due to %u failed logins."
 msgstr "因为 %u 失败登录而锁定帐户"
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
@@ -525,53 +525,86 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, c-format
-msgid "Access granted (last access was %ld seconds ago)."
+#, fuzzy, c-format
+#| msgid "Access granted (last access was %ld seconds ago)."
+msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "可以访问（上次访问是 %ld 秒之前）。"
 
 #: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
-msgid "Your account has expired; please contact your system administrator"
+#, fuzzy
+#| msgid "Your account has expired; please contact your system administrator"
+msgid "Your account has expired; please contact your system administrator."
 msgstr "您的帐户已失效；请与系统管理员取得联系"
 
 #: modules/pam_unix/pam_unix_acct.c:261
 #, fuzzy
 msgid ""
-"You are required to change your password immediately (administrator enforced)"
+"You are required to change your password immediately (administrator "
+"enforced)."
 msgstr "您需要立即更改密码（root 强制）"
 
 #: modules/pam_unix/pam_unix_acct.c:267
 #, fuzzy
-msgid "You are required to change your password immediately (password expired)"
+msgid ""
+"You are required to change your password immediately (password expired)."
 msgstr "您需要立即更改密码（密码过期）"
 
 #: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
-#, c-format
-msgid "Warning: your password will expire in %d day"
-msgid_plural "Warning: your password will expire in %d days"
+#, fuzzy, c-format
+#| msgid "Warning: your password will expire in %d day"
+#| msgid_plural "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d day."
+msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "警告：您的密码将在 %d 天后过期"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:300
-#, c-format
-msgid "Warning: your password will expire in %d days"
+#, fuzzy, c-format
+#| msgid "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d days."
 msgstr "警告：您的密码将在 %d 天后过期"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
 msgstr "无法更改 NIS 密码。"
 
-#: modules/pam_unix/pam_unix_passwd.c:585
-msgid "You must choose a longer password"
+#: modules/pam_unix/pam_unix_passwd.c:581
+#, fuzzy
+#| msgid "You must choose a longer password"
+msgid "You must choose a longer password."
 msgstr "必须选择更长的密码"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:688
 #, c-format
 msgid "Changing password for %s."
 msgstr "为 %s 更改 STRESS 密码。"
 
-#: modules/pam_unix/pam_unix_passwd.c:722
-msgid "You must wait longer to change your password"
+#: modules/pam_unix/pam_unix_passwd.c:718
+#, fuzzy
+#| msgid "You must wait longer to change your password"
+msgid "You must wait longer to change your password."
 msgstr "您必须等待更长时间以更改密码"
 
-msgid "You must choose a shorter password."
-msgstr "您必须选择较短的密码。"
+#~ msgid "Password unchanged"
+#~ msgstr "密码未更改"
+
+#~ msgid "No mail."
+#~ msgstr "无邮件。"
+
+#~ msgid "Unable to get valid context for %s"
+#~ msgstr "无法为 %s 获得有效环境"
+
+#~ msgid "Changing STRESS password for %s."
+#~ msgstr "为 %s 更改 STRESS 密码。"
+
+#~ msgid "Enter new STRESS password: "
+#~ msgstr "输入新的 STRESS 密码："
+
+#~ msgid "Retype new STRESS password: "
+#~ msgstr "重新输入新的 STRESS 密码："
+
+#~ msgid "Verification mis-typed; password unchanged"
+#~ msgstr "校验类型错误；密码未更改"
+
+#~ msgid "You must choose a shorter password."
+#~ msgstr "您必须选择较短的密码。"

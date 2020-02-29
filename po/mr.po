@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2018-05-18 12:58+0200\n"
+"POT-Creation-Date: 2018-06-19 00:00+0000\n"
 "PO-Revision-Date: 2013-05-03 03:46-0400\n"
 "Last-Translator: sandeeps <sshedmak@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -65,7 +65,9 @@ msgid "Retype %s"
 msgstr "%s पुन्हा प्रविष्ट करा"
 
 #: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
-msgid "Password change aborted."
+#, fuzzy
+#| msgid "Password change aborted."
+msgid "Password change has been aborted."
 msgstr "परवलीचा शब्द रद्द केले."
 
 #: libpam/pam_item.c:311
@@ -251,17 +253,21 @@ msgid "contains the user name in some form"
 msgstr "कुठल्यातरी स्वरूपात वापरकर्ता नाव आढळले"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "No password supplied"
+#: modules/pam_unix/pam_unix_passwd.c:563
+#, fuzzy
+#| msgid "No password supplied"
+msgid "No password has been supplied."
 msgstr "गुप्तशब्द दिलेला नाही"
 
-#: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "Password unchanged"
-msgstr "गुप्तशब्द बदलविला नाही"
+#: modules/pam_cracklib/pam_cracklib.c:696
+#: modules/pam_unix/pam_unix_passwd.c:564
+#, fuzzy
+#| msgid "NIS password could not be changed."
+msgid "The password has not been changed."
+msgstr "NIS गुप्तशब्द बदलविले जाऊ शकत नाही."
 
-#: modules/pam_cracklib/pam_cracklib.c:715
-#: modules/pam_cracklib/pam_cracklib.c:797
+#: modules/pam_cracklib/pam_cracklib.c:716
+#: modules/pam_cracklib/pam_cracklib.c:798
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "अयोग्य गुप्तशब्द: %s"
@@ -329,13 +335,16 @@ msgid "There were %d failed login attempts since the last successful login."
 msgstr "शेवटचे यशस्वी प्रवेश पासून %d अपयशी प्रवेश प्रयत्न आढळले."
 
 #: modules/pam_limits/pam_limits.c:1091
-#, c-format
-msgid "Too many logins for '%s'."
+#, fuzzy, c-format
+#| msgid "Too many logins for '%s'."
+msgid "There were too many logins for '%s'."
 msgstr "'%s' करीता एकापेक्षा जास्त प्रवेश."
 
 #: modules/pam_mail/pam_mail.c:297
-msgid "No mail."
-msgstr "मेल आढळले नाही."
+#, fuzzy
+#| msgid "You have new mail."
+msgid "You have no mail."
+msgstr "नवीन मेल प्राप्त झाले."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -380,7 +389,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "डिरेक्ट्री '%s' बनवण्यास व प्रारंभ करण्यास अशक्य."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "Password has been already used. Choose another."
 msgstr "ह्या गुप्तशब्दचा आधीच वापर झाला आहे. दुसरा निवडा."
 
@@ -389,8 +398,9 @@ msgid "Password has been already used."
 msgstr "पासवर्ड आधिपासूनच वापरले आहे."
 
 #: modules/pam_selinux/pam_selinux.c:210
-#, c-format
-msgid "Default Security Context %s\n"
+#, fuzzy, c-format
+#| msgid "Default Security Context %s\n"
+msgid "The default security context is %s."
 msgstr "मुलभूत सुरक्षा संदर्भ %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:214
@@ -401,32 +411,37 @@ msgstr "तुम्हाला अन्य भूमिका किंवा
 msgid "role:"
 msgstr "भूमिका:"
 
-#: modules/pam_selinux/pam_selinux.c:230
-#, c-format
-msgid "No default type for role %s\n"
+#: modules/pam_selinux/pam_selinux.c:231
+#, fuzzy, c-format
+#| msgid "No default type for role %s\n"
+msgid "There is no default type for role %s."
 msgstr "भूमिका %s करीता मुलभूत प्रकार आढळले नाही\n"
 
-#: modules/pam_selinux/pam_selinux.c:262
+#: modules/pam_selinux/pam_selinux.c:263
 msgid "level:"
 msgstr "स्तर:"
 
-#: modules/pam_selinux/pam_selinux.c:295
-msgid "Not a valid security context"
+#: modules/pam_selinux/pam_selinux.c:296
+#, fuzzy
+#| msgid "Not a valid security context"
+msgid "This is not a valid security context."
 msgstr "वैध सुरक्षा संदर्भ नाही"
 
-#: modules/pam_selinux/pam_selinux.c:544
+#: modules/pam_selinux/pam_selinux.c:545
 #, c-format
-msgid "Unable to get valid context for %s"
-msgstr "%s करीता वैध संदर्भ प्राप्त करू शकले नाही"
+msgid "A valid context for %s could not be obtained."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:663
-#, c-format
-msgid "Security Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:664
+#, fuzzy, c-format
+#| msgid "Security Context %s Assigned"
+msgid "Security context %s has been assigned."
 msgstr "सुरक्षा संदर्भ %s लागू केले गेले"
 
-#: modules/pam_selinux/pam_selinux.c:679
-#, c-format
-msgid "Key Creation Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:680
+#, fuzzy, c-format
+#| msgid "Key Creation Context %s Assigned"
+msgid "Key creation context %s has been assigned."
 msgstr "कि निर्माण संदर्भ %s लागू केले गेले"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
@@ -444,31 +459,16 @@ msgstr "pam_set_item() कार्यान्वीत करण्यास �
 msgid "login: failure forking: %m"
 msgstr "दाखलन: विभाजन अपयशी: %m"
 
-#: modules/pam_stress/pam_stress.c:470
-#, c-format
-msgid "Changing STRESS password for %s."
-msgstr "%s करीता STRESS गुप्तशब्द बदलवित आहे."
-
-#: modules/pam_stress/pam_stress.c:484
-msgid "Enter new STRESS password: "
-msgstr "नवीन STRESS गुप्तशब्द प्रविष्ट करा: "
-
-#: modules/pam_stress/pam_stress.c:487
-msgid "Retype new STRESS password: "
-msgstr "नवीन STRESS गुप्तशब्द पुन्हा प्रविष्ट करा: "
-
-#: modules/pam_stress/pam_stress.c:516
-msgid "Verification mis-typed; password unchanged"
-msgstr "तपासणी पूर्ण झाली नाही; गुप्तशब्द बदलविले नाही"
-
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
-#, c-format
-msgid "Account temporary locked (%ld seconds left)"
+#, fuzzy, c-format
+#| msgid "Account temporary locked (%ld seconds left)"
+msgid "The account is temporarily locked (%ld seconds left)."
 msgstr "खातं तात्पूर्ते कुलूपबंद केले (%ld सेकंद शिल्लक)"
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
-#, c-format
-msgid "Account locked due to %u failed logins"
+#, fuzzy, c-format
+#| msgid "Account locked due to %u failed logins"
+msgid "The account is locked due to %u failed logins."
 msgstr "%u अपयशी प्रवेश मुळे खाते कुलूपबंद केले"
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
@@ -526,54 +526,87 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, c-format
-msgid "Access granted (last access was %ld seconds ago)."
+#, fuzzy, c-format
+#| msgid "Access granted (last access was %ld seconds ago)."
+msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "प्रवेश स्वीकारले (शेवटचा प्रवेश %ld सेकंद पूर्वी आढळला)."
 
 #: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
-msgid "Your account has expired; please contact your system administrator"
+#, fuzzy
+#| msgid "Your account has expired; please contact your system administrator"
+msgid "Your account has expired; please contact your system administrator."
 msgstr "तुमचे खाते बंद झाले आहे, कृपया तुमच्या संगणक व्यवस्थापकाकडे जा"
 
 #: modules/pam_unix/pam_unix_acct.c:261
 #, fuzzy
 msgid ""
-"You are required to change your password immediately (administrator enforced)"
+"You are required to change your password immediately (administrator "
+"enforced)."
 msgstr "तुमचा गुप्तशब्द तत्काळ बदलण्याची आवश्यकता आहे (रूट वापरा)"
 
 #: modules/pam_unix/pam_unix_acct.c:267
 #, fuzzy
-msgid "You are required to change your password immediately (password expired)"
+msgid ""
+"You are required to change your password immediately (password expired)."
 msgstr "तुमचा गुप्तशब्द तत्काळ बदलण्याची आवश्यकता आहे (गुप्तशब्द जुना आहे)"
 
 #: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
-#, c-format
-msgid "Warning: your password will expire in %d day"
-msgid_plural "Warning: your password will expire in %d days"
+#, fuzzy, c-format
+#| msgid "Warning: your password will expire in %d day"
+#| msgid_plural "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d day."
+msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "सावधानता: तुमचे गुप्तशब्द %d दिवस अंतर्गत कालबाह्य होईल"
 msgstr[1] "सावधानता: तुमचे गुप्तशब्द %d दिवस अंतर्गत कालबाह्य होईल"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:300
-#, c-format
-msgid "Warning: your password will expire in %d days"
+#, fuzzy, c-format
+#| msgid "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d days."
 msgstr "सावधानता: तुमचे गुप्तशब्द %d दिवसात कालबाह्य होईल"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
 msgstr "NIS गुप्तशब्द बदलविले जाऊ शकत नाही."
 
-#: modules/pam_unix/pam_unix_passwd.c:585
-msgid "You must choose a longer password"
+#: modules/pam_unix/pam_unix_passwd.c:581
+#, fuzzy
+#| msgid "You must choose a longer password"
+msgid "You must choose a longer password."
 msgstr "तुम्ही मोठा गुप्तशब्द निवडला पाहीजे"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:688
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s करीता गुप्तशब्द बदलवित आहे."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
-msgid "You must wait longer to change your password"
+#: modules/pam_unix/pam_unix_passwd.c:718
+#, fuzzy
+#| msgid "You must wait longer to change your password"
+msgid "You must wait longer to change your password."
 msgstr "तुमचा गुप्तशब्द बदलण्यासाठी तुम्हाला बराच वेळ वाट पहावी लागेल"
 
-msgid "You must choose a shorter password."
-msgstr "आपण लहान संकेतशब्द निवडणे आवश्यक आहे."
+#~ msgid "Password unchanged"
+#~ msgstr "गुप्तशब्द बदलविला नाही"
+
+#~ msgid "No mail."
+#~ msgstr "मेल आढळले नाही."
+
+#~ msgid "Unable to get valid context for %s"
+#~ msgstr "%s करीता वैध संदर्भ प्राप्त करू शकले नाही"
+
+#~ msgid "Changing STRESS password for %s."
+#~ msgstr "%s करीता STRESS गुप्तशब्द बदलवित आहे."
+
+#~ msgid "Enter new STRESS password: "
+#~ msgstr "नवीन STRESS गुप्तशब्द प्रविष्ट करा: "
+
+#~ msgid "Retype new STRESS password: "
+#~ msgstr "नवीन STRESS गुप्तशब्द पुन्हा प्रविष्ट करा: "
+
+#~ msgid "Verification mis-typed; password unchanged"
+#~ msgstr "तपासणी पूर्ण झाली नाही; गुप्तशब्द बदलविले नाही"
+
+#~ msgid "You must choose a shorter password."
+#~ msgstr "आपण लहान संकेतशब्द निवडणे आवश्यक आहे."
