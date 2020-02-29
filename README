@@ -8,7 +8,8 @@ NOTES:
 How to use it is as follows:
 
 If you check out the sources from git, install Autotools and generate
-configuration scripts:
+configuration scripts, ensuring you have the minimum packages installed,
+the ci scripts may help here:
 
       ./autogen.sh
 
