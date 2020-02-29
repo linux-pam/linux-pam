@@ -1,28 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Piotr Drąg <piotrdrag@gmail.com>, 2008,2012
+# Piotr Drąg <piotrdrag@gmail.com>, 2008,2012, 2020.
 # Stanisław Małolepszy <smalolepszy@aviary.pl>, 2006
 # Wojciech Kapusta <wojciech@aviary.pl>, 2006
-# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata
+# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020.
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2018-06-19 00:00+0000\n"
-"PO-Revision-Date: 2016-04-15 11:47-0400\n"
+"PO-Revision-Date: 2020-02-29 12:03+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
+"Language-Team: Polish <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.11.2\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -43,7 +44,7 @@ msgid "Password: "
 msgstr "Hasło: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s%spassword: "
 msgstr "Obecne hasło %s%s: "
 
@@ -94,7 +95,7 @@ msgstr "Nie odnaleziono symbolu"
 
 #: libpam/pam_strerror.c:48
 msgid "Error in service module"
-msgstr "Błąd w module usługi"
+msgstr "Błąd w module usługi"
 
 #: libpam/pam_strerror.c:50
 msgid "System error"
@@ -118,11 +119,11 @@ msgstr "Niewystarczające uprawnienia do dostępu do danych uwierzytelniających
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "Usługa uwierzytelniania nie może uzyskać informacji o uwierzytelnianiu"
+msgstr "Usługa uwierzytelniania nie może uzyskać informacji o uwierzytelnianiu"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr "Nieznany użytkownik w module uwierzytelniania niższego poziomu"
+msgstr "Nieznany użytkownik w module uwierzytelniania niższego poziomu"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
@@ -130,7 +131,7 @@ msgstr "Wykorzystano maksymalną liczbę prób dla usługi"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr "Token uwierzytelniania nie jest już prawidłowy; wymagany jest nowy"
+msgstr "Token uwierzytelniania nie jest już ważny; wymagany jest nowy"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -210,7 +211,7 @@ msgstr "Nieznany błąd PAM"
 
 #: modules/pam_cracklib/pam_cracklib.c:612
 msgid "is the same as the old one"
-msgstr "jest identyczne z poprzednim"
+msgstr "jest identyczne z poprzednim"
 
 #: modules/pam_cracklib/pam_cracklib.c:618
 #: modules/pam_cracklib/pam_cracklib.c:622
@@ -252,7 +253,7 @@ msgstr "zawiera za dużo takich samych znaków po sobie"
 
 #: modules/pam_cracklib/pam_cracklib.c:661
 msgid "contains the user name in some form"
-msgstr "zawiera nazwę użytkownika w jakiejś formie"
+msgstr "zawiera nazwę użytkownika w jakiejś formie"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:563
@@ -292,13 +293,13 @@ msgstr "%s się nie powiodło: nieznany stan 0x%x"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:496
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr " %a %e %b %Y, %H∶%M∶%S %Z"
+msgstr " %a, %-d %b %Y, %H∶%M∶%S %Z"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:505
 #, c-format
 msgid " from %.*s"
-msgstr " z %.*s"
+msgstr " z %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:303 modules/pam_lastlog/pam_lastlog.c:517
@@ -368,22 +369,22 @@ msgstr "Odebrano wiadomości."
 #: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr "Brak wiadomości w katalogu %s."
+msgstr "Brak wiadomości w katalogu %s."
 
 #: modules/pam_mail/pam_mail.c:318
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "Nowe wiadomości w katalogu %s."
+msgstr "Nowe wiadomości w katalogu %s."
 
 #: modules/pam_mail/pam_mail.c:322
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr "Stare wiadomości w katalogu %s."
+msgstr "Stare wiadomości w katalogu %s."
 
 #: modules/pam_mail/pam_mail.c:327
 #, c-format
 msgid "You have mail in folder %s."
-msgstr "Wiadomości w katalogu %s."
+msgstr "Wiadomości w katalogu %s."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:111
 #, c-format
@@ -393,7 +394,7 @@ msgstr "Tworzenie katalogu „%s”."
 #: modules/pam_mkhomedir/pam_mkhomedir.c:176
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "Nie można utworzyć i zainicjować katalogu „%s”."
+msgstr "Nie można utworzyć i zainicjować katalogu „%s”."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
 #: modules/pam_unix/pam_unix_passwd.c:585
