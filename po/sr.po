@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2018-05-18 12:58+0200\n"
+"POT-Creation-Date: 2018-06-19 00:00+0000\n"
 "PO-Revision-Date: 2014-11-16 06:51-0500\n"
 "Last-Translator: Momcilo Medic <medicmomcilo@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/linux-pam/"
@@ -69,7 +69,9 @@ msgid "Retype %s"
 msgstr "Поново унесите %s"
 
 #: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
-msgid "Password change aborted."
+#, fuzzy
+#| msgid "Password change aborted."
+msgid "Password change has been aborted."
 msgstr "Промена лозинке је прекинута."
 
 #: libpam/pam_item.c:311
@@ -255,17 +257,21 @@ msgid "contains the user name in some form"
 msgstr "садржи корисничко име у неком облику"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "No password supplied"
+#: modules/pam_unix/pam_unix_passwd.c:563
+#, fuzzy
+#| msgid "No password supplied"
+msgid "No password has been supplied."
 msgstr "Није понуђена лозинка"
 
-#: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "Password unchanged"
-msgstr "Лозинка није промењена"
+#: modules/pam_cracklib/pam_cracklib.c:696
+#: modules/pam_unix/pam_unix_passwd.c:564
+#, fuzzy
+#| msgid "NIS password could not be changed."
+msgid "The password has not been changed."
+msgstr "NIS лозинка не може бити промењена."
 
-#: modules/pam_cracklib/pam_cracklib.c:715
-#: modules/pam_cracklib/pam_cracklib.c:797
+#: modules/pam_cracklib/pam_cracklib.c:716
+#: modules/pam_cracklib/pam_cracklib.c:798
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ЛОША ЛОЗИНКА: %s"
@@ -334,13 +340,16 @@ msgid "There were %d failed login attempts since the last successful login."
 msgstr "Било је %d неуспелих покушаја пријаве од последње успешне пријаве."
 
 #: modules/pam_limits/pam_limits.c:1091
-#, c-format
-msgid "Too many logins for '%s'."
+#, fuzzy, c-format
+#| msgid "Too many logins for '%s'."
+msgid "There were too many logins for '%s'."
 msgstr "Превише пријава за „%s“."
 
 #: modules/pam_mail/pam_mail.c:297
-msgid "No mail."
-msgstr "Немате пошту."
+#, fuzzy
+#| msgid "You have new mail."
+msgid "You have no mail."
+msgstr "Имате нову пошту."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -385,7 +394,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Не могу да направим директоријум „%s“."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "Password has been already used. Choose another."
 msgstr "Лозинка је већ у употреби. Изаберите другу."
 
@@ -394,8 +403,9 @@ msgid "Password has been already used."
 msgstr "Шифра је већ била у употреби."
 
 #: modules/pam_selinux/pam_selinux.c:210
-#, c-format
-msgid "Default Security Context %s\n"
+#, fuzzy, c-format
+#| msgid "Default Security Context %s\n"
+msgid "The default security context is %s."
 msgstr "Подразумевани безбедносни контекст %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:214
@@ -406,32 +416,37 @@ msgstr "Да ли желите да унесете другу улогу или 
 msgid "role:"
 msgstr "улога:"
 
-#: modules/pam_selinux/pam_selinux.c:230
-#, c-format
-msgid "No default type for role %s\n"
+#: modules/pam_selinux/pam_selinux.c:231
+#, fuzzy, c-format
+#| msgid "No default type for role %s\n"
+msgid "There is no default type for role %s."
 msgstr "Нема подразумеване врсте за улогу %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:262
+#: modules/pam_selinux/pam_selinux.c:263
 msgid "level:"
 msgstr "ниво:"
 
-#: modules/pam_selinux/pam_selinux.c:295
-msgid "Not a valid security context"
+#: modules/pam_selinux/pam_selinux.c:296
+#, fuzzy
+#| msgid "Not a valid security context"
+msgid "This is not a valid security context."
 msgstr "Неисправан безбедносни контекст"
 
-#: modules/pam_selinux/pam_selinux.c:544
+#: modules/pam_selinux/pam_selinux.c:545
 #, c-format
-msgid "Unable to get valid context for %s"
-msgstr "Не могу да прибавим исправан контекст за %s"
+msgid "A valid context for %s could not be obtained."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:663
-#, c-format
-msgid "Security Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:664
+#, fuzzy, c-format
+#| msgid "Security Context %s Assigned"
+msgid "Security context %s has been assigned."
 msgstr "Безбедносни контекст %s је додељен"
 
-#: modules/pam_selinux/pam_selinux.c:679
-#, c-format
-msgid "Key Creation Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:680
+#, fuzzy, c-format
+#| msgid "Key Creation Context %s Assigned"
+msgid "Key creation context %s has been assigned."
 msgstr "Контекст прављења кључа %s је додељен"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
@@ -449,31 +464,16 @@ msgstr "неуспешно извршавање функције pam_set_item()\
 msgid "login: failure forking: %m"
 msgstr "пријава: грешка при гранању: %m"
 
-#: modules/pam_stress/pam_stress.c:470
-#, c-format
-msgid "Changing STRESS password for %s."
-msgstr "Промена STRESS лозинке за %s."
-
-#: modules/pam_stress/pam_stress.c:484
-msgid "Enter new STRESS password: "
-msgstr "Унесите нову STRESS лозинку: "
-
-#: modules/pam_stress/pam_stress.c:487
-msgid "Retype new STRESS password: "
-msgstr "Поново унесите нову STRESS лозинку: "
-
-#: modules/pam_stress/pam_stress.c:516
-msgid "Verification mis-typed; password unchanged"
-msgstr "Потврда је погрешно укуцана; лозинка није промењена"
-
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
-#, c-format
-msgid "Account temporary locked (%ld seconds left)"
+#, fuzzy, c-format
+#| msgid "Account temporary locked (%ld seconds left)"
+msgid "The account is temporarily locked (%ld seconds left)."
 msgstr "Налог је привремено закључан (остало је %ld секунди)"
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
-#, c-format
-msgid "Account locked due to %u failed logins"
+#, fuzzy, c-format
+#| msgid "Account locked due to %u failed logins"
+msgid "The account is locked due to %u failed logins."
 msgstr "Налог је закључан због %u неуспелих пријава"
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
@@ -532,55 +532,88 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, c-format
-msgid "Access granted (last access was %ld seconds ago)."
+#, fuzzy, c-format
+#| msgid "Access granted (last access was %ld seconds ago)."
+msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Приступ је одобрен (последњи приступ је био пре %ld секунди)."
 
 #: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
-msgid "Your account has expired; please contact your system administrator"
+#, fuzzy
+#| msgid "Your account has expired; please contact your system administrator"
+msgid "Your account has expired; please contact your system administrator."
 msgstr "Ваш налог је истекао; обратите се администратору система"
 
 #: modules/pam_unix/pam_unix_acct.c:261
 #, fuzzy
 msgid ""
-"You are required to change your password immediately (administrator enforced)"
+"You are required to change your password immediately (administrator "
+"enforced)."
 msgstr "Морате одмах да промените вашу лозинку (наметнуо root)"
 
 #: modules/pam_unix/pam_unix_acct.c:267
 #, fuzzy
-msgid "You are required to change your password immediately (password expired)"
+msgid ""
+"You are required to change your password immediately (password expired)."
 msgstr "Морате одмах да промените вашу лозинку (застарела је)"
 
 #: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
-#, c-format
-msgid "Warning: your password will expire in %d day"
-msgid_plural "Warning: your password will expire in %d days"
+#, fuzzy, c-format
+#| msgid "Warning: your password will expire in %d day"
+#| msgid_plural "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d day."
+msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "Упозорење: ваша лозинка ће истећи кроз %d дан"
 msgstr[1] "Упозорење: ваша лозинка ће истећи кроз %d дана"
 msgstr[2] "Упозорење: ваша лозинка ће истећи кроз %d дана"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:300
-#, c-format
-msgid "Warning: your password will expire in %d days"
+#, fuzzy, c-format
+#| msgid "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d days."
 msgstr "Упозорење: ваша лозинка ће истећи кроз %d дана"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
 msgstr "NIS лозинка не може бити промењена."
 
-#: modules/pam_unix/pam_unix_passwd.c:585
-msgid "You must choose a longer password"
+#: modules/pam_unix/pam_unix_passwd.c:581
+#, fuzzy
+#| msgid "You must choose a longer password"
+msgid "You must choose a longer password."
 msgstr "Морате изабрати дужу лозинку"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:688
 #, c-format
 msgid "Changing password for %s."
 msgstr "Мењам лозинку за %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
-msgid "You must wait longer to change your password"
+#: modules/pam_unix/pam_unix_passwd.c:718
+#, fuzzy
+#| msgid "You must wait longer to change your password"
+msgid "You must wait longer to change your password."
 msgstr "Морате дуже сачекати на промену лозинке"
 
-msgid "You must choose a shorter password."
-msgstr "Морате одабрати краћу лозинку."
+#~ msgid "Password unchanged"
+#~ msgstr "Лозинка није промењена"
+
+#~ msgid "No mail."
+#~ msgstr "Немате пошту."
+
+#~ msgid "Unable to get valid context for %s"
+#~ msgstr "Не могу да прибавим исправан контекст за %s"
+
+#~ msgid "Changing STRESS password for %s."
+#~ msgstr "Промена STRESS лозинке за %s."
+
+#~ msgid "Enter new STRESS password: "
+#~ msgstr "Унесите нову STRESS лозинку: "
+
+#~ msgid "Retype new STRESS password: "
+#~ msgstr "Поново унесите нову STRESS лозинку: "
+
+#~ msgid "Verification mis-typed; password unchanged"
+#~ msgstr "Потврда је погрешно укуцана; лозинка није промењена"
+
+#~ msgid "You must choose a shorter password."
+#~ msgstr "Морате одабрати краћу лозинку."

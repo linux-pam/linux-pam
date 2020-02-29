@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2018-05-18 12:58+0200\n"
+"POT-Creation-Date: 2018-06-19 00:00+0000\n"
 "PO-Revision-Date: 2013-01-12 12:52-0500\n"
 "Last-Translator: Jérôme Fenal <jfenal@gmail.com>\n"
 "Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
@@ -68,7 +68,9 @@ msgid "Retype %s"
 msgstr "Retapez %s"
 
 #: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
-msgid "Password change aborted."
+#, fuzzy
+#| msgid "Password change aborted."
+msgid "Password change has been aborted."
 msgstr "Changement du mot de passe avorté."
 
 #: libpam/pam_item.c:311
@@ -263,17 +265,21 @@ msgid "contains the user name in some form"
 msgstr "contient le nom d'utilisateur d'une certaine manière"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "No password supplied"
+#: modules/pam_unix/pam_unix_passwd.c:563
+#, fuzzy
+#| msgid "No password supplied"
+msgid "No password has been supplied."
 msgstr "Aucun mot de passe fourni"
 
-#: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "Password unchanged"
-msgstr "Mot de passe inchangé"
+#: modules/pam_cracklib/pam_cracklib.c:696
+#: modules/pam_unix/pam_unix_passwd.c:564
+#, fuzzy
+#| msgid "NIS password could not be changed."
+msgid "The password has not been changed."
+msgstr "Le mot de passe NIS n'a pas pu être changé."
 
-#: modules/pam_cracklib/pam_cracklib.c:715
-#: modules/pam_cracklib/pam_cracklib.c:797
+#: modules/pam_cracklib/pam_cracklib.c:716
+#: modules/pam_cracklib/pam_cracklib.c:798
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "MOT DE PASSE INCORRECT : %s"
@@ -347,13 +353,16 @@ msgstr ""
 "réussie."
 
 #: modules/pam_limits/pam_limits.c:1091
-#, c-format
-msgid "Too many logins for '%s'."
+#, fuzzy, c-format
+#| msgid "Too many logins for '%s'."
+msgid "There were too many logins for '%s'."
 msgstr "Trop de connexions pour « %s »."
 
 #: modules/pam_mail/pam_mail.c:297
-msgid "No mail."
-msgstr "Aucun message."
+#, fuzzy
+#| msgid "You have new mail."
+msgid "You have no mail."
+msgstr "Vous avez un nouveau message."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -398,7 +407,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Impossible de créer et d'initialiser le répertoire « %s »."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "Password has been already used. Choose another."
 msgstr "Mot de passe déjà utilisé. Choisissez-en un autre."
 
@@ -407,8 +416,9 @@ msgid "Password has been already used."
 msgstr "Mot de passe déjà utilisé."
 
 #: modules/pam_selinux/pam_selinux.c:210
-#, c-format
-msgid "Default Security Context %s\n"
+#, fuzzy, c-format
+#| msgid "Default Security Context %s\n"
+msgid "The default security context is %s."
 msgstr "Contexte de sécurité par défaut %s\n"
 
 #: modules/pam_selinux/pam_selinux.c:214
@@ -419,32 +429,37 @@ msgstr "Voulez-vous entrer un niveau ou un rôle différent ?"
 msgid "role:"
 msgstr "rôle :"
 
-#: modules/pam_selinux/pam_selinux.c:230
-#, c-format
-msgid "No default type for role %s\n"
+#: modules/pam_selinux/pam_selinux.c:231
+#, fuzzy, c-format
+#| msgid "No default type for role %s\n"
+msgid "There is no default type for role %s."
 msgstr "Aucun type par défaut pour le rôle %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:262
+#: modules/pam_selinux/pam_selinux.c:263
 msgid "level:"
 msgstr "niveau :"
 
-#: modules/pam_selinux/pam_selinux.c:295
-msgid "Not a valid security context"
+#: modules/pam_selinux/pam_selinux.c:296
+#, fuzzy
+#| msgid "Not a valid security context"
+msgid "This is not a valid security context."
 msgstr "Contexte de sécurité invalide"
 
-#: modules/pam_selinux/pam_selinux.c:544
+#: modules/pam_selinux/pam_selinux.c:545
 #, c-format
-msgid "Unable to get valid context for %s"
-msgstr "Impossible d'obtenir un contexte valide pour %s"
+msgid "A valid context for %s could not be obtained."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:663
-#, c-format
-msgid "Security Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:664
+#, fuzzy, c-format
+#| msgid "Security Context %s Assigned"
+msgid "Security context %s has been assigned."
 msgstr "Contexte de sécurité %s attribué"
 
-#: modules/pam_selinux/pam_selinux.c:679
-#, c-format
-msgid "Key Creation Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:680
+#, fuzzy, c-format
+#| msgid "Key Creation Context %s Assigned"
+msgid "Key creation context %s has been assigned."
 msgstr "Contexte de création de clés %s attribué"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
@@ -462,31 +477,16 @@ msgstr "échec de pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "login : échec d'autoclônage : %m"
 
-#: modules/pam_stress/pam_stress.c:470
-#, c-format
-msgid "Changing STRESS password for %s."
-msgstr "Changement du mot de passe STRESS pour %s."
-
-#: modules/pam_stress/pam_stress.c:484
-msgid "Enter new STRESS password: "
-msgstr "Entrer le nouveau mot de passe STRESS : "
-
-#: modules/pam_stress/pam_stress.c:487
-msgid "Retype new STRESS password: "
-msgstr "Retaper le nouveau mot de passe STRESS : "
-
-#: modules/pam_stress/pam_stress.c:516
-msgid "Verification mis-typed; password unchanged"
-msgstr "Vérification erronée : mot de passe inchangé"
-
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
-#, c-format
-msgid "Account temporary locked (%ld seconds left)"
+#, fuzzy, c-format
+#| msgid "Account temporary locked (%ld seconds left)"
+msgid "The account is temporarily locked (%ld seconds left)."
 msgstr "Compte temporairement verrouillé (%ld secondes restantes)"
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
-#, c-format
-msgid "Account locked due to %u failed logins"
+#, fuzzy, c-format
+#| msgid "Account locked due to %u failed logins"
+msgid "The account is locked due to %u failed logins."
 msgstr "Compte temporairement verrouillé dû à l'échec de %u connexions"
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
@@ -545,54 +545,87 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, c-format
-msgid "Access granted (last access was %ld seconds ago)."
+#, fuzzy, c-format
+#| msgid "Access granted (last access was %ld seconds ago)."
+msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Accès accordé (dernier accès il y a %ld secondes)."
 
 #: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
-msgid "Your account has expired; please contact your system administrator"
+#, fuzzy
+#| msgid "Your account has expired; please contact your system administrator"
+msgid "Your account has expired; please contact your system administrator."
 msgstr "Votre compte a expiré. Contactez votre administrateur système"
 
 #: modules/pam_unix/pam_unix_acct.c:261
 #, fuzzy
 msgid ""
-"You are required to change your password immediately (administrator enforced)"
+"You are required to change your password immediately (administrator "
+"enforced)."
 msgstr "Vous devez changer votre mot de passe immédiatement (imposé par root)"
 
 #: modules/pam_unix/pam_unix_acct.c:267
 #, fuzzy
-msgid "You are required to change your password immediately (password expired)"
+msgid ""
+"You are required to change your password immediately (password expired)."
 msgstr "Vous devez changer votre mot de passe immédiatement, il est périmé"
 
 #: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
-#, c-format
-msgid "Warning: your password will expire in %d day"
-msgid_plural "Warning: your password will expire in %d days"
+#, fuzzy, c-format
+#| msgid "Warning: your password will expire in %d day"
+#| msgid_plural "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d day."
+msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "Avertissement : votre mot de passe expire dans %d jour."
 msgstr[1] "Avertissement : votre mot de passe expire dans %d jours"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:300
-#, c-format
-msgid "Warning: your password will expire in %d days"
+#, fuzzy, c-format
+#| msgid "Warning: your password will expire in %d days"
+msgid "Warning: your password will expire in %d days."
 msgstr "Avertissement : votre mot de passe expire dans %d jours"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
 msgstr "Le mot de passe NIS n'a pas pu être changé."
 
-#: modules/pam_unix/pam_unix_passwd.c:585
-msgid "You must choose a longer password"
+#: modules/pam_unix/pam_unix_passwd.c:581
+#, fuzzy
+#| msgid "You must choose a longer password"
+msgid "You must choose a longer password."
 msgstr "Vous devez choisir un mot de passe plus long"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:688
 #, c-format
 msgid "Changing password for %s."
 msgstr "Changement du mot de passe pour %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
-msgid "You must wait longer to change your password"
+#: modules/pam_unix/pam_unix_passwd.c:718
+#, fuzzy
+#| msgid "You must wait longer to change your password"
+msgid "You must wait longer to change your password."
 msgstr "Vous devez encore attendre avant de changer votre mot de passe"
 
-msgid "You must choose a shorter password."
-msgstr "Vous devez choisir un mot de passe plus court."
+#~ msgid "Password unchanged"
+#~ msgstr "Mot de passe inchangé"
+
+#~ msgid "No mail."
+#~ msgstr "Aucun message."
+
+#~ msgid "Unable to get valid context for %s"
+#~ msgstr "Impossible d'obtenir un contexte valide pour %s"
+
+#~ msgid "Changing STRESS password for %s."
+#~ msgstr "Changement du mot de passe STRESS pour %s."
+
+#~ msgid "Enter new STRESS password: "
+#~ msgstr "Entrer le nouveau mot de passe STRESS : "
+
+#~ msgid "Retype new STRESS password: "
+#~ msgstr "Retaper le nouveau mot de passe STRESS : "
+
+#~ msgid "Verification mis-typed; password unchanged"
+#~ msgstr "Vérification erronée : mot de passe inchangé"
+
+#~ msgid "You must choose a shorter password."
+#~ msgstr "Vous devez choisir un mot de passe plus court."
