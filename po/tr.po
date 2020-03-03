@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Bahadır Kandemir <bahadir@pardus.org.tr>, 2010
 # ismail yenigül <ismail.yenigul@surgate.com>, 2013
@@ -9,21 +9,22 @@
 # Onuralp SEZER <thunderbirdtr@gmail.com>, 2012
 # Selim Şumlu <selim@sum.lu>, 2012
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Oğuz Ersen <oguzersen@protonmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2018-06-19 00:00+0000\n"
-"PO-Revision-Date: 2013-01-08 04:22-0500\n"
-"Last-Translator: ismail yenigül <ismail.yenigul@surgate.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/fedora/language/"
-"tr/)\n"
+"PO-Revision-Date: 2020-03-03 09:56+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
+"Language-Team: Turkish <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+"X-Generator: Weblate 3.11.2\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -44,9 +45,9 @@ msgid "Password: "
 msgstr "Parola: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s%spassword: "
-msgstr "Yeni %s%sparolası: "
+msgstr "Mevcut %s%sparolası: "
 
 #: libpam/pam_get_authtok.c:43
 #, c-format
@@ -293,7 +294,7 @@ msgstr "%s başarısız: bilinmeyen durum 0x%x"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:496
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr "%e %b %a %H:%M:%S %Z %Y"
+msgstr " %a %e %b %Y %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:505
@@ -315,7 +316,7 @@ msgstr "Son giriş:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:319
 msgid "Welcome to your new account!"
-msgstr "Yeni hesabınıza hoş geldiniz"
+msgstr "Yeni hesabınıza hoş geldiniz!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:527
@@ -328,10 +329,8 @@ msgstr "Son başarısız giriş:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"Son başarılı girişten itibaren %d başarısız kimlik doğrulama girişimi oldu."
-msgstr[1] ""
-"Son başarılı girişten itibaren %d başarısız kimlik doğrulama girişimi oldu."
+msgstr[0] "Son başarılı girişten bu yana %d başarısız giriş denemesi yapıldı."
+msgstr[1] "Son başarılı girişten bu yana %d başarısız giriş denemesi yapıldı."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:548
@@ -527,8 +526,8 @@ msgid ""
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
+"%s: [-f kök-dosya-adı] [--file kök-dosya-adı]\n"
+"   [-u kullanıcı-adı] [--user kullanıcı-adı]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
@@ -574,7 +573,7 @@ msgstr "Uyarı: Parolanız %d gün içinde geçerliliğini yitirecek"
 
 #: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
-msgstr "NIS parolası değiştirilemiyor"
+msgstr "NIS parolası değiştirilemedi."
 
 #: modules/pam_unix/pam_unix_passwd.c:581
 #, fuzzy
