@@ -1,27 +1,28 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Klara Cihlarova <koty@seznam.cz>, 2005, 2006.
-#   <tmraz@fedoraproject.org>, 2011.
+# <tmraz@fedoraproject.org>, 2011.
 # Tomas Mraz <t8m@centrum.cz>, 2005, 2008, 2009.
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Tomáš Mráz <tmraz@redhat.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2018-06-19 00:00+0000\n"
-"PO-Revision-Date: 2016-04-22 06:30-0400\n"
-"Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
-"Language-Team: Czech (http://www.transifex.net/projects/p/fedora/language/"
-"cs/)\n"
+"PO-Revision-Date: 2020-03-03 10:11+0000\n"
+"Last-Translator: Tomáš Mráz <tmraz@redhat.com>\n"
+"Language-Team: Czech <https://translate.fedoraproject.org/projects/linux-pam/"
+"master/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 3.11.2\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -42,7 +43,7 @@ msgid "Password: "
 msgstr "Heslo: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s%spassword: "
 msgstr "Současné %s%sheslo: "
 
@@ -66,10 +67,8 @@ msgid "Retype %s"
 msgstr "Opakujte %s"
 
 #: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
-#, fuzzy
-#| msgid "Password change aborted."
 msgid "Password change has been aborted."
-msgstr "Změna hesla přerušena."
+msgstr "Změna hesla byla přerušena."
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -255,17 +254,13 @@ msgstr "obsahuje v nějaké formě uživatelské jméno"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:563
-#, fuzzy
-#| msgid "No password supplied"
 msgid "No password has been supplied."
-msgstr "Nezadáno heslo"
+msgstr "Heslo nebylo zadáno."
 
 #: modules/pam_cracklib/pam_cracklib.c:696
 #: modules/pam_unix/pam_unix_passwd.c:564
-#, fuzzy
-#| msgid "NIS password could not be changed."
 msgid "The password has not been changed."
-msgstr "NIS heslo se nepodařilo změnit."
+msgstr "Heslo nebylo změněno."
 
 #: modules/pam_cracklib/pam_cracklib.c:716
 #: modules/pam_cracklib/pam_cracklib.c:798
@@ -337,16 +332,13 @@ msgid "There were %d failed login attempts since the last successful login."
 msgstr "Od posledního úspěšného došlo k %d neúspěšným pokusům o přihlášení."
 
 #: modules/pam_limits/pam_limits.c:1091
-#, fuzzy, c-format
-#| msgid "Too many logins for '%s'."
+#, c-format
 msgid "There were too many logins for '%s'."
-msgstr "Příliš mnoho přihlášení pro '%s'."
+msgstr "Proběhlo příliš mnoho přihlášení pro '%s'."
 
 #: modules/pam_mail/pam_mail.c:297
-#, fuzzy
-#| msgid "You have new mail."
 msgid "You have no mail."
-msgstr "Máte novou poštu."
+msgstr "Nemáte žádnou poštu."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -400,10 +392,9 @@ msgid "Password has been already used."
 msgstr "Heslo již bylo použito."
 
 #: modules/pam_selinux/pam_selinux.c:210
-#, fuzzy, c-format
-#| msgid "Default Security Context %s\n"
+#, c-format
 msgid "The default security context is %s."
-msgstr "Výchozí bezpečnostní kontext %s\n"
+msgstr "Výchozí bezpečnostní kontext je %s."
 
 #: modules/pam_selinux/pam_selinux.c:214
 msgid "Would you like to enter a different role or level?"
@@ -414,37 +405,32 @@ msgid "role:"
 msgstr "role:"
 
 #: modules/pam_selinux/pam_selinux.c:231
-#, fuzzy, c-format
-#| msgid "No default type for role %s\n"
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "Chybí výchozí typ pro roli %s\n"
+msgstr "Chybí výchozí typ pro roli %s."
 
 #: modules/pam_selinux/pam_selinux.c:263
 msgid "level:"
 msgstr "úroveň:"
 
 #: modules/pam_selinux/pam_selinux.c:296
-#, fuzzy
-#| msgid "Not a valid security context"
 msgid "This is not a valid security context."
-msgstr "Neplatný bezpečnostní kontext"
+msgstr "Toto není platný bezpečnostní kontext."
 
 #: modules/pam_selinux/pam_selinux.c:545
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "Nepodařilo se získat platný kontext pro %s."
 
 #: modules/pam_selinux/pam_selinux.c:664
-#, fuzzy, c-format
-#| msgid "Security Context %s Assigned"
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "Bezpečnostní kontext %s přidělen"
+msgstr "Bezpečnostní kontext %s byl přiřazen."
 
 #: modules/pam_selinux/pam_selinux.c:680
-#, fuzzy, c-format
-#| msgid "Key Creation Context %s Assigned"
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "Bezpečnostní kontext pro vytváření klíčů %s přidělen"
+msgstr "Kontext pro vytváření klíčů %s byl přidělen."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -462,16 +448,14 @@ msgid "login: failure forking: %m"
 msgstr "login: chyba forku: %m"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
-#, fuzzy, c-format
-#| msgid "Account temporary locked (%ld seconds left)"
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "Účet dočasně uzamčen (zbývá %ld vteřin)"
+msgstr "Účet je dočasně uzamčen (zbývá %ld vteřin)."
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
-#, fuzzy, c-format
-#| msgid "Account locked due to %u failed logins"
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "Účet uzamčen z důvodu %u neúspěšných pokusů o přihlášení"
+msgstr "Účet je uzamčen z důvodu %u neúspěšných pokusů o přihlášení."
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
 msgid "Authentication error"
@@ -529,49 +513,36 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, fuzzy, c-format
-#| msgid "Access granted (last access was %ld seconds ago)."
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Přístup povolen (poslední přístup před %ld vteřinami)."
+msgstr "Přístup byl povolen (poslední přístup před %ld vteřinami)."
 
 #: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
-#, fuzzy
-#| msgid "Your account has expired; please contact your system administrator"
 msgid "Your account has expired; please contact your system administrator."
-msgstr "Váš účet vypršel; kontaktujte prosím svého správce systému"
+msgstr "Váš účet vypršel; kontaktujte prosím svého správce systému."
 
 #: modules/pam_unix/pam_unix_acct.c:261
-#, fuzzy
-#| msgid ""
-#| "You are required to change your password immediately (administrator "
-#| "enforced)"
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "Nyní musíte změnit své heslo (vynuceno administrátorem)"
+msgstr "Nyní musíte změnit své heslo (vynuceno administrátorem)."
 
 #: modules/pam_unix/pam_unix_acct.c:267
-#, fuzzy
-#| msgid ""
-#| "You are required to change your password immediately (password expired)"
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "Nyní musíte změnit své heslo (heslo vypršelo)"
+msgstr "Nyní musíte změnit své heslo (heslo vypršelo)."
 
 #: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
-#, fuzzy, c-format
-#| msgid "Warning: your password will expire in %d day"
-#| msgid_plural "Warning: your password will expire in %d days"
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Varování: Vaše heslo vyprší za %d den"
-msgstr[1] "Varování: Vaše heslo vyprší za %d dny"
-msgstr[2] "Varování: Vaše heslo vyprší za %d dní"
+msgstr[0] "Varování: Vaše heslo vyprší za %d den."
+msgstr[1] "Varování: Vaše heslo vyprší za %d dny."
+msgstr[2] "Varování: Vaše heslo vyprší za %d dní."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:300
-#, fuzzy, c-format
-#| msgid "Warning: your password will expire in %d days"
+#, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "Varování: Počet dní do vypršení hesla: %d"
 
@@ -580,10 +551,8 @@ msgid "NIS password could not be changed."
 msgstr "NIS heslo se nepodařilo změnit."
 
 #: modules/pam_unix/pam_unix_passwd.c:581
-#, fuzzy
-#| msgid "You must choose a longer password"
 msgid "You must choose a longer password."
-msgstr "Musíte zvolit delší heslo"
+msgstr "Musíte si zvolit delší heslo."
 
 #: modules/pam_unix/pam_unix_passwd.c:688
 #, c-format
@@ -591,10 +560,8 @@ msgid "Changing password for %s."
 msgstr "Změna hesla pro %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:718
-#, fuzzy
-#| msgid "You must wait longer to change your password"
 msgid "You must wait longer to change your password."
-msgstr "Na změnu svého hesla musíte počkat déle"
+msgstr "Na změnu svého hesla musíte počkat déle."
 
 #~ msgid "Password unchanged"
 #~ msgstr "Heslo nebylo změněno"
