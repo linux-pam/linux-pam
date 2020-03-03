@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2018-06-19 00:00+0000\n"
+"POT-Creation-Date: 2020-03-03 10:51+0100\n"
 "PO-Revision-Date: 2012-12-16 03:46-0500\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <trans-zh_TW@lists.fedoraproject.org>\n"
@@ -57,14 +57,13 @@ msgstr "再次輸入新的 %s%s密碼："
 msgid "Sorry, passwords do not match."
 msgstr "抱歉，密碼不符合。"
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:220
+#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:228
 #, c-format
 msgid "Retype %s"
 msgstr "重新輸入 %s"
 
-#: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
+#: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
 #, fuzzy
-#| msgid "Password change aborted."
 msgid "Password change has been aborted."
 msgstr "已終止密碼變更作業。"
 
@@ -251,16 +250,14 @@ msgid "contains the user name in some form"
 msgstr "包含了某些格式的用戶名稱"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:563
+#: modules/pam_unix/pam_unix_passwd.c:565
 #, fuzzy
-#| msgid "No password supplied"
 msgid "No password has been supplied."
 msgstr "未提供密碼"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
-#| msgid "NIS password could not be changed."
 msgid "The password has not been changed."
 msgstr "無法變更 NIS 密碼。"
 
@@ -270,55 +267,55 @@ msgstr "無法變更 NIS 密碼。"
 msgid "BAD PASSWORD: %s"
 msgstr "不良的密碼： %s"
 
-#: modules/pam_exec/pam_exec.c:276
+#: modules/pam_exec/pam_exec.c:267
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s 失敗：退出編碼 %d"
 
-#: modules/pam_exec/pam_exec.c:285
+#: modules/pam_exec/pam_exec.c:276
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s 失敗：捕捉到信號 %d%s"
 
-#: modules/pam_exec/pam_exec.c:294
+#: modules/pam_exec/pam_exec.c:285
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s 失敗：不明狀態 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:496
+#: modules/pam_lastlog/pam_lastlog.c:324 modules/pam_lastlog/pam_lastlog.c:585
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr "%a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:505
+#: modules/pam_lastlog/pam_lastlog.c:333 modules/pam_lastlog/pam_lastlog.c:594
 #, c-format
 msgid " from %.*s"
 msgstr "從 %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:303 modules/pam_lastlog/pam_lastlog.c:517
+#: modules/pam_lastlog/pam_lastlog.c:345 modules/pam_lastlog/pam_lastlog.c:606
 #, c-format
 msgid " on %.*s"
 msgstr "在 %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:313
+#: modules/pam_lastlog/pam_lastlog.c:355
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "上一次登入：%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:319
+#: modules/pam_lastlog/pam_lastlog.c:361
 msgid "Welcome to your new account!"
 msgstr "歡迎使用您的新帳號！"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:527
+#: modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "上一次失敗的登入：%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:536 modules/pam_lastlog/pam_lastlog.c:543
+#: modules/pam_lastlog/pam_lastlog.c:625 modules/pam_lastlog/pam_lastlog.c:632
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -326,20 +323,18 @@ msgid_plural ""
 msgstr[0] "自上次成功登入後，有 %d 次試圖登入但失敗的紀錄。"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:548
+#: modules/pam_lastlog/pam_lastlog.c:637
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "自從上次成功登入後有 %d 次嘗試登入失敗。"
 
-#: modules/pam_limits/pam_limits.c:1091
+#: modules/pam_limits/pam_limits.c:1088
 #, fuzzy, c-format
-#| msgid "Too many logins for '%s'."
 msgid "There were too many logins for '%s'."
 msgstr "對 '%s' 進行太多次登入。"
 
 #: modules/pam_mail/pam_mail.c:297
 #, fuzzy
-#| msgid "You have new mail."
 msgid "You have no mail."
 msgstr "您有新的郵件。"
 
@@ -375,18 +370,18 @@ msgstr "資料夾 %s 中有您的舊郵件。"
 msgid "You have mail in folder %s."
 msgstr "資料夾 %s 中有您的郵件。"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:111
+#: modules/pam_mkhomedir/pam_mkhomedir.c:113
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "建立目錄「%s」。"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:176
+#: modules/pam_mkhomedir/pam_mkhomedir.c:180
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "無法建立和初始化「%s」目錄。"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:585
+#: modules/pam_unix/pam_unix_passwd.c:591
 msgid "Password has been already used. Choose another."
 msgstr "密碼已經由其他使用者使用。請選擇其他密碼。"
 
@@ -394,50 +389,45 @@ msgstr "密碼已經由其他使用者使用。請選擇其他密碼。"
 msgid "Password has been already used."
 msgstr "密碼已被使用過。"
 
-#: modules/pam_selinux/pam_selinux.c:210
+#: modules/pam_selinux/pam_selinux.c:206
 #, fuzzy, c-format
-#| msgid "Default Security Context %s\n"
 msgid "The default security context is %s."
 msgstr "預設的安全網路位置 %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:214
+#: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
 msgstr "您是否希望輸入不同的角色或層級？"
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:223
 msgid "role:"
 msgstr "角色："
 
-#: modules/pam_selinux/pam_selinux.c:231
+#: modules/pam_selinux/pam_selinux.c:227
 #, fuzzy, c-format
-#| msgid "No default type for role %s\n"
 msgid "There is no default type for role %s."
 msgstr "%s 沒有預設的類型\n"
 
-#: modules/pam_selinux/pam_selinux.c:263
+#: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "層級："
 
-#: modules/pam_selinux/pam_selinux.c:296
+#: modules/pam_selinux/pam_selinux.c:292
 #, fuzzy
-#| msgid "Not a valid security context"
 msgid "This is not a valid security context."
 msgstr "不是有效的安全網路位置"
 
-#: modules/pam_selinux/pam_selinux.c:545
+#: modules/pam_selinux/pam_selinux.c:541
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:664
+#: modules/pam_selinux/pam_selinux.c:660
 #, fuzzy, c-format
-#| msgid "Security Context %s Assigned"
 msgid "Security context %s has been assigned."
 msgstr "已指定安全網路位置 %s"
 
-#: modules/pam_selinux/pam_selinux.c:680
+#: modules/pam_selinux/pam_selinux.c:676
 #, fuzzy, c-format
-#| msgid "Key Creation Context %s Assigned"
 msgid "Key creation context %s has been assigned."
 msgstr "已指建置金鑰的定安全網路位置 %s"
 
@@ -456,40 +446,38 @@ msgstr "pam_set_item() 失敗\n"
 msgid "login: failure forking: %m"
 msgstr "登入：失敗的分叉：%m"
 
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
 #, fuzzy, c-format
-#| msgid "Account temporary locked (%ld seconds left)"
 msgid "The account is temporarily locked (%ld seconds left)."
 msgstr "帳號暫時被鎖住（還剩下 %ld 秒）"
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, fuzzy, c-format
-#| msgid "Account locked due to %u failed logins"
 msgid "The account is locked due to %u failed logins."
 msgstr "因為嘗試登入 %u 次失敗，帳號已被封鎖"
 
-#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
+#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
 msgstr "驗證錯誤"
 
-#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:864
+#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:859
 msgid "Service error"
 msgstr "服務錯誤"
 
-#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:865
+#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:860
 msgid "Unknown user"
 msgstr "未知的使用者"
 
-#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:866
+#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:861
 msgid "Unknown error"
 msgstr "未知的錯誤"
 
-#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:885
+#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:880
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: 不良的號碼提供至 --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:889
+#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:884
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: 未識別的選項 %s\n"
@@ -501,17 +489,17 @@ msgid ""
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1028
+#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1023
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: 無法將所有使用者重新設定為非零\n"
 
-#: modules/pam_tally2/pam_tally2.c:917
+#: modules/pam_tally2/pam_tally2.c:912
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr "Login           Failures Latest failure     From\n"
 
-#: modules/pam_tally2/pam_tally2.c:933
+#: modules/pam_tally2/pam_tally2.c:928
 #, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -524,62 +512,59 @@ msgstr ""
 
 #: modules/pam_timestamp/pam_timestamp.c:357
 #, fuzzy, c-format
-#| msgid "Access granted (last access was %ld seconds ago)."
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "已賦予存取權限（最後一次存取為 %ld 秒前）。"
 
-#: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 #, fuzzy
-#| msgid "Your account has expired; please contact your system administrator"
 msgid "Your account has expired; please contact your system administrator."
 msgstr "您的帳戶已經逾期，請洽詢您的系統管理員"
 
-#: modules/pam_unix/pam_unix_acct.c:261
+#: modules/pam_unix/pam_unix_acct.c:240
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "您必須立刻變更您的密碼 (root 強制執行)"
 
-#: modules/pam_unix/pam_unix_acct.c:267
+#: modules/pam_unix/pam_unix_acct.c:246
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "您必須立刻變更您的密碼 (密碼使用過久)"
 
-#: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
 #, fuzzy, c-format
-#| msgid "Warning: your password will expire in %d day"
-#| msgid_plural "Warning: your password will expire in %d days"
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "警告：您的密碼將於 %d 天內過期"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:300
+#: modules/pam_unix/pam_unix_acct.c:279
 #, fuzzy, c-format
-#| msgid "Warning: your password will expire in %d days"
 msgid "Warning: your password will expire in %d days."
 msgstr "警告：您的密碼將在 %d 天之後過期。"
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:467
 msgid "NIS password could not be changed."
 msgstr "無法變更 NIS 密碼。"
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:583
+msgid "You must choose a shorter password."
+msgstr "您必須選擇較短的密碼。"
+
+#: modules/pam_unix/pam_unix_passwd.c:587
 #, fuzzy
-#| msgid "You must choose a longer password"
 msgid "You must choose a longer password."
 msgstr "您必須選擇更長的密碼"
 
-#: modules/pam_unix/pam_unix_passwd.c:688
+#: modules/pam_unix/pam_unix_passwd.c:694
 #, c-format
 msgid "Changing password for %s."
 msgstr "正在更改 %s 的 STRESS 密碼。"
 
-#: modules/pam_unix/pam_unix_passwd.c:718
+#: modules/pam_unix/pam_unix_passwd.c:724
 #, fuzzy
-#| msgid "You must wait longer to change your password"
 msgid "You must wait longer to change your password."
 msgstr "您必須久候，以更改您的密碼"
 
@@ -603,6 +588,3 @@ msgstr "您必須久候，以更改您的密碼"
 
 #~ msgid "Verification mis-typed; password unchanged"
 #~ msgstr "確認錯誤輸入；密碼未變更"
-
-#~ msgid "You must choose a shorter password."
-#~ msgstr "您必須選擇較短的密碼。"

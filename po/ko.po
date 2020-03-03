@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2018-06-19 00:00+0000\n"
+"POT-Creation-Date: 2020-03-03 10:51+0100\n"
 "PO-Revision-Date: 2013-04-16 09:34-0400\n"
 "Last-Translator: eukim <eukim@redhat.com>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/fedora/language/"
@@ -60,14 +60,13 @@ msgstr "새 %s%s 암호 재입력:"
 msgid "Sorry, passwords do not match."
 msgstr "죄송합니다. 암호가 일치하지 않습니다."
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:220
+#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:228
 #, c-format
 msgid "Retype %s"
 msgstr "다시 입력 %s "
 
-#: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
+#: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
 #, fuzzy
-#| msgid "Password change aborted."
 msgid "Password change has been aborted."
 msgstr "암호가 변경되지 않습니다.  "
 
@@ -254,16 +253,14 @@ msgid "contains the user name in some form"
 msgstr "어떠한 형식으로 사용자 이름을 포함합니다.  "
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:563
+#: modules/pam_unix/pam_unix_passwd.c:565
 #, fuzzy
-#| msgid "No password supplied"
 msgid "No password has been supplied."
 msgstr "암호가 없음"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
-#| msgid "NIS password could not be changed."
 msgid "The password has not been changed."
 msgstr "NIS 암호는 변경할 수 없습니다."
 
@@ -273,55 +270,55 @@ msgstr "NIS 암호는 변경할 수 없습니다."
 msgid "BAD PASSWORD: %s"
 msgstr "잘못된 암호: %s"
 
-#: modules/pam_exec/pam_exec.c:276
+#: modules/pam_exec/pam_exec.c:267
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s 실패: 종료 코드 %d"
 
-#: modules/pam_exec/pam_exec.c:285
+#: modules/pam_exec/pam_exec.c:276
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s 실패: 신호 발견 %d%s"
 
-#: modules/pam_exec/pam_exec.c:294
+#: modules/pam_exec/pam_exec.c:285
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s 실패: 알 수 없는 상태 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:496
+#: modules/pam_lastlog/pam_lastlog.c:324 modules/pam_lastlog/pam_lastlog.c:585
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:505
+#: modules/pam_lastlog/pam_lastlog.c:333 modules/pam_lastlog/pam_lastlog.c:594
 #, c-format
 msgid " from %.*s"
 msgstr " %.*s에서 시작"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:303 modules/pam_lastlog/pam_lastlog.c:517
+#: modules/pam_lastlog/pam_lastlog.c:345 modules/pam_lastlog/pam_lastlog.c:606
 #, c-format
 msgid " on %.*s"
 msgstr " 일시 %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:313
+#: modules/pam_lastlog/pam_lastlog.c:355
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "마지막 로그인:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:319
+#: modules/pam_lastlog/pam_lastlog.c:361
 msgid "Welcome to your new account!"
 msgstr "새로운 계정을 사용해 주셔서 감사합니다!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:527
+#: modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "마지막 로그인 실패:%s%s%s "
 
-#: modules/pam_lastlog/pam_lastlog.c:536 modules/pam_lastlog/pam_lastlog.c:543
+#: modules/pam_lastlog/pam_lastlog.c:625 modules/pam_lastlog/pam_lastlog.c:632
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -329,20 +326,18 @@ msgid_plural ""
 msgstr[0] "마지막 로그인 후 %d 번의 로그인 시도가 실패하였습니다.  "
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:548
+#: modules/pam_lastlog/pam_lastlog.c:637
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "마지막 로그인 후 %d 번의 로그인 시도가 실패하였습니다. "
 
-#: modules/pam_limits/pam_limits.c:1091
+#: modules/pam_limits/pam_limits.c:1088
 #, fuzzy, c-format
-#| msgid "Too many logins for '%s'."
 msgid "There were too many logins for '%s'."
 msgstr "'%s' 대해 너무 많이 로그인함."
 
 #: modules/pam_mail/pam_mail.c:297
 #, fuzzy
-#| msgid "You have new mail."
 msgid "You have no mail."
 msgstr "새로운 메일이 있습니다."
 
@@ -378,18 +373,18 @@ msgstr "%s 폴더에 오래된 메일이 있습니다."
 msgid "You have mail in folder %s."
 msgstr "%s 폴더에 메일이 있습니다."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:111
+#: modules/pam_mkhomedir/pam_mkhomedir.c:113
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "'%s' 디렉토리 생성 중.  "
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:176
+#: modules/pam_mkhomedir/pam_mkhomedir.c:180
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "'%s' 디렉토리를 생성 및 초기화할 수 없습니다.  "
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:585
+#: modules/pam_unix/pam_unix_passwd.c:591
 msgid "Password has been already used. Choose another."
 msgstr "이미 사용되고 있는 암호입니다. 다른 암호를 선택해 주십시오."
 
@@ -397,50 +392,45 @@ msgstr "이미 사용되고 있는 암호입니다. 다른 암호를 선택해 �
 msgid "Password has been already used."
 msgstr "이미 사용되고 있는 암호입니다."
 
-#: modules/pam_selinux/pam_selinux.c:210
+#: modules/pam_selinux/pam_selinux.c:206
 #, fuzzy, c-format
-#| msgid "Default Security Context %s\n"
 msgid "The default security context is %s."
 msgstr "기본값 보안 문맥 %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:214
+#: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
 msgstr "다른 역할 또는 레벨을 입력하시겠습니까?   "
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:223
 msgid "role:"
 msgstr "역할: "
 
-#: modules/pam_selinux/pam_selinux.c:231
+#: modules/pam_selinux/pam_selinux.c:227
 #, fuzzy, c-format
-#| msgid "No default type for role %s\n"
 msgid "There is no default type for role %s."
 msgstr "%s 역할에 대한 기본값 유형이 없음 \n"
 
-#: modules/pam_selinux/pam_selinux.c:263
+#: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "레벨: "
 
-#: modules/pam_selinux/pam_selinux.c:296
+#: modules/pam_selinux/pam_selinux.c:292
 #, fuzzy
-#| msgid "Not a valid security context"
 msgid "This is not a valid security context."
 msgstr "유효한 보안 문맥이 없음"
 
-#: modules/pam_selinux/pam_selinux.c:545
+#: modules/pam_selinux/pam_selinux.c:541
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:664
+#: modules/pam_selinux/pam_selinux.c:660
 #, fuzzy, c-format
-#| msgid "Security Context %s Assigned"
 msgid "Security context %s has been assigned."
 msgstr "보안 문맥 %s 할당"
 
-#: modules/pam_selinux/pam_selinux.c:680
+#: modules/pam_selinux/pam_selinux.c:676
 #, fuzzy, c-format
-#| msgid "Key Creation Context %s Assigned"
 msgid "Key creation context %s has been assigned."
 msgstr "키 생성 문맥 %s 할당  "
 
@@ -459,40 +449,38 @@ msgstr "pam_set_item() 실패\n"
 msgid "login: failure forking: %m"
 msgstr "로그인: 포크 작업(forking) 실패: %m"
 
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
 #, fuzzy, c-format
-#| msgid "Account temporary locked (%ld seconds left)"
 msgid "The account is temporarily locked (%ld seconds left)."
 msgstr "일시적으로 계정이 잠금되었습니다 (%ld 초 남음)  "
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, fuzzy, c-format
-#| msgid "Account locked due to %u failed logins"
 msgid "The account is locked due to %u failed logins."
 msgstr "%u 로그인 실패로 인해 계정이 잠김 "
 
-#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
+#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
 msgstr "인증 오류"
 
-#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:864
+#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:859
 msgid "Service error"
 msgstr "서비스 오류"
 
-#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:865
+#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:860
 msgid "Unknown user"
 msgstr "알 수 없는 사용자"
 
-#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:866
+#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:861
 msgid "Unknown error"
 msgstr "알 수 없는 오류"
 
-#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:885
+#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:880
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: 잘못된 숫자가 --reset=에 설정됨\n"
 
-#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:889
+#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:884
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: 알려지지 않은 옵션 %s\n"
@@ -504,17 +492,17 @@ msgid ""
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1028
+#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1023
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: 모든 사용자를 영이 아닌 값으로 설정할 수 없음\n"
 
-#: modules/pam_tally2/pam_tally2.c:917
+#: modules/pam_tally2/pam_tally2.c:912
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr "로그인           실패 마지막 실패     다음에서 발생\n"
 
-#: modules/pam_tally2/pam_tally2.c:933
+#: modules/pam_tally2/pam_tally2.c:928
 #, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -527,62 +515,59 @@ msgstr ""
 
 #: modules/pam_timestamp/pam_timestamp.c:357
 #, fuzzy, c-format
-#| msgid "Access granted (last access was %ld seconds ago)."
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "액세스 허용 (%ld 초 전 마지막으로 액세스되었습니다) "
 
-#: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 #, fuzzy
-#| msgid "Your account has expired; please contact your system administrator"
 msgid "Your account has expired; please contact your system administrator."
 msgstr "계정이 만료되었습니다: 시스템 관리자에게 알려 주십시오"
 
-#: modules/pam_unix/pam_unix_acct.c:261
+#: modules/pam_unix/pam_unix_acct.c:240
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "암호를 즉시 변경해 주십시오 (root가 강제 설정함)"
 
-#: modules/pam_unix/pam_unix_acct.c:267
+#: modules/pam_unix/pam_unix_acct.c:246
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "암호를 즉시 변경해 주십시오 (오래된 암호)"
 
-#: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
 #, fuzzy, c-format
-#| msgid "Warning: your password will expire in %d day"
-#| msgid_plural "Warning: your password will expire in %d days"
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "경고: %d일 내로 암호가 만료됩니다"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:300
+#: modules/pam_unix/pam_unix_acct.c:279
 #, fuzzy, c-format
-#| msgid "Warning: your password will expire in %d days"
 msgid "Warning: your password will expire in %d days."
 msgstr "경고: %d일 내로 암호가 만료됩니다"
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:467
 msgid "NIS password could not be changed."
 msgstr "NIS 암호는 변경할 수 없습니다."
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:583
+msgid "You must choose a shorter password."
+msgstr "더 짧은 암호를 선택해야합니다."
+
+#: modules/pam_unix/pam_unix_passwd.c:587
 #, fuzzy
-#| msgid "You must choose a longer password"
 msgid "You must choose a longer password."
 msgstr "더 긴 암호를 선택해 주십시오"
 
-#: modules/pam_unix/pam_unix_passwd.c:688
+#: modules/pam_unix/pam_unix_passwd.c:694
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s에 대한 암호 변경 중  "
 
-#: modules/pam_unix/pam_unix_passwd.c:718
+#: modules/pam_unix/pam_unix_passwd.c:724
 #, fuzzy
-#| msgid "You must wait longer to change your password"
 msgid "You must wait longer to change your password."
 msgstr "암호 변경을 위해 조금더 기다려 주십시오."
 
@@ -606,6 +591,3 @@ msgstr "암호 변경을 위해 조금더 기다려 주십시오."
 
 #~ msgid "Verification mis-typed; password unchanged"
 #~ msgstr "암호 확인에서 잘못 입력됨; 암호가 변경되지 않음"
-
-#~ msgid "You must choose a shorter password."
-#~ msgstr "더 짧은 암호를 선택해야합니다."
