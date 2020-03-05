@@ -37,12 +37,15 @@
 #include <security/pam_ext.h>
 
 #define PROMPT _("Password: ")
-/* For Translators: "%s%s" could be replaced with "<service> " or "". */
-#define PROMPTCURRENT _("Current %s%spassword: ")
-/* For Translators: "%s%s" could be replaced with "<service> " or "". */
-#define PROMPT1 _("New %s%spassword: ")
-/* For Translators: "%s%s" could be replaced with "<service> " or "". */
-#define PROMPT2 _("Retype new %s%spassword: ")
+/* For Translators: "%s" is replaced with "<service>". */
+#define PROMPT_CURRENT_ARG _("Current %s password: ")
+#define PROMPT_CURRENT_NOARG _("Current password: ")
+/* For Translators: "%s" is replaced with "<service>". */
+#define PROMPT_NEW_ARG _("New %s password: ")
+#define PROMPT_NEW_NOARG _("New password: ")
+/* For Translators: "%s" is replaced with "<service>". */
+#define PROMPT_RETYPE_ARG _("Retype new %s password: ")
+#define PROMPT_RETYPE_NOARG _("Retype new password: ")
 #define MISTYPED_PASS _("Sorry, passwords do not match.")
 
 #define PAM_GETAUTHTOK_NOVERIFY  1
@@ -142,21 +145,30 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
     {
       pamh->authtok_verified = 0;
 
-      retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0],
-			   PROMPT1, authtok_type,
-			   strlen (authtok_type) > 0?" ":"");
+      retval = *authtok_type ?
+	pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0],
+		    PROMPT_NEW_ARG, authtok_type) :
+	pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0],
+		    "%s", PROMPT_NEW_NOARG);
       if (retval == PAM_SUCCESS && chpass > 1 && resp[0] != NULL)
-	retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[1],
-			     PROMPT2, authtok_type,
-			     strlen (authtok_type) > 0?" ":"");
+	{
+	  retval = *authtok_type ?
+	    pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[1],
+			PROMPT_RETYPE_ARG, authtok_type) :
+	    pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[1],
+			"%s", PROMPT_RETYPE_NOARG);
+	}
     }
   else if (item == PAM_OLDAUTHTOK)
-    retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0],
-			 PROMPTCURRENT, authtok_type,
-			 strlen (authtok_type) > 0?" ":"");
+    {
+      retval = *authtok_type ?
+	pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0],
+		    PROMPT_CURRENT_ARG, authtok_type) :
+	pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0],
+		    "%s", PROMPT_CURRENT_NOARG);
+    }
   else
-    retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0], "%s",
-			 PROMPT);
+    retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp[0], "%s", PROMPT);
 
   if (retval != PAM_SUCCESS || resp[0] == NULL ||
       (chpass > 1 && resp[1] == NULL))
@@ -232,9 +244,11 @@ pam_get_authtok_verify (pam_handle_t *pamh, const char **authtok,
       retval = pam_get_item (pamh, PAM_AUTHTOK_TYPE, (const void **)&authtok_type);
       if (retval != PAM_SUCCESS || authtok_type == NULL)
         authtok_type = "";
-      retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp,
-			   PROMPT2, authtok_type,
-			   strlen (authtok_type) > 0?" ":"");
+      retval = *authtok_type ?
+	pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp,
+		    PROMPT_RETYPE_ARG, authtok_type) :
+	pam_prompt (pamh, PAM_PROMPT_ECHO_OFF, &resp,
+		    "%s", PROMPT_RETYPE_NOARG);
     }
 
   if (retval != PAM_SUCCESS || resp == NULL)
