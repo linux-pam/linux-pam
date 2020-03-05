@@ -136,7 +136,7 @@ static int join_dir_strings(char **strp_out, const char *a_str, const char *b_st
     int has_sep = 0;
     int retval = -1;
     char *join_strp = NULL;
-    
+
     if (strp_out == NULL || a_str == NULL || b_str == NULL) {
 	goto out;
     }

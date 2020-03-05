@@ -7,4 +7,3 @@
     <ss:substitution oldstring="%vendordir%" newstring="{$vendordir}" />
   </xsl:param>
 </xsl:stylesheet>
-
