@@ -395,7 +395,6 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 	struct passwd *pwd = NULL;
 	int retval = 0;
 	int unlocked = 0;
-	char *master = NULL;
 
 	D(("called"));
 
@@ -408,6 +407,8 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 
 	if (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, forwho, 0, 1)) {
 #ifdef HAVE_NIS
+	  char *master;
+
 	  if ((master=getNISserver(pamh, ctrl)) != NULL) {
 		struct timeval timeout;
 		struct yppasswd yppwd;

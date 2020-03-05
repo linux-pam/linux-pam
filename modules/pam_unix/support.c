@@ -351,7 +351,7 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 	}
 #else
 	/* we don't have NIS support, make compiler happy. */
-	nis = 0;
+	(void) nis;
 #endif
 
 	if (matched && (ret != NULL)) {
