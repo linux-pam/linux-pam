@@ -42,7 +42,7 @@ box may stop working..)
       make install
 
 That said, please report problems to the bug reporting database
-on sourceforge.net.
+at https://github.com/linux-pam/linux-pam/issues .
 
 You can run additional checks after installing by executing
 
