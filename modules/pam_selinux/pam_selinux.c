@@ -157,42 +157,6 @@ query_response (pam_handle_t *pamh, const char *text, const char *def,
   return rc;
 }
 
-static int mls_range_allowed(pam_handle_t *pamh, security_context_t src, security_context_t dst, int debug)
-{
-  struct av_decision avd;
-  int retval;
-  security_class_t class;
-  access_vector_t bit;
-  context_t src_context;
-  context_t dst_context;
-
-  class = string_to_security_class("context");
-  if (!class) {
-    pam_syslog(pamh, LOG_ERR, "Failed to translate security class context. %m");
-    return 0;
-  }
-
-  bit = string_to_av_perm(class, "contains");
-  if (!bit) {
-    pam_syslog(pamh, LOG_ERR, "Failed to translate av perm contains. %m");
-    return 0;
-  }
-
-  src_context = context_new (src);
-  dst_context = context_new (dst);
-  context_range_set(dst_context, context_range_get(src_context));
-  if (debug)
-    pam_syslog(pamh, LOG_NOTICE, "Checking if %s mls range valid for  %s", dst, context_str(dst_context));
-
-  retval = security_compute_av(context_str(dst_context), dst, class, bit, &avd);
-  context_free(src_context);
-  context_free(dst_context);
-  if (retval || ((bit & avd.allowed) != bit))
-    return 0;
-
-  return 1;
-}
-
 static security_context_t
 config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_current_range, int debug)
 {
@@ -274,16 +238,17 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
 	    goto fail_set;
 	  context_free(new_context);
 
-          /* we have to check that this user is allowed to go into the
-             range they have specified ... role is tied to an seuser, so that'll
-             be checked at setexeccon time */
-          if (mls_enabled && !mls_range_allowed(pamh, defaultcon, newcon, debug)) {
+    /* we have to check that this user is allowed to go into the
+        range they have specified ... role is tied to an seuser, so that'll
+        be checked at setexeccon time */
+    if (mls_enabled &&
+        selinux_check_access(defaultcon, newcon, "context", "contains", NULL) != 0) {
 	    pam_syslog(pamh, LOG_NOTICE, "Security context %s is not allowed for %s", defaultcon, newcon);
 
 	    send_audit_message(pamh, 0, defaultcon, newcon);
 
 	    free(newcon);
-            goto fail_range;
+	    goto fail_range;
 	  }
 	  return newcon;
 	}
@@ -385,7 +350,8 @@ context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_par
   /* we have to check that this user is allowed to go into the
      range they have specified ... role is tied to an seuser, so that'll
      be checked at setexeccon time */
-  if (mls_enabled && !mls_range_allowed(pamh, defaultcon, newcon, debug)) {
+  if (mls_enabled &&
+      selinux_check_access(defaultcon, newcon, "context", "contains", NULL) != 0) {
     pam_syslog(pamh, LOG_NOTICE, "Security context %s is not allowed for %s", defaultcon, newcon);
 
     goto fail_set;
