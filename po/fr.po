@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # mrtomlinux <thomas.canniot@mrtomlinux.org>, 2008
 # Charles-Antoine Couret <cacouret@wanadoo.fr>, 2009
@@ -16,10 +16,10 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2020-03-03 10:51+0100\n"
-"PO-Revision-Date: 2020-03-01 10:48+0000\n"
+"PO-Revision-Date: 2020-03-05 01:38+0000\n"
 "Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
-"Language-Team: French <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/fr/>\n"
+"Language-Team: French <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,9 +70,8 @@ msgid "Retype %s"
 msgstr "Retapez %s"
 
 #: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
-#, fuzzy
 msgid "Password change has been aborted."
-msgstr "Changement du mot de passe avorté."
+msgstr "Le changement de mot de passe a été annulé."
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -267,15 +266,13 @@ msgstr "contient le nom d’utilisateur d’une certaine manière"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:565
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "Aucun mot de passe fourni"
+msgstr "Aucun mot de passe n’a été fourni."
 
 #: modules/pam_cracklib/pam_cracklib.c:696
 #: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "Le mot de passe NIS n'a pas pu être changé."
+msgstr "Le mot de passe n’a pas été modifié."
 
 #: modules/pam_cracklib/pam_cracklib.c:716
 #: modules/pam_cracklib/pam_cracklib.c:798
@@ -352,14 +349,13 @@ msgstr ""
 "réussie."
 
 #: modules/pam_limits/pam_limits.c:1088
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
-msgstr "Trop de connexions pour « %s »."
+msgstr "Trop de connexions pour « %s »."
 
 #: modules/pam_mail/pam_mail.c:297
-#, fuzzy
 msgid "You have no mail."
-msgstr "Vous avez un nouveau message."
+msgstr "Vous n’avez pas de message."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -413,9 +409,9 @@ msgid "Password has been already used."
 msgstr "Mot de passe déjà utilisé."
 
 #: modules/pam_selinux/pam_selinux.c:206
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "Contexte de sécurité par défaut %s\n"
+msgstr "Le contexte de sécurité par défaut est %s."
 
 #: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
@@ -426,33 +422,32 @@ msgid "role:"
 msgstr "rôle :"
 
 #: modules/pam_selinux/pam_selinux.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "Aucun type par défaut pour le rôle %s\n"
+msgstr "Il n’y a aucun type par défaut pour le rôle %s."
 
 #: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "niveau :"
 
 #: modules/pam_selinux/pam_selinux.c:292
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "Contexte de sécurité invalide"
+msgstr "Ceci n’est pas un contexte de sécurité valide."
 
 #: modules/pam_selinux/pam_selinux.c:541
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "Impossible d’obtenir un contexte valide pour %s."
 
 #: modules/pam_selinux/pam_selinux.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "Contexte de sécurité %s attribué"
+msgstr "Le contexte de sécurité %s a été attribué."
 
 #: modules/pam_selinux/pam_selinux.c:676
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "Contexte de création de clés %s attribué"
+msgstr "Le contexte de création de clés %s a été attribué."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -470,14 +465,14 @@ msgid "login: failure forking: %m"
 msgstr "login : échec du clonage : %m"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "Compte temporairement verrouillé (%ld secondes restantes)"
+msgstr "Le compte est temporairement verrouillé (%ld secondes restantes)."
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "Compte temporairement verrouillé dû à l'échec de %u connexions"
+msgstr "Le compte est temporairement verrouillé dû aux %u connexions échouées."
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
@@ -535,40 +530,41 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Accès accordé (dernier accès il y a %ld secondes)."
+msgstr "L’accès a été accordé (dernier accès il y a %ld secondes)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr "Votre compte a expiré. Contactez votre administrateur système"
+msgstr ""
+"Votre compte a expiré ; veuillez contacter votre administrateur système."
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "Vous devez changer votre mot de passe immédiatement (imposé par root)"
+msgstr ""
+"Vous devez changer votre mot de passe immédiatement (imposé par "
+"l’administrateur)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "Vous devez changer votre mot de passe immédiatement, il est périmé"
+msgstr ""
+"Vous devez changer votre mot de passe immédiatement (mot de passe expiré)."
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Avertissement : votre mot de passe expire dans %d jour."
-msgstr[1] "Avertissement : votre mot de passe expire dans %d jours"
+msgstr[0] "Attention : votre mot de passe expirera dans %d jour."
+msgstr[1] "Attention : votre mot de passe expirera dans %d jours."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "Avertissement : votre mot de passe expire dans %d jours"
+msgstr "Attention : votre mot de passe expirera dans %d jours."
 
 #: modules/pam_unix/pam_unix_passwd.c:467
 msgid "NIS password could not be changed."
@@ -579,9 +575,8 @@ msgid "You must choose a shorter password."
 msgstr "Vous devez choisir un mot de passe plus court."
 
 #: modules/pam_unix/pam_unix_passwd.c:587
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Vous devez choisir un mot de passe plus long"
+msgstr "Vous devez choisir un mot de passe plus long."
 
 #: modules/pam_unix/pam_unix_passwd.c:694
 #, c-format
@@ -589,9 +584,10 @@ msgid "Changing password for %s."
 msgstr "Changement du mot de passe pour %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:724
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Vous devez encore attendre avant de changer votre mot de passe"
+msgstr ""
+"Vous devez attendre plus longtemps afin de pouvoir changer votre mot de "
+"passe."
 
 #~ msgid "Password unchanged"
 #~ msgstr "Mot de passe inchangé"
