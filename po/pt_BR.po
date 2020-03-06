@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Diego Búrigo Zacarão <diegobz@projetofedora.org>, 2008
 # Elder Marco <eldermarco@gmail.com>, 2012
@@ -10,21 +10,22 @@
 # Marcelo Barbosa <firemanxbr@fedoraproject.org>, 2013
 # Taylon Silmer <taylonsilva@gmail.com>, 2008-2009
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2020-03-03 10:51+0100\n"
-"PO-Revision-Date: 2014-07-03 01:41-0400\n"
-"Last-Translator: Daniel Lara <danniel@fedoraproject.org>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
-"linux-pam/language/pt_BR/)\n"
+"PO-Revision-Date: 2020-03-06 23:59+0000\n"
+"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
+"Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
+"projects/linux-pam/master/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.11.2\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -291,19 +292,19 @@ msgstr "%s falhou: status desconhecido 0x%x"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:324 modules/pam_lastlog/pam_lastlog.c:585
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr "%a %b %e %H:%M:%S %Z %Y"
+msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:333 modules/pam_lastlog/pam_lastlog.c:594
 #, c-format
 msgid " from %.*s"
-msgstr "de %.*s"
+msgstr " de %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:345 modules/pam_lastlog/pam_lastlog.c:606
 #, c-format
 msgid " on %.*s"
-msgstr "em %.*s"
+msgstr " em %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:355

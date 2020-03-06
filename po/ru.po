@@ -1,28 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Aleksandr Brezhnev <abrezhnev@gmail.com>, 2012
 # Andrew Martynov <andrewm@inventa.ru>, 2008
 # Yulia <yulia.poyarkova@redhat.com>, 2007,2009
 # Yulia <yulia.poyarkova@redhat.com>, 2013
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2020-03-03 10:51+0100\n"
-"PO-Revision-Date: 2013-04-08 09:12-0400\n"
-"Last-Translator: Yulia <yulia.poyarkova@redhat.com>\n"
-"Language-Team: Russian <trans-ru@lists.fedoraproject.org>\n"
+"PO-Revision-Date: 2020-03-06 23:59+0000\n"
+"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
+"Language-Team: Russian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.11.2\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -43,9 +45,9 @@ msgid "Password: "
 msgstr "Пароль: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s%spassword: "
-msgstr "Новый пароль %s%s: "
+msgstr "Текущий пароль %s%s: "
 
 #: libpam/pam_get_authtok.c:43
 #, c-format
@@ -67,7 +69,6 @@ msgid "Retype %s"
 msgstr "Повторите ввод %s"
 
 #: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
-#, fuzzy
 msgid "Password change has been aborted."
 msgstr "Изменение пароля отменено."
 
@@ -257,15 +258,13 @@ msgstr "содержит имя пользователя"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:565
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "Пароль не указан"
+msgstr "Пароль не указан."
 
 #: modules/pam_cracklib/pam_cracklib.c:696
 #: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "Пароль NIS изменить нельзя."
+msgstr "Пароль не изменен."
 
 #: modules/pam_cracklib/pam_cracklib.c:716
 #: modules/pam_cracklib/pam_cracklib.c:798
@@ -291,19 +290,19 @@ msgstr "Сбой %s. Неизвестный статус 0x%x"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:324 modules/pam_lastlog/pam_lastlog.c:585
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr "%a %b %e %H:%M:%S %Z %Y"
+msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:333 modules/pam_lastlog/pam_lastlog.c:594
 #, c-format
 msgid " from %.*s"
-msgstr "с %.*s"
+msgstr " с %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:345 modules/pam_lastlog/pam_lastlog.c:606
 #, c-format
 msgid " on %.*s"
-msgstr "на %.*s"
+msgstr " на %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:355
@@ -337,14 +336,13 @@ msgid "There were %d failed login attempts since the last successful login."
 msgstr "Число неудачных попыток со времени последнего входа: %d."
 
 #: modules/pam_limits/pam_limits.c:1088
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Слишком много регистраций в системе для «%s»."
 
 #: modules/pam_mail/pam_mail.c:297
-#, fuzzy
 msgid "You have no mail."
-msgstr "Есть новая почта."
+msgstr "Почты нет."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -398,9 +396,9 @@ msgid "Password has been already used."
 msgstr "Этот пароль уже использовался."
 
 #: modules/pam_selinux/pam_selinux.c:206
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "Контекст безопасности по умолчанию %s\n"
+msgstr "Контекст безопасности по умолчанию %s."
 
 #: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
@@ -411,33 +409,32 @@ msgid "role:"
 msgstr "роль:"
 
 #: modules/pam_selinux/pam_selinux.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "Для роли %s нет типа по умолчанию\n"
+msgstr "Для роли %s нет типа по умолчанию."
 
 #: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "уровень:"
 
 #: modules/pam_selinux/pam_selinux.c:292
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "Неверный контекст безопасности"
+msgstr "Неверный контекст безопасности."
 
 #: modules/pam_selinux/pam_selinux.c:541
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "Не удалось получить корректный контекст для %s."
 
 #: modules/pam_selinux/pam_selinux.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "Контекст безопасности %s назначен"
+msgstr "Контекст безопасности %s назначен."
 
 #: modules/pam_selinux/pam_selinux.c:676
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "Контекст %s, используемый при создании ключей, назначен"
+msgstr "Контекст %s, используемый при создании ключей, назначен."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -455,12 +452,12 @@ msgid "login: failure forking: %m"
 msgstr "регистрация: сбой при создании нового процесса: %m"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "Учетная запись временно заблокирована (осталось %ld сек.)"
+msgstr "Учетная запись временно заблокирована (осталось %ld сек.)."
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr ""
 "Учетная запись заблокирована как следствие неудачных попыток входа (всего -- "
@@ -509,7 +506,7 @@ msgstr ""
 #: modules/pam_tally2/pam_tally2.c:912
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr "Учетная запись           Сбой Последний сбой     С\n"
+msgstr "Учетная запись           Сбои Последний сбой     С\n"
 
 #: modules/pam_tally2/pam_tally2.c:928
 #, c-format
@@ -523,43 +520,40 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Доступ предоставлен (последнее обращение было %ld сек. назад)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
 msgstr ""
-"Срок действия учетной записи истек; обратитесь к системному администратору"
+"Срок действия учетной записи истек; обратитесь к системному администратору."
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr ""
-"Вам необходимо немедленно сменить пароль (в принудительном режиме root)"
+"Вам необходимо немедленно сменить пароль (по требованию администратора)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "Вам необходимо немедленно сменить пароль (пароль устарел)"
+msgstr "Вам необходимо немедленно сменить пароль (пароль устарел)."
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Предупреждение: срок действия пароля истекает через %d день"
-msgstr[1] "Предупреждение: срок действия пароля истекает через %d дня"
-msgstr[2] "Предупреждение: срок действия пароля истекает через %d дней"
+msgstr[0] "Предупреждение: срок действия пароля истекает через %d день."
+msgstr[1] "Предупреждение: срок действия пароля истекает через %d дня."
+msgstr[2] "Предупреждение: срок действия пароля истекает через %d дней."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "Предупреждение: срок действия пароля истекает через %d дн(я)(ей)"
+msgstr "Предупреждение: срок действия пароля истекает через %d дн(я)(ей)."
 
 #: modules/pam_unix/pam_unix_passwd.c:467
 msgid "NIS password could not be changed."
@@ -570,9 +564,8 @@ msgid "You must choose a shorter password."
 msgstr "Вы должны выбрать более короткий пароль."
 
 #: modules/pam_unix/pam_unix_passwd.c:587
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Выберите пароль большей длины"
+msgstr "Выберите пароль большей длины."
 
 #: modules/pam_unix/pam_unix_passwd.c:694
 #, c-format
@@ -580,9 +573,8 @@ msgid "Changing password for %s."
 msgstr "Смена пароля для %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:724
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "До смены пароля должно пройти больше времени"
+msgstr "До смены пароля должно пройти больше времени."
 
 #~ msgid "Password unchanged"
 #~ msgstr "Пароль не изменен"
