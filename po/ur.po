@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2011-11-30 06:56-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Urdu <trans-urdu@lists.fedoraproject.org>\n"
@@ -248,12 +248,12 @@ msgid "contains the user name in some form"
 msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 msgid "No password has been supplied."
 msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 msgid "The password has not been changed."
 msgstr ""
 
@@ -377,7 +377,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr ""
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr ""
 
@@ -534,26 +534,26 @@ msgstr[1] ""
 msgid "Warning: your password will expire in %d days."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 #, fuzzy
 msgid "You must choose a shorter password."
 msgstr "آپ کو ایک چھوٹا پاس ورڈ منتخب کرنا ہوگا."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "آپ کو ایک چھوٹا پاس ورڈ منتخب کرنا ہوگا."
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "آپ کو ایک چھوٹا پاس ورڈ منتخب کرنا ہوگا."

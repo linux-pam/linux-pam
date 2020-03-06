@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # fvalen <fvalen@redhat.com>, 2013
 # fvalen <fvalen@redhat.com>, 2012
@@ -13,12 +13,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Milo Casagrande <milo@milo.name>\n"
-"Language-Team: Italian <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/it/>\n"
+"Language-Team: Italian <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -259,12 +259,12 @@ msgid "contains the user name in some form"
 msgstr "contiene il nome utente in alcune forme"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 msgid "No password has been supplied."
 msgstr "Nessuna password fornita."
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 msgid "The password has not been changed."
 msgstr "La password non è stata modificata."
 
@@ -391,7 +391,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Impossibile creare e inizializzare la directory «%s»."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "Password già utilizzata, sceglierne un'altra."
 
@@ -555,24 +555,24 @@ msgstr[1] "Avviso: la password scadrà tra %d giorni."
 msgid "Warning: your password will expire in %d days."
 msgstr "Avviso: la password scadrà tra %d giorni."
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "Impossibile modificare la password NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "Scegliere una password più corta."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 msgid "You must choose a longer password."
 msgstr "Scegliere una password più lunga."
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "Cambio password per %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 msgid "You must wait longer to change your password."
 msgstr "Attendere ancora per cambiare la password."
 

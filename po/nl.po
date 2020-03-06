@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Geert Warrink <geert.warrink@onsnet.nu>, 2010,2012, 2020.
 # hamaryns <hendrik@hendrikmaryns.name>, 2013
@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2020-03-05 01:38+0000\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Dutch <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -257,12 +257,12 @@ msgid "contains the user name in some form"
 msgstr "bevat de gebruikersnaam in een of andere vorm"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 msgid "No password has been supplied."
 msgstr "Geen wachtwoord opgegeven."
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 msgid "The password has not been changed."
 msgstr "Het wachtwoord is niet gewijzigd."
 
@@ -389,7 +389,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Niet in staat om map '%s' aan te maken."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "Wachtwoord is al eens gebruikt. Kies een ander wachtwoord."
 
@@ -552,24 +552,24 @@ msgstr[1] "Waarschuwing: je wachtwoord zal binnen %d dagen verlopen."
 msgid "Warning: your password will expire in %d days."
 msgstr "Waarschuwing: je wachtwoord zal binnen %d dagen verlopen."
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS-wachtwoord kon niet worden gewijzigd."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "Je moet een korter wachtwoord kiezen."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 msgid "You must choose a longer password."
 msgstr "Je moet een langer wachtwoord kiezen."
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "Veranderen van wachtwoord voor %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 msgid "You must wait longer to change your password."
 msgstr "Je moet langer wachten om je wachtwoord te wijzigen."
 

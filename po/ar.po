@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2011-11-30 06:57-0500\n"
 "Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
 "Language-Team: Arabic <trans-ar@lists.fedoraproject.org>\n"
@@ -250,13 +250,13 @@ msgid "contains the user name in some form"
 msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "لم يتم إدخال كلمة السر"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "تعذر تغيير كلمة السر الخاصة بـ NIS."
@@ -386,7 +386,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr ""
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "كلمة السر التي تم إدخالها مستخدمة بالفعل. اختر كلمة سر أخرى."
 
@@ -553,25 +553,25 @@ msgstr[5] ""
 msgid "Warning: your password will expire in %d days."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "تعذر تغيير كلمة السر الخاصة بـ NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "يجب عليك اختيار كلمة مرور أقصر."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "يجب اختيار كلمة سر أطول"
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "يجب الانتظار فترة أطول لتغيير كلمة السر"

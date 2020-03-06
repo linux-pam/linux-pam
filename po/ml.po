@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2013-04-15 01:55-0400\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -250,13 +250,13 @@ msgid "contains the user name in some form"
 msgstr "ഉപയോക്താവിന്റെ നാമം ഏതെങ്കിലും ഒരു തരത്തിലുണ്ടു്"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "അടയാളവാക്ക് നല്‍കിയിട്ടില്ല"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS അടയാളവാക്ക് മാറ്റുവാന്‍ സാധ്യമാകുന്നില്ല."
@@ -382,7 +382,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "%s ഡയറക്ടറി ഉണ്ടാക്കുവാനും ആരംഭിക്കുവാനും സാധ്യമായില്ല."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "അടയാളവാക്ക് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
 
@@ -549,25 +549,25 @@ msgstr[1] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ 
 msgid "Warning: your password will expire in %d days."
 msgstr "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS അടയാളവാക്ക് മാറ്റുവാന്‍ സാധ്യമാകുന്നില്ല."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "നിങ്ങൾ ഒരു ഹ്രസ്വ പാസ്‌വേഡ് തിരഞ്ഞെടുക്കണം."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "ഇതിലും വലിയ അടയാളവാക്ക് തിരഞ്ഞെടുക്കുക"
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s-നുളള അടയാളവാക്ക് മാറ്റുന്നു."
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "നിങ്ങളുടെ അടയാളവാക്ക് മാറ്റുന്നതിനായി ഇനിയും കാത്തിരിക്കേണ്ടതാണ്."

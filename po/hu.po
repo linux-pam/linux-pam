@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Kalman Kemenczy <kkemenczy@novell.com>, 2006-2007
 # Keresztes Ákos <xsak@c2.hu>, 2006
@@ -12,12 +12,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
-"Language-Team: Hungarian <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/hu/>\n"
+"Language-Team: Hungarian <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -257,13 +257,13 @@ msgid "contains the user name in some form"
 msgstr "valahogy tartalmazza a felhasználó nevét"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "Nincs jelszó megadva"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS jelszót nem sikerült módosítani."
@@ -389,7 +389,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "„%s” mappa nem hozható létre és állítható be."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "A jelszót már használta. Válasszon másikat."
 
@@ -557,25 +557,25 @@ msgstr[1] "Figyelmeztetés: a jelszava %d nap múlva lejár"
 msgid "Warning: your password will expire in %d days."
 msgstr "Figyelmeztetés: a jelszava %d nap múlva lejár"
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS jelszót nem sikerült módosítani."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "Egy rövidebb jelszót kell választania."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "Válasszon hosszabb jelszót"
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s jelszavának megváltoztatása."
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "Tovább kell várnia míg megváltoztathatja a jelszavát"

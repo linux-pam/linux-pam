@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2012
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
@@ -9,12 +9,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
-"Language-Team: Kazakh <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/kk/>\n"
+"Language-Team: Kazakh <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/kk/>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -254,13 +254,13 @@ msgid "contains the user name in some form"
 msgstr "құрамында пайдаланушы аты бар"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "Пароль көрсетілмеді"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS паролін өзгерту мүмкін емес."
@@ -385,7 +385,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "'%s' бумасын жасау мүмкін емес."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "Пароль осыған дейін қолданған. Басқасын таңдаңыз."
 
@@ -550,25 +550,25 @@ msgstr[0] "Ескерту: сіздің пароліңіздің мерзімі 
 msgid "Warning: your password will expire in %d days."
 msgstr "Ескерту: сіздің пароліңіздің мерзімі %d күнде бітеді"
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS паролін өзгерту мүмкін емес."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "Сіз қысқа парольді таңдауыңыз керек."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "Сізге ұзынырақ парольді таңдау керек"
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s үшін парольді өзгерту."
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "Пароліңізді өзгерті үшін біраз күтуіңіз керек"

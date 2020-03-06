@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # kumarvimal <kmrvimal@gmail.com>, 2013
 # Rajesh Ranjan <rajesh672@gmail.com>, 2009
@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Hindi <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -254,13 +254,13 @@ msgid "contains the user name in some form"
 msgstr "कुछ रूप में उपयोक्ता नाम समाहित करता है"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "कोई कूटशब्द नहीं दिया गया है"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS शब्दकूट बदला नहीं जा सका."
@@ -386,7 +386,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "निर्देशिका '%s' बनाने और आरंभ करने में असमर्थ."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "शब्दकूट को पहले ही बदला जा चुका है. दूसरा चुनें."
 
@@ -551,25 +551,25 @@ msgstr[1] "चेतावनी: आपका शब्दकूट %d दि�
 msgid "Warning: your password will expire in %d days."
 msgstr "चेतावनी: आपका शब्दकूट %d दिनों में समाप्त हो जायेगा"
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS शब्दकूट बदला नहीं जा सका."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "आपको एक छोटा पासवर्ड चुनना होगा।"
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "आपको जरूर एक लंबा शब्दकूट चुनना चाहिए"
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s के लिए कूटशब्द बदल रहा है"
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "आपको अपना शब्दकूट बदलने के लिए लंबी प्रतीक्षा करनी होगी"

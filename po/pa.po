@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2013-08-29 08:55-0400\n"
 "Last-Translator: asaini <asaini@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -252,13 +252,13 @@ msgid "contains the user name in some form"
 msgstr "ਕੁਸੇ ਰੂਪ ਵਿੱਚ ਉਪਭੋਗੀ ਨਾਂ ਸ਼ਾਮਿਲ ਹੈ"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "ਕੋਈ ਪਾਸਵਰਡ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS ਪਾਸਵਰਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ।"
@@ -384,7 +384,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "ਡਾਇਰੈਕਟਰੀ '%s' ਨੂੰ ਬਣਾਉਣ ਅਤੇ ਸ਼ੁਰੂ ਕਰਨ ਵਿੱਚ ਅਸਮਰਥ।"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "ਪਾਸਵਰਡ ਪਹਿਲਾਂ ਵੀ ਵਰਤਿਆ ਗਿਆ ਹੈ। ਵੱਖਰਾ ਚੁਣੋ।"
 
@@ -549,25 +549,25 @@ msgstr[1] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ �
 msgid "Warning: your password will expire in %d days."
 msgstr "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %d ਦਿਨਾਂ ਵਿੱਚ ਪੁੱਗ ਜਾਵੇਗੀ"
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS ਪਾਸਵਰਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ ਛੋਟਾ ਪਾਸਵਰਡ ਚੁਣਨਾ ਚਾਹੀਦਾ ਹੈ."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "ਤੁਹਾਨੂੰ ਲੰਮੇ ਪਾਸਵਰਡ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ"
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s ਲਈ ਪਾਸਵਰਡ ਤਬਦੀਲ ਕਰ ਰਿਹਾ ਹੈ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "ਤੁਹਾਨੂੰ ਲੰਬੇ ਸਮੇਂ ਲਈ ਆਪਣੇ ਪਾਸਵਰਡ ਲਈ ਉਡੀਕ ਕਰਨੀ ਪਵੇਗੀ"

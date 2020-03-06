@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Danishka Navin <snavin@redhat.com>, 2007.
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
@@ -9,12 +9,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
-"Language-Team: Sinhala <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/si/>\n"
+"Language-Team: Sinhala <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/si/>\n"
 "Language: si\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -252,13 +252,13 @@ msgid "contains the user name in some form"
 msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "රහස්පදය සපයා නැත"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS රහස්පදය වෙනස් කළ නොහැක."
@@ -384,7 +384,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr ""
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "රහස්පදය දැනටමත් භාවිතා වේ. වෙනත් එකක් තෝරාගන්න."
 
@@ -547,25 +547,25 @@ msgstr[1] "අවවාදයි: ඔබගේ රහස්පදය දින %
 msgid "Warning: your password will expire in %d days."
 msgstr "අවවාදයි: ඔබගේ රහස්පදය දින %d කින් කල්ඉකුත් වේ"
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS රහස්පදය වෙනස් කළ නොහැක."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "ඔබ කෙටි මුරපදයක් තෝරා ගත යුතුය."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "ඔබ විසින් දිගු රහස්පදයක් තෝරාගත යුතුම වේ"
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "ඔබගේ රහස්පදය වෙනස් කිරීමට බොහෝ වෙලාවක් රැදී සිටීය යුතුම වේ"

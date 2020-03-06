@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2012-11-30 06:03-0500\n"
 "Last-Translator: mattheu_9x <mattheu.9x@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/projects/p/fedora/"
@@ -252,13 +252,13 @@ msgid "contains the user name in some form"
 msgstr "chứa tên user trong một số biểu mẫu"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "Không có mật khẩu được cung cấp"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS mật khẩu không thể được thay đổi."
@@ -385,7 +385,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Không thể khởi tạo thư mục '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "Mật khẩu đã được dùng. Hãy chọn mật khẩu khác."
 
@@ -552,25 +552,25 @@ msgstr[0] "Cảnh báo: mật khẩu của bạn sẽ hết hạn trong %d ngày
 msgid "Warning: your password will expire in %d days."
 msgstr "Cảnh báo: mật khẩu của bạn sẽ hết hạn trong %d ngày"
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS mật khẩu không thể được thay đổi."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "Bạn phải chọn một mật khẩu ngắn hơn."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "Bạn phải chọn mật khẩu dài hơn"
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "Thay đổi mật khẩu cho %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "Bạn phải đợi thêm nữa, để thay đổi mật khẩu"

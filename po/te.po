@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2013-04-30 07:58-0400\n"
 "Last-Translator: sudheesh001 <sudheesh1995@outlook.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
@@ -252,13 +252,13 @@ msgid "contains the user name in some form"
 msgstr "ఒకరకంగా వినియోగదారి నామమును కలిగివుంది"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "ఎటువంటి సంకేతపదము యివ్వలేదు"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS సంకేతపదము మార్చబడ లేకపోయింది."
@@ -384,7 +384,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "డైరెక్టరీ %sను సృష్టించలేక పోయింది మరియు సిద్దీకరించలేక పోయింది."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "సంకేతపదము యిప్పటికే వుపయోగించబడింది. మరియొకదానిని యెంచుకొనుము."
 
@@ -549,25 +549,25 @@ msgstr[1] "హెచ్చరిక: మీ సంకేతపదము %d ర�
 msgid "Warning: your password will expire in %d days."
 msgstr "హెచ్చరిక: మీ సంకేతపదము %d రోజులలో కాలముతీరుతుంది"
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS సంకేతపదము మార్చబడ లేకపోయింది."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "మీరు తప్పనిసరిగా తక్కువ పాస్‌వర్డ్‌ను ఎంచుకోవాలి."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "మీరు తప్పక పొడవాటి సంకేతపదమును యెంచుకొనవలెను."
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s కొరకు సంకేతపదమును మార్చుతోంది"
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "మీ సంకేతపదమును మార్చుటకు మీరు ఎక్కువసేపు వేచివుండాలి"

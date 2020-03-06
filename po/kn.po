@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2013-04-15 04:49-0400\n"
 "Last-Translator: shanky <prasad.mvs@gmail.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/"
@@ -253,13 +253,13 @@ msgid "contains the user name in some form"
 msgstr "ಇದು ಯಾವುದೊ ಒಂದು ಬಗೆಯಲ್ಲಿ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ಒಳಗೊಂಡಿದೆ"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "ಯಾವುದೇ ಗುಪ್ತಪದ ನೀಡಲಾಗಿಲ್ಲ"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ್ಲ."
@@ -384,7 +384,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "ಕೋಶ '%s' ಅನ್ನು ರಚಿಸಲು ಹಾಗು ಆರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "ಗುಪ್ತಪದವು ಈಗಾಗಲೆ ಬಳಸಲ್ಪಟ್ಟಿದೆ. ಬೇರೊಂದನ್ನು ಬಳಸಿ."
 
@@ -550,25 +550,25 @@ msgstr[0] "ಎಚ್ಚರಿಕೆ: ನಿಮ್ಮ ಗುಪ್ತಪದದ �
 msgid "Warning: your password will expire in %d days."
 msgstr "ಎಚ್ಚರಿಕೆ: %d ದಿನಗಳಲ್ಲಿ ನಿಮ್ಮ ಗುಪ್ತಪದದ ಅವಧಿ ಅಂತ್ಯಗೊಳ್ಳುತ್ತದೆ"
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ್ಲ."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "ನೀವು ಕಡಿಮೆ ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ಆರಿಸಬೇಕು."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "ನೀವು ಒಂದು ಉದ್ದವಾದ ಗುಪ್ತಪದವನ್ನು ಆರಿಸಬೇಕು"
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s ಗಾಗಿ ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲಾಗುತ್ತಿದೆ."
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲು ನೀವು ಬಹಳ ಸಮಯ ಕಾಯಬೇಕು"

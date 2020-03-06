@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2013-08-13 05:44-0400\n"
 "Last-Translator: Robert Antoni Buj i Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <fedora@llistes.softcatala.org>\n"
@@ -254,13 +254,13 @@ msgid "contains the user name in some form"
 msgstr "conté el nom d'usuari d'alguna forma"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "No s'ha proporcionat cap contrasenya"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "No s'ha pogut canviar la contrasenya NIS."
@@ -386,7 +386,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "No s'ha pogut crear i inicialitzar el directori '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "Aquesta contrasenya ja s'ha fet servir. Trieu-ne una altra."
 
@@ -554,25 +554,25 @@ msgstr[1] "Atenció: la contrasenya venç d'aquí a %d dies"
 msgid "Warning: your password will expire in %d days."
 msgstr "Atenció: la contrasenya venç d'aquí a %d dies"
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "No s'ha pogut canviar la contrasenya NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "Heu de triar una contrasenya més curta."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "Heu de triar una contrasenya més llarga"
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "S'està canviant la contrasenya de %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "Heu d'esperar més temps abans de canviar la contrasenya"

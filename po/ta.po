@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Arun Prakash <arunprakash.pts@gmail.com>, 2012
 # I felix <ifelix@redhat.com>, 2007
@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2020-03-03 10:51+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 19:33+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Tamil <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -255,13 +255,13 @@ msgid "contains the user name in some form"
 msgstr "சில வடிவல் பயனர் பெயரை கொண்டுள்ளது"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:565
+#: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "கடவுச்சொல் கொடுக்கப்படவில்லை"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
-#: modules/pam_unix/pam_unix_passwd.c:566
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS கடவுச்சொல்லை மாற்ற முடியாது."
@@ -387,7 +387,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "அடைவு '%s'ஐ உருவாக்க மற்றும் துவக்க முடியவில்லை."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:591
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "கடவுச்சொல் ஏற்கனவே பயன்படுத்தப்பட்டது. வேறொன்றை பயன்படுத்தவும்."
 
@@ -552,25 +552,25 @@ msgstr[1] "எச்சரிக்கை: கடவுச்சொல் %d ந
 msgid "Warning: your password will expire in %d days."
 msgstr "எச்சரிக்கை: கடவுச்சொல் %d நாட்களில் முடிவுறும்"
 
-#: modules/pam_unix/pam_unix_passwd.c:467
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS கடவுச்சொல்லை மாற்ற முடியாது."
 
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "You must choose a shorter password."
 msgstr "குறுகிய கடவுச்சொல்லை நீங்கள் தேர்வு செய்ய வேண்டும்."
 
-#: modules/pam_unix/pam_unix_passwd.c:587
+#: modules/pam_unix/pam_unix_passwd.c:588
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "நீங்கள் நீண்ட கடவுச்சொல்லை தேர்ந்தெடுக்க வேண்டும்"
 
-#: modules/pam_unix/pam_unix_passwd.c:694
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "%sக்கு கடவுச்சொல்லை மாற்றுகிறது."
 
-#: modules/pam_unix/pam_unix_passwd.c:724
+#: modules/pam_unix/pam_unix_passwd.c:725
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "உங்கள் கடவுச்சொல்லை மாற்ற சிறிது காத்திருக்க வேண்டும்"
