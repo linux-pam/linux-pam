@@ -14,6 +14,8 @@ TESTS = tst-pam_start tst-pam_end tst-pam_fail_delay tst-pam_open_session \
 	tst-pam_getenvlist tst-pam_get_user tst-pam_set_data \
 	tst-pam_mkargv tst-pam_start_confdir
 
+EXTRA_DIST = confdir
+
 check_PROGRAMS = ${TESTS} tst-dlopen
 
 tst_dlopen_LDADD = -ldl
