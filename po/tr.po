@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Bahadır Kandemir <bahadir@pardus.org.tr>, 2010
 # ismail yenigül <ismail.yenigul@surgate.com>, 2013
@@ -15,10 +15,10 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
 "POT-Creation-Date: 2020-03-03 10:51+0100\n"
-"PO-Revision-Date: 2020-03-03 09:56+0000\n"
+"PO-Revision-Date: 2020-03-05 01:38+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: Turkish <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/tr/>\n"
+"Language-Team: Turkish <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,9 +69,8 @@ msgid "Retype %s"
 msgstr "%s'i tekrar girin"
 
 #: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
-#, fuzzy
 msgid "Password change has been aborted."
-msgstr "Parola değişimi iptal edildi."
+msgstr "Parola değişikliği iptal edildi."
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -257,15 +256,13 @@ msgstr "kullanıcı adını bir biçimde içeriyor"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:565
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "Parola girilmedi"
+msgstr "Parola belirtilmedi."
 
 #: modules/pam_cracklib/pam_cracklib.c:696
 #: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "NIS parolası değiştirilemiyor"
+msgstr "Parola değiştirilmedi."
 
 #: modules/pam_cracklib/pam_cracklib.c:716
 #: modules/pam_cracklib/pam_cracklib.c:798
@@ -337,14 +334,13 @@ msgstr ""
 "Son başarılı girişten itibaren %d başarısız kimlik doğrulama girişimi oldu."
 
 #: modules/pam_limits/pam_limits.c:1088
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
-msgstr "%s için çok fazla giriş."
+msgstr "%s için çok fazla giriş var."
 
 #: modules/pam_mail/pam_mail.c:297
-#, fuzzy
 msgid "You have no mail."
-msgstr "Yeni iletiniz var."
+msgstr "E-postanız yok."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -398,9 +394,9 @@ msgid "Password has been already used."
 msgstr "Parola önceden kullanılmıştır."
 
 #: modules/pam_selinux/pam_selinux.c:206
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "Öntanımlı Güvenlik Bağlamı %s\n"
+msgstr "Varsayılan güvenlik bağlamı %s'dir."
 
 #: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
@@ -411,33 +407,32 @@ msgid "role:"
 msgstr "rol:"
 
 #: modules/pam_selinux/pam_selinux.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "%s rolü için öntanımlı tür yok\n"
+msgstr "%s rolü için varsayılan bir tür yok."
 
 #: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "seviye:"
 
 #: modules/pam_selinux/pam_selinux.c:292
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "Geçerli bir güvenlik bağlamı değil"
+msgstr "Bu geçerli bir güvenlik bağlamı değil."
 
 #: modules/pam_selinux/pam_selinux.c:541
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "%s için geçerli bir bağlam alınamadı."
 
 #: modules/pam_selinux/pam_selinux.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "Güvenlik Bağlamı %s Atandı"
+msgstr "%s güvenlik bağlamı atandı."
 
 #: modules/pam_selinux/pam_selinux.c:676
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "Anahtar Oluşturma Bağlamı %s Atandı"
+msgstr "%s anahtar oluşturma bağlamı atandı."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -455,14 +450,14 @@ msgid "login: failure forking: %m"
 msgstr "giriş: çatallama yapılamadı: %m"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "Hesap geçici bir süre kilitlendi (%ld saniye kaldı)"
+msgstr "Hesap geçici olarak kilitlendi (%ld saniye kaldı)."
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "Hesap %u başarısız giriş yüzünden kilitlendi"
+msgstr "%u başarısız oturum açma nedeniyle hesap kilitlendi."
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
@@ -519,40 +514,39 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Erişim izni verildi (son erişim %ld saniye önceydi)."
+msgstr "Erişim izni verildi (son erişim %ld saniye önce)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr "Hesabınızın süresi doldu; lütfen sistem yöneticinizle bağlantıya geçin"
+msgstr "Hesabınızın süresi doldu; lütfen sistem yöneticinize başvurun."
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "Parolanızı en kısa sürede değiştirmeniz gerekiyor (yönetici baskıs)"
+msgstr ""
+"Parolanızı hemen değiştirmeniz gerekmektedir (yönetici tarafından zorunlu "
+"kılındı)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "Parolanızı en kısa sürede değiştirmeniz gerekiyor (parola eski)"
+msgstr "Parolanızı hemen değiştirmeniz gerekmektedir (parolanın süresi doldu)."
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Uyarı: şifreniz %d gün içerisinde süresi dolacaktır."
-msgstr[1] "Uyarı: şifreniz %d gün içerisinde süresi dolacaktır."
+msgstr[0] "Uyarı: parolanızın süresi %d gün içinde dolacak."
+msgstr[1] "Uyarı: parolanızın süresi %d gün içinde dolacak."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "Uyarı: Parolanız %d gün içinde geçerliliğini yitirecek"
+msgstr "Uyarı: parolanızın süresi %d gün içinde dolacak."
 
 #: modules/pam_unix/pam_unix_passwd.c:467
 msgid "NIS password could not be changed."
@@ -563,9 +557,8 @@ msgid "You must choose a shorter password."
 msgstr "Daha kısa bir şifre seçmelisiniz."
 
 #: modules/pam_unix/pam_unix_passwd.c:587
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Daha uzun bir parola girmelisiniz"
+msgstr "Daha uzun bir parola seçmelisiniz."
 
 #: modules/pam_unix/pam_unix_passwd.c:694
 #, c-format
@@ -573,9 +566,8 @@ msgid "Changing password for %s."
 msgstr "%s kullanıcısının parolası değiştiriliyor."
 
 #: modules/pam_unix/pam_unix_passwd.c:724
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Parolanızı değiştirmek için daha sonra denemelisiniz"
+msgstr "Parolanızı değiştirmek için daha uzun süre beklemelisiniz."
 
 #~ msgid "Password unchanged"
 #~ msgstr "Parola değiştirilmedi"
