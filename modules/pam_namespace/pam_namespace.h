@@ -109,6 +109,7 @@
 #define PAMNS_USE_CURRENT_CONTEXT  0x00020000 /* use getcon instead of getexeccon */
 #define PAMNS_USE_DEFAULT_CONTEXT  0x00040000 /* use get_default_context instead of getexeccon */
 #define PAMNS_MOUNT_PRIVATE   0x00080000 /* Make the polydir mounts private */
+#define PAMNS_ENABLE_GROUPS   0x00100000 /* Enable @group syntax in namespace.conf */
 
 /* polydir flags */
 #define POLYDIR_EXCLUSIVE     0x00000001 /* polyinstatiate exclusively for override uids */
@@ -163,6 +164,8 @@ struct polydir_s {
     enum polymethod method;		/* method used to polyinstantiate */
     unsigned int num_uids;		/* number of override uids */
     uid_t *uid;				/* list of override uids */
+    unsigned int num_gids;		/* number of override gids */
+    gid_t *gid;				/* list of override gids */
     unsigned int flags;			/* polydir flags */
     char *init_script;			/* path to init script */
     char *mount_opts;			/* mount options for tmpfs mount */

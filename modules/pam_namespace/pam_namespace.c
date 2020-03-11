@@ -64,6 +64,7 @@ static void del_polydir(struct polydir_s *poly)
 {
 	if (poly) {
 		free(poly->uid);
+		free(poly->gid);
 		free(poly->init_script);
 		free(poly->mount_opts);
 		free(poly);
@@ -371,6 +372,183 @@ static int parse_method(char *method, struct polydir_s *poly,
     return 0;
 }
 
+static int is_valid_user_and_group_def(const char *ugdef, int enable_groups)
+{
+	if (!enable_groups)
+		return 1;
+
+	/* No ugdef that starts or ends with ',' */
+	if (ugdef[0] == ',' || ugdef[strlen(ugdef)-1] == ',')
+		return 0;
+
+	/* No consecutive ',' anywhere */
+	while (*ugdef) {
+		if (ugdef[0] == ',' && ugdef[1] == ',')
+			return 0;
+		++ugdef;
+	}
+
+	return 1;
+}
+
+/* 0) if groups are not enabled, then preserve old behaviour */
+/* 1) No lone '@' */
+/* 2) No whitespace anywhere */
+/* 3) No '@' except possibly as the first character */
+static int is_valid_user_or_group(const char *ug, int enable_groups)
+{
+	if (!enable_groups)
+		return 1;
+	return !(
+		(ug[0] == '@' && ug[1] == '\0') ||
+		strpbrk(ug, " \t\r\v") ||
+		strchr(ug+1, '@')
+	);
+}
+
+/* count_users_and_groups() will mangle ugdef, so callers must provide
+ * a pointer to a mutable buffer */
+static int count_users_and_groups(struct instance_data *idata, char *ugdef, unsigned int *nuid, unsigned int *ngid, int enable_groups)
+{
+	char *token;
+	char *saveptr;
+
+	if (!is_valid_user_and_group_def(ugdef, enable_groups)) {
+		if (idata->flags & PAMNS_DEBUG)
+			pam_syslog(idata->pamh, LOG_DEBUG, "Invalid user and group definition syntax: '%s'", ugdef);
+		return -1;
+	}
+
+	if ((token = strtok_r(ugdef, ",", &saveptr)) == NULL)
+		return -2;
+
+	if (!is_valid_user_or_group(token, enable_groups)) {
+		if (idata->flags & PAMNS_DEBUG)
+			pam_syslog(idata->pamh, LOG_DEBUG, "Invalid user or group syntax: '%s'", token);
+		return -3;
+	}
+
+	*nuid = *ngid = 0;
+
+	if (enable_groups)
+		token[0] == '@'? (*ngid)++ : (*nuid)++;
+	else
+		(*nuid)++;
+
+	while ((token = strtok_r(NULL, ",", &saveptr))) {
+		if (!is_valid_user_or_group(token, enable_groups)) {
+			if (idata->flags & PAMNS_DEBUG)
+				pam_syslog(idata->pamh, LOG_DEBUG, "Invalid user or group syntax: '%s'", token);
+			return -3;
+		}
+
+		if (enable_groups)
+			token[0] == '@'? (*ngid)++ : (*nuid)++;
+		else
+			(*nuid)++;
+	}
+
+	return 0;
+}
+
+static void insert_uids_and_gids_to_poly(pam_handle_t *pamh, struct polydir_s *poly, char *users_and_groups, int enable_groups)
+{
+	struct passwd *pwd;
+	struct group *grp;
+	uid_t *uidptr;
+	gid_t *gidptr;
+	unsigned int total_nuid_ngid;
+	const char *ugstr;
+	char *terminating_ptr;
+	unsigned int i;
+
+	total_nuid_ngid = poly->num_uids + poly->num_gids;
+
+	uidptr = poly->uid;
+	gidptr = poly->gid;
+
+	ugstr = users_and_groups;
+
+	for (i = 0; i < total_nuid_ngid; i++) {
+
+		terminating_ptr = strchr(ugstr, ',');
+		if (terminating_ptr)
+			*terminating_ptr = '\0';
+
+		if (ugstr[0] == '@' && enable_groups) {
+			grp = pam_modutil_getgrnam(pamh, ugstr+1);
+			if (grp == NULL) {
+				pam_syslog(pamh, LOG_ERR, "Unknown group %s in configuration", ugstr+1);
+				poly->num_gids--;
+			} else {
+				*gidptr = grp->gr_gid;
+				gidptr++;
+			}
+		}
+		else {
+			pwd = pam_modutil_getpwnam(pamh, ugstr);
+			if (pwd == NULL) {
+				pam_syslog(pamh, LOG_ERR, "Unknown user %s in configuration", ugstr);
+				poly->num_uids--;
+			} else {
+				*uidptr = pwd->pw_uid;
+				uidptr++;
+			}
+		}
+		ugstr = terminating_ptr + 1;
+	}
+}
+
+static int process_users_and_groups(struct instance_data *idata, struct polydir_s *poly, char *users_and_groups, int enable_groups)
+{
+	unsigned int ucount;
+	unsigned int gcount;
+	int rc;
+	char *copy;
+
+	/* Handle leading '~' as a special case */
+	if (users_and_groups[0] == '~') {
+		if (users_and_groups[1] != '\0') {
+			poly->flags |= POLYDIR_EXCLUSIVE;
+			users_and_groups++;
+		} else {
+			return -1; /* No lone '~' */
+		}
+	}
+
+	copy = strdup(users_and_groups);
+	if (copy == NULL) {
+		pam_syslog(idata->pamh, LOG_CRIT, "Memory allocation error");
+		return -2;
+	}
+
+	rc = count_users_and_groups(idata, copy, &ucount, &gcount, enable_groups);
+	free(copy);
+
+	if (rc < 0) {
+		pam_syslog(idata->pamh, LOG_ERR, "Invalid users/groups definition in configuration: '%s'", users_and_groups);
+		return rc;
+	}
+
+	poly->num_uids = ucount;
+	poly->uid = malloc(ucount * sizeof(uid_t));
+	if (poly->uid == NULL) {
+		pam_syslog(idata->pamh, LOG_CRIT, "Memory allocation error");
+		return -2;
+	}
+
+	poly->num_gids = gcount;
+	poly->gid = malloc(gcount * sizeof(gid_t));
+	if (poly->gid == NULL) {
+		pam_syslog(idata->pamh, LOG_CRIT, "Memory allocation error");
+		return -2;
+	}
+
+	insert_uids_and_gids_to_poly(idata->pamh, poly, users_and_groups, enable_groups);
+
+	return 0;
+}
+
 /*
  * Called from parse_config_file, this function processes a single line
  * of the namespace configuration file. It skips over comments and incomplete
@@ -383,7 +561,7 @@ static int process_line(char *line, const char *home, const char *rhome,
 			struct instance_data *idata)
 {
     char *dir = NULL, *instance_prefix = NULL, *rdir = NULL;
-    char *method, *uids;
+    char *method, *users_and_groups;
     char *tptr;
     struct polydir_s *poly;
     int retval = 0;
@@ -452,12 +630,12 @@ static int process_line(char *line, const char *home, const char *rhome,
     }
 
     /*
-     * Only the uids field is allowed to be blank, to indicate no
-     * override users for polyinstantiation of that directory. If
+     * Only this field is allowed to be blank, to indicate no
+     * override users or groups for polyinstantiation of that directory. If
      * any of the other fields are blank, the line is incomplete so
      * skip it.
      */
-    uids = config_options[3];
+    users_and_groups = config_options[3];
 
     /*
      * Expand $HOME and $USER in poly dir and instance dir prefix
@@ -539,47 +717,14 @@ static int process_line(char *line, const char *home, const char *rhome,
 
     /*
      * If the line in namespace.conf for a directory to polyinstantiate
-     * contains a list of override users (users for whom polyinstantiation
-     * is not performed), read the user ids, convert names into uids, and
-     * add to polyinstantiated directory structure.
+     * contains a list of override users or groups (users or groups for whom
+     * polyinstantiation is not performed), read the users and groups,
+     * convert their names into uids and gids, and add to polyinstantiated
+     * directory structure.
      */
-    if (uids) {
-        uid_t *uidptr;
-        const char *ustr, *sstr;
-        int count, i;
-
-	if (*uids == '~') {
-		poly->flags |= POLYDIR_EXCLUSIVE;
-		uids++;
-	}
-        for (count = 0, ustr = sstr = uids; sstr; ustr = sstr + 1, count++)
-           sstr = strchr(ustr, ',');
-
-        poly->num_uids = count;
-        poly->uid = (uid_t *) malloc(count * sizeof (uid_t));
-        uidptr = poly->uid;
-        if (uidptr == NULL) {
-            goto erralloc;
-        }
-
-        ustr = uids;
-        for (i = 0; i < count; i++) {
-            struct passwd *pwd;
-
-            tptr = strchr(ustr, ',');
-            if (tptr)
-                *tptr = '\0';
-
-            pwd = pam_modutil_getpwnam(idata->pamh, ustr);
-            if (pwd == NULL) {
-		pam_syslog(idata->pamh, LOG_ERR, "Unknown user %s in configuration", ustr);
-		poly->num_uids--;
-            } else {
-                *uidptr = pwd->pw_uid;
-                uidptr++;
-            }
-            ustr = tptr + 1;
-        }
+    if (users_and_groups) {
+        if (process_users_and_groups(idata, poly, users_and_groups, idata->flags & PAMNS_ENABLE_GROUPS) < 0)
+                goto skipping;
     }
 
     /*
@@ -721,7 +866,8 @@ static int parse_config_file(struct instance_data *idata)
     if (idata->flags & PAMNS_DEBUG) {
         struct polydir_s *dptr = idata->polydirs_ptr;
         uid_t *iptr;
-        uid_t i;
+        gid_t *gptr;
+        unsigned int i;
 
         pam_syslog(idata->pamh, LOG_DEBUG,
 	    dptr?"Configured poly dirs:":"No configured poly dirs");
@@ -729,7 +875,9 @@ static int parse_config_file(struct instance_data *idata)
             pam_syslog(idata->pamh, LOG_DEBUG, "dir='%s' iprefix='%s' meth=%d",
 		   dptr->dir, dptr->instance_prefix, dptr->method);
             for (i = 0, iptr = dptr->uid; i < dptr->num_uids; i++, iptr++)
-                pam_syslog(idata->pamh, LOG_DEBUG, "override user %d ", *iptr);
+                pam_syslog(idata->pamh, LOG_DEBUG, "override uid %d ", *iptr);
+            for (i = 0, gptr = dptr->gid; i < dptr->num_gids; i++, gptr++)
+                pam_syslog(idata->pamh, LOG_DEBUG, "override gid %d ", *gptr);
             dptr = dptr->next;
         }
     }
@@ -739,10 +887,12 @@ static int parse_config_file(struct instance_data *idata)
 
 
 /*
- * This funtion returns true if a given uid is present in the polyinstantiated
- * directory's list of override uids. If the uid is one of the override
- * uids for the polyinstantiated directory, polyinstantiation is not
- * performed for that user for that directory.
+ * This function returns true if a given uid is present in the polyinstantiated
+ * directory's list of override uids, or a member of any override gid. If the
+ * uid is one of the override uids for the polyinstantiated directory, or a member
+ * of any override gid, then polyinstantiation is not performed for that user
+ * for that directory.
+ *
  * If exclusive is set the returned values are opposite.
  */
 static int ns_override(struct polydir_s *polyptr, struct instance_data *idata,
@@ -757,6 +907,12 @@ static int ns_override(struct polydir_s *polyptr, struct instance_data *idata,
 
     for (i = 0; i < polyptr->num_uids; i++) {
         if (uid == polyptr->uid[i]) {
+            return !(polyptr->flags & POLYDIR_EXCLUSIVE);
+        }
+    }
+
+    for (i = 0; i < polyptr->num_gids; i++) {
+        if (pam_modutil_user_in_group_uid_gid(idata->pamh, uid, polyptr->gid[i])) {
             return !(polyptr->flags & POLYDIR_EXCLUSIVE);
         }
     }
@@ -2121,6 +2277,8 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
             unmnt = UNMNT_REMNT;
         if (strcmp(argv[i], "unmnt_only") == 0)
             unmnt = UNMNT_ONLY;
+        if (strcmp(argv[i], "enable_groups") == 0)
+            idata.flags |= PAMNS_ENABLE_GROUPS;
 	if (strcmp(argv[i], "require_selinux") == 0) {
 		if (!(idata.flags & PAMNS_SELINUX_ENABLED)) {
 			pam_syslog(idata.pamh, LOG_ERR,
