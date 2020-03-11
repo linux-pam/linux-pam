@@ -514,14 +514,25 @@ netgroup_match (pam_handle_t *pamh, const char *netgroup,
 static int
 user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 {
-    char   *string = item->user->pw_name;
+    char  *string = NULL;
     struct login_info fake_item;
     char   *at;
     int    rv;
+    char buf[BUFSIZ];
 
     if (item->debug)
       pam_syslog (pamh, LOG_DEBUG,
-		  "user_match: tok=%s, item=%s", tok, string);
+		  "user_match: tok=%s, item=%s", tok, item->user->pw_name);
+
+     memset(buf, 0, BUFSIZ);
+     /* tok is uid */
+     if (strspn(tok, "0123456789") == strlen(tok)) {
+	 sprintf(buf, "%d", item->user->pw_uid);
+	 if (item->debug)
+		pam_syslog(pamh, LOG_DEBUG, "user_match: tok=%s, uid=%d", tok, item->user->pw_uid);
+	 string = buf;
+     } else
+	 string = item->user->pw_name;
 
     /*
      * If a token has the magic value "ALL" the match always succeeds.
@@ -579,6 +590,7 @@ group_match (pam_handle_t *pamh, const char *tok, const char* usr,
     int debug)
 {
     char grptok[BUFSIZ];
+    gid_t grpgid;
 
     if (debug)
         pam_syslog (pamh, LOG_DEBUG,
@@ -591,7 +603,14 @@ group_match (pam_handle_t *pamh, const char *tok, const char* usr,
     memset(grptok, 0, BUFSIZ);
     strncpy(grptok, tok + 1, strlen(tok) - 2);
 
-    if (pam_modutil_user_in_group_nam_nam(pamh, usr, grptok))
+    /* grptok is GID */
+    if (strspn(grptok, "0123456789") == strlen(grptok)) {
+	grpgid = atoi(grptok);
+	if (debug)
+	   pam_syslog(pamh, LOG_DEBUG, "group_match: grpgid=%d, user=%s", grpgid, usr);
+	if (pam_modutil_user_in_group_nam_gid(pamh, usr, grpgid))
+	   return YES;
+    } else if (pam_modutil_user_in_group_nam_nam(pamh, usr, grptok))
         return YES;
 
   return NO;
