@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Roman Spirgi <bigant@fedoraproject.org>, 2012
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
@@ -11,10 +11,10 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 19:33+0000\n"
-"PO-Revision-Date: 2020-03-06 23:59+0000\n"
+"PO-Revision-Date: 2020-03-09 10:38+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
-"Language-Team: German <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/de/>\n"
+"Language-Team: German <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -257,9 +257,8 @@ msgstr "enthält den Benutzernamen in irgendeiner Form"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "Kein Passwort angegeben"
+msgstr "Kein Passwort angegeben."
 
 #: modules/pam_cracklib/pam_cracklib.c:696
 #: modules/pam_unix/pam_unix_passwd.c:567
@@ -344,9 +343,8 @@ msgid "There were too many logins for '%s'."
 msgstr "Zu viele Anmeldungen für '%s'."
 
 #: modules/pam_mail/pam_mail.c:297
-#, fuzzy
 msgid "You have no mail."
-msgstr "Sie haben neue Nachrichten."
+msgstr "Sie haben keine Nachrichten."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -400,9 +398,9 @@ msgid "Password has been already used."
 msgstr "Das gleiche Passwort wurde bereits einmal verwendet."
 
 #: modules/pam_selinux/pam_selinux.c:206
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "Standard-Sicherheitskontext %s\n"
+msgstr "Standard-Sicherheitskontext %s."
 
 #: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
@@ -413,18 +411,17 @@ msgid "role:"
 msgstr "Funktion:"
 
 #: modules/pam_selinux/pam_selinux.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "Keinen Standard-Typ für Rolle %s\n"
+msgstr "Keinen Standard-Typ für Rolle %s."
 
 #: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "Stufe:"
 
 #: modules/pam_selinux/pam_selinux.c:292
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "Kein gültiger Sicherheitskontext"
+msgstr "Kein gültiger Sicherheitskontext."
 
 #: modules/pam_selinux/pam_selinux.c:541
 #, c-format
@@ -432,14 +429,14 @@ msgid "A valid context for %s could not be obtained."
 msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "Sicherheitskontext %s zugewiesen"
+msgstr "Sicherheitskontext %s zugewiesen."
 
 #: modules/pam_selinux/pam_selinux.c:676
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "Schlüssel-Erzeugungskontext %s zugeordnet"
+msgstr "Schlüssel-Erzeugungskontext %s zugeordnet."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -457,14 +454,14 @@ msgid "login: failure forking: %m"
 msgstr "Anmeldung: Fehler bei Abspaltung: %m"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "Konto temporär gesperrt (noch %ld Sekunden)"
+msgstr "Konto temporär gesperrt (noch %ld Sekunden)."
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "Das Konto ist wegen %u fehlgeschlagener Anmelde-Versuche gesperrt"
+msgstr "Das Konto ist wegen %u fehlgeschlagener Anmelde-Versuche gesperrt."
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
@@ -527,9 +524,8 @@ msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Zugriff erlaubt (letzter Zugriff war vor %ld Sekunden)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr "Ihr Konto ist abgelaufen. Wenden Sie sich an den Systemadministrator"
+msgstr "Ihr Konto ist abgelaufen. Wenden Sie sich an den Systemadministrator."
 
 #: modules/pam_unix/pam_unix_acct.c:240
 #, fuzzy
@@ -566,7 +562,6 @@ msgid "You must choose a shorter password."
 msgstr "Sie müssen ein kürzeres Passwort wählen."
 
 #: modules/pam_unix/pam_unix_passwd.c:588
-#, fuzzy
 msgid "You must choose a longer password."
 msgstr "Sie müssen ein längeres Passwort auswählen."
 
@@ -576,9 +571,8 @@ msgid "Changing password for %s."
 msgstr "Ändern des Passworts für %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:725
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Sie können Ihr Passwort noch nicht ändern"
+msgstr "Sie können Ihr Passwort noch nicht ändern."
 
 #~ msgid "Password unchanged"
 #~ msgstr "Passwort nicht geändert"

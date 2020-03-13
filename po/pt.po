@@ -1,27 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Antonio Cardoso Martins <digiplan@netvisao.pt>, 2005-2006
 # Ricardo Pinto <ricardo.bigote@gmail.com>, 2013
 # Rui Gouveia <rui.gouveia@globaltek.pt>, 2009
 # Rui Gouveia <rui.gouveia@gmail.com>, 2012
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 19:33+0000\n"
-"PO-Revision-Date: 2013-01-28 06:21-0500\n"
-"Last-Translator: Ricardo Pinto <ricardo.bigote@gmail.com>\n"
-"Language-Team: Portuguese <trans-pt@lists.fedoraproject.org>\n"
+"PO-Revision-Date: 2020-03-09 10:38+0000\n"
+"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
+"Language-Team: Portuguese <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.3\n"
+"X-Generator: Weblate 3.11.2\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -42,9 +44,9 @@ msgid "Password: "
 msgstr "Senha: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s%spassword: "
-msgstr "Nova %s%ssenha: "
+msgstr "Atual %s%ssenha: "
 
 #: libpam/pam_get_authtok.c:43
 #, c-format
@@ -66,7 +68,6 @@ msgid "Retype %s"
 msgstr "Digite novamente %s"
 
 #: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
-#, fuzzy
 msgid "Password change has been aborted."
 msgstr "Alteração da senha interrompida."
 
@@ -255,15 +256,13 @@ msgstr "contém, de alguma forma, o nome do utilizador"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "Não foi fornecida uma senha"
+msgstr "Não foi fornecida uma senha."
 
 #: modules/pam_cracklib/pam_cracklib.c:696
 #: modules/pam_unix/pam_unix_passwd.c:567
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "A senha NIS não pode ser alterada."
+msgstr "A senha não foi alterada."
 
 #: modules/pam_cracklib/pam_cracklib.c:716
 #: modules/pam_cracklib/pam_cracklib.c:798
@@ -340,14 +339,13 @@ msgstr ""
 "sessão com sucesso."
 
 #: modules/pam_limits/pam_limits.c:1088
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Demasiados inícios de sessão para '%s'."
 
 #: modules/pam_mail/pam_mail.c:297
-#, fuzzy
 msgid "You have no mail."
-msgstr "Tem correio electrónico novo."
+msgstr "Não tem correio electrónico."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -401,9 +399,9 @@ msgid "Password has been already used."
 msgstr "A senha já foi utilizada anteriormente."
 
 #: modules/pam_selinux/pam_selinux.c:206
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "Contexto de Segurança por Omissão %s\n"
+msgstr "Contexto de Segurança por Omissão %s."
 
 #: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
@@ -411,36 +409,35 @@ msgstr "Pretende inserir um perfil ou nível diferente?"
 
 #: modules/pam_selinux/pam_selinux.c:223
 msgid "role:"
-msgstr "Perfil: "
+msgstr "Perfil:"
 
 #: modules/pam_selinux/pam_selinux.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "Perfil sem tipo definido por omissão %s\n"
+msgstr "Perfil sem tipo definido por omissão %s."
 
 #: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
-msgstr "nível: "
+msgstr "nível:"
 
 #: modules/pam_selinux/pam_selinux.c:292
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "Não é um contexto de segurança válido"
+msgstr "Não é um contexto de segurança válido."
 
 #: modules/pam_selinux/pam_selinux.c:541
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "Não foi possível obter um contexto de segurança válido para %s."
 
 #: modules/pam_selinux/pam_selinux.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "Contexto de Segurança %s Atribuído"
+msgstr "Contexto de Segurança %s Atribuído."
 
 #: modules/pam_selinux/pam_selinux.c:676
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "Contexto de Segurança de Chaves %s Atribuído"
+msgstr "Contexto de Segurança de Chaves %s Atribuído."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -458,14 +455,14 @@ msgid "login: failure forking: %m"
 msgstr "início de sessão: falha no 'forking': %m"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "Conta temporariamente bloqueada (faltam %ld segundos)"
+msgstr "Conta temporariamente bloqueada (faltam %ld segundos)."
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "Conta bloqueada devido a %u inícios de sessão falhados"
+msgstr "Conta bloqueada devido a %u inícios de sessão falhados."
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
@@ -522,41 +519,38 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Acesso permitido (último acesso foi à %ld segundos atrás)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr "A sua conta expirou; por favor contacte o seu administrador de sistema"
+msgstr "A sua conta expirou; por favor contacte o seu administrador de sistema."
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "É obrigatório que altere de imediato a sua senha (politica do sistema)"
+msgstr "É obrigatório que altere de imediato a sua senha (politica do sistema)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr ""
-"É obrigatório que altere de imediato a sua senha (antiguidade da password)"
+"É obrigatório que altere de imediato a sua senha (antiguidade da password)."
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Aviso: a sua senha expira em %d dia"
-msgstr[1] "Aviso: a sua senha expira em %d dias"
+msgstr[0] "Aviso: a sua senha expira em %d dia."
+msgstr[1] "Aviso: a sua senha expira em %d dias."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "Aviso: a sua palavra passe expira em %d dias"
+msgstr "Aviso: a sua palavra passe expira em %d dias."
 
 #: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
@@ -567,9 +561,8 @@ msgid "You must choose a shorter password."
 msgstr "Você deve escolher uma senha mais curta."
 
 #: modules/pam_unix/pam_unix_passwd.c:588
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Deve escolher uma senha mais longa"
+msgstr "Deve escolher uma senha mais longa."
 
 #: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
@@ -577,9 +570,8 @@ msgid "Changing password for %s."
 msgstr "A alterar senha para %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:725
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Tem de esperar mais antes de poder alterar a sua senha"
+msgstr "Tem de esperar mais antes de poder alterar a sua senha."
 
 #~ msgid "Password unchanged"
 #~ msgstr "Senha inalterada"
