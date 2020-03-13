@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-03-05 19:33+0000\n"
+"POT-Creation-Date: 2020-03-05 22:27+0000\n"
 "PO-Revision-Date: 2011-11-30 06:57-0500\n"
 "Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
 "Language-Team: Hebrew <he-users@lists.fedoraproject.org>\n"
@@ -39,29 +39,47 @@ msgstr "ססמה: "
 
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
-msgid "Current %s%spassword: "
+msgid "Current %s password: "
 msgstr "ססמת יוניקס (נוכחית): "
 
-#: libpam/pam_get_authtok.c:43
-#, c-format
-msgid "New %s%spassword: "
-msgstr ""
+#: libpam/pam_get_authtok.c:42
+#, fuzzy
+msgid "Current password: "
+msgstr "ססמת יוניקס (נוכחית): "
+
+#: libpam/pam_get_authtok.c:44
+#, fuzzy, c-format
+msgid "New %s password: "
+msgstr "ססמת יוניקס (נוכחית): "
 
 #: libpam/pam_get_authtok.c:45
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr ""
+#, fuzzy
+#| msgid "Password: "
+msgid "New password: "
+msgstr "ססמה: "
 
-#: libpam/pam_get_authtok.c:46
+#: libpam/pam_get_authtok.c:47
+#, fuzzy, c-format
+#| msgid "Retype new STRESS password: "
+msgid "Retype new %s password: "
+msgstr "הקלד שוב ססמת STRESS חדשה:"
+
+#: libpam/pam_get_authtok.c:48
+#, fuzzy
+#| msgid "Retype new STRESS password: "
+msgid "Retype new password: "
+msgstr "הקלד שוב ססמת STRESS חדשה:"
+
+#: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
 msgstr "סליחה, הססמאות לא תואמות."
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:228
+#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
 msgstr ""
 
-#: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
+#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 #, fuzzy
 msgid "Password change has been aborted."
 msgstr "שינוי ססמה בוטל."
@@ -576,6 +594,3 @@ msgstr "אתה חייב לחכות יותר כדי לשנות את הססמה"
 
 #~ msgid "Enter new STRESS password: "
 #~ msgstr "הקלד ססמת STRESS חדשה:"
-
-#~ msgid "Retype new STRESS password: "
-#~ msgstr "הקלד שוב ססמת STRESS חדשה:"

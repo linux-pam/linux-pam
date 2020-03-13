@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-03-05 19:33+0000\n"
+"POT-Creation-Date: 2020-03-05 22:27+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Kazakh <https://translate.fedoraproject.org/projects/linux-"
@@ -42,29 +42,48 @@ msgstr "Пароль:"
 
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
-msgid "Current %s%spassword: "
+msgid "Current %s password: "
 msgstr "%s%s үшін жаңа пароль: "
 
-#: libpam/pam_get_authtok.c:43
-#, c-format
-msgid "New %s%spassword: "
+#: libpam/pam_get_authtok.c:42
+#, fuzzy
+msgid "Current password: "
+msgstr "%s%s үшін жаңа пароль: "
+
+#: libpam/pam_get_authtok.c:44
+#, fuzzy, c-format
+#| msgid "New %s%spassword: "
+msgid "New %s password: "
 msgstr "%s%s үшін жаңа пароль: "
 
 #: libpam/pam_get_authtok.c:45
-#, c-format
-msgid "Retype new %s%spassword: "
+#, fuzzy
+#| msgid "New %s%spassword: "
+msgid "New password: "
+msgstr "%s%s үшін жаңа пароль: "
+
+#: libpam/pam_get_authtok.c:47
+#, fuzzy, c-format
+#| msgid "Retype new %s%spassword: "
+msgid "Retype new %s password: "
 msgstr "%s%s үшін жаңа парольді қайта енгізіңіз: "
 
-#: libpam/pam_get_authtok.c:46
+#: libpam/pam_get_authtok.c:48
+#, fuzzy
+#| msgid "Retype new %s%spassword: "
+msgid "Retype new password: "
+msgstr "%s%s үшін жаңа парольді қайта енгізіңіз: "
+
+#: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
 msgstr "Кешіріңіз, парольдер өзара сәйкес емес."
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:228
+#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
 msgstr "%s қайта енгізіңіз"
 
-#: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
+#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 #, fuzzy
 msgid "Password change has been aborted."
 msgstr "Парольді өзгертуден бас тартылды."

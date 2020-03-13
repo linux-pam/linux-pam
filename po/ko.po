@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-03-05 19:33+0000\n"
+"POT-Creation-Date: 2020-03-05 22:27+0000\n"
 "PO-Revision-Date: 2013-04-16 09:34-0400\n"
 "Last-Translator: eukim <eukim@redhat.com>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/fedora/language/"
@@ -43,29 +43,48 @@ msgstr "암호:"
 
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
-msgid "Current %s%spassword: "
+msgid "Current %s password: "
 msgstr "새 %s%s 암호:"
 
-#: libpam/pam_get_authtok.c:43
-#, c-format
-msgid "New %s%spassword: "
+#: libpam/pam_get_authtok.c:42
+#, fuzzy
+msgid "Current password: "
+msgstr "새 %s%s 암호:"
+
+#: libpam/pam_get_authtok.c:44
+#, fuzzy, c-format
+#| msgid "New %s%spassword: "
+msgid "New %s password: "
 msgstr "새 %s%s 암호:"
 
 #: libpam/pam_get_authtok.c:45
-#, c-format
-msgid "Retype new %s%spassword: "
+#, fuzzy
+#| msgid "New %s%spassword: "
+msgid "New password: "
+msgstr "새 %s%s 암호:"
+
+#: libpam/pam_get_authtok.c:47
+#, fuzzy, c-format
+#| msgid "Retype new %s%spassword: "
+msgid "Retype new %s password: "
 msgstr "새 %s%s 암호 재입력:"
 
-#: libpam/pam_get_authtok.c:46
+#: libpam/pam_get_authtok.c:48
+#, fuzzy
+#| msgid "Retype new %s%spassword: "
+msgid "Retype new password: "
+msgstr "새 %s%s 암호 재입력:"
+
+#: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
 msgstr "죄송합니다. 암호가 일치하지 않습니다."
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:228
+#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
 msgstr "다시 입력 %s "
 
-#: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
+#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 #, fuzzy
 msgid "Password change has been aborted."
 msgstr "암호가 변경되지 않습니다.  "

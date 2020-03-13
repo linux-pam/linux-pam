@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-03-05 19:33+0000\n"
+"POT-Creation-Date: 2020-03-05 22:27+0000\n"
 "PO-Revision-Date: 2011-11-30 06:56-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Bosnian (http://www.transifex.com/projects/p/fedora/language/"
@@ -41,29 +41,41 @@ msgstr ""
 
 #: libpam/pam_get_authtok.c:41
 #, c-format
-msgid "Current %s%spassword: "
+msgid "Current %s password: "
 msgstr ""
 
-#: libpam/pam_get_authtok.c:43
+#: libpam/pam_get_authtok.c:42
+msgid "Current password: "
+msgstr ""
+
+#: libpam/pam_get_authtok.c:44
 #, c-format
-msgid "New %s%spassword: "
+msgid "New %s password: "
 msgstr ""
 
 #: libpam/pam_get_authtok.c:45
-#, c-format
-msgid "Retype new %s%spassword: "
+msgid "New password: "
 msgstr ""
 
-#: libpam/pam_get_authtok.c:46
+#: libpam/pam_get_authtok.c:47
+#, c-format
+msgid "Retype new %s password: "
+msgstr ""
+
+#: libpam/pam_get_authtok.c:48
+msgid "Retype new password: "
+msgstr ""
+
+#: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
 msgstr ""
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:228
+#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
 msgstr ""
 
-#: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
+#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 msgid "Password change has been aborted."
 msgstr ""
 

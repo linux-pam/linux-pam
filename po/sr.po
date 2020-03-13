@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-03-05 19:33+0000\n"
+"POT-Creation-Date: 2020-03-05 22:27+0000\n"
 "PO-Revision-Date: 2014-11-16 06:51-0500\n"
 "Last-Translator: Momcilo Medic <medicmomcilo@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/linux-pam/"
@@ -46,29 +46,48 @@ msgstr "Лозинка: "
 
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
-msgid "Current %s%spassword: "
+msgid "Current %s password: "
 msgstr "Нова %s%sлозинка: "
 
-#: libpam/pam_get_authtok.c:43
-#, c-format
-msgid "New %s%spassword: "
+#: libpam/pam_get_authtok.c:42
+#, fuzzy
+msgid "Current password: "
+msgstr "Нова %s%sлозинка: "
+
+#: libpam/pam_get_authtok.c:44
+#, fuzzy, c-format
+#| msgid "New %s%spassword: "
+msgid "New %s password: "
 msgstr "Нова %s%sлозинка: "
 
 #: libpam/pam_get_authtok.c:45
-#, c-format
-msgid "Retype new %s%spassword: "
+#, fuzzy
+#| msgid "New %s%spassword: "
+msgid "New password: "
+msgstr "Нова %s%sлозинка: "
+
+#: libpam/pam_get_authtok.c:47
+#, fuzzy, c-format
+#| msgid "Retype new %s%spassword: "
+msgid "Retype new %s password: "
 msgstr "Поново унесите нову %s%sлозинку: "
 
-#: libpam/pam_get_authtok.c:46
+#: libpam/pam_get_authtok.c:48
+#, fuzzy
+#| msgid "Retype new %s%spassword: "
+msgid "Retype new password: "
+msgstr "Поново унесите нову %s%sлозинку: "
+
+#: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
 msgstr "Извините, лозинке се не подударају."
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:228
+#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
 msgstr "Поново унесите %s"
 
-#: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
+#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 #, fuzzy
 msgid "Password change has been aborted."
 msgstr "Промена лозинке је прекинута."

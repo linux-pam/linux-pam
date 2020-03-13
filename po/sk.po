@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # feonsu <feonsu@gmail.com>, 2008
 # feonsu <feonsu@gmail.com>, 2014
@@ -13,11 +13,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-03-05 19:33+0000\n"
+"POT-Creation-Date: 2020-03-05 22:27+0000\n"
 "PO-Revision-Date: 2020-03-13 15:38+0000\n"
 "Last-Translator: Ondrej Sulek <feonsu@gmail.com>\n"
-"Language-Team: Slovak <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/sk/>\n"
+"Language-Team: Slovak <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,30 +44,51 @@ msgid "Password: "
 msgstr "Heslo: "
 
 #: libpam/pam_get_authtok.c:41
-#, c-format
-msgid "Current %s%spassword: "
+#, fuzzy, c-format
+#| msgid "Current %s%spassword: "
+msgid "Current %s password: "
 msgstr "Aktuálne %s%sheslo: "
 
-#: libpam/pam_get_authtok.c:43
-#, c-format
-msgid "New %s%spassword: "
+#: libpam/pam_get_authtok.c:42
+#, fuzzy
+#| msgid "Current %s%spassword: "
+msgid "Current password: "
+msgstr "Aktuálne %s%sheslo: "
+
+#: libpam/pam_get_authtok.c:44
+#, fuzzy, c-format
+#| msgid "New %s%spassword: "
+msgid "New %s password: "
 msgstr "Nové %s%sheslo: "
 
 #: libpam/pam_get_authtok.c:45
-#, c-format
-msgid "Retype new %s%spassword: "
+#, fuzzy
+#| msgid "New %s%spassword: "
+msgid "New password: "
+msgstr "Nové %s%sheslo: "
+
+#: libpam/pam_get_authtok.c:47
+#, fuzzy, c-format
+#| msgid "Retype new %s%spassword: "
+msgid "Retype new %s password: "
 msgstr "Opakujte nové %s%sheslo: "
 
-#: libpam/pam_get_authtok.c:46
+#: libpam/pam_get_authtok.c:48
+#, fuzzy
+#| msgid "Retype new %s%spassword: "
+msgid "Retype new password: "
+msgstr "Opakujte nové %s%sheslo: "
+
+#: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
 msgstr "Prepáčte, heslá sa nezhodujú."
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:228
+#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
 msgstr "Opakujte %s"
 
-#: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
+#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 msgid "Password change has been aborted."
 msgstr "Zmena hesla zrušená."
 

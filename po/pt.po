@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Antonio Cardoso Martins <digiplan@netvisao.pt>, 2005-2006
 # Ricardo Pinto <ricardo.bigote@gmail.com>, 2013
@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-03-05 19:33+0000\n"
+"POT-Creation-Date: 2020-03-05 22:27+0000\n"
 "PO-Revision-Date: 2020-03-09 10:38+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Portuguese <https://translate.fedoraproject.org/projects/"
@@ -44,30 +44,51 @@ msgid "Password: "
 msgstr "Senha: "
 
 #: libpam/pam_get_authtok.c:41
-#, c-format
-msgid "Current %s%spassword: "
+#, fuzzy, c-format
+#| msgid "Current %s%spassword: "
+msgid "Current %s password: "
 msgstr "Atual %s%ssenha: "
 
-#: libpam/pam_get_authtok.c:43
-#, c-format
-msgid "New %s%spassword: "
+#: libpam/pam_get_authtok.c:42
+#, fuzzy
+#| msgid "Current %s%spassword: "
+msgid "Current password: "
+msgstr "Atual %s%ssenha: "
+
+#: libpam/pam_get_authtok.c:44
+#, fuzzy, c-format
+#| msgid "New %s%spassword: "
+msgid "New %s password: "
 msgstr "Nova %s%ssenha: "
 
 #: libpam/pam_get_authtok.c:45
-#, c-format
-msgid "Retype new %s%spassword: "
+#, fuzzy
+#| msgid "New %s%spassword: "
+msgid "New password: "
+msgstr "Nova %s%ssenha: "
+
+#: libpam/pam_get_authtok.c:47
+#, fuzzy, c-format
+#| msgid "Retype new %s%spassword: "
+msgid "Retype new %s password: "
 msgstr "Digite novamente a nova %s%ssenha: "
 
-#: libpam/pam_get_authtok.c:46
+#: libpam/pam_get_authtok.c:48
+#, fuzzy
+#| msgid "Retype new %s%spassword: "
+msgid "Retype new password: "
+msgstr "Digite novamente a nova %s%ssenha: "
+
+#: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
 msgstr "Lamento, as senhas não coincidem."
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:228
+#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
 msgstr "Digite novamente %s"
 
-#: libpam/pam_get_authtok.c:166 libpam/pam_get_authtok.c:244
+#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 msgid "Password change has been aborted."
 msgstr "Alteração da senha interrompida."
 
@@ -525,13 +546,15 @@ msgstr "Acesso permitido (último acesso foi à %ld segundos atrás)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator."
-msgstr "A sua conta expirou; por favor contacte o seu administrador de sistema."
+msgstr ""
+"A sua conta expirou; por favor contacte o seu administrador de sistema."
 
 #: modules/pam_unix/pam_unix_acct.c:240
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "É obrigatório que altere de imediato a sua senha (politica do sistema)."
+msgstr ""
+"É obrigatório que altere de imediato a sua senha (politica do sistema)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
 msgid ""
