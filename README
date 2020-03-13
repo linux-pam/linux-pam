@@ -1,4 +1,3 @@
-
 Hello!
 
 Thanks for downloading Linux-PAM.
@@ -6,6 +5,11 @@ Thanks for downloading Linux-PAM.
 NOTES:
 
 How to use it is as follows:
+
+Please look at the ci/install_dependencies.sh for the necessary
+prerequisite packages to be able to build the Linux-PAM. The script
+is targeted at Debian based Linux distributions so the package
+names and availability might differ on other distributions.
 
 If you check out the sources from git, install Autotools and generate
 configuration scripts, ensuring you have the minimum packages installed,
@@ -53,16 +57,6 @@ as root.
 WARNING: Running "make xtests" can overwrite configuration data
 or make the system insecure/unfunctional for a short time!
 Backup all important data before!
-
-
-If you do not wish to make the modules dynamically loadable, but
-build a static libpam including all PAM modules, you have to call:
-
-      ./configure --enable-static-modules --disable-pie
-
-To run the build checks with static modules, you need to run the
-following command: make -C test check && make check
-
 
 To regenerate manual pages from the XML source files you need the
 docbook-xsl stylesheets in version 1.69.1 or newer, older versions had
