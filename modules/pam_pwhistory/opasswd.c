@@ -510,3 +510,22 @@ save_old_pass (pam_handle_t *pamh, const char *user, uid_t uid,
 
   return retval;
 }
+
+/* Check if the new password and current password are the same. */
+int
+check_current_pass (pam_handle_t *pamh, const char *user,
+		const char *oldpass,const char *newpass, int debug)
+{
+     int retval = PAM_SUCCESS;
+
+     if (oldpass == NULL || *oldpass == '\0')
+           return PAM_SUCCESS;
+     if (compare_password(newpass, oldpass))
+     {
+          if (debug)
+             pam_syslog (pamh, LOG_DEBUG, "The new password is same with current password.");
+	  retval = PAM_AUTHTOK_ERR;
+     }
+
+     return retval;
+}
