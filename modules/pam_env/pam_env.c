@@ -42,6 +42,7 @@
 #include <security/pam_modutil.h>
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 /* This little structure makes it easier to keep variables together */
 
@@ -63,7 +64,7 @@ typedef struct var {
 #define ILLEGAL_VAR  103
 
 static int  _assemble_line(FILE *, char *, int);
-static int  _parse_line(const pam_handle_t *, char *, VAR *);
+static int  _parse_line(const pam_handle_t *, const char *, VAR *);
 static int  _check_var(pam_handle_t *, VAR *);           /* This is the real meat */
 static void _clean_var(VAR *);
 static int  _expand_arg(pam_handle_t *, char **);
@@ -93,40 +94,41 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 
     /* step through arguments */
     for (; argc-- > 0; ++argv) {
+	const char *str;
 
 	/* generic options */
 
 	if (!strcmp(*argv,"debug"))
 	    ctrl |= PAM_DEBUG_ARG;
-	else if (!strncmp(*argv,"conffile=",9)) {
-	  if ((*argv)[9] == '\0') {
+	else if ((str = pam_str_skip_prefix(*argv, "conffile=")) != NULL) {
+	  if (str[0] == '\0') {
 	    pam_syslog(pamh, LOG_ERR,
 		       "conffile= specification missing argument - ignored");
 	  } else {
-	    *conffile = 9+*argv;
+	    *conffile = str;
 	    D(("new Configuration File: %s", *conffile));
 	  }
-	} else if (!strncmp(*argv,"envfile=",8)) {
-	  if ((*argv)[8] == '\0') {
+	} else if ((str = pam_str_skip_prefix(*argv, "envfile=")) != NULL) {
+	  if (str[0] == '\0') {
 	    pam_syslog (pamh, LOG_ERR,
 			"envfile= specification missing argument - ignored");
 	  } else {
-	    *envfile = 8+*argv;
+	    *envfile = str;
 	    D(("new Env File: %s", *envfile));
 	  }
-	} else if (!strncmp(*argv,"user_envfile=",13)) {
-	  if ((*argv)[13] == '\0') {
+	} else if ((str = pam_str_skip_prefix(*argv, "user_envfile=")) != NULL) {
+	  if (str[0] == '\0') {
 	    pam_syslog (pamh, LOG_ERR,
 			"user_envfile= specification missing argument - ignored");
 	  } else {
-	    *user_envfile = 13+*argv;
+	    *user_envfile = str;
 	    D(("new User Env File: %s", *user_envfile));
 	  }
-	} else if (!strncmp(*argv,"readenv=",8))
-	  *readenv = atoi(8+*argv);
-	else if (!strncmp(*argv,"user_readenv=",13))
-	  *user_readenv = atoi(13+*argv);
-	else
+	} else if ((str = pam_str_skip_prefix(*argv, "readenv=")) != NULL) {
+	  *readenv = atoi(str);
+	} else if ((str = pam_str_skip_prefix(*argv, "user_readenv=")) != NULL) {
+	  *user_readenv = atoi(str);
+	} else
 	  pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
     }
 
@@ -381,7 +383,7 @@ static int _assemble_line(FILE *f, char *buffer, int buf_len)
 }
 
 static int
-_parse_line (const pam_handle_t *pamh, char *buffer, VAR *var)
+_parse_line (const pam_handle_t *pamh, const char *buffer, VAR *var)
 {
   /*
    * parse buffer into var, legal syntax is
@@ -392,7 +394,8 @@ _parse_line (const pam_handle_t *pamh, char *buffer, VAR *var)
    */
 
   int length, quoteflg=0;
-  char *ptr, **valptr, *tmpptr;
+  const char *ptr, *tmpptr;
+  char **valptr;
 
   D(("Called buffer = <%s>", buffer));
 
@@ -420,12 +423,12 @@ _parse_line (const pam_handle_t *pamh, char *buffer, VAR *var)
   while ((length = strspn(ptr, " \t")) > 0) {
     ptr += length;                              /* remove leading whitespace */
     D((ptr));
-    if (strncmp(ptr,"DEFAULT=",8) == 0) {
-      ptr+=8;
+    if ((tmpptr = pam_str_skip_prefix(ptr, "DEFAULT=")) != NULL) {
+      ptr = tmpptr;
       D(("Default arg found: <%s>", ptr));
       valptr=&(var->defval);
-    } else if (strncmp(ptr, "OVERRIDE=", 9) == 0) {
-      ptr+=9;
+    } else if ((tmpptr = pam_str_skip_prefix(ptr, "OVERRIDE=")) != NULL) {
+      ptr = tmpptr;
       D(("Override arg found: <%s>", ptr));
       valptr=&(var->override);
     } else {
