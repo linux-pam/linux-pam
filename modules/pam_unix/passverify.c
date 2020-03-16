@@ -26,6 +26,7 @@
 #endif
 
 #include "pam_cc_compat.h"
+#include "pam_inline.h"
 #include "md5.h"
 #include "bigcrypt.h"
 #include "passverify.h"
@@ -88,7 +89,7 @@ PAMH_ARG_DECL(int verify_pwd_hash,
 	} else if (!p || *hash == '*' || *hash == '!') {
 		retval = PAM_AUTH_ERR;
 	} else {
-		if (!strncmp(hash, "$1$", 3)) {
+		if (pam_str_skip_prefix(hash, "$1$") != NULL) {
 			pp = Goodcrypt_md5(p, hash);
 			if (pp && strcmp(pp, hash) != 0) {
 				_pam_delete(pp);

@@ -29,6 +29,7 @@
 #include <security/pam_modutil.h>
 
 #include "pam_cc_compat.h"
+#include "pam_inline.h"
 #include "support.h"
 #include "passverify.h"
 
@@ -112,17 +113,20 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 	/* now parse the arguments to this module */
 
 	for (; argc-- > 0; ++argv) {
+		const char *str = NULL;
 
 		D(("pam_unix arg: %s", *argv));
 
 		for (j = 0; j < UNIX_CTRLS_; ++j) {
 			if (unix_args[j].token
-			    && !strncmp(*argv, unix_args[j].token, strlen(unix_args[j].token))) {
+			    && (str = pam_str_skip_prefix_len(*argv,
+							      unix_args[j].token,
+							      strlen(unix_args[j].token))) != NULL) {
 				break;
 			}
 		}
 
-		if (j >= UNIX_CTRLS_) {
+		if (str == NULL) {
 			pam_syslog(pamh, LOG_ERR,
 			         "unrecognized option [%s]", *argv);
 		} else {
@@ -133,7 +137,7 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 					    "option remember not allowed for this module type");
 					continue;
 				}
-				*remember = strtol(*argv + 9, NULL, 10);
+				*remember = strtol(str, NULL, 10);
 				if ((*remember == INT_MIN) || (*remember == INT_MAX))
 					*remember = -1;
 				if (*remember > 400)
@@ -144,14 +148,14 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 					    "option minlen not allowed for this module type");
 					continue;
 				}
-				*pass_min_len = atoi(*argv + 7);
+				*pass_min_len = atoi(str);
 			} else if (j == UNIX_ALGO_ROUNDS) {
 				if (rounds == NULL) {
 					pam_syslog(pamh, LOG_ERR,
 					    "option rounds not allowed for this module type");
 					continue;
 				}
-				*rounds = strtol(*argv + 7, NULL, 10);
+				*rounds = strtol(str, NULL, 10);
 			}
 
 			ctrl &= unix_args[j].mask;	/* for turning things off */
