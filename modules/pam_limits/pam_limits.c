@@ -108,6 +108,7 @@ struct pam_limit_s {
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 /* argument parsing */
 
@@ -129,13 +130,14 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 
     /* step through arguments */
     for (ctrl=0; argc-- > 0; ++argv) {
+	const char *str;
 
 	/* generic options */
 
 	if (!strcmp(*argv,"debug")) {
 	    ctrl |= PAM_DEBUG_ARG;
-	} else if (!strncmp(*argv,"conf=",5)) {
-	    pl->conf_file = *argv+5;
+	} else if ((str = pam_str_skip_prefix(*argv, "conf=")) != NULL) {
+	    pl->conf_file = str;
 	} else if (!strcmp(*argv,"utmp_early")) {
 	    ctrl |= PAM_UTMP_EARLY;
 	} else if (!strcmp(*argv,"noaudit")) {
@@ -401,8 +403,8 @@ static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int 
             line[pos] = '\0';
         }
 
-        /* determine formatting boundry of limits report */
-        if (!maxlen && strncmp(line, "Limit", 5) == 0) {
+        /* determine formatting boundary of limits report */
+        if (!maxlen && pam_str_skip_prefix(line, "Limit") != NULL) {
             maxlen = pos;
             continue;
         }
