@@ -43,6 +43,7 @@
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 #define PAM_DEBUG_ARG       0x0001
 #define PAM_NOCONSOLE_ARG   0x0002
@@ -77,6 +78,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
     const char *securettyfile;
     const char *username;
     const char *uttyname;
+    const char *str;
     const void *void_uttyname;
     char ttyfileline[256];
     char ptname[256];
@@ -111,9 +113,8 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
     }
 
     /* The PAM_TTY item may be prefixed with "/dev/" - skip that */
-    if (strncmp(TTY_PREFIX, uttyname, sizeof(TTY_PREFIX)-1) == 0) {
-	uttyname += sizeof(TTY_PREFIX)-1;
-    }
+    if ((str = pam_str_skip_prefix(uttyname, TTY_PREFIX)) != NULL)
+	uttyname = str;
 
     if (stat(SECURETTY_FILE, &ttyfileinfo)) {
 #ifdef VENDORDIR
@@ -185,18 +186,17 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
             fclose(cmdlinefile);
 
             for (; p; p = strstr(p+1, "console=")) {
-                char *e;
+                const char *e;
 
                 /* Test whether this is a beginning of a word? */
                 if (p > line && p[-1] != ' ')
                     continue;
 
                 /* Is this our console? */
-                if (strncmp(p + 8, uttyname, strlen(uttyname)))
+                if ((e = pam_str_skip_prefix_len(p + 8, uttyname, strlen(uttyname))) == NULL)
                     continue;
 
                 /* Is there any garbage after the TTY name? */
-                e = p + 8 + strlen(uttyname);
                 if (*e == ',' || *e == ' ' || *e == '\n' || *e == 0) {
                     retval = 0;
                     break;
