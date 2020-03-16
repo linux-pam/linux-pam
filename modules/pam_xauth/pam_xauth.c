@@ -364,17 +364,19 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	/* Parse arguments.  We don't understand many, so no sense in breaking
 	 * this into a separate function. */
 	for (i = 0; i < argc; i++) {
+		const char *str;
+
 		if (strcmp(argv[i], "debug") == 0) {
 			debug = 1;
 			continue;
 		}
-		if (strncmp(argv[i], "xauthpath=", 10) == 0) {
-			xauth = argv[i] + 10;
+		if ((str = pam_str_skip_prefix(argv[i], "xauthpath=")) != NULL) {
+			xauth = str;
 			continue;
 		}
-		if (strncmp(argv[i], "targetuser=", 11) == 0) {
-			long l = strtol(argv[i] + 11, &tmp, 10);
-			if ((strlen(argv[i] + 11) > 0) && (*tmp == '\0')) {
+		if ((str = pam_str_skip_prefix(argv[i], "targetuser=")) != NULL) {
+			long l = strtol(str, &tmp, 10);
+			if ((*str != '\0') && (*tmp == '\0')) {
 				targetuser = l;
 			} else {
 				pam_syslog(pamh, LOG_WARNING,
@@ -383,9 +385,9 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			}
 			continue;
 		}
-		if (strncmp(argv[i], "systemuser=", 11) == 0) {
-			long l = strtol(argv[i] + 11, &tmp, 10);
-			if ((strlen(argv[i] + 11) > 0) && (*tmp == '\0')) {
+		if ((str = pam_str_skip_prefix(argv[i], "systemuser=")) != NULL) {
+			long l = strtol(str, &tmp, 10);
+			if ((*str != '\0') && (*tmp == '\0')) {
 				systemuser = l;
 			} else {
 				pam_syslog(pamh, LOG_WARNING,
@@ -537,8 +539,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 
 		/* Check that we got a cookie.  If not, we get creative. */
 		if (((cookie == NULL) || (strlen(cookie) == 0)) &&
-		    ((strncmp(display, "localhost:", 10) == 0) ||
-		     (strncmp(display, "localhost/unix:", 15) == 0))) {
+		    (pam_str_skip_prefix(display, "localhost:") != NULL ||
+		     pam_str_skip_prefix(display, "localhost/unix:") != NULL)) {
 			char *t, *screen;
 			size_t tlen, slen;
 			/* Free the useless cookie string. */
@@ -769,11 +771,11 @@ pam_sm_close_session (pam_handle_t *pamh, int flags UNUSED,
 			debug = 1;
 			continue;
 		}
-		if (strncmp(argv[i], "xauthpath=", 10) == 0)
+		if (pam_str_skip_prefix(argv[i], "xauthpath=") != NULL)
 			continue;
-		if (strncmp(argv[i], "systemuser=", 11) == 0)
+		if (pam_str_skip_prefix(argv[i], "systemuser=") != NULL)
 			continue;
-		if (strncmp(argv[i], "targetuser=", 11) == 0)
+		if (pam_str_skip_prefix(argv[i], "targetuser=") != NULL)
 			continue;
 		pam_syslog(pamh, LOG_WARNING, "unrecognized option `%s'",
 		       argv[i]);
