@@ -50,4 +50,17 @@
 # define DIAG_POP_IGNORE_CAST_ALIGN	/* empty */
 #endif
 
+/*
+ * Evaluates to
+ * 1, if the given two types are known to be the same
+ * 0, otherwise.
+ */
+#if PAM_GNUC_PREREQ(3, 0)
+# define PAM_IS_SAME_TYPE(x_, y_)					\
+	__builtin_types_compatible_p(__typeof__(x_), __typeof__(y_))
+#else
+/* Cannot tell whether these types are the same.  */
+# define PAM_IS_SAME_TYPE(x_, y_)	0
+#endif
+
 #endif /* PAM_CC_COMPAT_H */
