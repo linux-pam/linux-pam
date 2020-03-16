@@ -65,6 +65,7 @@
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
+#include "pam_inline.h"
 
 /* The default timeout we use is 5 minutes, which matches the sudo default
  * for the timestamp_timeout parameter. */
@@ -151,7 +152,7 @@ check_tty(const char *tty)
 	}
 	/* Pull out the meaningful part of the tty's name. */
 	if (strchr(tty, '/') != NULL) {
-		if (strncmp(tty, "/dev/", 5) != 0) {
+		if (pam_str_skip_prefix(tty, "/dev/") == NULL) {
 			/* Make sure the device node is actually in /dev/,
 			 * noted by Michal Zalewski. */
 			return NULL;
@@ -282,8 +283,10 @@ get_timestamp_name(pam_handle_t *pamh, int argc, const char **argv,
 		}
 	}
 	for (i = 0; i < argc; i++) {
-		if (strncmp(argv[i], "timestampdir=", 13) == 0) {
-			tdir = argv[i] + 13;
+		const char *str;
+
+		if ((str = pam_str_skip_prefix(argv[i], "timestampdir=")) != NULL) {
+			tdir = str;
 			if (debug) {
 				pam_syslog(pamh, LOG_DEBUG,
 				       "storing timestamps in `%s'",
@@ -377,8 +380,10 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		}
 	}
 	for (i = 0; i < argc; i++) {
-		if (strncmp(argv[i], "timestamp_timeout=", 18) == 0) {
-			tmp = strtol(argv[i] + 18, &p, 0);
+		const char *str;
+
+		if ((str = pam_str_skip_prefix(argv[i], "timestamp_timeout=")) != NULL) {
+			tmp = strtol(str, &p, 0);
 			if ((p != NULL) && (*p == '\0')) {
 				interval = tmp;
 				if (debug) {
