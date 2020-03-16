@@ -45,6 +45,7 @@
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 /* checks if a user is on a list of members of the GID 0 group */
 static int is_on_list(char * const *list, const char *member)
@@ -75,6 +76,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 
      /* step through arguments */
      for (ctrl=0; argc-- > 0; ++argv) {
+          const char *str;
 
           /* generic options */
 
@@ -88,8 +90,8 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
                ctrl |= PAM_DENY_ARG;
           else if (!strcmp(*argv,"root_only"))
                ctrl |= PAM_ROOT_ONLY_ARG;
-          else if (!strncmp(*argv,"group=",6))
-	       strncpy(use_group,*argv+6,group_length-1);
+	  else if ((str = pam_str_skip_prefix(*argv, "group=")) != NULL)
+	       strncpy(use_group, str, group_length - 1);
           else {
                pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
           }
