@@ -38,6 +38,7 @@
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 /* --- authentication management functions (only) --- */
 
@@ -241,9 +242,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     }
     if((citem == PAM_TTY) && citemp) {
         /* Normalize the TTY name. */
-        if(strncmp(citemp, "/dev/", 5) == 0) {
-            citemp += 5;
-        }
+        const char *str = pam_str_skip_prefix(citemp, "/dev/");
+        if (str != NULL)
+            citemp = str;
     }
 
     if(!citemp || (strlen(citemp) == 0)) {
@@ -322,7 +323,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 #endif
     while((fgets(aline,sizeof(aline),inf) != NULL)
 	  && retval) {
-	char *a = aline;
+	const char *a = aline;
 
 	if(strlen(aline) == 0)
 	    continue;
@@ -333,8 +334,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	if(aline[strlen(aline) - 1] == '\r')
 	    aline[strlen(aline) - 1] = '\0';
 	if(citem == PAM_TTY) {
-	    if(strncmp(a, "/dev/", 5) == 0)
-		a += 5;
+	    const char *str = pam_str_skip_prefix(a, "/dev/");
+	    if (str != NULL)
+		a = str;
 	}
 	if (extitem == EI_GROUP) {
 	    retval = !pam_modutil_user_in_group_nam_nam(pamh,
