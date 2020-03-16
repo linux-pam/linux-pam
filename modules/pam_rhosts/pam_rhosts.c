@@ -43,6 +43,7 @@
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 int pam_sm_authenticate (pam_handle_t *pamh, int flags, int argc,
 			 const char **argv)
@@ -59,12 +60,14 @@ int pam_sm_authenticate (pam_handle_t *pamh, int flags, int argc,
     opt_silent = flags & PAM_SILENT;
 
     while (argc-- > 0) {
+      const char *str;
+
       if (strcmp(*argv, "debug") == 0)
 	opt_debug = 1;
       else if (strcmp (*argv, "silent") == 0 || strcmp(*argv, "suppress") == 0)
 	opt_silent = 1;
-      else if (strncmp(*argv, "superuser=", sizeof("superuser=")-1) == 0)
-	opt_superuser = *argv+sizeof("superuser=")-1;
+      else if ((str = pam_str_skip_prefix(*argv, "superuser=")) != NULL)
+	opt_superuser = str;
       else
 	pam_syslog(pamh, LOG_WARNING, "unrecognized option '%s'", *argv);
 
