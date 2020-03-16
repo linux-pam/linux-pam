@@ -81,6 +81,7 @@ struct lastlog {
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 /* argument parsing */
 
@@ -110,6 +111,7 @@ _pam_auth_parse(pam_handle_t *pamh, int flags, int argc, const char **argv,
 
     /* step through arguments */
     for (; argc-- > 0; ++argv) {
+        const char *str;
         char *ep = NULL;
         long l;
 
@@ -117,9 +119,9 @@ _pam_auth_parse(pam_handle_t *pamh, int flags, int argc, const char **argv,
 	    ctrl |= LASTLOG_DEBUG;
 	} else if (!strcmp(*argv,"silent")) {
 	    ctrl |= LASTLOG_QUIET;
-	} else if (!strncmp(*argv,"inactive=", 9)) {
-            l = strtol(*argv+9, &ep, 10);
-            if (ep != *argv+9 && l > 0 && l < MAX_INACTIVE_DAYS)
+	} else if ((str = pam_str_skip_prefix(*argv, "inactive=")) != NULL) {
+            l = strtol(str, &ep, 10);
+            if (ep != str && l > 0 && l < MAX_INACTIVE_DAYS)
                 *inactive = l;
             else {
                 pam_syslog(pamh, LOG_ERR, "bad option value: %s", *argv);
@@ -183,6 +185,7 @@ get_tty(pam_handle_t *pamh)
 {
     const void *void_terminal_line = NULL;
     const char *terminal_line;
+    const char *str;
 
     if (pam_get_item(pamh, PAM_TTY, &void_terminal_line) != PAM_SUCCESS
 	|| void_terminal_line == NULL) {
@@ -190,10 +193,12 @@ get_tty(pam_handle_t *pamh)
     } else {
 	terminal_line = void_terminal_line;
     }
-    if (!strncmp("/dev/", terminal_line, 5)) {
-	/* strip leading "/dev/" from tty. */
-	terminal_line += 5;
-    }
+
+    /* strip leading "/dev/" from tty. */
+    str = pam_str_skip_prefix(terminal_line, "/dev/");
+    if (str != NULL)
+	terminal_line = str;
+
     D(("terminal = %s", terminal_line));
     return terminal_line;
 }
