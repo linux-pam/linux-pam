@@ -65,8 +65,8 @@
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
-
 #include "pam_cc_compat.h"
+#include "pam_inline.h"
 
 /* login_access.c from logdaemon-5.6 with several changes by A.Nogin: */
 
@@ -125,25 +125,27 @@ parse_args(pam_handle_t *pamh, struct login_info *loginfo,
     loginfo->fs = ":";
     loginfo->sep = ", \t";
     for (i=0; i<argc; ++i) {
-	if (!strncmp("fieldsep=", argv[i], 9)) {
+	const char *str;
+
+	if ((str = pam_str_skip_prefix(argv[i], "fieldsep=")) != NULL) {
 
 	    /* the admin wants to override the default field separators */
-	    loginfo->fs = argv[i]+9;
+	    loginfo->fs = str;
 
-	} else if (!strncmp("listsep=", argv[i], 8)) {
+	} else if ((str = pam_str_skip_prefix(argv[i], "listsep=")) != NULL) {
 
 	    /* the admin wants to override the default list separators */
-	    loginfo->sep = argv[i]+8;
+	    loginfo->sep = str;
 
-	} else if (!strncmp("accessfile=", argv[i], 11)) {
-	    FILE *fp = fopen(11 + argv[i], "r");
+	} else if ((str = pam_str_skip_prefix(argv[i], "accessfile=")) != NULL) {
+	    FILE *fp = fopen(str, "r");
 
 	    if (fp) {
-		loginfo->config_file = 11 + argv[i];
+		loginfo->config_file = str;
 		fclose(fp);
 	    } else {
 		pam_syslog(pamh, LOG_ERR,
-			   "failed to open accessfile=[%s]: %m", 11 + argv[i]);
+			   "failed to open accessfile=[%s]: %m", str);
 		return 0;
 	    }
 
