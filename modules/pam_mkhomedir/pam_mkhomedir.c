@@ -59,6 +59,7 @@
 #include <security/pam_ext.h>
 
 #include "pam_cc_compat.h"
+#include "pam_inline.h"
 
 /* argument parsing */
 #define MKHOMEDIR_DEBUG      020	/* be verbose about things */
@@ -86,14 +87,16 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
    /* step through arguments */
    for (; argc-- > 0; ++argv)
    {
+      const char *str;
+
       if (!strcmp(*argv, "silent")) {
 	 opt->ctrl |= MKHOMEDIR_QUIET;
       } else if (!strcmp(*argv, "debug")) {
          opt->ctrl |= MKHOMEDIR_DEBUG;
-      } else if (!strncmp(*argv,"umask=",6)) {
-	 opt->umask = *argv+6;
-      } else if (!strncmp(*argv,"skel=",5)) {
-	 opt->skeldir = *argv+5;
+      } else if ((str = pam_str_skip_prefix(*argv, "umask=")) != NULL) {
+	 opt->umask = str;
+      } else if ((str = pam_str_skip_prefix(*argv, "skel=")) != NULL) {
+	 opt->skeldir = str;
       } else {
 	 pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
       }
