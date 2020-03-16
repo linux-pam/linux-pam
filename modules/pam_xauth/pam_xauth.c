@@ -64,6 +64,7 @@
 #endif
 
 #include "pam_cc_compat.h"
+#include "pam_inline.h"
 
 #define DATANAME "pam_xauth_cookie_file"
 #define XAUTHENV "XAUTHORITY"
@@ -172,7 +173,7 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 		/* Convert the varargs list into a regular array of strings. */
 		va_start(ap, command);
 		args[0] = command;
-		for (j = 1; j < ((sizeof(args) / sizeof(args[0])) - 1); j++) {
+		for (j = 1; j < PAM_ARRAY_SIZE(args) - 1; j++) {
 			args[j] = va_arg(ap, const char*);
 			if (args[j] == NULL) {
 				break;
@@ -399,7 +400,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 
 	if (xauth == NULL) {
 	        size_t j;
-		for (j = 0; j < sizeof(xauthpaths)/sizeof(xauthpaths[0]); j++) {
+		for (j = 0; j < PAM_ARRAY_SIZE(xauthpaths); j++) {
 			if (access(xauthpaths[j], X_OK) == 0) {
 				xauth = xauthpaths[j];
 				break;

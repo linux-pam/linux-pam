@@ -59,6 +59,7 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 #include <security/_pam_macros.h>
+#include "pam_inline.h"
 
 #define ENV_ITEM(n) { (n), #n }
 static struct {
@@ -414,7 +415,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       envlist = pam_getenvlist(pamh);
       for (envlen = 0; envlist[envlen] != NULL; ++envlen)
         /* nothing */ ;
-      nitems = sizeof(env_items) / sizeof(*env_items);
+      nitems = PAM_ARRAY_SIZE(env_items);
       /* + 2 because of PAM_TYPE and NULL entry */
       tmp = realloc(envlist, (envlen + nitems + 2) * sizeof(*envlist));
       if (tmp == NULL)

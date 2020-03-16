@@ -35,6 +35,7 @@
 #define _ATFILE_SOURCE
 
 #include "pam_cc_compat.h"
+#include "pam_inline.h"
 #include "pam_namespace.h"
 #include "argv_parse.h"
 
@@ -260,7 +261,7 @@ static int filter_mntopts(const char *opts, char **filtered,
 
     do {
 	size_t len;
-	int i;
+	unsigned int i;
 
 	end = strchr(opts, ',');
 	if (end == NULL) {
@@ -269,7 +270,7 @@ static int filter_mntopts(const char *opts, char **filtered,
 	    len = end - opts;
 	}
 
-	for (i = 0; i < (int)(sizeof(mntflags)/sizeof(mntflags[0])); i++) {
+	for (i = 0; i < PAM_ARRAY_SIZE(mntflags); i++) {
 	    if (mntflags[i].len != len)
 		continue;
 	    if (memcmp(mntflags[i].name, opts, len) == 0) {

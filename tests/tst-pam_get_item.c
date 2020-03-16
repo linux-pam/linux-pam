@@ -39,6 +39,7 @@
 #include <unistd.h>
 
 #include <security/pam_appl.h>
+#include "pam_inline.h"
 
 struct mapping {
   int type;
@@ -67,7 +68,8 @@ main (void)
   const char *user = "root";
   struct pam_conv conv;
   pam_handle_t *pamh;
-  int retval, num, i;
+  int retval;
+  unsigned int i;
   const void *value;
 
   /* 1: Call with NULL as pam handle */
@@ -89,9 +91,7 @@ main (void)
 
   /* 2: check for valid item types. Expected return value is
      PAM_SUCCESS, except it has to fail. */
-  num = sizeof(items) / sizeof(struct mapping);
-
-  for (i = 0; i < num; i++)
+  for (i = 0; i < PAM_ARRAY_SIZE(items); i++)
     {
       retval = pam_get_item (pamh, items[i].type, &value);
 
@@ -115,7 +115,7 @@ main (void)
     }
 
   /* 4: check for valid item types, but NULL as value address. */
-  for (i = 0; i < num; i++)
+  for (i = 0; i < PAM_ARRAY_SIZE(items); i++)
     {
       retval = pam_get_item (pamh, items[i].type, NULL);
 

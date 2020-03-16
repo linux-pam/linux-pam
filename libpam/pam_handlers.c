@@ -7,6 +7,7 @@
  */
 
 #include "pam_private.h"
+#include "pam_inline.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -315,7 +316,7 @@ _pam_open_config_file(pam_handle_t *pamh
 	return PAM_ABORT;
     }
 
-    for (i = 0; i < sizeof (pamd_dirs)/sizeof (char *); i++) {
+    for (i = 0; i < PAM_ARRAY_SIZE(pamd_dirs); i++) {
         if (asprintf (&p, pamd_dirs[i], service) < 0) {
 	    pam_syslog(pamh, LOG_CRIT, "asprintf failed");
 	    return PAM_BUF_ERR;
