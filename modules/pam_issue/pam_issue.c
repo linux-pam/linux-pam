@@ -33,6 +33,7 @@
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 static int _user_prompt_set = 0;
 
@@ -62,8 +63,10 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     _user_prompt_set = 1;
 
     for ( ; argc-- > 0 ; ++argv ) {
-	if (!strncmp(*argv,"issue=",6)) {
-	    issue_file = 6 + *argv;
+	const char *str;
+
+	if ((str = pam_str_skip_prefix(*argv, "issue=")) != NULL) {
+	    issue_file = str;
 	    D(("set issue_file to: %s", issue_file));
 	} else if (!strcmp(*argv,"noesc")) {
 	    parse_esc = 0;
@@ -233,10 +236,11 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 		break;
 	      case 'l':
 		{
-		    char *ttyn = ttyname(1);
+		    const char *ttyn = ttyname(1);
 		    if (ttyn) {
-			if (!strncmp(ttyn, "/dev/", 5))
-			    ttyn += 5;
+			const char *str = pam_str_skip_prefix(ttyn, "/dev/");
+			if (str != NULL)
+			    ttyn = str;
 			strncat(buf, ttyn, sizeof(buf) - 1);
 		    }
 		}
