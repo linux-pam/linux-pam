@@ -39,6 +39,7 @@
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
+#include "pam_inline.h"
 
 /* --- session management functions (only) --- */
 
@@ -314,9 +315,10 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
     }
 
     for (; argc-- > 0; ++argv) {
-        if (!strncmp(*argv,"motd=",5)) {
+	const char *str;
+	if ((str = pam_str_skip_prefix(*argv, "motd=")) != NULL) {
 
-            motd_path = 5 + *argv;
+            motd_path = str;
             if (*motd_path != '\0') {
                 D(("set motd path: %s", motd_path));
 	    } else {
@@ -325,9 +327,9 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 			   "motd= specification missing argument - ignored");
 	    }
 	}
-	else if (!strncmp(*argv,"motd_dir=",9)) {
+	else if ((str = pam_str_skip_prefix(*argv, "motd_dir=")) != NULL) {
 
-            motd_dir_path = 9 + *argv;
+            motd_dir_path = str;
             if (*motd_dir_path != '\0') {
                 D(("set motd.d path: %s", motd_dir_path));
 	    } else {
