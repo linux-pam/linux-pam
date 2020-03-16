@@ -44,6 +44,7 @@
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 /* argument parsing */
 
@@ -77,6 +78,7 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc,
 
     /* step through arguments */
     for (; argc-- > 0; ++argv) {
+	const char *str;
 
 	/* generic options */
 
@@ -86,8 +88,8 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc,
 	    ctrl |= PAM_QUIET_MAIL;
 	else if (!strcmp(*argv,"standard"))
 	    ctrl |= PAM_STANDARD_MAIL | PAM_EMPTY_TOO;
-	else if (!strncmp(*argv,"dir=",4)) {
-	    *maildir = 4 + *argv;
+	else if ((str = pam_str_skip_prefix(*argv, "dir=")) != NULL) {
+	    *maildir = str;
 	    if (**maildir != '\0') {
 		D(("new mail directory: %s", *maildir));
 		ctrl |= PAM_NEW_MAIL_DIR;
@@ -95,9 +97,9 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc,
 		pam_syslog(pamh, LOG_ERR,
 			   "dir= specification missing argument - ignored");
 	    }
-	} else if (!strncmp(*argv,"hash=",5)) {
+	} else if ((str = pam_str_skip_prefix(*argv, "hash=")) != NULL) {
 	    char *ep = NULL;
-	    *hashcount = strtoul(*argv+5,&ep,10);
+	    *hashcount = strtoul(str,&ep,10);
 	    if (!ep) {
 		*hashcount = 0;
 	    }
