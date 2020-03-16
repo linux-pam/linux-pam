@@ -35,6 +35,7 @@
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 /* argument parsing */
 
@@ -49,18 +50,18 @@ _pam_parse(pam_handle_t *pamh, int argc, const char **argv, const char **users)
 
     /* step through arguments */
     for (ctrl=0; argc-- > 0; ++argv) {
+	const char *str;
 
 	/* generic options */
 
 	if (!strcmp(*argv,"debug"))
 	    ctrl |= PAM_DEBUG_ARG;
-	else if (!strncmp(*argv,"users=",6)) {
-	    *users = 6 + *argv;
-	} else if (!strcmp(*argv,"ignore")) {
+	else if (!strcmp(*argv,"ignore"))
 	    ctrl |= PAM_IGNORE_EMAIL;
-	} else {
+	else if ((str = pam_str_skip_prefix(*argv, "users=")) != NULL)
+	    *users = str;
+	else
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
-	}
     }
 
     return ctrl;
