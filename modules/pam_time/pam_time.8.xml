@@ -23,6 +23,9 @@
     <cmdsynopsis id="pam_time-cmdsynopsis">
       <command>pam_time.so</command>
       <arg choice="opt">
+	conffile=conf-file
+      </arg>
+      <arg choice="opt">
         debug
       </arg>
       <arg choice="opt">
@@ -45,7 +48,7 @@
     </para>
     <para>
       By default rules for time/port access are taken from config file
-      <filename>/etc/security/time.conf</filename>.
+      <filename>/etc/security/time.conf</filename>. An alternate file can be specified with the conffile option.
     </para>
     <para>
       If Linux PAM is compiled with audit support the module will report
@@ -56,6 +59,16 @@
   <refsect1 id="pam_time-options">
     <title>OPTIONS</title>
     <variablelist>
+     <varlistentry>
+	<term>
+	  <option>conffile=/path/to/time.conf</option>
+        </term>
+        <listitem>
+	  <para>
+            Indicate an alternative time.conf style configuration file to override the default.
+	  </para>
+        </listitem>
+      </varlistentry>
 
       <varlistentry>
         <term>
