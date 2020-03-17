@@ -117,6 +117,8 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 
   for (optargc = 0; optargc < argc; optargc++)
     {
+      const char *str;
+
       if (argv[optargc][0] == '/') /* paths starts with / */
 	break;
 
@@ -124,11 +126,11 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	debug = 1;
       else if (strcasecmp (argv[optargc], "stdout") == 0)
 	use_stdout = 1;
-      else if (strncasecmp (argv[optargc], "log=", 4) == 0)
-	logfile = &argv[optargc][4];
-      else if (strncasecmp (argv[optargc], "type=", 5) == 0)
+      else if ((str = pam_str_skip_icase_prefix (argv[optargc], "log=")) != NULL)
+	logfile = str;
+      else if ((str = pam_str_skip_icase_prefix (argv[optargc], "type=")) != NULL)
 	{
-	  if (strcmp (pam_type, &argv[optargc][5]) != 0)
+	  if (strcmp (pam_type, str) != 0)
 	    return PAM_IGNORE;
 	}
       else if (strcasecmp (argv[optargc], "seteuid") == 0)
