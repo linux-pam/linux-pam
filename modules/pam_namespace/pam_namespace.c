@@ -2011,7 +2011,7 @@ static int root_shared(void)
                  break;
 
              if (i == 6) {
-                if (strncmp(tok, "shared:", 7) == 0)
+                if (pam_str_skip_prefix(tok, "shared:") != NULL)
                  /* there might be more / mounts, the last one counts */
                     rv = 1;
                 else
