@@ -239,11 +239,11 @@ config_context (pam_handle_t *pamh, const char *defaultcon, int use_current_rang
 	    goto fail_set;
 	  context_free(new_context);
 
-    /* we have to check that this user is allowed to go into the
-        range they have specified ... role is tied to an seuser, so that'll
-        be checked at setexeccon time */
-    if (mls_enabled &&
-        selinux_check_access(defaultcon, newcon, "context", "contains", NULL) != 0) {
+	  /* we have to check that this user is allowed to go into the
+	     range they have specified ... role is tied to an seuser, so that'll
+	     be checked at setexeccon time */
+	  if (mls_enabled &&
+	      selinux_check_access(defaultcon, newcon, "context", "contains", NULL) != 0) {
 	    pam_syslog(pamh, LOG_NOTICE, "Security context %s is not allowed for %s", defaultcon, newcon);
 
 	    send_audit_message(pamh, 0, defaultcon, newcon);
