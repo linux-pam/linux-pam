@@ -57,6 +57,7 @@
 #include <security/_pam_macros.h>
 
 #include "opasswd.h"
+#include "pam_inline.h"
 
 #define DEFAULT_BUFLEN 2048
 
@@ -72,6 +73,8 @@ typedef struct options_t options_t;
 static void
 parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
 {
+  const char *str;
+
   if (strcasecmp (argv, "try_first_pass") == 0)
     /* ignore */;
   else if (strcasecmp (argv, "use_first_pass") == 0)
@@ -80,23 +83,23 @@ parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
     /* ignore, handled by pam_get_authtok */;
   else if (strcasecmp (argv, "debug") == 0)
     options->debug = 1;
-  else if (strncasecmp (argv, "remember=", 9) == 0)
+  else if ((str = pam_str_skip_icase_prefix(argv, "remember=")) != NULL)
     {
-      options->remember = strtol(&argv[9], NULL, 10);
+      options->remember = strtol(str, NULL, 10);
       if (options->remember < 0)
         options->remember = 0;
       if (options->remember > 400)
         options->remember = 400;
     }
-  else if (strncasecmp (argv, "retry=", 6) == 0)
+  else if ((str = pam_str_skip_icase_prefix(argv, "retry=")) != NULL)
     {
-      options->tries = strtol(&argv[6], NULL, 10);
+      options->tries = strtol(str, NULL, 10);
       if (options->tries < 0)
         options->tries = 1;
     }
   else if (strcasecmp (argv, "enforce_for_root") == 0)
     options->enforce_for_root = 1;
-  else if (strncasecmp (argv, "authtok_type=", 13) == 0)
+  else if (pam_str_skip_icase_prefix(argv, "authtok_type=") != NULL)
     { /* ignore, for pam_get_authtok */; }
   else
     pam_syslog (pamh, LOG_ERR, "pam_pwhistory: unknown option: %s", argv);
