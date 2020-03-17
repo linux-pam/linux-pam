@@ -75,15 +75,15 @@
 /* Send audit message */
 static
 
-int send_audit_message(pam_handle_t *pamh, int success, security_context_t default_context,
-		       security_context_t selected_context)
+int send_audit_message(pam_handle_t *pamh, int success, const char *default_context,
+		       const char *selected_context)
 {
 	int rc=0;
 #ifdef HAVE_LIBAUDIT
 	char *msg = NULL;
 	int audit_fd = audit_open();
-	security_context_t default_raw=NULL;
-	security_context_t selected_raw=NULL;
+	char *default_raw = NULL;
+	char *selected_raw = NULL;
 	const void *tty = NULL, *rhost = NULL;
 	rc = -1;
 	if (audit_fd < 0) {
@@ -158,10 +158,10 @@ query_response (pam_handle_t *pamh, const char *text, const char *def,
   return rc;
 }
 
-static security_context_t
-config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_current_range, int debug)
+static char *
+config_context (pam_handle_t *pamh, const char *defaultcon, int use_current_range, int debug)
 {
-  security_context_t newcon=NULL;
+  char *newcon = NULL;
   context_t new_context;
   int mls_enabled = is_selinux_mls_enabled();
   char *response=NULL;
@@ -205,7 +205,7 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
 	if (mls_enabled)
 	  {
 	    if (use_current_range) {
-	        security_context_t mycon = NULL;
+	        char *mycon = NULL;
 	        context_t my_context;
 
 		if (getcon(&mycon) != 0)
@@ -274,10 +274,10 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
   return NULL;
 }
 
-static security_context_t
-context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_params, int use_current_range, int debug)
+static char *
+context_from_env (pam_handle_t *pamh, const char *defaultcon, int env_params, int use_current_range, int debug)
 {
-  security_context_t newcon = NULL;
+  char *newcon = NULL;
   context_t new_context;
   context_t my_context = NULL;
   int mls_enabled = is_selinux_mls_enabled();
@@ -311,7 +311,7 @@ context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_par
     }
 
     if (use_current_range) {
-        security_context_t mycon = NULL;
+        char *mycon = NULL;
 
 	if (getcon(&mycon) != 0)
 	    goto fail_set;
@@ -374,11 +374,11 @@ context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_par
 
 #define DATANAME "pam_selinux_context"
 typedef struct {
-  security_context_t exec_context;
-  security_context_t prev_exec_context;
-  security_context_t default_user_context;
-  security_context_t tty_context;
-  security_context_t prev_tty_context;
+  char *exec_context;
+  char *prev_exec_context;
+  char *default_user_context;
+  char *tty_context;
+  char *prev_tty_context;
   char *tty_path;
 } module_data_t;
 
@@ -419,7 +419,7 @@ get_item(const pam_handle_t *pamh, int item_type)
 }
 
 static int
-set_exec_context(const pam_handle_t *pamh, security_context_t context)
+set_exec_context(const pam_handle_t *pamh, const char *context)
 {
   if (setexeccon(context) == 0)
     return 0;
@@ -429,7 +429,7 @@ set_exec_context(const pam_handle_t *pamh, security_context_t context)
 }
 
 static int
-set_file_context(const pam_handle_t *pamh, security_context_t context,
+set_file_context(const pam_handle_t *pamh, const char *context,
 		 const char *file)
 {
   if (!file)
@@ -453,7 +453,7 @@ compute_exec_context(pam_handle_t *pamh, module_data_t *data,
 #endif
   char *seuser = NULL;
   char *level = NULL;
-  security_context_t *contextlist = NULL;
+  char **contextlist = NULL;
   int num_contexts = 0;
   const struct passwd *pwd;
 
