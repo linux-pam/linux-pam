@@ -25,7 +25,7 @@
 	debug
       </arg>
       <arg choice="opt">
-        crypt=[crypt|none]
+        hash=[crypt|none]
       </arg>
       <arg choice="opt">
         icase
@@ -66,17 +66,19 @@
     <variablelist>
       <varlistentry>
         <term>
-          <option>crypt=[crypt|none]</option>
+          <option>hash=[crypt|none]</option>
         </term>
         <listitem>
           <para>
-            Indicates whether encrypted or plaintext passwords are stored
+            Indicates the hashing algorithm used to store passwords
             in the database.  If it is <option>crypt</option>, passwords
             should be stored in the database in
             <citerefentry>
 	      <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
             </citerefentry> form.  If <option>none</option> is selected,
             passwords should be stored in the database as plaintext.
+	    Note that in versions older than 1.3.1 this parameter was called
+	    <option>crypt</option>.
           </para>
         </listitem>
       </varlistentry>
@@ -86,11 +88,11 @@
         </term>
         <listitem>
           <para>
-            Use the <filename>/path/database</filename> database for
+            Use the <filename>/path/database.db</filename> database for
             performing lookup. There is no default; the module will
             return <emphasis remap='B'>PAM_IGNORE</emphasis> if no
-            database is provided. Note that the path to the database file
-            should be specified without the <filename>.db</filename> suffix.
+            database is provided. Note that in versions older than 1.3.1
+	    this parameter was specified without the <filename>.db</filename> suffix.
           </para>
         </listitem>
       </varlistentry>
@@ -286,7 +288,8 @@ auth  sufficient pam_userdb.so icase db=/etc/dbtest
   <refsect1 id='pam_userdb-author'>
     <title>AUTHOR</title>
       <para>
-        pam_userdb was written by Cristian Gafton &gt;gafton@redhat.com&lt;.
+        pam_userdb was written by Cristian Gafton &lt;gafton@redhat.com&gt;.
+	With additions by Alan Mizrahi &lt;lameventanas@gmail.com&gt;.
       </para>
   </refsect1>
 
