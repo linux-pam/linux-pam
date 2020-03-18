@@ -799,8 +799,8 @@ main(int argc, char **argv)
 					/* Check oldest login against timestamp */
 					if (check_login_time(user, st.st_mtime) != PAM_SUCCESS) {
 						retval = 7;
-					} else if (!timestamp_good(st.st_mtime, time(NULL),
-							    DEFAULT_TIMESTAMP_TIMEOUT) == PAM_SUCCESS) {
+					} else if (timestamp_good(st.st_mtime, time(NULL),
+							DEFAULT_TIMESTAMP_TIMEOUT) != PAM_SUCCESS) {
 						retval = 7;
 					}
 				} else {
