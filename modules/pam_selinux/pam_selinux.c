@@ -60,6 +60,7 @@
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 #include <selinux/selinux.h>
 #include <selinux/get_context_list.h>
@@ -518,7 +519,8 @@ compute_tty_context(const pam_handle_t *pamh, module_data_t *data)
 {
   const char *tty = get_item(pamh, PAM_TTY);
 
-  if (!tty || !*tty || !strcmp(tty, "ssh") || !strncmp(tty, "NODEV", 5)) {
+  if (!tty || !*tty || !strcmp(tty, "ssh")
+      || pam_str_skip_prefix(tty, "NODEV") != NULL) {
     tty = ttyname(STDIN_FILENO);
     if (!tty || !*tty)
       tty = ttyname(STDOUT_FILENO);
@@ -528,7 +530,7 @@ compute_tty_context(const pam_handle_t *pamh, module_data_t *data)
       return PAM_SUCCESS;
   }
 
-  if (strncmp("/dev/", tty, 5)) {
+  if (pam_str_skip_prefix(tty, "/dev/") == NULL) {
     if (asprintf(&data->tty_path, "%s%s", "/dev/", tty) < 0)
       data->tty_path = NULL;
   } else {
