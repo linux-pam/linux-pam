@@ -11,7 +11,7 @@ MAN5 = namespace.conf.5
 MAN8 = pam_namespace.8 pam_namespace_helper.8
 endif
 
-EXTRA_DIST = README namespace.conf namespace.init $(MAN5) $(MAN8) $(XMLS) tst-pam_namespace
+EXTRA_DIST = README namespace.conf namespace.init $(MANS) $(XMLS) tst-pam_namespace
 
 if HAVE_UNSHARE
   TESTS = tst-pam_namespace
