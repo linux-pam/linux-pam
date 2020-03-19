@@ -205,25 +205,30 @@ PAMH_ARG_DECL(int get_account_info,
 
 			save_euid = geteuid();
 			save_uid = getuid();
-			if (save_uid == (*pwd)->pw_uid)
-				setreuid(save_euid, save_uid);
-			else  {
-				setreuid(0, -1);
-				if (setreuid(-1, (*pwd)->pw_uid) == -1) {
-					setreuid(-1, 0);
-					setreuid(0, -1);
-					if(setreuid(-1, (*pwd)->pw_uid) == -1)
+			if (save_uid == (*pwd)->pw_uid) {
+				if (setreuid(save_euid, save_uid))
+					return PAM_CRED_INSUFFICIENT;
+			} else  {
+				if (setreuid(0, -1))
+					return PAM_CRED_INSUFFICIENT;
+				if (setreuid(-1, (*pwd)->pw_uid)) {
+					if (setreuid(-1, 0)
+					    || setreuid(0, -1)
+					    || setreuid(-1, (*pwd)->pw_uid)) {
 						return PAM_CRED_INSUFFICIENT;
+					}
 				}
 			}
 
 			*spwdent = pam_modutil_getspnam(pamh, name);
-			if (save_uid == (*pwd)->pw_uid)
-				setreuid(save_uid, save_euid);
-			else {
-				setreuid(-1, 0);
-				setreuid(save_uid, -1);
-				setreuid(-1, save_euid);
+			if (save_uid == (*pwd)->pw_uid) {
+				if (setreuid(save_uid, save_euid))
+					return PAM_CRED_INSUFFICIENT;
+			} else {
+				if (setreuid(-1, 0)
+				    || setreuid(save_uid, -1)
+				    || setreuid(-1, save_euid))
+					return PAM_CRED_INSUFFICIENT;
 			}
 
 			if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL)
