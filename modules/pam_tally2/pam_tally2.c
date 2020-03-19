@@ -589,15 +589,16 @@ tally_check (tally_t oldcnt, time_t oldtime, pam_handle_t *pamh, uid_t uid,
 	    tally->fail_time = oldtime;
 
 	    if (!(opts->ctrl & OPT_QUIET)) {
-	        pam_info(pamh, _("The account is temporarily locked (%ld seconds left)."),
-                         oldtime+opts->lock_time-time(NULL));
+	        pam_info(pamh,
+			 _("The account is temporarily locked (%ld seconds left)."),
+			 (long int) (oldtime+opts->lock_time-time(NULL)));
             }
 	    if (!(opts->ctrl & OPT_NOLOGNOTICE)) {
 		pam_syslog(pamh, LOG_NOTICE,
 	               "user %s (%lu) has time limit [%lds left]"
 	               " since last failure.",
                        user, (unsigned long)uid,
-	               oldtime+opts->lock_time-time(NULL));
+	               (long int) (oldtime+opts->lock_time-time(NULL)));
 	    }
 	    rv = PAM_AUTH_ERR;
 	    goto cleanup;
