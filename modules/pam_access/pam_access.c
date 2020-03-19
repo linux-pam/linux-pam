@@ -335,7 +335,9 @@ login_access (pam_handle_t *pamh, struct login_info *item)
     char   *users;		/* becomes list of login names */
     char   *froms;		/* becomes list of terminals or hosts */
     int     match = NO;
+#ifdef HAVE_LIBAUDIT
     int     nonall_match = NO;
+#endif
     int     end;
     int     lineno = 0;		/* for diagnostics */
     char   *sptr;
@@ -393,9 +395,11 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 			  match, item->user->pw_name);
 	    if (match) {
 		match = list_match(pamh, froms, NULL, item, from_match);
+#ifdef HAVE_LIBAUDIT
 		if (!match && perm[0] == '+') {
 		    nonall_match = YES;
 		}
+#endif
 		if (item->debug)
 		    pam_syslog (pamh, LOG_DEBUG,
 				"from_match=%d, \"%s\"", match, item->from);
