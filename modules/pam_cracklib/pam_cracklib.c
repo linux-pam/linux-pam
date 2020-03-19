@@ -177,19 +177,19 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
              opt->max_class_repeat = strtol(*argv+15,&ep,10);
              if (!ep)
                  opt->max_class_repeat = 0;
-	 } else if (!strncmp(*argv,"reject_username",15)) {
+	 } else if (!strcmp(*argv, "reject_username")) {
 		 opt->reject_user = 1;
-	 } else if (!strncmp(*argv,"gecoscheck",10)) {
+	 } else if (!strcmp(*argv, "gecoscheck")) {
 		 opt->gecos_check = 1;
-	 } else if (!strncmp(*argv,"enforce_for_root",16)) {
+	 } else if (!strcmp(*argv, "enforce_for_root")) {
 		  opt->enforce_for_root = 1;
 	 } else if (!strncmp(*argv,"authtok_type",12)) {
 	   /* for pam_get_authtok, ignore */;
-	 } else if (!strncmp(*argv,"use_authtok",11)) {
+	 } else if (!strcmp(*argv, "use_authtok")) {
            /* for pam_get_authtok, ignore */;
-	 } else if (!strncmp(*argv,"use_first_pass",14)) {
+	 } else if (!strcmp(*argv, "use_first_pass")) {
 	   /* for pam_get_authtok, ignore */;
-	 } else if (!strncmp(*argv,"try_first_pass",14)) {
+	 } else if (!strcmp(*argv, "try_first_pass")) {
 	   /* for pam_get_authtok, ignore */;
 	 } else if (!strncmp(*argv,"dictpath=",9)) {
 	     opt->cracklib_dictpath = *argv+9;
