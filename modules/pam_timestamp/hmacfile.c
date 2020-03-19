@@ -118,14 +118,16 @@ testvectors(void)
 				if (strncasecmp(hex,
 						vectors[i].hmac + 2 * j,
 						2) != 0) {
-					printf("Incorrect result for vector %lu\n", i + 1);
+					printf("Incorrect result for vector %lu\n",
+					       (unsigned long) i + 1);
 					exit(1);
 
 				}
 			}
 			free(hmac);
 		} else {
-			printf("Error in vector %lu.\n", i + 1);
+			printf("Error in vector %lu.\n",
+			       (unsigned long) i + 1);
 			exit(1);
 		}
 	}

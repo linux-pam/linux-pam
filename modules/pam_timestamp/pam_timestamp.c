@@ -578,10 +578,10 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED, int argc, const char *
 
 	/* Create the directory for the timestamp file if it doesn't already
 	 * exist. */
-	for (i = 1; path[i] != '\0'; i++) {
+	for (i = 1; i < (int) sizeof(path) && path[i] != '\0'; i++) {
 		if (path[i] == '/') {
 			/* Attempt to create the directory. */
-			strncpy(subdir, path, i);
+			memcpy(subdir, path, i);
 			subdir[i] = '\0';
 			if (mkdir(subdir, 0700) == 0) {
 				/* Attempt to set the owner to the superuser. */
