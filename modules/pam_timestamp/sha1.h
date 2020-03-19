@@ -40,12 +40,13 @@
 
 #include <stdint.h>
 #include <sys/types.h>
+#include "pam_cc_compat.h"
 
 #define SHA1_BLOCK_SIZE 64
 
 struct sha1_context {
 	size_t count;
-	unsigned char pending[SHA1_BLOCK_SIZE];
+	unsigned char pending[SHA1_BLOCK_SIZE] PAM_ATTRIBUTE_ALIGNED(4);
 	uint32_t counts[2];
 	size_t pending_count;
 	uint32_t a, b, c, d, e;

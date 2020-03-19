@@ -15,6 +15,12 @@
 # define PAM_CLANG_PREREQ(maj, min)	0
 #endif
 
+#if PAM_GNUC_PREREQ(2, 7)
+# define PAM_ATTRIBUTE_ALIGNED(arg)	__attribute__((__aligned__(arg)))
+#else
+# define PAM_ATTRIBUTE_ALIGNED(arg)	/* empty */
+#endif
+
 #if PAM_GNUC_PREREQ(4, 6)
 # define DIAG_PUSH_IGNORE_CAST_QUAL					\
 	_Pragma("GCC diagnostic push");					\
