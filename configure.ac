@@ -79,6 +79,16 @@ PAM_LD_O1
 dnl Largefile support
 AC_SYS_LARGEFILE
 
+Werror_option=
+AC_ARG_ENABLE([Werror],
+	      [AS_HELP_STRING([--enable-Werror],
+			      [turn on -Werror compiler option])],
+	      [case $enableval in
+		yes) Werror_option=-Werror ;;
+		no)  ;;
+		*)   AC_MSG_ERROR([bad value $enableval for Werror option]) ;;
+	       esac])
+
 dnl icc claims to be GCC compatible, but use other flags for warnings
 if eval 'test "x$GCC" = "xyes" -a "$CC" != "icc"'; then
   for flag in \
@@ -94,7 +104,8 @@ if eval 'test "x$GCC" = "xyes" -a "$CC" != "icc"'; then
       -Wstrict-prototypes \
       -Wwrite-strings \
       -Winline \
-      -Wshadow
+      -Wshadow \
+      $Werror_option
   do
     JAPHAR_GREP_CFLAGS($flag, [ WARN_CFLAGS="$WARN_CFLAGS $flag" ])
   done
