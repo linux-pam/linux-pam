@@ -66,6 +66,8 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
+#include "pam_cc_compat.h"
+
 /* login_access.c from logdaemon-5.6 with several changes by A.Nogin: */
 
  /*
@@ -650,9 +652,11 @@ from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
 
 	      if (runp->ai_family == AF_INET)
 		{
+		  DIAG_PUSH_IGNORE_CAST_ALIGN;
 		  inet_ntop (runp->ai_family,
 			     &((struct sockaddr_in *) runp->ai_addr)->sin_addr,
 			     buf, sizeof (buf));
+		  DIAG_POP_IGNORE_CAST_ALIGN;
 
 		  strcat (buf, ".");
 
@@ -781,11 +785,13 @@ network_netmask_match (pam_handle_t *pamh,
 	      {
 		char buf[INET6_ADDRSTRLEN];
 
+		DIAG_PUSH_IGNORE_CAST_ALIGN;
 		inet_ntop (runp->ai_family,
 			runp->ai_family == AF_INET
 			? (void *) &((struct sockaddr_in *) runp->ai_addr)->sin_addr
 			: (void *) &((struct sockaddr_in6 *) runp->ai_addr)->sin6_addr,
 			buf, sizeof (buf));
+		DIAG_POP_IGNORE_CAST_ALIGN;
 
 		if (are_addresses_equal(buf, tok, netmask_ptr))
 		  {

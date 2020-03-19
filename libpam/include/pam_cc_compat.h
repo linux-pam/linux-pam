@@ -27,15 +27,27 @@
 	_Pragma("GCC diagnostic ignored \"-Wcast-qual\"")
 # define DIAG_POP_IGNORE_CAST_QUAL					\
 	_Pragma("GCC diagnostic pop")
+# define DIAG_PUSH_IGNORE_CAST_ALIGN					\
+	_Pragma("GCC diagnostic push");					\
+	_Pragma("GCC diagnostic ignored \"-Wcast-align\"")
+# define DIAG_POP_IGNORE_CAST_ALIGN					\
+	_Pragma("GCC diagnostic pop")
 #elif PAM_CLANG_PREREQ(2, 6)
 # define DIAG_PUSH_IGNORE_CAST_QUAL					\
 	_Pragma("clang diagnostic push");				\
 	_Pragma("clang diagnostic ignored \"-Wcast-qual\"")
 # define DIAG_POP_IGNORE_CAST_QUAL					\
 	_Pragma("clang diagnostic pop")
+# define DIAG_PUSH_IGNORE_CAST_ALIGN					\
+	_Pragma("clang diagnostic push");				\
+	_Pragma("clang diagnostic ignored \"-Wcast-align\"")
+# define DIAG_POP_IGNORE_CAST_ALIGN					\
+	_Pragma("clang diagnostic pop")
 #else
 # define DIAG_PUSH_IGNORE_CAST_QUAL	/* empty */
 # define DIAG_POP_IGNORE_CAST_QUAL	/* empty */
+# define DIAG_PUSH_IGNORE_CAST_ALIGN	/* empty */
+# define DIAG_POP_IGNORE_CAST_ALIGN	/* empty */
 #endif
 
 #endif /* PAM_CC_COMPAT_H */
