@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Diego Búrigo Zacarão <diegobz@projetofedora.org>, 2008
 # Elder Marco <eldermarco@gmail.com>, 2012
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2020-03-09 10:38+0000\n"
+"PO-Revision-Date: 2020-03-15 23:38+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/linux-pam/master/pt_BR/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.11.2\n"
+"X-Generator: Weblate 3.11.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -46,40 +46,31 @@ msgid "Password: "
 msgstr "Senha: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
-#| msgid "Current %s%spassword: "
+#, c-format
 msgid "Current %s password: "
-msgstr "Atual %s%ssenha: "
+msgstr "Atual %s senha: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
-#| msgid "Current %s%spassword: "
 msgid "Current password: "
-msgstr "Atual %s%ssenha: "
+msgstr "Atual senha: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "Nova %s%ssenha: "
+msgstr "Nova %s senha: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "Nova %s%ssenha: "
+msgstr "Nova senha: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "Redigite a nova %s%ssenha: "
+msgstr "Redigite a nova %s senha: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "Redigite a nova %s%ssenha: "
+msgstr "Redigite a nova senha: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."

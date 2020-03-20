@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Roman Spirgi <bigant@fedoraproject.org>, 2012
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
@@ -11,16 +11,16 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2020-03-09 10:38+0000\n"
+"PO-Revision-Date: 2020-03-15 23:38+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
-"Language-Team: German <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/de/>\n"
+"Language-Team: German <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11.2\n"
+"X-Generator: Weblate 3.11.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -41,38 +41,31 @@ msgid "Password: "
 msgstr "Passwort: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "Geben Sie ein neues %s%sPasswort ein: "
+msgstr "Geben Sie das aktuelle %s Passwort ein: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
 msgid "Current password: "
-msgstr "Geben Sie ein neues %s%sPasswort ein: "
+msgstr "Geben Sie das aktuelle Passwort ein: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "Geben Sie ein neues %s%sPasswort ein: "
+msgstr "Geben Sie ein neues %s Passwort ein: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "Geben Sie ein neues %s%sPasswort ein: "
+msgstr "Geben Sie ein neues Passwort ein: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "Geben Sie das neue %s%sPasswort erneut ein: "
+msgstr "Geben Sie das neue %s Passwort erneut ein: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "Geben Sie das neue %s%sPasswort erneut ein: "
+msgstr "Geben Sie das neue Passwort erneut ein: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
@@ -84,7 +77,6 @@ msgid "Retype %s"
 msgstr "Neu eingeben %s"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
-#, fuzzy
 msgid "Password change has been aborted."
 msgstr "Passwort Änderung wurde abgebrochen."
 
@@ -281,9 +273,8 @@ msgstr "Kein Passwort angegeben."
 
 #: modules/pam_cracklib/pam_cracklib.c:696
 #: modules/pam_unix/pam_unix_passwd.c:567
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "Änderung des NIS-Passworts nicht möglich."
+msgstr "Passwort nicht geändert."
 
 #: modules/pam_cracklib/pam_cracklib.c:716
 #: modules/pam_cracklib/pam_cracklib.c:798
@@ -357,7 +348,7 @@ msgstr ""
 "Es gab %d fehlgeschlagene Versuche seit der letzten erfolgreichen Anmeldung."
 
 #: modules/pam_limits/pam_limits.c:1088
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Zu viele Anmeldungen für '%s'."
 
@@ -445,7 +436,7 @@ msgstr "Kein gültiger Sicherheitskontext."
 #: modules/pam_selinux/pam_selinux.c:541
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "Unfähig einen gültigen Kontext zu erhalten für %s."
 
 #: modules/pam_selinux/pam_selinux.c:660
 #, c-format
@@ -538,7 +529,7 @@ msgstr ""
 "    [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Zugriff erlaubt (letzter Zugriff war vor %ld Sekunden)."
 
@@ -547,20 +538,18 @@ msgid "Your account has expired; please contact your system administrator."
 msgstr "Ihr Konto ist abgelaufen. Wenden Sie sich an den Systemadministrator."
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "Sie müssen Ihr Passwort sofort ändern (von root erzwungen)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "Sie müssen Ihr Passwort sofort ändern (Passwortablauf)."
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "Warnung: Ihr Passwort läuft in %d Tag ab."
@@ -568,7 +557,7 @@ msgstr[1] "Warnung: Ihr Passwort läuft in %d Tagen ab."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "Warnung: Ihr Passwort läuft in %d Tagen ab."
 
