@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Klara Cihlarova <koty@seznam.cz>, 2005, 2006.
 # <tmraz@fedoraproject.org>, 2011.
 # Tomas Mraz <t8m@centrum.cz>, 2005, 2008, 2009.
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Tomáš Mráz <tmraz@redhat.com>, 2020.
+# Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2020-03-03 10:11+0000\n"
-"Last-Translator: Tomáš Mráz <tmraz@redhat.com>\n"
+"PO-Revision-Date: 2020-03-20 10:38+0000\n"
+"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/linux-pam/"
 "master/cs/>\n"
 "Language: cs\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11.2\n"
+"X-Generator: Weblate 3.11.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -43,40 +44,31 @@ msgid "Password: "
 msgstr "Heslo: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
-#| msgid "Current %s%spassword: "
+#, c-format
 msgid "Current %s password: "
-msgstr "Současné %s%sheslo: "
+msgstr "Současné %s heslo: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
-#| msgid "Current %s%spassword: "
 msgid "Current password: "
-msgstr "Současné %s%sheslo: "
+msgstr "Současné heslo: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "Nové %s%sheslo: "
+msgstr "Nové %s heslo: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "Nové %s%sheslo: "
+msgstr "Nové heslo: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "Opakujte nové %s%sheslo: "
+msgstr "Opakujte nové %s heslo: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "Opakujte nové %s%sheslo: "
+msgstr "Opakujte nové heslo: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
