@@ -11,13 +11,14 @@
 # Martin-Gomez Pablo <pablomg+transifex@eskapa.be>, 2008
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Julien Humbert <julroy67@gmail.com>, 2020.
+# Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2020-03-15 23:38+0000\n"
-"Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
+"PO-Revision-Date: 2020-03-17 00:38+0000\n"
+"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/fr/>\n"
 "Language: fr\n"
@@ -48,11 +49,11 @@ msgstr "Mot de passe : "
 #: libpam/pam_get_authtok.c:41
 #, c-format
 msgid "Current %s password: "
-msgstr "Mot de passe %s actuel : "
+msgstr "Mot de passe %s actuel : "
 
 #: libpam/pam_get_authtok.c:42
 msgid "Current password: "
-msgstr "Mot de passe %s actuel : "
+msgstr "Mot de passe actuel : "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
