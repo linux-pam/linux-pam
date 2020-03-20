@@ -9,21 +9,22 @@
 # Jyri Palokangas <jmp@netti.fi>, 2006
 # Ville-Pekka Vainio <vpvainio@iki.fi>, 2012
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2013-03-25 01:42-0400\n"
-"Last-Translator: Juhani Numminen <juhaninumminen0@gmail.com>\n"
-"Language-Team: Finnish (http://www.transifex.com/projects/p/fedora/language/"
-"fi/)\n"
+"PO-Revision-Date: 2020-03-19 09:38+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.11.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -49,9 +50,8 @@ msgid "Current %s password: "
 msgstr "Uusi %s%ssalasana: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
 msgid "Current password: "
-msgstr "Uusi %s%ssalasana: "
+msgstr "Nykyinen salasana: "
 
 #: libpam/pam_get_authtok.c:44
 #, fuzzy, c-format
@@ -60,10 +60,8 @@ msgid "New %s password: "
 msgstr "Uusi %s%ssalasana: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "Uusi %s%ssalasana: "
+msgstr "Uusi salasana: "
 
 #: libpam/pam_get_authtok.c:47
 #, fuzzy, c-format
@@ -72,10 +70,8 @@ msgid "Retype new %s password: "
 msgstr "Anna uudelleen uusi %s%ssalasana: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "Anna uudelleen uusi %s%ssalasana: "
+msgstr "Kirjoita uudelleen uusi salasana: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
@@ -87,9 +83,8 @@ msgid "Retype %s"
 msgstr "Kirjoita uudelleen %s"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
-#, fuzzy
 msgid "Password change has been aborted."
-msgstr "Salasanan vaihtaminen keskeytettiin"
+msgstr "Salasanan vaihtaminen keskeytettiin."
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -281,9 +276,8 @@ msgstr "Et antanut salasanaa"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
 #: modules/pam_unix/pam_unix_passwd.c:567
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "NIS-salasanaa ei voitu vaihtaa."
+msgstr "Salasanaa ei vaihdettu."
 
 #: modules/pam_cracklib/pam_cracklib.c:716
 #: modules/pam_cracklib/pam_cracklib.c:798
@@ -365,9 +359,8 @@ msgid "There were too many logins for '%s'."
 msgstr "Liian monta kirjautumista '%s'."
 
 #: modules/pam_mail/pam_mail.c:297
-#, fuzzy
 msgid "You have no mail."
-msgstr "Sinulle on uutta postia."
+msgstr "Sinulle ei ole postia."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -478,14 +471,14 @@ msgid "login: failure forking: %m"
 msgstr "sisäänkirjautuminen: virhe haarautumisessa: %m"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "Käyttäjätunnus on lukittu tilapäisesti (%ld sekuntia jäljellä)"
+msgstr "Käyttäjätili on lukittu tilapäisesti (%ld sekuntia jäljellä)."
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "Käyttäjätunnus on lukittu %u epäonnistuneen kirjautumisen vuoksi"
+msgstr "Käyttäjätili on lukittu %u epäonnistuneen kirjautumisen vuoksi."
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
@@ -543,40 +536,37 @@ msgstr ""
 " [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Pääsy sallittu (edellinen kirjautuminen %ld sekuntia sitten)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr "Käyttäjätilisi on vanhentunut; ota yhteyttä järjestelmän ylläpitäjään"
+msgstr "Käyttäjätilisi on vanhentunut; ota yhteyttä järjestelmän ylläpitäjään."
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "Salasanasi täytyy vaihtaa heti (pääkäyttäjän vaatimus)"
+msgstr "Salasanasi täytyy vaihtaa heti (pääkäyttäjän vaatimus)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "Salasanasi täytyy vaihtaa heti (salasana vanhentunut)"
+msgstr "Salasanasi täytyy vaihtaa heti (salasana vanhentunut)."
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Varoitus: salasana vanhentuu %d päivän kuluttua."
-msgstr[1] "Varoitus: salasana vanhentuu %d päivän kuluttua."
+msgstr[0] "Varoitus: salasanasi vanhentuu %d päivän kuluttua."
+msgstr[1] "Varoitus: salasanasi vanhentuu %d päivän kuluttua."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "Varoitus: salasana vanhentuu %d päivän kuluttua."
+msgstr "Varoitus: salasanasi vanhentuu %d päivän kuluttua."
 
 #: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
@@ -587,9 +577,8 @@ msgid "You must choose a shorter password."
 msgstr "Sinun on valittava lyhyempi salasana."
 
 #: modules/pam_unix/pam_unix_passwd.c:588
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Salasanan tulee olla pidempi"
+msgstr "Sinun tulee valita pidempi salasana."
 
 #: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
@@ -597,9 +586,8 @@ msgid "Changing password for %s."
 msgstr "Vaihdetaan käyttäjän %s salasana."
 
 #: modules/pam_unix/pam_unix_passwd.c:725
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Sinun täytyy odottaa kauemmin vaihtaaksesi salasanan"
+msgstr "Sinun täytyy odottaa kauemmin vaihtaaksesi salasanasi."
 
 #~ msgid "Password unchanged"
 #~ msgstr "Salasanaa ei vaihdettu"
