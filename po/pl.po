@@ -13,10 +13,10 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2020-03-03 15:39+0000\n"
+"PO-Revision-Date: 2020-03-13 16:34+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/pl/>\n"
+"Language-Team: Polish <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,40 +44,31 @@ msgid "Password: "
 msgstr "Hasło: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
-#| msgid "Current %s%spassword: "
+#, c-format
 msgid "Current %s password: "
-msgstr "Obecne hasło %s%s: "
+msgstr "Obecne hasło %s: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
-#| msgid "Current %s%spassword: "
 msgid "Current password: "
-msgstr "Obecne hasło %s%s: "
+msgstr "Obecne hasło: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "Nowe hasło %s%s: "
+msgstr "Nowe hasło %s: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "Nowe hasło %s%s: "
+msgstr "Nowe hasło: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "Proszę ponownie wpisać nowe hasło %s%s: "
+msgstr "Proszę ponownie wpisać nowe hasło %s: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "Proszę ponownie wpisać nowe hasło %s%s: "
+msgstr "Proszę ponownie wpisać nowe hasło: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
