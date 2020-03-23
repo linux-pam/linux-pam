@@ -73,25 +73,22 @@
 #endif
 
 /* Send audit message */
-static
-
-int send_audit_message(pam_handle_t *pamh, int success, const char *default_context,
-		       const char *selected_context)
+static void
+send_audit_message(pam_handle_t *pamh, int success, const char *default_context,
+		   const char *selected_context)
 {
-	int rc=0;
 #ifdef HAVE_LIBAUDIT
 	char *msg = NULL;
 	int audit_fd = audit_open();
 	char *default_raw = NULL;
 	char *selected_raw = NULL;
 	const void *tty = NULL, *rhost = NULL;
-	rc = -1;
 	if (audit_fd < 0) {
 		if (errno == EINVAL || errno == EPROTONOSUPPORT ||
                                         errno == EAFNOSUPPORT)
-                        return 0; /* No audit support in kernel */
+                        return; /* No audit support in kernel */
 		pam_syslog(pamh, LOG_ERR, "Error connecting to audit system.");
-		return rc;
+		return;
 	}
 	(void)pam_get_item(pamh, PAM_TTY, &tty);
 	(void)pam_get_item(pamh, PAM_RHOST, &rhost);
@@ -114,7 +111,6 @@ int send_audit_message(pam_handle_t *pamh, int success, const char *default_cont
 		pam_syslog(pamh, LOG_ERR, "Error sending audit message.");
 		goto out;
 	}
-	rc = 0;
       out:
 	free(msg);
 	freecon(default_raw);
@@ -123,8 +119,8 @@ int send_audit_message(pam_handle_t *pamh, int success, const char *default_cont
 #else
 	pam_syslog(pamh, LOG_NOTICE, "pam: default-context=%s selected-context=%s success %d", default_context, selected_context, success);
 #endif
-	return rc;
 }
+
 static int
 send_text (pam_handle_t *pamh, const char *text, int debug)
 {
