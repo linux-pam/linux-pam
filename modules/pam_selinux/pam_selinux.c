@@ -74,7 +74,7 @@
 
 /* Send audit message */
 static void
-send_audit_message(pam_handle_t *pamh, int success, const char *default_context,
+send_audit_message(const pam_handle_t *pamh, int success, const char *default_context,
 		   const char *selected_context)
 {
 #ifdef HAVE_LIBAUDIT
@@ -85,10 +85,11 @@ send_audit_message(pam_handle_t *pamh, int success, const char *default_context,
 	const void *tty = NULL, *rhost = NULL;
 	if (audit_fd < 0) {
 		if (errno == EINVAL || errno == EPROTONOSUPPORT ||
-                                        errno == EAFNOSUPPORT)
-                        return; /* No audit support in kernel */
+                                        errno == EAFNOSUPPORT) {
+			goto fallback; /* No audit support in kernel */
+		}
 		pam_syslog(pamh, LOG_ERR, "Error connecting to audit system: %m");
-		return;
+		goto fallback;
 	}
 	(void)pam_get_item(pamh, PAM_TTY, &tty);
 	(void)pam_get_item(pamh, PAM_RHOST, &rhost);
@@ -105,21 +106,28 @@ send_audit_message(pam_handle_t *pamh, int success, const char *default_context,
 		     selected_raw ? selected_raw : (selected_context ? selected_context : "?")) < 0) {
 		msg = NULL; /* asprintf leaves msg in undefined state on failure */
 		pam_syslog(pamh, LOG_ERR, "Error allocating memory.");
-		goto out;
+		goto fallback;
 	}
 	if (audit_log_user_message(audit_fd, AUDIT_USER_ROLE_CHANGE,
 				   msg, rhost, NULL, tty, success) <= 0) {
 		pam_syslog(pamh, LOG_ERR, "Error sending audit message: %m");
-		goto out;
+		goto fallback;
 	}
-      out:
+	goto cleanup;
+
+      fallback:
+#endif /* HAVE_LIBAUDIT */
+        pam_syslog(pamh, LOG_NOTICE, "pam: default-context=%s selected-context=%s success %d",
+		   default_context, selected_context, success);
+
+#ifdef HAVE_LIBAUDIT
+      cleanup:
 	free(msg);
 	freecon(default_raw);
 	freecon(selected_raw);
-	close(audit_fd);
-#else
-	pam_syslog(pamh, LOG_NOTICE, "pam: default-context=%s selected-context=%s success %d", default_context, selected_context, success);
-#endif
+	if (audit_fd >= 0)
+		close(audit_fd);
+#endif /* HAVE_LIBAUDIT */
 }
 
 static int
