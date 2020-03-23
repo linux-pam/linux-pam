@@ -87,17 +87,17 @@ send_audit_message(pam_handle_t *pamh, int success, const char *default_context,
 		if (errno == EINVAL || errno == EPROTONOSUPPORT ||
                                         errno == EAFNOSUPPORT)
                         return; /* No audit support in kernel */
-		pam_syslog(pamh, LOG_ERR, "Error connecting to audit system.");
+		pam_syslog(pamh, LOG_ERR, "Error connecting to audit system: %m");
 		return;
 	}
 	(void)pam_get_item(pamh, PAM_TTY, &tty);
 	(void)pam_get_item(pamh, PAM_RHOST, &rhost);
 	if (selinux_trans_to_raw_context(default_context, &default_raw) < 0) {
-		pam_syslog(pamh, LOG_ERR, "Error translating default context.");
+		pam_syslog(pamh, LOG_ERR, "Error translating default context '%s'.", default_context);
 		default_raw = NULL;
 	}
 	if (selinux_trans_to_raw_context(selected_context, &selected_raw) < 0) {
-		pam_syslog(pamh, LOG_ERR, "Error translating selected context.");
+		pam_syslog(pamh, LOG_ERR, "Error translating selected context '%s'.", selected_context);
 		selected_raw = NULL;
 	}
 	if (asprintf(&msg, "pam: default-context=%s selected-context=%s",
@@ -108,7 +108,7 @@ send_audit_message(pam_handle_t *pamh, int success, const char *default_context,
 	}
 	if (audit_log_user_message(audit_fd, AUDIT_USER_ROLE_CHANGE,
 				   msg, rhost, NULL, tty, success) <= 0) {
-		pam_syslog(pamh, LOG_ERR, "Error sending audit message.");
+		pam_syslog(pamh, LOG_ERR, "Error sending audit message: %m");
 		goto out;
 	}
       out:
