@@ -108,6 +108,8 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   int fds[2];
   int stdout_fds[2];
   FILE *stdout_file = NULL;
+  int retval;
+  const char *name;
 
   if (argc < 1) {
     pam_syslog (pamh, LOG_ERR,
@@ -143,6 +145,16 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	break; /* Unknown option, assume program to execute. */
     }
 
+  /* Request user name to be available. */
+
+  retval = pam_get_user(pamh, &name, NULL);
+  if (retval != PAM_SUCCESS)
+    {
+      if (retval == PAM_CONV_AGAIN)
+        retval = PAM_INCOMPLETE;
+      return retval;
+    }
+
   if (expose_authtok == 1)
     {
       if (strcmp (pam_type, "auth") != 0)
@@ -154,7 +166,6 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       else
 	{
 	  const void *void_pass;
-	  int retval;
 
 	  retval = pam_get_item (pamh, PAM_AUTHTOK, &void_pass);
 	  if (retval != PAM_SUCCESS)
@@ -224,7 +235,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   if (pid > 0) /* parent */
     {
       int status = 0;
-      pid_t retval;
+      pid_t rc;
 
       if (expose_authtok) /* send the password to the child */
 	{
@@ -253,9 +264,9 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	  fclose(stdout_file);
 	}
 
-      while ((retval = waitpid (pid, &status, 0)) == -1 &&
+      while ((rc = waitpid (pid, &status, 0)) == -1 &&
 	     errno == EINTR);
-      if (retval == (pid_t)-1)
+      if (rc == (pid_t)-1)
 	{
 	  pam_syslog (pamh, LOG_ERR, "waitpid returns with -1: %m");
 	  return PAM_SYSTEM_ERR;
