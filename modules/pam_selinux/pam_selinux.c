@@ -103,6 +103,7 @@ send_audit_message(pam_handle_t *pamh, int success, const char *default_context,
 	if (asprintf(&msg, "pam: default-context=%s selected-context=%s",
 		     default_raw ? default_raw : (default_context ? default_context : "?"),
 		     selected_raw ? selected_raw : (selected_context ? selected_context : "?")) < 0) {
+		msg = NULL; /* asprintf leaves msg in undefined state on failure */
 		pam_syslog(pamh, LOG_ERR, "Error allocating memory.");
 		goto out;
 	}
