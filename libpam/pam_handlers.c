@@ -673,7 +673,6 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 {
     int x = 0;
     int success;
-    char *mod_full_isa_path=NULL, *isa=NULL;
     struct loaded_module *mod;
 
     D(("_pam_load_module: loading module `%s'", mod_path));
@@ -712,19 +711,27 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 	D(("_pam_load_module: _pam_dlopen'ed"));
 	D(("_pam_load_module: dlopen'ed"));
 	if (mod->dl_handle == NULL) {
-	    if (strstr(mod_path, "$ISA")) {
-		mod_full_isa_path = malloc(strlen(mod_path) + strlen(_PAM_ISA) + 1);
+	    const char *isa = strstr(mod_path, "$ISA");
+	    size_t isa_len = strlen("$ISA");
+
+	    if (isa != NULL) {
+		size_t pam_isa_len = strlen(_PAM_ISA);
+		char *mod_full_isa_path =
+			malloc(strlen(mod_path) - isa_len + pam_isa_len + 1);
+
 		if (mod_full_isa_path == NULL) {
 		    D(("_pam_load_module: couldn't get memory for mod_path"));
 		    pam_syslog(pamh, LOG_CRIT, "no memory for module path");
 		    success = PAM_ABORT;
 		} else {
-		    strcpy(mod_full_isa_path, mod_path);
-                    isa = strstr(mod_full_isa_path, "$ISA");
-		    if (isa) {
-		        memmove(isa + strlen(_PAM_ISA), isa + 4, strlen(isa + 4) + 1);
-		        memmove(isa, _PAM_ISA, strlen(_PAM_ISA));
-		    }
+		    char *p = mod_full_isa_path;
+
+		    memcpy(p, mod_path, isa - mod_path);
+		    p += isa - mod_path;
+		    memcpy(p, _PAM_ISA, pam_isa_len);
+		    p += pam_isa_len;
+		    strcpy(p, isa + isa_len);
+
 		    mod->dl_handle = _pam_dlopen(mod_full_isa_path);
 		    _pam_drop(mod_full_isa_path);
 		}
