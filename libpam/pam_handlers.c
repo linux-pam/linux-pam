@@ -720,11 +720,9 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 		    success = PAM_ABORT;
 		} else {
 		    strcpy(mod_full_isa_path, mod_path);
-                    isa = strstr(mod_full_isa_path, "$ISA");
-		    if (isa) {
-		        memmove(isa + strlen(_PAM_ISA), isa + 4, strlen(isa + 4) + 1);
-		        memmove(isa, _PAM_ISA, strlen(_PAM_ISA));
-		    }
+		    isa = strstr(mod_full_isa_path, "$ISA");
+		    memmove(isa + strlen(_PAM_ISA), isa + 4, strlen(isa + 4) + 1);
+		    memmove(isa, _PAM_ISA, strlen(_PAM_ISA));
 		    mod->dl_handle = _pam_dlopen(mod_full_isa_path);
 		    _pam_drop(mod_full_isa_path);
 		}
