@@ -1,6 +1,6 @@
 
 This directory contains a utility to convert pam.conf files to a pam.d/
-tree. The conversion program takes pam.conf from the standard input and
+tree. The conversion program takes the pam.conf from standard input and
 creates the pam.d/ directory in the current directory.
 
 The program will fail if ./pam.d/ already exists.
