@@ -43,36 +43,30 @@ msgstr "密碼："
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
 msgid "Current %s password: "
-msgstr "新 %s%s密碼："
+msgstr "新 %s 密碼："
 
 #: libpam/pam_get_authtok.c:42
 #, fuzzy
 msgid "Current password: "
-msgstr "新 %s%s密碼："
+msgstr "新 密碼："
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "新 %s%s密碼："
+msgstr "新 %s 密碼："
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "新 %s%s密碼："
+msgstr "新 密碼："
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "再次輸入新的 %s%s密碼："
+msgstr "再次輸入新的 %s 密碼："
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "再次輸入新的 %s%s密碼："
+msgstr "再次輸入新的 密碼："
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."

@@ -45,29 +45,27 @@ msgid "Password: "
 msgstr "Salasana: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "Uusi %s%ssalasana: "
+msgstr "Nykyinen %s salasana: "
 
 #: libpam/pam_get_authtok.c:42
 msgid "Current password: "
 msgstr "Nykyinen salasana: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "Uusi %s%ssalasana: "
+msgstr "Uusi %s salasana: "
 
 #: libpam/pam_get_authtok.c:45
 msgid "New password: "
 msgstr "Uusi salasana: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "Anna uudelleen uusi %s%ssalasana: "
+msgstr "Anna uudelleen uusi %s salasana: "
 
 #: libpam/pam_get_authtok.c:48
 msgid "Retype new password: "

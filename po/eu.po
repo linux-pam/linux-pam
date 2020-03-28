@@ -42,36 +42,30 @@ msgstr "Pasahitza: "
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
 msgid "Current %s password: "
-msgstr "%s%sPasahitz berria: "
+msgstr "%s Pasahitz berria: "
 
 #: libpam/pam_get_authtok.c:42
 #, fuzzy
 msgid "Current password: "
-msgstr "%s%sPasahitz berria: "
+msgstr "%s Pasahitz berria: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "%s%sPasahitz berria: "
+msgstr "%s Pasahitz berria: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "%s%sPasahitz berria: "
+msgstr "Pasahitz berria: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "Idatzi berriz %s%spasahitz berria: "
+msgstr "Idatzi berriz %s pasahitz berria: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "Idatzi berriz %s%spasahitz berria: "
+msgstr "Idatzi berriz pasahitz berria: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."

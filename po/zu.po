@@ -42,36 +42,30 @@ msgstr "Iphasiwedi: "
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
 msgid "Current %s password: "
-msgstr "%s%siphasiwedi entsha: "
+msgstr "%s iphasiwedi entsha: "
 
 #: libpam/pam_get_authtok.c:42
 #, fuzzy
 msgid "Current password: "
-msgstr "%s%siphasiwedi entsha: "
+msgstr "iphasiwedi entsha: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "%s%siphasiwedi entsha: "
+msgstr "%s iphasiwedi entsha: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "%s%siphasiwedi entsha: "
+msgstr "iphasiwedi entsha: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "Thayipha kabusha %s%siphasiwedi entsha: "
+msgstr "Thayipha kabusha %s iphasiwedi entsha: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "Thayipha kabusha %s%siphasiwedi entsha: "
+msgstr "Thayipha kabusha iphasiwedi entsha: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."

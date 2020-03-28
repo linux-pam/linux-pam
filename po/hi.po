@@ -45,36 +45,30 @@ msgstr "शब्दकूट: "
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
 msgid "Current %s password: "
-msgstr "नया %s%spassword: "
+msgstr "नया %s password: "
 
 #: libpam/pam_get_authtok.c:42
 #, fuzzy
 msgid "Current password: "
-msgstr "नया %s%spassword: "
+msgstr "नया password: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "नया %s%spassword: "
+msgstr "नया %s password: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "नया %s%spassword: "
+msgstr "नया password: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "नया %s%spassword फिर टाइप करें: "
+msgstr "नया %s password फिर टाइप करें: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "नया %s%spassword फिर टाइप करें: "
+msgstr "नया password फिर टाइप करें: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."

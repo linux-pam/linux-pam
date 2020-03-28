@@ -44,36 +44,30 @@ msgstr "Focal faire: "
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
 msgid "Current %s password: "
-msgstr "Focal faire%2$s%1$s nua: "
+msgstr "Focal faire %s nua: "
 
 #: libpam/pam_get_authtok.c:42
 #, fuzzy
 msgid "Current password: "
-msgstr "Focal faire%2$s%1$s nua: "
+msgstr "Focal faire nua: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "Focal faire%2$s%1$s nua: "
+msgstr "Focal faire %s nua: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "Focal faire%2$s%1$s nua: "
+msgstr "Focal faire nua: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "Iontráil focal faire%2$s%1$s nua arís: "
+msgstr "Iontráil focal faire %s nua arís: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "Iontráil focal faire%2$s%1$s nua arís: "
+msgstr "Iontráil focal faire nua arís: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."

@@ -44,36 +44,30 @@ msgstr "Contrasenya: "
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
 msgid "Current %s password: "
-msgstr "Nova contrasenya de %s%s: "
+msgstr "Nova contrasenya de %s: "
 
 #: libpam/pam_get_authtok.c:42
 #, fuzzy
 msgid "Current password: "
-msgstr "Nova contrasenya de %s%s: "
+msgstr "Nova contrasenya: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "Nova contrasenya de %s%s: "
+msgstr "Nova contrasenya de %s: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "Nova contrasenya de %s%s: "
+msgstr "Nova contrasenya: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "Torneu a escriure la nova contrasenya de %s%s: "
+msgstr "Torneu a escriure la nova contrasenya de %s: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "Torneu a escriure la nova contrasenya de %s%s: "
+msgstr "Torneu a escriure la nova contrasenya: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."

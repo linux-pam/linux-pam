@@ -46,36 +46,30 @@ msgstr "Jelszó: "
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
 msgid "Current %s password: "
-msgstr "Új %s%sjelszó: "
+msgstr "Új %s jelszó: "
 
 #: libpam/pam_get_authtok.c:42
 #, fuzzy
 msgid "Current password: "
-msgstr "Új %s%sjelszó: "
+msgstr "Új jelszó: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "Új %s%sjelszó: "
+msgstr "Új %s jelszó: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "Új %s%sjelszó: "
+msgstr "Új jelszó: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "Ismét az új %s%sjelszó: "
+msgstr "Ismét az új %s jelszó: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "Ismét az új %s%sjelszó: "
+msgstr "Ismét az új jelszó: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."

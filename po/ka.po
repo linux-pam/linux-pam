@@ -42,36 +42,30 @@ msgstr "პაროლი:"
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
 msgid "Current %s password: "
-msgstr "ახალი %s%sპაროლი: "
+msgstr "ახალი %s პაროლი: "
 
 #: libpam/pam_get_authtok.c:42
 #, fuzzy
 msgid "Current password: "
-msgstr "ახალი %s%sპაროლი: "
+msgstr "ახალი პაროლი: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "ახალი %s%sპაროლი: "
+msgstr "ახალი %s პაროლი: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "ახალი %s%sპაროლი: "
+msgstr "ახალი პაროლი: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "გაიმეორეთ ახალი %s%sპაროლი: "
+msgstr "გაიმეორეთ ახალი %s პაროლი: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "გაიმეორეთ ახალი %s%sპაროლი: "
+msgstr "გაიმეორეთ ახალი პაროლი: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."

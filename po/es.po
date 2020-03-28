@@ -49,36 +49,30 @@ msgstr "Contraseña: "
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
 msgid "Current %s password: "
-msgstr "Nueva %s%scontraseña: "
+msgstr "Nueva %s contraseña: "
 
 #: libpam/pam_get_authtok.c:42
 #, fuzzy
 msgid "Current password: "
-msgstr "Nueva %s%scontraseña: "
+msgstr "Nueva contraseña: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "Nueva %s%scontraseña: "
+msgstr "Nueva %s contraseña: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "Nueva %s%scontraseña: "
+msgstr "Nueva contraseña: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "Vuelva a escribir la nueva %s%scontraseña: "
+msgstr "Vuelva a escribir la nueva %s contraseña: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "Vuelva a escribir la nueva %s%scontraseña: "
+msgstr "Vuelva a escribir la nueva contraseña: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."

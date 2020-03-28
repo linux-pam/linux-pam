@@ -43,36 +43,30 @@ msgstr "సంకేతపదము: "
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
 msgid "Current %s password: "
-msgstr "కొత్త %s%sసంకేతపదము: "
+msgstr "కొత్త %s సంకేతపదము: "
 
 #: libpam/pam_get_authtok.c:42
 #, fuzzy
 msgid "Current password: "
-msgstr "కొత్త %s%sసంకేతపదము: "
+msgstr "కొత్త సంకేతపదము: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
-#| msgid "New %s%spassword: "
+#, c-format
 msgid "New %s password: "
-msgstr "కొత్త %s%sసంకేతపదము: "
+msgstr "కొత్త %s సంకేతపదము: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
-#| msgid "New %s%spassword: "
 msgid "New password: "
-msgstr "కొత్త %s%sసంకేతపదము: "
+msgstr "కొత్త సంకేతపదము: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
-#| msgid "Retype new %s%spassword: "
+#, c-format
 msgid "Retype new %s password: "
-msgstr "కొత్త %s%sసంకేతపదమును మరలాటైపుచేయుము: "
+msgstr "కొత్త %s సంకేతపదమును మరలాటైపుచేయుము: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
-#| msgid "Retype new %s%spassword: "
 msgid "Retype new password: "
-msgstr "కొత్త %s%sసంకేతపదమును మరలాటైపుచేయుము: "
+msgstr "కొత్త సంకేతపదమును మరలాటైపుచేయుము: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
