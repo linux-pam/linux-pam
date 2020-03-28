@@ -2,7 +2,7 @@
 # This describes the behavior of this module with respect to the
 # /etc/pam.conf file.
 #
-# writen by Andrew Morgan <morgan@parc.power.net>
+# written by Andrew Morgan <morgan@parc.power.net>
 #
 
 This module recognizes the following arguments.

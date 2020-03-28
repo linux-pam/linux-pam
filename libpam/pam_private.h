@@ -220,7 +220,7 @@ int _pam_free_handlers(pam_handle_t *pamh);
 /* Parse config file, allocate handler structures, dlopen() */
 int _pam_init_handlers(pam_handle_t *pamh);
 
-/* Set all hander stuff to 0/NULL - called once from pam_start() */
+/* Set all handler stuff to 0/NULL - called once from pam_start() */
 void _pam_start_handlers(pam_handle_t *pamh);
 
 /* environment helper functions */

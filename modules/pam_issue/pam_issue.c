@@ -58,7 +58,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     if(_user_prompt_set)
 	return PAM_IGNORE;
 
-    /* We set this here so if we fail below, we wont get further
+    /* We set this here so if we fail below, we won't get further
        than this next time around (only one real failure) */
     _user_prompt_set = 1;
 

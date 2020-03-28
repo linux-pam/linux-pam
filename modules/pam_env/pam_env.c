@@ -230,7 +230,7 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
 	    mark[0] = '\0';
 
        /*
-	* sanity check, the key must be alpha-numeric
+	* sanity check, the key must be alphanumeric
 	*/
 
 	if (key[0] == '=') {
@@ -291,7 +291,7 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
 
 /*
  * This is where we read a line of the PAM config file. The line may be
- * preceeded by lines of comments and also extended with "\\\n"
+ * preceded by lines of comments and also extended with "\\\n"
  */
 
 static int _assemble_line(FILE *f, char *buffer, int buf_len)

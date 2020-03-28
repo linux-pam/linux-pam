@@ -230,7 +230,7 @@ dnl
 dnl icc handles -fpie as -fp without error, so blacklist icc
 dnl
 AC_ARG_ENABLE(pie,AS_HELP_STRING([--disable-pie],
-                        [disable position-independent executeables (PIE)]),
+                        [disable position-independent executables (PIE)]),
         USE_PIE=$enableval, USE_PIE=yes)
 
 AC_CACHE_CHECK(for -fpie, libc_cv_fpie, [dnl
@@ -438,7 +438,7 @@ if test -n "$opt_randomdev"; then
 fi
 
 dnl check for libdb or libndbm as fallback. Some libndbm compat
-dnl libraries are unuseable, so try libdb first.
+dnl libraries are unusable, so try libdb first.
 AC_ARG_ENABLE([db],
         AS_HELP_STRING([--enable-db=(db|ndbm|yes|no)],[Default behavior 'yes', which is to check for libdb first, followed by ndbm. Use 'no' to disable db support.]),
         WITH_DB=$enableval, WITH_DB=yes)

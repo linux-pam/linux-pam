@@ -44,10 +44,10 @@ void _pam_start_timer(pam_handle_t *pamh)
 
 /* *******************************************************************
  * Compute a pseudo random time. The value is base*(1 +/- 1/5) where
- * the distribution is pseudo gausian (the sum of three evenly
+ * the distribution is pseudo gaussian (the sum of three evenly
  * distributed random numbers -- central limit theorem and all ;^) The
  * linear random numbers are based on a formulae given in Knuth's
- * Seminumerical recipies that was reproduced in `Numerical Recipies
+ * Seminumerical recipes that was reproduced in `Numerical Recipes
  * in C'. It is *not* a cryptographically strong generator, but it is
  * probably "good enough" for our purposes here.
  *

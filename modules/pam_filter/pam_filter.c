@@ -296,7 +296,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    struct termios t_mode = stored_mode;
 
 	    t_mode.c_iflag = 0;            /* no input control */
-	    t_mode.c_oflag &= ~OPOST;      /* no ouput post processing */
+	    t_mode.c_oflag &= ~OPOST;      /* no output post processing */
 
 	    /* no signals, canonical input, echoing, upper/lower output */
 #ifdef XCASE
@@ -444,7 +444,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
 	close(fd[1]);
 
-	/* the current process is now aparently working with filtered
+	/* the current process is now apparently working with filtered
 	   stdio/stdout/stderr --- success! */
 
 	return PAM_SUCCESS;

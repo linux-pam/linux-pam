@@ -1048,7 +1048,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	return PAM_SUCCESS;
     }
     if (retval != PAM_SUCCESS || pl->conf_file != NULL)
-	/* skip reading limits.d if config file explicitely specified */
+	/* skip reading limits.d if config file explicitly specified */
 	goto out;
 
     /* Read subsequent *.conf files, if they exist. */

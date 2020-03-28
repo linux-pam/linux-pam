@@ -155,7 +155,7 @@ static int kill_keyrings(pam_handle_t *pamh, int error_ret)
 			ret = error_ret;
 		}
 
-		/* return to the orignal UID and GID (probably root) */
+		/* return to the original UID and GID (probably root) */
 		if (revoke_as_uid != old_uid && setreuid(-1, old_uid) < 0) {
 			error(pamh, "Unable to change UID back to %d\n", old_uid);
 			ret = error_ret;
@@ -227,7 +227,7 @@ static int do_keyinit(pam_handle_t *pamh, int argc, const char **argv, int error
 
 	ret = init_keyrings(pamh, force, error_ret);
 
-	/* return to the orignal UID and GID (probably root) */
+	/* return to the original UID and GID (probably root) */
 	if (uid != old_uid && setreuid(old_uid, -1) < 0) {
 		error(pamh, "Unable to change UID back to %d\n", old_uid);
 		ret = error_ret;

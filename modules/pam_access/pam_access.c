@@ -21,7 +21,7 @@
  *
  * This software is provided "as is" and without any expressed or implied
  * warranties, including, without limitation, the implied warranties of
- * merchantibility and fitness for any particular purpose.
+ * merchantability and fitness for any particular purpose.
  *************************************************************************
  */
 
@@ -220,7 +220,7 @@ isipaddr (const char *string, int *addr_type,
 
 /* are_addresses_equal - translate IP address strings to real IP
  * addresses and compare them to find out if they are equal.
- * If netmask was provided it will be used to focus comparation to
+ * If netmask was provided it will be used to focus comparison to
  * relevant bits.
  */
 static int
@@ -377,7 +377,7 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	    if (line[0] == 0)			/* skip blank lines */
 		continue;
 
-	    /* Allow field seperator in last field of froms */
+	    /* Allow field separator in last field of froms */
 	    if (!(perm = strtok_r(line, item->fs, &sptr))
 		|| !(users = strtok_r(NULL, item->fs, &sptr))
 		|| !(froms = strtok_r(NULL, "\n", &sptr))) {
@@ -584,7 +584,7 @@ group_match (pam_handle_t *pamh, const char *tok, const char* usr,
     if (strlen(tok) < 3)
         return NO;
 
-    /* token is recieved under the format '(...)' */
+    /* token is received under the format '(...)' */
     memset(grptok, 0, BUFSIZ);
     strncpy(grptok, tok + 1, strlen(tok) - 2);
 

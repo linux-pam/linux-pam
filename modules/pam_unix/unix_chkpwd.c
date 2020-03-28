@@ -2,7 +2,7 @@
  * This program is designed to run setuid(root) or with sufficient
  * privilege to read all of the unix password databases. It is designed
  * to provide a mechanism for the current user (defined by this
- * process' uid) to verify their own password.
+ * process's uid) to verify their own password.
  *
  * The password is read from the standard input. The exit status of
  * this program indicates whether the user is authenticated or not.

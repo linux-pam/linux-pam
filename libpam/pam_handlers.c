@@ -559,7 +559,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 
 /*
  * This is where we read a line of the PAM config file. The line may be
- * preceeded by lines of comments and also extended with "\\\n"
+ * preceded by lines of comments and also extended with "\\\n"
  */
 
 static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
@@ -1034,7 +1034,7 @@ void _pam_free_handlers_aux(struct handler **hp)
     D(("called."));
     while (h) {
 	last = h;
-	_pam_drop(h->argv);  /* This is all alocated in a single chunk */
+	_pam_drop(h->argv);  /* This is all allocated in a single chunk */
 	_pam_drop(h->mod_name);
 	h = h->next;
 	memset(last, 0, sizeof(*last));

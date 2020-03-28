@@ -806,7 +806,7 @@ pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,
 
 /* --- authentication management functions (only) --- */
 
-/* To reset failcount of user on successfull login */
+/* To reset failcount of user on successful login */
 
 int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,

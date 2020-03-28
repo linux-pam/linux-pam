@@ -43,8 +43,8 @@
 struct	faillog {
 	short	fail_cnt;	/* failures since last success */
 	short	fail_max;	/* failures before turning account off */
-	char	fail_line[12];	/* last failure occured here */
-	time_t	fail_time;	/* last failure occured then */
+	char	fail_line[12];	/* last failure occurred here */
+	time_t	fail_time;	/* last failure occurred then */
 	/*
 	 * If nonzero, the account will be re-enabled if there are no
 	 * failures for fail_locktime seconds since last failure.

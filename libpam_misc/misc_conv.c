@@ -23,7 +23,7 @@
 #define CONV_ECHO_OFF 0
 
 /*
- * external timeout definitions - these can be overriden by the
+ * external timeout definitions - these can be overridden by the
  * application.
  */
 

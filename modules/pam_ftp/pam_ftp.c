@@ -123,7 +123,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     const char *users = NULL;
 
     /*
-     * this module checks if the user name is ftp or annonymous. If
+     * this module checks if the user name is ftp or anonymous. If
      * this is the case, it can set the PAM_RUSER to the entered email
      * address and SUCCEEDS, otherwise it FAILS.
      */
@@ -186,7 +186,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		}
 	    }
 
-	    /* we are happy to grant annonymous access to the user */
+	    /* we are happy to grant anonymous access to the user */
 	    retval = PAM_SUCCESS;
 
 	} else {

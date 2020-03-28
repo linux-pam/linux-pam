@@ -13,7 +13,7 @@
  * 0.5. supports retries - 'retry=N' argument
  * 0.4. added argument 'type=XXX' for 'New XXX password' prompt
  * 0.3. Added argument 'debug'
- * 0.2. new password is feeded to cracklib for verify after typed once
+ * 0.2. new password is fed to cracklib for verify after typed once
  * 0.1. First release
  */
 
@@ -317,7 +317,7 @@ static int similar(struct cracklib_options *opt,
 }
 
 /*
- * enough classes of charecters
+ * enough classes of characters
  */
 
 static int minclass (struct cracklib_options *opt,

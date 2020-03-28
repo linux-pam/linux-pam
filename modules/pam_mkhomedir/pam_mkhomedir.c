@@ -80,7 +80,7 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
    opt->umask = "0022";
    opt->skeldir = "/etc/skel";
 
-   /* does the appliction require quiet? */
+   /* does the application require quiet? */
    if ((flags & PAM_SILENT) == PAM_SILENT)
       opt->ctrl |= MKHOMEDIR_QUIET;
 

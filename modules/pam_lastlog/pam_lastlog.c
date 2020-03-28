@@ -104,7 +104,7 @@ _pam_auth_parse(pam_handle_t *pamh, int flags, int argc, const char **argv,
 
     *inactive = DEFAULT_INACTIVE_DAYS;
 
-    /* does the appliction require quiet? */
+    /* does the application require quiet? */
     if (flags & PAM_SILENT) {
 	ctrl |= LASTLOG_QUIET;
     }
@@ -170,7 +170,7 @@ _pam_session_parse(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	}
     }
 
-    /* does the appliction require quiet? */
+    /* does the application require quiet? */
     if (flags & PAM_SILENT) {
 	ctrl |= LASTLOG_QUIET;
 	ctrl &= ~LASTLOG_BTMP;
@@ -449,7 +449,7 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
      */
     D(("setting limit for 'fsize'"));
 
-    if ((announce & LASTLOG_UNLIMITED) == 0) {    /* don't set to unlimted */
+    if ((announce & LASTLOG_UNLIMITED) == 0) {    /* don't set to unlimited */
 	setrlimit_res = -1;
     } else if (getrlimit(RLIMIT_FSIZE, &old_limit) == 0) {
 	if (old_limit.rlim_cur == RLIM_INFINITY) {    /* already unlimited */

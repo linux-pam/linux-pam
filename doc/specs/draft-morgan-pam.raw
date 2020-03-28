@@ -130,11 +130,11 @@ Here is a diagram to help orient the reader:
 ## +---------+   +--------+           +----------+ ##
 
 Solid lines connecting the boxes represent two-way interaction.  The
-dotted-directed lines indicate an optional connection beteween the
+dotted-directed lines indicate an optional connection between the
 plugin module (agent) and the server (applicant). In the case of the
 module, this represents the module invoking the 'conversation'
 callback function provided to libpam by the server application when it
-inititializes the libpam library. In the case of the agent, this may
+initializes the libpam library. In the case of the agent, this may
 be some out-of-PAM API interaction (for example directly displaying a
 dialog box under X).
 

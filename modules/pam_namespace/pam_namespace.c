@@ -740,7 +740,7 @@ static int parse_config_file(struct instance_data *idata)
 
 
 /*
- * This funtion returns true if a given uid is present in the polyinstantiated
+ * This function returns true if a given uid is present in the polyinstantiated
  * directory's list of override uids. If the uid is one of the override
  * uids for the polyinstantiated directory, polyinstantiation is not
  * performed for that user for that directory.
@@ -880,7 +880,7 @@ static int form_context(const struct polydir_s *polyptr,
 			goto fail;
 		}
 		if (context_range_set(fcontext, context_range_get(scontext)) != 0) {
-			pam_syslog(idata->pamh, LOG_ERR, "Unable to set MLS Componant of context");
+			pam_syslog(idata->pamh, LOG_ERR, "Unable to set MLS Component of context");
 			goto fail;
 		}
 		*i_context=strdup(context_str(fcontext));

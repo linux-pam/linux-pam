@@ -331,7 +331,7 @@ main (void)
   if (retval == PAM_SUCCESS)
     {
       fprintf (stderr,
-	       "pam_set_data with NULL as module_data_name succeded!\n");
+	       "pam_set_data with NULL as module_data_name succeeded!\n");
       return 1;
     }
   free (dataptr);

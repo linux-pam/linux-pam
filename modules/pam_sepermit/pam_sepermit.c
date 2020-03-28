@@ -1,5 +1,5 @@
 /******************************************************************************
- * A module for Linux-PAM that allows/denies acces based on SELinux state.
+ * A module for Linux-PAM that allows/denies access based on SELinux state.
  *
  * Copyright (c) 2007, 2008, 2009 Red Hat, Inc.
  * Originally written by Tomas Mraz <tmraz@redhat.com>

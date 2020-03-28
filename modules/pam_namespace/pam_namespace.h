@@ -138,12 +138,12 @@ enum polymethod {
 
 /*
  * Depending on the application using this namespace module, we
- * may need to unmount priviously bind mounted instance directory.
+ * may need to unmount previously bind mounted instance directory.
  * Applications such as login and sshd, that establish a new
  * session unmount of instance directory is not needed. For applications
  * such as su and newrole, that switch the identity, this module
  * has to unmount previous instance directory first and re-mount
- * based on the new indentity. For other trusted applications that
+ * based on the new identity. For other trusted applications that
  * just want to undo polyinstantiation, only unmount of previous
  * instance directory is needed.
  */
