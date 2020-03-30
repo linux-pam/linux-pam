@@ -198,15 +198,15 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><option>user ingroup group</option></term>
+        <term><option>user ingroup group[:group:....]</option></term>
         <listitem>
-          <para>User is in given group.</para>
+          <para>User is in given group(s).</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><option>user notingroup group</option></term>
+        <term><option>user notingroup group[:group:....]</option></term>
         <listitem>
-          <para>User is not in given group.</para>
+          <para>User is not in given group(s).</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -271,10 +271,10 @@
     <title>EXAMPLES</title>
     <para>
       To emulate the behaviour of <emphasis>pam_wheel</emphasis>, except
-      there is no fallback to group 0:
+      there is no fallback to group 0 being only approximated by checking also the root group membership:
     </para>
     <programlisting>
-auth required pam_succeed_if.so quiet user ingroup wheel
+auth required pam_succeed_if.so quiet user ingroup wheel:root
     </programlisting>
 
     <para>

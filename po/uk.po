@@ -4,24 +4,25 @@
 #
 # Translators:
 # Ivan Petrouchtchak <ivanpetrouchtchak@yahoo.com>, 2006
-# Yuri Chornoivan <yurchor@ukr.net>, 2010,2012
+# Yuri Chornoivan <yurchor@ukr.net>, 2010,2012, 2020.
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2018-05-18 12:58+0200\n"
-"PO-Revision-Date: 2016-04-19 10:09-0400\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 22:27+0000\n"
+"PO-Revision-Date: 2020-03-15 23:38+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
+"Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.11.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -42,31 +43,43 @@ msgid "Password: "
 msgstr "Пароль: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
-msgid "Current %s%spassword: "
-msgstr "Поточний пароль %s%s: "
-
-#: libpam/pam_get_authtok.c:43
 #, c-format
-msgid "New %s%spassword: "
-msgstr "Новий пароль %s%s:"
+msgid "Current %s password: "
+msgstr "Поточний пароль %s: "
+
+#: libpam/pam_get_authtok.c:42
+msgid "Current password: "
+msgstr "Поточний пароль: "
+
+#: libpam/pam_get_authtok.c:44
+#, c-format
+msgid "New %s password: "
+msgstr "Новий пароль %s: "
 
 #: libpam/pam_get_authtok.c:45
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "Повторіть новий пароль %s%s: "
+msgid "New password: "
+msgstr "Новий пароль: "
 
-#: libpam/pam_get_authtok.c:46
+#: libpam/pam_get_authtok.c:47
+#, c-format
+msgid "Retype new %s password: "
+msgstr "Повторіть новий пароль %s: "
+
+#: libpam/pam_get_authtok.c:48
+msgid "Retype new password: "
+msgstr "Повторіть новий пароль: "
+
+#: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
 msgstr "Вибачте, паролі не збігаються."
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:220
+#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
 msgstr "Повторне введення %s"
 
-#: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
-msgid "Password change aborted."
+#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
+msgid "Password change has been aborted."
 msgstr "Зміну пароля перервано."
 
 #: libpam/pam_item.c:311
@@ -252,70 +265,70 @@ msgid "contains the user name in some form"
 msgstr "містить ім’я користувача з форми"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "No password supplied"
-msgstr "Пароль не встановлено"
+#: modules/pam_unix/pam_unix_passwd.c:566
+msgid "No password has been supplied."
+msgstr "Не було надано жодного пароля."
 
-#: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "Password unchanged"
-msgstr "Пароль не змінено"
+#: modules/pam_cracklib/pam_cracklib.c:696
+#: modules/pam_unix/pam_unix_passwd.c:567
+msgid "The password has not been changed."
+msgstr "Пароль не було змінено."
 
-#: modules/pam_cracklib/pam_cracklib.c:715
-#: modules/pam_cracklib/pam_cracklib.c:797
+#: modules/pam_cracklib/pam_cracklib.c:716
+#: modules/pam_cracklib/pam_cracklib.c:798
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ПОГАНИЙ ПАРОЛЬ: %s"
 
-#: modules/pam_exec/pam_exec.c:276
+#: modules/pam_exec/pam_exec.c:267
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "Помилка %s: коди виходу %d"
 
-#: modules/pam_exec/pam_exec.c:285
+#: modules/pam_exec/pam_exec.c:276
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "Помилка %s: отримано сигнал %d%s"
 
-#: modules/pam_exec/pam_exec.c:294
+#: modules/pam_exec/pam_exec.c:285
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "Помилка %s: невідомий стан 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:496
+#: modules/pam_lastlog/pam_lastlog.c:324 modules/pam_lastlog/pam_lastlog.c:585
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:505
+#: modules/pam_lastlog/pam_lastlog.c:333 modules/pam_lastlog/pam_lastlog.c:594
 #, c-format
 msgid " from %.*s"
 msgstr " з %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:303 modules/pam_lastlog/pam_lastlog.c:517
+#: modules/pam_lastlog/pam_lastlog.c:345 modules/pam_lastlog/pam_lastlog.c:606
 #, c-format
 msgid " on %.*s"
 msgstr " на %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:313
+#: modules/pam_lastlog/pam_lastlog.c:355
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Останній вхід: %s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:319
+#: modules/pam_lastlog/pam_lastlog.c:361
 msgid "Welcome to your new account!"
 msgstr "Ласкаво просимо до вашого нового запису!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:527
+#: modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "Останній невдалий вхід: %s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:536 modules/pam_lastlog/pam_lastlog.c:543
+#: modules/pam_lastlog/pam_lastlog.c:625 modules/pam_lastlog/pam_lastlog.c:632
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -331,21 +344,21 @@ msgstr[2] ""
 "завершилися помилками."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:548
+#: modules/pam_lastlog/pam_lastlog.c:637
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
 "Після останнього успішного входу було виконано %d спроби входу, які "
 "завершилися помилками."
 
-#: modules/pam_limits/pam_limits.c:1091
+#: modules/pam_limits/pam_limits.c:1088
 #, c-format
-msgid "Too many logins for '%s'."
+msgid "There were too many logins for '%s'."
 msgstr "Забагато входів в для «%s»."
 
 #: modules/pam_mail/pam_mail.c:297
-msgid "No mail."
-msgstr "Немає пошти."
+msgid "You have no mail."
+msgstr "Нових повідомлень немає."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -379,18 +392,18 @@ msgstr "У теці %s є старі поштові повідомлення."
 msgid "You have mail in folder %s."
 msgstr "У теці %s є поштові повідомлення."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:111
+#: modules/pam_mkhomedir/pam_mkhomedir.c:113
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Створення каталогу «%s»."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:176
+#: modules/pam_mkhomedir/pam_mkhomedir.c:180
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Не вдалося створити і ініціалізувати каталог «%s»."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "Цей пароль вже використано. Виберіть інший."
 
@@ -398,46 +411,46 @@ msgstr "Цей пароль вже використано. Виберіть ін
 msgid "Password has been already used."
 msgstr "Пароль вже використовувався."
 
-#: modules/pam_selinux/pam_selinux.c:210
+#: modules/pam_selinux/pam_selinux.c:206
 #, c-format
-msgid "Default Security Context %s\n"
-msgstr "Типовий контекст безпеки %s\n"
+msgid "The default security context is %s."
+msgstr "Типовий контекст безпеки — %s."
 
-#: modules/pam_selinux/pam_selinux.c:214
+#: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
 msgstr "Бажаєте ввести іншу роль або рівень?"
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:223
 msgid "role:"
 msgstr "роль:"
 
-#: modules/pam_selinux/pam_selinux.c:230
+#: modules/pam_selinux/pam_selinux.c:227
 #, c-format
-msgid "No default type for role %s\n"
-msgstr "Для ролі %s не визначено типового типу\n"
+msgid "There is no default type for role %s."
+msgstr "Для ролі %s не визначено типового типу."
 
-#: modules/pam_selinux/pam_selinux.c:262
+#: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "рівень:"
 
-#: modules/pam_selinux/pam_selinux.c:295
-msgid "Not a valid security context"
-msgstr "Непридатний контекст безпеки"
+#: modules/pam_selinux/pam_selinux.c:292
+msgid "This is not a valid security context."
+msgstr "Цей контекст безпеки є некоректним."
 
-#: modules/pam_selinux/pam_selinux.c:544
+#: modules/pam_selinux/pam_selinux.c:541
 #, c-format
-msgid "Unable to get valid context for %s"
-msgstr "Не вдалося отримати коректний контекст для %s"
+msgid "A valid context for %s could not be obtained."
+msgstr "Не вдалося отримати коректний контекст для %s."
 
-#: modules/pam_selinux/pam_selinux.c:663
+#: modules/pam_selinux/pam_selinux.c:660
 #, c-format
-msgid "Security Context %s Assigned"
-msgstr "Призначено контекст безпеки %s"
+msgid "Security context %s has been assigned."
+msgstr "Призначено контекст безпеки %s."
 
-#: modules/pam_selinux/pam_selinux.c:679
+#: modules/pam_selinux/pam_selinux.c:676
 #, c-format
-msgid "Key Creation Context %s Assigned"
-msgstr "Призначено контекст створення ключів %s"
+msgid "Key creation context %s has been assigned."
+msgstr "Призначено контекст створення ключів %s."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -454,55 +467,38 @@ msgstr "помилка pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "вхід: помилка розгалуження: %m"
 
-#: modules/pam_stress/pam_stress.c:470
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
 #, c-format
-msgid "Changing STRESS password for %s."
-msgstr "Зміна пароля STRESS для %s."
+msgid "The account is temporarily locked (%ld seconds left)."
+msgstr "Обліковий запис тимчасово заблоковано (ще на %ld секунд)."
 
-#: modules/pam_stress/pam_stress.c:484
-msgid "Enter new STRESS password: "
-msgstr "Введіть новий пароль STRESS: "
-
-#: modules/pam_stress/pam_stress.c:487
-msgid "Retype new STRESS password: "
-msgstr "Повторіть новий пароль STRESS: "
-
-#: modules/pam_stress/pam_stress.c:516
-msgid "Verification mis-typed; password unchanged"
-msgstr "Перевірку не пройдено; пароль не змінено"
-
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
 #, c-format
-msgid "Account temporary locked (%ld seconds left)"
-msgstr "Обліковий запис тимчасово заблоковано (ще на %ld секунд)"
+msgid "The account is locked due to %u failed logins."
+msgstr "Обліковий запис заблоковано через %u помилок під час спроби входу."
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
-#, c-format
-msgid "Account locked due to %u failed logins"
-msgstr "Обліковий запис заблоковано через %u помилок під час спроби входу"
-
-#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
+#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
 msgstr "Помилка розпізнавання"
 
-#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:864
+#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:859
 msgid "Service error"
 msgstr "Помилка служби"
 
-#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:865
+#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:860
 msgid "Unknown user"
 msgstr "Невідомий користувач"
 
-#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:866
+#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:861
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
-#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:885
+#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:880
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: вказано помилкове число --reset=\n"
 
-#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:889
+#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:884
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: нерозпізнано параметр %s\n"
@@ -515,17 +511,17 @@ msgstr ""
 "%s: [--file назва-файла-користувача-root] [--user ім'я користувача] [--"
 "reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1028
+#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1023
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: не вдається відновити ненульове значення для всіх користувачів\n"
 
-#: modules/pam_tally2/pam_tally2.c:917
+#: modules/pam_tally2/pam_tally2.c:912
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr "Користувач      Помилок  Остання помилка    З\n"
 
-#: modules/pam_tally2/pam_tally2.c:933
+#: modules/pam_tally2/pam_tally2.c:928
 #, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -538,51 +534,79 @@ msgstr ""
 
 #: modules/pam_timestamp/pam_timestamp.c:357
 #, c-format
-msgid "Access granted (last access was %ld seconds ago)."
+msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Надано доступ (остання спроба доступу сталася %ld секунд тому)."
 
-#: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
-msgid "Your account has expired; please contact your system administrator"
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
+msgid "Your account has expired; please contact your system administrator."
 msgstr ""
-"Ваш обліковий запис застарів, будь ласка, зверніться до вашого системного "
-"адміністратора"
+"Строк дії вашого облікового запису вичерпано — будь ласка, зверніться до "
+"вашого системного адміністратора."
 
-#: modules/pam_unix/pam_unix_acct.c:261
+#: modules/pam_unix/pam_unix_acct.c:240
 msgid ""
-"You are required to change your password immediately (administrator enforced)"
-msgstr "Вам необхідно негайно змінити пароль (вимога адміністратора)"
+"You are required to change your password immediately (administrator "
+"enforced)."
+msgstr "Вам слід негайно змінити пароль (вимога адміністратора)."
 
-#: modules/pam_unix/pam_unix_acct.c:267
-msgid "You are required to change your password immediately (password expired)"
-msgstr "Вам необхідно негайно змінити пароль (поточний пароль застарів)"
+#: modules/pam_unix/pam_unix_acct.c:246
+msgid ""
+"You are required to change your password immediately (password expired)."
+msgstr ""
+"Вам необхідно негайно змінити пароль (строк дії поточного пароля вичерпано)."
 
-#: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
 #, c-format
-msgid "Warning: your password will expire in %d day"
-msgid_plural "Warning: your password will expire in %d days"
-msgstr[0] "Попередження: ваш пароль застаріє за %d день"
-msgstr[1] "Попередження: ваш пароль застаріє за %d дні"
-msgstr[2] "Попередження: ваш пароль застаріє за %d днів"
+msgid "Warning: your password will expire in %d day."
+msgid_plural "Warning: your password will expire in %d days."
+msgstr[0] "Попередження: строк дії вашого пароля буде вичерпано за %d день."
+msgstr[1] "Попередження: строк дії вашого пароля буде вичерпано за %d дні."
+msgstr[2] "Попередження: строк дії вашого пароля буде вичерпано за %d днів."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:300
+#: modules/pam_unix/pam_unix_acct.c:279
 #, c-format
-msgid "Warning: your password will expire in %d days"
-msgstr "Попередження: ваш пароль застаріє за %d днів"
+msgid "Warning: your password will expire in %d days."
+msgstr "Попередження: строк дії вашого пароля буде вичерпано за %d днів."
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "Не вдалося змінити пароль NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:585
-msgid "You must choose a longer password"
-msgstr "Вам слід вибрати довший пароль"
+#: modules/pam_unix/pam_unix_passwd.c:584
+msgid "You must choose a shorter password."
+msgstr "Необхідно вибрати коротший пароль."
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:588
+msgid "You must choose a longer password."
+msgstr "Вам слід вибрати довший пароль."
+
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "Зміна пароля %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
-msgid "You must wait longer to change your password"
-msgstr "Ви повинні зачекати, щоб змінити ваш пароль"
+#: modules/pam_unix/pam_unix_passwd.c:725
+msgid "You must wait longer to change your password."
+msgstr "Ви слід ще трохи зачекати, щоб змінити ваш пароль."
+
+#~ msgid "Password unchanged"
+#~ msgstr "Пароль не змінено"
+
+#~ msgid "No mail."
+#~ msgstr "Немає пошти."
+
+#~ msgid "Unable to get valid context for %s"
+#~ msgstr "Не вдалося отримати коректний контекст для %s"
+
+#~ msgid "Changing STRESS password for %s."
+#~ msgstr "Зміна пароля STRESS для %s."
+
+#~ msgid "Enter new STRESS password: "
+#~ msgstr "Введіть новий пароль STRESS: "
+
+#~ msgid "Retype new STRESS password: "
+#~ msgstr "Повторіть новий пароль STRESS: "
+
+#~ msgid "Verification mis-typed; password unchanged"
+#~ msgstr "Перевірку не пройдено; пароль не змінено"

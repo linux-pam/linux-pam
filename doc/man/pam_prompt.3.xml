@@ -75,7 +75,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-              Conversation succeded, response is set.
+              Conversation succeeded, response is set.
           </para>
         </listitem>
       </varlistentry>

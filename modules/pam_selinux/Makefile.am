@@ -10,7 +10,9 @@ EXTRA_DIST = README $(XMLS) pam_selinux.8 pam_selinux_check.8 \
 
 if HAVE_LIBSELINUX
   TESTS = tst-pam_selinux
+if HAVE_DOC
   man_MANS = pam_selinux.8
+endif
 endif
 
 XMLS = README.xml pam_selinux.8.xml
@@ -19,7 +21,7 @@ securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	-I$(top_srcdir)/libpam_misc/include
+	-I$(top_srcdir)/libpam_misc/include $(WARN_CFLAGS)
 
 pam_selinux_la_LDFLAGS = -no-undefined -avoid-version -module
 pam_selinux_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@ @LIBAUDIT@

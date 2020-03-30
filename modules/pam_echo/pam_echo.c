@@ -61,6 +61,7 @@
 #include <security/pam_modutil.h>
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 static int
 replace_and_print (pam_handle_t *pamh, const char *mesg)
@@ -150,8 +151,9 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
 
   for (; argc-- > 0; ++argv)
     {
-      if (!strncmp (*argv, "file=", 5))
-	file = (5 + *argv);
+      const char *str = pam_str_skip_prefix(*argv, "file=");
+      if (str != NULL)
+	file = str;
     }
 
   /* No file= option, use argument for output.  */

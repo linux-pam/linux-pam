@@ -2,12 +2,14 @@
 #ifndef MD5_H
 #define MD5_H
 
+#include "pam_cc_compat.h"
+
 typedef unsigned int uint32;
 
 struct MD5Context {
 	uint32 buf[4];
 	uint32 bits[2];
-	unsigned char in[64];
+	unsigned char in[64] PAM_ATTRIBUTE_ALIGNED(4);
 };
 
 #define MD5_DIGEST_LENGTH 16

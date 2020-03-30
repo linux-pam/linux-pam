@@ -12,6 +12,7 @@
 
   <refnamediv id="pam_start-name">
     <refname>pam_start</refname>
+    <refname>pam_start_confdir</refname>
     <refpurpose>initialization of PAM transaction</refpurpose>
   </refnamediv>
 
@@ -25,6 +26,14 @@
         <paramdef>const char *<parameter>service_name</parameter></paramdef>
         <paramdef>const char *<parameter>user</parameter></paramdef>
         <paramdef>const struct pam_conv *<parameter>pam_conversation</parameter></paramdef>
+        <paramdef>pam_handle_t **<parameter>pamh</parameter></paramdef>
+      </funcprototype>
+      <funcprototype>
+        <funcdef>int <function>pam_start_confdir</function></funcdef>
+        <paramdef>const char *<parameter>service_name</parameter></paramdef>
+        <paramdef>const char *<parameter>user</parameter></paramdef>
+        <paramdef>const struct pam_conv *<parameter>pam_conversation</parameter></paramdef>
+        <paramdef>const char *<parameter>confdir</parameter></paramdef>
         <paramdef>pam_handle_t **<parameter>pamh</parameter></paramdef>
       </funcprototype>
     </funcsynopsis>
@@ -83,10 +92,21 @@
       <citerefentry>
         <refentrytitle>pam_get_item</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>.
-      The PAM handle cannot be used for mulitiple authentications at the
+      The PAM handle cannot be used for multiple authentications at the
       same time as long as <function>pam_end</function> was not called on
       it before.
     </para>
+
+    <para>
+      The <function>pam_start_confdir</function> function behaves
+      like the <function>pam_start</function> function but it also
+      allows setting <emphasis>confdir</emphasis> argument with
+      a path to a directory to override the default
+      (<filename>/etc/pam.d</filename>) path for service policy
+      files. If the <emphasis>confdir</emphasis> is NULL, the function
+      works exactly the same as <function>pam_start</function>.
+    </para>
+
   </refsect1>
   <refsect1 id="pam_start-return_values">
     <title>RETURN VALUES</title>
@@ -111,7 +131,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Transaction was successful created.
+             Transaction was successfully started.
           </para>
         </listitem>
       </varlistentry>

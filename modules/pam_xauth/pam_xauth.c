@@ -50,7 +50,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
-#include <unistd.h>
 
 #define PAM_SM_SESSION
 
@@ -62,8 +61,10 @@
 #ifdef WITH_SELINUX
 #include <selinux/selinux.h>
 #include <selinux/label.h>
-#include <sys/stat.h>
 #endif
+
+#include "pam_cc_compat.h"
+#include "pam_inline.h"
 
 #define DATANAME "pam_xauth_cookie_file"
 #define XAUTHENV "XAUTHORITY"
@@ -172,14 +173,16 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 		/* Convert the varargs list into a regular array of strings. */
 		va_start(ap, command);
 		args[0] = command;
-		for (j = 1; j < ((sizeof(args) / sizeof(args[0])) - 1); j++) {
+		for (j = 1; j < PAM_ARRAY_SIZE(args) - 1; j++) {
 			args[j] = va_arg(ap, const char*);
 			if (args[j] == NULL) {
 				break;
 			}
 		}
 		/* Run the command. */
+		DIAG_PUSH_IGNORE_CAST_QUAL;
 		execv(command, (char *const *) args);
+		DIAG_POP_IGNORE_CAST_QUAL;
 		/* Never reached. */
 		_exit(1);
 	}
@@ -361,17 +364,19 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	/* Parse arguments.  We don't understand many, so no sense in breaking
 	 * this into a separate function. */
 	for (i = 0; i < argc; i++) {
+		const char *str;
+
 		if (strcmp(argv[i], "debug") == 0) {
 			debug = 1;
 			continue;
 		}
-		if (strncmp(argv[i], "xauthpath=", 10) == 0) {
-			xauth = argv[i] + 10;
+		if ((str = pam_str_skip_prefix(argv[i], "xauthpath=")) != NULL) {
+			xauth = str;
 			continue;
 		}
-		if (strncmp(argv[i], "targetuser=", 11) == 0) {
-			long l = strtol(argv[i] + 11, &tmp, 10);
-			if ((strlen(argv[i] + 11) > 0) && (*tmp == '\0')) {
+		if ((str = pam_str_skip_prefix(argv[i], "targetuser=")) != NULL) {
+			long l = strtol(str, &tmp, 10);
+			if ((*str != '\0') && (*tmp == '\0')) {
 				targetuser = l;
 			} else {
 				pam_syslog(pamh, LOG_WARNING,
@@ -380,9 +385,9 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			}
 			continue;
 		}
-		if (strncmp(argv[i], "systemuser=", 11) == 0) {
-			long l = strtol(argv[i] + 11, &tmp, 10);
-			if ((strlen(argv[i] + 11) > 0) && (*tmp == '\0')) {
+		if ((str = pam_str_skip_prefix(argv[i], "systemuser=")) != NULL) {
+			long l = strtol(str, &tmp, 10);
+			if ((*str != '\0') && (*tmp == '\0')) {
 				systemuser = l;
 			} else {
 				pam_syslog(pamh, LOG_WARNING,
@@ -397,7 +402,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 
 	if (xauth == NULL) {
 	        size_t j;
-		for (j = 0; j < sizeof(xauthpaths)/sizeof(xauthpaths[0]); j++) {
+		for (j = 0; j < PAM_ARRAY_SIZE(xauthpaths); j++) {
 			if (access(xauthpaths[j], X_OK) == 0) {
 				xauth = xauthpaths[j];
 				break;
@@ -534,8 +539,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 
 		/* Check that we got a cookie.  If not, we get creative. */
 		if (((cookie == NULL) || (strlen(cookie) == 0)) &&
-		    ((strncmp(display, "localhost:", 10) == 0) ||
-		     (strncmp(display, "localhost/unix:", 15) == 0))) {
+		    (pam_str_skip_prefix(display, "localhost:") != NULL ||
+		     pam_str_skip_prefix(display, "localhost/unix:") != NULL)) {
 			char *t, *screen;
 			size_t tlen, slen;
 			/* Free the useless cookie string. */
@@ -766,11 +771,11 @@ pam_sm_close_session (pam_handle_t *pamh, int flags UNUSED,
 			debug = 1;
 			continue;
 		}
-		if (strncmp(argv[i], "xauthpath=", 10) == 0)
+		if (pam_str_skip_prefix(argv[i], "xauthpath=") != NULL)
 			continue;
-		if (strncmp(argv[i], "systemuser=", 11) == 0)
+		if (pam_str_skip_prefix(argv[i], "systemuser=") != NULL)
 			continue;
-		if (strncmp(argv[i], "targetuser=", 11) == 0)
+		if (pam_str_skip_prefix(argv[i], "targetuser=") != NULL)
 			continue;
 		pam_syslog(pamh, LOG_WARNING, "unrecognized option `%s'",
 		       argv[i]);

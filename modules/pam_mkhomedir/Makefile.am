@@ -8,7 +8,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_mkhomedir
 
+if HAVE_DOC
 man_MANS = pam_mkhomedir.8 mkhomedir_helper.8
+endif
 
 XMLS = README.xml pam_mkhomedir.8.xml mkhomedir_helper.8.xml
 
@@ -18,7 +20,7 @@ securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	    -DMKHOMEDIR_HELPER=\"$(sbindir)/mkhomedir_helper\"
+	-DMKHOMEDIR_HELPER=\"$(sbindir)/mkhomedir_helper\" $(WARN_CFLAGS)
 
 securelib_LTLIBRARIES = pam_mkhomedir.la
 pam_mkhomedir_la_SOURCES = pam_mkhomedir.c

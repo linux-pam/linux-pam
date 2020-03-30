@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([Linux-PAM], [1.3.1], , [Linux-PAM])
+AC_INIT([Linux-PAM], [1.4.0], , [Linux-PAM])
 AC_CONFIG_SRCDIR([conf/pam_conv1/pam_conv_y.y])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall -Wno-portability])
@@ -79,8 +79,18 @@ PAM_LD_O1
 dnl Largefile support
 AC_SYS_LARGEFILE
 
+Werror_option=
+AC_ARG_ENABLE([Werror],
+	      [AS_HELP_STRING([--enable-Werror],
+			      [turn on -Werror compiler option])],
+	      [case $enableval in
+		yes) Werror_option=-Werror ;;
+		no)  ;;
+		*)   AC_MSG_ERROR([bad value $enableval for Werror option]) ;;
+	       esac])
+
 dnl icc claims to be GCC compatible, but use other flags for warnings
-if eval "test x$GCC = xyes -a $CC != icc"; then
+if eval 'test "x$GCC" = "xyes" -a "$CC" != "icc"'; then
   for flag in \
       -W \
       -Wall \
@@ -94,13 +104,14 @@ if eval "test x$GCC = xyes -a $CC != icc"; then
       -Wstrict-prototypes \
       -Wwrite-strings \
       -Winline \
-      -Wshadow
+      -Wshadow \
+      $Werror_option
   do
-    JAPHAR_GREP_CFLAGS($flag, [ CFLAGS="$CFLAGS $flag" ])
+    JAPHAR_GREP_CFLAGS($flag, [ WARN_CFLAGS="$WARN_CFLAGS $flag" ])
   done
 fi
 dnl icc has special warning flags
-if eval "test x$CC = xicc"; then
+if eval 'test "x$CC" = "xicc"'; then
   for flag in \
       -Wall \
       -Wmissing-prototypes \
@@ -114,9 +125,11 @@ if eval "test x$CC = xicc"; then
       -Wuninitialized \
       -Wmain
   do
-    JAPHAR_GREP_CFLAGS($flag, [ CFLAGS="$CFLAGS $flag" ])
+    JAPHAR_GREP_CFLAGS($flag, [ WARN_CFLAGS="$WARN_CFLAGS $flag" ])
   done
 fi
+
+AC_SUBST(WARN_CFLAGS)
 
 if test "x${CC_FOR_BUILD+set}" != "xset" ; then
   if test "x$cross_compiling" = "xyes" ; then
@@ -217,7 +230,7 @@ dnl
 dnl icc handles -fpie as -fp without error, so blacklist icc
 dnl
 AC_ARG_ENABLE(pie,AS_HELP_STRING([--disable-pie],
-                        [disable position-independent executeables (PIE)]),
+                        [disable position-independent executables (PIE)]),
         USE_PIE=$enableval, USE_PIE=yes)
 
 AC_CACHE_CHECK(for -fpie, libc_cv_fpie, [dnl
@@ -246,6 +259,11 @@ AC_SUBST(PIE_LDFLAGS)
 dnl
 dnl options and defaults
 dnl
+
+AC_ARG_ENABLE([doc],
+        AS_HELP_STRING([--disable-doc],[Do not generate or install documentation]),
+        WITH_DOC=$enableval, WITH_DOC=yes)
+AM_CONDITIONAL([HAVE_DOC], [test "x$WITH_DOC" = "xyes"])
 
 AC_ARG_ENABLE([prelude],
 	AS_HELP_STRING([--disable-prelude],[do not use prelude]),
@@ -401,7 +419,7 @@ AS_IF([test "x$ac_cv_header_xcrypt_h" = "xyes"],
   [crypt_libs="crypt"])
 
 BACKUP_LIBS=$LIBS
-AC_SEARCH_LIBS([crypt],[$crypt_libs], LIBCRYPT="${ac_lib:+-l$ac_lib}", LIBCRYPT="")
+AC_SEARCH_LIBS([crypt],[$crypt_libs], LIBCRYPT="${ac_cv_search_crypt}", LIBCRYPT="")
 AC_CHECK_FUNCS(crypt_r crypt_gensalt_r)
 LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCRYPT)
@@ -420,7 +438,7 @@ if test -n "$opt_randomdev"; then
 fi
 
 dnl check for libdb or libndbm as fallback. Some libndbm compat
-dnl libraries are unuseable, so try libdb first.
+dnl libraries are unusable, so try libdb first.
 AC_ARG_ENABLE([db],
         AS_HELP_STRING([--enable-db=(db|ndbm|yes|no)],[Default behavior 'yes', which is to check for libdb first, followed by ndbm. Use 'no' to disable db support.]),
         WITH_DB=$enableval, WITH_DB=yes)
@@ -485,6 +503,17 @@ AS_IF([test "x$enable_nis" != "xno"], [
 AC_SUBST([NIS_CFLAGS])
 AC_SUBST([NIS_LIBS])
 
+AC_ARG_ENABLE([usergroups],
+  AS_HELP_STRING([--enable-usergroups], [sets the usergroups option default to enabled]),
+  [WITH_USERGROUPS=$enableval], WITH_USERGROUPS=no)
+if test "$WITH_USERGROUPS" = "yes" ; then
+   AC_DEFINE([DEFAULT_USERGROUPS_SETTING], 1,
+	     [Defines the value usergroups option should have by default])
+else
+   AC_DEFINE([DEFAULT_USERGROUPS_SETTING], 0,
+	     [Defines the value usergroups option should have by default])
+fi
+
 AC_ARG_ENABLE([selinux],
         AS_HELP_STRING([--disable-selinux],[do not use SELinux]),
         WITH_SELINUX=$enableval, WITH_SELINUX=yes)
@@ -504,11 +533,28 @@ if test ! -z "$LIBSELINUX" ; then
     LIBS=$BACKUP_LIBS
 fi
 
+AC_ARG_ENABLE([econf],
+  AS_HELP_STRING([--disable-econf], [do not use libeconf]),
+  [WITH_ECONF=$enableval], WITH_ECONF=yes)
+if test "$WITH_ECONF" = "yes" ; then
+  PKG_CHECK_MODULES([ECONF], [libeconf], [],
+  [AC_CHECK_LIB([econf],[econf_readDirs],[ECONF_LIBS="-leconf"],[ECONF_LIBS=""])])
+  if test -n "$ECONF_LIBS" ; then
+    ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"
+  fi
+fi
+AC_SUBST([ECONF_CFLAGS])
+AC_SUBST([ECONF_LIBS])
+AC_ARG_ENABLE([vendordir],
+  AS_HELP_STRING([--enable-vendordir=DIR], [Directory for distribution provided configuration files]),,[])
+AC_SUBST([VENDORDIR], [$enable_vendordir])
+AM_CONDITIONAL([HAVE_VENDORDIR], [test "x$enable_vendordir" != x])
+
 dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/file.h sys/ioctl.h sys/time.h syslog.h net/if.h termio.h unistd.h sys/fsuid.h inittypes.h)
+AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/file.h sys/ioctl.h sys/time.h syslog.h net/if.h termio.h unistd.h sys/fsuid.h inittypes.h sys/vfs.h linux/magic.h)
 
 dnl For module/pam_lastlog
 AC_CHECK_HEADERS(lastlog.h utmp.h utmpx.h)
@@ -576,7 +622,7 @@ fi
 
 AC_PATH_PROG([FO2PDF], [fop])
 
-AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_docu != xno)
+AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_docu != xno -a x$enable_doc != xno)
 AM_CONDITIONAL(ENABLE_GENERATE_PDF, test ! -z "$FO2PDF")
 
 
@@ -614,6 +660,27 @@ AC_SUBST([HAVE_KEY_MANAGEMENT], $HAVE_KEY_MANAGEMENT)
 
 AM_CONDITIONAL([HAVE_KEY_MANAGEMENT], [test "$have_key_syscalls" = 1])
 
+dnl
+dnl Get values for default uid ranges in login.defs used in pam_usertype
+dnl
+AC_ARG_WITH([uidmin], AS_HELP_STRING([--with-uidmin=<number>],[default value for regular user min uid (1000)]), opt_uidmin=$withval)
+if test x"$opt_uidmin" == x; then
+    opt_uidmin=1000
+fi
+AC_DEFINE_UNQUOTED(PAM_USERTYPE_UIDMIN, $opt_uidmin, [Minimum regular user uid.])
+
+AC_ARG_WITH([sysuidmin], AS_HELP_STRING([--with-sysuidmin=<number>],[default value for system user min uid (101)]), opt_sysuidmin=$withval)
+if test x"$opt_sysuidmin" == x; then
+    opt_sysuidmin=101
+fi
+AC_DEFINE_UNQUOTED(PAM_USERTYPE_SYSUIDMIN, $opt_sysuidmin, [Minimum system user uid.])
+
+AC_ARG_WITH([kerneloverflowuid], AS_HELP_STRING([--with-kernel-overflow-uid=<number>],[kernel overflow uid, default (uint16_t)-2=65534]), opt_kerneloverflowuid=$withval)
+if test x"$opt_kerneloverflowuid" == x; then
+    opt_kerneloverflowuid=65534
+fi
+AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel overflow uid.])
+
 dnl Files to be created from when we run configure
 AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	libpam_misc/Makefile conf/Makefile conf/pam_conv1/Makefile \
@@ -631,6 +698,7 @@ AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile
 	modules/pam_loginuid/Makefile modules/pam_mail/Makefile \
 	modules/pam_mkhomedir/Makefile modules/pam_motd/Makefile \
 	modules/pam_namespace/Makefile \
+	modules/pam_namespace/pam_namespace_helper modules/pam_namespace/pam_namespace.service \
 	modules/pam_nologin/Makefile modules/pam_permit/Makefile \
 	modules/pam_pwhistory/Makefile modules/pam_rhosts/Makefile \
 	modules/pam_rootok/Makefile modules/pam_exec/Makefile \
@@ -642,6 +710,7 @@ AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile
 	modules/pam_timestamp/Makefile modules/pam_tty_audit/Makefile \
 	modules/pam_umask/Makefile \
 	modules/pam_unix/Makefile modules/pam_userdb/Makefile \
+	modules/pam_usertype/Makefile \
 	modules/pam_warn/Makefile modules/pam_wheel/Makefile \
 	modules/pam_xauth/Makefile doc/Makefile doc/specs/Makefile \
 	doc/man/Makefile doc/sag/Makefile doc/adg/Makefile \

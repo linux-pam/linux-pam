@@ -7,7 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_rootok
 
+if HAVE_DOC
 man_MANS = pam_rootok.8
+endif
 XMLS = README.xml pam_rootok.8.xml
 
 TESTS = tst-pam_rootok
@@ -15,7 +17,8 @@ TESTS = tst-pam_rootok
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
+AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+	$(WARN_CFLAGS)
 if HAVE_LIBSELINUX
 AM_CFLAGS += -DWITH_SELINUX
 endif

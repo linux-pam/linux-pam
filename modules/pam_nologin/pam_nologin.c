@@ -32,6 +32,7 @@
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 #define DEFAULT_NOLOGIN_PATH "/var/run/nologin"
 #define COMPAT_NOLOGIN_PATH "/etc/nologin"
@@ -54,10 +55,12 @@ parse_args(pam_handle_t *pamh, int argc, const char **argv, struct opt_s *opts)
     opts->retval_when_nofile = PAM_IGNORE;
 
     for (i=0; i<argc; ++i) {
+	const char *str;
+
 	if (!strcmp("successok", argv[i])) {
 	    opts->retval_when_nofile = PAM_SUCCESS;
-	} else if (!strncmp("file=", argv[i], 5)) {
-	    opts->nologin_file = argv[i] + 5;
+	} else if ((str = pam_str_skip_prefix(argv[i], "file=")) != NULL) {
+	    opts->nologin_file = str;
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", argv[i]);
 	}

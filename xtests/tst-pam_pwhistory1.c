@@ -46,8 +46,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <security/pam_appl.h>
+#include "pam_inline.h"
 
-static int in_test;
+static unsigned int in_test;
 
 static const char *passwords[] =  {
   "pamhistory01", "pamhistory02", "pamhistory03",
@@ -121,15 +122,14 @@ main(int argc, char *argv[])
   if (argc > 1 && strcmp (argv[1], "-d") == 0)
     debug = 1;
 
-  for (in_test = 0;
-       in_test < (int)(sizeof (passwords)/sizeof (char *)); in_test++)
+  for (in_test = 0; in_test < PAM_ARRAY_SIZE(passwords); in_test++)
     {
 
       retval = pam_start("tst-pam_pwhistory1", user, &conv, &pamh);
       if (retval != PAM_SUCCESS)
 	{
 	  if (debug)
-	    fprintf (stderr, "pwhistory1-%d: pam_start returned %d\n",
+	    fprintf (stderr, "pwhistory1-%u: pam_start returned %d\n",
 		     in_test, retval);
 	  return 1;
 	}
@@ -140,7 +140,7 @@ main(int argc, char *argv[])
 	  if (retval != PAM_SUCCESS)
 	    {
 	      if (debug)
-		fprintf (stderr, "pwhistory1-%d: pam_chauthtok returned %d\n",
+		fprintf (stderr, "pwhistory1-%u: pam_chauthtok returned %d\n",
 			 in_test, retval);
 	      return 1;
 	    }
@@ -150,7 +150,7 @@ main(int argc, char *argv[])
 	  if (retval != PAM_MAXTRIES)
 	    {
 	      if (debug)
-		fprintf (stderr, "pwhistory1-%d: pam_chauthtok returned %d\n",
+		fprintf (stderr, "pwhistory1-%u: pam_chauthtok returned %d\n",
 			 in_test, retval);
 	      return 1;
 	    }

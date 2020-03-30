@@ -7,19 +7,22 @@ CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
 XMLS = README.xml pam_timestamp.8.xml pam_timestamp_check.8.xml
+if HAVE_DOC
 man_MANS = pam_timestamp.8 pam_timestamp_check.8
+endif
 dist_TESTS = tst-pam_timestamp
 nodist_TESTS = hmacfile
 TESTS = $(dist_TESTS) $(nodist_TESTS)
 
-EXTRA_DIST = $(man_MANS) $(XMLS) $(dist_TESTS)
+EXTRA_DIST = $(MANS) $(XMLS) $(dist_TESTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 noinst_HEADERS = hmacsha1.h sha1.h
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
+AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+	$(WARN_CFLAGS)
 
 pam_timestamp_la_LDFLAGS = -no-undefined -avoid-version -module $(AM_LDFLAGS)
 pam_timestamp_la_LIBADD = $(top_builddir)/libpam/libpam.la

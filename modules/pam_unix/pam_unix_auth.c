@@ -1,7 +1,7 @@
 /*
  * Copyright Alexander O. Yuriev, 1996.  All rights reserved.
  * NIS+ support by Thorsten Kukuk <kukuk@weber.uni-paderborn.de>
- * Copyright Jan Rêkorajski, 1999.  All rights reserved.
+ * Copyright Jan RÄ™korajski, 1999.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -125,20 +125,21 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		 * allow this characters here.
 		 */
 		if (name == NULL || name[0] == '-' || name[0] == '+') {
-			pam_syslog(pamh, LOG_ERR, "bad username [%s]", name);
+			pam_syslog(pamh, LOG_NOTICE, "bad username [%s]", name);
 			retval = PAM_USER_UNKNOWN;
 			AUTH_RETURN;
 		}
 		if (on(UNIX_DEBUG, ctrl))
-			D(("username [%s] obtained", name));
+			pam_syslog(pamh, LOG_DEBUG, "username [%s] obtained", name);
 	} else {
-		D(("trouble reading username"));
 		if (retval == PAM_CONV_AGAIN) {
 			D(("pam_get_user/conv() function is not ready yet"));
 			/* it is safe to resume this function so we translate this
 			 * retval to the value that indicates we're happy to resume.
 			 */
 			retval = PAM_INCOMPLETE;
+		} else if (on(UNIX_DEBUG, ctrl)) {
+			pam_syslog(pamh, LOG_DEBUG, "could not obtain username");
 		}
 		AUTH_RETURN;
 	}
@@ -146,7 +147,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	/* if this user does not have a password... */
 
 	if (_unix_blankpasswd(pamh, ctrl, name)) {
-		D(("user '%s' has blank passwd", name));
+		pam_syslog(pamh, LOG_DEBUG, "user [%s] has blank password; authenticated without it", name);
 		name = NULL;
 		retval = PAM_SUCCESS;
 		AUTH_RETURN;

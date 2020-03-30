@@ -165,6 +165,19 @@
       </varlistentry>
       <varlistentry>
         <term>
+          <option>nullresetok</option>
+        </term>
+        <listitem>
+          <para>
+            Allow users to authenticate with blank password if password reset
+            is enforced even if <option>nullok</option> is not set. If password
+            reset is not required and <option>nullok</option> is not set the
+            authentication with blank password will be denied.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
           <option>try_first_pass</option>
         </term>
         <listitem>
@@ -293,11 +306,10 @@
         <listitem>
           <para>
             When a user changes their password next,
-            encrypt it with the SHA256 algorithm. If the
-            SHA256 algorithm is not known to the <citerefentry>
+            encrypt it with the SHA256 algorithm. The
+            SHA256 algorithm must be supported by the <citerefentry>
 	    <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
-            </citerefentry> function,
-            fall back to MD5.
+            </citerefentry> function.
           </para>
         </listitem>
       </varlistentry>
@@ -308,11 +320,10 @@
         <listitem>
           <para>
             When a user changes their password next,
-            encrypt it with the SHA512 algorithm. If the
-            SHA512 algorithm is not known to the <citerefentry>
+            encrypt it with the SHA512 algorithm. The
+            SHA512 algorithm must be supported by the <citerefentry>
 	    <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
-            </citerefentry> function,
-            fall back to MD5.
+            </citerefentry> function.
           </para>
         </listitem>
       </varlistentry>
@@ -323,11 +334,10 @@
         <listitem>
           <para>
             When a user changes their password next,
-            encrypt it with the blowfish algorithm. If the
-            blowfish algorithm is not known to the <citerefentry>
+            encrypt it with the blowfish algorithm. The
+            blowfish algorithm must be supported by the <citerefentry>
 	    <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
-            </citerefentry> function,
-            fall back to MD5.
+            </citerefentry> function.
           </para>
         </listitem>
       </varlistentry>
@@ -338,11 +348,10 @@
         <listitem>
           <para>
             When a user changes their password next,
-            encrypt it with the gost-yescrypt algorithm. If the
-            gost-yescrypt algorithm is not known to the <citerefentry>
+            encrypt it with the gost-yescrypt algorithm. The
+            gost-yescrypt algorithm must be supported by the <citerefentry>
 	    <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
-            </citerefentry> function,
-            fall back to MD5.
+            </citerefentry> function.
           </para>
         </listitem>
       </varlistentry>
@@ -353,11 +362,10 @@
         <listitem>
           <para>
             When a user changes their password next,
-            encrypt it with the yescrypt algorithm. If the
-            yescrypt algorithm is not known to the <citerefentry>
+            encrypt it with the yescrypt algorithm. The
+            yescrypt algorithm must be supported by the <citerefentry>
 	    <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
-            </citerefentry> function,
-            fall back to MD5.
+            </citerefentry> function.
           </para>
         </listitem>
       </varlistentry>

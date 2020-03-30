@@ -39,6 +39,7 @@
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
+#include "pam_inline.h"
 
 /* --- session management functions (only) --- */
 
@@ -136,7 +137,7 @@ static int join_dir_strings(char **strp_out, const char *a_str, const char *b_st
     int has_sep = 0;
     int retval = -1;
     char *join_strp = NULL;
-    
+
     if (strp_out == NULL || a_str == NULL || b_str == NULL) {
 	goto out;
     }
@@ -314,9 +315,10 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
     }
 
     for (; argc-- > 0; ++argv) {
-        if (!strncmp(*argv,"motd=",5)) {
+	const char *str;
+	if ((str = pam_str_skip_prefix(*argv, "motd=")) != NULL) {
 
-            motd_path = 5 + *argv;
+            motd_path = str;
             if (*motd_path != '\0') {
                 D(("set motd path: %s", motd_path));
 	    } else {
@@ -325,9 +327,9 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 			   "motd= specification missing argument - ignored");
 	    }
 	}
-	else if (!strncmp(*argv,"motd_dir=",9)) {
+	else if ((str = pam_str_skip_prefix(*argv, "motd_dir=")) != NULL) {
 
-            motd_dir_path = 9 + *argv;
+            motd_dir_path = str;
             if (*motd_dir_path != '\0') {
                 D(("set motd.d path: %s", motd_dir_path));
 	    } else {
@@ -396,7 +398,9 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
     _pam_drop(motd_dir_path_copy);
     _pam_drop(motd_dir_path_split);
 
-    return retval;
+    retval = pam_putenv(pamh, "MOTD_SHOWN=pam");
+
+    return retval == PAM_SUCCESS ? PAM_IGNORE : retval;
 }
 
 /* end of module definition */

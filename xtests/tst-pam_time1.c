@@ -49,6 +49,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <security/pam_appl.h>
+#include "pam_inline.h"
 
 
 struct test_t {
@@ -65,8 +66,6 @@ static struct test_t tests[] = {
   {"y",  6},
 };
 
-static int num_tests = sizeof (tests) / sizeof (struct test_t);
-
 static struct pam_conv conv = {
   NULL, NULL
 };
@@ -77,12 +76,12 @@ main(int argc, char *argv[])
   pam_handle_t *pamh = NULL;
   int retval;
   int debug = 0;
-  int i;
+  unsigned int i;
 
   if (argc > 1 && strcmp (argv[1], "-d") == 0)
     debug = 1;
 
-  for (i = 0; i < num_tests; i++)
+  for (i = 0; i < PAM_ARRAY_SIZE(tests); i++)
     {
       retval = pam_start("tst-pam_time1", tests[i].user, &conv, &pamh);
       if (retval != PAM_SUCCESS)

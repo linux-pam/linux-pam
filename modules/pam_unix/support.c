@@ -28,6 +28,8 @@
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
+#include "pam_cc_compat.h"
+#include "pam_inline.h"
 #include "support.h"
 #include "passverify.h"
 
@@ -111,17 +113,20 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 	/* now parse the arguments to this module */
 
 	for (; argc-- > 0; ++argv) {
+		const char *str = NULL;
 
 		D(("pam_unix arg: %s", *argv));
 
 		for (j = 0; j < UNIX_CTRLS_; ++j) {
 			if (unix_args[j].token
-			    && !strncmp(*argv, unix_args[j].token, strlen(unix_args[j].token))) {
+			    && (str = pam_str_skip_prefix_len(*argv,
+							      unix_args[j].token,
+							      strlen(unix_args[j].token))) != NULL) {
 				break;
 			}
 		}
 
-		if (j >= UNIX_CTRLS_) {
+		if (str == NULL) {
 			pam_syslog(pamh, LOG_ERR,
 			         "unrecognized option [%s]", *argv);
 		} else {
@@ -132,7 +137,7 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 					    "option remember not allowed for this module type");
 					continue;
 				}
-				*remember = strtol(*argv + 9, NULL, 10);
+				*remember = strtol(str, NULL, 10);
 				if ((*remember == INT_MIN) || (*remember == INT_MAX))
 					*remember = -1;
 				if (*remember > 400)
@@ -143,14 +148,14 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 					    "option minlen not allowed for this module type");
 					continue;
 				}
-				*pass_min_len = atoi(*argv + 7);
+				*pass_min_len = atoi(str);
 			} else if (j == UNIX_ALGO_ROUNDS) {
 				if (rounds == NULL) {
 					pam_syslog(pamh, LOG_ERR,
 					    "option rounds not allowed for this module type");
 					continue;
 				}
-				*rounds = strtol(*argv + 7, NULL, 10);
+				*rounds = strtol(str, NULL, 10);
 			}
 
 			ctrl &= unix_args[j].mask;	/* for turning things off */
@@ -209,11 +214,6 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 
 	D(("done."));
 	return ctrl;
-}
-
-static void _cleanup(pam_handle_t * pamh UNUSED, void *x, int error_status UNUSED)
-{
-	_pam_delete(x);
 }
 
 /* ************************************************************** *
@@ -355,7 +355,7 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 	}
 #else
 	/* we don't have NIS support, make compiler happy. */
-	nis = 0;
+	(void) nis;
 #endif
 
 	if (matched && (ret != NULL)) {
@@ -531,7 +531,9 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	  args[2]="nonull";
 	}
 
+	DIAG_PUSH_IGNORE_CAST_QUAL;
 	execve(CHKPWD_HELPER, (char *const *) args, envp);
+	DIAG_POP_IGNORE_CAST_QUAL;
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));
@@ -597,6 +599,7 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 {
 	struct passwd *pwd = NULL;
 	char *salt = NULL;
+	int daysleft;
 	int retval;
 
 	D(("called"));
@@ -606,6 +609,15 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 	 * wrong, return FALSE and let this case to be treated somewhere
 	 * else (CG)
 	 */
+
+	if (on(UNIX_NULLRESETOK, ctrl)) {
+	    retval = _unix_verify_user(pamh, ctrl, name, &daysleft);
+	    if (retval == PAM_NEW_AUTHTOK_REQD) {
+	        /* password reset is enforced, allow authentication with empty password */
+	        pam_syslog(pamh, LOG_DEBUG, "user [%s] has expired blank password, enabling nullok", name);
+	        set(UNIX__NULLOK, ctrl);
+	    }
+	}
 
 	if (on(UNIX__NONULL, ctrl))
 		return 0;	/* will fail but don't let on yet */
@@ -646,6 +658,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	struct passwd *pwd = NULL;
 	char *salt = NULL;
 	char *data_name;
+	char pw[MAXPASS + 1];
 	int retval;
 
 
@@ -670,6 +683,11 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	} else {
 		strcpy(data_name, FAIL_PREFIX);
 		strcpy(data_name + sizeof(FAIL_PREFIX) - 1, name);
+	}
+
+	if (p != NULL && strlen(p) > MAXPASS) {
+		memset(pw, 0, sizeof(pw));
+		p = strncpy(pw, p, sizeof(pw) - 1);
 	}
 
 	if (retval != PAM_SUCCESS) {
@@ -781,6 +799,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	}
 
 cleanup:
+	memset(pw, 0, sizeof(pw)); /* clear memory of the password */
 	if (data_name)
 		_pam_delete(data_name);
 	if (salt)
@@ -791,8 +810,45 @@ cleanup:
 	return retval;
 }
 
+int
+_unix_verify_user(pam_handle_t *pamh,
+                  unsigned long long ctrl,
+                  const char *name,
+                  int *daysleft)
+{
+    int retval;
+    struct spwd *spent;
+    struct passwd *pwent;
+
+    retval = get_account_info(pamh, name, &pwent, &spent);
+    if (retval == PAM_USER_UNKNOWN) {
+        pam_syslog(pamh, LOG_ERR,
+             "could not identify user (from getpwnam(%s))",
+             name);
+        return retval;
+    }
+
+    if (retval == PAM_SUCCESS && spent == NULL)
+        return PAM_SUCCESS;
+
+    if (retval == PAM_UNIX_RUN_HELPER) {
+        retval = _unix_run_verify_binary(pamh, ctrl, name, daysleft);
+        if (retval == PAM_AUTHINFO_UNAVAIL &&
+            on(UNIX_BROKEN_SHADOW, ctrl))
+            return PAM_SUCCESS;
+    } else if (retval != PAM_SUCCESS) {
+        if (on(UNIX_BROKEN_SHADOW,ctrl))
+            return PAM_SUCCESS;
+        else
+            return retval;
+    } else
+        retval = check_shadow_expiry(pamh, spent, daysleft);
+
+    return retval;
+}
+
 /* ****************************************************************** *
- * Copyright (c) Jan Rêkorajski 1999.
+ * Copyright (c) Jan Rękorajski 1999.
  * Copyright (c) Andrew G. Morgan 1996-8.
  * Copyright (c) Alex O. Yuriev, 1996.
  * Copyright (c) Cristian Gafton 1996.

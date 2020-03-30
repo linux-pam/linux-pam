@@ -7,6 +7,7 @@
  */
 
 #include "pam_private.h"
+#include "pam_inline.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -280,9 +281,14 @@ _pam_open_config_file(pam_handle_t *pamh
 			, char **path
 			, FILE **file)
 {
-    char *p;
+    const char *pamd_dirs[] = { PAM_CONFIG_DF, PAM_CONFIG_DIST_DF
+#ifdef VENDORDIR
+                               , PAM_CONFIG_DIST2_DF
+#endif
+    };
+    char *p = NULL;
     FILE *f;
-    int err = 0;
+    size_t i;
 
     /* Absolute path */
     if (service[0] == '/') {
@@ -291,45 +297,40 @@ _pam_open_config_file(pam_handle_t *pamh
 	    pam_syslog(pamh, LOG_CRIT, "strdup failed");
 	    return PAM_BUF_ERR;
 	}
+    } else if (pamh->confdir != NULL) {
+        if (asprintf (&p, "%s/%s", pamh->confdir, service) < 0) {
+	    pam_syslog(pamh, LOG_CRIT, "asprintf failed");
+	    return PAM_BUF_ERR;
+	}
+    }
 
-	f = fopen(service, "r");
+    if (p != NULL) {
+	D(("opening %s", p));
+	f = fopen(p, "r");
 	if (f != NULL) {
 	    *path = p;
 	    *file = f;
 	    return PAM_SUCCESS;
 	}
-
 	_pam_drop(p);
 	return PAM_ABORT;
     }
 
-    /* Local Machine Configuration /etc/pam.d/ */
-    if (asprintf (&p, PAM_CONFIG_DF, service) < 0) {
-	pam_syslog(pamh, LOG_CRIT, "asprintf failed");
-	return PAM_BUF_ERR;
-    }
-    D(("opening %s", p));
-    f = fopen(p, "r");
-    if (f != NULL) {
-	    *path = p;
-	    *file = f;
-	    return PAM_SUCCESS;
-    }
+    for (i = 0; i < PAM_ARRAY_SIZE(pamd_dirs); i++) {
+        if (asprintf (&p, pamd_dirs[i], service) < 0) {
+	    pam_syslog(pamh, LOG_CRIT, "asprintf failed");
+	    return PAM_BUF_ERR;
+	}
 
-    /* System Configuration /usr/lib/pam.d/ */
-    _pam_drop(p);
-    if (asprintf (&p, PAM_CONFIG_DIST_DF, service) < 0) {
-	pam_syslog(pamh, LOG_CRIT, "asprintf failed");
-	return PAM_BUF_ERR;
-    }
-    D(("opening %s", p));
-    f = fopen(p, "r");
-    if (f != NULL) {
+	D(("opening %s", p));
+	f = fopen(p, "r");
+	if (f != NULL) {
 	    *path = p;
 	    *file = f;
 	    return PAM_SUCCESS;
+	}
+	_pam_drop(p);
     }
-    _pam_drop(p);
 
     return PAM_ABORT;
 }
@@ -446,8 +447,14 @@ int _pam_init_handlers(pam_handle_t *pamh)
 	struct stat test_d;
 
 	/* Is there a PAM_CONFIG_D directory? */
-	if ((stat(PAM_CONFIG_D, &test_d) == 0 && S_ISDIR(test_d.st_mode)) ||
-	    (stat(PAM_CONFIG_DIST_D, &test_d) == 0 && S_ISDIR(test_d.st_mode))) {
+	if (pamh->confdir != NULL ||
+	    (stat(PAM_CONFIG_D, &test_d) == 0 && S_ISDIR(test_d.st_mode)) ||
+	    (stat(PAM_CONFIG_DIST_D, &test_d) == 0 && S_ISDIR(test_d.st_mode))
+#ifdef PAM_CONFIG_DIST2_D
+	    || (stat(PAM_CONFIG_DIST2_D, &test_d) == 0
+		&& S_ISDIR(test_d.st_mode))
+#endif
+	   ) {
 	    char *path = NULL;
 	    int read_something=0;
 
@@ -474,7 +481,8 @@ int _pam_init_handlers(pam_handle_t *pamh)
 #ifdef PAM_READ_BOTH_CONFS
 		D(("checking %s", PAM_CONFIG));
 
-		if ((f = fopen(PAM_CONFIG,"r")) != NULL) {
+		if (pamh->confdir == NULL
+		    && (f = fopen(PAM_CONFIG,"r")) != NULL) {
 		    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY, 0, 1);
 		    fclose(f);
 		} else
@@ -551,7 +559,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 
 /*
  * This is where we read a line of the PAM config file. The line may be
- * preceeded by lines of comments and also extended with "\\\n"
+ * preceded by lines of comments and also extended with "\\\n"
  */
 
 static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
@@ -665,7 +673,6 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 {
     int x = 0;
     int success;
-    char *mod_full_isa_path=NULL, *isa=NULL;
     struct loaded_module *mod;
 
     D(("_pam_load_module: loading module `%s'", mod_path));
@@ -704,19 +711,27 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 	D(("_pam_load_module: _pam_dlopen'ed"));
 	D(("_pam_load_module: dlopen'ed"));
 	if (mod->dl_handle == NULL) {
-	    if (strstr(mod_path, "$ISA")) {
-		mod_full_isa_path = malloc(strlen(mod_path) + strlen(_PAM_ISA) + 1);
+	    const char *isa = strstr(mod_path, "$ISA");
+	    size_t isa_len = strlen("$ISA");
+
+	    if (isa != NULL) {
+		size_t pam_isa_len = strlen(_PAM_ISA);
+		char *mod_full_isa_path =
+			malloc(strlen(mod_path) - isa_len + pam_isa_len + 1);
+
 		if (mod_full_isa_path == NULL) {
 		    D(("_pam_load_module: couldn't get memory for mod_path"));
 		    pam_syslog(pamh, LOG_CRIT, "no memory for module path");
 		    success = PAM_ABORT;
 		} else {
-		    strcpy(mod_full_isa_path, mod_path);
-                    isa = strstr(mod_full_isa_path, "$ISA");
-		    if (isa) {
-		        memmove(isa + strlen(_PAM_ISA), isa + 4, strlen(isa + 4) + 1);
-		        memmove(isa, _PAM_ISA, strlen(_PAM_ISA));
-		    }
+		    char *p = mod_full_isa_path;
+
+		    memcpy(p, mod_path, isa - mod_path);
+		    p += isa - mod_path;
+		    memcpy(p, _PAM_ISA, pam_isa_len);
+		    p += pam_isa_len;
+		    strcpy(p, isa + isa_len);
+
 		    mod->dl_handle = _pam_dlopen(mod_full_isa_path);
 		    _pam_drop(mod_full_isa_path);
 		}
@@ -1019,7 +1034,7 @@ void _pam_free_handlers_aux(struct handler **hp)
     D(("called."));
     while (h) {
 	last = h;
-	_pam_drop(h->argv);  /* This is all alocated in a single chunk */
+	_pam_drop(h->argv);  /* This is all allocated in a single chunk */
 	_pam_drop(h->mod_name);
 	h = h->next;
 	memset(last, 0, sizeof(*last));

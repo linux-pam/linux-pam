@@ -7,7 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) limits.conf tst-pam_limits
 
+if HAVE_DOC
 man_MANS = limits.conf.5 pam_limits.8
+endif
 XMLS = README.xml limits.conf.5.xml pam_limits.8.xml
 
 TESTS = tst-pam_limits
@@ -18,7 +20,7 @@ limits_conf_dir = $(SCONFIGDIR)/limits.d
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	-DLIMITS_FILE_DIR=\"$(limits_conf_dir)/*.conf\" \
-	-DLIMITS_FILE=\"$(SCONFIGDIR)/limits.conf\"
+	-DLIMITS_FILE=\"$(SCONFIGDIR)/limits.conf\" $(WARN_CFLAGS)
 AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map

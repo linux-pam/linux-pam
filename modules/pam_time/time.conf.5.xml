@@ -65,6 +65,12 @@
     </para>
 
     <para>
+      A logic list namely means individual tokens that are optionally prefixed
+      with '!' (logical not) and separated with '&amp;' (logical and) and '|'
+      (logical or).
+    </para>
+
+    <para>
       For these items the simple wildcard '*' may be used only once.
       With netgroups no wildcards or logic operators are allowed.
     </para>

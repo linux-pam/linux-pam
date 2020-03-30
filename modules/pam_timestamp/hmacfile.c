@@ -33,6 +33,8 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "pam_inline.h"
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
@@ -104,7 +106,7 @@ testvectors(void)
 		"e8e99d0f45237d786d6bbaa7965c7808bbff1a91",
 		},
 	};
-	for (i = 0; i < sizeof(vectors) / sizeof(vectors[0]); i++) {
+	for (i = 0; i < PAM_ARRAY_SIZE(vectors); i++) {
 		hmac = NULL;
 		hmac_len = 0;
 		hmac_sha1_generate(&hmac, &hmac_len,
@@ -118,14 +120,16 @@ testvectors(void)
 				if (strncasecmp(hex,
 						vectors[i].hmac + 2 * j,
 						2) != 0) {
-					printf("Incorrect result for vector %lu\n", i + 1);
+					printf("Incorrect result for vector %lu\n",
+					       (unsigned long) i + 1);
 					exit(1);
 
 				}
 			}
 			free(hmac);
 		} else {
-			printf("Error in vector %lu.\n", i + 1);
+			printf("Error in vector %lu.\n",
+			       (unsigned long) i + 1);
 			exit(1);
 		}
 	}

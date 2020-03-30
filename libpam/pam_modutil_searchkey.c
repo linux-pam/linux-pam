@@ -13,8 +13,40 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#ifdef USE_ECONF
+#include <libeconf.h>
+#endif
 
 #define BUF_SIZE 8192
+
+#ifdef USE_ECONF
+#define LOGIN_DEFS "/etc/login.defs"
+
+#ifndef VENDORDIR
+#define VENDORDIR NULL
+#endif
+
+static char *
+econf_search_key (const char *name, const char *suffix, const char *key)
+{
+	econf_file *key_file = NULL;
+	char *val;
+
+	if (econf_readDirs (&key_file, VENDORDIR, SYSCONFDIR, name, suffix,
+			    " \t", "#"))
+		return NULL;
+
+	if (econf_getStringValue (key_file, NULL, key, &val)) {
+		econf_free (key_file);
+		return NULL;
+	}
+
+	econf_free (key_file);
+
+	return val;
+}
+
+#endif
 
 /* lookup a value for key in login.defs file or similar key value format */
 char *
@@ -26,6 +58,11 @@ pam_modutil_search_key(pam_handle_t *pamh UNUSED,
 	char *buf = NULL;
 	size_t buflen = 0;
 	char *retval = NULL;
+
+#ifdef USE_ECONF
+	if (strcmp (file_name, LOGIN_DEFS) == 0)
+		return econf_search_key ("login", ".defs", key);
+#endif
 
 	fp = fopen(file_name, "r");
 	if (NULL == fp)
@@ -76,7 +113,7 @@ pam_modutil_search_key(pam_handle_t *pamh UNUSED,
 			while (isspace((int)*cp) || *cp == '=')
 				++cp;
 		else
-			cp = "";
+			cp = buf + n;   /* empty string */
 
 		if (strcasecmp(tmp, key) == 0) {
 			retval = strdup(cp);

@@ -13,7 +13,7 @@
  * 0.5. supports retries - 'retry=N' argument
  * 0.4. added argument 'type=XXX' for 'New XXX password' prompt
  * 0.3. Added argument 'debug'
- * 0.2. new password is feeded to cracklib for verify after typed once
+ * 0.2. new password is fed to cracklib for verify after typed once
  * 0.1. First release
  */
 
@@ -81,6 +81,7 @@ extern char *FascistCheck(char *pw, const char *dictpath);
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 /* argument parsing */
 #define PAM_DEBUG_ARG       0x0001
@@ -121,78 +122,79 @@ _pam_parse (pam_handle_t *pamh, struct cracklib_options *opt,
 
      /* step through arguments */
      for (ctrl=0; argc-- > 0; ++argv) {
+	 const char *str;
 	 char *ep = NULL;
 
 	 /* generic options */
 
 	 if (!strcmp(*argv,"debug"))
 	     ctrl |= PAM_DEBUG_ARG;
-	 else if (!strncmp(*argv,"type=",5))
-	     pam_set_item (pamh, PAM_AUTHTOK_TYPE, *argv+5);
-	 else if (!strncmp(*argv,"retry=",6)) {
-	     opt->retry_times = strtol(*argv+6,&ep,10);
+	 else if ((str = pam_str_skip_prefix(*argv, "type=")) != NULL)
+	     pam_set_item (pamh, PAM_AUTHTOK_TYPE, str);
+	 else if ((str = pam_str_skip_prefix(*argv, "retry=")) != NULL) {
+	     opt->retry_times = strtol(str, &ep, 10);
 	     if (!ep || (opt->retry_times < 1))
 		 opt->retry_times = CO_RETRY_TIMES;
-	 } else if (!strncmp(*argv,"difok=",6)) {
-	     opt->diff_ok = strtol(*argv+6,&ep,10);
+	 } else if ((str = pam_str_skip_prefix(*argv, "difok=")) != NULL) {
+	     opt->diff_ok = strtol(str, &ep, 10);
 	     if (!ep || (opt->diff_ok < 0))
 		 opt->diff_ok = CO_DIFF_OK;
-	 } else if (!strncmp(*argv,"difignore=",10)) {
+	 } else if (pam_str_skip_prefix(*argv, "difignore=") != NULL) {
 		/* just ignore */
-	 } else if (!strncmp(*argv,"minlen=",7)) {
-	     opt->min_length = strtol(*argv+7,&ep,10);
+	 } else if ((str = pam_str_skip_prefix(*argv, "minlen=")) != NULL) {
+	     opt->min_length = strtol(str, &ep, 10);
 	     if (!ep || (opt->min_length < CO_MIN_LENGTH_BASE))
 		 opt->min_length = CO_MIN_LENGTH_BASE;
-	 } else if (!strncmp(*argv,"dcredit=",8)) {
-	     opt->dig_credit = strtol(*argv+8,&ep,10);
+	 } else if ((str = pam_str_skip_prefix(*argv, "dcredit=")) != NULL) {
+	     opt->dig_credit = strtol(str, &ep, 10);
 	     if (!ep)
 		 opt->dig_credit = 0;
-	 } else if (!strncmp(*argv,"ucredit=",8)) {
-	     opt->up_credit = strtol(*argv+8,&ep,10);
+	 } else if ((str = pam_str_skip_prefix(*argv, "ucredit=")) != NULL) {
+	     opt->up_credit = strtol(str, &ep, 10);
 	     if (!ep)
 		 opt->up_credit = 0;
-	 } else if (!strncmp(*argv,"lcredit=",8)) {
-	     opt->low_credit = strtol(*argv+8,&ep,10);
+	 } else if ((str = pam_str_skip_prefix(*argv, "lcredit=")) != NULL) {
+	     opt->low_credit = strtol(str, &ep, 10);
 	     if (!ep)
 		 opt->low_credit = 0;
-	 } else if (!strncmp(*argv,"ocredit=",8)) {
-	     opt->oth_credit = strtol(*argv+8,&ep,10);
+	 } else if ((str = pam_str_skip_prefix(*argv, "ocredit=")) != NULL) {
+	     opt->oth_credit = strtol(str, &ep, 10);
 	     if (!ep)
 		 opt->oth_credit = 0;
-         } else if (!strncmp(*argv,"minclass=",9)) {
-             opt->min_class = strtol(*argv+9,&ep,10);
+	 } else if ((str = pam_str_skip_prefix(*argv, "minclass=")) != NULL) {
+             opt->min_class = strtol(str, &ep, 10);
              if (!ep)
                  opt->min_class = 0;
              if (opt->min_class > 4)
                  opt->min_class = 4;
-         } else if (!strncmp(*argv,"maxrepeat=",10)) {
-             opt->max_repeat = strtol(*argv+10,&ep,10);
+	 } else if ((str = pam_str_skip_prefix(*argv, "maxrepeat=")) != NULL) {
+             opt->max_repeat = strtol(str, &ep, 10);
              if (!ep)
                  opt->max_repeat = 0;
-         } else if (!strncmp(*argv,"maxsequence=",12)) {
-             opt->max_sequence = strtol(*argv+12,&ep,10);
+	 } else if ((str = pam_str_skip_prefix(*argv, "maxsequence=")) != NULL) {
+             opt->max_sequence = strtol(str, &ep, 10);
              if (!ep)
                  opt->max_sequence = 0;
-         } else if (!strncmp(*argv,"maxclassrepeat=",15)) {
-             opt->max_class_repeat = strtol(*argv+15,&ep,10);
+	 } else if ((str = pam_str_skip_prefix(*argv, "maxclassrepeat=")) != NULL) {
+             opt->max_class_repeat = strtol(str, &ep, 10);
              if (!ep)
                  opt->max_class_repeat = 0;
-	 } else if (!strncmp(*argv,"reject_username",15)) {
+	 } else if (!strcmp(*argv, "reject_username")) {
 		 opt->reject_user = 1;
-	 } else if (!strncmp(*argv,"gecoscheck",10)) {
+	 } else if (!strcmp(*argv, "gecoscheck")) {
 		 opt->gecos_check = 1;
-	 } else if (!strncmp(*argv,"enforce_for_root",16)) {
+	 } else if (!strcmp(*argv, "enforce_for_root")) {
 		  opt->enforce_for_root = 1;
-	 } else if (!strncmp(*argv,"authtok_type",12)) {
+	 } else if (pam_str_skip_prefix(*argv, "authtok_type=") != NULL) {
 	   /* for pam_get_authtok, ignore */;
-	 } else if (!strncmp(*argv,"use_authtok",11)) {
+	 } else if (!strcmp(*argv, "use_authtok")) {
            /* for pam_get_authtok, ignore */;
-	 } else if (!strncmp(*argv,"use_first_pass",14)) {
+	 } else if (!strcmp(*argv, "use_first_pass")) {
 	   /* for pam_get_authtok, ignore */;
-	 } else if (!strncmp(*argv,"try_first_pass",14)) {
+	 } else if (!strcmp(*argv, "try_first_pass")) {
 	   /* for pam_get_authtok, ignore */;
-	 } else if (!strncmp(*argv,"dictpath=",9)) {
-	     opt->cracklib_dictpath = *argv+9;
+	 } else if ((str = pam_str_skip_prefix(*argv, "dictpath=")) != NULL) {
+	     opt->cracklib_dictpath = str;
 	     if (!*(opt->cracklib_dictpath)) {
 		 opt->cracklib_dictpath = CRACKLIB_DICTS;
 	     }
@@ -315,7 +317,7 @@ static int similar(struct cracklib_options *opt,
 }
 
 /*
- * enough classes of charecters
+ * enough classes of characters
  */
 
 static int minclass (struct cracklib_options *opt,

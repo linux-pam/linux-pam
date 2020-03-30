@@ -9,13 +9,16 @@ EXTRA_DIST = README pam_tty_audit.8 $(XMLS) tst-pam_tty_audit
 
 if HAVE_AUDIT_TTY_STATUS
   TESTS = tst-pam_tty_audit
+if HAVE_DOC
   man_MANS = pam_tty_audit.8
+endif
 endif
 XMLS = README.xml pam_tty_audit.8.xml
 
 securelibdir = $(SECUREDIR)
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
+AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+	$(WARN_CFLAGS)
 AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map

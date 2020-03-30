@@ -40,6 +40,7 @@
 #include <string.h>
 
 #include <security/pam_appl.h>
+#include "pam_inline.h"
 
 struct mapping {
   int type;
@@ -68,7 +69,8 @@ main (void)
   const char *user = "root";
   struct pam_conv conv;
   pam_handle_t *pamh;
-  int retval, num, i;
+  int retval;
+  unsigned int i;
 
   /* 1: Call with NULL as pam handle */
   retval = pam_set_item (NULL, PAM_SERVICE, "dummy");
@@ -108,9 +110,7 @@ main (void)
     }
 
   /* 4: try to replace all items */
-  num = sizeof(items) / sizeof(struct mapping);
-
-  for (i = 0; i < num; i++)
+  for (i = 0; i < PAM_ARRAY_SIZE(items); i++)
     {
       retval = pam_set_item (pamh, items[i].type, items[i].new_value);
 

@@ -54,6 +54,9 @@
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 
+#include "pam_cc_compat.h"
+#include "pam_inline.h"
+
 #define DATANAME "pam_tty_audit_last_state"
 
 /* Open an audit netlink socket */
@@ -79,7 +82,9 @@ nl_send (int fd, unsigned type, unsigned flags, const void *data, size_t size)
   nlm.nlmsg_pid = 0;
   iov[0].iov_base = &nlm;
   iov[0].iov_len = sizeof (nlm);
+  DIAG_PUSH_IGNORE_CAST_QUAL;
   iov[1].iov_base = (void *)data;
+  DIAG_POP_IGNORE_CAST_QUAL;
   iov[1].iov_len = size;
   addr.nl_family = AF_NETLINK;
   addr.nl_pid = 0;
@@ -284,14 +289,16 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
 #endif /* HAVE_STRUCT_AUDIT_TTY_STATUS_LOG_PASSWD */
   for (i = 0; i < argc; i++)
     {
-      if (strncmp (argv[i], "enable=", 7) == 0
-	  || strncmp (argv[i], "disable=", 8) == 0)
+      const char *str;
+
+      if ((str = pam_str_skip_prefix(argv[i], "enable=")) != NULL
+	  || (str = pam_str_skip_prefix(argv[i], "disable=")) != NULL)
 	{
 	  enum command this_command;
 	  char *copy, *tok_data, *tok;
 
 	  this_command = *argv[i] == 'e' ? CMD_ENABLE : CMD_DISABLE;
-	  copy = strdup (strchr (argv[i], '=') + 1);
+	  copy = strdup (str);
 	  if (copy == NULL)
 	    return PAM_SESSION_ERR;
 	  for (tok = strtok_r (copy, ",", &tok_data);
@@ -347,6 +354,14 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
 
   fd = nl_open ();
   if (fd == -1
+      && errno == EPROTONOSUPPORT)
+    {
+      pam_syslog (pamh, LOG_WARNING, "unable to open audit socket, audit not "
+                  "supported; tty_audit skipped");
+      free (old_status);
+      return PAM_IGNORE;
+    }
+  else if (fd == -1
       || nl_send (fd, AUDIT_TTY_GET, 0, NULL, 0) != 0
       || nl_recv (fd, AUDIT_TTY_GET, old_status, sizeof (*old_status)) != 0)
     {

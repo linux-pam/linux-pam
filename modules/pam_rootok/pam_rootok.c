@@ -61,7 +61,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
 
 #ifdef WITH_SELINUX
 static int
-log_callback (int type, const char *fmt, ...)
+log_callback (int type UNUSED, const char *fmt, ...)
 {
     int audit_fd;
     va_list ap;
@@ -73,12 +73,15 @@ log_callback (int type, const char *fmt, ...)
     if (audit_fd >= 0) {
 	char *buf;
 
-	if (vasprintf (&buf, fmt, ap) < 0)
+	if (vasprintf (&buf, fmt, ap) < 0) {
+		va_end(ap);
 		return 0;
+	}
 	audit_log_user_avc_message(audit_fd, AUDIT_USER_AVC, buf, NULL, NULL,
 				   NULL, 0);
 	audit_close(audit_fd);
 	free(buf);
+	va_end(ap);
 	return 0;
     }
 

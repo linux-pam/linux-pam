@@ -7,7 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_issue
 
+if HAVE_DOC
 man_MANS = pam_issue.8
+endif
 XMLS = README.xml pam_issue.8.xml
 
 TESTS = tst-pam_issue
@@ -15,7 +17,8 @@ TESTS = tst-pam_issue
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
+AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+	$(WARN_CFLAGS)
 AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map

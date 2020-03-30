@@ -34,6 +34,8 @@
 
 #define _ATFILE_SOURCE
 
+#include "pam_cc_compat.h"
+#include "pam_inline.h"
 #include "pam_namespace.h"
 #include "argv_parse.h"
 
@@ -230,6 +232,73 @@ static int parse_iscript_params(char *params, struct polydir_s *poly)
     return 0;
 }
 
+struct mntflag {
+    const char *name;
+    size_t len;
+    unsigned long flag;
+};
+
+#define LITERAL_AND_LEN(x) x, sizeof(x) - 1
+
+static const struct mntflag mntflags[] = {
+	{ LITERAL_AND_LEN("noexec"), MS_NOEXEC },
+	{ LITERAL_AND_LEN("nosuid"), MS_NOSUID },
+	{ LITERAL_AND_LEN("nodev"), MS_NODEV }
+    };
+
+static int filter_mntopts(const char *opts, char **filtered,
+		unsigned long *mountflags)
+{
+    size_t origlen = strlen(opts);
+    const char *end;
+    char *dest;
+
+    dest = *filtered = NULL;
+    *mountflags = 0;
+
+    if (origlen == 0)
+	return 0;
+
+    do {
+	size_t len;
+	unsigned int i;
+
+	end = strchr(opts, ',');
+	if (end == NULL) {
+	    len = strlen(opts);
+	} else {
+	    len = end - opts;
+	}
+
+	for (i = 0; i < PAM_ARRAY_SIZE(mntflags); i++) {
+	    if (mntflags[i].len != len)
+		continue;
+	    if (memcmp(mntflags[i].name, opts, len) == 0) {
+		*mountflags |= mntflags[i].flag;
+		opts = end;
+		break;
+	    }
+	}
+
+	if (opts != end) {
+	    if (dest != NULL) {
+		*dest = ',';
+		++dest;
+	    } else {
+		dest = *filtered = calloc(1, origlen + 1);
+		if (dest == NULL)
+		    return -1;
+	    }
+	    memcpy(dest, opts, len);
+	    dest += len;
+	}
+
+	opts = end + 1;
+    } while (end != NULL);
+
+    return 0;
+}
+
 static int parse_method(char *method, struct polydir_s *poly,
 		struct instance_data *idata)
 {
@@ -289,7 +358,8 @@ static int parse_method(char *method, struct polydir_s *poly,
 					break;
 				}
 				free(poly->mount_opts); /* if duplicate mntopts specified */
-				if ((poly->mount_opts = strdup(flag+namelen+1)) == NULL) {
+				poly->mount_opts = NULL;
+				if (filter_mntopts(flag+namelen+1, &poly->mount_opts, &poly->mount_flags) != 0) {
 					pam_syslog(idata->pamh, LOG_CRIT, "Memory allocation error");
 					return -1;
 				}
@@ -670,7 +740,7 @@ static int parse_config_file(struct instance_data *idata)
 
 
 /*
- * This funtion returns true if a given uid is present in the polyinstantiated
+ * This function returns true if a given uid is present in the polyinstantiated
  * directory's list of override uids. If the uid is one of the override
  * uids for the polyinstantiated directory, polyinstantiation is not
  * performed for that user for that directory.
@@ -810,7 +880,7 @@ static int form_context(const struct polydir_s *polyptr,
 			goto fail;
 		}
 		if (context_range_set(fcontext, context_range_get(scontext)) != 0) {
-			pam_syslog(idata->pamh, LOG_ERR, "Unable to set MLS Componant of context");
+			pam_syslog(idata->pamh, LOG_ERR, "Unable to set MLS Component of context");
 			goto fail;
 		}
 		*i_context=strdup(context_str(fcontext));
@@ -1484,7 +1554,7 @@ static int ns_setup(struct polydir_s *polyptr,
     }
 
     if (polyptr->method == TMPFS) {
-	if (mount("tmpfs", polyptr->dir, "tmpfs", 0, polyptr->mount_opts) < 0) {
+	if (mount("tmpfs", polyptr->dir, "tmpfs", polyptr->mount_flags, polyptr->mount_opts) < 0) {
 	    pam_syslog(idata->pamh, LOG_ERR, "Error mounting tmpfs on %s, %m",
 		polyptr->dir);
             return PAM_SESSION_ERR;
@@ -1941,7 +2011,7 @@ static int root_shared(void)
                  break;
 
              if (i == 6) {
-                if (strncmp(tok, "shared:", 7) == 0)
+                if (pam_str_skip_prefix(tok, "shared:") != NULL)
                  /* there might be more / mounts, the last one counts */
                     rv = 1;
                 else
@@ -2109,7 +2179,7 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 {
     int i, retval;
     struct instance_data idata;
-    void *polyptr;
+    const void *polyptr;
 
     /* init instance data */
     idata.flags = 0;
@@ -2149,7 +2219,7 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 	pam_set_data(idata.pamh, NAMESPACE_PROTECT_DATA, NULL, NULL);
 
 	if (idata.flags & PAMNS_DEBUG)
-	    pam_syslog(idata.pamh, LOG_DEBUG, "close_session - sucessful");
+	    pam_syslog(idata.pamh, LOG_DEBUG, "close_session - successful");
         return PAM_SUCCESS;
     }
 
@@ -2157,12 +2227,14 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
     if (retval != PAM_SUCCESS)
 	return retval;
 
-    retval = pam_get_data(idata.pamh, NAMESPACE_POLYDIR_DATA, (const void **)&polyptr);
+    retval = pam_get_data(idata.pamh, NAMESPACE_POLYDIR_DATA, &polyptr);
     if (retval != PAM_SUCCESS || polyptr == NULL)
 	/* nothing to reset */
 	return PAM_SUCCESS;
 
-    idata.polydirs_ptr = polyptr;
+    DIAG_PUSH_IGNORE_CAST_QUAL;
+    idata.polydirs_ptr = (void *)polyptr;
+    DIAG_POP_IGNORE_CAST_QUAL;
 
     if (idata.flags & PAMNS_DEBUG)
         pam_syslog(idata.pamh, LOG_DEBUG, "Resetting namespace for pid %d",

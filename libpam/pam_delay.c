@@ -44,10 +44,10 @@ void _pam_start_timer(pam_handle_t *pamh)
 
 /* *******************************************************************
  * Compute a pseudo random time. The value is base*(1 +/- 1/5) where
- * the distribution is pseudo gausian (the sum of three evenly
+ * the distribution is pseudo gaussian (the sum of three evenly
  * distributed random numbers -- central limit theorem and all ;^) The
  * linear random numbers are based on a formulae given in Knuth's
- * Seminumerical recipies that was reproduced in `Numerical Recipies
+ * Seminumerical recipes that was reproduced in `Numerical Recipes
  * in C'. It is *not* a cryptographically strong generator, but it is
  * probably "good enough" for our purposes here.
  *
@@ -79,9 +79,11 @@ static unsigned int _pam_compute_delay(unsigned int seed, unsigned int base)
 }
 
 /* **********************************************************************
- * the following function sleeps for a random time. The actual time
- * slept is computed above.. It is based on the requested time but will
- * differ by up to +/- 50%.
+ * By default, the following function sleeps for a random time. The
+ * actual time slept is computed above. It is based on the requested
+ * time but will differ by up to +/- 50%. If the PAM_FAIL_DELAY item is
+ * set by the client, this function will call the function referenced by
+ * that item, overriding the default behavior.
  */
 
 void _pam_await_timer(pam_handle_t *pamh, int status)

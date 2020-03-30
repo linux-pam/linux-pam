@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2018-05-18 12:58+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 22:27+0000\n"
 "PO-Revision-Date: 2013-04-15 10:35-0400\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.com/projects/p/fedora/language/"
@@ -43,30 +43,44 @@ msgstr "ପ୍ରବେଶ ସଙ୍କେତ: "
 
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
-msgid "Current %s%spassword: "
-msgstr "ନୂତନ %s%s ପ୍ରବେଶ ସଙ୍କେତ: "
+msgid "Current %s password: "
+msgstr "ନୂତନ %s ପ୍ରବେଶ ସଙ୍କେତ: "
 
-#: libpam/pam_get_authtok.c:43
+#: libpam/pam_get_authtok.c:42
+#, fuzzy
+msgid "Current password: "
+msgstr "ନୂତନ ପ୍ରବେଶ ସଙ୍କେତ: "
+
+#: libpam/pam_get_authtok.c:44
 #, c-format
-msgid "New %s%spassword: "
-msgstr "ନୂତନ %s%s ପ୍ରବେଶ ସଙ୍କେତ: "
+msgid "New %s password: "
+msgstr "ନୂତନ %s ପ୍ରବେଶ ସଙ୍କେତ: "
 
 #: libpam/pam_get_authtok.c:45
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "ନୂତନ %s%s ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ: "
+msgid "New password: "
+msgstr "ନୂତନ ପ୍ରବେଶ ସଙ୍କେତ: "
 
-#: libpam/pam_get_authtok.c:46
+#: libpam/pam_get_authtok.c:47
+#, c-format
+msgid "Retype new %s password: "
+msgstr "ନୂତନ %s ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ: "
+
+#: libpam/pam_get_authtok.c:48
+msgid "Retype new password: "
+msgstr "ନୂତନ ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ: "
+
+#: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
 msgstr "କ୍ଷମା କରିବେ, ପ୍ରବେଶ ସଙ୍କେତ ମିଶୁ ନାହିଁ।"
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:220
+#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
 msgstr "%sକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ"
 
-#: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
-msgid "Password change aborted."
+#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
+#, fuzzy
+msgid "Password change has been aborted."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ ପରିବର୍ତ୍ତିନକୁ ପ୍ରତ୍ୟାଖାନ କରାଯାଇଛି।"
 
 #: libpam/pam_item.c:311
@@ -252,70 +266,72 @@ msgid "contains the user name in some form"
 msgstr "ଚାଳକ ନାମକୁ କୌଣସି ଉପାୟରେ ଧାରଣ କରିଥାଏ"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "No password supplied"
+#: modules/pam_unix/pam_unix_passwd.c:566
+#, fuzzy
+msgid "No password has been supplied."
 msgstr "କୌଣସି ପ୍ରବେଶ ସଙ୍କେତ ପ୍ରଦାନ କରାଯାଇ ନାହିଁ"
 
-#: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "Password unchanged"
-msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଅପରିବର୍ତ୍ତିତ ଅଛି"
+#: modules/pam_cracklib/pam_cracklib.c:696
+#: modules/pam_unix/pam_unix_passwd.c:567
+#, fuzzy
+msgid "The password has not been changed."
+msgstr "NIS ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇ ହେଲା ନାହିଁ।"
 
-#: modules/pam_cracklib/pam_cracklib.c:715
-#: modules/pam_cracklib/pam_cracklib.c:797
+#: modules/pam_cracklib/pam_cracklib.c:716
+#: modules/pam_cracklib/pam_cracklib.c:798
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "ଖରାପ ପ୍ରବେଶ ସଙ୍କେତ: %s"
 
-#: modules/pam_exec/pam_exec.c:276
+#: modules/pam_exec/pam_exec.c:267
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s ବିଫଳ: %d ସଙ୍କେତରୁ ପ୍ରସ୍ଥାନ କରୁଅଛି"
 
-#: modules/pam_exec/pam_exec.c:285
+#: modules/pam_exec/pam_exec.c:276
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s ବିଫଳ: %d%s ସଙ୍କେତ ପାଇଲା"
 
-#: modules/pam_exec/pam_exec.c:294
+#: modules/pam_exec/pam_exec.c:285
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s ବିଫଳ: ଅଜଣା ଅବସ୍ଥିତି 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:496
+#: modules/pam_lastlog/pam_lastlog.c:324 modules/pam_lastlog/pam_lastlog.c:585
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:505
+#: modules/pam_lastlog/pam_lastlog.c:333 modules/pam_lastlog/pam_lastlog.c:594
 #, c-format
 msgid " from %.*s"
 msgstr " %.*s ରୁ"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:303 modules/pam_lastlog/pam_lastlog.c:517
+#: modules/pam_lastlog/pam_lastlog.c:345 modules/pam_lastlog/pam_lastlog.c:606
 #, c-format
 msgid " on %.*s"
 msgstr " %.*s ରେ"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:313
+#: modules/pam_lastlog/pam_lastlog.c:355
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "ଅନ୍ତିମ ଲଗଇନ:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:319
+#: modules/pam_lastlog/pam_lastlog.c:361
 msgid "Welcome to your new account!"
 msgstr "ଆପଣଙ୍କ ନୂତନ ଖାତାରେ ଆପଣଙ୍କ ସ୍ବାଗତ!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:527
+#: modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "ଅନ୍ତିମ ବିଫଳ ଲଗଇନ:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:536 modules/pam_lastlog/pam_lastlog.c:543
+#: modules/pam_lastlog/pam_lastlog.c:625 modules/pam_lastlog/pam_lastlog.c:632
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -324,19 +340,20 @@ msgstr[0] "ଅନ୍ତିମ ସଫଳ ଲଗଇନ ପରଠାରୁ %d ଟ�
 msgstr[1] "ଅନ୍ତିମ ସଫଳ ଲଗଇନ ପରଠାରୁ %d ଟି ବିଫଳ ଲଗଇନ ପ୍ରଚେଷ୍ଟା କରାଯାଇଛି।"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:548
+#: modules/pam_lastlog/pam_lastlog.c:637
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "ଅନ୍ତିମ ସଫଳ ଲଗଇନ ପରଠାରୁ %d ଟି ବିଫଳ ଲଗଇନ ପ୍ରଚେଷ୍ଟା କରାଯାଇଛି।"
 
-#: modules/pam_limits/pam_limits.c:1091
-#, c-format
-msgid "Too many logins for '%s'."
+#: modules/pam_limits/pam_limits.c:1088
+#, fuzzy, c-format
+msgid "There were too many logins for '%s'."
 msgstr "'%s' ପାଇଁ ଅତ୍ଯଧିକ ସଂଖ୍ଯକ ଲଗଇନ।"
 
 #: modules/pam_mail/pam_mail.c:297
-msgid "No mail."
-msgstr "କୌଣସି ଚିଠି ନାହିଁ।"
+#, fuzzy
+msgid "You have no mail."
+msgstr "ଆପଣଙ୍କ ପାଇଁ ଗୋଟିଏ ନୂଆ ଚିଠି ଆସିଛି।"
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -370,18 +387,18 @@ msgstr "ଆପଣଙ୍କ ନିକଟରେ %s ଫୋଲଡରରେ ପୁର
 msgid "You have mail in folder %s."
 msgstr "ଆପଣଙ୍କ ନିକଟରେ %s ଫୋଲଡରରେ ଚିଠି ଅଛି।"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:111
+#: modules/pam_mkhomedir/pam_mkhomedir.c:113
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "ଡ଼ିରେକ୍ଟୋରୀ '%s' ନିର୍ମାଣ କରୁଅଛି."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:176
+#: modules/pam_mkhomedir/pam_mkhomedir.c:180
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "ଡ଼ିରେକ୍ଟୋରୀ '%s'କୁ ନିର୍ମାଣ ଏବଂ ପ୍ରାରମ୍ଭ କରିବାରେ ଅସମର୍ଥ।"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ପୂର୍ବରୁ ବ୍ଯବହୃତ ହେଉଛି। ଅନ୍ଯ ଗୋଟିଏ ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରନ୍ତୁ।"
 
@@ -389,45 +406,46 @@ msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ପୂର୍ବରୁ ବ୍
 msgid "Password has been already used."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତକୁ ପୂର୍ବରୁ ବ୍ୟବହାର କରାଯାଇଛି।"
 
-#: modules/pam_selinux/pam_selinux.c:210
-#, c-format
-msgid "Default Security Context %s\n"
+#: modules/pam_selinux/pam_selinux.c:206
+#, fuzzy, c-format
+msgid "The default security context is %s."
 msgstr "ପୂର୍ବନିର୍ଦ୍ଧାରିତ ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:214
+#: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
 msgstr "ଆପଣ ଭିନ୍ନ ଏକ ଭୂମିକା କିମ୍ବା ସ୍ତର ଭରଣ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:223
 msgid "role:"
 msgstr "ଭୂମିକା:"
 
-#: modules/pam_selinux/pam_selinux.c:230
-#, c-format
-msgid "No default type for role %s\n"
+#: modules/pam_selinux/pam_selinux.c:227
+#, fuzzy, c-format
+msgid "There is no default type for role %s."
 msgstr "ଭୂମିକା %s ପାଇଁ କୌଣସି ପୂର୍ବନିର୍ଦ୍ଧାରିତ ପ୍ରକାର ନାହିଁ \n"
 
-#: modules/pam_selinux/pam_selinux.c:262
+#: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "ସ୍ତର:"
 
-#: modules/pam_selinux/pam_selinux.c:295
-msgid "Not a valid security context"
+#: modules/pam_selinux/pam_selinux.c:292
+#, fuzzy
+msgid "This is not a valid security context."
 msgstr "ଏହା ଗୋଟିଏ ବୈଧ ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ନୁହେଁ"
 
-#: modules/pam_selinux/pam_selinux.c:544
+#: modules/pam_selinux/pam_selinux.c:541
 #, c-format
-msgid "Unable to get valid context for %s"
-msgstr "%s ପାଇଁ ବୈଧ ପ୍ରସଙ୍ଗ ପାଇବାରେ ଅସମର୍ଥ"
+msgid "A valid context for %s could not be obtained."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:663
-#, c-format
-msgid "Security Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:660
+#, fuzzy, c-format
+msgid "Security context %s has been assigned."
 msgstr "%s ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ନ୍ଯସ୍ତ କରାଯାଇଛି"
 
-#: modules/pam_selinux/pam_selinux.c:679
-#, c-format
-msgid "Key Creation Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:676
+#, fuzzy, c-format
+msgid "Key creation context %s has been assigned."
 msgstr "କି ନିର୍ମାଣ୍ଣ ପ୍ରସଙ୍ଗ %s ନ୍ଯସ୍ତ କରାଯାଇଛି"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
@@ -445,55 +463,38 @@ msgstr "pam_set_item() କରିବାରେ ବିଫଳ\n"
 msgid "login: failure forking: %m"
 msgstr "ଲଗଇନ: fork କରିବାରେ ବିଫଳ: %m"
 
-#: modules/pam_stress/pam_stress.c:470
-#, c-format
-msgid "Changing STRESS password for %s."
-msgstr "%s ପାଇଁ STRESS ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଉଛି."
-
-#: modules/pam_stress/pam_stress.c:484
-msgid "Enter new STRESS password: "
-msgstr "ନୂତନ STRESS ପ୍ରବେଶ ସଙ୍କେତ ଭରଣ କରନ୍ତୁ: "
-
-#: modules/pam_stress/pam_stress.c:487
-msgid "Retype new STRESS password: "
-msgstr "ନୂତନ STRESS ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ: "
-
-#: modules/pam_stress/pam_stress.c:516
-msgid "Verification mis-typed; password unchanged"
-msgstr "ଯାଞ୍ଚକରଣ ସମୟରେ ଭୂଲ ଟାଇପ କରିଛନ୍ତି, ପ୍ରବେଶ ସଙ୍କେତଟି ବଦଳି ନାହିଁ"
-
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
-#, c-format
-msgid "Account temporary locked (%ld seconds left)"
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
+#, fuzzy, c-format
+msgid "The account is temporarily locked (%ld seconds left)."
 msgstr "ଖାତା ଅସ୍ଥୟୀ ଭାବରେ ଅପରିବର୍ତ୍ତିତ ହୋଇଛି (%ld ସେକଣ୍ଡ ବଳିଅଛି)"
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
-#, c-format
-msgid "Account locked due to %u failed logins"
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
+#, fuzzy, c-format
+msgid "The account is locked due to %u failed logins."
 msgstr "%u ବିଫଳ ଲଗଇନ କାରଣରୁ ଖାତା ଅପରିବର୍ତ୍ତନୀୟ ହୋଇଯାଇଛି"
 
-#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
+#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
 msgstr "ବୈଧିକରଣ ତୃଟି"
 
-#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:864
+#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:859
 msgid "Service error"
 msgstr "ସେବା ତୃଟି"
 
-#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:865
+#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:860
 msgid "Unknown user"
 msgstr "ଅଜଣା ଚାଳକ"
 
-#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:866
+#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:861
 msgid "Unknown error"
 msgstr "ଅଜଣା ତୃଟି"
 
-#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:885
+#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:880
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: --reset= ପାଇଁ ଖରାପ ସଂଖ୍ଯା ଦିଆଯାଇଛି\n"
 
-#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:889
+#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:884
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: ଅଚିହ୍ନିତ ବିକଳ୍ପ %s\n"
@@ -505,17 +506,17 @@ msgid ""
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1028
+#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1023
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: ସମସ୍ତ ଚାଳକ ମାନଙ୍କୁ ଶୂନ୍ଯ ବିହୀନ ଭାବରେ ପୁନର୍ବାର ବିନ୍ଯାସ କରିପାରିବ ନାହିଁ\n"
 
-#: modules/pam_tally2/pam_tally2.c:917
+#: modules/pam_tally2/pam_tally2.c:912
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr "ଲଗଇନ           ବିଫଳତାର ନୂତନତମ ବିଫଳତା     ରୁ\n"
 
-#: modules/pam_tally2/pam_tally2.c:933
+#: modules/pam_tally2/pam_tally2.c:928
 #, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -527,52 +528,83 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, c-format
-msgid "Access granted (last access was %ld seconds ago)."
+#, fuzzy, c-format
+msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "ଅଭିଗମ୍ୟତା ଗ୍ରହଣୀୟ ହୋଇଛି (ଅନ୍ତିମ ଅଭିଗମ୍ୟତା %ld ସେକଣ୍ଡ ପୂର୍ବରୁ)।"
 
-#: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
-msgid "Your account has expired; please contact your system administrator"
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
+#, fuzzy
+msgid "Your account has expired; please contact your system administrator."
 msgstr "ଆପଣଙ୍କର ଖାତା ଅଚଳ ହୋଇଯାଇଛି; ଦୟାକରି ଆପଣଙ୍କ ତନ୍ତ୍ର ପ୍ରଶାସକଙ୍କ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ"
 
-#: modules/pam_unix/pam_unix_acct.c:261
+#: modules/pam_unix/pam_unix_acct.c:240
 #, fuzzy
 msgid ""
-"You are required to change your password immediately (administrator enforced)"
+"You are required to change your password immediately (administrator "
+"enforced)."
 msgstr "ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ରୁଟ ହେବା ବାଧ୍ଯତାମୂଳକ)"
 
-#: modules/pam_unix/pam_unix_acct.c:267
+#: modules/pam_unix/pam_unix_acct.c:246
 #, fuzzy
-msgid "You are required to change your password immediately (password expired)"
+msgid ""
+"You are required to change your password immediately (password expired)."
 msgstr ""
 "ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ପ୍ରବେଶ ସଙ୍କେତ ବହୁତ ପୁରୁଣା ହୋଇଯାଇଛି)"
 
-#: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
-#, c-format
-msgid "Warning: your password will expire in %d day"
-msgid_plural "Warning: your password will expire in %d days"
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d day."
+msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ"
 msgstr[1] "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:300
-#, c-format
-msgid "Warning: your password will expire in %d days"
+#: modules/pam_unix/pam_unix_acct.c:279
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d days."
 msgstr "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇ ହେଲା ନାହିଁ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:585
-msgid "You must choose a longer password"
+#: modules/pam_unix/pam_unix_passwd.c:584
+#, fuzzy
+msgid "You must choose a shorter password."
 msgstr "ଆପଣ ଗୋଟିଏ ଲମ୍ବା ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରିବା ଉଚିତ"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:588
+#, fuzzy
+msgid "You must choose a longer password."
+msgstr "ଆପଣ ଗୋଟିଏ ଲମ୍ବା ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରିବା ଉଚିତ"
+
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s ପାଇଁ ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଉଛି."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
-msgid "You must wait longer to change your password"
+#: modules/pam_unix/pam_unix_passwd.c:725
+#, fuzzy
+msgid "You must wait longer to change your password."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇବା ପାଇଁ ଆପଣ ଅଧିକ ସମୟ ଅପେକ୍ଷା କରିବା ଉଚିତ"
+
+#~ msgid "Password unchanged"
+#~ msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଅପରିବର୍ତ୍ତିତ ଅଛି"
+
+#~ msgid "No mail."
+#~ msgstr "କୌଣସି ଚିଠି ନାହିଁ।"
+
+#~ msgid "Unable to get valid context for %s"
+#~ msgstr "%s ପାଇଁ ବୈଧ ପ୍ରସଙ୍ଗ ପାଇବାରେ ଅସମର୍ଥ"
+
+#~ msgid "Changing STRESS password for %s."
+#~ msgstr "%s ପାଇଁ STRESS ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଉଛି."
+
+#~ msgid "Enter new STRESS password: "
+#~ msgstr "ନୂତନ STRESS ପ୍ରବେଶ ସଙ୍କେତ ଭରଣ କରନ୍ତୁ: "
+
+#~ msgid "Retype new STRESS password: "
+#~ msgstr "ନୂତନ STRESS ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ: "
+
+#~ msgid "Verification mis-typed; password unchanged"
+#~ msgstr "ଯାଞ୍ଚକରଣ ସମୟରେ ଭୂଲ ଟାଇପ କରିଛନ୍ତି, ପ୍ରବେଶ ସଙ୍କେତଟି ବଦଳି ନାହିଁ"

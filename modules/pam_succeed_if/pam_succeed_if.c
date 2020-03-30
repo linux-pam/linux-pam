@@ -215,23 +215,60 @@ evaluate_notinlist(const char *left, const char *right)
 }
 /* Return PAM_SUCCESS if the user is in the group. */
 static int
-evaluate_ingroup(pam_handle_t *pamh, const char *user, const char *group)
+evaluate_ingroup(pam_handle_t *pamh, const char *user, const char *grouplist)
 {
-	if (pam_modutil_user_in_group_nam_nam(pamh, user, group) == 1)
-		return PAM_SUCCESS;
+	char *ptr = NULL;
+	static const char delim[] = ":";
+	char const *grp = NULL;
+	char *group = strdup(grouplist);
+
+	if (group == NULL)
+		return PAM_BUF_ERR;
+
+	grp = strtok_r(group, delim, &ptr);
+	while(grp != NULL) {
+		if (pam_modutil_user_in_group_nam_nam(pamh, user, grp) == 1) {
+			free(group);
+			return PAM_SUCCESS;
+		}
+		grp = strtok_r(NULL, delim, &ptr);
+	}
+	free(group);
 	return PAM_AUTH_ERR;
 }
 /* Return PAM_SUCCESS if the user is NOT in the group. */
 static int
-evaluate_notingroup(pam_handle_t *pamh, const char *user, const char *group)
+evaluate_notingroup(pam_handle_t *pamh, const char *user, const char *grouplist)
 {
-	if (pam_modutil_user_in_group_nam_nam(pamh, user, group) == 0)
-		return PAM_SUCCESS;
-	return PAM_AUTH_ERR;
+	char *ptr = NULL;
+	static const char delim[] = ":";
+	char const *grp = NULL;
+	char *group = strdup(grouplist);
+
+	if (group == NULL)
+		return PAM_BUF_ERR;
+
+	grp = strtok_r(group, delim, &ptr);
+	while(grp != NULL) {
+		if (pam_modutil_user_in_group_nam_nam(pamh, user, grp) == 1) {
+			free(group);
+			return PAM_AUTH_ERR;
+		}
+		grp = strtok_r(NULL, delim, &ptr);
+	}
+	free(group);
+	return PAM_SUCCESS;
 }
+
+#ifdef HAVE_INNETGR
+# define SOMETIMES_UNUSED UNUSED
+#else
+# define SOMETIMES_UNUSED
+#endif
+
 /* Return PAM_SUCCESS if the (host,user) is in the netgroup. */
 static int
-evaluate_innetgr(const pam_handle_t* pamh, const char *host, const char *user, const char *group)
+evaluate_innetgr(const pam_handle_t* pamh SOMETIMES_UNUSED, const char *host, const char *user, const char *group)
 {
 #ifdef HAVE_INNETGR
 	if (innetgr(group, host, user, NULL) == 1)
@@ -244,7 +281,7 @@ evaluate_innetgr(const pam_handle_t* pamh, const char *host, const char *user, c
 }
 /* Return PAM_SUCCESS if the (host,user) is NOT in the netgroup. */
 static int
-evaluate_notinnetgr(const pam_handle_t* pamh, const char *host, const char *user, const char *group)
+evaluate_notinnetgr(const pam_handle_t* pamh SOMETIMES_UNUSED, const char *host, const char *user, const char *group)
 {
 #ifdef HAVE_INNETGR
 	if (innetgr(group, host, user, NULL) == 0)
@@ -259,7 +296,7 @@ evaluate_notinnetgr(const pam_handle_t* pamh, const char *host, const char *user
 static int
 evaluate(pam_handle_t *pamh, int debug,
 	 const char *left, const char *qual, const char *right,
-	 struct passwd *pwd, const char *user)
+	 struct passwd **pwd, const char *user)
 {
 	char buf[LINE_MAX] = "";
 	const char *attribute = left;
@@ -270,22 +307,35 @@ evaluate(pam_handle_t *pamh, int debug,
 		snprintf(buf, sizeof(buf), "%s", user);
 		left = buf;
 	}
+	/* Get information about the user if needed. */
+	if ((*pwd == NULL) &&
+	    ((strcasecmp(left, "uid") == 0) ||
+	     (strcasecmp(left, "gid") == 0) ||
+	     (strcasecmp(left, "shell") == 0) ||
+	     (strcasecmp(left, "home") == 0) ||
+	     (strcasecmp(left, "dir") == 0) ||
+	     (strcasecmp(left, "homedir") == 0))) {
+		*pwd = pam_modutil_getpwnam(pamh, user);
+		if (*pwd == NULL) {
+			return PAM_USER_UNKNOWN;
+		}
+	}
 	if (strcasecmp(left, "uid") == 0) {
-		snprintf(buf, sizeof(buf), "%lu", (unsigned long) pwd->pw_uid);
+		snprintf(buf, sizeof(buf), "%lu", (unsigned long) (*pwd)->pw_uid);
 		left = buf;
 	}
 	if (strcasecmp(left, "gid") == 0) {
-		snprintf(buf, sizeof(buf), "%lu", (unsigned long) pwd->pw_gid);
+		snprintf(buf, sizeof(buf), "%lu", (unsigned long) (*pwd)->pw_gid);
 		left = buf;
 	}
 	if (strcasecmp(left, "shell") == 0) {
-		snprintf(buf, sizeof(buf), "%s", pwd->pw_shell);
+		snprintf(buf, sizeof(buf), "%s", (*pwd)->pw_shell);
 		left = buf;
 	}
 	if ((strcasecmp(left, "home") == 0) ||
 	    (strcasecmp(left, "dir") == 0) ||
 	    (strcasecmp(left, "homedir") == 0)) {
-		snprintf(buf, sizeof(buf), "%s", pwd->pw_dir);
+		snprintf(buf, sizeof(buf), "%s", (*pwd)->pw_dir);
 		left = buf;
 	}
 	if (strcasecmp(left, "service") == 0) {
@@ -383,11 +433,11 @@ evaluate(pam_handle_t *pamh, int debug,
 	if (strcasecmp(qual, "notin") == 0) {
 		return evaluate_notinlist(left, right);
 	}
-	/* User is in this group. */
+	/* User is in this group(s). */
 	if (strcasecmp(qual, "ingroup") == 0) {
 		return evaluate_ingroup(pamh, user, right);
 	}
-	/* User is not in this group. */
+	/* User is not in this group(s). */
 	if (strcasecmp(qual, "notingroup") == 0) {
 		return evaluate_notingroup(pamh, user, right);
 	}
@@ -415,7 +465,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 {
 	const void *prompt;
 	const char *user;
-	struct passwd *pwd;
+	struct passwd *pwd = NULL;
 	int ret, i, count, use_uid, debug;
 	const char *left, *right, *qual;
 	int quiet_fail, quiet_succ, audit;
@@ -471,15 +521,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			return ret;
 		}
 
-		/* Get information about the user. */
-		pwd = pam_modutil_getpwnam(pamh, user);
-		if (pwd == NULL) {
-			if(audit)
-				pam_syslog(pamh, LOG_NOTICE,
-					   "error retrieving information about user %s",
-					   user);
-			return PAM_USER_UNKNOWN;
-		}
+		/* Postpone requesting password data until it is needed */
 	}
 
 	/* Walk the argument list. */
@@ -520,9 +562,13 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			count++;
 			ret = evaluate(pamh, debug,
 				       left, qual, right,
-				       pwd, user);
+				       &pwd, user);
+			if (ret == PAM_USER_UNKNOWN && audit)
+				pam_syslog(pamh, LOG_NOTICE,
+					   "error retrieving information about user %s",
+					   user);
 			if (ret != PAM_SUCCESS) {
-				if(!quiet_fail)
+				if(!quiet_fail && ret != PAM_USER_UNKNOWN)
 					pam_syslog(pamh, LOG_INFO,
 						   "requirement \"%s %s %s\" "
 						   "not met by user \"%s\"",

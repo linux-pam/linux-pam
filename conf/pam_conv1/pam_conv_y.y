@@ -9,10 +9,6 @@
  * distributed with this file.)
  */
 
-    static const char bisonid[]=
-	"$Id$\n"
-	"Copyright (c) Andrew G. Morgan 1997-8 <morgan@linux.kernel.org>\n";
-
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif

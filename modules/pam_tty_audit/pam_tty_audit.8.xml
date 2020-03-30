@@ -149,6 +149,13 @@
       greater than or equal to <replaceable>min_uid</replaceable> will be
       matched.
     </para>
+    <para>
+      Please note that passwords in some circumstances may be logged by TTY auditing
+      even if the <option>log_passwd</option> is not used. For example, all input to
+      an ssh session will be logged - even if there is a password being typed into
+      some software running at the remote host because only the local TTY state
+      affects the local TTY auditing.
+    </para>
   </refsect1>
 
   <refsect1 id='pam_tty_audit-examples'>

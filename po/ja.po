@@ -8,20 +8,22 @@
 # Noriko Mizumoto <noriko@redhat.com>, 2007
 # Tomoyuki KATO <tomo@dream.daynight.jp>, 2012
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/pam\n"
-"POT-Creation-Date: 2018-05-18 12:58+0200\n"
-"PO-Revision-Date: 2013-05-06 08:44-0400\n"
-"Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
-"Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
+"Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
+"POT-Creation-Date: 2020-03-05 22:27+0000\n"
+"PO-Revision-Date: 2020-03-06 23:59+0000\n"
+"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
+"Language-Team: Japanese <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 3.8.3\n"
+"X-Generator: Weblate 3.11.2\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -43,30 +45,44 @@ msgstr "パスワード:"
 
 #: libpam/pam_get_authtok.c:41
 #, fuzzy, c-format
-msgid "Current %s%spassword: "
-msgstr "新しい%s%sパスワード:"
+msgid "Current %s password: "
+msgstr "新しい%sパスワード:"
 
-#: libpam/pam_get_authtok.c:43
+#: libpam/pam_get_authtok.c:42
+#, fuzzy
+msgid "Current password: "
+msgstr "新しい パスワード:"
+
+#: libpam/pam_get_authtok.c:44
 #, c-format
-msgid "New %s%spassword: "
-msgstr "新しい%s%sパスワード:"
+msgid "New %s password: "
+msgstr "新しい%sパスワード:"
 
 #: libpam/pam_get_authtok.c:45
-#, c-format
-msgid "Retype new %s%spassword: "
-msgstr "新しい%s%sパスワードを再入力してください:"
+msgid "New password: "
+msgstr "新しい パスワード:"
 
-#: libpam/pam_get_authtok.c:46
+#: libpam/pam_get_authtok.c:47
+#, c-format
+msgid "Retype new %s password: "
+msgstr "新しい%sパスワードを再入力してください:"
+
+#: libpam/pam_get_authtok.c:48
+msgid "Retype new password: "
+msgstr "新しい パスワードを再入力してください:"
+
+#: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
 msgstr "パスワードが一致しません。"
 
-#: libpam/pam_get_authtok.c:139 libpam/pam_get_authtok.c:220
+#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
 msgstr "%s を再入力して下さい"
 
-#: libpam/pam_get_authtok.c:164 libpam/pam_get_authtok.c:236
-msgid "Password change aborted."
+#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
+#, fuzzy
+msgid "Password change has been aborted."
 msgstr "パスワードの変更は放棄されました"
 
 #: libpam/pam_item.c:311
@@ -252,70 +268,72 @@ msgid "contains the user name in some form"
 msgstr "なんらかの形式のユーザー名を含みます"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "No password supplied"
+#: modules/pam_unix/pam_unix_passwd.c:566
+#, fuzzy
+msgid "No password has been supplied."
 msgstr "パスワードが与えられていません"
 
-#: modules/pam_cracklib/pam_cracklib.c:695
-#: modules/pam_unix/pam_unix_passwd.c:568
-msgid "Password unchanged"
-msgstr "パスワードが変更されていません"
+#: modules/pam_cracklib/pam_cracklib.c:696
+#: modules/pam_unix/pam_unix_passwd.c:567
+#, fuzzy
+msgid "The password has not been changed."
+msgstr "NIS パスワードを変更できませんでした。"
 
-#: modules/pam_cracklib/pam_cracklib.c:715
-#: modules/pam_cracklib/pam_cracklib.c:797
+#: modules/pam_cracklib/pam_cracklib.c:716
+#: modules/pam_cracklib/pam_cracklib.c:798
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "よくないパスワード: %s"
 
-#: modules/pam_exec/pam_exec.c:276
+#: modules/pam_exec/pam_exec.c:267
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s 失敗: 終了コード %d"
 
-#: modules/pam_exec/pam_exec.c:285
+#: modules/pam_exec/pam_exec.c:276
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s 失敗: シグナルをキャッチ %d%s"
 
-#: modules/pam_exec/pam_exec.c:294
+#: modules/pam_exec/pam_exec.c:285
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s 失敗: 不明な状態 0x%x"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:282 modules/pam_lastlog/pam_lastlog.c:496
+#: modules/pam_lastlog/pam_lastlog.c:324 modules/pam_lastlog/pam_lastlog.c:585
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %Y/%m/%d (%a) %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:291 modules/pam_lastlog/pam_lastlog.c:505
+#: modules/pam_lastlog/pam_lastlog.c:333 modules/pam_lastlog/pam_lastlog.c:594
 #, c-format
 msgid " from %.*s"
 msgstr " %.*sから開始"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:303 modules/pam_lastlog/pam_lastlog.c:517
+#: modules/pam_lastlog/pam_lastlog.c:345 modules/pam_lastlog/pam_lastlog.c:606
 #, c-format
 msgid " on %.*s"
-msgstr "日時 %.*s"
+msgstr " 日時 %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:313
+#: modules/pam_lastlog/pam_lastlog.c:355
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "最終ログイン:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:319
+#: modules/pam_lastlog/pam_lastlog.c:361
 msgid "Welcome to your new account!"
 msgstr "新しいアカウントへようこそ。"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:527
+#: modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "最後の失敗ログイン:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:536 modules/pam_lastlog/pam_lastlog.c:543
+#: modules/pam_lastlog/pam_lastlog.c:625 modules/pam_lastlog/pam_lastlog.c:632
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -323,19 +341,20 @@ msgid_plural ""
 msgstr[0] "最後の正しいログインの後に %d 回の失敗ログインの試行があります"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:548
+#: modules/pam_lastlog/pam_lastlog.c:637
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "最後の正しいログインの後に %d 回の失敗ログインの試行があります。"
 
-#: modules/pam_limits/pam_limits.c:1091
-#, c-format
-msgid "Too many logins for '%s'."
+#: modules/pam_limits/pam_limits.c:1088
+#, fuzzy, c-format
+msgid "There were too many logins for '%s'."
 msgstr "'%s'のログイン数が多すぎます。"
 
 #: modules/pam_mail/pam_mail.c:297
-msgid "No mail."
-msgstr "メールがありません。"
+#, fuzzy
+msgid "You have no mail."
+msgstr "新しいメールがあります。"
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -369,18 +388,18 @@ msgstr "フォルダ%sに古いメールがあります。"
 msgid "You have mail in folder %s."
 msgstr "フォルダ%sにメールがあります。"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:111
+#: modules/pam_mkhomedir/pam_mkhomedir.c:113
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "ディレクトリ '%s' を作成中"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:176
+#: modules/pam_mkhomedir/pam_mkhomedir.c:180
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "ディレクトリ %s を作成して初期化できません。"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:217
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr ""
 "パスワードはすでに使用されています。 別のパスワードを選択してください。"
@@ -389,45 +408,46 @@ msgstr ""
 msgid "Password has been already used."
 msgstr "パスワードはすでに使用されています。"
 
-#: modules/pam_selinux/pam_selinux.c:210
-#, c-format
-msgid "Default Security Context %s\n"
+#: modules/pam_selinux/pam_selinux.c:206
+#, fuzzy, c-format
+msgid "The default security context is %s."
 msgstr "デフォルトセキュリティコンテキスト%s\n"
 
-#: modules/pam_selinux/pam_selinux.c:214
+#: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
 msgstr "異なるロール又はレベルを入力しますか?"
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:223
 msgid "role:"
 msgstr "ロール:"
 
-#: modules/pam_selinux/pam_selinux.c:230
-#, c-format
-msgid "No default type for role %s\n"
+#: modules/pam_selinux/pam_selinux.c:227
+#, fuzzy, c-format
+msgid "There is no default type for role %s."
 msgstr "ロール %s にはデフォルトタイプがありません\n"
 
-#: modules/pam_selinux/pam_selinux.c:262
+#: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "レベル:"
 
-#: modules/pam_selinux/pam_selinux.c:295
-msgid "Not a valid security context"
+#: modules/pam_selinux/pam_selinux.c:292
+#, fuzzy
+msgid "This is not a valid security context."
 msgstr "有効なセキュリティコンテキストでありません"
 
-#: modules/pam_selinux/pam_selinux.c:544
+#: modules/pam_selinux/pam_selinux.c:541
 #, c-format
-msgid "Unable to get valid context for %s"
-msgstr "%s の為の有効なコンテキストを取得できません"
+msgid "A valid context for %s could not be obtained."
+msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:663
-#, c-format
-msgid "Security Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:660
+#, fuzzy, c-format
+msgid "Security context %s has been assigned."
 msgstr "割り当てられたセキュリティコンテキスト%s"
 
-#: modules/pam_selinux/pam_selinux.c:679
-#, c-format
-msgid "Key Creation Context %s Assigned"
+#: modules/pam_selinux/pam_selinux.c:676
+#, fuzzy, c-format
+msgid "Key creation context %s has been assigned."
 msgstr "キー作成コンテキスト %s が割り当てられました"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
@@ -445,55 +465,38 @@ msgstr "pam_set_item()に失敗しました\n"
 msgid "login: failure forking: %m"
 msgstr "ログイン: いまいましい失敗: %m"
 
-#: modules/pam_stress/pam_stress.c:470
-#, c-format
-msgid "Changing STRESS password for %s."
-msgstr "%s 用の STRESS パスワードを変更中"
-
-#: modules/pam_stress/pam_stress.c:484
-msgid "Enter new STRESS password: "
-msgstr "新しいSTRESSパスワードを入力してください:"
-
-#: modules/pam_stress/pam_stress.c:487
-msgid "Retype new STRESS password: "
-msgstr "新しいSTRESSパスワードを再入力してください:"
-
-#: modules/pam_stress/pam_stress.c:516
-msgid "Verification mis-typed; password unchanged"
-msgstr "ミスタイプの確認、パスワードが変更されていません"
-
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:597
-#, c-format
-msgid "Account temporary locked (%ld seconds left)"
+#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
+#, fuzzy, c-format
+msgid "The account is temporarily locked (%ld seconds left)."
 msgstr "アカウントは一時的にロックされています (残り %ld 秒)"
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:580
-#, c-format
-msgid "Account locked due to %u failed logins"
+#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
+#, fuzzy, c-format
+msgid "The account is locked due to %u failed logins."
 msgstr "%u のログイン失敗の理由で アカウントはロックされました"
 
-#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:863
+#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
 msgstr "認証エラー"
 
-#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:864
+#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:859
 msgid "Service error"
 msgstr "サービスエラー"
 
-#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:865
+#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:860
 msgid "Unknown user"
 msgstr "不明なユーザー"
 
-#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:866
+#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:861
 msgid "Unknown error"
 msgstr "不明なエラー"
 
-#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:885
+#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:880
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: 不正番号が--reset=に与えられました\n"
 
-#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:889
+#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:884
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: 未認識オプション%s\n"
@@ -505,17 +508,17 @@ msgid ""
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1028
+#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1023
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: すべてのユーザーを非ゼロにリセットできません\n"
 
-#: modules/pam_tally2/pam_tally2.c:917
+#: modules/pam_tally2/pam_tally2.c:912
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr "ログイン         失敗。最後の失敗は      以下で発生\n"
 
-#: modules/pam_tally2/pam_tally2.c:933
+#: modules/pam_tally2/pam_tally2.c:928
 #, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -527,51 +530,81 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, c-format
-msgid "Access granted (last access was %ld seconds ago)."
+#, fuzzy, c-format
+msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "アクセスを許可 （最後のアクセスは %ld 秒前でした）"
 
-#: modules/pam_unix/pam_unix_acct.c:253 modules/pam_unix/pam_unix_acct.c:275
-msgid "Your account has expired; please contact your system administrator"
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
+#, fuzzy
+msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 "アカウントの有効期限が切れました。システム管理者にお問い合わせください。"
 
-#: modules/pam_unix/pam_unix_acct.c:261
+#: modules/pam_unix/pam_unix_acct.c:240
 #, fuzzy
 msgid ""
-"You are required to change your password immediately (administrator enforced)"
+"You are required to change your password immediately (administrator "
+"enforced)."
 msgstr "パスワードを直ちに変更する必要があります(強制されたルート)"
 
-#: modules/pam_unix/pam_unix_acct.c:267
+#: modules/pam_unix/pam_unix_acct.c:246
 #, fuzzy
-msgid "You are required to change your password immediately (password expired)"
+msgid ""
+"You are required to change your password immediately (password expired)."
 msgstr "パスワードを直ちに変更する必要があります(古いパスワード)"
 
-#: modules/pam_unix/pam_unix_acct.c:288 modules/pam_unix/pam_unix_acct.c:295
-#, c-format
-msgid "Warning: your password will expire in %d day"
-msgid_plural "Warning: your password will expire in %d days"
+#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d day."
+msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "警告: パスワードは%d日で有効期限が切れます。"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:300
-#, c-format
-msgid "Warning: your password will expire in %d days"
+#: modules/pam_unix/pam_unix_acct.c:279
+#, fuzzy, c-format
+msgid "Warning: your password will expire in %d days."
 msgstr "警告: パスワードは %d 日で有効期限が切れます。"
 
-#: modules/pam_unix/pam_unix_passwd.c:470
+#: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS パスワードを変更できませんでした。"
 
-#: modules/pam_unix/pam_unix_passwd.c:585
-msgid "You must choose a longer password"
+#: modules/pam_unix/pam_unix_passwd.c:584
+msgid "You must choose a shorter password."
+msgstr "もっと短いパスワードを選択する必要があります。"
+
+#: modules/pam_unix/pam_unix_passwd.c:588
+#, fuzzy
+msgid "You must choose a longer password."
 msgstr "長いパスワードを選択する必要があります"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s 用にパスワードを変更中"
 
-#: modules/pam_unix/pam_unix_passwd.c:722
-msgid "You must wait longer to change your password"
+#: modules/pam_unix/pam_unix_passwd.c:725
+#, fuzzy
+msgid "You must wait longer to change your password."
 msgstr "パスワードを変更するには長く待つ必要があります"
+
+#~ msgid "Password unchanged"
+#~ msgstr "パスワードが変更されていません"
+
+#~ msgid "No mail."
+#~ msgstr "メールがありません。"
+
+#~ msgid "Unable to get valid context for %s"
+#~ msgstr "%s の為の有効なコンテキストを取得できません"
+
+#~ msgid "Changing STRESS password for %s."
+#~ msgstr "%s 用の STRESS パスワードを変更中"
+
+#~ msgid "Enter new STRESS password: "
+#~ msgstr "新しいSTRESSパスワードを入力してください:"
+
+#~ msgid "Retype new STRESS password: "
+#~ msgstr "新しいSTRESSパスワードを再入力してください:"
+
+#~ msgid "Verification mis-typed; password unchanged"
+#~ msgstr "ミスタイプの確認、パスワードが変更されていません"

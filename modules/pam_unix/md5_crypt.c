@@ -15,6 +15,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "md5.h"
+#include "pam_inline.h"
 
 static unsigned char itoa64[] =	/* 0 ... 63 => ascii - 64 */
 "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -55,8 +56,8 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 		return NULL;
 
 	/* If it starts with the magic string, then skip that */
-	if (!strncmp(sp, magic, strlen(magic)))
-		sp += strlen(magic);
+	if ((ep = pam_str_skip_prefix_len(sp, magic, strlen(magic))) != NULL)
+		sp = ep;
 
 	/* It stops at the first '$', max 8 chars */
 	for (ep = sp; *ep && *ep != '$' && ep < (sp + 8); ep++)

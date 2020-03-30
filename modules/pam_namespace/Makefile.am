@@ -6,24 +6,27 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MAN5) $(MAN8) README
 
+if HAVE_DOC
 MAN5 = namespace.conf.5
-MAN8 = pam_namespace.8
+MAN8 = pam_namespace.8 pam_namespace_helper.8
+endif
 
-EXTRA_DIST = README namespace.conf namespace.init $(MAN5) $(MAN8) $(XMLS) tst-pam_namespace
+EXTRA_DIST = README namespace.conf namespace.init $(MANS) $(XMLS) tst-pam_namespace
 
 if HAVE_UNSHARE
   TESTS = tst-pam_namespace
   man_MANS = $(MAN5) $(MAN8)
 endif
 
-XMLS = README.xml namespace.conf.5.xml pam_namespace.8.xml
+XMLS = README.xml namespace.conf.5.xml pam_namespace.8.xml pam_namespace_helper.8.xml
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 namespaceddir = $(SCONFIGDIR)/namespace.d
+servicedir = $(prefix)/lib/systemd
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-        -DSECURECONF_DIR=\"$(SCONFIGDIR)/\"
+        -DSECURECONF_DIR=\"$(SCONFIGDIR)/\" $(WARN_CFLAGS)
 AM_LDFLAGS =  -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
@@ -41,11 +44,18 @@ if HAVE_UNSHARE
 
 install-data-local:
 	mkdir -p $(DESTDIR)$(namespaceddir)
+	mkdir -p $(DESTDIR)$(servicedir)
+	$(INSTALL_DATA) pam_namespace.service $(DESTDIR)$(servicedir)
+
+  sbin_SCRIPTS = pam_namespace_helper
+
+uninstall-local:
+	-rm $(DESTDIR)$(servicedir)/pam_namespace.service
 endif
 
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: pam_namespace.8.xml namespace.conf.5.xml
+README: pam_namespace.8.xml namespace.conf.5.xml pam_namespace_helper.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif

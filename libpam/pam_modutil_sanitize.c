@@ -10,6 +10,13 @@
 #include <fcntl.h>
 #include <syslog.h>
 #include <sys/resource.h>
+#include <dirent.h>
+#ifdef HAVE_SYS_VFS_H
+#include <sys/vfs.h>
+#endif
+#ifdef HAVE_LINUX_MAGIC_H
+#include <linux/magic.h>
+#endif
 
 /*
  * Creates a pipe, closes its write end, redirects fd to its read end.
@@ -36,34 +43,6 @@ redirect_in_pipe(pam_handle_t *pamh, int fd, const char *name)
 	}
 
 	close(in[0]);
-	return fd;
-}
-
-/*
- * Creates a pipe, closes its read end, redirects fd to its write end.
- * Returns fd on success, -1 otherwise.
- */
-static int
-redirect_out_pipe(pam_handle_t *pamh, int fd, const char *name)
-{
-	int out[2];
-
-	if (pipe(out) < 0) {
-		pam_syslog(pamh, LOG_ERR, "Could not create pipe: %m");
-		return -1;
-	}
-
-	close(out[0]);
-
-	if (out[1] == fd)
-		return fd;
-
-	if (dup2(out[1], fd) != fd) {
-		pam_syslog(pamh, LOG_ERR, "dup2 of %s failed: %m", name);
-		fd = -1;
-	}
-
-	close(out[1]);
 	return fd;
 }
 
@@ -99,7 +78,7 @@ redirect_out(pam_handle_t *pamh, enum pam_modutil_redirect_fd mode,
 {
 	switch (mode) {
 		case PAM_MODUTIL_PIPE_FD:
-			if (redirect_out_pipe(pamh, fd, name) < 0)
+			if (redirect_in_pipe(pamh, fd, name) < 0)
 				return -1;
 			break;
 		case PAM_MODUTIL_NULL_FD:
@@ -112,31 +91,69 @@ redirect_out(pam_handle_t *pamh, enum pam_modutil_redirect_fd mode,
 	return fd;
 }
 
+/* Check if path is in a procfs. */
+static int
+is_in_procfs(int fd)
+{
+#if defined HAVE_SYS_VFS_H && defined PROC_SUPER_MAGIC
+	struct statfs stfs;
+
+	if (fstatfs(fd, &stfs) == 0) {
+		if (stfs.f_type == PROC_SUPER_MAGIC)
+			return 1;
+	} else {
+		return 0;
+	}
+#endif /* HAVE_SYS_VFS_H && PROC_SUPER_MAGIC */
+
+	return -1;
+}
+
 /* Closes all descriptors after stderr. */
 static void
 close_fds(void)
 {
+	DIR *dir = NULL;
+	struct dirent *dent;
+	int dfd = -1;
+	int fd;
+	struct rlimit rlim;
+
 	/*
 	 * An arbitrary upper limit for the maximum file descriptor number
 	 * returned by RLIMIT_NOFILE.
 	 */
-	const int MAX_FD_NO = 65535;
+	const unsigned int MAX_FD_NO = 65535;
 
 	/* The lower limit is the same as for _POSIX_OPEN_MAX. */
-	const int MIN_FD_NO = 20;
+	const unsigned int MIN_FD_NO = 20;
 
-	int fd;
-	struct rlimit rlim;
+	/* If /proc is mounted, we can optimize which fd can be closed. */
+	if ((dir = opendir("/proc/self/fd")) != NULL) {
+		if ((dfd = dirfd(dir)) >= 0 && is_in_procfs(dfd) > 0) {
+			while ((dent = readdir(dir)) != NULL) {
+				fd = atoi(dent->d_name);
+				if (fd > STDERR_FILENO && fd != dfd)
+					close(fd);
+			}
+		} else {
+			dfd = -1;
+		}
+		closedir(dir);
+	}
 
-	if (getrlimit(RLIMIT_NOFILE, &rlim) || rlim.rlim_max > MAX_FD_NO)
-		fd = MAX_FD_NO;
-	else if (rlim.rlim_max < MIN_FD_NO)
-		fd = MIN_FD_NO;
-	else
-		fd = rlim.rlim_max - 1;
+	/* If /proc isn't available, fallback to the previous behavior. */
+	if (dfd < 0) {
+		if (getrlimit(RLIMIT_NOFILE, &rlim) || rlim.rlim_max > MAX_FD_NO)
+			fd = MAX_FD_NO;
+		else if (rlim.rlim_max < MIN_FD_NO)
+			fd = MIN_FD_NO;
+		else
+			fd = rlim.rlim_max - 1;
 
-	for (; fd > STDERR_FILENO; --fd)
-		close(fd);
+		for (; fd > STDERR_FILENO; --fd)
+			close(fd);
+	}
 }
 
 int

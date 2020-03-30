@@ -7,7 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README pam_env.conf $(MANS) $(XMLS) tst-pam_env environment
 
+if HAVE_DOC
 man_MANS = pam_env.conf.5 pam_env.8 environment.5
+endif
 
 XMLS = README.xml pam_env.conf.5.xml pam_env.8.xml
 
@@ -15,7 +17,7 @@ securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	-DDEFAULT_CONF_FILE=\"$(SCONFIGDIR)/pam_env.conf\"
+	-DDEFAULT_CONF_FILE=\"$(SCONFIGDIR)/pam_env.conf\" $(WARN_CFLAGS)
 AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map

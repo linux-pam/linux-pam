@@ -7,7 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) time.conf tst-pam_time
 
+if HAVE_DOC
 man_MANS = time.conf.5 pam_time.8
+endif
 XMLS = README.xml time.conf.5.xml pam_time.8.xml
 
 TESTS = tst-pam_time
@@ -16,7 +18,7 @@ securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	-DPAM_TIME_CONF=\"$(SCONFIGDIR)/time.conf\"
+	-DPAM_TIME_CONF=\"$(SCONFIGDIR)/time.conf\" $(WARN_CFLAGS)
 AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map

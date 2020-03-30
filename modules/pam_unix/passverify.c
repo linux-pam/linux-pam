@@ -25,6 +25,8 @@
 #include <crypt.h>
 #endif
 
+#include "pam_cc_compat.h"
+#include "pam_inline.h"
 #include "md5.h"
 #include "bigcrypt.h"
 #include "passverify.h"
@@ -87,7 +89,7 @@ PAMH_ARG_DECL(int verify_pwd_hash,
 	} else if (!p || *hash == '*' || *hash == '!') {
 		retval = PAM_AUTH_ERR;
 	} else {
-		if (!strncmp(hash, "$1$", 3)) {
+		if (pam_str_skip_prefix(hash, "$1$") != NULL) {
 			pp = Goodcrypt_md5(p, hash);
 			if (pp && strcmp(pp, hash) != 0) {
 				_pam_delete(pp);
@@ -204,25 +206,30 @@ PAMH_ARG_DECL(int get_account_info,
 
 			save_euid = geteuid();
 			save_uid = getuid();
-			if (save_uid == (*pwd)->pw_uid)
-				setreuid(save_euid, save_uid);
-			else  {
-				setreuid(0, -1);
-				if (setreuid(-1, (*pwd)->pw_uid) == -1) {
-					setreuid(-1, 0);
-					setreuid(0, -1);
-					if(setreuid(-1, (*pwd)->pw_uid) == -1)
+			if (save_uid == (*pwd)->pw_uid) {
+				if (setreuid(save_euid, save_uid))
+					return PAM_CRED_INSUFFICIENT;
+			} else  {
+				if (setreuid(0, -1))
+					return PAM_CRED_INSUFFICIENT;
+				if (setreuid(-1, (*pwd)->pw_uid)) {
+					if (setreuid(-1, 0)
+					    || setreuid(0, -1)
+					    || setreuid(-1, (*pwd)->pw_uid)) {
 						return PAM_CRED_INSUFFICIENT;
+					}
 				}
 			}
 
 			*spwdent = pam_modutil_getspnam(pamh, name);
-			if (save_uid == (*pwd)->pw_uid)
-				setreuid(save_uid, save_euid);
-			else {
-				setreuid(-1, 0);
-				setreuid(save_uid, -1);
-				setreuid(-1, save_euid);
+			if (save_uid == (*pwd)->pw_uid) {
+				if (setreuid(save_uid, save_euid))
+					return PAM_CRED_INSUFFICIENT;
+			} else {
+				if (setreuid(-1, 0)
+				    || setreuid(save_uid, -1)
+				    || setreuid(-1, save_euid))
+					return PAM_CRED_INSUFFICIENT;
 			}
 
 			if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL)
@@ -495,10 +502,9 @@ PAMH_ARG_DECL(char * create_password_hash,
 	sp = crypt(password, salt);
 #endif
 	if (!sp || strncmp(algoid, sp, strlen(algoid)) != 0) {
-		/* libxcrypt/libc doesn't know the algorithm, use MD5 */
+		/* libxcrypt/libc doesn't know the algorithm, error out */
 		pam_syslog(pamh, LOG_ERR,
-			   "Algo %s not supported by the crypto backend, "
-			   "falling back to MD5\n",
+			   "Algo %s not supported by the crypto backend.\n",
 			   on(UNIX_YESCRYPT_PASS, ctrl) ? "yescrypt" :
 			   on(UNIX_GOST_YESCRYPT_PASS, ctrl) ? "gost_yescrypt" :
 			   on(UNIX_BLOWFISH_PASS, ctrl) ? "blowfish" :
@@ -510,7 +516,7 @@ PAMH_ARG_DECL(char * create_password_hash,
 #ifdef HAVE_CRYPT_R
 		free(cdata);
 #endif
-		return crypt_md5_wrapper(password);
+		return NULL;
 	}
 	sp = x_strdup(sp);
 #ifdef HAVE_CRYPT_R
@@ -1021,7 +1027,9 @@ PAMH_ARG_DECL(int unix_update_shadow,
     fclose(opwfile);
 
     if (!wroteentry && !err) {
+	DIAG_PUSH_IGNORE_CAST_QUAL;
 	spwdent.sp_namp = (char *)forwho;
+	DIAG_POP_IGNORE_CAST_QUAL;
 	spwdent.sp_pwdp = towhat;
 	spwdent.sp_lstchg = time(NULL) / (60 * 60 * 24);
 	if (spwdent.sp_lstchg == 0)
@@ -1080,21 +1088,21 @@ int
 helper_verify_password(const char *name, const char *p, int nullok)
 {
 	struct passwd *pwd = NULL;
-	char *salt = NULL;
+	char *hash = NULL;
 	int retval;
 
-	retval = get_pwd_hash(name, &pwd, &salt);
+	retval = get_pwd_hash(name, &pwd, &hash);
 
-	if (pwd == NULL || salt == NULL) {
+	if (pwd == NULL || hash == NULL) {
 		helper_log_err(LOG_NOTICE, "check pass; user unknown");
 		retval = PAM_USER_UNKNOWN;
 	} else {
-		retval = verify_pwd_hash(p, salt, nullok);
+		retval = verify_pwd_hash(p, hash, nullok);
 	}
 
-	if (salt) {
-		_pam_overwrite(salt);
-		_pam_drop(salt);
+	if (hash) {
+		_pam_overwrite(hash);
+		_pam_drop(hash);
 	}
 
 	p = NULL;		/* no longer needed here */
@@ -1217,7 +1225,7 @@ read_passwords(int fd, int npass, char **passwords)
 
 #endif
 /* ****************************************************************** *
- * Copyright (c) Jan Rêkorajski 1999.
+ * Copyright (c) Jan Rękorajski 1999.
  * Copyright (c) Andrew G. Morgan 1996-8.
  * Copyright (c) Alex O. Yuriev, 1996.
  * Copyright (c) Cristian Gafton 1996.

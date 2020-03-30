@@ -183,6 +183,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state)
 		    ++src; /* skip it */
 		    break;
 		}
+	    /* fallthrough */
 	    default:
 		*to++ = c;
 		onspace = 0;
@@ -297,6 +298,7 @@ logic_field (const pam_handle_t *pamh, const void *me,
 		    return FALSE;
 	       }
 	       next = VAL;
+	       not = FALSE;
 	  }
 	  at += l;
      }

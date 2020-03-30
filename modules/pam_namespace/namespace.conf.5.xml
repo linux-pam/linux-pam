@@ -122,9 +122,14 @@
     <para><emphasis>mntopts</emphasis>=<replaceable>value</replaceable>
       - value of this flag is passed to the mount call when the tmpfs mount is
       done. It allows for example the specification of the maximum size of the
-      tmpfs instance that is created by the mount call. See <citerefentry>
-      <refentrytitle>mount</refentrytitle><manvolnum>8</manvolnum>
-      </citerefentry> for details.
+      tmpfs instance that is created by the mount call. In addition to
+      options specified in the <citerefentry>
+      <refentrytitle>tmpfs</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry> manual the <emphasis>nosuid</emphasis>,
+      <emphasis>noexec</emphasis>, and <emphasis>nodev</emphasis> flags
+      can be used to respectively disable setuid bit effect, disable running
+      executables, and disable devices to be interpreted on the mounted
+      tmpfs filesystem.
     </para>
 
     <para>

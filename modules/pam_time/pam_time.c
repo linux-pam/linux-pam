@@ -55,14 +55,17 @@ typedef enum { AND, OR } operator;
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
+#include "pam_inline.h"
 
 static int
-_pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
+_pam_parse (const pam_handle_t *pamh, int argc, const char **argv, const char **conffile)
 {
     int ctrl = 0;
 
+    *conffile = PAM_TIME_CONF;
     /* step through arguments */
     for (; argc-- > 0; ++argv) {
+	const char *str;
 
 	/* generic options */
 
@@ -70,7 +73,15 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
 	    ctrl |= PAM_DEBUG_ARG;
 	} else if (!strcmp(*argv, "noaudit")) {
 	    ctrl |= PAM_NO_AUDIT;
-	} else {
+	} else if ((str = pam_str_skip_prefix(*argv, "conffile=")) != NULL) {
+	    if (str[0] == '\0') {
+		    pam_syslog(pamh, LOG_ERR,
+                       "conffile= specification missing argument - ignored");
+            } else {
+		  *conffile = str;
+		  D(("new Configuration File: %s", *conffile));
+	    }
+        } else {
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
     }
@@ -108,7 +119,7 @@ trim_spaces(char *buf, char *from)
 #define STATE_EOF      3 /* end of file or error */
 
 static int
-read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state)
+read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state, const char *file)
 {
     char *to;
     char *src;
@@ -127,9 +138,9 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state)
 	}
 	*from = 0;
         *state = STATE_NL;
-	fd = open(PAM_TIME_CONF, O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd < 0) {
-	    pam_syslog(pamh, LOG_ERR, "error opening %s: %m", PAM_TIME_CONF);
+	    pam_syslog(pamh, LOG_ERR, "error opening %s: %m", file);
 	    _pam_drop(*buf);
 	    *state = STATE_EOF;
 	    return -1;
@@ -145,7 +156,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state)
     while (fd != -1 && to - *buf < PAM_TIME_BUFLEN) {
 	i = pam_modutil_read(fd, to, PAM_TIME_BUFLEN - (to - *buf));
 	if (i < 0) {
-	    pam_syslog(pamh, LOG_ERR, "error reading %s: %m", PAM_TIME_CONF);
+	    pam_syslog(pamh, LOG_ERR, "error reading %s: %m", file);
 	    close(fd);
 	    memset(*buf, 0, PAM_TIME_BUFLEN);
 	    _pam_drop(*buf);
@@ -213,6 +224,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state)
 		    ++src; /* skip it */
 		    break;
 		}
+		/* fallthrough */
 	    default:
 		*to++ = c;
 		onspace = 0;
@@ -327,6 +339,7 @@ logic_field(pam_handle_t *pamh, const void *me, const char *x, int rule,
 		    return FALSE;
 	       }
 	       next = VAL;
+	       not = FALSE;
 	  }
 	  at += l;
      }
@@ -504,7 +517,7 @@ check_time(pam_handle_t *pamh, const void *AT, const char *times,
 
 static int
 check_account(pam_handle_t *pamh, const char *service,
-	      const char *tty, const char *user)
+	      const char *tty, const char *user, const char *file)
 {
      int from=0, state=STATE_NL, fd=-1;
      char *buffer=NULL;
@@ -518,7 +531,7 @@ check_account(pam_handle_t *pamh, const char *service,
 
 	  /* here we get the service name field */
 
-	  fd = read_field(pamh, fd, &buffer, &from, &state);
+	  fd = read_field(pamh, fd, &buffer, &from, &state, file);
 	  if (!buffer || !buffer[0]) {
 	       /* empty line .. ? */
 	       continue;
@@ -527,7 +540,7 @@ check_account(pam_handle_t *pamh, const char *service,
 
 	  if (state != STATE_FIELD) {
 	       pam_syslog(pamh, LOG_ERR,
-			  "%s: malformed rule #%d", PAM_TIME_CONF, count);
+			  "%s: malformed rule #%d", file, count);
 	       continue;
 	  }
 
@@ -536,10 +549,10 @@ check_account(pam_handle_t *pamh, const char *service,
 
 	  /* here we get the terminal name field */
 
-	  fd = read_field(pamh, fd, &buffer, &from, &state);
+	  fd = read_field(pamh, fd, &buffer, &from, &state, file);
 	  if (state != STATE_FIELD) {
 	       pam_syslog(pamh, LOG_ERR,
-			  "%s: malformed rule #%d", PAM_TIME_CONF, count);
+			  "%s: malformed rule #%d", file, count);
 	       continue;
 	  }
 	  good &= logic_field(pamh, tty, buffer, count, is_same);
@@ -547,10 +560,10 @@ check_account(pam_handle_t *pamh, const char *service,
 
 	  /* here we get the username field */
 
-	  fd = read_field(pamh, fd, &buffer, &from, &state);
+	  fd = read_field(pamh, fd, &buffer, &from, &state, file);
 	  if (state != STATE_FIELD) {
 	       pam_syslog(pamh, LOG_ERR,
-			  "%s: malformed rule #%d", PAM_TIME_CONF, count);
+			  "%s: malformed rule #%d", file, count);
 	       continue;
 	  }
 	  /* If buffer starts with @, we are using netgroups */
@@ -566,10 +579,10 @@ check_account(pam_handle_t *pamh, const char *service,
 
 	  /* here we get the time field */
 
-	  fd = read_field(pamh, fd, &buffer, &from, &state);
+	  fd = read_field(pamh, fd, &buffer, &from, &state, file);
 	  if (state == STATE_FIELD) {
 	       pam_syslog(pamh, LOG_ERR,
-			  "%s: poorly terminated rule #%d", PAM_TIME_CONF, count);
+			  "%s: poorly terminated rule #%d", file, count);
 	       continue;
 	  }
 
@@ -599,10 +612,15 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
     const void *service=NULL, *void_tty=NULL;
     const char *tty;
     const char *user=NULL;
+    const char *conf_file = NULL;
     int ctrl;
     int rv;
 
-    ctrl = _pam_parse(pamh, argc, argv);
+    ctrl = _pam_parse(pamh, argc, argv, &conf_file);
+
+    if (ctrl & PAM_DEBUG_ARG) {
+	pam_syslog(pamh, LOG_DEBUG, "conffile=%s", conf_file);
+    }
 
     /* set service name */
 
@@ -651,7 +669,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
     D(("user=%s", user));
     D(("tty=%s", tty));
 
-    rv = check_account(pamh, service, tty, user);
+    rv = check_account(pamh, service, tty, user, conf_file);
     if (rv != PAM_SUCCESS) {
 #ifdef HAVE_LIBAUDIT
 	if (!(ctrl & PAM_NO_AUDIT)) {

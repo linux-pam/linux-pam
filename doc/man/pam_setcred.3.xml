@@ -144,7 +144,7 @@
            <para>
              A NULL pointer was submitted as PAM handle, the
              function was called by a module or another system
-             error occured.
+             error occurred.
           </para>
         </listitem>
       </varlistentry>

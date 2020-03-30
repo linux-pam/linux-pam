@@ -42,7 +42,6 @@
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
 #include <sys/select.h>
-#include <errno.h>
 #endif
 
 /*

@@ -15,10 +15,11 @@
 #include <string.h>
 #include <syslog.h>
 
-int pam_start (
+static int _pam_start_internal (
     const char *service_name,
     const char *user,
     const struct pam_conv *pam_conversation,
+    const char *confdir,
     pam_handle_t **pamh)
 {
     D(("called pam_start: [%s] [%s] [%p] [%p]"
@@ -80,6 +81,18 @@ int pam_start (
     } else
 	(*pamh)->user = NULL;
 
+    if (confdir) {
+	if (((*pamh)->confdir = _pam_strdup(confdir)) == NULL) {
+	    pam_syslog(*pamh, LOG_CRIT,
+		       "pam_start: _pam_strdup failed for confdir");
+	    _pam_drop((*pamh)->service_name);
+	    _pam_drop((*pamh)->user);
+	    _pam_drop(*pamh);
+	    return (PAM_BUF_ERR);
+	}
+    } else
+	(*pamh)->confdir = NULL;
+
     (*pamh)->tty = NULL;
     (*pamh)->prompt = NULL;              /* prompt for pam_get_user() */
     (*pamh)->ruser = NULL;
@@ -94,6 +107,7 @@ int pam_start (
 #endif
     (*pamh)->xdisplay = NULL;
     (*pamh)->authtok_type = NULL;
+    (*pamh)->authtok_verified = 0;
     memset (&((*pamh)->xauth), 0, sizeof ((*pamh)->xauth));
 
     if (((*pamh)->pam_conversation = (struct pam_conv *)
@@ -138,4 +152,25 @@ int pam_start (
     D(("exiting pam_start successfully"));
 
     return PAM_SUCCESS;
+}
+
+int pam_start_confdir (
+    const char *service_name,
+    const char *user,
+    const struct pam_conv *pam_conversation,
+    const char *confdir,
+    pam_handle_t **pamh)
+{
+    return _pam_start_internal(service_name, user, pam_conversation,
+			       confdir, pamh);
+}
+
+int pam_start (
+    const char *service_name,
+    const char *user,
+    const struct pam_conv *pam_conversation,
+    pam_handle_t **pamh)
+{
+    return _pam_start_internal(service_name, user, pam_conversation,
+			       NULL, pamh);
 }
