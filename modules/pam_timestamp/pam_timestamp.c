@@ -71,7 +71,7 @@
  * for the timestamp_timeout parameter. */
 #define DEFAULT_TIMESTAMP_TIMEOUT (5 * 60)
 #define MODULE "pam_timestamp"
-#define TIMESTAMPDIR _PATH_VARRUN "/" MODULE
+#define TIMESTAMPDIR _PATH_VARRUN MODULE
 #define TIMESTAMPKEY TIMESTAMPDIR "/_pam_timestamp_key"
 
 /* Various buffers we use need to be at least as large as either PATH_MAX or
