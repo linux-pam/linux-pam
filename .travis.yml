@@ -69,10 +69,6 @@ matrix:
       arch: arm64
       env:
         - TARGET=aarch64
-    - compiler: gcc-9
-      arch: arm64
-      env:
-        - TARGET=aarch64
     - compiler: gcc-8
       arch: arm64
       env:
@@ -82,10 +78,6 @@ matrix:
       env:
         - TARGET=aarch64
     - compiler: gcc
-      arch: s390x
-      env:
-        - TARGET=s390x
-    - compiler: gcc-9
       arch: s390x
       env:
         - TARGET=s390x
