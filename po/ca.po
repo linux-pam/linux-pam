@@ -9,13 +9,14 @@
 # xqueralt <xqueralt@gmail.com>, 2008
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Robert Antoni Buj Gelonch <robert.buj@gmail.com>, 2020.
+# Anonymous <noreply@weblate.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2020-04-09 15:09+0000\n"
-"Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
+"PO-Revision-Date: 2020-04-09 15:10+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Catalan <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/ca/>\n"
 "Language: ca\n"
@@ -357,7 +358,7 @@ msgstr "Hi havia massa inicis de sessió per a '%s'."
 
 #: modules/pam_mail/pam_mail.c:297
 msgid "You have no mail."
-msgstr "No teniu cap correu."
+msgstr "Teniu correu nou."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
