@@ -1,27 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Albert Carabasa Giribet <albertc@asic.udl.cat>, 2009
 # Bernabé Borrero <bernabeborrero@gmail.com>, 2012
 # Robert Antoni Buj i Gelonch <robert.buj@gmail.com>, 2013
 # xqueralt <xqueralt@gmail.com>, 2008
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Robert Antoni Buj Gelonch <robert.buj@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2013-08-13 05:44-0400\n"
-"Last-Translator: Robert Antoni Buj i Gelonch <robert.buj@gmail.com>\n"
-"Language-Team: Catalan <fedora@llistes.softcatala.org>\n"
+"PO-Revision-Date: 2020-04-09 15:09+0000\n"
+"Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
+"Language-Team: Catalan <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.11.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -42,14 +44,13 @@ msgid "Password: "
 msgstr "Contrasenya: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "Nova contrasenya de %s: "
+msgstr "Contrasenya actual de %s: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
 msgid "Current password: "
-msgstr "Nova contrasenya: "
+msgstr "Contrasenya actual: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
@@ -79,13 +80,12 @@ msgid "Retype %s"
 msgstr "Torneu a escriure %s"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
-#, fuzzy
 msgid "Password change has been aborted."
-msgstr "No s'ha canviat la contrasenya."
+msgstr "S'ha cancel·lat el canvi de contrasenya."
 
 #: libpam/pam_item.c:311
 msgid "login:"
-msgstr "entrada:"
+msgstr "inici de sessió:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
@@ -268,15 +268,13 @@ msgstr "conté el nom d'usuari d'alguna forma"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "No s'ha proporcionat cap contrasenya"
+msgstr "No s'ha proporcionat cap contrasenya."
 
 #: modules/pam_cracklib/pam_cracklib.c:696
 #: modules/pam_unix/pam_unix_passwd.c:567
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "No s'ha pogut canviar la contrasenya NIS."
+msgstr "No s'ha canviat la contrasenya."
 
 #: modules/pam_cracklib/pam_cracklib.c:716
 #: modules/pam_cracklib/pam_cracklib.c:798
@@ -302,7 +300,7 @@ msgstr "%s ha fallat: estat 0x%x desconegut"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:324 modules/pam_lastlog/pam_lastlog.c:585
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr " %a %b %e %H:%M:%S %Z %Y"
+msgstr " %a %-d %b de %Y, %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:333 modules/pam_lastlog/pam_lastlog.c:594
@@ -320,7 +318,7 @@ msgstr " a %.*s"
 #: modules/pam_lastlog/pam_lastlog.c:355
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr "Darrera entrada:%s des de %s a %s"
+msgstr "Últim inici de sessió:%s des de %s a %s"
 
 #: modules/pam_lastlog/pam_lastlog.c:361
 msgid "Welcome to your new account!"
@@ -330,31 +328,36 @@ msgstr "Benvingut al vostre nou compte!"
 #: modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "Darrera entrada fallida:%s des de %s a %s"
+msgstr "Últim inici de sessió fallit:%s des de %s a %s"
 
 #: modules/pam_lastlog/pam_lastlog.c:625 modules/pam_lastlog/pam_lastlog.c:632
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] "S'ha intentat entrar %d cop des de l'última entrada correcta."
-msgstr[1] "S'ha intentat entrar %d cops des de l'última entrada correcta."
+msgstr[0] ""
+"S'han produït %d intents fallits d'inici de sessió des de l'últim inici de "
+"sessió reeixit."
+msgstr[1] ""
+"S'han produït %d intents d'inici de sessió des de l'últim inici de sessió "
+"reeixit."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:637
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr "S'ha intentat entrar %d cops des de l'última entrada correcta."
+msgstr ""
+"S'han produït %d intents fallits d'inici de sessió des de l'últim inici de "
+"sessió reeixit."
 
 #: modules/pam_limits/pam_limits.c:1088
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
-msgstr "Massa entrades per a '%s'."
+msgstr "Hi havia massa inicis de sessió per a '%s'."
 
 #: modules/pam_mail/pam_mail.c:297
-#, fuzzy
 msgid "You have no mail."
-msgstr "Teniu correu nou."
+msgstr "No teniu cap correu."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -408,9 +411,9 @@ msgid "Password has been already used."
 msgstr "La contrasenya ja ha estat utilitzada."
 
 #: modules/pam_selinux/pam_selinux.c:206
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "Context de seguretat per defecte %s\n"
+msgstr "El context de seguretat predeterminat és %s"
 
 #: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
@@ -421,33 +424,32 @@ msgid "role:"
 msgstr "rol:"
 
 #: modules/pam_selinux/pam_selinux.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "El rol %s no disposa de cap tipus per defecte\n"
+msgstr "No hi ha cap tipus predeterminat per al rol %s."
 
 #: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "nivell:"
 
 #: modules/pam_selinux/pam_selinux.c:292
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "No és un context de seguretat vàlid"
+msgstr "Aquest no és un context de seguretat vàlid."
 
 #: modules/pam_selinux/pam_selinux.c:541
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "No s'ha pogut obtenir un context vàlid per a %s."
 
 #: modules/pam_selinux/pam_selinux.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "Context de seguretat %s assignat"
+msgstr "S'ha assignat el context de seguretat %s."
 
 #: modules/pam_selinux/pam_selinux.c:676
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "Context de creació de claus %s assignat"
+msgstr "S'ha assignat el context de creació de clau %s."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -462,18 +464,17 @@ msgstr "s'ha produït un error en pam_set_item()\n"
 #: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr "entrada: ha fallat la bifurcació: %m"
+msgstr "inici de sessió: ha fallat la bifurcació: %m"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "Compte bloquejat temporalment (queden %ld segons)"
+msgstr "El compte està bloquejat temporalment (queden %ld segons)."
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr ""
-"El compte ha estat bloquejat ja que s'ha intentat entrar %u cops sense èxit"
+msgstr "El compte està bloquejat a causa de %u inicis fallits de sessió."
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
@@ -531,41 +532,39 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Accés permès (l'últim accés va ser fa %ld segons)."
+msgstr "S'ha concedit l'accés (l'últim accés va ser fa %ld segons)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr "El vostre compte ha caducat. Contacteu amb l'administrador del sistema"
+msgstr ""
+"El vostre compte ha vençut; contacteu amb l'administrador del vostre sistema."
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr ""
-"Heu de canviar la contrasenya immediatament (us hi obliga l'administrador)"
+"Heu de canviar la contrasenya immediatament (us hi obliga l'administrador)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "Heu de canviar la contrasenya immediatament (la contrasenya és antiga)"
+msgstr "Heu de canviar la contrasenya immediatament (la contrasenya ha vençut)."
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Atenció: la contrasenya venç d'aquí a %d dia"
-msgstr[1] "Atenció: la contrasenya venç d'aquí a %d dies"
+msgstr[0] "Atenció: la contrasenya venç d'aquí a %d dia."
+msgstr[1] "Atenció: la contrasenya venç d'aquí a %d dies."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "Atenció: la contrasenya venç d'aquí a %d dies"
+msgstr "Atenció: la contrasenya venç d'aquí a %d dies."
 
 #: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
@@ -576,9 +575,8 @@ msgid "You must choose a shorter password."
 msgstr "Heu de triar una contrasenya més curta."
 
 #: modules/pam_unix/pam_unix_passwd.c:588
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Heu de triar una contrasenya més llarga"
+msgstr "Heu de triar una contrasenya més llarga."
 
 #: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
@@ -586,9 +584,8 @@ msgid "Changing password for %s."
 msgstr "S'està canviant la contrasenya de %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:725
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Heu d'esperar més temps abans de canviar la contrasenya"
+msgstr "Heu d'esperar més temps abans de canviar la contrasenya."
 
 #~ msgid "Password unchanged"
 #~ msgstr "No s'ha canviat la contrasenya"
