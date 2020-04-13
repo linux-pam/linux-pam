@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2020-03-15 23:38+0000\n"
+"PO-Revision-Date: 2020-04-13 22:40+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/tr/>\n"
@@ -408,7 +408,7 @@ msgstr "Parola önceden kullanılmıştır."
 #: modules/pam_selinux/pam_selinux.c:206
 #, c-format
 msgid "The default security context is %s."
-msgstr "Varsayılan güvenlik bağlamı %s'dir."
+msgstr "Öntanımlı güvenlik bağlamı %s'dir."
 
 #: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
@@ -421,7 +421,7 @@ msgstr "rol:"
 #: modules/pam_selinux/pam_selinux.c:227
 #, c-format
 msgid "There is no default type for role %s."
-msgstr "%s rolü için varsayılan bir tür yok."
+msgstr "%s rolü için öntanımlı bir tür yok."
 
 #: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
