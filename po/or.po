@@ -7,21 +7,22 @@
 # Manoj Kumar Giri <mgiri@redhat.com>, 2013
 # Subhransu Behera <arya_subhransu@yahoo.co.in>, 2007
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Ankit Behera <proneon267@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2013-04-15 10:35-0400\n"
-"Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
-"Language-Team: Oriya (http://www.transifex.com/projects/p/fedora/language/"
-"or/)\n"
+"PO-Revision-Date: 2020-04-13 22:40+0000\n"
+"Last-Translator: Ankit Behera <proneon267@gmail.com>\n"
+"Language-Team: Odia <https://translate.fedoraproject.org/projects/linux-pam/"
+"master/or/>\n"
 "Language: or\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.11.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -42,14 +43,13 @@ msgid "Password: "
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "ନୂତନ %s ପ୍ରବେଶ ସଙ୍କେତ: "
+msgstr "ସାମ୍ପ୍ରତିକ %s ପ୍ରବେଶ ସଙ୍କେତ: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
 msgid "Current password: "
-msgstr "ନୂତନ ପ୍ରବେଶ ସଙ୍କେତ: "
+msgstr "ସାମ୍ପ୍ରତିକ ପ୍ରବେଶ ସଙ୍କେତ: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
@@ -79,9 +79,8 @@ msgid "Retype %s"
 msgstr "%sକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
-#, fuzzy
 msgid "Password change has been aborted."
-msgstr "ପ୍ରବେଶ ସଙ୍କେତ ପରିବର୍ତ୍ତିନକୁ ପ୍ରତ୍ୟାଖାନ କରାଯାଇଛି।"
+msgstr "ପ୍ରବେଶ ସଙ୍କେତ ପରିବର୍ତ୍ତନକୁ ପ୍ରତ୍ୟାଖାନ କରାଯାଇଛି।"
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -267,15 +266,13 @@ msgstr "ଚାଳକ ନାମକୁ କୌଣସି ଉପାୟରେ ଧା�
 
 #: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "କୌଣସି ପ୍ରବେଶ ସଙ୍କେତ ପ୍ରଦାନ କରାଯାଇ ନାହିଁ"
+msgstr "କୌଣସି ପ୍ରବେଶ ସଙ୍କେତ ପ୍ରଦାନ କରାଯାଇ ନାହିଁ।"
 
 #: modules/pam_cracklib/pam_cracklib.c:696
 #: modules/pam_unix/pam_unix_passwd.c:567
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "NIS ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇ ହେଲା ନାହିଁ।"
+msgstr "ପ୍ରବେଶ ସଙ୍କେତକୁ ପରିବର୍ତ୍ତନ କରା ଯାଇ ନାହିଁ।"
 
 #: modules/pam_cracklib/pam_cracklib.c:716
 #: modules/pam_cracklib/pam_cracklib.c:798
@@ -346,14 +343,13 @@ msgid "There were %d failed login attempts since the last successful login."
 msgstr "ଅନ୍ତିମ ସଫଳ ଲଗଇନ ପରଠାରୁ %d ଟି ବିଫଳ ଲଗଇନ ପ୍ରଚେଷ୍ଟା କରାଯାଇଛି।"
 
 #: modules/pam_limits/pam_limits.c:1088
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
-msgstr "'%s' ପାଇଁ ଅତ୍ଯଧିକ ସଂଖ୍ଯକ ଲଗଇନ।"
+msgstr "'%s' ପାଇଁ ଅତ୍ଯଧିକ ସଂଖ୍ଯକ ଲଗଇନ ହୋଇଛି।"
 
 #: modules/pam_mail/pam_mail.c:297
-#, fuzzy
 msgid "You have no mail."
-msgstr "ଆପଣଙ୍କ ପାଇଁ ଗୋଟିଏ ନୂଆ ଚିଠି ଆସିଛି।"
+msgstr "ଆପଣଙ୍କର କୌଣସି ଚିଠି ନାହିଁ।"
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -407,9 +403,9 @@ msgid "Password has been already used."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତକୁ ପୂର୍ବରୁ ବ୍ୟବହାର କରାଯାଇଛି।"
 
 #: modules/pam_selinux/pam_selinux.c:206
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "ପୂର୍ବନିର୍ଦ୍ଧାରିତ ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ %s\n"
+msgstr "ପୂର୍ବନିର୍ଦ୍ଧାରିତ ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ହେଉଛି %s।"
 
 #: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
@@ -420,33 +416,32 @@ msgid "role:"
 msgstr "ଭୂମିକା:"
 
 #: modules/pam_selinux/pam_selinux.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "ଭୂମିକା %s ପାଇଁ କୌଣସି ପୂର୍ବନିର୍ଦ୍ଧାରିତ ପ୍ରକାର ନାହିଁ \n"
+msgstr "ଭୂମିକା %s ପାଇଁ କୌଣସି ପୂର୍ବନିର୍ଦ୍ଧାରିତ ପ୍ରକାର ନାହିଁ।"
 
 #: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "ସ୍ତର:"
 
 #: modules/pam_selinux/pam_selinux.c:292
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "ଏହା ଗୋଟିଏ ବୈଧ ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ନୁହେଁ"
+msgstr "ଏହା ଗୋଟିଏ ବୈଧ ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ନୁହେଁ।"
 
 #: modules/pam_selinux/pam_selinux.c:541
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "%s ପାଇଁ ଏକ ବୈଧ ପ୍ରସଙ୍ଗ ହାସଲ ହୋଇ ପାରିଲା ନାହିଁ।"
 
 #: modules/pam_selinux/pam_selinux.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "%s ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ନ୍ଯସ୍ତ କରାଯାଇଛି"
+msgstr "%s ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ନ୍ଯସ୍ତ କରାଯାଇଛି।"
 
 #: modules/pam_selinux/pam_selinux.c:676
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "କି ନିର୍ମାଣ୍ଣ ପ୍ରସଙ୍ଗ %s ନ୍ଯସ୍ତ କରାଯାଇଛି"
+msgstr "କୀ ନିର୍ମାଣ ପ୍ରସଙ୍ଗ %s ନ୍ଯସ୍ତ କରାଯାଇଛି।"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -464,14 +459,14 @@ msgid "login: failure forking: %m"
 msgstr "ଲଗଇନ: fork କରିବାରେ ବିଫଳ: %m"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "ଖାତା ଅସ୍ଥୟୀ ଭାବରେ ଅପରିବର୍ତ୍ତିତ ହୋଇଛି (%ld ସେକଣ୍ଡ ବଳିଅଛି)"
+msgstr "ଖାତା ଅସ୍ଥୟୀ ଭାବରେ ଅପରିବର୍ତ୍ତନଶୀଳ ହୋଇଯାଇଛି (%ld ସେକେଣ୍ଡସ୍ ବଳିଛି)।"
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "%u ବିଫଳ ଲଗଇନ କାରଣରୁ ଖାତା ଅପରିବର୍ତ୍ତନୀୟ ହୋଇଯାଇଛି"
+msgstr "%u ବିଫଳତା ଲଗଇନ କାରଣରୁ ଖାତା ଅପରିବର୍ତ୍ତନଶୀଳ ହୋଇଯାଇଛି।"
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
@@ -528,55 +523,54 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "ଅଭିଗମ୍ୟତା ଗ୍ରହଣୀୟ ହୋଇଛି (ଅନ୍ତିମ ଅଭିଗମ୍ୟତା %ld ସେକଣ୍ଡ ପୂର୍ବରୁ)।"
+msgstr "ପ୍ରବେଶ ଗ୍ରହଣୀୟ ହୋଇଛି (ପୂର୍ବ ପ୍ରବେଶ ହୋଇଥିଲା %ld ସେକଣ୍ଡ ପୂର୍ବରୁ)।"
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr "ଆପଣଙ୍କର ଖାତା ଅଚଳ ହୋଇଯାଇଛି; ଦୟାକରି ଆପଣଙ୍କ ତନ୍ତ୍ର ପ୍ରଶାସକଙ୍କ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ"
+msgstr ""
+"ଆପଣଙ୍କର ଖାତା ଅଚଳ ହୋଇଯାଇଛି; ଦୟାକରି ଆପଣଙ୍କର ତନ୍ତ୍ର ପ୍ରଶାସକଙ୍କ ସହିତ ଯୋଗାଯୋଗ "
+"କରନ୍ତୁ।"
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ରୁଟ ହେବା ବାଧ୍ଯତାମୂଳକ)"
+msgstr ""
+"ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ରୁଟ୍ ହେବା ବାଧ୍ଯତାମୂଳକ)।"
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr ""
-"ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ପ୍ରବେଶ ସଙ୍କେତ ବହୁତ ପୁରୁଣା ହୋଇଯାଇଛି)"
+"ଆପଣ ଆପଣଙ୍କର ପ୍ରବେଶ ସଙ୍କେତକୁ ଯଥାଶୀଘ୍ର ବଦଳାଇବା ଆବଶ୍ଯକ (ପ୍ରବେଶ ସଙ୍କେତର ବୈଧତା ସରି"
+" ଯାଇଛି)।"
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ"
-msgstr[1] "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ"
+msgstr[0] "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ।"
+msgstr[1] "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ।"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ"
+msgstr "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ।"
 
 #: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
 msgstr "NIS ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇ ହେଲା ନାହିଁ।"
 
 #: modules/pam_unix/pam_unix_passwd.c:584
-#, fuzzy
 msgid "You must choose a shorter password."
-msgstr "ଆପଣ ଗୋଟିଏ ଲମ୍ବା ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରିବା ଉଚିତ"
+msgstr "ଆପଣ ଗୋଟିଏ ଛୋଟ ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରିବା ଉଚିତ।"
 
 #: modules/pam_unix/pam_unix_passwd.c:588
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "ଆପଣ ଗୋଟିଏ ଲମ୍ବା ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରିବା ଉଚିତ"
+msgstr "ଆପଣ ଗୋଟିଏ ଲମ୍ବା ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରିବା ଉଚିତ।"
 
 #: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
@@ -584,9 +578,8 @@ msgid "Changing password for %s."
 msgstr "%s ପାଇଁ ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଉଛି."
 
 #: modules/pam_unix/pam_unix_passwd.c:725
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇବା ପାଇଁ ଆପଣ ଅଧିକ ସମୟ ଅପେକ୍ଷା କରିବା ଉଚିତ"
+msgstr "ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇବା ପାଇଁ ଆପଣ ଅଧିକ ସମୟ ଅପେକ୍ଷା କରିବା ଉଚିତ।"
 
 #~ msgid "Password unchanged"
 #~ msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଅପରିବର୍ତ୍ତିତ ଅଛି"
