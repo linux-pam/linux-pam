@@ -200,6 +200,7 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 		strncat(buf, uts.machine, sizeof(buf) - 1);
 		break;
 	      case 'o':
+#ifdef HAVE_GETDOMAINNAME
 		{
 		    char domainname[256];
 
@@ -208,6 +209,7 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 			strncat(buf, domainname, sizeof(buf) - 1);
 		    }
 		}
+#endif
 		break;
 	      case 'd':
 	      case 't':

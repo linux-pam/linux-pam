@@ -481,6 +481,8 @@ netgroup_match (pam_handle_t *pamh, const char *netgroup,
 {
   int retval;
   char *mydomain = NULL;
+
+#ifdef HAVE_GETDOMAINNAME
   char domainname_res[256];
 
   if (getdomainname (domainname_res, sizeof (domainname_res)) == 0)
@@ -490,6 +492,7 @@ netgroup_match (pam_handle_t *pamh, const char *netgroup,
           mydomain = domainname_res;
         }
     }
+#endif
 
 #ifdef HAVE_INNETGR
   retval = innetgr (netgroup, machine, user, mydomain);
