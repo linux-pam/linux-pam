@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2020-04-13 22:40+0000\n"
+"PO-Revision-Date: 2020-04-18 19:40+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/tr/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>1);\n"
-"X-Generator: Weblate 3.11.3\n"
+"X-Generator: Weblate 4.0.1\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -106,7 +106,7 @@ msgstr "Sembol bulunamadı"
 
 #: libpam/pam_strerror.c:48
 msgid "Error in service module"
-msgstr "Servis modülünde hata"
+msgstr "Hizmet modülünde hata"
 
 #: libpam/pam_strerror.c:50
 msgid "System error"
@@ -130,7 +130,7 @@ msgstr "Kimlik bilgisine ulaşmak için yetersiz yetki"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "Yetkilendirme servisi yetki bilgisini alamadı"
+msgstr "Yetkilendirme hizmeti, yetkilendirme bilgisini alamıyor"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -138,7 +138,7 @@ msgstr "Kullanıcı, yetkilendirme modülü altyapısında tanımlı değil"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
-msgstr "Servis için geçerli deneme sayısı aşıldı"
+msgstr "Hizmet için azami deneme sayısı tükendi"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
@@ -154,7 +154,7 @@ msgstr "Belirtilen oturum için girdi yapılamıyor/silinemiyor"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr "Yetkilendirme servisi kullanıcı kimliğini getiremiyor"
+msgstr "Yetkilendirme hizmeti kullanıcı kimliğini getiremiyor"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
@@ -194,7 +194,7 @@ msgstr "Yetkilendirme anahtarı vadesi pasifleştirildi"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr "Parola servisi ön denetimi başarısız oldu"
+msgstr "Parola hizmeti ön denetimi başarısız oldu"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
@@ -477,7 +477,7 @@ msgstr "Yetkilendirme hatası"
 
 #: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:859
 msgid "Service error"
-msgstr "Servis hatası"
+msgstr "Hizmet hatası"
 
 #: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:860
 msgid "Unknown user"
