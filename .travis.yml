@@ -21,6 +21,10 @@ matrix:
       arch: amd64
       env:
         - TARGET=x86_64
+    - compiler: gcc-10
+      arch: amd64
+      env:
+        - TARGET=x86_64
     - compiler: gcc-9
       arch: amd64
       env:
@@ -37,6 +41,10 @@ matrix:
       arch: amd64
       env:
         - TARGET=x86
+    - compiler: gcc-10
+      arch: amd64
+      env:
+        - TARGET=x86
     - compiler: gcc-9
       arch: amd64
       env:
@@ -50,6 +58,10 @@ matrix:
       env:
         - TARGET=x86
     - compiler: gcc
+      arch: amd64
+      env:
+        - TARGET=x32
+    - compiler: gcc-10
       arch: amd64
       env:
         - TARGET=x32
@@ -90,6 +102,10 @@ matrix:
       env:
         - TARGET=s390x
     - compiler: gcc
+      arch: ppc64le
+      env:
+        - TARGET=ppc64le
+    - compiler: gcc-10
       arch: ppc64le
       env:
         - TARGET=ppc64le
