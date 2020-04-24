@@ -36,6 +36,7 @@
  *
  */
 /* See RFC 2104 for descriptions. */
+#include "config.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
