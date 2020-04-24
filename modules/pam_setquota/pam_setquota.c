@@ -169,8 +169,10 @@ parse_params(pam_handle_t *pamh, int argc, const char **argv, struct pam_params 
   }
 }
 
-PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
-				   int argc, const char **argv) {
+int
+pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
+		    int argc, const char **argv)
+{
   int retval;
   char *val, *mntdevice = NULL;
   const void *user;
@@ -381,18 +383,9 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 
 }
 
-PAM_EXTERN
-int pam_sm_close_session(pam_handle_t *pamh UNUSED, int flags UNUSED,
-			 int argc UNUSED, const char **argv UNUSED) {
+int
+pam_sm_close_session(pam_handle_t *pamh UNUSED, int flags UNUSED,
+		     int argc UNUSED, const char **argv UNUSED)
+{
   return PAM_SUCCESS;
 }
-
-#ifdef PAM_STATIC
-
-/* static module data */
-struct pam_module _pam_setquota_modstruct = {
-  "pam_setquota",      NULL,                 NULL, NULL,
-  pam_sm_open_session, pam_sm_close_session, NULL
-};
-
-#endif
