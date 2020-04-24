@@ -114,33 +114,32 @@ static int process_args(pam_handle_t *pamh
 	    return -1;
 	}
 
-	for (size=i=0; i<argc; ++i) {
-	    size += strlen(argv[i])+1;
-	}
-
 	/* the "ARGS" variable */
 
 #define ARGS_NAME      "ARGS="
 #define ARGS_OFFSET    (sizeof(ARGS_NAME) - 1)
 
-	size += ARGS_OFFSET;
+	size = sizeof(ARGS_NAME);
 
-	levp[0] = (char *) malloc(size);
+	for (i=0; i<argc; ++i) {
+	    size += strlen(argv[i]) + (i != 0);
+	}
+
+	levp[0] = malloc(size);
 	if (levp[0] == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for filter arguments");
-	    if (levp) {
-		free(levp);
-	    }
+	    free(levp);
 	    return -1;
 	}
 
 	strcpy(levp[0], ARGS_NAME);
-	for (i=0,size=ARGS_OFFSET; i<argc; ++i) {
+	size = ARGS_OFFSET;
+	for (i=0; i<argc; ++i) {
+	    if (i)
+		levp[0][size++] = ' ';
 	    strcpy(levp[0]+size, argv[i]);
 	    size += strlen(argv[i]);
-	    levp[0][size++] = ' ';
 	}
-	levp[0][--size] = '\0';                    /* <NUL> terminate */
 
 	/* the "SERVICE" variable */
 
