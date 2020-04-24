@@ -166,11 +166,10 @@ parse_params(pam_handle_t *pamh, int argc, const char **argv, struct pam_params 
   }
 }
 
-PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
-                                   const char **argv) {
+PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
+				   int argc, const char **argv) {
   int retval;
-  unsigned long ul;
-  char *ep, *val, *mntdevice = NULL;
+  char *val, *mntdevice = NULL;
   const void *user;
   const struct passwd *pwd;
   struct pam_params param = {
@@ -380,8 +379,8 @@ PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc,
 }
 
 PAM_EXTERN
-int pam_sm_close_session(pam_handle_t *pamh, int flags, int argc,
-                         const char **argv) {
+int pam_sm_close_session(pam_handle_t *pamh UNUSED, int flags UNUSED,
+			 int argc UNUSED, const char **argv UNUSED) {
   return PAM_SUCCESS;
 }
 
