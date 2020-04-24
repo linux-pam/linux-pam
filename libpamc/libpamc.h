@@ -8,6 +8,8 @@
 #ifndef LIBPAMC_H
 #define LIBPAMC_H
 
+#include "config.h"
+
 #include <security/pam_client.h>
 #include <security/_pam_macros.h>
 
