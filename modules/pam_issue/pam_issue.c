@@ -163,6 +163,7 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 {
     int c;
     size_t size = 1024;
+    size_t issue_len = 0;
     char *issue;
     struct utsname uts;
 
@@ -173,42 +174,41 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 	return PAM_BUF_ERR;
     }
 
-    issue[0] = '\0';
     (void) uname(&uts);
 
     while ((c = getc(fp)) != EOF) {
-	char buf[1024];
+	const char *src = NULL;
+	size_t len = 0;
+	char buf[1024] = "";
 
-	buf[0] = '\0';
 	if (c == '\\') {
 	    if ((c = getc(fp)) == EOF)
 		break;
 	    switch (c) {
 	      case 's':
-		strncat(buf, uts.sysname, sizeof(buf) - 1);
+		src = uts.sysname;
+		len = strnlen(uts.sysname, sizeof(uts.sysname));
 		break;
 	      case 'n':
-		strncat(buf, uts.nodename, sizeof(buf) - 1);
+		src = uts.nodename;
+		len = strnlen(uts.nodename, sizeof(uts.nodename));
 		break;
 	      case 'r':
-		strncat(buf, uts.release, sizeof(buf) - 1);
+		src = uts.release;
+		len = strnlen(uts.release, sizeof(uts.release));
 		break;
 	      case 'v':
-		strncat(buf, uts.version, sizeof(buf) - 1);
+		src = uts.version;
+		len = strnlen(uts.version, sizeof(uts.version));
 		break;
 	      case 'm':
-		strncat(buf, uts.machine, sizeof(buf) - 1);
+		src = uts.machine;
+		len = strnlen(uts.machine, sizeof(uts.machine));
 		break;
 	      case 'o':
 #ifdef HAVE_GETDOMAINNAME
-		{
-		    char domainname[256];
-
-		    if (getdomainname(domainname, sizeof(domainname)) >= 0) {
-			domainname[sizeof(domainname)-1] = '\0';
-			strncat(buf, domainname, sizeof(buf) - 1);
-		    }
-		}
+		if (getdomainname(buf, sizeof(buf)) >= 0)
+		    buf[sizeof(buf) - 1] = '\0';
 #endif
 		break;
 	      case 'd':
@@ -243,7 +243,8 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 			const char *str = pam_str_skip_prefix(ttyn, "/dev/");
 			if (str != NULL)
 			    ttyn = str;
-			strncat(buf, ttyn, sizeof(buf) - 1);
+			src = ttyn;
+			len = strlen(ttyn);
 		    }
 		}
 		break;
@@ -272,19 +273,26 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 	    buf[0] = c; buf[1] = '\0';
 	}
 
-	if ((strlen(issue) + strlen(buf)) + 1 > size) {
+	if (src == NULL) {
+	    src = buf;
+	    len = strlen(buf);
+	}
+	if (issue_len + len + 1 > size) {
 	    char *new_issue;
 
-	    size += strlen(buf) + 1;
-	    new_issue = (char *) realloc (issue, size);
+	    size += len + 1;
+	    new_issue = realloc (issue, size);
 	    if (new_issue == NULL) {
 		_pam_drop(issue);
 		return PAM_BUF_ERR;
 	    }
 	    issue = new_issue;
 	}
-	strcat(issue, buf);
+	memcpy(issue + issue_len, src, len);
+	issue_len += len;
     }
+
+    issue[issue_len] = '\0';
 
     if (ferror(fp)) {
 	pam_syslog(pamh, LOG_ERR, "read error: %m");
