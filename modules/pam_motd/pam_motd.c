@@ -259,23 +259,23 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 
 	for (j = 0; j < num_motd_dirs; j++) {
 	    char *abs_path = NULL;
+	    int fd;
 
 	    if (join_dir_strings(&abs_path, motd_dir_path_split[j],
-		    dirnames_all[i]) < 0) {
+		    dirnames_all[i]) < 0 || abs_path == NULL) {
 		continue;
 	    }
 
-	    if (abs_path != NULL) {
-		int fd = open(abs_path, O_RDONLY, 0);
-		if (fd >= 0) {
-		    try_to_display_fd(pamh, fd);
-		    close(fd);
-
-		    /* We displayed a file, skip to the next file name. */
-		    break;
-		}
-	    }
+	    fd = open(abs_path, O_RDONLY, 0);
 	    _pam_drop(abs_path);
+
+	    if (fd >= 0) {
+		try_to_display_fd(pamh, fd);
+		close(fd);
+
+		/* We displayed a file, skip to the next file name. */
+		break;
+	    }
 	}
     }
 
