@@ -281,15 +281,16 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 
   out:
     _pam_drop(dirnames_all);
-    for (i = 0; i < num_motd_dirs; i++) {
-	unsigned int j;
+    if (dirscans_sizes != NULL) {
+	for (i = 0; i < num_motd_dirs; i++) {
+	    unsigned int j;
 
-	for (j = 0; j < dirscans_sizes[i]; j++) {
-	    _pam_drop(dirscans[i][j]);
+	    for (j = 0; j < dirscans_sizes[i]; j++)
+		_pam_drop(dirscans[i][j]);
+	    _pam_drop(dirscans[i]);
 	}
-	_pam_drop(dirscans[i]);
+	_pam_drop(dirscans_sizes);
     }
-    _pam_drop(dirscans_sizes);
     _pam_drop(dirscans);
 }
 
