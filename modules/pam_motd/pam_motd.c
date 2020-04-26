@@ -291,8 +291,6 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
     }
     _pam_drop(dirscans_sizes);
     _pam_drop(dirscans);
-
-    return;
 }
 
 int pam_sm_open_session(pam_handle_t *pamh, int flags,
