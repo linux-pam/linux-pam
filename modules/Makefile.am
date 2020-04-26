@@ -14,6 +14,10 @@ if COND_BUILD_PAM_LASTLOG
  MAYBE_PAM_LASTLOG = pam_lastlog
 endif
 
+if COND_BUILD_PAM_NAMESPACE
+ MAYBE_PAM_NAMESPACE = pam_namespace
+endif
+
 if COND_BUILD_PAM_RHOSTS
  MAYBE_PAM_RHOSTS = pam_rhosts
 endif
@@ -52,7 +56,7 @@ SUBDIRS := \
 	pam_mail \
 	pam_mkhomedir \
 	pam_motd \
-	pam_namespace \
+	$(MAYBE_PAM_NAMESPACE) \
 	pam_nologin \
 	pam_permit \
 	pam_pwhistory \

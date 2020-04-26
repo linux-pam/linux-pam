@@ -578,7 +578,6 @@ AC_CHECK_FUNCS([logwtmp])
 LIBS=$BACKUP_LIBS
 
 AC_CHECK_FUNCS(unshare, [UNSHARE=yes], [UNSHARE=no])
-AM_CONDITIONAL([HAVE_UNSHARE], [test "$UNSHARE" = yes])
 
 AC_ARG_ENABLE([regenerate-docu],
   AS_HELP_STRING([--disable-regenerate-docu],[Don't re-build documentation from XML sources]),
@@ -658,6 +657,7 @@ AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel ov
 AM_CONDITIONAL([COND_BUILD_PAM_CRACKLIB], [test -n "$LIBCRACK"])
 AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_NAMESPACE], [test "$UNSHARE" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_TTY_AUDIT], [test "$HAVE_AUDIT_TTY_STATUS" = yes])

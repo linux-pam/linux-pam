@@ -13,10 +13,8 @@ endif
 
 EXTRA_DIST = README namespace.conf namespace.init $(MANS) $(XMLS) tst-pam_namespace
 
-if HAVE_UNSHARE
-  TESTS = tst-pam_namespace
-  man_MANS = $(MAN5) $(MAN8)
-endif
+TESTS = tst-pam_namespace
+man_MANS = $(MAN5) $(MAN8)
 
 XMLS = README.xml namespace.conf.5.xml pam_namespace.8.xml pam_namespace_helper.8.xml
 
@@ -34,24 +32,22 @@ endif
 
 noinst_HEADERS = md5.h pam_namespace.h argv_parse.h
 
-if HAVE_UNSHARE
-  securelib_LTLIBRARIES = pam_namespace.la
-  pam_namespace_la_SOURCES = pam_namespace.c md5.c argv_parse.c
-  pam_namespace_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@
+securelib_LTLIBRARIES = pam_namespace.la
+pam_namespace_la_SOURCES = pam_namespace.c md5.c argv_parse.c
+pam_namespace_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@
 
-  secureconf_DATA = namespace.conf
-  secureconf_SCRIPTS = namespace.init
+secureconf_DATA = namespace.conf
+secureconf_SCRIPTS = namespace.init
 
 install-data-local:
 	mkdir -p $(DESTDIR)$(namespaceddir)
 	mkdir -p $(DESTDIR)$(servicedir)
 	$(INSTALL_DATA) pam_namespace.service $(DESTDIR)$(servicedir)
 
-  sbin_SCRIPTS = pam_namespace_helper
+sbin_SCRIPTS = pam_namespace_helper
 
 uninstall-local:
 	-rm $(DESTDIR)$(servicedir)/pam_namespace.service
-endif
 
 
 if ENABLE_REGENERATE_MAN
