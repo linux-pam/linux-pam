@@ -454,7 +454,6 @@ if test x"$WITH_DB" != xno ; then
         fi
 fi
 AC_SUBST(LIBDB)
-AM_CONDITIONAL([HAVE_LIBDB], [test -n "$LIBDB"])
 
 AC_ARG_ENABLE([nis],
         AS_HELP_STRING([--disable-nis], [Disable building NIS/YP support in pam_unix]))
@@ -662,6 +661,7 @@ AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_TTY_AUDIT], [test "$HAVE_AUDIT_TTY_STATUS" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_USERDB], [test -n "$LIBDB"])
 
 dnl Files to be created from when we run configure
 AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \

@@ -26,6 +26,10 @@ if COND_BUILD_PAM_TTY_AUDIT
  MAYBE_PAM_TTY_AUDIT = pam_tty_audit
 endif
 
+if COND_BUILD_PAM_USERDB
+ MAYBE_PAM_USERDB = pam_userdb
+endif
+
 SUBDIRS := \
 	pam_access \
 	$(MAYBE_PAM_CRACKLIB) \
@@ -68,7 +72,7 @@ SUBDIRS := \
 	$(MAYBE_PAM_TTY_AUDIT) \
 	pam_umask \
 	pam_unix \
-	pam_userdb \
+	$(MAYBE_PAM_USERDB) \
 	pam_usertype \
 	pam_warn \
 	pam_wheel \

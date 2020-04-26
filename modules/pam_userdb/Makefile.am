@@ -7,12 +7,10 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(XMLS) pam_userdb.8 create.pl tst-pam_userdb
 
-if HAVE_LIBDB
 if HAVE_DOC
-  man_MANS = pam_userdb.8
+man_MANS = pam_userdb.8
 endif
-  TESTS = tst-pam_userdb
-endif
+TESTS = tst-pam_userdb
 
 XMLS = README.xml pam_userdb.8.xml
 
@@ -26,10 +24,8 @@ if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
-if HAVE_LIBDB
-  securelib_LTLIBRARIES = pam_userdb.la
-  pam_userdb_la_LIBADD = $(top_builddir)/libpam/libpam.la
-endif
+securelib_LTLIBRARIES = pam_userdb.la
+pam_userdb_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 noinst_HEADERS = pam_userdb.h
 
