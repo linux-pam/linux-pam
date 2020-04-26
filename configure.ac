@@ -410,8 +410,6 @@ else
 	LIBAUDIT=""
 fi
 AC_SUBST(LIBAUDIT)
-AM_CONDITIONAL([HAVE_AUDIT_TTY_STATUS],
-	       [test "x$HAVE_AUDIT_TTY_STATUS" = xyes])
 
 AC_CHECK_HEADERS(xcrypt.h crypt.h)
 AS_IF([test "x$ac_cv_header_xcrypt_h" = "xyes"],
@@ -682,6 +680,7 @@ AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel ov
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_TTY_AUDIT], [test "$HAVE_AUDIT_TTY_STATUS" = yes])
 
 dnl Files to be created from when we run configure
 AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \

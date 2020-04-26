@@ -14,6 +14,10 @@ if COND_BUILD_PAM_SETQUOTA
  MAYBE_PAM_SETQUOTA = pam_setquota
 endif
 
+if COND_BUILD_PAM_TTY_AUDIT
+ MAYBE_PAM_TTY_AUDIT = pam_tty_audit
+endif
+
 SUBDIRS := \
 	pam_access \
 	pam_cracklib \
@@ -53,7 +57,7 @@ SUBDIRS := \
 	pam_tally2 \
 	pam_time \
 	pam_timestamp \
-	pam_tty_audit \
+	$(MAYBE_PAM_TTY_AUDIT) \
 	pam_umask \
 	pam_unix \
 	pam_userdb \

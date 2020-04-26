@@ -7,11 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README pam_tty_audit.8 $(XMLS) tst-pam_tty_audit
 
-if HAVE_AUDIT_TTY_STATUS
-  TESTS = tst-pam_tty_audit
+TESTS = tst-pam_tty_audit
 if HAVE_DOC
-  man_MANS = pam_tty_audit.8
-endif
+man_MANS = pam_tty_audit.8
 endif
 XMLS = README.xml pam_tty_audit.8.xml
 
@@ -24,10 +22,8 @@ if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
-if HAVE_AUDIT_TTY_STATUS
-  pam_tty_audit_la_LIBADD = $(top_builddir)/libpam/libpam.la
-  securelib_LTLIBRARIES = pam_tty_audit.la
-endif
+pam_tty_audit_la_LIBADD = $(top_builddir)/libpam/libpam.la
+securelib_LTLIBRARIES = pam_tty_audit.la
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
