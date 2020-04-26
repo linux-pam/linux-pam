@@ -378,9 +378,6 @@ if test x"$WITH_CRACKLIB" != xno ; then
 else
 	LIBCRACK=""
 fi
-if test -n "$LIBCRACK"; then
-	AC_DEFINE([HAVE_LIBCRACK], [1], [Define to 1 if you have cracklib.])
-fi
 AC_SUBST(LIBCRACK)
 
 dnl Look for Linux Auditing library - see documentation
