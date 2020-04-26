@@ -108,7 +108,7 @@ static int pam_split_string(const pam_handle_t *pamh, char *arg, char delim,
 
     arg_split = calloc(num_strs, sizeof(char *));
     if (arg_split == NULL) {
-	pam_syslog(pamh, LOG_CRIT, "pam_motd: failed to allocate string array");
+	pam_syslog(pamh, LOG_CRIT, "failed to allocate string array");
 	goto out;
     }
 
@@ -202,11 +202,11 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
     }
 
     if ((dirscans = calloc(num_motd_dirs, sizeof(struct dirent **))) == NULL) {
-	pam_syslog(pamh, LOG_CRIT, "pam_motd: failed to allocate dirent arrays");
+	pam_syslog(pamh, LOG_CRIT, "failed to allocate dirent arrays");
 	goto out;
     }
     if ((dirscans_sizes = calloc(num_motd_dirs, sizeof(int))) == NULL) {
-	pam_syslog(pamh, LOG_CRIT, "pam_motd: failed to allocate dirent array sizes");
+	pam_syslog(pamh, LOG_CRIT, "failed to allocate dirent array sizes");
 	goto out;
     }
 
@@ -216,7 +216,7 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 		filter_dirents, alphasort);
 	if (rv < 0) {
 	    if (errno != ENOENT || report_missing) {
-		pam_syslog(pamh, LOG_ERR, "pam_motd: error scanning directory %s: %m",
+		pam_syslog(pamh, LOG_ERR, "error scanning directory %s: %m",
 		    motd_dir_path_split[i]);
 	    }
 	    dirscans_sizes[i] = rv;
@@ -229,7 +229,7 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 
     /* Allocate space for all file names found in the directories, including duplicates. */
     if ((dirnames_all = calloc(dirscans_size_total, sizeof(char *))) == NULL) {
-	pam_syslog(pamh, LOG_CRIT, "pam_motd: failed to allocate dirname array");
+	pam_syslog(pamh, LOG_CRIT, "failed to allocate dirname array");
 	goto out;
     }
 
