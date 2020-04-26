@@ -400,8 +400,6 @@ if test x"$WITH_LIBAUDIT" != xno ; then
             AC_DEFINE([HAVE_LIBAUDIT], 1, [Define to 1 if audit support should be compiled in.])
         fi
         if test -n "$HAVE_AUDIT_TTY_STATUS" ; then
-            AC_DEFINE([HAVE_AUDIT_TTY_STATUS], 1, [Define to 1 if struct audit_tty_status exists.])
-
             AC_CHECK_MEMBERS([struct audit_tty_status.log_passwd], [],
                             AC_MSG_WARN([audit_tty_status.log_passwd is not available.  The log_passwd option is disabled.]),
                             [[#include <libaudit.h>]])
