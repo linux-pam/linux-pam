@@ -8,12 +8,10 @@ MAINTAINERCLEANFILES = $(MANS) README
 EXTRA_DIST = README $(XMLS) pam_keyinit.8 tst-pam_keyinit
 XMLS = README.xml pam_keyinit.8.xml
 
-if HAVE_KEY_MANAGEMENT
 if HAVE_DOC
-  man_MANS =  pam_keyinit.8
+man_MANS =  pam_keyinit.8
 endif
-  TESTS = tst-pam_keyinit
-endif
+TESTS = tst-pam_keyinit
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
@@ -31,7 +29,5 @@ if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
-if HAVE_KEY_MANAGEMENT
-  securelib_LTLIBRARIES = pam_keyinit.la
-endif
+securelib_LTLIBRARIES = pam_keyinit.la
 pam_keyinit_la_LIBADD = $(top_builddir)/libpam/libpam.la

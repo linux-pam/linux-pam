@@ -2,6 +2,10 @@
 # Copyright (c) 2005, 2006, 2008 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
+if COND_BUILD_PAM_KEYINIT
+ MAYBE_PAM_KEYINIT = pam_keyinit
+endif
+
 if COND_BUILD_PAM_LASTLOG
  MAYBE_PAM_LASTLOG = pam_lastlog
 endif
@@ -31,7 +35,7 @@ SUBDIRS := \
 	pam_ftp \
 	pam_group \
 	pam_issue \
-	pam_keyinit \
+	$(MAYBE_PAM_KEYINIT) \
 	$(MAYBE_PAM_LASTLOG) \
 	pam_limits \
 	pam_listfile \

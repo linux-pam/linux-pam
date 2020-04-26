@@ -652,8 +652,6 @@ if test $HAVE_KEY_MANAGEMENT = 1; then
 fi
 AC_SUBST([HAVE_KEY_MANAGEMENT], $HAVE_KEY_MANAGEMENT)
 
-AM_CONDITIONAL([HAVE_KEY_MANAGEMENT], [test "$have_key_syscalls" = 1])
-
 dnl
 dnl Get values for default uid ranges in login.defs used in pam_usertype
 dnl
@@ -675,6 +673,7 @@ if test x"$opt_kerneloverflowuid" == x; then
 fi
 AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel overflow uid.])
 
+AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
