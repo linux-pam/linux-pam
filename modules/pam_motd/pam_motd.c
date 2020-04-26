@@ -219,6 +219,7 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 		pam_syslog(pamh, LOG_ERR, "error scanning directory %s: %m",
 		    motd_dir_path_split[i]);
 	    }
+	} else {
 	    dirscans_sizes[i] = rv;
 	}
 	dirscans_size_total += dirscans_sizes[i];
