@@ -224,6 +224,9 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 	dirscans_size_total += dirscans_sizes[i];
     }
 
+    if (dirscans_size_total == 0)
+        goto out;
+
     /* Allocate space for all file names found in the directories, including duplicates. */
     if ((dirnames_all = calloc(dirscans_size_total, sizeof(char *))) == NULL) {
 	pam_syslog(pamh, LOG_CRIT, "pam_motd: failed to allocate dirname array");
