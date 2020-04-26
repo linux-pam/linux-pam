@@ -652,6 +652,22 @@ if test x"$opt_kerneloverflowuid" == x; then
 fi
 AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel overflow uid.])
 
+AC_ARG_ENABLE([tally],
+	      [AS_HELP_STRING([--disable-tally], [do not build pam_tally module])],
+	      [], [enable_tally=yes])
+case "$enable_tally" in
+  yes|no) ;;
+  *) AC_MSG_ERROR([bad value $enable_tally for --enable-tally option]) ;;
+esac
+
+AC_ARG_ENABLE([tally2],
+	      [AS_HELP_STRING([--disable-tally2], [do not build pam_tally2 module])],
+	      [], [enable_tally2=yes])
+case "$enable_tally2" in
+  yes|no) ;;
+  *) AC_MSG_ERROR([bad value $enable_tally2 for --enable-tally2 option]) ;;
+esac
+
 AM_CONDITIONAL([COND_BUILD_PAM_CRACKLIB], [test -n "$LIBCRACK"])
 AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
@@ -660,6 +676,8 @@ AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o 
 AM_CONDITIONAL([COND_BUILD_PAM_SELINUX], [test -n "$LIBSELINUX"])
 AM_CONDITIONAL([COND_BUILD_PAM_SEPERMIT], [test -n "$LIBSELINUX"])
 AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_TALLY], [test "$enable_tally" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_TALLY2], [test "$enable_tally2" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_TTY_AUDIT], [test "$HAVE_AUDIT_TTY_STATUS" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_USERDB], [test -n "$LIBDB"])
 

@@ -34,6 +34,14 @@ if COND_BUILD_PAM_SETQUOTA
  MAYBE_PAM_SETQUOTA = pam_setquota
 endif
 
+if COND_BUILD_PAM_TALLY
+ MAYBE_PAM_TALLY = pam_tally
+endif
+
+if COND_BUILD_PAM_TALLY2
+ MAYBE_PAM_TALLY2 = pam_tally2
+endif
+
 if COND_BUILD_PAM_TTY_AUDIT
  MAYBE_PAM_TTY_AUDIT = pam_tty_audit
 endif
@@ -77,8 +85,8 @@ SUBDIRS := \
 	pam_shells \
 	pam_stress \
 	pam_succeed_if \
-	pam_tally \
-	pam_tally2 \
+	$(MAYBE_PAM_TALLY) \
+	$(MAYBE_PAM_TALLY2) \
 	pam_time \
 	pam_timestamp \
 	$(MAYBE_PAM_TTY_AUDIT) \
