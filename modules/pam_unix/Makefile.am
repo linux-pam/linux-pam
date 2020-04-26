@@ -23,10 +23,6 @@ AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	-DUPDATE_HELPER=\"$(sbindir)/unix_update\" \
 	@TIRPC_CFLAGS@ @NSL_CFLAGS@ $(WARN_CFLAGS)
 
-if HAVE_LIBSELINUX
-  AM_CFLAGS += -D"WITH_SELINUX"
-endif
-
 pam_unix_la_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   pam_unix_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
