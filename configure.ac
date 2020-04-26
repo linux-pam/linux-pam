@@ -638,19 +638,6 @@ dnl Check for the availability of the kernel key management facility
 dnl - The pam_keyinit module only requires the syscalls, not the error codes
 dnl
 AC_CHECK_DECL(__NR_keyctl, [have_key_syscalls=1],[have_key_syscalls=0],[#include <sys/syscall.h>])
-AC_CHECK_DECL(ENOKEY, [have_key_errors=1],[have_key_errors=0],[#include <errno.h>])
-
-HAVE_KEY_MANAGEMENT=0
-if test $have_key_syscalls$have_key_errors = 11
-then
-	HAVE_KEY_MANAGEMENT=1
-fi
-
-if test $HAVE_KEY_MANAGEMENT = 1; then
-   AC_DEFINE([HAVE_KEY_MANAGEMENT], 1,
-	     [Defined if the kernel key management facility is available])
-fi
-AC_SUBST([HAVE_KEY_MANAGEMENT], $HAVE_KEY_MANAGEMENT)
 
 dnl
 dnl Get values for default uid ranges in login.defs used in pam_usertype
