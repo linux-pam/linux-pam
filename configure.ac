@@ -571,13 +571,12 @@ AC_CHECK_FUNCS(getutent_r getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r
 AC_CHECK_FUNCS(getgrouplist getline getdelim)
 AC_CHECK_FUNCS(inet_ntop inet_pton innetgr)
 AC_CHECK_FUNCS(quotactl)
+AC_CHECK_FUNCS(unshare)
 AC_CHECK_FUNCS([ruserok_af ruserok], [break])
 BACKUP_LIBS=$LIBS
 LIBS="$LIBS -lutil"
 AC_CHECK_FUNCS([logwtmp])
 LIBS=$BACKUP_LIBS
-
-AC_CHECK_FUNCS(unshare, [UNSHARE=yes], [UNSHARE=no])
 
 AC_ARG_ENABLE([regenerate-docu],
   AS_HELP_STRING([--disable-regenerate-docu],[Don't re-build documentation from XML sources]),
@@ -657,7 +656,7 @@ AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel ov
 AM_CONDITIONAL([COND_BUILD_PAM_CRACKLIB], [test -n "$LIBCRACK"])
 AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
-AM_CONDITIONAL([COND_BUILD_PAM_NAMESPACE], [test "$UNSHARE" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_NAMESPACE], [test "$ac_cv_func_unshare" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_TTY_AUDIT], [test "$HAVE_AUDIT_TTY_STATUS" = yes])
