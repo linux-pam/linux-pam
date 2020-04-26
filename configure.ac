@@ -514,7 +514,6 @@ else
   LIBSELINUX=""
 fi
 AC_SUBST(LIBSELINUX)
-AM_CONDITIONAL([HAVE_LIBSELINUX], [test -n "$LIBSELINUX"])
 if test -n "$LIBSELINUX" ; then
     AC_DEFINE([WITH_SELINUX], 1, [Defined if SE Linux support is compiled in])
     BACKUP_LIBS=$LIBS
@@ -658,6 +657,8 @@ AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_NAMESPACE], [test "$ac_cv_func_unshare" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_SELINUX], [test -n "$LIBSELINUX"])
+AM_CONDITIONAL([COND_BUILD_PAM_SEPERMIT], [test -n "$LIBSELINUX"])
 AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_TTY_AUDIT], [test "$HAVE_AUDIT_TTY_STATUS" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_USERDB], [test -n "$LIBDB"])

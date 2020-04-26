@@ -22,6 +22,14 @@ if COND_BUILD_PAM_RHOSTS
  MAYBE_PAM_RHOSTS = pam_rhosts
 endif
 
+if COND_BUILD_PAM_SELINUX
+ MAYBE_PAM_SELINUX = pam_selinux
+endif
+
+if COND_BUILD_PAM_SEPERMIT
+ MAYBE_PAM_SEPERMIT = pam_sepermit
+endif
+
 if COND_BUILD_PAM_SETQUOTA
  MAYBE_PAM_SETQUOTA = pam_setquota
 endif
@@ -63,8 +71,8 @@ SUBDIRS := \
 	$(MAYBE_PAM_RHOSTS) \
 	pam_rootok \
 	pam_securetty \
-	pam_selinux \
-	pam_sepermit \
+	$(MAYBE_PAM_SELINUX) \
+	$(MAYBE_PAM_SEPERMIT) \
 	$(MAYBE_PAM_SETQUOTA) \
 	pam_shells \
 	pam_stress \

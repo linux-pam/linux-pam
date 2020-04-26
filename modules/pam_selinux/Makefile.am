@@ -8,11 +8,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 EXTRA_DIST = README $(XMLS) pam_selinux.8 pam_selinux_check.8 \
 		tst-pam_selinux
 
-if HAVE_LIBSELINUX
-  TESTS = tst-pam_selinux
+TESTS = tst-pam_selinux
 if HAVE_DOC
-  man_MANS = pam_selinux.8
-endif
+man_MANS = pam_selinux.8
 endif
 
 XMLS = README.xml pam_selinux.8.xml
@@ -29,12 +27,11 @@ if HAVE_VERSIONING
   pam_selinux_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
-if HAVE_LIBSELINUX
-  securelib_LTLIBRARIES = pam_selinux.la
-  noinst_PROGRAMS = pam_selinux_check
-  pam_selinux_check_LDADD = $(top_builddir)/libpam/libpam.la \
-			    $(top_builddir)/libpam_misc/libpam_misc.la
-endif
+securelib_LTLIBRARIES = pam_selinux.la
+noinst_PROGRAMS = pam_selinux_check
+pam_selinux_check_LDADD = $(top_builddir)/libpam/libpam.la \
+			  $(top_builddir)/libpam_misc/libpam_misc.la
+
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README pam_selinux.8
 README: pam_selinux.8.xml
