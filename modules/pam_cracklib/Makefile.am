@@ -7,11 +7,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(XMLS) pam_cracklib.8 tst-pam_cracklib
 
-if HAVE_LIBCRACK
-  TESTS = tst-pam_cracklib
+TESTS = tst-pam_cracklib
 if HAVE_DOC
-  man_MANS = pam_cracklib.8
-endif
+man_MANS = pam_cracklib.8
 endif
 
 XMLS = README.xml pam_cracklib.8.xml
@@ -27,9 +25,7 @@ if HAVE_VERSIONING
 endif
 pam_cracklib_la_LIBADD = $(top_builddir)/libpam/libpam.la \
 	@LIBCRACK@ @LIBCRYPT@
-if HAVE_LIBCRACK
-  securelib_LTLIBRARIES = pam_cracklib.la
-endif
+securelib_LTLIBRARIES = pam_cracklib.la
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README pam_cracklib.8

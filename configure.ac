@@ -382,7 +382,6 @@ if test -n "$LIBCRACK"; then
 	AC_DEFINE([HAVE_LIBCRACK], [1], [Define to 1 if you have cracklib.])
 fi
 AC_SUBST(LIBCRACK)
-AM_CONDITIONAL([HAVE_LIBCRACK], [test -n "$LIBCRACK"])
 
 dnl Look for Linux Auditing library - see documentation
 AC_ARG_ENABLE([audit],
@@ -660,6 +659,7 @@ if test x"$opt_kerneloverflowuid" == x; then
 fi
 AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel overflow uid.])
 
+AM_CONDITIONAL([COND_BUILD_PAM_CRACKLIB], [test -n "$LIBCRACK"])
 AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
