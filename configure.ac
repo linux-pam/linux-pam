@@ -396,10 +396,10 @@ if test x"$WITH_LIBAUDIT" != xno ; then
 			     [HAVE_AUDIT_TTY_STATUS=""],
 			     [#include <libaudit.h>])]
         )
-        if test ! -z "$LIBAUDIT" -a "$ac_cv_header_libaudit_h" != "no" ; then
+        if test -n "$LIBAUDIT" -a "$ac_cv_header_libaudit_h" != "no" ; then
             AC_DEFINE([HAVE_LIBAUDIT], 1, [Define to 1 if audit support should be compiled in.])
         fi
-        if test ! -z "$HAVE_AUDIT_TTY_STATUS" ; then
+        if test -n "$HAVE_AUDIT_TTY_STATUS" ; then
             AC_DEFINE([HAVE_AUDIT_TTY_STATUS], 1, [Define to 1 if struct audit_tty_status exists.])
 
             AC_CHECK_MEMBERS([struct audit_tty_status.log_passwd], [],
@@ -454,7 +454,7 @@ if test x"$WITH_DB" != xno ; then
         fi
         if test -z "$LIBDB" ; then
             AC_CHECK_LIB([ndbm],[dbm_store], LIBDB="-lndbm", LIBDB="")
-            if test ! -z "$LIBDB" ; then
+            if test -n "$LIBDB" ; then
                 AC_CHECK_HEADERS(ndbm.h)
             fi
         else
@@ -462,7 +462,7 @@ if test x"$WITH_DB" != xno ; then
         fi
 fi
 AC_SUBST(LIBDB)
-AM_CONDITIONAL([HAVE_LIBDB], [test ! -z "$LIBDB"])
+AM_CONDITIONAL([HAVE_LIBDB], [test -n "$LIBDB"])
 
 AC_ARG_ENABLE([nis],
         AS_HELP_STRING([--disable-nis], [Disable building NIS/YP support in pam_unix]))
@@ -523,8 +523,8 @@ else
   LIBSELINUX=""
 fi
 AC_SUBST(LIBSELINUX)
-AM_CONDITIONAL([HAVE_LIBSELINUX], [test ! -z "$LIBSELINUX"])
-if test ! -z "$LIBSELINUX" ; then
+AM_CONDITIONAL([HAVE_LIBSELINUX], [test -n "$LIBSELINUX"])
+if test -n "$LIBSELINUX" ; then
     AC_DEFINE([WITH_SELINUX], 1, [Defined if SE Linux support is compiled in])
     BACKUP_LIBS=$LIBS
     LIBS="$LIBS $LIBSELINUX"
@@ -611,11 +611,11 @@ JH_CHECK_XML_CATALOG([http://docbook.sourceforge.net/release/xsl/current/manpage
                 [DocBook XSL Stylesheets], [], enable_docu=no)
 
 AC_PATH_PROG([BROWSER], [w3m])
-if test ! -z "$BROWSER"; then
+if test -n "$BROWSER"; then
      BROWSER="$BROWSER -T text/html -dump"
 else
      AC_PATH_PROG([BROWSER], [elinks])
-     if test ! -z "$BROWSER"; then
+     if test -n "$BROWSER"; then
           BROWSER="$BROWSER -no-numbering -no-references -dump"
      else
           enable_docu=no
@@ -625,7 +625,7 @@ fi
 AC_PATH_PROG([FO2PDF], [fop])
 
 AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_docu != xno -a x$enable_doc != xno)
-AM_CONDITIONAL(ENABLE_GENERATE_PDF, test ! -z "$FO2PDF")
+AM_CONDITIONAL(ENABLE_GENERATE_PDF, test -n "$FO2PDF")
 
 
 AM_GNU_GETTEXT_VERSION([0.18.3])
