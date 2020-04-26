@@ -230,10 +230,6 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 	goto out;
     }
 
-    for (i = 0; i < dirscans_size_total; i++) {
-	dirnames_all[i] = NULL;
-    }
-
     for (i = 0; i < num_motd_dirs; i++) {
 	unsigned int j;
 
