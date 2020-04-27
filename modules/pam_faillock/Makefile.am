@@ -1,6 +1,6 @@
 #
 # Copyright (c) 2005, 2006, 2007, 2009 Thorsten Kukuk <kukuk@thkukuk.de>
-# Copyright (c) 2008, 2018 Red Hat, Inc.
+# Copyright (c) 2008, 2018, 2020 Red Hat, Inc.
 # Copyright (c) 2010 Tomas Mraz <tmraz@redhat.com>
 #
 
@@ -9,7 +9,9 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) faillock.conf tst-pam_faillock
 
+if HAVE_DOC
 man_MANS = pam_faillock.8 faillock.8 faillock.conf.5
+endif
 XMLS = README.xml pam_faillock.8.xml faillock.8.xml faillock.conf.5.xml
 
 TESTS = tst-pam_faillock
@@ -19,17 +21,19 @@ secureconfdir = $(SCONFIGDIR)
 
 noinst_HEADERS = faillock.h
 
-faillock_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include @PIE_CFLAGS@
-pam_faillock_la_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
+AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+	$(WARN_CFLAGS)
+
+faillock_CFLAGS = $(AM_CFLAGS) @PIE_CFLAGS@
 
 pam_faillock_la_LDFLAGS = -no-undefined -avoid-version -module
-pam_faillock_la_LIBADD = -L$(top_builddir)/libpam -lpam $(LIBAUDIT)
+pam_faillock_la_LIBADD = $(top_builddir)/libpam/libpam.la $(LIBAUDIT)
 if HAVE_VERSIONING
   pam_faillock_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
-faillock_LDFLAGS = -Wl,-z,now @PIE_LDFLAGS@
-faillock_LDADD = -L$(top_builddir)/libpam -lpam $(LIBAUDIT)
+faillock_LDFLAGS = @PIE_LDFLAGS@
+faillock_LDADD = $(top_builddir)/libpam/libpam.la $(LIBAUDIT)
 
 secureconf_DATA = faillock.conf
 
