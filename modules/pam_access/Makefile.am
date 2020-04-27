@@ -33,7 +33,6 @@ if ENABLE_REGENERATE_MAN
 
 noinst_DATA = README
 
-README: $(XMLS)
 
 -include $(top_srcdir)/Make.xml.rules
 endif

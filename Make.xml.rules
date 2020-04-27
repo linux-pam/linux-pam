@@ -2,6 +2,8 @@
 # Copyright (c) 2006 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
+README: $(XMLS)
+
 README: README.xml
 	$(XSLTPROC) --path $(srcdir) --xinclude --stringparam generate.toc "none" $(XSLTPROC_CUSTOM) --nonet $(top_srcdir)/doc/custom-html.xsl $< | $(BROWSER) > $(srcdir)/$@
 

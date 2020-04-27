@@ -32,7 +32,6 @@ pam_securetty_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: $(XMLS)
 if HAVE_VENDORDIR
 XSLTPROC_CUSTOM = --stringparam vendordir $(VENDORDIR)
 else
