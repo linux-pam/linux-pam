@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) create.pl
+EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS) create.pl
 
 if HAVE_DOC
 man_MANS = pam_userdb.8

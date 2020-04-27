@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA)
+EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA)
 
 if HAVE_DOC
 man_MANS = time.conf.5 pam_time.8

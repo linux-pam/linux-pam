@@ -6,7 +6,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) $(dist_TESTS)
+EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(dist_TESTS)
 
 if HAVE_DOC
 man_MANS = pam_timestamp.8 pam_timestamp_check.8

@@ -6,7 +6,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = pam_mkhomedir.8 mkhomedir_helper.8

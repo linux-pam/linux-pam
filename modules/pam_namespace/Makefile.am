@@ -6,7 +6,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA) namespace.init
+EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA) namespace.init
 
 if HAVE_DOC
 man_MANS = namespace.conf.5 pam_namespace.8 pam_namespace_helper.8
