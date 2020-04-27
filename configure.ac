@@ -364,8 +364,15 @@ if test x$pam_xauth_path != x ; then
 	[Additional path of xauth executable])
 fi
 
-dnl Checks for the existence of libdl - on BSD and Tru64 its part of libc
-AC_CHECK_LIB([dl], [dlopen], LIBDL="-ldl", LIBDL="")
+dnl Checks for the existence of libdl - in musl its a part of libc
+saved_LIBS="$LIBS"
+AC_SEARCH_LIBS([dlopen], [dl])
+LIBS="$saved_LIBS"
+case "$ac_cv_search_dlopen" in
+	no) AC_MSG_FAILURE([failed to find dlopen]) ;;
+	-l*) LIBDL="$ac_cv_search_dlopen" ;;
+	*) LIBDL= ;;
+esac
 AC_SUBST(LIBDL)
 
 # Check for cracklib
