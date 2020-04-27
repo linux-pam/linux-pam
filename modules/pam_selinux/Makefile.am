@@ -33,7 +33,7 @@ pam_selinux_check_LDADD = $(top_builddir)/libpam/libpam.la \
 			  $(top_builddir)/libpam_misc/libpam_misc.la
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README pam_selinux.8
+noinst_DATA = README
 README: pam_selinux.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif

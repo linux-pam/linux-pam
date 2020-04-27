@@ -28,7 +28,7 @@ pam_cracklib_la_LIBADD = $(top_builddir)/libpam/libpam.la \
 securelib_LTLIBRARIES = pam_cracklib.la
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README pam_cracklib.8
+noinst_DATA = README
 README: pam_cracklib.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif

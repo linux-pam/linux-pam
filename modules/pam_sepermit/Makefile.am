@@ -37,7 +37,7 @@ install-data-local:
 	mkdir -p $(DESTDIR)$(sepermitlockdir)
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README pam_sepermit.8 sepermit.conf.5
+noinst_DATA = README
 README: pam_sepermit.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif

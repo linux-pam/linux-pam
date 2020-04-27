@@ -30,7 +30,7 @@ pam_userdb_la_LIBADD = $(top_builddir)/libpam/libpam.la
 noinst_HEADERS = pam_userdb.h
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README pam_userdb.8
+noinst_DATA = README
 README: pam_userdb.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
