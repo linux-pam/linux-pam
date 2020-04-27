@@ -696,7 +696,7 @@ AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile
 	modules/pam_access/Makefile modules/pam_cracklib/Makefile \
         modules/pam_debug/Makefile modules/pam_deny/Makefile \
 	modules/pam_echo/Makefile modules/pam_env/Makefile \
-	modules/pam_faildelay/Makefile \
+	modules/pam_faildelay/Makefile modules/pam_faillock/Makefile \
 	modules/pam_filter/Makefile modules/pam_filter/upperLOWER/Makefile \
 	modules/pam_ftp/Makefile modules/pam_group/Makefile \
 	modules/pam_issue/Makefile modules/pam_keyinit/Makefile \
