@@ -4,17 +4,15 @@
 #
 
 CLEANFILES = *~
-MAINTAINERCLEANFILES = $(MAN5) $(MAN8) README
+MAINTAINERCLEANFILES = $(MANS) README
 
 if HAVE_DOC
-MAN5 = namespace.conf.5
-MAN8 = pam_namespace.8 pam_namespace_helper.8
+man_MANS = namespace.conf.5 pam_namespace.8 pam_namespace_helper.8
 endif
 
 EXTRA_DIST = README namespace.conf namespace.init $(MANS) $(XMLS) tst-pam_namespace
 
 TESTS = tst-pam_namespace
-man_MANS = $(MAN5) $(MAN8)
 
 XMLS = README.xml namespace.conf.5.xml pam_namespace.8.xml pam_namespace_helper.8.xml
 
