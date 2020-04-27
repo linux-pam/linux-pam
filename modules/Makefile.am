@@ -59,6 +59,7 @@ SUBDIRS := \
 	pam_env \
 	pam_exec \
 	pam_faildelay \
+	pam_faillock \
 	pam_filter \
 	pam_ftp \
 	pam_group \
