@@ -29,6 +29,6 @@ securelib_LTLIBRARIES = pam_cracklib.la
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: pam_cracklib.8.xml
+README: $(XMLS)
 -include $(top_srcdir)/Make.xml.rules
 endif

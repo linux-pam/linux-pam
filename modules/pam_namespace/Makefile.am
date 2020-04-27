@@ -50,6 +50,6 @@ uninstall-local:
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: pam_namespace.8.xml namespace.conf.5.xml pam_namespace_helper.8.xml
+README: $(XMLS)
 -include $(top_srcdir)/Make.xml.rules
 endif

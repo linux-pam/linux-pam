@@ -30,6 +30,6 @@ secureconf_DATA = time.conf
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: pam_time.8.xml time.conf.5.xml
+README: $(XMLS)
 -include $(top_srcdir)/Make.xml.rules
 endif

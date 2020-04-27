@@ -33,6 +33,6 @@ pam_pwhistory_la_SOURCES = pam_pwhistory.c opasswd.c
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: pam_pwhistory.8.xml
+README: $(XMLS)
 -include $(top_srcdir)/Make.xml.rules
 endif

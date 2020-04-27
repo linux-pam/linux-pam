@@ -31,6 +31,6 @@ pam_usertype_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: pam_usertype.8.xml
+README: $(XMLS)
 -include $(top_srcdir)/Make.xml.rules
 endif

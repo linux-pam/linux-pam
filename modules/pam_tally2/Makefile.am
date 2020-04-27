@@ -39,6 +39,6 @@ pam_tally2_SOURCES = pam_tally2_app.c
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: pam_tally2.8.xml
+README: $(XMLS)
 -include $(top_srcdir)/Make.xml.rules
 endif

@@ -27,6 +27,6 @@ securelib_LTLIBRARIES = pam_tty_audit.la
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: pam_tty_audit.8.xml
+README: $(XMLS)
 -include $(top_srcdir)/Make.xml.rules
 endif

@@ -31,6 +31,6 @@ TESTS = tst-pam_group
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: pam_group.8.xml group.conf.5.xml
+README: $(XMLS)
 -include $(top_srcdir)/Make.xml.rules
 endif

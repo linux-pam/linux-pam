@@ -32,6 +32,6 @@ TESTS = tst-pam_filter
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: pam_filter.8.xml
+README: $(XMLS)
 -include $(top_srcdir)/Make.xml.rules
 endif
