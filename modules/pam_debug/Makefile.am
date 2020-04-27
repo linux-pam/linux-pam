@@ -11,6 +11,7 @@ if HAVE_DOC
 man_MANS = pam_debug.8
 endif
 XMLS = README.xml pam_debug.8.xml
+TESTS = tst-pam_debug
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -24,8 +25,6 @@ endif
 
 securelib_LTLIBRARIES = pam_debug.la
 pam_debug_la_LIBADD = $(top_builddir)/libpam/libpam.la
-
-TESTS = tst-pam_debug
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README

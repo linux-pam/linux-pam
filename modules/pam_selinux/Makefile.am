@@ -7,12 +7,11 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) pam_selinux_check.8
 
-TESTS = tst-pam_selinux
 if HAVE_DOC
 man_MANS = pam_selinux.8
 endif
-
 XMLS = README.xml pam_selinux.8.xml
+TESTS = tst-pam_selinux
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

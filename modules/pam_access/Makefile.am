@@ -10,8 +10,8 @@ EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA)
 if HAVE_DOC
 man_MANS = access.conf.5 pam_access.8
 endif
-
 XMLS = README.xml access.conf.5.xml pam_access.8.xml
+TESTS = tst-pam_access
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -30,11 +30,6 @@ pam_access_la_LIBADD = $(top_builddir)/libpam/libpam.la
 secureconf_DATA = access.conf
 
 if ENABLE_REGENERATE_MAN
-
 noinst_DATA = README
-
-
 -include $(top_srcdir)/Make.xml.rules
 endif
-
-TESTS = tst-pam_access

@@ -10,8 +10,8 @@ EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
 if HAVE_DOC
 man_MANS = pam_echo.8
 endif
-
 XMLS = README.xml pam_echo.8.xml
+TESTS = tst-pam_echo
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -30,5 +30,3 @@ if ENABLE_REGENERATE_MAN
 noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif
-
-TESTS = tst-pam_echo

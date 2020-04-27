@@ -11,6 +11,7 @@ if HAVE_DOC
 man_MANS = group.conf.5 pam_group.8
 endif
 XMLS = README.xml group.conf.5.xml pam_group.8.xml
+TESTS = tst-pam_group
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -26,8 +27,6 @@ securelib_LTLIBRARIES = pam_group.la
 pam_group_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 secureconf_DATA = group.conf
-
-TESTS = tst-pam_group
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README

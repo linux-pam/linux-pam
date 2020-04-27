@@ -11,7 +11,6 @@ if HAVE_DOC
 man_MANS = pam_xauth.8
 endif
 XMLS = README.xml pam_xauth.8.xml
-
 TESTS = tst-pam_xauth
 
 securelibdir = $(SECUREDIR)

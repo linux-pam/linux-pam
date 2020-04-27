@@ -6,15 +6,13 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
+EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA) namespace.init
+
 if HAVE_DOC
 man_MANS = namespace.conf.5 pam_namespace.8 pam_namespace_helper.8
 endif
-
-EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA) namespace.init
-
-TESTS = tst-pam_namespace
-
 XMLS = README.xml namespace.conf.5.xml pam_namespace.8.xml pam_namespace_helper.8.xml
+TESTS = tst-pam_namespace
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -46,7 +44,6 @@ sbin_SCRIPTS = pam_namespace_helper
 
 uninstall-local:
 	-rm $(DESTDIR)$(servicedir)/pam_namespace.service
-
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README

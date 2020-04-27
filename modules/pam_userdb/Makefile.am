@@ -10,9 +10,8 @@ EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) create.pl
 if HAVE_DOC
 man_MANS = pam_userdb.8
 endif
-TESTS = tst-pam_userdb
-
 XMLS = README.xml pam_userdb.8.xml
+TESTS = tst-pam_userdb
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

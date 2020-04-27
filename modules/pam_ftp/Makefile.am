@@ -11,6 +11,7 @@ if HAVE_DOC
 man_MANS = pam_ftp.8
 endif
 XMLS = README.xml pam_ftp.8.xml
+TESTS = tst-pam_ftp
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -24,8 +25,6 @@ endif
 
 securelib_LTLIBRARIES = pam_ftp.la
 pam_ftp_la_LIBADD = $(top_builddir)/libpam/libpam.la
-
-TESTS = tst-pam_ftp
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README

@@ -11,7 +11,6 @@ if HAVE_DOC
 man_MANS = limits.conf.5 pam_limits.8
 endif
 XMLS = README.xml limits.conf.5.xml pam_limits.8.xml
-
 TESTS = tst-pam_limits
 
 securelibdir = $(SECUREDIR)
@@ -31,10 +30,10 @@ pam_limits_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 secureconf_DATA = limits.conf
 
+install-data-local:
+	mkdir -p $(DESTDIR)$(limits_conf_dir)
+
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif
-
-install-data-local:
-	mkdir -p $(DESTDIR)$(limits_conf_dir)

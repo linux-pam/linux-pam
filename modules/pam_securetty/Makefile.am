@@ -7,12 +7,11 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
 
-TESTS = tst-pam_securetty
-
 if HAVE_DOC
 man_MANS = pam_securetty.8
 endif
 XMLS = README.xml pam_securetty.8.xml
+TESTS = tst-pam_securetty
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

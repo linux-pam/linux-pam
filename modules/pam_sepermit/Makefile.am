@@ -8,12 +8,11 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA)
 
-TESTS = tst-pam_sepermit
 if HAVE_DOC
 man_MANS = pam_sepermit.8 sepermit.conf.5
 endif
-
 XMLS = README.xml pam_sepermit.8.xml sepermit.conf.5.xml
+TESTS = tst-pam_sepermit
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

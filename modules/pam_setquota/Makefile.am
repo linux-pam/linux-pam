@@ -7,7 +7,6 @@ if HAVE_DOC
 man_MANS = pam_setquota.8
 endif
 XMLS = README.xml pam_setquota.8.xml
-
 TESTS = tst-pam_setquota
 
 securelibdir = $(SECUREDIR)

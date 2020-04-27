@@ -7,12 +7,11 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
 
-TESTS = tst-pam_cracklib
 if HAVE_DOC
 man_MANS = pam_cracklib.8
 endif
-
 XMLS = README.xml pam_cracklib.8.xml
+TESTS = tst-pam_cracklib
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

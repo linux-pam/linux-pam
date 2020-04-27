@@ -6,17 +6,12 @@ CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
-XMLS = README.xml pam_keyinit.8.xml
 
 if HAVE_DOC
 man_MANS =  pam_keyinit.8
 endif
+XMLS = README.xml pam_keyinit.8.xml
 TESTS = tst-pam_keyinit
-
-if ENABLE_REGENERATE_MAN
-noinst_DATA = README
--include $(top_srcdir)/Make.xml.rules
-endif
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -30,3 +25,8 @@ endif
 
 securelib_LTLIBRARIES = pam_keyinit.la
 pam_keyinit_la_LIBADD = $(top_builddir)/libpam/libpam.la
+
+if ENABLE_REGENERATE_MAN
+noinst_DATA = README
+-include $(top_srcdir)/Make.xml.rules
+endif

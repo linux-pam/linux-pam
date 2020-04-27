@@ -11,7 +11,6 @@ if HAVE_DOC
 man_MANS = pam_unix.8 unix_chkpwd.8 unix_update.8
 endif
 XMLS = README.xml pam_unix.8.xml unix_chkpwd.8.xml unix_update.8.xml
-
 TESTS = tst-pam_unix
 
 securelibdir = $(SECUREDIR)

@@ -10,8 +10,8 @@ EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA) environment
 if HAVE_DOC
 man_MANS = pam_env.conf.5 pam_env.8 environment.5
 endif
-
 XMLS = README.xml pam_env.conf.5.xml pam_env.8.xml
+TESTS = tst-pam_env
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -34,5 +34,3 @@ noinst_DATA = README
 environment.5: pam_env.conf.5.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
-
-TESTS = tst-pam_env

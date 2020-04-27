@@ -5,17 +5,16 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-securelibdir = $(SECUREDIR)
-secureconfdir = $(SCONFIGDIR)
-
 EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = pam_lastlog.8
 endif
 XMLS = README.xml pam_lastlog.8.xml
-
 TESTS = tst-pam_lastlog
+
+securelibdir = $(SECUREDIR)
+secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	$(WARN_CFLAGS)

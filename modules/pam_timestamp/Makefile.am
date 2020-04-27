@@ -6,15 +6,15 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-XMLS = README.xml pam_timestamp.8.xml pam_timestamp_check.8.xml
+EXTRA_DIST = README $(MANS) $(XMLS) $(dist_TESTS)
+
 if HAVE_DOC
 man_MANS = pam_timestamp.8 pam_timestamp_check.8
 endif
+XMLS = README.xml pam_timestamp.8.xml pam_timestamp_check.8.xml
 dist_TESTS = tst-pam_timestamp
 nodist_TESTS = hmacfile
 TESTS = $(dist_TESTS) $(nodist_TESTS)
-
-EXTRA_DIST = README $(MANS) $(XMLS) $(dist_TESTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -44,9 +44,9 @@ pam_timestamp_check_LDFLAGS = @PIE_LDFLAGS@
 hmacfile_SOURCES = hmacfile.c hmacsha1.c sha1.c
 hmacfile_LDADD = $(top_builddir)/libpam/libpam.la
 
+noinst_PROGRAMS = hmacfile
+
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif
-
-noinst_PROGRAMS = hmacfile

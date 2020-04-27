@@ -10,9 +10,7 @@ EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
 if HAVE_DOC
 man_MANS = pam_umask.8
 endif
-
 XMLS = README.xml pam_umask.8.xml
-
 TESTS = tst-pam_umask
 
 securelibdir = $(SECUREDIR)

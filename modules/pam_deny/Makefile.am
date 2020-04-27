@@ -10,8 +10,8 @@ EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
 if HAVE_DOC
 man_MANS = pam_deny.8
 endif
-
 XMLS = README.xml pam_deny.8.xml
+TESTS = tst-pam_deny
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -27,11 +27,6 @@ securelib_LTLIBRARIES = pam_deny.la
 pam_deny_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
-
 noinst_DATA = README
-
-
 -include $(top_srcdir)/Make.xml.rules
 endif
-
-TESTS = tst-pam_deny

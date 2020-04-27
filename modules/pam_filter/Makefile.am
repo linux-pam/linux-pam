@@ -13,6 +13,7 @@ if HAVE_DOC
 man_MANS = pam_filter.8
 endif
 XMLS = README.xml pam_filter.8.xml
+TESTS = tst-pam_filter
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -28,7 +29,6 @@ include_HEADERS=pam_filter.h
 pam_filter_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 securelib_LTLIBRARIES = pam_filter.la
-TESTS = tst-pam_filter
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
