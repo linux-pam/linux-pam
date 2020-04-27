@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README pam_env.conf $(MANS) $(XMLS) $(TESTS) environment
+EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA) environment
 
 if HAVE_DOC
 man_MANS = pam_env.conf.5 pam_env.8 environment.5

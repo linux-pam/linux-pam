@@ -10,7 +10,7 @@ if HAVE_DOC
 man_MANS = namespace.conf.5 pam_namespace.8 pam_namespace_helper.8
 endif
 
-EXTRA_DIST = README namespace.conf namespace.init $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA) namespace.init
 
 TESTS = tst-pam_namespace
 

@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README access.conf $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA)
 
 if HAVE_DOC
 man_MANS = access.conf.5 pam_access.8

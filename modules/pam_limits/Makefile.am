@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) limits.conf $(TESTS)
+EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS) $(secureconf_DATA)
 
 if HAVE_DOC
 man_MANS = limits.conf.5 pam_limits.8
