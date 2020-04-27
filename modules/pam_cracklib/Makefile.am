@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(XMLS) pam_cracklib.8 tst-pam_cracklib
+EXTRA_DIST = README $(XMLS) pam_cracklib.8 $(TESTS)
 
 TESTS = tst-pam_cracklib
 if HAVE_DOC

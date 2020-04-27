@@ -1,7 +1,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_setquota
+EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = pam_setquota.8

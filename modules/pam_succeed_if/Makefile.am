@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README ${MANS} ${XMLS} tst-pam_succeed_if
+EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
 
 TESTS = tst-pam_succeed_if
 

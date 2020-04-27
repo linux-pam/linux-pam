@@ -4,7 +4,7 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = README tst-pam_stress
+EXTRA_DIST = README $(TESTS)
 
 TESTS = tst-pam_stress
 

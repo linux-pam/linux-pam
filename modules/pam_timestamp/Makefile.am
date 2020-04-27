@@ -14,7 +14,7 @@ dist_TESTS = tst-pam_timestamp
 nodist_TESTS = hmacfile
 TESTS = $(dist_TESTS) $(nodist_TESTS)
 
-EXTRA_DIST = $(MANS) $(XMLS) $(dist_TESTS)
+EXTRA_DIST = README $(MANS) $(XMLS) $(dist_TESTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

@@ -5,8 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(XMLS) pam_selinux.8 pam_selinux_check.8 \
-		tst-pam_selinux
+EXTRA_DIST = README $(XMLS) pam_selinux.8 pam_selinux_check.8 $(TESTS)
 
 TESTS = tst-pam_selinux
 if HAVE_DOC

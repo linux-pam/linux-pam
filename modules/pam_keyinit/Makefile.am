@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(XMLS) pam_keyinit.8 tst-pam_keyinit
+EXTRA_DIST = README $(XMLS) pam_keyinit.8 $(TESTS)
 XMLS = README.xml pam_keyinit.8.xml
 
 if HAVE_DOC

@@ -6,7 +6,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(XMLS) pam_sepermit.8 sepermit.conf sepermit.conf.5 tst-pam_sepermit
+EXTRA_DIST = README $(XMLS) pam_sepermit.8 sepermit.conf sepermit.conf.5 $(TESTS)
 
 TESTS = tst-pam_sepermit
 if HAVE_DOC

@@ -6,7 +6,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README ${MANS} ${XMLS} tst-pam_usertype
+EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
 
 TESTS = tst-pam_usertype
 

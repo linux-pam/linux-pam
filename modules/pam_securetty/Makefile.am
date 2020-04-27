@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_securetty
+EXTRA_DIST = README $(MANS) $(XMLS) $(TESTS)
 
 TESTS = tst-pam_securetty
 
