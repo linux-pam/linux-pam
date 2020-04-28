@@ -37,7 +37,7 @@
  * faillock.h - authentication failure data file record structure
  *
  * Each record in the file represents an instance of login failure of
- * the user at the recorded time
+ * the user at the recorded time.
  */
 
 
@@ -49,10 +49,12 @@
 
 #define TALLY_STATUS_VALID     0x1       /* the tally file entry is valid */
 #define TALLY_STATUS_RHOST     0x2       /* the source is rhost */
-#define TALLY_STATUS_TTY       0x4       /* the source is tty - if both TALLY_FLAG_RHOST and TALLY_FLAG_TTY are not set the source is service */
+#define TALLY_STATUS_TTY       0x4       /* the source is tty */
+/* If neither TALLY_FLAG_RHOST nor TALLY_FLAG_TTY are set the source is service. */
 
 struct	tally {
-	char		source[52];	/* rhost or tty of the login failure (not necessarily NULL terminated) */
+	char		source[52];	/* rhost or tty of the login failure */
+					/* (not necessarily NULL terminated) */
 	uint16_t	reserved;	/* reserved for future use */
 	uint16_t	status;		/* record status  */
 	uint64_t	time;		/* time of the login failure */

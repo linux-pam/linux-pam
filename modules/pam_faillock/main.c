@@ -139,11 +139,10 @@ do_user(struct options *opts, const char *user)
 #ifdef HAVE_LIBAUDIT
 		}
 		if ((audit_fd=audit_open()) >= 0) {
-
-			if (pwd != NULL) {
-				audit_log_acct_message(audit_fd, AUDIT_USER_MGMT, NULL,
-					"faillock-reset", NULL, pwd->pw_uid, NULL, NULL, NULL, rv == 0);
-			}
+			audit_log_acct_message(audit_fd, AUDIT_USER_MGMT, NULL,
+				"faillock-reset", user,
+				pwd != NULL ? pwd->pw_uid : AUDIT_NO_ID,
+				NULL, NULL, NULL, rv == 0);
 			close(audit_fd);
 		}
 		if (rv == -1) {
@@ -193,8 +192,7 @@ do_allusers(struct options *opts)
 
 	rv = scandir(opts->dir, &userlist, NULL, alphasort);
 	if (rv < 0) {
-		fprintf(stderr, "%s: Error reading tally directory: ", opts->progname);
-		perror(NULL);
+		fprintf(stderr, "%s: Error reading tally directory: %m\n", opts->progname);
 		return 2;
 	}
 

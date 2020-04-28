@@ -45,7 +45,7 @@
     <para>
       The <command>faillock</command> command is an application which
       can be used to examine and modify the contents of the
-      the tally files. It can display the recent failed authentication
+      tally files. It can display the recent failed authentication
       attempts of the <replaceable>username</replaceable> or clear the tally
       files of all or individual <replaceable>usernames</replaceable>.
     </para>

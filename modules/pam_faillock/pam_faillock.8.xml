@@ -113,7 +113,7 @@
                 <para>
                   The <emphasis>authsucc</emphasis> argument must be used when the module
                   is called after the modules which determine the authentication outcome,
-                  succeded. Unless the user is already blocked due to previous authentication
+                  succeeded. Unless the user is already blocked due to previous authentication
                   failures, the module will then clear the record of the failures in the
                   respective user tally file. Otherwise it will return authentication error.
                   If this call is not done, the pam_faillock will not distinguish between
@@ -150,7 +150,7 @@
         <term>PAM_AUTH_ERR</term>
         <listitem>
           <para>
-            A invalid option was given, the module was not able
+            An invalid option was given, the module was not able
             to retrieve the user name, no valid counter file
             was found, or too many failed logins.
           </para>
@@ -196,7 +196,7 @@
       or with <emphasis>requisite</emphasis> control field leaks an information about
       existence or non-existence of an user account in the system because
       the failures are not recorded for the unknown users. The message
-      about the user account being locked is never displayed for nonexisting
+      about the user account being locked is never displayed for non-existing
       user accounts allowing the adversary to infer that a particular account
       is not existing on a system.
     </para>
@@ -212,9 +212,9 @@
     </para>
     <para>
       In the first example the module is called only in the <emphasis>auth</emphasis>
-      phase and the module does not print any information about the account blocking
+      phase and the module does not print any information about the account being blocked
       by <emphasis>pam_faillock</emphasis>. The <emphasis>preauth</emphasis> call can
-      be added to tell the user that his login is blocked by the module and also to abort
+      be added to tell users that their logins are blocked by the module and also to abort
       the authentication without even asking for password in such case.
     </para>
     <para>
@@ -247,8 +247,8 @@ session  required       pam_selinux.so open
     </programlisting>
     <para>
       In the second example the module is called both in the <emphasis>auth</emphasis>
-      and <emphasis>account</emphasis> phases and the module gives the authenticating
-      user message when the account is locked if <option>silent</option> option is not
+      and <emphasis>account</emphasis> phases and the module informs the authenticating
+      user when the account is locked if <option>silent</option> option is not
       specified in the <filename>faillock.conf</filename>.
     </para>
     <programlisting>

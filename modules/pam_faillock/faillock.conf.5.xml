@@ -125,23 +125,23 @@
               </term>
               <listitem>
                 <para>
-                  The access will be reenabled after
+                  The access will be re-enabled after
                   <replaceable>n</replaceable> seconds after the lock out.
                   The value 0 has the same meaning as value
                   <emphasis>never</emphasis> - the access
-                  will not be reenabled without resetting the faillock
+                  will not be re-enabled without resetting the faillock
                   entries by the <citerefentry><refentrytitle>faillock</refentrytitle><manvolnum>8</manvolnum></citerefentry> command.
                   The default is 600 (10 minutes).
                 </para>
                 <para>
                   Note that the default directory that <emphasis>pam_faillock</emphasis>
-                  uses is usually cleared on system boot so the access will be also reenabled
+                  uses is usually cleared on system boot so the access will be also re-enabled
                   after system reboot. If that is undesirable a different tally directory
                   must be set with the <option>dir</option> option.
                 </para>
                 <para>
                   Also note that it is usually undesirable to permanently lock
-                  out the users as they can become easily a target of denial of service
+                  out users as they can become easily a target of denial of service
                   attack unless the usernames are random and kept secret to potential
                   attackers.
                 </para>
