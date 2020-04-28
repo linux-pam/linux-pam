@@ -692,6 +692,7 @@ dnl Files to be created from when we run configure
 AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	libpam_misc/Makefile conf/Makefile conf/pam_conv1/Makefile \
 	po/Makefile.in \
+	Make.xml.rules \
 	modules/Makefile \
 	modules/pam_access/Makefile modules/pam_cracklib/Makefile \
         modules/pam_debug/Makefile modules/pam_deny/Makefile \

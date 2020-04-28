@@ -12,7 +12,7 @@ endif
 
 CLEANFILES = *~
 
-EXTRA_DIST = pgp.keys.asc CHANGELOG ChangeLog-CVS Copyright Make.xml.rules
+EXTRA_DIST = pgp.keys.asc CHANGELOG ChangeLog-CVS Copyright
 
 ACLOCAL_AMFLAGS = -I m4
 
