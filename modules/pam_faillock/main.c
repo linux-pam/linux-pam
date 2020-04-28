@@ -47,6 +47,8 @@
 #include <unistd.h>
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
+
+#define AUDIT_NO_ID     ((unsigned int) -1)
 #endif
 
 #include "faillock.h"
