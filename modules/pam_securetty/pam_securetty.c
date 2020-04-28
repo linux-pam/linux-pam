@@ -1,13 +1,5 @@
 /* pam_securetty module */
 
-#define SECURETTY_FILE "/etc/securetty"
-#ifdef VENDORDIR
-#define SECURETTY2_FILE VENDORDIR"/securetty"
-#endif
-#define TTY_PREFIX     "/dev/"
-#define CMDLINE_FILE   "/proc/cmdline"
-#define CONSOLEACTIVE_FILE	"/sys/class/tty/console/active"
-
 /*
  * by Elliot Lee <sopwith@redhat.com>, Red Hat Software.
  * July 25, 1996.
@@ -47,6 +39,14 @@
 
 #define PAM_DEBUG_ARG       0x0001
 #define PAM_NOCONSOLE_ARG   0x0002
+
+#define SECURETTY_FILE "/etc/securetty"
+#ifdef VENDORDIR
+#define SECURETTY2_FILE VENDORDIR"/securetty"
+#endif
+#define TTY_PREFIX     "/dev/"
+#define CMDLINE_FILE   "/proc/cmdline"
+#define CONSOLEACTIVE_FILE	"/sys/class/tty/console/active"
 
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)

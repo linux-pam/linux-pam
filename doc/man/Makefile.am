@@ -59,10 +59,5 @@ pam.d.5: pam.conf.5
 pam_get_item.3: pam_item_types_std.inc.xml pam_item_types_ext.inc.xml
 pam_set_data.3: pam_item_types_std.inc.xml pam_item_types_ext.inc.xml
 pam.conf.5: pam.conf-desc.xml pam.conf-dir.xml pam.conf-syntax.xml
-if HAVE_VENDORDIR
-XSLTPROC_CUSTOM = --stringparam vendordir $(VENDORDIR)
-else
-XSLTPROC_CUSTOM = --stringparam vendordir "<vendordir>"
-endif
 -include $(top_srcdir)/Make.xml.rules
 endif

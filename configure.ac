@@ -544,8 +544,14 @@ AC_SUBST([ECONF_CFLAGS])
 AC_SUBST([ECONF_LIBS])
 AC_ARG_ENABLE([vendordir],
   AS_HELP_STRING([--enable-vendordir=DIR], [Directory for distribution provided configuration files]),,[])
-AC_SUBST([VENDORDIR], [$enable_vendordir])
-AM_CONDITIONAL([HAVE_VENDORDIR], [test "x$enable_vendordir" != x])
+if test -n "$enable_vendordir"; then
+  AC_DEFINE_UNQUOTED([VENDORDIR], ["$enable_vendordir"],
+		     [Directory for distribution provided configuration files])
+  STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir'"
+else
+  STRINGPARAM_VENDORDIR="--stringparam vendordir '<vendordir>'"
+fi
+AC_SUBST([STRINGPARAM_VENDORDIR])
 
 dnl Checks for header files.
 AC_HEADER_DIRENT
