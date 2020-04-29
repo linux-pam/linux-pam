@@ -54,6 +54,8 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
+#include "pam_inline.h"
+
 #include "faillock.h"
 
 #define PAM_SM_AUTH
@@ -72,10 +74,10 @@
 
 #define MAX_TIME_INTERVAL 604800 /* 7 days */
 #define FAILLOCK_CONF_MAX_LINELEN 1023
-#define FAILLOCK_ERROR_CONF_OPEN -3
-#define FAILLOCK_ERROR_CONF_MALFORMED -4
 
 #define PATH_PASSWD "/etc/passwd"
+
+static const char default_faillock_conf[] = FAILLOCK_DEFAULT_CONF;
 
 struct options {
 	unsigned int action;
@@ -85,7 +87,6 @@ struct options {
 	unsigned int unlock_time;
 	unsigned int root_unlock_time;
 	char *dir;
-	const char *conf;
 	const char *user;
 	char *admin_group;
 	int failures;
@@ -109,24 +110,33 @@ static void set_conf_opt(
 	const char *value
 );
 
-static void
+static int
 args_parse(pam_handle_t *pamh, int argc, const char **argv,
 		int flags, struct options *opts)
 {
 	int i;
 	int rv;
+	const char *conf = default_faillock_conf;
+
 	memset(opts, 0, sizeof(*opts));
 
 	opts->dir = strdup(FAILLOCK_DEFAULT_TALLYDIR);
-	opts->conf = FAILLOCK_DEFAULT_CONF;
 	opts->deny = 3;
 	opts->fail_interval = 900;
 	opts->unlock_time = 600;
 	opts->root_unlock_time = MAX_TIME_INTERVAL+1;
 
-	if ((rv=read_config_file(pamh, opts, opts->conf)) != PAM_SUCCESS) {
-		pam_syslog(pamh, LOG_DEBUG,
-					"Configuration file missing");
+	for (i = 0; i < argc; ++i) {
+		const char *str;
+
+		if ((str = pam_str_skip_prefix(argv[i], "conf=")) != NULL)
+			conf = str;
+	}
+
+	if ((rv = read_config_file(pamh, opts, conf)) != PAM_SUCCESS) {
+		pam_syslog(pamh, LOG_ERR,
+					"Configuration file missing or broken");
+		return rv;
 	}
 
 	for (i = 0; i < argc; ++i) {
@@ -167,6 +177,10 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 		pam_syslog(pamh, LOG_CRIT, "Error allocating memory: %m");
 		opts->fatal_error = 1;
 	}
+
+	if (opts->fatal_error)
+		return PAM_BUF_ERR;
+	return PAM_SUCCESS;
 }
 
 /* parse a single configuration file */
@@ -179,9 +193,9 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 	f = fopen(cfgfile, "r");
 	if (f == NULL) {
 		/* ignore non-existent default config file */
-		if (errno == ENOENT && strcmp(cfgfile, FAILLOCK_DEFAULT_CONF) == 0)
-			return 0;
-		return FAILLOCK_ERROR_CONF_OPEN;
+		if (errno == ENOENT && cfgfile == default_faillock_conf)
+			return PAM_SUCCESS;
+		return PAM_SERVICE_ERR;
 	}
 
 	while (fgets(linebuf, sizeof(linebuf), f) != NULL) {
@@ -194,7 +208,7 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 		/* len cannot be 0 unless there is a bug in fgets */
 		if (len && linebuf[len - 1] != '\n' && !feof(f)) {
 			(void) fclose(f);
-			return FAILLOCK_ERROR_CONF_MALFORMED;
+			return PAM_SERVICE_ERR;
 		}
 
 		if ((ptr=strchr(linebuf, '#')) != NULL) {
@@ -676,13 +690,11 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
 
 	memset(&tallies, 0, sizeof(tallies));
 
-	args_parse(pamh, argc, argv, flags, &opts);
-	if (opts.fatal_error) {
-		rv = PAM_BUF_ERR;
+	rv = args_parse(pamh, argc, argv, flags, &opts);
+	if (rv != PAM_SUCCESS)
 		goto err;
-	}
 
-	pam_fail_delay(pamh, 2000000);	/* 2 sec delay for on failure */
+	pam_fail_delay(pamh, 2000000);	/* 2 sec delay on failure */
 
 	if ((rv=get_pam_user(pamh, &opts)) != PAM_SUCCESS) {
 		goto err;
@@ -744,12 +756,10 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 
 	memset(&tallies, 0, sizeof(tallies));
 
-	args_parse(pamh, argc, argv, flags, &opts);
+	rv = args_parse(pamh, argc, argv, flags, &opts);
 
-	if (opts.fatal_error) {
-		rv = PAM_BUF_ERR;
+	if (rv != PAM_SUCCESS)
 		goto err;
-	}
 
 	opts.action = FAILLOCK_ACTION_AUTHSUCC;
 
