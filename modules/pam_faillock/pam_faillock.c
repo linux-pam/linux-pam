@@ -353,7 +353,7 @@ static int
 check_local_user (pam_handle_t *pamh, const char *user)
 {
 	struct passwd pw, *pwp;
-	char buf[4096];
+	char buf[16384];
 	int found = 0;
 	FILE *fp;
 	int errn;
@@ -370,8 +370,7 @@ check_local_user (pam_handle_t *pamh, const char *user)
 		if (errn == ERANGE) {
 			pam_syslog(pamh, LOG_WARNING, "%s contains very long lines; corrupted?",
 				   PATH_PASSWD);
-			/* we can continue here as next call will read further */
-			continue;
+			break;
 		}
 		if (errn != 0)
 			break;
