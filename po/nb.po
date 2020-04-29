@@ -1,25 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Kjartan Maraas <kmaraas@gnome.org>, 2008,2012-2013
 # Olav Pettershagen <olav.pet@online.no>, 2005-2006
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Allan Nordhøy <epost@anotheragency.no>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-03-05 22:27+0000\n"
-"PO-Revision-Date: 2013-01-08 08:18-0500\n"
-"Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
-"Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
+"PO-Revision-Date: 2020-04-29 09:15+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Norwegian Bokmål <https://translate.fedoraproject.org/"
+"projects/linux-pam/master/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0.1\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -40,14 +42,13 @@ msgid "Password: "
 msgstr "Passord: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "Nytt %s-passord: "
+msgstr "Nåværende %s-passord: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
 msgid "Current password: "
-msgstr "Nytt passord: "
+msgstr "Nåværende passord: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
@@ -77,7 +78,6 @@ msgid "Retype %s"
 msgstr "Skriv %s på nytt"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
-#, fuzzy
 msgid "Password change has been aborted."
 msgstr "Bytte av passord avbrutt."
 
@@ -265,15 +265,13 @@ msgstr "inneholder brukernavnet i en eller annen form"
 
 #: modules/pam_cracklib/pam_cracklib.c:695
 #: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "Passord ikke angitt"
+msgstr "Inget passord har blitt angitt."
 
 #: modules/pam_cracklib/pam_cracklib.c:696
 #: modules/pam_unix/pam_unix_passwd.c:567
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "NIS-passord kunne ikke endres."
+msgstr "Passordet kunne ikke endres."
 
 #: modules/pam_cracklib/pam_cracklib.c:716
 #: modules/pam_cracklib/pam_cracklib.c:798
@@ -347,14 +345,13 @@ msgstr ""
 "Det har vært %d feilede innloggingsforsøk siden siste innlogging uten feil."
 
 #: modules/pam_limits/pam_limits.c:1088
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
-msgstr "For mange innlogginger for '%s'."
+msgstr "For mange innlogginger for «%s»."
 
 #: modules/pam_mail/pam_mail.c:297
-#, fuzzy
 msgid "You have no mail."
-msgstr "Du har fått ny e-post."
+msgstr "Du har ikke fått noen e-post."
 
 #: modules/pam_mail/pam_mail.c:300
 msgid "You have new mail."
@@ -408,9 +405,9 @@ msgid "Password has been already used."
 msgstr "Passordet har allerede vært brukt."
 
 #: modules/pam_selinux/pam_selinux.c:206
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "Forvalgt sikkerhetskontekst %s\n"
+msgstr "Forvalgt sikkerhetskontekst er %s."
 
 #: modules/pam_selinux/pam_selinux.c:210
 msgid "Would you like to enter a different role or level?"
@@ -421,33 +418,32 @@ msgid "role:"
 msgstr "rolle:"
 
 #: modules/pam_selinux/pam_selinux.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "Ingen forvalgt type for rolle %s\n"
+msgstr "Ingen forvalgt type for rollen %s."
 
 #: modules/pam_selinux/pam_selinux.c:259
 msgid "level:"
 msgstr "nivå:"
 
 #: modules/pam_selinux/pam_selinux.c:292
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "Ikke en gyldig sikkerhetskontekst"
+msgstr "Dette er ikke en gyldig sikkerhetskontekst."
 
 #: modules/pam_selinux/pam_selinux.c:541
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "Kunne ikke innhente gyldig kontekst for %s."
 
 #: modules/pam_selinux/pam_selinux.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "Sikkerhetskontekst %s tilordnet"
+msgstr "Sikkerhetskontekst «%s» tilordnet."
 
 #: modules/pam_selinux/pam_selinux.c:676
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "Kontekst %s for oppretting av nøkkel tilordnet"
+msgstr "Kontekst «%s» for oppretting av nøkkel tilordnet."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -465,14 +461,14 @@ msgid "login: failure forking: %m"
 msgstr "login: feil under forgrening: %m"
 
 #: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "Konto midlertidig låst (%ld sekunder igjen)"
+msgstr "Konto midlertidig låst (%ld sekunder igjen)."
 
 #: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "Konto låst på grunn av %u feilede innlogginger"
+msgstr "Konto låst som følge av %u mislykkede innlogginger."
 
 #: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
 msgid "Authentication error"
@@ -529,40 +525,37 @@ msgstr ""
 "[-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Tilgang gitt (siste tilgang var for %ld sekunder siden)."
+msgstr "Tilgang innvilget (siste tilgang var for %ld sekunder siden)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr "Din konto er utløpt; kontakt systemadministratoren"
+msgstr "Din konto er utløpt; kontakt systemadministratoren din."
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "Du må straks endre passordet ditt (ordre fra rot)"
+msgstr "Du må straks endre passordet ditt (påkrevd av administrator)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "Du må straks endre passordet ditt (passord for gammelt)"
+msgstr "Du må straks endre passordet ditt (passordet har utløpt)."
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Advarsel: passordet ditt vil utløpe om %d dag"
-msgstr[1] "Advarsel: passordet ditt vil utløpe om %d dager"
+msgstr[0] "Advarsel: Passordet ditt utløper om %d dag."
+msgstr[1] "Advarsel: Passordet ditt utløper om %d dager."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "Advarsel: passordet ditt vil utløpe om %d dager"
+msgstr "Advarsel: Passordet ditt utløper om %d dager"
 
 #: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
@@ -573,9 +566,8 @@ msgid "You must choose a shorter password."
 msgstr "Du må velge et kortere passord."
 
 #: modules/pam_unix/pam_unix_passwd.c:588
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Du må velge et lengre passord"
+msgstr "Du må velge et lengre passord."
 
 #: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
@@ -583,9 +575,8 @@ msgid "Changing password for %s."
 msgstr "Endrer passord for %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:725
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Du må vente lenger før du kan endre passordet"
+msgstr "Du må vente lenger før du kan endre passordet ditt."
 
 #~ msgid "Password unchanged"
 #~ msgstr "Passord uendret"
