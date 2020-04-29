@@ -22,6 +22,9 @@
         preauth|authfail|authsucc
       </arg>
       <arg choice="opt">
+        conf=<replaceable>/path/to/config-file</replaceable>
+      </arg>
+      <arg choice="opt">
         dir=<replaceable>/path/to/tally-directory</replaceable>
       </arg>
       <arg choice="opt">
@@ -85,7 +88,7 @@
   <refsect1 id="pam_faillock-options">
 
     <title>OPTIONS</title>
-         <variablelist>
+        <variablelist>
             <varlistentry>
               <term>
                 <option>{preauth|authfail|authsucc}</option>
@@ -125,6 +128,17 @@
                   <emphasis>preauth</emphasis> stage.
                 </para>
               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term>
+                 <option>conf=/path/to/config-file</option>
+               </term>
+               <listitem>
+                 <para>
+                   Use another configuration file instead of the default
+                   <filename>/etc/security/faillock.conf</filename>.
+                 </para>
+               </listitem>
             </varlistentry>
         </variablelist>
         <para>
@@ -179,7 +193,7 @@
     <title>NOTES</title>
     <para>
       Configuring options on the module command line is not recommend. The
-      <emphasis>/etc/security/faillock.conf</emphasis> should be used instead.
+      <filename>/etc/security/faillock.conf</filename> should be used instead.
     </para>
     <para>
       The setup of <emphasis>pam_faillock</emphasis> in the PAM stack is different
@@ -218,7 +232,7 @@
       the authentication without even asking for password in such case.
     </para>
     <para>
-      /etc/security/faillock.conf file example:
+      <filename>/etc/security/faillock.conf</filename> file example:
     </para>
     <programlisting>
 deny=4
