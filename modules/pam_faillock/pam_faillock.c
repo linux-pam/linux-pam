@@ -96,13 +96,13 @@ struct options {
 	int fatal_error;
 };
 
-int read_config_file(
+static int read_config_file(
 	pam_handle_t *pamh,
 	struct options *opts,
 	const char *cfgfile
 );
 
-void set_conf_opt(
+static void set_conf_opt(
 	pam_handle_t *pamh,
 	struct options *opts,
 	const char *name,
@@ -170,7 +170,7 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 }
 
 /* parse a single configuration file */
-int
+static int
 read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 {
 	FILE *f;
@@ -250,7 +250,8 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 	return PAM_SUCCESS;
 }
 
-void set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name, const char *value)
+static void
+set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name, const char *value)
 {
 	if (strcmp(name, "dir") == 0) {
 		if (value[0] != '/') {
@@ -334,7 +335,8 @@ void set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name, co
 	}
 }
 
-static int check_local_user (pam_handle_t *pamh, const char *user)
+static int
+check_local_user (pam_handle_t *pamh, const char *user)
 {
 	struct passwd pw, *pwp;
 	char buf[4096];
@@ -375,7 +377,8 @@ static int check_local_user (pam_handle_t *pamh, const char *user)
 	}
 }
 
-static int get_pam_user(pam_handle_t *pamh, struct options *opts)
+static int
+get_pam_user(pam_handle_t *pamh, struct options *opts)
 {
 	const char *user;
 	int rv;
@@ -446,7 +449,7 @@ check_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 	}
 
 	latest_time = 0;
-	for(i = 0; i < tallies->count; i++) {
+	for (i = 0; i < tallies->count; i++) {
 		if ((tallies->records[i].status & TALLY_STATUS_VALID) &&
 			tallies->records[i].time > latest_time)
 			latest_time = tallies->records[i].time;
@@ -455,7 +458,7 @@ check_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 	opts->latest_time = latest_time;
 
 	failures = 0;
-	for(i = 0; i < tallies->count; i++) {
+	for (i = 0; i < tallies->count; i++) {
 		if ((tallies->records[i].status & TALLY_STATUS_VALID) &&
 			latest_time - tallies->records[i].time < opts->fail_interval) {
 			++failures;
@@ -536,7 +539,7 @@ write_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 	failures = 0;
 
 	for (i = 0; i < tallies->count; ++i) {
-		if (tallies->records[i].time < oldtime) {
+		if (oldtime == 0 || tallies->records[i].time < oldtime) {
 			oldtime = tallies->records[i].time;
 			oldest = i;
 		}
