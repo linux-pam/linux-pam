@@ -112,7 +112,6 @@ pam_usertype_get_uid(struct pam_usertype_opts *opts,
                      uid_t *_uid)
 {
     struct passwd *pwd;
-    const void *prompt;
     const char *username;
     int ret;
 
@@ -131,12 +130,7 @@ pam_usertype_get_uid(struct pam_usertype_opts *opts,
     }
 
     /* Get uid of user that is being authenticated. */
-    ret = pam_get_item(pamh, PAM_USER_PROMPT, &prompt);
-    if (ret != PAM_SUCCESS || prompt == NULL || strlen(prompt) == 0) {
-        prompt = "login: ";
-    }
-
-    ret = pam_get_user(pamh, &username, prompt);
+    ret = pam_get_user(pamh, &username, NULL);
     if (ret != PAM_SUCCESS || username == NULL) {
         pam_syslog(pamh, LOG_ERR, "error retrieving user name: %s",
                    pam_strerror(pamh, ret));
