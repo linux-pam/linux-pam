@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-03-05 22:27+0000\n"
+"POT-Creation-Date: 2020-04-30 10:03+0200\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
@@ -38,8 +38,8 @@ msgstr "...对不起，您的时间已经耗尽！\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "有错误的转换 (%d)\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:170
-#: modules/pam_userdb/pam_userdb.c:64
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:184
+#: modules/pam_userdb/pam_userdb.c:65
 msgid "Password: "
 msgstr "密码："
 
@@ -221,119 +221,136 @@ msgstr "应用程序需要再次调用 libpam"
 msgid "Unknown PAM error"
 msgstr "未知的 PAM 错误"
 
-#: modules/pam_cracklib/pam_cracklib.c:612
+#: modules/pam_cracklib/pam_cracklib.c:614
 msgid "is the same as the old one"
 msgstr "与旧密码相同"
 
-#: modules/pam_cracklib/pam_cracklib.c:618
-#: modules/pam_cracklib/pam_cracklib.c:622
-#: modules/pam_cracklib/pam_cracklib.c:632
+#: modules/pam_cracklib/pam_cracklib.c:620
+#: modules/pam_cracklib/pam_cracklib.c:624
+#: modules/pam_cracklib/pam_cracklib.c:634
 msgid "memory allocation error"
 msgstr "内存分配错误"
 
-#: modules/pam_cracklib/pam_cracklib.c:637
+#: modules/pam_cracklib/pam_cracklib.c:639
 msgid "is a palindrome"
 msgstr "是回文"
 
-#: modules/pam_cracklib/pam_cracklib.c:640
+#: modules/pam_cracklib/pam_cracklib.c:642
 msgid "case changes only"
 msgstr "仅更改了大小写"
 
-#: modules/pam_cracklib/pam_cracklib.c:643
+#: modules/pam_cracklib/pam_cracklib.c:645
 msgid "is too similar to the old one"
 msgstr "与旧密码过于相似"
 
-#: modules/pam_cracklib/pam_cracklib.c:646
+#: modules/pam_cracklib/pam_cracklib.c:648
 msgid "is too simple"
 msgstr "过于简单"
 
-#: modules/pam_cracklib/pam_cracklib.c:649
+#: modules/pam_cracklib/pam_cracklib.c:651
 msgid "is rotated"
 msgstr "是旧密码的循环"
 
-#: modules/pam_cracklib/pam_cracklib.c:652
+#: modules/pam_cracklib/pam_cracklib.c:654
 msgid "not enough character classes"
 msgstr "没有足够的字符分类"
 
-#: modules/pam_cracklib/pam_cracklib.c:655
+#: modules/pam_cracklib/pam_cracklib.c:657
 msgid "contains too many same characters consecutively"
 msgstr "包含过多连续相同的字符"
 
-#: modules/pam_cracklib/pam_cracklib.c:658
+#: modules/pam_cracklib/pam_cracklib.c:660
 msgid "contains too long of a monotonic character sequence"
 msgstr "包含过长的单一字符序列"
 
-#: modules/pam_cracklib/pam_cracklib.c:661
+#: modules/pam_cracklib/pam_cracklib.c:663
 msgid "contains the user name in some form"
 msgstr "以某些形式包含用户名"
 
-#: modules/pam_cracklib/pam_cracklib.c:695
+#: modules/pam_cracklib/pam_cracklib.c:697
 #: modules/pam_unix/pam_unix_passwd.c:566
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "密码未提供"
 
-#: modules/pam_cracklib/pam_cracklib.c:696
+#: modules/pam_cracklib/pam_cracklib.c:698
 #: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "无法更改 NIS 密码。"
 
-#: modules/pam_cracklib/pam_cracklib.c:716
-#: modules/pam_cracklib/pam_cracklib.c:798
+#: modules/pam_cracklib/pam_cracklib.c:718
+#: modules/pam_cracklib/pam_cracklib.c:800
 #, c-format
 msgid "BAD PASSWORD: %s"
 msgstr "无效的密码： %s"
 
-#: modules/pam_exec/pam_exec.c:267
+#: modules/pam_exec/pam_exec.c:281
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s 失败：退出代码 %d"
 
-#: modules/pam_exec/pam_exec.c:276
+#: modules/pam_exec/pam_exec.c:290
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s 失败：捕获的信号 %d%s"
 
-#: modules/pam_exec/pam_exec.c:285
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s 失败：未知的状态 0x%x"
 
+#: modules/pam_faillock/main.c:104
+#, fuzzy, c-format
+msgid ""
+"Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
+msgstr "%s: [--文件 根文件名] [--用户 用户名] [--重设置[=n]] [--安静]\n"
+
+#: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
+#: modules/pam_tally2/pam_tally2.c:577
+#, fuzzy, c-format
+msgid "The account is locked due to %u failed logins."
+msgstr "因为 %u 失败登录而锁定帐户"
+
+#: modules/pam_faillock/pam_faillock.c:654
+#, c-format
+msgid "(%d minutes left to unlock)"
+msgstr ""
+
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:324 modules/pam_lastlog/pam_lastlog.c:585
+#: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:333 modules/pam_lastlog/pam_lastlog.c:594
+#: modules/pam_lastlog/pam_lastlog.c:338 modules/pam_lastlog/pam_lastlog.c:599
 #, c-format
 msgid " from %.*s"
 msgstr " 从 %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:345 modules/pam_lastlog/pam_lastlog.c:606
+#: modules/pam_lastlog/pam_lastlog.c:350 modules/pam_lastlog/pam_lastlog.c:611
 #, c-format
 msgid " on %.*s"
 msgstr " %.*s 上"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:355
+#: modules/pam_lastlog/pam_lastlog.c:360
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "上一次登录：%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:361
+#: modules/pam_lastlog/pam_lastlog.c:366
 msgid "Welcome to your new account!"
 msgstr "欢迎使用新帐户！"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:616
+#: modules/pam_lastlog/pam_lastlog.c:621
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "最后一次失败的登录：%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:625 modules/pam_lastlog/pam_lastlog.c:632
+#: modules/pam_lastlog/pam_lastlog.c:630 modules/pam_lastlog/pam_lastlog.c:637
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -341,110 +358,110 @@ msgid_plural ""
 msgstr[0] "最有一次成功登录后有 %d 次失败的登录尝试。"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:637
+#: modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "最有一次成功登录后有 %d 次失败的登录尝试。"
 
-#: modules/pam_limits/pam_limits.c:1088
+#: modules/pam_limits/pam_limits.c:1090
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s'登录过多。"
 
-#: modules/pam_mail/pam_mail.c:297
+#: modules/pam_mail/pam_mail.c:299
 #, fuzzy
 msgid "You have no mail."
 msgstr "您有新邮件。"
 
-#: modules/pam_mail/pam_mail.c:300
+#: modules/pam_mail/pam_mail.c:302
 msgid "You have new mail."
 msgstr "您有新邮件。"
 
-#: modules/pam_mail/pam_mail.c:303
+#: modules/pam_mail/pam_mail.c:305
 msgid "You have old mail."
 msgstr "您有旧邮件。"
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:309
 msgid "You have mail."
 msgstr "您有邮件。"
 
-#: modules/pam_mail/pam_mail.c:314
+#: modules/pam_mail/pam_mail.c:316
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "您在文件夹 %s 中无邮件。"
 
-#: modules/pam_mail/pam_mail.c:318
+#: modules/pam_mail/pam_mail.c:320
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "您在文件夹 %s 中有新邮件。"
 
-#: modules/pam_mail/pam_mail.c:322
+#: modules/pam_mail/pam_mail.c:324
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "您在文件夹 %s 中有旧邮件。"
 
-#: modules/pam_mail/pam_mail.c:327
+#: modules/pam_mail/pam_mail.c:329
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "您在文件夹 %s 中有邮件。"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:113
+#: modules/pam_mkhomedir/pam_mkhomedir.c:116
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "创建目录 '%s'。"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:180
+#: modules/pam_mkhomedir/pam_mkhomedir.c:183
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "无法创建和初始化目录 '%s'。"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:217
+#: modules/pam_pwhistory/pam_pwhistory.c:220
 #: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
 msgstr "密码已使用。请选择其他密码。"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:224
+#: modules/pam_pwhistory/pam_pwhistory.c:227
 msgid "Password has been already used."
 msgstr "密码已被使用。"
 
-#: modules/pam_selinux/pam_selinux.c:206
+#: modules/pam_selinux/pam_selinux.c:176
 #, fuzzy, c-format
 msgid "The default security context is %s."
 msgstr "默认安全性环境 %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:210
+#: modules/pam_selinux/pam_selinux.c:180
 msgid "Would you like to enter a different role or level?"
 msgstr "您是否愿意进入不同的角色或者级别？"
 
-#: modules/pam_selinux/pam_selinux.c:223
+#: modules/pam_selinux/pam_selinux.c:193
 msgid "role:"
 msgstr "角色："
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:197
 #, fuzzy, c-format
 msgid "There is no default type for role %s."
 msgstr "没有角色 %s 默认类型\n"
 
-#: modules/pam_selinux/pam_selinux.c:259
+#: modules/pam_selinux/pam_selinux.c:229
 msgid "level:"
 msgstr "级别："
 
-#: modules/pam_selinux/pam_selinux.c:292
+#: modules/pam_selinux/pam_selinux.c:263
 #, fuzzy
 msgid "This is not a valid security context."
 msgstr "不是有效的安全性环境"
 
-#: modules/pam_selinux/pam_selinux.c:541
+#: modules/pam_selinux/pam_selinux.c:513
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:660
+#: modules/pam_selinux/pam_selinux.c:633
 #, fuzzy, c-format
 msgid "Security context %s has been assigned."
 msgstr "已指派安全性环境 %s"
 
-#: modules/pam_selinux/pam_selinux.c:676
+#: modules/pam_selinux/pam_selinux.c:649
 #, fuzzy, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "已分配密钥生成环境 %s"
@@ -464,59 +481,54 @@ msgstr "未能 pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "登录：故障派生：%m"
 
-#: modules/pam_tally/pam_tally.c:541 modules/pam_tally2/pam_tally2.c:592
+#: modules/pam_tally/pam_tally.c:543 modules/pam_tally2/pam_tally2.c:595
 #, fuzzy, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
 msgstr "帐户暂时锁住（还有 %ld 秒）"
 
-#: modules/pam_tally/pam_tally.c:566 modules/pam_tally2/pam_tally2.c:575
-#, fuzzy, c-format
-msgid "The account is locked due to %u failed logins."
-msgstr "因为 %u 失败登录而锁定帐户"
-
-#: modules/pam_tally/pam_tally.c:750 modules/pam_tally2/pam_tally2.c:858
+#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:861
 msgid "Authentication error"
 msgstr "鉴定错误"
 
-#: modules/pam_tally/pam_tally.c:751 modules/pam_tally2/pam_tally2.c:859
+#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:862
 msgid "Service error"
 msgstr "服务错误"
 
-#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:860
+#: modules/pam_tally/pam_tally.c:754 modules/pam_tally2/pam_tally2.c:863
 msgid "Unknown user"
 msgstr "未知的用户"
 
-#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:861
+#: modules/pam_tally/pam_tally.c:755 modules/pam_tally2/pam_tally2.c:864
 msgid "Unknown error"
 msgstr "未知的错误"
 
-#: modules/pam_tally/pam_tally.c:769 modules/pam_tally2/pam_tally2.c:880
+#: modules/pam_tally/pam_tally.c:774 modules/pam_tally2/pam_tally2.c:886
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
 msgstr "%s: 给定的数字无效 --重设置=\n"
 
-#: modules/pam_tally/pam_tally.c:773 modules/pam_tally2/pam_tally2.c:884
+#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:890
 #, c-format
 msgid "%s: Unrecognised option %s\n"
 msgstr "%s: 未识别的选项 %s\n"
 
-#: modules/pam_tally/pam_tally.c:785
+#: modules/pam_tally/pam_tally.c:790
 #, c-format
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr "%s: [--文件 根文件名] [--用户 用户名] [--重设置[=n]] [--安静]\n"
 
-#: modules/pam_tally/pam_tally.c:859 modules/pam_tally2/pam_tally2.c:1023
+#: modules/pam_tally/pam_tally.c:864 modules/pam_tally2/pam_tally2.c:1029
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
 msgstr "%s: 无法将所有用户重设置为非零\n"
 
-#: modules/pam_tally2/pam_tally2.c:912
+#: modules/pam_tally2/pam_tally2.c:918
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
 msgstr "Login           Failures Latest failure     From\n"
 
-#: modules/pam_tally2/pam_tally2.c:928
+#: modules/pam_tally2/pam_tally2.c:934
 #, c-format
 msgid ""
 "%s: [-f rooted-filename] [--file rooted-filename]\n"
@@ -527,7 +539,7 @@ msgstr ""
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_timestamp/pam_timestamp.c:357
+#: modules/pam_timestamp/pam_timestamp.c:360
 #, fuzzy, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "可以访问（上次访问是 %ld 秒之前）。"
@@ -584,24 +596,3 @@ msgstr "为 %s 更改 STRESS 密码。"
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "您必须等待更长时间以更改密码"
-
-#~ msgid "Password unchanged"
-#~ msgstr "密码未更改"
-
-#~ msgid "No mail."
-#~ msgstr "无邮件。"
-
-#~ msgid "Unable to get valid context for %s"
-#~ msgstr "无法为 %s 获得有效环境"
-
-#~ msgid "Changing STRESS password for %s."
-#~ msgstr "为 %s 更改 STRESS 密码。"
-
-#~ msgid "Enter new STRESS password: "
-#~ msgstr "输入新的 STRESS 密码："
-
-#~ msgid "Retype new STRESS password: "
-#~ msgstr "重新输入新的 STRESS 密码："
-
-#~ msgid "Verification mis-typed; password unchanged"
-#~ msgstr "校验类型错误；密码未更改"
