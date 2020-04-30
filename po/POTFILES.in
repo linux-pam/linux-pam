@@ -40,6 +40,8 @@
 ./modules/pam_env/pam_env.c
 ./modules/pam_exec/pam_exec.c
 ./modules/pam_faildelay/pam_faildelay.c
+./modules/pam_faillock/main.c
+./modules/pam_faillock/pam_faillock.c
 ./modules/pam_filter/pam_filter.c
 ./modules/pam_filter/upperLOWER/upperLOWER.c
 ./modules/pam_ftp/pam_ftp.c

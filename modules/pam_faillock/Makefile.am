@@ -7,7 +7,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) faillock.conf tst-pam_faillock
+EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = pam_faillock.8 faillock.8 faillock.conf.5
@@ -45,6 +45,5 @@ faillock_SOURCES = main.c faillock.c
 
 if ENABLE_REGENERATE_MAN
 noinst_DATA = README
-README: pam_faillock.8.xml
 -include $(top_srcdir)/Make.xml.rules
 endif
