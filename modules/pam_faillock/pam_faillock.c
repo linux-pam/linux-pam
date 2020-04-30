@@ -646,16 +646,12 @@ faillock_message(pam_handle_t *pamh, struct options *opts)
 			left = opts->latest_time + opts->unlock_time - opts->now;
 		}
 
+		pam_info(pamh, _("The account is locked due to %u failed logins."),
+			(unsigned int)opts->failures);
 		if (left > 0) {
 			left = (left + 59)/60; /* minutes */
 
-			pam_info(pamh, _("Account temporarily locked due to %d failed logins"),
-				opts->failures);
 			pam_info(pamh, _("(%d minutes left to unlock)"), (int)left);
-		}
-		else {
-			pam_info(pamh, _("Account locked due to %d failed logins"),
-				opts->failures);
 		}
 	}
 }
