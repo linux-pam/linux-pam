@@ -463,18 +463,11 @@ int
 pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
-	const void *prompt;
 	const char *user;
 	struct passwd *pwd = NULL;
 	int ret, i, count, use_uid, debug;
 	const char *left, *right, *qual;
 	int quiet_fail, quiet_succ, audit;
-
-	/* Get the user prompt. */
-	ret = pam_get_item(pamh, PAM_USER_PROMPT, &prompt);
-	if ((ret != PAM_SUCCESS) || (prompt == NULL) || (strlen(prompt) == 0)) {
-		prompt = "login: ";
-	}
 
 	quiet_fail = 0;
 	quiet_succ = 0;
@@ -513,7 +506,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		user = pwd->pw_name;
 	} else {
 		/* Get the user's name. */
-		ret = pam_get_user(pamh, &user, prompt);
+		ret = pam_get_user(pamh, &user, NULL);
 		if ((ret != PAM_SUCCESS) || (user == NULL)) {
 			pam_syslog(pamh, LOG_ERR,
 				   "error retrieving user name: %s",
