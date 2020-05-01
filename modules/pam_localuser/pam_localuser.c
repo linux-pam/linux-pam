@@ -76,6 +76,11 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	for(i = 0; i < argc; i++) {
 		const char *str;
 
+		if (strcmp("debug", argv[i]) == 0) {
+			/* Already processed.  */
+			continue;
+		}
+
 		if ((str = pam_str_skip_prefix(argv[i], "file=")) != NULL) {
 			filename = str;
 			if(debug) {
@@ -83,6 +88,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 					    "set filename to \"%s\"",
 				            filename);
 			}
+		} else {
+			pam_syslog(pamh, LOG_ERR, "unrecognized option: %s",
+				   argv[i]);
 		}
 	}
 
