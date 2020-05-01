@@ -95,29 +95,18 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		}
 	}
 
-	/* open the file */
-	fp = fopen(filename, "r");
-	if(fp == NULL) {
-		pam_syslog (pamh, LOG_ERR, "error opening \"%s\": %m",
-			    filename);
-		return PAM_SERVICE_ERR;
-	}
-
 	if(pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
 		pam_syslog (pamh, LOG_ERR, "user name not specified yet");
-		fclose(fp);
 		return PAM_SERVICE_ERR;
 	}
 
 	if ((user_len = strlen(user)) == 0) {
 		pam_syslog (pamh, LOG_ERR, "user name not valid");
-		fclose(fp);
 		return PAM_SERVICE_ERR;
 	}
 
 	if (user_len > sizeof(line) - sizeof(":")) {
 		pam_syslog (pamh, LOG_ERR, "user name too long");
-		fclose(fp);
 		return PAM_SERVICE_ERR;
 	}
 
@@ -126,8 +115,14 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		 * "root:x" is not a local user name even if the passwd file
 		 * contains a line starting with "root:x:".
 		 */
-		fclose(fp);
 		return PAM_PERM_DENIED;
+	}
+
+	/* Open the passwd file.  */
+	if ((fp = fopen(filename, "r")) == NULL) {
+		pam_syslog (pamh, LOG_ERR, "error opening \"%s\": %m",
+			    filename);
+		return PAM_SERVICE_ERR;
 	}
 
 	/*
