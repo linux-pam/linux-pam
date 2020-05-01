@@ -1,6 +1,6 @@
-/* pam_lastlog module */
-
 /*
+ * pam_lastlog module
+ *
  * Written by Andrew Morgan <morgan@linux.kernel.org> 1996/3/11
  *
  * This module does the necessary work to display the last login
@@ -65,17 +65,6 @@ struct lastlog {
 
 #define DEFAULT_INACTIVE_DAYS 90
 #define MAX_INACTIVE_DAYS 100000
-
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_SESSION
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>

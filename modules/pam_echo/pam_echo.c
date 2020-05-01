@@ -52,11 +52,6 @@
 #define HOST_NAME_MAX 255
 #endif
 
-#define PAM_SM_ACCOUNT
-#define PAM_SM_AUTH
-#define PAM_SM_PASSWORD
-#define PAM_SM_SESSION
-
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/_pam_macros.h>

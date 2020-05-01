@@ -1,4 +1,6 @@
 /*
+ * pam_listfile module
+ *
  * by Elliot Lee <sopwith@redhat.com>, Red Hat Software. July 25, 1996.
  * log refused access error christopher mccrory <chrismcc@netus.com> 1998/7/11
  *
@@ -21,18 +23,6 @@
 #ifdef PAM_DEBUG
 #include <assert.h>
 #endif
-
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-#define PAM_SM_PASSWORD
-#define PAM_SM_SESSION
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>

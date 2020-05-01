@@ -1,4 +1,6 @@
-/* pam_loginuid.c --
+/*
+ * pam_loginuid module
+ *
  * Copyright 2005 Red Hat Inc., Durham, North Carolina.
  * All Rights Reserved.
  *

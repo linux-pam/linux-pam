@@ -1,4 +1,6 @@
 /*
+ * pam_rhosts module
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -37,8 +39,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <syslog.h>
-
-#define PAM_SM_AUTH  /* only defines this management group */
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>

@@ -1,4 +1,6 @@
 /*
+ * pam_xauth module
+ *
  * Copyright 2001-2003 Red Hat, Inc.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,8 +52,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
-
-#define PAM_SM_SESSION
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>

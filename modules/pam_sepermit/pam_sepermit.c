@@ -35,7 +35,6 @@
  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
 
 #include "config.h"
@@ -54,9 +53,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <dirent.h>
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>

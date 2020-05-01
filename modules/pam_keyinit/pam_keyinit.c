@@ -1,4 +1,5 @@
-/* pam_keyinit.c: Initialise the session keyring on login through a PAM module
+/*
+ * pam_keyinit: Initialise the session keyring on login through a PAM module
  *
  * Copyright (C) 2006 Red Hat, Inc. All Rights Reserved.
  * Written by David Howells (dhowells@redhat.com)

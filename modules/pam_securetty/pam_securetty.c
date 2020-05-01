@@ -1,6 +1,6 @@
-/* pam_securetty module */
-
 /*
+ * pam_securetty module
+ *
  * by Elliot Lee <sopwith@redhat.com>, Red Hat Software.
  * July 25, 1996.
  * This code shamelessly ripped from the pam_rootok module.
@@ -21,16 +21,6 @@
 #include <ctype.h>
 #include <limits.h>
 #include <errno.h>
-
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>

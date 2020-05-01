@@ -6,7 +6,6 @@
    Copyright © 2010 Shane Tzen <shane@ict.usc.edu>
    Copyright © 2012-2020 Sven Hartge <sven@svenhartge.de>
    Copyright © 2016 Keller Fuchs <kellerfuchs@hashbang.sh>
-
 */
 
 #include <sys/types.h>
@@ -18,8 +17,6 @@
 #include <mntent.h>
 #include <stdio.h>
 #include <stdbool.h>
-
-#define PAM_SM_SESSION
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>

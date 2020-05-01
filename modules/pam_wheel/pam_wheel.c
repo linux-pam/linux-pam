@@ -1,6 +1,6 @@
-/* pam_wheel module */
-
 /*
+ * pam_wheel module
+ *
  * Written by Cristian Gafton <gafton@redhat.com> 1996/09/10
  * See the end of the file for Copyright Information
  *
@@ -38,9 +38,6 @@
  * but strongly encouraged generally) it is used to instruct the
  * modules include file to define the function prototypes.
  */
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>

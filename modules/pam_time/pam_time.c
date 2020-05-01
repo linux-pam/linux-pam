@@ -1,6 +1,6 @@
-/* pam_time module */
-
 /*
+ * pam_time module
+ *
  * Written by Andrew Morgan <morgan@linux.kernel.org> 1996/6/22
  * (File syntax and much other inspiration from the shadow package
  * shadow-960129)
@@ -23,6 +23,12 @@
 #include <fcntl.h>
 #include <netdb.h>
 
+#include <security/_pam_macros.h>
+#include <security/pam_modules.h>
+#include <security/pam_ext.h>
+#include <security/pam_modutil.h>
+#include "pam_inline.h"
+
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
 #endif
@@ -41,21 +47,6 @@
 #endif
 
 typedef enum { AND, OR } operator;
-
-/*
- * here, we make definitions for the externally accessible functions
- * in this file (these definitions are required for static modules
- * but strongly encouraged generally) they are used to instruct the
- * modules include file to define their prototypes.
- */
-
-#define PAM_SM_ACCOUNT
-
-#include <security/_pam_macros.h>
-#include <security/pam_modules.h>
-#include <security/pam_ext.h>
-#include <security/pam_modutil.h>
-#include "pam_inline.h"
 
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv, const char **conffile)

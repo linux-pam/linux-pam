@@ -48,8 +48,6 @@
 #include <libaudit.h>
 #include <linux/netlink.h>
 
-#define PAM_SM_SESSION
-
 #include <security/pam_ext.h>
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>

@@ -1,6 +1,6 @@
-/* pam_access module */
-
 /*
+ * pam_access module
+ *
  * Written by Alexei Nogin <alexei@nogin.dnttm.ru> 1997/06/15
  * (I took login_access from logdaemon-5.6 and converted it to PAM
  * using parts of pam_time code.)
@@ -48,18 +48,6 @@
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
 #endif
-
-/*
- * here, we make definitions for the externally accessible functions
- * in this file (these definitions are required for static modules
- * but strongly encouraged generally) they are used to instruct the
- * modules include file to define their prototypes.
- */
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-#define PAM_SM_SESSION
-#define PAM_SM_PASSWORD
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>

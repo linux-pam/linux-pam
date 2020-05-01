@@ -1,6 +1,6 @@
-/* pam_userdb module */
-
 /*
+ * pam_userdb module
+ *
  * Written by Cristian Gafton <gafton@redhat.com> 1996/09/10
  * See the end of the file for Copyright Information
  */
@@ -36,16 +36,6 @@
 #  error "failed to find a libdb or equivalent"
 # endif
 #endif
-
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>

@@ -1,4 +1,6 @@
 /*
+ * pam_pwhistory module
+ *
  * Copyright (c) 2008, 2012 Thorsten Kukuk
  * Author: Thorsten Kukuk <kukuk@thkukuk.de>
  *
@@ -37,8 +39,6 @@
 #if defined(HAVE_CONFIG_H)
 #include <config.h>
 #endif
-
-#define PAM_SM_PASSWORD
 
 #include <pwd.h>
 #include <errno.h>

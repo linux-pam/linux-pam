@@ -1,10 +1,7 @@
 /*
- * pam_tally.c
+ * pam_tally module
  *
- */
-
-
-/* By Tim Baverstock <warwick@mmm.co.uk>, Multi Media Machine Ltd.
+ * By Tim Baverstock <warwick@mmm.co.uk>, Multi Media Machine Ltd.
  * 5 March 1997
  *
  * Stuff stolen from pam_rootok and pam_listfile
@@ -30,19 +27,7 @@
 #include <sys/param.h>
 #include "faillog.h"
 
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
 #ifndef MAIN
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-/* #define PAM_SM_SESSION  */
-/* #define PAM_SM_PASSWORD */
-
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 #endif
@@ -615,8 +600,6 @@ tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts)
 
 /* --- authentication management functions (only) --- */
 
-#ifdef PAM_SM_AUTH
-
 int
 pam_sm_authenticate(pam_handle_t *pamh, int flags,
 		    int argc, const char **argv)
@@ -686,13 +669,9 @@ pam_sm_setcred(pam_handle_t *pamh, int flags,
   return tally_reset(pamh, uid, opts);
 }
 
-#endif
-
 /*---------------------------------------------------------------------*/
 
 /* --- authentication management functions (only) --- */
-
-#ifdef PAM_SM_ACCOUNT
 
 /* To reset failcount of user on successful login */
 
@@ -730,8 +709,6 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
       return rv;
   return tally_reset(pamh, uid, opts);
 }
-
-#endif  /* #ifdef PAM_SM_ACCOUNT */
 
 /*-----------------------------------------------------------------------*/
 

@@ -1,4 +1,6 @@
 /*
+ * pam_umask module
+ *
  * Copyright (c) 2005, 2006, 2007, 2010, 2013 Thorsten Kukuk <kukuk@thkukuk.de>
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,8 +51,6 @@
 #include <sys/types.h>
 #include <sys/resource.h>
 #include <syslog.h>
-
-#define PAM_SM_SESSION
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>

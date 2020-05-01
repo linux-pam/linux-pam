@@ -1,10 +1,7 @@
-/* pam_nologin module */
-
 /*
- * $Id$
+ * pam_nologin module
  *
  * Written by Michael K. Johnson <johnsonm@redhat.com> 1996/10/24
- *
  */
 
 #include "config.h"
@@ -19,16 +16,6 @@
 #include <pwd.h>
 
 #include <security/_pam_macros.h>
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>

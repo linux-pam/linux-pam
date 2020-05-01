@@ -1,4 +1,6 @@
 /*
+ * pam_unix password management
+ *
  * Main coding by Elliot Lee <sopwith@redhat.com>, Red Hat Software.
  * Copyright (C) 1996.
  * Copyright (c) Jan Rękorajski, 1999.
@@ -60,11 +62,6 @@
 #include <sys/resource.h>
 
 #include <security/_pam_macros.h>
-
-/* indicate the following groups are defined */
-
-#define PAM_SM_PASSWORD
-
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>

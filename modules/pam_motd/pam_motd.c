@@ -1,13 +1,8 @@
-/* pam_motd module */
-
 /*
+ * pam_motd module
+ *
  * Modified for pam_motd by Ben Collins <bcollins@debian.org>
- *
- * Based off of:
- * $Id$
- *
  * Written by Michael K. Johnson <johnsonm@redhat.com> 1996/10/24
- *
  */
 
 #include "config.h"
@@ -26,20 +21,12 @@
 
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_SESSION
-#define DEFAULT_MOTD	"/etc/motd:/run/motd:/usr/lib/motd"
-#define DEFAULT_MOTD_D	"/etc/motd.d:/run/motd.d:/usr/lib/motd.d"
-
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include "pam_inline.h"
+
+#define DEFAULT_MOTD	"/etc/motd:/run/motd:/usr/lib/motd"
+#define DEFAULT_MOTD_D	"/etc/motd.d:/run/motd.d:/usr/lib/motd.d"
 
 /* --- session management functions (only) --- */
 

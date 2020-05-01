@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * pam_unix session management
  *
  * Copyright Alexander O. Yuriev, 1996.  All rights reserved.
  * Copyright Jan Rękorajski, 1999.  All rights reserved.
@@ -46,10 +46,6 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-
-/* indicate the following groups are defined */
-
-#define PAM_SM_SESSION
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>

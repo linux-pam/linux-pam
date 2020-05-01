@@ -1,10 +1,7 @@
 /*
- * pam_tally2.c
+ * pam_tally2 module
  *
- */
-
-
-/* By Tim Baverstock <warwick@mmm.co.uk>, Multi Media Machine Ltd.
+ * By Tim Baverstock <warwick@mmm.co.uk>, Multi Media Machine Ltd.
  * 5 March 1997
  *
  * Stuff stolen from pam_rootok and pam_listfile
@@ -76,19 +73,7 @@
 #define fseeko fseek
 #endif
 
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
 #ifndef MAIN
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-/* #define PAM_SM_SESSION  */
-/* #define PAM_SM_PASSWORD */
-
 #include <security/pam_ext.h>
 #endif
 #include <security/pam_modutil.h>

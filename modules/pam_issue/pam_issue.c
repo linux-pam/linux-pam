@@ -1,4 +1,5 @@
-/* pam_issue module - a simple /etc/issue parser to set PAM_USER_PROMPT
+/*
+ * pam_issue module - a simple /etc/issue parser to set PAM_USER_PROMPT
  *
  * Copyright 1999 by Ben Collins <bcollins@debian.org>
  *
@@ -27,8 +28,6 @@
 #include <utmp.h>
 #include <time.h>
 #include <syslog.h>
-
-#define PAM_SM_AUTH
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>

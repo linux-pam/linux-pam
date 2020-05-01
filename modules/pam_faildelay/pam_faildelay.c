@@ -1,6 +1,6 @@
-/* pam_faildelay module */
-
 /*
+ * pam_faildelay module
+ *
  * Allows an admin to set the delay on failure per-application.
  * Provides "auth" interface only.
  *
@@ -69,9 +69,6 @@
 #include <syslog.h>
 #include <string.h>
 #include <stdlib.h>
-
-
-#define PAM_SM_AUTH
 
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>

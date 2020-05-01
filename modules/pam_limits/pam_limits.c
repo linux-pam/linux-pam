@@ -102,8 +102,6 @@ struct pam_limit_s {
 #define LIMIT_SOFT  1
 #define LIMIT_HARD  2
 
-#define PAM_SM_SESSION
-
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>

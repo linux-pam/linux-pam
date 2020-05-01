@@ -55,11 +55,7 @@
 #include <security/pam_ext.h>
 
 #include "pam_inline.h"
-
 #include "faillock.h"
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
 
 #define FAILLOCK_ACTION_PREAUTH  0
 #define FAILLOCK_ACTION_AUTHSUCC 1

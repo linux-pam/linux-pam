@@ -1,4 +1,6 @@
 /*
+ * pam_localuser module
+ *
  * Copyright 2001, 2004 Red Hat, Inc.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,8 +49,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>

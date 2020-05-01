@@ -1,10 +1,7 @@
-/* pam_ftp module */
-
 /*
- * $Id$
+ * pam_ftp module
  *
  * Written by Andrew Morgan <morgan@linux.kernel.org> 1996/3/11
- *
  */
 
 #define PLEASE_ENTER_PASSWORD "Password required for %s."
@@ -22,15 +19,6 @@
 #include <syslog.h>
 #include <stdarg.h>
 #include <string.h>
-
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_AUTH
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>

@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * pam_filter module
  *
  * written by Andrew Morgan <morgan@transmeta.com> with much help from
  * Richard Stevens' UNIX Network Programming book.
@@ -24,11 +24,6 @@
 #include <termios.h>
 
 #include <signal.h>
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-#define PAM_SM_SESSION
-#define PAM_SM_PASSWORD
 
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>

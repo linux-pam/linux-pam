@@ -1,4 +1,6 @@
 /*
+ * pam_unix authentication management
+ *
  * Copyright Alexander O. Yuriev, 1996.  All rights reserved.
  * NIS+ support by Thorsten Kukuk <kukuk@weber.uni-paderborn.de>
  * Copyright Jan Rękorajski, 1999.  All rights reserved.
@@ -48,11 +50,6 @@
 #include <sys/stat.h>
 #include <syslog.h>
 
-/* indicate the following groups are defined */
-
-#define PAM_SM_AUTH
-
-#define _PAM_EXTERN_FUNCTIONS
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>

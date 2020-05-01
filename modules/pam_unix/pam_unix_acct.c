@@ -1,4 +1,6 @@
 /*
+ * pam_unix account management
+ *
  * Copyright Elliot Lee, 1996.  All rights reserved.
  * Copyright Jan Rękorajski, 1999.  All rights reserved.
  *
@@ -50,10 +52,6 @@
 #include <sys/wait.h>
 
 #include <security/_pam_macros.h>
-
-/* indicate that the following groups are defined */
-
-#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>

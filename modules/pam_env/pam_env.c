@@ -1,6 +1,6 @@
-/* pam_env module */
-
 /*
+ * pam_env module
+ *
  * Written by Dave Kinchlea <kinch@kinch.ark.com> 1997/01/31
  * Inspired by Andrew Morgan <morgan@kernel.org>, who also supplied the
  * template for this file (via pam_mail)
@@ -25,18 +25,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_AUTH         /* This is primarily a AUTH_SETCRED module */
-#define PAM_SM_SESSION      /* But I like to be friendly */
-#define PAM_SM_PASSWORD     /*        ""                 */
-#define PAM_SM_ACCOUNT      /*        ""                 */
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
