@@ -130,13 +130,20 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		return PAM_PERM_DENIED;
 	}
 
-	/* scan the file, using fgets() instead of fgetpwent() because i
-	 * don't want to mess with applications which call fgetpwent() */
+	/*
+	 * Scan the file using fgets() instead of fgetpwent_r() because
+	 * the latter is not flexible enough in handling long lines
+	 * in passwd files.
+	 */
 	ret = PAM_PERM_DENIED;
-	while(fgets(line, sizeof(line), fp) != NULL) {
+	while (fgets(line, sizeof(line), fp) != NULL) {
+		size_t line_len;
+		const char *str;
+
 		if(debug) {
 			pam_syslog (pamh, LOG_DEBUG, "checking \"%s\"", line);
 		}
+
 		/*
 		 * Does this line start with the user name
 		 * followed by a colon?
@@ -146,6 +153,28 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			ret = PAM_SUCCESS;
 			break;
 		}
+
+		/* Has a newline been read?  */
+		line_len = strlen(line);
+		if (line_len < sizeof(line) - 1 ||
+		    line[line_len - 1] == '\n') {
+			/* Yes, continue with the next line.  */
+			continue;
+		}
+
+		/* No, read till the end of this line first.  */
+		while ((str = fgets(line, sizeof(line), fp)) != NULL) {
+			line_len = strlen(line);
+			if (line_len == 0 ||
+			    line[line_len - 1] == '\n') {
+				break;
+			}
+		}
+		if (str == NULL) {
+			/* fgets returned NULL, we are done.  */
+			break;
+		}
+		/* Continue with the next line.  */
 	}
 
 	/* okay, we're done */
