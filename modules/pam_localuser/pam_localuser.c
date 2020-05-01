@@ -91,19 +91,19 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	if(fp == NULL) {
 		pam_syslog (pamh, LOG_ERR, "error opening \"%s\": %m",
 			    filename);
-		return PAM_SYSTEM_ERR;
+		return PAM_SERVICE_ERR;
 	}
 
 	if(pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
 		pam_syslog (pamh, LOG_ERR, "user name not specified yet");
 		fclose(fp);
-		return PAM_SYSTEM_ERR;
+		return PAM_SERVICE_ERR;
 	}
 
 	if (strlen(user) == 0) {
 		pam_syslog (pamh, LOG_ERR, "user name not valid");
 		fclose(fp);
-		return PAM_SYSTEM_ERR;
+		return PAM_SERVICE_ERR;
 	}
 
 	if (strlen(user) > sizeof(name) - sizeof(":")) {
