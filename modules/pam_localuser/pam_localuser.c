@@ -106,6 +106,15 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		return PAM_SYSTEM_ERR;
 	}
 
+	if (strchr(user, ':') != NULL) {
+		/*
+		 * "root:x" is not a local user name even if the passwd file
+		 * contains a line starting with "root:x:".
+		 */
+		fclose(fp);
+		return PAM_PERM_DENIED;
+	}
+
 	/* scan the file, using fgets() instead of fgetpwent() because i
 	 * don't want to mess with applications which call fgetpwent() */
 	ret = PAM_PERM_DENIED;
