@@ -2,6 +2,7 @@
  * pam_localuser module
  *
  * Copyright 2001, 2004 Red Hat, Inc.
+ * Copyright (c) 2020 Dmitry V. Levin <ldv@altlinux.org>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -47,52 +48,17 @@
 #include <security/pam_ext.h>
 #include "pam_inline.h"
 
-int
-pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
-		    int argc, const char **argv)
+static int
+check_user_in_passwd(pam_handle_t *pamh, const char *user_name,
+		     const char *file_name)
 {
-	int i, ret;
-	FILE *fp;
-	int debug = 0;
-	const char *filename = "/etc/passwd";
-	char line[BUFSIZ];
-	const char* user;
+	int rc;
 	size_t user_len;
+	FILE *fp;
+	char line[BUFSIZ];
 
-	/* process arguments */
-	for(i = 0; i < argc; i++) {
-		if(strcmp("debug", argv[i]) == 0) {
-			debug = 1;
-		}
-	}
-	for(i = 0; i < argc; i++) {
-		const char *str;
-
-		if (strcmp("debug", argv[i]) == 0) {
-			/* Already processed.  */
-			continue;
-		}
-
-		if ((str = pam_str_skip_prefix(argv[i], "file=")) != NULL) {
-			filename = str;
-			if(debug) {
-				pam_syslog (pamh, LOG_DEBUG,
-					    "set filename to \"%s\"",
-				            filename);
-			}
-		} else {
-			pam_syslog(pamh, LOG_ERR, "unrecognized option: %s",
-				   argv[i]);
-		}
-	}
-
-	/* Obtain the user name.  */
-	if ((ret = pam_get_user(pamh, &user, NULL)) != PAM_SUCCESS) {
-		pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
-		return ret == PAM_CONV_AGAIN ? PAM_INCOMPLETE : ret;
-	}
-
-	if ((user_len = strlen(user)) == 0) {
+	/* Validate the user name.  */
+	if ((user_len = strlen(user_name)) == 0) {
 		pam_syslog(pamh, LOG_NOTICE, "user name is not valid");
 		return PAM_SERVICE_ERR;
 	}
@@ -102,7 +68,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 		return PAM_SERVICE_ERR;
 	}
 
-	if (strchr(user, ':') != NULL) {
+	if (strchr(user_name, ':') != NULL) {
 		/*
 		 * "root:x" is not a local user name even if the passwd file
 		 * contains a line starting with "root:x:".
@@ -111,9 +77,11 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	}
 
 	/* Open the passwd file.  */
-	if ((fp = fopen(filename, "r")) == NULL) {
-		pam_syslog (pamh, LOG_ERR, "error opening \"%s\": %m",
-			    filename);
+	if (file_name == NULL) {
+		file_name = "/etc/passwd";
+	}
+	if ((fp = fopen(file_name, "r")) == NULL) {
+		pam_syslog(pamh, LOG_ERR, "error opening %s: %m", file_name);
 		return PAM_SERVICE_ERR;
 	}
 
@@ -122,25 +90,20 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	 * the latter is not flexible enough in handling long lines
 	 * in passwd files.
 	 */
-	ret = PAM_PERM_DENIED;
+	rc = PAM_PERM_DENIED;
 	while (fgets(line, sizeof(line), fp) != NULL) {
 		size_t line_len;
 		const char *str;
-
-		if(debug) {
-			pam_syslog (pamh, LOG_DEBUG, "checking \"%s\"", line);
-		}
 
 		/*
 		 * Does this line start with the user name
 		 * followed by a colon?
 		 */
-		if (strncmp(user, line, user_len) == 0 &&
+		if (strncmp(user_name, line, user_len) == 0 &&
 		    line[user_len] == ':') {
-			ret = PAM_SUCCESS;
+			rc = PAM_SUCCESS;
 			break;
 		}
-
 		/* Has a newline been read?  */
 		line_len = strlen(line);
 		if (line_len < sizeof(line) - 1 ||
@@ -164,9 +127,53 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 		/* Continue with the next line.  */
 	}
 
-	/* okay, we're done */
 	fclose(fp);
-	return ret;
+	return rc;
+}
+
+int
+pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
+		    int argc, const char **argv)
+{
+	int i;
+	int rc;
+	int debug = 0;
+	const char *file_name = NULL;
+	const char *user_name = NULL;
+
+	/* Process arguments.  */
+	for (i = 0; i < argc; ++i) {
+		if (strcmp("debug", argv[i]) == 0) {
+			debug = 1;
+		}
+	}
+	for (i = 0; i < argc; ++i) {
+		const char *str;
+
+		if (strcmp("debug", argv[i]) == 0) {
+			/* Already processed.  */
+			continue;
+		}
+		if ((str = pam_str_skip_prefix(argv[i], "file=")) != NULL) {
+			file_name = str;
+			if (debug) {
+				pam_syslog(pamh, LOG_DEBUG,
+					   "set filename to %s", file_name);
+			}
+		} else {
+			pam_syslog(pamh, LOG_ERR, "unrecognized option: %s",
+				   argv[i]);
+		}
+	}
+
+	/* Obtain the user name.  */
+	if ((rc = pam_get_user(pamh, &user_name, NULL)) != PAM_SUCCESS) {
+		pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
+			   pam_strerror(pamh, rc));
+		return rc == PAM_CONV_AGAIN ? PAM_INCOMPLETE : rc;
+	}
+
+	return check_user_in_passwd(pamh, user_name, file_name);
 }
 
 int
