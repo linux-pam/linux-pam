@@ -64,8 +64,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	FILE *fp;
 	int debug = 0;
 	const char *filename = "/etc/passwd";
-	char line[LINE_MAX], name[LINE_MAX];
+	char line[LINE_MAX];
 	const char* user;
+	size_t user_len;
 
 	/* process arguments */
 	for(i = 0; i < argc; i++) {
@@ -108,13 +109,13 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		return PAM_SERVICE_ERR;
 	}
 
-	if (strlen(user) == 0) {
+	if ((user_len = strlen(user)) == 0) {
 		pam_syslog (pamh, LOG_ERR, "user name not valid");
 		fclose(fp);
 		return PAM_SERVICE_ERR;
 	}
 
-	if (strlen(user) > sizeof(name) - sizeof(":")) {
+	if (user_len > sizeof(line) - sizeof(":")) {
 		pam_syslog (pamh, LOG_ERR, "user name too long");
 		fclose(fp);
 		return PAM_SERVICE_ERR;
@@ -132,13 +133,16 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	/* scan the file, using fgets() instead of fgetpwent() because i
 	 * don't want to mess with applications which call fgetpwent() */
 	ret = PAM_PERM_DENIED;
-	snprintf(name, sizeof(name), "%s:", user);
-	i = strlen(name);
 	while(fgets(line, sizeof(line), fp) != NULL) {
 		if(debug) {
 			pam_syslog (pamh, LOG_DEBUG, "checking \"%s\"", line);
 		}
-		if(strncmp(name, line, i) == 0) {
+		/*
+		 * Does this line start with the user name
+		 * followed by a colon?
+		 */
+		if (strncmp(user, line, user_len) == 0 &&
+		    line[user_len] == ':') {
 			ret = PAM_SUCCESS;
 			break;
 		}
