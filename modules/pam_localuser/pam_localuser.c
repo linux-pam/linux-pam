@@ -64,7 +64,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	FILE *fp;
 	int debug = 0;
 	const char *filename = "/etc/passwd";
-	char line[LINE_MAX];
+	char line[BUFSIZ];
 	const char* user;
 	size_t user_len;
 
