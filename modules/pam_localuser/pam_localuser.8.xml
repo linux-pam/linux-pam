@@ -103,6 +103,16 @@
         </varlistentry>
 
         <varlistentry>
+          <term>PAM_INCOMPLETE</term>
+          <listitem>
+            <para>
+              The conversation method supplied by the application
+              returned PAM_CONV_AGAIN.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>PAM_SERVICE_ERR</term>
           <listitem>
             <para>
