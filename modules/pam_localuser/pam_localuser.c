@@ -37,24 +37,15 @@
 
 #include "config.h"
 
-#include <errno.h>
-#include <limits.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <time.h>
 #include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 
 #include <security/pam_modules.h>
-#include <security/_pam_macros.h>
 #include <security/pam_ext.h>
 #include "pam_inline.h"
-
-#define MODULE_NAME "pam_localuser"
 
 int
 pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
