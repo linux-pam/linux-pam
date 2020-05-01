@@ -106,6 +106,12 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		return PAM_SYSTEM_ERR;
 	}
 
+	if (strlen(user) > sizeof(name) - sizeof(":")) {
+		pam_syslog (pamh, LOG_ERR, "user name too long");
+		fclose(fp);
+		return PAM_SERVICE_ERR;
+	}
+
 	if (strchr(user, ':') != NULL) {
 		/*
 		 * "root:x" is not a local user name even if the passwd file
