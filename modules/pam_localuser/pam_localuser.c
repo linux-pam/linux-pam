@@ -98,7 +98,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	/* Obtain the user name.  */
 	if ((ret = pam_get_user(pamh, &user, NULL)) != PAM_SUCCESS) {
 		pam_syslog (pamh, LOG_ERR, "cannot determine user name");
-		return ret == PAM_CONV_AGAIN ? PAM_INCOMPLETE : PAM_SERVICE_ERR;
+		return ret == PAM_CONV_AGAIN ? PAM_INCOMPLETE : ret;
 	}
 
 	if ((user_len = strlen(user)) == 0) {
