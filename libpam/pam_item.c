@@ -343,6 +343,16 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
     retval = pamh->pam_conversation->
 	conv(1, &pmsg, &resp, pamh->pam_conversation->appdata_ptr);
 
+    switch (retval) {
+	case PAM_SUCCESS:
+	case PAM_BUF_ERR:
+	case PAM_CONV_AGAIN:
+	case PAM_CONV_ERR:
+	    break;
+	default:
+	    retval = PAM_CONV_ERR;
+    }
+
     if (retval == PAM_CONV_AGAIN) {
 	/* conversation function is waiting for an event - save state */
 	D(("conversation function is not ready yet"));
