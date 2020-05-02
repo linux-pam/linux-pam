@@ -285,13 +285,13 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
     if (user == NULL) {
         /* ensure that the module has supplied a destination */
 	pam_syslog(pamh, LOG_ERR, "pam_get_user: nowhere to record username");
-	return PAM_PERM_DENIED;
+	return PAM_SYSTEM_ERR;
     } else
 	*user = NULL;
 
     if (pamh->pam_conversation == NULL) {
 	pam_syslog(pamh, LOG_ERR, "pam_get_user: no conv element in pamh");
-	return PAM_SERVICE_ERR;
+	return PAM_SYSTEM_ERR;
     }
 
     if (pamh->user) {    /* have one so return it */
