@@ -353,28 +353,32 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 	    retval = PAM_CONV_ERR;
     }
 
-    if (retval == PAM_CONV_AGAIN) {
-	/* conversation function is waiting for an event - save state */
-	D(("conversation function is not ready yet"));
-	pamh->former.want_user = PAM_TRUE;
-	pamh->former.prompt = _pam_strdup(use_prompt);
-    } else if (resp == NULL || resp->resp == NULL) {
-	/*
-	 * conversation should have given a response
-	 */
-	D(("pam_get_user: no response provided"));
-	retval = PAM_CONV_ERR;
-	pamh->former.fail_user = retval;
-    } else if (retval == PAM_SUCCESS) {            /* copy the username */
-	/*
-	 * now we set the PAM_USER item -- this was missing from pre.53
-	 * releases. However, reading the Sun manual, it is part of
-	 * the standard API.
-	 */
-	retval = pam_set_item(pamh, PAM_USER, resp->resp);
-	*user = pamh->user;
-    } else
-	pamh->former.fail_user = retval;
+    switch (retval) {
+	case PAM_CONV_AGAIN:
+	    /* conversation function is waiting for an event - save state */
+	    D(("conversation function is not ready yet"));
+	    pamh->former.want_user = PAM_TRUE;
+	    pamh->former.prompt = _pam_strdup(use_prompt);
+	    break;
+	case PAM_SUCCESS:
+	    if (resp != NULL && resp->resp != NULL) {
+		/*
+		 * now we set the PAM_USER item -- this was missing from pre.53
+		 * releases. However, reading the Sun manual, it is part of
+		 * the standard API.
+		 */
+		retval = pam_set_item(pamh, PAM_USER, resp->resp);
+		*user = pamh->user;
+		break;
+	    } else {
+		/* conversation should have given a response */
+		D(("pam_get_user: no response provided"));
+		retval = PAM_CONV_ERR;
+	    }
+	    /* fallthrough */
+	default:
+	    pamh->former.fail_user = retval;
+    }
 
     if (resp) {
 	if (retval != PAM_SUCCESS)
