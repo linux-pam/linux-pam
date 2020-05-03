@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # mrtomlinux <thomas.canniot@mrtomlinux.org>, 2008
 # Charles-Antoine Couret <cacouret@wanadoo.fr>, 2009
