@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Kris Thomsen <lakristho@gmail.com>, 2009,2012-2013
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
