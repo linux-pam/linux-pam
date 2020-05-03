@@ -6,13 +6,14 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(XMLS) $(TESTS)
+EXTRA_DIST = $(XMLS)
 
 if HAVE_DOC
 dist_man_MANS = pam_sepermit.8 sepermit.conf.5
 endif
 XMLS = README.xml pam_sepermit.8.xml sepermit.conf.5.xml
-TESTS = tst-pam_sepermit
+dist_check_SCRIPTS = tst-pam_sepermit
+TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

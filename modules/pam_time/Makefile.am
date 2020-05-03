@@ -5,13 +5,14 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(XMLS) $(TESTS)
+EXTRA_DIST = $(XMLS)
 
 if HAVE_DOC
 dist_man_MANS = time.conf.5 pam_time.8
 endif
 XMLS = README.xml time.conf.5.xml pam_time.8.xml
-TESTS = tst-pam_time
+dist_check_SCRIPTS = tst-pam_time
+TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

@@ -4,9 +4,10 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST = $(TESTS)
+EXTRA_DIST =
 
-TESTS = tst-pam_stress
+dist_check_SCRIPTS = tst-pam_stress
+TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)

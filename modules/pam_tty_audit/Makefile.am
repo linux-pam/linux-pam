@@ -5,13 +5,14 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(XMLS) $(TESTS)
+EXTRA_DIST = $(XMLS)
 
 if HAVE_DOC
 dist_man_MANS = pam_tty_audit.8
 endif
 XMLS = README.xml pam_tty_audit.8.xml
-TESTS = tst-pam_tty_audit
+dist_check_SCRIPTS = tst-pam_tty_audit
+TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
 

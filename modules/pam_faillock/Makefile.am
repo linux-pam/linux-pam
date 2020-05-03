@@ -7,14 +7,15 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(XMLS) $(TESTS)
+EXTRA_DIST = $(XMLS)
 
 if HAVE_DOC
 dist_man_MANS = pam_faillock.8 faillock.8 faillock.conf.5
 endif
 XMLS = README.xml pam_faillock.8.xml faillock.8.xml faillock.conf.5.xml
 
-TESTS = tst-pam_faillock
+dist_check_SCRIPTS = tst-pam_faillock
+TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
