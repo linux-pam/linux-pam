@@ -6,15 +6,15 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(dist_TESTS)
+EXTRA_DIST = $(DATA) $(MANS) $(XMLS)
 
 if HAVE_DOC
 man_MANS = pam_timestamp.8 pam_timestamp_check.8
 endif
 XMLS = README.xml pam_timestamp.8.xml pam_timestamp_check.8.xml
-dist_TESTS = tst-pam_timestamp
+dist_check_SCRIPTS = tst-pam_timestamp
 nodist_TESTS = hmacfile
-TESTS = $(dist_TESTS) $(nodist_TESTS)
+TESTS = $(dist_check_SCRIPTS) $(nodist_TESTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
