@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Bahadır Kandemir <bahadir@pardus.org.tr>, 2010
 # ismail yenigül <ismail.yenigul@surgate.com>, 2013
