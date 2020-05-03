@@ -34,16 +34,12 @@ pam_namespace_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@
 
 dist_secureconf_DATA = namespace.conf
 dist_secureconf_SCRIPTS = namespace.init
+service_DATA = pam_namespace.service
 
 install-data-local:
 	mkdir -p $(DESTDIR)$(namespaceddir)
-	mkdir -p $(DESTDIR)$(servicedir)
-	$(INSTALL_DATA) pam_namespace.service $(DESTDIR)$(servicedir)
 
 sbin_SCRIPTS = pam_namespace_helper
-
-uninstall-local:
-	-rm $(DESTDIR)$(servicedir)/pam_namespace.service
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
