@@ -6,7 +6,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS) $(SCRIPTS)
+EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = namespace.conf.5 pam_namespace.8 pam_namespace_helper.8
@@ -33,7 +33,7 @@ pam_namespace_la_SOURCES = pam_namespace.c md5.c argv_parse.c
 pam_namespace_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@
 
 secureconf_DATA = namespace.conf
-secureconf_SCRIPTS = namespace.init
+dist_secureconf_SCRIPTS = namespace.init
 
 install-data-local:
 	mkdir -p $(DESTDIR)$(namespaceddir)
