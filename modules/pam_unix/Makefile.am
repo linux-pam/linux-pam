@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) md5.c md5_crypt.c lckpwdf.-c $(MANS) $(XMLS) $(TESTS) CHANGELOG
+EXTRA_DIST = md5.c md5_crypt.c lckpwdf.-c $(MANS) $(XMLS) $(TESTS) CHANGELOG
 
 if HAVE_DOC
 man_MANS = pam_unix.8 unix_chkpwd.8 unix_update.8
@@ -57,6 +57,6 @@ unix_update_LDFLAGS = @PIE_LDFLAGS@
 unix_update_LDADD = @LIBCRYPT@ @LIBSELINUX@
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

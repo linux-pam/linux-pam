@@ -6,7 +6,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = pam_tally2.8
@@ -37,6 +37,6 @@ pam_tally2_la_SOURCES = pam_tally2.c
 pam_tally2_SOURCES = pam_tally2_app.c
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

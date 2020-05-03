@@ -7,7 +7,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = pam_faillock.8 faillock.8 faillock.conf.5
@@ -35,7 +35,7 @@ endif
 faillock_LDFLAGS = @PIE_LDFLAGS@
 faillock_LDADD = $(top_builddir)/libpam/libpam.la $(LIBAUDIT)
 
-secureconf_DATA = faillock.conf
+dist_secureconf_DATA = faillock.conf
 
 securelib_LTLIBRARIES = pam_faillock.la
 sbin_PROGRAMS = faillock
@@ -44,6 +44,6 @@ pam_faillock_la_SOURCES = pam_faillock.c faillock.c
 faillock_SOURCES = main.c faillock.c
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

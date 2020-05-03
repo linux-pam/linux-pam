@@ -6,7 +6,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = namespace.conf.5 pam_namespace.8 pam_namespace_helper.8
@@ -32,7 +32,7 @@ securelib_LTLIBRARIES = pam_namespace.la
 pam_namespace_la_SOURCES = pam_namespace.c md5.c argv_parse.c
 pam_namespace_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@
 
-secureconf_DATA = namespace.conf
+dist_secureconf_DATA = namespace.conf
 dist_secureconf_SCRIPTS = namespace.init
 
 install-data-local:
@@ -46,6 +46,6 @@ uninstall-local:
 	-rm $(DESTDIR)$(servicedir)/pam_namespace.service
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

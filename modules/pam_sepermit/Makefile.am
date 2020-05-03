@@ -6,7 +6,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = pam_sepermit.8 sepermit.conf.5
@@ -29,13 +29,13 @@ if HAVE_VERSIONING
   pam_sepermit_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
-secureconf_DATA = sepermit.conf
+dist_secureconf_DATA = sepermit.conf
 securelib_LTLIBRARIES = pam_sepermit.la
 
 install-data-local:
 	mkdir -p $(DESTDIR)$(sepermitlockdir)
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

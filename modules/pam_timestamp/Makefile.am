@@ -6,7 +6,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS)
+EXTRA_DIST = $(MANS) $(XMLS)
 
 if HAVE_DOC
 man_MANS = pam_timestamp.8 pam_timestamp_check.8
@@ -46,6 +46,6 @@ hmacfile_LDADD = $(top_builddir)/libpam/libpam.la
 check_PROGRAMS = hmacfile
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

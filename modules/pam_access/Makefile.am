@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = access.conf.5 pam_access.8
@@ -27,9 +27,9 @@ endif
 securelib_LTLIBRARIES = pam_access.la
 pam_access_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
-secureconf_DATA = access.conf
+dist_secureconf_DATA = access.conf
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

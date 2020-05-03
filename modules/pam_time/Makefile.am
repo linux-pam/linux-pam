@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = time.conf.5 pam_time.8
@@ -25,9 +25,9 @@ endif
 pam_time_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 securelib_LTLIBRARIES = pam_time.la
-secureconf_DATA = time.conf
+dist_secureconf_DATA = time.conf
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

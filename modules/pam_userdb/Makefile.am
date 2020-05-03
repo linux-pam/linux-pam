@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS) create.pl
+EXTRA_DIST = $(MANS) $(XMLS) $(TESTS) create.pl
 
 if HAVE_DOC
 man_MANS = pam_userdb.8
@@ -29,6 +29,6 @@ pam_userdb_la_LIBADD = $(top_builddir)/libpam/libpam.la
 noinst_HEADERS = pam_userdb.h
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

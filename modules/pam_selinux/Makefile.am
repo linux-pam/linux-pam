@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS) pam_selinux_check.8
+EXTRA_DIST = $(MANS) $(XMLS) $(TESTS) pam_selinux_check.8
 
 if HAVE_DOC
 man_MANS = pam_selinux.8
@@ -31,6 +31,6 @@ pam_selinux_check_LDADD = $(top_builddir)/libpam/libpam.la \
 			  $(top_builddir)/libpam_misc/libpam_misc.la
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

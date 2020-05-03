@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(DATA) $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(MANS) $(XMLS) $(TESTS)
 
 if HAVE_DOC
 man_MANS = limits.conf.5 pam_limits.8
@@ -28,12 +28,12 @@ endif
 securelib_LTLIBRARIES = pam_limits.la
 pam_limits_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
-secureconf_DATA = limits.conf
+dist_secureconf_DATA = limits.conf
 
 install-data-local:
 	mkdir -p $(DESTDIR)$(limits_conf_dir)
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif
