@@ -5,10 +5,10 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(XMLS) $(TESTS)
 
 if HAVE_DOC
-man_MANS = group.conf.5 pam_group.8
+dist_man_MANS = group.conf.5 pam_group.8
 endif
 XMLS = README.xml group.conf.5.xml pam_group.8.xml
 TESTS = tst-pam_group

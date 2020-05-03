@@ -6,10 +6,10 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(XMLS) $(TESTS)
 
 if HAVE_DOC
-man_MANS = namespace.conf.5 pam_namespace.8 pam_namespace_helper.8
+dist_man_MANS = namespace.conf.5 pam_namespace.8 pam_namespace_helper.8
 endif
 XMLS = README.xml namespace.conf.5.xml pam_namespace.8.xml pam_namespace_helper.8.xml
 TESTS = tst-pam_namespace

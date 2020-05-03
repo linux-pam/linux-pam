@@ -7,10 +7,10 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = $(MANS) $(XMLS) $(TESTS)
+EXTRA_DIST = $(XMLS) $(TESTS)
 
 if HAVE_DOC
-man_MANS = pam_faillock.8 faillock.8 faillock.conf.5
+dist_man_MANS = pam_faillock.8 faillock.8 faillock.conf.5
 endif
 XMLS = README.xml pam_faillock.8.xml faillock.8.xml faillock.conf.5.xml
 
