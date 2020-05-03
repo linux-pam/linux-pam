@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Linux-PAM Project
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # mrtomlinux <thomas.canniot@mrtomlinux.org>, 2008
 # Charles-Antoine Couret <cacouret@wanadoo.fr>, 2009
@@ -19,8 +19,8 @@ msgstr ""
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
 "PO-Revision-Date: 2020-05-02 09:40+0000\n"
 "Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
-"Language-Team: French <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/fr/>\n"
+"Language-Team: French <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
