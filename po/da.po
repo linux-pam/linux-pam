@@ -11,16 +11,16 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-04-07 14:17+0000\n"
+"PO-Revision-Date: 2020-05-02 09:40+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
-"Language-Team: Danish <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/da/>\n"
+"Language-Team: Danish <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11.3\n"
+"X-Generator: Weblate 4.0.1\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -294,10 +294,11 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s fejlede: ukendt status 0x%x"
 
 #: modules/pam_faillock/main.c:104
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
-msgstr "%s: [--file rodfilnavn] [--user brugernavn] [--reset[=n]] [--quiet]\n"
+msgstr ""
+"Anvendelse: %s [--dir /sti/til/tally-mappe] [--user brugernavn] [--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
@@ -308,7 +309,7 @@ msgstr "Konto låst på grund af %u fejlende logins."
 #: modules/pam_faillock/pam_faillock.c:654
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(%d minutter tilbage hvor der kan låses op)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
