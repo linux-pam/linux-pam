@@ -12,21 +12,22 @@
 # Máximo Castañeda Riloba <mcrcctm@gmail.com>, 2016. #zanata
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
+# Álvaro Castillo <sincorchetes@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-03-06 23:59+0000\n"
-"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
-"Language-Team: Spanish <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/es/>\n"
+"PO-Revision-Date: 2020-05-06 11:40+0000\n"
+"Last-Translator: Álvaro Castillo <sincorchetes@gmail.com>\n"
+"Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11.2\n"
+"X-Generator: Weblate 4.0.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -47,14 +48,13 @@ msgid "Password: "
 msgstr "Contraseña: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "Nueva %s contraseña: "
+msgstr "Contraseña %s actual: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
 msgid "Current password: "
-msgstr "Nueva contraseña: "
+msgstr "Contraseña actual: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
@@ -81,12 +81,11 @@ msgstr "Las contraseñas no coinciden."
 #: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
-msgstr "Reingrese %s"
+msgstr "Vuelva a escribir %s"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
-#, fuzzy
 msgid "Password change has been aborted."
-msgstr "La contraseña no ha cambiado."
+msgstr "Se ha abortado el cambio de contraseña."
 
 #: libpam/pam_item.c:311
 msgid "login:"
