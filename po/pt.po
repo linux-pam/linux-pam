@@ -9,13 +9,14 @@
 # Rui Gouveia <rui.gouveia@gmail.com>, 2012
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
+# Manuela Silva <mmsrs@sky.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-03-15 23:38+0000\n"
-"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
+"PO-Revision-Date: 2020-05-06 11:40+0000\n"
+"Last-Translator: Manuela Silva <mmsrs@sky.com>\n"
 "Language-Team: Portuguese <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/pt/>\n"
 "Language: pt\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 3.11.3\n"
+"X-Generator: Weblate 4.0.3\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -31,7 +32,7 @@ msgstr "...O tempo está a esgotar-se...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "...Lamento, o seu tempo esgotou-se!\n"
+msgstr "...Desculpe, o seu tempo expirou!\n"
 
 #: libpam_misc/misc_conv.c:346
 #, c-format
@@ -41,38 +42,38 @@ msgstr "conversação errónea (%d)\n"
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:184
 #: modules/pam_userdb/pam_userdb.c:65
 msgid "Password: "
-msgstr "Senha: "
+msgstr "Palavra-passe: "
 
 #: libpam/pam_get_authtok.c:41
 #, c-format
 msgid "Current %s password: "
-msgstr "Atual %s senha: "
+msgstr "Palavra-passe %s atual: "
 
 #: libpam/pam_get_authtok.c:42
 msgid "Current password: "
-msgstr "Atual senha: "
+msgstr "Palavra-passe atual: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
 msgid "New %s password: "
-msgstr "Nova %s senha: "
+msgstr "Nova palavra-passe %s : "
 
 #: libpam/pam_get_authtok.c:45
 msgid "New password: "
-msgstr "Nova senha: "
+msgstr "Nova palavra-passe: "
 
 #: libpam/pam_get_authtok.c:47
 #, c-format
 msgid "Retype new %s password: "
-msgstr "Digite novamente a nova %s senha: "
+msgstr "Digite novamente a nova palavra-passe %s: "
 
 #: libpam/pam_get_authtok.c:48
 msgid "Retype new password: "
-msgstr "Digite novamente a nova senha: "
+msgstr "Digite novamente a nova palavra-passe: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
-msgstr "Lamento, as senhas não coincidem."
+msgstr "Desculpe, as palavras-passe não coincidem."
 
 #: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
@@ -81,11 +82,11 @@ msgstr "Digite novamente %s"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 msgid "Password change has been aborted."
-msgstr "Alteração da senha interrompida."
+msgstr "A alteração da palavra-passe foi abortada."
 
 #: libpam/pam_item.c:311
 msgid "login:"
-msgstr "utilizador:"
+msgstr "credencial:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
@@ -93,11 +94,11 @@ msgstr "Sucesso"
 
 #: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
-msgstr "Erro crítico - interrupção imediata"
+msgstr "Erro crítico - abortar imediatamente"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr "Falhou o carregamento do modulo"
+msgstr "Não foi possível carregar o modulo"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -113,7 +114,7 @@ msgstr "Erro de sistema"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
-msgstr "Erro de buffer de memória"
+msgstr "Erro de ''buffer'' da memória"
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
@@ -129,7 +130,7 @@ msgstr "Credenciais insuficientes para aceder aos dados de autenticação"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "O serviço de autenticação não pode obter informação de autenticação"
+msgstr "O serviço de autenticação não pode obter a informação de autenticação"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
@@ -141,11 +142,11 @@ msgstr "Esgotou o número máximo de tentativas para o serviço"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr "O 'token' de autenticação já não é válido; é necessário um novo"
+msgstr "O código de autenticação já não é válido; é necessário um novo"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
-msgstr "A conta de utilizador expirou"
+msgstr "A conta do utilizador expirou"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
@@ -178,7 +179,7 @@ msgstr "Erro de conversação"
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
-msgstr "Erro de manipulação do 'token' de autenticação"
+msgstr "Erro de manipulação do código de autenticação"
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
@@ -186,19 +187,19 @@ msgstr "A informação de autenticação não pode ser recuperada"
 
 #: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
-msgstr "O 'token' de autenticação encontra-se bloqueado"
+msgstr "Bloqueio de código de autenticação ocupado"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr "O envelhecimento do 'token' de autenticação está desactivado"
+msgstr "Período do código de autenticação desativado"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr "Falha na validação preliminar pelo serviço de senhas"
+msgstr "A validação preliminar pelo serviço de palavras-passe falhou"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "O valor de retorno deve ser ignorado pelo PAM"
+msgstr "O valor de retorno deveria ser ignorado pelo PAM"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
@@ -298,11 +299,12 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s falhou: estado desconhecido 0x%x"
 
 #: modules/pam_faillock/main.c:104
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 msgstr ""
-"%s: [--file ficheiro-raiz] [--user nome-utilizador] [--reset[=n]] [--quiet]\n"
+"Utilização: %s [--dir / path/to/tally-directory] [--user nome de utilizador] "
+"[--reset]]\n"
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
@@ -313,7 +315,7 @@ msgstr "Conta bloqueada devido a %u inícios de sessão falhados."
 #: modules/pam_faillock/pam_faillock.c:654
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(Minutos restantes para desbloquear: %d)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
