@@ -131,14 +131,6 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term>PAM_CRED_INSUFFICIENT</term>
-        <listitem>
-           <para>
-             Insufficient credentials to access authentication data.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
         <term>PAM_PERM_DENIED</term>
         <listitem>
            <para>
