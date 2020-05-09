@@ -227,7 +227,8 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
   /* Get the password entry */
   pwd = pam_modutil_getpwnam(pamh, user);
   if (pwd == NULL) {
-    return PAM_CRED_INSUFFICIENT;
+    pam_syslog(pamh, LOG_NOTICE, "user unknown");
+    return PAM_USER_UNKNOWN;
   }
 
   /* Check if we should not set quotas for user */

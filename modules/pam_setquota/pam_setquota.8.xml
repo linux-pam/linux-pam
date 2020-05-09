@@ -218,7 +218,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>PAM_CRED_INSUFFICIENT</term>
+          <term>PAM_USER_UNKNOWN</term>
           <listitem>
             <para>
               The user was not found.
