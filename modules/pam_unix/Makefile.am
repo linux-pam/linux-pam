@@ -5,13 +5,14 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README md5.c md5_crypt.c lckpwdf.-c $(MANS) CHANGELOG \
-		tst-pam_unix $(XMLS)
+EXTRA_DIST = md5.c md5_crypt.c lckpwdf.-c $(XMLS) CHANGELOG
 
-man_MANS = pam_unix.8 unix_chkpwd.8 unix_update.8
+if HAVE_DOC
+dist_man_MANS = pam_unix.8 unix_chkpwd.8 unix_update.8
+endif
 XMLS = README.xml pam_unix.8.xml unix_chkpwd.8.xml unix_update.8.xml
-
-TESTS = tst-pam_unix
+dist_check_SCRIPTS = tst-pam_unix
+TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -19,11 +20,7 @@ secureconfdir = $(SCONFIGDIR)
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	-DCHKPWD_HELPER=\"$(sbindir)/unix_chkpwd\" \
 	-DUPDATE_HELPER=\"$(sbindir)/unix_update\" \
-	@TIRPC_CFLAGS@ @NSL_CFLAGS@
-
-if HAVE_LIBSELINUX
-  AM_CFLAGS += -D"WITH_SELINUX"
-endif
+	@TIRPC_CFLAGS@ @NSL_CFLAGS@ $(WARN_CFLAGS)
 
 pam_unix_la_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
@@ -61,7 +58,6 @@ unix_update_LDFLAGS = @PIE_LDFLAGS@
 unix_update_LDADD = @LIBCRYPT@ @LIBSELINUX@
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
-README: pam_unix.8.xml
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

@@ -1,5 +1,5 @@
 /******************************************************************************
- * A module for Linux-PAM that allows/denies acces based on SELinux state.
+ * A module for Linux-PAM that allows/denies access based on SELinux state.
  *
  * Copyright (c) 2007, 2008, 2009 Red Hat, Inc.
  * Originally written by Tomas Mraz <tmraz@redhat.com>
@@ -35,7 +35,6 @@
  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
 
 #include "config.h"
@@ -53,11 +52,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <pwd.h>
 #include <dirent.h>
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
@@ -353,7 +348,7 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 		if (*sense == PAM_SUCCESS) {
 			if (ignore)
 				*sense = PAM_IGNORE;
-			if (geteuid() == 0 && exclusive && get_loginuid(pamh) == -1)
+			if (geteuid() == 0 && exclusive && get_loginuid(pamh) == (uid_t)-1)
 				if (sepermit_lock(pamh, user, debug) < 0)
 					*sense = PAM_AUTH_ERR;
 		}

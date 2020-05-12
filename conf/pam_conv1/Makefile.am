@@ -8,6 +8,10 @@ EXTRA_DIST = README
 
 AM_YFLAGS = -d
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
+pam_conv1_CFLAGS = $(AM_CFLAGS) -Wno-unused-function -Wno-sign-compare
+
 BUILT_SOURCES = pam_conv_y.h
 
 noinst_PROGRAMS = pam_conv1

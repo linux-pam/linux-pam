@@ -1,5 +1,5 @@
 
-This directory contains a untility to convert pam.conf files to a pam.d/
+This directory contains a utility to convert pam.conf files to a pam.d/
 tree. The conversion program takes pam.conf from the standard input and
 creates the pam.d/ directory in the current directory.
 

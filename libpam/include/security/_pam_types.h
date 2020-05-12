@@ -41,7 +41,7 @@ typedef struct pam_handle pam_handle_t;
 				/* can not retrieve authentication */
 				/* information  */
 #define PAM_USER_UNKNOWN 10	/* User not known to the underlying */
-				/* authenticaiton module */
+				/* authentication module */
 #define PAM_MAXTRIES 11		/* An authentication service has */
 				/* maintained a retry count which has */
 				/* been reached.  No further retries */
@@ -50,7 +50,7 @@ typedef struct pam_handle pam_handle_t;
 				/* This is normally returned if the */
 				/* machine security policies require */
 				/* that the password should be changed */
-				/* beccause the password is NULL or it */
+				/* because the password is NULL or it */
 				/* has aged */
 #define PAM_ACCT_EXPIRED 13	/* User account has expired */
 #define PAM_SESSION_ERR 14	/* Can not make/remove an entry for */

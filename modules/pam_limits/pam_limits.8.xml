@@ -99,7 +99,9 @@
           <para>
             Set the limits for which no value is specified in the
             configuration file to the one from the process with the
-            PID 1.
+            PID 1. Please note that if the init process is systemd
+            these limits will not be the kernel default limits and
+            this option should not be used.
           </para>
         </listitem>
       </varlistentry>

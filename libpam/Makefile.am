@@ -3,10 +3,9 @@
 #
 
 AM_CFLAGS = -DDEFAULT_MODULE_PATH=\"$(SECUREDIR)/\" -DLIBPAM_COMPILE \
-	-I$(srcdir)/include $(LIBPRELUDE_CFLAGS) -DPAM_VERSION=\"$(VERSION)\"
-if HAVE_LIBSELINUX
-  AM_CFLAGS += -D"WITH_SELINUX"
-endif
+	-I$(srcdir)/include $(LIBPRELUDE_CFLAGS) $(ECONF_CFLAGS) \
+	-DPAM_VERSION=\"$(VERSION)\" -DSYSCONFDIR=\"$(sysconfdir)\" \
+	$(WARN_CFLAGS)
 
 CLEANFILES = *~
 
@@ -18,10 +17,11 @@ include_HEADERS = include/security/_pam_compat.h \
 	include/security/pam_ext.h include/security/pam_modutil.h
 
 noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h \
-		pam_modutil_private.h
+		pam_modutil_private.h include/pam_cc_compat.h \
+		include/pam_inline.h
 
-libpam_la_LDFLAGS = -no-undefined -version-info 84:2:84
-libpam_la_LIBADD = @LIBAUDIT@ $(LIBPRELUDE_LIBS) @LIBDL@
+libpam_la_LDFLAGS = -no-undefined -version-info 85:1:85
+libpam_la_LIBADD = @LIBAUDIT@ $(LIBPRELUDE_LIBS) $(ECONF_LIBS) @LIBDL@
 
 if HAVE_VERSIONING
   libpam_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libpam.map

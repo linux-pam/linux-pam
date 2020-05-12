@@ -44,19 +44,13 @@
 #include <syslog.h>
 #include <signal.h>
 
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_SESSION
-
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+
+#include "pam_cc_compat.h"
+#include "pam_inline.h"
 
 /* argument parsing */
 #define MKHOMEDIR_DEBUG      020	/* be verbose about things */
@@ -77,21 +71,23 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
    opt->umask = "0022";
    opt->skeldir = "/etc/skel";
 
-   /* does the appliction require quiet? */
+   /* does the application require quiet? */
    if ((flags & PAM_SILENT) == PAM_SILENT)
       opt->ctrl |= MKHOMEDIR_QUIET;
 
    /* step through arguments */
    for (; argc-- > 0; ++argv)
    {
+      const char *str;
+
       if (!strcmp(*argv, "silent")) {
 	 opt->ctrl |= MKHOMEDIR_QUIET;
       } else if (!strcmp(*argv, "debug")) {
          opt->ctrl |= MKHOMEDIR_DEBUG;
-      } else if (!strncmp(*argv,"umask=",6)) {
-	 opt->umask = *argv+6;
-      } else if (!strncmp(*argv,"skel=",5)) {
-	 opt->skeldir = *argv+5;
+      } else if ((str = pam_str_skip_prefix(*argv, "umask=")) != NULL) {
+	 opt->umask = str;
+      } else if ((str = pam_str_skip_prefix(*argv, "skel=")) != NULL) {
+	 opt->skeldir = str;
       } else {
 	 pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
       }
@@ -143,7 +139,9 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 	args[2] = opt->umask;
 	args[3] = opt->skeldir;
 
-	execve(MKHOMEDIR_HELPER, (char *const *) args, envp);
+	DIAG_PUSH_IGNORE_CAST_QUAL;
+	execve(MKHOMEDIR_HELPER, (char **)args, envp);
+	DIAG_POP_IGNORE_CAST_QUAL;
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));
@@ -210,7 +208,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
    {
       pam_syslog(pamh, LOG_NOTICE, "User unknown.");
       D(("couldn't identify user %s", user));
-      return PAM_CRED_INSUFFICIENT;
+      return PAM_USER_UNKNOWN;
    }
 
    /* Stat the home directory, if something exists then we assume it is

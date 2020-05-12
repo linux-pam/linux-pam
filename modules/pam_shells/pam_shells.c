@@ -1,8 +1,6 @@
-/* pam_shells module */
-
-#define SHELL_FILE "/etc/shells"
-
 /*
+ * pam_shells module
+ *
  * by Erik Troan <ewt@redhat.com>, Red Hat Software.
  * August 5, 1996.
  * This code shamelessly ripped from the pam_securetty module.
@@ -15,30 +13,23 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <sys/stat.h>
 #include <syslog.h>
 #include <unistd.h>
-
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
+#define SHELL_FILE "/etc/shells"
+
+#define DEFAULT_SHELL "/bin/sh"
+
 static int perform_check(pam_handle_t *pamh)
 {
     int retval = PAM_AUTH_ERR;
     const char *userName;
-    char *userShell;
+    const char *userShell;
     char shellFileLine[256];
     struct stat sb;
     struct passwd * pw;
@@ -62,10 +53,12 @@ static int perform_check(pam_handle_t *pamh)
     }
 
     pw = pam_modutil_getpwnam(pamh, userName);
-    if (!pw) {
+    if (pw == NULL || pw->pw_shell == NULL) {
 	return PAM_AUTH_ERR;		/* user doesn't exist */
     }
     userShell = pw->pw_shell;
+    if (userShell[0] == '\0')
+	userShell = DEFAULT_SHELL;
 
     if (stat(SHELL_FILE,&sb)) {
 	pam_syslog(pamh, LOG_ERR, "Cannot stat %s: %m", SHELL_FILE);

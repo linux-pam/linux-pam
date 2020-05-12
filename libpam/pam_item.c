@@ -285,13 +285,13 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
     if (user == NULL) {
         /* ensure that the module has supplied a destination */
 	pam_syslog(pamh, LOG_ERR, "pam_get_user: nowhere to record username");
-	return PAM_PERM_DENIED;
+	return PAM_SYSTEM_ERR;
     } else
 	*user = NULL;
 
     if (pamh->pam_conversation == NULL) {
 	pam_syslog(pamh, LOG_ERR, "pam_get_user: no conv element in pamh");
-	return PAM_SERVICE_ERR;
+	return PAM_SYSTEM_ERR;
     }
 
     if (pamh->user) {    /* have one so return it */
@@ -343,28 +343,42 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
     retval = pamh->pam_conversation->
 	conv(1, &pmsg, &resp, pamh->pam_conversation->appdata_ptr);
 
-    if (retval == PAM_CONV_AGAIN) {
-	/* conversation function is waiting for an event - save state */
-	D(("conversation function is not ready yet"));
-	pamh->former.want_user = PAM_TRUE;
-	pamh->former.prompt = _pam_strdup(use_prompt);
-    } else if (resp == NULL || resp->resp == NULL) {
-	/*
-	 * conversation should have given a response
-	 */
-	D(("pam_get_user: no response provided"));
-	retval = PAM_CONV_ERR;
-	pamh->former.fail_user = retval;
-    } else if (retval == PAM_SUCCESS) {            /* copy the username */
-	/*
-	 * now we set the PAM_USER item -- this was missing from pre.53
-	 * releases. However, reading the Sun manual, it is part of
-	 * the standard API.
-	 */
-	retval = pam_set_item(pamh, PAM_USER, resp->resp);
-	*user = pamh->user;
-    } else
-	pamh->former.fail_user = retval;
+    switch (retval) {
+	case PAM_SUCCESS:
+	case PAM_BUF_ERR:
+	case PAM_CONV_AGAIN:
+	case PAM_CONV_ERR:
+	    break;
+	default:
+	    retval = PAM_CONV_ERR;
+    }
+
+    switch (retval) {
+	case PAM_CONV_AGAIN:
+	    /* conversation function is waiting for an event - save state */
+	    D(("conversation function is not ready yet"));
+	    pamh->former.want_user = PAM_TRUE;
+	    pamh->former.prompt = _pam_strdup(use_prompt);
+	    break;
+	case PAM_SUCCESS:
+	    if (resp != NULL && resp->resp != NULL) {
+		/*
+		 * now we set the PAM_USER item -- this was missing from pre.53
+		 * releases. However, reading the Sun manual, it is part of
+		 * the standard API.
+		 */
+		retval = pam_set_item(pamh, PAM_USER, resp->resp);
+		*user = pamh->user;
+		break;
+	    } else {
+		/* conversation should have given a response */
+		D(("pam_get_user: no response provided"));
+		retval = PAM_CONV_ERR;
+	    }
+	    /* fallthrough */
+	default:
+	    pamh->former.fail_user = retval;
+    }
 
     if (resp) {
 	if (retval != PAM_SUCCESS)

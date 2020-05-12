@@ -49,7 +49,7 @@
 #include <syslog.h>
 #include <sys/stat.h>
 
-#if defined (HAVE_XCRYPT_H)
+#if defined HAVE_LIBXCRYPT
 #include <xcrypt.h>
 #elif defined (HAVE_CRYPT_H)
 #include <crypt.h>
@@ -326,6 +326,9 @@ save_old_pass (pam_handle_t *pamh, const char *user, uid_t uid,
 	n = strlen (buf);
 #endif /* HAVE_GETLINE / HAVE_GETDELIM */
 
+	if (n < 1)
+	  break;
+
 	cp = buf;
 	save = strdup (buf); /* Copy to write the original data back.  */
 	if (save == NULL)
@@ -335,9 +338,6 @@ save_old_pass (pam_handle_t *pamh, const char *user, uid_t uid,
 	    retval = PAM_BUF_ERR;
 	    goto error_opasswd;
           }
-
-	if (n < 1)
-	  break;
 
 	tmp = strchr (cp, '#');  /* remove comments */
 	if (tmp)

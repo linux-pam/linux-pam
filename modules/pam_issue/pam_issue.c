@@ -1,4 +1,5 @@
-/* pam_issue module - a simple /etc/issue parser to set PAM_USER_PROMPT
+/*
+ * pam_issue module - a simple /etc/issue parser to set PAM_USER_PROMPT
  *
  * Copyright 1999 by Ben Collins <bcollins@debian.org>
  *
@@ -22,18 +23,16 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <string.h>
 #include <unistd.h>
 #include <sys/utsname.h>
 #include <utmp.h>
 #include <time.h>
 #include <syslog.h>
 
-#define PAM_SM_AUTH
-
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 static int _user_prompt_set = 0;
 
@@ -58,13 +57,15 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     if(_user_prompt_set)
 	return PAM_IGNORE;
 
-    /* We set this here so if we fail below, we wont get further
+    /* We set this here so if we fail below, we won't get further
        than this next time around (only one real failure) */
     _user_prompt_set = 1;
 
     for ( ; argc-- > 0 ; ++argv ) {
-	if (!strncmp(*argv,"issue=",6)) {
-	    issue_file = 6 + *argv;
+	const char *str;
+
+	if ((str = pam_str_skip_prefix(*argv, "issue=")) != NULL) {
+	    issue_file = str;
 	    D(("set issue_file to: %s", issue_file));
 	} else if (!strcmp(*argv,"noesc")) {
 	    parse_esc = 0;
@@ -161,6 +162,7 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 {
     int c;
     size_t size = 1024;
+    size_t issue_len = 0;
     char *issue;
     struct utsname uts;
 
@@ -171,41 +173,42 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 	return PAM_BUF_ERR;
     }
 
-    issue[0] = '\0';
     (void) uname(&uts);
 
     while ((c = getc(fp)) != EOF) {
-	char buf[1024];
+	const char *src = NULL;
+	size_t len = 0;
+	char buf[1024] = "";
 
-	buf[0] = '\0';
 	if (c == '\\') {
 	    if ((c = getc(fp)) == EOF)
 		break;
 	    switch (c) {
 	      case 's':
-		strncat(buf, uts.sysname, sizeof(buf) - 1);
+		src = uts.sysname;
+		len = strnlen(uts.sysname, sizeof(uts.sysname));
 		break;
 	      case 'n':
-		strncat(buf, uts.nodename, sizeof(buf) - 1);
+		src = uts.nodename;
+		len = strnlen(uts.nodename, sizeof(uts.nodename));
 		break;
 	      case 'r':
-		strncat(buf, uts.release, sizeof(buf) - 1);
+		src = uts.release;
+		len = strnlen(uts.release, sizeof(uts.release));
 		break;
 	      case 'v':
-		strncat(buf, uts.version, sizeof(buf) - 1);
+		src = uts.version;
+		len = strnlen(uts.version, sizeof(uts.version));
 		break;
 	      case 'm':
-		strncat(buf, uts.machine, sizeof(buf) - 1);
+		src = uts.machine;
+		len = strnlen(uts.machine, sizeof(uts.machine));
 		break;
 	      case 'o':
-		{
-		    char domainname[256];
-
-		    if (getdomainname(domainname, sizeof(domainname)) >= 0) {
-			domainname[sizeof(domainname)-1] = '\0';
-			strncat(buf, domainname, sizeof(buf) - 1);
-		    }
-		}
+#ifdef HAVE_GETDOMAINNAME
+		if (getdomainname(buf, sizeof(buf)) >= 0)
+		    buf[sizeof(buf) - 1] = '\0';
+#endif
 		break;
 	      case 'd':
 	      case 't':
@@ -234,11 +237,13 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 		break;
 	      case 'l':
 		{
-		    char *ttyn = ttyname(1);
+		    const char *ttyn = ttyname(1);
 		    if (ttyn) {
-			if (!strncmp(ttyn, "/dev/", 5))
-			    ttyn += 5;
-			strncat(buf, ttyn, sizeof(buf) - 1);
+			const char *str = pam_str_skip_prefix(ttyn, "/dev/");
+			if (str != NULL)
+			    ttyn = str;
+			src = ttyn;
+			len = strlen(ttyn);
 		    }
 		}
 		break;
@@ -267,19 +272,26 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 	    buf[0] = c; buf[1] = '\0';
 	}
 
-	if ((strlen(issue) + strlen(buf)) + 1 > size) {
+	if (src == NULL) {
+	    src = buf;
+	    len = strlen(buf);
+	}
+	if (issue_len + len + 1 > size) {
 	    char *new_issue;
 
-	    size += strlen(buf) + 1;
-	    new_issue = (char *) realloc (issue, size);
+	    size += len + 1;
+	    new_issue = realloc (issue, size);
 	    if (new_issue == NULL) {
 		_pam_drop(issue);
 		return PAM_BUF_ERR;
 	    }
 	    issue = new_issue;
 	}
-	strcat(issue, buf);
+	memcpy(issue + issue_len, src, len);
+	issue_len += len;
     }
+
+    issue[issue_len] = '\0';
 
     if (ferror(fp)) {
 	pam_syslog(pamh, LOG_ERR, "read error: %m");

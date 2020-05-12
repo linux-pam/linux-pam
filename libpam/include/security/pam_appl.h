@@ -24,6 +24,11 @@ pam_start(const char *service_name, const char *user,
 	  const struct pam_conv *pam_conversation,
 	  pam_handle_t **pamh);
 
+extern int PAM_NONNULL((1,3,5))
+pam_start_confdir(const char *service_name, const char *user,
+		  const struct pam_conv *pam_conversation,
+		  const char *confdir, pam_handle_t **pamh);
+
 extern int PAM_NONNULL((1))
 pam_end(pam_handle_t *pamh, int pam_status);
 

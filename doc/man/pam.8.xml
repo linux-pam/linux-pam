@@ -53,11 +53,12 @@
 
     <para>
       Vendor-supplied PAM configuration files might be installed in
-      the system directory <filename>/usr/lib/pam.d/</filename> instead
+      the system directory <filename>/usr/lib/pam.d/</filename> or
+      a configurable vendor specific directory instead
       of the machine configuration directory <filename>/etc/pam.d/</filename>.
       If no machine configuration file is found, the vendor-supplied file
       is used. All files in <filename>/etc/pam.d/</filename> override
-      files with the same name in <filename>/usr/lib/pam.d/</filename>.
+      files with the same name in other directories.
     </para>
 
 <para>From the point of view of the system administrator, for whom this
@@ -154,6 +155,18 @@ closing hook for modules to affect the services available to a user.</para>
             the <emphasis remap='B'>Linux-PAM</emphasis> vendor configuration
             directory. Files in <filename>/etc/pam.d</filename> override
             files with the same name in this directory.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><filename>%vendordir%/pam.d</filename></term>
+        <listitem>
+          <para>
+            the <emphasis remap='B'>Linux-PAM</emphasis> vendor configuration
+	    directory. Files in <filename>/etc/pam.d</filename> and
+	    <filename>/usr/lib/pam.d</filename> override files with the same
+	    name in this directory. Only available if Linux-PAM was compiled
+	    with vendordir enabled.
           </para>
         </listitem>
       </varlistentry>

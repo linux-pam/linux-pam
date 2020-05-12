@@ -113,7 +113,7 @@ static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 	   pamc_converse) to make sure no privilege will leak into an
 	   (untrusted) agent. */
 
-	/* we propogate no environment - future versions of this
+	/* we propagate no environment - future versions of this
            library may have the ability to audit all agent
            transactions. */
 

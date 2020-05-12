@@ -198,6 +198,12 @@
     <para>+:john:2001:db8:0:101::/64</para>
 
     <para>
+      Members of group <emphasis>wheel</emphasis> should be allowed to get access
+      from all sources.
+    </para>
+    <para>+:(wheel):ALL</para>
+
+    <para>
       Disallow console logins to all but the shutdown, sync and all
       other accounts, which are a member of the wheel group.
     </para>

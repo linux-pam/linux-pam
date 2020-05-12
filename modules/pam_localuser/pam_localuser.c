@@ -1,4 +1,6 @@
 /*
+ * pam_localuser module
+ *
  * Copyright 2001, 2004 Red Hat, Inc.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,11 +49,10 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 #define MODULE_NAME "pam_localuser"
 
@@ -73,8 +74,10 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		}
 	}
 	for(i = 0; i < argc; i++) {
-		if(strncmp("file=", argv[i], 5) == 0) {
-			filename = argv[i] + 5;
+		const char *str;
+
+		if ((str = pam_str_skip_prefix(argv[i], "file=")) != NULL) {
+			filename = str;
 			if(debug) {
 				pam_syslog (pamh, LOG_DEBUG,
 					    "set filename to \"%s\"",

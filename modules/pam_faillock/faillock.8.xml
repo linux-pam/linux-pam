@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+
+<refentry id="faillock">
+
+  <refmeta>
+    <refentrytitle>faillock</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id="pam_faillock-name">
+    <refname>faillock</refname>
+    <refpurpose>Tool for displaying and modifying the authentication failure record files</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis id="faillock-cmdsynopsis">
+      <command>faillock</command>
+      <arg choice="opt">
+        --dir <replaceable>/path/to/tally-directory</replaceable>
+      </arg>
+      <arg choice="opt">
+        --user <replaceable>username</replaceable>
+      </arg>
+      <arg choice="opt">
+        --reset
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="faillock-description">
+
+    <title>DESCRIPTION</title>
+
+    <para>
+      The <emphasis>pam_faillock.so</emphasis> module maintains a list of
+      failed authentication attempts per user during a specified interval
+      and locks the account in case there were more than
+      <replaceable>deny</replaceable> consecutive failed authentications.
+      It stores the failure records into per-user files in the tally
+      directory.
+    </para>
+    <para>
+      The <command>faillock</command> command is an application which
+      can be used to examine and modify the contents of the
+      tally files. It can display the recent failed authentication
+      attempts of the <replaceable>username</replaceable> or clear the tally
+      files of all or individual <replaceable>usernames</replaceable>.
+    </para>
+  </refsect1>
+
+  <refsect1 id="faillock-options">
+
+    <title>OPTIONS</title>
+         <variablelist>
+            <varlistentry>
+              <term>
+                <option>--dir <replaceable>/path/to/tally-directory</replaceable></option>
+              </term>
+              <listitem>
+                <para>
+                  The directory where the user files with the failure records are kept. The
+                  default is <filename>/var/run/faillock</filename>.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                <option>--user <replaceable>username</replaceable></option>
+              </term>
+              <listitem>
+                <para>
+                  The user whose failure records should be displayed or cleared.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                <option>--reset</option>
+              </term>
+              <listitem>
+                <para>
+                  Instead of displaying the user's failure records, clear them.
+                </para>
+              </listitem>
+            </varlistentry>
+        </variablelist>
+  </refsect1>
+
+  <refsect1 id="faillock-files">
+    <title>FILES</title>
+    <variablelist>
+      <varlistentry>
+        <term><filename>/var/run/faillock/*</filename></term>
+        <listitem>
+          <para>the files logging the authentication failures for users</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id='faillock-see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+        <refentrytitle>pam_faillock</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
+
+  <refsect1 id='faillock-author'>
+    <title>AUTHOR</title>
+      <para>
+        faillock was written by Tomas Mraz.
+      </para>
+  </refsect1>
+
+</refentry>

@@ -13,7 +13,7 @@ XTESTS="$@"
 
 failed=0
 pass=0
-skiped=0
+skipped=0
 all=0
 
 mkdir -p /etc/security
@@ -36,7 +36,7 @@ for testname in $XTESTS ; do
           RETVAL=$?
           if test $RETVAL -eq 77 ; then
             echo "SKIP: $testname"
-            skiped=`expr $skiped + 1`
+            skipped=`expr $skipped + 1`
 	  elif test $RETVAL -ne 0 ; then
 	    echo "FAIL: $testname"
 	    failed=`expr $failed + 1`
@@ -55,13 +55,13 @@ mv /etc/security/opasswd-pam-xtests /etc/security/opasswd
 if test "$failed" -ne 0; then
 	  echo "==================="
 	  echo "$failed of $all tests failed"
-          echo "$skiped tests not run"
+          echo "$skipped tests not run"
 	  echo "==================="
 	  exit 1
 else
 	  echo "=================="
 	  echo "$all tests passed"
-	  echo "$skiped tests not run"
+	  echo "$skipped tests not run"
 	  echo "=================="
 fi
 exit 0

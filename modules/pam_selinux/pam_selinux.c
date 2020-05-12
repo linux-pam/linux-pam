@@ -36,7 +36,6 @@
  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
 
 #include "config.h"
@@ -53,81 +52,80 @@
 #include <fcntl.h>
 #include <syslog.h>
 
-#define PAM_SM_AUTH
-#define PAM_SM_SESSION
-
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 #include <selinux/selinux.h>
 #include <selinux/get_context_list.h>
-#include <selinux/flask.h>
-#include <selinux/av_permissions.h>
-#include <selinux/selinux.h>
 #include <selinux/context.h>
 #include <selinux/get_default_type.h>
 
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
 #include <sys/select.h>
-#include <errno.h>
 #endif
 
 /* Send audit message */
-static
-
-int send_audit_message(pam_handle_t *pamh, int success, security_context_t default_context,
-		       security_context_t selected_context)
+static void
+send_audit_message(const pam_handle_t *pamh, int success, const char *default_context,
+		   const char *selected_context)
 {
-	int rc=0;
 #ifdef HAVE_LIBAUDIT
 	char *msg = NULL;
 	int audit_fd = audit_open();
-	security_context_t default_raw=NULL;
-	security_context_t selected_raw=NULL;
+	char *default_raw = NULL;
+	char *selected_raw = NULL;
 	const void *tty = NULL, *rhost = NULL;
-	rc = -1;
 	if (audit_fd < 0) {
 		if (errno == EINVAL || errno == EPROTONOSUPPORT ||
-                                        errno == EAFNOSUPPORT)
-                        return 0; /* No audit support in kernel */
-		pam_syslog(pamh, LOG_ERR, "Error connecting to audit system.");
-		return rc;
+                                        errno == EAFNOSUPPORT) {
+			goto fallback; /* No audit support in kernel */
+		}
+		pam_syslog(pamh, LOG_ERR, "Error connecting to audit system: %m");
+		goto fallback;
 	}
 	(void)pam_get_item(pamh, PAM_TTY, &tty);
 	(void)pam_get_item(pamh, PAM_RHOST, &rhost);
 	if (selinux_trans_to_raw_context(default_context, &default_raw) < 0) {
-		pam_syslog(pamh, LOG_ERR, "Error translating default context.");
+		pam_syslog(pamh, LOG_ERR, "Error translating default context '%s'.", default_context);
 		default_raw = NULL;
 	}
 	if (selinux_trans_to_raw_context(selected_context, &selected_raw) < 0) {
-		pam_syslog(pamh, LOG_ERR, "Error translating selected context.");
+		pam_syslog(pamh, LOG_ERR, "Error translating selected context '%s'.", selected_context);
 		selected_raw = NULL;
 	}
 	if (asprintf(&msg, "pam: default-context=%s selected-context=%s",
 		     default_raw ? default_raw : (default_context ? default_context : "?"),
 		     selected_raw ? selected_raw : (selected_context ? selected_context : "?")) < 0) {
+		msg = NULL; /* asprintf leaves msg in undefined state on failure */
 		pam_syslog(pamh, LOG_ERR, "Error allocating memory.");
-		goto out;
+		goto fallback;
 	}
 	if (audit_log_user_message(audit_fd, AUDIT_USER_ROLE_CHANGE,
 				   msg, rhost, NULL, tty, success) <= 0) {
-		pam_syslog(pamh, LOG_ERR, "Error sending audit message.");
-		goto out;
+		pam_syslog(pamh, LOG_ERR, "Error sending audit message: %m");
+		goto fallback;
 	}
-	rc = 0;
-      out:
+	goto cleanup;
+
+      fallback:
+#endif /* HAVE_LIBAUDIT */
+        pam_syslog(pamh, LOG_NOTICE, "pam: default-context=%s selected-context=%s success %d",
+		   default_context, selected_context, success);
+
+#ifdef HAVE_LIBAUDIT
+      cleanup:
 	free(msg);
 	freecon(default_raw);
 	freecon(selected_raw);
-	close(audit_fd);
-#else
-	pam_syslog(pamh, LOG_NOTICE, "pam: default-context=%s selected-context=%s success %d", default_context, selected_context, success);
-#endif
-	return rc;
+	if (audit_fd >= 0)
+		close(audit_fd);
+#endif /* HAVE_LIBAUDIT */
 }
+
 static int
 send_text (pam_handle_t *pamh, const char *text, int debug)
 {
@@ -161,46 +159,10 @@ query_response (pam_handle_t *pamh, const char *text, const char *def,
   return rc;
 }
 
-static int mls_range_allowed(pam_handle_t *pamh, security_context_t src, security_context_t dst, int debug)
+static char *
+config_context (pam_handle_t *pamh, const char *defaultcon, int use_current_range, int debug)
 {
-  struct av_decision avd;
-  int retval;
-  security_class_t class;
-  access_vector_t bit;
-  context_t src_context;
-  context_t dst_context;
-
-  class = string_to_security_class("context");
-  if (!class) {
-    pam_syslog(pamh, LOG_ERR, "Failed to translate security class context. %m");
-    return 0;
-  }
-
-  bit = string_to_av_perm(class, "contains");
-  if (!bit) {
-    pam_syslog(pamh, LOG_ERR, "Failed to translate av perm contains. %m");
-    return 0;
-  }
-
-  src_context = context_new (src);
-  dst_context = context_new (dst);
-  context_range_set(dst_context, context_range_get(src_context));
-  if (debug)
-    pam_syslog(pamh, LOG_NOTICE, "Checking if %s mls range valid for  %s", dst, context_str(dst_context));
-
-  retval = security_compute_av(context_str(dst_context), dst, class, bit, &avd);
-  context_free(src_context);
-  context_free(dst_context);
-  if (retval || ((bit & avd.allowed) != bit))
-    return 0;
-
-  return 1;
-}
-
-static security_context_t
-config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_current_range, int debug)
-{
-  security_context_t newcon=NULL;
+  char *newcon = NULL;
   context_t new_context;
   int mls_enabled = is_selinux_mls_enabled();
   char *response=NULL;
@@ -244,7 +206,7 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
 	if (mls_enabled)
 	  {
 	    if (use_current_range) {
-	        security_context_t mycon = NULL;
+	        char *mycon = NULL;
 	        context_t my_context;
 
 		if (getcon(&mycon) != 0)
@@ -278,16 +240,17 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
 	    goto fail_set;
 	  context_free(new_context);
 
-          /* we have to check that this user is allowed to go into the
-             range they have specified ... role is tied to an seuser, so that'll
-             be checked at setexeccon time */
-          if (mls_enabled && !mls_range_allowed(pamh, defaultcon, newcon, debug)) {
+	  /* we have to check that this user is allowed to go into the
+	     range they have specified ... role is tied to an seuser, so that'll
+	     be checked at setexeccon time */
+	  if (mls_enabled &&
+	      selinux_check_access(defaultcon, newcon, "context", "contains", NULL) != 0) {
 	    pam_syslog(pamh, LOG_NOTICE, "Security context %s is not allowed for %s", defaultcon, newcon);
 
 	    send_audit_message(pamh, 0, defaultcon, newcon);
 
 	    free(newcon);
-            goto fail_range;
+	    goto fail_range;
 	  }
 	  return newcon;
 	}
@@ -312,10 +275,10 @@ config_context (pam_handle_t *pamh, security_context_t defaultcon, int use_curre
   return NULL;
 }
 
-static security_context_t
-context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_params, int use_current_range, int debug)
+static char *
+context_from_env (pam_handle_t *pamh, const char *defaultcon, int env_params, int use_current_range, int debug)
 {
-  security_context_t newcon = NULL;
+  char *newcon = NULL;
   context_t new_context;
   context_t my_context = NULL;
   int mls_enabled = is_selinux_mls_enabled();
@@ -349,7 +312,7 @@ context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_par
     }
 
     if (use_current_range) {
-        security_context_t mycon = NULL;
+        char *mycon = NULL;
 
 	if (getcon(&mycon) != 0)
 	    goto fail_set;
@@ -389,7 +352,8 @@ context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_par
   /* we have to check that this user is allowed to go into the
      range they have specified ... role is tied to an seuser, so that'll
      be checked at setexeccon time */
-  if (mls_enabled && !mls_range_allowed(pamh, defaultcon, newcon, debug)) {
+  if (mls_enabled &&
+      selinux_check_access(defaultcon, newcon, "context", "contains", NULL) != 0) {
     pam_syslog(pamh, LOG_NOTICE, "Security context %s is not allowed for %s", defaultcon, newcon);
 
     goto fail_set;
@@ -411,11 +375,11 @@ context_from_env (pam_handle_t *pamh, security_context_t defaultcon, int env_par
 
 #define DATANAME "pam_selinux_context"
 typedef struct {
-  security_context_t exec_context;
-  security_context_t prev_exec_context;
-  security_context_t default_user_context;
-  security_context_t tty_context;
-  security_context_t prev_tty_context;
+  char *exec_context;
+  char *prev_exec_context;
+  char *default_user_context;
+  char *tty_context;
+  char *prev_tty_context;
   char *tty_path;
 } module_data_t;
 
@@ -456,7 +420,7 @@ get_item(const pam_handle_t *pamh, int item_type)
 }
 
 static int
-set_exec_context(const pam_handle_t *pamh, security_context_t context)
+set_exec_context(const pam_handle_t *pamh, const char *context)
 {
   if (setexeccon(context) == 0)
     return 0;
@@ -466,7 +430,7 @@ set_exec_context(const pam_handle_t *pamh, security_context_t context)
 }
 
 static int
-set_file_context(const pam_handle_t *pamh, security_context_t context,
+set_file_context(const pam_handle_t *pamh, const char *context,
 		 const char *file)
 {
   if (!file)
@@ -490,7 +454,7 @@ compute_exec_context(pam_handle_t *pamh, module_data_t *data,
 #endif
   char *seuser = NULL;
   char *level = NULL;
-  security_context_t *contextlist = NULL;
+  char **contextlist = NULL;
   int num_contexts = 0;
   const struct passwd *pwd;
 
@@ -556,7 +520,8 @@ compute_tty_context(const pam_handle_t *pamh, module_data_t *data)
 {
   const char *tty = get_item(pamh, PAM_TTY);
 
-  if (!tty || !*tty || !strcmp(tty, "ssh") || !strncmp(tty, "NODEV", 5)) {
+  if (!tty || !*tty || !strcmp(tty, "ssh")
+      || pam_str_skip_prefix(tty, "NODEV") != NULL) {
     tty = ttyname(STDIN_FILENO);
     if (!tty || !*tty)
       tty = ttyname(STDOUT_FILENO);
@@ -566,7 +531,7 @@ compute_tty_context(const pam_handle_t *pamh, module_data_t *data)
       return PAM_SUCCESS;
   }
 
-  if (strncmp("/dev/", tty, 5)) {
+  if (pam_str_skip_prefix(tty, "/dev/") == NULL) {
     if (asprintf(&data->tty_path, "%s%s", "/dev/", tty) < 0)
       data->tty_path = NULL;
   } else {
@@ -591,7 +556,7 @@ compute_tty_context(const pam_handle_t *pamh, module_data_t *data)
   }
 
   if (security_compute_relabel(data->exec_context, data->prev_tty_context,
-			       SECCLASS_CHR_FILE, &data->tty_context)) {
+			       string_to_security_class("chr_file"), &data->tty_context)) {
     data->tty_context = NULL;
     pam_syslog(pamh, LOG_ERR, "Failed to compute new context for %s: %m",
 	       data->tty_path);

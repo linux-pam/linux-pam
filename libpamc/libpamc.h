@@ -8,6 +8,8 @@
 #ifndef LIBPAMC_H
 #define LIBPAMC_H
 
+#include "config.h"
+
 #include <security/pam_client.h>
 #include <security/_pam_macros.h>
 
@@ -16,6 +18,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <sys/wait.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <ctype.h>

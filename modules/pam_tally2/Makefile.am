@@ -6,19 +6,22 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_tally2
+EXTRA_DIST = $(XMLS)
 
-man_MANS = pam_tally2.8
+if HAVE_DOC
+dist_man_MANS = pam_tally2.8
+endif
 XMLS = README.xml pam_tally2.8.xml
-
-TESTS = tst-pam_tally2
+dist_check_SCRIPTS = tst-pam_tally2
+TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 noinst_HEADERS = tallylog.h
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
+AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+	$(WARN_CFLAGS)
 
 pam_tally2_la_LDFLAGS = -no-undefined -avoid-version -module
 pam_tally2_la_LIBADD = $(top_builddir)/libpam/libpam.la $(LIBAUDIT)
@@ -35,7 +38,6 @@ pam_tally2_la_SOURCES = pam_tally2.c
 pam_tally2_SOURCES = pam_tally2_app.c
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
-README: pam_tally2.8.xml
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

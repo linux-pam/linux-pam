@@ -373,7 +373,7 @@ main(int argc, char *argv[])
    pwd = getpwnam(argv[1]);
    if (pwd == NULL) {
 	pam_syslog(NULL, LOG_ERR, "User unknown.");
-	return PAM_CRED_INSUFFICIENT;
+	return PAM_USER_UNKNOWN;
    }
 
    if (argc >= 3) {

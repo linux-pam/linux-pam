@@ -75,7 +75,7 @@
       </citerefentry>
       and
       <citerefentry>
-        <refentrytitle>pam_set_item </refentrytitle><manvolnum>3</manvolnum>
+        <refentrytitle>pam_set_item</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>  respectively. The value used to set it should be
       a function pointer of the following prototype:
       <programlisting>
@@ -93,8 +93,15 @@ void (*delay_fn)(int retval, unsigned usec_delay, void *appdata_ptr);
       <citerefentry>
         <refentrytitle>pam_set_item</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>.
-      Note, if PAM_FAIL_DELAY item is unset (or set to NULL), then no delay
-      will be performed.
+    </para>
+    <para>
+      Note that the PAM_FAIL_DELAY item is set to NULL by default. This
+      indicates that PAM should perform a random delay as described
+      above when authentication fails and a delay has been suggested.
+      If an application does not want the PAM library to perform any
+      delay on authentication failure, then the application must define
+      a custom delay function that executes no statements and set
+      the PAM_FAIL_DELAY item to point to this function.
     </para>
   </refsect1>
 

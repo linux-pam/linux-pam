@@ -115,6 +115,31 @@
           </para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term>PAM_BUF_ERR</term>
+        <listitem>
+           <para>
+             Memory buffer error.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_ABORT</term>
+        <listitem>
+           <para>
+            Error resuming an old conversation.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_CONV_AGAIN</term>
+        <listitem>
+           <para>
+            The conversation method supplied by the application
+            is waiting for an event.
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
   </refsect1>
 

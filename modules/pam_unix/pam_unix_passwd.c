@@ -1,7 +1,9 @@
 /*
+ * pam_unix password management
+ *
  * Main coding by Elliot Lee <sopwith@redhat.com>, Red Hat Software.
  * Copyright (C) 1996.
- * Copyright (c) Jan Rêkorajski, 1999.
+ * Copyright (c) Jan Rękorajski, 1999.
  * Copyright (c) Red Hat, Inc., 2007, 2008.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,20 +58,15 @@
 #include <sys/stat.h>
 
 #include <signal.h>
-#include <errno.h>
 #include <sys/wait.h>
 #include <sys/resource.h>
 
 #include <security/_pam_macros.h>
-
-/* indicate the following groups are defined */
-
-#define PAM_SM_PASSWORD
-
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
+#include "pam_cc_compat.h"
 #include "md5.h"
 #include "support.h"
 #include "passverify.h"
@@ -293,7 +290,9 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned long long ctrl, 
         snprintf(buffer, sizeof(buffer), "%d", remember);
         args[4] = buffer;
 
+	DIAG_PUSH_IGNORE_CAST_QUAL;
 	execve(UPDATE_HELPER, (char *const *) args, envp);
+	DIAG_POP_IGNORE_CAST_QUAL;
 
 	/* should not get here: exit with error */
 	D(("helper binary is not available"));
@@ -350,7 +349,7 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned long long ctrl, 
 static int check_old_password(const char *forwho, const char *newpass)
 {
 	static char buf[16384];
-	char *s_luser, *s_uid, *s_npas, *s_pas;
+	char *s_pas;
 	int retval = PAM_SUCCESS;
 	FILE *opwfile;
 	size_t len = strlen(forwho);
@@ -364,9 +363,9 @@ static int check_old_password(const char *forwho, const char *newpass)
 			buf[len] == ',')) {
 			char *sptr;
 			buf[strlen(buf) - 1] = '\0';
-			s_luser = strtok_r(buf, ":,", &sptr);
-			s_uid = strtok_r(NULL, ":,", &sptr);
-			s_npas = strtok_r(NULL, ":,", &sptr);
+			/* s_luser = */ strtok_r(buf, ":,", &sptr);
+			/* s_uid = */ strtok_r(NULL, ":,", &sptr);
+			/* s_npas = */ strtok_r(NULL, ":,", &sptr);
 			s_pas = strtok_r(NULL, ":,", &sptr);
 			while (s_pas != NULL) {
 				char *md5pass = Goodcrypt_md5(newpass, s_pas);
@@ -393,7 +392,6 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 	struct passwd *pwd = NULL;
 	int retval = 0;
 	int unlocked = 0;
-	char *master = NULL;
 
 	D(("called"));
 
@@ -406,6 +404,8 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 
 	if (on(UNIX_NIS, ctrl) && _unix_comesfromsource(pamh, forwho, 0, 1)) {
 #ifdef HAVE_NIS
+	  char *master;
+
 	  if ((master=getNISserver(pamh, ctrl)) != NULL) {
 		struct timeval timeout;
 		struct yppasswd yppwd;
@@ -576,8 +576,12 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 			return PAM_AUTHTOK_ERR;
 		}
 	}
-	if (off(UNIX__IAMROOT, ctrl)) {
-		if (strlen(pass_new) < pass_min_len)
+
+	if (strlen(pass_new) > MAXPASS) {
+		remark = _("You must choose a shorter password.");
+		D(("length exceeded [%s]", remark));
+	} else if (off(UNIX__IAMROOT, ctrl)) {
+		if ((int)strlen(pass_new) < pass_min_len)
 		  remark = _("You must choose a longer password.");
 		D(("length check [%s]", remark));
 		if (on(UNIX_REMEMBER_PASSWD, ctrl)) {
@@ -628,7 +632,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		 * allow them.
 		 */
 		if (user == NULL || user[0] == '-' || user[0] == '+') {
-			pam_syslog(pamh, LOG_ERR, "bad username [%s]", user);
+			pam_syslog(pamh, LOG_NOTICE, "bad username [%s]", user);
 			return PAM_USER_UNKNOWN;
 		}
 		if (retval == PAM_SUCCESS && on(UNIX_DEBUG, ctrl))

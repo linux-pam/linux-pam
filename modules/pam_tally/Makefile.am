@@ -5,19 +5,22 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_tally
+EXTRA_DIST = $(XMLS)
 
-man_MANS = pam_tally.8
+if HAVE_DOC
+dist_man_MANS = pam_tally.8
+endif
 XMLS = README.xml pam_tally.8.xml
-
-TESTS = tst-pam_tally
+dist_check_SCRIPTS = tst-pam_tally
+TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 noinst_HEADERS = faillog.h
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include
+AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+	$(WARN_CFLAGS)
 
 pam_tally_la_LDFLAGS = -no-undefined -avoid-version -module
 pam_tally_la_LIBADD = $(top_builddir)/libpam/libpam.la
@@ -31,7 +34,6 @@ sbin_PROGRAMS = pam_tally
 pam_tally_SOURCES = pam_tally_app.c
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
-README: pam_tally.8.xml
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

@@ -62,12 +62,12 @@
       Second a file (<filename>/etc/environment</filename> by default) with simple
       <emphasis>KEY=VAL</emphasis> pairs on separate lines will be read.
       With the <emphasis>envfile</emphasis> option an alternate file can be specified.
-      And with the <emphasis>readenv</emphasis> option this can be completly disabled.
+      And with the <emphasis>readenv</emphasis> option this can be completely disabled.
     </para>
     <para>
       Third it will read a user configuration file
       (<filename>$HOME/.pam_environment</filename> by default).
-      The default file file can be changed with the
+      The default file can be changed with the
       <emphasis>user_envfile</emphasis> option
       and it can be turned on and off with the <emphasis>user_readenv</emphasis> option.
     </para>
@@ -143,7 +143,7 @@
           <para>
             Indicate an alternative <filename>.pam_environment</filename>
             file to override the default.The syntax is the same as
-	    for <emphasis>/etc/environment</emphasis>.
+	    for <emphasis>/etc/security/pam_env.conf</emphasis>.
 	    The filename is relative to the user home directory.
 	    This can be useful when different services need different
 	    environments.
@@ -158,7 +158,7 @@
         <listitem>
           <para>
             Turns on or off the reading of the user specific environment
-            file. 0 is off, 1 is on. By default this option is on.
+            file. 0 is off, 1 is on. By default this option is off.
           </para>
         </listitem>
       </varlistentry>

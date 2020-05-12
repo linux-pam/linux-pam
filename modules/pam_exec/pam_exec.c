@@ -49,16 +49,11 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-#define PAM_SM_SESSION
-#define PAM_SM_PASSWORD
-
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 #include <security/_pam_macros.h>
+#include "pam_inline.h"
 
 #define ENV_ITEM(n) { (n), #n }
 static struct {
@@ -107,6 +102,8 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   int fds[2];
   int stdout_fds[2];
   FILE *stdout_file = NULL;
+  int retval;
+  const char *name;
 
   if (argc < 1) {
     pam_syslog (pamh, LOG_ERR,
@@ -116,6 +113,8 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 
   for (optargc = 0; optargc < argc; optargc++)
     {
+      const char *str;
+
       if (argv[optargc][0] == '/') /* paths starts with / */
 	break;
 
@@ -123,11 +122,11 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	debug = 1;
       else if (strcasecmp (argv[optargc], "stdout") == 0)
 	use_stdout = 1;
-      else if (strncasecmp (argv[optargc], "log=", 4) == 0)
-	logfile = &argv[optargc][4];
-      else if (strncasecmp (argv[optargc], "type=", 5) == 0)
+      else if ((str = pam_str_skip_icase_prefix (argv[optargc], "log=")) != NULL)
+	logfile = str;
+      else if ((str = pam_str_skip_icase_prefix (argv[optargc], "type=")) != NULL)
 	{
-	  if (strcmp (pam_type, &argv[optargc][5]) != 0)
+	  if (strcmp (pam_type, str) != 0)
 	    return PAM_IGNORE;
 	}
       else if (strcasecmp (argv[optargc], "seteuid") == 0)
@@ -138,6 +137,16 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	expose_authtok = 1;
       else
 	break; /* Unknown option, assume program to execute. */
+    }
+
+  /* Request user name to be available. */
+
+  retval = pam_get_user(pamh, &name, NULL);
+  if (retval != PAM_SUCCESS)
+    {
+      if (retval == PAM_CONV_AGAIN)
+        retval = PAM_INCOMPLETE;
+      return retval;
     }
 
   if (expose_authtok == 1)
@@ -151,7 +160,6 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       else
 	{
 	  const void *void_pass;
-	  int retval;
 
 	  retval = pam_get_item (pamh, PAM_AUTHTOK, &void_pass);
 	  if (retval != PAM_SUCCESS)
@@ -221,7 +229,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   if (pid > 0) /* parent */
     {
       int status = 0;
-      pid_t retval;
+      pid_t rc;
 
       if (expose_authtok) /* send the password to the child */
 	{
@@ -250,9 +258,9 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	  fclose(stdout_file);
 	}
 
-      while ((retval = waitpid (pid, &status, 0)) == -1 &&
+      while ((rc = waitpid (pid, &status, 0)) == -1 &&
 	     errno == EINTR);
-      if (retval == (pid_t)-1)
+      if (rc == (pid_t)-1)
 	{
 	  pam_syslog (pamh, LOG_ERR, "waitpid returns with -1: %m");
 	  return PAM_SYSTEM_ERR;
@@ -414,7 +422,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       envlist = pam_getenvlist(pamh);
       for (envlen = 0; envlist[envlen] != NULL; ++envlen)
         /* nothing */ ;
-      nitems = sizeof(env_items) / sizeof(*env_items);
+      nitems = PAM_ARRAY_SIZE(env_items);
       /* + 2 because of PAM_TYPE and NULL entry */
       tmp = realloc(envlist, (envlen + nitems + 2) * sizeof(*envlist));
       if (tmp == NULL)

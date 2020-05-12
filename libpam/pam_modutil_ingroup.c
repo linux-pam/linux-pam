@@ -12,31 +12,34 @@
 #include <grp.h>
 
 #ifdef HAVE_GETGROUPLIST
+
+#define NGROUPS_MIN 100
+#define NGROUPS_MAX 65536
+
 static int checkgrouplist(const char *user, gid_t primary, gid_t target)
 {
-	gid_t *grouplist = NULL;
-	int agroups, ngroups, i;
-	ngroups = agroups = 3;
+	int ngroups, pgroups, i;
+
+	ngroups = NGROUPS_MIN;
 	do {
-		grouplist = malloc(sizeof(gid_t) * agroups);
+		gid_t *grouplist;
+
+		pgroups = ngroups;
+		grouplist = malloc(sizeof(gid_t) * ngroups);
 		if (grouplist == NULL) {
 			return 0;
 		}
-		ngroups = agroups;
 		i = getgrouplist(user, primary, grouplist, &ngroups);
-		if ((i < 0) || (ngroups < 1)) {
-			agroups *= 2;
-			free(grouplist);
-		} else {
+		if (i >= 0) {
 			for (i = 0; i < ngroups; i++) {
 				if (grouplist[i] == target) {
 					free(grouplist);
 					return 1;
 				}
 			}
-			free(grouplist);
 		}
-	} while (((i < 0) || (ngroups < 1)) && (agroups < 10000));
+		free(grouplist);
+	} while (i < 0 && ngroups > 0 && ngroups != pgroups && ngroups <= NGROUPS_MAX);
 	return 0;
 }
 #endif

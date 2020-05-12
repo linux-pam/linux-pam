@@ -1,6 +1,6 @@
-/* pam_userdb module */
-
 /*
+ * pam_userdb module
+ *
  * Written by Cristian Gafton <gafton@redhat.com> 1996/09/10
  * See the end of the file for Copyright Information
  */
@@ -37,19 +37,10 @@
 # endif
 #endif
 
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
 #include <security/_pam_macros.h>
+#include "pam_inline.h"
 
 /*
  * Conversation function to obtain the user's password
@@ -97,6 +88,8 @@ _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
   /* step through arguments */
   for (ctrl = 0; argc-- > 0; ++argv)
     {
+      const char *str;
+
       /* generic options */
 
       if (!strcmp(*argv,"debug"))
@@ -113,18 +106,18 @@ _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
 	ctrl |= PAM_USE_FPASS_ARG;
       else if (!strcasecmp(*argv, "try_first_pass"))
 	ctrl |= PAM_TRY_FPASS_ARG;
-      else if (!strncasecmp(*argv,"db=", 3))
+      else if ((str = pam_str_skip_icase_prefix(*argv, "db=")) != NULL)
 	{
-	  *database = (*argv) + 3;
+	  *database = str;
 	  if (**database == '\0') {
 	    *database = NULL;
 	    pam_syslog(pamh, LOG_ERR,
 		       "db= specification missing argument - ignored");
 	  }
 	}
-      else if (!strncasecmp(*argv,"crypt=", 6))
+      else if ((str = pam_str_skip_icase_prefix(*argv, "crypt=")) != NULL)
 	{
-	  *cryptmode = (*argv) + 6;
+	  *cryptmode = str;
 	  if (**cryptmode == '\0')
 	    pam_syslog(pamh, LOG_ERR,
 		       "crypt= specification missing argument - ignored");
@@ -209,7 +202,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	    return 0; /* found it, data contents don't matter */
 	}
 
-	if (cryptmode && strncasecmp(cryptmode, "crypt", 5) == 0) {
+	if (cryptmode && pam_str_skip_icase_prefix(cryptmode, "crypt") != NULL) {
 
 	  /* crypt(3) password storage */
 
@@ -260,7 +253,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	    compare = strncmp(data.dptr, pass, data.dsize);
 	  }
 
-	  if (cryptmode && strncasecmp(cryptmode, "none", 4)
+	  if (cryptmode && pam_str_skip_icase_prefix(cryptmode, "none") == NULL
 		&& (ctrl & PAM_DEBUG_ARG)) {
 	    pam_syslog(pamh, LOG_INFO, "invalid value for crypt parameter: %s",
 		       cryptmode);

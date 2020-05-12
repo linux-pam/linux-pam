@@ -1,10 +1,7 @@
-/* pam_nologin module */
-
 /*
- * $Id$
+ * pam_nologin module
  *
  * Written by Michael K. Johnson <johnsonm@redhat.com> 1996/10/24
- *
  */
 
 #include "config.h"
@@ -19,19 +16,10 @@
 #include <pwd.h>
 
 #include <security/_pam_macros.h>
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 #define DEFAULT_NOLOGIN_PATH "/var/run/nologin"
 #define COMPAT_NOLOGIN_PATH "/etc/nologin"
@@ -54,10 +42,12 @@ parse_args(pam_handle_t *pamh, int argc, const char **argv, struct opt_s *opts)
     opts->retval_when_nofile = PAM_IGNORE;
 
     for (i=0; i<argc; ++i) {
+	const char *str;
+
 	if (!strcmp("successok", argv[i])) {
 	    opts->retval_when_nofile = PAM_SUCCESS;
-	} else if (!strncmp("file=", argv[i], 5)) {
-	    opts->nologin_file = argv[i] + 5;
+	} else if ((str = pam_str_skip_prefix(argv[i], "file=")) != NULL) {
+	    opts->nologin_file = str;
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", argv[i]);
 	}

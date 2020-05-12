@@ -1,10 +1,7 @@
 /*
- * pam_tally.c
+ * pam_tally module
  *
- */
-
-
-/* By Tim Baverstock <warwick@mmm.co.uk>, Multi Media Machine Ltd.
+ * By Tim Baverstock <warwick@mmm.co.uk>, Multi Media Machine Ltd.
  * 5 March 1997
  *
  * Stuff stolen from pam_rootok and pam_listfile
@@ -30,23 +27,12 @@
 #include <sys/param.h>
 #include "faillog.h"
 
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
 #ifndef MAIN
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-/* #define PAM_SM_SESSION  */
-/* #define PAM_SM_PASSWORD */
-
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 #endif
 #include <security/pam_modules.h>
+#include "pam_inline.h"
 
 #ifndef TRUE
 #define TRUE  1L
@@ -147,9 +133,10 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
     opts->filename = DEFAULT_LOGFILE;
 
     for ( ; argc-- > 0; ++argv ) {
+      const char *str;
 
-      if ( ! strncmp( *argv, "file=", 5 ) ) {
-	const char *from = *argv + 5;
+      if ((str = pam_str_skip_prefix(*argv, "file=")) != NULL) {
+	const char *from = str;
         if ( *from!='/' || strlen(from)>FILENAME_MAX-1 ) {
           pam_syslog(pamh, LOG_ERR,
 		     "filename not /rooted or too long; %s", *argv);
@@ -170,23 +157,23 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
 	log_phase_no_auth(pamh, phase, *argv);
         opts->ctrl |= OPT_DENY_ROOT;
       }
-      else if ( ! strncmp( *argv, "deny=", 5 ) ) {
+      else if ((str = pam_str_skip_prefix(*argv, "deny=")) != NULL) {
 	log_phase_no_auth(pamh, phase, *argv);
-        if ( sscanf((*argv)+5,TALLY_FMT,&opts->deny) != 1 ) {
+        if (sscanf(str, TALLY_FMT, &opts->deny) != 1) {
           pam_syslog(pamh, LOG_ERR, "bad number supplied: %s", *argv);
           return PAM_AUTH_ERR;
         }
       }
-      else if ( ! strncmp( *argv, "lock_time=", 10 ) ) {
+      else if ((str = pam_str_skip_prefix(*argv, "lock_time=")) != NULL) {
 	log_phase_no_auth(pamh, phase, *argv);
-        if ( sscanf((*argv)+10,"%ld",&opts->lock_time) != 1 ) {
+        if (sscanf(str, "%ld", &opts->lock_time) != 1) {
           pam_syslog(pamh, LOG_ERR, "bad number supplied: %s", *argv);
           return PAM_AUTH_ERR;
         }
       }
-      else if ( ! strncmp( *argv, "unlock_time=", 12 ) ) {
+      else if ((str = pam_str_skip_prefix(*argv, "unlock_time=")) != NULL) {
 	log_phase_no_auth(pamh, phase, *argv);
-        if ( sscanf((*argv)+12,"%ld",&opts->unlock_time) != 1 ) {
+        if (sscanf(str, "%ld", &opts->unlock_time) != 1) {
           pam_syslog(pamh, LOG_ERR, "bad number supplied: %s", *argv);
           return PAM_AUTH_ERR;
         }
@@ -229,7 +216,7 @@ tally_parse_args(pam_handle_t *pamh, struct tally_options *opts,
         cline_user --- */
 
 #ifdef MAIN
-static char *cline_user=0;  /* cline_user is used in the administration prog */
+static const char *cline_user=0;  /* cline_user is used in the administration prog */
 #endif
 
 static int
@@ -539,14 +526,14 @@ tally_check (time_t oldtime, pam_handle_t *pamh, uid_t uid,
 	  if (!(opts->ctrl & OPT_SILENT))
 	       pam_info (pamh,
 			 _("The account is temporarily locked (%ld seconds left)."),
-			 oldtime+lock_time-time(NULL));
+			 (long int) (oldtime+lock_time-time(NULL)));
 
 	  if (!(opts->ctrl & OPT_NOLOGNOTICE))
 	       pam_syslog (pamh, LOG_NOTICE,
 			   "user %s (%lu) has time limit [%lds left]"
 			   " since last failure.",
 			   user, (unsigned long int) uid,
-			   oldtime+lock_time-time(NULL));
+			   (long int) (oldtime+lock_time-time(NULL)));
 		return PAM_AUTH_ERR;
 	}
       }
@@ -612,8 +599,6 @@ tally_reset (pam_handle_t *pamh, uid_t uid, struct tally_options *opts)
 /*---------------------------------------------------------------------*/
 
 /* --- authentication management functions (only) --- */
-
-#ifdef PAM_SM_AUTH
 
 int
 pam_sm_authenticate(pam_handle_t *pamh, int flags,
@@ -684,15 +669,11 @@ pam_sm_setcred(pam_handle_t *pamh, int flags,
   return tally_reset(pamh, uid, opts);
 }
 
-#endif
-
 /*---------------------------------------------------------------------*/
 
 /* --- authentication management functions (only) --- */
 
-#ifdef PAM_SM_ACCOUNT
-
-/* To reset failcount of user on successfull login */
+/* To reset failcount of user on successful login */
 
 int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
@@ -729,8 +710,6 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
   return tally_reset(pamh, uid, opts);
 }
 
-#endif  /* #ifdef PAM_SM_ACCOUNT */
-
 /*-----------------------------------------------------------------------*/
 
 #else   /* #ifndef MAIN */
@@ -759,13 +738,16 @@ getopts( char **argv )
 {
   const char *pname = *argv;
   for ( ; *argv ; (void)(*argv && ++argv) ) {
+    const char *str;
     if      ( !strcmp (*argv,"--file")    ) cline_filename=*++argv;
-    else if ( !strncmp(*argv,"--file=",7) ) cline_filename=*argv+7;
+    else if ((str = pam_str_skip_prefix(*argv, "--file=")) != NULL)
+      cline_filename = str;
     else if ( !strcmp (*argv,"--user")    ) cline_user=*++argv;
-    else if ( !strncmp(*argv,"--user=",7) ) cline_user=*argv+7;
+    else if ((str = pam_str_skip_prefix(*argv, "--user=")) != NULL)
+      cline_user = str;
     else if ( !strcmp (*argv,"--reset")   ) cline_reset=0;
-    else if ( !strncmp(*argv,"--reset=",8)) {
-      if ( sscanf(*argv+8,TALLY_FMT,&cline_reset) != 1 )
+    else if ((str = pam_str_skip_prefix(*argv, "--reset=")) != NULL) {
+      if (sscanf(str, TALLY_FMT, &cline_reset) != 1 )
         fprintf(stderr,_("%s: Bad number given to --reset=\n"),pname), exit(0);
     }
     else if ( !strcmp (*argv,"--quiet")   ) cline_quiet=1;

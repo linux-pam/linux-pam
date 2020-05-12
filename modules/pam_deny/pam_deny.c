@@ -1,26 +1,10 @@
-/* pam_deny module */
-
 /*
- * $Id$
+ * pam_deny module
  *
  * Written by Andrew Morgan <morgan@parc.power.net> 1996/3/11
- *
- */
-
-/*
- * here, we make definitions for the externally accessible functions
- * in this file (these definitions are required for static modules
- * but strongly encouraged generally) they are used to instruct the
- * modules include file to define their prototypes.
  */
 
 #include "config.h"
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-#define PAM_SM_SESSION
-#define PAM_SM_PASSWORD
-
 #include <security/pam_modules.h>
 
 /* --- authentication management functions --- */

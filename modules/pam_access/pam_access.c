@@ -1,6 +1,6 @@
-/* pam_access module */
-
 /*
+ * pam_access module
+ *
  * Written by Alexei Nogin <alexei@nogin.dnttm.ru> 1997/06/15
  * (I took login_access from logdaemon-5.6 and converted it to PAM
  * using parts of pam_time code.)
@@ -21,7 +21,7 @@
  *
  * This software is provided "as is" and without any expressed or implied
  * warranties, including, without limitation, the implied warranties of
- * merchantibility and fitness for any particular purpose.
+ * merchantability and fitness for any particular purpose.
  *************************************************************************
  */
 
@@ -49,22 +49,12 @@
 #include <libaudit.h>
 #endif
 
-/*
- * here, we make definitions for the externally accessible functions
- * in this file (these definitions are required for static modules
- * but strongly encouraged generally) they are used to instruct the
- * modules include file to define their prototypes.
- */
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-#define PAM_SM_SESSION
-#define PAM_SM_PASSWORD
-
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_cc_compat.h"
+#include "pam_inline.h"
 
 /* login_access.c from logdaemon-5.6 with several changes by A.Nogin: */
 
@@ -123,25 +113,27 @@ parse_args(pam_handle_t *pamh, struct login_info *loginfo,
     loginfo->fs = ":";
     loginfo->sep = ", \t";
     for (i=0; i<argc; ++i) {
-	if (!strncmp("fieldsep=", argv[i], 9)) {
+	const char *str;
+
+	if ((str = pam_str_skip_prefix(argv[i], "fieldsep=")) != NULL) {
 
 	    /* the admin wants to override the default field separators */
-	    loginfo->fs = argv[i]+9;
+	    loginfo->fs = str;
 
-	} else if (!strncmp("listsep=", argv[i], 8)) {
+	} else if ((str = pam_str_skip_prefix(argv[i], "listsep=")) != NULL) {
 
 	    /* the admin wants to override the default list separators */
-	    loginfo->sep = argv[i]+8;
+	    loginfo->sep = str;
 
-	} else if (!strncmp("accessfile=", argv[i], 11)) {
-	    FILE *fp = fopen(11 + argv[i], "r");
+	} else if ((str = pam_str_skip_prefix(argv[i], "accessfile=")) != NULL) {
+	    FILE *fp = fopen(str, "r");
 
 	    if (fp) {
-		loginfo->config_file = 11 + argv[i];
+		loginfo->config_file = str;
 		fclose(fp);
 	    } else {
 		pam_syslog(pamh, LOG_ERR,
-			   "failed to open accessfile=[%s]: %m", 11 + argv[i]);
+			   "failed to open accessfile=[%s]: %m", str);
 		return 0;
 	    }
 
@@ -216,7 +208,7 @@ isipaddr (const char *string, int *addr_type,
 
 /* are_addresses_equal - translate IP address strings to real IP
  * addresses and compare them to find out if they are equal.
- * If netmask was provided it will be used to focus comparation to
+ * If netmask was provided it will be used to focus comparison to
  * relevant bits.
  */
 static int
@@ -335,7 +327,9 @@ login_access (pam_handle_t *pamh, struct login_info *item)
     char   *users;		/* becomes list of login names */
     char   *froms;		/* becomes list of terminals or hosts */
     int     match = NO;
+#ifdef HAVE_LIBAUDIT
     int     nonall_match = NO;
+#endif
     int     end;
     int     lineno = 0;		/* for diagnostics */
     char   *sptr;
@@ -371,7 +365,7 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	    if (line[0] == 0)			/* skip blank lines */
 		continue;
 
-	    /* Allow field seperator in last field of froms */
+	    /* Allow field separator in last field of froms */
 	    if (!(perm = strtok_r(line, item->fs, &sptr))
 		|| !(users = strtok_r(NULL, item->fs, &sptr))
 		|| !(froms = strtok_r(NULL, "\n", &sptr))) {
@@ -393,9 +387,11 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 			  match, item->user->pw_name);
 	    if (match) {
 		match = list_match(pamh, froms, NULL, item, from_match);
+#ifdef HAVE_LIBAUDIT
 		if (!match && perm[0] == '+') {
 		    nonall_match = YES;
 		}
+#endif
 		if (item->debug)
 		    pam_syslog (pamh, LOG_DEBUG,
 				"from_match=%d, \"%s\"", match, item->from);
@@ -473,6 +469,8 @@ netgroup_match (pam_handle_t *pamh, const char *netgroup,
 {
   int retval;
   char *mydomain = NULL;
+
+#ifdef HAVE_GETDOMAINNAME
   char domainname_res[256];
 
   if (getdomainname (domainname_res, sizeof (domainname_res)) == 0)
@@ -482,6 +480,7 @@ netgroup_match (pam_handle_t *pamh, const char *netgroup,
           mydomain = domainname_res;
         }
     }
+#endif
 
 #ifdef HAVE_INNETGR
   retval = innetgr (netgroup, machine, user, mydomain);
@@ -576,7 +575,7 @@ group_match (pam_handle_t *pamh, const char *tok, const char* usr,
     if (strlen(tok) < 3)
         return NO;
 
-    /* token is recieved under the format '(...)' */
+    /* token is received under the format '(...)' */
     memset(grptok, 0, BUFSIZ);
     strncpy(grptok, tok + 1, strlen(tok) - 2);
 
@@ -646,9 +645,11 @@ from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
 
 	      if (runp->ai_family == AF_INET)
 		{
+		  DIAG_PUSH_IGNORE_CAST_ALIGN;
 		  inet_ntop (runp->ai_family,
 			     &((struct sockaddr_in *) runp->ai_addr)->sin_addr,
 			     buf, sizeof (buf));
+		  DIAG_POP_IGNORE_CAST_ALIGN;
 
 		  strcat (buf, ".");
 
@@ -741,7 +742,9 @@ network_netmask_match (pam_handle_t *pamh,
 		{ /* invalid netmask value */
 		  return NO;
 		}
-	    if ((netmask < 0) || (netmask >= 128))
+	    if ((netmask < 0)
+		|| (addr_type == AF_INET && netmask > 32)
+		|| (addr_type == AF_INET6 && netmask > 128))
 		{ /* netmask value out of range */
 		  return NO;
 		}
@@ -808,7 +811,13 @@ network_netmask_match (pam_handle_t *pamh,
 	      {
 		char buf[INET6_ADDRSTRLEN];
 
-		(void) getnameinfo (runp->ai_addr, runp->ai_addrlen, buf, sizeof (buf), NULL, 0, NI_NUMERICHOST);
+		DIAG_PUSH_IGNORE_CAST_ALIGN;
+		inet_ntop (runp->ai_family,
+			runp->ai_family == AF_INET
+			? (void *) &((struct sockaddr_in *) runp->ai_addr)->sin_addr
+			: (void *) &((struct sockaddr_in6 *) runp->ai_addr)->sin6_addr,
+			buf, sizeof (buf));
+		DIAG_POP_IGNORE_CAST_ALIGN;
 
 		for (runp1 = ai; runp1 != NULL; runp1 = runp1->ai_next)
 		  {
@@ -863,7 +872,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     const char *user=NULL;
     const void *void_from=NULL;
     const char *from;
-    const char const *default_config = PAM_ACCESS_CONFIG;
+    const char *default_config = PAM_ACCESS_CONFIG;
     struct passwd *user_pw;
     char hostname[MAXHOSTNAMELEN + 1];
     int rv;

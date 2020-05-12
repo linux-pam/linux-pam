@@ -16,6 +16,8 @@ CPPFLAGS = @BUILD_CPPFLAGS@
 CFLAGS = @BUILD_CFLAGS@
 LDFLAGS = @BUILD_LDFLAGS@
 
+padout_CFLAGS = $(WARN_CFLAGS) -Wno-unused-function -Wno-sign-compare
+
 BUILT_SOURCES = parse_y.h
 
 noinst_PROGRAMS = padout

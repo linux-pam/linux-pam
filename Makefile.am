@@ -4,11 +4,15 @@
 
 AUTOMAKE_OPTIONS = 1.9 gnu dist-bzip2 dist-xz check-news
 
-SUBDIRS = libpam tests libpamc libpam_misc modules po conf doc examples xtests
+SUBDIRS = libpam tests libpamc libpam_misc modules po conf examples xtests
+
+if HAVE_DOC
+SUBDIRS += doc
+endif
 
 CLEANFILES = *~
 
-EXTRA_DIST = pgp.keys.asc CHANGELOG ChangeLog-CVS Copyright Make.xml.rules
+EXTRA_DIST = pgp.keys.asc CHANGELOG ChangeLog-CVS Copyright
 
 ACLOCAL_AMFLAGS = -I m4
 

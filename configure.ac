@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([Linux-PAM], [1.3.1], , [Linux-PAM])
+AC_INIT([Linux-PAM], [1.4.0], , [Linux-PAM])
 AC_CONFIG_SRCDIR([conf/pam_conv1/pam_conv_y.y])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall -Wno-portability])
@@ -79,8 +79,18 @@ PAM_LD_O1
 dnl Largefile support
 AC_SYS_LARGEFILE
 
+Werror_option=
+AC_ARG_ENABLE([Werror],
+	      [AS_HELP_STRING([--enable-Werror],
+			      [turn on -Werror compiler option])],
+	      [case $enableval in
+		yes) Werror_option=-Werror ;;
+		no)  ;;
+		*)   AC_MSG_ERROR([bad value $enableval for Werror option]) ;;
+	       esac])
+
 dnl icc claims to be GCC compatible, but use other flags for warnings
-if eval "test x$GCC = xyes -a $CC != icc"; then
+if eval 'test "x$GCC" = "xyes" -a "$CC" != "icc"'; then
   for flag in \
       -W \
       -Wall \
@@ -94,13 +104,14 @@ if eval "test x$GCC = xyes -a $CC != icc"; then
       -Wstrict-prototypes \
       -Wwrite-strings \
       -Winline \
-      -Wshadow
+      -Wshadow \
+      $Werror_option
   do
-    JAPHAR_GREP_CFLAGS($flag, [ CFLAGS="$CFLAGS $flag" ])
+    JAPHAR_GREP_CFLAGS($flag, [ WARN_CFLAGS="$WARN_CFLAGS $flag" ])
   done
 fi
 dnl icc has special warning flags
-if eval "test x$CC = xicc"; then
+if eval 'test "x$CC" = "xicc"'; then
   for flag in \
       -Wall \
       -Wmissing-prototypes \
@@ -114,9 +125,11 @@ if eval "test x$CC = xicc"; then
       -Wuninitialized \
       -Wmain
   do
-    JAPHAR_GREP_CFLAGS($flag, [ CFLAGS="$CFLAGS $flag" ])
+    JAPHAR_GREP_CFLAGS($flag, [ WARN_CFLAGS="$WARN_CFLAGS $flag" ])
   done
 fi
+
+AC_SUBST(WARN_CFLAGS)
 
 if test "x${CC_FOR_BUILD+set}" != "xset" ; then
   if test "x$cross_compiling" = "xyes" ; then
@@ -217,7 +230,7 @@ dnl
 dnl icc handles -fpie as -fp without error, so blacklist icc
 dnl
 AC_ARG_ENABLE(pie,AS_HELP_STRING([--disable-pie],
-                        [disable position-independent executeables (PIE)]),
+                        [disable position-independent executables (PIE)]),
         USE_PIE=$enableval, USE_PIE=yes)
 
 AC_CACHE_CHECK(for -fpie, libc_cv_fpie, [dnl
@@ -246,6 +259,11 @@ AC_SUBST(PIE_LDFLAGS)
 dnl
 dnl options and defaults
 dnl
+
+AC_ARG_ENABLE([doc],
+        AS_HELP_STRING([--disable-doc],[Do not generate or install documentation]),
+        WITH_DOC=$enableval, WITH_DOC=yes)
+AM_CONDITIONAL([HAVE_DOC], [test "x$WITH_DOC" = "xyes"])
 
 AC_ARG_ENABLE([prelude],
 	AS_HELP_STRING([--disable-prelude],[do not use prelude]),
@@ -346,8 +364,15 @@ if test x$pam_xauth_path != x ; then
 	[Additional path of xauth executable])
 fi
 
-dnl Checks for the existence of libdl - on BSD and Tru64 its part of libc
-AC_CHECK_LIB([dl], [dlopen], LIBDL="-ldl", LIBDL="")
+dnl Checks for the existence of libdl - in musl its a part of libc
+saved_LIBS="$LIBS"
+AC_SEARCH_LIBS([dlopen], [dl])
+LIBS="$saved_LIBS"
+case "$ac_cv_search_dlopen" in
+	no) AC_MSG_FAILURE([failed to find dlopen]) ;;
+	-l*) LIBDL="$ac_cv_search_dlopen" ;;
+	*) LIBDL= ;;
+esac
 AC_SUBST(LIBDL)
 
 # Check for cracklib
@@ -360,11 +385,7 @@ if test x"$WITH_CRACKLIB" != xno ; then
 else
 	LIBCRACK=""
 fi
-if test -n "$LIBCRACK"; then
-	AC_DEFINE([HAVE_LIBCRACK], [1], [Define to 1 if you have cracklib.])
-fi
 AC_SUBST(LIBCRACK)
-AM_CONDITIONAL([HAVE_LIBCRACK], [test -n "$LIBCRACK"])
 
 dnl Look for Linux Auditing library - see documentation
 AC_ARG_ENABLE([audit],
@@ -378,12 +399,10 @@ if test x"$WITH_LIBAUDIT" != xno ; then
 			     [HAVE_AUDIT_TTY_STATUS=""],
 			     [#include <libaudit.h>])]
         )
-        if test ! -z "$LIBAUDIT" -a "$ac_cv_header_libaudit_h" != "no" ; then
+        if test -n "$LIBAUDIT" -a "$ac_cv_header_libaudit_h" != "no" ; then
             AC_DEFINE([HAVE_LIBAUDIT], 1, [Define to 1 if audit support should be compiled in.])
         fi
-        if test ! -z "$HAVE_AUDIT_TTY_STATUS" ; then
-            AC_DEFINE([HAVE_AUDIT_TTY_STATUS], 1, [Define to 1 if struct audit_tty_status exists.])
-
+        if test -n "$HAVE_AUDIT_TTY_STATUS" ; then
             AC_CHECK_MEMBERS([struct audit_tty_status.log_passwd], [],
                             AC_MSG_WARN([audit_tty_status.log_passwd is not available.  The log_passwd option is disabled.]),
                             [[#include <libaudit.h>]])
@@ -392,8 +411,6 @@ else
 	LIBAUDIT=""
 fi
 AC_SUBST(LIBAUDIT)
-AM_CONDITIONAL([HAVE_AUDIT_TTY_STATUS],
-	       [test "x$HAVE_AUDIT_TTY_STATUS" = xyes])
 
 AC_CHECK_HEADERS(xcrypt.h crypt.h)
 AS_IF([test "x$ac_cv_header_xcrypt_h" = "xyes"],
@@ -401,7 +418,7 @@ AS_IF([test "x$ac_cv_header_xcrypt_h" = "xyes"],
   [crypt_libs="crypt"])
 
 BACKUP_LIBS=$LIBS
-AC_SEARCH_LIBS([crypt],[$crypt_libs], LIBCRYPT="${ac_lib:+-l$ac_lib}", LIBCRYPT="")
+AC_SEARCH_LIBS([crypt],[$crypt_libs], LIBCRYPT="${ac_cv_search_crypt}", LIBCRYPT="")
 AC_CHECK_FUNCS(crypt_r crypt_gensalt_r)
 LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCRYPT)
@@ -420,7 +437,7 @@ if test -n "$opt_randomdev"; then
 fi
 
 dnl check for libdb or libndbm as fallback. Some libndbm compat
-dnl libraries are unuseable, so try libdb first.
+dnl libraries are unusable, so try libdb first.
 AC_ARG_ENABLE([db],
         AS_HELP_STRING([--enable-db=(db|ndbm|yes|no)],[Default behavior 'yes', which is to check for libdb first, followed by ndbm. Use 'no' to disable db support.]),
         WITH_DB=$enableval, WITH_DB=yes)
@@ -436,7 +453,7 @@ if test x"$WITH_DB" != xno ; then
         fi
         if test -z "$LIBDB" ; then
             AC_CHECK_LIB([ndbm],[dbm_store], LIBDB="-lndbm", LIBDB="")
-            if test ! -z "$LIBDB" ; then
+            if test -n "$LIBDB" ; then
                 AC_CHECK_HEADERS(ndbm.h)
             fi
         else
@@ -444,7 +461,6 @@ if test x"$WITH_DB" != xno ; then
         fi
 fi
 AC_SUBST(LIBDB)
-AM_CONDITIONAL([HAVE_LIBDB], [test ! -z "$LIBDB"])
 
 AC_ARG_ENABLE([nis],
         AS_HELP_STRING([--disable-nis], [Disable building NIS/YP support in pam_unix]))
@@ -485,6 +501,17 @@ AS_IF([test "x$enable_nis" != "xno"], [
 AC_SUBST([NIS_CFLAGS])
 AC_SUBST([NIS_LIBS])
 
+AC_ARG_ENABLE([usergroups],
+  AS_HELP_STRING([--enable-usergroups], [sets the usergroups option default to enabled]),
+  [WITH_USERGROUPS=$enableval], WITH_USERGROUPS=no)
+if test "$WITH_USERGROUPS" = "yes" ; then
+   AC_DEFINE([DEFAULT_USERGROUPS_SETTING], 1,
+	     [Defines the value usergroups option should have by default])
+else
+   AC_DEFINE([DEFAULT_USERGROUPS_SETTING], 0,
+	     [Defines the value usergroups option should have by default])
+fi
+
 AC_ARG_ENABLE([selinux],
         AS_HELP_STRING([--disable-selinux],[do not use SELinux]),
         WITH_SELINUX=$enableval, WITH_SELINUX=yes)
@@ -494,8 +521,7 @@ else
   LIBSELINUX=""
 fi
 AC_SUBST(LIBSELINUX)
-AM_CONDITIONAL([HAVE_LIBSELINUX], [test ! -z "$LIBSELINUX"])
-if test ! -z "$LIBSELINUX" ; then
+if test -n "$LIBSELINUX" ; then
     AC_DEFINE([WITH_SELINUX], 1, [Defined if SE Linux support is compiled in])
     BACKUP_LIBS=$LIBS
     LIBS="$LIBS $LIBSELINUX"
@@ -504,11 +530,34 @@ if test ! -z "$LIBSELINUX" ; then
     LIBS=$BACKUP_LIBS
 fi
 
+AC_ARG_ENABLE([econf],
+  AS_HELP_STRING([--disable-econf], [do not use libeconf]),
+  [WITH_ECONF=$enableval], WITH_ECONF=yes)
+if test "$WITH_ECONF" = "yes" ; then
+  PKG_CHECK_MODULES([ECONF], [libeconf], [],
+  [AC_CHECK_LIB([econf],[econf_readDirs],[ECONF_LIBS="-leconf"],[ECONF_LIBS=""])])
+  if test -n "$ECONF_LIBS" ; then
+    ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"
+  fi
+fi
+AC_SUBST([ECONF_CFLAGS])
+AC_SUBST([ECONF_LIBS])
+AC_ARG_ENABLE([vendordir],
+  AS_HELP_STRING([--enable-vendordir=DIR], [Directory for distribution provided configuration files]),,[])
+if test -n "$enable_vendordir"; then
+  AC_DEFINE_UNQUOTED([VENDORDIR], ["$enable_vendordir"],
+		     [Directory for distribution provided configuration files])
+  STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir'"
+else
+  STRINGPARAM_VENDORDIR="--stringparam vendordir '<vendordir>'"
+fi
+AC_SUBST([STRINGPARAM_VENDORDIR])
+
 dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/file.h sys/ioctl.h sys/time.h syslog.h net/if.h termio.h unistd.h sys/fsuid.h inittypes.h)
+AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/file.h sys/ioctl.h sys/time.h syslog.h net/if.h termio.h unistd.h sys/fsuid.h inittypes.h sys/vfs.h linux/magic.h)
 
 dnl For module/pam_lastlog
 AC_CHECK_HEADERS(lastlog.h utmp.h utmpx.h)
@@ -530,20 +579,16 @@ AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(fseeko getdomainname gethostname gettimeofday lckpwdf mkdir select)
 AC_CHECK_FUNCS(strcspn strdup strspn strstr strtol uname)
-AC_CHECK_FUNCS(getutent_r getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r)
+AC_CHECK_FUNCS(getutent_r getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r getmntent_r)
 AC_CHECK_FUNCS(getgrouplist getline getdelim)
 AC_CHECK_FUNCS(inet_ntop inet_pton innetgr)
+AC_CHECK_FUNCS(quotactl)
+AC_CHECK_FUNCS(unshare)
 AC_CHECK_FUNCS([ruserok_af ruserok], [break])
 BACKUP_LIBS=$LIBS
 LIBS="$LIBS -lutil"
 AC_CHECK_FUNCS([logwtmp])
 LIBS=$BACKUP_LIBS
-
-AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
-AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
-
-AC_CHECK_FUNCS(unshare, [UNSHARE=yes], [UNSHARE=no])
-AM_CONDITIONAL([HAVE_UNSHARE], [test "$UNSHARE" = yes])
 
 AC_ARG_ENABLE([regenerate-docu],
   AS_HELP_STRING([--disable-regenerate-docu],[Don't re-build documentation from XML sources]),
@@ -563,11 +608,11 @@ JH_CHECK_XML_CATALOG([http://docbook.sourceforge.net/release/xsl/current/manpage
                 [DocBook XSL Stylesheets], [], enable_docu=no)
 
 AC_PATH_PROG([BROWSER], [w3m])
-if test ! -z "$BROWSER"; then
+if test -n "$BROWSER"; then
      BROWSER="$BROWSER -T text/html -dump"
 else
      AC_PATH_PROG([BROWSER], [elinks])
-     if test ! -z "$BROWSER"; then
+     if test -n "$BROWSER"; then
           BROWSER="$BROWSER -no-numbering -no-references -dump"
      else
           enable_docu=no
@@ -576,8 +621,8 @@ fi
 
 AC_PATH_PROG([FO2PDF], [fop])
 
-AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_docu != xno)
-AM_CONDITIONAL(ENABLE_GENERATE_PDF, test ! -z "$FO2PDF")
+AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_docu != xno -a x$enable_doc != xno)
+AM_CONDITIONAL(ENABLE_GENERATE_PDF, test -n "$FO2PDF")
 
 
 AM_GNU_GETTEXT_VERSION([0.18.3])
@@ -598,31 +643,67 @@ dnl Check for the availability of the kernel key management facility
 dnl - The pam_keyinit module only requires the syscalls, not the error codes
 dnl
 AC_CHECK_DECL(__NR_keyctl, [have_key_syscalls=1],[have_key_syscalls=0],[#include <sys/syscall.h>])
-AC_CHECK_DECL(ENOKEY, [have_key_errors=1],[have_key_errors=0],[#include <errno.h>])
 
-HAVE_KEY_MANAGEMENT=0
-if test $have_key_syscalls$have_key_errors = 11
-then
-	HAVE_KEY_MANAGEMENT=1
+dnl
+dnl Get values for default uid ranges in login.defs used in pam_usertype
+dnl
+AC_ARG_WITH([uidmin], AS_HELP_STRING([--with-uidmin=<number>],[default value for regular user min uid (1000)]), opt_uidmin=$withval)
+if test x"$opt_uidmin" == x; then
+    opt_uidmin=1000
 fi
+AC_DEFINE_UNQUOTED(PAM_USERTYPE_UIDMIN, $opt_uidmin, [Minimum regular user uid.])
 
-if test $HAVE_KEY_MANAGEMENT = 1; then
-   AC_DEFINE([HAVE_KEY_MANAGEMENT], 1,
-	     [Defined if the kernel key management facility is available])
+AC_ARG_WITH([sysuidmin], AS_HELP_STRING([--with-sysuidmin=<number>],[default value for system user min uid (101)]), opt_sysuidmin=$withval)
+if test x"$opt_sysuidmin" == x; then
+    opt_sysuidmin=101
 fi
-AC_SUBST([HAVE_KEY_MANAGEMENT], $HAVE_KEY_MANAGEMENT)
+AC_DEFINE_UNQUOTED(PAM_USERTYPE_SYSUIDMIN, $opt_sysuidmin, [Minimum system user uid.])
 
-AM_CONDITIONAL([HAVE_KEY_MANAGEMENT], [test "$have_key_syscalls" = 1])
+AC_ARG_WITH([kerneloverflowuid], AS_HELP_STRING([--with-kernel-overflow-uid=<number>],[kernel overflow uid, default (uint16_t)-2=65534]), opt_kerneloverflowuid=$withval)
+if test x"$opt_kerneloverflowuid" == x; then
+    opt_kerneloverflowuid=65534
+fi
+AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel overflow uid.])
+
+AC_ARG_ENABLE([tally],
+	      [AS_HELP_STRING([--disable-tally], [do not build pam_tally module])],
+	      [], [enable_tally=yes])
+case "$enable_tally" in
+  yes|no) ;;
+  *) AC_MSG_ERROR([bad value $enable_tally for --enable-tally option]) ;;
+esac
+
+AC_ARG_ENABLE([tally2],
+	      [AS_HELP_STRING([--disable-tally2], [do not build pam_tally2 module])],
+	      [], [enable_tally2=yes])
+case "$enable_tally2" in
+  yes|no) ;;
+  *) AC_MSG_ERROR([bad value $enable_tally2 for --enable-tally2 option]) ;;
+esac
+
+AM_CONDITIONAL([COND_BUILD_PAM_CRACKLIB], [test -n "$LIBCRACK"])
+AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
+AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_NAMESPACE], [test "$ac_cv_func_unshare" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_SELINUX], [test -n "$LIBSELINUX"])
+AM_CONDITIONAL([COND_BUILD_PAM_SEPERMIT], [test -n "$LIBSELINUX"])
+AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_TALLY], [test "$enable_tally" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_TALLY2], [test "$enable_tally2" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_TTY_AUDIT], [test "$HAVE_AUDIT_TTY_STATUS" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_USERDB], [test -n "$LIBDB"])
 
 dnl Files to be created from when we run configure
 AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	libpam_misc/Makefile conf/Makefile conf/pam_conv1/Makefile \
 	po/Makefile.in \
+	Make.xml.rules \
 	modules/Makefile \
 	modules/pam_access/Makefile modules/pam_cracklib/Makefile \
         modules/pam_debug/Makefile modules/pam_deny/Makefile \
 	modules/pam_echo/Makefile modules/pam_env/Makefile \
-	modules/pam_faildelay/Makefile \
+	modules/pam_faildelay/Makefile modules/pam_faillock/Makefile \
 	modules/pam_filter/Makefile modules/pam_filter/upperLOWER/Makefile \
 	modules/pam_ftp/Makefile modules/pam_group/Makefile \
 	modules/pam_issue/Makefile modules/pam_keyinit/Makefile \
@@ -631,17 +712,19 @@ AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile
 	modules/pam_loginuid/Makefile modules/pam_mail/Makefile \
 	modules/pam_mkhomedir/Makefile modules/pam_motd/Makefile \
 	modules/pam_namespace/Makefile \
+	modules/pam_namespace/pam_namespace_helper modules/pam_namespace/pam_namespace.service \
 	modules/pam_nologin/Makefile modules/pam_permit/Makefile \
 	modules/pam_pwhistory/Makefile modules/pam_rhosts/Makefile \
 	modules/pam_rootok/Makefile modules/pam_exec/Makefile \
 	modules/pam_securetty/Makefile modules/pam_selinux/Makefile \
-	modules/pam_sepermit/Makefile \
+	modules/pam_sepermit/Makefile modules/pam_setquota/Makefile \
 	modules/pam_shells/Makefile modules/pam_stress/Makefile \
 	modules/pam_succeed_if/Makefile modules/pam_tally/Makefile \
 	modules/pam_tally2/Makefile modules/pam_time/Makefile \
 	modules/pam_timestamp/Makefile modules/pam_tty_audit/Makefile \
 	modules/pam_umask/Makefile \
 	modules/pam_unix/Makefile modules/pam_userdb/Makefile \
+	modules/pam_usertype/Makefile \
 	modules/pam_warn/Makefile modules/pam_wheel/Makefile \
 	modules/pam_xauth/Makefile doc/Makefile doc/specs/Makefile \
 	doc/man/Makefile doc/sag/Makefile doc/adg/Makefile \

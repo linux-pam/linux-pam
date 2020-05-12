@@ -13,7 +13,7 @@
  * Description: The cleartext is divided into blocks of SEGMENT_SIZE=8
  * characters or less. Each block is encrypted using the standard UNIX
  * libc crypt function. The result of the encryption for one block
- * provides the salt for the suceeding block.
+ * provides the salt for the succeeding block.
  *
  * Restrictions: The buffer used to hold the encrypted result is
  * statically allocated. (see MAX_PASS_LEN below).  This is necessary,

@@ -153,7 +153,7 @@
           <refentrytitle>pam_get_item</refentrytitle><manvolnum>3</manvolnum>
         </citerefentry>
         functions allows applications and PAM service modules to set and
-        retrieve PAM informations.
+        retrieve PAM information.
       </para>
       <para>
          The

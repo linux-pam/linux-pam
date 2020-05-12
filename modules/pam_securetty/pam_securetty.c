@@ -1,11 +1,6 @@
-/* pam_securetty module */
-
-#define SECURETTY_FILE "/etc/securetty"
-#define TTY_PREFIX     "/dev/"
-#define CMDLINE_FILE   "/proc/cmdline"
-#define CONSOLEACTIVE_FILE	"/sys/class/tty/console/active"
-
 /*
+ * pam_securetty module
+ *
  * by Elliot Lee <sopwith@redhat.com>, Red Hat Software.
  * July 25, 1996.
  * This code shamelessly ripped from the pam_rootok module.
@@ -25,23 +20,23 @@
 #include <string.h>
 #include <ctype.h>
 #include <limits.h>
-
-/*
- * here, we make a definition for the externally accessible function
- * in this file (this definition is required for static a module
- * but strongly encouraged generally) it is used to instruct the
- * modules include file to define the function prototypes.
- */
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
+#include <errno.h>
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 #define PAM_DEBUG_ARG       0x0001
 #define PAM_NOCONSOLE_ARG   0x0002
+
+#define SECURETTY_FILE "/etc/securetty"
+#ifdef VENDORDIR
+#define SECURETTY2_FILE VENDORDIR"/securetty"
+#endif
+#define TTY_PREFIX     "/dev/"
+#define CMDLINE_FILE   "/proc/cmdline"
+#define CONSOLEACTIVE_FILE	"/sys/class/tty/console/active"
 
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
@@ -70,8 +65,10 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 			 const char *function_name)
 {
     int retval = PAM_AUTH_ERR;
+    const char *securettyfile;
     const char *username;
     const char *uttyname;
+    const char *str;
     const void *void_uttyname;
     char ttyfileline[256];
     char ptname[256];
@@ -106,15 +103,31 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
     }
 
     /* The PAM_TTY item may be prefixed with "/dev/" - skip that */
-    if (strncmp(TTY_PREFIX, uttyname, sizeof(TTY_PREFIX)-1) == 0) {
-	uttyname += sizeof(TTY_PREFIX)-1;
-    }
+    if ((str = pam_str_skip_prefix(uttyname, TTY_PREFIX)) != NULL)
+	uttyname = str;
 
     if (stat(SECURETTY_FILE, &ttyfileinfo)) {
+#ifdef VENDORDIR
+      if (errno == ENOENT) {
+	if (stat(SECURETTY2_FILE, &ttyfileinfo)) {
+	  pam_syslog(pamh, LOG_NOTICE,
+		     "Couldn't open %s: %m", SECURETTY2_FILE);
+	  return PAM_SUCCESS; /* for compatibility with old securetty handling,
+				 this needs to succeed.  But we still log the
+				 error. */
+	}
+	securettyfile = SECURETTY2_FILE;
+      } else {
+#endif
 	pam_syslog(pamh, LOG_NOTICE, "Couldn't open %s: %m", SECURETTY_FILE);
 	return PAM_SUCCESS; /* for compatibility with old securetty handling,
 			       this needs to succeed.  But we still log the
 			       error. */
+#ifdef VENDORDIR
+      }
+#endif
+    } else {
+      securettyfile = SECURETTY_FILE;
     }
 
     if ((ttyfileinfo.st_mode & S_IWOTH) || !S_ISREG(ttyfileinfo.st_mode)) {
@@ -122,13 +135,13 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 	   normal file, return error */
 	pam_syslog(pamh, LOG_ERR,
 		   "%s is either world writable or not a normal file",
-		   SECURETTY_FILE);
+		   securettyfile);
 	return PAM_AUTH_ERR;
     }
 
-    ttyfile = fopen(SECURETTY_FILE,"r");
+    ttyfile = fopen(securettyfile,"r");
     if (ttyfile == NULL) { /* Check that we opened it successfully */
-	pam_syslog(pamh, LOG_ERR, "Error opening %s: %m", SECURETTY_FILE);
+	pam_syslog(pamh, LOG_ERR, "Error opening %s: %m", securettyfile);
 	return PAM_SERVICE_ERR;
     }
 
@@ -163,18 +176,17 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
             fclose(cmdlinefile);
 
             for (; p; p = strstr(p+1, "console=")) {
-                char *e;
+                const char *e;
 
                 /* Test whether this is a beginning of a word? */
                 if (p > line && p[-1] != ' ')
                     continue;
 
                 /* Is this our console? */
-                if (strncmp(p + 8, uttyname, strlen(uttyname)))
+                if ((e = pam_str_skip_prefix_len(p + 8, uttyname, strlen(uttyname))) == NULL)
                     continue;
 
                 /* Is there any garbage after the TTY name? */
-                e = p + 8 + strlen(uttyname);
                 if (*e == ',' || *e == ' ' || *e == '\n' || *e == 0) {
                     retval = 0;
                     break;

@@ -216,12 +216,6 @@ gcc -shared -o pam_module.so pam_module.o -lpam
     </section>
     <section id="mwg-expected-of-module-auth">
       <title>Authentication management</title>
-      <para>
-        To be correctly initialized, <parameter>PAM_SM_AUTH</parameter>
-        must be <command>#define</command>'d prior to including
-        <function>&lt;security/pam_modules.h&gt;</function>. This will
-        ensure that the prototypes for static modules are properly declared.
-      </para>
       <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
        href="pam_sm_authenticate.xml"/>
       <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -229,23 +223,11 @@ gcc -shared -o pam_module.so pam_module.o -lpam
     </section>
     <section id="mwg-expected-of-module-acct">
       <title>Account management</title>
-      <para>
-        To be correctly initialized, <parameter>PAM_SM_ACCOUNT</parameter>
-        must be <command>#define</command>'d prior to including
-        <function>&lt;security/pam_modules.h&gt;</function>. This will
-        ensure that the prototypes for static modules are properly declared.
-      </para>
       <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
        href="pam_sm_acct_mgmt.xml"/>
     </section>
     <section id="mwg-expected-of-module-session">
       <title>Session management</title>
-      <para>
-        To be correctly initialized, <parameter>PAM_SM_SESSION</parameter>
-        must be <command>#define</command>'d prior to including
-        <function>&lt;security/pam_modules.h&gt;</function>. This will
-        ensure that the prototypes for static modules are properly declared.
-      </para>
       <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
        href="pam_sm_open_session.xml"/>
       <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -253,12 +235,6 @@ gcc -shared -o pam_module.so pam_module.o -lpam
     </section>
     <section id="mwg-expected-of-module-chauthtok">
       <title>Authentication token management</title>
-      <para>
-        To be correctly initialized, <parameter>PAM_SM_PASSWORD</parameter>
-        must be <command>#define</command>'d prior to including
-        <function>&lt;security/pam_modules.h&gt;</function>. This will
-        ensure that the prototypes for static modules are properly declared.
-      </para>
       <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
        href="pam_sm_chauthtok.xml"/>
     </section>

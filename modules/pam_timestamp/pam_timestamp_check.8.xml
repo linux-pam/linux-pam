@@ -78,7 +78,7 @@ see if the default timestamp is valid, or optionally remove it.
                the user authenticates as herself. When the user authenticates as a
                different user, the name of the timestamp file changes to
                accommodate this. <replaceable>target_user</replaceable> allows
-               to specify this user name.
+               one to specify this user name.
             </para>
          </listitem>
       </varlistentry>

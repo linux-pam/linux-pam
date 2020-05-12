@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * pam_filter module
  *
  * written by Andrew Morgan <morgan@transmeta.com> with much help from
  * Richard Stevens' UNIX Network Programming book.
@@ -24,11 +24,6 @@
 #include <termios.h>
 
 #include <signal.h>
-
-#define PAM_SM_AUTH
-#define PAM_SM_ACCOUNT
-#define PAM_SM_SESSION
-#define PAM_SM_PASSWORD
 
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
@@ -114,38 +109,37 @@ static int process_args(pam_handle_t *pamh
 	    return -1;
 	}
 
-	for (size=i=0; i<argc; ++i) {
-	    size += strlen(argv[i])+1;
-	}
-
 	/* the "ARGS" variable */
 
-#define ARGS_OFFSET    5                          /*  strlen('ARGS=');  */
 #define ARGS_NAME      "ARGS="
+#define ARGS_OFFSET    (sizeof(ARGS_NAME) - 1)
 
-	size += ARGS_OFFSET;
+	size = sizeof(ARGS_NAME);
 
-	levp[0] = (char *) malloc(size);
+	for (i=0; i<argc; ++i) {
+	    size += strlen(argv[i]) + (i != 0);
+	}
+
+	levp[0] = malloc(size);
 	if (levp[0] == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for filter arguments");
-	    if (levp) {
-		free(levp);
-	    }
+	    free(levp);
 	    return -1;
 	}
 
-	strncpy(levp[0],ARGS_NAME,ARGS_OFFSET);
-	for (i=0,size=ARGS_OFFSET; i<argc; ++i) {
+	strcpy(levp[0], ARGS_NAME);
+	size = ARGS_OFFSET;
+	for (i=0; i<argc; ++i) {
+	    if (i)
+		levp[0][size++] = ' ';
 	    strcpy(levp[0]+size, argv[i]);
 	    size += strlen(argv[i]);
-	    levp[0][size++] = ' ';
 	}
-	levp[0][--size] = '\0';                    /* <NUL> terminate */
 
 	/* the "SERVICE" variable */
 
-#define SERVICE_OFFSET    8                    /*  strlen('SERVICE=');  */
 #define SERVICE_NAME      "SERVICE="
+#define SERVICE_OFFSET    (sizeof(SERVICE_NAME) - 1)
 
 	retval = pam_get_item(pamh, PAM_SERVICE, &tmp);
 	if (retval != PAM_SUCCESS || tmp == NULL) {
@@ -168,14 +162,14 @@ static int process_args(pam_handle_t *pamh
 	    return -1;
 	}
 
-	strncpy(levp[1],SERVICE_NAME,SERVICE_OFFSET);
+	strcpy(levp[1], SERVICE_NAME);
 	strcpy(levp[1]+SERVICE_OFFSET, tmp);
 	levp[1][size] = '\0';                      /* <NUL> terminate */
 
 	/* the "USER" variable */
 
-#define USER_OFFSET    5                          /*  strlen('USER=');  */
 #define USER_NAME      "USER="
+#define USER_OFFSET    (sizeof(USER_NAME) - 1)
 
 	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS ||
 	    user == NULL) {
@@ -194,14 +188,14 @@ static int process_args(pam_handle_t *pamh
 	    return -1;
 	}
 
-	strncpy(levp[2],USER_NAME,USER_OFFSET);
+	strcpy(levp[2], USER_NAME);
 	strcpy(levp[2]+USER_OFFSET, user);
 	levp[2][size] = '\0';                      /* <NUL> terminate */
 
 	/* the "USER" variable */
 
-#define TYPE_OFFSET    5                          /*  strlen('TYPE=');  */
 #define TYPE_NAME      "TYPE="
+#define TYPE_OFFSET    (sizeof(TYPE_NAME) - 1)
 
 	size = TYPE_OFFSET+strlen(type);
 
@@ -217,7 +211,7 @@ static int process_args(pam_handle_t *pamh
 	    return -1;
 	}
 
-	strncpy(levp[3],TYPE_NAME,TYPE_OFFSET);
+	strcpy(levp[3], TYPE_NAME);
 	strcpy(levp[3]+TYPE_OFFSET, type);
 	levp[3][size] = '\0';                      /* <NUL> terminate */
 
@@ -253,7 +247,7 @@ static void free_evp(char *evp[])
 
 static int
 set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
-	    const char **evp, const char *filtername)
+	    char * const evp[], const char *filtername)
 {
     int status=-1;
     char* terminal = NULL;
@@ -296,7 +290,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    struct termios t_mode = stored_mode;
 
 	    t_mode.c_iflag = 0;            /* no input control */
-	    t_mode.c_oflag &= ~OPOST;      /* no ouput post processing */
+	    t_mode.c_oflag &= ~OPOST;      /* no output post processing */
 
 	    /* no signals, canonical input, echoing, upper/lower output */
 #ifdef XCASE
@@ -376,7 +370,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
 	    /* grant slave terminal */
 	    if (grantpt (fd[0]) < 0) {
-		pam_syslog(pamh, LOG_ERR, "Cannot grant acccess to slave terminal");
+		pam_syslog(pamh, LOG_ERR, "Cannot grant access to slave terminal");
 		return PAM_ABORT;
 	    }
 
@@ -444,7 +438,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
 	close(fd[1]);
 
-	/* the current process is now aparently working with filtered
+	/* the current process is now apparently working with filtered
 	   stdio/stdout/stderr --- success! */
 
 	return PAM_SUCCESS;
@@ -632,8 +626,7 @@ static int need_a_filter(pam_handle_t *pamh
     }
 
     if (retval == PAM_SUCCESS && (ctrl & which_run)) {
-	retval = set_filter(pamh, flags, ctrl
-			    , (const char **)evp, filterfile);
+	retval = set_filter(pamh, flags, ctrl, evp, filterfile);
     }
 
     if (retval == PAM_SUCCESS

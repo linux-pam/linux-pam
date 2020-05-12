@@ -57,7 +57,7 @@
   <refsect1 id="pam_rootok-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
-      The <option>auth</option>, <option>acct</option> and
+      The <option>auth</option>, <option>account</option> and
       <option>password</option> module types are provided.
     </para>
   </refsect1>

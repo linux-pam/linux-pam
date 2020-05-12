@@ -6,19 +6,20 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = README $(MANS) $(XMLS) tst-pam_mkhomedir
+EXTRA_DIST = $(XMLS)
 
-man_MANS = pam_mkhomedir.8 mkhomedir_helper.8
-
+if HAVE_DOC
+dist_man_MANS = pam_mkhomedir.8 mkhomedir_helper.8
+endif
 XMLS = README.xml pam_mkhomedir.8.xml mkhomedir_helper.8.xml
-
-TESTS = tst-pam_mkhomedir
+dist_check_SCRIPTS = tst-pam_mkhomedir
+TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	    -DMKHOMEDIR_HELPER=\"$(sbindir)/mkhomedir_helper\"
+	-DMKHOMEDIR_HELPER=\"$(sbindir)/mkhomedir_helper\" $(WARN_CFLAGS)
 
 securelib_LTLIBRARIES = pam_mkhomedir.la
 pam_mkhomedir_la_SOURCES = pam_mkhomedir.c
@@ -33,7 +34,6 @@ mkhomedir_helper_SOURCES = mkhomedir_helper.c
 mkhomedir_helper_LDADD = $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
-noinst_DATA = README
-README: pam_mkhomedir.8.xml
+dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

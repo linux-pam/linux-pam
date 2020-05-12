@@ -38,9 +38,6 @@
  *
  */
 
-#define PAM_SM_AUTH
-#define PAM_SM_SESSION
-
 #include "config.h"
 
 #include <sys/stat.h>
@@ -65,12 +62,13 @@
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
+#include "pam_inline.h"
 
 /* The default timeout we use is 5 minutes, which matches the sudo default
  * for the timestamp_timeout parameter. */
 #define DEFAULT_TIMESTAMP_TIMEOUT (5 * 60)
 #define MODULE "pam_timestamp"
-#define TIMESTAMPDIR _PATH_VARRUN "/" MODULE
+#define TIMESTAMPDIR _PATH_VARRUN MODULE
 #define TIMESTAMPKEY TIMESTAMPDIR "/_pam_timestamp_key"
 
 /* Various buffers we use need to be at least as large as either PATH_MAX or
@@ -151,7 +149,7 @@ check_tty(const char *tty)
 	}
 	/* Pull out the meaningful part of the tty's name. */
 	if (strchr(tty, '/') != NULL) {
-		if (strncmp(tty, "/dev/", 5) != 0) {
+		if (pam_str_skip_prefix(tty, "/dev/") == NULL) {
 			/* Make sure the device node is actually in /dev/,
 			 * noted by Michal Zalewski. */
 			return NULL;
@@ -282,8 +280,10 @@ get_timestamp_name(pam_handle_t *pamh, int argc, const char **argv,
 		}
 	}
 	for (i = 0; i < argc; i++) {
-		if (strncmp(argv[i], "timestampdir=", 13) == 0) {
-			tdir = argv[i] + 13;
+		const char *str;
+
+		if ((str = pam_str_skip_prefix(argv[i], "timestampdir=")) != NULL) {
+			tdir = str;
 			if (debug) {
 				pam_syslog(pamh, LOG_DEBUG,
 				       "storing timestamps in `%s'",
@@ -377,8 +377,10 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		}
 	}
 	for (i = 0; i < argc; i++) {
-		if (strncmp(argv[i], "timestamp_timeout=", 18) == 0) {
-			tmp = strtol(argv[i] + 18, &p, 0);
+		const char *str;
+
+		if ((str = pam_str_skip_prefix(argv[i], "timestamp_timeout=")) != NULL) {
+			tmp = strtol(str, &p, 0);
 			if ((p != NULL) && (*p == '\0')) {
 				interval = tmp;
 				if (debug) {
@@ -578,10 +580,10 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED, int argc, const char *
 
 	/* Create the directory for the timestamp file if it doesn't already
 	 * exist. */
-	for (i = 1; path[i] != '\0'; i++) {
+	for (i = 1; i < (int) sizeof(path) && path[i] != '\0'; i++) {
 		if (path[i] == '/') {
 			/* Attempt to create the directory. */
-			strncpy(subdir, path, i);
+			memcpy(subdir, path, i);
 			subdir[i] = '\0';
 			if (mkdir(subdir, 0700) == 0) {
 				/* Attempt to set the owner to the superuser. */
@@ -799,8 +801,8 @@ main(int argc, char **argv)
 					/* Check oldest login against timestamp */
 					if (check_login_time(user, st.st_mtime) != PAM_SUCCESS) {
 						retval = 7;
-					} else if (!timestamp_good(st.st_mtime, time(NULL),
-							    DEFAULT_TIMESTAMP_TIMEOUT) == PAM_SUCCESS) {
+					} else if (timestamp_good(st.st_mtime, time(NULL),
+							DEFAULT_TIMESTAMP_TIMEOUT) != PAM_SUCCESS) {
 						retval = 7;
 					}
 				} else {

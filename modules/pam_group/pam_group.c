@@ -1,6 +1,6 @@
-/* pam_group module */
-
 /*
+ * pam_group module
+ *
  * Written by Andrew Morgan <morgan@linux.kernel.org> 1996/7/6
  * Field parsing rewritten by Tomas Mraz <tm@t8m.info>
  */
@@ -34,15 +34,6 @@
 #endif
 
 typedef enum { AND, OR } operator;
-
-/*
- * here, we make definitions for the externally accessible functions
- * in this file (these definitions are required for static modules
- * but strongly encouraged generally) they are used to instruct the
- * modules include file to define their prototypes.
- */
-
-#define PAM_SM_AUTH
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
@@ -183,6 +174,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state)
 		    ++src; /* skip it */
 		    break;
 		}
+	    /* fallthrough */
 	    default:
 		*to++ = c;
 		onspace = 0;
@@ -297,6 +289,7 @@ logic_field (const pam_handle_t *pamh, const void *me,
 		    return FALSE;
 	       }
 	       next = VAL;
+	       not = FALSE;
 	  }
 	  at += l;
      }

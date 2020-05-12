@@ -102,12 +102,11 @@ struct pam_limit_s {
 #define LIMIT_SOFT  1
 #define LIMIT_HARD  2
 
-#define PAM_SM_SESSION
-
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 /* argument parsing */
 
@@ -129,13 +128,14 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 
     /* step through arguments */
     for (ctrl=0; argc-- > 0; ++argv) {
+	const char *str;
 
 	/* generic options */
 
 	if (!strcmp(*argv,"debug")) {
 	    ctrl |= PAM_DEBUG_ARG;
-	} else if (!strncmp(*argv,"conf=",5)) {
-	    pl->conf_file = *argv+5;
+	} else if ((str = pam_str_skip_prefix(*argv, "conf=")) != NULL) {
+	    pl->conf_file = str;
 	} else if (!strcmp(*argv,"utmp_early")) {
 	    ctrl |= PAM_UTMP_EARLY;
 	} else if (!strcmp(*argv,"noaudit")) {
@@ -384,7 +384,7 @@ static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int 
     FILE *limitsfile;
     const char *proclimits = "/proc/1/limits";
     char line[256];
-    char *units, *hard, *soft, *name;
+    char *hard, *soft, *name;
 
     if (!(limitsfile = fopen(proclimits, "r"))) {
         pam_syslog(pamh, LOG_WARNING, "Could not read %s (%s), using PAM defaults", proclimits, strerror(errno));
@@ -401,8 +401,8 @@ static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int 
             line[pos] = '\0';
         }
 
-        /* determine formatting boundry of limits report */
-        if (!maxlen && strncmp(line, "Limit", 5) == 0) {
+        /* determine formatting boundary of limits report */
+        if (!maxlen && pam_str_skip_prefix(line, "Limit") != NULL) {
             maxlen = pos;
             continue;
         }
@@ -410,10 +410,7 @@ static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int 
         if (pos == maxlen) {
             /* step backwards over "Units" name */
             LIMITS_SKIP_WHITESPACE;
-            LIMITS_MARK_ITEM(units);
-        }
-        else {
-            units = "";
+            LIMITS_MARK_ITEM(hard); /* not a typo, units unused */
         }
 
         /* step backwards over "Hard Limit" value */
@@ -1049,7 +1046,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	return PAM_SUCCESS;
     }
     if (retval != PAM_SUCCESS || pl->conf_file != NULL)
-	/* skip reading limits.d if config file explicitely specified */
+	/* skip reading limits.d if config file explicitly specified */
 	goto out;
 
     /* Read subsequent *.conf files, if they exist. */
