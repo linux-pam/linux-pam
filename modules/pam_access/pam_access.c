@@ -812,11 +812,7 @@ network_netmask_match (pam_handle_t *pamh,
 		char buf[INET6_ADDRSTRLEN];
 
 		DIAG_PUSH_IGNORE_CAST_ALIGN;
-		inet_ntop (runp->ai_family,
-			runp->ai_family == AF_INET
-			? (void *) &((struct sockaddr_in *) runp->ai_addr)->sin_addr
-			: (void *) &((struct sockaddr_in6 *) runp->ai_addr)->sin6_addr,
-			buf, sizeof (buf));
+		(void) getnameinfo (runp->ai_addr, runp->ai_addrlen, buf, sizeof (buf), NULL, 0, NI_NUMERICHOST);
 		DIAG_POP_IGNORE_CAST_ALIGN;
 
 		for (runp1 = ai; runp1 != NULL; runp1 = runp1->ai_next)
