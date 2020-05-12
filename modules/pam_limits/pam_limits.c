@@ -28,6 +28,7 @@
 #include <syslog.h>
 #include <stdarg.h>
 #include <signal.h>
+#include <sys/prctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/resource.h>
@@ -88,6 +89,7 @@ struct pam_limit_s {
     int flag_numsyslogins; /* whether to limit logins only for a
 			      specific user or to count all logins */
     int priority;	 /* the priority to run user process with */
+    int nonewprivs;	/* whether to prctl(PR_SET_NO_NEW_PRIVS) */
     struct user_limits_struct limits[RLIM_NLIMITS];
     const char *conf_file;
     int utmp_after_pam_call;
@@ -98,6 +100,7 @@ struct pam_limit_s {
 #define LIMIT_NUMSYSLOGINS RLIM_NLIMITS+2
 
 #define LIMIT_PRI RLIM_NLIMITS+3
+#define LIMIT_NONEWPRIVS RLIM_NLIMITS+4
 
 #define LIMIT_SOFT  1
 #define LIMIT_HARD  2
@@ -551,6 +554,8 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	pl->flag_numsyslogins = 1;
     } else if (strcmp(lim_item, "priority") == 0) {
 	limit_item = LIMIT_PRI;
+    } else if (strcmp(lim_item, "nonewprivs") == 0) {
+	limit_item = LIMIT_NONEWPRIVS;
     } else {
         pam_syslog(pamh, LOG_DEBUG, "unknown limit item '%s'", lim_item);
         return;
@@ -562,11 +567,23 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	limit_type=LIMIT_HARD;
     else if (strcmp(lim_type,"-")==0)
 	limit_type=LIMIT_SOFT | LIMIT_HARD;
-    else if (limit_item != LIMIT_LOGIN && limit_item != LIMIT_NUMSYSLOGINS) {
+    else if (limit_item != LIMIT_LOGIN && limit_item != LIMIT_NUMSYSLOGINS
+		&& limit_item != LIMIT_NONEWPRIVS) {
         pam_syslog(pamh, LOG_DEBUG, "unknown limit type '%s'", lim_type);
         return;
     }
-	if (limit_item != LIMIT_PRI
+	if (limit_item == LIMIT_NONEWPRIVS) {
+		/* just require a bool-style 0 or 1 */
+		if (strcmp(lim_value, "0") == 0) {
+			int_value = 0;
+		} else if (strcmp(lim_value, "1") == 0) {
+			int_value = 1;
+		} else {
+			pam_syslog(pamh, LOG_DEBUG,
+				   "wrong limit value '%s' for limit type '%s'",
+				   lim_value, lim_type);
+		}
+	} else if (limit_item != LIMIT_PRI
 #ifdef RLIMIT_NICE
 	    && limit_item != RLIMIT_NICE
 #endif
@@ -653,7 +670,8 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 
     if ( (limit_item != LIMIT_LOGIN)
 	 && (limit_item != LIMIT_NUMSYSLOGINS)
-	 && (limit_item != LIMIT_PRI) ) {
+	 && (limit_item != LIMIT_PRI)
+	 && (limit_item != LIMIT_NONEWPRIVS) ) {
         if (limit_type & LIMIT_SOFT) {
 	    if (pl->limits[limit_item].src_soft < source) {
                 return;
@@ -674,14 +692,16 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	/* recent kernels support negative priority limits (=raise priority) */
 
 	if (limit_item == LIMIT_PRI) {
-		pl->priority = int_value;
+	    pl->priority = int_value;
+	} else if (limit_item == LIMIT_NONEWPRIVS) {
+	    pl->nonewprivs = int_value;
 	} else {
-	        if (pl->login_limit_def < source) {
-	            return;
-	        } else {
-	            pl->login_limit = int_value;
-	            pl->login_limit_def = source;
-		}
+	    if (pl->login_limit_def < source) {
+		return;
+	    } else {
+		pl->login_limit = int_value;
+		pl->login_limit_def = source;
+	    }
 	}
     }
     return;
@@ -993,6 +1013,13 @@ static int setup_limits(pam_handle_t *pamh,
 	}
     } else if (pl->login_limit == 0) {
         retval |= LOGIN_ERR;
+    }
+
+    if (pl->nonewprivs) {
+	if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) < 0) {
+	    pam_syslog(pamh, LOG_ERR, "Could not set prctl(PR_SET_NO_NEW_PRIVS): %m");
+	    retval |= LIMIT_ERR;
+	}
     }
 
     return retval;

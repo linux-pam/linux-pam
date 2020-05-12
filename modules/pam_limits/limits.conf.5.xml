@@ -228,6 +228,13 @@
               </listitem>
             </varlistentry>
             <varlistentry>
+              <term><option>nonewprivs</option></term>
+              <listitem>
+                <para>value of 0 or 1; if set to 1 disables acquiring new
+                  privileges by invoking prctl(PR_SET_NO_NEW_PRIVS)</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
               <term><option>priority</option></term>
               <listitem>
                 <para>the priority to run user process with (negative
@@ -274,7 +281,8 @@
     <para>
       All items support the values <emphasis>-1</emphasis>,
       <emphasis>unlimited</emphasis> or <emphasis>infinity</emphasis> indicating no limit,
-      except for <emphasis remap='B'>priority</emphasis> and <emphasis remap='B'>nice</emphasis>.
+      except for <emphasis remap='B'>priority</emphasis>, <emphasis remap='B'>nice</emphasis>,
+      and <emphasis remap='B'>nonewprivs</emphasis>.
     </para>
     <para>
       If a hard limit or soft limit of a resource is set to a valid value,
@@ -323,6 +331,7 @@
 @faculty        hard    nproc           50
 ftp             hard    nproc           0
 @student        -       maxlogins       4
+@student        -       nonewprivs      1
 :123            hard    cpu             5000
 @500:           soft    cpu             10000
 600:700         hard    locks           10
