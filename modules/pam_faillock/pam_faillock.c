@@ -394,7 +394,7 @@ get_pam_user(pam_handle_t *pamh, struct options *opts)
 	struct passwd *pwd;
 
 	if ((rv=pam_get_user(pamh, &user, NULL)) != PAM_SUCCESS) {
-		return rv;
+		return rv == PAM_CONV_AGAIN ? PAM_INCOMPLETE : rv;
 	}
 
 	if (*user == '\0') {
