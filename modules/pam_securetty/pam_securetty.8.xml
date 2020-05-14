@@ -115,12 +115,28 @@
         </listitem>
       </varlistentry>
       <varlistentry>
+        <term>PAM_BUF_ERR</term>
+        <listitem>
+          <para>
+            Memory buffer error.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_CONV_ERR</term>
+        <listitem>
+          <para>
+            The conversation method supplied by the application
+            failed to obtain the username.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
         <term>PAM_INCOMPLETE</term>
         <listitem>
           <para>
-            An application error occurred. pam_securetty was not able
-            to get information it required from the application that
-            called it.
+            The conversation method supplied by the application
+            returned PAM_CONV_AGAIN.
           </para>
         </listitem>
       </varlistentry>
