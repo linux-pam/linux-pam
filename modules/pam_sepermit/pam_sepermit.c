@@ -384,8 +384,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	if (debug)
 		pam_syslog(pamh, LOG_NOTICE, "Parsing config file: %s", cfgfile);
 
-	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || user == NULL
-		|| *user == '\0') {
+	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || *user == '\0') {
 		pam_syslog(pamh, LOG_ERR, "Cannot determine the user's name");
 		return PAM_USER_UNKNOWN;
 	}

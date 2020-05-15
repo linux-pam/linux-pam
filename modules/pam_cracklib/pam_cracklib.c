@@ -687,7 +687,7 @@ static int _pam_unix_approve_pass(pam_handle_t *pamh,
     }
 
     retval = pam_get_user(pamh, &user, NULL);
-    if (retval != PAM_SUCCESS || user == NULL) {
+    if (retval != PAM_SUCCESS) {
 	if (ctrl & PAM_DEBUG_ARG)
 		pam_syslog(pamh,LOG_ERR,"Can not get username");
 	return PAM_AUTHTOK_ERR;

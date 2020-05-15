@@ -631,7 +631,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		 * '+' or '-' as the first character of a user name. Don't
 		 * allow them.
 		 */
-		if (user == NULL || user[0] == '-' || user[0] == '+') {
+		if (user[0] == '-' || user[0] == '+') {
 			pam_syslog(pamh, LOG_NOTICE, "bad username [%s]", user);
 			return PAM_USER_UNKNOWN;
 		}

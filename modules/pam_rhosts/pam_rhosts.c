@@ -94,7 +94,7 @@ int pam_sm_authenticate (pam_handle_t *pamh, int flags, int argc,
       return retval;
     }
 
-    if (rhost == NULL || ruser == NULL || luser == NULL)
+    if (rhost == NULL || ruser == NULL)
       return PAM_AUTH_ERR;
 
     if (opt_superuser && strcmp(opt_superuser, luser) == 0)

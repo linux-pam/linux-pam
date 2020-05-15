@@ -296,10 +296,7 @@ get_timestamp_name(pam_handle_t *pamh, int argc, const char **argv,
 		return i;
 	}
 	/* Get the name of the target user. */
-	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
-		user = NULL;
-	}
-	if ((user == NULL) || (strlen(user) == 0)) {
+	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || user[0] == '\0') {
 		return PAM_AUTH_ERR;
 	}
 	if (debug) {

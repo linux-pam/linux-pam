@@ -501,7 +501,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	} else {
 		/* Get the user's name. */
 		ret = pam_get_user(pamh, &user, NULL);
-		if ((ret != PAM_SUCCESS) || (user == NULL)) {
+		if (ret != PAM_SUCCESS) {
 			pam_syslog(pamh, LOG_ERR,
 				   "error retrieving user name: %s",
 				   pam_strerror(pamh, ret));

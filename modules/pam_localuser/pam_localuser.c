@@ -100,7 +100,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		return PAM_SYSTEM_ERR;
 	}
 
-	if ((user == NULL) || (strlen(user) == 0)) {
+	if (strlen(user) == 0) {
 		pam_syslog (pamh, LOG_ERR, "user name not valid");
 		fclose(fp);
 		return PAM_SYSTEM_ERR;

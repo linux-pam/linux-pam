@@ -139,7 +139,7 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
   if (retval != PAM_SUCCESS)
     return retval;
 
-  if (user == NULL || strlen (user) == 0)
+  if (strlen (user) == 0)
     {
       if (options.debug)
 	pam_syslog (pamh, LOG_DEBUG,

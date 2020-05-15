@@ -205,14 +205,10 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
       return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE:retval);
     }
 
-  if (name == NULL || name[0] == '\0')
+  if (name[0] == '\0')
     {
-      if (name)
-        {
-          pam_syslog (pamh, LOG_NOTICE, "bad username [%s]", name);
-          return PAM_USER_UNKNOWN;
-        }
-      return PAM_SERVICE_ERR;
+      pam_syslog (pamh, LOG_NOTICE, "bad username [%s]", name);
+      return PAM_USER_UNKNOWN;
     }
 
   pw = pam_modutil_getpwnam (pamh, name);

@@ -29,7 +29,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	D(("get user returned error: %s", pam_strerror(pamh,retval)));
 	return retval;
     }
-    if (user == NULL || *user == '\0') {
+    if (*user == '\0') {
 	D(("username not known"));
 	retval = pam_set_item(pamh, PAM_USER, (const void *) DEFAULT_USER);
 	if (retval != PAM_SUCCESS)
