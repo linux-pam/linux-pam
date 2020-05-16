@@ -139,15 +139,6 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
   if (retval != PAM_SUCCESS)
     return retval;
 
-  if (strlen (user) == 0)
-    {
-      if (options.debug)
-	pam_syslog (pamh, LOG_DEBUG,
-		    "User is not known to system");
-
-      return PAM_USER_UNKNOWN;
-    }
-
   if (flags & PAM_PRELIM_CHECK)
     {
       if (options.debug)
