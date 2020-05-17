@@ -306,9 +306,19 @@
         <term>N (an unsigned integer)</term>
         <listitem>
            <para>
-	     equivalent to ok with the side effect of jumping over the
-	     next N modules in the stack. Note that N equal to 0 is not
-	     allowed (and it would be identical to ok in such case).
+             jump over the next N modules in the stack.
+             Note that N equal to 0 is not allowed,
+             it would be treated as <emphasis>ignore</emphasis> in such case.
+             The side effect depends on the PAM function call:
+             for <emphasis>pam_authenticate</emphasis>,
+             <emphasis>pam_acct_mgmt</emphasis>,
+             <emphasis>pam_chauthtok</emphasis>, and
+             <emphasis>pam_open_session</emphasis>
+             it is <emphasis>ignore</emphasis>;
+             for <emphasis>pam_setcred</emphasis> and
+             <emphasis>pam_close_session</emphasis> it is
+             one of <emphasis>ignore</emphasis>, <emphasis>ok</emphasis>,
+             or <emphasis>bad</emphasis> depending on the module's return value.
           </para>
         </listitem>
       </varlistentry>
