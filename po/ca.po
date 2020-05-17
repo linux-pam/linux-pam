@@ -9,13 +9,14 @@
 # xqueralt <xqueralt@gmail.com>, 2008
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Robert Antoni Buj Gelonch <robert.buj@gmail.com>, 2020.
+# Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-04-09 15:09+0000\n"
-"Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
+"PO-Revision-Date: 2020-05-17 18:48+0000\n"
+"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Catalan <https://translate.fedoraproject.org/projects/linux-"
 "pam/master/ca/>\n"
 "Language: ca\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11.3\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -431,7 +432,7 @@ msgstr "La contrasenya ja ha estat utilitzada."
 #: modules/pam_selinux/pam_selinux.c:176
 #, c-format
 msgid "The default security context is %s."
-msgstr "El context de seguretat predeterminat és %s"
+msgstr "El context de seguretat predeterminat és %s."
 
 #: modules/pam_selinux/pam_selinux.c:180
 msgid "Would you like to enter a different role or level?"
