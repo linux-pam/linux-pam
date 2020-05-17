@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-04-29 09:15+0000\n"
+"PO-Revision-Date: 2020-05-16 02:40+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://translate.fedoraproject.org/"
 "projects/linux-pam/master/nb_NO/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0.1\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -295,11 +295,10 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s feilet: ukjent status 0x%x"
 
 #: modules/pam_faillock/main.c:104
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
-msgstr ""
-"%s: [--file rooted-filnavn] [--user brukernavn] [--reset[=n]] [--quiet]\n"
+msgstr "Bruk: %s [--dir /sti/til/tally-mappe] [--user brukernavn] [--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
@@ -308,9 +307,9 @@ msgid "The account is locked due to %u failed logins."
 msgstr "Konto låst som følge av %u mislykkede innlogginger."
 
 #: modules/pam_faillock/pam_faillock.c:654
-#, c-format
+#, c-format, fuzzy
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(%d minutter igjen til å låse opp)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
