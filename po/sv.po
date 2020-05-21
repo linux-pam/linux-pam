@@ -8,13 +8,14 @@
 # Göran Uddeborg <goeran@uddeborg.se>, 2012-2013
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Anonymous <noreply@weblate.org>, 2020.
+# Andreas Henriksson <andreas+fedora@fatal.se>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
 "PO-Revision-Date: 2020-05-21 16:26+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Andreas Henriksson <andreas+fedora@fatal.se>\n"
 "Language-Team: Swedish <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/sv/>\n"
 "Language: sv\n"
@@ -311,7 +312,7 @@ msgstr "Kontot är låst på grund av %u misslyckade inloggningar."
 #: modules/pam_faillock/pam_faillock.c:654
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(%d minuter kvar till upplåsning)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
