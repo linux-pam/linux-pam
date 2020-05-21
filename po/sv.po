@@ -456,7 +456,7 @@ msgstr "Inte en giltig säkerhetskontext."
 #: modules/pam_selinux/pam_selinux.c:513
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr "En giltig kontext för %s kunde inte hämtas."
+msgstr "En giltig kontext för %s kunde inte erhållas."
 
 #: modules/pam_selinux/pam_selinux.c:633
 #, fuzzy, c-format
