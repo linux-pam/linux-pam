@@ -88,17 +88,17 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 
 	/* Obtain the user name.  */
 	if ((ret = pam_get_user(pamh, &user, NULL)) != PAM_SUCCESS) {
-		pam_syslog (pamh, LOG_ERR, "cannot determine user name");
+		pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
 		return ret == PAM_CONV_AGAIN ? PAM_INCOMPLETE : ret;
 	}
 
 	if ((user_len = strlen(user)) == 0) {
-		pam_syslog (pamh, LOG_ERR, "user name not valid");
+		pam_syslog(pamh, LOG_NOTICE, "user name is not valid");
 		return PAM_SERVICE_ERR;
 	}
 
 	if (user_len > sizeof(line) - sizeof(":")) {
-		pam_syslog (pamh, LOG_ERR, "user name too long");
+		pam_syslog(pamh, LOG_NOTICE, "user name is too long");
 		return PAM_SERVICE_ERR;
 	}
 
