@@ -383,7 +383,8 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 
     retval = pam_get_user(pamh, &user, NULL);
     if (retval != PAM_SUCCESS) {
-	pam_syslog(pamh, LOG_ERR, "cannot determine username");
+	pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
+		   pam_strerror(pamh, retval));
 	return PAM_USER_UNKNOWN;
     }
 

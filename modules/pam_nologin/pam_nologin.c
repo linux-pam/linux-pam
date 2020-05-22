@@ -65,7 +65,7 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
     int fd = -1;
 
     if ((pam_get_user(pamh, &username, NULL) != PAM_SUCCESS)) {
-	pam_syslog(pamh, LOG_ERR, "cannot determine username");
+	pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
 	return PAM_USER_UNKNOWN;
     }
 

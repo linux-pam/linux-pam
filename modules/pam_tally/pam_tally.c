@@ -234,7 +234,7 @@ pam_get_uid(pam_handle_t *pamh, uid_t *uid, const char **userp, struct tally_opt
     }
 #else
     if ((pam_get_user( pamh, &user, NULL )) != PAM_SUCCESS) {
-      pam_syslog(pamh, LOG_ERR, "pam_get_user; user?");
+      pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
       return PAM_AUTH_ERR;
     }
 #endif

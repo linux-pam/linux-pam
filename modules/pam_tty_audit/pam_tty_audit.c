@@ -268,7 +268,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
 
   if (pam_get_user (pamh, &user, NULL) != PAM_SUCCESS)
     {
-      pam_syslog (pamh, LOG_ERR, "error determining target user's name");
+      pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
       return PAM_SESSION_ERR;
     }
 

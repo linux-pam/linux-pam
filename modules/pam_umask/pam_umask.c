@@ -201,7 +201,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
   /* get the user name. */
   if ((retval = pam_get_user (pamh, &name, NULL)) != PAM_SUCCESS)
     {
-      pam_syslog (pamh, LOG_ERR, "pam_get_user failed: return %d", retval);
+      pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
+		 pam_strerror(pamh, retval));
       return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE:retval);
     }
 

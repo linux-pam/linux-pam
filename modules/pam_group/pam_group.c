@@ -772,7 +772,7 @@ pam_sm_setcred (pam_handle_t *pamh, int flags,
     /* set username */
 
     if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || *user == '\0') {
-	pam_syslog(pamh, LOG_ERR, "cannot determine the user's name");
+	pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
 	return PAM_USER_UNKNOWN;
     }
 

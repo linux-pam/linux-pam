@@ -624,7 +624,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
     /* set username */
 
     if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || *user == '\0') {
-	pam_syslog(pamh, LOG_ERR, "can not get the username");
+	pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
 	return PAM_USER_UNKNOWN;
     }
 

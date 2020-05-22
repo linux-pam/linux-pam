@@ -218,8 +218,9 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags,
 
      retval = pam_get_user(pamh, &username, "username: ");
      if (retval != PAM_SUCCESS) {
-	  pam_syslog(pamh, LOG_WARNING,
-		     "pam_sm_authenticate: failed to get username");
+	  pam_syslog(pamh, LOG_NOTICE,
+		     "pam_sm_authenticate: cannot determine user name: %s",
+		     pam_strerror(pamh, retval));
 	  return retval;
      }
      else if (ctrl & PAM_ST_DEBUG) {

@@ -203,9 +203,8 @@ _pam_loginuid(pam_handle_t *pamh, int flags UNUSED,
 #endif
 
 	/* get user name */
-	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS)
-	{
-		pam_syslog(pamh, LOG_ERR, "error recovering login user-name");
+	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
+		pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
 		return PAM_SESSION_ERR;
 	}
 
