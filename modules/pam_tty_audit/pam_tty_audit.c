@@ -275,7 +275,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
   pwd = pam_modutil_getpwnam(pamh, user);
   if (pwd == NULL)
     {
-      pam_syslog(pamh, LOG_WARNING,
+      pam_syslog(pamh, LOG_NOTICE,
                  "open_session unknown user '%s'", user);
       return PAM_SESSION_ERR;
     }

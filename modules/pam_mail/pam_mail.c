@@ -390,7 +390,7 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 
     pwd = pam_modutil_getpwnam (pamh, user);
     if (pwd == NULL) {
-        pam_syslog(pamh, LOG_ERR, "user unknown");
+        pam_syslog(pamh, LOG_NOTICE, "user unknown");
         return PAM_USER_UNKNOWN;
     }
 

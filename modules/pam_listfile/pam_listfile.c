@@ -254,7 +254,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		   gets set to PAM_USER in the extitem switch */
 		userinfo = pam_modutil_getpwnam(pamh, citemp);
 		if (userinfo == NULL) {
-		    pam_syslog(pamh,LOG_ERR, "getpwnam(%s) failed",
+		    pam_syslog(pamh, LOG_NOTICE, "getpwnam(%s) failed",
 			     citemp);
 		    free(ifname);
 		    return onerr;

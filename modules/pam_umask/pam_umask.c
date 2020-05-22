@@ -209,7 +209,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
   pw = pam_modutil_getpwnam (pamh, name);
   if (pw == NULL)
     {
-      pam_syslog (pamh, LOG_ERR, "account for %s not found", name);
+      pam_syslog (pamh, LOG_NOTICE, "account for %s not found", name);
       return PAM_USER_UNKNOWN;
     }
 

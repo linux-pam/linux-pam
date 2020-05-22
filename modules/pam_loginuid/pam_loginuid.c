@@ -210,7 +210,7 @@ _pam_loginuid(pam_handle_t *pamh, int flags UNUSED,
 
         /* get user info */
 	if ((pwd = pam_modutil_getpwnam(pamh, user)) == NULL) {
-		pam_syslog(pamh, LOG_ERR,
+		pam_syslog(pamh, LOG_NOTICE,
 			 "error: login user-name '%s' does not exist", user);
 		return PAM_SESSION_ERR;
 	}
