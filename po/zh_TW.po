@@ -6,13 +6,14 @@
 # Terry Chuang <tchuang@redhat.com>, 2008-2009
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
+# Yi-Jyun Pan <pan93412@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-03-06 23:59+0000\n"
-"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
+"PO-Revision-Date: 2020-05-24 12:40+0000\n"
+"Last-Translator: Yi-Jyun Pan <pan93412@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.fedoraproject.org/"
 "projects/linux-pam/master/zh_TW/>\n"
 "Language: zh_TW\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.11.2\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -38,35 +39,34 @@ msgstr "錯誤的交談 (%d)\n"
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:184
 #: modules/pam_userdb/pam_userdb.c:65
 msgid "Password: "
-msgstr "密碼："
+msgstr "密碼： "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "新 %s 密碼："
+msgstr "目前的 %s 密碼： "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
 msgid "Current password: "
-msgstr "新 密碼："
+msgstr "目前密碼： "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
 msgid "New %s password: "
-msgstr "新 %s 密碼："
+msgstr "新 %s 密碼： "
 
 #: libpam/pam_get_authtok.c:45
 msgid "New password: "
-msgstr "新 密碼："
+msgstr "新 密碼： "
 
 #: libpam/pam_get_authtok.c:47
 #, c-format
 msgid "Retype new %s password: "
-msgstr "再次輸入新的 %s 密碼："
+msgstr "再次輸入新的 %s 密碼： "
 
 #: libpam/pam_get_authtok.c:48
 msgid "Retype new password: "
-msgstr "再次輸入新的 密碼："
+msgstr "再次輸入新的 密碼： "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
@@ -78,9 +78,8 @@ msgid "Retype %s"
 msgstr "重新輸入 %s"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
-#, fuzzy
 msgid "Password change has been aborted."
-msgstr "已終止密碼變更作業。"
+msgstr "已中止密碼變更作業。"
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -266,15 +265,13 @@ msgstr "包含了某些格式的用戶名稱"
 
 #: modules/pam_cracklib/pam_cracklib.c:697
 #: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "未提供密碼"
+msgstr "未提供密碼。"
 
 #: modules/pam_cracklib/pam_cracklib.c:698
 #: modules/pam_unix/pam_unix_passwd.c:567
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "無法變更 NIS 密碼。"
+msgstr "未變更密碼。"
 
 #: modules/pam_cracklib/pam_cracklib.c:718
 #: modules/pam_cracklib/pam_cracklib.c:800
@@ -298,22 +295,21 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s 失敗：不明狀態 0x%x"
 
 #: modules/pam_faillock/main.c:104
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "用法：%s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "因為嘗試登入 %u 次失敗，帳號已被封鎖"
+msgstr "因為 %u 次登入皆失敗，帳號已鎖定。"
 
 #: modules/pam_faillock/pam_faillock.c:654
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "（%d 分鐘後解鎖）"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
@@ -362,14 +358,13 @@ msgid "There were %d failed login attempts since the last successful login."
 msgstr "自從上次成功登入後有 %d 次嘗試登入失敗。"
 
 #: modules/pam_limits/pam_limits.c:1090
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
-msgstr "對 '%s' 進行太多次登入。"
+msgstr "登入 '%s' 太多次。"
 
 #: modules/pam_mail/pam_mail.c:299
-#, fuzzy
 msgid "You have no mail."
-msgstr "您有新的郵件。"
+msgstr "您沒有新郵件。"
 
 #: modules/pam_mail/pam_mail.c:302
 msgid "You have new mail."
@@ -423,9 +418,9 @@ msgid "Password has been already used."
 msgstr "密碼已被使用過。"
 
 #: modules/pam_selinux/pam_selinux.c:176
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "預設的安全網路位置 %s\n"
+msgstr "預設的安全情境為 %s。"
 
 #: modules/pam_selinux/pam_selinux.c:180
 msgid "Would you like to enter a different role or level?"
@@ -436,33 +431,32 @@ msgid "role:"
 msgstr "角色："
 
 #: modules/pam_selinux/pam_selinux.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "%s 沒有預設的類型\n"
+msgstr "%s 角色沒有預設類型。"
 
 #: modules/pam_selinux/pam_selinux.c:229
 msgid "level:"
 msgstr "層級："
 
 #: modules/pam_selinux/pam_selinux.c:263
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "不是有效的安全網路位置"
+msgstr "此非有效的安全性情境。"
 
 #: modules/pam_selinux/pam_selinux.c:513
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "無法取得 %s 的有效情境。"
 
 #: modules/pam_selinux/pam_selinux.c:633
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "已指定安全網路位置 %s"
+msgstr "已指定 %s 安全情境。"
 
 #: modules/pam_selinux/pam_selinux.c:649
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "已指建置金鑰的定安全網路位置 %s"
+msgstr "已指定 %s 金鑰建立情境。"
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -480,9 +474,9 @@ msgid "login: failure forking: %m"
 msgstr "登入：失敗的分叉：%m"
 
 #: modules/pam_tally/pam_tally.c:543 modules/pam_tally2/pam_tally2.c:595
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "帳號暫時被鎖住（還剩下 %ld 秒）"
+msgstr "帳號被暫時鎖定（剩餘 %ld 秒）。"
 
 #: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:861
 msgid "Authentication error"
@@ -539,39 +533,36 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:360
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "已賦予存取權限（最後一次存取為 %ld 秒前）。"
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr "您的帳戶已經逾期，請洽詢您的系統管理員"
+msgstr "您的帳戶已經過期；請洽詢您的系統管理員。"
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "您必須立刻變更您的密碼 (root 強制執行)"
+msgstr "您必須立刻變更您的密碼（管理員強制執行）。"
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "您必須立刻變更您的密碼 (密碼使用過久)"
+msgstr "您必須立刻變更您的密碼（密碼已經過期）。"
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "警告：您的密碼將於 %d 天內過期"
+msgstr[0] "警告：您的密碼將在 %d 天後過期。"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "警告：您的密碼將在 %d 天之後過期。"
+msgstr "警告：您的密碼將在 %d 天後過期。"
 
 #: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
@@ -582,9 +573,8 @@ msgid "You must choose a shorter password."
 msgstr "您必須選擇較短的密碼。"
 
 #: modules/pam_unix/pam_unix_passwd.c:588
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "您必須選擇更長的密碼"
+msgstr "您的密碼必須更長。"
 
 #: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
@@ -592,6 +582,5 @@ msgid "Changing password for %s."
 msgstr "正在更改 %s 的 STRESS 密碼。"
 
 #: modules/pam_unix/pam_unix_passwd.c:725
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "您必須久候，以更改您的密碼"
+msgstr "請您稍等一陣子後再變更密碼。"
