@@ -275,7 +275,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
        */
       if ((mnt_len > match_size || (mnt_len == 0 && mnt->mnt_dir[0] == '/')) &&
          (s = pam_str_skip_prefix_len(pwd->pw_dir, mnt->mnt_dir, mnt_len)) != NULL &&
-         (s[0] == '\0' || s[0] == '/')) {
+         s[0] == '/') {
         free(mntdevice);
         if ((mntdevice = strdup(mnt->mnt_fsname)) == NULL) {
           pam_syslog(pamh, LOG_CRIT, "Memory allocation error");
