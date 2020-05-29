@@ -107,9 +107,10 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
     int retval = PAM_AUTH_ERR;
 
     retval = pam_get_user(pamh, &username, NULL);
-    if ((retval != PAM_SUCCESS) || (!username)) {
+    if (retval != PAM_SUCCESS) {
         if (ctrl & PAM_DEBUG_ARG) {
-            pam_syslog(pamh, LOG_DEBUG, "can not get the username");
+	    pam_syslog(pamh, LOG_DEBUG, "cannot determine user name: %s",
+		       pam_strerror(pamh, retval));
 	}
         return PAM_SERVICE_ERR;
     }

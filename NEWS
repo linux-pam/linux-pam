@@ -4,9 +4,13 @@ Release 1.4.0
 * Multiple minor bug fixes and documentation improvements
 * Fixed grammar of messages printed via pam_prompt
 * Added support for a vendor directory and libeconf
+* configure: Added --enable-Werror option to enable -Werror build
 * configure: Allowed disabling documentation through --disable-doc
 * pam_get_authtok_verify: Avoid duplicate password verification
+* pam_cracklib: Fixed parsing of options without arguments
 * pam_env: Changed the default to not read the user .pam_environment file
+* pam_exec: Require a user name to be specified before the command is executed
+* pam_faillock: New module for locking after multiple auth failures
 * pam_group, pam_time: Fixed logical error with multiple ! operators
 * pam_keyinit: In pam_sm_setcred do the same as in pam_sm_open_session
 * pam_lastlog: Do not log info about failed login if the session was opened
@@ -14,24 +18,37 @@ Release 1.4.0
 * pam_lastlog: Limit lastlog file use by LASTLOG_UID_MAX option in login.defs
 * pam_lastlog: With 'unlimited' option prevent SIGXFSZ due to reduced 'fsize'
 	       limit
+* pam_mkhomedir: Fixed return value when the user is unknown
 * pam_motd: Export MOTD_SHOWN=pam after showing MOTD
 * pam_motd: Support multiple motd paths specified, with filename overrides
 * pam_namespace: Added a systemd service, which creates the namespaced
 		 instance parent directories during boot
 * pam_namespace: Support for noexec, nosuid and nodev flags for tmpfs mounts
+* pam_selinux: Check unknown object classes or permissions in current policy
+* pam_selinux: Fall back to log to syslog if audit logging fails
+* pam_setquota: New module to set or modify disk quotas on session start
 * pam_shells: Recognize /bin/sh as the default shell
+* pam_succeed_if: Fixed potential override of the default prompt
 * pam_succeed_if: Support lists in group membership checks
+* pam_time: Added conffile= option to specify an alternative configuration file
 * pam_tty_audit: If kernel audit is disabled return PAM_IGNORE
 * pam_umask: Added new 'nousergroups' module argument and allowed specifying
 	     the default for usergroups at build-time
 * pam_unix: Added 'nullresetok' option to allow resetting blank passwords
 * pam_unix: Report unusable hashes found by checksalt to syslog
+* pam_unix: Return PAM_AUTHINFO_UNAVAIL when shadow entry is unavailable
 * pam_unix: Support for (gost-)yescrypt hashing methods
 * pam_unix: Use bcrypt b-variant when it bcrypt is chosen
 * pam_usertype: New module to tell if uid is in login.defs ranges
+* Fixed and documented possible values returned by pam_get_user()
 * Added new API call pam_start_confdir() for special applications that
   cannot use the system-default PAM configuration paths and need to
   explicitly specify another path
+* Deprecated pam_cracklib: this module is no longer built by default and will
+  be removed in the next release, use pam_passwdqc (from passwdqc project)
+  or pam_pwquality (from libpwquality project) instead
+* Deprecated pam_tally and pam_tally2: these modules are no longer built
+  by default and will be removed in the next release, use pam_faillock instead
 
 Release 1.3.1
 * pam_motd: add support for a motd.d directory

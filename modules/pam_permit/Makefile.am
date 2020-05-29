@@ -12,7 +12,7 @@ dist_man_MANS = pam_permit.8
 endif
 XMLS = README.xml pam_permit.8.xml
 dist_check_SCRIPTS = tst-pam_permit
-TESTS = $(dist_check_SCRIPTS)
+TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -26,6 +26,9 @@ endif
 
 securelib_LTLIBRARIES = pam_permit.la
 pam_permit_la_LIBADD = $(top_builddir)/libpam/libpam.la
+
+check_PROGRAMS = tst-pam_permit-retval
+tst_pam_permit_retval_LDADD = $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README

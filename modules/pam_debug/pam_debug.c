@@ -62,28 +62,7 @@ static int parse_args(int retval, const char *event,
 int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 			int argc, const char **argv)
 {
-    int retval;
-    const char *user=NULL;
-
-    /*
-     * authentication requires we know who the user wants to be
-     */
-    retval = pam_get_user(pamh, &user, NULL);
-    if (retval != PAM_SUCCESS) {
-	D(("get user returned error: %s", pam_strerror(pamh,retval)));
-	return retval;
-    }
-    if (user == NULL || *user == '\0') {
-	D(("username not known"));
-	retval = pam_set_item(pamh, PAM_USER, (const void *) DEFAULT_USER);
-	if (retval != PAM_SUCCESS)
-	    return retval;
-    }
-    user = NULL;                                            /* clean up */
-
-    retval = parse_args(PAM_SUCCESS, "auth", pamh, argc, argv);
-
-    return retval;
+    return parse_args(PAM_SUCCESS, "auth", pamh, argc, argv);
 }
 
 int pam_sm_setcred(pam_handle_t *pamh, int flags UNUSED,

@@ -188,7 +188,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	int rval;
 
 	rval=pam_get_user(pamh,&user_name,NULL);
-	if((rval==PAM_SUCCESS) && user_name && user_name[0]) {
+	if(rval==PAM_SUCCESS && user_name[0]) {
 	    /* Got it ? Valid ? */
 	    if(apply_type==APPLY_TYPE_USER) {
 		if(strcmp(user_name, apply_val)) {
@@ -225,7 +225,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     }
     if((citem == PAM_USER) && !citemp) {
 	retval = pam_get_user(pamh,&citemp,NULL);
-	if (retval != PAM_SUCCESS || !citemp) {
+	if (retval != PAM_SUCCESS) {
 	    free(ifname);
 	    return PAM_SERVICE_ERR;
 	}
@@ -254,7 +254,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		   gets set to PAM_USER in the extitem switch */
 		userinfo = pam_modutil_getpwnam(pamh, citemp);
 		if (userinfo == NULL) {
-		    pam_syslog(pamh,LOG_ERR, "getpwnam(%s) failed",
+		    pam_syslog(pamh, LOG_NOTICE, "getpwnam(%s) failed",
 			     citemp);
 		    free(ifname);
 		    return onerr;

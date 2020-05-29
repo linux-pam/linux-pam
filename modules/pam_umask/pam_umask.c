@@ -201,24 +201,15 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
   /* get the user name. */
   if ((retval = pam_get_user (pamh, &name, NULL)) != PAM_SUCCESS)
     {
-      pam_syslog (pamh, LOG_ERR, "pam_get_user failed: return %d", retval);
+      pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
+		 pam_strerror(pamh, retval));
       return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE:retval);
-    }
-
-  if (name == NULL || name[0] == '\0')
-    {
-      if (name)
-        {
-          pam_syslog (pamh, LOG_NOTICE, "bad username [%s]", name);
-          return PAM_USER_UNKNOWN;
-        }
-      return PAM_SERVICE_ERR;
     }
 
   pw = pam_modutil_getpwnam (pamh, name);
   if (pw == NULL)
     {
-      pam_syslog (pamh, LOG_ERR, "account for %s not found", name);
+      pam_syslog (pamh, LOG_NOTICE, "account for %s not found", name);
       return PAM_USER_UNKNOWN;
     }
 

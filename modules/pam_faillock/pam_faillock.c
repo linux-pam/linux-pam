@@ -394,7 +394,7 @@ get_pam_user(pam_handle_t *pamh, struct options *opts)
 	struct passwd *pwd;
 
 	if ((rv=pam_get_user(pamh, &user, NULL)) != PAM_SUCCESS) {
-		return rv;
+		return rv == PAM_CONV_AGAIN ? PAM_INCOMPLETE : rv;
 	}
 
 	if (*user == '\0') {
@@ -403,10 +403,10 @@ get_pam_user(pam_handle_t *pamh, struct options *opts)
 
 	if ((pwd=pam_modutil_getpwnam(pamh, user)) == NULL) {
 		if (opts->flags & FAILLOCK_FLAG_AUDIT) {
-			pam_syslog(pamh, LOG_ERR, "User unknown: %s", user);
+			pam_syslog(pamh, LOG_NOTICE, "User unknown: %s", user);
 		}
 		else {
-			pam_syslog(pamh, LOG_ERR, "User unknown");
+			pam_syslog(pamh, LOG_NOTICE, "User unknown");
 		}
 		return PAM_IGNORE;
 	}

@@ -382,14 +382,15 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
     ctrl = _pam_parse(pamh, flags, argc, argv, &path_mail, &hashcount);
 
     retval = pam_get_user(pamh, &user, NULL);
-    if (retval != PAM_SUCCESS || user == NULL) {
-	pam_syslog(pamh, LOG_ERR, "cannot determine username");
+    if (retval != PAM_SUCCESS) {
+	pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
+		   pam_strerror(pamh, retval));
 	return PAM_USER_UNKNOWN;
     }
 
     pwd = pam_modutil_getpwnam (pamh, user);
     if (pwd == NULL) {
-        pam_syslog(pamh, LOG_ERR, "user unknown");
+        pam_syslog(pamh, LOG_NOTICE, "user unknown");
         return PAM_USER_UNKNOWN;
     }
 

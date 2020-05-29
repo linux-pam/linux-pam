@@ -40,18 +40,6 @@ static int perform_check(pam_handle_t *pamh)
 	return PAM_SERVICE_ERR;
     }
 
-    if (!userName || (userName[0] == '\0')) {
-
-	/* Don't let them use a NULL username... */
-	retval = pam_get_user(pamh,&userName,NULL);
-        if (retval != PAM_SUCCESS)
-	    return PAM_SERVICE_ERR;
-
-	/* It could still be NULL the second time. */
-	if (!userName || (userName[0] == '\0'))
-	    return PAM_SERVICE_ERR;
-    }
-
     pw = pam_modutil_getpwnam(pamh, userName);
     if (pw == NULL || pw->pw_shell == NULL) {
 	return PAM_AUTH_ERR;		/* user doesn't exist */

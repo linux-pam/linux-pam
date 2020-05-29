@@ -425,8 +425,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 
 	/* Read the target user's name. */
 	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
-		pam_syslog(pamh, LOG_ERR,
-			   "error determining target user's name");
+		pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
 		retval = PAM_SESSION_ERR;
 		goto cleanup;
 	}
@@ -442,7 +441,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	 * on the xauthority file we create later on. */
 	tpwd = pam_modutil_getpwnam(pamh, user);
 	if (tpwd == NULL) {
-		pam_syslog(pamh, LOG_ERR,
+		pam_syslog(pamh, LOG_NOTICE,
 			   "error determining target user's UID");
 		retval = PAM_SESSION_ERR;
 		goto cleanup;
@@ -782,12 +781,11 @@ pam_sm_close_session (pam_handle_t *pamh, int flags UNUSED,
 	}
 
 	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
-		pam_syslog(pamh, LOG_ERR,
-			   "error determining target user's name");
+		pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
 		return PAM_SESSION_ERR;
 	}
 	if (!(tpwd = pam_modutil_getpwnam(pamh, user))) {
-		pam_syslog(pamh, LOG_ERR,
+		pam_syslog(pamh, LOG_NOTICE,
 			   "error determining target user's UID");
 		return PAM_SESSION_ERR;
 	}

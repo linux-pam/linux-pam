@@ -83,9 +83,10 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
     }
 
     retval = pam_get_user(pamh, &username, NULL);
-    if (retval != PAM_SUCCESS || username == NULL) {
-        pam_syslog(pamh, LOG_WARNING, "cannot determine username");
-	return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE:PAM_SERVICE_ERR);
+    if (retval != PAM_SUCCESS) {
+	pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
+		   pam_strerror(pamh, retval));
+	return (retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE : retval);
     }
 
     user_pwd = pam_modutil_getpwnam(pamh, username);

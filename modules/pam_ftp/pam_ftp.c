@@ -119,8 +119,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     ctrl = _pam_parse(pamh, argc, argv, &users);
 
     retval = pam_get_user(pamh, &user, NULL);
-    if (retval != PAM_SUCCESS || user == NULL) {
-	pam_syslog(pamh, LOG_ERR, "no user specified");
+    if (retval != PAM_SUCCESS) {
+	pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
+		   pam_strerror(pamh, retval));
 	return PAM_USER_UNKNOWN;
     }
 

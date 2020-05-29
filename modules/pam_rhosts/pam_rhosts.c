@@ -90,11 +90,12 @@ int pam_sm_authenticate (pam_handle_t *pamh, int flags, int argc,
 
     retval = pam_get_user(pamh, &luser, NULL);
     if (retval != PAM_SUCCESS) {
-      pam_syslog(pamh, LOG_ERR, "could not determine name of local user");
+      pam_syslog(pamh, LOG_NOTICE, "cannot determine local user name: %s",
+		 pam_strerror(pamh, retval));
       return retval;
     }
 
-    if (rhost == NULL || ruser == NULL || luser == NULL)
+    if (rhost == NULL || ruser == NULL)
       return PAM_AUTH_ERR;
 
     if (opt_superuser && strcmp(opt_superuser, luser) == 0)

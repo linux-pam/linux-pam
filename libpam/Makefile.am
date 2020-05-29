@@ -18,7 +18,7 @@ include_HEADERS = include/security/_pam_compat.h \
 
 noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h \
 		pam_modutil_private.h include/pam_cc_compat.h \
-		include/pam_inline.h
+		include/pam_inline.h include/test_assert.h
 
 libpam_la_LDFLAGS = -no-undefined -version-info 85:1:85
 libpam_la_LIBADD = @LIBAUDIT@ $(LIBPRELUDE_LIBS) $(ECONF_LIBS) @LIBDL@

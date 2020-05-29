@@ -268,14 +268,14 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc, const char **argv)
 
   if (pam_get_user (pamh, &user, NULL) != PAM_SUCCESS)
     {
-      pam_syslog (pamh, LOG_ERR, "error determining target user's name");
+      pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
       return PAM_SESSION_ERR;
     }
 
   pwd = pam_modutil_getpwnam(pamh, user);
   if (pwd == NULL)
     {
-      pam_syslog(pamh, LOG_WARNING,
+      pam_syslog(pamh, LOG_NOTICE,
                  "open_session unknown user '%s'", user);
       return PAM_SESSION_ERR;
     }

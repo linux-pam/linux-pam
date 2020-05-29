@@ -126,10 +126,10 @@ pam_usertype_get_uid(struct pam_usertype_opts *opts,
 
     /* Get uid of user that is being authenticated. */
     ret = pam_get_user(pamh, &username, NULL);
-    if (ret != PAM_SUCCESS || username == NULL) {
-        pam_syslog(pamh, LOG_ERR, "error retrieving user name: %s",
+    if (ret != PAM_SUCCESS) {
+        pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
                    pam_strerror(pamh, ret));
-        return ret;
+        return ret == PAM_CONV_AGAIN ? PAM_INCOMPLETE : ret;
     }
 
     pwd = pam_modutil_getpwnam(pamh, username);

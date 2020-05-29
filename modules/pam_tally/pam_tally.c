@@ -227,22 +227,22 @@ pam_get_uid(pam_handle_t *pamh, uid_t *uid, const char **userp, struct tally_opt
 
 #ifdef MAIN
     user = cline_user;
+
+    if ( !user ) {
+      pam_syslog(pamh, LOG_ERR, "pam_get_uid; user?");
+      return PAM_AUTH_ERR;
+    }
 #else
     if ((pam_get_user( pamh, &user, NULL )) != PAM_SUCCESS) {
-      pam_syslog(pamh, LOG_ERR, "pam_get_user; user?");
+      pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
       return PAM_AUTH_ERR;
     }
 #endif
 
-    if ( !user || !*user ) {
-      pam_syslog(pamh, LOG_ERR, "pam_get_uid; user?");
-      return PAM_AUTH_ERR;
-    }
-
     if ( ! ( pw = pam_modutil_getpwnam( pamh, user ) ) ) {
       opts->ctrl & OPT_AUDIT ?
-	      pam_syslog(pamh, LOG_ERR, "pam_get_uid; no such user %s", user) :
-	      pam_syslog(pamh, LOG_ERR, "pam_get_uid; no such user");
+	      pam_syslog(pamh, LOG_NOTICE, "pam_get_uid; no such user %s", user) :
+	      pam_syslog(pamh, LOG_NOTICE, "pam_get_uid; no such user");
       return PAM_USER_UNKNOWN;
     }
 

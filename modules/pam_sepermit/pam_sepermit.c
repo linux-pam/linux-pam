@@ -227,7 +227,8 @@ sepermit_lock(pam_handle_t *pamh, const char *user, int debug)
 
 	struct passwd *pw = pam_modutil_getpwnam( pamh, user );
 	if (!pw) {
-		pam_syslog(pamh, LOG_ERR, "Unable to find uid for user %s", user);
+		pam_syslog(pamh, LOG_NOTICE, "Unable to find uid for user %s",
+			   user);
 		return -1;
 	}
 	if (check_running(pamh, pw->pw_uid, 0, debug) > 0)  {
@@ -384,9 +385,8 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	if (debug)
 		pam_syslog(pamh, LOG_NOTICE, "Parsing config file: %s", cfgfile);
 
-	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || user == NULL
-		|| *user == '\0') {
-		pam_syslog(pamh, LOG_ERR, "Cannot determine the user's name");
+	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || *user == '\0') {
+		pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
 		return PAM_USER_UNKNOWN;
 	}
 

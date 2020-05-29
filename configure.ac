@@ -375,16 +375,26 @@ case "$ac_cv_search_dlopen" in
 esac
 AC_SUBST(LIBDL)
 
-# Check for cracklib
 AC_ARG_ENABLE([cracklib],
-        AS_HELP_STRING([--disable-cracklib],[do not use cracklib]),
-        WITH_CRACKLIB=$enableval, WITH_CRACKLIB=yes)
-if test x"$WITH_CRACKLIB" != xno ; then
-        AC_CHECK_HEADERS([crack.h],
-              AC_CHECK_LIB([crack], [FascistCheck], LIBCRACK="-lcrack", LIBCRACK=""))
-else
-	LIBCRACK=""
-fi
+	      [AS_HELP_STRING([--enable-cracklib],
+			      [build deprecated pam_cracklib module])],
+	      [], [enable_cracklib=no])
+LIBCRACK=""
+case "$enable_cracklib" in
+  no) ;;
+  yes|check)
+    dnl Check for cracklib
+    AC_CHECK_HEADERS([crack.h],
+		     [AC_CHECK_LIB([crack], [FascistCheck],
+				   [LIBCRACK="-lcrack"])])
+    if test -z "$LIBCRACK"; then
+      if test "$enable_cracklib" = yes; then
+	AC_MSG_FAILURE([failed to find cracklib])
+      fi
+    fi
+    ;;
+  *) AC_MSG_ERROR([bad value $enable_cracklib for --enable-cracklib option]) ;;
+esac
 AC_SUBST(LIBCRACK)
 
 dnl Look for Linux Auditing library - see documentation
@@ -666,16 +676,18 @@ fi
 AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel overflow uid.])
 
 AC_ARG_ENABLE([tally],
-	      [AS_HELP_STRING([--disable-tally], [do not build pam_tally module])],
-	      [], [enable_tally=yes])
+	      [AS_HELP_STRING([--enable-tally],
+			      [build deprecated pam_tally module])],
+	      [], [enable_tally=no])
 case "$enable_tally" in
   yes|no) ;;
   *) AC_MSG_ERROR([bad value $enable_tally for --enable-tally option]) ;;
 esac
 
 AC_ARG_ENABLE([tally2],
-	      [AS_HELP_STRING([--disable-tally2], [do not build pam_tally2 module])],
-	      [], [enable_tally2=yes])
+	      [AS_HELP_STRING([--enable-tally2],
+			      [build deprecated pam_tally2 module])],
+	      [], [enable_tally2=no])
 case "$enable_tally2" in
   yes|no) ;;
   *) AC_MSG_ERROR([bad value $enable_tally2 for --enable-tally2 option]) ;;

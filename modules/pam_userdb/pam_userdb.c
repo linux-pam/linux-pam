@@ -346,8 +346,9 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 
      /* Get the username */
      retval = pam_get_user(pamh, &username, NULL);
-     if ((retval != PAM_SUCCESS) || (!username)) {
-        pam_syslog(pamh, LOG_ERR, "can not get the username");
+     if (retval != PAM_SUCCESS) {
+        pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
+                   pam_strerror(pamh, retval));
         return PAM_SERVICE_ERR;
      }
 
@@ -437,8 +438,9 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 
     /* Get the username */
     retval = pam_get_user(pamh, &username, NULL);
-    if ((retval != PAM_SUCCESS) || (!username)) {
-        pam_syslog(pamh, LOG_ERR,"can not get the username");
+    if (retval != PAM_SUCCESS) {
+        pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
+                   pam_strerror(pamh, retval));
         return PAM_SERVICE_ERR;
     }
 
