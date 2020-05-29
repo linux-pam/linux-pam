@@ -171,7 +171,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 		    int argc, const char **argv)
 {
   int retval;
-  char *val, *mntdevice = NULL;
+  char *val, *mntdevice = NULL, *mntpoint = NULL;
   const void *user;
   const struct passwd *pwd;
   struct pam_params param = {
@@ -277,11 +277,18 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
          (s = pam_str_skip_prefix_len(pwd->pw_dir, mnt->mnt_dir, mnt_len)) != NULL &&
          (s[0] == '\0' || s[0] == '/')) {
         free(mntdevice);
+	free(mntpoint);
         if ((mntdevice = strdup(mnt->mnt_fsname)) == NULL) {
           pam_syslog(pamh, LOG_CRIT, "Memory allocation error");
           endmntent(fp);
           return PAM_PERM_DENIED;
         }
+	if ((mntpoint = strdup(mnt->mnt_dir)) == NULL) {
+	  pam_syslog(pamh, LOG_CRIT, "Memory allocation error");
+	  endmntent(fp);
+	  free(mntdevice);
+	  return PAM_PERM_DENIED;
+	}
         match_size = mnt_len;
         if (param.debug >= 2)
           pam_syslog(pamh, LOG_DEBUG, "Found pw_dir=\"%s\" in mnt_dir=\"%s\" "
@@ -311,7 +318,13 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     pam_syslog(pamh, LOG_ERR, "Filesystem or device not found: %s", param.fs ? param.fs : pwd->pw_dir);
     return PAM_PERM_DENIED;
   }
-
+  if (mntpoint != NULL && strcmp(mntpoint, pwd->pw_dir) == 0) {
+    if (param.debug >= 2)
+      pam_syslog(pamh, LOG_DEBUG, "user's HOME is a mount point, not setting quota");
+    free(mntdevice);
+    free(mntpoint);
+    return PAM_SUCCESS;
+  }
   /* Get limits */
   if (quotactl(QCMD(Q_GETQUOTA, USRQUOTA), mntdevice, pwd->pw_uid,
                (void *)&ndqblk) == -1) {
