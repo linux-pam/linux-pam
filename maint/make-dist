@@ -1,0 +1,32 @@
+#!/bin/sh -e
+#
+# Copyright (c) 2009-2020 The strace developers.
+# All rights reserved.
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
+id="$(git rev-parse --verify "${1:-@}^{commit}")"
+
+j=-j`nproc 2> /dev/null` || j=
+
+distdir=Linux-PAM-dist-$$
+abs_distdir="`pwd`/$distdir"
+trap 'chmod -Rf u+w $abs_distdir; rm -rf $abs_distdir' 1 2 15 0
+
+set -x
+git clone -q -n -s .git "$distdir"
+
+cd $distdir
+git config advice.detachedHead false
+git checkout -f "$id"
+
+./autogen.sh
+
+DISTCHECK_CONFIGURE_FLAGS='--disable-dependency-tracking --enable-Werror'
+export DISTCHECK_CONFIGURE_FLAGS
+./configure $DISTCHECK_CONFIGURE_FLAGS
+
+make -s $j distcheck
+make -s $j releasedocs
+
+mv -f Linux-PAM-*.tar.* ..
