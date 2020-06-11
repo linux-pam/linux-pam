@@ -58,6 +58,11 @@ extern "C" {
 
 #include <security/_pam_types.h>
 
+extern int PAM_NONNULL((1,2))
+pam_modutil_check_user_in_passwd(pam_handle_t *pamh,
+                                 const char *user_name,
+                                 const char *file_name);
+
 extern struct passwd * PAM_NONNULL((1,2))
 pam_modutil_getpwnam(pam_handle_t *pamh, const char *user);
 

@@ -82,3 +82,8 @@ LIBPAM_1.4 {
   global:
     pam_start_confdir;
 } LIBPAM_1.0;
+
+LIBPAM_MODUTIL_1.4.1 {
+  global:
+    pam_modutil_check_user_in_passwd;
+} LIBPAM_MODUTIL_1.3.2;
