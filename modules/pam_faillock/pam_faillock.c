@@ -71,8 +71,6 @@
 #define MAX_TIME_INTERVAL 604800 /* 7 days */
 #define FAILLOCK_CONF_MAX_LINELEN 1023
 
-#define PATH_PASSWD "/etc/passwd"
-
 static const char default_faillock_conf[] = FAILLOCK_DEFAULT_CONF;
 
 struct options {
@@ -348,42 +346,7 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name, const c
 static int
 check_local_user (pam_handle_t *pamh, const char *user)
 {
-	struct passwd pw, *pwp;
-	char buf[16384];
-	int found = 0;
-	FILE *fp;
-	int errn;
-
-	fp = fopen(PATH_PASSWD, "r");
-	if (fp == NULL) {
-		pam_syslog(pamh, LOG_ERR, "unable to open %s: %m",
-			   PATH_PASSWD);
-		return -1;
-	}
-
-	for (;;) {
-		errn = fgetpwent_r(fp, &pw, buf, sizeof (buf), &pwp);
-		if (errn == ERANGE) {
-			pam_syslog(pamh, LOG_WARNING, "%s contains very long lines; corrupted?",
-				   PATH_PASSWD);
-			break;
-		}
-		if (errn != 0)
-			break;
-		if (strcmp(pwp->pw_name, user) == 0) {
-			found = 1;
-			break;
-		}
-	}
-
-	fclose (fp);
-
-	if (errn != 0 && errn != ENOENT) {
-		pam_syslog(pamh, LOG_ERR, "unable to enumerate local accounts: %m");
-		return -1;
-	} else {
-		return found;
-	}
+	return pam_modutil_check_user_in_passwd(pamh, user, NULL) == PAM_SUCCESS;
 }
 
 static int
