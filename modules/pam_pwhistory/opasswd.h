@@ -41,5 +41,7 @@ extern int check_old_pass (pam_handle_t *pamh, const char *user,
 extern int save_old_pass (pam_handle_t *pamh, const char *user,
 			  uid_t uid, const char *oldpass,
 			  int howmany, int debug);
-
+/*check if newpass and current password are the same */
+extern int check_current_pass (pam_handle_t *pamh, const char *user,
+		const char *oldpass,const char *newpass, int debug);
 #endif /* __OPASSWD_H__ */

@@ -108,16 +108,16 @@ parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
 
 /* This module saves the current crypted password in /etc/security/opasswd
    and then compares the new password with all entries in this file. */
-
 int
 pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
   struct passwd *pwd;
+  struct spwd *spw;
   const char *newpass;
+  const char *oldpass;
   const char *user;
-    int retval, tries;
+  int retval, tries;
   options_t options;
-
   memset (&options, 0, sizeof (options));
 
   /* Set some default values, which could be overwritten later.  */
@@ -131,10 +131,6 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
   if (options.debug)
     pam_syslog (pamh, LOG_DEBUG, "pam_sm_chauthtok entered");
 
-
-  if (options.remember == 0)
-    return PAM_IGNORE;
-
   retval = pam_get_user (pamh, &user, NULL);
   if (retval != PAM_SUCCESS)
     return retval;
@@ -144,35 +140,36 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
       if (options.debug)
 	pam_syslog (pamh, LOG_DEBUG,
 		    "pam_sm_chauthtok(PAM_PRELIM_CHECK)");
-
       return PAM_SUCCESS;
     }
 
   pwd = pam_modutil_getpwnam (pamh, user);
   if (pwd == NULL)
-    return PAM_USER_UNKNOWN;
+  return PAM_USER_UNKNOWN;
 
+  oldpass = pwd->pw_passwd;
   if ((strcmp(pwd->pw_passwd, "x") == 0)  ||
       ((pwd->pw_passwd[0] == '#') &&
        (pwd->pw_passwd[1] == '#') &&
        (strcmp(pwd->pw_name, pwd->pw_passwd + 2) == 0)))
     {
-      struct spwd *spw = pam_modutil_getspnam (pamh, user);
+      spw = pam_modutil_getspnam (pamh, user);
       if (spw == NULL)
-	return PAM_USER_UNKNOWN;
+	       return PAM_USER_UNKNOWN;
 
-      retval = save_old_pass (pamh, user, pwd->pw_uid, spw->sp_pwdp,
-			      options.remember, options.debug);
-      if (retval != PAM_SUCCESS)
-	return retval;
+	  oldpass = spw->sp_pwdp ;
+	  if(options.debug)
+	      pam_syslog (pamh, LOG_DEBUG,
+					"current password=%s , pwd->pw_uid= %d",oldpass, pwd->pw_uid);
     }
-  else
-    {
-      retval = save_old_pass (pamh, user, pwd->pw_uid, pwd->pw_passwd,
+	  //save the oldpass into opasswd
+  if(options.remember)
+  {
+     retval = save_old_pass (pamh, user, pwd->pw_uid,oldpass,
 			      options.remember, options.debug);
-      if (retval != PAM_SUCCESS)
-	return retval;
-    }
+     if (retval != PAM_SUCCESS)
+          return retval;
+  }
 
   newpass = NULL;
   tries = 0;
@@ -196,14 +193,14 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	}
 
       if (newpass == NULL || retval == PAM_TRY_AGAIN)
-	continue;
+	       continue;
 
+    if(options.remember)
+    {
       if (options.debug)
-	pam_syslog (pamh, LOG_DEBUG, "check against old password file");
-
-      if (check_old_pass (pamh, user, newpass,
-			  options.debug) != PAM_SUCCESS)
-	{
+	   pam_syslog (pamh, LOG_DEBUG, "check against old password file");
+      if (check_old_pass (pamh, user, newpass,options.debug) != PAM_SUCCESS)
+	  {
 	  if (getuid() || options.enforce_for_root ||
 	      (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
 	    {
@@ -216,8 +213,24 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	  else
 	    pam_info (pamh,
 		       _("Password has been already used."));
-	}
+	   }
     }
+    else
+    {
+	   if(check_current_pass(pamh, user, oldpass,newpass,options.debug)!= PAM_SUCCESS)
+	   {
+	      if (getuid() || options.enforce_for_root ||
+	      (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
+	     {
+	       pam_error (pamh,
+		         _("The new password is same with current passwd.Choose another"));
+	       newpass = NULL;
+	       pam_set_item (pamh, PAM_AUTHTOK, (void *) NULL);
+	     }else
+		pam_info (pamh,_("The new password is same with current passwd"));
+	   }
+    }//end if rember
+   }// end while
 
   if (newpass == NULL && tries >= options.tries)
     {
