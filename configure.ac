@@ -662,21 +662,18 @@ dnl
 dnl Get values for default uid ranges in login.defs used in pam_usertype
 dnl
 AC_ARG_WITH([uidmin], AS_HELP_STRING([--with-uidmin=<number>],[default value for regular user min uid (1000)]), opt_uidmin=$withval)
-if test x"$opt_uidmin" == x; then
-    opt_uidmin=1000
-fi
+test -n "$opt_uidmin" ||
+          opt_uidmin=1000
 AC_DEFINE_UNQUOTED(PAM_USERTYPE_UIDMIN, $opt_uidmin, [Minimum regular user uid.])
 
 AC_ARG_WITH([sysuidmin], AS_HELP_STRING([--with-sysuidmin=<number>],[default value for system user min uid (101)]), opt_sysuidmin=$withval)
-if test x"$opt_sysuidmin" == x; then
-    opt_sysuidmin=101
-fi
+test -n "$opt_sysuidmin" ||
+          opt_sysuidmin=101
 AC_DEFINE_UNQUOTED(PAM_USERTYPE_SYSUIDMIN, $opt_sysuidmin, [Minimum system user uid.])
 
 AC_ARG_WITH([kerneloverflowuid], AS_HELP_STRING([--with-kernel-overflow-uid=<number>],[kernel overflow uid, default (uint16_t)-2=65534]), opt_kerneloverflowuid=$withval)
-if test x"$opt_kerneloverflowuid" == x; then
-    opt_kerneloverflowuid=65534
-fi
+test -n "$opt_kerneloverflowuid" ||
+          opt_kerneloverflowuid=65534
 AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel overflow uid.])
 
 AC_ARG_ENABLE([tally],
