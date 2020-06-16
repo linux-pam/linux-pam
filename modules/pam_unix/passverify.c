@@ -1096,6 +1096,12 @@ helper_verify_password(const char *name, const char *p, int nullok)
 	if (pwd == NULL || hash == NULL) {
 		helper_log_err(LOG_NOTICE, "check pass; user unknown");
 		retval = PAM_USER_UNKNOWN;
+	} else if (p[0] == '\0' && nullok) {
+		if (hash[0] == '\0') {
+			retval = PAM_SUCCESS;
+		} else {
+			retval = PAM_AUTH_ERR;
+		}
 	} else {
 		retval = verify_pwd_hash(p, hash, nullok);
 	}

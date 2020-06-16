@@ -601,6 +601,8 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 	char *salt = NULL;
 	int daysleft;
 	int retval;
+	int execloop = 1;
+	int nonexistent = 1;
 
 	D(("called"));
 
@@ -624,14 +626,31 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 
 	/* UNIX passwords area */
 
-	retval = get_pwd_hash(pamh, name, &pwd, &salt);
+	/*
+	 * Execute this loop twice: one checking the password hash of an existing
+	 * user and another one for a non-existing user. This way the runtimes
+	 * are equal, making it more difficult to differentiate existing from
+	 * non-existing users.
+	 */
+	while (execloop) {
+		retval = get_pwd_hash(pamh, name, &pwd, &salt);
 
-	if (retval == PAM_UNIX_RUN_HELPER) {
-		/* salt will not be set here so we can return immediately */
-		if (_unix_run_helper_binary(pamh, NULL, ctrl, name) == PAM_SUCCESS)
-			return 1;
-		else
-			return 0;
+		if (retval == PAM_UNIX_RUN_HELPER) {
+			execloop = 0;
+			if(nonexistent) {
+				get_pwd_hash(pamh, "pam_unix_non_existent:", &pwd, &salt);
+			}
+			/* salt will not be set here so we can return immediately */
+			if (_unix_run_helper_binary(pamh, NULL, ctrl, name) == PAM_SUCCESS)
+				return 1;
+			else
+				return 0;
+		} else if (retval == PAM_USER_UNKNOWN) {
+			name = "root";
+			nonexistent = 0;
+		} else {
+			execloop = 0;
+		}
 	}
 
 	/* Does this user have a password? */
