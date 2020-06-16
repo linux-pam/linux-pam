@@ -139,8 +139,11 @@ pam_usertype_get_uid(struct pam_usertype_opts *opts,
                        "error retrieving information about user %s", username);
         }
 
+        pam_modutil_getpwnam(pamh, "root");
+
         return PAM_USER_UNKNOWN;
     }
+    pam_modutil_getpwnam(pamh, "pam_usertype_non_existent:");
 
     *_uid = pwd->pw_uid;
 
