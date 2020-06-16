@@ -60,7 +60,9 @@ pam_modutil_check_user_in_passwd(pam_handle_t *pamh,
 		if (strncmp(user_name, line, user_len) == 0 &&
 		    line[user_len] == ':') {
 			rc = PAM_SUCCESS;
-			break;
+			/*
+			 * Continue reading the file to avoid timing attacks.
+			 */
 		}
 		/* Has a newline been read?  */
 		line_len = strlen(line);
