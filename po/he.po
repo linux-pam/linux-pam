@@ -4,20 +4,22 @@
 #
 # Translators:
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Yaron Shahrabani <sh.yaron@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2011-11-30 06:57-0500\n"
-"Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
-"Language-Team: Hebrew <he-users@lists.fedoraproject.org>\n"
+"PO-Revision-Date: 2020-06-24 09:40+0000\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: Hebrew <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 4.1.1\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -25,12 +27,12 @@ msgstr "...הזמן עומד להיגמר...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "...מצטער, הזמן נגמר!\n"
+msgstr "...סליחה, זמנך עבר!\n"
 
 #: libpam_misc/misc_conv.c:346
 #, c-format
 msgid "erroneous conversation (%d)\n"
-msgstr ""
+msgstr "דיון שגוי (%d)\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:184
 #: modules/pam_userdb/pam_userdb.c:65
@@ -38,34 +40,31 @@ msgid "Password: "
 msgstr "ססמה: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "ססמת יוניקס (נוכחית): "
+msgstr "ססמת %s נוכחית: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
 msgid "Current password: "
-msgstr "ססמת יוניקס (נוכחית): "
+msgstr "ססמה נוכחית: "
 
 #: libpam/pam_get_authtok.c:44
-#, fuzzy, c-format
+#, c-format
 msgid "New %s password: "
-msgstr "ססמת יוניקס (נוכחית): "
+msgstr "ססמת %s חדשה: "
 
 #: libpam/pam_get_authtok.c:45
-#, fuzzy
 msgid "New password: "
-msgstr "ססמה: "
+msgstr "ססמה חדשה: "
 
 #: libpam/pam_get_authtok.c:47
-#, fuzzy, c-format
+#, c-format
 msgid "Retype new %s password: "
-msgstr "הקלד שוב ססמת STRESS חדשה:"
+msgstr "להקליד שוב ססמת %s חדשה: "
 
 #: libpam/pam_get_authtok.c:48
-#, fuzzy
 msgid "Retype new password: "
-msgstr "הקלד שוב ססמת STRESS חדשה:"
+msgstr "נא להקליד ססמה חדשה שוב: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
@@ -77,7 +76,6 @@ msgid "Retype %s"
 msgstr ""
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
-#, fuzzy
 msgid "Password change has been aborted."
 msgstr "שינוי ססמה בוטל."
 
@@ -225,7 +223,7 @@ msgstr "זהה לישנה"
 #: modules/pam_cracklib/pam_cracklib.c:624
 #: modules/pam_cracklib/pam_cracklib.c:634
 msgid "memory allocation error"
-msgstr ""
+msgstr "שגיאת הקצאת זכרון"
 
 #: modules/pam_cracklib/pam_cracklib.c:639
 msgid "is a palindrome"
@@ -241,7 +239,7 @@ msgstr "יותר מדי דומה לישנה"
 
 #: modules/pam_cracklib/pam_cracklib.c:648
 msgid "is too simple"
-msgstr "פשוטה מדי."
+msgstr "פשוטה מדי"
 
 #: modules/pam_cracklib/pam_cracklib.c:651
 msgid "is rotated"
@@ -265,15 +263,13 @@ msgstr ""
 
 #: modules/pam_cracklib/pam_cracklib.c:697
 #: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "לא סופקה ססמה"
+msgstr "לא סופקה ססמה."
 
 #: modules/pam_cracklib/pam_cracklib.c:698
 #: modules/pam_unix/pam_unix_passwd.c:567
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "לא היה ניתן לשנות ססמת NIS."
+msgstr "הססמה לא הוחלפה."
 
 #: modules/pam_cracklib/pam_cracklib.c:718
 #: modules/pam_cracklib/pam_cracklib.c:800
@@ -304,9 +300,9 @@ msgstr ""
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "החשבון ננעל בעקבות %u ניסיונות התחברות שנכשלו"
+msgstr "החשבון ננעל בעקבות %u ניסיונות התחברות שנכשלו."
 
 #: modules/pam_faillock/pam_faillock.c:654
 #, c-format
@@ -358,7 +354,7 @@ msgstr[1] "היו %d ניסיונות התחברות שנכשלו מאז ההת�
 #: modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
+msgstr "היו %d ניסיונות התחברות שנכשלו מאז ההתחברות האחרונה שהצליחה."
 
 #: modules/pam_limits/pam_limits.c:1090
 #, c-format
@@ -366,9 +362,8 @@ msgid "There were too many logins for '%s'."
 msgstr ""
 
 #: modules/pam_mail/pam_mail.c:299
-#, fuzzy
 msgid "You have no mail."
-msgstr "יש לך דואר חדש."
+msgstr "אין לך דואר."
 
 #: modules/pam_mail/pam_mail.c:302
 msgid "You have new mail."
@@ -418,9 +413,8 @@ msgid "Password has been already used. Choose another."
 msgstr ""
 
 #: modules/pam_pwhistory/pam_pwhistory.c:227
-#, fuzzy
 msgid "Password has been already used."
-msgstr "שינוי ססמה בוטל."
+msgstr "כבר נעשה שימוש בססמה הזאת."
 
 #: modules/pam_selinux/pam_selinux.c:176
 #, c-format
@@ -433,7 +427,7 @@ msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:193
 msgid "role:"
-msgstr "תפקיד: "
+msgstr "תפקיד:"
 
 #: modules/pam_selinux/pam_selinux.c:197
 #, c-format
@@ -479,9 +473,9 @@ msgid "login: failure forking: %m"
 msgstr ""
 
 #: modules/pam_tally/pam_tally.c:543 modules/pam_tally2/pam_tally2.c:595
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "החשבון נעול זמנית (%ld שניות נותרו)"
+msgstr "החשבון נעול זמנית (%ld שניות נותרו)."
 
 #: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:861
 msgid "Authentication error"
@@ -539,35 +533,32 @@ msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr "פג תוקף חשבונך; אנא צור קשר עם מנהל המערכת שלך"
+msgstr "תוקף חשבונך פג, נא ליצור קשר עם הנהלת המערכת שלך."
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "הנך מחויב לשנות את ססמתך מידית (דרישת מנהל המערכת)"
+msgstr "עליך לשנות את ססמתך מיידית (דרישת הנהלת המערכת)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "הנך מחויב לשנות את ססמתך מידית (הססמה התיישנה)"
+msgstr "עליך לשנות את ססמתך מיידית (תוקף הססמה פג)."
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "אזהרה: הססמה שלך תפוג תוך יום %d"
-msgstr[1] "אזהרה: הססמה שלך תפוג תוך %d ימים"
+msgstr[0] "אזהרה: הססמה שלך תפוג מחר."
+msgstr[1] "אזהרה: הססמה שלך תפוג תוך %d ימים."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "אזהרה: הססמה שלך תפוג תוך %d ימים"
+msgstr "אזהרה: הססמה שלך תפוג תוך %d ימים."
 
 #: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
@@ -578,16 +569,14 @@ msgid "You must choose a shorter password."
 msgstr "עליך לבחור סיסמה קצרה יותר."
 
 #: modules/pam_unix/pam_unix_passwd.c:588
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "אתה חייב לבחור ססמה ארוכה יותר"
+msgstr "עליך לבחור ססמה ארוכה יותר."
 
 #: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
 msgid "Changing password for %s."
-msgstr "משנה ססמה עבור %s.‏"
+msgstr "הססמה עבור %s מוחלפת."
 
 #: modules/pam_unix/pam_unix_passwd.c:725
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "אתה חייב לחכות יותר כדי לשנות את הססמה"
+msgstr "עליך להמתין זמן רב יותר כדי להחליף את ססמתך."
