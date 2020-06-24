@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2012
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2012, 2020.
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
@@ -11,16 +11,16 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-03-06 23:59+0000\n"
-"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
-"Language-Team: Kazakh <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/kk/>\n"
+"PO-Revision-Date: 2020-06-24 09:40+0000\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
+"Language-Team: Kazakh <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/kk/>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.11.2\n"
+"X-Generator: Weblate 4.1.1\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -38,17 +38,16 @@ msgstr "қате сұхбат (%d)\n"
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:184
 #: modules/pam_userdb/pam_userdb.c:65
 msgid "Password: "
-msgstr "Пароль:"
+msgstr "Пароль: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "%s үшін жаңа пароль: "
+msgstr "%s үшін ағымдағы пароль: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
 msgid "Current password: "
-msgstr "үшін жаңа пароль: "
+msgstr "Ағымдағы пароль: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
@@ -78,7 +77,6 @@ msgid "Retype %s"
 msgstr "%s қайта енгізіңіз"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
-#, fuzzy
 msgid "Password change has been aborted."
 msgstr "Парольді өзгертуден бас тартылды."
 
@@ -268,15 +266,13 @@ msgstr "құрамында пайдаланушы аты бар"
 
 #: modules/pam_cracklib/pam_cracklib.c:697
 #: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "Пароль көрсетілмеді"
+msgstr "Пароль көрсетілмеді."
 
 #: modules/pam_cracklib/pam_cracklib.c:698
 #: modules/pam_unix/pam_unix_passwd.c:567
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "NIS паролін өзгерту мүмкін емес."
+msgstr "Пароль өзгертілмеді."
 
 #: modules/pam_cracklib/pam_cracklib.c:718
 #: modules/pam_cracklib/pam_cracklib.c:800
@@ -300,22 +296,23 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s қатесі: белгісіз қалып-күйі 0x%x"
 
 #: modules/pam_faillock/main.c:104
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 msgstr ""
-"%s: [--file түбірлік_файл_аты] [--user пайдаланушы] [--reset[=n]] [--quiet]\n"
+"Қолданылуы: %s: [--dir /tally-бумасына/дейінгі/жол] [--user пайдаланушы] "
+"[--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "Тіркелгі %u рет қате кіру талабы есебінен оқшауланды"
+msgstr "Тіркелгі %u рет қате кіру талабы салдарынан бұғатталды."
 
 #: modules/pam_faillock/pam_faillock.c:654
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(бұғатты шешуге дейін %d минут қалды)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
@@ -364,14 +361,13 @@ msgid "There were %d failed login attempts since the last successful login."
 msgstr "Соңғы сәтті жүйеге кіру реттен кейін %d қате талап болған."
 
 #: modules/pam_limits/pam_limits.c:1090
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
-msgstr "'%s' үшін жүйеге кіру талап саны тым көп."
+msgstr "\"%s\" үшін жүйеге кіру талап саны тым көп."
 
 #: modules/pam_mail/pam_mail.c:299
-#, fuzzy
 msgid "You have no mail."
-msgstr "Сізде жаңа поштаңыз бар."
+msgstr "Сізде жаңа пошта жоқ."
 
 #: modules/pam_mail/pam_mail.c:302
 msgid "You have new mail."
@@ -425,9 +421,9 @@ msgid "Password has been already used."
 msgstr "Пароль осыған дейін қолданылған."
 
 #: modules/pam_selinux/pam_selinux.c:176
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "Бастапқы қауіпсіздік контексті %s\n"
+msgstr "Бастапқы қауіпсіздік контексті %s."
 
 #: modules/pam_selinux/pam_selinux.c:180
 msgid "Would you like to enter a different role or level?"
@@ -438,33 +434,32 @@ msgid "role:"
 msgstr "ролі:"
 
 #: modules/pam_selinux/pam_selinux.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "%s ролі үшін бастапқы түрі көрсетілмеген\n"
+msgstr "%s ролі үшін бастапқы түрі көрсетілмеген."
 
 #: modules/pam_selinux/pam_selinux.c:229
 msgid "level:"
 msgstr "деңгейі:"
 
 #: modules/pam_selinux/pam_selinux.c:263
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "Дұрыс қауіпсіздік контексті емес"
+msgstr "Дұрыс қауіпсіздік контексті емес."
 
 #: modules/pam_selinux/pam_selinux.c:513
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "%s үшін жарамды контекстті алу мүмкін емес."
 
 #: modules/pam_selinux/pam_selinux.c:633
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "%s қауіпсіздік контексті орнатылды"
+msgstr "%s қауіпсіздік контексті тағайындалды."
 
 #: modules/pam_selinux/pam_selinux.c:649
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "%s кілттерді жасау қауіпсіздік контексті орнатылды"
+msgstr "%s кілттерді жасау қауіпсіздік контексті тағайындалды."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -482,9 +477,9 @@ msgid "login: failure forking: %m"
 msgstr "login: үрдісті бастау мүмкін емес: %m"
 
 #: modules/pam_tally/pam_tally.c:543 modules/pam_tally2/pam_tally2.c:595
-#, fuzzy, c-format
+#, c-format
 msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "Тіркелгі уақытша оқшауланған (%ld секунд қалды)"
+msgstr "Тіркелгі уақытша бұғатталған (%ld секунд қалды)."
 
 #: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:861
 msgid "Authentication error"
@@ -541,40 +536,36 @@ msgstr ""
 "   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:360
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Рұқсат расталған (соңғы рет %ld секунд бұрын болған)."
+msgstr "Рұқсат расталған (соңғы қатынау %ld секунд бұрын болған)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr ""
-"Тіркелгіңіздің мерзімі аяқталған; жүйелік администраторыңызға хабарласыңыз"
+msgstr "Тіркелгіңіздің мерзімі аяқталған; жүйелік әкімшіңізге хабарласыңыз."
 
 #: modules/pam_unix/pam_unix_acct.c:240
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "Сізге пароліңізді қазір ауыстыру керек (root мәжбүрлеген)"
+msgstr "Сізге пароліңізді қазір ауыстыру керек (әкімші мәжбүрлеген)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "Сізге пароліңізді қазір ауыстыру керек (парольдің мерзімі аяқталған)"
+msgstr "Сізге пароліңізді қазір ауыстыру керек (парольдің мерзімі аяқталған)."
 
 #: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Ескерту: сіздің пароліңіздің мерзімі %d күнде бітеді"
+msgstr[0] "Ескерту: сіздің пароліңіздің мерзімі %d күнде бітеді."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "Ескерту: сіздің пароліңіздің мерзімі %d күнде бітеді"
+msgstr "Ескерту: сіздің пароліңіздің мерзімі %d күнде бітеді."
 
 #: modules/pam_unix/pam_unix_passwd.c:468
 msgid "NIS password could not be changed."
@@ -585,9 +576,8 @@ msgid "You must choose a shorter password."
 msgstr "Сіз қысқа парольді таңдауыңыз керек."
 
 #: modules/pam_unix/pam_unix_passwd.c:588
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Сізге ұзынырақ парольді таңдау керек"
+msgstr "Сізге ұзынырақ парольді таңдау керек."
 
 #: modules/pam_unix/pam_unix_passwd.c:695
 #, c-format
@@ -595,6 +585,5 @@ msgid "Changing password for %s."
 msgstr "%s үшін парольді өзгерту."
 
 #: modules/pam_unix/pam_unix_passwd.c:725
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Пароліңізді өзгерті үшін біраз күтуіңіз керек"
+msgstr "Пароліңізді өзгерті үшін біраз күтуіңіз керек."
