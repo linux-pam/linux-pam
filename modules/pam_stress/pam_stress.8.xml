@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+
+<refentry id='pam_stress'>
+
+  <refmeta>
+    <refentrytitle>pam_stress</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id='pam_stress-name'>
+    <refname>pam_stress</refname>
+    <refpurpose>The stress-testing PAM module</refpurpose>
+  </refnamediv>
+
+<!-- body begins here -->
+
+  <refsynopsisdiv>
+    <cmdsynopsis id="pam_stress-cmdsynopsis">
+      <command>pam_stress.so</command>
+      <arg choice="opt">
+        debug
+      </arg>
+      <arg choice="opt">
+        no_warn
+      </arg>
+      <arg choice="opt">
+        use_first_pass
+      </arg>
+      <arg choice="opt">
+        try_first_pass
+      </arg>
+      <arg choice="opt">
+        rootok
+      </arg>
+      <arg choice="opt">
+        expired
+      </arg>
+      <arg choice="opt">
+        fail_1
+      </arg>
+      <arg choice="opt">
+        fail_2
+      </arg>
+      <arg choice="opt">
+        prelim
+      </arg>
+      <arg choice="opt">
+        required
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="pam_stress-description">
+    <title>DESCRIPTION</title>
+    <para>
+      The pam_stress PAM module is mainly intended to give the impression of failing as a fully
+functioning module might.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_stress-options">
+    <title>OPTIONS</title>
+    <variablelist>
+
+      <varlistentry>
+        <term>
+          <option>debug</option>
+        </term>
+        <listitem>
+          <para>
+            Put lots of information in syslog.
+            *NOTE* this option writes passwords to syslog, so don't use anything sensitive when testing.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>no_warn</option>
+        </term>
+        <listitem>
+          <para>
+            Do not give warnings about things (otherwise warnings are issued
+            via the conversation function)
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>use_first_pass</option>
+        </term>
+        <listitem>
+          <para>
+            Do not prompt for a password, for pam_sm_authentication
+            function just use item PAM_AUTHTOK.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>try_first_pass</option>
+        </term>
+        <listitem>
+          <para>
+            Do not prompt for a password unless there has been no
+            previous authentication token (item PAM_AUTHTOK is NULL)
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>rootok</option>
+        </term>
+        <listitem>
+          <para>
+            This is intended for the pam_sm_chauthtok function and
+            it instructs this function to permit root to change
+            the user's password without entering the old password.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>expired</option>
+        </term>
+        <listitem>
+          <para>
+            An argument intended for the account and chauthtok module
+            parts. It instructs the module to act as if the user's
+            password has expired
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>fail_1</option>
+        </term>
+        <listitem>
+          <para>
+            This instructs the module to make its first function fail.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>fail_2</option>
+        </term>
+        <listitem>
+          <para>
+            This instructs the module to make its second function (if there
+            is one) fail.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>prelim</option>
+        </term>
+        <listitem>
+          <para>
+            For pam_sm_chauthtok, means fail on PAM_PRELIM_CHECK.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>required</option>
+        </term>
+        <listitem>
+          <para>
+            For pam_sm_chauthtok, means fail if the user hasn't already
+            been authenticated by this module. (See stress_new_pwd data
+            string in the NOTES.)
+          </para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="pam_stress-types">
+    <title>MODULE TYPES PROVIDED</title>
+    <para>
+      All module types (<option>auth</option>, <option>account</option>,
+      <option>password</option> and <option>session</option>) are provided.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_stress-return_values">
+    <title>RETURN VALUES</title>
+    <variablelist>
+      <varlistentry>
+        <term>PAM_BUF_ERR</term>
+        <listitem>
+           <para>
+             Memory buffer error.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_PERM_DENIED</term>
+        <listitem>
+           <para>
+             Permission denied.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_AUTH_ERR</term>
+        <listitem>
+           <para>
+             Access to the system was denied.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_CONV_ERR</term>
+        <listitem>
+           <para>
+             Conversation failure.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_SUCCESS</term>
+        <listitem>
+           <para>
+             The function passes all checks.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_USER_UNKNOWN</term>
+        <listitem>
+           <para>
+             The user is not known to the system.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_CRED_ERR</term>
+        <listitem>
+           <para>
+             Failure involving user credentials.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_NEW_AUTHTOK_REQD</term>
+        <listitem>
+           <para>
+             Authentication token is no longer valid; new one required.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_SESSION_ERR</term>
+        <listitem>
+           <para>
+             Session failure.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_TRY_AGAIN</term>
+        <listitem>
+           <para>
+             Failed preliminary check by service.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_AUTHTOK_LOCK_BUSY</term>
+        <listitem>
+           <para>
+             Authentication token lock busy.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_AUTHTOK_ERR</term>
+        <listitem>
+           <para>
+             Authentication token manipulation error.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_SYSTEM_ERR</term>
+        <listitem>
+           <para>
+             System error.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id='pam_stress-notes'>
+    <title>NOTES</title>
+    <para>
+      This module uses the stress_new_pwd data string which tells
+      pam_sm_chauthtok that pam_sm_acct_mgmt says we need a new password.
+      The only possible value for this data string is 'yes'.
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_stress-examples'>
+    <title>EXAMPLES</title>
+    <programlisting>
+#%PAM-1.0
+#
+# Any of the following will suffice
+account  required pam_stress.so
+auth     required pam_stress.so
+password required pam_stress.so
+session  required pam_stress.so
+    </programlisting>
+  </refsect1>
+
+  <refsect1 id="pam_stress-see_also">
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+        <refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>.
+    </para>
+  </refsect1>
+
+  <refsect1 id="pam_stress-authors">
+    <title>AUTHORS</title>
+    <para>
+      The pam_stress PAM module was developed by
+      Andrew Morgan &lt;morgan@linux.kernel.org&gt;.
+      The man page for pam_stress was written by
+      Lucas Ramage &lt;ramage.lucas@protonmail.com&gt;.
+    </para>
+  </refsect1>
+</refentry>

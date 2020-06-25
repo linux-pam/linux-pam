@@ -3,9 +3,14 @@
 #
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST =
+EXTRA_DIST = $(XMLS)
 
+if HAVE_DOC
+dist_man_MANS = pam_stress.8
+endif
+XMLS = README.xml pam_stress.8.xml
 dist_check_SCRIPTS = tst-pam_stress
 TESTS = $(dist_check_SCRIPTS)
 
@@ -20,3 +25,8 @@ if HAVE_VERSIONING
 endif
 securelib_LTLIBRARIES = pam_stress.la
 pam_stress_la_LIBADD = $(top_builddir)/libpam/libpam.la
+
+if ENABLE_REGENERATE_MAN
+dist_noinst_DATA = README
+-include $(top_srcdir)/Make.xml.rules
+endif
