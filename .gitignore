@@ -29,7 +29,6 @@
 /doc/*/*.txt
 /doc/*/html/
 /libtool
-/modules/pam_*/README
 /stamp-h1
 Makefile
 Makefile.in
