@@ -26,8 +26,6 @@
 /config.log
 /config.status
 /configure
-/doc/*/*.txt
-/doc/*/html/
 /libtool
 /stamp-h1
 Makefile
