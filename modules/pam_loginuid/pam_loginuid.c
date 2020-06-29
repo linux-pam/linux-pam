@@ -65,7 +65,7 @@ static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 	fd = open("/proc/self/uid_map", O_RDONLY);
 	if (fd >= 0) {
 		count = pam_modutil_read(fd, uid_map, sizeof(uid_map));
-		if (strncmp(uid_map, host_uid_map, count) != 0)
+		if (count <= 0 || strncmp(uid_map, host_uid_map, count) != 0)
 			rc = PAM_IGNORE;
 		close(fd);
 	}
