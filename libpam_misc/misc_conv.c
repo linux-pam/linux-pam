@@ -244,7 +244,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
     D(("the timer appears to have expired"));
 
     *retstr = NULL;
-    _pam_overwrite(line);
+    _pam_overwrite_n(line, sizeof(line));
 
  cleanexit:
 
