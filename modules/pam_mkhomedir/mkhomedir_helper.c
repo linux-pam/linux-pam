@@ -232,6 +232,8 @@ create_homedir(const struct passwd *pwd,
       {
          pam_syslog(NULL, LOG_DEBUG,
 		    "unable to open or stat src file %s: %m", newsource);
+         if (srcfd >= 0)
+            close(srcfd);
          closedir(d);
 
 #ifndef PATH_MAX

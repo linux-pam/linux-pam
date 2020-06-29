@@ -1488,6 +1488,7 @@ static int create_instance(struct polydir_s *polyptr, char *ipath, struct stat *
     if (fstat(fd, &newstatbuf) < 0) {
         pam_syslog(idata->pamh, LOG_ERR, "Error stating %s, %m",
 		ipath);
+	close(fd);
 	rmdir(ipath);
         return PAM_SESSION_ERR;
     }
