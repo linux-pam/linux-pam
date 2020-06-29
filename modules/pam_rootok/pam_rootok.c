@@ -55,15 +55,17 @@ log_callback (int type UNUSED, const char *fmt, ...)
     int audit_fd;
     va_list ap;
 
-    va_start(ap, fmt);
 #ifdef HAVE_LIBAUDIT
     audit_fd = audit_open();
 
     if (audit_fd >= 0) {
 	char *buf;
+	int ret;
 
-	if (vasprintf (&buf, fmt, ap) < 0) {
-		va_end(ap);
+	va_start(ap, fmt);
+	ret = vasprintf (&buf, fmt, ap);
+	va_end(ap);
+	if (ret < 0) {
 		return 0;
 	}
 	audit_log_user_avc_message(audit_fd, AUDIT_USER_AVC, buf, NULL, NULL,
@@ -75,6 +77,7 @@ log_callback (int type UNUSED, const char *fmt, ...)
     }
 
 #endif
+    va_start(ap, fmt);
     vsyslog (LOG_USER | LOG_INFO, fmt, ap);
     va_end(ap);
     return 0;
