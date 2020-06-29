@@ -10,10 +10,10 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-06-24 09:40+0000\n"
+"PO-Revision-Date: 2020-07-01 08:40+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/he/>\n"
+"Language-Team: Hebrew <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,7 +73,7 @@ msgstr "סליחה, הססמאות לא תואמות."
 #: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "להקליד את %s מחדש"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 msgid "Password change has been aborted."
@@ -93,15 +93,15 @@ msgstr "שגיאה קריטית - ביטול מידי"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr ""
+msgstr "טעינת המודול נכשלה"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
-msgstr ""
+msgstr "הסמל לא נמצא"
 
 #: libpam/pam_strerror.c:48
 msgid "Error in service module"
-msgstr ""
+msgstr "שגיאה במודול השירות"
 
 #: libpam/pam_strerror.c:50
 msgid "System error"
@@ -109,7 +109,7 @@ msgstr "שגיאת מערכת"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
-msgstr ""
+msgstr "שגיאת מכלא זיכרון"
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
@@ -121,23 +121,23 @@ msgstr "כשל באימות"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
+msgstr "אין מספיק הרשאות כדי לגשת לנתוני האימות"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr ""
+msgstr "שירות האימות לא יכול לקבל את פרטי האימות"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr ""
+msgstr "המשתמש לא מוכר למודול האימות התומך"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
-msgstr ""
+msgstr "מספר הניסיונות מחדש המרבי נוצל במלואו עבור השירות"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr ""
+msgstr "אסימון האימות אינו תקף עוד, נדרש אחד חדש"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -145,31 +145,31 @@ msgstr "חשבון משתמש פג"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr ""
+msgstr "לא ניתן ליצור/להסיר רשומה להפעלה שצוינה"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
+msgstr "שירות האימות לא יכול לקבל פרטי גישה של משתמשים"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr ""
+msgstr "תוקף פרטי הגישה של המשתמש פג"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr ""
+msgstr "הגדרת פרטי הגישה של המשתמש נכשלה"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
-msgstr ""
+msgstr "לא קיימים נתונים מסוימים למודול"
 
 #: libpam/pam_strerror.c:80
 msgid "Bad item passed to pam_*_item()"
-msgstr ""
+msgstr "פריט פסול הועבר אל to pam_*_item()‎"
 
 #: libpam/pam_strerror.c:82
 msgid "Conversation error"
-msgstr ""
+msgstr "שגיאת דיון"
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
@@ -177,15 +177,15 @@ msgstr ""
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
-msgstr ""
+msgstr "לא ניתן לשחזר את פרטי האימות"
 
 #: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
-msgstr ""
+msgstr "נעילת אסימון האימות עסוקה"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr ""
+msgstr "התיישנות אסימון אימות מושבתת"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
