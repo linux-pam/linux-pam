@@ -202,7 +202,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
 	    } else if (nc > 0) {                 /* we got some user input */
 		D(("we got some user input"));
 
-		if (nc > 0 && line[nc-1] == '\n') {     /* <NUL> terminate */
+		if (line[nc-1] == '\n') {     /* <NUL> terminate */
 		    line[--nc] = '\0';
 		} else {
 		    if (echo) {
