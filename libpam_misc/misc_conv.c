@@ -184,8 +184,10 @@ static int read_string(int echo, const char *prompt, char **retstr)
 		     nc++) {
 		    int rv;
 		    if ((rv=read(STDIN_FILENO, line+nc, 1)) != 1) {
-			if (rv < 0)
+			if (rv < 0) {
+			    _pam_overwrite_n(line, (unsigned int) nc);
 			    nc = rv;
+			}
 			break;
 		    }
 		}
