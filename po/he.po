@@ -10,10 +10,10 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-07-01 08:40+0000\n"
+"PO-Revision-Date: 2020-07-05 10:55+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/he/>\n"
+"Language-Team: Hebrew <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -189,7 +189,7 @@ msgstr "התיישנות אסימון אימות מושבתת"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr ""
+msgstr "בדיקת הקדם נכשלה על ידי שירות הססמאות"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
@@ -197,19 +197,19 @@ msgstr ""
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
-msgstr ""
+msgstr "המודול לא ידוע"
 
 #: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
-msgstr ""
+msgstr "תוקף אסימון האימות פג"
 
 #: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
-msgstr ""
+msgstr "הדיון ממתין לאירוע"
 
 #: libpam/pam_strerror.c:102
 msgid "Application needs to call libpam again"
-msgstr ""
+msgstr "היישום צריך לקרוא ל־libpam שוב"
 
 #: libpam/pam_strerror.c:105
 msgid "Unknown PAM error"
@@ -231,7 +231,7 @@ msgstr "פילנדרום"
 
 #: modules/pam_cracklib/pam_cracklib.c:642
 msgid "case changes only"
-msgstr ""
+msgstr "שינויי גודל אותיות בלבד"
 
 #: modules/pam_cracklib/pam_cracklib.c:645
 msgid "is too similar to the old one"
@@ -243,23 +243,23 @@ msgstr "פשוטה מדי"
 
 #: modules/pam_cracklib/pam_cracklib.c:651
 msgid "is rotated"
-msgstr ""
+msgstr "האם שונה הסדר"
 
 #: modules/pam_cracklib/pam_cracklib.c:654
 msgid "not enough character classes"
-msgstr ""
+msgstr "אין מספיק מחלקות תווים"
 
 #: modules/pam_cracklib/pam_cracklib.c:657
 msgid "contains too many same characters consecutively"
-msgstr ""
+msgstr "יותר מדי תווים זהים בזה אחר זה"
 
 #: modules/pam_cracklib/pam_cracklib.c:660
 msgid "contains too long of a monotonic character sequence"
-msgstr ""
+msgstr "מכיל רצף תווים מונוטוני ארוך מדי"
 
 #: modules/pam_cracklib/pam_cracklib.c:663
 msgid "contains the user name in some form"
-msgstr ""
+msgstr "מכיל את שם המשתמש בצורה כלשהי"
 
 #: modules/pam_cracklib/pam_cracklib.c:697
 #: modules/pam_unix/pam_unix_passwd.c:566
@@ -280,17 +280,17 @@ msgstr "ססמה לא טובה: %s"
 #: modules/pam_exec/pam_exec.c:281
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr ""
+msgstr "%s נכשל: קוד היציאה %d"
 
 #: modules/pam_exec/pam_exec.c:290
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr ""
+msgstr "%s נכשל: נתפס האות %d%s"
 
 #: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr ""
+msgstr "%s נכשל: מצב לא ידוע 0x%x"
 
 #: modules/pam_faillock/main.c:104
 #, c-format
@@ -307,7 +307,7 @@ msgstr "החשבון ננעל בעקבות %u ניסיונות התחברות ש
 #: modules/pam_faillock/pam_faillock.c:654
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(נותרו %d דקות לשחרור)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
@@ -340,7 +340,7 @@ msgstr "ברוך הבא לחשבונך החדש!"
 #: modules/pam_lastlog/pam_lastlog.c:621
 #, c-format
 msgid "Last failed login:%s%s%s"
-msgstr ""
+msgstr "כניסה כושלת אחרונה:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:630 modules/pam_lastlog/pam_lastlog.c:637
 #, c-format
@@ -501,7 +501,7 @@ msgstr ""
 #: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:890
 #, c-format
 msgid "%s: Unrecognised option %s\n"
-msgstr ""
+msgstr "%s: אפשרות לא מוכרת %s\n"
 
 #: modules/pam_tally/pam_tally.c:790
 #, c-format
@@ -512,7 +512,7 @@ msgstr ""
 #: modules/pam_tally/pam_tally.c:864 modules/pam_tally2/pam_tally2.c:1029
 #, c-format
 msgid "%s: Can't reset all users to non-zero\n"
-msgstr ""
+msgstr "%s: אין אפשרות לאפס את כל המשתמשים למספר שאינו אפס\n"
 
 #: modules/pam_tally2/pam_tally2.c:918
 #, c-format
