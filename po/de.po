@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-03-15 23:38+0000\n"
+"PO-Revision-Date: 2020-07-05 23:52+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/linux-"
 "pam/master/de/>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11.3\n"
+"X-Generator: Weblate 4.1.1\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
-msgstr "...Time läuft ab...\n"
+msgstr "...Zeit läuft ab...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
@@ -298,11 +298,12 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s schlug fehl: Unbekannter Status 0x%x"
 
 #: modules/pam_faillock/main.c:104
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+"Aufruf: %s [--dir /path/to/tally-Verzeichnis] [--user Benutzername] [--reset]"
+"\n"
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
@@ -313,7 +314,7 @@ msgstr "Das Konto ist wegen %u fehlgeschlagener Anmelde-Versuche gesperrt."
 #: modules/pam_faillock/pam_faillock.c:654
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(noch %d Minuten zum Entsperren)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
@@ -517,7 +518,8 @@ msgstr "%s: Nicht erkannte Option: %s\n"
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+"%s: [--file verwurzelter-Dateiname] [--user Benutzername] [--reset[=n]] "
+"[--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:864 modules/pam_tally2/pam_tally2.c:1029
 #, c-format

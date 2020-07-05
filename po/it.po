@@ -10,13 +10,14 @@
 # Novell Language <language@novell.com>, 2007
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Milo Casagrande <milo@milo.name>, 2020.
+# Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-03-06 23:59+0000\n"
-"Last-Translator: Milo Casagrande <milo@milo.name>\n"
+"PO-Revision-Date: 2020-07-05 23:52+0000\n"
+"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Italian <https://translate.fedoraproject.org/projects/linux-"
 "pam/master/it/>\n"
 "Language: it\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11.2\n"
+"X-Generator: Weblate 4.1.1\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -302,11 +303,11 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s non riuscita: stato sconosciuto 0x%x"
 
 #: modules/pam_faillock/main.c:104
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 msgstr ""
-"%s: [--file rooted-filename] [--user nomeutente] [--reset[=N]] [--quiet]\n"
+"Uso: %s [--dir /path/to/tally-directory] [--user nomeutente] [--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
@@ -317,7 +318,7 @@ msgstr "Account bloccato a causa di %u accessi non riusciti."
 #: modules/pam_faillock/pam_faillock.c:654
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(%d minuti rimanenti per sbloccare)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590

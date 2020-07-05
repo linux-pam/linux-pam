@@ -11,13 +11,14 @@
 # R.F. Pels <ruurd@tiscali.nl>, 2005
 # Rinse de Vries <rinsedevries@kde.nl>, 2005-2006
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-03-15 23:38+0000\n"
-"Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
+"PO-Revision-Date: 2020-07-05 23:52+0000\n"
+"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Dutch <https://translate.fedoraproject.org/projects/linux-pam/"
 "master/nl/>\n"
 "Language: nl\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11.3\n"
+"X-Generator: Weblate 4.1.1\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -300,12 +301,12 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s is mislukt: onbekende status 0x%x"
 
 #: modules/pam_faillock/main.c:104
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 msgstr ""
-"%s [--file rooted-bestandsnaam] [--user gebruikersnaam] [--reset[=n]] [--"
-"quiet]\n"
+"Gebruik: %s [--dir /pad/naar/tally-directory] [--user gebruikersnaam] "
+"[--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
@@ -316,7 +317,7 @@ msgstr "Het account is vergrendeld wegens %u mislukte aanmeldingen."
 #: modules/pam_faillock/pam_faillock.c:654
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(nog %d minuten om te ontgrendelen)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590

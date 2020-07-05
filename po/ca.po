@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-05-17 18:48+0000\n"
+"PO-Revision-Date: 2020-07-05 23:52+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Catalan <https://translate.fedoraproject.org/projects/linux-"
 "pam/master/ca/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0.4\n"
+"X-Generator: Weblate 4.1.1\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -299,11 +299,12 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s ha fallat: estat 0x%x desconegut"
 
 #: modules/pam_faillock/main.c:104
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 msgstr ""
-"%s: [--file nom_fitxer_arrel] [--user nom_usuari] [--reset[=n]] [--quiet]\n"
+"Forma d’ús: %s: [--dir /directori/path/to/tally] [--user nom_usuari] "
+"[--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
@@ -314,7 +315,7 @@ msgstr "El compte està bloquejat a causa de %u inicis fallits de sessió."
 #: modules/pam_faillock/pam_faillock.c:654
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(resten %d minuts per desbloquejar)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
