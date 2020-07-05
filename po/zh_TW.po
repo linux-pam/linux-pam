@@ -298,7 +298,8 @@ msgstr "%s 失敗：不明狀態 0x%x"
 #, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
-msgstr "用法：%s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
+msgstr ""
+"用法：%s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
