@@ -90,17 +90,18 @@ pam_read_passwords(int fd, int npass, char **passwords)
 			break;
 		}
 
-		while (npass > 0 && (pptr=memchr(passwords[i]+offset, '\0', rbytes))
-				!= NULL) {
-			rbytes -= pptr - (passwords[i]+offset) + 1;
+		while (npass > 0 &&
+		       (pptr = memchr(passwords[i] + offset, '\0', rbytes)) != NULL) {
+			++pptr; /* skip the '\0' */
+			rbytes -= pptr - (passwords[i] + offset);
 			i++;
 			offset = 0;
 			npass--;
 			if (rbytes > 0) {
 				if (npass > 0) {
-					memcpy(passwords[i], pptr+1, rbytes);
+					memcpy(passwords[i], pptr, rbytes);
 				}
-				memset(pptr+1, '\0', rbytes);
+				memset(pptr, '\0', rbytes);
 			}
 		}
 		offset += rbytes;
