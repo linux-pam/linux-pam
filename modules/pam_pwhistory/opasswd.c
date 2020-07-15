@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2008 Thorsten Kukuk <kukuk@suse.de>
+ * Copyright (c) 2013 Red Hat, Inc.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -38,6 +39,7 @@
 #endif
 
 #include <pwd.h>
+#include <shadow.h>
 #include <time.h>
 #include <ctype.h>
 #include <errno.h>
@@ -47,6 +49,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <syslog.h>
+#ifdef HELPER_COMPILE
+#include <stdarg.h>
+#endif
 #include <sys/stat.h>
 
 #if defined HAVE_LIBXCRYPT
@@ -55,7 +60,14 @@
 #include <crypt.h>
 #endif
 
+#ifdef HELPER_COMPILE
+#define pam_modutil_getpwnam(h,n) getpwnam(n)
+#define pam_modutil_getspnam(h,n) getspnam(n)
+#define pam_syslog(h,a,...) helper_log_err(a,__VA_ARGS__)
+#else
+#include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#endif
 #include <security/pam_modules.h>
 
 #include "opasswd.h"
@@ -76,6 +88,19 @@ typedef struct {
   char *old_passwords;
 } opwd;
 
+#ifdef HELPER_COMPILE
+void
+helper_log_err(int err, const char *format, ...)
+{
+  va_list args;
+
+  va_start(args, format);
+  openlog(HELPER_COMPILE, LOG_CONS | LOG_PID, LOG_AUTHPRIV);
+  vsyslog(err, format, args);
+  va_end(args);
+  closelog();
+}
+#endif
 
 static int
 parse_entry (char *line, opwd *data)
@@ -117,9 +142,8 @@ compare_password(const char *newpass, const char *oldpass)
 }
 
 /* Check, if the new password is already in the opasswd file.  */
-int
-check_old_pass (pam_handle_t *pamh, const char *user,
-		const char *newpass, int debug)
+PAMH_ARG_DECL(int
+check_old_pass, const char *user, const char *newpass, int debug)
 {
   int retval = PAM_SUCCESS;
   FILE *oldpf;
@@ -127,6 +151,11 @@ check_old_pass (pam_handle_t *pamh, const char *user,
   size_t buflen = 0;
   opwd entry;
   int found = 0;
+
+#ifndef HELPER_COMPILE
+  if (SELINUX_ENABLED)
+    return PAM_PWHISTORY_RUN_HELPER;
+#endif
 
   if ((oldpf = fopen (OLD_PASSWORDS_FILE, "r")) == NULL)
     {
@@ -213,9 +242,8 @@ check_old_pass (pam_handle_t *pamh, const char *user,
   return retval;
 }
 
-int
-save_old_pass (pam_handle_t *pamh, const char *user, uid_t uid,
-	       const char *oldpass, int howmany, int debug UNUSED)
+PAMH_ARG_DECL(int
+save_old_pass, const char *user, int howmany, int debug UNUSED)
 {
   char opasswd_tmp[] = TMP_PASSWORDS_FILE;
   struct stat opasswd_stat;
@@ -226,9 +254,34 @@ save_old_pass (pam_handle_t *pamh, const char *user, uid_t uid,
   char *buf = NULL;
   size_t buflen = 0;
   int found = 0;
+  struct passwd *pwd;
+  const char *oldpass;
+
+  pwd = pam_modutil_getpwnam (pamh, user);
+  if (pwd == NULL)
+    return PAM_USER_UNKNOWN;
 
   if (howmany <= 0)
     return PAM_SUCCESS;
+
+#ifndef HELPER_COMPILE
+  if (SELINUX_ENABLED)
+    return PAM_PWHISTORY_RUN_HELPER;
+#endif
+
+  if ((strcmp(pwd->pw_passwd, "x") == 0)  ||
+      ((pwd->pw_passwd[0] == '#') &&
+       (pwd->pw_passwd[1] == '#') &&
+       (strcmp(pwd->pw_name, pwd->pw_passwd + 2) == 0)))
+    {
+      struct spwd *spw = pam_modutil_getspnam (pamh, user);
+
+      if (spw == NULL)
+        return PAM_USER_UNKNOWN;
+      oldpass = spw->sp_pwdp;
+    }
+  else
+      oldpass = pwd->pw_passwd;
 
   if (oldpass == NULL || *oldpass == '\0')
     return PAM_SUCCESS;
@@ -452,7 +505,7 @@ save_old_pass (pam_handle_t *pamh, const char *user, uid_t uid,
     {
       char *out;
 
-      if (asprintf (&out, "%s:%d:1:%s\n", user, uid, oldpass) < 0)
+      if (asprintf (&out, "%s:%d:1:%s\n", user, pwd->pw_uid, oldpass) < 0)
 	{
 	  retval = PAM_AUTHTOK_ERR;
 	  if (oldpf)
