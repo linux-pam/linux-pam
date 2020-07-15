@@ -32,6 +32,7 @@
 #include <security/_pam_macros.h>
 
 #include "passverify.h"
+#include "pam_inline.h"
 
 static int
 set_password(const char *forwho, const char *shadow, const char *remember)
@@ -49,7 +50,7 @@ set_password(const char *forwho, const char *shadow, const char *remember)
 
     /* read the password from stdin (a pipe from the pam_unix module) */
 
-    npass = read_passwords(STDIN_FILENO, 2, passwords);
+    npass = pam_read_passwords(STDIN_FILENO, 2, passwords);
 
     if (npass != 2) {	/* is it a valid password? */
       if (npass == 1) {

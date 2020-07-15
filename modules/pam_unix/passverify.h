@@ -48,8 +48,6 @@ setup_signals(void);
 char *
 getuidname(uid_t uid);
 
-int
-read_passwords(int fd, int npass, char **passwords);
 #endif
 
 #ifdef HELPER_COMPILE

@@ -33,6 +33,7 @@
 #include <security/_pam_macros.h>
 
 #include "passverify.h"
+#include "pam_inline.h"
 
 static int _check_expiry(const char *uname)
 {
@@ -162,7 +163,7 @@ int main(int argc, char *argv[])
 	}
 	/* read the password from stdin (a pipe from the pam_unix module) */
 
-	npass = read_passwords(STDIN_FILENO, 1, passwords);
+	npass = pam_read_passwords(STDIN_FILENO, 1, passwords);
 
 	if (npass != 1) {	/* is it a valid password? */
 		helper_log_err(LOG_DEBUG, "no password supplied");
