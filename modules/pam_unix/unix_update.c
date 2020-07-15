@@ -38,8 +38,8 @@ set_password(const char *forwho, const char *shadow, const char *remember)
 {
     struct passwd *pwd = NULL;
     int retval;
-    char pass[MAXPASS + 1];
-    char towhat[MAXPASS + 1];
+    char pass[PAM_MAX_RESP_SIZE + 1];
+    char towhat[PAM_MAX_RESP_SIZE + 1];
     int npass = 0;
     /* we don't care about number format errors because the helper
        should be called internally only */
@@ -54,7 +54,7 @@ set_password(const char *forwho, const char *shadow, const char *remember)
     if (npass != 2) {	/* is it a valid password? */
       if (npass == 1) {
         helper_log_err(LOG_DEBUG, "no new password supplied");
-	memset(pass, '\0', MAXPASS);
+	memset(pass, '\0', PAM_MAX_RESP_SIZE);
       } else {
         helper_log_err(LOG_DEBUG, "no valid passwords supplied");
       }
@@ -97,8 +97,8 @@ set_password(const char *forwho, const char *shadow, const char *remember)
     }
 
 done:
-    memset(pass, '\0', MAXPASS);
-    memset(towhat, '\0', MAXPASS);
+    memset(pass, '\0', PAM_MAX_RESP_SIZE);
+    memset(towhat, '\0', PAM_MAX_RESP_SIZE);
 
     unlock_pwdf();
 

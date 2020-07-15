@@ -8,8 +8,6 @@
 
 #define PAM_UNIX_RUN_HELPER PAM_CRED_INSUFFICIENT
 
-#define MAXPASS PAM_MAX_RESP_SIZE  /* the maximum length of a password */
-
 #define OLD_PASSWORDS_FILE      "/etc/security/opasswd"
 
 int

@@ -89,7 +89,7 @@ static int _audit_log(int type, const char *uname, int rc)
 
 int main(int argc, char *argv[])
 {
-	char pass[MAXPASS + 1];
+	char pass[PAM_MAX_RESP_SIZE + 1];
 	char *option;
 	int npass, nullok;
 	int blankpass = 0;
@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
 
 	retval = helper_verify_password(user, pass, nullok);
 
-	memset(pass, '\0', MAXPASS);	/* clear memory of the password */
+	memset(pass, '\0', PAM_MAX_RESP_SIZE);	/* clear memory of the password */
 
 	/* return pass or fail */
 
