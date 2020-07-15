@@ -3,6 +3,7 @@
  *
  * Copyright (c) 2008, 2012 Thorsten Kukuk
  * Author: Thorsten Kukuk <kukuk@thkukuk.de>
+ * Copyright (c) 2013 Red Hat, Inc.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -46,10 +47,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <shadow.h>
 #include <syslog.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+#include <sys/wait.h>
+#include <signal.h>
+#include <fcntl.h>
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
@@ -58,8 +63,6 @@
 
 #include "opasswd.h"
 #include "pam_inline.h"
-
-#define DEFAULT_BUFLEN 2048
 
 struct options_t {
   int debug;
@@ -105,6 +108,179 @@ parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
     pam_syslog (pamh, LOG_ERR, "pam_pwhistory: unknown option: %s", argv);
 }
 
+static int
+run_save_helper(pam_handle_t *pamh, const char *user,
+		int howmany, int debug)
+{
+  int retval, child;
+  struct sigaction newsa, oldsa;
+
+  memset(&newsa, '\0', sizeof(newsa));
+  newsa.sa_handler = SIG_DFL;
+  sigaction(SIGCHLD, &newsa, &oldsa);
+
+  child = fork();
+  if (child == 0)
+    {
+      static char *envp[] = { NULL };
+      char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL };
+
+      if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_PIPE_FD,
+          PAM_MODUTIL_PIPE_FD,
+          PAM_MODUTIL_PIPE_FD) < 0)
+        {
+          _exit(PAM_SYSTEM_ERR);
+        }
+
+      /* exec binary helper */
+      DIAG_PUSH_IGNORE_CAST_QUAL;
+      args[0] = (char *)PWHISTORY_HELPER;
+      args[1] = (char *)"save";
+      args[2] = (char *)user;
+      DIAG_POP_IGNORE_CAST_QUAL;
+      if (asprintf(&args[3], "%d", howmany) < 0 ||
+          asprintf(&args[4], "%d", debug) < 0)
+        {
+          pam_syslog(pamh, LOG_ERR, "asprintf: %m");
+          _exit(PAM_SYSTEM_ERR);
+        }
+
+      execve(args[0], args, envp);
+
+      pam_syslog(pamh, LOG_ERR, "helper binary execve failed: %s: %m", args[0]);
+
+      _exit(PAM_SYSTEM_ERR);
+    }
+  else if (child > 0)
+    {
+      /* wait for child */
+      int rc = 0;
+      while ((rc = waitpid (child, &retval, 0)) == -1 &&
+              errno == EINTR);
+      if (rc < 0)
+        {
+          pam_syslog(pamh, LOG_ERR, "pwhistory_helper save: waitpid: %m");
+          retval = PAM_SYSTEM_ERR;
+        }
+      else if (!WIFEXITED(retval))
+        {
+          pam_syslog(pamh, LOG_ERR, "pwhistory_helper save abnormal exit: %d", retval);
+          retval = PAM_SYSTEM_ERR;
+        }
+      else
+        {
+          retval = WEXITSTATUS(retval);
+        }
+    }
+  else
+    {
+      pam_syslog(pamh, LOG_ERR, "fork failed: %m");
+      retval = PAM_SYSTEM_ERR;
+    }
+
+  sigaction(SIGCHLD, &oldsa, NULL);   /* restore old signal handler */
+
+  return retval;
+}
+
+static int
+run_check_helper(pam_handle_t *pamh, const char *user,
+		 const char *newpass, int debug)
+{
+  int retval, child, fds[2];
+  struct sigaction newsa, oldsa;
+
+  /* create a pipe for the password */
+  if (pipe(fds) != 0)
+    return PAM_SYSTEM_ERR;
+
+  memset(&newsa, '\0', sizeof(newsa));
+  newsa.sa_handler = SIG_DFL;
+  sigaction(SIGCHLD, &newsa, &oldsa);
+
+  child = fork();
+  if (child == 0)
+    {
+      static char *envp[] = { NULL };
+      char *args[] = { NULL, NULL, NULL, NULL, NULL };
+
+      /* reopen stdin as pipe */
+      if (dup2(fds[0], STDIN_FILENO) != STDIN_FILENO)
+        {
+          pam_syslog(pamh, LOG_ERR, "dup2 of %s failed: %m", "stdin");
+          _exit(PAM_SYSTEM_ERR);
+        }
+
+      if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_IGNORE_FD,
+          PAM_MODUTIL_PIPE_FD,
+          PAM_MODUTIL_PIPE_FD) < 0)
+        {
+          _exit(PAM_SYSTEM_ERR);
+        }
+
+      /* exec binary helper */
+      DIAG_PUSH_IGNORE_CAST_QUAL;
+      args[0] = (char *)PWHISTORY_HELPER;
+      args[1] = (char *)"check";
+      args[2] = (char *)user;
+      DIAG_POP_IGNORE_CAST_QUAL;
+      if (asprintf(&args[3], "%d", debug) < 0)
+        {
+          pam_syslog(pamh, LOG_ERR, "asprintf: %m");
+          _exit(PAM_SYSTEM_ERR);
+        }
+
+      execve(args[0], args, envp);
+
+      pam_syslog(pamh, LOG_ERR, "helper binary execve failed: %s: %m", args[0]);
+
+      _exit(PAM_SYSTEM_ERR);
+    }
+  else if (child > 0)
+    {
+      /* wait for child */
+      int rc = 0;
+      if (newpass == NULL)
+        newpass = "";
+
+      /* send the password to the child */
+      if (write(fds[1], newpass, strlen(newpass)+1) == -1)
+        {
+          pam_syslog(pamh, LOG_ERR, "Cannot send password to helper: %m");
+          retval = PAM_SYSTEM_ERR;
+        }
+      newpass = NULL;
+      close(fds[0]);       /* close here to avoid possible SIGPIPE above */
+      close(fds[1]);
+      while ((rc = waitpid (child, &retval, 0)) == -1 &&
+              errno == EINTR);
+      if (rc < 0)
+        {
+          pam_syslog(pamh, LOG_ERR, "pwhistory_helper check: waitpid: %m");
+          retval = PAM_SYSTEM_ERR;
+        }
+      else if (!WIFEXITED(retval))
+        {
+          pam_syslog(pamh, LOG_ERR, "pwhistory_helper check abnormal exit: %d", retval);
+          retval = PAM_SYSTEM_ERR;
+        }
+      else
+        {
+          retval = WEXITSTATUS(retval);
+        }
+    }
+  else
+    {
+      pam_syslog(pamh, LOG_ERR, "fork failed: %m");
+      close(fds[0]);
+      close(fds[1]);
+      retval = PAM_SYSTEM_ERR;
+    }
+
+  sigaction(SIGCHLD, &oldsa, NULL);   /* restore old signal handler */
+
+  return retval;
+}
 
 /* This module saves the current crypted password in /etc/security/opasswd
    and then compares the new password with all entries in this file. */
@@ -112,7 +288,6 @@ parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
 int
 pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
-  struct passwd *pwd;
   const char *newpass;
   const char *user;
     int retval, tries;
@@ -148,31 +323,13 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
       return PAM_SUCCESS;
     }
 
-  pwd = pam_modutil_getpwnam (pamh, user);
-  if (pwd == NULL)
-    return PAM_USER_UNKNOWN;
+  retval = save_old_pass (pamh, user, options.remember, options.debug);
 
-  if ((strcmp(pwd->pw_passwd, "x") == 0)  ||
-      ((pwd->pw_passwd[0] == '#') &&
-       (pwd->pw_passwd[1] == '#') &&
-       (strcmp(pwd->pw_name, pwd->pw_passwd + 2) == 0)))
-    {
-      struct spwd *spw = pam_modutil_getspnam (pamh, user);
-      if (spw == NULL)
-	return PAM_USER_UNKNOWN;
+  if (retval == PAM_PWHISTORY_RUN_HELPER)
+      retval = run_save_helper(pamh, user, options.remember, options.debug);
 
-      retval = save_old_pass (pamh, user, pwd->pw_uid, spw->sp_pwdp,
-			      options.remember, options.debug);
-      if (retval != PAM_SUCCESS)
-	return retval;
-    }
-  else
-    {
-      retval = save_old_pass (pamh, user, pwd->pw_uid, pwd->pw_passwd,
-			      options.remember, options.debug);
-      if (retval != PAM_SUCCESS)
-	return retval;
-    }
+  if (retval != PAM_SUCCESS)
+    return retval;
 
   newpass = NULL;
   tries = 0;
@@ -201,8 +358,11 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
       if (options.debug)
 	pam_syslog (pamh, LOG_DEBUG, "check against old password file");
 
-      if (check_old_pass (pamh, user, newpass,
-			  options.debug) != PAM_SUCCESS)
+      retval = check_old_pass (pamh, user, newpass, options.debug);
+      if (retval == PAM_PWHISTORY_RUN_HELPER)
+	  retval = run_check_helper(pamh, user, newpass, options.debug);
+
+      if (retval != PAM_SUCCESS)
 	{
 	  if (getuid() || options.enforce_for_root ||
 	      (flags & PAM_CHANGE_EXPIRED_AUTHTOK))
