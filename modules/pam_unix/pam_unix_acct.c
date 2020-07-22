@@ -189,7 +189,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	unsigned long long ctrl;
 	const void *void_uname;
 	const char *uname;
-	int retval, daysleft;
+	int retval, daysleft = -1;
 	char buf[256];
 
 	D(("called."));
