@@ -68,6 +68,7 @@
 #include <selinux/selinux.h>
 #include <selinux/get_context_list.h>
 #include <selinux/context.h>
+#include <selinux/label.h>
 #endif
 
 #ifndef CLONE_NEWNS
