@@ -797,11 +797,11 @@ static char *md5hash(const char *instname, struct instance_data *idata)
 
 #ifdef WITH_SELINUX
 static int form_context(const struct polydir_s *polyptr,
-		security_context_t *i_context, security_context_t *origcon,
+		char **i_context, char **origcon,
 		struct instance_data *idata)
 {
 	int rc = PAM_SUCCESS;
-	security_context_t scon = NULL;
+	char *scon = NULL;
 	security_class_t tclass;
 
 	/*
@@ -910,7 +910,7 @@ static int form_context(const struct polydir_s *polyptr,
  */
 #ifdef WITH_SELINUX
 static int poly_name(const struct polydir_s *polyptr, char **i_name,
-	security_context_t *i_context, security_context_t *origcon,
+	char **i_context, char **origcon,
         struct instance_data *idata)
 #else
 static int poly_name(const struct polydir_s *polyptr, char **i_name,
@@ -921,7 +921,7 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
     char *hash = NULL;
     enum polymethod pm;
 #ifdef WITH_SELINUX
-    security_context_t rawcon = NULL;
+    char *rawcon = NULL;
 #endif
 
     *i_name = NULL;
@@ -1318,7 +1318,7 @@ static int create_polydir(struct polydir_s *polyptr,
     mode_t mode;
     int rc;
 #ifdef WITH_SELINUX
-    security_context_t dircon, oldcon = NULL;
+    char *dircon, *oldcon = NULL;
 #endif
     const char *dir = polyptr->dir;
     uid_t uid;
@@ -1413,7 +1413,7 @@ static int create_polydir(struct polydir_s *polyptr,
  */
 #ifdef WITH_SELINUX
 static int create_instance(struct polydir_s *polyptr, char *ipath, struct stat *statbuf,
-        security_context_t icontext, security_context_t ocontext,
+        const char *icontext, const char *ocontext,
 	struct instance_data *idata)
 #else
 static int create_instance(struct polydir_s *polyptr, char *ipath, struct stat *statbuf,
@@ -1531,7 +1531,7 @@ static int ns_setup(struct polydir_s *polyptr,
     char *instname = NULL;
     struct stat statbuf;
 #ifdef WITH_SELINUX
-    security_context_t instcontext = NULL, origcontext = NULL;
+    char *instcontext = NULL, *origcontext = NULL;
 #endif
 
     if (idata->flags & PAMNS_DEBUG)
@@ -1966,7 +1966,7 @@ static int orig_namespace(struct instance_data *idata)
  */
 static int ctxt_based_inst_needed(void)
 {
-    security_context_t scon = NULL;
+    char *scon = NULL;
     int rc = 0;
 
     rc = getexeccon(&scon);
