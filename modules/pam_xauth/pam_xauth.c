@@ -532,7 +532,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			  xauth, "-f", cookiefile, "nlist", display,
 			  NULL) == 0) {
 #ifdef WITH_SELINUX
-		security_context_t context = NULL;
+		char *context = NULL;
 #endif
 		PAM_MODUTIL_DEF_PRIVS(privs);
 
