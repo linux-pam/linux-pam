@@ -87,7 +87,7 @@ static int
 selinux_check_root (void)
 {
     int status = -1;
-    security_context_t user_context;
+    char *user_context;
     union selinux_callback old_callback;
 
     if (is_selinux_enabled() < 1)
