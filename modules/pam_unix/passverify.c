@@ -650,7 +650,7 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
     struct stat st;
     size_t len = strlen(forwho);
 #ifdef WITH_SELINUX
-    security_context_t prev_context=NULL;
+    char *prev_context=NULL;
 #endif
 
     if (howmany < 0) {
@@ -665,7 +665,7 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
-      security_context_t passwd_context=NULL;
+      char *passwd_context=NULL;
       if (getfilecon("/etc/passwd",&passwd_context)<0) {
         return PAM_AUTHTOK_ERR;
       };
@@ -821,13 +821,13 @@ PAMH_ARG_DECL(int unix_update_passwd,
     int err = 1;
     int oldmask;
 #ifdef WITH_SELINUX
-    security_context_t prev_context=NULL;
+    char *prev_context=NULL;
 #endif
 
     oldmask = umask(077);
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
-      security_context_t passwd_context=NULL;
+      char *passwd_context=NULL;
       if (getfilecon("/etc/passwd",&passwd_context)<0) {
 	return PAM_AUTHTOK_ERR;
       };
@@ -945,14 +945,14 @@ PAMH_ARG_DECL(int unix_update_shadow,
     int oldmask;
     int wroteentry = 0;
 #ifdef WITH_SELINUX
-    security_context_t prev_context=NULL;
+    char *prev_context=NULL;
 #endif
 
     oldmask = umask(077);
 
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
-      security_context_t shadow_context=NULL;
+      char *shadow_context=NULL;
       if (getfilecon("/etc/shadow",&shadow_context)<0) {
 	return PAM_AUTHTOK_ERR;
       };
