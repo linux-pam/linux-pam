@@ -1318,7 +1318,7 @@ static int create_polydir(struct polydir_s *polyptr,
     mode_t mode;
     int rc;
 #ifdef WITH_SELINUX
-    char *dircon, *oldcon = NULL;
+    char *dircon_raw, *oldcon_raw = NULL;
     struct selabel_handle *label_handle;
 #endif
     const char *dir = polyptr->dir;
@@ -1332,25 +1332,25 @@ static int create_polydir(struct polydir_s *polyptr,
 
 #ifdef WITH_SELINUX
     if (idata->flags & PAMNS_SELINUX_ENABLED) {
-	getfscreatecon(&oldcon);
+	getfscreatecon_raw(&oldcon_raw);
 
 	label_handle = selabel_open(SELABEL_CTX_FILE, NULL, 0);
 	if (!label_handle) {
 	    pam_syslog(idata->pamh, LOG_NOTICE,
                        "Unable to initialize SELinux labeling handle: %m");
 	} else {
-	    rc = selabel_lookup_raw(label_handle, &dircon, dir, S_IFDIR);
+	    rc = selabel_lookup_raw(label_handle, &dircon_raw, dir, S_IFDIR);
 	    if (rc) {
 		pam_syslog(idata->pamh, LOG_NOTICE,
                        "Unable to get default context for directory %s, check your policy: %m", dir);
 	    } else {
 		if (idata->flags & PAMNS_DEBUG)
 		    pam_syslog(idata->pamh, LOG_DEBUG,
-                               "Polydir %s context: %s", dir, dircon);
-		if (setfscreatecon_raw(dircon) != 0)
+                               "Polydir %s context: %s", dir, dircon_raw);
+		if (setfscreatecon_raw(dircon_raw) != 0)
 		    pam_syslog(idata->pamh, LOG_NOTICE,
                                "Error setting context for directory %s: %m", dir);
-		freecon(dircon);
+		freecon(dircon_raw);
 	    }
 	    selabel_close(label_handle);
 	}
@@ -1366,10 +1366,10 @@ static int create_polydir(struct polydir_s *polyptr,
 
 #ifdef WITH_SELINUX
     if (idata->flags & PAMNS_SELINUX_ENABLED) {
-        if (setfscreatecon(oldcon) != 0)
+        if (setfscreatecon_raw(oldcon_raw) != 0)
 		pam_syslog(idata->pamh, LOG_NOTICE,
                        "Error resetting fs create context: %m");
-        freecon(oldcon);
+        freecon(oldcon_raw);
     }
 #endif
 
