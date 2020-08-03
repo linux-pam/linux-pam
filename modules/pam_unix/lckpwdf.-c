@@ -73,7 +73,7 @@ static int lckpwdf(void)
 		lockfd = open(LOCKFILE, O_WRONLY);
 		if(lockfd == -1 && errno == ENOENT)
 		{
-			security_context_t create_context;
+			char *create_context;
 			int rc;
 
 			if(getfilecon("/etc/passwd", &create_context))
