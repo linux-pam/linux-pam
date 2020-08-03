@@ -87,7 +87,7 @@ static int
 selinux_check_root (void)
 {
     int status = -1;
-    char *user_context;
+    char *user_context_raw;
     union selinux_callback old_callback;
 
     if (is_selinux_enabled() < 1)
@@ -96,15 +96,15 @@ selinux_check_root (void)
     old_callback = selinux_get_callback(SELINUX_CB_LOG);
     /* setup callbacks */
     selinux_set_callback(SELINUX_CB_LOG, (union selinux_callback) &log_callback);
-    if ((status = getprevcon(&user_context)) < 0) {
+    if ((status = getprevcon_raw(&user_context_raw)) < 0) {
 	selinux_set_callback(SELINUX_CB_LOG, old_callback);
 	return status;
     }
 
-    status = selinux_check_access(user_context, user_context, "passwd", "rootok", NULL);
+    status = selinux_check_access(user_context_raw, user_context_raw, "passwd", "rootok", NULL);
 
     selinux_set_callback(SELINUX_CB_LOG, old_callback);
-    freecon(user_context);
+    freecon(user_context_raw);
     return status;
 }
 #endif
