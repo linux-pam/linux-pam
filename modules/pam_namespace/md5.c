@@ -18,14 +18,12 @@
  *
  */
 
-#include <string.h>
 #include "md5.h"
+#include <string.h>
 
 #define MD5Name(x) x
 
-#if defined(__i386) || defined(__i386__) || defined(__x86_64) || defined(__x86_64__)
-#define byteReverse(buf, len)	/* Nothing */
-#else
+#ifdef WORDS_BIGENDIAN
 typedef unsigned char PAM_ATTRIBUTE_ALIGNED(4) uint8_aligned;
 
 static void byteReverse(uint8_aligned *buf, unsigned longs);
@@ -43,6 +41,8 @@ static void byteReverse(uint8_aligned *buf, unsigned longs)
 		buf += 4;
 	} while (--longs);
 }
+#else
+#define byteReverse(buf, len)	/* Nothing */
 #endif
 
 /*
