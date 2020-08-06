@@ -156,8 +156,8 @@ sha1_update(struct sha1_context *ctx, const unsigned char *data, size_t length)
 	while (l + ctx->pending_count >= SHA1_BLOCK_SIZE) {
 		c = ctx->pending_count;
 		t = SHA1_BLOCK_SIZE - c;
-		memcpy(ctx->pending + c, &data[i], t);
-		sha1_process(ctx, (uint32_t*) ctx->pending);
+		memcpy(ctx->pending.c + c, &data[i], t);
+		sha1_process(ctx, ctx->pending.i);
 		i += t;
 		l -= t;
 		ctx->pending_count = 0;
@@ -165,7 +165,7 @@ sha1_update(struct sha1_context *ctx, const unsigned char *data, size_t length)
 
 	/* Save what's left of the data block as a pending data block. */
 	c = ctx->pending_count;
-	memcpy(ctx->pending + c, &data[i], l);
+	memcpy(ctx->pending.c + c, &data[i], l);
 	ctx->pending_count += l;
 
 	/* Update the message length. */
@@ -193,18 +193,17 @@ sha1_output(struct sha1_context *ctx, unsigned char *out)
 
 		/* Pad this block. */
 		c = ctx2.pending_count;
-		memcpy(ctx2.pending + c,
+		memcpy(ctx2.pending.c + c,
 		       padding, SHA1_BLOCK_SIZE - c);
 
 		/* Do we need to process two blocks now? */
 		if (c >= (SHA1_BLOCK_SIZE - (sizeof(uint32_t) * 2))) {
 			/* Process this block. */
-			sha1_process(&ctx2,
-				    (uint32_t*) ctx2.pending);
+			sha1_process(&ctx2, ctx2.pending.i);
 			/* Set up another block. */
 			ctx2.pending_count = 0;
-			memset(ctx2.pending, 0, SHA1_BLOCK_SIZE);
-                        ctx2.pending[0] =
+			memset(ctx2.pending.c, 0, SHA1_BLOCK_SIZE);
+                        ctx2.pending.c[0] =
 				(c == SHA1_BLOCK_SIZE) ? 0x80 : 0;
 		}
 
@@ -217,11 +216,11 @@ sha1_output(struct sha1_context *ctx, unsigned char *out)
 		ctx2.counts[0] <<= 3;
 		ctx2.counts[0] = htonl(ctx2.counts[0]);
 		ctx2.counts[1] = htonl(ctx2.counts[1]);
-		memcpy(ctx2.pending + 56,
+		memcpy(ctx2.pending.c + 56,
 		       &ctx2.counts[1], sizeof(uint32_t));
-		memcpy(ctx2.pending + 60,
+		memcpy(ctx2.pending.c + 60,
 		       &ctx2.counts[0], sizeof(uint32_t));
-		sha1_process(&ctx2, (uint32_t*) ctx2.pending);
+		sha1_process(&ctx2, ctx2.pending.i);
 
 		/* Output the data. */
 		out[ 3] = (ctx2.a >>  0) & 0xff;

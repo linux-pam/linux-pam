@@ -46,7 +46,10 @@
 
 struct sha1_context {
 	size_t count;
-	unsigned char pending[SHA1_BLOCK_SIZE] PAM_ATTRIBUTE_ALIGNED(4);
+	union {
+		unsigned char c[SHA1_BLOCK_SIZE];
+		uint32_t i[SHA1_BLOCK_SIZE / sizeof(uint32_t)];
+	} pending;
 	uint32_t counts[2];
 	size_t pending_count;
 	uint32_t a, b, c, d, e;
