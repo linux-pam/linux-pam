@@ -174,34 +174,40 @@ rm -f conftest*])
 AM_CONDITIONAL([HAVE_VERSIONING],
 	[test "$libc_cv_ld_version_script_option" = "yes"])
 
-dnl
-dnl check for -fPIE/-pie support
-dnl
-dnl icc handles -fpie as -fp without error, so blacklist icc
-dnl
-AC_ARG_ENABLE(pie,AS_HELP_STRING([--disable-pie],
-                        [disable position-independent executables (PIE)]),
-        USE_PIE=$enableval, USE_PIE=yes)
+AC_ARG_ENABLE([pie],
+              [AS_HELP_STRING([--disable-pie],
+                              [disable position-independent executables (PIE)])],
+              [], [enable_pie=check])
+case "$enable_pie" in
+  no) ;;
+  yes|check)
+    dnl Check for -fpie/-pie support
+    AC_CACHE_CHECK([for -fpie/-pie support],
+                   [pam_cv_pie],
+                   [saved_CFLAGS="$CFLAGS"
+                    saved_LDFLAGS="$LDFLAGS"
+                    CFLAGS="$CFLAGS -fpie"
+                    LDFLAGS="$LDFLAGS -pie"
+                    AC_LINK_IFELSE([AC_LANG_PROGRAM(,)],
+                                   [pam_cv_pie=yes],
+                                   [pam_cv_pie=no])
+                    LDFLAGS="$saved_LDFLAGS"
+                    CFLAGS="$saved_CFLAGS"])
+    AS_IF([test "$pam_cv_pie" = yes],
+          [enable_pie=yes],
+          [AS_IF([test "$enable_pie" = yes],
+                 [AC_MSG_FAILURE([requested -fpie/-pie support not found])],
+                 [enable_pie=no])])
+    ;;
+  *) AC_MSG_ERROR([bad value $enable_pie for --enable-pie option]) ;;
+esac
 
-AC_CACHE_CHECK(for -fpie, libc_cv_fpie, [dnl
-  cat > conftest.c <<EOF
-int foo;
-main () { return 0;}
-EOF
-  if test "$USE_PIE" = "yes" -a "$CC" != "icc" &&
-        AC_TRY_COMMAND([${CC-cc} $CFLAGS $CPPFLAGS $LDFLAGS -pie -fpie
-                              -o conftest conftest.c 1>&AS_MESSAGE_LOG_FD])
-  then
-    libc_cv_fpie=yes
-    PIE_CFLAGS="-fpie"
-    PIE_LDFLAGS="-pie"
-  else
-    libc_cv_fpie=no
-    PIE_CFLAGS=""
-    PIE_LDFLAGS=""
-  fi
-  rm -f conftest*])
-AC_SUBST(libc_cv_fpie)
+AS_IF([test "$enable_pie" = yes],
+      [PIE_CFLAGS="-fpie"
+       PIE_LDFLAGS="-pie"],
+      [PIE_CFLAGS=
+       PIE_LDFLAGS=])
+
 AC_SUBST(PIE_CFLAGS)
 AC_SUBST(PIE_LDFLAGS)
 
