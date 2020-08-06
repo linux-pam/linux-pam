@@ -1,5 +1,5 @@
 *.m4
-!japhar_grep_cflags.m4
+!attribute.m4
 !jh_path_xml_catalog.m4
 !ld-as-needed.m4
 !ld-no-undefined.m4

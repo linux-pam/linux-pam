@@ -119,7 +119,7 @@ if test "x${BUILD_LDFLAGS+set}" != "xset" ; then
 fi
 AC_SUBST(BUILD_LDFLAGS)
 
-AC_C___ATTRIBUTE__
+PAM_ATTRIBUTE_UNUSED
 
 dnl
 dnl Check if --version-script is supported by ld
