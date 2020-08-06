@@ -5,3 +5,5 @@
 !ld-no-undefined.m4
 !ld-O1.m4
 !libprelude.m4
+!warnings.m4
+!warn_lang_flags.m4

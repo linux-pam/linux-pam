@@ -79,57 +79,7 @@ PAM_LD_O1
 dnl Largefile support
 AC_SYS_LARGEFILE
 
-Werror_option=
-AC_ARG_ENABLE([Werror],
-	      [AS_HELP_STRING([--enable-Werror],
-			      [turn on -Werror compiler option])],
-	      [case $enableval in
-		yes) Werror_option=-Werror ;;
-		no)  ;;
-		*)   AC_MSG_ERROR([bad value $enableval for Werror option]) ;;
-	       esac])
-
-dnl icc claims to be GCC compatible, but use other flags for warnings
-if eval 'test "x$GCC" = "xyes" -a "$CC" != "icc"'; then
-  for flag in \
-      -W \
-      -Wall \
-      -Wbad-function-cast \
-      -Wcast-align \
-      -Wcast-qual \
-      -Wmissing-declarations \
-      -Wmissing-prototypes \
-      -Wpointer-arith \
-      -Wreturn-type \
-      -Wstrict-prototypes \
-      -Wwrite-strings \
-      -Winline \
-      -Wshadow \
-      $Werror_option
-  do
-    JAPHAR_GREP_CFLAGS($flag, [ WARN_CFLAGS="$WARN_CFLAGS $flag" ])
-  done
-fi
-dnl icc has special warning flags
-if eval 'test "x$CC" = "xicc"'; then
-  for flag in \
-      -Wall \
-      -Wmissing-prototypes \
-      -Wpointer-arith \
-      -Wreturn-type \
-      -Wstrict-prototypes \
-      -Wwrite-strings \
-      -Wshadow \
-      -Wp64 \
-      -Wdeprecated \
-      -Wuninitialized \
-      -Wmain
-  do
-    JAPHAR_GREP_CFLAGS($flag, [ WARN_CFLAGS="$WARN_CFLAGS $flag" ])
-  done
-fi
-
-AC_SUBST(WARN_CFLAGS)
+pam_WARN_LANG_FLAGS
 
 if test "x${CC_FOR_BUILD+set}" != "xset" ; then
   if test "x$cross_compiling" = "xyes" ; then
