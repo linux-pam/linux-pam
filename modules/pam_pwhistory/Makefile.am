@@ -34,9 +34,9 @@ pam_pwhistory_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBCRYPT@ @LIBSELINU
 pam_pwhistory_la_SOURCES = pam_pwhistory.c opasswd.c
 
 sbin_PROGRAMS = pwhistory_helper
-pwhistory_helper_CFLAGS = $(AM_CFLAGS) -DHELPER_COMPILE=\"pwhistory_helper\" @PIE_CFLAGS@
+pwhistory_helper_CFLAGS = $(AM_CFLAGS) -DHELPER_COMPILE=\"pwhistory_helper\" @EXE_CFLAGS@
 pwhistory_helper_SOURCES = pwhistory_helper.c opasswd.c
-pwhistory_helper_LDFLAGS = @PIE_LDFLAGS@
+pwhistory_helper_LDFLAGS = @EXE_LDFLAGS@
 pwhistory_helper_LDADD = $(top_builddir)/libpam/libpam.la @LIBCRYPT@
 
 if ENABLE_REGENERATE_MAN

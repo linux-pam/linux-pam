@@ -8,8 +8,8 @@ securelibfilterdir = $(SECUREDIR)/pam_filter
 
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	-I$(srcdir)/.. @PIE_CFLAGS@ $(WARN_CFLAGS)
-AM_LDFLAGS = @PIE_LDFLAGS@
+	-I$(srcdir)/.. @EXE_CFLAGS@ $(WARN_CFLAGS)
+AM_LDFLAGS = @EXE_LDFLAGS@
 LDADD = $(top_builddir)/libpam/libpam.la
 
 securelibfilter_PROGRAMS = upperLOWER

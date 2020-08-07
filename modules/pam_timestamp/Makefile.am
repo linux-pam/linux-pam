@@ -36,9 +36,9 @@ pam_timestamp_la_SOURCES = pam_timestamp.c hmacsha1.c sha1.c
 pam_timestamp_la_CFLAGS = $(AM_CFLAGS)
 
 pam_timestamp_check_SOURCES = pam_timestamp_check.c
-pam_timestamp_check_CFLAGS = $(AM_CFLAGS) @PIE_CFLAGS@
+pam_timestamp_check_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@
 pam_timestamp_check_LDADD = $(top_builddir)/libpam/libpam.la
-pam_timestamp_check_LDFLAGS = @PIE_LDFLAGS@
+pam_timestamp_check_LDFLAGS = @EXE_LDFLAGS@
 
 hmacfile_SOURCES = hmacfile.c hmacsha1.c sha1.c
 hmacfile_LDADD = $(top_builddir)/libpam/libpam.la
