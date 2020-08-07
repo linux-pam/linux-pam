@@ -123,10 +123,12 @@ main ()
         AC_MSG_RESULT(no)
      fi
      if test "$LIBPRELUDE_CONFIG" = "no" ; then
-       echo "*** The libprelude-config script installed by LIBPRELUDE could not be found"
-       echo "*** If LIBPRELUDE was installed in PREFIX, make sure PREFIX/bin is in"
-       echo "*** your path, or set the LIBPRELUDE_CONFIG environment variable to the"
-       echo "*** full path to libprelude-config."
+       if test x$libprelude_config_prefix != x ; then
+         echo "*** The libprelude-config script installed by LIBPRELUDE could not be found"
+         echo "*** If LIBPRELUDE was installed in PREFIX, make sure PREFIX/bin is in"
+         echo "*** your path, or set the LIBPRELUDE_CONFIG environment variable to the"
+         echo "*** full path to libprelude-config."
+       fi
      else
        if test -f conf.libpreludetest ; then
         :
