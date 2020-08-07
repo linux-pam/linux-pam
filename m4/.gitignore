@@ -3,6 +3,7 @@
 !jh_path_xml_catalog.m4
 !ld-as-needed.m4
 !ld-no-undefined.m4
+!ld-z-now.m4
 !ld-O1.m4
 !libprelude.m4
 !warnings.m4
