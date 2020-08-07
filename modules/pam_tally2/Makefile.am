@@ -29,6 +29,8 @@ if HAVE_VERSIONING
   pam_tally2_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
+pam_tally2_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@
+pam_tally2_LDFLAGS = @EXE_LDFLAGS@
 pam_tally2_LDADD = $(top_builddir)/libpam/libpam.la $(LIBAUDIT)
 
 securelib_LTLIBRARIES = pam_tally2.la

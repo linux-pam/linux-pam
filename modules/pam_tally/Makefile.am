@@ -32,6 +32,8 @@ securelib_LTLIBRARIES = pam_tally.la
 sbin_PROGRAMS = pam_tally
 
 pam_tally_SOURCES = pam_tally_app.c
+pam_tally_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@
+pam_tally_LDFLAGS = @EXE_LDFLAGS@
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
