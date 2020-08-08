@@ -46,6 +46,10 @@ if COND_BUILD_PAM_TTY_AUDIT
  MAYBE_PAM_TTY_AUDIT = pam_tty_audit
 endif
 
+if COND_BUILD_PAM_UNIX
+ MAYBE_PAM_UNIX = pam_unix
+endif
+
 if COND_BUILD_PAM_USERDB
  MAYBE_PAM_USERDB = pam_userdb
 endif
@@ -92,7 +96,7 @@ SUBDIRS := \
 	pam_timestamp \
 	$(MAYBE_PAM_TTY_AUDIT) \
 	pam_umask \
-	pam_unix \
+	$(MAYBE_PAM_UNIX) \
 	$(MAYBE_PAM_USERDB) \
 	pam_usertype \
 	pam_warn \

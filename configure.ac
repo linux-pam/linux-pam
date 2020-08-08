@@ -653,6 +653,15 @@ case "$enable_tally2" in
   *) AC_MSG_ERROR([bad value $enable_tally2 for --enable-tally2 option]) ;;
 esac
 
+AC_ARG_ENABLE([unix],
+              [AS_HELP_STRING([--disable-unix],
+                              [do not build pam_unix module])],
+              [], [enable_unix=yes])
+case "$enable_unix" in
+  yes|no) ;;
+  *) AC_MSG_ERROR([bad value $enable_unix for --enable-unix option]) ;;
+esac
+
 AM_CONDITIONAL([COND_BUILD_PAM_CRACKLIB], [test -n "$LIBCRACK"])
 AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
@@ -664,6 +673,7 @@ AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_TALLY], [test "$enable_tally" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_TALLY2], [test "$enable_tally2" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_TTY_AUDIT], [test "$HAVE_AUDIT_TTY_STATUS" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_UNIX], [test "$enable_unix" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_USERDB], [test -n "$LIBDB"])
 
 dnl Files to be created from when we run configure
