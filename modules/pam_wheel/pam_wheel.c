@@ -130,25 +130,27 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
     }
 
     if (ctrl & PAM_USE_UID_ARG) {
-	tpwd = pam_modutil_getpwuid (pamh, getuid());
-	if (!tpwd) {
-	    if (ctrl & PAM_DEBUG_ARG) {
+        tpwd = pam_modutil_getpwuid (pamh, getuid());
+        if (tpwd == NULL) {
+            if (ctrl & PAM_DEBUG_ARG) {
                 pam_syslog(pamh, LOG_NOTICE, "who is running me ?!");
-	    }
-	    return PAM_SERVICE_ERR;
-	}
-	fromsu = tpwd->pw_name;
+            }
+            return PAM_SERVICE_ERR;
+        }
+        fromsu = tpwd->pw_name;
     } else {
-	fromsu = pam_modutil_getlogin(pamh);
-	if (fromsu) {
-	    tpwd = pam_modutil_getpwnam (pamh, fromsu);
-	}
-	if (!fromsu || !tpwd) {
-	    if (ctrl & PAM_DEBUG_ARG) {
-		pam_syslog(pamh, LOG_NOTICE, "who is running me ?!");
-	    }
-	    return PAM_SERVICE_ERR;
-	}
+        fromsu = pam_modutil_getlogin(pamh);
+
+        if (fromsu != NULL) {
+            tpwd = pam_modutil_getpwnam (pamh, fromsu);
+        }
+
+        if (fromsu == NULL || tpwd == NULL) {
+            if (ctrl & PAM_DEBUG_ARG) {
+                pam_syslog(pamh, LOG_NOTICE, "who is running me ?!");
+            }
+            return PAM_SERVICE_ERR;
+        }
     }
 
     /*
