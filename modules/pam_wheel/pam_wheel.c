@@ -141,6 +141,16 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
     } else {
         fromsu = pam_modutil_getlogin(pamh);
 
+        /* if getlogin fails try a fallback to PAM_RUSER */
+        if (fromsu == NULL) {
+            const char *rhostname;
+
+            retval = pam_get_item(pamh, PAM_RHOST, (const void **)&rhostname);
+            if (retval != PAM_SUCCESS || rhostname == NULL) {
+                retval = pam_get_item(pamh, PAM_RUSER, (const void **)&fromsu);
+            }
+        }
+
         if (fromsu != NULL) {
             tpwd = pam_modutil_getpwnam (pamh, fromsu);
         }
