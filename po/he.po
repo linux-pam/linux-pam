@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2020-07-05 10:55+0000\n"
+"PO-Revision-Date: 2020-09-07 13:29+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/he/>\n"
+"Language-Team: Hebrew <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.2.2\n"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -173,7 +173,7 @@ msgstr "שגיאת דיון"
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
-msgstr ""
+msgstr "שגיאת טיפול באסימון אימות"
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
@@ -193,7 +193,7 @@ msgstr "בדיקת הקדם נכשלה על ידי שירות הססמאות"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr ""
+msgstr "הערך החוזר אמור לזכות מהתעלמות על ידי שילוח ה־PAM"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
@@ -297,6 +297,7 @@ msgstr "%s נכשל: מצב לא ידוע 0x%x"
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 msgstr ""
+"Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
 #: modules/pam_tally2/pam_tally2.c:577
@@ -312,29 +313,29 @@ msgstr "(נותרו %d דקות לשחרור)"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr ""
+msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:338 modules/pam_lastlog/pam_lastlog.c:599
 #, c-format
 msgid " from %.*s"
-msgstr ""
+msgstr " מהמארח %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:350 modules/pam_lastlog/pam_lastlog.c:611
 #, c-format
 msgid " on %.*s"
-msgstr ""
+msgstr " על גבי %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:360
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr ""
+msgstr "כניסה אחרונה:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:366
 msgid "Welcome to your new account!"
-msgstr "ברוך הבא לחשבונך החדש!"
+msgstr "ברוך בואך לחשבונך החדש!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:621
@@ -359,7 +360,7 @@ msgstr "היו %d ניסיונות התחברות שנכשלו מאז ההתחב
 #: modules/pam_limits/pam_limits.c:1090
 #, c-format
 msgid "There were too many logins for '%s'."
-msgstr ""
+msgstr "יותר מדי פעילויות כניסה עבור ‚%s’."
 
 #: modules/pam_mail/pam_mail.c:299
 msgid "You have no mail."
@@ -380,37 +381,37 @@ msgstr "יש לך דואר."
 #: modules/pam_mail/pam_mail.c:316
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr ""
+msgstr "אין לך דוא״ל בתיקייה %s."
 
 #: modules/pam_mail/pam_mail.c:320
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr ""
+msgstr "יש לך דוא״ל חדש בתיקייה %s."
 
 #: modules/pam_mail/pam_mail.c:324
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr ""
+msgstr "יש לך דוא״ל ישן בתיקייה %s."
 
 #: modules/pam_mail/pam_mail.c:329
 #, c-format
 msgid "You have mail in folder %s."
-msgstr ""
+msgstr "יש לך דוא״ל בתיקייה %s."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:116
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "התיקייה ‚%s’ נוצרת."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:183
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr ""
+msgstr "לא ניתן ליצור ולאתחל את התיקייה ‚%s’."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:220
 #: modules/pam_unix/pam_unix_passwd.c:592
 msgid "Password has been already used. Choose another."
-msgstr ""
+msgstr "כבר נעשה שימוש בססמה. נא לבחור באחרת."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:227
 msgid "Password has been already used."
@@ -419,11 +420,11 @@ msgstr "כבר נעשה שימוש בססמה הזאת."
 #: modules/pam_selinux/pam_selinux.c:176
 #, c-format
 msgid "The default security context is %s."
-msgstr ""
+msgstr "הקשר האבטחה כבררת מחדל הוא %s."
 
 #: modules/pam_selinux/pam_selinux.c:180
 msgid "Would you like to enter a different role or level?"
-msgstr ""
+msgstr "מעניין אותך למלא תפקיד או רמה שונים?"
 
 #: modules/pam_selinux/pam_selinux.c:193
 msgid "role:"
@@ -432,7 +433,7 @@ msgstr "תפקיד:"
 #: modules/pam_selinux/pam_selinux.c:197
 #, c-format
 msgid "There is no default type for role %s."
-msgstr ""
+msgstr "אין סוג בררת מחדל לתפקיד %s."
 
 #: modules/pam_selinux/pam_selinux.c:229
 msgid "level:"
@@ -440,37 +441,37 @@ msgstr "רמה:"
 
 #: modules/pam_selinux/pam_selinux.c:263
 msgid "This is not a valid security context."
-msgstr ""
+msgstr "זה לא הקשר אבטחה תקני."
 
 #: modules/pam_selinux/pam_selinux.c:513
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "לא ניתן לקבל הקשר תקני עבור %s."
 
 #: modules/pam_selinux/pam_selinux.c:633
 #, c-format
 msgid "Security context %s has been assigned."
-msgstr ""
+msgstr "הקשר האבטחה %s הוקצה."
 
 #: modules/pam_selinux/pam_selinux.c:649
 #, c-format
 msgid "Key creation context %s has been assigned."
-msgstr ""
+msgstr "הקשר יצירת המפתח %s הוקצה."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
-msgstr ""
+msgstr "האתחול של PAM נכשל\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:105
 #, c-format
 msgid "failed to pam_set_item()\n"
-msgstr ""
+msgstr "pam_set_item()‎ נכשל\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr ""
+msgstr "כניסה: פיצול נכשל: %m"
 
 #: modules/pam_tally/pam_tally.c:543 modules/pam_tally2/pam_tally2.c:595
 #, c-format
@@ -496,7 +497,7 @@ msgstr "שגיאה לא מוכרת"
 #: modules/pam_tally/pam_tally.c:774 modules/pam_tally2/pam_tally2.c:886
 #, c-format
 msgid "%s: Bad number given to --reset=\n"
-msgstr ""
+msgstr "%s: המספר שהועבר ל־‎--reset=‎ שגוי\n"
 
 #: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:890
 #, c-format
@@ -508,6 +509,7 @@ msgstr "%s: אפשרות לא מוכרת %s\n"
 msgid ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 msgstr ""
+"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_tally/pam_tally.c:864 modules/pam_tally2/pam_tally2.c:1029
 #, c-format
@@ -517,7 +519,7 @@ msgstr "%s: אין אפשרות לאפס את כל המשתמשים למספר �
 #: modules/pam_tally2/pam_tally2.c:918
 #, c-format
 msgid "Login           Failures Latest failure     From\n"
-msgstr ""
+msgstr "כניסה           כשלים כשל אחרון     מאת\n"
 
 #: modules/pam_tally2/pam_tally2.c:934
 #, c-format
@@ -526,11 +528,14 @@ msgid ""
 "   [-u username] [--user username]\n"
 "   [-r] [--reset[=n]] [--quiet]\n"
 msgstr ""
+"%s: [-f rooted-filename] [--file rooted-filename]\n"
+"   [-u username] [--user username]\n"
+"   [-r] [--reset[=n]] [--quiet]\n"
 
 #: modules/pam_timestamp/pam_timestamp.c:360
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "הוענקה גישה (הכניסה האחרונה הייתה לפני %ld שניות)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator."
