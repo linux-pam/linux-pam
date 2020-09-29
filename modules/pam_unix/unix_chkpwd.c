@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
 	  user = getuidname(getuid());
 	  /* if the caller specifies the username, verify that user
 	     matches it */
-	  if (strcmp(user, argv[1])) {
+	  if (user == NULL || strcmp(user, argv[1])) {
 	    user = argv[1];
 	    /* no match -> permanently change to the real user and proceed */
 	    if (setuid(getuid()) != 0)
