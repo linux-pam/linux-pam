@@ -20,6 +20,8 @@
 #include <ctype.h>
 #include <sys/stat.h>
 
+#include <security/_pam_types.h>
+
     extern int yylex(void);
 
     int current_line=1;
@@ -184,6 +186,7 @@ const char *old_to_new_ctrl_flag(const char *old)
     return clist[i];
 }
 
+PAM_FORMAT((printf, 1, 2))
 void yyerror(const char *format, ...)
 {
     va_list args;

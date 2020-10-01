@@ -50,6 +50,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
 
 #ifdef WITH_SELINUX
 static int
+PAM_FORMAT((printf, 2, 3))
 log_callback (int type UNUSED, const char *fmt, ...)
 {
     int audit_fd;

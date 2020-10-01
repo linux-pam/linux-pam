@@ -94,6 +94,7 @@ struct tally_options {
 #ifdef MAIN
 #define pam_syslog tally_log
 static void
+PAM_FORMAT((printf, 3, 4))
 tally_log (const pam_handle_t *pamh UNUSED, int priority UNUSED,
 	    const char *fmt, ...)
 {

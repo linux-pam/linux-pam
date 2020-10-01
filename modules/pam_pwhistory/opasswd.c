@@ -89,6 +89,7 @@ typedef struct {
 } opwd;
 
 #ifdef HELPER_COMPILE
+PAM_FORMAT((printf, 2, 3))
 void
 helper_log_err(int err, const char *format, ...)
 {
