@@ -343,45 +343,8 @@
     </para>
 
     <para>
-      To use polyinstantiation with graphical display manager gdm, insert the
-      following line, before exit 0, in /etc/gdm/PostSession/Default:
-    </para>
-
-    <para>
-      /usr/sbin/gdm-safe-restart
-    </para>
-
-    <para>
-      This allows gdm to restart after each session and appropriately adjust
-      namespaces of display manager and the X server. If polyinstantiation
-      of /tmp is desired along with the graphical environment, then additional
-      configuration changes are needed to address the interaction of X server
-      and font server namespaces with their use of /tmp to create
-      communication sockets. Please use the initialization script
-      <filename>/etc/security/namespace.init</filename> to ensure that
-      the X server and its clients can appropriately access the
-      communication socket X0. Please refer to the sample instructions
-      provided in the comment section of the instance initialization script
-      <filename>/etc/security/namespace.init</filename>. In addition,
-      perform the following changes to use graphical environment with
-      polyinstantiation of /tmp:
-    </para>
-
-    <para>
-    <literallayout>
-      1. Disable the use of font server by commenting out "FontPath"
-         line in /etc/X11/xorg.conf. If you do want to use the font server
-         then you will have to augment the instance initialization
-         script to appropriately provide /tmp/.font-unix from the
-         polyinstantiated /tmp.
-      2. Ensure that the gdm service is setup to use pam_namespace,
-         as described above, by modifying /etc/pam.d/gdm.
-      3. Ensure that the display manager is configured to restart X server
-         with each new session. This default setup can be verified by
-         making sure that /usr/share/gdm/defaults.conf contains
-         "AlwaysRestartServer=true", and it is not overridden by
-         /etc/gdm/custom.conf.
-    </literallayout>
+      To use polyinstantiation with graphical display manager gdm, please refer
+      to gdm's documentation.
     </para>
 
   </refsect1>
