@@ -100,12 +100,12 @@ close_fds(void)
 	int fd;
 	struct rlimit rlim;
 
-	if (getrlimit(RLIMIT_NOFILE, &rlim) || rlim.rlim_max > MAX_FD_NO)
+	if (getrlimit(RLIMIT_NOFILE, &rlim) || rlim.rlim_max > (rlim_t)MAX_FD_NO)
 		fd = MAX_FD_NO;
-	else if (rlim.rlim_max < MIN_FD_NO)
+	else if (rlim.rlim_max < (rlim_t)MIN_FD_NO)
 		fd = MIN_FD_NO;
 	else
-		fd = rlim.rlim_max - 1;
+		fd = (int)rlim.rlim_max - 1;
 
 	for (; fd > STDERR_FILENO; --fd)
 		close(fd);
