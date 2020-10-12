@@ -109,6 +109,7 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 		int flags, struct options *opts)
 {
 	int i;
+	int config_arg_index = -1;
 	int rv;
 	const char *conf = default_faillock_conf;
 
@@ -121,10 +122,12 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 	opts->root_unlock_time = MAX_TIME_INTERVAL+1;
 
 	for (i = 0; i < argc; ++i) {
-		const char *str;
+		const char *str = pam_str_skip_prefix(argv[i], "conf=");
 
-		if ((str = pam_str_skip_prefix(argv[i], "conf=")) != NULL)
+		if (str != NULL) {
 			conf = str;
+			config_arg_index = i;
+		}
 	}
 
 	if ((rv = read_config_file(pamh, opts, conf)) != PAM_SUCCESS) {
@@ -134,7 +137,10 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 	}
 
 	for (i = 0; i < argc; ++i) {
-		if (strcmp(argv[i], "preauth") == 0) {
+		if (i == config_arg_index) {
+			continue;
+		}
+		else if (strcmp(argv[i], "preauth") == 0) {
 			opts->action = FAILLOCK_ACTION_PREAUTH;
 		}
 		else if (strcmp(argv[i], "authfail") == 0) {
