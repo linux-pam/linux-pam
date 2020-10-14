@@ -64,8 +64,9 @@
       override files with the same name in <filename>/usr/lib/motd.d/</filename>.
     </para>
     <para>
-      Files the in the directories listed above are displayed in
-      lexicographic order by name.
+      Files in the directories listed above are displayed in lexicographic
+      order by name. Moreover, the files are filtered by reading them with the
+      credentials of the target user authenticating on the system.
     </para>
     <para>
       To silence a message,
