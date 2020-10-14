@@ -1,5 +1,8 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 1.5.0
+* pam_motd: read motd files with target user credentials skipping unreadable ones.
+
 Release 1.4.0
 * Multiple minor bug fixes and documentation improvements
 * Fixed grammar of messages printed via pam_prompt
