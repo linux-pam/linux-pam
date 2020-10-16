@@ -149,17 +149,19 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
             if (retval != PAM_SUCCESS || rhostname == NULL) {
                 retval = pam_get_item(pamh, PAM_RUSER, (const void **)&fromsu);
             }
-        }
 
-        if (fromsu != NULL) {
-            tpwd = pam_modutil_getpwnam (pamh, fromsu);
-        }
-
-        if (fromsu == NULL || tpwd == NULL) {
             if (ctrl & PAM_DEBUG_ARG) {
                 pam_syslog(pamh, LOG_NOTICE, "who is running me ?!");
             }
             return PAM_SERVICE_ERR;
+        } else {
+            tpwd = pam_modutil_getpwnam (pamh, fromsu);
+            if (tpwd == NULL) {
+                if (ctrl & PAM_DEBUG_ARG) {
+                    pam_syslog(pamh, LOG_NOTICE, "who is running me ?!");
+                }
+                return PAM_SERVICE_ERR;
+            }
         }
     }
 
