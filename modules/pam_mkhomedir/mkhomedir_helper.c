@@ -26,13 +26,12 @@
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
-static unsigned long u_mask = 0022;
 static char skeldir[BUFSIZ] = "/etc/skel";
 
 /* Do the actual work of creating a home dir */
 static int
 create_homedir(const struct passwd *pwd,
-	       const char *source, const char *dest)
+	       const char *source, const char *dest, mode_t dirmode)
 {
    char remark[BUFSIZ];
    DIR *d;
@@ -40,7 +39,7 @@ create_homedir(const struct passwd *pwd,
    int retval = PAM_SESSION_ERR;
 
    /* Create the new directory */
-   if (mkdir(dest, 0700) && errno != EEXIST)
+   if (mkdir(dest, dirmode) && errno != EEXIST)
    {
       pam_syslog(NULL, LOG_ERR, "unable to create directory %s: %m", dest);
       return PAM_PERM_DENIED;
@@ -140,7 +139,7 @@ create_homedir(const struct passwd *pwd,
       /* If it's a directory, recurse. */
       if (S_ISDIR(st.st_mode))
       {
-         retval = create_homedir(pwd, newsource, newdest);
+         retval = create_homedir(pwd, newsource, newdest, st.st_mode);
 
 #ifndef PATH_MAX
 	 free(newsource); newsource = NULL;
@@ -244,8 +243,10 @@ create_homedir(const struct passwd *pwd,
 	 return PAM_PERM_DENIED;
       }
 
-      /* Open the dest file */
-      if ((destfd = open(newdest, O_WRONLY | O_TRUNC | O_CREAT, 0600)) < 0)
+      /* Open the dest file, preserving the original permissions whilst
+	 adding a+w and letting umask(2) sort out the result. */
+      destfd = open(newdest, O_WRONLY | O_TRUNC | O_CREAT, st.st_mode | 0222);
+      if (destfd < 0)
       {
          pam_syslog(NULL, LOG_DEBUG,
 		    "unable to open dest file %s: %m", newdest);
@@ -259,11 +260,8 @@ create_homedir(const struct passwd *pwd,
 	 return PAM_PERM_DENIED;
       }
 
-      /* Set the proper ownership and permissions for the module. We make
-         the file a+w and then mask it with the set mask. This preseves
-	 execute bits */
-      if (fchmod(destfd, (st.st_mode | 0222) & (~u_mask)) != 0 ||
-	  fchown(destfd, pwd->pw_uid, pwd->pw_gid) != 0)
+      /* Set the proper ownership for the module. */
+      if (fchown(destfd, pwd->pw_uid, pwd->pw_gid) != 0)
       {
          pam_syslog(NULL, LOG_DEBUG,
 		    "unable to change perms on copy %s: %m", newdest);
@@ -322,8 +320,7 @@ create_homedir(const struct passwd *pwd,
 
  go_out:
 
-   if (chmod(dest, 0777 & (~u_mask)) != 0 ||
-       chown(dest, pwd->pw_uid, pwd->pw_gid) != 0)
+   if (chown(dest, pwd->pw_uid, pwd->pw_gid) != 0)
    {
       pam_syslog(NULL, LOG_DEBUG,
 		 "unable to change perms on directory %s: %m", dest);
@@ -380,12 +377,16 @@ main(int argc, char *argv[])
 
    if (argc >= 3) {
 	char *eptr;
+	mode_t u_mask;
+
 	errno = 0;
 	u_mask = strtoul(argv[2], &eptr, 0);
 	if (errno != 0 || *eptr != '\0') {
 		pam_syslog(NULL, LOG_ERR, "Bogus umask value %s", argv[2]);
 		return PAM_SESSION_ERR;
 	}
+
+	umask(u_mask);
    }
 
    if (argc >= 4) {
@@ -404,5 +405,5 @@ main(int argc, char *argv[])
    if (make_parent_dirs(pwd->pw_dir, 0) != PAM_SUCCESS)
 	return PAM_PERM_DENIED;
 
-   return create_homedir(pwd, skeldir, pwd->pw_dir);
+   return create_homedir(pwd, skeldir, pwd->pw_dir, 0777);
 }
