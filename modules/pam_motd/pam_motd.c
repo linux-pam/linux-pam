@@ -288,7 +288,7 @@ static int drop_privileges(pam_handle_t *pamh, struct pam_modutil_privs *privs)
     const char *username;
     int retval;
 
-    retval = pam_get_user(pamh, &username, "key user");
+    retval = pam_get_user(pamh, &username, NULL);
 
     if (retval == PAM_SUCCESS) {
         pw = pam_modutil_getpwnam (pamh, username);
