@@ -33,7 +33,6 @@
 ./libpam/pam_syslog.c
 ./libpam/pam_vprompt.c
 ./modules/pam_access/pam_access.c
-./modules/pam_cracklib/pam_cracklib.c
 ./modules/pam_debug/pam_debug.c
 ./modules/pam_deny/pam_deny.c
 ./modules/pam_echo/pam_echo.c

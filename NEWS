@@ -2,6 +2,8 @@ Linux-PAM NEWS -- history of user-visible changes.
 
 Release 1.5.0
 * pam_motd: read motd files with target user credentials skipping unreadable ones.
+* Removed deprecated pam_cracklib module, use pam_passwdqc (from passwdqc project)
+  or pam_pwquality (from libpwquality project) instead.
 
 Release 1.4.0
 * Multiple minor bug fixes and documentation improvements

@@ -334,28 +334,6 @@ case "$ac_cv_search_dlopen" in
 esac
 AC_SUBST(LIBDL)
 
-AC_ARG_ENABLE([cracklib],
-	      [AS_HELP_STRING([--enable-cracklib],
-			      [build deprecated pam_cracklib module])],
-	      [], [enable_cracklib=no])
-LIBCRACK=""
-case "$enable_cracklib" in
-  no) ;;
-  yes|check)
-    dnl Check for cracklib
-    AC_CHECK_HEADERS([crack.h],
-		     [AC_CHECK_LIB([crack], [FascistCheck],
-				   [LIBCRACK="-lcrack"])])
-    if test -z "$LIBCRACK"; then
-      if test "$enable_cracklib" = yes; then
-	AC_MSG_FAILURE([failed to find cracklib])
-      fi
-    fi
-    ;;
-  *) AC_MSG_ERROR([bad value $enable_cracklib for --enable-cracklib option]) ;;
-esac
-AC_SUBST(LIBCRACK)
-
 dnl Look for Linux Auditing library - see documentation
 AC_ARG_ENABLE([audit],
         AS_HELP_STRING([--disable-audit],[do not enable audit support]),
@@ -662,7 +640,6 @@ case "$enable_unix" in
   *) AC_MSG_ERROR([bad value $enable_unix for --enable-unix option]) ;;
 esac
 
-AM_CONDITIONAL([COND_BUILD_PAM_CRACKLIB], [test -n "$LIBCRACK"])
 AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_NAMESPACE], [test "$ac_cv_func_unshare" = yes])
@@ -682,7 +659,7 @@ AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile
 	po/Makefile.in \
 	Make.xml.rules \
 	modules/Makefile \
-	modules/pam_access/Makefile modules/pam_cracklib/Makefile \
+	modules/pam_access/Makefile \
         modules/pam_debug/Makefile modules/pam_deny/Makefile \
 	modules/pam_echo/Makefile modules/pam_env/Makefile \
 	modules/pam_faildelay/Makefile modules/pam_faillock/Makefile \

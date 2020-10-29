@@ -2,10 +2,6 @@
 # Copyright (c) 2005, 2006, 2008 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
-if COND_BUILD_PAM_CRACKLIB
- MAYBE_PAM_CRACKLIB = pam_cracklib
-endif
-
 if COND_BUILD_PAM_KEYINIT
  MAYBE_PAM_KEYINIT = pam_keyinit
 endif
@@ -56,7 +52,6 @@ endif
 
 SUBDIRS := \
 	pam_access \
-	$(MAYBE_PAM_CRACKLIB) \
 	pam_debug \
 	pam_deny \
 	pam_echo \
