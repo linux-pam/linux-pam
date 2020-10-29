@@ -200,7 +200,7 @@ session optional pam_timestamp.so
   <refsect1 id='pam_timestamp-author'>
     <title>AUTHOR</title>
       <para>
-        pam_tally was written by Nalin Dahyabhai.
+        pam_timestamp was written by Nalin Dahyabhai.
       </para>
   </refsect1>
 

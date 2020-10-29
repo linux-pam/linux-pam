@@ -613,24 +613,6 @@ test -n "$opt_kerneloverflowuid" ||
           opt_kerneloverflowuid=65534
 AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel overflow uid.])
 
-AC_ARG_ENABLE([tally],
-	      [AS_HELP_STRING([--enable-tally],
-			      [build deprecated pam_tally module])],
-	      [], [enable_tally=no])
-case "$enable_tally" in
-  yes|no) ;;
-  *) AC_MSG_ERROR([bad value $enable_tally for --enable-tally option]) ;;
-esac
-
-AC_ARG_ENABLE([tally2],
-	      [AS_HELP_STRING([--enable-tally2],
-			      [build deprecated pam_tally2 module])],
-	      [], [enable_tally2=no])
-case "$enable_tally2" in
-  yes|no) ;;
-  *) AC_MSG_ERROR([bad value $enable_tally2 for --enable-tally2 option]) ;;
-esac
-
 AC_ARG_ENABLE([unix],
               [AS_HELP_STRING([--disable-unix],
                               [do not build pam_unix module])],
@@ -647,8 +629,6 @@ AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o 
 AM_CONDITIONAL([COND_BUILD_PAM_SELINUX], [test -n "$LIBSELINUX"])
 AM_CONDITIONAL([COND_BUILD_PAM_SEPERMIT], [test -n "$LIBSELINUX"])
 AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
-AM_CONDITIONAL([COND_BUILD_PAM_TALLY], [test "$enable_tally" = yes])
-AM_CONDITIONAL([COND_BUILD_PAM_TALLY2], [test "$enable_tally2" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_TTY_AUDIT], [test "$HAVE_AUDIT_TTY_STATUS" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_UNIX], [test "$enable_unix" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_USERDB], [test -n "$LIBDB"])
@@ -678,8 +658,7 @@ AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile
 	modules/pam_securetty/Makefile modules/pam_selinux/Makefile \
 	modules/pam_sepermit/Makefile modules/pam_setquota/Makefile \
 	modules/pam_shells/Makefile modules/pam_stress/Makefile \
-	modules/pam_succeed_if/Makefile modules/pam_tally/Makefile \
-	modules/pam_tally2/Makefile modules/pam_time/Makefile \
+	modules/pam_succeed_if/Makefile modules/pam_time/Makefile \
 	modules/pam_timestamp/Makefile modules/pam_tty_audit/Makefile \
 	modules/pam_umask/Makefile \
 	modules/pam_unix/Makefile modules/pam_userdb/Makefile \
