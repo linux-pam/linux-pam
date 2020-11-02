@@ -424,7 +424,6 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
     /* call the list of module functions */
     pamh->choice = choice;
     retval = _pam_dispatch_aux(pamh, flags, h, resumed, use_cached_chain);
-    resumed = PAM_FALSE;
 
     __PAM_TO_APP(pamh);
 
