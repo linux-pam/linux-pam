@@ -157,7 +157,7 @@ do_user(struct options *opts, const char *user)
 		unsigned int i;
 
 		memset(&tallies, 0, sizeof(tallies));
-		if ((rv=read_tally(fd, &tallies)) == -1) {
+		if (read_tally(fd, &tallies) == -1) {
 			fprintf(stderr, "%s: Error reading the tally file for %s:",
 				opts->progname, user);
 			perror(NULL);
