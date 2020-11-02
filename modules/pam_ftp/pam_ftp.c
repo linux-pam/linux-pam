@@ -133,6 +133,8 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	retval = pam_set_item(pamh, PAM_USER, (const void *)anon_user);
 	if (retval != PAM_SUCCESS || anon_user == NULL) {
 	    pam_syslog(pamh, LOG_ERR, "user resetting failed");
+	    free(anon_user);
+
 	    return PAM_USER_UNKNOWN;
 	}
 	free(anon_user);
