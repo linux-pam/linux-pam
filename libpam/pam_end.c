@@ -56,6 +56,9 @@ int pam_end(pam_handle_t *pamh, int pam_status)
     _pam_overwrite(pamh->user);
     _pam_drop(pamh->user);
 
+    _pam_overwrite(pamh->confdir);
+    _pam_drop(pamh->confdir);
+
     _pam_overwrite(pamh->prompt);
     _pam_drop(pamh->prompt);                  /* prompt for pam_get_user() */
 
