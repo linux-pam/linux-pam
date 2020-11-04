@@ -115,6 +115,7 @@ static int _pam_start_internal (
 	pam_syslog(*pamh, LOG_CRIT, "pam_start: malloc failed for pam_conv");
 	_pam_drop((*pamh)->service_name);
 	_pam_drop((*pamh)->user);
+	_pam_drop((*pamh)->confdir);
 	_pam_drop(*pamh);
 	return (PAM_BUF_ERR);
     } else {
@@ -128,6 +129,7 @@ static int _pam_start_internal (
 	_pam_drop((*pamh)->pam_conversation);
 	_pam_drop((*pamh)->service_name);
 	_pam_drop((*pamh)->user);
+	_pam_drop((*pamh)->confdir);
 	_pam_drop(*pamh);
 	return PAM_ABORT;
     }
@@ -145,6 +147,7 @@ static int _pam_start_internal (
 	_pam_drop((*pamh)->pam_conversation);
 	_pam_drop((*pamh)->service_name);
 	_pam_drop((*pamh)->user);
+	_pam_drop((*pamh)->confdir);
 	_pam_drop(*pamh);
 	return PAM_ABORT;
     }
