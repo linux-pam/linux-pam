@@ -311,7 +311,7 @@ static int _assemble_line(FILE *f, char *buffer, int buf_len)
 	    D(("_assemble_line: corrupted or binary file"));
 	    return -1;
 	}
-	if (p[strlen(p)-1] != '\n') {
+	if (p[strlen(p)-1] != '\n' && !feof(f)) {
 	    D(("_assemble_line: line too long"));
 	    return -1;
 	}
