@@ -163,6 +163,11 @@
             behavior of subsequent modules in the stack without the consent
             of the system administrator.
           </para>
+          <para>
+            Due to problematic security this functionality is deprecated
+            since the 1.5.0 version and will be removed completely at some
+            point in the future.
+          </para>
         </listitem>
       </varlistentry>
 

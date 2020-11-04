@@ -13,6 +13,8 @@ Release 1.5.0
 * Removed deprecated pam_cracklib module, use pam_passwdqc (from passwdqc project)
   or pam_pwquality (from libpwquality project) instead.
 * Removed deprecated pam_tally and pam_tally2 modules, use pam_faillock instead.
+* pam_env: Reading of the user environment is deprecated and will be removed
+	   at some point in the future.
 
 Release 1.4.0
 * Multiple minor bug fixes and documentation improvements
