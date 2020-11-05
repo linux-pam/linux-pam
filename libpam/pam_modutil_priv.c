@@ -107,11 +107,20 @@ int pam_modutil_drop_priv(pam_handle_t *pamh,
 	 * We should care to leave process credentials in consistent state.
 	 * That is, e.g. if change_gid() succeeded but change_uid() failed,
 	 * we should try to restore old gid.
+	 *
+	 * We try to add the supplementary groups on a best-effort
+	 * basis.  If it fails, it's not fatal: we fall back to using an
+	 * empty list.
 	 */
-	if (setgroups(0, NULL)) {
-		pam_syslog(pamh, LOG_ERR,
-			   "pam_modutil_drop_priv: setgroups failed: %m");
-		return cleanup(p);
+	if (initgroups(pw->pw_name, pw->pw_gid)) {
+		pam_syslog(pamh, LOG_WARNING,
+			   "pam_modutil_drop_priv: initgroups failed: %m");
+
+		if (setgroups(0, NULL)) {
+			pam_syslog(pamh, LOG_ERR,
+				   "pam_modutil_drop_priv: setgroups failed: %m");
+			return cleanup(p);
+		}
 	}
 	if (change_gid(pw->pw_gid, &p->old_gid)) {
 		pam_syslog(pamh, LOG_ERR,
