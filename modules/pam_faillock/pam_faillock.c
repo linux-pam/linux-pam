@@ -67,6 +67,7 @@
 #define FAILLOCK_FLAG_NO_LOG_INFO	0x8
 #define FAILLOCK_FLAG_UNLOCKED		0x10
 #define FAILLOCK_FLAG_LOCAL_ONLY	0x20
+#define FAILLOCK_FLAG_NO_DELAY		0x40
 
 #define MAX_TIME_INTERVAL 604800 /* 7 days */
 #define FAILLOCK_CONF_MAX_LINELEN 1023
@@ -343,6 +344,9 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name, const c
 	}
 	else if (strcmp(name, "local_users_only") == 0) {
 		opts->flags |= FAILLOCK_FLAG_LOCAL_ONLY;
+	}
+	else if (strcmp(name, "nodelay") == 0) {
+		opts->flags |= FAILLOCK_FLAG_NO_DELAY;
 	}
 	else {
 		pam_syslog(pamh, LOG_ERR, "Unknown option: %s", name);
@@ -654,7 +658,9 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
 	if (rv != PAM_SUCCESS)
 		goto err;
 
-	pam_fail_delay(pamh, 2000000);	/* 2 sec delay on failure */
+	if (!(opts.flags & FAILLOCK_FLAG_NO_DELAY)) {
+		pam_fail_delay(pamh, 2000000);	/* 2 sec delay on failure */
+	}
 
 	if ((rv=get_pam_user(pamh, &opts)) != PAM_SUCCESS) {
 		goto err;

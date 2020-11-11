@@ -96,6 +96,16 @@
             </varlistentry>
             <varlistentry>
               <term>
+                <option>nodelay</option>
+              </term>
+              <listitem>
+                <para>
+                  Don't enforce a delay after authentication failures.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
                 <option>deny=<replaceable>n</replaceable></option>
               </term>
               <listitem>
