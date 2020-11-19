@@ -602,7 +602,8 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 	int daysleft;
 	int retval;
 	int execloop = 1;
-	int nonexistent = 1;
+	int pwd_is_null;
+	int user_exists = 1;
 
 	D(("called"));
 
@@ -636,20 +637,44 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 		retval = get_pwd_hash(pamh, name, &pwd, &salt);
 
 		if (retval == PAM_UNIX_RUN_HELPER) {
-			execloop = 0;
-			if(nonexistent) {
+			if (user_exists) {
+				/* If the user exists we call get_pwd_hash a second time to
+				 * prevent a timing attack. */
 				get_pwd_hash(pamh, "pam_unix_non_existent:", &pwd, &salt);
+				pwd_is_null = _unix_run_helper_binary(pamh, NULL, ctrl, name) == PAM_SUCCESS;
+			} else {
+				/* If the user didn't exist the previous loop iteration set the
+				 * name to "root", so we call the helper with a non-existent
+				 * user to prevent actually trying to check the root password.
+				 */
+				pwd_is_null = _unix_run_helper_binary(pamh, NULL, ctrl, "pam_unix_non_existent:") == PAM_SUCCESS;
 			}
+
 			/* salt will not be set here so we can return immediately */
-			if (_unix_run_helper_binary(pamh, NULL, ctrl, name) == PAM_SUCCESS)
+			if (pwd_is_null) {
 				return 1;
-			else
+			} else {
 				return 0;
+			}
 		} else if (retval == PAM_USER_UNKNOWN) {
 			name = "root";
-			nonexistent = 0;
+			user_exists = 0;
 		} else {
+			/* If the user exists but we don't need to call the helper we call
+			 * get_pwd_hash a second time to prevent a timing attack. */
+			if (user_exists) {
+				get_pwd_hash(pamh, "pam_unix_non_existent:", &pwd, &salt);
+			}
+
 			execloop = 0;
+		}
+	}
+
+	/* User didn't exist so if we got a salt it belongs to the root user. */
+	if (!user_exists) {
+		if (salt) {
+			_pam_delete(salt);
+			salt = NULL;
 		}
 	}
 
