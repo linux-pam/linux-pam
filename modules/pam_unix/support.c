@@ -601,8 +601,9 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 	char *salt = NULL;
 	int daysleft;
 	int retval;
-	int execloop = 1;
-	int nonexistent = 1;
+	int blank = 0;
+	int execloop;
+	int nonexistent_check = 1;
 
 	D(("called"));
 
@@ -632,43 +633,29 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 	 * are equal, making it more difficult to differentiate existing from
 	 * non-existing users.
 	 */
-	while (execloop) {
+	for (execloop = 0; execloop < 2; ++execloop) {
 		retval = get_pwd_hash(pamh, name, &pwd, &salt);
 
 		if (retval == PAM_UNIX_RUN_HELPER) {
-			execloop = 0;
-			if(nonexistent) {
-				get_pwd_hash(pamh, "pam_unix_non_existent:", &pwd, &salt);
-			}
-			/* salt will not be set here so we can return immediately */
 			if (_unix_run_helper_binary(pamh, NULL, ctrl, name) == PAM_SUCCESS)
-				return 1;
-			else
-				return 0;
+				blank = nonexistent_check;
 		} else if (retval == PAM_USER_UNKNOWN) {
 			name = "root";
-			nonexistent = 0;
-		} else {
-			execloop = 0;
+			nonexistent_check = 0;
+			continue;
+		} else if (salt != NULL) {
+			if (strlen(salt) == 0)
+				blank = nonexistent_check;
 		}
-	}
-
-	/* Does this user have a password? */
-	if (salt == NULL) {
-		retval = 0;
-	} else {
-		if (strlen(salt) == 0)
-			retval = 1;
-		else
-			retval = 0;
+		name = "pam_unix_non_existent:";
+		/* non-existent user check will not affect the blank value */
 	}
 
 	/* tidy up */
-
 	if (salt)
 		_pam_delete(salt);
 
-	return retval;
+	return blank;
 }
 
 int _unix_verify_password(pam_handle_t * pamh, const char *name
