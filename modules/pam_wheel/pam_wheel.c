@@ -44,17 +44,6 @@
 #include <security/pam_ext.h>
 #include "pam_inline.h"
 
-/* checks if a user is on a list of members of the GID 0 group */
-static int is_on_list(char * const *list, const char *member)
-{
-    while (list && *list) {
-        if (strcmp(*list, member) == 0)
-            return 1;
-        list++;
-    }
-    return 0;
-}
-
 /* argument parsing */
 
 #define PAM_DEBUG_ARG       0x0001
@@ -175,7 +164,7 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
 	grp = pam_modutil_getgrnam (pamh, use_group);
     }
 
-    if (!grp || (!grp->gr_mem && (tpwd->pw_gid != grp->gr_gid))) {
+    if (grp == NULL) {
 	if (ctrl & PAM_DEBUG_ARG) {
 	    if (!use_group[0]) {
 		pam_syslog(pamh, LOG_NOTICE, "no members in a GID 0 group");
@@ -200,7 +189,7 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
      * user has the "wheel" (sic) group as its primary group.
      */
 
-    if (is_on_list(grp->gr_mem, fromsu) || (tpwd->pw_gid == grp->gr_gid)) {
+    if (pam_modutil_user_in_group_uid_gid(pamh, tpwd->pw_uid, grp->gr_gid)) {
 
 	if (ctrl & PAM_DENY_ARG) {
 	    retval = PAM_PERM_DENIED;
