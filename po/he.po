@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-04-30 10:03+0200\n"
+"POT-Creation-Date: 2020-11-24 20:25+0000\n"
 "PO-Revision-Date: 2020-09-07 13:29+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/he/>\n"
+"Language-Team: Hebrew <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,21 +21,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 4.2.2\n"
 
-#: libpam_misc/misc_conv.c:33
-msgid "...Time is running out...\n"
-msgstr "...הזמן עומד להיגמר...\n"
-
-#: libpam_misc/misc_conv.c:34
-msgid "...Sorry, your time is up!\n"
-msgstr "...סליחה, זמנך עבר!\n"
-
-#: libpam_misc/misc_conv.c:346
-#, c-format
-msgid "erroneous conversation (%d)\n"
-msgstr "דיון שגוי (%d)\n"
-
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:184
-#: modules/pam_userdb/pam_userdb.c:65
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:178
+#: modules/pam_userdb/pam_userdb.c:55
 msgid "Password: "
 msgstr "ססמה: "
 
@@ -215,79 +202,30 @@ msgstr "היישום צריך לקרוא ל־libpam שוב"
 msgid "Unknown PAM error"
 msgstr "שגיאת PAM לא מוכרת"
 
-#: modules/pam_cracklib/pam_cracklib.c:614
-msgid "is the same as the old one"
-msgstr "זהה לישנה"
+#: libpam_misc/misc_conv.c:33
+msgid "...Time is running out...\n"
+msgstr "...הזמן עומד להיגמר...\n"
 
-#: modules/pam_cracklib/pam_cracklib.c:620
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:634
-msgid "memory allocation error"
-msgstr "שגיאת הקצאת זכרון"
+#: libpam_misc/misc_conv.c:34
+msgid "...Sorry, your time is up!\n"
+msgstr "...סליחה, זמנך עבר!\n"
 
-#: modules/pam_cracklib/pam_cracklib.c:639
-msgid "is a palindrome"
-msgstr "פילנדרום"
-
-#: modules/pam_cracklib/pam_cracklib.c:642
-msgid "case changes only"
-msgstr "שינויי גודל אותיות בלבד"
-
-#: modules/pam_cracklib/pam_cracklib.c:645
-msgid "is too similar to the old one"
-msgstr "יותר מדי דומה לישנה"
-
-#: modules/pam_cracklib/pam_cracklib.c:648
-msgid "is too simple"
-msgstr "פשוטה מדי"
-
-#: modules/pam_cracklib/pam_cracklib.c:651
-msgid "is rotated"
-msgstr "האם שונה הסדר"
-
-#: modules/pam_cracklib/pam_cracklib.c:654
-msgid "not enough character classes"
-msgstr "אין מספיק מחלקות תווים"
-
-#: modules/pam_cracklib/pam_cracklib.c:657
-msgid "contains too many same characters consecutively"
-msgstr "יותר מדי תווים זהים בזה אחר זה"
-
-#: modules/pam_cracklib/pam_cracklib.c:660
-msgid "contains too long of a monotonic character sequence"
-msgstr "מכיל רצף תווים מונוטוני ארוך מדי"
-
-#: modules/pam_cracklib/pam_cracklib.c:663
-msgid "contains the user name in some form"
-msgstr "מכיל את שם המשתמש בצורה כלשהי"
-
-#: modules/pam_cracklib/pam_cracklib.c:697
-#: modules/pam_unix/pam_unix_passwd.c:566
-msgid "No password has been supplied."
-msgstr "לא סופקה ססמה."
-
-#: modules/pam_cracklib/pam_cracklib.c:698
-#: modules/pam_unix/pam_unix_passwd.c:567
-msgid "The password has not been changed."
-msgstr "הססמה לא הוחלפה."
-
-#: modules/pam_cracklib/pam_cracklib.c:718
-#: modules/pam_cracklib/pam_cracklib.c:800
+#: libpam_misc/misc_conv.c:348
 #, c-format
-msgid "BAD PASSWORD: %s"
-msgstr "ססמה לא טובה: %s"
+msgid "erroneous conversation (%d)\n"
+msgstr "דיון שגוי (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:281
+#: modules/pam_exec/pam_exec.c:275
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s נכשל: קוד היציאה %d"
 
-#: modules/pam_exec/pam_exec.c:290
+#: modules/pam_exec/pam_exec.c:284
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s נכשל: נתפס האות %d%s"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:293
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s נכשל: מצב לא ידוע 0x%x"
@@ -299,51 +237,50 @@ msgid ""
 msgstr ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 
-#: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
-#: modules/pam_tally2/pam_tally2.c:577
+#: modules/pam_faillock/pam_faillock.c:614
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "החשבון ננעל בעקבות %u ניסיונות התחברות שנכשלו."
 
-#: modules/pam_faillock/pam_faillock.c:654
+#: modules/pam_faillock/pam_faillock.c:619
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(נותרו %d דקות לשחרור)"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
+#: modules/pam_lastlog/pam_lastlog.c:318 modules/pam_lastlog/pam_lastlog.c:579
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:338 modules/pam_lastlog/pam_lastlog.c:599
+#: modules/pam_lastlog/pam_lastlog.c:327 modules/pam_lastlog/pam_lastlog.c:588
 #, c-format
 msgid " from %.*s"
 msgstr " מהמארח %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:350 modules/pam_lastlog/pam_lastlog.c:611
+#: modules/pam_lastlog/pam_lastlog.c:339 modules/pam_lastlog/pam_lastlog.c:600
 #, c-format
 msgid " on %.*s"
 msgstr " על גבי %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:360
+#: modules/pam_lastlog/pam_lastlog.c:349
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "כניסה אחרונה:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:366
+#: modules/pam_lastlog/pam_lastlog.c:355
 msgid "Welcome to your new account!"
 msgstr "ברוך בואך לחשבונך החדש!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:621
+#: modules/pam_lastlog/pam_lastlog.c:610
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "כניסה כושלת אחרונה:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:630 modules/pam_lastlog/pam_lastlog.c:637
+#: modules/pam_lastlog/pam_lastlog.c:619 modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -352,108 +289,108 @@ msgstr[0] "היה ניסיון התחברות %d שנכשל מאז ההתחבר�
 msgstr[1] "היו %d ניסיונות התחברות שנכשלו מאז ההתחברות האחרונה שהצליחה."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:642
+#: modules/pam_lastlog/pam_lastlog.c:631
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "היו %d ניסיונות התחברות שנכשלו מאז ההתחברות האחרונה שהצליחה."
 
-#: modules/pam_limits/pam_limits.c:1090
+#: modules/pam_limits/pam_limits.c:1115
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "יותר מדי פעילויות כניסה עבור ‚%s’."
 
-#: modules/pam_mail/pam_mail.c:299
+#: modules/pam_mail/pam_mail.c:289
 msgid "You have no mail."
 msgstr "אין לך דואר."
 
-#: modules/pam_mail/pam_mail.c:302
+#: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
 msgstr "יש לך דואר חדש."
 
-#: modules/pam_mail/pam_mail.c:305
+#: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
 msgstr "יש לך דואר ישן."
 
-#: modules/pam_mail/pam_mail.c:309
+#: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
 msgstr "יש לך דואר."
 
-#: modules/pam_mail/pam_mail.c:316
+#: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "אין לך דוא״ל בתיקייה %s."
 
-#: modules/pam_mail/pam_mail.c:320
+#: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "יש לך דוא״ל חדש בתיקייה %s."
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "יש לך דוא״ל ישן בתיקייה %s."
 
-#: modules/pam_mail/pam_mail.c:329
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "יש לך דוא״ל בתיקייה %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:116
+#: modules/pam_mkhomedir/pam_mkhomedir.c:107
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "התיקייה ‚%s’ נוצרת."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:183
+#: modules/pam_mkhomedir/pam_mkhomedir.c:174
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "לא ניתן ליצור ולאתחל את התיקייה ‚%s’."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
-#: modules/pam_unix/pam_unix_passwd.c:592
+#: modules/pam_pwhistory/pam_pwhistory.c:371
+#: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
 msgstr "כבר נעשה שימוש בססמה. נא לבחור באחרת."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:227
+#: modules/pam_pwhistory/pam_pwhistory.c:378
 msgid "Password has been already used."
 msgstr "כבר נעשה שימוש בססמה הזאת."
 
-#: modules/pam_selinux/pam_selinux.c:176
+#: modules/pam_selinux/pam_selinux.c:172
 #, c-format
 msgid "The default security context is %s."
 msgstr "הקשר האבטחה כבררת מחדל הוא %s."
 
-#: modules/pam_selinux/pam_selinux.c:180
+#: modules/pam_selinux/pam_selinux.c:176
 msgid "Would you like to enter a different role or level?"
 msgstr "מעניין אותך למלא תפקיד או רמה שונים?"
 
-#: modules/pam_selinux/pam_selinux.c:193
+#: modules/pam_selinux/pam_selinux.c:189
 msgid "role:"
 msgstr "תפקיד:"
 
-#: modules/pam_selinux/pam_selinux.c:197
+#: modules/pam_selinux/pam_selinux.c:193
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "אין סוג בררת מחדל לתפקיד %s."
 
-#: modules/pam_selinux/pam_selinux.c:229
+#: modules/pam_selinux/pam_selinux.c:225
 msgid "level:"
 msgstr "רמה:"
 
-#: modules/pam_selinux/pam_selinux.c:263
+#: modules/pam_selinux/pam_selinux.c:259
 msgid "This is not a valid security context."
 msgstr "זה לא הקשר אבטחה תקני."
 
-#: modules/pam_selinux/pam_selinux.c:513
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "לא ניתן לקבל הקשר תקני עבור %s."
 
-#: modules/pam_selinux/pam_selinux.c:633
+#: modules/pam_selinux/pam_selinux.c:629
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "הקשר האבטחה %s הוקצה."
 
-#: modules/pam_selinux/pam_selinux.c:649
+#: modules/pam_selinux/pam_selinux.c:645
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "הקשר יצירת המפתח %s הוקצה."
@@ -473,86 +410,27 @@ msgstr "pam_set_item()‎ נכשל\n"
 msgid "login: failure forking: %m"
 msgstr "כניסה: פיצול נכשל: %m"
 
-#: modules/pam_tally/pam_tally.c:543 modules/pam_tally2/pam_tally2.c:595
-#, c-format
-msgid "The account is temporarily locked (%ld seconds left)."
-msgstr "החשבון נעול זמנית (%ld שניות נותרו)."
-
-#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:861
-msgid "Authentication error"
-msgstr "שגיאת אימות"
-
-#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:862
-msgid "Service error"
-msgstr "שגיאת שירות"
-
-#: modules/pam_tally/pam_tally.c:754 modules/pam_tally2/pam_tally2.c:863
-msgid "Unknown user"
-msgstr "משתמש לא ידוע"
-
-#: modules/pam_tally/pam_tally.c:755 modules/pam_tally2/pam_tally2.c:864
-msgid "Unknown error"
-msgstr "שגיאה לא מוכרת"
-
-#: modules/pam_tally/pam_tally.c:774 modules/pam_tally2/pam_tally2.c:886
-#, c-format
-msgid "%s: Bad number given to --reset=\n"
-msgstr "%s: המספר שהועבר ל־‎--reset=‎ שגוי\n"
-
-#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:890
-#, c-format
-msgid "%s: Unrecognised option %s\n"
-msgstr "%s: אפשרות לא מוכרת %s\n"
-
-#: modules/pam_tally/pam_tally.c:790
-#, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-
-#: modules/pam_tally/pam_tally.c:864 modules/pam_tally2/pam_tally2.c:1029
-#, c-format
-msgid "%s: Can't reset all users to non-zero\n"
-msgstr "%s: אין אפשרות לאפס את כל המשתמשים למספר שאינו אפס\n"
-
-#: modules/pam_tally2/pam_tally2.c:918
-#, c-format
-msgid "Login           Failures Latest failure     From\n"
-msgstr "כניסה           כשלים כשל אחרון     מאת\n"
-
-#: modules/pam_tally2/pam_tally2.c:934
-#, c-format
-msgid ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
-
-#: modules/pam_timestamp/pam_timestamp.c:360
+#: modules/pam_timestamp/pam_timestamp.c:354
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "הוענקה גישה (הכניסה האחרונה הייתה לפני %ld שניות)."
 
-#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
+#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
 msgid "Your account has expired; please contact your system administrator."
 msgstr "תוקף חשבונך פג, נא ליצור קשר עם הנהלת המערכת שלך."
 
-#: modules/pam_unix/pam_unix_acct.c:240
+#: modules/pam_unix/pam_unix_acct.c:238
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "עליך לשנות את ססמתך מיידית (דרישת הנהלת המערכת)."
 
-#: modules/pam_unix/pam_unix_acct.c:246
+#: modules/pam_unix/pam_unix_acct.c:244
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "עליך לשנות את ססמתך מיידית (תוקף הססמה פג)."
 
-#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
+#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -560,28 +438,121 @@ msgstr[0] "אזהרה: הססמה שלך תפוג מחר."
 msgstr[1] "אזהרה: הססמה שלך תפוג תוך %d ימים."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:279
+#: modules/pam_unix/pam_unix_acct.c:281
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "אזהרה: הססמה שלך תפוג תוך %d ימים."
 
-#: modules/pam_unix/pam_unix_passwd.c:468
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
 msgstr "לא היה ניתן לשנות ססמת NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:584
+#: modules/pam_unix/pam_unix_passwd.c:563
+msgid "No password has been supplied."
+msgstr "לא סופקה ססמה."
+
+#: modules/pam_unix/pam_unix_passwd.c:564
+msgid "The password has not been changed."
+msgstr "הססמה לא הוחלפה."
+
+#: modules/pam_unix/pam_unix_passwd.c:581
 msgid "You must choose a shorter password."
 msgstr "עליך לבחור סיסמה קצרה יותר."
 
-#: modules/pam_unix/pam_unix_passwd.c:588
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "You must choose a longer password."
 msgstr "עליך לבחור ססמה ארוכה יותר."
 
-#: modules/pam_unix/pam_unix_passwd.c:695
+#: modules/pam_unix/pam_unix_passwd.c:692
 #, c-format
 msgid "Changing password for %s."
 msgstr "הססמה עבור %s מוחלפת."
 
-#: modules/pam_unix/pam_unix_passwd.c:725
+#: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password."
 msgstr "עליך להמתין זמן רב יותר כדי להחליף את ססמתך."
+
+#~ msgid "is the same as the old one"
+#~ msgstr "זהה לישנה"
+
+#~ msgid "memory allocation error"
+#~ msgstr "שגיאת הקצאת זכרון"
+
+#~ msgid "is a palindrome"
+#~ msgstr "פילנדרום"
+
+#~ msgid "case changes only"
+#~ msgstr "שינויי גודל אותיות בלבד"
+
+#~ msgid "is too similar to the old one"
+#~ msgstr "יותר מדי דומה לישנה"
+
+#~ msgid "is too simple"
+#~ msgstr "פשוטה מדי"
+
+#~ msgid "is rotated"
+#~ msgstr "האם שונה הסדר"
+
+#~ msgid "not enough character classes"
+#~ msgstr "אין מספיק מחלקות תווים"
+
+#~ msgid "contains too many same characters consecutively"
+#~ msgstr "יותר מדי תווים זהים בזה אחר זה"
+
+#~ msgid "contains too long of a monotonic character sequence"
+#~ msgstr "מכיל רצף תווים מונוטוני ארוך מדי"
+
+#~ msgid "contains the user name in some form"
+#~ msgstr "מכיל את שם המשתמש בצורה כלשהי"
+
+#, c-format
+#~ msgid "BAD PASSWORD: %s"
+#~ msgstr "ססמה לא טובה: %s"
+
+#, c-format
+#~ msgid "The account is temporarily locked (%ld seconds left)."
+#~ msgstr "החשבון נעול זמנית (%ld שניות נותרו)."
+
+#~ msgid "Authentication error"
+#~ msgstr "שגיאת אימות"
+
+#~ msgid "Service error"
+#~ msgstr "שגיאת שירות"
+
+#~ msgid "Unknown user"
+#~ msgstr "משתמש לא ידוע"
+
+#~ msgid "Unknown error"
+#~ msgstr "שגיאה לא מוכרת"
+
+#, c-format
+#~ msgid "%s: Bad number given to --reset=\n"
+#~ msgstr "%s: המספר שהועבר ל־‎--reset=‎ שגוי\n"
+
+#, c-format
+#~ msgid "%s: Unrecognised option %s\n"
+#~ msgstr "%s: אפשרות לא מוכרת %s\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+#~ msgstr ""
+#~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+
+#, c-format
+#~ msgid "%s: Can't reset all users to non-zero\n"
+#~ msgstr "%s: אין אפשרות לאפס את כל המשתמשים למספר שאינו אפס\n"
+
+#, c-format
+#~ msgid "Login           Failures Latest failure     From\n"
+#~ msgstr "כניסה           כשלים כשל אחרון     מאת\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
+#~ "   [-u username] [--user username]\n"
+#~ "   [-r] [--reset[=n]] [--quiet]\n"
+#~ msgstr ""
+#~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
+#~ "   [-u username] [--user username]\n"
+#~ "   [-r] [--reset[=n]] [--quiet]\n"

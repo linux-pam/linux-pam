@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-04-30 10:03+0200\n"
+"POT-Creation-Date: 2020-11-24 20:25+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Zulu <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -21,21 +21,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 3.11.2\n"
 
-#: libpam_misc/misc_conv.c:33
-msgid "...Time is running out...\n"
-msgstr "...Isikhathi siyaphela...\n"
-
-#: libpam_misc/misc_conv.c:34
-msgid "...Sorry, your time is up!\n"
-msgstr "...Uxolo, isikhathi sakho sesiphelile!\n"
-
-#: libpam_misc/misc_conv.c:346
-#, c-format
-msgid "erroneous conversation (%d)\n"
-msgstr "ingxoxo enephutha (%d)\n"
-
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:184
-#: modules/pam_userdb/pam_userdb.c:65
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:178
+#: modules/pam_userdb/pam_userdb.c:55
 msgid "Password: "
 msgstr "Iphasiwedi: "
 
@@ -217,81 +204,30 @@ msgstr "Uhlelo ludinga ukubiza i-libpam futhi"
 msgid "Unknown PAM error"
 msgstr "Iphutha le-PAM elingaziwa"
 
-#: modules/pam_cracklib/pam_cracklib.c:614
-msgid "is the same as the old one"
-msgstr "iyafana nendala"
+#: libpam_misc/misc_conv.c:33
+msgid "...Time is running out...\n"
+msgstr "...Isikhathi siyaphela...\n"
 
-#: modules/pam_cracklib/pam_cracklib.c:620
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:634
-msgid "memory allocation error"
-msgstr ""
+#: libpam_misc/misc_conv.c:34
+msgid "...Sorry, your time is up!\n"
+msgstr "...Uxolo, isikhathi sakho sesiphelile!\n"
 
-#: modules/pam_cracklib/pam_cracklib.c:639
-msgid "is a palindrome"
-msgstr "iyi-palindrome"
-
-#: modules/pam_cracklib/pam_cracklib.c:642
-msgid "case changes only"
-msgstr "kushintshe onobumba kuphela"
-
-#: modules/pam_cracklib/pam_cracklib.c:645
-msgid "is too similar to the old one"
-msgstr "ifana kakhulu nendala"
-
-#: modules/pam_cracklib/pam_cracklib.c:648
-msgid "is too simple"
-msgstr "ilula kakhulu"
-
-#: modules/pam_cracklib/pam_cracklib.c:651
-msgid "is rotated"
-msgstr "ijikelezisiwe"
-
-#: modules/pam_cracklib/pam_cracklib.c:654
-msgid "not enough character classes"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:657
-msgid "contains too many same characters consecutively"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:660
-msgid "contains too long of a monotonic character sequence"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:663
-msgid "contains the user name in some form"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:697
-#: modules/pam_unix/pam_unix_passwd.c:566
-#, fuzzy
-msgid "No password has been supplied."
-msgstr "Ayikho iphasiwedi enikeziwe"
-
-#: modules/pam_cracklib/pam_cracklib.c:698
-#: modules/pam_unix/pam_unix_passwd.c:567
-#, fuzzy
-msgid "The password has not been changed."
-msgstr "Iphasiwedi ye-NIS ayivumanga ukushintshwa."
-
-#: modules/pam_cracklib/pam_cracklib.c:718
-#: modules/pam_cracklib/pam_cracklib.c:800
+#: libpam_misc/misc_conv.c:348
 #, c-format
-msgid "BAD PASSWORD: %s"
-msgstr "IPHASIWEDI ENGASEBENZI: %s"
+msgid "erroneous conversation (%d)\n"
+msgstr "ingxoxo enephutha (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:281
+#: modules/pam_exec/pam_exec.c:275
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:290
+#: modules/pam_exec/pam_exec.c:284
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr ""
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:293
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr ""
@@ -303,51 +239,50 @@ msgid ""
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
-#: modules/pam_tally2/pam_tally2.c:577
+#: modules/pam_faillock/pam_faillock.c:614
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr ""
 
-#: modules/pam_faillock/pam_faillock.c:654
+#: modules/pam_faillock/pam_faillock.c:619
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr ""
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
+#: modules/pam_lastlog/pam_lastlog.c:318 modules/pam_lastlog/pam_lastlog.c:579
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:338 modules/pam_lastlog/pam_lastlog.c:599
+#: modules/pam_lastlog/pam_lastlog.c:327 modules/pam_lastlog/pam_lastlog.c:588
 #, c-format
 msgid " from %.*s"
 msgstr " kusukela %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:350 modules/pam_lastlog/pam_lastlog.c:611
+#: modules/pam_lastlog/pam_lastlog.c:339 modules/pam_lastlog/pam_lastlog.c:600
 #, c-format
 msgid " on %.*s"
 msgstr " ku-%.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:360
+#: modules/pam_lastlog/pam_lastlog.c:349
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Ukungena kokugcina:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:366
+#: modules/pam_lastlog/pam_lastlog.c:355
 msgid "Welcome to your new account!"
 msgstr "Uyamukelwa kwi-akhawunti yakho entsha!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:621
+#: modules/pam_lastlog/pam_lastlog.c:610
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr ""
 
-#: modules/pam_lastlog/pam_lastlog.c:630 modules/pam_lastlog/pam_lastlog.c:637
+#: modules/pam_lastlog/pam_lastlog.c:619 modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -356,111 +291,111 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:642
+#: modules/pam_lastlog/pam_lastlog.c:631
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
 
-#: modules/pam_limits/pam_limits.c:1090
+#: modules/pam_limits/pam_limits.c:1115
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Kuningi kakhulu ukungena kwi- '%s' osekwenziwe."
 
-#: modules/pam_mail/pam_mail.c:299
+#: modules/pam_mail/pam_mail.c:289
 #, fuzzy
 msgid "You have no mail."
 msgstr "Unemeyili entsha."
 
-#: modules/pam_mail/pam_mail.c:302
+#: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
 msgstr "Unemeyili entsha."
 
-#: modules/pam_mail/pam_mail.c:305
+#: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
 msgstr "Unemeyili endala."
 
-#: modules/pam_mail/pam_mail.c:309
+#: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
 msgstr "Unemeyili."
 
-#: modules/pam_mail/pam_mail.c:316
+#: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Akukho meyili onayo kwifolda %s."
 
-#: modules/pam_mail/pam_mail.c:320
+#: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Unemeyili entsha kwifolda %s."
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Unemeyili endala kwifolda %s."
 
-#: modules/pam_mail/pam_mail.c:329
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Unemeyili kwifolda %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:116
+#: modules/pam_mkhomedir/pam_mkhomedir.c:107
 #, c-format
 msgid "Creating directory '%s'."
 msgstr ""
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:183
+#: modules/pam_mkhomedir/pam_mkhomedir.c:174
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr ""
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
-#: modules/pam_unix/pam_unix_passwd.c:592
+#: modules/pam_pwhistory/pam_pwhistory.c:371
+#: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
 msgstr "Le phasiwedi isetshenziswa ngothile. Khetha enye."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:227
+#: modules/pam_pwhistory/pam_pwhistory.c:378
 #, fuzzy
 msgid "Password has been already used."
 msgstr "Le phasiwedi isetshenziswa ngothile. Khetha enye."
 
-#: modules/pam_selinux/pam_selinux.c:176
+#: modules/pam_selinux/pam_selinux.c:172
 #, fuzzy, c-format
 msgid "The default security context is %s."
 msgstr "Akuyona indawo yokuphepha esemthethweni"
 
-#: modules/pam_selinux/pam_selinux.c:180
+#: modules/pam_selinux/pam_selinux.c:176
 msgid "Would you like to enter a different role or level?"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:193
+#: modules/pam_selinux/pam_selinux.c:189
 msgid "role:"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:197
+#: modules/pam_selinux/pam_selinux.c:193
 #, c-format
 msgid "There is no default type for role %s."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:229
+#: modules/pam_selinux/pam_selinux.c:225
 msgid "level:"
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:263
+#: modules/pam_selinux/pam_selinux.c:259
 #, fuzzy
 msgid "This is not a valid security context."
 msgstr "Akuyona indawo yokuphepha esemthethweni"
 
-#: modules/pam_selinux/pam_selinux.c:513
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:633
+#: modules/pam_selinux/pam_selinux.c:629
 #, fuzzy, c-format
 msgid "Security context %s has been assigned."
 msgstr "Indawo %s Yokuphepha Yabelwe"
 
-#: modules/pam_selinux/pam_selinux.c:649
+#: modules/pam_selinux/pam_selinux.c:645
 #, fuzzy, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Indawo %s Yokuphepha Yabelwe"
@@ -480,77 +415,19 @@ msgstr "Ihlulekile ukwenza i-pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "ngena: Ihlulekile ukuhlukanisa: %m"
 
-#: modules/pam_tally/pam_tally.c:543 modules/pam_tally2/pam_tally2.c:595
-#, c-format
-msgid "The account is temporarily locked (%ld seconds left)."
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:861
-msgid "Authentication error"
-msgstr "Iphutha lokugunyaza"
-
-#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:862
-msgid "Service error"
-msgstr "Iphutha lesevisi"
-
-#: modules/pam_tally/pam_tally.c:754 modules/pam_tally2/pam_tally2.c:863
-msgid "Unknown user"
-msgstr "Umsebenzisi ongaziwa"
-
-#: modules/pam_tally/pam_tally.c:755 modules/pam_tally2/pam_tally2.c:864
-msgid "Unknown error"
-msgstr "Iphutha elingaziwa"
-
-#: modules/pam_tally/pam_tally.c:774 modules/pam_tally2/pam_tally2.c:886
-#, c-format
-msgid "%s: Bad number given to --reset=\n"
-msgstr "%s: Inombolo eyiphutha enikeziwe ukuba --uqale kabusha=\n"
-
-#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:890
-#, c-format
-msgid "%s: Unrecognised option %s\n"
-msgstr "%s: Okukhethile okungaziwa %s\n"
-
-#: modules/pam_tally/pam_tally.c:790
-#, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-
-#: modules/pam_tally/pam_tally.c:864 modules/pam_tally2/pam_tally2.c:1029
-#, c-format
-msgid "%s: Can't reset all users to non-zero\n"
-msgstr ""
-"%s: Ayikwazi ukusetha kabusha bonke abasebenzisi ibase enombolweni ongelona "
-"iqanda\n"
-
-#: modules/pam_tally2/pam_tally2.c:918
-#, c-format
-msgid "Login           Failures Latest failure     From\n"
-msgstr ""
-
-#: modules/pam_tally2/pam_tally2.c:934
-#, c-format
-msgid ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-
-#: modules/pam_timestamp/pam_timestamp.c:360
+#: modules/pam_timestamp/pam_timestamp.c:354
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
+#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
 #, fuzzy
 msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 "I-akhawunti yakho isiphelelwe isikhathi, sicela uthintana nomqondisi "
 "wesistimu yakho"
 
-#: modules/pam_unix/pam_unix_acct.c:240
+#: modules/pam_unix/pam_unix_acct.c:238
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
@@ -559,14 +436,14 @@ msgstr ""
 "Kudingeka ukuba ushintshe iphasiwedi yakho ngokushesha (iphoqelelwa "
 "ngumqondisi)"
 
-#: modules/pam_unix/pam_unix_acct.c:246
+#: modules/pam_unix/pam_unix_acct.c:244
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr ""
 "Kudingeka ukuba ushintshe iphasiwedi yakho ngokushesha (iphasiwedi indala)"
 
-#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
+#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -574,30 +451,94 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:279
+#: modules/pam_unix/pam_unix_acct.c:281
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:468
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
 msgstr "Iphasiwedi ye-NIS ayivumanga ukushintshwa."
 
-#: modules/pam_unix/pam_unix_passwd.c:584
+#: modules/pam_unix/pam_unix_passwd.c:563
+#, fuzzy
+msgid "No password has been supplied."
+msgstr "Ayikho iphasiwedi enikeziwe"
+
+#: modules/pam_unix/pam_unix_passwd.c:564
+#, fuzzy
+msgid "The password has not been changed."
+msgstr "Iphasiwedi ye-NIS ayivumanga ukushintshwa."
+
+#: modules/pam_unix/pam_unix_passwd.c:581
 msgid "You must choose a shorter password."
 msgstr "Kumele ukhethe iphasiwedi emifushane."
 
-#: modules/pam_unix/pam_unix_passwd.c:588
+#: modules/pam_unix/pam_unix_passwd.c:585
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "Kumelwe ukhethe iphasiwedi ethe ukuba yinjana"
 
-#: modules/pam_unix/pam_unix_passwd.c:695
+#: modules/pam_unix/pam_unix_passwd.c:692
 #, c-format
 msgid "Changing password for %s."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_passwd.c:725
+#: modules/pam_unix/pam_unix_passwd.c:722
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "Kumelwe ulinde isikhashana ukuze ushintshe iphasiwedi yakho"
+
+#~ msgid "is the same as the old one"
+#~ msgstr "iyafana nendala"
+
+#~ msgid "is a palindrome"
+#~ msgstr "iyi-palindrome"
+
+#~ msgid "case changes only"
+#~ msgstr "kushintshe onobumba kuphela"
+
+#~ msgid "is too similar to the old one"
+#~ msgstr "ifana kakhulu nendala"
+
+#~ msgid "is too simple"
+#~ msgstr "ilula kakhulu"
+
+#~ msgid "is rotated"
+#~ msgstr "ijikelezisiwe"
+
+#, c-format
+#~ msgid "BAD PASSWORD: %s"
+#~ msgstr "IPHASIWEDI ENGASEBENZI: %s"
+
+#~ msgid "Authentication error"
+#~ msgstr "Iphutha lokugunyaza"
+
+#~ msgid "Service error"
+#~ msgstr "Iphutha lesevisi"
+
+#~ msgid "Unknown user"
+#~ msgstr "Umsebenzisi ongaziwa"
+
+#~ msgid "Unknown error"
+#~ msgstr "Iphutha elingaziwa"
+
+#, c-format
+#~ msgid "%s: Bad number given to --reset=\n"
+#~ msgstr "%s: Inombolo eyiphutha enikeziwe ukuba --uqale kabusha=\n"
+
+#, c-format
+#~ msgid "%s: Unrecognised option %s\n"
+#~ msgstr "%s: Okukhethile okungaziwa %s\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+#~ msgstr ""
+#~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+
+#, c-format
+#~ msgid "%s: Can't reset all users to non-zero\n"
+#~ msgstr ""
+#~ "%s: Ayikwazi ukusetha kabusha bonke abasebenzisi ibase enombolweni "
+#~ "ongelona iqanda\n"
