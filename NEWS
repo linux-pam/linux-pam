@@ -1,5 +1,10 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 1.5.1
+* pam_unix: fixed CVE-2020-27780 - authentication bypass when an
+            user doesn't exist and root password is blank
+* pam_faillock: added nodelay option to not set pam_fail_delay
+
 Release 1.5.0
 * Multiple minor bug fixes, portability fixes, and documentation improvements.
 * Extended libpam API with pam_modutil_check_user_in_passwd function.
