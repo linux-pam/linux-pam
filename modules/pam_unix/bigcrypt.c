@@ -111,6 +111,9 @@ char *bigcrypt(const char *key, const char *salt)
 #endif
 	if (tmp_ptr == NULL) {
 		free(dec_c2_cryptbuf);
+#ifdef HAVE_CRYPT_R
+		free(cdata);
+#endif
 		return NULL;
 	}
 	/* and place in the static area */
@@ -137,6 +140,9 @@ char *bigcrypt(const char *key, const char *salt)
 			if (tmp_ptr == NULL) {
 				_pam_overwrite(dec_c2_cryptbuf);
 				free(dec_c2_cryptbuf);
+#ifdef HAVE_CRYPT_R
+				free(cdata);
+#endif
 				return NULL;
 			}
 
