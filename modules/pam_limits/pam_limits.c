@@ -50,7 +50,7 @@
 /* Module defines */
 #define LINE_LENGTH 1024
 
-#define LIMITS_DEF_USER     0 /* limit was set by an user entry */
+#define LIMITS_DEF_USER     0 /* limit was set by a user entry */
 #define LIMITS_DEF_GROUP    1 /* limit was set by a group entry */
 #define LIMITS_DEF_ALLGROUP 2 /* limit was set by a group entry */
 #define LIMITS_DEF_ALL      3 /* limit was set by an all entry */

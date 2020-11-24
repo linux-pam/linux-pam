@@ -129,7 +129,7 @@
     <title>NOTES</title>
     <para>
       When TTY auditing is enabled, it is inherited by all processes started by
-      that user.  In particular, daemons restarted by an user will still have
+      that user.  In particular, daemons restarted by a user will still have
       TTY auditing enabled, and audit TTY input even by other users unless
       auditing for these users is explicitly disabled.  Therefore, it is
       recommended to use <option>disable=*</option> as the first option for

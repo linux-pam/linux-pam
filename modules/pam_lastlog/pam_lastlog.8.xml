@@ -286,7 +286,7 @@
     <title>EXAMPLES</title>
     <para>
       Add the following line to <filename>/etc/pam.d/login</filename> to
-      display the last login time of an user:
+      display the last login time of a user:
     </para>
       <programlisting>
     session  required  pam_lastlog.so nowtmp

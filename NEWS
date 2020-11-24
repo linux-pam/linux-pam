@@ -1,8 +1,8 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 Release 1.5.1
-* pam_unix: fixed CVE-2020-27780 - authentication bypass when an
-            user doesn't exist and root password is blank
+* pam_unix: fixed CVE-2020-27780 - authentication bypass when a user
+            doesn't exist and root password is blank
 * pam_faillock: added nodelay option to not set pam_fail_delay
 * pam_wheel: use pam_modutil_user_in_group to check for the group membership
              with getgrouplist where it is available
