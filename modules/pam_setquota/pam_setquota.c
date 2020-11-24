@@ -288,7 +288,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
                      "with suffix=\"%s\" on device=\"%s\"", pwd->pw_dir,
                      mnt->mnt_dir, s, mntdevice);
       }
-    /* param.fs has been specified, find exactly matching fileystem */
+    /* param.fs has been specified, find exactly matching filesystem */
     } else if ((strncmp(param.fs, mnt->mnt_dir, param.fs_len) == 0
                 && mnt->mnt_dir[param.fs_len] == '\0') ||
                (strncmp(param.fs, mnt->mnt_fsname, param.fs_len) == 0
@@ -332,7 +332,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     /* Parse new limits
      * Exit with an error should only the hard- or softlimit be
      * configured but not both.
-     * This avoids errors, inconsistencies and possible race conditons
+     * This avoids errors, inconsistencies and possible race conditions
      * during setquota.
      */
     ndqblk.dqb_valid = 0;

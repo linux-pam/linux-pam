@@ -260,7 +260,7 @@ create_homedir(const struct passwd *pwd,
       }
 
       /* Set the proper ownership and permissions for the module. We make
-         the file a+w and then mask it with the set mask. This preseves
+         the file a+w and then mask it with the set mask. This preserves
 	 execute bits */
       if (fchmod(destfd, (st.st_mode | 0222) & (~u_mask)) != 0 ||
 	  fchown(destfd, pwd->pw_uid, pwd->pw_gid) != 0)
