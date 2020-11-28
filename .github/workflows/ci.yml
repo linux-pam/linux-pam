@@ -7,14 +7,14 @@ env:
 
 jobs:
   whitespace-errors:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
     - name: check
       run: git diff-index --check --cached 4b825dc642cb6eb9a060e54bf8d69288fbee4904
 
   gcc10-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       CC: gcc-10
       TARGET: x86_64
@@ -28,35 +28,7 @@ jobs:
       run: ci/run-build-and-tests.sh
 
   gcc9-x86_64:
-    runs-on: ubuntu-latest
-    env:
-      CC: gcc-9
-      TARGET: x86_64
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: install dependencies
-      run: ci/install-dependencies.sh
-    - name: build check
-      run: ci/run-build-and-tests.sh
-
-  gcc8-x86_64:
-    runs-on: ubuntu-latest
-    env:
-      CC: gcc-8
-      TARGET: x86_64
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: install dependencies
-      run: ci/install-dependencies.sh
-    - name: build check
-      run: ci/run-build-and-tests.sh
-
-  gcc-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       CC: gcc
       TARGET: x86_64
@@ -69,8 +41,36 @@ jobs:
     - name: build check
       run: ci/run-build-and-tests.sh
 
+  gcc8-x86_64:
+    runs-on: ubuntu-20.04
+    env:
+      CC: gcc-8
+      TARGET: x86_64
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/run-build-and-tests.sh
+
+  clang10-x86_64:
+    runs-on: ubuntu-20.04
+    env:
+      CC: clang
+      TARGET: x86_64
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/run-build-and-tests.sh
+
   clang9-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       CC: clang-9
       TARGET: x86_64
@@ -84,7 +84,7 @@ jobs:
       run: ci/run-build-and-tests.sh
 
   clang8-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       CC: clang-8
       TARGET: x86_64
@@ -97,22 +97,8 @@ jobs:
     - name: build check
       run: ci/run-build-and-tests.sh
 
-  clang-x86_64:
-    runs-on: ubuntu-latest
-    env:
-      CC: clang
-      TARGET: x86_64
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: install dependencies
-      run: ci/install-dependencies.sh
-    - name: build check
-      run: ci/run-build-and-tests.sh
-
   gcc10-x86:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     env:
       CC: gcc-10
       TARGET: x86
@@ -126,7 +112,7 @@ jobs:
       run: ci/run-build-and-tests.sh
 
   gcc9-x86:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     env:
       CC: gcc-9
       TARGET: x86
@@ -140,7 +126,7 @@ jobs:
       run: ci/run-build-and-tests.sh
 
   gcc8-x86:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     env:
       CC: gcc-8
       TARGET: x86
@@ -153,10 +139,10 @@ jobs:
     - name: build check
       run: ci/run-build-and-tests.sh
 
-  gcc-x86:
-    runs-on: ubuntu-latest
+  clang10-x86:
+    runs-on: ubuntu-18.04
     env:
-      CC: gcc
+      CC: clang-10
       TARGET: x86
     steps:
     - uses: actions/checkout@v2
@@ -168,7 +154,7 @@ jobs:
       run: ci/run-build-and-tests.sh
 
   clang9-x86:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     env:
       CC: clang-9
       TARGET: x86
@@ -182,7 +168,7 @@ jobs:
       run: ci/run-build-and-tests.sh
 
   clang8-x86:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     env:
       CC: clang-8
       TARGET: x86
@@ -195,22 +181,8 @@ jobs:
     - name: build check
       run: ci/run-build-and-tests.sh
 
-  clang-x86:
-    runs-on: ubuntu-latest
-    env:
-      CC: clang
-      TARGET: x86
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: install dependencies
-      run: ci/install-dependencies.sh
-    - name: build check
-      run: ci/run-build-and-tests.sh
-
   gcc10-x32:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     env:
       CC: gcc-10
       TARGET: x32
@@ -224,7 +196,7 @@ jobs:
       run: ci/run-build-and-tests.sh
 
   gcc9-x32:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     env:
       CC: gcc-9
       TARGET: x32
@@ -238,23 +210,9 @@ jobs:
       run: ci/run-build-and-tests.sh
 
   gcc8-x32:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     env:
       CC: gcc-8
-      TARGET: x32
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: install dependencies
-      run: ci/install-dependencies.sh
-    - name: build check
-      run: ci/run-build-and-tests.sh
-
-  gcc-x32:
-    runs-on: ubuntu-latest
-    env:
-      CC: gcc
       TARGET: x32
     steps:
     - uses: actions/checkout@v2
