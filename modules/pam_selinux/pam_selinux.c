@@ -519,6 +519,7 @@ static int
 compute_tty_context(const pam_handle_t *pamh, module_data_t *data)
 {
   const char *tty = get_item(pamh, PAM_TTY);
+  security_class_t tclass;
 
   if (!tty || !*tty || !strcmp(tty, "ssh")
       || pam_str_skip_prefix(tty, "NODEV") != NULL) {
@@ -555,8 +556,18 @@ compute_tty_context(const pam_handle_t *pamh, module_data_t *data)
     return (security_getenforce() == 1) ? PAM_SESSION_ERR : PAM_SUCCESS;
   }
 
+  tclass = string_to_security_class("chr_file");
+  if (tclass == 0) {
+    pam_syslog(pamh, LOG_ERR, "Failed to get chr_file security class");
+    freecon(data->prev_tty_context);
+    data->prev_tty_context = NULL;
+    free(data->tty_path);
+    data->tty_path = NULL;
+    return (security_getenforce() == 1) ? PAM_SESSION_ERR : PAM_SUCCESS;
+  }
+
   if (security_compute_relabel(data->exec_context, data->prev_tty_context,
-			       string_to_security_class("chr_file"), &data->tty_context)) {
+			       tclass, &data->tty_context)) {
     data->tty_context = NULL;
     pam_syslog(pamh, LOG_ERR, "Failed to compute new context for %s: %m",
 	       data->tty_path);
