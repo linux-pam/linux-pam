@@ -844,6 +844,12 @@ static int form_context(const struct polydir_s *polyptr,
 
 	if (polyptr->method == CONTEXT) {
 		tclass = string_to_security_class("dir");
+		if (tclass == 0) {
+			pam_syslog(idata->pamh, LOG_ERR,
+				   "Error getting dir security class");
+			freecon(scon);
+			return PAM_SESSION_ERR;
+		}
 
 		if (security_compute_member(scon, *origcon, tclass,
 					i_context) < 0) {
