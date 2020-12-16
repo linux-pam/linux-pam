@@ -346,7 +346,7 @@ if test x"$WITH_LIBAUDIT" != xno ; then
 			     [HAVE_AUDIT_TTY_STATUS=""],
 			     [#include <libaudit.h>])]
         )
-        if test -n "$LIBAUDIT" -a "$ac_cv_header_libaudit_h" != "no" ; then
+        if test -n "$LIBAUDIT" && test "$ac_cv_header_libaudit_h" != "no" ; then
             AC_DEFINE([HAVE_LIBAUDIT], 1, [Define to 1 if audit support should be compiled in.])
         fi
         if test -n "$HAVE_AUDIT_TTY_STATUS" ; then
@@ -373,12 +373,12 @@ esac
 AC_CHECK_FUNCS(crypt_r crypt_gensalt_r)
 LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCRYPT)
-if test "$LIBCRYPT" = "-lxcrypt" -a "$ac_cv_header_xcrypt_h" = "yes" ; then
+if test "$LIBCRYPT" = "-lxcrypt" && test "$ac_cv_header_xcrypt_h" = "yes" ; then
 	AC_DEFINE([HAVE_LIBXCRYPT], 1, [Define to 1 if xcrypt support should be compiled in.])
 fi
 
 AC_ARG_WITH([randomdev], AS_HELP_STRING([--with-randomdev=(<path>|yes|no)],[use specified random device instead of /dev/urandom or 'no' to disable]), opt_randomdev=$withval)
-if test "$opt_randomdev" = yes -o -z "$opt_randomdev"; then
+if test "$opt_randomdev" = yes || test -z "$opt_randomdev"; then
        opt_randomdev="/dev/urandom"
 elif test "$opt_randomdev" = no; then
        opt_randomdev=
@@ -395,7 +395,7 @@ AC_ARG_ENABLE([db],
 AC_ARG_WITH([db-uniquename],
 	AS_HELP_STRING([--with-db-uniquename=extension],[Unique name for db libraries and functions.]))
 if test x"$WITH_DB" != xno ; then
-        if test x"$WITH_DB" = xyes -o x"$WITH_DB" = xdb ; then
+        if test x"$WITH_DB" = xyes || test x"$WITH_DB" = xdb ; then
               old_libs=$LIBS
               LIBS="$LIBS -ldb$with_db_uniquename"
               AC_CHECK_FUNCS([db_create$with_db_uniquename db_create dbm_store$with_db_uniquename dbm_store],
@@ -572,7 +572,7 @@ fi
 
 AC_PATH_PROG([FO2PDF], [fop])
 
-AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_docu != xno -a x$enable_doc != xno)
+AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test x$enable_docu != xno && test x$enable_doc != xno)
 AM_CONDITIONAL(ENABLE_GENERATE_PDF, test -n "$FO2PDF")
 
 
@@ -625,7 +625,7 @@ esac
 AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_NAMESPACE], [test "$ac_cv_func_unshare" = yes])
-AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes -o "$ac_cv_func_ruserok" = yes])
+AM_CONDITIONAL([COND_BUILD_PAM_RHOSTS], [test "$ac_cv_func_ruserok_af" = yes || test "$ac_cv_func_ruserok" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_SELINUX], [test -n "$LIBSELINUX"])
 AM_CONDITIONAL([COND_BUILD_PAM_SEPERMIT], [test -n "$LIBSELINUX"])
 AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
