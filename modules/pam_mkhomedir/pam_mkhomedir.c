@@ -56,6 +56,9 @@
 #define MKHOMEDIR_DEBUG      020	/* be verbose about things */
 #define MKHOMEDIR_QUIET      040	/* keep quiet about things */
 
+#define LOGIN_DEFS           "/etc/login.defs"
+#define UMASK_DEFAULT        "0022"
+
 struct options_t {
   int ctrl;
   const char *umask;
@@ -68,7 +71,7 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
 	    options_t *opt)
 {
    opt->ctrl = 0;
-   opt->umask = "0022";
+   opt->umask = NULL;
    opt->skeldir = "/etc/skel";
 
    /* does the application require quiet? */
@@ -101,6 +104,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 {
    int retval, child;
    struct sigaction newsa, oldsa;
+   char *login_umask = NULL;
 
    /* Mention what is happening, if the notification fails that is OK */
    if (!(opt->ctrl & MKHOMEDIR_QUIET))
@@ -122,6 +126,10 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
         pam_syslog(pamh, LOG_DEBUG, "Executing mkhomedir_helper.");
    }
 
+   /* fetch UMASK from /etc/login.defs if not in argv */
+   if (opt->umask == NULL)
+      login_umask = pam_modutil_search_key(pamh, LOGIN_DEFS, "UMASK");
+
    /* fork */
    child = fork();
    if (child == 0) {
@@ -136,7 +144,8 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 	/* exec the mkhomedir helper */
 	args[0] = MKHOMEDIR_HELPER;
 	args[1] = user;
-	args[2] = opt->umask;
+	args[2] = opt->umask ? opt->umask :
+			(login_umask ? login_umask : UMASK_DEFAULT);
 	args[3] = opt->skeldir;
 
 	DIAG_PUSH_IGNORE_CAST_QUAL;
@@ -174,6 +183,8 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 	pam_error(pamh, _("Unable to create and initialize directory '%s'."),
 		  dir);
    }
+
+   free(login_umask);
 
    D(("returning %d", retval));
    return retval;

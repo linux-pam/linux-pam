@@ -91,8 +91,11 @@
         <listitem>
           <para>
             The file mode creation mask is set to
-            <replaceable>mask</replaceable>. The default value of mask is
-            0022.
+            <replaceable>mask</replaceable>. If this option is not
+            specified, then the file mode creation mask is set to the
+            value of <option>UMASK</option> configuration item from
+            <filename>/etc/login.defs</filename> or 0022 if
+            <option>UMASK</option> is not defined.
           </para>
         </listitem>
       </varlistentry>
