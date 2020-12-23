@@ -64,7 +64,8 @@ struct options_t {
   int debug;
   int usergroups;
   int silent;
-  char *umask;
+  const char *umask;
+  char *login_umask;
 };
 typedef struct options_t options_t;
 
@@ -79,7 +80,7 @@ parse_option (const pam_handle_t *pamh, const char *argv, options_t *options)
   if (strcasecmp (argv, "debug") == 0)
     options->debug = 1;
   else if ((str = pam_str_skip_icase_prefix (argv, "umask=")) != NULL)
-    options->umask = strdup (str);
+    options->umask = str;
   else if (strcasecmp (argv, "usergroups") == 0)
     options->usergroups = 1;
   else if (strcasecmp (argv, "nousergroups") == 0)
@@ -102,10 +103,12 @@ get_options (pam_handle_t *pamh, options_t *options,
   for ( ; argc-- > 0; argv++)
     parse_option (pamh, *argv, options);
 
-  if (options->umask == NULL)
-    options->umask = pam_modutil_search_key (pamh, LOGIN_DEFS, "UMASK");
-  if (options->umask == NULL)
-    options->umask = pam_modutil_search_key (pamh, LOGIN_CONF, "UMASK");
+  if (options->umask == NULL) {
+    options->login_umask = pam_modutil_search_key (pamh, LOGIN_DEFS, "UMASK");
+    if (options->login_umask == NULL)
+      options->login_umask = pam_modutil_search_key (pamh, LOGIN_CONF, "UMASK");
+    options->umask = options->login_umask;
+  }
 
   return 0;
 }
@@ -216,7 +219,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
   if (options.umask != NULL)
     {
       set_umask (options.umask);
-      free (options.umask);
+      free (options.login_umask);
+      options.umask = options.login_umask = NULL;
     }
 
   setup_limits_from_gecos (pamh, &options, pw);
