@@ -90,7 +90,7 @@
         </term>
         <listitem>
           <para>
-            The user file-creation mask is set to
+            The file mode creation mask is set to
             <replaceable>mask</replaceable>. The default value of mask is
             0022.
           </para>
