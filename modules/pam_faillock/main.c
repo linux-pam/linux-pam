@@ -55,10 +55,29 @@
 #include "faillock.h"
 #include "faillock_config.h"
 
+static int get_uid (const char *uidstr, uid_t *uid)
+{
+	long long int val;
+	char *endptr;
+
+	errno = 0;
+	val = strtoll (uidstr, &endptr, 10);
+	if (   ('\0' == *uidstr)
+		|| ('\0' != *endptr)
+		|| (ERANGE == errno)
+		|| (val != (uid_t)val)) {
+		return 0;
+	}
+
+	*uid = (uid_t)val;
+	return 1;
+}
+
 static int
 args_parse(int argc, char **argv, struct options *opts)
 {
 	int i;
+	int cline_user = 0;
 	int rv;
 	const char *dir = NULL;
 	const char *conf = NULL;
@@ -66,6 +85,7 @@ args_parse(int argc, char **argv, struct options *opts)
 	memset(opts, 0, sizeof(*opts));
 
 	opts->progname = argv[0];
+	opts->uid = (uid_t)-1;
 
 	for (i = 1; i < argc; ++i) {
 		if (strcmp(argv[i], "--conf") == 0) {
@@ -93,6 +113,24 @@ args_parse(int argc, char **argv, struct options *opts)
 				return -1;
 			}
 			opts->user = argv[i];
+			cline_user++;
+		}
+		else if (strcmp(argv[i], "--uid") == 0) {
+			++i;
+			if(i >= argc || strlen(argv[i]) == 0) {
+				fprintf(stderr, "%s: No user id supplied.\n", argv[0]);
+				return -1;
+			}
+			uid_t user_id = (uid_t)-1;
+			if ( (get_uid (argv[i], &user_id) ==0)
+				|| (user_id == (uid_t)-1)) {
+				fprintf (stderr,
+					 _("%s: invalid user ID '%s'\n"),
+					argv[0], argv[i]);
+				return -1;
+			}
+			opts->uid = user_id;
+			cline_user++;
 		}
 		else if (strcmp(argv[i], "--reset") == 0) {
 			opts->reset = 1;
@@ -120,6 +158,10 @@ args_parse(int argc, char **argv, struct options *opts)
 		}
 	}
 
+	if (cline_user > 1) {
+		fprintf(stderr, "--user and --uid are mutually exclusive options!\n");
+		return -1;
+	}
 	return 0;
 }
 
@@ -128,8 +170,8 @@ usage(const char *progname)
 {
 	fprintf(stderr,
 		_("Usage: %s [--dir /path/to/tally-directory]"
-		  " [--user username] [--reset] [--legacy-output]\n"), progname);
-
+		" [--user username] [--uid userid] [--reset] [--legacy-output]\n"), progname);
+	fprintf(stderr, "NOTE: --user and --uid are mutually exclusive options, userid must be non-negative.\n");
 }
 
 static int
@@ -321,9 +363,21 @@ main (int argc, char *argv[])
 		return 1;
 	}
 
-	if (opts.user == NULL) {
+	if (opts.user == NULL && opts.uid == (uid_t)-1) {
 		return do_allusers(&opts);
 	}
 
-	return do_user(&opts, opts.user);
+	if (opts.user != NULL) {
+		return do_user(&opts, opts.user);
+	}
+	else {
+		errno = 0;
+		struct passwd *pwd = getpwuid(opts.uid);
+		if (pwd) {
+			return do_user(&opts, pwd->pw_name);
+		}
+		else {
+			fprintf(stderr, "%s: No matching passwd found, errno: %d\n", opts.progname, errno);
+		}
+	}
 }
