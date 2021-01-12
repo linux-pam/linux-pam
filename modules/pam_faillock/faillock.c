@@ -74,6 +74,9 @@ open_tally (const char *dir, const char *user, uid_t uid, int create)
 
 	if (create) {
 		flags |= O_CREAT;
+		if (access(dir, F_OK) != 0) {
+			mkdir(dir, 0755);
+		}
 	}
 
 	fd = open(path, flags, 0660);
