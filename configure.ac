@@ -613,6 +613,16 @@ test -n "$opt_kerneloverflowuid" ||
           opt_kerneloverflowuid=65534
 AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel overflow uid.])
 
+AC_ARG_WITH([systemdunitdir],
+AS_HELP_STRING([--with-systemdunitdir=DIR], [path to systemd service directory]),
+    [],
+    [
+    PKG_CHECK_EXISTS([systemd],
+      [with_systemdunitdir=$($PKG_CONFIG --variable=systemdunitdir systemd)],
+      [with_systemdunitdir='${prefix}/lib/systemd/system'])
+    ])
+AC_SUBST([systemdunitdir], [$with_systemdunitdir])
+
 AC_ARG_ENABLE([unix],
               [AS_HELP_STRING([--disable-unix],
                               [do not build pam_unix module])],
