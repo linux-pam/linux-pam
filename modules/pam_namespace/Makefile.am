@@ -8,9 +8,6 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = $(XMLS)
 
-if HAVE_DOC
-dist_man_MANS = namespace.conf.5 pam_namespace.8 pam_namespace_helper.8
-endif
 XMLS = README.xml namespace.conf.5.xml pam_namespace.8.xml pam_namespace_helper.8.xml
 dist_check_SCRIPTS = tst-pam_namespace
 TESTS = $(dist_check_SCRIPTS)
@@ -43,6 +40,7 @@ install-data-local:
 sbin_SCRIPTS = pam_namespace_helper
 
 if ENABLE_REGENERATE_MAN
+dist_man_MANS = namespace.conf.5 pam_namespace.8 pam_namespace_helper.8
 dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

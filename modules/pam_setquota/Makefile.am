@@ -3,9 +3,6 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = $(XMLS)
 
-if HAVE_DOC
-dist_man_MANS = pam_setquota.8
-endif
 XMLS = README.xml pam_setquota.8.xml
 dist_check_SCRIPTS = tst-pam_setquota
 TESTS = $(dist_check_SCRIPTS)
@@ -24,6 +21,7 @@ securelib_LTLIBRARIES = pam_setquota.la
 pam_setquota_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
+dist_man_MANS = pam_setquota.8
 dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

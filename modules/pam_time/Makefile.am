@@ -7,9 +7,6 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = $(XMLS)
 
-if HAVE_DOC
-dist_man_MANS = time.conf.5 pam_time.8
-endif
 XMLS = README.xml time.conf.5.xml pam_time.8.xml
 dist_check_SCRIPTS = tst-pam_time
 TESTS = $(dist_check_SCRIPTS)
@@ -29,6 +26,7 @@ securelib_LTLIBRARIES = pam_time.la
 dist_secureconf_DATA = time.conf
 
 if ENABLE_REGENERATE_MAN
+dist_man_MANS = time.conf.5 pam_time.8
 dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

@@ -8,9 +8,6 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = $(XMLS)
 
-if HAVE_DOC
-dist_man_MANS = pam_pwhistory.8 pwhistory_helper.8
-endif
 XMLS = README.xml pam_pwhistory.8.xml pwhistory_helper.8.xml
 dist_check_SCRIPTS = tst-pam_pwhistory
 TESTS = $(dist_check_SCRIPTS)
@@ -40,6 +37,7 @@ pwhistory_helper_LDFLAGS = @EXE_LDFLAGS@
 pwhistory_helper_LDADD = $(top_builddir)/libpam/libpam.la @LIBCRYPT@
 
 if ENABLE_REGENERATE_MAN
+dist_man_MANS = pam_pwhistory.8 pwhistory_helper.8
 dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

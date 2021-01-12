@@ -7,9 +7,6 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = $(XMLS)
 
-if HAVE_DOC
-dist_man_MANS = pam_env.conf.5 pam_env.8 environment.5
-endif
 XMLS = README.xml pam_env.conf.5.xml pam_env.8.xml
 dist_check_SCRIPTS = tst-pam_env
 TESTS = $(dist_check_SCRIPTS)
@@ -31,6 +28,7 @@ dist_secureconf_DATA = pam_env.conf
 dist_sysconf_DATA = environment
 
 if ENABLE_REGENERATE_MAN
+dist_man_MANS = pam_env.conf.5 pam_env.8 environment.5
 dist_noinst_DATA = README
 environment.5: pam_env.conf.5.xml
 -include $(top_srcdir)/Make.xml.rules

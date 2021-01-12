@@ -7,9 +7,6 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = $(XMLS) create.pl
 
-if HAVE_DOC
-dist_man_MANS = pam_userdb.8
-endif
 XMLS = README.xml pam_userdb.8.xml
 dist_check_SCRIPTS = tst-pam_userdb
 TESTS = $(dist_check_SCRIPTS)
@@ -30,6 +27,7 @@ pam_userdb_la_LIBADD = $(top_builddir)/libpam/libpam.la
 noinst_HEADERS = pam_userdb.h
 
 if ENABLE_REGENERATE_MAN
+dist_man_MANS = pam_userdb.8
 dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

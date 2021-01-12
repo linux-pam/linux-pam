@@ -7,9 +7,6 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = md5.c md5_crypt.c lckpwdf.-c $(XMLS) CHANGELOG
 
-if HAVE_DOC
-dist_man_MANS = pam_unix.8 unix_chkpwd.8 unix_update.8
-endif
 XMLS = README.xml pam_unix.8.xml unix_chkpwd.8.xml unix_update.8.xml
 dist_check_SCRIPTS = tst-pam_unix
 TESTS = $(dist_check_SCRIPTS)
@@ -58,6 +55,7 @@ unix_update_LDFLAGS = @EXE_LDFLAGS@
 unix_update_LDADD = @LIBCRYPT@ @LIBSELINUX@
 
 if ENABLE_REGENERATE_MAN
+dist_man_MANS = pam_unix.8 unix_chkpwd.8 unix_update.8
 dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

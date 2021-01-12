@@ -8,9 +8,6 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = $(XMLS)
 
-if HAVE_DOC
-dist_man_MANS = pam_mkhomedir.8 mkhomedir_helper.8
-endif
 XMLS = README.xml pam_mkhomedir.8.xml mkhomedir_helper.8.xml
 dist_check_SCRIPTS = tst-pam_mkhomedir
 TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
@@ -39,6 +36,7 @@ check_PROGRAMS = tst-pam_mkhomedir-retval
 tst_pam_mkhomedir_retval_LDADD = $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
+dist_man_MANS = pam_mkhomedir.8 mkhomedir_helper.8
 dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif

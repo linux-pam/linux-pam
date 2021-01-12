@@ -7,9 +7,6 @@ MAINTAINERCLEANFILES = $(MANS) README
 
 EXTRA_DIST = $(XMLS)
 
-if HAVE_DOC
-dist_man_MANS = limits.conf.5 pam_limits.8
-endif
 XMLS = README.xml limits.conf.5.xml pam_limits.8.xml
 dist_check_SCRIPTS = tst-pam_limits
 TESTS = $(dist_check_SCRIPTS)
@@ -35,6 +32,7 @@ install-data-local:
 	mkdir -p $(DESTDIR)$(limits_conf_dir)
 
 if ENABLE_REGENERATE_MAN
+dist_man_MANS = limits.conf.5 pam_limits.8
 dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif
