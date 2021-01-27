@@ -97,6 +97,17 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
    }
 }
 
+static char*
+_pam_conv_str_umask_to_homemode(const char *umask)
+{
+   unsigned int m = 0;
+   char tmp[5];
+
+   m = 0777 & ~strtoul(umask, NULL, 8);
+   (void) snprintf(tmp, sizeof(tmp), "0%o", m);
+   return strdup(tmp);
+}
+
 /* Do the actual work of creating a home dir */
 static int
 create_homedir (pam_handle_t *pamh, options_t *opt,
@@ -105,6 +116,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
    int retval, child;
    struct sigaction newsa, oldsa;
    char *login_umask = NULL;
+   char *login_homemode = NULL;
 
    /* Mention what is happening, if the notification fails that is OK */
    if (!(opt->ctrl & MKHOMEDIR_QUIET))
@@ -127,14 +139,25 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
    }
 
    /* fetch UMASK from /etc/login.defs if not in argv */
-   if (opt->umask == NULL)
+   if (opt->umask == NULL) {
       login_umask = pam_modutil_search_key(pamh, LOGIN_DEFS, "UMASK");
+      login_homemode = pam_modutil_search_key(pamh, LOGIN_DEFS, "HOME_MODE");
+      if (login_homemode == NULL) {
+         if (login_umask != NULL) {
+            login_homemode = _pam_conv_str_umask_to_homemode(login_umask);
+         } else {
+            login_homemode = _pam_conv_str_umask_to_homemode(UMASK_DEFAULT);
+         }
+      }
+   } else {
+      login_homemode = _pam_conv_str_umask_to_homemode(opt->umask);
+   }
 
    /* fork */
    child = fork();
    if (child == 0) {
 	static char *envp[] = { NULL };
-	const char *args[] = { NULL, NULL, NULL, NULL, NULL };
+	const char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL };
 
 	if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_PIPE_FD,
 					    PAM_MODUTIL_PIPE_FD,
@@ -144,9 +167,9 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 	/* exec the mkhomedir helper */
 	args[0] = MKHOMEDIR_HELPER;
 	args[1] = user;
-	args[2] = opt->umask ? opt->umask :
-			(login_umask ? login_umask : UMASK_DEFAULT);
+	args[2] = opt->umask ? opt->umask : UMASK_DEFAULT;
 	args[3] = opt->skeldir;
+	args[4] = login_homemode;
 
 	DIAG_PUSH_IGNORE_CAST_QUAL;
 	execve(MKHOMEDIR_HELPER, (char **)args, envp);
@@ -185,6 +208,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
    }
 
    free(login_umask);
+   free(login_homemode);
 
    D(("returning %d", retval));
    return retval;
