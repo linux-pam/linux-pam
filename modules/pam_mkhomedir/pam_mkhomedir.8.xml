@@ -91,17 +91,14 @@
         <listitem>
           <para>
             The file mode creation mask is set to
-            <replaceable>mask</replaceable>. If this option is not
-            specified, then the file mode creation mask is set to the
-            value of <option>UMASK</option> configuration item from
-            <filename>/etc/login.defs</filename> or 0022 if
-            <option>UMASK</option> is not defined.
-            If <replaceable>mask</replaceable> is not specified, then
-            permissions for created user home directory is set to the
-            value of <option>HOME_MODE</option> configuration item
-            from <filename>/etc/login.defs</filename> or inherited from
-            the value of <option>UMASK</option> if not defined,
-            elsewise 0755 default value is used.
+            <replaceable>mask</replaceable>. The default value of mask
+            is 0022. If this option is not specified, then the permissions
+            of created user home directory  is set to the value of
+            <option>HOME_MODE</option> configuration item from
+            <filename>/etc/login.defs</filename> or inherited form the
+            value of <option>UMASK</option> from
+            <filename>/etc/login.defs</filename> if <option>HOME_MODE</option>
+            not defined, elsewise 0755 default value is used.
           </para>
         </listitem>
       </varlistentry>
