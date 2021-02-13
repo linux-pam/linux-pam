@@ -4,86 +4,87 @@
 #
 # Translators:
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Carmen Bianca Bakker <carmen@carmenbianca.eu>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-11-24 18:00+0000\n"
-"PO-Revision-Date: 2011-11-30 06:56-0500\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Esperanto (http://www.transifex.com/projects/p/fedora/"
-"language/eo/)\n"
+"PO-Revision-Date: 2021-02-05 00:40+0000\n"
+"Last-Translator: Carmen Bianca Bakker <carmen@carmenbianca.eu>\n"
+"Language-Team: Esperanto <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:178
 #: modules/pam_userdb/pam_userdb.c:55
 msgid "Password: "
-msgstr ""
+msgstr "Pasvorto: "
 
 #: libpam/pam_get_authtok.c:41
 #, c-format
 msgid "Current %s password: "
-msgstr ""
+msgstr "Aktuala %s pasvorto: "
 
 #: libpam/pam_get_authtok.c:42
 msgid "Current password: "
-msgstr ""
+msgstr "Aktuala pasvorto: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
 msgid "New %s password: "
-msgstr ""
+msgstr "Nova %s pasvorto: "
 
 #: libpam/pam_get_authtok.c:45
 msgid "New password: "
-msgstr ""
+msgstr "Nova pasvorto: "
 
 #: libpam/pam_get_authtok.c:47
 #, c-format
 msgid "Retype new %s password: "
-msgstr ""
+msgstr "Retajpu novan %s pasvorton: "
 
 #: libpam/pam_get_authtok.c:48
 msgid "Retype new password: "
-msgstr ""
+msgstr "Retajpu novan pasvorton: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
-msgstr ""
+msgstr "Pardonon, la pasvortoj ne kongruas."
 
 #: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Retajpu %s"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 msgid "Password change has been aborted."
-msgstr ""
+msgstr "Pasvortoŝanĝo ĉesis."
 
 #: libpam/pam_item.c:311
 msgid "login:"
-msgstr ""
+msgstr "saluto:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
-msgstr ""
+msgstr "Sukceso"
 
 #: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
-msgstr ""
+msgstr "Kritika eraro - tuja ĉeso"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr ""
+msgstr "Malsukcesis ŝargi modulon"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
-msgstr ""
+msgstr "Ne trovis simbolon"
 
 #: libpam/pam_strerror.c:48
 msgid "Error in service module"
@@ -91,7 +92,7 @@ msgstr ""
 
 #: libpam/pam_strerror.c:50
 msgid "System error"
-msgstr ""
+msgstr "Sistema eraro"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
@@ -99,15 +100,15 @@ msgstr ""
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
-msgstr ""
+msgstr "Permeso rifuzita"
 
 #: libpam/pam_strerror.c:56
 msgid "Authentication failure"
-msgstr ""
+msgstr "Aŭtentiga malsukceso"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
+msgstr "Nesufiĉaj salutiloj por atingi aŭtentigajn datumojn"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
@@ -199,7 +200,7 @@ msgstr ""
 
 #: libpam/pam_strerror.c:105
 msgid "Unknown PAM error"
-msgstr ""
+msgstr "Nekonata PAM-eraro"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
@@ -243,100 +244,100 @@ msgstr ""
 #: modules/pam_faillock/pam_faillock.c:619
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(restas %d minutoj por malŝlosi)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:318 modules/pam_lastlog/pam_lastlog.c:579
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr ""
+msgstr " %a %e-a de %b %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:327 modules/pam_lastlog/pam_lastlog.c:588
 #, c-format
 msgid " from %.*s"
-msgstr ""
+msgstr " de %.*s"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:339 modules/pam_lastlog/pam_lastlog.c:600
 #, c-format
 msgid " on %.*s"
-msgstr ""
+msgstr " sur %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:349
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr ""
+msgstr "Lasta saluto: %s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:355
 msgid "Welcome to your new account!"
-msgstr ""
+msgstr "Bonvenon al via nova konto!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:610
 #, c-format
 msgid "Last failed login:%s%s%s"
-msgstr ""
+msgstr "Lasta malsukcesa saluto: %s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:619 modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Estis %d malsukcesa salutprovo ekde la lasta sukcesa saluto."
+msgstr[1] "Estis %d malsukcesaj salutprovoj ekde la lasta sukcesa saluto."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:631
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
+msgstr "Estis %d malsukcesaj salutprovoj ekde la lasta sukcesa saluto."
 
 #: modules/pam_limits/pam_limits.c:1115
 #, c-format
 msgid "There were too many logins for '%s'."
-msgstr ""
+msgstr "Estis tro multaj salutoj por '%s'."
 
 #: modules/pam_mail/pam_mail.c:289
 msgid "You have no mail."
-msgstr ""
+msgstr "Vi ne havas poŝton."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
-msgstr ""
+msgstr "Vi havas novan poŝton."
 
 #: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
-msgstr ""
+msgstr "Vi havas malnovan poŝton."
 
 #: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
-msgstr ""
+msgstr "Vi havas poŝton."
 
 #: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr ""
+msgstr "Vi havas neniun poŝton en dosierujo %s."
 
 #: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr ""
+msgstr "Vi havas novan poŝton en dosierujo %s."
 
 #: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr ""
+msgstr "Vi havas malnovan poŝton en dosierujo %s."
 
 #: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
-msgstr ""
+msgstr "Vi havas poŝton en dosierujo %s."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:107
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "Kreante dosierujon '%s'."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:174
 #, c-format
@@ -346,11 +347,11 @@ msgstr ""
 #: modules/pam_pwhistory/pam_pwhistory.c:371
 #: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
-msgstr ""
+msgstr "Pasvorto jam uzita. Elektu alian."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
 msgid "Password has been already used."
-msgstr ""
+msgstr "Pasvorto jam uzita."
 
 #: modules/pam_selinux/pam_selinux.c:172
 #, c-format
@@ -454,14 +455,12 @@ msgid "The password has not been changed."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:581
-#, fuzzy
 msgid "You must choose a shorter password."
 msgstr "Vi devas elekti pli mallongan pasvorton."
 
 #: modules/pam_unix/pam_unix_passwd.c:585
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Vi devas elekti pli mallongan pasvorton."
+msgstr "Vi devas elekti pli longan pasvorton."
 
 #: modules/pam_unix/pam_unix_passwd.c:692
 #, c-format
@@ -469,6 +468,5 @@ msgid "Changing password for %s."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:722
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Vi devas elekti pli mallongan pasvorton."
+msgstr ""
