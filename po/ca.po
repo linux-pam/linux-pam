@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2020-07-05 23:52+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Catalan <https://translate.fedoraproject.org/projects/linux-"
@@ -521,11 +521,9 @@ msgstr "Heu d'esperar més temps abans de canviar la contrasenya."
 #~ msgid "contains the user name in some form"
 #~ msgstr "conté el nom d'usuari d'alguna forma"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "CONTRASENYA INCORRECTA: %s"
 
-#, c-format
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "El compte està bloquejat temporalment (queden %ld segons)."
 
@@ -541,31 +539,25 @@ msgstr "Heu d'esperar més temps abans de canviar la contrasenya."
 #~ msgid "Unknown error"
 #~ msgstr "Error desconegut"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: número incorrecte assignat a --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: opció %s no reconeguda\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file nom_fitxer_arrel] [--user nom_usuari] [--reset[=n]] [--"
 #~ "quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr ""
 #~ "%s: no es poden restablir tots els usuaris a un valor diferent de zero\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Entrada           Fallades Última fallada     Des de\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2020-05-02 09:40+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/linux-"
@@ -522,11 +522,9 @@ msgstr "Ви слід ще трохи зачекати, щоб змінити в
 #~ msgid "contains the user name in some form"
 #~ msgstr "містить ім’я користувача з форми"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "ПОГАНИЙ ПАРОЛЬ: %s"
 
-#, c-format
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "Обліковий запис тимчасово заблоковано (ще на %ld секунд)."
 
@@ -542,31 +540,25 @@ msgstr "Ви слід ще трохи зачекати, щоб змінити в
 #~ msgid "Unknown error"
 #~ msgstr "Невідома помилка"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: вказано помилкове число --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: нерозпізнано параметр %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file назва-файла-користувача-root] [--user ім'я користувача] [--"
 #~ "reset[=n]] [--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr ""
 #~ "%s: не вдається відновити ненульове значення для всіх користувачів\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Користувач      Помилок  Остання помилка    З\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

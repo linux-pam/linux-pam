@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2011-11-29 07:00-0500\n"
 "Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -500,7 +500,6 @@ msgstr "អ្នក​ត្រូវ​តែ​រង់ចាំ​បន្
 #~ msgid "is rotated"
 #~ msgstr "បាន​បង្វិល"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "ពាក្យ​សម្ងាត់​មិន​ល្អ ៖ %s"
 
@@ -516,20 +515,16 @@ msgstr "អ្នក​ត្រូវ​តែ​រង់ចាំ​បន្
 #~ msgid "Unknown error"
 #~ msgstr "មិន​ស្គាល់​កំហុស"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s ៖ លេខ​មិន​ល្អ​បាន​ផ្ដល់​ទៅ --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s ៖ ជម្រើស​ដែល​មិន​ស្គាល់ %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s ៖ [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s ៖ មិន​អាច​កំណត់​អ្នក​ប្រើ​ទាំងអស់​ទៅ​មិនមែន​សូន្យ​ឡើងវិញ​បានទេ\n"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2013-04-15 01:55-0400\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -517,11 +517,10 @@ msgstr "നിങ്ങളുടെ അടയാളവാക്ക് മാറ�
 #~ msgid "contains the user name in some form"
 #~ msgstr "ഉപയോക്താവിന്റെ നാമം ഏതെങ്കിലും ഒരു തരത്തിലുണ്ടു്"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "തെറ്റായ അടയാളവാക്ക്: %s"
 
-#, fuzzy, c-format
+#, fuzzy
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "അക്കൌണ്ട് താല്‍ക്കാലികമായി പൂട്ടിയിരിക്കുന്നു (%ld നിമിഷങ്ങള്‍ ബാക്കി)"
 
@@ -537,29 +536,23 @@ msgstr "നിങ്ങളുടെ അടയാളവാക്ക് മാറ�
 #~ msgid "Unknown error"
 #~ msgstr "അപരിചിതമായ പിശക്"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s:നല്‍കിയിരിക്കുന്ന നംബര്‍ തെറ്റാണ്, --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: Unrecognised ഉപാധി %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: എല്ലാ ഉപയോക്താക്കള്‍ക്കും പൂജ്യം അല്ലാതെ ക്രമികരിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Login           Failures Latest failure     From\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

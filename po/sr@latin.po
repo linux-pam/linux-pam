@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2011-11-30 06:59-0500\n"
 "Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -522,11 +522,10 @@ msgstr "Morate duže sačekati na promenu lozinke"
 #~ msgid "contains the user name in some form"
 #~ msgstr "sadrži korisničko ime u nekom obliku"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "LOŠA LOZINKA: %s"
 
-#, fuzzy, c-format
+#, fuzzy
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "Nalog je privremeno zaključan (ostalo je %ld sekundi)"
 
@@ -542,30 +541,24 @@ msgstr "Morate duže sačekati na promenu lozinke"
 #~ msgid "Unknown error"
 #~ msgstr "Nepoznata greška"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: zadat je loš broj za --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: nije prepoznata opcija %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file korenski-nazivdatoteke] [--user korisničkoime] [--reset[=n]] "
 #~ "[--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: ne mogu da povratim sve korisnike na broj različit od nule\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Prijava         Neuspesi Poslednji neuspeh   Sa\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

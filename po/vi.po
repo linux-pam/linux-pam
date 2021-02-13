@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2012-11-30 06:03-0500\n"
 "Last-Translator: mattheu_9x <mattheu.9x@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/projects/p/fedora/"
@@ -520,11 +520,10 @@ msgstr "Bạn phải đợi thêm nữa, để thay đổi mật khẩu"
 #~ msgid "contains the user name in some form"
 #~ msgstr "chứa tên user trong một số biểu mẫu"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "Mật khẩu không an toàn: %s"
 
-#, fuzzy, c-format
+#, fuzzy
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "Tài khoản tạm thời bị khóa (%ld giây còn lại)"
 
@@ -540,30 +539,24 @@ msgstr "Bạn phải đợi thêm nữa, để thay đổi mật khẩu"
 #~ msgid "Unknown error"
 #~ msgstr "Lỗi không rõ"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: Xấu số cho --cài lại=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: Được thừa nhận lựa chọn%s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [- tập bắt rễ-filename] [- người sử dụng tên người dùng] [- đặt lại "
 #~ "[= n]] [- yên tĩnh]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: Không thể thiết lập lại tất cả các người dùng khác không\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Đang nhập       Thất bại Thất bại cuốie     Từ  \n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

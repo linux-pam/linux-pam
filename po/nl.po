@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2020-07-05 23:52+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Dutch <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -518,11 +518,9 @@ msgstr "Je moet langer wachten om je wachtwoord te wijzigen."
 #~ msgid "contains the user name in some form"
 #~ msgstr "bevat de gebruikersnaam in een of andere vorm"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "SLECHT WACHTWOORD: %s"
 
-#, c-format
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "Het account is tijdelijk vergrendeld (%ld seconden resterend)."
 
@@ -538,30 +536,24 @@ msgstr "Je moet langer wachten om je wachtwoord te wijzigen."
 #~ msgid "Unknown error"
 #~ msgstr "Onbekende fout"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: Onjuist getal gegeven aan --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: Onbekende optie %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s [--file rooted-bestandsnaam] [--user gebruikersnaam] [--reset[=n]] [--"
 #~ "quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: kan niet alle gebruikers terugzetten naar non-zero\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Aanmelding      Mislukte Laatst mislukte    Van\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

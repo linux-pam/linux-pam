@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2012-02-28 05:38-0500\n"
 "Last-Translator: runa <runabh@gmail.com>\n"
 "Language-Team: Bengali (India) <anubad@lists.ankur.org.in>\n"
@@ -521,11 +521,10 @@ msgstr "কিছু কাল পরে পাসওয়ার্ড পরি�
 #~ msgid "contains the user name in some form"
 #~ msgstr "কোনো রূপে ব্যবহারকারী নাম অন্তর্ভুক্ত হয়েছে"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "পাসওয়ার্ড ভাল নয়: %s"
 
-#, fuzzy, c-format
+#, fuzzy
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "সাময়িকরূপে অ্যাকাউন্ট লক করা হয়েছে (%ld সেকেন্ড অবশিষ্ট)"
 
@@ -541,29 +540,23 @@ msgstr "কিছু কাল পরে পাসওয়ার্ড পরি�
 #~ msgid "Unknown error"
 #~ msgstr "অজানা সমস্যা"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: --reset= এর জন্য ভুল সংখ্যা উল্লিখিত\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: অজানা বিকল্প %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: সব ব্যবহারকারীর জন্য শূণ্য-ভিন্ন মান ধার্য করতে ব্যর্থ\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "লগ-ইন           বিফলতা সর্বশেষ বিফলতা     চিহ্নিত স্থান থেকে\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

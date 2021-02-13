@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2020-05-24 12:40+0000\n"
 "Last-Translator: Yi-Jyun Pan <pan93412@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.fedoraproject.org/"
@@ -505,11 +505,9 @@ msgstr "請您稍等一陣子後再變更密碼。"
 #~ msgid "contains the user name in some form"
 #~ msgstr "包含了某些格式的用戶名稱"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "不良的密碼： %s"
 
-#, c-format
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "帳號被暫時鎖定（剩餘 %ld 秒）。"
 
@@ -525,29 +523,23 @@ msgstr "請您稍等一陣子後再變更密碼。"
 #~ msgid "Unknown error"
 #~ msgstr "未知的錯誤"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: 不良的號碼提供至 --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: 未識別的選項 %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: 無法將所有使用者重新設定為非零\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Login           Failures Latest failure     From\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

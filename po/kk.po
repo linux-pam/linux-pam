@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2020-06-24 09:40+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://translate.fedoraproject.org/projects/linux-"
@@ -507,11 +507,9 @@ msgstr "Пароліңізді өзгерті үшін біраз күтуіңі
 #~ msgid "contains the user name in some form"
 #~ msgstr "құрамында пайдаланушы аты бар"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "ҚАТЕ ПАРОЛЬ: %s"
 
-#, c-format
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "Тіркелгі уақытша бұғатталған (%ld секунд қалды)."
 
@@ -527,30 +525,24 @@ msgstr "Пароліңізді өзгерті үшін біраз күтуіңі
 #~ msgid "Unknown error"
 #~ msgstr "Белгісіз қате"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: --reset= үшін қате сан берілді\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: %s опциясы белгісіз\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file түбірлік_файл_аты] [--user пайдаланушы] [--reset[=n]] [--"
 #~ "quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: Барлық пайдаланушыларды нөлдік емес мәнге тастау мүмкін емес\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Пайдаланушы аты   Сәтсіз кіру саны  Соңғы қате   Қайдан\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

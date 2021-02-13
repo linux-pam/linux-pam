@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2020-05-03 12:21+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/linux-"
@@ -519,11 +519,9 @@ msgstr "До смены пароля должно пройти больше вр
 #~ msgid "contains the user name in some form"
 #~ msgstr "содержит имя пользователя"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "НЕУДАЧНЫЙ ПАРОЛЬ: %s"
 
-#, c-format
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "Учетная запись временно заблокирована (осталось %ld сек.)."
 
@@ -539,31 +537,25 @@ msgstr "До смены пароля должно пройти больше вр
 #~ msgid "Unknown error"
 #~ msgstr "Неизвестная ошибка"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: указано неверное число для --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: неопознанный параметр %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file имя_корневого_файла] [--user имя_пользователя] [--reset[=n]] "
 #~ "[--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr ""
 #~ "%s: не удается выполнить сброс всех пользователей в ненулевое значение\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Учетная запись           Сбои Последний сбой     С\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

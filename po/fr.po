@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2020-05-02 09:40+0000\n"
 "Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/linux-"
@@ -534,11 +534,9 @@ msgstr ""
 #~ msgid "contains the user name in some form"
 #~ msgstr "contient le nom d’utilisateur d’une certaine manière"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "MOT DE PASSE INCORRECT : %s"
 
-#, c-format
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "Le compte est temporairement verrouillé (%ld secondes restantes)."
 
@@ -554,30 +552,24 @@ msgstr ""
 #~ msgid "Unknown error"
 #~ msgstr "Erreur inconnue"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s : Numéro incorrect attribué à --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s : Option non reconnue %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s : [--file chemin du fichier] [--user nom d’utilisateur] [--reset[=n]] "
 #~ "[--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s : Impossible de réinitialiser tous les utilisateurs à non-zéro\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Connexion           Échecs Dernier échec     De\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

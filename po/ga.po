@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2013-09-10 02:14-0400\n"
 "Last-Translator: leftmostcat <leftmostcat@gmail.com>\n"
 "Language-Team: Irish (http://www.transifex.com/projects/p/fedora/language/"
@@ -544,11 +544,10 @@ msgstr "Caithfidh tú fanacht níos faide chun d'fhocal faire a athrú"
 #~ msgid "contains the user name in some form"
 #~ msgstr "tá an t-ainm úsáideora ann i bhfoirm éigin"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "DROCHFHOCAL FAIRE: %s"
 
-#, fuzzy, c-format
+#, fuzzy
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "Cuireadh an cuntas faoi ghlas go sealadach (%ld soicind fágtha)"
 
@@ -564,30 +563,24 @@ msgstr "Caithfidh tú fanacht níos faide chun d'fhocal faire a athrú"
 #~ msgid "Unknown error"
 #~ msgstr "Earráid anaithnid"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: Tugadh drochuimhir do --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: Rogha anaithnid %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file ainm-comhad-le-fréamh] [--user úsáideoir] [--reset[=u]]\n"
 #~ "[--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: Ní féidir gach úsáideoir a athrú go neamhnialasach\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Logáil isteach  Teipeanna  Teip is déanaí  Ó\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

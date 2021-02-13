@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2020-05-02 09:40+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://translate.fedoraproject.org/projects/linux-"
@@ -507,11 +507,9 @@ msgstr "Du skal vente længere for at ændre din adgangskode."
 #~ msgid "contains the user name in some form"
 #~ msgstr "indeholder brugernavnet i en eller anden form"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "DÅRLIG ADGANGSKODE: %s"
 
-#, c-format
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "Kontoen er midlertidigt låst (%ld sekunder tilbage)."
 
@@ -527,29 +525,23 @@ msgstr "Du skal vente længere for at ændre din adgangskode."
 #~ msgid "Unknown error"
 #~ msgstr "Ukendt fejl"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: Der er angivet et forkert tal til --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: Ikke genkendt indstilling %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file rodfilnavn] [--user brugernavn] [--reset[=n]] [--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: Alle brugere kunne ikke nulstilles til ikke-nul\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Login           Fejlende Sidste fejl     Fra\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

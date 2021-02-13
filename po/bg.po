@@ -10,11 +10,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2020-12-20 08:00+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
-"Language-Team: Bulgarian <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/bg/>\n"
+"Language-Team: Bulgarian <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -514,11 +514,9 @@ msgstr "Трябва да изчакате повече, за да промен�
 #~ msgid "contains the user name in some form"
 #~ msgstr "под някаква форма съдържа името на потребителя"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "ЛОША ПАРОЛА: %s"
 
-#, c-format
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "Акаунтът е заключен временно (%ld остават секунди)."
 
@@ -534,29 +532,23 @@ msgstr "Трябва да изчакате повече, за да промен�
 #~ msgid "Unknown error"
 #~ msgstr "Непозната грешка"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: Грешно число, подадено на --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: Неразпозната опция %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: Не мога да установя всички потребители на non-zero\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "Влязъл           Неуспехи Последен неуспех     От\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

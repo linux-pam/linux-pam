@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Sinhala <https://translate.fedoraproject.org/projects/linux-"
@@ -503,7 +503,6 @@ msgstr "ඔබගේ රහස්පදය වෙනස් කිරීමට �
 #~ msgid "is rotated"
 #~ msgstr "භ්‍රමණය වි ඇත"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "BAD PASSWORD: %s"
 
@@ -519,20 +518,16 @@ msgstr "ඔබගේ රහස්පදය වෙනස් කිරීමට �
 #~ msgid "Unknown error"
 #~ msgstr "නොදන්නා දෝෂයක්"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: සාවද්‍ය අංකයක් ලබා දී ඇත --reset=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: %s හදුනා නොගත් විකල්පයකි\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: ශුන්‍ය නොවන අගයට සියළුම පරිශීලකයින් නැවත සැකසිය නොහැක\n"

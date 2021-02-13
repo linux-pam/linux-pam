@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2013-01-26 10:08-0500\n"
 "Last-Translator: George Machitidze <giomac@gmail.com>\n"
 "Language-Team: Georgian (http://www.transifex.com/projects/p/fedora/language/"
@@ -489,7 +489,6 @@ msgstr "თქვენ უნდა აირჩიოთ მოკლე პ�
 #~ msgid "contains the user name in some form"
 #~ msgstr "რაღაც ფორმით გავს მომხმარებლის სახელს"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "ცუდი პაროლი: %s"
 

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2013-04-16 09:34-0400\n"
 "Last-Translator: eukim <eukim@redhat.com>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/fedora/language/"
@@ -516,11 +516,10 @@ msgstr "암호 변경을 위해 조금더 기다려 주십시오."
 #~ msgid "contains the user name in some form"
 #~ msgstr "어떠한 형식으로 사용자 이름을 포함합니다.  "
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "잘못된 암호: %s"
 
-#, fuzzy, c-format
+#, fuzzy
 #~ msgid "The account is temporarily locked (%ld seconds left)."
 #~ msgstr "일시적으로 계정이 잠금되었습니다 (%ld 초 남음)  "
 
@@ -536,29 +535,23 @@ msgstr "암호 변경을 위해 조금더 기다려 주십시오."
 #~ msgid "Unknown error"
 #~ msgstr "알 수 없는 오류"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: 잘못된 숫자가 --reset=에 설정됨\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: 알려지지 않은 옵션 %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: 모든 사용자를 영이 아닌 값으로 설정할 수 없음\n"
 
-#, c-format
 #~ msgid "Login           Failures Latest failure     From\n"
 #~ msgstr "로그인           실패 마지막 실패     다음에서 발생\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
 #~ "   [-u username] [--user username]\n"

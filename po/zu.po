@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 20:25+0000\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Zulu <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -507,7 +507,6 @@ msgstr "Kumelwe ulinde isikhashana ukuze ushintshe iphasiwedi yakho"
 #~ msgid "is rotated"
 #~ msgstr "ijikelezisiwe"
 
-#, c-format
 #~ msgid "BAD PASSWORD: %s"
 #~ msgstr "IPHASIWEDI ENGASEBENZI: %s"
 
@@ -523,21 +522,17 @@ msgstr "Kumelwe ulinde isikhashana ukuze ushintshe iphasiwedi yakho"
 #~ msgid "Unknown error"
 #~ msgstr "Iphutha elingaziwa"
 
-#, c-format
 #~ msgid "%s: Bad number given to --reset=\n"
 #~ msgstr "%s: Inombolo eyiphutha enikeziwe ukuba --uqale kabusha=\n"
 
-#, c-format
 #~ msgid "%s: Unrecognised option %s\n"
 #~ msgstr "%s: Okukhethile okungaziwa %s\n"
 
-#, c-format
 #~ msgid ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 #~ msgstr ""
 #~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#, c-format
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr ""
 #~ "%s: Ayikwazi ukusetha kabusha bonke abasebenzisi ibase enombolweni "
