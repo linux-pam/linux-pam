@@ -11,21 +11,22 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2020.
 # Jan Kuparinen <copper_fin@hotmail.com>, 2021.
+# Ricky Tigg <ricky.tigg@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-11-24 18:00+0000\n"
-"PO-Revision-Date: 2021-01-11 18:36+0000\n"
-"Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
-"Language-Team: Finnish <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/fi/>\n"
+"PO-Revision-Date: 2021-02-13 09:40+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
+"Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4\n"
+"X-Generator: Weblate 4.4.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:178
 #: modules/pam_userdb/pam_userdb.c:55
@@ -74,7 +75,7 @@ msgstr "Salasanan vaihtaminen keskeytettiin."
 
 #: libpam/pam_item.c:311
 msgid "login:"
-msgstr "kirjautuminen:"
+msgstr "sisäänkirjautuminen:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
@@ -146,7 +147,7 @@ msgstr "Tunnistautumispalvelu ei pääse käyttäjän valtuustietoihin"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr "Käyttäjän valtuustiedot vanhentunut"
+msgstr "Käyttäjän valtuustiedot vanhentuneet"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
