@@ -9,21 +9,22 @@
 # Zoltan Hoppár <hopparz@gmail.com>, 2012-2013
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
+# Balázs Meskó <meskobalazs@mailbox.org>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-11-24 18:00+0000\n"
-"PO-Revision-Date: 2020-03-06 23:59+0000\n"
-"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
-"Language-Team: Hungarian <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/hu/>\n"
+"PO-Revision-Date: 2021-02-10 19:40+0000\n"
+"Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
+"Language-Team: Hungarian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11.2\n"
+"X-Generator: Weblate 4.4.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:178
 #: modules/pam_userdb/pam_userdb.c:55
@@ -31,14 +32,13 @@ msgid "Password: "
 msgstr "Jelszó: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "Új %s jelszó: "
+msgstr "Jelenlegi %s jelszó: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
 msgid "Current password: "
-msgstr "Új jelszó: "
+msgstr "Jelenlegi jelszó: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
