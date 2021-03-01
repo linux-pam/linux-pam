@@ -93,6 +93,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   int debug = 0;
   int call_setuid = 0;
   int quiet = 0;
+  int quiet_log = 0;
   int expose_authtok = 0;
   int use_stdout = 0;
   int optargc;
@@ -133,6 +134,8 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	call_setuid = 1;
       else if (strcasecmp (argv[optargc], "quiet") == 0)
 	quiet = 1;
+      else if (strcasecmp (argv[optargc], "quiet_log") == 0)
+	quiet_log = 1;
       else if (strcasecmp (argv[optargc], "expose_authtok") == 0)
 	expose_authtok = 1;
       else
@@ -269,6 +272,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	{
 	  if (WIFEXITED(status))
 	    {
+		if (!quiet_log)
 	      pam_syslog (pamh, LOG_ERR, "%s failed: exit code %d",
 			  argv[optargc], WEXITSTATUS(status));
 		if (!quiet)
@@ -277,6 +281,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	    }
 	  else if (WIFSIGNALED(status))
 	    {
+		if (!quiet_log)
 	      pam_syslog (pamh, LOG_ERR, "%s failed: caught signal %d%s",
 			  argv[optargc], WTERMSIG(status),
 			  WCOREDUMP(status) ? " (core dumped)" : "");
@@ -287,6 +292,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	    }
 	  else
 	    {
+		if (!quiet_log)
 	      pam_syslog (pamh, LOG_ERR, "%s failed: unknown status 0x%x",
 			  argv[optargc], status);
 		if (!quiet)
