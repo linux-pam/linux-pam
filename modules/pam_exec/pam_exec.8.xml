@@ -31,6 +31,9 @@
         quiet
       </arg>
       <arg choice="opt">
+        quiet_log
+      </arg>
+      <arg choice="opt">
         stdout
       </arg>
       <arg choice="opt">
@@ -155,6 +158,19 @@
               Per default pam_exec.so will echo the exit status of the
               external command if it fails.
               Specifying this option will suppress the message.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            <option>quiet_log</option>
+          </term>
+          <listitem>
+            <para>
+              Per default pam_exec.so will log the exit status of the
+              external command if it fails.
+              Specifying this option will suppress the log message.
             </para>
           </listitem>
         </varlistentry>
