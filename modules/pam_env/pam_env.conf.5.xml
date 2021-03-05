@@ -103,7 +103,7 @@
       NNTPSERVER     DEFAULT=localhost
       PATH           DEFAULT=${HOME}/bin:/usr/local/bin:/bin\
       :/usr/bin:/usr/local/bin/X11:/usr/bin/X11
-      XDG_DATA_HOME  @{HOME}/share/
+      XDG_DATA_HOME  DEFAULT=@{HOME}/share/
     </programlisting>
 
     <para>
