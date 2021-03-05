@@ -47,7 +47,7 @@
       The default value of <replaceable>umask</replaceable> is 0022 and the
       default value of <replaceable>path-to-skel</replaceable> is
       <emphasis>/etc/skel</emphasis>. The default value of
-      <replaceable>home_mode</replaceable> is computed form the value of
+      <replaceable>home_mode</replaceable> is computed from the value of
       <replaceable>umask</replaceable>.
     </para>
 
