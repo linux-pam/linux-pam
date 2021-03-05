@@ -27,6 +27,7 @@
 #include <security/pam_modutil.h>
 
 static unsigned long u_mask = 0022;
+static unsigned long home_mode = 0;
 static char skeldir[BUFSIZ] = "/etc/skel";
 
 /* Do the actual work of creating a home dir */
@@ -334,6 +335,24 @@ create_homedir(const struct passwd *pwd,
 }
 
 static int
+create_homedir_helper(const struct passwd *_pwd,
+		      const char *_skeldir, const char *_homedir)
+{
+   int retval = PAM_SESSION_ERR;
+
+   retval = create_homedir(_pwd, _skeldir, _homedir);
+
+   if (chmod(_homedir, home_mode) != 0)
+   {
+      pam_syslog(NULL, LOG_DEBUG,
+		 "unable to change perms on home directory %s: %m", _homedir);
+      return PAM_PERM_DENIED;
+   }
+
+   return retval;
+}
+
+static int
 make_parent_dirs(char *dir, int make)
 {
   int rc = PAM_SUCCESS;
@@ -366,9 +385,10 @@ main(int argc, char *argv[])
 {
    struct passwd *pwd;
    struct stat st;
+   char *eptr;
 
    if (argc < 2) {
-	fprintf(stderr, "Usage: %s <username> [<umask> [<skeldir>]]\n", argv[0]);
+	fprintf(stderr, "Usage: %s <username> [<umask> [<skeldir> [<home_mode>]]]\n", argv[0]);
 	return PAM_SESSION_ERR;
    }
 
@@ -379,7 +399,6 @@ main(int argc, char *argv[])
    }
 
    if (argc >= 3) {
-	char *eptr;
 	errno = 0;
 	u_mask = strtoul(argv[2], &eptr, 0);
 	if (errno != 0 || *eptr != '\0') {
@@ -396,6 +415,18 @@ main(int argc, char *argv[])
 	strcpy(skeldir, argv[3]);
    }
 
+   if (argc >= 5) {
+       errno = 0;
+       home_mode = strtoul(argv[4], &eptr, 0);
+       if (errno != 0 || *eptr != '\0') {
+		pam_syslog(NULL, LOG_ERR, "Bogus home_mode value %s", argv[4]);
+		return PAM_SESSION_ERR;
+       }
+   }
+
+   if (home_mode == 0)
+      home_mode = 0777 & ~u_mask;
+
    /* Stat the home directory, if something exists then we assume it is
       correct and return a success */
    if (stat(pwd->pw_dir, &st) == 0)
@@ -404,5 +435,5 @@ main(int argc, char *argv[])
    if (make_parent_dirs(pwd->pw_dir, 0) != PAM_SUCCESS)
 	return PAM_PERM_DENIED;
 
-   return create_homedir(pwd, skeldir, pwd->pw_dir);
+   return create_homedir_helper(pwd, skeldir, pwd->pw_dir);
 }
