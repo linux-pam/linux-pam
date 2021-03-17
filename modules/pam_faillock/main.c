@@ -70,14 +70,13 @@ args_parse(int argc, char **argv, struct options *opts)
 	opts->progname = argv[0];
 
 	for (i = 1; i < argc; ++i) {
-
 		if (strcmp(argv[i], "--dir") == 0) {
 			++i;
 			if (i >= argc || strlen(argv[i]) == 0) {
 				fprintf(stderr, "%s: No directory supplied.\n", argv[0]);
 				return -1;
 			}
-		        opts->dir = argv[i];
+			opts->dir = argv[i];
 		}
 		else if (strcmp(argv[i], "--user") == 0) {
 			++i;
@@ -85,7 +84,7 @@ args_parse(int argc, char **argv, struct options *opts)
 				fprintf(stderr, "%s: No user name supplied.\n", argv[0]);
 				return -1;
 			}
-		        opts->user = argv[i];
+			opts->user = argv[i];
 		}
 		else if (strcmp(argv[i], "--reset") == 0) {
 			opts->reset = 1;
