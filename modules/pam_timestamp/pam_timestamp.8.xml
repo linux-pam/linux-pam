@@ -50,6 +50,11 @@ for the user.  When an application attempts to authenticate the user, a
 <emphasis>pam_timestamp</emphasis> will treat a sufficiently recent timestamp
 file as grounds for succeeding.
     </para>
+    <para condition="openssl_hmac">
+      The default encryption hash is taken from the
+      <emphasis remap='B'>HMAC_CRYPTO_ALGO</emphasis> variable from
+      <emphasis>/etc/login.defs</emphasis>.
+    </para>
   </refsect1>
 
   <refsect1 id="pam_timestamp-options">

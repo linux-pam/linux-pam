@@ -1,5 +1,10 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release next
+* pam_timestamp: change hmac algorithm to call openssl instead of the bundled
+                 sha1 implementation if selected. Add option to select the hash
+                 algorithm to use with HMAC.
+
 Release 1.5.1
 * pam_unix: fixed CVE-2020-27780 - authentication bypass when a user
             doesn't exist and root password is blank

@@ -21,6 +21,6 @@ README: README.xml
 
 %.8: %.8.xml
 	$(XMLLINT) --nonet --xinclude --postvalid --noout $<
-	$(XSLTPROC) -o $(srcdir)/$@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ --nonet $(top_srcdir)/doc/custom-man.xsl $<
+	$(XSLTPROC) -o $(srcdir)/$@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ @STRINGPARAM_HMAC@ --nonet $(top_srcdir)/doc/custom-man.xsl $<
 
 #CLEANFILES += $(man_MANS) README
