@@ -504,6 +504,22 @@ else
 fi
 AC_SUBST([STRINGPARAM_VENDORDIR])
 
+AC_ARG_ENABLE([openssl],
+  AS_HELP_STRING([--enable-openssl],[use OpenSSL crypto libraries]),
+  [OPENSSL_ENABLED=$enableval], OPENSSL_ENABLED=no)
+if test "$OPENSSL_ENABLED" = "yes" ; then
+  AC_CHECK_LIB([crypto], [EVP_MAC_CTX_new],
+  [CRYPTO_LIBS="-lcrypto"
+   use_openssl=yes
+   AC_DEFINE([WITH_OPENSSL], 1, [OpenSSL provides crypto algorithm for hmac])
+   STRINGPARAM_HMAC="--stringparam profile.condition 'openssl_hmac'"],
+  [CRYPTO_LIBS=""
+   STRINGPARAM_HMAC="--stringparam profile.condition 'no_openssl_hmac'"])
+fi
+AC_SUBST([CRYPTO_LIBS])
+AC_SUBST([STRINGPARAM_HMAC])
+AM_CONDITIONAL([COND_USE_OPENSSL], [test "x$use_openssl" = "xyes"])
+
 dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC

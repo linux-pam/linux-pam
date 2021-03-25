@@ -21,6 +21,7 @@ libaudit-dev
 libdb-dev
 libfl-dev
 libselinux1-dev
+libssl-dev
 libtool
 libxml2-utils
 make

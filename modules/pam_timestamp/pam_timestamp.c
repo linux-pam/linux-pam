@@ -56,7 +56,11 @@
 #include <utmp.h>
 #include <syslog.h>
 #include <paths.h>
+#ifdef WITH_OPENSSL
+#include "hmac_openssl_wrapper.h"
+#else
 #include "hmacsha1.h"
+#endif /* WITH_OPENSSL */
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
@@ -78,6 +82,9 @@
 #else
 #define BUFLEN PATH_MAX
 #endif
+
+#define ROOT_USER 	0
+#define ROOT_GROUP 	0
 
 /* Return PAM_SUCCESS if the given directory looks "safe". */
 static int
@@ -449,6 +456,13 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			return PAM_AUTH_ERR;
 		}
 
+#ifdef WITH_OPENSSL
+		if (hmac_size(pamh, debug, &maclen)) {
+			return PAM_AUTH_ERR;
+		}
+#else
+		maclen = hmac_sha1_size();
+#endif /* WITH_OPENSSL */
 		/* Check that the file is the expected size. */
 		if (st.st_size == 0) {
 			/* Invalid, but may have been created by sudo. */
@@ -456,7 +470,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			return PAM_AUTH_ERR;
 		}
 		if (st.st_size !=
-		    (off_t)(strlen(path) + 1 + sizeof(then) + hmac_sha1_size())) {
+		    (off_t)(strlen(path) + 1 + sizeof(then) + maclen)) {
 			pam_syslog(pamh, LOG_NOTICE, "timestamp file `%s' "
 			       "appears to be corrupted", path);
 			close(fd);
@@ -487,8 +501,17 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		message_end = message + strlen(path) + 1 + sizeof(then);
 
 		/* Regenerate the MAC. */
-		hmac_sha1_generate_file(pamh, &mac, &maclen, TIMESTAMPKEY, 0, 0,
-					message, message_end - message);
+#ifdef WITH_OPENSSL
+		if (hmac_generate(pamh, debug, &mac, &maclen, TIMESTAMPKEY,
+				  ROOT_USER, ROOT_GROUP, message, message_end - message)) {
+			close(fd);
+			free(message);
+			return PAM_AUTH_ERR;
+		}
+#else
+		hmac_sha1_generate_file(pamh, &mac, &maclen, TIMESTAMPKEY,
+					ROOT_USER, ROOT_GROUP, message, message_end - message);
+#endif /* WITH_OPENSSL */
 		if ((mac == NULL) ||
 		    (memcmp(path, message, strlen(path)) != 0) ||
 		    (memcmp(mac, message_end, maclen) != 0)) {
@@ -605,8 +628,16 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED, int argc, const char *
 		}
 	}
 
+#ifdef WITH_OPENSSL
+	if (hmac_size(pamh, debug, &maclen)) {
+		return PAM_SESSION_ERR;
+	}
+#else
+	maclen = hmac_sha1_size();
+#endif /* WITH_OPENSSL */
+
 	/* Generate the message. */
-	text = malloc(strlen(path) + 1 + sizeof(now) + hmac_sha1_size());
+	text = malloc(strlen(path) + 1 + sizeof(now) + maclen);
 	if (text == NULL) {
 		pam_syslog(pamh, LOG_CRIT, "unable to allocate memory: %m");
 		return PAM_SESSION_ERR;
@@ -621,15 +652,21 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED, int argc, const char *
 	p += sizeof(now);
 
 	/* Generate the MAC and append it to the plaintext. */
-	hmac_sha1_generate_file(pamh, &mac, &maclen,
-				TIMESTAMPKEY,
-				0, 0,
-				text, p - text);
+#ifdef WITH_OPENSSL
+	if (hmac_generate(pamh, debug, &mac, &maclen, TIMESTAMPKEY,
+			  ROOT_USER, ROOT_GROUP, text, p - text)) {
+		free(text);
+		return PAM_SESSION_ERR;
+	}
+#else
+	hmac_sha1_generate_file(pamh, &mac, &maclen, TIMESTAMPKEY,
+				ROOT_USER, ROOT_GROUP, text, p - text);
 	if (mac == NULL) {
 		pam_syslog(pamh, LOG_ERR, "failure generating MAC: %m");
 		free(text);
 		return PAM_SESSION_ERR;
 	}
+#endif /* WITH_OPENSSL */
 	memmove(p, mac, maclen);
 	p += maclen;
 	free(mac);
