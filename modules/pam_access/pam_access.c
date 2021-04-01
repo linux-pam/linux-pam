@@ -623,6 +623,8 @@ from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
     } else if (item->from_remote_host == 0) {	/* local: no PAM_RHOSTS */
 	if (strcasecmp(tok, "LOCAL") == 0)
 	    return (YES);
+    } else if (strcasecmp(tok, "LOCAL") == 0) {
+        return NO;
     } else if (tok[(tok_len = strlen(tok)) - 1] == '.') {
       struct addrinfo hint;
 
