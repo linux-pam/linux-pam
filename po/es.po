@@ -13,21 +13,22 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
 # Álvaro Castillo <sincorchetes@gmail.com>, 2020.
+# Emilio Herrera <ehespinosa57@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-11-24 18:00+0000\n"
-"PO-Revision-Date: 2020-05-06 11:40+0000\n"
-"Last-Translator: Álvaro Castillo <sincorchetes@gmail.com>\n"
-"Language-Team: Spanish <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/es/>\n"
+"PO-Revision-Date: 2021-03-14 19:01+0000\n"
+"Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
+"Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0.3\n"
+"X-Generator: Weblate 4.5.1\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:178
 #: modules/pam_userdb/pam_userdb.c:55
@@ -242,22 +243,22 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s fallido: estado desconocido 0x%x"
 
 #: modules/pam_faillock/main.c:104
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 msgstr ""
-"%s: [--file nombre de archivo-raíz] [--user nombre de usuario] [--reset[=n]] "
-"[--quiet]\n"
+"Usage: %s [--dir /ruta/al/directorio-de-conteo] [--user nombre-de-usuario] "
+"[--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:614
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "La cuenta está bloqueada debido a %u logueo fallidos"
+msgstr "La cuenta está bloqueada debido a %u inicios de sesión fallidos."
 
 #: modules/pam_faillock/pam_faillock.c:619
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(%d minutos restantes para el desbloqueo)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:318 modules/pam_lastlog/pam_lastlog.c:579
