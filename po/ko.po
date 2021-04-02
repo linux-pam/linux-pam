@@ -7,54 +7,54 @@
 # eukim <eukim@redhat.com>, 2007,2009
 # eukim <eukim@redhat.com>, 2012
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# simmon <simmon@nplob.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2020-11-24 18:00+0000\n"
-"PO-Revision-Date: 2013-04-16 09:34-0400\n"
-"Last-Translator: eukim <eukim@redhat.com>\n"
-"Language-Team: Korean (http://www.transifex.com/projects/p/fedora/language/"
-"ko/)\n"
+"PO-Revision-Date: 2021-04-02 07:01+0000\n"
+"Last-Translator: simmon <simmon@nplob.com>\n"
+"Language-Team: Korean <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 3.8.3\n"
+"X-Generator: Weblate 4.5.3\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:178
 #: modules/pam_userdb/pam_userdb.c:55
 msgid "Password: "
-msgstr "암호:"
+msgstr "비밀번호: "
 
 #: libpam/pam_get_authtok.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "새 %s 암호:"
+msgstr "새 %s 비밀번호: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy
 msgid "Current password: "
-msgstr "새 암호:"
+msgstr "현재 비밀번호: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
 msgid "New %s password: "
-msgstr "새 %s 암호:"
+msgstr "새 %s 비밀번호: "
 
 #: libpam/pam_get_authtok.c:45
 msgid "New password: "
-msgstr "새 암호:"
+msgstr "새 비밀번호: "
 
 #: libpam/pam_get_authtok.c:47
 #, c-format
 msgid "Retype new %s password: "
-msgstr "새 %s 암호 재입력:"
+msgstr "새 %s 비밀번호 재입력: "
 
 #: libpam/pam_get_authtok.c:48
 msgid "Retype new password: "
-msgstr "새 암호 재입력:"
+msgstr "새 비밀번호 재입력: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
@@ -63,12 +63,11 @@ msgstr "죄송합니다. 암호가 일치하지 않습니다."
 #: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
-msgstr "다시 입력 %s "
+msgstr "재입력 %s"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
-#, fuzzy
 msgid "Password change has been aborted."
-msgstr "암호가 변경되지 않습니다.  "
+msgstr "비밀번호가 변경되지 않습니다."
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -156,7 +155,7 @@ msgstr "특정 모듈 데이터가 없음"
 
 #: libpam/pam_strerror.c:80
 msgid "Bad item passed to pam_*_item()"
-msgstr "pam_*_item()에 잘못된 항목이 전달됨"
+msgstr "pam_*_item()에 잘못된 항목이 전달됩니다"
 
 #: libpam/pam_strerror.c:82
 msgid "Conversation error"
@@ -176,15 +175,15 @@ msgstr "인증 토큰 잠금 장치 사용중"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr "인증 토큰 기한이 비활성화됨"
+msgstr "인증 토큰 기한이 비활성화됩니다"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr "암호 서비스로 사전 확인 실패"
+msgstr "비밀번호 서비스로 사전 확인 실패"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "복귀 값은 PAM 디스패치에 의해 무시됨"
+msgstr "복귀 값은 PAM 디스패치에 의해 무시됩니다"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
@@ -235,21 +234,20 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s 실패: 알 수 없는 상태 0x%x"
 
 #: modules/pam_faillock/main.c:104
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
-msgstr ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
+msgstr "사용법: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:614
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "%u 로그인 실패로 인해 계정이 잠김 "
+msgstr "계정이 %u 로그인 실패로 인해 계정이 잠김 상태가 됩니다."
 
 #: modules/pam_faillock/pam_faillock.c:619
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(해제시까지 %d 분 남았습니다)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:318 modules/pam_lastlog/pam_lastlog.c:579
@@ -282,30 +280,29 @@ msgstr "새로운 계정을 사용해 주셔서 감사합니다!"
 #: modules/pam_lastlog/pam_lastlog.c:610
 #, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "마지막 로그인 실패:%s%s%s "
+msgstr "마지막 실패한 로그인:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:619 modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] "마지막 로그인 후 %d 번의 로그인 시도가 실패하였습니다.  "
+msgstr[0] "마지막 로그인 후 %d 번의 로그인 시도가 실패하였습니다."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:631
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr "마지막 로그인 후 %d 번의 로그인 시도가 실패하였습니다. "
+msgstr "마지막 성공적인 로그인 이후에 %d번의 실패한 로그인 시도가 있었습니다."
 
 #: modules/pam_limits/pam_limits.c:1115
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
-msgstr "'%s' 대해 너무 많이 로그인함."
+msgstr "'%s' 대해 너무 많은 로그인 시도가 있었습니다."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You have no mail."
-msgstr "새로운 메일이 있습니다."
+msgstr "새로운 전자우편이 없습니다."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
@@ -342,12 +339,12 @@ msgstr "%s 폴더에 메일이 있습니다."
 #: modules/pam_mkhomedir/pam_mkhomedir.c:107
 #, c-format
 msgid "Creating directory '%s'."
-msgstr "'%s' 디렉토리 생성 중.  "
+msgstr "'%s' 디렉토리 생성 중."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:174
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "'%s' 디렉토리를 생성 및 초기화할 수 없습니다.  "
+msgstr "'%s' 디렉토리를 생성 및 초기화 할 수 없습니다."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:371
 #: modules/pam_unix/pam_unix_passwd.c:589
@@ -359,46 +356,45 @@ msgid "Password has been already used."
 msgstr "이미 사용되고 있는 암호입니다."
 
 #: modules/pam_selinux/pam_selinux.c:172
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "기본값 보안 문맥 %s\n"
+msgstr "기본 보안 내용은 %s 입니다."
 
 #: modules/pam_selinux/pam_selinux.c:176
 msgid "Would you like to enter a different role or level?"
-msgstr "다른 역할 또는 레벨을 입력하시겠습니까?   "
+msgstr "다른 역할 또는 레벨을 입력하시겠습니까?"
 
 #: modules/pam_selinux/pam_selinux.c:189
 msgid "role:"
-msgstr "역할: "
+msgstr "역할:"
 
 #: modules/pam_selinux/pam_selinux.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "%s 역할에 대한 기본값 유형이 없음 \n"
+msgstr "역할 %s 에 대한 기본값 유형이 없습니다."
 
 #: modules/pam_selinux/pam_selinux.c:225
 msgid "level:"
-msgstr "레벨: "
+msgstr "수준:"
 
 #: modules/pam_selinux/pam_selinux.c:259
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "유효한 보안 문맥이 없음"
+msgstr "유효한 보안 내용이 없습니다."
 
 #: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "%s를 위한 유효한 내용을 가져올 수 없습니다."
 
 #: modules/pam_selinux/pam_selinux.c:629
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "보안 문맥 %s 할당"
+msgstr "보안 내용 %s이 할당되었습니다."
 
 #: modules/pam_selinux/pam_selinux.c:645
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "키 생성 문맥 %s 할당  "
+msgstr "키 생성 내용 %s 할당되었습니다."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -416,72 +412,65 @@ msgid "login: failure forking: %m"
 msgstr "로그인: 포크 작업(forking) 실패: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:354
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "액세스 허용 (%ld 초 전 마지막으로 액세스되었습니다) "
+msgstr "접근이 허용되었습니다 (마지막 접근이 %ld 초 전 이었습니다)."
 
 #: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr "계정이 만료되었습니다: 시스템 관리자에게 알려 주십시오"
+msgstr "계정이 만료되었습니다; 시스템 관리자에게 알려 주십시오."
 
 #: modules/pam_unix/pam_unix_acct.c:238
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "암호를 즉시 변경해 주십시오 (root가 강제 설정함)"
+msgstr "비밀번호를 긴급히 변경해 주십시오 (관리자가 강제합니다)."
 
 #: modules/pam_unix/pam_unix_acct.c:244
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "암호를 즉시 변경해 주십시오 (오래된 암호)"
+msgstr "암호를 긴급히 변경해 주세요 (비밀번호가 만료되었습니다)."
 
 #: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "경고: %d일 내로 암호가 만료됩니다"
+msgstr[0] "경고: 당신의 비밀번호가 %d 일 이내로 만료됩니다."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "경고: %d일 내로 암호가 만료됩니다"
+msgstr "경고: 비밀번호가 %d 일 이내로 만료됩니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
 msgstr "NIS 암호는 변경할 수 없습니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:563
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "암호가 없음"
+msgstr "비밀번호가 제공되지 않았습니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:564
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "NIS 암호는 변경할 수 없습니다."
+msgstr "비밀번호는 변경되지 않았습니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:581
 msgid "You must choose a shorter password."
 msgstr "더 짧은 암호를 선택해야합니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:585
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "더 긴 암호를 선택해 주십시오"
+msgstr "더 긴 비밀번호를 선택해 주세요."
 
 #: modules/pam_unix/pam_unix_passwd.c:692
 #, c-format
 msgid "Changing password for %s."
-msgstr "%s에 대한 암호 변경 중  "
+msgstr "%s에 대한 비밀번호 변경 중."
 
 #: modules/pam_unix/pam_unix_passwd.c:722
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "암호 변경을 위해 조금더 기다려 주십시오."
+msgstr "비밀번호 변경을 위해 조금 더 기다려 주십시오."
 
 #~ msgid "is the same as the old one"
 #~ msgstr "이전 암호와 같음"
