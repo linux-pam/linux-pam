@@ -160,6 +160,7 @@ static int list_match (pam_handle_t *, char *, char *, struct login_info *,
 static int user_match (pam_handle_t *, char *, struct login_info *);
 static int group_match (pam_handle_t *, const char *, const char *, int);
 static int from_match (pam_handle_t *, char *, struct login_info *);
+static int remote_match (pam_handle_t *, char *, struct login_info *);
 static int string_match (pam_handle_t *, const char *, const char *, int);
 static int network_netmask_match (pam_handle_t *, const char *, const char *, struct login_info *);
 
@@ -589,11 +590,9 @@ group_match (pam_handle_t *pamh, const char *tok, const char* usr,
 /* from_match - match a host or tty against a list of tokens */
 
 static int
-from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
+from_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 {
     const char *string = item->from;
-    int        tok_len;
-    int        str_len;
     int        rv;
 
     if (item->debug)
@@ -616,14 +615,29 @@ from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
     } else if ((rv = string_match(pamh, tok, string, item->debug)) != NO) {
         /* ALL or exact match */
 	return rv;
-    } else if (tok[0] == '.') {			/* domain: match last fields */
-	if ((str_len = strlen(string)) > (tok_len = strlen(tok))
-	    && strcasecmp(tok, string + str_len - tok_len) == 0)
-	    return (YES);
-    } else if (item->from_remote_host == 0) {	/* local: no PAM_RHOSTS */
-	if (strcasecmp(tok, "LOCAL") == 0)
-	    return (YES);
-    } else if (tok[(tok_len = strlen(tok)) - 1] == '.') {
+    } else if (strcasecmp(tok, "LOCAL") == 0) {
+	    /* LOCAL matches only local accesses */
+	    if (!item->from_remote_host)
+	        return YES;
+	    return NO;
+    } else if (item->from_remote_host) {
+        return remote_match(pamh, tok, item);
+    }
+    return NO;
+}
+
+static int
+remote_match (pam_handle_t *pamh, char *tok, struct login_info *item)
+{
+    const char *string = item->from;
+    size_t tok_len = strlen(tok);
+    size_t str_len;
+
+    if (tok[0] == '.') {			/* domain: match last fields */
+      if ((str_len = strlen(string)) > tok_len
+	  && strcasecmp(tok, string + str_len - tok_len) == 0)
+	return YES;
+    } else if (tok[tok_len - 1] == '.') {
       struct addrinfo hint;
 
       memset (&hint, '\0', sizeof (hint));
@@ -661,13 +675,11 @@ from_match (pam_handle_t *pamh UNUSED, char *tok, struct login_info *item)
 	      runp = runp->ai_next;
 	    }
 	}
-    } else {
-      /* Assume network/netmask with a IP of a host.  */
-      if (network_netmask_match(pamh, tok, string, item))
-	return YES;
+      return NO;
     }
 
-    return NO;
+    /* Assume network/netmask with an IP of a host.  */
+    return network_netmask_match(pamh, tok, string, item);
 }
 
 /* string_match - match a string against one token */
