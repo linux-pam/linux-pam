@@ -194,7 +194,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
 	    if (have_term) {
 		(void) tcsetattr(STDIN_FILENO, TCSADRAIN, &term_before);
 		if (!echo || expired)             /* do we need a newline? */
-		    fprintf(stderr,"\n");
+		    fprintf(stderr, "\n");
 	    }
 	    if ( delay > 0 ) {
 		reset_alarm(&old_sig);
@@ -252,7 +252,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
 
     if (have_term) {
 	(void) sigprocmask(SIG_SETMASK, &oset, NULL);
-	(void) tcsetattr(STDIN_FILENO, TCSADRAIN, &term_before);
+	(void) tcsetattr(STDIN_FILENO, TCSAFLUSH, &term_before);
     }
 
     return nc;
