@@ -184,8 +184,10 @@ static int read_string(int echo, const char *prompt, char **retstr)
 		     nc++) {
 		    int rv;
 		    if ((rv=read(STDIN_FILENO, line+nc, 1)) != 1) {
-			if (rv < 0)
+			if (rv < 0) {
+			    _pam_overwrite_n(line, (unsigned int) nc);
 			    nc = rv;
+			}
 			break;
 		    }
 		}
@@ -202,7 +204,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
 	    } else if (nc > 0) {                 /* we got some user input */
 		D(("we got some user input"));
 
-		if (nc > 0 && line[nc-1] == '\n') {     /* <NUL> terminate */
+		if (line[nc-1] == '\n') {     /* <NUL> terminate */
 		    line[--nc] = '\0';
 		} else {
 		    if (echo) {
@@ -244,7 +246,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
     D(("the timer appears to have expired"));
 
     *retstr = NULL;
-    _pam_overwrite(line);
+    _pam_overwrite_n(line, sizeof(line));
 
  cleanexit:
 

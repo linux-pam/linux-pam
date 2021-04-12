@@ -8,8 +8,6 @@
 
 #define PAM_UNIX_RUN_HELPER PAM_CRED_INSUFFICIENT
 
-#define MAXPASS PAM_MAX_RESP_SIZE  /* the maximum length of a password */
-
 #define OLD_PASSWORDS_FILE      "/etc/security/opasswd"
 
 int
@@ -50,8 +48,6 @@ setup_signals(void);
 char *
 getuidname(uid_t uid);
 
-int
-read_passwords(int fd, int npass, char **passwords);
 #endif
 
 #ifdef HELPER_COMPILE

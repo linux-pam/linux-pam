@@ -1,0 +1,9 @@
+* prepare NEWS for release
+* update version in configure.ac
+* check spelling using codespell tool
+* regenerate Linux-PAM.pot and *.po using "make -C po update-po"
+* create a release tag using maint/gen-tag-message
+* generate release tarballs using maint/make-dist
+* generate detached signatures for release tarballs using gpg -ab
+* push the release commit and the release tag
+* upload release tarballs and their signatures to the release announcement

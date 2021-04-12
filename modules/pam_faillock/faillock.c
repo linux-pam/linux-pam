@@ -74,9 +74,12 @@ open_tally (const char *dir, const char *user, uid_t uid, int create)
 
 	if (create) {
 		flags |= O_CREAT;
+		if (access(dir, F_OK) != 0) {
+			mkdir(dir, 0755);
+		}
 	}
 
-	fd = open(path, flags, 0600);
+	fd = open(path, flags, 0660);
 
 	free(path);
 
@@ -87,6 +90,18 @@ open_tally (const char *dir, const char *user, uid_t uid, int create)
 		if (fstat(fd, &st) == 0) {
 			if (st.st_uid != uid) {
 				ignore_return(fchown(fd, uid, -1));
+			}
+
+			/*
+			 * If umask is set to 022, as will probably in most systems, then the
+			 * group will not be able to write to the file. So, change the file
+			 * permissions just in case.
+			 * Note: owners of this file are user:root, so if the permissions are
+			 * not changed the root process writing to this file will require
+			 * CAP_DAC_OVERRIDE.
+			 */
+			if (!(st.st_mode & S_IWGRP)) {
+				ignore_return(fchmod(fd, 0660));
 			}
 		}
 	}

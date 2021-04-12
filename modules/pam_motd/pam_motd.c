@@ -282,6 +282,72 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
     _pam_drop(dirscans);
 }
 
+static int drop_privileges(pam_handle_t *pamh, struct pam_modutil_privs *privs)
+{
+    struct passwd *pw;
+    const char *username;
+    int retval;
+
+    retval = pam_get_user(pamh, &username, NULL);
+
+    if (retval == PAM_SUCCESS) {
+        pw = pam_modutil_getpwnam (pamh, username);
+    } else {
+        return PAM_SESSION_ERR;
+    }
+
+    if (pw == NULL || pam_modutil_drop_priv(pamh, privs, pw)) {
+        return PAM_SESSION_ERR;
+    }
+
+    return PAM_SUCCESS;
+}
+
+static int try_to_display(pam_handle_t *pamh, char **motd_path_split,
+                          unsigned int num_motd_paths,
+                          char **motd_dir_path_split,
+                          unsigned int num_motd_dir_paths, int report_missing)
+{
+    PAM_MODUTIL_DEF_PRIVS(privs);
+
+    if (drop_privileges(pamh, &privs) != PAM_SUCCESS) {
+        pam_syslog(pamh, LOG_ERR, "Unable to drop privileges");
+        return PAM_SESSION_ERR;
+    }
+
+    if (motd_path_split != NULL) {
+        unsigned int i;
+
+        for (i = 0; i < num_motd_paths; i++) {
+            int fd = open(motd_path_split[i], O_RDONLY, 0);
+
+            if (fd >= 0) {
+                try_to_display_fd(pamh, fd);
+                close(fd);
+
+                /* We found and displayed a file,
+                    * move onto next filename.
+                    */
+                break;
+            }
+        }
+    }
+
+    if (motd_dir_path_split != NULL) {
+        try_to_display_directories_with_overrides(pamh,
+                                                    motd_dir_path_split,
+                                                    num_motd_dir_paths,
+                                                    report_missing);
+    }
+
+    if (pam_modutil_regain_priv(pamh, &privs)) {
+        pam_syslog(pamh, LOG_ERR, "Unable to regain privileges");
+        return PAM_SESSION_ERR;
+    }
+
+    return PAM_SUCCESS;
+}
+
 int pam_sm_open_session(pam_handle_t *pamh, int flags,
 			int argc, const char **argv)
 {
@@ -358,25 +424,9 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
 	}
     }
 
-    if (motd_path_split != NULL) {
-	unsigned int i;
-
-	for (i = 0; i < num_motd_paths; i++) {
-	    int fd = open(motd_path_split[i], O_RDONLY, 0);
-
-	    if (fd >= 0) {
-		try_to_display_fd(pamh, fd);
-		close(fd);
-
-		/* We found and displayed a file, move onto next filename. */
-		break;
-	    }
-	}
-    }
-
-    if (motd_dir_path_split != NULL)
-	try_to_display_directories_with_overrides(pamh, motd_dir_path_split,
-		num_motd_dir_paths, report_missing);
+    retval = try_to_display(pamh, motd_path_split, num_motd_paths,
+                            motd_dir_path_split, num_motd_dir_paths,
+                            report_missing);
 
   out:
     _pam_drop(motd_path_copy);
@@ -384,9 +434,12 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
     _pam_drop(motd_dir_path_copy);
     _pam_drop(motd_dir_path_split);
 
-    retval = pam_putenv(pamh, "MOTD_SHOWN=pam");
-
-    return retval == PAM_SUCCESS ? PAM_IGNORE : retval;
+    if (retval == PAM_SUCCESS) {
+        retval = pam_putenv(pamh, "MOTD_SHOWN=pam");
+        return retval == PAM_SUCCESS ? PAM_IGNORE : retval;
+    } else {
+        return retval;
+    }
 }
 
 /* end of module definition */

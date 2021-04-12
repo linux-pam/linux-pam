@@ -797,11 +797,11 @@ static char *md5hash(const char *instname, struct instance_data *idata)
 
 #ifdef WITH_SELINUX
 static int form_context(const struct polydir_s *polyptr,
-		security_context_t *i_context, security_context_t *origcon,
+		char **i_context, char **origcon,
 		struct instance_data *idata)
 {
 	int rc = PAM_SUCCESS;
-	security_context_t scon = NULL;
+	char *scon = NULL;
 	security_class_t tclass;
 
 	/*
@@ -844,6 +844,12 @@ static int form_context(const struct polydir_s *polyptr,
 
 	if (polyptr->method == CONTEXT) {
 		tclass = string_to_security_class("dir");
+		if (tclass == 0) {
+			pam_syslog(idata->pamh, LOG_ERR,
+				   "Error getting dir security class");
+			freecon(scon);
+			return PAM_SESSION_ERR;
+		}
 
 		if (security_compute_member(scon, *origcon, tclass,
 					i_context) < 0) {
@@ -910,7 +916,7 @@ static int form_context(const struct polydir_s *polyptr,
  */
 #ifdef WITH_SELINUX
 static int poly_name(const struct polydir_s *polyptr, char **i_name,
-	security_context_t *i_context, security_context_t *origcon,
+	char **i_context, char **origcon,
         struct instance_data *idata)
 #else
 static int poly_name(const struct polydir_s *polyptr, char **i_name,
@@ -921,7 +927,7 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
     char *hash = NULL;
     enum polymethod pm;
 #ifdef WITH_SELINUX
-    security_context_t rawcon = NULL;
+    char *rawcon = NULL;
 #endif
 
     *i_name = NULL;
@@ -1318,7 +1324,8 @@ static int create_polydir(struct polydir_s *polyptr,
     mode_t mode;
     int rc;
 #ifdef WITH_SELINUX
-    security_context_t dircon, oldcon = NULL;
+    char *dircon_raw, *oldcon_raw = NULL;
+    struct selabel_handle *label_handle;
 #endif
     const char *dir = polyptr->dir;
     uid_t uid;
@@ -1331,21 +1338,28 @@ static int create_polydir(struct polydir_s *polyptr,
 
 #ifdef WITH_SELINUX
     if (idata->flags & PAMNS_SELINUX_ENABLED) {
-	getfscreatecon(&oldcon);
-        rc = matchpathcon(dir, S_IFDIR, &dircon);
-        if (rc) {
-            pam_syslog(idata->pamh, LOG_NOTICE,
-                       "Unable to get default context for directory %s, check your policy: %m", dir);
-        } else {
-	    if (idata->flags & PAMNS_DEBUG)
-		pam_syslog(idata->pamh, LOG_DEBUG,
-                       "Polydir %s context: %s", dir, (char *)dircon);
-	    if (setfscreatecon(dircon) != 0)
+	getfscreatecon_raw(&oldcon_raw);
+
+	label_handle = selabel_open(SELABEL_CTX_FILE, NULL, 0);
+	if (!label_handle) {
+	    pam_syslog(idata->pamh, LOG_NOTICE,
+                       "Unable to initialize SELinux labeling handle: %m");
+	} else {
+	    rc = selabel_lookup_raw(label_handle, &dircon_raw, dir, S_IFDIR);
+	    if (rc) {
 		pam_syslog(idata->pamh, LOG_NOTICE,
-                       "Error setting context for directory %s: %m", dir);
-	    freecon(dircon);
-        }
-        matchpathcon_fini();
+                       "Unable to get default context for directory %s, check your policy: %m", dir);
+	    } else {
+		if (idata->flags & PAMNS_DEBUG)
+		    pam_syslog(idata->pamh, LOG_DEBUG,
+                               "Polydir %s context: %s", dir, dircon_raw);
+		if (setfscreatecon_raw(dircon_raw) != 0)
+		    pam_syslog(idata->pamh, LOG_NOTICE,
+                               "Error setting context for directory %s: %m", dir);
+		freecon(dircon_raw);
+	    }
+	    selabel_close(label_handle);
+	}
     }
 #endif
 
@@ -1358,10 +1372,10 @@ static int create_polydir(struct polydir_s *polyptr,
 
 #ifdef WITH_SELINUX
     if (idata->flags & PAMNS_SELINUX_ENABLED) {
-        if (setfscreatecon(oldcon) != 0)
+        if (setfscreatecon_raw(oldcon_raw) != 0)
 		pam_syslog(idata->pamh, LOG_NOTICE,
                        "Error resetting fs create context: %m");
-        freecon(oldcon);
+        freecon(oldcon_raw);
     }
 #endif
 
@@ -1413,7 +1427,7 @@ static int create_polydir(struct polydir_s *polyptr,
  */
 #ifdef WITH_SELINUX
 static int create_instance(struct polydir_s *polyptr, char *ipath, struct stat *statbuf,
-        security_context_t icontext, security_context_t ocontext,
+        const char *icontext, const char *ocontext,
 	struct instance_data *idata)
 #else
 static int create_instance(struct polydir_s *polyptr, char *ipath, struct stat *statbuf,
@@ -1488,6 +1502,7 @@ static int create_instance(struct polydir_s *polyptr, char *ipath, struct stat *
     if (fstat(fd, &newstatbuf) < 0) {
         pam_syslog(idata->pamh, LOG_ERR, "Error stating %s, %m",
 		ipath);
+	close(fd);
 	rmdir(ipath);
         return PAM_SESSION_ERR;
     }
@@ -1530,7 +1545,7 @@ static int ns_setup(struct polydir_s *polyptr,
     char *instname = NULL;
     struct stat statbuf;
 #ifdef WITH_SELINUX
-    security_context_t instcontext = NULL, origcontext = NULL;
+    char *instcontext = NULL, *origcontext = NULL;
 #endif
 
     if (idata->flags & PAMNS_DEBUG)
@@ -1965,7 +1980,7 @@ static int orig_namespace(struct instance_data *idata)
  */
 static int ctxt_based_inst_needed(void)
 {
-    security_context_t scon = NULL;
+    char *scon = NULL;
     int rc = 0;
 
     rc = getexeccon(&scon);

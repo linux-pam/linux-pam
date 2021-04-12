@@ -13,7 +13,6 @@ CLEANFILES = *~ $(XTESTS)
 EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 	tst-pam_dispatch3.pamd tst-pam_dispatch4.pamd \
 	tst-pam_dispatch5.pamd \
-	tst-pam_cracklib1.pamd tst-pam_cracklib2.pamd \
 	tst-pam_unix1.pamd tst-pam_unix2.pamd tst-pam_unix3.pamd \
 	tst-pam_unix4.pamd \
 	tst-pam_unix1.sh tst-pam_unix2.sh tst-pam_unix3.sh \
@@ -40,7 +39,6 @@ EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 
 XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 	tst-pam_dispatch4 tst-pam_dispatch5 \
-	tst-pam_cracklib1 tst-pam_cracklib2 \
 	tst-pam_unix1 tst-pam_unix2 tst-pam_unix3 tst-pam_unix4 \
 	tst-pam_access1 tst-pam_access2 tst-pam_access3 \
 	tst-pam_access4 tst-pam_limits1 tst-pam_succeed_if1 \

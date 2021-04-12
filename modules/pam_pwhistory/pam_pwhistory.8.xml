@@ -83,7 +83,7 @@
            When password changing enforce the module to use the new password
            provided by a previously stacked <option>password</option>
            module (this is used in the example of the stacking of the
-           <command>pam_cracklib</command> module documented below).
+           <command>pam_passwdqc</command> module documented below).
           </para>
         </listitem>
       </varlistentry>
@@ -197,10 +197,10 @@ password     required       pam_unix.so        use_authtok
       </programlisting>
     </para>
     <para>
-     In combination with <command>pam_cracklib</command>:
+     In combination with <command>pam_passwdqc</command>:
       <programlisting>
 #%PAM-1.0
-password     required       pam_cracklib.so    retry=3
+password     required       pam_passwdqc.so    config=/etc/passwdqc.conf
 password     required       pam_pwhistory.so   use_authtok
 password     required       pam_unix.so        use_authtok
       </programlisting>

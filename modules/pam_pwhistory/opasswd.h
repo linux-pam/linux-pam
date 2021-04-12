@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2008 Thorsten Kukuk <kukuk@suse.de>
+ * Copyright (c) 2013 Red Hat, Inc.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -36,10 +37,30 @@
 #ifndef __OPASSWD_H__
 #define __OPASSWD_H__
 
-extern int check_old_pass (pam_handle_t *pamh, const char *user,
-			   const char *newpass, int debug);
-extern int save_old_pass (pam_handle_t *pamh, const char *user,
-			  uid_t uid, const char *oldpass,
-			  int howmany, int debug);
+#define PAM_PWHISTORY_RUN_HELPER PAM_CRED_INSUFFICIENT
+
+#ifdef WITH_SELINUX
+#include <selinux/selinux.h>
+#define SELINUX_ENABLED (is_selinux_enabled()>0)
+#else
+#define SELINUX_ENABLED 0
+#endif
+
+#ifdef HELPER_COMPILE
+#define PAMH_ARG_DECL(fname, ...) fname(__VA_ARGS__)
+#else
+#define PAMH_ARG_DECL(fname, ...) fname(pam_handle_t *pamh, __VA_ARGS__)
+#endif
+
+#ifdef HELPER_COMPILE
+void
+helper_log_err(int err, const char *format, ...);
+#endif
+
+PAMH_ARG_DECL(int
+check_old_pass, const char *user, const char *newpass, int debug);
+
+PAMH_ARG_DECL(int
+save_old_pass, const char *user, int howmany, int debug);
 
 #endif /* __OPASSWD_H__ */

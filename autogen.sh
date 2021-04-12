@@ -2,4 +2,4 @@
 
 umask 022
 touch ChangeLog
-autoreconf -fiv
+autoreconf -fiv -Wall

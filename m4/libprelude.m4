@@ -15,8 +15,8 @@ AC_DEFUN([AM_PATH_LIBPRELUDE],
 [dnl
 dnl Get the cflags and libraries from the libprelude-config script
 dnl
-AC_ARG_WITH(libprelude-prefix, AC_HELP_STRING(--with-libprelude-prefix=PFX,
-	    Prefix where libprelude is installed (optional)),
+AC_ARG_WITH(libprelude-prefix, [AS_HELP_STRING([--with-libprelude-prefix=PFX],
+            [Prefix where libprelude is installed (optional)])],
             libprelude_config_prefix="$withval", libprelude_config_prefix="")
 
   if test x$libprelude_config_prefix != x ; then
@@ -52,7 +52,8 @@ dnl Now check if the installed libprelude is sufficiently new. Also sanity
 dnl checks the results of libprelude-config to some extent
 dnl
       rm -f conf.libpreludetest
-      AC_TRY_RUN([
+      AC_RUN_IFELSE([
+      AC_LANG_SOURCE([[
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -106,7 +107,7 @@ main ()
     }
   return 1;
 }
-],, no_libprelude=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
+]])],[],[no_libprelude=yes],[echo $ac_n "cross compiling; assumed OK... $ac_c"])
        CFLAGS="$ac_save_CFLAGS"
        LIBS="$ac_save_LIBS"
        LDFLAGS="$ac_save_LDFLAGS"
@@ -122,24 +123,28 @@ main ()
         AC_MSG_RESULT(no)
      fi
      if test "$LIBPRELUDE_CONFIG" = "no" ; then
-       echo "*** The libprelude-config script installed by LIBPRELUDE could not be found"
-       echo "*** If LIBPRELUDE was installed in PREFIX, make sure PREFIX/bin is in"
-       echo "*** your path, or set the LIBPRELUDE_CONFIG environment variable to the"
-       echo "*** full path to libprelude-config."
+       if test x$libprelude_config_prefix != x ; then
+         echo "*** The libprelude-config script installed by LIBPRELUDE could not be found"
+         echo "*** If LIBPRELUDE was installed in PREFIX, make sure PREFIX/bin is in"
+         echo "*** your path, or set the LIBPRELUDE_CONFIG environment variable to the"
+         echo "*** full path to libprelude-config."
+       fi
      else
        if test -f conf.libpreludetest ; then
         :
        else
           echo "*** Could not run libprelude test program, checking why..."
           CFLAGS="$CFLAGS $LIBPRELUDE_CFLAGS"
-	  LDFLAGS="$LDFLAGS $LIBPRELUDE_LDFLAGS"
+          LDFLAGS="$LDFLAGS $LIBPRELUDE_LDFLAGS"
           LIBS="$LIBS $LIBPRELUDE_LIBS"
-          AC_TRY_LINK([
+          AC_LINK_IFELSE([
+          AC_LANG_PROGRAM([[
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <libprelude/prelude.h>
-],      [ return !!prelude_check_version(NULL); ],
+]],
+        [[ return !!prelude_check_version(NULL); ]])],
         [ echo "*** The test program compiled, but did not run. This usually means"
           echo "*** that the run-time linker is not finding LIBPRELUDE or finding the wrong"
           echo "*** version of LIBPRELUDE. If it is not finding LIBPRELUDE, you'll need to set your"
@@ -155,7 +160,7 @@ main ()
           echo "*** or that you have moved LIBPRELUDE since it was installed. In the latter case, you"
           echo "*** may want to edit the libprelude-config script: $LIBPRELUDE_CONFIG" ])
           CFLAGS="$ac_save_CFLAGS"
-	  LDFLAGS="$ac_save_LDFLAGS"
+          LDFLAGS="$ac_save_LDFLAGS"
           LIBS="$ac_save_LIBS"
        fi
      fi

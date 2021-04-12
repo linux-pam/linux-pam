@@ -109,7 +109,7 @@
             <para>
              Describe the start of the UID range the policy is applied to.
              (Defaults to UID_MIN from login.defs or the uidmin value defined
-             at compile-time if UID_MIN is undefined)
+             at compile-time if UID_MIN is undefined.)
             </para>
           </listitem>
         </varlistentry>
@@ -210,7 +210,7 @@
           <listitem>
             <para>
               No action was taken because either the UID of the user was outside
-              of the specifed range, a quota already existed and
+              of the specified range, a quota already existed and
               <option>overwrite=1</option> was not configured or no limits were
               configured at all.
             </para>
@@ -292,9 +292,9 @@
        Ruslan Savchenko &lt;savrus@mexmat.net&gt;.
       </para>
       <para>
-       Further modifications were made by Shane Tzen&lt;shane@ict.usc.edu&gt;,
-       Sven Hartge &lt;sven@svenharte.de&gt;
-       and Keller Fuchs &lt;kellerfuchs@hashbang.sh&gt;
+       Further modifications were made by Shane Tzen &lt;shane@ict.usc.edu&gt;,
+       Sven Hartge &lt;sven@svenhartge.de&gt;
+       and Keller Fuchs &lt;kellerfuchs@hashbang.sh&gt;.
       </para>
   </refsect1>
 

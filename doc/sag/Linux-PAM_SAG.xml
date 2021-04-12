@@ -397,8 +397,6 @@ session   required   pam_warn.so
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_access.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_cracklib.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_debug.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_deny.xml"/>
@@ -456,10 +454,6 @@ session   required   pam_warn.so
      href="pam_shells.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_succeed_if.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_tally.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_tally2.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_time.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"

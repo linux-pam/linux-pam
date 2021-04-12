@@ -120,6 +120,9 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 	  pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
     }
 
+    if (*user_readenv)
+	pam_syslog(pamh, LOG_DEBUG, "deprecated reading of user environment enabled");
+
     return ctrl;
 }
 
@@ -311,7 +314,7 @@ static int _assemble_line(FILE *f, char *buffer, int buf_len)
 	    D(("_assemble_line: corrupted or binary file"));
 	    return -1;
 	}
-	if (p[strlen(p)-1] != '\n') {
+	if (p[strlen(p)-1] != '\n' && !feof(f)) {
 	    D(("_assemble_line: line too long"));
 	    return -1;
 	}

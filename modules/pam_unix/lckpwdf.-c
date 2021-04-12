@@ -73,17 +73,17 @@ static int lckpwdf(void)
 		lockfd = open(LOCKFILE, O_WRONLY);
 		if(lockfd == -1 && errno == ENOENT)
 		{
-			security_context_t create_context;
+			char *create_context_raw;
 			int rc;
 
-			if(getfilecon("/etc/passwd", &create_context))
+			if(getfilecon_raw("/etc/passwd", &create_context_raw))
 				return -1;
-			rc = setfscreatecon(create_context);
-			freecon(create_context);
+			rc = setfscreatecon_raw(create_context_raw);
+			freecon(create_context_raw);
 			if(rc)
 				return -1;
 			lockfd = open(LOCKFILE, O_CREAT | O_WRONLY, 0600);
-			if(setfscreatecon(NULL))
+			if(setfscreatecon_raw(NULL))
 				return -1;
 		}
 	}

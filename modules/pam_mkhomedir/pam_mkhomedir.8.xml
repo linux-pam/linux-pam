@@ -90,9 +90,16 @@
         </term>
         <listitem>
           <para>
-            The user file-creation mask is set to
-            <replaceable>mask</replaceable>. The default value of mask is
-            0022.
+            The file mode creation mask is set to
+            <replaceable>mask</replaceable>. The default value of mask
+            is 0022. If this option is not specified, then the permissions
+            of created user home directory  is set to the value of
+            <option>HOME_MODE</option> configuration item from
+            <filename>/etc/login.defs</filename>. If there is no such
+            configuration item then the value is computed from the
+            value of <option>UMASK</option> in the same file. If
+            there is no such configuration option either the default
+            value of 0755 is used for the mode.
           </para>
         </listitem>
       </varlistentry>

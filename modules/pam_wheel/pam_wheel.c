@@ -44,17 +44,6 @@
 #include <security/pam_ext.h>
 #include "pam_inline.h"
 
-/* checks if a user is on a list of members of the GID 0 group */
-static int is_on_list(char * const *list, const char *member)
-{
-    while (list && *list) {
-        if (strcmp(*list, member) == 0)
-            return 1;
-        list++;
-    }
-    return 0;
-}
-
 /* argument parsing */
 
 #define PAM_DEBUG_ARG       0x0001
@@ -130,25 +119,37 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
     }
 
     if (ctrl & PAM_USE_UID_ARG) {
-	tpwd = pam_modutil_getpwuid (pamh, getuid());
-	if (!tpwd) {
-	    if (ctrl & PAM_DEBUG_ARG) {
+        tpwd = pam_modutil_getpwuid (pamh, getuid());
+        if (tpwd == NULL) {
+            if (ctrl & PAM_DEBUG_ARG) {
                 pam_syslog(pamh, LOG_NOTICE, "who is running me ?!");
-	    }
-	    return PAM_SERVICE_ERR;
-	}
-	fromsu = tpwd->pw_name;
+            }
+            return PAM_SERVICE_ERR;
+        }
+        fromsu = tpwd->pw_name;
     } else {
-	fromsu = pam_modutil_getlogin(pamh);
-	if (fromsu) {
-	    tpwd = pam_modutil_getpwnam (pamh, fromsu);
-	}
-	if (!fromsu || !tpwd) {
-	    if (ctrl & PAM_DEBUG_ARG) {
-		pam_syslog(pamh, LOG_NOTICE, "who is running me ?!");
-	    }
-	    return PAM_SERVICE_ERR;
-	}
+        fromsu = pam_modutil_getlogin(pamh);
+
+        /* if getlogin fails try a fallback to PAM_RUSER */
+        if (fromsu == NULL) {
+            const char *rhostname;
+
+            retval = pam_get_item(pamh, PAM_RHOST, (const void **)&rhostname);
+            if (retval != PAM_SUCCESS || rhostname == NULL) {
+                retval = pam_get_item(pamh, PAM_RUSER, (const void **)&fromsu);
+            }
+        }
+
+        if (fromsu != NULL) {
+            tpwd = pam_modutil_getpwnam (pamh, fromsu);
+        }
+
+        if (fromsu == NULL || tpwd == NULL) {
+            if (ctrl & PAM_DEBUG_ARG) {
+                pam_syslog(pamh, LOG_NOTICE, "who is running me ?!");
+            }
+            return PAM_SERVICE_ERR;
+        }
     }
 
     /*
@@ -163,7 +164,7 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
 	grp = pam_modutil_getgrnam (pamh, use_group);
     }
 
-    if (!grp || (!grp->gr_mem && (tpwd->pw_gid != grp->gr_gid))) {
+    if (grp == NULL) {
 	if (ctrl & PAM_DEBUG_ARG) {
 	    if (!use_group[0]) {
 		pam_syslog(pamh, LOG_NOTICE, "no members in a GID 0 group");
@@ -188,7 +189,7 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
      * user has the "wheel" (sic) group as its primary group.
      */
 
-    if (is_on_list(grp->gr_mem, fromsu) || (tpwd->pw_gid == grp->gr_gid)) {
+    if (pam_modutil_user_in_group_uid_gid(pamh, tpwd->pw_uid, grp->gr_gid)) {
 
 	if (ctrl & PAM_DENY_ARG) {
 	    retval = PAM_PERM_DENIED;

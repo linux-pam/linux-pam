@@ -133,7 +133,7 @@ _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
 
 
 /*
- * Looks up an user name in a database and checks the password
+ * Looks up a user name in a database and checks the password
  *
  * return values:
  *	 1  = User not found

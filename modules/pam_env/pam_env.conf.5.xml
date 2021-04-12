@@ -29,7 +29,7 @@
     </para>
     <para>
       Each line starts with the variable name, there are then two possible
-      options for each variable DEFAULT and OVERRIDE. DEFAULT allows and
+      options for each variable DEFAULT and OVERRIDE. DEFAULT allows an
       administrator to set the value of the variable  to some default
       value, if none is supplied then the empty string is assumed. The
       OVERRIDE option tells pam_env that it should enter in its value
@@ -103,7 +103,7 @@
       NNTPSERVER     DEFAULT=localhost
       PATH           DEFAULT=${HOME}/bin:/usr/local/bin:/bin\
       :/usr/bin:/usr/local/bin/X11:/usr/bin/X11
-      XDG_DATA_HOME  @{HOME}/share/
+      XDG_DATA_HOME  DEFAULT=@{HOME}/share/
     </programlisting>
 
     <para>

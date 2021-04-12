@@ -50,20 +50,23 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv)
 
 #ifdef WITH_SELINUX
 static int
+PAM_FORMAT((printf, 2, 3))
 log_callback (int type UNUSED, const char *fmt, ...)
 {
     int audit_fd;
     va_list ap;
 
-    va_start(ap, fmt);
 #ifdef HAVE_LIBAUDIT
     audit_fd = audit_open();
 
     if (audit_fd >= 0) {
 	char *buf;
+	int ret;
 
-	if (vasprintf (&buf, fmt, ap) < 0) {
-		va_end(ap);
+	va_start(ap, fmt);
+	ret = vasprintf (&buf, fmt, ap);
+	va_end(ap);
+	if (ret < 0) {
 		return 0;
 	}
 	audit_log_user_avc_message(audit_fd, AUDIT_USER_AVC, buf, NULL, NULL,
@@ -75,6 +78,7 @@ log_callback (int type UNUSED, const char *fmt, ...)
     }
 
 #endif
+    va_start(ap, fmt);
     vsyslog (LOG_USER | LOG_INFO, fmt, ap);
     va_end(ap);
     return 0;
@@ -84,7 +88,7 @@ static int
 selinux_check_root (void)
 {
     int status = -1;
-    security_context_t user_context;
+    char *user_context_raw;
     union selinux_callback old_callback;
 
     if (is_selinux_enabled() < 1)
@@ -93,15 +97,15 @@ selinux_check_root (void)
     old_callback = selinux_get_callback(SELINUX_CB_LOG);
     /* setup callbacks */
     selinux_set_callback(SELINUX_CB_LOG, (union selinux_callback) &log_callback);
-    if ((status = getprevcon(&user_context)) < 0) {
+    if ((status = getprevcon_raw(&user_context_raw)) < 0) {
 	selinux_set_callback(SELINUX_CB_LOG, old_callback);
 	return status;
     }
 
-    status = selinux_check_access(user_context, user_context, "passwd", "rootok", NULL);
+    status = selinux_check_access(user_context_raw, user_context_raw, "passwd", "rootok", NULL);
 
     selinux_set_callback(SELINUX_CB_LOG, old_callback);
-    freecon(user_context);
+    freecon(user_context_raw);
     return status;
 }
 #endif

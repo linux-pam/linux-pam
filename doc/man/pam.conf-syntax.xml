@@ -273,8 +273,9 @@
         <term>die</term>
         <listitem>
            <para>
-             equivalent to bad with the side effect of terminating the
-             module stack and PAM immediately returning to the application.
+             equivalent to <emphasis>bad</emphasis> with the side effect of
+             terminating the module stack and PAM immediately returning to
+             the application.
           </para>
         </listitem>
       </varlistentry>
@@ -297,8 +298,9 @@
         <term>done</term>
         <listitem>
            <para>
-             equivalent to ok with the side effect of terminating the module
-             stack and PAM immediately returning to the application.
+             equivalent to <emphasis>ok</emphasis> with the side effect of
+             terminating the module stack and PAM immediately returning to the
+             application unless there was a non-ignored module failure before.
           </para>
         </listitem>
       </varlistentry>

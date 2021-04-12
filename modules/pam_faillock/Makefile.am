@@ -25,7 +25,7 @@ noinst_HEADERS = faillock.h
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	$(WARN_CFLAGS)
 
-faillock_CFLAGS = $(AM_CFLAGS) @PIE_CFLAGS@
+faillock_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@
 
 pam_faillock_la_LDFLAGS = -no-undefined -avoid-version -module
 pam_faillock_la_LIBADD = $(top_builddir)/libpam/libpam.la $(LIBAUDIT)
@@ -33,7 +33,7 @@ if HAVE_VERSIONING
   pam_faillock_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
-faillock_LDFLAGS = @PIE_LDFLAGS@
+faillock_LDFLAGS = @EXE_LDFLAGS@
 faillock_LDADD = $(top_builddir)/libpam/libpam.la $(LIBAUDIT)
 
 dist_secureconf_DATA = faillock.conf

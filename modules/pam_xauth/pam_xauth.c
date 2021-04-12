@@ -532,7 +532,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			  xauth, "-f", cookiefile, "nlist", display,
 			  NULL) == 0) {
 #ifdef WITH_SELINUX
-		security_context_t context = NULL;
+		char *context_raw = NULL;
 #endif
 		PAM_MODUTIL_DEF_PRIVS(privs);
 
@@ -626,16 +626,16 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		if (is_selinux_enabled() > 0) {
 			struct selabel_handle *ctx = selabel_open(SELABEL_CTX_FILE, NULL, 0);
 			if (ctx != NULL) {
-				if (selabel_lookup(ctx, &context,
-						   xauthority + sizeof(XAUTHENV), S_IFREG) != 0) {
+				if (selabel_lookup_raw(ctx, &context_raw,
+						       xauthority + sizeof(XAUTHENV), S_IFREG) != 0) {
 					pam_syslog(pamh, LOG_WARNING,
 						   "could not get SELinux label for '%s'",
 						   xauthority + sizeof(XAUTHENV));
 				}
 				selabel_close(ctx);
-				if (setfscreatecon(context)) {
+				if (setfscreatecon_raw(context_raw)) {
 					pam_syslog(pamh, LOG_WARNING,
-						   "setfscreatecon(%s) failed: %m", context);
+						   "setfscreatecon_raw(%s) failed: %m", context_raw);
 				}
 			}
 		}
@@ -646,9 +646,9 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 				   "error creating temporary file `%s': %m",
 				   xauthority + sizeof(XAUTHENV));
 #ifdef WITH_SELINUX
-		if (context != NULL) {
-			free(context);
-			setfscreatecon(NULL);
+		if (context_raw != NULL) {
+			free(context_raw);
+			setfscreatecon_raw(NULL);
 		}
 #endif /* WITH_SELINUX */
 		if (fd >= 0)

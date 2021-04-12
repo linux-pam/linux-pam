@@ -1,5 +1,30 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 1.5.1
+* pam_unix: fixed CVE-2020-27780 - authentication bypass when a user
+            doesn't exist and root password is blank
+* pam_faillock: added nodelay option to not set pam_fail_delay
+* pam_wheel: use pam_modutil_user_in_group to check for the group membership
+             with getgrouplist where it is available
+
+Release 1.5.0
+* Multiple minor bug fixes, portability fixes, and documentation improvements.
+* Extended libpam API with pam_modutil_check_user_in_passwd function.
+* configure: added --disable-unix option to disable build of pam_unix module.
+* pam_faillock: changed /run/faillock/$USER permissions from 0600 to 0660.
+* pam_limits: added support for nonewprivs item.
+* pam_motd: read motd files with target user credentials skipping unreadable ones.
+* pam_pwhistory: added a SELinux helper executable.
+* pam_unix, pam_usertype: implemented avoidance of certain timing attacks.
+* pam_wheel: implemented PAM_RUSER fallback for the case when getlogin fails.
+* Removed deprecated pam_cracklib module, use pam_passwdqc (from passwdqc project)
+  or pam_pwquality (from libpwquality project) instead.
+* Removed deprecated pam_tally and pam_tally2 modules, use pam_faillock instead.
+* pam_env: Reading of the user environment is deprecated and will be removed
+	   at some point in the future.
+* libpam: pam_modutil_drop_priv() now correctly sets the target user's
+          supplementary groups, allowing pam_motd to filter messages accordingly
+
 Release 1.4.0
 * Multiple minor bug fixes and documentation improvements
 * Fixed grammar of messages printed via pam_prompt

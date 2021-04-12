@@ -10,6 +10,8 @@
 
 #include "pam_cc_compat.h"
 #include <string.h>
+#include <unistd.h>
+#include <errno.h>
 
 /*
  * Evaluates to
@@ -63,5 +65,54 @@ pam_str_skip_icase_prefix_len(const char *str, const char *prefix, size_t prefix
 
 #define pam_str_skip_icase_prefix(str_, prefix_)	\
 	pam_str_skip_icase_prefix_len((str_), (prefix_), sizeof(prefix_) - 1 + PAM_MUST_BE_ARRAY(prefix_))
+
+static inline int
+pam_read_passwords(int fd, int npass, char **passwords)
+{
+	/*
+	 * The passwords array must contain npass preallocated
+	 * buffers of length PAM_MAX_RESP_SIZE + 1.
+	 */
+	int rbytes = 0;
+	int offset = 0;
+	int i = 0;
+	char *pptr;
+	while (npass > 0) {
+		rbytes = read(fd, passwords[i]+offset, PAM_MAX_RESP_SIZE+1-offset);
+
+		if (rbytes < 0) {
+			if (errno == EINTR) {
+				continue;
+			}
+			break;
+		}
+		if (rbytes == 0) {
+			break;
+		}
+
+		while (npass > 0 &&
+		       (pptr = memchr(passwords[i] + offset, '\0', rbytes)) != NULL) {
+			++pptr; /* skip the '\0' */
+			rbytes -= pptr - (passwords[i] + offset);
+			i++;
+			offset = 0;
+			npass--;
+			if (rbytes > 0) {
+				if (npass > 0) {
+					memcpy(passwords[i], pptr, rbytes);
+				}
+				memset(pptr, '\0', rbytes);
+			}
+		}
+		offset += rbytes;
+	}
+
+	/* clear up */
+	if (offset > 0 && npass > 0) {
+		memset(passwords[i], '\0', offset);
+	}
+
+	return i;
+}
 
 #endif /* PAM_INLINE_H */

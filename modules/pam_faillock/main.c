@@ -70,14 +70,13 @@ args_parse(int argc, char **argv, struct options *opts)
 	opts->progname = argv[0];
 
 	for (i = 1; i < argc; ++i) {
-
 		if (strcmp(argv[i], "--dir") == 0) {
 			++i;
 			if (i >= argc || strlen(argv[i]) == 0) {
 				fprintf(stderr, "%s: No directory supplied.\n", argv[0]);
 				return -1;
 			}
-		        opts->dir = argv[i];
+			opts->dir = argv[i];
 		}
 		else if (strcmp(argv[i], "--user") == 0) {
 			++i;
@@ -85,7 +84,7 @@ args_parse(int argc, char **argv, struct options *opts)
 				fprintf(stderr, "%s: No user name supplied.\n", argv[0]);
 				return -1;
 			}
-		        opts->user = argv[i];
+			opts->user = argv[i];
 		}
 		else if (strcmp(argv[i], "--reset") == 0) {
 			opts->reset = 1;
@@ -157,7 +156,7 @@ do_user(struct options *opts, const char *user)
 		unsigned int i;
 
 		memset(&tallies, 0, sizeof(tallies));
-		if ((rv=read_tally(fd, &tallies)) == -1) {
+		if (read_tally(fd, &tallies) == -1) {
 			fprintf(stderr, "%s: Error reading the tally file for %s:",
 				opts->progname, user);
 			perror(NULL);

@@ -1,2 +1,0 @@
-#%PAM-1.0
-password	required	pam_cracklib.so

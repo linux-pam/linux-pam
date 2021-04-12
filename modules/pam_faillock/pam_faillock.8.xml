@@ -234,7 +234,7 @@
       Note that using the module in <option>preauth</option> without the
       <option>silent</option> option specified in <filename>/etc/security/faillock.conf</filename>
       or with <emphasis>requisite</emphasis> control field leaks an information about
-      existence or non-existence of an user account in the system because
+      existence or non-existence of a user account in the system because
       the failures are not recorded for the unknown users. The message
       about the user account being locked is never displayed for non-existing
       user accounts allowing the adversary to infer that a particular account

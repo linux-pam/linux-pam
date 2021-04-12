@@ -5,7 +5,7 @@
 #
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-DISTCHECK_CONFIGURE_FLAGS='--disable-dependency-tracking --enable-Werror --enable-tally --enable-tally2 --enable-cracklib=check'
+DISTCHECK_CONFIGURE_FLAGS='--disable-dependency-tracking --enable-Werror'
 export DISTCHECK_CONFIGURE_FLAGS
 
 case "${TARGET-}" in

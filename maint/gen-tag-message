@@ -1,0 +1,33 @@
+#!/bin/sh -efu
+# Copyright (c) 2017-2020 The strace developers.
+# All rights reserved.
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
+get_commit_id()
+{
+	git rev-parse --verify "$1^{commit}"
+}
+
+id="$(get_commit_id "${1:-@}")"
+
+tmpf=
+cleanup()
+{
+	trap - EXIT
+	[ -z "$tmpf" ] ||
+		rm -f -- "$tmpf"
+	exit "$@"
+}
+
+trap 'cleanup $?' EXIT
+trap 'cleanup 1' HUP PIPE INT QUIT TERM
+tmpf="$(mktemp -t "${0##*/}.XXXXXX")"
+
+git show "$id:NEWS" > "$tmpf"
+marker='^Release \([^ ]\+\)$'
+vers="$(sed -n "/$marker/ {s/$marker/\\1/p;q}" "$tmpf")"
+
+printf 'Linux-PAM release %s\n\n' "$vers"
+
+sed "0,/$marker/d;/$marker/,\$d" "$tmpf"

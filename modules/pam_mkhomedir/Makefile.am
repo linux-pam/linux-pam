@@ -31,6 +31,8 @@ endif
 
 sbin_PROGRAMS = mkhomedir_helper
 mkhomedir_helper_SOURCES = mkhomedir_helper.c
+mkhomedir_helper_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@
+mkhomedir_helper_LDFLAGS = @EXE_LDFLAGS@
 mkhomedir_helper_LDADD = $(top_builddir)/libpam/libpam.la
 
 check_PROGRAMS = tst-pam_mkhomedir-retval

@@ -18,7 +18,7 @@ TESTS = $(dist_check_SCRIPTS)
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 namespaceddir = $(SCONFIGDIR)/namespace.d
-servicedir = $(prefix)/lib/systemd/system
+servicedir = $(systemdunitdir)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
         -DSECURECONF_DIR=\"$(SCONFIGDIR)/\" $(WARN_CFLAGS)

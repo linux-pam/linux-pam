@@ -67,11 +67,10 @@
 #define FAILLOCK_FLAG_NO_LOG_INFO	0x8
 #define FAILLOCK_FLAG_UNLOCKED		0x10
 #define FAILLOCK_FLAG_LOCAL_ONLY	0x20
+#define FAILLOCK_FLAG_NO_DELAY		0x40
 
 #define MAX_TIME_INTERVAL 604800 /* 7 days */
 #define FAILLOCK_CONF_MAX_LINELEN 1023
-
-#define PATH_PASSWD "/etc/passwd"
 
 static const char default_faillock_conf[] = FAILLOCK_DEFAULT_CONF;
 
@@ -111,6 +110,7 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 		int flags, struct options *opts)
 {
 	int i;
+	int config_arg_index = -1;
 	int rv;
 	const char *conf = default_faillock_conf;
 
@@ -123,10 +123,12 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 	opts->root_unlock_time = MAX_TIME_INTERVAL+1;
 
 	for (i = 0; i < argc; ++i) {
-		const char *str;
+		const char *str = pam_str_skip_prefix(argv[i], "conf=");
 
-		if ((str = pam_str_skip_prefix(argv[i], "conf=")) != NULL)
+		if (str != NULL) {
 			conf = str;
+			config_arg_index = i;
+		}
 	}
 
 	if ((rv = read_config_file(pamh, opts, conf)) != PAM_SUCCESS) {
@@ -136,7 +138,10 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 	}
 
 	for (i = 0; i < argc; ++i) {
-		if (strcmp(argv[i], "preauth") == 0) {
+		if (i == config_arg_index) {
+			continue;
+		}
+		else if (strcmp(argv[i], "preauth") == 0) {
 			opts->action = FAILLOCK_ACTION_PREAUTH;
 		}
 		else if (strcmp(argv[i], "authfail") == 0) {
@@ -340,6 +345,9 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name, const c
 	else if (strcmp(name, "local_users_only") == 0) {
 		opts->flags |= FAILLOCK_FLAG_LOCAL_ONLY;
 	}
+	else if (strcmp(name, "nodelay") == 0) {
+		opts->flags |= FAILLOCK_FLAG_NO_DELAY;
+	}
 	else {
 		pam_syslog(pamh, LOG_ERR, "Unknown option: %s", name);
 	}
@@ -348,42 +356,7 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name, const c
 static int
 check_local_user (pam_handle_t *pamh, const char *user)
 {
-	struct passwd pw, *pwp;
-	char buf[16384];
-	int found = 0;
-	FILE *fp;
-	int errn;
-
-	fp = fopen(PATH_PASSWD, "r");
-	if (fp == NULL) {
-		pam_syslog(pamh, LOG_ERR, "unable to open %s: %m",
-			   PATH_PASSWD);
-		return -1;
-	}
-
-	for (;;) {
-		errn = fgetpwent_r(fp, &pw, buf, sizeof (buf), &pwp);
-		if (errn == ERANGE) {
-			pam_syslog(pamh, LOG_WARNING, "%s contains very long lines; corrupted?",
-				   PATH_PASSWD);
-			break;
-		}
-		if (errn != 0)
-			break;
-		if (strcmp(pwp->pw_name, user) == 0) {
-			found = 1;
-			break;
-		}
-	}
-
-	fclose (fp);
-
-	if (errn != 0 && errn != ENOENT) {
-		pam_syslog(pamh, LOG_ERR, "unable to enumerate local accounts: %m");
-		return -1;
-	} else {
-		return found;
-	}
+	return pam_modutil_check_user_in_passwd(pamh, user, NULL) == PAM_SUCCESS;
 }
 
 static int
@@ -647,7 +620,22 @@ faillock_message(pam_handle_t *pamh, struct options *opts)
 		if (left > 0) {
 			left = (left + 59)/60; /* minutes */
 
-			pam_info(pamh, _("(%d minutes left to unlock)"), (int)left);
+#if defined HAVE_DNGETTEXT && defined ENABLE_NLS
+			pam_info(
+				pamh,
+				dngettext(PACKAGE,
+					"(%d minute left to unlock)",
+					"(%d minutes left to unlock)",
+					(int)left),
+				(int)left);
+#else
+			if (left == 1)
+				/* TRANSLATORS: only used if dngettext is not supported. */
+				pam_info(pamh, _("(%d minute left to unlock)"), (int)left);
+			else
+				/* TRANSLATORS: only used if dngettext is not supported. */
+				pam_info(pamh, _("(%d minutes left to unlock)"), (int)left);
+#endif
 		}
 	}
 }
@@ -685,7 +673,9 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
 	if (rv != PAM_SUCCESS)
 		goto err;
 
-	pam_fail_delay(pamh, 2000000);	/* 2 sec delay on failure */
+	if (!(opts.flags & FAILLOCK_FLAG_NO_DELAY)) {
+		pam_fail_delay(pamh, 2000000);	/* 2 sec delay on failure */
+	}
 
 	if ((rv=get_pam_user(pamh, &opts)) != PAM_SUCCESS) {
 		goto err;

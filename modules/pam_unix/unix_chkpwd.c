@@ -33,6 +33,7 @@
 #include <security/_pam_macros.h>
 
 #include "passverify.h"
+#include "pam_inline.h"
 
 static int _check_expiry(const char *uname)
 {
@@ -89,7 +90,7 @@ static int _audit_log(int type, const char *uname, int rc)
 
 int main(int argc, char *argv[])
 {
-	char pass[MAXPASS + 1];
+	char pass[PAM_MAX_RESP_SIZE + 1];
 	char *option;
 	int npass, nullok;
 	int blankpass = 0;
@@ -136,7 +137,7 @@ int main(int argc, char *argv[])
 	  user = getuidname(getuid());
 	  /* if the caller specifies the username, verify that user
 	     matches it */
-	  if (strcmp(user, argv[1])) {
+	  if (user == NULL || strcmp(user, argv[1])) {
 	    user = argv[1];
 	    /* no match -> permanently change to the real user and proceed */
 	    if (setuid(getuid()) != 0)
@@ -162,7 +163,7 @@ int main(int argc, char *argv[])
 	}
 	/* read the password from stdin (a pipe from the pam_unix module) */
 
-	npass = read_passwords(STDIN_FILENO, 1, passwords);
+	npass = pam_read_passwords(STDIN_FILENO, 1, passwords);
 
 	if (npass != 1) {	/* is it a valid password? */
 		helper_log_err(LOG_DEBUG, "no password supplied");
@@ -175,7 +176,7 @@ int main(int argc, char *argv[])
 
 	retval = helper_verify_password(user, pass, nullok);
 
-	memset(pass, '\0', MAXPASS);	/* clear memory of the password */
+	memset(pass, '\0', PAM_MAX_RESP_SIZE);	/* clear memory of the password */
 
 	/* return pass or fail */
 

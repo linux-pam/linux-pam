@@ -4,584 +4,483 @@
 #
 # Translators:
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Vlad <milovlad@outlook.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-04-30 10:03+0200\n"
-"PO-Revision-Date: 2011-11-30 06:56-0500\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Romanian (http://www.transifex.com/projects/p/fedora/language/"
-"ro/)\n"
+"POT-Creation-Date: 2020-11-24 18:00+0000\n"
+"PO-Revision-Date: 2020-12-26 18:36+0000\n"
+"Last-Translator: Vlad <milovlad@outlook.com>\n"
+"Language-Team: Romanian <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
-"2:1));\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Weblate 4.3.2\n"
 
-#: libpam_misc/misc_conv.c:33
-msgid "...Time is running out...\n"
-msgstr ""
-
-#: libpam_misc/misc_conv.c:34
-msgid "...Sorry, your time is up!\n"
-msgstr ""
-
-#: libpam_misc/misc_conv.c:346
-#, c-format
-msgid "erroneous conversation (%d)\n"
-msgstr ""
-
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:184
-#: modules/pam_userdb/pam_userdb.c:65
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:178
+#: modules/pam_userdb/pam_userdb.c:55
 msgid "Password: "
-msgstr ""
+msgstr "Parolă: "
 
 #: libpam/pam_get_authtok.c:41
 #, c-format
 msgid "Current %s password: "
-msgstr ""
+msgstr "Parolă curentă %s: "
 
 #: libpam/pam_get_authtok.c:42
 msgid "Current password: "
-msgstr ""
+msgstr "Parolă curentă: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
 msgid "New %s password: "
-msgstr ""
+msgstr "Parolă nouă %s: "
 
 #: libpam/pam_get_authtok.c:45
 msgid "New password: "
-msgstr ""
+msgstr "Parolă nouă: "
 
 #: libpam/pam_get_authtok.c:47
 #, c-format
 msgid "Retype new %s password: "
-msgstr ""
+msgstr "Rescrie parola nouă %s: "
 
 #: libpam/pam_get_authtok.c:48
 msgid "Retype new password: "
-msgstr ""
+msgstr "Rescrie parola nouă: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
-msgstr ""
+msgstr "Parolele nu se potrivesc."
 
 #: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Rescrie %s"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 msgid "Password change has been aborted."
-msgstr ""
+msgstr "Schimbarea parolei a eșuat."
 
 #: libpam/pam_item.c:311
 msgid "login:"
-msgstr ""
+msgstr "autentificare:"
 
 #: libpam/pam_strerror.c:40
 msgid "Success"
-msgstr ""
+msgstr "Succes"
 
 #: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
-msgstr ""
+msgstr "Eroare critică - abandonare imediată"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr ""
+msgstr "Încercare eșuată de a încărca un modul"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
-msgstr ""
+msgstr "Simbolul nu a fost găsit"
 
 #: libpam/pam_strerror.c:48
 msgid "Error in service module"
-msgstr ""
+msgstr "Eroare în modulul de serviciu"
 
 #: libpam/pam_strerror.c:50
 msgid "System error"
-msgstr ""
+msgstr "Eroare de sistem"
 
 #: libpam/pam_strerror.c:52
 msgid "Memory buffer error"
-msgstr ""
+msgstr "Eroare în memoria tampon"
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
-msgstr ""
+msgstr "Acces refuzat"
 
 #: libpam/pam_strerror.c:56
 msgid "Authentication failure"
-msgstr ""
+msgstr "Autentificare eșuată"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
+msgstr "Acreditări insuficiente pentru a accesa datele de autentificare"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
 msgstr ""
+"Serviciul de autentificare nu poate obține informațiile de autentificare"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr ""
+msgstr "Modulul de autentificare nu cunoaște utilizatorul"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
-msgstr ""
+msgstr "S-a atins numărul maxim de încercări pentru serviciu"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
 msgstr ""
+"Autentificarea nu mai este valabilă; o nouă autentificare este necesară"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
-msgstr ""
+msgstr "Contul utilizatorului a expirat"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr ""
+msgstr "Nu se poate crea/șterge o intrare pentru sesiunea specificată"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
+msgstr "Serviciul de autentificare nu poate obține acreditările utilizatorului"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr ""
+msgstr "Acreditările utilizatorului au expirat"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr ""
+msgstr "Eșec in setarea acreditărilor pentru utilizator"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
-msgstr ""
+msgstr "Nu există date specifice pentru modul"
 
 #: libpam/pam_strerror.c:80
 msgid "Bad item passed to pam_*_item()"
-msgstr ""
+msgstr "A fost trimis un element incorect către pam_*_item()"
 
 #: libpam/pam_strerror.c:82
 msgid "Conversation error"
-msgstr ""
+msgstr "Eroare de conversație"
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
-msgstr ""
+msgstr "Eroare la manipularea informației de autentificare"
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
-msgstr ""
+msgstr "Informația de autentificare nu poate fi recuperată"
 
 #: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
-msgstr ""
+msgstr "Blocarea informației de autentificare este rezervată"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr ""
+msgstr "Informația de autentificare nu poate expira"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr ""
+msgstr "Eroare la verificarea preliminară făcută de către serviciul de parole"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr ""
+msgstr "Valoarea retunată poate fi ignorată de PAM"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
-msgstr ""
+msgstr "Modul necunoscut"
 
 #: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
-msgstr ""
+msgstr "Informația de autentificare a expirat"
 
 #: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
-msgstr ""
+msgstr "Conversația asteaptă după un eveniment"
 
 #: libpam/pam_strerror.c:102
 msgid "Application needs to call libpam again"
-msgstr ""
+msgstr "Aplicația trebuie să cheme din nou libpam"
 
 #: libpam/pam_strerror.c:105
 msgid "Unknown PAM error"
-msgstr ""
+msgstr "Eroare PAM necunoscută"
 
-#: modules/pam_cracklib/pam_cracklib.c:614
-msgid "is the same as the old one"
-msgstr ""
+#: libpam_misc/misc_conv.c:33
+msgid "...Time is running out...\n"
+msgstr "...Timpul se scurge...\n"
 
-#: modules/pam_cracklib/pam_cracklib.c:620
-#: modules/pam_cracklib/pam_cracklib.c:624
-#: modules/pam_cracklib/pam_cracklib.c:634
-msgid "memory allocation error"
-msgstr ""
+#: libpam_misc/misc_conv.c:34
+msgid "...Sorry, your time is up!\n"
+msgstr "...Timpul a expirat!\n"
 
-#: modules/pam_cracklib/pam_cracklib.c:639
-msgid "is a palindrome"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:642
-msgid "case changes only"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:645
-msgid "is too similar to the old one"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:648
-msgid "is too simple"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:651
-msgid "is rotated"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:654
-msgid "not enough character classes"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:657
-msgid "contains too many same characters consecutively"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:660
-msgid "contains too long of a monotonic character sequence"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:663
-msgid "contains the user name in some form"
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:697
-#: modules/pam_unix/pam_unix_passwd.c:566
-msgid "No password has been supplied."
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:698
-#: modules/pam_unix/pam_unix_passwd.c:567
-msgid "The password has not been changed."
-msgstr ""
-
-#: modules/pam_cracklib/pam_cracklib.c:718
-#: modules/pam_cracklib/pam_cracklib.c:800
+#: libpam_misc/misc_conv.c:348
 #, c-format
-msgid "BAD PASSWORD: %s"
-msgstr ""
+msgid "erroneous conversation (%d)\n"
+msgstr "conversație eronată (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:281
+#: modules/pam_exec/pam_exec.c:275
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr ""
+msgstr "%s a eșuat: codul de terminare %d"
 
-#: modules/pam_exec/pam_exec.c:290
+#: modules/pam_exec/pam_exec.c:284
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr ""
+msgstr "%s a eșuat: semnalul captat %d%s"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:293
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr ""
+msgstr "%s a eșuat: stare necunoscută 0x%x"
 
 #: modules/pam_faillock/main.c:104
 #, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 msgstr ""
+"Utilizare: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 
-#: modules/pam_faillock/pam_faillock.c:649 modules/pam_tally/pam_tally.c:568
-#: modules/pam_tally2/pam_tally2.c:577
+#: modules/pam_faillock/pam_faillock.c:614
 #, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr ""
+msgstr "Contul este blocat deoarece %u nu a reușit să se autentifice."
 
-#: modules/pam_faillock/pam_faillock.c:654
+#: modules/pam_faillock/pam_faillock.c:619
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(%d minute rămase până la deblocare)"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:329 modules/pam_lastlog/pam_lastlog.c:590
+#: modules/pam_lastlog/pam_lastlog.c:318 modules/pam_lastlog/pam_lastlog.c:579
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr ""
+msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:338 modules/pam_lastlog/pam_lastlog.c:599
+#: modules/pam_lastlog/pam_lastlog.c:327 modules/pam_lastlog/pam_lastlog.c:588
 #, c-format
 msgid " from %.*s"
-msgstr ""
+msgstr " de la %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:350 modules/pam_lastlog/pam_lastlog.c:611
+#: modules/pam_lastlog/pam_lastlog.c:339 modules/pam_lastlog/pam_lastlog.c:600
 #, c-format
 msgid " on %.*s"
-msgstr ""
+msgstr " pe %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:360
+#: modules/pam_lastlog/pam_lastlog.c:349
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr ""
+msgstr "Ultima autentificare:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:366
+#: modules/pam_lastlog/pam_lastlog.c:355
 msgid "Welcome to your new account!"
-msgstr ""
+msgstr "Bun venit în noul cont!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:621
+#: modules/pam_lastlog/pam_lastlog.c:610
 #, c-format
 msgid "Last failed login:%s%s%s"
-msgstr ""
+msgstr "Ultima autentificare eșuată:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:630 modules/pam_lastlog/pam_lastlog.c:637
+#: modules/pam_lastlog/pam_lastlog.c:619 modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
 msgstr[0] ""
+"A mai fost %d încercare nereușită de autentificare de la ultima "
+"autentificare reușită."
 msgstr[1] ""
+"Au mai fost %d încercări nereușite de autentificare de la ultima "
+"autentificare reușită."
 msgstr[2] ""
+"Au mai fost %d încercări nereușite de autentificare de la ultima "
+"autentificare reușită."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:642
+#: modules/pam_lastlog/pam_lastlog.c:631
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
+"Au mai fost %d încercări nereușite de autentificare de la ultima "
+"autentificare reușită."
 
-#: modules/pam_limits/pam_limits.c:1090
+#: modules/pam_limits/pam_limits.c:1115
 #, c-format
 msgid "There were too many logins for '%s'."
-msgstr ""
+msgstr "Sunt prea multe autentificări pentru '%s'."
+
+#: modules/pam_mail/pam_mail.c:289
+msgid "You have no mail."
+msgstr "Nu ai mesaje."
+
+#: modules/pam_mail/pam_mail.c:292
+msgid "You have new mail."
+msgstr "Ai un mesaj nou."
+
+#: modules/pam_mail/pam_mail.c:295
+msgid "You have old mail."
+msgstr "Ai un mesaj vechi."
 
 #: modules/pam_mail/pam_mail.c:299
-msgid "You have no mail."
-msgstr ""
-
-#: modules/pam_mail/pam_mail.c:302
-msgid "You have new mail."
-msgstr ""
-
-#: modules/pam_mail/pam_mail.c:305
-msgid "You have old mail."
-msgstr ""
-
-#: modules/pam_mail/pam_mail.c:309
 msgid "You have mail."
-msgstr ""
+msgstr "Ai un mesaj."
 
-#: modules/pam_mail/pam_mail.c:316
+#: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr ""
+msgstr "Nu ai mesaje în directorul %s."
 
-#: modules/pam_mail/pam_mail.c:320
+#: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr ""
+msgstr "Ai un mesaj nou în directorul %s."
 
-#: modules/pam_mail/pam_mail.c:324
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr ""
+msgstr "Ai un mesaj vechi în directorul %s."
 
-#: modules/pam_mail/pam_mail.c:329
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
-msgstr ""
+msgstr "Ai un mesaj în directorul %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:116
+#: modules/pam_mkhomedir/pam_mkhomedir.c:107
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "Crează directorul '%s'."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:183
+#: modules/pam_mkhomedir/pam_mkhomedir.c:174
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr ""
+msgstr "Nu se poate crea și inițializa directorul '%s'."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:220
-#: modules/pam_unix/pam_unix_passwd.c:592
+#: modules/pam_pwhistory/pam_pwhistory.c:371
+#: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
-msgstr ""
+msgstr "Parola a fost deja utilizată. Alege alta."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:227
+#: modules/pam_pwhistory/pam_pwhistory.c:378
 msgid "Password has been already used."
-msgstr ""
+msgstr "Parola a fost deja utilizată."
 
-#: modules/pam_selinux/pam_selinux.c:176
+#: modules/pam_selinux/pam_selinux.c:172
 #, c-format
 msgid "The default security context is %s."
-msgstr ""
+msgstr "Contextul implicit de securitate este %s."
 
-#: modules/pam_selinux/pam_selinux.c:180
+#: modules/pam_selinux/pam_selinux.c:176
 msgid "Would you like to enter a different role or level?"
-msgstr ""
+msgstr "Vrei să introduci un rol sau nivel diferit?"
+
+#: modules/pam_selinux/pam_selinux.c:189
+msgid "role:"
+msgstr "rol:"
 
 #: modules/pam_selinux/pam_selinux.c:193
-msgid "role:"
-msgstr ""
-
-#: modules/pam_selinux/pam_selinux.c:197
 #, c-format
 msgid "There is no default type for role %s."
-msgstr ""
+msgstr "Nu există un tip implicit pentru rolul %s."
 
-#: modules/pam_selinux/pam_selinux.c:229
+#: modules/pam_selinux/pam_selinux.c:225
 msgid "level:"
-msgstr ""
+msgstr "nivel:"
 
-#: modules/pam_selinux/pam_selinux.c:263
+#: modules/pam_selinux/pam_selinux.c:259
 msgid "This is not a valid security context."
-msgstr ""
+msgstr "Nu există un context valid de securitate."
 
-#: modules/pam_selinux/pam_selinux.c:513
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "Nu a putut fi obținut un context valid pentru %s."
 
-#: modules/pam_selinux/pam_selinux.c:633
+#: modules/pam_selinux/pam_selinux.c:629
 #, c-format
 msgid "Security context %s has been assigned."
-msgstr ""
+msgstr "Contextul de securitate %s a fost asignat."
 
-#: modules/pam_selinux/pam_selinux.c:649
+#: modules/pam_selinux/pam_selinux.c:645
 #, c-format
 msgid "Key creation context %s has been assigned."
-msgstr ""
+msgstr "Cheia pentru crearea contextului %s a fost asignată."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
-msgstr ""
+msgstr "eroare la inițializarea PAM\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:105
 #, c-format
 msgid "failed to pam_set_item()\n"
-msgstr ""
+msgstr "eroare la pam_set_item()\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr ""
+msgstr "autentificare: eroare la bifurcare %m"
 
-#: modules/pam_tally/pam_tally.c:543 modules/pam_tally2/pam_tally2.c:595
-#, c-format
-msgid "The account is temporarily locked (%ld seconds left)."
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:752 modules/pam_tally2/pam_tally2.c:861
-msgid "Authentication error"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:753 modules/pam_tally2/pam_tally2.c:862
-msgid "Service error"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:754 modules/pam_tally2/pam_tally2.c:863
-msgid "Unknown user"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:755 modules/pam_tally2/pam_tally2.c:864
-msgid "Unknown error"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:774 modules/pam_tally2/pam_tally2.c:886
-#, c-format
-msgid "%s: Bad number given to --reset=\n"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:778 modules/pam_tally2/pam_tally2.c:890
-#, c-format
-msgid "%s: Unrecognised option %s\n"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:790
-#, c-format
-msgid ""
-"%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-msgstr ""
-
-#: modules/pam_tally/pam_tally.c:864 modules/pam_tally2/pam_tally2.c:1029
-#, c-format
-msgid "%s: Can't reset all users to non-zero\n"
-msgstr ""
-
-#: modules/pam_tally2/pam_tally2.c:918
-#, c-format
-msgid "Login           Failures Latest failure     From\n"
-msgstr ""
-
-#: modules/pam_tally2/pam_tally2.c:934
-#, c-format
-msgid ""
-"%s: [-f rooted-filename] [--file rooted-filename]\n"
-"   [-u username] [--user username]\n"
-"   [-r] [--reset[=n]] [--quiet]\n"
-msgstr ""
-
-#: modules/pam_timestamp/pam_timestamp.c:360
+#: modules/pam_timestamp/pam_timestamp.c:354
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "Accesul a fost permis (ultimul acces a fost acum %ld secunde)."
 
-#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
+#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
 msgid "Your account has expired; please contact your system administrator."
-msgstr ""
+msgstr "Contul tău a expirat; te rog să contactezi administratorul de sistem."
 
-#: modules/pam_unix/pam_unix_acct.c:240
+#: modules/pam_unix/pam_unix_acct.c:238
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr ""
+msgstr "Trebuie să schimbi imediat parola (impus de către administrator)."
 
-#: modules/pam_unix/pam_unix_acct.c:246
+#: modules/pam_unix/pam_unix_acct.c:244
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr ""
+msgstr "Trebuie să schimbi imediat parola (parola a expirat)."
 
-#: modules/pam_unix/pam_unix_acct.c:267 modules/pam_unix/pam_unix_acct.c:274
+#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Atenție: parola ta va expira în %d zi."
+msgstr[1] "Atenție: parola ta va expira în %d zile."
+msgstr[2] "Atenție: parola ta va expira în %d zile."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:279
+#: modules/pam_unix/pam_unix_acct.c:281
 #, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr ""
+msgstr "Atenție: parola ta va expira în %d zile."
 
-#: modules/pam_unix/pam_unix_passwd.c:468
+#: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
-msgstr ""
+msgstr "Parola pentru NIS nu poate fi schimbată."
 
-#: modules/pam_unix/pam_unix_passwd.c:584
-#, fuzzy
+#: modules/pam_unix/pam_unix_passwd.c:563
+msgid "No password has been supplied."
+msgstr "Nu a fost introdusă nicio parolă."
+
+#: modules/pam_unix/pam_unix_passwd.c:564
+msgid "The password has not been changed."
+msgstr "Parola nu a fost schimbată."
+
+#: modules/pam_unix/pam_unix_passwd.c:581
 msgid "You must choose a shorter password."
-msgstr "Trebuie să alegeți o parolă mai scurtă."
+msgstr "Trebuie să alegi o parolă mai scurtă."
 
-#: modules/pam_unix/pam_unix_passwd.c:588
-#, fuzzy
+#: modules/pam_unix/pam_unix_passwd.c:585
 msgid "You must choose a longer password."
-msgstr "Trebuie să alegeți o parolă mai scurtă."
+msgstr "Trebuie să alegi o parolă mai lungă."
 
-#: modules/pam_unix/pam_unix_passwd.c:695
+#: modules/pam_unix/pam_unix_passwd.c:692
 #, c-format
 msgid "Changing password for %s."
-msgstr ""
+msgstr "Schimbare parolă pentru %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:725
-#, fuzzy
+#: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password."
-msgstr "Trebuie să alegeți o parolă mai scurtă."
+msgstr "Trebuie să aștepti mai mult până vei putea schimba parola."

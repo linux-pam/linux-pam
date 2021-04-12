@@ -577,7 +577,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 		}
 	}
 
-	if (strlen(pass_new) > MAXPASS) {
+	if (strlen(pass_new) > PAM_MAX_RESP_SIZE) {
 		remark = _("You must choose a shorter password.");
 		D(("length exceeded [%s]", remark));
 	} else if (off(UNIX__IAMROOT, ctrl)) {

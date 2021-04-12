@@ -2,10 +2,6 @@
 # Copyright (c) 2005, 2006, 2008 Thorsten Kukuk <kukuk@thkukuk.de>
 #
 
-if COND_BUILD_PAM_CRACKLIB
- MAYBE_PAM_CRACKLIB = pam_cracklib
-endif
-
 if COND_BUILD_PAM_KEYINIT
  MAYBE_PAM_KEYINIT = pam_keyinit
 endif
@@ -34,16 +30,12 @@ if COND_BUILD_PAM_SETQUOTA
  MAYBE_PAM_SETQUOTA = pam_setquota
 endif
 
-if COND_BUILD_PAM_TALLY
- MAYBE_PAM_TALLY = pam_tally
-endif
-
-if COND_BUILD_PAM_TALLY2
- MAYBE_PAM_TALLY2 = pam_tally2
-endif
-
 if COND_BUILD_PAM_TTY_AUDIT
  MAYBE_PAM_TTY_AUDIT = pam_tty_audit
+endif
+
+if COND_BUILD_PAM_UNIX
+ MAYBE_PAM_UNIX = pam_unix
 endif
 
 if COND_BUILD_PAM_USERDB
@@ -52,7 +44,6 @@ endif
 
 SUBDIRS := \
 	pam_access \
-	$(MAYBE_PAM_CRACKLIB) \
 	pam_debug \
 	pam_deny \
 	pam_echo \
@@ -86,13 +77,11 @@ SUBDIRS := \
 	pam_shells \
 	pam_stress \
 	pam_succeed_if \
-	$(MAYBE_PAM_TALLY) \
-	$(MAYBE_PAM_TALLY2) \
 	pam_time \
 	pam_timestamp \
 	$(MAYBE_PAM_TTY_AUDIT) \
 	pam_umask \
-	pam_unix \
+	$(MAYBE_PAM_UNIX) \
 	$(MAYBE_PAM_USERDB) \
 	pam_usertype \
 	pam_warn \

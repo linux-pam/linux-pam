@@ -122,9 +122,9 @@
         </term>
         <listitem>
           <para>
-            The check for wheel membership will be done against
-            the current uid instead of the original one (useful when
-            jumping with su from one account to another for example).
+            The check will be done against the real uid of the calling process,
+            instead of trying to obtain the user from the login session
+            associated with the terminal in use.
           </para>
         </listitem>
       </varlistentry>

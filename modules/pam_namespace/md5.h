@@ -7,9 +7,15 @@
 typedef unsigned int uint32;
 
 struct MD5Context {
-	uint32 buf[4];
+	union {
+		uint32 i[4];
+		unsigned char c[16] PAM_ATTRIBUTE_ALIGNED(4);
+	} buf;
 	uint32 bits[2];
-	unsigned char in[64] PAM_ATTRIBUTE_ALIGNED(4);
+	union {
+		uint32 i[16];
+		unsigned char c[64] PAM_ATTRIBUTE_ALIGNED(4);
+	} in;
 };
 
 #define MD5_DIGEST_LENGTH 16
