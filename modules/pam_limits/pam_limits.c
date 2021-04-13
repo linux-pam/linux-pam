@@ -492,7 +492,7 @@ static int init_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)
  * return 0 if conversion fails.
  */
 static int
-value_from_proc_sys_fs(const pam_handle_t *pamh, const char *name, rlim_t *valuep)
+value_from_proc_sys_fs(const char *name, rlim_t *valuep)
 {
     char pathname[128];
     char buf[128];
@@ -719,7 +719,7 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	 * the value in /proc/sys/fs/nr_open instead.
 	 */
 	if (rlimit_value == RLIM_INFINITY) {
-	    if (!value_from_proc_sys_fs(pamh, "nr_open", &rlimit_value))
+	    if (!value_from_proc_sys_fs("nr_open", &rlimit_value))
 	       pam_syslog(pamh, LOG_DEBUG,
 			  "Cannot set \"nofile\" to a sensible value");
 	    else
