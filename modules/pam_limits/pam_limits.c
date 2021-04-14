@@ -487,6 +487,42 @@ static int init_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)
     return retval;
 }
 
+/*
+ * Read the contents of /proc/sys/fs/<name>
+ * return 1 if conversion succeeds, result is in *valuep
+ * return 0 if conversion fails.
+ */
+static int
+value_from_proc_sys_fs(const char *name, rlim_t *valuep)
+{
+    char pathname[128];
+    char buf[128];
+    FILE *fp;
+    int retval;
+
+    retval = 0;
+
+    snprintf(pathname, sizeof(pathname), "/proc/sys/fs/%s", name);
+
+    if ((fp = fopen(pathname, "r")) != NULL) {
+	if (fgets(buf, sizeof(buf), fp) != NULL) {
+	    char *endptr;
+
+#ifdef __USE_FILE_OFFSET64
+	    *valuep = strtoull(buf, &endptr, 10);
+#else
+	    *valuep = strtoul(buf, &endptr, 10);
+#endif
+
+	    retval = (endptr != buf);
+	}
+
+	fclose(fp);
+    }
+
+    return retval;
+}
+
 static void
 process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	       const char *lim_item, const char *lim_value,
@@ -666,6 +702,19 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	 rlimit_value = 20 - int_value;
          break;
 #endif
+	case RLIMIT_NOFILE:
+	/*
+	 * If nofile is to be set to "unlimited", try to set it to
+	 * the value in /proc/sys/fs/nr_open instead.
+	 */
+	if (rlimit_value == RLIM_INFINITY) {
+	    if (!value_from_proc_sys_fs("nr_open", &rlimit_value))
+		pam_syslog(pamh, LOG_WARNING,
+			   "Cannot set \"nofile\" to a sensible value");
+	    else
+		pam_syslog(pamh, LOG_DEBUG, "Setting \"nofile\" limit to %lu", (long unsigned) rlimit_value);
+	}
+	break;
     }
 
     if ( (limit_item != LIMIT_LOGIN)
