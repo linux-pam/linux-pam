@@ -100,7 +100,8 @@
         </term>
         <listitem>
           <para>
-            Print debug information.
+            Print debug information. Note that password hashes, both from db
+            and computed, will be printed to syslog.
           </para>
         </listitem>
       </varlistentry>

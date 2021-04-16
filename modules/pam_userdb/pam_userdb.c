@@ -194,7 +194,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
     }
 
     if (data.dptr != NULL) {
-	int compare = 0;
+	int compare = -2;
 
 	if (ctrl & PAM_KEY_ONLY_ARG)
 	  {
@@ -209,36 +209,48 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	  char *cryptpw = NULL;
 
 	  if (data.dsize < 13) {
-	    compare = -2;
+	    /* hash is too short */
+	    pam_syslog(pamh, LOG_INFO, "password hash in database is too short");
 	  } else if (ctrl & PAM_ICASE_ARG) {
-	    compare = -2;
+	    pam_syslog(pamh, LOG_INFO,
+	       "case-insensitive comparison only works with plaintext passwords");
 	  } else {
-#ifdef HAVE_CRYPT_R
-	    struct crypt_data *cdata = NULL;
-	    cdata = malloc(sizeof(*cdata));
-	    if (cdata != NULL) {
-		cdata->initialized = 0;
-		cryptpw = crypt_r(pass, data.dptr, cdata);
-	    }
-#else
-	    cryptpw = crypt (pass, data.dptr);
-#endif
-	    if (cryptpw && strlen(cryptpw) == (size_t)data.dsize) {
-	      compare = memcmp(data.dptr, cryptpw, data.dsize);
-	    } else {
-	      compare = -2;
-	      if (ctrl & PAM_DEBUG_ARG) {
-		if (cryptpw)
-		  pam_syslog(pamh, LOG_INFO, "lengths of computed and stored hashes differ");
-		else
-		  pam_syslog(pamh, LOG_INFO, "crypt() returned NULL");
-	      }
-	    }
-#ifdef HAVE_CRYPT_R
-	    free(cdata);
-#endif
-	  }
+	    /* libdb is not guaranteed to produce null terminated strings */
+	    char *pwhash = strndup(data.dptr, data.dsize);
 
+	    if (pwhash == NULL) {
+	      pam_syslog(pamh, LOG_CRIT, "strndup failed: data.dptr");
+	    } else {
+#ifdef HAVE_CRYPT_R
+	      struct crypt_data *cdata = NULL;
+	      cdata = malloc(sizeof(*cdata));
+	      if (cdata == NULL) {
+	        pam_syslog(pamh, LOG_CRIT, "malloc failed: struct crypt_data");
+	      } else {
+	        cdata->initialized = 0;
+	        cryptpw = crypt_r(pass, pwhash, cdata);
+	      }
+#else
+	      cryptpw = crypt (pass, pwhash);
+#endif
+	      if (cryptpw && strlen(cryptpw) == (size_t)data.dsize) {
+	        compare = memcmp(data.dptr, cryptpw, data.dsize);
+	      } else {
+	        if (ctrl & PAM_DEBUG_ARG) {
+	          if (cryptpw) {
+	            pam_syslog(pamh, LOG_INFO, "lengths of computed and stored hashes differ");
+	            pam_syslog(pamh, LOG_INFO, "computed hash: %s", cryptpw);
+	          } else {
+	            pam_syslog(pamh, LOG_ERR, "crypt() returned NULL");
+	          }
+	        }
+	      }
+#ifdef HAVE_CRYPT_R
+	      free(cdata);
+#endif
+	    }
+	    free(pwhash);
+	  }
 	} else {
 
 	  /* Unknown password encryption method -
