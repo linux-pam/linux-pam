@@ -64,6 +64,8 @@
 #include "opasswd.h"
 #include "pam_inline.h"
 
+#define LOGIN_DEFS "/etc/login.defs"
+
 struct options_t {
   int debug;
   int enforce_for_root;
@@ -292,6 +294,8 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
   const char *user;
     int retval, tries;
   options_t options;
+  char *login_string = NULL;
+  char *prompt = NULL;
 
   memset (&options, 0, sizeof (options));
 
@@ -331,13 +335,29 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
   if (retval != PAM_SUCCESS)
     return retval;
 
+  login_string = pam_modutil_search_key(pamh, LOGIN_DEFS, "LOGIN_STRING");
+  if (login_string != NULL)
+    {
+      retval = asprintf(&prompt, login_string, user);
+      if (retval == -1)
+        {
+          prompt = NULL;
+        }
+
+      free(login_string);
+    }
+
   newpass = NULL;
   tries = 0;
   while ((newpass == NULL) && (tries < options.tries))
     {
-      retval = pam_get_authtok (pamh, PAM_AUTHTOK, &newpass, NULL);
+      retval = pam_get_authtok (pamh, PAM_AUTHTOK, &newpass, prompt);
       if (retval != PAM_SUCCESS && retval != PAM_TRY_AGAIN)
 	{
+	  if (prompt != NULL)
+	    {
+	      free(prompt);
+	    }
 	  if (retval == PAM_CONV_AGAIN)
 	    retval = PAM_INCOMPLETE;
 	  return retval;
@@ -377,6 +397,11 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	    pam_info (pamh,
 		       _("Password has been already used."));
 	}
+    }
+
+  if (prompt != NULL)
+    {
+      free(prompt);
     }
 
   if (newpass == NULL && tries >= options.tries)

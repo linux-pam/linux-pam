@@ -53,6 +53,7 @@
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
+#include <security/pam_modutil.h>
 
 #include "support.h"
 
@@ -97,6 +98,8 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	int retval, *ret_data = NULL;
 	const char *name;
 	const char *p;
+	char *login_string = NULL;
+	char *prompt = NULL;
 
 	D(("called."));
 
@@ -151,7 +154,20 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	}
 	/* get this user's authentication token */
 
-	retval = pam_get_authtok(pamh, PAM_AUTHTOK, &p , NULL);
+	login_string = pam_modutil_search_key(pamh, LOGIN_DEFS, "LOGIN_STRING");
+	if (login_string != NULL) {
+		retval = asprintf(&prompt, login_string, name);
+		if (retval == -1) {
+			prompt = NULL;
+		}
+
+		free(login_string);
+	}
+
+	retval = pam_get_authtok(pamh, PAM_AUTHTOK, &p , prompt);
+	if (prompt != NULL) {
+		free(prompt);
+	}
 	if (retval != PAM_SUCCESS) {
 		if (retval != PAM_CONV_AGAIN) {
 			pam_syslog(pamh, LOG_CRIT,

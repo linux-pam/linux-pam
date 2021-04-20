@@ -609,6 +609,8 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	int remember = -1;
 	int rounds = 0;
 	int pass_min_len = 0;
+	char *login_string = NULL;
+	char *prompt = NULL;
 
 	/* <DO NOT free() THESE> */
 	const char *user;
@@ -693,7 +695,21 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 				if (retval != PAM_SUCCESS)
 					return retval;
 			}
-			retval = pam_get_authtok(pamh, PAM_OLDAUTHTOK, &pass_old, NULL);
+
+			login_string = pam_modutil_search_key(pamh, LOGIN_DEFS, "LOGIN_STRING");
+			if (login_string != NULL) {
+				retval = asprintf(&prompt, login_string, user);
+				if (retval == -1) {
+					prompt = NULL;
+				}
+
+				free(login_string);
+			}
+
+			retval = pam_get_authtok(pamh, PAM_OLDAUTHTOK, &pass_old, prompt);
+			if (prompt != NULL) {
+				free(prompt);
+			}
 
 			if (retval != PAM_SUCCESS) {
 				pam_syslog(pamh, LOG_NOTICE,
@@ -764,13 +780,24 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			retry = MAX_PASSWD_TRIES-1;
 		}
 		retval = PAM_AUTHTOK_ERR;
+
+		login_string = pam_modutil_search_key(pamh, LOGIN_DEFS, "LOGIN_STRING");
+		if (login_string != NULL) {
+			retval = asprintf(&prompt, login_string, user);
+			if (retval == -1) {
+				prompt = NULL;
+			}
+
+			free(login_string);
+		}
+
 		while ((retval != PAM_SUCCESS) && (retry++ < MAX_PASSWD_TRIES)) {
 			/*
 			 * use_authtok is to force the use of a previously entered
 			 * password -- needed for pluggable password strength checking
 			 */
 
-			retval = pam_get_authtok(pamh, PAM_AUTHTOK, &pass_new, NULL);
+			retval = pam_get_authtok(pamh, PAM_AUTHTOK, &pass_new, prompt);
 
 			if (retval != PAM_SUCCESS) {
 				if (on(UNIX_DEBUG, ctrl)) {
@@ -778,6 +805,9 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 						 "password - new password not obtained");
 				}
 				pass_old = NULL;	/* tidy up */
+				if (prompt != NULL) {
+					free(prompt);
+				}
 				return retval;
 			}
 			D(("returned to _unix_chauthtok"));
@@ -797,6 +827,9 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			if (retval != PAM_SUCCESS) {
 				pam_set_item(pamh, PAM_AUTHTOK, NULL);
 			}
+		}
+		if (prompt != NULL) {
+			free(prompt);
 		}
 
 		if (retval != PAM_SUCCESS) {
