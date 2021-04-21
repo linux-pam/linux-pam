@@ -507,16 +507,14 @@ value_from_proc_sys_fs(const char *name, rlim_t *valuep)
     if ((fp = fopen(pathname, "r")) != NULL) {
 	if (fgets(buf, sizeof(buf), fp) != NULL) {
 	    char *endptr;
-	    rlim_t value;
+	    unsigned long long value;
 
-#ifdef __USE_FILE_OFFSET64
+	    errno = 0;
 	    value = strtoull(buf, &endptr, 10);
-#else
-	    value = strtoul(buf, &endptr, 10);
-#endif
-
-	    if (endptr != buf) {
-		*valuep = value;
+	    if (endptr != buf &&
+		(value != ULLONG_MAX || errno == 0) &&
+                (unsigned long long) (rlim_t) value == value)) {
+		*valuep = (rlim_t) value;
 		retval = 1;
 	    }
 	}
