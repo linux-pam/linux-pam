@@ -488,21 +488,18 @@ static int init_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)
 }
 
 /*
- * Read the contents of /proc/sys/fs/<name>
+ * Read the contents of <pathname> and return it in *valuep
  * return 1 if conversion succeeds, result is in *valuep
- * return 0 if conversion fails.
+ * return 0 if conversion fails, *valuep is untouched.
  */
 static int
-value_from_proc_sys_fs(const char *name, rlim_t *valuep)
+value_from_file(const char *pathname, rlim_t *valuep)
 {
-    char pathname[128];
     char buf[128];
     FILE *fp;
     int retval;
 
     retval = 0;
-
-    snprintf(pathname, sizeof(pathname), "/proc/sys/fs/%s", name);
 
     if ((fp = fopen(pathname, "r")) != NULL) {
 	if (fgets(buf, sizeof(buf), fp) != NULL) {
@@ -710,7 +707,7 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	 * the value in /proc/sys/fs/nr_open instead.
 	 */
 	if (rlimit_value == RLIM_INFINITY) {
-	    if (!value_from_proc_sys_fs("nr_open", &rlimit_value))
+	    if (!value_from_file("/proc/sys/fs/nr_open", &rlimit_value))
 		pam_syslog(pamh, LOG_WARNING,
 			   "Cannot set \"nofile\" to a sensible value");
 	    else if (ctrl & PAM_DEBUG_ARG)
