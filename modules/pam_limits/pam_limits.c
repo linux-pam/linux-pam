@@ -714,7 +714,7 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 		pam_syslog(pamh, LOG_WARNING,
 			   "Cannot set \"nofile\" to a sensible value");
 	    else if (ctrl & PAM_DEBUG_ARG)
-		pam_syslog(pamh, LOG_DEBUG, "Setting \"nofile\" limit to %lu", (long unsigned) rlimit_value);
+		pam_syslog(pamh, LOG_DEBUG, "Setting \"nofile\" limit to %llu", (unsigned long long) rlimit_value);
 	}
 	break;
     }
