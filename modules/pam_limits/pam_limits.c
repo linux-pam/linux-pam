@@ -510,7 +510,7 @@ value_from_file(const char *pathname, rlim_t *valuep)
 	    value = strtoull(buf, &endptr, 10);
 	    if (endptr != buf &&
 		(value != ULLONG_MAX || errno == 0) &&
-                (unsigned long long) (rlim_t) value == value)) {
+                (unsigned long long) (rlim_t) value == value) {
 		*valuep = (rlim_t) value;
 		retval = 1;
 	    }
