@@ -632,6 +632,13 @@ case "$enable_unix" in
   *) AC_MSG_ERROR([bad value $enable_unix for --enable-unix option]) ;;
 esac
 
+AC_ARG_WITH([misc-conv-bufsize],
+AS_HELP_STRING([--with-misc-conv-bufsize=<number>],
+    [Size of input buffer for libpam_misc's misc_conv() conversation function, default=512]),
+    [],
+    [with_misc_conv_bufsize=512])
+AC_DEFINE_UNQUOTED(PAM_MISC_CONV_BUFSIZE, $with_misc_conv_bufsize, [libpam_misc misc_conv() buffer size.])
+
 AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_NAMESPACE], [test "$ac_cv_func_unshare" = yes])
