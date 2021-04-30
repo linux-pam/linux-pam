@@ -18,7 +18,7 @@
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
 
-#define INPUTSIZE PAM_MAX_RESP_SIZE          /* maximum length of input+1 */
+#define INPUTSIZE PAM_MISC_CONV_BUFSIZE      /* maximum length of input+1 */
 #define CONV_ECHO_ON  1                            /* types of echo state */
 #define CONV_ECHO_OFF 0
 
