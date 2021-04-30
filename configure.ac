@@ -634,9 +634,9 @@ esac
 
 AC_ARG_WITH([misc-conv-bufsize],
 AS_HELP_STRING([--with-misc-conv-bufsize=<number>],
-    [Size of input buffer for libpam_misc's misc_conv() conversation function, default=512]),
+    [Size of input buffer for libpam_misc's misc_conv() conversation function, default=4096]),
     [],
-    [with_misc_conv_bufsize=512])
+    [with_misc_conv_bufsize=4096])
 AC_DEFINE_UNQUOTED(PAM_MISC_CONV_BUFSIZE, $with_misc_conv_bufsize, [libpam_misc misc_conv() buffer size.])
 
 AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
