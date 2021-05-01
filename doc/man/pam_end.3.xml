@@ -56,7 +56,7 @@
       of the pass/fail nature of the tear-down process, and perform any
       last minute tasks that are appropriate to the module before it is
       unlinked. This argument can be logically OR'd with
-      <emphasis>PAM_DATA_SILENT</emphasis> to indicate to indicate that
+      <emphasis>PAM_DATA_SILENT</emphasis> to indicate that
       the module should not treat the call too seriously. It is generally
       used to indicate that the current closing of the library is in a
       <citerefentry>
