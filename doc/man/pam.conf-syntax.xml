@@ -265,7 +265,8 @@
              this action indicates that the return code should be thought
              of as indicative of the module failing. If this module is the
              first in the stack to fail, its status value will be used for
-             that of the whole stack.
+             that of the whole stack.  This is the default action for
+             all return codes.
           </para>
         </listitem>
       </varlistentry>
@@ -334,6 +335,13 @@
         </listitem>
       </varlistentry>
     </variablelist>
+
+    <para>
+      If a return code's action is not specifically defined via a
+      <emphasis>valueN</emphasis> token, and the
+      <emphasis>default</emphasis> value is not specified, that return
+      code's action defaults to <emphasis>bad</emphasis>.
+    </para>
 
     <para>
       Each of the four keywords: required; requisite; sufficient; and
