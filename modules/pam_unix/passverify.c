@@ -289,13 +289,7 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 		D(("account expired"));
 		return PAM_ACCT_EXPIRED;
 	}
-#if defined(CRYPT_CHECKSALT_AVAILABLE) && CRYPT_CHECKSALT_AVAILABLE
-	if (spent->sp_lstchg == 0 ||
-	    crypt_checksalt(spent->sp_pwdp) == CRYPT_SALT_METHOD_LEGACY ||
-	    crypt_checksalt(spent->sp_pwdp) == CRYPT_SALT_TOO_CHEAP) {
-#else
 	if (spent->sp_lstchg == 0) {
-#endif
 		D(("need a new password"));
 		*daysleft = 0;
 		return PAM_NEW_AUTHTOK_REQD;
