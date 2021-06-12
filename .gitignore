@@ -8,6 +8,7 @@
 *.lo
 *.log
 *.o
+*.pc
 *.pdf
 *.so
 *.trs

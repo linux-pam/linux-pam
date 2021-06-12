@@ -20,3 +20,7 @@ libpam_misc_la_LIBADD = $(top_builddir)/libpam/libpam.la
 lib_LTLIBRARIES = libpam_misc.la
 
 libpam_misc_la_SOURCES = help_env.c misc_conv.c
+
+# Pkg-config script.
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = pam_misc.pc

@@ -1,0 +1,9 @@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: pam_misc
+Description: Miscellaneous functions that make the job of writing PAM-aware applications easier.
+URL: http://www.linux-pam.org/
+Version: @VERSION@
+Cflags: -I${includedir}
+Libs: -L${libdir} -lpam_misc

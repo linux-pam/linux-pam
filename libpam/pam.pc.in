@@ -1,0 +1,9 @@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: PAM
+Description: The primary Linux-PAM library. It is used by PAM modules and PAM-aware applications.
+URL: http://www.linux-pam.org/
+Version: @VERSION@
+Cflags: -I${includedir}
+Libs: -L${libdir} -lpam
