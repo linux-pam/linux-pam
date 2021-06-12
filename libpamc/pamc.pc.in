@@ -1,0 +1,9 @@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libpamc
+URL: http://www.linux-pam.org/
+Description: The PAM client API library and binary prompt support. Rarely used.
+Version: @VERSION@
+Cflags: -I${includedir}
+Libs: -L${libdir} -lpamc

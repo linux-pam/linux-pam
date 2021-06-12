@@ -646,6 +646,7 @@ AM_CONDITIONAL([COND_BUILD_PAM_USERDB], [test -n "$LIBDB"])
 dnl Files to be created from when we run configure
 AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
 	libpam_misc/Makefile conf/Makefile conf/pam_conv1/Makefile \
+	libpam/pam.pc libpam_misc/pam_misc.pc libpamc/pamc.pc \
 	po/Makefile.in \
 	Make.xml.rules \
 	modules/Makefile \

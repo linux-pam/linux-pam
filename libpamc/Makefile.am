@@ -22,3 +22,7 @@ endif
 lib_LTLIBRARIES = libpamc.la
 
 libpamc_la_SOURCES = pamc_client.c pamc_converse.c pamc_load.c
+
+# Pkg-config script.
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = pamc.pc
