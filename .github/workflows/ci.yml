@@ -13,6 +13,20 @@ jobs:
     - name: check
       run: git diff-index --check --cached 4b825dc642cb6eb9a060e54bf8d69288fbee4904
 
+  gcc11-x86_64:
+    runs-on: ubuntu-20.04
+    env:
+      CC: gcc-11
+      TARGET: x86_64
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/run-build-and-tests.sh
+
   gcc10-x86_64:
     runs-on: ubuntu-20.04
     env:
@@ -45,6 +59,34 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       CC: gcc-8
+      TARGET: x86_64
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/run-build-and-tests.sh
+
+  clang12-x86_64:
+    runs-on: ubuntu-20.04
+    env:
+      CC: clang-12
+      TARGET: x86_64
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/run-build-and-tests.sh
+
+  clang11-x86_64:
+    runs-on: ubuntu-20.04
+    env:
+      CC: clang-11
       TARGET: x86_64
     steps:
     - uses: actions/checkout@v2
@@ -88,6 +130,20 @@ jobs:
     env:
       CC: clang-8
       TARGET: x86_64
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/run-build-and-tests.sh
+
+  gcc11-x86:
+    runs-on: ubuntu-18.04
+    env:
+      CC: gcc-11
+      TARGET: x86
     steps:
     - uses: actions/checkout@v2
       with:
@@ -172,6 +228,20 @@ jobs:
     env:
       CC: clang-8
       TARGET: x86
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/run-build-and-tests.sh
+
+  gcc11-x32:
+    runs-on: ubuntu-18.04
+    env:
+      CC: gcc-11
+      TARGET: x32
     steps:
     - uses: actions/checkout@v2
       with:
