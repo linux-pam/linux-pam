@@ -50,7 +50,7 @@ main (void)
   const char *user = "root";
   const char *confdir;
   const char *xconfdir = "/nonexistent-confdir";
-  struct pam_conv conv;
+  struct pam_conv conv = { NULL, NULL };
   pam_handle_t *pamh;
   int retval;
 

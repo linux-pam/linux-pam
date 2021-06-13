@@ -275,7 +275,7 @@ main (void)
 {
   const char *service = "dummy";
   const char *user = "root";
-  struct pam_conv conv;
+  struct pam_conv conv = { NULL, NULL };
   pam_handle_t *pamh;
   void *dataptr;
   int retval;
