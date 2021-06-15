@@ -362,10 +362,18 @@ AC_SUBST(LIBAUDIT)
 AC_CHECK_HEADERS(crypt.h)
 
 BACKUP_LIBS=$LIBS
-AC_SEARCH_LIBS([crypt],[crypt])
-case "$ac_cv_search_crypt" in
-	-l*) LIBCRYPT="$ac_cv_search_crypt" ;;
-	*) LIBCRYPT="" ;;
+LIBCRYPT=""
+AC_SEARCH_LIBS([crypt_gensalt_rn],[crypt])
+case "$ac_cv_search_crypt_gensalt_rn" in
+	-l*) LIBCRYPT="$ac_cv_search_crypt_gensalt_rn" ;;
+	no) AC_SEARCH_LIBS([crypt_r],[crypt])
+		case "$ac_cv_search_crypt_r" in
+		-l*) LIBCRYPT="$ac_cv_search_crypt_r" ;;
+		no ) AC_SEARCH_LIBS([crypt],[crypt])
+		case "$ac_cv_search_crypt" in
+			-l*) LIBCRYPT="$ac_cv_search_crypt" ;;
+		esac ;;
+	esac ;;
 esac
 AC_CHECK_FUNCS([crypt_r])
 LIBS=$BACKUP_LIBS
