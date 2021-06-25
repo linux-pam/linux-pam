@@ -379,6 +379,13 @@
             blowfish, gost-yescrypt, and yescrypt password hashing
             algorithms to
             <replaceable>n</replaceable>.
+            For SHA256 and SHA512, defaults to SHA_CRYPT_MAX_ROUNDS
+            from <citerefentry>
+            <refentrytitle>login.defs</refentrytitle><manvolnum>5</manvolnum>
+            </citerefentry>, if available.
+            Otherwise, the default depends on <citerefentry>
+            <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
+            </citerefentry>.
           </para>
         </listitem>
       </varlistentry>
