@@ -49,7 +49,7 @@ pam_modutil_getlogin(pam_handle_t *pamh)
     logname = NULL;
 
     setutent();
-    strncpy(line.ut_line, curr_tty, sizeof(line.ut_line));
+    strncpy(line.ut_line, curr_tty, sizeof(line.ut_line) - 1);
 
     if ((ut = getutline(&line)) == NULL) {
 	goto clean_up_and_go_home;

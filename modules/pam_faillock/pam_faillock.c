@@ -562,7 +562,7 @@ write_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 		tallies->records[oldest].status |= TALLY_STATUS_RHOST;
 	}
 
-	strncpy(tallies->records[oldest].source, source, sizeof(tallies->records[oldest].source));
+	strncpy(tallies->records[oldest].source, source, sizeof(tallies->records[oldest].source) - 1);
 	/* source does not have to be null terminated */
 
 	tallies->records[oldest].time = opts->now;
