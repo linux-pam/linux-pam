@@ -354,7 +354,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    int t = open("/dev/tty", O_RDWR|O_NOCTTY);
 #else
 	    int t = open("/dev/tty",O_RDWR);
-	    if (t > 0) {
+	    if (t >= 0) {
 		(void) ioctl(t, TIOCNOTTY, NULL);
 		close(t);
 	    }
