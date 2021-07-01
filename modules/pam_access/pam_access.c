@@ -711,10 +711,10 @@ string_match (pam_handle_t *pamh, const char *tok, const char *string,
     return (NO);
 }
 
-
 /* network_netmask_match - match a string against one token
  * where string is a hostname or ip (v4,v6) address and tok
- * represents either a single ip (v4,v6) address or a network/netmask
+ * represents either a hostname, a single ip (v4,v6) address
+ * or a network/netmask
  */
 static int
 network_netmask_match (pam_handle_t *pamh,
@@ -723,10 +723,14 @@ network_netmask_match (pam_handle_t *pamh,
     char *netmask_ptr;
     char netmask_string[MAXHOSTNAMELEN + 1];
     int addr_type;
+    struct addrinfo *ai;
+    struct sockaddr_storage tok_addr;
+    struct addrinfo hint;
 
     if (item->debug)
-    pam_syslog (pamh, LOG_DEBUG,
+      pam_syslog (pamh, LOG_DEBUG,
 		"network_netmask_match: tok=%s, item=%s", tok, string);
+
     /* OK, check if tok is of type addr/mask */
     if ((netmask_ptr = strchr(tok, '/')) != NULL)
       {
@@ -736,7 +740,7 @@ network_netmask_match (pam_handle_t *pamh,
 	*netmask_ptr = 0;
 	netmask_ptr++;
 
-	if (isipaddr(tok, &addr_type, NULL) == NO)
+	if (isipaddr(tok, &addr_type, &tok_addr) == NO)
 	  { /* no netaddr */
 	    return NO;
 	  }
@@ -760,19 +764,47 @@ network_netmask_match (pam_handle_t *pamh,
 	    netmask_ptr = number_to_netmask(netmask, addr_type,
 		netmask_string, MAXHOSTNAMELEN);
 	  }
-	}
-    else
-	/* NO, then check if it is only an addr */
-	if (isipaddr(tok, NULL, NULL) != YES)
+
+	/*
+	 * Although isipaddr() has already converted the IP address,
+	 * we call getaddrinfo here to properly construct an addrinfo list
+	 */
+	memset (&hint, '\0', sizeof (hint));
+	hint.ai_flags = 0;
+	hint.ai_family = AF_UNSPEC;
+
+	ai = NULL;	/* just to be on the safe side */
+
+	/* The following should not fail ... */
+	if (getaddrinfo (tok, NULL, &hint, &ai) != 0)
 	  {
 	    return NO;
 	  }
+      }
+    else
+      {
+        /*
+	 * It is either an IP address or a hostname.
+	 * Let getaddrinfo sort everything out
+	 */
+	memset (&hint, '\0', sizeof (hint));
+	hint.ai_flags = 0;
+	hint.ai_family = AF_UNSPEC;
+
+	ai = NULL;	/* just to be on the safe side */
+
+	if (getaddrinfo (string, NULL, &hint, &ai) != 0)
+	  {
+	    pam_syslog(pamh, LOG_ERR, "cannot resolve hostname \"%s\"", string);
+
+	    return NO;
+	  }
+	netmask_ptr = NULL;
+      }
 
     if (isipaddr(string, NULL, NULL) != YES)
       {
 	/* Assume network/netmask with a name of a host.  */
-	struct addrinfo hint;
-
 	memset (&hint, '\0', sizeof (hint));
 	hint.ai_flags = AI_CANONNAME;
 	hint.ai_family = AF_UNSPEC;
@@ -785,29 +817,54 @@ network_netmask_match (pam_handle_t *pamh,
         else
 	  {
 	    struct addrinfo *runp = item->res;
+	    struct addrinfo *runp1;
 
 	    while (runp != NULL)
 	      {
 		char buf[INET6_ADDRSTRLEN];
 
 		DIAG_PUSH_IGNORE_CAST_ALIGN;
-		inet_ntop (runp->ai_family,
-			runp->ai_family == AF_INET
-			? (void *) &((struct sockaddr_in *) runp->ai_addr)->sin_addr
-			: (void *) &((struct sockaddr_in6 *) runp->ai_addr)->sin6_addr,
-			buf, sizeof (buf));
+		(void) getnameinfo (runp->ai_addr, runp->ai_addrlen, buf, sizeof (buf), NULL, 0, NI_NUMERICHOST);
 		DIAG_POP_IGNORE_CAST_ALIGN;
 
-		if (are_addresses_equal(buf, tok, netmask_ptr))
+		for (runp1 = ai; runp1 != NULL; runp1 = runp1->ai_next)
 		  {
-		    return YES;
+		    char buf1[INET6_ADDRSTRLEN];
+
+		    if (runp->ai_family != runp1->ai_family)
+		      continue;
+
+		    (void) getnameinfo (runp1->ai_addr, runp1->ai_addrlen, buf1, sizeof (buf1), NULL, 0, NI_NUMERICHOST);
+
+		    if (are_addresses_equal (buf, buf1, netmask_ptr))
+		      {
+			freeaddrinfo(ai);
+			return YES;
+		      }
 		  }
 		runp = runp->ai_next;
 	      }
 	  }
       }
     else
-      return (are_addresses_equal(string, tok, netmask_ptr));
+      {
+	struct addrinfo *runp1;
+
+	for (runp1 = ai; runp1 != NULL; runp1 = runp1->ai_next)
+	  {
+	    char buf1[INET6_ADDRSTRLEN];
+
+	    (void) getnameinfo (runp1->ai_addr, runp1->ai_addrlen, buf1, sizeof (buf1), NULL, 0, NI_NUMERICHOST);
+
+	    if (are_addresses_equal(string, buf1, netmask_ptr))
+	      {
+		freeaddrinfo(ai);
+		return YES;
+	      }
+	  }
+      }
+
+  freeaddrinfo(ai);
 
   return NO;
 }
