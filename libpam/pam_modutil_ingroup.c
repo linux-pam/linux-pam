@@ -83,11 +83,16 @@ pam_modutil_user_in_group_nam_nam(pam_handle_t *pamh,
 {
 	struct passwd *pwd;
 	struct group *grp;
+	int result;
 
 	pwd = pam_modutil_getpwnam(pamh, user);
 	grp = pam_modutil_getgrnam(pamh, group);
 
-	return pam_modutil_user_in_group_common(pamh, pwd, grp);
+	result = pam_modutil_user_in_group_common(pamh, pwd, grp);
+	free(pwd);
+	free(grp);
+
+	return result;
 }
 
 int
@@ -96,11 +101,16 @@ pam_modutil_user_in_group_nam_gid(pam_handle_t *pamh,
 {
 	struct passwd *pwd;
 	struct group *grp;
+	int result;
 
 	pwd = pam_modutil_getpwnam(pamh, user);
 	grp = pam_modutil_getgrgid(pamh, group);
 
-	return pam_modutil_user_in_group_common(pamh, pwd, grp);
+	result = pam_modutil_user_in_group_common(pamh, pwd, grp);
+	free(pwd);
+	free(grp);
+
+	return result;
 }
 
 int
@@ -109,11 +119,16 @@ pam_modutil_user_in_group_uid_nam(pam_handle_t *pamh,
 {
 	struct passwd *pwd;
 	struct group *grp;
+	int result;
 
 	pwd = pam_modutil_getpwuid(pamh, user);
 	grp = pam_modutil_getgrnam(pamh, group);
 
-	return pam_modutil_user_in_group_common(pamh, pwd, grp);
+	result = pam_modutil_user_in_group_common(pamh, pwd, grp);
+	free(pwd);
+	free(grp);
+
+	return result;
 }
 
 int
@@ -122,9 +137,14 @@ pam_modutil_user_in_group_uid_gid(pam_handle_t *pamh,
 {
 	struct passwd *pwd;
 	struct group *grp;
+	int result;
 
 	pwd = pam_modutil_getpwuid(pamh, user);
 	grp = pam_modutil_getgrgid(pamh, group);
 
-	return pam_modutil_user_in_group_common(pamh, pwd, grp);
+	result = pam_modutil_user_in_group_common(pamh, pwd, grp);
+	free(pwd);
+	free(grp);
+
+	return result;
 }
