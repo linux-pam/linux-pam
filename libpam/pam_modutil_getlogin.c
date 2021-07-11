@@ -10,7 +10,11 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include <utmp.h>
+#ifdef HAVE_UTMPX_H
+# include <utmpx.h>
+#else
+# include <utmp.h>
+#endif
 
 #define _PAMMODUTIL_GETLOGIN "_pammodutil_getlogin"
 
@@ -22,7 +26,11 @@ pam_modutil_getlogin(pam_handle_t *pamh)
     const void *void_curr_tty;
     const char *curr_tty;
     char *curr_user;
+#ifdef HAVE_UTMPX_H
+    struct utmpx *ut, line;
+#else
     struct utmp *ut, line;
+#endif
 
     status = pam_get_data(pamh, _PAMMODUTIL_GETLOGIN, &logname);
     if (status == PAM_SUCCESS) {
@@ -48,10 +56,18 @@ pam_modutil_getlogin(pam_handle_t *pamh)
     }
     logname = NULL;
 
+#ifdef HAVE_UTMPX_H
+    setutxent();
+#else
     setutent();
+#endif
     strncpy(line.ut_line, curr_tty, sizeof(line.ut_line));
 
+#ifdef HAVE_UTMPX_H
+    if ((ut = getutxline(&line)) == NULL) {
+#else
     if ((ut = getutline(&line)) == NULL) {
+#endif
 	goto clean_up_and_go_home;
     }
 
@@ -74,7 +90,11 @@ pam_modutil_getlogin(pam_handle_t *pamh)
 
 clean_up_and_go_home:
 
+#ifdef HAVE_UTMPX_H
+    endutxent();
+#else
     endutent();
+#endif
 
     return logname;
 }
