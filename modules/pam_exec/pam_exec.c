@@ -96,6 +96,8 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   int quiet_log = 0;
   int expose_authtok = 0;
   int use_stdout = 0;
+  int use_interactive = 0;
+  int pipe_stdin = 0;
   int optargc;
   const char *logfile = NULL;
   char authtok[PAM_MAX_RESP_SIZE] = {};
@@ -123,6 +125,8 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	debug = 1;
       else if (strcasecmp (argv[optargc], "stdout") == 0)
 	use_stdout = 1;
+      else if (strcasecmp (argv[optargc], "interactive") == 0)
+	use_interactive = 1;
       else if ((str = pam_str_skip_icase_prefix (argv[optargc], "log=")) != NULL)
 	logfile = str;
       else if ((str = pam_str_skip_icase_prefix (argv[optargc], "type=")) != NULL)
@@ -152,6 +156,29 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       return retval;
     }
 
+  if (use_interactive)
+    {
+      if (strcmp (pam_type, "auth") != 0)
+        {
+          pam_syslog (pamh, LOG_ERR,
+                      "interactive not supported for type %s", pam_type);
+          use_interactive = 0;
+        }
+      else if (expose_authtok)
+        {
+          pam_syslog (pamh, LOG_ERR,
+                      "interactive is not compatible with expose_authtok");
+          use_interactive = 0;
+        }
+      else if (!use_stdout)
+        {
+          pam_syslog (pamh, LOG_ERR, "interactive requires stdout mode");
+          use_interactive = 0;
+        }
+      else
+        pipe_stdin = 1;
+    }
+
   if (expose_authtok == 1)
     {
       if (strcmp (pam_type, "auth") != 0)
@@ -163,6 +190,8 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       else
 	{
 	  const void *void_pass;
+
+          pipe_stdin = 1;
 
 	  retval = pam_get_item (pamh, PAM_AUTHTOK, &void_pass);
 	  if (retval != PAM_SUCCESS)
@@ -197,13 +226,16 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	    }
 	  else
 	    strncpy (authtok, void_pass, sizeof(authtok) - 1);
-
-	  if (pipe(fds) != 0)
-	    {
-	      pam_syslog (pamh, LOG_ERR, "Could not create pipe: %m");
-	      return PAM_SYSTEM_ERR;
-	    }
 	}
+    }
+
+  if (pipe_stdin)
+    {
+      if (pipe(fds) != 0)
+        {
+          pam_syslog (pamh, LOG_ERR, "Could not create pipe: %m");
+          return PAM_SYSTEM_ERR;
+        }
     }
 
   if (use_stdout)
@@ -233,14 +265,22 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
     {
       int status = 0;
       pid_t rc;
+      int was_error = PAM_SUCCESS;
+
+      if (use_stdout)
+        close(stdout_fds[1]);
 
       if (expose_authtok) /* send the password to the child */
 	{
 	  if (debug)
 	    pam_syslog (pamh, LOG_DEBUG, "send password to child");
 	  if (write(fds[1], authtok, strlen(authtok)) == -1)
-	    pam_syslog (pamh, LOG_ERR,
-			      "sending password to child failed: %m");
+            {
+              pam_syslog (pamh, LOG_ERR,
+                                "sending password to child failed: %m");
+              was_error = PAM_SYSTEM_ERR;
+              goto finish;
+            }
 
           close(fds[0]);       /* close here to avoid possible SIGPIPE above */
           close(fds[1]);
@@ -249,24 +289,88 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       if (use_stdout)
 	{
 	  char buf[4096];
-	  close(stdout_fds[1]);
 	  while (fgets(buf, sizeof(buf), stdout_file) != NULL)
 	    {
 	      size_t len;
 	      len = strlen(buf);
-	      if (buf[len-1] == '\n')
-		buf[len-1] = '\0';
+
+	      if (buf[len-1] != '\n')
+                {
+                  pam_syslog (pamh, LOG_ERR, "message from child is too long");
+                  was_error = PAM_SYSTEM_ERR;
+                  goto finish;
+                }
+
+              buf[len-1] = '\0';
+
+              /* if string begins with "<<" - child asks for prompt */
+              if (use_interactive && buf[0] == '<' && buf[1] == '<')
+                {
+                  char *resp = NULL;
+
+                  if (debug)
+                    pam_syslog (pamh, LOG_DEBUG, "child asked for prompt");
+
+                  retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF,
+                                       &resp, "%s", buf+2);
+
+                  if (retval != PAM_SUCCESS)
+                    {
+                      _pam_drop (resp);
+                      if (retval == PAM_CONV_AGAIN)
+                        was_error = PAM_PERM_DENIED;
+                      else
+                        was_error = retval;
+                      goto finish;
+                    }
+
+                  if (!resp)
+                    {
+                      was_error = PAM_PERM_DENIED;
+                      goto finish;
+                    }
+
+                  if (debug)
+                    pam_syslog (pamh, LOG_DEBUG, "send response to child: %s", resp);
+
+                  if (write(fds[1], resp, strlen(resp)) == -1 ||
+                      write(fds[1], "\n", 1) == -1)
+                    {
+                      _pam_drop (resp);
+                      pam_syslog (pamh, LOG_ERR,
+                                  "sending response to child failed: %m");
+                      was_error = PAM_SYSTEM_ERR;
+                      goto finish;
+                    }
+
+                  _pam_drop (resp);
+                  continue;
+                }
+
 	      pam_info(pamh, "%s", buf);
 	    }
-	  fclose(stdout_file);
 	}
+
+      finish:
+
+      if (was_error != PAM_SUCCESS) /* kill child in case of error */
+        kill(pid, SIGTERM);
+
+      if (use_stdout)
+        fclose(stdout_file);
+
+      if (pipe_stdin)
+        {
+          close(fds[0]);       /* close here to avoid possible SIGPIPE above */
+          close(fds[1]);
+        }
 
       while ((rc = waitpid (pid, &status, 0)) == -1 &&
 	     errno == EINTR);
       if (rc == (pid_t)-1)
 	{
 	  pam_syslog (pamh, LOG_ERR, "waitpid returns with -1: %m");
-	  return PAM_SYSTEM_ERR;
+	  return was_error == PAM_SUCCESS ? PAM_SYSTEM_ERR : was_error;
 	}
       else if (status != 0)
 	{
@@ -278,6 +382,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 		if (!quiet)
 	      pam_error (pamh, _("%s failed: exit code %d"),
 			 argv[optargc], WEXITSTATUS(status));
+              was_error = PAM_PERM_DENIED;
 	    }
 	  else if (WIFSIGNALED(status))
 	    {
@@ -299,9 +404,9 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	      pam_error (pamh, _("%s failed: unknown status 0x%x"),
 			 argv[optargc], status);
 	    }
-	  return PAM_SYSTEM_ERR;
+	  return was_error == PAM_SUCCESS ? PAM_SYSTEM_ERR : was_error;
 	}
-      return PAM_SUCCESS;
+      return was_error;
     }
   else /* child */
     {
@@ -311,14 +416,14 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       int envlen, nitems;
       char *envstr;
       enum pam_modutil_redirect_fd redirect_stdin =
-	      expose_authtok ? PAM_MODUTIL_IGNORE_FD : PAM_MODUTIL_PIPE_FD;
+	      pipe_stdin ? PAM_MODUTIL_IGNORE_FD : PAM_MODUTIL_PIPE_FD;
       enum pam_modutil_redirect_fd redirect_stdout =
 	      (use_stdout || logfile) ? PAM_MODUTIL_IGNORE_FD : PAM_MODUTIL_NULL_FD;
 
       /* First, move all the pipes off of stdin, stdout, and stderr, to ensure
        * that calls to dup2 won't close them. */
 
-      if (expose_authtok)
+      if (pipe_stdin)
 	{
 	  fds[0] = move_fd_to_non_stdio(pamh, fds[0]);
 	  close(fds[1]);
@@ -332,7 +437,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 
       /* Set up stdin. */
 
-      if (expose_authtok)
+      if (pipe_stdin)
 	{
 	  /* reopen stdin as pipe */
 	  if (dup2(fds[0], STDIN_FILENO) == -1)
