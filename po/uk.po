@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 18:00+0000\n"
+"POT-Creation-Date: 2021-07-20 20:00+0000\n"
 "PO-Revision-Date: 2020-05-02 09:40+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/linux-"
@@ -24,8 +24,8 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.0.1\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:178
-#: modules/pam_userdb/pam_userdb.c:55
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
+#: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "Пароль: "
 
@@ -218,22 +218,22 @@ msgstr "...Вибачте, ваш час закінчився!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "помилкова розмова (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:275
+#: modules/pam_exec/pam_exec.c:279
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "Помилка %s: коди виходу %d"
 
-#: modules/pam_exec/pam_exec.c:284
+#: modules/pam_exec/pam_exec.c:289
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "Помилка %s: отримано сигнал %d%s"
 
-#: modules/pam_exec/pam_exec.c:293
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "Помилка %s: невідомий стан 0x%x"
 
-#: modules/pam_faillock/main.c:104
+#: modules/pam_faillock/main.c:103
 #, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
@@ -241,12 +241,22 @@ msgstr ""
 "Користування: %s [--dir /шлях/до/каталогу/tally] [--user ім'я користувача] "
 "[--reset]\n"
 
-#: modules/pam_faillock/pam_faillock.c:614
+#: modules/pam_faillock/pam_faillock.c:618
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "Обліковий запис заблоковано через %u помилок під час спроби входу."
 
-#: modules/pam_faillock/pam_faillock.c:619
+#: modules/pam_faillock/pam_faillock.c:627
+#: modules/pam_faillock/pam_faillock.c:633
+#, fuzzy, c-format
+msgid "(%d minute left to unlock)"
+msgid_plural "(%d minutes left to unlock)"
+msgstr[0] "(лишилося %d хвилин до розблокування)"
+msgstr[1] "(лишилося %d хвилин до розблокування)"
+msgstr[2] "(лишилося %d хвилин до розблокування)"
+
+#. TRANSLATORS: only used if dngettext is not supported.
+#: modules/pam_faillock/pam_faillock.c:636
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(лишилося %d хвилин до розблокування)"
@@ -307,7 +317,7 @@ msgstr ""
 "Після останнього успішного входу було виконано %d спроби входу, які "
 "завершилися помилками."
 
-#: modules/pam_limits/pam_limits.c:1115
+#: modules/pam_limits/pam_limits.c:1164
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Забагато входів в для «%s»."
@@ -348,12 +358,12 @@ msgstr "У теці %s є старі поштові повідомлення."
 msgid "You have mail in folder %s."
 msgstr "У теці %s є поштові повідомлення."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:107
+#: modules/pam_mkhomedir/pam_mkhomedir.c:123
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Створення каталогу «%s»."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:174
+#: modules/pam_mkhomedir/pam_mkhomedir.c:206
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Не вдалося створити і ініціалізувати каталог «%s»."
@@ -398,12 +408,12 @@ msgstr "Цей контекст безпеки є некоректним."
 msgid "A valid context for %s could not be obtained."
 msgstr "Не вдалося отримати коректний контекст для %s."
 
-#: modules/pam_selinux/pam_selinux.c:629
+#: modules/pam_selinux/pam_selinux.c:640
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "Призначено контекст безпеки %s."
 
-#: modules/pam_selinux/pam_selinux.c:645
+#: modules/pam_selinux/pam_selinux.c:656
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Призначено контекст створення ключів %s."
@@ -423,7 +433,7 @@ msgstr "помилка pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "вхід: помилка розгалуження: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:354
+#: modules/pam_timestamp/pam_timestamp.c:361
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Надано доступ (остання спроба доступу сталася %ld секунд тому)."

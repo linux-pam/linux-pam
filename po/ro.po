@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 18:00+0000\n"
+"POT-Creation-Date: 2021-07-20 20:00+0000\n"
 "PO-Revision-Date: 2020-12-26 18:36+0000\n"
 "Last-Translator: Vlad <milovlad@outlook.com>\n"
 "Language-Team: Romanian <https://translate.fedoraproject.org/projects/linux-"
@@ -22,8 +22,8 @@ msgstr ""
 "20)) ? 1 : 2;\n"
 "X-Generator: Weblate 4.3.2\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:178
-#: modules/pam_userdb/pam_userdb.c:55
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
+#: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "Parolă: "
 
@@ -218,34 +218,44 @@ msgstr "...Timpul a expirat!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "conversație eronată (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:275
+#: modules/pam_exec/pam_exec.c:279
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s a eșuat: codul de terminare %d"
 
-#: modules/pam_exec/pam_exec.c:284
+#: modules/pam_exec/pam_exec.c:289
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s a eșuat: semnalul captat %d%s"
 
-#: modules/pam_exec/pam_exec.c:293
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s a eșuat: stare necunoscută 0x%x"
 
-#: modules/pam_faillock/main.c:104
+#: modules/pam_faillock/main.c:103
 #, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 msgstr ""
 "Utilizare: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
 
-#: modules/pam_faillock/pam_faillock.c:614
+#: modules/pam_faillock/pam_faillock.c:618
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "Contul este blocat deoarece %u nu a reușit să se autentifice."
 
-#: modules/pam_faillock/pam_faillock.c:619
+#: modules/pam_faillock/pam_faillock.c:627
+#: modules/pam_faillock/pam_faillock.c:633
+#, fuzzy, c-format
+msgid "(%d minute left to unlock)"
+msgid_plural "(%d minutes left to unlock)"
+msgstr[0] "(%d minute rămase până la deblocare)"
+msgstr[1] "(%d minute rămase până la deblocare)"
+msgstr[2] "(%d minute rămase până la deblocare)"
+
+#. TRANSLATORS: only used if dngettext is not supported.
+#: modules/pam_faillock/pam_faillock.c:636
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(%d minute rămase până la deblocare)"
@@ -306,7 +316,7 @@ msgstr ""
 "Au mai fost %d încercări nereușite de autentificare de la ultima "
 "autentificare reușită."
 
-#: modules/pam_limits/pam_limits.c:1115
+#: modules/pam_limits/pam_limits.c:1164
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Sunt prea multe autentificări pentru '%s'."
@@ -347,12 +357,12 @@ msgstr "Ai un mesaj vechi în directorul %s."
 msgid "You have mail in folder %s."
 msgstr "Ai un mesaj în directorul %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:107
+#: modules/pam_mkhomedir/pam_mkhomedir.c:123
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Crează directorul '%s'."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:174
+#: modules/pam_mkhomedir/pam_mkhomedir.c:206
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Nu se poate crea și inițializa directorul '%s'."
@@ -397,12 +407,12 @@ msgstr "Nu există un context valid de securitate."
 msgid "A valid context for %s could not be obtained."
 msgstr "Nu a putut fi obținut un context valid pentru %s."
 
-#: modules/pam_selinux/pam_selinux.c:629
+#: modules/pam_selinux/pam_selinux.c:640
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "Contextul de securitate %s a fost asignat."
 
-#: modules/pam_selinux/pam_selinux.c:645
+#: modules/pam_selinux/pam_selinux.c:656
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Cheia pentru crearea contextului %s a fost asignată."
@@ -422,7 +432,7 @@ msgstr "eroare la pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "autentificare: eroare la bifurcare %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:354
+#: modules/pam_timestamp/pam_timestamp.c:361
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Accesul a fost permis (ultimul acces a fost acum %ld secunde)."

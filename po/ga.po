@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2020-11-24 18:00+0000\n"
+"POT-Creation-Date: 2021-07-20 20:00+0000\n"
 "PO-Revision-Date: 2013-09-10 02:14-0400\n"
 "Last-Translator: leftmostcat <leftmostcat@gmail.com>\n"
 "Language-Team: Irish (http://www.transifex.com/projects/p/fedora/language/"
@@ -23,8 +23,8 @@ msgstr ""
 "4);\n"
 "X-Generator: Zanata 3.8.3\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:178
-#: modules/pam_userdb/pam_userdb.c:55
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
+#: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "Focal faire: "
 
@@ -223,22 +223,22 @@ msgstr "...Tá brón orm, tá do chuid ama imithe!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "comhrá earráideach (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:275
+#: modules/pam_exec/pam_exec.c:279
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "Theip %s: cód scortha %d"
 
-#: modules/pam_exec/pam_exec.c:284
+#: modules/pam_exec/pam_exec.c:289
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "Theip %s: fuarthas comhartha %d%s"
 
-#: modules/pam_exec/pam_exec.c:293
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "Theip %s: stádas anaithnid 0x%x"
 
-#: modules/pam_faillock/main.c:104
+#: modules/pam_faillock/main.c:103
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
@@ -246,12 +246,24 @@ msgstr ""
 "%s: [--file ainm-comhad-le-fréamh] [--user úsáideoir] [--reset[=u]]\n"
 "[--quiet]\n"
 
-#: modules/pam_faillock/pam_faillock.c:614
+#: modules/pam_faillock/pam_faillock.c:618
 #, fuzzy, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "Cuireadh an cuntas faoi ghlas mar gheall ar %u logáil isteach teipthe"
 
-#: modules/pam_faillock/pam_faillock.c:619
+#: modules/pam_faillock/pam_faillock.c:627
+#: modules/pam_faillock/pam_faillock.c:633
+#, c-format
+msgid "(%d minute left to unlock)"
+msgid_plural "(%d minutes left to unlock)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+
+#. TRANSLATORS: only used if dngettext is not supported.
+#: modules/pam_faillock/pam_faillock.c:636
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr ""
@@ -318,7 +330,7 @@ msgstr ""
 "Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\n"
 "d'éirigh leis."
 
-#: modules/pam_limits/pam_limits.c:1115
+#: modules/pam_limits/pam_limits.c:1164
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "An iomarca logálacha isteach do '%s'."
@@ -360,12 +372,12 @@ msgstr "Tá seanphost agat i bhfillteán %s."
 msgid "You have mail in folder %s."
 msgstr "Tá post agat i bhfillteán %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:107
+#: modules/pam_mkhomedir/pam_mkhomedir.c:123
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Comhadlann '%s' á cruthú."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:174
+#: modules/pam_mkhomedir/pam_mkhomedir.c:206
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Ní féidir comhadlann '%s' a chruthú agus a thúsú."
@@ -411,12 +423,12 @@ msgstr "Ní comhthéacs bailí slándála é"
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:629
+#: modules/pam_selinux/pam_selinux.c:640
 #, fuzzy, c-format
 msgid "Security context %s has been assigned."
 msgstr "Sannadh Comhthéacs Slándála %s"
 
-#: modules/pam_selinux/pam_selinux.c:645
+#: modules/pam_selinux/pam_selinux.c:656
 #, fuzzy, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Sannadh Comhthéacs Chruthú Eochracha %s"
@@ -436,7 +448,7 @@ msgstr "theip ar pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "logáil isteach: theip ar dhéanamh foirc: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:354
+#: modules/pam_timestamp/pam_timestamp.c:361
 #, fuzzy, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Bronnadh rochtain (bhí an rochtain is déanaí %ld soicind ó shin)."
