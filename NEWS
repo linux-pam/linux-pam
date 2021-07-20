@@ -1,9 +1,19 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
-Release next
-* pam_timestamp: change hmac algorithm to call openssl instead of the bundled
-                 sha1 implementation if selected. Add option to select the hash
-                 algorithm to use with HMAC.
+Release 1.5.2
+* pam_exec: implemented quiet_log option.
+* pam_mkhomedir: added support of HOME_MODE and UMASK from /etc/login.defs.
+* pam_timestamp: changed hmac algorithm to call openssl instead of the bundled
+                 sha1 implementation if selected, added option to select
+                 the hash algorithm to use with HMAC.
+* Added pkgconfig files for provided libraries.
+* Added --with-systemdunitdir configure option to specify systemd unit
+  directory.
+* Added --with-misc-conv-bufsize configure option to specify the buffer size
+  in libpam_misc's misc_conv() function, raised the default value for this
+  parameter from 512 to 4096.
+* Multiple minor bug fixes, portability fixes, documentation improvements,
+  and translation updates.
 
 Release 1.5.1
 * pam_unix: fixed CVE-2020-27780 - authentication bypass when a user

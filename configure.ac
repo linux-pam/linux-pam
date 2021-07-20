@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([Linux-PAM], [1.5.1], , [Linux-PAM])
+AC_INIT([Linux-PAM], [1.5.2], , [Linux-PAM])
 AC_CONFIG_SRCDIR([conf/pam_conv1/pam_conv_y.y])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall -Wno-portability])
