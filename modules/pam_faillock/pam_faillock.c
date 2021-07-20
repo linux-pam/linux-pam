@@ -630,7 +630,6 @@ faillock_message(pam_handle_t *pamh, struct options *opts)
 				(int)left);
 #else
 			if (left == 1)
-				/* TRANSLATORS: only used if dngettext is not supported. */
 				pam_info(pamh, _("(%d minute left to unlock)"), (int)left);
 			else
 				/* TRANSLATORS: only used if dngettext is not supported. */
