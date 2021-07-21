@@ -5,22 +5,22 @@
 # Translators:
 # Roman Spirgi <bigant@fedoraproject.org>, 2012
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
-# Dmitry V. Levin <ldv@altlinux.org>, 2020.
+# Dmitry V. Levin <ldv@altlinux.org>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2020-07-05 23:52+0000\n"
+"PO-Revision-Date: 2021-07-21 13:28+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
-"Language-Team: German <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/de/>\n"
+"Language-Team: German <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.7.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
@@ -213,7 +213,7 @@ msgstr "...Zeit läuft ab...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "...Ihre Zeit ist abgelaufen.\n"
+msgstr "...Ihre Zeit ist abgelaufen!\n"
 
 #: libpam_misc/misc_conv.c:348
 #, c-format
@@ -250,10 +250,10 @@ msgstr "Das Konto ist wegen %u fehlgeschlagener Anmelde-Versuche gesperrt."
 
 #: modules/pam_faillock/pam_faillock.c:627
 #: modules/pam_faillock/pam_faillock.c:633
-#, fuzzy, c-format
+#, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
-msgstr[0] "(noch %d Minuten zum Entsperren)"
+msgstr[0] "(noch %d Minute zum Entsperren)"
 msgstr[1] "(noch %d Minuten zum Entsperren)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
