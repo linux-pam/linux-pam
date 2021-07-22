@@ -10,13 +10,13 @@
 # Marcelo Barbosa <firemanxbr@fedoraproject.org>, 2013
 # Taylon Silmer <taylonsilva@gmail.com>, 2008-2009
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
-# Dmitry V. Levin <ldv@altlinux.org>, 2020.
+# Dmitry V. Levin <ldv@altlinux.org>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2020-07-05 23:52+0000\n"
+"PO-Revision-Date: 2021-07-22 00:54+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/linux-pam/master/pt_BR/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.7.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
@@ -251,11 +251,11 @@ msgstr "Conta bloqueada devido a %u falhas de login."
 
 #: modules/pam_faillock/pam_faillock.c:627
 #: modules/pam_faillock/pam_faillock.c:633
-#, fuzzy, c-format
+#, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
-msgstr[0] "(minutos restantes para desbloquear: %d)"
-msgstr[1] "(minutos restantes para desbloquear: %d)"
+msgstr[0] "(%d minuto restante para desbloquear)"
+msgstr[1] "(%d minutos restante para desbloquear)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
 #: modules/pam_faillock/pam_faillock.c:636
