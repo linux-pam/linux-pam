@@ -10,22 +10,22 @@
 # Novell Language <language@novell.com>, 2007
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Milo Casagrande <milo@milo.name>, 2020.
-# Dmitry V. Levin <ldv@altlinux.org>, 2020.
+# Dmitry V. Levin <ldv@altlinux.org>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2020-09-11 14:29+0000\n"
-"Last-Translator: Milo Casagrande <milo@milo.name>\n"
-"Language-Team: Italian <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/it/>\n"
+"PO-Revision-Date: 2021-07-22 00:54+0000\n"
+"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
+"Language-Team: Italian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2.2\n"
+"X-Generator: Weblate 4.7.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
@@ -254,10 +254,10 @@ msgstr "Account bloccato a causa di %u accessi non riusciti."
 
 #: modules/pam_faillock/pam_faillock.c:627
 #: modules/pam_faillock/pam_faillock.c:633
-#, fuzzy, c-format
+#, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
-msgstr[0] "(%d minuti rimanenti per sbloccare)"
+msgstr[0] "(%d minuto rimanenti per sbloccare)"
 msgstr[1] "(%d minuti rimanenti per sbloccare)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
