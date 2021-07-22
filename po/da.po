@@ -6,21 +6,22 @@
 # Kris Thomsen <lakristho@gmail.com>, 2009,2012-2013
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # scootergrisen <scootergrisen@gmail.com>, 2020.
+# Dmitry V. Levin <ldv@altlinux.org>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2020-05-02 09:40+0000\n"
-"Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
-"Language-Team: Danish <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/da/>\n"
+"PO-Revision-Date: 2021-07-22 00:54+0000\n"
+"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
+"Language-Team: Danish <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0.1\n"
+"X-Generator: Weblate 4.7.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
@@ -245,10 +246,10 @@ msgstr "Konto låst på grund af %u fejlende logins."
 
 #: modules/pam_faillock/pam_faillock.c:627
 #: modules/pam_faillock/pam_faillock.c:633
-#, fuzzy, c-format
+#, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
-msgstr[0] "(%d minutter tilbage hvor der kan låses op)"
+msgstr[0] "(%d minut tilbage hvor der kan låses op)"
 msgstr[1] "(%d minutter tilbage hvor der kan låses op)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
