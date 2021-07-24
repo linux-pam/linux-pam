@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2021-07-21 10:43+0000\n"
-"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
+"PO-Revision-Date: 2021-07-24 10:04+0000\n"
+"Last-Translator: simmon <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/ko/>\n"
 "Language: ko\n"
@@ -248,7 +248,7 @@ msgstr "계정이 %u 로그인 실패로 인해 계정이 잠김 상태가 됩�
 
 #: modules/pam_faillock/pam_faillock.c:627
 #: modules/pam_faillock/pam_faillock.c:633
-#, fuzzy, c-format
+#, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
 msgstr[0] "(해제시까지 %d 분 남았습니다)"
