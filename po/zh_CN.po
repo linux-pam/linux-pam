@@ -10,13 +10,14 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
 # Charles Lee <lchopn@gmail.com>, 2020.
+# Chenbo Pan <panchenbo@uniontech.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2020-07-20 21:29+0000\n"
-"Last-Translator: Charles Lee <lchopn@gmail.com>\n"
+"PO-Revision-Date: 2021-08-02 02:19+0000\n"
+"Last-Translator: Chenbo Pan <panchenbo@uniontech.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/linux-pam/master/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -298,13 +299,13 @@ msgstr "最后一次失败的登录：%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] "最有一次成功登录后有 %d 次失败的登录尝试。"
+msgstr[0] "自上次成功登录以来，有%d 次失败的登录尝试。"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:631
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr "最有一次成功登录后有 %d 次失败的登录尝试。"
+msgstr "自上次成功登录以来，有%d 次失败的登录尝试。"
 
 #: modules/pam_limits/pam_limits.c:1164
 #, c-format
