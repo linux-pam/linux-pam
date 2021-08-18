@@ -12,21 +12,22 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Julien Humbert <julroy67@gmail.com>, 2020.
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
+# Jérôme Fenal <jfenal@free.fr>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2020-05-02 09:40+0000\n"
-"Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
-"Language-Team: French <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/fr/>\n"
+"PO-Revision-Date: 2021-08-18 09:04+0000\n"
+"Last-Translator: Jérôme Fenal <jfenal@free.fr>\n"
+"Language-Team: French <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0.1\n"
+"X-Generator: Weblate 4.7.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
@@ -261,10 +262,10 @@ msgstr "Le compte est temporairement verrouillé dû aux %u connexions échouée
 
 #: modules/pam_faillock/pam_faillock.c:627
 #: modules/pam_faillock/pam_faillock.c:633
-#, fuzzy, c-format
+#, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
-msgstr[0] "(%d minutes restantes pour déverrouiller)"
+msgstr[0] "(%d minute restante pour déverrouiller)"
 msgstr[1] "(%d minutes restantes pour déverrouiller)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
