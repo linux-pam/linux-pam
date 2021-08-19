@@ -245,8 +245,7 @@ PAMH_ARG_DECL(int get_account_info,
 			if (*spwdent == NULL) {
 #ifndef HELPER_COMPILE
 				/* still a chance the user can authenticate */
-				if (errno == EACCES || SELINUX_ENABLED)
-					return PAM_UNIX_RUN_HELPER;
+				return PAM_UNIX_RUN_HELPER;
 #endif
 				return PAM_AUTHINFO_UNAVAIL;
 			}
