@@ -363,8 +363,14 @@ AC_CHECK_HEADERS(crypt.h)
 
 BACKUP_LIBS=$LIBS
 LIBCRYPT=""
-AC_SEARCH_LIBS([crypt_gensalt_rn],[crypt])
-case "$ac_cv_search_crypt_gensalt_rn" in
+PKG_CHECK_MODULES([CRYPT], [libcrypt], [
+  CFLAGS="$CFLAGS $CRYPT_CFLAGS"
+  CPPFLAGS="$CPPFLAGS $CRYPT_CFLAGS"
+  LIBS="$LIBS $CRYPT_LIBS"
+  LIBCRYPT="$CRYPT_LIBS"
+], [
+  AC_SEARCH_LIBS([crypt_gensalt_rn],[crypt])
+  case "$ac_cv_search_crypt_gensalt_rn" in
 	-l*) LIBCRYPT="$ac_cv_search_crypt_gensalt_rn" ;;
 	no) AC_SEARCH_LIBS([crypt_r],[crypt])
 		case "$ac_cv_search_crypt_r" in
@@ -374,7 +380,8 @@ case "$ac_cv_search_crypt_gensalt_rn" in
 			-l*) LIBCRYPT="$ac_cv_search_crypt" ;;
 		esac ;;
 	esac ;;
-esac
+  esac
+])
 AC_CHECK_FUNCS([crypt_r])
 LIBS=$BACKUP_LIBS
 AC_SUBST(LIBCRYPT)
