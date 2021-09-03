@@ -447,7 +447,7 @@ PAMH_ARG_DECL(char * create_password_hash,
 		algoid = "$6$";
 	} else { /* must be crypt/bigcrypt */
 		char tmppass[9];
-		char *crypted;
+		char *hashed;
 
 		crypt_make_salt(salt, 2);
 		if (off(UNIX_BIGCRYPT, ctrl) && strlen(password) > 8) {
@@ -455,10 +455,10 @@ PAMH_ARG_DECL(char * create_password_hash,
 			tmppass[sizeof(tmppass)-1] = '\0';
 			password = tmppass;
 		}
-		crypted = bigcrypt(password, salt);
+		hashed = bigcrypt(password, salt);
 		memset(tmppass, '\0', sizeof(tmppass));
 		password = NULL;
-		return crypted;
+		return hashed;
 	}
 
 #if defined(CRYPT_GENSALT_IMPLEMENTS_AUTO_ENTROPY) && CRYPT_GENSALT_IMPLEMENTS_AUTO_ENTROPY

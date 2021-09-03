@@ -282,7 +282,7 @@ run_check_helper(pam_handle_t *pamh, const char *user,
   return retval;
 }
 
-/* This module saves the current crypted password in /etc/security/opasswd
+/* This module saves the current hashed password in /etc/security/opasswd
    and then compares the new password with all entries in this file. */
 
 int
