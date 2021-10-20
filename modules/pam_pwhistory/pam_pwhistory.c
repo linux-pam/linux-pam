@@ -69,6 +69,7 @@ struct options_t {
   int enforce_for_root;
   int remember;
   int tries;
+  const char *filename;
 };
 typedef struct options_t options_t;
 
@@ -104,13 +105,23 @@ parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
     options->enforce_for_root = 1;
   else if (pam_str_skip_icase_prefix(argv, "authtok_type=") != NULL)
     { /* ignore, for pam_get_authtok */; }
+  else if ((str = pam_str_skip_icase_prefix(argv, "file=")) != NULL)
+    {
+      if (*str != '/')
+        {
+          pam_syslog (pamh, LOG_ERR,
+                      "pam_pwhistory: file path should be absolute: %s", argv);
+        }
+      else
+        options->filename = str;
+    }
   else
     pam_syslog (pamh, LOG_ERR, "pam_pwhistory: unknown option: %s", argv);
 }
 
 static int
 run_save_helper(pam_handle_t *pamh, const char *user,
-		int howmany, int debug)
+		int howmany, const char *filename, int debug)
 {
   int retval, child;
   struct sigaction newsa, oldsa;
@@ -123,7 +134,7 @@ run_save_helper(pam_handle_t *pamh, const char *user,
   if (child == 0)
     {
       static char *envp[] = { NULL };
-      char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL };
+      char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
       if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_PIPE_FD,
           PAM_MODUTIL_PIPE_FD,
@@ -137,9 +148,10 @@ run_save_helper(pam_handle_t *pamh, const char *user,
       args[0] = (char *)PWHISTORY_HELPER;
       args[1] = (char *)"save";
       args[2] = (char *)user;
+      args[3] = (char *)filename;
       DIAG_POP_IGNORE_CAST_QUAL;
-      if (asprintf(&args[3], "%d", howmany) < 0 ||
-          asprintf(&args[4], "%d", debug) < 0)
+      if (asprintf(&args[4], "%d", howmany) < 0 ||
+          asprintf(&args[5], "%d", debug) < 0)
         {
           pam_syslog(pamh, LOG_ERR, "asprintf: %m");
           _exit(PAM_SYSTEM_ERR);
@@ -185,7 +197,7 @@ run_save_helper(pam_handle_t *pamh, const char *user,
 
 static int
 run_check_helper(pam_handle_t *pamh, const char *user,
-		 const char *newpass, int debug)
+		 const char *newpass, const char *filename, int debug)
 {
   int retval, child, fds[2];
   struct sigaction newsa, oldsa;
@@ -202,7 +214,7 @@ run_check_helper(pam_handle_t *pamh, const char *user,
   if (child == 0)
     {
       static char *envp[] = { NULL };
-      char *args[] = { NULL, NULL, NULL, NULL, NULL };
+      char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL };
 
       /* reopen stdin as pipe */
       if (dup2(fds[0], STDIN_FILENO) != STDIN_FILENO)
@@ -223,8 +235,9 @@ run_check_helper(pam_handle_t *pamh, const char *user,
       args[0] = (char *)PWHISTORY_HELPER;
       args[1] = (char *)"check";
       args[2] = (char *)user;
+      args[3] = (char *)filename;
       DIAG_POP_IGNORE_CAST_QUAL;
-      if (asprintf(&args[3], "%d", debug) < 0)
+      if (asprintf(&args[4], "%d", debug) < 0)
         {
           pam_syslog(pamh, LOG_ERR, "asprintf: %m");
           _exit(PAM_SYSTEM_ERR);
@@ -323,10 +336,10 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
       return PAM_SUCCESS;
     }
 
-  retval = save_old_pass (pamh, user, options.remember, options.debug);
+  retval = save_old_pass (pamh, user, options.remember, options.filename, options.debug);
 
   if (retval == PAM_PWHISTORY_RUN_HELPER)
-      retval = run_save_helper(pamh, user, options.remember, options.debug);
+      retval = run_save_helper(pamh, user, options.remember, options.filename, options.debug);
 
   if (retval != PAM_SUCCESS)
     return retval;
@@ -358,9 +371,9 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
       if (options.debug)
 	pam_syslog (pamh, LOG_DEBUG, "check against old password file");
 
-      retval = check_old_pass (pamh, user, newpass, options.debug);
+      retval = check_old_pass (pamh, user, newpass, options.filename, options.debug);
       if (retval == PAM_PWHISTORY_RUN_HELPER)
-	  retval = run_check_helper(pamh, user, newpass, options.debug);
+	  retval = run_check_helper(pamh, user, newpass, options.filename, options.debug);
 
       if (retval != PAM_SUCCESS)
 	{

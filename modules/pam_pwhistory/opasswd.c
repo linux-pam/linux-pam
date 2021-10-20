@@ -44,6 +44,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <limits.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
@@ -74,8 +75,7 @@
 #define RANDOM_DEVICE "/dev/urandom"
 #endif
 
-#define OLD_PASSWORDS_FILE SCONFIGDIR "/opasswd"
-#define TMP_PASSWORDS_FILE OLD_PASSWORDS_FILE".tmpXXXXXX"
+#define DEFAULT_OLD_PASSWORDS_FILE SCONFIGDIR "/opasswd"
 
 #define DEFAULT_BUFLEN 4096
 
@@ -142,7 +142,7 @@ compare_password(const char *newpass, const char *oldpass)
 
 /* Check, if the new password is already in the opasswd file.  */
 PAMH_ARG_DECL(int
-check_old_pass, const char *user, const char *newpass, int debug)
+check_old_pass, const char *user, const char *newpass, const char *filename, int debug)
 {
   int retval = PAM_SUCCESS;
   FILE *oldpf;
@@ -156,10 +156,13 @@ check_old_pass, const char *user, const char *newpass, int debug)
     return PAM_PWHISTORY_RUN_HELPER;
 #endif
 
-  if ((oldpf = fopen (OLD_PASSWORDS_FILE, "r")) == NULL)
+  const char *opasswd_file =
+	  (filename != NULL ? filename : DEFAULT_OLD_PASSWORDS_FILE);
+
+  if ((oldpf = fopen (opasswd_file, "r")) == NULL)
     {
       if (errno != ENOENT)
-	pam_syslog (pamh, LOG_ERR, "Cannot open %s: %m", OLD_PASSWORDS_FILE);
+	pam_syslog (pamh, LOG_ERR, "Cannot open %s: %m", opasswd_file);
       return PAM_SUCCESS;
     }
 
@@ -242,9 +245,8 @@ check_old_pass, const char *user, const char *newpass, int debug)
 }
 
 PAMH_ARG_DECL(int
-save_old_pass, const char *user, int howmany, int debug UNUSED)
+save_old_pass, const char *user, int howmany, const char *filename, int debug UNUSED)
 {
-  char opasswd_tmp[] = TMP_PASSWORDS_FILE;
   struct stat opasswd_stat;
   FILE *oldpf, *newpf;
   int newpf_fd;
@@ -255,6 +257,15 @@ save_old_pass, const char *user, int howmany, int debug UNUSED)
   int found = 0;
   struct passwd *pwd;
   const char *oldpass;
+
+  /* Define opasswd file and temp file for opasswd */
+  const char *opasswd_file =
+	  (filename != NULL ? filename : DEFAULT_OLD_PASSWORDS_FILE);
+  char opasswd_tmp[PATH_MAX];
+
+  if ((size_t) snprintf (opasswd_tmp, sizeof (opasswd_tmp), "%s.tmpXXXXXX",
+			 opasswd_file) >= sizeof (opasswd_tmp))
+    return PAM_BUF_ERR;
 
   pwd = pam_modutil_getpwnam (pamh, user);
   if (pwd == NULL)
@@ -285,24 +296,22 @@ save_old_pass, const char *user, int howmany, int debug UNUSED)
   if (oldpass == NULL || *oldpass == '\0')
     return PAM_SUCCESS;
 
-  if ((oldpf = fopen (OLD_PASSWORDS_FILE, "r")) == NULL)
+  if ((oldpf = fopen (opasswd_file, "r")) == NULL)
     {
       if (errno == ENOENT)
 	{
-	  pam_syslog (pamh, LOG_NOTICE, "Creating %s",
-		      OLD_PASSWORDS_FILE);
+	  pam_syslog (pamh, LOG_NOTICE, "Creating %s", opasswd_file);
 	  do_create = 1;
 	}
       else
 	{
-	  pam_syslog (pamh, LOG_ERR, "Cannot open %s: %m",
-		      OLD_PASSWORDS_FILE);
+	  pam_syslog (pamh, LOG_ERR, "Cannot open %s: %m", opasswd_file);
 	  return PAM_AUTHTOK_ERR;
 	}
     }
   else if (fstat (fileno (oldpf), &opasswd_stat) < 0)
     {
-      pam_syslog (pamh, LOG_ERR, "Cannot stat %s: %m", OLD_PASSWORDS_FILE);
+      pam_syslog (pamh, LOG_ERR, "Cannot stat %s: %m", opasswd_file);
       fclose (oldpf);
       return PAM_AUTHTOK_ERR;
     }
@@ -312,7 +321,7 @@ save_old_pass, const char *user, int howmany, int debug UNUSED)
   if (newpf_fd == -1)
     {
       pam_syslog (pamh, LOG_ERR, "Cannot create %s temp file: %m",
-		  OLD_PASSWORDS_FILE);
+		  opasswd_file);
       if (oldpf)
 	fclose (oldpf);
       return PAM_AUTHTOK_ERR;
@@ -321,23 +330,19 @@ save_old_pass, const char *user, int howmany, int debug UNUSED)
     {
       if (fchmod (newpf_fd, S_IRUSR|S_IWUSR) != 0)
 	pam_syslog (pamh, LOG_ERR,
-		    "Cannot set permissions of %s temp file: %m",
-		    OLD_PASSWORDS_FILE);
+		    "Cannot set permissions of %s temp file: %m", opasswd_file);
       if (fchown (newpf_fd, 0, 0) != 0)
 	pam_syslog (pamh, LOG_ERR,
-		    "Cannot set owner/group of %s temp file: %m",
-		    OLD_PASSWORDS_FILE);
+		    "Cannot set owner/group of %s temp file: %m", opasswd_file);
     }
   else
     {
       if (fchmod (newpf_fd, opasswd_stat.st_mode) != 0)
 	pam_syslog (pamh, LOG_ERR,
-		    "Cannot set permissions of %s temp file: %m",
-		    OLD_PASSWORDS_FILE);
+		    "Cannot set permissions of %s temp file: %m", opasswd_file);
       if (fchown (newpf_fd, opasswd_stat.st_uid, opasswd_stat.st_gid) != 0)
 	pam_syslog (pamh, LOG_ERR,
-		    "Cannot set owner/group of %s temp file: %m",
-		    OLD_PASSWORDS_FILE);
+		    "Cannot set owner/group of %s temp file: %m", opasswd_file);
     }
   newpf = fdopen (newpf_fd, "w+");
   if (newpf == NULL)
@@ -550,12 +555,20 @@ save_old_pass, const char *user, int howmany, int debug UNUSED)
       goto error_opasswd;
     }
 
-  unlink (OLD_PASSWORDS_FILE".old");
-  if (link (OLD_PASSWORDS_FILE, OLD_PASSWORDS_FILE".old") != 0 &&
+  char opasswd_backup[PATH_MAX];
+  if ((size_t) snprintf (opasswd_backup, sizeof (opasswd_backup), "%s.old",
+			 opasswd_file) >= sizeof (opasswd_backup))
+    {
+      retval = PAM_BUF_ERR;
+      goto error_opasswd;
+    }
+
+  unlink (opasswd_backup);
+  if (link (opasswd_file, opasswd_backup) != 0 &&
       errno != ENOENT)
     pam_syslog (pamh, LOG_ERR, "Cannot create backup file of %s: %m",
-		OLD_PASSWORDS_FILE);
-  rename (opasswd_tmp, OLD_PASSWORDS_FILE);
+		opasswd_file);
+  rename (opasswd_tmp, opasswd_file);
  error_opasswd:
   unlink (opasswd_tmp);
   free (buf);

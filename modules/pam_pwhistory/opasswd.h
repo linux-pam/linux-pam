@@ -57,10 +57,10 @@ void
 helper_log_err(int err, const char *format, ...);
 #endif
 
-PAMH_ARG_DECL(int
-check_old_pass, const char *user, const char *newpass, int debug);
+PAMH_ARG_DECL(int check_old_pass, const char *user, const char *newpass,
+              const char *filename, int debug);
 
-PAMH_ARG_DECL(int
-save_old_pass, const char *user, int howmany, int debug);
+PAMH_ARG_DECL(int save_old_pass, const char *user, int howmany,
+              const char *filename, int debug);
 
 #endif /* __OPASSWD_H__ */
