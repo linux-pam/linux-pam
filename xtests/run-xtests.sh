@@ -18,10 +18,10 @@ all=0
 
 mkdir -p /etc/security
 for config in access.conf group.conf time.conf limits.conf ; do
-	cp /etc/security/$config /etc/security/$config-pam-xtests
+	[ -f "/etc/security/$config" ] && cp /etc/security/$config /etc/security/${config}-pam-xtests
 	install -m 644 "${SRCDIR}"/$config /etc/security/$config
 done
-mv /etc/security/opasswd /etc/security/opasswd-pam-xtests
+[ -f /etc/security/opasswd ] && mv /etc/security/opasswd /etc/security/opasswd-pam-xtests
 
 for testname in $XTESTS ; do
 	  for cfg in "${SRCDIR}"/$testname*.pamd ; do
@@ -47,11 +47,11 @@ for testname in $XTESTS ; do
 	  all=`expr $all + 1`
 	  rm -f /etc/pam.d/$testname*
 done
-mv /etc/security/access.conf-pam-xtests /etc/security/access.conf
-mv /etc/security/group.conf-pam-xtests /etc/security/group.conf
-mv /etc/security/time.conf-pam-xtests /etc/security/time.conf
-mv /etc/security/limits.conf-pam-xtests /etc/security/limits.conf
-mv /etc/security/opasswd-pam-xtests /etc/security/opasswd
+
+for configfile in access.conf group.conf time.conf limits.conf opasswd ; do
+	[ -f "/etc/security/${configfile}-pam-xtests" ] && mv /etc/security/${configfile}-pam-xtests /etc/security/${configfile}
+done
+
 if test "$failed" -ne 0; then
 	  echo "==================="
 	  echo "$failed of $all tests failed"
