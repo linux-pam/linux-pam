@@ -57,6 +57,12 @@
       If a config file is explicitly specified with a module option then the
       files in the above directory are not parsed.
     </para>
+    <para condition="with_vendordir">
+      If there is no explicitly specified configuration file and 
+      <filename>/etc/security/limits.conf</filename> does not exist,
+      <filename>%vendordir%/security/limits.conf</filename> is used.
+      If this file does not exist, too, an error is thrown.
+    </para>
     <para>
       The module must not be called by a multithreaded application.
     </para>
