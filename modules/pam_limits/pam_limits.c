@@ -817,21 +817,21 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
     fil = fopen(CONF_FILE, "r");
     if (fil == NULL) {
       int err = errno;
-#ifdef VENDORDIR
 
+#ifdef VENDORDIR
       /* if the specified file does not exist, and it is not provided by
-	 the user, try the vendor file as fallback. */
-      if (pl->conf_file == NULL)
-	fil = fopen(VENDORDIR"/security/limits.conf", "r");
+         the user, try the vendor file as fallback. */
+      if (pl->conf_file == NULL && err == ENOENT)
+        fil = fopen(VENDORDIR"/security/limits.conf", "r");
 
       if (fil == NULL)
 #endif
-	{
-	  pam_syslog (pamh, LOG_WARNING,
-		      "cannot read settings from %s: %s", CONF_FILE,
-		      strerror(err));
-	  return PAM_SERVICE_ERR;
-	}
+        {
+          pam_syslog (pamh, LOG_WARNING,
+                      "cannot read settings from %s: %s", CONF_FILE,
+                      strerror(err));
+          return PAM_SERVICE_ERR;
+        }
     }
 
     /* start the show */
