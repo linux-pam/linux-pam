@@ -158,15 +158,14 @@ closing hook for modules to affect the services available to a user.</para>
           </para>
         </listitem>
       </varlistentry>
-      <varlistentry>
+      <varlistentry condition="with_vendordir">
         <term><filename>%vendordir%/pam.d</filename></term>
         <listitem>
           <para>
             the <emphasis remap='B'>Linux-PAM</emphasis> vendor configuration
 	    directory. Files in <filename>/etc/pam.d</filename> and
 	    <filename>/usr/lib/pam.d</filename> override files with the same
-	    name in this directory. Only available if Linux-PAM was compiled
-	    with vendordir enabled.
+	    name in this directory.
           </para>
         </listitem>
       </varlistentry>

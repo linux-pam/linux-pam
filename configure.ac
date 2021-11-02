@@ -507,9 +507,9 @@ AC_ARG_ENABLE([vendordir],
 if test -n "$enable_vendordir"; then
   AC_DEFINE_UNQUOTED([VENDORDIR], ["$enable_vendordir"],
 		     [Directory for distribution provided configuration files])
-  STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir'"
+  STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir' --stringparam profile.condition 'with_vendordir'"
 else
-  STRINGPARAM_VENDORDIR="--stringparam vendordir '<vendordir>'"
+  STRINGPARAM_VENDORDIR="--stringparam profile.condition 'without_vendordir'"
 fi
 AC_SUBST([STRINGPARAM_VENDORDIR])
 
