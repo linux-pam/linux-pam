@@ -47,6 +47,10 @@
 #include <libaudit.h>
 #endif
 
+#ifndef PR_SET_NO_NEW_PRIVS
+# define PR_SET_NO_NEW_PRIVS 38 /* from <linux/prctl.h> */
+#endif
+
 /* Module defines */
 #define LINE_LENGTH 1024
 
