@@ -12,7 +12,7 @@ dist_man_MANS = pam_env.conf.5 pam_env.8 environment.5
 endif
 XMLS = README.xml pam_env.conf.5.xml pam_env.8.xml
 dist_check_SCRIPTS = tst-pam_env
-TESTS = $(dist_check_SCRIPTS)
+TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -26,6 +26,9 @@ endif
 
 securelib_LTLIBRARIES = pam_env.la
 pam_env_la_LIBADD = $(top_builddir)/libpam/libpam.la
+
+check_PROGRAMS = tst-pam_env-retval
+tst_pam_env_retval_LDADD = $(top_builddir)/libpam/libpam.la
 
 dist_secureconf_DATA = pam_env.conf
 dist_sysconf_DATA = environment
