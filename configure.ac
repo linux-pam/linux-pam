@@ -516,17 +516,17 @@ if test -n "$LIBSELINUX" ; then
     LIBS=$BACKUP_LIBS
 fi
 
+ECONF_CFLAGS=
+ECONF_LIBS=
 AC_ARG_ENABLE([econf],
   AS_HELP_STRING([--disable-econf], [do not use libeconf]),
-  [WITH_ECONF=$enableval], WITH_ECONF=yes)
-if test "$WITH_ECONF" = "yes" ; then
-  AC_CHECK_LIB([econf],[econf_readDirsWithCallback],[ECONF_LIBS="-leconf"],[ECONF_LIBS=""])
-  if test -n "$ECONF_LIBS" ; then
-    ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"
-  fi
+  [WITH_ECONF=$enableval], [WITH_ECONF=yes])
+if test "$WITH_ECONF" = "yes"; then
+  PKG_CHECK_MODULES([ECONF], [libeconf >= 0.5.0], [ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"], [:])
 fi
 AC_SUBST([ECONF_CFLAGS])
 AC_SUBST([ECONF_LIBS])
+
 AC_ARG_ENABLE([vendordir],
   AS_HELP_STRING([--enable-vendordir=DIR], [Directory for distribution provided configuration files]),,[])
 if test -n "$enable_vendordir"; then

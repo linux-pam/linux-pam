@@ -7,6 +7,9 @@
  */
 
 #define DEFAULT_ETC_ENVFILE     "/etc/environment"
+#ifdef VENDORDIR
+#define VENDOR_DEFAULT_ETC_ENVFILE (VENDORDIR "/etc/environment")
+#endif
 #define DEFAULT_READ_ENVFILE    1
 
 #define DEFAULT_USER_ENVFILE    ".pam_environment"
@@ -25,6 +28,9 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#ifdef USE_ECONF
+#include <libeconf.h>
+#endif
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
@@ -42,6 +48,9 @@ typedef struct var {
 } VAR;
 
 #define DEFAULT_CONF_FILE	(SCONFIGDIR "/pam_env.conf")
+#ifdef VENDOR_SCONFIGDIR
+#define VENDOR_DEFAULT_CONF_FILE (VENDOR_SCONFIGDIR "/pam_env.conf")
+#endif
 
 #define BUF_SIZE 8192
 #define MAX_ENV  8192
@@ -56,6 +65,16 @@ typedef struct var {
 /* This is a special value used to designate an empty string */
 static char quote='\0';
 
+static void free_string_array(char **array)
+{
+    if (array == NULL)
+      return;
+    for (char **entry = array; *entry != NULL; ++entry) {
+      free(*entry);
+    }
+    free(array);
+}
+
 /* argument parsing */
 
 #define PAM_DEBUG_ARG       0x01
@@ -68,10 +87,10 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
     int ctrl=0;
 
     *user_envfile = DEFAULT_USER_ENVFILE;
-    *envfile = DEFAULT_ETC_ENVFILE;
+    *envfile = NULL;
     *readenv = DEFAULT_READ_ENVFILE;
     *user_readenv = DEFAULT_USER_READ_ENVFILE;
-    *conffile = DEFAULT_CONF_FILE;
+    *conffile = NULL;
 
     /* step through arguments */
     for (; argc-- > 0; ++argv) {
@@ -118,6 +137,148 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
 
     return ctrl;
 }
+
+#ifdef USE_ECONF
+
+#define ENVIRONMENT "environment"
+#define PAM_ENV "pam_env"
+
+static int
+isDirectory(const char *path) {
+   struct stat statbuf;
+   if (stat(path, &statbuf) != 0)
+       return 0;
+   return S_ISDIR(statbuf.st_mode);
+}
+
+static int
+econf_read_file(const pam_handle_t *pamh, const char *filename, const char *delim,
+			   const char *name, const char *suffix, const char *subpath,
+			   char ***lines)
+{
+    econf_file *key_file = NULL;
+    econf_err error;
+    size_t key_number = 0;
+    char **keys = NULL;
+    const char *base_dir = "";
+
+    if (filename != NULL) {
+      if (isDirectory(filename)) {
+	/* Set base directory which can be different from root */
+	D(("filename argument is a directory: %s", filename));
+	base_dir = filename;
+      } else {
+	/* Read only one file */
+	error = econf_readFile (&key_file, filename, delim, "#");
+	D(("File name is: %s", filename));
+	if (error != ECONF_SUCCESS) {
+	  pam_syslog(pamh, LOG_ERR, "Unable to open env file: %s: %s", filename,
+		     econf_errString(error));
+          if (error == ECONF_NOFILE)
+            return PAM_IGNORE;
+          else
+            return PAM_ABORT;
+	}
+      }
+    }
+    if (filename == NULL || base_dir[0] != '\0') {
+      /* Read and merge all setting in e.g. /usr/etc and /etc */
+      char *vendor_dir = NULL, *sysconf_dir;
+      if (subpath != NULL && subpath[0] != '\0') {
+#ifdef VENDORDIR
+	if (asprintf(&vendor_dir, "%s%s/%s/", base_dir, VENDORDIR, subpath) < 0) {
+	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+	  return PAM_BUF_ERR;
+	}
+#endif
+	if (asprintf(&sysconf_dir, "%s%s/%s/", base_dir, SYSCONFDIR, subpath) < 0) {
+	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+	  free(vendor_dir);
+	  return PAM_BUF_ERR;
+	}
+      } else {
+#ifdef VENDORDIR
+	if (asprintf(&vendor_dir, "%s%s/", base_dir, VENDORDIR) < 0) {
+	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+	  return PAM_BUF_ERR;
+	}
+#endif
+	if (asprintf(&sysconf_dir, "%s%s/", base_dir, SYSCONFDIR) < 0) {
+	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+	  free(vendor_dir);
+	  return PAM_BUF_ERR;
+	}
+      }
+
+      D(("Read configuration from directory %s and %s", vendor_dir, sysconf_dir));
+      error = econf_readDirs (&key_file, vendor_dir, sysconf_dir, name, suffix,
+			      delim, "#");
+      free(vendor_dir);
+      free(sysconf_dir);
+      if (error != ECONF_SUCCESS) {
+        if (error == ECONF_NOFILE) {
+	  pam_syslog(pamh, LOG_ERR, "Configuration file not found: %s%s", name, suffix);
+          return PAM_IGNORE;
+        } else {
+          char *error_filename = NULL;
+          uint64_t error_line = 0;
+
+          econf_errLocation(&error_filename, &error_line);
+          pam_syslog(pamh, LOG_ERR, "Unable to read configuration file %s line %ld: %s",
+                     error_filename,
+                     error_line,
+                     econf_errString(error));
+          free(error_filename);
+          return PAM_ABORT;
+	}
+      }
+    }
+
+    error = econf_getKeys(key_file, NULL, &key_number, &keys);
+    if (error != ECONF_SUCCESS && error != ECONF_NOKEY) {
+      pam_syslog(pamh, LOG_ERR, "Unable to read keys: %s",
+		 econf_errString(error));
+      econf_freeFile(key_file);
+      return PAM_ABORT;
+    }
+
+    *lines = malloc((key_number +1)* sizeof(char**));
+    if (*lines == NULL) {
+      pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+      econf_free(keys);
+      econf_freeFile(key_file);
+      return PAM_BUF_ERR;
+    }
+
+    (*lines)[key_number] = 0;
+
+    for (size_t i = 0; i < key_number; i++) {
+      char *val;
+
+      error = econf_getStringValue (key_file, NULL, keys[i], &val);
+      if (error != ECONF_SUCCESS) {
+	pam_syslog(pamh, LOG_ERR, "Unable to get string from key %s: %s",
+		   keys[i],
+		   econf_errString(error));
+      } else {
+        if (asprintf(&(*lines)[i],"%s%c%s", keys[i], delim[0], val) < 0) {
+	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+          econf_free(keys);
+          econf_freeFile(key_file);
+	  free_string_array(*lines);
+	  free (val);
+	  return PAM_BUF_ERR;
+	}
+	free (val);
+      }
+    }
+
+    econf_free(keys);
+    econf_free(key_file);
+    return PAM_SUCCESS;
+}
+
+#else
 
 /*
  * This is where we read a line of the PAM config file. The line may be
@@ -211,6 +372,52 @@ _assemble_line(FILE *f, char *buffer, int buf_len)
 
     return used;
 }
+
+static int read_file(const pam_handle_t *pamh, const char*filename, char ***lines)
+{
+    FILE *conf;
+    char buffer[BUF_SIZE];
+
+    D(("Parsed file name is: %s", filename));
+
+    if ((conf = fopen(filename,"r")) == NULL) {
+      pam_syslog(pamh, LOG_ERR, "Unable to open env file: %s", filename);
+      return PAM_IGNORE;
+    }
+
+    size_t i = 0;
+    *lines = malloc((i + 1)* sizeof(char**));
+    if (*lines == NULL) {
+      pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+      (void) fclose(conf);
+      return PAM_BUF_ERR;
+    }
+    (*lines)[i] = 0;
+    while (_assemble_line(conf, buffer, BUF_SIZE) > 0) {
+      char **tmp = NULL;
+      D(("Read line: %s", buffer));
+      tmp = realloc(*lines, (++i + 1) * sizeof(char**));
+      if (tmp == NULL) {
+	pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+	(void) fclose(conf);
+	free_string_array(*lines);
+	return PAM_BUF_ERR;
+      }
+      *lines = tmp;
+      (*lines)[i-1] = strdup(buffer);
+      if ((*lines)[i-1] == NULL) {
+        pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+        (void) fclose(conf);
+        free_string_array(*lines);
+        return PAM_BUF_ERR;
+      }
+      (*lines)[i] = 0;
+    }
+
+    (void) fclose(conf);
+    return PAM_SUCCESS;
+}
+#endif
 
 static int
 _parse_line(const pam_handle_t *pamh, const char *buffer, VAR *var)
@@ -626,34 +833,38 @@ static int
 _parse_config_file(pam_handle_t *pamh, int ctrl, const char *file)
 {
     int retval;
-    char buffer[BUF_SIZE];
-    FILE *conf;
     VAR Var, *var=&Var;
-
-    D(("Called."));
+    char **conf_list = NULL;
 
     var->name=NULL; var->defval=NULL; var->override=NULL;
 
-    D(("Config file name is: %s", file));
+    D(("Called."));
 
+#ifdef USE_ECONF
+    /* If "file" is not NULL, only this file will be parsed. */
+    retval = econf_read_file(pamh, file, " \t", PAM_ENV, ".conf", "security", &conf_list);
+#else
+    /* Only one file will be parsed. So, file has to be set. */
+    if (file == NULL) /* No filename has been set via argv. */
+      file = DEFAULT_CONF_FILE;
+#ifdef VENDOR_DEFAULT_CONF_FILE
     /*
-     * Lets try to open the config file, parse it and process
-     * any variables found.
-     */
-
-    if ((conf = fopen(file,"r")) == NULL) {
-      pam_syslog(pamh, LOG_ERR, "Unable to open config file: %s: %m", file);
-      return PAM_IGNORE;
+    * Check whether file is available.
+    * If it does not exist, fall back to VENDOR_DEFAULT_CONF_FILE file.
+    */
+    struct stat stat_buffer;
+    if (stat(file, &stat_buffer) != 0 && errno == ENOENT) {
+      file = VENDOR_DEFAULT_CONF_FILE;
     }
+#endif
+    retval = read_file(pamh, file, &conf_list);
+#endif
 
-    /* _pam_assemble_line will provide a complete line from the config file,
-     * with all comments removed and any escaped newlines fixed up
-     */
+    if (retval != PAM_SUCCESS)
+      return retval;
 
-    while (( retval = _assemble_line(conf, buffer, BUF_SIZE)) > 0) {
-      D(("Read line: %s", buffer));
-
-      if ((retval = _parse_line(pamh, buffer, var)) == GOOD_LINE) {
+    for (char **conf = conf_list; *conf != NULL; ++conf) {
+      if ((retval = _parse_line(pamh, *conf, var)) == GOOD_LINE) {
 	retval = _check_var(pamh, var);
 
 	if (DEFINE_VAR == retval) {
@@ -668,11 +879,10 @@ _parse_config_file(pam_handle_t *pamh, int ctrl, const char *file)
 
       _clean_var(var);
 
-    }  /* while */
-
-    (void) fclose(conf);
+    }  /* for */
 
     /* tidy up */
+    free_string_array(conf_list);
     _clean_var(var);        /* We could have got here prematurely,
 			     * this is safe though */
     D(("Exit."));
@@ -683,19 +893,33 @@ static int
 _parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
 {
     int retval=PAM_SUCCESS, i, t;
-    char buffer[BUF_SIZE], *key, *mark;
-    FILE *conf;
+    char *key, *mark;
+    char **env_list = NULL;
 
-    D(("Env file name is: %s", file));
-
-    if ((conf = fopen(file,"r")) == NULL) {
-      pam_syslog(pamh, LOG_ERR, "Unable to open env file: %s: %m", file);
-      return PAM_IGNORE;
+#ifdef USE_ECONF
+    retval = econf_read_file(pamh, file, "=", ENVIRONMENT, "", "", &env_list);
+#else
+    /* Only one file will be parsed. So, file has to be set. */
+    if (file == NULL) /* No filename has been set via argv. */
+      file = DEFAULT_ETC_ENVFILE;
+#ifdef VENDOR_DEFAULT_ETC_ENVFILE
+    /*
+    * Check whether file is available.
+    * If it does not exist, fall back to VENDOR_DEFAULT_ETC_ENVFILE; file.
+    */
+    struct stat stat_buffer;
+    if (stat(file, &stat_buffer) != 0 && errno == ENOENT) {
+      file = VENDOR_DEFAULT_ETC_ENVFILE;
     }
+#endif
+    retval = read_file(pamh, file, &env_list);
+#endif
 
-    while (_assemble_line(conf, buffer, BUF_SIZE) > 0) {
-	D(("Read line: %s", buffer));
-	key = buffer;
+    if (retval != PAM_SUCCESS)
+        return retval == PAM_IGNORE ? PAM_SUCCESS : retval;
+
+    for (char **env = env_list; *env != NULL; ++env) {
+        key = *env;
 
 	/* skip leading white space */
 	key += strspn(key, " \n\t");
@@ -767,11 +991,11 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
 	    pam_syslog(pamh, LOG_DEBUG,
 		       "pam_putenv(\"%s\")", key);
 	}
+	free(*env);
     }
 
-    (void) fclose(conf);
-
     /* tidy up */
+    free(env_list);
     D(("Exit."));
     return retval;
 }

@@ -52,13 +52,55 @@
       variables as well as <emphasis>PAM_ITEM</emphasis>s such as
       <emphasis>PAM_RHOST</emphasis>.
     </para>
-    <para>
+    <para condition="with_vendordir_and_with_econf">
+      Rules for (un)setting of variables can be defined in an own config
+      file. The path to this file can be specified with the
+      <emphasis>conffile</emphasis> option.
+      If this file does not exist, the default rules are taken from the
+      config files <filename>/etc/security/pam_env.conf</filename> and
+      <filename>/etc/security/pam_env.conf.d/*.conf</filename>.
+      If the file <filename>/etc/security/pam_env.conf</filename> does not
+      exist, the rules are taken from the files
+      <filename>%vendordir%/security/pam_env.conf</filename>,
+      <filename>%vendordir%/security/pam_env.conf.d/*.conf</filename> and
+      <filename>/etc/security/pam_env.conf.d/*.conf</filename> in that order.
+    </para>
+    <para condition="with_vendordir_and_without_econf">
+      By default rules for (un)setting of variables are taken from the
+      config file <filename>/etc/security/pam_env.conf</filename>.
+      If this file does not exist <filename>%vendordir%/security/pam_env.conf</filename> is used.
+      An alternate file can be specified with the <emphasis>conffile</emphasis>
+      option, which overrules all other files.
+    </para>
+    <para condition="without_vendordir">
       By default rules for (un)setting of variables are taken from the
       config file <filename>/etc/security/pam_env.conf</filename>. An
       alternate file can be specified with the <emphasis>conffile</emphasis>
       option.
     </para>
-    <para>
+    <para condition="with_vendordir_and_with_econf">
+      Environment variables can be defined in a file with simple <emphasis>KEY=VAL</emphasis>
+      pairs on separate lines. The path to this file can be specified with the
+      <emphasis>envfile</emphasis> option.
+      If this file has not been defined, the settings are read from the
+      files <filename>/etc/security/environment</filename> and
+      <filename>/etc/security/environment.d/*</filename>.
+      If the file <filename>/etc/environment</filename> does not exist, the
+      settings are read from the files <filename>%vendordir%/environment</filename>,
+      <filename>%vendordir%/environment.d/*</filename> and
+      <filename>/etc/environment.d/*</filename> in that order.
+      And last but not least, with the <emphasis>readenv</emphasis> option this mechanism can
+      be completely disabled.
+    </para>
+    <para condition="with_vendordir_and_without_econf">
+      Second a file (<filename>/etc/environment</filename> by default) with simple
+      <emphasis>KEY=VAL</emphasis> pairs on separate lines will be read.
+      If this file does not exist, <filename>%vendordir%/etc/environment</filename> is used.
+      With the <emphasis>envfile</emphasis> option an alternate file can be specified,
+      which overrules all other files.
+      And with the <emphasis>readenv</emphasis> option this can be completely disabled.
+    </para>
+    <para condition="without_vendordir">
       Second a file (<filename>/etc/environment</filename> by default) with simple
       <emphasis>KEY=VAL</emphasis> pairs on separate lines will be read.
       With the <emphasis>envfile</emphasis> option an alternate file can be specified.
@@ -224,12 +266,14 @@
     <title>FILES</title>
     <variablelist>
       <varlistentry>
+        <term condition="with_vendordir"><filename>/usr/etc/security/pam_env.conf</filename></term>
         <term><filename>/etc/security/pam_env.conf</filename></term>
         <listitem>
           <para>Default configuration file</para>
         </listitem>
       </varlistentry>
       <varlistentry>
+        <term condition="with_vendordir"><filename>/usr/etc/environment</filename></term>
         <term><filename>/etc/environment</filename></term>
         <listitem>
           <para>Default environment file</para>
