@@ -20,7 +20,15 @@
   <refsect1 id='pam_env.conf-description'>
     <title>DESCRIPTION</title>
 
-    <para>
+    <para condition="with_vendordir">
+      The <filename>/usr/etc/security/pam_env.conf</filename> and
+      <filename>/etc/security/pam_env.conf</filename> files specify
+      the environment variables to be set, unset or modified by
+      <citerefentry><refentrytitle>pam_env</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
+      When someone logs in, these files are read and the environment
+      variables are set according.
+    </para>
+    <para condition="without_vendordir">
       The <filename>/etc/security/pam_env.conf</filename> file specifies
       the environment variables to be set, unset or modified by
       <citerefentry><refentrytitle>pam_env</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
@@ -61,7 +69,15 @@
       at front) can be used to mark this line as a comment line.
     </para>
 
-    <para>
+    <para condition="with_vendordir">
+      The <filename>/usr/etc/environment</filename> and <filename>/etc/environment</filename> files specify
+      the environment variables to be set. These files must consist of simple
+      <emphasis>NAME=VALUE</emphasis> pairs on separate lines.
+      The <citerefentry><refentrytitle>pam_env</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+      module will read these files after the <filename>pam_env.conf</filename>
+      file.
+    </para>
+    <para condition="without_vendordir">
       The <filename>/etc/environment</filename> file specifies
       the environment variables to be set. The file must consist of simple
       <emphasis>NAME=VALUE</emphasis> pairs on separate lines.

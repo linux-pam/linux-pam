@@ -17,11 +17,18 @@
 
 #define MODULE_NAME "pam_env"
 #define TEST_NAME "tst-" MODULE_NAME "-retval"
+#define TEST_NAME_DIR TEST_NAME ".dir"
 
 static const char service_file[] = TEST_NAME ".service";
 static const char missing_file[] = TEST_NAME ".missing";
+static const char dir[] = TEST_NAME_DIR;
+static const char dir_usr[] = TEST_NAME_DIR "/usr";
+static const char dir_usr_etc[] = TEST_NAME_DIR "/usr/etc";
+static const char dir_usr_etc_security[] = TEST_NAME_DIR "/usr/etc/security";
 static const char my_conf[] = TEST_NAME ".conf";
 static const char my_env[] = TEST_NAME ".env";
+static const char usr_env[] = TEST_NAME_DIR "/usr/etc/environment";
+static const char usr_conf[] = TEST_NAME_DIR "/usr/etc/security/pam_env.conf";
 
 static struct pam_conv conv;
 
@@ -29,6 +36,11 @@ static void
 setup(void)
 {
 	FILE *fp;
+
+	ASSERT_EQ(0, mkdir(dir, 0755));
+	ASSERT_EQ(0, mkdir(dir_usr, 0755));
+	ASSERT_EQ(0, mkdir(dir_usr_etc, 0755));
+	ASSERT_EQ(0, mkdir(dir_usr_etc_security, 0755));
 
 	ASSERT_NE(NULL, fp = fopen(my_conf, "w"));
 	ASSERT_LT(0, fprintf(fp,
@@ -41,6 +53,18 @@ setup(void)
 			     "test_value=foo\n"
 			     "test2_value=bar\n"));
 	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(usr_env, "w"));
+	ASSERT_LT(0, fprintf(fp,
+			     "usr_etc_test=foo\n"
+			     "usr_etc_test2=bar\n"));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(usr_conf, "w"));
+	ASSERT_LT(0, fprintf(fp,
+			     "PAGER		DEFAULT=emacs\n"
+			     "MANPAGER		DEFAULT=less\n"));
+	ASSERT_EQ(0, fclose(fp));
 }
 
 static void
@@ -48,6 +72,12 @@ cleanup(void)
 {
 	ASSERT_EQ(0, unlink(my_conf));
 	ASSERT_EQ(0, unlink(my_env));
+	ASSERT_EQ(0, unlink(usr_env));
+	ASSERT_EQ(0, unlink(usr_conf));
+	ASSERT_EQ(0, rmdir(dir_usr_etc_security));
+	ASSERT_EQ(0, rmdir(dir_usr_etc));
+	ASSERT_EQ(0, rmdir(dir_usr));
+	ASSERT_EQ(0, rmdir(dir));
 }
 
 static void
@@ -190,6 +220,36 @@ main(void)
 
 	const char *env2[] = { "test_value=foo", "test2_value=bar", NULL };
 	check_env(env2);
+
+#if defined (USE_ECONF)	&& defined (VENDORDIR)
+
+	/* envfile is a directory. So values will be read from {TEST_NAME_DIR}/usr/etc and {TEST_NAME_DIR}/etc */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "session required %s/.libs/%s.so"
+			     " conffile=%s envfile=%s/%s/\n",
+			     cwd, MODULE_NAME,
+			     "/dev/null",
+			     cwd, dir));
+	ASSERT_EQ(0, fclose(fp));
+
+	const char *env3[] = {"usr_etc_test=foo", "usr_etc_test2=bar", NULL};
+	check_env(env3);
+
+	/* conffile is a directory. So values will be read from {TEST_NAME_DIR}/usr/etc and {TEST_NAME_DIR}/etc */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "session required %s/.libs/%s.so"
+			     " conffile=%s/%s/ envfile=%s\n",
+			     cwd, MODULE_NAME,
+			     cwd, dir,
+			     "/dev/null"));
+	ASSERT_EQ(0, fclose(fp));
+
+	const char *env4[] = {"PAGER=emacs", "MANPAGER=less", NULL};
+	check_env(env4);
+
+#endif
 
 	/* cleanup */
 	cleanup();
