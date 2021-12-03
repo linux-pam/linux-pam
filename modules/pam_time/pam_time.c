@@ -34,6 +34,9 @@
 #endif
 
 #define PAM_TIME_CONF	(SCONFIGDIR "/time.conf")
+#ifdef VENDOR_SCONFIGDIR
+#define VENDOR_PAM_TIME_CONF (VENDOR_SCONFIGDIR "/time.conf")
+#endif
 
 #define PAM_TIME_BUFLEN        1000
 #define FIELD_SEPARATOR        ';'   /* this is new as of .02 */
@@ -78,6 +81,19 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv, const char **
 	    pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
     }
+
+#ifdef VENDOR_PAM_TIME_CONF
+    if (*conffile == PAM_TIME_CONF) {
+	/*
+	 * Check whether PAM_TIME_CONF file is available.
+	 * If it does not exist, fall back to VENDOR_PAM_TIME_CONF file.
+	 */
+	struct stat buffer;
+	if (stat(*conffile, &buffer) != 0 && errno == ENOENT) {
+	    *conffile = VENDOR_PAM_TIME_CONF;
+	}
+    }
+#endif
 
     return ctrl;
 }

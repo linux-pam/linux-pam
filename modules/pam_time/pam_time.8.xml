@@ -51,6 +51,11 @@
       <filename>/etc/security/time.conf</filename>.
       An alternative file can be specified with the <emphasis>conffile</emphasis> option.
     </para>
+    <para condition="with_vendordir">
+      If there is no explicitly specified configuration file and
+      <filename>/etc/security/time.conf</filename> does not exist,
+      <filename>%vendordir%/security/time.conf</filename> is used.
+    </para>
     <para>
       If Linux PAM is compiled with audit support the module will report
       when it denies access.
