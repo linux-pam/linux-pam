@@ -12,7 +12,7 @@ dist_man_MANS = time.conf.5 pam_time.8
 endif
 XMLS = README.xml time.conf.5.xml pam_time.8.xml
 dist_check_SCRIPTS = tst-pam_time
-TESTS = $(dist_check_SCRIPTS)
+TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -27,6 +27,9 @@ pam_time_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
 securelib_LTLIBRARIES = pam_time.la
 dist_secureconf_DATA = time.conf
+
+check_PROGRAMS = tst-pam_time-retval
+tst_pam_time_retval_LDADD = $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
