@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2021-07-24 10:04+0000\n"
+"PO-Revision-Date: 2021-10-17 23:05+0000\n"
 "Last-Translator: simmon <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/ko/>\n"
@@ -23,52 +23,52 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7.2\n"
+"X-Generator: Weblate 4.8\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
-msgstr "암호: "
+msgstr "비밀번호: "
 
 #: libpam/pam_get_authtok.c:41
 #, c-format
 msgid "Current %s password: "
-msgstr "현재 %s 암호: "
+msgstr "현재 %s 비밀번호: "
 
 #: libpam/pam_get_authtok.c:42
 msgid "Current password: "
-msgstr "현재 암호: "
+msgstr "현재 비밀번호: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
 msgid "New %s password: "
-msgstr "새 %s 암호: "
+msgstr "신규 %s 비밀번호: "
 
 #: libpam/pam_get_authtok.c:45
 msgid "New password: "
-msgstr "새 암호: "
+msgstr "신규 비밀번호: "
 
 #: libpam/pam_get_authtok.c:47
 #, c-format
 msgid "Retype new %s password: "
-msgstr "새 %s 암호 다시 입력: "
+msgstr "신규 %s 비밀번호 재 입력: "
 
 #: libpam/pam_get_authtok.c:48
 msgid "Retype new password: "
-msgstr "새 암호 다시 입력: "
+msgstr "신규 비밀번호 재 입력: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
-msgstr "죄송합니다. 암호가 일치하지 않습니다."
+msgstr "죄송합니다, 비밀번호가 일치하지 않습니다."
 
 #: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
-msgstr "%s 다시 입력"
+msgstr "%s를 재입력합니다"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 msgid "Password change has been aborted."
-msgstr "암호 변경을 취소했습니다."
+msgstr "비밀번호 변경이 취소되었습니다."
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -84,7 +84,7 @@ msgstr "치명적인 오류 - 즉시 중지"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr "모듈 불러오기 실패"
+msgstr "모듈 적재에 실패함"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -112,7 +112,7 @@ msgstr "인증 실패"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr "인증 데이터 접근에 불충분한 인증 정보"
+msgstr "인증 자료 접근에 불충분한 인증 정보"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
@@ -120,7 +120,7 @@ msgstr "인증 서비스에서 인증 정보를 가져올 수 없습니다"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr "기본 인증 모듈에서 사용자를 알 수 없음"
+msgstr "기본 인증 모듈에서 알지 못하는 사용자"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
@@ -128,15 +128,15 @@ msgstr "서비스를 최대로 재시도함"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr "더 이상 인증 토큰이 유효하지 않습니다. 새로운 인증 토큰이 필요합니다"
+msgstr "인증 토큰이 더 이상 유효하지 않습니다; 새로운 것이 필요합니다"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
-msgstr "사용자 계정 만료"
+msgstr "사용자 계정이 만료됨"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr "특정 세션에 대해 항목을 생성/삭제할 수 없음"
+msgstr "특정 세션을 위한 항목을 생성/삭제 할 수 없음"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
@@ -144,7 +144,7 @@ msgstr "인증 서비스에서 사용자 인증을 읽을 수 없음"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr "사용자 인증 만료"
+msgstr "사용자 인증 만료됨"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
@@ -152,39 +152,39 @@ msgstr "사용자 인증 설정 실패"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
-msgstr "특정 모듈 데이터가 없음"
+msgstr "모듈 특정 자료가 없음"
 
 #: libpam/pam_strerror.c:80
 msgid "Bad item passed to pam_*_item()"
-msgstr "pam_*_item()에 잘못된 항목 전달"
+msgstr "pam_*_item()에 전달된 잘못된 항목"
 
 #: libpam/pam_strerror.c:82
 msgid "Conversation error"
-msgstr "인증 대화 오류"
+msgstr "대화 오류"
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
-msgstr "인증 토근 수정 오류"
+msgstr "인증 토근 조작 오류"
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
-msgstr "인증 정보를 복구할 수 없음"
+msgstr "인증 정보가 복구 될 수 없습니다"
 
 #: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
-msgstr "인증 토큰 잠금 장치 사용중"
+msgstr "인증 토큰 잠금 사용 중"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr "인증 토큰 기한이 비활성화됩니다"
+msgstr "인증 토큰 기한이 비활성화됨"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr "암호 서비스에서 사전 확인 실패"
+msgstr "비밀번호 서비스에서 사전 확인 실패함"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "복귀 값은 PAM 디스패치에 의해 무시됩니다"
+msgstr "반환 값은 PAM 긴급처리에서 무시됩니다"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
@@ -192,7 +192,7 @@ msgstr "모듈을 알 수 없음"
 
 #: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
-msgstr "인증 토큰 만료"
+msgstr "인증 토큰 만료됨"
 
 #: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
@@ -208,11 +208,11 @@ msgstr "알 수 없는 PAM 오류"
 
 #: libpam_misc/misc_conv.c:33
 msgid "...Time is running out...\n"
-msgstr "..시간 초과...\n"
+msgstr "...시간이 촉박합니다...\n"
 
 #: libpam_misc/misc_conv.c:34
 msgid "...Sorry, your time is up!\n"
-msgstr "...죄송합니다. 시간이 초과되었습니다!\n"
+msgstr "...미안합니다, 시간이 다 되었습니다!\n"
 
 #: libpam_misc/misc_conv.c:348
 #, c-format
@@ -222,17 +222,17 @@ msgstr "잘못된 인증 대화 (%d)\n"
 #: modules/pam_exec/pam_exec.c:279
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr "%s 실패: 종료 코드 %d"
+msgstr "%s 실패함: 종료 코드 %d"
 
 #: modules/pam_exec/pam_exec.c:289
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr "%s 실패: 신호 발견 %d%s"
+msgstr "%s 실패함: 신호 발견 %d%s"
 
 #: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr "%s 실패: 알 수 없는 상태 0x%x"
+msgstr "%s 실패함: 알 수 없는 상태 0x%x"
 
 #: modules/pam_faillock/main.c:103
 #, c-format
@@ -244,20 +244,20 @@ msgstr ""
 #: modules/pam_faillock/pam_faillock.c:618
 #, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "계정이 %u 로그인 실패로 인해 계정이 잠김 상태가 됩니다."
+msgstr "계정은 %u 실패된 로그인으로 인해 잠김 상태가 되었습니다."
 
 #: modules/pam_faillock/pam_faillock.c:627
 #: modules/pam_faillock/pam_faillock.c:633
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
-msgstr[0] "(해제시까지 %d 분 남았습니다)"
+msgstr[0] "(잠금 해제까지 %d 분 남았습니다)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
 #: modules/pam_faillock/pam_faillock.c:636
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr "(해제시까지 %d 분 남았습니다)"
+msgstr "(잠금해제까지 %d 분 남았습니다)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:318 modules/pam_lastlog/pam_lastlog.c:579
@@ -268,13 +268,13 @@ msgstr " %a %b %e %H:%M:%S %Z %Y"
 #: modules/pam_lastlog/pam_lastlog.c:327 modules/pam_lastlog/pam_lastlog.c:588
 #, c-format
 msgid " from %.*s"
-msgstr " %.*s에서 시작"
+msgstr " %.*s에서"
 
 #. TRANSLATORS: " on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:339 modules/pam_lastlog/pam_lastlog.c:600
 #, c-format
 msgid " on %.*s"
-msgstr " 일시 %.*s"
+msgstr " %.*s에"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:349
@@ -284,7 +284,7 @@ msgstr "마지막 로그인:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:355
 msgid "Welcome to your new account!"
-msgstr "새로운 계정을 사용해 주셔서 감사합니다!"
+msgstr "신규 계정에 오신 것을 환영합니다!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:610
@@ -297,82 +297,82 @@ msgstr "마지막 실패한 로그인:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] "마지막 로그인 후 %d 번의 로그인 시도가 실패하였습니다."
+msgstr[0] "마지막 로그인 이후에 %d 번의 실패한 로그인 시도가 있었습니다."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:631
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr "마지막 성공적인 로그인 이후에 %d번의 실패한 로그인 시도가 있었습니다."
+msgstr "마지막 로그인 이후에 %d 번의 실패한 로그인 시도가 있었습니다."
 
 #: modules/pam_limits/pam_limits.c:1164
 #, c-format
 msgid "There were too many logins for '%s'."
-msgstr "'%s' 대해 너무 많은 로그인 시도가 있었습니다."
+msgstr "'%s'를 위해 너무 많은 로그인 시도가 있었습니다."
 
 #: modules/pam_mail/pam_mail.c:289
 msgid "You have no mail."
-msgstr "새로운 전자우편이 없습니다."
+msgstr "전자우편이 없습니다."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
-msgstr "새로운 메일이 있습니다."
+msgstr "새로운 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
-msgstr "오래된 메일이 있습니다."
+msgstr "오래된 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
-msgstr "메일이 있습니다."
+msgstr "전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr "%s 폴더에 메일이 없습니다."
+msgstr "폴더 %s에 전자우편이 없습니다."
 
 #: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "%s에 새로운 메일이 있습니다."
+msgstr "폴더 %s에 새로운 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr "%s 폴더에 오래된 메일이 있습니다."
+msgstr "폴더 %s에 오래된 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
-msgstr "%s 폴더에 메일이 있습니다."
+msgstr "폴더 %s에 전자우편이 있습니다."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:123
 #, c-format
 msgid "Creating directory '%s'."
-msgstr "'%s' 디렉토리 생성 중."
+msgstr "디렉토리 '%s'를 생성 중."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:206
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "'%s' 디렉토리를 생성 및 초기화 할 수 없습니다."
+msgstr "디렉토리 '%s'를 생성하고 초기화 할 수 없습니다."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:371
 #: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
-msgstr "이미 사용되고 있는 암호입니다. 다른 암호를 선택해 주십시오."
+msgstr "비밀번호는 이미 사용되고 있습니다. 다른 것을 선택해 주세요."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
 msgid "Password has been already used."
-msgstr "이미 사용되고 있는 암호입니다."
+msgstr "비밀번호가 이미 사용되고 있습니다."
 
 #: modules/pam_selinux/pam_selinux.c:172
 #, c-format
 msgid "The default security context is %s."
-msgstr "기본 보안 내용은 %s 입니다."
+msgstr "기본 보안 문맥은 %s 입니다."
 
 #: modules/pam_selinux/pam_selinux.c:176
 msgid "Would you like to enter a different role or level?"
-msgstr "다른 역할 또는 레벨을 입력하시겠습니까?"
+msgstr "다른 역할 또는 수준을 입력하시겠습니까?"
 
 #: modules/pam_selinux/pam_selinux.c:189
 msgid "role:"
@@ -389,85 +389,85 @@ msgstr "수준:"
 
 #: modules/pam_selinux/pam_selinux.c:259
 msgid "This is not a valid security context."
-msgstr "유효한 보안 내용이 없습니다."
+msgstr "이는 유효한 보안 문맥이 아닙니다."
 
 #: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr "%s를 위한 유효한 내용을 가져올 수 없습니다."
+msgstr "%s를 위한 유효한 문맥은 가져올 수 없습니다."
 
 #: modules/pam_selinux/pam_selinux.c:640
 #, c-format
 msgid "Security context %s has been assigned."
-msgstr "보안 내용 %s이 할당되었습니다."
+msgstr "보안 문맥 %s가 할당되었습니다."
 
 #: modules/pam_selinux/pam_selinux.c:656
 #, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "키 생성 내용 %s 할당되었습니다."
+msgstr "키 생성 문맥 %s가 할당되었습니다."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
 msgid "failed to initialize PAM\n"
-msgstr "PAM 초기화 실패\n"
+msgstr "PAM 초기화에 실패함\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:105
 #, c-format
 msgid "failed to pam_set_item()\n"
-msgstr "pam_set_item() 실패\n"
+msgstr "pam_set_item()에 실패함\n"
 
 #: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr "로그인: 포크 작업(forking) 실패: %m"
+msgstr "로그인: 포크 작업 실패함: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:361
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "접근이 허용되었습니다 (마지막 접근이 %ld 초 전 이었습니다)."
+msgstr "접근이 허용되었습니다 (마지막 접근은 %ld 초 전 이었습니다)."
 
 #: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
 msgid "Your account has expired; please contact your system administrator."
-msgstr "계정이 만료되었습니다; 시스템 관리자에게 알려 주십시오."
+msgstr "자신의 계정이 만료되었습니다; 시스템 관리자에게 연락하세요."
 
 #: modules/pam_unix/pam_unix_acct.c:238
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "암호를 빨리 변경해 주십시오 (관리자가 강제합니다)."
+msgstr "비밀번호를 긴급히 변경해 주세요 (관리자가 강제합니다)."
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "암호를 긴급히 변경해 주십시오 (암호 기한이 끝났습니다)."
+msgstr "비밀번호를 긴급히 변경해 주세요 (비밀번호가 만료됨)."
 
 #: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "경고: 암호 기한이 %d 일 이내로 끝납니다."
+msgstr[0] "경고: 당신의 비밀번호는 %d 일 이내로 만료됩니다."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:281
 #, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "경고: 암호 기한이 %d 일 이내로 끝납니다."
+msgstr "경고: 자신의 비밀번호가 %d 일 이내로 만료됩니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
-msgstr "NIS 암호는 변경할 수 없습니다."
+msgstr "NIS 비밀번호는 변경 될 수 없습니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:563
 msgid "No password has been supplied."
-msgstr "암호를 입력하지 않았습니다."
+msgstr "비밀번호가 입력되지 않았습니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:564
 msgid "The password has not been changed."
-msgstr "암호를 바꾸지 않았습니다."
+msgstr "비밀번호가 변경되지 않았습니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:581
 msgid "You must choose a shorter password."
-msgstr "더 짧은 암호를 입력해야합니다."
+msgstr "더 짧은 비밀번호를 선택해야 합니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:585
 msgid "You must choose a longer password."
@@ -476,11 +476,11 @@ msgstr "더 긴 비밀번호를 선택해 주세요."
 #: modules/pam_unix/pam_unix_passwd.c:692
 #, c-format
 msgid "Changing password for %s."
-msgstr "%s의 암호를 바꿉니다."
+msgstr "%s의 비밀번호를 변경하기."
 
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password."
-msgstr "암호를 바꾸려면 더 오래 기다려야합니다."
+msgstr "비밀번호를 변경하려면 조금 더 기다려야 합니다."
 
 #~ msgid "is the same as the old one"
 #~ msgstr "이전 암호와 같음"
