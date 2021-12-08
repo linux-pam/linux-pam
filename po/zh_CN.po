@@ -11,13 +11,14 @@
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
 # Charles Lee <lchopn@gmail.com>, 2020.
 # Chenbo Pan <panchenbo@uniontech.com>, 2021.
+# pan chenbo <panchenbo@uniontech.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2021-08-02 02:19+0000\n"
-"Last-Translator: Chenbo Pan <panchenbo@uniontech.com>\n"
+"PO-Revision-Date: 2021-12-08 21:16+0000\n"
+"Last-Translator: pan chenbo <panchenbo@uniontech.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/linux-pam/master/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.9.1\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
@@ -250,7 +251,7 @@ msgstr "由于 %u 次登录失败，此帐户已锁定。"
 
 #: modules/pam_faillock/pam_faillock.c:627
 #: modules/pam_faillock/pam_faillock.c:633
-#, fuzzy, c-format
+#, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
 msgstr[0] "（%d 分钟后解锁）"
