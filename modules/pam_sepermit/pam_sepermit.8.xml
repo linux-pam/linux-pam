@@ -54,7 +54,11 @@
       <refentrytitle>sepermit.conf</refentrytitle><manvolnum>5</manvolnum>
       </citerefentry> for details.
     </para>
-
+      <para condition="with_vendordir">
+      If there is no explicitly specified configuration file and
+      <filename>/etc/security/sepermit.conf</filename> does not exist,
+      <filename>%vendordir%/security/sepermit.conf</filename> is used.
+    </para>
   </refsect1>
 
   <refsect1 id="pam_sepermit-options">

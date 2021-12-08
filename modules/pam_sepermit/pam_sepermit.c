@@ -64,6 +64,9 @@
 #include "pam_inline.h"
 
 #define SEPERMIT_CONF_FILE	(SCONFIGDIR "/sepermit.conf")
+#ifdef VENDOR_SCONFIGDIR
+# define SEPERMIT_VENDOR_CONF_FILE	(VENDOR_SCONFIGDIR "/sepermit.conf");
+#endif
 #define MODULE "pam_sepermit"
 #define OPT_DELIM ":"
 
@@ -373,7 +376,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	const char *user = NULL;
 	char *seuser = NULL;
 	char *level = NULL;
-	const char *cfgfile = SEPERMIT_CONF_FILE;
+	const char *cfgfile = NULL;
 
 	/* Parse arguments. */
 	for (i = 0; i < argc; i++) {
@@ -386,6 +389,18 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 		} else {
 			pam_syslog(pamh, LOG_ERR, "unknown option: %s", argv[i]);
 		}
+	}
+
+	if (cfgfile == NULL) {
+#ifdef SEPERMIT_VENDOR_CONF_FILE
+		struct stat buffer;
+
+		cfgfile = SEPERMIT_CONF_FILE;
+		if (stat(cfgfile, &buffer) != 0 && errno == ENOENT)
+			cfgfile = SEPERMIT_VENDOR_CONF_FILE;
+#else
+		cfgfile = SEPERMIT_CONF_FILE;
+#endif
 	}
 
 	if (debug)
