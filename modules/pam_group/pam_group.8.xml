@@ -38,6 +38,10 @@
       By default rules for group memberships are taken from config file
       <filename>/etc/security/group.conf</filename>.
     </para>
+    <para condition="with_vendordir">
+      If <filename>/etc/security/group.conf</filename> does not exist,
+      <filename>%vendordir%/security/group.conf</filename> is used.
+    </para>
     <para>
       This module's usefulness relies on the file-systems
       accessible to the user. The point being that once granted the
