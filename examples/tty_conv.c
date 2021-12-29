@@ -12,7 +12,7 @@
  * @brief echo off/on
  * @param[in] fd file descriptor
  * @param[in] off 1 - echo off，0 - echo on
- * *************************************/
+ ***************************************/
 static void echoOff(int fd, int off)
 {
     struct termio tty;
@@ -31,16 +31,16 @@ static void echoOff(int fd, int off)
 
 /***************************************
  * @brief echo off stdin
- * *************************************/
-static void echoOffStdin()
+ ***************************************/
+static void echoOffStdin(void)
 {
     echoOff(fileno(stdin), 1);
 }
 
 /***************************************
  * @brief echo on stdin
- * *************************************/
-static void echoOnStdin()
+ ***************************************/
+static void echoOnStdin(void)
 {
     echoOff(fileno(stdin), 0);
 }
@@ -48,15 +48,15 @@ static void echoOnStdin()
 /***************************************
  * @brief read a line input
  * @return the input string
- * *************************************/
-static char* readline()
+ ***************************************/
+static char* readline(void)
 {
     struct termio tty;
     char input[PAM_MAX_RESP_SIZE];
+    int i;
 
     flockfile(stdin);
-    int i = 0;
-    for (; i < PAM_MAX_RESP_SIZE; i++)
+    for (i = 0; i < PAM_MAX_RESP_SIZE; i++)
     {
         int ch = getchar_unlocked();
         if (ch == '\n' || ch == '\r' ||ch == EOF)
@@ -76,32 +76,34 @@ static char* readline()
  * @param[out] resp our response
  * @param[in] appdata_ptr custom data passed by struct pam_conv.appdata_ptr
  * @return state
- * ************************************************/
+ **************************************************/
 static int conversation(int num_msg, const struct pam_message** msg, struct pam_response **resp, void *appdata_ptr)
 {
-    // check the count of message
+    int i;
+
+    /* check the count of message */
     if (num_msg <= 0 || num_msg >= PAM_MAX_MSG_SIZE)
     {
         fprintf(stderr, "invalid num_msg(%d)\n", num_msg);
         return PAM_CONV_ERR;
     }
 
-    // alloc memory for response
+    /* alloc memory for response */
     if ((resp[0] = malloc(num_msg * sizeof(struct pam_response))) == NULL)
     {
         fprintf(stderr, "bad alloc\n");
         return PAM_BUF_ERR;
     }
 
-    // response for message
-    for(int i = 0; i < num_msg; i++)
+    /* response for message */
+    for(i = 0; i < num_msg; i++)
     {
         const struct pam_message* m = *msg + i;
         struct pam_response* r = *resp + i;
-        r->resp_retcode = 0;    // currently un-used, zero expected
+        r->resp_retcode = 0;    /* currently un-used, zero expected */
         switch (m->msg_style)
         {
-        case PAM_PROMPT_ECHO_OFF:   // get the input with echo off, like the password
+        case PAM_PROMPT_ECHO_OFF:   /* get the input with echo off, like the password */
             printf("%s", m->msg);
             echoOffStdin();
             r->resp = readline();
@@ -109,16 +111,16 @@ static int conversation(int num_msg, const struct pam_message** msg, struct pam_
             printf("\n");
             break;
 
-        case PAM_PROMPT_ECHO_ON:    // get the input with echo on, like the username
+        case PAM_PROMPT_ECHO_ON:    /* get the input with echo on, like the username */
             printf("%s", m->msg);
             r->resp = readline();
             break;
 
-        case PAM_TEXT_INFO:         // normal info
+        case PAM_TEXT_INFO:         /* normal info */
             printf("%s\n", m->msg);
             break;
 
-        case PAM_ERROR_MSG:         // error info
+        case PAM_ERROR_MSG:         /* error info */
             fprintf(stderr, "%s\n", m->msg);
             break;
 
@@ -130,12 +132,14 @@ static int conversation(int num_msg, const struct pam_message** msg, struct pam_
     return PAM_SUCCESS;
 }
 
-int main()
+int main(void)
 {
-    atexit(echoOnStdin); // echo on while exist, like Ctrl+C on input password
-
     struct pam_conv pam_conv = {conversation, NULL};
     pam_handle_t *pamh;
+
+    /* echo on while exist, like Ctrl+C on input password */
+    atexit(echoOnStdin); 
+
     if (PAM_SUCCESS != pam_start("login", NULL, &pam_conv, &pamh))
     {
         fprintf(stderr, "pam_start failed\n");
