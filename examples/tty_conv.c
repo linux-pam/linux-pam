@@ -51,7 +51,6 @@ static void echoOnStdin(void)
  ***************************************/
 static char* readline(void)
 {
-    struct termio tty;
     char input[PAM_MAX_RESP_SIZE];
     int i;
 
@@ -79,6 +78,7 @@ static char* readline(void)
  **************************************************/
 static int conversation(int num_msg, const struct pam_message** msg, struct pam_response **resp, void *appdata_ptr)
 {
+    (void)(appdata_ptr);
     int i;
 
     /* check the count of message */
