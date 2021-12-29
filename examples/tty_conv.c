@@ -49,7 +49,7 @@ static void echoOnStdin(void)
  * @brief read a line input
  * @return the input string
  ***************************************/
-static char* readline(void)
+static char *readline(void)
 {
     char input[PAM_MAX_RESP_SIZE];
     int i;
@@ -76,7 +76,7 @@ static char* readline(void)
  * @param[in] appdata_ptr custom data passed by struct pam_conv.appdata_ptr
  * @return state
  **************************************************/
-static int conversation(int num_msg, const struct pam_message** msg, struct pam_response **resp, void *appdata_ptr)
+static int conversation(int num_msg, const struct pam_message **msg, struct pam_response **resp, void *appdata_ptr)
 {
     (void)(appdata_ptr);
     int i;
@@ -96,10 +96,10 @@ static int conversation(int num_msg, const struct pam_message** msg, struct pam_
     }
 
     /* response for message */
-    for(i = 0; i < num_msg; i++)
+    for (i = 0; i < num_msg; i++)
     {
-        const struct pam_message* m = *msg + i;
-        struct pam_response* r = *resp + i;
+        const struct pam_message *m = *msg + i;
+        struct pam_response *r = *resp + i;
         r->resp_retcode = 0;    /* currently un-used, zero expected */
         switch (m->msg_style)
         {
@@ -138,7 +138,7 @@ int main(void)
     pam_handle_t *pamh;
 
     /* echo on while exist, like Ctrl+C on input password */
-    atexit(echoOnStdin); 
+    atexit(echoOnStdin);
 
     if (PAM_SUCCESS != pam_start("login", NULL, &pam_conv, &pamh))
     {
