@@ -117,7 +117,7 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 	memset(opts, 0, sizeof(*opts));
 
 	opts->dir = strdup(FAILLOCK_DEFAULT_TALLYDIR);
-	opts->deny = 3;
+	opts->deny = 20;
 	opts->fail_interval = 900;
 	opts->unlock_time = 600;
 	opts->root_unlock_time = MAX_TIME_INTERVAL+1;

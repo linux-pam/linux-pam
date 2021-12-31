@@ -112,7 +112,7 @@
                 <para>
                   Deny access if the number of consecutive authentication failures
                   for this user during the recent interval exceeds
-                  <replaceable>n</replaceable>. The default is 3.
+                  <replaceable>n</replaceable>. The default is 20.
                 </para>
               </listitem>
             </varlistentry>
