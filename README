@@ -6,7 +6,7 @@ NOTES:
 
 How to use it is as follows:
 
-Please look at the ci/install_dependencies.sh for the necessary
+Please look at the ci/install-dependencies.sh for the necessary
 prerequisite packages to be able to build the Linux-PAM. The script
 is targeted at Debian based Linux distributions so the package
 names and availability might differ on other distributions.
