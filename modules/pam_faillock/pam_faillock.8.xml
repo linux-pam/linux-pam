@@ -134,9 +134,16 @@
                  <option>conf=/path/to/config-file</option>
                </term>
                <listitem>
-                 <para>
+                 <para condition="without_vendordir">
                    Use another configuration file instead of the default
                    <filename>/etc/security/faillock.conf</filename>.
+                 </para>
+                 <para condition="with_vendordir">
+                   Use another configuration file instead of the default
+                   which is to use the file
+                   <filename>/etc/security/faillock.conf</filename> or,
+                   if that one is not present, the file
+                   <filename>%vendordir%/security/faillock.conf</filename>.
                  </para>
                </listitem>
             </varlistentry>
@@ -326,6 +333,15 @@ session  required       pam_selinux.so open
         <term><filename>/etc/security/faillock.conf</filename></term>
         <listitem>
           <para>the config file for pam_faillock options</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry condition="with_vendordir">
+        <term><filename>%vendordir%/security/faillock.conf</filename></term>
+        <listitem>
+          <para>
+            the config file for pam_faillock options. It will be used if
+            <filename>/etc/security/faillock.conf</filename> does not exist.
+          </para>
         </listitem>
       </varlistentry>
     </variablelist>

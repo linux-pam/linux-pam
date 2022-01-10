@@ -192,6 +192,15 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 	char linebuf[FAILLOCK_CONF_MAX_LINELEN+1];
 
 	f = fopen(cfgfile, "r");
+#ifdef VENDOR_FAILLOCK_DEFAULT_CONF
+	if (f == NULL && errno == ENOENT && cfgfile == default_faillock_conf) {
+	  /*
+	   * If the default configuration file in /etc does not exist,
+	   * try the vendor configuration file as fallback.
+	   */
+	  f = fopen(VENDOR_FAILLOCK_DEFAULT_CONF, "r");
+	}
+#endif
 	if (f == NULL) {
 		/* ignore non-existent default config file */
 		if (errno == ENOENT && cfgfile == default_faillock_conf)
