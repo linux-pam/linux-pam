@@ -174,6 +174,11 @@ do_user(struct options *opts, const char *user)
 			time_t when = tallies.records[i].time;
 
 			tm = localtime(&when);
+			if(tm == NULL) {
+				fprintf(stderr, "%s: Invalid timestamp in the tally record\n",
+					opts->progname);
+				continue;
+			}
 			strftime(timebuf, sizeof(timebuf), "%Y-%m-%d %H:%M:%S", tm);
 			printf("%-19s %-5s %-52.52s %s\n", timebuf,
 				status & TALLY_STATUS_RHOST ? "RHOST" : (status & TALLY_STATUS_TTY ? "TTY" : "SVC"),
