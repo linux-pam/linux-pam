@@ -16,7 +16,11 @@
 static void echoOff(int fd, int off)
 {
     struct termio tty;
-    (void) ioctl(fd, TCGETA, &tty);
+    if (ioctl(fd, TCGETA, &tty) < 0)
+    {
+        return;
+    }
+
     if (off)
     {
         tty.c_lflag &= ~(ECHO | ECHOE | ECHOK | ECHONL);
