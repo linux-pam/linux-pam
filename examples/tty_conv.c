@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include <unistd.h>
 #include <termio.h>
 #include <security/pam_appl.h>
@@ -18,18 +19,25 @@ static void echoOff(int fd, int off)
     struct termio tty;
     if (ioctl(fd, TCGETA, &tty) < 0)
     {
+        fprintf(stderr, "TCGETA failed: %s\n", strerror(errno));
         return;
     }
 
     if (off)
     {
         tty.c_lflag &= ~(ECHO | ECHOE | ECHOK | ECHONL);
-        (void) ioctl(fd, TCSETAF, &tty);
+        if (ioctl(fd, TCSETAF, &tty) < 0)
+        {
+            fprintf(stderr, "TCSETAF failed: %s\n", strerror(errno));
+        }
     }
     else
     {
         tty.c_lflag |= (ECHO | ECHOE | ECHOK | ECHONL);
-        (void) ioctl(fd, TCSETAW, &tty);
+        if (ioctl(fd, TCSETAW, &tty) < 0)
+        {
+            fprintf(stderr, "TCSETAW failed: %s\n", strerror(errno));
+        }
     }
 }
 
