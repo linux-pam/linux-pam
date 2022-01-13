@@ -53,11 +53,10 @@ static int
 PAM_FORMAT((printf, 2, 3))
 log_callback (int type UNUSED, const char *fmt, ...)
 {
-    int audit_fd;
     va_list ap;
 
 #ifdef HAVE_LIBAUDIT
-    audit_fd = audit_open();
+    int audit_fd = audit_open();
 
     if (audit_fd >= 0) {
 	char *buf;
