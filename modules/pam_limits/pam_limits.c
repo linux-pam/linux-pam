@@ -831,6 +831,9 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
       if (fil == NULL)
 #endif
         {
+          if (err == ENOENT)
+            return PAM_SUCCESS;
+
           pam_syslog (pamh, LOG_WARNING,
                       "cannot read settings from %s: %s", CONF_FILE,
                       strerror(err));
