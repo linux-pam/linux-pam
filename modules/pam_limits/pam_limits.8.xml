@@ -61,7 +61,6 @@
       If there is no explicitly specified configuration file and
       <filename>/etc/security/limits.conf</filename> does not exist,
       <filename>%vendordir%/security/limits.conf</filename> is used.
-      If this file does not exist, too, an error is thrown.
     </para>
     <para>
       The module must not be called by a multithreaded application.
