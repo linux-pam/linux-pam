@@ -80,7 +80,7 @@ int main(int argc, char **argv)
 	 tty = ttyname(fileno(stdin));
 	 if (tty) {
 	     retcode = pam_set_item(pamh, PAM_TTY, tty);
-	     bail_out(pamh,1,retcode,"pam_set_item(PAM_RHOST)");
+	     bail_out(pamh,1,retcode,"pam_set_item(PAM_TTY)");
 	 }
      }
 
