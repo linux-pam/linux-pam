@@ -13,7 +13,7 @@ dist_man_MANS = pam_sepermit.8 sepermit.conf.5
 endif
 XMLS = README.xml pam_sepermit.8.xml sepermit.conf.5.xml
 dist_check_SCRIPTS = tst-pam_sepermit
-TESTS = $(dist_check_SCRIPTS)
+TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -32,6 +32,9 @@ endif
 
 dist_secureconf_DATA = sepermit.conf
 securelib_LTLIBRARIES = pam_sepermit.la
+
+check_PROGRAMS = tst-pam_sepermit-retval
+tst_pam_sepermit_retval_LDADD = $(top_builddir)/libpam/libpam.la
 
 install-data-local:
 	mkdir -p $(DESTDIR)$(sepermitlockdir)
