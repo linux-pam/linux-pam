@@ -61,6 +61,8 @@
 
 #include <selinux/selinux.h>
 
+#include "pam_inline.h"
+
 #define MODULE "pam_sepermit"
 #define OPT_DELIM ":"
 
@@ -374,11 +376,14 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 
 	/* Parse arguments. */
 	for (i = 0; i < argc; i++) {
+		const char *str;
+
 		if (strcmp(argv[i], "debug") == 0) {
 			debug = 1;
-		}
-		if (strcmp(argv[i], "conf=") == 0) {
-			cfgfile = argv[i] + 5;
+		} else if ((str = pam_str_skip_prefix(argv[i], "conf=")) != NULL) {
+			cfgfile = str;
+		} else {
+			pam_syslog(pamh, LOG_ERR, "unknown option: %s", argv[i]);
 		}
 	}
 
