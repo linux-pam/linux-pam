@@ -823,11 +823,11 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
     if (fil == NULL) {
       int err = errno;
 
-#ifdef VENDORDIR
+#ifdef VENDOR_SCONFIGDIR
       /* if the specified file does not exist, and it is not provided by
          the user, try the vendor file as fallback. */
       if (pl->conf_file == NULL && err == ENOENT)
-        fil = fopen(VENDORDIR"/security/limits.conf", "r");
+        fil = fopen(VENDOR_SCONFIGDIR "/limits.conf", "r");
 
       if (fil == NULL)
 #endif
