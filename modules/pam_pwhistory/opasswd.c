@@ -74,7 +74,7 @@
 #define RANDOM_DEVICE "/dev/urandom"
 #endif
 
-#define OLD_PASSWORDS_FILE "/etc/security/opasswd"
+#define OLD_PASSWORDS_FILE SCONFIGDIR "/opasswd"
 #define TMP_PASSWORDS_FILE OLD_PASSWORDS_FILE".tmpXXXXXX"
 
 #define DEFAULT_BUFLEN 4096

@@ -260,7 +260,7 @@ AC_ARG_ENABLE(sconfigdir,
 	AS_HELP_STRING([--enable-sconfigdir=DIR],[path to module conf files @<:@default=$sysconfdir/security@:>@]),
 	SCONFIGDIR=$enableval, SCONFIGDIR=$sysconfdir/security)
 AC_DEFINE_UNQUOTED([SCONFIGDIR], ["$SCONFIGDIR"],
-		   [Directory for system PAM modules configuration files])
+		   [Directory for PAM modules system configuration files])
 AC_SUBST(SCONFIGDIR)
 
 AC_ARG_ENABLE(pamlocking,

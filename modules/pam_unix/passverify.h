@@ -8,7 +8,7 @@
 
 #define PAM_UNIX_RUN_HELPER PAM_CRED_INSUFFICIENT
 
-#define OLD_PASSWORDS_FILE      "/etc/security/opasswd"
+#define OLD_PASSWORDS_FILE      SCONFIGDIR "/opasswd"
 
 int
 is_pwd_shadowed(const struct passwd *pwd);

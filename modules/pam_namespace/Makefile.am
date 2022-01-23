@@ -21,7 +21,7 @@ namespaceddir = $(SCONFIGDIR)/namespace.d
 servicedir = $(systemdunitdir)
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-        -DSECURECONF_DIR=\"$(SCONFIGDIR)/\" $(WARN_CFLAGS)
+	    $(WARN_CFLAGS)
 AM_LDFLAGS =  -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map

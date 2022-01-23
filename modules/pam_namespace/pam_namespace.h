@@ -90,14 +90,10 @@
 /*
  * Module defines
  */
-#ifndef SECURECONF_DIR
-#define SECURECONF_DIR "/etc/security/"
-#endif
-
-#define PAM_NAMESPACE_CONFIG (SECURECONF_DIR "namespace.conf")
-#define NAMESPACE_INIT_SCRIPT (SECURECONF_DIR "namespace.init")
-#define NAMESPACE_D_DIR (SECURECONF_DIR "namespace.d/")
-#define NAMESPACE_D_GLOB (SECURECONF_DIR "namespace.d/*.conf")
+#define PAM_NAMESPACE_CONFIG (SCONFIGDIR "/namespace.conf")
+#define NAMESPACE_INIT_SCRIPT (SCONFIGDIR "/namespace.init")
+#define NAMESPACE_D_DIR (SCONFIGDIR "/namespace.d/")
+#define NAMESPACE_D_GLOB (SCONFIGDIR "/namespace.d/*.conf")
 
 /* module flags */
 #define PAMNS_DEBUG           0x00000100 /* Running in debug mode */
