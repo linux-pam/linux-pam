@@ -123,7 +123,7 @@ struct pam_limit_s {
 #define PAM_SET_ALL         0x0010
 
 /* Limits from globbed files. */
-#define LIMITS_CONF_GLOB LIMITS_FILE_DIR
+#define LIMITS_CONF_GLOB	(LIMITS_FILE_DIR "/*.conf")
 
 #define CONF_FILE (pl->conf_file != NULL)?pl->conf_file:LIMITS_FILE
 
