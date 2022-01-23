@@ -41,6 +41,8 @@ typedef struct var {
   char *override;
 } VAR;
 
+#define DEFAULT_CONF_FILE	(SCONFIGDIR "/pam_env.conf")
+
 #define BUF_SIZE 8192
 #define MAX_ENV  8192
 

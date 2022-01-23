@@ -19,8 +19,8 @@ secureconfdir = $(SCONFIGDIR)
 limits_conf_dir = $(SCONFIGDIR)/limits.d
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	-DLIMITS_FILE_DIR=\"$(limits_conf_dir)\" \
-	-DLIMITS_FILE=\"$(SCONFIGDIR)/limits.conf\" $(WARN_CFLAGS)
+	    -DLIMITS_FILE_DIR=\"$(limits_conf_dir)\" \
+	    $(WARN_CFLAGS)
 AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map

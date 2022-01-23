@@ -33,6 +33,8 @@
 #include <libaudit.h>
 #endif
 
+#define PAM_TIME_CONF	(SCONFIGDIR "/time.conf")
+
 #define PAM_TIME_BUFLEN        1000
 #define FIELD_SEPARATOR        ';'   /* this is new as of .02 */
 

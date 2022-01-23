@@ -56,6 +56,9 @@
 #include "pam_cc_compat.h"
 #include "pam_inline.h"
 
+#define PAM_ACCESS_CONFIG	(SCONFIGDIR "/access.conf")
+#define ACCESS_CONF_GLOB	(SCONFIGDIR "/access.d/*.conf")
+
 /* login_access.c from logdaemon-5.6 with several changes by A.Nogin: */
 
  /*

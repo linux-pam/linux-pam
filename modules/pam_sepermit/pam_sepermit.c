@@ -63,6 +63,7 @@
 
 #include "pam_inline.h"
 
+#define SEPERMIT_CONF_FILE	(SCONFIGDIR "/sepermit.conf")
 #define MODULE "pam_sepermit"
 #define OPT_DELIM ":"
 

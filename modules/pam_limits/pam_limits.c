@@ -125,7 +125,8 @@ struct pam_limit_s {
 /* Limits from globbed files. */
 #define LIMITS_CONF_GLOB	(LIMITS_FILE_DIR "/*.conf")
 
-#define CONF_FILE (pl->conf_file != NULL)?pl->conf_file:LIMITS_FILE
+#define LIMITS_FILE	(SCONFIGDIR "/limits.conf")
+#define CONF_FILE	((pl->conf_file != NULL) ? pl->conf_file : LIMITS_FILE)
 
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
@@ -815,7 +816,7 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
     FILE *fil;
     char buf[LINE_LENGTH];
 
-    /* check for the LIMITS_FILE */
+    /* check for the CONF_FILE */
     if (ctrl & PAM_DEBUG_ARG)
         pam_syslog(pamh, LOG_DEBUG, "reading settings from '%s'", CONF_FILE);
     fil = fopen(CONF_FILE, "r");
