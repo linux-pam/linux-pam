@@ -19,6 +19,7 @@
 /ChangeLog
 /INSTALL
 /Linux-PAM-*.tar.*
+/Make.xml.rules
 /aclocal.m4
 /autom4te.cache
 /build-aux/
