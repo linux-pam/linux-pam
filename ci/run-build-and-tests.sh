@@ -86,3 +86,8 @@ case "${CHECK-}" in
 		make -k $j distcheck VERBOSE=${VERBOSE-}
 		;;
 esac
+
+if git status --porcelain |grep '^?'; then
+	echo >&2 'git status reported untracked files'
+	exit 1
+fi
