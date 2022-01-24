@@ -21,6 +21,7 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 #include <sys/syscall.h>
+#include <stdatomic.h>
 
 #define KEY_SPEC_SESSION_KEYRING	-3 /* ID for session keyring */
 #define KEY_SPEC_USER_KEYRING		-4 /* ID for UID-specific keyring */
@@ -31,12 +32,12 @@
 #define KEYCTL_REVOKE			3 /* revoke a key */
 #define KEYCTL_LINK			8 /* link a key into a keyring */
 
-static int my_session_keyring = 0;
-static int session_counter = 0;
-static int do_revoke = 0;
-static uid_t revoke_as_uid;
-static gid_t revoke_as_gid;
-static int xdebug = 0;
+static _Thread_local int my_session_keyring = 0;
+static _Atomic int session_counter = 0;
+static _Thread_local int do_revoke = 0;
+static _Thread_local uid_t revoke_as_uid;
+static _Thread_local gid_t revoke_as_gid;
+static _Thread_local int xdebug = 0;
 
 static void debug(pam_handle_t *pamh, const char *fmt, ...)
 	__attribute__((format(printf, 2, 3)));
@@ -62,6 +63,33 @@ static void error(pam_handle_t *pamh, const char *fmt, ...)
 	va_start(va, fmt);
 	pam_vsyslog(pamh, LOG_ERR, fmt, va);
 	va_end(va);
+}
+
+static int pam_setreuid(uid_t ruid, uid_t euid)
+{
+#if defined(SYS_setreuid32)
+    return syscall(SYS_setreuid32, ruid, euid);
+#else
+    return syscall(SYS_setreuid, ruid, euid);
+#endif
+}
+
+static int pam_setregid(gid_t rgid, gid_t egid)
+{
+#if defined(SYS_setregid32)
+    return syscall(SYS_setregid32, rgid, egid);
+#else
+    return syscall(SYS_setregid, rgid, egid);
+#endif
+}
+
+static int pam_setresuid(uid_t ruid, uid_t euid, uid_t suid)
+{
+#if defined(SYS_setresuid32)
+    return syscall(SYS_setresuid32, ruid, euid, suid);
+#else
+    return syscall(SYS_setresuid, ruid, euid, suid);
+#endif
 }
 
 /*
@@ -140,14 +168,14 @@ static int kill_keyrings(pam_handle_t *pamh, int error_ret)
 
 		/* switch to the real UID and GID so that we have permission to
 		 * revoke the key */
-		if (revoke_as_gid != old_gid && setregid(-1, revoke_as_gid) < 0) {
+		if (revoke_as_gid != old_gid && pam_setregid(-1, revoke_as_gid) < 0) {
 			error(pamh, "Unable to change GID to %d temporarily\n", revoke_as_gid);
 			return error_ret;
 		}
 
-		if (revoke_as_uid != old_uid && setresuid(-1, revoke_as_uid, old_uid) < 0) {
+		if (revoke_as_uid != old_uid && pam_setresuid(-1, revoke_as_uid, old_uid) < 0) {
 			error(pamh, "Unable to change UID to %d temporarily\n", revoke_as_uid);
-			if (getegid() != old_gid && setregid(-1, old_gid) < 0)
+			if (getegid() != old_gid && pam_setregid(-1, old_gid) < 0)
 				error(pamh, "Unable to change GID back to %d\n", old_gid);
 			return error_ret;
 		}
@@ -157,12 +185,12 @@ static int kill_keyrings(pam_handle_t *pamh, int error_ret)
 		}
 
 		/* return to the original UID and GID (probably root) */
-		if (revoke_as_uid != old_uid && setreuid(-1, old_uid) < 0) {
+		if (revoke_as_uid != old_uid && pam_setreuid(-1, old_uid) < 0) {
 			error(pamh, "Unable to change UID back to %d\n", old_uid);
 			ret = error_ret;
 		}
 
-		if (revoke_as_gid != old_gid && setregid(-1, old_gid) < 0) {
+		if (revoke_as_gid != old_gid && pam_setregid(-1, old_gid) < 0) {
 			error(pamh, "Unable to change GID back to %d\n", old_gid);
 			ret = error_ret;
 		}
@@ -215,14 +243,14 @@ static int do_keyinit(pam_handle_t *pamh, int argc, const char **argv, int error
 
 	/* switch to the real UID and GID so that the keyring ends up owned by
 	 * the right user */
-	if (gid != old_gid && setregid(gid, -1) < 0) {
+	if (gid != old_gid && pam_setregid(gid, -1) < 0) {
 		error(pamh, "Unable to change GID to %d temporarily\n", gid);
 		return error_ret;
 	}
 
-	if (uid != old_uid && setreuid(uid, -1) < 0) {
+	if (uid != old_uid && pam_setreuid(uid, -1) < 0) {
 		error(pamh, "Unable to change UID to %d temporarily\n", uid);
-		if (setregid(old_gid, -1) < 0)
+		if (pam_setregid(old_gid, -1) < 0)
 			error(pamh, "Unable to change GID back to %d\n", old_gid);
 		return error_ret;
 	}
@@ -230,12 +258,12 @@ static int do_keyinit(pam_handle_t *pamh, int argc, const char **argv, int error
 	ret = init_keyrings(pamh, force, error_ret);
 
 	/* return to the original UID and GID (probably root) */
-	if (uid != old_uid && setreuid(old_uid, -1) < 0) {
+	if (uid != old_uid && pam_setreuid(old_uid, -1) < 0) {
 		error(pamh, "Unable to change UID back to %d\n", old_uid);
 		ret = error_ret;
 	}
 
-	if (gid != old_gid && setregid(old_gid, -1) < 0) {
+	if (gid != old_gid && pam_setregid(old_gid, -1) < 0) {
 		error(pamh, "Unable to change GID back to %d\n", old_gid);
 		ret = error_ret;
 	}
