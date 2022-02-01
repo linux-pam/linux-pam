@@ -15,7 +15,7 @@ endif
 XMLS = README.xml pam_faillock.8.xml faillock.8.xml faillock.conf.5.xml
 
 dist_check_SCRIPTS = tst-pam_faillock
-TESTS = $(dist_check_SCRIPTS)
+TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -32,6 +32,9 @@ pam_faillock_la_LIBADD = $(top_builddir)/libpam/libpam.la $(LIBAUDIT)
 if HAVE_VERSIONING
   pam_faillock_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
+
+check_PROGRAMS = tst-pam_faillock-retval
+tst_pam_faillock_retval_LDADD = $(top_builddir)/libpam/libpam.la
 
 faillock_LDFLAGS = @EXE_LDFLAGS@
 faillock_LDADD = $(top_builddir)/libpam/libpam.la $(LIBAUDIT)
