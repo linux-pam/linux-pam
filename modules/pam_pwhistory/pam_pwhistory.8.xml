@@ -36,6 +36,9 @@
       <arg choice="opt">
         authtok_type=<replaceable>STRING</replaceable>
       </arg>
+      <arg choice="opt">
+	      file=<replaceable>/path/filename</replaceable>
+      </arg>
 
     </cmdsynopsis>
   </refsynopsisdiv>
@@ -137,6 +140,19 @@
           </listitem>
         </varlistentry>
 
+        <varlistentry>
+          <term>
+            <option>file=<replaceable>/path/filename</replaceable></option>
+          </term>
+          <listitem>
+            <para>
+              Store password history in file <filename>/path/filename</filename>
+              rather than the default location. The default location is
+	      <filename>/etc/security/opasswd</filename>.
+            </para>
+          </listitem>
+        </varlistentry>
+
     </variablelist>
   </refsect1>
 
@@ -213,7 +229,7 @@ password     required       pam_unix.so        use_authtok
       <varlistentry>
         <term><filename>/etc/security/opasswd</filename></term>
         <listitem>
-          <para>File with password history</para>
+          <para>Default file with password history</para>
         </listitem>
       </varlistentry>
     </variablelist>

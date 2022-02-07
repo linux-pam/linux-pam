@@ -51,7 +51,7 @@
 
 
 static int
-check_history(const char *user, const char *debug)
+check_history(const char *user, const char *filename, const char *debug)
 {
   char pass[PAM_MAX_RESP_SIZE + 1];
   char *passwords[] = { pass };
@@ -68,7 +68,7 @@ check_history(const char *user, const char *debug)
       return PAM_AUTHTOK_ERR;
     }
 
-  retval = check_old_pass(user, pass, dbg);
+  retval = check_old_pass(user, pass, filename, dbg);
 
   memset(pass, '\0', PAM_MAX_RESP_SIZE);	/* clear memory of the password */
 
@@ -76,13 +76,13 @@ check_history(const char *user, const char *debug)
 }
 
 static int
-save_history(const char *user, const char *howmany, const char *debug)
+save_history(const char *user, const char *filename, const char *howmany, const char *debug)
 {
   int num = atoi(howmany);
   int dbg = atoi(debug); /* no need to be too fancy here */
   int retval;
 
-  retval = save_old_pass(user, num, dbg);
+  retval = save_old_pass(user, num, filename, dbg);
 
   return retval;
 }
@@ -92,13 +92,14 @@ main(int argc, char *argv[])
 {
   const char *option;
   const char *user;
+  const char *filename;
 
   /*
    * we establish that this program is running with non-tty stdin.
    * this is to discourage casual use.
    */
 
-  if (isatty(STDIN_FILENO) || argc < 4)
+  if (isatty(STDIN_FILENO) || argc < 5)
     {
       fprintf(stderr,
             "This binary is not designed for running in this way.\n");
@@ -107,11 +108,12 @@ main(int argc, char *argv[])
 
   option = argv[1];
   user = argv[2];
+  filename = argv[3];
 
-  if (strcmp(option, "check") == 0 && argc == 4)
-    return check_history(user, argv[3]);
-  else if (strcmp(option, "save") == 0 && argc == 5)
-    return save_history(user, argv[3], argv[4]);
+  if (strcmp(option, "check") == 0 && argc == 5)
+    return check_history(user, filename, argv[4]);
+  else if (strcmp(option, "save") == 0 && argc == 6)
+    return save_history(user, filename, argv[4], argv[5]);
 
   fprintf(stderr, "This binary is not designed for running in this way.\n");
 
