@@ -22,6 +22,7 @@ EXTRA_DIST = run-xtests.sh tst-pam_dispatch1.pamd tst-pam_dispatch2.pamd \
 	tst-pam_access3.pamd tst-pam_access3.sh \
 	tst-pam_access4.pamd tst-pam_access4.sh \
 	limits.conf tst-pam_limits1.pamd tst-pam_limits1.sh \
+	namespace.conf tst-pam_namespace1.pamd tst-pam_namespace1.sh \
 	tst-pam_succeed_if1.pamd tst-pam_succeed_if1.sh \
 	group.conf tst-pam_group1.pamd tst-pam_group1.sh \
 	tst-pam_authfail.pamd tst-pam_authsucceed.pamd \
@@ -45,7 +46,7 @@ XTESTS = tst-pam_dispatch1 tst-pam_dispatch2 tst-pam_dispatch3 \
 	tst-pam_access4 tst-pam_limits1 tst-pam_succeed_if1 \
 	tst-pam_group1 tst-pam_authfail tst-pam_authsucceed \
 	tst-pam_pwhistory1 tst-pam_time1 tst-pam_motd \
-	tst-pam_shells
+	tst-pam_shells tst-pam_namespace1
 
 NOSRCTESTS = tst-pam_substack1 tst-pam_substack2 tst-pam_substack3 \
 	tst-pam_substack4 tst-pam_substack5 tst-pam_assemble_line1
