@@ -39,6 +39,94 @@
 #include "pam_namespace.h"
 #include "argv_parse.h"
 
+/* --- evaluting all files in VENDORDIR/security/namespace.d and /etc/security/namespace.d --- */
+static const char *base_name(const char *path)
+{
+    const char *base = strrchr(path, '/');
+    return base ? base+1 : path;
+}
+
+static int
+compare_filename(const void *a, const void *b)
+{
+	return strcmp(base_name(* (char * const *) a),
+		      base_name(* (char * const *) b));
+}
+
+/* Evaluating a list of files which have to be parsed in the right order:
+ *
+ * - If etc/security/namespace.d/@filename@.conf exists, then
+ *   %vendordir%/security/namespace.d/@filename@.conf should not be used.
+ * - All files in both namespace.d directories are sorted by their @filename@.conf in
+ *   lexicographic order regardless of which of the directories they reside in. */
+static char **read_namespace_dir(struct instance_data *idata)
+{
+	glob_t globbuf;
+	size_t i=0;
+	int glob_rv = glob(NAMESPACE_D_GLOB, GLOB_ERR | GLOB_NOSORT, NULL, &globbuf);
+	char **file_list;
+	size_t file_list_size = glob_rv == 0 ? globbuf.gl_pathc : 0;
+
+#ifdef VENDOR_NAMESPACE_D_GLOB
+	glob_t globbuf_vendor;
+	int glob_rv_vendor = glob(VENDOR_NAMESPACE_D_GLOB, GLOB_ERR | GLOB_NOSORT, NULL, &globbuf_vendor);
+	if (glob_rv_vendor == 0)
+	    file_list_size += globbuf_vendor.gl_pathc;
+#endif
+	file_list = malloc((file_list_size + 1) * sizeof(char*));
+	if (file_list == NULL) {
+	    pam_syslog(idata->pamh, LOG_ERR, "Cannot allocate memory for file list: %m");
+#ifdef VENDOR_NAMESPACE_D_GLOB
+	    if (glob_rv_vendor == 0)
+		globfree(&globbuf_vendor);
+#endif
+	    if (glob_rv == 0)
+		globfree(&globbuf);
+	    return NULL;
+	}
+
+	if (glob_rv == 0) {
+	    for (i = 0; i < globbuf.gl_pathc; i++) {
+		file_list[i] = strdup(globbuf.gl_pathv[i]);
+		if (file_list[i] == NULL) {
+		    pam_syslog(idata->pamh, LOG_ERR, "strdup failed: %m");
+		    break;
+		}
+	    }
+	}
+#ifdef VENDOR_NAMESPACE_D_GLOB
+	if (glob_rv_vendor == 0) {
+	    for (size_t j = 0; j < globbuf_vendor.gl_pathc; j++) {
+		if (glob_rv == 0 && globbuf.gl_pathc > 0) {
+		    int double_found = 0;
+		    for (size_t k = 0; k < globbuf.gl_pathc; k++) {
+			if (strcmp(base_name(globbuf.gl_pathv[k]),
+				   base_name(globbuf_vendor.gl_pathv[j])) == 0) {
+				double_found = 1;
+				break;
+			}
+		    }
+		    if (double_found)
+			continue;
+		}
+		file_list[i] = strdup(globbuf_vendor.gl_pathv[j]);
+		if (file_list[i] == NULL) {
+		    pam_syslog(idata->pamh, LOG_ERR, "strdup failed: %m");
+		    break;
+		}
+		i++;
+	    }
+	    globfree(&globbuf_vendor);
+	}
+#endif
+	file_list[i] = NULL;
+	qsort(file_list, i, sizeof(char *), compare_filename);
+	if (glob_rv == 0)
+	    globfree(&globbuf);
+
+	return file_list;
+}
+
 /*
  * Adds an entry for a polyinstantiated directory to the linked list of
  * polyinstantiated directories. It is called from process_line() while
@@ -624,8 +712,6 @@ static int parse_config_file(struct instance_data *idata)
     char *line;
     int retval;
     size_t len = 0;
-    glob_t globbuf;
-    const char *oldlocale;
     size_t n;
 
     /*
@@ -664,13 +750,16 @@ static int parse_config_file(struct instance_data *idata)
      * process_line to process each line.
      */
 
-    memset(&globbuf, '\0', sizeof(globbuf));
-    oldlocale = setlocale(LC_COLLATE, "C");
-    glob(NAMESPACE_D_GLOB, 0, NULL, &globbuf);
-    if (oldlocale != NULL)
-	setlocale(LC_COLLATE, oldlocale);
-
     confname = PAM_NAMESPACE_CONFIG;
+#ifdef VENDOR_PAM_NAMESPACE_CONFIG
+    /* Check whether PAM_NAMESPACE_CONFIG file is available.
+     * If it does not exist, fall back to VENDOR_PAM_NAMESPACE_CONFIG file. */
+    struct stat buffer;
+    if (stat(confname, &buffer) != 0 && errno == ENOENT) {
+	confname = VENDOR_PAM_NAMESPACE_CONFIG;
+    }
+#endif
+    char **filename_list = read_namespace_dir(idata);
     n = 0;
     for (;;) {
 	if (idata->flags & PAMNS_DEBUG)
@@ -680,7 +769,6 @@ static int parse_config_file(struct instance_data *idata)
 	if (fil == NULL) {
 	    pam_syslog(idata->pamh, LOG_ERR, "Error opening config file %s",
 		confname);
-            globfree(&globbuf);
 	    free(rhome);
 	    free(home);
 	    return PAM_SERVICE_ERR;
@@ -698,7 +786,6 @@ static int parse_config_file(struct instance_data *idata)
 		"Error processing conf file %s line %s", confname, line);
 	        fclose(fil);
 	        free(line);
-	        globfree(&globbuf);
 	        free(rhome);
 	        free(home);
 	        return PAM_SERVICE_ERR;
@@ -707,14 +794,18 @@ static int parse_config_file(struct instance_data *idata)
 	fclose(fil);
 	free(line);
 
-	if (n >= globbuf.gl_pathc)
+	if (filename_list == NULL || filename_list[n] == NULL)
 	    break;
 
-	confname = globbuf.gl_pathv[n];
-	n++;
+	confname = filename_list[n++];
     }
 
-    globfree(&globbuf);
+    if (filename_list != NULL) {
+	for (size_t i = 0; filename_list[i] != NULL; i++)
+	    free(filename_list[i]);
+	free(filename_list);
+    }
+
     free(rhome);
     free(home);
 
@@ -1253,6 +1344,15 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 	struct sigaction newsa, oldsa;
 	int status;
 	const char *init_script = NAMESPACE_INIT_SCRIPT;
+
+#ifdef VENDOR_NAMESPACE_INIT_SCRIPT
+	/* Check whether NAMESPACE_INIT_SCRIPT file is available.
+	 * If it does not exist, fall back to VENDOR_NAMESPACE_INIT_SCRIPT file. */
+	struct stat buffer;
+	if (stat(init_script, &buffer) != 0 && errno == ENOENT) {
+		init_script = VENDOR_NAMESPACE_INIT_SCRIPT;
+	}
+#endif
 
 	memset(&newsa, '\0', sizeof(newsa));
         newsa.sa_handler = SIG_DFL;

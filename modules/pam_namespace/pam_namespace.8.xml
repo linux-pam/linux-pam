@@ -74,6 +74,12 @@
       and the user name as its arguments.
     </para>
 
+    <para condition="with_vendordir">
+      If <filename>/etc/security/namespace.init</filename> does not exist,
+      <filename>%vendordir%/security/namespace.init</filename> is the
+      alternative to be used for it.
+    </para>
+
     <para>
       The pam_namespace module disassociates the session namespace from
       the parent namespace. Any mounts/unmounts performed in the parent
@@ -313,6 +319,14 @@
         </listitem>
       </varlistentry>
 
+      <varlistentry condition="with_vendordir">
+        <term><filename>%vendordir%/security/namespace.conf</filename></term>
+        <listitem>
+          <para>Default configuration file if
+	  <filename>/etc/security/namespace.conf</filename> does not exist.</para>
+        </listitem>
+      </varlistentry>
+
       <varlistentry>
         <term><filename>/etc/security/namespace.d</filename></term>
         <listitem>
@@ -320,10 +334,26 @@
         </listitem>
       </varlistentry>
 
+      <varlistentry condition="with_vendordir">
+        <term><filename>%vendordir%/security/namespace.d</filename></term>
+        <listitem>
+          <para>Directory for additional vendor specific configuration files.</para>
+        </listitem>
+      </varlistentry>
+
       <varlistentry>
         <term><filename>/etc/security/namespace.init</filename></term>
         <listitem>
           <para>Init script for instance directories</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry condition="with_vendordir">
+        <term><filename>%vendordir%/security/namespace.init</filename></term>
+        <listitem>
+          <para>Vendor init script for instance directories if
+	  /etc/security/namespace.init does not exist.
+	  </para>
         </listitem>
       </varlistentry>
     </variablelist>

@@ -30,11 +30,27 @@
       directory path and the instance directory path as its arguments.
     </para>
 
-    <para>
+    <para condition="without_vendordir">
       The <filename>/etc/security/namespace.conf</filename> file specifies
       which directories are polyinstantiated, how they are polyinstantiated,
       how instance directories would be named, and any users for whom
       polyinstantiation would not be performed.
+    </para>
+
+    <para condition="with_vendordir">
+      The <filename>/etc/security/namespace.conf</filename> file
+      ( or <filename>%vendordir%/security/namespace.conf</filename> if it does
+      not exist) specifies which directories are polyinstantiated, how they are
+      polyinstantiated, how instance directories would be named, and any users
+      for whom polyinstantiation would not be performed.
+      Then individual <filename>*.conf</filename> files from the
+      <filename>/etc/security/namespace.d/</filename> and
+      <filename>%vendordir%/security/namespace.d</filename> directories are taken too.
+      If <filename>/etc/security/namespace.d/@filename@.conf</filename> exists, then
+      <filename>%vendordir%/security/namespace.d/@filename@.conf</filename> will not be used.
+      All <filename>namespace.d/*.conf</filename> files are sorted by their
+      <filename>@filename@.conf</filename> in lexicographic order regardless of which
+      of the directories they reside in.
     </para>
 
     <para>
