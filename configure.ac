@@ -504,6 +504,21 @@ if test "$WITH_ECONF" = "yes" ; then
 fi
 AC_SUBST([ECONF_CFLAGS])
 AC_SUBST([ECONF_LIBS])
+
+AC_ARG_ENABLE([vendor],
+  AS_HELP_STRING([--disable-vendor], [do not use vendordir]),
+  [WITH_VENDOR=$enableval], WITH_VENDOR=yes)
+if test "$WITH_VENDOR" = "yes" ; then
+  AC_DEFINE_UNQUOTED([VENDORDIR], ["/usr/etc"],
+		     [Directory for distribution provided configuration files])
+  AC_DEFINE_UNQUOTED([VENDOR_SCONFIGDIR], ["/usr/etc/security"],
+		     [Directory for PAM modules distribution provided configuration files])
+  STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir' --stringparam profile.condition 'with_vendordir'"
+else
+  STRINGPARAM_VENDORDIR="--stringparam profile.condition 'without_vendordir'"
+fi
+AC_SUBST([STRINGPARAM_VENDORDIR])
+
 AC_ARG_ENABLE([vendordir],
   AS_HELP_STRING([--enable-vendordir=DIR], [Directory for distribution provided configuration files]),,[])
 if test -n "$enable_vendordir"; then
