@@ -58,7 +58,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv, const char **
 {
     int ctrl = 0;
 
-    *conffile = PAM_TIME_CONF;
+    *conffile = NULL;
     /* step through arguments */
     for (; argc-- > 0; ++argv) {
 	const char *str;
@@ -82,8 +82,9 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv, const char **
 	}
     }
 
+    if (*conffile == NULL) {
+	*conffile = PAM_TIME_CONF;
 #ifdef VENDOR_PAM_TIME_CONF
-    if (*conffile == PAM_TIME_CONF) {
 	/*
 	 * Check whether PAM_TIME_CONF file is available.
 	 * If it does not exist, fall back to VENDOR_PAM_TIME_CONF file.
@@ -92,8 +93,8 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv, const char **
 	if (stat(*conffile, &buffer) != 0 && errno == ENOENT) {
 	    *conffile = VENDOR_PAM_TIME_CONF;
 	}
-    }
 #endif
+    }
 
     return ctrl;
 }
