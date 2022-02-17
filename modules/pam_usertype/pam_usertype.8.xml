@@ -31,7 +31,7 @@
       pam_usertype.so is designed to succeed or fail authentication
       based on type of the account of the authenticated user.
       The type of the account is decided with help of
-      <emphasis>SYS_UID_MIN</emphasis> and <emphasis>SYS_UID_MAX</emphasis>
+      <emphasis>SYS_UID_MAX</emphasis>
       settings in <emphasis>/etc/login.defs</emphasis>. One use is to select
       whether to load other modules based on this test.
     </para>

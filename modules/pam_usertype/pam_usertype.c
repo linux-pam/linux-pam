@@ -194,17 +194,11 @@ static int
 pam_usertype_is_system(pam_handle_t *pamh, uid_t uid)
 {
     uid_t uid_min;
-    uid_t sys_min;
     uid_t sys_max;
 
     if (uid == (uid_t)-1) {
         pam_syslog(pamh, LOG_WARNING, "invalid uid");
         return PAM_USER_UNKNOWN;
-    }
-
-    if (uid <= 99) {
-        /* Reserved. */
-        return PAM_SUCCESS;
     }
 
     if (uid == PAM_USERTYPE_OVERFLOW_UID) {
@@ -213,10 +207,13 @@ pam_usertype_is_system(pam_handle_t *pamh, uid_t uid)
     }
 
     uid_min = pam_usertype_get_id(pamh, "UID_MIN", PAM_USERTYPE_UIDMIN);
-    sys_min = pam_usertype_get_id(pamh, "SYS_UID_MIN", PAM_USERTYPE_SYSUIDMIN);
     sys_max = pam_usertype_get_id(pamh, "SYS_UID_MAX", uid_min - 1);
 
-    return uid >= sys_min && uid <= sys_max ? PAM_SUCCESS : PAM_AUTH_ERR;
+    if (uid <= sys_max && uid < uid_min) {
+        return PAM_SUCCESS;
+    }
+
+    return PAM_AUTH_ERR;
 }
 
 static int
@@ -253,7 +250,7 @@ pam_usertype_evaluate(struct pam_usertype_opts *opts,
 
 /**
  * Arguments:
- * - issystem: uid in <SYS_UID_MIN, SYS_UID_MAX>
+ * - issystem: uid less than SYS_UID_MAX
  * - isregular: not issystem
  * - use_uid: use user that runs application not that is being authenticate (same as in pam_succeed_if)
  * - audit: log unknown users to syslog

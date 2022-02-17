@@ -632,11 +632,6 @@ test -n "$opt_uidmin" ||
           opt_uidmin=1000
 AC_DEFINE_UNQUOTED(PAM_USERTYPE_UIDMIN, $opt_uidmin, [Minimum regular user uid.])
 
-AC_ARG_WITH([sysuidmin], AS_HELP_STRING([--with-sysuidmin=<number>],[default value for system user min uid (101)]), opt_sysuidmin=$withval)
-test -n "$opt_sysuidmin" ||
-          opt_sysuidmin=101
-AC_DEFINE_UNQUOTED(PAM_USERTYPE_SYSUIDMIN, $opt_sysuidmin, [Minimum system user uid.])
-
 AC_ARG_WITH([kernel-overflow-uid], AS_HELP_STRING([--with-kernel-overflow-uid=<number>],[kernel overflow uid, default (uint16_t)-2=65534]), opt_kerneloverflowuid=$withval)
 test -n "$opt_kerneloverflowuid" ||
           opt_kerneloverflowuid=65534
