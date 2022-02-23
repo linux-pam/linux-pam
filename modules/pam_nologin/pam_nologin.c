@@ -79,7 +79,6 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 
     if (fd >= 0) {
 
-	char *mtmp=NULL;
 	int msg_style = PAM_TEXT_INFO;
 	struct passwd *user_pwd;
 	struct stat st;
@@ -99,21 +98,25 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 	    goto clean_up_fd;
 	}
 
-	mtmp = malloc(st.st_size+1);
-	if (!mtmp) {
-	    pam_syslog(pamh, LOG_CRIT, "out of memory");
-	    retval = PAM_BUF_ERR;
-	    goto clean_up_fd;
-	}
+	/* Don't print anything if the message is empty, will only
+	   disturb the output with empty lines */
+	if (st.st_size > 0) {
+	    char *mtmp = malloc(st.st_size+1);
+	    if (!mtmp) {
+	        pam_syslog(pamh, LOG_CRIT, "out of memory");
+	        retval = PAM_BUF_ERR;
+	        goto clean_up_fd;
+	    }
 
-	if (pam_modutil_read(fd, mtmp, st.st_size) == st.st_size) {
-		mtmp[st.st_size] = '\0';
-		(void) pam_prompt (pamh, msg_style, NULL, "%s", mtmp);
-	}
-	else
-	    retval = PAM_SYSTEM_ERR;
+	    if (pam_modutil_read(fd, mtmp, st.st_size) == st.st_size) {
+	        mtmp[st.st_size] = '\0';
+	        (void) pam_prompt (pamh, msg_style, NULL, "%s", mtmp);
+	    }
+	    else
+	        retval = PAM_SYSTEM_ERR;
 
-	free(mtmp);
+	    free(mtmp);
+	}
 
     clean_up_fd:
 
