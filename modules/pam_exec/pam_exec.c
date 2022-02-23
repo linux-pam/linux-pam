@@ -307,7 +307,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
     {
       const char **arggv;
       int i;
-      char **envlist, **tmp;
+      char **envlist;
       int envlen, nitems;
       char *envstr;
       enum pam_modutil_redirect_fd redirect_stdin =
@@ -430,14 +430,12 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
         /* nothing */ ;
       nitems = PAM_ARRAY_SIZE(env_items);
       /* + 2 because of PAM_TYPE and NULL entry */
-      tmp = realloc(envlist, (envlen + nitems + 2) * sizeof(*envlist));
-      if (tmp == NULL)
+      envlist = realloc(envlist, (envlen + nitems + 2) * sizeof(*envlist));
+      if (envlist == NULL)
       {
-        free(envlist);
         pam_syslog (pamh, LOG_CRIT, "realloc environment failed: %m");
         _exit (ENOMEM);
       }
-      envlist = tmp;
       for (i = 0; i < nitems; ++i)
       {
         const void *item;
@@ -446,7 +444,6 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
           continue;
         if (asprintf(&envstr, "%s=%s", env_items[i].name, (const char *)item) < 0)
         {
-          free(envlist);
           pam_syslog (pamh, LOG_CRIT, "prepare environment failed: %m");
           _exit (ENOMEM);
         }
@@ -456,7 +453,6 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 
       if (asprintf(&envstr, "PAM_TYPE=%s", pam_type) < 0)
         {
-          free(envlist);
           pam_syslog (pamh, LOG_CRIT, "prepare environment failed: %m");
           _exit (ENOMEM);
         }
@@ -471,7 +467,6 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       DIAG_POP_IGNORE_CAST_QUAL;
       i = errno;
       pam_syslog (pamh, LOG_ERR, "execve(%s,...) failed: %m", arggv[0]);
-      free(envlist);
       _exit (i);
     }
   return PAM_SYSTEM_ERR; /* will never be reached. */
