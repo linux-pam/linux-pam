@@ -305,7 +305,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
     }
   else /* child */
     {
-      char **arggv;
+      const char **arggv;
       int i;
       char **envlist, **tmp;
       int envlen, nitems;
@@ -418,7 +418,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	_exit (ENOMEM);
 
       for (i = 0; i < (argc - optargc); i++)
-	arggv[i] = strdup(argv[i+optargc]);
+        arggv[i] = argv[i+optargc];
       arggv[i] = NULL;
 
       /*
@@ -466,7 +466,9 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       if (debug)
 	pam_syslog (pamh, LOG_DEBUG, "Calling %s ...", arggv[0]);
 
-      execve (arggv[0], arggv, envlist);
+      DIAG_PUSH_IGNORE_CAST_QUAL;
+      execve (arggv[0], (char **) arggv, envlist);
+      DIAG_POP_IGNORE_CAST_QUAL;
       i = errno;
       pam_syslog (pamh, LOG_ERR, "execve(%s,...) failed: %m", arggv[0]);
       free(envlist);
