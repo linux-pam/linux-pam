@@ -84,7 +84,7 @@ msgstr "치명적인 오류 - 즉시 중지"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr "모듈 적재 실패"
+msgstr "모듈 불러오기 실패"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
