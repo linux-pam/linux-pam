@@ -640,7 +640,7 @@ remote_match (pam_handle_t *pamh, char *tok, struct login_info *item)
       if ((str_len = strlen(string)) > tok_len
 	  && strcasecmp(tok, string + str_len - tok_len) == 0)
 	return YES;
-    } else if (tok[tok_len - 1] == '.') {
+    } else if (tok[tok_len - 1] == '.') {       /* internet network numbers (end with ".") */
       struct addrinfo hint;
 
       memset (&hint, '\0', sizeof (hint));
@@ -681,7 +681,7 @@ remote_match (pam_handle_t *pamh, char *tok, struct login_info *item)
       return NO;
     }
 
-    /* Assume network/netmask with an IP of a host.  */
+    /* Assume network/netmask, IP address or hostname.  */
     return network_netmask_match(pamh, tok, string, item);
 }
 
@@ -699,7 +699,7 @@ string_match (pam_handle_t *pamh, const char *tok, const char *string,
     /*
      * If the token has the magic value "ALL" the match always succeeds.
      * Otherwise, return YES if the token fully matches the string.
-	 * "NONE" token matches NULL string.
+     * "NONE" token matches NULL string.
      */
 
     if (strcasecmp(tok, "ALL") == 0) {		/* all: always matches */
@@ -717,7 +717,8 @@ string_match (pam_handle_t *pamh, const char *tok, const char *string,
 
 /* network_netmask_match - match a string against one token
  * where string is a hostname or ip (v4,v6) address and tok
- * represents either a single ip (v4,v6) address or a network/netmask
+ * represents either a hostname, a single ip (v4,v6) address
+ * or a network/netmask
  */
 static int
 network_netmask_match (pam_handle_t *pamh,
@@ -726,10 +727,12 @@ network_netmask_match (pam_handle_t *pamh,
     char *netmask_ptr;
     char netmask_string[MAXHOSTNAMELEN + 1];
     int addr_type;
+    struct addrinfo *ai = NULL;
 
     if (item->debug)
-    pam_syslog (pamh, LOG_DEBUG,
+      pam_syslog (pamh, LOG_DEBUG,
 		"network_netmask_match: tok=%s, item=%s", tok, string);
+
     /* OK, check if tok is of type addr/mask */
     if ((netmask_ptr = strchr(tok, '/')) != NULL)
       {
@@ -763,54 +766,108 @@ network_netmask_match (pam_handle_t *pamh,
 	    netmask_ptr = number_to_netmask(netmask, addr_type,
 		netmask_string, MAXHOSTNAMELEN);
 	  }
-	}
-    else
-	/* NO, then check if it is only an addr */
-	if (isipaddr(tok, NULL, NULL) != YES)
+
+        /*
+         * Construct an addrinfo list from the IP address.
+         * This should not fail as the input is a correct IP address...
+         */
+	if (getaddrinfo (tok, NULL, NULL, &ai) != 0)
 	  {
 	    return NO;
 	  }
+      }
+    else
+      {
+        /*
+	 * It is either an IP address or a hostname.
+	 * Let getaddrinfo sort everything out
+	 */
+	if (getaddrinfo (tok, NULL, NULL, &ai) != 0)
+	  {
+	    pam_syslog(pamh, LOG_ERR, "cannot resolve hostname \"%s\"", tok);
+
+	    return NO;
+	  }
+	netmask_ptr = NULL;
+      }
 
     if (isipaddr(string, NULL, NULL) != YES)
       {
-	/* Assume network/netmask with a name of a host.  */
 	struct addrinfo hint;
 
+	/* Assume network/netmask with a name of a host.  */
 	memset (&hint, '\0', sizeof (hint));
 	hint.ai_flags = AI_CANONNAME;
 	hint.ai_family = AF_UNSPEC;
 
 	if (item->gai_rv != 0)
+	  {
+	    freeaddrinfo(ai);
 	    return NO;
+	  }
 	else if (!item->res &&
 		(item->gai_rv = getaddrinfo (string, NULL, &hint, &item->res)) != 0)
+	  {
+	    freeaddrinfo(ai);
 	    return NO;
+	  }
         else
 	  {
 	    struct addrinfo *runp = item->res;
+	    struct addrinfo *runp1;
 
 	    while (runp != NULL)
 	      {
 		char buf[INET6_ADDRSTRLEN];
 
-		DIAG_PUSH_IGNORE_CAST_ALIGN;
-		inet_ntop (runp->ai_family,
-			runp->ai_family == AF_INET
-			? (void *) &((struct sockaddr_in *) runp->ai_addr)->sin_addr
-			: (void *) &((struct sockaddr_in6 *) runp->ai_addr)->sin6_addr,
-			buf, sizeof (buf));
-		DIAG_POP_IGNORE_CAST_ALIGN;
-
-		if (are_addresses_equal(buf, tok, netmask_ptr))
+		if (getnameinfo (runp->ai_addr, runp->ai_addrlen, buf, sizeof (buf), NULL, 0, NI_NUMERICHOST) != 0)
 		  {
-		    return YES;
+		    freeaddrinfo(ai);
+		    return NO;
+		  }
+
+		for (runp1 = ai; runp1 != NULL; runp1 = runp1->ai_next)
+		  {
+                    char buf1[INET6_ADDRSTRLEN];
+
+                    if (runp->ai_family != runp1->ai_family)
+                      continue;
+
+                    if (getnameinfo (runp1->ai_addr, runp1->ai_addrlen, buf1, sizeof (buf1), NULL, 0, NI_NUMERICHOST) != 0)
+		      {
+			freeaddrinfo(ai);
+			return NO;
+		      }
+
+                    if (are_addresses_equal (buf, buf1, netmask_ptr))
+                      {
+                        freeaddrinfo(ai);
+                        return YES;
+                      }
 		  }
 		runp = runp->ai_next;
 	      }
 	  }
       }
     else
-      return (are_addresses_equal(string, tok, netmask_ptr));
+      {
+       struct addrinfo *runp1;
+
+       for (runp1 = ai; runp1 != NULL; runp1 = runp1->ai_next)
+         {
+           char buf1[INET6_ADDRSTRLEN];
+
+           (void) getnameinfo (runp1->ai_addr, runp1->ai_addrlen, buf1, sizeof (buf1), NULL, 0, NI_NUMERICHOST);
+
+           if (are_addresses_equal(string, buf1, netmask_ptr))
+             {
+               freeaddrinfo(ai);
+               return YES;
+             }
+         }
+      }
+
+  freeaddrinfo(ai);
 
   return NO;
 }
