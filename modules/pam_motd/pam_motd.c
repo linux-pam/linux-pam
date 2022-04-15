@@ -166,9 +166,24 @@ static int compare_strings(const void *a, const void *b)
     }
 }
 
+static const char* motddir;
+
 static int filter_dirents(const struct dirent *d)
 {
-    return (d->d_type == DT_REG || d->d_type == DT_LNK);
+    struct stat s;
+    char *fullpath;
+    int rc;
+
+    while(1){
+        if ( d->d_type==DT_DIR ) break;
+        if ( join_dir_strings( &fullpath, motddir, d->d_name )<=0) break;
+        rc=stat( fullpath, &s );
+        free(fullpath);     /* free the memory alloc'ed by join_dir_strings */
+        if ( rc!=0 ) break; /* if the stat() somehow failed */
+
+        return S_IFREG==(s.st_mode&S_IFMT) || S_IFLNK==(s.st_mode&S_IFMT);
+    }
+    return 0;
 }
 
 static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
@@ -199,8 +214,8 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 
     for (i = 0; i < num_motd_dirs; i++) {
 	int rv;
-	rv = scandir(motd_dir_path_split[i], &(dirscans[i]),
-		filter_dirents, alphasort);
+        motddir=motd_dir_path_split[i];
+        rv = scandir(motddir, &(dirscans[i]), filter_dirents, alphasort);
 	if (rv < 0) {
 	    if (errno != ENOENT || report_missing) {
 		pam_syslog(pamh, LOG_ERR, "error scanning directory %s: %m",
