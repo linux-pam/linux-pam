@@ -174,16 +174,26 @@ static int filter_dirents(const struct dirent *d)
     char *fullpath;
     int rc;
 
-    while(1){
-        if ( d->d_type==DT_DIR ) break;
-        if ( join_dir_strings( &fullpath, motddir, d->d_name )<=0) break;
-        rc=stat( fullpath, &s );
-        free(fullpath);     /* free the memory alloc'ed by join_dir_strings */
-        if ( rc!=0 ) break; /* if the stat() somehow failed */
-
-        return S_IFREG==(s.st_mode&S_IFMT) || S_IFLNK==(s.st_mode&S_IFMT);
+    switch( d->d_type )
+    {
+	case DT_REG:
+	case DT_LNK:
+            return 1;      /* regular files and symlinks are good         */
+        case DT_UNKNOWN:   /* with unknown, we have a bit more work to do */
+            break;
+	case DT_DIR:       /* We don't want directories   */
+	default:           /* nor anything else           */
+            return 0;
     }
-    return 0;
+   
+    /* for file systems that do not provide a filetype, we use lstat()  */
+
+    if ( join_dir_strings( &fullpath, motddir, d->d_name )<=0) return 0;
+    rc=lstat( fullpath, &s );
+    _pam_drop(fullpath);     /* free the memory alloc'ed by join_dir_strings */
+    if ( rc!=0 ) return 0;   /* if the lstat() somehow failed */
+
+    return S_IFREG==(s.st_mode&S_IFMT) || S_IFLNK==(s.st_mode&S_IFMT);
 }
 
 static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
