@@ -166,7 +166,14 @@ static int compare_strings(const void *a, const void *b)
     }
 }
 
-static const char* motddir;
+const char* motddir( char *d )
+{
+    static const char* dir;
+
+    if ( d!=NULL ) dir=d;
+
+    return dir;
+}
 
 static int filter_dirents(const struct dirent *d)
 {
@@ -174,8 +181,7 @@ static int filter_dirents(const struct dirent *d)
     char *fullpath;
     int rc;
 
-    switch( d->d_type )
-    {
+    switch( d->d_type ) {
 	case DT_REG:
 	case DT_LNK:
             return 1;      /* regular files and symlinks are good         */
@@ -188,7 +194,7 @@ static int filter_dirents(const struct dirent *d)
    
     /* for file systems that do not provide a filetype, we use lstat()  */
 
-    if ( join_dir_strings( &fullpath, motddir, d->d_name )<=0) return 0;
+    if ( join_dir_strings( &fullpath, motddir(NULL), d->d_name )<=0) return 0;
     rc=lstat( fullpath, &s );
     _pam_drop(fullpath);     /* free the memory alloc'ed by join_dir_strings */
     if ( rc!=0 ) return 0;   /* if the lstat() somehow failed */
@@ -224,8 +230,9 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 
     for (i = 0; i < num_motd_dirs; i++) {
 	int rv;
-        motddir=motd_dir_path_split[i];
-        rv = scandir(motddir, &(dirscans[i]), filter_dirents, alphasort);
+        motddir(motd_dir_path_split[i]);
+        rv = scandir(motd_dir_path_split[i], &(dirscans[i]),
+		     filter_dirents, alphasort);
 	if (rv < 0) {
 	    if (errno != ENOENT || report_missing) {
 		pam_syslog(pamh, LOG_ERR, "error scanning directory %s: %m",
