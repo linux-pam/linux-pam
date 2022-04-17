@@ -181,7 +181,7 @@ static int filter_dirents(const struct dirent *d)
     char *fullpath;
     int rc;
 
-    switch( d->d_type ) {
+    switch( d->d_type ) {  /* the filetype determines how to proceed      */
 	case DT_REG:
 	case DT_LNK:
             return 1;      /* regular files and symlinks are good         */
