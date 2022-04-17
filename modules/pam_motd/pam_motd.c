@@ -231,7 +231,7 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
     for (i = 0; i < num_motd_dirs; i++) {
 	int rv;
         motddir(motd_dir_path_split[i]);
-	rv = scandir(motd_dir_path_split[i], &(dirscans[i]),
+        rv = scandir(motd_dir_path_split[i], &(dirscans[i]),
 		filter_dirents, alphasort);
 	if (rv < 0) {
 	    if (errno != ENOENT || report_missing) {
