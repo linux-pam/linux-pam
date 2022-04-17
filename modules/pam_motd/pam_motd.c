@@ -166,7 +166,7 @@ static int compare_strings(const void *a, const void *b)
     }
 }
 
-const char* motddir( char *d )
+const char* motddir( const char *d )
 {
     static const char* dir;
 
