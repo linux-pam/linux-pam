@@ -38,7 +38,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <stdint.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <time.h>
@@ -56,54 +55,11 @@
 
 #include "pam_inline.h"
 #include "faillock.h"
+#include "faillock_config.h"
 
 #define FAILLOCK_ACTION_PREAUTH  0
 #define FAILLOCK_ACTION_AUTHSUCC 1
 #define FAILLOCK_ACTION_AUTHFAIL 2
-
-#define FAILLOCK_FLAG_DENY_ROOT		0x1
-#define FAILLOCK_FLAG_AUDIT		0x2
-#define FAILLOCK_FLAG_SILENT		0x4
-#define FAILLOCK_FLAG_NO_LOG_INFO	0x8
-#define FAILLOCK_FLAG_UNLOCKED		0x10
-#define FAILLOCK_FLAG_LOCAL_ONLY	0x20
-#define FAILLOCK_FLAG_NO_DELAY		0x40
-
-#define MAX_TIME_INTERVAL 604800 /* 7 days */
-#define FAILLOCK_CONF_MAX_LINELEN 1023
-
-static const char default_faillock_conf[] = FAILLOCK_DEFAULT_CONF;
-
-struct options {
-	unsigned int action;
-	unsigned int flags;
-	unsigned short deny;
-	unsigned int fail_interval;
-	unsigned int unlock_time;
-	unsigned int root_unlock_time;
-	char *dir;
-	const char *user;
-	char *admin_group;
-	int failures;
-	uint64_t latest_time;
-	uid_t uid;
-	int is_admin;
-	uint64_t now;
-	int fatal_error;
-};
-
-static int read_config_file(
-	pam_handle_t *pamh,
-	struct options *opts,
-	const char *cfgfile
-);
-
-static void set_conf_opt(
-	pam_handle_t *pamh,
-	struct options *opts,
-	const char *name,
-	const char *value
-);
 
 static int
 args_parse(pam_handle_t *pamh, int argc, const char **argv,
@@ -112,7 +68,7 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 	int i;
 	int config_arg_index = -1;
 	int rv;
-	const char *conf = default_faillock_conf;
+	const char *conf = NULL;
 
 	memset(opts, 0, sizeof(*opts));
 
@@ -182,184 +138,6 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 	if (opts->fatal_error)
 		return PAM_BUF_ERR;
 	return PAM_SUCCESS;
-}
-
-/* parse a single configuration file */
-static int
-read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
-{
-	FILE *f;
-	char linebuf[FAILLOCK_CONF_MAX_LINELEN+1];
-
-	f = fopen(cfgfile, "r");
-#ifdef VENDOR_FAILLOCK_DEFAULT_CONF
-	if (f == NULL && errno == ENOENT && cfgfile == default_faillock_conf) {
-	  /*
-	   * If the default configuration file in /etc does not exist,
-	   * try the vendor configuration file as fallback.
-	   */
-	  f = fopen(VENDOR_FAILLOCK_DEFAULT_CONF, "r");
-	}
-#endif
-	if (f == NULL) {
-		/* ignore non-existent default config file */
-		if (errno == ENOENT && cfgfile == default_faillock_conf)
-			return PAM_SUCCESS;
-		return PAM_SERVICE_ERR;
-	}
-
-	while (fgets(linebuf, sizeof(linebuf), f) != NULL) {
-		size_t len;
-		char *ptr;
-		char *name;
-		int eq;
-
-		len = strlen(linebuf);
-		/* len cannot be 0 unless there is a bug in fgets */
-		if (len && linebuf[len - 1] != '\n' && !feof(f)) {
-			(void) fclose(f);
-			return PAM_SERVICE_ERR;
-		}
-
-		if ((ptr=strchr(linebuf, '#')) != NULL) {
-			*ptr = '\0';
-		} else {
-			ptr = linebuf + len;
-		}
-
-		/* drop terminating whitespace including the \n */
-		while (ptr > linebuf) {
-			if (!isspace(*(ptr-1))) {
-				*ptr = '\0';
-				break;
-			}
-			--ptr;
-		}
-
-		/* skip initial whitespace */
-		for (ptr = linebuf; isspace(*ptr); ptr++);
-		if (*ptr == '\0')
-			continue;
-
-		/* grab the key name */
-		eq = 0;
-		name = ptr;
-		while (*ptr != '\0') {
-			if (isspace(*ptr) || *ptr == '=') {
-				eq = *ptr == '=';
-				*ptr = '\0';
-				++ptr;
-				break;
-			}
-			++ptr;
-		}
-
-		/* grab the key value */
-		while (*ptr != '\0') {
-			if (*ptr != '=' || eq) {
-				if (!isspace(*ptr)) {
-					break;
-				}
-			} else {
-				eq = 1;
-			}
-			++ptr;
-		}
-
-		/* set the key:value pair on opts */
-		set_conf_opt(pamh, opts, name, ptr);
-	}
-
-	(void)fclose(f);
-	return PAM_SUCCESS;
-}
-
-static void
-set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name, const char *value)
-{
-	if (strcmp(name, "dir") == 0) {
-		if (value[0] != '/') {
-			pam_syslog(pamh, LOG_ERR,
-				"Tally directory is not absolute path (%s); keeping default", value);
-		} else {
-			free(opts->dir);
-			opts->dir = strdup(value);
-		}
-	}
-	else if (strcmp(name, "deny") == 0) {
-		if (sscanf(value, "%hu", &opts->deny) != 1) {
-			pam_syslog(pamh, LOG_ERR,
-				"Bad number supplied for deny argument");
-		}
-	}
-	else if (strcmp(name, "fail_interval") == 0) {
-		unsigned int temp;
-		if (sscanf(value, "%u", &temp) != 1 ||
-			temp > MAX_TIME_INTERVAL) {
-			pam_syslog(pamh, LOG_ERR,
-				"Bad number supplied for fail_interval argument");
-		} else {
-			opts->fail_interval = temp;
-		}
-	}
-	else if (strcmp(name, "unlock_time") == 0) {
-		unsigned int temp;
-
-		if (strcmp(value, "never") == 0) {
-			opts->unlock_time = 0;
-		}
-		else if (sscanf(value, "%u", &temp) != 1 ||
-			temp > MAX_TIME_INTERVAL) {
-			pam_syslog(pamh, LOG_ERR,
-				"Bad number supplied for unlock_time argument");
-		}
-		else {
-			opts->unlock_time = temp;
-		}
-	}
-	else if (strcmp(name, "root_unlock_time") == 0) {
-		unsigned int temp;
-
-		if (strcmp(value, "never") == 0) {
-			opts->root_unlock_time = 0;
-		}
-		else if (sscanf(value, "%u", &temp) != 1 ||
-			temp > MAX_TIME_INTERVAL) {
-			pam_syslog(pamh, LOG_ERR,
-				"Bad number supplied for root_unlock_time argument");
-		} else {
-			opts->root_unlock_time = temp;
-		}
-	}
-	else if (strcmp(name, "admin_group") == 0) {
-		free(opts->admin_group);
-		opts->admin_group = strdup(value);
-		if (opts->admin_group == NULL) {
-			opts->fatal_error = 1;
-			pam_syslog(pamh, LOG_CRIT, "Error allocating memory: %m");
-		}
-	}
-	else if (strcmp(name, "even_deny_root") == 0) {
-		opts->flags |= FAILLOCK_FLAG_DENY_ROOT;
-	}
-	else if (strcmp(name, "audit") == 0) {
-		opts->flags |= FAILLOCK_FLAG_AUDIT;
-	}
-	else if (strcmp(name, "silent") == 0) {
-		opts->flags |= FAILLOCK_FLAG_SILENT;
-	}
-	else if (strcmp(name, "no_log_info") == 0) {
-		opts->flags |= FAILLOCK_FLAG_NO_LOG_INFO;
-	}
-	else if (strcmp(name, "local_users_only") == 0) {
-		opts->flags |= FAILLOCK_FLAG_LOCAL_ONLY;
-	}
-	else if (strcmp(name, "nodelay") == 0) {
-		opts->flags |= FAILLOCK_FLAG_NO_DELAY;
-	}
-	else {
-		pam_syslog(pamh, LOG_ERR, "Unknown option: %s", name);
-	}
 }
 
 static int

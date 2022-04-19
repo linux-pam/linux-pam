@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2010 Tomas Mraz <tmraz@redhat.com>
+ * Copyright (c) 2022 Tomas Mraz <tm@t8m.info>
+ * Copyright (c) 2022 Iker Pedrosa <ipedrosa@redhat.com>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -34,41 +35,51 @@
  */
 
 /*
- * faillock.h - authentication failure data file record structure
+ * faillock_config.h - load configuration options from file
  *
- * Each record in the file represents an instance of login failure of
- * the user at the recorded time.
  */
 
+#ifndef _FAILLOCK_CONFIG_H
+#define _FAILLOCK_CONFIG_H
 
-#ifndef _FAILLOCK_H
-#define _FAILLOCK_H
-
+#include <limits.h>
 #include <stdint.h>
 #include <sys/types.h>
 
-#define TALLY_STATUS_VALID     0x1       /* the tally file entry is valid */
-#define TALLY_STATUS_RHOST     0x2       /* the source is rhost */
-#define TALLY_STATUS_TTY       0x4       /* the source is tty */
-/* If neither TALLY_FLAG_RHOST nor TALLY_FLAG_TTY are set the source is service. */
+#include <security/pam_ext.h>
 
-struct	tally {
-	char		source[52];	/* rhost or tty of the login failure */
-					/* (not necessarily NULL terminated) */
-	uint16_t	reserved;	/* reserved for future use */
-	uint16_t	status;		/* record status  */
-	uint64_t	time;		/* time of the login failure */
+#define FAILLOCK_FLAG_DENY_ROOT		0x1
+#define FAILLOCK_FLAG_AUDIT			0x2
+#define FAILLOCK_FLAG_SILENT		0x4
+#define FAILLOCK_FLAG_NO_LOG_INFO	0x8
+#define FAILLOCK_FLAG_UNLOCKED		0x10
+#define FAILLOCK_FLAG_LOCAL_ONLY	0x20
+#define FAILLOCK_FLAG_NO_DELAY		0x40
+
+#define FAILLOCK_CONF_MAX_LINELEN 	1023
+#define MAX_TIME_INTERVAL			604800 /* 7 days */
+
+struct options {
+	unsigned int action;
+	unsigned int flags;
+	unsigned short deny;
+	unsigned int fail_interval;
+	unsigned int unlock_time;
+	unsigned int root_unlock_time;
+	char *dir;
+	const char *user;
+	char *admin_group;
+	int failures;
+	uint64_t latest_time;
+	uid_t uid;
+	int is_admin;
+	uint64_t now;
+	int fatal_error;
 };
-/* 64 bytes per entry */
 
-struct tally_data {
-	struct tally *records;		/* array of tallies */
-	unsigned int count;		/* number of records */
-};
+int read_config_file(pam_handle_t *pamh, struct options *opts,
+					 const char *cfgfile);
+void set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name,
+		  const char *value);
 
-#define FAILLOCK_DEFAULT_TALLYDIR "/var/run/faillock"
-
-int open_tally(const char *dir, const char *user, uid_t uid, int create);
-int read_tally(int fd, struct tally_data *tallies);
-int update_tally(int fd, struct tally_data *tallies);
-#endif
+#endif /* _FAILLOCK_CONFIG_H */
