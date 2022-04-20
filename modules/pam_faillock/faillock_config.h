@@ -75,11 +75,15 @@ struct options {
 	int is_admin;
 	uint64_t now;
 	int fatal_error;
+
+	unsigned int reset;
+	const char *progname;
 };
 
 int read_config_file(pam_handle_t *pamh, struct options *opts,
 					 const char *cfgfile);
 void set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name,
 		  const char *value);
+const char *get_tally_dir(const struct options *opts);
 
 #endif /* _FAILLOCK_CONFIG_H */

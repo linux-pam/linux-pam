@@ -45,7 +45,7 @@ securelib_LTLIBRARIES = pam_faillock.la
 sbin_PROGRAMS = faillock
 
 pam_faillock_la_SOURCES = pam_faillock.c faillock.c faillock_config.c
-faillock_SOURCES = main.c faillock.c
+faillock_SOURCES = main.c faillock.c faillock_config.c
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README

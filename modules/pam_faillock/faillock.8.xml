@@ -57,12 +57,29 @@
          <variablelist>
             <varlistentry>
               <term>
+                <option>--conf <replaceable>/path/to/config-file</replaceable></option>
+              </term>
+              <listitem>
+                <para>
+                  The file where the configuration is located. The default is
+                  <filename>/etc/security/faillock.conf</filename>.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
                 <option>--dir <replaceable>/path/to/tally-directory</replaceable></option>
               </term>
               <listitem>
                 <para>
-                  The directory where the user files with the failure records are kept. The
-                  default is <filename>/var/run/faillock</filename>.
+                  The directory where the user files with the failure records are kept.
+                </para>
+                <para>
+                  The priority to set this option is to use the value provided
+                  from the command line. If this isn't provided, then the value
+                  from the configuration file is used. Finally, if neither of
+                  them has been provided, then
+                  <filename>/var/run/faillock</filename> is used.
                 </para>
               </listitem>
             </varlistentry>

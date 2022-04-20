@@ -51,32 +51,40 @@
 #define AUDIT_NO_ID     ((unsigned int) -1)
 #endif
 
+#include "pam_inline.h"
 #include "faillock.h"
-
-struct options {
-	unsigned int reset;
-	const char *dir;
-	const char *user;
-	const char *progname;
-};
+#include "faillock_config.h"
 
 static int
 args_parse(int argc, char **argv, struct options *opts)
 {
 	int i;
+	int rv;
+	const char *dir = NULL;
+	const char *conf = NULL;
+
 	memset(opts, 0, sizeof(*opts));
 
-	opts->dir = FAILLOCK_DEFAULT_TALLYDIR;
 	opts->progname = argv[0];
 
 	for (i = 1; i < argc; ++i) {
-		if (strcmp(argv[i], "--dir") == 0) {
+		if (strcmp(argv[i], "--conf") == 0) {
 			++i;
 			if (i >= argc || strlen(argv[i]) == 0) {
-				fprintf(stderr, "%s: No directory supplied.\n", argv[0]);
+				fprintf(stderr, "%s: No configuration file supplied.\n",
+						argv[0]);
 				return -1;
 			}
-			opts->dir = argv[i];
+			conf = argv[i];
+		}
+		else if (strcmp(argv[i], "--dir") == 0) {
+			++i;
+			if (i >= argc || strlen(argv[i]) == 0) {
+				fprintf(stderr, "%s: No records directory supplied.\n",
+						argv[0]);
+				return -1;
+			}
+			dir = argv[i];
 		}
 		else if (strcmp(argv[i], "--user") == 0) {
 			++i;
@@ -94,6 +102,21 @@ args_parse(int argc, char **argv, struct options *opts)
 			return -1;
 		}
 	}
+
+	if ((rv = read_config_file(NULL, opts, conf)) != PAM_SUCCESS) {
+		fprintf(stderr, "Configuration file missing or broken");
+		return rv;
+	}
+
+	if (dir != NULL) {
+		free(opts->dir);
+		opts->dir = strdup(dir);
+		if (opts->dir == NULL) {
+			fprintf(stderr, "Error allocating memory: %m");
+			return -1;
+		}
+	}
+
 	return 0;
 }
 
@@ -111,10 +134,11 @@ do_user(struct options *opts, const char *user)
 	int rv;
 	struct tally_data tallies;
 	struct passwd *pwd;
+	const char *dir = get_tally_dir(opts);
 
 	pwd = getpwnam(user);
 
-	fd = open_tally(opts->dir, user, pwd != NULL ? pwd->pw_uid : 0, 0);
+	fd = open_tally(dir, user, pwd != NULL ? pwd->pw_uid : 0, 0);
 
 	if (fd == -1) {
 		if (errno == ENOENT) {
@@ -195,8 +219,9 @@ do_allusers(struct options *opts)
 {
 	struct dirent **userlist;
 	int rv, i;
+	const char *dir = get_tally_dir(opts);
 
-	rv = scandir(opts->dir, &userlist, NULL, alphasort);
+	rv = scandir(dir, &userlist, NULL, alphasort);
 	if (rv < 0) {
 		fprintf(stderr, "%s: Error reading tally directory: %m\n", opts->progname);
 		return 2;

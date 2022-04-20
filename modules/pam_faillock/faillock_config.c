@@ -46,11 +46,34 @@
 #include <security/pam_modules.h>
 
 #include "faillock_config.h"
+#include "faillock.h"
 
 #define FAILLOCK_DEFAULT_CONF SCONFIGDIR "/faillock.conf"
 #ifdef VENDOR_SCONFIGDIR
 #define VENDOR_FAILLOCK_DEFAULT_CONF VENDOR_SCONFIGDIR "/faillock.conf"
 #endif
+
+static void PAM_FORMAT((printf, 3, 4)) PAM_NONNULL((3))
+config_log(const pam_handle_t *pamh, int priority, const char *fmt, ...)
+{
+	va_list args;
+
+	va_start(args, fmt);
+	if (pamh) {
+		pam_vsyslog(pamh, priority, fmt, args);
+	} else {
+		char *buf = NULL;
+
+		if (vasprintf(&buf, fmt, args) < 0) {
+			fprintf(stderr, "vasprintf: %m");
+			va_end(args);
+			return;
+		}
+		fprintf(stderr, "%s\n", buf);
+		free(buf);
+	}
+	va_end(args);
+}
 
 /* parse a single configuration file */
 int
@@ -149,16 +172,21 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name,
 {
 	if (strcmp(name, "dir") == 0) {
 		if (value[0] != '/') {
-			pam_syslog(pamh, LOG_ERR,
-				"Tally directory is not absolute path (%s); keeping default", value);
+			config_log(pamh, LOG_ERR,
+					"Tally directory is not absolute path (%s); keeping value",
+					value);
 		} else {
 			free(opts->dir);
 			opts->dir = strdup(value);
+			if (opts->dir == NULL) {
+				opts->fatal_error = 1;
+				config_log(pamh, LOG_CRIT, "Error allocating memory: %m");
+			}
 		}
 	}
 	else if (strcmp(name, "deny") == 0) {
 		if (sscanf(value, "%hu", &opts->deny) != 1) {
-			pam_syslog(pamh, LOG_ERR,
+			config_log(pamh, LOG_ERR,
 				"Bad number supplied for deny argument");
 		}
 	}
@@ -166,7 +194,7 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name,
 		unsigned int temp;
 		if (sscanf(value, "%u", &temp) != 1 ||
 			temp > MAX_TIME_INTERVAL) {
-			pam_syslog(pamh, LOG_ERR,
+			config_log(pamh, LOG_ERR,
 				"Bad number supplied for fail_interval argument");
 		} else {
 			opts->fail_interval = temp;
@@ -180,7 +208,7 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name,
 		}
 		else if (sscanf(value, "%u", &temp) != 1 ||
 			temp > MAX_TIME_INTERVAL) {
-			pam_syslog(pamh, LOG_ERR,
+			config_log(pamh, LOG_ERR,
 				"Bad number supplied for unlock_time argument");
 		}
 		else {
@@ -195,7 +223,7 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name,
 		}
 		else if (sscanf(value, "%u", &temp) != 1 ||
 			temp > MAX_TIME_INTERVAL) {
-			pam_syslog(pamh, LOG_ERR,
+			config_log(pamh, LOG_ERR,
 				"Bad number supplied for root_unlock_time argument");
 		} else {
 			opts->root_unlock_time = temp;
@@ -206,7 +234,7 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name,
 		opts->admin_group = strdup(value);
 		if (opts->admin_group == NULL) {
 			opts->fatal_error = 1;
-			pam_syslog(pamh, LOG_CRIT, "Error allocating memory: %m");
+			config_log(pamh, LOG_CRIT, "Error allocating memory: %m");
 		}
 	}
 	else if (strcmp(name, "even_deny_root") == 0) {
@@ -228,6 +256,11 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name,
 		opts->flags |= FAILLOCK_FLAG_NO_DELAY;
 	}
 	else {
-		pam_syslog(pamh, LOG_ERR, "Unknown option: %s", name);
+		config_log(pamh, LOG_ERR, "Unknown option: %s", name);
 	}
+}
+
+const char *get_tally_dir(const struct options *opts)
+{
+	return (opts->dir != NULL) ? opts->dir : FAILLOCK_DEFAULT_TALLYDIR;
 }

@@ -72,7 +72,6 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 
 	memset(opts, 0, sizeof(*opts));
 
-	opts->dir = strdup(FAILLOCK_DEFAULT_TALLYDIR);
 	opts->deny = 3;
 	opts->fail_interval = 900;
 	opts->unlock_time = 600;
@@ -129,11 +128,6 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 		opts->root_unlock_time = opts->unlock_time;
 	if (flags & PAM_SILENT)
 		opts->flags |= FAILLOCK_FLAG_SILENT;
-
-	if (opts->dir == NULL) {
-		pam_syslog(pamh, LOG_CRIT, "Error allocating memory: %m");
-		opts->fatal_error = 1;
-	}
 
 	if (opts->fatal_error)
 		return PAM_BUF_ERR;
@@ -193,10 +187,11 @@ check_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 	unsigned int i;
 	uint64_t latest_time;
 	int failures;
+	const char *dir = get_tally_dir(opts);
 
 	opts->now = time(NULL);
 
-	tfd = open_tally(opts->dir, opts->user, opts->uid, 0);
+	tfd = open_tally(dir, opts->user, opts->uid, 0);
 
 	*fd = tfd;
 
@@ -270,9 +265,10 @@ static void
 reset_tally(pam_handle_t *pamh, struct options *opts, int *fd)
 {
 	int rv;
+	const char *dir = get_tally_dir(opts);
 
 	if (*fd == -1) {
-		*fd = open_tally(opts->dir, opts->user, opts->uid, 1);
+		*fd = open_tally(dir, opts->user, opts->uid, 1);
 	}
 	else {
 		while ((rv=ftruncate(*fd, 0)) == -1 && errno == EINTR);
@@ -291,9 +287,10 @@ write_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 	unsigned int oldest;
 	uint64_t oldtime;
 	const void *source = NULL;
+	const char *dir = get_tally_dir(opts);
 
 	if (*fd == -1) {
-		*fd = open_tally(opts->dir, opts->user, opts->uid, 1);
+		*fd = open_tally(dir, opts->user, opts->uid, 1);
 	}
 	if (*fd == -1) {
 		if (errno == EACCES) {
