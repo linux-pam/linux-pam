@@ -288,7 +288,8 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid, time_t
         D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
         pam_syslog(pamh, LOG_INFO,
                    "file %s is locked/read, retrying", _PATH_LASTLOG);
-	    sleep(LOCK_RETRY_DELAY);
+  	    sleep(LOCK_RETRY_DELAY);
+
     }
 
     if (pam_modutil_read(last_fd, (char *) &last_login,
@@ -443,7 +444,7 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
 	    D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
 	    pam_syslog(pamh, LOG_INFO,
                    "file %s is locked/write, retrying", _PATH_LASTLOG);
-        sleep(LOCK_RETRY_DELAY);
+      sleep(LOCK_RETRY_DELAY);
     }
 
     /*
