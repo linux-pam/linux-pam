@@ -65,6 +65,7 @@ struct lastlog {
 
 #define DEFAULT_INACTIVE_DAYS 90
 #define MAX_INACTIVE_DAYS 100000
+#define LOCK_RETRIES 3
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
@@ -266,6 +267,7 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid, time_t
 {
     struct flock last_lock;
     struct lastlog last_login;
+    int lock_retries = LOCK_RETRIES;
     int retval = PAM_SUCCESS;
     char the_time[256];
     char *date = NULL;
@@ -278,10 +280,16 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid, time_t
     last_lock.l_start = sizeof(last_login) * (off_t) uid;
     last_lock.l_len = sizeof(last_login);
 
-    if (fcntl(last_fd, F_SETLK, &last_lock) < 0) {
+    while (fcntl(last_fd, F_SETLK, &last_lock) < 0) {
+        if (0 == --lock_retries) {
+            D(("locking %s failed", _PATH_LASTLOG));
+            pam_syslog(pamh, LOG_ERR,
+                       "file %s is locked/read", _PATH_LASTLOG);
+            return PAM_SERVICE_ERR;
+        }
         D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
-	pam_syslog(pamh, LOG_WARNING,
-		   "file %s is locked/read", _PATH_LASTLOG);
+        pam_syslog(pamh, LOG_WARNING,
+                   "file %s is locked/read, retrying", _PATH_LASTLOG);
 	sleep(LASTLOG_IGNORE_LOCK_TIME);
     }
 
@@ -380,6 +388,7 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
     int setrlimit_res;
     struct flock last_lock;
     struct lastlog last_login;
+    int lock_retries = LOCK_RETRIES;
     time_t ll_time;
     const void *void_remote_host = NULL;
     const char *remote_host;
@@ -426,9 +435,15 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
     last_lock.l_start = sizeof(last_login) * (off_t) uid;
     last_lock.l_len = sizeof(last_login);
 
-    if (fcntl(last_fd, F_SETLK, &last_lock) < 0) {
+    while (fcntl(last_fd, F_SETLK, &last_lock) < 0) {
+        if (0 == --lock_retries) {
+            D(("locking %s failed", _PATH_LASTLOG));
+            pam_syslog(pamh, LOG_ERR,
+                       "file %s is locked/write", _PATH_LASTLOG);
+            return PAM_SERVICE_ERR;
+        }
 	D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
-	pam_syslog(pamh, LOG_WARNING, "file %s is locked/write", _PATH_LASTLOG);
+	pam_syslog(pamh, LOG_WARNING, "file %s is locked/write, retrying", _PATH_LASTLOG);
         sleep(LASTLOG_IGNORE_LOCK_TIME);
     }
 
