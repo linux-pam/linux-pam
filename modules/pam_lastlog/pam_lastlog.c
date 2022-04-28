@@ -65,7 +65,7 @@ struct lastlog {
 
 #define DEFAULT_INACTIVE_DAYS 90
 #define MAX_INACTIVE_DAYS 100000
-#define LOCK_RETRIES 3
+#define LOCK_RETRIES 3            /* number of file lock retries */
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
