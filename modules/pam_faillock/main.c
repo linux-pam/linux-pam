@@ -54,6 +54,7 @@
 #include "faillock.h"
 
 struct options {
+	unsigned int show_unlocked;
 	unsigned int reset;
 	const char *dir;
 	const char *user;
@@ -89,6 +90,9 @@ args_parse(int argc, char **argv, struct options *opts)
 		else if (strcmp(argv[i], "--reset") == 0) {
 			opts->reset = 1;
 		}
+		else if (strcmp(argv[i], "--show-unlocked") == 0) {
+			opts->show_unlocked = 1;
+		}
 		else {
 			fprintf(stderr, "%s: Unknown option: %s\n", argv[0], argv[i]);
 			return -1;
@@ -100,7 +104,7 @@ args_parse(int argc, char **argv, struct options *opts)
 static void
 usage(const char *progname)
 {
-	fprintf(stderr, _("Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"),
+	fprintf(stderr, _("Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--show-unlocked]\n"),
 		progname);
 }
 
@@ -162,6 +166,10 @@ do_user(struct options *opts, const char *user)
 			perror(NULL);
 			close(fd);
 			return 5;
+		}
+		if (tallies.count && !opts->show_unlocked) {
+			close(fd);
+			return 0;
 		}
 
 		printf("%s:\n", user);
