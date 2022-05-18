@@ -409,6 +409,8 @@ session   required   pam_warn.so
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_faildelay.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="pam_faillock.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_filter.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
      href="pam_ftp.xml"/>
