@@ -52,7 +52,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
-#include <signal.h>
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
@@ -100,16 +99,8 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 	char *buffer = NULL;
 	size_t buffer_size = 0;
 	va_list ap;
-    struct sigaction newsa, oldsa;
 
 	*output = NULL;
-
-    memset(&newsa, '\0', sizeof(newsa));
-    newsa.sa_handler = SIG_DFL;
-    if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
-        pam_syslog(pamh, LOG_ERR, "Cannot set signal value");
-        return PAM_SYSTEM_ERR;
-	}
 
 	/* Create stdio pipery. */
 	if (pipe(ipipe) == -1) {
@@ -218,7 +209,6 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 			}
 			close(opipe[0]);
 			waitpid(child, NULL, 0);
-			sigaction(SIGCHLD, &oldsa, NULL);   /* restore old signal handler */
 			return -1;
 		}
 		/* Save the new buffer location, copy the newly-read data into
@@ -235,7 +225,6 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 	close(opipe[0]);
 	*output = buffer;
 	waitpid(child, NULL, 0);
-	sigaction(SIGCHLD, &oldsa, NULL);   /* restore old signal handler */
 	return 0;
 }
 

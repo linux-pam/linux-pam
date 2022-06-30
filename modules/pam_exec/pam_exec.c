@@ -231,7 +231,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   memset(&newsa, '\0', sizeof(newsa));
   newsa.sa_handler = SIG_DFL;
   if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
-    pam_syslog(pamh, LOG_ERR, "Cannot set signal value");
+    pam_syslog(pamh, LOG_ERR, "handle SIGCHLD signal failed");
     return PAM_SYSTEM_ERR;
   }
 
