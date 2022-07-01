@@ -97,6 +97,9 @@ args_parse(int argc, char **argv, struct options *opts)
 		else if (strcmp(argv[i], "--reset") == 0) {
 			opts->reset = 1;
 		}
+		else if (!strcmp(argv[i], "--legacy-output")) {
+			opts->legacy_output = 1;
+		}
 		else {
 			fprintf(stderr, "%s: Unknown option: %s\n", argv[0], argv[i]);
 			return -1;
@@ -123,8 +126,23 @@ args_parse(int argc, char **argv, struct options *opts)
 static void
 usage(const char *progname)
 {
-	fprintf(stderr, _("Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"),
-		progname);
+	fprintf(stderr,
+		_("Usage: %s [--dir /path/to/tally-directory] "
+		  " [--user username] [--reset] [--legacy-output]\n"), progname);
+
+}
+
+static int
+get_local_time(time_t when, char *timebuf, size_t timebuf_size)
+{
+	struct tm *tm;
+
+	tm = localtime(&when);
+	if (tm == NULL) {
+		return -1;
+	}
+	strftime(timebuf, timebuf_size, "%Y-%m-%d %H:%M:%S", tm);
+	return 0;
 }
 
 static void
@@ -136,24 +154,55 @@ print_in_new_format(struct options *opts, const struct tally_data *tallies, cons
 	printf("%-19s %-5s %-48s %-5s\n", "When", "Type", "Source", "Valid");
 
 	for (i = 0; i < tallies->count; i++) {
-		struct tm *tm;
 		uint16_t status;
-		time_t when = 0;
 		char timebuf[80];
 
-		status = tallies->records[i].status;
-		when = tallies->records[i].time;
-
-		tm = localtime(&when);
-		if(tm == NULL) {
+		if (get_local_time(tallies->records[i].time, timebuf, sizeof(timebuf)) != 0) {
 			fprintf(stderr, "%s: Invalid timestamp in the tally record\n",
 				opts->progname);
 			continue;
 		}
-		strftime(timebuf, sizeof(timebuf), "%Y-%m-%d %H:%M:%S", tm);
+
+		status = tallies->records[i].status;
+
 		printf("%-19s %-5s %-52.52s %s\n", timebuf,
 			status & TALLY_STATUS_RHOST ? "RHOST" : (status & TALLY_STATUS_TTY ? "TTY" : "SVC"),
 			tallies->records[i].source, status & TALLY_STATUS_VALID ? "V":"I");
+	}
+}
+
+static void
+print_in_legacy_format(struct options *opts, const struct tally_data *tallies, const char *user)
+{
+	uint32_t tally_count;
+	static uint32_t pr_once;
+
+	if (pr_once == 0) {
+		printf(_("Login           Failures    Latest failure         From\n"));
+		pr_once = 1;
+	}
+
+	printf("%-15.15s ", user);
+
+	tally_count = tallies->count;
+
+	if (tally_count > 0) {
+		uint32_t i;
+		char timebuf[80];
+
+		i = tally_count - 1;
+
+		if (get_local_time(tallies->records[i].time, timebuf, sizeof(timebuf)) != 0) {
+			fprintf(stderr, "%s: Invalid timestamp in the tally record\n",
+				opts->progname);
+			return;
+		}
+
+		printf("%5u %25s    %s\n",
+			tally_count, timebuf, tallies->records[i].source);
+	}
+	else {
+		printf("%5u\n", tally_count);
 	}
 }
 
@@ -220,7 +269,12 @@ do_user(struct options *opts, const char *user)
 			return 5;
 		}
 
-		print_in_new_format(opts, &tallies, user);
+		if (opts->legacy_output == 0) {
+			print_in_new_format(opts, &tallies, user);
+		}
+		else {
+			print_in_legacy_format(opts, &tallies, user);
+		}
 
 		free(tallies.records);
 	}
