@@ -137,8 +137,12 @@ do_user(struct options *opts, const char *user)
 	const char *dir = get_tally_dir(opts);
 
 	pwd = getpwnam(user);
+	if (pwd == NULL) {
+	    fprintf(stderr, "%s: Error no such user: %s\n", opts->progname, user);
+	    return 1;
+	}
 
-	fd = open_tally(dir, user, pwd != NULL ? pwd->pw_uid : 0, 0);
+	fd = open_tally(dir, user, pwd->pw_uid, 1);
 
 	if (fd == -1) {
 		if (errno == ENOENT) {
