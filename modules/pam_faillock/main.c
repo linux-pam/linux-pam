@@ -127,6 +127,36 @@ usage(const char *progname)
 		progname);
 }
 
+static void
+print_in_new_format(struct options *opts, const struct tally_data *tallies, const char *user)
+{
+	uint32_t i;
+
+	printf("%s:\n", user);
+	printf("%-19s %-5s %-48s %-5s\n", "When", "Type", "Source", "Valid");
+
+	for (i = 0; i < tallies->count; i++) {
+		struct tm *tm;
+		uint16_t status;
+		time_t when = 0;
+		char timebuf[80];
+
+		status = tallies->records[i].status;
+		when = tallies->records[i].time;
+
+		tm = localtime(&when);
+		if(tm == NULL) {
+			fprintf(stderr, "%s: Invalid timestamp in the tally record\n",
+				opts->progname);
+			continue;
+		}
+		strftime(timebuf, sizeof(timebuf), "%Y-%m-%d %H:%M:%S", tm);
+		printf("%-19s %-5s %-52.52s %s\n", timebuf,
+			status & TALLY_STATUS_RHOST ? "RHOST" : (status & TALLY_STATUS_TTY ? "TTY" : "SVC"),
+			tallies->records[i].source, status & TALLY_STATUS_VALID ? "V":"I");
+	}
+}
+
 static int
 do_user(struct options *opts, const char *user)
 {
@@ -181,8 +211,6 @@ do_user(struct options *opts, const char *user)
 		}
 	}
 	else {
-		unsigned int i;
-
 		memset(&tallies, 0, sizeof(tallies));
 		if (read_tally(fd, &tallies) == -1) {
 			fprintf(stderr, "%s: Error reading the tally file for %s:",
@@ -192,26 +220,8 @@ do_user(struct options *opts, const char *user)
 			return 5;
 		}
 
-		printf("%s:\n", user);
-		printf("%-19s %-5s %-48s %-5s\n", "When", "Type", "Source", "Valid");
+		print_in_new_format(opts, &tallies, user);
 
-		for (i = 0; i < tallies.count; i++) {
-			struct tm *tm;
-			char timebuf[80];
-			uint16_t status = tallies.records[i].status;
-			time_t when = tallies.records[i].time;
-
-			tm = localtime(&when);
-			if(tm == NULL) {
-				fprintf(stderr, "%s: Invalid timestamp in the tally record\n",
-					opts->progname);
-				continue;
-			}
-			strftime(timebuf, sizeof(timebuf), "%Y-%m-%d %H:%M:%S", tm);
-			printf("%-19s %-5s %-52.52s %s\n", timebuf,
-				status & TALLY_STATUS_RHOST ? "RHOST" : (status & TALLY_STATUS_TTY ? "TTY" : "SVC"),
-				tallies.records[i].source, status & TALLY_STATUS_VALID ? "V":"I");
-		}
 		free(tallies.records);
 	}
 	close(fd);
