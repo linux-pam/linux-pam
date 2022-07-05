@@ -94,6 +94,12 @@
 #define NAMESPACE_INIT_SCRIPT (SCONFIGDIR "/namespace.init")
 #define NAMESPACE_D_DIR (SCONFIGDIR "/namespace.d/")
 #define NAMESPACE_D_GLOB (SCONFIGDIR "/namespace.d/*.conf")
+#ifdef VENDOR_SCONFIGDIR
+#define VENDOR_NAMESPACE_INIT_SCRIPT (VENDOR_SCONFIGDIR "/namespace.init")
+#define VENDOR_PAM_NAMESPACE_CONFIG (VENDOR_SCONFIGDIR "/namespace.conf")
+#define VENDOR_NAMESPACE_D_DIR (VENDOR_SCONFIGDIR "/namespace.d/")
+#define VENDOR_NAMESPACE_D_GLOB (VENDOR_SCONFIGDIR "/namespace.d/*.conf")
+#endif
 
 /* module flags */
 #define PAMNS_DEBUG           0x00000100 /* Running in debug mode */

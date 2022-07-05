@@ -58,6 +58,10 @@
 
 #define PAM_ACCESS_CONFIG	(SCONFIGDIR "/access.conf")
 #define ACCESS_CONF_GLOB	(SCONFIGDIR "/access.d/*.conf")
+#ifdef VENDOR_SCONFIGDIR
+#define VENDOR_PAM_ACCESS_CONFIG (VENDOR_SCONFIGDIR "/access.conf")
+#define VENDOR_ACCESS_CONF_GLOB  (VENDOR_SCONFIGDIR "/access.d/*.conf")
+#endif
 
 /* login_access.c from logdaemon-5.6 with several changes by A.Nogin: */
 
@@ -152,6 +156,95 @@ parse_args(pam_handle_t *pamh, struct login_info *loginfo,
     }
 
     return 1;  /* OK */
+}
+
+/* --- evaluting all files in VENDORDIR/security/access.d and /etc/security/access.d --- */
+static const char *base_name(const char *path)
+{
+    const char *base = strrchr(path, '/');
+    return base ? base+1 : path;
+}
+
+static int
+compare_filename(const void *a, const void *b)
+{
+	return strcmp(base_name(* (const char * const *) a),
+		        base_name(* (const char * const *) b));
+}
+
+/* Evaluating a list of files which have to be parsed in the right order:
+ *
+ * - If etc/security/access.d/@filename@.conf exists, then
+ *   %vendordir%/security/access.d/@filename@.conf should not be used.
+ * - All files in both access.d directories are sorted by their @filename@.conf in
+ *   lexicographic order regardless of which of the directories they reside in. */
+static char **read_access_dir(pam_handle_t *pamh)
+{
+	glob_t globbuf;
+	size_t i=0;
+	int glob_rv = glob(ACCESS_CONF_GLOB, GLOB_ERR | GLOB_NOSORT, NULL, &globbuf);
+	char **file_list;
+	size_t file_list_size = glob_rv == 0 ? globbuf.gl_pathc : 0;
+
+#ifdef VENDOR_ACCESS_CONF_GLOB
+	glob_t globbuf_vendor;
+	int glob_rv_vendor = glob(VENDOR_ACCESS_CONF_GLOB, GLOB_ERR | GLOB_NOSORT, NULL, &globbuf_vendor);
+	if (glob_rv_vendor == 0)
+	    file_list_size += globbuf_vendor.gl_pathc;
+#endif
+	file_list = malloc((file_list_size + 1) * sizeof(char*));
+	if (file_list == NULL) {
+	    pam_syslog(pamh, LOG_ERR, "Cannot allocate memory for file list: %m");
+#ifdef VENDOR_ACCESS_CONF_GLOB
+            if (glob_rv_vendor == 0)
+                globfree(&globbuf_vendor);
+#endif
+            if (glob_rv == 0)
+                globfree(&globbuf);
+	    return NULL;
+	}
+
+	if (glob_rv == 0) {
+	    for (i = 0; i < globbuf.gl_pathc; i++) {
+	        file_list[i] = strdup(globbuf.gl_pathv[i]);
+		if (file_list[i] == NULL) {
+		    pam_syslog(pamh, LOG_ERR, "strdup failed: %m");
+		    break;
+		}
+	    }
+	}
+#ifdef VENDOR_ACCESS_CONF_GLOB
+	if (glob_rv_vendor == 0) {
+	    for (size_t j = 0; j < globbuf_vendor.gl_pathc; j++) {
+		if (glob_rv == 0 && globbuf.gl_pathc > 0) {
+		    int double_found = 0;
+		    for (size_t k = 0; k < globbuf.gl_pathc; k++) {
+		        if (strcmp(base_name(globbuf.gl_pathv[k]),
+				   base_name(globbuf_vendor.gl_pathv[j])) == 0) {
+				double_found = 1;
+				break;
+			}
+		    }
+		    if (double_found)
+			continue;
+		}
+		file_list[i] = strdup(globbuf_vendor.gl_pathv[j]);
+		if (file_list[i] == NULL) {
+		    pam_syslog(pamh, LOG_ERR, "strdup failed: %m");
+		    break;
+		}
+		i++;
+	    }
+	    globfree(&globbuf_vendor);
+	}
+#endif
+	file_list[i] = NULL;
+	qsort(file_list, i, sizeof(char *), compare_filename);
+
+	if (glob_rv == 0)
+	    globfree(&globbuf);
+
+	return file_list;
 }
 
 /* --- static functions for checking whether the user should be let in --- */
@@ -888,7 +981,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     char hostname[MAXHOSTNAMELEN + 1];
     int rv;
 
-
     /* set username */
 
     if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
@@ -912,6 +1004,18 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	pam_syslog(pamh, LOG_ERR, "failed to parse the module arguments");
 	return PAM_ABORT;
     }
+
+#ifdef VENDOR_PAM_ACCESS_CONFIG
+    if (loginfo.config_file == default_config) {
+      /* Check whether PAM_ACCESS_CONFIG file is available.
+       * If it does not exist, fall back to VENDOR_PAM_ACCESS_CONFIG file. */
+      struct stat buffer;
+      if (stat(loginfo.config_file, &buffer) != 0 && errno == ENOENT) {
+	default_config = VENDOR_PAM_ACCESS_CONFIG;
+	loginfo.config_file = default_config;
+      }
+    }
+#endif
 
     /* remote host name */
 
@@ -976,23 +1080,18 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     rv = login_access(pamh, &loginfo);
 
     if (rv == NOMATCH && loginfo.config_file == default_config) {
-	glob_t globbuf;
-	int i, glob_rv;
-
-	/* We do not manipulate locale as setlocale() is not
-	 * thread safe. We could use uselocale() in future.
-	 */
-	glob_rv = glob(ACCESS_CONF_GLOB, GLOB_ERR, NULL, &globbuf);
-	if (!glob_rv) {
-	    /* Parse the *.conf files. */
-	    for (i = 0; globbuf.gl_pathv[i] != NULL; i++) {
-		loginfo.config_file = globbuf.gl_pathv[i];
-		rv = login_access(pamh, &loginfo);
-		if (rv != NOMATCH)
-		    break;
-	    }
-	    globfree(&globbuf);
-	}
+        char **filename_list = read_access_dir(pamh);
+        if (filename_list != NULL) {
+            for (int i = 0; filename_list[i] != NULL; i++) {
+                loginfo.config_file = filename_list[i];
+                rv = login_access(pamh, &loginfo);
+                if (rv != NOMATCH)
+                    break;
+            }
+            for (int i = 0; filename_list[i] != NULL; i++)
+                free(filename_list[i]);
+            free(filename_list);
+        }
     }
 
     if (loginfo.gai_rv == 0 && loginfo.res)

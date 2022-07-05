@@ -166,11 +166,6 @@ static int compare_strings(const void *a, const void *b)
     }
 }
 
-static int filter_dirents(const struct dirent *d)
-{
-    return (d->d_type == DT_REG || d->d_type == DT_LNK);
-}
-
 static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 	char **motd_dir_path_split, unsigned int num_motd_dirs, int report_missing)
 {
@@ -199,8 +194,7 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 
     for (i = 0; i < num_motd_dirs; i++) {
 	int rv;
-	rv = scandir(motd_dir_path_split[i], &(dirscans[i]),
-		filter_dirents, alphasort);
+	rv = scandir(motd_dir_path_split[i], &(dirscans[i]), NULL, NULL);
 	if (rv < 0) {
 	    if (errno != ENOENT || report_missing) {
 		pam_syslog(pamh, LOG_ERR, "error scanning directory %s: %m",
@@ -215,6 +209,41 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
     if (dirscans_size_total == 0)
         goto out;
 
+    /* filter out unwanted names, directories, and complement data with lstat() */
+    for (i = 0; i < num_motd_dirs; i++) {
+	struct dirent **d = dirscans[i];
+	for (unsigned int j = 0; j < dirscans_sizes[i]; j++) {
+	    int rc;
+	    char *fullpath;
+	    struct stat s;
+
+	    switch(d[j]->d_type) {    /* the filetype determines how to proceed */
+	    case DT_REG:              /* regular files and     */
+	    case DT_LNK:              /* symlinks              */
+		continue;             /* are good.             */
+	    case DT_UNKNOWN:   /* for file systems that do not provide */
+			       /* a filetype, we use lstat()           */
+		if (join_dir_strings(&fullpath, motd_dir_path_split[i],
+				     d[j]->d_name) <= 0)
+		    break;
+		rc = lstat(fullpath, &s);
+		_pam_drop(fullpath);  /* free the memory alloc'ed by join_dir_strings */
+		if (rc != 0)          /* if the lstat() somehow failed */
+		    break;
+
+		if (S_ISREG(s.st_mode) ||          /* regular files and  */
+		    S_ISLNK(s.st_mode)) continue;  /* symlinks are good  */
+		break;
+	    case DT_DIR:          /* We don't want directories     */
+	    default:              /* nor anything else             */
+		break;
+	    }
+	    _pam_drop(d[j]);  /* free memory                   */
+	    d[j] = NULL;      /* indicate this one was dropped */
+	    dirscans_size_total--;
+	}
+    }
+
     /* Allocate space for all file names found in the directories, including duplicates. */
     if ((dirnames_all = calloc(dirscans_size_total, sizeof(*dirnames_all))) == NULL) {
 	pam_syslog(pamh, LOG_CRIT, "failed to allocate dirname array");
@@ -225,8 +254,10 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 	unsigned int j;
 
 	for (j = 0; j < dirscans_sizes[i]; j++) {
-	    dirnames_all[i_dirnames] = dirscans[i][j]->d_name;
-	    i_dirnames++;
+	    if (NULL != dirscans[i][j]) {
+	        dirnames_all[i_dirnames] = dirscans[i][j]->d_name;
+	        i_dirnames++;
+	    }
 	}
     }
 
