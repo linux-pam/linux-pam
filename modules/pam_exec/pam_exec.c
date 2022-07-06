@@ -48,6 +48,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <signal.h>
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
@@ -105,6 +106,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   FILE *stdout_file = NULL;
   int retval;
   const char *name;
+  struct sigaction newsa, oldsa;
 
   if (argc < 1) {
     pam_syslog (pamh, LOG_ERR,
@@ -226,6 +228,13 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
     return PAM_SERVICE_ERR;
   }
 
+  memset(&newsa, '\0', sizeof(newsa));
+  newsa.sa_handler = SIG_DFL;
+  if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
+    pam_syslog(pamh, LOG_ERR, "failed to reset SIGCHLD handler: %m");
+    return PAM_SYSTEM_ERR;
+  }
+
   pid = fork();
   if (pid == -1)
     return PAM_SYSTEM_ERR;
@@ -263,6 +272,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 
       while ((rc = waitpid (pid, &status, 0)) == -1 &&
 	     errno == EINTR);
+      sigaction(SIGCHLD, &oldsa, NULL);   /* restore old signal handler */
       if (rc == (pid_t)-1)
 	{
 	  pam_syslog (pamh, LOG_ERR, "waitpid returns with -1: %m");
