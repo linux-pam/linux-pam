@@ -39,6 +39,9 @@
       <arg choice="opt">
 	      file=<replaceable>/path/filename</replaceable>
       </arg>
+      <arg choice="opt">
+	      conf=<replaceable>/path/to/config-file</replaceable>
+      </arg>
 
     </cmdsynopsis>
   </refsynopsisdiv>
@@ -107,7 +110,7 @@
         <listitem>
           <para>
             The last <replaceable>N</replaceable> passwords for each
-            user are saved in <filename>/etc/security/opasswd</filename>.
+            user are saved.
             The default is <emphasis>10</emphasis>. Value of
             <emphasis>0</emphasis> makes the module to keep the existing
             contents of the <filename>opasswd</filename> file unchanged.
@@ -153,7 +156,26 @@
           </listitem>
         </varlistentry>
 
+        <varlistentry>
+          <term>
+            <option>conf=<replaceable>/path/to/config-file</replaceable></option>
+          </term>
+          <listitem>
+            <para>
+              Use another configuration file instead of the default
+              <filename>/etc/security/pwhistory.conf</filename>.
+            </para>
+          </listitem>
+        </varlistentry>
+
     </variablelist>
+    <para>
+      The options for configuring the module behavior are described in the
+      <citerefentry><refentrytitle>pwhistory.conf</refentrytitle>
+      <manvolnum>5</manvolnum></citerefentry> manual page. The options
+      specified on the module command line override the values from the
+      configuration file.
+    </para>
   </refsect1>
 
   <refsect1 id="pam_pwhistory-types">
@@ -238,6 +260,9 @@ password     required       pam_unix.so        use_authtok
   <refsect1 id='pam_pwhistory-see_also'>
     <title>SEE ALSO</title>
     <para>
+      <citerefentry>
+	<refentrytitle>pwhistory.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
       <citerefentry>
 	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
       </citerefentry>,
