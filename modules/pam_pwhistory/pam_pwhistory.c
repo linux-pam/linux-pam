@@ -63,15 +63,8 @@
 
 #include "opasswd.h"
 #include "pam_inline.h"
+#include "pwhistory_config.h"
 
-struct options_t {
-  int debug;
-  int enforce_for_root;
-  int remember;
-  int tries;
-  const char *filename;
-};
-typedef struct options_t options_t;
 
 
 static void
@@ -312,13 +305,14 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
   options.remember = 10;
   options.tries = 1;
 
+  parse_config_file(pamh, argc, argv, &options);
+
   /* Parse parameters for module */
   for ( ; argc-- > 0; argv++)
     parse_option (pamh, *argv, &options);
 
   if (options.debug)
     pam_syslog (pamh, LOG_DEBUG, "pam_sm_chauthtok entered");
-
 
   if (options.remember == 0)
     return PAM_IGNORE;

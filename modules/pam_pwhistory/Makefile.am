@@ -26,12 +26,14 @@ if HAVE_VERSIONING
   pam_pwhistory_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
-noinst_HEADERS = opasswd.h
+noinst_HEADERS = opasswd.h pwhistory_config.h
+
+dist_secureconf_DATA = pwhistory.conf
 
 securelib_LTLIBRARIES = pam_pwhistory.la
 pam_pwhistory_la_CFLAGS = $(AM_CFLAGS)
 pam_pwhistory_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBCRYPT@ @LIBSELINUX@
-pam_pwhistory_la_SOURCES = pam_pwhistory.c opasswd.c
+pam_pwhistory_la_SOURCES = pam_pwhistory.c opasswd.c pwhistory_config.c
 
 sbin_PROGRAMS = pwhistory_helper
 pwhistory_helper_CFLAGS = $(AM_CFLAGS) -DHELPER_COMPILE=\"pwhistory_helper\" @EXE_CFLAGS@
