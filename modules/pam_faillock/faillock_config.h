@@ -78,6 +78,7 @@ struct options {
 
 	unsigned int reset;
 	const char *progname;
+	int legacy_output; /* show failure info in pam_tally2 style */
 };
 
 int read_config_file(pam_handle_t *pamh, struct options *opts,
