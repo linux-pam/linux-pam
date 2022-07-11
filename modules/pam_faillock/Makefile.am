@@ -20,7 +20,7 @@ TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
 
-noinst_HEADERS = faillock.h
+noinst_HEADERS = faillock.h faillock_config.h
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	$(WARN_CFLAGS)
@@ -44,8 +44,8 @@ dist_secureconf_DATA = faillock.conf
 securelib_LTLIBRARIES = pam_faillock.la
 sbin_PROGRAMS = faillock
 
-pam_faillock_la_SOURCES = pam_faillock.c faillock.c
-faillock_SOURCES = main.c faillock.c
+pam_faillock_la_SOURCES = pam_faillock.c faillock.c faillock_config.c
+faillock_SOURCES = main.c faillock.c faillock_config.c
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README

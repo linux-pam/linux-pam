@@ -53,7 +53,7 @@
       or on terminal line names, X <varname>$DISPLAY</varname> values,
       or PAM service names in case of non-networked logins.
     </para>
-    <para>
+    <para condition="without_vendordir">
       By default rules for access management are taken from config file
       <filename>/etc/security/access.conf</filename> if you don't specify
       another file.
@@ -65,6 +65,26 @@
       a pattern is matched in some file no further files are parsed.
       If a config file is explicitly specified with the <option>accessfile</option>
       option the files in the above directory are not parsed.
+    </para>
+    <para condition="with_vendordir">
+      By default rules for access management are taken from config file
+      <filename>/etc/security/access.conf</filename> or, if that one is not
+      present, the file <filename>%vendordir%/security/access.conf</filename>.
+      These settings can be overruled by setting in a config file explicitly
+      specified with the <option>accessfile</option> option.
+      Then individual <filename>*.conf</filename> files from the
+      <filename>/etc/security/access.d/</filename> and
+      <filename>%vendordir%/security/access.d</filename> directories are read.
+      If <filename>/etc/security/access.d/@filename@.conf</filename> exists, then
+      <filename>%vendordir%/security/access.d/@filename@.conf</filename> will not be used.
+      All <filename>access.d/*.conf</filename> files are sorted by their
+      <filename>@filename@.conf</filename> in lexicographic order regardless of which
+      of the directories they reside in.
+      The effect of the individual files is the same as if all the files were
+      concatenated together in the order of parsing. This means that once
+      a pattern is matched in some file no further files are parsed.
+      If a config file is explicitly specified with the <option>accessfile</option>
+      option the files in the above directories are not parsed.
     </para>
     <para>
       If Linux PAM is compiled with audit support the module will report
@@ -231,6 +251,13 @@
         <term><filename>/etc/security/access.conf</filename></term>
         <listitem>
           <para>Default configuration file</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry condition="with_vendordir">
+        <term><filename>%vendordir%/security/access.conf</filename></term>
+        <listitem>
+          <para>Default configuration file if
+	  <filename>/etc/security/access.conf</filename> does not exist.</para>
         </listitem>
       </varlistentry>
     </variablelist>

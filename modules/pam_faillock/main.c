@@ -51,32 +51,40 @@
 #define AUDIT_NO_ID     ((unsigned int) -1)
 #endif
 
+#include "pam_inline.h"
 #include "faillock.h"
-
-struct options {
-	unsigned int reset;
-	const char *dir;
-	const char *user;
-	const char *progname;
-};
+#include "faillock_config.h"
 
 static int
 args_parse(int argc, char **argv, struct options *opts)
 {
 	int i;
+	int rv;
+	const char *dir = NULL;
+	const char *conf = NULL;
+
 	memset(opts, 0, sizeof(*opts));
 
-	opts->dir = FAILLOCK_DEFAULT_TALLYDIR;
 	opts->progname = argv[0];
 
 	for (i = 1; i < argc; ++i) {
-		if (strcmp(argv[i], "--dir") == 0) {
+		if (strcmp(argv[i], "--conf") == 0) {
 			++i;
 			if (i >= argc || strlen(argv[i]) == 0) {
-				fprintf(stderr, "%s: No directory supplied.\n", argv[0]);
+				fprintf(stderr, "%s: No configuration file supplied.\n",
+						argv[0]);
 				return -1;
 			}
-			opts->dir = argv[i];
+			conf = argv[i];
+		}
+		else if (strcmp(argv[i], "--dir") == 0) {
+			++i;
+			if (i >= argc || strlen(argv[i]) == 0) {
+				fprintf(stderr, "%s: No records directory supplied.\n",
+						argv[0]);
+				return -1;
+			}
+			dir = argv[i];
 		}
 		else if (strcmp(argv[i], "--user") == 0) {
 			++i;
@@ -89,19 +97,113 @@ args_parse(int argc, char **argv, struct options *opts)
 		else if (strcmp(argv[i], "--reset") == 0) {
 			opts->reset = 1;
 		}
+		else if (!strcmp(argv[i], "--legacy-output")) {
+			opts->legacy_output = 1;
+		}
 		else {
 			fprintf(stderr, "%s: Unknown option: %s\n", argv[0], argv[i]);
 			return -1;
 		}
 	}
+
+	if ((rv = read_config_file(NULL, opts, conf)) != PAM_SUCCESS) {
+		fprintf(stderr, "Configuration file missing or broken");
+		return rv;
+	}
+
+	if (dir != NULL) {
+		free(opts->dir);
+		opts->dir = strdup(dir);
+		if (opts->dir == NULL) {
+			fprintf(stderr, "Error allocating memory: %m");
+			return -1;
+		}
+	}
+
 	return 0;
 }
 
 static void
 usage(const char *progname)
 {
-	fprintf(stderr, _("Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"),
-		progname);
+	fprintf(stderr,
+		_("Usage: %s [--dir /path/to/tally-directory] "
+		  " [--user username] [--reset] [--legacy-output]\n"), progname);
+
+}
+
+static int
+get_local_time(time_t when, char *timebuf, size_t timebuf_size)
+{
+	struct tm *tm;
+
+	tm = localtime(&when);
+	if (tm == NULL) {
+		return -1;
+	}
+	strftime(timebuf, timebuf_size, "%Y-%m-%d %H:%M:%S", tm);
+	return 0;
+}
+
+static void
+print_in_new_format(struct options *opts, const struct tally_data *tallies, const char *user)
+{
+	uint32_t i;
+
+	printf("%s:\n", user);
+	printf("%-19s %-5s %-48s %-5s\n", "When", "Type", "Source", "Valid");
+
+	for (i = 0; i < tallies->count; i++) {
+		uint16_t status;
+		char timebuf[80];
+
+		if (get_local_time(tallies->records[i].time, timebuf, sizeof(timebuf)) != 0) {
+			fprintf(stderr, "%s: Invalid timestamp in the tally record\n",
+				opts->progname);
+			continue;
+		}
+
+		status = tallies->records[i].status;
+
+		printf("%-19s %-5s %-52.52s %s\n", timebuf,
+			status & TALLY_STATUS_RHOST ? "RHOST" : (status & TALLY_STATUS_TTY ? "TTY" : "SVC"),
+			tallies->records[i].source, status & TALLY_STATUS_VALID ? "V":"I");
+	}
+}
+
+static void
+print_in_legacy_format(struct options *opts, const struct tally_data *tallies, const char *user)
+{
+	uint32_t tally_count;
+	static uint32_t pr_once;
+
+	if (pr_once == 0) {
+		printf(_("Login           Failures    Latest failure         From\n"));
+		pr_once = 1;
+	}
+
+	printf("%-15.15s ", user);
+
+	tally_count = tallies->count;
+
+	if (tally_count > 0) {
+		uint32_t i;
+		char timebuf[80];
+
+		i = tally_count - 1;
+
+		if (get_local_time(tallies->records[i].time, timebuf, sizeof(timebuf)) != 0) {
+			fprintf(stderr, "%s: Invalid timestamp in the tally record\n",
+				opts->progname);
+			return;
+		}
+
+		printf("%5u %25s    %s\n",
+			tally_count, timebuf, tallies->records[i].source);
+	}
+	else {
+		printf("%5u\n", tally_count);
+	}
 }
 
 static int
@@ -111,10 +213,15 @@ do_user(struct options *opts, const char *user)
 	int rv;
 	struct tally_data tallies;
 	struct passwd *pwd;
+	const char *dir = get_tally_dir(opts);
 
 	pwd = getpwnam(user);
+	if (pwd == NULL) {
+	    fprintf(stderr, "%s: Error no such user: %s\n", opts->progname, user);
+	    return 1;
+	}
 
-	fd = open_tally(opts->dir, user, pwd != NULL ? pwd->pw_uid : 0, 0);
+	fd = open_tally(dir, user, pwd->pw_uid, 1);
 
 	if (fd == -1) {
 		if (errno == ENOENT) {
@@ -153,8 +260,6 @@ do_user(struct options *opts, const char *user)
 		}
 	}
 	else {
-		unsigned int i;
-
 		memset(&tallies, 0, sizeof(tallies));
 		if (read_tally(fd, &tallies) == -1) {
 			fprintf(stderr, "%s: Error reading the tally file for %s:",
@@ -164,26 +269,13 @@ do_user(struct options *opts, const char *user)
 			return 5;
 		}
 
-		printf("%s:\n", user);
-		printf("%-19s %-5s %-48s %-5s\n", "When", "Type", "Source", "Valid");
-
-		for (i = 0; i < tallies.count; i++) {
-			struct tm *tm;
-			char timebuf[80];
-			uint16_t status = tallies.records[i].status;
-			time_t when = tallies.records[i].time;
-
-			tm = localtime(&when);
-			if(tm == NULL) {
-				fprintf(stderr, "%s: Invalid timestamp in the tally record\n",
-					opts->progname);
-				continue;
-			}
-			strftime(timebuf, sizeof(timebuf), "%Y-%m-%d %H:%M:%S", tm);
-			printf("%-19s %-5s %-52.52s %s\n", timebuf,
-				status & TALLY_STATUS_RHOST ? "RHOST" : (status & TALLY_STATUS_TTY ? "TTY" : "SVC"),
-				tallies.records[i].source, status & TALLY_STATUS_VALID ? "V":"I");
+		if (opts->legacy_output == 0) {
+			print_in_new_format(opts, &tallies, user);
 		}
+		else {
+			print_in_legacy_format(opts, &tallies, user);
+		}
+
 		free(tallies.records);
 	}
 	close(fd);
@@ -195,8 +287,9 @@ do_allusers(struct options *opts)
 {
 	struct dirent **userlist;
 	int rv, i;
+	const char *dir = get_tally_dir(opts);
 
-	rv = scandir(opts->dir, &userlist, NULL, alphasort);
+	rv = scandir(dir, &userlist, NULL, alphasort);
 	if (rv < 0) {
 		fprintf(stderr, "%s: Error reading tally directory: %m\n", opts->progname);
 		return 2;
