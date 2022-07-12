@@ -902,10 +902,10 @@ int _pam_add_handler(pam_handle_t *pamh
     (*handler_p)->cached_retval_p = &((*handler_p)->cached_retval);
     (*handler_p)->argc = argc;
     (*handler_p)->argv = argv;                       /* not a copy */
-    if (((*handler_p)->mod_name = extract_modulename(mod_path)) == NULL)
-	return PAM_ABORT;
     (*handler_p)->grantor = 0;
     (*handler_p)->next = NULL;
+    if (((*handler_p)->mod_name = extract_modulename(mod_path)) == NULL)
+	return PAM_ABORT;
 
     /* some of the modules have a second calling function */
     if (handler_p2) {
@@ -936,10 +936,10 @@ int _pam_add_handler(pam_handle_t *pamh
 	} else {
 	    (*handler_p2)->argv = NULL;              /* no arguments */
 	}
-	if (((*handler_p2)->mod_name = extract_modulename(mod_path)) == NULL)
-	    return PAM_ABORT;
 	(*handler_p2)->grantor = 0;
 	(*handler_p2)->next = NULL;
+	if (((*handler_p2)->mod_name = extract_modulename(mod_path)) == NULL)
+	    return PAM_ABORT;
     }
 
     D(("_pam_add_handler: returning successfully"));
