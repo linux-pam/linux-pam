@@ -889,8 +889,8 @@ int _pam_add_handler(pam_handle_t *pamh
 	handler_p = &((*handler_p)->next);
     }
 
-    if ((*handler_p = malloc(sizeof(struct handler))) == NULL) {
-	pam_syslog(pamh, LOG_CRIT, "cannot malloc struct handler #1");
+    if ((*handler_p = calloc(1, sizeof(struct handler))) == NULL) {
+	pam_syslog(pamh, LOG_CRIT, "cannot allocate struct handler #1");
 	return (PAM_ABORT);
     }
 
@@ -904,8 +904,6 @@ int _pam_add_handler(pam_handle_t *pamh
     (*handler_p)->argv = argv;                       /* not a copy */
     if (((*handler_p)->mod_name = extract_modulename(mod_path)) == NULL)
 	return PAM_ABORT;
-    (*handler_p)->grantor = 0;
-    (*handler_p)->next = NULL;
 
     /* some of the modules have a second calling function */
     if (handler_p2) {
@@ -914,8 +912,8 @@ int _pam_add_handler(pam_handle_t *pamh
 	    handler_p2 = &((*handler_p2)->next);
 	}
 
-	if ((*handler_p2 = malloc(sizeof(struct handler))) == NULL) {
-	    pam_syslog(pamh, LOG_CRIT, "cannot malloc struct handler #2");
+	if ((*handler_p2 = calloc(1, sizeof(struct handler))) == NULL) {
+	    pam_syslog(pamh, LOG_CRIT, "cannot allocate struct handler #2");
 	    return (PAM_ABORT);
 	}
 
@@ -933,13 +931,9 @@ int _pam_add_handler(pam_handle_t *pamh
 		return (PAM_ABORT);
 	    }
 	    memcpy((*handler_p2)->argv, argv, argvlen);
-	} else {
-	    (*handler_p2)->argv = NULL;              /* no arguments */
 	}
 	if (((*handler_p2)->mod_name = extract_modulename(mod_path)) == NULL)
 	    return PAM_ABORT;
-	(*handler_p2)->grantor = 0;
-	(*handler_p2)->next = NULL;
     }
 
     D(("_pam_add_handler: returning successfully"));
