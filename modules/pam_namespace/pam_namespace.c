@@ -1341,7 +1341,6 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 	   struct instance_data *idata, int newdir)
 {
 	pid_t rc, pid;
-	struct sigaction newsa, oldsa;
 	int status;
 	const char *init_script = NAMESPACE_INIT_SCRIPT;
 
@@ -1354,13 +1353,6 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 	}
 #endif
 
-	memset(&newsa, '\0', sizeof(newsa));
-        newsa.sa_handler = SIG_DFL;
-	if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
-		pam_syslog(idata->pamh, LOG_ERR, "Cannot set signal value");
-		return PAM_SESSION_ERR;
-	}
-
 	if ((polyptr->flags & POLYDIR_ISCRIPT) && polyptr->init_script)
 		init_script = polyptr->init_script;
 
@@ -1369,9 +1361,17 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 			if (idata->flags & PAMNS_DEBUG)
 				pam_syslog(idata->pamh, LOG_ERR,
 						"Namespace init script not executable");
-			rc = PAM_SESSION_ERR;
-			goto out;
+			return PAM_SESSION_ERR;
 		} else {
+			struct sigaction newsa, oldsa;
+
+			memset(&newsa, '\0', sizeof(newsa));
+			newsa.sa_handler = SIG_DFL;
+			if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
+				pam_syslog(idata->pamh, LOG_ERR, "failed to reset SIGCHLD handler");
+				return PAM_SESSION_ERR;
+			}
+
 			pid = fork();
 			if (pid == 0) {
 				static char *envp[] = { NULL };
@@ -1409,13 +1409,13 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 				rc = PAM_SESSION_ERR;
 				goto out;
 			}
+			rc = PAM_SUCCESS;
+out:
+			(void) sigaction(SIGCHLD, &oldsa, NULL);
+			return rc;
 		}
 	}
-	rc = PAM_SUCCESS;
-out:
-   (void) sigaction(SIGCHLD, &oldsa, NULL);
-
-   return rc;
+	return PAM_SUCCESS;
 }
 
 static int create_polydir(struct polydir_s *polyptr,
