@@ -125,15 +125,6 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 
    D(("called."));
 
-   /*
-    * This code arranges that the demise of the child does not cause
-    * the application to receive a signal it is not expecting - which
-    * may kill the application or worse.
-    */
-   memset(&newsa, '\0', sizeof(newsa));
-   newsa.sa_handler = SIG_DFL;
-   sigaction(SIGCHLD, &newsa, &oldsa);
-
    if (opt->ctrl & MKHOMEDIR_DEBUG) {
         pam_syslog(pamh, LOG_DEBUG, "Executing mkhomedir_helper.");
    }
@@ -152,6 +143,15 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
    } else {
       login_homemode = _pam_conv_str_umask_to_homemode(opt->umask);
    }
+
+   /*
+    * This code arranges that the demise of the child does not cause
+    * the application to receive a signal it is not expecting - which
+    * may kill the application or worse.
+    */
+   memset(&newsa, '\0', sizeof(newsa));
+   newsa.sa_handler = SIG_DFL;
+   sigaction(SIGCHLD, &newsa, &oldsa);
 
    /* fork */
    child = fork();
