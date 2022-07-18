@@ -3,23 +3,24 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <turakas@gmail.com>, 2012.
+# <turakas@gmail.com>, 2012.
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# H A <contact+fedora@hen.ee>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2012-12-02 06:25-0500\n"
-"Last-Translator: mihkel <turakas@gmail.com>\n"
-"Language-Team: Estonian (http://www.transifex.com/projects/p/fedora/language/"
-"et/)\n"
+"PO-Revision-Date: 2022-06-21 23:18+0000\n"
+"Last-Translator: H A <contact+fedora@hen.ee>\n"
+"Language-Team: Estonian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
@@ -61,7 +62,7 @@ msgstr "Kahjuks paroolid ei klapi."
 #: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Kirjuta uuesti %s"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 #, fuzzy
