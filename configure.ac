@@ -528,6 +528,26 @@ fi
 
 ECONF_CFLAGS=
 ECONF_LIBS=
+AC_ARG_ENABLE([landlock],
+    AS_HELP_STRING([--enable-landlock],[Enable Landlock sandbox]),
+    [WITH_LANDLOCK=$enableval], WITH_LANDLOCK=no)
+if test "$WITH_LANDLOCK" = "yes" ; then
+  AC_CHECK_DECL([__NR_landlock_create_ruleset], [], [], [#include <sys/syscall.h>])
+  AC_CHECK_DECL([__NR_landlock_add_rule], [], [], [#include <sys/syscall.h>])
+  AC_CHECK_DECL([__NR_landlock_restrict_self], [], [], [#include <sys/syscall.h>])
+  AC_CHECK_HEADER(linux/landlock.h, [have_landlock_header=1], [have_landlock_header=0])
+  if test "x$ac_cv_have_decl___NR_landlock_create_ruleset" = xyes &&
+     test "x$ac_cv_have_decl___NR_landlock_add_rule" = xyes &&
+     test "x$ac_cv_have_decl___NR_landlock_restrict_self" = xyes &&
+     test "$have_landlock_header" = 1; then
+    AC_DEFINE([WITH_LANDLOCK], 1, [Defined if Landlock sandbox support is compiled in])
+  else
+    WITH_LANDLOCK=no
+  fi
+else
+  WITH_LANDLOCK=no
+fi
+
 AC_ARG_ENABLE([econf],
   AS_HELP_STRING([--disable-econf], [do not use libeconf]),
   [WITH_ECONF=$enableval], [WITH_ECONF=yes])
@@ -710,6 +730,7 @@ AM_CONDITIONAL([COND_BUILD_PAM_SETQUOTA], [test "$ac_cv_func_quotactl" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_TTY_AUDIT], [test "$HAVE_AUDIT_TTY_STATUS" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_UNIX], [test "$enable_unix" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_USERDB], [test -n "$LIBDB"])
+AM_CONDITIONAL([COND_BUILD_LANDLOCK], [test "$WITH_LANDLOCK" = yes])
 
 dnl Files to be created from when we run configure
 AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
