@@ -12,13 +12,14 @@
 # Charles Lee <lchopn@gmail.com>, 2020.
 # Chenbo Pan <panchenbo@uniontech.com>, 2021.
 # pan chenbo <panchenbo@uniontech.com>, 2021.
+# Dingzhong Chen <wsxy162@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2021-12-08 21:16+0000\n"
-"Last-Translator: pan chenbo <panchenbo@uniontech.com>\n"
+"PO-Revision-Date: 2022-05-03 08:43+0000\n"
+"Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/linux-pam/master/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -26,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 4.12.1\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
@@ -83,7 +84,7 @@ msgstr "成功"
 
 #: libpam/pam_strerror.c:42
 msgid "Critical error - immediate abort"
-msgstr "严重错误 - 立即中止"
+msgstr "严重错误——立即中止"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
@@ -107,31 +108,31 @@ msgstr "内存缓冲区错误"
 
 #: libpam/pam_strerror.c:54
 msgid "Permission denied"
-msgstr "拒绝权限"
+msgstr "权限被拒绝"
 
 #: libpam/pam_strerror.c:56
 msgid "Authentication failure"
-msgstr "鉴定故障"
+msgstr "身份验证失败"
 
 #: libpam/pam_strerror.c:58
 msgid "Insufficient credentials to access authentication data"
-msgstr "没有足够的身份凭证以访问鉴定数据"
+msgstr "没有足够的凭据可以访问身份验证数据"
 
 #: libpam/pam_strerror.c:60
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "鉴定服务无法检索到鉴定信息"
+msgstr "身份验证服务无法检索神身份验证信息"
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr "底层的鉴定模块无法识别用户"
+msgstr "底层的身份验证模块无法识别用户"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
-msgstr "已经超出服务重试的最多次数"
+msgstr "已经超出服务的最多重试次数"
 
 #: libpam/pam_strerror.c:66
 msgid "Authentication token is no longer valid; new one required"
-msgstr "鉴定令牌不再有效；需要新的鉴定令牌"
+msgstr "身份验证令牌不再有效；需要新的令牌"
 
 #: libpam/pam_strerror.c:68
 msgid "User account has expired"
@@ -139,19 +140,19 @@ msgstr "用户帐户已失效"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr "无法为指定的会话创建/移除项"
+msgstr "无法为指定的会话创建/移除条目"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
-msgstr "鉴定服务无法检索到用户身份凭证"
+msgstr "身份验证服务无法检索到用户凭据"
 
 #: libpam/pam_strerror.c:74
 msgid "User credentials expired"
-msgstr "用户身份凭证失效"
+msgstr "用户凭据已失效"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr "设置用户身份凭证时出现故障"
+msgstr "设置用户凭据失败"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
@@ -167,27 +168,27 @@ msgstr "转换错误"
 
 #: libpam/pam_strerror.c:84
 msgid "Authentication token manipulation error"
-msgstr "鉴定令牌操作错误"
+msgstr "身份验证令牌操作错误"
 
 #: libpam/pam_strerror.c:86
 msgid "Authentication information cannot be recovered"
-msgstr "无法恢复鉴定信息"
+msgstr "无法恢复身份验证信息"
 
 #: libpam/pam_strerror.c:88
 msgid "Authentication token lock busy"
-msgstr "鉴定令牌锁忙碌"
+msgstr "身份验证令牌正被锁定"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr "已禁用鉴定令牌过期处理"
+msgstr "已禁用身份验证令牌期限"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr "密码服务初步检查失败"
+msgstr "由密码服务初步检查失败"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "返回值应该被 PAM dispatch 忽略"
+msgstr "返回值应被 PAM 调度忽略"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
@@ -195,7 +196,7 @@ msgstr "模块未知"
 
 #: libpam/pam_strerror.c:98
 msgid "Authentication token expired"
-msgstr "鉴定令牌失效"
+msgstr "身份验证令牌失效"
 
 #: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
@@ -230,19 +231,18 @@ msgstr "%s 失败：退出代码 %d"
 #: modules/pam_exec/pam_exec.c:289
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr "%s 失败：捕获的信号 %d%s"
+msgstr "%s 失败：捕获信号 %d%s"
 
 #: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr "%s 失败：未知的状态 0x%x"
+msgstr "%s 失败：未知状态 0x%x"
 
 #: modules/pam_faillock/main.c:103
 #, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
-msgstr ""
-"用法：%s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
+msgstr "用法：%s [--dir /tally/目录的/路径] [--user 用户名] [--reset]\n"
 
 #: modules/pam_faillock/pam_faillock.c:618
 #, c-format
@@ -265,7 +265,7 @@ msgstr "（%d 分钟后解锁）"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:318 modules/pam_lastlog/pam_lastlog.c:579
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr " %a %b %e %H:%M:%S %Z %Y"
+msgstr " %x %A %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:327 modules/pam_lastlog/pam_lastlog.c:588
@@ -277,7 +277,7 @@ msgstr " 从 %.*s"
 #: modules/pam_lastlog/pam_lastlog.c:339 modules/pam_lastlog/pam_lastlog.c:600
 #, c-format
 msgid " on %.*s"
-msgstr " %.*s 上"
+msgstr " 于 %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:349
@@ -300,22 +300,22 @@ msgstr "最后一次失败的登录：%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] "自上次成功登录以来，有%d 次失败的登录尝试。"
+msgstr[0] "自上次成功登录以来，有 %d 次失败的登录尝试。"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:631
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr "自上次成功登录以来，有%d 次失败的登录尝试。"
+msgstr "自上次成功登录以来，有 %d 次失败的登录尝试。"
 
 #: modules/pam_limits/pam_limits.c:1164
 #, c-format
 msgid "There were too many logins for '%s'."
-msgstr "'%s' 的登录次数过多。"
+msgstr "“%s”的登录次数过多。"
 
 #: modules/pam_mail/pam_mail.c:289
 msgid "You have no mail."
-msgstr "您没有新邮件。"
+msgstr "您没有邮件。"
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
@@ -352,12 +352,12 @@ msgstr "您在文件夹 %s 中有邮件。"
 #: modules/pam_mkhomedir/pam_mkhomedir.c:123
 #, c-format
 msgid "Creating directory '%s'."
-msgstr "创建目录 '%s'。"
+msgstr "正在创建目录“%s”。"
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:206
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "无法创建和初始化目录 '%s'。"
+msgstr "无法创建和初始化目录“%s”。"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:371
 #: modules/pam_unix/pam_unix_passwd.c:589
@@ -397,12 +397,12 @@ msgstr "这不是一个有效的安全上下文。"
 #: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr "无法取得 %s 的有效上下文。"
+msgstr "无法取得对 %s 有效的上下文。"
 
 #: modules/pam_selinux/pam_selinux.c:640
 #, c-format
 msgid "Security context %s has been assigned."
-msgstr "安全上下文 %s 已指派。"
+msgstr "安全上下文 %s 已分配。"
 
 #: modules/pam_selinux/pam_selinux.c:656
 #, c-format
@@ -422,7 +422,7 @@ msgstr "未能 pam_set_item()\n"
 #: modules/pam_selinux/pam_selinux_check.c:133
 #, c-format
 msgid "login: failure forking: %m"
-msgstr "登录：故障派生：%m"
+msgstr "登录：派生失败：%m"
 
 #: modules/pam_timestamp/pam_timestamp.c:361
 #, c-format
@@ -474,12 +474,12 @@ msgstr "您必须选择较短的密码。"
 
 #: modules/pam_unix/pam_unix_passwd.c:585
 msgid "You must choose a longer password."
-msgstr "您必须选择一个更长的密码。"
+msgstr "您必须选择更长的密码。"
 
 #: modules/pam_unix/pam_unix_passwd.c:692
 #, c-format
 msgid "Changing password for %s."
-msgstr "为 %s 更改 STRESS 密码。"
+msgstr "更改 %s 的密码。"
 
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password."
