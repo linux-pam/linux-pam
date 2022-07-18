@@ -9,13 +9,14 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # simmon <simmon@nplob.com>, 2021.
 # Seong-ho Cho <darkcircle.0426@gmail.com>, 2021, 2022.
+# 김인수 <simmon@nplob.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2022-04-12 12:17+0000\n"
-"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
+"PO-Revision-Date: 2022-07-18 15:18+0000\n"
+"Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/ko/>\n"
 "Language: ko\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.13\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
@@ -136,7 +137,7 @@ msgstr "사용자 계정 유효 기간이 지남"
 
 #: libpam/pam_strerror.c:70
 msgid "Cannot make/remove an entry for the specified session"
-msgstr "지정 세션 항목을 생성/제거할 수 없습니다"
+msgstr "지정된 세션을 위한 항목을 생성/제거 할 수 없습니다"
 
 #: libpam/pam_strerror.c:72
 msgid "Authentication service cannot retrieve user credentials"
@@ -348,12 +349,12 @@ msgstr "%s 폴더에 전자메일이 있습니다."
 #: modules/pam_mkhomedir/pam_mkhomedir.c:123
 #, c-format
 msgid "Creating directory '%s'."
-msgstr "'%s' 디렉터리 만드는 중."
+msgstr "디렉토리 '%s'를 생성하기."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:206
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "'%s' 디렉터리를 만들고 초기화 할 수 없습니다."
+msgstr "디렉토리 '%s'를 생성하고 초기화 할 수 없음."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:371
 #: modules/pam_unix/pam_unix_passwd.c:589
