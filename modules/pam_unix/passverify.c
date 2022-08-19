@@ -242,7 +242,9 @@ PAMH_ARG_DECL(int get_account_info,
 			 * if shadowing is enabled
 			 */
 			*spwdent = pam_modutil_getspnam(pamh, name);
-			if (*spwdent == NULL) {
+			if (*spwdent == NULL ||
+			    /* synthesized entry from libnss-systemd */
+			    (strcmp(name, "root") == 0 && (*spwdent)->sp_pwdp && strcmp((*spwdent)->sp_pwdp, "!*") == 0)) {
 #ifndef HELPER_COMPILE
 				/* still a chance the user can authenticate */
 				return PAM_UNIX_RUN_HELPER;
