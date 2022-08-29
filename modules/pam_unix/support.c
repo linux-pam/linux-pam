@@ -13,7 +13,6 @@
 #include <pwd.h>
 #include <shadow.h>
 #include <limits.h>
-#include <utmp.h>
 #include <errno.h>
 #include <signal.h>
 #include <ctype.h>

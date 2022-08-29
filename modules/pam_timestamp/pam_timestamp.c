@@ -53,7 +53,11 @@
 #include <time.h>
 #include <sys/time.h>
 #include <unistd.h>
-#include <utmp.h>
+#ifdef HAVE_UTMPX_H
+# include <utmpx.h>
+#else
+# include <utmp.h>
+#endif
 #include <syslog.h>
 #include <paths.h>
 #ifdef WITH_OPENSSL
@@ -202,12 +206,22 @@ timestamp_good(time_t then, time_t now, time_t interval)
 static int
 check_login_time(const char *ruser, time_t timestamp)
 {
+#ifdef HAVE_UTMPX_H
+	struct utmpx utbuf, *ut;
+#else
 	struct utmp utbuf, *ut;
+#endif
 	time_t oldest_login = 0;
 
+#ifdef HAVE_UTMPX_H
+	setutxent();
+#else
 	setutent();
+#endif
 	while(
-#ifdef HAVE_GETUTENT_R
+#ifdef HAVE_UTMPX_H
+	      (ut = getutxent()) != NULL
+#elif defined(HAVE_GETUTENT_R)
 	      !getutent_r(&utbuf, &ut)
 #else
 	      (ut = getutent()) != NULL
@@ -223,7 +237,11 @@ check_login_time(const char *ruser, time_t timestamp)
 			oldest_login = ut->ut_tv.tv_sec;
 		}
 	}
+#ifdef HAVE_UTMPX_H
+	endutxent();
+#else
 	endutent();
+#endif
 	if(oldest_login == 0 || timestamp < oldest_login) {
 		return PAM_AUTH_ERR;
 	}
