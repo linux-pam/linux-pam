@@ -297,6 +297,7 @@ if test x$with_mailspool != x ; then
 else
 	AC_RUN_IFELSE([AC_LANG_SOURCE([[
 #include <paths.h>
+#include <stdlib.h>
 int main() {
 #ifdef _PATH_MAILDIR
 exit(0);
