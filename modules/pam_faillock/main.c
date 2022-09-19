@@ -106,6 +106,8 @@ args_parse(int argc, char **argv, struct options *opts)
 		}
 	}
 
+	opts->dir = get_tally_dir(opts);
+
 	if ((rv = read_config_file(NULL, opts, conf)) != PAM_SUCCESS) {
 		fprintf(stderr, "Configuration file missing or broken");
 		return rv;
