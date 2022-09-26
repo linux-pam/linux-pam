@@ -573,12 +573,12 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 	    time_t lf_time;
 
 	    lf_time = utuser.ut_tv.tv_sec;
-	    tm = localtime_r (&lf_time, &tm_buf);
-	    strftime (the_time, sizeof (the_time),
-	        /* TRANSLATORS: "strftime options for date of last login" */
-		_(" %a %b %e %H:%M:%S %Z %Y"), tm);
-
-	    date = the_time;
+	    if ((tm = localtime_r (&lf_time, &tm_buf)) != NULL) {
+	        strftime (the_time, sizeof (the_time),
+	            /* TRANSLATORS: "strftime options for date of last login" */
+	                  _(" %a %b %e %H:%M:%S %Z %Y"), tm);
+	        date = the_time;
+	    }
 	}
 
 	/* we want & have the host? */
