@@ -374,9 +374,11 @@ write_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 		}
 		close(audit_fd);
 #endif
-		if (!(opts->flags & FAILLOCK_FLAG_NO_LOG_INFO)) {
-			pam_syslog(pamh, LOG_INFO, "Consecutive login failures for user %s account temporarily locked",
-				opts->user);
+		if (!(opts->flags & FAILLOCK_FLAG_NO_LOG_INFO) &&
+		    ((opts->flags & FAILLOCK_FLAG_DENY_ROOT) || (opts->uid != 0))) {
+			pam_syslog(pamh, LOG_INFO,
+				   "Consecutive login failures for user %s account temporarily locked",
+				   opts->user);
 		}
 	}
 
