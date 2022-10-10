@@ -44,6 +44,10 @@
                   The directory where the user files with the failure records are kept. The
                   default is <filename>/var/run/faillock</filename>.
                 </para>
+                <para>
+                  Note: These files will disappear after reboot on systems configured with
+                  directory <filename>/var/run/faillock</filename> mounted on virtual memory.
+                </para>
               </listitem>
             </varlistentry>
             <varlistentry>

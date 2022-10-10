@@ -327,6 +327,12 @@ session  required       pam_selinux.so open
         <term><filename>/var/run/faillock/*</filename></term>
         <listitem>
           <para>the files logging the authentication failures for users</para>
+          <para>
+            Note: These files will disappear after reboot on systems configured with
+            directory <filename>/var/run/faillock</filename> mounted on virtual memory.
+            For persistent storage use the option <emphasis>dir=</emphasis> in
+            file <filename>/etc/security/faillock.conf</filename>.
+          </para>
         </listitem>
       </varlistentry>
       <varlistentry>
