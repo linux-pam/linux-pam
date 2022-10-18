@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2022-07-18 15:18+0000\n"
+"PO-Revision-Date: 2022-10-05 09:19+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/ko/>\n"
@@ -24,52 +24,52 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.13\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
-msgstr "암호: "
+msgstr "비밀번호: "
 
 #: libpam/pam_get_authtok.c:41
 #, c-format
 msgid "Current %s password: "
-msgstr "현재 %s 암호: "
+msgstr "현재 %s 비밀번호: "
 
 #: libpam/pam_get_authtok.c:42
 msgid "Current password: "
-msgstr "현재 암호: "
+msgstr "현재 비밀번호: "
 
 #: libpam/pam_get_authtok.c:44
 #, c-format
 msgid "New %s password: "
-msgstr "새 %s 암호: "
+msgstr "신규 %s 비밀번호: "
 
 #: libpam/pam_get_authtok.c:45
 msgid "New password: "
-msgstr "새 암호: "
+msgstr "신규 비밀번호: "
 
 #: libpam/pam_get_authtok.c:47
 #, c-format
 msgid "Retype new %s password: "
-msgstr "새 %s 암호 다시 입력: "
+msgstr "신규 %s 비밀번호 재 입력: "
 
 #: libpam/pam_get_authtok.c:48
 msgid "Retype new password: "
-msgstr "새 암호 다시 입력: "
+msgstr "신규 비밀번호 재 입력: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
-msgstr "죄송하지만, 암호가 일치하지 않습니다."
+msgstr "죄송하지만, 비밀번호가 일치하지 않습니다."
 
 #: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
-msgstr "%s 다시 입력하십시오"
+msgstr "%s 다시 입력하세요"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 msgid "Password change has been aborted."
-msgstr "암호 바꾸기를 취소했습니다."
+msgstr "비밀번호 변경을 취소했습니다."
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -181,7 +181,7 @@ msgstr "인증 토큰 기한 사용 안함"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
-msgstr "암호 서비스에서 사전 검사 실패"
+msgstr "비밀번호 서비스에서 사전 검사 실패"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
@@ -316,35 +316,35 @@ msgstr "전자메일이 없습니다."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
-msgstr "새 전자메일이 있습니다."
+msgstr "신규 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
-msgstr "오래된 전자메일이 있습니다."
+msgstr "오래된 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
-msgstr "전자메일이 있습니다."
+msgstr "전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr "%s 폴더에 전자메일이 없습니다."
+msgstr "%s 폴더에 전자우편이 없습니다."
 
 #: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "%s 폴더에 새 전자메일이 있습니다."
+msgstr "%s 폴더에 신규 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr "%s 폴더에 오래된 전자메일이 있습니다."
+msgstr "%s 폴더에 오래된 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
-msgstr "%s 폴더에 전자메일이 있습니다."
+msgstr "%s 폴더에 전자우편이 있습니다."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:123
 #, c-format
@@ -359,11 +359,11 @@ msgstr "디렉토리 '%s'를 생성하고 초기화 할 수 없음."
 #: modules/pam_pwhistory/pam_pwhistory.c:371
 #: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
-msgstr "이미 사용하고 있는 암호입니다. 다른 암호를 사용하십시오."
+msgstr "이미 사용하고 있는 비밀번호입니다. 다른 비밀번호를 사용하세요."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
 msgid "Password has been already used."
-msgstr "이 암호를 이미 사용하고 있습니다."
+msgstr "비밀번호를 이미 사용하고 있습니다."
 
 #: modules/pam_selinux/pam_selinux.c:172
 #, c-format
@@ -434,53 +434,53 @@ msgstr "계정 유효 기간이 지났습니다. 시스템 관리자에게 문�
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "암호를 즉시 바꾸어야 합니다 (관리자 강제 사항)."
+msgstr "비밀번호를 즉시 바꾸어야 합니다 (관리자 강제 사항)."
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "암호를 즉시 바꾸어야 합니다 (암호 유효 기간 지남)."
+msgstr "비밀번호를 즉시 바꾸어야 합니다 (비밀번호 유효만료)."
 
 #: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "경고: 암호는 %d일 후 유효 기간이 끝납니다."
+msgstr[0] "경고: 비밀번호는 %d일 후 유효 기간이 끝납니다."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:281
 #, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "경고: 암호는 %d일 후 유효 기간이 끝납니다."
+msgstr "경고: 비밀번호는 %d일 후 유효 기간이 끝납니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
-msgstr "NIS 암호는 바꿀 수 없습니다."
+msgstr "NIS 비밀번호는 변경 될 수 없습니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:563
 msgid "No password has been supplied."
-msgstr "암호를 입력하지 않았습니다."
+msgstr "비밀번호를 입력하지 않았습니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:564
 msgid "The password has not been changed."
-msgstr "암호를 바꾸지 않았습니다."
+msgstr "비밀번호가 변경되지 않았습니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:581
 msgid "You must choose a shorter password."
-msgstr "더 짧은 암호를 지정해야 합니다."
+msgstr "더 짧은 비밀번호를 선택해야 합니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:585
 msgid "You must choose a longer password."
-msgstr "더 긴 암호를 지정해야 합니다."
+msgstr "더 긴 비밀번호를 선택해야 합니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:692
 #, c-format
 msgid "Changing password for %s."
-msgstr "%s 암호 바꾸기."
+msgstr "%s를 위해 비밀번호 변경하기."
 
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password."
-msgstr "암호를 바꾸려면 더 기다려야 합니다."
+msgstr "비빌번호를 변경하려면 더 기다려야 합니다."
 
 #~ msgid "is the same as the old one"
 #~ msgstr "이전 암호와 같음"
