@@ -13,13 +13,13 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
 # Álvaro Castillo <sincorchetes@gmail.com>, 2020.
-# Emilio Herrera <ehespinosa57@gmail.com>, 2021.
+# Emilio Herrera <ehespinosa57@gmail.com>, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2021-07-20 20:00+0000\n"
-"PO-Revision-Date: 2021-11-01 22:05+0000\n"
+"PO-Revision-Date: 2022-10-18 15:19+0000\n"
 "Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/es/>\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
 #: modules/pam_userdb/pam_userdb.c:53
@@ -318,14 +318,13 @@ msgid "There were %d failed login attempts since the last successful login."
 msgstr "Hubo %d intentos de logueo fallidos desde el último logueo exitoso. "
 
 #: modules/pam_limits/pam_limits.c:1164
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
-msgstr "Hay demasiados inicios de sesión para \"%s\"."
+msgstr "Hubo demasiados inicios de sesión para \"%s\"."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You have no mail."
-msgstr "Tiene correo nuevo."
+msgstr "No tiene correo nuevo."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
@@ -379,9 +378,9 @@ msgid "Password has been already used."
 msgstr "La contraseña ya se ha utilizado. Seleccione otra."
 
 #: modules/pam_selinux/pam_selinux.c:172
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "Contexto de Seguridad Predeterminado %s\n"
+msgstr "Contexto de Seguridad Predeterminado %s."
 
 #: modules/pam_selinux/pam_selinux.c:176
 msgid "Would you like to enter a different role or level?"
@@ -392,33 +391,32 @@ msgid "role:"
 msgstr "función:"
 
 #: modules/pam_selinux/pam_selinux.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "No hay tipo por defecto para la función %s\n"
+msgstr "No hay tipo por defecto para la función %s."
 
 #: modules/pam_selinux/pam_selinux.c:225
 msgid "level:"
 msgstr "nivel:"
 
 #: modules/pam_selinux/pam_selinux.c:259
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "No es un contexto de seguridad válido"
+msgstr "No es un contexto de seguridad válido."
 
 #: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "No se pudo obtener un contexto válido para %s."
 
 #: modules/pam_selinux/pam_selinux.c:640
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "Contexto de seguridad %s asignado"
+msgstr "Contexto de seguridad %s asignado."
 
 #: modules/pam_selinux/pam_selinux.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "Contexto de Creación Clave %s Asignado"
+msgstr "Contexto de creación de clave %s asignado."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
