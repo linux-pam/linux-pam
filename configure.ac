@@ -243,6 +243,29 @@ if test x"$enable_debug" = x"yes" ; then
 		[lots of stuff gets written to /var/run/pam-debug.log])
 fi
 
+AC_ARG_ENABLE(html_stylesheet,
+	AS_HELP_STRING([--enable-html-stylesheet=FILE],[html stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl@:>@]),
+	HTML_STYLESHEET=$enableval, HTML_STYLESHEET=http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl)
+AC_SUBST(HTML_STYLESHEET)
+
+AC_ARG_ENABLE(txt_stylesheet,
+	AS_HELP_STRING([--enable-txt-stylesheet=FILE],[text stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl@:>@]),
+	TXT_STYLESHEET=$enableval, TXT_STYLESHEET=http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl)
+AC_SUBST(TXT_STYLESHEET)
+# It has to be TXT_STYLESHEET otherwise a html tree will be generated while generating all README files.
+sed "s+HTML_STYLESHEET+$TXT_STYLESHEET+g" <doc/custom-html.xsl.in >doc/custom-html.xsl
+
+AC_ARG_ENABLE(pdf_stylesheet,
+	AS_HELP_STRING([--enable-pdf-stylesheet=FILE],[pdf stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl/current/fo/docbook.xsl@:>@]),
+	PDF_STYLESHEET=$enableval, PDF_STYLESHEET=http://docbook.sourceforge.net/release/xsl/current/fo/docbook.xsl)
+AC_SUBST(PDF_STYLESHEET)
+
+AC_ARG_ENABLE(man_stylesheet,
+	AS_HELP_STRING([--enable-man-stylesheet=FILE],[man stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl/current/manpages/profile-docbook.xsl@:>@]),
+	MAN_STYLESHEET=$enableval, MAN_STYLESHEET=http://docbook.sourceforge.net/release/xsl/current/manpages/profile-docbook.xsl)
+AC_SUBST(MAN_STYLESHEET)
+sed "s+MAN_STYLESHEET+$MAN_STYLESHEET+g" <doc/custom-man.xsl.in >doc/custom-man.xsl
+
 AC_ARG_ENABLE(securedir,
 	AS_HELP_STRING([--enable-securedir=DIR],[path to location of PAMs @<:@default=$libdir/security@:>@]),
 	SECUREDIR=$enableval, SECUREDIR=$libdir/security)
