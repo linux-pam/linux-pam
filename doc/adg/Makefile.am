@@ -21,7 +21,7 @@ if ENABLE_GENERATE_PDF
 	  --stringparam section.autolabel 1 \
 	  --stringparam section.label.includes.component.label 1 \
 	  --stringparam toc.max.depth 3 --xinclude --nonet \
-	http://docbook.sourceforge.net/release/xsl/current/fo/docbook.xsl $< > Linux-PAM_ADG.fo
+	$(PDF_STYLESHEET) $< > Linux-PAM_ADG.fo
 	$(FO2PDF) Linux-PAM_ADG.fo $@
 else
 	echo "No fo2pdf processor installed, skip PDF generation"
@@ -33,7 +33,7 @@ Linux-PAM_ADG.txt: $(XMLS) $(DEP_XMLS)
 	  --stringparam section.autolabel 1 \
 	  --stringparam section.label.includes.component.label 1 \
 	  --stringparam toc.max.depth 3 --xinclude --nonet \
-	  http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl $< | $(BROWSER) > $@
+	  $(TXT_STYLESHEET) $< | $(BROWSER) > $@
 
 html/Linux-PAM_ADG.html: $(XMLS) $(DEP_XMLS)
 	@test -d html || mkdir -p html
@@ -46,7 +46,7 @@ html/Linux-PAM_ADG.html: $(XMLS) $(DEP_XMLS)
 	  --stringparam section.label.includes.component.label 1 \
 	  --stringparam toc.max.depth 3 --xinclude --nonet \
 	  --stringparam chunker.output.encoding UTF-8 \
-	  http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl $<
+	  $(HTML_STYLESHEET) $<
 
 distclean-local:
 	-rm -rf html Linux-PAM_ADG.txt Linux-PAM_ADG.pdf
