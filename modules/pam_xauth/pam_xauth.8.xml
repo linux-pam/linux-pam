@@ -1,39 +1,36 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_xauth">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_xauth">
 
   <refmeta>
     <refentrytitle>pam_xauth</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_xauth-name">
+  <refnamediv xml:id="pam_xauth-name">
     <refname>pam_xauth</refname>
     <refpurpose>PAM module to forward xauth keys between users</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_xauth-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_xauth-cmdsynopsis" sepchar=" ">
       <command>pam_xauth.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         xauthpath=<replaceable>/path/to/xauth</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         systemuser=<replaceable>UID</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         targetuser=<replaceable>UID</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_xauth-description">
+  <refsect1 xml:id="pam_xauth-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_xauth PAM module is designed to forward xauth keys
@@ -81,25 +78,25 @@
       If a user has a <filename>.xauth/export</filename> file, the user will
       only forward cookies to users listed in the file. If there is no
       <filename>~/.xauth/export</filename> file, and the invoking user is
-      not <emphasis remap='B'>root</emphasis>, the user will forward cookies
+      not <emphasis remap="B">root</emphasis>, the user will forward cookies
       to any other user. If there is no <filename>~/.xauth/export</filename>
-      file, and the invoking user is <emphasis remap='B'>root</emphasis>,
-      the user will <emphasis remap='I'>not</emphasis> forward cookies to
+      file, and the invoking user is <emphasis remap="B">root</emphasis>,
+      the user will <emphasis remap="I">not</emphasis> forward cookies to
       other users.
     </para>
     <para>
       Both the import and export files support wildcards (such as
-      <emphasis remap='I'>*</emphasis>). Both the import and export files
+      <emphasis remap="I">*</emphasis>). Both the import and export files
       can be empty, signifying that no users are allowed.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_xauth-options">
+  <refsect1 xml:id="pam_xauth-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -109,7 +106,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>xauthpath=<replaceable>/path/to/xauth</replaceable></option>
+          xauthpath=/path/to/xauth
         </term>
         <listitem>
           <para>
@@ -122,7 +119,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>systemuser=<replaceable>UID</replaceable></option>
+          systemuser=UID
         </term>
         <listitem>
           <para>
@@ -135,7 +132,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>targetuser=<replaceable>UID</replaceable></option>
+          targetuser=UID
         </term>
         <listitem>
           <para>
@@ -147,14 +144,14 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_xauth-types">
+  <refsect1 xml:id="pam_xauth-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
-      Only the <emphasis remap='B'>session</emphasis> type is provided.
+      Only the <emphasis remap="B">session</emphasis> type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_xauth-return_values'>
+  <refsect1 xml:id="pam_xauth-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -205,7 +202,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_xauth-examples'>
+  <refsect1 xml:id="pam_xauth-examples">
     <title>EXAMPLES</title>
     <para>
       Add the following line to <filename>/etc/pam.d/su</filename> to
@@ -216,10 +213,10 @@ session  optional  pam_xauth.so
     </para>
   </refsect1>
 
-  <refsect1 id="pam_xauth-implementation">
+  <refsect1 xml:id="pam_xauth-implementation">
     <title>IMPLEMENTATION DETAILS</title>
     <para>
-      pam_xauth will work <emphasis remap='I'>only</emphasis> if it is
+      pam_xauth will work <emphasis remap="I">only</emphasis> if it is
       used from a setuid application in which the
       <function>getuid</function>() call returns the id of the user
       running the application, and for which PAM can supply the name
@@ -247,17 +244,17 @@ session  optional  pam_xauth.so
     </para>
   </refsect1>
 
-  <refsect1 id="pam_lastlog-files">
+  <refsect1 xml:id="pam_lastlog-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>~/.xauth/import</filename></term>
+        <term>~/.xauth/import</term>
         <listitem>
           <para>XXX</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><filename>~/.xauth/export</filename></term>
+        <term>~/.xauth/export</term>
         <listitem>
           <para>XXX</para>
         </listitem>
@@ -266,7 +263,7 @@ session  optional  pam_xauth.so
   </refsect1>
 
 
-  <refsect1 id='pam_xauth-see_also'>
+  <refsect1 xml:id="pam_xauth-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -281,7 +278,7 @@ session  optional  pam_xauth.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_xauth-author'>
+  <refsect1 xml:id="pam_xauth-author">
     <title>AUTHOR</title>
       <para>
         pam_xauth was written by Nalin Dahyabhai &lt;nalin@redhat.com&gt;,

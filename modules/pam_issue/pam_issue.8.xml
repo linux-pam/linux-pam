@@ -1,110 +1,107 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_issue">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_issue">
 
   <refmeta>
     <refentrytitle>pam_issue</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_issue-name">
+  <refnamediv xml:id="pam_issue-name">
     <refname>pam_issue</refname>
     <refpurpose>PAM module to add issue file to user prompt</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_issue-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_issue-cmdsynopsis" sepchar=" ">
       <command>pam_issue.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         noesc
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         issue=<replaceable>issue-file-name</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_issue-description">
+  <refsect1 xml:id="pam_issue-description">
 
     <title>DESCRIPTION</title>
 
     <para>
       pam_issue is a PAM module to prepend an issue file to the username
       prompt. It also by default parses escape codes in the issue file
-      similar to some common getty's (using &bsol;x format).
+      similar to some common getty's (using \x format).
     </para>
     <para>
       Recognized escapes:
     </para>
     <variablelist>
       <varlistentry>
-        <term><emphasis remap='B'>&bsol;d</emphasis></term>
+        <term>\d</term>
         <listitem>
           <para>current day</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis remap='B'>&bsol;l</emphasis></term>
+        <term>\l</term>
         <listitem>
           <para>name of this tty</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis remap='B'>&bsol;m</emphasis></term>
+        <term>\m</term>
         <listitem>
           <para>machine architecture (uname -m)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis remap='B'>&bsol;n</emphasis></term>
+        <term>\n</term>
         <listitem>
           <para>machine's network node hostname (uname -n)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis remap='B'>&bsol;o</emphasis></term>
+        <term>\o</term>
         <listitem>
           <para>domain name of this system</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis remap='B'>&bsol;r</emphasis></term>
+        <term>\r</term>
         <listitem>
           <para>release number of operating system (uname -r)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis remap='B'>&bsol;t</emphasis></term>
+        <term>\t</term>
         <listitem>
           <para>current time</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis remap='B'>&bsol;s</emphasis></term>
+        <term>\s</term>
         <listitem>
           <para>operating system name (uname -s)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis remap='B'>&bsol;u</emphasis></term>
+        <term>\u</term>
         <listitem>
           <para>number of users currently logged in</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis remap='B'>&bsol;U</emphasis></term>
+        <term>\U</term>
         <listitem>
           <para>
-            same as &bsol;u except it is suffixed with "user" or
+            same as \u except it is suffixed with "user" or
             "users" (eg. "1 user" or "10 users")
           </para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis remap='B'>&bsol;v</emphasis></term>
+        <term>\v</term>
         <listitem>
           <para>operating system version and build date (uname -v)</para>
         </listitem>
@@ -113,7 +110,7 @@
 
   </refsect1>
 
-  <refsect1 id="pam_issue-options">
+  <refsect1 xml:id="pam_issue-options">
 
     <title>OPTIONS</title>
     <para>
@@ -121,7 +118,7 @@
 
         <varlistentry>
           <term>
-            <option>noesc</option>
+            noesc
           </term>
           <listitem>
             <para>
@@ -132,7 +129,7 @@
 
         <varlistentry>
           <term>
-            <option>issue=<replaceable>issue-file-name</replaceable></option>
+            issue=issue-file-name
           </term>
           <listitem>
             <para>
@@ -146,14 +143,14 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_issue-types">
+  <refsect1 xml:id="pam_issue-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>auth</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_issue-return_values'>
+  <refsect1 xml:id="pam_issue-return_values">
     <title>RETURN VALUES</title>
     <para>
       <variablelist>
@@ -198,7 +195,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_issue-examples'>
+  <refsect1 xml:id="pam_issue-examples">
     <title>EXAMPLES</title>
     <para>
       Add the following line to <filename>/etc/pam.d/login</filename> to
@@ -209,7 +206,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_issue-see_also'>
+  <refsect1 xml:id="pam_issue-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -224,7 +221,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_issue-author'>
+  <refsect1 xml:id="pam_issue-author">
     <title>AUTHOR</title>
       <para>
         pam_issue was written by Ben Collins &lt;bcollins@debian.org&gt;.

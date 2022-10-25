@@ -1,38 +1,27 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_faillock'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_faillock">
   <title>pam_faillock - temporarily locking access based on failed authentication attempts during an interval</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_faillock-cmdsynopsisauth"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(id("pam_faillock-cmdsynopsisauth")/*)'/>
   </cmdsynopsis>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_faillock-cmdsynopsisacct"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(id("pam_faillock-cmdsynopsisacct")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_faillock-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faillock-description"]/*)'/>
+  <section xml:id="sag-pam_faillock-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(id("pam_faillock-description")/*)'/>
   </section>
-  <section id='sag-pam_faillock-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faillock-options"]/*)'/>
+  <section xml:id="sag-pam_faillock-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(id("pam_faillock-options")/*)'/>
   </section>
-  <section id='sag-pam_faillock-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faillock-types"]/*)'/>
+  <section xml:id="sag-pam_faillock-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(id("pam_faillock-types")/*)'/>
   </section>
-  <section id='sag-pam_faillock-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faillock-return_values"]/*)'/>
+  <section xml:id="sag-pam_faillock-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(id("pam_faillock-return_values")/*)'/>
   </section>
-  <section id='sag-pam_faillock-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faillock-examples"]/*)'/>
+  <section xml:id="sag-pam_faillock-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(id("pam_faillock-examples")/*)'/>
   </section>
-  <section id='sag-pam_faillock-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faillock-author"]/*)'/>
+  <section xml:id="sag-pam_faillock-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faillock/pam_faillock.8.xml" xpointer='xpointer(id("pam_faillock-author")/*)'/>
   </section>
 </section>

@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_shells'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_shells">
   <title>pam_shells - check for valid login shell</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_shells-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(id("pam_shells-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_shells-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(//refsect1[@id = "pam_shells-description"]/*)'/>
+  <section xml:id="sag-pam_shells-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(id("pam_shells-description")/*)'/>
   </section>
-  <section id='sag-pam_shells-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(//refsect1[@id = "pam_shells-options"]/*)'/>
+  <section xml:id="sag-pam_shells-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(id("pam_shells-options")/*)'/>
   </section>
-  <section id='sag-pam_shells-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(//refsect1[@id = "pam_shells-types"]/*)'/>
+  <section xml:id="sag-pam_shells-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(id("pam_shells-types")/*)'/>
   </section>
-  <section id='sag-pam_shells-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(//refsect1[@id = "pam_shells-return_values"]/*)'/>
+  <section xml:id="sag-pam_shells-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(id("pam_shells-return_values")/*)'/>
   </section>
-  <section id='sag-pam_shells-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(//refsect1[@id = "pam_shells-examples"]/*)'/>
+  <section xml:id="sag-pam_shells-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(id("pam_shells-examples")/*)'/>
   </section>
-  <section id='sag-pam_shells-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(//refsect1[@id = "pam_shells-author"]/*)'/>
+  <section xml:id="sag-pam_shells-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_shells/pam_shells.8.xml" xpointer='xpointer(id("pam_shells-author")/*)'/>
   </section>
 </section>

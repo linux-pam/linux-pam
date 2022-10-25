@@ -1,34 +1,24 @@
-﻿<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_setquota'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_setquota">
   <title>pam_setquota - set or modify disk quotas on session start</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_setquota-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(id("pam_setquota-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_setquota-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(//refsect1[@id = "pam_setquota-description"]/*)'/>
+  <section xml:id="sag-pam_setquota-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(id("pam_setquota-description")/*)'/>
   </section>
-  <section id='sag-pam_setquota-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(//refsect1[@id = "pam_setquota-options"]/*)'/>
+  <section xml:id="sag-pam_setquota-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(id("pam_setquota-options")/*)'/>
   </section>
-  <section id='sag-pam_setquota-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(//refsect1[@id = "pam_setquota-types"]/*)'/>
+  <section xml:id="sag-pam_setquota-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(id("pam_setquota-types")/*)'/>
   </section>
-  <section id='sag-pam_setquota-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(//refsect1[@id = "pam_setquota-return_values"]/*)'/>
+  <section xml:id="sag-pam_setquota-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(id("pam_setquota-return_values")/*)'/>
   </section>
-  <section id='sag-pam_setquota-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(//refsect1[@id = "pam_setquota-examples"]/*)'/>
+  <section xml:id="sag-pam_setquota-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(id("pam_setquota-examples")/*)'/>
   </section>
-  <section id='sag-pam_setquota-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(//refsect1[@id = "pam_setquota-author"]/*)'/>
+  <section xml:id="sag-pam_setquota-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_setquota/pam_setquota.8.xml" xpointer='xpointer(id("pam_setquota-author")/*)'/>
   </section>
 </section>

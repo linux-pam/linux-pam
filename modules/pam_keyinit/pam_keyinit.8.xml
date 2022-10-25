@@ -1,36 +1,33 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_keyinit">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_keyinit">
 
   <refmeta>
     <refentrytitle>pam_keyinit</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_keyinit-name">
+  <refnamediv xml:id="pam_keyinit-name">
     <refname>pam_keyinit</refname>
     <refpurpose>Kernel session keyring initialiser module</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_keyinit-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_keyinit-cmdsynopsis" sepchar=" ">
       <command>pam_keyinit.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	force
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	revoke
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_keyinit-description">
+  <refsect1 xml:id="pam_keyinit-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_keyinit PAM module ensures that the invoking process has a
@@ -71,7 +68,7 @@
     </para>
     <para>
       This module should not, generally, be invoked by programs like
-      <emphasis remap='B'>su</emphasis>, since it is usually desirable for the
+      <emphasis remap="B">su</emphasis>, since it is usually desirable for the
       key set to percolate through to the alternate context.  The keys have
       their own permissions system to manage this.
     </para>
@@ -80,18 +77,18 @@
       can be obtained from:
     </para>
     <para>
-      <ulink url="http://people.redhat.com/~dhowells/keyutils/">
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://people.redhat.com/~dhowells/keyutils/">
 	Keyutils
-      </ulink>
+      </link>
     </para>
   </refsect1>
 
-  <refsect1 id="pam_keyinit-options">
+  <refsect1 xml:id="pam_keyinit-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -104,7 +101,7 @@
 
       <varlistentry>
         <term>
-          <option>force</option>
+          force
         </term>
         <listitem>
           <para>
@@ -116,7 +113,7 @@
 
       <varlistentry>
         <term>
-          <option>revoke</option>
+          revoke
         </term>
         <listitem>
           <para>
@@ -130,14 +127,14 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_keyinit-types">
+  <refsect1 xml:id="pam_keyinit-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>session</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_keyinit-return_values'>
+  <refsect1 xml:id="pam_keyinit-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -207,7 +204,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_keyinit-examples'>
+  <refsect1 xml:id="pam_keyinit-examples">
     <title>EXAMPLES</title>
     <para>
       Add this line to your login entries to start each login session with its
@@ -222,7 +219,7 @@ session  required  pam_keyinit.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_keyinit-see_also'>
+  <refsect1 xml:id="pam_keyinit-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -240,7 +237,7 @@ session  required  pam_keyinit.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_keyinit-author'>
+  <refsect1 xml:id="pam_keyinit-author">
     <title>AUTHOR</title>
       <para>
         pam_keyinit was written by David Howells, &lt;dhowells@redhat.com&gt;.

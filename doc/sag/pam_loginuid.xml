@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_loginuid'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_loginuid">
   <title>pam_loginuid - record user's login uid to the process attribute</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_loginuid-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(id("pam_loginuid-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_loginuid-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(//refsect1[@id = "pam_loginuid-description"]/*)'/>
+  <section xml:id="sag-pam_loginuid-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(id("pam_loginuid-description")/*)'/>
   </section>
-  <section id='sag-pam_loginuid-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(//refsect1[@id = "pam_loginuid-options"]/*)'/>
+  <section xml:id="sag-pam_loginuid-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(id("pam_loginuid-options")/*)'/>
   </section>
-  <section id='sag-pam_loginuid-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(//refsect1[@id = "pam_loginuid-types"]/*)'/>
+  <section xml:id="sag-pam_loginuid-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(id("pam_loginuid-types")/*)'/>
   </section>
-  <section id='sag-pam_loginuid-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(//refsect1[@id = "pam_loginuid-return_values"]/*)'/>
+  <section xml:id="sag-pam_loginuid-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(id("pam_loginuid-return_values")/*)'/>
   </section>
-  <section id='sag-pam_loginuid-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(//refsect1[@id = "pam_loginuid-examples"]/*)'/>
+  <section xml:id="sag-pam_loginuid-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(id("pam_loginuid-examples")/*)'/>
   </section>
-  <section id='sag-pam_loginuid-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(//refsect1[@id = "pam_loginuid-author"]/*)'/>
+  <section xml:id="sag-pam_loginuid-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_loginuid/pam_loginuid.8.xml" xpointer='xpointer(id("pam_loginuid-author")/*)'/>
   </section>
 </section>

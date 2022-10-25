@@ -1,27 +1,24 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_permit">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_permit">
 
   <refmeta>
     <refentrytitle>pam_permit</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_permit-name">
+  <refnamediv xml:id="pam_permit-name">
     <refname>pam_permit</refname>
     <refpurpose>The promiscuous module</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_permit-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_permit-cmdsynopsis" sepchar=" ">
       <command>pam_permit.so</command>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_permit-description">
+  <refsect1 xml:id="pam_permit-description">
 
     <title>DESCRIPTION</title>
 
@@ -41,13 +38,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_permit-options">
+  <refsect1 xml:id="pam_permit-options">
 
     <title>OPTIONS</title>
     <para> This module does not recognise any options.</para>
   </refsect1>
 
-  <refsect1 id="pam_permit-types">
+  <refsect1 xml:id="pam_permit-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       The <option>auth</option>, <option>account</option>,
@@ -56,7 +53,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_permit-return_values'>
+  <refsect1 xml:id="pam_permit-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -70,7 +67,7 @@
     </variablelist>
      </refsect1>
 
-  <refsect1 id='pam_permit-examples'>
+  <refsect1 xml:id="pam_permit-examples">
     <title>EXAMPLES</title>
     <para>
       Add this line to your other login entries to disable account
@@ -81,7 +78,7 @@ account  required  pam_permit.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_permit-see_also'>
+  <refsect1 xml:id="pam_permit-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -96,7 +93,7 @@ account  required  pam_permit.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_permit-author'>
+  <refsect1 xml:id="pam_permit-author">
     <title>AUTHOR</title>
       <para>
         pam_permit was written by Andrew G. Morgan, &lt;morgan@kernel.org&gt;.

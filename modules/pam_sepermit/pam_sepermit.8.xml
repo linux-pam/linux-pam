@@ -1,33 +1,30 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_sepermit">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_sepermit">
 
   <refmeta>
     <refentrytitle>pam_sepermit</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_sepermit-name">
+  <refnamediv xml:id="pam_sepermit-name">
     <refname>pam_sepermit</refname>
     <refpurpose>PAM module to allow/deny login depending on SELinux enforcement state</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_sepermit-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_sepermit-cmdsynopsis" sepchar=" ">
       <command>pam_sepermit.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	conf=<replaceable>/path/to/config/file</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_sepermit-description">
+  <refsect1 xml:id="pam_sepermit-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_sepermit module allows or denies login depending on SELinux
@@ -61,12 +58,12 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_sepermit-options">
+  <refsect1 xml:id="pam_sepermit-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -79,7 +76,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>conf=<replaceable>/path/to/config/file</replaceable></option>
+          conf=/path/to/config/file
         </term>
         <listitem>
           <para>
@@ -90,7 +87,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_sepermit-types">
+  <refsect1 xml:id="pam_sepermit-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       The <option>auth</option> and <option>account</option>
@@ -98,7 +95,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_sepermit-return_values'>
+  <refsect1 xml:id="pam_sepermit-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -145,11 +142,11 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_sepermit-files">
+  <refsect1 xml:id="pam_sepermit-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/etc/security/sepermit.conf</filename></term>
+        <term>/etc/security/sepermit.conf</term>
         <listitem>
           <para>Default configuration file</para>
         </listitem>
@@ -157,7 +154,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_sepermit-examples'>
+  <refsect1 xml:id="pam_sepermit-examples">
     <title>EXAMPLES</title>
     <programlisting>
 auth     [success=done ignore=ignore default=bad] pam_sepermit.so
@@ -167,7 +164,7 @@ session  required  pam_permit.so
     </programlisting>
   </refsect1>
 
-  <refsect1 id='pam_sepermit-see_also'>
+  <refsect1 xml:id="pam_sepermit-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -188,7 +185,7 @@ session  required  pam_permit.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_sepermit-author'>
+  <refsect1 xml:id="pam_sepermit-author">
     <title>AUTHOR</title>
       <para>
         pam_sepermit and this manual page were written by Tomas Mraz &lt;tmraz@redhat.com&gt;.

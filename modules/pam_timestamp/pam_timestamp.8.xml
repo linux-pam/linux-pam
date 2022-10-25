@@ -1,39 +1,36 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_timestamp">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_timestamp">
 
   <refmeta>
     <refentrytitle>pam_timestamp</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_timestamp-name">
+  <refnamediv xml:id="pam_timestamp-name">
     <refname>pam_timestamp</refname>
     <refpurpose>Authenticate using cached successful authentication attempts</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_timestamp-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_timestamp-cmdsynopsis" sepchar=" ">
       <command>pam_timestamp.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         timestampdir=<replaceable>directory</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         timestamp_timeout=<replaceable>number</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         verbose
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         debug
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_timestamp-description">
+  <refsect1 xml:id="pam_timestamp-description">
 
     <title>DESCRIPTION</title>
 
@@ -52,18 +49,18 @@ file as grounds for succeeding.
     </para>
     <para condition="openssl_hmac">
       The default encryption hash is taken from the
-      <emphasis remap='B'>HMAC_CRYPTO_ALGO</emphasis> variable from
+      <emphasis remap="B">HMAC_CRYPTO_ALGO</emphasis> variable from
       <emphasis>/etc/login.defs</emphasis>.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_timestamp-options">
+  <refsect1 xml:id="pam_timestamp-options">
 
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
          <term>
-            <option>timestampdir=<replaceable>directory</replaceable></option>
+            timestampdir=directory
          </term>
          <listitem>
             <para>
@@ -74,7 +71,7 @@ file as grounds for succeeding.
       </varlistentry>
       <varlistentry>
          <term>
-            <option>timestamp_timeout=<replaceable>number</replaceable></option>
+            timestamp_timeout=number
          </term>
          <listitem>
             <para>
@@ -86,7 +83,7 @@ file as grounds for succeeding.
       </varlistentry>
       <varlistentry>
          <term>
-            <option>verbose</option>
+            verbose
          </term>
          <listitem>
             <para>
@@ -96,7 +93,7 @@ file as grounds for succeeding.
       </varlistentry>
       <varlistentry>
          <term>
-            <option>debug</option>
+            debug
          </term>
          <listitem>
             <para>
@@ -109,7 +106,7 @@ file as grounds for succeeding.
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_timestamp-types">
+  <refsect1 xml:id="pam_timestamp-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       The <option>auth</option> and <option>session</option>
@@ -117,7 +114,7 @@ file as grounds for succeeding.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_timestamp-return_values'>
+  <refsect1 xml:id="pam_timestamp-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -148,7 +145,7 @@ file as grounds for succeeding.
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_timestamp-notes'>
+  <refsect1 xml:id="pam_timestamp-notes">
     <title>NOTES</title>
     <para>
       Users can get confused when they are not always asked for passwords when
@@ -157,7 +154,7 @@ noticing that it is not being asked for.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_timestamp-examples'>
+  <refsect1 xml:id="pam_timestamp-examples">
     <title>EXAMPLES</title>
     <programlisting>
 auth sufficient pam_timestamp.so verbose
@@ -168,11 +165,11 @@ session optional pam_timestamp.so
     </programlisting>
   </refsect1>
 
-  <refsect1 id="pam_timestamp-files">
+  <refsect1 xml:id="pam_timestamp-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/var/run/pam_timestamp/...</filename></term>
+        <term>/var/run/pam_timestamp/...</term>
         <listitem>
           <para>timestamp files and directories</para>
         </listitem>
@@ -180,7 +177,7 @@ session optional pam_timestamp.so
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_timestamp-see_also'>
+  <refsect1 xml:id="pam_timestamp-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -198,7 +195,7 @@ session optional pam_timestamp.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_timestamp-author'>
+  <refsect1 xml:id="pam_timestamp-author">
     <title>AUTHOR</title>
       <para>
         pam_timestamp was written by Nalin Dahyabhai.

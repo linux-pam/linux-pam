@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id='pam_getenvlist'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_getenvlist">
   <refmeta>
     <refentrytitle>pam_getenvlist</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_getenvlist-name">
+  <refnamediv xml:id="pam_getenvlist-name">
     <refname>pam_getenvlist</refname>
     <refpurpose>getting the PAM environment</refpurpose>
   </refnamediv>
@@ -16,7 +14,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id='pam_getenvlist-synopsis'>
+    <funcsynopsis xml:id="pam_getenvlist-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>char **<function>pam_getenvlist</function></funcdef>
@@ -26,7 +24,7 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id='pam_getenvlist-description'>
+  <refsect1 xml:id="pam_getenvlist-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_getenvlist</function> function returns a complete
@@ -57,7 +55,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_getenvlist-return_values">
+  <refsect1 xml:id="pam_getenvlist-return_values">
     <title>RETURN VALUES</title>
     <para>
       The <function>pam_getenvlist</function> function returns NULL
@@ -65,7 +63,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_getenvlist-see_also'>
+  <refsect1 xml:id="pam_getenvlist-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

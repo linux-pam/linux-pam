@@ -5,22 +5,22 @@
 README: $(XMLS)
 
 README: README.xml
-	$(XSLTPROC) --path $(srcdir) --xinclude --stringparam generate.toc "none" @STRINGPARAM_VENDORDIR@ --nonet $(top_srcdir)/doc/custom-html.xsl $< | $(BROWSER) > $(srcdir)/$@
+	$(XSLTPROC) --path $(srcdir) --xinclude --stringparam generate.toc "none" @STRINGPARAM_VENDORDIR@ --nonet $(TXT_STYLESHEET) $< | $(BROWSER) > $(srcdir)/$@
 
 %.1: %.1.xml
-	$(XMLLINT) --nonet --xinclude --postvalid --noout $<
+	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noout $<
 	$(XSLTPROC) -o $(srcdir)/$@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ --nonet $(top_srcdir)/doc/custom-man.xsl $<
 
 %.3: %.3.xml
-	$(XMLLINT) --nonet --xinclude --postvalid --noout $<
+	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noout $<
 	$(XSLTPROC) -o $(srcdir)/$@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ --nonet $(top_srcdir)/doc/custom-man.xsl $<
 
 %.5: %.5.xml
-	$(XMLLINT) --nonet --xinclude --postvalid --noout $<
+	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noout $<
 	$(XSLTPROC) -o $(srcdir)/$@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ --nonet $(top_srcdir)/doc/custom-man.xsl $<
 
 %.8: %.8.xml
-	$(XMLLINT) --nonet --xinclude --postvalid --noout $<
+	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noout $<
 	$(XSLTPROC) -o $(srcdir)/$@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ @STRINGPARAM_HMAC@ --nonet $(top_srcdir)/doc/custom-man.xsl $<
 
 #CLEANFILES += $(man_MANS) README

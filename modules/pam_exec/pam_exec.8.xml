@@ -1,57 +1,54 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_exec">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_exec">
 
   <refmeta>
     <refentrytitle>pam_exec</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_exec-name">
+  <refnamediv xml:id="pam_exec-name">
     <refname>pam_exec</refname>
     <refpurpose>PAM module which calls an external command</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_exec-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_exec-cmdsynopsis" sepchar=" ">
       <command>pam_exec.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
          expose_authtok
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         seteuid
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         quiet
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         quiet_log
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         stdout
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         log=<replaceable>file</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         type=<replaceable>type</replaceable>
       </arg>
-      <arg choice="plain">
+      <arg choice="plain" rep="norepeat">
        <replaceable>command</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         <replaceable>...</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_exec-description">
+  <refsect1 xml:id="pam_exec-description">
 
     <title>DESCRIPTION</title>
 
@@ -83,7 +80,7 @@
 
   </refsect1>
 
-  <refsect1 id="pam_exec-options">
+  <refsect1 xml:id="pam_exec-options">
 
     <title>OPTIONS</title>
     <para>
@@ -91,7 +88,7 @@
 
         <varlistentry>
           <term>
-            <option>debug</option>
+            debug
           </term>
           <listitem>
             <para>
@@ -102,7 +99,7 @@
 
         <varlistentry>
           <term>
-            <option>expose_authtok</option>
+            expose_authtok
           </term>
           <listitem>
             <para>
@@ -117,7 +114,7 @@
 
         <varlistentry>
           <term>
-            <option>log=<replaceable>file</replaceable></option>
+            log=file
           </term>
           <listitem>
             <para>
@@ -129,7 +126,7 @@
 
         <varlistentry>
           <term>
-            <option>type=<replaceable>type</replaceable></option>
+            type=type
           </term>
           <listitem>
             <para>
@@ -140,7 +137,7 @@
 
         <varlistentry>
           <term>
-            <option>stdout</option>
+            stdout
           </term>
           <listitem>
             <para>
@@ -151,7 +148,7 @@
 
         <varlistentry>
           <term>
-            <option>quiet</option>
+            quiet
           </term>
           <listitem>
             <para>
@@ -164,7 +161,7 @@
 
         <varlistentry>
           <term>
-            <option>quiet_log</option>
+            quiet_log
           </term>
           <listitem>
             <para>
@@ -177,7 +174,7 @@
 
         <varlistentry>
           <term>
-            <option>seteuid</option>
+            seteuid
           </term>
           <listitem>
             <para>
@@ -194,7 +191,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_exec-types">
+  <refsect1 xml:id="pam_exec-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       All module types (<option>auth</option>, <option>account</option>,
@@ -202,7 +199,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_exec-return_values'>
+  <refsect1 xml:id="pam_exec-return_values">
     <title>RETURN VALUES</title>
     <para>
       <variablelist>
@@ -278,7 +275,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_exec-examples'>
+  <refsect1 xml:id="pam_exec-examples">
     <title>EXAMPLES</title>
     <para>
       Add the following line to <filename>/etc/pam.d/passwd</filename> to
@@ -293,7 +290,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_exec-see_also'>
+  <refsect1 xml:id="pam_exec-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -308,7 +305,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_exec-author'>
+  <refsect1 xml:id="pam_exec-author">
     <title>AUTHOR</title>
       <para>
         pam_exec was written by Thorsten Kukuk &lt;kukuk@thkukuk.de&gt; and

@@ -1,42 +1,39 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_umask">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_umask">
 
   <refmeta>
     <refentrytitle>pam_umask</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_umask-name">
+  <refnamediv xml:id="pam_umask-name">
     <refname>pam_umask</refname>
     <refpurpose>PAM module to set the file mode creation mask</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_umask-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_umask-cmdsynopsis" sepchar=" ">
       <command>pam_umask.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         silent
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         usergroups
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         nousergroups
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         umask=<replaceable>mask</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_umask-description">
+  <refsect1 xml:id="pam_umask-description">
 
     <title>DESCRIPTION</title>
 
@@ -81,7 +78,7 @@
 
   </refsect1>
 
-  <refsect1 id="pam_umask-options">
+  <refsect1 xml:id="pam_umask-options">
 
     <title>OPTIONS</title>
     <para>
@@ -89,7 +86,7 @@
 
         <varlistentry>
           <term>
-            <option>debug</option>
+            debug
           </term>
           <listitem>
             <para>
@@ -100,7 +97,7 @@
 
         <varlistentry>
           <term>
-            <option>silent</option>
+            silent
           </term>
           <listitem>
             <para>
@@ -111,20 +108,20 @@
 
         <varlistentry>
           <term>
-            <option>usergroups</option>
+            usergroups
           </term>
           <listitem>
             <para>
               If the user is not root and the username is the same as
               primary group name, the umask group bits are set to be the
-              same as owner bits (examples: 022 -> 002, 077 -> 007).
+              same as owner bits (examples: 022 -&gt; 002, 077 -&gt; 007).
             </para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>
-            <option>nousergroups</option>
+            nousergroups
           </term>
           <listitem>
             <para>
@@ -137,7 +134,7 @@
 
         <varlistentry>
           <term>
-            <option>umask=<replaceable>mask</replaceable></option>
+            umask=mask
           </term>
           <listitem>
             <para>
@@ -153,14 +150,14 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_umask-types">
+  <refsect1 xml:id="pam_umask-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>session</option> type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_umask-return_values'>
+  <refsect1 xml:id="pam_umask-return_values">
     <title>RETURN VALUES</title>
     <para>
       <variablelist>
@@ -225,7 +222,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_umask-examples'>
+  <refsect1 xml:id="pam_umask-examples">
     <title>EXAMPLES</title>
     <para>
       Add the following line to <filename>/etc/pam.d/login</filename> to
@@ -236,7 +233,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_umask-see_also'>
+  <refsect1 xml:id="pam_umask-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -251,7 +248,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_umask-author'>
+  <refsect1 xml:id="pam_umask-author">
     <title>AUTHOR</title>
       <para>
         pam_umask was written by Thorsten Kukuk &lt;kukuk@thkukuk.de&gt;.

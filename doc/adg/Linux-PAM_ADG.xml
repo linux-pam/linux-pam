@@ -1,50 +1,39 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-	"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<book id="adg">
-  <bookinfo>
+<book xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="adg">
+  <info>
     <title>The Linux-PAM Application Developers' Guide</title>
     <authorgroup>
-      <author>
-        <firstname>Andrew G.</firstname>
-        <surname>Morgan</surname>
-        <email>morgan@kernel.org</email>
-      </author>
-      <author>
-        <firstname>Thorsten</firstname>
-        <surname>Kukuk</surname>
-        <email>kukuk@thkukuk.de</email>
-      </author>
+      <author><personname><firstname>Andrew G.</firstname><surname>Morgan</surname></personname><email>morgan@kernel.org</email></author>
+      <author><personname><firstname>Thorsten</firstname><surname>Kukuk</surname></personname><email>kukuk@thkukuk.de</email></author>
     </authorgroup>
     <releaseinfo>Version 1.1.2, 31. August 2010</releaseinfo>
     <abstract>
       <para>
         This manual documents what an application developer needs to know
-        about the <emphasis remap='B'>Linux-PAM</emphasis> library. It
+        about the <emphasis remap="B">Linux-PAM</emphasis> library. It
         describes how an application might use the
-        <emphasis remap='B'>Linux-PAM</emphasis> library to authenticate
+        <emphasis remap="B">Linux-PAM</emphasis> library to authenticate
         users. In addition it contains a description of the functions
         to be found in <filename>libpam_misc</filename> library, that can
         be used in general applications. Finally, it contains some comments
         on PAM related security issues for the application developer.
       </para>
     </abstract>
-  </bookinfo>
+  </info>
 
-  <chapter id="adg-introduction">
+  <chapter xml:id="adg-introduction">
     <title>Introduction</title>
-    <section id="adg-introduction-description">
+    <section xml:id="adg-introduction-description">
       <title>Description</title>
       <para>
-        <emphasis remap='B'>Linux-PAM</emphasis>
+        <emphasis remap="B">Linux-PAM</emphasis>
         (Pluggable Authentication Modules for Linux) is a library that enables
         the local system administrator to choose how individual applications
         authenticate users. For an overview of the
-        <emphasis remap='B'>Linux-PAM</emphasis> library see the
+        <emphasis remap="B">Linux-PAM</emphasis> library see the
         <emphasis>Linux-PAM System Administrators' Guide</emphasis>.
       </para>
       <para>
-        It is the purpose of the <emphasis remap='B'>Linux-PAM</emphasis>
+        It is the purpose of the <emphasis remap="B">Linux-PAM</emphasis>
         project to liberate the development of privilege granting software
         from the development of secure and appropriate authentication schemes.
         This is accomplished by providing a documented library of functions
@@ -64,11 +53,11 @@
       </para>
     </section>
 
-    <section id="adg-introduction-synopsis">
+    <section xml:id="adg-introduction-synopsis">
       <title>Synopsis</title>
       <para>
         For general applications that wish to use the services provided by
-        <emphasis remap='B'>Linux-PAM</emphasis> the following is a summary
+        <emphasis remap="B">Linux-PAM</emphasis> the following is a summary
         of the relevant linking information:
         <programlisting>
 #include &lt;security/pam_appl.h&gt;
@@ -92,7 +81,7 @@ cc -o application .... -lpam -lpam_misc
     </section>
   </chapter>
 
-  <chapter id="adg-overview">
+  <chapter xml:id="adg-overview">
     <title>Overview</title>
     <para>
       Most service-giving applications are restricted. In other words,
@@ -108,7 +97,7 @@ cc -o application .... -lpam -lpam_misc
       authentication-token (password changing) management services.  It is
       important to realize when writing a PAM based application that these
       services are provided in a manner that is
-      <emphasis remap='B'>transparent</emphasis> to the application. That is
+      <emphasis remap="B">transparent</emphasis> to the application. That is
       to say, when the application is written, no assumptions can be made
       about <emphasis>how</emphasis> the client will be authenticated.
     </para>
@@ -206,74 +195,58 @@ cc -o application .... -lpam -lpam_misc
     </para>
   </chapter>
 
-  <chapter id="adg-interface">
+  <chapter xml:id="adg-interface">
     <title>
-      The public interface to <emphasis remap='B'>Linux-PAM</emphasis>
+      The public interface to <emphasis remap="B">Linux-PAM</emphasis>
     </title>
     <para>
       Firstly, the relevant include file for the
-      <emphasis remap='B'>Linux-PAM</emphasis> library is
+      <emphasis remap="B">Linux-PAM</emphasis> library is
       <function>&lt;security/pam_appl.h&gt;</function>.
       It contains the definitions for a number of functions. After
       listing these functions, we collect some guiding remarks for
       programmers.
     </para>
-    <section id="adg-interface-by-app-expected">
+    <section xml:id="adg-interface-by-app-expected">
       <title>What can be expected by the application</title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_start.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_end.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_set_item.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_get_item.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_strerror.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_fail_delay.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_authenticate.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_setcred.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_acct_mgmt.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_chauthtok.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_open_session.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_close_session.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_putenv.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_getenv.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_getenvlist.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_start.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_end.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_set_item.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_get_item.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_strerror.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_fail_delay.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_authenticate.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_setcred.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_acct_mgmt.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_chauthtok.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_open_session.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_close_session.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_putenv.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_getenv.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_getenvlist.xml"/>
     </section>
-    <section id="adg-interface-of-app-expected">
+    <section xml:id="adg-interface-of-app-expected">
       <title>What is expected of an application</title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_conv.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_conv.xml"/>
     </section>
-    <section id="adg-interface-programming-notes">
+    <section xml:id="adg-interface-programming-notes">
       <title>Programming notes</title>
       <para>
         Note, all of the authentication service function calls accept the
-        token <emphasis remap='B'>PAM_SILENT</emphasis>, which instructs
+        token <emphasis remap="B">PAM_SILENT</emphasis>, which instructs
         the modules to not send messages to the application. This token
         can be logically OR'd with any one of the permitted tokens specific
         to the individual function calls.
-        <emphasis remap='B'>PAM_SILENT</emphasis> does not override the
+        <emphasis remap="B">PAM_SILENT</emphasis> does not override the
         prompting of the user for passwords etc., it only stops informative
         messages from being generated.
       </para>
     </section>
   </chapter>
 
-  <chapter id="adg-security">
+  <chapter xml:id="adg-security">
     <title>
-      Security issues of <emphasis remap='B'>Linux-PAM</emphasis>
+      Security issues of <emphasis remap="B">Linux-PAM</emphasis>
     </title>
     <para>
       PAM, from the perspective of an application, is a convenient API for
@@ -284,19 +257,19 @@ cc -o application .... -lpam -lpam_misc
     </para>
     <para>
       A poorly (or maliciously) written application can defeat any
-      <emphasis remap='B'>Linux-PAM</emphasis> module's authentication
+      <emphasis remap="B">Linux-PAM</emphasis> module's authentication
       mechanisms by simply ignoring it's return values. It is the
       applications task and responsibility to grant privileges and access
-      to services.  The <emphasis remap='B'>Linux-PAM</emphasis> library
+      to services.  The <emphasis remap="B">Linux-PAM</emphasis> library
       simply assumes the responsibility of <emphasis>authenticating</emphasis>
       the user; ascertaining that the user <emphasis>is</emphasis> who they
       say they are. Care should be taken to anticipate all of the documented
-      behavior of the <emphasis remap='B'>Linux-PAM</emphasis> library
+      behavior of the <emphasis remap="B">Linux-PAM</emphasis> library
       functions. A failure to do this will most certainly lead to a future
       security breach.
     </para>
 
-    <section id="adg-security-library-calls">
+    <section xml:id="adg-security-library-calls">
       <title>Care about standard library calls</title>
       <para>
         In general, writers of authorization-granting applications should
@@ -308,9 +281,9 @@ cc -o application .... -lpam -lpam_misc
         function is likely to corrupt a pointer previously
         obtained by the application. The application programmer should
         either re-call such a 'libc' function after a call to the
-        <emphasis remap='B'>Linux-PAM</emphasis> library, or copy the
+        <emphasis remap="B">Linux-PAM</emphasis> library, or copy the
         structure contents to some safe area of memory before passing
-        control to the <emphasis remap='B'>Linux-PAM</emphasis> library.
+        control to the <emphasis remap="B">Linux-PAM</emphasis> library.
       </para>
       <para>
         Two important function classes that fall into this category are
@@ -322,12 +295,12 @@ cc -o application .... -lpam -lpam_misc
       </para>
     </section>
 
-    <section id="adg-security-service-name">
+    <section xml:id="adg-security-service-name">
       <title>Choice of a service name</title>
       <para>
         When picking the <emphasis>service-name</emphasis> that
         corresponds to the first entry in the
-        <emphasis remap='B'>Linux-PAM</emphasis> configuration file,
+        <emphasis remap="B">Linux-PAM</emphasis> configuration file,
         the application programmer should <emphasis>avoid</emphasis>
         the temptation of choosing something related to
         <varname>argv[0]</varname>. It is a trivial matter for any user
@@ -352,11 +325,11 @@ cc -o application .... -lpam -lpam_misc
         and then run <command>./preferred_name</command>.
       </para>
       <para>
-        By studying the <emphasis remap='B'>Linux-PAM</emphasis>
+        By studying the <emphasis remap="B">Linux-PAM</emphasis>
         configuration file(s), an attacker can choose the
         <command>preferred_name</command> to be that of a service enjoying
         minimal protection; for example a game which uses
-        <emphasis remap='B'>Linux-PAM</emphasis> to restrict access to
+        <emphasis remap="B">Linux-PAM</emphasis> to restrict access to
         certain hours of the day.  If the service-name were to be linked
         to the filename under which the service was invoked, it
         is clear that the user is effectively in the position of
@@ -370,7 +343,7 @@ cc -o application .... -lpam -lpam_misc
       </para>
     </section>
 
-    <section id="adg-security-conv-function">
+    <section xml:id="adg-security-conv-function">
       <title>The conversation function</title>
       <para>
         Care should be taken to ensure that the <function>conv()</function>
@@ -380,10 +353,10 @@ cc -o application .... -lpam -lpam_misc
       </para>
     </section>
 
-    <section id="adg-security-user-identity">
+    <section xml:id="adg-security-user-identity">
       <title>The identity of the user</title>
       <para>
-        The <emphasis remap='B'>Linux-PAM</emphasis> modules will need
+        The <emphasis remap="B">Linux-PAM</emphasis> modules will need
         to determine the identity of the user who requests a service,
         and the identity of the user who grants the service. These two
         users will seldom be the same. Indeed there is generally a third
@@ -444,7 +417,7 @@ cc -o application .... -lpam -lpam_misc
       </para>
     </section>
 
-    <section id="adg-security-resources">
+    <section xml:id="adg-security-resources">
       <title>Sufficient resources</title>
       <para>
         Care should be taken to ensure that the proper execution of an
@@ -465,7 +438,7 @@ cc -o application .... -lpam -lpam_misc
     </section>
   </chapter>
 
-  <chapter id='adg-libpam_misc'>
+  <chapter xml:id="adg-libpam_misc">
     <title>A library of miscellaneous helper functions</title>
     <para>
       To aid the work of the application developer a library of
@@ -479,24 +452,20 @@ cc -o application .... -lpam -lpam_misc
       library can be defined by including
       <function>&lt;security/pam_misc.h&gt;</function>. It should be
       noted that this library is specific to
-      <emphasis remap='B'>Linux-PAM</emphasis> and is not referred to in
+      <emphasis remap="B">Linux-PAM</emphasis> and is not referred to in
       the defining DCE-RFC (see <link linkend="adg-see-also">See also</link>)
       below.
     </para>
-    <section id='adg-libpam-functions'>
+    <section xml:id="adg-libpam-functions">
       <title>Functions supplied</title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_misc_conv.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_misc_paste_env.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_misc_drop_env.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_misc_setenv.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_misc_conv.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_misc_paste_env.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_misc_drop_env.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_misc_setenv.xml"/>
     </section>
   </chapter>
 
-  <chapter id='adg-porting'>
+  <chapter xml:id="adg-porting">
     <title>Porting legacy applications</title>
     <para>
       The point of PAM is that the application is not supposed to
@@ -545,7 +514,7 @@ cc -o application .... -lpam -lpam_misc
     </para>
   </chapter>
 
-  <chapter id='adg-glossary'>
+  <chapter xml:id="adg-glossary">
     <title>Glossary of PAM related terms</title>
     <para>
       The following are a list of terms used within this document.
@@ -585,17 +554,17 @@ cc -o application .... -lpam -lpam_misc
     </variablelist>
   </chapter>
 
-  <chapter id='adg-example'>
+  <chapter xml:id="adg-example">
     <title>An example application</title>
     <para>
-      To get a flavor of the way a <emphasis remap='B'>Linux-PAM</emphasis>
+      To get a flavor of the way a <emphasis remap="B">Linux-PAM</emphasis>
       application is written we include the following example. It prompts
       the user for their password and indicates whether their account
       is valid on the standard output, its return code also indicates
       the success (<returnvalue>0</returnvalue> for success;
       <returnvalue>1</returnvalue> for failure).
     </para>
-    <programlisting><![CDATA[
+    <programlisting>
 /*
   This program was contributed by Shane Watts
   [modifications by AGM and kukuk]
@@ -607,9 +576,9 @@ cc -o application .... -lpam -lpam_misc
   account    required     pam_unix.so
  */
 
-#include <security/pam_appl.h>
-#include <security/pam_misc.h>
-#include <stdio.h>
+#include &lt;security/pam_appl.h&gt;
+#include &lt;security/pam_misc.h&gt;
+#include &lt;stdio.h&gt;
 
 static struct pam_conv conv = {
     misc_conv,
@@ -626,12 +595,12 @@ int main(int argc, char *argv[])
         user = argv[1];
     }
 
-    if(argc > 2) {
+    if(argc &gt; 2) {
         fprintf(stderr, "Usage: check_user [username]\n");
         exit(1);
     }
 
-    retval = pam_start("check_user", user, &conv, &pamh);
+    retval = pam_start("check_user", user, &amp;conv, &amp;pamh);
 
     if (retval == PAM_SUCCESS)
         retval = pam_authenticate(pamh, 0);    /* is user really user? */
@@ -655,24 +624,24 @@ int main(int argc, char *argv[])
 
     return ( retval == PAM_SUCCESS ? 0:1 );       /* indicate success */
 }
-]]>
+
     </programlisting>
   </chapter>
 
-  <chapter id='adg-files'>
+  <chapter xml:id="adg-files">
     <title>Files</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/usr/include/security/pam_appl.h</filename></term>
+        <term>/usr/include/security/pam_appl.h</term>
         <listitem>
           <para>
             Header file with interfaces for
-            <emphasis remap='B'>Linux-PAM</emphasis> applications.
+            <emphasis remap="B">Linux-PAM</emphasis> applications.
            </para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><filename>/usr/include/security/pam_misc.h</filename></term>
+        <term>/usr/include/security/pam_misc.h</term>
         <listitem>
           <para>
             Header file for useful library functions for making
@@ -683,7 +652,7 @@ int main(int argc, char *argv[])
     </variablelist>
   </chapter>
 
-  <chapter id="adg-see-also">
+  <chapter xml:id="adg-see-also">
     <title>See also</title>
     <itemizedlist>
       <listitem>
@@ -706,7 +675,7 @@ int main(int argc, char *argv[])
     </itemizedlist>
   </chapter>
 
-  <chapter id='adg-author'>
+  <chapter xml:id="adg-author">
     <title>Author/acknowledgments</title>
     <para>
       This document was written by Andrew G. Morgan (morgan@kernel.org)
@@ -726,14 +695,14 @@ int main(int argc, char *argv[])
     <para>
       Thanks are also due to Sun Microsystems, especially to Vipin Samar and
       Charlie Lai for their advice. At an early stage in the development of
-      <emphasis remap='B'>Linux-PAM</emphasis>, Sun graciously made the
+      <emphasis remap="B">Linux-PAM</emphasis>, Sun graciously made the
       documentation for their implementation of PAM available. This act
       greatly accelerated the development of
-      <emphasis remap='B'>Linux-PAM</emphasis>.
+      <emphasis remap="B">Linux-PAM</emphasis>.
     </para>
   </chapter>
 
-  <chapter id='adg-copyright'>
+  <chapter xml:id="adg-copyright">
     <title>Copyright information for this document</title>
     <programlisting>
 Copyright (c) 2006 Thorsten Kukuk &lt;kukuk@thkukuk.de&gt;

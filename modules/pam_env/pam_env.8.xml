@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_env'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_env">
 
   <refmeta>
     <refentrytitle>pam_env</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam_env-name'>
+  <refnamediv xml:id="pam_env-name">
     <refname>pam_env</refname>
     <refpurpose>
       PAM module to set/unset environment variables
@@ -20,31 +17,31 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_env-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_env-cmdsynopsis" sepchar=" ">
       <command>pam_env.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         conffile=<replaceable>conf-file</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         envfile=<replaceable>env-file</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         readenv=<replaceable>0|1</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         user_envfile=<replaceable>env-file</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         user_readenv=<replaceable>0|1</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_env-description">
+  <refsect1 xml:id="pam_env-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_env PAM module allows the (un)setting of environment
@@ -119,13 +116,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_env-options">
+  <refsect1 xml:id="pam_env-options">
     <title>OPTIONS</title>
     <variablelist>
 
       <varlistentry>
         <term>
-          <option>conffile=<replaceable>/path/to/pam_env.conf</replaceable></option>
+          conffile=/path/to/pam_env.conf
         </term>
         <listitem>
           <para>
@@ -138,7 +135,7 @@
 
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -150,7 +147,7 @@
 
       <varlistentry>
         <term>
-          <option>envfile=<replaceable>/path/to/environment</replaceable></option>
+          envfile=/path/to/environment
         </term>
         <listitem>
           <para>
@@ -166,7 +163,7 @@
 
       <varlistentry>
         <term>
-          <option>readenv=<replaceable>0|1</replaceable></option>
+          readenv=0|1
         </term>
         <listitem>
           <para>
@@ -179,7 +176,7 @@
 
       <varlistentry>
         <term>
-          <option>user_envfile=<replaceable>filename</replaceable></option>
+          user_envfile=filename
         </term>
         <listitem>
           <para>
@@ -195,7 +192,7 @@
 
       <varlistentry>
         <term>
-          <option>user_readenv=<replaceable>0|1</replaceable></option>
+          user_readenv=0|1
         </term>
         <listitem>
           <para>
@@ -216,7 +213,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_env-types">
+  <refsect1 xml:id="pam_env-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       The <option>auth</option> and <option>session</option> module
@@ -224,7 +221,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_env-return_values">
+  <refsect1 xml:id="pam_env-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -262,25 +259,25 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_env-files">
+  <refsect1 xml:id="pam_env-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term condition="with_vendordir"><filename>/usr/etc/security/pam_env.conf</filename></term>
-        <term><filename>/etc/security/pam_env.conf</filename></term>
+        <term condition="with_vendordir">%vendordir%/security/pam_env.conf</term>
+        <term>/etc/security/pam_env.conf</term>
         <listitem>
           <para>Default configuration file</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term condition="with_vendordir"><filename>/usr/etc/environment</filename></term>
-        <term><filename>/etc/environment</filename></term>
+        <term condition="with_vendordir">%vendordir%/environment</term>
+        <term>/etc/environment</term>
         <listitem>
           <para>Default environment file</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><filename>$HOME/.pam_environment</filename></term>
+        <term>$HOME/.pam_environment</term>
         <listitem>
           <para>User specific environment file</para>
         </listitem>
@@ -288,7 +285,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_env-see_also">
+  <refsect1 xml:id="pam_env-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -306,7 +303,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_env-authors">
+  <refsect1 xml:id="pam_env-authors">
     <title>AUTHOR</title>
     <para>
       pam_env was written by Dave Kinchlea &lt;kinch@kinch.ark.com&gt;.

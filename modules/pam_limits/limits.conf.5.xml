@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-        "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="limits.conf">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="limits.conf">
 
   <refmeta>
     <refentrytitle>limits.conf</refentrytitle>
     <manvolnum>5</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
   <refnamediv>
@@ -15,7 +12,7 @@
     <refpurpose>configuration file for the pam_limits module</refpurpose>
   </refnamediv>
 
-  <refsect1 id='limits.conf-description'>
+  <refsect1 xml:id="limits.conf-description">
     <title>DESCRIPTION</title>
     <para>
       The <emphasis>pam_limits.so</emphasis> module applies ulimit limits,
@@ -38,7 +35,7 @@
     <variablelist>
       <varlistentry>
         <term>
-          <option>&lt;domain&gt;</option>
+          &lt;domain&gt;
         </term>
         <listitem>
           <itemizedlist>
@@ -49,38 +46,35 @@
             </listitem>
             <listitem>
               <para>
-                a groupname, with <emphasis remap='B'>@group</emphasis> syntax.
+                a groupname, with <emphasis remap="B">@group</emphasis> syntax.
                 This should not be confused with netgroups.
               </para>
             </listitem>
             <listitem>
               <para>
-                the wildcard <emphasis remap='B'>*</emphasis>, for default entry.
+                the wildcard <emphasis remap="B">*</emphasis>, for default entry.
               </para>
             </listitem>
             <listitem>
               <para>
-                the wildcard <emphasis remap='B'>%</emphasis>, for maxlogins limit only,
-                can also be used with <emphasis remap='B'>%group</emphasis> syntax. If the
-                <emphasis remap='B'>%</emphasis> wildcard is used alone it is identical
-                to using <emphasis remap='B'>*</emphasis> with maxsyslogins limit. With
-                a group specified after <emphasis remap='B'>%</emphasis> it limits the total
+                the wildcard <emphasis remap="B">%</emphasis>, for maxlogins limit only,
+                can also be used with <emphasis remap="B">%group</emphasis> syntax. If the
+                <emphasis remap="B">%</emphasis> wildcard is used alone it is identical
+                to using <emphasis remap="B">*</emphasis> with maxsyslogins limit. With
+                a group specified after <emphasis remap="B">%</emphasis> it limits the total
                 number of logins of all users that are member of the group.
               </para>
             </listitem>
             <listitem>
               <para>
-                an uid range specified as <replaceable>&lt;min_uid&gt;</replaceable><emphasis
-                remap='B'>:</emphasis><replaceable>&lt;max_uid&gt;</replaceable>. If min_uid
+                an uid range specified as <replaceable>&lt;min_uid&gt;</replaceable><emphasis remap="B">:</emphasis><replaceable>&lt;max_uid&gt;</replaceable>. If min_uid
                 is omitted, the match is exact for the max_uid. If max_uid is omitted, all
                 uids greater than or equal min_uid match.
               </para>
             </listitem>
             <listitem>
               <para>
-                a gid range specified as <emphasis
-                remap='B'>@</emphasis><replaceable>&lt;min_gid&gt;</replaceable><emphasis
-                remap='B'>:</emphasis><replaceable>&lt;max_gid&gt;</replaceable>. If min_gid
+                a gid range specified as <emphasis remap="B">@</emphasis><replaceable>&lt;min_gid&gt;</replaceable><emphasis remap="B">:</emphasis><replaceable>&lt;max_gid&gt;</replaceable>. If min_gid
                 is omitted, the match is exact for the max_gid. If max_gid is omitted, all
                 gids greater than or equal min_gid match. For the exact match all groups including
                 the user's supplementary groups are examined. For the range matches only
@@ -89,8 +83,7 @@
             </listitem>
             <listitem>
               <para>
-                a gid specified as <emphasis
-                remap='B'>%:</emphasis><replaceable>&lt;gid&gt;</replaceable> applicable
+                a gid specified as <emphasis remap="B">%:</emphasis><replaceable>&lt;gid&gt;</replaceable> applicable
                 to maxlogins limit only. It limits the total number of logins of all users
                 that are member of the group with the specified gid.
               </para>
@@ -101,38 +94,38 @@
 
       <varlistentry>
         <term>
-          <option>&lt;type&gt;</option>
+          &lt;type&gt;
         </term>
         <listitem>
           <variablelist>
             <varlistentry>
-              <term><option>hard</option></term>
+              <term>hard</term>
               <listitem>
                 <para>
-                  for enforcing <emphasis remap='B'>hard</emphasis> resource limits.
+                  for enforcing <emphasis remap="B">hard</emphasis> resource limits.
                   These limits are set by the superuser and enforced by the Kernel.
                   The user cannot raise his requirement of system resources above such values.
                 </para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>soft</option></term>
+              <term>soft</term>
               <listitem>
                 <para>
-                  for enforcing <emphasis remap='B'>soft</emphasis> resource limits.
+                  for enforcing <emphasis remap="B">soft</emphasis> resource limits.
                   These limits are ones that the user can move up or down within the
-                  permitted range by any pre-existing <emphasis remap='B'>hard</emphasis>
+                  permitted range by any pre-existing <emphasis remap="B">hard</emphasis>
                   limits. The values specified with this token can be thought of as
                   <emphasis>default</emphasis> values, for normal system usage.
                 </para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>-</option></term>
+              <term>-</term>
               <listitem>
                 <para>
-                  for enforcing both <emphasis remap='B'>soft</emphasis> and
-                  <emphasis remap='B'>hard</emphasis> resource limits together.
+                  for enforcing both <emphasis remap="B">soft</emphasis> and
+                  <emphasis remap="B">hard</emphasis> resource limits together.
                 </para>
                 <para>
                   Note, if you specify a type of '-' but neglect to supply the
@@ -147,79 +140,79 @@
 
       <varlistentry>
         <term>
-          <option>&lt;item&gt;</option>
+          &lt;item&gt;
         </term>
         <listitem>
           <variablelist>
             <varlistentry>
-              <term><option>core</option></term>
+              <term>core</term>
               <listitem>
                 <para>limits the core file size (KB)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>data</option></term>
+              <term>data</term>
               <listitem>
                 <para>maximum data size (KB)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>fsize</option></term>
+              <term>fsize</term>
               <listitem>
                 <para>maximum filesize (KB)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>memlock</option></term>
+              <term>memlock</term>
               <listitem>
                 <para>maximum locked-in-memory address space (KB)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>nofile</option></term>
+              <term>nofile</term>
               <listitem>
                 <para>maximum number of open file descriptors</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>rss</option></term>
+              <term>rss</term>
               <listitem>
                 <para>maximum resident set size (KB) (Ignored in Linux 2.4.30 and higher)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>stack</option></term>
+              <term>stack</term>
               <listitem>
                 <para>maximum stack size (KB)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>cpu</option></term>
+              <term>cpu</term>
               <listitem>
                 <para>maximum CPU time (minutes)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>nproc</option></term>
+              <term>nproc</term>
               <listitem>
                 <para>maximum number of processes</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>as</option></term>
+              <term>as</term>
               <listitem>
                 <para>address space limit (KB)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>maxlogins</option></term>
+              <term>maxlogins</term>
               <listitem>
                 <para>maximum number of logins for this user (this limit does
                   not apply to user with <emphasis>uid=0</emphasis>)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>maxsyslogins</option></term>
+              <term>maxsyslogins</term>
               <listitem>
                 <para>maximum number of all logins on system; user is not
                   allowed to log-in if total number of all user logins is
@@ -228,46 +221,46 @@
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>nonewprivs</option></term>
+              <term>nonewprivs</term>
               <listitem>
                 <para>value of 0 or 1; if set to 1 disables acquiring new
                   privileges by invoking prctl(PR_SET_NO_NEW_PRIVS)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>priority</option></term>
+              <term>priority</term>
               <listitem>
                 <para>the priority to run user process with (negative
                   values boost process priority)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>locks</option></term>
+              <term>locks</term>
               <listitem>
                 <para>maximum locked files (Linux 2.4 and higher)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>sigpending</option></term>
+              <term>sigpending</term>
               <listitem>
                 <para>maximum number of pending signals (Linux 2.6 and higher)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>msgqueue</option></term>
+              <term>msgqueue</term>
               <listitem>
                 <para>maximum memory used by POSIX message queues (bytes)
                   (Linux 2.6 and higher)</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>nice</option></term>
+              <term>nice</term>
               <listitem>
                 <para>maximum nice priority allowed to raise to (Linux 2.6.12 and higher) values: [-20,19]</para>
               </listitem>
             </varlistentry>
             <varlistentry>
-              <term><option>rtprio</option></term>
+              <term>rtprio</term>
               <listitem>
                 <para>maximum realtime priority allowed for non-privileged processes
                   (Linux 2.6.12 and higher)</para>
@@ -281,9 +274,9 @@
     <para>
       All items support the values <emphasis>-1</emphasis>,
       <emphasis>unlimited</emphasis> or <emphasis>infinity</emphasis> indicating no limit,
-      except for <emphasis remap='B'>priority</emphasis>, <emphasis remap='B'>nice</emphasis>,
-      and <emphasis remap='B'>nonewprivs</emphasis>.
-      If <emphasis remap='B'>nofile</emphasis> is to be set to one of these values,
+      except for <emphasis remap="B">priority</emphasis>, <emphasis remap="B">nice</emphasis>,
+      and <emphasis remap="B">nonewprivs</emphasis>.
+      If <emphasis remap="B">nofile</emphasis> is to be set to one of these values,
       it will be set to the contents of /proc/sys/fs/nr_open instead (see setrlimit(3)).
     </para>
     <para>
@@ -309,7 +302,7 @@
     </para>
     <para>
       In the <emphasis>limits</emphasis> configuration file, the
-      '<emphasis remap='B'>#</emphasis>' character introduces a comment
+      '<emphasis remap="B">#</emphasis>' character introduces a comment
       - after which the rest of the line is ignored.
     </para>
     <para>
@@ -319,7 +312,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="limits.conf-examples">
+  <refsect1 xml:id="limits.conf-examples">
     <title>EXAMPLES</title>
     <para>
       These are some example lines which might be specified in
@@ -340,7 +333,7 @@ ftp             hard    nproc           0
     </programlisting>
   </refsect1>
 
-  <refsect1 id="limits.conf-see_also">
+  <refsect1 xml:id="limits.conf-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry><refentrytitle>pam_limits</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
@@ -351,7 +344,7 @@ ftp             hard    nproc           0
     </para>
   </refsect1>
 
-  <refsect1 id="limits.conf-author">
+  <refsect1 xml:id="limits.conf-author">
     <title>AUTHOR</title>
     <para>
       pam_limits was initially written by Cristian Gafton &lt;gafton@redhat.com&gt;

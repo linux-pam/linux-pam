@@ -1,36 +1,33 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="faillock">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="faillock">
 
   <refmeta>
     <refentrytitle>faillock</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_faillock-name">
+  <refnamediv xml:id="pam_faillock-name">
     <refname>faillock</refname>
     <refpurpose>Tool for displaying and modifying the authentication failure record files</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="faillock-cmdsynopsis">
+    <cmdsynopsis xml:id="faillock-cmdsynopsis" sepchar=" ">
       <command>faillock</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         --dir <replaceable>/path/to/tally-directory</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         --user <replaceable>username</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         --reset
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="faillock-description">
+  <refsect1 xml:id="faillock-description">
 
     <title>DESCRIPTION</title>
 
@@ -51,13 +48,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="faillock-options">
+  <refsect1 xml:id="faillock-options">
 
     <title>OPTIONS</title>
          <variablelist>
             <varlistentry>
               <term>
-                <option>--conf <replaceable>/path/to/config-file</replaceable></option>
+                --conf /path/to/config-file
               </term>
               <listitem>
                 <para>
@@ -68,7 +65,7 @@
             </varlistentry>
             <varlistentry>
               <term>
-                <option>--dir <replaceable>/path/to/tally-directory</replaceable></option>
+                --dir /path/to/tally-directory
               </term>
               <listitem>
                 <para>
@@ -85,7 +82,7 @@
             </varlistentry>
             <varlistentry>
               <term>
-                <option>--user <replaceable>username</replaceable></option>
+                --user username
               </term>
               <listitem>
                 <para>
@@ -95,7 +92,7 @@
             </varlistentry>
             <varlistentry>
               <term>
-                <option>--reset</option>
+                --reset
               </term>
               <listitem>
                 <para>
@@ -106,11 +103,11 @@
         </variablelist>
   </refsect1>
 
-  <refsect1 id="faillock-files">
+  <refsect1 xml:id="faillock-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/var/run/faillock/*</filename></term>
+        <term>/var/run/faillock/*</term>
         <listitem>
           <para>the files logging the authentication failures for users</para>
         </listitem>
@@ -118,7 +115,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='faillock-see_also'>
+  <refsect1 xml:id="faillock-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -130,7 +127,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='faillock-author'>
+  <refsect1 xml:id="faillock-author">
     <title>AUTHOR</title>
       <para>
         faillock was written by Tomas Mraz.

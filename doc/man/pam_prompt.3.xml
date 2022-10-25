@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id="pam_prompt">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_prompt">
 
   <refmeta>
     <refentrytitle>pam_prompt</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_prompt-name">
+  <refnamediv xml:id="pam_prompt-name">
     <refname>pam_prompt</refname>
     <refname>pam_vprompt</refname>
     <refpurpose>interface to conversation function</refpurpose>
@@ -18,7 +15,7 @@
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id="pam_prompt-synopsis">
+  <refsynopsisdiv xml:id="pam_prompt-synopsis">
     <funcsynopsis>
       <funcsynopsisinfo>#include &lt;security/pam_ext.h&gt;</funcsynopsisinfo>
       <funcprototype>
@@ -40,7 +37,7 @@
     </funcsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id='pam_prompt-description'>
+  <refsect1 xml:id="pam_prompt-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_prompt</function> function constructs a message
@@ -52,7 +49,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_prompt-return_values">
+  <refsect1 xml:id="pam_prompt-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -91,7 +88,7 @@
   </refsect1>
 
 
-  <refsect1 id='pam_prompt-see_also'>
+  <refsect1 xml:id="pam_prompt-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -103,7 +100,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_prompt-standards'>
+  <refsect1 xml:id="pam_prompt-standards">
     <title>STANDARDS</title>
     <para>
       The <function>pam_prompt</function> and <function>pam_vprompt</function>

@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-
-<refentry id="access.conf">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="access.conf">
 
   <refmeta>
     <refentrytitle>access.conf</refentrytitle>
@@ -16,7 +12,7 @@
   </refnamediv>
 
 
-  <refsect1 id='access.conf-description'>
+  <refsect1 xml:id="access.conf-description">
     <title>DESCRIPTION</title>
     <para>
       The <filename>/etc/security/access.conf</filename> file specifies
@@ -126,7 +122,7 @@
 
   </refsect1>
 
-  <refsect1 id="access.conf-examples">
+  <refsect1 xml:id="access.conf-examples">
     <title>EXAMPLES</title>
     <para>
       These are some example lines which might be specified in
@@ -135,7 +131,7 @@
 
     <para>
       User <emphasis>root</emphasis> should be allowed to get access via
-      <emphasis>cron</emphasis>, X11 terminal <emphasis remap='I'>:0</emphasis>,
+      <emphasis>cron</emphasis>, X11 terminal <emphasis remap="I">:0</emphasis>,
       <emphasis>tty1</emphasis>, ..., <emphasis>tty5</emphasis>,
       <emphasis>tty6</emphasis>.
     </para>
@@ -216,7 +212,7 @@
 
   </refsect1>
 
-  <refsect1 id="access.conf-notes">
+  <refsect1 xml:id="access.conf-notes">
     <title>NOTES</title>
     <para>
       The default separators of list items in a field are space, ',', and tabulator
@@ -228,7 +224,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="access.conf-see_also">
+  <refsect1 xml:id="access.conf-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry><refentrytitle>pam_access</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
@@ -237,7 +233,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="access.conf-author">
+  <refsect1 xml:id="access.conf-author">
     <title>AUTHORS</title>
     <para>
       Original <citerefentry><refentrytitle>login.access</refentrytitle><manvolnum>5</manvolnum></citerefentry>

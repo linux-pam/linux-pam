@@ -1,25 +1,22 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pwhistory.conf">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pwhistory.conf">
 
   <refmeta>
     <refentrytitle>pwhistory.conf</refentrytitle>
     <manvolnum>5</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pwhistory.conf-name">
+  <refnamediv xml:id="pwhistory.conf-name">
     <refname>pwhistory.conf</refname>
     <refpurpose>pam_pwhistory configuration file</refpurpose>
   </refnamediv>
 
-  <refsect1 id="pwhistory.conf-description">
+  <refsect1 xml:id="pwhistory.conf-description">
 
     <title>DESCRIPTION</title>
     <para>
-       <emphasis remap='B'>pwhistory.conf</emphasis> provides a way to configure the
+       <emphasis remap="B">pwhistory.conf</emphasis> provides a way to configure the
        default settings for saving the last passwords for each user.
        This file is read by the <emphasis>pam_pwhistory</emphasis> module and is the
        preferred method over configuring <emphasis>pam_pwhistory</emphasis> directly.
@@ -31,13 +28,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pwhistory.conf-options">
+  <refsect1 xml:id="pwhistory.conf-options">
 
     <title>OPTIONS</title>
          <variablelist>
             <varlistentry>
               <term>
-                <option>debug</option>
+                debug
               </term>
               <listitem>
                 <para>
@@ -50,7 +47,7 @@
             </varlistentry>
             <varlistentry>
               <term>
-                <option>enforce_for_root</option>
+                enforce_for_root
               </term>
               <listitem>
                 <para>
@@ -60,7 +57,7 @@
             </varlistentry>
             <varlistentry>
               <term>
-                <option>remember=<replaceable>N</replaceable></option>
+                remember=N
               </term>
               <listitem>
                 <para>
@@ -74,7 +71,7 @@
             </varlistentry>
             <varlistentry>
               <term>
-                <option>retry=<replaceable>N</replaceable></option>
+                retry=N
               </term>
               <listitem>
                 <para>
@@ -85,7 +82,7 @@
             </varlistentry>
             <varlistentry>
               <term>
-                <option>file=<replaceable>/path/filename</replaceable></option>
+                file=/path/filename
               </term>
               <listitem>
                 <para>
@@ -99,7 +96,7 @@
         </variablelist>
   </refsect1>
 
-  <refsect1 id='pwhistory.conf-examples'>
+  <refsect1 xml:id="pwhistory.conf-examples">
     <title>EXAMPLES</title>
     <para>
       /etc/security/pwhistory.conf file example:
@@ -111,11 +108,11 @@ file=/tmp/opasswd
     </programlisting>
   </refsect1>
 
-  <refsect1 id="pwhistory.conf-files">
+  <refsect1 xml:id="pwhistory.conf-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/etc/security/pwhistory.conf</filename></term>
+        <term>/etc/security/pwhistory.conf</term>
         <listitem>
           <para>the config file for custom options</para>
         </listitem>
@@ -123,7 +120,7 @@ file=/tmp/opasswd
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pwhistory.conf-see_also'>
+  <refsect1 xml:id="pwhistory.conf-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -144,7 +141,7 @@ file=/tmp/opasswd
     </para>
   </refsect1>
 
-  <refsect1 id='pwhistory.conf-author'>
+  <refsect1 xml:id="pwhistory.conf-author">
     <title>AUTHOR</title>
       <para>
         pam_pwhistory was written by Thorsten Kukuk. The support for

@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_securetty'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_securetty">
   <title>pam_securetty - limit root login to special devices</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_securetty-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_securetty-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(//refsect1[@id = "pam_securetty-description"]/*)'/>
+  <section xml:id="sag-pam_securetty-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-description")/*)'/>
   </section>
-  <section id='sag-pam_securetty-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(//refsect1[@id = "pam_securetty-options"]/*)'/>
+  <section xml:id="sag-pam_securetty-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-options")/*)'/>
   </section>
-  <section id='sag-pam_securetty-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(//refsect1[@id = "pam_securetty-types"]/*)'/>
+  <section xml:id="sag-pam_securetty-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-types")/*)'/>
   </section>
-  <section id='sag-pam_securetty-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(//refsect1[@id = "pam_securetty-return_values"]/*)'/>
+  <section xml:id="sag-pam_securetty-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-return_values")/*)'/>
   </section>
-  <section id='sag-pam_securetty-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(//refsect1[@id = "pam_securetty-examples"]/*)'/>
+  <section xml:id="sag-pam_securetty-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-examples")/*)'/>
   </section>
-  <section id='sag-pam_securetty-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(//refsect1[@id = "pam_securetty-author"]/*)'/>
+  <section xml:id="sag-pam_securetty-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_securetty/pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-author")/*)'/>
   </section>
 </section>

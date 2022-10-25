@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id='pam_sm_setcred'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_sm_setcred">
   <refmeta>
     <refentrytitle>pam_sm_setcred</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_sm_setcred-name">
+  <refnamediv xml:id="pam_sm_setcred-name">
     <refname>pam_sm_setcred</refname>
     <refpurpose>PAM service function to alter credentials</refpurpose>
   </refnamediv>
@@ -16,7 +14,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id='pam_sm_setcred-synopsis'>
+    <funcsynopsis xml:id="pam_sm_setcred-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_modules.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_sm_setcred</function></funcdef>
@@ -29,7 +27,7 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id='pam_sm_setcred-description'>
+  <refsect1 xml:id="pam_sm_setcred-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_sm_setcred</function> function is the service
@@ -92,7 +90,7 @@
       </varlistentry>
     </variablelist>
     <para>
-      The way the <emphasis remap='B'>auth</emphasis> stack is
+      The way the <emphasis remap="B">auth</emphasis> stack is
       navigated in order to evaluate the <function>pam_setcred</function>()
       function call, independent of the <function>pam_sm_setcred</function>()
       return codes, is exactly the same way that it was navigated when
@@ -102,11 +100,11 @@
       libpam evaluates the <function>pam_setcred</function>() function
       call. Otherwise, the return codes from each module specific
       <function>pam_sm_setcred</function>() call are treated as
-      <emphasis remap='B'>required</emphasis>.
+      <emphasis remap="B">required</emphasis>.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_sm_setcred-return_values">
+  <refsect1 xml:id="pam_sm_setcred-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -158,7 +156,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_sm_setcred-see_also'>
+  <refsect1 xml:id="pam_sm_setcred-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

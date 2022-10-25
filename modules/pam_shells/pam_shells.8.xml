@@ -1,27 +1,24 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_shells">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_shells">
 
   <refmeta>
     <refentrytitle>pam_shells</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_shells-name">
+  <refnamediv xml:id="pam_shells-name">
     <refname>pam_shells</refname>
     <refpurpose>PAM module to check for valid login shell</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_shells-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_shells-cmdsynopsis" sepchar=" ">
       <command>pam_shells.so</command>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_shells-description">
+  <refsect1 xml:id="pam_shells-description">
 
     <title>DESCRIPTION</title>
 
@@ -43,13 +40,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_shells-options">
+  <refsect1 xml:id="pam_shells-options">
 
     <title>OPTIONS</title>
     <para> This module does not recognise any options.</para>
   </refsect1>
 
-  <refsect1 id="pam_shells-types">
+  <refsect1 xml:id="pam_shells-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       The <option>auth</option> and <option>account</option>
@@ -57,7 +54,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_shells-return_values'>
+  <refsect1 xml:id="pam_shells-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -88,7 +85,7 @@
     </variablelist>
      </refsect1>
 
-  <refsect1 id='pam_shells-examples'>
+  <refsect1 xml:id="pam_shells-examples">
     <title>EXAMPLES</title>
     <para>
       <programlisting>
@@ -97,7 +94,7 @@ auth  required  pam_shells.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_shells-see_also'>
+  <refsect1 xml:id="pam_shells-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -115,7 +112,7 @@ auth  required  pam_shells.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_shells-author'>
+  <refsect1 xml:id="pam_shells-author">
     <title>AUTHOR</title>
       <para>
         pam_shells was written by Erik Troan &lt;ewt@redhat.com&gt;.

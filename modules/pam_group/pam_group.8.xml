@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_group'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_group">
 
   <refmeta>
     <refentrytitle>pam_group</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam_group-name'>
+  <refnamediv xml:id="pam_group-name">
     <refname>pam_group</refname>
     <refpurpose>
       PAM module for group access
@@ -20,13 +17,13 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_group-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_group-cmdsynopsis" sepchar=" ">
       <command>pam_group.so</command>
     </cmdsynopsis>
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_group-description">
+  <refsect1 xml:id="pam_group-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_group PAM module does not authenticate the user, but instead
@@ -64,19 +61,19 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_group-options">
+  <refsect1 xml:id="pam_group-options">
     <title>OPTIONS</title>
     <para>This module does not recognise any options.</para>
   </refsect1>
 
-  <refsect1 id="pam_group-types">
+  <refsect1 xml:id="pam_group-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>auth</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_group-return_values">
+  <refsect1 xml:id="pam_group-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -130,11 +127,11 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_group-files">
+  <refsect1 xml:id="pam_group-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/etc/security/group.conf</filename></term>
+        <term>/etc/security/group.conf</term>
         <listitem>
           <para>Default configuration file</para>
         </listitem>
@@ -142,7 +139,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_group-see_also">
+  <refsect1 xml:id="pam_group-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -157,7 +154,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_group-authors">
+  <refsect1 xml:id="pam_group-authors">
     <title>AUTHORS</title>
     <para>
       pam_group was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.

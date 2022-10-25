@@ -1,45 +1,42 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_wheel">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_wheel">
 
   <refmeta>
     <refentrytitle>pam_wheel</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_wheel-name">
+  <refnamediv xml:id="pam_wheel-name">
     <refname>pam_wheel</refname>
     <refpurpose>Only permit root access to members of group wheel</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_wheel-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_wheel-cmdsynopsis" sepchar=" ">
       <command>pam_wheel.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         deny
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	group=<replaceable>name</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	root_only
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	trust
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	use_uid
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_wheel-description">
+  <refsect1 xml:id="pam_wheel-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_wheel PAM module is used to enforce the so-called
@@ -47,16 +44,16 @@
       access to the target user if the applicant user is a member of the
       <emphasis>wheel</emphasis> group. If no group with this name exist,
       the module is using the group with the group-ID
-      <emphasis remap='B'>0</emphasis>.
+      <emphasis remap="B">0</emphasis>.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_wheel-options">
+  <refsect1 xml:id="pam_wheel-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -66,7 +63,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>deny</option>
+          deny
         </term>
         <listitem>
           <para>
@@ -81,7 +78,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>group=<replaceable>name</replaceable></option>
+          group=name
         </term>
         <listitem>
           <para>
@@ -93,7 +90,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>root_only</option>
+          root_only
         </term>
         <listitem>
           <para>
@@ -104,7 +101,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>trust</option>
+          trust
         </term>
         <listitem>
           <para>
@@ -118,7 +115,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>use_uid</option>
+          use_uid
         </term>
         <listitem>
           <para>
@@ -131,15 +128,15 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_wheel-types">
+  <refsect1 xml:id="pam_wheel-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
-      The <emphasis remap='B'>auth</emphasis> and
-      <emphasis remap='B'>account</emphasis> module types are provided.
+      The <emphasis remap="B">auth</emphasis> and
+      <emphasis remap="B">account</emphasis> module types are provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_wheel-return_values'>
+  <refsect1 xml:id="pam_wheel-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -204,7 +201,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_wheel-examples'>
+  <refsect1 xml:id="pam_wheel-examples">
     <title>EXAMPLES</title>
     <para>
       The root account gains access by default (rootok), only wheel
@@ -218,7 +215,7 @@ su      auth     required       pam_unix.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_wheel-see_also'>
+  <refsect1 xml:id="pam_wheel-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -233,7 +230,7 @@ su      auth     required       pam_unix.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_wheel-author'>
+  <refsect1 xml:id="pam_wheel-author">
     <title>AUTHOR</title>
       <para>
         pam_wheel was written by Cristian Gafton &lt;gafton@redhat.com&gt;.

@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_get_user'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_get_user">
 
   <refmeta>
     <refentrytitle>pam_get_user</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam_get_user-name'>
+  <refnamediv xml:id="pam_get_user-name">
     <refname>pam_get_user</refname>
     <refpurpose>
        get user name
@@ -22,7 +19,7 @@
 
   <refsynopsisdiv>
 
-   <funcsynopsis id="pam_get_user-synopsis">
+   <funcsynopsis xml:id="pam_get_user-synopsis">
      <funcsynopsisinfo>#include &lt;security/pam_modules.h&gt;</funcsynopsisinfo>
      <funcprototype>
        <funcdef>int <function>pam_get_user</function></funcdef>
@@ -35,7 +32,7 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_get_user-description">
+  <refsect1 xml:id="pam_get_user-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_get_user</function> function returns the
@@ -87,7 +84,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_get_user-return_values">
+  <refsect1 xml:id="pam_get_user-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -143,7 +140,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_get_user-see_also">
+  <refsect1 xml:id="pam_get_user-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

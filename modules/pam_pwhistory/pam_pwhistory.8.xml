@@ -1,52 +1,49 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_pwhistory">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_pwhistory">
 
   <refmeta>
     <refentrytitle>pam_pwhistory</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_pwhistory-name">
+  <refnamediv xml:id="pam_pwhistory-name">
     <refname>pam_pwhistory</refname>
     <refpurpose>PAM module to remember last passwords</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_pwhistory-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_pwhistory-cmdsynopsis" sepchar=" ">
       <command>pam_pwhistory.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         use_authtok
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         enforce_for_root
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         remember=<replaceable>N</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         retry=<replaceable>N</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         authtok_type=<replaceable>STRING</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	      file=<replaceable>/path/filename</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	      conf=<replaceable>/path/to/config-file</replaceable>
       </arg>
 
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_pwhistory-description">
+  <refsect1 xml:id="pam_pwhistory-description">
 
     <title>DESCRIPTION</title>
 
@@ -64,12 +61,12 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_pwhistory-options">
+  <refsect1 xml:id="pam_pwhistory-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -82,7 +79,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>use_authtok</option>
+          use_authtok
         </term>
         <listitem>
           <para>
@@ -95,7 +92,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>enforce_for_root</option>
+          enforce_for_root
         </term>
         <listitem>
           <para>
@@ -105,7 +102,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>remember=<replaceable>N</replaceable></option>
+          remember=N
         </term>
         <listitem>
           <para>
@@ -119,7 +116,7 @@
       </varlistentry>
       <varlistentry>
           <term>
-            <option>retry=<replaceable>N</replaceable></option>
+            retry=N
           </term>
           <listitem>
             <para>
@@ -132,7 +129,7 @@
 
         <varlistentry>
           <term>
-            <option>authtok_type=<replaceable>STRING</replaceable></option>
+            authtok_type=STRING
           </term>
           <listitem>
             <para>
@@ -145,7 +142,7 @@
 
         <varlistentry>
           <term>
-            <option>file=<replaceable>/path/filename</replaceable></option>
+            file=/path/filename
           </term>
           <listitem>
             <para>
@@ -158,7 +155,7 @@
 
         <varlistentry>
           <term>
-            <option>conf=<replaceable>/path/to/config-file</replaceable></option>
+            conf=/path/to/config-file
           </term>
           <listitem>
             <para>
@@ -178,14 +175,14 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_pwhistory-types">
+  <refsect1 xml:id="pam_pwhistory-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>password</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_pwhistory-return_values'>
+  <refsect1 xml:id="pam_pwhistory-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -224,7 +221,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_pwhistory-examples'>
+  <refsect1 xml:id="pam_pwhistory-examples">
     <title>EXAMPLES</title>
     <para>
       An example password section would be:
@@ -245,11 +242,11 @@ password     required       pam_unix.so        use_authtok
     </para>
   </refsect1>
 
-  <refsect1 id="pam_pwhistory-files">
+  <refsect1 xml:id="pam_pwhistory-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/etc/security/opasswd</filename></term>
+        <term>/etc/security/opasswd</term>
         <listitem>
           <para>Default file with password history</para>
         </listitem>
@@ -257,7 +254,7 @@ password     required       pam_unix.so        use_authtok
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_pwhistory-see_also'>
+  <refsect1 xml:id="pam_pwhistory-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -278,7 +275,7 @@ password     required       pam_unix.so        use_authtok
     </para>
   </refsect1>
 
-  <refsect1 id='pam_pwhistory-author'>
+  <refsect1 xml:id="pam_pwhistory-author">
     <title>AUTHOR</title>
       <para>
         pam_pwhistory was written by Thorsten Kukuk &lt;kukuk@thkukuk.de&gt;

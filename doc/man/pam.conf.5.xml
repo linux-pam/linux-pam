@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id='pam.conf'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam.conf">
 
   <refmeta>
     <refentrytitle>pam.conf</refentrytitle>
     <manvolnum>5</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam.conf-name'>
+  <refnamediv xml:id="pam.conf-name">
     <refname>pam.conf</refname>
     <refname>pam.d</refname>
     <refpurpose>PAM configuration files</refpurpose>
@@ -17,22 +15,16 @@
 
 <!-- body begins here -->
 
-  <refsect1 id='pam.conf-description'>
+  <refsect1 xml:id="pam.conf-description">
     <title>DESCRIPTION</title>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam.conf-desc.xml"
-     xpointer='xpointer(//section[@id = "pam.conf-desc"]/*)' />
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam.conf-desc.xml" xpointer='xpointer(id("pam.conf-desc")/*)' />
 
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam.conf-syntax.xml"
-     xpointer='xpointer(//section[@id = "pam.conf-syntax"]/*)' />
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam.conf-syntax.xml" xpointer='xpointer(id("pam.conf-syntax")/*)' />
 
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam.conf-dir.xml"
-     xpointer='xpointer(//section[@id = "pam.conf-dir"]/*)' />
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam.conf-dir.xml" xpointer='xpointer(id("pam.conf-dir")/*)' />
   </refsect1>
 
-  <refsect1 id='pam.conf-see_also'>
+  <refsect1 xml:id="pam.conf-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

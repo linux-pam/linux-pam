@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id="pam_info">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_info">
 
   <refmeta>
     <refentrytitle>pam_info</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_info-name">
+  <refnamediv xml:id="pam_info-name">
     <refname>pam_info</refname>
     <refname>pam_vinfo</refname>
     <refpurpose>display messages to the user</refpurpose>
@@ -18,7 +15,7 @@
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id="pam_info-synopsis">
+  <refsynopsisdiv xml:id="pam_info-synopsis">
     <funcsynopsis>
       <funcsynopsisinfo>#include &lt;security/pam_ext.h&gt;</funcsynopsisinfo>
       <funcprototype>
@@ -36,7 +33,7 @@
     </funcsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id='pam_info-description'>
+  <refsect1 xml:id="pam_info-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_info</function> function prints messages
@@ -51,7 +48,7 @@
       </citerefentry> variable argument list macros.
     </para>
   </refsect1>
-  <refsect1 id="pam_info-return_values">
+  <refsect1 xml:id="pam_info-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -89,7 +86,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_info-see_also'>
+  <refsect1 xml:id="pam_info-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -98,7 +95,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_info-standards'>
+  <refsect1 xml:id="pam_info-standards">
     <title>STANDARDS</title>
     <para>
       The <function>pam_info</function> and <function>pam_vinfo</function>

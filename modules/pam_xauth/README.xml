@@ -1,46 +1,31 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-"http://www.docbook.org/xml/4.3/docbookx.dtd"
-[
-<!--
-<!ENTITY pamaccess SYSTEM "pam_xauth.8.xml">
--->
-]>
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
 
-<article>
-
-  <articleinfo>
+  <info>
 
     <title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_xauth.8.xml" xpointer='xpointer(//refnamediv[@id = "pam_xauth-name"]/*)'/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_xauth.8.xml" xpointer='xpointer(id("pam_xauth-name")/*)'/>
     </title>
 
-  </articleinfo>
+  </info>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_xauth.8.xml" xpointer='xpointer(//refsect1[@id = "pam_xauth-description"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_xauth.8.xml" xpointer='xpointer(id("pam_xauth-description")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_xauth.8.xml" xpointer='xpointer(//refsect1[@id = "pam_xauth-options"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_xauth.8.xml" xpointer='xpointer(id("pam_xauth-options")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_xauth.8.xml" xpointer='xpointer(//refsect1[@id = "pam_xauth-examples"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_xauth.8.xml" xpointer='xpointer(id("pam_xauth-examples")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_xauth.8.xml" xpointer='xpointer(//refsect1[@id = "pam_xauth-implementation"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_xauth.8.xml" xpointer='xpointer(id("pam_xauth-implementation")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_xauth.8.xml" xpointer='xpointer(//refsect1[@id = "pam_xauth-author"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_xauth.8.xml" xpointer='xpointer(id("pam_xauth-author")/*)'/>
   </section>
 
 </article>

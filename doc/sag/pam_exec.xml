@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_exec'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_exec">
   <title>pam_exec - call an external command</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_exec-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(id("pam_exec-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_exec-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-description"]/*)'/>
+  <section xml:id="sag-pam_exec-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(id("pam_exec-description")/*)'/>
   </section>
-  <section id='sag-pam_exec-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-options"]/*)'/>
+  <section xml:id="sag-pam_exec-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(id("pam_exec-options")/*)'/>
   </section>
-  <section id='sag-pam_exec-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-types"]/*)'/>
+  <section xml:id="sag-pam_exec-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(id("pam_exec-types")/*)'/>
   </section>
-  <section id='sag-pam_exec-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-return_values"]/*)'/>
+  <section xml:id="sag-pam_exec-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(id("pam_exec-return_values")/*)'/>
   </section>
-  <section id='sag-pam_exec-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-examples"]/*)'/>
+  <section xml:id="sag-pam_exec-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(id("pam_exec-examples")/*)'/>
   </section>
-  <section id='sag-pam_exec-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(//refsect1[@id = "pam_exec-author"]/*)'/>
+  <section xml:id="sag-pam_exec-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_exec/pam_exec.8.xml" xpointer='xpointer(id("pam_exec-author")/*)'/>
   </section>
 </section>

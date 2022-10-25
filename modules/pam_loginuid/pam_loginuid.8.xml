@@ -1,30 +1,27 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_loginuid">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_loginuid">
 
   <refmeta>
     <refentrytitle>pam_loginuid</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_loginuid-name">
+  <refnamediv xml:id="pam_loginuid-name">
     <refname>pam_loginuid</refname>
     <refpurpose>Record user's login uid to the process attribute</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_loginuid-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_loginuid-cmdsynopsis" sepchar=" ">
       <command>pam_loginuid.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         require_auditd
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_loginuid-description">
+  <refsect1 xml:id="pam_loginuid-description">
 
     <title>DESCRIPTION</title>
 
@@ -40,12 +37,12 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_loginuid-options">
+  <refsect1 xml:id="pam_loginuid-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>require_auditd</option>
+          require_auditd
         </term>
         <listitem>
           <para>
@@ -57,14 +54,14 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_loginuid-types">
+  <refsect1 xml:id="pam_loginuid-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>session</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_loginuid-return_values'>
+  <refsect1 xml:id="pam_loginuid-return_values">
     <title>RETURN VALUES</title>
     <para>
       <variablelist>
@@ -98,7 +95,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_loginuid-examples'>
+  <refsect1 xml:id="pam_loginuid-examples">
     <title>EXAMPLES</title>
     <programlisting>
 #%PAM-1.0
@@ -111,7 +108,7 @@ session    required     pam_loginuid.so
     </programlisting>
   </refsect1>
 
-  <refsect1 id='pam_loginuid-see_also'>
+  <refsect1 xml:id="pam_loginuid-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -132,7 +129,7 @@ session    required     pam_loginuid.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_loginuid-author'>
+  <refsect1 xml:id="pam_loginuid-author">
     <title>AUTHOR</title>
       <para>
         pam_loginuid was written by Steve Grubb &lt;sgrubb@redhat.com&gt;

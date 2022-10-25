@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_deny'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_deny">
   <title>pam_deny - locking-out PAM module</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_deny-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(id("pam_deny-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_deny-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(//refsect1[@id = "pam_deny-description"]/*)'/>
+  <section xml:id="sag-pam_deny-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(id("pam_deny-description")/*)'/>
   </section>
-  <section id='sag-pam_deny-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(//refsect1[@id = "pam_deny-options"]/*)'/>
+  <section xml:id="sag-pam_deny-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(id("pam_deny-options")/*)'/>
   </section>
-  <section id='sag-pam_deny-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(//refsect1[@id = "pam_deny-types"]/*)'/>
+  <section xml:id="sag-pam_deny-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(id("pam_deny-types")/*)'/>
   </section>
-  <section id='sag-pam_deny-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(//refsect1[@id = "pam_deny-return_values"]/*)'/>
+  <section xml:id="sag-pam_deny-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(id("pam_deny-return_values")/*)'/>
   </section>
-  <section id='sag-pam_deny-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(//refsect1[@id = "pam_deny-examples"]/*)'/>
+  <section xml:id="sag-pam_deny-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(id("pam_deny-examples")/*)'/>
   </section>
-  <section id='sag-pam_deny-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(//refsect1[@id = "pam_deny-author"]/*)'/>
+  <section xml:id="sag-pam_deny-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_deny/pam_deny.8.xml" xpointer='xpointer(id("pam_deny-author")/*)'/>
   </section>
 </section>

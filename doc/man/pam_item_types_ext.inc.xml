@@ -1,6 +1,5 @@
 <!-- this file is included by pam_set_item and pam_get_item -->
-
-    <variablelist>
+<variablelist xmlns="http://docbook.org/ns/docbook" version="5.0">
       <varlistentry>
         <term>PAM_FAIL_DELAY</term>
         <listitem>

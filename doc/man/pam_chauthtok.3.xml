@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id='pam_chauthtok'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_chauthtok">
   <refmeta>
     <refentrytitle>pam_chauthtok</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_chauthtok-name">
+  <refnamediv xml:id="pam_chauthtok-name">
     <refname>pam_chauthtok</refname>
     <refpurpose>updating authentication tokens</refpurpose>
   </refnamediv>
@@ -16,7 +14,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id='pam_chauthtok-synopsis'>
+    <funcsynopsis xml:id="pam_chauthtok-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_chauthtok</function></funcdef>
@@ -27,7 +25,7 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id='pam_chauthtok-description'>
+  <refsect1 xml:id="pam_chauthtok-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_chauthtok</function> function is used to change the
@@ -64,7 +62,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_chauthtok-return_values">
+  <refsect1 xml:id="pam_chauthtok-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -138,7 +136,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_chauthtok-see_also'>
+  <refsect1 xml:id="pam_chauthtok-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

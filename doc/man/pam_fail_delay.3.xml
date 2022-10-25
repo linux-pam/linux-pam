@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id="pam_fail_delay">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_fail_delay">
 
   <refmeta>
     <refentrytitle>pam_fail_delay</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_fail_delay-name">
+  <refnamediv xml:id="pam_fail_delay-name">
     <refname>pam_fail_delay</refname>
     <refpurpose>request a delay on failure</refpurpose>
   </refnamediv>
@@ -18,7 +15,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id="pam_fail_delay-synopsis">
+    <funcsynopsis xml:id="pam_fail_delay-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_fail_delay</function></funcdef>
@@ -28,7 +25,7 @@
     </funcsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id='pam_fail_delay-description'>
+  <refsect1 xml:id="pam_fail_delay-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_fail_delay</function> function provides a
@@ -105,7 +102,7 @@ void (*delay_fn)(int retval, unsigned usec_delay, void *appdata_ptr);
     </para>
   </refsect1>
 
-  <refsect1 id='pam_fail_delay-rationale'>
+  <refsect1 xml:id="pam_fail_delay-rationale">
     <title>RATIONALE</title>
     <para>
       It is often possible to attack an authentication scheme by exploiting
@@ -129,7 +126,7 @@ void (*delay_fn)(int retval, unsigned usec_delay, void *appdata_ptr);
     </para>
   </refsect1>
 
-  <refsect1 id='pam_fail_delay-example'>
+  <refsect1 xml:id="pam_fail_delay-example">
     <title>EXAMPLE</title>
     <para>
       For example, a login application may require a failure delay of
@@ -161,7 +158,7 @@ module #2:    pam_fail_delay (pamh, 4000000);
     </para>
   </refsect1>
 
-  <refsect1 id='pam_fail_delay-return_values'>
+  <refsect1 xml:id="pam_fail_delay-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -183,7 +180,7 @@ module #2:    pam_fail_delay (pamh, 4000000);
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_fail_delay-see_also'>
+  <refsect1 xml:id="pam_fail_delay-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -198,7 +195,7 @@ module #2:    pam_fail_delay (pamh, 4000000);
     </para>
   </refsect1>
 
-  <refsect1 id='pam_fail_delay-standards'>
+  <refsect1 xml:id="pam_fail_delay-standards">
     <title>STANDARDS</title>
     <para>
       The <function>pam_fail_delay</function> function is an

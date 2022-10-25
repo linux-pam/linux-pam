@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_motd'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_motd">
   <title>pam_motd - display the motd file</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_motd-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(id("pam_motd-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_motd-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(//refsect1[@id = "pam_motd-description"]/*)'/>
+  <section xml:id="sag-pam_motd-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(id("pam_motd-description")/*)'/>
   </section>
-  <section id='sag-pam_motd-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(//refsect1[@id = "pam_motd-options"]/*)'/>
+  <section xml:id="sag-pam_motd-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(id("pam_motd-options")/*)'/>
   </section>
-  <section id='sag-pam_motd-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(//refsect1[@id = "pam_motd-types"]/*)'/>
+  <section xml:id="sag-pam_motd-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(id("pam_motd-types")/*)'/>
   </section>
-  <section id='sag-pam_motd-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(//refsect1[@id = "pam_motd-return_values"]/*)'/>
+  <section xml:id="sag-pam_motd-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(id("pam_motd-return_values")/*)'/>
   </section>
-  <section id='sag-pam_motd-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(//refsect1[@id = "pam_motd-examples"]/*)'/>
+  <section xml:id="sag-pam_motd-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(id("pam_motd-examples")/*)'/>
   </section>
-  <section id='sag-pam_motd-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(//refsect1[@id = "pam_motd-author"]/*)'/>
+  <section xml:id="sag-pam_motd-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_motd/pam_motd.8.xml" xpointer='xpointer(id("pam_motd-author")/*)'/>
   </section>
 </section>

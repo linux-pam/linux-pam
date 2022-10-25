@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_userdb'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_userdb">
   <title>pam_userdb - authenticate against a db database</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_userdb-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(id("pam_userdb-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_userdb-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(//refsect1[@id = "pam_userdb-description"]/*)'/>
+  <section xml:id="sag-pam_userdb-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(id("pam_userdb-description")/*)'/>
   </section>
-  <section id='sag-pam_userdb-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(//refsect1[@id = "pam_userdb-options"]/*)'/>
+  <section xml:id="sag-pam_userdb-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(id("pam_userdb-options")/*)'/>
   </section>
-  <section id='sag-pam_userdb-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(//refsect1[@id = "pam_userdb-types"]/*)'/>
+  <section xml:id="sag-pam_userdb-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(id("pam_userdb-types")/*)'/>
   </section>
-  <section id='sag-pam_userdb-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(//refsect1[@id = "pam_userdb-return_values"]/*)'/>
+  <section xml:id="sag-pam_userdb-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(id("pam_userdb-return_values")/*)'/>
   </section>
-  <section id='sag-pam_userdb-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(//refsect1[@id = "pam_userdb-examples"]/*)'/>
+  <section xml:id="sag-pam_userdb-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(id("pam_userdb-examples")/*)'/>
   </section>
-  <section id='sag-pam_userdb-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(//refsect1[@id = "pam_userdb-author"]/*)'/>
+  <section xml:id="sag-pam_userdb-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_userdb/pam_userdb.8.xml" xpointer='xpointer(id("pam_userdb-author")/*)'/>
   </section>
 </section>

@@ -1,33 +1,30 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_nologin">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_nologin">
 
   <refmeta>
     <refentrytitle>pam_nologin</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_nologin-name">
+  <refnamediv xml:id="pam_nologin-name">
     <refname>pam_nologin</refname>
     <refpurpose>Prevent non-root users from login</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_nologin-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_nologin-cmdsynopsis" sepchar=" ">
       <command>pam_nologin.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         file=<replaceable>/path/nologin</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         successok
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_nologin-description">
+  <refsect1 xml:id="pam_nologin-description">
 
     <title>DESCRIPTION</title>
 
@@ -40,13 +37,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_nologin-options">
+  <refsect1 xml:id="pam_nologin-options">
 
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>file=<replaceable>/path/nologin</replaceable></option>
+          file=/path/nologin
         </term>
         <listitem>
           <para>
@@ -58,7 +55,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>successok</option>
+          successok
         </term>
         <listitem>
           <para>
@@ -69,7 +66,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_nologin-types">
+  <refsect1 xml:id="pam_nologin-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       The <option>auth</option> and <option>account</option> module
@@ -77,7 +74,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_nologin-return_values'>
+  <refsect1 xml:id="pam_nologin-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -123,7 +120,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_nologin-examples'>
+  <refsect1 xml:id="pam_nologin-examples">
     <title>EXAMPLES</title>
     <para>
       The suggested usage for <filename>/etc/pam.d/login</filename> is:
@@ -132,7 +129,7 @@ auth  required  pam_nologin.so
       </programlisting>
     </para>
   </refsect1>
-  <refsect1 id='pam_nologin-note'>
+  <refsect1 xml:id="pam_nologin-note">
     <title>NOTES</title>
     <para>
       In order to make this module effective, all login methods should be
@@ -147,7 +144,7 @@ auth  required  pam_nologin.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_nologin-see_also'>
+  <refsect1 xml:id="pam_nologin-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -165,7 +162,7 @@ auth  required  pam_nologin.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_nologin-author'>
+  <refsect1 xml:id="pam_nologin-author">
     <title>AUTHOR</title>
       <para>
         pam_nologin was written by Michael K. Johnson &lt;johnsonm@redhat.com&gt;.

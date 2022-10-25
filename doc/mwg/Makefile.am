@@ -16,7 +16,7 @@ all: Linux-PAM_MWG.txt html/Linux-PAM_MWG.html Linux-PAM_MWG.pdf
 
 Linux-PAM_MWG.pdf: $(XMLS) $(DEP_XMLS)
 if ENABLE_GENERATE_PDF
-	$(XMLLINT) --nonet --xinclude --postvalid --noent --noout $<
+	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noent --noout $<
 	$(XSLTPROC) --stringparam generate.toc "book toc" \
 	  --stringparam section.autolabel 1 \
 	  --stringparam section.label.includes.component.label 1 \
@@ -28,7 +28,7 @@ else
 endif
 
 Linux-PAM_MWG.txt: $(XMLS) $(DEP_XMLS)
-	$(XMLLINT) --nonet --xinclude --postvalid --noent --noout $<
+	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noent --noout $<
 	$(XSLTPROC) --stringparam generate.toc "book toc" \
 	  --stringparam section.autolabel 1 \
 	  --stringparam section.label.includes.component.label 1 \
@@ -37,7 +37,7 @@ Linux-PAM_MWG.txt: $(XMLS) $(DEP_XMLS)
 
 html/Linux-PAM_MWG.html: $(XMLS) $(DEP_XMLS)
 	@test -d html || mkdir -p html
-	$(XMLLINT) --nonet --xinclude --postvalid --noent --noout $<
+	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noent --noout $<
 	$(XSLTPROC) --stringparam base.dir html/ \
 	  --stringparam root.filename Linux-PAM_MWG \
 	  --stringparam use.id.as.filename 1 \

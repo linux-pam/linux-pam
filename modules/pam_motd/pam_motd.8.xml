@@ -1,33 +1,30 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_motd">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_motd">
 
   <refmeta>
     <refentrytitle>pam_motd</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_motd-name">
+  <refnamediv xml:id="pam_motd-name">
     <refname>pam_motd</refname>
     <refpurpose>Display the motd file</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_motd-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_motd-cmdsynopsis" sepchar=" ">
       <command>pam_motd.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         motd=<replaceable>/path/filename</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         motd_dir=<replaceable>/path/dirname.d</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_motd-description">
+  <refsect1 xml:id="pam_motd-description">
 
     <title>DESCRIPTION</title>
 
@@ -38,7 +35,7 @@
       following locations:
     </para>
     <para>
-      <simplelist type='vert'>
+      <simplelist type="vert">
         <member><filename>/etc/motd</filename></member>
         <member><filename>/run/motd</filename></member>
         <member><filename>/usr/lib/motd</filename></member>
@@ -79,19 +76,19 @@
       <command>ln -s /dev/null /etc/motd.d/my_motd</command>
     </para>
     <para>
-      The <emphasis remap='B'>MOTD_SHOWN=pam</emphasis> environment variable
+      The <emphasis remap="B">MOTD_SHOWN=pam</emphasis> environment variable
       is set after showing the motd files, even when all of them were silenced
       using symbolic links.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_motd-options">
+  <refsect1 xml:id="pam_motd-options">
 
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>motd=<replaceable>/path/filename</replaceable></option>
+          motd=/path/filename
         </term>
         <listitem>
           <para>
@@ -104,7 +101,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>motd_dir=<replaceable>/path/dirname.d</replaceable></option>
+          motd_dir=/path/dirname.d
         </term>
         <listitem>
           <para>
@@ -123,14 +120,14 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_motd-types">
+  <refsect1 xml:id="pam_motd-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>session</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_motd-return_values'>
+  <refsect1 xml:id="pam_motd-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -160,7 +157,7 @@
     </variablelist>
      </refsect1>
 
-  <refsect1 id='pam_motd-examples'>
+  <refsect1 xml:id="pam_motd-examples">
     <title>EXAMPLES</title>
     <para>
       The suggested usage for <filename>/etc/pam.d/login</filename> is:
@@ -183,7 +180,7 @@ session  optional  pam_motd.so motd=/elsewhere/motd motd_dir=/elsewhere/motd.d
     </para>
   </refsect1>
 
-  <refsect1 id='pam_motd-see_also'>
+  <refsect1 xml:id="pam_motd-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -201,7 +198,7 @@ session  optional  pam_motd.so motd=/elsewhere/motd motd_dir=/elsewhere/motd.d
     </para>
   </refsect1>
 
-  <refsect1 id='pam_motd-author'>
+  <refsect1 xml:id="pam_motd-author">
     <title>AUTHOR</title>
       <para>
         pam_motd was written by Ben Collins &lt;bcollins@debian.org&gt;.

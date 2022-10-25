@@ -1,54 +1,51 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_mail">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_mail">
 
   <refmeta>
     <refentrytitle>pam_mail</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_mail-name">
+  <refnamediv xml:id="pam_mail-name">
     <refname>pam_mail</refname>
     <refpurpose>Inform about available mail</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_mail-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_mail-cmdsynopsis" sepchar=" ">
       <command>pam_mail.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	close
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         dir=<replaceable>maildir</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	empty
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	hash=<replaceable>count</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	noenv
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	nopen
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	quiet
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	standard
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_mail-description">
+  <refsect1 xml:id="pam_mail-description">
 
     <title>DESCRIPTION</title>
 
@@ -58,18 +55,18 @@
       that has credential or session hooks. It gives a single message
       indicating the <emphasis>newness</emphasis> of any mail it finds
       in the user's mail folder. This module also sets the PAM
-      environment variable, <emphasis remap='B'>MAIL</emphasis>, to the
+      environment variable, <emphasis remap="B">MAIL</emphasis>, to the
       user's mail directory.
     </para>
     <para>
       If the mail spool file (be it <filename>/var/mail/$USER</filename>
       or a pathname given with the <option>dir=</option> parameter) is
       a directory then pam_mail assumes it is in the
-      <emphasis remap='I'>Maildir</emphasis> format.
+      <emphasis remap="I">Maildir</emphasis> format.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_mail-options">
+  <refsect1 xml:id="pam_mail-options">
 
     <title>OPTIONS</title>
     <para>
@@ -77,7 +74,7 @@
 
         <varlistentry>
           <term>
-            <option>close</option>
+            close
           </term>
           <listitem>
             <para>
@@ -88,7 +85,7 @@
 
         <varlistentry>
           <term>
-            <option>debug</option>
+            debug
           </term>
           <listitem>
             <para>
@@ -99,7 +96,7 @@
 
         <varlistentry>
           <term>
-            <option>dir=<replaceable>maildir</replaceable></option>
+            dir=maildir
           </term>
           <listitem>
             <para>
@@ -116,7 +113,7 @@
 
         <varlistentry>
           <term>
-            <option>empty</option>
+            empty
           </term>
           <listitem>
             <para>
@@ -127,7 +124,7 @@
 
         <varlistentry>
           <term>
-            <option>hash=<replaceable>count</replaceable></option>
+            hash=count
           </term>
           <listitem>
             <para>
@@ -141,11 +138,11 @@
 
         <varlistentry>
           <term>
-            <option>noenv</option>
+            noenv
           </term>
           <listitem>
             <para>
-	      Do not set the <emphasis remap='B'>MAIL</emphasis>
+	      Do not set the <emphasis remap="B">MAIL</emphasis>
               environment variable.
             </para>
           </listitem>
@@ -153,12 +150,12 @@
 
         <varlistentry>
           <term>
-            <option>nopen</option>
+            nopen
           </term>
           <listitem>
             <para>
 	      Don't print any mail information on login. This flag is
-              useful to get the <emphasis remap='B'>MAIL</emphasis>
+              useful to get the <emphasis remap="B">MAIL</emphasis>
               environment variable set, but to not display any information
               about it.
             </para>
@@ -167,7 +164,7 @@
 
         <varlistentry>
           <term>
-            <option>quiet</option>
+            quiet
           </term>
           <listitem>
             <para>
@@ -178,7 +175,7 @@
 
         <varlistentry>
           <term>
-            <option>standard</option>
+            standard
           </term>
           <listitem>
             <para>
@@ -193,7 +190,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_mail-types">
+  <refsect1 xml:id="pam_mail-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       The <option>session</option> and
@@ -202,7 +199,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_mail-return_values'>
+  <refsect1 xml:id="pam_mail-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -244,7 +241,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_mail-examples'>
+  <refsect1 xml:id="pam_mail-examples">
     <title>EXAMPLES</title>
     <para>
       Add the following line to <filename>/etc/pam.d/login</filename> to
@@ -255,7 +252,7 @@ session  optional  pam_mail.so standard
     </para>
   </refsect1>
 
-  <refsect1 id='pam_mail-see_also'>
+  <refsect1 xml:id="pam_mail-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -270,7 +267,7 @@ session  optional  pam_mail.so standard
     </para>
   </refsect1>
 
-  <refsect1 id='pam_mail-author'>
+  <refsect1 xml:id="pam_mail-author">
     <title>AUTHOR</title>
       <para>
         pam_mail was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.

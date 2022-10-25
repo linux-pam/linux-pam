@@ -1,27 +1,24 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_deny">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_deny">
 
   <refmeta>
     <refentrytitle>pam_deny</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_deny-name">
+  <refnamediv xml:id="pam_deny-name">
     <refname>pam_deny</refname>
     <refpurpose>The locking-out PAM module</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_deny-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_deny-cmdsynopsis" sepchar=" ">
       <command>pam_deny.so</command>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_deny-description">
+  <refsect1 xml:id="pam_deny-description">
 
     <title>DESCRIPTION</title>
 
@@ -33,12 +30,12 @@
 
   </refsect1>
 
-  <refsect1 id="pam_deny-options">
+  <refsect1 xml:id="pam_deny-options">
     <title>OPTIONS</title>
     <para>This module does not recognise any options.</para>
   </refsect1>
 
-  <refsect1 id="pam_deny-types">
+  <refsect1 xml:id="pam_deny-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       All module types (<option>account</option>, <option>auth</option>,
@@ -46,7 +43,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_deny-return_values'>
+  <refsect1 xml:id="pam_deny-return_values">
     <title>RETURN VALUES</title>
     <para>
       <variablelist>
@@ -91,7 +88,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_deny-examples'>
+  <refsect1 xml:id="pam_deny-examples">
     <title>EXAMPLES</title>
     <programlisting>
 #%PAM-1.0
@@ -110,7 +107,7 @@ other session  required       pam_deny.so
     </programlisting>
   </refsect1>
 
-  <refsect1 id='pam_deny-see_also'>
+  <refsect1 xml:id="pam_deny-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -125,7 +122,7 @@ other session  required       pam_deny.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_deny-author'>
+  <refsect1 xml:id="pam_deny-author">
     <title>AUTHOR</title>
       <para>
         pam_deny was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;

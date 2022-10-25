@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<section id='pam.conf-dir'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam.conf-dir">
     <para>
       More flexible than the single configuration file is it to
       configure libpam via the contents of the
@@ -25,6 +22,6 @@ type  control  module-path  module-arguments
       The only difference being that the service-name is not present. The
       service-name is of course the name of the given configuration file.
       For example, <filename>/etc/pam.d/login</filename> contains the
-      configuration for the <emphasis remap='B'>login</emphasis> service.
+      configuration for the <emphasis remap="B">login</emphasis> service.
     </para>
 </section>

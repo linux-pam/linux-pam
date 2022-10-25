@@ -1,36 +1,33 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_ftp">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_ftp">
 
   <refmeta>
     <refentrytitle>pam_ftp</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_ftp-name">
+  <refnamediv xml:id="pam_ftp-name">
     <refname>pam_ftp</refname>
     <refpurpose>PAM module for anonymous access module</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_ftp-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_ftp-cmdsynopsis" sepchar=" ">
       <command>pam_ftp.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         ignore
       </arg>
-      <arg choice="opt" rep='repeat'>
+      <arg choice="opt" rep="repeat">
         users=<replaceable>XXX,YYY,</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_ftp-description">
+  <refsect1 xml:id="pam_ftp-description">
 
     <title>DESCRIPTION</title>
 
@@ -54,7 +51,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_ftp-options">
+  <refsect1 xml:id="pam_ftp-options">
 
     <title>OPTIONS</title>
     <para>
@@ -62,7 +59,7 @@
 
         <varlistentry>
           <term>
-            <option>debug</option>
+            debug
           </term>
           <listitem>
             <para>
@@ -73,7 +70,7 @@
 
         <varlistentry>
           <term>
-            <option>ignore</option>
+            ignore
           </term>
           <listitem>
             <para>
@@ -85,7 +82,7 @@
 
         <varlistentry>
           <term>
-            <option>ftp=<replaceable>XXX,YYY,...</replaceable></option>
+            ftp=XXX,YYY,...
           </term>
           <listitem>
             <para>
@@ -105,14 +102,14 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_ftp-types">
+  <refsect1 xml:id="pam_ftp-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>auth</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_ftp-return_values'>
+  <refsect1 xml:id="pam_ftp-return_values">
     <title>RETURN VALUES</title>
     <para>
       <variablelist>
@@ -139,7 +136,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_ftp-examples'>
+  <refsect1 xml:id="pam_ftp-examples">
     <title>EXAMPLES</title>
     <para>
       Add the following line to <filename>/etc/pam.d/ftpd</filename> to
@@ -158,7 +155,7 @@ auth    required    pam_listfile.so \
     </para>
   </refsect1>
 
-  <refsect1 id='pam_ftp-see_also'>
+  <refsect1 xml:id="pam_ftp-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -173,7 +170,7 @@ auth    required    pam_listfile.so \
     </para>
   </refsect1>
 
-  <refsect1 id='pam_ftp-author'>
+  <refsect1 xml:id="pam_ftp-author">
     <title>AUTHOR</title>
       <para>
         pam_ftp was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.

@@ -1,38 +1,27 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_sepermit'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_sepermit">
   <title>pam_sepermit - allow/reject access based on SELinux mode</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_sepermit-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(id("pam_sepermit-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_sepermit-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_sepermit-description"]/*)'/>
+  <section xml:id="sag-pam_sepermit-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(id("pam_sepermit-description")/*)'/>
   </section>
-  <section id='sag-pam_sepermit-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_sepermit-options"]/*)'/>
+  <section xml:id="sag-pam_sepermit-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(id("pam_sepermit-options")/*)'/>
   </section>
-  <section id='sag-pam_sepermit-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_sepermit-types"]/*)'/>
+  <section xml:id="sag-pam_sepermit-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(id("pam_sepermit-types")/*)'/>
   </section>
-  <section id='sag-pam_sepermit-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_sepermit-return_values"]/*)'/>
+  <section xml:id="sag-pam_sepermit-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(id("pam_sepermit-return_values")/*)'/>
   </section>
-  <section id='sag-pam_sepermit-files'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_sepermit-files"]/*)'/>
+  <section xml:id="sag-pam_sepermit-files">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(id("pam_sepermit-files")/*)'/>
   </section>
-  <section id='sag-pam_sepermit-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_sepermit-examples"]/*)'/>
+  <section xml:id="sag-pam_sepermit-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(id("pam_sepermit-examples")/*)'/>
   </section>
-  <section id='sag-pam_sepermit-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_sepermit-author"]/*)'/>
+  <section xml:id="sag-pam_sepermit-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_sepermit/pam_sepermit.8.xml" xpointer='xpointer(id("pam_sepermit-author")/*)'/>
   </section>
 </section>

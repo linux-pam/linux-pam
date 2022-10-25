@@ -1,45 +1,42 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_filter">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_filter">
 
   <refmeta>
     <refentrytitle>pam_filter</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_filter-name">
+  <refnamediv xml:id="pam_filter-name">
     <refname>pam_filter</refname>
     <refpurpose>PAM filter module</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_filter-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_filter-cmdsynopsis" sepchar=" ">
       <command>pam_filter.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         new_term
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         non_term
       </arg>
-      <arg choice="plain">
+      <arg choice="plain" rep="norepeat">
         run1|run2
       </arg>
-      <arg choice="plain">
+      <arg choice="plain" rep="norepeat">
         <replaceable>filter</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         <replaceable>...</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_filter-description">
+  <refsect1 xml:id="pam_filter-description">
 
     <title>DESCRIPTION</title>
 
@@ -66,7 +63,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_filter-options">
+  <refsect1 xml:id="pam_filter-options">
 
     <title>OPTIONS</title>
     <para>
@@ -74,7 +71,7 @@
 
         <varlistentry>
           <term>
-            <option>debug</option>
+            debug
           </term>
           <listitem>
             <para>
@@ -85,7 +82,7 @@
 
         <varlistentry>
           <term>
-            <option>new_term</option>
+            new_term
           </term>
           <listitem>
             <para>
@@ -101,7 +98,7 @@
 
         <varlistentry>
           <term>
-            <option>non_term</option>
+            non_term
           </term>
           <listitem>
             <para>
@@ -112,7 +109,7 @@
 
         <varlistentry>
           <term>
-            <option>runX</option>
+            runX
           </term>
           <listitem>
             <para>
@@ -174,7 +171,7 @@
 
         <varlistentry>
           <term>
-            <option>filter</option>
+            filter
           </term>
           <listitem>
             <para>
@@ -188,7 +185,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_filter-types">
+  <refsect1 xml:id="pam_filter-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       All module types (<option>auth</option>, <option>account</option>,
@@ -196,7 +193,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_filter-return_values'>
+  <refsect1 xml:id="pam_filter-return_values">
     <title>RETURN VALUES</title>
     <para>
       <variablelist>
@@ -223,7 +220,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_filter-examples'>
+  <refsect1 xml:id="pam_filter-examples">
     <title>EXAMPLES</title>
     <para>
       Add the following line to <filename>/etc/pam.d/login</filename> to
@@ -236,7 +233,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_filter-see_also'>
+  <refsect1 xml:id="pam_filter-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -251,7 +248,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_filter-author'>
+  <refsect1 xml:id="pam_filter-author">
     <title>AUTHOR</title>
       <para>
         pam_filter was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.

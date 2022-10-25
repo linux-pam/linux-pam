@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_namespace'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_namespace">
 
   <refmeta>
     <refentrytitle>pam_namespace</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam_namespace-name'>
+  <refnamediv xml:id="pam_namespace-name">
     <refname>pam_namespace</refname>
     <refpurpose>
       PAM module for configuring namespace for a session
@@ -20,46 +17,46 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_namespace-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_namespace-cmdsynopsis" sepchar=" ">
       <command>pam_namespace.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         unmnt_remnt
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         unmnt_only
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         require_selinux
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         gen_hash
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         ignore_config_error
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         ignore_instance_parent_mode
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         unmount_on_close
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         use_current_context
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         use_default_context
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         mount_private
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_namespace-description">
+  <refsect1 xml:id="pam_namespace-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_namespace PAM module sets up a private namespace for a session
@@ -94,13 +91,13 @@
 
   </refsect1>
 
-  <refsect1 id="pam_namespace-options">
+  <refsect1 xml:id="pam_namespace-options">
     <title>OPTIONS</title>
     <variablelist>
 
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -111,7 +108,7 @@
 
       <varlistentry>
         <term>
-          <option>unmnt_remnt</option>
+          unmnt_remnt
         </term>
         <listitem>
           <para>
@@ -131,7 +128,7 @@
 
       <varlistentry>
         <term>
-          <option>unmnt_only</option>
+          unmnt_only
         </term>
         <listitem>
           <para>
@@ -146,7 +143,7 @@
 
       <varlistentry>
         <term>
-          <option>require_selinux</option>
+          require_selinux
         </term>
         <listitem>
           <para>
@@ -157,7 +154,7 @@
 
       <varlistentry>
         <term>
-          <option>gen_hash</option>
+          gen_hash
         </term>
         <listitem>
           <para>
@@ -170,7 +167,7 @@
 
       <varlistentry>
         <term>
-          <option>ignore_config_error</option>
+          ignore_config_error
         </term>
         <listitem>
           <para>
@@ -186,7 +183,7 @@
 
       <varlistentry>
         <term>
-          <option>ignore_instance_parent_mode</option>
+          ignore_instance_parent_mode
         </term>
         <listitem>
           <para>
@@ -201,7 +198,7 @@
 
       <varlistentry>
         <term>
-          <option>unmount_on_close</option>
+          unmount_on_close
         </term>
         <listitem>
           <para>
@@ -218,7 +215,7 @@
 
       <varlistentry>
         <term>
-          <option>use_current_context</option>
+          use_current_context
         </term>
         <listitem>
           <para>
@@ -232,7 +229,7 @@
 
       <varlistentry>
         <term>
-          <option>use_default_context</option>
+          use_default_context
         </term>
         <listitem>
           <para>
@@ -246,7 +243,7 @@
 
       <varlistentry>
         <term>
-          <option>mount_private</option>
+          mount_private
         </term>
         <listitem>
           <para>
@@ -271,7 +268,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_namespace-types">
+  <refsect1 xml:id="pam_namespace-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>session</option> module type is provided.
@@ -279,7 +276,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_namespace-return_values">
+  <refsect1 xml:id="pam_namespace-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -309,18 +306,18 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_namespace-files">
+  <refsect1 xml:id="pam_namespace-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/etc/security/namespace.conf</filename></term>
+        <term>/etc/security/namespace.conf</term>
         <listitem>
           <para>Main configuration file</para>
         </listitem>
       </varlistentry>
 
       <varlistentry condition="with_vendordir">
-        <term><filename>%vendordir%/security/namespace.conf</filename></term>
+        <term>%vendordir%/security/namespace.conf</term>
         <listitem>
           <para>Default configuration file if
 	  <filename>/etc/security/namespace.conf</filename> does not exist.</para>
@@ -328,28 +325,28 @@
       </varlistentry>
 
       <varlistentry>
-        <term><filename>/etc/security/namespace.d</filename></term>
+        <term>/etc/security/namespace.d</term>
         <listitem>
           <para>Directory for additional configuration files</para>
         </listitem>
       </varlistentry>
 
       <varlistentry condition="with_vendordir">
-        <term><filename>%vendordir%/security/namespace.d</filename></term>
+        <term>%vendordir%/security/namespace.d</term>
         <listitem>
           <para>Directory for additional vendor specific configuration files.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><filename>/etc/security/namespace.init</filename></term>
+        <term>/etc/security/namespace.init</term>
         <listitem>
           <para>Init script for instance directories</para>
         </listitem>
       </varlistentry>
 
       <varlistentry condition="with_vendordir">
-        <term><filename>%vendordir%/security/namespace.init</filename></term>
+        <term>%vendordir%/security/namespace.init</term>
         <listitem>
           <para>Vendor init script for instance directories if
 	  /etc/security/namespace.init does not exist.
@@ -359,7 +356,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_namespace-examples">
+  <refsect1 xml:id="pam_namespace-examples">
     <title>EXAMPLES</title>
 
     <para>
@@ -379,7 +376,7 @@
 
   </refsect1>
 
-  <refsect1 id="pam_namespace-see_also">
+  <refsect1 xml:id="pam_namespace-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -397,7 +394,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_namespace-authors">
+  <refsect1 xml:id="pam_namespace-authors">
     <title>AUTHORS</title>
     <para>
       The namespace setup scheme was designed by Stephen Smalley, Janak Desai

@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_faildelay'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_faildelay">
   <title>pam_faildelay - change the delay on failure per-application</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_faildelay-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(id("pam_faildelay-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_faildelay-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faildelay-description"]/*)'/>
+  <section xml:id="sag-pam_faildelay-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(id("pam_faildelay-description")/*)'/>
   </section>
-  <section id='sag-pam_faildelay-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faildelay-options"]/*)'/>
+  <section xml:id="sag-pam_faildelay-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(id("pam_faildelay-options")/*)'/>
   </section>
-  <section id='sag-pam_faildelay-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faildelay-types"]/*)'/>
+  <section xml:id="sag-pam_faildelay-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(id("pam_faildelay-types")/*)'/>
   </section>
-  <section id='sag-pam_faildelay-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faildelay-return_values"]/*)'/>
+  <section xml:id="sag-pam_faildelay-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(id("pam_faildelay-return_values")/*)'/>
   </section>
-  <section id='sag-pam_faildelay-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faildelay-examples"]/*)'/>
+  <section xml:id="sag-pam_faildelay-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(id("pam_faildelay-examples")/*)'/>
   </section>
-  <section id='sag-pam_faildelay-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(//refsect1[@id = "pam_faildelay-author"]/*)'/>
+  <section xml:id="sag-pam_faildelay-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_faildelay/pam_faildelay.8.xml" xpointer='xpointer(id("pam_faildelay-author")/*)'/>
   </section>
 </section>

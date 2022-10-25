@@ -1,20 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id='pam3'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam3">
 
   <refmeta>
     <refentrytitle>pam</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam3-name'>
+  <refnamediv xml:id="pam3-name">
     <refname>pam</refname>
     <refpurpose>Pluggable Authentication Modules Library</refpurpose>
   </refnamediv>
 
-  <refsynopsisdiv id='pam3-synopsis'>
+  <refsynopsisdiv xml:id="pam3-synopsis">
     <funcsynopsis>
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcsynopsisinfo>#include &lt;security/pam_modules.h&gt;</funcsynopsisinfo>
@@ -22,10 +20,10 @@
    </funcsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id='pam3-description'>
+  <refsect1 xml:id="pam3-description">
     <title>DESCRIPTION</title>
     <para>
-      <emphasis remap='B'>PAM</emphasis> is a system of libraries
+      <emphasis remap="B">PAM</emphasis> is a system of libraries
       that handle the authentication tasks of applications (services)
       on the system. The library provides a stable general interface
       (Application Programming Interface - API) that privilege granting
@@ -38,7 +36,7 @@
       defer to to perform standard authentication tasks.
     </para>
 
-    <refsect2 id='pam3-initialization_and_cleanup'>
+    <refsect2 xml:id="pam3-initialization_and_cleanup">
       <title>Initialization and Cleanup</title>
       <para>
         The
@@ -64,7 +62,7 @@
       </para>
     </refsect2>
 
-    <refsect2 id='pam3-authentication'>
+    <refsect2 xml:id="pam3-authentication">
       <title>Authentication</title>
       <para>
         The
@@ -85,7 +83,7 @@
       </para>
     </refsect2>
 
-    <refsect2 id='pam3-account_management'>
+    <refsect2 xml:id="pam3-account_management">
       <title>Account Management</title>
       <para>
         The
@@ -98,7 +96,7 @@
       </para>
     </refsect2>
 
-    <refsect2 id='pam3-password_management'>
+    <refsect2 xml:id="pam3-password_management">
       <title>Password Management</title>
       <para>
         The
@@ -109,7 +107,7 @@
       </para>
     </refsect2>
 
-    <refsect2 id='pam3-session_management'>
+    <refsect2 xml:id="pam3-session_management">
       <title>Session Management</title>
       <para>
         The
@@ -124,7 +122,7 @@
       </para>
     </refsect2>
 
-    <refsect2 id='pam3-conversation'>
+    <refsect2 xml:id="pam3-conversation">
       <title>Conversation</title>
       <para>
         The PAM library uses an application-defined callback to allow
@@ -141,7 +139,7 @@
       </para>
     </refsect2>
 
-    <refsect2 id='pam3-data'>
+    <refsect2 xml:id="pam3-data">
       <title>Data Objects</title>
       <para>
         The
@@ -176,7 +174,7 @@
       </para>
     </refsect2>
 
-    <refsect2 id='pam3-miscellaneous'>
+    <refsect2 xml:id="pam3-miscellaneous">
     <title>Environment and Error Management</title>
       <para>
         The
@@ -202,7 +200,7 @@
     </refsect2>
   </refsect1>
 
-  <refsect1 id='pam3-return_values'>
+  <refsect1 xml:id="pam3-return_values">
     <title>RETURN VALUES</title>
     <para>
       The following return codes are known by PAM:
@@ -389,7 +387,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='see_also'><title>SEE ALSO</title>
+  <refsect1 xml:id="see_also"><title>SEE ALSO</title>
     <para>
       <citerefentry>
         <refentrytitle>pam_acct_mgmt</refentrytitle><manvolnum>3</manvolnum>
@@ -430,7 +428,7 @@
       </citerefentry>
     </para>
   </refsect1>
-  <refsect1 id='pam3-notes'><title>NOTES</title>
+  <refsect1 xml:id="pam3-notes"><title>NOTES</title>
     <para>
       The <emphasis>libpam</emphasis> interfaces are only thread-safe if each
       thread within the multithreaded application uses its own PAM handle.

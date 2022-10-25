@@ -1,49 +1,38 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-	"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<book id="mwg">
-  <bookinfo>
+<book xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="mwg">
+  <info>
     <title>The Linux-PAM Module Writers' Guide</title>
     <authorgroup>
-      <author>
-        <firstname>Andrew G.</firstname>
-        <surname>Morgan</surname>
-        <email>morgan@kernel.org</email>
-      </author>
-      <author>
-        <firstname>Thorsten</firstname>
-        <surname>Kukuk</surname>
-        <email>kukuk@thkukuk.de</email>
-      </author>
+      <author><personname><firstname>Andrew G.</firstname><surname>Morgan</surname></personname><email>morgan@kernel.org</email></author>
+      <author><personname><firstname>Thorsten</firstname><surname>Kukuk</surname></personname><email>kukuk@thkukuk.de</email></author>
     </authorgroup>
     <releaseinfo>Version 1.1.2, 31. August 2010</releaseinfo>
     <abstract>
       <para>
         This manual documents what a programmer needs to know in order
         to write a module that conforms to the
-        <emphasis remap='B'>Linux-PAM</emphasis> standard.It also
+        <emphasis remap="B">Linux-PAM</emphasis> standard.It also
         discusses some security issues from the point of view of the
         module programmer.
       </para>
     </abstract>
-  </bookinfo>
+  </info>
 
-  <chapter id="mwg-introduction">
+  <chapter xml:id="mwg-introduction">
     <title>Introduction</title>
-    <section id="mwg-introduction-description">
+    <section xml:id="mwg-introduction-description">
       <title>Description</title>
       <para>
-        <emphasis remap='B'>Linux-PAM</emphasis> (Pluggable Authentication
+        <emphasis remap="B">Linux-PAM</emphasis> (Pluggable Authentication
         Modules for Linux) is a library that enables the local system
         administrator to choose how individual applications authenticate
         users. For an overview of the
-        <emphasis remap='B'>Linux-PAM</emphasis> library see the
+        <emphasis remap="B">Linux-PAM</emphasis> library see the
         <emphasis>Linux-PAM System Administrators' Guide</emphasis>.
       </para>
       <para>
-        A <emphasis remap='B'>Linux-PAM</emphasis> module is a single
+        A <emphasis remap="B">Linux-PAM</emphasis> module is a single
         executable binary file that can be loaded by the
-        <emphasis remap='B'>Linux-PAM</emphasis> interface library.
+        <emphasis remap="B">Linux-PAM</emphasis> interface library.
         This PAM library is configured locally with a system file,
         <filename>/etc/pam.conf</filename>, to authenticate a user
         request via the locally available authentication modules. The
@@ -54,14 +43,14 @@
         <citerefentry>
           <refentrytitle>dlopen</refentrytitle><manvolnum>3</manvolnum>
         </citerefentry>. Alternatively, the modules can be statically
-        linked into the <emphasis remap='B'>Linux-PAM</emphasis> library;
-        this is mostly to allow <emphasis remap='B'>Linux-PAM</emphasis> to
+        linked into the <emphasis remap="B">Linux-PAM</emphasis> library;
+        this is mostly to allow <emphasis remap="B">Linux-PAM</emphasis> to
         be used on platforms without dynamic linking available, but this is
         a <emphasis>deprecated</emphasis> functionality. It is the
-        <emphasis remap='B'>Linux-PAM</emphasis> interface that is called
+        <emphasis remap="B">Linux-PAM</emphasis> interface that is called
         by an application and it is the responsibility of the library to
         locate, load and call the appropriate functions in a
-        <emphasis remap='B'>Linux-PAM</emphasis>-module.
+        <emphasis remap="B">Linux-PAM</emphasis>-module.
       </para>
       <para>
         Except for the immediate purpose of interacting with the user
@@ -71,7 +60,7 @@
       </para>
     </section>
 
-    <section id="mwg-introduction-synopsis">
+    <section xml:id="mwg-introduction-synopsis">
       <title>Synopsis</title>
       <programlisting>
 #include &lt;security/pam_modules.h&gt;
@@ -82,63 +71,52 @@ gcc -shared -o pam_module.so pam_module.o -lpam
     </section>
   </chapter>
 
-  <chapter id="mwg-expected-by-module">
+  <chapter xml:id="mwg-expected-by-module">
     <title>What can be expected by the module</title>
     <para>
       Here we list the interface that the conventions that all
-      <emphasis remap='B'>Linux-PAM</emphasis> modules must adhere to.
+      <emphasis remap="B">Linux-PAM</emphasis> modules must adhere to.
     </para>
-    <section id="mwg-expected-by-module-item">
+    <section xml:id="mwg-expected-by-module-item">
       <title>
         Getting and setting <emphasis>PAM_ITEM</emphasis>s and
         <emphasis>data</emphasis>
       </title>
       <para>
         First, we cover what the module should expect from the
-        <emphasis remap='B'>Linux-PAM</emphasis> library and a
-        <emphasis remap='B'>Linux-PAM</emphasis> aware application.
+        <emphasis remap="B">Linux-PAM</emphasis> library and a
+        <emphasis remap="B">Linux-PAM</emphasis> aware application.
         Essentially this is the <filename>libpam.*</filename> library.
       </para>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_set_data.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_get_data.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_set_item.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_get_item.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_get_user.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_conv.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_putenv.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_getenv.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_getenvlist.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_set_data.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_get_data.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_set_item.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_get_item.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_get_user.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_conv.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_putenv.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_getenv.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_getenvlist.xml"/>
     </section>
-    <section id="mwg-expected-by-module-other">
+    <section xml:id="mwg-expected-by-module-other">
       <title>
         Other functions provided by <filename>libpam</filename>
       </title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_strerror.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_fail_delay.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_strerror.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_fail_delay.xml"/>
     </section>
   </chapter>
 
-  <chapter id="mwg-expected-of-module">
+  <chapter xml:id="mwg-expected-of-module">
     <title>What is expected of a module</title>
     <para>
       The module must supply a sub-set of the six functions listed
       below. Together they define the function of a
-      <emphasis remap='B'>Linux-PAM module</emphasis>. Module developers
+      <emphasis remap="B">Linux-PAM module</emphasis>. Module developers
       are strongly urged to read the comments on security that follow
       this list.
     </para>
-    <section id="mwg-expected-of-module-overview">
+    <section xml:id="mwg-expected-of-module-overview">
       <title>Overview</title>
       <para>
         The six module functions are grouped into four independent
@@ -149,7 +127,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
         at least one of these groups. A single module may contain the
         necessary functions for <emphasis>all</emphasis> four groups.
       </para>
-      <section id="mwg-expected-of-module-overview-1">
+      <section xml:id="mwg-expected-of-module-overview-1">
         <title>Functional independence</title>
         <para>
           The independence of the four groups of service a module can
@@ -163,7 +141,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
           As an informative example, consider the possibility that an
           application applies to change a user's authentication token,
           without having first requested that
-          <emphasis remap='B'>Linux-PAM</emphasis> authenticate the
+          <emphasis remap="B">Linux-PAM</emphasis> authenticate the
           user. In some cases this may be deemed appropriate: when
           <command>root</command> wants to change the authentication
           token of some lesser user. In other cases it may not be
@@ -176,7 +154,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
           this when implementing a given module.
         </para>
       </section>
-      <section id="mwg-expected-of-module-overview-2">
+      <section xml:id="mwg-expected-of-module-overview-2">
         <title>Minimizing administration problems</title>
         <para>
           To avoid system administration problems and the poor
@@ -189,7 +167,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
           simply return <errorname>PAM_IGNORE</errorname>.
         </para>
       </section>
-      <section id="mwg-expected-of-module-overview-3">
+      <section xml:id="mwg-expected-of-module-overview-3">
         <title>Arguments supplied to the module</title>
         <para>
           The <parameter>flags</parameter> argument of each of
@@ -203,7 +181,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
           arguments are taken from the line appropriate to this
           module---that is, with the <emphasis>service_name</emphasis>
           matching that of the application---in the configuration file
-          (see the <emphasis remap='B'>Linux-PAM</emphasis>
+          (see the <emphasis remap="B">Linux-PAM</emphasis>
           System Administrators' Guide). Together these two parameters
           provide the number of arguments and an array of pointers to
           the individual argument tokens. This will be familiar to C
@@ -214,33 +192,27 @@ gcc -shared -o pam_module.so pam_module.o -lpam
         </para>
       </section>
     </section>
-    <section id="mwg-expected-of-module-auth">
+    <section xml:id="mwg-expected-of-module-auth">
       <title>Authentication management</title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_sm_authenticate.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_sm_setcred.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_sm_authenticate.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_sm_setcred.xml"/>
     </section>
-    <section id="mwg-expected-of-module-acct">
+    <section xml:id="mwg-expected-of-module-acct">
       <title>Account management</title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_sm_acct_mgmt.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_sm_acct_mgmt.xml"/>
     </section>
-    <section id="mwg-expected-of-module-session">
+    <section xml:id="mwg-expected-of-module-session">
       <title>Session management</title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_sm_open_session.xml"/>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_sm_close_session.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_sm_open_session.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_sm_close_session.xml"/>
     </section>
-    <section id="mwg-expected-of-module-chauthtok">
+    <section xml:id="mwg-expected-of-module-chauthtok">
       <title>Authentication token management</title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-       href="pam_sm_chauthtok.xml"/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_sm_chauthtok.xml"/>
     </section>
   </chapter>
 
-  <chapter id="mwg-see-options">
+  <chapter xml:id="mwg-see-options">
     <title>Generic optional arguments</title>
     <para>
       Here we list the generic arguments that all modules can expect to
@@ -276,17 +248,17 @@ gcc -shared -o pam_module.so pam_module.o -lpam
     </variablelist>
   </chapter>
 
-  <chapter id="mwg-see-programming">
+  <chapter xml:id="mwg-see-programming">
     <title>Programming notes</title>
     <para>
       Here we collect some pointers for the module writer to bear in mind
-      when writing/developing a <emphasis remap='B'>Linux-PAM</emphasis>
+      when writing/developing a <emphasis remap="B">Linux-PAM</emphasis>
       compatible module.
     </para>
 
-    <section id="mwg-see-programming-sec">
+    <section xml:id="mwg-see-programming-sec">
       <title>Security issues for module creation</title>
-      <section id="mwg-see-programming-sec-res">
+      <section xml:id="mwg-see-programming-sec-res">
         <title>Sufficient resources</title>
         <para>
           Care should be taken to ensure that the proper execution
@@ -299,7 +271,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
           consideration.
         </para>
       </section>
-      <section id="mwg-see-programming-sec-who">
+      <section xml:id="mwg-see-programming-sec-who">
         <title>Who´s who?</title>
         <para>
           Generally, the module may wish to establish the identity of
@@ -349,13 +321,13 @@ gcc -shared -o pam_module.so pam_module.o -lpam
               Z, the user under whose identity the service will be granted.
               This is the username returned by
               <function>pam_get_user()</function> and also stored in the
-              <emphasis remap='B'>Linux-PAM</emphasis> item,
+              <emphasis remap="B">Linux-PAM</emphasis> item,
               <emphasis>PAM_USER</emphasis>.
             </para>
           </listitem>
           <listitem>
             <para>
-              <emphasis remap='B'>Linux-PAM</emphasis> has a place for
+              <emphasis remap="B">Linux-PAM</emphasis> has a place for
               an additional user identity that a module may care to make
               use of. This is the <emphasis>PAM_RUSER</emphasis> item.
               Generally, network sensitive modules/applications may wish
@@ -369,10 +341,10 @@ gcc -shared -o pam_module.so pam_module.o -lpam
           <emphasis>uid</emphasis> or <emphasis>euid</emphasis> of the
           running process, it should take care to restore the original
           values prior to returning control to the
-          <emphasis remap='B'>Linux-PAM</emphasis> library.
+          <emphasis remap="B">Linux-PAM</emphasis> library.
         </para>
       </section>
-      <section id="mwg-see-programming-sec-conv">
+      <section xml:id="mwg-see-programming-sec-conv">
         <title>Using the conversation function</title>
         <para>
           Prior to calling the conversation function, the module should
@@ -389,7 +361,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
           indicating failure.
         </para>
       </section>
-      <section id="mwg-see-programming-sec-token">
+      <section xml:id="mwg-see-programming-sec-token">
         <title>Authentication tokens</title>
         <para>
           To ensure that the authentication tokens are not left lying
@@ -403,7 +375,7 @@ gcc -shared -o pam_module.so pam_module.o -lpam
           general rule the module should overwrite authentication tokens
           as soon as they are no longer needed. Especially before
           <function>free()</function>'ing them. The
-          <emphasis remap='B'>Linux-PAM</emphasis> library is
+          <emphasis remap="B">Linux-PAM</emphasis> library is
           required to do this when either of these authentication
           token items are (re)set.
         </para>
@@ -437,7 +409,7 @@ int cleanup(pam_handle_t *pamh, void *data, int error_status)
         </para>
       </section>
     </section>
-    <section id="mwg-see-programming-syslog">
+    <section xml:id="mwg-see-programming-syslog">
       <title>Use of <citerefentry>
         <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry></title>
@@ -451,7 +423,7 @@ int cleanup(pam_handle_t *pamh, void *data, int error_status)
         <citerefentry>
         <refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum>
         </citerefentry> with <emphasis>facility-type</emphasis>
-        <emphasis remap='B'>LOG_AUTHPRIV</emphasis>.
+        <emphasis remap="B">LOG_AUTHPRIV</emphasis>.
       </para>
       <para>
         With a few exceptions, the level of logging is, at the discretion
@@ -501,7 +473,7 @@ int cleanup(pam_handle_t *pamh, void *data, int error_status)
         </listitem>
       </itemizedlist>
     </section>
-    <section id="mwg-see-programming-libs">
+    <section xml:id="mwg-see-programming-libs">
       <title>Modules that require system libraries</title>
       <para>
         Writing a module is much like writing an application. You
@@ -526,16 +498,16 @@ int cleanup(pam_handle_t *pamh, void *data, int error_status)
     </section>
   </chapter>
 
-  <chapter id="mwg-example">
+  <chapter xml:id="mwg-example">
     <title>An example module</title>
     <para>
       At some point, we may include a fully commented example of a module in
       this document. For now, please look at the modules directory of the
-      <emphasis remap='B'>Linux-PAM</emphasis> sources.
+      <emphasis remap="B">Linux-PAM</emphasis> sources.
     </para>
   </chapter>
 
-  <chapter id="mwg-see-also">
+  <chapter xml:id="mwg-see-also">
     <title>See also</title>
     <itemizedlist>
       <listitem>
@@ -558,7 +530,7 @@ int cleanup(pam_handle_t *pamh, void *data, int error_status)
     </itemizedlist>
   </chapter>
 
-  <chapter id='mwg-author'>
+  <chapter xml:id="mwg-author">
     <title>Author/acknowledgments</title>
     <para>
       This document was written by Andrew G. Morgan (morgan@kernel.org)
@@ -578,14 +550,14 @@ int cleanup(pam_handle_t *pamh, void *data, int error_status)
     <para>
       Thanks are also due to Sun Microsystems, especially to Vipin Samar and
       Charlie Lai for their advice. At an early stage in the development of
-      <emphasis remap='B'>Linux-PAM</emphasis>, Sun graciously made the
+      <emphasis remap="B">Linux-PAM</emphasis>, Sun graciously made the
       documentation for their implementation of PAM available. This act
       greatly accelerated the development of
-      <emphasis remap='B'>Linux-PAM</emphasis>.
+      <emphasis remap="B">Linux-PAM</emphasis>.
     </para>
   </chapter>
 
-  <chapter id='mwg-copyright'>
+  <chapter xml:id="mwg-copyright">
     <title>Copyright information for this document</title>
     <programlisting>
 Copyright (c) 2006 Thorsten Kukuk &lt;kukuk@thkukuk.de&gt;

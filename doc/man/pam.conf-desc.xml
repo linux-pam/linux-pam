@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<section id='pam.conf-desc'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam.conf-desc">
   <para>
     When a <emphasis>PAM</emphasis> aware privilege granting application
     is started, it activates its attachment to the PAM-API. This

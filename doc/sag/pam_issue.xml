@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_issue'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_issue">
   <title>pam_issue - add issue file to user prompt</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_issue-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(id("pam_issue-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_issue-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(//refsect1[@id = "pam_issue-description"]/*)'/>
+  <section xml:id="sag-pam_issue-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(id("pam_issue-description")/*)'/>
   </section>
-  <section id='sag-pam_issue-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(//refsect1[@id = "pam_issue-options"]/*)'/>
+  <section xml:id="sag-pam_issue-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(id("pam_issue-options")/*)'/>
   </section>
-  <section id='sag-pam_issue-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(//refsect1[@id = "pam_issue-types"]/*)'/>
+  <section xml:id="sag-pam_issue-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(id("pam_issue-types")/*)'/>
   </section>
-  <section id='sag-pam_issue-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(//refsect1[@id = "pam_issue-return_values"]/*)'/>
+  <section xml:id="sag-pam_issue-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(id("pam_issue-return_values")/*)'/>
   </section>
-  <section id='sag-pam_issue-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(//refsect1[@id = "pam_issue-examples"]/*)'/>
+  <section xml:id="sag-pam_issue-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(id("pam_issue-examples")/*)'/>
   </section>
-  <section id='sag-pam_issue-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(//refsect1[@id = "pam_issue-author"]/*)'/>
+  <section xml:id="sag-pam_issue-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_issue/pam_issue.8.xml" xpointer='xpointer(id("pam_issue-author")/*)'/>
   </section>
 </section>

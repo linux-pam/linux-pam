@@ -13,8 +13,8 @@ automake
 autopoint
 bison
 bzip2
-docbook-xml
-docbook-xsl
+docbook5-xml
+docbook-xsl-ns
 flex
 gettext
 libaudit-dev

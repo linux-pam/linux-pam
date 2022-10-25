@@ -1,41 +1,31 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-"http://www.docbook.org/xml/4.3/docbookx.dtd">
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
 
-<article>
-
-  <articleinfo>
+  <info>
 
     <title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_tty_audit.8.xml" xpointer='xpointer(//refnamediv[@id = "pam_tty_audit-name"]/*)'/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_tty_audit.8.xml" xpointer='xpointer(id("pam_tty_audit-name")/*)'/>
     </title>
 
-  </articleinfo>
+  </info>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_tty_audit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tty_audit-description"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_tty_audit.8.xml" xpointer='xpointer(id("pam_tty_audit-description")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_tty_audit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tty_audit-options"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_tty_audit.8.xml" xpointer='xpointer(id("pam_tty_audit-options")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_tty_audit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tty_audit-notes"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_tty_audit.8.xml" xpointer='xpointer(id("pam_tty_audit-notes")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_tty_audit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tty_audit-examples"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_tty_audit.8.xml" xpointer='xpointer(id("pam_tty_audit-examples")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_tty_audit.8.xml" xpointer='xpointer(//refsect1[@id = "pam_tty_audit-author"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_tty_audit.8.xml" xpointer='xpointer(id("pam_tty_audit-author")/*)'/>
   </section>
 
 </article>

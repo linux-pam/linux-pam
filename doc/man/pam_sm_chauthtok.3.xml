@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id='pam_sm_chauthtok'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_sm_chauthtok">
   <refmeta>
     <refentrytitle>pam_sm_chauthtok</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_sm_chauthtok-name">
+  <refnamediv xml:id="pam_sm_chauthtok-name">
     <refname>pam_sm_chauthtok</refname>
     <refpurpose>PAM service function for authentication token management</refpurpose>
   </refnamediv>
@@ -16,7 +14,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id='pam_sm_chauthtok-synopsis'>
+    <funcsynopsis xml:id="pam_sm_chauthtok-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_modules.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_sm_chauthtok</function></funcdef>
@@ -29,7 +27,7 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id='pam_sm_chauthtok-description'>
+  <refsect1 xml:id="pam_sm_chauthtok-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_sm_chauthtok</function> function is the service
@@ -77,7 +75,7 @@
             some network it should attempt to verify it can connect to
             this system on receiving this flag. If a module cannot establish
             it is ready to update the user's authentication token it should
-            return <emphasis remap='B'>PAM_TRY_AGAIN</emphasis>, this
+            return <emphasis remap="B">PAM_TRY_AGAIN</emphasis>, this
             information will be passed back to the application.
           </para>
           <para>
@@ -93,7 +91,7 @@
           <para>
             This informs the module that this is the call it should change
             the authorization tokens. If the flag is logically OR'd with
-            <emphasis remap='B'>PAM_CHANGE_EXPIRED_AUTHTOK</emphasis>, the
+            <emphasis remap="B">PAM_CHANGE_EXPIRED_AUTHTOK</emphasis>, the
             token is only changed if it has actually expired.
           </para>
         </listitem>
@@ -101,15 +99,15 @@
     </variablelist>
     <para>
       The PAM library calls this function twice in succession. The first
-      time with <emphasis remap='B'>PAM_PRELIM_CHECK</emphasis> and then,
+      time with <emphasis remap="B">PAM_PRELIM_CHECK</emphasis> and then,
       if the module does not return
-      <emphasis remap='B'>PAM_TRY_AGAIN</emphasis>, subsequently with
-      <emphasis remap='B'>PAM_UPDATE_AUTHTOK</emphasis>. It is only on
+      <emphasis remap="B">PAM_TRY_AGAIN</emphasis>, subsequently with
+      <emphasis remap="B">PAM_UPDATE_AUTHTOK</emphasis>. It is only on
       the second call that the authorization token is (possibly) changed.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_sm_chauthtok-return_values">
+  <refsect1 xml:id="pam_sm_chauthtok-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -181,7 +179,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_sm_chauthtok-see_also'>
+  <refsect1 xml:id="pam_sm_chauthtok-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
