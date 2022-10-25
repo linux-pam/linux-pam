@@ -1,30 +1,27 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_securetty">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_securetty">
 
   <refmeta>
     <refentrytitle>pam_securetty</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_securetty-name">
+  <refnamediv xml:id="pam_securetty-name">
     <refname>pam_securetty</refname>
     <refpurpose>Limit root login to special devices</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_securetty-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_securetty-cmdsynopsis" sepchar=" ">
       <command>pam_securetty.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         debug
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_securetty-description">
+  <refsect1 xml:id="pam_securetty-description">
 
     <title>DESCRIPTION</title>
 
@@ -43,23 +40,23 @@
     </para>
     <para>
       This module has no effect on non-root users and requires that the
-      application fills in the <emphasis remap='B'>PAM_TTY</emphasis>
+      application fills in the <emphasis remap="B">PAM_TTY</emphasis>
       item correctly.
     </para>
     <para>
       For canonical usage, should be listed as a
-      <emphasis remap='B'>required</emphasis> authentication method
-      before any <emphasis remap='B'>sufficient</emphasis>
+      <emphasis remap="B">required</emphasis> authentication method
+      before any <emphasis remap="B">sufficient</emphasis>
       authentication methods.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_securetty-options">
+  <refsect1 xml:id="pam_securetty-options">
     <title>OPTIONS</title>
         <variablelist>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -69,7 +66,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>noconsole</option>
+          noconsole
         </term>
         <listitem>
           <para>
@@ -83,14 +80,14 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_securetty-types">
+  <refsect1 xml:id="pam_securetty-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>auth</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_securetty-return_values'>
+  <refsect1 xml:id="pam_securetty-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -164,7 +161,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_securetty-examples'>
+  <refsect1 xml:id="pam_securetty-examples">
     <title>EXAMPLES</title>
     <para>
       <programlisting>
@@ -174,7 +171,7 @@ auth  required  pam_unix.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_securetty-see_also'>
+  <refsect1 xml:id="pam_securetty-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -192,7 +189,7 @@ auth  required  pam_unix.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_securetty-author'>
+  <refsect1 xml:id="pam_securetty-author">
     <title>AUTHOR</title>
       <para>
         pam_securetty was written by Elliot Lee &lt;sopwith@cuc.edu&gt;.

@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-        "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_env.conf">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_env.conf">
 
   <refmeta>
     <refentrytitle>pam_env.conf</refentrytitle>
     <manvolnum>5</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
   <refnamediv>
@@ -17,7 +14,7 @@
   </refnamediv>
 
 
-  <refsect1 id='pam_env.conf-description'>
+  <refsect1 xml:id="pam_env.conf-description">
     <title>DESCRIPTION</title>
 
     <para condition="with_vendordir">
@@ -87,7 +84,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_env.conf-examples">
+  <refsect1 xml:id="pam_env.conf-examples">
     <title>EXAMPLES</title>
     <para>
       These are some example lines which might be specified in
@@ -133,7 +130,7 @@
     </programlisting>
   </refsect1>
 
-  <refsect1 id="pam_env.conf-see_also">
+  <refsect1 xml:id="pam_env.conf-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry><refentrytitle>pam_env</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
@@ -143,7 +140,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_env.conf-author">
+  <refsect1 xml:id="pam_env.conf-author">
     <title>AUTHOR</title>
     <para>
       pam_env was written by Dave Kinchlea &lt;kinch@kinch.ark.com&gt;.

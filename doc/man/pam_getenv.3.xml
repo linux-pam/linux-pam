@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id='pam_getenv'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_getenv">
   <refmeta>
     <refentrytitle>pam_getenv</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_getenv-name">
+  <refnamediv xml:id="pam_getenv-name">
     <refname>pam_getenv</refname>
     <refpurpose>get a PAM environment variable</refpurpose>
   </refnamediv>
@@ -16,7 +14,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id='pam_getenv-synopsis'>
+    <funcsynopsis xml:id="pam_getenv-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>const char *<function>pam_getenv</function></funcdef>
@@ -27,7 +25,7 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id='pam_getenv-description'>
+  <refsect1 xml:id="pam_getenv-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_getenv</function> function searches the
@@ -39,7 +37,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_getenv-return_values">
+  <refsect1 xml:id="pam_getenv-return_values">
     <title>RETURN VALUES</title>
     <para>
       The <function>pam_getenv</function> function returns NULL
@@ -47,7 +45,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_getenv-see_also'>
+  <refsect1 xml:id="pam_getenv-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

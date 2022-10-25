@@ -1,30 +1,27 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pwhistory_helper">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pwhistory_helper">
 
   <refmeta>
     <refentrytitle>pwhistory_helper</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pwhistory_helper-name">
+  <refnamediv xml:id="pwhistory_helper-name">
     <refname>pwhistory_helper</refname>
     <refpurpose>Helper binary that transfers password hashes from passwd or shadow to opasswd</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pwhistory_helper-cmdsynopsis">
+    <cmdsynopsis xml:id="pwhistory_helper-cmdsynopsis" sepchar=" ">
       <command>pwhistory_helper</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         ...
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pwhistory_helper-description">
+  <refsect1 xml:id="pwhistory_helper-description">
 
     <title>DESCRIPTION</title>
 
@@ -48,7 +45,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pwhistory_helper-see_also'>
+  <refsect1 xml:id="pwhistory_helper-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -57,7 +54,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pwhistory_helper-author'>
+  <refsect1 xml:id="pwhistory_helper-author">
     <title>AUTHOR</title>
       <para>
         Written by Tomas Mraz based on the code originally in

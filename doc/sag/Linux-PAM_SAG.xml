@@ -1,36 +1,25 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-	"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<book id="sag">
-  <bookinfo>
+<book xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag">
+  <info>
     <title>The Linux-PAM System Administrators' Guide</title>
     <authorgroup>
-      <author>
-        <firstname>Andrew G.</firstname>
-        <surname>Morgan</surname>
-        <email>morgan@kernel.org</email>
-      </author>
-      <author>
-        <firstname>Thorsten</firstname>
-        <surname>Kukuk</surname>
-        <email>kukuk@thkukuk.de</email>
-      </author>
+      <author><personname><firstname>Andrew G.</firstname><surname>Morgan</surname></personname><email>morgan@kernel.org</email></author>
+      <author><personname><firstname>Thorsten</firstname><surname>Kukuk</surname></personname><email>kukuk@thkukuk.de</email></author>
     </authorgroup>
     <releaseinfo>Version 1.1.2, 31. August 2010</releaseinfo>
     <abstract>
       <para>
         This manual documents what a system-administrator needs to know about
-        the <emphasis remap='B'>Linux-PAM</emphasis> library. It covers the
+        the <emphasis remap="B">Linux-PAM</emphasis> library. It covers the
         correct syntax of the PAM configuration file and discusses strategies
         for maintaining a secure system.
       </para>
     </abstract>
-  </bookinfo>
+  </info>
 
-  <chapter id='sag-introduction'>
+  <chapter xml:id="sag-introduction">
     <title>Introduction</title>
     <para>
-      <emphasis remap='B'>Linux-PAM</emphasis> (Pluggable Authentication
+      <emphasis remap="B">Linux-PAM</emphasis> (Pluggable Authentication
       Modules for Linux) is a suite of shared libraries that enable the
       local system administrator to choose how applications authenticate users.
     </para>
@@ -58,7 +47,7 @@
       on entries in the <filename>/etc/group</filename> file.
     </para>
     <para>
-      It is the purpose of the <emphasis remap='B'>Linux-PAM</emphasis>
+      It is the purpose of the <emphasis remap="B">Linux-PAM</emphasis>
       project to separate the development of privilege granting software
       from the development of secure and appropriate authentication schemes.
       This is accomplished by providing a library of functions that an
@@ -76,7 +65,7 @@
     </para>
   </chapter>
 
-  <chapter id="sag-text-conventions">
+  <chapter xml:id="sag-text-conventions">
     <title>Some comments on the text</title>
     <para>
       Before proceeding to read the rest of this document, it should be
@@ -91,7 +80,7 @@
     <para>
       As an example of the above, where it is explicit, the text assumes
       that PAM loadable object files (the
-      <emphasis remap='B'>modules</emphasis>) are to be located in
+      <emphasis remap="B">modules</emphasis>) are to be located in
       the following directory: <filename>/lib/security/</filename> or
       <filename>/lib64/security</filename> depending on the architecture.
       This is generally the location that seems to be compatible with the
@@ -103,7 +92,7 @@
     </para>
   </chapter>
 
-  <chapter id="sag-overview">
+  <chapter xml:id="sag-overview">
     <title>Overview</title>
     <para>
       For the uninitiated, we begin by considering an example.  We take an
@@ -121,16 +110,16 @@
       password and then verifying that it agrees with that located on
       the system; hence verifying that as far as the system is concerned
       the user is who they claim to be. This is the task that is delegated
-      to <emphasis remap='B'>Linux-PAM</emphasis>.
+      to <emphasis remap="B">Linux-PAM</emphasis>.
     </para>
     <para>
       From the perspective of the application programmer (in this case
       the person that wrote the <command>login</command> application),
-      <emphasis remap='B'>Linux-PAM</emphasis> takes care of this
+      <emphasis remap="B">Linux-PAM</emphasis> takes care of this
       authentication task -- verifying the identity of the user.
     </para>
     <para>
-      The flexibility of <emphasis remap='B'>Linux-PAM</emphasis> is
+      The flexibility of <emphasis remap="B">Linux-PAM</emphasis> is
       that <emphasis>you</emphasis>, the system administrator, have
       the freedom to stipulate which authentication scheme is to be
       used. You have the freedom to set the scheme for any/all
@@ -152,7 +141,7 @@
       authentication can be upgraded to include (long) division!
     </para>
     <para>
-      <emphasis remap='B'>Linux-PAM</emphasis> deals with four
+      <emphasis remap="B">Linux-PAM</emphasis> deals with four
       separate types of (management) task. These are:
       <emphasis>authentication management</emphasis>;
       <emphasis>account management</emphasis>;
@@ -160,15 +149,15 @@
       <emphasis>password management</emphasis>.
       The association of the preferred management scheme with the behavior
       of an application is made with entries in the relevant
-      <emphasis remap='B'>Linux-PAM</emphasis> configuration file.
+      <emphasis remap="B">Linux-PAM</emphasis> configuration file.
       The management functions are performed by <emphasis>modules</emphasis>
       specified in the configuration file. The syntax for this
       file is discussed in the section
-      <link  linkend="sag-configuration">below</link>.
+      <link linkend="sag-configuration">below</link>.
     </para>
     <para>
       Here is a figure that describes the overall organization of
-      <emphasis remap='B'>Linux-PAM</emphasis>:
+      <emphasis remap="B">Linux-PAM</emphasis>:
       <programlisting>
   +----------------+
   | application: X |
@@ -193,14 +182,14 @@
       </programlisting>
       By way of explanation, the left of the figure represents the
       application; application X.  Such an application interfaces with the
-      <emphasis remap='B'>Linux-PAM</emphasis> library and knows none of
+      <emphasis remap="B">Linux-PAM</emphasis> library and knows none of
       the specifics of its configured authentication method. The
-      <emphasis remap='B'>Linux-PAM</emphasis> library (in the center)
+      <emphasis remap="B">Linux-PAM</emphasis> library (in the center)
       consults the contents of the PAM configuration file and loads the
       modules that are appropriate for application-X. These modules fall
       into one of four management groups (lower-center) and are stacked in
       the order they appear in the configuration file. These modules, when
-      called by <emphasis remap='B'>Linux-PAM</emphasis>, perform the
+      called by <emphasis remap="B">Linux-PAM</emphasis>, perform the
       various authentication tasks for the application. Textual information,
       required from/or offered to the user, can be exchanged through the
       use of the application-supplied <emphasis>conversation</emphasis>
@@ -216,34 +205,28 @@
     </para>
   </chapter>
 
-  <chapter id="sag-configuration">
+  <chapter xml:id="sag-configuration">
     <title>The Linux-PAM configuration file</title>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../man/pam.conf-desc.xml"
-     xpointer='xpointer(//section[@id = "pam.conf-desc"]/*)' />
-     <section id='sag-configuration-file'>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../man/pam.conf-desc.xml" xpointer='xpointer(id("pam.conf-desc")/*)'/>
+     <section xml:id="sag-configuration-file">
        <title>Configuration file syntax</title>
-       <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-        href="../man/pam.conf-syntax.xml"
-        xpointer='xpointer(//section[@id = "pam.conf-syntax"]/*)' />
+       <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../man/pam.conf-syntax.xml" xpointer='xpointer(id("pam.conf-syntax")/*)'/>
      </section>
-     <section id='sag-configuration-directory'>
+     <section xml:id="sag-configuration-directory">
        <title>Directory based configuration</title>
-       <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-        href="../man/pam.conf-dir.xml"
-        xpointer='xpointer(//section[@id = "pam.conf-dir"]/*)' />
+       <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../man/pam.conf-dir.xml" xpointer='xpointer(id("pam.conf-dir")/*)'/>
      </section>
-     <section id='sag-configuration-example'>
+     <section xml:id="sag-configuration-example">
        <title>Example configuration file entries</title>
        <para>
          In this section, we give some examples of entries that can
-         be present in the <emphasis remap='B'>Linux-PAM</emphasis>
+         be present in the <emphasis remap="B">Linux-PAM</emphasis>
          configuration file. As a first attempt at configuring your
          system you could do worse than to implement these.
        </para>
        <para>
          If a system is to be considered secure, it had better have a
-         reasonably secure '<emphasis remap='B'>other</emphasis> entry.
+         reasonably secure '<emphasis remap="B">other</emphasis> entry.
          The following is a paranoid setting (which is not a bad place
          to start!):
        </para>
@@ -311,7 +294,7 @@ session  required       pam_deny.so
        <para>
          On a less sensitive computer, one on which the system
          administrator wishes to remain ignorant of much of the
-         power of <emphasis remap='B'>Linux-PAM</emphasis>, the
+         power of <emphasis remap="B">Linux-PAM</emphasis>, the
          following selection of lines (in
          <filename>/etc/pam.d/other</filename>) is likely to
          mimic the historically familiar Linux setup.
@@ -331,21 +314,21 @@ session  required       pam_unix.so
      </section>
   </chapter>
 
-  <chapter id='sag-security-issues'>
+  <chapter xml:id="sag-security-issues">
     <title>Security issues</title>
-    <section id='sag-security-issues-wrong'>
+    <section xml:id="sag-security-issues-wrong">
       <title>If something goes wrong</title>
       <para>
-        <emphasis remap='B'>Linux-PAM</emphasis> has the potential
+        <emphasis remap="B">Linux-PAM</emphasis> has the potential
         to seriously change the security of your system. You can
         choose to have no security or absolute security (no access
-        permitted). In general, <emphasis remap='B'>Linux-PAM</emphasis>
+        permitted). In general, <emphasis remap="B">Linux-PAM</emphasis>
         errs towards the latter. Any number of configuration errors
         can disable access to your system partially, or completely.
       </para>
       <para>
         The most dramatic problem that is likely to be encountered when
-        configuring <emphasis remap='B'>Linux-PAM</emphasis> is that of
+        configuring <emphasis remap="B">Linux-PAM</emphasis> is that of
         <emphasis>deleting</emphasis> the configuration file(s):
         <filename>/etc/pam.d/*</filename> and/or
         <filename>/etc/pam.conf</filename>. This will lock you out of
@@ -357,11 +340,11 @@ session  required       pam_unix.so
         things from there.
       </para>
     </section>
-    <section id='sag-security-issues-other'>
+    <section xml:id="sag-security-issues-other">
       <title>Avoid having a weak `other' configuration</title>
       <para>
         It is not a good thing to have a weak default
-        (<emphasis remap='B'>other</emphasis>) entry.
+        (<emphasis remap="B">other</emphasis>) entry.
         This service is the default configuration for all PAM aware
         applications and if it is weak, your system is likely to be
         vulnerable to attack.
@@ -388,93 +371,57 @@ session   required   pam_warn.so
     </section>
   </chapter>
 
-  <chapter id='sag-module-reference'>
+  <chapter xml:id="sag-module-reference">
     <title>A reference guide for available modules</title>
     <para>
       Here, we collect together the descriptions of the various modules
       coming with Linux-PAM.
     </para>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_access.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_debug.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_deny.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_echo.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_env.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_exec.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_faildelay.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_faillock.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_filter.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_ftp.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_group.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_issue.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_keyinit.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_lastlog.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_limits.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_listfile.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_localuser.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_loginuid.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_mail.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_mkhomedir.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_motd.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_namespace.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_nologin.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_permit.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_pwhistory.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_rhosts.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_rootok.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_securetty.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_selinux.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_shells.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_succeed_if.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_time.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_timestamp.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_umask.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_unix.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_userdb.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_warn.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_wheel.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="pam_xauth.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_access.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_debug.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_deny.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_echo.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_env.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_exec.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_faildelay.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_faillock.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_filter.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_ftp.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_group.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_issue.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_keyinit.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_lastlog.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_limits.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_listfile.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_localuser.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_loginuid.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_mail.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_mkhomedir.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_motd.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_namespace.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_nologin.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_permit.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_pwhistory.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_rhosts.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_rootok.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_securetty.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_selinux.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_sepermit.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_setquota.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_shells.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_succeed_if.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_time.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_timestamp.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_tty_audit.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_umask.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_unix.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_userdb.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_warn.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_wheel.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_xauth.xml"/>
   </chapter>
 
-  <chapter id="sag-see-also">
+  <chapter xml:id="sag-see-also">
     <title>See also</title>
     <itemizedlist>
       <listitem>
@@ -497,7 +444,7 @@ session   required   pam_warn.so
     </itemizedlist>
   </chapter>
 
-  <chapter id='sag-author'>
+  <chapter xml:id="sag-author">
     <title>Author/acknowledgments</title>
     <para>
       This document was written by Andrew G. Morgan (morgan@kernel.org)
@@ -518,14 +465,14 @@ session   required   pam_warn.so
     <para>
       Thanks are also due to Sun Microsystems, especially to Vipin Samar and
       Charlie Lai for their advice. At an early stage in the development of
-      <emphasis remap='B'>Linux-PAM</emphasis>, Sun graciously made the
+      <emphasis remap="B">Linux-PAM</emphasis>, Sun graciously made the
       documentation for their implementation of PAM available. This act
       greatly accelerated the development of
-      <emphasis remap='B'>Linux-PAM</emphasis>.
+      <emphasis remap="B">Linux-PAM</emphasis>.
     </para>
   </chapter>
 
-  <chapter id='sag-copyright'>
+  <chapter xml:id="sag-copyright">
     <title>Copyright information for this document</title>
     <programlisting>
 Copyright (c) 2006 Thorsten Kukuk &lt;kukuk@thkukuk.de&gt;

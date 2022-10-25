@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_faillock">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_faillock">
 
   <refmeta>
     <refentrytitle>pam_faillock</refentrytitle>
@@ -10,63 +6,63 @@
     <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_faillock-name">
+  <refnamediv xml:id="pam_faillock-name">
     <refname>pam_faillock</refname>
     <refpurpose>Module counting authentication failures during a specified interval</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_faillock-cmdsynopsisauth">
+    <cmdsynopsis xml:id="pam_faillock-cmdsynopsisauth" sepchar=" ">
       <command>auth ... pam_faillock.so</command>
-      <arg choice="req">
+      <arg choice="req" rep="norepeat">
         preauth|authfail|authsucc
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         conf=<replaceable>/path/to/config-file</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         dir=<replaceable>/path/to/tally-directory</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         even_deny_root
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         deny=<replaceable>n</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         fail_interval=<replaceable>n</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         unlock_time=<replaceable>n</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         root_unlock_time=<replaceable>n</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         admin_group=<replaceable>name</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         audit
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         silent
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         no_log_info
       </arg>
     </cmdsynopsis>
-    <cmdsynopsis id="pam_faillock-cmdsynopsisacct">
+    <cmdsynopsis xml:id="pam_faillock-cmdsynopsisacct" sepchar=" ">
       <command>account ... pam_faillock.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         dir=<replaceable>/path/to/tally-directory</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         no_log_info
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_faillock-description">
+  <refsect1 xml:id="pam_faillock-description">
 
     <title>DESCRIPTION</title>
 
@@ -78,20 +74,20 @@
     </para>
     <para>
       Normally, failed attempts to authenticate <emphasis>root</emphasis> will
-      <emphasis remap='B'>not</emphasis> cause the root account to become
+      <emphasis remap="B">not</emphasis> cause the root account to become
       blocked, to prevent denial-of-service: if your users aren't given
       shell accounts and root may only login via <command>su</command> or
       at the machine console (not telnet/rsh, etc), this is safe.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_faillock-options">
+  <refsect1 xml:id="pam_faillock-options">
 
     <title>OPTIONS</title>
         <variablelist>
             <varlistentry>
               <term>
-                <option>{preauth|authfail|authsucc}</option>
+                {preauth|authfail|authsucc}
               </term>
               <listitem>
                 <para>
@@ -131,7 +127,7 @@
             </varlistentry>
             <varlistentry>
                <term>
-                 <option>conf=/path/to/config-file</option>
+                 conf=/path/to/config-file
                </term>
                <listitem>
                  <para condition="without_vendordir">
@@ -156,7 +152,7 @@
         </para>
   </refsect1>
 
-  <refsect1 id="pam_faillock-types">
+  <refsect1 xml:id="pam_faillock-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       The <option>auth</option> and <option>account</option> module types are
@@ -164,7 +160,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_faillock-return_values'>
+  <refsect1 xml:id="pam_faillock-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -222,7 +218,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_faillock-notes'>
+  <refsect1 xml:id="pam_faillock-notes">
     <title>NOTES</title>
     <para>
       Configuring options on the module command line is not recommend. The
@@ -234,7 +230,7 @@
     </para>
     <para>
       Individual files with the failure records are created as owned by
-      the user. This allows <emphasis remap='B'>pam_faillock.so</emphasis> module
+      the user. This allows <emphasis remap="B">pam_faillock.so</emphasis> module
       to work correctly when it is called from a screensaver.
     </para>
     <para>
@@ -249,7 +245,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_faillock-examples'>
+  <refsect1 xml:id="pam_faillock-examples">
     <title>EXAMPLES</title>
     <para>
       Here are two possible configuration examples for <filename>/etc/pam.d/login</filename>.
@@ -320,11 +316,11 @@ session  required       pam_selinux.so open
     </programlisting>
   </refsect1>
 
-  <refsect1 id="pam_faillock-files">
+  <refsect1 xml:id="pam_faillock-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/var/run/faillock/*</filename></term>
+        <term>/var/run/faillock/*</term>
         <listitem>
           <para>the files logging the authentication failures for users</para>
           <para>
@@ -336,13 +332,13 @@ session  required       pam_selinux.so open
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><filename>/etc/security/faillock.conf</filename></term>
+        <term>/etc/security/faillock.conf</term>
         <listitem>
           <para>the config file for pam_faillock options</para>
         </listitem>
       </varlistentry>
       <varlistentry condition="with_vendordir">
-        <term><filename>%vendordir%/security/faillock.conf</filename></term>
+        <term>%vendordir%/security/faillock.conf</term>
         <listitem>
           <para>
             the config file for pam_faillock options. It will be used if
@@ -353,7 +349,7 @@ session  required       pam_selinux.so open
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_faillock-see_also'>
+  <refsect1 xml:id="pam_faillock-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -374,7 +370,7 @@ session  required       pam_selinux.so open
     </para>
   </refsect1>
 
-  <refsect1 id='pam_faillock-author'>
+  <refsect1 xml:id="pam_faillock-author">
     <title>AUTHOR</title>
       <para>
         pam_faillock was written by Tomas Mraz.

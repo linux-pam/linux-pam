@@ -1,22 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd"
-[
-<!--
-<!ENTITY accessconf SYSTEM "pam_item_types_std.inc.xml">
-<!ENTITY accessconf SYSTEM "pam_item_types_ext.inc.xml">
--->
-]>
-
-<refentry id='pam_get_item'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_get_item">
 
   <refmeta>
     <refentrytitle>pam_get_item</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam_get_item-name'>
+  <refnamediv xml:id="pam_get_item-name">
     <refname>pam_get_item</refname>
     <refpurpose>
        getting PAM information
@@ -28,7 +19,7 @@
 
   <refsynopsisdiv>
 
-   <funcsynopsis id="pam_get_item-synopsis">
+   <funcsynopsis xml:id="pam_get_item-synopsis">
      <funcsynopsisinfo>#include &lt;security/pam_modules.h&gt;</funcsynopsisinfo>
      <funcprototype>
        <funcdef>int <function>pam_get_item</function></funcdef>
@@ -41,7 +32,7 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_get_item-description">
+  <refsect1 xml:id="pam_get_item-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_get_item</function> function allows applications
@@ -55,16 +46,14 @@
       <emphasis>item_type</emphasis>:
    </para>
 
-   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_item_types_std.inc.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_item_types_std.inc.xml"/>
 
    <para>
      The following additional items are specific to Linux-PAM and should not be used in
      portable applications:
    </para>
 
-   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_item_types_ext.inc.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_item_types_ext.inc.xml"/>
 
     <para>
       If a service module wishes to obtain the name of the user,
@@ -80,7 +69,7 @@
 
   </refsect1>
 
-  <refsect1 id="pam_get_item-return_values">
+  <refsect1 xml:id="pam_get_item-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -128,7 +117,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_get_item-see_also">
+  <refsect1 xml:id="pam_get_item-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

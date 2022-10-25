@@ -7,7 +7,6 @@ CLEANFILES = Linux-PAM_SAG.fo *~
 EXTRA_DIST = $(XMLS)
 
 XMLS = Linux-PAM_SAG.xml $(shell ls $(srcdir)/pam_*.xml)
-
 DEP_XMLS = $(shell ls $(top_srcdir)/modules/pam_*/pam_*.xml)
 
 if ENABLE_REGENERATE_MAN
@@ -17,7 +16,7 @@ all: Linux-PAM_SAG.txt html/Linux-PAM_SAG.html Linux-PAM_SAG.pdf
 
 Linux-PAM_SAG.pdf: $(XMLS) $(DEP_XMLS)
 if ENABLE_GENERATE_PDF
-	$(XMLLINT) --nonet --xinclude --postvalid --noent --noout $<
+	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noent --noout $<
 	$(XSLTPROC) --stringparam generate.toc "book toc" \
 	  --stringparam section.autolabel 1 \
 	  --stringparam section.label.includes.component.label 1 \
@@ -29,7 +28,7 @@ else
 endif
 
 Linux-PAM_SAG.txt: $(XMLS) $(DEP_XMLS)
-	$(XMLLINT) --nonet --xinclude --postvalid --noent --noout $<
+	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noent --noout $<
 	$(XSLTPROC) --stringparam generate.toc "book toc" \
 	  --stringparam section.autolabel 1 \
 	  --stringparam section.label.includes.component.label 1 \
@@ -38,7 +37,7 @@ Linux-PAM_SAG.txt: $(XMLS) $(DEP_XMLS)
 
 html/Linux-PAM_SAG.html: $(XMLS) $(DEP_XMLS)
 	@test -d html || mkdir -p html
-	$(XMLLINT) --nonet --xinclude --postvalid --noent --noout $<
+	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noent --noout $<
 	$(XSLTPROC) --stringparam base.dir html/ \
 	  --stringparam root.filename Linux-PAM_SAG \
 	  --stringparam use.id.as.filename 1 \

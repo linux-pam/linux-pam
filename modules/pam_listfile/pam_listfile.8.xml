@@ -1,45 +1,42 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_listfile">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_listfile">
 
   <refmeta>
     <refentrytitle>pam_listfile</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_listfile-name">
+  <refnamediv xml:id="pam_listfile-name">
     <refname>pam_listfile</refname>
     <refpurpose>deny or allow services based on an arbitrary file</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_listfile-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_listfile-cmdsynopsis" sepchar=" ">
       <command>pam_listfile.so</command>
-      <arg choice="plain">
+      <arg choice="plain" rep="norepeat">
 	item=[tty|user|rhost|ruser|group|shell]
       </arg>
-      <arg choice="plain">
+      <arg choice="plain" rep="norepeat">
         sense=[allow|deny]
       </arg>
-      <arg choice="plain">
+      <arg choice="plain" rep="norepeat">
         file=<replaceable>/path/filename</replaceable>
       </arg>
-      <arg choice="plain">
+      <arg choice="plain" rep="norepeat">
         onerr=[succeed|fail]
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         apply=[<replaceable>user</replaceable>|<replaceable>@group</replaceable>]
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         quiet
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_listfile-description">
+  <refsect1 xml:id="pam_listfile-description">
 
     <title>DESCRIPTION</title>
 
@@ -93,7 +90,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_listfile-options">
+  <refsect1 xml:id="pam_listfile-options">
 
     <title>OPTIONS</title>
     <para>
@@ -101,7 +98,7 @@
 
         <varlistentry>
           <term>
-            <option>item=[tty|user|rhost|ruser|group|shell]</option>
+            item=[tty|user|rhost|ruser|group|shell]
           </term>
           <listitem>
             <para>
@@ -112,7 +109,7 @@
 
         <varlistentry>
           <term>
-            <option>sense=[allow|deny]</option>
+            sense=[allow|deny]
           </term>
           <listitem>
             <para>
@@ -124,7 +121,7 @@
 
         <varlistentry>
           <term>
-            <option>file=<replaceable>/path/filename</replaceable></option>
+            file=/path/filename
           </term>
           <listitem>
             <para>
@@ -136,7 +133,7 @@
 
         <varlistentry>
           <term>
-            <option>onerr=[succeed|fail]</option>
+            onerr=[succeed|fail]
           </term>
           <listitem>
             <para>
@@ -148,7 +145,7 @@
 
         <varlistentry>
           <term>
-            <option>apply=[<replaceable>user</replaceable>|<replaceable>@group</replaceable>]</option>
+            apply=[user|@group]
           </term>
           <listitem>
             <para>
@@ -161,7 +158,7 @@
 
         <varlistentry>
           <term>
-            <option>quiet</option>
+            quiet
           </term>
           <listitem>
             <para>
@@ -175,7 +172,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_listfile-types">
+  <refsect1 xml:id="pam_listfile-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       All module types (<option>auth</option>, <option>account</option>,
@@ -183,7 +180,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_listfile-return_values'>
+  <refsect1 xml:id="pam_listfile-return_values">
     <title>RETURN VALUES</title>
     <para>
       <variablelist>
@@ -235,7 +232,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_listfile-examples'>
+  <refsect1 xml:id="pam_listfile-examples">
     <title>EXAMPLES</title>
     <para>
       Classic 'ftpusers' authentication can be implemented with this entry
@@ -271,7 +268,7 @@ auth    required       pam_listfile.so \
     </para>
   </refsect1>
 
-  <refsect1 id='pam_listfile-see_also'>
+  <refsect1 xml:id="pam_listfile-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -286,7 +283,7 @@ auth    required       pam_listfile.so \
     </para>
   </refsect1>
 
-  <refsect1 id='pam_listfile-author'>
+  <refsect1 xml:id="pam_listfile-author">
     <title>AUTHOR</title>
       <para>
         pam_listfile was written by Michael K. Johnson &lt;johnsonm@redhat.com&gt;

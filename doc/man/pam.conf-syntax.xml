@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<section id='pam.conf-syntax'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam.conf-syntax">
   <para>
     The syntax of the <filename>/etc/pam.conf</filename>
     configuration file is as follows. The file is made up of a list
@@ -18,7 +14,7 @@
     </para>
 
     <para>
-      <emphasis remap='B'> service  type  control  module-path  module-arguments</emphasis>
+      <emphasis remap="B"> service  type  control  module-path  module-arguments</emphasis>
     </para>
 
     <para>
@@ -411,7 +407,7 @@
       should use `\]'. In other words:
     </para>
     <programlisting>
-    [..[..\]..]    -->   ..[..]..
+    [..[..\]..]    --&gt;   ..[..]..
     </programlisting>
 
     <para>

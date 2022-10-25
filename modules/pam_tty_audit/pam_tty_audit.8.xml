@@ -1,33 +1,30 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_tty_audit">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_tty_audit">
 
   <refmeta>
     <refentrytitle>pam_tty_audit</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_tty_audit-name">
+  <refnamediv xml:id="pam_tty_audit-name">
     <refname>pam_tty_audit</refname>
     <refpurpose>Enable or disable TTY auditing for specified users</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_tty_audit-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_tty_audit-cmdsynopsis" sepchar=" ">
       <command>pam_tty_audit.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	disable=<replaceable>patterns</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	enable=<replaceable>patterns</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_tty_audit-description">
+  <refsect1 xml:id="pam_tty_audit-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_tty_audit PAM module is used to enable or disable TTY auditing.
@@ -35,12 +32,12 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_tty_audit-options">
+  <refsect1 xml:id="pam_tty_audit-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>disable=<replaceable>patterns</replaceable></option>
+          disable=patterns
         </term>
         <listitem>
           <para>
@@ -53,7 +50,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>enable=<replaceable>patterns</replaceable></option>
+          enable=patterns
         </term>
         <listitem>
           <para>
@@ -66,7 +63,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>open_only</option>
+          open_only
         </term>
         <listitem>
           <para>
@@ -79,7 +76,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>log_passwd</option>
+          log_passwd
         </term>
         <listitem>
           <para>
@@ -93,14 +90,14 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_tty_audit-types">
+  <refsect1 xml:id="pam_tty_audit-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
-      Only the <emphasis remap='B'>session</emphasis> type is supported.
+      Only the <emphasis remap="B">session</emphasis> type is supported.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_tty_audit-return_values'>
+  <refsect1 xml:id="pam_tty_audit-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -125,7 +122,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_tty_audit-notes'>
+  <refsect1 xml:id="pam_tty_audit-notes">
     <title>NOTES</title>
     <para>
       When TTY auditing is enabled, it is inherited by all processes started by
@@ -158,7 +155,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_tty_audit-examples'>
+  <refsect1 xml:id="pam_tty_audit-examples">
     <title>EXAMPLES</title>
     <para>
       Audit all administrative actions.
@@ -168,7 +165,7 @@ session	required pam_tty_audit.so disable=* enable=root
     </para>
   </refsect1>
 
-  <refsect1 id='pam_tty_audit-see_also'>
+  <refsect1 xml:id="pam_tty_audit-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -186,10 +183,10 @@ session	required pam_tty_audit.so disable=* enable=root
     </para>
   </refsect1>
 
-  <refsect1 id='pam_tty_audit-author'>
+  <refsect1 xml:id="pam_tty_audit-author">
     <title>AUTHOR</title>
       <para>
-        pam_tty_audit was written by Miloslav Trma&ccaron;
+        pam_tty_audit was written by Miloslav Trmač
 	&lt;mitr@redhat.com&gt;.
         The log_passwd option was added by Richard Guy Briggs
         &lt;rgb@redhat.com&gt;.

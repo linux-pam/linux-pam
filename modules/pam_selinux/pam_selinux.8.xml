@@ -1,54 +1,51 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_selinux">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_selinux">
 
   <refmeta>
     <refentrytitle>pam_selinux</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_selinux-name">
+  <refnamediv xml:id="pam_selinux-name">
     <refname>pam_selinux</refname>
     <refpurpose>PAM module to set the default security context</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_selinux-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_selinux-cmdsynopsis" sepchar=" ">
       <command>pam_selinux.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	open
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	close
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	restore
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	nottys
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	verbose
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	select_context
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	env_params
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	use_current_range
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_selinux-description">
+  <refsect1 xml:id="pam_selinux-description">
     <title>DESCRIPTION</title>
     <para>
       pam_selinux is a PAM module that sets up the default SELinux security
@@ -79,12 +76,12 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_selinux-options">
+  <refsect1 xml:id="pam_selinux-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>open</option>
+          open
         </term>
         <listitem>
           <para>
@@ -94,7 +91,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>close</option>
+          close
         </term>
         <listitem>
           <para>
@@ -104,7 +101,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>restore</option>
+          restore
         </term>
         <listitem>
           <para>
@@ -117,7 +114,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>nottys</option>
+          nottys
         </term>
         <listitem>
           <para>
@@ -127,7 +124,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -140,7 +137,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>verbose</option>
+          verbose
         </term>
         <listitem>
           <para>
@@ -150,7 +147,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>select_context</option>
+          select_context
         </term>
         <listitem>
           <para>
@@ -161,7 +158,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>env_params</option>
+          env_params
         </term>
         <listitem>
           <para>
@@ -178,7 +175,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>use_current_range</option>
+          use_current_range
         </term>
         <listitem>
           <para>
@@ -191,14 +188,14 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_selinux-types">
+  <refsect1 xml:id="pam_selinux-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>session</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_selinux-return_values'>
+  <refsect1 xml:id="pam_selinux-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -236,7 +233,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_selinux-examples'>
+  <refsect1 xml:id="pam_selinux-examples">
     <title>EXAMPLES</title>
     <programlisting>
 auth     required  pam_unix.so
@@ -245,7 +242,7 @@ session  optional  pam_selinux.so
     </programlisting>
   </refsect1>
 
-  <refsect1 id='pam_selinux-see_also'>
+  <refsect1 xml:id="pam_selinux-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -266,7 +263,7 @@ session  optional  pam_selinux.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_selinux-author'>
+  <refsect1 xml:id="pam_selinux-author">
     <title>AUTHOR</title>
       <para>
         pam_selinux was written by Dan Walsh &lt;dwalsh@redhat.com&gt;.

@@ -1,41 +1,27 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-"http://www.docbook.org/xml/4.3/docbookx.dtd"
-[
-<!--
-<!ENTITY pamaccess SYSTEM "pam_securetty.8.xml">
--->
-]>
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
 
-<article>
-
-  <articleinfo>
+  <info>
 
     <title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_securetty.8.xml" xpointer='xpointer(//refnamediv[@id = "pam_securetty-name"]/*)'/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-name")/*)'/>
     </title>
 
-  </articleinfo>
+  </info>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_securetty.8.xml" xpointer='xpointer(//refsect1[@id = "pam_securetty-description"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-description")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_securetty.8.xml" xpointer='xpointer(//refsect1[@id = "pam_securetty-options"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-options")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_securetty.8.xml" xpointer='xpointer(//refsect1[@id = "pam_securetty-examples"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-examples")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_securetty.8.xml" xpointer='xpointer(//refsect1[@id = "pam_securetty-author"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_securetty.8.xml" xpointer='xpointer(id("pam_securetty-author")/*)'/>
   </section>
 
 </article>

@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_lastlog'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_lastlog">
   <title>pam_lastlog - display date of last login</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_lastlog-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(id("pam_lastlog-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_lastlog-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(//refsect1[@id = "pam_lastlog-description"]/*)'/>
+  <section xml:id="sag-pam_lastlog-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(id("pam_lastlog-description")/*)'/>
   </section>
-  <section id='sag-pam_lastlog-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(//refsect1[@id = "pam_lastlog-options"]/*)'/>
+  <section xml:id="sag-pam_lastlog-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(id("pam_lastlog-options")/*)'/>
   </section>
-  <section id='sag-pam_lastlog-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(//refsect1[@id = "pam_lastlog-types"]/*)'/>
+  <section xml:id="sag-pam_lastlog-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(id("pam_lastlog-types")/*)'/>
   </section>
-  <section id='sag-pam_lastlog-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(//refsect1[@id = "pam_lastlog-return_values"]/*)'/>
+  <section xml:id="sag-pam_lastlog-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(id("pam_lastlog-return_values")/*)'/>
   </section>
-  <section id='sag-pam_lastlog-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(//refsect1[@id = "pam_lastlog-examples"]/*)'/>
+  <section xml:id="sag-pam_lastlog-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(id("pam_lastlog-examples")/*)'/>
   </section>
-  <section id='sag-pam_lastlog-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(//refsect1[@id = "pam_lastlog-author"]/*)'/>
+  <section xml:id="sag-pam_lastlog-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_lastlog/pam_lastlog.8.xml" xpointer='xpointer(id("pam_lastlog-author")/*)'/>
   </section>
 </section>

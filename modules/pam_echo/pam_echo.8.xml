@@ -1,15 +1,12 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_echo'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_echo">
   <refmeta>
     <refentrytitle>pam_echo</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam_echo-name'>
+  <refnamediv xml:id="pam_echo-name">
     <refname>pam_echo</refname>
     <refpurpose>PAM module for printing text messages</refpurpose>
   </refnamediv>
@@ -17,15 +14,15 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_echo-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_echo-cmdsynopsis" sepchar=" ">
       <command>pam_echo.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         file=<replaceable>/path/message</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id='pam_echo-description'>
+  <refsect1 xml:id="pam_echo-description">
     <title>DESCRIPTION</title>
     <para>
       The <emphasis>pam_echo</emphasis> PAM module is for printing
@@ -35,37 +32,37 @@
     </para>
     <variablelist>
       <varlistentry>
-        <term><emphasis>%H</emphasis></term>
+        <term>%H</term>
         <listitem>
           <para>The name of the remote host (PAM_RHOST).</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis>%h</emphasis></term>
+        <term>%h</term>
         <listitem>
           <para>The name of the local host.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis>%s</emphasis></term>
+        <term>%s</term>
         <listitem>
           <para>The service name (PAM_SERVICE).</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis>%t</emphasis></term>
+        <term>%t</term>
         <listitem>
           <para>The name of the controlling terminal (PAM_TTY).</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis>%U</emphasis></term>
+        <term>%U</term>
         <listitem>
           <para>The remote user name (PAM_RUSER).</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><emphasis>%u</emphasis></term>
+        <term>%u</term>
         <listitem>
           <para>The local user name (PAM_USER).</para>
         </listitem>
@@ -79,12 +76,12 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_echo-options'>
+  <refsect1 xml:id="pam_echo-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>file=<replaceable>/path/message</replaceable></option>
+          file=/path/message
         </term>
         <listitem>
           <para>
@@ -96,7 +93,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_echo-types">
+  <refsect1 xml:id="pam_echo-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       All module types (<option>auth</option>, <option>account</option>,
@@ -106,7 +103,7 @@
   </refsect1>
 
 
-  <refsect1 id="pam_echo-return_values">
+  <refsect1 xml:id="pam_echo-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -137,7 +134,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_echo-examples'>
+  <refsect1 xml:id="pam_echo-examples">
     <title>EXAMPLES</title>
     <para>
       For an example of the use of this module, we show how it may be
@@ -150,7 +147,7 @@ password required pam_unix.so
   </refsect1>
 
 
-  <refsect1 id='pam_echo-see_also'><title>SEE ALSO</title>
+  <refsect1 xml:id="pam_echo-see_also"><title>SEE ALSO</title>
   <para>
     <citerefentry>
       <refentrytitle>pam.conf</refentrytitle><manvolnum>8</manvolnum>
@@ -163,7 +160,7 @@ password required pam_unix.so
     </citerefentry></para>
   </refsect1>
 
-  <refsect1 id='pam_echo-author'>
+  <refsect1 xml:id="pam_echo-author">
     <title>AUTHOR</title>
     <para>Thorsten Kukuk &lt;kukuk@thkukuk.de&gt;</para>
   </refsect1>

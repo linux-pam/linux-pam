@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_start'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_start">
 
   <refmeta>
     <refentrytitle>pam_start</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_start-name">
+  <refnamediv xml:id="pam_start-name">
     <refname>pam_start</refname>
     <refname>pam_start_confdir</refname>
     <refpurpose>initialization of PAM transaction</refpurpose>
@@ -19,7 +16,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id="pam_start-synopsis">
+    <funcsynopsis xml:id="pam_start-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_start</function></funcdef>
@@ -40,7 +37,7 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_start-description">
+  <refsect1 xml:id="pam_start-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_start</function> function creates the PAM context
@@ -108,7 +105,7 @@
     </para>
 
   </refsect1>
-  <refsect1 id="pam_start-return_values">
+  <refsect1 xml:id="pam_start-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -147,7 +144,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_start-see_also">
+  <refsect1 xml:id="pam_start-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

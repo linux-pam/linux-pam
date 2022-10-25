@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id='pam_conv'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_conv">
   <refmeta>
     <refentrytitle>pam_conv</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_conv-name">
+  <refnamediv xml:id="pam_conv-name">
     <refname>pam_conv</refname>
     <refpurpose>PAM conversation function</refpurpose>
   </refnamediv>
@@ -16,7 +14,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id="pam_conv-synopsis">
+    <funcsynopsis xml:id="pam_conv-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
     </funcsynopsis>
     <programlisting>
@@ -38,7 +36,7 @@ struct pam_conv {
     </programlisting>
   </refsynopsisdiv>
 
-  <refsect1 id='pam_conv-description'>
+  <refsect1 xml:id="pam_conv-description">
     <title>DESCRIPTION</title>
     <para>
       The PAM library uses an application-defined callback to allow
@@ -174,7 +172,7 @@ struct pam_conv {
     </itemizedlist>
   </refsect1>
 
-  <refsect1 id="pam_conv-return_values">
+  <refsect1 xml:id="pam_conv-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -205,7 +203,7 @@ struct pam_conv {
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_conv-see_also'>
+  <refsect1 xml:id="pam_conv-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

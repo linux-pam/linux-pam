@@ -1,33 +1,30 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-	"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-
-<refentry id="pam_faildelay">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_faildelay">
 
   <refmeta>
     <refentrytitle>pam_faildelay</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_faildelay-name">
+  <refnamediv xml:id="pam_faildelay-name">
     <refname>pam_faildelay</refname>
     <refpurpose>Change the delay on failure per-application</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_faildelay-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_faildelay-cmdsynopsis" sepchar=" ">
       <command>pam_faildelay.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         delay=<replaceable>microseconds</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_faildelay-description">
+  <refsect1 xml:id="pam_faildelay-description">
 
     <title>DESCRIPTION</title>
 
@@ -41,13 +38,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_faildelay-options">
+  <refsect1 xml:id="pam_faildelay-options">
 
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -57,7 +54,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>delay=<replaceable>N</replaceable></option>
+          delay=N
         </term>
         <listitem>
           <para>
@@ -68,14 +65,14 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_faildelay-types">
+  <refsect1 xml:id="pam_faildelay-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>auth</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_faildelay-return_values'>
+  <refsect1 xml:id="pam_faildelay-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -97,7 +94,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_faildelay-examples'>
+  <refsect1 xml:id="pam_faildelay-examples">
     <title>EXAMPLES</title>
     <para>
       The following example will set the delay on failure to
@@ -108,7 +105,7 @@ auth  optional  pam_faildelay.so  delay=10000000
     </para>
   </refsect1>
 
-  <refsect1 id='pam_faildelay-see_also'>
+  <refsect1 xml:id="pam_faildelay-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -126,7 +123,7 @@ auth  optional  pam_faildelay.so  delay=10000000
     </para>
   </refsect1>
 
-  <refsect1 id='pam_faildelay-author'>
+  <refsect1 xml:id="pam_faildelay-author">
     <title>AUTHOR</title>
       <para>
         pam_faildelay was written by Darren Tucker &lt;dtucker@zip.com.au&gt;.

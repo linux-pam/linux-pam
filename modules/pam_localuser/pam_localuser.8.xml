@@ -1,33 +1,30 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_localuser">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_localuser">
 
   <refmeta>
     <refentrytitle>pam_localuser</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_localuser-name">
+  <refnamediv xml:id="pam_localuser-name">
     <refname>pam_localuser</refname>
     <refpurpose>require users to be listed in /etc/passwd</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_localuser-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_localuser-cmdsynopsis" sepchar=" ">
       <command>pam_localuser.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         file=<replaceable>/path/passwd</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_localuser-description">
+  <refsect1 xml:id="pam_localuser-description">
 
     <title>DESCRIPTION</title>
 
@@ -47,7 +44,7 @@
 
   </refsect1>
 
-  <refsect1 id="pam_localuser-options">
+  <refsect1 xml:id="pam_localuser-options">
 
     <title>OPTIONS</title>
     <para>
@@ -55,7 +52,7 @@
 
         <varlistentry>
           <term>
-            <option>debug</option>
+            debug
           </term>
           <listitem>
             <para>
@@ -66,7 +63,7 @@
 
         <varlistentry>
           <term>
-            <option>file=<replaceable>/path/passwd</replaceable></option>
+            file=/path/passwd
           </term>
           <listitem>
             <para>
@@ -80,7 +77,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_localuser-types">
+  <refsect1 xml:id="pam_localuser-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       All module types (<option>account</option>, <option>auth</option>,
@@ -88,7 +85,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_localuser-return_values'>
+  <refsect1 xml:id="pam_localuser-return_values">
     <title>RETURN VALUES</title>
     <para>
       <variablelist>
@@ -153,7 +150,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_localuser-examples'>
+  <refsect1 xml:id="pam_localuser-examples">
     <title>EXAMPLES</title>
     <para>
       Add the following lines to <filename>/etc/pam.d/su</filename> to
@@ -165,11 +162,11 @@ account required pam_wheel.so
     </para>
   </refsect1>
 
-  <refsect1 id="pam_localuser-files">
+  <refsect1 xml:id="pam_localuser-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/etc/passwd</filename></term>
+        <term>/etc/passwd</term>
         <listitem>
           <para>Local user account information.</para>
         </listitem>
@@ -177,7 +174,7 @@ account required pam_wheel.so
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_localuser-see_also'>
+  <refsect1 xml:id="pam_localuser-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -192,7 +189,7 @@ account required pam_wheel.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_localuser-author'>
+  <refsect1 xml:id="pam_localuser-author">
     <title>AUTHOR</title>
       <para>
         pam_localuser was written by Nalin Dahyabhai &lt;nalin@redhat.com&gt;.

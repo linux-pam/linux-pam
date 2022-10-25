@@ -1,27 +1,24 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_rhosts">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_rhosts">
 
   <refmeta>
     <refentrytitle>pam_rhosts</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_rhosts-name">
+  <refnamediv xml:id="pam_rhosts-name">
     <refname>pam_rhosts</refname>
     <refpurpose>The rhosts PAM module</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_rhosts-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_rhosts-cmdsynopsis" sepchar=" ">
       <command>pam_rhosts.so</command>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_rhosts-description">
+  <refsect1 xml:id="pam_rhosts-description">
 
     <title>DESCRIPTION</title>
 
@@ -53,12 +50,12 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_rhosts-options">
+  <refsect1 xml:id="pam_rhosts-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -68,7 +65,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>silent</option>
+          silent
         </term>
         <listitem>
           <para>
@@ -78,7 +75,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>superuser=<replaceable>account</replaceable></option>
+          superuser=account
         </term>
         <listitem>
           <para>
@@ -89,14 +86,14 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_rhosts-types">
+  <refsect1 xml:id="pam_rhosts-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>auth</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_rhosts-return_values'>
+  <refsect1 xml:id="pam_rhosts-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -120,7 +117,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_rhosts-examples'>
+  <refsect1 xml:id="pam_rhosts-examples">
     <title>EXAMPLES</title>
     <para>
       To grant a remote user access by <filename>/etc/hosts.equiv</filename>
@@ -137,7 +134,7 @@ auth     required       pam_unix.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_rhosts-see_also'>
+  <refsect1 xml:id="pam_rhosts-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -161,7 +158,7 @@ auth     required       pam_unix.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_rhosts-author'>
+  <refsect1 xml:id="pam_rhosts-author">
     <title>AUTHOR</title>
       <para>
         pam_rhosts was written by Thorsten Kukuk &lt;kukuk@thkukuk.de&gt;

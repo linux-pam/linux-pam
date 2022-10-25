@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_time'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_time">
 
   <refmeta>
     <refentrytitle>pam_time</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam_time-name'>
+  <refnamediv xml:id="pam_time-name">
     <refname>pam_time</refname>
     <refpurpose>
       PAM module for time control access
@@ -20,22 +17,22 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_time-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_time-cmdsynopsis" sepchar=" ">
       <command>pam_time.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	conffile=conf-file
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         noaudit
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_time-description">
+  <refsect1 xml:id="pam_time-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_time PAM module does not authenticate the user, but instead
@@ -62,13 +59,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_time-options">
+  <refsect1 xml:id="pam_time-options">
     <title>OPTIONS</title>
     <variablelist>
 
      <varlistentry>
 	<term>
-	  <option>conffile=/path/to/time.conf</option>
+	  conffile=/path/to/time.conf
         </term>
         <listitem>
 	  <para>
@@ -79,7 +76,7 @@
 
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -91,7 +88,7 @@
 
       <varlistentry>
         <term>
-          <option>noaudit</option>
+          noaudit
         </term>
         <listitem>
           <para>
@@ -103,14 +100,14 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_time-types">
+  <refsect1 xml:id="pam_time-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>account</option> type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_time-return_values">
+  <refsect1 xml:id="pam_time-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -156,11 +153,11 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_time-files">
+  <refsect1 xml:id="pam_time-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/etc/security/time.conf</filename></term>
+        <term>/etc/security/time.conf</term>
         <listitem>
           <para>Default configuration file</para>
         </listitem>
@@ -168,7 +165,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_time-examples'>
+  <refsect1 xml:id="pam_time-examples">
     <title>EXAMPLES</title>
       <programlisting>
 #%PAM-1.0
@@ -179,7 +176,7 @@ login  account  required  pam_time.so
       </programlisting>
   </refsect1>
 
-  <refsect1 id="pam_time-see_also">
+  <refsect1 xml:id="pam_time-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -194,7 +191,7 @@ login  account  required  pam_time.so
     </para>
   </refsect1>
 
-  <refsect1 id="pam_time-authors">
+  <refsect1 xml:id="pam_time-authors">
     <title>AUTHOR</title>
     <para>
       pam_time was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.

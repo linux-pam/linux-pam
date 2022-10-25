@@ -1,42 +1,30 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_time'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_time">
   <title>pam_time - time controlled access</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_time-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(id("pam_time-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_time-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(//refsect1[@id = "pam_time-description"]/*)'/>
+  <section xml:id="sag-pam_time-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(id("pam_time-description")/*)'/>
   </section>
-  <section id='sag-time.conf-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_time/time.conf.5.xml" xpointer='xpointer(//refsect1[@id = "time.conf-description"]/*)'/>
+  <section xml:id="sag-time.conf-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_time/time.conf.5.xml" xpointer='xpointer(id("time.conf-description")/*)'/>
   </section>
-  <section id='sag-pam_time-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(//refsect1[@id = "pam_time-options"]/*)'/>
+  <section xml:id="sag-pam_time-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(id("pam_time-options")/*)'/>
   </section>
-  <section id='sag-pam_time-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(//refsect1[@id = "pam_time-types"]/*)'/>
+  <section xml:id="sag-pam_time-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(id("pam_time-types")/*)'/>
   </section>
-  <section id='sag-pam_time-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(//refsect1[@id = "pam_time-return_values"]/*)'/>
+  <section xml:id="sag-pam_time-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(id("pam_time-return_values")/*)'/>
   </section>
-  <section id='sag-pam_time-files'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(//refsect1[@id = "pam_time-files"]/*)'/>
+  <section xml:id="sag-pam_time-files">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(id("pam_time-files")/*)'/>
   </section>
-  <section id='sag-time.conf-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_time/time.conf.5.xml" xpointer='xpointer(//refsect1[@id = "time.conf-examples"]/*)'/>
+  <section xml:id="sag-time.conf-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_time/time.conf.5.xml" xpointer='xpointer(id("time.conf-examples")/*)'/>
   </section>
-  <section id='sag-pam_time-authors'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(//refsect1[@id = "pam_time-authors"]/*)'/>
+  <section xml:id="sag-pam_time-authors">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_time/pam_time.8.xml" xpointer='xpointer(id("pam_time-authors")/*)'/>
   </section>
 </section>

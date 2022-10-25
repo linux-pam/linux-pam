@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_mkhomedir'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_mkhomedir">
 
   <refmeta>
     <refentrytitle>pam_mkhomedir</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam_mkhomedir-name'>
+  <refnamediv xml:id="pam_mkhomedir-name">
     <refname>pam_mkhomedir</refname>
     <refpurpose>
       PAM module to create users home directory
@@ -20,25 +17,25 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_mkhomedir-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_mkhomedir-cmdsynopsis" sepchar=" ">
       <command>pam_mkhomedir.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         silent
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         umask=<replaceable>mode</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         skel=<replaceable>skeldir</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_mkhomedir-description">
+  <refsect1 xml:id="pam_mkhomedir-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_mkhomedir PAM module will create a users home directory
@@ -55,13 +52,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_mkhomedir-options">
+  <refsect1 xml:id="pam_mkhomedir-options">
     <title>OPTIONS</title>
     <variablelist>
 
       <varlistentry>
         <term>
-          <option>silent</option>
+          silent
         </term>
         <listitem>
           <para>
@@ -72,7 +69,7 @@
 
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -86,7 +83,7 @@
 
       <varlistentry>
         <term>
-          <option>umask=<replaceable>mask</replaceable></option>
+          umask=mask
         </term>
         <listitem>
           <para>
@@ -106,7 +103,7 @@
 
       <varlistentry>
         <term>
-          <option>skel=<replaceable>/path/to/skel/directory</replaceable></option>
+          skel=/path/to/skel/directory
         </term>
         <listitem>
           <para>
@@ -119,14 +116,14 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_mkhomedir-types">
+  <refsect1 xml:id="pam_mkhomedir-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>session</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_mkhomedir-return_values">
+  <refsect1 xml:id="pam_mkhomedir-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -165,11 +162,11 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_mkhomedir-files">
+  <refsect1 xml:id="pam_mkhomedir-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/etc/skel</filename></term>
+        <term>/etc/skel</term>
         <listitem>
           <para>Default skel directory</para>
         </listitem>
@@ -177,7 +174,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_mkhomedir-examples'>
+  <refsect1 xml:id="pam_mkhomedir-examples">
     <title>EXAMPLES</title>
     <para>
       A sample /etc/pam.d/login file:
@@ -198,7 +195,7 @@
   </refsect1>
 
 
-  <refsect1 id="pam_mkhomedir-see_also">
+  <refsect1 xml:id="pam_mkhomedir-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -210,7 +207,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_mkhomedir-author">
+  <refsect1 xml:id="pam_mkhomedir-author">
     <title>AUTHOR</title>
     <para>
       pam_mkhomedir was written by Jason Gunthorpe &lt;jgg@debian.org&gt;.

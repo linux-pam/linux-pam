@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id="pam_syslog">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_syslog">
 
   <refmeta>
     <refentrytitle>pam_syslog</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_syslog-name">
+  <refnamediv xml:id="pam_syslog-name">
     <refname>pam_syslog</refname>
     <refname>pam_vsyslog</refname>
     <refpurpose>send messages to the system logger</refpurpose>
@@ -18,7 +15,7 @@
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id="pam_syslog-synopsis">
+  <refsynopsisdiv xml:id="pam_syslog-synopsis">
     <funcsynopsis>
       <funcsynopsisinfo>#include &lt;syslog.h&gt;</funcsynopsisinfo>
       <funcsynopsisinfo>#include &lt;security/pam_ext.h&gt;</funcsynopsisinfo>
@@ -39,7 +36,7 @@
     </funcsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id='pam_syslog-description'>
+  <refsect1 xml:id="pam_syslog-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_syslog</function> function logs messages using
@@ -62,7 +59,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_syslog-see_also'>
+  <refsect1 xml:id="pam_syslog-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -71,7 +68,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_syslog-standards'>
+  <refsect1 xml:id="pam_syslog-standards">
     <title>STANDARDS</title>
     <para>
       The <function>pam_syslog</function> and <function>pam_vsyslog</function>

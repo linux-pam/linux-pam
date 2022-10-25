@@ -1,44 +1,27 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-"http://www.docbook.org/xml/4.3/docbookx.dtd"
-[
-<!--
-<!ENTITY pamns SYSTEM "pam_namespace.8.xml">
--->
-<!--
-<!ENTITY nsconf SYSTEM "namespace.conf.5.xml">
--->
-]>
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
 
-<article>
-
-  <articleinfo>
+  <info>
 
     <title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_namespace.8.xml" xpointer='xpointer(//refnamediv[@id = "pam_namespace-name"]/*)'/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_namespace.8.xml" xpointer='xpointer(id("pam_namespace-name")/*)'/>
     </title>
 
-  </articleinfo>
+  </info>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_namespace.8.xml" xpointer='xpointer(//refsect1[@id = "pam_namespace-description"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_namespace.8.xml" xpointer='xpointer(id("pam_namespace-description")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_namespace.8.xml" xpointer='xpointer(//refsect1[@id = "pam_namespace-options"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_namespace.8.xml" xpointer='xpointer(id("pam_namespace-options")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="namespace.conf.5.xml" xpointer='xpointer(//refsect1[@id = "namespace.conf-description"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="namespace.conf.5.xml" xpointer='xpointer(id("namespace.conf-description")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="namespace.conf.5.xml" xpointer='xpointer(//refsect1[@id = "namespace.conf-examples"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="namespace.conf.5.xml" xpointer='xpointer(id("namespace.conf-examples")/*)'/>
   </section>
 
 </article>

@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_send'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_send">
 
   <refmeta>
     <refentrytitle>pam_open_session</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_open_session-name">
+  <refnamediv xml:id="pam_open_session-name">
     <refname>pam_open_session</refname>
     <refpurpose>start PAM session management</refpurpose>
   </refnamediv>
@@ -18,7 +15,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id="pam_open_session-synopsis">
+    <funcsynopsis xml:id="pam_open_session-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_open_session</function></funcdef>
@@ -29,7 +26,7 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_open_session-description">
+  <refsect1 xml:id="pam_open_session-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_open_session</function> function sets up a
@@ -63,7 +60,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_open_session-return_values">
+  <refsect1 xml:id="pam_open_session-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -101,7 +98,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_open_session-see_also">
+  <refsect1 xml:id="pam_open_session-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

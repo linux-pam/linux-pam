@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id="pam_misc_paste_env">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_misc_paste_env">
 
   <refmeta>
     <refentrytitle>pam_misc_paste_env</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_misc_paste_env-name">
+  <refnamediv xml:id="pam_misc_paste_env-name">
     <refname>pam_misc_paste_env</refname>
     <refpurpose>transcribing an environment to that of PAM</refpurpose>
   </refnamediv>
@@ -18,7 +15,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id="pam_misc_paste_env-synopsis">
+    <funcsynopsis xml:id="pam_misc_paste_env-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_misc.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_misc_paste_env</function></funcdef>
@@ -28,7 +25,7 @@
     </funcsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id='pam_misc_paste_env-description'>
+  <refsect1 xml:id="pam_misc_paste_env-description">
     <title>DESCRIPTION</title>
     <para>
       This function takes the supplied list of environment pointers and
@@ -37,7 +34,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_misc_paste_env-see_also'>
+  <refsect1 xml:id="pam_misc_paste_env-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -49,7 +46,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_misc_paste_env-standards'>
+  <refsect1 xml:id="pam_misc_paste_env-standards">
     <title>STANDARDS</title>
     <para>
       The <function>pam_misc_paste_env</function> function is part of the

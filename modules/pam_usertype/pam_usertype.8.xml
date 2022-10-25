@@ -1,31 +1,27 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-        "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-
-<refentry id='pam_usertype'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_usertype">
   <refmeta>
     <refentrytitle>pam_usertype</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class='sectdesc'>Linux-PAM</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam_usertype-name'>
+  <refnamediv xml:id="pam_usertype-name">
     <refname>pam_usertype</refname>
     <refpurpose>check if the authenticated user is a system or regular account</refpurpose>
   </refnamediv>
 
 
   <refsynopsisdiv>
-    <cmdsynopsis id='pam_usertype-cmdsynopsis'>
+    <cmdsynopsis xml:id="pam_usertype-cmdsynopsis" sepchar=" ">
       <command>pam_usertype.so</command>
-      <arg choice='opt' rep='repeat'><replaceable>flag</replaceable></arg>
-      <arg choice='req'><replaceable>condition</replaceable></arg>
+      <arg choice="opt" rep="repeat"><replaceable>flag</replaceable></arg>
+      <arg choice="req" rep="norepeat"><replaceable>condition</replaceable></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
 
-  <refsect1 id='pam_usertype-description'>
+  <refsect1 xml:id="pam_usertype-description">
     <title>DESCRIPTION</title>
     <para>
       pam_usertype.so is designed to succeed or fail authentication
@@ -42,7 +38,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_usertype-options">
+  <refsect1 xml:id="pam_usertype-options">
     <title>OPTIONS</title>
     <para>
       The following <emphasis>flag</emphasis>s are supported:
@@ -50,7 +46,7 @@
 
     <variablelist>
       <varlistentry>
-        <term><option>use_uid</option></term>
+        <term>use_uid</term>
         <listitem>
           <para>
             Evaluate conditions using the account of the user whose UID
@@ -60,7 +56,7 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><option>audit</option></term>
+        <term>audit</term>
         <listitem>
           <para>
             Log unknown users to the system log.
@@ -75,13 +71,13 @@
 
     <variablelist>
       <varlistentry>
-        <term><option>issystem</option></term>
+        <term>issystem</term>
         <listitem>
           <para>Succeed if the user is a system user.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><option>isregular</option></term>
+        <term>isregular</term>
         <listitem>
           <para>Succeed if the user is a regular user.</para>
         </listitem>
@@ -89,7 +85,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_usertype-types">
+  <refsect1 xml:id="pam_usertype-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       All module types (<option>account</option>, <option>auth</option>,
@@ -97,7 +93,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_usertype-return_values'>
+  <refsect1 xml:id="pam_usertype-return_values">
     <title>RETURN VALUES</title>
      <variablelist>
 
@@ -170,7 +166,7 @@
   </refsect1>
 
 
-  <refsect1 id='pam_usertype-examples'>
+  <refsect1 xml:id="pam_usertype-examples">
     <title>EXAMPLES</title>
     <para>
       Skip remaining modules if the user is a system user:
@@ -180,7 +176,7 @@ account sufficient pam_usertype.so issystem
     </programlisting>
   </refsect1>
 
-  <refsect1 id='pam_usertype-see_also'>
+  <refsect1 xml:id="pam_usertype-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -192,7 +188,7 @@ account sufficient pam_usertype.so issystem
     </para>
   </refsect1>
 
-  <refsect1 id='pam_usertype-author'>
+  <refsect1 xml:id="pam_usertype-author">
     <title>AUTHOR</title>
     <para>Pavel Březina &lt;pbrezina@redhat.com&gt;</para>
   </refsect1>

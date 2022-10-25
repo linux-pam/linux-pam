@@ -1,30 +1,27 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_unix">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_unix">
 
   <refmeta>
     <refentrytitle>pam_unix</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_unix-name">
+  <refnamediv xml:id="pam_unix-name">
     <refname>pam_unix</refname>
     <refpurpose>Module for traditional password authentication</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_unix-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_unix-cmdsynopsis" sepchar=" ">
       <command>pam_unix.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         ...
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_unix-description">
+  <refsect1 xml:id="pam_unix-description">
 
     <title>DESCRIPTION</title>
 
@@ -42,7 +39,7 @@
       <emphasis>shadow</emphasis> elements: expire, last_change, max_change,
       min_change, warn_change. In the case of the latter, it may offer advice
       to the user on changing their password or, through the
-      <emphasis remap='B'>PAM_AUTHTOKEN_REQD</emphasis> return, delay
+      <emphasis remap="B">PAM_AUTHTOKEN_REQD</emphasis> return, delay
       giving service to the user until they have established a new password.
       The entries listed above are documented in the <citerefentry>
       <refentrytitle>shadow</refentrytitle><manvolnum>5</manvolnum>
@@ -89,7 +86,7 @@
     <para>
       The password component of this module performs the task of updating
       the user's password. The default encryption hash is taken from the
-      <emphasis remap='B'>ENCRYPT_METHOD</emphasis> variable from
+      <emphasis remap="B">ENCRYPT_METHOD</emphasis> variable from
       <emphasis>/etc/login.defs</emphasis>
     </para>
 
@@ -107,13 +104,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_unix-options">
+  <refsect1 xml:id="pam_unix-options">
 
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -127,7 +124,7 @@
 
       <varlistentry>
         <term>
-          <option>audit</option>
+          audit
         </term>
         <listitem>
           <para>
@@ -138,7 +135,7 @@
 
       <varlistentry>
         <term>
-          <option>quiet</option>
+          quiet
         </term>
         <listitem>
           <para>
@@ -153,7 +150,7 @@
 
       <varlistentry>
         <term>
-          <option>nullok</option>
+          nullok
         </term>
         <listitem>
           <para>
@@ -165,7 +162,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>nullresetok</option>
+          nullresetok
         </term>
         <listitem>
           <para>
@@ -178,7 +175,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>try_first_pass</option>
+          try_first_pass
         </term>
         <listitem>
           <para>
@@ -190,7 +187,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>use_first_pass</option>
+          use_first_pass
         </term>
         <listitem>
           <para>
@@ -203,7 +200,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>nodelay</option>
+          nodelay
         </term>
         <listitem>
           <para>
@@ -216,7 +213,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>use_authtok</option>
+          use_authtok
         </term>
         <listitem>
           <para>
@@ -230,7 +227,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>authtok_type=<replaceable>type</replaceable></option>
+          authtok_type=type
         </term>
         <listitem>
           <para>
@@ -242,7 +239,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>nis</option>
+          nis
         </term>
         <listitem>
           <para>
@@ -252,7 +249,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>remember=<replaceable>n</replaceable></option>
+          remember=n
         </term>
         <listitem>
           <para>
@@ -269,7 +266,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>shadow</option>
+          shadow
         </term>
         <listitem>
           <para>
@@ -279,7 +276,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>md5</option>
+          md5
         </term>
         <listitem>
           <para>
@@ -290,7 +287,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>bigcrypt</option>
+          bigcrypt
         </term>
         <listitem>
           <para>
@@ -301,7 +298,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>sha256</option>
+          sha256
         </term>
         <listitem>
           <para>
@@ -315,7 +312,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>sha512</option>
+          sha512
         </term>
         <listitem>
           <para>
@@ -329,7 +326,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>blowfish</option>
+          blowfish
         </term>
         <listitem>
           <para>
@@ -343,7 +340,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>gost_yescrypt</option>
+          gost_yescrypt
         </term>
         <listitem>
           <para>
@@ -357,7 +354,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>yescrypt</option>
+          yescrypt
         </term>
         <listitem>
           <para>
@@ -371,7 +368,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>rounds=<replaceable>n</replaceable></option>
+          rounds=n
         </term>
         <listitem>
           <para>
@@ -384,7 +381,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>broken_shadow</option>
+          broken_shadow
         </term>
         <listitem>
           <para>
@@ -395,7 +392,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>minlen=<replaceable>n</replaceable></option>
+          minlen=n
         </term>
         <listitem>
           <para>
@@ -407,7 +404,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>no_pass_expiry</option>
+          no_pass_expiry
         </term>
         <listitem>
           <para>
@@ -418,9 +415,9 @@
             meaning that other authentication source or method succeeded.
             The example can be public key authentication in
             <emphasis>sshd</emphasis>. The module will return
-            <emphasis remap='B'>PAM_SUCCESS</emphasis> instead of eventual
-            <emphasis remap='B'>PAM_NEW_AUTHTOK_REQD</emphasis> or
-            <emphasis remap='B'>PAM_AUTHTOK_EXPIRED</emphasis>.
+            <emphasis remap="B">PAM_SUCCESS</emphasis> instead of eventual
+            <emphasis remap="B">PAM_NEW_AUTHTOK_REQD</emphasis> or
+            <emphasis remap="B">PAM_AUTHTOK_EXPIRED</emphasis>.
           </para>
         </listitem>
       </varlistentry>
@@ -432,7 +429,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_unix-types">
+  <refsect1 xml:id="pam_unix-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       All module types (<option>account</option>, <option>auth</option>,
@@ -440,7 +437,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_unix-return_values'>
+  <refsect1 xml:id="pam_unix-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -454,7 +451,7 @@
     </variablelist>
      </refsect1>
 
-  <refsect1 id='pam_unix-examples'>
+  <refsect1 xml:id="pam_unix-examples">
     <title>EXAMPLES</title>
     <para>
       An example usage for <filename>/etc/pam.d/login</filename>
@@ -473,7 +470,7 @@ session    required   pam_unix.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_unix-see_also'>
+  <refsect1 xml:id="pam_unix-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -491,7 +488,7 @@ session    required   pam_unix.so
     </para>
   </refsect1>
 
-  <refsect1 id='pam_unix-author'>
+  <refsect1 xml:id="pam_unix-author">
     <title>AUTHOR</title>
       <para>
         pam_unix was written by various people.

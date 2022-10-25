@@ -1,27 +1,24 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_namespace_helper">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_namespace_helper">
 
   <refmeta>
     <refentrytitle>pam_namespace_helper</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_namespace_helper-name">
+  <refnamediv xml:id="pam_namespace_helper-name">
     <refname>pam_namespace_helper</refname>
     <refpurpose>Helper binary that creates home directories</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_namespace_helper-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_namespace_helper-cmdsynopsis" sepchar=" ">
       <command>pam_namespace_helper</command>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_namespace_helper-description">
+  <refsect1 xml:id="pam_namespace_helper-description">
 
     <title>DESCRIPTION</title>
 
@@ -43,7 +40,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_namespace_helper-see_also'>
+  <refsect1 xml:id="pam_namespace_helper-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -52,7 +49,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_namespace_helper-author'>
+  <refsect1 xml:id="pam_namespace_helper-author">
     <title>AUTHOR</title>
       <para>
         Written by Topi Miettinen.

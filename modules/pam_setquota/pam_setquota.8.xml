@@ -1,53 +1,51 @@
-﻿<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_setquota">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_setquota">
 
   <refmeta>
     <refentrytitle>pam_setquota</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_setquota-name">
+  <refnamediv xml:id="pam_setquota-name">
     <refname>pam_setquota</refname>
     <refpurpose>PAM module to set or modify disk quotas on session start</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_setquota-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_setquota-cmdsynopsis" sepchar=" ">
       <command>pam_setquota.so</command>
-       <arg choice="opt">
+       <arg choice="opt" rep="norepeat">
         fs=<replaceable>/home</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         overwrite=<replaceable>0</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         debug=<replaceable>0</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         startuid=<replaceable>1000</replaceable>
       </arg>
-       <arg choice="opt">
+       <arg choice="opt" rep="norepeat">
         enduid=<replaceable>0</replaceable>
       </arg>
-       <arg choice="opt">
+       <arg choice="opt" rep="norepeat">
         bsoftlimit=<replaceable>19000</replaceable>
       </arg>
-       <arg choice="opt">
+       <arg choice="opt" rep="norepeat">
         bhardlimit=<replaceable>20000</replaceable>
       </arg>
-       <arg choice="opt">
+       <arg choice="opt" rep="norepeat">
         isoftlimit=<replaceable>3000</replaceable>
       </arg>
-       <arg choice="opt">
+       <arg choice="opt" rep="norepeat">
         ihardlimit=<replaceable>4000</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_setquota-description">
+  <refsect1 xml:id="pam_setquota-description">
 
     <title>DESCRIPTION</title>
 
@@ -60,14 +58,14 @@
 
   </refsect1>
 
-  <refsect1 id="pam_setquota-options">
+  <refsect1 xml:id="pam_setquota-options">
 
     <title>OPTIONS</title>
     <para>
       <variablelist>
         <varlistentry>
           <term>
-            <option>fs=<replaceable>/home</replaceable></option>
+            fs=/home
           </term>
           <listitem>
             <para>
@@ -78,7 +76,7 @@
         </varlistentry>
         <varlistentry>
           <term>
-            <option>overwrite=<replaceable>0</replaceable></option>
+            overwrite=0
           </term>
           <listitem>
             <para>
@@ -91,7 +89,7 @@
         </varlistentry>
         <varlistentry>
           <term>
-            <option>debug=<replaceable>0</replaceable></option>
+            debug=0
           </term>
           <listitem>
             <para>
@@ -103,7 +101,7 @@
         </varlistentry>
         <varlistentry>
           <term>
-            <option>startuid=<replaceable>1000</replaceable></option>
+            startuid=1000
           </term>
           <listitem>
             <para>
@@ -115,7 +113,7 @@
         </varlistentry>
         <varlistentry>
           <term>
-            <option>enduid=<replaceable>0</replaceable></option>
+            enduid=0
           </term>
           <listitem>
             <para>
@@ -128,7 +126,7 @@
         </varlistentry>
         <varlistentry>
           <term>
-            <option>bsoftlimit=<replaceable>19000</replaceable></option>
+            bsoftlimit=19000
           </term>
           <listitem>
             <para>
@@ -142,7 +140,7 @@
         </varlistentry>
         <varlistentry>
           <term>
-            <option>bhardlimit=<replaceable>20000</replaceable></option>
+            bhardlimit=20000
           </term>
           <listitem>
             <para>
@@ -156,7 +154,7 @@
         </varlistentry>
         <varlistentry>
           <term>
-            <option>isoftlimit=<replaceable>3000</replaceable></option>
+            isoftlimit=3000
           </term>
           <listitem>
             <para>
@@ -169,7 +167,7 @@
         </varlistentry>
         <varlistentry>
           <term>
-            <option>ihardlimit=<replaceable>4000</replaceable></option>
+            ihardlimit=4000
           </term>
           <listitem>
             <para>
@@ -184,14 +182,14 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_setquota-types">
+  <refsect1 xml:id="pam_setquota-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
        Only the <option>session</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id='pam_setquota-return_values'>
+  <refsect1 xml:id="pam_setquota-return_values">
     <title>RETURN VALUES</title>
     <para>
       <variablelist>
@@ -255,7 +253,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_setquota-examples'>
+  <refsect1 xml:id="pam_setquota-examples">
     <title>EXAMPLES</title>
     <para>
     A single invocation of `pam_setquota` applies a specific policy to a UID
@@ -270,7 +268,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_setquota-see_also'>
+  <refsect1 xml:id="pam_setquota-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -285,7 +283,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_setquota-author'>
+  <refsect1 xml:id="pam_setquota-author">
     <title>AUTHOR</title>
       <para>
        pam_setquota was originally written by

@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_warn'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_warn">
   <title>pam_warn - logs all PAM items</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_warn-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(id("pam_warn-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_warn-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(//refsect1[@id = "pam_warn-description"]/*)'/>
+  <section xml:id="sag-pam_warn-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(id("pam_warn-description")/*)'/>
   </section>
-  <section id='sag-pam_warn-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(//refsect1[@id = "pam_warn-options"]/*)'/>
+  <section xml:id="sag-pam_warn-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(id("pam_warn-options")/*)'/>
   </section>
-  <section id='sag-pam_warn-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(//refsect1[@id = "pam_warn-types"]/*)'/>
+  <section xml:id="sag-pam_warn-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(id("pam_warn-types")/*)'/>
   </section>
-  <section id='sag-pam_warn-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(//refsect1[@id = "pam_warn-return_values"]/*)'/>
+  <section xml:id="sag-pam_warn-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(id("pam_warn-return_values")/*)'/>
   </section>
-  <section id='sag-pam_warn-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(//refsect1[@id = "pam_warn-examples"]/*)'/>
+  <section xml:id="sag-pam_warn-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(id("pam_warn-examples")/*)'/>
   </section>
-  <section id='sag-pam_warn-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(//refsect1[@id = "pam_warn-author"]/*)'/>
+  <section xml:id="sag-pam_warn-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_warn/pam_warn.8.xml" xpointer='xpointer(id("pam_warn-author")/*)'/>
   </section>
 </section>

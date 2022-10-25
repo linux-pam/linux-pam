@@ -243,26 +243,35 @@ if test x"$enable_debug" = x"yes" ; then
 		[lots of stuff gets written to /var/run/pam-debug.log])
 fi
 
+AC_ARG_ENABLE(docbook_rng,
+	AS_HELP_STRING([--enable-docbook-rng=FILE],[RNG file for checking XML files @<:@default=http://docbook.org/xml/5.0/rng/docbookxi.rng@:>@]),
+	DOCBOOK_RNG=$enableval, DOCBOOK_RNG=http://docbook.org/xml/5.0/rng/docbookxi.rng)
+AC_SUBST(DOCBOOK_RNG)
+
 AC_ARG_ENABLE(html_stylesheet,
-	AS_HELP_STRING([--enable-html-stylesheet=FILE],[html stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl@:>@]),
-	HTML_STYLESHEET=$enableval, HTML_STYLESHEET=http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl)
+	AS_HELP_STRING([--enable-html-stylesheet=FILE],[html stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl-ns/current/html/chunk.xsl@:>@]),
+	HTML_STYLESHEET=$enableval, HTML_STYLESHEET=http://docbook.sourceforge.net/release/xsl-ns/current/html/chunk.xsl)
 AC_SUBST(HTML_STYLESHEET)
 
 AC_ARG_ENABLE(txt_stylesheet,
-	AS_HELP_STRING([--enable-txt-stylesheet=FILE],[text stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl@:>@]),
-	TXT_STYLESHEET=$enableval, TXT_STYLESHEET=http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl)
+	AS_HELP_STRING([--enable-txt-stylesheet=FILE],[text stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl-ns/current/html/docbook.xsl@:>@]),
+	TXT_STYLESHEET=$enableval, TXT_STYLESHEET=http://docbook.sourceforge.net/release/xsl-ns/current/html/docbook.xsl)
+
+
 AC_SUBST(TXT_STYLESHEET)
 # It has to be TXT_STYLESHEET otherwise a html tree will be generated while generating all README files.
 sed "s+HTML_STYLESHEET+$TXT_STYLESHEET+g" <doc/custom-html.xsl.in >doc/custom-html.xsl
 
 AC_ARG_ENABLE(pdf_stylesheet,
-	AS_HELP_STRING([--enable-pdf-stylesheet=FILE],[pdf stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl/current/fo/docbook.xsl@:>@]),
-	PDF_STYLESHEET=$enableval, PDF_STYLESHEET=http://docbook.sourceforge.net/release/xsl/current/fo/docbook.xsl)
+	AS_HELP_STRING([--enable-pdf-stylesheet=FILE],[pdf stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl-ns/current/fo/docbook.xsl@:>@]),
+	PDF_STYLESHEET=$enableval, PDF_STYLESHEET=http://docbook.sourceforge.net/release/xsl-ns/current/fo/docbook.xsl)
 AC_SUBST(PDF_STYLESHEET)
 
 AC_ARG_ENABLE(man_stylesheet,
-	AS_HELP_STRING([--enable-man-stylesheet=FILE],[man stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl/current/manpages/profile-docbook.xsl@:>@]),
-	MAN_STYLESHEET=$enableval, MAN_STYLESHEET=http://docbook.sourceforge.net/release/xsl/current/manpages/profile-docbook.xsl)
+	AS_HELP_STRING([--enable-man-stylesheet=FILE],[man stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl-ns/current/manpages/profile-docbook.xsl@:>@]),
+	MAN_STYLESHEET=$enableval, MAN_STYLESHEET=http://docbook.sourceforge.net/release/xsl-ns/current/manpages/profile-docbook.xsl)
+
+
 AC_SUBST(MAN_STYLESHEET)
 sed "s+MAN_STYLESHEET+$MAN_STYLESHEET+g" <doc/custom-man.xsl.in >doc/custom-man.xsl
 
@@ -608,10 +617,10 @@ if test -z "$XSLTPROC"; then
      enable_docu=no
 fi
 AC_PATH_PROG([XMLLINT], [xmllint],[/bin/true])
-dnl check for DocBook DTD and stylesheets in the local catalog.
-JH_CHECK_XML_CATALOG([-//OASIS//DTD DocBook XML V4.4//EN],
-                [DocBook XML DTD V4.4], [], enable_docu=no)
-JH_CHECK_XML_CATALOG([http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl],
+dnl check for DocBook RNG and stylesheets in the local catalog.
+JH_CHECK_XML_CATALOG([http://docbook.org/xml/5.0/rng/docbookxi.rng],
+                [DocBook XML RNG V5.0], [], enable_docu=no)
+JH_CHECK_XML_CATALOG([http://docbook.sourceforge.net/release/xsl-ns/current/manpages/docbook.xsl],
                 [DocBook XSL Stylesheets], [], enable_docu=no)
 
 AC_PATH_PROG([BROWSER], [w3m])

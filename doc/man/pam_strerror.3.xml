@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_strerror'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_strerror">
 
   <refmeta>
     <refentrytitle>pam_strerror</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_strerror-name">
+  <refnamediv xml:id="pam_strerror-name">
     <refname>pam_strerror</refname>
     <refpurpose>return string describing PAM error code</refpurpose>
   </refnamediv>
@@ -18,7 +15,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id="pam_strerror-synopsis">
+    <funcsynopsis xml:id="pam_strerror-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>const char *<function>pam_strerror</function></funcdef>
@@ -29,7 +26,7 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_strerror-description">
+  <refsect1 xml:id="pam_strerror-description">
     <title>DESCRIPTION</title>
     <para>
        The <function>pam_strerror</function> function returns a pointer to
@@ -40,14 +37,14 @@
        modify this string.
     </para>
   </refsect1>
-  <refsect1 id="pam_strerror-return_values">
+  <refsect1 xml:id="pam_strerror-return_values">
     <title>RETURN VALUES</title>
     <para>
        This function returns always a pointer to a string.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_strerror-see_also">
+  <refsect1 xml:id="pam_strerror-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

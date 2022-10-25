@@ -1,34 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<section id='sag-pam_mail'>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sag-pam_mail">
   <title>pam_mail - inform about available mail</title>
-  <cmdsynopsis>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(//cmdsynopsis[@id = "pam_mail-cmdsynopsis"]/*)'/>
+  <cmdsynopsis sepchar=" ">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(id("pam_mail-cmdsynopsis")/*)'/>
   </cmdsynopsis>
-  <section id='sag-pam_mail-description'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mail-description"]/*)'/>
+  <section xml:id="sag-pam_mail-description">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(id("pam_mail-description")/*)'/>
   </section>
-  <section id='sag-pam_mail-options'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mail-options"]/*)'/>
+  <section xml:id="sag-pam_mail-options">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(id("pam_mail-options")/*)'/>
   </section>
-  <section id='sag-pam_mail-types'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mail-types"]/*)'/>
+  <section xml:id="sag-pam_mail-types">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(id("pam_mail-types")/*)'/>
   </section>
-  <section id='sag-pam_mail-return_values'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mail-return_values"]/*)'/>
+  <section xml:id="sag-pam_mail-return_values">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(id("pam_mail-return_values")/*)'/>
   </section>
-  <section id='sag-pam_mail-examples'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mail-examples"]/*)'/>
+  <section xml:id="sag-pam_mail-examples">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(id("pam_mail-examples")/*)'/>
   </section>
-  <section id='sag-pam_mail-author'>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-     href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(//refsect1[@id = "pam_mail-author"]/*)'/>
+  <section xml:id="sag-pam_mail-author">
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_mail/pam_mail.8.xml" xpointer='xpointer(id("pam_mail-author")/*)'/>
   </section>
 </section>

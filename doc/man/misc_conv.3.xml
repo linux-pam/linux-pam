@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id="misc_conv">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="misc_conv">
 
   <refmeta>
     <refentrytitle>misc_conv</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="misc_conv-name">
+  <refnamediv xml:id="misc_conv-name">
     <refname>misc_conv</refname>
     <refpurpose>text based conversation function</refpurpose>
   </refnamediv>
@@ -18,7 +15,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id="misc_conv-synopsis">
+    <funcsynopsis xml:id="misc_conv-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_misc.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>misc_conv</function></funcdef>
@@ -30,7 +27,7 @@
     </funcsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id='misc_conv-description'>
+  <refsect1 xml:id="misc_conv-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>misc_conv</function> function is part of
@@ -50,7 +47,7 @@
     </para>
     <variablelist>
       <varlistentry>
-        <term><type>time_t</type> <varname>pam_misc_conv_warn_time</varname>;</term>
+        <term>time_t pam_misc_conv_warn_time;</term>
         <listitem>
           <para>
             This variable contains the <emphasis>time</emphasis> (as
@@ -67,7 +64,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><type>const char *</type><varname>pam_misc_conv_warn_line</varname>;</term>
+        <term>const char *pam_misc_conv_warn_line;</term>
         <listitem>
           <para>
             Used in conjunction with
@@ -83,7 +80,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><type>time_t</type> <varname>pam_misc_conv_die_time</varname>;</term>
+        <term>time_t pam_misc_conv_die_time;</term>
         <listitem>
           <para>
             This variable contains the <emphasis>time</emphasis> (as
@@ -100,7 +97,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><type>const char *</type><varname>pam_misc_conv_die_line</varname>;</term>
+        <term>const char *pam_misc_conv_die_line;</term>
         <listitem>
           <para>
             Used in conjunction with
@@ -116,7 +113,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><type>int</type> <varname>pam_misc_conv_died</varname>;</term>
+        <term>int pam_misc_conv_died;</term>
         <listitem>
           <para>
             Following a return from the <emphasis>Linux-PAM</emphasis>
@@ -136,7 +133,7 @@
     <variablelist>
       <varlistentry>
         <term>
-          <type>int</type> <varname>(*pam_binary_handler_fn)</varname>(<type>void *</type><varname>appdata</varname>, <type>pamc_bp_t *</type><varname>prompt_p</varname>);
+          int (*pam_binary_handler_fn)(void *appdata, pamc_bp_t *prompt_p);
         </term>
         <listitem>
           <para>
@@ -151,7 +148,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <type>int</type> <varname>(*pam_binary_handler_free)</varname>(<type>void *</type><varname>appdata</varname>, <type>pamc_bp_t *</type><varname>delete_me</varname>);
+          int (*pam_binary_handler_free)(void *appdata, pamc_bp_t *delete_me);
         </term>
         <listitem>
           <para>
@@ -164,7 +161,7 @@
      </variablelist>
   </refsect1>
 
-  <refsect1 id='misc_conv-see_also'>
+  <refsect1 xml:id="misc_conv-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -176,7 +173,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='misc_conv-standards'>
+  <refsect1 xml:id="misc_conv-standards">
     <title>STANDARDS</title>
     <para>
       The <function>misc_conv</function> function is part of the

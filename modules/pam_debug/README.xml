@@ -1,41 +1,27 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-"http://www.docbook.org/xml/4.3/docbookx.dtd"
-[
-<!--
-<!ENTITY pamaccess SYSTEM "pam_debug.8.xml">
--->
-]>
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
 
-<article>
-
-  <articleinfo>
+  <info>
 
     <title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_debug.8.xml" xpointer='xpointer(//refnamediv[@id = "pam_debug-name"]/*)'/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_debug.8.xml" xpointer='xpointer(id("pam_debug-name")/*)'/>
     </title>
 
-  </articleinfo>
+  </info>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_debug.8.xml" xpointer='xpointer(//refsect1[@id = "pam_debug-description"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_debug.8.xml" xpointer='xpointer(id("pam_debug-description")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_debug.8.xml" xpointer='xpointer(//refsect1[@id = "pam_debug-options"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_debug.8.xml" xpointer='xpointer(id("pam_debug-options")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_debug.8.xml" xpointer='xpointer(//refsect1[@id = "pam_debug-examples"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_debug.8.xml" xpointer='xpointer(id("pam_debug-examples")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_debug.8.xml" xpointer='xpointer(//refsect1[@id = "pam_debug-author"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_debug.8.xml" xpointer='xpointer(id("pam_debug-author")/*)'/>
   </section>
 
 </article>

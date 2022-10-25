@@ -1,51 +1,48 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_debug">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_debug">
 
   <refmeta>
     <refentrytitle>pam_debug</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_debug-name">
+  <refnamediv xml:id="pam_debug-name">
     <refname>pam_debug</refname>
     <refpurpose>PAM module to debug the PAM stack</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_debug-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_debug-cmdsynopsis" sepchar=" ">
       <command>pam_debug.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	auth=<replaceable>value</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	cred=<replaceable>value</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	acct=<replaceable>value</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	prechauthtok=<replaceable>value</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	chauthtok=<replaceable>value</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	auth=<replaceable>value</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	open_session=<replaceable>value</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	close_session=<replaceable>value</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_debug-description">
+  <refsect1 xml:id="pam_debug-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_debug PAM module is intended as a debugging aide for
@@ -54,12 +51,12 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_debug-options">
+  <refsect1 xml:id="pam_debug-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>auth=<replaceable>value</replaceable></option>
+          auth=value
         </term>
         <listitem>
           <para>
@@ -73,7 +70,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>cred=<replaceable>value</replaceable></option>
+          cred=value
         </term>
         <listitem>
           <para>
@@ -87,7 +84,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>acct=<replaceable>value</replaceable></option>
+          acct=value
         </term>
         <listitem>
           <para>
@@ -101,7 +98,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>prechauthtok=<replaceable>value</replaceable></option>
+          prechauthtok=value
         </term>
         <listitem>
           <para>
@@ -116,7 +113,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>chauthtok=<replaceable>value</replaceable></option>
+          chauthtok=value
         </term>
         <listitem>
           <para>
@@ -126,13 +123,13 @@
             </citerefentry> function will return
             <replaceable>value</replaceable> if the
             <emphasis>PAM_PRELIM_CHECK</emphasis> flag is
-            <emphasis remap='B'>not</emphasis> set.
+            <emphasis remap="B">not</emphasis> set.
           </para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>
-          <option>open_session=<replaceable>value</replaceable></option>
+          open_session=value
         </term>
         <listitem>
           <para>
@@ -146,7 +143,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>close_session=<replaceable>value</replaceable></option>
+          close_session=value
         </term>
         <listitem>
           <para>
@@ -171,7 +168,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_debug-types">
+  <refsect1 xml:id="pam_debug-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       All module types (<option>auth</option>, <option>account</option>,
@@ -179,7 +176,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_debug-return_values'>
+  <refsect1 xml:id="pam_debug-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -194,7 +191,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_debug-examples'>
+  <refsect1 xml:id="pam_debug-examples">
     <title>EXAMPLES</title>
     <programlisting>
 auth    requisite       pam_permit.so
@@ -206,7 +203,7 @@ auth    sufficient      pam_debug.so auth=success cred=success
     </programlisting>
   </refsect1>
 
-  <refsect1 id='pam_debug-see_also'>
+  <refsect1 xml:id="pam_debug-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -221,7 +218,7 @@ auth    sufficient      pam_debug.so auth=success cred=success
     </para>
   </refsect1>
 
-  <refsect1 id='pam_debug-author'>
+  <refsect1 xml:id="pam_debug-author">
     <title>AUTHOR</title>
       <para>
         pam_debug was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.

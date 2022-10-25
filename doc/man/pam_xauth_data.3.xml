@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id="pam_xauth_data">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_xauth_data">
 
   <refmeta>
     <refentrytitle>pam_xauth_data</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_xauth_data-name">
+  <refnamediv xml:id="pam_xauth_data-name">
     <refname>pam_xauth_data</refname>
     <refpurpose>structure containing X authentication data</refpurpose>
   </refnamediv>
@@ -18,7 +15,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id="pam_xauth_data-synopsis">
+    <funcsynopsis xml:id="pam_xauth_data-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_appl.h&gt;</funcsynopsisinfo>
     </funcsynopsis>
     <programlisting>
@@ -31,7 +28,7 @@ struct pam_xauth_data {
     </programlisting>
   </refsynopsisdiv>
 
-  <refsect1 id='pam_xauth_data-description'>
+  <refsect1 xml:id="pam_xauth_data-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_xauth_data</function> structure contains X
@@ -70,7 +67,7 @@ struct pam_xauth_data {
     </para>
   </refsect1>
 
-  <refsect1 id='pam_xauth_data-see_also'>
+  <refsect1 xml:id="pam_xauth_data-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -82,7 +79,7 @@ struct pam_xauth_data {
     </para>
   </refsect1>
 
-  <refsect1 id='pam_xauth_data-standards'>
+  <refsect1 xml:id="pam_xauth_data-standards">
     <title>STANDARDS</title>
     <para>
       The <function>pam_xauth_data</function> structure and

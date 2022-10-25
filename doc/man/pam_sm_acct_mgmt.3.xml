@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id='pam_sm_acct_mgmt'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_sm_acct_mgmt">
   <refmeta>
     <refentrytitle>pam_sm_acct_mgmt</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_sm_acct_mgmt-name">
+  <refnamediv xml:id="pam_sm_acct_mgmt-name">
     <refname>pam_sm_acct_mgmt</refname>
     <refpurpose>PAM service function for account management</refpurpose>
   </refnamediv>
@@ -16,7 +14,7 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <funcsynopsis id='pam_sm_acct_mgmt-synopsis'>
+    <funcsynopsis xml:id="pam_sm_acct_mgmt-synopsis">
       <funcsynopsisinfo>#include &lt;security/pam_modules.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>int <function>pam_sm_acct_mgmt</function></funcdef>
@@ -29,7 +27,7 @@
   </refsynopsisdiv>
 
 
-  <refsect1 id='pam_sm_acct_mgmt-description'>
+  <refsect1 xml:id="pam_sm_acct_mgmt-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_sm_acct_mgmt</function> function is the service
@@ -64,7 +62,7 @@
         <term>PAM_DISALLOW_NULL_AUTHTOK</term>
         <listitem>
           <para>
-            Return <emphasis remap='B'>PAM_AUTH_ERR</emphasis> if the
+            Return <emphasis remap="B">PAM_AUTH_ERR</emphasis> if the
             database of authentication tokens for this authentication
             mechanism has a <emphasis>NULL</emphasis> entry for the user.
           </para>
@@ -73,7 +71,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_sm_acct_mgmt-return_values">
+  <refsect1 xml:id="pam_sm_acct_mgmt-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -131,7 +129,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_sm_acct_mgmt-see_also'>
+  <refsect1 xml:id="pam_sm_acct_mgmt-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>

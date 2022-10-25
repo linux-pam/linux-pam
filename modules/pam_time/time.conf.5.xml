@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-        "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="time.conf">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="time.conf">
 
   <refmeta>
     <refentrytitle>time.conf</refentrytitle>
     <manvolnum>5</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
   <refnamediv>
@@ -15,7 +12,7 @@
     <refpurpose>configuration file for the pam_time module</refpurpose>
   </refnamediv>
 
-  <refsect1 id='time.conf-description'>
+  <refsect1 xml:id="time.conf-description">
     <title>DESCRIPTION</title>
 
     <para>
@@ -43,9 +40,9 @@
     </para>
     <para>
       In words, each rule occupies a line, terminated with a newline
-      or the beginning of a comment; a '<emphasis remap='B'>#</emphasis>'.
+      or the beginning of a comment; a '<emphasis remap="B">#</emphasis>'.
       It contains four fields separated with semicolons,
-      '<emphasis remap='B'>;</emphasis>'.
+      '<emphasis remap="B">;</emphasis>'.
     </para>
 
     <para>
@@ -107,7 +104,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="time.conf-examples">
+  <refsect1 xml:id="time.conf-examples">
     <title>EXAMPLES</title>
     <para>
       These are some example lines which might be specified in
@@ -131,7 +128,7 @@ games ; * ; !waster ; Wd0000-2400 | Wk1800-0800
     </para>
   </refsect1>
 
-  <refsect1 id="time.conf-see_also">
+  <refsect1 xml:id="time.conf-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry><refentrytitle>pam_time</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
@@ -140,7 +137,7 @@ games ; * ; !waster ; Wd0000-2400 | Wk1800-0800
     </para>
   </refsect1>
 
-  <refsect1 id="time.conf-author">
+  <refsect1 xml:id="time.conf-author">
     <title>AUTHOR</title>
     <para>
       pam_time was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.

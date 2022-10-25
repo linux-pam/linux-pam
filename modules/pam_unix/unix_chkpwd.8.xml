@@ -1,30 +1,27 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="unix_chkpwd">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="unix_chkpwd">
 
   <refmeta>
     <refentrytitle>unix_chkpwd</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="unix_chkpwd-name">
+  <refnamediv xml:id="unix_chkpwd-name">
     <refname>unix_chkpwd</refname>
     <refpurpose>Helper binary that verifies the password of the current user</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="unix_chkpwd-cmdsynopsis">
+    <cmdsynopsis xml:id="unix_chkpwd-cmdsynopsis" sepchar=" ">
       <command>unix_chkpwd</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         ...
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="unix_chkpwd-description">
+  <refsect1 xml:id="unix_chkpwd-description">
 
     <title>DESCRIPTION</title>
 
@@ -48,7 +45,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='unix_chkpwd-see_also'>
+  <refsect1 xml:id="unix_chkpwd-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -57,7 +54,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='unix_chkpwd-author'>
+  <refsect1 xml:id="unix_chkpwd-author">
     <title>AUTHOR</title>
       <para>
         Written by Andrew Morgan and other various people.

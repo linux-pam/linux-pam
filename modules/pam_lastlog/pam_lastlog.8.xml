@@ -1,60 +1,57 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="pam_lastlog">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_lastlog">
 
   <refmeta>
     <refentrytitle>pam_lastlog</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_lastlog-name">
+  <refnamediv xml:id="pam_lastlog-name">
     <refname>pam_lastlog</refname>
     <refpurpose>PAM module to display date of last login and perform inactive account lock out</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_lastlog-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_lastlog-cmdsynopsis" sepchar=" ">
       <command>pam_lastlog.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
 	debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         silent
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         never
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         nodate
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         nohost
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         noterm
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         nowtmp
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         noupdate
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         showfailed
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         inactive=&lt;days&gt;
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         unlimited
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="pam_lastlog-description">
+  <refsect1 xml:id="pam_lastlog-description">
 
     <title>DESCRIPTION</title>
 
@@ -83,13 +80,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_lastlog-options">
+  <refsect1 xml:id="pam_lastlog-options">
 
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -99,7 +96,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>silent</option>
+          silent
         </term>
         <listitem>
           <para>
@@ -111,7 +108,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>never</option>
+          never
         </term>
         <listitem>
           <para>
@@ -124,7 +121,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>nodate</option>
+          nodate
         </term>
         <listitem>
           <para>
@@ -134,7 +131,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>noterm</option>
+          noterm
         </term>
         <listitem>
           <para>
@@ -145,7 +142,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>nohost</option>
+          nohost
         </term>
         <listitem>
           <para>
@@ -156,7 +153,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>nowtmp</option>
+          nowtmp
         </term>
         <listitem>
           <para>
@@ -166,7 +163,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>noupdate</option>
+          noupdate
         </term>
         <listitem>
           <para>
@@ -176,7 +173,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>showfailed</option>
+          showfailed
         </term>
         <listitem>
           <para>
@@ -188,7 +185,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>inactive=&lt;days&gt;</option>
+          inactive=&lt;days&gt;
         </term>
         <listitem>
           <para>
@@ -201,7 +198,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>unlimited</option>
+          unlimited
         </term>
         <listitem>
           <para>
@@ -214,7 +211,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_lastlog-types">
+  <refsect1 xml:id="pam_lastlog-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       The <option>auth</option> and <option>account</option> module type
@@ -225,7 +222,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_lastlog-return_values'>
+  <refsect1 xml:id="pam_lastlog-return_values">
     <title>RETURN VALUES</title>
     <para>
       <variablelist>
@@ -282,7 +279,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_lastlog-examples'>
+  <refsect1 xml:id="pam_lastlog-examples">
     <title>EXAMPLES</title>
     <para>
       Add the following line to <filename>/etc/pam.d/login</filename> to
@@ -300,11 +297,11 @@
       </programlisting>
   </refsect1>
 
-  <refsect1 id="pam_lastlog-files">
+  <refsect1 xml:id="pam_lastlog-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/var/log/lastlog</filename></term>
+        <term>/var/log/lastlog</term>
         <listitem>
           <para>Lastlog logging file</para>
         </listitem>
@@ -312,7 +309,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_lastlog-see_also'>
+  <refsect1 xml:id="pam_lastlog-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -330,7 +327,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_lastlog-author'>
+  <refsect1 xml:id="pam_lastlog-author">
     <title>AUTHOR</title>
       <para>
         pam_lastlog was written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.

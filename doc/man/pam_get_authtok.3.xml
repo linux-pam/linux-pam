@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id="pam_get_authtok">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_get_authtok">
 
   <refmeta>
     <refentrytitle>pam_get_authtok</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="pam_get_authtok-name">
+  <refnamediv xml:id="pam_get_authtok-name">
     <refname>pam_get_authtok</refname>
     <refname>pam_get_authtok_verify</refname>
     <refname>pam_get_authtok_noverify</refname>
@@ -19,7 +16,7 @@
 
 <!-- body begins here -->
 
-  <refsynopsisdiv id="pam_get_authtok-synopsis">
+  <refsynopsisdiv xml:id="pam_get_authtok-synopsis">
     <funcsynopsis>
       <funcsynopsisinfo>#include &lt;security/pam_ext.h&gt;</funcsynopsisinfo>
       <funcprototype>
@@ -44,7 +41,7 @@
     </funcsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id='pam_get_authtok-description'>
+  <refsect1 xml:id="pam_get_authtok-description">
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_get_authtok</function> function returns the
@@ -119,7 +116,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_get_authtok-options">
+  <refsect1 xml:id="pam_get_authtok-options">
     <title>OPTIONS</title>
     <para>
       <function>pam_get_authtok</function> honours the following module
@@ -128,7 +125,7 @@
     <variablelist>
       <varlistentry>
         <term>
-          <option>try_first_pass</option>
+          try_first_pass
         </term>
         <listitem>
           <para>
@@ -140,7 +137,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>use_first_pass</option>
+          use_first_pass
         </term>
         <listitem>
           <para>
@@ -153,7 +150,7 @@
       </varlistentry>
        <varlistentry>
         <term>
-          <option>use_authtok</option>
+          use_authtok
         </term>
         <listitem>
           <para>
@@ -166,7 +163,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>authtok_type=<replaceable>XXX</replaceable></option>
+          authtok_type=XXX
         </term>
         <listitem>
           <para>
@@ -182,7 +179,7 @@
   </refsect1>
 
 
-  <refsect1 id="pam_get_authtok-return_values">
+  <refsect1 xml:id="pam_get_authtok-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -228,7 +225,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_get_authtok-see_also'>
+  <refsect1 xml:id="pam_get_authtok-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -237,7 +234,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='pam_get_authtok-standards'>
+  <refsect1 xml:id="pam_get_authtok-standards">
     <title>STANDARDS</title>
     <para>
       The <function>pam_get_authtok</function> function is a Linux-PAM

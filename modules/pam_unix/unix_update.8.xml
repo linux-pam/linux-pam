@@ -1,30 +1,27 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="unix_update">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="unix_update">
 
   <refmeta>
     <refentrytitle>unix_update</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="unix_update-name">
+  <refnamediv xml:id="unix_update-name">
     <refname>unix_update</refname>
     <refpurpose>Helper binary that updates the password of a given user</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="unix_update-cmdsynopsis">
+    <cmdsynopsis xml:id="unix_update-cmdsynopsis" sepchar=" ">
       <command>unix_update</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         ...
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="unix_update-description">
+  <refsect1 xml:id="unix_update-description">
 
     <title>DESCRIPTION</title>
 
@@ -48,7 +45,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='unix_update-see_also'>
+  <refsect1 xml:id="unix_update-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -57,7 +54,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='unix_update-author'>
+  <refsect1 xml:id="unix_update-author">
     <title>AUTHOR</title>
       <para>
         Written by Tomas Mraz and other various people.

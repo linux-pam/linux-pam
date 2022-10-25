@@ -1,31 +1,28 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
-
-<refentry id="mkhomedir_helper">
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="mkhomedir_helper">
 
   <refmeta>
     <refentrytitle>mkhomedir_helper</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id="mkhomedir_helper-name">
+  <refnamediv xml:id="mkhomedir_helper-name">
     <refname>mkhomedir_helper</refname>
     <refpurpose>Helper binary that creates home directories</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis id="mkhomedir_helper-cmdsynopsis">
+    <cmdsynopsis xml:id="mkhomedir_helper-cmdsynopsis" sepchar=" ">
       <command>mkhomedir_helper</command>
-      <arg choice="req">
+      <arg choice="req" rep="norepeat">
         <replaceable>user</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         <replaceable>umask</replaceable>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         <replaceable>path-to-skel</replaceable>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         <replaceable>home_mode</replaceable>
       </arg>
       </arg>
@@ -33,7 +30,7 @@
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1 id="mkhomedir_helper-description">
+  <refsect1 xml:id="mkhomedir_helper-description">
 
     <title>DESCRIPTION</title>
 
@@ -63,7 +60,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='mkhomedir_helper-see_also'>
+  <refsect1 xml:id="mkhomedir_helper-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -72,7 +69,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id='mkhomedir_helper-author'>
+  <refsect1 xml:id="mkhomedir_helper-author">
     <title>AUTHOR</title>
       <para>
         Written by Tomas Mraz based on the code originally in

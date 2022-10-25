@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_access'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_access">
 
   <refmeta>
     <refentrytitle>pam_access</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam_access-name'>
+  <refnamediv xml:id="pam_access-name">
     <refname>pam_access</refname>
     <refpurpose>
       PAM module for logdaemon style login access control
@@ -20,31 +17,31 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_access-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_access-cmdsynopsis" sepchar=" ">
       <command>pam_access.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         nodefgroup
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         noaudit
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         accessfile=<replaceable>file</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         fieldsep=<replaceable>sep</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         listsep=<replaceable>sep</replaceable>
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_access-description">
+  <refsect1 xml:id="pam_access-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_access PAM module is mainly for access management.
@@ -92,13 +89,13 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_access-options">
+  <refsect1 xml:id="pam_access-options">
     <title>OPTIONS</title>
     <variablelist>
 
       <varlistentry>
         <term>
-          <option>accessfile=<replaceable>/path/to/access.conf</replaceable></option>
+          accessfile=/path/to/access.conf
         </term>
         <listitem>
           <para>
@@ -111,7 +108,7 @@
 
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -123,7 +120,7 @@
 
       <varlistentry>
         <term>
-          <option>noaudit</option>
+          noaudit
         </term>
         <listitem>
           <para>
@@ -134,19 +131,19 @@
 
       <varlistentry>
         <term>
-          <option>fieldsep=<replaceable>separators</replaceable></option>
+          fieldsep=separators
         </term>
         <listitem>
           <para>
             This option modifies the field separator character that
             pam_access will recognize when parsing the access
             configuration file. For example:
-            <emphasis remap='B'>fieldsep=|</emphasis> will cause the
+            <emphasis remap="B">fieldsep=|</emphasis> will cause the
             default `:' character to be treated as part of a field value
             and `|' becomes the field separator. Doing this may be
             useful in conjunction with a system that wants to use
             pam_access with X based applications, since the
-            <emphasis remap='B'>PAM_TTY</emphasis> item is likely to be
+            <emphasis remap="B">PAM_TTY</emphasis> item is likely to be
             of the form "hostname:0" which includes a `:' character in
             its value. But you should not need this.
           </para>
@@ -155,14 +152,14 @@
 
       <varlistentry>
         <term>
-          <option>listsep=<replaceable>separators</replaceable></option>
+          listsep=separators
         </term>
         <listitem>
           <para>
             This option modifies the list separator character that
             pam_access will recognize when parsing the access
             configuration file. For example:
-            <emphasis remap='B'>listsep=,</emphasis> will cause the
+            <emphasis remap="B">listsep=,</emphasis> will cause the
             default ` ' (space) and `\t' (tab) characters to be treated
             as part of a list element value and `,' becomes the only
             list element separator. Doing this may be useful on a system
@@ -175,7 +172,7 @@
 
       <varlistentry>
         <term>
-          <option>nodefgroup</option>
+          nodefgroup
         </term>
         <listitem>
           <para>
@@ -190,7 +187,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_access-types">
+  <refsect1 xml:id="pam_access-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       All module types (<option>auth</option>, <option>account</option>,
@@ -198,7 +195,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_access-return_values">
+  <refsect1 xml:id="pam_access-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -244,17 +241,17 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_access-files">
+  <refsect1 xml:id="pam_access-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/etc/security/access.conf</filename></term>
+        <term>/etc/security/access.conf</term>
         <listitem>
           <para>Default configuration file</para>
         </listitem>
       </varlistentry>
       <varlistentry condition="with_vendordir">
-        <term><filename>%vendordir%/security/access.conf</filename></term>
+        <term>%vendordir%/security/access.conf</term>
         <listitem>
           <para>Default configuration file if
 	  <filename>/etc/security/access.conf</filename> does not exist.</para>
@@ -263,7 +260,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_access-see_also">
+  <refsect1 xml:id="pam_access-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -278,7 +275,7 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_access-authors">
+  <refsect1 xml:id="pam_access-authors">
     <title>AUTHORS</title>
     <para>
       The logdaemon style login access control scheme was designed and implemented by

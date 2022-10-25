@@ -1,31 +1,19 @@
-<?xml version="1.0" encoding='UTF-8'?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
-"http://www.docbook.org/xml/4.3/docbookx.dtd"
-[
-<!--
-<!ENTITY pamstress SYSTEM "pam_stress.8.xml">
--->
-]>
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
 
-<article>
-
-  <articleinfo>
+  <info>
 
     <title>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_stress.8.xml" xpointer='xpointer(//refnamediv[@id = "pam_stress-name"]/*)'/>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_stress.8.xml" xpointer='xpointer(id("pam_stress-name")/*)'/>
     </title>
 
-  </articleinfo>
+  </info>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_stress.8.xml" xpointer='xpointer(//refsect1[@id = "pam_stress-description"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_stress.8.xml" xpointer='xpointer(id("pam_stress-description")/*)'/>
   </section>
 
   <section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="pam_stress.8.xml" xpointer='xpointer(//refsect1[@id = "pam_stress-options"]/*)'/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_stress.8.xml" xpointer='xpointer(id("pam_stress-options")/*)'/>
   </section>
 
 </article>

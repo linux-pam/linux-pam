@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-
-<refentry id='pam_limits'>
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_limits">
 
   <refmeta>
     <refentrytitle>pam_limits</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class='setdesc'>Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
-  <refnamediv id='pam_limits-name'>
+  <refnamediv xml:id="pam_limits-name">
     <refname>pam_limits</refname>
     <refpurpose>
       PAM module to limit resources
@@ -20,28 +17,28 @@
 <!-- body begins here -->
 
   <refsynopsisdiv>
-    <cmdsynopsis id="pam_limits-cmdsynopsis">
+    <cmdsynopsis xml:id="pam_limits-cmdsynopsis" sepchar=" ">
       <command>pam_limits.so</command>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         conf=<replaceable>/path/to/limits.conf</replaceable>
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         debug
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         set_all
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         utmp_early
       </arg>
-      <arg choice="opt">
+      <arg choice="opt" rep="norepeat">
         noaudit
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
 
-  <refsect1 id="pam_limits-description">
+  <refsect1 xml:id="pam_limits-description">
     <title>DESCRIPTION</title>
     <para>
       The pam_limits PAM module sets limits on the system resources that can be
@@ -84,12 +81,12 @@
     </para>
   </refsect1>
 
-  <refsect1 id="pam_limits-options">
+  <refsect1 xml:id="pam_limits-options">
     <title>OPTIONS</title>
     <variablelist>
       <varlistentry>
         <term>
-          <option>conf=<replaceable>/path/to/limits.conf</replaceable></option>
+          conf=/path/to/limits.conf
         </term>
         <listitem>
           <para>
@@ -100,7 +97,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>debug</option>
+          debug
         </term>
         <listitem>
           <para>
@@ -110,7 +107,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>set_all</option>
+          set_all
         </term>
         <listitem>
           <para>
@@ -124,7 +121,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>utmp_early</option>
+          utmp_early
         </term>
         <listitem>
           <para>
@@ -139,7 +136,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <option>noaudit</option>
+          noaudit
         </term>
         <listitem>
           <para>
@@ -150,14 +147,14 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_limits-types">
+  <refsect1 xml:id="pam_limits-types">
     <title>MODULE TYPES PROVIDED</title>
     <para>
       Only the <option>session</option> module type is provided.
     </para>
   </refsect1>
 
-  <refsect1 id="pam_limits-return_values">
+  <refsect1 xml:id="pam_limits-return_values">
     <title>RETURN VALUES</title>
     <variablelist>
       <varlistentry>
@@ -219,17 +216,17 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="pam_limits-files">
+  <refsect1 xml:id="pam_limits-files">
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term><filename>/etc/security/limits.conf</filename></term>
+        <term>/etc/security/limits.conf</term>
         <listitem>
           <para>Default configuration file</para>
         </listitem>
       </varlistentry>
       <varlistentry condition="with_vendordir">
-        <term><filename>%vendordir%/security/limits.conf</filename></term>
+        <term>%vendordir%/security/limits.conf</term>
         <listitem>
           <para>Default configuration file if
 	  <filename>/etc/security/limits.conf</filename> does not exist.</para>
@@ -238,7 +235,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id='pam_limits-examples'>
+  <refsect1 xml:id="pam_limits-examples">
     <title>EXAMPLES</title>
     <para>
       For the services you need resources limits (login for example) put a
@@ -257,7 +254,7 @@ session  required  pam_limits.so
     </para>
   </refsect1>
 
-  <refsect1 id="pam_limits-see_also">
+  <refsect1 xml:id="pam_limits-see_also">
     <title>SEE ALSO</title>
     <para>
       <citerefentry>
@@ -272,7 +269,7 @@ session  required  pam_limits.so
     </para>
   </refsect1>
 
-  <refsect1 id="pam_limits-authors">
+  <refsect1 xml:id="pam_limits-authors">
     <title>AUTHORS</title>
     <para>
       pam_limits was initially written by Cristian Gafton &lt;gafton@redhat.com&gt;
