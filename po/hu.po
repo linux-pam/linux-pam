@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2021-07-20 20:00+0000\n"
+"POT-Creation-Date: 2022-11-11 11:11+0000\n"
 "PO-Revision-Date: 2021-02-10 19:40+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
 "Language-Team: Hungarian <https://translate.fedoraproject.org/projects/linux-"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.4.2\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "Jelszó: "
@@ -223,35 +223,41 @@ msgstr "...Sajnos lejárt az idő!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "hibás beszélgetés (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:279
+#: modules/pam_exec/pam_exec.c:289
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s hiba: kilépő kód %d"
 
-#: modules/pam_exec/pam_exec.c:289
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s hiba: %d%s jelzés érzékelve"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:309
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s hiba: 0x%x ismeretlen állapot"
 
-#: modules/pam_faillock/main.c:103
+#: modules/pam_faillock/main.c:130
 #, fuzzy, c-format
 msgid ""
-"Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
+"Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
+"legacy-output]\n"
 msgstr ""
 "%s: [--file rooted-fájlnév] [--user használó] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_faillock/pam_faillock.c:618
+#: modules/pam_faillock/main.c:181
+#, fuzzy, c-format
+msgid "Login           Failures    Latest failure         From\n"
+msgstr "Belépés          Hibák Utolsó hibák      Innen\n"
+
+#: modules/pam_faillock/pam_faillock.c:404
 #, fuzzy, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "Felhasználói azonosító zárolva, többszöri, %u sikertelen belépés miatt"
 
-#: modules/pam_faillock/pam_faillock.c:627
-#: modules/pam_faillock/pam_faillock.c:633
+#: modules/pam_faillock/pam_faillock.c:413
+#: modules/pam_faillock/pam_faillock.c:419
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -259,45 +265,45 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:636
+#: modules/pam_faillock/pam_faillock.c:422
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr ""
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:318 modules/pam_lastlog/pam_lastlog.c:579
+#: modules/pam_lastlog/pam_lastlog.c:326 modules/pam_lastlog/pam_lastlog.c:595
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %Y. %b %e, %a  %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:327 modules/pam_lastlog/pam_lastlog.c:588
+#: modules/pam_lastlog/pam_lastlog.c:335 modules/pam_lastlog/pam_lastlog.c:604
 #, c-format
 msgid " from %.*s"
 msgstr " innen: %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:339 modules/pam_lastlog/pam_lastlog.c:600
+#: modules/pam_lastlog/pam_lastlog.c:347 modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid " on %.*s"
 msgstr ", %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:349
+#: modules/pam_lastlog/pam_lastlog.c:357
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Utolsó belépés:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:355
+#: modules/pam_lastlog/pam_lastlog.c:363
 msgid "Welcome to your new account!"
 msgstr "Üdvözöljük az új felhasználói azonosítójával!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:610
+#: modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "Utolsó sikertelen belépés:%s %s %s"
 
-#: modules/pam_lastlog/pam_lastlog.c:619 modules/pam_lastlog/pam_lastlog.c:626
+#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -306,19 +312,19 @@ msgstr[0] "%d sikertelen belépés kísérlet volt az utolsó sikeres belépés 
 msgstr[1] "%d sikertelen belépés kísérlet volt az utolsó sikeres belépés óta."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:631
+#: modules/pam_lastlog/pam_lastlog.c:647
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "%d sikertelen belépés kísérlet volt az utolsó sikeres belépés óta."
 
-#: modules/pam_limits/pam_limits.c:1164
+#: modules/pam_limits/pam_limits.c:1269
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Túl sok bejelentkezés \"%s\" részéről."
 
 #: modules/pam_mail/pam_mail.c:289
 #, fuzzy
-msgid "You have no mail."
+msgid "You do not have any new mail."
 msgstr "Új levele érkezett."
 
 #: modules/pam_mail/pam_mail.c:292
@@ -363,12 +369,12 @@ msgstr "\"%s\" mappa létrehozása."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "„%s” mappa nem hozható létre és állítható be."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:371
+#: modules/pam_pwhistory/pam_pwhistory.c:378
 #: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
 msgstr "A jelszót már használta. Válasszon másikat."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:378
+#: modules/pam_pwhistory/pam_pwhistory.c:385
 msgid "Password has been already used."
 msgstr "A jelszót már használta. Válasszon másikat."
 
@@ -501,6 +507,10 @@ msgstr "%s jelszavának megváltoztatása."
 msgid "You must wait longer to change your password."
 msgstr "Tovább kell várnia míg megváltoztathatja a jelszavát"
 
+#, fuzzy
+#~ msgid "You have no mail."
+#~ msgstr "Új levele érkezett."
+
 #~ msgid "is the same as the old one"
 #~ msgstr "ugyanaz, mint a régi"
 
@@ -566,9 +576,6 @@ msgstr "Tovább kell várnia míg megváltoztathatja a jelszavát"
 
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: Nem állítható vissza minden felhasználó nem-nullára\n"
-
-#~ msgid "Login           Failures Latest failure     From\n"
-#~ msgstr "Belépés          Hibák Utolsó hibák      Innen\n"
 
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"

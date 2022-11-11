@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2021-07-20 20:00+0000\n"
+"POT-Creation-Date: 2022-11-11 11:11+0000\n"
 "PO-Revision-Date: 2021-01-18 22:36+0000\n"
 "Last-Translator: Andreas-Johann Ø Ulvestad <aj@aju.no>\n"
 "Language-Team: Norwegian Nynorsk <https://translate.fedoraproject.org/"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.4.2\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "Passord: "
@@ -215,34 +215,40 @@ msgstr "...Beklagar, tida er gått ut\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "mislykka dialog (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:279
+#: modules/pam_exec/pam_exec.c:289
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s feila: sluttkode %d"
 
-#: modules/pam_exec/pam_exec.c:289
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s feila: fekk signal %d%s"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:309
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s feila: ukjend status 0x%x"
 
-#: modules/pam_faillock/main.c:103
-#, c-format
+#: modules/pam_faillock/main.c:130
+#, fuzzy, c-format
 msgid ""
-"Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
+"Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
+"legacy-output]\n"
 msgstr "Bruk: %s [--dir /sti/til/tally-mappe] [--user brukarnamn] [--reset]\n"
 
-#: modules/pam_faillock/pam_faillock.c:618
+#: modules/pam_faillock/main.c:181
+#, c-format
+msgid "Login           Failures    Latest failure         From\n"
+msgstr ""
+
+#: modules/pam_faillock/pam_faillock.c:404
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "Konto er låst som følgje av %u mislukka innloggingar."
 
-#: modules/pam_faillock/pam_faillock.c:627
-#: modules/pam_faillock/pam_faillock.c:633
+#: modules/pam_faillock/pam_faillock.c:413
+#: modules/pam_faillock/pam_faillock.c:419
 #, fuzzy, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -250,45 +256,45 @@ msgstr[0] "(%d minutt står att for å låse opp)"
 msgstr[1] "(%d minutt står att for å låse opp)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:636
+#: modules/pam_faillock/pam_faillock.c:422
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(%d minutt står att for å låse opp)"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:318 modules/pam_lastlog/pam_lastlog.c:579
+#: modules/pam_lastlog/pam_lastlog.c:326 modules/pam_lastlog/pam_lastlog.c:595
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:327 modules/pam_lastlog/pam_lastlog.c:588
+#: modules/pam_lastlog/pam_lastlog.c:335 modules/pam_lastlog/pam_lastlog.c:604
 #, c-format
 msgid " from %.*s"
 msgstr " frå %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:339 modules/pam_lastlog/pam_lastlog.c:600
+#: modules/pam_lastlog/pam_lastlog.c:347 modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid " on %.*s"
 msgstr " på %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:349
+#: modules/pam_lastlog/pam_lastlog.c:357
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Siste innlogging:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:355
+#: modules/pam_lastlog/pam_lastlog.c:363
 msgid "Welcome to your new account!"
 msgstr "Velkommen til din nye konto!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:610
+#: modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "Siste feila innlogging:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:619 modules/pam_lastlog/pam_lastlog.c:626
+#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -299,20 +305,21 @@ msgstr[1] ""
 "Det har vore %d feila innloggingsforsøk utan feil sidan førre innlogging."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:631
+#: modules/pam_lastlog/pam_lastlog.c:647
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
 "Det har vore %d feila innloggingsforsøk sidan sist innlogging utan feil."
 
-#: modules/pam_limits/pam_limits.c:1164
+#: modules/pam_limits/pam_limits.c:1269
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "For mange innlogginga for «%s»."
 
 #: modules/pam_mail/pam_mail.c:289
-msgid "You have no mail."
-msgstr "Du har ikkje fått nokon e-post."
+#, fuzzy
+msgid "You do not have any new mail."
+msgstr "Du har fått ny e-post."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
@@ -356,12 +363,12 @@ msgstr "Opprettar kataloge «%s»."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Kan ikkje lage og initiere katalog «%s»."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:371
+#: modules/pam_pwhistory/pam_pwhistory.c:378
 #: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
 msgstr "Passord er allereie nytta. Vel eit anna."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:378
+#: modules/pam_pwhistory/pam_pwhistory.c:385
 msgid "Password has been already used."
 msgstr "Passordet har allereie vore brukt."
 
@@ -482,3 +489,6 @@ msgstr "Skiftar passord for %s."
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password."
 msgstr "Du må vente lengre før du kan skifte passordet ditt."
+
+#~ msgid "You have no mail."
+#~ msgstr "Du har ikkje fått nokon e-post."

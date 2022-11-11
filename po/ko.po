@@ -14,11 +14,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2021-07-20 20:00+0000\n"
+"POT-Creation-Date: 2022-11-11 11:11+0000\n"
 "PO-Revision-Date: 2022-10-05 09:19+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
-"Language-Team: Korean <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/ko/>\n"
+"Language-Team: Korean <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.14.1\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:181
+#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "비밀번호: "
@@ -220,79 +220,86 @@ msgstr "...미안합니다, 시간이 다 되었습니다!\n"
 msgid "erroneous conversation (%d)\n"
 msgstr "잘못된 인증 대화 (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:279
+#: modules/pam_exec/pam_exec.c:289
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s 실패: 종료 코드 %d"
 
-#: modules/pam_exec/pam_exec.c:289
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s 실패함: 신호 발견 %d%s"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:309
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s 실패함: 알 수 없는 상태 0x%x"
 
-#: modules/pam_faillock/main.c:103
-#, c-format
+#: modules/pam_faillock/main.c:130
+#, fuzzy, c-format
 msgid ""
-"Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
-msgstr "사용법: %s [--dir /path/to/tally-directory] [--user <사용자이름>] [--reset]\n"
+"Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
+"legacy-output]\n"
+msgstr ""
+"사용법: %s [--dir /path/to/tally-directory] [--user <사용자이름>] [--reset]\n"
 
-#: modules/pam_faillock/pam_faillock.c:618
+#: modules/pam_faillock/main.c:181
+#, fuzzy, c-format
+msgid "Login           Failures    Latest failure         From\n"
+msgstr "로그인           실패 마지막 실패     다음에서 발생\n"
+
+#: modules/pam_faillock/pam_faillock.c:404
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "로그인에 %u번 실패하여 계정이 잠겼습니다."
 
-#: modules/pam_faillock/pam_faillock.c:627
-#: modules/pam_faillock/pam_faillock.c:633
+#: modules/pam_faillock/pam_faillock.c:413
+#: modules/pam_faillock/pam_faillock.c:419
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
 msgstr[0] "(잠금 해제까지 %d분 남았습니다)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:636
+#: modules/pam_faillock/pam_faillock.c:422
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(잠금 해제까지 %d분 남았습니다)"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:318 modules/pam_lastlog/pam_lastlog.c:579
+#: modules/pam_lastlog/pam_lastlog.c:326 modules/pam_lastlog/pam_lastlog.c:595
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %Y년 %b %e일 (%a) %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:327 modules/pam_lastlog/pam_lastlog.c:588
+#: modules/pam_lastlog/pam_lastlog.c:335 modules/pam_lastlog/pam_lastlog.c:604
 #, c-format
 msgid " from %.*s"
 msgstr " %.*s에서"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:339 modules/pam_lastlog/pam_lastlog.c:600
+#: modules/pam_lastlog/pam_lastlog.c:347 modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid " on %.*s"
 msgstr " %.*s에"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:349
+#: modules/pam_lastlog/pam_lastlog.c:357
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "마지막 로그인:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:355
+#: modules/pam_lastlog/pam_lastlog.c:363
 msgid "Welcome to your new account!"
 msgstr "새 계정에 오신 것을 환영합니다!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:610
+#: modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "마지막 실패한 로그인:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:619 modules/pam_lastlog/pam_lastlog.c:626
+#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -300,19 +307,20 @@ msgid_plural ""
 msgstr[0] "마지막 로그인 후 로그인 시도를 %d번 실패했습니다."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:631
+#: modules/pam_lastlog/pam_lastlog.c:647
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "마지막 로그인 후 로그인 시도를 %d번 실패했습니다."
 
-#: modules/pam_limits/pam_limits.c:1164
+#: modules/pam_limits/pam_limits.c:1269
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s' 계정에 너무 많이 로그인했습니다."
 
 #: modules/pam_mail/pam_mail.c:289
-msgid "You have no mail."
-msgstr "전자메일이 없습니다."
+#, fuzzy
+msgid "You do not have any new mail."
+msgstr "신규 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
@@ -356,12 +364,12 @@ msgstr "디렉토리 '%s'를 생성하기."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "디렉토리 '%s'를 생성하고 초기화 할 수 없음."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:371
+#: modules/pam_pwhistory/pam_pwhistory.c:378
 #: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
 msgstr "이미 사용하고 있는 비밀번호입니다. 다른 비밀번호를 사용하세요."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:378
+#: modules/pam_pwhistory/pam_pwhistory.c:385
 msgid "Password has been already used."
 msgstr "비밀번호를 이미 사용하고 있습니다."
 
@@ -482,6 +490,9 @@ msgstr "%s를 위해 비밀번호 변경하기."
 msgid "You must wait longer to change your password."
 msgstr "비빌번호를 변경하려면 더 기다려야 합니다."
 
+#~ msgid "You have no mail."
+#~ msgstr "전자메일이 없습니다."
+
 #~ msgid "is the same as the old one"
 #~ msgstr "이전 암호와 같음"
 
@@ -547,9 +558,6 @@ msgstr "비빌번호를 변경하려면 더 기다려야 합니다."
 
 #~ msgid "%s: Can't reset all users to non-zero\n"
 #~ msgstr "%s: 모든 사용자를 영이 아닌 값으로 설정할 수 없음\n"
-
-#~ msgid "Login           Failures Latest failure     From\n"
-#~ msgstr "로그인           실패 마지막 실패     다음에서 발생\n"
 
 #~ msgid ""
 #~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
