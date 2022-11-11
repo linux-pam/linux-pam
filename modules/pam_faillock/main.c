@@ -127,7 +127,7 @@ static void
 usage(const char *progname)
 {
 	fprintf(stderr,
-		_("Usage: %s [--dir /path/to/tally-directory] "
+		_("Usage: %s [--dir /path/to/tally-directory]"
 		  " [--user username] [--reset] [--legacy-output]\n"), progname);
 
 }
