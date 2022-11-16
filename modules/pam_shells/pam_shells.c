@@ -13,27 +13,47 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <sys/stat.h>
 #include <syslog.h>
 #include <unistd.h>
+#if defined (USE_ECONF)	&& defined (VENDORDIR)
+#include <libeconf.h>
+#endif
 
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 
 #define SHELL_FILE "/etc/shells"
-
+#define SHELLS "shells"
+#define ETCDIR "/etc"
 #define DEFAULT_SHELL "/bin/sh"
+
+static bool check_file(const char *filename, const void *pamh)
+{
+    struct stat sb;
+
+    if (stat(filename, &sb)) {
+	pam_syslog(pamh, LOG_ERR, "Cannot stat %s: %m", filename);
+	return false;		/* must have /etc/shells */
+    }
+
+    if ((sb.st_mode & S_IWOTH) || !S_ISREG(sb.st_mode)) {
+	pam_syslog(pamh, LOG_ERR,
+		   "%s is either world writable or not a normal file",
+		   filename);
+	return false;
+    }
+    return true;
+}
 
 static int perform_check(pam_handle_t *pamh)
 {
     int retval = PAM_AUTH_ERR;
     const char *userName;
     const char *userShell;
-    char shellFileLine[256];
-    struct stat sb;
     struct passwd * pw;
-    FILE * shellFile;
 
     retval = pam_get_user(pamh, &userName, NULL);
     if (retval != PAM_SUCCESS) {
@@ -48,17 +68,49 @@ static int perform_check(pam_handle_t *pamh)
     if (userShell[0] == '\0')
 	userShell = DEFAULT_SHELL;
 
-    if (stat(SHELL_FILE,&sb)) {
-	pam_syslog(pamh, LOG_ERR, "Cannot stat %s: %m", SHELL_FILE);
-	return PAM_AUTH_ERR;		/* must have /etc/shells */
-    }
+#if defined (USE_ECONF)	&& defined (VENDORDIR)
+    size_t size = 0;
+    econf_err error;
+    char **keys;
+    econf_file *key_file;
 
-    if ((sb.st_mode & S_IWOTH) || !S_ISREG(sb.st_mode)) {
+    error = econf_readDirsWithCallback(&key_file,
+				       VENDORDIR,
+				       ETCDIR,
+				       SHELLS,
+				       NULL,
+				       "", /* key only */
+				       "#", /* comment */
+				       check_file, pamh);
+    if (error) {
 	pam_syslog(pamh, LOG_ERR,
-		   "%s is either world writable or not a normal file",
-		   SHELL_FILE);
+		   "Cannot parse shell files: %s",
+		   econf_errString(error));
 	return PAM_AUTH_ERR;
     }
+
+    error = econf_getKeys(key_file, NULL, &size, &keys);
+    if (error) {
+	pam_syslog(pamh, LOG_ERR,
+		   "Cannot evaluate entries in shell files: %s",
+		   econf_errString(error));
+	econf_free (key_file);
+	return PAM_AUTH_ERR;
+    }
+
+    retval = 1;
+    for (size_t i = 0; i < size; i++) {
+	retval = strcmp(keys[i], userShell);
+        if (!retval)
+	   break;
+    }
+    econf_free (key_file);
+#else
+    char shellFileLine[256];
+    FILE * shellFile;
+
+    if (!check_file(SHELL_FILE, pamh))
+        return PAM_AUTH_ERR;
 
     shellFile = fopen(SHELL_FILE,"r");
     if (shellFile == NULL) {       /* Check that we opened it successfully */
@@ -75,6 +127,7 @@ static int perform_check(pam_handle_t *pamh)
     }
 
     fclose(shellFile);
+ #endif
 
     if (retval) {
 	return PAM_AUTH_ERR;

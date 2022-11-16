@@ -520,8 +520,7 @@ AC_ARG_ENABLE([econf],
   AS_HELP_STRING([--disable-econf], [do not use libeconf]),
   [WITH_ECONF=$enableval], WITH_ECONF=yes)
 if test "$WITH_ECONF" = "yes" ; then
-  PKG_CHECK_MODULES([ECONF], [libeconf], [],
-  [AC_CHECK_LIB([econf],[econf_readDirs],[ECONF_LIBS="-leconf"],[ECONF_LIBS=""])])
+  AC_CHECK_LIB([econf],[econf_readDirsWithCallback],[ECONF_LIBS="-leconf"],[ECONF_LIBS=""])
   if test -n "$ECONF_LIBS" ; then
     ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"
   fi
@@ -535,7 +534,11 @@ if test -n "$enable_vendordir"; then
 		     [Directory for distribution provided configuration files])
   AC_DEFINE_UNQUOTED([VENDOR_SCONFIGDIR], ["$enable_vendordir/security"],
 		     [Directory for PAM modules distribution provided configuration files])
-  STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir' --stringparam profile.condition 'with_vendordir'"
+  if test "$WITH_ECONF" = "yes" ; then
+    STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir' --stringparam profile.condition 'with_vendordir;with_vendordir_and_with_econf'"
+  else
+    STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir' --stringparam profile.condition 'with_vendordir;with_vendordir_and_without_econf"
+  fi
 else
   STRINGPARAM_VENDORDIR="--stringparam profile.condition 'without_vendordir'"
 fi

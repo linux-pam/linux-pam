@@ -29,9 +29,17 @@
       pam_shells is a PAM module that only allows access to the
       system if the user's shell is listed in <filename>/etc/shells</filename>.
     </para>
+
+    <para condition="with_vendordir_and_with_econf">
+      If this file does not exist, entries are taken from files
+      <filename>%vendordir%/shells</filename>,
+      <filename>%vendordir%/shells.d/*</filename> and
+      <filename>/etc/shells.d/*</filename> in that order.
+    </para>
+
     <para>
-      It also checks if <filename>/etc/shells</filename> is a plain
-      file and not world writable.
+      It also checks if needed files (e.g. <filename>/etc/shells</filename>) are plain
+      files and not world writable.
     </para>
   </refsect1>
 
