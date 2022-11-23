@@ -53,17 +53,16 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     const char *citemp;
     char *ifname=NULL;
     char aline[256];
-    char mybuf[256],myval[256];
+    char mybuf[256],myval[256],apply_val[256];
     struct stat fileinfo;
     FILE *inf;
-    const char *apply_val;
     int apply_type;
 
     /* Stuff for "extended" items */
     struct passwd *userinfo;
 
     apply_type=APPLY_TYPE_NULL;
-    apply_val="";
+    apply_val[0] = '\0';
 
     for(i=0; i < argc; i++) {
 	{
@@ -133,10 +132,10 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		apply_type=APPLY_TYPE_NONE;
 		if (myval[0]=='@') {
 		    apply_type=APPLY_TYPE_GROUP;
-		    apply_val=myval+1;
+		    memcpy(apply_val,myval+1,sizeof(myval)-1);
 		} else {
 		    apply_type=APPLY_TYPE_USER;
-		    apply_val=myval;
+		    memcpy(apply_val,myval,sizeof(myval));
 		}
 	    } else {
 		free(ifname);
