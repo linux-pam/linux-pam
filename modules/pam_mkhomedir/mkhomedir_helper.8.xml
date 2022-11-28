@@ -24,6 +24,9 @@
         <replaceable>path-to-skel</replaceable>
       <arg choice="opt" rep="norepeat">
         <replaceable>home_mode</replaceable>
+      <arg choice="opt" rep="norepeat">
+        copymode
+      </arg>
       </arg>
       </arg>
       </arg>
@@ -49,6 +52,12 @@
     </para>
 
     <para>
+      If <replaceable>copymode</replaceable> option is provided, it will copy
+      <replaceable>path-to-skel</replaceable> subfile mode for each home
+      directory subfile.
+    </para>
+
+    <para>
       The helper is separated from the module to not require direct access from
       login SELinux domains to the contents of user home directories. The
       SELinux domain transition happens when the module is executing the
@@ -57,6 +66,17 @@
 
     <para>
       The helper never touches home directories if they already exist.
+    </para>
+  </refsect1>
+
+  <refsect1 xml:id="mkhomedir_helper-examples">
+    <title>EXAMPLES</title>
+    <para>
+      For an example of the use of this helper, we show how it may be
+      used to create a home directory for a new user from a default one:
+      <programlisting>
+mkhomedir_helper new_user 0022 /home/default_user 0777 copymode
+      </programlisting>
     </para>
   </refsect1>
 
