@@ -293,7 +293,8 @@ _parse_line(const pam_handle_t *pamh, const char *buffer, VAR *var)
       }
       (void)strncpy(*valptr,ptr,length);
       (*valptr)[length]='\0';
-    } else if (quoteflg--) {
+    } else if (quoteflg) {
+      quoteflg--;
       *valptr = &quote;      /* a quick hack to handle the empty string */
     }
     ptr = tmpptr;         /* Start the search where we stopped */
