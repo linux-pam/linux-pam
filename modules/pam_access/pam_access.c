@@ -1082,14 +1082,13 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     if (rv == NOMATCH && loginfo.config_file == default_config) {
         char **filename_list = read_access_dir(pamh);
         if (filename_list != NULL) {
-            int i;
-            for (i = 0; filename_list[i] != NULL; i++) {
+            for (int i = 0; filename_list[i] != NULL; i++) {
                 loginfo.config_file = filename_list[i];
                 rv = login_access(pamh, &loginfo);
                 if (rv != NOMATCH)
                     break;
             }
-            for (i = 0; filename_list[i] != NULL; i++)
+            for (int i = 0; filename_list[i] != NULL; i++)
                 free(filename_list[i]);
             free(filename_list);
         }
