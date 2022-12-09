@@ -67,7 +67,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
             buf[buf_len] = '\0';
             if (strcmp(buf, sshd_path) == 0) {
                 // build /proc/#/cmdline filename from the /proc/#/exe path
-                for (buf_len = 0; buf_len < 1016 && globbuf.gl_pathv[i][buf_len] != 0; buf_len++) {
+                for (buf_len = 0; buf_len < (int)(sizeof(buf))-10 && globbuf.gl_pathv[i][buf_len] != 0; buf_len++) {
                     buf[buf_len] = globbuf.gl_pathv[i][buf_len];
                 }
                 strncpy(buf+buf_len-3, PROC_CMDLINE, 8);
@@ -81,9 +81,9 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 
                 // compare the content with the PREFIX, USER, SUFFIX
                 buf_len = strlen(PROC_CMDLINE_PREFIX);
-                if (strncmp(buf, PROC_CMDLINE_PREFIX, buf_len) != 0)
+                if (buf_len > (int)(sizeof(buf))-2 || strncmp(buf, PROC_CMDLINE_PREFIX, buf_len) != 0)
                     continue;
-                if (strncmp(buf+buf_len, user, strlen(user)) != 0)
+                if (buf_len + strlen(user) >  sizeof(buf)-2 || strncmp(buf+buf_len, user, strlen(user)) != 0)
                     continue;
                 buf_len = buf_len + strlen(user);
                 if (strncmp(buf+buf_len, PROC_CMDLINE_SUFFIX, strlen(PROC_CMDLINE_SUFFIX)) != 0)
@@ -95,9 +95,13 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
         }
         pam_syslog(pamh, LOG_NOTICE, "user %s, current %d, max %d", user, ssh_count, ssh_max);
 
+        globfree(&globbuf);
         if (ssh_count >= ssh_max) {
             return PAM_AUTH_ERR;
         }
+    } else {
+        pam_syslog(pamh, LOG_NOTICE, "unable to list /proc/*/exe for sshd processes");
+        return PAM_SESSION_ERR;
     }
     return PAM_SUCCESS;
 }
