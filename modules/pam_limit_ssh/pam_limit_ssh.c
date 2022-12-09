@@ -4,6 +4,7 @@
  * Written by Paul Schou <github.com/pschou> 2022/12/8
  */
 
+#include "config.h"
 #include <syslog.h>
 #include <glob.h>
 #include <stdio.h>
@@ -13,6 +14,7 @@
 
 #include <security/pam_appl.h>
 #include <security/pam_modules.h>
+#include <security/pam_ext.h>
 
 /* SSHD processes from globbed exe links. */
 #define PROC_GLOB            "/proc/*/exe"
@@ -23,71 +25,15 @@
 /* --- authentication management functions --- */
 
 int
-pam_sm_authenticate(pam_handle_t *pamh UNUSED, int flags UNUSED,
-        int argc UNUSED, const char **argv UNUSED)
+pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
+        int argc, const char **argv)
 {
-    if (auth(pamh, flags, argc, argv) == PAM_SUCCESS)
-        return PAM_SUCCESS;
-    return PAM_AUTH_ERR;
-}
-
-int
-pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
-         int argc UNUSED, const char **argv UNUSED)
-{
-    if (auth(pamh, flags, argc, argv) == PAM_SUCCESS)
-        return PAM_SUCCESS;
-    return PAM_CRED_ERR;
-}
-
-/* --- account management functions --- */
-
-int
-pam_sm_acct_mgmt(pam_handle_t *pamh UNUSED, int flags UNUSED,
-     int argc UNUSED, const char **argv UNUSED)
-{
-    if (auth(pamh, flags, argc, argv) == PAM_SUCCESS)
-        return PAM_SUCCESS;
-    return PAM_AUTH_ERR;
-}
-
-/* --- password management --- */
-
-int
-pam_sm_chauthtok(pam_handle_t *pamh UNUSED, int flags UNUSED,
-     int argc UNUSED, const char **argv UNUSED)
-{
-    if (auth(pamh, flags, argc, argv) == PAM_SUCCESS)
-        return PAM_SUCCESS;
-    return PAM_AUTHTOK_ERR;
-}
-
-/* --- session management --- */
-
-int
-pam_sm_open_session(pam_handle_t *pamh UNUSED, int flags UNUSED,
-        int argc UNUSED, const char **argv UNUSED)
-{
-    if (auth(pamh, flags, argc, argv) == PAM_SUCCESS)
-        return PAM_SUCCESS;
-    return PAM_SESSION_ERR;
-}
-
-int
-pam_sm_close_session(pam_handle_t *pamh UNUSED, int flags UNUSED,
-         int argc UNUSED, const char **argv UNUSED)
-{
-    return PAM_SUCCESS;
-}
-
-/* end of module definition */
-
-int
-auth( pam_handle_t *pamh, int flags,int argc, const char **argv ) {
     const char* user;
-    int retval;
     // parse the user
-    retval = pam_get_user(pamh, &user, NULL);
+    if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
+        pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
+        return PAM_SESSION_ERR;
+    }
 
     glob_t globbuf;
     int glob_rv = glob(PROC_GLOB, GLOB_ERR | GLOB_NOSORT, NULL, &globbuf);
@@ -96,7 +42,7 @@ auth( pam_handle_t *pamh, int flags,int argc, const char **argv ) {
     FILE *cmdfile;
     const char *sshd_path;
 
-    int i, ssh_count, ssh_max;
+    unsigned int i, ssh_count, ssh_max;
     ssh_max = 10;
     sshd_path = "/usr/sbin/sshd";
 
@@ -155,3 +101,54 @@ auth( pam_handle_t *pamh, int flags,int argc, const char **argv ) {
     }
     return PAM_SUCCESS;
 }
+
+int
+pam_sm_setcred(pam_handle_t *pamh, int flags,
+         int argc, const char **argv)
+{
+    if (pam_sm_authenticate(pamh, flags, argc, argv) == PAM_SUCCESS)
+        return PAM_SUCCESS;
+    return PAM_CRED_ERR;
+}
+
+/* --- account management functions --- */
+
+int
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
+     int argc, const char **argv)
+{
+    if (pam_sm_authenticate(pamh, flags, argc, argv) == PAM_SUCCESS)
+        return PAM_SUCCESS;
+    return PAM_AUTH_ERR;
+}
+
+/* --- password management --- */
+
+int
+pam_sm_chauthtok(pam_handle_t *pamh, int flags,
+     int argc, const char **argv)
+{
+    if (pam_sm_authenticate(pamh, flags, argc, argv) == PAM_SUCCESS)
+        return PAM_SUCCESS;
+    return PAM_AUTHTOK_ERR;
+}
+
+/* --- session management --- */
+
+int
+pam_sm_open_session(pam_handle_t *pamh, int flags,
+        int argc, const char **argv)
+{
+    if (pam_sm_authenticate(pamh, flags, argc, argv) == PAM_SUCCESS)
+        return PAM_SUCCESS;
+    return PAM_SESSION_ERR;
+}
+
+int
+pam_sm_close_session(pam_handle_t *pamh UNUSED, int flags UNUSED,
+         int argc UNUSED, const char **argv UNUSED)
+{
+    return PAM_SUCCESS;
+}
+
+/* end of module definition */

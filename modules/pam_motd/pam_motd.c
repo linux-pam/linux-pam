@@ -212,7 +212,8 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
     /* filter out unwanted names, directories, and complement data with lstat() */
     for (i = 0; i < num_motd_dirs; i++) {
 	struct dirent **d = dirscans[i];
-	for (unsigned int j = 0; j < dirscans_sizes[i]; j++) {
+  unsigned int j;
+	for (j = 0; j < dirscans_sizes[i]; j++) {
 	    int rc;
 	    char *fullpath;
 	    struct stat s;
