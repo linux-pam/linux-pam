@@ -801,7 +801,7 @@ static int parse_config_file(struct instance_data *idata)
     }
 
     if (filename_list != NULL) {
-  size_t i;
+	size_t i;
 	for (i = 0; filename_list[i] != NULL; i++)
 	    free(filename_list[i]);
 	free(filename_list);
