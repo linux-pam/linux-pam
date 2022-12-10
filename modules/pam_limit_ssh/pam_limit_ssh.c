@@ -38,7 +38,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
     glob_t globbuf;
     int glob_rv = glob(PROC_GLOB, GLOB_ERR | GLOB_NOSORT, NULL, &globbuf);
     char buf[2048];
-    ssize_t buf_len;
+    ssize_t buf_len, buf_pos;
     FILE *cmdfile;
     const char *sshd_path;
 
@@ -61,36 +61,42 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
     if (glob_rv == 0) {
         for (i = 0; i < globbuf.gl_pathc; i++) {
             // step through the /proc/#/exe list
-            buf_len = readlink(globbuf.gl_pathv[i], buf, sizeof(buf)-1);
-            if (buf_len == -1) { continue; }
+            buf_pos = readlink(globbuf.gl_pathv[i], buf, sizeof(buf)-1);
+            if (buf_pos == -1) { continue; }
 
-            buf[buf_len] = '\0';
+            buf[buf_pos] = '\0';
             if (strcmp(buf, sshd_path) == 0) {
                 // build /proc/#/cmdline filename from the /proc/#/exe path
-                for (buf_len = 0; buf_len < (int)(sizeof(buf))-10 && globbuf.gl_pathv[i][buf_len] != 0; buf_len++) {
-                    buf[buf_len] = globbuf.gl_pathv[i][buf_len];
+                for (buf_pos = 0; buf_pos < (int)(sizeof(buf))-10 && globbuf.gl_pathv[i][buf_pos] != 0; buf_pos++) {
+                    buf[buf_pos] = globbuf.gl_pathv[i][buf_pos];
                 }
-                strncpy(buf+buf_len-3, PROC_CMDLINE, 8);
+                strncpy(buf+buf_pos-3, PROC_CMDLINE, 8);
                 
                 // open the file and read it in
                 cmdfile = fopen(buf, "r");
                 if(cmdfile == NULL) // continue if file is not readable
                     continue;
-                fread(buf, sizeof(char), sizeof(buf), cmdfile);
+                buf_len = fread(buf, sizeof(char), sizeof(buf), cmdfile);
                 fclose(cmdfile);
 
                 // compare the content with the PREFIX, USER, SUFFIX
-                buf_len = strlen(PROC_CMDLINE_PREFIX);
-                if (buf_len > (int)(sizeof(buf))-2 || strncmp(buf, PROC_CMDLINE_PREFIX, buf_len) != 0)
+                buf_pos = strlen(PROC_CMDLINE_PREFIX);
+                if (buf_pos > buf_len-2 || strncmp(buf, PROC_CMDLINE_PREFIX, buf_pos) != 0)
                     continue;
-                if (buf_len + strlen(user) >  sizeof(buf)-2 || strncmp(buf+buf_len, user, strlen(user)) != 0)
+                if (buf_pos + (int)strlen(user) >  buf_len-2 || strncmp(buf+buf_pos, user, strlen(user)) != 0)
                     continue;
-                buf_len = buf_len + strlen(user);
-                if (strncmp(buf+buf_len, PROC_CMDLINE_SUFFIX, strlen(PROC_CMDLINE_SUFFIX)) != 0)
+                buf_pos = buf_pos + strlen(user);
+                if (strncmp(buf+buf_pos, PROC_CMDLINE_SUFFIX, strlen(PROC_CMDLINE_SUFFIX)) != 0)
                     continue;
+                buf_pos = buf_pos + strlen(PROC_CMDLINE_SUFFIX);
 
                 // count the session
                 ssh_count++;
+
+                // count any additional sub sessions
+                for (; buf_pos < buf_len; buf_pos++)
+                    if (buf[buf_pos] == ',')
+                         ssh_count++;
             }
         }
         pam_syslog(pamh, LOG_NOTICE, "user %s, current %d, max %d", user, ssh_count, ssh_max);
@@ -101,7 +107,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
         }
     } else {
         pam_syslog(pamh, LOG_NOTICE, "unable to list /proc/*/exe for sshd processes");
-        return PAM_SESSION_ERR;
+        return PAM_AUTH_ERR;
     }
     return PAM_SUCCESS;
 }
