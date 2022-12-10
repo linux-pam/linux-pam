@@ -17,7 +17,7 @@
 #include <security/pam_ext.h>
 
 /* SSHD processes from globbed exe links. */
-#define PROC_GLOB            "/proc/*/exe"
+#define PROC_GLOB            "/proc/[0-9]*/cmdline"
 #define PROC_CMDLINE         "cmdline"
 #define PROC_CMDLINE_PREFIX  "sshd: "
 #define PROC_CMDLINE_SUFFIX  "@"
@@ -40,11 +40,11 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
     char buf[2048];
     ssize_t buf_len, buf_pos;
     FILE *cmdfile;
-    const char *sshd_path;
+    //const char *sshd_path;
 
     unsigned int i, ssh_count, ssh_max;
     ssh_max = 10;
-    sshd_path = "/usr/sbin/sshd";
+    //sshd_path = "/usr/sbin/sshd";
 
     // parse the args to find max and sshd process
     for (; argc-- > 0; ++argv) {
@@ -52,52 +52,41 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
             i = atoi(*argv+4);
             if (i > 0)
                 ssh_max = i;
-        } else if (strncmp(*argv, "sshd=", 4) == 0) {
-            sshd_path = *argv + 5;
+    //    } else if (strncmp(*argv, "sshd=", 4) == 0) {
+    //        sshd_path = *argv + 5;
         }
     }
 
     ssh_count = 0;
     if (glob_rv == 0) {
         for (i = 0; i < globbuf.gl_pathc; i++) {
-            // step through the /proc/#/exe list
-            buf_pos = readlink(globbuf.gl_pathv[i], buf, sizeof(buf)-1);
-            if (buf_pos == -1) { continue; }
+            // step through the /proc/#/cmdline list
 
-            buf[buf_pos] = '\0';
-            if (strcmp(buf, sshd_path) == 0) {
-                // build /proc/#/cmdline filename from the /proc/#/exe path
-                for (buf_pos = 0; buf_pos < (int)(sizeof(buf))-10 && globbuf.gl_pathv[i][buf_pos] != 0; buf_pos++) {
-                    buf[buf_pos] = globbuf.gl_pathv[i][buf_pos];
-                }
-                strncpy(buf+buf_pos-3, PROC_CMDLINE, 8);
-                
-                // open the file and read it in
-                cmdfile = fopen(buf, "r");
-                if(cmdfile == NULL) // continue if file is not readable
-                    continue;
-                buf_len = fread(buf, sizeof(char), sizeof(buf), cmdfile);
-                fclose(cmdfile);
+            // open the file and read it in
+            cmdfile = fopen(globbuf.gl_pathv[i], "r");
+            if(cmdfile == NULL) // continue if file is not readable
+                continue;
+            buf_len = fread(buf, sizeof(char), sizeof(buf), cmdfile);
+            fclose(cmdfile);
 
-                // compare the content with the PREFIX, USER, SUFFIX
-                buf_pos = strlen(PROC_CMDLINE_PREFIX);
-                if (buf_pos > buf_len-2 || strncmp(buf, PROC_CMDLINE_PREFIX, buf_pos) != 0)
-                    continue;
-                if (buf_pos + (int)strlen(user) >  buf_len-2 || strncmp(buf+buf_pos, user, strlen(user)) != 0)
-                    continue;
-                buf_pos = buf_pos + strlen(user);
-                if (strncmp(buf+buf_pos, PROC_CMDLINE_SUFFIX, strlen(PROC_CMDLINE_SUFFIX)) != 0)
-                    continue;
-                buf_pos = buf_pos + strlen(PROC_CMDLINE_SUFFIX);
+            // compare the content with the PREFIX, USER, SUFFIX
+            buf_pos = strlen(PROC_CMDLINE_PREFIX);
+            if (buf_pos > buf_len-2 || strncmp(buf, PROC_CMDLINE_PREFIX, buf_pos) != 0)
+                continue;
+            if (buf_pos + (int)strlen(user) >  buf_len-2 || strncmp(buf+buf_pos, user, strlen(user)) != 0)
+                continue;
+            buf_pos = buf_pos + strlen(user);
+            if (strncmp(buf+buf_pos, PROC_CMDLINE_SUFFIX, strlen(PROC_CMDLINE_SUFFIX)) != 0)
+                continue;
+            buf_pos = buf_pos + strlen(PROC_CMDLINE_SUFFIX);
 
-                // count the session
-                ssh_count++;
+            // count the session
+            ssh_count++;
 
-                // count any additional sub sessions
-                for (; buf_pos < buf_len; buf_pos++)
-                    if (buf[buf_pos] == ',')
-                         ssh_count++;
-            }
+            // count any additional sub sessions
+            for (; buf_pos < buf_len; buf_pos++)
+                if (buf[buf_pos] == ',')
+                     ssh_count++;
         }
         pam_syslog(pamh, LOG_NOTICE, "user %s, current %d, max %d", user, ssh_count, ssh_max);
 
@@ -106,7 +95,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
             return PAM_AUTH_ERR;
         }
     } else {
-        pam_syslog(pamh, LOG_NOTICE, "unable to list /proc/*/exe for sshd processes");
+        pam_syslog(pamh, LOG_NOTICE, "unable to list /proc/*/cmdline for sshd processes");
         return PAM_AUTH_ERR;
     }
     return PAM_SUCCESS;

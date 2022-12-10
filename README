@@ -23,6 +23,14 @@ Then compile:
       ./configure <your-options>
       make
 
+An example compiling with disabling settings would look like:
+
+      C=cc CFLAGS='-fPIC' \
+      ./configure --disable-regenerate-docu --enable-static=yes \
+        --disable-pie --disable-prelude --disable-audit \
+        --enable-db=no --disable-nis --disable-selinux --disable-econf \
+        --disable-nls --disable-rpath --disable-doc
+
 To make sure everything was compiled correct, run:
 
       make check
@@ -57,6 +65,17 @@ as root.
 WARNING: Running "make xtests" can overwrite configuration data
 or make the system insecure/unfunctional for a short time!
 Backup all important data before!
+
+To compile a specific module, cd into that module's directory and then
+run
+
+      cd modules/pam_mod
+      make
+
+For testing a single module:
+
+      sudo ld -x --shared -o /usr/lib64/security/pam_mod.so pam_mod.o
+
 
 To regenerate manual pages from the XML source files you need the
 docbook-xsl stylesheets in version 1.69.1 or newer, older versions had
