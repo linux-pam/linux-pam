@@ -16,7 +16,7 @@ extern "C" {
 
 #include <security/_pam_types.h>      /* Linux-PAM common defined types */
 
-/* -------------- The Linux-PAM Module PI ------------- */
+/* -------------- The Linux-PAM Module API ------------- */
 
 extern int PAM_NONNULL((1,2))
 pam_set_data(pam_handle_t *pamh, const char *module_data_name, void *data,
