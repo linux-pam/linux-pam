@@ -25,22 +25,21 @@
 #define byteReverse(buf, len)	/* Nothing */
 #else
 
-typedef unsigned char PAM_ATTRIBUTE_ALIGNED(4) uint8_aligned;
-
-static void byteReverse(uint8_aligned *buf, unsigned longs);
+static void byteReverse(uint32 *buf, unsigned longs);
 
 #ifndef ASM_MD5
 /*
  * Note: this code is harmless on little-endian machines.
  */
-static void byteReverse(uint8_aligned *buf, unsigned longs)
+static void byteReverse(uint32 *buf, unsigned longs)
 {
 	uint32 t;
 	do {
-		t = (uint32) ((unsigned) buf[3] << 8 | buf[2]) << 16 |
-		    ((unsigned) buf[1] << 8 | buf[0]);
-		*(uint32 *) buf = t;
-		buf += 4;
+		unsigned char *p = (unsigned char *) buf;
+		t = (uint32) ((unsigned) p[3] << 8 | p[2]) << 16 |
+		    ((unsigned) p[1] << 8 | p[0]);
+		*buf = t;
+		++buf;
 	} while (--longs);
 }
 #endif
@@ -89,7 +88,7 @@ void MD5Name(MD5Update)(struct MD5Context *ctx, unsigned const char *buf, unsign
 			return;
 		}
 		memcpy(p, buf, t);
-		byteReverse(ctx->in.c, 16);
+		byteReverse(ctx->in.i, 16);
 		MD5Name(MD5Transform)(ctx->buf.i, ctx->in.i);
 		buf += t;
 		len -= t;
@@ -98,7 +97,7 @@ void MD5Name(MD5Update)(struct MD5Context *ctx, unsigned const char *buf, unsign
 
 	while (len >= 64) {
 		memcpy(ctx->in.c, buf, 64);
-		byteReverse(ctx->in.c, 16);
+		byteReverse(ctx->in.i, 16);
 		MD5Name(MD5Transform)(ctx->buf.i, ctx->in.i);
 		buf += 64;
 		len -= 64;
@@ -133,7 +132,7 @@ void MD5Name(MD5Final)(unsigned char digest[16], struct MD5Context *ctx)
 	if (count < 8) {
 		/* Two lots of padding:  Pad the first block to 64 bytes */
 		memset(p, 0, count);
-		byteReverse(ctx->in.c, 16);
+		byteReverse(ctx->in.i, 16);
 		MD5Name(MD5Transform)(ctx->buf.i, ctx->in.i);
 
 		/* Now fill the next block with 56 bytes */
@@ -142,13 +141,13 @@ void MD5Name(MD5Final)(unsigned char digest[16], struct MD5Context *ctx)
 		/* Pad block to 56 bytes */
 		memset(p, 0, count - 8);
 	}
-	byteReverse(ctx->in.c, 14);
+	byteReverse(ctx->in.i, 14);
 
 	/* Append length in bits and transform */
 	memcpy(ctx->in.i + 14, ctx->bits, 2*sizeof(uint32));
 
 	MD5Name(MD5Transform)(ctx->buf.i, ctx->in.i);
-	byteReverse(ctx->buf.c, 4);
+	byteReverse(ctx->buf.i, 4);
 	memcpy(digest, ctx->buf.c, 16);
 	memset(ctx, 0, sizeof(*ctx));	/* In case it's sensitive */
 }
