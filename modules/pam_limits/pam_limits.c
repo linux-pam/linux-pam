@@ -283,8 +283,8 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
 	}
         if (!pl->flag_numsyslogins) {
 	    char user[sizeof(ut->UT_USER) + 1];
-	    user[0] = '\0';
-	    strncat(user, ut->UT_USER, sizeof(ut->UT_USER));
+	    memcpy(user, ut->UT_USER, sizeof(ut->UT_USER));
+	    user[sizeof(ut->UT_USER)] = '\0';
 
 	    if (((pl->login_limit_def == LIMITS_DEF_USER)
 	         || (pl->login_limit_def == LIMITS_DEF_GROUP)
