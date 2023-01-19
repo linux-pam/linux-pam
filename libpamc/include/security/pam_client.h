@@ -24,7 +24,8 @@ extern "C" {
 typedef struct pamc_handle_s *pamc_handle_t;
 
 /* binary prompt structure pointer */
-typedef struct { uint32_t length; uint8_t control; } *pamc_bp_t;
+typedef struct { uint32_t length; uint8_t control; }
+	__attribute__ ((__packed__)) *pamc_bp_t;
 
 /*
  * functions provided by libpamc
