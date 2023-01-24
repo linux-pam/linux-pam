@@ -9,13 +9,14 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Tomáš Mráz <tmraz@redhat.com>, 2020.
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
+# Josef Hruska <hrusjos@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2022-11-11 11:11+0000\n"
-"PO-Revision-Date: 2020-03-20 10:38+0000\n"
-"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
+"PO-Revision-Date: 2023-01-24 18:20+0000\n"
+"Last-Translator: Josef Hruska <hrusjos@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/linux-pam/"
 "master/cs/>\n"
 "Language: cs\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11.3\n"
+"X-Generator: Weblate 4.15.1\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
@@ -235,18 +236,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s selhal: neznámý kód stavu 0x%x"
 
 #: modules/pam_faillock/main.c:130
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
-"Použití: %s [--dir /cesta/k/tally-adresari] [--user uzivatelske_jmeno] [--"
-"reset]\n"
+"Použití: %s [--dir /cesta/k/tally-adresari] [--user uzivatelske_jmeno] "
+"[--legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "Login           Failures    Latest failure         From\n"
-msgstr "Login          Selhání  Poslední selhání   Od\n"
+msgstr "Login           Selhání    Poslední selhání         Od\n"
 
 #: modules/pam_faillock/pam_faillock.c:404
 #, c-format
@@ -255,11 +256,11 @@ msgstr "Účet je uzamčen z důvodu %u neúspěšných pokusů o přihlášení
 
 #: modules/pam_faillock/pam_faillock.c:413
 #: modules/pam_faillock/pam_faillock.c:419
-#, fuzzy, c-format
+#, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
-msgstr[0] "(%d minut zbývá do odemčení)"
-msgstr[1] "(%d minut zbývá do odemčení)"
+msgstr[0] "(%d minuta zbývá do odemčení)"
+msgstr[1] "(%d minuty zbývají do odemčení)"
 msgstr[2] "(%d minut zbývá do odemčení)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
@@ -322,9 +323,8 @@ msgid "There were too many logins for '%s'."
 msgstr "Proběhlo příliš mnoho přihlášení pro '%s'."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "Máte novou poštu."
+msgstr "Nemáte žádnou novou poštu."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
