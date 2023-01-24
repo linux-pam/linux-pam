@@ -11,16 +11,16 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2022-11-11 11:11+0000\n"
-"PO-Revision-Date: 2022-10-18 15:19+0000\n"
+"PO-Revision-Date: 2022-11-13 09:19+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
-"Language-Team: Georgian <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/ka/>\n"
+"Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
@@ -232,18 +232,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s-ის შეცდომა: უცნობიბ სტატუსი 0x%x"
 
 #: modules/pam_faillock/main.c:130
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
 "გამოყენება: %s [--dir /ბილიკი/tally-ის-საქაღალდემდე] [--user მომხმარებელი] "
-"[--reset]\n"
+"[--reset] [--legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
 #, c-format
 msgid "Login           Failures    Latest failure         From\n"
-msgstr ""
+msgstr "მომხმარებელი          შეცდომები      ბოლოშეცდომა         საიდან\n"
 
 #: modules/pam_faillock/pam_faillock.c:404
 #, c-format
@@ -319,9 +319,8 @@ msgid "There were too many logins for '%s'."
 msgstr "მომხმარებელი %s გამოიყენებოდა მეტისმეტად ხშირად."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "თქვენ გაქვთ ახალი წერილი."
+msgstr "ახალი ელფოსტა არ მოგსვლიათ."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
