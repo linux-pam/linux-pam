@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2012, 2020.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2012, 2020, 2022.
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
@@ -11,16 +11,16 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2022-11-11 11:11+0000\n"
-"PO-Revision-Date: 2020-06-24 09:40+0000\n"
+"PO-Revision-Date: 2022-12-07 16:19+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
-"Language-Team: Kazakh <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/kk/>\n"
+"Language-Team: Kazakh <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/kk/>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
@@ -234,16 +234,16 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s қатесі: белгісіз қалып-күйі 0x%x"
 
 #: modules/pam_faillock/main.c:130
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
-"Қолданылуы: %s: [--dir /tally-бумасына/дейінгі/жол] [--user пайдаланушы] [--"
-"reset]\n"
+"Қолданылуы: %s: [--dir /tally-бумасына/дейінгі/жол] [--user пайдаланушы] "
+"[--reset] [--legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "Пайдаланушы аты   Сәтсіз кіру саны  Соңғы қате   Қайдан\n"
 
@@ -254,7 +254,7 @@ msgstr "Тіркелгі %u рет қате кіру талабы салдары
 
 #: modules/pam_faillock/pam_faillock.c:413
 #: modules/pam_faillock/pam_faillock.c:419
-#, fuzzy, c-format
+#, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
 msgstr[0] "(бұғатты шешуге дейін %d минут қалды)"
@@ -317,9 +317,8 @@ msgid "There were too many logins for '%s'."
 msgstr "\"%s\" үшін жүйеге кіру талап саны тым көп."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "Сізде жаңа поштаңыз бар."
+msgstr "Сізде жаңа пошта жоқ."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
