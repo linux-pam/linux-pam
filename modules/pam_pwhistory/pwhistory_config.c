@@ -39,6 +39,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
+#include <sys/stat.h>
 
 #include <security/pam_modutil.h>
 
@@ -46,6 +47,10 @@
 #include "pwhistory_config.h"
 
 #define PWHISTORY_DEFAULT_CONF SCONFIGDIR "/pwhistory.conf"
+
+#ifdef VENDOR_SCONFIGDIR
+#define VENDOR_PWHISTORY_DEFAULT_CONF (VENDOR_SCONFIGDIR "/pwhistory.conf")
+#endif
 
 void
 parse_config_file(pam_handle_t *pamh, int argc, const char **argv,
@@ -65,6 +70,17 @@ parse_config_file(pam_handle_t *pamh, int argc, const char **argv,
 
     if (fname == NULL) {
         fname = PWHISTORY_DEFAULT_CONF;
+
+#ifdef VENDOR_PWHISTORY_DEFAULT_CONF
+        /*
+         * Check whether PWHISTORY_DEFAULT_CONF file is available.
+         * If it does not exist, fall back to VENDOR_PWHISTORY_DEFAULT_CONF file.
+         */
+        struct stat buffer;
+        if (stat(fname, &buffer) != 0 && errno == ENOENT) {
+            fname = VENDOR_PWHISTORY_DEFAULT_CONF;
+        }
+#endif
     }
 
     val = pam_modutil_search_key (pamh, fname, "debug");
