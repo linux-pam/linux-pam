@@ -14,7 +14,7 @@ endif
 XMLS = README.xml pam_pwhistory.8.xml pwhistory_helper.8.xml \
   pwhistory.conf.5.xml
 dist_check_SCRIPTS = tst-pam_pwhistory
-TESTS = $(dist_check_SCRIPTS)
+TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
 
 securelibdir = $(SECUREDIR)
 secureconfdir = $(SCONFIGDIR)
@@ -41,6 +41,9 @@ pwhistory_helper_CFLAGS = $(AM_CFLAGS) -DHELPER_COMPILE=\"pwhistory_helper\" @EX
 pwhistory_helper_SOURCES = pwhistory_helper.c opasswd.c
 pwhistory_helper_LDFLAGS = @EXE_LDFLAGS@
 pwhistory_helper_LDADD = $(top_builddir)/libpam/libpam.la @LIBCRYPT@
+
+check_PROGRAMS = tst-pam_pwhistory-retval
+tst_pam_pwhistory_retval_LDADD = $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
