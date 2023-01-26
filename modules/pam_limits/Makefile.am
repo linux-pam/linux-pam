@@ -15,7 +15,11 @@ dist_check_SCRIPTS = tst-pam_limits
 TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
+if HAVE_VENDORDIR
+secureconfdir = $(VENDOR_SCONFIGDIR)
+else
 secureconfdir = $(SCONFIGDIR)
+endif
 limits_conf_dir = $(SCONFIGDIR)/limits.d
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \

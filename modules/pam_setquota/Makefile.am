@@ -11,7 +11,11 @@ dist_check_SCRIPTS = tst-pam_setquota
 TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
+if HAVE_VENDORDIR
+secureconfdir = $(VENDOR_SCONFIGDIR)
+else
 secureconfdir = $(SCONFIGDIR)
+endif
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	    $(WARN_CFLAGS)

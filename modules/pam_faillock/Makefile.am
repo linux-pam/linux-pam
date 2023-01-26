@@ -18,7 +18,11 @@ dist_check_SCRIPTS = tst-pam_faillock
 TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
 
 securelibdir = $(SECUREDIR)
+if HAVE_VENDORDIR
+secureconfdir = $(VENDOR_SCONFIGDIR)
+else
 secureconfdir = $(SCONFIGDIR)
+endif
 
 noinst_HEADERS = faillock.h faillock_config.h
 

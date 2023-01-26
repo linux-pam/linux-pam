@@ -16,7 +16,11 @@ dist_check_SCRIPTS = tst-pam_namespace
 TESTS = $(dist_check_SCRIPTS)
 
 securelibdir = $(SECUREDIR)
+if HAVE_VENDORDIR
+secureconfdir = $(VENDOR_SCONFIGDIR)
+else
 secureconfdir = $(SCONFIGDIR)
+endif
 namespaceddir = $(SCONFIGDIR)/namespace.d
 servicedir = $(systemdunitdir)
 

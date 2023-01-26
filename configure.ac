@@ -549,10 +549,13 @@ if test -n "$enable_vendordir"; then
   else
     STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir' --stringparam profile.condition 'with_vendordir;with_vendordir_and_without_econf"
   fi
+  VENDOR_SCONFIGDIR="$enable_vendordir/security"
 else
   STRINGPARAM_VENDORDIR="--stringparam profile.condition 'without_vendordir'"
 fi
 AC_SUBST([STRINGPARAM_VENDORDIR])
+AC_SUBST(VENDOR_SCONFIGDIR)
+AM_CONDITIONAL([HAVE_VENDORDIR], [test -n "$enable_vendordir"])
 
 AC_ARG_ENABLE([openssl],
   AS_HELP_STRING([--enable-openssl],[use OpenSSL crypto libraries]),

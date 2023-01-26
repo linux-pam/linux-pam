@@ -16,7 +16,11 @@ dist_check_SCRIPTS = tst-pam_timestamp
 TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
 
 securelibdir = $(SECUREDIR)
+if HAVE_VENDORDIR
+secureconfdir = $(VENDOR_SCONFIGDIR)
+else
 secureconfdir = $(SCONFIGDIR)
+endif
 
 noinst_HEADERS = hmacsha1.h sha1.h hmac_openssl_wrapper.h
 
