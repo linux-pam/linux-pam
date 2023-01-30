@@ -281,7 +281,7 @@ _pam_open_config_file(pam_handle_t *pamh
 			, char **path
 			, FILE **file)
 {
-    const char *pamd_dirs[] = { PAM_CONFIG_DF, PAM_CONFIG_DIST_DF
+    const char *const pamd_dirs[] = { PAM_CONFIG_DF, PAM_CONFIG_DIST_DF
 #ifdef VENDORDIR
                                , PAM_CONFIG_DIST2_DF
 #endif
@@ -317,10 +317,12 @@ _pam_open_config_file(pam_handle_t *pamh
     }
 
     for (i = 0; i < PAM_ARRAY_SIZE(pamd_dirs); i++) {
-        if (asprintf (&p, pamd_dirs[i], service) < 0) {
+	DIAG_PUSH_IGNORE_FORMAT_NONLITERAL
+	if (asprintf (&p, pamd_dirs[i], service) < 0) {
 	    pam_syslog(pamh, LOG_CRIT, "asprintf failed");
 	    return PAM_BUF_ERR;
 	}
+	DIAG_POP_IGNORE_FORMAT_NONLITERAL
 
 	D(("opening %s", p));
 	f = fopen(p, "r");
