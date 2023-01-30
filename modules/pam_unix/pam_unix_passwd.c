@@ -72,24 +72,24 @@
 #include "passverify.h"
 #include "bigcrypt.h"
 
-#if (HAVE_YP_GET_DEFAULT_DOMAIN || HAVE_GETDOMAINNAME) && HAVE_YP_MASTER
+#if (defined(HAVE_YP_GET_DEFAULT_DOMAIN) || defined(HAVE_GETDOMAINNAME)) && defined(HAVE_YP_MASTER)
 # define HAVE_NIS
 #endif
 
 #ifdef HAVE_NIS
 # include <rpc/rpc.h>
 
-# if HAVE_RPCSVC_YP_PROT_H
+# ifdef HAVE_RPCSVC_YP_PROT_H
 #  include <rpcsvc/yp_prot.h>
 # endif
 
-# if HAVE_RPCSVC_YPCLNT_H
+# ifdef HAVE_RPCSVC_YPCLNT_H
 #  include <rpcsvc/ypclnt.h>
 # endif
 
 # include "yppasswd.h"
 
-# if !HAVE_DECL_GETRPCPORT &&!HAVE_RPCB_GETADDR
+# if !defined(HAVE_DECL_GETRPCPORT) &&!defined(HAVE_RPCB_GETADDR)
 extern int getrpcport(const char *host, unsigned long prognum,
 		      unsigned long versnum, unsigned int proto);
 # endif				/* GNU libc 2.1 */
