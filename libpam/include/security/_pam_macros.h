@@ -7,6 +7,8 @@
  * Organized by Cristian Gafton <gafton@redhat.com>
  */
 
+#include "config.h"
+
 /* a 'safe' version of strdup */
 
 #include <stdlib.h>
@@ -17,22 +19,39 @@
 /* Good policy to strike out passwords with some characters not just
    free the memory */
 
-#define _pam_overwrite(x)        \
+#ifdef HAVE_MEMSET_EXPLICIT
+# define _pam_overwrite_n(x, n)  \
 do {                             \
-     register char *__xx__;      \
-     if ((__xx__=(x)))           \
-          while (*__xx__)        \
-               *__xx__++ = '\0'; \
-} while (0)
+    void *x__ = x;               \
+    if (x__)                     \
+        memset_explicit(x__, n); \
+} while(0)
+#elif defined HAVE_EXPLICIT_BZERO
+# define _pam_overwrite_n(x, n) \
+do {                            \
+    void *x__ = x;              \
+    if (x__)                    \
+        explicit_bzero(x__, n); \
+} while(0)
+#else
+# define _pam_overwrite_n(x, n)                             \
+do {                                                        \
+    void *xx__ = x;                                         \
+    if (xx__) {                                             \
+        xx__ = memset(xx__, '\0', n);                       \
+        __asm__ __volatile__ ("" : : "r"(xx__) : "memory"); \
+    }                                                       \
+} while(0)
+#endif
 
-#define _pam_overwrite_n(x,n)   \
-do {                             \
-     register char *__xx__;      \
-     register unsigned int __i__ = 0;    \
-     if ((__xx__=(x)))           \
-        for (;__i__<n; __i__++) \
-            __xx__[__i__] = 0; \
-} while (0)
+#define _pam_overwrite(x)                     \
+do {                                          \
+    char *xx__ = x;                           \
+    if (xx__)                                 \
+        _pam_overwrite_n(xx__, strlen(xx__)); \
+} while(0)
+
+#define _pam_overwrite_array(x) _pam_overwrite_n(x, sizeof(x) + PAM_MUST_BE_ARRAY(x))
 
 /*
  * Don't just free it, forget it too.
