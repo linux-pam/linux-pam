@@ -147,7 +147,7 @@ PAMH_ARG_DECL(int verify_pwd_hash,
 			if (cdata != NULL) {
 				cdata->initialized = 0;
 				pp = x_strdup(crypt_r(p, hash, cdata));
-				memset(cdata, '\0', sizeof(*cdata));
+				_pam_overwrite_n(cdata, sizeof(*cdata));
 				free(cdata);
 			}
 #else
@@ -166,8 +166,10 @@ PAMH_ARG_DECL(int verify_pwd_hash,
 		}
 	}
 
-	if (pp)
+	if (pp) {
+		_pam_overwrite(pp);
 		_pam_delete(pp);
+	}
 	D(("done [%d].", retval));
 
 	return retval;
@@ -427,7 +429,7 @@ PAMH_ARG_DECL(char * create_password_hash,
 #else
 	char salt[64]; /* contains rounds number + max 16 bytes of salt + algo id */
 #endif
-	char *sp;
+	char *sp, *ret;
 #ifdef HAVE_CRYPT_R
 	struct crypt_data *cdata = NULL;
 #endif
@@ -456,7 +458,7 @@ PAMH_ARG_DECL(char * create_password_hash,
 			password = tmppass;
 		}
 		hashed = bigcrypt(password, salt);
-		memset(tmppass, '\0', sizeof(tmppass));
+		_pam_overwrite_array(tmppass);
 		password = NULL;
 		return hashed;
 	}
@@ -494,18 +496,21 @@ PAMH_ARG_DECL(char * create_password_hash,
 			   on(UNIX_SHA256_PASS, ctrl) ? "sha256" :
 			   on(UNIX_SHA512_PASS, ctrl) ? "sha512" : algoid);
 		if(sp) {
-		   memset(sp, '\0', strlen(sp));
+		   _pam_overwrite(sp);
 		}
 #ifdef HAVE_CRYPT_R
+		_pam_overwrite_n(cdata, sizeof(*cdata));
 		free(cdata);
 #endif
 		return NULL;
 	}
-	sp = x_strdup(sp);
+	ret = strdup(sp);
+	_pam_overwrite(sp);
 #ifdef HAVE_CRYPT_R
+	_pam_overwrite_n(cdata, sizeof(*cdata));
 	free(cdata);
 #endif
-	return sp;
+	return ret;
 }
 
 #ifdef WITH_SELINUX

@@ -181,7 +181,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 
     if (key.dptr) {
 	data = dbm_fetch(dbm, key);
-	memset(key.dptr, 0, key.dsize);
+	_pam_overwrite_n(key.dptr, key.dsize);
 	free(key.dptr);
     }
 
@@ -247,8 +247,11 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	      free(cdata);
 #endif
 	    }
+	    _pam_overwrite(pwhash);
 	    free(pwhash);
 	  }
+
+	  _pam_overwrite(cryptpw);
 	} else {
 
 	  /* Unknown password encryption method -

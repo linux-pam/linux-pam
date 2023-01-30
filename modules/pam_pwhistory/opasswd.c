@@ -68,6 +68,7 @@
 #include <security/pam_ext.h>
 #endif
 #include <security/pam_modules.h>
+#include <security/_pam_macros.h>
 
 #include "opasswd.h"
 
@@ -129,6 +130,7 @@ compare_password(const char *newpass, const char *oldpass)
   char *outval;
 #ifdef HAVE_CRYPT_R
   struct crypt_data output;
+  int retval;
 
   output.initialized = 0;
 
@@ -137,7 +139,9 @@ compare_password(const char *newpass, const char *oldpass)
   outval = crypt (newpass, oldpass);
 #endif
 
-  return outval != NULL && strcmp(outval, oldpass) == 0;
+  retval = outval != NULL && strcmp(outval, oldpass) == 0;
+  _pam_overwrite(outval);
+  return retval;
 }
 
 /* Check, if the new password is already in the opasswd file.  */
@@ -238,8 +242,8 @@ check_old_pass, const char *user, const char *newpass, const char *filename, int
       } while (oldpass != NULL);
     }
 
-  if (buf)
-    free (buf);
+  _pam_overwrite_n(buf, buflen);
+  free (buf);
 
   return retval;
 }
@@ -519,6 +523,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 	}
       if (fputs (out, newpf) < 0)
 	{
+	  _pam_overwrite(out);
 	  free (out);
 	  retval = PAM_AUTHTOK_ERR;
 	  if (oldpf)
@@ -526,6 +531,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 	  fclose (newpf);
 	  goto error_opasswd;
 	}
+      _pam_overwrite(out);
       free (out);
     }
 
@@ -571,6 +577,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
   rename (opasswd_tmp, opasswd_file);
  error_opasswd:
   unlink (opasswd_tmp);
+  _pam_overwrite_n(buf, buflen);
   free (buf);
 
   return retval;

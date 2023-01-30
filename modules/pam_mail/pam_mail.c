@@ -264,7 +264,7 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
     }
 
   get_mail_status_cleanup:
-    memset(&mail_st, 0, sizeof(mail_st));
+    _pam_overwrite_n(&mail_st, sizeof(mail_st));
     D(("user has %d mail in %s folder", type, folder));
     return type;
 }

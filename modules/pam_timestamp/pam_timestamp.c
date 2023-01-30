@@ -90,7 +90,7 @@
 static int
 check_dir_perms(pam_handle_t *pamh, const char *tdir)
 {
-	char scratch[BUFLEN];
+	char scratch[BUFLEN] = {};
 	struct stat st;
 	int i;
 	/* Check that the directory is "safe". */
@@ -98,7 +98,6 @@ check_dir_perms(pam_handle_t *pamh, const char *tdir)
 		return PAM_AUTH_ERR;
 	}
 	/* Iterate over the path, checking intermediate directories. */
-	memset(scratch, 0, sizeof(scratch));
 	for (i = 0; (tdir[i] != '\0') && (i < (int)sizeof(scratch)); i++) {
 		scratch[i] = tdir[i];
 		if ((scratch[i] == '/') || (tdir[i + 1] == '\0')) {

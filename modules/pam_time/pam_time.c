@@ -107,7 +107,7 @@ shift_buf(char *mem, int from)
     char *start = mem;
     while ((*mem = mem[from]) != '\0')
 	++mem;
-    memset(mem, '\0', PAM_TIME_BUFLEN - (mem - start));
+    _pam_overwrite_n(mem, PAM_TIME_BUFLEN - (mem - start));
     return mem;
 }
 
@@ -168,7 +168,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state, 
 	if (i < 0) {
 	    pam_syslog(pamh, LOG_ERR, "error reading %s: %m", file);
 	    close(fd);
-	    memset(*buf, 0, PAM_TIME_BUFLEN);
+	    _pam_overwrite_n(*buf, PAM_TIME_BUFLEN);
 	    _pam_drop(*buf);
 	    *state = STATE_EOF;
 	    return -1;
@@ -187,7 +187,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state, 
 	return -1;
     }
 
-    memset(to, '\0', PAM_TIME_BUFLEN - (to - *buf));
+    _pam_overwrite_n(to, PAM_TIME_BUFLEN - (to - *buf));
 
     to = *buf;
     onspace = 1; /* delete any leading spaces */
