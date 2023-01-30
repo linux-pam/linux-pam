@@ -33,6 +33,7 @@
 
 #include "config.h"
 #include "pam_private.h"
+#include "pam_inline.h"
 
 #include <security/pam_ext.h>
 
@@ -174,6 +175,10 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
       (chpass > 1 && resp[1] == NULL))
     {
       /* We want to abort */
+      pam_overwrite_string (resp[0]);
+      _pam_drop (resp[0]);
+      pam_overwrite_string (resp[1]);
+      _pam_drop (resp[1]);
       if (chpass)
         pam_error (pamh, _("Password change has been aborted."));
       return PAM_AUTHTOK_ERR;
@@ -182,18 +187,18 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
   if (chpass > 1 && strcmp (resp[0], resp[1]) != 0)
     {
       pam_error (pamh, MISTYPED_PASS);
-      _pam_overwrite (resp[0]);
+      pam_overwrite_string (resp[0]);
       _pam_drop (resp[0]);
-      _pam_overwrite (resp[1]);
+      pam_overwrite_string (resp[1]);
       _pam_drop (resp[1]);
       return PAM_TRY_AGAIN;
     }
 
-  _pam_overwrite (resp[1]);
+  pam_overwrite_string (resp[1]);
   _pam_drop (resp[1]);
 
   retval = pam_set_item (pamh, item, resp[0]);
-  _pam_overwrite (resp[0]);
+  pam_overwrite_string (resp[0]);
   _pam_drop (resp[0]);
   if (retval != PAM_SUCCESS)
     return retval;
@@ -263,13 +268,13 @@ pam_get_authtok_verify (pam_handle_t *pamh, const char **authtok,
     {
       pam_set_item (pamh, PAM_AUTHTOK, NULL);
       pam_error (pamh, MISTYPED_PASS);
-      _pam_overwrite (resp);
+      pam_overwrite_string (resp);
       _pam_drop (resp);
       return PAM_TRY_AGAIN;
     }
 
   retval = pam_set_item (pamh, PAM_AUTHTOK, resp);
-  _pam_overwrite (resp);
+  pam_overwrite_string (resp);
   _pam_drop (resp);
   if (retval != PAM_SUCCESS)
     return retval;

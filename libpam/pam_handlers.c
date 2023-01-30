@@ -1033,7 +1033,7 @@ void _pam_free_handlers_aux(struct handler **hp)
 	_pam_drop(h->argv);  /* This is all allocated in a single chunk */
 	_pam_drop(h->mod_name);
 	h = h->next;
-	memset(last, 0, sizeof(*last));
+	pam_overwrite_object(last);
 	free(last);
     }
 

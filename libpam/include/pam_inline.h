@@ -161,7 +161,7 @@ pam_read_passwords(int fd, int npass, char **passwords)
 				if (npass > 0) {
 					memcpy(passwords[i], pptr, rbytes);
 				}
-				memset(pptr, '\0', rbytes);
+				pam_overwrite_n(pptr, rbytes);
 			}
 		}
 		offset += rbytes;
@@ -169,7 +169,7 @@ pam_read_passwords(int fd, int npass, char **passwords)
 
 	/* clear up */
 	if (offset > 0 && npass > 0) {
-		memset(passwords[i], '\0', offset);
+		pam_overwrite_n(passwords[i], offset);
 	}
 
 	return i;

@@ -11,6 +11,7 @@
  */
 
 #include "pam_private.h"
+#include "pam_inline.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -100,7 +101,7 @@ void _pam_drop_env(pam_handle_t *pamh)
 
 	for (i=pamh->env->requested-1; i-- > 0; ) {
 	    D(("dropping #%3d>%s<", i, pamh->env->list[i]));
-	    _pam_overwrite(pamh->env->list[i]);          /* clean */
+	    pam_overwrite_string(pamh->env->list[i]);   /* clean */
 	    _pam_drop(pamh->env->list[i]);              /* forget */
 	}
 	pamh->env->requested = 0;
@@ -227,7 +228,7 @@ int pam_putenv(pam_handle_t *pamh, const char *name_value)
 	} else {                                /* replace old */
 	    D(("replacing item: %s\n          with: %s"
 	       , pamh->env->list[item], name_value));
-	    _pam_overwrite(pamh->env->list[item]);
+	    pam_overwrite_string(pamh->env->list[item]);
 	    _pam_drop(pamh->env->list[item]);
 	}
 
@@ -261,7 +262,7 @@ int pam_putenv(pam_handle_t *pamh, const char *name_value)
      */
 
     D(("deleting: env#%3d:[%s]", item, pamh->env->list[item]));
-    _pam_overwrite(pamh->env->list[item]);
+    pam_overwrite_string(pamh->env->list[item]);
     _pam_drop(pamh->env->list[item]);
     --(pamh->env->requested);
     D(("mmove: item[%d]+%d -> item[%d]"
@@ -341,7 +342,7 @@ static char **_copy_env(pam_handle_t *pamh)
 	    /* out of memory */
 
 	    while (dump[++i]) {
-		_pam_overwrite(dump[i]);
+		pam_overwrite_string(dump[i]);
 		_pam_drop(dump[i]);
 	    }
 	    _pam_drop(dump);

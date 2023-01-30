@@ -40,10 +40,10 @@
 #include <errno.h>
 
 #include <security/pam_modules.h>
-#include <security/_pam_macros.h>
 #include <security/pam_ext.h>
 
 #include "pam_private.h"
+#include "pam_inline.h"
 
 int
 pam_vprompt (pam_handle_t *pamh, int style, char **response,
@@ -88,10 +88,10 @@ pam_vprompt (pam_handle_t *pamh, int style, char **response,
     *response = pam_resp == NULL ? NULL : pam_resp->resp;
   else if (pam_resp && pam_resp->resp)
     {
-      _pam_overwrite (pam_resp->resp);
+      pam_overwrite_string (pam_resp->resp);
       _pam_drop (pam_resp->resp);
     }
-  _pam_overwrite (msgbuf);
+  pam_overwrite_string (msgbuf);
   _pam_drop (pam_resp);
   free (msgbuf);
   if (retval != PAM_SUCCESS)
