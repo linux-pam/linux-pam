@@ -8,6 +8,7 @@
 
 #include "pam_private.h"
 #include "pam_inline.h"
+#include "security/_pam_macros.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -1033,7 +1034,7 @@ void _pam_free_handlers_aux(struct handler **hp)
 	_pam_drop(h->argv);  /* This is all allocated in a single chunk */
 	_pam_drop(h->mod_name);
 	h = h->next;
-	memset(last, 0, sizeof(*last));
+	_pam_overwrite_n(last, sizeof(*last));
 	free(last);
     }
 

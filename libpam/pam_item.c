@@ -149,14 +149,14 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	}
 	pamh->xauth = *((const struct pam_xauth_data *) item);
 	if ((pamh->xauth.name=_pam_strdup(pamh->xauth.name)) == NULL) {
-	    memset(&pamh->xauth, '\0', sizeof(pamh->xauth));
+	    _pam_overwrite_n(&pamh->xauth, sizeof(pamh->xauth));
 	    return PAM_BUF_ERR;
 	}
 	if ((pamh->xauth.data=_pam_memdup(pamh->xauth.data,
 	    pamh->xauth.datalen)) == NULL) {
 	    _pam_overwrite(pamh->xauth.name);
 	    free(pamh->xauth.name);
-	    memset(&pamh->xauth, '\0', sizeof(pamh->xauth));
+	    _pam_overwrite_n(&pamh->xauth, sizeof(pamh->xauth));
 	    return PAM_BUF_ERR;
 	}
 	break;

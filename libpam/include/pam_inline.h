@@ -9,6 +9,7 @@
 #define PAM_INLINE_H
 
 #include "pam_cc_compat.h"
+#include <security/_pam_macros.h>
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
@@ -101,7 +102,7 @@ pam_read_passwords(int fd, int npass, char **passwords)
 				if (npass > 0) {
 					memcpy(passwords[i], pptr, rbytes);
 				}
-				memset(pptr, '\0', rbytes);
+				_pam_overwrite_n(pptr, rbytes);
 			}
 		}
 		offset += rbytes;
@@ -109,7 +110,7 @@ pam_read_passwords(int fd, int npass, char **passwords)
 
 	/* clear up */
 	if (offset > 0 && npass > 0) {
-		memset(passwords[i], '\0', offset);
+		_pam_overwrite_n(passwords[i], offset);
 	}
 
 	return i;
