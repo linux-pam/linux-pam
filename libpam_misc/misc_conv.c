@@ -17,6 +17,7 @@
 
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
+#include "pam_inline.h"
 
 #define INPUTSIZE PAM_MISC_CONV_BUFSIZE      /* maximum length of input+1 */
 #define CONV_ECHO_ON  1                            /* types of echo state */
@@ -185,7 +186,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
 		    int rv;
 		    if ((rv=read(STDIN_FILENO, line+nc, 1)) != 1) {
 			if (rv < 0) {
-			    _pam_overwrite_n(line, (unsigned int) nc);
+			    pam_overwrite_n(line, (unsigned int) nc);
 			    nc = rv;
 			}
 			break;
@@ -213,7 +214,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
 		    line[nc] = '\0';
 		}
 		*retstr = strdup(line);
-		_pam_overwrite(line);
+		pam_overwrite_array(line);
 		if (!*retstr) {
 		    D(("no memory for response string"));
 		    nc = -1;
@@ -246,7 +247,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
     D(("the timer appears to have expired"));
 
     *retstr = NULL;
-    _pam_overwrite_n(line, sizeof(line));
+    pam_overwrite_array(line);
 
  cleanexit:
 
@@ -376,7 +377,7 @@ failed_conversation:
 	    switch (msgm[count]->msg_style) {
 	    case PAM_PROMPT_ECHO_ON:
 	    case PAM_PROMPT_ECHO_OFF:
-		_pam_overwrite(reply[count].resp);
+		pam_overwrite_string(reply[count].resp);
 		free(reply[count].resp);
 		break;
 	    case PAM_BINARY_PROMPT:

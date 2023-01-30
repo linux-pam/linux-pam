@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <security/pam_misc.h>
+#include "pam_inline.h"
 
 /*
  * This function should be used to carefully dispose of the copied
@@ -25,7 +26,7 @@ char **pam_misc_drop_env(char **dump)
 
     for (i=0; dump[i] != NULL; ++i) {
 	D(("dump[%d]=`%s'", i, dump[i]));
-	_pam_overwrite(dump[i]);
+	pam_overwrite_string(dump[i]);
 	_pam_drop(dump[i]);
     }
     _pam_drop(dump);
@@ -77,7 +78,7 @@ int pam_misc_setenv(pam_handle_t *pamh, const char *name
     if (asprintf(&tmp, "%s=%s", name, value) >= 0) {
 	D(("pam_putt()ing: %s", tmp));
 	retval = pam_putenv(pamh, tmp);
-	_pam_overwrite(tmp);                 /* purge */
+	pam_overwrite_string(tmp);           /* purge */
 	_pam_drop(tmp);                      /* forget */
     } else {
 	D(("malloc failure"));
