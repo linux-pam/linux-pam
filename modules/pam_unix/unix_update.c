@@ -55,15 +55,18 @@ set_password(const char *forwho, const char *shadow, const char *remember)
     if (npass != 2) {	/* is it a valid password? */
       if (npass == 1) {
         helper_log_err(LOG_DEBUG, "no new password supplied");
-	memset(pass, '\0', PAM_MAX_RESP_SIZE);
+        pam_overwrite_array(pass);
       } else {
         helper_log_err(LOG_DEBUG, "no valid passwords supplied");
       }
       return PAM_AUTHTOK_ERR;
     }
 
-    if (lock_pwdf() != PAM_SUCCESS)
+    if (lock_pwdf() != PAM_SUCCESS) {
+	pam_overwrite_array(pass);
+	pam_overwrite_array(towhat);
 	return PAM_AUTHTOK_LOCK_BUSY;
+    }
 
     pwd = getpwnam(forwho);
 
@@ -98,8 +101,8 @@ set_password(const char *forwho, const char *shadow, const char *remember)
     }
 
 done:
-    memset(pass, '\0', PAM_MAX_RESP_SIZE);
-    memset(towhat, '\0', PAM_MAX_RESP_SIZE);
+    pam_overwrite_array(pass);
+    pam_overwrite_array(towhat);
 
     unlock_pwdf();
 

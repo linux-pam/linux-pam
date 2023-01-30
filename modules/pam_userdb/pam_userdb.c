@@ -62,7 +62,7 @@ obtain_authtok(pam_handle_t *pamh)
     retval = pam_set_item(pamh, PAM_AUTHTOK, resp);
 
     /* clean it up */
-    _pam_overwrite(resp);
+    pam_overwrite_string(resp);
     _pam_drop(resp);
 
     if ( (retval != PAM_SUCCESS) ||
@@ -181,7 +181,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 
     if (key.dptr) {
 	data = dbm_fetch(dbm, key);
-	memset(key.dptr, 0, key.dsize);
+	pam_overwrite_n(key.dptr, key.dsize);
 	free(key.dptr);
     }
 
@@ -247,8 +247,11 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	      free(cdata);
 #endif
 	    }
+	    pam_overwrite_string(pwhash);
 	    free(pwhash);
 	  }
+
+	  pam_overwrite_string(cryptpw);
 	} else {
 
 	  /* Unknown password encryption method -

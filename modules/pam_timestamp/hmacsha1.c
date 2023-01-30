@@ -48,6 +48,7 @@
 #include <unistd.h>
 #include <syslog.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 #include "hmacsha1.h"
 #include "sha1.h"
 
@@ -107,7 +108,7 @@ hmac_key_create(pam_handle_t *pamh, const char *filename, size_t key_size,
 	/* If we didn't get enough, stop here. */
 	if (count < key_size) {
 		pam_syslog(pamh, LOG_ERR, "Short read on random device");
-		memset(key, 0, key_size);
+		pam_overwrite_n(key, key_size);
 		free(key);
 		close(keyfd);
 		return;
@@ -122,7 +123,7 @@ hmac_key_create(pam_handle_t *pamh, const char *filename, size_t key_size,
 		}
 		count += i;
 	}
-	memset(key, 0, key_size);
+	pam_overwrite_n(key, key_size);
 	free(key);
 	close(keyfd);
 }
@@ -180,7 +181,7 @@ hmac_key_read(pam_handle_t *pamh, const char *filename, size_t default_key_size,
 
 	/* Require that we got the expected amount of data. */
 	if (count < st.st_size) {
-		memset(tmp, 0, st.st_size);
+		pam_overwrite_n(tmp, st.st_size);
 		free(tmp);
 		return;
 	}
@@ -204,7 +205,7 @@ hmac_sha1_generate(void **mac, size_t *mac_length,
 		   const void *raw_key, size_t raw_key_size,
 		   const void *text, size_t text_length)
 {
-	unsigned char key[MAXIMUM_KEY_SIZE], tmp_key[MAXIMUM_KEY_SIZE];
+	unsigned char key[MAXIMUM_KEY_SIZE] = {}, tmp_key[MAXIMUM_KEY_SIZE];
 	size_t maximum_key_size = SHA1_BLOCK_SIZE,
 	       minimum_key_size = SHA1_OUTPUT_SIZE;
 	const unsigned char ipad = 0x36, opad = 0x5c;
@@ -223,7 +224,6 @@ hmac_sha1_generate(void **mac, size_t *mac_length,
 
 	/* If the key is too long, "compress" it, else copy it and pad it
 	 * out with zero bytes. */
-	memset(key, 0, sizeof(key));
 	if (raw_key_size > maximum_key_size) {
 		sha1_init(&sha1);
 		sha1_update(&sha1, raw_key, raw_key_size);
@@ -251,8 +251,8 @@ hmac_sha1_generate(void **mac, size_t *mac_length,
 	sha1_output(&sha1, outer);
 
 	/* We don't need any of the keys any more. */
-	memset(key, 0, sizeof(key));
-	memset(tmp_key, 0, sizeof(tmp_key));
+	pam_overwrite_array(key);
+	pam_overwrite_array(tmp_key);
 
 	/* Allocate space to store the output. */
 	*mac_length = sizeof(outer);
@@ -284,7 +284,7 @@ hmac_sha1_generate_file(pam_handle_t *pamh, void **mac, size_t *mac_length,
 	hmac_sha1_generate(mac, mac_length,
 			   key, key_length,
 			   text, text_length);
-	memset(key, 0, key_length);
+	pam_overwrite_n(key, key_length);
 	free(key);
 }
 

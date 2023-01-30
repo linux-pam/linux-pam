@@ -366,11 +366,11 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid, time_t
 
     /* cleanup */
  cleanup:
-    memset(&last_login, 0, sizeof(last_login));
-    _pam_overwrite(date);
-    _pam_overwrite(host);
+    pam_overwrite_object(&last_login);
+    pam_overwrite_string(date);
+    pam_overwrite_string(host);
     _pam_drop(host);
-    _pam_overwrite(line);
+    pam_overwrite_string(line);
     _pam_drop(line);
 
     return retval;
@@ -502,7 +502,7 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
     }
 
     /* cleanup */
-    memset(&last_login, 0, sizeof(last_login));
+    pam_overwrite_object(&last_login);
 
     return retval;
 }

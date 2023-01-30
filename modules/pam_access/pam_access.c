@@ -663,7 +663,7 @@ static int
 group_match (pam_handle_t *pamh, const char *tok, const char* usr,
     int debug)
 {
-    char grptok[BUFSIZ];
+    char grptok[BUFSIZ] = {};
 
     if (debug)
         pam_syslog (pamh, LOG_DEBUG,
@@ -673,7 +673,6 @@ group_match (pam_handle_t *pamh, const char *tok, const char* usr,
         return NO;
 
     /* token is received under the format '(...)' */
-    memset(grptok, 0, BUFSIZ);
     strncpy(grptok, tok + 1, strlen(tok) - 2);
 
     if (pam_modutil_user_in_group_nam_nam(pamh, usr, grptok))

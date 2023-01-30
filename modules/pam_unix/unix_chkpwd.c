@@ -176,7 +176,7 @@ int main(int argc, char *argv[])
 
 	retval = helper_verify_password(user, pass, nullok);
 
-	memset(pass, '\0', PAM_MAX_RESP_SIZE);	/* clear memory of the password */
+	pam_overwrite_array(pass);	/* clear memory of the password */
 
 	/* return pass or fail */
 

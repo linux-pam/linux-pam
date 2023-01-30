@@ -141,7 +141,7 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 	if (child == 0) {
 		/* We're the child. */
 		size_t j;
-		const char *args[10];
+		const char *args[10] = {};
 		/* Drop privileges. */
 		if (setgid(gid) == -1)
 		  {
@@ -181,8 +181,6 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 						    PAM_MODUTIL_NULL_FD) < 0) {
 		    _exit(1);
 		}
-		/* Initialize the argument list. */
-		memset(args, 0, sizeof(args));
 		/* Convert the varargs list into a regular array of strings. */
 		va_start(ap, command);
 		args[0] = command;
@@ -564,9 +562,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			}
 			/* Allocate enough space to hold an adjusted name. */
 			tlen = strlen(display) + LINE_MAX + 1;
-			t = malloc(tlen);
+			t = calloc(1, tlen);
 			if (t != NULL) {
-				memset(t, 0, tlen);
 				if (gethostname(t, tlen - 1) != -1) {
 					/* Append the protocol and then the
 					 * screen number. */

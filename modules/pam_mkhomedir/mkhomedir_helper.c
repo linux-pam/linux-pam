@@ -184,8 +184,7 @@ create_homedir(const struct passwd *pwd,
 	   else
 		   pointed[pointedlen] = 0;
 #else
-         char pointed[PATH_MAX];
-         memset(pointed, 0, sizeof(pointed));
+         char pointed[PATH_MAX] = {};
 
          pointedlen = readlink(newsource, pointed, sizeof(pointed) - 1);
 #endif

@@ -169,7 +169,7 @@ get_folder(pam_handle_t *pamh, int ctrl,
 	hash[2 * i] = '\0';
 
 	rc = asprintf(&folder, MAIL_FILE_FORMAT, path, hash, pwd->pw_name);
-	_pam_overwrite(hash);
+	pam_overwrite_string(hash);
 	_pam_drop(hash);
 	if (rc < 0)
 	    goto get_folder_cleanup;
@@ -211,7 +211,7 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 	}
 	i = scandir(dir, &namelist, 0, alphasort);
 	save_errno = errno;
-	_pam_overwrite(dir);
+	pam_overwrite_string(dir);
 	_pam_drop(dir);
 	if (i < 0) {
 	    type = 0;
@@ -232,7 +232,7 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 	    }
 	    i = scandir(dir, &namelist, 0, alphasort);
 	    save_errno = errno;
-	    _pam_overwrite(dir);
+	    pam_overwrite_string(dir);
 	    _pam_drop(dir);
 	    if (i < 0) {
 		type = 0;
@@ -264,7 +264,7 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
     }
 
   get_mail_status_cleanup:
-    memset(&mail_st, 0, sizeof(mail_st));
+    pam_overwrite_object(&mail_st);
     D(("user has %d mail in %s folder", type, folder));
     return type;
 }
@@ -415,7 +415,7 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 	}
 	D(("setting env: %s", tmp));
 	retval = pam_putenv(pamh, tmp);
-	_pam_overwrite(tmp);
+	pam_overwrite_string(tmp);
 	_pam_drop(tmp);
 	if (retval != PAM_SUCCESS) {
 	    pam_syslog(pamh, LOG_CRIT,
@@ -457,7 +457,7 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
 	(void) pam_putenv(pamh, MAIL_ENV_NAME);
 
   do_mail_cleanup:
-    _pam_overwrite(folder);
+    pam_overwrite_string(folder);
     _pam_drop(folder);
 
     /* indicate success or failure */

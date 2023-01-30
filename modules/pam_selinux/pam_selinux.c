@@ -393,7 +393,6 @@ free_module_data(module_data_t *data)
   freecon(data->prev_exec_context);
   if (data->exec_context != data->default_user_context)
     freecon(data->exec_context);
-  memset(data, 0, sizeof(*data));
   free(data);
 }
 

@@ -70,7 +70,7 @@ check_history(const char *user, const char *filename, const char *debug)
 
   retval = check_old_pass(user, pass, filename, dbg);
 
-  memset(pass, '\0', PAM_MAX_RESP_SIZE);	/* clear memory of the password */
+  pam_overwrite_array(pass);	/* clear memory of the password */
 
   return retval;
 }

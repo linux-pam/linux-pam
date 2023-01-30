@@ -70,6 +70,7 @@ static void free_string_array(char **array)
     if (array == NULL)
       return;
     for (char **entry = array; *entry != NULL; ++entry) {
+      pam_overwrite_string(*entry);
       free(*entry);
     }
     free(array);
@@ -402,6 +403,7 @@ static int read_file(const pam_handle_t *pamh, const char*filename, char ***line
 	pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
 	(void) fclose(conf);
 	free_string_array(*lines);
+	pam_overwrite_array(buffer);
 	return PAM_BUF_ERR;
       }
       *lines = tmp;
@@ -410,12 +412,14 @@ static int read_file(const pam_handle_t *pamh, const char*filename, char ***line
         pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
         (void) fclose(conf);
         free_string_array(*lines);
+        pam_overwrite_array(buffer);
         return PAM_BUF_ERR;
       }
       (*lines)[i] = 0;
     }
 
     (void) fclose(conf);
+    pam_overwrite_array(buffer);
     return PAM_SUCCESS;
 }
 #endif
@@ -580,12 +584,8 @@ _expand_arg(pam_handle_t *pamh, char **value)
   char type, tmpval[BUF_SIZE];
 
   /* I know this shouldn't be hard-coded but it's so much easier this way */
-  char tmp[MAX_ENV];
-  size_t idx;
-
-  D(("Remember to initialize tmp!"));
-  memset(tmp, 0, MAX_ENV);
-  idx = 0;
+  char tmp[MAX_ENV] = {};
+  size_t idx = 0;
 
   /*
    * (possibly non-existent) environment variables can be used as values
@@ -610,7 +610,7 @@ _expand_arg(pam_handle_t *pamh, char **value)
 	D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
 	pam_syslog (pamh, LOG_ERR, "Variable buffer overflow: <%s> + <%s>",
 		 tmp, tmpptr);
-	return PAM_BUF_ERR;
+	goto buf_err;
       }
       continue;
     }
@@ -635,7 +635,7 @@ _expand_arg(pam_handle_t *pamh, char **value)
 	  D(("Unterminated expandable variable: <%s>", orig-2));
 	  pam_syslog(pamh, LOG_ERR,
 		     "Unterminated expandable variable: <%s>", orig-2);
-	  return PAM_ABORT;
+	  goto abort_err;
 	}
 	strncpy(tmpval, orig, sizeof(tmpval));
 	tmpval[sizeof(tmpval)-1] = '\0';
@@ -661,7 +661,7 @@ _expand_arg(pam_handle_t *pamh, char **value)
 	default:
 	  D(("Impossible error, type == <%c>", type));
 	  pam_syslog(pamh, LOG_CRIT, "Impossible error, type == <%c>", type);
-	  return PAM_ABORT;
+	  goto abort_err;
 	}         /* switch */
 
 	if (tmpptr) {
@@ -674,7 +674,7 @@ _expand_arg(pam_handle_t *pamh, char **value)
 	    D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
 	    pam_syslog (pamh, LOG_ERR,
 			"Variable buffer overflow: <%s> + <%s>", tmp, tmpptr);
-	    return PAM_BUF_ERR;
+	    goto buf_err;
 	  }
 	}
       }           /* if ('{' != *orig++) */
@@ -686,7 +686,7 @@ _expand_arg(pam_handle_t *pamh, char **value)
 	D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
 	pam_syslog(pamh, LOG_ERR,
 		   "Variable buffer overflow: <%s> + <%s>", tmp, tmpptr);
-	return PAM_BUF_ERR;
+	goto buf_err;
       }
     }
   }              /* for (;*orig;) */
@@ -697,14 +697,23 @@ _expand_arg(pam_handle_t *pamh, char **value)
       D(("Couldn't malloc %d bytes for expanded var", idx + 1));
       pam_syslog (pamh, LOG_CRIT, "Couldn't malloc %lu bytes for expanded var",
 	       (unsigned long)idx+1);
-      return PAM_BUF_ERR;
+      goto buf_err;
     }
   }
   strcpy(*value, tmp);
-  memset(tmp, '\0', sizeof(tmp));
+  pam_overwrite_array(tmp);
+  pam_overwrite_array(tmpval);
   D(("Exit."));
 
   return PAM_SUCCESS;
+buf_err:
+  pam_overwrite_array(tmp);
+  pam_overwrite_array(tmpval);
+  return PAM_BUF_ERR;
+abort_err:
+  pam_overwrite_array(tmp);
+  pam_overwrite_array(tmpval);
+  return PAM_ABORT;
 }
 
 static int
@@ -780,12 +789,15 @@ static void
 _clean_var(VAR *var)
 {
     if (var->name) {
+      pam_overwrite_string(var->name);
       free(var->name);
     }
     if (var->defval && (&quote != var->defval)) {
+      pam_overwrite_string(var->defval);
       free(var->defval);
     }
     if (var->override && (&quote != var->override)) {
+      pam_overwrite_string(var->override);
       free(var->override);
     }
     var->name = NULL;

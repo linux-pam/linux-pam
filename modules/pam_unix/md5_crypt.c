@@ -87,7 +87,7 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 		MD5Name(MD5Update)(&ctx,(unsigned const char *)final,pl>16 ? 16 : pl);
 
 	/* Don't leave anything around in vm they could use. */
-	memset(final, 0, sizeof final);
+	pam_overwrite_array(final);
 
 	/* Then something really weird... */
 	for (j = 0, i = strlen(pw); i; i >>= 1)
@@ -151,7 +151,7 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 	*p = '\0';
 
 	/* Don't leave anything around in vm they could use. */
-	memset(final, 0, sizeof final);
+	pam_overwrite_array(final);
 
 	return passwd;
 }

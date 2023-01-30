@@ -66,6 +66,7 @@
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
+#include "pam_inline.h"
 #include "pam_cc_compat.h"
 #include "md5.h"
 #include "support.h"

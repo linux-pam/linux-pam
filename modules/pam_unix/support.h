@@ -151,10 +151,10 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 
 /* use this to free strings. ESPECIALLY password strings */
 
-#define _pam_delete(xx)		\
-{				\
-	_pam_overwrite(xx);	\
-	_pam_drop(xx);		\
+#define _pam_delete(xx)			\
+{					\
+	pam_overwrite_string(xx);	\
+	_pam_drop(xx);			\
 }
 
 extern int _make_remark(pam_handle_t * pamh, unsigned long long ctrl,
