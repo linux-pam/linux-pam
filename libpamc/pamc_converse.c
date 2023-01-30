@@ -7,6 +7,7 @@
  */
 
 #include "libpamc.h"
+#include "pam_inline.h"
 
 /*
  * select agent
@@ -157,7 +158,7 @@ int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
 
     size = PAM_BP_SIZE(raw);
     control = PAM_BP_RCONTROL(raw);
-    memset(raw, 0, sizeof(raw));
+    pam_overwrite_array(raw);
 
     D(("agent replied with prompt of size %d and control %u",
        size, control));

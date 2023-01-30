@@ -7,6 +7,7 @@
  */
 
 #include "libpamc.h"
+#include "pam_inline.h"
 
 static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 {
@@ -143,7 +144,7 @@ close_the_agent:
     close(to_agent[1]);
 
 free_and_return:
-    memset(full_path, 0, reset_length);
+    pam_overwrite_n(full_path, reset_length);
     free(full_path);
 
     D(("returning %d", return_code));
@@ -301,10 +302,10 @@ int pamc_load(pamc_handle_t pch, const char *agent_id)
 
 fail_free_agent_id:
 
-    memset(agent->id, 0, agent->id_length);
+    pam_overwrite_n(agent->id, agent->id_length);
     free(agent->id);
 
-    memset(agent, 0, sizeof(*agent));
+    pam_overwrite_object(agent);
 
 fail_free_agent:
 
