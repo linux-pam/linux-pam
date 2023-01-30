@@ -615,6 +615,7 @@ AC_CHECK_FUNCS(getgrouplist getline getdelim)
 AC_CHECK_FUNCS(inet_ntop inet_pton innetgr)
 AC_CHECK_FUNCS(quotactl)
 AC_CHECK_FUNCS(unshare)
+AC_CHECK_FUNCS(explicit_bzero memset_explicit)
 AC_CHECK_FUNCS([ruserok_af ruserok], [break])
 
 AC_ARG_ENABLE([regenerate-docu],
