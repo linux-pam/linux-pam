@@ -113,26 +113,26 @@ char **pamc_list_agents(pamc_handle_t pch);
 do {                                                                       \
     if ((old_p) != NULL) {                                                 \
 	if (*(old_p)) {                                                    \
-	    uint32_t __size;                                              \
-            __size = PAM_BP_SIZE(*(old_p));                                \
-	    memset(*(old_p), 0, __size);                                   \
+	    uint32_t size__;                                               \
+            size__ = PAM_BP_SIZE(*(old_p));                                \
+	    _pam_overwrite_n(*(old_p), size__);                            \
 	    PAM_BP_FREE(*(old_p));                                         \
 	}                                                                  \
 	if (cntrl) {                                                       \
-	    uint32_t __size;                                              \
+	    uint32_t size__;                                               \
                                                                            \
-	    __size = PAM_BP_MIN_SIZE + data_length;                        \
-	    if ((*(old_p) = PAM_BP_CALLOC(1, 1+__size))) {                 \
-		__PAM_BP_WOCTET(*(old_p), 3) =  __size      & 0xFF;        \
-		__PAM_BP_WOCTET(*(old_p), 2) = (__size>>=8) & 0xFF;        \
-		__PAM_BP_WOCTET(*(old_p), 1) = (__size>>=8) & 0xFF;        \
-		__PAM_BP_WOCTET(*(old_p), 0) = (__size>>=8) & 0xFF;        \
+	    size__ = PAM_BP_MIN_SIZE + (data_length);                      \
+	    if ((*(old_p) = PAM_BP_CALLOC(1, 1+size__))) {                 \
+		__PAM_BP_WOCTET(*(old_p), 3) =  size__      & 0xFF;        \
+		__PAM_BP_WOCTET(*(old_p), 2) = (size__>>=8) & 0xFF;        \
+		__PAM_BP_WOCTET(*(old_p), 1) = (size__>>=8) & 0xFF;        \
+		__PAM_BP_WOCTET(*(old_p), 0) = (size__>>=8) & 0xFF;        \
 		(*(old_p))->control = cntrl;                               \
 	    } else {                                                       \
 		PAM_BP_ASSERT("out of memory for binary prompt");          \
 	    }                                                              \
 	} else {                                                           \
-	    *old_p = NULL;                                                 \
+	    *(old_p) = NULL;                                               \
 	}                                                                  \
     } else {                                                               \
 	PAM_BP_ASSERT("programming error, invalid binary prompt pointer"); \
