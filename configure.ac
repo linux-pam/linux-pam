@@ -459,6 +459,7 @@ AC_SUBST(LIBDB)
 
 AC_ARG_ENABLE([nis],
         AS_HELP_STRING([--disable-nis], [Disable building NIS/YP support in pam_unix]))
+AM_CONDITIONAL([HAVE_NIS], [test "x$enable_nis" != "xno"])
 
 AS_IF([test "x$enable_nis" != "xno"], [
   old_CFLAGS=$CFLAGS

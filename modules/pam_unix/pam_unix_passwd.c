@@ -72,10 +72,6 @@
 #include "passverify.h"
 #include "bigcrypt.h"
 
-#if (defined(HAVE_YP_GET_DEFAULT_DOMAIN) || defined(HAVE_GETDOMAINNAME)) && defined(HAVE_YP_MASTER)
-# define HAVE_NIS
-#endif
-
 #ifdef HAVE_NIS
 # include <rpc/rpc.h>
 
