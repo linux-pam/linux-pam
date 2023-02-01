@@ -115,7 +115,7 @@ do {                                                                       \
 	if (*(old_p)) {                                                    \
 	    uint32_t size__;                                               \
             size__ = PAM_BP_SIZE(*(old_p));                                \
-	    _pam_overwrite_n(*(old_p), size__);                            \
+	    _pam_override_n(*(old_p), size__);                            \
 	    PAM_BP_FREE(*(old_p));                                         \
 	}                                                                  \
 	if (cntrl) {                                                       \

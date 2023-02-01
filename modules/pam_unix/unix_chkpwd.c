@@ -176,7 +176,7 @@ int main(int argc, char *argv[])
 
 	retval = helper_verify_password(user, pass, nullok);
 
-	_pam_overwrite_array(pass);	/* clear memory of the password */
+	_pam_override_array(pass);	/* clear memory of the password */
 
 	/* return pass or fail */
 

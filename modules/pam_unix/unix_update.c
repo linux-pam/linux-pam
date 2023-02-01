@@ -55,7 +55,7 @@ set_password(const char *forwho, const char *shadow, const char *remember)
     if (npass != 2) {	/* is it a valid password? */
       if (npass == 1) {
         helper_log_err(LOG_DEBUG, "no new password supplied");
-        _pam_overwrite_array(pass);
+        _pam_override_array(pass);
       } else {
         helper_log_err(LOG_DEBUG, "no valid passwords supplied");
       }
@@ -63,8 +63,8 @@ set_password(const char *forwho, const char *shadow, const char *remember)
     }
 
     if (lock_pwdf() != PAM_SUCCESS) {
-	_pam_overwrite_array(pass);
-	_pam_overwrite_array(towhat);
+	_pam_override_array(pass);
+	_pam_override_array(towhat);
 	return PAM_AUTHTOK_LOCK_BUSY;
     }
 
@@ -101,8 +101,8 @@ set_password(const char *forwho, const char *shadow, const char *remember)
     }
 
 done:
-    _pam_overwrite_array(pass);
-    _pam_overwrite_array(towhat);
+    _pam_override_array(pass);
+    _pam_override_array(towhat);
 
     unlock_pwdf();
 

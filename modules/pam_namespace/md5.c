@@ -21,7 +21,7 @@
 #include "md5.h"
 #include <string.h>
 
-#include <security/_pam_macros.h>
+#include "pam_inline.h"
 
 #define MD5Name(x) x
 
@@ -151,7 +151,7 @@ void MD5Name(MD5Final)(unsigned char digest[16], struct MD5Context *ctx)
 	MD5Name(MD5Transform)(ctx->buf.i, ctx->in.i);
 	byteReverse(ctx->buf.c, 4);
 	memcpy(digest, ctx->buf.c, 16);
-	_pam_overwrite_n(ctx, sizeof(*ctx));	/* In case it's sensitive */
+	_pam_override_n(ctx, sizeof(*ctx));	/* In case it's sensitive */
 }
 
 /* The four core functions - F1 is optimized somewhat */

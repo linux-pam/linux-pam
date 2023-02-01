@@ -96,7 +96,7 @@ PAMH_ARG_DECL(int verify_pwd_hash,
 		} else if (*hash != '$' && hash_len >= 13) {
 			pp = bigcrypt(p, hash);
 			if (pp && hash_len == 13 && strlen(pp) > hash_len) {
-				_pam_overwrite(pp + hash_len);
+				_pam_override(pp + hash_len);
 			}
 		} else {
 			/*
@@ -147,7 +147,7 @@ PAMH_ARG_DECL(int verify_pwd_hash,
 			if (cdata != NULL) {
 				cdata->initialized = 0;
 				pp = x_strdup(crypt_r(p, hash, cdata));
-				_pam_overwrite_n(cdata, sizeof(*cdata));
+				_pam_override_n(cdata, sizeof(*cdata));
 				free(cdata);
 			}
 #else
@@ -167,7 +167,7 @@ PAMH_ARG_DECL(int verify_pwd_hash,
 	}
 
 	if (pp) {
-		_pam_overwrite(pp);
+		_pam_override(pp);
 		_pam_delete(pp);
 	}
 	D(("done [%d].", retval));
@@ -458,7 +458,7 @@ PAMH_ARG_DECL(char * create_password_hash,
 			password = tmppass;
 		}
 		hashed = bigcrypt(password, salt);
-		_pam_overwrite_array(tmppass);
+		_pam_override_array(tmppass);
 		password = NULL;
 		return hashed;
 	}
@@ -496,18 +496,18 @@ PAMH_ARG_DECL(char * create_password_hash,
 			   on(UNIX_SHA256_PASS, ctrl) ? "sha256" :
 			   on(UNIX_SHA512_PASS, ctrl) ? "sha512" : algoid);
 		if(sp) {
-		   _pam_overwrite(sp);
+		   _pam_override(sp);
 		}
 #ifdef HAVE_CRYPT_R
-		_pam_overwrite_n(cdata, sizeof(*cdata));
+		_pam_override_n(cdata, sizeof(*cdata));
 		free(cdata);
 #endif
 		return NULL;
 	}
 	ret = strdup(sp);
-	_pam_overwrite(sp);
+	_pam_override(sp);
 #ifdef HAVE_CRYPT_R
-	_pam_overwrite_n(cdata, sizeof(*cdata));
+	_pam_override_n(cdata, sizeof(*cdata));
 	free(cdata);
 #endif
 	return ret;
@@ -1095,7 +1095,7 @@ helper_verify_password(const char *name, const char *p, int nullok)
 	}
 
 	if (hash) {
-		_pam_overwrite(hash);
+		_pam_override(hash);
 		_pam_drop(hash);
 	}
 

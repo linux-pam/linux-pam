@@ -29,6 +29,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <security/_pam_macros.h>
+#include "pam_inline.h"
 #ifdef HAVE_CRYPT_H
 #include <crypt.h>
 #endif
@@ -114,7 +115,7 @@ char *bigcrypt(const char *key, const char *salt)
 	}
 	/* and place in the static area */
 	strncpy(cipher_ptr, tmp_ptr, 13);
-	_pam_overwrite(tmp_ptr);
+	_pam_override(tmp_ptr);
 	cipher_ptr += ESEGMENT_SIZE + SALT_SIZE;
 	plaintext_ptr += SEGMENT_SIZE;	/* first block of SEGMENT_SIZE */
 
@@ -135,10 +136,10 @@ char *bigcrypt(const char *key, const char *salt)
 			tmp_ptr = crypt(plaintext_ptr, salt_ptr);
 #endif
 			if (tmp_ptr == NULL) {
-				_pam_overwrite(dec_c2_cryptbuf);
+				_pam_override(dec_c2_cryptbuf);
 				free(dec_c2_cryptbuf);
 #ifdef HAVE_CRYPT_R
-				_pam_overwrite_n(cdata, sizeof(*cdata));
+				_pam_override_n(cdata, sizeof(*cdata));
 				free(cdata);
 #endif
 				return NULL;
@@ -146,7 +147,7 @@ char *bigcrypt(const char *key, const char *salt)
 
 			/* skip the salt for seg!=0 */
 			strncpy(cipher_ptr, (tmp_ptr + SALT_SIZE), ESEGMENT_SIZE);
-			_pam_overwrite(tmp_ptr);
+			_pam_override(tmp_ptr);
 
 			cipher_ptr += ESEGMENT_SIZE;
 			plaintext_ptr += SEGMENT_SIZE;
@@ -156,7 +157,7 @@ char *bigcrypt(const char *key, const char *salt)
 	D(("key=|%s|, salt=|%s|\nbuf=|%s|\n", key, salt, dec_c2_cryptbuf));
 
 #ifdef HAVE_CRYPT_R
-	_pam_overwrite_n(cdata, sizeof(*cdata));
+	_pam_override_n(cdata, sizeof(*cdata));
 	free(cdata);
 #endif
 

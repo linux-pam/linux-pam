@@ -70,7 +70,7 @@ static void free_string_array(char **array)
     if (array == NULL)
       return;
     for (char **entry = array; *entry != NULL; ++entry) {
-      _pam_overwrite(*entry);
+      _pam_override(*entry);
       free(*entry);
     }
     free(array);
@@ -403,7 +403,7 @@ static int read_file(const pam_handle_t *pamh, const char*filename, char ***line
 	pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
 	(void) fclose(conf);
 	free_string_array(*lines);
-	_pam_overwrite_array(buffer);
+	_pam_override_array(buffer);
 	return PAM_BUF_ERR;
       }
       *lines = tmp;
@@ -412,14 +412,14 @@ static int read_file(const pam_handle_t *pamh, const char*filename, char ***line
         pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
         (void) fclose(conf);
         free_string_array(*lines);
-        _pam_overwrite_array(buffer);
+        _pam_override_array(buffer);
         return PAM_BUF_ERR;
       }
       (*lines)[i] = 0;
     }
 
     (void) fclose(conf);
-    _pam_overwrite_array(buffer);
+    _pam_override_array(buffer);
     return PAM_SUCCESS;
 }
 #endif
@@ -701,18 +701,18 @@ _expand_arg(pam_handle_t *pamh, char **value)
     }
   }
   strcpy(*value, tmp);
-  _pam_overwrite_array(tmp);
-  _pam_overwrite_array(tmpval);
+  _pam_override_array(tmp);
+  _pam_override_array(tmpval);
   D(("Exit."));
 
   return PAM_SUCCESS;
 buf_err:
-  _pam_overwrite_array(tmp);
-  _pam_overwrite_array(tmpval);
+  _pam_override_array(tmp);
+  _pam_override_array(tmpval);
   return PAM_BUF_ERR;
 abort_err:
-  _pam_overwrite_array(tmp);
-  _pam_overwrite_array(tmpval);
+  _pam_override_array(tmp);
+  _pam_override_array(tmpval);
   return PAM_ABORT;
 }
 
@@ -789,16 +789,16 @@ static void
 _clean_var(VAR *var)
 {
     if (var->name) {
-      _pam_overwrite(var->name);
+      _pam_override(var->name);
       free(var->name);
     }
     if (var->defval && (&quote != var->defval)) {
-      _pam_overwrite(var->defval);
+      _pam_override(var->defval);
       free(var->defval);
     }
     if (var->override && (&quote != var->override)) {
       free(var->override);
-      _pam_overwrite(var->override);
+      _pam_override(var->override);
     }
     var->name = NULL;
     var->value = NULL;    /* never has memory specific to it */

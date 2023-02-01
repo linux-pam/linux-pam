@@ -44,6 +44,7 @@ typedef enum { AND, OR } operator;
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 /* --- static functions for checking whether the user should be let in --- */
 
@@ -53,7 +54,7 @@ shift_buf(char *mem, int from)
     char *start = mem;
     while ((*mem = mem[from]) != '\0')
 	++mem;
-    _pam_overwrite_n(mem, PAM_GROUP_BUFLEN - (mem - start));
+    _pam_override_n(mem, PAM_GROUP_BUFLEN - (mem - start));
     return mem;
 }
 
@@ -114,7 +115,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state,
 	if (i < 0) {
 	    pam_syslog(pamh, LOG_ERR, "error reading %s: %m", conf_filename);
 	    close(fd);
-	    _pam_overwrite_n(*buf, PAM_GROUP_BUFLEN);
+	    _pam_override_n(*buf, PAM_GROUP_BUFLEN);
 	    _pam_drop(*buf);
 	    *state = STATE_EOF;
 	    return -1;
@@ -133,7 +134,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state,
 	return -1;
     }
 
-    _pam_overwrite_n(to, PAM_GROUP_BUFLEN - (to - *buf));
+    _pam_override_n(to, PAM_GROUP_BUFLEN - (to - *buf));
 
     to = *buf;
     onspace = 1; /* delete any leading spaces */
@@ -744,7 +745,7 @@ static int check_account(pam_handle_t *pamh, const char *service,
     }
 
     if (grps) {                                          /* tidy up */
-	_pam_overwrite_n(grps, sizeof(gid_t) * blk_size(no_grps));
+	_pam_override_n(grps, sizeof(gid_t) * blk_size(no_grps));
 	_pam_drop(grps);
 	no_grps = 0;
     }

@@ -186,7 +186,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
 		    int rv;
 		    if ((rv=read(STDIN_FILENO, line+nc, 1)) != 1) {
 			if (rv < 0) {
-			    _pam_overwrite_n(line, (unsigned int) nc);
+			    _pam_override_n(line, (unsigned int) nc);
 			    nc = rv;
 			}
 			break;
@@ -214,7 +214,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
 		    line[nc] = '\0';
 		}
 		*retstr = strdup(line);
-		_pam_overwrite_array(line);
+		_pam_override_array(line);
 		if (!*retstr) {
 		    D(("no memory for response string"));
 		    nc = -1;
@@ -247,7 +247,7 @@ static int read_string(int echo, const char *prompt, char **retstr)
     D(("the timer appears to have expired"));
 
     *retstr = NULL;
-    _pam_overwrite_array(line);
+    _pam_override_array(line);
 
  cleanexit:
 
@@ -377,7 +377,7 @@ failed_conversation:
 	    switch (msgm[count]->msg_style) {
 	    case PAM_PROMPT_ECHO_ON:
 	    case PAM_PROMPT_ECHO_OFF:
-		_pam_overwrite(reply[count].resp);
+		_pam_override(reply[count].resp);
 		free(reply[count].resp);
 		break;
 	    case PAM_BINARY_PROMPT:

@@ -68,7 +68,7 @@
 #include <security/pam_ext.h>
 #endif
 #include <security/pam_modules.h>
-#include <security/_pam_macros.h>
+#include "pam_inline.h"
 
 #include "opasswd.h"
 
@@ -140,7 +140,7 @@ compare_password(const char *newpass, const char *oldpass)
 #endif
 
   retval = outval != NULL && strcmp(outval, oldpass) == 0;
-  _pam_overwrite(outval);
+  _pam_override(outval);
   return retval;
 }
 
@@ -242,7 +242,7 @@ check_old_pass, const char *user, const char *newpass, const char *filename, int
       } while (oldpass != NULL);
     }
 
-  _pam_overwrite_n(buf, buflen);
+  _pam_override_n(buf, buflen);
   free (buf);
 
   return retval;
@@ -523,7 +523,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 	}
       if (fputs (out, newpf) < 0)
 	{
-	  _pam_overwrite(out);
+	  _pam_override(out);
 	  free (out);
 	  retval = PAM_AUTHTOK_ERR;
 	  if (oldpf)
@@ -531,7 +531,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 	  fclose (newpf);
 	  goto error_opasswd;
 	}
-      _pam_overwrite(out);
+      _pam_override(out);
       free (out);
     }
 
@@ -577,7 +577,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
   rename (opasswd_tmp, opasswd_file);
  error_opasswd:
   unlink (opasswd_tmp);
-  _pam_overwrite_n(buf, buflen);
+  _pam_override_n(buf, buflen);
   free (buf);
 
   return retval;

@@ -184,7 +184,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 
 	      if (retval != PAM_SUCCESS)
 		{
-		  _pam_overwrite (resp);
+		  _pam_override (resp);
 		  _pam_drop (resp);
 		  if (retval == PAM_CONV_AGAIN)
 		    retval = PAM_INCOMPLETE;
@@ -195,7 +195,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 		{
 		  pam_set_item (pamh, PAM_AUTHTOK, resp);
 		  strncpy (authtok, resp, sizeof(authtok) - 1);
-		  _pam_overwrite (resp);
+		  _pam_override (resp);
 		  _pam_drop (resp);
 		}
 	    }
@@ -204,7 +204,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 
 	  if (pipe(fds) != 0)
 	    {
-	      _pam_overwrite_array(authtok);
+	      _pam_override_array(authtok);
 	      pam_syslog (pamh, LOG_ERR, "Could not create pipe: %m");
 	      return PAM_SYSTEM_ERR;
 	    }
@@ -215,21 +215,21 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
     {
       if (pipe(stdout_fds) != 0)
 	{
-	  _pam_overwrite_array(authtok);
+	  _pam_override_array(authtok);
 	  pam_syslog (pamh, LOG_ERR, "Could not create pipe: %m");
 	  return PAM_SYSTEM_ERR;
 	}
       stdout_file = fdopen(stdout_fds[0], "r");
       if (!stdout_file)
 	{
-	  _pam_overwrite_array(authtok);
+	  _pam_override_array(authtok);
 	  pam_syslog (pamh, LOG_ERR, "Could not fdopen pipe: %m");
 	  return PAM_SYSTEM_ERR;
 	}
     }
 
   if (optargc >= argc) {
-    _pam_overwrite_array(authtok);
+    _pam_override_array(authtok);
     pam_syslog (pamh, LOG_ERR, "No path given as argument");
     return PAM_SERVICE_ERR;
   }
@@ -237,14 +237,14 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   memset(&newsa, '\0', sizeof(newsa));
   newsa.sa_handler = SIG_DFL;
   if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
-    _pam_overwrite_array(authtok);
+    _pam_override_array(authtok);
     pam_syslog(pamh, LOG_ERR, "failed to reset SIGCHLD handler: %m");
     return PAM_SYSTEM_ERR;
   }
 
   pid = fork();
   if (pid == -1) {
-    _pam_overwrite_array(authtok);
+    _pam_override_array(authtok);
     return PAM_SYSTEM_ERR;
   }
   if (pid > 0) /* parent */
@@ -264,7 +264,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
           close(fds[1]);
 	}
 
-      _pam_overwrite_array(authtok);
+      _pam_override_array(authtok);
 
       if (use_stdout)
 	{
@@ -336,7 +336,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       enum pam_modutil_redirect_fd redirect_stdout =
 	      (use_stdout || logfile) ? PAM_MODUTIL_IGNORE_FD : PAM_MODUTIL_NULL_FD;
 
-      _pam_overwrite_array(authtok);
+      _pam_override_array(authtok);
 
       /* First, move all the pipes off of stdin, stdout, and stderr, to ensure
        * that calls to dup2 won't close them. */

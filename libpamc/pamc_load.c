@@ -7,7 +7,7 @@
  */
 
 #include "libpamc.h"
-#include "security/_pam_macros.h"
+#include "pam_inline.h"
 
 static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 {
@@ -144,7 +144,7 @@ close_the_agent:
     close(to_agent[1]);
 
 free_and_return:
-    _pam_overwrite_n(full_path, reset_length);
+    _pam_override_n(full_path, reset_length);
     free(full_path);
 
     D(("returning %d", return_code));
@@ -302,10 +302,10 @@ int pamc_load(pamc_handle_t pch, const char *agent_id)
 
 fail_free_agent_id:
 
-    _pam_overwrite_n(agent->id, agent->id_length);
+    _pam_override_n(agent->id, agent->id_length);
     free(agent->id);
 
-    _pam_overwrite_n(agent, sizeof(*agent));
+    _pam_override_n(agent, sizeof(*agent));
 
 fail_free_agent:
 

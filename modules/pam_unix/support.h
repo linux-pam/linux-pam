@@ -153,7 +153,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 
 #define _pam_delete(xx)		\
 {				\
-	_pam_overwrite(xx);	\
+	_pam_override(xx);	\
 	_pam_drop(xx);		\
 }
 

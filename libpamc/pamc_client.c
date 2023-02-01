@@ -7,7 +7,7 @@
  */
 
 #include "libpamc.h"
-#include "security/_pam_macros.h"
+#include "pam_inline.h"
 
 /*
  * liberate path list
@@ -146,7 +146,7 @@ static int __pamc_shutdown_agents(pamc_handle_t pch)
 	}
 	pid = this->pid = 0;
 
-	_pam_overwrite_n(this->id, this->id_length);
+	_pam_override_n(this->id, this->id_length);
 	free(this->id);
 	this->id = NULL;
 	this->id_length = 0;

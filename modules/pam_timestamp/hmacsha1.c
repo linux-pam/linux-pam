@@ -48,7 +48,6 @@
 #include <unistd.h>
 #include <syslog.h>
 #include <security/pam_ext.h>
-#include <security/_pam_macros.h>
 #include "pam_inline.h"
 #include "hmacsha1.h"
 #include "sha1.h"
@@ -109,7 +108,7 @@ hmac_key_create(pam_handle_t *pamh, const char *filename, size_t key_size,
 	/* If we didn't get enough, stop here. */
 	if (count < key_size) {
 		pam_syslog(pamh, LOG_ERR, "Short read on random device");
-		_pam_overwrite_n(key, key_size);
+		_pam_override_n(key, key_size);
 		free(key);
 		close(keyfd);
 		return;
@@ -124,7 +123,7 @@ hmac_key_create(pam_handle_t *pamh, const char *filename, size_t key_size,
 		}
 		count += i;
 	}
-	_pam_overwrite_n(key, key_size);
+	_pam_override_n(key, key_size);
 	free(key);
 	close(keyfd);
 }
@@ -182,7 +181,7 @@ hmac_key_read(pam_handle_t *pamh, const char *filename, size_t default_key_size,
 
 	/* Require that we got the expected amount of data. */
 	if (count < st.st_size) {
-		_pam_overwrite_n(tmp, st.st_size);
+		_pam_override_n(tmp, st.st_size);
 		free(tmp);
 		return;
 	}
@@ -252,8 +251,8 @@ hmac_sha1_generate(void **mac, size_t *mac_length,
 	sha1_output(&sha1, outer);
 
 	/* We don't need any of the keys any more. */
-	_pam_overwrite_array(key);
-	_pam_overwrite_array(tmp_key);
+	_pam_override_array(key);
+	_pam_override_array(tmp_key);
 
 	/* Allocate space to store the output. */
 	*mac_length = sizeof(outer);
@@ -285,7 +284,7 @@ hmac_sha1_generate_file(pam_handle_t *pamh, void **mac, size_t *mac_length,
 	hmac_sha1_generate(mac, mac_length,
 			   key, key_length,
 			   text, text_length);
-	_pam_overwrite_n(key, key_length);
+	_pam_override_n(key, key_length);
 	free(key);
 }
 

@@ -5,6 +5,7 @@
  */
 
 #include "pam_private.h"
+#include "pam_inline.h"
 
 #include <stdlib.h>
 
@@ -41,34 +42,34 @@ int pam_end(pam_handle_t *pamh, int pam_status)
 
     _pam_drop_env(pamh);                      /* purge the environment */
 
-    _pam_overwrite(pamh->authtok);            /* blank out old token */
+    _pam_override(pamh->authtok);            /* blank out old token */
     _pam_drop(pamh->authtok);
 
-    _pam_overwrite(pamh->oldauthtok);         /* blank out old token */
+    _pam_override(pamh->oldauthtok);         /* blank out old token */
     _pam_drop(pamh->oldauthtok);
 
-    _pam_overwrite(pamh->former.prompt);
+    _pam_override(pamh->former.prompt);
     _pam_drop(pamh->former.prompt);           /* drop saved prompt */
 
-    _pam_overwrite(pamh->service_name);
+    _pam_override(pamh->service_name);
     _pam_drop(pamh->service_name);
 
-    _pam_overwrite(pamh->user);
+    _pam_override(pamh->user);
     _pam_drop(pamh->user);
 
-    _pam_overwrite(pamh->confdir);
+    _pam_override(pamh->confdir);
     _pam_drop(pamh->confdir);
 
-    _pam_overwrite(pamh->prompt);
+    _pam_override(pamh->prompt);
     _pam_drop(pamh->prompt);                  /* prompt for pam_get_user() */
 
-    _pam_overwrite(pamh->tty);
+    _pam_override(pamh->tty);
     _pam_drop(pamh->tty);
 
-    _pam_overwrite(pamh->rhost);
+    _pam_override(pamh->rhost);
     _pam_drop(pamh->rhost);
 
-    _pam_overwrite(pamh->ruser);
+    _pam_override(pamh->ruser);
     _pam_drop(pamh->ruser);
 
     _pam_drop(pamh->pam_conversation);
@@ -76,16 +77,16 @@ int pam_end(pam_handle_t *pamh, int pam_status)
 
     _pam_drop(pamh->former.substates);
 
-    _pam_overwrite(pamh->xdisplay);
+    _pam_override(pamh->xdisplay);
     _pam_drop(pamh->xdisplay);
 
-    _pam_overwrite(pamh->xauth.name);
+    _pam_override(pamh->xauth.name);
     _pam_drop(pamh->xauth.name);
-    _pam_overwrite_n(pamh->xauth.data, (unsigned int)pamh->xauth.datalen);
+    _pam_override_n(pamh->xauth.data, (unsigned int)pamh->xauth.datalen);
     _pam_drop(pamh->xauth.data);
-    _pam_overwrite_n((char *)&pamh->xauth, sizeof(pamh->xauth));
+    _pam_override_n((char *)&pamh->xauth, sizeof(pamh->xauth));
 
-    _pam_overwrite(pamh->authtok_type);
+    _pam_override(pamh->authtok_type);
     _pam_drop(pamh->authtok_type);
 
     /* and finally liberate the memory for the pam_handle structure */
