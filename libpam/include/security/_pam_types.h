@@ -160,6 +160,12 @@ typedef struct pam_handle pam_handle_t;
 # define PAM_FORMAT(params)
 #endif
 
+#if PAM_GNUC_PREREQ(3,1)
+# define PAM_DEPRECATED __attribute__((__deprecated__))
+#else
+# define PAM_DEPRECATED
+#endif
+
 #if PAM_GNUC_PREREQ(3,3) && !defined(LIBPAM_COMPILE)
 # define PAM_NONNULL(params) __attribute__((__nonnull__ params))
 #else

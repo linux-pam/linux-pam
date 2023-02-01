@@ -7,6 +7,8 @@
  * Organized by Cristian Gafton <gafton@redhat.com>
  */
 
+#include "_pam_types.h"
+
 /* a 'safe' version of strdup */
 
 #include <stdlib.h>
@@ -20,17 +22,17 @@
  * Use the _pam_override ones from "pam_inline.h".
  */
 
-#define _pam_overwrite(x)        \
-do {                             \
-     register char *__xx__;      \
-     if ((__xx__=(x)))           \
-          while (*__xx__)        \
-               *__xx__++ = '\0'; \
+#define _pam_overwrite(x)                  \
+do {                                       \
+     PAM_DEPRECATED register char *__xx__; \
+     if ((__xx__=(x)))                     \
+          while (*__xx__)                  \
+               *__xx__++ = '\0';           \
 } while (0)
 
 #define _pam_overwrite_n(x,n)   \
 do {                             \
-     register char *__xx__;      \
+     PAM_DEPRECATED register char *__xx__; \
      register unsigned int __i__ = 0;    \
      if ((__xx__=(x)))           \
         for (;__i__<n; __i__++) \
@@ -56,7 +58,7 @@ do {                 \
 
 #define _pam_drop_reply(/* struct pam_response * */ reply, /* int */ replies) \
 do {                                              \
-    int reply_i;                                  \
+    PAM_DEPRECATED int reply_i;                   \
                                                   \
     for (reply_i=0; reply_i<replies; ++reply_i) { \
 	if (reply[reply_i].resp) {                \
