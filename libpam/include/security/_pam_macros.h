@@ -14,8 +14,11 @@
 
 #define  x_strdup(s)  ( (s) ? strdup(s):NULL )
 
-/* Good policy to strike out passwords with some characters not just
-   free the memory */
+/*
+ * WARNING: Do NOT use these overwrite macros, as they do not reliable
+ * override the memory.
+ * Use the _pam_override ones from "pam_inline.h".
+ */
 
 #define _pam_overwrite(x)        \
 do {                             \
@@ -45,6 +48,11 @@ do {                 \
         X=NULL;      \
     }                \
 } while (0)
+
+/*
+ * WARNING: Do NOT use this macro, as it does not reliable override the memory.
+ * Use _pam_drop_response from "pam_inline.h".
+ */
 
 #define _pam_drop_reply(/* struct pam_response * */ reply, /* int */ replies) \
 do {                                              \

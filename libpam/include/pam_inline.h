@@ -67,6 +67,60 @@ pam_str_skip_icase_prefix_len(const char *str, const char *prefix, size_t prefix
 #define pam_str_skip_icase_prefix(str_, prefix_)	\
 	pam_str_skip_icase_prefix_len((str_), (prefix_), sizeof(prefix_) - 1 + PAM_MUST_BE_ARRAY(prefix_))
 
+
+/*
+ * Macros to securly erase memory
+ */
+
+#ifdef HAVE_MEMSET_EXPLICIT
+# define _pam_override_n(x, n)           \
+do {                                     \
+	void *x__ = x;                   \
+	if (x__)                         \
+		memset_explicit(x__, n); \
+} while(0)
+#elif defined HAVE_EXPLICIT_BZERO
+# define _pam_override_n(x, n)          \
+do {                                    \
+	void *x__ = x;                  \
+	if (x__)                        \
+		explicit_bzero(x__, n); \
+} while(0)
+#else
+# define _pam_override_n(x, n)                                      \
+do {                                                                \
+	void *xx__ = x;                                             \
+	if (xx__) {                                                 \
+		xx__ = memset(xx__, '\0', n);                       \
+		__asm__ __volatile__ ("" : : "r"(xx__) : "memory"); \
+	}                                                           \
+} while(0)
+#endif
+
+#define _pam_override(x)                             \
+do {                                                 \
+	char *xx__ = x;                              \
+	if (xx__)                                    \
+		_pam_override_n(xx__, strlen(xx__)); \
+} while(0)
+
+#define _pam_override_array(x) _pam_override_n(x, sizeof(x) + PAM_MUST_BE_ARRAY(x))
+
+#define _pam_drop_response(/* struct pam_response * */ reply, /* int */ replies) \
+do {                                                                             \
+	int reply_i;                                                             \
+	\
+	for (reply_i=0; reply_i<(replies); ++reply_i) {                          \
+		if ((reply)[reply_i].resp) {                                     \
+			_pam_override((reply)[reply_i].resp);                    \
+			free((reply)[reply_i].resp);                             \
+		}                                                                \
+	}                                                                        \
+	if (reply)                                                               \
+		free(reply);                                                     \
+} while (0)
+
+
 static inline int
 pam_read_passwords(int fd, int npass, char **passwords)
 {
