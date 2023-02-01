@@ -8,7 +8,7 @@
 
 #define DEFAULT_ETC_ENVFILE     "/etc/environment"
 #ifdef VENDORDIR
-#define VENDOR_DEFAULT_ETC_ENVFILE (VENDORDIR "/etc/environment")
+#define VENDOR_DEFAULT_ETC_ENVFILE (VENDORDIR "/environment")
 #endif
 #define DEFAULT_READ_ENVFILE    1
 
