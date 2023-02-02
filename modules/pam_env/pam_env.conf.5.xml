@@ -18,7 +18,7 @@
     <title>DESCRIPTION</title>
 
     <para condition="with_vendordir">
-      The <filename>/usr/etc/security/pam_env.conf</filename> and
+      The <filename>%vendordir%/security/pam_env.conf</filename> and
       <filename>/etc/security/pam_env.conf</filename> files specify
       the environment variables to be set, unset or modified by
       <citerefentry><refentrytitle>pam_env</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
@@ -67,7 +67,7 @@
     </para>
 
     <para condition="with_vendordir">
-      The <filename>/usr/etc/environment</filename> and <filename>/etc/environment</filename> files specify
+      The <filename>%vendordir%/environment</filename> and <filename>/etc/environment</filename> files specify
       the environment variables to be set. These files must consist of simple
       <emphasis>NAME=VALUE</emphasis> pairs on separate lines.
       The <citerefentry><refentrytitle>pam_env</refentrytitle><manvolnum>8</manvolnum></citerefentry>
