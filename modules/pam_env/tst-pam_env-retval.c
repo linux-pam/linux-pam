@@ -21,14 +21,16 @@
 
 static const char service_file[] = TEST_NAME ".service";
 static const char missing_file[] = TEST_NAME ".missing";
-static const char dir[] = TEST_NAME_DIR;
-static const char dir_usr[] = TEST_NAME_DIR "/usr";
-static const char dir_usr_etc[] = TEST_NAME_DIR "/usr/etc";
-static const char dir_usr_etc_security[] = TEST_NAME_DIR "/usr/etc/security";
 static const char my_conf[] = TEST_NAME ".conf";
 static const char my_env[] = TEST_NAME ".env";
-static const char usr_env[] = TEST_NAME_DIR "/usr/etc/environment";
-static const char usr_conf[] = TEST_NAME_DIR "/usr/etc/security/pam_env.conf";
+#ifdef VENDORDIR
+static const char dir[] = TEST_NAME_DIR;
+static const char dir_usr[] = TEST_NAME_DIR "/usr";
+static const char dir_usr_etc[] = TEST_NAME_DIR VENDORDIR;
+static const char dir_usr_etc_security[] = TEST_NAME_DIR VENDOR_SCONFIGDIR;
+static const char usr_env[] = TEST_NAME_DIR VENDORDIR "/environment";
+static const char usr_conf[] = TEST_NAME_DIR VENDOR_SCONFIGDIR "/pam_env.conf";
+#endif
 
 static struct pam_conv conv;
 
@@ -36,11 +38,6 @@ static void
 setup(void)
 {
 	FILE *fp;
-
-	ASSERT_EQ(0, mkdir(dir, 0755));
-	ASSERT_EQ(0, mkdir(dir_usr, 0755));
-	ASSERT_EQ(0, mkdir(dir_usr_etc, 0755));
-	ASSERT_EQ(0, mkdir(dir_usr_etc_security, 0755));
 
 	ASSERT_NE(NULL, fp = fopen(my_conf, "w"));
 	ASSERT_LT(0, fprintf(fp,
@@ -54,6 +51,12 @@ setup(void)
 			     "test2_value=bar\n"));
 	ASSERT_EQ(0, fclose(fp));
 
+#ifdef VENDORDIR
+	ASSERT_EQ(0, mkdir(dir, 0755));
+	ASSERT_EQ(0, mkdir(dir_usr, 0755));
+	ASSERT_EQ(0, mkdir(dir_usr_etc, 0755));
+	ASSERT_EQ(0, mkdir(dir_usr_etc_security, 0755));
+
 	ASSERT_NE(NULL, fp = fopen(usr_env, "w"));
 	ASSERT_LT(0, fprintf(fp,
 			     "usr_etc_test=foo\n"
@@ -65,6 +68,7 @@ setup(void)
 			     "PAGER		DEFAULT=emacs\n"
 			     "MANPAGER		DEFAULT=less\n"));
 	ASSERT_EQ(0, fclose(fp));
+#endif
 }
 
 static void
@@ -72,12 +76,14 @@ cleanup(void)
 {
 	ASSERT_EQ(0, unlink(my_conf));
 	ASSERT_EQ(0, unlink(my_env));
+#ifdef VENDORDIR
 	ASSERT_EQ(0, unlink(usr_env));
 	ASSERT_EQ(0, unlink(usr_conf));
 	ASSERT_EQ(0, rmdir(dir_usr_etc_security));
 	ASSERT_EQ(0, rmdir(dir_usr_etc));
 	ASSERT_EQ(0, rmdir(dir_usr));
 	ASSERT_EQ(0, rmdir(dir));
+#endif
 }
 
 static void
@@ -221,7 +227,7 @@ main(void)
 	const char *env2[] = { "test_value=foo", "test2_value=bar", NULL };
 	check_env(env2);
 
-#if defined (USE_ECONF)	&& defined (VENDORDIR)
+#if defined (USE_ECONF) && defined (VENDORDIR)
 
 	/* envfile is a directory. So values will be read from {TEST_NAME_DIR}/usr/etc and {TEST_NAME_DIR}/etc */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
