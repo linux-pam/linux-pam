@@ -7,6 +7,8 @@
 
 #include "test_assert.h"
 
+#include <errno.h>
+#include <libgen.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,15 +26,41 @@ static const char missing_file[] = TEST_NAME ".missing";
 static const char my_conf[] = TEST_NAME ".conf";
 static const char my_env[] = TEST_NAME ".env";
 #ifdef VENDORDIR
-static const char dir[] = TEST_NAME_DIR;
-static const char dir_usr[] = TEST_NAME_DIR "/usr";
-static const char dir_usr_etc[] = TEST_NAME_DIR VENDORDIR;
 static const char dir_usr_etc_security[] = TEST_NAME_DIR VENDOR_SCONFIGDIR;
 static const char usr_env[] = TEST_NAME_DIR VENDORDIR "/environment";
 static const char usr_conf[] = TEST_NAME_DIR VENDOR_SCONFIGDIR "/pam_env.conf";
 #endif
 
 static struct pam_conv conv;
+
+#ifdef VENDORDIR
+static void
+mkdir_p(const char *pathname, mode_t mode)
+{
+	if (mkdir(pathname, mode) == 0 || errno == EEXIST)
+		return;
+	ASSERT_EQ(errno, ENOENT);
+
+	char *buf;
+	ASSERT_NE(NULL, buf = strdup(pathname));
+	mkdir_p(dirname(buf), mode);
+	free(buf);
+
+	ASSERT_EQ(0, mkdir(pathname, mode));
+}
+
+static void
+rmdir_p(const char *pathname)
+{
+	if (rmdir(pathname) != 0)
+		return;
+
+	char *buf;
+	ASSERT_NE(NULL, buf = strdup(pathname));
+	rmdir_p(dirname(buf));
+	free(buf);
+}
+#endif
 
 static void
 setup(void)
@@ -52,10 +80,7 @@ setup(void)
 	ASSERT_EQ(0, fclose(fp));
 
 #ifdef VENDORDIR
-	ASSERT_EQ(0, mkdir(dir, 0755));
-	ASSERT_EQ(0, mkdir(dir_usr, 0755));
-	ASSERT_EQ(0, mkdir(dir_usr_etc, 0755));
-	ASSERT_EQ(0, mkdir(dir_usr_etc_security, 0755));
+	mkdir_p(dir_usr_etc_security, 0755);
 
 	ASSERT_NE(NULL, fp = fopen(usr_env, "w"));
 	ASSERT_LT(0, fprintf(fp,
@@ -79,10 +104,7 @@ cleanup(void)
 #ifdef VENDORDIR
 	ASSERT_EQ(0, unlink(usr_env));
 	ASSERT_EQ(0, unlink(usr_conf));
-	ASSERT_EQ(0, rmdir(dir_usr_etc_security));
-	ASSERT_EQ(0, rmdir(dir_usr_etc));
-	ASSERT_EQ(0, rmdir(dir_usr));
-	ASSERT_EQ(0, rmdir(dir));
+	rmdir_p(dir_usr_etc_security);
 #endif
 }
 
@@ -236,7 +258,7 @@ main(void)
 			     " conffile=%s envfile=%s/%s/\n",
 			     cwd, MODULE_NAME,
 			     "/dev/null",
-			     cwd, dir));
+			     cwd, TEST_NAME_DIR));
 	ASSERT_EQ(0, fclose(fp));
 
 	const char *env3[] = {"usr_etc_test=foo", "usr_etc_test2=bar", NULL};
@@ -248,7 +270,7 @@ main(void)
 			     "session required %s/.libs/%s.so"
 			     " conffile=%s/%s/ envfile=%s\n",
 			     cwd, MODULE_NAME,
-			     cwd, dir,
+			     cwd, TEST_NAME_DIR,
 			     "/dev/null"));
 	ASSERT_EQ(0, fclose(fp));
 
