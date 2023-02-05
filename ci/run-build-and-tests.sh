@@ -33,7 +33,7 @@ case "${CHECK-}" in
 esac
 
 case "${VENDORDIR-}" in
-	/*)
+	*/*)
 		DISTCHECK_CONFIGURE_FLAGS="$DISTCHECK_CONFIGURE_FLAGS --enable-vendordir=$VENDORDIR"
 		;;
 esac
