@@ -89,7 +89,7 @@ jobs:
     env:
       CC: clang-14
       TARGET: x86_64
-      VENDORDIR: /usr/etc
+      VENDORDIR: ${prefix}/share/etc
     steps:
     - uses: actions/checkout@v3
       with:
