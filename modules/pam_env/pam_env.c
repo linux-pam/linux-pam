@@ -265,6 +265,7 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
 	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
           econf_free(keys);
           econf_freeFile(key_file);
+	  (*lines)[i] = NULL;
 	  free_string_array(*lines);
 	  free (val);
 	  return PAM_BUF_ERR;
