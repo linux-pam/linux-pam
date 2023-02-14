@@ -605,10 +605,6 @@ AC_CHECK_FUNCS(inet_ntop inet_pton innetgr)
 AC_CHECK_FUNCS(quotactl)
 AC_CHECK_FUNCS(unshare)
 AC_CHECK_FUNCS([ruserok_af ruserok], [break])
-BACKUP_LIBS=$LIBS
-LIBS="$LIBS -lutil"
-AC_CHECK_FUNCS([logwtmp])
-LIBS=$BACKUP_LIBS
 
 AC_ARG_ENABLE([regenerate-docu],
   AS_HELP_STRING([--disable-regenerate-docu],[Don't re-build documentation from XML sources]),
@@ -694,6 +690,21 @@ AC_ARG_ENABLE([unix],
 case "$enable_unix" in
   yes|no) ;;
   *) AC_MSG_ERROR([bad value $enable_unix for --enable-unix option]) ;;
+esac
+
+AC_ARG_ENABLE([lastlog],
+              [AS_HELP_STRING([--enable-lastlog],
+                              [do build pam_lastlog module])],
+              [], [enable_lastlog=no])
+case "$enable_lastlog" in
+  yes|check)
+    BACKUP_LIBS=$LIBS
+    LIBS="$LIBS -lutil"
+    AC_CHECK_FUNCS([logwtmp])
+    LIBS=$BACKUP_LIBS
+    ;;
+  no) ;;
+  *) AC_MSG_ERROR([bad value $enable_lastlog for --enable-lastlog option]) ;;
 esac
 
 AC_ARG_WITH([misc-conv-bufsize],
