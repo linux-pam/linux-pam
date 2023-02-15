@@ -4,10 +4,11 @@
     is started, it activates its attachment to the PAM-API. This
     activation performs a number of tasks, the most important being the
     reading of the configuration file(s): <filename>/etc/pam.conf</filename>.
-    Alternatively, this may be the contents of the
-    <filename>/etc/pam.d/</filename> directory. The presence of this
-    directory will cause Linux-PAM to ignore
-    <filename>/etc/pam.conf</filename>.
+    Alternatively and preferably, the configuration can be set by individual
+    configuration files located in a <filename>pam.d</filename> directory.
+    The presence of this directory will cause
+    <emphasis remap="B">Linux-PAM</emphasis> to
+    <emphasis remap="I">ignore</emphasis> <filename>/etc/pam.conf</filename>.
   </para>
   <para>
     These files list the <emphasis>PAM</emphasis>s that will do the
