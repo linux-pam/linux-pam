@@ -1,15 +1,25 @@
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam.conf-dir">
     <para>
       More flexible than the single configuration file is it to
-      configure libpam via the contents of the
-      <filename>/etc/pam.d/</filename> directory. In this case the
-      directory is filled with files each of which has a filename
+      configure libpam via the contents of
+      <filename>pam.d</filename> directories. In this case the
+      directories are filled with files each of which has a filename
       equal to a service-name (in lower-case): it is the personal
       configuration file for the named service.
     </para>
 
     <para>
-      The syntax of each file in /etc/pam.d/ is similar to that of the
+      Vendor-supplied PAM configuration files might be installed in
+      the system directory <filename>/usr/lib/pam.d/</filename> or
+      a configurable vendor specific directory instead
+      of the machine configuration directory <filename>/etc/pam.d/</filename>.
+      If no machine configuration file is found, the vendor-supplied file
+      is used. All files in <filename>/etc/pam.d/</filename> override
+      files with the same name in other directories.
+    </para>
+
+    <para>
+      The syntax of each file in pam.d is similar to that of the
       <filename>/etc/pam.conf</filename> file and is made up of lines
       of the following form:
     </para>

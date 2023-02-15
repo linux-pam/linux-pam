@@ -24,6 +24,49 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam.conf-dir.xml" xpointer='xpointer(id("pam.conf-dir")/*)' />
   </refsect1>
 
+  <refsect1 xml:id="pam8-files">
+    <title>FILES</title>
+    <variablelist>
+      <varlistentry>
+        <term>/etc/pam.conf</term>
+        <listitem>
+          <para>the configuration file</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>/etc/pam.d</term>
+        <listitem>
+          <para>
+            the <emphasis remap="B">Linux-PAM</emphasis> configuration
+            directory. Generally, if this directory is present, the
+            <filename>/etc/pam.conf</filename> file is ignored.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>/usr/lib/pam.d</term>
+        <listitem>
+          <para>
+            the <emphasis remap="B">Linux-PAM</emphasis> vendor configuration
+            directory. Files in <filename>/etc/pam.d</filename> override
+            files with the same name in this directory.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry condition="with_vendordir">
+        <term>%vendordir%/pam.d</term>
+        <listitem>
+          <para>
+            additional <emphasis remap="B">Linux-PAM</emphasis> vendor
+            configuration directory. Files in <filename>/etc/pam.d</filename>
+            and <filename>/usr/lib/pam.d</filename> override files with the
+            same name in this directory.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
   <refsect1 xml:id="pam.conf-see_also">
     <title>SEE ALSO</title>
     <para>
