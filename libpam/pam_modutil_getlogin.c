@@ -19,7 +19,6 @@ pam_modutil_getlogin(pam_handle_t *pamh)
     int status;
     const void *logname;
     char *curr_user;
-    size_t curr_user_len;
 
     status = pam_get_data(pamh, _PAMMODUTIL_GETLOGIN, &logname);
     if (status == PAM_SUCCESS) {
@@ -31,13 +30,10 @@ pam_modutil_getlogin(pam_handle_t *pamh)
       return NULL;
     }
 
-    curr_user_len = strlen(logname)+1;
-    curr_user = calloc(curr_user_len, 1);
+    curr_user = strdup(logname);
     if (curr_user == NULL) {
       return NULL;
     }
-
-    memcpy(curr_user, logname, curr_user_len);
 
     status = pam_set_data(pamh, _PAMMODUTIL_GETLOGIN, curr_user,
 			  pam_modutil_cleanup);
