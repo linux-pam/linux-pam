@@ -992,11 +992,10 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
 	    pam_syslog(pamh, LOG_DEBUG,
 		       "pam_putenv(\"%s\")", key);
 	}
-	free(*env);
     }
 
     /* tidy up */
-    free(env_list);
+    free_string_array(env_list);
     D(("Exit."));
     return retval;
 }
