@@ -526,6 +526,17 @@ if test -n "$LIBSELINUX" ; then
     LIBS=$BACKUP_LIBS
 fi
 
+LOGIND_CFLAGS=
+SYSTEMD_LIBS=
+AC_ARG_ENABLE([logind],
+  AS_HELP_STRING([--disable-logind], [Disable logind support]),
+  [WITH_LOGIND=$enableval], [WITH_LOGIND=yes])
+if test "$WITH_LOGIND" = "yes"; then
+  PKG_CHECK_MODULES([SYSTEMD], [libsystemd >= 254], [LOGIND_CFLAGS="-DUSE_LOGIND=1 $SYSTEMD_CFLAGS"], [:])
+fi
+AC_SUBST([LOGIND_CFLAGS])
+AC_SUBST([SYSTEMD_LIBS])
+
 ECONF_CFLAGS=
 ECONF_LIBS=
 AC_ARG_ENABLE([econf],

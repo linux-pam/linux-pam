@@ -53,7 +53,6 @@
 #include <time.h>
 #include <sys/time.h>
 #include <unistd.h>
-#include <utmp.h>
 #include <syslog.h>
 #include <paths.h>
 #ifdef WITH_OPENSSL
@@ -61,6 +60,12 @@
 #else
 #include "hmacsha1.h"
 #endif /* WITH_OPENSSL */
+
+#ifdef USE_LOGIND
+#include <systemd/sd-login.h>
+#else
+#include <utmp.h>
+#endif
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
@@ -200,10 +205,26 @@ timestamp_good(time_t then, time_t now, time_t interval)
 }
 
 static int
-check_login_time(const char *ruser, time_t timestamp)
+check_login_time(
+#ifdef USE_LOGIND
+		 uid_t uid,
+#else
+		 const char *ruser,
+#endif
+		 time_t timestamp)
 {
-	struct utmp utbuf, *ut;
 	time_t oldest_login = 0;
+#ifdef USE_LOGIND
+#define USEC_PER_SEC  ((uint64_t) 1000000ULL)
+	uint64_t usec = 0;
+
+	if (sd_uid_get_login_time(uid, &usec) < 0) {
+	        return PAM_SERVICE_ERR;
+	}
+
+	oldest_login = usec/USEC_PER_SEC;
+#else
+	struct utmp utbuf, *ut;
 
 	setutent();
 	while(
@@ -224,6 +245,7 @@ check_login_time(const char *ruser, time_t timestamp)
 		}
 	}
 	endutent();
+#endif
 	if(oldest_login == 0 || timestamp < oldest_login) {
 		return PAM_AUTH_ERR;
 	}
@@ -532,7 +554,15 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			close(fd);
 			return PAM_AUTH_ERR;
 		}
+#ifdef USE_LOGIND
+		struct passwd *pwd = pam_modutil_getpwnam(pamh, ruser);
+		if (pwd != NULL) {
+		  return PAM_SERVICE_ERR;
+		}
+		if (check_login_time(pwd->pw_uid, then) != PAM_SUCCESS)
+#else
 		if (check_login_time(ruser, then) != PAM_SUCCESS)
+#endif
 		{
 			pam_syslog(pamh, LOG_NOTICE, "timestamp file `%s' is "
 			       "older than oldest login, disallowing "
@@ -728,6 +758,9 @@ main(int argc, char **argv)
 	fd_set write_fds;
 	char path[BUFLEN];
 	struct stat st;
+#ifdef USE_LOGIND
+	uid_t uid;
+#endif
 
 	/* Check that there's nothing funny going on with stdio. */
 	if ((fstat(STDIN_FILENO, &st) == -1) ||
@@ -783,6 +816,9 @@ main(int argc, char **argv)
 	if (pwd == NULL) {
 		retval = 4;
 	}
+#ifdef USE_LOGIND
+	uid = pwd->pw_uid;
+#endif
 
 	/* Get the name of the target user. */
 	user = strdup(pwd->pw_name);
@@ -833,7 +869,11 @@ main(int argc, char **argv)
 				/* Check the timestamp. */
 				if (lstat(path, &st) != -1) {
 					/* Check oldest login against timestamp */
+#ifdef USE_LOGIND
+					if (check_login_time(uid, st.st_mtime) != PAM_SUCCESS) {
+#else
 					if (check_login_time(user, st.st_mtime) != PAM_SUCCESS) {
+#endif
 						retval = 7;
 					} else if (timestamp_good(st.st_mtime, time(NULL),
 							DEFAULT_TIMESTAMP_TIMEOUT) != PAM_SUCCESS) {
