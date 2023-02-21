@@ -25,9 +25,14 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/utsname.h>
-#include <utmp.h>
 #include <time.h>
 #include <syslog.h>
+
+#ifdef USE_LOGIND
+#include <systemd/sd-login.h>
+#else
+#include <utmp.h>
+#endif
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
@@ -159,6 +164,18 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 	      case 'U':
 		{
 		    unsigned int users = 0;
+#ifdef USE_LOGIND
+		    int sessions = sd_get_sessions(NULL);
+
+		    if (sessions < 0) {
+		      pam_syslog(pamh, LOG_ERR, "logind error: %s",
+				 strerror(-sessions));
+		      _pam_drop(issue);
+		      return PAM_SERVICE_ERR;
+		    } else {
+		      users = sessions;
+		    }
+#else
 		    struct utmp *ut;
 		    setutent();
 		    while ((ut = getutent())) {
@@ -166,6 +183,7 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 			    ++users;
 		    }
 		    endutent();
+#endif
 		    if (c == 'U')
 			snprintf (buf, sizeof buf, "%u %s", users,
 			          (users == 1) ? "user" : "users");

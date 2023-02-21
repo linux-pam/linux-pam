@@ -22,14 +22,14 @@ secureconfdir = $(SCONFIGDIR)
 endif
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	$(WARN_CFLAGS)
+	$(LOGIND_CFLAGS) $(WARN_CFLAGS)
 AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 
 securelib_LTLIBRARIES = pam_issue.la
-pam_issue_la_LIBADD = $(top_builddir)/libpam/libpam.la
+pam_issue_la_LIBADD = $(top_builddir)/libpam/libpam.la $(SYSTEMD_LIBS)
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
