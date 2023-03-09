@@ -40,10 +40,12 @@
         <term>PAM_TTY</term>
         <listitem>
           <para>
-            The terminal name: prefixed by <filename>/dev/</filename> if
-            it is a device file; for graphical, X-based, applications the
-            value for this item should be the
-            <emphasis>$DISPLAY</emphasis> variable.
+            The terminal name prefixed by <filename>/dev/</filename> for
+            device files.
+            In the past, graphical X-based applications used to store the
+            <emphasis>$DISPLAY</emphasis> variable here, but with the
+            introduction of <emphasis>PAM_XDISPLAY</emphasis> this usage
+            is deprecated.
           </para>
         </listitem>
       </varlistentry>
