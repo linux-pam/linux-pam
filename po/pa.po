@@ -7,22 +7,22 @@
 # Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005
 # Jaswinder Singh <jsingh@redhat.com>, 2009,2012
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
-# A S Alam <amanpreet.alam@gmail.com>, 2020, 2022.
+# A S Alam <amanpreet.alam@gmail.com>, 2020, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2022-11-11 11:11+0000\n"
-"PO-Revision-Date: 2022-04-18 16:17+0000\n"
+"PO-Revision-Date: 2023-03-14 02:20+0000\n"
 "Last-Translator: A S Alam <amanpreet.alam@gmail.com>\n"
-"Language-Team: Punjabi <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/pa/>\n"
+"Language-Team: Punjabi <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/pa/>\n"
 "Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.15.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
@@ -234,16 +234,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s ਫੇਲ ਹੋਇਆ: ਅਣਪਛਾਤੀ ਸਥਿਤੀ 0x%x"
 
 #: modules/pam_faillock/main.c:130
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
-msgstr "ਵਰਤੋਂ: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
+msgstr ""
+"ਵਰਤੋੰ: %s [--dir /path/to/tally-directory] [--user username] [--reset] "
+"[--legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "Login           Failures    Latest failure         From\n"
-msgstr "ਲਾਗਇਨ           ਫੇਲ੍ਹ ਆਖਰੀ ਹੋਏ ਫੇਲ੍ਹ     ਇਸ ਤੋਂ\n"
+msgstr "ਲਾਗਇਨ           ਫੇਲ੍ਹ    ਸਭ ਤੋੰ ਆਖਰੀ ਫੇਲ੍ਹ         ਇਸ ਤੋੰ\n"
 
 #: modules/pam_faillock/pam_faillock.c:404
 #, c-format
@@ -317,9 +319,8 @@ msgid "There were too many logins for '%s'."
 msgstr "'%s' ਲਈ ਬਹੁਤ ਸਾਰੇ ਲਾਗਇਨ ਕੀਤੇ ਗਏ ਸਨ।"
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "ਤੁਹਾਡੀ ਨਵੀਂ ਮੇਲ ਹੈ।"
+msgstr "ਤੁਹਾਡੇ ਲਈ ਕੋਈ ਨਵੀੰ ਈਮੇਲ ਨਹੀਂ ਹੈ।"
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
