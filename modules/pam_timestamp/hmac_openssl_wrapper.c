@@ -54,6 +54,7 @@
 #include <security/pam_modutil.h>
 
 #include "hmac_openssl_wrapper.h"
+#include "pam_inline.h"
 
 #define LOGIN_DEFS          "/etc/login.defs"
 #define CRYPTO_KEY          "HMAC_CRYPTO_ALGO"
