@@ -48,7 +48,7 @@ autoconf --version |head -1
 automake --version |head -1
 libtoolize --version |head -1
 kver="$(printf '%s\n%s\n' '#include <linux/version.h>' 'LINUX_VERSION_CODE' | $CC $CPPFLAGS -E -P -)"
-printf 'kernel-headers %s.%s.%s\n' $(($kver/65536)) $(($kver/256%256)) $(($kver%256))
+printf 'kernel-headers %s.%s.%s\n' $((kver/65536)) $((kver/256%256)) $((kver%256))
 echo 'END OF BUILD ENVIRONMENT INFORMATION'
 
 export CC_FOR_BUILD="$CC"
