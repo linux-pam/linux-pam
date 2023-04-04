@@ -38,6 +38,15 @@ case "${VENDORDIR-}" in
 		;;
 esac
 
+case "${USE_NIS-}" in
+	yes)
+		DISTCHECK_CONFIGURE_FLAGS="$DISTCHECK_CONFIGURE_FLAGS --enable-nis"
+		;;
+	no)
+		DISTCHECK_CONFIGURE_FLAGS="$DISTCHECK_CONFIGURE_FLAGS --disable-nis"
+		;;
+esac
+
 echo 'BEGIN OF BUILD ENVIRONMENT INFORMATION'
 uname -a |head -1
 libc="$(ldd /bin/sh |sed -n 's|^[^/]*\(/[^ ]*/libc\.so[^ ]*\).*|\1|p' |head -1)"
