@@ -38,6 +38,12 @@ case "${VENDORDIR-}" in
 		;;
 esac
 
+case "${USE_OPENSSL-}" in
+	yes)
+		DISTCHECK_CONFIGURE_FLAGS="$DISTCHECK_CONFIGURE_FLAGS --enable-openssl"
+		;;
+esac
+
 echo 'BEGIN OF BUILD ENVIRONMENT INFORMATION'
 uname -a |head -1
 libc="$(ldd /bin/sh |sed -n 's|^[^/]*\(/[^ ]*/libc\.so[^ ]*\).*|\1|p' |head -1)"
