@@ -8,7 +8,7 @@ CLEANFILES = *~
 
 dist_html_DATA = index.html
 
-EXTRA_DIST = custom-html.xsl custom-man.xsl
+EXTRA_DIST = custom-html.xsl.in custom-man.xsl.in
 
 #######################################################
 
