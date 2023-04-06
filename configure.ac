@@ -562,13 +562,15 @@ if test -n "$enable_vendordir"; then
   AC_DEFINE_UNQUOTED([VENDOR_SCONFIGDIR], ["$enable_vendordir/security"],
 		     [Directory for PAM modules distribution provided configuration files])
   if test "$WITH_ECONF" = "yes" ; then
-    STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir' --stringparam profile.condition 'with_vendordir;with_vendordir_and_with_econf'"
+    STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir'"
+    profileconditions="with_vendordir;with_vendordir_and_with_econf"
   else
-    STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir' --stringparam profile.condition 'with_vendordir;with_vendordir_and_without_econf"
+    STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir'"
+    profileconditions="with_vendordir;with_vendordir_and_without_econf"
   fi
   VENDOR_SCONFIGDIR="$enable_vendordir/security"
 else
-  STRINGPARAM_VENDORDIR="--stringparam profile.condition 'without_vendordir'"
+  profileconditions="without_vendordir"
 fi
 AC_SUBST([STRINGPARAM_VENDORDIR])
 AC_SUBST(VENDOR_SCONFIGDIR)
@@ -582,13 +584,15 @@ if test "$OPENSSL_ENABLED" = "yes" ; then
   [CRYPTO_LIBS="-lcrypto"
    use_openssl=yes
    AC_DEFINE([WITH_OPENSSL], 1, [OpenSSL provides crypto algorithm for hmac])
-   STRINGPARAM_HMAC="--stringparam profile.condition 'openssl_hmac'"],
+   profileconditions+=";openssl_hmac"],
   [CRYPTO_LIBS=""
-   STRINGPARAM_HMAC="--stringparam profile.condition 'no_openssl_hmac'"])
+   profileconditions+=";no_openssl_hmac"])
 fi
 AC_SUBST([CRYPTO_LIBS])
-AC_SUBST([STRINGPARAM_HMAC])
 AM_CONDITIONAL([COND_USE_OPENSSL], [test "x$use_openssl" = "xyes"])
+
+STRINGPARAM_PROFILECONDITIONS="--stringparam profile.condition '$profileconditions'"
+AC_SUBST([STRINGPARAM_PROFILECONDITIONS])
 
 dnl Checks for header files.
 AC_HEADER_DIRENT
