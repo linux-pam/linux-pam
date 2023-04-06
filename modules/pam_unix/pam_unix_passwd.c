@@ -75,14 +75,8 @@
 
 #ifdef HAVE_NIS
 # include <rpc/rpc.h>
-
-# ifdef HAVE_RPCSVC_YP_PROT_H
-#  include <rpcsvc/yp_prot.h>
-# endif
-
-# ifdef HAVE_RPCSVC_YPCLNT_H
-#  include <rpcsvc/ypclnt.h>
-# endif
+# include <rpcsvc/yp_prot.h>
+# include <rpcsvc/ypclnt.h>
 
 # include "yppasswd.h"
 

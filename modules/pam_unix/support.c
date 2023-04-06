@@ -19,7 +19,7 @@
 #include <ctype.h>
 #include <syslog.h>
 #include <sys/resource.h>
-#ifdef HAVE_RPCSVC_YPCLNT_H
+#ifdef HAVE_NIS
 #include <rpcsvc/ypclnt.h>
 #endif
 
