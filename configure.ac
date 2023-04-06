@@ -459,7 +459,6 @@ AC_SUBST(LIBDB)
 
 AC_ARG_ENABLE([nis],
         AS_HELP_STRING([--disable-nis], [Disable building NIS/YP support in pam_unix]))
-AM_CONDITIONAL([HAVE_NIS], [test "x$enable_nis" != "xno"])
 
 AS_IF([test "x$enable_nis" != "xno"], [
   old_CFLAGS=$CFLAGS
@@ -482,7 +481,9 @@ AS_IF([test "x$enable_nis" != "xno"], [
 
   AC_CHECK_FUNCS([yp_get_default_domain yperr_string yp_master yp_bind yp_match yp_unbind])
   AC_CHECK_FUNCS([getrpcport rpcb_getaddr])
-  AC_CHECK_HEADERS([rpc/rpc.h rpcsvc/ypclnt.h rpcsvc/yp_prot.h])
+  AC_CHECK_HEADER([rpc/rpc.h], , [enable_nis=no])
+  AC_CHECK_HEADER([rpcsvc/ypclnt.h], , [enable_nis=no])
+  AC_CHECK_HEADER([rpcsvc/yp_prot.h], , [enable_nis=no])
   AC_CHECK_DECLS([getrpcport], , , [
     #if HAVE_RPC_RPC_H
     # include <rpc/rpc.h>
@@ -496,6 +497,11 @@ AS_IF([test "x$enable_nis" != "xno"], [
 
 AC_SUBST([NIS_CFLAGS])
 AC_SUBST([NIS_LIBS])
+AM_CONDITIONAL([HAVE_NIS], [test "x$enable_nis" != "xno"])
+if test "x$enable_nis" != "xno" ; then
+   AC_DEFINE([HAVE_NIS], 1,
+	     [Defines that NIS should be used])
+fi
 
 AC_ARG_ENABLE([usergroups],
   AS_HELP_STRING([--enable-usergroups], [sets the usergroups option default to enabled]),
