@@ -49,14 +49,11 @@ pam_timestamp_check_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@
 pam_timestamp_check_LDADD = $(top_builddir)/libpam/libpam.la $(SYSTEMD_LIBS)
 pam_timestamp_check_LDFLAGS = @EXE_LDFLAGS@
 
-if COND_USE_OPENSSL
-hmacfile_SOURCES = hmac_openssl_wrapper.c
-else
+if !COND_USE_OPENSSL
 hmacfile_SOURCES = hmacfile.c hmacsha1.c sha1.c
-endif
 hmacfile_LDADD = $(top_builddir)/libpam/libpam.la
-
 check_PROGRAMS = hmacfile
+endif
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
