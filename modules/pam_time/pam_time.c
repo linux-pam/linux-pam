@@ -305,8 +305,9 @@ typedef enum { VAL, OP } expect;
 
 static int
 logic_field(pam_handle_t *pamh, const void *me, const char *x, int rule,
+	    void *data,
 	    int (*agrees)(pam_handle_t *pamh,
-			      const void *, const char *, int, int))
+			      const void *, const char *, int, int, void *))
 {
      int left=FALSE, right, not=FALSE;
      operator oper=OR;
@@ -321,7 +322,7 @@ logic_field(pam_handle_t *pamh, const void *me, const char *x, int rule,
 		    not = !not;
 	       else if (isalpha(c) || c == '*' || isdigit(c) || c == '_'
                     || c == '-' || c == '.' || c == '/' || c == ':') {
-		    right = not ^ agrees(pamh, me, x+at, l, rule);
+		    right = not ^ agrees(pamh, me, x+at, l, rule, data);
 		    if (oper == AND)
 			 left &= right;
 		    else
@@ -359,7 +360,7 @@ logic_field(pam_handle_t *pamh, const void *me, const char *x, int rule,
 
 static int
 is_same(pam_handle_t *pamh UNUSED, const void *A, const char *b,
-	int len, int rule UNUSED)
+	int len, int rule UNUSED, void *data UNUSED)
 {
      int i;
      const char *a;
@@ -424,12 +425,15 @@ time_now(void)
 /* take the current date and see if the range "date" passes it */
 static int
 check_time(pam_handle_t *pamh, const void *AT, const char *times,
-	   int len, int rule)
+	   int len, int rule, void *data)
 {
      int not,pass;
      int marked_day, time_start, time_end;
      const TIME *at;
      int i,j=0;
+     time_t *time_limit = data;
+
+     *time_limit = 0;
 
      at = AT;
      D(("chcking: 0%o/%.4d vs. %s", at->day, at->minute, times));
@@ -534,6 +538,7 @@ check_account(pam_handle_t *pamh, const char *service,
      int count=0;
      TIME here_and_now;
      int retval=PAM_SUCCESS;
+     time_t end_time = 0;
 
      here_and_now = time_now();                     /* find current time */
      do {
@@ -554,7 +559,7 @@ check_account(pam_handle_t *pamh, const char *service,
 	       continue;
 	  }
 
-	  good = logic_field(pamh, service, buffer, count, is_same);
+	  good = logic_field(pamh, service, buffer, count, NULL, is_same);
 	  D(("with service: %s", good ? "passes":"fails" ));
 
 	  /* here we get the terminal name field */
@@ -565,7 +570,7 @@ check_account(pam_handle_t *pamh, const char *service,
 			  "%s: malformed rule #%d", file, count);
 	       continue;
 	  }
-	  good &= logic_field(pamh, tty, buffer, count, is_same);
+	  good &= logic_field(pamh, tty, buffer, count, NULL, is_same);
 	  D(("with tty: %s", good ? "passes":"fails" ));
 
 	  /* here we get the username field */
@@ -584,7 +589,7 @@ check_account(pam_handle_t *pamh, const char *service,
 	    pam_syslog (pamh, LOG_ERR, "pam_time does not have netgroup support");
 #endif
 	  else
-	    good &= logic_field(pamh, user, buffer, count, is_same);
+	    good &= logic_field(pamh, user, buffer, count, NULL, is_same);
 	  D(("with user: %s", good ? "passes":"fails" ));
 
 	  /* here we get the time field */
@@ -596,7 +601,8 @@ check_account(pam_handle_t *pamh, const char *service,
 	       continue;
 	  }
 
-	  intime = logic_field(pamh, &here_and_now, buffer, count, check_time);
+	  intime = logic_field(pamh, &here_and_now, buffer, count, &end_time,
+	                       check_time);
 	  D(("with time: %s", intime ? "passes":"fails" ));
 
 	  if (good && !intime) {
