@@ -369,6 +369,9 @@ case "$ac_cv_search_dlopen" in
 esac
 AC_SUBST(LIBDL)
 
+AC_CHECK_LIB(m, log2, LIBM=-lm, LIBM="")
+AC_SUBST(LIBM)
+
 dnl Look for Linux Auditing library - see documentation
 AC_ARG_ENABLE([audit],
         AS_HELP_STRING([--disable-audit],[do not enable audit support]),

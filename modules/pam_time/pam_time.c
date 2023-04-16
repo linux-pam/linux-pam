@@ -21,6 +21,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <math.h>
 #include <netdb.h>
 
 #include <security/_pam_macros.h>
@@ -431,9 +432,14 @@ check_time(pam_handle_t *pamh, const void *AT, const char *times,
      int marked_day, time_start, time_end;
      const TIME *at;
      int i,j=0;
+     struct tm tm;
+     time_t current_time;
      time_t *time_limit = data;
 
      *time_limit = 0;
+     current_time = time(NULL);
+     // ignore failures, shouldn't really be possible
+     localtime_r(&current_time, &tm);
 
      at = AT;
      D(("chcking: 0%o/%.4d vs. %s", at->day, at->minute, times));
@@ -524,6 +530,59 @@ check_time(pam_handle_t *pamh, const void *AT, const char *times,
 		    pass = TRUE;
 	       }
 	  }
+     }
+
+     if (pass && !not) {
+	  int numdays = 0;
+	  if (time_start == 0 && time_end == 2400) {
+	       // special case where access is allowed for at least one full
+	       // day, so we have to examine the days until we find one that's
+	       // not allowed (or until we loop around)
+	       for (i = at->day; ; ) {
+		    i <<= 1;
+		    if (i > 0100)
+			 i = 1;
+		    if (! (i & marked_day))
+			 break;
+		    if (i == at->day)
+			 break;
+	       }
+
+	       // access allowed all day, every day...
+	       if (i == at->day)
+		    return (not ^ pass);
+
+	       if (i < at->day)
+		   i <<= 7;
+	       numdays = (int)log2(i)-(int)log2(at->day);
+	  } else if (time_end < time_start)
+	       numdays = 1;
+
+	  // if the end time is not today, walk the days 1 at a time to
+	  // increment.  This method avoids problems with both DST and
+	  // end of month / end of year boundaries.
+	  while (numdays > 0) {
+	       tm.tm_hour = 23;
+	       tm.tm_min  = 59;
+	       *time_limit = mktime(&tm);
+	       *time_limit += 60*60; // 00:59 the next day
+	       localtime_r(time_limit, &tm);
+	       numdays--;
+	  }
+
+	  tm.tm_hour = time_end / 100;
+	  tm.tm_min = time_end % 100;
+	  tm.tm_sec = 0;
+	  // tm_hour = 24 is not legal, so get the timestamp for 23:59
+	  // and add 60 seconds
+	  if (time_end == 2400)
+	  {
+	       tm.tm_hour -= 1;
+	       tm.tm_min -= 1;
+	  }
+	  *time_limit = mktime(&tm);
+	  if (time_end == 2400)
+	       *time_limit += 60;
      }
 
      return (not ^ pass);
