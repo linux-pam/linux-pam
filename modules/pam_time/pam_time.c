@@ -23,6 +23,7 @@
 #include <fcntl.h>
 #include <math.h>
 #include <netdb.h>
+#include <sys/param.h>
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
@@ -33,6 +34,8 @@
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
 #endif
+
+#include "time-util.h"
 
 #define PAM_TIME_CONF	(SCONFIGDIR "/time.conf")
 #ifdef VENDOR_SCONFIGDIR
@@ -53,6 +56,13 @@
 #endif
 
 typedef enum { AND, OR } operator;
+
+static void cleanup(pam_handle_t *handle UNUSED, void *data, int err UNUSED)
+{
+     if (!data)
+	  return;
+     free(data);
+}
 
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv, const char **conffile)
@@ -674,6 +684,40 @@ check_account(pam_handle_t *pamh, const char *service,
 	       D(("rule passed"));
 	  }
      } while (state != STATE_EOF);
+
+     if (end_time != 0) {
+	  char *current_limit = NULL, *runtime_max_sec = NULL;
+	  time_t curtime = time(NULL);
+	  usec_t timeval = 0, old_timeval = 0;
+
+	  // unlikely, but could happen if we were already close to the limit
+	  if (end_time <= curtime)
+	       return PAM_PERM_DENIED;
+	  timeval = (end_time - curtime) * USEC_PER_SEC;
+
+	  // get current limit, if any
+	  pam_get_data(pamh, "systemd.runtime_max_sec",
+	               (const void **)&current_limit);
+	  if (current_limit) {
+	       retval = parse_time(current_limit, &old_timeval, USEC_PER_SEC);
+	       timeval = MIN(old_timeval, timeval);
+	  }
+	  if (timeval != old_timeval)
+	  {
+	       runtime_max_sec = malloc(FORMAT_TIMESPAN_MAX);
+	       if (!format_timespan(runtime_max_sec, FORMAT_TIMESPAN_MAX,
+		                    timeval, USEC_PER_SEC)) {
+		    free((void *)runtime_max_sec);
+		    return PAM_PERM_DENIED;
+	       }
+	       retval = pam_set_data(pamh, "systemd.runtime_max_sec",
+				     (void *)runtime_max_sec, cleanup);
+	       if (retval != PAM_SUCCESS) {
+		    free((void *)runtime_max_sec);
+		    return PAM_PERM_DENIED;
+	       }
+	  }
+     }
 
      return retval;
 }

@@ -39,3 +39,7 @@ if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
 endif
+
+noinst_HEADERS = time-util.h
+
+pam_time_la_SOURCES = pam_time.c time-util.c
