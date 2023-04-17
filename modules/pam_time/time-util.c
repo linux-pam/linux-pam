@@ -41,7 +41,7 @@
                 ((void)0)))
 
 
-static char *startswith(const char *s, const char *prefix) {
+static const char *startswith(const char *s, const char *prefix) {
 	size_t l;
 
 	assert(s);
@@ -51,7 +51,7 @@ static char *startswith(const char *s, const char *prefix) {
 	if (!strneq(s, prefix, l))
 		return NULL;
 
-	return (char*) s + l;
+	return s + l;
 }
 
 
@@ -95,7 +95,7 @@ static const char* extract_multiplier(const char *p, usec_t *ret) {
         assert(ret);
 
         for (size_t i = 0; i < ELEMENTSOF(table); i++) {
-                char *e;
+                const char *e;
 
                 e = startswith(p, table[i].suffix);
                 if (e) {

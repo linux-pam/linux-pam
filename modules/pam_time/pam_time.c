@@ -564,7 +564,7 @@ check_time(pam_handle_t *pamh, const void *AT, const char *times,
 
 	       if (i < at->day)
 		   i <<= 7;
-	       numdays = (int)log2(i)-(int)log2(at->day);
+	       numdays = lrint(log2(i))-lrint((at->day));
 	  } else if (time_end < time_start)
 	       numdays = 1;
 
@@ -686,7 +686,8 @@ check_account(pam_handle_t *pamh, const char *service,
      } while (state != STATE_EOF);
 
      if (end_time != 0) {
-	  char *current_limit = NULL, *runtime_max_sec = NULL;
+	  const char *current_limit = NULL;
+	  char *runtime_max_sec = NULL;
 	  time_t curtime = time(NULL);
 	  usec_t timeval = 0, old_timeval = 0;
 
