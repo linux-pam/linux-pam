@@ -38,7 +38,7 @@
       administrator to set the value of the variable  to some default
       value, if none is supplied then the empty string is assumed. The
       OVERRIDE option tells pam_env that it should enter in its value
-      (overriding the default value) if there is one to use. OVERRIDE is
+      (overriding the default value) if there is one to use. When OVERRIDE is
       not used, "" is assumed and no override will be done.
     </para>
     <para>
