@@ -113,7 +113,13 @@
           <para>
             Which indicates that the process would prefer to perform the
             <function>cleanup()</function> quietly. That is, discourages
-            logging/messages to the user.
+            logging/messages to the user. It is generally used to indicate that
+            the current closing of the library is in a
+            <citerefentry>
+              <refentrytitle>fork</refentrytitle><manvolnum>2</manvolnum>
+            </citerefentry>ed
+            process, and that the parent will take care of cleaning up things
+            that exist outside of the current process space (files etc.).
           </para>
         </listitem>
       </varlistentry>
