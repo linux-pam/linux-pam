@@ -5,27 +5,28 @@
 # Translators:
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Vlad <milovlad@outlook.com>, 2020.
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2022-11-11 11:11+0000\n"
-"PO-Revision-Date: 2020-12-26 18:36+0000\n"
-"Last-Translator: Vlad <milovlad@outlook.com>\n"
-"Language-Team: Romanian <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/ro/>\n"
+"PO-Revision-Date: 2023-04-09 22:51+0000\n"
+"Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
+"Language-Team: Romanian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.15.2\n"
 
 #: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
-msgstr "Parolă: "
+msgstr "Parola: "
 
 #: libpam/pam_get_authtok.c:41
 #, c-format
@@ -48,11 +49,11 @@ msgstr "Parolă nouă: "
 #: libpam/pam_get_authtok.c:47
 #, c-format
 msgid "Retype new %s password: "
-msgstr "Rescrie parola nouă %s: "
+msgstr "Rescrieți parola nouă %s: "
 
 #: libpam/pam_get_authtok.c:48
 msgid "Retype new password: "
-msgstr "Rescrie parola nouă: "
+msgstr "Rescrieți parola nouă: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Sorry, passwords do not match."
@@ -61,11 +62,11 @@ msgstr "Parolele nu se potrivesc."
 #: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
 #, c-format
 msgid "Retype %s"
-msgstr "Rescrie %s"
+msgstr "Rescrieți %s"
 
 #: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
 msgid "Password change has been aborted."
-msgstr "Schimbarea parolei a eșuat."
+msgstr "Schimbarea parolei a fost anulată."
 
 #: libpam/pam_item.c:311
 msgid "login:"
@@ -81,7 +82,7 @@ msgstr "Eroare critică - abandonare imediată"
 
 #: libpam/pam_strerror.c:44
 msgid "Failed to load module"
-msgstr "Încercare eșuată de a încărca un modul"
+msgstr "Încărcarea modulului a eșuat"
 
 #: libpam/pam_strerror.c:46
 msgid "Symbol not found"
@@ -118,7 +119,7 @@ msgstr ""
 
 #: libpam/pam_strerror.c:62
 msgid "User not known to the underlying authentication module"
-msgstr "Modulul de autentificare nu cunoaște utilizatorul"
+msgstr "Utilizator necunoscut de modulul de autentificare subiacent"
 
 #: libpam/pam_strerror.c:64
 msgid "Have exhausted maximum number of retries for service"
@@ -147,7 +148,7 @@ msgstr "Acreditările utilizatorului au expirat"
 
 #: libpam/pam_strerror.c:76
 msgid "Failure setting user credentials"
-msgstr "Eșec in setarea acreditărilor pentru utilizator"
+msgstr "Eșec la definirea acreditărilor pentru utilizator"
 
 #: libpam/pam_strerror.c:78
 msgid "No module specific data is present"
@@ -175,7 +176,7 @@ msgstr "Blocarea informației de autentificare este rezervată"
 
 #: libpam/pam_strerror.c:90
 msgid "Authentication token aging disabled"
-msgstr "Informația de autentificare nu poate expira"
+msgstr "Perioada de validitate a informației de autentificare este dezactivată"
 
 #: libpam/pam_strerror.c:92
 msgid "Failed preliminary check by password service"
@@ -183,7 +184,7 @@ msgstr "Eroare la verificarea preliminară făcută de către serviciul de parol
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "Valoarea retunată poate fi ignorată de PAM"
+msgstr "Valoarea de returnare trebuie să fie ignorată de către expeditorul PAM"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
@@ -195,7 +196,7 @@ msgstr "Informația de autentificare a expirat"
 
 #: libpam/pam_strerror.c:100
 msgid "Conversation is waiting for event"
-msgstr "Conversația asteaptă după un eveniment"
+msgstr "Conversația așteaptă după un eveniment"
 
 #: libpam/pam_strerror.c:102
 msgid "Application needs to call libpam again"
@@ -221,7 +222,7 @@ msgstr "conversație eronată (%d)\n"
 #: modules/pam_exec/pam_exec.c:289
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr "%s a eșuat: codul de terminare %d"
+msgstr "%s a eșuat: codul de ieșire %d"
 
 #: modules/pam_exec/pam_exec.c:299
 #, c-format
@@ -234,31 +235,32 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s a eșuat: stare necunoscută 0x%x"
 
 #: modules/pam_faillock/main.c:130
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
-"Utilizare: %s [--dir /path/to/tally-directory] [--user username] [--reset]\n"
+"Utilizare: %s [--dir /ruta/la/directorul-tally] [--user nume_utilizator] "
+"[--reset] [--legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
 #, c-format
 msgid "Login           Failures    Latest failure         From\n"
-msgstr ""
+msgstr "Autentificare           Eșuări    Ultima eșuare         De la\n"
 
 #: modules/pam_faillock/pam_faillock.c:404
 #, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "Contul este blocat deoarece %u nu a reușit să se autentifice."
+msgstr "Contul este blocat din cauza a %u autentificări eșuate."
 
 #: modules/pam_faillock/pam_faillock.c:413
 #: modules/pam_faillock/pam_faillock.c:419
-#, fuzzy, c-format
+#, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
-msgstr[0] "(%d minute rămase până la deblocare)"
+msgstr[0] "(un minut rămas până la deblocare)"
 msgstr[1] "(%d minute rămase până la deblocare)"
-msgstr[2] "(%d minute rămase până la deblocare)"
+msgstr[2] "(%d de minute rămase până la deblocare)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
 #: modules/pam_faillock/pam_faillock.c:422
@@ -269,7 +271,7 @@ msgstr "(%d minute rămase până la deblocare)"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:326 modules/pam_lastlog/pam_lastlog.c:595
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr " %a %b %e %H:%M:%S %Z %Y"
+msgstr " %A %e %B %Y la %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:335 modules/pam_lastlog/pam_lastlog.c:604
@@ -305,13 +307,13 @@ msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
 msgstr[0] ""
-"A mai fost %d încercare nereușită de autentificare de la ultima "
+"A avut loc %d încercare nereușită de autentificare de la ultima "
 "autentificare reușită."
 msgstr[1] ""
-"Au mai fost %d încercări nereușite de autentificare de la ultima "
+"Au avut loc %d încercări nereușite de autentificare de la ultima "
 "autentificare reușită."
 msgstr[2] ""
-"Au mai fost %d încercări nereușite de autentificare de la ultima "
+"Au avut loc %d de încercări nereușite de autentificare de la ultima "
 "autentificare reușită."
 
 #. TRANSLATORS: only used if dngettext is not supported
@@ -319,65 +321,64 @@ msgstr[2] ""
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
-"Au mai fost %d încercări nereușite de autentificare de la ultima "
+"Au avut loc %d încercări nereușite de autentificare de la ultima "
 "autentificare reușită."
 
 #: modules/pam_limits/pam_limits.c:1269
 #, c-format
 msgid "There were too many logins for '%s'."
-msgstr "Sunt prea multe autentificări pentru '%s'."
+msgstr "Sunt prea multe autentificări pentru „%s”."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "Ai un mesaj nou."
+msgstr "Nu aveți niciun mesaj nou."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
-msgstr "Ai un mesaj nou."
+msgstr "Aveți un mesaj nou."
 
 #: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
-msgstr "Ai un mesaj vechi."
+msgstr "Aveți un mesaj vechi."
 
 #: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
-msgstr "Ai un mesaj."
+msgstr "Aveți un mesaj."
 
 #: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr "Nu ai mesaje în directorul %s."
+msgstr "Nu aveți mesaje în directorul %s."
 
 #: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "Ai un mesaj nou în directorul %s."
+msgstr "Aveți un mesaj nou în directorul %s."
 
 #: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr "Ai un mesaj vechi în directorul %s."
+msgstr "Aveți un mesaj vechi în directorul %s."
 
 #: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
-msgstr "Ai un mesaj în directorul %s."
+msgstr "Aveți un mesaj în directorul %s."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:123
 #, c-format
 msgid "Creating directory '%s'."
-msgstr "Crează directorul '%s'."
+msgstr "Se creează directorul „%s”."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:206
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr "Nu se poate crea și inițializa directorul '%s'."
+msgstr "Nu se poate crea și inițializa directorul „%s”."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
 #: modules/pam_unix/pam_unix_passwd.c:589
 msgid "Password has been already used. Choose another."
-msgstr "Parola a fost deja utilizată. Alege alta."
+msgstr "Parola a fost deja utilizată. Alegeți alta."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:385
 msgid "Password has been already used."
@@ -390,7 +391,7 @@ msgstr "Contextul implicit de securitate este %s."
 
 #: modules/pam_selinux/pam_selinux.c:176
 msgid "Would you like to enter a different role or level?"
-msgstr "Vrei să introduci un rol sau nivel diferit?"
+msgstr "Vreți să introduceți un rol sau nivel diferit?"
 
 #: modules/pam_selinux/pam_selinux.c:189
 msgid "role:"
@@ -412,7 +413,7 @@ msgstr "Nu există un context valid de securitate."
 #: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr "Nu a putut fi obținut un context valid pentru %s."
+msgstr "Nu s-a putut obține un context valid pentru %s."
 
 #: modules/pam_selinux/pam_selinux.c:640
 #, c-format
@@ -446,32 +447,33 @@ msgstr "Accesul a fost permis (ultimul acces a fost acum %ld secunde)."
 
 #: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
 msgid "Your account has expired; please contact your system administrator."
-msgstr "Contul tău a expirat; te rog să contactezi administratorul de sistem."
+msgstr "Contul dvs. a expirat; contactați administratorul de sistem."
 
 #: modules/pam_unix/pam_unix_acct.c:238
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "Trebuie să schimbi imediat parola (impus de către administrator)."
+msgstr ""
+"Vi se cere să vă schimbați parola imediat (cerință impusă de administrator)."
 
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "Trebuie să schimbi imediat parola (parola a expirat)."
+msgstr "Vi se cere să vă schimbați parola imediat (parola a expirat)."
 
 #: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Atenție: parola ta va expira în %d zi."
-msgstr[1] "Atenție: parola ta va expira în %d zile."
-msgstr[2] "Atenție: parola ta va expira în %d zile."
+msgstr[0] "Atenție: parola dvs. va expira în %d zi."
+msgstr[1] "Atenție: parola dvs. va expira în %d zile."
+msgstr[2] "Atenție: parola dvs. va expira în %d de zile."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:281
 #, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "Atenție: parola ta va expira în %d zile."
+msgstr "Atenție: parola dvs. va expira în %d zile."
 
 #: modules/pam_unix/pam_unix_passwd.c:465
 msgid "NIS password could not be changed."
@@ -487,20 +489,20 @@ msgstr "Parola nu a fost schimbată."
 
 #: modules/pam_unix/pam_unix_passwd.c:581
 msgid "You must choose a shorter password."
-msgstr "Trebuie să alegi o parolă mai scurtă."
+msgstr "Trebuie să alegeți o parolă mai scurtă."
 
 #: modules/pam_unix/pam_unix_passwd.c:585
 msgid "You must choose a longer password."
-msgstr "Trebuie să alegi o parolă mai lungă."
+msgstr "Trebuie să alegeți o parolă mai lungă."
 
 #: modules/pam_unix/pam_unix_passwd.c:692
 #, c-format
 msgid "Changing password for %s."
-msgstr "Schimbare parolă pentru %s."
+msgstr "Se schimbă parola pentru %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:722
 msgid "You must wait longer to change your password."
-msgstr "Trebuie să aștepti mai mult până vei putea schimba parola."
+msgstr "Trebuie să așteptați mai mult până veți putea schimba parola."
 
 #~ msgid "You have no mail."
 #~ msgstr "Nu ai mesaje."
