@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2022-11-11 11:11+0000\n"
+"POT-Creation-Date: 2023-04-29 11:11+0000\n"
 "PO-Revision-Date: 2022-05-03 08:43+0000\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
@@ -29,48 +29,48 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.12.1\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
+#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "密码： "
 
-#: libpam/pam_get_authtok.c:41
+#: libpam/pam_get_authtok.c:42
 #, c-format
 msgid "Current %s password: "
 msgstr "当前的 %s 密码： "
 
-#: libpam/pam_get_authtok.c:42
+#: libpam/pam_get_authtok.c:43
 msgid "Current password: "
 msgstr "当前的密码： "
 
-#: libpam/pam_get_authtok.c:44
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
 msgstr "新的 %s 密码： "
 
-#: libpam/pam_get_authtok.c:45
+#: libpam/pam_get_authtok.c:46
 msgid "New password: "
 msgstr "新的密码： "
 
-#: libpam/pam_get_authtok.c:47
+#: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
 msgstr "重新输入新的 %s 密码： "
 
-#: libpam/pam_get_authtok.c:48
+#: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
 msgstr "重新输入新的密码： "
 
-#: libpam/pam_get_authtok.c:49
+#: libpam/pam_get_authtok.c:50
 msgid "Sorry, passwords do not match."
 msgstr "抱歉，密码不匹配。"
 
-#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
+#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
 #, c-format
 msgid "Retype %s"
 msgstr "重新输入 %s"
 
-#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
+#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
 msgid "Password change has been aborted."
 msgstr "密码更改已取消。"
 
@@ -210,30 +210,30 @@ msgstr "应用程序需要再次调用 libpam"
 msgid "Unknown PAM error"
 msgstr "未知的 PAM 错误"
 
-#: libpam_misc/misc_conv.c:33
+#: libpam_misc/misc_conv.c:34
 msgid "...Time is running out...\n"
 msgstr "...时间即将耗尽...\n"
 
-#: libpam_misc/misc_conv.c:34
+#: libpam_misc/misc_conv.c:35
 msgid "...Sorry, your time is up!\n"
 msgstr "...对不起，您的时间已经耗尽！\n"
 
-#: libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:349
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "有错误的转换 (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:289
+#: modules/pam_exec/pam_exec.c:300
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s 失败：退出代码 %d"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:310
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s 失败：捕获信号 %d%s"
 
-#: modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:320
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s 失败：未知状态 0x%x"
@@ -367,7 +367,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "无法创建和初始化目录“%s”。"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:580
 msgid "Password has been already used. Choose another."
 msgstr "密码已使用。请选择其他密码。"
 
@@ -401,17 +401,17 @@ msgstr "级别："
 msgid "This is not a valid security context."
 msgstr "这不是一个有效的安全上下文。"
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:508
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "无法取得对 %s 有效的上下文。"
 
-#: modules/pam_selinux/pam_selinux.c:640
+#: modules/pam_selinux/pam_selinux.c:639
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "安全上下文 %s 已分配。"
 
-#: modules/pam_selinux/pam_selinux.c:656
+#: modules/pam_selinux/pam_selinux.c:655
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "密钥生成上下文 %s 已分配。"
@@ -431,7 +431,7 @@ msgstr "未能 pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "登录：派生失败：%m"
 
-#: modules/pam_timestamp/pam_timestamp.c:361
+#: modules/pam_timestamp/pam_timestamp.c:382
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "访问已被准许（上次访问是 %ld 秒之前）。"
@@ -463,32 +463,32 @@ msgstr[0] "警告：您的密码将在 %d 天后过期。"
 msgid "Warning: your password will expire in %d days."
 msgstr "警告：您的密码将在 %d 天后过期。"
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "NIS password could not be changed."
 msgstr "无法更改 NIS 密码。"
 
-#: modules/pam_unix/pam_unix_passwd.c:563
+#: modules/pam_unix/pam_unix_passwd.c:554
 msgid "No password has been supplied."
 msgstr "未提供密码。"
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:555
 msgid "The password has not been changed."
 msgstr "密码未被更改。"
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "You must choose a shorter password."
 msgstr "您必须选择较短的密码。"
 
-#: modules/pam_unix/pam_unix_passwd.c:585
+#: modules/pam_unix/pam_unix_passwd.c:576
 msgid "You must choose a longer password."
 msgstr "您必须选择更长的密码。"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:683
 #, c-format
 msgid "Changing password for %s."
 msgstr "更改 %s 的密码。"
 
-#: modules/pam_unix/pam_unix_passwd.c:722
+#: modules/pam_unix/pam_unix_passwd.c:713
 msgid "You must wait longer to change your password."
 msgstr "您必须等待更长时间以更改密码。"
 

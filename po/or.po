@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2022-11-11 11:11+0000\n"
+"POT-Creation-Date: 2023-04-29 11:11+0000\n"
 "PO-Revision-Date: 2020-04-13 22:40+0000\n"
 "Last-Translator: Ankit Behera <proneon267@gmail.com>\n"
 "Language-Team: Odia <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -24,48 +24,48 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.11.3\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
+#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ: "
 
-#: libpam/pam_get_authtok.c:41
+#: libpam/pam_get_authtok.c:42
 #, c-format
 msgid "Current %s password: "
 msgstr "ସାମ୍ପ୍ରତିକ %s ପ୍ରବେଶ ସଙ୍କେତ: "
 
-#: libpam/pam_get_authtok.c:42
+#: libpam/pam_get_authtok.c:43
 msgid "Current password: "
 msgstr "ସାମ୍ପ୍ରତିକ ପ୍ରବେଶ ସଙ୍କେତ: "
 
-#: libpam/pam_get_authtok.c:44
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
 msgstr "ନୂତନ %s ପ୍ରବେଶ ସଙ୍କେତ: "
 
-#: libpam/pam_get_authtok.c:45
+#: libpam/pam_get_authtok.c:46
 msgid "New password: "
 msgstr "ନୂତନ ପ୍ରବେଶ ସଙ୍କେତ: "
 
-#: libpam/pam_get_authtok.c:47
+#: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
 msgstr "ନୂତନ %s ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ: "
 
-#: libpam/pam_get_authtok.c:48
+#: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
 msgstr "ନୂତନ ପ୍ରବେଶ ସଙ୍କେତକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ: "
 
-#: libpam/pam_get_authtok.c:49
+#: libpam/pam_get_authtok.c:50
 msgid "Sorry, passwords do not match."
 msgstr "କ୍ଷମା କରିବେ, ପ୍ରବେଶ ସଙ୍କେତ ମିଶୁ ନାହିଁ।"
 
-#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
+#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
 #, c-format
 msgid "Retype %s"
 msgstr "%sକୁ ପୁନର୍ବାର ଟାଇପ କରନ୍ତୁ"
 
-#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
+#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
 msgid "Password change has been aborted."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ ପରିବର୍ତ୍ତନକୁ ପ୍ରତ୍ୟାଖାନ କରାଯାଇଛି।"
 
@@ -205,30 +205,30 @@ msgstr "ପ୍ରୟୋଗ libpam କୁ ପୁନର୍ବାର ଆହ୍ବ�
 msgid "Unknown PAM error"
 msgstr "ଅଜଣା PAM ତୃଟି"
 
-#: libpam_misc/misc_conv.c:33
+#: libpam_misc/misc_conv.c:34
 msgid "...Time is running out...\n"
 msgstr "...ସମୟ ସମାପ୍ତ ହେଉଛି...\n"
 
-#: libpam_misc/misc_conv.c:34
+#: libpam_misc/misc_conv.c:35
 msgid "...Sorry, your time is up!\n"
 msgstr "...କ୍ଷମା କରିବେ, ଆପଣଙ୍କ ସମୟ ସମାପ୍ତ ହୋଇଯାଇଛି!\n"
 
-#: libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:349
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "ତୃଟିପୂର୍ଣ୍ଣ କଥୋପକଥନ (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:289
+#: modules/pam_exec/pam_exec.c:300
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s ବିଫଳ: %d ସଙ୍କେତରୁ ପ୍ରସ୍ଥାନ କରୁଅଛି"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:310
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s ବିଫଳ: %d%s ସଙ୍କେତ ପାଇଲା"
 
-#: modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:320
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s ବିଫଳ: ଅଜଣା ଅବସ୍ଥିତି 0x%x"
@@ -365,7 +365,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "ଡ଼ିରେକ୍ଟୋରୀ '%s'କୁ ନିର୍ମାଣ ଏବଂ ପ୍ରାରମ୍ଭ କରିବାରେ ଅସମର୍ଥ।"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:580
 msgid "Password has been already used. Choose another."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ପୂର୍ବରୁ ବ୍ଯବହୃତ ହେଉଛି। ଅନ୍ଯ ଗୋଟିଏ ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରନ୍ତୁ।"
 
@@ -399,17 +399,17 @@ msgstr "ସ୍ତର:"
 msgid "This is not a valid security context."
 msgstr "ଏହା ଗୋଟିଏ ବୈଧ ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ନୁହେଁ।"
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:508
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "%s ପାଇଁ ଏକ ବୈଧ ପ୍ରସଙ୍ଗ ହାସଲ ହୋଇ ପାରିଲା ନାହିଁ।"
 
-#: modules/pam_selinux/pam_selinux.c:640
+#: modules/pam_selinux/pam_selinux.c:639
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "%s ସୁରକ୍ଷା ପ୍ରସଙ୍ଗ ନ୍ଯସ୍ତ କରାଯାଇଛି।"
 
-#: modules/pam_selinux/pam_selinux.c:656
+#: modules/pam_selinux/pam_selinux.c:655
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "କୀ ନିର୍ମାଣ ପ୍ରସଙ୍ଗ %s ନ୍ଯସ୍ତ କରାଯାଇଛି।"
@@ -429,7 +429,7 @@ msgstr "pam_set_item() କରିବାରେ ବିଫଳ\n"
 msgid "login: failure forking: %m"
 msgstr "ଲଗଇନ: fork କରିବାରେ ବିଫଳ: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:361
+#: modules/pam_timestamp/pam_timestamp.c:382
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "ପ୍ରବେଶ ଗ୍ରହଣୀୟ ହୋଇଛି (ପୂର୍ବ ପ୍ରବେଶ ହୋଇଥିଲା %ld ସେକଣ୍ଡ ପୂର୍ବରୁ)।"
@@ -463,32 +463,32 @@ msgstr[1] "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ�
 msgid "Warning: your password will expire in %d days."
 msgstr "ଚେତାବନୀ: ଆପଣଙ୍କ ପ୍ରବେଶ ସଙ୍କେତ %d ଦିନରେ ଅକାମି ହୋଇଯିବ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "NIS password could not be changed."
 msgstr "NIS ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇ ହେଲା ନାହିଁ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:563
+#: modules/pam_unix/pam_unix_passwd.c:554
 msgid "No password has been supplied."
 msgstr "କୌଣସି ପ୍ରବେଶ ସଙ୍କେତ ପ୍ରଦାନ କରାଯାଇ ନାହିଁ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:555
 msgid "The password has not been changed."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତକୁ ପରିବର୍ତ୍ତନ କରା ଯାଇ ନାହିଁ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "You must choose a shorter password."
 msgstr "ଆପଣ ଗୋଟିଏ ଛୋଟ ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରିବା ଉଚିତ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:585
+#: modules/pam_unix/pam_unix_passwd.c:576
 msgid "You must choose a longer password."
 msgstr "ଆପଣ ଗୋଟିଏ ଲମ୍ବା ପ୍ରବେଶ ସଙ୍କେତ ଚୟନ କରିବା ଉଚିତ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:683
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s ପାଇଁ ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଉଛି."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
+#: modules/pam_unix/pam_unix_passwd.c:713
 msgid "You must wait longer to change your password."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତକୁ ବଦଳାଇବା ପାଇଁ ଆପଣ ଅଧିକ ସମୟ ଅପେକ୍ଷା କରିବା ଉଚିତ।"
 

@@ -10,11 +10,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2022-11-11 11:11+0000\n"
+"POT-Creation-Date: 2023-04-29 11:11+0000\n"
 "PO-Revision-Date: 2022-12-07 16:19+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
-"Language-Team: Kazakh <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/kk/>\n"
+"Language-Team: Kazakh <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/kk/>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,48 +22,48 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.14.2\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
+#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "Пароль: "
 
-#: libpam/pam_get_authtok.c:41
+#: libpam/pam_get_authtok.c:42
 #, c-format
 msgid "Current %s password: "
 msgstr "%s үшін ағымдағы пароль: "
 
-#: libpam/pam_get_authtok.c:42
+#: libpam/pam_get_authtok.c:43
 msgid "Current password: "
 msgstr "Ағымдағы пароль: "
 
-#: libpam/pam_get_authtok.c:44
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
 msgstr "%s үшін жаңа пароль: "
 
-#: libpam/pam_get_authtok.c:45
+#: libpam/pam_get_authtok.c:46
 msgid "New password: "
 msgstr "үшін жаңа пароль: "
 
-#: libpam/pam_get_authtok.c:47
+#: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
 msgstr "%s үшін жаңа парольді қайта енгізіңіз: "
 
-#: libpam/pam_get_authtok.c:48
+#: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
 msgstr "үшін жаңа парольді қайта енгізіңіз: "
 
-#: libpam/pam_get_authtok.c:49
+#: libpam/pam_get_authtok.c:50
 msgid "Sorry, passwords do not match."
 msgstr "Кешіріңіз, парольдер өзара сәйкес емес."
 
-#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
+#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
 #, c-format
 msgid "Retype %s"
 msgstr "%s қайта енгізіңіз"
 
-#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
+#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
 msgid "Password change has been aborted."
 msgstr "Парольді өзгертуден бас тартылды."
 
@@ -205,30 +205,30 @@ msgstr "Бағдарлама libpam-ды қайтадан шақыруы кер�
 msgid "Unknown PAM error"
 msgstr "Белгісіз PAM қатесі"
 
-#: libpam_misc/misc_conv.c:33
+#: libpam_misc/misc_conv.c:34
 msgid "...Time is running out...\n"
 msgstr "...Уақытыңыз бітіп барады...\n"
 
-#: libpam_misc/misc_conv.c:34
+#: libpam_misc/misc_conv.c:35
 msgid "...Sorry, your time is up!\n"
 msgstr "...Кешіріңіз, сіздің уақытыңыз бітті!\n"
 
-#: libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:349
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "қате сұхбат (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:289
+#: modules/pam_exec/pam_exec.c:300
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s қатесі: шығу коды %d"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:310
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s қатесі: алынған сигнал %d%s"
 
-#: modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:320
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s қатесі: белгісіз қалып-күйі 0x%x"
@@ -239,8 +239,8 @@ msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
-"Қолданылуы: %s: [--dir /tally-бумасына/дейінгі/жол] [--user пайдаланушы] "
-"[--reset] [--legacy-output]\n"
+"Қолданылуы: %s: [--dir /tally-бумасына/дейінгі/жол] [--user пайдаланушы] [--"
+"reset] [--legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
 #, c-format
@@ -363,7 +363,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "'%s' бумасын жасау мүмкін емес."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:580
 msgid "Password has been already used. Choose another."
 msgstr "Пароль осыған дейін қолданған. Басқасын таңдаңыз."
 
@@ -397,17 +397,17 @@ msgstr "деңгейі:"
 msgid "This is not a valid security context."
 msgstr "Дұрыс қауіпсіздік контексті емес."
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:508
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "%s үшін жарамды контекстті алу мүмкін емес."
 
-#: modules/pam_selinux/pam_selinux.c:640
+#: modules/pam_selinux/pam_selinux.c:639
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "%s қауіпсіздік контексті тағайындалды."
 
-#: modules/pam_selinux/pam_selinux.c:656
+#: modules/pam_selinux/pam_selinux.c:655
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "%s кілттерді жасау қауіпсіздік контексті тағайындалды."
@@ -427,7 +427,7 @@ msgstr "pam_set_item() орындау мүмкін емес\n"
 msgid "login: failure forking: %m"
 msgstr "login: үрдісті бастау мүмкін емес: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:361
+#: modules/pam_timestamp/pam_timestamp.c:382
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Рұқсат расталған (соңғы қатынау %ld секунд бұрын болған)."
@@ -459,32 +459,32 @@ msgstr[0] "Ескерту: сіздің пароліңіздің мерзімі 
 msgid "Warning: your password will expire in %d days."
 msgstr "Ескерту: сіздің пароліңіздің мерзімі %d күнде бітеді."
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "NIS password could not be changed."
 msgstr "NIS паролін өзгерту мүмкін емес."
 
-#: modules/pam_unix/pam_unix_passwd.c:563
+#: modules/pam_unix/pam_unix_passwd.c:554
 msgid "No password has been supplied."
 msgstr "Пароль көрсетілмеді."
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:555
 msgid "The password has not been changed."
 msgstr "Пароль өзгертілмеді."
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "You must choose a shorter password."
 msgstr "Сіз қысқа парольді таңдауыңыз керек."
 
-#: modules/pam_unix/pam_unix_passwd.c:585
+#: modules/pam_unix/pam_unix_passwd.c:576
 msgid "You must choose a longer password."
 msgstr "Сізге ұзынырақ парольді таңдау керек."
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:683
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s үшін парольді өзгерту."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
+#: modules/pam_unix/pam_unix_passwd.c:713
 msgid "You must wait longer to change your password."
 msgstr "Пароліңізді өзгерті үшін біраз күтуіңіз керек."
 

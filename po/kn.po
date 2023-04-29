@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2022-11-11 11:11+0000\n"
+"POT-Creation-Date: 2023-04-29 11:11+0000\n"
 "PO-Revision-Date: 2013-04-15 04:49-0400\n"
 "Last-Translator: shanky <prasad.mvs@gmail.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/"
@@ -23,49 +23,49 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Zanata 3.8.3\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
+#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "ಗುಪ್ತಪದ: "
 
-#: libpam/pam_get_authtok.c:41
+#: libpam/pam_get_authtok.c:42
 #, fuzzy, c-format
 msgid "Current %s password: "
 msgstr "ಹೊಸ %sಗುಪ್ತಪದ: "
 
-#: libpam/pam_get_authtok.c:42
+#: libpam/pam_get_authtok.c:43
 #, fuzzy
 msgid "Current password: "
 msgstr "ಹೊಸ ಗುಪ್ತಪದ: "
 
-#: libpam/pam_get_authtok.c:44
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
 msgstr "ಹೊಸ %sಗುಪ್ತಪದ: "
 
-#: libpam/pam_get_authtok.c:45
+#: libpam/pam_get_authtok.c:46
 msgid "New password: "
 msgstr "ಹೊಸ ಗುಪ್ತಪದ: "
 
-#: libpam/pam_get_authtok.c:47
+#: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
 msgstr "ಹೊಸ %sಗುಪ್ತಪದವನ್ನು ಪುನರ್ ಟೈಪಿಸಿ: "
 
-#: libpam/pam_get_authtok.c:48
+#: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
 msgstr "ಹೊಸ ಗುಪ್ತಪದವನ್ನು ಪುನರ್ ಟೈಪಿಸಿ: "
 
-#: libpam/pam_get_authtok.c:49
+#: libpam/pam_get_authtok.c:50
 msgid "Sorry, passwords do not match."
 msgstr "ಕ್ಷಮಿಸಿ, ಗುಪ್ತಪದಗಳು ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ."
 
-#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
+#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
 #, c-format
 msgid "Retype %s"
 msgstr "%s ಅನ್ನು ಮರಳಿ ನಮೂದಿಸಿ"
 
-#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
+#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
 #, fuzzy
 msgid "Password change has been aborted."
 msgstr "ಗುಪ್ತಪದ ಬದಲಾವಣೆಯನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ."
@@ -206,30 +206,30 @@ msgstr "ಅನ್ವಯವು libpam ಅನ್ನು ಪುನಃ ಕರೆಯ�
 msgid "Unknown PAM error"
 msgstr "ಗೊತ್ತಿರದ PAM ದೋಷ"
 
-#: libpam_misc/misc_conv.c:33
+#: libpam_misc/misc_conv.c:34
 msgid "...Time is running out...\n"
 msgstr "...ಸಮಯ ಸರಿಯುತ್ತಿದೆ...\n"
 
-#: libpam_misc/misc_conv.c:34
+#: libpam_misc/misc_conv.c:35
 msgid "...Sorry, your time is up!\n"
 msgstr "...ಕ್ಷಮಿಸಿ, ನಿಮ್ಮ ಸಮಯ ಮುಗಿಯಿತು!\n"
 
-#: libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:349
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "ದೋಷಪೂರಿತ ಸಂವಾದ (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:289
+#: modules/pam_exec/pam_exec.c:300
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s ವಿಫಲಗೊಂಡಿದೆ: ನಿರ್ಗಮಿಸಲು ಸಂಜ್ಞೆ %d "
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:310
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s ವಿಫಲಗೊಂಡಿದೆ: ಹಿಡಿಯಲಾದ ಸೂಚನೆ %d%s"
 
-#: modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:320
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s ವಿಫಲಗೊಂಡಿದೆ: ಗೊತ್ತಿರದ ಸ್ಥಿತಿ 0x%x"
@@ -364,7 +364,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "ಕೋಶ '%s' ಅನ್ನು ರಚಿಸಲು ಹಾಗು ಆರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:580
 msgid "Password has been already used. Choose another."
 msgstr "ಗುಪ್ತಪದವು ಈಗಾಗಲೆ ಬಳಸಲ್ಪಟ್ಟಿದೆ. ಬೇರೊಂದನ್ನು ಬಳಸಿ."
 
@@ -399,17 +399,17 @@ msgstr "ಮಟ್ಟ:"
 msgid "This is not a valid security context."
 msgstr "ಸಮಂಜಸವಾದ ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶ ಅಲ್ಲ"
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:508
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:640
+#: modules/pam_selinux/pam_selinux.c:639
 #, fuzzy, c-format
 msgid "Security context %s has been assigned."
 msgstr "ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶ %s ವನ್ನು ನಿಯೋಜಿಸಲಾಗಿದೆ"
 
-#: modules/pam_selinux/pam_selinux.c:656
+#: modules/pam_selinux/pam_selinux.c:655
 #, fuzzy, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "ಕೀಲಿ ನಿರ್ಮಾಣ ಸನ್ನಿವೇಶ %s ವನ್ನು ನಿಯೋಜಿಸಲಾಗಿದೆ"
@@ -429,7 +429,7 @@ msgstr "pam_set_item() ಮಾಡುವಲ್ಲಿ ವಿಫಲತೆ\n"
 msgid "login: failure forking: %m"
 msgstr "ಲಾಗಿನ್: ಫೋರ್ಕಿಂಗ್ ಮಾಡುವಲ್ಲಿ ವಿಫಲತೆ:%m"
 
-#: modules/pam_timestamp/pam_timestamp.c:361
+#: modules/pam_timestamp/pam_timestamp.c:382
 #, fuzzy, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr ""
@@ -466,35 +466,35 @@ msgstr[0] "ಎಚ್ಚರಿಕೆ: ನಿಮ್ಮ ಗುಪ್ತಪದದ �
 msgid "Warning: your password will expire in %d days."
 msgstr "ಎಚ್ಚರಿಕೆ: %d ದಿನಗಳಲ್ಲಿ ನಿಮ್ಮ ಗುಪ್ತಪದದ ಅವಧಿ ಅಂತ್ಯಗೊಳ್ಳುತ್ತದೆ"
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "NIS password could not be changed."
 msgstr "NIS ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ್ಲ."
 
-#: modules/pam_unix/pam_unix_passwd.c:563
+#: modules/pam_unix/pam_unix_passwd.c:554
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "ಯಾವುದೇ ಗುಪ್ತಪದ ನೀಡಲಾಗಿಲ್ಲ"
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:555
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ್ಲ."
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "You must choose a shorter password."
 msgstr "ನೀವು ಕಡಿಮೆ ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ಆರಿಸಬೇಕು."
 
-#: modules/pam_unix/pam_unix_passwd.c:585
+#: modules/pam_unix/pam_unix_passwd.c:576
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "ನೀವು ಒಂದು ಉದ್ದವಾದ ಗುಪ್ತಪದವನ್ನು ಆರಿಸಬೇಕು"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:683
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s ಗಾಗಿ ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲಾಗುತ್ತಿದೆ."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
+#: modules/pam_unix/pam_unix_passwd.c:713
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲು ನೀವು ಬಹಳ ಸಮಯ ಕಾಯಬೇಕು"

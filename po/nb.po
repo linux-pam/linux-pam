@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2022-11-11 11:11+0000\n"
+"POT-Creation-Date: 2023-04-29 11:11+0000\n"
 "PO-Revision-Date: 2020-05-17 18:48+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Norwegian Bokmål <https://translate.fedoraproject.org/"
@@ -24,48 +24,48 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.0.4\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
+#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "Passord: "
 
-#: libpam/pam_get_authtok.c:41
+#: libpam/pam_get_authtok.c:42
 #, c-format
 msgid "Current %s password: "
 msgstr "Nåværende %s-passord: "
 
-#: libpam/pam_get_authtok.c:42
+#: libpam/pam_get_authtok.c:43
 msgid "Current password: "
 msgstr "Nåværende passord: "
 
-#: libpam/pam_get_authtok.c:44
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
 msgstr "Nytt %s-passord: "
 
-#: libpam/pam_get_authtok.c:45
+#: libpam/pam_get_authtok.c:46
 msgid "New password: "
 msgstr "Nytt passord: "
 
-#: libpam/pam_get_authtok.c:47
+#: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
 msgstr "Bekreft nytt %s-passord: "
 
-#: libpam/pam_get_authtok.c:48
+#: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
 msgstr "Bekreft nytt passord: "
 
-#: libpam/pam_get_authtok.c:49
+#: libpam/pam_get_authtok.c:50
 msgid "Sorry, passwords do not match."
 msgstr "Beklager, ikke samsvar mellom passord."
 
-#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
+#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
 #, c-format
 msgid "Retype %s"
 msgstr "Skriv %s på nytt"
 
-#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
+#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
 msgid "Password change has been aborted."
 msgstr "Bytte av passord avbrutt."
 
@@ -205,30 +205,30 @@ msgstr "Programmet må spørre libpam på nytt"
 msgid "Unknown PAM error"
 msgstr "Ukjent PAM-feil"
 
-#: libpam_misc/misc_conv.c:33
+#: libpam_misc/misc_conv.c:34
 msgid "...Time is running out...\n"
 msgstr "...Tiden er i ferd med utløpe..\n"
 
-#: libpam_misc/misc_conv.c:34
+#: libpam_misc/misc_conv.c:35
 msgid "...Sorry, your time is up!\n"
 msgstr "...Beklager, tiden er utløpt!\n"
 
-#: libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:349
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "mislykket dialog (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:289
+#: modules/pam_exec/pam_exec.c:300
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s feilet: sluttkode %d"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:310
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s feilet: fikk signal %d%s"
 
-#: modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:320
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s feilet: ukjent status 0x%x"
@@ -367,7 +367,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Kan ikke lage og initiere katalog «%s»."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:580
 msgid "Password has been already used. Choose another."
 msgstr "Passordet er allerede benyttet. Velg et annet."
 
@@ -401,17 +401,17 @@ msgstr "nivå:"
 msgid "This is not a valid security context."
 msgstr "Dette er ikke en gyldig sikkerhetskontekst."
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:508
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "Kunne ikke innhente gyldig kontekst for %s."
 
-#: modules/pam_selinux/pam_selinux.c:640
+#: modules/pam_selinux/pam_selinux.c:639
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "Sikkerhetskontekst «%s» tilordnet."
 
-#: modules/pam_selinux/pam_selinux.c:656
+#: modules/pam_selinux/pam_selinux.c:655
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Kontekst «%s» for oppretting av nøkkel tilordnet."
@@ -431,7 +431,7 @@ msgstr "kunne ikke pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "login: feil under forgrening: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:361
+#: modules/pam_timestamp/pam_timestamp.c:382
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Tilgang innvilget (siste tilgang var for %ld sekunder siden)."
@@ -464,32 +464,32 @@ msgstr[1] "Advarsel: Passordet ditt utløper om %d dager."
 msgid "Warning: your password will expire in %d days."
 msgstr "Advarsel: Passordet ditt utløper om %d dager."
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "NIS password could not be changed."
 msgstr "NIS-passord kunne ikke endres."
 
-#: modules/pam_unix/pam_unix_passwd.c:563
+#: modules/pam_unix/pam_unix_passwd.c:554
 msgid "No password has been supplied."
 msgstr "Inget passord har blitt angitt."
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:555
 msgid "The password has not been changed."
 msgstr "Passordet kunne ikke endres."
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "You must choose a shorter password."
 msgstr "Du må velge et kortere passord."
 
-#: modules/pam_unix/pam_unix_passwd.c:585
+#: modules/pam_unix/pam_unix_passwd.c:576
 msgid "You must choose a longer password."
 msgstr "Du må velge et lengre passord."
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:683
 #, c-format
 msgid "Changing password for %s."
 msgstr "Endrer passord for %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
+#: modules/pam_unix/pam_unix_passwd.c:713
 msgid "You must wait longer to change your password."
 msgstr "Du må vente lenger før du kan endre passordet ditt."
 

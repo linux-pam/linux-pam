@@ -12,11 +12,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2022-11-11 11:11+0000\n"
+"POT-Creation-Date: 2023-04-29 11:11+0000\n"
 "PO-Revision-Date: 2023-03-14 02:20+0000\n"
 "Last-Translator: A S Alam <amanpreet.alam@gmail.com>\n"
-"Language-Team: Punjabi <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/pa/>\n"
+"Language-Team: Punjabi <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/pa/>\n"
 "Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,48 +24,48 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 4.15.2\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
+#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "ਪਾਸਵਰਡ: "
 
-#: libpam/pam_get_authtok.c:41
+#: libpam/pam_get_authtok.c:42
 #, c-format
 msgid "Current %s password: "
 msgstr "ਮੌਜੂਦਾ %s ਪਾਸਵਰਡ: "
 
-#: libpam/pam_get_authtok.c:42
+#: libpam/pam_get_authtok.c:43
 msgid "Current password: "
 msgstr "ਮੌਜੂਦਾ ਪਾਸਵਰਡ: "
 
-#: libpam/pam_get_authtok.c:44
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
 msgstr "ਨਵਾਂ %s ਪਾਸਵਰਡ: "
 
-#: libpam/pam_get_authtok.c:45
+#: libpam/pam_get_authtok.c:46
 msgid "New password: "
 msgstr "ਨਵਾਂ ਪਾਸਵਰਡ: "
 
-#: libpam/pam_get_authtok.c:47
+#: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
 msgstr "ਨਵਾਂ %s ਪਾਸਵਰਡ ਮੁੜ-ਲਿਖੋ: "
 
-#: libpam/pam_get_authtok.c:48
+#: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
 msgstr "ਨਵਾਂ ਪਾਸਵਰਡ ਮੁੜ-ਲਿਖੋ: "
 
-#: libpam/pam_get_authtok.c:49
+#: libpam/pam_get_authtok.c:50
 msgid "Sorry, passwords do not match."
 msgstr "ਅਫ਼ਸੋਸ, ਪਰ ਪਾਸਵਰਡ ਆਪਸ ‘ਚ ਮਿਲਦੇ ਨਹੀਂ ਹਨ।"
 
-#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
+#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
 #, c-format
 msgid "Retype %s"
 msgstr "ਮੁੜ-ਲਿਖੋ %s"
 
-#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
+#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
 msgid "Password change has been aborted."
 msgstr "ਪਾਸਵਰਡ ਤਬਦੀਲੀ ਅਧੂਰੀ ਛੱਡੀ ਗਈ।"
 
@@ -205,30 +205,30 @@ msgstr "ਕਾਰਜ ਲਈ ਫਿਰ libpam ਨੂੰ ਕਾਲ ਕਰਨ ਦ�
 msgid "Unknown PAM error"
 msgstr "ਅਣਜਾਣ PAM ਗਲਤੀ"
 
-#: libpam_misc/misc_conv.c:33
+#: libpam_misc/misc_conv.c:34
 msgid "...Time is running out...\n"
 msgstr "...ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਰਿਹਾ ਹੈ...\n"
 
-#: libpam_misc/misc_conv.c:34
+#: libpam_misc/misc_conv.c:35
 msgid "...Sorry, your time is up!\n"
 msgstr "...ਅਫਸੋਸ, ਤੁਹਾਡਾ ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਗਿਆ ਹੈ!\n"
 
-#: libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:349
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "ਗਲਤ ਗੱਲ (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:289
+#: modules/pam_exec/pam_exec.c:300
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s ਫੇਲ ਹੋਇਆ: ਕੋਡ %d ਨਾਲ ਬੰਦ ਹੋ ਗਿਆ"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:310
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s ਫੇਲ ਹੋ ਗਿਆ: ਸਿਗਨਲ %d%s ਮਿਲਿਆ"
 
-#: modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:320
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s ਫੇਲ ਹੋਇਆ: ਅਣਪਛਾਤੀ ਸਥਿਤੀ 0x%x"
@@ -239,8 +239,8 @@ msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
-"ਵਰਤੋੰ: %s [--dir /path/to/tally-directory] [--user username] [--reset] "
-"[--legacy-output]\n"
+"ਵਰਤੋੰ: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
+"legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
 #, c-format
@@ -365,7 +365,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "ਡਾਇਰੈਕਟਰੀ '%s' ਨੂੰ ਬਣਾਉਣ ਅਤੇ ਸ਼ੁਰੂ ਕਰਨ ਵਿੱਚ ਅਸਮਰਥ।"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:580
 msgid "Password has been already used. Choose another."
 msgstr "ਪਾਸਵਰਡ ਪਹਿਲਾਂ ਵੀ ਵਰਤਿਆ ਗਿਆ ਹੈ। ਵੱਖਰਾ ਚੁਣੋ।"
 
@@ -399,17 +399,17 @@ msgstr "ਲੈਵਲ:"
 msgid "This is not a valid security context."
 msgstr "ਇਹ ਠੀਕ ਸੁਰੱਖਿਆ ਪਰਸੰਗ ਨਹੀਂ ਹੈ।"
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:508
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "%s ਲਈ ਢੁੱਕਵਾਂ ਪਰਸੰਗ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ।"
 
-#: modules/pam_selinux/pam_selinux.c:640
+#: modules/pam_selinux/pam_selinux.c:639
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "ਸੁਰੱਖਿਆ ਪਰਸੰਗ %s ਦਿੱਤਾ ਨਹੀਂ ਜਾ ਸਕਿਆ।"
 
-#: modules/pam_selinux/pam_selinux.c:656
+#: modules/pam_selinux/pam_selinux.c:655
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "ਕੁੰਜੀ ਬਣਾਉਣ ਪਰਸੰਗ %s ਦਿੱਤਾ ਗਿਆ ਹੈ।"
@@ -429,7 +429,7 @@ msgstr "pam_set_item() ਲਈ ਫੇਲ\n"
 msgid "login: failure forking: %m"
 msgstr "ਲਾਗਇਨ: ਫੋਰਕਿੰਗ ਫੇਲ: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:361
+#: modules/pam_timestamp/pam_timestamp.c:382
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "ਪਹੁੰਚ ਲਈ ਇਜਾਜ਼ਤ ਦਿੱਤੀ ਗਈ (ਪਿਛਲੀ ਪਹੁੰਚ %ld ਸਕਿੰਟ ਪਹਿਲਾਂ ਸੀ)।"
@@ -462,32 +462,32 @@ msgstr[1] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ �
 msgid "Warning: your password will expire in %d days."
 msgstr "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %d ਦਿਨਾਂ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "NIS password could not be changed."
 msgstr "NIS ਪਾਸਵਰਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:563
+#: modules/pam_unix/pam_unix_passwd.c:554
 msgid "No password has been supplied."
 msgstr "ਕੋਈ ਪਾਸਵਰਡ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:555
 msgid "The password has not been changed."
 msgstr "ਪਾਸਵਰਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਗਿਆ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "You must choose a shorter password."
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ ਛੋਟਾ ਪਾਸਵਰਡ ਚੁਣਨਾ ਚਾਹੀਦਾ ਹੈ."
 
-#: modules/pam_unix/pam_unix_passwd.c:585
+#: modules/pam_unix/pam_unix_passwd.c:576
 msgid "You must choose a longer password."
 msgstr "ਤੁਹਾਨੂੰ ਲੰਮਾ ਪਾਸਵਰਡ ਚੁਣਨਾ ਪਵੇਗਾ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:683
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s ਲਈ ਪਾਸਵਰਡ ਤਬਦੀਲ ਕਰ ਰਿਹਾ ਹੈ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:722
+#: modules/pam_unix/pam_unix_passwd.c:713
 msgid "You must wait longer to change your password."
 msgstr "ਤੁਹਾਨੂੰ ਆਪਣੇ ਪਾਸਵਰਡ ਨੂੰ ਬਦਲਣ ਲਈ ਲੰਮੀ ਉਡੀਕ ਕਰਨੀ ਪਵੇਗੀ।"
 

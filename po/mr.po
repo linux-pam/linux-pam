@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2022-11-11 11:11+0000\n"
+"POT-Creation-Date: 2023-04-29 11:11+0000\n"
 "PO-Revision-Date: 2013-05-03 03:46-0400\n"
 "Last-Translator: sandeeps <sshedmak@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -22,49 +22,49 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.8.3\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
+#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "गुप्तशब्द: "
 
-#: libpam/pam_get_authtok.c:41
+#: libpam/pam_get_authtok.c:42
 #, fuzzy, c-format
 msgid "Current %s password: "
 msgstr "नवीन गुप्तशब्द %s: "
 
-#: libpam/pam_get_authtok.c:42
+#: libpam/pam_get_authtok.c:43
 #, fuzzy
 msgid "Current password: "
 msgstr "नवीन गुप्तशब्द: "
 
-#: libpam/pam_get_authtok.c:44
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
 msgstr "नवीन गुप्तशब्द %s: "
 
-#: libpam/pam_get_authtok.c:45
+#: libpam/pam_get_authtok.c:46
 msgid "New password: "
 msgstr "नवीन गुप्तशब्द: "
 
-#: libpam/pam_get_authtok.c:47
+#: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
 msgstr "नवीन गुप्तशब्द %s पुन्हा टाइप करा: "
 
-#: libpam/pam_get_authtok.c:48
+#: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
 msgstr "नवीन गुप्तशब्द पुन्हा टाइप करा: "
 
-#: libpam/pam_get_authtok.c:49
+#: libpam/pam_get_authtok.c:50
 msgid "Sorry, passwords do not match."
 msgstr "माफ करा, गुप्तशब्द जुळत नाही."
 
-#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
+#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
 #, c-format
 msgid "Retype %s"
 msgstr "%s पुन्हा प्रविष्ट करा"
 
-#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
+#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
 #, fuzzy
 msgid "Password change has been aborted."
 msgstr "परवलीचा शब्द रद्द केले."
@@ -205,30 +205,30 @@ msgstr "अनुप्रयोगास libpam ची आवश्चकता
 msgid "Unknown PAM error"
 msgstr "अपरिचीत PAM त्रुटी"
 
-#: libpam_misc/misc_conv.c:33
+#: libpam_misc/misc_conv.c:34
 msgid "...Time is running out...\n"
 msgstr "...वेळ फारच कमी आहे...\n"
 
-#: libpam_misc/misc_conv.c:34
+#: libpam_misc/misc_conv.c:35
 msgid "...Sorry, your time is up!\n"
 msgstr "...माफ करा, तुमची वेळ समाप्त झाली आहे!\n"
 
-#: libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:349
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "सदोषीत संवाद (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:289
+#: modules/pam_exec/pam_exec.c:300
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s अपयशी: एक्जीट कोड %d"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:310
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s अपयशी: संकेत %d%s प्राप्त झाले"
 
-#: modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:320
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s अपयशी: अपरिचीत स्थिती 0x%x"
@@ -365,7 +365,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "डिरेक्ट्री '%s' बनवण्यास व प्रारंभ करण्यास अशक्य."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:580
 msgid "Password has been already used. Choose another."
 msgstr "ह्या गुप्तशब्दचा आधीच वापर झाला आहे. दुसरा निवडा."
 
@@ -400,17 +400,17 @@ msgstr "स्तर:"
 msgid "This is not a valid security context."
 msgstr "वैध सुरक्षा संदर्भ नाही"
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:508
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:640
+#: modules/pam_selinux/pam_selinux.c:639
 #, fuzzy, c-format
 msgid "Security context %s has been assigned."
 msgstr "सुरक्षा संदर्भ %s लागू केले गेले"
 
-#: modules/pam_selinux/pam_selinux.c:656
+#: modules/pam_selinux/pam_selinux.c:655
 #, fuzzy, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "कि निर्माण संदर्भ %s लागू केले गेले"
@@ -430,7 +430,7 @@ msgstr "pam_set_item() कार्यान्वीत करण्यास �
 msgid "login: failure forking: %m"
 msgstr "दाखलन: विभाजन अपयशी: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:361
+#: modules/pam_timestamp/pam_timestamp.c:382
 #, fuzzy, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "प्रवेश स्वीकारले (शेवटचा प्रवेश %ld सेकंद पूर्वी आढळला)."
@@ -466,35 +466,35 @@ msgstr[1] "सावधानता: तुमचे गुप्तशब्द
 msgid "Warning: your password will expire in %d days."
 msgstr "सावधानता: तुमचे गुप्तशब्द %d दिवसात कालबाह्य होईल"
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "NIS password could not be changed."
 msgstr "NIS गुप्तशब्द बदलविले जाऊ शकत नाही."
 
-#: modules/pam_unix/pam_unix_passwd.c:563
+#: modules/pam_unix/pam_unix_passwd.c:554
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "गुप्तशब्द दिलेला नाही"
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:555
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS गुप्तशब्द बदलविले जाऊ शकत नाही."
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "You must choose a shorter password."
 msgstr "आपण लहान संकेतशब्द निवडणे आवश्यक आहे."
 
-#: modules/pam_unix/pam_unix_passwd.c:585
+#: modules/pam_unix/pam_unix_passwd.c:576
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "तुम्ही मोठा गुप्तशब्द निवडला पाहीजे"
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:683
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s करीता गुप्तशब्द बदलवित आहे."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
+#: modules/pam_unix/pam_unix_passwd.c:713
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "तुमचा गुप्तशब्द बदलण्यासाठी तुम्हाला बराच वेळ वाट पहावी लागेल"

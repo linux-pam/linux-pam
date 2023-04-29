@@ -12,11 +12,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2022-11-11 11:11+0000\n"
+"POT-Creation-Date: 2023-04-29 11:11+0000\n"
 "PO-Revision-Date: 2022-11-13 11:41+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/pl/>\n"
+"Language-Team: Polish <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,48 +25,48 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.14.2\n"
 
-#: libpam/pam_get_authtok.c:39 modules/pam_exec/pam_exec.c:183
+#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
 msgstr "Hasło: "
 
-#: libpam/pam_get_authtok.c:41
+#: libpam/pam_get_authtok.c:42
 #, c-format
 msgid "Current %s password: "
 msgstr "Obecne hasło %s: "
 
-#: libpam/pam_get_authtok.c:42
+#: libpam/pam_get_authtok.c:43
 msgid "Current password: "
 msgstr "Obecne hasło: "
 
-#: libpam/pam_get_authtok.c:44
+#: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
 msgstr "Nowe hasło %s: "
 
-#: libpam/pam_get_authtok.c:45
+#: libpam/pam_get_authtok.c:46
 msgid "New password: "
 msgstr "Nowe hasło: "
 
-#: libpam/pam_get_authtok.c:47
+#: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
 msgstr "Proszę ponownie wpisać nowe hasło %s: "
 
-#: libpam/pam_get_authtok.c:48
+#: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
 msgstr "Proszę ponownie wpisać nowe hasło: "
 
-#: libpam/pam_get_authtok.c:49
+#: libpam/pam_get_authtok.c:50
 msgid "Sorry, passwords do not match."
 msgstr "Hasła się nie zgadzają."
 
-#: libpam/pam_get_authtok.c:142 libpam/pam_get_authtok.c:240
+#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
 #, c-format
 msgid "Retype %s"
 msgstr "Proszę ponownie wpisać %s"
 
-#: libpam/pam_get_authtok.c:178 libpam/pam_get_authtok.c:258
+#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
 msgid "Password change has been aborted."
 msgstr "Przerwano zmianę hasła."
 
@@ -206,30 +206,30 @@ msgstr "Aplikacja musi jeszcze raz wywołać libpam"
 msgid "Unknown PAM error"
 msgstr "Nieznany błąd PAM"
 
-#: libpam_misc/misc_conv.c:33
+#: libpam_misc/misc_conv.c:34
 msgid "...Time is running out...\n"
 msgstr "…czas mija…\n"
 
-#: libpam_misc/misc_conv.c:34
+#: libpam_misc/misc_conv.c:35
 msgid "...Sorry, your time is up!\n"
 msgstr "…czas minął.\n"
 
-#: libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:349
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "błędna rozmowa (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:289
+#: modules/pam_exec/pam_exec.c:300
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s się nie powiodło: kod wyjścia %d"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:310
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s się nie powiodło: otrzymano sygnał %d%s"
 
-#: modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:320
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s się nie powiodło: nieznany stan 0x%x"
@@ -240,8 +240,8 @@ msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
-"Użycie: %s [--dir /ścieżka/do/katalogu-tally] [--user nazwa-użytkownika] "
-"[--reset] [--legacy-output]\n"
+"Użycie: %s [--dir /ścieżka/do/katalogu-tally] [--user nazwa-użytkownika] [--"
+"reset] [--legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
 #, c-format
@@ -372,7 +372,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Nie można utworzyć i zainicjować katalogu „%s”."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:589
+#: modules/pam_unix/pam_unix_passwd.c:580
 msgid "Password has been already used. Choose another."
 msgstr "Hasło było już używane. Należy wybrać inne."
 
@@ -406,17 +406,17 @@ msgstr "poziom:"
 msgid "This is not a valid security context."
 msgstr "Nieprawidłowy kontekst zabezpieczeń."
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:508
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "Nie można uzyskać prawidłowego kontekstu dla %s."
 
-#: modules/pam_selinux/pam_selinux.c:640
+#: modules/pam_selinux/pam_selinux.c:639
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "Przypisano kontekst zabezpieczeń %s."
 
-#: modules/pam_selinux/pam_selinux.c:656
+#: modules/pam_selinux/pam_selinux.c:655
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Przypisano kontekst tworzenia klucza %s."
@@ -436,7 +436,7 @@ msgstr "„pam_set_item()” się nie powiodło\n"
 msgid "login: failure forking: %m"
 msgstr "login: rozdzielenie się nie powiodło: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:361
+#: modules/pam_timestamp/pam_timestamp.c:382
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Udzielono dostęp (ostatni dostęp %ld s temu)."
@@ -471,32 +471,32 @@ msgstr[2] "Ostrzeżenie: hasło wygaśnie za %d dni."
 msgid "Warning: your password will expire in %d days."
 msgstr "Ostrzeżenie: hasło wygaśnie za %d dni."
 
-#: modules/pam_unix/pam_unix_passwd.c:465
+#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "NIS password could not be changed."
 msgstr "Nie można zmienić hasła NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:563
+#: modules/pam_unix/pam_unix_passwd.c:554
 msgid "No password has been supplied."
 msgstr "Nie podano hasła."
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:555
 msgid "The password has not been changed."
 msgstr "Hasło nie zostało zmienione."
 
-#: modules/pam_unix/pam_unix_passwd.c:581
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "You must choose a shorter password."
 msgstr "Należy wybrać krótsze hasło."
 
-#: modules/pam_unix/pam_unix_passwd.c:585
+#: modules/pam_unix/pam_unix_passwd.c:576
 msgid "You must choose a longer password."
 msgstr "Należy wybrać dłuższe hasło."
 
-#: modules/pam_unix/pam_unix_passwd.c:692
+#: modules/pam_unix/pam_unix_passwd.c:683
 #, c-format
 msgid "Changing password for %s."
 msgstr "Zmienianie hasła dla %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:722
+#: modules/pam_unix/pam_unix_passwd.c:713
 msgid "You must wait longer to change your password."
 msgstr "Należy poczekać dłużej na zmianę hasła."
 
