@@ -1,5 +1,29 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 1.5.3
+* configure: added options to configure stylesheets.
+* configure: added --enable-logind option to use logind instead of utmp
+  in pam_issue and pam_timestamp.
+* pam_modutil_getlogin: changed to use getlogin() from libc instead of parsing utmp.
+* Added libeconf support to pam_env and pam_shells.
+* Added vendor directory support to pam_access, pam_env, pam_group, pam_faillock,
+  pam_limits, pam_namespace, pam_pwhistory, pam_sepermit, pam_shells, and pam_time.
+* pam_limits: changed to not fail on missing config files.
+* pam_pwhistory: added conf= option to specify config file location.
+* pam_pwhistory: added file= option to specify password history file location.
+* pam_shells: added shells.d support when libeconf and vendordir are enabled.
+* Deprecated pam_lastlog: this module is no longer built by default because
+  it uses utmp, wtmp, btmp and lastlog, but none of them are Y2038 safe,
+  even on 64bit architectures.
+  pam_lastlog will be removed in one of the next releases, consider using
+  pam_lastlog2 (from https://github.com/thkukuk/lastlog2) and/or
+  pam_wtmpdb (from https://github.com/thkukuk/wtmpdb) instead.
+* Deprecated _pam_overwrite(), _pam_overwrite_n(), and _pam_drop_reply() macros
+  provided by _pam_macros.h; the memory override performed by these macros can
+  be optimized out by the compiler and therefore can no longer be relied upon.
+* Multiple minor bug fixes, portability fixes, documentation improvements,
+  and translation updates.
+
 Release 1.5.2
 * pam_exec: implemented quiet_log option.
 * pam_mkhomedir: added support of HOME_MODE and UMASK from /etc/login.defs.
