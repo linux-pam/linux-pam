@@ -30,7 +30,7 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#if !(defined(linux))
+#ifndef __linux__
 #error THIS CODE IS KNOWN TO WORK ONLY ON LINUX !!!
 #endif
 
