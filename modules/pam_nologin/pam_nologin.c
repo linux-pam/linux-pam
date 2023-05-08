@@ -98,6 +98,16 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 	    goto clean_up_fd;
 	}
 
+	/*
+	 * on some OSes (e.g. Hurd) reading a directory succeeds,
+	 * instead of failing with EISDIR; hence, work as if
+	 * pam_modutil_read later on would fail
+	 */
+	if (S_ISDIR(st.st_mode)) {
+	    retval = PAM_SYSTEM_ERR;
+	    goto clean_up_fd;
+	}
+
 	/* Don't print anything if the message is empty, will only
 	   disturb the output with empty lines */
 	if (st.st_size > 0) {
