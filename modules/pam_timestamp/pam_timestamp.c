@@ -82,7 +82,9 @@
 
 /* Various buffers we use need to be at least as large as either PATH_MAX or
  * LINE_MAX, so choose the larger of the two. */
-#if (LINE_MAX > PATH_MAX)
+#ifndef PATH_MAX
+#define BUFLEN LINE_MAX
+#elif (LINE_MAX > PATH_MAX)
 #define BUFLEN LINE_MAX
 #else
 #define BUFLEN PATH_MAX
