@@ -265,22 +265,30 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
   /* Define opasswd file and temp file for opasswd */
   const char *opasswd_file =
 	  (filename != NULL ? filename : DEFAULT_OLD_PASSWORDS_FILE);
-  char opasswd_tmp[PATH_MAX];
+  char *opasswd_tmp;
 
-  if ((size_t) snprintf (opasswd_tmp, sizeof (opasswd_tmp), "%s.tmpXXXXXX",
-			 opasswd_file) >= sizeof (opasswd_tmp))
+  if (asprintf (&opasswd_tmp, "%s.tmpXXXXXX", opasswd_file) < 0)
     return PAM_BUF_ERR;
 
   pwd = pam_modutil_getpwnam (pamh, user);
   if (pwd == NULL)
-    return PAM_USER_UNKNOWN;
+    {
+      free (opasswd_tmp);
+      return PAM_USER_UNKNOWN;
+    }
 
   if (howmany <= 0)
-    return PAM_SUCCESS;
+    {
+      free (opasswd_tmp);
+      return PAM_SUCCESS;
+    }
 
 #ifndef HELPER_COMPILE
   if (SELINUX_ENABLED)
-    return PAM_PWHISTORY_RUN_HELPER;
+    {
+      free (opasswd_tmp);
+      return PAM_PWHISTORY_RUN_HELPER;
+    }
 #endif
 
   if ((strcmp(pwd->pw_passwd, "x") == 0)  ||
@@ -291,14 +299,20 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
       struct spwd *spw = pam_modutil_getspnam (pamh, user);
 
       if (spw == NULL)
-        return PAM_USER_UNKNOWN;
+	{
+	  free (opasswd_tmp);
+	  return PAM_USER_UNKNOWN;
+	}
       oldpass = spw->sp_pwdp;
     }
   else
       oldpass = pwd->pw_passwd;
 
   if (oldpass == NULL || *oldpass == '\0')
-    return PAM_SUCCESS;
+    {
+      free (opasswd_tmp);
+      return PAM_SUCCESS;
+    }
 
   if ((oldpf = fopen (opasswd_file, "r")) == NULL)
     {
@@ -310,6 +324,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
       else
 	{
 	  pam_syslog (pamh, LOG_ERR, "Cannot open %s: %m", opasswd_file);
+	  free (opasswd_tmp);
 	  return PAM_AUTHTOK_ERR;
 	}
     }
@@ -317,6 +332,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
     {
       pam_syslog (pamh, LOG_ERR, "Cannot stat %s: %m", opasswd_file);
       fclose (oldpf);
+      free (opasswd_tmp);
       return PAM_AUTHTOK_ERR;
     }
 
@@ -328,6 +344,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 		  opasswd_file);
       if (oldpf)
 	fclose (oldpf);
+      free (opasswd_tmp);
       return PAM_AUTHTOK_ERR;
     }
   if (do_create)
@@ -561,9 +578,8 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
       goto error_opasswd;
     }
 
-  char opasswd_backup[PATH_MAX];
-  if ((size_t) snprintf (opasswd_backup, sizeof (opasswd_backup), "%s.old",
-			 opasswd_file) >= sizeof (opasswd_backup))
+  char *opasswd_backup;
+  if (asprintf (&opasswd_backup, "%s.old", opasswd_file) < 0)
     {
       retval = PAM_BUF_ERR;
       goto error_opasswd;
@@ -575,8 +591,10 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
     pam_syslog (pamh, LOG_ERR, "Cannot create backup file of %s: %m",
 		opasswd_file);
   rename (opasswd_tmp, opasswd_file);
+  free (opasswd_backup);
  error_opasswd:
   unlink (opasswd_tmp);
+  free (opasswd_tmp);
   pam_overwrite_n(buf, buflen);
   free (buf);
 
