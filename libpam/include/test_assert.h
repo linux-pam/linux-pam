@@ -11,6 +11,7 @@
 #  include <config.h>
 # endif
 
+# include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
 
@@ -51,5 +52,9 @@
 # define ASSERT_GE(expected_, seen_)						\
 	ASSERT_((expected_), #expected_, >=, (seen_), #seen_)			\
 /* End of ASSERT_LT definition.  */
+
+# ifndef PATH_MAX
+#  define PATH_MAX 4096
+# endif
 
 #endif /* TEST_ASSERT_H */
