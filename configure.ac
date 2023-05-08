@@ -224,6 +224,11 @@ AC_ARG_ENABLE([doc],
         WITH_DOC=$enableval, WITH_DOC=yes)
 AM_CONDITIONAL([HAVE_DOC], [test "x$WITH_DOC" = "xyes"])
 
+AC_ARG_ENABLE([examples],
+        AS_HELP_STRING([--disable-examples],[Do not build the examples]),
+        WITH_EXAMPLES=$enableval, WITH_EXAMPLES=yes)
+AM_CONDITIONAL([HAVE_EXAMPLES], [test "x$WITH_EXAMPLES" = "xyes"])
+
 AC_ARG_ENABLE([prelude],
 	AS_HELP_STRING([--disable-prelude],[do not use prelude]),
 	WITH_PRELUDE=$enableval, WITH_PRELUDE=yes)
