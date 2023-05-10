@@ -29,7 +29,7 @@ msgstr ""
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
 msgid "Password: "
-msgstr "암호: "
+msgstr "비밀번호: "
 
 #: libpam/pam_get_authtok.c:42
 #, c-format
