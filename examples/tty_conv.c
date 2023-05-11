@@ -6,8 +6,9 @@
 #include <string.h>
 #include <errno.h>
 #include <unistd.h>
-#include <termio.h>
+#include <termios.h>
 #include <security/pam_appl.h>
+#include <sys/ioctl.h>
 
 /***************************************
  * @brief echo off/on
@@ -16,7 +17,7 @@
  ***************************************/
 static void echoOff(int fd, int off)
 {
-    struct termio tty;
+    struct termios tty;
     if (ioctl(fd, TCGETA, &tty) < 0)
     {
         fprintf(stderr, "TCGETA failed: %s\n", strerror(errno));
