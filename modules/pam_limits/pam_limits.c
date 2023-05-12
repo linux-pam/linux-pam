@@ -28,7 +28,9 @@
 #include <syslog.h>
 #include <stdarg.h>
 #include <signal.h>
+#ifdef __linux__
 #include <sys/prctl.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/resource.h>
@@ -321,6 +323,7 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
     return 0;
 }
 
+#ifdef __linux__
 static const char *lnames[RLIM_NLIMITS] = {
         [RLIMIT_CPU] = "Max cpu time",
         [RLIMIT_FSIZE] = "Max file size",
@@ -450,6 +453,7 @@ static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int 
     }
     fclose(limitsfile);
 }
+#endif
 
 static int init_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)
 {
@@ -1078,10 +1082,14 @@ static int setup_limits(pam_handle_t *pamh,
     }
 
     if (pl->nonewprivs) {
+#ifdef __linux__
 	if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) < 0) {
 	    pam_syslog(pamh, LOG_ERR, "Could not set prctl(PR_SET_NO_NEW_PRIVS): %m");
 	    retval |= LIMIT_ERR;
 	}
+#else
+	pam_syslog(pamh, LOG_INFO, "Setting 'nonewprivs' not supported on this OS");
+#endif
     }
 
     return retval;
