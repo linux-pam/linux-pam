@@ -69,14 +69,7 @@ create_homedir(const struct passwd *pwd,
       int destfd;
       int res;
       struct stat st;
-#ifndef PATH_MAX
       char *newsource = NULL, *newdest = NULL;
-      /* track length of buffers */
-      int nslen = 0, ndlen = 0;
-      int slen = strlen(source), dlen = strlen(dest);
-#else
-      char newsource[PATH_MAX], newdest[PATH_MAX];
-#endif
 
       /* Skip some files.. */
       if (strcmp(dent->d_name,".") == 0 ||
@@ -84,69 +77,37 @@ create_homedir(const struct passwd *pwd,
 	 continue;
 
       /* Determine what kind of file it is. */
-#ifndef PATH_MAX
-      nslen = slen + strlen(dent->d_name) + 2;
-
-      if (nslen <= 0)
-	{
-	  retval = PAM_BUF_ERR;
-	  goto go_out;
-	}
-
-      if ((newsource = malloc(nslen)) == NULL)
-	{
-	  retval = PAM_BUF_ERR;
-	  goto go_out;
-	}
-
-      sprintf(newsource, "%s/%s", source, dent->d_name);
-#else
-      snprintf(newsource, sizeof(newsource), "%s/%s", source, dent->d_name);
-#endif
+      if (asprintf(&newsource, "%s/%s", source, dent->d_name) < 0)
+      {
+	 pam_syslog(NULL, LOG_CRIT, "asprintf failed for 'newsource'");
+	 retval = PAM_BUF_ERR;
+	 goto go_out;
+      }
 
       if (lstat(newsource, &st) != 0)
-#ifndef PATH_MAX
       {
-	      free(newsource);
-	      newsource = NULL;
+         free(newsource);
          continue;
       }
-#else
-      continue;
-#endif
 
 
       /* We'll need the new file's name. */
-#ifndef PATH_MAX
-      ndlen = dlen + strlen(dent->d_name)+2;
+      if (asprintf(&newdest, "%s/%s", dest, dent->d_name) < 0)
+      {
+	 pam_syslog(NULL, LOG_CRIT, "asprintf failed for 'newdest'");
+	 free(newsource);
+	 retval = PAM_BUF_ERR;
+	 goto go_out;
+      }
 
-      if (ndlen <= 0)
-	{
-	  retval = PAM_BUF_ERR;
-	  goto go_out;
-	}
-
-      if ((newdest = malloc(ndlen)) == NULL)
-	{
-	  free (newsource);
-	  retval = PAM_BUF_ERR;
-	  goto go_out;
-	}
-
-      sprintf (newdest, "%s/%s", dest, dent->d_name);
-#else
-      snprintf (newdest, sizeof (newdest), "%s/%s", dest, dent->d_name);
-#endif
 
       /* If it's a directory, recurse. */
       if (S_ISDIR(st.st_mode))
       {
          retval = create_homedir(pwd, newsource, newdest);
 
-#ifndef PATH_MAX
-	 free(newsource); newsource = NULL;
-	 free(newdest); newdest = NULL;
-#endif
+         free(newsource);
+         free(newdest);
 
          if (retval != PAM_SUCCESS)
 	   {
@@ -199,9 +160,9 @@ create_homedir(const struct passwd *pwd,
                    closedir(d);
 #ifndef PATH_MAX
 		   free(pointed);
-		   free(newsource);
-		   free(newdest);
 #endif
+                   free(newsource);
+                   free(newdest);
                    return PAM_PERM_DENIED;
                }
             }
@@ -209,10 +170,8 @@ create_homedir(const struct passwd *pwd,
 	    free(pointed);
 #endif
          }
-#ifndef PATH_MAX
-	 free(newsource); newsource = NULL;
-	 free(newdest); newdest = NULL;
-#endif
+         free(newsource);
+         free(newdest);
          continue;
       }
 
@@ -220,10 +179,8 @@ create_homedir(const struct passwd *pwd,
        * the new device node, FIFO, or whatever it is. */
       if (!S_ISREG(st.st_mode))
       {
-#ifndef PATH_MAX
-	 free(newsource); newsource = NULL;
-	 free(newdest); newdest = NULL;
-#endif
+         free(newsource);
+         free(newdest);
          continue;
       }
 
@@ -236,10 +193,8 @@ create_homedir(const struct passwd *pwd,
             close(srcfd);
          closedir(d);
 
-#ifndef PATH_MAX
-	 free(newsource); newsource = NULL;
-	 free(newdest); newdest = NULL;
-#endif
+         free(newsource);
+         free(newdest);
 
 	 return PAM_PERM_DENIED;
       }
@@ -252,10 +207,8 @@ create_homedir(const struct passwd *pwd,
 	 close(srcfd);
 	 closedir(d);
 
-#ifndef PATH_MAX
-	 free(newsource); newsource = NULL;
-	 free(newdest); newdest = NULL;
-#endif
+	 free(newsource);
+	 free(newdest);
 	 return PAM_PERM_DENIED;
       }
 
@@ -271,10 +224,8 @@ create_homedir(const struct passwd *pwd,
          close(destfd);
          closedir(d);
 
-#ifndef PATH_MAX
-	 free(newsource); newsource = NULL;
-	 free(newdest); newdest = NULL;
-#endif
+         free(newsource);
+         free(newdest);
 
 	 return PAM_PERM_DENIED;
       }
@@ -299,10 +250,8 @@ create_homedir(const struct passwd *pwd,
 	 close(destfd);
 	 closedir(d);
 
-#ifndef PATH_MAX
-	 free(newsource); newsource = NULL;
-	 free(newdest); newdest = NULL;
-#endif
+	 free(newsource);
+	 free(newdest);
 
 	 return PAM_PERM_DENIED;
       }
@@ -310,10 +259,8 @@ create_homedir(const struct passwd *pwd,
       close(srcfd);
       close(destfd);
 
-#ifndef PATH_MAX
-      free(newsource); newsource = NULL;
-      free(newdest); newdest = NULL;
-#endif
+      free(newsource);
+      free(newdest);
 
    }
    closedir(d);
