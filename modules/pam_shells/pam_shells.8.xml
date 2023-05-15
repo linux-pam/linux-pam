@@ -75,6 +75,14 @@
         </listitem>
       </varlistentry>
       <varlistentry>
+        <term>PAM_USER_UNKNOWN</term>
+        <listitem>
+          <para>
+            The user does not exist or the user's login shell could not be determined.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
         <term>PAM_SERVICE_ERR</term>
         <listitem>
           <para>

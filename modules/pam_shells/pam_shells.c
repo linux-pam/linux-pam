@@ -61,8 +61,16 @@ static int perform_check(pam_handle_t *pamh)
     }
 
     pw = pam_modutil_getpwnam(pamh, userName);
-    if (pw == NULL || pw->pw_shell == NULL) {
-	return PAM_AUTH_ERR;		/* user doesn't exist */
+    if (pw == NULL) {
+	return PAM_USER_UNKNOWN;
+    }
+    if (pw->pw_shell == NULL) {
+	/* TODO: when does this happen? I would join it with
+	 * the case userShell[0] == '\0' below.
+	 *
+	 * For now, keep the existing stricter behaviour
+	 */
+	return PAM_AUTH_ERR;
     }
     userShell = pw->pw_shell;
     if (userShell[0] == '\0')
