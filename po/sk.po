@@ -8,23 +8,23 @@
 # feonsu <feonsu@gmail.com>, 2008
 # Pavol Šimo <palo.simo@gmail.com>, 2009
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
-# Ondrej Sulek <feonsu@gmail.com>, 2020, 2021.
+# Ondrej Sulek <feonsu@gmail.com>, 2020, 2021, 2023.
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2023-04-29 11:11+0000\n"
-"PO-Revision-Date: 2021-10-08 04:19+0000\n"
+"PO-Revision-Date: 2023-05-16 10:21+0000\n"
 "Last-Translator: Ondrej Sulek <feonsu@gmail.com>\n"
-"Language-Team: Slovak <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/sk/>\n"
+"Language-Team: Slovak <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.15.2\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
@@ -236,18 +236,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s zlyhalo: neznámy stav 0x%x"
 
 #: modules/pam_faillock/main.c:130
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
-"Použitie: %s [--dir /cesta/k/zhodujú-directory] [--user pouzivatelske_meno] "
-"[--reset]\n"
+"Použitie: %s [--dir /cesta/k/adresaru] [--user pouzivatelske_meno] [--legacy-"
+"output]\n"
 
 #: modules/pam_faillock/main.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "Login           Failures    Latest failure         From\n"
-msgstr "Login           Zlyhaní  Ostatné zlyhanie   Z\n"
+msgstr "Login           Zlyhaní    Posledné zlyhanie         Od\n"
 
 #: modules/pam_faillock/pam_faillock.c:404
 #, c-format
@@ -331,9 +331,8 @@ msgid "There were too many logins for '%s'."
 msgstr "Príliš veľa prihlásení pre '%s'."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "Máte novú poštu."
+msgstr "Nemáte žiadnu novú poštu."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
