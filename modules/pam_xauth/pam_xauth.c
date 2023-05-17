@@ -73,11 +73,6 @@
 #define XAUTHDEF ".Xauthority"
 #define XAUTHTMP ".xauthXXXXXX"
 
-/* Hurd compatibility */
-#ifndef PATH_MAX
-#define PATH_MAX 4096
-#endif
-
 /* Possible paths to xauth executable */
 static const char * const xauthpaths[] = {
 #ifdef PAM_PATH_XAUTH
@@ -255,7 +250,7 @@ check_acl(pam_handle_t *pamh,
 	  const char *sense, const char *this_user, const char *other_user,
 	  int noent_code, int debug)
 {
-	char path[PATH_MAX];
+	char *path = NULL;
 	struct passwd *pwd;
 	FILE *fp = NULL;
 	int i, fd = -1, save_errno;
@@ -271,14 +266,17 @@ check_acl(pam_handle_t *pamh,
 		return PAM_SESSION_ERR;
 	}
 	/* Figure out what that file is really named. */
-	i = snprintf(path, sizeof(path), "%s/.xauth/%s", pwd->pw_dir, sense);
-	if ((i >= (int)sizeof(path)) || (i < 0)) {
+	i = asprintf(&path, "%s/.xauth/%s", pwd->pw_dir, sense);
+	if (i < 0) {
 		pam_syslog(pamh, LOG_ERR,
-			   "name of user's home directory is too long");
+			   "cannot allocate path buffer for ~/.xauth/%s",
+			   sense);
 		return PAM_SESSION_ERR;
 	}
-	if (pam_modutil_drop_priv(pamh, &privs, pwd))
+	if (pam_modutil_drop_priv(pamh, &privs, pwd)) {
+		free(path);
 		return PAM_SESSION_ERR;
+	}
 	if (!stat(path, &st)) {
 		if (!S_ISREG(st.st_mode))
 			errno = EINVAL;
@@ -289,6 +287,7 @@ check_acl(pam_handle_t *pamh,
 	if (pam_modutil_regain_priv(pamh, &privs)) {
 		if (fd >= 0)
 			close(fd);
+		free(path);
 		return PAM_SESSION_ERR;
 	}
 	if (fd >= 0) {
@@ -322,6 +321,7 @@ check_acl(pam_handle_t *pamh,
 						   other_user, sense, path);
 				}
 				fclose(fp);
+				free(path);
 				return PAM_SUCCESS;
 			}
 		}
@@ -331,6 +331,7 @@ check_acl(pam_handle_t *pamh,
 				   other_user, path);
 		}
 		fclose(fp);
+		free(path);
 		return PAM_PERM_DENIED;
 	} else {
 		/* Default to okay if the file doesn't exist. */
@@ -350,12 +351,19 @@ check_acl(pam_handle_t *pamh,
 						   path);
 				}
 			}
+			free(path);
 			return noent_code;
+		case ENAMETOOLONG:
+			pam_syslog(pamh, LOG_ERR,
+				   "error opening %s: %m", path);
+			free(path);
+			return PAM_SESSION_ERR;
 		default:
 			if (debug) {
 				pam_syslog(pamh, LOG_DEBUG,
 					   "error opening %s: %m", path);
 			}
+			free(path);
 			return PAM_PERM_DENIED;
 		}
 	}
