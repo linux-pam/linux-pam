@@ -112,6 +112,7 @@ static int perform_check(pam_handle_t *pamh)
         if (!retval)
 	   break;
     }
+    econf_free (keys);
     econf_free (key_file);
 #else
     char shellFileLine[256];
