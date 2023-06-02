@@ -189,11 +189,15 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 	if (on(UNIX_ALGO_ROUNDS, ctrl)) {
 		if (on(UNIX_GOST_YESCRYPT_PASS, ctrl) ||
 		    on(UNIX_YESCRYPT_PASS, ctrl)) {
-			if (*rounds < 3 || *rounds > 11)
-				*rounds = 5;
+			if (*rounds < 3)
+				*rounds = 3;
+			else if (*rounds > 11)
+				*rounds = 11;
 		} else if (on(UNIX_BLOWFISH_PASS, ctrl)) {
-			if (*rounds < 4 || *rounds > 31)
-				*rounds = 5;
+			if (*rounds < 4)
+				*rounds = 4;
+			else if (*rounds > 31)
+				*rounds = 31;
 		} else if (on(UNIX_SHA256_PASS, ctrl) || on(UNIX_SHA512_PASS, ctrl)) {
 			if ((*rounds < 1000) || (*rounds == INT_MAX)) {
 				/* don't care about bogus values */
