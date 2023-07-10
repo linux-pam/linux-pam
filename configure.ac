@@ -436,10 +436,10 @@ if test -n "$opt_randomdev"; then
        AC_DEFINE_UNQUOTED(PAM_PATH_RANDOMDEV, "$opt_randomdev", [Random device path.])
 fi
 
-dnl check for libdb or libndbm as fallback. Some libndbm compat
+dnl check for libdb or gdbm or libndbm as fallback. Some libndbm compat
 dnl libraries are unusable, so try libdb first.
 AC_ARG_ENABLE([db],
-        AS_HELP_STRING([--enable-db=(db|ndbm|yes|no)],[Default behavior 'yes', which is to check for libdb first, followed by ndbm. Use 'no' to disable db support.]),
+        AS_HELP_STRING([--enable-db=(db|gdbm|ndbm|yes|no)],[Default behavior 'yes', which is to check for libdb first, followed by gdbm and ndbm. Use 'no' to disable db support.]),
         WITH_DB=$enableval, WITH_DB=yes)
 AC_ARG_WITH([db-uniquename],
 	AS_HELP_STRING([--with-db-uniquename=extension],[Unique name for db libraries and functions.]))
@@ -450,6 +450,12 @@ if test x"$WITH_DB" != xno ; then
               AC_CHECK_FUNCS([db_create$with_db_uniquename db_create dbm_store$with_db_uniquename dbm_store],
                 [LIBDB="-ldb$with_db_uniquename"; break])
               LIBS=$old_libs
+        fi
+        if test x"$WITH_DB" = xgdbm ; then
+            AC_CHECK_LIB([gdbm],[gdbm_store], LIBDB="-lgdbm", LIBDB="")
+            if test -n "$LIBDB" ; then
+                AC_CHECK_HEADERS(gdbm.h)
+            fi
         fi
         if test -z "$LIBDB" ; then
             AC_CHECK_LIB([ndbm],[dbm_store], LIBDB="-lndbm", LIBDB="")
