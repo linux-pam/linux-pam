@@ -712,6 +712,8 @@ check_account(pam_handle_t *pamh, const char *service,
 		    free((void *)runtime_max_sec);
 		    return PAM_PERM_DENIED;
 	       }
+	       pam_syslog(pamh, LOG_DEBUG, "user %s session limited to %s",
+	                  user, runtime_max_sec);
 	       retval = pam_set_data(pamh, "systemd.runtime_max_sec",
 				     (void *)runtime_max_sec, cleanup);
 	       if (retval != PAM_SUCCESS) {
