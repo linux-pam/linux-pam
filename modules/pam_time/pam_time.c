@@ -446,7 +446,6 @@ check_time(pam_handle_t *pamh, const void *AT, const char *times,
      time_t current_time;
      time_t *time_limit = data;
 
-     *time_limit = 0;
      current_time = time(NULL);
      // ignore failures, shouldn't really be possible
      localtime_r(&current_time, &tm);
@@ -607,12 +606,11 @@ check_account(pam_handle_t *pamh, const char *service,
      int count=0;
      TIME here_and_now;
      int retval=PAM_SUCCESS;
-     time_t end_time;
+     time_t end_time = 0;
 
      here_and_now = time_now();                     /* find current time */
      do {
 	  int good=TRUE,intime;
-	  end_time = 0;
 
 	  /* here we get the service name field */
 
