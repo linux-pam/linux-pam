@@ -248,7 +248,7 @@ check_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 
 				(void)pam_get_item(pamh, PAM_TTY, &tty);
 				(void)pam_get_item(pamh, PAM_RHOST, &rhost);
-				snprintf(buf, sizeof(buf), "pam_faillock uid=%u ", opts->uid);
+				snprintf(buf, sizeof(buf), "op=pam_faillock suid=%u ", opts->uid);
 				audit_log_user_message(audit_fd, AUDIT_RESP_ACCT_UNLOCK_TIMED, buf,
 					rhost, NULL, tty, 1);
 			}
@@ -364,7 +364,7 @@ write_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 			errno == EAFNOSUPPORT))
 			return PAM_SYSTEM_ERR;
 
-		snprintf(buf, sizeof(buf), "pam_faillock uid=%u ", opts->uid);
+		snprintf(buf, sizeof(buf), "op=pam_faillock suid=%u ", opts->uid);
 		audit_log_user_message(audit_fd, AUDIT_ANOM_LOGIN_FAILURES, buf,
 			NULL, NULL, NULL, 1);
 
