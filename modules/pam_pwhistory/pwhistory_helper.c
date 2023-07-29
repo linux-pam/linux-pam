@@ -108,7 +108,7 @@ main(int argc, char *argv[])
 
   option = argv[1];
   user = argv[2];
-  filename = argv[3];
+  filename = (argv[3][0] != '\0') ? argv[3] : NULL;
 
   if (strcmp(option, "check") == 0 && argc == 5)
     return check_history(user, filename, argv[4]);

@@ -141,7 +141,7 @@ run_save_helper(pam_handle_t *pamh, const char *user,
       args[0] = (char *)PWHISTORY_HELPER;
       args[1] = (char *)"save";
       args[2] = (char *)user;
-      args[3] = (char *)filename;
+      args[3] = (char *)((filename != NULL) ? filename : "");
       DIAG_POP_IGNORE_CAST_QUAL;
       if (asprintf(&args[4], "%d", howmany) < 0 ||
           asprintf(&args[5], "%d", debug) < 0)
@@ -228,7 +228,7 @@ run_check_helper(pam_handle_t *pamh, const char *user,
       args[0] = (char *)PWHISTORY_HELPER;
       args[1] = (char *)"check";
       args[2] = (char *)user;
-      args[3] = (char *)filename;
+      args[3] = (char *)((filename != NULL) ? filename : "");
       DIAG_POP_IGNORE_CAST_QUAL;
       if (asprintf(&args[4], "%d", debug) < 0)
         {
