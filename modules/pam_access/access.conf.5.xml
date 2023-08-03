@@ -189,6 +189,12 @@
     <para>+:john foo:2001:db8:0:101::1</para>
 
     <para>
+      User <emphasis>john</emphasis> and <emphasis>foo</emphasis>
+      should get access from IPv6 link local host address.
+    </para>
+    <para>+:john foo:fe80::de95:818c:1b55:7e42%eth1</para>
+
+    <para>
       User <emphasis>john</emphasis> should get access from IPv6 net/mask.
     </para>
     <para>+:john:2001:db8:0:101::/64</para>
@@ -221,6 +227,10 @@
       <emphasis>listsep</emphasis> option, the spaces will become part of the actual
       item and the line will be most probably ignored. For this reason, it is not
       recommended to put spaces around the ':' characters.
+    </para>
+    <para>
+      An IPv6 link local host address must contain the interface
+      identifier. IPv6 link local network/netmask is not supported.
     </para>
   </refsect1>
 
