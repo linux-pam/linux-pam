@@ -97,7 +97,7 @@ send_audit_message(const pam_handle_t *pamh, int success, const char *default_co
 		pam_syslog(pamh, LOG_ERR, "Error translating selected context '%s'.", selected_context);
 		selected_raw = NULL;
 	}
-	if (asprintf(&msg, "pam: default-context=%s selected-context=%s",
+	if (asprintf(&msg, "op=pam_selinux default-context=%s selected-context=%s",
 		     default_raw ? default_raw : (default_context ? default_context : "?"),
 		     selected_raw ? selected_raw : (selected_context ? selected_context : "?")) < 0) {
 		msg = NULL; /* asprintf leaves msg in undefined state on failure */
