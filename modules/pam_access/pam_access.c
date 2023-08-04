@@ -876,7 +876,8 @@ network_netmask_match (pam_handle_t *pamh,
 	 */
 	if (getaddrinfo (tok, NULL, NULL, &ai) != 0)
 	  {
-	    pam_syslog(pamh, LOG_ERR, "cannot resolve hostname \"%s\"", tok);
+	    if (item->debug)
+	      pam_syslog(pamh, LOG_DEBUG, "cannot resolve hostname \"%s\"", tok);
 
 	    return NO;
 	  }
