@@ -143,6 +143,7 @@ static int _pam_start_internal (
 
     if ( _pam_init_handlers(*pamh) != PAM_SUCCESS ) {
 	pam_syslog(*pamh, LOG_ERR, "pam_start: failed to initialize handlers");
+	_pam_free_handlers(*pamh);
 	_pam_drop_env(*pamh);                 /* purge the environment */
 	_pam_drop((*pamh)->pam_conversation);
 	_pam_drop((*pamh)->service_name);
