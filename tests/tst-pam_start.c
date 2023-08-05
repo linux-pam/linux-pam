@@ -66,6 +66,8 @@ main (void)
       return 1;
     }
 
+  pam_end (pamh, retval);
+
   /* 2: check with NULL for service */
   retval = pam_start (NULL, user, &conv, &pamh);
   if (retval == PAM_SUCCESS)
@@ -83,6 +85,8 @@ main (void)
 	       service, retval);
       return 1;
     }
+
+  pam_end (pamh, retval);
 
 
   /* 4: check with NULL for conv */

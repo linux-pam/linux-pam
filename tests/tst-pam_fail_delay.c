@@ -67,6 +67,8 @@ main (void)
       return 1;
     }
 
+  pam_end (pamh, retval);
+
   /* 2: use NULL pam handle */
   retval = pam_fail_delay (NULL, 60);
   if (retval == PAM_SUCCESS)

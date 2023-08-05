@@ -130,5 +130,7 @@ main (void)
       free (ptr);
     }
 
+  pam_end (pamh, retval);
+
   return 0;
 }

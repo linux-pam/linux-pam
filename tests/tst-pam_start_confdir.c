@@ -77,6 +77,8 @@ main (void)
       return 1;
     }
 
+  pam_end (pamh, retval);
+
   /* 2: check with invalid service */
   retval = pam_start_confdir (xservice, user, &conv, confdir, &pamh);
   if (retval == PAM_SUCCESS)
@@ -86,6 +88,8 @@ main (void)
       return 1;
     }
 
+  pam_end (pamh, retval);
+
   /* 3: check with invalid confdir */
   retval = pam_start_confdir (service, user, &conv, xconfdir, &pamh);
   if (retval == PAM_SUCCESS)
@@ -94,6 +98,8 @@ main (void)
 	       service, user, xconfdir);
       return 1;
     }
+
+  pam_end (pamh, retval);
 
   return 0;
 }
