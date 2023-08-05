@@ -50,5 +50,7 @@ int main(void)
 	return 1;
     }
 
+  free(myargv);
+
   return 0;
 }
