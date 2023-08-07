@@ -46,7 +46,7 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	{
 	    char *tmp;
 	    for (tmp=pamh->service_name; *tmp; ++tmp)
-		*tmp = tolower(*tmp);                 /* require lower case */
+		*tmp = tolower((unsigned char)*tmp);                 /* require lower case */
 	}
 	break;
 

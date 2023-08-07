@@ -103,14 +103,14 @@ pam_modutil_search_key(pam_handle_t *pamh UNUSED,
 		tmp = strchr(cp, '#');  /* remove comments */
 		if (tmp)
 			*tmp = '\0';
-		while (isspace((int)*cp))    /* remove spaces and tabs */
+		while (isspace((unsigned char)*cp))    /* remove spaces and tabs */
 			++cp;
 		if (*cp == '\0')        /* ignore empty lines */
 			continue;
 
 		tmp = strsep (&cp, " \t=");
 		if (cp != NULL)
-			while (isspace((int)*cp) || *cp == '=')
+			while (isspace((unsigned char)*cp) || *cp == '=')
 				++cp;
 		else
 			cp = buf + n;   /* empty string */

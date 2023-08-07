@@ -67,7 +67,7 @@ static int _pam_start_internal (
 	char *tmp;
 
 	for (tmp=(*pamh)->service_name; *tmp; ++tmp)
-	    *tmp = tolower(*tmp);                   /* require lower case */
+	    *tmp = tolower((unsigned char)*tmp);                   /* require lower case */
     }
 
     if (user) {

@@ -273,7 +273,7 @@ void _pam_parse_control(int *control_array, char *tok)
 	int act, len;
 
 	/* skip leading space */
-	while (isspace((int)*tok) && *++tok);
+	while (isspace((unsigned char)*tok) && *++tok);
 	if (!*tok)
 	    break;
 
@@ -290,14 +290,14 @@ void _pam_parse_control(int *control_array, char *tok)
 	}
 
 	/* observe '=' */
-	while (isspace((int)*tok) && *++tok);
+	while (isspace((unsigned char)*tok) && *++tok);
 	if (!*tok || *tok++ != '=') {
 	    error = "expecting '='";
 	    goto parse_error;
 	}
 
 	/* skip leading space */
-	while (isspace((int)*tok) && *++tok);
+	while (isspace((unsigned char)*tok) && *++tok);
 	if (!*tok) {
 	    error = "expecting action";
 	    goto parse_error;
@@ -322,7 +322,7 @@ void _pam_parse_control(int *control_array, char *tok)
 	     * cause looping problems.  So, for now, we will just
 	     * allow forward jumps.  (AGM 1998/1/7)
 	     */
-	    if (!isdigit((int)*tok)) {
+	    if (!isdigit((unsigned char)*tok)) {
 		error = "expecting jump number";
 		goto parse_error;
 	    }
@@ -331,7 +331,7 @@ void _pam_parse_control(int *control_array, char *tok)
 	    do {
 		act *= 10;
 		act += *tok - '0';      /* XXX - this assumes ascii behavior */
-	    } while (*++tok && isdigit((int)*tok));
+	    } while (*++tok && isdigit((unsigned char)*tok));
 	    if (! act) {
 		/* we do not allow 0 jumps.  There is a token ('ignore')
                    for that */
