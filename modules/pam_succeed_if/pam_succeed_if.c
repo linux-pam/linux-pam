@@ -571,6 +571,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		pam_syslog(pamh, LOG_ERR,
 			"incomplete condition detected");
 	} else if (count == 0) {
+		ret = PAM_SUCCESS;
 		pam_syslog(pamh, LOG_INFO,
 			"no condition detected; module succeeded");
 	}
