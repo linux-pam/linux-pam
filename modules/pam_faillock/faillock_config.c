@@ -121,7 +121,7 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 
 		/* drop terminating whitespace including the \n */
 		while (ptr > linebuf) {
-			if (!isspace(*(ptr-1))) {
+			if (!isspace((unsigned char)*(ptr-1))) {
 				*ptr = '\0';
 				break;
 			}
@@ -129,7 +129,7 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 		}
 
 		/* skip initial whitespace */
-		for (ptr = linebuf; isspace(*ptr); ptr++);
+		for (ptr = linebuf; isspace((unsigned char)*ptr); ptr++);
 		if (*ptr == '\0')
 			continue;
 
@@ -137,7 +137,7 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 		eq = 0;
 		name = ptr;
 		while (*ptr != '\0') {
-			if (isspace(*ptr) || *ptr == '=') {
+			if (isspace((unsigned char)*ptr) || *ptr == '=') {
 				eq = *ptr == '=';
 				*ptr = '\0';
 				++ptr;
@@ -149,7 +149,7 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 		/* grab the key value */
 		while (*ptr != '\0') {
 			if (*ptr != '=' || eq) {
-				if (!isspace(*ptr)) {
+				if (!isspace((unsigned char)*ptr)) {
 					break;
 				}
 			} else {

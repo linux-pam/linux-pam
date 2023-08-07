@@ -205,7 +205,7 @@ get_lastlog_uid_max(pam_handle_t *pamh)
 	return uid_max;
 
     ep = s + strlen(s);
-    while (ep > s && isspace(*(--ep))) {
+    while (ep > s && isspace((unsigned char)*(--ep))) {
 	*ep = '\0';
     }
     errno = 0;

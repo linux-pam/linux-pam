@@ -24,10 +24,10 @@ static void do_transpose(char *buffer,int len)
 {
      int i;
      for (i=0; i<len; ++i) {
-	  if (islower(buffer[i])) {
-	       buffer[i] = toupper(buffer[i]);
+	  if (islower((unsigned char)buffer[i])) {
+	       buffer[i] = toupper((unsigned char)buffer[i]);
 	  } else {
-	       buffer[i] = tolower(buffer[i]);
+	       buffer[i] = tolower((unsigned char)buffer[i]);
 	  }
      }
 }

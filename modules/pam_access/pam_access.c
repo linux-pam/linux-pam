@@ -456,7 +456,7 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	    }
 	    if (line[0] == '#')
 		continue;			/* comment line */
-	    while (end > 0 && isspace(line[end - 1]))
+	    while (end > 0 && isspace((unsigned char)line[end - 1]))
 		end--;
 	    line[end] = 0;			/* strip trailing whitespace */
 	    if (line[0] == 0)			/* skip blank lines */

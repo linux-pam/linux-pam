@@ -327,7 +327,7 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 				if ((buf[userlen] == ':') &&
 				    (strncmp(name, buf, userlen) == 0)) {
 					p = buf + strlen(buf) - 1;
-					while (isspace(*p) && (p >= buf)) {
+					while (isspace((unsigned char)*p) && (p >= buf)) {
 						*p-- = '\0';
 					}
 					matched = 1;

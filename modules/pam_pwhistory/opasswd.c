@@ -199,7 +199,7 @@ check_old_pass, const char *user, const char *newpass, const char *filename, int
       tmp = strchr (cp, '#');  /* remove comments */
       if (tmp)
         *tmp = '\0';
-      while (isspace ((int)*cp))    /* remove spaces and tabs */
+      while (isspace ((unsigned char)*cp))    /* remove spaces and tabs */
         ++cp;
       if (*cp == '\0')        /* ignore empty lines */
         continue;
@@ -420,7 +420,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 	tmp = strchr (cp, '#');  /* remove comments */
 	if (tmp)
 	  *tmp = '\0';
-	while (isspace ((int)*cp))    /* remove spaces and tabs */
+	while (isspace ((unsigned char)*cp))    /* remove spaces and tabs */
 	  ++cp;
 	if (*cp == '\0')        /* ignore empty lines */
 	  goto write_old_data;

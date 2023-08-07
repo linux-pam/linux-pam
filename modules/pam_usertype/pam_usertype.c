@@ -169,7 +169,7 @@ pam_usertype_get_id(pam_handle_t *pamh,
 
     /* taken from get_lastlog_uid_max() */
     ep = value + strlen(value);
-    while (ep > value && isspace(*(--ep))) {
+    while (ep > value && isspace((unsigned char)*(--ep))) {
         *ep = '\0';
     }
 

@@ -148,7 +148,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 	return PAM_SERVICE_ERR;
     }
 
-    if (isdigit(uttyname[0])) {
+    if (isdigit((unsigned char)uttyname[0])) {
 	snprintf(ptname, sizeof(ptname), "pts/%s", uttyname);
     } else {
 	ptname[0] = '\0';

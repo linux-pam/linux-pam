@@ -852,7 +852,7 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 
         line = buf;
         /* skip the leading white space */
-        while (*line && isspace(*line))
+        while (*line && isspace((unsigned char)*line))
             line++;
 
         /* Rip off the comments */
@@ -874,7 +874,7 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 	   i, domain, ltype, item, value));
 
         for(j=0; j < strlen(ltype); j++)
-            ltype[j]=tolower(ltype[j]);
+            ltype[j]=tolower((unsigned char)ltype[j]);
 
 	if ((rngtype=parse_uid_range(pamh, domain, &min_uid, &max_uid)) < 0) {
 	    pam_syslog(pamh, LOG_WARNING, "invalid uid range '%s' - skipped", domain);
@@ -883,9 +883,9 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 
         if (i == 4) { /* a complete line */
 	    for(j=0; j < strlen(item); j++)
-		item[j]=tolower(item[j]);
+		item[j]=tolower((unsigned char)item[j]);
 	    for(j=0; j < strlen(value); j++)
-		value[j]=tolower(value[j]);
+		value[j]=tolower((unsigned char)value[j]);
 
             if (strcmp(uname, domain) == 0) /* this user have a limit */
                 process_limit(pamh, LIMITS_DEF_USER, ltype, item, value, ctrl, pl);

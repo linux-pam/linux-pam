@@ -299,10 +299,10 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 			continue;
 
 		start = line;
-		while (isspace(*start))
+		while (isspace((unsigned char)*start))
 			++start;
 		n = strlen(start);
-		while (n > 0 && isspace(start[n-1])) {
+		while (n > 0 && isspace((unsigned char)start[n-1])) {
 			--n;
 		}
 		if (n == 0)

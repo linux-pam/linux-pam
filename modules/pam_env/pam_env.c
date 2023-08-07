@@ -965,7 +965,7 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
 	}
 
 	for ( i = 0 ; key[i] != '=' && key[i] != '\0' ; i++ )
-	    if (!isalnum(key[i]) && key[i] != '_') {
+	    if (!isalnum((unsigned char)key[i]) && key[i] != '_') {
 		pam_syslog(pamh, LOG_ERR,
 		           "non-alphanumeric key '%s' in %s', ignoring",
 		           key, file);

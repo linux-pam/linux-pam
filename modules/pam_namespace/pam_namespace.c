@@ -485,7 +485,7 @@ static int process_line(char *line, const char *home, const char *rhome,
     /*
      * skip the leading white space
      */
-    while (*line && isspace(*line))
+    while (*line && isspace((unsigned char)*line))
         line++;
 
     /*
