@@ -21,21 +21,21 @@
  * override the memory.
  */
 
-#define _pam_overwrite(x)                  \
-do {                                       \
-     PAM_DEPRECATED register char *__xx__; \
-     if ((__xx__=(x)))                     \
-          while (*__xx__)                  \
-               *__xx__++ = '\0';           \
+#define _pam_overwrite(x)               \
+do {                                    \
+     PAM_DEPRECATED register char *xx_; \
+     if ((xx_=(x)))                     \
+          while (*xx_)                  \
+               *xx_++ = '\0';           \
 } while (0)
 
-#define _pam_overwrite_n(x,n)   \
-do {                             \
-     PAM_DEPRECATED register char *__xx__; \
-     register unsigned int __i__ = 0;    \
-     if ((__xx__=(x)))           \
-        for (;__i__<n; __i__++) \
-            __xx__[__i__] = 0; \
+#define _pam_overwrite_n(x,n)           \
+do {                                    \
+     PAM_DEPRECATED register char *xx_; \
+     register unsigned int i_ = 0;      \
+     if ((xx_=(x)))                     \
+        for (;i_<n; i_++)               \
+            xx_[i_] = 0;                \
 } while (0)
 
 /*
