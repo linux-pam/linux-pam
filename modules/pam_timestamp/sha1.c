@@ -48,7 +48,7 @@
 #include <unistd.h>
 #include "sha1.h"
 
-static unsigned char
+static const unsigned char
 padding[SHA1_BLOCK_SIZE] = {
 	0x80, 0, 0, 0, 0, 0, 0, 0,     0, 0, 0, 0, 0, 0, 0, 0,
 	   0, 0, 0, 0, 0, 0, 0, 0,     0, 0, 0, 0, 0, 0, 0, 0,
