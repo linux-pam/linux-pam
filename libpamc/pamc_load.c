@@ -324,7 +324,7 @@ int __pamc_valid_agent_id(int id_length, const char *id)
     for (i=post=0 ; i < id_length; ++i) {
 	int ch = id[i++];
 
-	if (isalpha(ch) || isdigit(ch) || (ch == '_')) {
+	if (isalpha((unsigned char)ch) || isdigit((unsigned char)ch) || (ch == '_')) {
 	    continue;
 	} else if (post && (ch == '.')) {
 	    continue;
