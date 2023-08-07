@@ -72,7 +72,7 @@ line
 
     /* make sure we have lower case */
     for (i=0; $1[i]; ++i) {
-	$1[i] = tolower($1[i]);
+	$1[i] = tolower((unsigned char)$1[i]);
     }
 
     /* $1 = service-name */
