@@ -3,6 +3,7 @@
 #
 
 AM_CFLAGS = -DDEFAULT_MODULE_PATH=\"$(SECUREDIR)/\" -DLIBPAM_COMPILE \
+	-DLOCALEDIR=\"$(localedir)\" \
 	-I$(srcdir)/include $(LIBPRELUDE_CFLAGS) $(ECONF_CFLAGS) \
 	-DPAM_VERSION=\"$(VERSION)\" -DSYSCONFDIR=\"$(sysconfdir)\" \
 	$(WARN_CFLAGS)
