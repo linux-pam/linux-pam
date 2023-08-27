@@ -606,7 +606,7 @@ check_account(pam_handle_t *pamh, const char *service,
      int count=0;
      TIME here_and_now;
      int retval=PAM_SUCCESS;
-     time_t end_time = 0;
+     time_t end_time = 0, time_buf = 0;
 
      here_and_now = time_now();                     /* find current time */
      do {
@@ -669,7 +669,7 @@ check_account(pam_handle_t *pamh, const char *service,
 	       continue;
 	  }
 
-	  intime = logic_field(pamh, &here_and_now, buffer, count, &end_time,
+	  intime = logic_field(pamh, &here_and_now, buffer, count, &time_buf,
 	                       check_time);
 	  D(("with time: %s", intime ? "passes":"fails" ));
 
@@ -680,6 +680,8 @@ check_account(pam_handle_t *pamh, const char *service,
 		*/
 	       retval = PAM_PERM_DENIED;
 	  } else {
+               if (good)
+		   end_time = time_buf;
 	       D(("rule passed"));
 	  }
      } while (state != STATE_EOF);
