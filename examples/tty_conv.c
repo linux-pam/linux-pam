@@ -6,7 +6,7 @@
 #include <string.h>
 #include <errno.h>
 #include <unistd.h>
-#include <termios.h>
+#include <asm/termios.h>
 #include <security/pam_appl.h>
 #include <sys/ioctl.h>
 
