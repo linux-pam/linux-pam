@@ -51,6 +51,7 @@
 #define PAM_TRUST_ARG       0x0004
 #define PAM_DENY_ARG        0x0010
 #define PAM_ROOT_ONLY_ARG   0x0020
+#define PAM_AUTH_SELF       0x0040
 
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
@@ -76,11 +77,18 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
                ctrl |= PAM_DENY_ARG;
           else if (!strcmp(*argv,"root_only"))
                ctrl |= PAM_ROOT_ONLY_ARG;
+          else if (!strcmp(*argv,"auth_self"))
+               ctrl |= PAM_AUTH_SELF;
 	  else if ((str = pam_str_skip_prefix(*argv, "group=")) != NULL)
 	       strncpy(use_group, str, group_length - 1);
           else {
                pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
           }
+     }
+
+     if ((ctrl & (PAM_DENY_ARG|PAM_TRUST_ARG)) && (ctrl & PAM_AUTH_SELF)) {
+	     pam_syslog(pamh, LOG_ERR, "can't combine 'auth_self' with 'trust' or 'deny' args %x", ctrl);
+	     return PAM_SERVICE_ERR;
      }
 
      return ctrl;
@@ -199,6 +207,16 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
 
 	} else {
 	    retval = PAM_IGNORE;
+
+	    if (ctrl & PAM_AUTH_SELF && pwd->pw_uid == 0) {
+		if (ctrl & PAM_DEBUG_ARG) {
+		    pam_syslog(pamh, LOG_NOTICE, "changing authentication target to %s", fromsu);
+		}
+		if (pam_set_item(pamh, PAM_USER, fromsu) != PAM_SUCCESS) {
+		   pam_syslog(pamh, LOG_ERR, "failed to change authentication target to %s", fromsu);
+		   return PAM_SERVICE_ERR;
+		}
+	    }
 	}
 
     } else {
@@ -211,6 +229,8 @@ perform_check (pam_handle_t *pamh, int ctrl, const char *use_group)
 		retval = PAM_IGNORE;
 	    }
 
+	} else if (ctrl & PAM_AUTH_SELF && pwd->pw_uid == 0) {
+	    retval = PAM_IGNORE;
 	} else {
 	    retval = PAM_PERM_DENIED;
 	}

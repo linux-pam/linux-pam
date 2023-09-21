@@ -33,6 +33,9 @@
       <arg choice="opt" rep="norepeat">
 	use_uid
       </arg>
+      <arg choice="opt" rep="norepeat">
+	auth_self
+      </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -122,6 +125,20 @@
             The check will be done against the real uid of the calling process,
             instead of trying to obtain the user from the login session
             associated with the terminal in use.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          auth_self
+        </term>
+        <listitem>
+          <para>
+          Instead of granting or denying access based on group membership,
+          change authentication user to calling user when the calling user
+          is member of the group (similar to sudo). This option cannot be
+          combined with the <option>trust</option> or <option>deny</option>
+          options.
           </para>
         </listitem>
       </varlistentry>
