@@ -120,7 +120,7 @@ void _pam_drop_env(pam_handle_t *pamh)
  */
 
 static int _pam_search_env(const struct pam_environ *env
-			   , const char *name_value, int length)
+			   , const char *name_value, size_t length)
 {
     int i;
 
@@ -152,7 +152,8 @@ static int _pam_search_env(const struct pam_environ *env
 
 int pam_putenv(pam_handle_t *pamh, const char *name_value)
 {
-    int l2eq, item, retval;
+    size_t l2eq;
+    int item, retval;
 
     D(("called."));
     IF_NO_PAMH("pam_putenv", pamh, PAM_ABORT);
@@ -167,7 +168,7 @@ int pam_putenv(pam_handle_t *pamh, const char *name_value)
      */
 
     for (l2eq=0; name_value[l2eq] && name_value[l2eq] != '='; ++l2eq);
-    if (l2eq <= 0) {
+    if (l2eq == 0) {
 	pam_syslog(pamh, LOG_ERR, "pam_putenv: bad variable");
 	return PAM_BAD_ITEM;
     }
