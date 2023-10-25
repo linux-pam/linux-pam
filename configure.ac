@@ -638,6 +638,7 @@ AC_CHECK_FUNCS(quotactl)
 AC_CHECK_FUNCS(unshare)
 AC_CHECK_FUNCS(explicit_bzero memset_explicit)
 AC_CHECK_FUNCS([ruserok_af ruserok], [break])
+AC_CHECK_FUNCS(close_range)
 
 AC_ARG_ENABLE([regenerate-docu],
   AS_HELP_STRING([--disable-regenerate-docu],[Don't re-build documentation from XML sources]),

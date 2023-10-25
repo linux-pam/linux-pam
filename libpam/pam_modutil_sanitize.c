@@ -11,6 +11,10 @@
 #include <syslog.h>
 #include <sys/resource.h>
 
+#ifndef CLOSE_RANGE_UNSHARE
+#define CLOSE_RANGE_UNSHARE	(1U << 1)
+#endif /* CLOSE_RANGE_UNSHARE */
+
 /*
  * Creates a pipe, closes its write end, redirects fd to its read end.
  * Returns fd on success, -1 otherwise.
@@ -84,9 +88,8 @@ redirect_out(pam_handle_t *pamh, enum pam_modutil_redirect_fd mode,
 	return fd;
 }
 
-/* Closes all descriptors after stderr. */
 static void
-close_fds(void)
+close_fds_iteratively(void)
 {
 	/*
 	 * An arbitrary upper limit for the maximum file descriptor number
@@ -109,6 +112,18 @@ close_fds(void)
 
 	for (; fd > STDERR_FILENO; --fd)
 		close(fd);
+}
+
+/* Closes all descriptors after stderr. */
+static void
+close_fds(void)
+{
+#ifdef HAVE_CLOSE_RANGE
+	if (close_range(STDERR_FILENO+1, -1U, CLOSE_RANGE_UNSHARE) == 0)
+		return;
+#endif /* HAVE_CLOSE_RANGE */
+
+	close_fds_iteratively();
 }
 
 int
