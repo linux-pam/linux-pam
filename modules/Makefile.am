@@ -44,6 +44,7 @@ endif
 
 SUBDIRS := \
 	pam_access \
+	pam_canonicalize_user \
 	pam_debug \
 	pam_deny \
 	pam_echo \

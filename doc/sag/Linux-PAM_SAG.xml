@@ -378,6 +378,7 @@ session   required   pam_warn.so
       coming with Linux-PAM.
     </para>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_access.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_canonicalize_user.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_debug.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_deny.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pam_echo.xml"/>

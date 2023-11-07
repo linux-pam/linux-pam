@@ -768,7 +768,8 @@ AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile
 	Make.xml.rules \
 	modules/Makefile \
 	modules/pam_access/Makefile \
-        modules/pam_debug/Makefile modules/pam_deny/Makefile \
+	modules/pam_canonicalize_user/Makefile \
+	modules/pam_debug/Makefile modules/pam_deny/Makefile \
 	modules/pam_echo/Makefile modules/pam_env/Makefile \
 	modules/pam_faildelay/Makefile modules/pam_faillock/Makefile \
 	modules/pam_filter/Makefile modules/pam_filter/upperLOWER/Makefile \
