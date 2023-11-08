@@ -27,6 +27,9 @@ endif
 securelib_LTLIBRARIES = pam_canonicalize_user.la
 pam_canonicalize_user_la_LIBADD = $(top_builddir)/libpam/libpam.la
 
+check_PROGRAMS = tst-pam_canonicalize_user-retval
+tst_pam_canonicalize_user_retval_LDADD = $(top_builddir)/libpam/libpam.la
+
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
 -include $(top_srcdir)/Make.xml.rules
