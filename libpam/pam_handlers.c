@@ -575,7 +575,7 @@ static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
 
     D(("called."));
     for (;;) {
-	if (p >= endp) {
+	if (p >= endp - 1) {
 	    /* Overflow */
 	    D(("_pam_assemble_line: overflow"));
 	    return -1;
