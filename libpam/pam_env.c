@@ -14,6 +14,7 @@
 #include "pam_inline.h"
 
 #include <string.h>
+#include <stdint.h>
 #include <stdlib.h>
 
 #ifdef sunos
@@ -33,7 +34,12 @@ static void _pam_dump_env(pam_handle_t *pamh)
        , pamh->env->requested, pamh->env->entries));
 
     for (i=0; i<pamh->env->requested; ++i) {
-	_pam_output_debug(">%-3d [%9p]:[%s]"
+	_pam_output_debug(
+#if UINTPTR_MAX == UINT32_MAX
+			  ">%-3d [%10p]:[%s]"
+#else
+			  ">%-3d [%18p]:[%s]"
+#endif
 			  , i, pamh->env->list[i], pamh->env->list[i]);
     }
     _pam_output_debug("*NOTE* the last item should be (nil)");
