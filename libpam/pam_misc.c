@@ -123,7 +123,7 @@ char *_pam_strdup(const char *x)
      register char *new=NULL;
 
      if (x != NULL) {
-	  register int len;
+	  register size_t len;
 
 	  len = strlen (x) + 1;  /* length of string including NUL */
 	  if ((new = malloc(len)) == NULL) {
