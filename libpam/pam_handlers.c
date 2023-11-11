@@ -233,6 +233,15 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		D(("list: %s",nexttok));
 	        argvlen = _pam_mkargv(nexttok, &argv, &argc);
 		D(("argvlen = %d",argvlen));
+		if (argvlen == 0) {
+		    /* memory allocation failed */
+		    D(("failed to allocate argument vector"));
+		    pam_syslog(pamh, LOG_ERR,
+			       "(%s) argument vector allocation failed",
+			       this_service);
+		    mod_path = NULL;
+		    handler_type = PAM_HT_MUST_FAIL;
+		}
 	    } else {               /* there are no arguments so fix by hand */
 		D(("empty argument list"));
 		argvlen = argc = 0;
