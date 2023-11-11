@@ -113,8 +113,7 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	} else {
 	    struct pam_conv *tconv;
 
-	    if ((tconv=
-		 (struct pam_conv *) malloc(sizeof(struct pam_conv))
+	    if ((tconv = malloc(sizeof(struct pam_conv))
 		) == NULL) {
 		pam_syslog(pamh, LOG_CRIT,
 				"pam_set_item: malloc failed for pam_conv");

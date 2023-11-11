@@ -285,8 +285,7 @@ int misc_conv(int num_msg, const struct pam_message **msgm,
 
     D(("allocating empty response structure array."));
 
-    reply = (struct pam_response *) calloc(num_msg,
-					   sizeof(struct pam_response));
+    reply = calloc(num_msg, sizeof(struct pam_response));
     if (reply == NULL) {
 	D(("no memory for responses"));
 	return PAM_CONV_ERR;

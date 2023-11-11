@@ -268,7 +268,7 @@ hmac_management(pam_handle_t *pamh, int debug, void **out, size_t *out_length,
         goto done;
     }
 
-    hmac_message = (unsigned char*)malloc(sizeof(unsigned char) * MAX_HMAC_LENGTH);
+    hmac_message = malloc(sizeof(unsigned char) * MAX_HMAC_LENGTH);
     if (!hmac_message) {
         pam_syslog(pamh, LOG_CRIT, "Not enough memory");
         goto done;

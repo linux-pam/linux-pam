@@ -687,7 +687,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 
 	retval = get_pwd_hash(pamh, name, &pwd, &salt);
 
-	data_name = (char *) malloc(sizeof(FAIL_PREFIX) + strlen(name));
+	data_name = malloc(sizeof(FAIL_PREFIX) + strlen(name));
 	if (data_name == NULL) {
 		pam_syslog(pamh, LOG_CRIT, "no memory for data-name");
 	} else {
