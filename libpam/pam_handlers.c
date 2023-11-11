@@ -590,6 +590,12 @@ static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
 	    }
 	}
 
+	if (strchr(p, '\n') == NULL && !feof(f)) {
+	    /* Incomplete */
+	    D(("_pam_assemble_line: incomplete"));
+	    return -1;
+	}
+
 	/* skip leading spaces --- line may be blank */
 
 	s = p + strspn(p, " \n\t");
