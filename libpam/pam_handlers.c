@@ -519,7 +519,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 		    _pam_drop(path);
 		    fclose(f);
 		} else {
-		    D(("unable to open %s", PAM_DEFAULT_SERVICE));
+		    D(("unable to open configuration for %s", PAM_DEFAULT_SERVICE));
 		    pam_syslog(pamh, LOG_ERR,
 				    "_pam_init_handlers: no default config %s",
 				    PAM_DEFAULT_SERVICE);
