@@ -429,7 +429,8 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
 
     /* Should we recall where to resume next time? */
     if (retval == PAM_INCOMPLETE) {
-	D(("module [%d] returned PAM_INCOMPLETE"));
+	D(("module [%s] returned PAM_INCOMPLETE",
+	   pamh->mod_name ? pamh->mod_name : "(NULL)"));
 	pamh->former.choice = choice;
     } else {
 	pamh->former.choice = PAM_NOT_STACKED;
