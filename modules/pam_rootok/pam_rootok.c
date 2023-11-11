@@ -72,7 +72,6 @@ log_callback (int type UNUSED, const char *fmt, ...)
 				   NULL, 0);
 	audit_close(audit_fd);
 	free(buf);
-	va_end(ap);
 	return 0;
     }
 
