@@ -41,6 +41,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <string.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <limits.h>
@@ -180,6 +181,12 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	{
 	  close (fd);
 	  return PAM_IGNORE;
+	}
+
+      if ((uintmax_t) st.st_size >= (uintmax_t) SIZE_MAX)
+	{
+	  close (fd);
+	  return PAM_BUF_ERR;
 	}
 
       mtmp = malloc (st.st_size + 1);
