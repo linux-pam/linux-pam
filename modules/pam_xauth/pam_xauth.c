@@ -87,14 +87,13 @@ static const char * const xauthpaths[] = {
  * given input on stdin, and storing any output it generates. */
 static int
 run_coprocess(pam_handle_t *pamh, const char *input, char **output,
-	      uid_t uid, gid_t gid, const char *command, ...)
+	      uid_t uid, gid_t gid, const char *command, const char *argv[])
 {
 	int ipipe[2], opipe[2], i;
 	char buf[LINE_MAX];
 	pid_t child;
 	char *buffer = NULL;
 	size_t buffer_size = 0;
-	va_list ap;
 	struct sigaction newsa, oldsa;
 
 	*output = NULL;
@@ -134,9 +133,6 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 	}
 
 	if (child == 0) {
-		/* We're the child. */
-		size_t j;
-		const char *args[10] = {};
 		/* Drop privileges. */
 		if (setgid(gid) == -1)
 		  {
@@ -176,18 +172,9 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 						    PAM_MODUTIL_NULL_FD) < 0) {
 		    _exit(1);
 		}
-		/* Convert the varargs list into a regular array of strings. */
-		va_start(ap, command);
-		args[0] = command;
-		for (j = 1; j < PAM_ARRAY_SIZE(args) - 1; j++) {
-			args[j] = va_arg(ap, const char*);
-			if (args[j] == NULL) {
-				break;
-			}
-		}
 		/* Run the command. */
 		DIAG_PUSH_IGNORE_CAST_QUAL;
-		execv(command, (char *const *) args);
+		execv(command, (char *const *) argv);
 		DIAG_POP_IGNORE_CAST_QUAL;
 		/* Never reached. */
 		_exit(1);
@@ -550,8 +537,9 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	}
 	if (run_coprocess(pamh, NULL, &cookie,
 			  getuid(), getgid(),
+			  xauth, (const char *[]) {
 			  xauth, "-f", cookiefile, "nlist", display,
-			  NULL) == 0) {
+			  NULL}) == 0) {
 #ifdef WITH_SELINUX
 		char *context_raw = NULL;
 #endif
@@ -608,8 +596,9 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 					}
 					run_coprocess(pamh, NULL, &cookie,
 						      getuid(), getgid(),
+						      xauth, (const char *[]) {
 						      xauth, "-f", cookiefile,
-						      "nlist", t, NULL);
+						      "nlist", t, NULL});
 				}
 				free(t);
 				t = NULL;
@@ -750,7 +739,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		}
 		run_coprocess(pamh, cookie, &tmp,
 			      tpwd->pw_uid, tpwd->pw_gid,
-			      xauth, "-f", cookiefile, "nmerge", "-", NULL);
+			      xauth, (const char *[]) {
+			      xauth, "-f", cookiefile, "nmerge", "-", NULL});
 
 		/* We don't need to keep a copy of these around any more. */
 		cookiefile = NULL;
