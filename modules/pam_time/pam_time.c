@@ -432,7 +432,7 @@ check_time(pam_handle_t *pamh, const void *AT, const char *times,
      int i,j=0;
 
      at = AT;
-     D(("chcking: 0%o/%.4d vs. %s", at->day, at->minute, times));
+     D(("checking: 0%o/%.4d vs. %s", at->day, at->minute, times));
 
      if (times == NULL) {
 	  /* this should not happen */
