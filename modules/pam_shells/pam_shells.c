@@ -8,6 +8,7 @@
 
 #include "config.h"
 
+#include <limits.h>
 #include <pwd.h>
 #include <stdarg.h>
 #include <string.h>
@@ -115,8 +116,8 @@ static int perform_check(pam_handle_t *pamh)
     econf_free (keys);
     econf_free (key_file);
 #else
-    char shellFileLine[256];
-    FILE * shellFile;
+    FILE *shellFile;
+    char *p = NULL;
 
     if (!check_file(SHELL_FILE, pamh))
         return PAM_AUTH_ERR;
@@ -129,14 +130,47 @@ static int perform_check(pam_handle_t *pamh)
 
     retval = 1;
 
-    while(retval && (fgets(shellFileLine, 255, shellFile) != NULL)) {
-	if (shellFileLine[strlen(shellFileLine) - 1] == '\n')
-	    shellFileLine[strlen(shellFileLine) - 1] = '\0';
-	retval = strcmp(shellFileLine, userShell);
+#if defined(HAVE_GETLINE) || defined (HAVE_GETDELIM)
+    size_t n = 0;
+
+    while (retval &&
+#if defined(HAVE_GETLINE)
+	   getline(&p, &n, shellFile)
+#elif defined (HAVE_GETDELIM)
+	   getdelim(&p, &n, '\n', shellFile)
+#endif
+	   != -1) {
+
+	if (p[0] != '/') {
+		continue;
+	}
+	retval = strcmp(p, userShell);
     }
 
+    free(p);
+#else
+    char buf[PATH_MAX + 2];
+    int ignore = 0;
+
+    while (retval && fgets(buf, sizeof(buf), shellFile) != NULL) {
+	p = strchr(buf, '\n');
+	if (p == NULL) {
+		ignore = 1;
+		continue;
+	} else if (ignore) {
+		ignore = 0;
+		continue;
+	}
+
+	if (buf[0] != '/') {
+		continue;
+	}
+	retval = strcmp(buf, userShell);
+    }
+#endif
+
     fclose(shellFile);
- #endif
+#endif
 
     if (retval) {
 	return PAM_AUTH_ERR;
