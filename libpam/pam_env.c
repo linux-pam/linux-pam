@@ -272,7 +272,7 @@ int pam_putenv(pam_handle_t *pamh, const char *name_value)
     pam_overwrite_string(pamh->env->list[item]);
     _pam_drop(pamh->env->list[item]);
     --(pamh->env->requested);
-    D(("mmove: item[%d]+%d -> item[%d]"
+    D(("memmove: item[%d]+%d -> item[%d]"
        , item+1, ( pamh->env->requested - item ), item));
     (void) memmove(&pamh->env->list[item], &pamh->env->list[item+1]
 		   , ( pamh->env->requested - item )*sizeof(char *) );
