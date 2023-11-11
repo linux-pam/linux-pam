@@ -138,7 +138,7 @@ int pam_fail_delay(pam_handle_t *pamh, unsigned int usec)
 {
      unsigned int largest;
 
-     IF_NO_PAMH("pam_fail_delay", pamh, PAM_SYSTEM_ERR);
+     IF_NO_PAMH(pamh, PAM_SYSTEM_ERR);
 
      D(("setting delay to %u",usec));
 

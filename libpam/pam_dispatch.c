@@ -37,7 +37,7 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
     int depth, impression, status, skip_depth, prev_level, stack_level;
     struct _pam_substack_state *substates = NULL;
 
-    IF_NO_PAMH("_pam_dispatch_aux", pamh, PAM_SYSTEM_ERR);
+    IF_NO_PAMH(pamh, PAM_SYSTEM_ERR);
 
     if (h == NULL) {
         const void *service=NULL;
@@ -337,7 +337,7 @@ int _pam_dispatch(pam_handle_t *pamh, int flags, int choice)
     int retval = PAM_SYSTEM_ERR, use_cached_chain;
     _pam_boolean resumed;
 
-    IF_NO_PAMH("_pam_dispatch", pamh, PAM_SYSTEM_ERR);
+    IF_NO_PAMH(pamh, PAM_SYSTEM_ERR);
 
     if (__PAM_FROM_MODULE(pamh)) {
 	D(("called from a module!?"));

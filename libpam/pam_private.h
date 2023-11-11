@@ -287,9 +287,9 @@ void _pam_parse_control(int *control_array, char *tok);
  *       else
  */
 
-#define IF_NO_PAMH(X,pamh,ERR)                    \
+#define IF_NO_PAMH(pamh,ERR)                      \
 if ((pamh) == NULL) {                             \
-    syslog(LOG_ERR, _PAM_SYSTEM_LOG_PREFIX " " X ": NULL pam handle passed"); \
+    syslog(LOG_ERR, _PAM_SYSTEM_LOG_PREFIX " %s: NULL pam handle passed", __FUNCTION__); \
     return ERR;                                   \
 }
 

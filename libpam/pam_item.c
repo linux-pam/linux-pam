@@ -31,7 +31,7 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 
     D(("called"));
 
-    IF_NO_PAMH("pam_set_item", pamh, PAM_SYSTEM_ERR);
+    IF_NO_PAMH(pamh, PAM_SYSTEM_ERR);
 
     retval = PAM_SUCCESS;
 
@@ -177,7 +177,7 @@ int pam_get_item (const pam_handle_t *pamh, int item_type, const void **item)
     int retval = PAM_SUCCESS;
 
     D(("called."));
-    IF_NO_PAMH("pam_get_item", pamh, PAM_SYSTEM_ERR);
+    IF_NO_PAMH(pamh, PAM_SYSTEM_ERR);
 
     if (item == NULL) {
 	pam_syslog(pamh, LOG_ERR,
@@ -280,7 +280,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 
     D(("called."));
 
-    IF_NO_PAMH("pam_get_user", pamh, PAM_SYSTEM_ERR);
+    IF_NO_PAMH(pamh, PAM_SYSTEM_ERR);
 
     if (user == NULL) {
         /* ensure that the module has supplied a destination */

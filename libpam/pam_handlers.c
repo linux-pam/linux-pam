@@ -392,7 +392,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
     int retval;
 
     D(("called."));
-    IF_NO_PAMH("_pam_init_handlers",pamh,PAM_SYSTEM_ERR);
+    IF_NO_PAMH(pamh,PAM_SYSTEM_ERR);
 
     /* Return immediately if everything is already loaded */
     if (pamh->handlers.handlers_loaded) {
@@ -796,7 +796,7 @@ int _pam_add_handler(pam_handle_t *pamh
     int mod_type = PAM_MT_FAULTY_MOD;
 
     D(("called."));
-    IF_NO_PAMH("_pam_add_handler",pamh,PAM_SYSTEM_ERR);
+    IF_NO_PAMH(pamh,PAM_SYSTEM_ERR);
 
     D(("adding type %d, handler_type %d, module `%s'",
 	type, handler_type, mod_path));
@@ -954,7 +954,7 @@ int _pam_free_handlers(pam_handle_t *pamh)
     struct loaded_module *mod;
 
     D(("called."));
-    IF_NO_PAMH("_pam_free_handlers",pamh,PAM_SYSTEM_ERR);
+    IF_NO_PAMH(pamh,PAM_SYSTEM_ERR);
 
     mod = pamh->handlers.module;
 

@@ -56,7 +56,7 @@ int _pam_make_env(pam_handle_t *pamh)
 {
     D(("called."));
 
-    IF_NO_PAMH("_pam_make_env", pamh, PAM_ABORT);
+    IF_NO_PAMH(pamh, PAM_ABORT);
 
     /*
      * get structure memory
@@ -99,7 +99,7 @@ int _pam_make_env(pam_handle_t *pamh)
 void _pam_drop_env(pam_handle_t *pamh)
 {
     D(("called."));
-    IF_NO_PAMH("_pam_make_env", pamh, /* nothing to return */);
+    IF_NO_PAMH(pamh, /* nothing to return */);
 
     if (pamh->env != NULL) {
 	int i;
@@ -162,7 +162,7 @@ int pam_putenv(pam_handle_t *pamh, const char *name_value)
     int item, retval;
 
     D(("called."));
-    IF_NO_PAMH("pam_putenv", pamh, PAM_ABORT);
+    IF_NO_PAMH(pamh, PAM_ABORT);
 
     if (name_value == NULL) {
 	pam_syslog(pamh, LOG_ERR, "pam_putenv: no variable indicated");
@@ -295,7 +295,7 @@ const char *pam_getenv(pam_handle_t *pamh, const char *name)
     int item;
 
     D(("called."));
-    IF_NO_PAMH("pam_getenv", pamh, NULL);
+    IF_NO_PAMH(pamh, NULL);
 
     if (name == NULL) {
 	pam_syslog(pamh, LOG_ERR, "pam_getenv: no variable indicated");
@@ -368,7 +368,7 @@ char **pam_getenvlist(pam_handle_t *pamh)
     int i;
 
     D(("called."));
-    IF_NO_PAMH("pam_getenvlist", pamh, NULL);
+    IF_NO_PAMH(pamh, NULL);
 
     if (pamh->env == NULL || pamh->env->list == NULL) {
 	pam_syslog(pamh, LOG_ERR, "pam_getenvlist: no env%s found",

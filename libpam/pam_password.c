@@ -15,7 +15,7 @@ int pam_chauthtok(pam_handle_t *pamh, int flags)
 
     D(("called."));
 
-    IF_NO_PAMH("pam_chauthtok", pamh, PAM_SYSTEM_ERR);
+    IF_NO_PAMH(pamh, PAM_SYSTEM_ERR);
 
     if (__PAM_FROM_MODULE(pamh)) {
 	D(("called from module!?"));
