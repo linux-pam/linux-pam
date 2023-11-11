@@ -274,7 +274,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	    {
 	      size_t len;
 	      len = strlen(buf);
-	      if (buf[len-1] == '\n')
+	      if (len > 0 && buf[len-1] == '\n')
 		buf[len-1] = '\0';
 	      pam_info(pamh, "%s", buf);
 	    }
