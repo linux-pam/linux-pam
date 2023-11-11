@@ -108,7 +108,7 @@ pam_modutil_getgrnam(pam_handle_t *pamh, const char *group)
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
 
-    D(("grp structure took %u bytes or so of memory",
+    D(("grp structure took %zu bytes or so of memory",
        length+sizeof(struct group)));
 
     free(buffer);

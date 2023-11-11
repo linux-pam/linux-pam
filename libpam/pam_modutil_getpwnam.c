@@ -108,7 +108,7 @@ pam_modutil_getpwnam(pam_handle_t *pamh, const char *user)
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
 
-    D(("pwd structure took %u bytes or so of memory",
+    D(("pwd structure took %zu bytes or so of memory",
        length+sizeof(struct passwd)));
 
     free(buffer);

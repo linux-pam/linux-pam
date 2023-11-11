@@ -108,7 +108,7 @@ pam_modutil_getspnam(pam_handle_t *pamh, const char *user)
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
 
-    D(("spwd structure took %u bytes or so of memory",
+    D(("spwd structure took %zu bytes or so of memory",
        length+sizeof(struct spwd)));
 
     free(buffer);

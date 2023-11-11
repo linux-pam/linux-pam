@@ -119,7 +119,7 @@ pam_modutil_getpwuid(pam_handle_t *pamh, uid_t uid)
 
     } while (length < PWD_ABSURD_PWD_LENGTH);
 
-    D(("pwd structure took %u bytes or so of memory",
+    D(("pwd structure took %zu bytes or so of memory",
        length+sizeof(struct passwd)));
 
     free(buffer);
