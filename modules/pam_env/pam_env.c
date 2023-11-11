@@ -300,7 +300,7 @@ _assemble_line(FILE *f, char *buffer, int buf_len)
     for (;;) {
 	if (used >= buf_len) {
 	    /* Overflow */
-	    D(("_assemble_line: overflow"));
+	    D(("overflow"));
 	    return -1;
 	}
 	if (fgets(p, buf_len - used, f) == NULL) {
@@ -313,11 +313,11 @@ _assemble_line(FILE *f, char *buffer, int buf_len)
 	    }
 	}
 	if (p[0] == '\0') {
-	    D(("_assemble_line: corrupted or binary file"));
+	    D(("corrupted or binary file"));
 	    return -1;
 	}
 	if (p[strlen(p)-1] != '\n' && !feof(f)) {
-	    D(("_assemble_line: line too long"));
+	    D(("line too long"));
 	    return -1;
 	}
 

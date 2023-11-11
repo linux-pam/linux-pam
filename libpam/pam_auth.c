@@ -36,7 +36,7 @@ int pam_authenticate(pam_handle_t *pamh, int flags)
     if (retval != PAM_INCOMPLETE) {
 	_pam_sanitize(pamh);
 	_pam_await_timer(pamh, retval);   /* if unsuccessful then wait now */
-	D(("pam_authenticate exit"));
+	D(("exit"));
     } else {
 	D(("will resume when ready"));
     }
