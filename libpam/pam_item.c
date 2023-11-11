@@ -61,7 +61,7 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
 	break;
 
     case PAM_TTY:
-	D(("setting tty to %s", item));
+	D(("setting tty to %s", (const char *)item));
 	TRY_SET(pamh->tty, item);
 	break;
 
