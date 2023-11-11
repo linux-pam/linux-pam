@@ -123,6 +123,7 @@ static void _pam_output_debug_info(const char *file, const char *fn
         fclose(logfile);
 }
 
+PAM_FORMAT((printf, 1, 2))
 static void _pam_output_debug(const char *format, ...)
 {
     va_list args;
