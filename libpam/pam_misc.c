@@ -37,6 +37,7 @@
 
 #include "pam_private.h"
 
+#include <limits.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -329,8 +330,17 @@ void _pam_parse_control(int *control_array, char *tok)
 	    /* parse a number */
 	    act = 0;
 	    do {
+		int digit = *tok - '0';
+		if (act > INT_MAX / 10) {
+		    error = "expecting smaller jump number";
+		    goto parse_error;
+		}
 		act *= 10;
-		act += *tok - '0';      /* XXX - this assumes ascii behavior */
+		if (act > INT_MAX - digit) {
+		    error = "expecting smaller jump number";
+		    goto parse_error;
+		}
+		act += digit;      /* XXX - this assumes ascii behavior */
 	    } while (*++tok && isdigit((unsigned char)*tok));
 	    if (! act) {
 		/* we do not allow 0 jumps.  There is a token ('ignore')
