@@ -372,7 +372,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 		break;
 	    } else {
 		/* conversation should have given a response */
-		D(("pam_get_user: no response provided"));
+		D(("no response provided"));
 		retval = PAM_CONV_ERR;
 	    }
 	    /* fallthrough */

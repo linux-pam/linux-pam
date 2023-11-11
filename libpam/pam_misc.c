@@ -175,7 +175,7 @@ int _pam_mkargv(const char *s, char ***argv, int *argc)
     int count=0;
 #endif
 
-    D(("_pam_mkargv called: %s",s));
+    D(("called: %s",s));
 
     *argc = 0;
 

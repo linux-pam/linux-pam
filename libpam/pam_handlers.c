@@ -76,7 +76,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	char **argv;
 	int argvlen;
 
-	D(("_pam_init_handler: LINE: %s", buf));
+	D(("LINE: %s", buf));
 	if (known_service != NULL) {
 	    nexttok = buf;
 	    /* No service field: all lines are for the known service. */
@@ -98,13 +98,12 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    int substack = 0;
 
 	    /* This is a service we are looking for */
-	    D(("_pam_init_handlers: Found PAM config entry for: %s"
-	       , this_service));
+	    D(("Found PAM config entry for: %s", this_service));
 
 	    tok = _pam_StrTok(NULL, " \n\t", &nexttok);
 	    if (tok == NULL) {
 	        /* module type does not exist */
-	        D(("_pam_init_handlers: empty module type for %s", this_service));
+	        D(("empty module type for %s", this_service));
 	        pam_syslog(pamh, LOG_ERR,
 			   "(%s) empty module type", this_service);
 	        module_type = (requested_module_type != PAM_T_ANY) ?
@@ -125,7 +124,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		    module_type = PAM_T_PASS;
 		} else {
 		    /* Illegal module type */
-		    D(("_pam_init_handlers: bad module type: %s", tok));
+		    D(("bad module type: %s", tok));
 		    pam_syslog(pamh, LOG_ERR, "(%s) illegal module type: %s",
 			    this_service, tok);
 		    module_type = (requested_module_type != PAM_T_ANY) ?
@@ -133,7 +132,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		    handler_type = PAM_HT_MUST_FAIL; /* install as normal but fail when dispatched */
 		}
 	    }
-	    D(("Using %s config entry: %s", handler_type?"BAD ":"", tok));
+	    D(("Using %sconfig entry: %s", handler_type?"BAD ":"", tok));
 	    if (requested_module_type != PAM_T_ANY &&
 	        module_type != requested_module_type) {
 		D(("Skipping config entry: %s (requested=%d, found=%d)",
@@ -151,7 +150,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    tok = _pam_StrTok(NULL, " \n\t", &nexttok);
 	    if (tok == NULL) {
 		/* no module name given */
-		D(("_pam_init_handlers: no control flag supplied"));
+		D(("no control flag supplied"));
 		pam_syslog(pamh, LOG_ERR,
 			   "(%s) no control flag supplied", this_service);
 		_pam_set_default_control(actions, _PAM_ACTION_BAD);
@@ -221,7 +220,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		D(("mod_path = %s",mod_path));
 	    } else {
 		/* no module name given */
-		D(("_pam_init_handlers: no module name supplied"));
+		D(("no module name supplied"));
 		pam_syslog(pamh, LOG_ERR,
 		           "(%s) no module name supplied", this_service);
 		mod_path = NULL;
@@ -235,7 +234,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	        argvlen = _pam_mkargv(nexttok, &argv, &argc);
 		D(("argvlen = %d",argvlen));
 	    } else {               /* there are no arguments so fix by hand */
-		D(("_pam_init_handlers: empty argument list"));
+		D(("empty argument list"));
 		argvlen = argc = 0;
 		argv = NULL;
 	    }
@@ -350,7 +349,7 @@ static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
     char *path = NULL;
     int retval = PAM_ABORT;
 
-    D(("_pam_load_conf_file called"));
+    D(("called."));
 
     if (stack_level >= PAM_SUBSTACK_MAX_LEVEL) {
 	D(("maximum level of substacks reached"));
@@ -392,7 +391,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
     FILE *f;
     int retval;
 
-    D(("_pam_init_handlers called"));
+    D(("called."));
     IF_NO_PAMH("_pam_init_handlers",pamh,PAM_SYSTEM_ERR);
 
     /* Return immediately if everything is already loaded */
@@ -400,7 +399,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 	return PAM_SUCCESS;
     }
 
-    D(("_pam_init_handlers: initializing"));
+    D(("initializing"));
 
     /* First clean the service structure */
 
@@ -555,7 +554,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 
     pamh->handlers.handlers_loaded = 1;
 
-    D(("_pam_init_handlers exiting"));
+    D(("exiting"));
     return PAM_SUCCESS;
 }
 
@@ -577,7 +576,7 @@ static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
     for (;;) {
 	if (p >= endp - 1) {
 	    /* Overflow */
-	    D(("_pam_assemble_line: overflow"));
+	    D(("overflow"));
 	    return -1;
 	}
 	if (fgets(p, endp - p, f) == NULL) {
@@ -683,7 +682,7 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
     int success;
     struct loaded_module *mod;
 
-    D(("_pam_load_module: loading module `%s'", mod_path));
+    D(("loading module `%s'", mod_path));
 
     mod = pamh->handlers.module;
 
@@ -714,10 +713,10 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 	/* Be pessimistic... */
 	success = PAM_ABORT;
 
-	D(("_pam_load_module: _pam_dlopen(%s)", mod_path));
+	D(("_pam_dlopen(%s)", mod_path));
 	mod->dl_handle = _pam_dlopen(mod_path);
-	D(("_pam_load_module: _pam_dlopen'ed"));
-	D(("_pam_load_module: dlopen'ed"));
+	D(("_pam_dlopen'ed"));
+	D(("dlopen'ed"));
 	if (mod->dl_handle == NULL) {
 	    const char *isa = strstr(mod_path, "$ISA");
 	    size_t isa_len = strlen("$ISA");
@@ -728,7 +727,7 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 			malloc(strlen(mod_path) - isa_len + pam_isa_len + 1);
 
 		if (mod_full_isa_path == NULL) {
-		    D(("_pam_load_module: couldn't get memory for mod_path"));
+		    D(("couldn't get memory for mod_path"));
 		    pam_syslog(pamh, LOG_CRIT, "no memory for module path");
 		    success = PAM_ABORT;
 		} else {
@@ -746,7 +745,7 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 	    }
 	}
 	if (mod->dl_handle == NULL) {
-	    D(("_pam_load_module: _pam_dlopen(%s) failed", mod_path));
+	    D(("_pam_dlopen(%s) failed", mod_path));
 	    if (handler_type != PAM_HT_SILENT_MODULE)
 		pam_syslog(pamh, LOG_ERR, "unable to dlopen(%s): %s", mod_path,
 		    _pam_dlerror());
@@ -770,7 +769,7 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 
 	/* indicate its name - later we will search for it by this */
 	if ((mod->name = _pam_strdup(mod_path)) == NULL) {
-	    D(("_pam_load_module: couldn't get memory for mod_path"));
+	    D(("couldn't get memory for mod_path"));
 	    pam_syslog(pamh, LOG_CRIT, "no memory for module path");
 	    success = PAM_ABORT;
 	}
@@ -799,7 +798,7 @@ int _pam_add_handler(pam_handle_t *pamh
     D(("called."));
     IF_NO_PAMH("_pam_add_handler",pamh,PAM_SYSTEM_ERR);
 
-    D(("_pam_add_handler: adding type %d, handler_type %d, module `%s'",
+    D(("adding type %d, handler_type %d, module `%s'",
 	type, handler_type, mod_path));
 
     if ((handler_type == PAM_HT_MODULE || handler_type == PAM_HT_SILENT_MODULE) &&
@@ -863,14 +862,14 @@ int _pam_add_handler(pam_handle_t *pamh
 	break;
     default:
 	/* Illegal module type */
-	D(("_pam_add_handler: illegal module type %d", type));
+	D(("illegal module type %d", type));
 	return PAM_ABORT;
     }
 
     /* are the modules reliable? */
     if (mod_type != PAM_MT_DYNAMIC_MOD &&
 	 mod_type != PAM_MT_FAULTY_MOD) {
-	D(("_pam_add_handlers: illegal module library type; %d", mod_type));
+	D(("illegal module library type; %d", mod_type));
 	pam_syslog(pamh, LOG_ERR,
 			"internal error: module library type not known: %s;%d",
 			sym, mod_type);
@@ -944,7 +943,7 @@ int _pam_add_handler(pam_handle_t *pamh
 	    return PAM_ABORT;
     }
 
-    D(("_pam_add_handler: returning successfully"));
+    D(("returning successfully"));
 
     return PAM_SUCCESS;
 }
@@ -962,7 +961,7 @@ int _pam_free_handlers(pam_handle_t *pamh)
     /* Close all loaded modules */
 
     while (pamh->handlers.modules_used) {
-	D(("_pam_free_handlers: dlclose(%s)", mod->name));
+	D(("dlclose(%s)", mod->name));
 	free(mod->name);
 	if (mod->type == PAM_MT_DYNAMIC_MOD) {
 	    _pam_dlclose(mod->dl_handle);
