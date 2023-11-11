@@ -645,7 +645,7 @@ static int process_line(char *line, const char *home, const char *rhome,
            sstr = strchr(ustr, ',');
 
         poly->num_uids = count;
-        poly->uid = (uid_t *) malloc(count * sizeof (uid_t));
+        poly->uid = malloc(count * sizeof (uid_t));
         uidptr = poly->uid;
         if (uidptr == NULL) {
             goto erralloc;
@@ -1295,7 +1295,7 @@ static int check_inst_parent(char *ipath, struct instance_data *idata)
 	 * admin explicitly instructs to ignore the instance parent
 	 * mode by the "ignore_instance_parent_mode" argument).
 	 */
-	inst_parent = (char *) malloc(strlen(ipath)+1);
+	inst_parent = malloc(strlen(ipath)+1);
 	if (!inst_parent) {
 		pam_syslog(idata->pamh, LOG_CRIT, "Error allocating pathname string");
 		return PAM_SESSION_ERR;

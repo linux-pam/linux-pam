@@ -62,7 +62,7 @@ int _pam_make_env(pam_handle_t *pamh)
      * get structure memory
      */
 
-    pamh->env = (struct pam_environ *) malloc(sizeof(struct pam_environ));
+    pamh->env = malloc(sizeof(struct pam_environ));
     if (pamh->env == NULL) {
 	pam_syslog(pamh, LOG_CRIT, "_pam_make_env: out of memory");
 	return PAM_BUF_ERR;
@@ -72,7 +72,7 @@ int _pam_make_env(pam_handle_t *pamh)
      * get list memory
      */
 
-    pamh->env->list = (char **)calloc( PAM_ENV_CHUNK, sizeof(char *) );
+    pamh->env->list = calloc( PAM_ENV_CHUNK, sizeof(char *) );
     if (pamh->env->list == NULL) {
 	pam_syslog(pamh, LOG_CRIT, "_pam_make_env: no memory for list");
 	_pam_drop(pamh->env);
@@ -333,7 +333,7 @@ static char **_copy_env(pam_handle_t *pamh)
     D(("now get some memory for dump"));
 
     /* allocate some memory for this (plus the null tail-pointer) */
-    dump = (char **) calloc(i, sizeof(char *));
+    dump = calloc(i, sizeof(char *));
     D(("dump = %p", dump));
     if (dump == NULL) {
 	return NULL;

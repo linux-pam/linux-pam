@@ -103,7 +103,7 @@ static int process_args(pam_handle_t *pamh
 	    pam_syslog(pamh, LOG_DEBUG, "will run filter %s", *filtername);
 	}
 
-	levp = (char **) malloc(5*sizeof(char *));
+	levp = malloc(5*sizeof(char *));
 	if (levp == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for environment of filter");
 	    return -1;
@@ -152,7 +152,7 @@ static int process_args(pam_handle_t *pamh
 	}
 	size = SERVICE_OFFSET+strlen(tmp);
 
-	levp[1] = (char *) malloc(size+1);
+	levp[1] = malloc(size+1);
 	if (levp[1] == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for service name");
 	    if (levp) {
@@ -176,7 +176,7 @@ static int process_args(pam_handle_t *pamh
 	}
 	size = USER_OFFSET+strlen(user);
 
-	levp[2] = (char *) malloc(size+1);
+	levp[2] = malloc(size+1);
 	if (levp[2] == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for user's name");
 	    if (levp) {
@@ -198,7 +198,7 @@ static int process_args(pam_handle_t *pamh
 
 	size = TYPE_OFFSET+strlen(type);
 
-	levp[3] = (char *) malloc(size+1);
+	levp[3] = malloc(size+1);
 	if (levp[3] == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for type");
 	    if (levp) {

@@ -87,7 +87,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state,
 
     /* is buf set ? */
     if (! *buf) {
-	*buf = (char *) calloc(1, PAM_GROUP_BUFLEN+1);
+	*buf = calloc(1, PAM_GROUP_BUFLEN+1);
 	if (! *buf) {
 	    pam_syslog(pamh, LOG_CRIT, "out of memory");
 	    D(("no memory"));
@@ -530,8 +530,7 @@ static int mkgrplist(pam_handle_t *pamh, char *buf, gid_t **list, int len)
 	       gid_t *tmp;
 
 	       D(("allocating new block"));
-	       tmp = (gid_t *) realloc((*list)
-				       , sizeof(gid_t) * (blks += GROUP_BLK));
+	       tmp = realloc((*list), sizeof(gid_t) * (blks += GROUP_BLK));
 	       if (tmp != NULL) {
 		    (*list) = tmp;
 	       } else {
