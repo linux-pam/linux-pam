@@ -99,11 +99,13 @@
     </para>
 
     <para>
-      The fourth field, <replaceable>list_of_uids</replaceable>, is
-      a comma separated list of user names for whom the polyinstantiation
+      The fourth field, <replaceable>list_of_users_and_groups</replaceable>, is
+      a comma separated list of user names and group names for whom the polyinstantiation
       is not performed. If left blank, polyinstantiation will be performed
       for all users. If the list is preceded with a single "~" character,
-      polyinstantiation is performed only for users in the list.
+      polyinstantiation is performed only for users and groups in the list.
+      To enable group support, first add "enable_groups" argument to pam_namespace module.
+      Then use "@" prefix in the group's name in the configuration file.
     </para>
 
     <para>

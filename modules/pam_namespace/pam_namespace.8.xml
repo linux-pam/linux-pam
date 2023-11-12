@@ -265,6 +265,20 @@
         </listitem>
       </varlistentry>
 
+      <varlistentry>
+        <term>
+          enable_groups
+        </term>
+        <listitem>
+          <para>
+            Allow the user list in the configuration to also contain groups
+            prefixed by an '@', e.g. @sudo. The corresponding polyinstantiation
+            rule will then not be used for users of these groups (or only be
+            used for users of these groups, if the list starts with an '~').
+          </para>
+        </listitem>
+      </varlistentry>
+
     </variablelist>
   </refsect1>
 
