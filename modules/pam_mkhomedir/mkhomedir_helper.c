@@ -131,7 +131,8 @@ create_homedir(const struct passwd *pwd,
 			   if (pointed == NULL) {
 				   free(newsource);
 				   free(newdest);
-				   return PAM_BUF_ERR;
+				   retval = PAM_BUF_ERR;
+				   goto go_out;
 			   }
 			   pointedlen = readlink(newsource, pointed, size);
 			   if (pointedlen < 0) break;
@@ -163,7 +164,8 @@ create_homedir(const struct passwd *pwd,
 #endif
                    free(newsource);
                    free(newdest);
-                   return PAM_PERM_DENIED;
+                   retval = PAM_PERM_DENIED;
+		   goto go_out;
                }
             }
 #ifndef PATH_MAX
@@ -196,7 +198,8 @@ create_homedir(const struct passwd *pwd,
          free(newsource);
          free(newdest);
 
-	 return PAM_PERM_DENIED;
+	 retval = PAM_PERM_DENIED;
+	 goto go_out;
       }
 
       /* Open the dest file */
@@ -209,7 +212,8 @@ create_homedir(const struct passwd *pwd,
 
 	 free(newsource);
 	 free(newdest);
-	 return PAM_PERM_DENIED;
+	 retval = PAM_PERM_DENIED;
+	 goto go_out;
       }
 
       /* Set the proper ownership and permissions for the module. We make
@@ -227,7 +231,8 @@ create_homedir(const struct passwd *pwd,
          free(newsource);
          free(newdest);
 
-	 return PAM_PERM_DENIED;
+	 retval = PAM_PERM_DENIED;
+	 goto go_out;
       }
 
       /* Copy the file */
@@ -253,7 +258,8 @@ create_homedir(const struct passwd *pwd,
 	 free(newsource);
 	 free(newdest);
 
-	 return PAM_PERM_DENIED;
+	 retval = PAM_PERM_DENIED;
+	 goto go_out;
       }
       while (res != 0);
       close(srcfd);
