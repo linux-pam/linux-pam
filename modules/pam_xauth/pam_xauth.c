@@ -376,7 +376,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	char *cookiefile = NULL, *xauthority = NULL,
 	     *cookie = NULL, *display = NULL, *tmp = NULL,
 	     *xauthlocalhostname = NULL;
-	const char *user, *xauth = NULL;
+	const char *user, *xauth = NULL, *loginname, *rhostname, *rusername;
 	struct passwd *tpwd, *rpwd;
 	int fd, i, debug = 0;
 	int retval = PAM_SUCCESS;
@@ -450,7 +450,25 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		retval = PAM_SESSION_ERR;
 		goto cleanup;
 	}
-	rpwd = pam_modutil_getpwuid(pamh, getuid());
+
+	/* Get the login user if effective user is set as real user */
+	if (getuid() == geteuid()) {
+		loginname = pam_modutil_getlogin(pamh);
+		if (loginname == NULL) {
+			retval = pam_get_item(pamh, PAM_RHOST, (const void **)&rhostname);
+			if (retval != PAM_SUCCESS || rhostname == NULL) {
+				retval = pam_get_item(pamh, PAM_RUSER, (const void **)&rusername);
+				rpwd = pam_modutil_getpwnam(pamh, rusername);
+			} else {
+				rpwd = pam_modutil_getpwnam(pamh, rhostname);
+			}
+		} else {
+			rpwd = pam_modutil_getpwnam(pamh, loginname);
+		}
+	} else {
+		rpwd = pam_modutil_getpwuid(pamh, getuid());
+	}
+
 	if (rpwd == NULL) {
 		pam_syslog(pamh, LOG_ERR,
 			   "error determining invoking user's name");
@@ -544,13 +562,13 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	 * gone wrong, or we have no cookies. */
 	if (debug) {
 		pam_syslog(pamh, LOG_DEBUG,
-			   "running \"%s %s %s %s %s\" as %lu/%lu",
-			   xauth, "-f", cookiefile, "nlist", display,
-			   (unsigned long) getuid(), (unsigned long) getgid());
+			   "running \"%s %s %s %s %s %s\" as %lu/%lu",
+			   xauth, "-i", "-f", cookiefile, "nlist", display,
+			   (unsigned long) rpwd->pw_uid, (unsigned long) rpwd->pw_gid);
 	}
 	if (run_coprocess(pamh, NULL, &cookie,
-			  getuid(), getgid(),
-			  xauth, "-f", cookiefile, "nlist", display,
+			  rpwd->pw_uid, rpwd->pw_gid,
+			  xauth, "-i", "-f", cookiefile, "nlist", display,
 			  NULL) == 0) {
 #ifdef WITH_SELINUX
 		char *context_raw = NULL;
@@ -603,12 +621,12 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 						       cookiefile,
 						       "nlist",
 						       t,
-						       (unsigned long) getuid(),
-						       (unsigned long) getgid());
+						       (unsigned long) rpwd->pw_uid,
+						       (unsigned long) rpwd->pw_gid);
 					}
 					run_coprocess(pamh, NULL, &cookie,
-						      getuid(), getgid(),
-						      xauth, "-f", cookiefile,
+						      rpwd->pw_uid, rpwd->pw_gid,
+						      xauth, "-i", "-f", cookiefile,
 						      "nlist", t, NULL);
 				}
 				free(t);
