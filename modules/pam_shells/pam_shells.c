@@ -173,6 +173,7 @@ static int perform_check(pam_handle_t *pamh)
 #endif
 
     if (retval) {
+	pam_syslog(pamh, LOG_NOTICE, "User has an invalid shell '%s'", userShell);
 	return PAM_AUTH_ERR;
     } else {
 	return PAM_SUCCESS;
