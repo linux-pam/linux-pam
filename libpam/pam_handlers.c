@@ -44,6 +44,7 @@ static int _pam_add_handler(pam_handle_t *pamh
 static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
 				, const char *service /* specific file */
 				, int module_type /* specific type */
+				, int include_level /* level of include */
 				, int stack_level /* level of substack */
 #ifdef PAM_READ_BOTH_CONFS
 				, int not_other
@@ -53,6 +54,7 @@ static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
 static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 				, const char *known_service /* specific file */
 				, int requested_module_type /* specific type */
+				, int include_level /* level of include */
 				, int stack_level /* level of substack */
 #ifdef PAM_READ_BOTH_CONFS
 				, int not_other
@@ -205,7 +207,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		    }
 		}
 		if (_pam_load_conf_file(pamh, tok, this_service, module_type,
-		    stack_level + substack
+		    include_level + 1, stack_level + substack
 #ifdef PAM_READ_BOTH_CONFS
 					      , !other
 #endif /* PAM_READ_BOTH_CONFS */
@@ -348,6 +350,7 @@ _pam_open_config_file(pam_handle_t *pamh
 static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
 				, const char *service /* specific file */
 				, int module_type /* specific type */
+				, int include_level /* level of include */
 				, int stack_level /* level of substack */
 #ifdef PAM_READ_BOTH_CONFS
 				, int not_other
@@ -360,9 +363,9 @@ static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
 
     D(("called."));
 
-    if (stack_level >= PAM_SUBSTACK_MAX_LEVEL) {
-	D(("maximum level of substacks reached"));
-	pam_syslog(pamh, LOG_ERR, "maximum level of substacks reached");
+    if (include_level >= PAM_SUBSTACK_MAX_LEVEL) {
+	D(("maximum level of inclusions reached"));
+	pam_syslog(pamh, LOG_ERR, "maximum level of inclusions reached");
 	return PAM_ABORT;
     }
 
@@ -373,7 +376,7 @@ static int _pam_load_conf_file(pam_handle_t *pamh, const char *config_name
     }
 
     if (_pam_open_config_file(pamh, config_name, &path, &f) == PAM_SUCCESS) {
-	retval = _pam_parse_conf_file(pamh, f, service, module_type, stack_level
+	retval = _pam_parse_conf_file(pamh, f, service, module_type, include_level, stack_level
 #ifdef PAM_READ_BOTH_CONFS
 					      , not_other
 #endif /* PAM_READ_BOTH_CONFS */
@@ -470,7 +473,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 
 	    if (_pam_open_config_file(pamh, pamh->service_name, &path, &f) == PAM_SUCCESS) {
 		retval = _pam_parse_conf_file(pamh, f, pamh->service_name,
-		    PAM_T_ANY, 0
+		    PAM_T_ANY, 0, 0
 #ifdef PAM_READ_BOTH_CONFS
 					      , 0
 #endif /* PAM_READ_BOTH_CONFS */
@@ -510,7 +513,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 		if (_pam_open_config_file(pamh, PAM_DEFAULT_SERVICE, &path, &f) == PAM_SUCCESS) {
 		    /* would test magic here? */
 		    retval = _pam_parse_conf_file(pamh, f, PAM_DEFAULT_SERVICE,
-			PAM_T_ANY, 0
+			PAM_T_ANY, 0, 0
 #ifdef PAM_READ_BOTH_CONFS
 						  , 0
 #endif /* PAM_READ_BOTH_CONFS */
@@ -544,7 +547,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 		return PAM_ABORT;
 	    }
 
-	    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY, 0
+	    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY, 0, 0
 #ifdef PAM_READ_BOTH_CONFS
 					  , 0
 #endif /* PAM_READ_BOTH_CONFS */
