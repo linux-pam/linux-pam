@@ -27,12 +27,11 @@
 #include <security/pam_modutil.h>
 
 static unsigned long u_mask = 0022;
-static unsigned long home_mode = 0;
 static char skeldir[BUFSIZ] = "/etc/skel";
 
 /* Do the actual work of creating a home dir */
 static int
-create_homedir(const struct passwd *pwd,
+create_homedir(const struct passwd *pwd, mode_t dir_mode,
 	       const char *source, const char *dest)
 {
    char remark[BUFSIZ];
@@ -104,7 +103,7 @@ create_homedir(const struct passwd *pwd,
       /* If it's a directory, recurse. */
       if (S_ISDIR(st.st_mode))
       {
-         retval = create_homedir(pwd, newsource, newdest);
+         retval = create_homedir(pwd, dir_mode & (~u_mask), newsource, newdest);
 
          free(newsource);
          free(newdest);
@@ -275,7 +274,7 @@ create_homedir(const struct passwd *pwd,
 
  go_out:
 
-   if (chmod(dest, 0777 & (~u_mask)) != 0 ||
+   if (chmod(dest, dir_mode) != 0 ||
        chown(dest, pwd->pw_uid, pwd->pw_gid) != 0)
    {
       pam_syslog(NULL, LOG_DEBUG,
@@ -287,19 +286,12 @@ create_homedir(const struct passwd *pwd,
 }
 
 static int
-create_homedir_helper(const struct passwd *_pwd,
+create_homedir_helper(const struct passwd *_pwd, mode_t home_mode,
 		      const char *_skeldir, const char *_homedir)
 {
    int retval = PAM_SESSION_ERR;
 
-   retval = create_homedir(_pwd, _skeldir, _homedir);
-
-   if (chmod(_homedir, home_mode) != 0)
-   {
-      pam_syslog(NULL, LOG_DEBUG,
-		 "unable to change perms on home directory %s: %m", _homedir);
-      return PAM_PERM_DENIED;
-   }
+   retval = create_homedir(_pwd, home_mode, _skeldir, _homedir);
 
    return retval;
 }
@@ -338,6 +330,7 @@ main(int argc, char *argv[])
    struct passwd *pwd;
    struct stat st;
    char *eptr;
+   unsigned long home_mode = 0;
 
    if (argc < 2) {
 	fprintf(stderr, "Usage: %s <username> [<umask> [<skeldir> [<home_mode>]]]\n", argv[0]);
@@ -387,5 +380,5 @@ main(int argc, char *argv[])
    if (make_parent_dirs(pwd->pw_dir, 0) != PAM_SUCCESS)
 	return PAM_PERM_DENIED;
 
-   return create_homedir_helper(pwd, skeldir, pwd->pw_dir);
+   return create_homedir_helper(pwd, home_mode, skeldir, pwd->pw_dir);
 }
