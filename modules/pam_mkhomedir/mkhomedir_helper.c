@@ -40,8 +40,10 @@ create_homedir(const struct passwd *pwd, mode_t dir_mode,
    int retval = PAM_SESSION_ERR;
 
    /* Create the new directory */
-   if (mkdir(dest, 0700) && errno != EEXIST)
+   if (mkdir(dest, 0700))
    {
+      if (errno == EEXIST)
+	 return PAM_SUCCESS;
       pam_syslog(NULL, LOG_ERR, "unable to create directory %s: %m", dest);
       return PAM_PERM_DENIED;
    }
@@ -153,15 +155,17 @@ create_homedir(const struct passwd *pwd, mode_t dir_mode,
 	 if (pointedlen >= 0) {
             if(symlink(pointed, newdest) != 0)
             {
-               pam_syslog(NULL, LOG_DEBUG,
-			  "unable to create link %s: %m", newdest);
+               retval = errno == EEXIST ? PAM_SUCCESS : PAM_PERM_DENIED;
+
+               if (retval != PAM_SUCCESS)
+                  pam_syslog(NULL, LOG_DEBUG,
+			     "unable to create link %s: %m", newdest);
                closedir(d);
 #ifndef PATH_MAX
                free(pointed);
 #endif
                free(newsource);
                free(newdest);
-               retval = PAM_PERM_DENIED;
                goto go_out;
             }
 
@@ -213,16 +217,17 @@ create_homedir(const struct passwd *pwd, mode_t dir_mode,
       }
 
       /* Open the dest file */
-      if ((destfd = open(newdest, O_WRONLY | O_TRUNC | O_CREAT, 0600)) < 0)
+      if ((destfd = open(newdest, O_WRONLY | O_CREAT | O_EXCL, 0600)) < 0)
       {
-         pam_syslog(NULL, LOG_DEBUG,
-		    "unable to open dest file %s: %m", newdest);
+	 retval = errno == EEXIST ? PAM_SUCCESS : PAM_PERM_DENIED;
+	 if (retval != PAM_SUCCESS)
+	    pam_syslog(NULL, LOG_DEBUG,
+		       "unable to open dest file %s: %m", newdest);
 	 close(srcfd);
 	 closedir(d);
 
 	 free(newsource);
 	 free(newdest);
-	 retval = PAM_PERM_DENIED;
 	 goto go_out;
       }
 
