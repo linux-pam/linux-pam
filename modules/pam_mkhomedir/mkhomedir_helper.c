@@ -151,21 +151,32 @@ create_homedir(const struct passwd *pwd, mode_t dir_mode,
 #endif
 
 	 if (pointedlen >= 0) {
-            if(symlink(pointed, newdest) == 0)
+            if(symlink(pointed, newdest) != 0)
             {
-               if (lchown(newdest, pwd->pw_uid, pwd->pw_gid) != 0)
-               {
-                   pam_syslog(NULL, LOG_DEBUG,
-			      "unable to change perms on link %s: %m", newdest);
-                   closedir(d);
+               pam_syslog(NULL, LOG_DEBUG,
+			  "unable to create link %s: %m", newdest);
+               closedir(d);
 #ifndef PATH_MAX
-		   free(pointed);
+               free(pointed);
 #endif
-                   free(newsource);
-                   free(newdest);
-                   retval = PAM_PERM_DENIED;
-		   goto go_out;
-               }
+               free(newsource);
+               free(newdest);
+               retval = PAM_PERM_DENIED;
+               goto go_out;
+            }
+
+            if (lchown(newdest, pwd->pw_uid, pwd->pw_gid) != 0)
+            {
+               pam_syslog(NULL, LOG_DEBUG,
+			  "unable to change perms on link %s: %m", newdest);
+               closedir(d);
+#ifndef PATH_MAX
+               free(pointed);
+#endif
+               free(newsource);
+               free(newdest);
+               retval = PAM_PERM_DENIED;
+               goto go_out;
             }
 #ifndef PATH_MAX
 	    free(pointed);
