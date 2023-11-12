@@ -9,6 +9,7 @@
 #include "pam_private.h"
 #include "pam_inline.h"
 
+#include <limits.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -734,23 +735,14 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 	    size_t isa_len = strlen("$ISA");
 
 	    if (isa != NULL) {
-		size_t pam_isa_len = strlen(_PAM_ISA);
-		char *mod_full_isa_path =
-			malloc(strlen(mod_path) - isa_len + pam_isa_len + 1);
-
-		if (mod_full_isa_path == NULL) {
+		char *mod_full_isa_path = NULL;
+		if (strlen(mod_path) >= INT_MAX ||
+			asprintf(&mod_full_isa_path, "%.*s%s%s",
+			(int)(isa - mod_path), mod_path, _PAM_ISA, isa + isa_len) < 0) {
 		    D(("couldn't get memory for mod_path"));
 		    pam_syslog(pamh, LOG_CRIT, "no memory for module path");
 		    success = PAM_ABORT;
 		} else {
-		    char *p = mod_full_isa_path;
-
-		    memcpy(p, mod_path, isa - mod_path);
-		    p += isa - mod_path;
-		    memcpy(p, _PAM_ISA, pam_isa_len);
-		    p += pam_isa_len;
-		    strcpy(p, isa + isa_len);
-
 		    mod->dl_handle = _pam_dlopen(mod_full_isa_path);
 		    _pam_drop(mod_full_isa_path);
 		}
