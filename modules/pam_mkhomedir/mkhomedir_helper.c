@@ -362,6 +362,11 @@ main(int argc, char *argv[])
    if (home_mode == 0)
       home_mode = 0777 & ~u_mask;
 
+   if (pwd->pw_dir[0] != '/') {
+      pam_syslog(NULL, LOG_ERR, "Relative home directory %s", pwd->pw_dir);
+      return PAM_SESSION_ERR;
+   }
+
    /* Stat the home directory, if something exists then we assume it is
       correct and return a success */
    if (stat(pwd->pw_dir, &st) == 0)
