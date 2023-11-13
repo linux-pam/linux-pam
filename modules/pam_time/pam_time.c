@@ -674,7 +674,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 
     /* good, now we have the service name, the user and the terminal name */
 
-    D(("service=%s", service));
+    D(("service=%s", (const char *) service));
     D(("user=%s", user));
     D(("tty=%s", tty));
 
