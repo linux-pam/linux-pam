@@ -192,6 +192,7 @@ int _pam_mkargv(const char *s, char ***argv, int *argc)
 	    if ((our_argv = argvbuf = malloc(argvlen)) == NULL) {
 		pam_syslog(NULL, LOG_CRIT,
 			   "pam_mkargv: null returned by malloc");
+		argvlen = 0;
 	    } else {
 		char *tmp=NULL;
 
