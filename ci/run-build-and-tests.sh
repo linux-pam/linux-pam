@@ -44,6 +44,12 @@ case "${USE_OPENSSL-}" in
 		;;
 esac
 
+case "${ENABLE_DEBUG-}" in
+	yes)
+		DISTCHECK_CONFIGURE_FLAGS="$DISTCHECK_CONFIGURE_FLAGS --enable-debug"
+		;;
+esac
+
 echo 'BEGIN OF BUILD ENVIRONMENT INFORMATION'
 uname -a |head -1
 libc="$(ldd /bin/sh |sed -n 's|^[^/]*\(/[^ ]*/libc\.so[^ ]*\).*|\1|p' |head -1)"
