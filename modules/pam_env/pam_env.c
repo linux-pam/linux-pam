@@ -464,7 +464,7 @@ _parse_line(const pam_handle_t *pamh, const char *buffer, VAR *var)
   ptr = buffer+length;
   while ((length = strspn(ptr, " \t")) > 0) {
     ptr += length;                              /* remove leading whitespace */
-    D((ptr));
+    D(("%s", ptr));
     if ((tmpptr = pam_str_skip_prefix(ptr, "DEFAULT=")) != NULL) {
       ptr = tmpptr;
       D(("Default arg found: <%s>", ptr));
