@@ -242,7 +242,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
    if (pwd == NULL)
    {
       pam_syslog(pamh, LOG_NOTICE, "User unknown.");
-      D(("couldn't identify user %s", user));
+      D(("couldn't identify user %s", (const char *) user));
       return PAM_USER_UNKNOWN;
    }
 
