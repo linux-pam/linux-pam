@@ -114,7 +114,8 @@ send_audit_message(const pam_handle_t *pamh, int success, const char *default_co
       fallback:
 #endif /* HAVE_LIBAUDIT */
         pam_syslog(pamh, LOG_NOTICE, "pam: default-context=%s selected-context=%s success %d",
-		   default_context, selected_context, success);
+		   default_context ? default_context : "(null)",
+		   selected_context ? selected_context : "(null)", success);
 
 #ifdef HAVE_LIBAUDIT
       cleanup:
