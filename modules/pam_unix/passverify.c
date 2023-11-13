@@ -157,7 +157,7 @@ PAMH_ARG_DECL(int verify_pwd_hash,
 		p = NULL;		/* no longer needed here */
 
 		/* the moment of truth -- do we agree with the password? */
-		D(("comparing state of pp[%s] and hash[%s]", pp, hash));
+		D(("comparing state of pp[%s] and hash[%s]", pp ? pp : "(null)", hash));
 
 		if (pp && strcmp(pp, hash) == 0) {
 			retval = PAM_SUCCESS;
