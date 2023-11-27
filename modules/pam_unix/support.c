@@ -99,8 +99,13 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 	  free (val);
 
 	  /* read number of rounds for crypt algo */
-	  if (rounds && (on(UNIX_SHA256_PASS, ctrl) || on(UNIX_SHA512_PASS, ctrl))) {
-	    val = pam_modutil_search_key(pamh, LOGIN_DEFS, "SHA_CRYPT_MAX_ROUNDS");
+	  if (rounds) {
+	    val = NULL;
+	    if (on(UNIX_SHA256_PASS, ctrl) || on(UNIX_SHA512_PASS, ctrl)) {
+	      val = pam_modutil_search_key(pamh, LOGIN_DEFS, "SHA_CRYPT_MAX_ROUNDS");
+	    } else if (on(UNIX_YESCRYPT_PASS, ctrl)) {
+	      val = pam_modutil_search_key(pamh, LOGIN_DEFS, "YESCRYPT_COST_FACTOR");
+	    }
 
 	    if (val) {
 	      *rounds = strtol(val, NULL, 10);
