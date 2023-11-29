@@ -25,7 +25,7 @@
 #define _PAM_ISA "."
 #endif
 
-static int _pam_assemble_line(FILE *f, char *buf, int buf_len);
+static int _pam_assemble_line(FILE *f, char **buf, size_t buf_len);
 
 static void _pam_free_handlers_aux(struct handler **hp);
 
@@ -62,12 +62,18 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 #endif /* PAM_READ_BOTH_CONFS */
     )
 {
-    char buf[BUF_SIZE];
     int x;                    /* read a line from the FILE *f ? */
+    char *buf = malloc(BUF_SIZE * sizeof(char));
+
+    if (buf == NULL) {
+        pam_syslog(pamh, LOG_CRIT, "malloc failed");
+        return PAM_BUF_ERR;
+    }
+
     /*
      * read a line from the configuration (FILE *) f
      */
-    while ((x = _pam_assemble_line(f, buf, BUF_SIZE)) > 0) {
+    while ((x = _pam_assemble_line(f, &buf, BUF_SIZE)) > 0) {
 	char *tok, *nexttok=NULL;
 	const char *this_service;
 	const char *mod_path;
@@ -204,6 +210,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		    if (res != PAM_SUCCESS) {
 			pam_syslog(pamh, LOG_ERR, "error adding substack %s", tok);
 			D(("failed to load module - aborting"));
+			free(buf);
 			return PAM_ABORT;
 		    }
 		}
@@ -278,9 +285,14 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    if (res != PAM_SUCCESS) {
 		pam_syslog(pamh, LOG_ERR, "error loading %s", mod_path);
 		D(("failed to load module - aborting"));
+		free(buf);
 		return PAM_ABORT;
 	    }
 	}
+    }
+
+    if (buf != NULL) {
+        free(buf);
     }
 
     return ( (x < 0) ? PAM_ABORT:PAM_SUCCESS );
@@ -576,10 +588,9 @@ int _pam_init_handlers(pam_handle_t *pamh)
  * preceded by lines of comments and also extended with "\\\n"
  */
 
-static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
+static int _pam_assemble_line(FILE *f, char **buffer, size_t buf_len)
 {
-    char *p = buffer;
-    char *endp = buffer + buf_len;
+    char *p;
     char *s, *os;
     int used = 0;
 
@@ -587,14 +598,10 @@ static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
 
     D(("called."));
     for (;;) {
-	if (p >= endp - 1) {
-	    /* Overflow */
-	    D(("overflow"));
-	    return -1;
-	}
-	if (fgets(p, endp - p, f) == NULL) {
+	if (getline(buffer, &buf_len, f) <= 0) {
 	    if (used) {
 		/* Incomplete read */
+		free(*buffer);
 		return -1;
 	    } else {
 		/* EOF */
@@ -602,11 +609,7 @@ static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
 	    }
 	}
 
-	if (strchr(p, '\n') == NULL && !feof(f)) {
-	    /* Incomplete */
-	    D(("_pam_assemble_line: incomplete"));
-	    return -1;
-	}
+	p = *buffer;
 
 	/* skip leading spaces --- line may be blank */
 
