@@ -63,14 +63,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
     )
 {
     int x;                    /* read a line from the FILE *f ? */
-    char *buf = malloc(BUF_SIZE * sizeof(char));
-
-    if (buf == NULL) {
-        pam_syslog(pamh, LOG_ERR,
-		   "Error Allocation Memory. Aborting! "
-	           "in file %s at line %d", __FILE__, __LINE__);
-        return PAM_BUF_ERR;
-    }
+    char *buf = NULL;
 
     /*
      * read a line from the configuration (FILE *) f
@@ -212,6 +205,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		    if (res != PAM_SUCCESS) {
 			pam_syslog(pamh, LOG_ERR, "error adding substack %s", tok);
 			D(("failed to load module - aborting"));
+			free(buf);
 			return PAM_ABORT;
 		    }
 		}
@@ -286,15 +280,14 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    if (res != PAM_SUCCESS) {
 		pam_syslog(pamh, LOG_ERR, "error loading %s", mod_path);
 		D(("failed to load module - aborting"));
+		free(buf);
 		return PAM_ABORT;
 	    }
 	}
     }
 
-    if (buf != NULL) {
-        free(buf);
-        buf = NULL;
-    }
+    if (buf != NULL)
+		free(buf);
 
     return ( (x < 0) ? PAM_ABORT:PAM_SUCCESS );
 }
@@ -600,10 +593,10 @@ static int _pam_assemble_line(FILE *f, char **buffer, size_t buf_len)
     D(("called."));
     for (;;) {
 	if (getline(buffer, &buf_len, f) <= 0) {
+	    free(*buffer);
+	    *buffer = NULL;
 	    if (used) {
 		/* Incomplete read */
-		free(*buffer);
-		*buffer = NULL;
 		return -1;
 	    } else {
 		/* EOF */
