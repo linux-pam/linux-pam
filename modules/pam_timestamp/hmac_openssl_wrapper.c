@@ -84,7 +84,7 @@ static int
 generate_key(pam_handle_t *pamh, char **key, size_t key_size)
 {
     int fd = 0;
-    size_t bytes_read = 0;
+    ssize_t bytes_read = 0;
     char * tmp = NULL;
 
     fd = open("/dev/urandom", O_RDONLY);
@@ -103,7 +103,7 @@ generate_key(pam_handle_t *pamh, char **key, size_t key_size)
     bytes_read = pam_modutil_read(fd, tmp, key_size);
     close(fd);
 
-    if (bytes_read < key_size) {
+    if (bytes_read < 0 || (size_t)bytes_read < key_size) {
         pam_syslog(pamh, LOG_ERR, "Short read on random device");
         free(tmp);
         return PAM_AUTH_ERR;
@@ -118,7 +118,7 @@ static int
 read_file(pam_handle_t *pamh, int fd, char **text, size_t *text_length)
 {
     struct stat st;
-    size_t bytes_read = 0;
+    ssize_t bytes_read = 0;
     char *tmp = NULL;
 
     if (fstat(fd, &st) == -1) {
@@ -133,6 +133,12 @@ read_file(pam_handle_t *pamh, int fd, char **text, size_t *text_length)
         return PAM_AUTH_ERR;
     }
 
+    if ((uintmax_t)st.st_size > (uintmax_t)INT_MAX) {
+        pam_syslog(pamh, LOG_ERR, "Key file is too large");
+        close(fd);
+        return PAM_AUTH_ERR;
+    }
+
     tmp = malloc(st.st_size);
     if (!tmp) {
         pam_syslog(pamh, LOG_CRIT, "Not enough memory");
@@ -143,7 +149,7 @@ read_file(pam_handle_t *pamh, int fd, char **text, size_t *text_length)
     bytes_read = pam_modutil_read(fd, tmp, st.st_size);
     close(fd);
 
-    if (bytes_read < (size_t)st.st_size) {
+    if (bytes_read < st.st_size) {
         pam_syslog(pamh, LOG_ERR, "Short read on key file");
         pam_overwrite_n(tmp, st.st_size);
         free(tmp);
@@ -161,7 +167,7 @@ write_file(pam_handle_t *pamh, const char *file_name, char *text,
            size_t text_length, uid_t owner, gid_t group)
 {
     int fd = 0;
-    size_t bytes_written = 0;
+    ssize_t bytes_written = 0;
 
     fd = open(file_name,
               O_WRONLY | O_CREAT | O_TRUNC,
@@ -184,7 +190,7 @@ write_file(pam_handle_t *pamh, const char *file_name, char *text,
     bytes_written = pam_modutil_write(fd, text, text_length);
     close(fd);
 
-    if (bytes_written < text_length) {
+    if (bytes_written < 0 || (size_t)bytes_written < text_length) {
         pam_syslog(pamh, LOG_ERR, "Short write on %s", file_name);
         free(text);
         return PAM_AUTH_ERR;
