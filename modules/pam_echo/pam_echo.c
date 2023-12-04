@@ -183,7 +183,7 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	  return PAM_IGNORE;
 	}
 
-      if ((uintmax_t) st.st_size >= (uintmax_t) SIZE_MAX)
+      if ((uintmax_t) st.st_size > (uintmax_t) INT_MAX)
 	{
 	  close (fd);
 	  return PAM_BUF_ERR;
@@ -196,7 +196,7 @@ pam_echo (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	  return PAM_BUF_ERR;
 	}
 
-      if (pam_modutil_read (fd, mtmp, st.st_size) == -1)
+      if (pam_modutil_read (fd, mtmp, st.st_size) != st.st_size)
 	{
 	  pam_syslog (pamh, LOG_ERR, "Error while reading %s: %m", file);
 	  free (mtmp);
