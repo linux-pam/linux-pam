@@ -1,8 +1,8 @@
 /*
  * $Id$
  *
- * These functions provides common methods for ensure a complete read or
- * write occurs. It handles EINTR and partial read/write returns.
+ * These functions provide common methods to ensure a complete read or
+ * write occurs. They handle EINTR and partial read/write returns.
  */
 
 #include "pam_modutil_private.h"
