@@ -56,7 +56,7 @@ void (*pam_binary_handler_free)(void *appdata, pamc_bp_t *prompt_p)
 
 /* the following code is used to get text input */
 
-static volatile int expired=0;
+static volatile sig_atomic_t expired=0;
 
 /* return to the previous signal handling */
 static void reset_alarm(struct sigaction *o_ptr)
