@@ -158,7 +158,7 @@ parse_args(pam_handle_t *pamh, struct login_info *loginfo,
     return 1;  /* OK */
 }
 
-/* --- evaluting all files in VENDORDIR/security/access.d and /etc/security/access.d --- */
+/* --- evaluating all files in VENDORDIR/security/access.d and /etc/security/access.d --- */
 static const char *base_name(const char *path)
 {
     const char *base = strrchr(path, '/');

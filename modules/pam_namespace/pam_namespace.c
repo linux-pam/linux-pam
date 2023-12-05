@@ -39,7 +39,7 @@
 #include "pam_namespace.h"
 #include "argv_parse.h"
 
-/* --- evaluting all files in VENDORDIR/security/namespace.d and /etc/security/namespace.d --- */
+/* --- evaluating all files in VENDORDIR/security/namespace.d and /etc/security/namespace.d --- */
 static const char *base_name(const char *path)
 {
     const char *base = strrchr(path, '/');

@@ -378,7 +378,7 @@ static int auth_sequence(pam_handle_t *pamh,
 
 	/* expect to receive the following {<seqid>|<a_cookie>} */
 	if (new->current_reply == NULL) {
-	    D(("converstation returned [%s] but gave no reply",
+	    D(("conversation returned [%s] but gave no reply",
 	       pam_strerror(pamh, retval)));
 	    new->state = PS_STATE_DEAD;
 	    return PAM_CONV_ERR;

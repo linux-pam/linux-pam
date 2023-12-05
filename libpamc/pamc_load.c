@@ -247,7 +247,7 @@ int pamc_load(pamc_handle_t pch, const char *agent_id)
     pamc_agent_t *agent;
     size_t length;
 
-    /* santity checking */
+    /* sanity checking */
 
     if (pch == NULL) {
 	D(("pch is NULL"));

@@ -1122,7 +1122,7 @@ static int setup_limits(pam_handle_t *pamh,
     return retval;
 }
 
-/* --- evaluting all files in VENDORDIR/security/limits.d and /etc/security/limits.d --- */
+/* --- evaluating all files in VENDORDIR/security/limits.d and /etc/security/limits.d --- */
 static const char *
 base_name(const char *path)
 {
