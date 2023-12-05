@@ -124,6 +124,7 @@ parse_config_file(pam_handle_t *pamh, int argc, const char **argv,
         if (*val != '/') {
             pam_syslog (pamh, LOG_ERR,
                 "File path should be absolute: %s", val);
+            free(val);
         } else {
             options->filename = val;
         }
