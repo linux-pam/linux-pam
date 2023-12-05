@@ -60,8 +60,8 @@
  */
 
 #include "config.h"
+#include "pam_inline.h"
 
-#include <errno.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <limits.h>
@@ -75,19 +75,37 @@
 #include <security/pam_modutil.h>
 
 #define LOGIN_DEFS "/etc/login.defs"
+#define S_TO_MICROS 1000000
 
 /* --- authentication management functions (only) --- */
+
+static long parse_delay(const char *val)
+{
+    long delay;
+    char *endptr;
+
+    delay = strtol (val, &endptr, 10);
+    if (delay == 0 && val == endptr)
+      return -1;
+    return delay;
+}
 
 int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 			int argc, const char **argv)
 {
     int i, debug_flag = 0;
-    long int delay = -1;
+    long delay = -1;
 
     /* step through arguments */
     for (i = 0; i < argc; i++) {
-	if (sscanf(argv[i], "delay=%ld", &delay) == 1) {
-	  /* sscanf did already everything necessary */
+	const char *val = pam_str_skip_prefix (argv[i], "delay=");
+	if (val != NULL) {
+	  delay = parse_delay (val);
+	  if (delay < 0 || delay > UINT_MAX)
+	    {
+	      pam_syslog (pamh, LOG_ERR, "%s (%s) not valid", argv[i], val);
+	      return PAM_IGNORE;
+	    }
 	} else if (strcmp (argv[i], "debug") == 0)
 	  debug_flag = 1;
 	else
@@ -96,17 +114,13 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 
     if (delay == -1)
       {
-	char *endptr;
 	char *val = pam_modutil_search_key (pamh, LOGIN_DEFS, "FAIL_DELAY");
-	const char *val_orig = val;
 
 	if (val == NULL)
 	  return PAM_IGNORE;
 
-	errno = 0;
-	delay = strtol (val, &endptr, 10) & 0777;
-	if (((delay == 0) && (val_orig == endptr)) ||
-	    ((delay == LONG_MIN || delay == LONG_MAX) && (errno == ERANGE)))
+	delay = parse_delay (val);
+	if (delay < 0 || delay > UINT_MAX / S_TO_MICROS)
 	  {
 	    pam_syslog (pamh, LOG_ERR, "FAIL_DELAY=%s in %s not valid",
 			val, LOGIN_DEFS);
@@ -116,7 +130,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 
 	free (val);
 	/* delay is in seconds, convert to microseconds. */
-	delay *= 1000000;
+	delay *= S_TO_MICROS;
       }
 
     if (debug_flag)
