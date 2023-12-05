@@ -201,6 +201,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
    */
   if (val) {
     param.start_uid = str_to_uid(pamh, val, param.start_uid, PATH_LOGIN_DEFS":UID_MIN");
+    _pam_drop(val);
   }
 
   /* Parse parameter values
