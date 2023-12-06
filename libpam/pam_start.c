@@ -168,7 +168,7 @@ static int _pam_start_internal (
 	return PAM_ABORT;
     }
 
-    D(("exiting pam_start successfully"));
+    D(("exiting successfully"));
 
     return PAM_SUCCESS;
 }

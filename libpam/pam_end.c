@@ -13,7 +13,7 @@ int pam_end(pam_handle_t *pamh, int pam_status)
 {
     int ret;
 
-    D(("entering pam_end()"));
+    D(("called."));
 
     IF_NO_PAMH(pamh, PAM_SYSTEM_ERR);
 
@@ -93,7 +93,7 @@ int pam_end(pam_handle_t *pamh, int pam_status)
 
     _pam_drop(pamh);
 
-    D(("exiting pam_end() successfully"));
+    D(("exiting successfully"));
 
     return PAM_SUCCESS;
 }

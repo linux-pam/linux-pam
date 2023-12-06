@@ -210,7 +210,7 @@ int _pam_mkargv(const char *s, char ***argv, int *argc)
 
     *argv = our_argv;
 
-    D(("_pam_mkargv returned"));
+    D(("exiting"));
 
     return(argvlen);
 }
