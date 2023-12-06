@@ -45,6 +45,8 @@
 #include <syslog.h>
 #include <ctype.h>
 
+#define DELIMITERS " \n\t"
+
 char *_pam_tokenize(char *from, char **next)
 /*
  * this function is a variant of the standard strtok_r, it differs in that
@@ -52,22 +54,13 @@ char *_pam_tokenize(char *from, char **next)
  * they are actually reached.
  */
 {
-     const char *format = " \n\t";
-     char table[256], *end;
-     int i;
+     char *end;
 
      if (from == NULL && (from = *next) == NULL)
 	  return from;
 
-     /* initialize table */
-     for (i=1; i<256; table[i++] = '\0');
-     for (i=0; format[i] ;
-	  table[(unsigned char)format[i++]] = 'y');
-
      /* look for first non-format char */
-     while (*from && table[(unsigned char)*from]) {
-	  ++from;
-     }
+     from += strspn(from, DELIMITERS);
 
      if (*from == '[') {
 	 /*
@@ -93,7 +86,7 @@ char *_pam_tokenize(char *from, char **next)
             remains */
      } else if (*from) {
 	 /* simply look for next blank char */
-	 for (end=from; *end && !table[(unsigned char)*end]; ++end);
+	 end = from + strcspn(from, DELIMITERS);
      } else {
 	 return (*next = NULL);                    /* no tokens left */
      }
