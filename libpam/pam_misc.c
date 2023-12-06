@@ -45,7 +45,7 @@
 #include <syslog.h>
 #include <ctype.h>
 
-char *_pam_StrTok(char *from, const char *format, char **next)
+char *_pam_tokenize(char *from, const char *format, char **next)
 /*
  * this function is a variant of the standard strtok, it differs in that
  * it takes an additional argument and doesn't nul terminate tokens until
@@ -198,7 +198,7 @@ int _pam_mkargv(const char *s, char ***argv, int *argc)
 
 		argvbufp = (char *) argvbuf + (l * sizeof(char *));
 		D(("[%s]",sbuf));
-		while ((sbuf = _pam_StrTok(sbuf, " \n\t", &tmp))) {
+		while ((sbuf = _pam_tokenize(sbuf, " \n\t", &tmp))) {
 		    D(("arg #%d",++count));
 		    D(("->[%s]",sbuf));
 		    strcpy(argvbufp, sbuf);

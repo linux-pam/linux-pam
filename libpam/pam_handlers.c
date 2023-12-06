@@ -85,7 +85,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    /* No service field: all lines are for the known service. */
 	    this_service = known_service;
 	} else {
-	    this_service = tok = _pam_StrTok(buf, " \n\t", &nexttok);
+	    this_service = tok = _pam_tokenize(buf, " \n\t", &nexttok);
 	}
 
 #ifdef PAM_READ_BOTH_CONFS
@@ -103,7 +103,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    /* This is a service we are looking for */
 	    D(("Found PAM config entry for: %s", this_service));
 
-	    tok = _pam_StrTok(NULL, " \n\t", &nexttok);
+	    tok = _pam_tokenize(NULL, " \n\t", &nexttok);
 	    if (tok == NULL) {
 	        /* module type does not exist */
 	        D(("empty module type for %s", this_service));
@@ -150,7 +150,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		for (i=0; i<_PAM_RETURN_VALUES;
 		     actions[i++] = _PAM_ACTION_UNDEF);
 	    }
-	    tok = _pam_StrTok(NULL, " \n\t", &nexttok);
+	    tok = _pam_tokenize(NULL, " \n\t", &nexttok);
 	    if (tok == NULL) {
 		/* no module name given */
 		D(("no control flag supplied"));
@@ -195,7 +195,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		_pam_set_default_control(actions, _PAM_ACTION_BAD);
 	    }
 
-	    tok = _pam_StrTok(NULL, " \n\t", &nexttok);
+	    tok = _pam_tokenize(NULL, " \n\t", &nexttok);
 	    if (pam_include) {
 		if (substack) {
 		    res = _pam_add_handler(pamh, PAM_HT_SUBSTACK, other,
