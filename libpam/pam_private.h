@@ -266,7 +266,7 @@ struct pam_data {
 
 void _pam_free_data(pam_handle_t *pamh, int status);
 
-char *_pam_tokenize(char *from, const char *format, char **next);
+char *_pam_tokenize(char *from, char **next);
 
 char *_pam_strdup(const char *s);
 

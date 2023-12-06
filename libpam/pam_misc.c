@@ -45,13 +45,14 @@
 #include <syslog.h>
 #include <ctype.h>
 
-char *_pam_tokenize(char *from, const char *format, char **next)
+char *_pam_tokenize(char *from, char **next)
 /*
- * this function is a variant of the standard strtok, it differs in that
- * it takes an additional argument and doesn't nul terminate tokens until
+ * this function is a variant of the standard strtok_r, it differs in that
+ * it uses a fixed set of delimiters and doesn't nul terminate tokens until
  * they are actually reached.
  */
 {
+     const char *format = " \n\t";
      char table[256], *end;
      int i;
 
@@ -71,11 +72,9 @@ char *_pam_tokenize(char *from, const char *format, char **next)
      if (*from == '[') {
 	 /*
 	  * special case, "[...]" is considered to be a single
-	  * object.  Note, however, if one of the format[] chars is
-	  * '[' this single string will not be read correctly.
-	  * Note, any '[' inside the outer "[...]" pair will survive.
-	  * Note, the first ']' will terminate this string, but
-	  *  that "\]" will get compressed into "]". That is:
+	  * object.  Note, any '[' inside the outer "[...]" pair will
+	  * survive.  Note, the first ']' will terminate this string,
+	  * but that "\]" will get compressed into "]". That is:
 	  *
 	  *   "[..[..\]..]..." --> "..[..].."
 	  */
@@ -198,7 +197,7 @@ int _pam_mkargv(const char *s, char ***argv, int *argc)
 
 		argvbufp = (char *) argvbuf + (l * sizeof(char *));
 		D(("[%s]",sbuf));
-		while ((sbuf = _pam_tokenize(sbuf, " \n\t", &tmp))) {
+		while ((sbuf = _pam_tokenize(sbuf, &tmp))) {
 		    D(("arg #%d",++count));
 		    D(("->[%s]",sbuf));
 		    strcpy(argvbufp, sbuf);
