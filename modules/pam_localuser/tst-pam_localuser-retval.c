@@ -55,7 +55,7 @@ main(void)
 	ASSERT_EQ(PAM_SUCCESS,
 		  pam_start_confdir(service_file, name, &conv, ".", &pamh));
 	ASSERT_NE(NULL, pamh);
-	ASSERT_EQ(PAM_SERVICE_ERR, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_PERM_DENIED, pam_authenticate(pamh, 0));
 	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 	pamh = NULL;
 
@@ -105,7 +105,7 @@ main(void)
 	ASSERT_EQ(PAM_SUCCESS,
 		  pam_start_confdir(service_file, name, &conv, ".", &pamh));
 	ASSERT_NE(NULL, pamh);
-	ASSERT_EQ(PAM_SERVICE_ERR, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_PERM_DENIED, pam_authenticate(pamh, 0));
 	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 	pamh = NULL;
 

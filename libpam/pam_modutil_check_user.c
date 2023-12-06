@@ -10,19 +10,12 @@ pam_modutil_check_user_in_passwd(pam_handle_t *pamh,
 				 const char *user_name,
 				 const char *file_name)
 {
-	int rc;
-	size_t user_len;
+	int rc, c = EOF;
 	FILE *fp;
-	char line[BUFSIZ];
 
 	/* Validate the user name.  */
-	if ((user_len = strlen(user_name)) == 0) {
+	if (user_name[0] == '\0') {
 		pam_syslog(pamh, LOG_NOTICE, "user name is not valid");
-		return PAM_SERVICE_ERR;
-	}
-
-	if (user_len > sizeof(line) - sizeof(":")) {
-		pam_syslog(pamh, LOG_NOTICE, "user name is too long");
 		return PAM_SERVICE_ERR;
 	}
 
@@ -44,48 +37,40 @@ pam_modutil_check_user_in_passwd(pam_handle_t *pamh,
 	}
 
 	/*
-	 * Scan the file using fgets() instead of fgetpwent_r() because
+	 * Scan the file using fgetc() instead of fgetpwent_r() because
 	 * the latter is not flexible enough in handling long lines
 	 * in passwd files.
 	 */
 	rc = PAM_PERM_DENIED;
-	while (fgets(line, sizeof(line), fp) != NULL) {
-		size_t line_len;
-		const char *str;
+	do {
+		const char *p;
 
 		/*
 		 * Does this line start with the user name
 		 * followed by a colon?
 		 */
-		if (strncmp(user_name, line, user_len) == 0 &&
-		    line[user_len] == ':') {
+		for (p = user_name; *p != '\0'; p++) {
+			c = fgetc(fp);
+			if (c == EOF || c == '\n' || c != *p)
+				break;
+		}
+
+		if (c != EOF && c != '\n')
+			c = fgetc(fp);
+
+		if (*p == '\0' && c == ':') {
 			rc = PAM_SUCCESS;
 			/*
 			 * Continue reading the file to avoid timing attacks.
 			 */
 		}
-		/* Has a newline been read?  */
-		line_len = strlen(line);
-		if (line_len < sizeof(line) - 1 ||
-		    line[line_len - 1] == '\n') {
-			/* Yes, continue with the next line.  */
-			continue;
-		}
 
-		/* No, read till the end of this line first.  */
-		while ((str = fgets(line, sizeof(line), fp)) != NULL) {
-			line_len = strlen(line);
-			if (line_len == 0 ||
-			    line[line_len - 1] == '\n') {
-				break;
-			}
-		}
-		if (str == NULL) {
-			/* fgets returned NULL, we are done.  */
-			break;
-		}
+		/* Read till the end of this line.  */
+		while (c != EOF && c != '\n')
+			c = fgetc(fp);
+
 		/* Continue with the next line.  */
-	}
+	} while (c != EOF);
 
 	fclose(fp);
 	return rc;
