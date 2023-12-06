@@ -914,7 +914,7 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 	    for(j=0; j < strlen(value); j++)
 		value[j]=tolower((unsigned char)value[j]);
 
-            if (strcmp(uname, domain) == 0) /* this user have a limit */
+            if (strcmp(uname, domain) == 0) /* this user has a limit */
                 process_limit(pamh, LIMITS_DEF_USER, ltype, item, value, ctrl, pl);
             else if (domain[0]=='@') {
 		if (ctrl & PAM_DEBUG_ARG) {

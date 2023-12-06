@@ -299,7 +299,7 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	}
 	continue;
 
-decision_made:     /* by getting  here we have made a decision */
+decision_made:     /* by getting here we have made a decision */
 	while (h->next != NULL && h->next->stack_level >= stack_level) {
 	    h = h->next;
 	    ++depth;

@@ -97,7 +97,7 @@ static int get_delay(void)
     expired = 0;                                        /* reset flag */
     (void) time(&now);
 
-    /* has the quit time past? */
+    /* has the quit time passed? */
     if (pam_misc_conv_die_time && now >= pam_misc_conv_die_time) {
 	fprintf(stderr,"%s",pam_misc_conv_die_line);
 
@@ -105,7 +105,7 @@ static int get_delay(void)
 	return -1;                                           /* time is up */
     }
 
-    /* has the warning time past? */
+    /* has the warning time passed? */
     if (pam_misc_conv_warn_time && now >= pam_misc_conv_warn_time) {
 	fprintf(stderr, "%s", pam_misc_conv_warn_line);
 	pam_misc_conv_warn_time = 0;                    /* reset warn_time */

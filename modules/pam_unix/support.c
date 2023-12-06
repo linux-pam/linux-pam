@@ -648,7 +648,7 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 
 	/*
 	 * This function does not have to be too smart if something goes
-	 * wrong, return FALSE and let this case to be treated somewhere
+	 * wrong, return FALSE and let this case be treated somewhere
 	 * else (CG)
 	 */
 

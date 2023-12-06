@@ -425,7 +425,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 		/* increase count.  */
 		entry.count++;
 
-		/* check that we don't remember to many passwords.  */
+		/* check that we don't remember too many passwords.  */
 		while (entry.count > howmany && entry.count > 1)
 		  {
 		    char *p = strpbrk (entry.old_passwords, ",");

@@ -698,7 +698,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		} else {
 			D(("process run by root so do nothing this time around"));
 			pass_old = NULL;
-			retval = PAM_SUCCESS;	/* root doesn't have too */
+			retval = PAM_SUCCESS;	/* root doesn't have to */
 		}
 
 		if (retval != PAM_SUCCESS) {

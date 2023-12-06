@@ -19,7 +19,7 @@
 
 /* **********************************************************************
  * initialize the time as unset, this is set on the return from the
- * authenticating pair of of the libpam pam_XXX calls.
+ * authenticating pair of the libpam pam_XXX calls.
  */
 
 void _pam_reset_timer(pam_handle_t *pamh)

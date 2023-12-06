@@ -118,7 +118,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		/*
 		 * Various libraries at various times have had bugs related to
 		 * '+' or '-' as the first character of a user name. Don't
-		 * allow this characters here.
+		 * allow these characters here.
 		 */
 		if (name[0] == '-' || name[0] == '+') {
 			pam_syslog(pamh, LOG_NOTICE, "bad username [%s]", name);

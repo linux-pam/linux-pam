@@ -38,7 +38,7 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 {
 	const char *magic = "$1$";
 	/* This string is magic for this algorithm.  Having
-	 * it this way, we can get get better later on */
+	 * it this way, we can get better later on */
 	char *passwd, *p;
 	const char *sp, *ep;
 	unsigned char final[16];

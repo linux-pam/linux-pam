@@ -181,7 +181,7 @@
         <listitem>
           <para>
             Indicate an alternative <filename>.pam_environment</filename>
-            file to override the default.The syntax is the same as
+            file to override the default. The syntax is the same as
 	    for <emphasis>/etc/security/pam_env.conf</emphasis>.
 	    The filename is relative to the user home directory.
 	    This can be useful when different services need different

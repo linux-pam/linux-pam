@@ -255,7 +255,7 @@ const char *_pam_dlerror (void);
 
 /* For now we just use a stack and linear search for module data. */
 /* If it becomes apparent that there is a lot of data, it should  */
-/* changed to either a sorted list or a hash table.               */
+/* be changed to either a sorted list or a hash table.            */
 
 struct pam_data {
      char *name;

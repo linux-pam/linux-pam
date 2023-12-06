@@ -40,7 +40,7 @@
       It should be noted that the effective uid,
       <citerefentry>
         <refentrytitle>geteuid</refentrytitle><manvolnum>2</manvolnum>
-      </citerefentry>. of the application should be of sufficient
+      </citerefentry>, of the application should be of sufficient
       privilege to perform such tasks as creating or mounting the
       user's home directory for example.
     </para>

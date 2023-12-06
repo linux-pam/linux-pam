@@ -150,7 +150,7 @@
         <citerefentry>
           <refentrytitle>pam_get_item</refentrytitle><manvolnum>3</manvolnum>
         </citerefentry>
-        functions allows applications and PAM service modules to set and
+        functions allow applications and PAM service modules to set and
         retrieve PAM information.
       </para>
       <para>
@@ -169,7 +169,7 @@
         <citerefentry>
           <refentrytitle>pam_get_data</refentrytitle><manvolnum>3</manvolnum>
         </citerefentry>
-        functions allows PAM service modules to set and retrieve free-form
+        function allows PAM service modules to set and retrieve free-form
         data from one invocation to another.
       </para>
     </refsect2>
