@@ -321,11 +321,12 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 	char buf[16384];
 	int matched = 0, buflen;
 	char *slogin, *spasswd, *suid, *sgid, *sgecos, *shome, *sshell, *p;
+	size_t userlen;
 
 	memset(buf, 0, sizeof(buf));
 
-	if (!matched && files) {
-		int userlen = strlen(name);
+	userlen = strlen(name);
+	if (!matched && files && userlen < sizeof(buf) && strchr(name, ':') == NULL) {
 		passwd = fopen("/etc/passwd", "r");
 		if (passwd != NULL) {
 			while (fgets(buf, sizeof(buf), passwd) != NULL) {
