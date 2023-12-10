@@ -869,7 +869,7 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 
 	domain[0] = ltype[0] = item[0] = value[0] = '\0';
 
-	i = sscanf(line,"%s%s%s%s", domain, ltype, item, value);
+	i = sscanf(line,"%1023s%1023s%1023s%1023s", domain, ltype, item, value);
 	D(("scanned line[%d]: domain[%s], ltype[%s], item[%s], value[%s]",
 	   i, domain, ltype, item, value));
 
