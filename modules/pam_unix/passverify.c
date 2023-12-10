@@ -5,6 +5,7 @@
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
 #include "support.h"
+#include <limits.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
@@ -703,7 +704,8 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 
     while (fgets(buf, 16380, opwfile)) {
 	if (!strncmp(buf, forwho, len) && strchr(":,\n", buf[len]) != NULL) {
-	    char *sptr = NULL;
+	    char *ep, *sptr = NULL;
+	    long value;
 	    found = 1;
 	    if (howmany == 0)
 		continue;
@@ -724,7 +726,11 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 		continue;
 	    }
 	    s_pas = strtok_r(NULL, ":", &sptr);
-	    npas = strtol(s_npas, NULL, 10) + 1;
+	    value = strtol(s_npas, &ep, 10);
+	    if (value < 0 || value >= INT_MAX || s_npas == ep || *ep != '\0')
+		npas = 0;
+	    else
+		npas = (int)value + 1;
 	    while (npas > howmany && s_pas != NULL) {
 		s_pas = strpbrk(s_pas, ",");
 		if (s_pas != NULL)
