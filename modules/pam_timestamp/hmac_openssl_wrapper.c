@@ -49,6 +49,7 @@
 #include <openssl/evp.h>
 #include <openssl/params.h>
 #include <openssl/core_names.h>
+#include <openssl/rand.h>
 
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
@@ -96,6 +97,12 @@ generate_key(pam_handle_t *pamh, char **key, size_t key_size)
     if (!tmp) {
         pam_syslog(pamh, LOG_CRIT, "Not enough memory");
         return PAM_AUTH_ERR;
+    }
+
+    /* Try to get random data from OpenSSL first */
+    if (RAND_priv_bytes((unsigned char *)tmp, key_size) == 1) {
+        *key = tmp;
+        return PAM_SUCCESS;
     }
 
 #ifdef HAVE_GETRANDOM
