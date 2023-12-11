@@ -105,6 +105,7 @@ generate_key(pam_handle_t *pamh, char **key, size_t key_size)
 
     if (bytes_read < 0 || (size_t)bytes_read < key_size) {
         pam_syslog(pamh, LOG_ERR, "Short read on random device");
+        pam_overwrite_n(tmp, key_size);
         free(tmp);
         return PAM_AUTH_ERR;
     }
@@ -192,6 +193,7 @@ write_file(pam_handle_t *pamh, const char *file_name, char *text,
 
     if (bytes_written < 0 || (size_t)bytes_written < text_length) {
         pam_syslog(pamh, LOG_ERR, "Short write on %s", file_name);
+        pam_overwrite_n(text, text_length);
         free(text);
         return PAM_AUTH_ERR;
     }
