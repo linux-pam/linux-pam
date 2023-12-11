@@ -56,6 +56,10 @@
 #include "hmac_openssl_wrapper.h"
 #include "pam_inline.h"
 
+#ifdef HAVE_SYS_RANDOM_H
+#include <sys/random.h>
+#endif
+
 #define LOGIN_DEFS          "/etc/login.defs"
 #define CRYPTO_KEY          "HMAC_CRYPTO_ALGO"
 #define DEFAULT_ALGORITHM   "SHA512"
@@ -94,6 +98,15 @@ generate_key(pam_handle_t *pamh, char **key, size_t key_size)
         return PAM_AUTH_ERR;
     }
 
+#ifdef HAVE_GETRANDOM
+    /* Fallback to getrandom(2) if available */
+    if (getrandom(tmp, key_size, 0) == (ssize_t)key_size) {
+        *key = tmp;
+        return PAM_SUCCESS;
+    }
+#endif
+
+    /* Fallback to /dev/urandom */
     fd = open("/dev/urandom", O_RDONLY);
     if (fd == -1) {
         pam_syslog(pamh, LOG_ERR, "Cannot open /dev/urandom: %m");

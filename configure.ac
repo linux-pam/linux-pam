@@ -640,6 +640,11 @@ AC_CHECK_FUNCS(explicit_bzero memset_explicit)
 AC_CHECK_FUNCS([ruserok_af ruserok], [break])
 AC_CHECK_FUNCS(close_range)
 
+dnl For module/pam_timestamp
+AC_CHECK_HEADERS([sys/random.h])
+dnl May require libbsd/libSystem on non-Linux platforms
+AC_CHECK_FUNCS(getrandom)
+
 AC_ARG_ENABLE([regenerate-docu],
   AS_HELP_STRING([--disable-regenerate-docu],[Don't re-build documentation from XML sources]),
   [enable_docu=$enableval], [enable_docu=yes])
