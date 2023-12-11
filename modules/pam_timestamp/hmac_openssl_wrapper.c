@@ -85,18 +85,19 @@ generate_key(pam_handle_t *pamh, char **key, size_t key_size)
 {
     int fd = 0;
     ssize_t bytes_read = 0;
-    char * tmp = NULL;
-
-    fd = open("/dev/urandom", O_RDONLY);
-    if (fd == -1) {
-        pam_syslog(pamh, LOG_ERR, "Cannot open /dev/urandom: %m");
-        return PAM_AUTH_ERR;
-    }
+    char *tmp = *key = NULL;
 
     tmp = malloc(key_size);
     if (!tmp) {
         pam_syslog(pamh, LOG_CRIT, "Not enough memory");
-        close(fd);
+        return PAM_AUTH_ERR;
+    }
+
+    fd = open("/dev/urandom", O_RDONLY);
+    if (fd == -1) {
+        pam_syslog(pamh, LOG_ERR, "Cannot open /dev/urandom: %m");
+        pam_overwrite_n(tmp, key_size);
+        free(tmp);
         return PAM_AUTH_ERR;
     }
 
