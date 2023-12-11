@@ -97,22 +97,6 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 	    ctrl |= unix_args[j].flag;	/* for turning things on  */
 	  }
 	  free (val);
-
-	  /* read number of rounds for crypt algo */
-	  if (rounds) {
-	    val = NULL;
-	    if (on(UNIX_SHA256_PASS, ctrl) || on(UNIX_SHA512_PASS, ctrl)) {
-	      val = pam_modutil_search_key(pamh, LOGIN_DEFS, "SHA_CRYPT_MAX_ROUNDS");
-	    } else if (on(UNIX_YESCRYPT_PASS, ctrl)) {
-	      val = pam_modutil_search_key(pamh, LOGIN_DEFS, "YESCRYPT_COST_FACTOR");
-	    }
-
-	    if (val) {
-	      *rounds = strtol(val, NULL, 10);
-	      set(UNIX_ALGO_ROUNDS, ctrl);
-	      free (val);
-	    }
-	  }
 	}
 
 	/* now parse the arguments to this module */
@@ -178,6 +162,21 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 	if (flags & PAM_DISALLOW_NULL_AUTHTOK) {
 		D(("DISALLOW_NULL_AUTHTOK"));
 		set(UNIX__NONULL, ctrl);
+	}
+
+	/* Read number of rounds for sha256, sha512 and yescrypt */
+	if (off(UNIX_ALGO_ROUNDS, ctrl) && rounds != NULL) {
+		val = NULL;
+		if (on(UNIX_YESCRYPT_PASS, ctrl)) {
+			val = pam_modutil_search_key(pamh, LOGIN_DEFS, "YESCRYPT_COST_FACTOR");
+		} else if (on(UNIX_SHA256_PASS, ctrl) || on(UNIX_SHA512_PASS, ctrl)) {
+			val = pam_modutil_search_key(pamh, LOGIN_DEFS, "SHA_CRYPT_MAX_ROUNDS");
+		}
+		if (val) {
+			*rounds = strtol(val, NULL, 10);
+			set(UNIX_ALGO_ROUNDS, ctrl);
+			free (val);
+		}
 	}
 
 	/* Set default rounds for blowfish, gost-yescrypt and yescrypt */
