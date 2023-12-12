@@ -337,7 +337,7 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 			D(("need a new password 2"));
 			return PAM_NEW_AUTHTOK_REQD;
 		}
-		if (spent->sp_warn >= 0) {
+		if (spent->sp_warn > 0) {
 			long warn = spent->sp_warn > spent->sp_max ? -1 :
 			    spent->sp_max - spent->sp_warn;
 			if (passed >= warn) {
@@ -346,7 +346,7 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 			}
 		}
 	}
-	if (spent->sp_min >= 0 && passed < spent->sp_min) {
+	if (spent->sp_min > 0 && passed < spent->sp_min) {
 		/*
 		 * The last password change was too recent. This error will be ignored
 		 * if no password change is attempted.
