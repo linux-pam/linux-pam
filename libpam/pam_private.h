@@ -16,6 +16,7 @@
 
 #include "config.h"
 
+#include <stddef.h>
 #include <syslog.h>
 
 #include <security/pam_appl.h>
@@ -272,7 +273,7 @@ char *_pam_strdup(const char *s);
 
 char *_pam_memdup(const char *s, int len);
 
-int _pam_mkargv(const char *s, char ***argv, int *argc);
+size_t _pam_mkargv(const char *s, char ***argv, int *argc);
 
 void _pam_sanitize(pam_handle_t *pamh);
 

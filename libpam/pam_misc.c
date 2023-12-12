@@ -40,6 +40,7 @@
 #include <limits.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <syslog.h>
@@ -150,10 +151,10 @@ char *_pam_memdup(const char *x, int len)
 /* Generate argv, argc from s */
 /* caller must free(argv)     */
 
-int _pam_mkargv(const char *s, char ***argv, int *argc)
+size_t _pam_mkargv(const char *s, char ***argv, int *argc)
 {
-    int l;
-    int argvlen = 0;
+    size_t l;
+    size_t argvlen = 0;
     char **our_argv = NULL;
 
     D(("called: %s",s));
@@ -161,7 +162,7 @@ int _pam_mkargv(const char *s, char ***argv, int *argc)
     *argc = 0;
 
     l = strlen(s);
-    if (l) {
+    if (l && l < SIZE_MAX / (sizeof(char) + sizeof(char *))) {
 	char **argvbuf;
 	/* Overkill on the malloc, but not large */
 	argvlen = (l + 1) * (sizeof(char) + sizeof(char *));
@@ -173,15 +174,22 @@ int _pam_mkargv(const char *s, char ***argv, int *argc)
 	    char *tmp=NULL;
 	    char *tok;
 #ifdef PAM_DEBUG
-	    int count=0;
+	    unsigned count=0;
 #endif
 	    argvbufp = (char *) argvbuf + (l * sizeof(char *));
 	    strcpy(argvbufp, s);
 	    D(("[%s]",argvbufp));
 	    while ((tok = _pam_tokenize(argvbufp, &tmp))) {
-		D(("arg #%d",++count));
+		D(("arg #%u",++count));
 		D(("->[%s]",tok));
 		*argvbuf++ = tok;
+		if (*argc == INT_MAX) {
+		    pam_syslog(NULL, LOG_CRIT,
+			       "pam_mkargv: too many arguments");
+		    argvlen = 0;
+		    _pam_drop(our_argv);
+		    break;
+		}
 		(*argc)++;
 		argvbufp = NULL;
 		D(("loop again?"));

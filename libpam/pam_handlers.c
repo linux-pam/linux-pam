@@ -32,7 +32,7 @@ static void _pam_free_handlers_aux(struct handler **hp);
 static int _pam_add_handler(pam_handle_t *pamh
 		     , int must_fail, int other, int stack_level, int type
 		     , int *actions, const char *mod_path
-		     , int argc, char **argv, int argvlen);
+		     , int argc, char **argv, size_t argvlen);
 
 /* Values for module type */
 
@@ -77,7 +77,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	int handler_type = PAM_HT_MODULE; /* regular handler from a module */
 	int argc;
 	char **argv;
-	int argvlen;
+	size_t argvlen;
 
 	D(("LINE: %s", buf));
 	if (known_service != NULL) {
@@ -235,7 +235,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	    if (nexttok != NULL) {
 		D(("list: %s",nexttok));
 	        argvlen = _pam_mkargv(nexttok, &argv, &argc);
-		D(("argvlen = %d",argvlen));
+		D(("argvlen = %zu",argvlen));
 		if (argvlen == 0) {
 		    /* memory allocation failed */
 		    D(("failed to allocate argument vector"));
@@ -247,7 +247,8 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 		}
 	    } else {               /* there are no arguments so fix by hand */
 		D(("empty argument list"));
-		argvlen = argc = 0;
+		argvlen = 0;
+		argc = 0;
 		argv = NULL;
 	    }
 
@@ -788,7 +789,7 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 int _pam_add_handler(pam_handle_t *pamh
 		     , int handler_type, int other, int stack_level, int type
 		     , int *actions, const char *mod_path
-		     , int argc, char **argv, int argvlen)
+		     , int argc, char **argv, size_t argvlen)
 {
     struct loaded_module *mod = NULL;
     struct handler **handler_p;
