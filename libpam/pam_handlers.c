@@ -18,14 +18,23 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#define BUF_SIZE                  1024
 #define MODULE_CHUNK              4
 #define UNKNOWN_MODULE       "<*unknown module*>"
 #ifndef _PAM_ISA
 #define _PAM_ISA "."
 #endif
 
-static int _pam_assemble_line(FILE *f, char *buf, int buf_len);
+struct line_buffer {
+	char *assembled;
+	char *chunk;
+	size_t chunk_size;
+	size_t len;
+	size_t size;
+};
+
+static void _pam_buffer_init(struct line_buffer *buffer);
+
+static int _pam_assemble_line(FILE *f, struct line_buffer *buf);
 
 static void _pam_free_handlers_aux(struct handler **hp);
 
@@ -62,12 +71,15 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 #endif /* PAM_READ_BOTH_CONFS */
     )
 {
-    char buf[BUF_SIZE];
+    struct line_buffer buffer;
     int x;                    /* read a line from the FILE *f ? */
+
+    _pam_buffer_init(&buffer);
     /*
      * read a line from the configuration (FILE *) f
      */
-    while ((x = _pam_assemble_line(f, buf, BUF_SIZE)) > 0) {
+    while ((x = _pam_assemble_line(f, &buffer)) > 0) {
+	char *buf = buffer.assembled;
 	char *tok, *nexttok=NULL;
 	const char *this_service;
 	const char *mod_path;
@@ -572,94 +584,243 @@ int _pam_init_handlers(pam_handle_t *pamh)
     return PAM_SUCCESS;
 }
 
+static int _pam_buffer_add(struct line_buffer *buffer, char *start, char *end)
+{
+    size_t len = end - start;
+
+    D(("assembled: [%zu/%zu] '%s', adding [%zu] '%s'",
+	buffer->len, buffer->size,
+	buffer->assembled == NULL ? "" : buffer->assembled, len, start));
+
+    if (start == end)
+	return 0;
+
+    if (buffer->assembled == NULL && buffer->chunk == start) {
+	/* no extra allocation needed, just move chunk to assembled */
+	buffer->assembled = buffer->chunk;
+	buffer->len = len;
+	buffer->size = buffer->chunk_size;
+
+	buffer->chunk = NULL;
+	buffer->chunk_size = 0;
+
+	D(("exiting with quick exchange"));
+	return 0;
+    }
+
+    if (buffer->len + len + 1 > buffer->size) {
+	size_t size;
+	char *p;
+
+	size = buffer->len + len + 1;
+	if ((p = realloc(buffer->assembled, size)) == NULL)
+		return -1;
+
+	buffer->assembled = p;
+	buffer->size = size;
+    }
+
+    memcpy(buffer->assembled + buffer->len, start, len);
+    buffer->len += len;
+    buffer->assembled[buffer->len] = '\0';
+
+    D(("exiting"));
+    return 0;
+}
+
+static inline int _pam_buffer_add_eol(struct line_buffer *buffer,
+				      char *start, char *end)
+{
+    if (buffer->assembled != NULL || (*start != '\0' && *start != '\n'))
+	return _pam_buffer_add(buffer, start, end);
+    return 0;
+}
+
+static void _pam_buffer_clear(struct line_buffer *buffer)
+{
+    _pam_drop(buffer->assembled);
+    _pam_drop(buffer->chunk);
+    buffer->chunk_size = 0;
+    buffer->len = 0;
+    buffer->size = 0;
+}
+
+static void _pam_buffer_init(struct line_buffer *buffer)
+{
+    buffer->assembled = NULL;
+    buffer->chunk = NULL;
+    _pam_buffer_clear(buffer);
+}
+
+static void _pam_buffer_purge(struct line_buffer *buffer)
+{
+    _pam_drop(buffer->chunk);
+    buffer->chunk_size = 0;
+}
+
+static void _pam_buffer_shift(struct line_buffer *buffer)
+{
+    if (buffer->assembled == NULL)
+	return;
+
+    _pam_buffer_purge(buffer);
+    buffer->chunk = buffer->assembled;
+    buffer->chunk_size = buffer->size;
+
+    buffer->assembled = NULL;
+    buffer->size = 0;
+    buffer->len = 0;
+}
+
+static inline int _pam_buffer_valid(struct line_buffer *buffer)
+{
+    return buffer->assembled != NULL && *buffer->assembled != '\0';
+}
+
+/*
+ * Trim string to relevant parts of a configuration line.
+ *
+ * Preceding whitespaces are skipped and comment (#) marks the end of
+ * configuration line.
+ *
+ * Returns start of configuration line.
+ */
+static inline char *_pam_str_trim(char *str)
+{
+    /* skip leading spaces */
+    str += strspn(str, " \t");
+    /*
+     * we are only interested in characters before the first '#'
+     * character
+     */
+    str[strcspn(str, "#")] = '\0';
+
+    return str;
+}
+
+/*
+ * Remove escaped newline from end of string.
+ *
+ * Configuration lines may span across multiple lines in a file
+ * by ending a line with a backslash (\).
+ *
+ * If an escaped newline is encountered, the backslash will be
+ * replaced with a blank ' ' and the newline itself removed.
+ * Then the variable "end" will point to the new end of line.
+ *
+ * Returns 0 if escaped newline was found and replaced, 1 otherwise.
+ */
+static inline int _pam_str_unescnl(char *start, char **end)
+{
+    int ret = 1;
+    char *p = *end;
+
+    /*
+     * Check for backslash by scanning back from the end of
+     * the entered line, the '\n' should be included since
+     * normally a line is terminated with this character.
+     */
+    while (p > start && ((*--p == ' ') || (*p == '\t') || (*p == '\n')))
+	;
+    if (*p == '\\') {
+	*p++ = ' ';         /* replace backslash with ' ' */
+	*p = '\0';          /* truncate the line here */
+	*end = p;
+	ret = 0;
+    }
+
+    return ret;
+}
+
+/*
+ * Prepare line from file for configuration line parsing.
+ *
+ * A configuration line may span across multiple lines in a file.
+ * Remove comments and skip preceding whitespaces.
+ *
+ * Returns 0 if line spans across multiple lines, 1 if
+ * end of line is encountered.
+ */
+static inline int _pam_str_prepare(char *line, ssize_t len,
+				   char **start, char **end)
+{
+    int ret;
+
+    *start = line;
+    *end = line + len;
+
+    ret = _pam_str_unescnl(*start, end) || strchr(*start, '#') != NULL;
+
+    *start = _pam_str_trim(*start);
+
+    return ret;
+}
+
 /*
  * This is where we read a line of the PAM config file. The line may be
  * preceded by lines of comments and also extended with "\\\n"
+ *
+ * Returns 0 on EOF, 1 on successful line parsing, or -1 on error.
  */
 
-static int _pam_assemble_line(FILE *f, char *buffer, int buf_len)
+static int _pam_assemble_line(FILE *f, struct line_buffer *buffer)
 {
-    char *p = buffer;
-    char *endp = buffer + buf_len;
-    char *s, *os;
-    int used = 0;
+    int ret = 0;
 
     /* loop broken with a 'break' when a non-'\\n' ended line is read */
 
     D(("called."));
+
+    _pam_buffer_shift(buffer);
+
     for (;;) {
-	if (p >= endp - 1) {
-	    /* Overflow */
-	    D(("overflow"));
-	    return -1;
-	}
-	if (fgets(p, endp - p, f) == NULL) {
-	    if (used) {
+	char *start, *end;
+	ssize_t n;
+	int eol;
+
+	if ((n = getline(&buffer->chunk, &buffer->chunk_size, f)) == -1) {
+	    if (ret) {
 		/* Incomplete read */
-		return -1;
+		ret = -1;
 	    } else {
 		/* EOF */
-		return 0;
+		ret = 0;
 	    }
+	    break;
 	}
 
-	if (strchr(p, '\n') == NULL && !feof(f)) {
-	    /* Incomplete */
-	    D(("_pam_assemble_line: incomplete"));
-	    return -1;
-	}
+	eol = _pam_str_prepare(buffer->chunk, n, &start, &end);
 
-	/* skip leading spaces --- line may be blank */
-
-	s = p + strspn(p, " \n\t");
-	if (*s && (*s != '#')) {
-	    os = s;
-
-	    /*
-	     * we are only interested in characters before the first '#'
-	     * character
-	     */
-
-	    while (*s && *s != '#')
-		 ++s;
-	    if (*s == '#') {
-		 *s = '\0';
-		 used += strlen(os);
-		 break;                /* the line has been read */
+	if (eol) {
+	    if (_pam_buffer_add_eol(buffer, start, end)) {
+		ret = -1;
+		break;
 	    }
-
-	    s = os;
-
-	    /*
-	     * Check for backslash by scanning back from the end of
-	     * the entered line, the '\n' has been included since
-	     * normally a line is terminated with this
-	     * character. fgets() should only return one though!
-	     */
-
-	    s += strlen(s);
-	    while (s > os && ((*--s == ' ') || (*s == '\t')
-			      || (*s == '\n')));
-
-	    /* check if it ends with a backslash */
-	    if (*s == '\\') {
-		*s++ = ' ';             /* replace backslash with ' ' */
-		*s = '\0';              /* truncate the line here */
-		used += strlen(os);
-		p = s;                  /* there is more ... */
-	    } else {
-		/* End of the line! */
-		used += strlen(os);
-		break;                  /* this is the complete line */
+	    if (_pam_buffer_valid(buffer)) {
+		/* Successfully parsed a line */
+		ret = 1;
+		break;
 	    }
-
+	    /* Start parsing next line */
+	    _pam_buffer_shift(buffer);
+	    ret = 0;
 	} else {
-	    /* Nothing in this line */
-	    /* Don't move p         */
+	    /* Configuration line spans across multiple lines in file */
+	    if (_pam_buffer_add(buffer, start, end)) {
+		ret = -1;
+		break;
+	    }
+	    /* Keep parsing line */
+	    ret = 1;
 	}
     }
 
-    return used;
+    if (ret == 1)
+	_pam_buffer_purge(buffer);
+    else
+	_pam_buffer_clear(buffer);
+
+    return ret;
 }
 
 static char *
