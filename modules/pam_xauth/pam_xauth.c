@@ -290,17 +290,10 @@ check_acl(pam_handle_t *pamh,
 		}
 	}
 	if (fp) {
-		char buf[LINE_MAX], *tmp;
+		char buf[LINE_MAX];
 		/* Scan the file for a list of specs of users to "trust". */
 		while (fgets(buf, sizeof(buf), fp) != NULL) {
-			tmp = memchr(buf, '\r', sizeof(buf));
-			if (tmp != NULL) {
-				*tmp = '\0';
-			}
-			tmp = memchr(buf, '\n', sizeof(buf));
-			if (tmp != NULL) {
-				*tmp = '\0';
-			}
+			buf[strcspn(buf, "\r\n")] = '\0';
 			if (fnmatch(buf, other_user, 0) == 0) {
 				if (debug) {
 					pam_syslog(pamh, LOG_DEBUG,
