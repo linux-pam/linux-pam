@@ -647,7 +647,6 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 #endif
 {
     static char buf[16384];
-    static char nbuf[16384];
     char *s_luser, *s_uid, *s_npas, *s_pas, *pass;
     int npas;
     FILE *pwfile, *opwfile;
@@ -760,16 +759,14 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 	    }
 	    pass = crypt_md5_wrapper(oldpass);
 	    if (s_pas == NULL)
-		snprintf(nbuf, sizeof(nbuf), "%s:%s:%d:%s\n",
-			 s_luser, s_uid, npas, pass);
+		err = fprintf(pwfile, "%s:%s:%d:%s\n",
+			      s_luser, s_uid, npas, pass) < 0;
 	    else
-		snprintf(nbuf, sizeof(nbuf),"%s:%s:%d:%s,%s\n",
-			 s_luser, s_uid, npas, s_pas, pass);
+		err = fprintf(pwfile, "%s:%s:%d:%s,%s\n",
+			      s_luser, s_uid, npas, s_pas, pass) < 0;
 	    _pam_delete(pass);
-	    if (fputs(nbuf, pwfile) < 0) {
-		err = 1;
+	    if (err)
 		break;
-	    }
 	} else if (fputs(buf, pwfile) < 0) {
 	    err = 1;
 	    break;
@@ -783,12 +780,9 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 	    err = 1;
 	} else {
 	    pass = crypt_md5_wrapper(oldpass);
-	    snprintf(nbuf, sizeof(nbuf), "%s:%lu:1:%s\n",
-		     forwho, (unsigned long)pwd->pw_uid, pass);
+	    err = fprintf(pwfile, "%s:%lu:1:%s\n",
+			  forwho, (unsigned long)pwd->pw_uid, pass) < 0;
 	    _pam_delete(pass);
-	    if (fputs(nbuf, pwfile) < 0) {
-		err = 1;
-	    }
 	}
     }
 
