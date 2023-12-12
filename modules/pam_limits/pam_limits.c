@@ -818,6 +818,39 @@ parse_uid_range(pam_handle_t *pamh, const char *domain,
 }
 
 static int
+set_if_null(char **dest, char *def)
+{
+    if (*dest == NULL) {
+	*dest = def;
+	return 0;
+    }
+    return 1;
+}
+
+static int
+split(char *line, char **domain, char **ltype, char **item, char **value)
+{
+    char *blank, *saveptr;
+    int count;
+
+    blank = line + strlen(line);
+    saveptr = NULL;
+
+    *domain = strtok_r(line, " \t", &saveptr);
+    *ltype = strtok_r(NULL, " \t", &saveptr);
+    *item = strtok_r(NULL, " \t", &saveptr);
+    *value = strtok_r(NULL, "", &saveptr);
+
+    count = 0;
+    count += set_if_null(domain, blank);
+    count += set_if_null(ltype, blank);
+    count += set_if_null(item, blank);
+    count += set_if_null(value, blank);
+
+    return count;
+}
+
+static int
 parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 		  int ctrl, struct pam_limit_s *pl, const int conf_file_set_by_user)
 {
@@ -840,14 +873,10 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 
     /* start the show */
     while (fgets(buf, LINE_LENGTH, fil) != NULL) {
-        char domain[LINE_LENGTH];
-        char ltype[LINE_LENGTH];
-        char item[LINE_LENGTH];
-        char value[LINE_LENGTH];
+        char *domain, *ltype, *item, *value, *tptr, *line;
         int i;
         int rngtype;
         size_t j;
-        char *tptr,*line;
         uid_t min_uid = (uid_t)-1, max_uid = (uid_t)-1;
 
         line = buf;
@@ -867,9 +896,7 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
         if (!strlen(line))
             continue;
 
-	domain[0] = ltype[0] = item[0] = value[0] = '\0';
-
-	i = sscanf(line,"%s%s%s%s", domain, ltype, item, value);
+	i = split(line, &domain, &ltype, &item, &value);
 	D(("scanned line[%d]: domain[%s], ltype[%s], item[%s], value[%s]",
 	   i, domain, ltype, item, value));
 
