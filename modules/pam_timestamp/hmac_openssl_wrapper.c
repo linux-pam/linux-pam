@@ -81,6 +81,7 @@ get_crypto_algorithm(pam_handle_t *pamh, int debug){
 }
 
 static int
+PAM_NONNULL((1, 2))
 generate_key(pam_handle_t *pamh, char **key, size_t key_size)
 {
     int fd = 0;
@@ -117,6 +118,7 @@ generate_key(pam_handle_t *pamh, char **key, size_t key_size)
 }
 
 static int
+PAM_NONNULL((1, 3, 4))
 read_file(pam_handle_t *pamh, int fd, char **text, size_t *text_length)
 {
     struct stat st;
@@ -165,6 +167,7 @@ read_file(pam_handle_t *pamh, int fd, char **text, size_t *text_length)
 }
 
 static int
+PAM_NONNULL((1, 2, 3))
 write_file(pam_handle_t *pamh, const char *file_name, char *text,
            size_t text_length, uid_t owner, gid_t group)
 {
@@ -203,6 +206,7 @@ write_file(pam_handle_t *pamh, const char *file_name, char *text,
 }
 
 static int
+PAM_NONNULL((1, 2, 3))
 key_management(pam_handle_t *pamh, const char *file_name, char **text,
                 size_t text_length, uid_t owner, gid_t group)
 {
