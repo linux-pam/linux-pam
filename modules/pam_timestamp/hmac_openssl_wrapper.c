@@ -87,7 +87,7 @@ generate_key(pam_handle_t *pamh, char **key, size_t key_size)
     ssize_t bytes_read = 0;
     char *tmp = *key = NULL;
 
-    tmp = malloc(key_size);
+    tmp = calloc(1, key_size);
     if (!tmp) {
         pam_syslog(pamh, LOG_CRIT, "Not enough memory");
         return PAM_AUTH_ERR;
@@ -141,7 +141,7 @@ read_file(pam_handle_t *pamh, int fd, char **text, size_t *text_length)
         return PAM_AUTH_ERR;
     }
 
-    tmp = malloc(st.st_size);
+    tmp = calloc(1, st.st_size);
     if (!tmp) {
         pam_syslog(pamh, LOG_CRIT, "Not enough memory");
         close(fd);
