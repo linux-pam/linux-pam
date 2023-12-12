@@ -173,24 +173,8 @@ check_old_pass, const char *user, const char *newpass, const char *filename, int
   while (!feof (oldpf))
     {
       char *cp, *tmp;
-#if defined(HAVE_GETLINE)
       ssize_t n = getline (&buf, &buflen, oldpf);
-#elif defined (HAVE_GETDELIM)
-      ssize_t n = getdelim (&buf, &buflen, '\n', oldpf);
-#else
-      ssize_t n;
 
-      if (buf == NULL)
-        {
-          buflen = DEFAULT_BUFLEN;
-          buf = malloc (buflen);
-	  if (buf == NULL)
-	    return PAM_BUF_ERR;
-        }
-      buf[0] = '\0';
-      fgets (buf, buflen - 1, oldpf);
-      n = strlen (buf);
-#endif /* HAVE_GETLINE / HAVE_GETDELIM */
       cp = buf;
 
       if (n < 1)
@@ -380,29 +364,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
     while (!feof (oldpf))
       {
 	char *cp, *tmp, *save;
-#if defined(HAVE_GETLINE)
 	ssize_t n = getline (&buf, &buflen, oldpf);
-#elif defined (HAVE_GETDELIM)
-	ssize_t n = getdelim (&buf, &buflen, '\n', oldpf);
-#else
-	ssize_t n;
-
-	if (buf == NULL)
-	  {
-	    buflen = DEFAULT_BUFLEN;
-	    buf = malloc (buflen);
-	    if (buf == NULL)
-              {
-		fclose (oldpf);
-		fclose (newpf);
-		retval = PAM_BUF_ERR;
-		goto error_opasswd;
-              }
-	  }
-	buf[0] = '\0';
-	fgets (buf, buflen - 1, oldpf);
-	n = strlen (buf);
-#endif /* HAVE_GETLINE / HAVE_GETDELIM */
 
 	if (n < 1)
 	  break;

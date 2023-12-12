@@ -70,29 +70,8 @@ pam_modutil_search_key(pam_handle_t *pamh UNUSED,
 
 	while (!feof(fp)) {
 		char *tmp, *cp;
-#if defined(HAVE_GETLINE)
 		ssize_t n = getline(&buf, &buflen, fp);
-#elif defined (HAVE_GETDELIM)
-		ssize_t n = getdelim(&buf, &buflen, '\n', fp);
-#else
-		ssize_t n;
 
-		if (buf == NULL) {
-			buflen = BUF_SIZE;
-			buf = malloc(buflen);
-			if (buf == NULL) {
-				fclose(fp);
-				return NULL;
-			}
-		}
-		buf[0] = '\0';
-		if (fgets(buf, buflen - 1, fp) == NULL)
-			break;
-		else if (buf != NULL)
-			n = strlen(buf);
-		else
-			n = 0;
-#endif /* HAVE_GETLINE / HAVE_GETDELIM */
 		cp = buf;
 
 		if (n < 1)
