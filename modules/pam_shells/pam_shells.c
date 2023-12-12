@@ -118,6 +118,7 @@ static int perform_check(pam_handle_t *pamh)
 #else
     FILE *shellFile;
     char *p = NULL;
+    size_t n = 0;
 
     if (!check_file(SHELL_FILE, pamh))
         return PAM_AUTH_ERR;
@@ -130,17 +131,7 @@ static int perform_check(pam_handle_t *pamh)
 
     retval = 1;
 
-#if defined(HAVE_GETLINE) || defined (HAVE_GETDELIM)
-    size_t n = 0;
-
-    while (retval &&
-#if defined(HAVE_GETLINE)
-	   getline(&p, &n, shellFile)
-#elif defined (HAVE_GETDELIM)
-	   getdelim(&p, &n, '\n', shellFile)
-#endif
-	   != -1) {
-
+    while (retval && getline(&p, &n, shellFile) != -1) {
 	if (p[0] != '/') {
 		continue;
 	}
@@ -148,27 +139,6 @@ static int perform_check(pam_handle_t *pamh)
     }
 
     free(p);
-#else
-    char buf[PATH_MAX + 2];
-    int ignore = 0;
-
-    while (retval && fgets(buf, sizeof(buf), shellFile) != NULL) {
-	p = strchr(buf, '\n');
-	if (p == NULL) {
-		ignore = 1;
-		continue;
-	} else if (ignore) {
-		ignore = 0;
-		continue;
-	}
-
-	if (buf[0] != '/') {
-		continue;
-	}
-	retval = strcmp(buf, userShell);
-    }
-#endif
-
     fclose(shellFile);
 #endif
 

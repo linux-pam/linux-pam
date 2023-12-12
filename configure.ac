@@ -632,7 +632,7 @@ AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(fseeko getdomainname gethostname gettimeofday lckpwdf mkdir select)
 AC_CHECK_FUNCS(strcspn strdup strspn strstr strtol uname)
 AC_CHECK_FUNCS(getutent_r getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r getmntent_r)
-AC_CHECK_FUNCS(getgrouplist getline getdelim)
+AC_CHECK_FUNCS(getgrouplist)
 AC_CHECK_FUNCS(inet_ntop inet_pton innetgr)
 AC_CHECK_FUNCS(quotactl)
 AC_CHECK_FUNCS(unshare)
