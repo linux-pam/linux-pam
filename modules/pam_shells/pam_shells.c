@@ -140,6 +140,7 @@ static int perform_check(pam_handle_t *pamh)
 	   getdelim(&p, &n, '\n', shellFile)
 #endif
 	   != -1) {
+	p[strcspn(p, "\n")] = '\0';
 
 	if (p[0] != '/') {
 		continue;
@@ -161,6 +162,7 @@ static int perform_check(pam_handle_t *pamh)
 		ignore = 0;
 		continue;
 	}
+	*p = '\0';
 
 	if (buf[0] != '/') {
 		continue;
