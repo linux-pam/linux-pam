@@ -322,20 +322,20 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 		if (spent->sp_inact >= 0) {
 			long inact = spent->sp_max < LONG_MAX - spent->sp_inact ?
 			    spent->sp_max + spent->sp_inact : LONG_MAX;
-			if (passed > inact) {
+			if (passed >= inact) {
 				*daysleft = subtract(inact, passed);
 				D(("authtok expired"));
 				return PAM_AUTHTOK_EXPIRED;
 			}
 		}
-		if (passed > spent->sp_max) {
+		if (passed >= spent->sp_max) {
 			D(("need a new password 2"));
 			return PAM_NEW_AUTHTOK_REQD;
 		}
 		if (spent->sp_warn >= 0) {
 			long warn = spent->sp_warn > spent->sp_max ? -1 :
 			    spent->sp_max - spent->sp_warn;
-			if (passed > warn) {
+			if (passed >= warn) {
 				*daysleft = subtract(spent->sp_max, passed);
 				D(("warn before expiry"));
 			}
