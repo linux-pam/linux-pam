@@ -436,7 +436,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	  _exit (err);
 	}
 
-      arggv = calloc (argc + 4, sizeof (char *));
+      arggv = calloc ((size_t) argc + 1, sizeof (char *));
       if (arggv == NULL)
 	_exit (ENOMEM);
 
