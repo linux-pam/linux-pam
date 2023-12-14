@@ -54,9 +54,7 @@ pam_modutil_getpwuid(pam_handle_t *pamh, uid_t uid)
 	    D(("out of memory"));
 
 	    /* no memory for the user - so delete the memory */
-	    if (buffer) {
-		free(buffer);
-	    }
+	    free(buffer);
 	    return NULL;
 	}
 	buffer = new_buffer;

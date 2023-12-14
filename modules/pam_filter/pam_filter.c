@@ -238,8 +238,7 @@ static void free_evp(char *evp[])
 
     if (evp)
 	for (i=0; i<4; ++i) {
-	    if (evp[i])
-		free(evp[i]);
+	    free(evp[i]);
 	}
     free(evp);
 }

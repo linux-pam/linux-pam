@@ -171,9 +171,7 @@ static int converse(pam_handle_t *pamh, struct ps_state_s *new)
 	    }
 	}
 
-	if (single_reply) {
-	    free(single_reply);
-	}
+	free(single_reply);
     }
 
 #ifdef PAM_DEBUG

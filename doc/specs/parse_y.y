@@ -282,9 +282,7 @@ char *new_counter(const char *key)
 
     counter_root = set_key(counter_root, key, new);
 
-    if (last_label) {
-	free(last_label);
-    }
+    free(last_label);
     last_label = strdup(new);
 
     return new;

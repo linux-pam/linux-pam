@@ -44,9 +44,7 @@ pam_modutil_getspnam(pam_handle_t *pamh, const char *user)
 	    D(("out of memory"));
 
 	    /* no memory for the user - so delete the memory */
-	    if (buffer) {
-		free(buffer);
-	    }
+	    free(buffer);
 	    return NULL;
 	}
 	buffer = new_buffer;

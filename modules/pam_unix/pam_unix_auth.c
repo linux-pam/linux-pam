@@ -86,8 +86,7 @@ do {									\
 static void
 setcred_free (pam_handle_t *pamh UNUSED, void *ptr, int err UNUSED)
 {
-	if (ptr)
-		free (ptr);
+	free (ptr);
 }
 
 int

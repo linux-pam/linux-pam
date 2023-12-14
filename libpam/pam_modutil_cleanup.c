@@ -12,8 +12,6 @@ void
 pam_modutil_cleanup (pam_handle_t *pamh UNUSED, void *data,
 		     int error_status UNUSED)
 {
-    if (data) {
 	/* junk it */
-	(void) free(data);
-    }
+	free(data);
 }

@@ -476,10 +476,8 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	  resp = NULL;
 
 	  retval = converse(pamh,i,pmsg,&resp);
-	  if (txt) {
-	       free(txt);
-	       txt = NULL;               /* clean up */
-	  }
+	  free(txt);
+	  txt = NULL;               /* clean up */
 	  if (retval != PAM_SUCCESS) {
 	       return retval;
 	  }

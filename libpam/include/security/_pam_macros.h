@@ -44,10 +44,8 @@ do {                                    \
 
 #define _pam_drop(X) \
 do {                 \
-    if (X) {         \
-        free(X);     \
-        X=NULL;      \
-    }                \
+    free(X);         \
+    X=NULL;          \
 } while (0)
 
 /*
@@ -64,8 +62,7 @@ do {                                              \
 	    free(reply[reply_i].resp);            \
 	}                                         \
     }                                             \
-    if (reply)                                    \
-	free(reply);                              \
+    free(reply);                                  \
 } while (0)
 
 /* some debugging code */

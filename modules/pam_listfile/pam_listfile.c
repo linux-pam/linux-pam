@@ -92,7 +92,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	    else if(!strcmp(myval,"fail"))
 		onerr = PAM_SERVICE_ERR;
 	    else {
-	        if (ifname) free (ifname);
+	        free(ifname);
 		return PAM_SERVICE_ERR;
 	    }
 	else if(!strcmp(mybuf,"sense"))
@@ -101,11 +101,11 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	    else if(!strcmp(myval,"deny"))
 		sense=1;
 	    else {
-	        if (ifname) free (ifname);
+	        free(ifname);
 		return onerr;
 	    }
 	else if(!strcmp(mybuf,"file")) {
-	    if (ifname) free (ifname);
+	    free(ifname);
 	    ifname = malloc(strlen(myval)+1);
 	    if (!ifname)
 		return PAM_BUF_ERR;

@@ -197,9 +197,7 @@ run_coprocess(pam_handle_t *pamh, const char *input, char **output,
 		tmp = realloc(buffer, buffer_size + i + 1);
 		if (tmp == NULL) {
 			/* Uh-oh, bail. */
-			if (buffer != NULL) {
-				free(buffer);
-			}
+			free(buffer);
 			close(opipe[0]);
 			waitpid(child, NULL, 0);
 			sigaction(SIGCHLD, &oldsa, NULL);   /* restore old signal handler */
@@ -545,10 +543,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			char *t, *screen;
 			size_t tlen, slen;
 			/* Free the useless cookie string. */
-			if (cookie != NULL) {
-				free(cookie);
-				cookie = NULL;
-			}
+			free(cookie);
+			cookie = NULL;
 			/* Allocate enough space to hold an adjusted name. */
 			tlen = strlen(display) + LINE_MAX + 1;
 			t = calloc(1, tlen);

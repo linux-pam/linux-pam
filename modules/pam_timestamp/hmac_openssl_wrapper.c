@@ -297,9 +297,7 @@ hmac_management(pam_handle_t *pamh, int debug, void **out, size_t *out_length,
     ret = PAM_SUCCESS;
 
 done:
-    if (hmac_message != NULL) {
-        free(hmac_message);
-    }
+    free(hmac_message);
     if (key != NULL) {
         pam_overwrite_n(key, key_length);
         free(key);
