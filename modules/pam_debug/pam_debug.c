@@ -40,7 +40,7 @@ static int parse_args(int retval, const char *event,
     int i;
 
     for (i=0; i<argc; ++i) {
-	int length = strlen(event);
+	size_t length = strlen(event);
 	if (!strncmp(event, argv[i], length) && (argv[i][length] == '=')) {
 	    int j;
 	    const char *return_string = argv[i] + (length+1);

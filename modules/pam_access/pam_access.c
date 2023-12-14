@@ -427,8 +427,8 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 #ifdef HAVE_LIBAUDIT
     int     nonall_match = NO;
 #endif
-    int     end;
-    int     lineno = 0;		/* for diagnostics */
+    size_t  end;
+    size_t  lineno = 0;		/* for diagnostics */
     char   *sptr;
 
     if (item->debug)
@@ -450,7 +450,7 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	    lineno++;
 	    if (line[end = strlen(line) - 1] != '\n') {
 		pam_syslog(pamh, LOG_ERR,
-                           "%s: line %d: missing newline or line too long",
+                           "%s: line %zu: missing newline or line too long",
 		           item->config_file, lineno);
 		continue;
 	    }
@@ -466,18 +466,18 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	    if (!(perm = strtok_r(line, item->fs, &sptr))
 		|| !(users = strtok_r(NULL, item->fs, &sptr))
 		|| !(froms = strtok_r(NULL, "\n", &sptr))) {
-		pam_syslog(pamh, LOG_ERR, "%s: line %d: bad field count",
+		pam_syslog(pamh, LOG_ERR, "%s: line %zu: bad field count",
 			   item->config_file, lineno);
 		continue;
 	    }
 	    if (perm[0] != '+' && perm[0] != '-') {
-		pam_syslog(pamh, LOG_ERR, "%s: line %d: bad first field",
+		pam_syslog(pamh, LOG_ERR, "%s: line %zu: bad first field",
 			   item->config_file, lineno);
 		continue;
 	    }
 	    if (item->debug)
 	      pam_syslog (pamh, LOG_DEBUG,
-			  "line %d: %s : %s : %s", lineno, perm, users, froms);
+			  "line %zu: %s : %s : %s", lineno, perm, users, froms);
 	    match = list_match(pamh, users, NULL, item, user_match);
 	    if (item->debug)
 	      pam_syslog (pamh, LOG_DEBUG, "user_match=%d, \"%s\"",

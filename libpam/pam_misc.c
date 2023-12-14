@@ -264,7 +264,8 @@ void _pam_parse_control(int *control_array, char *tok)
     int ret;
 
     while (*tok) {
-	int act, len;
+	size_t len;
+	int act;
 
 	/* skip leading space */
 	while (isspace((unsigned char)*tok) && *++tok);

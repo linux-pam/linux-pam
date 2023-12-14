@@ -582,7 +582,7 @@ static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 	/* if the stored password is NULL */
         int rc=0;
 	if (passwd != NULL) {            /* send the password to the child */
-	    int len = strlen(passwd);
+	    size_t len = strlen(passwd);
 
 	    if (len > PAM_MAX_RESP_SIZE)
 	      len = PAM_MAX_RESP_SIZE;

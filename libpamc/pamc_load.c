@@ -245,7 +245,7 @@ int pamc_disable(pamc_handle_t pch, const char *agent_id)
 int pamc_load(pamc_handle_t pch, const char *agent_id)
 {
     pamc_agent_t *agent;
-    int length;
+    size_t length;
 
     /* santity checking */
 

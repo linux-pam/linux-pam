@@ -207,7 +207,7 @@ static char *expand_variables(const char *orig, const char *var_names[], const c
 		if (*src == '$') {
 			int i;
 			for (i = 0; var_names[i]; i++) {
-				int namelen = strlen(var_names[i]);
+				size_t namelen = strlen(var_names[i]);
 				if (strncmp(var_names[i], src+1, namelen) == 0) {
 					dstlen += strlen(var_values[i]) - 1; /* $ */
 					src += namelen;
@@ -225,7 +225,7 @@ static char *expand_variables(const char *orig, const char *var_names[], const c
 		if (c == '$') {
 			int i;
 			for (i = 0; var_names[i]; i++) {
-				int namelen = strlen(var_names[i]);
+				size_t namelen = strlen(var_names[i]);
 				if (strncmp(var_names[i], src+1, namelen) == 0) {
 					dst = stpcpy(dst, var_values[i]);
 					--dst;
@@ -419,7 +419,7 @@ static int parse_method(char *method, struct polydir_s *poly,
 
     while ((flag=strtok_r(NULL, ":", &sptr)) != NULL) {
 	for (i = 0; flag_names[i]; i++) {
-		int namelen = strlen(flag_names[i]);
+		size_t namelen = strlen(flag_names[i]);
 
 		if (strncmp(flag, flag_names[i], namelen) == 0) {
 			poly->flags |= flag_values[i];
@@ -480,7 +480,7 @@ static int process_line(char *line, const char *home, const char *rhome,
     static const char *var_names[] = {"HOME", "USER", NULL};
     const char *var_values[] = {home, idata->user};
     const char *rvar_values[] = {rhome, idata->ruser};
-    int len;
+    size_t len;
 
     /*
      * skip the leading white space
