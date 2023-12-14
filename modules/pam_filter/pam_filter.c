@@ -97,7 +97,8 @@ static int process_args(pam_handle_t *pamh
 	char *p;
 	const char *user = NULL;
 	const void *tmp;
-	int i,size, retval;
+	int i, retval;
+	size_t size;
 
 	*filtername = *++argv;
 	if (ctrl & FILTER_DEBUG) {
