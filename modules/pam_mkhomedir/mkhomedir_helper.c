@@ -32,7 +32,7 @@ struct dir_spec {
 };
 
 static unsigned long u_mask = 0022;
-static char skeldir[BUFSIZ] = "/etc/skel";
+static const char *skeldir = "/etc/skel";
 
 static int create_homedir(struct dir_spec *, const struct passwd *, mode_t,
 			  const char *, const char *);
@@ -420,11 +420,7 @@ main(int argc, char *argv[])
    }
 
    if (argc >= 4) {
-	if (strlen(argv[3]) >= sizeof(skeldir)) {
-		pam_syslog(NULL, LOG_ERR, "Too long skeldir path.");
-		return PAM_SESSION_ERR;
-	}
-	strcpy(skeldir, argv[3]);
+	skeldir = argv[3];
    }
 
    if (argc >= 5) {
