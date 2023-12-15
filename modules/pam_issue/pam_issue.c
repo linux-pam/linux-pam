@@ -240,7 +240,6 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
     const char *issue_file = NULL;
     int parse_esc = 1;
     const void *item = NULL;
-    const char *cur_prompt;
     char *issue_prompt = NULL;
 
    /* If we've already set the prompt, don't set it again */
@@ -277,10 +276,6 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	return retval;
     }
 
-    cur_prompt = item;
-    if (cur_prompt == NULL)
-	cur_prompt = "";
-
     if (parse_esc)
 	retval = read_issue_quoted(pamh, fp, &issue_prompt);
     else
@@ -291,11 +286,10 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
     if (retval != PAM_SUCCESS)
 	goto out;
 
-    {
-	size_t size = strlen(issue_prompt) + strlen(cur_prompt) + 1;
-	char *new_prompt = realloc(issue_prompt, size);
-
-	if (new_prompt == NULL) {
+    if (item != NULL) {
+	const char *cur_prompt = item;
+	char *new_prompt;
+	if (asprintf(&new_prompt, "%s%s", issue_prompt, cur_prompt) < 0) {
 	    pam_syslog(pamh, LOG_CRIT, "out of memory");
 	    retval = PAM_BUF_ERR;
 	    goto out;
@@ -303,7 +297,6 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	issue_prompt = new_prompt;
     }
 
-    strcat(issue_prompt, cur_prompt);
     retval = pam_set_item(pamh, PAM_USER_PROMPT,
 			      (const void *) issue_prompt);
   out:

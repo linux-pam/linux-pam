@@ -505,16 +505,9 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			retval = PAM_SESSION_ERR;
 			goto cleanup;
 		}
-	} else {
-		cookiefile = malloc(strlen(rpwd->pw_dir) + 1 +
-				    strlen(XAUTHDEF) + 1);
-		if (cookiefile == NULL) {
-			retval = PAM_SESSION_ERR;
-			goto cleanup;
-		}
-		strcpy(cookiefile, rpwd->pw_dir);
-		strcat(cookiefile, "/");
-		strcat(cookiefile, XAUTHDEF);
+	} else if (asprintf(&cookiefile, "%s/%s", rpwd->pw_dir, XAUTHDEF) < 0) {
+		retval = PAM_SESSION_ERR;
+		goto cleanup;
 	}
 	if (debug) {
 		pam_syslog(pamh, LOG_DEBUG, "reading keys from `%s'",
@@ -544,29 +537,18 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		if (((cookie == NULL) || (strlen(cookie) == 0)) &&
 		    (pam_str_skip_prefix(display, "localhost:") != NULL ||
 		     pam_str_skip_prefix(display, "localhost/unix:") != NULL)) {
-			char *t, *screen;
-			size_t tlen, slen;
+			char hostname[HOST_NAME_MAX + 1];
 			/* Free the useless cookie string. */
 			free(cookie);
 			cookie = NULL;
-			/* Allocate enough space to hold an adjusted name. */
-			tlen = strlen(display) + LINE_MAX + 1;
-			t = calloc(1, tlen);
-			if (t != NULL) {
-				if (gethostname(t, tlen - 1) != -1) {
-					/* Append the protocol and then the
-					 * screen number. */
-					if (strlen(t) < tlen - 6) {
-						strcat(t, "/unix:");
-					}
-					screen = strchr(display, ':');
-					if (screen != NULL) {
-						screen++;
-						slen = strlen(screen);
-						if (strlen(t) + slen < tlen) {
-							strcat(t, screen);
-						}
-					}
+			if (gethostname(hostname, sizeof(hostname)) != -1) {
+				const char *screen;
+				char *t;
+
+				/* Append protocol and screen number to host. */
+				screen = display + strcspn(display, ":");
+				if (asprintf(&t, "%s/unix%s",
+					     hostname, screen) >= 0) {
 					if (debug) {
 						pam_syslog(pamh, LOG_DEBUG,
 							   "no key for `%s', "
@@ -592,9 +574,8 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 						      xauth, (const char *[]) {
 						      xauth, "-f", cookiefile,
 						      "nlist", t, NULL});
+					free(t);
 				}
-				free(t);
-				t = NULL;
 			}
 		}
 

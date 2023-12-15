@@ -36,6 +36,7 @@
 
 #include "config.h"
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
@@ -55,22 +56,19 @@ open_tally (const char *dir, const char *user, uid_t uid, int create)
 {
 	char *path;
 	int flags = O_RDWR;
-	int fd;
+	int fd, r;
 
 	if (dir == NULL || strstr(user, "../") != NULL)
 	/* just a defensive programming as the user must be a
 	 * valid user on the system anyway
 	 */
 		return -1;
-	path = malloc(strlen(dir) + strlen(user) + 2);
-	if (path == NULL)
+	if (*dir && dir[strlen(dir) - 1] != '/')
+		r = asprintf(&path, "%s/%s", dir, user);
+	else
+		r = asprintf(&path, "%s%s", dir, user);
+	if (r < 0)
 		return -1;
-
-	strcpy(path, dir);
-	if (*dir && dir[strlen(dir) - 1] != '/') {
-		strcat(path, "/");
-	}
-	strcat(path, user);
 
 	if (create) {
 		flags |= O_CREAT;

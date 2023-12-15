@@ -138,81 +138,45 @@ static int process_args(pam_handle_t *pamh
 
 	/* the "SERVICE" variable */
 
-#define SERVICE_NAME      "SERVICE="
-#define SERVICE_OFFSET    (sizeof(SERVICE_NAME) - 1)
-
 	retval = pam_get_item(pamh, PAM_SERVICE, &tmp);
 	if (retval != PAM_SUCCESS || tmp == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "service name not found");
-	    if (levp) {
-		free(levp[0]);
-		free(levp);
-	    }
+	    free(levp[0]);
+	    free(levp);
 	    return -1;
 	}
-	size = SERVICE_OFFSET+strlen(tmp);
 
-	levp[1] = malloc(size+1);
-	if (levp[1] == NULL) {
+	if (asprintf(&levp[1], "SERVICE=%s", (const char *) tmp) < 0) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for service name");
-	    if (levp) {
-		free(levp[0]);
-		free(levp);
-	    }
+	    free(levp[0]);
+	    free(levp);
 	    return -1;
 	}
-
-	strcpy(levp[1], SERVICE_NAME);
-	strcpy(levp[1]+SERVICE_OFFSET, tmp);
-	levp[1][size] = '\0';                      /* <NUL> terminate */
 
 	/* the "USER" variable */
-
-#define USER_NAME      "USER="
-#define USER_OFFSET    (sizeof(USER_NAME) - 1)
 
 	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
 	    user = "<unknown>";
 	}
-	size = USER_OFFSET+strlen(user);
 
-	levp[2] = malloc(size+1);
-	if (levp[2] == NULL) {
+	if (asprintf(&levp[2], "USER=%s", user) < 0) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for user's name");
-	    if (levp) {
-		free(levp[1]);
-		free(levp[0]);
-		free(levp);
-	    }
+	    free(levp[1]);
+	    free(levp[0]);
+	    free(levp);
 	    return -1;
 	}
-
-	strcpy(levp[2], USER_NAME);
-	strcpy(levp[2]+USER_OFFSET, user);
-	levp[2][size] = '\0';                      /* <NUL> terminate */
 
 	/* the "USER" variable */
 
-#define TYPE_NAME      "TYPE="
-#define TYPE_OFFSET    (sizeof(TYPE_NAME) - 1)
-
-	size = TYPE_OFFSET+strlen(type);
-
-	levp[3] = malloc(size+1);
-	if (levp[3] == NULL) {
+	if (asprintf(&levp[3], "TYPE=%s", type) < 0) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for type");
-	    if (levp) {
-		free(levp[2]);
-		free(levp[1]);
-		free(levp[0]);
-		free(levp);
-	    }
+	    free(levp[2]);
+	    free(levp[1]);
+	    free(levp[0]);
+	    free(levp);
 	    return -1;
 	}
-
-	strcpy(levp[3], TYPE_NAME);
-	strcpy(levp[3]+TYPE_OFFSET, type);
-	levp[3][size] = '\0';                      /* <NUL> terminate */
 
 	levp[4] = NULL;	                     /* end list */
 

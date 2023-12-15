@@ -13,6 +13,7 @@
  */
 
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "md5.h"
 #include "pam_inline.h"
@@ -41,6 +42,7 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 	 * it this way, we can get better later on */
 	char *passwd, *p;
 	const char *sp, *ep;
+	char buf[23];
 	unsigned char final[16];
 	int sl, pl, i, j;
 	MD5_CTX ctx, ctx1;
@@ -48,12 +50,6 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 
 	/* Refine the Salt first */
 	sp = salt;
-
-	/* TODO: now that we're using malloc'ed memory, get rid of the
-	   strange constant buffer size. */
-	passwd = malloc(120);
-	if (passwd == NULL)
-		return NULL;
 
 	/* If it starts with the magic string, then skip that */
 	if ((ep = pam_str_skip_prefix_len(sp, magic, strlen(magic))) != NULL)
@@ -96,11 +92,6 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 		else
 			MD5Name(MD5Update)(&ctx, (unsigned const char *)pw+j, 1);
 
-	/* Now make the output string */
-	strcpy(passwd, magic);
-	strncat(passwd, sp, sl);
-	strcat(passwd, "$");
-
 	MD5Name(MD5Final)(final,&ctx);
 
 	/*
@@ -128,7 +119,7 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 		MD5Name(MD5Final)(final,&ctx1);
 	}
 
-	p = passwd + strlen(passwd);
+	p = buf;
 
 	l = (final[0] << 16) | (final[6] << 8) | final[12];
 	to64(p, l, 4);
@@ -150,7 +141,12 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 	p += 2;
 	*p = '\0';
 
+	/* Now make the output string */
+	if (asprintf(&passwd, "%s%.*s$%s", magic, sl, sp, buf) < 0)
+		passwd = NULL;
+
 	/* Don't leave anything around in vm they could use. */
+	pam_overwrite_array(buf);
 	pam_overwrite_array(final);
 
 	return passwd;

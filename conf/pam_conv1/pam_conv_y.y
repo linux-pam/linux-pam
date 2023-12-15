@@ -78,8 +78,10 @@ line
     /* $1 = service-name */
     yyerror("Appending to " PAM_D "/%s", $1);
 
-    filename = malloc(strlen($1) + sizeof(PAM_D) + 6);
-    sprintf(filename, PAM_D_FILE_FMT, $1);
+    if (asprintf(&filename, PAM_D_FILE_FMT, $1) < 0) {
+	yyerror("unable to create filename - aborting");
+	exit(1);
+    }
     conf = fopen(filename, "r");
     if (conf == NULL) {
 	/* new file */
@@ -140,12 +142,11 @@ tokenls
     $$=NULL;
 }
 | tokenls tok {
-    int len;
-
     if ($1) {
-	len = strlen($1) + strlen($2) + 2;
-	$$ = malloc(len);
-	sprintf($$,"%s %s",$1,$2);
+	if (asprintf(&$$, "%s %s", $1, $2) < 0) {
+	    yyerror("failed to assemble tokenls");
+	    exit(1);
+	}
 	free($1);
 	free($2);
     } else {

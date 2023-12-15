@@ -592,26 +592,20 @@ static int process_line(char *line, const char *home, const char *rhome,
      * Populate polyinstantiated directory structure with appropriate
      * pathnames and the method with which to polyinstantiate.
      */
-    if (strlen(dir) >= sizeof(poly->dir)
-        || strlen(rdir) >= sizeof(poly->rdir)
-	|| strlen(instance_prefix) >= sizeof(poly->instance_prefix)) {
-	pam_syslog(idata->pamh, LOG_NOTICE, "Pathnames too long");
-	goto skipping;
-    }
-    strcpy(poly->dir, dir);
-    strcpy(poly->rdir, rdir);
-    strcpy(poly->instance_prefix, instance_prefix);
-
     if (parse_method(method, poly, idata) != 0) {
 	    goto skipping;
     }
 
-    if (poly->method == TMPDIR) {
-	if (sizeof(poly->instance_prefix) - strlen(poly->instance_prefix) < 7) {
-		pam_syslog(idata->pamh, LOG_NOTICE, "Pathnames too long");
-		goto skipping;
-	}
-	strcat(poly->instance_prefix, "XXXXXX");
+#define COPY_STR(dst, src, apd)                                \
+	(snprintf((dst), sizeof(dst), "%s%s", (src), (apd)) != \
+		  (ssize_t) (strlen(src) + strlen(apd)))
+
+    if (COPY_STR(poly->dir, dir, "")
+	|| COPY_STR(poly->rdir, rdir, "")
+	|| COPY_STR(poly->instance_prefix, instance_prefix,
+		    poly->method == TMPDIR ? "XXXXXX" : "")) {
+	pam_syslog(idata->pamh, LOG_NOTICE, "Pathnames too long");
+	goto skipping;
     }
 
     /*
