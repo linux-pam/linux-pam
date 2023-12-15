@@ -154,13 +154,7 @@ int _pam_mkargv(const char *s, char ***argv, int *argc)
 {
     int l;
     int argvlen = 0;
-    char *sbuf, *sbuf_start;
     char **our_argv = NULL;
-    char **argvbuf;
-    char *argvbufp;
-#ifdef PAM_DEBUG
-    int count=0;
-#endif
 
     D(("called: %s",s));
 
@@ -168,37 +162,30 @@ int _pam_mkargv(const char *s, char ***argv, int *argc)
 
     l = strlen(s);
     if (l) {
-	if ((sbuf = sbuf_start = _pam_strdup(s)) == NULL) {
-	    pam_syslog(NULL, LOG_CRIT,
-		       "pam_mkargv: null returned by _pam_strdup");
-	    D(("arg NULL"));
+	char **argvbuf;
+	/* Overkill on the malloc, but not large */
+	argvlen = (l + 1) * (sizeof(char) + sizeof(char *));
+	if ((our_argv = argvbuf = malloc(argvlen)) == NULL) {
+	    pam_syslog(NULL, LOG_CRIT, "pam_mkargv: null returned by malloc");
+	    argvlen = 0;
 	} else {
-	    /* Overkill on the malloc, but not large */
-	    argvlen = (l + 1) * ((sizeof(char)) + sizeof(char *));
-	    if ((our_argv = argvbuf = malloc(argvlen)) == NULL) {
-		pam_syslog(NULL, LOG_CRIT,
-			   "pam_mkargv: null returned by malloc");
-		argvlen = 0;
-	    } else {
-		char *tmp=NULL;
-
-		argvbufp = (char *) argvbuf + (l * sizeof(char *));
-		D(("[%s]",sbuf));
-		while ((sbuf = _pam_tokenize(sbuf, &tmp))) {
-		    D(("arg #%d",++count));
-		    D(("->[%s]",sbuf));
-		    strcpy(argvbufp, sbuf);
-		    D(("copied token"));
-		    *argvbuf = argvbufp;
-		    argvbufp += strlen(argvbufp) + 1;
-		    D(("stepped in argvbufp"));
-		    (*argc)++;
-		    argvbuf++;
-		    sbuf = NULL;
-		    D(("loop again?"));
-		}
+	    char *argvbufp;
+	    char *tmp=NULL;
+	    char *tok;
+#ifdef PAM_DEBUG
+	    int count=0;
+#endif
+	    argvbufp = (char *) argvbuf + (l * sizeof(char *));
+	    strcpy(argvbufp, s);
+	    D(("[%s]",argvbufp));
+	    while ((tok = _pam_tokenize(argvbufp, &tmp))) {
+		D(("arg #%d",++count));
+		D(("->[%s]",tok));
+		*argvbuf++ = tok;
+		(*argc)++;
+		argvbufp = NULL;
+		D(("loop again?"));
 	    }
-	    _pam_drop(sbuf_start);
 	}
     }
 
