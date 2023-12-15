@@ -94,6 +94,7 @@ static int process_args(pam_handle_t *pamh
 	*evp = NULL;
     } else {
 	char **levp;
+	char *p;
 	const char *user = NULL;
 	const void *tmp;
 	int i,size, retval;
@@ -127,13 +128,11 @@ static int process_args(pam_handle_t *pamh
 	    return -1;
 	}
 
-	strcpy(levp[0], ARGS_NAME);
-	size = ARGS_OFFSET;
+	p = stpcpy(levp[0], ARGS_NAME);
 	for (i=0; i<argc; ++i) {
 	    if (i)
-		levp[0][size++] = ' ';
-	    strcpy(levp[0]+size, argv[i]);
-	    size += strlen(argv[i]);
+		p = stpcpy(p, " ");
+	    p = stpcpy(p, argv[i]);
 	}
 
 	/* the "SERVICE" variable */
