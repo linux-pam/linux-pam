@@ -224,14 +224,13 @@ int pamc_disable(pamc_handle_t pch, const char *agent_id)
 	return PAM_BPC_FALSE;
     }
 
-    block->id =	malloc(1 + strlen(agent_id));
+    block->id =	strdup(agent_id);
     if (block->id == NULL) {
 	D(("no memory for agent id"));
 	free(block);
 	return PAM_BPC_FALSE;
     }
 
-    strcpy(block->id, agent_id);
     block->next = pch->blocked_agents;
     pch->blocked_agents = block;
 
@@ -372,10 +371,8 @@ static pamc_id_node_t *__pamc_add_node(pamc_id_node_t *root, const char *id,
 	pamc_id_node_t *node = calloc(1, sizeof(pamc_id_node_t));
 
 	if (node) {
-	    node->agent_id = malloc(1+strlen(id));
-	    if (node->agent_id) {
-		strcpy(node->agent_id, id);
-	    } else {
+	    node->agent_id = strdup(id);
+	    if (node->agent_id == NULL) {
 		free(node);
 		node = NULL;
 	    }

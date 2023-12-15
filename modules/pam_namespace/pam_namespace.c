@@ -1295,13 +1295,12 @@ static int check_inst_parent(char *ipath, struct instance_data *idata)
 	 * admin explicitly instructs to ignore the instance parent
 	 * mode by the "ignore_instance_parent_mode" argument).
 	 */
-	inst_parent = malloc(strlen(ipath)+1);
+	inst_parent = strdup(ipath);
 	if (!inst_parent) {
 		pam_syslog(idata->pamh, LOG_CRIT, "Error allocating pathname string");
 		return PAM_SESSION_ERR;
 	}
 
-	strcpy(inst_parent, ipath);
 	trailing_slash = strrchr(inst_parent, '/');
 	if (trailing_slash)
 		*trailing_slash = '\0';

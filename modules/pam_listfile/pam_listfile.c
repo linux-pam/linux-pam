@@ -106,10 +106,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	    }
 	else if(!strcmp(mybuf,"file")) {
 	    free(ifname);
-	    ifname = malloc(strlen(myval)+1);
+	    ifname = strdup(myval);
 	    if (!ifname)
 		return PAM_BUF_ERR;
-	    strcpy(ifname,myval);
 	} else if(!strcmp(mybuf,"item"))
 	    if(!strcmp(myval,"user"))
 		citem = PAM_USER;

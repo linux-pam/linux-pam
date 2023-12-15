@@ -116,14 +116,8 @@ char *_pam_strdup(const char *x)
      register char *new=NULL;
 
      if (x != NULL) {
-	  register size_t len;
-
-	  len = strlen (x) + 1;  /* length of string including NUL */
-	  if ((new = malloc(len)) == NULL) {
-	       len = 0;
+	  if ((new = strdup(x)) == NULL) {
 	       pam_syslog(NULL, LOG_CRIT, "_pam_strdup: failed to get memory");
-	  } else {
-	       strcpy (new, x);
 	  }
 	  x = NULL;
      }
