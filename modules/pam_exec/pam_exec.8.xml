@@ -103,7 +103,7 @@
           </term>
           <listitem>
             <para>
-              During authentication the calling command can read
+              During authentication and password change the calling command can read
               the password from <citerefentry>
               <refentrytitle>stdin</refentrytitle><manvolnum>3</manvolnum>
               </citerefentry>. Only first <emphasis>PAM_MAX_RESP_SIZE</emphasis>

@@ -156,7 +156,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 
   if (expose_authtok == 1)
     {
-      if (strcmp (pam_type, "auth") != 0)
+      if (strcmp (pam_type, "auth") != 0 && strcmp (pam_type, "password") != 0)
 	{
 	  pam_syslog (pamh, LOG_ERR,
 		      "expose_authtok not supported for type %s", pam_type);
