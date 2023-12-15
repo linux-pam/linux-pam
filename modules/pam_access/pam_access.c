@@ -759,7 +759,7 @@ remote_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 		  DIAG_PUSH_IGNORE_CAST_ALIGN;
 		  inet_ntop (runp->ai_family,
 			     &((struct sockaddr_in *) runp->ai_addr)->sin_addr,
-			     buf, sizeof (buf));
+			     buf, sizeof (buf) - 1);
 		  DIAG_POP_IGNORE_CAST_ALIGN;
 
 		  strcat (buf, ".");
