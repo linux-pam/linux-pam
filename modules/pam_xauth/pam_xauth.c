@@ -501,6 +501,10 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	/* Figure out where the source user's .Xauthority file is. */
 	if (getenv(XAUTHENV) != NULL) {
 		cookiefile = strdup(getenv(XAUTHENV));
+		if (cookiefile == NULL) {
+			retval = PAM_SESSION_ERR;
+			goto cleanup;
+		}
 	} else {
 		cookiefile = malloc(strlen(rpwd->pw_dir) + 1 +
 				    strlen(XAUTHDEF) + 1);
