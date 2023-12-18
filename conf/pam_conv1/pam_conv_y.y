@@ -211,8 +211,8 @@ int main(void)
 {
     if (mkdir(PAM_D, PAM_D_MODE) != 0) {
 	yyerror(PAM_D " already exists.. aborting");
-	exit(1);
+	return 1;
     }
     yyparse();
-    exit(0);
+    return 0;
 }
