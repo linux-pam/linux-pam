@@ -24,7 +24,7 @@
 
     extern int yylex(void);
 
-    unsigned long long current_line=1;
+    unsigned long long current_line=0;
     extern char *yytext;
 
 /* XXX - later we'll change this to be the specific conf file(s) */
