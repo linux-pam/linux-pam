@@ -158,11 +158,19 @@ path
 : TOK {
     /* XXX - this could be used to check if file present */
     $$ = strdup(yytext);
+    if ($$ == NULL) {
+	yyerror("failed to duplicate path");
+	exit(1);
+    }
 }
 
 tok
 : TOK {
     $$ = strdup(yytext);
+    if ($$ == NULL) {
+	yyerror("failed to duplicate token");
+	exit(1);
+    }
 }
 
 %%
