@@ -100,6 +100,7 @@ line
 	exit(1);
     }
     free(filename);
+    free($1);
 
     /* $2 = module-type */
     fprintf(conf, "%-10s", $2);
