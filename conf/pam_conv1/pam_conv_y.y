@@ -24,7 +24,7 @@
 
     extern int yylex(void);
 
-    int current_line=1;
+    unsigned long long current_line=1;
     extern char *yytext;
 
 /* XXX - later we'll change this to be the specific conf file(s) */
@@ -191,7 +191,7 @@ void yyerror(const char *format, ...)
 {
     va_list args;
 
-    fprintf(stderr, "line %d: ", current_line);
+    fprintf(stderr, "line %llu: ", current_line);
     va_start(args, format);
     vfprintf(stderr, format, args);
     va_end(args);
