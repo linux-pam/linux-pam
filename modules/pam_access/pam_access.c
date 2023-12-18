@@ -448,6 +448,8 @@ login_access (pam_handle_t *pamh, struct login_info *item)
     if ((fp = fopen(item->config_file, "r"))!=NULL) {
 	while (!match && fgets(line, sizeof(line), fp)) {
 	    lineno++;
+	    if (line[0] == 0)
+		continue;
 	    if (line[end = strlen(line) - 1] != '\n') {
 		pam_syslog(pamh, LOG_ERR,
                            "%s: line %zu: missing newline or line too long",
