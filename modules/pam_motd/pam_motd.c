@@ -7,6 +7,7 @@
 
 #include "config.h"
 
+#include <limits.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -174,7 +175,7 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
     unsigned int dirscans_size_total = 0;
     char **dirnames_all = NULL;
     unsigned int i;
-    int i_dirnames = 0;
+    unsigned int i_dirnames = 0;
 
     if (pamh == NULL || motd_dir_path_split == NULL) {
 	goto out;
@@ -202,6 +203,10 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 	    }
 	} else {
 	    dirscans_sizes[i] = rv;
+	}
+	if (dirscans_size_total > UINT_MAX - dirscans_sizes[i]) {
+	    pam_syslog(pamh, LOG_CRIT, "encountered too many motd files");
+	    goto out;
 	}
 	dirscans_size_total += dirscans_sizes[i];
     }
