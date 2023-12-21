@@ -72,14 +72,14 @@ static void try_to_display_fd(pam_handle_t *pamh, int fd)
  * Returns 0 in case of error, 1 in case of success.
  */
 static int pam_split_string(const pam_handle_t *pamh, char *arg, char delim,
-			    char ***out_arg_split, unsigned int *out_num_strs)
+			    char ***out_arg_split, size_t *out_num_strs)
 {
     char *arg_extracted = NULL;
     const char *arg_ptr = arg;
     char **arg_split = NULL;
     char delim_str[2];
-    unsigned int i = 0;
-    unsigned int num_strs = 0;
+    size_t i = 0;
+    size_t num_strs = 0;
     int retval = 0;
 
     delim_str[0] = delim;
@@ -168,13 +168,13 @@ static int compare_strings(const void *a, const void *b)
 }
 
 static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
-	char **motd_dir_path_split, unsigned int num_motd_dirs, int report_missing)
+	char **motd_dir_path_split, size_t num_motd_dirs, int report_missing)
 {
     struct dirent ***dirscans = NULL;
     unsigned int *dirscans_sizes = NULL;
     unsigned int dirscans_size_total = 0;
     char **dirnames_all = NULL;
-    unsigned int i;
+    size_t i;
     unsigned int i_dirnames = 0;
 
     if (pamh == NULL || motd_dir_path_split == NULL) {
@@ -340,9 +340,8 @@ static int drop_privileges(pam_handle_t *pamh, struct pam_modutil_privs *privs)
 }
 
 static int try_to_display(pam_handle_t *pamh, char **motd_path_split,
-                          unsigned int num_motd_paths,
-                          char **motd_dir_path_split,
-                          unsigned int num_motd_dir_paths, int report_missing)
+                          size_t num_motd_paths, char **motd_dir_path_split,
+                          size_t num_motd_dir_paths, int report_missing)
 {
     PAM_MODUTIL_DEF_PRIVS(privs);
 
@@ -352,7 +351,7 @@ static int try_to_display(pam_handle_t *pamh, char **motd_path_split,
     }
 
     if (motd_path_split != NULL) {
-        unsigned int i;
+        size_t i;
 
         for (i = 0; i < num_motd_paths; i++) {
             int fd = open(motd_path_split[i], O_RDONLY, 0);
@@ -390,11 +389,11 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags,
     int retval = PAM_IGNORE;
     const char *motd_path = NULL;
     char *motd_path_copy = NULL;
-    unsigned int num_motd_paths = 0;
+    size_t num_motd_paths = 0;
     char **motd_path_split = NULL;
     const char *motd_dir_path = NULL;
     char *motd_dir_path_copy = NULL;
-    unsigned int num_motd_dir_paths = 0;
+    size_t num_motd_dir_paths = 0;
     char **motd_dir_path_split = NULL;
     int report_missing;
 
