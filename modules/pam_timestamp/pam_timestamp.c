@@ -815,7 +815,8 @@ main(int argc, char **argv)
 	/* Get the name of the invoking (requesting) user. */
 	pwd = getpwuid(getuid());
 	if (pwd == NULL) {
-		retval = 4;
+		fprintf(stderr, "unknown user\n");
+		return 4;
 	}
 #ifdef USE_LOGIND
 	uid = pwd->pw_uid;
