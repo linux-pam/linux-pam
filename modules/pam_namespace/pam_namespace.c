@@ -529,7 +529,7 @@ static int process_line(char *line, const char *home, const char *rhome,
     instance_prefix = config_options[1];
     if (instance_prefix == NULL) {
         pam_syslog(idata->pamh, LOG_NOTICE, "Invalid line missing instance_prefix");
-        instance_prefix = NULL;
+        dir = NULL;
         goto skipping;
     }
     method = config_options[2];
