@@ -845,8 +845,11 @@ main(int argc, char **argv)
 	}
 
 	/* Generate the name of the timestamp file. */
-	format_timestamp_name(path, sizeof(path), TIMESTAMPDIR,
-			      tty, user, target_user);
+	if (format_timestamp_name(path, sizeof(path), TIMESTAMPDIR,
+				  tty, user, target_user) >= (int) sizeof(path)) {
+		fprintf(stderr, "path too long\n");
+		return 4;
+	}
 
 	do {
 		retval = 0;
