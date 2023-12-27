@@ -1833,7 +1833,7 @@ static int cleanup_tmpdirs(struct instance_data *idata)
 		}
 	    } else if (pid < 0) {
 		pam_syslog(idata->pamh, LOG_ERR,
-			"Cannot fork to run namespace init script, %m");
+			"Cannot fork to cleanup temporary directory, %m");
 		rc = PAM_SESSION_ERR;
 		goto out;
 	    }
