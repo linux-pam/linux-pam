@@ -1201,7 +1201,7 @@ static int protect_dir(const char *path, mode_t mode, int do_mkdir,
 	int dfd = AT_FDCWD;
 	int dfd_next;
 	int save_errno;
-	int flags = O_RDONLY;
+	int flags = O_RDONLY | O_DIRECTORY;
 	int rv = -1;
 	struct stat st;
 
@@ -1253,22 +1253,6 @@ static int protect_dir(const char *path, mode_t mode, int do_mkdir,
 			goto error;
 		}
 		rv = openat(dfd, dir, flags);
-	}
-
-	if (rv != -1) {
-		if (fstat(rv, &st) != 0) {
-			save_errno = errno;
-			close(rv);
-			rv = -1;
-			errno = save_errno;
-			goto error;
-		}
-		if (!S_ISDIR(st.st_mode)) {
-			close(rv);
-			errno = ENOTDIR;
-			rv = -1;
-			goto error;
-		}
 	}
 
 	if (flags & O_NOFOLLOW) {
