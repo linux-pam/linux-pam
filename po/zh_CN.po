@@ -13,13 +13,14 @@
 # Chenbo Pan <panchenbo@uniontech.com>, 2021.
 # pan chenbo <panchenbo@uniontech.com>, 2021.
 # Dingzhong Chen <wsxy162@gmail.com>, 2022.
+# Liu Tao <lyuutau@outlook.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2023-04-29 11:11+0000\n"
-"PO-Revision-Date: 2022-05-03 08:43+0000\n"
-"Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
+"PO-Revision-Date: 2023-12-27 09:37+0000\n"
+"Last-Translator: Liu Tao <lyuutau@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/linux-pam/master/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -27,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.12.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
@@ -320,9 +321,8 @@ msgid "There were too many logins for '%s'."
 msgstr "“%s”的登录次数过多。"
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "您有新邮件。"
+msgstr "您没有任何新邮件。"
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
