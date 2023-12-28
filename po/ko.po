@@ -15,16 +15,16 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2023-04-29 11:11+0000\n"
-"PO-Revision-Date: 2023-04-23 04:20+0000\n"
+"PO-Revision-Date: 2023-09-20 03:35+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
-"Language-Team: Korean <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/ko/>\n"
+"Language-Team: Korean <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
@@ -65,7 +65,7 @@ msgstr "죄송하지만, 비밀번호가 일치하지 않습니다."
 #: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
 #, c-format
 msgid "Retype %s"
-msgstr "%s을(를) 다시 입력하세요"
+msgstr "%s를 다시 입력하세요"
 
 #: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
 msgid "Password change has been aborted."
@@ -270,7 +270,7 @@ msgstr "(잠금 해제까지 %d분 남았습니다)"
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:326 modules/pam_lastlog/pam_lastlog.c:595
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr " %Y년 %b %e일 (%a) %H:%M:%S %Z"
+msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
 #: modules/pam_lastlog/pam_lastlog.c:335 modules/pam_lastlog/pam_lastlog.c:604
@@ -288,71 +288,71 @@ msgstr " %.*s에"
 #: modules/pam_lastlog/pam_lastlog.c:357
 #, c-format
 msgid "Last login:%s%s%s"
-msgstr "마지막 로그인:%s%s%s"
+msgstr "최근 로그인:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:363
 msgid "Welcome to your new account!"
-msgstr "새 계정에 오신 것을 환영합니다!"
+msgstr "신규 계정에 오신 것을 환영합니다!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "Last failed login:%s%s%s"
-msgstr "마지막 실패한 로그인:%s%s%s"
+msgstr "최근 실패한 로그인:%s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] "마지막 로그인 후 로그인 시도를 %d번 실패했습니다."
+msgstr[0] "최근 로그인 후 로그인 시도를 %d번 실패했습니다."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:647
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr "마지막 로그인 후 로그인 시도를 %d번 실패했습니다."
+msgstr "최근 로그인 후 로그인 시도를 %d번 실패했습니다."
 
 #: modules/pam_limits/pam_limits.c:1269
 #, c-format
 msgid "There were too many logins for '%s'."
-msgstr "'%s' 계정에 너무 많이 로그인했습니다."
+msgstr "'%s' 계정에 너무 많은 로그인 시도가 있었습니다."
 
 #: modules/pam_mail/pam_mail.c:289
 msgid "You do not have any new mail."
-msgstr "새 전자메일이 없습니다."
+msgstr "신규 전자우편이 없습니다."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
-msgstr "새 전자메일이 있습니다."
+msgstr "신규 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
-msgstr "오래된 전자메일이 있습니다."
+msgstr "오래된 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
-msgstr "전자메일이 있습니다."
+msgstr "전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr "%s 폴더에 전자메일이 없습니다."
+msgstr "%s 폴더에 전자우편이 없습니다."
 
 #: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "%s 폴더에 신규 전자메일이 있습니다."
+msgstr "%s 폴더에 신규 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr "%s 폴더에 오래된 전자메일이 있습니다."
+msgstr "%s 폴더에 오래된 전자우편이 있습니다."
 
 #: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
-msgstr "%s 폴더에 전자메일이 있습니다."
+msgstr "%s 폴더에 전자우편이 있습니다."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:123
 #, c-format
@@ -447,7 +447,7 @@ msgstr "비밀번호를 즉시 바꾸어야 합니다 (관리자 강제 사항).
 #: modules/pam_unix/pam_unix_acct.c:244
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr "비밀번호를 즉시 바꾸어야 합니다 (암호 기간 만료)."
+msgstr "비밀번호를 즉시 바꾸어야 합니다 (비밀번호 기간 만료)."
 
 #: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
 #, c-format
