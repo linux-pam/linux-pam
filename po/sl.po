@@ -10,17 +10,17 @@ msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2023-04-29 11:11+0000\n"
-"PO-Revision-Date: 2023-02-20 19:20+0000\n"
+"PO-Revision-Date: 2023-12-28 23:37+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
-"Language-Team: Slovenian <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/sl/>\n"
+"Language-Team: Slovenian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/sl/>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 4.15.2\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.3\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
@@ -65,7 +65,7 @@ msgstr ""
 
 #: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
 msgid "Password change has been aborted."
-msgstr ""
+msgstr "Sprememba gesla je bila prekinjena."
 
 #: libpam/pam_item.c:311
 msgid "login:"
