@@ -1154,7 +1154,7 @@ su_sighandler(int sig)
 	}
 #endif
         if (sig > 0) {
-                _exit(sig);
+                _exit(128 + (sig & 127));
         }
 }
 
