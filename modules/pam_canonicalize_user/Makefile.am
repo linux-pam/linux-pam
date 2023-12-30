@@ -8,7 +8,7 @@ dist_man_MANS = pam_canonicalize_user.8
 endif
 XMLS = README.xml pam_canonicalize_user.8.xml
 dist_check_SCRIPTS = tst-pam_canonicalize_user
-TESTS = $(dist_check_SCRIPTS)
+TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
 
 securelibdir = $(SECUREDIR)
 if HAVE_VENDORDIR
@@ -19,16 +19,17 @@ endif
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
 	    $(WARN_CFLAGS)
-AM_LDFLAGS = -no-undefined -avoid-version -module
-if HAVE_VERSIONING
-  AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
-endif
 
 securelib_LTLIBRARIES = pam_canonicalize_user.la
 pam_canonicalize_user_la_LIBADD = $(top_builddir)/libpam/libpam.la
+pam_canonicalize_user_la_LDFLAGS = -no-undefined -avoid-version -module
+if HAVE_VERSIONING
+  pam_canonicalize_user_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
+endif
 
 check_PROGRAMS = tst-pam_canonicalize_user-retval
 tst_pam_canonicalize_user_retval_LDADD = $(top_builddir)/libpam/libpam.la
+tst_pam_canonicalize_user_retval_LDFLAGS = -Wl,--export-dynamic
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README

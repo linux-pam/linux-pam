@@ -87,7 +87,7 @@ main(void)
 		  pam_start_confdir(service_file, ":", &null_conv, ".", &pamh));
 	ASSERT_NE(NULL, pamh);
 	ASSERT_EQ(PAM_USER_UNKNOWN, pam_authenticate(pamh, 0));
-	ASSERT_EQ(PAM_USER_UNKNOWN, pam_setcred(pamh, 0));
+	ASSERT_EQ(PAM_PERM_DENIED, pam_setcred(pamh, 0));
 	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_acct_mgmt(pamh, 0));
 	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_chauthtok(pamh, 0));
 	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_open_session(pamh, 0));
@@ -154,11 +154,11 @@ main(void)
 		  pam_start_confdir(service_file, NULL, &again_conv, ".", &pamh));
 	ASSERT_NE(NULL, pamh);
 	ASSERT_EQ(PAM_INCOMPLETE, pam_authenticate(pamh, 0));
-	ASSERT_EQ(PAM_INCOMPLETE, pam_setcred(pamh, 0));
-	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_acct_mgmt(pamh, 0));
-	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_chauthtok(pamh, 0));
-	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_open_session(pamh, 0));
-	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_close_session(pamh, 0));
+	ASSERT_EQ(PAM_ABORT, pam_setcred(pamh, 0));
+	ASSERT_EQ(PAM_ABORT, pam_acct_mgmt(pamh, 0));
+	ASSERT_EQ(PAM_ABORT, pam_chauthtok(pamh, 0));
+	ASSERT_EQ(PAM_ABORT, pam_open_session(pamh, 0));
+	ASSERT_EQ(PAM_ABORT, pam_close_session(pamh, 0));
 	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 	pamh = NULL;
 
@@ -166,13 +166,13 @@ main(void)
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
 			     "auth required %s/.libs/%s.so\n"
-			     "auth required %s/../pam_succseed_if/.libs/pam_succseed_if.so user = root\n"
+			     "auth required %s/../pam_succeed_if/.libs/pam_succeed_if.so user = root\n"
 			     "account required %s/.libs/%s.so\n"
-			     "account required %s/../pam_succseed_if/.libs/pam_succseed_if.so user = root\n"
+			     "account required %s/../pam_succeed_if/.libs/pam_succeed_if.so user = root\n"
 			     "password required %s/.libs/%s.so\n"
-			     "password required %s/../pam_succseed_if/.libs/pam_succseed_if.so user = root\n"
+			     "password required %s/../pam_succeed_if/.libs/pam_succeed_if.so user = root\n"
 			     "session required %s/.libs/%s.so\n"
-			     "session required %s/../pam_succseed_if/.libs/pam_succseed_if.so user = root\n",
+			     "session required %s/../pam_succeed_if/.libs/pam_succeed_if.so user = root\n",
 			     cwd, MODULE_NAME, cwd,
 			     cwd, MODULE_NAME, cwd,
 			     cwd, MODULE_NAME, cwd,
@@ -183,7 +183,7 @@ main(void)
 		  pam_start_confdir(service_file, "ROOT", &null_conv, ".", &pamh));
 	ASSERT_NE(NULL, pamh);
 	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
-	ASSERT_EQ(PAM_SUCCESS, pam_setcred(pamh, 0));
+	ASSERT_EQ(PAM_PERM_DENIED, pam_setcred(pamh, 0));
 	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_acct_mgmt(pamh, 0));
 	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_chauthtok(pamh, 0));
 	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_open_session(pamh, 0));
