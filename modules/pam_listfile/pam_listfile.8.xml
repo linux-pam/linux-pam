@@ -48,7 +48,7 @@
       The module gets the <option>item</option> of the type specified --
       <emphasis>user</emphasis> specifies the username,
       <emphasis>PAM_USER</emphasis>; tty specifies the name of the terminal
-      over which the request has been made, <emphasis>PAM_TTY</emphasis>;
+      (if any) over which the request has been made, <emphasis>PAM_TTY</emphasis>;
       rhost specifies the name of the remote host (if any) from which the
       request was made, <emphasis>PAM_RHOST</emphasis>; and ruser specifies
       the name of the remote user (if available) who made the request,
