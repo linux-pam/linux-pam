@@ -113,8 +113,9 @@
           </term>
           <listitem>
             <para>
-              Action to take if found in file, if the item is NOT found in
-              the file, then the opposite action is requested.
+              Action to take if the item is found in the file.
+              If the item is NOT found in the file,
+              then the opposite action is requested.
             </para>
           </listitem>
         </varlistentry>
@@ -151,7 +152,7 @@
             <para>
               Restrict the user class for which the restriction apply. Note that
               with <option>item=[user|ruser|group]</option> this does not make sense,
-              but for <option>item=[tty|rhost|shell]</option> it have a meaning.
+              but for <option>item=[tty|rhost|shell]</option> it has a meaning.
             </para>
           </listitem>
         </varlistentry>
