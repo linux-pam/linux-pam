@@ -47,28 +47,27 @@
     <para>
       The module gets the <option>item</option> of the type specified --
       <emphasis>user</emphasis> specifies the username,
-      <emphasis>PAM_USER</emphasis>; tty specifies the name of the terminal
-      (if any) over which the request has been made, <emphasis>PAM_TTY</emphasis>;
-      rhost specifies the name of the remote host (if any) from which the
-      request was made, <emphasis>PAM_RHOST</emphasis>; and ruser specifies
+      <emphasis>PAM_USER</emphasis>; <emphasis>tty</emphasis> specifies the
+      name of the terminal (if any) over which the request has been made,
+      <emphasis>PAM_TTY</emphasis>; <emphasis>rhost</emphasis> specifies the
+      name of the remote host (if any) from which the request was made,
+      <emphasis>PAM_RHOST</emphasis>; and <emphasis>ruser</emphasis> specifies
       the name of the remote user (if available) who made the request,
-      <emphasis>PAM_RUSER</emphasis> -- and looks for an instance of that
-      item in the <option>file=<replaceable>filename</replaceable></option>.
-      <filename>filename</filename> contains one line per item listed. If
-      the item is found, then if
-      <option>sense=<replaceable>allow</replaceable></option>,
+      <emphasis>PAM_RUSER</emphasis> -- and looks for an instance of that item
+      in the <option>file=<replaceable>filename</replaceable></option>.
+      <filename>filename</filename> contains one line per item listed.  If the
+      item is found, then if <option>sense=allow</option>,
       <emphasis>PAM_SUCCESS</emphasis> is returned, causing the authorization
-      request to succeed; else if
-      <option>sense=<replaceable>deny</replaceable></option>,
+      request to succeed; else if <option>sense=deny</option>,
       <emphasis>PAM_AUTH_ERR</emphasis> is returned, causing the authorization
       request to fail.
     </para>
     <para>
       If an error is encountered (for instance, if
       <filename>filename</filename> does not exist, or a poorly-constructed
-      argument is encountered), then if <emphasis>onerr=succeed</emphasis>,
+      argument is encountered), then if <option>onerr=succeed</option>,
       <emphasis>PAM_SUCCESS</emphasis> is returned, otherwise if
-      <emphasis>onerr=fail</emphasis>, <emphasis>PAM_AUTH_ERR</emphasis> or
+      <option>onerr=fail</option>, <emphasis>PAM_AUTH_ERR</emphasis> or
       <emphasis>PAM_SERVICE_ERR</emphasis> (as appropriate) will be returned.
     </para>
     <para>
