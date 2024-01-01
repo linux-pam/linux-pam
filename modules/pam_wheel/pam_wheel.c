@@ -54,11 +54,11 @@
 
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
-	    char *use_group, size_t group_length)
+	    const char **use_group)
 {
      int ctrl=0;
 
-     memset(use_group, '\0', group_length);
+     *use_group = "";
 
      /* step through arguments */
      for (ctrl=0; argc-- > 0; ++argv) {
@@ -77,7 +77,7 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
           else if (!strcmp(*argv,"root_only"))
                ctrl |= PAM_ROOT_ONLY_ARG;
 	  else if ((str = pam_str_skip_prefix(*argv, "group=")) != NULL)
-	       strncpy(use_group, str, group_length - 1);
+	       *use_group = str;
           else {
                pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
           }
@@ -237,10 +237,10 @@ int
 pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
-    char use_group[BUFSIZ];
+    const char *use_group;
     int ctrl;
 
-    ctrl = _pam_parse(pamh, argc, argv, use_group, sizeof(use_group));
+    ctrl = _pam_parse(pamh, argc, argv, &use_group);
 
     return perform_check(pamh, ctrl, use_group);
 }
@@ -256,10 +256,10 @@ int
 pam_sm_acct_mgmt (pam_handle_t *pamh, int flags UNUSED,
 		  int argc, const char **argv)
 {
-    char use_group[BUFSIZ];
+    const char *use_group;
     int ctrl;
 
-    ctrl = _pam_parse(pamh, argc, argv, use_group, sizeof(use_group));
+    ctrl = _pam_parse(pamh, argc, argv, &use_group);
 
     return perform_check(pamh, ctrl, use_group);
 }
