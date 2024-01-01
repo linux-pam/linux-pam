@@ -581,9 +581,9 @@ _expand_arg(pam_handle_t *pamh, char **value)
 		    * a constant so that the compiler will shut up when I
 		    * call pam_getenv and _pam_get_item_byname -- sigh
 		    */
+  const char *tmpval;
 
-  /* No unexpanded variable can be bigger than BUF_SIZE */
-  char type, tmpval[BUF_SIZE];
+  char type;
 
   /* I know this shouldn't be hard-coded but it's so much easier this way */
   char tmp[MAX_ENV] = {};
@@ -639,8 +639,7 @@ _expand_arg(pam_handle_t *pamh, char **value)
 		     "Unterminated expandable variable: <%s>", orig-2);
 	  goto abort_err;
 	}
-	strncpy(tmpval, orig, sizeof(tmpval));
-	tmpval[sizeof(tmpval)-1] = '\0';
+	tmpval = orig;
 	orig=ptr;
 	/*
 	 * so, we know we need to expand tmpval, it is either
@@ -704,17 +703,14 @@ _expand_arg(pam_handle_t *pamh, char **value)
   }
   strcpy(*value, tmp);
   pam_overwrite_array(tmp);
-  pam_overwrite_array(tmpval);
   D(("Exit."));
 
   return PAM_SUCCESS;
 buf_err:
   pam_overwrite_array(tmp);
-  pam_overwrite_array(tmpval);
   return PAM_BUF_ERR;
 abort_err:
   pam_overwrite_array(tmp);
-  pam_overwrite_array(tmpval);
   return PAM_ABORT;
 }
 
