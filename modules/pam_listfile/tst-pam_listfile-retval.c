@@ -578,6 +578,41 @@ main(void)
 	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 	pamh = NULL;
 
+	/* Perform a test dedicated to configuration file parsing. */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "# support line continuations, ignore escaped newlines in comments \\\n"
+			     "auth required \\\n"
+			     "     %s/.libs/%s.so \\  \n"
+			     "     item=user \\\t\t\n"
+			     "     file=%s \\ \t \t\n"
+			     "     sense=deny\n"
+			     "\t \t # allow unneeded whitespace, ignore escaped newlines in comments \\ \n"
+			     "   account\t required  %s/.libs/%s.so item=user file=%s sense=deny%c\\\n"
+			     "line after NUL byte continues up to here\n"
+			     "# trim trailing comments, ignore escaped newlines in comments \\\t\n"
+			     "password required %s/.libs/%s.so item=user file=%s sense=deny # foo=bar\n"
+			     "# support %*s long lines\n"
+			     "session required %*s/.libs/%s.so item=user file=%s sense=deny",
+			     cwd, MODULE_NAME, list_file,
+			     cwd, MODULE_NAME, list_file, '\0',
+			     cwd, MODULE_NAME, list_file,
+			     8192, " ",
+			     65536, cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_setcred(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_acct_mgmt(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_chauthtok(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_open_session(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_close_session(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
 	ASSERT_EQ(0, unlink(list_file));
 	ASSERT_EQ(0, unlink(service_file));
 
