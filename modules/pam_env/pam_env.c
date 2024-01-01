@@ -696,8 +696,8 @@ _expand_arg(pam_handle_t *pamh, char **value)
     free(*value);
     if ((*value = malloc(idx + 1)) == NULL) {
       D(("Couldn't malloc %zu bytes for expanded var", idx + 1));
-      pam_syslog (pamh, LOG_CRIT, "Couldn't malloc %lu bytes for expanded var",
-	       (unsigned long)idx+1);
+      pam_syslog (pamh, LOG_CRIT, "Couldn't malloc %zu bytes for expanded var",
+	       idx+1);
       goto buf_err;
     }
   }
