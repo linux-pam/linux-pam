@@ -106,21 +106,25 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 			opts->action = FAILLOCK_ACTION_AUTHSUCC;
 		}
 		else {
-			char buf[FAILLOCK_CONF_MAX_LINELEN + 1];
-			char *val;
+			char *name, *val;
 
-			strncpy(buf, argv[i], sizeof(buf) - 1);
-			buf[sizeof(buf) - 1] = '\0';
+			if ((name = strdup(argv[i])) == NULL) {
+				pam_syslog(pamh, LOG_CRIT,
+				    "Error allocating memory: %m");
+				return PAM_BUF_ERR;
+			}
 
-			val = strchr(buf, '=');
+			val = strchr(name, '=');
 			if (val != NULL) {
 				*val = '\0';
 				++val;
 			}
 			else {
-				val = buf + sizeof(buf) - 1;
+				val = name + strlen(name);
 			}
-			set_conf_opt(pamh, opts, buf, val);
+			set_conf_opt(pamh, opts, name, val);
+
+			free(name);
 		}
 	}
 
