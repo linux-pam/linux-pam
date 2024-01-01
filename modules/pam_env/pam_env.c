@@ -609,9 +609,9 @@ _expand_arg(pam_handle_t *pamh, char **value)
 	tmp[idx++] = *orig++;        /* Note the increment */
       } else {
 	/* is it really a good idea to try to log this? */
-	D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
-	pam_syslog (pamh, LOG_ERR, "Variable buffer overflow: <%s> + <%s>",
-		 tmp, tmpptr);
+	D(("Variable buffer overflow: <%s> + <%c>", tmp, *orig));
+	pam_syslog (pamh, LOG_ERR, "Variable buffer overflow: <%s> + <%c>",
+		 tmp, *orig);
 	goto buf_err;
       }
       continue;
@@ -684,9 +684,9 @@ _expand_arg(pam_handle_t *pamh, char **value)
 	tmp[idx++] = *orig++;        /* Note the increment */
       } else {
 	/* is it really a good idea to try to log this? */
-	D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
+	D(("Variable buffer overflow: <%s> + <%c>", tmp, *orig));
 	pam_syslog(pamh, LOG_ERR,
-		   "Variable buffer overflow: <%s> + <%s>", tmp, tmpptr);
+		   "Variable buffer overflow: <%s> + <%c>", tmp, *orig);
 	goto buf_err;
       }
     }
