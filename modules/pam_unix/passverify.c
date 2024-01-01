@@ -238,20 +238,21 @@ PAMH_ARG_DECL(int get_account_info,
 			return PAM_UNIX_RUN_HELPER;
 #endif
 		} else if (is_pwd_shadowed(*pwd)) {
+#ifdef HELPER_COMPILE
 			/*
-			 * ...and shadow password file entry for this user,
+			 * shadow password file entry for this user,
 			 * if shadowing is enabled
 			 */
-			*spwdent = pam_modutil_getspnam(pamh, name);
-			if (*spwdent == NULL) {
-#ifndef HELPER_COMPILE
-				/* still a chance the user can authenticate */
-				return PAM_UNIX_RUN_HELPER;
+			*spwdent = getspnam(name);
+			if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL)
+				return PAM_AUTHINFO_UNAVAIL;
+#else
+			/*
+			 * The helper has to be invoked to deal with
+			 * the shadow password file entry.
+			 */
+			return PAM_UNIX_RUN_HELPER;
 #endif
-				return PAM_AUTHINFO_UNAVAIL;
-			}
-			if ((*spwdent)->sp_pwdp == NULL)
-				return PAM_AUTHINFO_UNAVAIL;
 		}
 	} else {
 		return PAM_USER_UNKNOWN;
