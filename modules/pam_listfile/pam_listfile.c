@@ -181,7 +181,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	}
     }
 
-    /* Short-circuit - test if this session apply for this user */
+    /* Short-circuit - test if this session applies for this user */
     {
 	const char *user_name;
 	int rval;
