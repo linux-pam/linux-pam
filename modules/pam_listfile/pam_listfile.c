@@ -51,7 +51,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     int retval, i, citem=0, extitem=0, onerr=PAM_SERVICE_ERR, sense=2, quiet=0;
     const void *void_citemp;
     const char *citemp;
-    char *ifname=NULL;
+    const char *ifname=NULL;
     char aline[256];
     const char *apply_val;
     struct stat fileinfo;
@@ -82,24 +82,17 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		onerr = PAM_SUCCESS;
 	    else if(!strcmp(str,"fail"))
 		onerr = PAM_SERVICE_ERR;
-	    else {
-	        free(ifname);
+	    else
 		return PAM_SERVICE_ERR;
-	    }
 	} else if ((str = pam_str_skip_prefix(argv[i], "sense=")) != NULL) {
 	    if(!strcmp(str,"allow"))
 		sense=0;
 	    else if(!strcmp(str,"deny"))
 		sense=1;
-	    else {
-	        free(ifname);
+	    else
 		return onerr;
-	    }
 	} else if ((str = pam_str_skip_prefix(argv[i], "file=")) != NULL) {
-	    free(ifname);
-	    ifname = strdup(str);
-	    if (!ifname)
-		return PAM_BUF_ERR;
+	    ifname = str;
 	} else if ((str = pam_str_skip_prefix(argv[i], "item=")) != NULL) {
 	    if(!strcmp(str,"user"))
 		citem = PAM_USER;
@@ -129,7 +122,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		apply_val = str;
 	    }
 	} else {
-	    free(ifname);
 	    pam_syslog(pamh,LOG_ERR, "Unknown option: %s",argv[i]);
 	    return onerr;
 	}
@@ -138,7 +130,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     if(!citem) {
 	pam_syslog(pamh,LOG_ERR,
 		  "Unknown item or item not specified");
-	free(ifname);
 	return onerr;
     } else if(!ifname) {
 	pam_syslog(pamh,LOG_ERR, "List filename not specified");
@@ -146,7 +137,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     } else if(sense == 2) {
 	pam_syslog(pamh,LOG_ERR,
 		  "Unknown sense or sense not specified");
-	free(ifname);
 	return onerr;
     } else if(
 	      (apply_type==APPLY_TYPE_NONE) ||
@@ -154,7 +144,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
               ) {
 	pam_syslog(pamh,LOG_ERR,
 		  "Invalid usage for apply= parameter");
-        free (ifname);
 	return onerr;
     }
 
@@ -188,7 +177,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			      "don't apply: apply=%s, user=%s",
 			     apply_val,user_name);
 #endif /* PAM_DEBUG */
-		    free(ifname);
 		    return PAM_IGNORE;
 		}
 	    } else if(apply_type==APPLY_TYPE_GROUP) {
@@ -200,7 +188,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 			     "don't apply: %s not a member of group %s",
 			     user_name,apply_val);
 #endif /* PAM_DEBUG */
-		    free(ifname);
 		    return PAM_IGNORE;
 		}
 	    }
@@ -210,13 +197,11 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     retval = pam_get_item(pamh,citem,&void_citemp);
     citemp = void_citemp;
     if(retval != PAM_SUCCESS) {
-	free(ifname);
 	return onerr;
     }
     if((citem == PAM_USER) && !citemp) {
 	retval = pam_get_user(pamh,&citemp,NULL);
 	if (retval != PAM_SUCCESS) {
-	    free(ifname);
 	    return PAM_SERVICE_ERR;
 	}
     }
@@ -228,7 +213,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     }
 
     if(!citemp || (strlen(citemp) == 0)) {
-	free(ifname);
 	/* The item was NULL - we are sure not to match */
 	return sense?PAM_SUCCESS:PAM_AUTH_ERR;
     }
@@ -246,7 +230,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		if (userinfo == NULL) {
 		    pam_syslog(pamh, LOG_NOTICE, "getpwnam(%s) failed",
 			     citemp);
-		    free(ifname);
 		    return onerr;
 		}
 		citemp = userinfo->pw_shell;
@@ -256,7 +239,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 
 			 "Internal weirdness, unknown extended item %d",
 			 extitem);
-		free(ifname);
 		return onerr;
 	}
     }
@@ -269,7 +251,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     if(lstat(ifname,&fileinfo)) {
 	if(!quiet)
 		pam_syslog(pamh,LOG_ERR, "Couldn't open %s",ifname);
-	free(ifname);
 	return onerr;
     }
 
@@ -280,7 +261,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	pam_syslog(pamh,LOG_ERR,
 		 "%s is either world writable or not a normal file",
 		 ifname);
-	free(ifname);
 	return PAM_AUTH_ERR;
     }
 
@@ -290,7 +270,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	    /* Only report if it's an error... */
 	    pam_syslog(pamh,LOG_ERR,  "Error opening %s", ifname);
 	}
-	free(ifname);
 	return onerr;
     }
     /* There should be no more errors from here on */
@@ -327,7 +306,6 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     }
 
     fclose(inf);
-    free(ifname);
     if ((sense && retval) || (!sense && !retval)) {
 #ifdef PAM_DEBUG
 	pam_syslog(pamh,LOG_INFO,
