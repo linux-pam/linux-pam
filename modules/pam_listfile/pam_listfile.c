@@ -53,7 +53,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     const char *citemp;
     char *ifname=NULL;
     char aline[256];
-    char mybuf[256],myval[256],apply_val[256];
+    const char *apply_val;
     struct stat fileinfo;
     FILE *inf;
     int apply_type;
@@ -62,84 +62,75 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     struct passwd *userinfo;
 
     apply_type=APPLY_TYPE_NULL;
-    apply_val[0] = '\0';
+    apply_val = "";
 
     for(i=0; i < argc; i++) {
-	{
-	    const char *junk;
+	const char *str;
 
-	    /* option quiet has no value */
-	    if(!strcmp(argv[i],"quiet")) {
-		quiet = 1;
-		continue;
-	    }
-
-	    memset(mybuf,'\0',sizeof(mybuf));
-	    memset(myval,'\0',sizeof(myval));
-	    junk = strchr(argv[i], '=');
-	    if((junk == NULL) || (junk - argv[i]) >= (int) sizeof(mybuf)) {
-		pam_syslog(pamh,LOG_ERR, "Bad option: \"%s\"",
-			 argv[i]);
-		continue;
-	    }
-	    strncpy(mybuf, argv[i],
-		    LESSER(junk - argv[i], (int)sizeof(mybuf) - 1));
-	    strncpy(myval, junk + 1, sizeof(myval) - 1);
+	/* option quiet has no value */
+	if(!strcmp(argv[i],"quiet")) {
+	    quiet = 1;
+	    continue;
 	}
-	if(!strcmp(mybuf,"onerr"))
-	    if(!strcmp(myval,"succeed"))
+
+	if(strchr(argv[i], '=') == NULL) {
+	    pam_syslog(pamh,LOG_ERR, "Bad option: \"%s\"", argv[i]);
+	    continue;
+	}
+	if ((str = pam_str_skip_prefix(argv[i], "onerr=")) != NULL) {
+	    if(!strcmp(str,"succeed"))
 		onerr = PAM_SUCCESS;
-	    else if(!strcmp(myval,"fail"))
+	    else if(!strcmp(str,"fail"))
 		onerr = PAM_SERVICE_ERR;
 	    else {
 	        free(ifname);
 		return PAM_SERVICE_ERR;
 	    }
-	else if(!strcmp(mybuf,"sense"))
-	    if(!strcmp(myval,"allow"))
+	} else if ((str = pam_str_skip_prefix(argv[i], "sense=")) != NULL) {
+	    if(!strcmp(str,"allow"))
 		sense=0;
-	    else if(!strcmp(myval,"deny"))
+	    else if(!strcmp(str,"deny"))
 		sense=1;
 	    else {
 	        free(ifname);
 		return onerr;
 	    }
-	else if(!strcmp(mybuf,"file")) {
+	} else if ((str = pam_str_skip_prefix(argv[i], "file=")) != NULL) {
 	    free(ifname);
-	    ifname = strdup(myval);
+	    ifname = strdup(str);
 	    if (!ifname)
 		return PAM_BUF_ERR;
-	} else if(!strcmp(mybuf,"item")) {
-	    if(!strcmp(myval,"user"))
+	} else if ((str = pam_str_skip_prefix(argv[i], "item=")) != NULL) {
+	    if(!strcmp(str,"user"))
 		citem = PAM_USER;
-	    else if(!strcmp(myval,"tty"))
+	    else if(!strcmp(str,"tty"))
 		citem = PAM_TTY;
-	    else if(!strcmp(myval,"rhost"))
+	    else if(!strcmp(str,"rhost"))
 		citem = PAM_RHOST;
-	    else if(!strcmp(myval,"ruser"))
+	    else if(!strcmp(str,"ruser"))
 		citem = PAM_RUSER;
 	    else { /* These items are related to the user, but are not
 		      directly gettable with pam_get_item */
 		citem = PAM_USER;
-		if(!strcmp(myval,"group"))
+		if(!strcmp(str,"group"))
 		    extitem = EI_GROUP;
-		else if(!strcmp(myval,"shell"))
+		else if(!strcmp(str,"shell"))
 		    extitem = EI_SHELL;
 		else
 		    citem = 0;
 	    }
-	} else if(!strcmp(mybuf,"apply")) {
+	} else if ((str = pam_str_skip_prefix(argv[i], "apply=")) != NULL) {
 	    apply_type=APPLY_TYPE_NONE;
-	    if (myval[0]=='@') {
+	    if (*str=='@') {
 		apply_type=APPLY_TYPE_GROUP;
-		memcpy(apply_val,myval+1,sizeof(myval)-1);
+		apply_val = str+1;
 	    } else {
 		apply_type=APPLY_TYPE_USER;
-		memcpy(apply_val,myval,sizeof(myval));
+		apply_val = str;
 	    }
 	} else {
 	    free(ifname);
-	    pam_syslog(pamh,LOG_ERR, "Unknown option: %s",mybuf);
+	    pam_syslog(pamh,LOG_ERR, "Unknown option: %s",argv[i]);
 	    return onerr;
 	}
     }
