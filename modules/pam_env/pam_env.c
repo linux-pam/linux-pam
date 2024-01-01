@@ -498,6 +498,8 @@ _parse_line(const pam_handle_t *pamh, const char *buffer, VAR *var)
       quoteflg++;
     }
     if (length) {
+      if (*valptr != &quote)
+	free(*valptr);
       if ((*valptr = malloc(length + 1)) == NULL) {
 	D(("Couldn't malloc %d bytes", length+1));
 	pam_syslog(pamh, LOG_CRIT, "Couldn't malloc %d bytes", length+1);

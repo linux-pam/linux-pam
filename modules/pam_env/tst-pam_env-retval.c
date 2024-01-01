@@ -69,7 +69,7 @@ setup(void)
 
 	ASSERT_NE(NULL, fp = fopen(my_conf, "w"));
 	ASSERT_LT(0, fprintf(fp,
-			     "EDITOR\tDEFAULT=vim\n"
+			     "EDITOR\tDEFAULT=vi DEFAULT= DEFAULT=vim\n"
 			     "PAGER\tDEFAULT=more\n"));
 	ASSERT_EQ(0, fclose(fp));
 
