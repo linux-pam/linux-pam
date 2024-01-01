@@ -575,15 +575,7 @@ _pam_get_item_byname(pam_handle_t *pamh, const char *name)
 static int
 _expand_arg(pam_handle_t *pamh, char **value)
 {
-  const char *orig=*value, *tmpptr=NULL;
-  char *ptr;       /*
-		    * Sure would be nice to use tmpptr but it needs to be
-		    * a constant so that the compiler will shut up when I
-		    * call pam_getenv and _pam_get_item_byname -- sigh
-		    */
-  const char *tmpval;
-
-  char type;
+  const char *orig=*value;
 
   /* I know this shouldn't be hard-coded but it's so much easier this way */
   char tmp[MAX_ENV] = {};
@@ -627,6 +619,14 @@ _expand_arg(pam_handle_t *pamh, char **value)
 	}
 	continue;
       } else {
+	const char *tmpptr=NULL, *tmpval;
+	char *ptr;       /*
+			  * Sure would be nice to use tmpptr but it needs to be
+			  * a constant so that the compiler will shut up when I
+			  * call pam_getenv and _pam_get_item_byname -- sigh
+			  */
+	char type;
+
 	D(("Expandable argument: <%s>", orig));
 	type = *orig;
 	orig+=2;     /* skip the ${ or @{ characters */
