@@ -109,7 +109,7 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	    ifname = strdup(myval);
 	    if (!ifname)
 		return PAM_BUF_ERR;
-	} else if(!strcmp(mybuf,"item"))
+	} else if(!strcmp(mybuf,"item")) {
 	    if(!strcmp(myval,"user"))
 		citem = PAM_USER;
 	    else if(!strcmp(myval,"tty"))
@@ -127,20 +127,21 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		    extitem = EI_SHELL;
 		else
 		    citem = 0;
-	    } else if(!strcmp(mybuf,"apply")) {
-		apply_type=APPLY_TYPE_NONE;
-		if (myval[0]=='@') {
-		    apply_type=APPLY_TYPE_GROUP;
-		    memcpy(apply_val,myval+1,sizeof(myval)-1);
-		} else {
-		    apply_type=APPLY_TYPE_USER;
-		    memcpy(apply_val,myval,sizeof(myval));
-		}
-	    } else {
-		free(ifname);
-		pam_syslog(pamh,LOG_ERR, "Unknown option: %s",mybuf);
-		return onerr;
 	    }
+	} else if(!strcmp(mybuf,"apply")) {
+	    apply_type=APPLY_TYPE_NONE;
+	    if (myval[0]=='@') {
+		apply_type=APPLY_TYPE_GROUP;
+		memcpy(apply_val,myval+1,sizeof(myval)-1);
+	    } else {
+		apply_type=APPLY_TYPE_USER;
+		memcpy(apply_val,myval,sizeof(myval));
+	    }
+	} else {
+	    free(ifname);
+	    pam_syslog(pamh,LOG_ERR, "Unknown option: %s",mybuf);
+	    return onerr;
+	}
     }
 
     if(!citem) {
