@@ -637,7 +637,7 @@ static int process_line(char *line, const char *home, const char *rhome,
     if (uids) {
         uid_t *uidptr;
         const char *ustr, *sstr;
-        int count, i;
+        size_t count, i;
 
 	if (*uids == '~') {
 		poly->flags |= POLYDIR_EXCLUSIVE;
@@ -645,6 +645,11 @@ static int process_line(char *line, const char *home, const char *rhome,
 	}
         for (count = 0, ustr = sstr = uids; sstr; ustr = sstr + 1, count++)
            sstr = strchr(ustr, ',');
+
+        if (count > UINT_MAX || count > SIZE_MAX / sizeof(uid_t)) {
+            pam_syslog(idata->pamh, LOG_ERR, "Too many uids encountered in configuration");
+            goto skipping;
+        }
 
         poly->num_uids = count;
         poly->uid = malloc(count * sizeof (uid_t));
