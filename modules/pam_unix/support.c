@@ -348,9 +348,9 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 {
 	FILE *passwd;
 	char buf[16384];
-	int matched = 0, buflen;
+	int matched = 0;
 	char *slogin, *spasswd, *suid, *sgid, *sgecos, *shome, *sshell, *p;
-	size_t userlen;
+	size_t retlen, userlen;
 
 	memset(buf, 0, sizeof(buf));
 
@@ -438,17 +438,17 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 		}
 		*sshell++ = '\0';
 
-		buflen = sizeof(struct passwd) +
+		retlen = sizeof(struct passwd) +
 			 strlen(slogin) + 1 +
 			 strlen(spasswd) + 1 +
 			 strlen(sgecos) + 1 +
 			 strlen(shome) + 1 +
 			 strlen(sshell) + 1;
-		*ret = malloc(buflen);
+		*ret = malloc(retlen);
 		if (*ret == NULL) {
 			return matched;
 		}
-		memset(*ret, '\0', buflen);
+		memset(*ret, '\0', retlen);
 
 		(*ret)->pw_uid = strtol(suid, &p, 10);
 		if ((strlen(suid) == 0) || (*p != '\0')) {
