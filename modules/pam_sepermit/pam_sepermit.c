@@ -82,21 +82,27 @@ struct lockfd {
 static int
 match_process_uid(pid_t pid, uid_t uid)
 {
-	char buf[128];
+	char *buf;
+	size_t n;
 	uid_t puid;
 	FILE *f;
 	int re = 0;
 
-	snprintf (buf, sizeof buf, PROC_BASE "/%d/status", pid);
-	if (!(f = fopen (buf, "r")))
+	if (asprintf (&buf, PROC_BASE "/%d/status", pid) < 0)
 		return 0;
+	n = strlen(buf) + 1;
+	if (!(f = fopen (buf, "r"))) {
+		free(buf);
+		return 0;
+	}
 
-	while (fgets(buf, sizeof buf, f)) {
+	while (getline(&buf, &n, f) != -1) {
 		if (sscanf (buf, "Uid:\t%d", &puid)) {
 			re = uid == puid;
 			break;
 		}
 	}
+	free(buf);
 	fclose(f);
 	return re;
 }
