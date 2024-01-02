@@ -443,17 +443,15 @@ _parse_line(const pam_handle_t *pamh, const char *buffer, VAR *var)
 
   length = strcspn(buffer," \t\n");
 
-  if ((var->name = malloc(length + 1)) == NULL) {
-    pam_syslog(pamh, LOG_CRIT, "Couldn't malloc %d bytes", length+1);
-    return PAM_BUF_ERR;
-  }
-
   /*
    * The first thing on the line HAS to be the variable name,
    * it may be the only thing though.
    */
-  strncpy(var->name, buffer, length);
-  var->name[length] = '\0';
+  if ((var->name = strndup(buffer, length)) == NULL) {
+    D(("out of memory"));
+    pam_syslog(pamh, LOG_CRIT, "out of memory");
+    return PAM_BUF_ERR;
+  }
   D(("var->name = <%s>, length = %d", var->name, length));
 
   /*
@@ -500,13 +498,11 @@ _parse_line(const pam_handle_t *pamh, const char *buffer, VAR *var)
     if (length) {
       if (*valptr != &quote)
 	free(*valptr);
-      if ((*valptr = malloc(length + 1)) == NULL) {
-	D(("Couldn't malloc %d bytes", length+1));
-	pam_syslog(pamh, LOG_CRIT, "Couldn't malloc %d bytes", length+1);
+      if ((*valptr = strndup(ptr, length)) == NULL) {
+	D(("out of memory"));
+	pam_syslog(pamh, LOG_CRIT, "out of memory");
 	return PAM_BUF_ERR;
       }
-      (void)strncpy(*valptr,ptr,length);
-      (*valptr)[length]='\0';
     } else if (quoteflg) {
       quoteflg--;
       *valptr = &quote;      /* a quick hack to handle the empty string */
