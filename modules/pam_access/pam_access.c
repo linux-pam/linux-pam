@@ -419,7 +419,7 @@ static int
 login_access (pam_handle_t *pamh, struct login_info *item)
 {
     FILE   *fp;
-    char    line[BUFSIZ];
+    char   *line = NULL;
     char   *perm;		/* becomes permission field */
     char   *users;		/* becomes list of login names */
     char   *froms;		/* becomes list of terminals or hosts */
@@ -427,8 +427,10 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 #ifdef HAVE_LIBAUDIT
     int     nonall_match = NO;
 #endif
+    int     result;
     size_t  end;
     size_t  lineno = 0;		/* for diagnostics */
+    size_t  n = 0;
     char   *sptr;
 
     if (item->debug)
@@ -446,7 +448,7 @@ login_access (pam_handle_t *pamh, struct login_info *item)
      */
 
     if ((fp = fopen(item->config_file, "r"))!=NULL) {
-	while (!match && fgets(line, sizeof(line), fp)) {
+	while (!match && getline(&line, &n, fp) != -1) {
 	    lineno++;
 	    if (line[0] == 0)
 		continue;
@@ -507,16 +509,19 @@ login_access (pam_handle_t *pamh, struct login_info *item)
     }
 #ifdef HAVE_LIBAUDIT
     if (!item->noaudit && (match == YES || (match == ALL &&
-	nonall_match == YES)) && line[0] == '-') {
+	nonall_match == YES)) && line != NULL && line[0] == '-') {
 	pam_modutil_audit_write(pamh, AUDIT_ANOM_LOGIN_LOCATION,
 	    "pam_access", 0);
     }
 #endif
     if (match == NO)
-	return NOMATCH;
-    if (line[0] == '+')
-	return YES;
-    return NO;
+	result = NOMATCH;
+    else if (line != NULL && line[0] == '+')
+	result = YES;
+    else
+	result = NO;
+    free(line);
+    return result;
 }
 
 
