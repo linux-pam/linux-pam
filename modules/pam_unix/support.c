@@ -404,37 +404,37 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 
 		spasswd = strchr(slogin, ':');
 		if (spasswd == NULL) {
-			return matched;
+			goto fail;
 		}
 		*spasswd++ = '\0';
 
 		suid = strchr(spasswd, ':');
 		if (suid == NULL) {
-			return matched;
+			goto fail;
 		}
 		*suid++ = '\0';
 
 		sgid = strchr(suid, ':');
 		if (sgid == NULL) {
-			return matched;
+			goto fail;
 		}
 		*sgid++ = '\0';
 
 		sgecos = strchr(sgid, ':');
 		if (sgecos == NULL) {
-			return matched;
+			goto fail;
 		}
 		*sgecos++ = '\0';
 
 		shome = strchr(sgecos, ':');
 		if (shome == NULL) {
-			return matched;
+			goto fail;
 		}
 		*shome++ = '\0';
 
 		sshell = strchr(shome, ':');
 		if (sshell == NULL) {
-			return matched;
+			goto fail;
 		}
 		*sshell++ = '\0';
 
@@ -446,21 +446,17 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 			 strlen(sshell) + 1;
 		*ret = calloc(retlen, sizeof(char));
 		if (*ret == NULL) {
-			return matched;
+			goto fail;
 		}
 
 		(*ret)->pw_uid = strtol(suid, &p, 10);
 		if ((strlen(suid) == 0) || (*p != '\0')) {
-			free(*ret);
-			*ret = NULL;
-			return matched;
+			goto fail;
 		}
 
 		(*ret)->pw_gid = strtol(sgid, &p, 10);
 		if ((strlen(sgid) == 0) || (*p != '\0')) {
-			free(*ret);
-			*ret = NULL;
-			return matched;
+			goto fail;
 		}
 
 		p = ((char*)(*ret)) + sizeof(struct passwd);
@@ -478,11 +474,14 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 
 		if (pam_set_data(pamh, buf,
 				 *ret, _unix_cleanup) != PAM_SUCCESS) {
-			free(*ret);
-			*ret = NULL;
+			goto fail;
 		}
 	}
 
+	return matched;
+fail:
+	free(*ret);
+	*ret = NULL;
 	return matched;
 }
 
