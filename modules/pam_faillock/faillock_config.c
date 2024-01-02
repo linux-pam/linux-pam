@@ -79,7 +79,8 @@ config_log(const pam_handle_t *pamh, int priority, const char *fmt, ...)
 int
 read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 {
-	char linebuf[FAILLOCK_CONF_MAX_LINELEN+1];
+	char *linebuf = NULL;
+	size_t n = 0;
 	const char *fname = (cfgfile != NULL) ? cfgfile : FAILLOCK_DEFAULT_CONF;
 	FILE *f = fopen(fname, "r");
 
@@ -100,15 +101,15 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 		return PAM_SERVICE_ERR;
 	}
 
-	while (fgets(linebuf, sizeof(linebuf), f) != NULL) {
+	while (getline(&linebuf, &n, f) != -1) {
 		size_t len;
 		char *ptr;
 		char *name;
 		int eq;
 
 		len = strlen(linebuf);
-		/* len cannot be 0 unless there is a bug in fgets */
 		if (len && linebuf[len - 1] != '\n' && !feof(f)) {
+			free(linebuf);
 			(void) fclose(f);
 			return PAM_SERVICE_ERR;
 		}
@@ -162,6 +163,7 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 		set_conf_opt(pamh, opts, name, ptr);
 	}
 
+	free(linebuf);
 	(void)fclose(f);
 	return PAM_SUCCESS;
 }
