@@ -70,7 +70,8 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
     const char *uttyname;
     const char *str;
     const void *void_uttyname;
-    char ttyfileline[256];
+    char *ttyfileline = NULL;
+    size_t ttyfilelinelen = 0;
     char ptname[256];
     struct stat ttyfileinfo;
     struct passwd *user_pwd;
@@ -156,7 +157,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 
     retval = 1;
 
-    while ((fgets(ttyfileline, sizeof(ttyfileline)-1, ttyfile) != NULL)
+    while ((getline(&ttyfileline, &ttyfilelinelen, ttyfile) != -1)
 	   && retval) {
 	size_t len;
 	len = strlen(ttyfileline);
@@ -166,6 +167,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 	retval = ( strcmp(ttyfileline, uttyname)
 		   && (!ptname[0] || strcmp(ptname, uttyname)) );
     }
+    free(ttyfileline);
     fclose(ttyfile);
 
     if (retval && !(ctrl & PAM_NOCONSOLE_ARG)) {
@@ -175,9 +177,14 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
         cmdlinefile = fopen(CMDLINE_FILE, "r");
 
         if (cmdlinefile != NULL) {
-            char line[LINE_MAX], *p;
+            char *p;
+            char *line = NULL;
+            size_t linelen = 0;
 
-            p = fgets(line, sizeof(line), cmdlinefile);
+            if (getline(&line, &linelen, cmdlinefile) == -1)
+                p = NULL;
+            else
+                p = line;
             fclose(cmdlinefile);
 
             for (; p; p = strstr(p+1, "console=")) {
@@ -197,6 +204,8 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
                     break;
                 }
             }
+
+            free(line);
         }
     }
     if (retval && !(ctrl & PAM_NOCONSOLE_ARG)) {
@@ -206,10 +215,14 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
         consoleactivefile = fopen(CONSOLEACTIVE_FILE, "r");
 
         if (consoleactivefile != NULL) {
-            char line[LINE_MAX], *p, *n;
+            char *p, *n;
+            char *line = NULL;
+            size_t linelen = 0;
 
-            line[0] = 0;
-            p = fgets(line, sizeof(line), consoleactivefile);
+            if (getline(&line, &linelen, consoleactivefile) == -1)
+                p = NULL;
+            else
+                p = line;
             fclose(consoleactivefile);
 
 	    if (p) {
@@ -230,6 +243,8 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 		    }
 		}
 	    }
+
+	    free(line);
 	}
     }
 
