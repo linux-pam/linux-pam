@@ -53,6 +53,14 @@ compare_filename(const void *a, const void *b)
 		      base_name(* (char * const *) b));
 }
 
+static void close_fds_pre_exec(struct instance_data *idata)
+{
+	if (pam_modutil_sanitize_helper_fds(idata->pamh, PAM_MODUTIL_IGNORE_FD,
+			PAM_MODUTIL_IGNORE_FD, PAM_MODUTIL_IGNORE_FD) < 0) {
+		_exit(1);
+	}
+}
+
 /* Evaluating a list of files which have to be parsed in the right order:
  *
  * - If etc/security/namespace.d/@filename@.conf exists, then
@@ -1379,6 +1387,8 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 					/* ignore failures, they don't matter */
 				}
 
+				close_fds_pre_exec(idata);
+
 				if (execle(init_script, init_script,
 					polyptr->dir, ipath, newdir?"1":"0", idata->user, NULL, envp) < 0)
 					_exit(1);
@@ -1817,6 +1827,7 @@ static int cleanup_tmpdirs(struct instance_data *idata)
 			_exit(1);
 		}
 #endif
+		close_fds_pre_exec(idata);
 		if (execle("/bin/rm", "/bin/rm", "-rf", pptr->instance_prefix, NULL, envp) < 0)
 			_exit(1);
 	    } else if (pid > 0) {
