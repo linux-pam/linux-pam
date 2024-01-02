@@ -490,8 +490,8 @@ AS_IF([test "x$enable_nis" != "xno"], [
   CPPFLAGS="$CPPFLAGS $NSL_CFLAGS"
   LIBS="$LIBS $NSL_LIBS"
 
-  AC_CHECK_FUNCS([yp_get_default_domain yperr_string yp_master yp_bind yp_match yp_unbind])
-  AC_CHECK_FUNCS([getrpcport rpcb_getaddr])
+  AC_CHECK_FUNCS([yp_get_default_domain yp_bind yp_match yp_unbind])
+  AC_CHECK_FUNCS([rpcb_getaddr])
   AC_CHECK_HEADER([rpc/rpc.h], , [enable_nis=no])
   AC_CHECK_HEADER([rpcsvc/ypclnt.h], , [enable_nis=no])
   AC_CHECK_HEADER([rpcsvc/yp_prot.h], , [enable_nis=no])
@@ -628,14 +628,12 @@ dnl Checks for library functions.
 AC_TYPE_GETGROUPS
 AC_PROG_GCC_TRADITIONAL
 AC_FUNC_MEMCMP
-AC_FUNC_VPRINTF
-AC_CHECK_FUNCS(fseeko getdomainname gethostname gettimeofday lckpwdf mkdir select)
-AC_CHECK_FUNCS(strcspn strdup strspn strstr strtol uname)
+AC_CHECK_FUNCS(getdomainname lckpwdf)
 AC_CHECK_FUNCS(getutent_r getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r getmntent_r)
 AC_CHECK_FUNCS(getgrouplist)
-AC_CHECK_FUNCS(inet_ntop inet_pton innetgr)
 AC_CHECK_FUNCS(quotactl)
 AC_CHECK_FUNCS(unshare)
+AC_CHECK_FUNCS(innetgr)
 AC_CHECK_FUNCS(explicit_bzero memset_explicit)
 AC_CHECK_FUNCS([ruserok_af ruserok], [break])
 AC_CHECK_FUNCS(close_range)
