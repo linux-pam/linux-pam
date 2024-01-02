@@ -350,14 +350,15 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 	char *buf = NULL;
 	int matched = 0;
 	char *slogin, *spasswd, *suid, *sgid, *sgecos, *shome, *sshell, *p;
-	size_t retlen, userlen;
+	size_t retlen;
 
-	userlen = strlen(name);
 	if (!matched && files && strchr(name, ':') == NULL) {
 		passwd = fopen("/etc/passwd", "r");
 		if (passwd != NULL) {
-			size_t n = 0;
+			size_t n = 0, userlen;
 			ssize_t r;
+
+			userlen = strlen(name);
 
 			while ((r = getline(&buf, &n, passwd)) != -1) {
 				if ((size_t)r > userlen && (buf[userlen] == ':') &&
