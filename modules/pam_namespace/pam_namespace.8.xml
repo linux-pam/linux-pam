@@ -68,7 +68,10 @@
       and mounted on the polyinstantiated directory. The script receives the
       polyinstantiated directory path, the instance directory path, flag
       whether the instance directory was newly created (0 for no, 1 for yes),
-      and the user name as its arguments.
+      and the user name as its arguments. The script is invoked with full root
+      privileges and accessing the instance directory in this context needs to
+      be done with caution, as it is controlled by the unprivileged user for
+      which it has been created.
     </para>
 
     <para condition="with_vendordir">

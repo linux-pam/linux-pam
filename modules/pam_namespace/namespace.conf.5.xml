@@ -24,7 +24,10 @@
       executable script <filename>/etc/security/namespace.init</filename>
       exists, it is used to initialize the namespace every time an instance
       directory is set up and mounted. The script receives the polyinstantiated
-      directory path and the instance directory path as its arguments.
+      directory path and the instance directory path as its arguments. The
+      script is invoked with full root privileges and accessing the instance directory
+      in this context needs to be done with caution, as it is controlled by the unprivileged
+      user for which it has been created.
     </para>
 
     <para condition="without_vendordir">
