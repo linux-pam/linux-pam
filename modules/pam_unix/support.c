@@ -347,19 +347,20 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 		   int files, int nis, struct passwd **ret)
 {
 	FILE *passwd;
-	char buf[16384];
+	char *buf = NULL;
 	int matched = 0;
 	char *slogin, *spasswd, *suid, *sgid, *sgecos, *shome, *sshell, *p;
 	size_t retlen, userlen;
 
-	memset(buf, 0, sizeof(buf));
-
 	userlen = strlen(name);
-	if (!matched && files && userlen < sizeof(buf) && strchr(name, ':') == NULL) {
+	if (!matched && files && strchr(name, ':') == NULL) {
 		passwd = fopen("/etc/passwd", "r");
 		if (passwd != NULL) {
-			while (fgets(buf, sizeof(buf), passwd) != NULL) {
-				if ((buf[userlen] == ':') &&
+			size_t n = 0;
+			ssize_t r;
+
+			while ((r = getline(&buf, &n, passwd)) != -1) {
+				if ((size_t)r > userlen && (buf[userlen] == ':') &&
 				    (strncmp(name, buf, userlen) == 0)) {
 					p = buf + strlen(buf) - 1;
 					while (isspace((unsigned char)*p) && (p >= buf)) {
@@ -368,6 +369,9 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 					matched = 1;
 					break;
 				}
+			}
+			if (!matched) {
+				_pam_drop(buf);
 			}
 			fclose(passwd);
 		}
@@ -385,9 +389,7 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 			i = yp_match(domain, "passwd.byname", name,
 				     strlen(name), &userinfo, &len);
 			yp_unbind(domain);
-			if ((i == YPERR_SUCCESS) && ((size_t)len < sizeof(buf))) {
-				strncpy(buf, userinfo, sizeof(buf) - 1);
-				buf[sizeof(buf) - 1] = '\0';
+			if (i == YPERR_SUCCESS && (buf = strdup(userinfo)) != NULL) {
 				matched = 1;
 			}
 		}
@@ -470,7 +472,11 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 		p += strlen(p) + 1;
 		(*ret)->pw_shell = strcpy(p, sshell);
 
-		snprintf(buf, sizeof(buf), "_pam_unix_getpwnam_%s", name);
+		_pam_drop(buf);
+		if (asprintf(&buf, "_pam_unix_getpwnam_%s", name) < 0) {
+			buf = NULL;
+			goto fail;
+		}
 
 		if (pam_set_data(pamh, buf,
 				 *ret, _unix_cleanup) != PAM_SUCCESS) {
@@ -480,8 +486,8 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 
 	return matched;
 fail:
-	free(*ret);
-	*ret = NULL;
+	_pam_drop(buf);
+	_pam_drop(*ret);
 	return matched;
 }
 
