@@ -444,11 +444,10 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 			 strlen(sgecos) + 1 +
 			 strlen(shome) + 1 +
 			 strlen(sshell) + 1;
-		*ret = malloc(retlen);
+		*ret = calloc(retlen, sizeof(char));
 		if (*ret == NULL) {
 			return matched;
 		}
-		memset(*ret, '\0', retlen);
 
 		(*ret)->pw_uid = strtol(suid, &p, 10);
 		if ((strlen(suid) == 0) || (*p != '\0')) {
