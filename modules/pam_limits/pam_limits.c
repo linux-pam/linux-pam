@@ -395,10 +395,11 @@ static rlim_t str2rlim_t(char *value) {
 
 static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)
 {
-    int i, maxlen = 0;
+    int i;
     FILE *limitsfile;
     const char *proclimits = "/proc/1/limits";
-    char line[256];
+    char *line = NULL;
+    size_t maxlen = 0, n = 0;
     char *hard, *soft, *name;
 
     if (!(limitsfile = fopen(proclimits, "r"))) {
@@ -406,8 +407,8 @@ static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int 
         return;
     }
 
-    while (fgets(line, 256, limitsfile)) {
-        int pos = strlen(line);
+    while (getline(&line, &n, limitsfile) != -1) {
+        size_t pos = strlen(line);
         if (pos < 2) continue;
 
         /* drop trailing newline */
@@ -451,6 +452,7 @@ static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int 
         pl->limits[i].src_soft = LIMITS_DEF_KERNEL;
         pl->limits[i].src_hard = LIMITS_DEF_KERNEL;
     }
+    free(line);
     fclose(limitsfile);
 }
 #endif
@@ -508,14 +510,16 @@ static int init_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)
 static int
 value_from_file(const char *pathname, rlim_t *valuep)
 {
-    char buf[128];
     FILE *fp;
     int retval;
 
     retval = 0;
 
     if ((fp = fopen(pathname, "r")) != NULL) {
-	if (fgets(buf, sizeof(buf), fp) != NULL) {
+	char *buf = NULL;
+	size_t n = 0;
+
+	if (getline(&buf, &n, fp) != -1) {
 	    char *endptr;
 	    unsigned long long value;
 
@@ -529,6 +533,7 @@ value_from_file(const char *pathname, rlim_t *valuep)
 	    }
 	}
 
+	free(buf);
 	fclose(fp);
     }
 
@@ -855,7 +860,8 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 		  int ctrl, struct pam_limit_s *pl, const int conf_file_set_by_user)
 {
     FILE *fil;
-    char buf[LINE_LENGTH];
+    char *buf = NULL;
+    size_t n = 0;
 
     /* check for the conf_file */
     if (ctrl & PAM_DEBUG_ARG)
@@ -872,7 +878,7 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
     }
 
     /* start the show */
-    while (fgets(buf, LINE_LENGTH, fil) != NULL) {
+    while (getline(&buf, &n, fil) != -1) {
         char *domain, *ltype, *item, *value, *tptr, *line;
         int i;
         int rngtype;
@@ -1042,12 +1048,14 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 		    pam_syslog(pamh, LOG_DEBUG, "no limits for '%s'", uname);
 		}
 	    }
+	    free(buf);
 	    fclose(fil);
 	    return PAM_IGNORE;
         } else {
             pam_syslog(pamh, LOG_WARNING, "invalid line '%s' - skipped", line);
 	}
     }
+    free(buf);
     fclose(fil);
     return PAM_SUCCESS;
 }
