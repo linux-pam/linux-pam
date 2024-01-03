@@ -70,7 +70,8 @@ setup(void)
 	ASSERT_NE(NULL, fp = fopen(my_conf, "w"));
 	ASSERT_LT(0, fprintf(fp,
 			     "EDITOR\tDEFAULT=vi DEFAULT= DEFAULT=vim\n"
-			     "PAGER\tDEFAULT=more\n"));
+			     "PAGER\tDEFAULT=more\n"
+			     "NAME\tDEFAULT=@{PAM_USER}\n"));
 	ASSERT_EQ(0, fclose(fp));
 
 	ASSERT_NE(NULL, fp = fopen(my_env, "w"));
@@ -127,7 +128,7 @@ check_env(const char **list)
 	pam_handle_t *pamh = NULL;
 
 	ASSERT_EQ(PAM_SUCCESS,
-		  pam_start_confdir(service_file, "", &conv, ".", &pamh));
+		  pam_start_confdir(service_file, "user", &conv, ".", &pamh));
 	ASSERT_NE(NULL, pamh);
 
 	ASSERT_EQ(PAM_SUCCESS, pam_open_session(pamh, 0));
@@ -231,7 +232,7 @@ main(void)
 			     cwd, my_conf, "/dev/null"));
 	ASSERT_EQ(0, fclose(fp));
 
-	const char *env1[] = { "EDITOR=vim", "PAGER=more", NULL };
+	const char *env1[] = { "EDITOR=vim", "PAGER=more", "NAME=user", NULL };
 	check_env(env1);
 
 	/*

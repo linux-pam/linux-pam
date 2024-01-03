@@ -21,6 +21,7 @@
 #include <errno.h>
 #include <pwd.h>
 #include <stdarg.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -61,6 +62,12 @@ typedef struct var {
 #define DEFINE_VAR   101
 #define UNDEFINE_VAR 102
 #define ILLEGAL_VAR  103
+
+struct string_buffer {
+  char *str;
+  size_t len;
+  size_t size;
+};
 
 /* This is a special value used to designate an empty string */
 static char quote='\0';
@@ -568,14 +575,105 @@ _pam_get_item_byname(pam_handle_t *pamh, const char *name)
   return itemval;
 }
 
+static void
+_strbuf_init(struct string_buffer *buffer)
+{
+  buffer->str = NULL;
+  buffer->len = 0;
+  buffer->size = 0;
+}
+
+static void
+_strbuf_free(struct string_buffer *buffer)
+{
+  pam_overwrite_n(buffer->str, buffer->len);
+  _pam_drop(buffer->str);
+  buffer->len = 0;
+  buffer->size = 0;
+}
+
+/*
+ * Allocates given amount of bytes in buffer for addition.
+ * Internally adding an extra byte for NUL character.
+ *
+ * Returns 0 on success, 1 on error.
+ */
+static int
+_strbuf_reserve(struct string_buffer *buffer, size_t add)
+{
+  char *p;
+  size_t s;
+
+  /* Is already enough memory allocated? */
+  if (add < buffer->size - buffer->len) {
+    return 0;
+  }
+
+  /* Can the requested bytes (plus additional NUL byte) fit at all? */
+  if (buffer->len >= SIZE_MAX - add) {
+    return 1;
+  }
+
+  if (buffer->size == 0 && add < 64) {
+    /* Start with 64 bytes if that's enough */
+    s = 64;
+  } else if (buffer->size >= SIZE_MAX / 2 || buffer->size * 2 < add + 1) {
+    /* If doubling is not enough (or not possible), get as much as needed */
+    s = buffer->len + add + 1;
+  } else {
+    /* Ideally, double allocated memory */
+    s = buffer->size * 2;
+  }
+
+  if ((p = realloc(buffer->str, s)) == NULL) {
+    return 1;
+  }
+
+  buffer->str = p;
+  buffer->size = s;
+
+  return 0;
+}
+
+static int
+_strbuf_add_char(struct string_buffer *buffer, char c)
+{
+  D(("Called <%s> + <%c>.", buffer->str == NULL ? "" : buffer->str, c));
+
+  if (_strbuf_reserve(buffer, 1)) {
+    return 1;
+  }
+
+  buffer->str[buffer->len++] = c;
+  buffer->str[buffer->len] = '\0';
+
+  return 0;
+}
+
+static int
+_strbuf_add_string(struct string_buffer *buffer, const char *str)
+{
+  size_t len = strlen(str);
+
+  D(("Called <%s> + <%s>.", buffer->str == NULL ? "" : buffer->str, str));
+
+  if (_strbuf_reserve(buffer, len)) {
+    return 1;
+  }
+
+  strcpy(buffer->str + buffer->len, str);
+  buffer->len += len;
+
+  return 0;
+}
+
 static int
 _expand_arg(pam_handle_t *pamh, char **value)
 {
   const char *orig=*value;
+  struct string_buffer buf;
 
-  /* I know this shouldn't be hard-coded but it's so much easier this way */
-  char tmp[MAX_ENV] = {};
-  size_t idx = 0;
+  _strbuf_init(&buf);
 
   /*
    * (possibly non-existent) environment variables can be used as values
@@ -593,14 +691,11 @@ _expand_arg(pam_handle_t *pamh, char **value)
 	pam_syslog(pamh, LOG_ERR,
 		   "Unrecognized escaped character: <%c> - ignoring",
 		   *orig);
-      } else if (idx + 1 < MAX_ENV) {
-	tmp[idx++] = *orig++;        /* Note the increment */
       } else {
-	/* is it really a good idea to try to log this? */
-	D(("Variable buffer overflow: <%s> + <%c>", tmp, *orig));
-	pam_syslog (pamh, LOG_ERR, "Variable buffer overflow: <%s> + <%c>",
-		 tmp, *orig);
-	goto buf_err;
+	/* Note the increment */
+	if (_strbuf_add_char(&buf, *orig++)) {
+	  goto buf_err;
+	}
       }
       continue;
     }
@@ -610,8 +705,9 @@ _expand_arg(pam_handle_t *pamh, char **value)
 	   " <%s> - ignoring", orig));
 	pam_syslog(pamh, LOG_ERR, "Expandable variables must be wrapped in {}"
 		 " <%s> - ignoring", orig);
-	if (idx + 1 < MAX_ENV) {
-	  tmp[idx++] = *orig++;        /* Note the increment */
+	/* Note the increment */
+	if (_strbuf_add_char(&buf, *orig++)) {
+	  goto buf_err;
 	}
 	continue;
       } else {
@@ -662,51 +758,37 @@ _expand_arg(pam_handle_t *pamh, char **value)
 	}         /* switch */
 
 	if (tmpptr) {
-	  size_t len = strlen(tmpptr);
-	  if (idx + len < MAX_ENV) {
-	    strcpy(tmp + idx, tmpptr);
-	    idx += len;
-	  } else {
-	    /* is it really a good idea to try to log this? */
-	    D(("Variable buffer overflow: <%s> + <%s>", tmp, tmpptr));
-	    pam_syslog (pamh, LOG_ERR,
-			"Variable buffer overflow: <%s> + <%s>", tmp, tmpptr);
+	  if (_strbuf_add_string(&buf, tmpptr)) {
 	    goto buf_err;
 	  }
 	}
       }           /* if ('{' != *orig++) */
     } else {      /* if ( '$' == *orig || '@' == *orig) */
-      if (idx + 1 < MAX_ENV) {
-	tmp[idx++] = *orig++;        /* Note the increment */
-      } else {
-	/* is it really a good idea to try to log this? */
-	D(("Variable buffer overflow: <%s> + <%c>", tmp, *orig));
-	pam_syslog(pamh, LOG_ERR,
-		   "Variable buffer overflow: <%s> + <%c>", tmp, *orig);
+      /* Note the increment */
+      if (_strbuf_add_char(&buf, *orig++)) {
 	goto buf_err;
       }
     }
   }              /* for (;*orig;) */
 
-  if (idx > strlen(*value)) {
+  if (buf.len > strlen(*value)) {
     free(*value);
-    if ((*value = malloc(idx + 1)) == NULL) {
-      D(("Couldn't malloc %zu bytes for expanded var", idx + 1));
-      pam_syslog (pamh, LOG_CRIT, "Couldn't malloc %zu bytes for expanded var",
-	       idx+1);
+    if ((*value = strdup(buf.str)) == NULL) {
       goto buf_err;
     }
+  } else {
+    const char *tmpptr = buf.str == NULL ? "" : buf.str;
+    strcpy(*value, tmpptr);
   }
-  strcpy(*value, tmp);
-  pam_overwrite_array(tmp);
+  _strbuf_free(&buf);
   D(("Exit."));
 
   return PAM_SUCCESS;
 buf_err:
-  pam_overwrite_array(tmp);
+  _strbuf_free(&buf);
   return PAM_BUF_ERR;
 abort_err:
-  pam_overwrite_array(tmp);
+  _strbuf_free(&buf);
   return PAM_ABORT;
 }
 
