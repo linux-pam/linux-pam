@@ -673,6 +673,13 @@ _expand_arg(pam_handle_t *pamh, char **value)
   const char *orig=*value;
   struct string_buffer buf;
 
+  /*
+   * Return early if there are no special characters present in the value.
+   */
+  if ((*value)[strcspn(*value, "\\$@")] == '\0') {
+    return PAM_SUCCESS;
+  }
+
   _strbuf_init(&buf);
 
   /*
