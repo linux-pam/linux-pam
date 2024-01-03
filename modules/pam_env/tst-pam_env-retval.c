@@ -71,7 +71,9 @@ setup(void)
 	ASSERT_LT(0, fprintf(fp,
 			     "EDITOR\tDEFAULT=vi DEFAULT= DEFAULT=vim\n"
 			     "PAGER\tDEFAULT=more\n"
-			     "NAME\tDEFAULT=@{PAM_USER}\n"));
+			     "# ignore escaped newlines in comments \\\n"
+			     "NAME\tDEFAULT=@{PAM_\\ \t\n"
+			     "USER}\n"));
 	ASSERT_EQ(0, fclose(fp));
 
 	ASSERT_NE(NULL, fp = fopen(my_env, "w"));
