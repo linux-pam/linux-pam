@@ -528,6 +528,7 @@ fi
 AC_ARG_ENABLE([selinux],
         AS_HELP_STRING([--disable-selinux],[do not use SELinux]),
         WITH_SELINUX=$enableval, WITH_SELINUX=yes)
+AM_CONDITIONAL([WITH_SELINUX], [test "$WITH_SELINUX" = "yes"])
 if test "$WITH_SELINUX" = "yes" ; then
   AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
 else
