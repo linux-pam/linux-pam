@@ -350,7 +350,7 @@ static int check_old_password(const char *forwho, const char *newpass)
 	if (opwfile == NULL)
 		return PAM_ABORT;
 
-	while (getline(&buf, &n, opwfile) != -1) {
+	for (; getline(&buf, &n, opwfile) != -1; pam_overwrite_n(buf, n)) {
 		if (!strncmp(buf, forwho, len) && (buf[len] == ':' ||
 			buf[len] == ',')) {
 			char *sptr;
@@ -372,6 +372,7 @@ static int check_old_password(const char *forwho, const char *newpass)
 			break;
 		}
 	}
+	pam_overwrite_n(buf, n);
 	free(buf);
 	fclose(opwfile);
 

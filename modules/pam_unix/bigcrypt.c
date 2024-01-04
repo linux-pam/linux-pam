@@ -107,6 +107,7 @@ char *bigcrypt(const char *key, const char *salt)
 	tmp_ptr = crypt(plaintext_ptr, salt);	/* libc crypt() */
 #endif
 	if (tmp_ptr == NULL) {
+		pam_overwrite_array(keybuf);
 		free(dec_c2_cryptbuf);
 #ifdef HAVE_CRYPT_R
 		free(cdata);
@@ -136,6 +137,7 @@ char *bigcrypt(const char *key, const char *salt)
 			tmp_ptr = crypt(plaintext_ptr, salt_ptr);
 #endif
 			if (tmp_ptr == NULL) {
+				pam_overwrite_array(keybuf);
 				pam_overwrite_string(dec_c2_cryptbuf);
 				free(dec_c2_cryptbuf);
 #ifdef HAVE_CRYPT_R
@@ -156,6 +158,7 @@ char *bigcrypt(const char *key, const char *salt)
 	}
 	D(("key=|%s|, salt=|%s|\nbuf=|%s|\n", key, salt, dec_c2_cryptbuf));
 
+	pam_overwrite_array(keybuf);
 #ifdef HAVE_CRYPT_R
 	pam_overwrite_object(cdata);
 	free(cdata);
