@@ -240,7 +240,7 @@ static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,
 	    if ( impression != _PAM_NEGATIVE ) {
 		impression = _PAM_NEGATIVE;
 	        /* Don't return with PAM_IGNORE as status */
-	        if ( retval == PAM_IGNORE )
+		if ( retval == PAM_IGNORE )
 		    status = PAM_MUST_FAIL_CODE;
 		else
 		    status = retval;
