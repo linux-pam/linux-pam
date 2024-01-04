@@ -557,7 +557,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		}
 #ifdef USE_LOGIND
 		struct passwd *pwd = pam_modutil_getpwnam(pamh, ruser);
-		if (pwd != NULL) {
+		if (pwd == NULL) {
 		  return PAM_SERVICE_ERR;
 		}
 		if (check_login_time(pwd->pw_uid, then) != PAM_SUCCESS)
