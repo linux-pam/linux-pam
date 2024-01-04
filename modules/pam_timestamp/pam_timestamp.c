@@ -99,13 +99,13 @@ check_dir_perms(pam_handle_t *pamh, const char *tdir)
 {
 	char scratch[BUFLEN] = {};
 	struct stat st;
-	int i;
+	size_t i;
 	/* Check that the directory is "safe". */
 	if ((tdir == NULL) || (strlen(tdir) == 0)) {
 		return PAM_AUTH_ERR;
 	}
 	/* Iterate over the path, checking intermediate directories. */
-	for (i = 0; (tdir[i] != '\0') && (i < (int)sizeof(scratch)); i++) {
+	for (i = 0; (i < sizeof(scratch)) && (tdir[i] != '\0'); i++) {
 		scratch[i] = tdir[i];
 		if ((scratch[i] == '/') || (tdir[i + 1] == '\0')) {
 			/* We now have the name of a directory in the path, so
