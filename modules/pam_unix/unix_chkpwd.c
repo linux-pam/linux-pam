@@ -110,8 +110,13 @@ int main(int argc, char *argv[])
 	  /* if the caller specifies the username, verify that user
 	     matches it */
 	  if (user == NULL || strcmp(user, argv[1])) {
-	    /* no match -> permanently change to the real user and proceed */
-	    if (setuid(getuid()) != 0)
+	    uid_t ruid = getuid();
+	    gid_t rgid = getgid();
+
+	    /* no match -> permanently change to the real user and group,
+	     * check for no-return, and proceed */
+	    if (setgid(rgid) != 0              || setuid(ruid) != 0 ||
+	        (rgid != 0 && setgid(0) != -1) || (ruid != 0 && setuid(0) != -1))
 		return PAM_AUTH_ERR;
 	  }
 	  user = argv[1];
