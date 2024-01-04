@@ -166,7 +166,7 @@ static int converse(pam_handle_t *pamh, struct ps_state_s *new)
 	retval = conv->conv(1, &msg_ptr, &single_reply, conv->appdata_ptr);
 	if (retval == PAM_SUCCESS) {
 	    if ((single_reply == NULL) || (single_reply->resp == NULL)) {
-		retval == PAM_CONV_ERR;
+		retval = PAM_CONV_ERR;
 	    } else {
 		new->current_reply = (pamc_bp_t) single_reply->resp;
 		single_reply->resp = NULL;
