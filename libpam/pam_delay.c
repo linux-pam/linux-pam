@@ -14,6 +14,7 @@
  */
 
 #include "pam_private.h"
+#include <limits.h>
 #include <unistd.h>
 #include <time.h>
 
@@ -61,19 +62,21 @@ static unsigned int _pam_rand(unsigned int seed)
      return N1*seed + N2;
 }
 
-static unsigned int _pam_compute_delay(unsigned int seed, unsigned int base)
+static unsigned long long _pam_compute_delay(unsigned int seed,
+					     unsigned int base)
 {
      int i;
      double sum;
-     unsigned int ans;
+     unsigned long long ans;
 
      for (sum=i=0; i<3; ++i) {
 	  seed = _pam_rand(seed);
 	  sum += (double) ((seed / 10) % 1000000);
      }
      sum = (sum/3.)/1e6 - .5;                      /* rescale */
-     ans = (unsigned int) ( base*(1.+sum) );
-     D(("random number: base=%u -> ans=%u\n", base, ans));
+     sum = base*(1.+sum);
+     ans = sum > (double) ULLONG_MAX ? ULLONG_MAX : (unsigned long long) sum;
+     D(("random number: base=%u -> ans=%llu\n", base, ans));
 
      return ans;
 }
@@ -88,7 +91,7 @@ static unsigned int _pam_compute_delay(unsigned int seed, unsigned int base)
 
 void _pam_await_timer(pam_handle_t *pamh, int status)
 {
-    unsigned int delay;
+    unsigned long long delay;
     D(("waiting?..."));
 
     delay = _pam_compute_delay(pamh->fail_delay.begin,
@@ -99,6 +102,7 @@ void _pam_await_timer(pam_handle_t *pamh, int status)
 	    void (*fn)(int, unsigned, void *);
 	} hack_fn_u;
 	void *appdata_ptr;
+	unsigned int delay_uint;
 
 	if (pamh->pam_conversation) {
 	    appdata_ptr = pamh->pam_conversation->appdata_ptr;
@@ -106,14 +110,16 @@ void _pam_await_timer(pam_handle_t *pamh, int status)
 	    appdata_ptr = NULL;
 	}
 
+	delay_uint = delay > UINT_MAX ? UINT_MAX : (unsigned int) delay;
+
 	/* always call the applications delay function, even if
 	   the delay is zero - indicate status */
 	hack_fn_u.value = pamh->fail_delay.delay_fn_ptr;
-	hack_fn_u.fn(status, delay, appdata_ptr);
+	hack_fn_u.fn(status, delay_uint, appdata_ptr);
 
     } else if (status != PAM_SUCCESS && pamh->fail_delay.set) {
 
-	D(("will wait %u usec", delay));
+	D(("will wait %llu usec", delay));
 
 	if (delay > 0) {
 	    struct timeval tval;
