@@ -31,7 +31,7 @@ typedef struct {
  * macro to determine if a given flag is on
  */
 
-#define on(x,ctrl)  (unix_args[x].flag & ctrl)
+#define on(x,ctrl)  (unix_args[x].flag & (ctrl))
 
 /*
  * macro to determine that a given flag is NOT on
@@ -43,8 +43,8 @@ typedef struct {
  * macro to turn on/off a ctrl flag manually
  */
 
-#define set(x,ctrl)   (ctrl = ((ctrl)&unix_args[x].mask)|unix_args[x].flag)
-#define unset(x,ctrl) (ctrl &= ~(unix_args[x].flag))
+#define set(x,ctrl)   ((ctrl) = ((ctrl)&unix_args[x].mask)|unix_args[x].flag)
+#define unset(x,ctrl) ((ctrl) &= ~(unix_args[x].flag))
 
 /* the generic mask */
 
