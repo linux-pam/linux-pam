@@ -55,7 +55,7 @@ char *bigcrypt(const char *key, const char *salt)
 #ifdef HAVE_CRYPT_R
 	struct crypt_data *cdata;
 #endif
-	unsigned long int keylen, n_seg, j;
+	size_t keylen, n_seg, j;
 	char *cipher_ptr, *plaintext_ptr, *tmp_ptr, *salt_ptr;
 	char keybuf[KEYBUF_SIZE + 1] = {};
 

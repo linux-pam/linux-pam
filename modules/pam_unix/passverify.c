@@ -53,7 +53,7 @@
 static void
 strip_hpux_aging(char *hash)
 {
-	static const char valid[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	static const char *const valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		"abcdefghijklmnopqrstuvwxyz"
 		"0123456789./";
 	if ((*hash != '$') && (strlen(hash) > 13)) {
@@ -657,7 +657,7 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
     int npas;
     FILE *pwfile, *opwfile;
     int err = 0;
-    int oldmask;
+    mode_t oldmask;
     int found = 0;
     struct passwd *pwd = NULL;
     struct stat st;
@@ -834,7 +834,7 @@ PAMH_ARG_DECL(int unix_update_passwd,
     struct stat st;
     FILE *pwfile, *opwfile;
     int err = 1;
-    int oldmask;
+    mode_t oldmask;
 #ifdef WITH_SELINUX
     char *prev_context_raw = NULL;
 #endif
@@ -957,7 +957,7 @@ PAMH_ARG_DECL(int unix_update_shadow,
     struct stat st;
     FILE *pwfile, *opwfile;
     int err = 0;
-    int oldmask;
+    mode_t oldmask;
     int wroteentry = 0;
 #ifdef WITH_SELINUX
     char *prev_context_raw = NULL;
