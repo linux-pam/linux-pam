@@ -35,15 +35,6 @@
 
 static int lockfd = -1;
 
-static int set_close_on_exec(int fd)
-{
-	int flags = fcntl(fd, F_GETFD, 0);
-	if (flags == -1)
-		return -1;
-	flags |= FD_CLOEXEC;
-	return fcntl(fd, F_SETFD, flags);
-}
-
 static int do_lock(int fd)
 {
 	struct flock fl;
@@ -70,7 +61,7 @@ static int lckpwdf(void)
 #ifdef WITH_SELINUX
 	if(is_selinux_enabled()>0)
 	{
-		lockfd = open(LOCKFILE, O_WRONLY);
+		lockfd = open(LOCKFILE, O_WRONLY | O_CLOEXEC);
 		if(lockfd == -1 && errno == ENOENT)
 		{
 			char *create_context_raw;
@@ -82,18 +73,16 @@ static int lckpwdf(void)
 			freecon(create_context_raw);
 			if(rc)
 				return -1;
-			lockfd = open(LOCKFILE, O_CREAT | O_WRONLY, 0600);
+			lockfd = open(LOCKFILE, O_CREAT | O_WRONLY | O_CLOEXEC, 0600);
 			if(setfscreatecon_raw(NULL))
 				return -1;
 		}
 	}
 	else
 #endif
-	lockfd = open(LOCKFILE, O_CREAT | O_WRONLY, 0600);
+	lockfd = open(LOCKFILE, O_CREAT | O_WRONLY | O_CLOEXEC, 0600);
 	if (lockfd == -1)
 		return -1;
-	if (set_close_on_exec(lockfd) == -1)
-		goto cleanup_fd;
 
 	memset(&act, 0, sizeof act);
 	act.sa_handler = alarm_catch;

@@ -400,7 +400,7 @@ crypt_make_salt(char *where, int length)
 	int fd;
 	int rv;
 
-	if ((rv = fd = open(PAM_PATH_RANDOMDEV, O_RDONLY)) != -1) {
+	if ((rv = fd = open(PAM_PATH_RANDOMDEV, O_RDONLY | O_CLOEXEC)) != -1) {
 		while ((rv = read(fd, where, length)) != length && errno == EINTR);
 		close (fd);
 	}
@@ -557,7 +557,7 @@ unix_selinux_confined(void)
     }
 
     /* let's try opening shadow read only */
-    if ((fd=open("/etc/shadow", O_RDONLY)) != -1) {
+    if ((fd=open("/etc/shadow", O_RDONLY | O_CLOEXEC)) != -1) {
         close(fd);
         confined = 0;
         return confined;
@@ -695,14 +695,14 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
       freecon(passwd_context_raw);
     }
 #endif
-    pwfile = fopen(OPW_TMPFILE, "w");
+    pwfile = fopen(OPW_TMPFILE, "we");
     umask(oldmask);
     if (pwfile == NULL) {
       err = 1;
       goto done;
     }
 
-    opwfile = fopen(OLD_PASSWORDS_FILE, "r");
+    opwfile = fopen(OLD_PASSWORDS_FILE, "re");
     if (opwfile == NULL) {
 	fclose(pwfile);
       err = 1;
@@ -858,14 +858,14 @@ PAMH_ARG_DECL(int unix_update_passwd,
       freecon(passwd_context_raw);
     }
 #endif
-    pwfile = fopen(PW_TMPFILE, "w");
+    pwfile = fopen(PW_TMPFILE, "we");
     umask(oldmask);
     if (pwfile == NULL) {
       err = 1;
       goto done;
     }
 
-    opwfile = fopen("/etc/passwd", "r");
+    opwfile = fopen("/etc/passwd", "re");
     if (opwfile == NULL) {
 	fclose(pwfile);
 	err = 1;
@@ -983,14 +983,14 @@ PAMH_ARG_DECL(int unix_update_shadow,
       freecon(shadow_context_raw);
     }
 #endif
-    pwfile = fopen(SH_TMPFILE, "w");
+    pwfile = fopen(SH_TMPFILE, "we");
     umask(oldmask);
     if (pwfile == NULL) {
 	err = 1;
 	goto done;
     }
 
-    opwfile = fopen("/etc/shadow", "r");
+    opwfile = fopen("/etc/shadow", "re");
     if (opwfile == NULL) {
 	fclose(pwfile);
 	err = 1;

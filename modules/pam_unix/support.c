@@ -352,7 +352,7 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 	if (!matched && files && strchr(name, ':') == NULL) {
 		FILE *passwd;
 
-		passwd = fopen("/etc/passwd", "r");
+		passwd = fopen("/etc/passwd", "re");
 		if (passwd != NULL) {
 			size_t n = 0, userlen;
 			ssize_t r;

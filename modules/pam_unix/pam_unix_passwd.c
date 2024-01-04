@@ -346,7 +346,7 @@ static int check_old_password(const char *forwho, const char *newpass)
 	size_t n = 0;
 	size_t len = strlen(forwho);
 
-	opwfile = fopen(OLD_PASSWORDS_FILE, "r");
+	opwfile = fopen(OLD_PASSWORDS_FILE, "re");
 	if (opwfile == NULL)
 		return PAM_ABORT;
 
