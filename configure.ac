@@ -638,7 +638,7 @@ AC_CHECK_FUNCS(explicit_bzero memset_explicit)
 AC_CHECK_FUNCS([ruserok_af ruserok], [break])
 AC_CHECK_FUNCS(close_range)
 
-dnl For module/pam_timestamp
+dnl For libpam/pam_delay and modules/pam_timestamp
 AC_CHECK_HEADERS([sys/random.h])
 dnl May require libbsd/libSystem on non-Linux platforms
 AC_CHECK_FUNCS(getrandom)

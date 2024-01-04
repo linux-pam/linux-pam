@@ -18,6 +18,10 @@
 #include <unistd.h>
 #include <time.h>
 
+#ifdef HAVE_SYS_RANDOM_H
+#include <sys/random.h>
+#endif
+
 /* **********************************************************************
  * initialize the time as unset, this is set on the return from the
  * authenticating pair of the libpam pam_XXX calls.
@@ -52,11 +56,20 @@ void _pam_start_timer(pam_handle_t *pamh)
  * in C'. It is *not* a cryptographically strong generator, but it is
  * probably "good enough" for our purposes here.
  *
- * /dev/random might be a better place to look for some numbers...
+ * If getrandom is available, retrieve random number from there.
  */
 
 static unsigned int _pam_rand(unsigned int seed)
 {
+#ifdef HAVE_GETRANDOM
+     unsigned int value;
+
+     if (getrandom(&value, sizeof(value), GRND_NONBLOCK) ==
+	 (ssize_t) sizeof(value)) {
+	  return value;
+     }
+#endif
+
 #define N1 1664525
 #define N2 1013904223
      return N1*seed + N2;
