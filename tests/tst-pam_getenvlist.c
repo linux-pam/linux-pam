@@ -78,7 +78,7 @@ main (void)
     {
       fprintf (stderr,
 	       "pam_getenvlist (pamh) does not return pointer to NULL\n");
-      temp = *ptr;
+      temp = ptr ? *ptr : NULL;
       var = 0;
       while (temp)
 	{
