@@ -153,7 +153,7 @@ char *create_digest(int length, const char *raw)
 	exit(1);
     }
 
-    fclose(pipe);
+    pclose(pipe);
 
     return temp_packet.buffer;
 }
