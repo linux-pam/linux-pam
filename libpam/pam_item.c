@@ -13,7 +13,7 @@
 #include <syslog.h>
 
 #define TRY_SET(X, Y)                      \
-{                                          \
+do {                                       \
     if ((X) != (Y)) {		           \
 	char *_TMP_ = _pam_strdup(Y);      \
 	if (_TMP_ == NULL && (Y) != NULL)  \
@@ -21,7 +21,7 @@
 	free(X);                           \
 	(X) = _TMP_;                       \
     }					   \
-}
+} while(0)
 
 /* functions */
 
