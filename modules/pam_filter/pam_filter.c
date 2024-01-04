@@ -312,16 +312,11 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	if (aterminal) {
 
 	    /* close the controlling tty */
-
-#if defined(__hpux) && defined(O_NOCTTY)
-	    int t = open("/dev/tty", O_RDWR|O_NOCTTY);
-#else
 	    int t = open("/dev/tty",O_RDWR);
 	    if (t >= 0) {
 		(void) ioctl(t, TIOCNOTTY, NULL);
 		close(t);
 	    }
-#endif /* defined(__hpux) && defined(O_NOCTTY) */
 
 	    /* make this process it's own process leader */
 	    if (setsid() == -1) {
