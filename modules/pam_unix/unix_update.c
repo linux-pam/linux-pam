@@ -27,6 +27,10 @@
 #include <signal.h>
 #include <time.h>
 #include <sys/time.h>
+#ifdef HAVE_LIBAUDIT
+#include <libaudit.h>
+#include "audit.h"
+#endif
 
 #include <security/_pam_types.h>
 #include <security/_pam_macros.h>
@@ -80,7 +84,12 @@ set_password(const char *forwho, const char *shadow, const char *remember)
        We always allow change from null pass. */
     if (getuid()) {
 	retval = helper_verify_password(forwho, pass, 1);
+#ifdef HAVE_LIBAUDIT
+	audit_log(AUDIT_USER_AUTH, getuidname(getuid()), retval);
+#endif
 	if (retval != PAM_SUCCESS) {
+	    helper_log_err(LOG_NOTICE, "password check failed for user (%s)",
+	                   getuidname(getuid()));
 	    goto done;
 	}
     }
@@ -99,6 +108,11 @@ set_password(const char *forwho, const char *shadow, const char *remember)
     } else {
 	retval = unix_update_passwd(forwho, towhat);
     }
+
+#ifdef HAVE_LIBAUDIT
+    audit_log(AUDIT_USER_CHAUTHTOK, getuidname(getuid()), retval);
+#endif
+
 
 done:
     pam_overwrite_array(pass);
@@ -135,6 +149,9 @@ int main(int argc, char *argv[])
 		helper_log_err(LOG_NOTICE
 		      ,"inappropriate use of Unix helper binary [UID=%d]"
 			 ,getuid());
+#ifdef HAVE_LIBAUDIT
+		audit_log(AUDIT_ANOM_EXEC, getuidname(getuid()), PAM_SYSTEM_ERR);
+#endif
 		fprintf(stderr
 		 ,"This binary is not designed for running in this way\n"
 		      "-- the system administrator has been informed\n");

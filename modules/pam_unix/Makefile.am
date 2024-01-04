@@ -74,7 +74,7 @@ unix_update_SOURCES = unix_update.c audit.c md5_good.c md5_broken.c bigcrypt.c \
 	passverify.c
 unix_update_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@ -DHELPER_COMPILE=\"unix_update\"
 unix_update_LDFLAGS = @EXE_LDFLAGS@
-unix_update_LDADD = @LIBCRYPT@ @LIBSELINUX@
+unix_update_LDADD = @LIBCRYPT@ @LIBSELINUX@ @LIBAUDIT@
 endif
 
 if ENABLE_REGENERATE_MAN
