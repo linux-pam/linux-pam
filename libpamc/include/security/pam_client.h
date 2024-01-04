@@ -17,6 +17,7 @@ extern "C" {
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <sys/types.h>
 
 /* opaque agent handling structure */
@@ -70,10 +71,6 @@ char **pamc_list_agents(pamc_handle_t pch);
 /*
  * PAM_BP_ MACROS for creating, destroying and manipulating binary prompts
  */
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
 
 #ifndef PAM_BP_ASSERT
 # ifdef NDEBUG
