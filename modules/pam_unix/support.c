@@ -489,6 +489,7 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 		}
 	}
 
+	_pam_drop(buf);
 	return matched;
 fail:
 	_pam_drop(buf);
