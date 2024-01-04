@@ -42,6 +42,7 @@ static int
 set_password(const char *forwho, const char *shadow, const char *remember)
 {
     struct passwd *pwd = NULL;
+    uid_t ruid;
     int retval;
     char pass[PAM_MAX_RESP_SIZE + 1];
     char towhat[PAM_MAX_RESP_SIZE + 1];
@@ -80,9 +81,18 @@ set_password(const char *forwho, const char *shadow, const char *remember)
     }
 
     /* If real caller uid is not root we must verify that
-       received old pass agrees with the current one.
-       We always allow change from null pass. */
-    if (getuid()) {
+     * the target user is the caller and the
+     * received old pass agrees with the current one.
+     * We always allow change from null pass. */
+    ruid = getuid();
+    if (ruid != 0) {
+	if (pwd->pw_uid != ruid) {
+	    helper_log_err(LOG_NOTICE, "user mismatch detected: source=%d target=%d",
+	                   ruid, pwd->pw_uid);
+	    retval = PAM_AUTHTOK_ERR;
+	    goto done;
+	}
+
 	retval = helper_verify_password(forwho, pass, 1);
 #ifdef HAVE_LIBAUDIT
 	audit_log(AUDIT_USER_AUTH, getuidname(getuid()), retval);
