@@ -286,7 +286,7 @@ static int _unix_run_update_binary(pam_handle_t *pamh, unsigned long long ctrl, 
 	DIAG_POP_IGNORE_CAST_QUAL;
 
 	/* should not get here: exit with error */
-	D(("helper binary is not available"));
+	pam_syslog(pamh, LOG_ERR, "failed to execute %s: %m", UPDATE_HELPER);
 	_exit(PAM_AUTHINFO_UNAVAIL);
     } else if (child > 0) {
 	/* wait for child */
