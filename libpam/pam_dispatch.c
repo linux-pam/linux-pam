@@ -28,7 +28,7 @@
 
 /*
  * walk a stack of modules.  Interpret the administrator's instructions
- * when combining the return code of each module.
+ * when combining the return codes of each module.
  */
 
 static int _pam_dispatch_aux(pam_handle_t *pamh, int flags, struct handler *h,

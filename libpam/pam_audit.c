@@ -203,7 +203,7 @@ int
 _pam_audit_end(pam_handle_t *pamh, int status UNUSED)
 {
   if (! (pamh->audit_state & PAMAUDIT_LOGGED)) {
-    /* PAM library is being shut down without any of the auditted
+    /* PAM library is being shut down without any of the audited
      * stacks having been run. Assume that this is sshd faking
      * things for an unknown user.
      */

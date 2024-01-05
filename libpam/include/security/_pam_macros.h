@@ -49,7 +49,7 @@ do {                 \
 } while (0)
 
 /*
- * WARNING: Do NOT use this macro, as it does not reliable override the memory.
+ * WARNING: Do NOT use this macro, as it does not reliably override the memory.
  */
 
 #define _pam_drop_reply(/* struct pam_response * */ reply, /* int */ replies) \

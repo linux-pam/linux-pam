@@ -206,7 +206,7 @@ size_t _pam_mkargv(const char *s, char ***argv, int *argc)
 
 /*
  * this function is used to protect the modules from accidental or
- * semi-mallicious harm that an application may do to confuse the API.
+ * semi-malicious harm that an application may do to confuse the API.
  */
 
 void _pam_sanitize(pam_handle_t *pamh)

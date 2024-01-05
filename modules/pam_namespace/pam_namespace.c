@@ -473,7 +473,7 @@ static int parse_method(char *method, struct polydir_s *poly,
  * of the namespace configuration file. It skips over comments and incomplete
  * or malformed lines. It processes a valid line with information on
  * polyinstantiating a directory by populating appropriate fields of a
- * polyinstatiated directory structure and then calling add_polydir_entry to
+ * polyinstantiated directory structure and then calling add_polydir_entry to
  * add that entry to the linked list of polyinstantiated directories.
  */
 static int process_line(char *line, const char *home, const char *rhome,

@@ -318,7 +318,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 		close(t);
 	    }
 
-	    /* make this process it's own process leader */
+	    /* make this process its own process leader */
 	    if (setsid() == -1) {
 		pam_syslog(pamh, LOG_ERR,
 			   "child cannot become new session: %m");
@@ -468,7 +468,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
 	    } else if (chid == child2) {
 		/*
-		 * if the filter has exited. Let the child die
+		 * if the filter has exited, let the child die
 		 * naturally below
 		 */
 		if (WIFEXITED(lstatus) || WIFSIGNALED(lstatus))

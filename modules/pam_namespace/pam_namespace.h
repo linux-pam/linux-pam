@@ -114,7 +114,7 @@
 #define PAMNS_MOUNT_PRIVATE   0x00080000 /* Make the polydir mounts private */
 
 /* polydir flags */
-#define POLYDIR_EXCLUSIVE     0x00000001 /* polyinstatiate exclusively for override uids */
+#define POLYDIR_EXCLUSIVE     0x00000001 /* polyinstantiate exclusively for override uids */
 #define POLYDIR_CREATE        0x00000002 /* create the polydir */
 #define POLYDIR_NOINIT        0x00000004 /* no init script */
 #define POLYDIR_SHARED        0x00000008 /* share context/level instances among users */

@@ -749,7 +749,7 @@ _check_var(pam_handle_t *pamh, VAR *var)
     return retval;
   }
 
-  /* Now its easy */
+  /* Now it's easy */
 
   if (var->override && *(var->override)) {
     /* if there is a non-empty string in var->override, we use it */
