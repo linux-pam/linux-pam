@@ -138,12 +138,12 @@ static inline char *_pam_str_trim(char *str)
  * by ending a line with a backslash (\).
  *
  * If an escaped newline is encountered, the backslash will be
- * replaced with a blank ' ' and the newline itself removed.
+ * replaced with "repl" and the newline itself removed.
  * Then the variable "end" will point to the new end of line.
  *
  * Returns 0 if escaped newline was found and replaced, 1 otherwise.
  */
-static inline int _pam_str_unescnl(char *start, char **end)
+static inline int _pam_str_unescnl(char *start, char **end, char repl)
 {
     int ret = 1;
     char *p = *end;
@@ -156,8 +156,10 @@ static inline int _pam_str_unescnl(char *start, char **end)
     while (p > start && ((*--p == ' ') || (*p == '\t') || (*p == '\n')))
 	;
     if (*p == '\\') {
-	*p++ = ' ';         /* replace backslash with ' ' */
-	*p = '\0';          /* truncate the line here */
+	*p = repl;          /* replace backslash with replacement char */
+	if (repl != '\0') {
+	    *++p = '\0';    /* truncate the line here if repl is not NUL */
+	}
 	*end = p;
 	ret = 0;
     }
@@ -175,14 +177,14 @@ static inline int _pam_str_unescnl(char *start, char **end)
  * end of line is encountered.
  */
 static inline int _pam_str_prepare(char *line, ssize_t len,
-				   char **start, char **end)
+				   char **start, char **end, char repl)
 {
     int ret;
 
     *start = line;
     *end = line + len;
 
-    ret = _pam_str_unescnl(*start, end) || strchr(*start, '#') != NULL;
+    ret = _pam_str_unescnl(*start, end, repl) || strchr(*start, '#') != NULL;
 
     *start = _pam_str_trim(*start);
 
@@ -193,10 +195,13 @@ static inline int _pam_str_prepare(char *line, ssize_t len,
  * This is where we read a line of the PAM config file. The line may be
  * preceded by lines of comments and also extended with "\\\n"
  *
+ * The "repl" argument is used as replacement char for the backslash used
+ * in newline escaping, i.e. in "\\\n".
+ *
  * Returns 0 on EOF, 1 on successful line parsing, or -1 on error.
  */
 
-static int _pam_assemble_line(FILE *f, struct line_buffer *buffer)
+static int _pam_assemble_line(FILE *f, struct line_buffer *buffer, char repl)
 {
     int ret = 0;
 
@@ -222,7 +227,7 @@ static int _pam_assemble_line(FILE *f, struct line_buffer *buffer)
 	    break;
 	}
 
-	eol = _pam_str_prepare(buffer->chunk, n, &start, &end);
+	eol = _pam_str_prepare(buffer->chunk, n, &start, &end, repl);
 
 	if (eol) {
 	    if (_pam_buffer_add_eol(buffer, start, end)) {

@@ -68,7 +68,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
     /*
      * read a line from the configuration (FILE *) f
      */
-    while ((x = _pam_assemble_line(f, &buffer)) > 0) {
+    while ((x = _pam_assemble_line(f, &buffer, ' ')) > 0) {
 	char *buf = buffer.assembled;
 	char *tok, *nexttok=NULL;
 	const char *this_service;
