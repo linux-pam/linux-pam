@@ -207,7 +207,7 @@
             This argument can be used to discourage the authentication
             component from requesting a delay should the authentication
             as a whole fail. The default action is for the module to
-            request a delay-on-failure of the order of two second.
+            request a delay-on-failure of the order of two seconds.
           </para>
         </listitem>
       </varlistentry>
@@ -397,7 +397,7 @@
         <listitem>
           <para>
             Set a minimum password length of <replaceable>n</replaceable>
-            characters. The max. for DES crypt based passwords are 8
+            characters. The max. for DES crypt based passwords is 8
             characters.
           </para>
         </listitem>
@@ -459,7 +459,7 @@
       <programlisting>
 # Authenticate the user
 auth       required   pam_unix.so
-# Ensure users account and password are still active
+# Ensure user's account and password are still active
 account    required   pam_unix.so
 # Change the user's password, but at first check the strength
 # with pam_passwdqc(8)
