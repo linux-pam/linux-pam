@@ -528,7 +528,7 @@ cc -o application .... -lpam -lpam_misc
             him/herself in a variety of ways. Updating the user's
             authentication token thus corresponds to
             <emphasis>refreshing</emphasis> the object they use to
-            authenticate themself with the system. The word password is
+            authenticate themselves with the system. The word password is
             avoided to keep open the possibility that the authentication
             involves a retinal scan or other non-textual mode of
             challenge/response.
