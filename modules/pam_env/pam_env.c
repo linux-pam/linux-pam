@@ -39,6 +39,10 @@
 #include <security/pam_ext.h>
 #include "pam_inline.h"
 
+#ifndef USE_ECONF
+#include "pam_assemble_line.h"
+#endif
+
 /* This little structure makes it easier to keep variables together */
 
 typedef struct var {
@@ -289,103 +293,12 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
 
 #else
 
-/*
- * This is where we read a line of the PAM config file. The line may be
- * preceded by lines of comments and also extended with "\\\n"
- */
-static int
-_assemble_line(FILE *f, char *buffer, int buf_len)
-{
-    char *p = buffer;
-    char *s, *os;
-    int used = 0;
-    int whitespace;
-
-    /* loop broken with a 'break' when a non-'\\n' ended line is read */
-
-    D(("called."));
-    for (;;) {
-	if (used >= buf_len) {
-	    /* Overflow */
-	    D(("overflow"));
-	    return -1;
-	}
-	if (fgets(p, buf_len - used, f) == NULL) {
-	    if (used) {
-		/* Incomplete read */
-		return -1;
-	    } else {
-		/* EOF */
-		return 0;
-	    }
-	}
-	if (p[0] == '\0') {
-	    D(("corrupted or binary file"));
-	    return -1;
-	}
-	if (p[strlen(p)-1] != '\n' && !feof(f)) {
-	    D(("line too long"));
-	    return -1;
-	}
-
-	/* skip leading spaces --- line may be blank */
-
-	whitespace = strspn(p, " \n\t");
-	s = p + whitespace;
-	if (*s && (*s != '#')) {
-	    used += whitespace;
-	    os = s;
-
-	    /*
-	     * we are only interested in characters before the first '#'
-	     * character
-	     */
-
-	    while (*s && *s != '#')
-		 ++s;
-	    if (*s == '#') {
-		 *s = '\0';
-		 used += strlen(os);
-		 break;                /* the line has been read */
-	    }
-
-	    s = os;
-
-	    /*
-	     * Check for backslash by scanning back from the end of
-	     * the entered line, the '\n' has been included since
-	     * normally a line is terminated with this
-	     * character. fgets() should only return one though!
-	     */
-
-	    s += strlen(s);
-	    while (s > os && ((*--s == ' ') || (*s == '\t')
-			      || (*s == '\n')));
-
-	    /* check if it ends with a backslash */
-	    if (*s == '\\') {
-		*s = '\0';              /* truncate the line here */
-		used += strlen(os);
-		p = s;                  /* there is more ... */
-	    } else {
-		/* End of the line! */
-		used += strlen(os);
-		break;                  /* this is the complete line */
-	    }
-
-	} else {
-	    /* Nothing in this line */
-	    /* Don't move p         */
-	}
-    }
-
-    return used;
-}
-
 static int read_file(const pam_handle_t *pamh, const char*filename, char ***lines)
 {
     FILE *conf;
-    char buffer[BUF_SIZE];
+    struct line_buffer buffer;
+
+    _pam_buffer_init(&buffer);
 
     D(("Parsed file name is: %s", filename));
 
@@ -402,31 +315,32 @@ static int read_file(const pam_handle_t *pamh, const char*filename, char ***line
       return PAM_BUF_ERR;
     }
     (*lines)[i] = 0;
-    while (_assemble_line(conf, buffer, BUF_SIZE) > 0) {
+    while (_pam_assemble_line(conf, &buffer, '\0') > 0) {
+      char *p = buffer.assembled;
       char **tmp = NULL;
-      D(("Read line: %s", buffer));
+      D(("Read line: %s", p));
       tmp = realloc(*lines, (++i + 1) * sizeof(char*));
       if (tmp == NULL) {
 	pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
 	(void) fclose(conf);
 	free_string_array(*lines);
-	pam_overwrite_array(buffer);
+	_pam_buffer_clear(&buffer);
 	return PAM_BUF_ERR;
       }
       *lines = tmp;
-      (*lines)[i-1] = strdup(buffer);
+      (*lines)[i-1] = strdup(p);
       if ((*lines)[i-1] == NULL) {
         pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
         (void) fclose(conf);
         free_string_array(*lines);
-        pam_overwrite_array(buffer);
+        _pam_buffer_clear(&buffer);
         return PAM_BUF_ERR;
       }
       (*lines)[i] = 0;
     }
 
     (void) fclose(conf);
-    pam_overwrite_array(buffer);
+    _pam_buffer_clear(&buffer);
     return PAM_SUCCESS;
 }
 #endif
