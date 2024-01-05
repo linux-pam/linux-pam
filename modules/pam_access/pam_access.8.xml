@@ -29,6 +29,9 @@
         noaudit
       </arg>
       <arg choice="opt" rep="norepeat">
+        quiet_log
+      </arg>
+      <arg choice="opt" rep="norepeat">
         accessfile=<replaceable>file</replaceable>
       </arg>
       <arg choice="opt" rep="norepeat">
@@ -125,6 +128,18 @@
         <listitem>
           <para>
             Do not report logins from disallowed hosts and ttys to the audit subsystem.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          quiet_log
+        </term>
+        <listitem>
+          <para>
+            Do not log denials with
+            <citerefentry><refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
           </para>
         </listitem>
       </varlistentry>

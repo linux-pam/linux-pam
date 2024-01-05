@@ -99,6 +99,7 @@ struct login_info {
     int debug;				/* Print debugging messages. */
     int only_new_group_syntax;		/* Only allow group entries of the form "(xyz)" */
     int noaudit;			/* Do not audit denials */
+    int quiet_log;			/* Do not log denials */
     const char *fs;			/* field separator */
     const char *sep;			/* list-element separator */
     int from_remote_host;               /* If PAM_RHOST was used for from */
@@ -115,6 +116,7 @@ parse_args(pam_handle_t *pamh, struct login_info *loginfo,
     int i;
 
     loginfo->noaudit = NO;
+    loginfo->quiet_log = NO;
     loginfo->debug = NO;
     loginfo->only_new_group_syntax = NO;
     loginfo->fs = ":";
@@ -150,6 +152,8 @@ parse_args(pam_handle_t *pamh, struct login_info *loginfo,
 	    loginfo->only_new_group_syntax = YES;
 	} else if (strcmp (argv[i], "noaudit") == 0) {
 	    loginfo->noaudit = YES;
+	} else if (strcmp (argv[i], "quiet_log") == 0) {
+	    loginfo->quiet_log = YES;
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unrecognized option [%s]", argv[i]);
 	}
@@ -1105,8 +1109,10 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     if (rv) {
 	return (PAM_SUCCESS);
     } else {
-	pam_syslog(pamh, LOG_ERR,
-                   "access denied for user `%s' from `%s'",user,from);
+	if (!loginfo.quiet_log) {
+	    pam_syslog(pamh, LOG_ERR,
+	               "access denied for user `%s' from `%s'",user,from);
+	}
 	return (PAM_PERM_DENIED);
     }
 }
