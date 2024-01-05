@@ -71,7 +71,9 @@ static inline int _pam_buffer_add_eol(struct line_buffer *buffer,
 
 static void _pam_buffer_clear(struct line_buffer *buffer)
 {
+    pam_overwrite_n(buffer->assembled, buffer->size);
     _pam_drop(buffer->assembled);
+    pam_overwrite_n(buffer->chunk, buffer->chunk_size);
     _pam_drop(buffer->chunk);
     buffer->chunk_size = 0;
     buffer->len = 0;
@@ -87,6 +89,7 @@ static void _pam_buffer_init(struct line_buffer *buffer)
 
 static void _pam_buffer_purge(struct line_buffer *buffer)
 {
+    pam_overwrite_n(buffer->chunk, buffer->chunk_size);
     _pam_drop(buffer->chunk);
     buffer->chunk_size = 0;
 }
