@@ -161,7 +161,7 @@
       which is used for polyinstantiation is the context used for executing
       a new process as obtained by getexeccon. This context must be set
       by the calling application or <filename>pam_selinux.so</filename>
-      module. If this context is not set the polyinstatiation will be
+      module. If this context is not set the polyinstantiation will be
       based just on user name.
     </para>
 
