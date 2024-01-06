@@ -9,13 +9,13 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # simmon <simmon@nplob.com>, 2021.
 # Seong-ho Cho <darkcircle.0426@gmail.com>, 2021, 2022, 2023.
-# 김인수 <simmon@nplob.com>, 2022, 2023.
+# 김인수 <simmon@nplob.com>, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2023-04-29 11:11+0000\n"
-"PO-Revision-Date: 2023-09-20 03:35+0000\n"
+"PO-Revision-Date: 2024-01-06 07:35+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/"
 "linux-pam/master/ko/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
@@ -52,11 +52,11 @@ msgstr "신규 비밀번호: "
 #: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
-msgstr "신규 %s 비밀번호 재 입력: "
+msgstr "신규 %s 비밀번호 재입력: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
-msgstr "신규 비밀번호 재 입력: "
+msgstr "신규 비밀번호 재입력: "
 
 #: libpam/pam_get_authtok.c:50
 msgid "Sorry, passwords do not match."
