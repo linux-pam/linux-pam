@@ -83,15 +83,19 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		onerr = PAM_SUCCESS;
 	    else if(!strcmp(str,"fail"))
 		onerr = PAM_SERVICE_ERR;
-	    else
+	    else {
+		pam_syslog(pamh, LOG_ERR, "Unknown option: %s", argv[i]);
 		return PAM_SERVICE_ERR;
+	    }
 	} else if ((str = pam_str_skip_prefix(argv[i], "sense=")) != NULL) {
 	    if(!strcmp(str,"allow"))
 		sense=0;
 	    else if(!strcmp(str,"deny"))
 		sense=1;
-	    else
+	    else {
+		pam_syslog(pamh, LOG_ERR, "Unknown option: %s", argv[i]);
 		return onerr;
+	    }
 	} else if ((str = pam_str_skip_prefix(argv[i], "file=")) != NULL) {
 	    ifname = str;
 	} else if ((str = pam_str_skip_prefix(argv[i], "item=")) != NULL) {
