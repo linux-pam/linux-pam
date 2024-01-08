@@ -54,8 +54,6 @@
 #endif
 
 /* Module defines */
-#define LINE_LENGTH 1024
-
 #define LIMITS_DEF_USER     0 /* limit was set by a user entry */
 #define LIMITS_DEF_GROUP    1 /* limit was set by a group entry */
 #define LIMITS_DEF_ALLGROUP 2 /* limit was set by a group entry */
@@ -99,7 +97,7 @@ struct pam_limit_s {
     struct user_limits_struct limits[RLIM_NLIMITS];
     const char *conf_file;
     int utmp_after_pam_call;
-    char login_group[LINE_LENGTH];
+    char *login_group;
 };
 
 #define LIMIT_LOGIN RLIM_NLIMITS+1
@@ -295,6 +293,7 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
                 continue;
 	    }
 	    if ((pl->login_limit_def == LIMITS_DEF_ALLGROUP)
+		&& pl->login_group != NULL
 		&& !pam_modutil_user_in_group_nam_nam(pamh, user, pl->login_group)) {
                 continue;
 	    }
@@ -498,6 +497,7 @@ static int init_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)
       retval = !PAM_SUCCESS;
     pl->login_limit = -2;
     pl->login_limit_def = LIMITS_DEF_NONE;
+    pl->login_group = NULL;
 
     return retval;
 }
@@ -960,7 +960,8 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 			    process_limit(pamh, LIMITS_DEF_ALL, ltype, item, value, ctrl,
 					  pl);
 			else if (pam_modutil_user_in_group_nam_nam(pamh, uname, domain+1)) {
-			    strcpy(pl->login_group, domain+1);
+			    free(pl->login_group);
+			    pl->login_group = strdup(domain+1);
 			    process_limit(pamh, LIMITS_DEF_ALLGROUP, ltype, item, value, ctrl,
 					  pl);
 			}
@@ -969,8 +970,8 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 			if (pam_modutil_user_in_group_nam_gid(pamh, uname, (gid_t)max_uid)) {
 			    struct group *grp;
 			    grp = pam_modutil_getgrgid(pamh, (gid_t)max_uid);
-			    strncpy(pl->login_group, grp->gr_name, sizeof(pl->login_group));
-			    pl->login_group[sizeof(pl->login_group)-1] = '\0';
+			    free(pl->login_group);
+			    pl->login_group = strdup(grp->gr_name);
 			    process_limit(pamh, LIMITS_DEF_ALLGROUP, ltype, item, value, ctrl,
 					  pl);
 			}
@@ -1275,6 +1276,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			       ctrl, pl, conf_file_set_by_user);
     if (retval == PAM_IGNORE) {
 	D(("the configuration file ('%s') has an applicable '<domain> -' entry", pl->conf_file));
+	free(pl->login_group);
 	return PAM_SUCCESS;
     }
     if (retval != PAM_SUCCESS || conf_file_set_by_user)
@@ -1297,6 +1299,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 
     if (retval == PAM_IGNORE) {
         D(("the configuration file ('%s') has an applicable '<domain> -' entry", pl->conf_file));
+        free(pl->login_group);
         return PAM_SUCCESS;
     }
 
@@ -1304,10 +1307,12 @@ out:
     if (retval != PAM_SUCCESS)
     {
 	pam_syslog(pamh, LOG_ERR, "error parsing the configuration file: '%s' ", pl->conf_file);
+	free(pl->login_group);
 	return retval;
     }
 
     retval = setup_limits(pamh, pwd->pw_name, pwd->pw_uid, ctrl, pl);
+    free(pl->login_group);
     if (retval & LOGIN_ERR)
 	pam_error(pamh, _("There were too many logins for '%s'."),
 		  pwd->pw_name);
