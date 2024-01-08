@@ -1190,16 +1190,12 @@ char *
 getuidname(uid_t uid)
 {
         struct passwd *pw;
-        static char username[256];
 
         pw = getpwuid(uid);
         if (pw == NULL)
                 return NULL;
 
-        strncpy(username, pw->pw_name, sizeof(username));
-        username[sizeof(username) - 1] = '\0';
-
-        return username;
+        return pw->pw_name;
 }
 
 #endif
