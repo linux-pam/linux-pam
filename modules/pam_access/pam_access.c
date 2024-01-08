@@ -254,7 +254,7 @@ typedef int match_func (pam_handle_t *, char *, struct login_info *);
 static int list_match (pam_handle_t *, char *, char *, struct login_info *,
 		       match_func *);
 static int user_match (pam_handle_t *, char *, struct login_info *);
-static int group_match (pam_handle_t *, const char *, const char *, int);
+static int group_match (pam_handle_t *, char *, const char *, int);
 static int from_match (pam_handle_t *, char *, struct login_info *);
 static int remote_match (pam_handle_t *, char *, struct login_info *);
 static int string_match (pam_handle_t *, const char *, const char *, int);
@@ -667,11 +667,8 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 /* group_match - match a username against token named group */
 
 static int
-group_match (pam_handle_t *pamh, const char *tok, const char* usr,
-    int debug)
+group_match (pam_handle_t *pamh, char *tok, const char* usr, int debug)
 {
-    char grptok[BUFSIZ] = {};
-
     if (debug)
         pam_syslog (pamh, LOG_DEBUG,
 		    "group_match: grp=%s, user=%s", tok, usr);
@@ -680,9 +677,10 @@ group_match (pam_handle_t *pamh, const char *tok, const char* usr,
         return NO;
 
     /* token is received under the format '(...)' */
-    strncpy(grptok, tok + 1, strlen(tok) - 2);
+    tok++;
+    tok[strlen(tok) - 1] = '\0';
 
-    if (pam_modutil_user_in_group_nam_nam(pamh, usr, grptok))
+    if (pam_modutil_user_in_group_nam_nam(pamh, usr, tok))
         return YES;
 
   return NO;
