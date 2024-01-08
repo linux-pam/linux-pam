@@ -48,7 +48,13 @@ int
 pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
-    int retval, i, citem=0, extitem=0, onerr=PAM_SERVICE_ERR, sense=2, quiet=0;
+    int retval = -1;
+    int onerr = PAM_SERVICE_ERR;
+    int citem = 0;
+    int extitem = 0;
+    int sense = -1;
+    int quiet = 0;
+    int i;
     const void *void_citemp;
     const char *citemp;
     const char *ifname=NULL;
@@ -85,7 +91,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		onerr = PAM_SERVICE_ERR;
 	    else {
 		pam_syslog(pamh, LOG_ERR, "Unknown option: %s", argv[i]);
-		return PAM_SERVICE_ERR;
+		if (retval == -1)
+		    retval = PAM_SERVICE_ERR;
+		continue;
 	    }
 	} else if ((str = pam_str_skip_prefix(argv[i], "sense=")) != NULL) {
 	    if(!strcmp(str,"allow"))
@@ -94,7 +102,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 		sense=1;
 	    else {
 		pam_syslog(pamh, LOG_ERR, "Unknown option: %s", argv[i]);
-		return onerr;
+		if (retval == -1)
+		    retval = onerr;
+		continue;
 	    }
 	} else if ((str = pam_str_skip_prefix(argv[i], "file=")) != NULL) {
 	    ifname = str;
@@ -128,29 +138,42 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
 	    }
 	} else {
 	    pam_syslog(pamh,LOG_ERR, "Unknown option: %s",argv[i]);
-	    return onerr;
+	    if (retval == -1)
+		retval = onerr;
+	    continue;
 	}
     }
 
-    if(!citem) {
+    if (!citem) {
 	pam_syslog(pamh,LOG_ERR,
 		  "Unknown item or item not specified");
-	return onerr;
-    } else if(!ifname) {
+	if (retval == -1)
+	    retval = onerr;
+    }
+
+    if (!ifname) {
 	pam_syslog(pamh,LOG_ERR, "List filename not specified");
-	return onerr;
-    } else if(sense == 2) {
+	if (retval == -1)
+	    retval = onerr;
+    }
+
+    if (sense == -1) {
 	pam_syslog(pamh,LOG_ERR,
 		  "Unknown sense or sense not specified");
-	return onerr;
-    } else if(
-	      (apply_type==APPLY_TYPE_NONE) ||
-	      ((apply_type!=APPLY_TYPE_NULL) && (*apply_val=='\0'))
-              ) {
+	if (retval == -1)
+	    retval = onerr;
+    }
+
+    if ((apply_type == APPLY_TYPE_NONE) ||
+	((apply_type != APPLY_TYPE_NULL) && (*apply_val == '\0'))) {
 	pam_syslog(pamh,LOG_ERR,
 		  "Invalid usage for apply= parameter");
-	return onerr;
+	if (retval == -1)
+	    retval = onerr;
     }
+
+    if (retval != -1)
+	return retval;
 
     /* Check if it makes sense to use the apply= parameter */
     if (apply_type != APPLY_TYPE_NULL) {
