@@ -445,9 +445,8 @@ evaluate(pam_handle_t *pamh, int debug,
 	return PAM_SERVICE_ERR;
 }
 
-int
-pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
-		     int argc, const char **argv)
+static int
+pam_succeed_if(pam_handle_t *pamh, int argc, const char **argv)
 {
 	const char *user;
 	struct passwd *pwd = NULL;
@@ -587,25 +586,36 @@ pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
 }
 
 int
-pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
+		    int argc, const char **argv)
 {
-	return pam_sm_authenticate(pamh, flags, argc, argv);
+	return pam_succeed_if(pamh, argc, argv);
 }
 
 int
-pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
+		 int argc, const char **argv)
 {
-	return pam_sm_authenticate(pamh, flags, argc, argv);
+	return pam_succeed_if(pamh, argc, argv);
 }
 
 int
-pam_sm_close_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
+		    int argc, const char **argv)
 {
-	return pam_sm_authenticate(pamh, flags, argc, argv);
+	return pam_succeed_if(pamh, argc, argv);
 }
 
 int
-pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
 {
-	return pam_sm_authenticate(pamh, flags, argc, argv);
+	return pam_succeed_if(pamh, argc, argv);
+}
+
+int
+pam_sm_chauthtok(pam_handle_t *pamh, int flags UNUSED,
+		 int argc, const char **argv)
+{
+	return pam_succeed_if(pamh, argc, argv);
 }
