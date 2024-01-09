@@ -977,9 +977,8 @@ network_netmask_match (pam_handle_t *pamh,
 
 /* --- public PAM management functions --- */
 
-int
-pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
-		     int argc, const char **argv)
+static int
+pam_access(pam_handle_t *pamh, int argc, const char **argv)
 {
     struct login_info loginfo;
     const char *user=NULL;
@@ -1125,31 +1124,38 @@ pam_sm_setcred (pam_handle_t *pamh UNUSED, int flags UNUSED,
 }
 
 int
-pam_sm_acct_mgmt (pam_handle_t *pamh, int flags,
-		  int argc, const char **argv)
-{
-  return pam_sm_authenticate (pamh, flags, argc, argv);
-}
-
-int
-pam_sm_open_session(pam_handle_t *pamh, int flags,
+pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 		    int argc, const char **argv)
 {
-  return pam_sm_authenticate(pamh, flags, argc, argv);
+  return pam_access(pamh, argc, argv);
 }
 
 int
-pam_sm_close_session(pam_handle_t *pamh, int flags,
-		     int argc, const char **argv)
-{
-  return pam_sm_authenticate(pamh, flags, argc, argv);
-}
-
-int
-pam_sm_chauthtok(pam_handle_t *pamh, int flags,
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
 		 int argc, const char **argv)
 {
-  return pam_sm_authenticate(pamh, flags, argc, argv);
+  return pam_access(pamh, argc, argv);
+}
+
+int
+pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
+		    int argc, const char **argv)
+{
+  return pam_access(pamh, argc, argv);
+}
+
+int
+pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
+{
+  return pam_access(pamh, argc, argv);
+}
+
+int
+pam_sm_chauthtok(pam_handle_t *pamh, int flags UNUSED,
+		 int argc, const char **argv)
+{
+  return pam_access(pamh, argc, argv);
 }
 
 /* end of module definition */
