@@ -665,9 +665,8 @@ cleanup:
 }
 
 /* --- authentication (locking out inactive users) functions --- */
-int
-pam_sm_authenticate(pam_handle_t *pamh, int flags,
-		    int argc, const char **argv)
+static int
+pam_auth(pam_handle_t *pamh, int flags, int argc, const char **argv)
 {
     int retval, ctrl;
     const char *user = NULL;
@@ -742,10 +741,17 @@ pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
 }
 
 int
+pam_sm_authenticate(pam_handle_t *pamh, int flags,
+		    int argc, const char **argv)
+{
+    return pam_auth(pamh, flags, argc, argv);
+}
+
+int
 pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 		    int argc, const char **argv)
 {
-    return pam_sm_authenticate(pamh, flags, argc, argv);
+    return pam_auth(pamh, flags, argc, argv);
 }
 
 /* --- session management functions --- */
