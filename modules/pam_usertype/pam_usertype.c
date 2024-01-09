@@ -255,9 +255,8 @@ pam_usertype_evaluate(struct pam_usertype_opts *opts,
  * - use_uid: use user that runs application not that is being authenticate (same as in pam_succeed_if)
  * - audit: log unknown users to syslog
  */
-int
-pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
-                    int argc, const char **argv)
+static int
+pam_usertype(pam_handle_t *pamh, int argc, const char **argv)
 {
     struct pam_usertype_opts opts;
     uid_t uid = -1;
@@ -284,25 +283,36 @@ pam_sm_setcred(pam_handle_t *pamh UNUSED, int flags UNUSED,
 }
 
 int
-pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
+		    int argc, const char **argv)
 {
-	return pam_sm_authenticate(pamh, flags, argc, argv);
+	return pam_usertype(pamh, argc, argv);
 }
 
 int
-pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
+		 int argc, const char **argv)
 {
-	return pam_sm_authenticate(pamh, flags, argc, argv);
+	return pam_usertype(pamh, argc, argv);
 }
 
 int
-pam_sm_close_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
+		    int argc, const char **argv)
 {
-	return pam_sm_authenticate(pamh, flags, argc, argv);
+	return pam_usertype(pamh, argc, argv);
 }
 
 int
-pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
+pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
 {
-	return pam_sm_authenticate(pamh, flags, argc, argv);
+	return pam_usertype(pamh, argc, argv);
+}
+
+int
+pam_sm_chauthtok(pam_handle_t *pamh, int flags UNUSED,
+		 int argc, const char **argv)
+{
+	return pam_usertype(pamh, argc, argv);
 }
