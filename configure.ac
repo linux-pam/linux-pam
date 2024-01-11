@@ -263,9 +263,10 @@ AC_ARG_ENABLE(txt_stylesheet,
 	TXT_STYLESHEET=$enableval, TXT_STYLESHEET=http://docbook.sourceforge.net/release/xsl-ns/current/html/docbook.xsl)
 
 
+${MKDIR_P} doc
 AC_SUBST(TXT_STYLESHEET)
 # It has to be TXT_STYLESHEET otherwise a html tree will be generated while generating all README files.
-sed "s+HTML_STYLESHEET+$TXT_STYLESHEET+g" <doc/custom-html.xsl.in >doc/custom-html.xsl
+sed "s+HTML_STYLESHEET+$TXT_STYLESHEET+g" <$srcdir/doc/custom-html.xsl.in >doc/custom-html.xsl
 
 AC_ARG_ENABLE(pdf_stylesheet,
 	AS_HELP_STRING([--enable-pdf-stylesheet=FILE],[pdf stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl-ns/current/fo/docbook.xsl@:>@]),
@@ -278,7 +279,7 @@ AC_ARG_ENABLE(man_stylesheet,
 
 
 AC_SUBST(MAN_STYLESHEET)
-sed "s+MAN_STYLESHEET+$MAN_STYLESHEET+g" <doc/custom-man.xsl.in >doc/custom-man.xsl
+sed "s+MAN_STYLESHEET+$MAN_STYLESHEET+g" <$srcdir/doc/custom-man.xsl.in >doc/custom-man.xsl
 
 AC_ARG_ENABLE(securedir,
 	AS_HELP_STRING([--enable-securedir=DIR],[path to location of PAMs @<:@default=$libdir/security@:>@]),

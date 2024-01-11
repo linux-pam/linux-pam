@@ -9,18 +9,18 @@ README: README.xml
 
 %.1: %.1.xml
 	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noout $<
-	$(XSLTPROC) -o $(srcdir)/$@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ @STRINGPARAM_PROFILECONDITIONS@ --nonet $(top_srcdir)/doc/custom-man.xsl $<
+	$(XSLTPROC) -o $@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ @STRINGPARAM_PROFILECONDITIONS@ --nonet $(top_builddir)/doc/custom-man.xsl $<
 
 %.3: %.3.xml
 	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noout $<
-	$(XSLTPROC) -o $(srcdir)/$@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ @STRINGPARAM_PROFILECONDITIONS@ --nonet $(top_srcdir)/doc/custom-man.xsl $<
+	$(XSLTPROC) -o $@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ @STRINGPARAM_PROFILECONDITIONS@ --nonet $(top_builddir)/doc/custom-man.xsl $<
 
 %.5: %.5.xml
 	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noout $<
-	$(XSLTPROC) -o $(srcdir)/$@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ @STRINGPARAM_PROFILECONDITIONS@ --nonet $(top_srcdir)/doc/custom-man.xsl $<
+	$(XSLTPROC) -o $@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ @STRINGPARAM_PROFILECONDITIONS@ --nonet $(top_builddir)/doc/custom-man.xsl $<
 
 %.8: %.8.xml
 	$(XMLLINT) --nonet --xinclude --relaxng $(DOCBOOK_RNG) --noout $<
-	$(XSLTPROC) -o $(srcdir)/$@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ @STRINGPARAM_PROFILECONDITIONS@ --nonet $(top_srcdir)/doc/custom-man.xsl $<
+	$(XSLTPROC) -o $@ --path $(srcdir) --xinclude @STRINGPARAM_VENDORDIR@ @STRINGPARAM_PROFILECONDITIONS@ --nonet $(top_builddir)/doc/custom-man.xsl $<
 
 #CLEANFILES += $(man_MANS) README

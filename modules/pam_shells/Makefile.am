@@ -33,5 +33,5 @@ pam_shells_la_LIBADD = $(top_builddir)/libpam/libpam.la $(ECONF_LIBS)
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
--include $(top_srcdir)/Make.xml.rules
+-include $(top_builddir)/Make.xml.rules
 endif

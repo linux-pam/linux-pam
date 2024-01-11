@@ -79,5 +79,5 @@ endif
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
--include $(top_srcdir)/Make.xml.rules
+-include $(top_builddir)/Make.xml.rules
 endif
