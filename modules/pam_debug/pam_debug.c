@@ -21,17 +21,11 @@
 
 /* --- authentication management functions --- */
 
-static int state(pam_handle_t *pamh, const char *text)
+static void state(pam_handle_t *pamh, const char *text)
 {
-    int retval;
-
-    retval = pam_info (pamh, "%s", text);
-
-    if (retval != PAM_SUCCESS) {
+    if (pam_info(pamh, "%s", text) != PAM_SUCCESS) {
 	D(("pam_info failed"));
     }
-
-    return retval;
 }
 
 static int parse_args(int retval, const char *event,
