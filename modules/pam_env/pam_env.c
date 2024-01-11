@@ -607,7 +607,7 @@ _expand_arg(pam_handle_t *pamh, char **value)
   while (*orig) {     /* while there is some input to deal with */
     if ('\\' == *orig) {
       ++orig;
-      if ('$' != *orig && '@' != *orig) {
+      if ('$' != *orig && '@' != *orig && '\\' != *orig) {
 	D(("Unrecognized escaped character: <%c> - ignoring", *orig));
 	pam_syslog(pamh, LOG_ERR,
 		   "Unrecognized escaped character: <%c> - ignoring",

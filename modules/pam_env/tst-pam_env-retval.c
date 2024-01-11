@@ -73,7 +73,7 @@ setup(void)
 			     "PAGER\tDEFAULT=more\n"
 			     "# ignore escaped newlines in comments \\\n"
 			     "NAME\tDEFAULT=@{PAM_\\ \t\n"
-			     "USER}\n"));
+			     "USER}\\\\name\n"));
 	ASSERT_EQ(0, fclose(fp));
 
 	ASSERT_NE(NULL, fp = fopen(my_env, "w"));
@@ -234,7 +234,7 @@ main(void)
 			     cwd, my_conf, "/dev/null"));
 	ASSERT_EQ(0, fclose(fp));
 
-	const char *env1[] = { "EDITOR=vim", "PAGER=more", "NAME=user", NULL };
+	const char *env1[] = { "EDITOR=vim", "PAGER=more", "NAME=user\\name", NULL };
 	check_env(env1);
 
 	/*
