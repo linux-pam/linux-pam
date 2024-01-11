@@ -284,14 +284,9 @@ pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
     while(getline(&aline,&n,inf) != -1 && retval) {
 	const char *a = aline;
 
-	if(strlen(aline) == 0)
+	aline[strcspn(aline, "\r\n")] = '\0';
+	if(aline[0] == '\0')
 	    continue;
-	if(aline[strlen(aline) - 1] == '\n')
-	    aline[strlen(aline) - 1] = '\0';
-	if(strlen(aline) == 0)
-	    continue;
-	if(aline[strlen(aline) - 1] == '\r')
-	    aline[strlen(aline) - 1] = '\0';
 	if(citem == PAM_TTY) {
 	    const char *str = pam_str_skip_prefix(a, "/dev/");
 	    if (str != NULL)
