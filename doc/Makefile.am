@@ -4,7 +4,7 @@
 
 SUBDIRS = man specs sag adg mwg
 
-CLEANFILES = *~
+CLEANFILES = *~ custom-html.xsl custom-man.xsl
 
 dist_html_DATA = index.html
 
