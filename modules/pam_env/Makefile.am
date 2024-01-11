@@ -39,6 +39,6 @@ dist_sysconf_DATA = environment
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
-environment.5: pam_env.conf.5.xml
+environment.5: pam_env.conf.5
 -include $(top_builddir)/Make.xml.rules
 endif
