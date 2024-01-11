@@ -273,10 +273,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	  close(stdout_fds[1]);
 	  while (getline(&buf, &n, stdout_file) != -1)
 	    {
-	      size_t len;
-	      len = strlen(buf);
-	      if (len > 0 && buf[len-1] == '\n')
-		buf[len-1] = '\0';
+	      buf[strcspn(buf, "\n")] = '\0';
 	      pam_info(pamh, "%s", buf);
 	    }
 	  free(buf);

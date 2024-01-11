@@ -159,10 +159,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 
     while ((getline(&ttyfileline, &ttyfilelinelen, ttyfile) != -1)
 	   && retval) {
-	size_t len;
-	len = strlen(ttyfileline);
-	if (len > 0 && ttyfileline[len - 1] == '\n')
-	    ttyfileline[len - 1] = '\0';
+	ttyfileline[strcspn(ttyfileline, "\n")] = '\0';
 
 	retval = ( strcmp(ttyfileline, uttyname)
 		   && (!ptname[0] || strcmp(ptname, uttyname)) );
@@ -226,12 +223,8 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
             fclose(consoleactivefile);
 
 	    if (p) {
-		size_t len;
-
 		/* remove the newline character at end */
-		len = strlen(line);
-		if (len && line[len-1] == '\n')
-		    line[len-1] = 0;
+		line[strcspn(line, "\n")] = '\0';
 
 		for (n = p; n != NULL; p = n+1) {
 		    if ((n = strchr(p, ' ')) != NULL)

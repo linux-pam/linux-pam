@@ -188,8 +188,7 @@ check_old_pass, const char *user, const char *newpass, const char *filename, int
       if (*cp == '\0')        /* ignore empty lines */
         continue;
 
-      if (cp[strlen (cp) - 1] == '\n')
-        cp[strlen (cp) - 1] = '\0';
+      cp[strcspn(cp, "\n")] = '\0';
 
       if (strncmp (cp, user, strlen (user)) == 0 &&
           cp[strlen (user)] == ':')
@@ -387,8 +386,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 	if (*cp == '\0')        /* ignore empty lines */
 	  goto write_old_data;
 
-	if (cp[strlen (cp) - 1] == '\n')
-	  cp[strlen (cp) - 1] = '\0';
+	cp[strcspn(cp, "\n")] = '\0';
 
 	if (strncmp (cp, user, strlen (user)) == 0 &&
 	    cp[strlen (user)] == ':')
