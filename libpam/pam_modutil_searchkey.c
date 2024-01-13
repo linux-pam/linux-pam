@@ -17,8 +17,6 @@
 #include <libeconf.h>
 #endif
 
-#define BUF_SIZE 8192
-
 #ifdef USE_ECONF
 #define LOGIN_DEFS "/etc/login.defs"
 

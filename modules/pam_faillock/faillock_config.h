@@ -56,7 +56,6 @@
 #define FAILLOCK_FLAG_LOCAL_ONLY	0x20
 #define FAILLOCK_FLAG_NO_DELAY		0x40
 
-#define FAILLOCK_CONF_MAX_LINELEN 	1023
 #define MAX_TIME_INTERVAL			604800 /* 7 days */
 
 struct options {

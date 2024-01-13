@@ -78,8 +78,6 @@
 
 #define DEFAULT_OLD_PASSWORDS_FILE SCONFIGDIR "/opasswd"
 
-#define DEFAULT_BUFLEN 4096
-
 typedef struct {
   char *user;
   char *uid;

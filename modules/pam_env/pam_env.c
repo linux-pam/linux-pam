@@ -57,9 +57,6 @@ typedef struct var {
 #define VENDOR_DEFAULT_CONF_FILE (VENDOR_SCONFIGDIR "/pam_env.conf")
 #endif
 
-#define BUF_SIZE 8192
-#define MAX_ENV  8192
-
 #define GOOD_LINE    0
 #define BAD_LINE     100       /* This must be > the largest PAM_* error code */
 
