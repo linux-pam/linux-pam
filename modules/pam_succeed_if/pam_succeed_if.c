@@ -292,7 +292,7 @@ evaluate(pam_handle_t *pamh, int debug,
 	 const char *left, const char *qual, const char *right,
 	 struct passwd **pwd, const char *user)
 {
-	char buf[LINE_MAX] = "";
+	char numstr[sizeof(long) * 3 + 1] = "";
 	const char *attribute = left;
 	/* Get information about the user if needed. */
 	if ((*pwd == NULL) &&
@@ -311,54 +311,47 @@ evaluate(pam_handle_t *pamh, int debug,
 	if ((strcasecmp(left, "login") == 0) ||
 	    (strcasecmp(left, "name") == 0) ||
 	    (strcasecmp(left, "user") == 0)) {
-		snprintf(buf, sizeof(buf), "%s", user);
-		left = buf;
+		left = user;
 	} else if (strcasecmp(left, "uid") == 0) {
-		snprintf(buf, sizeof(buf), "%lu", (unsigned long) (*pwd)->pw_uid);
-		left = buf;
+		snprintf(numstr, sizeof(numstr), "%lu",
+			(unsigned long) (*pwd)->pw_uid);
+		left = numstr;
 	} else if (strcasecmp(left, "gid") == 0) {
-		snprintf(buf, sizeof(buf), "%lu", (unsigned long) (*pwd)->pw_gid);
-		left = buf;
+		snprintf(numstr, sizeof(numstr), "%lu",
+			(unsigned long) (*pwd)->pw_gid);
+		left = numstr;
 	} else if (strcasecmp(left, "shell") == 0) {
-		snprintf(buf, sizeof(buf), "%s", (*pwd)->pw_shell);
-		left = buf;
+		left = (*pwd)->pw_shell;
 	} else if ((strcasecmp(left, "home") == 0) ||
 	    (strcasecmp(left, "dir") == 0) ||
 	    (strcasecmp(left, "homedir") == 0)) {
-		snprintf(buf, sizeof(buf), "%s", (*pwd)->pw_dir);
-		left = buf;
+		left = (*pwd)->pw_dir;
 	} else if (strcasecmp(left, "service") == 0) {
 		const void *svc;
 		if (pam_get_item(pamh, PAM_SERVICE, &svc) != PAM_SUCCESS ||
 			svc == NULL)
 			svc = "";
-		snprintf(buf, sizeof(buf), "%s", (const char *)svc);
-		left = buf;
+		left = (const char *)svc;
 	} else if (strcasecmp(left, "ruser") == 0) {
 		const void *ruser;
 		if (pam_get_item(pamh, PAM_RUSER, &ruser) != PAM_SUCCESS ||
 			ruser == NULL)
 			ruser = "";
-		snprintf(buf, sizeof(buf), "%s", (const char *)ruser);
-		left = buf;
-		user = buf;
+		left = (const char *)ruser;
 	} else if (strcasecmp(left, "rhost") == 0) {
 		const void *rhost;
 		if (pam_get_item(pamh, PAM_RHOST, &rhost) != PAM_SUCCESS ||
 			rhost == NULL)
 			rhost = "";
-		snprintf(buf, sizeof(buf), "%s", (const char *)rhost);
-		left = buf;
+		left = (const char *)rhost;
 	} else if (strcasecmp(left, "tty") == 0) {
 		const void *tty;
 		if (pam_get_item(pamh, PAM_TTY, &tty) != PAM_SUCCESS ||
 			tty == NULL)
 			tty = "";
-		snprintf(buf, sizeof(buf), "%s", (const char *)tty);
-		left = buf;
-	}
-	/* If we have no idea what's going on, return an error. */
-	if (left != buf) {
+		left = (const char *)tty;
+	} else {
+		/* If we have no idea what's going on, return an error. */
 		pam_syslog(pamh, LOG_ERR, "unknown attribute \"%s\"", left);
 		return PAM_SERVICE_ERR;
 	}
