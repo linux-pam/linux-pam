@@ -70,13 +70,13 @@ evaluate_num(const pam_handle_t *pamh, const char *left,
 
 	errno = 0;
 	l = strtoll(left, &p, 0);
-	if ((p == NULL) || (*p != '\0') || errno) {
+	if ((p == NULL) || (*p != '\0') || (p == left) || errno) {
 		pam_syslog(pamh, LOG_INFO, "\"%s\" is not a number", left);
 		ret = PAM_SERVICE_ERR;
 	}
 
 	r = strtoll(right, &p, 0);
-	if ((p == NULL) || (*p != '\0') || errno) {
+	if ((p == NULL) || (*p != '\0') || (p == right) || errno) {
 		pam_syslog(pamh, LOG_INFO, "\"%s\" is not a number", right);
 		ret = PAM_SERVICE_ERR;
 	}
