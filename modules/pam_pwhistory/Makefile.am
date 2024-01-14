@@ -9,10 +9,17 @@ MAINTAINERCLEANFILES = $(MANS) README
 EXTRA_DIST = $(XMLS)
 
 if HAVE_DOC
-dist_man_MANS = pam_pwhistory.8 pwhistory_helper.8 pwhistory.conf.5
+dist_man_MANS = pam_pwhistory.8 pwhistory.conf.5
+if WITH_SELINUX
+dist_man_MANS += pwhistory_helper.8
 endif
-XMLS = README.xml pam_pwhistory.8.xml pwhistory_helper.8.xml \
-  pwhistory.conf.5.xml
+endif
+
+XMLS = README.xml pam_pwhistory.8.xml pwhistory.conf.5.xml
+if WITH_SELINUX
+XMLS += pwhistory_helper.8.xml
+endif
+
 dist_check_SCRIPTS = tst-pam_pwhistory
 TESTS = $(dist_check_SCRIPTS) $(check_PROGRAMS)
 
@@ -40,11 +47,13 @@ pam_pwhistory_la_CFLAGS = $(AM_CFLAGS)
 pam_pwhistory_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBCRYPT@ @LIBSELINUX@
 pam_pwhistory_la_SOURCES = pam_pwhistory.c opasswd.c pwhistory_config.c
 
+if WITH_SELINUX
 sbin_PROGRAMS = pwhistory_helper
 pwhistory_helper_CFLAGS = $(AM_CFLAGS) -DHELPER_COMPILE=\"pwhistory_helper\" @EXE_CFLAGS@
 pwhistory_helper_SOURCES = pwhistory_helper.c opasswd.c
 pwhistory_helper_LDFLAGS = @EXE_LDFLAGS@
 pwhistory_helper_LDADD = $(top_builddir)/libpam/libpam.la @LIBCRYPT@
+endif
 
 check_PROGRAMS = tst-pam_pwhistory-retval
 tst_pam_pwhistory_retval_LDADD = $(top_builddir)/libpam/libpam.la
