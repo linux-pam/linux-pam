@@ -18,7 +18,7 @@
 #include "md5.h"
 #include "pam_inline.h"
 
-static unsigned char itoa64[] =	/* 0 ... 63 => ascii - 64 */
+static const unsigned char itoa64[] =	/* 0 ... 63 => ascii - 64 */
 "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 static void to64(char *s, unsigned long v, int n)
