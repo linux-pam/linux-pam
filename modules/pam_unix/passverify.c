@@ -729,7 +729,7 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 	goto done;
     }
 
-    while (getline(&buf, &bufsize, opwfile) == -1) {
+    while (getline(&buf, &bufsize, opwfile) != -1) {
 	if (!strncmp(buf, forwho, len) && strchr(":,\n", buf[len]) != NULL) {
 	    char *ep, *sptr = NULL;
 	    long value;

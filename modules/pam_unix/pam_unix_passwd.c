@@ -660,7 +660,6 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			 user);
 		return PAM_USER_UNKNOWN;
 	}
-	_pam_drop(pwd);
 
 	/*
 	 * This is not an AUTH module!
