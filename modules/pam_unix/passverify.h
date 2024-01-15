@@ -37,6 +37,7 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 
 #ifdef HELPER_COMPILE
 void
+PAM_FORMAT((printf, 2, 3))
 helper_log_err(int err, const char *format,...);
 
 int

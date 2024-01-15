@@ -1132,7 +1132,6 @@ helper_verify_password(const char *name, const char *p, int nullok)
 }
 
 void
-PAM_FORMAT((printf, 2, 3))
 helper_log_err(int err, const char *format, ...)
 {
 	va_list args;
