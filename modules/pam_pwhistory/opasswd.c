@@ -169,7 +169,7 @@ check_old_pass, const char *user, const char *newpass, const char *filename, int
 
   while (!feof (oldpf))
     {
-      char *cp, *tmp;
+      char *cp;
       ssize_t n = getline (&buf, &buflen, oldpf);
 
       cp = buf;
@@ -177,15 +177,9 @@ check_old_pass, const char *user, const char *newpass, const char *filename, int
       if (n < 1)
         break;
 
-      tmp = strchr (cp, '#');  /* remove comments */
-      if (tmp)
-        *tmp = '\0';
-      while (isspace ((unsigned char)*cp))    /* remove spaces and tabs */
-        ++cp;
+      cp[strcspn(cp, "\n")] = '\0';
       if (*cp == '\0')        /* ignore empty lines */
         continue;
-
-      cp[strcspn(cp, "\n")] = '\0';
 
       if (strncmp (cp, user, strlen (user)) == 0 &&
           cp[strlen (user)] == ':')
@@ -359,7 +353,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
   if (!do_create)
     while (!feof (oldpf))
       {
-	char *cp, *tmp, *save;
+	char *cp, *save;
 	ssize_t n = getline (&buf, &buflen, oldpf);
 
 	if (n < 1)
@@ -375,15 +369,9 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 	    goto error_opasswd;
           }
 
-	tmp = strchr (cp, '#');  /* remove comments */
-	if (tmp)
-	  *tmp = '\0';
-	while (isspace ((unsigned char)*cp))    /* remove spaces and tabs */
-	  ++cp;
+	cp[strcspn(cp, "\n")] = '\0';
 	if (*cp == '\0')        /* ignore empty lines */
 	  goto write_old_data;
-
-	cp[strcspn(cp, "\n")] = '\0';
 
 	if (strncmp (cp, user, strlen (user)) == 0 &&
 	    cp[strlen (user)] == ':')
