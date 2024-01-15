@@ -54,6 +54,7 @@
 
 #ifdef HELPER_COMPILE
 void
+PAM_FORMAT((printf, 2, 3))
 helper_log_err(int err, const char *format, ...);
 #endif
 
