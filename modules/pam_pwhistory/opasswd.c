@@ -169,23 +169,20 @@ check_old_pass, const char *user, const char *newpass, const char *filename, int
 
   while (!feof (oldpf))
     {
-      char *cp;
       ssize_t n = getline (&buf, &buflen, oldpf);
-
-      cp = buf;
 
       if (n < 1)
         break;
 
-      cp[strcspn(cp, "\n")] = '\0';
-      if (*cp == '\0')        /* ignore empty lines */
+      buf[strcspn(buf, "\n")] = '\0';
+      if (buf[0] == '\0')        /* ignore empty lines */
         continue;
 
-      if (strncmp (cp, user, strlen (user)) == 0 &&
-          cp[strlen (user)] == ':')
+      if (strncmp (buf, user, strlen (user)) == 0 &&
+          buf[strlen (user)] == ':')
         {
           /* We found the line we needed */
-	  if (parse_entry (cp, &entry) == 0)
+	  if (parse_entry (buf, &entry) == 0)
 	    {
 	      found = 1;
 	      break;
@@ -353,13 +350,12 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
   if (!do_create)
     while (!feof (oldpf))
       {
-	char *cp, *save;
+	char *save;
 	ssize_t n = getline (&buf, &buflen, oldpf);
 
 	if (n < 1)
 	  break;
 
-	cp = buf;
 	save = strdup (buf); /* Copy to write the original data back.  */
 	if (save == NULL)
           {
@@ -369,17 +365,17 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 	    goto error_opasswd;
           }
 
-	cp[strcspn(cp, "\n")] = '\0';
-	if (*cp == '\0')        /* ignore empty lines */
+	buf[strcspn(buf, "\n")] = '\0';
+	if (buf[0] == '\0')        /* ignore empty lines */
 	  goto write_old_data;
 
-	if (strncmp (cp, user, strlen (user)) == 0 &&
-	    cp[strlen (user)] == ':')
+	if (strncmp (buf, user, strlen (user)) == 0 &&
+	    buf[strlen (user)] == ':')
 	  {
 	    /* We found the line we needed */
 	    opwd entry;
 
-	    if (parse_entry (cp, &entry) == 0)
+	    if (parse_entry (buf, &entry) == 0)
 	      {
 		char *out = NULL;
 
@@ -388,9 +384,9 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 		/* Don't save the current password twice */
 		if (entry.old_passwords && entry.old_passwords[0] != '\0')
 		  {
-		    char *last = entry.old_passwords;
+		    char *cp = entry.old_passwords;
+		    char *last = cp;
 
-		    cp = entry.old_passwords;
 		    entry.count = 1;  /* Don't believe the count */
 		    while ((cp = strchr (cp, ',')) != NULL)
 		      {
