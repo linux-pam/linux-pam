@@ -63,6 +63,7 @@ struct options_t {
   int ctrl;
   const char *umask;
   const char *skeldir;
+  int use_copy_mode;
 };
 typedef struct options_t options_t;
 
@@ -73,6 +74,7 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
    opt->ctrl = 0;
    opt->umask = NULL;
    opt->skeldir = "/etc/skel";
+   opt->use_copy_mode = 0;
 
    /* does the application require quiet? */
    if ((flags & PAM_SILENT) == PAM_SILENT)
@@ -91,6 +93,8 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
 	 opt->umask = str;
       } else if ((str = pam_str_skip_prefix(*argv, "skel=")) != NULL) {
 	 opt->skeldir = str;
+      } else if (!strcmp(*argv, "copymode")) {
+	 opt->use_copy_mode = 1;
       } else {
 	 pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
       }
@@ -157,7 +161,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
    child = fork();
    if (child == 0) {
 	static char *envp[] = { NULL };
-	const char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL };
+	const char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 	if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_PIPE_FD,
 					    PAM_MODUTIL_PIPE_FD,
@@ -170,6 +174,9 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 	args[2] = opt->umask ? opt->umask : UMASK_DEFAULT;
 	args[3] = opt->skeldir;
 	args[4] = login_homemode;
+	if (opt->use_copy_mode == 1) {
+		args[5] = "copymode";
+	}
 
 	DIAG_PUSH_IGNORE_CAST_QUAL;
 	execve(MKHOMEDIR_HELPER, (char **)args, envp);
