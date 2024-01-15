@@ -112,6 +112,7 @@ parse_option (pam_handle_t *pamh, const char *argv, options_t *options)
     pam_syslog (pamh, LOG_ERR, "pam_pwhistory: unknown option: %s", argv);
 }
 
+#ifdef WITH_SELINUX
 static int
 run_save_helper(pam_handle_t *pamh, const char *user,
 		int howmany, const char *filename, int debug)
@@ -287,6 +288,7 @@ run_check_helper(pam_handle_t *pamh, const char *user,
 
   return retval;
 }
+#endif
 
 /* This module saves the current hashed password in /etc/security/opasswd
    and then compares the new password with all entries in this file. */
@@ -332,8 +334,10 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 
   retval = save_old_pass (pamh, user, options.remember, options.filename, options.debug);
 
+#ifdef WITH_SELINUX
   if (retval == PAM_PWHISTORY_RUN_HELPER)
       retval = run_save_helper(pamh, user, options.remember, options.filename, options.debug);
+#endif
 
   if (retval != PAM_SUCCESS)
     return retval;
@@ -366,8 +370,10 @@ pam_sm_chauthtok (pam_handle_t *pamh, int flags, int argc, const char **argv)
 	pam_syslog (pamh, LOG_DEBUG, "check against old password file");
 
       retval = check_old_pass (pamh, user, newpass, options.filename, options.debug);
+#ifdef WITH_SELINUX
       if (retval == PAM_PWHISTORY_RUN_HELPER)
 	  retval = run_check_helper(pamh, user, newpass, options.filename, options.debug);
+#endif
 
       if (retval != PAM_SUCCESS)
 	{
