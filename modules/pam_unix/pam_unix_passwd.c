@@ -351,14 +351,13 @@ static int check_old_password(const char *forwho, const char *newpass)
 		return PAM_ABORT;
 
 	for (; getline(&buf, &n, opwfile) != -1; pam_overwrite_n(buf, n)) {
-		if (!strncmp(buf, forwho, len) && (buf[len] == ':' ||
-			buf[len] == ',')) {
+		if (!strncmp(buf, forwho, len) && buf[len] == ':') {
 			char *sptr;
 			buf[strlen(buf) - 1] = '\0';
-			/* s_luser = */ strtok_r(buf, ":,", &sptr);
-			/* s_uid = */ strtok_r(NULL, ":,", &sptr);
-			/* s_npas = */ strtok_r(NULL, ":,", &sptr);
-			s_pas = strtok_r(NULL, ":,", &sptr);
+			/* s_luser = */ strtok_r(buf, ":", &sptr);
+			/* s_uid = */ strtok_r(NULL, ":", &sptr);
+			/* s_npas = */ strtok_r(NULL, ":", &sptr);
+			s_pas = strtok_r(NULL, ",", &sptr);
 			while (s_pas != NULL) {
 				char *md5pass = Goodcrypt_md5(newpass, s_pas);
 				if (md5pass == NULL || !strcmp(md5pass, s_pas)) {
@@ -366,7 +365,7 @@ static int check_old_password(const char *forwho, const char *newpass)
 					retval = PAM_AUTHTOK_ERR;
 					break;
 				}
-				s_pas = strtok_r(NULL, ":,", &sptr);
+				s_pas = strtok_r(NULL, ",", &sptr);
 				_pam_delete(md5pass);
 			}
 			break;
