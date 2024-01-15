@@ -4,6 +4,7 @@
 
 #include <sys/types.h>
 #include <pwd.h>
+#include <shadow.h>
 #include <security/pam_modules.h>
 
 #define PAM_UNIX_RUN_HELPER PAM_CRED_INSUFFICIENT

@@ -43,7 +43,7 @@ pam_unix_la_LIBADD = $(top_builddir)/libpam/libpam.la \
 
 securelib_LTLIBRARIES = pam_unix.la
 
-noinst_HEADERS = md5.h support.h yppasswd.h bigcrypt.h passverify.h
+noinst_HEADERS = audit.h md5.h support.h yppasswd.h bigcrypt.h passverify.h
 
 sbin_PROGRAMS = unix_chkpwd
 if WITH_SELINUX
@@ -63,14 +63,14 @@ bigcrypt_SOURCES = bigcrypt.c bigcrypt_main.c
 bigcrypt_CFLAGS = $(AM_CFLAGS)
 bigcrypt_LDADD = @LIBCRYPT@
 
-unix_chkpwd_SOURCES = unix_chkpwd.c md5_good.c md5_broken.c bigcrypt.c \
+unix_chkpwd_SOURCES = unix_chkpwd.c audit.c md5_good.c md5_broken.c bigcrypt.c \
 	passverify.c
 unix_chkpwd_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@ -DHELPER_COMPILE=\"unix_chkpwd\"
 unix_chkpwd_LDFLAGS = @EXE_LDFLAGS@
 unix_chkpwd_LDADD = @LIBCRYPT@ @LIBSELINUX@ @LIBAUDIT@
 
 if WITH_SELINUX
-unix_update_SOURCES = unix_update.c md5_good.c md5_broken.c bigcrypt.c \
+unix_update_SOURCES = unix_update.c audit.c md5_good.c md5_broken.c bigcrypt.c \
 	passverify.c
 unix_update_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@ -DHELPER_COMPILE=\"unix_update\"
 unix_update_LDFLAGS = @EXE_LDFLAGS@
