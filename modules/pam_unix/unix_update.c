@@ -149,7 +149,7 @@ int main(int argc, char *argv[])
 	/*
 	 * we establish that this program is running with non-tty stdin.
 	 * this is to discourage casual use. It does *NOT* prevent an
-	 * intruder from repeatadly running this program to determine the
+	 * intruder from repeatedly running this program to determine the
 	 * password of the current user (brute force attack, but one for
 	 * which the attacker must already have gained access to the user's
 	 * account).
