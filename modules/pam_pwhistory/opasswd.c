@@ -127,9 +127,7 @@ compare_password(const char *newpass, const char *oldpass)
   char *outval;
   int retval;
 #ifdef HAVE_CRYPT_R
-  struct crypt_data output;
-
-  output.initialized = 0;
+  struct crypt_data output = { 0 };
 
   outval = crypt_r (newpass, oldpass, &output);
 #else

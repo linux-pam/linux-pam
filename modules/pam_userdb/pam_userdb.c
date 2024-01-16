@@ -287,11 +287,10 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	    } else {
 #ifdef HAVE_CRYPT_R
 	      struct crypt_data *cdata = NULL;
-	      cdata = malloc(sizeof(*cdata));
+	      cdata = calloc(1, sizeof(*cdata));
 	      if (cdata == NULL) {
 	        pam_syslog(pamh, LOG_CRIT, "malloc failed: struct crypt_data");
 	      } else {
-	        cdata->initialized = 0;
 	        cryptpw = crypt_r(pass, pwhash, cdata);
 	      }
 #else
