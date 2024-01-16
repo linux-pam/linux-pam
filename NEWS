@@ -186,7 +186,7 @@ Release 1.1.5
 Release 1.1.4
 
 * Add vietnamese translation
-* pam_namepace: Add new functionality
+* pam_namespace: Add new functionality
 * pam_securetty: Honour console= kernel option, add noconsole option
 * pam_limits: Add %group syntax, drop change_uid option, add set_all option
 * Lot of small bug fixes
@@ -198,7 +198,7 @@ Release 1.1.3
 
 * pam_namespace: Clean environment for child processes (CVE-2010-3853)
 * libpam: New interface to drop/regain privileges
-* Drop root privilegs in pam_env, pam_mail and pam_xauth before
+* Drop root privileges in pam_env, pam_mail and pam_xauth before
   accessing user files (CVE-2010-3430, CVE-2010-3431)
 * pam_unix: Add minlen option, change default from 6 to 0
 * Documentation improvements
