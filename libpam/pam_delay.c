@@ -125,7 +125,7 @@ void _pam_await_timer(pam_handle_t *pamh, int status)
 
 	delay_uint = delay > UINT_MAX ? UINT_MAX : (unsigned int) delay;
 
-	/* always call the applications delay function, even if
+	/* always call the application's delay function, even if
 	   the delay is zero - indicate status */
 	hack_fn_u.value = pamh->fail_delay.delay_fn_ptr;
 	hack_fn_u.fn(status, delay_uint, appdata_ptr);
