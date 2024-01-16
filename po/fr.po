@@ -13,21 +13,22 @@
 # Julien Humbert <julroy67@gmail.com>, 2020.
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
 # Jérôme Fenal <jfenal@free.fr>, 2021.
+# Damien Pou <dampato+linux@ik.me>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2023-04-29 11:11+0000\n"
-"PO-Revision-Date: 2021-08-18 09:04+0000\n"
-"Last-Translator: Jérôme Fenal <jfenal@free.fr>\n"
-"Language-Team: French <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/fr/>\n"
+"PO-Revision-Date: 2024-01-16 13:36+0000\n"
+"Last-Translator: Damien Pou <dampato+linux@ik.me>\n"
+"Language-Team: French <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.7.2\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:53
@@ -248,18 +249,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s échec : statut 0x inconnu%x"
 
 #: modules/pam_faillock/main.c:130
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
-"Utilisation : %s [--dir /chemin/vers/dossier-tally] [--user nom "
-"d’utilisateur] [--reset]\n"
+"Utilisation : %s [--dir /chemin/vers/dossier-tally] [--user nom "
+"d’utilisateur] [--reset] [--legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "Login           Failures    Latest failure         From\n"
-msgstr "Connexion           Échecs Dernier échec     De\n"
+msgstr "Connexion           Échecs        Dernier échec       De\n"
 
 #: modules/pam_faillock/pam_faillock.c:404
 #, c-format
@@ -339,9 +340,8 @@ msgid "There were too many logins for '%s'."
 msgstr "Trop de connexions pour « %s »."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "Vous avez un nouveau message."
+msgstr "Vous n'avez pas de nouveau mail."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
