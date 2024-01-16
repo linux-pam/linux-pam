@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2023-04-29 11:11+0000\n"
+"POT-Creation-Date: 2024-01-16 21:11+0000\n"
 "PO-Revision-Date: 2020-12-20 08:00+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Bulgarian <https://translate.fedoraproject.org/projects/linux-"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
-#: modules/pam_userdb/pam_userdb.c:53
+#: modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "Парола: "
 
@@ -67,7 +67,7 @@ msgstr "Напишете пак %s"
 msgid "Password change has been aborted."
 msgstr "Промяната на паролата е прекратена."
 
-#: libpam/pam_item.c:311
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "влизане:"
 
@@ -214,22 +214,22 @@ msgstr "...Времето изтича...\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "...Съжаляваме, Вашето време изтече!\n"
 
-#: libpam_misc/misc_conv.c:349
+#: libpam_misc/misc_conv.c:348
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "погрешен разговор (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:300
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s се провали: код на грешка %d"
 
-#: modules/pam_exec/pam_exec.c:310
+#: modules/pam_exec/pam_exec.c:309
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s се провали: уловен сигнал %d%s"
 
-#: modules/pam_exec/pam_exec.c:320
+#: modules/pam_exec/pam_exec.c:319
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s се провали: непознат статус 0x%x"
@@ -248,13 +248,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "Влязъл           Неуспехи Последен неуспех     От\n"
 
-#: modules/pam_faillock/pam_faillock.c:404
+#: modules/pam_faillock/pam_faillock.c:408
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "Акаунтът е заключен поради %u неуспешни опита за влизане."
 
-#: modules/pam_faillock/pam_faillock.c:413
-#: modules/pam_faillock/pam_faillock.c:419
+#: modules/pam_faillock/pam_faillock.c:417
+#: modules/pam_faillock/pam_faillock.c:423
 #, fuzzy, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -262,7 +262,7 @@ msgstr[0] "(остават %d мин. за отключване)"
 msgstr[1] "(остават %d мин. за отключване)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:422
+#: modules/pam_faillock/pam_faillock.c:426
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(остават %d мин. за отключване)"
@@ -316,7 +316,7 @@ msgstr[1] ""
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "След последното успешно влизане, имаше %d неуспешни опита за влизане."
 
-#: modules/pam_limits/pam_limits.c:1269
+#: modules/pam_limits/pam_limits.c:1317
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Твърде много влизания за '%s'."
@@ -368,52 +368,52 @@ msgstr "Създаване на директория '%s'."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Не мога да създам и настроя директория '%s'."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:580
+#: modules/pam_pwhistory/pam_pwhistory.c:384
+#: modules/pam_unix/pam_unix_passwd.c:583
 msgid "Password has been already used. Choose another."
 msgstr "Паролата вече е използвана. Изберете друга."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:385
+#: modules/pam_pwhistory/pam_pwhistory.c:391
 msgid "Password has been already used."
 msgstr "Паролата вече е използвана."
 
-#: modules/pam_selinux/pam_selinux.c:172
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "Подразбиращ се контекст за сигурност %s."
 
-#: modules/pam_selinux/pam_selinux.c:176
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "Искате ли да въведете различна роля или ниво?"
 
-#: modules/pam_selinux/pam_selinux.c:189
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "роля:"
 
-#: modules/pam_selinux/pam_selinux.c:193
+#: modules/pam_selinux/pam_selinux.c:194
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "Няма подразбиращ се тип за роля %s."
 
-#: modules/pam_selinux/pam_selinux.c:225
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "ниво:"
 
-#: modules/pam_selinux/pam_selinux.c:259
+#: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
 msgstr "Невалиден контекст за сигурност."
 
-#: modules/pam_selinux/pam_selinux.c:508
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "Не може да бъде получен валиден контекст за %s."
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:640
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "Зададен е контекст за сигурност %s."
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:656
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Зададен е key creation context %s."
@@ -433,7 +433,7 @@ msgstr "pam_set_item() не успя \n"
 msgid "login: failure forking: %m"
 msgstr "вход: неуспех при стартиране: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:382
+#: modules/pam_timestamp/pam_timestamp.c:384
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Достъпът е предоставен (последният достъп бе преди %ld секунди)."
@@ -468,23 +468,23 @@ msgstr[1] "Внимание: срокът на паролата Ви изтич�
 msgid "Warning: your password will expire in %d days."
 msgstr "Внимание: паролата Ви ще изтече след %d дни."
 
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:458
 msgid "NIS password could not be changed."
 msgstr "NIS парола не може да бъде променена."
 
-#: modules/pam_unix/pam_unix_passwd.c:554
+#: modules/pam_unix/pam_unix_passwd.c:556
 msgid "No password has been supplied."
 msgstr "Не е предоставена парола."
 
-#: modules/pam_unix/pam_unix_passwd.c:555
+#: modules/pam_unix/pam_unix_passwd.c:557
 msgid "The password has not been changed."
 msgstr "Паролата не е променена."
 
-#: modules/pam_unix/pam_unix_passwd.c:572
+#: modules/pam_unix/pam_unix_passwd.c:574
 msgid "You must choose a shorter password."
 msgstr "Трябва да изберете по-кратка парола."
 
-#: modules/pam_unix/pam_unix_passwd.c:576
+#: modules/pam_unix/pam_unix_passwd.c:578
 msgid "You must choose a longer password."
 msgstr "Трябва да изберете по-дълга парола."
 

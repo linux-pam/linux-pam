@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2023-04-29 11:11+0000\n"
+"POT-Creation-Date: 2024-01-16 21:11+0000\n"
 "PO-Revision-Date: 2023-02-17 14:20+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://translate.fedoraproject.org/projects/linux-"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Generator: Weblate 4.15.2\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
-#: modules/pam_userdb/pam_userdb.c:53
+#: modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "ססמה: "
 
@@ -67,7 +67,7 @@ msgstr "להקליד את %s מחדש"
 msgid "Password change has been aborted."
 msgstr "שינוי ססמה בוטל."
 
-#: libpam/pam_item.c:311
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "כניסה:"
 
@@ -211,22 +211,22 @@ msgstr "...הזמן עומד להיגמר...\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "...סליחה, זמנך עבר!\n"
 
-#: libpam_misc/misc_conv.c:349
+#: libpam_misc/misc_conv.c:348
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "דיון שגוי (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:300
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s נכשל: קוד היציאה %d"
 
-#: modules/pam_exec/pam_exec.c:310
+#: modules/pam_exec/pam_exec.c:309
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s נכשל: נתפס האות %d%s"
 
-#: modules/pam_exec/pam_exec.c:320
+#: modules/pam_exec/pam_exec.c:319
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s נכשל: מצב לא ידוע 0x%x"
@@ -245,13 +245,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "כניסה           כשלים כשל אחרון     מאת\n"
 
-#: modules/pam_faillock/pam_faillock.c:404
+#: modules/pam_faillock/pam_faillock.c:408
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "החשבון ננעל בעקבות %u ניסיונות התחברות שנכשלו."
 
-#: modules/pam_faillock/pam_faillock.c:413
-#: modules/pam_faillock/pam_faillock.c:419
+#: modules/pam_faillock/pam_faillock.c:417
+#: modules/pam_faillock/pam_faillock.c:423
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -259,7 +259,7 @@ msgstr[0] "(נותרה דקה לשחרור)"
 msgstr[1] "(נותרו %d דקות לשחרור)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:422
+#: modules/pam_faillock/pam_faillock.c:426
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(נותרו %d דקות לשחרור)"
@@ -311,7 +311,7 @@ msgstr[1] "היו %d ניסיונות התחברות שנכשלו מאז ההת�
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "היו %d ניסיונות התחברות שנכשלו מאז ההתחברות האחרונה שהצליחה."
 
-#: modules/pam_limits/pam_limits.c:1269
+#: modules/pam_limits/pam_limits.c:1317
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "יותר מדי פעילויות כניסה עבור ‚%s’."
@@ -362,52 +362,52 @@ msgstr "התיקייה ‚%s’ נוצרת."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "לא ניתן ליצור ולאתחל את התיקייה ‚%s’."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:580
+#: modules/pam_pwhistory/pam_pwhistory.c:384
+#: modules/pam_unix/pam_unix_passwd.c:583
 msgid "Password has been already used. Choose another."
 msgstr "כבר נעשה שימוש בססמה. נא לבחור באחרת."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:385
+#: modules/pam_pwhistory/pam_pwhistory.c:391
 msgid "Password has been already used."
 msgstr "כבר נעשה שימוש בססמה הזאת."
 
-#: modules/pam_selinux/pam_selinux.c:172
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "הקשר האבטחה כבררת מחדל הוא %s."
 
-#: modules/pam_selinux/pam_selinux.c:176
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "מעניין אותך למלא תפקיד או רמה שונים?"
 
-#: modules/pam_selinux/pam_selinux.c:189
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "תפקיד:"
 
-#: modules/pam_selinux/pam_selinux.c:193
+#: modules/pam_selinux/pam_selinux.c:194
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "אין סוג בררת מחדל לתפקיד %s."
 
-#: modules/pam_selinux/pam_selinux.c:225
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "רמה:"
 
-#: modules/pam_selinux/pam_selinux.c:259
+#: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
 msgstr "זה לא הקשר אבטחה תקני."
 
-#: modules/pam_selinux/pam_selinux.c:508
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "לא ניתן לקבל הקשר תקני עבור %s."
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:640
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "הקשר האבטחה %s הוקצה."
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:656
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "הקשר יצירת המפתח %s הוקצה."
@@ -427,7 +427,7 @@ msgstr "pam_set_item()‎ נכשל\n"
 msgid "login: failure forking: %m"
 msgstr "כניסה: פיצול נכשל: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:382
+#: modules/pam_timestamp/pam_timestamp.c:384
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "הוענקה גישה (הכניסה האחרונה הייתה לפני %ld שניות)."
@@ -460,23 +460,23 @@ msgstr[1] "אזהרה: הססמה שלך תפוג תוך %d ימים."
 msgid "Warning: your password will expire in %d days."
 msgstr "אזהרה: הססמה שלך תפוג תוך %d ימים."
 
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:458
 msgid "NIS password could not be changed."
 msgstr "לא היה ניתן לשנות ססמת NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:554
+#: modules/pam_unix/pam_unix_passwd.c:556
 msgid "No password has been supplied."
 msgstr "לא סופקה ססמה."
 
-#: modules/pam_unix/pam_unix_passwd.c:555
+#: modules/pam_unix/pam_unix_passwd.c:557
 msgid "The password has not been changed."
 msgstr "הססמה לא הוחלפה."
 
-#: modules/pam_unix/pam_unix_passwd.c:572
+#: modules/pam_unix/pam_unix_passwd.c:574
 msgid "You must choose a shorter password."
 msgstr "עליך לבחור סיסמה קצרה יותר."
 
-#: modules/pam_unix/pam_unix_passwd.c:576
+#: modules/pam_unix/pam_unix_passwd.c:578
 msgid "You must choose a longer password."
 msgstr "עליך לבחור ססמה ארוכה יותר."
 

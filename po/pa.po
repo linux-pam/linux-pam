@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2023-04-29 11:11+0000\n"
+"POT-Creation-Date: 2024-01-16 21:11+0000\n"
 "PO-Revision-Date: 2023-03-14 02:20+0000\n"
 "Last-Translator: A S Alam <amanpreet.alam@gmail.com>\n"
 "Language-Team: Punjabi <https://translate.fedoraproject.org/projects/linux-"
@@ -25,7 +25,7 @@ msgstr ""
 "X-Generator: Weblate 4.15.2\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
-#: modules/pam_userdb/pam_userdb.c:53
+#: modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "ਪਾਸਵਰਡ: "
 
@@ -69,7 +69,7 @@ msgstr "ਮੁੜ-ਲਿਖੋ %s"
 msgid "Password change has been aborted."
 msgstr "ਪਾਸਵਰਡ ਤਬਦੀਲੀ ਅਧੂਰੀ ਛੱਡੀ ਗਈ।"
 
-#: libpam/pam_item.c:311
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "ਲਾਗਇਨ:"
 
@@ -213,22 +213,22 @@ msgstr "...ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਰਿਹਾ ਹੈ...\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "...ਅਫਸੋਸ, ਤੁਹਾਡਾ ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਗਿਆ ਹੈ!\n"
 
-#: libpam_misc/misc_conv.c:349
+#: libpam_misc/misc_conv.c:348
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "ਗਲਤ ਗੱਲ (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:300
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s ਫੇਲ ਹੋਇਆ: ਕੋਡ %d ਨਾਲ ਬੰਦ ਹੋ ਗਿਆ"
 
-#: modules/pam_exec/pam_exec.c:310
+#: modules/pam_exec/pam_exec.c:309
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s ਫੇਲ ਹੋ ਗਿਆ: ਸਿਗਨਲ %d%s ਮਿਲਿਆ"
 
-#: modules/pam_exec/pam_exec.c:320
+#: modules/pam_exec/pam_exec.c:319
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s ਫੇਲ ਹੋਇਆ: ਅਣਪਛਾਤੀ ਸਥਿਤੀ 0x%x"
@@ -247,13 +247,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "ਲਾਗਇਨ           ਫੇਲ੍ਹ    ਸਭ ਤੋੰ ਆਖਰੀ ਫੇਲ੍ਹ         ਇਸ ਤੋੰ\n"
 
-#: modules/pam_faillock/pam_faillock.c:404
+#: modules/pam_faillock/pam_faillock.c:408
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "%u ਫੇਲ੍ਹ ਹੋਏ ਲਾਗਇਨਾਂ ਕਰਕੇ ਖਾਤਾ ਲਾਕ ਕੀਤਾ ਹੈ।"
 
-#: modules/pam_faillock/pam_faillock.c:413
-#: modules/pam_faillock/pam_faillock.c:419
+#: modules/pam_faillock/pam_faillock.c:417
+#: modules/pam_faillock/pam_faillock.c:423
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -261,7 +261,7 @@ msgstr[0] "(ਅਣਲਾਕ ਕਰਨ ਲਈ %d ਮਿੰਟ ਬਚੇ ਹਨ)"
 msgstr[1] "(ਅਣਲਾਕ ਕਰਨ ਲਈ %d ਮਿੰਟ ਬਚੇ ਹਨ)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:422
+#: modules/pam_faillock/pam_faillock.c:426
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(ਅਣਲਾਕ ਕਰਨ ਲਈ %d ਮਿੰਟ ਬਚੇ ਹਨ)"
@@ -313,7 +313,7 @@ msgstr[1] "ਪਿਛਲੇ ਕਾਮਯਾਬ ਲਾਗਇਨ ਤੋਂ ਬਾ�
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "ਪਿਛਲੇ ਕਾਮਯਾਬ ਲਾਗਇਨ ਤੋਂ ਬਾਅਦ %d ਫੇਲ੍ਹ ਲਾਗਇਨ ਕੋਸ਼ਿਸ਼ਾਂ ਸਨ।"
 
-#: modules/pam_limits/pam_limits.c:1269
+#: modules/pam_limits/pam_limits.c:1317
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s' ਲਈ ਬਹੁਤ ਸਾਰੇ ਲਾਗਇਨ ਕੀਤੇ ਗਏ ਸਨ।"
@@ -364,52 +364,52 @@ msgstr "ਡਾਇਰੈਕਟਰੀ '%s' ਬਣਾਈ ਜਾ ਰਹੀ ਹੈ।
 msgid "Unable to create and initialize directory '%s'."
 msgstr "ਡਾਇਰੈਕਟਰੀ '%s' ਨੂੰ ਬਣਾਉਣ ਅਤੇ ਸ਼ੁਰੂ ਕਰਨ ਵਿੱਚ ਅਸਮਰਥ।"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:580
+#: modules/pam_pwhistory/pam_pwhistory.c:384
+#: modules/pam_unix/pam_unix_passwd.c:583
 msgid "Password has been already used. Choose another."
 msgstr "ਪਾਸਵਰਡ ਪਹਿਲਾਂ ਵੀ ਵਰਤਿਆ ਗਿਆ ਹੈ। ਵੱਖਰਾ ਚੁਣੋ।"
 
-#: modules/pam_pwhistory/pam_pwhistory.c:385
+#: modules/pam_pwhistory/pam_pwhistory.c:391
 msgid "Password has been already used."
 msgstr "ਪਾਸਵਰਡ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਜਾ ਚੁੱਕਾ ਹੈ।"
 
-#: modules/pam_selinux/pam_selinux.c:172
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "ਮੂਲ ਸੁਰੱਖਿਆ ਪਰਸੰਗ %s ਹੈ।"
 
-#: modules/pam_selinux/pam_selinux.c:176
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "ਕੀ ਤੁਸੀਂ ਵੱਖਰਾ ਰੋਲ ਜਾਂ ਲੈਵਲ ਦੇਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: modules/pam_selinux/pam_selinux.c:189
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "ਰੋਲ:"
 
-#: modules/pam_selinux/pam_selinux.c:193
+#: modules/pam_selinux/pam_selinux.c:194
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "ਰੋਲ %s ਲਈ ਕੋਈ ਮੂਲ ਕਿਸਮ ਨਹੀਂ ਹੈ।"
 
-#: modules/pam_selinux/pam_selinux.c:225
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "ਲੈਵਲ:"
 
-#: modules/pam_selinux/pam_selinux.c:259
+#: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
 msgstr "ਇਹ ਠੀਕ ਸੁਰੱਖਿਆ ਪਰਸੰਗ ਨਹੀਂ ਹੈ।"
 
-#: modules/pam_selinux/pam_selinux.c:508
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "%s ਲਈ ਢੁੱਕਵਾਂ ਪਰਸੰਗ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ।"
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:640
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "ਸੁਰੱਖਿਆ ਪਰਸੰਗ %s ਦਿੱਤਾ ਨਹੀਂ ਜਾ ਸਕਿਆ।"
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:656
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "ਕੁੰਜੀ ਬਣਾਉਣ ਪਰਸੰਗ %s ਦਿੱਤਾ ਗਿਆ ਹੈ।"
@@ -429,7 +429,7 @@ msgstr "pam_set_item() ਲਈ ਫੇਲ\n"
 msgid "login: failure forking: %m"
 msgstr "ਲਾਗਇਨ: ਫੋਰਕਿੰਗ ਫੇਲ: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:382
+#: modules/pam_timestamp/pam_timestamp.c:384
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "ਪਹੁੰਚ ਲਈ ਇਜਾਜ਼ਤ ਦਿੱਤੀ ਗਈ (ਪਿਛਲੀ ਪਹੁੰਚ %ld ਸਕਿੰਟ ਪਹਿਲਾਂ ਸੀ)।"
@@ -462,23 +462,23 @@ msgstr[1] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ �
 msgid "Warning: your password will expire in %d days."
 msgstr "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %d ਦਿਨਾਂ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:458
 msgid "NIS password could not be changed."
 msgstr "NIS ਪਾਸਵਰਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:554
+#: modules/pam_unix/pam_unix_passwd.c:556
 msgid "No password has been supplied."
 msgstr "ਕੋਈ ਪਾਸਵਰਡ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:555
+#: modules/pam_unix/pam_unix_passwd.c:557
 msgid "The password has not been changed."
 msgstr "ਪਾਸਵਰਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਗਿਆ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:572
+#: modules/pam_unix/pam_unix_passwd.c:574
 msgid "You must choose a shorter password."
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ ਛੋਟਾ ਪਾਸਵਰਡ ਚੁਣਨਾ ਚਾਹੀਦਾ ਹੈ."
 
-#: modules/pam_unix/pam_unix_passwd.c:576
+#: modules/pam_unix/pam_unix_passwd.c:578
 msgid "You must choose a longer password."
 msgstr "ਤੁਹਾਨੂੰ ਲੰਮਾ ਪਾਸਵਰਡ ਚੁਣਨਾ ਪਵੇਗਾ।"
 

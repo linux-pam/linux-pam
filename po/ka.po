@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2023-04-29 11:11+0000\n"
+"POT-Creation-Date: 2024-01-16 21:11+0000\n"
 "PO-Revision-Date: 2022-11-13 09:19+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/linux-"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Generator: Weblate 4.14.2\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
-#: modules/pam_userdb/pam_userdb.c:53
+#: modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "პაროლი: "
 
@@ -67,7 +67,7 @@ msgstr "ხელახლა შეიყვანეთ %s"
 msgid "Password change has been aborted."
 msgstr "პაროლის შეცვლის პროცედურა გაუქმდა."
 
-#: libpam/pam_item.c:311
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "მომხმარებელი:"
 
@@ -211,22 +211,22 @@ msgstr "...დრო გადის...\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "...უკაცრავად, თქვენი დრო გავიდა!\n"
 
-#: libpam_misc/misc_conv.c:349
+#: libpam_misc/misc_conv.c:348
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "შეცდომითი საუბარი (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:300
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s-ის შეცდომა: გამოსვლის კოდი %d"
 
-#: modules/pam_exec/pam_exec.c:310
+#: modules/pam_exec/pam_exec.c:309
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s-ის შეცდომა: გადაჭერილი სიგნალი %d%s"
 
-#: modules/pam_exec/pam_exec.c:320
+#: modules/pam_exec/pam_exec.c:319
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s-ის შეცდომა: უცნობიბ სტატუსი 0x%x"
@@ -245,20 +245,20 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "მომხმარებელი          შეცდომები      ბოლოშეცდომა         საიდან\n"
 
-#: modules/pam_faillock/pam_faillock.c:404
+#: modules/pam_faillock/pam_faillock.c:408
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "ანგარიში დაბლოკილია %u არასწორი ცდის შემდეგ."
 
-#: modules/pam_faillock/pam_faillock.c:413
-#: modules/pam_faillock/pam_faillock.c:419
+#: modules/pam_faillock/pam_faillock.c:417
+#: modules/pam_faillock/pam_faillock.c:423
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
 msgstr[0] "(განბლოკვმდე დარჩენილია %d წთ)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:422
+#: modules/pam_faillock/pam_faillock.c:426
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(განბლოკვამდე დარჩენილია %d წთ)"
@@ -313,7 +313,7 @@ msgstr ""
 "ბოლო წარმატებული შემოსვლის შემდეგ დაფიქსირებულია შემოსვლის %d წარუმატებელი "
 "ცდა."
 
-#: modules/pam_limits/pam_limits.c:1269
+#: modules/pam_limits/pam_limits.c:1317
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "მომხმარებელი %s გამოიყენებოდა მეტისმეტად ხშირად."
@@ -364,52 +364,52 @@ msgstr "'%s' დირექტორიის შექმნა."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "საქაღალდის (%s) შექმნისა და ინიციალიზაციის შეცდომა."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:580
+#: modules/pam_pwhistory/pam_pwhistory.c:384
+#: modules/pam_unix/pam_unix_passwd.c:583
 msgid "Password has been already used. Choose another."
 msgstr "პაროლი უკვე იყო გამოყენებული. სხვა სცადეთ."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:385
+#: modules/pam_pwhistory/pam_pwhistory.c:391
 msgid "Password has been already used."
 msgstr "პაროლი უკვე იყო გამოყენებული."
 
-#: modules/pam_selinux/pam_selinux.c:172
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "უსაფრთხოების ნაგულისხმევი კონტექსტია %s."
 
-#: modules/pam_selinux/pam_selinux.c:176
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "გნებავთ სხვა როლის ან დონის შეყვანა?"
 
-#: modules/pam_selinux/pam_selinux.c:189
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "როლი:"
 
-#: modules/pam_selinux/pam_selinux.c:193
+#: modules/pam_selinux/pam_selinux.c:194
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "როლისთვის %s ნაგულისხმევი ტიპი არ არსებობს."
 
-#: modules/pam_selinux/pam_selinux.c:225
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "დონე:"
 
-#: modules/pam_selinux/pam_selinux.c:259
+#: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
 msgstr "უსაფრთხოების არასწორი კონტექსტი."
 
-#: modules/pam_selinux/pam_selinux.c:508
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "%s-ის სწორი კონტექსტის მიღების შეცდომა."
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:640
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "უსაფრთხოების კონტექსტი %s ახლა მიმაგრებულია."
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:656
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "გასაღების შექმნის კონტექსტი %s ახალ მიმაგრებულია."
@@ -429,7 +429,7 @@ msgstr "pam_set_tem()-ის შეცდომა\n"
 msgid "login: failure forking: %m"
 msgstr "შესვლა: %m-ის ახალი ასლის გაშვების შეცდომა"
 
-#: modules/pam_timestamp/pam_timestamp.c:382
+#: modules/pam_timestamp/pam_timestamp.c:384
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "წვდომა მიღებულია (ბოლო წვდომა %ld წამის წინ)."
@@ -462,23 +462,23 @@ msgstr[0] "გაფრთხილება: თქვენს პაროლ
 msgid "Warning: your password will expire in %d days."
 msgstr "გაფრთხილება: თქვენს პაროლს ვადა %d დღეში გაუვა."
 
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:458
 msgid "NIS password could not be changed."
 msgstr "NIS პაროლის შეცვლა შეუძლებელია."
 
-#: modules/pam_unix/pam_unix_passwd.c:554
+#: modules/pam_unix/pam_unix_passwd.c:556
 msgid "No password has been supplied."
 msgstr "პაროლი არ იქნა მითითებული."
 
-#: modules/pam_unix/pam_unix_passwd.c:555
+#: modules/pam_unix/pam_unix_passwd.c:557
 msgid "The password has not been changed."
 msgstr "პაროლი არ შეცვლილა."
 
-#: modules/pam_unix/pam_unix_passwd.c:572
+#: modules/pam_unix/pam_unix_passwd.c:574
 msgid "You must choose a shorter password."
 msgstr "უნდა აირჩიოთ უფრო მოკლე პაროლი."
 
-#: modules/pam_unix/pam_unix_passwd.c:576
+#: modules/pam_unix/pam_unix_passwd.c:578
 msgid "You must choose a longer password."
 msgstr "თქვენ უნდა აირჩიოთ უფრო გრძელი პაროლი."
 

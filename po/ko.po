@@ -14,11 +14,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2023-04-29 11:11+0000\n"
+"POT-Creation-Date: 2024-01-16 21:11+0000\n"
 "PO-Revision-Date: 2024-01-06 07:35+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
-"Language-Team: Korean <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/ko/>\n"
+"Language-Team: Korean <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgstr ""
 "X-Generator: Weblate 5.3.1\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
-#: modules/pam_userdb/pam_userdb.c:53
+#: modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "비밀번호: "
 
@@ -71,7 +71,7 @@ msgstr "%s를 다시 입력하세요"
 msgid "Password change has been aborted."
 msgstr "비밀번호 변경을 취소했습니다."
 
-#: libpam/pam_item.c:311
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "로그인:"
 
@@ -215,22 +215,22 @@ msgstr "...시간이 촉박합니다...\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "...미안합니다, 시간이 다 되었습니다!\n"
 
-#: libpam_misc/misc_conv.c:349
+#: libpam_misc/misc_conv.c:348
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "잘못된 인증 처리과정 (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:300
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s 실패: 종료 코드 %d"
 
-#: modules/pam_exec/pam_exec.c:310
+#: modules/pam_exec/pam_exec.c:309
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s 실패함: 시그널 발생 %d%s"
 
-#: modules/pam_exec/pam_exec.c:320
+#: modules/pam_exec/pam_exec.c:319
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s 실패함: 알 수 없는 상태 0x%x"
@@ -249,20 +249,20 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "로그인          실패횟수    최근 실패              접근 호스트\n"
 
-#: modules/pam_faillock/pam_faillock.c:404
+#: modules/pam_faillock/pam_faillock.c:408
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "로그인에 %u번 실패하여 계정이 잠겼습니다."
 
-#: modules/pam_faillock/pam_faillock.c:413
-#: modules/pam_faillock/pam_faillock.c:419
+#: modules/pam_faillock/pam_faillock.c:417
+#: modules/pam_faillock/pam_faillock.c:423
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
 msgstr[0] "(잠금 해제까지 %d분 남았습니다)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:422
+#: modules/pam_faillock/pam_faillock.c:426
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(잠금 해제까지 %d분 남았습니다)"
@@ -313,7 +313,7 @@ msgstr[0] "최근 로그인 후 로그인 시도를 %d번 실패했습니다."
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "최근 로그인 후 로그인 시도를 %d번 실패했습니다."
 
-#: modules/pam_limits/pam_limits.c:1269
+#: modules/pam_limits/pam_limits.c:1317
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s' 계정에 너무 많은 로그인 시도가 있었습니다."
@@ -364,52 +364,52 @@ msgstr "디렉토리 '%s'를 생성 중."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "디렉토리 '%s'를 생성하고 초기화 할 수 없음."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:580
+#: modules/pam_pwhistory/pam_pwhistory.c:384
+#: modules/pam_unix/pam_unix_passwd.c:583
 msgid "Password has been already used. Choose another."
 msgstr "이미 사용하고 있는 비밀번호입니다. 다른 것을 사용하세요."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:385
+#: modules/pam_pwhistory/pam_pwhistory.c:391
 msgid "Password has been already used."
 msgstr "이미 사용하고 있는 비밀번호입니다."
 
-#: modules/pam_selinux/pam_selinux.c:172
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "기본 보안 컨텍스트는 %s 입니다."
 
-#: modules/pam_selinux/pam_selinux.c:176
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "다른 역할 또는 수준을 입력하시겠습니까?"
 
-#: modules/pam_selinux/pam_selinux.c:189
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "역할:"
 
-#: modules/pam_selinux/pam_selinux.c:193
+#: modules/pam_selinux/pam_selinux.c:194
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "%s 역할의 기본값 형식이 없습니다."
 
-#: modules/pam_selinux/pam_selinux.c:225
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "수준:"
 
-#: modules/pam_selinux/pam_selinux.c:259
+#: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
 msgstr "적절한 보안 컨텍스트가 아닙니다."
 
-#: modules/pam_selinux/pam_selinux.c:508
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "%s의 적절한 컨텍스트를 가져올 수 없습니다."
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:640
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "%s 보안 컨텍스트를 할당했습니다."
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:656
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "%s 키 생성 컨텍스트를 할당했습니다."
@@ -429,7 +429,7 @@ msgstr "pam_set_item() 실패\n"
 msgid "login: failure forking: %m"
 msgstr "로그인: 포크 작업 실패: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:382
+#: modules/pam_timestamp/pam_timestamp.c:384
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "접근을 허용합니다 (마지막 접근: %ld 초 전)."
@@ -461,23 +461,23 @@ msgstr[0] "경고: 비밀번호는 %d일 후 유효 기간이 끝납니다."
 msgid "Warning: your password will expire in %d days."
 msgstr "경고: 비밀번호는 %d일 후 유효 기간이 끝납니다."
 
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:458
 msgid "NIS password could not be changed."
 msgstr "NIS 비밀번호는 변경 할 수 없습니다."
 
-#: modules/pam_unix/pam_unix_passwd.c:554
+#: modules/pam_unix/pam_unix_passwd.c:556
 msgid "No password has been supplied."
 msgstr "비밀번호를 입력하지 않았습니다."
 
-#: modules/pam_unix/pam_unix_passwd.c:555
+#: modules/pam_unix/pam_unix_passwd.c:557
 msgid "The password has not been changed."
 msgstr "비밀번호를 변경하지 않았습니다."
 
-#: modules/pam_unix/pam_unix_passwd.c:572
+#: modules/pam_unix/pam_unix_passwd.c:574
 msgid "You must choose a shorter password."
 msgstr "더 짧은 비밀번호를 설정해야 합니다."
 
-#: modules/pam_unix/pam_unix_passwd.c:576
+#: modules/pam_unix/pam_unix_passwd.c:578
 msgid "You must choose a longer password."
 msgstr "더 긴 비밀번호를 설정해야 합니다."
 

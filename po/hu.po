@@ -15,11 +15,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2023-04-29 11:11+0000\n"
+"POT-Creation-Date: 2024-01-16 21:11+0000\n"
 "PO-Revision-Date: 2023-09-27 20:35+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
-"Language-Team: Hungarian <https://translate.fedoraproject.org/projects/"
-"linux-pam/master/hu/>\n"
+"Language-Team: Hungarian <https://translate.fedoraproject.org/projects/linux-"
+"pam/master/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr ""
 "X-Generator: Weblate 5.0.2\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
-#: modules/pam_userdb/pam_userdb.c:53
+#: modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "Jelszó: "
 
@@ -72,7 +72,7 @@ msgstr "%s újra megadása"
 msgid "Password change has been aborted."
 msgstr "A jelszó megváltoztatása meg lett szakítva."
 
-#: libpam/pam_item.c:311
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "bejelentkezés:"
 
@@ -189,7 +189,8 @@ msgstr "Nem sikerült a jelszószolgáltatás előzetes ellenőrzése"
 
 #: libpam/pam_strerror.c:94
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "A PAM-kézbesítésnek figyelmen kívül kell hagynia a visszatérési értéket"
+msgstr ""
+"A PAM-kézbesítésnek figyelmen kívül kell hagynia a visszatérési értéket"
 
 #: libpam/pam_strerror.c:96
 msgid "Module is unknown"
@@ -219,22 +220,22 @@ msgstr "…Fogy az idő…\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "…Elnézést, az idő lejárt!\n"
 
-#: libpam_misc/misc_conv.c:349
+#: libpam_misc/misc_conv.c:348
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "hibás beszélgetés (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:300
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "a(z) %s sikertelen: kilépési kód: %d"
 
-#: modules/pam_exec/pam_exec.c:310
+#: modules/pam_exec/pam_exec.c:309
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "a(z) %s sikertelen: %d%s szignál fogadva"
 
-#: modules/pam_exec/pam_exec.c:320
+#: modules/pam_exec/pam_exec.c:319
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "a(z) %s sikertelen: ismeretlen állapot: 0x%x"
@@ -253,13 +254,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "Bejelentkezés   Hibák       Utolsó hiba            Honnan\n"
 
-#: modules/pam_faillock/pam_faillock.c:404
+#: modules/pam_faillock/pam_faillock.c:408
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "A fiók zárolva van %u sikertelen bejelentkezés miatt."
 
-#: modules/pam_faillock/pam_faillock.c:413
-#: modules/pam_faillock/pam_faillock.c:419
+#: modules/pam_faillock/pam_faillock.c:417
+#: modules/pam_faillock/pam_faillock.c:423
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -267,7 +268,7 @@ msgstr[0] "(%d perc van hátra a feloldáshoz)"
 msgstr[1] "(%d perc van hátra a feloldáshoz)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:422
+#: modules/pam_faillock/pam_faillock.c:426
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(%d perc van hátra a feloldáshoz)"
@@ -325,7 +326,7 @@ msgstr ""
 "%d sikertelen bejelentkezési kísérlet volt az utolsó sikeres bejelentkezés "
 "óta."
 
-#: modules/pam_limits/pam_limits.c:1269
+#: modules/pam_limits/pam_limits.c:1317
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Túl sok bejelentkezés történt „%s” részéről."
@@ -376,52 +377,52 @@ msgstr "A(z) „%s” könyvtár létrehozása."
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Nem lehet létrehozni és előkészíteni a(z) „%s” könyvtárat."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:580
+#: modules/pam_pwhistory/pam_pwhistory.c:384
+#: modules/pam_unix/pam_unix_passwd.c:583
 msgid "Password has been already used. Choose another."
 msgstr "A jelszó már használatban van. Válasszon másikat."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:385
+#: modules/pam_pwhistory/pam_pwhistory.c:391
 msgid "Password has been already used."
 msgstr "A jelszó már használatban van."
 
-#: modules/pam_selinux/pam_selinux.c:172
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "Az alapértelmezett biztonsági környezet a(z) %s."
 
-#: modules/pam_selinux/pam_selinux.c:176
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "Szeretne más szerepet vagy szintet megadni?"
 
-#: modules/pam_selinux/pam_selinux.c:189
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "szerep:"
 
-#: modules/pam_selinux/pam_selinux.c:193
+#: modules/pam_selinux/pam_selinux.c:194
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "Nincs alapértelmezett típus a(z) %s szerephez."
 
-#: modules/pam_selinux/pam_selinux.c:225
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "szint:"
 
-#: modules/pam_selinux/pam_selinux.c:259
+#: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
 msgstr "Ez nem érvényes biztonsági környezet."
 
-#: modules/pam_selinux/pam_selinux.c:508
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "A(z) %s érvényes környezetét nem sikerült megszerezni."
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:640
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "A(z) %s biztonsági környezet hozzá lett rendelve."
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:656
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "A(z) %s kulcslétrehozási környezet hozzá lett rendelve."
@@ -441,7 +442,7 @@ msgstr "a pam_set_item() sikertelen\n"
 msgid "login: failure forking: %m"
 msgstr "bejelentkezés: elágaztatási hiba: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:382
+#: modules/pam_timestamp/pam_timestamp.c:384
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Hozzáférés engedélyezve (az utolsó hozzáférés %ld másodperce volt)."
@@ -475,23 +476,23 @@ msgstr[1] "Figyelmeztetés: a jelszava %d nap múlva lejár."
 msgid "Warning: your password will expire in %d days."
 msgstr "Figyelmeztetés: a jelszava %d nap múlva lejár."
 
-#: modules/pam_unix/pam_unix_passwd.c:456
+#: modules/pam_unix/pam_unix_passwd.c:458
 msgid "NIS password could not be changed."
 msgstr "A NIS jelszót nem sikerült megváltoztatni."
 
-#: modules/pam_unix/pam_unix_passwd.c:554
+#: modules/pam_unix/pam_unix_passwd.c:556
 msgid "No password has been supplied."
 msgstr "Nem lett jelszó megadva."
 
-#: modules/pam_unix/pam_unix_passwd.c:555
+#: modules/pam_unix/pam_unix_passwd.c:557
 msgid "The password has not been changed."
 msgstr "A jelszó nem lett megváltoztatva."
 
-#: modules/pam_unix/pam_unix_passwd.c:572
+#: modules/pam_unix/pam_unix_passwd.c:574
 msgid "You must choose a shorter password."
 msgstr "Rövidebb jelszót kell választania."
 
-#: modules/pam_unix/pam_unix_passwd.c:576
+#: modules/pam_unix/pam_unix_passwd.c:578
 msgid "You must choose a longer password."
 msgstr "Hosszabb jelszót kell választania."
 
