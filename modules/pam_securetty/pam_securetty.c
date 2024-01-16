@@ -157,8 +157,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 
     retval = 1;
 
-    while ((getline(&ttyfileline, &ttyfilelinelen, ttyfile) != -1)
-	   && retval) {
+    while (retval && getline(&ttyfileline, &ttyfilelinelen, ttyfile) != -1) {
 	ttyfileline[strcspn(ttyfileline, "\n")] = '\0';
 
 	retval = ( strcmp(ttyfileline, uttyname)

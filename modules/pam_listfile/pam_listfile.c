@@ -307,7 +307,7 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     assert(PAM_SUCCESS == 0);
     assert(PAM_AUTH_ERR != 0);
 #endif
-    while(getline(&aline,&n,inf) != -1 && retval) {
+    while(retval && getline(&aline,&n,inf) != -1) {
 	const char *a = aline;
 
 	aline[strcspn(aline, "\r\n")] = '\0';
