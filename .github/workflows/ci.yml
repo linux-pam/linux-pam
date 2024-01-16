@@ -9,7 +9,7 @@ jobs:
   whitespace-errors:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: check
       run: git diff-index --check --cached 4b825dc642cb6eb9a060e54bf8d69288fbee4904
 
@@ -20,7 +20,7 @@ jobs:
       TARGET: x86_64
       VENDORDIR: ${prefix}/share/etc
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -35,7 +35,7 @@ jobs:
       TARGET: x86_64
       USE_OPENSSL: yes
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -53,7 +53,7 @@ jobs:
       UBSAN_OPTIONS: print_stacktrace=1:print_summary=1:halt_on_error=1
       TARGET: x86_64
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -67,7 +67,7 @@ jobs:
       CC: gcc-13
       TARGET: x86_64
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -82,7 +82,7 @@ jobs:
       TARGET: x86_64
       ENABLE_DEBUG: yes
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -96,7 +96,7 @@ jobs:
       CC: gcc-12
       TARGET: x86_64
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -110,7 +110,7 @@ jobs:
       CC: gcc-11
       TARGET: x86_64
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -124,7 +124,7 @@ jobs:
       CC: gcc-10
       TARGET: x86_64
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -138,7 +138,7 @@ jobs:
       CC: gcc
       TARGET: x86_64
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -153,7 +153,7 @@ jobs:
       TARGET: x86_64
       VENDORDIR: ${prefix}/share/etc
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -168,7 +168,7 @@ jobs:
       TARGET: x86_64
       USE_OPENSSL: yes
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -182,7 +182,7 @@ jobs:
       CC: clang-15
       TARGET: x86_64
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -197,7 +197,7 @@ jobs:
       TARGET: x86_64
       ENABLE_DEBUG: yes
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -211,7 +211,7 @@ jobs:
       CC: clang-14
       TARGET: x86_64
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -225,7 +225,7 @@ jobs:
       CC: clang-13
       TARGET: x86_64
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -239,7 +239,7 @@ jobs:
       CC: clang-12
       TARGET: x86_64
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
@@ -253,7 +253,7 @@ jobs:
       CC: clang-11
       TARGET: x86_64
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: install dependencies
