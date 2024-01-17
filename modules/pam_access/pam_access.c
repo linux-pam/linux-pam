@@ -605,7 +605,31 @@ netgroup_match (pam_handle_t *pamh, const char *netgroup,
   return retval;
 }
 
-/* user_match - match a username against one token */
+/* user_name_or_uid_match - match a username or user uid against one token */
+static int
+user_name_or_uid_match (pam_handle_t *pamh, const char *tok, const struct login_info *item)
+{
+    int rv;
+
+    //check for exact match of username
+    if((rv=string_match (pamh, tok, item->user->pw_name, item->debug)) != NO) {
+        return rv;
+    }
+
+    //check for exact match of uid
+    if (strspn(tok, "0123456789") == strlen(tok)) {
+        char buf[BUFSIZ];
+        sprintf(buf, "%d", item->user->pw_uid);
+        if (item->debug)
+            pam_syslog(pamh, LOG_DEBUG, "user_match: tok=%s, uid=%d", tok, item->user->pw_uid);
+        if((rv=string_match (pamh, tok, buf, item->debug)) != NO)
+            return rv;
+    }
+
+    return NO;
+}
+
+/* user_match - match a user against one token */
 
 static int
 user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
@@ -656,7 +680,7 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 		hostname = item->hostname;
 	}
         return (netgroup_match (pamh, tok + 1, hostname, string, item->debug));
-    } else if ((rv=string_match (pamh, tok, string, item->debug)) != NO) /* ALL or exact match */
+    } else if ((rv=user_name_or_uid_match(pamh, tok, item)) != NO) /* ALL or exact match */
       return rv;
     else if (item->only_new_group_syntax == NO &&
 	     pam_modutil_user_in_group_nam_nam (pamh,
@@ -686,6 +710,15 @@ group_match (pam_handle_t *pamh, char *tok, const char* usr, int debug)
 
     if (pam_modutil_user_in_group_nam_nam(pamh, usr, tok))
         return YES;
+
+    /* tok is GID */
+    if (strspn(tok, "0123456789") == strlen(tok)) {
+        gid_t grpgid = atoi(tok);
+        if (debug)
+            pam_syslog(pamh, LOG_DEBUG, "group_match: grpgid=%d, user=%s", grpgid, usr);
+        if (pam_modutil_user_in_group_nam_gid(pamh, usr, grpgid))
+            return YES;
+    }
 
   return NO;
 }
