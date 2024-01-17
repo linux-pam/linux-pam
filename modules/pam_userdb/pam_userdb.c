@@ -309,6 +309,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	        }
 	      }
 #ifdef HAVE_CRYPT_R
+	      pam_overwrite_object(cdata);
 	      free(cdata);
 #endif
 	    }
