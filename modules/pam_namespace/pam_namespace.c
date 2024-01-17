@@ -34,6 +34,8 @@
 
 #define _ATFILE_SOURCE
 
+#include "config.h"
+#include <stdint.h>
 #include "pam_cc_compat.h"
 #include "pam_inline.h"
 #include "pam_namespace.h"
