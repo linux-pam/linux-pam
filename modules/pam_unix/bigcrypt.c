@@ -109,6 +109,7 @@ char *bigcrypt(const char *key, const char *salt)
 		pam_overwrite_array(keybuf);
 		free(dec_c2_cryptbuf);
 #ifdef HAVE_CRYPT_R
+		pam_overwrite_object(cdata);
 		free(cdata);
 #endif
 		return NULL;
