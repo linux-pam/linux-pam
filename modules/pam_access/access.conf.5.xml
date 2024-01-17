@@ -63,10 +63,10 @@
     <para>
       The second field, the
       <replaceable>users</replaceable>/<replaceable>group</replaceable>
-      field, should be a list of one or more login names, group names, or
+      field, should be a list of one or more login names, group names, uid, gid, or
       <emphasis>ALL</emphasis> (which always matches). To differentiate
       user entries from group entries, group entries should be written
-      with brackets, e.g. <emphasis>(group)</emphasis>.
+      with brackets, e.g. <emphasis>(group)</emphasis> or <emphasis>(gid)</emphasis>.
     </para>
 
     <para>
@@ -175,6 +175,12 @@
     </para>
     <para>-:root:ALL</para>
 
+    <para>
+      A user with uid <emphasis>1003</emphasis> and a group with gid
+      <emphasis>1000</emphasis> should be allowed to get access
+      from all other sources.
+    </para>
+    <para>+:(1000) 1003:ALL</para>
     <para>
       User <emphasis>foo</emphasis> and members of netgroup
       <emphasis>admins</emphasis> should be allowed to get access
