@@ -121,21 +121,32 @@ parse_entry (char *line, opwd *data)
   return 0;
 }
 
+/* Return 1 if the passwords are equal, 0 if they are not, and -1 on error. */
 static int
 compare_password(const char *newpass, const char *oldpass)
 {
   char *outval;
   int retval;
 #ifdef HAVE_CRYPT_R
-  struct crypt_data output = { 0 };
+  struct crypt_data *cdata;
 
-  outval = crypt_r (newpass, oldpass, &output);
+  cdata = calloc(1, sizeof(*cdata));
+  if (!cdata)
+    return -1;
+
+  outval = crypt_r (newpass, oldpass, cdata);
 #else
   outval = crypt (newpass, oldpass);
 #endif
 
   retval = outval != NULL && strcmp(outval, oldpass) == 0;
+
+#ifdef HAVE_CRYPT_R
+  pam_overwrite_object(cdata);
+  free(cdata);
+#else
   pam_overwrite_string(outval);
+#endif
   return retval;
 }
 
@@ -200,13 +211,19 @@ check_old_pass, const char *user, const char *newpass, const char *filename, int
 
       do {
 	oldpass = strsep (&running, delimiters);
-	if (oldpass && strlen (oldpass) > 0 &&
-	    compare_password(newpass, oldpass) )
-	  {
-	    if (debug)
-	      pam_syslog (pamh, LOG_DEBUG, "New password already used");
-	    retval = PAM_AUTHTOK_ERR;
-	    break;
+	if (oldpass && strlen (oldpass) > 0) {
+	    int rc;
+
+	    rc = compare_password(newpass, oldpass);
+	    if (rc) {
+	      if (rc < 0)
+	        pam_syslog (pamh, LOG_ERR, "Cannot allocate crypt data");
+	      else if (debug)
+	        pam_syslog (pamh, LOG_DEBUG, "New password already used");
+
+	      retval = PAM_AUTHTOK_ERR;
+	      break;
+	    }
 	  }
       } while (oldpass != NULL);
     }
