@@ -160,6 +160,28 @@ isDirectory(const char *path) {
    return S_ISDIR(statbuf.st_mode);
 }
 
+/*
+ * Remove escaped newline from string.
+ *
+ * All occurrences of "\\n" will be removed from string.
+ */
+static void
+econf_unescnl(char *val)
+{
+    char *dest, *p;
+
+    dest = p = val;
+
+    while (*p != '\0') {
+      if (p[0] == '\\' && p[1] == '\n') {
+	p += 2;
+      } else {
+	*dest++ = *p++;
+      }
+    }
+    *dest = '\0';
+}
+
 static int
 econf_read_file(const pam_handle_t *pamh, const char *filename, const char *delim,
 			   const char *name, const char *suffix, const char *subpath,
@@ -270,6 +292,7 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
 		   keys[i],
 		   econf_errString(error));
       } else {
+        econf_unescnl(val);
         if (asprintf(&(*lines)[i],"%s%c%s", keys[i], delim[0], val) < 0) {
 	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
           econf_free(keys);
