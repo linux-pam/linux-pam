@@ -500,7 +500,7 @@ int _pam_init_handlers(pam_handle_t *pamh)
 
 		if (pamh->confdir == NULL
 		    && (f = fopen(PAM_CONFIG,"r")) != NULL) {
-		    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY, 0, 1);
+		    retval = _pam_parse_conf_file(pamh, f, NULL, PAM_T_ANY, 0, 0, 1);
 		    fclose(f);
 		} else
 #endif /* PAM_READ_BOTH_CONFS */
