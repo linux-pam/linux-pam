@@ -556,17 +556,19 @@ elif test "$WITH_SELINUX" = "yes" ; then
 fi
 
 LOGIND_CFLAGS=
-SYSTEMD_LIBS=
+LOGIND_LIBS=
 AC_ARG_ENABLE([logind],
   AS_HELP_STRING([--disable-logind], [Disable logind support]),
   [WITH_LOGIND=$enableval], [WITH_LOGIND=check])
-if test "$WITH_LOGIND" = "check"; then
-  PKG_CHECK_MODULES([SYSTEMD], [libsystemd >= 254], [LOGIND_CFLAGS="-DUSE_LOGIND=1 $SYSTEMD_CFLAGS"], [:])
-elif test "$WITH_LOGIND" = "yes"; then
-  PKG_CHECK_MODULES([SYSTEMD], [libsystemd >= 254], [LOGIND_CFLAGS="-DUSE_LOGIND=1 $SYSTEMD_CFLAGS"], [])
-fi
+AS_IF([test "$WITH_LOGIND" != "no"], [
+  AS_CASE(["$enableval"], [elogind], [
+    PKG_CHECK_MODULES([LOGIND], [libelogind >= 255], [LOGIND_CFLAGS="-DUSE_LOGIND=1 $LOGIND_CFLAGS"])
+  ], [
+    PKG_CHECK_MODULES([LOGIND], [libsystemd >= 254], [LOGIND_CFLAGS="-DUSE_LOGIND=1 $LOGIND_CFLAGS"], [AS_IF([test "$WITH_LOGIND" != "check"], [AC_MSG_ERROR([Cannot find libsystemd])])])
+  ])
+])
 AC_SUBST([LOGIND_CFLAGS])
-AC_SUBST([SYSTEMD_LIBS])
+AC_SUBST([LOGIND_LIBS])
 
 ECONF_CFLAGS=
 ECONF_LIBS=
