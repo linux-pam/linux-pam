@@ -850,20 +850,20 @@ _parse_config_file(pam_handle_t *pamh, int ctrl, const char *file)
 #ifdef USE_ECONF
     /* If "file" is not NULL, only this file will be parsed. */
     retval = econf_read_file(pamh, file, " \t", PAM_ENV, ".conf", "security", &conf_list);
-#else
+#else /* !USE_ECONF */
     /* Only one file will be parsed. So, file has to be set. */
-    if (file == NULL) /* No filename has been set via argv. */
+    if (file == NULL) { /* No filename has been set via argv. */
       file = DEFAULT_CONF_FILE;
-#ifdef VENDOR_DEFAULT_CONF_FILE
-    /*
-    * Check whether file is available.
-    * If it does not exist, fall back to VENDOR_DEFAULT_CONF_FILE file.
-    */
-    struct stat stat_buffer;
-    if (stat(file, &stat_buffer) != 0 && errno == ENOENT) {
-      file = VENDOR_DEFAULT_CONF_FILE;
+# ifdef VENDOR_DEFAULT_CONF_FILE
+      /*
+       * Check whether DEFAULT_CONF_FILE file is available.
+       * If it does not exist, fall back to VENDOR_DEFAULT_CONF_FILE file.
+       */
+      struct stat stat_buffer;
+      if (stat(file, &stat_buffer) != 0 && errno == ENOENT)
+        file = VENDOR_DEFAULT_CONF_FILE;
+# endif
     }
-#endif
     retval = read_file(pamh, file, &conf_list);
 #endif
 
