@@ -6,15 +6,6 @@
  * template for this file (via pam_mail)
  */
 
-#define DEFAULT_ETC_ENVFILE     "/etc/environment"
-#ifdef VENDORDIR
-#define VENDOR_DEFAULT_ETC_ENVFILE (VENDORDIR "/environment")
-#endif
-#define DEFAULT_READ_ENVFILE    1
-
-#define DEFAULT_USER_ENVFILE    ".pam_environment"
-#define DEFAULT_USER_READ_ENVFILE 0
-
 #include "config.h"
 
 #include <ctype.h>
@@ -51,6 +42,15 @@ typedef struct var {
   char *defval;
   char *override;
 } VAR;
+
+#define DEFAULT_ETC_ENVFILE     "/etc/environment"
+#ifdef VENDORDIR
+#define VENDOR_DEFAULT_ETC_ENVFILE (VENDORDIR "/environment")
+#endif
+#define DEFAULT_READ_ENVFILE    1
+
+#define DEFAULT_USER_ENVFILE    ".pam_environment"
+#define DEFAULT_USER_READ_ENVFILE 0
 
 #define DEFAULT_CONF_FILE	(SCONFIGDIR "/pam_env.conf")
 #ifdef VENDOR_SCONFIGDIR
