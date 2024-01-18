@@ -22,10 +22,10 @@
 
 char **pam_misc_drop_env(char **dump)
 {
-    int i;
+    size_t i;
 
     for (i=0; dump[i] != NULL; ++i) {
-	D(("dump[%d]=`%s'", i, dump[i]));
+	D(("dump[%zu]=`%s'", i, dump[i]));
 	pam_overwrite_string(dump[i]);
 	_pam_drop(dump[i]);
     }
