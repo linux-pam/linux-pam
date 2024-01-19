@@ -677,7 +677,7 @@ pam_auth(pam_handle_t *pamh, int flags, int argc, const char **argv)
     int last_fd;
 
     /*
-     * Lock out the user if he did not login recently enough.
+     * Lock out users if they did not login recently enough.
      */
 
     ctrl = _pam_auth_parse(pamh, flags, argc, argv, &inactive_days);

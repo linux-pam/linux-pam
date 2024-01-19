@@ -402,7 +402,7 @@
 
 
 
-            given access to his/her account.  This function can implement
+            given access to the account.  This function can implement
             account expiration and access hour restrictions.
 
         (c) Session management: This set includes the `pam_open_session()'

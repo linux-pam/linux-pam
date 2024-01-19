@@ -524,8 +524,8 @@ cc -o application .... -lpam -lpam_misc
         <term>Authentication token</term>
         <listitem>
           <para>
-            Generally, this is a password. However, a user can authenticate
-            him/herself in a variety of ways. Updating the user's
+            Generally, this is a password. However, users can authenticate
+            themselves in a variety of ways. Updating the user's
             authentication token thus corresponds to
             <emphasis>refreshing</emphasis> the object they use to
             authenticate themselves with the system. The word password is

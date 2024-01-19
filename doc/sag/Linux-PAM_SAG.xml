@@ -131,9 +131,9 @@
     </para>
     <para>
       To illustrate the flexibility you face, consider the following
-      situation: a system administrator (parent) wishes to improve the
-      mathematical ability of her users (children). She can configure
-      their favorite ``Shoot 'em up game'' (PAM-aware of course) to
+      situation: system administrators (parents) wish to improve the
+      mathematical ability of their users (children). Their favorite
+      ``Shoot 'em up game'' (PAM-aware of course) can be configured to
       authenticate them with a request for the product of a couple of
       random numbers less than 12. It is clear that if the game is any
       good they will soon learn their
@@ -252,7 +252,7 @@ other   session  required       pam_deny.so
          is invoked so unless the users of a system contact the
          administrator when failing to execute a service application,
          the administrator may go for a long while in ignorance of the
-         fact that his system is misconfigured.
+         fact that the system is misconfigured.
        </para>
        <para>
          The addition of the following line before those in the above

@@ -31,9 +31,9 @@
       enforcement state.
     </para>
     <para>
-      When the user which is logging in matches an entry in the config file
-      he is allowed access only when the SELinux is in enforcing mode. Otherwise
-      he is denied access. For users not matching any entry in the config file
+      When the users which are logging in match an entry in the config file
+      they are allowed access only when SELinux is in enforcing mode. Otherwise
+      they are denied access. For users not matching any entry in the config file
       the pam_sepermit module returns PAM_IGNORE return value.
     </para>
     <para>

@@ -58,7 +58,7 @@
       For example, ${HOME} is used below several times, but
       many PAM applications don't make it available by the time you need it.
       The special variables @{HOME} and @{SHELL} are expanded to the values
-      for the user from his <emphasis>passwd</emphasis> entry.
+      for the user from the corresponding <emphasis>passwd</emphasis> entry.
     </para>
 
     <para>

@@ -104,7 +104,7 @@
                 <para>
                   for enforcing <emphasis remap="B">hard</emphasis> resource limits.
                   These limits are set by the superuser and enforced by the Kernel.
-                  The user cannot raise his requirement of system resources above such values.
+                  Users cannot raise their own requirement of system resources above such values.
                 </para>
               </listitem>
             </varlistentry>

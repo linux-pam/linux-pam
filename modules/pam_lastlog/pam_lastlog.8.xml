@@ -289,7 +289,7 @@
     session  required  pam_lastlog.so nowtmp
       </programlisting>
     <para>
-     To reject the user if he did not login during the previous 50 days
+     To reject users if they did not login during the previous 50 days
      the following line can be used:
     </para>
       <programlisting>

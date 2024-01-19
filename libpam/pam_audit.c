@@ -44,7 +44,7 @@ _pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type,
       free(buf);
   }
 
-  /* libaudit sets errno to his own negative error code. This can be
+  /* libaudit sets errno to its own negative error code. This can be
      an official errno number, but must not. It can also be a audit
      internal error code. Which makes errno useless :-((. Try the
      best to fix it. */
