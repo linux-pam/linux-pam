@@ -132,7 +132,7 @@
     <para>
       To illustrate the flexibility you face, consider the following
       situation: a system administrator (parent) wishes to improve the
-      mathematical ability of their users (children). She can configure
+      mathematical ability of their users (children). They can configure
       their favorite ``Shoot 'em up game'' (PAM-aware of course) to
       authenticate them with a request for the product of a couple of
       random numbers less than 12. It is clear that if the game is any
