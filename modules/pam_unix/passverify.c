@@ -314,7 +314,6 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 	}
 	if (spent->sp_lstchg < 0) {
 		D(("password aging disabled"));
-		*daysleft = 0;
 		return PAM_SUCCESS;
 	}
 	if (curdays < spent->sp_lstchg) {
