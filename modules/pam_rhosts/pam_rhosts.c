@@ -55,7 +55,7 @@ int pam_sm_authenticate (pam_handle_t *pamh, int flags, int argc,
     int opt_debug = 0;
     int opt_silent;
     int as_root;
-    int retval;
+    int rc, retval;
 
     opt_silent = flags & PAM_SILENT;
 
@@ -116,11 +116,11 @@ int pam_sm_authenticate (pam_handle_t *pamh, int flags, int argc,
     }
 
 #ifdef HAVE_RUSEROK_AF
-    retval = ruserok_af (rhost, as_root, ruser, luser, PF_UNSPEC);
+    rc = ruserok_af (rhost, as_root, ruser, luser, PF_UNSPEC);
 #else
-    retval = ruserok (rhost, as_root, ruser, luser);
+    rc = ruserok (rhost, as_root, ruser, luser);
 #endif
-    if (retval != 0) {
+    if (rc != 0) {
       if (!opt_silent || opt_debug)
 	pam_syslog(pamh, LOG_WARNING, "denied access to %s@%s as %s",
 		   ruser, rhost, luser);

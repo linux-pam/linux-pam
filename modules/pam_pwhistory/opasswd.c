@@ -125,7 +125,7 @@ static int
 compare_password(const char *newpass, const char *oldpass)
 {
   char *outval;
-  int retval;
+  int rc;
 #ifdef HAVE_CRYPT_R
   struct crypt_data output;
 
@@ -136,9 +136,9 @@ compare_password(const char *newpass, const char *oldpass)
   outval = crypt (newpass, oldpass);
 #endif
 
-  retval = outval != NULL && strcmp(outval, oldpass) == 0;
+  rc = outval != NULL && strcmp(outval, oldpass) == 0;
   pam_overwrite_string(outval);
-  return retval;
+  return rc;
 }
 
 /* Check, if the new password is already in the opasswd file.  */

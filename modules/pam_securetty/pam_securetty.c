@@ -64,7 +64,7 @@ static int
 securetty_perform_check (pam_handle_t *pamh, int ctrl,
 			 const char *function_name)
 {
-    int retval = PAM_AUTH_ERR;
+    int rc, retval = PAM_AUTH_ERR;
     const char *securettyfile;
     const char *username;
     const char *uttyname;
@@ -155,18 +155,18 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 	ptname[0] = '\0';
     }
 
-    retval = 1;
+    rc = 1;
 
-    while (retval && getline(&ttyfileline, &ttyfilelinelen, ttyfile) != -1) {
+    while (rc && getline(&ttyfileline, &ttyfilelinelen, ttyfile) != -1) {
 	ttyfileline[strcspn(ttyfileline, "\n")] = '\0';
 
-	retval = ( strcmp(ttyfileline, uttyname)
+	rc = ( strcmp(ttyfileline, uttyname)
 		   && (!ptname[0] || strcmp(ptname, uttyname)) );
     }
     free(ttyfileline);
     fclose(ttyfile);
 
-    if (retval && !(ctrl & PAM_NOCONSOLE_ARG)) {
+    if (rc && !(ctrl & PAM_NOCONSOLE_ARG)) {
         FILE *cmdlinefile;
 
         /* Allow access from the kernel console, if enabled */
@@ -196,7 +196,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 
                 /* Is there any garbage after the TTY name? */
                 if (*e == ',' || *e == ' ' || *e == '\n' || *e == 0) {
-                    retval = 0;
+                    rc = 0;
                     break;
                 }
             }
@@ -204,7 +204,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
             free(line);
         }
     }
-    if (retval && !(ctrl & PAM_NOCONSOLE_ARG)) {
+    if (rc && !(ctrl & PAM_NOCONSOLE_ARG)) {
         FILE *consoleactivefile;
 
         /* Allow access from the active console */
@@ -230,7 +230,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 			*n = '\0';
 
 		    if (strcmp(p, uttyname) == 0) {
-			retval = 0;
+			rc = 0;
 			break;
 		    }
 		}
@@ -240,7 +240,7 @@ securetty_perform_check (pam_handle_t *pamh, int ctrl,
 	}
     }
 
-    if (retval) {
+    if (rc) {
 	    pam_syslog(pamh, LOG_NOTICE, "access denied: tty '%s' is not secure !",
 		     uttyname);
 

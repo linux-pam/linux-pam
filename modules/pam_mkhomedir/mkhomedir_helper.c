@@ -341,13 +341,13 @@ static int
 create_homedir_helper(const struct passwd *_pwd, mode_t home_mode,
 		      const char *_skeldir, const char *_homedir)
 {
-   int retval = PAM_SESSION_ERR;
+   int rc, retval;
    struct dir_spec base;
    char *cp = strrchr(_homedir, '/');
 
    *cp = '\0';
-   retval = dir_spec_open(&base, cp == _homedir ? "/" : _homedir);
-   if (retval < 0)
+   rc = dir_spec_open(&base, cp == _homedir ? "/" : _homedir);
+   if (rc < 0)
    {
       pam_syslog(NULL, LOG_DEBUG,
                  "unable to open parent of home directory %s: %m", _homedir);
@@ -366,21 +366,21 @@ create_homedir_helper(const struct passwd *_pwd, mode_t home_mode,
 static int
 make_parent_dirs(char *dir, int make)
 {
-  int rc = PAM_SUCCESS;
+  int retval = PAM_SUCCESS;
   char *cp = strrchr(dir, '/');
   struct stat st;
 
   if (!cp)
-    return rc;
+    return retval;
 
   if (cp != dir) {
     *cp = '\0';
     if (stat(dir, &st) && errno == ENOENT)
-      rc = make_parent_dirs(dir, 1);
+      retval = make_parent_dirs(dir, 1);
     *cp = '/';
 
-    if (rc != PAM_SUCCESS)
-      return rc;
+    if (retval != PAM_SUCCESS)
+      return retval;
   }
 
   if (make && mkdir(dir, 0755) && errno != EEXIST) {
@@ -388,7 +388,7 @@ make_parent_dirs(char *dir, int make)
     return PAM_PERM_DENIED;
   }
 
-  return rc;
+  return retval;
 }
 
 int
