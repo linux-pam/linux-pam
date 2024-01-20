@@ -139,7 +139,7 @@ compare_password(const char *newpass, const char *oldpass)
   outval = crypt (newpass, oldpass);
 #endif
 
-  retval = outval != NULL && strcmp(outval, oldpass) == 0;
+  retval = outval != NULL && pam_consttime_streq(outval, oldpass);
 
 #ifdef HAVE_CRYPT_R
   pam_overwrite_object(cdata);
@@ -410,7 +410,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 		      }
 
 		    /* compare the last password */
-		    if (strcmp (last, oldpass) == 0)
+		    if (pam_consttime_streq (last, oldpass))
 		      goto write_old_data;
 		  }
 		else
