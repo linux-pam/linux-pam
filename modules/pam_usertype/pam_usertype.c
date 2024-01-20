@@ -108,7 +108,7 @@ pam_usertype_get_uid(struct pam_usertype_opts *opts,
 {
     struct passwd *pwd;
     const char *username;
-    int ret;
+    int retval;
 
     /* Get uid of user that runs the application. */
     if (opts->use_uid) {
@@ -125,11 +125,11 @@ pam_usertype_get_uid(struct pam_usertype_opts *opts,
     }
 
     /* Get uid of user that is being authenticated. */
-    ret = pam_get_user(pamh, &username, NULL);
-    if (ret != PAM_SUCCESS) {
+    retval = pam_get_user(pamh, &username, NULL);
+    if (retval != PAM_SUCCESS) {
         pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
-                   pam_strerror(pamh, ret));
-        return ret == PAM_CONV_AGAIN ? PAM_INCOMPLETE : ret;
+                   pam_strerror(pamh, retval));
+        return retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE : retval;
     }
 
     pwd = pam_modutil_getpwnam(pamh, username);
@@ -219,10 +219,10 @@ pam_usertype_is_system(pam_handle_t *pamh, uid_t uid)
 static int
 pam_usertype_is_regular(pam_handle_t *pamh, uid_t uid)
 {
-    int ret;
+    int retval;
 
-    ret = pam_usertype_is_system(pamh, uid);
-    switch (ret) {
+    retval = pam_usertype_is_system(pamh, uid);
+    switch (retval) {
     case PAM_SUCCESS:
         return PAM_AUTH_ERR;
     case PAM_USER_UNKNOWN:
@@ -260,16 +260,16 @@ pam_usertype(pam_handle_t *pamh, int argc, const char **argv)
 {
     struct pam_usertype_opts opts;
     uid_t uid = -1;
-    int ret;
+    int retval;
 
-    ret = pam_usertype_parse_args(&opts, pamh, argc, argv);
-    if (ret != PAM_SUCCESS) {
-        return ret;
+    retval = pam_usertype_parse_args(&opts, pamh, argc, argv);
+    if (retval != PAM_SUCCESS) {
+        return retval;
     }
 
-    ret = pam_usertype_get_uid(&opts, pamh, &uid);
-    if (ret != PAM_SUCCESS) {
-        return ret;
+    retval = pam_usertype_get_uid(&opts, pamh, &uid);
+    if (retval != PAM_SUCCESS) {
+        return retval;
     }
 
     return pam_usertype_evaluate(&opts, pamh, uid);

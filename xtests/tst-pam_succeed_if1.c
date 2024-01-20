@@ -129,7 +129,7 @@ main(int argc, char *argv[])
     debug = 1;
 
   retval = test_with_user (user1);
-  if (retval == 0)
+  if (retval == PAM_SUCCESS)
     retval = test_with_user (user2);
 
   return retval;

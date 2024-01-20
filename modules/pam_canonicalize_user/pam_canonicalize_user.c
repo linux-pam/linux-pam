@@ -48,11 +48,11 @@ pam_sm_authenticate(pam_handle_t *pamh UNUSED, int flags UNUSED,
 		    int argc UNUSED, const char **argv UNUSED)
 {
 	const char *user;
-	int rc = pam_get_user(pamh, &user, 0);
-	if (rc != PAM_SUCCESS) {
+	int retval = pam_get_user(pamh, &user, 0);
+	if (retval != PAM_SUCCESS) {
 		pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
-			   pam_strerror(pamh, rc));
-		return rc == PAM_CONV_AGAIN ? PAM_INCOMPLETE : rc;
+			   pam_strerror(pamh, retval));
+		return retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE : retval;
 	}
 
 	struct passwd *pw = pam_modutil_getpwnam(pamh, user);
@@ -64,8 +64,8 @@ pam_sm_authenticate(pam_handle_t *pamh UNUSED, int flags UNUSED,
 	if (strcmp(user, pw->pw_name) == 0)
 		return PAM_IGNORE;
 
-	rc = pam_set_item(pamh, PAM_USER, pw->pw_name);
-	return rc == PAM_SUCCESS ? PAM_IGNORE : rc;
+	retval = pam_set_item(pamh, PAM_USER, pw->pw_name);
+	return retval == PAM_SUCCESS ? PAM_IGNORE : retval;
 }
 
 int

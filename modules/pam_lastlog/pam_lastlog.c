@@ -541,7 +541,7 @@ last_login_date(pam_handle_t *pamh, int announce, uid_t uid, const char *user, t
 static int
 last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t lltime)
 {
-    int retval;
+    int rc, retval;
     int fd;
     struct utmp ut;
     struct utmp utuser;
@@ -567,7 +567,7 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 	  return PAM_SERVICE_ERR;
     }
 
-    while ((retval=pam_modutil_read(fd, (void *)&ut,
+    while ((rc = pam_modutil_read(fd, (void *)&ut,
 			 sizeof(ut))) == sizeof(ut)) {
 	if (ut.ut_tv.tv_sec >= lltime && strncmp(ut.ut_user, user, UT_NAMESIZE) == 0) {
 	    memcpy(&utuser, &ut, sizeof(utuser));
@@ -575,7 +575,7 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 	}
     }
 
-    if (retval != 0)
+    if (rc != 0)
 	pam_syslog(pamh, LOG_ERR, "corruption detected in %s", _PATH_BTMP);
     retval = PAM_SUCCESS;
 
@@ -628,23 +628,23 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 
 	_pam_drop(line);
 #if defined HAVE_DNGETTEXT && defined ENABLE_NLS
-        retval = asprintf (&line, dngettext(PACKAGE,
+        rc = asprintf (&line, dngettext(PACKAGE,
 		"There was %d failed login attempt since the last successful login.",
 		"There were %d failed login attempts since the last successful login.",
 		failed),
 	    failed);
 #else
 	if (failed == 1)
-	    retval = asprintf(&line,
+	    rc = asprintf(&line,
 		_("There was %d failed login attempt since the last successful login."),
 		failed);
 	else
-	    retval = asprintf(&line,
+	    rc = asprintf(&line,
 		/* TRANSLATORS: only used if dngettext is not supported */
 		_("There were %d failed login attempts since the last successful login."),
 		failed);
 #endif
-	if (retval >= 0)
+	if (rc >= 0)
 		retval = pam_info(pamh, "%s", line);
 	else {
 		retval = PAM_BUF_ERR;

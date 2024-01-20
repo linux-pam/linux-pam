@@ -339,5 +339,5 @@ int main(int argc, char **argv)
     fprintf(stderr, "server: agent(s) were %shappy to terminate\n",
 	    retval == PAM_BPC_TRUE ? "":"un");
 
-    exit(!retval);
+    exit(retval == PAM_SUCCESS);
 }

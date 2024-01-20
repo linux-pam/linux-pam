@@ -575,7 +575,7 @@ static int
 netgroup_match (pam_handle_t *pamh, const char *netgroup,
 		const char *machine, const char *user, int debug)
 {
-  int retval;
+  int rc;
   char *mydomain = NULL;
 
 #ifdef HAVE_GETDOMAINNAME
@@ -591,18 +591,18 @@ netgroup_match (pam_handle_t *pamh, const char *netgroup,
 #endif
 
 #ifdef HAVE_INNETGR
-  retval = innetgr (netgroup, machine, user, mydomain);
+  rc = innetgr (netgroup, machine, user, mydomain);
 #else
-  retval = 0;
+  rc = 0;
   pam_syslog (pamh, LOG_ERR, "pam_access does not have netgroup support");
 #endif
   if (debug == YES)
     pam_syslog (pamh, LOG_DEBUG,
 		"netgroup_match: %d (netgroup=%s, machine=%s, user=%s, domain=%s)",
-		retval, netgroup ? netgroup : "NULL",
+		rc, netgroup ? netgroup : "NULL",
 		machine ? machine : "NULL",
 		user ? user : "NULL", mydomain ? mydomain : "NULL");
-  return retval;
+  return rc;
 }
 
 /* user_name_or_uid_match - match a username or user uid against one token */

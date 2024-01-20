@@ -595,7 +595,7 @@ int
 lock_pwdf(void)
 {
         int i;
-        int retval;
+        int rc;
 
 #ifndef HELPER_COMPILE
         if (unix_selinux_confined()) {
@@ -609,11 +609,11 @@ lock_pwdf(void)
            reasonable steps to make sure the token is updated; so retrying
            for 1/10 sec. isn't overdoing it. */
         i=0;
-        while((retval = lckpwdf()) != 0 && i < 100) {
+        while((rc = lckpwdf()) != 0 && i < 100) {
                 usleep(1000);
                 i++;
         }
-        if(retval != 0) {
+        if(rc != 0) {
                 return PAM_AUTHTOK_LOCK_BUSY;
         }
         return PAM_SUCCESS;

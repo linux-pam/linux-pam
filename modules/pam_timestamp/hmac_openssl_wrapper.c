@@ -263,7 +263,7 @@ hmac_management(pam_handle_t *pamh, int debug, void **out, size_t *out_length,
                 char *key, size_t key_length,
                 const void *text, size_t text_length)
 {
-    int ret = PAM_AUTH_ERR;
+    int retval = PAM_AUTH_ERR, ret;
     EVP_MAC *evp_mac = NULL;
     EVP_MAC_CTX *ctx = NULL;
     unsigned char *hmac_message = NULL;
@@ -321,7 +321,7 @@ hmac_management(pam_handle_t *pamh, int debug, void **out, size_t *out_length,
     }
 
     memcpy(*out, hmac_message, *out_length);
-    ret = PAM_SUCCESS;
+    retval = PAM_SUCCESS;
 
 done:
     free(hmac_message);
@@ -337,13 +337,13 @@ done:
     }
     free(algo);
 
-    return ret;
+    return retval;
 }
 
 int
 hmac_size(pam_handle_t *pamh, int debug, size_t *hmac_length)
 {
-    int ret = PAM_AUTH_ERR;
+    int retval = PAM_AUTH_ERR, ret;
     EVP_MAC *evp_mac = NULL;
     EVP_MAC_CTX *ctx = NULL;
     const unsigned char key[] = "ThisIsJustAKey";
@@ -376,7 +376,7 @@ hmac_size(pam_handle_t *pamh, int debug, size_t *hmac_length)
     }
 
     *hmac_length = EVP_MAC_CTX_get_mac_size(ctx);
-    ret = PAM_SUCCESS;
+    retval = PAM_SUCCESS;
 
 done:
     if (ctx != NULL) {
@@ -387,7 +387,7 @@ done:
     }
     free(algo);
 
-    return ret;
+    return retval;
 }
 
 int
