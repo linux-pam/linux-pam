@@ -101,7 +101,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	const char *val = pam_str_skip_prefix (argv[i], "delay=");
 	if (val != NULL) {
 	  delay = parse_delay (val);
-	  if (delay < 0 || delay > UINT_MAX)
+	  if (delay < 0 || (unsigned long) delay > UINT_MAX)
 	    {
 	      pam_syslog (pamh, LOG_ERR, "%s (%s) not valid", argv[i], val);
 	      return PAM_IGNORE;
@@ -120,7 +120,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	  return PAM_IGNORE;
 
 	delay = parse_delay (val);
-	if (delay < 0 || delay > UINT_MAX / S_TO_MICROS)
+	if (delay < 0 || (unsigned long) delay > UINT_MAX / S_TO_MICROS)
 	  {
 	    pam_syslog (pamh, LOG_ERR, "FAIL_DELAY=%s in %s not valid",
 			val, LOGIN_DEFS);
