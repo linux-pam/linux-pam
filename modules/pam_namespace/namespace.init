@@ -15,7 +15,7 @@ if [ "$3" = 1 ]; then
                 gid=$(echo "$passwd" | cut -f4 -d":")
                 cp -rT /etc/skel "$homedir"
                 chown -R "$user":"$gid" "$homedir"
-                mask=$(awk '/^UMASK/{gsub("#.*$", "", $2); print $2; exit}' /etc/login.defs)
+                mask=$(sed -E -n 's/^UMASK[[:space:]]+([^#[:space:]]+).*/\1/p' /etc/login.defs)
                 mode=$(printf "%o" $((0777 & ~mask)))
                 chmod ${mode:-700} "$homedir"
                 [ -x /sbin/restorecon ] && /sbin/restorecon -R "$homedir"
