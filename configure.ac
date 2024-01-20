@@ -231,11 +231,13 @@ AM_CONDITIONAL([HAVE_EXAMPLES], [test "x$WITH_EXAMPLES" = "xyes"])
 
 AC_ARG_ENABLE([prelude],
 	AS_HELP_STRING([--disable-prelude],[do not use prelude]),
-	WITH_PRELUDE=$enableval, WITH_PRELUDE=yes)
-if test "$WITH_PRELUDE" = "yes" ; then
+	WITH_PRELUDE=$enableval, WITH_PRELUDE=check)
+if test "$WITH_PRELUDE" != "no" ; then
   AM_PATH_LIBPRELUDE([0.9.0])
   if test "$LIBPRELUDE_CONFIG" != "no" ; then
     LIBPRELUDE_CFLAGS="$LIBPRELUDE_CFLAGS -DPRELUDE=1"
+  elif test "x$WITH_PRELUDE" = "xyes" ; then
+    AC_MSG_ERROR([libprelude not found])
   fi
 fi
 
@@ -378,7 +380,7 @@ AC_SUBST(LIBDL)
 dnl Look for Linux Auditing library - see documentation
 AC_ARG_ENABLE([audit],
         AS_HELP_STRING([--disable-audit],[do not enable audit support]),
-        WITH_LIBAUDIT=$enableval, WITH_LIBAUDIT=yes)
+        WITH_LIBAUDIT=$enableval, WITH_LIBAUDIT=check)
 if test x"$WITH_LIBAUDIT" != xno ; then
         AC_CHECK_HEADER([libaudit.h],
               [AC_CHECK_LIB(audit, audit_log_acct_message, LIBAUDIT=-laudit, LIBAUDIT="")
@@ -389,6 +391,8 @@ if test x"$WITH_LIBAUDIT" != xno ; then
         )
         if test -n "$LIBAUDIT" && test "$ac_cv_header_libaudit_h" != "no" ; then
             AC_DEFINE([HAVE_LIBAUDIT], 1, [Define to 1 if audit support should be compiled in.])
+        elif test x"$WITH_LIBAUDIT" = xyes ; then
+            AC_MSG_ERROR([libaudit not found])
         fi
         if test -n "$HAVE_AUDIT_TTY_STATUS" ; then
             AC_CHECK_MEMBERS([struct audit_tty_status.log_passwd], [],
@@ -528,8 +532,8 @@ fi
 
 AC_ARG_ENABLE([selinux],
         AS_HELP_STRING([--disable-selinux],[do not use SELinux]),
-        WITH_SELINUX=$enableval, WITH_SELINUX=yes)
-if test "$WITH_SELINUX" = "yes" ; then
+        WITH_SELINUX=$enableval, WITH_SELINUX=check)
+if test "$WITH_SELINUX" != "no" ; then
   AC_CHECK_LIB([selinux],[getfilecon], LIBSELINUX="-lselinux", LIBSELINUX="")
 else
   LIBSELINUX=""
@@ -543,6 +547,8 @@ if test -n "$LIBSELINUX" ; then
     AC_CHECK_FUNCS(setkeycreatecon)
     AC_CHECK_FUNCS(getseuser)
     LIBS=$BACKUP_LIBS
+elif test "$WITH_SELINUX" = "yes" ; then
+    AC_MSG_ERROR([libselinux not found])
 fi
 
 LOGIND_CFLAGS=
@@ -562,9 +568,11 @@ ECONF_CFLAGS=
 ECONF_LIBS=
 AC_ARG_ENABLE([econf],
   AS_HELP_STRING([--disable-econf], [do not use libeconf]),
-  [WITH_ECONF=$enableval], [WITH_ECONF=yes])
-if test "$WITH_ECONF" = "yes"; then
+  [WITH_ECONF=$enableval], [WITH_ECONF=check])
+if test "$WITH_ECONF" = "check"; then
   PKG_CHECK_MODULES([ECONF], [libeconf >= 0.5.0], [ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"], [:])
+elif test "$WITH_ECONF" = "yes"; then
+  PKG_CHECK_MODULES([ECONF], [libeconf >= 0.5.0], [ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"], [])
 fi
 AC_SUBST([ECONF_CFLAGS])
 AC_SUBST([ECONF_LIBS])
