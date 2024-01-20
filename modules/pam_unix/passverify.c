@@ -94,7 +94,7 @@ PAMH_ARG_DECL(int verify_pwd_hash,
 	} else {
 		if (pam_str_skip_prefix(hash, "$1$") != NULL) {
 			pp = Goodcrypt_md5(p, hash);
-			if (pp && strcmp(pp, hash) != 0) {
+			if (pp && !pam_consttime_streq(pp, hash)) {
 				_pam_delete(pp);
 				pp = Brokencrypt_md5(p, hash);
 			}
@@ -163,7 +163,7 @@ PAMH_ARG_DECL(int verify_pwd_hash,
 		/* the moment of truth -- do we agree with the password? */
 		D(("comparing state of pp[%s] and hash[%s]", pp ? pp : "(null)", hash));
 
-		if (pp && strcmp(pp, hash) == 0) {
+		if (pp && pam_consttime_streq(pp, hash)) {
 			retval = PAM_SUCCESS;
 		} else {
 			retval = PAM_AUTH_ERR;
