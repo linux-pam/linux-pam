@@ -79,12 +79,12 @@
 
 /* --- authentication management functions (only) --- */
 
-static long parse_delay(const char *val)
+static long long parse_delay(const char *val)
 {
-    long delay;
+    long long delay;
     char *endptr;
 
-    delay = strtol (val, &endptr, 10);
+    delay = strtoll (val, &endptr, 10);
     if (delay == 0 && val == endptr)
       return -1;
     return delay;
@@ -94,14 +94,14 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 			int argc, const char **argv)
 {
     int i, debug_flag = 0;
-    long delay = -1;
+    long long delay = -1;
 
     /* step through arguments */
     for (i = 0; i < argc; i++) {
 	const char *val = pam_str_skip_prefix (argv[i], "delay=");
 	if (val != NULL) {
 	  delay = parse_delay (val);
-	  if (delay < 0 || (unsigned long) delay > UINT_MAX)
+	  if (delay < 0 || (unsigned long long) delay > UINT_MAX)
 	    {
 	      pam_syslog (pamh, LOG_ERR, "%s (%s) not valid", argv[i], val);
 	      return PAM_IGNORE;
@@ -120,7 +120,7 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	  return PAM_IGNORE;
 
 	delay = parse_delay (val);
-	if (delay < 0 || (unsigned long) delay > UINT_MAX / S_TO_MICROS)
+	if (delay < 0 || (unsigned long long) delay > UINT_MAX / S_TO_MICROS)
 	  {
 	    pam_syslog (pamh, LOG_ERR, "FAIL_DELAY=%s in %s not valid",
 			val, LOGIN_DEFS);
@@ -134,9 +134,9 @@ int pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
       }
 
     if (debug_flag)
-      pam_syslog (pamh, LOG_DEBUG, "setting fail delay to %ld", delay);
+      pam_syslog (pamh, LOG_DEBUG, "setting fail delay to %lld", delay);
 
-    i = pam_fail_delay(pamh, delay);
+    i = pam_fail_delay(pamh, (unsigned int) delay);
     if (i == PAM_SUCCESS)
       return PAM_IGNORE;
     else
