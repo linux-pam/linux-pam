@@ -624,7 +624,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
     const char *user=NULL;
     const char *conf_file = NULL;
     int ctrl;
-    int rv;
+    int retval;
 
     ctrl = _pam_parse(pamh, argc, argv, &conf_file);
 
@@ -678,19 +678,19 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
     D(("user=%s", user));
     D(("tty=%s", tty));
 
-    rv = check_account(pamh, service, tty, user, conf_file);
-    if (rv != PAM_SUCCESS) {
+    retval = check_account(pamh, service, tty, user, conf_file);
+    if (retval != PAM_SUCCESS) {
 #ifdef HAVE_LIBAUDIT
 	if (!(ctrl & PAM_NO_AUDIT)) {
             pam_modutil_audit_write(pamh, AUDIT_ANOM_LOGIN_TIME,
-		    "pam_time", rv); /* ignore return value as we fail anyway */
+		    "pam_time", retval); /* ignore return value as we fail anyway */
         }
 #endif
 	if (ctrl & PAM_DEBUG_ARG) {
 	    pam_syslog(pamh, LOG_DEBUG, "user %s rejected", user);
 	}
     }
-    return rv;
+    return retval;
 }
 
 /* end of module definition */

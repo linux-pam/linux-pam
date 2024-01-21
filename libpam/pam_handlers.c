@@ -578,27 +578,27 @@ static char *
 extract_modulename(const char *mod_path)
 {
   const char *p = strrchr (mod_path, '/');
-  char *dot, *retval;
+  char *dot, *ret;
 
   if (p == NULL)
     p = mod_path;
   else
     p++;
 
-  if ((retval = _pam_strdup (p)) == NULL)
+  if ((ret = _pam_strdup (p)) == NULL)
     return NULL;
 
-  dot = strrchr (retval, '.');
+  dot = strrchr (ret, '.');
   if (dot)
     *dot = '\0';
 
-  if (*retval == '\0' || strcmp(retval, "?") == 0) {
+  if (*ret == '\0' || strcmp(ret, "?") == 0) {
     /* do not allow empty module name or "?" to avoid confusing audit trail */
-    _pam_drop(retval);
+    _pam_drop(ret);
     return NULL;
   }
 
-  return retval;
+  return ret;
 }
 
 static struct loaded_module *
