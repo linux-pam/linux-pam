@@ -85,7 +85,7 @@ static long long parse_delay(const char *val)
     char *endptr;
 
     delay = strtoll (val, &endptr, 10);
-    if (delay == 0 && val == endptr)
+    if (delay < 0 || val == endptr || *endptr != '\0')
       return -1;
     return delay;
 }
