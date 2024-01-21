@@ -22,7 +22,7 @@ else
 secureconfdir = $(SCONFIGDIR)
 endif
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+AM_CFLAGS = -I$(top_srcdir)/libpam/include \
 	-DMKHOMEDIR_HELPER=\"$(sbindir)/mkhomedir_helper\" $(WARN_CFLAGS)
 
 securelib_LTLIBRARIES = pam_mkhomedir.la

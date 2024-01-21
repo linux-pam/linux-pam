@@ -26,8 +26,7 @@ endif
 
 noinst_HEADERS = faillock.h faillock_config.h
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	$(WARN_CFLAGS)
+AM_CFLAGS = -I$(top_srcdir)/libpam/include $(WARN_CFLAGS)
 
 faillock_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@
 

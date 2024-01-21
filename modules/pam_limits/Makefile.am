@@ -22,7 +22,7 @@ secureconfdir = $(SCONFIGDIR)
 endif
 limits_conf_dir = $(SCONFIGDIR)/limits.d
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+AM_CFLAGS = -I$(top_srcdir)/libpam/include \
 	    -DLIMITS_FILE_DIR=\"$(limits_conf_dir)\" \
 	    $(WARN_CFLAGS)
 AM_LDFLAGS = -no-undefined -avoid-version -module

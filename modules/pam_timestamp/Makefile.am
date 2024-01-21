@@ -24,8 +24,7 @@ endif
 
 noinst_HEADERS = hmacsha1.h sha1.h hmac_openssl_wrapper.h
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	$(LOGIND_CFLAGS) $(WARN_CFLAGS)
+AM_CFLAGS = -I$(top_srcdir)/libpam/include $(LOGIND_CFLAGS) $(WARN_CFLAGS)
 
 pam_timestamp_la_LDFLAGS = -no-undefined -avoid-version -module $(AM_LDFLAGS) $(CRYPTO_LIBS)
 pam_timestamp_la_LIBADD = $(top_builddir)/libpam/libpam.la $(SYSTEMD_LIBS)

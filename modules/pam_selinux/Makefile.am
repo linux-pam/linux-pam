@@ -21,8 +21,7 @@ else
 secureconfdir = $(SCONFIGDIR)
 endif
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	-I$(top_srcdir)/libpam_misc/include $(WARN_CFLAGS)
+AM_CFLAGS = -I$(top_srcdir)/libpam/include $(WARN_CFLAGS)
 
 pam_selinux_la_LDFLAGS = -no-undefined -avoid-version -module
 pam_selinux_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBSELINUX@ @LIBAUDIT@
@@ -32,6 +31,8 @@ endif
 
 securelib_LTLIBRARIES = pam_selinux.la
 noinst_PROGRAMS = pam_selinux_check
+pam_selinux_check_CFLAGS = $(AM_CFLAGS) -I$(top_srcdir)/libpamc/include \
+			   -I$(top_srcdir)/libpam_misc/include
 pam_selinux_check_LDADD = $(top_builddir)/libpam/libpam.la \
 			  $(top_builddir)/libpam_misc/libpam_misc.la
 

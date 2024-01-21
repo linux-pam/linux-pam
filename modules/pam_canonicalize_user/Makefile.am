@@ -17,8 +17,7 @@ else
 secureconfdir = $(SCONFIGDIR)
 endif
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	    $(WARN_CFLAGS)
+AM_CFLAGS = -I$(top_srcdir)/libpam/include $(WARN_CFLAGS)
 
 securelib_LTLIBRARIES = pam_canonicalize_user.la
 pam_canonicalize_user_la_LIBADD = $(top_builddir)/libpam/libpam.la

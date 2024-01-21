@@ -30,8 +30,8 @@ else
 secureconfdir = $(SCONFIGDIR)
 endif
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
-	$(WARN_CFLAGS) -DPWHISTORY_HELPER=\"$(sbindir)/pwhistory_helper\"
+AM_CFLAGS = -I$(top_srcdir)/libpam/include $(WARN_CFLAGS) \
+	-DPWHISTORY_HELPER=\"$(sbindir)/pwhistory_helper\"
 
 pam_pwhistory_la_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING

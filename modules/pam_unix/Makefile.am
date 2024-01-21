@@ -29,7 +29,7 @@ else
 secureconfdir = $(SCONFIGDIR)
 endif
 
-AM_CFLAGS = -I$(top_srcdir)/libpam/include -I$(top_srcdir)/libpamc/include \
+AM_CFLAGS = -I$(top_srcdir)/libpam/include \
 	-DCHKPWD_HELPER=\"$(sbindir)/unix_chkpwd\" \
 	-DUPDATE_HELPER=\"$(sbindir)/unix_update\" \
 	@TIRPC_CFLAGS@ @NSL_CFLAGS@ $(WARN_CFLAGS)
