@@ -26,7 +26,7 @@ AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
-pam_time_la_LIBADD = $(top_builddir)/libpam/libpam.la
+pam_time_la_LIBADD = $(top_builddir)/libpam/libpam.la @LIBM@
 
 securelib_LTLIBRARIES = pam_time.la
 dist_secureconf_DATA = time.conf
@@ -38,3 +38,7 @@ if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README
 -include $(top_builddir)/Make.xml.rules
 endif
+
+noinst_HEADERS = time-util.h
+
+pam_time_la_SOURCES = pam_time.c time-util.c

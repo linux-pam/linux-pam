@@ -21,7 +21,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <math.h>
 #include <netdb.h>
+#include <sys/param.h>
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
@@ -32,6 +34,8 @@
 #ifdef HAVE_LIBAUDIT
 #include <libaudit.h>
 #endif
+
+#include "time-util.h"
 
 #define PAM_TIME_CONF	(SCONFIGDIR "/time.conf")
 #ifdef VENDOR_SCONFIGDIR
@@ -52,6 +56,13 @@
 #endif
 
 typedef enum { AND, OR } operator;
+
+static void cleanup(pam_handle_t *handle UNUSED, void *data, int err UNUSED)
+{
+     if (!data)
+	  return;
+     free(data);
+}
 
 static int
 _pam_parse (const pam_handle_t *pamh, int argc, const char **argv, const char **conffile)
@@ -305,8 +316,9 @@ typedef enum { VAL, OP } expect;
 
 static int
 logic_field(pam_handle_t *pamh, const void *me, const char *x, int rule,
+	    void *data,
 	    int (*agrees)(pam_handle_t *pamh,
-			      const void *, const char *, int, int))
+			      const void *, const char *, int, int, void *))
 {
      int left=FALSE, right, not=FALSE;
      operator oper=OR;
@@ -321,7 +333,7 @@ logic_field(pam_handle_t *pamh, const void *me, const char *x, int rule,
 		    not = !not;
 	       else if (isalpha((unsigned char)c) || c == '*' || isdigit((unsigned char)c) || c == '_'
                     || c == '-' || c == '.' || c == '/' || c == ':') {
-		    right = not ^ agrees(pamh, me, x+at, l, rule);
+		    right = not ^ agrees(pamh, me, x+at, l, rule, data);
 		    if (oper == AND)
 			 left &= right;
 		    else
@@ -359,7 +371,7 @@ logic_field(pam_handle_t *pamh, const void *me, const char *x, int rule,
 
 static int
 is_same(pam_handle_t *pamh UNUSED, const void *A, const char *b,
-	int len, int rule UNUSED)
+	int len, int rule UNUSED, void *data UNUSED)
 {
      int i;
      const char *a;
@@ -424,12 +436,19 @@ time_now(void)
 /* take the current date and see if the range "date" passes it */
 static int
 check_time(pam_handle_t *pamh, const void *AT, const char *times,
-	   int len, int rule)
+	   int len, int rule, void *data)
 {
      int not,pass;
      int marked_day, time_start, time_end;
      const TIME *at;
      int i,j=0;
+     struct tm tm;
+     time_t current_time;
+     time_t *time_limit = data;
+
+     current_time = time(NULL);
+     // ignore failures, shouldn't really be possible
+     localtime_r(&current_time, &tm);
 
      at = AT;
      D(("checking: 0%o/%.4d vs. %s", at->day, at->minute, times));
@@ -522,6 +541,59 @@ check_time(pam_handle_t *pamh, const void *AT, const char *times,
 	  }
      }
 
+     if (pass && !not) {
+	  int numdays = 0;
+	  if (time_start == 0 && time_end == 2400) {
+	       // special case where access is allowed for at least one full
+	       // day, so we have to examine the days until we find one that's
+	       // not allowed (or until we loop around)
+	       for (i = at->day; ; ) {
+		    i <<= 1;
+		    if (i > 0100)
+			 i = 1;
+		    if (! (i & marked_day))
+			 break;
+		    if (i == at->day)
+			 break;
+	       }
+
+	       // access allowed all day, every day...
+	       if (i == at->day)
+		    return (not ^ pass);
+
+	       if (i < at->day)
+		   i <<= 7;
+	       numdays = lrint(log2(i))-lrint((at->day));
+	  } else if (time_end < time_start)
+	       numdays = 1;
+
+	  // if the end time is not today, walk the days 1 at a time to
+	  // increment.  This method avoids problems with both DST and
+	  // end of month / end of year boundaries.
+	  while (numdays > 0) {
+	       tm.tm_hour = 23;
+	       tm.tm_min  = 59;
+	       *time_limit = mktime(&tm);
+	       *time_limit += 60*60; // 00:59 the next day
+	       localtime_r(time_limit, &tm);
+	       numdays--;
+	  }
+
+	  tm.tm_hour = time_end / 100;
+	  tm.tm_min = time_end % 100;
+	  tm.tm_sec = 0;
+	  // tm_hour = 24 is not legal, so get the timestamp for 23:59
+	  // and add 60 seconds
+	  if (time_end == 2400)
+	  {
+	       tm.tm_hour -= 1;
+	       tm.tm_min -= 1;
+	  }
+	  *time_limit = mktime(&tm);
+	  if (time_end == 2400)
+	       *time_limit += 60;
+     }
+
      return (not ^ pass);
 }
 
@@ -534,6 +606,7 @@ check_account(pam_handle_t *pamh, const char *service,
      int count=0;
      TIME here_and_now;
      int retval=PAM_SUCCESS;
+     time_t end_time = 0, time_buf = 0;
 
      here_and_now = time_now();                     /* find current time */
      do {
@@ -554,7 +627,7 @@ check_account(pam_handle_t *pamh, const char *service,
 	       continue;
 	  }
 
-	  good = logic_field(pamh, service, buffer, count, is_same);
+	  good = logic_field(pamh, service, buffer, count, NULL, is_same);
 	  D(("with service: %s", good ? "passes":"fails" ));
 
 	  /* here we get the terminal name field */
@@ -565,7 +638,7 @@ check_account(pam_handle_t *pamh, const char *service,
 			  "%s: malformed rule #%d", file, count);
 	       continue;
 	  }
-	  good &= logic_field(pamh, tty, buffer, count, is_same);
+	  good &= logic_field(pamh, tty, buffer, count, NULL, is_same);
 	  D(("with tty: %s", good ? "passes":"fails" ));
 
 	  /* here we get the username field */
@@ -584,7 +657,7 @@ check_account(pam_handle_t *pamh, const char *service,
 	    pam_syslog (pamh, LOG_ERR, "pam_time does not have netgroup support");
 #endif
 	  else
-	    good &= logic_field(pamh, user, buffer, count, is_same);
+	    good &= logic_field(pamh, user, buffer, count, NULL, is_same);
 	  D(("with user: %s", good ? "passes":"fails" ));
 
 	  /* here we get the time field */
@@ -596,7 +669,8 @@ check_account(pam_handle_t *pamh, const char *service,
 	       continue;
 	  }
 
-	  intime = logic_field(pamh, &here_and_now, buffer, count, check_time);
+	  intime = logic_field(pamh, &here_and_now, buffer, count, &time_buf,
+	                       check_time);
 	  D(("with time: %s", intime ? "passes":"fails" ));
 
 	  if (good && !intime) {
@@ -606,9 +680,48 @@ check_account(pam_handle_t *pamh, const char *service,
 		*/
 	       retval = PAM_PERM_DENIED;
 	  } else {
+               if (good)
+		   end_time = time_buf;
 	       D(("rule passed"));
 	  }
      } while (state != STATE_EOF);
+
+     if (end_time != 0) {
+	  const char *current_limit = NULL;
+	  char *runtime_max_sec = NULL;
+	  time_t curtime = time(NULL);
+	  usec_t timeval = 0, old_timeval = 0;
+
+	  // unlikely, but could happen if we were already close to the limit
+	  if (end_time <= curtime)
+	       return PAM_PERM_DENIED;
+	  timeval = (end_time - curtime) * USEC_PER_SEC;
+
+	  // get current limit, if any
+	  pam_get_data(pamh, "systemd.runtime_max_sec",
+	               (const void **)&current_limit);
+	  if (current_limit) {
+	       retval = parse_time(current_limit, &old_timeval, USEC_PER_SEC);
+	       timeval = MIN(old_timeval, timeval);
+	  }
+	  if (timeval != old_timeval)
+	  {
+	       runtime_max_sec = malloc(FORMAT_TIMESPAN_MAX);
+	       if (!format_timespan(runtime_max_sec, FORMAT_TIMESPAN_MAX,
+		                    timeval, USEC_PER_SEC)) {
+		    free((void *)runtime_max_sec);
+		    return PAM_PERM_DENIED;
+	       }
+	       pam_syslog(pamh, LOG_DEBUG, "user %s session limited to %s",
+	                  user, runtime_max_sec);
+	       retval = pam_set_data(pamh, "systemd.runtime_max_sec",
+				     (void *)runtime_max_sec, cleanup);
+	       if (retval != PAM_SUCCESS) {
+		    free((void *)runtime_max_sec);
+		    return PAM_PERM_DENIED;
+	       }
+	  }
+     }
 
      return retval;
 }
