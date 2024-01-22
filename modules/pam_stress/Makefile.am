@@ -27,7 +27,8 @@ if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
 securelib_LTLIBRARIES = pam_stress.la
-pam_stress_la_LIBADD = $(top_builddir)/libpam/libpam.la
+pam_stress_la_LIBADD = $(top_builddir)/libpam_internal/libpam_internal.la \
+		       $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README

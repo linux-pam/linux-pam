@@ -38,7 +38,8 @@ pam_unix_la_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   pam_unix_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
-pam_unix_la_LIBADD = $(top_builddir)/libpam/libpam.la \
+pam_unix_la_LIBADD = $(top_builddir)/libpam_internal/libpam_internal.la \
+	$(top_builddir)/libpam/libpam.la \
 	@LIBCRYPT@ @LIBSELINUX@ @TIRPC_LIBS@ @NSL_LIBS@
 
 securelib_LTLIBRARIES = pam_unix.la
@@ -61,20 +62,22 @@ endif
 
 bigcrypt_SOURCES = bigcrypt.c bigcrypt_main.c
 bigcrypt_CFLAGS = $(AM_CFLAGS)
-bigcrypt_LDADD = @LIBCRYPT@
+bigcrypt_LDADD = $(top_builddir)/libpam_internal/libpam_internal.la @LIBCRYPT@
 
 unix_chkpwd_SOURCES = unix_chkpwd.c audit.c md5_good.c md5_broken.c bigcrypt.c \
 	passverify.c
 unix_chkpwd_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@ -DHELPER_COMPILE=\"unix_chkpwd\"
 unix_chkpwd_LDFLAGS = @EXE_LDFLAGS@
-unix_chkpwd_LDADD = @LIBCRYPT@ @LIBSELINUX@ @LIBAUDIT@
+unix_chkpwd_LDADD = $(top_builddir)/libpam_internal/libpam_internal.la \
+		    @LIBCRYPT@ @LIBSELINUX@ @LIBAUDIT@
 
 if WITH_SELINUX
 unix_update_SOURCES = unix_update.c audit.c md5_good.c md5_broken.c bigcrypt.c \
 	passverify.c
 unix_update_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@ -DHELPER_COMPILE=\"unix_update\"
 unix_update_LDFLAGS = @EXE_LDFLAGS@
-unix_update_LDADD = @LIBCRYPT@ @LIBSELINUX@ @LIBAUDIT@
+unix_update_LDADD = $(top_builddir)/libpam_internal/libpam_internal.la \
+		    @LIBCRYPT@ @LIBSELINUX@ @LIBAUDIT@
 endif
 
 if ENABLE_REGENERATE_MAN

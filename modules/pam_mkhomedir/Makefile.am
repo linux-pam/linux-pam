@@ -27,7 +27,8 @@ AM_CFLAGS = -I$(top_srcdir)/libpam/include \
 
 securelib_LTLIBRARIES = pam_mkhomedir.la
 pam_mkhomedir_la_SOURCES = pam_mkhomedir.c
-pam_mkhomedir_la_LIBADD = $(top_builddir)/libpam/libpam.la
+pam_mkhomedir_la_LIBADD = $(top_builddir)/libpam_internal/libpam_internal.la \
+			  $(top_builddir)/libpam/libpam.la
 pam_mkhomedir_la_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   pam_mkhomedir_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map

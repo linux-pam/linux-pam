@@ -28,7 +28,8 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_debug.la
-pam_debug_la_LIBADD = $(top_builddir)/libpam/libpam.la
+pam_debug_la_LIBADD = $(top_builddir)/libpam_internal/libpam_internal.la \
+		      $(top_builddir)/libpam/libpam.la
 
 check_PROGRAMS = tst-pam_debug-retval
 tst_pam_debug_retval_LDADD = $(top_builddir)/libpam/libpam.la

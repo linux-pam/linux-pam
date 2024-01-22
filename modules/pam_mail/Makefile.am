@@ -28,7 +28,8 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_mail.la
-pam_mail_la_LIBADD = $(top_builddir)/libpam/libpam.la
+pam_mail_la_LIBADD = $(top_builddir)/libpam_internal/libpam_internal.la \
+		     $(top_builddir)/libpam/libpam.la
 
 if ENABLE_REGENERATE_MAN
 dist_noinst_DATA = README

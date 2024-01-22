@@ -15,7 +15,8 @@ libpam_misc_la_LDFLAGS = -no-undefined -version-info 82:1:82
 if HAVE_VERSIONING
   libpam_misc_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libpam_misc.map
 endif
-libpam_misc_la_LIBADD = $(top_builddir)/libpam/libpam.la
+libpam_misc_la_LIBADD = $(top_builddir)/libpam_internal/libpam_internal.la \
+			$(top_builddir)/libpam/libpam.la
 
 lib_LTLIBRARIES = libpam_misc.la
 

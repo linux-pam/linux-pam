@@ -26,7 +26,8 @@ AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
-pam_time_la_LIBADD = $(top_builddir)/libpam/libpam.la
+pam_time_la_LIBADD = $(top_builddir)/libpam_internal/libpam_internal.la \
+		     $(top_builddir)/libpam/libpam.la
 
 securelib_LTLIBRARIES = pam_time.la
 dist_secureconf_DATA = time.conf

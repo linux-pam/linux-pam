@@ -18,6 +18,7 @@ libpamc_la_LDFLAGS = -no-undefined -version-info 82:1:82
 if HAVE_VERSIONING
   libpamc_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libpamc.map
 endif
+libpamc_la_LIBADD = $(top_builddir)/libpam_internal/libpam_internal.la
 
 lib_LTLIBRARIES = libpamc.la
 

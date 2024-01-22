@@ -249,6 +249,7 @@ if test x"$enable_debug" = x"yes" ; then
    AC_DEFINE([PAM_DEBUG],,
 		[lots of stuff gets written to /var/run/pam-debug.log])
 fi
+AC_DEFINE([PAM_NO_HEADER_FUNCTIONS],1,[disable function bodies in headers])
 
 AC_ARG_ENABLE(docbook_rng,
 	AS_HELP_STRING([--enable-docbook-rng=FILE],[RNG file for checking XML files @<:@default=http://docbook.org/xml/5.0/rng/docbookxi.rng@:>@]),
@@ -777,8 +778,8 @@ AM_CONDITIONAL([COND_BUILD_PAM_USERDB], [test -n "$LIBDB"])
 
 dnl Files to be created from when we run configure
 AC_CONFIG_FILES([Makefile libpam/Makefile libpamc/Makefile libpamc/test/Makefile \
-	libpam_misc/Makefile conf/Makefile conf/pam_conv1/Makefile \
-	libpam/pam.pc libpam_misc/pam_misc.pc libpamc/pamc.pc \
+	libpam_internal/Makefile libpam_misc/Makefile conf/Makefile \
+	conf/pam_conv1/Makefile libpam/pam.pc libpam_misc/pam_misc.pc libpamc/pamc.pc \
 	po/Makefile.in \
 	Make.xml.rules \
 	modules/Makefile \

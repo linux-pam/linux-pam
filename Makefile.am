@@ -4,7 +4,8 @@
 
 AUTOMAKE_OPTIONS = 1.9 gnu dist-xz no-dist-gzip check-news
 
-SUBDIRS = libpam tests libpamc libpam_misc modules po conf xtests
+SUBDIRS = libpam_internal libpam tests libpamc libpam_misc modules po conf \
+	  xtests
 
 if HAVE_DOC
 SUBDIRS += doc

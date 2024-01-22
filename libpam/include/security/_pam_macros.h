@@ -94,11 +94,25 @@ do {                                              \
 #define _PAM_LOGFILE "/var/run/pam-debug.log"
 #endif
 
+#ifdef PAM_NO_HEADER_FUNCTIONS
+UNUSED
+extern void _pam_output_debug_info(const char *file, const char *fn
+				   , const int line);
+UNUSED
+PAM_FORMAT((printf, 1, 2))
+extern void _pam_output_debug(const char *format, ...);
+#else
+#ifdef PAM_DEBUG_C
+#define PAM_DEBUG_SCOPE
+#else
+#define PAM_DEBUG_SCOPE static
+#endif
+
 #ifdef UNUSED
 UNUSED
 #endif
-static void _pam_output_debug_info(const char *file, const char *fn
-				   , const int line)
+PAM_DEBUG_SCOPE void _pam_output_debug_info(const char *file, const char *fn
+					    , const int line)
 {
     FILE *logfile;
     int must_close = 1, fd;
@@ -127,7 +141,7 @@ static void _pam_output_debug_info(const char *file, const char *fn
 UNUSED
 #endif
 PAM_FORMAT((printf, 1, 2))
-static void _pam_output_debug(const char *format, ...)
+PAM_DEBUG_SCOPE void _pam_output_debug(const char *format, ...)
 {
     va_list args;
     FILE *logfile;
@@ -157,6 +171,8 @@ static void _pam_output_debug(const char *format, ...)
 
     va_end(args);
 }
+#undef PAM_DEBUG_SCOPE
+#endif
 
 #define D(x) do { \
     _pam_output_debug_info(__FILE__, __FUNCTION__, __LINE__); \

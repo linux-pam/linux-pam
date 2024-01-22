@@ -29,7 +29,8 @@ if HAVE_VERSIONING
 endif
 
 securelib_LTLIBRARIES = pam_env.la
-pam_env_la_LIBADD = $(top_builddir)/libpam/libpam.la $(ECONF_LIBS)
+pam_env_la_LIBADD = $(top_builddir)/libpam_internal/libpam_internal.la \
+		    $(top_builddir)/libpam/libpam.la $(ECONF_LIBS)
 
 check_PROGRAMS = tst-pam_env-retval
 tst_pam_env_retval_LDADD = $(top_builddir)/libpam/libpam.la

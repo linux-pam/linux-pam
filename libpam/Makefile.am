@@ -23,7 +23,9 @@ noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h \
 		include/test_assert.h
 
 libpam_la_LDFLAGS = -no-undefined -version-info 85:1:85
-libpam_la_LIBADD = @LIBAUDIT@ $(LIBPRELUDE_LIBS) $(ECONF_LIBS) @LIBDL@ @LTLIBINTL@
+libpam_la_LIBADD = $(top_builddir)/libpam_internal/libpam_internal.la \
+		   @LIBAUDIT@ $(LIBPRELUDE_LIBS) $(ECONF_LIBS) @LIBDL@ \
+		   @LTLIBINTL@
 
 if HAVE_VERSIONING
   libpam_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libpam.map
