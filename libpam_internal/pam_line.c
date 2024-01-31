@@ -1,23 +1,12 @@
-/* pam_assemble_line.h -- routine to parse configuration lines */
+/* pam_line.c -- routine to parse configuration lines */
 
-#ifndef PAM_ASSEMBLE_LINE_H
-#define PAM_ASSEMBLE_LINE_H
+#include "config.h"
 
-#include "pam_inline.h"
+#include "security/_pam_macros.h"
+#include "pam_line.h"
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-struct line_buffer {
-	char *assembled;
-	char *chunk;
-	size_t chunk_size;
-	size_t len;
-	size_t size;
-};
-
-static int _pam_buffer_add(struct line_buffer *buffer, char *start, char *end)
+static int _pam_line_buffer_add(struct pam_line_buffer *buffer, char *start,
+				char *end)
 {
     size_t len = end - start;
 
@@ -61,15 +50,15 @@ static int _pam_buffer_add(struct line_buffer *buffer, char *start, char *end)
     return 0;
 }
 
-static inline int _pam_buffer_add_eol(struct line_buffer *buffer,
-				      char *start, char *end)
+static inline int _pam_line_buffer_add_eol(struct pam_line_buffer *buffer,
+					   char *start, char *end)
 {
     if (buffer->assembled != NULL || (*start != '\0' && *start != '\n'))
-	return _pam_buffer_add(buffer, start, end);
+	return _pam_line_buffer_add(buffer, start, end);
     return 0;
 }
 
-static void _pam_buffer_clear(struct line_buffer *buffer)
+void _pam_line_buffer_clear(struct pam_line_buffer *buffer)
 {
     pam_overwrite_n(buffer->assembled, buffer->size);
     _pam_drop(buffer->assembled);
@@ -80,26 +69,26 @@ static void _pam_buffer_clear(struct line_buffer *buffer)
     buffer->size = 0;
 }
 
-static void _pam_buffer_init(struct line_buffer *buffer)
+void _pam_line_buffer_init(struct pam_line_buffer *buffer)
 {
     buffer->assembled = NULL;
     buffer->chunk = NULL;
-    _pam_buffer_clear(buffer);
+    _pam_line_buffer_clear(buffer);
 }
 
-static void _pam_buffer_purge(struct line_buffer *buffer)
+static void _pam_line_buffer_purge(struct pam_line_buffer *buffer)
 {
     pam_overwrite_n(buffer->chunk, buffer->chunk_size);
     _pam_drop(buffer->chunk);
     buffer->chunk_size = 0;
 }
 
-static void _pam_buffer_shift(struct line_buffer *buffer)
+static void _pam_line_buffer_shift(struct pam_line_buffer *buffer)
 {
     if (buffer->assembled == NULL)
 	return;
 
-    _pam_buffer_purge(buffer);
+    _pam_line_buffer_purge(buffer);
     buffer->chunk = buffer->assembled;
     buffer->chunk_size = buffer->size;
 
@@ -108,7 +97,7 @@ static void _pam_buffer_shift(struct line_buffer *buffer)
     buffer->len = 0;
 }
 
-static inline int _pam_buffer_valid(struct line_buffer *buffer)
+static inline int _pam_line_buffer_valid(struct pam_line_buffer *buffer)
 {
     return buffer->assembled != NULL && *buffer->assembled != '\0';
 }
@@ -203,8 +192,7 @@ static inline int _pam_str_prepare(char *line, ssize_t len,
  *
  * Returns 0 on EOF, 1 on successful line parsing, or -1 on error.
  */
-
-static int _pam_assemble_line(FILE *f, struct line_buffer *buffer, char repl)
+int _pam_line_assemble(FILE *f, struct pam_line_buffer *buffer, char repl)
 {
     int ret = 0;
 
@@ -212,7 +200,7 @@ static int _pam_assemble_line(FILE *f, struct line_buffer *buffer, char repl)
 
     D(("called."));
 
-    _pam_buffer_shift(buffer);
+    _pam_line_buffer_shift(buffer);
 
     for (;;) {
 	char *start, *end;
@@ -233,21 +221,21 @@ static int _pam_assemble_line(FILE *f, struct line_buffer *buffer, char repl)
 	eol = _pam_str_prepare(buffer->chunk, n, &start, &end, repl);
 
 	if (eol) {
-	    if (_pam_buffer_add_eol(buffer, start, end)) {
+	    if (_pam_line_buffer_add_eol(buffer, start, end)) {
 		ret = -1;
 		break;
 	    }
-	    if (_pam_buffer_valid(buffer)) {
+	    if (_pam_line_buffer_valid(buffer)) {
 		/* Successfully parsed a line */
 		ret = 1;
 		break;
 	    }
 	    /* Start parsing next line */
-	    _pam_buffer_shift(buffer);
+	    _pam_line_buffer_shift(buffer);
 	    ret = 0;
 	} else {
 	    /* Configuration line spans across multiple lines in file */
-	    if (_pam_buffer_add(buffer, start, end)) {
+	    if (_pam_line_buffer_add(buffer, start, end)) {
 		ret = -1;
 		break;
 	    }
@@ -257,11 +245,9 @@ static int _pam_assemble_line(FILE *f, struct line_buffer *buffer, char repl)
     }
 
     if (ret == 1)
-	_pam_buffer_purge(buffer);
+	_pam_line_buffer_purge(buffer);
     else
-	_pam_buffer_clear(buffer);
+	_pam_line_buffer_clear(buffer);
 
     return ret;
 }
-
-#endif /* PAM_ASSEMBLE_LINE_H */

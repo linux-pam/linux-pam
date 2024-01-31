@@ -31,7 +31,7 @@
 #include "pam_inline.h"
 
 #ifndef USE_ECONF
-#include "pam_assemble_line.h"
+#include "pam_line.h"
 #endif
 
 /* This little structure makes it easier to keep variables together */
@@ -316,9 +316,9 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
 static int read_file(const pam_handle_t *pamh, const char*filename, char ***lines)
 {
     FILE *conf;
-    struct line_buffer buffer;
+    struct pam_line_buffer buffer;
 
-    _pam_buffer_init(&buffer);
+    _pam_line_buffer_init(&buffer);
 
     D(("Parsed file name is: %s", filename));
 
@@ -335,7 +335,7 @@ static int read_file(const pam_handle_t *pamh, const char*filename, char ***line
       return PAM_BUF_ERR;
     }
     (*lines)[i] = 0;
-    while (_pam_assemble_line(conf, &buffer, '\0') > 0) {
+    while (_pam_line_assemble(conf, &buffer, '\0') > 0) {
       char *p = buffer.assembled;
       char **tmp = NULL;
       D(("Read line: %s", p));
@@ -344,7 +344,7 @@ static int read_file(const pam_handle_t *pamh, const char*filename, char ***line
 	pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
 	(void) fclose(conf);
 	free_string_array(*lines);
-	_pam_buffer_clear(&buffer);
+	_pam_line_buffer_clear(&buffer);
 	return PAM_BUF_ERR;
       }
       *lines = tmp;
@@ -353,14 +353,14 @@ static int read_file(const pam_handle_t *pamh, const char*filename, char ***line
         pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
         (void) fclose(conf);
         free_string_array(*lines);
-        _pam_buffer_clear(&buffer);
+        _pam_line_buffer_clear(&buffer);
         return PAM_BUF_ERR;
       }
       (*lines)[i] = 0;
     }
 
     (void) fclose(conf);
-    _pam_buffer_clear(&buffer);
+    _pam_line_buffer_clear(&buffer);
     return PAM_SUCCESS;
 }
 #endif

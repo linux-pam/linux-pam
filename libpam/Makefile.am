@@ -3,7 +3,7 @@
 #
 
 AM_CFLAGS = -DDEFAULT_MODULE_PATH=\"$(SECUREDIR)/\" -DLIBPAM_COMPILE \
-	-DLOCALEDIR=\"$(localedir)\" \
+	-DLOCALEDIR=\"$(localedir)\" -I$(top_srcdir)/libpam_internal/include \
 	-I$(srcdir)/include $(LIBPRELUDE_CFLAGS) $(ECONF_CFLAGS) \
 	-DPAM_VERSION=\"$(VERSION)\" -DSYSCONFDIR=\"$(sysconfdir)\" \
 	$(WARN_CFLAGS)
@@ -18,7 +18,7 @@ include_HEADERS = include/security/_pam_compat.h \
 	include/security/pam_ext.h include/security/pam_modutil.h
 
 noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h \
-		pam_modutil_private.h include/pam_assemble_line.h \
+		pam_modutil_private.h \
 		include/pam_cc_compat.h include/pam_inline.h \
 		include/test_assert.h
 

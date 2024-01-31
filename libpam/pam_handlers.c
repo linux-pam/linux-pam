@@ -18,7 +18,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "pam_assemble_line.h"
+#include "pam_line.h"
 
 #define MODULE_CHUNK              4
 #define UNKNOWN_MODULE       "<*unknown module*>"
@@ -61,14 +61,14 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 #endif /* PAM_READ_BOTH_CONFS */
     )
 {
-    struct line_buffer buffer;
+    struct pam_line_buffer buffer;
     int x;                    /* read a line from the FILE *f ? */
 
-    _pam_buffer_init(&buffer);
+    _pam_line_buffer_init(&buffer);
     /*
      * read a line from the configuration (FILE *) f
      */
-    while ((x = _pam_assemble_line(f, &buffer, ' ')) > 0) {
+    while ((x = _pam_line_assemble(f, &buffer, ' ')) > 0) {
 	char *buf = buffer.assembled;
 	char *tok, *nexttok=NULL;
 	const char *this_service;
