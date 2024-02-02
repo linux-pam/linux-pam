@@ -832,6 +832,26 @@ set_if_null(char **dest, char *def)
     return 1;
 }
 
+static char *
+trim(char *s)
+{
+    char *p;
+
+    if (s == NULL)
+	return NULL;
+
+    while (*s == ' ' || *s == '\t')
+	s++;
+
+    if (*s == '\0')
+	return NULL;
+
+    p = s + strlen(s) - 1;
+    while (p >= s && (*p == ' ' || *p == '\t'))
+	*p-- = '\0';
+    return s;
+}
+
 static int
 split(char *line, char **domain, char **ltype, char **item, char **value)
 {
@@ -844,7 +864,7 @@ split(char *line, char **domain, char **ltype, char **item, char **value)
     *domain = strtok_r(line, " \t", &saveptr);
     *ltype = strtok_r(NULL, " \t", &saveptr);
     *item = strtok_r(NULL, " \t", &saveptr);
-    *value = strtok_r(NULL, "", &saveptr);
+    *value = trim(strtok_r(NULL, "", &saveptr));
 
     count = 0;
     count += set_if_null(domain, blank);
