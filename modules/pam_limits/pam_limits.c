@@ -844,7 +844,7 @@ split(char *line, char **domain, char **ltype, char **item, char **value)
     *domain = strtok_r(line, " \t", &saveptr);
     *ltype = strtok_r(NULL, " \t", &saveptr);
     *item = strtok_r(NULL, " \t", &saveptr);
-    *value = strtok_r(NULL, "", &saveptr);
+    *value = strtok_r(NULL, " \t", &saveptr);
 
     count = 0;
     count += set_if_null(domain, blank);
