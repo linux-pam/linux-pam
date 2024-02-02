@@ -666,7 +666,7 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 #else
 		rlimit_value = strtoul (lim_value, &endptr, 10);
 #endif
-		if (rlimit_value == 0 && value_orig == endptr) {
+		if (*endptr != '\0') {
 			pam_syslog(pamh, LOG_DEBUG,
 				   "wrong limit value '%s' for limit type '%s'",
 				   lim_value, lim_type);
