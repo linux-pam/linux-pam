@@ -550,7 +550,6 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
     int int_value = 0;
     rlim_t rlimit_value = 0;
     char *endptr;
-    const char *value_orig = lim_value;
 
     if (ctrl & PAM_DEBUG_ARG)
 	 pam_syslog(pamh, LOG_DEBUG, "%s: processing %s %s %s for %s",
@@ -654,7 +653,7 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 		temp = strtol (lim_value, &endptr, 10);
 		temp = temp < INT_MAX ? temp : INT_MAX;
 		int_value = temp > INT_MIN ? temp : INT_MIN;
-		if (int_value == 0 && value_orig == endptr) {
+		if (int_value == 0 && lim_value == endptr) {
 			pam_syslog(pamh, LOG_DEBUG,
 				   "wrong limit value '%s' for limit type '%s'",
 				   lim_value, lim_type);
@@ -666,7 +665,7 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 #else
 		rlimit_value = strtoul (lim_value, &endptr, 10);
 #endif
-		if (rlimit_value == 0 && value_orig == endptr) {
+		if (*endptr != '\0' || *lim_value == '-') {
 			pam_syslog(pamh, LOG_DEBUG,
 				   "wrong limit value '%s' for limit type '%s'",
 				   lim_value, lim_type);
