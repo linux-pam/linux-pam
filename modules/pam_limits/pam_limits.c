@@ -882,6 +882,7 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
     FILE *fil;
     char *buf = NULL;
     size_t n = 0;
+    unsigned long long lineno = 0;
 
     /* check for the conf_file */
     if (ctrl & PAM_DEBUG_ARG)
@@ -904,6 +905,8 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
         int rngtype;
         size_t j;
         uid_t min_uid = (uid_t)-1, max_uid = (uid_t)-1;
+
+        lineno++;
 
         line = buf;
         /* skip the leading white space */
@@ -1073,7 +1076,8 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 	    fclose(fil);
 	    return PAM_IGNORE;
         } else {
-            pam_syslog(pamh, LOG_WARNING, "invalid line '%s' - skipped", line);
+            pam_syslog(pamh, LOG_WARNING, "invalid line %llu in '%s' - skipped",
+		       lineno, pl->conf_file);
 	}
     }
     free(buf);
