@@ -532,6 +532,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			  xauth, (const char *[]) {
 			  xauth, "-f", cookiefile, "nlist", display,
 			  NULL}) == 0) {
+		char *cookiedata;
 #ifdef WITH_SELINUX
 		char *context_raw = NULL;
 #endif
@@ -647,15 +648,19 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 
 		/* Get a copy of the filename to save as a data item for
 		 * removal at session-close time. */
-		free(cookiefile);
-		cookiefile = strdup(xauthority + sizeof(XAUTHENV));
+		cookiedata = strdup(xauthority + sizeof(XAUTHENV));
+		if (!cookiedata) {
+			retval = PAM_SESSION_ERR;
+			goto cleanup;
+		}
 
 		/* Save the filename. */
-		if (pam_set_data(pamh, DATANAME, cookiefile, cleanup) != PAM_SUCCESS) {
+		if (pam_set_data(pamh, DATANAME, cookiedata, cleanup) != PAM_SUCCESS) {
 			pam_syslog(pamh, LOG_ERR,
 				   "error saving name of temporary file `%s'",
-				   cookiefile);
-			unlink(cookiefile);
+				   cookiedata);
+			unlink(cookiedata);
+			free(cookiedata);
 			retval = PAM_SESSION_ERR;
 			goto cleanup;
 		}
@@ -675,7 +680,6 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		  if (asprintf(&d, "DISPLAY=%s", display) < 0)
 		    {
 		      pam_syslog(pamh, LOG_CRIT, "out of memory");
-		      cookiefile = NULL;
 		      retval = PAM_SESSION_ERR;
 		      goto cleanup;
 		    }
@@ -706,22 +710,21 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		if (debug) {
 			pam_syslog(pamh, LOG_DEBUG,
 				   "writing key `%s' to temporary file `%s'",
-				   cookie, cookiefile);
+				   cookie, cookiedata);
 		}
 		if (debug) {
 			pam_syslog(pamh, LOG_DEBUG,
 				  "running \"%s %s %s %s %s\" as %lu/%lu",
-				  xauth, "-f", cookiefile, "nmerge", "-",
+				  xauth, "-f", cookiedata, "nmerge", "-",
 				  (unsigned long) tpwd->pw_uid,
 				  (unsigned long) tpwd->pw_gid);
 		}
 		run_coprocess(pamh, cookie, &tmp,
 			      tpwd->pw_uid, tpwd->pw_gid,
 			      xauth, (const char *[]) {
-			      xauth, "-f", cookiefile, "nmerge", "-", NULL});
+			      xauth, "-f", cookiedata, "nmerge", "-", NULL});
 
 		/* We don't need to keep a copy of these around any more. */
-		cookiefile = NULL;
 		free(tmp);
 	}
 cleanup:
