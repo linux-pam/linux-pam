@@ -821,7 +821,6 @@ _clean_var(VAR *var)
     var->value = NULL;    /* never has memory specific to it */
     var->defval = NULL;
     var->override = NULL;
-    return;
 }
 
 static int

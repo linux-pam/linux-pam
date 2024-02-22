@@ -125,7 +125,6 @@ set_umask (const char *value)
       ((mask == UINT_MAX) && (errno == ERANGE)))
     return;
   umask (mask);
-  return;
 }
 
 /* Set the process nice, ulimit, and umask from the

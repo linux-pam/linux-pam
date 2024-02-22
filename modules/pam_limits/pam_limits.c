@@ -771,7 +771,6 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	    }
 	}
     }
-    return;
 }
 
 static int
