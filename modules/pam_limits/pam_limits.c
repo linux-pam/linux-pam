@@ -68,7 +68,7 @@
 #define LIMIT_RANGE_MIN     2 /* only minimum uid/gid specified (min_uid:) */
 #define LIMIT_RANGE_MM      3 /* both min and max uid/gid specified (min_uid:max_uid) */
 
-static const char *limits_def_names[] = {
+static const char *const limits_def_names[] = {
        "USER",
        "GROUP",
        "ALLGROUP",
@@ -323,7 +323,7 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
 }
 
 #ifdef __linux__
-static const char *lnames[RLIM_NLIMITS] = {
+static const char *const lnames[RLIM_NLIMITS] = {
         [RLIMIT_CPU] = "Max cpu time",
         [RLIMIT_FSIZE] = "Max file size",
         [RLIMIT_DATA] = "Max data size",

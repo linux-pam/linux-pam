@@ -84,7 +84,7 @@ static int lookup(const char *name, const char *list, char **_user)
 	}
     } else {
 #define MAX_L 2
-	static const char *l[MAX_L] = { "ftp", "anonymous" };
+	static const char *const l[MAX_L] = { "ftp", "anonymous" };
 	int i;
 
 	for (i=0; i<MAX_L; ++i) {

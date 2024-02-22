@@ -178,7 +178,7 @@ tok
 
 const char *old_to_new_ctrl_flag(const char *old)
 {
-    static const char *clist[] = {
+    static const char *const clist[] = {
 	"requisite",
 	"required",
 	"sufficient",

@@ -206,7 +206,7 @@ static void cleanup_protect_data(pam_handle_t *pamh UNUSED , void *data, int err
 	unprotect_dirs(data);
 }
 
-static char *expand_variables(const char *orig, const char *var_names[], const char *var_values[])
+static char *expand_variables(const char *orig, const char *const var_names[], const char *var_values[])
 {
 	const char *src = orig;
 	char *dst;
@@ -402,9 +402,9 @@ static int parse_method(char *method, struct polydir_s *poly,
 {
     enum polymethod pm;
     char *sptr = NULL;
-    static const char *method_names[] = { "user", "context", "level", "tmpdir",
+    static const char *const method_names[] = { "user", "context", "level", "tmpdir",
 	"tmpfs", NULL };
-    static const char *flag_names[] = { "create", "noinit", "iscript",
+    static const char *const flag_names[] = { "create", "noinit", "iscript",
 	"shared", "mntopts", NULL };
     static const unsigned int flag_values[] = { POLYDIR_CREATE, POLYDIR_NOINIT,
 	POLYDIR_ISCRIPT, POLYDIR_SHARED, POLYDIR_MNTOPTS };
@@ -487,7 +487,7 @@ static int process_line(char *line, const char *home, const char *rhome,
     struct polydir_s *poly;
     int retval = 0;
     char **config_options = NULL;
-    static const char *var_names[] = {"HOME", "USER", NULL};
+    static const char *const var_names[] = {"HOME", "USER", NULL};
     const char *var_values[] = {home, idata->user};
     const char *rvar_values[] = {rhome, idata->ruser};
     size_t len;
