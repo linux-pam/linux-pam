@@ -118,7 +118,7 @@ do {                                                                       \
 	if (cntrl) {                                                       \
 	    uint32_t __size;                                              \
                                                                            \
-	    __size = PAM_BP_MIN_SIZE + data_length;                        \
+	    __size = PAM_BP_MIN_SIZE + (data_length);                      \
 	    if ((*(old_p) = PAM_BP_CALLOC(1, 1+__size))) {                 \
 		__PAM_BP_WOCTET(*(old_p), 3) =  __size      & 0xFF;        \
 		__PAM_BP_WOCTET(*(old_p), 2) = (__size>>=8) & 0xFF;        \
@@ -129,7 +129,7 @@ do {                                                                       \
 		PAM_BP_ASSERT("out of memory for binary prompt");          \
 	    }                                                              \
 	} else {                                                           \
-	    *old_p = NULL;                                                 \
+	    *(old_p) = NULL;                                               \
 	}                                                                  \
     } else {                                                               \
 	PAM_BP_ASSERT("programming error, invalid binary prompt pointer"); \
