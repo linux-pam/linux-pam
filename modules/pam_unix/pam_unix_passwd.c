@@ -779,7 +779,7 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 			 * password is acceptable.
 			 */
 
-			if (*(const char *)pass_new == '\0') {	/* "\0" password = NULL */
+			if (*pass_new == '\0') {	/* "\0" password = NULL */
 				pass_new = NULL;
 			}
 			retval = _pam_unix_approve_pass(pamh, ctrl, pass_old,
