@@ -509,6 +509,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 			goto cleanup;
 		}
 	} else if (asprintf(&cookiefile, "%s/%s", rpwd->pw_dir, XAUTHDEF) < 0) {
+		cookiefile = NULL;
 		retval = PAM_SESSION_ERR;
 		goto cleanup;
 	}
