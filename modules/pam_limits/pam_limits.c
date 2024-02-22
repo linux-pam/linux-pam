@@ -62,7 +62,7 @@
 #define LIMITS_DEF_KERNEL   5 /* limit was set from /proc/1/limits */
 #define LIMITS_DEF_NONE     6 /* this limit was not set yet */
 
-#define LIMIT_RANGE_ERR    -1 /* error in specified uid/gid range */
+#define LIMIT_RANGE_ERR  (-1) /* error in specified uid/gid range */
 #define LIMIT_RANGE_NONE    0 /* no range specified */
 #define LIMIT_RANGE_ONE     1 /* exact uid/gid specified (:max_uid)*/
 #define LIMIT_RANGE_MIN     2 /* only minimum uid/gid specified (min_uid:) */
@@ -100,11 +100,11 @@ struct pam_limit_s {
     char *login_group;
 };
 
-#define LIMIT_LOGIN RLIM_NLIMITS+1
-#define LIMIT_NUMSYSLOGINS RLIM_NLIMITS+2
+#define LIMIT_LOGIN (RLIM_NLIMITS+1)
+#define LIMIT_NUMSYSLOGINS (RLIM_NLIMITS+2)
 
-#define LIMIT_PRI RLIM_NLIMITS+3
-#define LIMIT_NONEWPRIVS RLIM_NLIMITS+4
+#define LIMIT_PRI (RLIM_NLIMITS+3)
+#define LIMIT_NONEWPRIVS (RLIM_NLIMITS+4)
 
 #define LIMIT_SOFT  1
 #define LIMIT_HARD  2
@@ -389,7 +389,7 @@ static rlim_t str2rlim_t(char *value) {
         pos--; \
         while (pos && line[pos] != ' ') pos--; \
         if (!pos) continue; \
-        item = line + pos + 1; \
+        (item) = line + pos + 1; \
 }
 
 static void parse_kernel_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)

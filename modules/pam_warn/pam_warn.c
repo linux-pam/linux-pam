@@ -17,8 +17,8 @@
 /* some syslogging */
 
 #define OBTAIN(item, value, default_value)  do {                \
-     (void) pam_get_item(pamh, item, &value);                   \
-     value = value ? value : default_value ;                    \
+     (void) pam_get_item(pamh, item, &(value));                 \
+     (value) = (value) ? (value) : (default_value) ;            \
 } while (0)
 
 static void log_items(pam_handle_t *pamh, const char *function, int flags)

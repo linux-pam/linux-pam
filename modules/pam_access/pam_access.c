@@ -85,7 +85,7 @@
 #define ALL             2
 #define YES             1
 #define NO              0
-#define NOMATCH        -1
+#define NOMATCH       (-1)
 
  /*
   * A structure to bundle up all login-related information to keep the

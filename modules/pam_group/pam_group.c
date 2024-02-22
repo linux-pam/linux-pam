@@ -513,7 +513,7 @@ static int find_member(const char *string, int *at)
 }
 
 #define GROUP_BLK 10
-#define blk_size(len) (((len-1 + GROUP_BLK)/GROUP_BLK)*GROUP_BLK)
+#define blk_size(len) ((((len)-1 + GROUP_BLK)/GROUP_BLK)*GROUP_BLK)
 
 static int mkgrplist(pam_handle_t *pamh, char *buf, gid_t **list, int len)
 {

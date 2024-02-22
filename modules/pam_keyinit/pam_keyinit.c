@@ -23,9 +23,9 @@
 #include <sys/syscall.h>
 #include <stdatomic.h>
 
-#define KEY_SPEC_SESSION_KEYRING	-3 /* ID for session keyring */
-#define KEY_SPEC_USER_KEYRING		-4 /* ID for UID-specific keyring */
-#define KEY_SPEC_USER_SESSION_KEYRING	-5 /* - key ID for UID-session keyring */
+#define KEY_SPEC_SESSION_KEYRING	(-3) /* ID for session keyring */
+#define KEY_SPEC_USER_KEYRING		(-4) /* ID for UID-specific keyring */
+#define KEY_SPEC_USER_SESSION_KEYRING	(-5) /* - key ID for UID-session keyring */
 
 #define KEYCTL_GET_KEYRING_ID		0 /* ask for a keyring's ID */
 #define KEYCTL_JOIN_SESSION_KEYRING	1 /* start named session keyring */
