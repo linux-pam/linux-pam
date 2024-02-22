@@ -48,7 +48,7 @@
 
 /* components of the pam_handle structure */
 
-#define _PAM_INVALID_RETVAL  -1    /* default value for cached_retval */
+#define _PAM_INVALID_RETVAL  (-1)    /* default value for cached_retval */
 
 struct handler {
     int handler_type;
@@ -193,14 +193,14 @@ struct pam_handle {
 
 #define _PAM_ACTION_IS_JUMP(x)  ((x) > 0)
 #define _PAM_ACTION_IGNORE      0
-#define _PAM_ACTION_OK         -1
-#define _PAM_ACTION_DONE       -2
-#define _PAM_ACTION_BAD        -3
-#define _PAM_ACTION_DIE        -4
-#define _PAM_ACTION_RESET      -5
+#define _PAM_ACTION_OK         (-1)
+#define _PAM_ACTION_DONE       (-2)
+#define _PAM_ACTION_BAD        (-3)
+#define _PAM_ACTION_DIE        (-4)
+#define _PAM_ACTION_RESET      (-5)
 /* Add any new entries here.  Will need to change ..._UNDEF and then
  * need to change pam_tokens.h */
-#define _PAM_ACTION_UNDEF      -6   /* this is treated as an error
+#define _PAM_ACTION_UNDEF      (-6)   /* this is treated as an error
 				       ( = _PAM_ACTION_BAD) */
 
 #define PAM_SUBSTACK_MAX_LEVEL 16   /* maximum level of substacks */

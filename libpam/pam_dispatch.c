@@ -18,8 +18,8 @@
 
 /* impression codes - this gives some sense to the logical choices */
 #define _PAM_UNDEF     0
-#define _PAM_POSITIVE +1
-#define _PAM_NEGATIVE -1
+#define _PAM_POSITIVE (+1)
+#define _PAM_NEGATIVE (-1)
 
 /* frozen chain required codes */
 #define _PAM_PLEASE_FREEZE  0

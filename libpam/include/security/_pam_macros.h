@@ -34,7 +34,7 @@ do {                                    \
      PAM_DEPRECATED register char *xx_; \
      register unsigned int i_ = 0;      \
      if ((xx_=(x)))                     \
-        for (;i_<n; i_++)               \
+        for (;i_<(n); i_++)             \
             xx_[i_] = 0;                \
 } while (0)
 
@@ -45,7 +45,7 @@ do {                                    \
 #define _pam_drop(X) \
 do {                 \
     free(X);         \
-    X=NULL;          \
+    (X)=NULL;        \
 } while (0)
 
 /*
@@ -53,16 +53,16 @@ do {                 \
  */
 
 #define _pam_drop_reply(/* struct pam_response * */ reply, /* int */ replies) \
-do {                                              \
-    PAM_DEPRECATED int reply_i;                   \
-                                                  \
-    for (reply_i=0; reply_i<replies; ++reply_i) { \
-	if (reply[reply_i].resp) {                \
-	    _pam_overwrite(reply[reply_i].resp);  \
-	    free(reply[reply_i].resp);            \
-	}                                         \
-    }                                             \
-    free(reply);                                  \
+do {                                                \
+    PAM_DEPRECATED int reply_i;                     \
+                                                    \
+    for (reply_i=0; reply_i<(replies); ++reply_i) { \
+	if ((reply)[reply_i].resp) {                \
+	    _pam_overwrite((reply)[reply_i].resp);  \
+	    free((reply)[reply_i].resp);            \
+	}                                           \
+    }                                               \
+    free(reply);                                    \
 } while (0)
 
 /* some debugging code */
