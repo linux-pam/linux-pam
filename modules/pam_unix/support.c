@@ -317,7 +317,8 @@ static void _cleanup_failures(pam_handle_t * pamh, void *fl, int err)
 				         tty ? (const char *)tty : "", ruser ? (const char *)ruser : "",
 				         rhost ? (const char *)rhost : "",
 				         (failure->user && failure->user[0] != '\0')
-				          ? " user=" : "", failure->user
+				          ? " user=" : "",
+					 failure->user ? failure->user : ""
 				);
 
 				if (failure->count > UNIX_MAX_RETRIES) {
@@ -836,7 +837,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 					         rhost ? (const char *)rhost : "",
 					         (new->user && new->user[0] != '\0')
 					          ? " user=" : "",
-					         new->user
+					         new->user ? new->user : ""
 					);
 					new->count = 1;
 				}
