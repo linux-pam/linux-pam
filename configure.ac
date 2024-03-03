@@ -475,9 +475,10 @@ fi
 AC_SUBST(LIBDB)
 
 AC_ARG_ENABLE([nis],
-        AS_HELP_STRING([--disable-nis], [Disable building NIS/YP support in pam_unix]))
+        AS_HELP_STRING([--disable-nis], [Disable building NIS/YP support in pam_unix]),
+        WITH_NIS=$enableval, WITH_NIS=check)
 
-AS_IF([test "x$enable_nis" != "xno"], [
+if test "$WITH_NIS" != "no" ; then
   old_CFLAGS=$CFLAGS
   old_CPPFLAGS=$CPPFLAGS
   old_LIBS=$LIBS
@@ -510,7 +511,7 @@ AS_IF([test "x$enable_nis" != "xno"], [
   CFLAGS="$old_CFLAGS"
   CPPFLAGS="$old_CPPFLAGS"
   LIBS="$old_LIBS"
-])
+fi
 
 AC_SUBST([NIS_CFLAGS])
 AC_SUBST([NIS_LIBS])
@@ -518,6 +519,8 @@ AM_CONDITIONAL([HAVE_NIS], [test "x$enable_nis" != "xno"])
 if test "x$enable_nis" != "xno" ; then
    AC_DEFINE([HAVE_NIS], 1,
 	     [Defines that NIS should be used])
+elif test "$WITH_NIS" = "yes" ; then
+    AC_MSG_ERROR([NIS/YP support not available])
 fi
 
 AC_ARG_ENABLE([usergroups],
