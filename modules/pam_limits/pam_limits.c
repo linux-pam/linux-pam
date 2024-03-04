@@ -1255,6 +1255,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
     int ctrl;
     struct pam_limit_s plstruct;
     struct pam_limit_s *pl = &plstruct;
+    char *free_filename = NULL;
 
     D(("called."));
 
@@ -1315,13 +1316,18 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
             if (retval != PAM_SUCCESS)
                 break;
         }
-        for (i = 0; filename_list[i] != NULL; i++)
-            free(filename_list[i]);
+        for (i = 0; filename_list[i] != NULL; i++) {
+	    if (filename_list[i] == pl->conf_file)
+		free_filename = filename_list[i];
+	    else
+		free(filename_list[i]);
+	}
         free(filename_list);
     }
 
     if (retval == PAM_IGNORE) {
         D(("the configuration file ('%s') has an applicable '<domain> -' entry", pl->conf_file));
+        free(free_filename);
         free(pl->login_group);
         return PAM_SUCCESS;
     }
@@ -1330,11 +1336,13 @@ out:
     if (retval != PAM_SUCCESS)
     {
 	pam_syslog(pamh, LOG_ERR, "error parsing the configuration file: '%s' ", pl->conf_file);
+	free(free_filename);
 	free(pl->login_group);
 	return retval;
     }
 
     retval = setup_limits(pamh, pwd->pw_name, pwd->pw_uid, ctrl, pl);
+    free(free_filename);
     free(pl->login_group);
     if (retval & LOGIN_ERR)
 	pam_error(pamh, _("There were too many logins for '%s'."),
