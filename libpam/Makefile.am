@@ -33,7 +33,7 @@ endif
 
 lib_LTLIBRARIES = libpam.la
 
-libpam_la_SOURCES = pam_account.c pam_auth.c pam_data.c pam_delay.c \
+libpam_la_SOURCES = pam_account.c pam_alloc.c pam_auth.c pam_data.c pam_delay.c \
 	pam_dispatch.c pam_end.c pam_env.c pam_get_authtok.c \
 	pam_handlers.c pam_item.c \
 	pam_misc.c pam_password.c pam_prelude.c \
