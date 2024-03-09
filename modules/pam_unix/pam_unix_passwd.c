@@ -528,6 +528,10 @@ static int _unix_verify_shadow(pam_handle_t *pamh, const char *user, unsigned lo
 	else if (retval == PAM_SUCCESS)
 		retval = check_shadow_expiry(pamh, spent, &daysleft);
 
+	if (on(UNIX_EXPIRED_ONLY, ctrl)) {
+		return retval == PAM_NEW_AUTHTOK_REQD ? PAM_SUCCESS : PAM_AUTHTOK_ERR;
+	}
+
 	if (on(UNIX__IAMROOT, ctrl) || retval == PAM_NEW_AUTHTOK_REQD)
 		return PAM_SUCCESS;
 
@@ -708,7 +712,10 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		pass_old = NULL;
 		retval = _unix_verify_shadow(pamh,user, ctrl);
 		if (retval == PAM_AUTHTOK_ERR) {
-			if (off(UNIX__IAMROOT, ctrl))
+			if (on(UNIX_EXPIRED_ONLY, ctrl))
+				_make_remark(pamh, ctrl, PAM_ERROR_MSG,
+					     _("Your password is not expired."));
+			else if (off(UNIX__IAMROOT, ctrl))
 				_make_remark(pamh, ctrl, PAM_ERROR_MSG,
 					     _("You must wait longer to change your password."));
 			else
