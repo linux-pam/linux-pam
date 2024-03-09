@@ -15,6 +15,10 @@
 #include <string.h>
 #include <syslog.h>
 
+#ifdef HAVE_BINDTEXTDOMAIN
+#include <libintl.h>
+#endif
+
 static int _pam_start_internal (
     const char *service_name,
     const char *user,
