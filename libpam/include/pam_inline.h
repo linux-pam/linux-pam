@@ -175,4 +175,20 @@ pam_read_passwords(int fd, int npass, char **passwords)
 	return i;
 }
 
+static inline int
+pam_consttime_streq(const char *userinput, const char *secret) {
+	volatile const char *u = userinput, *s = secret;
+	volatile int ret = 0;
+
+	while (*u != '\0') {
+		ret |= *u++ ^ *s;
+
+		s += !!*s;
+	}
+
+	ret |= *u ^ *s;
+
+	return ret == 0;
+}
+
 #endif /* PAM_INLINE_H */
