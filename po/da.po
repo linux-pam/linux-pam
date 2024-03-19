@@ -7,13 +7,14 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # scootergrisen <scootergrisen@gmail.com>, 2020.
 # Dmitry V. Levin <ldv@altlinux.org>, 2021.
+# Alan Mortensen <alanmortensen.am@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2024-01-16 21:11+0000\n"
-"PO-Revision-Date: 2021-07-22 00:54+0000\n"
-"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
+"PO-Revision-Date: 2024-03-19 18:57+0100\n"
+"Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <https://translate.fedoraproject.org/projects/linux-"
 "pam/master/da/>\n"
 "Language: da\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:61
@@ -233,17 +234,18 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s fejlede: ukendt status 0x%x"
 
 #: modules/pam_faillock/main.c:130
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
-"Anvendelse: %s [--dir /sti/til/tally-mappe] [--user brugernavn] [--reset]\n"
+"Anvendelse: %s [--dir /sti/til/tally-mappe] [--user brugernavn] [--reset] "
+"[--legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "Login           Failures    Latest failure         From\n"
-msgstr "Login           Fejlende Sidste fejl     Fra\n"
+msgstr "Login           Fejl        Seneste fejl           Fra\n"
 
 #: modules/pam_faillock/pam_faillock.c:408
 #, c-format
@@ -317,41 +319,40 @@ msgid "There were too many logins for '%s'."
 msgstr "Der var for mange logins for '%s'."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "Du har ny e-post."
+msgstr "Der er ingen nye mails."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
-msgstr "Du har ny e-post."
+msgstr "Der er nye mails."
 
 #: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
-msgstr "Du har gammel e-post."
+msgstr "Der er gamle e-mails."
 
 #: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
-msgstr "Du har e-post."
+msgstr "Der er mails."
 
 #: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr "Du har ingen e-post i mappe %s."
+msgstr "Der er ingen mails i mappen %s."
 
 #: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr "Du har ny e-post i mappe %s."
+msgstr "Der er nye mails i mappen %s."
 
 #: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr "Du har gammel e-post i mappe %s."
+msgstr "Der er gamle mails i mappen %s."
 
 #: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
-msgstr "Du har e-post i mappe %s."
+msgstr "Der er mails i mappen %s."
 
 #: modules/pam_mkhomedir/pam_mkhomedir.c:123
 #, c-format
@@ -490,80 +491,3 @@ msgstr "Ændrer adgangskode for %s."
 #: modules/pam_unix/pam_unix_passwd.c:713
 msgid "You must wait longer to change your password."
 msgstr "Du skal vente længere for at ændre din adgangskode."
-
-#~ msgid "You have no mail."
-#~ msgstr "Du har ingen post."
-
-#~ msgid "is the same as the old one"
-#~ msgstr "er den samme som den gamle"
-
-#~ msgid "memory allocation error"
-#~ msgstr "fejl under hukommelsesallokering"
-
-#~ msgid "is a palindrome"
-#~ msgstr "det staves ens forfra og bagfra"
-
-#~ msgid "case changes only"
-#~ msgstr "kun forskel i store/små bogstaver"
-
-#~ msgid "is too similar to the old one"
-#~ msgstr "ligner for meget den gamle"
-
-#~ msgid "is too simple"
-#~ msgstr "er for simpel"
-
-#~ msgid "is rotated"
-#~ msgstr "er roteret"
-
-#~ msgid "not enough character classes"
-#~ msgstr "ikke nok tegnklasser"
-
-#~ msgid "contains too many same characters consecutively"
-#~ msgstr "indeholder for mange af de samme tegn"
-
-#~ msgid "contains too long of a monotonic character sequence"
-#~ msgstr "indeholder en for lang sekvens af monotone tegn"
-
-#~ msgid "contains the user name in some form"
-#~ msgstr "indeholder brugernavnet i en eller anden form"
-
-#~ msgid "BAD PASSWORD: %s"
-#~ msgstr "DÅRLIG ADGANGSKODE: %s"
-
-#~ msgid "The account is temporarily locked (%ld seconds left)."
-#~ msgstr "Kontoen er midlertidigt låst (%ld sekunder tilbage)."
-
-#~ msgid "Authentication error"
-#~ msgstr "Fejl ved godkendelse"
-
-#~ msgid "Service error"
-#~ msgstr "Fejl ved tjeneste"
-
-#~ msgid "Unknown user"
-#~ msgstr "Ukendt bruger"
-
-#~ msgid "Unknown error"
-#~ msgstr "Ukendt fejl"
-
-#~ msgid "%s: Bad number given to --reset=\n"
-#~ msgstr "%s: Der er angivet et forkert tal til --reset=\n"
-
-#~ msgid "%s: Unrecognised option %s\n"
-#~ msgstr "%s: Ikke genkendt indstilling %s\n"
-
-#~ msgid ""
-#~ "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
-#~ msgstr ""
-#~ "%s: [--file rodfilnavn] [--user brugernavn] [--reset[=n]] [--quiet]\n"
-
-#~ msgid "%s: Can't reset all users to non-zero\n"
-#~ msgstr "%s: Alle brugere kunne ikke nulstilles til ikke-nul\n"
-
-#~ msgid ""
-#~ "%s: [-f rooted-filename] [--file rooted-filename]\n"
-#~ "   [-u username] [--user username]\n"
-#~ "   [-r] [--reset[=n]] [--quiet]\n"
-#~ msgstr ""
-#~ "%s: [-f rodfilnavn] [--file rodfilnavn]\n"
-#~ "   [-u brugernavn] [--user brugernavn]\n"
-#~ "   [-r] [--reset[=n]] [--quiet]\n"
