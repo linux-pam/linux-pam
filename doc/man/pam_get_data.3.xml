@@ -52,6 +52,9 @@
       <emphasis>data</emphasis> pointing to the object. Note,
       this data is <emphasis>not</emphasis> a copy and should be
       treated as <emphasis>constant</emphasis> by the module.
+      If <emphasis>data</emphasis> is <emphasis>NULL</emphasis>
+      this function can be used to check if the data is available
+      without getting it.
     </para>
   </refsect1>
 
@@ -62,7 +65,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Data was successful retrieved.
+             Data was successful retrieved or found.
           </para>
         </listitem>
       </varlistentry>

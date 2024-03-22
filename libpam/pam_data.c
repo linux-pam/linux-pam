@@ -137,7 +137,10 @@ int pam_get_data(
 
     data = _pam_locate_data(pamh, module_data_name);
     if (data && data->data) {
-	*datap = data->data;
+	if (datap) {
+	    *datap = data->data;
+	}
+
 	return PAM_SUCCESS;
     }
 

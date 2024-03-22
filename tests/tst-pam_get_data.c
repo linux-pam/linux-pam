@@ -214,6 +214,29 @@ main (void)
       return 1;
     }
 
+  /* 6: check for call from module with NULL as data pointer */
+  __PAM_TO_MODULE(pamh);
+  dataptr = strdup ("test6");
+  retval = pam_set_data (pamh, "tst-pam_get_data-6", dataptr,
+			 tst_str_data_cleanup);
+  if (retval != PAM_SUCCESS)
+    {
+      free (dataptr);
+      fprintf (stderr,
+	       "test6: pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  retval = pam_get_data (pamh, "tst-pam_get_data-6", NULL);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test6: pam_set_data did not fail as expected failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
   __PAM_TO_APP(pamh);
 
   retval = pam_end (pamh, 987);
