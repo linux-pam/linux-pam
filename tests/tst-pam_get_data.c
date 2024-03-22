@@ -165,6 +165,55 @@ main (void)
       return 1;
     }
 
+  /* 4: Check that pam an error is returned when getting NULL data */
+  __PAM_TO_MODULE(pamh);
+  dataptr = strdup ("test4a");
+  retval = pam_set_data (pamh, "tst-pam_get_data-4", dataptr,
+			 tst_str_data_cleanup);
+  if (retval != PAM_SUCCESS)
+    {
+      free (dataptr);
+      fprintf (stderr,
+	       "test4a: first pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  retval = pam_get_data (pamh, "tst-pam_get_data-4", &constdataptr);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test4a: first pam_get_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  if (constdataptr != dataptr)
+    {
+      fprintf (stderr,
+	       "test4a: first pam_get_data data is not matching %p: %p\n",
+	       constdataptr, dataptr);
+      return 1;
+    }
+
+  retval = pam_set_data (pamh, "tst-pam_get_data-4", NULL, NULL);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test4a: second pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  retval = pam_get_data (pamh, "tst-pam_get_data-4", &constdataptr);
+  if (retval != PAM_NO_MODULE_DATA)
+    {
+      fprintf (stderr,
+	       "test4a: pam_set_data did not fail as expected failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
   __PAM_TO_APP(pamh);
 
   retval = pam_end (pamh, 987);
