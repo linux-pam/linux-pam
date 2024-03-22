@@ -165,6 +165,226 @@ main (void)
       return 1;
     }
 
+  /* 4: Check that pam an error is returned when getting NULL data */
+  __PAM_TO_MODULE(pamh);
+  dataptr = strdup ("test4a");
+  retval = pam_set_data (pamh, "tst-pam_get_data-4", dataptr,
+			 tst_str_data_cleanup);
+  if (retval != PAM_SUCCESS)
+    {
+      free (dataptr);
+      fprintf (stderr,
+	       "test4a: first pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  retval = pam_get_data (pamh, "tst-pam_get_data-4", &constdataptr);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test4a: first pam_get_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  if (constdataptr != dataptr)
+    {
+      fprintf (stderr,
+	       "test4a: first pam_get_data data is not matching %p: %p\n",
+	       constdataptr, dataptr);
+      return 1;
+    }
+
+  retval = pam_set_data (pamh, "tst-pam_get_data-4", NULL, NULL);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test4a: second pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  retval = pam_get_data (pamh, "tst-pam_get_data-4", &constdataptr);
+  if (retval != PAM_NO_MODULE_DATA)
+    {
+      fprintf (stderr,
+	       "test4a: pam_set_data did not fail as expected failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  /* 5: get pam data can get values after unsetting them */
+  __PAM_TO_MODULE(pamh);
+  dataptr = strdup ("test5a");
+  retval = pam_set_data (pamh, "tst-pam_set_data-5a", dataptr,
+			 tst_str_data_cleanup);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5a: pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  dataptr = strdup ("test5b");
+  retval = pam_set_data (pamh, "tst-pam_set_data-5b", dataptr,
+			 tst_str_data_cleanup);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5b: pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  dataptr = strdup ("test5c");
+  retval = pam_set_data (pamh, "tst-pam_set_data-5c", dataptr,
+			 tst_str_data_cleanup);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5c: pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  retval = pam_get_data (pamh, "tst-pam_set_data-5a", &constdataptr);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5d: pam_get_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+  retval = pam_get_data (pamh, "tst-pam_set_data-5b", &constdataptr);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5e: pam_get_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+  retval = pam_get_data (pamh, "tst-pam_set_data-5c", &constdataptr);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5f: pam_get_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  retval = pam_set_data (pamh, "tst-pam_set_data-5b", NULL, NULL);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5g: pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  retval = pam_get_data (pamh, "tst-pam_set_data-5a", &constdataptr);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5h: pam_get_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+  retval = pam_get_data (pamh, "tst-pam_set_data-5b", &constdataptr);
+  if (retval != PAM_NO_MODULE_DATA)
+    {
+      fprintf (stderr,
+	       "test5i: pam_get_data did not fail as expected failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+  retval = pam_get_data (pamh, "tst-pam_set_data-5c", &constdataptr);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5j: pam_get_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  retval = pam_set_data (pamh, "tst-pam_set_data-5a", NULL, NULL);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5k: pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+  retval = pam_get_data (pamh, "tst-pam_set_data-5a", &constdataptr);
+  if (retval != PAM_NO_MODULE_DATA)
+    {
+      fprintf (stderr,
+	       "test5l: pam_get_data did not fail as expected failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+  retval = pam_get_data (pamh, "tst-pam_set_data-5b", &constdataptr);
+  if (retval != PAM_NO_MODULE_DATA)
+    {
+      fprintf (stderr,
+	       "test5m: pam_get_data did not fail as expected failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+  retval = pam_get_data (pamh, "tst-pam_set_data-5c", &constdataptr);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5n: pam_get_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  retval = pam_set_data (pamh, "tst-pam_set_data-5c", NULL, NULL);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5o: pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+  retval = pam_get_data (pamh, "tst-pam_set_data-5a", &constdataptr);
+  if (retval != PAM_NO_MODULE_DATA)
+    {
+      fprintf (stderr,
+	       "test5p: pam_get_data did not fail as expected failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+  retval = pam_get_data (pamh, "tst-pam_set_data-5b", &constdataptr);
+  if (retval != PAM_NO_MODULE_DATA)
+    {
+      fprintf (stderr,
+	       "test5q: pam_get_data did not fail as expected failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+  retval = pam_get_data (pamh, "tst-pam_set_data-5c", &constdataptr);
+  if (retval != PAM_NO_MODULE_DATA)
+    {
+      fprintf (stderr,
+	       "test5r: pam_get_data did not fail as expected failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
+  dataptr = strdup ("test5d");
+  retval = pam_set_data (pamh, "tst-pam_set_data-5d", dataptr,
+			 tst_str_data_cleanup);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test5s: pam_set_data failed: %d (%s)\n",
+	       retval, pam_strerror (pamh, retval));
+      return 1;
+    }
+
   __PAM_TO_APP(pamh);
 
   retval = pam_end (pamh, PAM_SUCCESS);

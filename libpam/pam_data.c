@@ -39,20 +39,27 @@
 #include <string.h>
 
 static struct pam_data *_pam_locate_data(const pam_handle_t *pamh,
-					 const char *name)
+					 const char *name,
+					 struct pam_data **out_prev_data)
 {
     struct pam_data *data;
+    struct pam_data *prev;
 
     D(("called"));
 
     IF_NO_PAMH(pamh, NULL);
 
     data = pamh->data;
+    prev = NULL;
 
     while (data) {
 	if (!strcmp(data->name, name)) {
+	    if (out_prev_data != NULL) {
+		*out_prev_data = prev;
+	    }
 	    return data;
 	}
+	prev = data;
 	data = data->next;
     }
 
@@ -66,6 +73,7 @@ int pam_set_data(
     void (*cleanup)(pam_handle_t *pamh, void *data, int error_status))
 {
     struct pam_data *data_entry;
+    struct pam_data *prev_entry;
 
     D(("called"));
 
@@ -84,11 +92,24 @@ int pam_set_data(
 
     /* first check if there is some data already. If so clean it up */
 
-    if ((data_entry = _pam_locate_data(pamh, module_data_name))) {
+    if ((data_entry = _pam_locate_data(pamh, module_data_name, &prev_entry))) {
 	if (data_entry->cleanup) {
 	    data_entry->cleanup(pamh, data_entry->data,
 				PAM_DATA_REPLACE | PAM_SUCCESS );
 	}
+	if (data == NULL) {
+	     if (prev_entry != NULL) {
+		prev_entry->next = data_entry->next;
+		pamh->data = prev_entry;
+	     } else {
+		pamh->data = data_entry->next;
+	     }
+	    _pam_drop(data_entry->name);
+	    _pam_drop(data_entry);
+	    return PAM_SUCCESS;
+	}
+    } else if (data == NULL) {
+	return PAM_SUCCESS;
     } else if ((data_entry = malloc(sizeof(*data_entry)))) {
 	char *tname;
 
@@ -107,7 +128,7 @@ int pam_set_data(
 	return PAM_BUF_ERR;
     }
 
-    data_entry->data = data;           /* note this could be NULL */
+    data_entry->data = data;           /* note this is never NULL */
     data_entry->cleanup = cleanup;
 
     return PAM_SUCCESS;
@@ -135,7 +156,7 @@ int pam_get_data(
 	return PAM_SYSTEM_ERR;
     }
 
-    data = _pam_locate_data(pamh, module_data_name);
+    data = _pam_locate_data(pamh, module_data_name, NULL);
     if (data) {
 	*datap = data->data;
 	return PAM_SUCCESS;

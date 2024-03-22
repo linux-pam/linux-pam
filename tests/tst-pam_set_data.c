@@ -64,6 +64,14 @@ tst_cleanup (pam_handle_t *pamh UNUSED, void *data, int error_status)
 }
 
 static void
+tst_str_data_cleanup (pam_handle_t *pamh UNUSED, void *data, int error_status)
+{
+  fprintf (stderr, "tst_cleanup was called: data=\"%s\", error_status=%d\n",
+	   (char *)data, error_status);
+  free (data);
+}
+
+static void
 tst_cleanup_3 (pam_handle_t *pamh UNUSED, void *data, int error_status)
 {
   cleanup3_was_called = 1;
@@ -460,6 +468,79 @@ main (void)
     {
       fprintf (stderr,
 	       "test8: pam_set_data failed: %d\n",
+	       retval);
+      return 1;
+    }
+
+  /* 9: set pam data can unset multiple values */
+  __PAM_TO_MODULE(pamh);
+  dataptr = strdup ("test9a");
+  retval = pam_set_data (pamh, "tst-pam_set_data-9a", dataptr,
+			 tst_str_data_cleanup);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test9a: first pam_set_data failed: %d\n",
+	       retval);
+      return 1;
+    }
+
+  dataptr = strdup ("test9b");
+  retval = pam_set_data (pamh, "tst-pam_set_data-9b", dataptr,
+			 tst_str_data_cleanup);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test9b: second pam_set_data failed: %d\n",
+	       retval);
+      return 1;
+    }
+
+  dataptr = strdup ("test9c");
+  retval = pam_set_data (pamh, "tst-pam_set_data-9c", dataptr,
+			 tst_str_data_cleanup);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test9c: third pam_set_data failed: %d\n",
+	       retval);
+      return 1;
+    }
+
+  retval = pam_set_data (pamh, "tst-pam_set_data-9b", NULL, NULL);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test9d: fourth pam_set_data failed: %d\n",
+	       retval);
+      return 1;
+    }
+
+  retval = pam_set_data (pamh, "tst-pam_set_data-9a", NULL, NULL);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test9e: fifth pam_set_data failed: %d\n",
+	       retval);
+      return 1;
+    }
+
+  retval = pam_set_data (pamh, "tst-pam_set_data-9c", NULL, NULL);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test9f: sixth pam_set_data failed: %d\n",
+	       retval);
+      return 1;
+    }
+
+  dataptr = strdup ("test9d");
+  retval = pam_set_data (pamh, "tst-pam_set_data-9d", dataptr,
+			 tst_str_data_cleanup);
+  if (retval != PAM_SUCCESS)
+    {
+      fprintf (stderr,
+	       "test9d: eighth pam_set_data failed: %d\n",
 	       retval);
       return 1;
     }
