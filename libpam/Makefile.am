@@ -12,9 +12,14 @@ CLEANFILES = *~
 
 EXTRA_DIST = libpam.map
 
+if COND_BUILD_LANDLOCK
+ MAYBE_PAM_LANDLOCK = include/security/pam_landlock.h
+endif
+
 include_HEADERS = include/security/_pam_compat.h \
 	include/security/_pam_macros.h include/security/_pam_types.h \
 	include/security/pam_appl.h include/security/pam_modules.h \
+	${MAYBE_PAM_LANDLOCK} \
 	include/security/pam_ext.h include/security/pam_modutil.h
 
 noinst_HEADERS = pam_prelude.h pam_private.h pam_tokens.h \
