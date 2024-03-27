@@ -114,6 +114,19 @@
       Since setting of PAM environment variables can have side effects
       to other modules, this module should be the last one on the stack.
     </para>
+    <para>
+      This module is only executed if the main application calls
+      <citerefentry>
+        <refentrytitle>pam_setcred</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry> or
+      <citerefentry>
+        <refentrytitle>pam_open_session</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>.
+      The module does nothing and returns <emphasis>PAM_IGNORE</emphasis> if called by
+      <citerefentry>
+        <refentrytitle>pam_authenticate</refentrytitle><manvolnum>3</manvolnum>
+      </citerefentry>.
+    </para>
   </refsect1>
 
   <refsect1 xml:id="pam_env-options">
@@ -244,7 +257,11 @@
         <term>PAM_IGNORE</term>
         <listitem>
            <para>
-             No pam_env.conf and environment file was found.
+             No pam_env.conf and environment file was found or the module got
+	     called by
+	     <citerefentry>
+               <refentrytitle>pam_authenticate</refentrytitle><manvolnum>3</manvolnum>
+	     </citerefentry>.
           </para>
         </listitem>
       </varlistentry>
