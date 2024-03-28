@@ -76,9 +76,13 @@ PAMH_ARG_DECL(int verify_pwd_hash,
 
 	strip_hpux_aging(hash);
 	hash_len = strlen(hash);
-	if (!hash_len) {
+
+	if (p && p[0] == '\0' && !nullok) {
+		/* The passed password is empty */
+		retval = PAM_AUTH_ERR;
+	} else if (!hash_len) {
 		/* the stored password is NULL */
-		if (nullok) { /* this means we've succeeded */
+		if (p && p[0] == '\0' && nullok) { /* this means we've succeeded */
 			D(("user has empty password - access granted"));
 			retval = PAM_SUCCESS;
 		} else {
@@ -1109,12 +1113,6 @@ helper_verify_password(const char *name, const char *p, int nullok)
 	if (pwd == NULL || hash == NULL) {
 		helper_log_err(LOG_NOTICE, "check pass; user unknown");
 		retval = PAM_USER_UNKNOWN;
-	} else if (p[0] == '\0' && nullok) {
-		if (hash[0] == '\0') {
-			retval = PAM_SUCCESS;
-		} else {
-			retval = PAM_AUTH_ERR;
-		}
 	} else {
 		retval = verify_pwd_hash(p, hash, nullok);
 	}
