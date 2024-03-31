@@ -25,7 +25,7 @@ static int _pam_start_internal (
     D(("called pam_start: [%s] [%s] [%p] [%p]"
        ,service_name, user, pam_conversation, pamh));
 
-#ifdef HAVE_BINDTEXTDOMAIN
+#if defined HAVE_BINDTEXTDOMAIN && defined ENABLE_NLS
     /* Bind text domain to pull in PAM translations for a case where
        linux-pam is installed to non-default prefix.
 
