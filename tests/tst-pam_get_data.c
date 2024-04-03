@@ -31,9 +31,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include "test_assert.h"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -44,137 +42,59 @@
 #include <pam_private.h>
 
 static void
-tst_str_data_cleanup (pam_handle_t *pamh UNUSED, void *data, int error_status)
+tst_str_data_cleanup(pam_handle_t *pamh UNUSED, void *data, int error_status)
 {
-  fprintf (stderr, "tst_cleanup was called: data=\"%s\", error_status=%d\n",
-	   (char *)data, error_status);
-  free (data);
+	fprintf(stderr,
+		"tst_cleanup was called: data=\"%s\", error_status=%d\n",
+		(char *)data, error_status);
+	free(data);
 }
 
 int
-main (void)
+main(void)
 {
-  const char *service = "dummy";
-  const char *user = "root";
-  struct pam_conv conv = { NULL, NULL };
-  pam_handle_t *pamh;
-  void *dataptr;
-  const void *constdataptr;
-  int retval;
+	const char *service = "dummy";
+	const char *user = "root";
+	struct pam_conv conv = { NULL, NULL };
+	pam_handle_t *pamh;
+	void *dataptr;
+	const void *constdataptr;
 
-  /* 1: Call with NULL as pam handle */
-  retval = pam_get_data (NULL, "tst-pam_get_data-1", &constdataptr);
-  if (retval == PAM_SUCCESS)
-    {
-      fprintf (stderr, "test1: pam_get_data (NULL, ...) returned PAM_SUCCESS\n");
-      return 1;
-    }
+	/* 1: Call with NULL as pam handle */
+	ASSERT_NE(PAM_SUCCESS,
+		  pam_get_data(NULL, "tst-pam_get_data-1", &constdataptr));
 
-  /* setup pam handle */
-  retval = pam_start (service, user, &conv, &pamh);
-  if (retval != PAM_SUCCESS)
-    {
-      fprintf (stderr, "pam_start (%s, %s, &conv, &pamh) returned %d (%s)\n",
-               service, user, retval, pam_strerror (pamh, retval));
-      return 1;
-    }
+	/* setup pam handle */
+	ASSERT_EQ(PAM_SUCCESS, pam_start(service, user, &conv, &pamh));
 
-  /* 2: check for call from application */
-  retval = pam_get_data (pamh, "tst-pam_get_data-2", &constdataptr);
-  if (retval != PAM_SYSTEM_ERR)
-    {
-      fprintf (stderr,
-	       "test2: pam_get_data returned %d when expecting PAM_SYSTEM_ERR\n",
-	       retval);
-      return 1;
-    }
+	/* 2: check for call from application */
+	ASSERT_EQ(PAM_SYSTEM_ERR,
+		  pam_get_data(pamh, "tst-pam_get_data-2", &constdataptr));
 
-  /* 3: Check that pam data is properly set and replaced */
-  __PAM_TO_MODULE(pamh);
-  dataptr = strdup ("test3a");
-  retval = pam_set_data (pamh, "tst-pam_get_data-3", dataptr,
-			 tst_str_data_cleanup);
-  if (retval != PAM_SUCCESS)
-    {
-      free (dataptr);
-      fprintf (stderr,
-	       "test3a: first pam_set_data failed: %d (%s)\n",
-	       retval, pam_strerror (pamh, retval));
-      return 1;
-    }
+	/* 3: Check that pam data is properly set and replaced */
+	__PAM_TO_MODULE(pamh);
 
-  retval = pam_get_data (pamh, "tst-pam_get_data-3", &constdataptr);
-  if (retval != PAM_SUCCESS)
-    {
-      fprintf (stderr,
-	       "test3a: first pam_get_data failed: %d (%s)\n",
-	       retval, pam_strerror (pamh, retval));
-      return 1;
-    }
+	ASSERT_NE(NULL, dataptr = strdup("test3a"));
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_set_data(pamh, "tst-pam_get_data-3", dataptr,
+			       tst_str_data_cleanup));
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_get_data(pamh, "tst-pam_get_data-3", &constdataptr));
+	ASSERT_EQ(dataptr, constdataptr);
+	ASSERT_EQ(0, strcmp((const char *) constdataptr, "test3a"));
 
-  if (constdataptr != dataptr)
-    {
-      fprintf (stderr,
-	       "test3a: first pam_get_data data is not matching %p: %p\n",
-	       constdataptr, dataptr);
-      return 1;
-    }
+	ASSERT_NE(NULL, dataptr = strdup("test3b"));
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_set_data(pamh, "tst-pam_get_data-3", dataptr,
+			       tst_str_data_cleanup));
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_get_data(pamh, "tst-pam_get_data-3", &constdataptr));
+	ASSERT_EQ(dataptr, constdataptr);
+	ASSERT_EQ(0, strcmp((const char *) constdataptr, "test3b"));
 
-  if (strcmp ((const char *) constdataptr, "test3a") != 0)
-    {
-      fprintf (stderr,
-	       "test3a: first pam_get_data strings are not matching: '%s' vs '%s'\n",
-	       (const char *) constdataptr, "test3a");
-      return 1;
-    }
+	__PAM_TO_APP(pamh);
 
-  dataptr = strdup ("test3a");
-  retval = pam_set_data (pamh, "tst-pam_get_data-3", dataptr,
-			 tst_str_data_cleanup);
-  if (retval != PAM_SUCCESS)
-    {
-      free (dataptr);
-      fprintf (stderr,
-	       "test3a: second pam_set_data failed: %d (%s)\n",
-	       retval, pam_strerror (pamh, retval));
-      return 1;
-    }
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 987));
 
-  retval = pam_get_data (pamh, "tst-pam_get_data-3", &constdataptr);
-  if (retval != PAM_SUCCESS)
-    {
-      fprintf (stderr,
-	       "test3a: second pam_get_data failed: %d (%s)\n",
-	       retval, pam_strerror (pamh, retval));
-      return 1;
-    }
-
-  if (constdataptr != dataptr)
-    {
-      fprintf (stderr,
-	       "test3a: second pam_get_data data is not matching %p: %p\n",
-	       constdataptr, dataptr);
-      return 1;
-    }
-
-  if (strcmp ((const char *) constdataptr, "test3a") != 0)
-    {
-      fprintf (stderr,
-	       "test3a: second pam_get_data strings are not matching: '%s' vs '%s'\n",
-	       (const char *) constdataptr, "test3a");
-      return 1;
-    }
-
-  __PAM_TO_APP(pamh);
-
-  retval = pam_end (pamh, 987);
-  if (retval != PAM_SUCCESS)
-    {
-      fprintf (stderr,
-	       "pam_end reported an error: %d (%s)\n",
-	       retval, pam_strerror (pamh, retval));
-      return 1;
-    }
-
-  return 0;
+	return 0;
 }
