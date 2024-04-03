@@ -79,8 +79,7 @@
         <term>PAM_NO_MODULE_DATA</term>
         <listitem>
            <para>
-              Module data not found or there is an entry, but it has
-              the value NULL.
+              No module specific data is present.
           </para>
         </listitem>
       </varlistentry>
