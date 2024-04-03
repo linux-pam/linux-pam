@@ -44,9 +44,10 @@
 static void
 tst_str_data_cleanup(pam_handle_t *pamh UNUSED, void *data, int error_status)
 {
+	const char *q = data ? "\"" : "";
 	fprintf(stderr,
-		"tst_cleanup was called: data=\"%s\", error_status=%d\n",
-		(char *)data, error_status);
+		"tst_cleanup was called: data=%s%s%s, error_status=%d\n",
+		q, data ? (char *) data : "NULL", q, error_status);
 	free(data);
 }
 
@@ -91,6 +92,16 @@ main(void)
 		  pam_get_data(pamh, "tst-pam_get_data-3", &constdataptr));
 	ASSERT_EQ(dataptr, constdataptr);
 	ASSERT_EQ(0, strcmp((const char *) constdataptr, "test3b"));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_set_data(pamh, "tst-pam_get_data-3", NULL,
+			       tst_str_data_cleanup));
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_get_data(pamh, "tst-pam_get_data-3", &constdataptr));
+	ASSERT_EQ(NULL, constdataptr);
+
+	ASSERT_EQ(PAM_NO_MODULE_DATA,
+		  pam_get_data(pamh, "tst-pam_get_data-4", &constdataptr));
 
 	__PAM_TO_APP(pamh);
 
