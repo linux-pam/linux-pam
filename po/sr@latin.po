@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2011-11-30 06:59-0500\n"
 "Last-Translator: Tomáš Mráz <tmraz@fedoraproject.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -317,7 +317,7 @@ msgstr[2] "Bilo je %d neuspelih pokušaja prijave od poslednje uspešne prijave.
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "Bilo je %d neuspelih pokušaja prijave od poslednje uspešne prijave."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Previše prijava za „%s“."
@@ -441,25 +441,25 @@ msgstr "prijava: greška pri grananju: %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Pristup je odobren (poslednji pristup je bio pre %ld sekundi)."
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 #, fuzzy
 msgid "Your account has expired; please contact your system administrator."
 msgstr "Vaš nalog je istekao; obratite se administratoru sistema"
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "Morate odmah da promenite vašu lozinku (nametnuo root)"
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "Morate odmah da promenite vašu lozinku (zastarela je)"
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -468,7 +468,7 @@ msgstr[1] "Upozorenje: vaša lozinka će isteći kroz %d dana"
 msgstr[2] "Upozorenje: vaša lozinka će isteći kroz %d dana"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "Upozorenje: vaša lozinka će isteći kroz %d dana"

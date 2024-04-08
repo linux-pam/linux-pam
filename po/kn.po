@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2013-04-15 04:49-0400\n"
 "Last-Translator: shanky <prasad.mvs@gmail.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/"
@@ -311,7 +311,7 @@ msgstr[0] "ಕೊನೆಯ ಬಾರಿಯ ಯಶಸ್ವಿ ಪ್ರವೇಶ
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "ಕೊನೆಯ ಬಾರಿಯ ಯಶಸ್ವಿ ಪ್ರವೇಶದ ನಂತರ %d ಪ್ರವೇಶದ ಪ್ರಯತ್ನಗಳು ವಿಫಲಗೊಂಡಿದೆ."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s'ಗಾಗಿ ಬಹಳಷ್ಟು ಲಾಗಿನ್ನುಗಳು."
@@ -435,33 +435,33 @@ msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr ""
 "ಅನುಮತಿಯನ್ನು ನೀಡಲಾಗಿದೆ (ಕೊನೆಯ ಬಾರಿಗೆ %ld ಸೆಕೆಂಡುಗಳ ಹಿಂದೆ ನಿಲುಕಿಸಿಕೊಳ್ಳಲಾಗಿತ್ತು)."
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 #, fuzzy
 msgid "Your account has expired; please contact your system administrator."
 msgstr "ನಿಮ್ಮ ಖಾತೆಯ ಅವಧಿ ಅಂತ್ಯಗೊಂಡಿದೆ; ದಯವಿಟ್ಟು ನಿಮ್ಮ ಗಣಕ ವ್ಯವಸ್ಥಾಪಕರನ್ನು ಸಂಪರ್ಕಿಸಿ"
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸುವ ಅಗತ್ಯವಿದೆ (ಮೂಲದಿಂದ ಒತ್ತಾಯಿತವಾಗಿದೆ)"
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr ""
 "ನೀವು ಈ ಕೂಡಲೆ ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸುವ ಅಗತ್ಯವಿದೆ (ಗುಪ್ತಪದವು ಬಹಳ ಹಳೆಯದಾಗಿದೆ)"
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "ಎಚ್ಚರಿಕೆ: ನಿಮ್ಮ ಗುಪ್ತಪದದ ವಾಯಿದೆಯು %d ದಿನಗಳ ನಂತರ ತೀರಿಹೋಗುತ್ತದೆ"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "ಎಚ್ಚರಿಕೆ: %d ದಿನಗಳಲ್ಲಿ ನಿಮ್ಮ ಗುಪ್ತಪದದ ಅವಧಿ ಅಂತ್ಯಗೊಳ್ಳುತ್ತದೆ"

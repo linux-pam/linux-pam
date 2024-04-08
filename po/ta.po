@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Tamil <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -315,7 +315,7 @@ msgstr[1] "கடைசி புகுபதிவிலிருந்து %
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "கடைசி புகுபதிவிலிருந்து %d புகுபதிவு முயற்சி தோல்வியடைந்தன."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s'க்கு பல புகுபதிவுகள் உள்ளன."
@@ -438,25 +438,25 @@ msgstr "login: failure forking: %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "அணுகல் வழங்கப்பட்டது (கடைசி அணுகல் %ld விநாடிகளுக்கு முன்)."
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 #, fuzzy
 msgid "Your account has expired; please contact your system administrator."
 msgstr "உங்கள் கணக்கு முடிவுற்றது, உங்கள் கணினி நிர்வாகியை அணுகவும்"
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "நீங்கள் உங்கள் கடவுச்சொல்லை உடனடியாக மாற்ற வேண்டும் (ரூட் வலியுறுத்துகிறது)"
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "நீங்கள் உங்கள் கடவுச்சொல்லை உடனடியாக மாற்ற வேண்டும் (கடவுச்சொல் மூப்பாகிவிட்டது)"
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -464,7 +464,7 @@ msgstr[0] "எச்சரிக்கை: கடவுச்சொல் %d ந
 msgstr[1] "எச்சரிக்கை: கடவுச்சொல் %d நாட்களில் முடிவுறும்"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "எச்சரிக்கை: கடவுச்சொல் %d நாட்களில் முடிவுறும்"

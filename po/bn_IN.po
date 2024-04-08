@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2012-02-28 05:38-0500\n"
 "Last-Translator: runa <runabh@gmail.com>\n"
 "Language-Team: Bengali (India) <anubad@lists.ankur.org.in>\n"
@@ -312,7 +312,7 @@ msgstr[1] "সর্বশেষ সফল লগ-ইনের পরে %d-ট�
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "সর্বশেষ সফল লগ-ইনের পরে %d-টি ব্যর্থ লগ-ইনের প্রচেষ্টা করা হয়েছে।"
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s'-র ক্ষেত্রে অত্যাধিক লগ-ইন"
@@ -436,27 +436,27 @@ msgstr "লগ-ইন: fork করতে ব্যর্থ: %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "প্রবেশাধিকার প্রদান করা হয়েছে (%ld পূর্বে সর্বশেষ লগ-ইন করা হয়েছে)।"
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 #, fuzzy
 msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 "আপনার অ্যাকাউন্টের মেয়াদপূর্ণ হয়েছে; অনুগ্রহ করে সিস্টেম অ্যাডমিনিস্ট্রেটরের সাথে "
 "যোগাযোগ করুন।"
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "আপনার পাসওয়ার্ড এই মুহূর্তে পরিবর্তন করা আবশ্যক (root দ্বারা কার্যকরী)"
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "আপনার পাসওয়ার্ড এই মুহূর্তে পরিবর্তন করা আবশ্যক (password-র মেয়াদ পূর্ণ হয়েছে)"
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -464,7 +464,7 @@ msgstr[0] "সতর্কবাণী: %d দিন পরে পাসওয়�
 msgstr[1] "সতর্কবাণী: %d দিন পরে পাসওয়ার্ডের মেয়াদপূর্ণ হবে"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "সতর্কবাণী: %d দিন পরে পাসওয়ার্ডের মেয়াদপূর্ণ হবে"

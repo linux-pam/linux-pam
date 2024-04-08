@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2020-12-20 08:00+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Bulgarian <https://translate.fedoraproject.org/projects/linux-"
@@ -316,7 +316,7 @@ msgstr[1] ""
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "След последното успешно влизане, имаше %d неуспешни опита за влизане."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Твърде много влизания за '%s'."
@@ -438,24 +438,24 @@ msgstr "вход: неуспех при стартиране: %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Достъпът е предоставен (последният достъп бе преди %ld секунди)."
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 "Срокът на акаунта Ви е изтекъл; моля, свържете се с администратора на "
 "системата."
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "Изисква се веднага да смените паролата си (изискано от администратор)."
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "Изисква се веднага да смените паролата си (срокът и изтича)."
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -463,7 +463,7 @@ msgstr[0] "Внимание: срокът на паролата Ви изтич�
 msgstr[1] "Внимание: срокът на паролата Ви изтича след %d дни."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "Внимание: паролата Ви ще изтече след %d дни."

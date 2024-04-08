@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2021-07-22 00:54+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Dutch <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -321,7 +321,7 @@ msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
 "Er waren %d mislukte aanmeldpogingen sinds de laatste succesvolle aanmelding."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Te veel aanmeldingen voor '%s'."
@@ -443,23 +443,23 @@ msgstr "aanmelding: beginnen van nieuw proces mislukt: %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Toegang is verleend (laatste toegang was %ld seconden geleden)."
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 msgid "Your account has expired; please contact your system administrator."
 msgstr "Je account is verlopen; neem contact op met je systeembeheerder."
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr ""
 "Je moet onmiddellijk je wachtwoord wijzigen (op last van systeembeheerder)."
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "Je moet onmiddellijk je wachtwoord wijzigen (wachtwoord is verouderd)."
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -467,7 +467,7 @@ msgstr[0] "Waarschuwing: je wachtwoord zal binnen %d dag verlopen."
 msgstr[1] "Waarschuwing: je wachtwoord zal binnen %d dagen verlopen."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "Waarschuwing: je wachtwoord zal binnen %d dagen verlopen."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2023-02-17 14:20+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://translate.fedoraproject.org/projects/linux-"
@@ -311,7 +311,7 @@ msgstr[1] "היו %d ניסיונות התחברות שנכשלו מאז ההת�
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "היו %d ניסיונות התחברות שנכשלו מאז ההתחברות האחרונה שהצליחה."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "יותר מדי פעילויות כניסה עבור ‚%s’."
@@ -432,22 +432,22 @@ msgstr "כניסה: פיצול נכשל: %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "הוענקה גישה (הכניסה האחרונה הייתה לפני %ld שניות)."
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 msgid "Your account has expired; please contact your system administrator."
 msgstr "תוקף חשבונך פג, נא ליצור קשר עם הנהלת המערכת שלך."
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "עליך לשנות את ססמתך מיידית (דרישת הנהלת המערכת)."
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "עליך לשנות את ססמתך מיידית (תוקף הססמה פג)."
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -455,7 +455,7 @@ msgstr[0] "אזהרה: הססמה שלך תפוג מחר."
 msgstr[1] "אזהרה: הססמה שלך תפוג תוך %d ימים."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "אזהרה: הססמה שלך תפוג תוך %d ימים."

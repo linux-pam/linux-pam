@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2023-12-27 09:37+0000\n"
 "Last-Translator: Liu Tao <lyuutau@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
@@ -315,7 +315,7 @@ msgstr[0] "自上次成功登录以来，有 %d 次失败的登录尝试。"
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "自上次成功登录以来，有 %d 次失败的登录尝试。"
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "“%s”的登录次数过多。"
@@ -436,29 +436,29 @@ msgstr "登录：派生失败：%m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "访问已被准许（上次访问是 %ld 秒之前）。"
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 msgid "Your account has expired; please contact your system administrator."
 msgstr "您的帐户已过期；请联系您的系统管理员。"
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "您必须立即更改密码（管理员强制）。"
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "您必须立即更改密码（密码已经过期）。"
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "警告：您的密码将在 %d 天后过期。"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "警告：您的密码将在 %d 天后过期。"

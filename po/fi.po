@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2022-11-15 18:19+0000\n"
 "Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/linux-"
@@ -324,7 +324,7 @@ msgstr ""
 "Edellisen onnistuneen kirjautumisen jälkeen kirjautuminen on epäonnistunut "
 "%d kertaa."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Liian monta kirjautumista käyttäjälle '%s'."
@@ -445,22 +445,22 @@ msgstr "sisäänkirjautuminen: virhe haarautumisessa: %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Pääsy sallittu (edellinen kirjautuminen %ld sekuntia sitten)."
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 msgid "Your account has expired; please contact your system administrator."
 msgstr "Käyttäjätilisi on vanhentunut; ota yhteyttä järjestelmän ylläpitäjään."
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "Salasanasi täytyy vaihtaa heti (pääkäyttäjän vaatimus)."
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "Salasanasi täytyy vaihtaa heti (salasana vanhentunut)."
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -468,7 +468,7 @@ msgstr[0] "Varoitus: salasanasi vanhentuu %d päivän kuluttua."
 msgstr[1] "Varoitus: salasanasi vanhentuu %d päivän kuluttua."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "Varoitus: salasanasi vanhentuu %d päivän kuluttua."

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2024-03-19 18:57+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <https://translate.fedoraproject.org/projects/linux-"
@@ -239,8 +239,8 @@ msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
-"Anvendelse: %s [--dir /sti/til/tally-mappe] [--user brugernavn] [--reset] "
-"[--legacy-output]\n"
+"Anvendelse: %s [--dir /sti/til/tally-mappe] [--user brugernavn] [--reset] [--"
+"legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
 #, c-format
@@ -313,7 +313,7 @@ msgstr[1] "Der var %d fejlende loginforsøg siden sidste succesfulde login."
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "Der var %d fejlende loginforsøg siden sidste succesfulde login."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Der var for mange logins for '%s'."
@@ -434,23 +434,23 @@ msgstr "login: fejl ved forgrening: %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Adgang er blevet givet (sidste adgang var for %ld sekunder siden)."
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 msgid "Your account has expired; please contact your system administrator."
 msgstr "Din konto er udløbet; kontakt venligst din systemadministrator."
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr ""
 "Du skal ændre din adgangskode omgående (gennemtvunget af administrator)."
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "Du skal ændre din adgangskode omgående (adgangskoden er god gammel)."
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -458,7 +458,7 @@ msgstr[0] "Advarsel: Din adgangskode udløber om %d dag."
 msgstr[1] "Advarsel: Din adgangskode udløber om %d dage."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "Advarsel: din adgangskode udløber om %d dage."

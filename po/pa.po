@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2023-03-14 02:20+0000\n"
 "Last-Translator: A S Alam <amanpreet.alam@gmail.com>\n"
 "Language-Team: Punjabi <https://translate.fedoraproject.org/projects/linux-"
@@ -313,7 +313,7 @@ msgstr[1] "ਪਿਛਲੇ ਕਾਮਯਾਬ ਲਾਗਇਨ ਤੋਂ ਬਾ�
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "ਪਿਛਲੇ ਕਾਮਯਾਬ ਲਾਗਇਨ ਤੋਂ ਬਾਅਦ %d ਫੇਲ੍ਹ ਲਾਗਇਨ ਕੋਸ਼ਿਸ਼ਾਂ ਸਨ।"
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s' ਲਈ ਬਹੁਤ ਸਾਰੇ ਲਾਗਇਨ ਕੀਤੇ ਗਏ ਸਨ।"
@@ -434,22 +434,22 @@ msgstr "ਲਾਗਇਨ: ਫੋਰਕਿੰਗ ਫੇਲ: %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "ਪਹੁੰਚ ਲਈ ਇਜਾਜ਼ਤ ਦਿੱਤੀ ਗਈ (ਪਿਛਲੀ ਪਹੁੰਚ %ld ਸਕਿੰਟ ਪਹਿਲਾਂ ਸੀ)।"
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 msgid "Your account has expired; please contact your system administrator."
 msgstr "ਤੁਹਾਡੇ ਖਾਤੇ ਦੀ ਮਿਆਦ ਪੁੱਗ ਗਈ ਹੈ; ਆਪਣੇ ਸਿਸਟਮ ਪਰਸ਼ਾਸ਼ਕ ਨਾਲ ਸੰਪਰਕ ਕਰੋ ਜੀ।"
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "ਤੁਹਾਨੂੰ ਆਪਣਾ ਪਾਸਵਰਡ ਫ਼ੌਰੀ ਤਬਦੀਲ ਕਰਨਾ ਪਵੇਗਾ (ਪਰਸ਼ਾਸ਼ਕ ਵੱਲੋਂ ਲਾਜ਼ਮੀ ਬਣਾਇਆ)।"
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "ਤੁਹਾਨੂੰ ਆਪਣਾ ਪਾਸਵਰਡ ਫ਼ੌਰੀ ਤਬਦੀਲ ਕਰਨਾ ਪਵੇਗਾ (ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ ਪੁੱਗੀ ਹੈ)।"
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -457,7 +457,7 @@ msgstr[0] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ �
 msgstr[1] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %d ਦਿਨਾਂ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %d ਦਿਨਾਂ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"

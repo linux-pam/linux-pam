@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2021-07-22 00:54+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Catalan <https://translate.fedoraproject.org/projects/linux-"
@@ -322,7 +322,7 @@ msgstr ""
 "S'han produït %d intents fallits d'inici de sessió des de l'últim inici de "
 "sessió reeixit."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Hi havia massa inicis de sessió per a '%s'."
@@ -444,25 +444,25 @@ msgstr "inici de sessió: ha fallat la bifurcació: %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "S'ha concedit l'accés (l'últim accés va ser fa %ld segons)."
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 "El vostre compte ha vençut; contacteu amb l'administrador del vostre sistema."
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr ""
 "Heu de canviar la contrasenya immediatament (us hi obliga l'administrador)."
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr ""
 "Heu de canviar la contrasenya immediatament (la contrasenya ha vençut)."
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -470,7 +470,7 @@ msgstr[0] "Atenció: la contrasenya venç d'aquí a %d dia."
 msgstr[1] "Atenció: la contrasenya venç d'aquí a %d dies."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "Atenció: la contrasenya venç d'aquí a %d dies."

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2021-12-08 21:16+0000\n"
 "Last-Translator: Tomohiro KATO <tomop@teamgedoh.net>\n"
 "Language-Team: Japanese <https://translate.fedoraproject.org/projects/linux-"
@@ -312,7 +312,7 @@ msgstr[0] "最後の正しいログインの後に %d 回のログイン試行�
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "最後の正しいログインの後に %d 回のログインの試行失敗があります。"
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s'のログイン回数が多すぎます。"
@@ -435,29 +435,29 @@ msgstr "ログイン: fork失敗: %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "アクセスが許可されました（最後のアクセスは %ld 秒前）。"
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 msgid "Your account has expired; please contact your system administrator."
 msgstr "アカウントは失効しています。システム管理者にお問い合わせください。"
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "パスワードを直ちに変更する必要があります(管理者による強制)。"
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "パスワードを直ちに変更する必要があります(パスワード失効)。"
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] "警告: パスワードは %d 日で失効します。"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "警告: パスワードは %d 日で失効します。"

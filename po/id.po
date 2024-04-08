@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2013-04-22 01:07-0400\n"
 "Last-Translator: sentabi\n"
 "Language-Team: Indonesian <trans-id@lists.fedoraproject.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Zanata 3.8.3\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
-#: modules/pam_userdb/pam_userdb.c:61 modules/pam_userdb/pam_userdb.c:53
+#: modules/pam_userdb/pam_userdb.c:61
 msgid "Password: "
 msgstr "Kata Sandi: "
 
@@ -65,7 +65,7 @@ msgstr "Ketik ulang %s"
 msgid "Password change has been aborted."
 msgstr "Pergantian kata sandi telah digugurkan."
 
-#: libpam/pam_item.c:310 libpam/pam_item.c:311
+#: libpam/pam_item.c:310
 msgid "login:"
 msgstr "log masuk:"
 
@@ -209,22 +209,22 @@ msgstr "...Waktu hampir habis...\n"
 msgid "...Sorry, your time is up!\n"
 msgstr "...Maaf, waktu Anda habis!\n"
 
-#: libpam_misc/misc_conv.c:349 libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:348
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "percakapan yang ada kesalahan (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:300 modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:299
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s gagal: kode keluar %d"
 
-#: modules/pam_exec/pam_exec.c:310 modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:309
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s gagal: menangkap sinyal %d%s"
 
-#: modules/pam_exec/pam_exec.c:320 modules/pam_exec/pam_exec.c:319
+#: modules/pam_exec/pam_exec.c:319
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s gagal: status tak dikenal 0x%x"
@@ -308,7 +308,7 @@ msgstr[0] ""
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "Ada %d upaya log masuk yang gagal sejak log masuk sukses terakhir."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Ada terlalu banyak log masuk bagi '%s'."
@@ -361,26 +361,23 @@ msgstr "Tidak dapat membuat direktori '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:384
 #: modules/pam_unix/pam_unix_passwd.c:583
-#: modules/pam_pwhistory/pam_pwhistory.c:378
-#: modules/pam_unix/pam_unix_passwd.c:580
 msgid "Password has been already used. Choose another."
 msgstr "Sandi sudah digunakan sebelumnya. Pilih sandi yang lain."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:391
-#: modules/pam_pwhistory/pam_pwhistory.c:385
 msgid "Password has been already used."
 msgstr "Sandi sudah digunakan."
 
-#: modules/pam_selinux/pam_selinux.c:172 modules/pam_selinux/pam_selinux.c:173
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "Konteks keamanan baku adalah %s."
 
-#: modules/pam_selinux/pam_selinux.c:177 modules/pam_selinux/pam_selinux.c:176
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "Apakah anda mau menambah izin atau level yang berbeda?"
 
-#: modules/pam_selinux/pam_selinux.c:190 modules/pam_selinux/pam_selinux.c:189
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "Sebagai:"
 
@@ -389,7 +386,7 @@ msgstr "Sebagai:"
 msgid "There is no default type for role %s."
 msgstr "Tidak ada tipe baku bagi peran %s."
 
-#: modules/pam_selinux/pam_selinux.c:226 modules/pam_selinux/pam_selinux.c:225
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "Level:"
 
@@ -428,63 +425,57 @@ msgid "login: failure forking: %m"
 msgstr "log masuk: kegagalan fork: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:384
-#: modules/pam_timestamp/pam_timestamp.c:382
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr ""
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
 msgstr[0] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:458
-#: modules/pam_unix/pam_unix_passwd.c:456
 msgid "NIS password could not be changed."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:556
-#: modules/pam_unix/pam_unix_passwd.c:554
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "Sandi sudah digunakan."
 
 #: modules/pam_unix/pam_unix_passwd.c:557
-#: modules/pam_unix/pam_unix_passwd.c:555
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "Sandi sudah digunakan."
 
 #: modules/pam_unix/pam_unix_passwd.c:574
-#: modules/pam_unix/pam_unix_passwd.c:572
 #, fuzzy
 msgid "You must choose a shorter password."
 msgstr "Anda harus memilih kata sandi yang lebih pendek."
 
 #: modules/pam_unix/pam_unix_passwd.c:578
-#: modules/pam_unix/pam_unix_passwd.c:576
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "Anda harus memilih kata sandi yang lebih pendek."

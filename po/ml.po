@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2013-04-15 01:55-0400\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -310,7 +310,7 @@ msgstr[1] "ശരിയായി അവസാനം ലോഗിന്‍ ചെ
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s'-ന് അനവധി ലോഗിനുകള്‍."
@@ -433,27 +433,27 @@ msgstr "login: ഫോര്‍ക്ക് ചെയ്യുന്നതില�
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "അനുവാദം നല്‍കിയിരിക്കുന്നു (ഒടുവില്‍ പ്രവേശിച്ചതു് %ld സെക്കന്‍ഡുകള്‍ക്കു് മുമ്പാണു്)."
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 #, fuzzy
 msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 "നിങ്ങളുടെ അക്കൌണ്ടിന്റെ കാലാവധി അവസാനിച്ചിരിക്കുന്നു; ദയവായി സിസ്റ്റം അഡ്മിനിസ്ട്രേറ്ററുമായി "
 "ബന്ധപ്പെടുക"
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "നിങ്ങളുടെ അടയാളവാക്ക് ഉടനെ മാറ്റേണ്ടതുണ്ട് (root enforced)"
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "നിങ്ങളുടെ അടയാളവാക്ക് ഉടനെ മാറ്റേണ്ടതുണ്ട് (അടയാളവാക്ക് മാറ്റുന്നതിന് സമയമായി)"
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -461,7 +461,7 @@ msgstr[0] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ 
 msgstr[1] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %d ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"

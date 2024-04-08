@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-01-16 21:11+0000\n"
+"POT-Creation-Date: 2024-04-08 08:04+0000\n"
 "PO-Revision-Date: 2021-07-22 00:54+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Portuguese <https://translate.fedoraproject.org/projects/"
@@ -322,7 +322,7 @@ msgstr ""
 "Houve %d tentativas falhadas de início de sessão desde o último início de "
 "sessão com sucesso."
 
-#: modules/pam_limits/pam_limits.c:1317
+#: modules/pam_limits/pam_limits.c:1348
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Demasiados inícios de sessão para '%s'."
@@ -444,25 +444,25 @@ msgstr "início de sessão: falha no 'forking': %m"
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Acesso permitido (último acesso foi à %ld segundos atrás)."
 
-#: modules/pam_unix/pam_unix_acct.c:230 modules/pam_unix/pam_unix_acct.c:252
+#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
 msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 "A sua conta expirou; por favor contacte o seu administrador de sistema."
 
-#: modules/pam_unix/pam_unix_acct.c:238
+#: modules/pam_unix/pam_unix_acct.c:239
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr ""
 "É obrigatório que altere de imediato a sua senha (politica do sistema)."
 
-#: modules/pam_unix/pam_unix_acct.c:244
+#: modules/pam_unix/pam_unix_acct.c:245
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr ""
 "É obrigatório que altere de imediato a sua senha (antiguidade da password)."
 
-#: modules/pam_unix/pam_unix_acct.c:269 modules/pam_unix/pam_unix_acct.c:276
+#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -470,7 +470,7 @@ msgstr[0] "Aviso: a sua senha expira em %d dia."
 msgstr[1] "Aviso: a sua senha expira em %d dias."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:281
+#: modules/pam_unix/pam_unix_acct.c:282
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "Aviso: a sua palavra passe expira em %d dias."
