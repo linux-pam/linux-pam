@@ -48,7 +48,7 @@
       <itemizedlist>
         <listitem>
           <para>
-            umask= entry in the user's GECOS field
+            umask= entry in the user's GECOS field (see below for details)
           </para>
         </listitem>
         <listitem>
@@ -69,7 +69,9 @@
       </itemizedlist>
     </para>
     <para>
-      The GECOS field is split on comma ',' characters.
+      The GECOS field is split on comma ',' characters. Entries must be set in
+      its 'other' (sub-)field (the 5th field within the GECOS field), which
+      could be done, for example, using <command>chfn --other</command>.
       In addition to the umask= entry, the module also recognizes the pri=
       entry, which sets the nice priority value for the session, and the ulimit=
       entry, which sets the maximum size of files the processes in the session
