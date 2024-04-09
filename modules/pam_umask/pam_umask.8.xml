@@ -69,11 +69,11 @@
       </itemizedlist>
     </para>
     <para>
-      The GECOS field is split on comma ',' characters. The module
-      also in addition to the umask= entry recognizes pri= entry,
-      which sets the nice priority value for the session, and
-      ulimit= entry, which sets the maximum size of files the processes
-      in the session can create.
+      The GECOS field is split on comma ',' characters.
+      In addition to the umask= entry, the module also recognizes the pri=
+      entry, which sets the nice priority value for the session, and the ulimit=
+      entry, which sets the maximum size of files the processes in the session
+      can create.
     </para>
 
   </refsect1>
