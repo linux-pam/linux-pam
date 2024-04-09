@@ -1,5 +1,14 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 1.6.1
+* build: fail if specified configure options cannot be satisfied.
+* pam_env: fixed --disable-econf --enable-vendordir support.
+* pam_unix: do not warn if password aging is disabled.
+* pam_unix: try to set uid to 0 before unix_chkpwd invocation.
+* pam_unix: allow empty passwords with non-empty hashes.
+* Multiple minor bug fixes, build fixes, portability fixes,
+  documentation improvements, and translation updates.
+
 Release 1.6.0
 * Added support of configuration files with arbitrarily long lines.
 * build: fixed build outside of the source tree.
