@@ -296,7 +296,7 @@ bug report - outstanding bugs are listed here:
 * A Tru64 fix (given other stuff has already resolved this, it
   actually just a comment actually) from 'Eddie'. (Bug 418450 -
   agmorgan)
-* pam_handlers: BSD fix from Dag-Erling Smørgrav and Anton Berezin
+* pam_handlers: BSD fix from Dag-Erling SmÃ¸rgrav and Anton Berezin
   (Bug 486063 - agmorgan)
 * added the dynamic/* directory to the distribution. If you go in
   there after building the rest of the tree, you'll make a pam.so
