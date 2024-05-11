@@ -5,7 +5,7 @@
 CLEANFILES = *~
 MAINTAINERCLEANFILES = $(MANS) README
 
-EXTRA_DIST = md5.c md5_crypt.c lckpwdf.-c yppasswd_xdr.c $(XMLS) CHANGELOG
+EXTRA_DIST = md5.c md5_crypt.c lckpwdf.-c yppasswd_xdr.c $(XMLS)
 
 if HAVE_DOC
 dist_man_MANS = pam_unix.8 unix_chkpwd.8

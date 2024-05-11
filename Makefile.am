@@ -16,7 +16,7 @@ endif
 
 CLEANFILES = *~
 
-EXTRA_DIST = pgp.keys.asc CHANGELOG ChangeLog-CVS Copyright
+EXTRA_DIST = pgp.keys.asc Copyright
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -40,11 +40,9 @@ xtests:
 gen_changelog_start_date = 2011-10-26
 gen-ChangeLog:
 	if test -d .git; then						\
-		( $(top_srcdir)/gitlog-to-changelog --append-dot	\
-		  --since=$(gen_changelog_start_date) &&		\
-		  echo && echo &&					\
-		  echo 'See ChangeLog-CVS for earlier changes.'		\
-		) > $(distdir)/ChangeLog.new &&				\
+		$(top_srcdir)/gitlog-to-changelog --append-dot		\
+			--since=$(gen_changelog_start_date)		\
+		> $(distdir)/ChangeLog.new &&				\
 		rm -f $(distdir)/ChangeLog &&				\
 		mv $(distdir)/ChangeLog.new $(distdir)/ChangeLog;	\
 	fi
