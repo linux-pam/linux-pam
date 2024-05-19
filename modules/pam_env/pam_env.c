@@ -273,7 +273,7 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
       return PAM_ABORT;
     }
 
-    *lines = malloc((key_number +1)* sizeof(char**));
+    *lines = calloc((key_number + 1), sizeof(char**));
     if (*lines == NULL) {
       pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
       econf_free(keys);
@@ -281,8 +281,7 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
       return PAM_BUF_ERR;
     }
 
-    (*lines)[key_number] = 0;
-
+    size_t n = 0;
     for (size_t i = 0; i < key_number; i++) {
       char *val;
 
@@ -293,7 +292,7 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
 		   econf_errString(error));
       } else {
         econf_unescnl(val);
-        if (asprintf(&(*lines)[i],"%s%c%s", keys[i], delim[0], val) < 0) {
+        if (asprintf(&(*lines)[n],"%s%c%s", keys[i], delim[0], val) < 0) {
 	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
           econf_free(keys);
           econf_freeFile(key_file);
@@ -303,6 +302,7 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
 	  return PAM_BUF_ERR;
 	}
 	free (val);
+	n++;
       }
     }
 
