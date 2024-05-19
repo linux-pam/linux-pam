@@ -287,7 +287,7 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
       char *val;
 
       error = econf_getStringValue (key_file, NULL, keys[i], &val);
-      if (error != ECONF_SUCCESS) {
+      if (error != ECONF_SUCCESS || val == NULL) {
 	pam_syslog(pamh, LOG_ERR, "Unable to get string from key %s: %s",
 		   keys[i],
 		   econf_errString(error));
