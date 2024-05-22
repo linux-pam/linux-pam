@@ -1003,6 +1003,7 @@ static int form_context(const struct polydir_s *polyptr,
 		return rc;
 	}
 	/* Should never get here */
+	freecon(scon);
 	return PAM_SUCCESS;
 }
 #endif
