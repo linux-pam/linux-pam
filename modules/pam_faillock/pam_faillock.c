@@ -255,6 +255,7 @@ check_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 				snprintf(buf, sizeof(buf), "op=pam_faillock suid=%u ", opts->uid);
 				audit_log_user_message(audit_fd, AUDIT_RESP_ACCT_UNLOCK_TIMED, buf,
 					rhost, NULL, tty, 1);
+				audit_close(audit_fd);
 			}
 #endif
 			opts->flags |= FAILLOCK_FLAG_UNLOCKED;
