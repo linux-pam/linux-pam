@@ -481,6 +481,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 
 #ifdef WITH_OPENSSL
 		if (hmac_size(pamh, debug, &maclen)) {
+			close(fd);
 			return PAM_AUTH_ERR;
 		}
 #else
