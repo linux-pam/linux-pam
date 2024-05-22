@@ -1462,6 +1462,9 @@ static int create_polydir(struct polydir_s *polyptr,
     if (rc == -1) {
             pam_syslog(idata->pamh, LOG_ERR,
                        "Error creating directory %s: %m", dir);
+#ifdef WITH_SELINUX
+            freecon(oldcon_raw);
+#endif
             return PAM_SESSION_ERR;
     }
 
