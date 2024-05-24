@@ -1433,7 +1433,9 @@ static int create_polydir(struct polydir_s *polyptr,
 
 #ifdef WITH_SELINUX
     if (idata->flags & PAMNS_SELINUX_ENABLED) {
-	getfscreatecon_raw(&oldcon_raw);
+	if (getfscreatecon_raw(&oldcon_raw) != 0)
+	    pam_syslog(idata->pamh, LOG_NOTICE,
+	               "Error retrieving fs create context: %m");
 
 	label_handle = selabel_open(SELABEL_CTX_FILE, NULL, 0);
 	if (!label_handle) {
