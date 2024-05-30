@@ -144,6 +144,16 @@ main (void)
 	}
     }
 
+  /* 5: try to set PAM_SERVICE to NULL  */
+  retval = pam_set_item (pamh, PAM_SERVICE, NULL);
+  if (retval != PAM_BAD_ITEM)
+    {
+      fprintf (stderr,
+	       "pam_set_item (pamh, PAM_SERVICE, NULL) returned %d\n",
+	       retval);
+      return 1;
+    }
+
   pam_end (pamh, 0);
 
   return 0;
