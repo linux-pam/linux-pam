@@ -81,7 +81,7 @@ static int perform_check(pam_handle_t *pamh)
     size_t size = 0;
     econf_err error;
     char **keys;
-    econf_file *key_file;
+    econf_file *key_file = NULL;
 
     error = econf_readDirsWithCallback(&key_file,
 				       VENDORDIR,
