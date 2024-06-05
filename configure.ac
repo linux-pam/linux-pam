@@ -578,6 +578,31 @@ if test "$WITH_ECONF" = "check"; then
 elif test "$WITH_ECONF" = "yes"; then
   PKG_CHECK_MODULES([ECONF], [libeconf >= 0.5.0], [ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"], [])
 fi
+if test -n "$ECONF_CFLAGS"; then
+  AC_MSG_CHECKING(for econf_readConfigWithCallback)
+  saved_CFLAGS=$CFLAGS
+  CFLAGS="$CFLAGS $ECONF_CFLAGS"
+  saved_LIBS=$LIBS
+  LIBS="$LIBS $ECONF_LIBS"
+  AC_LINK_IFELSE(
+    [AC_LANG_PROGRAM(
+      [[
+      #include <libeconf.h>
+      ]],
+      [[
+      econf_file *key_file = NULL;
+      econf_err error = ECONF_SUCCESS;
+      error = econf_newKeyFile_with_options(&key_file, "PYTHON_STYLE=1");
+      error = econf_readConfigWithCallback (&key_file, "foo", "/usr/lib", "test", "conf", "=", "#", NULL, NULL);
+      ]])],
+    [econf_readConfigWithCallback=yes], [econf_readConfigWithCallback=no])
+  AC_MSG_RESULT($econf_readConfigWithCallback)
+  if test "$econf_readConfigWithCallback" = yes; then
+    AC_DEFINE([HAVE_ECONF_READCONFIG], [1], [Define if econf_readConfigWithCallback is available])
+  fi
+  LIBS=$saved_LIBS
+  CFLAGS=$saved_CFLAGS
+fi
 AC_SUBST([ECONF_CFLAGS])
 AC_SUBST([ECONF_LIBS])
 
