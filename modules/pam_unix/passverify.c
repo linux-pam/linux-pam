@@ -500,7 +500,7 @@ PAMH_ARG_DECL(char * create_password_hash,
 #else
 	sp = stpcpy(salt, algoid);
 	if (on(UNIX_ALGO_ROUNDS, ctrl)) {
-		sp += snprintf(sp, sizeof(salt) - (16 + 1 + (sp - salt)), "rounds=%u$", rounds);
+		sp += snprintf(sp, sizeof(salt) - (16 + 1 + (sp - salt)), "rounds=%i$", rounds);
 	}
 	crypt_make_salt(sp, 16);
 #endif /* CRYPT_GENSALT_IMPLEMENTS_AUTO_ENTROPY */
