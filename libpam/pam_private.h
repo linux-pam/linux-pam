@@ -150,6 +150,12 @@ struct _pam_former_state {
     _pam_boolean update;
 };
 
+struct _pam_alloc {
+    void **array;
+    size_t len;
+    size_t size;
+};
+
 struct pam_handle {
     char *authtok;
     unsigned caller_is;
@@ -163,6 +169,7 @@ struct pam_handle {
     char *tty;
     char *xdisplay;
     char *authtok_type;          /* PAM_AUTHTOK_TYPE */
+    struct _pam_alloc alloc;
     struct pam_data *data;
     struct pam_environ *env;      /* structure to maintain environment list */
     struct _pam_fail_delay fail_delay;   /* helper function for easy delays */
@@ -266,6 +273,10 @@ struct pam_data {
 };
 
 void _pam_free_data(pam_handle_t *pamh, int status);
+
+int _pam_add_alloc(pam_handle_t *pamh, void *data);
+
+void _pam_free_alloc(pam_handle_t *pamh);
 
 char *_pam_tokenize(char *from, char **next);
 

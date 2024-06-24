@@ -17,6 +17,9 @@
 #define PWD_ABSURD_PWD_LENGTH  0x40001
 #define PWD_LENGTH_SHIFT 4 /* 2^4 == 16 */
 
+extern int
+_pam_add_alloc(pam_handle_t *pamh, void *data);
+
 extern void
 pam_modutil_cleanup(pam_handle_t *pamh, void *data,
                     int error_status);
