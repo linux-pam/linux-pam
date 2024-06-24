@@ -723,7 +723,7 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 #ifdef HAVE_PAM_FAIL_DELAY
 	if (off(UNIX_NODELAY, ctrl)) {
 		D(("setting delay"));
-		(void) pam_fail_delay(pamh, 2000000);	/* 2 sec delay for on failure */
+		(void) pam_fail_delay(pamh, 500000);	/* 0.5 sec delay for on failure */
 	}
 #endif
 
