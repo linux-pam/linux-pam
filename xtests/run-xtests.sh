@@ -17,7 +17,7 @@ skipped=0
 all=0
 
 mkdir -p /etc/security
-for config in access.conf group.conf time.conf limits.conf ; do
+for config in access.conf group.conf time.conf limits.conf namespace.conf; do
 	[ -f "/etc/security/$config" ] &&
 		mv /etc/security/$config /etc/security/$config-pam-xtests
 	install -m 644 "${SRCDIR}"/$config /etc/security/$config
@@ -54,7 +54,7 @@ for testname in $XTESTS ; do
 	  rm -f /etc/pam.d/$testname*
 done
 
-for config in access.conf group.conf time.conf limits.conf opasswd ; do
+for config in access.conf group.conf time.conf limits.conf opasswd namespace.conf; do
 	if [ -f "/etc/security/$config-pam-xtests" ]; then
 		mv /etc/security/$config-pam-xtests /etc/security/$config
 	else
