@@ -21,7 +21,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #ifdef USE_ECONF
-#include <libeconf.h>
+#include "pam_econf.h"
 #endif
 
 #include <security/pam_modules.h>
@@ -241,9 +241,8 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
 	}
       }
 
-      D(("Read configuration from directory %s and %s", vendor_dir, sysconf_dir));
-      error = econf_readDirs (&key_file, vendor_dir, sysconf_dir, name, suffix,
-			      delim, "#");
+      error = pam_econf_readconfig (&key_file, vendor_dir, sysconf_dir, name, suffix,
+				    delim, "#", NULL, NULL);
       free(vendor_dir);
       free(sysconf_dir);
       if (error != ECONF_SUCCESS) {
