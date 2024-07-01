@@ -19,7 +19,7 @@
 #include <syslog.h>
 #include <unistd.h>
 #if defined (USE_ECONF)	&& defined (VENDORDIR)
-#include <libeconf.h>
+#include "pam_econf.h"
 #endif
 
 #include <security/pam_modules.h>
@@ -79,18 +79,18 @@ static int perform_check(pam_handle_t *pamh)
 
 #if defined (USE_ECONF)	&& defined (VENDORDIR)
     size_t size = 0;
-    econf_err error;
+    econf_err error = ECONF_SUCCESS;
     char **keys;
-    econf_file *key_file;
+    econf_file *key_file = NULL;
 
-    error = econf_readDirsWithCallback(&key_file,
-				       VENDORDIR,
-				       ETCDIR,
-				       SHELLS,
-				       NULL,
-				       "", /* key only */
-				       "#", /* comment */
-				       check_file, pamh);
+    error = pam_econf_readconfig(&key_file,
+				 VENDORDIR,
+				 ETCDIR,
+				 SHELLS,
+				 NULL,
+				 "", /* key only */
+				 "#", /* comment */
+				 check_file, pamh);
     if (error) {
 	pam_syslog(pamh, LOG_ERR,
 		   "Cannot parse shell files: %s",

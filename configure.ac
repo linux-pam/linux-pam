@@ -573,11 +573,38 @@ ECONF_LIBS=
 AC_ARG_ENABLE([econf],
   AS_HELP_STRING([--disable-econf], [do not use libeconf]),
   [WITH_ECONF=$enableval], [WITH_ECONF=check])
-if test "$WITH_ECONF" = "check"; then
-  PKG_CHECK_MODULES([ECONF], [libeconf >= 0.5.0], [ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"], [:])
-elif test "$WITH_ECONF" = "yes"; then
-  PKG_CHECK_MODULES([ECONF], [libeconf >= 0.5.0], [ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"], [])
+if test "$WITH_ECONF" = "check" || test "$WITH_ECONF" = "yes"; then
+  if test "$WITH_ECONF" = "check"; then
+    PKG_CHECK_MODULES([ECONF], [libeconf >= 0.5.0], [ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"], [:])
+  elif test "$WITH_ECONF" = "yes"; then
+    PKG_CHECK_MODULES([ECONF], [libeconf >= 0.5.0], [ECONF_CFLAGS="-DUSE_ECONF=1 $ECONF_CFLAGS"], [])
+  fi
+  AC_MSG_CHECKING(for econf_readConfig)
+  old_libs=$LIBS
+  LIBS="$LIBS $ECONF_LIBS"
+  saved_CFLAGS=$CFLAGS
+  CFLAGS="$CFLAGS $ECONF_CFLAGS"
+  AC_LINK_IFELSE(
+    [AC_LANG_PROGRAM(
+      [[
+      #include <libeconf.h>
+      ]],
+      [[
+      econf_file *key_file = NULL;
+      econf_err error = ECONF_SUCCESS;
+      error = econf_newKeyFile_with_options(&key_file, "PYTHON_STYLE=1");
+      error = econf_readConfig (&key_file, "foo", "/usr/lib", "test", "conf", "=", "#");
+      error = econf_readConfigWithCallback (&key_file, "foo", "/usr/lib", "test", "conf", "=", "#", NULL, NULL);
+      ]])],
+    [econf_readConfig=yes], [econf_readConfig=no])
+  AC_MSG_RESULT($econf_readConfig)
+  if test "$econf_readConfig" = yes; then
+    ECONF_CFLAGS="$ECONF_CFLAGS -DHAVE_ECONF_READCONFIG"
+  fi
+  CFLAGS=$saved_CFLAGS
+  LIBS=$old_libs
 fi
+
 AC_SUBST([ECONF_CFLAGS])
 AC_SUBST([ECONF_LIBS])
 
