@@ -770,7 +770,7 @@ esac
 
 AC_ARG_ENABLE([lastlog],
               [AS_HELP_STRING([--enable-lastlog],
-                              [do build pam_lastlog module])],
+                              [build pam_lastlog module])],
               [], [enable_lastlog=no])
 case "$enable_lastlog" in
   yes|check)
