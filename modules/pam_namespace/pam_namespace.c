@@ -810,7 +810,8 @@ static int parse_config_file(struct instance_data *idata)
     }
 
     if (filename_list != NULL) {
-	for (size_t i = 0; filename_list[i] != NULL; i++)
+	size_t i;
+	for (i = 0; filename_list[i] != NULL; i++)
 	    free(filename_list[i]);
 	free(filename_list);
     }
