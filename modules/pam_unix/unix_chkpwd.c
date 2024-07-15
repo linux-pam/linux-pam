@@ -33,6 +33,10 @@
 #include <security/_pam_types.h>
 #include <security/_pam_macros.h>
 
+#ifdef WITH_LANDLOCK
+#include <security/pam_landlock.h>
+#endif
+
 #include "passverify.h"
 #include "pam_inline.h"
 
@@ -74,6 +78,30 @@ int main(int argc, char *argv[])
 	 * Catch or ignore as many signal as possible.
 	 */
 	setup_signals();
+
+#ifdef WITH_LANDLOCK
+	/*
+	 * Use Landlock to restrict unix_chkpwd to a read-only access to the filesystem.
+	 */
+	int ruleset_fd, err;
+
+	err = _pam_landlock_create_ruleset(&ruleset_fd, ACCESS_FS_ROUGHLY_WRITE);
+	if (err) {
+		if (err == LANDLOCK_FATAL_ERR) {
+			helper_log_err(LOG_ERR, "Failed to create base ruleset");
+			return PAM_SYSTEM_ERR;
+		} else {
+			helper_log_err(LOG_NOTICE, "Failed to check Landlock compatibility,"
+						   "Landlock is either disabled or not supported by the current kernel");
+		}
+	} else {
+		err = _pam_landlock_apply_restrictions(ruleset_fd);
+		if (err) {
+			helper_log_err(LOG_ERR, "Failed to apply file restrictions");
+			return PAM_SYSTEM_ERR;
+		}
+	}
+#endif
 
 	/*
 	 * we establish that this program is running with non-tty stdin.
