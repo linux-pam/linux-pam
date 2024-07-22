@@ -145,9 +145,10 @@ static int read_string(int echo, const char *prompt, char **retstr)
 	    return -1;
 	}
 	memcpy(&term_tmp, &term_before, sizeof(term_tmp));
-	if (!echo) {
+	if (echo)
+	    term_tmp.c_lflag |= ICANON | ECHOCTL;
+	else
 	    term_tmp.c_lflag &= ~(ECHO);
-	}
 	have_term = 1;
 
 	/*
