@@ -350,6 +350,18 @@ evaluate(pam_handle_t *pamh, int debug,
 			tty == NULL)
 			tty = "";
 		left = (const char *)tty;
+	} else if (strncasecmp(left, "env:", 4) == 0 && strlen (left + 3) > 1) {
+		const char *env = left + 4;
+		left = pam_getenv(pamh, env);
+		if (strcasecmp(qual, "is") == 0) {
+			if (strcasecmp(right, "set") == 0) {
+				return left != NULL ? PAM_SUCCESS : PAM_AUTH_ERR;
+			}
+			if (strcasecmp(right, "unset") == 0) {
+				return left == NULL ? PAM_SUCCESS : PAM_AUTH_ERR;
+			}
+			qual = "=";
+		}
 	} else {
 		/* If we have no idea what's going on, return an error. */
 		pam_syslog(pamh, LOG_ERR, "unknown attribute \"%s\"", left);

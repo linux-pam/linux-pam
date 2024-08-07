@@ -103,7 +103,9 @@
       <emphasis>uid</emphasis>, <emphasis>gid</emphasis>,
       <emphasis>shell</emphasis>, <emphasis>home</emphasis>,
       <emphasis>ruser</emphasis>, <emphasis>rhost</emphasis>,
-      <emphasis>tty</emphasis> and <emphasis>service</emphasis>:
+      <emphasis>tty</emphasis>, <emphasis>service</emphasis>, and
+      <emphasis>env:variable</emphasis> (where <emphasis>variable</emphasis>) is
+      a PAM environemnt variable:
     </para>
 
     <variablelist>
@@ -215,6 +217,24 @@
         <term>user notinnetgr group</term>
         <listitem>
           <para>(user,host) is not in given netgroup.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>env:variable is set</term>
+        <listitem>
+          <para>variable has been set to a value.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>env:variable is unset</term>
+        <listitem>
+          <para>variable has not been set to any value.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>env:variable is value</term>
+        <listitem>
+          <para>variable equals value.</para>
         </listitem>
       </varlistentry>
     </variablelist>

@@ -32,9 +32,29 @@ main(void)
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
 			     "auth required %s/.libs/%s.so user = name\n"
+			     "auth required %s/.libs/%s.so env:some-unset-env-variable is unset\n"
+			     "auth required %s/.libs/%s.so env:some-set-env-variable is set\n"
+			     "auth required %s/.libs/%s.so env:some-set-env-variable = 0\n"
+			     "auth [auth_err=ignore] %s/.libs/%s.so env:some-set-env-variable != 0\n"
+			     "auth required %s/.libs/%s.so env:some-set-env-variable lt 1\n"
+			     "auth required %s/.libs/%s.so env:some-set-env-variable gt -1\n"
+			     "auth [service_err=ignore] %s/.libs/%s.so env is unset\n"
+			     "auth [service_err=ignore] %s/.libs/%s.so env: is unset\n"
+			     "auth required %s/.libs/%s.so env:some-set-env-variable is 0\n"
+			     "auth [auth_err=ignore] %s/.libs/%s.so env:some-set-env-variable is 1\n"
 			     "account required %s/.libs/%s.so user notin a:b\n"
 			     "password required %s/.libs/%s.so user in x:name\n"
 			     "session required %s/.libs/%s.so rhost eq 0\n",
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -45,6 +65,7 @@ main(void)
 		  pam_start_confdir(service_file, user_name, &conv, ".", &pamh));
 	ASSERT_NE(NULL, pamh);
 	ASSERT_EQ(PAM_SUCCESS, pam_set_item(pamh, PAM_RHOST, "0"));
+	ASSERT_EQ(PAM_SUCCESS, pam_putenv(pamh, "some-set-env-variable=0"));
 
 	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
 	ASSERT_EQ(PAM_SUCCESS, pam_acct_mgmt(pamh, 0));
