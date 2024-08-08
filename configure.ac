@@ -650,9 +650,6 @@ dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_SYS_WAIT
 
-dnl For module/pam_lastlog
-AC_CHECK_HEADERS(lastlog.h utmp.h utmpx.h)
-
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_BIGENDIAN
 AC_C_CONST

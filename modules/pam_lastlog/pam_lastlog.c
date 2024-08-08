@@ -13,11 +13,7 @@
 #include <fcntl.h>
 #include <time.h>
 #include <errno.h>
-#ifdef HAVE_UTMP_H
-# include <utmp.h>
-#else
-# include <lastlog.h>
-#endif
+#include <utmp.h>
 #include <pwd.h>
 #include <stdlib.h>
 #include <ctype.h>
