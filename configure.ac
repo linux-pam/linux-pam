@@ -647,7 +647,6 @@ STRINGPARAM_PROFILECONDITIONS="--stringparam profile.condition '$profileconditio
 AC_SUBST([STRINGPARAM_PROFILECONDITIONS])
 
 dnl Checks for header files.
-AC_HEADER_DIRENT
 AC_HEADER_SYS_WAIT
 
 dnl Checks for typedefs, structures, and compiler characteristics.
