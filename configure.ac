@@ -653,7 +653,6 @@ AC_TYPE_UID_T
 AC_TYPE_OFF_T
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
-AC_STRUCT_TM
 
 dnl Checks for library functions.
 AC_TYPE_GETGROUPS
