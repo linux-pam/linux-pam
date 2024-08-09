@@ -646,9 +646,6 @@ AM_CONDITIONAL([COND_USE_OPENSSL], [test "x$use_openssl" = "xyes"])
 STRINGPARAM_PROFILECONDITIONS="--stringparam profile.condition '$profileconditions'"
 AC_SUBST([STRINGPARAM_PROFILECONDITIONS])
 
-dnl Checks for header files.
-AC_HEADER_SYS_WAIT
-
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_BIGENDIAN
 AC_C_CONST
