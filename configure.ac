@@ -655,7 +655,6 @@ AC_TYPE_SIZE_T
 
 dnl Checks for library functions.
 AC_PROG_GCC_TRADITIONAL
-AC_FUNC_MEMCMP
 AC_CHECK_FUNCS(getdomainname lckpwdf)
 AC_CHECK_FUNCS(getutent_r getpwnam_r getpwuid_r getgrnam_r getgrgid_r getspnam_r getmntent_r)
 AC_CHECK_FUNCS(getgrouplist)
