@@ -648,7 +648,6 @@ AC_SUBST([STRINGPARAM_PROFILECONDITIONS])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_BIGENDIAN
-AC_C_CONST
 AC_TYPE_UID_T
 AC_TYPE_OFF_T
 AC_TYPE_PID_T
