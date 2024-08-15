@@ -645,10 +645,6 @@ AC_SUBST([STRINGPARAM_PROFILECONDITIONS])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_BIGENDIAN
-AC_TYPE_UID_T
-AC_TYPE_OFF_T
-AC_TYPE_PID_T
-AC_TYPE_SIZE_T
 
 dnl Checks for library functions.
 AC_CHECK_FUNCS(getdomainname lckpwdf)
