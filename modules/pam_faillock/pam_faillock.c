@@ -253,8 +253,10 @@ check_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 				(void)pam_get_item(pamh, PAM_TTY, &tty);
 				(void)pam_get_item(pamh, PAM_RHOST, &rhost);
 				snprintf(buf, sizeof(buf), "op=pam_faillock suid=%u ", opts->uid);
-				audit_log_user_message(audit_fd, AUDIT_RESP_ACCT_UNLOCK_TIMED, buf,
-					rhost, NULL, tty, 1);
+				if (audit_log_user_message(audit_fd, AUDIT_RESP_ACCT_UNLOCK_TIMED, buf,
+							   rhost, NULL, tty, 1) <= 0)
+					pam_syslog(pamh, LOG_ERR,
+						   "Error sending audit message: %m");
 				audit_close(audit_fd);
 			}
 #endif
@@ -370,12 +372,16 @@ write_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 			return PAM_SYSTEM_ERR;
 
 		snprintf(buf, sizeof(buf), "op=pam_faillock suid=%u ", opts->uid);
-		audit_log_user_message(audit_fd, AUDIT_ANOM_LOGIN_FAILURES, buf,
-			NULL, NULL, NULL, 1);
+		if (audit_log_user_message(audit_fd, AUDIT_ANOM_LOGIN_FAILURES, buf,
+					   NULL, NULL, NULL, 1) <= 0)
+			pam_syslog(pamh, LOG_ERR,
+				   "Error sending audit message: %m");
 
 		if (!opts->is_admin || (opts->flags & FAILLOCK_FLAG_DENY_ROOT)) {
-			audit_log_user_message(audit_fd, AUDIT_RESP_ACCT_LOCK, buf,
-				NULL, NULL, NULL, 1);
+			if (audit_log_user_message(audit_fd, AUDIT_RESP_ACCT_LOCK, buf,
+						   NULL, NULL, NULL, 1) <= 0)
+				pam_syslog(pamh, LOG_ERR,
+					   "Error sending audit message: %m");
 		}
 		close(audit_fd);
 #endif
