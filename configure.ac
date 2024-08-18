@@ -16,6 +16,10 @@ dnl By default, everything under PAM is installed below /usr.
 dnl
 AC_PREFIX_DEFAULT(/usr)
 
+dnl for use instead of includedir substitutions in *.pc files
+pkgconfig_includedir=$includedir
+AC_SUBST(pkgconfig_includedir)
+
 dnl and some hacks to use /etc and /lib
 test "${prefix}" = "NONE" && prefix="/usr"
 if test ${prefix} = '/usr'
