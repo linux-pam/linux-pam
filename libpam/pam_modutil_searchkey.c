@@ -4,8 +4,6 @@
  *     lookup a value for key in login.defs file or similar key value format
  */
 
-#include "config.h"
-
 #include "pam_private.h"
 #include "pam_modutil_private.h"
 #include <security/pam_ext.h>

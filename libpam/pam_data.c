@@ -31,8 +31,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "config.h"
-
 #include "pam_private.h"
 
 #include <stdlib.h>

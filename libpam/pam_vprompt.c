@@ -31,7 +31,8 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "config.h"
+#include "pam_private.h"
+#include "pam_inline.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,9 +42,6 @@
 
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
-
-#include "pam_private.h"
-#include "pam_inline.h"
 
 int
 pam_vprompt (pam_handle_t *pamh, int style, char **response,

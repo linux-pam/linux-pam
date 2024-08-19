@@ -31,9 +31,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include <pam_private.h>
 
 #include <stdio.h>
 #include <unistd.h>
@@ -41,7 +39,6 @@
 
 #include <security/pam_appl.h>
 #include <security/pam_modules.h>
-#include <pam_private.h>
 
 static int cleanup_was_called = 0;
 static int cleanup3_was_called = 0;
