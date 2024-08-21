@@ -72,6 +72,7 @@
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 #include "pam_inline.h"
+#include "pam_i18n.h"
 
 /* The default timeout we use is 5 minutes, which matches the sudo default
  * for the timestamp_timeout parameter. */

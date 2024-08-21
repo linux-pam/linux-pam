@@ -706,15 +706,6 @@ AM_GNU_GETTEXT([external])
 AC_CHECK_FUNCS(bindtextdomain)
 AC_CHECK_FUNCS(dngettext)
 
-AH_BOTTOM([#ifdef ENABLE_NLS
-#include <libintl.h>
-#define _(msgid) dgettext(PACKAGE, msgid)
-#define N_(msgid) msgid
-#else
-#define _(msgid) (msgid)
-#define N_(msgid) msgid
-#endif /* ENABLE_NLS */])
-
 dnl
 dnl Check for the availability of the kernel key management facility
 dnl - The pam_keyinit module only requires the syscalls, not the error codes

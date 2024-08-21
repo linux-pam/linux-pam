@@ -63,6 +63,7 @@
 
 #include "opasswd.h"
 #include "pam_inline.h"
+#include "pam_i18n.h"
 #include "pwhistory_config.h"
 
 

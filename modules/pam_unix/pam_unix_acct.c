@@ -57,6 +57,7 @@
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
+#include "pam_i18n.h"
 #include "pam_cc_compat.h"
 #include "support.h"
 #include "passverify.h"

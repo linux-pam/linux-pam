@@ -52,6 +52,7 @@
 #endif
 
 #include "pam_inline.h"
+#include "pam_i18n.h"
 #include "faillock.h"
 #include "faillock_config.h"
 
