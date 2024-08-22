@@ -766,6 +766,8 @@ AS_HELP_STRING([--with-misc-conv-bufsize=<number>],
     [with_misc_conv_bufsize=4096])
 AC_DEFINE_UNQUOTED(PAM_MISC_CONV_BUFSIZE, $with_misc_conv_bufsize, [libpam_misc misc_conv() buffer size.])
 
+AC_DEFINE_UNQUOTED([LTDIR], [".libs/"], [Libtool subdirectory.])
+
 AM_CONDITIONAL([COND_BUILD_PAM_KEYINIT], [test "$have_key_syscalls" = 1])
 AM_CONDITIONAL([COND_BUILD_PAM_LASTLOG], [test "$ac_cv_func_logwtmp" = yes])
 AM_CONDITIONAL([COND_BUILD_PAM_NAMESPACE], [test "$ac_cv_func_unshare" = yes])

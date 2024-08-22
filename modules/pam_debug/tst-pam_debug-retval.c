@@ -37,10 +37,10 @@ main(void)
 
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so %s\n"
-			     "account required %s/.libs/%s.so %s\n"
-			     "password required %s/.libs/%s.so %s\n"
-			     "session required %s/.libs/%s.so %s\n",
+			     "auth required %s/" LTDIR "%s.so %s\n"
+			     "account required %s/" LTDIR "%s.so %s\n"
+			     "password required %s/" LTDIR "%s.so %s\n"
+			     "session required %s/" LTDIR "%s.so %s\n",
 			     cwd, MODULE_NAME, args,
 			     cwd, MODULE_NAME, args,
 			     cwd, MODULE_NAME, args,

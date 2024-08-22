@@ -37,11 +37,11 @@ main(void)
 	/* root has access */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			"auth required %s/../pam_permit/.libs/pam_permit.so\n"
-			"auth required %s/.libs/%s.so authsucc even_deny_root dir=%s conf=%s\n"
-			"account required %s/.libs/%s.so dir=%s\n"
-			"password required %s/.libs/%s.so dir=%s\n"
-			"session required %s/.libs/%s.so dir=%s\n",
+			"auth required %s/../pam_permit/" LTDIR "pam_permit.so\n"
+			"auth required %s/" LTDIR "%s.so authsucc even_deny_root dir=%s conf=%s\n"
+			"account required %s/" LTDIR "%s.so dir=%s\n"
+			"password required %s/" LTDIR "%s.so dir=%s\n"
+			"session required %s/" LTDIR "%s.so dir=%s\n",
 			cwd,
 			cwd, MODULE_NAME, cwd, config_filename,
 			cwd, MODULE_NAME, cwd,
@@ -66,10 +66,10 @@ main(void)
 	/* root tries to login 2 times without success*/
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			"auth requisite %s/.libs/%s.so dir=%s preauth even_deny_root conf=%s\n"
-			"auth [success=1 default=bad] %s/../pam_debug/.libs/pam_debug.so auth=perm_denied cred=success\n"
-			"auth [default=die] %s/.libs/%s.so dir=%s authfail even_deny_root conf=%s\n"
-			"auth sufficient %s/.libs/%s.so dir=%s authsucc even_deny_root conf=%s\n",
+			"auth requisite %s/" LTDIR "%s.so dir=%s preauth even_deny_root conf=%s\n"
+			"auth [success=1 default=bad] %s/../pam_debug/" LTDIR "pam_debug.so auth=perm_denied cred=success\n"
+			"auth [default=die] %s/" LTDIR "%s.so dir=%s authfail even_deny_root conf=%s\n"
+			"auth sufficient %s/" LTDIR "%s.so dir=%s authsucc even_deny_root conf=%s\n",
 			cwd, MODULE_NAME, cwd, config_filename,
 			cwd,
 			cwd, MODULE_NAME, cwd, config_filename,
@@ -89,10 +89,10 @@ main(void)
 	/* root is locked for 5 sec*/
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			"auth requisite %s/.libs/%s.so dir=%s preauth even_deny_root conf=%s\n"
-			"auth [success=1 default=bad] %s/../pam_debug/.libs/pam_debug.so auth=success cred=success\n"
-			"auth [default=die] %s/.libs/%s.so dir=%s authfail even_deny_root conf=%s\n"
-			"auth sufficient %s/.libs/%s.so dir=%s authsucc even_deny_root conf=%s\n",
+			"auth requisite %s/" LTDIR "%s.so dir=%s preauth even_deny_root conf=%s\n"
+			"auth [success=1 default=bad] %s/../pam_debug/" LTDIR "pam_debug.so auth=success cred=success\n"
+			"auth [default=die] %s/" LTDIR "%s.so dir=%s authfail even_deny_root conf=%s\n"
+			"auth sufficient %s/" LTDIR "%s.so dir=%s authsucc even_deny_root conf=%s\n",
 			cwd, MODULE_NAME, cwd, config_filename,
 			cwd,
 			cwd, MODULE_NAME, cwd, config_filename,
