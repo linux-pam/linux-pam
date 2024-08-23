@@ -23,7 +23,6 @@ endif
 
 AM_CFLAGS = -I$(top_srcdir)/libpam_internal/include \
 	    -I$(top_srcdir)/libpam/include \
-	    -I$(top_srcdir)/libpam_internal/include \
 	    -DSYSCONFDIR=\"$(sysconfdir)\" $(WARN_CFLAGS) $(ECONF_CFLAGS)
 AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
