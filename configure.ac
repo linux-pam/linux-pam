@@ -269,8 +269,6 @@ AC_ARG_ENABLE(txt_stylesheet,
 
 ${MKDIR_P} doc
 AC_SUBST(TXT_STYLESHEET)
-# It has to be TXT_STYLESHEET otherwise a html tree will be generated while generating all README files.
-sed "s+HTML_STYLESHEET+$TXT_STYLESHEET+g" <$srcdir/doc/custom-html.xsl.in >doc/custom-html.xsl
 
 AC_ARG_ENABLE(pdf_stylesheet,
 	AS_HELP_STRING([--enable-pdf-stylesheet=FILE],[pdf stylesheet path @<:@default=http://docbook.sourceforge.net/release/xsl-ns/current/fo/docbook.xsl@:>@]),

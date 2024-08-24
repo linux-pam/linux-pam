@@ -3,4 +3,3 @@ MODULES-SGML
 /*/*.txt
 /*/html/
 custom-man.xsl
-custom-html.xsl
