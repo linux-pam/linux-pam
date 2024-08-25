@@ -90,10 +90,10 @@
 /*
  * Module defines
  */
-#define PAM_NAMESPACE_CONFIG (SCONFIGDIR "/namespace.conf")
-#define NAMESPACE_INIT_SCRIPT (SCONFIGDIR "/namespace.init")
-#define NAMESPACE_D_DIR (SCONFIGDIR "/namespace.d/")
-#define NAMESPACE_D_GLOB (SCONFIGDIR "/namespace.d/*.conf")
+#define PAM_NAMESPACE_CONFIG (SCONFIG_DIR "/namespace.conf")
+#define NAMESPACE_INIT_SCRIPT (SCONFIG_DIR "/namespace.init")
+#define NAMESPACE_D_DIR (SCONFIG_DIR "/namespace.d/")
+#define NAMESPACE_D_GLOB (SCONFIG_DIR "/namespace.d/*.conf")
 #ifdef VENDOR_SCONFIGDIR
 #define VENDOR_NAMESPACE_INIT_SCRIPT (VENDOR_SCONFIGDIR "/namespace.init")
 #define VENDOR_PAM_NAMESPACE_CONFIG (VENDOR_SCONFIGDIR "/namespace.conf")

@@ -33,7 +33,7 @@
 #include <libaudit.h>
 #endif
 
-#define PAM_TIME_CONF	(SCONFIGDIR "/time.conf")
+#define PAM_TIME_CONF	(SCONFIG_DIR "/time.conf")
 #ifdef VENDOR_SCONFIGDIR
 #define VENDOR_PAM_TIME_CONF (VENDOR_SCONFIGDIR "/time.conf")
 #endif

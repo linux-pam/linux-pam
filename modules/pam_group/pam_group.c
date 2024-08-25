@@ -24,7 +24,7 @@
 #include <fcntl.h>
 #include <netdb.h>
 
-#define PAM_GROUP_CONF		SCONFIGDIR "/group.conf"
+#define PAM_GROUP_CONF		SCONFIG_DIR "/group.conf"
 #ifdef VENDOR_SCONFIGDIR
 # define VENDOR_PAM_GROUP_CONF	VENDOR_SCONFIGDIR "/group.conf"
 #endif

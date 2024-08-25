@@ -126,7 +126,7 @@ struct pam_limit_s {
 /* Limits from globbed files. */
 #define LIMITS_CONF_GLOB	(LIMITS_FILE_DIR "/*.conf")
 
-#define LIMITS_FILE	(SCONFIGDIR "/limits.conf")
+#define LIMITS_FILE	(SCONFIG_DIR "/limits.conf")
 
 #ifdef VENDOR_SCONFIGDIR
 #define VENDOR_LIMITS_FILE (VENDOR_SCONFIGDIR "/limits.conf")

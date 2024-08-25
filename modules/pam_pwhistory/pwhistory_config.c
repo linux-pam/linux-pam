@@ -46,7 +46,7 @@
 #include "pam_inline.h"
 #include "pwhistory_config.h"
 
-#define PWHISTORY_DEFAULT_CONF SCONFIGDIR "/pwhistory.conf"
+#define PWHISTORY_DEFAULT_CONF SCONFIG_DIR "/pwhistory.conf"
 
 #ifdef VENDOR_SCONFIGDIR
 #define VENDOR_PWHISTORY_DEFAULT_CONF (VENDOR_SCONFIGDIR "/pwhistory.conf")

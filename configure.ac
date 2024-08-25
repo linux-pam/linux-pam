@@ -299,7 +299,7 @@ AC_MSG_RESULT([Defining \$ISA to "$ISA"])
 AC_ARG_ENABLE(sconfigdir,
 	AS_HELP_STRING([--enable-sconfigdir=DIR],[path to module conf files @<:@default=$sysconfdir/security@:>@]),
 	SCONFIGDIR=$enableval, SCONFIGDIR=$sysconfdir/security)
-AC_DEFINE_UNQUOTED([SCONFIGDIR], ["$SCONFIGDIR"],
+AC_DEFINE_UNQUOTED([SCONFIG_DIR], ["$SCONFIGDIR"],
 		   [Directory for PAM modules system configuration files])
 AC_SUBST(SCONFIGDIR)
 

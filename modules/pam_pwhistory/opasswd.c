@@ -76,7 +76,7 @@
 #define RANDOM_DEVICE "/dev/urandom"
 #endif
 
-#define DEFAULT_OLD_PASSWORDS_FILE SCONFIGDIR "/opasswd"
+#define DEFAULT_OLD_PASSWORDS_FILE SCONFIG_DIR "/opasswd"
 
 typedef struct {
   char *user;

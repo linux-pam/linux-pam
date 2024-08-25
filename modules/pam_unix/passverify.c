@@ -364,7 +364,7 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 
 #define PW_TMPFILE              "/etc/npasswd"
 #define SH_TMPFILE              "/etc/nshadow"
-#define OPW_TMPFILE             SCONFIGDIR "/nopasswd"
+#define OPW_TMPFILE             SCONFIG_DIR "/nopasswd"
 
 /*
  * i64c - convert an integer to a radix 64 character
