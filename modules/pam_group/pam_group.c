@@ -25,8 +25,8 @@
 #include <netdb.h>
 
 #define PAM_GROUP_CONF		SCONFIG_DIR "/group.conf"
-#ifdef VENDOR_SCONFIGDIR
-# define VENDOR_PAM_GROUP_CONF	VENDOR_SCONFIGDIR "/group.conf"
+#ifdef VENDOR_SCONFIG_DIR
+# define VENDOR_PAM_GROUP_CONF	VENDOR_SCONFIG_DIR "/group.conf"
 #endif
 #define PAM_GROUP_BUFLEN        1000
 #define FIELD_SEPARATOR         ';'   /* this is new as of .02 */

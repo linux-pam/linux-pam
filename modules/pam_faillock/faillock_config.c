@@ -49,8 +49,8 @@
 #include "faillock.h"
 
 #define FAILLOCK_DEFAULT_CONF SCONFIG_DIR "/faillock.conf"
-#ifdef VENDOR_SCONFIGDIR
-#define VENDOR_FAILLOCK_DEFAULT_CONF VENDOR_SCONFIGDIR "/faillock.conf"
+#ifdef VENDOR_SCONFIG_DIR
+#define VENDOR_FAILLOCK_DEFAULT_CONF VENDOR_SCONFIG_DIR "/faillock.conf"
 #endif
 
 static void PAM_FORMAT((printf, 3, 4)) PAM_NONNULL((3))

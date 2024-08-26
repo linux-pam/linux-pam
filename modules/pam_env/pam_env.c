@@ -53,8 +53,8 @@ typedef struct var {
 #define DEFAULT_USER_READ_ENVFILE 0
 
 #define DEFAULT_CONF_FILE	(SCONFIG_DIR "/pam_env.conf")
-#ifdef VENDOR_SCONFIGDIR
-#define VENDOR_DEFAULT_CONF_FILE (VENDOR_SCONFIGDIR "/pam_env.conf")
+#ifdef VENDOR_SCONFIG_DIR
+#define VENDOR_DEFAULT_CONF_FILE (VENDOR_SCONFIG_DIR "/pam_env.conf")
 #endif
 
 #define GOOD_LINE    0

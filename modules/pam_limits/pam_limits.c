@@ -128,9 +128,9 @@ struct pam_limit_s {
 
 #define LIMITS_FILE	(SCONFIG_DIR "/limits.conf")
 
-#ifdef VENDOR_SCONFIGDIR
-#define VENDOR_LIMITS_FILE (VENDOR_SCONFIGDIR "/limits.conf")
-#define VENDOR_LIMITS_CONF_GLOB  (VENDOR_SCONFIGDIR "/limits.d/*.conf")
+#ifdef VENDOR_SCONFIG_DIR
+#define VENDOR_LIMITS_FILE (VENDOR_SCONFIG_DIR "/limits.conf")
+#define VENDOR_LIMITS_CONF_GLOB  (VENDOR_SCONFIG_DIR "/limits.d/*.conf")
 #endif
 
 static int

@@ -26,9 +26,9 @@ static const char missing_file[] = TEST_NAME ".missing";
 static const char my_conf[] = TEST_NAME ".conf";
 static const char my_env[] = TEST_NAME ".env";
 #ifdef VENDORDIR
-static const char dir_usr_etc_security[] = TEST_NAME_DIR VENDOR_SCONFIGDIR;
+static const char dir_usr_etc_security[] = TEST_NAME_DIR VENDOR_SCONFIG_DIR;
 static const char usr_env[] = TEST_NAME_DIR VENDORDIR "/environment";
-static const char usr_conf[] = TEST_NAME_DIR VENDOR_SCONFIGDIR "/pam_env.conf";
+static const char usr_conf[] = TEST_NAME_DIR VENDOR_SCONFIG_DIR "/pam_env.conf";
 #endif
 
 static struct pam_conv conv;

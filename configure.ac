@@ -610,7 +610,7 @@ AC_ARG_ENABLE([vendordir],
 if test -n "$enable_vendordir"; then
   AC_DEFINE_UNQUOTED([VENDORDIR], ["$enable_vendordir"],
 		     [Directory for distribution provided configuration files])
-  AC_DEFINE_UNQUOTED([VENDOR_SCONFIGDIR], ["$enable_vendordir/security"],
+  AC_DEFINE_UNQUOTED([VENDOR_SCONFIG_DIR], ["$enable_vendordir/security"],
 		     [Directory for PAM modules distribution provided configuration files])
   if test "$WITH_ECONF" = "yes" ; then
     STRINGPARAM_VENDORDIR="--stringparam vendordir '$enable_vendordir'"

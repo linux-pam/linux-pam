@@ -48,8 +48,8 @@
 
 #define PWHISTORY_DEFAULT_CONF SCONFIG_DIR "/pwhistory.conf"
 
-#ifdef VENDOR_SCONFIGDIR
-#define VENDOR_PWHISTORY_DEFAULT_CONF (VENDOR_SCONFIGDIR "/pwhistory.conf")
+#ifdef VENDOR_SCONFIG_DIR
+#define VENDOR_PWHISTORY_DEFAULT_CONF (VENDOR_SCONFIG_DIR "/pwhistory.conf")
 #endif
 
 void
