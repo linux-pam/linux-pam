@@ -726,10 +726,11 @@ AC_DEFINE_UNQUOTED(PAM_USERTYPE_OVERFLOW_UID, $opt_kerneloverflowuid, [Kernel ov
 AC_ARG_WITH([systemdunitdir],
 AS_HELP_STRING([--with-systemdunitdir=DIR], [path to systemd service directory]),
     [],
-    [
-    PKG_CHECK_EXISTS([systemd],
-      [with_systemdunitdir=$($PKG_CONFIG --variable=systemdunitdir systemd)],
-      [with_systemdunitdir='${prefix}/lib/systemd/system'])
+    [AC_MSG_CHECKING([systemd service directory])
+     with_systemdunitdir='${prefix}/lib/systemd/system'
+     PKG_CHECK_EXISTS([systemd],
+                      [with_systemdunitdir=$($PKG_CONFIG --variable=systemdunitdir systemd)])
+     AC_MSG_RESULT([$with_systemdunitdir])
     ])
 AC_SUBST([systemdunitdir], [$with_systemdunitdir])
 
