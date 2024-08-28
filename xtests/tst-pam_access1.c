@@ -40,9 +40,7 @@
   User is member of group tstpamaccess, pam_authenticate should pass.
 */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <stdio.h>
 #include <stdlib.h>

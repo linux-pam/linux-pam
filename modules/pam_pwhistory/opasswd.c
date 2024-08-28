@@ -34,9 +34,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if defined(HAVE_CONFIG_H)
 #include <config.h>
-#endif
 
 #include <pwd.h>
 #include <shadow.h>

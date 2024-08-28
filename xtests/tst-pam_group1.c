@@ -43,9 +43,7 @@
   to tstpamgrp2.
 */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <grp.h>
 #include <stdio.h>
