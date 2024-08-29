@@ -720,12 +720,10 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 
 	D(("called"));
 
-#ifdef HAVE_PAM_FAIL_DELAY
 	if (off(UNIX_NODELAY, ctrl)) {
 		D(("setting delay"));
 		(void) pam_fail_delay(pamh, 2000000);	/* 2 sec delay for on failure */
 	}
-#endif
 
 	/* locate the entry for this user */
 
