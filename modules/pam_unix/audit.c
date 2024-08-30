@@ -1,5 +1,3 @@
-#include "audit.h"
-
 #include "config.h"
 
 #ifdef HAVE_LIBAUDIT
@@ -11,6 +9,7 @@
 
 #include <security/_pam_types.h>
 
+#include "audit.h"
 #include "passverify.h"
 
 int audit_log(int type, const char *uname, int retval)

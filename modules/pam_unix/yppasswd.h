@@ -6,6 +6,8 @@
 #ifndef _YPPASSWD_H_RPCGEN
 #define _YPPASSWD_H_RPCGEN
 
+#include "config.h"
+
 #include <rpc/rpc.h>
 
 

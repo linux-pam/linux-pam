@@ -12,11 +12,11 @@
  *
  */
 
+#include "pam_inline.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "md5.h"
-#include "pam_inline.h"
 
 static const unsigned char itoa64[] =	/* 0 ... 63 => ascii - 64 */
 "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

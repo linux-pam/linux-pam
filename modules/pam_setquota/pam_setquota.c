@@ -8,6 +8,8 @@
    Copyright © 2016 Keller Fuchs <kellerfuchs@hashbang.sh>
 */
 
+#include "pam_inline.h"
+
 #include <sys/types.h>
 #include <sys/quota.h>
 #include <linux/quota.h>
@@ -22,7 +24,6 @@
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
-#include "pam_inline.h"
 
 #ifndef PATH_LOGIN_DEFS
 # define PATH_LOGIN_DEFS "/etc/login.defs"

@@ -18,10 +18,10 @@
  *
  */
 
+#include "pam_inline.h"
+
 #include <string.h>
 #include "md5.h"
-
-#include "pam_inline.h"
 
 #ifndef HIGHFIRST
 #define byteReverse(buf, len)	/* Nothing */
