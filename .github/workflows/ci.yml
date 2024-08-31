@@ -26,7 +26,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   gcc13-x86_64-openssl:
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   gcc13-x86_64-sanitizers:
     runs-on: ubuntu-latest
@@ -59,7 +59,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   gcc13-x86_64:
     runs-on: ubuntu-latest
@@ -73,7 +73,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   gcc13-x86_64-debug:
     runs-on: ubuntu-latest
@@ -88,7 +88,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   gcc12-x86_64:
     runs-on: ubuntu-latest
@@ -102,7 +102,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   gcc11-x86_64:
     runs-on: ubuntu-latest
@@ -116,7 +116,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   gcc10-x86_64:
     runs-on: ubuntu-latest
@@ -130,7 +130,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   gcc9-x86_64:
     runs-on: ubuntu-latest
@@ -144,7 +144,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   clang15-x86_64-vendordir:
     runs-on: ubuntu-latest
@@ -159,7 +159,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   clang15-x86_64-openssl:
     runs-on: ubuntu-latest
@@ -174,7 +174,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   clang15-x86_64:
     runs-on: ubuntu-latest
@@ -188,7 +188,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   clang15-x86_64-debug:
     runs-on: ubuntu-latest
@@ -203,7 +203,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   clang14-x86_64:
     runs-on: ubuntu-latest
@@ -217,7 +217,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   clang13-x86_64:
     runs-on: ubuntu-latest
@@ -231,7 +231,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   clang12-x86_64:
     runs-on: ubuntu-latest
@@ -245,7 +245,7 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
 
   clang11-x86_64:
     runs-on: ubuntu-latest
@@ -259,4 +259,4 @@ jobs:
     - name: install dependencies
       run: ci/install-dependencies.sh
     - name: build check
-      run: ci/run-build-and-tests.sh
+      run: ci/autotools-build.sh
