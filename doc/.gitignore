@@ -1,5 +1,5 @@
 pam.sgml
 MODULES-SGML
 /*/*.txt
-/*/html/
+/*/html/*.html
 custom-man.xsl
