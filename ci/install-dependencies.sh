@@ -8,9 +8,6 @@
 j=-j`nproc` || j=
 type sudo >/dev/null 2>&1 && sudo=sudo || sudo=
 packages="
-autoconf
-automake
-autopoint
 bison
 bzip2
 docbook5-xml
@@ -22,9 +19,7 @@ libdb-dev
 libfl-dev
 libselinux1-dev
 libssl-dev
-libtool
 libxml2-utils
-make
 pkg-config
 sed
 w3m
@@ -51,6 +46,15 @@ apt_get_install()
 		apt-get -qq --no-install-suggests --no-install-recommends \
 		install -y "$@"
 }
+
+case "${BUILD-}" in
+	meson)
+		python -m pip install meson ninja
+		;;
+	*)
+		packages="$packages autoconf automake autopoint libtool make"
+		;;
+esac
 
 case "$CC" in
 	gcc-*)
