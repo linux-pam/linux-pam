@@ -165,13 +165,31 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 		{
 		    unsigned int users = 0;
 #ifdef USE_LOGIND
-		    int sessions = sd_get_sessions(NULL);
+		    char **sessions_list;
+		    int sessions = sd_get_sessions(&sessions_list);
 
 		    if (sessions < 0) {
 		      pam_syslog(pamh, LOG_ERR, "logind error: %s",
 				 strerror(-sessions));
 		      _pam_drop(issue);
 		      return PAM_SERVICE_ERR;
+		    } else if (sessions > 0 && sessions_list != NULL) {
+		      int i;
+
+		      for (i = 0; i < sessions; i++) {
+			char *class;
+
+			if (sd_session_get_class(sessions_list[i], &class) < 0 || class == NULL)
+			  continue;
+
+			if (strncmp(class, "user", 4) == 0) // user, user-early, user-incomplete
+			  users++;
+			free(class);
+		      }
+
+		      for (i = 0; i < sessions; i++)
+			free(sessions_list[i]);
+		      free(sessions_list);
 		    } else {
 		      users = sessions;
 		    }
