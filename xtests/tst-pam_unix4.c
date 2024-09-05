@@ -123,7 +123,13 @@ main(int argc, char *argv[])
 
   /* we must switch the real (not effective) user so the restrictions
      are enforced */
-  setreuid (pwd->pw_uid, -1);
+  retval = setreuid (pwd->pw_uid, -1);
+  if (retval)
+    {
+      if (debug)
+	fprintf (stderr, "unix4: setreuid returned %d\n", retval);
+      return 1;
+    }
 
   retval = pam_start("tst-pam_unix4", user, &conv, &pamh);
   if (retval != PAM_SUCCESS)
