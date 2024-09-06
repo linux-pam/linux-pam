@@ -36,7 +36,12 @@
 #include <sys/resource.h>
 #include <limits.h>
 #include <glob.h>
+#ifdef USE_LOGIND
+#include <systemd/sd-login.h>
+#else
 #include <utmp.h>
+#endif
+
 #ifndef UT_USER  /* some systems have ut_name instead of ut_user */
 #define UT_USER ut_user
 #endif
@@ -240,7 +245,6 @@ static int
 check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
               struct pam_limit_s *pl)
 {
-    struct utmp *ut;
     int count;
 
     if (ctrl & PAM_DEBUG_ARG) {
@@ -254,8 +258,6 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
         pam_syslog(pamh, LOG_WARNING, "No logins allowed for '%s'", name);
         return LOGIN_ERR;
     }
-
-    setutent();
 
     /* Because there is no definition about when an application
        actually adds a utmp entry, some applications bizarrely do the
@@ -272,6 +274,78 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
     } else {
 	count = 1;
     }
+
+#ifdef USE_LOGIND
+    char **sessions_list;
+    int sessions = sd_get_sessions(&sessions_list);
+
+    /* maxlogins needs to be 2 with systemd-logind because
+       of the systemd --user process started with first login by
+       pam_systemd.
+       Which is also calling pam_limits, but in this very first special
+       case the session does already exist and is counted twice.
+       With start of the second session, session manager is already running
+       and no longer counted. */
+    if (limit == 1) {
+        pam_syslog(pamh, LOG_WARNING, "Maxlogin limit needs to be 2 or higher with systemd-logind");
+        return LIMIT_ERR;
+    }
+
+    if (sessions < 0) {
+      pam_syslog(pamh, LOG_ERR, "logind error getting session list: %s",
+		 strerror(-sessions));
+      return LIMIT_ERR;
+    } else if (sessions > 0 && sessions_list != NULL && !pl->flag_numsyslogins) {
+      int i;
+
+      for (i = 0; i < sessions; i++) {
+	char *user = NULL;
+	char *class = NULL;
+
+	if (sd_session_get_class(sessions_list[i], &class) < 0 || class == NULL)
+	  continue;
+
+	if (strncmp(class, "user", 4) != 0)  { /* user, user-early, user-incomplete */
+	  free (class);
+	  continue;
+	}
+	free (class);
+
+	if (sd_session_get_username(sessions_list[i], &user) < 0 || user == NULL) {
+	  pam_syslog(pamh, LOG_ERR, "logind error getting username: %s",
+		     strerror(-sessions));
+	  return LIMIT_ERR;
+	}
+
+	if (((pl->login_limit_def == LIMITS_DEF_USER)
+	     || (pl->login_limit_def == LIMITS_DEF_GROUP)
+	     || (pl->login_limit_def == LIMITS_DEF_DEFAULT))
+	    && strcmp(name, user) != 0) {
+	  free(user);
+	  continue;
+	}
+	if ((pl->login_limit_def == LIMITS_DEF_ALLGROUP)
+	    && pl->login_group != NULL
+	    && !pam_modutil_user_in_group_nam_nam(pamh, user, pl->login_group)) {
+	  free(user);
+	  continue;
+	}
+	free(user);
+
+	if (++count > limit) {
+	  break;
+	}
+      }
+      for (i = 0; i < sessions; i++)
+	free(sessions_list[i]);
+      free(sessions_list);
+    } else {
+      count = sessions;
+    }
+#else
+    struct utmp *ut;
+
+    setutent();
 
     while((ut = getutent())) {
 #ifdef USER_PROCESS
@@ -311,6 +385,7 @@ check_logins (pam_handle_t *pamh, const char *name, int limit, int ctrl,
 	}
     }
     endutent();
+#endif
     if (count > limit) {
 	if (name) {
 	    pam_syslog(pamh, LOG_NOTICE,
