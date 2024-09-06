@@ -24,7 +24,7 @@ limits_conf_dir = $(SCONFIGDIR)/limits.d
 
 AM_CFLAGS = -I$(top_srcdir)/libpam/include \
 	    -DLIMITS_FILE_DIR=\"$(limits_conf_dir)\" \
-	    $(WARN_CFLAGS)
+	    $(LOGIND_CFLAGS) $(WARN_CFLAGS)
 AM_LDFLAGS = -no-undefined -avoid-version -module
 if HAVE_VERSIONING
   AM_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
@@ -32,7 +32,7 @@ endif
 
 securelib_LTLIBRARIES = pam_limits.la
 pam_limits_la_LIBADD = $(top_builddir)/libpam_internal/libpam_internal.la \
-		       $(top_builddir)/libpam/libpam.la
+		       $(top_builddir)/libpam/libpam.la $(SYSTEMD_LIBS)
 
 dist_secureconf_DATA = limits.conf
 
