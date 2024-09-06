@@ -268,11 +268,6 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	}
 
 	if (cryptmode && pam_str_skip_icase_prefix(cryptmode, "crypt") != NULL) {
-
-	  /* crypt(3) password storage */
-
-	  char *cryptpw = NULL;
-
 	  if (data.dsize < 13) {
 	    /* hash is too short */
 	    pam_syslog(pamh, LOG_INFO, "password hash in database is too short");
@@ -286,6 +281,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	    if (pwhash == NULL) {
 	      pam_syslog(pamh, LOG_CRIT, "strndup failed: data.dptr");
 	    } else {
+	      char *cryptpw = NULL;
 #ifdef HAVE_CRYPT_R
 	      struct crypt_data *cdata = NULL;
 	      cdata = calloc(1, sizeof(*cdata));
@@ -312,13 +308,13 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 #ifdef HAVE_CRYPT_R
 	      pam_overwrite_object(cdata);
 	      free(cdata);
+#else
+	      pam_overwrite_string(cryptpw);
 #endif
 	    }
 	    pam_overwrite_string(pwhash);
 	    free(pwhash);
 	  }
-
-	  pam_overwrite_string(cryptpw);
 	} else {
 
 	  /* Unknown password encryption method -
