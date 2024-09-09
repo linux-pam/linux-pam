@@ -1,0 +1,7 @@
+.git* export-ignore
+ChangeLog.old export-ignore
+README-hacking export-ignore
+ci export-ignore
+gitlog-to-changelog export-ignore
+maint export-ignore
+zanata.xml export-ignore
