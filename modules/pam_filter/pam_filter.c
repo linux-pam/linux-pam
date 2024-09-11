@@ -370,7 +370,8 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    }
 	} else {
 
-	    /* nothing to do for a simple stream socket */
+	    /* nothing else to do for a simple stream socket */
+	    close(fd[0]);
 
 	}
 
@@ -404,6 +405,9 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 
 	return PAM_SUCCESS;
     }
+
+    if (!aterminal)
+	    close(fd[1]);
 
     /* Clear out passwords... there is a security problem here in
      * that this process never executes pam_end.  Consequently, any
