@@ -268,7 +268,7 @@ if module == 'pam_env'
   )
   install_data(
     'environment',
-    install_dir: sysconfdir,
+    install_dir: vendor_sysconfdir,
     install_tag: 'config',
   )
 endif

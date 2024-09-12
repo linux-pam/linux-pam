@@ -83,10 +83,12 @@ cdata.set('SCONFIGDIR', sconfigdir)
 vendordir = get_option('vendordir')
 if get_option('vendordir') == ''
   vendor_sconfigdir = sconfigdir
+  vendor_sysconfdir = sysconfdir
   stringparam_vendordir = []
   stringparam_profileconditions = 'without_vendordir'
 else
   vendor_sconfigdir = vendordir / 'security'
+  vendor_sysconfdir = vendordir
   cdata.set_quoted('VENDORDIR', vendordir)
   cdata.set_quoted('VENDOR_SCONFIG_DIR', vendor_sconfigdir)
   stringparam_vendordir = ['--stringparam', 'vendordir', vendordir]
