@@ -794,7 +794,8 @@ remote_match (pam_handle_t *pamh, char *tok, struct login_info *item)
       if ((str_len = strlen(string)) > tok_len
 	  && strcasecmp(tok, string + str_len - tok_len) == 0)
 	return YES;
-    } else if (tok[tok_len - 1] == '.') {       /* internet network numbers (end with ".") */
+    } else if (strspn(tok, ".0123456789") == tok_len && tok[tok_len - 1] == '.') {
+      /* internet network numbers (end with ".") */
       struct addrinfo hint;
 
       memset (&hint, '\0', sizeof (hint));
@@ -882,6 +883,7 @@ network_netmask_match (pam_handle_t *pamh,
     char netmask_string[MAXHOSTNAMELEN + 1];
     int addr_type;
     struct addrinfo *ai = NULL;
+    size_t tok_len = strlen(tok);
 
     if (item->debug)
       pam_syslog (pamh, LOG_DEBUG,
@@ -930,10 +932,10 @@ network_netmask_match (pam_handle_t *pamh,
 	    return NO;
 	  }
       }
-    else
+    else if (isipaddr(tok, NULL, NULL) == YES || tok[tok_len-1] == '.')
       {
         /*
-	 * It is either an IP address or a hostname.
+	 * It is either an IP address or a FQDN.
 	 * Let getaddrinfo sort everything out
 	 */
 	if (getaddrinfo (tok, NULL, NULL, &ai) != 0)
@@ -945,6 +947,8 @@ network_netmask_match (pam_handle_t *pamh,
 	  }
 	netmask_ptr = NULL;
       }
+    else
+      return NO;
 
     if (isipaddr(string, NULL, NULL) != YES)
       {

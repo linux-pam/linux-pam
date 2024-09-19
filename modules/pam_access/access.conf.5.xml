@@ -73,8 +73,8 @@
       The third field, the <replaceable>origins</replaceable>
       field, should be a list of one or more tty names (for non-networked
       logins), X <varname>$DISPLAY</varname> values or PAM service
-      names (for non-networked logins without a tty), host names,
-      domain names (begin with "."), host addresses,
+      names (for non-networked logins without a tty), fully qualified host names
+      (end with "."), domain names (begin with "."), host addresses,
       internet network numbers (end with "."), internet network addresses
       with network mask (where network mask can be a decimal number or an
       internet address also), <emphasis>ALL</emphasis> (which always matches)
