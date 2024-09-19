@@ -1143,13 +1143,14 @@ pam_access(pam_handle_t *pamh, int argc, const char **argv)
     if (rv == NOMATCH && loginfo.config_file == default_config) {
         char **filename_list = read_access_dir(pamh);
         if (filename_list != NULL) {
-            for (int i = 0; filename_list[i] != NULL; i++) {
+            int i;
+            for (i = 0; filename_list[i] != NULL; i++) {
                 loginfo.config_file = filename_list[i];
                 rv = login_access(pamh, &loginfo);
                 if (rv != NOMATCH)
                     break;
             }
-            for (int i = 0; filename_list[i] != NULL; i++)
+            for (i = 0; filename_list[i] != NULL; i++)
                 free(filename_list[i]);
             free(filename_list);
         }

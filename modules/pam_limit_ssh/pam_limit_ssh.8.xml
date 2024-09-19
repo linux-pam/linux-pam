@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+
+<refentry id="pam_limit_ssh">
+
+  <refmeta>
+    <refentrytitle>pam_limit_ssh</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+  </refmeta>
+
+  <refnamediv id="pam_limit_ssh-name">
+    <refname>pam_limit_ssh</refname>
+    <refpurpose>The SSH Connection Limiting PAM module</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis id="pam_limit_ssh-cmdsynopsis">
+      <command>pam_limit_ssh.so</command>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="pam_limit_ssh-description">
+
+    <title>DESCRIPTION</title>
+
+    <para>
+      This PAM module limits the number of active SSH sessions per user. 
+      It does this by looking at the active SSH connections and denying new 
+      sessions for a user when a max has been met.
+    </para>
+
+  </refsect1>
+
+  <refsect1 id="pam_limit_ssh-options">
+    <title>OPTIONS</title>
+    <variablelist>
+      <varlistentry>
+        <term>
+          <option>max=<replaceable>login count</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            Limit the number of connections per user
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option>sshd=<replaceable>path to sshd</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            Executable checked for concurrency count of user connections
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+
+  <refsect1 id="pam_limit_ssh-types">
+    <title>MODULE TYPES PROVIDED</title>
+    <para>
+      All module types (<option>account</option>, <option>auth</option>,
+      <option>password</option> and <option>session</option>) are provided.
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_limit_ssh-return_values'>
+    <title>RETURN VALUES</title>
+    <variablelist>
+      <varlistentry>
+      <term>PAM_AUTH_ERR</term>
+        <listitem>
+          <para>
+            User has met the maximum number of sessions allowed.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PAM_SUCCESS</term>
+        <listitem>
+          <para>
+            User has less than the maximum number of sshd sessions.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id='pam_limit_ssh-examples'>
+    <title>EXAMPLES</title>
+    <programlisting>
+#%PAM-1.0
+#
+other auth     required       pam_limit_ssh.so
+other account  required       pam_limit_ssh.so
+other password required       pam_limit_ssh.so
+other session  required       pam_limit_ssh.so
+    </programlisting>
+  </refsect1>
+
+  <refsect1 id='pam_limit_ssh-see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+	<refentrytitle>pam.conf</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam.d</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>
+    </para>
+  </refsect1>
+
+  <refsect1 id='pam_limit_ssh-author'>
+    <title>AUTHOR</title>
+      <para>
+        pam_limit_ssh was written by Paul Schou&lt;github.com/pschou&gt;
+      </para>
+  </refsect1>
+
+</refentry>
