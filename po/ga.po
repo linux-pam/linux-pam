@@ -6,22 +6,23 @@
 # leftmostcat <leftmostcat@gmail.com>, 2012
 # leftmostcat <leftmostcat@gmail.com>, 2012-2013
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Aindriu Mac Giolla Eoin <aindriu80@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2024-04-08 08:04+0000\n"
-"PO-Revision-Date: 2013-09-10 02:14-0400\n"
-"Last-Translator: leftmostcat <leftmostcat@gmail.com>\n"
-"Language-Team: Irish (http://www.transifex.com/projects/p/fedora/language/"
-"ga/)\n"
+"PO-Revision-Date: 2024-08-08 15:41+0000\n"
+"Last-Translator: Aindriu Mac Giolla Eoin <aindriu80@gmail.com>\n"
+"Language-Team: Irish <https://translate.fedoraproject.org/projects/linux-pam/"
+"master/ga/>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : "
 "4);\n"
-"X-Generator: Zanata 3.8.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:61
@@ -29,14 +30,13 @@ msgid "Password: "
 msgstr "Focal faire: "
 
 #: libpam/pam_get_authtok.c:42
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "Focal faire %s nua: "
+msgstr "Focal faire reatha %s: "
 
 #: libpam/pam_get_authtok.c:43
-#, fuzzy
 msgid "Current password: "
-msgstr "Focal faire nua: "
+msgstr "Pasfhocal reatha: "
 
 #: libpam/pam_get_authtok.c:45
 #, c-format
@@ -66,9 +66,8 @@ msgid "Retype %s"
 msgstr "Iontráil %s arís"
 
 #: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
-#, fuzzy
 msgid "Password change has been aborted."
-msgstr "Tobscoireadh athrú focail faire."
+msgstr "Cuireadh deireadh le hathrú pasfhocail."
 
 #: libpam/pam_item.c:310
 msgid "login:"
@@ -239,40 +238,40 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "Theip %s: stádas anaithnid 0x%x"
 
 #: modules/pam_faillock/main.c:130
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
-"%s: [--file ainm-comhad-le-fréamh] [--user úsáideoir] [--reset[=u]]\n"
-"[--quiet]\n"
+"Úsáid: %s [--dir /path/to/tally-directory] [--ainm úsáideora] [--athshocrú] "
+"[--legacy-aschur]\n"
 
 #: modules/pam_faillock/main.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "Login           Failures    Latest failure         From\n"
-msgstr "Logáil isteach  Teipeanna  Teip is déanaí  Ó\n"
+msgstr "Logála           Teipeanna    An teip is déanaí         Ó\n"
 
 #: modules/pam_faillock/pam_faillock.c:408
-#, fuzzy, c-format
+#, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr "Cuireadh an cuntas faoi ghlas mar gheall ar %u logáil isteach teipthe"
+msgstr "Tá an cuntas glasáilte mar gheall ar theip %u ar logáil isteach."
 
 #: modules/pam_faillock/pam_faillock.c:417
 #: modules/pam_faillock/pam_faillock.c:423
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "(%d nóiméad fágtha le díghlasáil)"
+msgstr[1] "(%d nóiméid fágtha le díghlasáil)"
+msgstr[2] "(%d nóiméid fágtha le díghlasáil)"
+msgstr[3] "(%d nóiméid fágtha le díghlasáil)"
+msgstr[4] "(%d nóiméid fágtha le díghlasáil)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
 #: modules/pam_faillock/pam_faillock.c:426
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(%d nóiméad fágtha le díghlasáil)"
 
 #. TRANSLATORS: "strftime options for date of last login"
 #: modules/pam_lastlog/pam_lastlog.c:326 modules/pam_lastlog/pam_lastlog.c:595
@@ -312,39 +311,26 @@ msgstr "Logáil isteach teipthe is déanaí:%s%s%s"
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-"Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\n"
-"d'éirigh leis."
-msgstr[1] ""
-"Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\n"
-"d'éirigh leis."
-msgstr[2] ""
-"Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\n"
-"d'éirigh leis."
-msgstr[3] ""
-"Bhí %d n-iarracht logála isteach teipthe ann ón logáil isteach is déanaí\n"
-"a d'éirigh leis."
-msgstr[4] ""
-"Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\n"
-"d'éirigh leis."
+msgstr[0] "Theip ar %d iarracht logáil isteach ón logáil isteach dheireanach."
+msgstr[1] "Theip ar %d iarrachtaí logáil isteach ón logáil isteach dheireanach."
+msgstr[2] "Theip ar %d iarrachtaí logáil isteach ón logáil isteach dheireanach."
+msgstr[3] "Theip ar %d iarrachtaí logáil isteach ón logáil isteach dheireanach."
+msgstr[4] "Theip ar %d iarrachtaí logáil isteach ón logáil isteach dheireanach."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_lastlog/pam_lastlog.c:647
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
-"Bhí %d iarracht logála isteach teipthe ann ón logáil isteach is déanaí a\n"
-"d'éirigh leis."
+msgstr "Theip ar %d iarracht logáil isteach ón logáil isteach dheireanach."
 
 #: modules/pam_limits/pam_limits.c:1348
-#, fuzzy, c-format
+#, c-format
 msgid "There were too many logins for '%s'."
-msgstr "An iomarca logálacha isteach do '%s'."
+msgstr "Bhí an iomarca logáil isteach le haghaidh '%s'."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "Tá post nua agat."
+msgstr "Níl aon ríomhphost nua agat."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
@@ -398,9 +384,9 @@ msgid "Password has been already used."
 msgstr "Úsáidtear an focal faire cheana."
 
 #: modules/pam_selinux/pam_selinux.c:173
-#, fuzzy, c-format
+#, c-format
 msgid "The default security context is %s."
-msgstr "Comhthéacs Réamhshocraithe Slándála %s\n"
+msgstr "Is é %s an comhthéacs slándála réamhshocraithe."
 
 #: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
@@ -411,33 +397,32 @@ msgid "role:"
 msgstr "ról:"
 
 #: modules/pam_selinux/pam_selinux.c:194
-#, fuzzy, c-format
+#, c-format
 msgid "There is no default type for role %s."
-msgstr "Níl aon chineál réamhshocraithe ann do ról %s\n"
+msgstr "Níl aon chineál réamhshocraithe le haghaidh ról %s."
 
 #: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "leibhéal:"
 
 #: modules/pam_selinux/pam_selinux.c:260
-#, fuzzy
 msgid "This is not a valid security context."
-msgstr "Ní comhthéacs bailí slándála é"
+msgstr "Ní comhthéacs bailí slándála é seo."
 
 #: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "Níorbh fhéidir comhthéacs bailí do %s a fháil."
 
 #: modules/pam_selinux/pam_selinux.c:640
-#, fuzzy, c-format
+#, c-format
 msgid "Security context %s has been assigned."
-msgstr "Sannadh Comhthéacs Slándála %s"
+msgstr "Comhthéacs slándála %s sannta."
 
 #: modules/pam_selinux/pam_selinux.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "Key creation context %s has been assigned."
-msgstr "Sannadh Comhthéacs Chruthú Eochracha %s"
+msgstr "Tá comhthéacs cruthú eochrach %s sannta."
 
 #: modules/pam_selinux/pam_selinux_check.c:99
 #, c-format
@@ -455,69 +440,63 @@ msgid "login: failure forking: %m"
 msgstr "logáil isteach: theip ar dhéanamh foirc: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:384
-#, fuzzy, c-format
+#, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Bronnadh rochtain (bhí an rochtain is déanaí %ld soicind ó shin)."
+msgstr "Tugadh rochtain (bhí an rochtain dheireanach %ld soicind ó shin)."
 
 #: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
-#, fuzzy
 msgid "Your account has expired; please contact your system administrator."
-msgstr ""
-"Chuaigh do chuntas as feidhm; déan téagmháil le do riarthóir córais, le do "
-"thoil"
+msgstr "Tá do chuntas imithe in éag; déan teagmháil le do riarthóir córais."
 
 #: modules/pam_unix/pam_unix_acct.c:239
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr "Ní mór duit d'fhocal faire a athrú láithreach (forfheidhmítear fréamh)"
+msgstr ""
+"Iarrtar ort do phasfhocal a athrú láithreach (curtha i bhfeidhm ag an "
+"riarthóir)."
 
 #: modules/pam_unix/pam_unix_acct.c:245
-#, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr ""
-"Ní mór duit d'fhocal faire a athrú láithreach (chuaigh focal faire in aos)"
+"Iarrtar ort do phasfhocal a athrú láithreach (an pasfhocal imithe in éag)."
 
 #: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
-msgstr[1] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
-msgstr[2] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
-msgstr[3] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
-msgstr[4] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
+msgstr[0] "Rabhadh: rachaidh do phasfhocal in éag i gceann %d lá."
+msgstr[1] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d laethanta."
+msgstr[2] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d laethanta."
+msgstr[3] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d laethanta."
+msgstr[4] "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d laethanta."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:282
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr "Rabhadh: rachaidh d'fhocal faire as feidhm i gceann %d lá"
+msgstr "Rabhadh: rachaidh do phasfhocal in éag i gceann %d lá."
 
 #: modules/pam_unix/pam_unix_passwd.c:458
 msgid "NIS password could not be changed."
 msgstr "Níorbh fhéidir focal faire NIS a athrú."
 
 #: modules/pam_unix/pam_unix_passwd.c:556
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "Níor soláthraíodh aon fhocal faire"
+msgstr "Níor soláthraíodh aon phasfhocal."
 
 #: modules/pam_unix/pam_unix_passwd.c:557
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "Níorbh fhéidir focal faire NIS a athrú."
+msgstr "Níor athraíodh an pasfhocal."
 
 #: modules/pam_unix/pam_unix_passwd.c:574
 msgid "You must choose a shorter password."
 msgstr "Ní mór duit pasfhocal níos giorra a roghnú."
 
 #: modules/pam_unix/pam_unix_passwd.c:578
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Caithfidh tú focal faire níos faide a roghnú"
+msgstr "Caithfidh tú pasfhocal níos faide a roghnú."
 
 #: modules/pam_unix/pam_unix_passwd.c:683
 #, c-format
@@ -525,9 +504,8 @@ msgid "Changing password for %s."
 msgstr "Focal faire %s á athrú."
 
 #: modules/pam_unix/pam_unix_passwd.c:713
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Caithfidh tú fanacht níos faide chun d'fhocal faire a athrú"
+msgstr "Caithfidh tú fanacht níos faide chun do phasfhocal a athrú."
 
 #, fuzzy
 #~ msgid "You have no mail."
