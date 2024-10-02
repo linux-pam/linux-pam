@@ -5,13 +5,14 @@
 # Translators:
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Andreas-Johann Ø Ulvestad <aj@aju.no>, 2021.
+# Adaline Simonian <adalinesimonian@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2024-04-08 08:04+0000\n"
-"PO-Revision-Date: 2021-01-18 22:36+0000\n"
-"Last-Translator: Andreas-Johann Ø Ulvestad <aj@aju.no>\n"
+"PO-Revision-Date: 2024-05-02 21:36+0000\n"
+"Last-Translator: Adaline Simonian <adalinesimonian@gmail.com>\n"
 "Language-Team: Norwegian Nynorsk <https://translate.fedoraproject.org/"
 "projects/linux-pam/master/nn/>\n"
 "Language: nn\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.2\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
 #: modules/pam_userdb/pam_userdb.c:61
@@ -235,7 +236,9 @@ msgstr "%s feila: ukjend status 0x%x"
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
-msgstr "Bruk: %s [--dir /sti/til/tally-mappe] [--user brukarnamn] [--reset]\n"
+msgstr ""
+"Bruk: %s [--dir /sti/til/tally-mappe] [--user brukarnamn] [--reset] "
+"[--legacy-output]\n"
 
 #: modules/pam_faillock/main.c:181
 #, c-format
@@ -317,9 +320,8 @@ msgid "There were too many logins for '%s'."
 msgstr "For mange innlogginga for «%s»."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "Du har fått ny e-post."
+msgstr "Du har ikkje fått nokon ny e-post."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
