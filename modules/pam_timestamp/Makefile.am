@@ -27,7 +27,7 @@ noinst_HEADERS = hmacsha1.h sha1.h hmac_openssl_wrapper.h
 AM_CFLAGS = -I$(top_srcdir)/libpam/include $(LOGIND_CFLAGS) $(WARN_CFLAGS)
 
 pam_timestamp_la_LDFLAGS = -no-undefined -avoid-version -module $(AM_LDFLAGS) $(CRYPTO_LIBS)
-pam_timestamp_la_LIBADD = $(top_builddir)/libpam/libpam.la $(SYSTEMD_LIBS)
+pam_timestamp_la_LIBADD = $(top_builddir)/libpam/libpam.la $(LOGIND_LIBS)
 if HAVE_VERSIONING
   pam_timestamp_la_LDFLAGS += -Wl,--version-script=$(srcdir)/../modules.map
 endif
@@ -45,7 +45,7 @@ pam_timestamp_la_CFLAGS = $(AM_CFLAGS)
 
 pam_timestamp_check_SOURCES = pam_timestamp_check.c
 pam_timestamp_check_CFLAGS = $(AM_CFLAGS) @EXE_CFLAGS@
-pam_timestamp_check_LDADD = $(top_builddir)/libpam/libpam.la $(SYSTEMD_LIBS)
+pam_timestamp_check_LDADD = $(top_builddir)/libpam/libpam.la $(LOGIND_LIBS)
 pam_timestamp_check_LDFLAGS = @EXE_LDFLAGS@
 
 if !COND_USE_OPENSSL
