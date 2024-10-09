@@ -185,11 +185,11 @@ static int
 db_close(void *dbm)
 {
 #ifdef HAVE_GDBM_H
-    return gdbm_close(dbm);
+    gdbm_close(dbm);
 #else
     dbm_close(dbm);
-    return 0;
 #endif /* HAVE_GDBM_H */
+    return 0;
 }
 
 
