@@ -14,7 +14,7 @@ jobs:
       run: git diff-index --check --cached 4b825dc642cb6eb9a060e54bf8d69288fbee4904
 
   meson-gcc13-x86_64-vendordir:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUILD: meson
       CC: gcc-13
@@ -30,7 +30,7 @@ jobs:
       run: ci/meson-build.sh
 
   meson-gcc13-x86_64-openssl:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUILD: meson
       CC: gcc-13
@@ -46,7 +46,7 @@ jobs:
       run: ci/meson-build.sh
 
   meson-gcc13-x86_64-sanitizers:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUILD: meson
       CC: gcc-13
@@ -65,7 +65,7 @@ jobs:
       run: ci/meson-build.sh
 
   meson-gcc13-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUILD: meson
       CC: gcc-13
@@ -80,7 +80,7 @@ jobs:
       run: ci/meson-build.sh
 
   meson-gcc13-x86_64-debug:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUILD: meson
       CC: gcc-13
@@ -96,7 +96,7 @@ jobs:
       run: ci/meson-build.sh
 
   meson-clang15-x86_64-vendordir:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUILD: meson
       CC: clang-15
@@ -112,7 +112,7 @@ jobs:
       run: ci/meson-build.sh
 
   meson-clang15-x86_64-openssl:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUILD: meson
       CC: clang-15
@@ -128,7 +128,7 @@ jobs:
       run: ci/meson-build.sh
 
   meson-clang15-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUILD: meson
       CC: clang-15
@@ -143,7 +143,7 @@ jobs:
       run: ci/meson-build.sh
 
   meson-clang15-x86_64-debug:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUILD: meson
       CC: clang-15
@@ -159,7 +159,7 @@ jobs:
       run: ci/meson-build.sh
 
   gcc13-x86_64-vendordir:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: gcc-13
       TARGET: x86_64
@@ -174,7 +174,7 @@ jobs:
       run: ci/autotools-build.sh
 
   gcc13-x86_64-openssl:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: gcc-13
       TARGET: x86_64
@@ -189,7 +189,7 @@ jobs:
       run: ci/autotools-build.sh
 
   gcc13-x86_64-sanitizers:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: gcc-13
       CFLAGS: '-O1 -g -fsanitize=address -fsanitize-address-use-after-scope -fno-omit-frame-pointer -fsanitize=undefined -Wno-error=inline -Wno-error=format-overflow'
@@ -207,7 +207,7 @@ jobs:
       run: ci/autotools-build.sh
 
   gcc13-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: gcc-13
       TARGET: x86_64
@@ -221,7 +221,7 @@ jobs:
       run: ci/autotools-build.sh
 
   gcc13-x86_64-debug:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: gcc-13
       TARGET: x86_64
@@ -236,7 +236,7 @@ jobs:
       run: ci/autotools-build.sh
 
   gcc12-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: gcc-12
       TARGET: x86_64
@@ -250,7 +250,7 @@ jobs:
       run: ci/autotools-build.sh
 
   gcc11-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: gcc-11
       TARGET: x86_64
@@ -264,7 +264,7 @@ jobs:
       run: ci/autotools-build.sh
 
   gcc10-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: gcc-10
       TARGET: x86_64
@@ -278,9 +278,9 @@ jobs:
       run: ci/autotools-build.sh
 
   gcc9-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
-      CC: gcc
+      CC: gcc-9
       TARGET: x86_64
     steps:
     - uses: actions/checkout@v4
@@ -292,7 +292,7 @@ jobs:
       run: ci/autotools-build.sh
 
   clang15-x86_64-vendordir:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: clang-15
       TARGET: x86_64
@@ -307,7 +307,7 @@ jobs:
       run: ci/autotools-build.sh
 
   clang15-x86_64-openssl:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: clang-15
       TARGET: x86_64
@@ -322,7 +322,7 @@ jobs:
       run: ci/autotools-build.sh
 
   clang15-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: clang-15
       TARGET: x86_64
@@ -336,7 +336,7 @@ jobs:
       run: ci/autotools-build.sh
 
   clang15-x86_64-debug:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: clang-15
       TARGET: x86_64
@@ -351,7 +351,7 @@ jobs:
       run: ci/autotools-build.sh
 
   clang14-x86_64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: clang-14
       TARGET: x86_64

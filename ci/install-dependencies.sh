@@ -49,7 +49,7 @@ apt_get_install()
 
 case "${BUILD-}" in
 	meson)
-		python -m pip install meson ninja
+		packages="$packages meson"
 		;;
 	*)
 		packages="$packages autoconf automake autopoint libtool make"
