@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-04-08 08:04+0000\n"
+"POT-Creation-Date: 2024-10-13 20:00+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Hindi <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -24,11 +24,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 3.11.2\n"
 
-#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
-#: modules/pam_userdb/pam_userdb.c:61
+#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
+#: modules/pam_userdb/pam_userdb.c:62
 msgid "Password: "
 msgstr "शब्दकूट: "
 
+#. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:42
 #, fuzzy, c-format
 msgid "Current %s password: "
@@ -39,6 +40,7 @@ msgstr "नया %s password: "
 msgid "Current password: "
 msgstr "नया password: "
 
+#. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
@@ -48,6 +50,7 @@ msgstr "नया %s password: "
 msgid "New password: "
 msgstr "नया password: "
 
+#. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
@@ -71,171 +74,177 @@ msgstr "फिर टाइप करें %s"
 msgid "Password change has been aborted."
 msgstr "कूटशब्द परिवर्तन छोड़ा गया."
 
-#: libpam/pam_item.c:310
+#: libpam/pam_item.c:317
 msgid "login:"
 msgstr "लॉगिन:"
 
-#: libpam/pam_strerror.c:40
+#: libpam/pam_strerror.c:41
 msgid "Success"
 msgstr "सफल"
 
-#: libpam/pam_strerror.c:42
+#: libpam/pam_strerror.c:43
 msgid "Critical error - immediate abort"
 msgstr "गंभीर त्रुटि - तत्काल छोड़ें"
 
-#: libpam/pam_strerror.c:44
+#: libpam/pam_strerror.c:45
 msgid "Failed to load module"
 msgstr "मॉड्यूल लोड करने में विफल"
 
-#: libpam/pam_strerror.c:46
+#: libpam/pam_strerror.c:47
 msgid "Symbol not found"
 msgstr "संकेत नहीं मिला"
 
-#: libpam/pam_strerror.c:48
+#: libpam/pam_strerror.c:49
 msgid "Error in service module"
 msgstr "सेवा मॉड्यूल में त्रुटि"
 
-#: libpam/pam_strerror.c:50
+#: libpam/pam_strerror.c:51
 msgid "System error"
 msgstr "सिस्टम त्रुटि"
 
-#: libpam/pam_strerror.c:52
+#: libpam/pam_strerror.c:53
 msgid "Memory buffer error"
 msgstr "स्मृति बफर त्रुटि"
 
-#: libpam/pam_strerror.c:54
+#: libpam/pam_strerror.c:55
 msgid "Permission denied"
 msgstr "अनुमति मनाही"
 
-#: libpam/pam_strerror.c:56
+#: libpam/pam_strerror.c:57
 msgid "Authentication failure"
 msgstr "सत्यापन विफलता"
 
-#: libpam/pam_strerror.c:58
+#: libpam/pam_strerror.c:59
 msgid "Insufficient credentials to access authentication data"
 msgstr "सत्यापन आंकड़ा की पहुँच में अपर्याप्त श्रेय"
 
-#: libpam/pam_strerror.c:60
+#: libpam/pam_strerror.c:61
 msgid "Authentication service cannot retrieve authentication info"
 msgstr "सत्यापन सेवा सत्यापन सूचना नहीं हासिल कर सकता है"
 
-#: libpam/pam_strerror.c:62
+#: libpam/pam_strerror.c:63
 msgid "User not known to the underlying authentication module"
 msgstr "उपयोक्ता अंतर्निहित सत्यापन मॉड्यूल से परिचित नहीं हैं"
 
-#: libpam/pam_strerror.c:64
+#: libpam/pam_strerror.c:65
 msgid "Have exhausted maximum number of retries for service"
 msgstr "सेवा के लिए अधिकतम संख्या में फिर कोशिश करना समाप्त कर चुका है"
 
-#: libpam/pam_strerror.c:66
+#: libpam/pam_strerror.c:67
 msgid "Authentication token is no longer valid; new one required"
 msgstr "सत्यापन टोकन अब वैध नहीं है; नया जरूरी है"
 
-#: libpam/pam_strerror.c:68
+#: libpam/pam_strerror.c:69
 msgid "User account has expired"
 msgstr "उपयोक्ता खाता की अवधि समाप्त हो चुकी है"
 
-#: libpam/pam_strerror.c:70
+#: libpam/pam_strerror.c:71
 msgid "Cannot make/remove an entry for the specified session"
 msgstr "विशेष सत्र के लिए एक प्रविष्टि नहीं बना/हटा सकता है"
 
-#: libpam/pam_strerror.c:72
+#: libpam/pam_strerror.c:73
 msgid "Authentication service cannot retrieve user credentials"
 msgstr "सत्यापन सेवा उपयोक्ता श्रेय फिर हासिल नहीं कर सकता है"
 
-#: libpam/pam_strerror.c:74
+#: libpam/pam_strerror.c:75
 msgid "User credentials expired"
 msgstr "उपयोक्ता श्रेय समाप्त"
 
-#: libpam/pam_strerror.c:76
+#: libpam/pam_strerror.c:77
 msgid "Failure setting user credentials"
 msgstr "विफल जमावट उपयोक्ता श्रेय"
 
-#: libpam/pam_strerror.c:78
+#: libpam/pam_strerror.c:79
 msgid "No module specific data is present"
 msgstr "कोई मॉड्यूल विशेष आंकड़ा मौजूद है"
 
-#: libpam/pam_strerror.c:80
+#: libpam/pam_strerror.c:81
 msgid "Bad item passed to pam_*_item()"
 msgstr "खराब मद pam_*_item() में भेजा गया"
 
-#: libpam/pam_strerror.c:82
+#: libpam/pam_strerror.c:83
 msgid "Conversation error"
 msgstr "रूपांतरक त्रुटि"
 
-#: libpam/pam_strerror.c:84
+#: libpam/pam_strerror.c:85
 msgid "Authentication token manipulation error"
 msgstr "सत्यापन टोकन मैनिपुलेशन त्रुटि"
 
-#: libpam/pam_strerror.c:86
+#: libpam/pam_strerror.c:87
 msgid "Authentication information cannot be recovered"
 msgstr "सत्यापन सूचना फिर हासिल नहीं किया जा सकता है"
 
-#: libpam/pam_strerror.c:88
+#: libpam/pam_strerror.c:89
 msgid "Authentication token lock busy"
 msgstr "सत्यापन टोकन लॉक व्यस्त"
 
-#: libpam/pam_strerror.c:90
+#: libpam/pam_strerror.c:91
 msgid "Authentication token aging disabled"
 msgstr "सत्यापन टोकन एजिंग निष्क्रिय"
 
-#: libpam/pam_strerror.c:92
+#: libpam/pam_strerror.c:93
 msgid "Failed preliminary check by password service"
 msgstr "शब्दकूट सेवा के द्वारा प्राथमिक जांच पूरी"
 
-#: libpam/pam_strerror.c:94
+#: libpam/pam_strerror.c:95
 msgid "The return value should be ignored by PAM dispatch"
 msgstr "लौटाए मान को PAM डिस्पैच के द्वारा अनदेखा किया जाना चाहिए"
 
-#: libpam/pam_strerror.c:96
+#: libpam/pam_strerror.c:97
 msgid "Module is unknown"
 msgstr "मॉड्यूल अनजान है"
 
-#: libpam/pam_strerror.c:98
+#: libpam/pam_strerror.c:99
 msgid "Authentication token expired"
 msgstr "सत्यापन टोकन समाप्त"
 
-#: libpam/pam_strerror.c:100
+#: libpam/pam_strerror.c:101
 msgid "Conversation is waiting for event"
 msgstr "रूपांतरण घटना के प्रतीक्षारत"
 
-#: libpam/pam_strerror.c:102
+#: libpam/pam_strerror.c:103
 msgid "Application needs to call libpam again"
 msgstr "अनुप्रयोग के libpam फिर आह्वान जरूरी"
 
-#: libpam/pam_strerror.c:105
+#: libpam/pam_strerror.c:106
 msgid "Unknown PAM error"
 msgstr "अनजान PAM त्रुटि"
 
-#: libpam_misc/misc_conv.c:34
+#.
+#. * external timeout definitions - these can be overridden by the
+#. * application.
+#.
+#. time when we warn
+#. time when we timeout
+#: libpam_misc/misc_conv.c:36
 msgid "...Time is running out...\n"
 msgstr "...समय समाप्त हो रहा है...\n"
 
-#: libpam_misc/misc_conv.c:35
+#: libpam_misc/misc_conv.c:37
 msgid "...Sorry, your time is up!\n"
 msgstr "...क्षमा करें, आपका समय समाप्त हो गया!\n"
 
-#: libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:351
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "अनियमित बातचीत (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:298
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s विफल: निकास कोड %d"
 
-#: modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:308
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s विफल: संकेत घेरा %d%s"
 
-#: modules/pam_exec/pam_exec.c:319
+#: modules/pam_exec/pam_exec.c:318
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s विफल: अनजान स्थिति 0x%x"
 
-#: modules/pam_faillock/main.c:130
+#: modules/pam_faillock/main.c:131
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
@@ -243,18 +252,18 @@ msgid ""
 msgstr ""
 "%s: [--file rooted-filename] [--user username] [--reset[=n]] [--quiet]\n"
 
-#: modules/pam_faillock/main.c:181
+#: modules/pam_faillock/main.c:182
 #, fuzzy, c-format
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "Login           Failures Latest failure     From\n"
 
-#: modules/pam_faillock/pam_faillock.c:408
+#: modules/pam_faillock/pam_faillock.c:416
 #, fuzzy, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "खाता %u विफल लॉगिन के कारण लॉक"
 
-#: modules/pam_faillock/pam_faillock.c:417
-#: modules/pam_faillock/pam_faillock.c:423
+#: modules/pam_faillock/pam_faillock.c:425
+#: modules/pam_faillock/pam_faillock.c:431
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -262,45 +271,45 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:426
+#: modules/pam_faillock/pam_faillock.c:434
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr ""
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:326 modules/pam_lastlog/pam_lastlog.c:595
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:592
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:335 modules/pam_lastlog/pam_lastlog.c:604
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:601
 #, c-format
 msgid " from %.*s"
 msgstr " %.*s से"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:347 modules/pam_lastlog/pam_lastlog.c:616
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:613
 #, c-format
 msgid " on %.*s"
 msgstr " %.*s पर"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:357
+#: modules/pam_lastlog/pam_lastlog.c:354
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "अंतिम लॉगिन:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:363
+#: modules/pam_lastlog/pam_lastlog.c:360
 msgid "Welcome to your new account!"
 msgstr "नए खाता में आपका स्वागत है!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:626
+#: modules/pam_lastlog/pam_lastlog.c:623
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "अंतिम लॉगिन विफल:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
+#: modules/pam_lastlog/pam_lastlog.c:632 modules/pam_lastlog/pam_lastlog.c:639
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -309,153 +318,155 @@ msgstr[0] "%d विफल लॉगिन प्रयास था अंत�
 msgstr[1] "%d विफल लॉगिन प्रयास थे अंतिम सफल लॉगिन के बाद."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:647
+#: modules/pam_lastlog/pam_lastlog.c:644
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "%d विफल लॉगिन प्रयास थे अंतिम सफल लॉगिन के बाद."
 
-#: modules/pam_limits/pam_limits.c:1348
+#: modules/pam_limits/pam_limits.c:1424
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s' के लिए बहुत लॉगिन."
 
-#: modules/pam_mail/pam_mail.c:289
+#: modules/pam_mail/pam_mail.c:290
 #, fuzzy
 msgid "You do not have any new mail."
 msgstr "आपके लिए नया मेल है."
 
-#: modules/pam_mail/pam_mail.c:292
+#: modules/pam_mail/pam_mail.c:293
 msgid "You have new mail."
 msgstr "आपके लिए नया मेल है."
 
-#: modules/pam_mail/pam_mail.c:295
+#: modules/pam_mail/pam_mail.c:296
 msgid "You have old mail."
 msgstr "आपके पास पुराना मेल है."
 
-#: modules/pam_mail/pam_mail.c:299
+#: modules/pam_mail/pam_mail.c:300
 msgid "You have mail."
 msgstr "आपके पास मेल है."
 
-#: modules/pam_mail/pam_mail.c:306
+#: modules/pam_mail/pam_mail.c:307
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "आपके पास %s फोल्डर में कोई मेल नहीं है."
 
-#: modules/pam_mail/pam_mail.c:310
+#: modules/pam_mail/pam_mail.c:311
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "आपके लिए %s फोल्डर में नया मेल है."
 
-#: modules/pam_mail/pam_mail.c:314
+#: modules/pam_mail/pam_mail.c:315
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "आपके लिए %s फोल्डर में पुराना मेल है."
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:320
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "आपके लिए %s फोल्डर में मेल है."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:123
+#: modules/pam_mkhomedir/pam_mkhomedir.c:124
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "निर्देशिका '%s' बना रहा है."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:206
+#: modules/pam_mkhomedir/pam_mkhomedir.c:207
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "निर्देशिका '%s' बनाने और आरंभ करने में असमर्थ."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:384
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_pwhistory/pam_pwhistory.c:383
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "Password has been already used. Choose another."
 msgstr "शब्दकूट को पहले ही बदला जा चुका है. दूसरा चुनें."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:391
+#: modules/pam_pwhistory/pam_pwhistory.c:390
 msgid "Password has been already used."
 msgstr "शब्दकूट प्रयोग हो चूका है. दूसरा चुनें "
 
-#: modules/pam_selinux/pam_selinux.c:173
+#: modules/pam_selinux/pam_selinux.c:174
 #, fuzzy, c-format
 msgid "The default security context is %s."
 msgstr "तयशुदा सुरक्षा संदर्भ %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:177
+#: modules/pam_selinux/pam_selinux.c:178
 msgid "Would you like to enter a different role or level?"
 msgstr "क्या आप भिन्न भूमिका या स्तर दाखिल करना चाहेंगे?"
 
-#: modules/pam_selinux/pam_selinux.c:190
+#. Allow the user to enter role and level individually
+#: modules/pam_selinux/pam_selinux.c:191
 msgid "role:"
 msgstr "भूमिका: "
 
-#: modules/pam_selinux/pam_selinux.c:194
+#: modules/pam_selinux/pam_selinux.c:195
 #, fuzzy, c-format
 msgid "There is no default type for role %s."
 msgstr "भूमिका %s के लिए कोई तयशुदा प्रकार नहीं\n"
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:227
 msgid "level:"
 msgstr "स्तर: "
 
-#: modules/pam_selinux/pam_selinux.c:260
+#: modules/pam_selinux/pam_selinux.c:261
 #, fuzzy
 msgid "This is not a valid security context."
 msgstr "एक वैध सुरक्षा संदर्भ नहीं"
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:510
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:640
+#: modules/pam_selinux/pam_selinux.c:641
 #, fuzzy, c-format
 msgid "Security context %s has been assigned."
 msgstr "सुरक्षा संदर्भ %s नियत"
 
-#: modules/pam_selinux/pam_selinux.c:656
+#: modules/pam_selinux/pam_selinux.c:657
 #, fuzzy, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "कुंजी निर्माण संदर्भ %s नियत"
 
-#: modules/pam_selinux/pam_selinux_check.c:99
+#: modules/pam_selinux/pam_selinux_check.c:101
 #, c-format
 msgid "failed to initialize PAM\n"
 msgstr "PAM को आरंभ करने में विफल\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:105
+#: modules/pam_selinux/pam_selinux_check.c:107
 #, c-format
 msgid "failed to pam_set_item()\n"
 msgstr "pam_set_item() में विफल\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:133
+#. error in fork()
+#: modules/pam_selinux/pam_selinux_check.c:135
 #, c-format
 msgid "login: failure forking: %m"
 msgstr "लॉगिन: विफल फोर्किंग: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:384
+#: modules/pam_timestamp/pam_timestamp.c:385
 #, fuzzy, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "पहुँच दिया गया (last access was %ld seconds ago)."
 
-#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 #, fuzzy
 msgid "Your account has expired; please contact your system administrator."
 msgstr "आपका खाता समाप्त हो चुका है; कृपया अपने सिस्टम प्रशासक को संपर्क करें"
 
-#: modules/pam_unix/pam_unix_acct.c:239
+#: modules/pam_unix/pam_unix_acct.c:240
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "आपके लिए अपना शब्दकूट तत्काल बदलना जरूरी है (रूट पुनर्बलित)"
 
-#: modules/pam_unix/pam_unix_acct.c:245
+#: modules/pam_unix/pam_unix_acct.c:246
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "आपके लिए अपना शब्दकूट तत्काल बदलना जरूरी है (शब्दकूट एज्ड)"
 
-#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
+#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -463,40 +474,40 @@ msgstr[0] "चेतावनी: आपका शब्दकूट %d दि�
 msgstr[1] "चेतावनी: आपका शब्दकूट %d दिन में समाप्त हो जायेगा"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:282
+#: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "चेतावनी: आपका शब्दकूट %d दिनों में समाप्त हो जायेगा"
 
-#: modules/pam_unix/pam_unix_passwd.c:458
+#: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."
 msgstr "NIS शब्दकूट बदला नहीं जा सका."
 
-#: modules/pam_unix/pam_unix_passwd.c:556
+#: modules/pam_unix/pam_unix_passwd.c:557
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "कोई कूटशब्द नहीं दिया गया है"
 
-#: modules/pam_unix/pam_unix_passwd.c:557
+#: modules/pam_unix/pam_unix_passwd.c:558
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS शब्दकूट बदला नहीं जा सका."
 
-#: modules/pam_unix/pam_unix_passwd.c:574
+#: modules/pam_unix/pam_unix_passwd.c:575
 msgid "You must choose a shorter password."
 msgstr "आपको एक छोटा पासवर्ड चुनना होगा।"
 
-#: modules/pam_unix/pam_unix_passwd.c:578
+#: modules/pam_unix/pam_unix_passwd.c:579
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "आपको जरूर एक लंबा शब्दकूट चुनना चाहिए"
 
-#: modules/pam_unix/pam_unix_passwd.c:683
+#: modules/pam_unix/pam_unix_passwd.c:684
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s के लिए कूटशब्द बदल रहा है"
 
-#: modules/pam_unix/pam_unix_passwd.c:713
+#: modules/pam_unix/pam_unix_passwd.c:714
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "आपको अपना शब्दकूट बदलने के लिए लंबी प्रतीक्षा करनी होगी"
