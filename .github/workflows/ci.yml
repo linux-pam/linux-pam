@@ -13,6 +13,88 @@ jobs:
     - name: check
       run: git diff-index --check --cached 4b825dc642cb6eb9a060e54bf8d69288fbee4904
 
+  meson-gcc14-x86_64-vendordir:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: gcc-14
+      TARGET: x86_64
+      VENDORDIR: ${prefix}/share/etc
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-gcc14-x86_64-openssl:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: gcc-14
+      TARGET: x86_64
+      USE_OPENSSL: yes
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-gcc14-x86_64-sanitizers:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: gcc-14
+      CFLAGS: '-O1 -g -fsanitize=address -fsanitize-address-use-after-scope -fno-omit-frame-pointer -fsanitize=undefined -Wno-error=inline -Wno-error=format-overflow'
+      LDFLAGS: '-fsanitize=address -fsanitize-address-use-after-scope -fno-omit-frame-pointer -fsanitize=undefined'
+      ASAN_OPTIONS: strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1
+      UBSAN_OPTIONS: print_stacktrace=1:print_summary=1:halt_on_error=1
+      TARGET: x86_64
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-gcc14-x86_64:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: gcc-14
+      TARGET: x86_64
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-gcc14-x86_64-debug:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: gcc-14
+      TARGET: x86_64
+      ENABLE_DEBUG: yes
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
   meson-gcc13-x86_64-vendordir:
     runs-on: ubuntu-24.04
     env:
@@ -84,6 +166,195 @@ jobs:
     env:
       BUILD: meson
       CC: gcc-13
+      TARGET: x86_64
+      ENABLE_DEBUG: yes
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang18-x86_64-vendordir:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-18
+      TARGET: x86_64
+      VENDORDIR: ${prefix}/share/etc
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang18-x86_64-openssl:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-18
+      TARGET: x86_64
+      USE_OPENSSL: yes
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang18-x86_64:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-18
+      TARGET: x86_64
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang18-x86_64-debug:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-18
+      TARGET: x86_64
+      ENABLE_DEBUG: yes
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang17-x86_64-vendordir:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-17
+      TARGET: x86_64
+      VENDORDIR: ${prefix}/share/etc
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang17-x86_64-openssl:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-17
+      TARGET: x86_64
+      USE_OPENSSL: yes
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang17-x86_64:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-17
+      TARGET: x86_64
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang17-x86_64-debug:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-17
+      TARGET: x86_64
+      ENABLE_DEBUG: yes
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang16-x86_64-vendordir:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-16
+      TARGET: x86_64
+      VENDORDIR: ${prefix}/share/etc
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang16-x86_64-openssl:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-16
+      TARGET: x86_64
+      USE_OPENSSL: yes
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang16-x86_64:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-16
+      TARGET: x86_64
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/meson-build.sh
+
+  meson-clang16-x86_64-debug:
+    runs-on: ubuntu-24.04
+    env:
+      BUILD: meson
+      CC: clang-16
       TARGET: x86_64
       ENABLE_DEBUG: yes
     steps:
