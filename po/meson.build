@@ -6,5 +6,10 @@ i18n = import('i18n')
 i18n.gettext(
   meson.project_name(),
   preset: 'glib',
-  data_dirs: '.'
+  data_dirs: '.',
+  args: [
+    '--copyright-holder=Linux-PAM Project',
+    '--msgid-bugs-address=https://github.com/linux-pam/linux-pam/issues',
+    '--package-version=1.6.1',
+  ],
 )
