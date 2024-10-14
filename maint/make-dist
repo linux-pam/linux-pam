@@ -7,8 +7,6 @@
 
 id="$(git rev-parse --verify "${1:-@}^{commit}")"
 
-j=-j`nproc 2> /dev/null` || j=
-
 distdir=Linux-PAM-dist-$$
 abs_distdir="`pwd`/$distdir"
 trap 'chmod -Rf u+w $abs_distdir; rm -rf $abs_distdir' 1 2 15 0
@@ -20,13 +18,7 @@ cd $distdir
 git config advice.detachedHead false
 git checkout -f "$id"
 
-./autogen.sh
-
-DISTCHECK_CONFIGURE_FLAGS='--disable-dependency-tracking --enable-Werror'
-export DISTCHECK_CONFIGURE_FLAGS
-./configure $DISTCHECK_CONFIGURE_FLAGS
-
-make -s $j distcheck
-make -s $j releasedocs
-
-mv -f Linux-PAM-*.tar.* ..
+mkdir build
+meson setup --buildtype=debugoptimized -Dwerror=true build
+meson dist -C build
+mv -f build/meson-dist/Linux-PAM-*.tar.* ..
