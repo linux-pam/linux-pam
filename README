@@ -11,21 +11,18 @@ prerequisite packages to be able to build the Linux-PAM. The script
 is targeted at Debian based Linux distributions so the package
 names and availability might differ on other distributions.
 
-If you check out the sources from git, install Autotools and generate
-configuration scripts, ensuring you have the minimum packages installed,
-the ci scripts may help here:
+First, configure the build using meson setup:
 
-      ./autogen.sh
+      mkdir build
+      meson setup <your-options> build
 
 Then compile:
 
-      ./configure --help | less
-      ./configure <your-options>
-      make
+      meson compile -C build
 
 To make sure everything was compiled correct, run:
 
-      make check
+      meson test -C build
 
 If a test fails, you should not continue to install this build.
 These tests require a suitable file /etc/pam.d/other; if necessary,
@@ -43,21 +40,11 @@ Note, if you are worried - don't even think about doing the next line
 something goes wrong with installing the code from this version your
 box may stop working..)
 
-      make install
+      meson install -C build
 
 That said, please report problems to the bug reporting database
 at https://github.com/linux-pam/linux-pam/issues .
 
-You can run additional checks after installing by executing
-
-      make xtests
-
-as root.
-
-WARNING: Running "make xtests" can overwrite configuration data
-or make the system insecure/unfunctional for a short time!
-Backup all important data before!
-
-To regenerate manual pages from the XML source files you need the
+To generate manual pages from the XML source files you need the
 docbook-xsl stylesheets in version 1.69.1 or newer, older versions had
 a bug which generates a broken layout.
