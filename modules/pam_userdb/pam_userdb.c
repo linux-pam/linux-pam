@@ -185,7 +185,12 @@ static int
 db_close(void *dbm)
 {
 #ifdef HAVE_GDBM_H
+# ifdef GDBM_CLOSE_RETURNS_INT
     return gdbm_close(dbm);
+# else
+    gdbm_close(dbm);
+    return 0;
+# endif
 #else
     dbm_close(dbm);
     return 0;

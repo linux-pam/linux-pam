@@ -372,6 +372,12 @@ else
       if have
         use_db = 'gdbm'
         cdata.set('HAVE_GDBM_H', 1)
+        if cc.compiles('''#include <gdbm.h>
+                       int db_close(void *dbm) {return gdbm_close(dbm);}''',
+                       args: '-D_GNU_SOURCE',
+                       name: 'gdbm_close returns int')
+          cdata.set('GDBM_CLOSE_RETURNS_INT', 1)
+        endif
       endif
     endif
   endif
