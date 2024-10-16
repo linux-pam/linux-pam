@@ -306,6 +306,23 @@ isipaddr (const char *string, int *addr_type,
   return is_ip;
 }
 
+/* is_local_addr - checks if the IP address is local */
+static int
+is_local_addr (const char *string, int addr_type)
+{
+  if (addr_type == AF_INET) {
+    if (strcmp(string, "127.0.0.1") == 0) {
+      return YES;
+    }
+  } else if (addr_type == AF_INET6) {
+    if (strcmp(string, "::1") == 0) {
+      return YES;
+    }
+  }
+
+  return NO;
+}
+
 
 /* are_addresses_equal - translate IP address strings to real IP
  * addresses and compare them to find out if they are equal.
@@ -327,9 +344,18 @@ are_addresses_equal (const char *ipaddr0, const char *ipaddr1,
   if (isipaddr (ipaddr1, &addr_type1, &addr1) == NO)
     return NO;
 
-  if (addr_type0 != addr_type1)
-    /* different address types */
+  if (addr_type0 != addr_type1) {
+    /* different address types, but there is still a possibility that they are
+     * both local addresses
+     */
+    int local1 = is_local_addr(ipaddr0, addr_type0);
+    int local2 = is_local_addr(ipaddr1, addr_type1);
+
+    if (local1 == YES && local2 == YES)
+      return YES;
+
     return NO;
+  }
 
   if (netmask != NULL) {
     /* Got a netmask, so normalize addresses? */
