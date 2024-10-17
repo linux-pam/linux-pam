@@ -13,7 +13,7 @@ TESTS = tst-pam_start tst-pam_end tst-pam_fail_delay tst-pam_open_session \
 	tst-pam_close_session tst-pam_acct_mgmt tst-pam_authenticate \
 	tst-pam_chauthtok tst-pam_setcred tst-pam_get_item tst-pam_set_item \
 	tst-pam_getenvlist tst-pam_get_user tst-pam_get_data tst-pam_set_data \
-	tst-pam_mkargv tst-pam_start_confdir
+	tst-pam_mkargv tst-pam_start_confdir tst-pam_get_authtok
 
 EXTRA_DIST = confdir
 
