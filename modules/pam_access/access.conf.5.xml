@@ -79,17 +79,12 @@
       with network mask (where network mask can be a decimal number or an
       internet address also), <emphasis>ALL</emphasis> (which always matches)
       or <emphasis>LOCAL</emphasis>. The <emphasis>LOCAL</emphasis>
-      keyword matches if and only if
-      <citerefentry><refentrytitle>pam_get_item</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
-      when called with an <parameter>item_type</parameter> of
-      <emphasis>PAM_RHOST</emphasis>, returns <code>NULL</code> or an
-      empty string (and therefore the
-      <replaceable>origins</replaceable> field is compared against the
-      return value of
-      <citerefentry><refentrytitle>pam_get_item</refentrytitle><manvolnum>3</manvolnum></citerefentry>
-      called with an <parameter>item_type</parameter> of
-      <emphasis>PAM_TTY</emphasis> or, absent that,
-      <emphasis>PAM_SERVICE</emphasis>).
+      keyword matches when the user connects without a network
+      connection (e.g., <emphasis>su</emphasis>,
+      <emphasis>login</emphasis>). A connection through the loopback
+      device (e.g., <command>ssh user@localhost</command>) is
+      considered a network connection, and thus, the
+      <emphasis>LOCAL</emphasis> keyword does not match.
     </para>
 
     <para>
