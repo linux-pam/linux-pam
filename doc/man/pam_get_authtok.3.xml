@@ -210,7 +210,8 @@
         <term>PAM_SYSTEM_ERR</term>
         <listitem>
            <para>
-             No space for an authentication token was provided.
+             A NULL pointer was specified as the PAM handle, or
+             no space for an authentication token was provided.
           </para>
         </listitem>
       </varlistentry>
