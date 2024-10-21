@@ -43,6 +43,6 @@ meson setup $opts build
 # instead of all subsequent individual meson commands.
 
 meson compile -v -C build
-mkdir buildroot
-DESTDIR=$(pwd)/buildroot meson install -C build
+mkdir build/destdir
+DESTDIR=$(pwd)/build/destdir meson install -C build
 meson test -v -C build
