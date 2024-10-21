@@ -46,3 +46,8 @@ meson compile -v -C build
 mkdir build/destdir
 DESTDIR=$(pwd)/build/destdir meson install -C build
 meson test -v -C build
+
+if git status --porcelain |grep '^?'; then
+	echo >&2 'git status reported untracked files'
+	exit 1
+fi
