@@ -730,14 +730,13 @@ static int _pam_add_handler(pam_handle_t *pamh
 	    pam_syslog(pamh, LOG_CRIT, "cannot malloc full mod path");
 	    return PAM_ABORT;
 	}
-
+    }
 	if (mod == NULL) {
 	    /* if we get here with NULL it means allocation error */
 	    return PAM_ABORT;
 	}
 
 	mod_type = mod->type;
-    }
 
     if (mod_path == NULL)
 	mod_path = UNKNOWN_MODULE;
