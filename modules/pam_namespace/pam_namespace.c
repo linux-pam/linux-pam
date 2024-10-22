@@ -485,7 +485,7 @@ static int process_line(char *line, const char *home, const char *rhome,
     char *method, *uids;
     char *tptr;
     struct polydir_s *poly;
-    int retval = 0;
+    int retval = PAM_SUCCESS;
     char **config_options = NULL;
     static const char *const var_names[] = {"HOME", "USER", NULL};
     const char *var_values[] = {home, idata->user};
@@ -527,7 +527,7 @@ static int process_line(char *line, const char *home, const char *rhome,
      * namespace configuration file.
      */
     retval = argv_parse(line, NULL, &config_options);
-    if (retval != 0) {
+    if (retval != PAM_SUCCESS) {
         goto erralloc;
     }
 
@@ -693,7 +693,7 @@ erralloc:
 
 skipping:
     if (idata->flags & PAMNS_IGN_CONFIG_ERR)
-        retval = 0;
+        retval = PAM_SUCCESS;
     else
         retval = PAM_SERVICE_ERR;
     del_polydir(poly);
@@ -790,7 +790,7 @@ static int parse_config_file(struct instance_data *idata)
 	/* loop reading the file */
 	while (getline(&line, &len, fil) > 0) {
 	    retval = process_line(line, home, rhome, idata);
-	    if (retval) {
+	    if (retval != PAM_SUCCESS) {
 		pam_syslog(idata->pamh, LOG_ERR,
 		"Error processing conf file %s line %s", confname, line);
 	        fclose(fil);
@@ -900,7 +900,7 @@ static int form_context(const struct polydir_s *polyptr,
 		char **i_context, char **origcon,
 		struct instance_data *idata)
 {
-	int rc = PAM_SUCCESS;
+	int rc;
 	char *scon = NULL;
 	security_class_t tclass;
 
@@ -971,9 +971,10 @@ static int form_context(const struct polydir_s *polyptr,
 	 */
 
 	if (polyptr->method == LEVEL) {
+		int retval = PAM_SESSION_ERR;
+
 		context_t scontext = NULL;
 		context_t fcontext = NULL;
-		rc = PAM_SESSION_ERR;
 
 		scontext = context_new(scon);
 		if (! scontext) {
@@ -995,12 +996,12 @@ static int form_context(const struct polydir_s *polyptr,
 			goto fail;
 		}
 
-		rc = PAM_SUCCESS;
+		retval = PAM_SUCCESS;
  fail:
 		context_free(scontext);
 		context_free(fcontext);
 		freecon(scon);
-		return rc;
+		return retval;
 	}
 	/* Should never get here */
 	freecon(scon);
@@ -1024,7 +1025,7 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 	struct instance_data *idata)
 #endif
 {
-    int rc;
+    int retval;
     char *hash = NULL;
     enum polymethod pm;
 #ifdef WITH_SELINUX
@@ -1036,12 +1037,12 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
     *i_context = NULL;
     *origcon = NULL;
     if ((idata->flags & PAMNS_SELINUX_ENABLED) &&
-	(rc=form_context(polyptr, i_context, origcon, idata)) != PAM_SUCCESS) {
-	    return rc;
+	(retval = form_context(polyptr, i_context, origcon, idata)) != PAM_SUCCESS) {
+	    return retval;
     }
 #endif
 
-    rc = PAM_SESSION_ERR;
+    retval = PAM_SESSION_ERR;
     /*
      * Set the name of the polyinstantiated instance dir based on the
      * polyinstantiation method.
@@ -1057,7 +1058,7 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 		"Context and level methods not available, using user method");
 #endif
 	if (polyptr->flags & POLYDIR_SHARED) {
-		rc = PAM_IGNORE;
+		retval = PAM_IGNORE;
 		goto fail;
 	}
         pm = USER;
@@ -1127,14 +1128,14 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 	    *i_name = newname;
         }
     }
-    rc = PAM_SUCCESS;
+    retval = PAM_SUCCESS;
 
 fail:
     free(hash);
 #ifdef WITH_SELINUX
     freecon(rawcon);
 #endif
-    if (rc != PAM_SUCCESS) {
+    if (retval != PAM_SUCCESS) {
 #ifdef WITH_SELINUX
 	freecon(*i_context);
 	*i_context = NULL;
@@ -1144,7 +1145,7 @@ fail:
 	free(*i_name);
 	*i_name = NULL;
     }
-    return rc;
+    return retval;
 }
 
 static int protect_mount(int dfd, const char *path, struct instance_data *idata)
@@ -1357,6 +1358,7 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 			return PAM_SESSION_ERR;
 		} else {
 			struct sigaction newsa, oldsa;
+			int retval;
 
 			memset(&newsa, '\0', sizeof(newsa));
 			newsa.sa_handler = SIG_DFL;
@@ -1389,25 +1391,25 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 						(errno == EINTR));
 				if (rc == (pid_t)-1) {
 					pam_syslog(idata->pamh, LOG_ERR, "waitpid failed- %m");
-					rc = PAM_SESSION_ERR;
+					retval = PAM_SESSION_ERR;
 					goto out;
 				}
 				if (!WIFEXITED(status) || WIFSIGNALED(status) > 0) {
 					pam_syslog(idata->pamh, LOG_ERR,
 							"Error initializing instance");
-					rc = PAM_SESSION_ERR;
+					retval = PAM_SESSION_ERR;
 					goto out;
 				}
 			} else if (pid < 0) {
 				pam_syslog(idata->pamh, LOG_ERR,
 						"Cannot fork to run namespace init script, %m");
-				rc = PAM_SESSION_ERR;
+				retval = PAM_SESSION_ERR;
 				goto out;
 			}
-			rc = PAM_SUCCESS;
+			retval = PAM_SUCCESS;
 out:
 			(void) sigaction(SIGCHLD, &oldsa, NULL);
-			return rc;
+			return retval;
 		}
 	}
 	return PAM_SUCCESS;
@@ -1639,7 +1641,7 @@ static int create_instance(struct polydir_s *polyptr, char *ipath, struct stat *
 static int ns_setup(struct polydir_s *polyptr,
 	struct instance_data *idata)
 {
-    int retval;
+    int fd, retval;
     int newdir = 1;
     char *inst_dir = NULL;
     char *instname = NULL;
@@ -1652,20 +1654,20 @@ static int ns_setup(struct polydir_s *polyptr,
         pam_syslog(idata->pamh, LOG_DEBUG,
                "Set namespace for directory %s", polyptr->dir);
 
-    retval = protect_dir(polyptr->dir, 0, 0, idata);
+    fd = protect_dir(polyptr->dir, 0, 0, idata);
 
-    if (retval < 0 && errno != ENOENT) {
+    if (fd < 0 && errno != ENOENT) {
 	pam_syslog(idata->pamh, LOG_ERR, "Polydir %s access error: %m",
 		polyptr->dir);
 	return PAM_SESSION_ERR;
     }
 
-    if (retval < 0) {
+    if (fd < 0) {
 	if ((polyptr->flags & POLYDIR_CREATE) &&
 		create_polydir(polyptr, idata) != PAM_SUCCESS)
 		return PAM_SESSION_ERR;
     } else {
-	close(retval);
+	close(fd);
     }
 
     if (polyptr->method == TMPFS) {
@@ -1779,7 +1781,7 @@ cleanup:
  */
 static int cwd_in(char *dir, struct instance_data *idata)
 {
-    int retval = 0;
+    int rc = 0;
     char cwd[PATH_MAX];
 
     if (getcwd(cwd, PATH_MAX) == NULL) {
@@ -1790,13 +1792,13 @@ static int cwd_in(char *dir, struct instance_data *idata)
     if (strncmp(cwd, dir, strlen(dir)) == 0) {
         if (idata->flags & PAMNS_DEBUG)
             pam_syslog(idata->pamh, LOG_DEBUG, "cwd is inside %s", dir);
-        retval = 1;
+        rc = 1;
     } else {
         if (idata->flags & PAMNS_DEBUG)
             pam_syslog(idata->pamh, LOG_DEBUG, "cwd is outside %s", dir);
     }
 
-    return retval;
+    return rc;
 }
 
 static int cleanup_tmpdirs(struct instance_data *idata)
@@ -1804,7 +1806,7 @@ static int cleanup_tmpdirs(struct instance_data *idata)
     struct polydir_s *pptr;
     pid_t rc, pid;
     struct sigaction newsa, oldsa;
-    int status;
+    int retval, status;
 
     memset(&newsa, '\0', sizeof(newsa));
     newsa.sa_handler = SIG_DFL;
@@ -1832,7 +1834,7 @@ static int cleanup_tmpdirs(struct instance_data *idata)
 		    (errno == EINTR));
 		if (rc == (pid_t)-1) {
 		    pam_syslog(idata->pamh, LOG_ERR, "waitpid failed: %m");
-		    rc = PAM_SESSION_ERR;
+		    retval = PAM_SESSION_ERR;
 		    goto out;
 		}
 		if (!WIFEXITED(status) || WIFSIGNALED(status) > 0) {
@@ -1842,16 +1844,16 @@ static int cleanup_tmpdirs(struct instance_data *idata)
 	    } else if (pid < 0) {
 		pam_syslog(idata->pamh, LOG_ERR,
 			"Cannot fork to cleanup temporary directory, %m");
-		rc = PAM_SESSION_ERR;
+		retval = PAM_SESSION_ERR;
 		goto out;
 	    }
         }
     }
 
-    rc = PAM_SUCCESS;
+    retval = PAM_SUCCESS;
 out:
     sigaction(SIGCHLD, &oldsa, NULL);
-    return rc;
+    return retval;
 }
 
 /*
@@ -1862,7 +1864,7 @@ out:
  */
 static int setup_namespace(struct instance_data *idata, enum unmnt_op unmnt)
 {
-    int retval = 0, need_poly = 0, changing_dir = 0;
+    int retval = PAM_SUCCESS, need_poly = 0, changing_dir = 0;
     char *cptr, *fptr, poly_parent[PATH_MAX];
     struct polydir_s *pptr;
 
@@ -2065,7 +2067,7 @@ static int orig_namespace(struct instance_data *idata)
     }
 
     cleanup_tmpdirs(idata);
-    return 0;
+    return PAM_SUCCESS;
 }
 
 
@@ -2271,7 +2273,7 @@ int pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
     if (idata.polydirs_ptr) {
         retval = setup_namespace(&idata, unmnt);
         if (idata.flags & PAMNS_DEBUG) {
-            if (retval)
+            if (retval != PAM_SUCCESS)
                 pam_syslog(idata.pamh, LOG_DEBUG,
 			"namespace setup failed for pid %d", getpid());
             else
@@ -2358,7 +2360,7 @@ int pam_sm_close_session(pam_handle_t *pamh, int flags UNUSED,
 
     retval = orig_namespace(&idata);
     if (idata.flags & PAMNS_DEBUG) {
-        if (retval)
+        if (retval != PAM_SUCCESS)
             pam_syslog(idata.pamh, LOG_DEBUG,
 		"resetting namespace failed for pid %d", getpid());
         else

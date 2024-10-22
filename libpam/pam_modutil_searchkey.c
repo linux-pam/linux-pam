@@ -57,7 +57,7 @@ pam_modutil_search_key(pam_handle_t *pamh UNUSED,
 	FILE *fp;
 	char *buf = NULL;
 	size_t buflen = 0;
-	char *retval = NULL;
+	char *ret = NULL;
 
 #ifdef USE_ECONF
 	if (strcmp (file_name, LOGIN_DEFS) == 0)
@@ -95,7 +95,7 @@ pam_modutil_search_key(pam_handle_t *pamh UNUSED,
 			cp = buf + n;   /* empty string */
 
 		if (strcasecmp(tmp, key) == 0) {
-			retval = strdup(cp);
+			ret = strdup(cp);
 			break;
 		}
 	}
@@ -103,5 +103,5 @@ pam_modutil_search_key(pam_handle_t *pamh UNUSED,
 
 	free(buf);
 
-	return retval;
+	return ret;
 }

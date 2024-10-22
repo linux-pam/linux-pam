@@ -544,7 +544,7 @@ static int init_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)
 	if (r == -1) {
 	    pl->limits[i].supported = 0;
 	    if (errno != EINVAL) {
-		retval = !PAM_SUCCESS;
+		retval = PAM_ABORT;
 	    }
 	} else {
 	    pl->limits[i].supported = 1;
@@ -570,7 +570,7 @@ static int init_limits(pam_handle_t *pamh, struct pam_limit_s *pl, int ctrl)
     errno = 0;
     pl->priority = getpriority (PRIO_PROCESS, 0);
     if (pl->priority == -1 && errno != 0)
-      retval = !PAM_SUCCESS;
+      retval = PAM_ABORT;
     pl->login_limit = -2;
     pl->login_limit_def = LIMITS_DEF_NONE;
     pl->login_group = NULL;
@@ -587,9 +587,7 @@ static int
 value_from_file(const char *pathname, rlim_t *valuep)
 {
     FILE *fp;
-    int retval;
-
-    retval = 0;
+    int rc = 0;
 
     if ((fp = fopen(pathname, "r")) != NULL) {
 	char *buf = NULL;
@@ -605,7 +603,7 @@ value_from_file(const char *pathname, rlim_t *valuep)
 		(value != ULLONG_MAX || errno == 0) &&
                 (unsigned long long) (rlim_t) value == value) {
 		*valuep = (rlim_t) value;
-		retval = 1;
+		rc = 1;
 	    }
 	}
 
@@ -613,7 +611,7 @@ value_from_file(const char *pathname, rlim_t *valuep)
 	fclose(fp);
     }
 
-    return retval;
+    return rc;
 }
 
 static void
@@ -1166,7 +1164,7 @@ static int setup_limits(pam_handle_t *pamh,
 {
     int i;
     int status;
-    int retval = LIMITED_OK;
+    int rc = LIMITED_OK;
 
     for (i=0, status=LIMITED_OK; i<RLIM_NLIMITS; i++) {
       int res;
@@ -1190,13 +1188,13 @@ static int setup_limits(pam_handle_t *pamh,
     }
 
     if (status) {
-        retval = LIMIT_ERR;
+        rc = LIMIT_ERR;
     }
 
     status = setpriority(PRIO_PROCESS, 0, pl->priority);
     if (status != 0) {
         pam_syslog(pamh, LOG_ERR, "Could not set limit for PRIO_PROCESS: %m");
-        retval = LIMIT_ERR;
+        rc = LIMIT_ERR;
     }
 
     if (uid == 0) {
@@ -1210,24 +1208,24 @@ static int setup_limits(pam_handle_t *pamh,
 		/* ignore return value as we fail anyway */
             }
 #endif
-            retval |= LOGIN_ERR;
+            rc |= LOGIN_ERR;
 	}
     } else if (pl->login_limit == 0) {
-        retval |= LOGIN_ERR;
+        rc |= LOGIN_ERR;
     }
 
     if (pl->nonewprivs) {
 #ifdef __linux__
 	if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) < 0) {
 	    pam_syslog(pamh, LOG_ERR, "Could not set prctl(PR_SET_NO_NEW_PRIVS): %m");
-	    retval |= LIMIT_ERR;
+	    rc |= LIMIT_ERR;
 	}
 #else
 	pam_syslog(pamh, LOG_INFO, "Setting 'nonewprivs' not supported on this OS");
 #endif
     }
 
-    return retval;
+    return rc;
 }
 
 /* --- evaluating all files in VENDORDIR/security/limits.d and /etc/security/limits.d --- */
@@ -1325,7 +1323,7 @@ int
 pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 		     int argc, const char **argv)
 {
-    int retval, i;
+    int rc, retval, i;
     char *user_name;
     struct passwd *pwd;
     int ctrl;
@@ -1417,13 +1415,13 @@ out:
 	return retval;
     }
 
-    retval = setup_limits(pamh, pwd->pw_name, pwd->pw_uid, ctrl, pl);
+    rc = setup_limits(pamh, pwd->pw_name, pwd->pw_uid, ctrl, pl);
     free(free_filename);
     free(pl->login_group);
-    if (retval & LOGIN_ERR)
+    if (rc & LOGIN_ERR)
 	pam_error(pamh, _("There were too many logins for '%s'."),
 		  pwd->pw_name);
-    if (retval != LIMITED_OK) {
+    if (rc != LIMITED_OK) {
         return PAM_PERM_DENIED;
     }
 

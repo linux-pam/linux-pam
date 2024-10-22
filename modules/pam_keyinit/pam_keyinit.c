@@ -155,7 +155,7 @@ static int kill_keyrings(pam_handle_t *pamh, int error_ret)
 {
 	uid_t old_uid;
 	gid_t old_gid;
-	int ret = PAM_SUCCESS;
+	int retval = PAM_SUCCESS;
 
 	/* revoke the session keyring we created earlier */
 	if (my_session_keyring > 0) {
@@ -181,30 +181,30 @@ static int kill_keyrings(pam_handle_t *pamh, int error_ret)
 		}
 
 		if (syscall(__NR_keyctl, KEYCTL_REVOKE, my_session_keyring) < 0) {
-			ret = error_ret;
+			retval = error_ret;
 		}
 
 		/* return to the original UID and GID (probably root) */
 		if (revoke_as_uid != old_uid && pam_setreuid(-1, old_uid) < 0) {
 			error(pamh, "Unable to change UID back to %d\n", old_uid);
-			ret = error_ret;
+			retval = error_ret;
 		}
 
 		if (revoke_as_gid != old_gid && pam_setregid(-1, old_gid) < 0) {
 			error(pamh, "Unable to change GID back to %d\n", old_gid);
-			ret = error_ret;
+			retval = error_ret;
 		}
 
 		my_session_keyring = 0;
 	}
-	return ret;
+	return retval;
 }
 
 static int do_keyinit(pam_handle_t *pamh, int argc, const char **argv, int error_ret)
 {
 	struct passwd *pw;
 	const char *username;
-	int ret, loop, force = 0;
+	int retval, loop, force = 0;
 	uid_t old_uid, uid;
 	gid_t old_gid, gid;
 
@@ -224,9 +224,9 @@ static int do_keyinit(pam_handle_t *pamh, int argc, const char **argv, int error
 		return PAM_SUCCESS;
 
 	/* look up the target UID */
-	ret = pam_get_user(pamh, &username, "key user");
-	if (ret != PAM_SUCCESS)
-		return ret;
+	retval = pam_get_user(pamh, &username, "key user");
+	if (retval != PAM_SUCCESS)
+		return retval;
 
 	pw = pam_modutil_getpwnam(pamh, username);
 	if (!pw) {
@@ -255,20 +255,20 @@ static int do_keyinit(pam_handle_t *pamh, int argc, const char **argv, int error
 		return error_ret;
 	}
 
-	ret = init_keyrings(pamh, force, error_ret);
+	retval = init_keyrings(pamh, force, error_ret);
 
 	/* return to the original UID and GID (probably root) */
 	if (uid != old_uid && pam_setreuid(old_uid, -1) < 0) {
 		error(pamh, "Unable to change UID back to %d\n", old_uid);
-		ret = error_ret;
+		retval = error_ret;
 	}
 
 	if (gid != old_gid && pam_setregid(old_gid, -1) < 0) {
 		error(pamh, "Unable to change GID back to %d\n", old_gid);
-		ret = error_ret;
+		retval = error_ret;
 	}
 
-	return ret;
+	return retval;
 }
 
 /*

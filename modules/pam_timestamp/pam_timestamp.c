@@ -754,7 +754,7 @@ pam_sm_close_session(pam_handle_t *pamh UNUSED, int flags UNUSED, int argc UNUSE
 int
 main(int argc, char **argv)
 {
-	int i, retval, dflag = 0, kflag = 0;
+	int i, rc, dflag = 0, kflag = 0;
 	const char *target_user = NULL, *user = NULL, *tty = NULL;
 	struct passwd *pwd;
 	struct timeval tv;
@@ -854,11 +854,11 @@ main(int argc, char **argv)
 	}
 
 	do {
-		retval = 0;
+		rc = 0;
 		do {
 			/* Sanity check the timestamp directory itself. */
 			if (check_dir_perms(NULL, TIMESTAMPDIR) != PAM_SUCCESS) {
-				retval = 5;
+				rc = 5;
 				break;
 			}
 
@@ -866,7 +866,7 @@ main(int argc, char **argv)
 			if (kflag) {
 				/* Remove the timestamp. */
 				if (lstat(path, &st) != -1) {
-					retval = unlink(path);
+					rc = unlink(path);
 				}
 			} else {
 				/* Check the timestamp. */
@@ -877,13 +877,13 @@ main(int argc, char **argv)
 #else
 					if (check_login_time(user, st.st_mtime) != PAM_SUCCESS) {
 #endif
-						retval = 7;
+						rc = 7;
 					} else if (timestamp_good(st.st_mtime, time(NULL),
 							DEFAULT_TIMESTAMP_TIMEOUT) != PAM_SUCCESS) {
-						retval = 7;
+						rc = 7;
 					}
 				} else {
-					retval = 7;
+					rc = 7;
 				}
 			}
 		} while (0);
@@ -892,7 +892,7 @@ main(int argc, char **argv)
 			struct timeval now;
 			/* Send the would-be-returned value to our parent. */
 			signal(SIGPIPE, SIG_DFL);
-			fprintf(stdout, "%d\n", retval);
+			fprintf(stdout, "%d\n", rc);
 			fflush(stdout);
 			/* Wait. */
 			gettimeofday(&now, NULL);
@@ -909,7 +909,7 @@ main(int argc, char **argv)
 		}
 	} while (dflag > 0);
 
-	return retval;
+	return rc;
 }
 
 #endif
