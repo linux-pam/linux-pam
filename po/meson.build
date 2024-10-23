@@ -10,6 +10,6 @@ i18n.gettext(
   args: [
     '--copyright-holder=Linux-PAM Project',
     '--msgid-bugs-address=https://github.com/linux-pam/linux-pam/issues',
-    '--package-version=1.6.1',
+    '--package-version=1.7.0',
   ],
 )

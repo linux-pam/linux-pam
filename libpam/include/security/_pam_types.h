@@ -22,7 +22,7 @@ typedef struct pam_handle pam_handle_t;
 /* Major and minor version number of the Linux-PAM package.  Use
    these macros to test for features in specific releases.  */
 #define __LINUX_PAM__ 1
-#define __LINUX_PAM_MINOR__ 0
+#define __LINUX_PAM_MINOR__ 7
 
 /* ----------------- The Linux-PAM return values ------------------ */
 

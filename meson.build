@@ -1,5 +1,5 @@
 project('Linux-PAM', 'c',
-        version: '1.6.1',
+        version: '1.7.0',
         license: 'BSD-3-Clause OR GPL-2.0-or-later',
         default_options: [
           'b_pie=true',
