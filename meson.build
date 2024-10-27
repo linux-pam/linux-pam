@@ -211,7 +211,9 @@ endif
 libdl = dependency('dl')
 
 
-if not get_option('i18n').disabled()
+if get_option('i18n').disabled()
+  libintl = null_dep
+else
   libintl = dependency('intl', required: get_option('i18n'))
   if libintl.found()
     cdata.set('ENABLE_NLS', 1)
