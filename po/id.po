@@ -5,20 +5,22 @@
 # Translators:
 # sentabi, 2013
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Andika Triwidada <andika@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2024-10-13 20:00+0000\n"
-"PO-Revision-Date: 2013-04-22 01:07-0400\n"
-"Last-Translator: sentabi\n"
-"Language-Team: Indonesian <trans-id@lists.fedoraproject.org>\n"
+"PO-Revision-Date: 2024-10-28 01:54+0000\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 3.8.3\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
@@ -250,7 +252,7 @@ msgstr ""
 #: modules/pam_faillock/main.c:182
 #, c-format
 msgid "Login           Failures    Latest failure         From\n"
-msgstr ""
+msgstr "Login           Gagal     Kegagalan terakhir         Dari\n"
 
 #: modules/pam_faillock/pam_faillock.c:416
 #, c-format
@@ -438,58 +440,57 @@ msgstr "log masuk: kegagalan fork: %m"
 #: modules/pam_timestamp/pam_timestamp.c:385
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "Akses telah diberikan (akses terkahir %ld detik yang lalu)."
 
 #: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator."
-msgstr ""
+msgstr "Akun Anda telah kedaluwarsa; harap hubungi administrator sistem Anda."
 
 #: modules/pam_unix/pam_unix_acct.c:240
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr ""
+"Anda harus mengubah kata sandi Anda saat ini juga (dipaksakan oleh "
+"administrator)."
 
 #: modules/pam_unix/pam_unix_acct.c:246
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr ""
+"Anda harus mengubah kata sandi Anda saat ini juga (kata sandi kedaluwarsa)."
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] ""
+msgstr[0] "Peringatan: kata sandi Anda akan kedaluwarsa dalam %d hari."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr ""
+msgstr "Peringatan: kata sandi Anda akan kedaluwarsa dalam %d hari."
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."
-msgstr ""
+msgstr "Kata sandi NIS tidak bisa diubah."
 
 #: modules/pam_unix/pam_unix_passwd.c:557
-#, fuzzy
 msgid "No password has been supplied."
-msgstr "Sandi sudah digunakan."
+msgstr "Tidak ada kata sandi yang diberikan."
 
 #: modules/pam_unix/pam_unix_passwd.c:558
-#, fuzzy
 msgid "The password has not been changed."
-msgstr "Sandi sudah digunakan."
+msgstr "Kata sandi belum diubah."
 
 #: modules/pam_unix/pam_unix_passwd.c:575
-#, fuzzy
 msgid "You must choose a shorter password."
 msgstr "Anda harus memilih kata sandi yang lebih pendek."
 
 #: modules/pam_unix/pam_unix_passwd.c:579
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Anda harus memilih kata sandi yang lebih pendek."
+msgstr "Anda harus memilih kata sandi yang lebih panjang."
 
 #: modules/pam_unix/pam_unix_passwd.c:684
 #, c-format
@@ -497,9 +498,8 @@ msgid "Changing password for %s."
 msgstr "Mengubah kata sandi untuk %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:714
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Anda harus memilih kata sandi yang lebih pendek."
+msgstr "Anda harus menunggu lebih lama untuk mengubah kata sandi Anda."
 
 #, fuzzy
 #~ msgid "You have no mail."
