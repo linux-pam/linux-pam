@@ -15,6 +15,7 @@ parse_l = custom_target(
 
 padout = executable(
   'padout',
+  native: true,
   sources: [parse_l, parse_y],
   include_directories: [libpam_inc],
   c_args: [
