@@ -502,7 +502,7 @@ if enable_docs
   endif
   prog_fop = find_program(
     'fop',
-    required: feature_docs,
+    required: false,
     disabler: true,
   )
 
