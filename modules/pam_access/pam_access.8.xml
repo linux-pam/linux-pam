@@ -23,10 +23,13 @@
         debug
       </arg>
       <arg choice="opt" rep="norepeat">
+        noaudit
+      </arg>
+      <arg choice="opt" rep="norepeat">
         nodefgroup
       </arg>
       <arg choice="opt" rep="norepeat">
-        noaudit
+        nodns
       </arg>
       <arg choice="opt" rep="norepeat">
         quiet_log
@@ -134,6 +137,33 @@
 
       <varlistentry>
         <term>
+          nodefgroup
+        </term>
+        <listitem>
+          <para>
+            User tokens which are not enclosed in parentheses will not be
+	    matched against the group database. The backwards compatible default is
+            to try the group database match even for tokens not enclosed
+            in parentheses.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          nodns
+        </term>
+        <listitem>
+          <para>
+	    Do not try to resolve tokens as hostnames, only IPv4 and IPv6
+	    addresses will be resolved. Which means to allow login from a
+	    remote host, the IP addresses need to be specified in <filename>access.conf</filename>.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
           quiet_log
         </term>
         <listitem>
@@ -181,20 +211,6 @@
             with group information obtained from a Windows domain,
             where the default built-in groups "Domain Users",
             "Domain Admins" contain a space.
-          </para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>
-          nodefgroup
-        </term>
-        <listitem>
-          <para>
-            User tokens which are not enclosed in parentheses will not be
-	    matched against the group database. The backwards compatible default is
-            to try the group database match even for tokens not enclosed
-            in parentheses.
           </para>
         </listitem>
       </varlistentry>

@@ -100,6 +100,7 @@ struct login_info {
     int only_new_group_syntax;		/* Only allow group entries of the form "(xyz)" */
     int noaudit;			/* Do not audit denials */
     int quiet_log;			/* Do not log denials */
+    int nodns;                          /* Do not try to resolve tokens as hostnames */
     const char *fs;			/* field separator */
     const char *sep;			/* list-element separator */
     int from_remote_host;               /* If PAM_RHOST was used for from */
@@ -154,6 +155,8 @@ parse_args(pam_handle_t *pamh, struct login_info *loginfo,
 	    loginfo->noaudit = YES;
 	} else if (strcmp (argv[i], "quiet_log") == 0) {
 	    loginfo->quiet_log = YES;
+	} else if (strcmp (argv[i], "nodns") == 0) {
+	    loginfo->nodns = YES;
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unrecognized option [%s]", argv[i]);
 	}
@@ -820,7 +823,7 @@ remote_match (pam_handle_t *pamh, char *tok, struct login_info *item)
       if ((str_len = strlen(string)) > tok_len
 	  && strcasecmp(tok, string + str_len - tok_len) == 0)
 	return YES;
-    } else if (tok[tok_len - 1] == '.') {       /* internet network numbers (end with ".") */
+    } else if (tok[tok_len - 1] == '.') {       /* internet network numbers/subnet (end with ".") */
       struct addrinfo hint;
 
       memset (&hint, '\0', sizeof (hint));
@@ -895,6 +898,39 @@ string_match (pam_handle_t *pamh, const char *tok, const char *string,
 }
 
 
+static int
+is_device (pam_handle_t *pamh, const char *tok)
+{
+  struct stat st;
+  const char *dev = "/dev/";
+  char *devname;
+
+  devname = malloc (strlen(dev) + strlen (tok) + 1);
+  if (devname == NULL) {
+      pam_syslog(pamh, LOG_ERR, "Cannot allocate memory for device name: %m");
+      /*
+       * We should return an error and abort, but pam_access has no good
+       * error handling.
+       */
+      return NO;
+  }
+
+  char *cp = stpcpy (devname, dev);
+  strcpy (cp, tok);
+
+  if (lstat(devname, &st) != 0)
+    {
+      free (devname);
+      return NO;
+    }
+  free (devname);
+
+  if (S_ISCHR(st.st_mode))
+    return YES;
+
+  return NO;
+}
+
 /* network_netmask_match - match a string against one token
  * where string is a hostname or ip (v4,v6) address and tok
  * represents either a hostname, a single ip (v4,v6) address
@@ -956,10 +992,42 @@ network_netmask_match (pam_handle_t *pamh,
 	    return NO;
 	  }
       }
+    else if (isipaddr(tok, NULL, NULL) == YES)
+      {
+	if (getaddrinfo (tok, NULL, NULL, &ai) != 0)
+	  {
+	    if (item->debug)
+	      pam_syslog(pamh, LOG_DEBUG, "cannot resolve IP address \"%s\"", tok);
+
+	    return NO;
+	  }
+	netmask_ptr = NULL;
+      }
+    else if (item->nodns)
+      {
+	/* Only hostnames are left, which we would need to resolve via DNS */
+	return NO;
+      }
     else
       {
+	/* Bail out on X11 Display entries and ttys. */
+	if (tok[0] == ':')
+	  {
+	    if (item->debug)
+	      pam_syslog (pamh, LOG_DEBUG,
+			  "network_netmask_match: tok=%s is X11 display", tok);
+	    return NO;
+	  }
+	if (is_device (pamh, tok))
+	  {
+	    if (item->debug)
+	      pam_syslog (pamh, LOG_DEBUG,
+			  "network_netmask_match: tok=%s is a TTY", tok);
+	    return NO;
+	  }
+
         /*
-	 * It is either an IP address or a hostname.
+	 * It is most likely a hostname.
 	 * Let getaddrinfo sort everything out
 	 */
 	if (getaddrinfo (tok, NULL, NULL, &ai) != 0)

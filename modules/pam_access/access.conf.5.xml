@@ -233,6 +233,10 @@
       An IPv6 link local host address must contain the interface
       identifier. IPv6 link local network/netmask is not supported.
     </para>
+    <para>
+      Hostnames should be written as Fully-Qualified Host Name (FQHN) to avoid
+      confusion with device names or PAM service names.
+    </para>
   </refsect1>
 
   <refsect1 xml:id="access.conf-see_also">
