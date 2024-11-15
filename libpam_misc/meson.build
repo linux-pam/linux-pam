@@ -25,6 +25,16 @@ libpam_misc = shared_library(
   install: true,
 )
 
+libpam_misc = static_library(
+  'pam_misc',
+  sources: libpam_misc_src,
+  include_directories: [libpam_misc_inc, libpamc_inc],
+  dependencies: [libpam_internal_dep, libpam_dep],
+  link_depends: libpam_misc_link_deps,
+  link_args: libpam_misc_link_args,
+  install: true,
+)
+
 libpam_misc_dep = declare_dependency(
   include_directories: [libpam_misc_inc],
   link_with: [libpam_misc],

@@ -58,6 +58,21 @@ libpam = shared_library(
   install: true,
 )
 
+libpam = static_library(
+  'pam',
+  sources: libpam_src,
+  include_directories: [libpam_inc],
+  c_args: [
+    '-DDEFAULT_MODULE_PATH="@0@/"'.format(securedir),
+    '-DLIBPAM_COMPILE',
+  ],
+  dependencies: [libpam_internal_dep, libaudit, libeconf, libdl, libintl],
+  link_depends: libpam_link_deps,
+  link_args: libpam_link_args,
+  install: true,
+)
+
+
 libpam_dep = declare_dependency(
   include_directories: [libpam_inc],
   link_with: [libpam],
