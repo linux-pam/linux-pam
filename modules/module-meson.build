@@ -16,7 +16,7 @@ if module == 'pam_faillock'
   pam_module_deps += [libaudit]
 endif
 if module == 'pam_issue'
-  pam_module_deps += [libsystemd]
+  pam_module_deps += [logind_dep]
 endif
 if module == 'pam_keyinit'
   if not enable_pam_keyinit
@@ -32,7 +32,7 @@ endif
 if module == 'pam_limits'
   limits_conf_dir = sconfigdir / 'limits.d'
   pam_module_c_args += ['-DLIMITS_FILE_DIR="@0@"'.format(limits_conf_dir)]
-  pam_module_deps += [libsystemd]
+  pam_module_deps += [logind_dep]
 endif
 if module == 'pam_loginuid'
   pam_module_deps += [libaudit]
@@ -90,7 +90,7 @@ if module == 'pam_timestamp'
   else
     pam_module_src += ['hmacsha1.c', 'sha1.c']
   endif
-  pam_module_deps += [libcrypto, libsystemd]
+  pam_module_deps += [libcrypto, logind_dep]
 endif
 if module == 'pam_tty_audit'
   if cdata.get('HAVE_STRUCT_AUDIT_TTY_STATUS', 0) == 0
@@ -408,7 +408,7 @@ if module == 'pam_timestamp'
     'pam_timestamp_check',
     sources: ['pam_timestamp_check.c'],
     link_args: exe_link_args,
-    dependencies: [libpam_internal_dep, libpam_dep, libsystemd],
+    dependencies: [libpam_internal_dep, libpam_dep, logind_dep],
     install: true,
     install_dir: sbindir,
   )

@@ -28,8 +28,10 @@
 #include <time.h>
 #include <syslog.h>
 
-#ifdef USE_LOGIND
+#ifdef USE_LIBSYSTEMD
 #include <systemd/sd-login.h>
+#elif defined(USE_LIBELOGIND)
+#include <elogind/sd-login.h>
 #else
 #include <utmp.h>
 #endif

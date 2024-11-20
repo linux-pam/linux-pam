@@ -318,9 +318,16 @@ else
   stringparam_profileconditions += ';no_openssl_hmac'
 endif
 
-
-libsystemd = dependency('libsystemd', version: '>= 254', required: get_option('logind'))
-cdata.set('USE_LOGIND', libsystemd.found() ? 1 : false)
+use_logind = get_option('logind')
+use_elogind = get_option('elogind').require(not use_logind.enabled()).disable_auto_if(use_logind.enabled())
+use_logind = use_logind.disable_auto_if(use_elogind.enabled())
+logind_dep = dependency('libsystemd', version: '>= 254', required: use_logind)
+cdata.set('USE_LIBSYSTEMD', logind_dep.found() ? 1 : false)
+if not logind_dep.found()
+  logind_dep = dependency('libelogind', version: '>= 254', required: use_elogind)
+  cdata.set('USE_LIBELOGIND', logind_dep.found() ? 1 : false)
+endif
+cdata.set('USE_LOGIND', logind_dep.found() ? 1 : false)
 
 systemdunitdir = get_option('systemdunitdir')
 if systemdunitdir == ''
