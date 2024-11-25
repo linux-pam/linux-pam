@@ -13,6 +13,12 @@ case "${VENDORDIR-}" in
 		;;
 esac
 
+case "${USE_LOGIND-}" in
+	yes)
+		opts="$opts -Dlogind=enabled"
+		;;
+esac
+
 case "${USE_OPENSSL-}" in
 	yes)
 		opts="$opts -Dopenssl=enabled"

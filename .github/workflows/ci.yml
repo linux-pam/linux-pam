@@ -28,6 +28,21 @@ jobs:
     - name: build check
       run: ci/build.sh
 
+  gcc14-x86_64-logind:
+    runs-on: ubuntu-24.04
+    env:
+      CC: gcc-14
+      TARGET: x86_64
+      USE_LOGIND: yes
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/build.sh
+
   gcc14-x86_64-openssl:
     runs-on: ubuntu-24.04
     env:
@@ -481,6 +496,21 @@ jobs:
       CC: clang-18
       TARGET: x86_64
       VENDORDIR: ${prefix}/share/etc
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: install dependencies
+      run: ci/install-dependencies.sh
+    - name: build check
+      run: ci/build.sh
+
+  clang18-x86_64-logind:
+    runs-on: ubuntu-24.04
+    env:
+      CC: clang-18
+      TARGET: x86_64
+      USE_LOGIND: yes
     steps:
     - uses: actions/checkout@v4
       with:

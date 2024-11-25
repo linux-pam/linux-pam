@@ -63,6 +63,12 @@ case "$TARGET" in
 		;;
 esac
 
+case "${USE_LOGIND-}" in
+	yes)
+		packages="$packages libsystemd-dev"
+		;;
+esac
+
 apt_get_install $packages
 
 case "${CHECK-}" in
