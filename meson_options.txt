@@ -9,7 +9,7 @@ option('audit', type: 'feature', value: 'auto',
 option('econf', type: 'feature', value: 'auto',
        description: 'libeconf support')
 option('logind', type: 'feature', value: 'auto',
-       description: 'logind support in pam_issue and pam_timestamp')
+       description: 'logind support in pam_issue, pam_limits, and pam_timestamp')
 option('openssl', type: 'feature', value: 'disabled',
        description: 'Use OpenSSL crypto libraries in pam_timestamp')
 option('selinux', type: 'feature', value: 'auto',
