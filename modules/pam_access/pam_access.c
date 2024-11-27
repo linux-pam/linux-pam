@@ -766,7 +766,7 @@ group_match (pam_handle_t *pamh, char *tok, const char* usr, int debug)
     tok++;
     tok[strlen(tok) - 1] = '\0';
 
-    if (group_name_or_gid_match (pamh, usr, tok, debug))
+    if (group_name_or_gid_match (pamh, tok, usr, debug))
         return YES;
 
     return NO;
