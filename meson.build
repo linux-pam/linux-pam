@@ -198,12 +198,12 @@ foreach ident: check_functions
   endif
 endforeach
 
-enable_pam_keyinit = cc.sizeof('__NR_keyctl', prefix: '#include <sys/syscall.h>') > 0
+enable_pam_keyinit = cc.get_define('__NR_keyctl', prefix: '#include <sys/syscall.h>') != ''
 
 if get_option('mailspool') != ''
   cdata.set_quoted('PAM_PATH_MAILDIR', get_option('mailspool'))
 else
-  have = cc.sizeof('_PATH_MAILDIR', prefix: '#include <paths.h>') > 0
+  have = cc.get_define('_PATH_MAILDIR', prefix: '#include <paths.h>') != ''
   cdata.set('PAM_PATH_MAILDIR', have ? '_PATH_MAILDIR' : '"/var/spool/mail"')
 endif
 
