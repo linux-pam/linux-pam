@@ -334,10 +334,13 @@ if systemdunitdir == ''
   systemdunitdir = prefixdir / 'lib' / 'systemd' / 'system'
   systemd = dependency('systemd', required: false)
   if systemd.found()
-    systemdunitdir = systemd.get_variable(
+    systemdsystemunitdir = systemd.get_variable(
       pkgconfig: 'systemdsystemunitdir',
       default_value: systemdunitdir,
     )
+    if systemdsystemunitdir.startswith(prefixdir / '')
+      systemdunitdir = systemdsystemunitdir
+    endif
   endif
 endif
 
