@@ -68,7 +68,7 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 {
 	int i;
 	int config_arg_index = -1;
-	int rv;
+	int retval;
 	const char *conf = NULL;
 
 	memset(opts, 0, sizeof(*opts));
@@ -87,10 +87,10 @@ args_parse(pam_handle_t *pamh, int argc, const char **argv,
 		}
 	}
 
-	if ((rv = read_config_file(pamh, opts, conf)) != PAM_SUCCESS) {
+	if ((retval = read_config_file(pamh, opts, conf)) != PAM_SUCCESS) {
 		pam_syslog(pamh, LOG_ERR,
 					"Configuration file missing or broken");
-		return rv;
+		return retval;
 	}
 
 	for (i = 0; i < argc; ++i) {
@@ -149,11 +149,11 @@ static int
 get_pam_user(pam_handle_t *pamh, struct options *opts)
 {
 	const char *user;
-	int rv;
+	int retval;
 	struct passwd *pwd;
 
-	if ((rv=pam_get_user(pamh, &user, NULL)) != PAM_SUCCESS) {
-		return rv == PAM_CONV_AGAIN ? PAM_INCOMPLETE : rv;
+	if ((retval = pam_get_user(pamh, &user, NULL)) != PAM_SUCCESS) {
+		return retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE : retval;
 	}
 
 	if (*user == '\0') {
@@ -461,20 +461,20 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
 		    int argc, const char **argv)
 {
 	struct options opts;
-	int rv, fd = -1;
+	int retval, fd = -1;
 	struct tally_data tallies;
 
 	memset(&tallies, 0, sizeof(tallies));
 
-	rv = args_parse(pamh, argc, argv, flags, &opts);
-	if (rv != PAM_SUCCESS)
+	retval = args_parse(pamh, argc, argv, flags, &opts);
+	if (retval != PAM_SUCCESS)
 		goto err;
 
 	if (!(opts.flags & FAILLOCK_FLAG_NO_DELAY)) {
 		pam_fail_delay(pamh, 2000000);	/* 2 sec delay on failure */
 	}
 
-	if ((rv=get_pam_user(pamh, &opts)) != PAM_SUCCESS) {
+	if ((retval = get_pam_user(pamh, &opts)) != PAM_SUCCESS) {
 		goto err;
 	}
 
@@ -482,23 +482,23 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
 		check_local_user (pamh, opts.user) != 0) {
 		switch (opts.action) {
 			case FAILLOCK_ACTION_PREAUTH:
-				rv = check_tally(pamh, &opts, &tallies, &fd);
-				if (rv == PAM_AUTH_ERR && !(opts.flags & FAILLOCK_FLAG_SILENT)) {
+				retval = check_tally(pamh, &opts, &tallies, &fd);
+				if (retval == PAM_AUTH_ERR && !(opts.flags & FAILLOCK_FLAG_SILENT)) {
 					faillock_message(pamh, &opts);
 				}
 				break;
 
 			case FAILLOCK_ACTION_AUTHSUCC:
-				rv = check_tally(pamh, &opts, &tallies, &fd);
-				if (rv == PAM_SUCCESS) {
+				retval = check_tally(pamh, &opts, &tallies, &fd);
+				if (retval == PAM_SUCCESS) {
 					reset_tally(pamh, &opts, &fd);
 				}
 				break;
 
 			case FAILLOCK_ACTION_AUTHFAIL:
-				rv = check_tally(pamh, &opts, &tallies, &fd);
-				if (rv == PAM_SUCCESS) {
-					rv = PAM_IGNORE; /* this return value should be ignored */
+				retval = check_tally(pamh, &opts, &tallies, &fd);
+				if (retval == PAM_SUCCESS) {
+					retval = PAM_IGNORE; /* this return value should be ignored */
 					write_tally(pamh, &opts, &tallies, &fd);
 				}
 				break;
@@ -510,7 +510,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
 err:
 	opts_cleanup(&opts);
 
-	return rv;
+	return retval;
 }
 
 /*---------------------------------------------------------------------*/
@@ -529,19 +529,19 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 		 int argc, const char **argv)
 {
 	struct options opts;
-	int rv, fd = -1;
+	int retval, fd = -1;
 	struct tally_data tallies;
 
 	memset(&tallies, 0, sizeof(tallies));
 
-	rv = args_parse(pamh, argc, argv, flags, &opts);
+	retval = args_parse(pamh, argc, argv, flags, &opts);
 
-	if (rv != PAM_SUCCESS)
+	if (retval != PAM_SUCCESS)
 		goto err;
 
 	opts.action = FAILLOCK_ACTION_AUTHSUCC;
 
-	if ((rv=get_pam_user(pamh, &opts)) != PAM_SUCCESS) {
+	if ((retval = get_pam_user(pamh, &opts)) != PAM_SUCCESS) {
 		goto err;
 	}
 
@@ -556,7 +556,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 err:
 	opts_cleanup(&opts);
 
-	return rv;
+	return retval;
 }
 
 /*-----------------------------------------------------------------------*/

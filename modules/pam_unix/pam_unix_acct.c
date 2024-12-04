@@ -65,7 +65,7 @@
 int _unix_run_verify_binary(pam_handle_t *pamh, unsigned long long ctrl,
 	const char *user, int *daysleft)
 {
-  int retval=0, child, fds[2];
+  int retval = PAM_SUCCESS, child, fds[2];
   struct sigaction newsa, oldsa;
   D(("running verify_binary"));
 
