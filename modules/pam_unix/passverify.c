@@ -522,20 +522,20 @@ PAMH_ARG_DECL(char * create_password_hash,
 			   on(UNIX_BLOWFISH_PASS, ctrl) ? "blowfish" :
 			   on(UNIX_SHA256_PASS, ctrl) ? "sha256" :
 			   on(UNIX_SHA512_PASS, ctrl) ? "sha512" : algoid);
-		if(sp) {
-		   pam_overwrite_string(sp);
-		}
 #ifdef HAVE_CRYPT_R
 		pam_overwrite_object(cdata);
 		free(cdata);
+#else
+		pam_overwrite_string(sp);
 #endif
 		return NULL;
 	}
 	ret = strdup(sp);
-	pam_overwrite_string(sp);
 #ifdef HAVE_CRYPT_R
 	pam_overwrite_object(cdata);
 	free(cdata);
+#else
+	pam_overwrite_string(sp);
 #endif
 	return ret;
 }
