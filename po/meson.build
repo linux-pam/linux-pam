@@ -1,4 +1,4 @@
-if not find_program('gettext', required: get_option('i18n')).found()
+if not find_program('gettext', required: get_option('i18n'), native: true).found()
   subdir_done()
 endif
 

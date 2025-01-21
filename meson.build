@@ -489,16 +489,19 @@ if enable_docs
   prog_xsltproc = find_program(
     'xsltproc',
     required: feature_docs,
+    native: true,
     disabler: true,
   )
   prog_xmllint = find_program(
     'xmllint',
     required: feature_docs,
+    native: true,
     disabler: true,
   )
   prog_w3m = find_program(
     'w3m',
     required: false,
+    native: true,
   )
   if prog_w3m.found()
     browser = [prog_w3m, '-T', 'text/html', '-dump']
@@ -506,6 +509,7 @@ if enable_docs
     prog_elinks = find_program(
       'elinks',
       required: feature_docs,
+      native: true,
       disabler: true,
     )
     browser = [prog_elinks, '-no-numbering', '-no-references', '-dump']
@@ -513,12 +517,14 @@ if enable_docs
   prog_fop = find_program(
     'fop',
     required: false,
+    native: true,
     disabler: true,
   )
 
   prog_xmlcatalog = find_program(
     'xmlcatalog',
     required: feature_docs,
+    native: true,
     disabler: true,
   )
   xml_catalog = get_option('xml-catalog')
@@ -600,6 +606,7 @@ endif
 prog_flex = find_program(
   'flex',
   required: false,
+  native: true,
   disabler: true,
 )
 
@@ -607,6 +614,7 @@ yacc_cmd = []
 prog_yacc = find_program(
   'bison',
   required: false,
+  native: true,
 )
 if prog_yacc.found()
   yacc_cmd = [prog_yacc, '-o', '@OUTPUT0@', '--defines=@OUTPUT1@', '@INPUT@']
@@ -614,6 +622,7 @@ else
   prog_yacc = find_program(
     'byacc',
     required: false,
+    native: true,
     disabler: true,
   )
   yacc_cmd = [prog_yacc, '-o', '@OUTPUT0@', '-H', '@OUTPUT1@', '@INPUT@']
