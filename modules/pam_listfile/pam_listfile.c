@@ -47,6 +47,7 @@
 static int
 pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 {
+    int rc;
     int retval = -1;
     int onerr = PAM_SERVICE_ERR;
     int citem = 0;
@@ -300,14 +301,8 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 	return onerr;
     }
     /* There should be no more errors from here on */
-    retval=PAM_AUTH_ERR;
-    /* This loop assumes that PAM_SUCCESS == 0
-       and PAM_AUTH_ERR != 0 */
-#ifdef PAM_DEBUG
-    assert(PAM_SUCCESS == 0);
-    assert(PAM_AUTH_ERR != 0);
-#endif
-    while(retval && getline(&aline,&n,inf) != -1) {
+    rc = 1;
+    while(rc && getline(&aline,&n,inf) != -1) {
 	const char *a = aline;
 
 	aline[strcspn(aline, "\r\n")] = '\0';
@@ -319,19 +314,19 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 		a = str;
 	}
 	if (extitem == EI_GROUP) {
-	    retval = !pam_modutil_user_in_group_nam_nam(pamh,
+	    rc = !pam_modutil_user_in_group_nam_nam(pamh,
 		citemp, aline);
 	} else {
-	    retval = strcmp(a, citemp);
+	    rc = strcmp(a, citemp);
 	}
     }
 
     free(aline);
     fclose(inf);
-    if ((sense && retval) || (!sense && !retval)) {
+    if ((sense && rc) || (!sense && !rc)) {
 #ifdef PAM_DEBUG
 	pam_syslog(pamh,LOG_INFO,
-		 "Returning PAM_SUCCESS, retval = %d", retval);
+		 "Returning PAM_SUCCESS, retval = %d", rc);
 #endif
 	return PAM_SUCCESS;
     }
@@ -340,7 +335,7 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 	const char *user_name;
 #ifdef PAM_DEBUG
 	pam_syslog(pamh,LOG_INFO,
-		 "Returning PAM_AUTH_ERR, retval = %d", retval);
+		 "Returning PAM_AUTH_ERR, retval = %d", rc);
 #endif
 	(void) pam_get_item(pamh, PAM_SERVICE, &service);
 	(void) pam_get_user(pamh, &user_name, NULL);

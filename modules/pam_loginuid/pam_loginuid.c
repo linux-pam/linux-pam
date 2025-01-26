@@ -52,7 +52,7 @@
  */
 static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 {
-	int fd, count, rc = PAM_SESSION_ERR;
+	int fd, count, retval = PAM_SESSION_ERR;
 	char loginuid[24], buf[24];
 	static const char host_uid_map[] = "         0          0 4294967295\n";
 	char uid_map[sizeof(host_uid_map)];
@@ -64,40 +64,40 @@ static int set_loginuid(pam_handle_t *pamh, uid_t uid)
 	if (fd >= 0) {
 		count = pam_modutil_read(fd, uid_map, sizeof(uid_map));
 		if (count <= 0 || strncmp(uid_map, host_uid_map, count) != 0)
-			rc = PAM_IGNORE;
+			retval = PAM_IGNORE;
 		close(fd);
 	}
 
 	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_RDWR);
 	if (fd < 0) {
 		if (errno == ENOENT) {
-			rc = PAM_IGNORE;
+			retval = PAM_IGNORE;
 		}
-		if (rc != PAM_IGNORE) {
+		if (retval != PAM_IGNORE) {
 			pam_syslog(pamh, LOG_ERR, "Cannot open %s: %m",
 				   "/proc/self/loginuid");
 		}
-		return rc;
+		return retval;
 	}
 
 	count = snprintf(loginuid, sizeof(loginuid), "%lu", (unsigned long)uid);
 	if (pam_modutil_read(fd, buf, sizeof(buf)) == count &&
 	    memcmp(buf, loginuid, count) == 0) {
-		rc = PAM_SUCCESS;
+		retval = PAM_SUCCESS;
 		goto done;	/* already correct */
 	}
 	if (lseek(fd, 0, SEEK_SET) == 0 && ftruncate(fd, 0) == 0 &&
 	    pam_modutil_write(fd, loginuid, count) == count) {
-		rc = PAM_SUCCESS;
+		retval = PAM_SUCCESS;
 	} else {
-		if (rc != PAM_IGNORE) {
+		if (retval != PAM_IGNORE) {
 			pam_syslog(pamh, LOG_ERR, "Error writing %s: %m",
 				   "/proc/self/loginuid");
 		}
 	}
  done:
 	close(fd);
-	return rc;
+	return retval;
 }
 
 #ifdef HAVE_LIBAUDIT
@@ -109,7 +109,7 @@ static int set_loginuid(pam_handle_t *pamh, uid_t uid)
  */
 static int check_auditd(void)
 {
-	int fd, retval;
+	int fd, r;
 
 	fd = audit_open();
 	if (fd < 0) {
@@ -122,8 +122,8 @@ static int check_auditd(void)
 			return PAM_SUCCESS;
 		return PAM_SESSION_ERR;
 	}
-	retval = audit_request_status(fd);
-	if (retval > 0) {
+	r = audit_request_status(fd);
+	if (r > 0) {
 		struct audit_reply rep;
 		int i;
 		int timeout = 30; /* tenths of seconds */
@@ -163,12 +163,12 @@ static int check_auditd(void)
 		}
 	}
 	close(fd);
-	if (retval == -ECONNREFUSED) {
+	if (r == -ECONNREFUSED) {
 		/* This is here to let people that build their own kernel
 		   and disable the audit system get in. ECONNREFUSED is
 		   issued by the kernel when there is "no on listening". */
 		return PAM_SUCCESS;
-	} else if (retval == -EPERM && getuid() != 0) {
+	} else if (r == -EPERM && getuid() != 0) {
 		/* If we get this, then the kernel supports auditing
 		 * but we don't have enough privilege to write to the
 		 * socket. Therefore, we have already been authenticated
@@ -195,7 +195,7 @@ _pam_loginuid(pam_handle_t *pamh, int flags UNUSED,
 {
         const char *user = NULL;
 	struct passwd *pwd;
-	int ret;
+	int retval;
 #ifdef HAVE_LIBAUDIT
 	int require_auditd = 0;
 #endif
@@ -213,14 +213,14 @@ _pam_loginuid(pam_handle_t *pamh, int flags UNUSED,
 		return PAM_SESSION_ERR;
 	}
 
-	ret = set_loginuid(pamh, pwd->pw_uid);
-	switch (ret) {
+	retval = set_loginuid(pamh, pwd->pw_uid);
+	switch (retval) {
 		case PAM_SUCCESS:
 		case PAM_IGNORE:
 			break;
 		default:
 			pam_syslog(pamh, LOG_ERR, "set_loginuid failed");
-			return ret;
+			return retval;
 	}
 
 #ifdef HAVE_LIBAUDIT
@@ -234,10 +234,10 @@ _pam_loginuid(pam_handle_t *pamh, int flags UNUSED,
 		int rc = check_auditd();
 		if (rc != PAM_SUCCESS)
 			pam_syslog(pamh, LOG_ERR, "required running auditd not detected");
-		return rc != PAM_SUCCESS ? rc : ret;
+		return rc != PAM_SUCCESS ? rc : retval;
 	} else
 #endif
-		return ret;
+		return retval;
 }
 
 /*

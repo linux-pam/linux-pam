@@ -60,7 +60,7 @@ static int
 args_parse(int argc, char **argv, struct options *opts)
 {
 	int i;
-	int rv;
+	int retval;
 	const char *dir = NULL;
 	const char *conf = NULL;
 
@@ -107,9 +107,9 @@ args_parse(int argc, char **argv, struct options *opts)
 		}
 	}
 
-	if ((rv = read_config_file(NULL, opts, conf)) != PAM_SUCCESS) {
+	if ((retval = read_config_file(NULL, opts, conf)) != PAM_SUCCESS) {
 		fprintf(stderr, "Configuration file missing or broken");
-		return rv;
+		return retval;
 	}
 
 	if (dir != NULL) {

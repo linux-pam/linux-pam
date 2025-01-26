@@ -51,7 +51,7 @@ static bool check_file(const char *filename, const void *pamh)
 
 static int perform_check(pam_handle_t *pamh)
 {
-    int retval = PAM_AUTH_ERR;
+    int retval = PAM_AUTH_ERR, rc;
     const char *userName;
     const char *userShell;
     struct passwd * pw;
@@ -107,10 +107,10 @@ static int perform_check(pam_handle_t *pamh)
 	return PAM_AUTH_ERR;
     }
 
-    retval = 1;
+    rc = 1;
     for (size_t i = 0; i < size; i++) {
-	retval = strcmp(keys[i], userShell);
-        if (!retval)
+	rc = strcmp(keys[i], userShell);
+        if (!rc)
 	   break;
     }
     econf_free (keys);
@@ -129,22 +129,22 @@ static int perform_check(pam_handle_t *pamh)
 	return PAM_SERVICE_ERR;
     }
 
-    retval = 1;
+    rc = 1;
 
-    while (retval && getline(&p, &n, shellFile) != -1) {
+    while (rc && getline(&p, &n, shellFile) != -1) {
 	p[strcspn(p, "\n")] = '\0';
 
 	if (p[0] != '/') {
 		continue;
 	}
-	retval = strcmp(p, userShell);
+	rc = strcmp(p, userShell);
     }
 
     free(p);
     fclose(shellFile);
 #endif
 
-    if (retval) {
+    if (rc) {
 	pam_syslog(pamh, LOG_NOTICE, "User has an invalid shell '%s'", userShell);
 	return PAM_AUTH_ERR;
     } else {

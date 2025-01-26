@@ -80,7 +80,7 @@ static int pam_split_string(const pam_handle_t *pamh, char *arg, char delim,
     char delim_str[2];
     size_t i = 0;
     size_t num_strs = 0;
-    int retval = 0;
+    int rc = 0;
 
     delim_str[0] = delim;
     delim_str[1] = '\0';
@@ -106,13 +106,13 @@ static int pam_split_string(const pam_handle_t *pamh, char *arg, char delim,
 	arg_extracted = strtok_r(NULL, delim_str, &arg);
     }
 
-    retval = 1;
+    rc = 1;
 
   out:
     *out_num_strs = num_strs;
     *out_arg_split = arg_split;
 
-    return retval;
+    return rc;
 }
 
 /* Join A_STR and B_STR, inserting a "/" between them if one is not already trailing
@@ -123,7 +123,7 @@ static int pam_split_string(const pam_handle_t *pamh, char *arg, char delim,
 static int join_dir_strings(char **strp_out, const char *a_str, const char *b_str)
 {
     int has_sep = 0;
-    int retval = -1;
+    int rc = -1;
     char *join_strp = NULL;
 
     if (strp_out == NULL || a_str == NULL || b_str == NULL) {
@@ -135,17 +135,17 @@ static int join_dir_strings(char **strp_out, const char *a_str, const char *b_st
 
     has_sep = (a_str[strlen(a_str) - 1] == '/') || (b_str[0] == '/');
 
-    retval = asprintf(&join_strp, "%s%s%s", a_str,
+    rc = asprintf(&join_strp, "%s%s%s", a_str,
 	(has_sep == 1) ? "" : "/", b_str);
 
-    if (retval < 0) {
+    if (rc < 0) {
 	goto out;
     }
 
     *strp_out = join_strp;
 
   out:
-    return retval;
+    return rc;
 }
 
 static int compare_strings(const void *a, const void *b)

@@ -10,7 +10,7 @@ pam_modutil_check_user_in_passwd(pam_handle_t *pamh,
 				 const char *user_name,
 				 const char *file_name)
 {
-	int rc, c = EOF;
+	int retval, c = EOF;
 	FILE *fp;
 
 	/* Validate the user name.  */
@@ -41,7 +41,7 @@ pam_modutil_check_user_in_passwd(pam_handle_t *pamh,
 	 * the latter is not flexible enough in handling long lines
 	 * in passwd files.
 	 */
-	rc = PAM_PERM_DENIED;
+	retval = PAM_PERM_DENIED;
 	do {
 		const char *p;
 
@@ -59,7 +59,7 @@ pam_modutil_check_user_in_passwd(pam_handle_t *pamh,
 			c = fgetc(fp);
 
 		if (*p == '\0' && c == ':') {
-			rc = PAM_SUCCESS;
+			retval = PAM_SUCCESS;
 			/*
 			 * Continue reading the file to avoid timing attacks.
 			 */
@@ -73,5 +73,5 @@ pam_modutil_check_user_in_passwd(pam_handle_t *pamh,
 	} while (c != EOF);
 
 	fclose(fp);
-	return rc;
+	return retval;
 }

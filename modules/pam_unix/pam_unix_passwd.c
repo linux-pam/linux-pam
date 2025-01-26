@@ -384,7 +384,7 @@ static int _do_setpass(pam_handle_t* pamh, const char *forwho,
 		       char *towhat, unsigned long long ctrl, int remember)
 {
 	struct passwd *pwd = NULL;
-	int retval = 0;
+	int retval = PAM_SUCCESS;
 	int unlocked = 0;
 
 	D(("called"));
