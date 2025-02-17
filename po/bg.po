@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-04-08 08:04+0000\n"
+"POT-Creation-Date: 2024-10-13 20:00+0000\n"
 "PO-Revision-Date: 2020-12-20 08:00+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Bulgarian <https://translate.fedoraproject.org/projects/linux-"
@@ -22,11 +22,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.3.2\n"
 
-#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
-#: modules/pam_userdb/pam_userdb.c:61
+#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
+#: modules/pam_userdb/pam_userdb.c:62
 msgid "Password: "
 msgstr "Парола: "
 
+#. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:42
 #, c-format
 msgid "Current %s password: "
@@ -36,6 +37,7 @@ msgstr "Nastoyashta парола %s: "
 msgid "Current password: "
 msgstr "Nastoyashta парола: "
 
+#. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
@@ -45,6 +47,7 @@ msgstr "Нова парола %s: "
 msgid "New password: "
 msgstr "Нова парола: "
 
+#. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
@@ -67,174 +70,180 @@ msgstr "Напишете пак %s"
 msgid "Password change has been aborted."
 msgstr "Промяната на паролата е прекратена."
 
-#: libpam/pam_item.c:310
+#: libpam/pam_item.c:317
 msgid "login:"
 msgstr "влизане:"
 
-#: libpam/pam_strerror.c:40
+#: libpam/pam_strerror.c:41
 msgid "Success"
 msgstr "Успех"
 
-#: libpam/pam_strerror.c:42
+#: libpam/pam_strerror.c:43
 msgid "Critical error - immediate abort"
 msgstr "Критична грешка - незабавно прекратяване"
 
-#: libpam/pam_strerror.c:44
+#: libpam/pam_strerror.c:45
 msgid "Failed to load module"
 msgstr "Неуспех при зареждане на модул"
 
-#: libpam/pam_strerror.c:46
+#: libpam/pam_strerror.c:47
 msgid "Symbol not found"
 msgstr "Не е намерен символ"
 
-#: libpam/pam_strerror.c:48
+#: libpam/pam_strerror.c:49
 msgid "Error in service module"
 msgstr "Грешка в обслужващ модул"
 
-#: libpam/pam_strerror.c:50
+#: libpam/pam_strerror.c:51
 msgid "System error"
 msgstr "Системна грешка"
 
-#: libpam/pam_strerror.c:52
+#: libpam/pam_strerror.c:53
 msgid "Memory buffer error"
 msgstr "Грешка в буферна памет"
 
-#: libpam/pam_strerror.c:54
+#: libpam/pam_strerror.c:55
 msgid "Permission denied"
 msgstr "Позволението отказано"
 
-#: libpam/pam_strerror.c:56
+#: libpam/pam_strerror.c:57
 msgid "Authentication failure"
 msgstr "Грешка при удостоверяване"
 
-#: libpam/pam_strerror.c:58
+#: libpam/pam_strerror.c:59
 msgid "Insufficient credentials to access authentication data"
 msgstr ""
 "Недостатъчно данни за удостоверяване за достъп до удостоверителни данни"
 
-#: libpam/pam_strerror.c:60
+#: libpam/pam_strerror.c:61
 msgid "Authentication service cannot retrieve authentication info"
 msgstr "Услугата за удостоверяване не можа да извлече данни за удостоверяване"
 
-#: libpam/pam_strerror.c:62
+#: libpam/pam_strerror.c:63
 msgid "User not known to the underlying authentication module"
 msgstr "Непознат потребител за поддържащия удостоверяването модул"
 
-#: libpam/pam_strerror.c:64
+#: libpam/pam_strerror.c:65
 msgid "Have exhausted maximum number of retries for service"
 msgstr "Максималният брой опити за услугата беше изчерпан"
 
-#: libpam/pam_strerror.c:66
+#: libpam/pam_strerror.c:67
 msgid "Authentication token is no longer valid; new one required"
 msgstr "Удостоверителният токен вече не е валиден; необходим е нов"
 
-#: libpam/pam_strerror.c:68
+#: libpam/pam_strerror.c:69
 msgid "User account has expired"
 msgstr "Потребителският акаунт е изтекъл"
 
-#: libpam/pam_strerror.c:70
+#: libpam/pam_strerror.c:71
 msgid "Cannot make/remove an entry for the specified session"
 msgstr "Не мога да създам/премахна запис за зададената сесия"
 
-#: libpam/pam_strerror.c:72
+#: libpam/pam_strerror.c:73
 msgid "Authentication service cannot retrieve user credentials"
 msgstr ""
 "Удостоверяващата услуга не може да извлече данните за удостоверяване на "
 "потребителя"
 
-#: libpam/pam_strerror.c:74
+#: libpam/pam_strerror.c:75
 msgid "User credentials expired"
 msgstr "Данните за удостоверяване на потребителя са с изтекъл срок"
 
-#: libpam/pam_strerror.c:76
+#: libpam/pam_strerror.c:77
 msgid "Failure setting user credentials"
 msgstr "Неуспех при задаване данни за удостоверяване на потребител"
 
-#: libpam/pam_strerror.c:78
+#: libpam/pam_strerror.c:79
 msgid "No module specific data is present"
 msgstr "Липсват специфични за модула данни"
 
-#: libpam/pam_strerror.c:80
+#: libpam/pam_strerror.c:81
 msgid "Bad item passed to pam_*_item()"
 msgstr "Грешен елемент, подаден към pam_*_item()"
 
-#: libpam/pam_strerror.c:82
+#: libpam/pam_strerror.c:83
 msgid "Conversation error"
 msgstr "Грешка в диалога"
 
-#: libpam/pam_strerror.c:84
+#: libpam/pam_strerror.c:85
 msgid "Authentication token manipulation error"
 msgstr "Грешка при манипулирането с удостоверителния токен"
 
-#: libpam/pam_strerror.c:86
+#: libpam/pam_strerror.c:87
 msgid "Authentication information cannot be recovered"
 msgstr "Удостоверителната информация не може да бъде възстановена"
 
-#: libpam/pam_strerror.c:88
+#: libpam/pam_strerror.c:89
 msgid "Authentication token lock busy"
 msgstr "Заключването на удостоверителния токен е заето"
 
-#: libpam/pam_strerror.c:90
+#: libpam/pam_strerror.c:91
 msgid "Authentication token aging disabled"
 msgstr "Следенето на възрастта на удостоверителния токен е забранено"
 
-#: libpam/pam_strerror.c:92
+#: libpam/pam_strerror.c:93
 msgid "Failed preliminary check by password service"
 msgstr "Предварителната проверка от услугата парола не успя"
 
-#: libpam/pam_strerror.c:94
+#: libpam/pam_strerror.c:95
 msgid "The return value should be ignored by PAM dispatch"
 msgstr "Върнатата стойност трябва да бъде игнорирана от PAM dispatch"
 
-#: libpam/pam_strerror.c:96
+#: libpam/pam_strerror.c:97
 msgid "Module is unknown"
 msgstr "Модулът е непознат"
 
-#: libpam/pam_strerror.c:98
+#: libpam/pam_strerror.c:99
 msgid "Authentication token expired"
 msgstr "Срокът на удостоверителния токен е изтекъл"
 
-#: libpam/pam_strerror.c:100
+#: libpam/pam_strerror.c:101
 msgid "Conversation is waiting for event"
 msgstr "Диалогът чака събитие"
 
-#: libpam/pam_strerror.c:102
+#: libpam/pam_strerror.c:103
 msgid "Application needs to call libpam again"
 msgstr "Приложението се нуждае от повторно извикване на libpam"
 
-#: libpam/pam_strerror.c:105
+#: libpam/pam_strerror.c:106
 msgid "Unknown PAM error"
 msgstr "Непозната PAM грешка"
 
-#: libpam_misc/misc_conv.c:34
+#.
+#. * external timeout definitions - these can be overridden by the
+#. * application.
+#.
+#. time when we warn
+#. time when we timeout
+#: libpam_misc/misc_conv.c:36
 msgid "...Time is running out...\n"
 msgstr "...Времето изтича...\n"
 
-#: libpam_misc/misc_conv.c:35
+#: libpam_misc/misc_conv.c:37
 msgid "...Sorry, your time is up!\n"
 msgstr "...Съжаляваме, Вашето време изтече!\n"
 
-#: libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:351
 #, c-format
 msgid "erroneous conversation (%d)\n"
 msgstr "погрешен разговор (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:298
 #, c-format
 msgid "%s failed: exit code %d"
 msgstr "%s се провали: код на грешка %d"
 
-#: modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:308
 #, c-format
 msgid "%s failed: caught signal %d%s"
 msgstr "%s се провали: уловен сигнал %d%s"
 
-#: modules/pam_exec/pam_exec.c:319
+#: modules/pam_exec/pam_exec.c:318
 #, c-format
 msgid "%s failed: unknown status 0x%x"
 msgstr "%s се провали: непознат статус 0x%x"
 
-#: modules/pam_faillock/main.c:130
+#: modules/pam_faillock/main.c:131
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
@@ -243,18 +252,18 @@ msgstr ""
 "Usage: %s [--dir /път/към/директорията-на-tally] [--user потребителско_име] "
 "[--reset]\n"
 
-#: modules/pam_faillock/main.c:181
+#: modules/pam_faillock/main.c:182
 #, fuzzy, c-format
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "Влязъл           Неуспехи Последен неуспех     От\n"
 
-#: modules/pam_faillock/pam_faillock.c:408
+#: modules/pam_faillock/pam_faillock.c:416
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "Акаунтът е заключен поради %u неуспешни опита за влизане."
 
-#: modules/pam_faillock/pam_faillock.c:417
-#: modules/pam_faillock/pam_faillock.c:423
+#: modules/pam_faillock/pam_faillock.c:425
+#: modules/pam_faillock/pam_faillock.c:431
 #, fuzzy, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -262,45 +271,45 @@ msgstr[0] "(остават %d мин. за отключване)"
 msgstr[1] "(остават %d мин. за отключване)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:426
+#: modules/pam_faillock/pam_faillock.c:434
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(остават %d мин. за отключване)"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:326 modules/pam_lastlog/pam_lastlog.c:595
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:592
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:335 modules/pam_lastlog/pam_lastlog.c:604
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:601
 #, c-format
 msgid " from %.*s"
 msgstr " от %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:347 modules/pam_lastlog/pam_lastlog.c:616
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:613
 #, c-format
 msgid " on %.*s"
 msgstr " на %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:357
+#: modules/pam_lastlog/pam_lastlog.c:354
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Последно влизане:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:363
+#: modules/pam_lastlog/pam_lastlog.c:360
 msgid "Welcome to your new account!"
 msgstr "Добре дошли в новия Ви акаунт!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:626
+#: modules/pam_lastlog/pam_lastlog.c:623
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "Последно неуспешно влизане:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
+#: modules/pam_lastlog/pam_lastlog.c:632 modules/pam_lastlog/pam_lastlog.c:639
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -311,151 +320,153 @@ msgstr[1] ""
 "След последното успешно влизане, имаше %d неуспешни опита за влизане."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:647
+#: modules/pam_lastlog/pam_lastlog.c:644
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "След последното успешно влизане, имаше %d неуспешни опита за влизане."
 
-#: modules/pam_limits/pam_limits.c:1348
+#: modules/pam_limits/pam_limits.c:1424
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Твърде много влизания за '%s'."
 
-#: modules/pam_mail/pam_mail.c:289
+#: modules/pam_mail/pam_mail.c:290
 #, fuzzy
 msgid "You do not have any new mail."
 msgstr "Имате нови писма."
 
-#: modules/pam_mail/pam_mail.c:292
+#: modules/pam_mail/pam_mail.c:293
 msgid "You have new mail."
 msgstr "Имате нови писма."
 
-#: modules/pam_mail/pam_mail.c:295
+#: modules/pam_mail/pam_mail.c:296
 msgid "You have old mail."
 msgstr "Имате стари писма."
 
-#: modules/pam_mail/pam_mail.c:299
+#: modules/pam_mail/pam_mail.c:300
 msgid "You have mail."
 msgstr "Имате писма."
 
-#: modules/pam_mail/pam_mail.c:306
+#: modules/pam_mail/pam_mail.c:307
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Нямате писма в папката %s."
 
-#: modules/pam_mail/pam_mail.c:310
+#: modules/pam_mail/pam_mail.c:311
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Имате нови писма в папка %s."
 
-#: modules/pam_mail/pam_mail.c:314
+#: modules/pam_mail/pam_mail.c:315
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Имате стари писма в папка %s."
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:320
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Имате писма в папка %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:123
+#: modules/pam_mkhomedir/pam_mkhomedir.c:124
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Създаване на директория '%s'."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:206
+#: modules/pam_mkhomedir/pam_mkhomedir.c:207
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Не мога да създам и настроя директория '%s'."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:384
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_pwhistory/pam_pwhistory.c:383
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "Password has been already used. Choose another."
 msgstr "Паролата вече е използвана. Изберете друга."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:391
+#: modules/pam_pwhistory/pam_pwhistory.c:390
 msgid "Password has been already used."
 msgstr "Паролата вече е използвана."
 
-#: modules/pam_selinux/pam_selinux.c:173
+#: modules/pam_selinux/pam_selinux.c:174
 #, c-format
 msgid "The default security context is %s."
 msgstr "Подразбиращ се контекст за сигурност %s."
 
-#: modules/pam_selinux/pam_selinux.c:177
+#: modules/pam_selinux/pam_selinux.c:178
 msgid "Would you like to enter a different role or level?"
 msgstr "Искате ли да въведете различна роля или ниво?"
 
-#: modules/pam_selinux/pam_selinux.c:190
+#. Allow the user to enter role and level individually
+#: modules/pam_selinux/pam_selinux.c:191
 msgid "role:"
 msgstr "роля:"
 
-#: modules/pam_selinux/pam_selinux.c:194
+#: modules/pam_selinux/pam_selinux.c:195
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "Няма подразбиращ се тип за роля %s."
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:227
 msgid "level:"
 msgstr "ниво:"
 
-#: modules/pam_selinux/pam_selinux.c:260
+#: modules/pam_selinux/pam_selinux.c:261
 msgid "This is not a valid security context."
 msgstr "Невалиден контекст за сигурност."
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:510
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "Не може да бъде получен валиден контекст за %s."
 
-#: modules/pam_selinux/pam_selinux.c:640
+#: modules/pam_selinux/pam_selinux.c:641
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "Зададен е контекст за сигурност %s."
 
-#: modules/pam_selinux/pam_selinux.c:656
+#: modules/pam_selinux/pam_selinux.c:657
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Зададен е key creation context %s."
 
-#: modules/pam_selinux/pam_selinux_check.c:99
+#: modules/pam_selinux/pam_selinux_check.c:101
 #, c-format
 msgid "failed to initialize PAM\n"
 msgstr "PAM инициализацията не успя\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:105
+#: modules/pam_selinux/pam_selinux_check.c:107
 #, c-format
 msgid "failed to pam_set_item()\n"
 msgstr "pam_set_item() не успя \n"
 
-#: modules/pam_selinux/pam_selinux_check.c:133
+#. error in fork()
+#: modules/pam_selinux/pam_selinux_check.c:135
 #, c-format
 msgid "login: failure forking: %m"
 msgstr "вход: неуспех при стартиране: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:384
+#: modules/pam_timestamp/pam_timestamp.c:385
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Достъпът е предоставен (последният достъп бе преди %ld секунди)."
 
-#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 "Срокът на акаунта Ви е изтекъл; моля, свържете се с администратора на "
 "системата."
 
-#: modules/pam_unix/pam_unix_acct.c:239
+#: modules/pam_unix/pam_unix_acct.c:240
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "Изисква се веднага да смените паролата си (изискано от администратор)."
 
-#: modules/pam_unix/pam_unix_acct.c:245
+#: modules/pam_unix/pam_unix_acct.c:246
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "Изисква се веднага да смените паролата си (срокът и изтича)."
 
-#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
+#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
@@ -463,37 +474,37 @@ msgstr[0] "Внимание: срокът на паролата Ви изтич�
 msgstr[1] "Внимание: срокът на паролата Ви изтича след %d дни."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:282
+#: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
 msgid "Warning: your password will expire in %d days."
 msgstr "Внимание: паролата Ви ще изтече след %d дни."
 
-#: modules/pam_unix/pam_unix_passwd.c:458
+#: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."
 msgstr "NIS парола не може да бъде променена."
 
-#: modules/pam_unix/pam_unix_passwd.c:556
+#: modules/pam_unix/pam_unix_passwd.c:557
 msgid "No password has been supplied."
 msgstr "Не е предоставена парола."
 
-#: modules/pam_unix/pam_unix_passwd.c:557
+#: modules/pam_unix/pam_unix_passwd.c:558
 msgid "The password has not been changed."
 msgstr "Паролата не е променена."
 
-#: modules/pam_unix/pam_unix_passwd.c:574
+#: modules/pam_unix/pam_unix_passwd.c:575
 msgid "You must choose a shorter password."
 msgstr "Трябва да изберете по-кратка парола."
 
-#: modules/pam_unix/pam_unix_passwd.c:578
+#: modules/pam_unix/pam_unix_passwd.c:579
 msgid "You must choose a longer password."
 msgstr "Трябва да изберете по-дълга парола."
 
-#: modules/pam_unix/pam_unix_passwd.c:683
+#: modules/pam_unix/pam_unix_passwd.c:684
 #, c-format
 msgid "Changing password for %s."
 msgstr "Смяна на паролата за %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:713
+#: modules/pam_unix/pam_unix_passwd.c:714
 msgid "You must wait longer to change your password."
 msgstr "Трябва да изчакате повече, за да промените Вашата парола."
 

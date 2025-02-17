@@ -6,7 +6,7 @@ shift 1
 
 if test `id -u` -ne 0 ; then
   echo "You need to be root to run the tests"
-  exit 1
+  exit 77
 fi
 
 XTESTS="$@"

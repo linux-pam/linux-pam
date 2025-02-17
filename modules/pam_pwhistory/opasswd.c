@@ -34,9 +34,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if defined(HAVE_CONFIG_H)
 #include <config.h>
-#endif
 
 #include <pwd.h>
 #include <shadow.h>
@@ -76,7 +74,7 @@
 #define RANDOM_DEVICE "/dev/urandom"
 #endif
 
-#define DEFAULT_OLD_PASSWORDS_FILE SCONFIGDIR "/opasswd"
+#define DEFAULT_OLD_PASSWORDS_FILE SCONFIG_DIR "/opasswd"
 
 typedef struct {
   char *user;

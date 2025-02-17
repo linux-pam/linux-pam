@@ -90,15 +90,15 @@
 /*
  * Module defines
  */
-#define PAM_NAMESPACE_CONFIG (SCONFIGDIR "/namespace.conf")
-#define NAMESPACE_INIT_SCRIPT (SCONFIGDIR "/namespace.init")
-#define NAMESPACE_D_DIR (SCONFIGDIR "/namespace.d/")
-#define NAMESPACE_D_GLOB (SCONFIGDIR "/namespace.d/*.conf")
-#ifdef VENDOR_SCONFIGDIR
-#define VENDOR_NAMESPACE_INIT_SCRIPT (VENDOR_SCONFIGDIR "/namespace.init")
-#define VENDOR_PAM_NAMESPACE_CONFIG (VENDOR_SCONFIGDIR "/namespace.conf")
-#define VENDOR_NAMESPACE_D_DIR (VENDOR_SCONFIGDIR "/namespace.d/")
-#define VENDOR_NAMESPACE_D_GLOB (VENDOR_SCONFIGDIR "/namespace.d/*.conf")
+#define PAM_NAMESPACE_CONFIG (SCONFIG_DIR "/namespace.conf")
+#define NAMESPACE_INIT_SCRIPT (SCONFIG_DIR "/namespace.init")
+#define NAMESPACE_D_DIR (SCONFIG_DIR "/namespace.d/")
+#define NAMESPACE_D_GLOB (SCONFIG_DIR "/namespace.d/*.conf")
+#ifdef VENDOR_SCONFIG_DIR
+#define VENDOR_NAMESPACE_INIT_SCRIPT (VENDOR_SCONFIG_DIR "/namespace.init")
+#define VENDOR_PAM_NAMESPACE_CONFIG (VENDOR_SCONFIG_DIR "/namespace.conf")
+#define VENDOR_NAMESPACE_D_DIR (VENDOR_SCONFIG_DIR "/namespace.d/")
+#define VENDOR_NAMESPACE_D_GLOB (VENDOR_SCONFIG_DIR "/namespace.d/*.conf")
 #endif
 
 /* module flags */

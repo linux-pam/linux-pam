@@ -322,18 +322,21 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    if (setsid() == -1) {
 		pam_syslog(pamh, LOG_ERR,
 			   "child cannot become new session: %m");
+		close(fd[0]);
 		return PAM_ABORT;
 	    }
 
 	    /* grant slave terminal */
 	    if (grantpt (fd[0]) < 0) {
 		pam_syslog(pamh, LOG_ERR, "Cannot grant access to slave terminal");
+		close(fd[0]);
 		return PAM_ABORT;
 	    }
 
 	    /* unlock slave terminal */
 	    if (unlockpt (fd[0]) < 0) {
 		pam_syslog(pamh, LOG_ERR, "Cannot unlock slave terminal");
+		close(fd[0]);
 		return PAM_ABORT;
 	    }
 
@@ -343,6 +346,7 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    if (terminal == NULL) {
 		pam_syslog(pamh, LOG_ERR,
 			   "Cannot get the name of the slave terminal: %m");
+		close(fd[0]);
 		return PAM_ABORT;
 	    }
 
@@ -366,7 +370,8 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    }
 	} else {
 
-	    /* nothing to do for a simple stream socket */
+	    /* nothing else to do for a simple stream socket */
+	    close(fd[0]);
 
 	}
 
@@ -381,6 +386,10 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    return PAM_ABORT;
 	}
 
+	/* now the user input is read from the parent/filter: forget fd */
+
+	close(fd[1]);
+
 	/* make sure that file descriptors survive 'exec's */
 
 	if ( fcntl(STDIN_FILENO, F_SETFD, 0) ||
@@ -391,15 +400,14 @@ set_filter (pam_handle_t *pamh, int flags UNUSED, int ctrl,
 	    return PAM_ABORT;
 	}
 
-	/* now the user input is read from the parent/filter: forget fd */
-
-	close(fd[1]);
-
 	/* the current process is now apparently working with filtered
 	   stdio/stdout/stderr --- success! */
 
 	return PAM_SUCCESS;
     }
+
+    if (!aterminal)
+	    close(fd[1]);
 
     /* Clear out passwords... there is a security problem here in
      * that this process never executes pam_end.  Consequently, any

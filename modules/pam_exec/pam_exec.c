@@ -33,9 +33,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if defined(HAVE_CONFIG_H)
 #include "config.h"
-#endif
 
 #include <time.h>
 #include <errno.h>
@@ -55,6 +53,7 @@
 #include <security/pam_ext.h>
 #include <security/_pam_macros.h>
 #include "pam_inline.h"
+#include "pam_i18n.h"
 
 #define ENV_ITEM(n) { (n), #n }
 static struct {

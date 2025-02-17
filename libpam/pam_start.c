@@ -8,6 +8,7 @@
  */
 
 #include "pam_private.h"
+#include "pam_i18n.h"
 
 #include <ctype.h>
 #include <stdlib.h>

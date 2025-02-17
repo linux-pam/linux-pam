@@ -33,9 +33,9 @@
 #include <libaudit.h>
 #endif
 
-#define PAM_TIME_CONF	(SCONFIGDIR "/time.conf")
-#ifdef VENDOR_SCONFIGDIR
-#define VENDOR_PAM_TIME_CONF (VENDOR_SCONFIGDIR "/time.conf")
+#define PAM_TIME_CONF	(SCONFIG_DIR "/time.conf")
+#ifdef VENDOR_SCONFIG_DIR
+#define VENDOR_PAM_TIME_CONF (VENDOR_SCONFIG_DIR "/time.conf")
 #endif
 
 #define PAM_TIME_BUFLEN        1000

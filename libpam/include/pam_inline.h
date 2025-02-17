@@ -45,6 +45,26 @@
 #define PAM_ARRAY_SIZE(a_)		(sizeof(a_) / sizeof((a_)[0]) + PAM_MUST_BE_ARRAY(a_))
 
 /*
+ * Zero-extend a signed integer type to unsigned long long.
+ */
+# define zero_extend_signed_to_ull(v_) \
+	(sizeof(v_) == sizeof(char) ? (unsigned long long) (unsigned char) (v_) : \
+	 sizeof(v_) == sizeof(short) ? (unsigned long long) (unsigned short) (v_) : \
+	 sizeof(v_) == sizeof(int) ? (unsigned long long) (unsigned int) (v_) : \
+	 sizeof(v_) == sizeof(long) ? (unsigned long long) (unsigned long) (v_) : \
+	 (unsigned long long) (v_))
+
+/*
+ * Sign-extend an unsigned integer type to long long.
+ */
+# define sign_extend_unsigned_to_ll(v_) \
+	(sizeof(v_) == sizeof(char) ? (long long) (signed char) (v_) : \
+	 sizeof(v_) == sizeof(short) ? (long long) (signed short) (v_) : \
+	 sizeof(v_) == sizeof(int) ? (long long) (signed int) (v_) : \
+	 sizeof(v_) == sizeof(long) ? (long long) (signed long) (v_) : \
+	 (long long) (v_))
+
+/*
  * Returns NULL if STR does not start with PREFIX,
  * or a pointer to the first char in STR after PREFIX.
  * The length of PREFIX is specified by PREFIX_LEN.

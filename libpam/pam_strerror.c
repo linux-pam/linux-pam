@@ -32,6 +32,7 @@
  */
 
 #include "pam_private.h"
+#include "pam_i18n.h"
 
 const char *pam_strerror(pam_handle_t *pamh UNUSED, int errnum)
 {

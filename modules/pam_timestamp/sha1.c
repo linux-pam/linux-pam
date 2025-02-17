@@ -37,6 +37,7 @@
  */
 /* See http://www.itl.nist.gov/fipspubs/fip180-1.htm for descriptions. */
 
+#include "pam_inline.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <netinet/in.h>
@@ -47,7 +48,6 @@
 #include <endian.h>
 #include <unistd.h>
 #include "sha1.h"
-#include "pam_inline.h"
 
 static const unsigned char
 padding[SHA1_BLOCK_SIZE] = {

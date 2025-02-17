@@ -28,6 +28,8 @@
  * Version 1.1, modified 2/27/1999
  */
 
+#include "config.h"
+
 #include <limits.h>
 #include <stdlib.h>
 #include <ctype.h>

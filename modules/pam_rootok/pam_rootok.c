@@ -66,10 +66,11 @@ log_callback (int type UNUSED, const char *fmt, ...)
 	ret = vasprintf (&buf, fmt, ap);
 	va_end(ap);
 	if (ret < 0) {
+		audit_close(audit_fd);
 		return 0;
 	}
-	audit_log_user_avc_message(audit_fd, AUDIT_USER_AVC, buf, NULL, NULL,
-				   NULL, 0);
+	(void) !audit_log_user_avc_message(audit_fd, AUDIT_USER_AVC, buf,
+					   NULL, NULL, NULL, 0);
 	audit_close(audit_fd);
 	free(buf);
 	return 0;

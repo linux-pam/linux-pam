@@ -73,10 +73,10 @@ main(void)
 	/* PAM_USER_UNKNOWN */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so\n"
-			     "account required %s/.libs/%s.so\n"
-			     "password required %s/.libs/%s.so\n"
-			     "session required %s/.libs/%s.so\n",
+			     "auth required %s/" LTDIR "%s.so\n"
+			     "account required %s/" LTDIR "%s.so\n"
+			     "password required %s/" LTDIR "%s.so\n"
+			     "session required %s/" LTDIR "%s.so\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -98,10 +98,10 @@ main(void)
 	/* PAM_IGNORE -> PAM_PERM_DENIED */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so\n"
-			     "account required %s/.libs/%s.so\n"
-			     "password required %s/.libs/%s.so\n"
-			     "session required %s/.libs/%s.so\n",
+			     "auth required %s/" LTDIR "%s.so\n"
+			     "account required %s/" LTDIR "%s.so\n"
+			     "password required %s/" LTDIR "%s.so\n"
+			     "session required %s/" LTDIR "%s.so\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -123,14 +123,14 @@ main(void)
 	/* PAM_IGNORE -> PAM_SUCCESS */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so\n"
-			     "auth required %s/../pam_permit/.libs/pam_permit.so\n"
-			     "account required %s/.libs/%s.so\n"
-			     "account required %s/../pam_permit/.libs/pam_permit.so\n"
-			     "password required %s/.libs/%s.so\n"
-			     "password required %s/../pam_permit/.libs/pam_permit.so\n"
-			     "session required %s/.libs/%s.so\n"
-			     "session required %s/../pam_permit/.libs/pam_permit.so\n",
+			     "auth required %s/" LTDIR "%s.so\n"
+			     "auth required %s/../pam_permit/" LTDIR "pam_permit.so\n"
+			     "account required %s/" LTDIR "%s.so\n"
+			     "account required %s/../pam_permit/" LTDIR "pam_permit.so\n"
+			     "password required %s/" LTDIR "%s.so\n"
+			     "password required %s/../pam_permit/" LTDIR "pam_permit.so\n"
+			     "session required %s/" LTDIR "%s.so\n"
+			     "session required %s/../pam_permit/" LTDIR "pam_permit.so\n",
 			     cwd, MODULE_NAME, cwd,
 			     cwd, MODULE_NAME, cwd,
 			     cwd, MODULE_NAME, cwd,
@@ -165,14 +165,14 @@ main(void)
 	/* PAM_IGNORE -> PAM_SUCCESS, "ROOT" -> "root" */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so\n"
-			     "auth required %s/../pam_succeed_if/.libs/pam_succeed_if.so user = root\n"
-			     "account required %s/.libs/%s.so\n"
-			     "account required %s/../pam_succeed_if/.libs/pam_succeed_if.so user = root\n"
-			     "password required %s/.libs/%s.so\n"
-			     "password required %s/../pam_succeed_if/.libs/pam_succeed_if.so user = root\n"
-			     "session required %s/.libs/%s.so\n"
-			     "session required %s/../pam_succeed_if/.libs/pam_succeed_if.so user = root\n",
+			     "auth required %s/" LTDIR "%s.so\n"
+			     "auth required %s/../pam_succeed_if/" LTDIR "pam_succeed_if.so user = root\n"
+			     "account required %s/" LTDIR "%s.so\n"
+			     "account required %s/../pam_succeed_if/" LTDIR "pam_succeed_if.so user = root\n"
+			     "password required %s/" LTDIR "%s.so\n"
+			     "password required %s/../pam_succeed_if/" LTDIR "pam_succeed_if.so user = root\n"
+			     "session required %s/" LTDIR "%s.so\n"
+			     "session required %s/../pam_succeed_if/" LTDIR "pam_succeed_if.so user = root\n",
 			     cwd, MODULE_NAME, cwd,
 			     cwd, MODULE_NAME, cwd,
 			     cwd, MODULE_NAME, cwd,

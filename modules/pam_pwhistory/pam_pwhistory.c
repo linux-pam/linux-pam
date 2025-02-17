@@ -37,9 +37,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if defined(HAVE_CONFIG_H)
 #include <config.h>
-#endif
 
 #include <pwd.h>
 #include <errno.h>
@@ -63,6 +61,7 @@
 
 #include "opasswd.h"
 #include "pam_inline.h"
+#include "pam_i18n.h"
 #include "pwhistory_config.h"
 
 

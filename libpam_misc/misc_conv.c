@@ -17,7 +17,9 @@
 
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
+
 #include "pam_inline.h"
+#include "pam_i18n.h"
 
 #define INPUTSIZE PAM_MISC_CONV_BUFSIZE      /* maximum length of input+1 */
 #define CONV_ECHO_ON  1                            /* types of echo state */
@@ -145,9 +147,10 @@ static int read_string(int echo, const char *prompt, char **retstr)
 	    return -1;
 	}
 	memcpy(&term_tmp, &term_before, sizeof(term_tmp));
-	if (!echo) {
+	if (echo)
+	    term_tmp.c_lflag |= ICANON | ECHOCTL;
+	else
 	    term_tmp.c_lflag &= ~(ECHO);
-	}
 	have_term = 1;
 
 	/*

@@ -31,9 +31,9 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "config.h"
 #include "pam_private.h"
 #include "pam_inline.h"
+#include "pam_i18n.h"
 
 #include <security/pam_ext.h>
 
@@ -84,6 +84,8 @@ pam_get_authtok_internal (pam_handle_t *pamh, int item,
 			  unsigned int flags)
 
 {
+  IF_NO_PAMH(pamh, PAM_SYSTEM_ERR);
+
   char *resp[2] = {NULL, NULL};
   const void *prevauthtok;
   const char *authtok_type = "";
@@ -229,6 +231,8 @@ int
 pam_get_authtok_verify (pam_handle_t *pamh, const char **authtok,
 			const char *prompt)
 {
+  IF_NO_PAMH(pamh, PAM_SYSTEM_ERR);
+
   char *resp = NULL;
   const char *authtok_type = "";
   int retval;

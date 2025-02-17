@@ -57,6 +57,7 @@
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
 #include "pam_inline.h"
+#include "pam_i18n.h"
 
 #include <selinux/selinux.h>
 #include <selinux/get_context_list.h>

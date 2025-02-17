@@ -6,6 +6,7 @@
 
 #include "pam_private.h"
 #include "pam_inline.h"
+#include "pam_i18n.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -38,6 +39,12 @@ int pam_set_item (pam_handle_t *pamh, int item_type, const void *item)
     switch (item_type) {
 
     case PAM_SERVICE:
+	if (item == NULL) {
+	    pam_syslog(pamh, LOG_ERR,
+		       "pam_set_item: attempt to set service to NULL");
+	    retval = PAM_BAD_ITEM;
+	    break;
+	}
 	/* Setting handlers_loaded to 0 will cause the handlers
 	 * to be reloaded on the next call to a service module.
 	 */

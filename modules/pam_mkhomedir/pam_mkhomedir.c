@@ -51,6 +51,7 @@
 
 #include "pam_cc_compat.h"
 #include "pam_inline.h"
+#include "pam_i18n.h"
 
 /* argument parsing */
 #define MKHOMEDIR_DEBUG      020	/* be verbose about things */

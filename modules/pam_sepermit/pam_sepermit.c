@@ -63,9 +63,9 @@
 
 #include "pam_inline.h"
 
-#define SEPERMIT_CONF_FILE	(SCONFIGDIR "/sepermit.conf")
-#ifdef VENDOR_SCONFIGDIR
-# define SEPERMIT_VENDOR_CONF_FILE	(VENDOR_SCONFIGDIR "/sepermit.conf");
+#define SEPERMIT_CONF_FILE	(SCONFIG_DIR "/sepermit.conf")
+#ifdef VENDOR_SCONFIG_DIR
+# define SEPERMIT_VENDOR_CONF_FILE	(VENDOR_SCONFIG_DIR "/sepermit.conf");
 #endif
 #define MODULE "pam_sepermit"
 #define OPT_DELIM ":"

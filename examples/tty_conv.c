@@ -68,7 +68,7 @@ static char *readline(void)
     int i;
 
     flockfile(stdin);
-    for (i = 0; i < PAM_MAX_RESP_SIZE; i++)
+    for (i = 0; i < PAM_MAX_RESP_SIZE - 1; i++)
     {
         int ch = getchar_unlocked();
         if (ch == '\n' || ch == '\r' ||ch == EOF)

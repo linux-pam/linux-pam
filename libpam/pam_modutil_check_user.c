@@ -51,7 +51,7 @@ pam_modutil_check_user_in_passwd(pam_handle_t *pamh,
 		 */
 		for (p = user_name; *p != '\0'; p++) {
 			c = fgetc(fp);
-			if (c == EOF || c == '\n' || c != *p)
+			if (c == EOF || c == '\n' || (char)c != *p)
 				break;
 		}
 

@@ -7,9 +7,7 @@
 #ifndef TEST_ASSERT_H
 # define TEST_ASSERT_H
 
-# ifdef HAVE_CONFIG_H
-#  include <config.h>
-# endif
+# include <config.h>
 
 # include <limits.h>
 # include <stdio.h>

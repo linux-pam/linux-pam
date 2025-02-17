@@ -55,6 +55,8 @@
 #include <security/pam_appl.h>    /* for PAM functions */
 #include <security/pam_misc.h>    /* for misc_conv PAM utility function */
 
+#include "pam_i18n.h"
+
 #define SERVICE_NAME "pam_selinux_check"   /* the name of this program for PAM */
 				  /* The file containing the context to run
 				   * the scripts under.                     */

@@ -4,13 +4,13 @@
 #
 # Translators:
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
-# Martin Srebotnjak <miles@filmsi.net>, 2023.
+# Martin Srebotnjak <miles@filmsi.net>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-04-08 08:04+0000\n"
-"PO-Revision-Date: 2023-12-28 23:37+0000\n"
+"POT-Creation-Date: 2024-10-13 20:00+0000\n"
+"PO-Revision-Date: 2024-08-17 17:38+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://translate.fedoraproject.org/projects/linux-"
 "pam/master/sl/>\n"
@@ -20,13 +20,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
-#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:183
-#: modules/pam_userdb/pam_userdb.c:61
+#: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
+#: modules/pam_userdb/pam_userdb.c:62
 msgid "Password: "
 msgstr "Geslo: "
 
+#. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:42
 #, c-format
 msgid "Current %s password: "
@@ -36,6 +37,7 @@ msgstr "Trenutno geslo %s: "
 msgid "Current password: "
 msgstr "Trenutno geslo: "
 
+#. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
@@ -45,14 +47,15 @@ msgstr "Novo geslo %s: "
 msgid "New password: "
 msgstr "Novo geslo: "
 
+#. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
-msgstr ""
+msgstr "Ponovno vnesite novo geslo %s: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
-msgstr ""
+msgstr "Ponovno vnesite novo geslo: "
 
 #: libpam/pam_get_authtok.c:50
 msgid "Sorry, passwords do not match."
@@ -61,435 +64,447 @@ msgstr "Žal se gesli ne ujemata."
 #: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Ponovno vnesite %s"
 
 #: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
 msgid "Password change has been aborted."
 msgstr "Sprememba gesla je bila prekinjena."
 
-#: libpam/pam_item.c:310
+#: libpam/pam_item.c:317
 msgid "login:"
-msgstr ""
+msgstr "prijava:"
 
-#: libpam/pam_strerror.c:40
+#: libpam/pam_strerror.c:41
 msgid "Success"
-msgstr ""
+msgstr "Uspelo je"
 
-#: libpam/pam_strerror.c:42
+#: libpam/pam_strerror.c:43
 msgid "Critical error - immediate abort"
-msgstr ""
+msgstr "Kritična napaka - sledi takojšna prekinitev"
 
-#: libpam/pam_strerror.c:44
+#: libpam/pam_strerror.c:45
 msgid "Failed to load module"
-msgstr ""
+msgstr "Modula ni bilo možno naložiti"
 
-#: libpam/pam_strerror.c:46
+#: libpam/pam_strerror.c:47
 msgid "Symbol not found"
 msgstr "Simbola ni mogoče najti"
 
-#: libpam/pam_strerror.c:48
+#: libpam/pam_strerror.c:49
 msgid "Error in service module"
-msgstr ""
+msgstr "Napaka v servisnem modulu"
 
-#: libpam/pam_strerror.c:50
+#: libpam/pam_strerror.c:51
 msgid "System error"
-msgstr ""
+msgstr "Sistemska napaka"
 
-#: libpam/pam_strerror.c:52
+#: libpam/pam_strerror.c:53
 msgid "Memory buffer error"
-msgstr ""
+msgstr "Napaka medpomnilnika"
 
-#: libpam/pam_strerror.c:54
+#: libpam/pam_strerror.c:55
 msgid "Permission denied"
-msgstr ""
+msgstr "Ni ustreznih dovoljenj"
 
-#: libpam/pam_strerror.c:56
+#: libpam/pam_strerror.c:57
 msgid "Authentication failure"
 msgstr "Napaka overjanja"
 
-#: libpam/pam_strerror.c:58
+#: libpam/pam_strerror.c:59
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
+msgstr "Nezadostne poverilnice za dostop do podatkov za preverjanje pristnosti"
 
-#: libpam/pam_strerror.c:60
+#: libpam/pam_strerror.c:61
 msgid "Authentication service cannot retrieve authentication info"
 msgstr ""
+"Storitev za preverjanje pristnosti ne more pridobiti podatkov za preverjanje "
+"pristnosti"
 
-#: libpam/pam_strerror.c:62
+#: libpam/pam_strerror.c:63
 msgid "User not known to the underlying authentication module"
-msgstr ""
+msgstr "Uporabnik ni znan osnovnemu modulu za preverjanje pristnosti"
 
-#: libpam/pam_strerror.c:64
+#: libpam/pam_strerror.c:65
 msgid "Have exhausted maximum number of retries for service"
-msgstr ""
+msgstr "Izčrpali so največje število ponovnih poskusov za storitev"
 
-#: libpam/pam_strerror.c:66
+#: libpam/pam_strerror.c:67
 msgid "Authentication token is no longer valid; new one required"
-msgstr ""
+msgstr "Žeton za preverjanje pristnosti ni več veljaven; potreben je nov"
 
-#: libpam/pam_strerror.c:68
+#: libpam/pam_strerror.c:69
 msgid "User account has expired"
 msgstr "Uporabniški račun je potekel"
 
-#: libpam/pam_strerror.c:70
+#: libpam/pam_strerror.c:71
 msgid "Cannot make/remove an entry for the specified session"
-msgstr ""
+msgstr "Ni mogoče narediti/odstraniti vnosa za določeno sejo"
 
-#: libpam/pam_strerror.c:72
+#: libpam/pam_strerror.c:73
 msgid "Authentication service cannot retrieve user credentials"
 msgstr ""
+"Storitev preverjanja pristnosti ne more pridobiti uporabniških poverilnic"
 
-#: libpam/pam_strerror.c:74
+#: libpam/pam_strerror.c:75
 msgid "User credentials expired"
-msgstr ""
+msgstr "Poverilnice uporabnika so potekle"
 
-#: libpam/pam_strerror.c:76
+#: libpam/pam_strerror.c:77
 msgid "Failure setting user credentials"
-msgstr ""
+msgstr "Neuspešna nastavitev uporabniških poverilnic"
 
-#: libpam/pam_strerror.c:78
+#: libpam/pam_strerror.c:79
 msgid "No module specific data is present"
-msgstr ""
+msgstr "Ni podatkov, specifičnih za modul"
 
-#: libpam/pam_strerror.c:80
+#: libpam/pam_strerror.c:81
 msgid "Bad item passed to pam_*_item()"
-msgstr ""
+msgstr "Slab element posredovan v pam_*_item()"
 
-#: libpam/pam_strerror.c:82
+#: libpam/pam_strerror.c:83
 msgid "Conversation error"
 msgstr "Napaka pogovora"
 
-#: libpam/pam_strerror.c:84
+#: libpam/pam_strerror.c:85
 msgid "Authentication token manipulation error"
-msgstr ""
+msgstr "Napaka pri manipulaciji žetona za preverjanje pristnosti"
 
-#: libpam/pam_strerror.c:86
+#: libpam/pam_strerror.c:87
 msgid "Authentication information cannot be recovered"
-msgstr ""
+msgstr "Podatkov za preverjanje pristnosti ni mogoče obnoviti"
 
-#: libpam/pam_strerror.c:88
+#: libpam/pam_strerror.c:89
 msgid "Authentication token lock busy"
-msgstr ""
+msgstr "Zaklepanje žetona za preverjanje pristnosti je zasedeno"
 
-#: libpam/pam_strerror.c:90
+#: libpam/pam_strerror.c:91
 msgid "Authentication token aging disabled"
-msgstr ""
+msgstr "Staranje žetona za preverjanje pristnosti je onemogočeno"
 
-#: libpam/pam_strerror.c:92
+#: libpam/pam_strerror.c:93
 msgid "Failed preliminary check by password service"
-msgstr ""
+msgstr "Neuspešno predhodno preverjanje s storitvijo gesla"
 
-#: libpam/pam_strerror.c:94
+#: libpam/pam_strerror.c:95
 msgid "The return value should be ignored by PAM dispatch"
-msgstr ""
+msgstr "Vrnjeno vrednost mora PAM prezreti"
 
-#: libpam/pam_strerror.c:96
+#: libpam/pam_strerror.c:97
 msgid "Module is unknown"
 msgstr "Modul ni znan"
 
-#: libpam/pam_strerror.c:98
+#: libpam/pam_strerror.c:99
 msgid "Authentication token expired"
-msgstr ""
+msgstr "Žeton za preverjanje pristnosti je potekel"
 
-#: libpam/pam_strerror.c:100
+#: libpam/pam_strerror.c:101
 msgid "Conversation is waiting for event"
-msgstr ""
+msgstr "Pogovor čaka na dogodek"
 
-#: libpam/pam_strerror.c:102
+#: libpam/pam_strerror.c:103
 msgid "Application needs to call libpam again"
-msgstr ""
+msgstr "Program mora znova poklicati libpam"
 
-#: libpam/pam_strerror.c:105
+#: libpam/pam_strerror.c:106
 msgid "Unknown PAM error"
 msgstr "Neznana napaka PAM"
 
-#: libpam_misc/misc_conv.c:34
+#.
+#. * external timeout definitions - these can be overridden by the
+#. * application.
+#.
+#. time when we warn
+#. time when we timeout
+#: libpam_misc/misc_conv.c:36
 msgid "...Time is running out...\n"
 msgstr "... Čas se izteka ...\n"
 
-#: libpam_misc/misc_conv.c:35
+#: libpam_misc/misc_conv.c:37
 msgid "...Sorry, your time is up!\n"
-msgstr ""
+msgstr "... Žal se je vaš čas iztekel!\n"
 
-#: libpam_misc/misc_conv.c:348
+#: libpam_misc/misc_conv.c:351
 #, c-format
 msgid "erroneous conversation (%d)\n"
-msgstr ""
+msgstr "napačen pogovor (%d)\n"
 
-#: modules/pam_exec/pam_exec.c:299
+#: modules/pam_exec/pam_exec.c:298
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr ""
+msgstr "%s ni uspel: izhodna koda %d"
 
-#: modules/pam_exec/pam_exec.c:309
+#: modules/pam_exec/pam_exec.c:308
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr ""
+msgstr "%s ni uspel: ujeti signal %d%s"
 
-#: modules/pam_exec/pam_exec.c:319
+#: modules/pam_exec/pam_exec.c:318
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr ""
+msgstr "%s ni uspel: neznano stanje 0x%x"
 
-#: modules/pam_faillock/main.c:130
+#: modules/pam_faillock/main.c:131
 #, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
 msgstr ""
+"Uporaba: %s [--dir /pot/do/imenika-zabeležke] [--user uporabniškoime] [--"
+"reset] [--legacy-output]\n"
 
-#: modules/pam_faillock/main.c:181
+#: modules/pam_faillock/main.c:182
 #, c-format
 msgid "Login           Failures    Latest failure         From\n"
-msgstr ""
+msgstr "Prijava           Neuspele    Zadnja neuspela         Iz\n"
 
-#: modules/pam_faillock/pam_faillock.c:408
+#: modules/pam_faillock/pam_faillock.c:416
 #, c-format
 msgid "The account is locked due to %u failed logins."
-msgstr ""
+msgstr "Račun je zaklenjen zaradi %u neuspelih prijav."
 
-#: modules/pam_faillock/pam_faillock.c:417
-#: modules/pam_faillock/pam_faillock.c:423
+#: modules/pam_faillock/pam_faillock.c:425
+#: modules/pam_faillock/pam_faillock.c:431
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "(%d preostala minuta za odklepanje)"
+msgstr[1] "(%d preostali minuti za odklepanje)"
+msgstr[2] "(%d preostale minute za odklepanje)"
+msgstr[3] "(%d preostalih minut za odklepanje)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:426
+#: modules/pam_faillock/pam_faillock.c:434
 #, c-format
 msgid "(%d minutes left to unlock)"
-msgstr ""
+msgstr "(%d preostalih minut za odklepanje)"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:326 modules/pam_lastlog/pam_lastlog.c:595
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:592
 msgid " %a %b %e %H:%M:%S %Z %Y"
-msgstr ""
+msgstr " %d.%m.%Y %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:335 modules/pam_lastlog/pam_lastlog.c:604
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:601
 #, c-format
 msgid " from %.*s"
-msgstr ""
+msgstr " iz %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:347 modules/pam_lastlog/pam_lastlog.c:616
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:613
 #, c-format
 msgid " on %.*s"
-msgstr ""
+msgstr " na %.*s"
 
 #. TRANSLATORS: "Last login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:357
+#: modules/pam_lastlog/pam_lastlog.c:354
 #, c-format
 msgid "Last login:%s%s%s"
 msgstr "Zadnja prijava:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:363
+#: modules/pam_lastlog/pam_lastlog.c:360
 msgid "Welcome to your new account!"
-msgstr ""
+msgstr "Dobrodošli v svojem novem računu!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:626
+#: modules/pam_lastlog/pam_lastlog.c:623
 #, c-format
 msgid "Last failed login:%s%s%s"
-msgstr ""
+msgstr "Zadnja neuspešna prijava:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
+#: modules/pam_lastlog/pam_lastlog.c:632 modules/pam_lastlog/pam_lastlog.c:639
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
 "There were %d failed login attempts since the last successful login."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Od zadnje uspešne prijave je bilo %d neuspel poskus prijave."
+msgstr[1] "Od zadnje uspešne prijave sta bila %d neuspela poskusa prijave."
+msgstr[2] "Od zadnje uspešne prijave so bili %d neuspeli poskusi prijave."
+msgstr[3] "Od zadnje uspešne prijave je bilo %d neuspelih poskusov prijave."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:647
+#: modules/pam_lastlog/pam_lastlog.c:644
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
-msgstr ""
+msgstr "Od zadnje uspešne prijave je bilo %d neuspelih poskusov prijave."
 
-#: modules/pam_limits/pam_limits.c:1348
+#: modules/pam_limits/pam_limits.c:1424
 #, c-format
 msgid "There were too many logins for '%s'."
-msgstr ""
+msgstr "Bilo je preveč prijav za »%s«."
 
-#: modules/pam_mail/pam_mail.c:289
+#: modules/pam_mail/pam_mail.c:290
 msgid "You do not have any new mail."
-msgstr ""
+msgstr "Nimate nove pošte."
 
-#: modules/pam_mail/pam_mail.c:292
+#: modules/pam_mail/pam_mail.c:293
 msgid "You have new mail."
-msgstr ""
+msgstr "Imate novo pošto."
 
-#: modules/pam_mail/pam_mail.c:295
+#: modules/pam_mail/pam_mail.c:296
 msgid "You have old mail."
-msgstr ""
+msgstr "Imate staro pošto."
 
-#: modules/pam_mail/pam_mail.c:299
+#: modules/pam_mail/pam_mail.c:300
 msgid "You have mail."
-msgstr ""
+msgstr "Imate pošto."
 
-#: modules/pam_mail/pam_mail.c:306
+#: modules/pam_mail/pam_mail.c:307
 #, c-format
 msgid "You have no mail in folder %s."
-msgstr ""
+msgstr "V mapi %s nimate pošte."
 
-#: modules/pam_mail/pam_mail.c:310
+#: modules/pam_mail/pam_mail.c:311
 #, c-format
 msgid "You have new mail in folder %s."
-msgstr ""
+msgstr "V mapi %s imate novo pošto."
 
-#: modules/pam_mail/pam_mail.c:314
+#: modules/pam_mail/pam_mail.c:315
 #, c-format
 msgid "You have old mail in folder %s."
-msgstr ""
+msgstr "V mapi %s imate staro pošto."
 
-#: modules/pam_mail/pam_mail.c:319
+#: modules/pam_mail/pam_mail.c:320
 #, c-format
 msgid "You have mail in folder %s."
-msgstr ""
+msgstr "Imate pošto v mapi %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:123
+#: modules/pam_mkhomedir/pam_mkhomedir.c:124
 #, c-format
 msgid "Creating directory '%s'."
-msgstr ""
+msgstr "Ustvarjanje mape %s ..."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:206
+#: modules/pam_mkhomedir/pam_mkhomedir.c:207
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
-msgstr ""
+msgstr "Ni mogoče ustvariti in inicializirati mape »%s«."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:384
-#: modules/pam_unix/pam_unix_passwd.c:583
+#: modules/pam_pwhistory/pam_pwhistory.c:383
+#: modules/pam_unix/pam_unix_passwd.c:584
 msgid "Password has been already used. Choose another."
-msgstr ""
+msgstr "Geslo je že bilo uporabljeno. Izberite drugo."
 
-#: modules/pam_pwhistory/pam_pwhistory.c:391
+#: modules/pam_pwhistory/pam_pwhistory.c:390
 msgid "Password has been already used."
-msgstr ""
+msgstr "Geslo je že bilo uporabljeno."
 
-#: modules/pam_selinux/pam_selinux.c:173
+#: modules/pam_selinux/pam_selinux.c:174
 #, c-format
 msgid "The default security context is %s."
-msgstr ""
+msgstr "Privzeti varnostni kontekst je %s."
 
-#: modules/pam_selinux/pam_selinux.c:177
+#: modules/pam_selinux/pam_selinux.c:178
 msgid "Would you like to enter a different role or level?"
-msgstr ""
+msgstr "Bi radi vstopili v drugo vlogo ali raven?"
 
-#: modules/pam_selinux/pam_selinux.c:190
+#. Allow the user to enter role and level individually
+#: modules/pam_selinux/pam_selinux.c:191
 msgid "role:"
-msgstr ""
+msgstr "vloga:"
 
-#: modules/pam_selinux/pam_selinux.c:194
+#: modules/pam_selinux/pam_selinux.c:195
 #, c-format
 msgid "There is no default type for role %s."
-msgstr ""
+msgstr "Privzeta vrsta za vlogo %s ni na voljo."
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:227
 msgid "level:"
-msgstr ""
+msgstr "raven:"
 
-#: modules/pam_selinux/pam_selinux.c:260
+#: modules/pam_selinux/pam_selinux.c:261
 msgid "This is not a valid security context."
-msgstr ""
+msgstr "To ni veljaven varnostni kontekst."
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:510
 #, c-format
 msgid "A valid context for %s could not be obtained."
-msgstr ""
+msgstr "Veljavnega konteksta za %s ni bilo mogoče pridobiti."
 
-#: modules/pam_selinux/pam_selinux.c:640
+#: modules/pam_selinux/pam_selinux.c:641
 #, c-format
 msgid "Security context %s has been assigned."
-msgstr ""
+msgstr "Dodeljen je bil varnostni kontekst %s."
 
-#: modules/pam_selinux/pam_selinux.c:656
+#: modules/pam_selinux/pam_selinux.c:657
 #, c-format
 msgid "Key creation context %s has been assigned."
-msgstr ""
+msgstr "Ključni kontekst ustvarjanja %s je bil dodeljen."
 
-#: modules/pam_selinux/pam_selinux_check.c:99
+#: modules/pam_selinux/pam_selinux_check.c:101
 #, c-format
 msgid "failed to initialize PAM\n"
-msgstr ""
+msgstr "Inicializacija PAM ni uspela\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:105
+#: modules/pam_selinux/pam_selinux_check.c:107
 #, c-format
 msgid "failed to pam_set_item()\n"
-msgstr ""
+msgstr "neuspešen pam_set_item()\n"
 
-#: modules/pam_selinux/pam_selinux_check.c:133
+#. error in fork()
+#: modules/pam_selinux/pam_selinux_check.c:135
 #, c-format
 msgid "login: failure forking: %m"
-msgstr ""
+msgstr "Prijava: neuspelo vejanje: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:384
+#: modules/pam_timestamp/pam_timestamp.c:385
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr ""
+msgstr "Dostop je bil odobren (zadnji dostop je bil pred %ld s)."
 
-#: modules/pam_unix/pam_unix_acct.c:231 modules/pam_unix/pam_unix_acct.c:253
+#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
 msgid "Your account has expired; please contact your system administrator."
-msgstr ""
+msgstr "Vaš račun je potekel; Obrnite se na skrbnika sistema."
 
-#: modules/pam_unix/pam_unix_acct.c:239
+#: modules/pam_unix/pam_unix_acct.c:240
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
-msgstr ""
+msgstr "Geslo morate takoj spremeniti (zahteva skrbnika)."
 
-#: modules/pam_unix/pam_unix_acct.c:245
+#: modules/pam_unix/pam_unix_acct.c:246
 msgid ""
 "You are required to change your password immediately (password expired)."
-msgstr ""
+msgstr "Geslo morate takoj spremeniti (geslo je poteklo)."
 
-#: modules/pam_unix/pam_unix_acct.c:270 modules/pam_unix/pam_unix_acct.c:277
+#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
 msgid "Warning: your password will expire in %d day."
 msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Opozorilo: vaše geslo bo poteklo čez %d dan."
+msgstr[1] "Opozorilo: vaše geslo bo poteklo čez %d dni."
+msgstr[2] "Opozorilo: vaše geslo bo poteklo čez %d dni."
+msgstr[3] "Opozorilo: vaše geslo bo poteklo čez %d dni."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:282
+#: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
 msgid "Warning: your password will expire in %d days."
-msgstr ""
+msgstr "Opozorilo: vaše geslo bo poteklo v %d dneh."
 
-#: modules/pam_unix/pam_unix_passwd.c:458
+#: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."
 msgstr "Gesla NIS ni bilo možno spremeniti."
 
-#: modules/pam_unix/pam_unix_passwd.c:556
-msgid "No password has been supplied."
-msgstr ""
-
 #: modules/pam_unix/pam_unix_passwd.c:557
-msgid "The password has not been changed."
-msgstr ""
+msgid "No password has been supplied."
+msgstr "Geslo ni bilo podano."
 
-#: modules/pam_unix/pam_unix_passwd.c:574
+#: modules/pam_unix/pam_unix_passwd.c:558
+msgid "The password has not been changed."
+msgstr "Geslo ni bilo spremenjeno."
+
+#: modules/pam_unix/pam_unix_passwd.c:575
 msgid "You must choose a shorter password."
 msgstr "Izbrati morate krajše geslo."
 
-#: modules/pam_unix/pam_unix_passwd.c:578
+#: modules/pam_unix/pam_unix_passwd.c:579
 msgid "You must choose a longer password."
 msgstr "Izbrati morate daljše geslo."
 
-#: modules/pam_unix/pam_unix_passwd.c:683
+#: modules/pam_unix/pam_unix_passwd.c:684
 #, c-format
 msgid "Changing password for %s."
-msgstr ""
+msgstr "Spreminjanje gesla za %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:713
-#, fuzzy
+#: modules/pam_unix/pam_unix_passwd.c:714
 msgid "You must wait longer to change your password."
-msgstr "Izbrati morate krajše geslo."
+msgstr "Za spremembo gesla morate počakati dlje."

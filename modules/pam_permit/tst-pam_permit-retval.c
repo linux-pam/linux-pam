@@ -30,10 +30,10 @@ main(void)
 
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so\n"
-			     "account required %s/.libs/%s.so\n"
-			     "password required %s/.libs/%s.so\n"
-			     "session required %s/.libs/%s.so\n",
+			     "auth required %s/" LTDIR "%s.so\n"
+			     "account required %s/" LTDIR "%s.so\n"
+			     "password required %s/" LTDIR "%s.so\n"
+			     "session required %s/" LTDIR "%s.so\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -57,12 +57,12 @@ main(void)
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
 			     "# ignore escaped newlines in comments \\\n"
 			     "auth required \\\n"
-			     "     %s/.libs/%s.so\n"
+			     "     %s/" LTDIR "%s.so\n"
 			     "# allow unneeded whitespaces\n"
-			     "   account	 required  %s/.libs/%s.so%c\\\n"
+			     "   account	 required  %s/" LTDIR "%s.so%c\\\n"
 			     "line after NUL byte continues up to here\n"
-			     "password required %s/.libs/%s.so # eol comment\n"
-			     "session required %s/.libs/%s.so",
+			     "password required %s/" LTDIR "%s.so # eol comment\n"
+			     "session required %s/" LTDIR "%s.so",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME, '\0',
 			     cwd, MODULE_NAME,

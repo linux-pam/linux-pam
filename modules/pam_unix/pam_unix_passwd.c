@@ -67,6 +67,7 @@
 #include <security/pam_modutil.h>
 
 #include "pam_inline.h"
+#include "pam_i18n.h"
 #include "pam_cc_compat.h"
 #include "md5.h"
 #include "support.h"
@@ -544,7 +545,7 @@ static int _pam_unix_approve_pass(pam_handle_t * pamh
 	const char *remark = NULL;
 	int retval = PAM_SUCCESS;
 
-	D(("&new=%p, &old=%p", pass_old, pass_new));
+	D(("&new=%p, &old=%p", pass_new, pass_old));
 	D(("new=[%s]", pass_new));
 	D(("old=[%s]", pass_old));
 

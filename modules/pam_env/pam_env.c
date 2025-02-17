@@ -21,7 +21,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #ifdef USE_ECONF
-#include <libeconf.h>
+#include "pam_econf.h"
 #endif
 
 #include <security/pam_modules.h>
@@ -52,9 +52,9 @@ typedef struct var {
 #define DEFAULT_USER_ENVFILE    ".pam_environment"
 #define DEFAULT_USER_READ_ENVFILE 0
 
-#define DEFAULT_CONF_FILE	(SCONFIGDIR "/pam_env.conf")
-#ifdef VENDOR_SCONFIGDIR
-#define VENDOR_DEFAULT_CONF_FILE (VENDOR_SCONFIGDIR "/pam_env.conf")
+#define DEFAULT_CONF_FILE	(SCONFIG_DIR "/pam_env.conf")
+#ifdef VENDOR_SCONFIG_DIR
+#define VENDOR_DEFAULT_CONF_FILE (VENDOR_SCONFIG_DIR "/pam_env.conf")
 #endif
 
 #define GOOD_LINE    0
@@ -241,9 +241,8 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
 	}
       }
 
-      D(("Read configuration from directory %s and %s", vendor_dir, sysconf_dir));
-      error = econf_readDirs (&key_file, vendor_dir, sysconf_dir, name, suffix,
-			      delim, "#");
+      error = pam_econf_readconfig (&key_file, vendor_dir, sysconf_dir, name, suffix,
+				    delim, "#", NULL, NULL);
       free(vendor_dir);
       free(sysconf_dir);
       if (error != ECONF_SUCCESS) {
@@ -273,7 +272,7 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
       return PAM_ABORT;
     }
 
-    *lines = malloc((key_number +1)* sizeof(char**));
+    *lines = calloc((key_number + 1), sizeof(char**));
     if (*lines == NULL) {
       pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
       econf_free(keys);
@@ -281,19 +280,18 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
       return PAM_BUF_ERR;
     }
 
-    (*lines)[key_number] = 0;
-
+    size_t n = 0;
     for (size_t i = 0; i < key_number; i++) {
       char *val;
 
       error = econf_getStringValue (key_file, NULL, keys[i], &val);
-      if (error != ECONF_SUCCESS) {
+      if (error != ECONF_SUCCESS || val == NULL) {
 	pam_syslog(pamh, LOG_ERR, "Unable to get string from key %s: %s",
 		   keys[i],
 		   econf_errString(error));
       } else {
         econf_unescnl(val);
-        if (asprintf(&(*lines)[i],"%s%c%s", keys[i], delim[0], val) < 0) {
+        if (asprintf(&(*lines)[n],"%s%c%s", keys[i], delim[0], val) < 0) {
 	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
           econf_free(keys);
           econf_freeFile(key_file);
@@ -303,6 +301,7 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
 	  return PAM_BUF_ERR;
 	}
 	free (val);
+	n++;
       }
     }
 

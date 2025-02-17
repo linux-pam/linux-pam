@@ -39,7 +39,7 @@ main(void)
 	/* default passwd */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so\n",
+			     "auth required %s/" LTDIR "%s.so\n",
 			     cwd, MODULE_NAME));
 	ASSERT_EQ(0, fclose(fp));
 
@@ -69,7 +69,7 @@ main(void)
 	/* missing passwd file */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so file=%s\n",
+			     "auth required %s/" LTDIR "%s.so file=%s\n",
 			     cwd, MODULE_NAME, missing_file));
 	ASSERT_EQ(0, fclose(fp));
 
@@ -83,7 +83,7 @@ main(void)
 	/* custom passwd file */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so file=%s\n",
+			     "auth required %s/" LTDIR "%s.so file=%s\n",
 			     cwd, MODULE_NAME, passwd_file));
 	ASSERT_EQ(0, fclose(fp));
 

@@ -116,7 +116,9 @@ char *bigcrypt(const char *key, const char *salt)
 	}
 	/* and place in the static area */
 	strncpy(cipher_ptr, tmp_ptr, 13);
+#ifndef HAVE_CRYPT_R
 	pam_overwrite_string(tmp_ptr);
+#endif
 	cipher_ptr += ESEGMENT_SIZE + SALT_SIZE;
 	plaintext_ptr += SEGMENT_SIZE;	/* first block of SEGMENT_SIZE */
 
@@ -149,7 +151,9 @@ char *bigcrypt(const char *key, const char *salt)
 
 			/* skip the salt for seg!=0 */
 			strncpy(cipher_ptr, (tmp_ptr + SALT_SIZE), ESEGMENT_SIZE);
+#ifndef HAVE_CRYPT_R
 			pam_overwrite_string(tmp_ptr);
+#endif
 
 			cipher_ptr += ESEGMENT_SIZE;
 			plaintext_ptr += SEGMENT_SIZE;

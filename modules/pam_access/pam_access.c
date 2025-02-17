@@ -56,11 +56,11 @@
 #include "pam_cc_compat.h"
 #include "pam_inline.h"
 
-#define PAM_ACCESS_CONFIG	(SCONFIGDIR "/access.conf")
-#define ACCESS_CONF_GLOB	(SCONFIGDIR "/access.d/*.conf")
-#ifdef VENDOR_SCONFIGDIR
-#define VENDOR_PAM_ACCESS_CONFIG (VENDOR_SCONFIGDIR "/access.conf")
-#define VENDOR_ACCESS_CONF_GLOB  (VENDOR_SCONFIGDIR "/access.d/*.conf")
+#define PAM_ACCESS_CONFIG	(SCONFIG_DIR "/access.conf")
+#define ACCESS_CONF_GLOB	(SCONFIG_DIR "/access.d/*.conf")
+#ifdef VENDOR_SCONFIG_DIR
+#define VENDOR_PAM_ACCESS_CONFIG (VENDOR_SCONFIG_DIR "/access.conf")
+#define VENDOR_ACCESS_CONF_GLOB  (VENDOR_SCONFIG_DIR "/access.d/*.conf")
 #endif
 
 /* login_access.c from logdaemon-5.6 with several changes by A.Nogin: */
@@ -100,6 +100,7 @@ struct login_info {
     int only_new_group_syntax;		/* Only allow group entries of the form "(xyz)" */
     int noaudit;			/* Do not audit denials */
     int quiet_log;			/* Do not log denials */
+    int nodns;                          /* Do not try to resolve tokens as hostnames */
     const char *fs;			/* field separator */
     const char *sep;			/* list-element separator */
     int from_remote_host;               /* If PAM_RHOST was used for from */
@@ -154,6 +155,8 @@ parse_args(pam_handle_t *pamh, struct login_info *loginfo,
 	    loginfo->noaudit = YES;
 	} else if (strcmp (argv[i], "quiet_log") == 0) {
 	    loginfo->quiet_log = YES;
+	} else if (strcmp (argv[i], "nodns") == 0) {
+	    loginfo->nodns = YES;
 	} else {
 	    pam_syslog(pamh, LOG_ERR, "unrecognized option [%s]", argv[i]);
 	}
@@ -306,6 +309,23 @@ isipaddr (const char *string, int *addr_type,
   return is_ip;
 }
 
+/* is_local_addr - checks if the IP address is local */
+static int
+is_local_addr (const char *string, int addr_type)
+{
+  if (addr_type == AF_INET) {
+    if (strcmp(string, "127.0.0.1") == 0) {
+      return YES;
+    }
+  } else if (addr_type == AF_INET6) {
+    if (strcmp(string, "::1") == 0) {
+      return YES;
+    }
+  }
+
+  return NO;
+}
+
 
 /* are_addresses_equal - translate IP address strings to real IP
  * addresses and compare them to find out if they are equal.
@@ -327,9 +347,18 @@ are_addresses_equal (const char *ipaddr0, const char *ipaddr1,
   if (isipaddr (ipaddr1, &addr_type1, &addr1) == NO)
     return NO;
 
-  if (addr_type0 != addr_type1)
-    /* different address types */
+  if (addr_type0 != addr_type1) {
+    /* different address types, but there is still a possibility that they are
+     * both local addresses
+     */
+    int local1 = is_local_addr(ipaddr0, addr_type0);
+    int local2 = is_local_addr(ipaddr1, addr_type1);
+
+    if (local1 == YES && local2 == YES)
+      return YES;
+
     return NO;
+  }
 
   if (netmask != NULL) {
     /* Got a netmask, so normalize addresses? */
@@ -605,7 +634,30 @@ netgroup_match (pam_handle_t *pamh, const char *netgroup,
   return retval;
 }
 
-/* user_match - match a username against one token */
+/* user_name_or_uid_match - match a username or user uid against one token */
+static int
+user_name_or_uid_match(pam_handle_t *pamh, const char *tok,
+		       const struct login_info *item)
+{
+    /* ALL or exact match of username */
+    int rv = string_match(pamh, tok, item->user->pw_name, item->debug);
+    if (rv != NO)
+	return rv;
+
+    if (tok[strspn(tok, "0123456789")] != '\0')
+	return NO;
+
+    char buf[sizeof(long long) * 3 + 1];
+    snprintf(buf, sizeof(buf), "%llu",
+	     zero_extend_signed_to_ull(item->user->pw_uid));
+    if (item->debug)
+	pam_syslog(pamh, LOG_DEBUG, "user_match: tok=%s, uid=%s", tok, buf);
+
+    /* check for exact match of uid */
+    return string_match (pamh, tok, buf, item->debug);
+}
+
+/* user_match - match a user against one token */
 
 static int
 user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
@@ -656,7 +708,7 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
 		hostname = item->hostname;
 	}
         return (netgroup_match (pamh, tok + 1, hostname, string, item->debug));
-    } else if ((rv=string_match (pamh, tok, string, item->debug)) != NO) /* ALL or exact match */
+    } else if ((rv=user_name_or_uid_match(pamh, tok, item)) != NO) /* ALL or exact match */
       return rv;
     else if (item->only_new_group_syntax == NO &&
 	     pam_modutil_user_in_group_nam_nam (pamh,
@@ -667,6 +719,36 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
     return NO;
 }
 
+
+/* group_name_or_gid_match - match a group name or group gid against one token */
+static int
+group_name_or_gid_match(pam_handle_t *pamh, const char *tok,
+			const char *usr, int debug)
+{
+    /* check for exact match of group name */
+    if (pam_modutil_user_in_group_nam_nam(pamh, usr, tok) != NO)
+	return YES;
+
+    if (tok[strspn(tok, "0123456789")] != '\0')
+	return NO;
+
+    char *endptr = NULL;
+    errno = 0;
+    unsigned long int ul = strtoul(tok, &endptr, 10);
+    gid_t gid = (gid_t) ul;
+    if (errno != 0
+	|| tok == endptr
+	|| *endptr != '\0'
+	|| (unsigned long) zero_extend_signed_to_ull(gid) != ul) {
+	return NO;
+    }
+
+    if (debug)
+	pam_syslog(pamh, LOG_DEBUG, "group_match: user=%s, gid=%s", usr, tok);
+
+    /* check for exact match of gid */
+    return pam_modutil_user_in_group_nam_gid(pamh, usr, gid);
+}
 
 /* group_match - match a username against token named group */
 
@@ -684,10 +766,10 @@ group_match (pam_handle_t *pamh, char *tok, const char* usr, int debug)
     tok++;
     tok[strlen(tok) - 1] = '\0';
 
-    if (pam_modutil_user_in_group_nam_nam(pamh, usr, tok))
+    if (group_name_or_gid_match (pamh, tok, usr, debug))
         return YES;
 
-  return NO;
+    return NO;
 }
 
 
@@ -741,7 +823,7 @@ remote_match (pam_handle_t *pamh, char *tok, struct login_info *item)
       if ((str_len = strlen(string)) > tok_len
 	  && strcasecmp(tok, string + str_len - tok_len) == 0)
 	return YES;
-    } else if (tok[tok_len - 1] == '.') {       /* internet network numbers (end with ".") */
+    } else if (tok[tok_len - 1] == '.') {       /* internet network numbers/subnet (end with ".") */
       struct addrinfo hint;
 
       memset (&hint, '\0', sizeof (hint));
@@ -816,6 +898,39 @@ string_match (pam_handle_t *pamh, const char *tok, const char *string,
 }
 
 
+static int
+is_device (pam_handle_t *pamh, const char *tok)
+{
+  struct stat st;
+  const char *dev = "/dev/";
+  char *devname;
+
+  devname = malloc (strlen(dev) + strlen (tok) + 1);
+  if (devname == NULL) {
+      pam_syslog(pamh, LOG_ERR, "Cannot allocate memory for device name: %m");
+      /*
+       * We should return an error and abort, but pam_access has no good
+       * error handling.
+       */
+      return NO;
+  }
+
+  char *cp = stpcpy (devname, dev);
+  strcpy (cp, tok);
+
+  if (lstat(devname, &st) != 0)
+    {
+      free (devname);
+      return NO;
+    }
+  free (devname);
+
+  if (S_ISCHR(st.st_mode))
+    return YES;
+
+  return NO;
+}
+
 /* network_netmask_match - match a string against one token
  * where string is a hostname or ip (v4,v6) address and tok
  * represents either a hostname, a single ip (v4,v6) address
@@ -877,10 +992,42 @@ network_netmask_match (pam_handle_t *pamh,
 	    return NO;
 	  }
       }
+    else if (isipaddr(tok, NULL, NULL) == YES)
+      {
+	if (getaddrinfo (tok, NULL, NULL, &ai) != 0)
+	  {
+	    if (item->debug)
+	      pam_syslog(pamh, LOG_DEBUG, "cannot resolve IP address \"%s\"", tok);
+
+	    return NO;
+	  }
+	netmask_ptr = NULL;
+      }
+    else if (item->nodns)
+      {
+	/* Only hostnames are left, which we would need to resolve via DNS */
+	return NO;
+      }
     else
       {
+	/* Bail out on X11 Display entries and ttys. */
+	if (tok[0] == ':')
+	  {
+	    if (item->debug)
+	      pam_syslog (pamh, LOG_DEBUG,
+			  "network_netmask_match: tok=%s is X11 display", tok);
+	    return NO;
+	  }
+	if (is_device (pamh, tok))
+	  {
+	    if (item->debug)
+	      pam_syslog (pamh, LOG_DEBUG,
+			  "network_netmask_match: tok=%s is a TTY", tok);
+	    return NO;
+	  }
+
         /*
-	 * It is either an IP address or a hostname.
+	 * It is most likely a hostname.
 	 * Let getaddrinfo sort everything out
 	 */
 	if (getaddrinfo (tok, NULL, NULL, &ai) != 0)

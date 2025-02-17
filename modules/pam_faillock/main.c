@@ -52,6 +52,7 @@
 #endif
 
 #include "pam_inline.h"
+#include "pam_i18n.h"
 #include "faillock.h"
 #include "faillock_config.h"
 
@@ -247,7 +248,8 @@ do_user(struct options *opts, const char *user)
 #ifdef HAVE_LIBAUDIT
 		}
 		if ((audit_fd=audit_open()) >= 0) {
-			audit_log_acct_message(audit_fd, AUDIT_USER_MGMT, NULL,
+			(void) !audit_log_acct_message(audit_fd,
+				AUDIT_USER_MGMT, NULL,
 				"faillock-reset", user,
 				pwd != NULL ? pwd->pw_uid : AUDIT_NO_ID,
 				NULL, NULL, NULL, rv == 0);

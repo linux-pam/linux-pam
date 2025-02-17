@@ -1003,6 +1003,7 @@ static int form_context(const struct polydir_s *polyptr,
 		return rc;
 	}
 	/* Should never get here */
+	freecon(scon);
 	return PAM_SUCCESS;
 }
 #endif
@@ -1432,7 +1433,9 @@ static int create_polydir(struct polydir_s *polyptr,
 
 #ifdef WITH_SELINUX
     if (idata->flags & PAMNS_SELINUX_ENABLED) {
-	getfscreatecon_raw(&oldcon_raw);
+	if (getfscreatecon_raw(&oldcon_raw) != 0)
+	    pam_syslog(idata->pamh, LOG_NOTICE,
+	               "Error retrieving fs create context: %m");
 
 	label_handle = selabel_open(SELABEL_CTX_FILE, NULL, 0);
 	if (!label_handle) {
@@ -1461,6 +1464,9 @@ static int create_polydir(struct polydir_s *polyptr,
     if (rc == -1) {
             pam_syslog(idata->pamh, LOG_ERR,
                        "Error creating directory %s: %m", dir);
+#ifdef WITH_SELINUX
+            freecon(oldcon_raw);
+#endif
             return PAM_SESSION_ERR;
     }
 

@@ -40,10 +40,10 @@ main(void)
 	/* invalid onerr= specified */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so onerr\n"
-			     "account required %s/.libs/%s.so onerr=\n"
-			     "password required %s/.libs/%s.so onerr=0\n"
-			     "session required %s/.libs/%s.so onerr=1\n",
+			     "auth required %s/" LTDIR "%s.so onerr\n"
+			     "account required %s/" LTDIR "%s.so onerr=\n"
+			     "password required %s/" LTDIR "%s.so onerr=0\n"
+			     "session required %s/" LTDIR "%s.so onerr=1\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -65,10 +65,10 @@ main(void)
 	/* unknown option, implicit onerr=fail */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so one=1\n"
-			     "account required %s/.libs/%s.so two=2\n"
-			     "password required %s/.libs/%s.so three=3\n"
-			     "session required %s/.libs/%s.so four=4\n",
+			     "auth required %s/" LTDIR "%s.so one=1\n"
+			     "account required %s/" LTDIR "%s.so two=2\n"
+			     "password required %s/" LTDIR "%s.so three=3\n"
+			     "session required %s/" LTDIR "%s.so four=4\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -90,10 +90,10 @@ main(void)
 	/* unknown option, onerr=succeed after unknown option */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so one=1 onerr=succeed\n"
-			     "account required %s/.libs/%s.so two=2 onerr=succeed\n"
-			     "password required %s/.libs/%s.so three=3 onerr=succeed\n"
-			     "session required %s/.libs/%s.so four=4 onerr=succeed\n",
+			     "auth required %s/" LTDIR "%s.so one=1 onerr=succeed\n"
+			     "account required %s/" LTDIR "%s.so two=2 onerr=succeed\n"
+			     "password required %s/" LTDIR "%s.so three=3 onerr=succeed\n"
+			     "session required %s/" LTDIR "%s.so four=4 onerr=succeed\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -115,10 +115,10 @@ main(void)
 	/* unknown option, onerr=succeed before unknown option */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so onerr=succeed one=1\n"
-			     "account required %s/.libs/%s.so onerr=succeed two=2\n"
-			     "password required %s/.libs/%s.so onerr=succeed three=3\n"
-			     "session required %s/.libs/%s.so onerr=succeed four=4\n",
+			     "auth required %s/" LTDIR "%s.so onerr=succeed one=1\n"
+			     "account required %s/" LTDIR "%s.so onerr=succeed two=2\n"
+			     "password required %s/" LTDIR "%s.so onerr=succeed three=3\n"
+			     "session required %s/" LTDIR "%s.so onerr=succeed four=4\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -140,10 +140,10 @@ main(void)
 	/* no item= or invalid item= specified, implicit onerr=fail */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so\n"
-			     "account required %s/.libs/%s.so item\n"
-			     "password required %s/.libs/%s.so item=\n"
-			     "session required %s/.libs/%s.so item=bad\n",
+			     "auth required %s/" LTDIR "%s.so\n"
+			     "account required %s/" LTDIR "%s.so item\n"
+			     "password required %s/" LTDIR "%s.so item=\n"
+			     "session required %s/" LTDIR "%s.so item=bad\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -165,10 +165,10 @@ main(void)
 	/* no item= or invalid item= specified, explicit onerr=fail */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so onerr=fail\n"
-			     "account required %s/.libs/%s.so onerr=fail item\n"
-			     "password required %s/.libs/%s.so onerr=fail item=\n"
-			     "session required %s/.libs/%s.so onerr=fail item=bad\n",
+			     "auth required %s/" LTDIR "%s.so onerr=fail\n"
+			     "account required %s/" LTDIR "%s.so onerr=fail item\n"
+			     "password required %s/" LTDIR "%s.so onerr=fail item=\n"
+			     "session required %s/" LTDIR "%s.so onerr=fail item=bad\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -190,10 +190,10 @@ main(void)
 	/* no item= or invalid item= specified, onerr=succeed */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so onerr=succeed\n"
-			     "account required %s/.libs/%s.so onerr=succeed item\n"
-			     "password required %s/.libs/%s.so onerr=succeed item=\n"
-			     "session required %s/.libs/%s.so onerr=succeed item=bad\n",
+			     "auth required %s/" LTDIR "%s.so onerr=succeed\n"
+			     "account required %s/" LTDIR "%s.so onerr=succeed item\n"
+			     "password required %s/" LTDIR "%s.so onerr=succeed item=\n"
+			     "session required %s/" LTDIR "%s.so onerr=succeed item=bad\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -215,10 +215,10 @@ main(void)
 	/* no file= specified, implicit onerr=fail */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so item=user\n"
-			     "account required %s/.libs/%s.so item=group\n"
-			     "password required %s/.libs/%s.so item=ruser\n"
-			     "session required %s/.libs/%s.so item=rhost\n",
+			     "auth required %s/" LTDIR "%s.so item=user\n"
+			     "account required %s/" LTDIR "%s.so item=group\n"
+			     "password required %s/" LTDIR "%s.so item=ruser\n"
+			     "session required %s/" LTDIR "%s.so item=rhost\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -240,10 +240,10 @@ main(void)
 	/* no file= specified, onerr=succeed */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so onerr=succeed item=user\n"
-			     "account required %s/.libs/%s.so onerr=succeed item=group\n"
-			     "password required %s/.libs/%s.so onerr=succeed item=ruser\n"
-			     "session required %s/.libs/%s.so onerr=succeed item=rhost\n",
+			     "auth required %s/" LTDIR "%s.so onerr=succeed item=user\n"
+			     "account required %s/" LTDIR "%s.so onerr=succeed item=group\n"
+			     "password required %s/" LTDIR "%s.so onerr=succeed item=ruser\n"
+			     "session required %s/" LTDIR "%s.so onerr=succeed item=rhost\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -265,10 +265,10 @@ main(void)
 	/* no sense= or invalid sense= specified, implicit onerr=fail */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so item=user file=.\n"
-			     "account required %s/.libs/%s.so item=group file=. sense\n"
-			     "password required %s/.libs/%s.so item=shell file=. sense=\n"
-			     "session required %s/.libs/%s.so item=tty file=. sense=bad\n",
+			     "auth required %s/" LTDIR "%s.so item=user file=.\n"
+			     "account required %s/" LTDIR "%s.so item=group file=. sense\n"
+			     "password required %s/" LTDIR "%s.so item=shell file=. sense=\n"
+			     "session required %s/" LTDIR "%s.so item=tty file=. sense=bad\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -290,10 +290,10 @@ main(void)
 	/* no sense= or invalid sense= specified, onerr=succeed */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so onerr=succeed item=user file=.\n"
-			     "account required %s/.libs/%s.so onerr=succeed item=group file=. sense\n"
-			     "password required %s/.libs/%s.so onerr=succeed item=shell file=. sense=\n"
-			     "session required %s/.libs/%s.so onerr=succeed item=tty file=. sense=bad\n",
+			     "auth required %s/" LTDIR "%s.so onerr=succeed item=user file=.\n"
+			     "account required %s/" LTDIR "%s.so onerr=succeed item=group file=. sense\n"
+			     "password required %s/" LTDIR "%s.so onerr=succeed item=shell file=. sense=\n"
+			     "session required %s/" LTDIR "%s.so onerr=succeed item=tty file=. sense=bad\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -315,10 +315,10 @@ main(void)
 	/* invalid apply= specified, implicit onerr=fail */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so item=ruser file=. sense=allow apply=\n"
-			     "account required %s/.libs/%s.so item=rhost file=. sense=allow apply=\n"
-			     "password required %s/.libs/%s.so item=tty file=. sense=allow apply=@\n"
-			     "session required %s/.libs/%s.so item=tty file=. sense=allow apply=\n",
+			     "auth required %s/" LTDIR "%s.so item=ruser file=. sense=allow apply=\n"
+			     "account required %s/" LTDIR "%s.so item=rhost file=. sense=allow apply=\n"
+			     "password required %s/" LTDIR "%s.so item=tty file=. sense=allow apply=@\n"
+			     "session required %s/" LTDIR "%s.so item=tty file=. sense=allow apply=\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -340,10 +340,10 @@ main(void)
 	/* invalid apply= specified, onerr=succeed */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so onerr=succeed item=ruser file=. sense=allow apply=\n"
-			     "account required %s/.libs/%s.so onerr=succeed item=rhost file=. sense=allow apply=\n"
-			     "password required %s/.libs/%s.so onerr=succeed item=tty file=. sense=allow apply=@\n"
-			     "session required %s/.libs/%s.so onerr=succeed item=tty file=. sense=allow apply=\n",
+			     "auth required %s/" LTDIR "%s.so onerr=succeed item=ruser file=. sense=allow apply=\n"
+			     "account required %s/" LTDIR "%s.so onerr=succeed item=rhost file=. sense=allow apply=\n"
+			     "password required %s/" LTDIR "%s.so onerr=succeed item=tty file=. sense=allow apply=@\n"
+			     "session required %s/" LTDIR "%s.so onerr=succeed item=tty file=. sense=allow apply=\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -365,10 +365,10 @@ main(void)
 	/* PAM_IGNORE -> PAM_PERM_DENIED */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so item=rhost file=. sense=allow apply=:\n"
-			     "account required %s/.libs/%s.so item=tty file=. sense=allow apply=@:\n"
-			     "password required %s/.libs/%s.so item=rhost file=. sense=allow apply=:\n"
-			     "session required %s/.libs/%s.so item=tty file=. sense=allow apply=@:\n",
+			     "auth required %s/" LTDIR "%s.so item=rhost file=. sense=allow apply=:\n"
+			     "account required %s/" LTDIR "%s.so item=tty file=. sense=allow apply=@:\n"
+			     "password required %s/" LTDIR "%s.so item=rhost file=. sense=allow apply=:\n"
+			     "session required %s/" LTDIR "%s.so item=tty file=. sense=allow apply=@:\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -390,10 +390,10 @@ main(void)
 	/* item not set, sense=allow */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so item=rhost file=. sense=allow apply=%s\n"
-			     "account required %s/.libs/%s.so item=tty file=. sense=allow apply=%s\n"
-			     "password required %s/.libs/%s.so item=rhost file=. sense=allow apply=@%s\n"
-			     "session required %s/.libs/%s.so item=tty file=. sense=allow apply=@%s\n",
+			     "auth required %s/" LTDIR "%s.so item=rhost file=. sense=allow apply=%s\n"
+			     "account required %s/" LTDIR "%s.so item=tty file=. sense=allow apply=%s\n"
+			     "password required %s/" LTDIR "%s.so item=rhost file=. sense=allow apply=@%s\n"
+			     "session required %s/" LTDIR "%s.so item=tty file=. sense=allow apply=@%s\n",
 			     cwd, MODULE_NAME, pw->pw_name,
 			     cwd, MODULE_NAME, pw->pw_name,
 			     cwd, MODULE_NAME, gr->gr_name,
@@ -415,10 +415,10 @@ main(void)
 	/* item not set, sense=deny */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so item=ruser file=. sense=deny\n"
-			     "account required %s/.libs/%s.so item=rhost file=. sense=deny\n"
-			     "password required %s/.libs/%s.so item=tty file=. sense=deny\n"
-			     "session required %s/.libs/%s.so item=ruser file=. sense=deny\n",
+			     "auth required %s/" LTDIR "%s.so item=ruser file=. sense=deny\n"
+			     "account required %s/" LTDIR "%s.so item=rhost file=. sense=deny\n"
+			     "password required %s/" LTDIR "%s.so item=tty file=. sense=deny\n"
+			     "session required %s/" LTDIR "%s.so item=ruser file=. sense=deny\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -440,10 +440,10 @@ main(void)
 	/* file does not exist, not a regular file, or world writable */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so item=user file= sense=allow\n"
-			     "account required %s/.libs/%s.so item=user file=. sense=allow onerr=succeed\n"
-			     "password required %s/.libs/%s.so item=user file=/ sense=allow onerr=succeed\n"
-			     "session required %s/.libs/%s.so item=user file=/dev/null sense=allow onerr=succeed\n",
+			     "auth required %s/" LTDIR "%s.so item=user file= sense=allow\n"
+			     "account required %s/" LTDIR "%s.so item=user file=. sense=allow onerr=succeed\n"
+			     "password required %s/" LTDIR "%s.so item=user file=/ sense=allow onerr=succeed\n"
+			     "session required %s/" LTDIR "%s.so item=user file=/dev/null sense=allow onerr=succeed\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -465,10 +465,10 @@ main(void)
 	/* item is listed, sense=allow */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so item=user file=%s sense=allow\n"
-			     "account required %s/.libs/%s.so item=user file=%s sense=allow\n"
-			     "password required %s/.libs/%s.so item=user file=%s sense=allow\n"
-			     "session required %s/.libs/%s.so item=user file=%s sense=allow\n",
+			     "auth required %s/" LTDIR "%s.so item=user file=%s sense=allow\n"
+			     "account required %s/" LTDIR "%s.so item=user file=%s sense=allow\n"
+			     "password required %s/" LTDIR "%s.so item=user file=%s sense=allow\n"
+			     "session required %s/" LTDIR "%s.so item=user file=%s sense=allow\n",
 			     cwd, MODULE_NAME, list_file,
 			     cwd, MODULE_NAME, list_file,
 			     cwd, MODULE_NAME, list_file,
@@ -494,10 +494,10 @@ main(void)
 	/* item is listed, sense=deny */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so item=user file=%s sense=deny\n"
-			     "account required %s/.libs/%s.so item=user file=%s sense=deny\n"
-			     "password required %s/.libs/%s.so item=user file=%s sense=deny\n"
-			     "session required %s/.libs/%s.so item=user file=%s sense=deny\n",
+			     "auth required %s/" LTDIR "%s.so item=user file=%s sense=deny\n"
+			     "account required %s/" LTDIR "%s.so item=user file=%s sense=deny\n"
+			     "password required %s/" LTDIR "%s.so item=user file=%s sense=deny\n"
+			     "session required %s/" LTDIR "%s.so item=user file=%s sense=deny\n",
 			     cwd, MODULE_NAME, list_file,
 			     cwd, MODULE_NAME, list_file,
 			     cwd, MODULE_NAME, list_file,
@@ -523,10 +523,10 @@ main(void)
 	/* item is not listed, sense=allow */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so item=user file=%s sense=allow\n"
-			     "account required %s/.libs/%s.so item=user file=%s sense=allow\n"
-			     "password required %s/.libs/%s.so item=user file=%s sense=allow\n"
-			     "session required %s/.libs/%s.so item=user file=%s sense=allow\n",
+			     "auth required %s/" LTDIR "%s.so item=user file=%s sense=allow\n"
+			     "account required %s/" LTDIR "%s.so item=user file=%s sense=allow\n"
+			     "password required %s/" LTDIR "%s.so item=user file=%s sense=allow\n"
+			     "session required %s/" LTDIR "%s.so item=user file=%s sense=allow\n",
 			     cwd, MODULE_NAME, list_file,
 			     cwd, MODULE_NAME, list_file,
 			     cwd, MODULE_NAME, list_file,
@@ -552,10 +552,10 @@ main(void)
 	/* item is not listed, sense=deny */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so item=user file=%s sense=deny\n"
-			     "account required %s/.libs/%s.so item=user file=%s sense=deny\n"
-			     "password required %s/.libs/%s.so item=user file=%s sense=deny\n"
-			     "session required %s/.libs/%s.so item=user file=%s sense=deny\n",
+			     "auth required %s/" LTDIR "%s.so item=user file=%s sense=deny\n"
+			     "account required %s/" LTDIR "%s.so item=user file=%s sense=deny\n"
+			     "password required %s/" LTDIR "%s.so item=user file=%s sense=deny\n"
+			     "session required %s/" LTDIR "%s.so item=user file=%s sense=deny\n",
 			     cwd, MODULE_NAME, list_file,
 			     cwd, MODULE_NAME, list_file,
 			     cwd, MODULE_NAME, list_file,
@@ -583,17 +583,17 @@ main(void)
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
 			     "# support line continuations, ignore escaped newlines in comments \\\n"
 			     "auth required \\\n"
-			     "     %s/.libs/%s.so \\  \n"
+			     "     %s/" LTDIR "%s.so \\  \n"
 			     "     item=user \\\t\t\n"
 			     "     file=%s \\ \t \t\n"
 			     "     sense=deny\n"
 			     "\t \t # allow unneeded whitespace, ignore escaped newlines in comments \\ \n"
-			     "   account\t required  %s/.libs/%s.so item=user file=%s sense=deny%c\\\n"
+			     "   account\t required  %s/" LTDIR "%s.so item=user file=%s sense=deny%c\\\n"
 			     "line after NUL byte continues up to here\n"
 			     "# trim trailing comments, ignore escaped newlines in comments \\\t\n"
-			     "password required %s/.libs/%s.so item=user file=%s sense=deny # foo=bar\n"
+			     "password required %s/" LTDIR "%s.so item=user file=%s sense=deny # foo=bar\n"
 			     "# support %*s long lines\n"
-			     "session required %*s/.libs/%s.so item=user file=%s sense=deny",
+			     "session required %*s/" LTDIR "%s.so item=user file=%s sense=deny",
 			     cwd, MODULE_NAME, list_file,
 			     cwd, MODULE_NAME, list_file, '\0',
 			     cwd, MODULE_NAME, list_file,

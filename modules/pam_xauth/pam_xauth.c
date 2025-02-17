@@ -613,11 +613,14 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 #ifdef WITH_SELINUX
 		if (is_selinux_enabled() > 0) {
 			struct selabel_handle *ctx = selabel_open(SELABEL_CTX_FILE, NULL, 0);
-			if (ctx != NULL) {
+			if (!ctx) {
+				pam_syslog(pamh, LOG_WARNING,
+					   "could not initialize SELinux labeling handle: %m");
+			} else {
 				if (selabel_lookup_raw(ctx, &context_raw,
 						       xauthority + sizeof(XAUTHENV), S_IFREG) != 0) {
 					pam_syslog(pamh, LOG_WARNING,
-						   "could not get SELinux label for '%s'",
+						   "could not get SELinux label for '%s': %m",
 						   xauthority + sizeof(XAUTHENV));
 				}
 				selabel_close(ctx);

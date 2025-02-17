@@ -31,10 +31,10 @@ main(void)
 
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so user = name\n"
-			     "account required %s/.libs/%s.so user notin a:b\n"
-			     "password required %s/.libs/%s.so user in x:name\n"
-			     "session required %s/.libs/%s.so rhost eq 0\n",
+			     "auth required %s/" LTDIR "%s.so user = name\n"
+			     "account required %s/" LTDIR "%s.so user notin a:b\n"
+			     "password required %s/" LTDIR "%s.so user in x:name\n"
+			     "session required %s/" LTDIR "%s.so rhost eq 0\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
@@ -59,10 +59,10 @@ main(void)
 	/* test some illegal conditions */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/.libs/%s.so user eq name\n"
-			     "account required %s/.libs/%s.so user in a:b\n"
-			     "password required %s/.libs/%s.so user notin x:name\n"
-			     "session required %s/.libs/%s.so rhost eq []\n",
+			     "auth required %s/" LTDIR "%s.so user eq name\n"
+			     "account required %s/" LTDIR "%s.so user in a:b\n"
+			     "password required %s/" LTDIR "%s.so user notin x:name\n"
+			     "session required %s/" LTDIR "%s.so rhost eq []\n",
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,
 			     cwd, MODULE_NAME,

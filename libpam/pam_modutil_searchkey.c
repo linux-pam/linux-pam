@@ -4,8 +4,6 @@
  *     lookup a value for key in login.defs file or similar key value format
  */
 
-#include "config.h"
-
 #include "pam_private.h"
 #include "pam_modutil_private.h"
 #include <security/pam_ext.h>
@@ -14,7 +12,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #ifdef USE_ECONF
-#include <libeconf.h>
+#include "pam_econf.h"
 #endif
 
 #ifdef USE_ECONF
@@ -29,10 +27,14 @@ econf_search_key (const char *name, const char *suffix, const char *key)
 {
 	econf_file *key_file = NULL;
 	char *val;
+	econf_err error;
 
-	if (econf_readDirs (&key_file, VENDORDIR, SYSCONFDIR, name, suffix,
-			    " \t", "#"))
-		return NULL;
+	error = pam_econf_readconfig (&key_file, VENDORDIR, SYSCONFDIR, name, suffix,
+				      " \t", "#", NULL, NULL);
+	if (error != ECONF_SUCCESS) {
+                econf_free (key_file);
+                return NULL;
+	}
 
 	if (econf_getStringValue (key_file, NULL, key, &val)) {
 		econf_free (key_file);

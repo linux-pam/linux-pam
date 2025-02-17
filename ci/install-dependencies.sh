@@ -8,11 +8,7 @@
 j=-j`nproc` || j=
 type sudo >/dev/null 2>&1 && sudo=sudo || sudo=
 packages="
-autoconf
-automake
-autopoint
 bison
-bzip2
 docbook5-xml
 docbook-xsl-ns
 flex
@@ -22,9 +18,8 @@ libdb-dev
 libfl-dev
 libselinux1-dev
 libssl-dev
-libtool
 libxml2-utils
-make
+meson
 pkg-config
 sed
 w3m
@@ -65,6 +60,12 @@ case "$TARGET" in
 		case "$CC" in
 			gcc-*) packages="$packages $CC-multilib" ;;
 		esac
+		;;
+esac
+
+case "${USE_LOGIND-}" in
+	yes)
+		packages="$packages libsystemd-dev"
 		;;
 esac
 

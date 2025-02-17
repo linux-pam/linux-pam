@@ -5,17 +5,17 @@
  * (C) Sebastien Tricaud 2005 <toady@gscore.org>
  */
 
-#include <stdio.h>
-#include <syslog.h>
-
 #ifdef PRELUDE
 
+#include "pam_private.h"
+
+#include <stdio.h>
+#include <syslog.h>
 #include <libprelude/prelude.h>
 #include <libprelude/prelude-log.h>
 #include <libprelude/idmef-message-print.h>
 
 #include "pam_prelude.h"
-#include "pam_private.h"
 
 
 #define ANALYZER_CLASS "pam"
