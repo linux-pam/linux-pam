@@ -21,6 +21,12 @@
 # define PAM_ATTRIBUTE_ALIGNED(arg)	/* empty */
 #endif
 
+#if PAM_GNUC_PREREQ(3, 0)
+# define PAM_ATTRIBUTE_MALLOC		__attribute__((__malloc__))
+#else
+# define PAM_ATTRIBUTE_MALLOC		/* empty */
+#endif
+
 #if PAM_GNUC_PREREQ(4, 6)
 # define DIAG_PUSH_IGNORE_CAST_QUAL					\
 	_Pragma("GCC diagnostic push");					\
