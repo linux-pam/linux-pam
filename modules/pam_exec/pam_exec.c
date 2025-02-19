@@ -378,7 +378,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       else if (logfile)
 	{
 	  time_t tm = time (NULL);
-	  char *buffer = NULL;
+	  char *buffer;
 
 	  close (STDOUT_FILENO);
 	  if ((i = open (logfile, O_CREAT|O_APPEND|O_WRONLY,
@@ -399,7 +399,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 		}
 	      close (i);
 	    }
-	  if (asprintf (&buffer, "*** %s", ctime (&tm)) > 0)
+	  if ((buffer = pam_asprintf ("*** %s", ctime (&tm))) != NULL)
 	    {
 	      pam_modutil_write (STDOUT_FILENO, buffer, strlen (buffer));
 	      free (buffer);
@@ -463,7 +463,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 
         if (pam_get_item(pamh, env_items[i].item, &item) != PAM_SUCCESS || item == NULL)
           continue;
-        if (asprintf(&envstr, "%s=%s", env_items[i].name, (const char *)item) < 0)
+        if ((envstr = pam_asprintf("%s=%s", env_items[i].name, (const char *)item)) == NULL)
         {
           pam_syslog (pamh, LOG_CRIT, "prepare environment failed: %m");
           _exit (ENOMEM);
@@ -472,7 +472,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
         envlist[envlen] = NULL;
       }
 
-      if (asprintf(&envstr, "PAM_TYPE=%s", pam_type) < 0)
+      if ((envstr = pam_asprintf("PAM_TYPE=%s", pam_type)) == NULL)
         {
           pam_syslog (pamh, LOG_CRIT, "prepare environment failed: %m");
           _exit (ENOMEM);

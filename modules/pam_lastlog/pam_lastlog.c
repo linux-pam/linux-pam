@@ -329,8 +329,8 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid, time_t
 	    if ((announce & LASTLOG_HOST)
 		&& (last_login.ll_host[0] != '\0')) {
 		/* TRANSLATORS: " from <host>" */
-		if (asprintf(&host, _(" from %.*s"), UT_HOSTSIZE,
-			     last_login.ll_host) < 0) {
+		if ((host = pam_asprintf(_(" from %.*s"), UT_HOSTSIZE,
+					 last_login.ll_host)) == NULL) {
 		    pam_syslog(pamh, LOG_CRIT, "out of memory");
 		    retval = PAM_BUF_ERR;
 		    goto cleanup;
@@ -341,8 +341,8 @@ last_login_read(pam_handle_t *pamh, int announce, int last_fd, uid_t uid, time_t
 	    if ((announce & LASTLOG_LINE)
 		&& (last_login.ll_line[0] != '\0')) {
 		/* TRANSLATORS: " on <terminal>" */
-		if (asprintf(&line, _(" on %.*s"), UT_LINESIZE,
-			     last_login.ll_line) < 0) {
+		if ((line = pam_asprintf(_(" on %.*s"), UT_LINESIZE,
+					 last_login.ll_line)) == NULL) {
 		    pam_syslog(pamh, LOG_CRIT, "out of memory");
 		    retval = PAM_BUF_ERR;
 		    goto cleanup;
@@ -598,8 +598,8 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 	if ((announce & LASTLOG_HOST)
 		&& (utuser.ut_host[0] != '\0')) {
 	    /* TRANSLATORS: " from <host>" */
-	    if (asprintf(&host, _(" from %.*s"), UT_HOSTSIZE,
-		    utuser.ut_host) < 0) {
+	    if ((host = pam_asprintf(_(" from %.*s"), UT_HOSTSIZE,
+				     utuser.ut_host)) == NULL) {
 		pam_syslog(pamh, LOG_CRIT, "out of memory");
 		retval = PAM_BUF_ERR;
 		goto cleanup;
@@ -610,8 +610,8 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 	if ((announce & LASTLOG_LINE)
 		&& (utuser.ut_line[0] != '\0')) {
 	    /* TRANSLATORS: " on <terminal>" */
-	    if (asprintf(&line, _(" on %.*s"), UT_LINESIZE,
-			utuser.ut_line) < 0) {
+	    if ((line = pam_asprintf(_(" on %.*s"), UT_LINESIZE,
+				     utuser.ut_line)) == NULL) {
 		pam_syslog(pamh, LOG_CRIT, "out of memory");
 		retval = PAM_BUF_ERR;
 		goto cleanup;
@@ -628,28 +628,26 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 
 	_pam_drop(line);
 #if defined HAVE_DNGETTEXT && defined ENABLE_NLS
-        retval = asprintf (&line, dngettext(PACKAGE,
+        line = pam_asprintf(dngettext(PACKAGE,
 		"There was %d failed login attempt since the last successful login.",
 		"There were %d failed login attempts since the last successful login.",
 		failed),
 	    failed);
 #else
 	if (failed == 1)
-	    retval = asprintf(&line,
+	    line = pam_asprintf(
 		_("There was %d failed login attempt since the last successful login."),
 		failed);
 	else
-	    retval = asprintf(&line,
+	    line = pam_asprintf(
 		/* TRANSLATORS: only used if dngettext is not supported */
 		_("There were %d failed login attempts since the last successful login."),
 		failed);
 #endif
-	if (retval >= 0)
+	if (line != NULL)
 		retval = pam_info(pamh, "%s", line);
-	else {
+	else
 		retval = PAM_BUF_ERR;
-		line = NULL;
-	}
     }
 
 cleanup:

@@ -455,8 +455,8 @@ int pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	       }
 	       pmsg[0] = &msg[0];
 	       msg[0].msg_style = PAM_TEXT_INFO;
-	       if (asprintf(&txt, "Changing STRESS password for %s.",
-			    (const char *)username) < 0) {
+	       if ((txt = pam_asprintf("Changing STRESS password for %s.",
+				       (const char *)username)) == NULL) {
 		    pam_syslog(pamh, LOG_CRIT, "out of memory");
 		    return PAM_BUF_ERR;
 	       }

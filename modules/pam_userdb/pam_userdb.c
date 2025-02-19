@@ -242,9 +242,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
     memset(&key, 0, sizeof(key));
     memset(&data, 0, sizeof(data));
     if (ctrl & PAM_KEY_ONLY_ARG) {
-	if (asprintf(&key.dptr, "%s-%s", user, pass) < 0)
-	    key.dptr = NULL;
-	else
+	if ((key.dptr = pam_asprintf("%s-%s", user, pass)) != NULL)
 	    key.dsize = strlen(key.dptr);
     } else {
         key.dptr = strdup(user);

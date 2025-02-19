@@ -319,8 +319,7 @@ static int parse_iscript_params(char *params, struct polydir_s *poly)
 
     if (*params != '\0') {
 	if (*params != '/') { /* path is relative to NAMESPACE_D_DIR */
-		if (asprintf(&poly->init_script, "%s%s", NAMESPACE_D_DIR, params) == -1)
-			return -1;
+		poly->init_script = pam_asprintf("%s%s", NAMESPACE_D_DIR, params);
 	} else {
 		poly->init_script = strdup(params);
 	}
@@ -1065,10 +1064,8 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 
     switch (pm) {
         case USER:
-	    if (asprintf(i_name, "%s", idata->user) < 0) {
-		*i_name = NULL;
+	    if ((*i_name = pam_asprintf("%s", idata->user)) == NULL)
 		goto fail;
-	    }
 	    break;
 
 #ifdef WITH_SELINUX
@@ -1078,17 +1075,12 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 		pam_syslog(idata->pamh, LOG_ERR, "Error translating directory context");
 		goto fail;
 	    }
-	    if (polyptr->flags & POLYDIR_SHARED) {
-		if (asprintf(i_name, "%s", rawcon) < 0) {
-			*i_name = NULL;
-			goto fail;
-		}
-	    } else {
-		if (asprintf(i_name, "%s_%s", rawcon, idata->user) < 0) {
-			*i_name = NULL;
-			goto fail;
-		}
-	    }
+	    if (polyptr->flags & POLYDIR_SHARED)
+		*i_name = pam_asprintf("%s", rawcon);
+	    else
+		*i_name = pam_asprintf("%s_%s", rawcon, idata->user);
+	    if (*i_name == NULL)
+		goto fail;
 	    break;
 
 #endif /* WITH_SELINUX */
@@ -1118,11 +1110,12 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 	    *i_name = hash;
 	    hash = NULL;
         } else {
-	    char *newname;
-	    if (asprintf(&newname, "%.*s_%s", NAMESPACE_MAX_DIR_LEN-1-(int)strlen(hash),
-		*i_name, hash) < 0) {
+	    char *newname =
+		pam_asprintf("%.*s_%s",
+			     NAMESPACE_MAX_DIR_LEN - 1 - (int)strlen(hash),
+			     *i_name, hash);
+	    if (newname == NULL)
 		goto fail;
-	    }
 	    free(*i_name);
 	    *i_name = newname;
         }
@@ -1710,7 +1703,7 @@ static int ns_setup(struct polydir_s *polyptr,
 #endif
     }
 
-    if (asprintf(&inst_dir, "%s%s", polyptr->instance_prefix, instname) < 0)
+    if ((inst_dir = pam_asprintf("%s%s", polyptr->instance_prefix, instname)) == NULL)
 	goto error_out;
 
     if (idata->flags & PAMNS_DEBUG)

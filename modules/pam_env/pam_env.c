@@ -217,24 +217,24 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
       char *vendor_dir = NULL, *sysconf_dir;
       if (subpath != NULL && subpath[0] != '\0') {
 #ifdef VENDORDIR
-	if (asprintf(&vendor_dir, "%s%s/%s/", base_dir, VENDORDIR, subpath) < 0) {
+	if ((vendor_dir = pam_asprintf("%s%s/%s/", base_dir, VENDORDIR, subpath)) == NULL) {
 	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
 	  return PAM_BUF_ERR;
 	}
 #endif
-	if (asprintf(&sysconf_dir, "%s%s/%s/", base_dir, SYSCONFDIR, subpath) < 0) {
+	if ((sysconf_dir = pam_asprintf("%s%s/%s/", base_dir, SYSCONFDIR, subpath)) == NULL) {
 	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
 	  free(vendor_dir);
 	  return PAM_BUF_ERR;
 	}
       } else {
 #ifdef VENDORDIR
-	if (asprintf(&vendor_dir, "%s%s/", base_dir, VENDORDIR) < 0) {
+	if ((vendor_dir = pam_asprintf("%s%s/", base_dir, VENDORDIR)) == NULL) {
 	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
 	  return PAM_BUF_ERR;
 	}
 #endif
-	if (asprintf(&sysconf_dir, "%s%s/", base_dir, SYSCONFDIR) < 0) {
+	if ((sysconf_dir = pam_asprintf("%s%s/", base_dir, SYSCONFDIR)) == NULL) {
 	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
 	  free(vendor_dir);
 	  return PAM_BUF_ERR;
@@ -291,7 +291,7 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
 		   econf_errString(error));
       } else {
         econf_unescnl(val);
-        if (asprintf(&(*lines)[n],"%s%c%s", keys[i], delim[0], val) < 0) {
+        if (((*lines)[n] = pam_asprintf("%s%c%s", keys[i], delim[0], val)) == NULL) {
 	  pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
           econf_free(keys);
           econf_freeFile(key_file);
@@ -831,7 +831,7 @@ _define_var(pam_handle_t *pamh, int ctrl, VAR *var)
   int retval = PAM_SUCCESS;
 
   D(("Called."));
-  if (asprintf(&envvar, "%s=%s", var->name, var->value) < 0) {
+  if ((envvar = pam_asprintf("%s=%s", var->name, var->value)) == NULL) {
     pam_syslog(pamh, LOG_CRIT, "out of memory");
     return PAM_BUF_ERR;
   }
@@ -1073,7 +1073,7 @@ handle_env (pam_handle_t *pamh, int argc, const char **argv)
       pam_syslog(pamh, LOG_ERR, "No such user!?");
     }
     else {
-      if (asprintf(&envpath, "%s/%s", user_entry->pw_dir, user_env_file) < 0)
+      if ((envpath = pam_asprintf("%s/%s", user_entry->pw_dir, user_env_file)) == NULL)
 	{
 	  pam_syslog(pamh, LOG_CRIT, "Out of memory");
 	  return PAM_BUF_ERR;

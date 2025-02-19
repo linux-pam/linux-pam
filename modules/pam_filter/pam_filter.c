@@ -28,6 +28,7 @@
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
 #include "pam_filter.h"
+#include "pam_inline.h"
 
 /* ------ some tokens used for convenience throughout this file ------- */
 
@@ -146,7 +147,7 @@ static int process_args(pam_handle_t *pamh
 	    return -1;
 	}
 
-	if (asprintf(&levp[1], "SERVICE=%s", (const char *) tmp) < 0) {
+	if ((levp[1] = pam_asprintf("SERVICE=%s", (const char *) tmp)) == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for service name");
 	    free(levp[0]);
 	    free(levp);
@@ -159,7 +160,7 @@ static int process_args(pam_handle_t *pamh
 	    user = "<unknown>";
 	}
 
-	if (asprintf(&levp[2], "USER=%s", user) < 0) {
+	if ((levp[2] = pam_asprintf("USER=%s", user)) == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for user's name");
 	    free(levp[1]);
 	    free(levp[0]);
@@ -169,7 +170,7 @@ static int process_args(pam_handle_t *pamh
 
 	/* the "USER" variable */
 
-	if (asprintf(&levp[3], "TYPE=%s", type) < 0) {
+	if ((levp[3] = pam_asprintf("TYPE=%s", type)) == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "no memory for type");
 	    free(levp[2]);
 	    free(levp[1]);

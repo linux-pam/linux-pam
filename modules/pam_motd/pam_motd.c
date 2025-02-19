@@ -122,18 +122,13 @@ static int pam_split_string(const pam_handle_t *pamh, char *arg, char delim,
 static char *join_dir_strings(const char *a_str, const char *b_str)
 {
     int has_sep;
-    int retval;
-    char *join_strp = NULL;
 
     if (a_str == NULL || b_str == NULL || strlen(a_str) == 0)
 	return NULL;
 
     has_sep = (a_str[strlen(a_str) - 1] == '/') || (b_str[0] == '/');
 
-    retval = asprintf(&join_strp, "%s%s%s", a_str,
-	(has_sep == 1) ? "" : "/", b_str);
-
-    return retval < 0 ? NULL : join_strp;
+    return pam_asprintf("%s%s%s", a_str, (has_sep == 1) ? "" : "/", b_str);
 }
 
 static int compare_strings(const void *a, const void *b)

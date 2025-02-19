@@ -308,8 +308,8 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 
     if (item != NULL) {
 	const char *cur_prompt = item;
-	char *new_prompt;
-	if (asprintf(&new_prompt, "%s%s", issue_prompt, cur_prompt) < 0) {
+	char *new_prompt = pam_asprintf("%s%s", issue_prompt, cur_prompt);
+	if (new_prompt == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "out of memory");
 	    retval = PAM_BUF_ERR;
 	    goto out;

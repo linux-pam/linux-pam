@@ -8,6 +8,7 @@
 
 #include "pam_private.h"
 #include "pam_modutil_private.h"
+#include "pam_inline.h"
 
 #ifdef HAVE_LIBAUDIT
 #include <stdio.h>
@@ -37,7 +38,7 @@ _pam_audit_writelog(pam_handle_t *pamh, int audit_fd, int type,
       grantors_field = "";
   }
 
-  if (asprintf(&buf, "PAM:%s%s%s", message, grantors_field, grantors) >= 0) {
+  if ((buf = pam_asprintf("PAM:%s%s%s", message, grantors_field, grantors)) != NULL) {
       rc = audit_log_acct_message(audit_fd, type, NULL, buf,
 	(retval != PAM_USER_UNKNOWN && pamh->user) ? pamh->user : "?",
 	-1, pamh->rhost, NULL, pamh->tty, retval == PAM_SUCCESS);

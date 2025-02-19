@@ -75,7 +75,7 @@ int pam_misc_setenv(pam_handle_t *pamh, const char *name
 	    return PAM_PERM_DENIED;          /* not allowed to overwrite */
 	}
     }
-    if (asprintf(&tmp, "%s=%s", name, value) >= 0) {
+    if ((tmp = pam_asprintf("%s=%s", name, value)) != NULL) {
 	D(("pam_putt()ing: %s", tmp));
 	retval = pam_putenv(pamh, tmp);
 	pam_overwrite_string(tmp);           /* purge */

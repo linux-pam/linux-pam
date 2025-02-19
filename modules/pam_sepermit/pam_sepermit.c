@@ -88,7 +88,7 @@ match_process_uid(pid_t pid, uid_t uid)
 	FILE *f;
 	int re = 0;
 
-	if (asprintf (&buf, PROC_BASE "/%d/status", pid) < 0)
+	if ((buf = pam_asprintf(PROC_BASE "/%d/status", pid)) == NULL)
 		return 0;
 	n = strlen(buf) + 1;
 	if (!(f = fopen (buf, "r"))) {
