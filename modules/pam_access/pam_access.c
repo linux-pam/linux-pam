@@ -565,7 +565,10 @@ list_match(pam_handle_t *pamh, char *list, char *sptr,
 	   struct login_info *item, match_func *match_fn)
 {
     char   *tok;
+    int     inclusion = YES;
     int     match = NO;
+    int     matched = NO;
+    int     result = NO;
 
     if (item->debug && list != NULL)
       pam_syslog (pamh, LOG_DEBUG,
@@ -574,28 +577,23 @@ list_match(pam_handle_t *pamh, char *list, char *sptr,
     /*
      * Process tokens one at a time. We have exhausted all possible matches
      * when we reach an "EXCEPT" token or the end of the list. If we do find
-     * a match, look for an "EXCEPT" list and recurse to determine whether
-     * the match is affected by any exceptions.
+     * a match, look for an "EXCEPT" list and determine whether the match is
+     * affected by any exceptions.
      */
 
     for (tok = strtok_r(list, item->sep, &sptr); tok != 0;
 	 tok = strtok_r(NULL, item->sep, &sptr)) {
-	if (strcasecmp(tok, "EXCEPT") == 0)	/* EXCEPT: give up */
-	    break;
-	if ((match = (*match_fn) (pamh, tok, item)))	/* YES */
-	    break;
+	if (strcasecmp(tok, "EXCEPT") == 0) {	/* EXCEPT: invert */
+	    if (matched == NO)	/* stop processing: not part of list */
+		break;
+	    inclusion = inclusion == YES ? NO : YES;
+	    matched = NO;
+	} else if ((match = (*match_fn) (pamh, tok, item))) {	/* YES */
+	    result = inclusion;
+	    matched = YES;
+	}
     }
-    /* Process exceptions to matches. */
-
-    if (match != NO) {
-	while ((tok = strtok_r(NULL, item->sep, &sptr)) && strcasecmp(tok, "EXCEPT"))
-	     /* VOID */ ;
-	if (tok == 0)
-	    return match;
-	if (list_match(pamh, NULL, sptr, item, match_fn) == NO)
-	    return YES; /* drop special meaning of ALL */
-    }
-    return (NO);
+    return (result);
 }
 
 /* netgroup_match - match group against machine or user */
