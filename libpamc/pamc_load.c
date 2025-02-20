@@ -144,7 +144,6 @@ close_the_agent:
     close(to_agent[1]);
 
 free_and_return:
-    pam_overwrite_n(full_path, reset_length);
     free(full_path);
 
     D(("returning %d", return_code));
