@@ -58,7 +58,7 @@
 #include <security/pam_modutil.h>
 
 #include "pam_i18n.h"
-#include "pam_cc_compat.h"
+#include "pam_inline.h"
 #include "support.h"
 #include "passverify.h"
 
@@ -266,7 +266,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 				"password for user %s will expire in %d days",
 				uname, daysleft);
 #if defined HAVE_DNGETTEXT && defined ENABLE_NLS
-			snprintf (buf, sizeof (buf),
+			pam_sprintf(buf,
 				dngettext(PACKAGE,
 				  "Warning: your password will expire in %d day.",
 				  "Warning: your password will expire in %d days.",
@@ -274,11 +274,11 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 				daysleft);
 #else
 			if (daysleft == 1)
-			    snprintf(buf, sizeof (buf),
+			    pam_sprintf(buf,
 				_("Warning: your password will expire in %d day."),
 				daysleft);
 			else
-			    snprintf(buf, sizeof (buf),
+			    pam_sprintf(buf,
 			    /* TRANSLATORS: only used if dngettext is not supported */
 				_("Warning: your password will expire in %d days."),
 				daysleft);

@@ -635,7 +635,7 @@ set_context(pam_handle_t *pamh, const module_data_t *data,
   if (verbose && !rc) {
     char msg[PATH_MAX];
 
-    snprintf(msg, sizeof(msg),
+    pam_sprintf(msg,
 	     _("Security context %s has been assigned."), data->exec_context);
     send_text(pamh, msg, debug);
   }
@@ -651,7 +651,7 @@ set_context(pam_handle_t *pamh, const module_data_t *data,
   if (verbose && !rc) {
     char msg[PATH_MAX];
 
-    snprintf(msg, sizeof(msg),
+    pam_sprintf(msg,
 	     _("Key creation context %s has been assigned."), data->exec_context);
     send_text(pamh, msg, debug);
   }

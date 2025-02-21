@@ -606,13 +606,12 @@ static int process_line(char *line, const char *home, const char *rhome,
     }
 
 #define COPY_STR(dst, src, apd)                                \
-	(snprintf((dst), sizeof(dst), "%s%s", (src), (apd)) != \
-		  (ssize_t) (strlen(src) + strlen(apd)))
+	pam_sprintf((dst), "%s%s", (src), (apd))
 
-    if (COPY_STR(poly->dir, dir, "")
-	|| COPY_STR(poly->rdir, rdir, "")
+    if (COPY_STR(poly->dir, dir, "") < 0
+	|| COPY_STR(poly->rdir, rdir, "") < 0
 	|| COPY_STR(poly->instance_prefix, instance_prefix,
-		    poly->method == TMPDIR ? "XXXXXX" : "")) {
+		    poly->method == TMPDIR ? "XXXXXX" : "") < 0) {
 	pam_syslog(idata->pamh, LOG_NOTICE, "Pathnames too long");
 	goto skipping;
     }
@@ -1165,7 +1164,7 @@ static int protect_mount(int dfd, const char *path, struct instance_data *idata)
 		return -1;
 	}
 
-	snprintf(tmpbuf, sizeof(tmpbuf), "/proc/self/fd/%d", dfd);
+	pam_sprintf(tmpbuf, "/proc/self/fd/%d", dfd);
 
 	if (idata->flags & PAMNS_DEBUG) {
 		pam_syslog(idata->pamh, LOG_INFO,

@@ -248,7 +248,7 @@ sepermit_lock(pam_handle_t *pamh, const char *user, int debug)
 		return -1;
 	}
 
-	snprintf(buf, sizeof(buf), "%s/%d.lock", SEPERMIT_LOCKDIR, pw->pw_uid);
+	pam_sprintf(buf, "%s/%d.lock", SEPERMIT_LOCKDIR, pw->pw_uid);
 	int fd = open(buf, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 	if (fd < 0) {
 		pam_syslog(pamh, LOG_ERR, "Unable to open lock file %s/%d.lock", SEPERMIT_LOCKDIR, pw->pw_uid);

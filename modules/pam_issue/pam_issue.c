@@ -142,12 +142,12 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 		    tm = localtime(&now);
 
 		    if (c == 'd')
-			snprintf (buf, sizeof buf, "%s %s %d  %d",
-				weekday[tm->tm_wday], month[tm->tm_mon],
-				tm->tm_mday, tm->tm_year + 1900);
+			pam_sprintf(buf, "%s %s %d  %d",
+				    weekday[tm->tm_wday], month[tm->tm_mon],
+				    tm->tm_mday, tm->tm_year + 1900);
 		    else
-			snprintf (buf, sizeof buf, "%02d:%02d:%02d",
-				tm->tm_hour, tm->tm_min, tm->tm_sec);
+			pam_sprintf(buf, "%02d:%02d:%02d",
+				    tm->tm_hour, tm->tm_min, tm->tm_sec);
 		}
 		break;
 	      case 'l':
@@ -205,10 +205,10 @@ read_issue_quoted(pam_handle_t *pamh, FILE *fp, char **prompt)
 		    endutent();
 #endif
 		    if (c == 'U')
-			snprintf (buf, sizeof buf, "%u %s", users,
-			          (users == 1) ? "user" : "users");
+			pam_sprintf(buf, "%u %s",
+				    users, (users == 1) ? "user" : "users");
 		    else
-			snprintf (buf, sizeof buf, "%u", users);
+			pam_sprintf(buf, "%u", users);
 		    break;
 		}
 	      default:
