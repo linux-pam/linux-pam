@@ -53,7 +53,7 @@ static int
 pam_localuser(pam_handle_t *pamh, int argc, const char **argv)
 {
 	int i;
-	int rc;
+	int retval;
 	int debug = 0;
 	const char *file_name = NULL;
 	const char *user_name = NULL;
@@ -84,10 +84,10 @@ pam_localuser(pam_handle_t *pamh, int argc, const char **argv)
 	}
 
 	/* Obtain the user name.  */
-	if ((rc = pam_get_user(pamh, &user_name, NULL)) != PAM_SUCCESS) {
+	if ((retval = pam_get_user(pamh, &user_name, NULL)) != PAM_SUCCESS) {
 		pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
-			   pam_strerror(pamh, rc));
-		return rc == PAM_CONV_AGAIN ? PAM_INCOMPLETE : rc;
+			   pam_strerror(pamh, retval));
+		return retval == PAM_CONV_AGAIN ? PAM_INCOMPLETE : retval;
 	}
 
 	return pam_modutil_check_user_in_passwd(pamh, user_name, file_name);

@@ -66,23 +66,23 @@ evaluate_num(const pam_handle_t *pamh, const char *left,
 {
 	long long l, r;
 	char *p;
-	int ret = PAM_SUCCESS;
+	int retval = PAM_SUCCESS;
 
 	errno = 0;
 	l = strtoll(left, &p, 0);
 	if ((p == NULL) || (*p != '\0') || (p == left) || errno) {
 		pam_syslog(pamh, LOG_INFO, "\"%s\" is not a number", left);
-		ret = PAM_SERVICE_ERR;
+		retval = PAM_SERVICE_ERR;
 	}
 
 	r = strtoll(right, &p, 0);
 	if ((p == NULL) || (*p != '\0') || (p == right) || errno) {
 		pam_syslog(pamh, LOG_INFO, "\"%s\" is not a number", right);
-		ret = PAM_SERVICE_ERR;
+		retval = PAM_SERVICE_ERR;
 	}
 
-	if (ret != PAM_SUCCESS) {
-		return ret;
+	if (retval != PAM_SUCCESS) {
+		return retval;
 	}
 
 	return cmp(l, r) ? PAM_SUCCESS : PAM_AUTH_ERR;
@@ -443,7 +443,7 @@ pam_succeed_if(pam_handle_t *pamh, int argc, const char **argv)
 {
 	const char *user;
 	struct passwd *pwd = NULL;
-	int ret, i, count, use_uid, debug;
+	int retval, i, count, use_uid, debug;
 	const char *left, *right, *qual;
 	int quiet_fail, quiet_succ, audit;
 
@@ -484,12 +484,12 @@ pam_succeed_if(pam_handle_t *pamh, int argc, const char **argv)
 		user = pwd->pw_name;
 	} else {
 		/* Get the user's name. */
-		ret = pam_get_user(pamh, &user, NULL);
-		if (ret != PAM_SUCCESS) {
+		retval = pam_get_user(pamh, &user, NULL);
+		if (retval != PAM_SUCCESS) {
 			pam_syslog(pamh, LOG_NOTICE,
 				   "cannot determine user name: %s",
-				   pam_strerror(pamh, ret));
-			return ret;
+				   pam_strerror(pamh, retval));
+			return retval;
 		}
 
 		/* Postpone requesting password data until it is needed */
@@ -531,15 +531,15 @@ pam_succeed_if(pam_handle_t *pamh, int argc, const char **argv)
 				continue;
 
 			count++;
-			ret = evaluate(pamh, debug,
+			retval = evaluate(pamh, debug,
 				       left, qual, right,
 				       &pwd, user);
-			if (ret == PAM_USER_UNKNOWN && audit)
+			if (retval == PAM_USER_UNKNOWN && audit)
 				pam_syslog(pamh, LOG_NOTICE,
 					   "error retrieving information about user %s",
 					   user);
-			if (ret != PAM_SUCCESS) {
-				if(!quiet_fail && ret != PAM_USER_UNKNOWN)
+			if (retval != PAM_SUCCESS) {
+				if(!quiet_fail && retval != PAM_USER_UNKNOWN)
 					pam_syslog(pamh, LOG_INFO,
 						   "requirement \"%s %s %s\" "
 						   "not met by user \"%s\"",
@@ -559,16 +559,16 @@ pam_succeed_if(pam_handle_t *pamh, int argc, const char **argv)
 	}
 
 	if (left || qual || right) {
-		ret = PAM_SERVICE_ERR;
+		retval = PAM_SERVICE_ERR;
 		pam_syslog(pamh, LOG_ERR,
 			"incomplete condition detected");
 	} else if (count == 0) {
-		ret = PAM_SUCCESS;
+		retval = PAM_SUCCESS;
 		pam_syslog(pamh, LOG_INFO,
 			"no condition detected; module succeeded");
 	}
 
-	return ret;
+	return retval;
 }
 
 int

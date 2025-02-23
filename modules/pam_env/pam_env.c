@@ -914,7 +914,7 @@ _parse_config_file(pam_handle_t *pamh, int ctrl, const char *file)
     _clean_var(var);        /* We could have got here prematurely,
 			     * this is safe though */
     D(("Exit."));
-    return (retval != 0 ? PAM_ABORT : PAM_SUCCESS);
+    return (retval != PAM_SUCCESS ? PAM_ABORT : PAM_SUCCESS);
 }
 
 static int

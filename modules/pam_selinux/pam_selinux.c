@@ -144,21 +144,21 @@ static int
 query_response (pam_handle_t *pamh, const char *text, const char *def,
 		char **response, int debug)
 {
-  int rc;
+  int retval;
   if (def)
-    rc = pam_prompt (pamh, PAM_PROMPT_ECHO_ON, response, "%s [%s] ", text, def);
+    retval = pam_prompt (pamh, PAM_PROMPT_ECHO_ON, response, "%s [%s] ", text, def);
   else
-    rc = pam_prompt (pamh, PAM_PROMPT_ECHO_ON, response, "%s ", text);
+    retval = pam_prompt (pamh, PAM_PROMPT_ECHO_ON, response, "%s ", text);
 
   if (*response == NULL) {
-    rc = PAM_CONV_ERR;
+    retval = PAM_CONV_ERR;
   }
 
-  if (rc != PAM_SUCCESS) {
+  if (retval != PAM_SUCCESS) {
     pam_syslog(pamh, LOG_WARNING, "No response to query: %s", text);
   } else  if (debug)
     pam_syslog(pamh, LOG_NOTICE, "%s %s", text, *response);
-  return rc;
+  return retval;
 }
 
 static char *
