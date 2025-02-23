@@ -314,6 +314,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 	    retval = PAM_BUF_ERR;
 	    goto out;
 	}
+	free(issue_prompt);
 	issue_prompt = new_prompt;
     }
 
