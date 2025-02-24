@@ -1654,16 +1654,14 @@ static int ns_setup(struct polydir_s *polyptr,
 
     retval = protect_dir(polyptr->dir, 0, 0, idata);
 
-    if (retval < 0 && errno != ENOENT) {
-	pam_syslog(idata->pamh, LOG_ERR, "Polydir %s access error: %m",
-		polyptr->dir);
-	return PAM_SESSION_ERR;
-    }
-
     if (retval < 0) {
-	if ((polyptr->flags & POLYDIR_CREATE) &&
-		create_polydir(polyptr, idata) != PAM_SUCCESS)
-		return PAM_SESSION_ERR;
+        if (errno != ENOENT || !(polyptr->flags & POLYDIR_CREATE)) {
+            pam_syslog(idata->pamh, LOG_ERR, "Polydir %s access error: %m",
+                    polyptr->dir);
+            return PAM_SESSION_ERR;
+        }
+        if (create_polydir(polyptr, idata) != PAM_SUCCESS)
+            return PAM_SESSION_ERR;
     } else {
 	close(retval);
     }
