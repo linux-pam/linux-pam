@@ -98,10 +98,9 @@ send_audit_message(const pam_handle_t *pamh, int success, const char *default_co
 		pam_syslog(pamh, LOG_ERR, "Error translating selected context '%s'.", selected_context);
 		selected_raw = NULL;
 	}
-	if (asprintf(&msg, "op=pam_selinux default-context=%s selected-context=%s",
-		     default_raw ? default_raw : (default_context ? default_context : "?"),
-		     selected_raw ? selected_raw : (selected_context ? selected_context : "?")) < 0) {
-		msg = NULL; /* asprintf leaves msg in undefined state on failure */
+	if ((msg = pam_asprintf("op=pam_selinux default-context=%s selected-context=%s",
+				default_raw ? default_raw : (default_context ? default_context : "?"),
+				selected_raw ? selected_raw : (selected_context ? selected_context : "?"))) == NULL) {
 		pam_syslog(pamh, LOG_ERR, "Error allocating memory.");
 		goto fallback;
 	}
@@ -534,8 +533,7 @@ compute_tty_context(const pam_handle_t *pamh, module_data_t *data)
   }
 
   if (pam_str_skip_prefix(tty, "/dev/") == NULL) {
-    if (asprintf(&data->tty_path, "%s%s", "/dev/", tty) < 0)
-      data->tty_path = NULL;
+    data->tty_path = pam_asprintf("%s%s", "/dev/", tty);
   } else {
     data->tty_path = strdup(tty);
   }
@@ -637,7 +635,7 @@ set_context(pam_handle_t *pamh, const module_data_t *data,
   if (verbose && !rc) {
     char msg[PATH_MAX];
 
-    snprintf(msg, sizeof(msg),
+    pam_sprintf(msg,
 	     _("Security context %s has been assigned."), data->exec_context);
     send_text(pamh, msg, debug);
   }
@@ -653,7 +651,7 @@ set_context(pam_handle_t *pamh, const module_data_t *data,
   if (verbose && !rc) {
     char msg[PATH_MAX];
 
-    snprintf(msg, sizeof(msg),
+    pam_sprintf(msg,
 	     _("Key creation context %s has been assigned."), data->exec_context);
     send_text(pamh, msg, debug);
   }

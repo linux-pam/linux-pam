@@ -52,6 +52,7 @@
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
 
+#include "pam_inline.h"
 #include "support.h"
 
 /*
@@ -92,10 +93,10 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		char uid[32];
 		struct passwd *pwd = pam_modutil_getpwnam (pamh, user_name);
 		if (pwd == NULL) {
-			snprintf (uid, 32, "getpwnam error");
+			pam_sprintf(uid, "getpwnam error");
 		}
 		else {
-			snprintf (uid, 32, "%u", pwd->pw_uid);
+			pam_sprintf(uid, "%u", pwd->pw_uid);
 		}
 		pam_syslog(pamh, LOG_INFO, "session opened for user %s(uid=%s) by %s(uid=%lu)", user_name, uid, login_name, (unsigned long)getuid());
 	}

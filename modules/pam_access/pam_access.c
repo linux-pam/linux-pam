@@ -648,8 +648,7 @@ user_name_or_uid_match(pam_handle_t *pamh, const char *tok,
 	return NO;
 
     char buf[sizeof(long long) * 3 + 1];
-    snprintf(buf, sizeof(buf), "%llu",
-	     zero_extend_signed_to_ull(item->user->pw_uid));
+    pam_sprintf(buf, "%llu", zero_extend_signed_to_ull(item->user->pw_uid));
     if (item->debug)
 	pam_syslog(pamh, LOG_DEBUG, "user_match: tok=%s, uid=%s", tok, buf);
 

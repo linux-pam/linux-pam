@@ -249,9 +249,9 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
   /* Define opasswd file and temp file for opasswd */
   const char *opasswd_file =
 	  (filename != NULL ? filename : DEFAULT_OLD_PASSWORDS_FILE);
-  char *opasswd_tmp;
+  char *opasswd_tmp = pam_asprintf("%s.tmpXXXXXX", opasswd_file);
 
-  if (asprintf (&opasswd_tmp, "%s.tmpXXXXXX", opasswd_file) < 0)
+  if (opasswd_tmp == NULL)
     return PAM_BUF_ERR;
 
   pwd = pam_modutil_getpwnam (pamh, user);
@@ -390,7 +390,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 
 	    if (parse_entry (buf, &entry) == 0)
 	      {
-		char *out = NULL;
+		char *out;
 
 		found = 1;
 
@@ -427,30 +427,19 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 		  }
 
 		if (entry.count == 1)
-		  {
-		    if (asprintf (&out, "%s:%s:%d:%s\n",
-				  entry.user, entry.uid, entry.count,
-				  oldpass) < 0)
-		      {
-		        free (save);
-			retval = PAM_AUTHTOK_ERR;
-			fclose (oldpf);
-			fclose (newpf);
-			goto error_opasswd;
-		      }
-		  }
+		  out = pam_asprintf("%s:%s:%d:%s\n",
+				     entry.user, entry.uid, entry.count, oldpass);
 		else
+		  out = pam_asprintf("%s:%s:%d:%s,%s\n",
+				     entry.user, entry.uid, entry.count,
+				     entry.old_passwords, oldpass);
+		if (out == NULL)
 		  {
-		    if (asprintf (&out, "%s:%s:%d:%s,%s\n",
-				  entry.user, entry.uid, entry.count,
-				  entry.old_passwords, oldpass) < 0)
-		      {
-		        free (save);
-			retval = PAM_AUTHTOK_ERR;
-			fclose (oldpf);
-			fclose (newpf);
-			goto error_opasswd;
-		      }
+		    free (save);
+		    retval = PAM_AUTHTOK_ERR;
+		    fclose (oldpf);
+		    fclose (newpf);
+		    goto error_opasswd;
 		  }
 
 		if (fputs (out, newpf) < 0)
@@ -484,7 +473,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
     {
       char *out;
 
-      if (asprintf (&out, "%s:%d:1:%s\n", user, pwd->pw_uid, oldpass) < 0)
+      if ((out = pam_asprintf("%s:%d:1:%s\n", user, pwd->pw_uid, oldpass)) == NULL)
 	{
 	  retval = PAM_AUTHTOK_ERR;
 	  if (oldpf)
@@ -532,8 +521,8 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
       goto error_opasswd;
     }
 
-  char *opasswd_backup;
-  if (asprintf (&opasswd_backup, "%s.old", opasswd_file) < 0)
+  char *opasswd_backup = pam_asprintf("%s.old", opasswd_file);
+  if (opasswd_backup == NULL)
     {
       retval = PAM_BUF_ERR;
       goto error_opasswd;

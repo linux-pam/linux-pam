@@ -142,8 +142,7 @@ char *MD5Name(crypt_md5)(const char *pw, const char *salt)
 	*p = '\0';
 
 	/* Now make the output string */
-	if (asprintf(&passwd, "%s%.*s$%s", magic, sl, sp, buf) < 0)
-		passwd = NULL;
+	passwd = pam_asprintf("%s%.*s$%s", magic, sl, sp, buf);
 
 	/* Don't leave anything around in vm they could use. */
 	pam_overwrite_array(buf);

@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <security/_pam_macros.h>
+#include "pam_inline.h"
 #include "pam_econf.h"
 
 econf_err pam_econf_readconfig(econf_file **key_file,
@@ -23,8 +24,9 @@ econf_err pam_econf_readconfig(econf_file **key_file,
 
 #ifdef HAVE_ECONF_READCONFIG
 
-    char *parsing_dirs = NULL;
-    if (asprintf(&parsing_dirs, "PARSING_DIRS=%s:%s", usr_conf_dir, etc_conf_dir) < 0) {
+    char *parsing_dirs =
+	pam_asprintf("PARSING_DIRS=%s:%s", usr_conf_dir, etc_conf_dir);
+    if (parsing_dirs == NULL) {
         ret = ECONF_NOMEM;
         parsing_dirs = NULL;
     }
