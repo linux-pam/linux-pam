@@ -1063,7 +1063,7 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 
     switch (pm) {
         case USER:
-	    if ((*i_name = pam_asprintf("%s", idata->user)) == NULL)
+	    if ((*i_name = strdup(idata->user)) == NULL)
 		goto fail;
 	    break;
 
@@ -1075,7 +1075,7 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 		goto fail;
 	    }
 	    if (polyptr->flags & POLYDIR_SHARED)
-		*i_name = pam_asprintf("%s", rawcon);
+		*i_name = strdup(rawcon);
 	    else
 		*i_name = pam_asprintf("%s_%s", rawcon, idata->user);
 	    if (*i_name == NULL)
