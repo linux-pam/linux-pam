@@ -51,6 +51,7 @@
 #include <sys/stat.h>
 #include <sys/mount.h>
 #include <sys/wait.h>
+#include <libgen.h>
 #include <fcntl.h>
 #include <sched.h>
 #include <glob.h>
@@ -122,6 +123,13 @@
 #define NAMESPACE_PROTECT_DATA "pam_namespace:protect_data"
 
 /*
+ * Operation mode for function secure_opendir()
+ */
+#define SECURE_OPENDIR_PROTECT     0x00000001
+#define SECURE_OPENDIR_MKDIR       0x00000002
+#define SECURE_OPENDIR_FULL_FD     0x00000004
+
+/*
  * Polyinstantiation method options, based on user, security context
  * or both
  */
@@ -158,6 +166,9 @@ struct polydir_s {
     char dir[PATH_MAX];    	       	/* directory to polyinstantiate */
     char rdir[PATH_MAX];    	       	/* directory to unmount (based on RUSER) */
     char instance_prefix[PATH_MAX];	/* prefix for instance dir path name */
+    char instance_absolute[PATH_MAX];	/* absolute path to the instance dir (instance_parent + instname) */
+    char instance_parent[PATH_MAX];	/* parent dir of the instance dir */
+    char *instname;			/* last segment of the path to the instance dir */
     enum polymethod method;		/* method used to polyinstantiate */
     unsigned int num_uids;		/* number of override uids */
     uid_t *uid;				/* list of override uids */
