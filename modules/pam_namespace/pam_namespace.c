@@ -1467,6 +1467,79 @@ static int check_inst_parent(int dfd, struct instance_data *idata)
 }
 
 /*
+ * Check for a given absolute path that all segments except the last one are:
+ * 1. a directory owned by root and not writable by group or others
+ * 2. a symlink owned by root and referencing a directory respecting 1.
+ * Returns 0 if safe, -1 is unsafe.
+ * If the path is not accessible (does not exist, hidden under a mount...),
+ * returns -1 (unsafe).
+ */
+static int check_safe_path(const char *path, struct instance_data *idata)
+{
+    char *p = strdup(path);
+    char *d;
+    char *dir = p;
+    struct stat st;
+
+    if (p == NULL)
+        return -1;
+
+    /* Check path is absolute */
+    if (p[0] != '/')
+        goto error;
+
+    strip_trailing_slashes(p);
+
+    /* Last segment of the path may be owned by the user */
+    if ((d = strrchr(dir, '/')) != NULL)
+        *d = '\0';
+
+    while ((d=strrchr(dir, '/')) != NULL) {
+
+        /* Do not follow symlinks */
+        if (lstat(dir, &st) != 0)
+            goto error;
+
+        if (S_ISLNK(st.st_mode)) {
+            if (st.st_uid != 0) {
+                if (idata->flags & PAMNS_DEBUG)
+                    pam_syslog(idata->pamh, LOG_DEBUG,
+                            "Path deemed unsafe: Symlink %s should be owned by root", dir);
+                goto error;
+            }
+
+            /* Follow symlinks */
+            if (stat(dir, &st) != 0)
+                goto error;
+        }
+
+        if (!S_ISDIR(st.st_mode)) {
+                if (idata->flags & PAMNS_DEBUG)
+                    pam_syslog(idata->pamh, LOG_DEBUG,
+                        "Path deemed unsafe: %s is expected to be a directory", dir);
+            goto error;
+        }
+
+        if (st.st_uid != 0 ||
+            ((st.st_mode & (S_IWGRP|S_IWOTH)) && !(st.st_mode & S_ISVTX))) {
+                if (idata->flags & PAMNS_DEBUG)
+                    pam_syslog(idata->pamh, LOG_DEBUG,
+                        "Path deemed unsafe: %s should be owned by root, and not be writable by group or others", dir);
+            goto error;
+        }
+
+        *d = '\0';
+    }
+
+    free(p);
+    return 0;
+
+error:
+    free(p);
+    return -1;
+}
+
+/*
 * Check to see if there is a namespace initialization script in
 * the /etc/security directory. If such a script exists
 * execute it and pass directory to polyinstantiate and instance
@@ -1527,7 +1600,11 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 		close_fds_pre_exec(idata);
 
 		execle(init_script, init_script,
-		       polyptr->dir, ipath, newdir?"1":"0", idata->user, NULL, envp);
+		       polyptr->dir, ipath,
+		       newdir ? "1":"0", idata->user,
+		       (check_safe_path(polyptr->dir, idata) == -1) ? "0":"1",
+		       (check_safe_path(ipath, idata) == -1) ? "0":"1",
+		       NULL, envp);
 		_exit(1);
 	} else if (pid > 0) {
 		while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
