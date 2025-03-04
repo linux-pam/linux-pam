@@ -1341,68 +1341,68 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 	if ((polyptr->flags & POLYDIR_ISCRIPT) && polyptr->init_script)
 		init_script = polyptr->init_script;
 
-	if (access(init_script, F_OK) == 0) {
-		if (access(init_script, X_OK) < 0) {
-			if (idata->flags & PAMNS_DEBUG)
-				pam_syslog(idata->pamh, LOG_ERR,
-						"Namespace init script not executable");
-			return PAM_SESSION_ERR;
-		} else {
-			struct sigaction newsa, oldsa;
+	if (access(init_script, F_OK) != 0)
+		return PAM_SUCCESS;
 
-			memset(&newsa, '\0', sizeof(newsa));
-			newsa.sa_handler = SIG_DFL;
-			if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
-				pam_syslog(idata->pamh, LOG_ERR, "failed to reset SIGCHLD handler");
-				return PAM_SESSION_ERR;
-			}
-
-			pid = fork();
-			if (pid == 0) {
-				static char *envp[] = { NULL };
-#ifdef WITH_SELINUX
-				if (idata->flags & PAMNS_SELINUX_ENABLED) {
-					if (setexeccon(NULL) < 0)
-						_exit(1);
-				}
-#endif
-				/* Pass maximum privs when we exec() */
-				if (setuid(geteuid()) < 0) {
-					/* ignore failures, they don't matter */
-				}
-
-				close_fds_pre_exec(idata);
-
-				if (execle(init_script, init_script,
-					polyptr->dir, ipath, newdir?"1":"0", idata->user, NULL, envp) < 0)
-					_exit(1);
-			} else if (pid > 0) {
-				while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
-						(errno == EINTR));
-				if (rc == (pid_t)-1) {
-					pam_syslog(idata->pamh, LOG_ERR, "waitpid failed- %m");
-					rc = PAM_SESSION_ERR;
-					goto out;
-				}
-				if (!WIFEXITED(status) || WIFSIGNALED(status) > 0) {
-					pam_syslog(idata->pamh, LOG_ERR,
-							"Error initializing instance");
-					rc = PAM_SESSION_ERR;
-					goto out;
-				}
-			} else if (pid < 0) {
-				pam_syslog(idata->pamh, LOG_ERR,
-						"Cannot fork to run namespace init script, %m");
-				rc = PAM_SESSION_ERR;
-				goto out;
-			}
-			rc = PAM_SUCCESS;
-out:
-			(void) sigaction(SIGCHLD, &oldsa, NULL);
-			return rc;
-		}
+	if (access(init_script, X_OK) < 0) {
+		if (idata->flags & PAMNS_DEBUG)
+			pam_syslog(idata->pamh, LOG_ERR,
+					"Namespace init script not executable");
+		return PAM_SESSION_ERR;
 	}
-	return PAM_SUCCESS;
+
+	struct sigaction newsa, oldsa;
+
+	memset(&newsa, '\0', sizeof(newsa));
+	newsa.sa_handler = SIG_DFL;
+	if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
+		pam_syslog(idata->pamh, LOG_ERR, "failed to reset SIGCHLD handler");
+		return PAM_SESSION_ERR;
+	}
+
+	pid = fork();
+	if (pid == 0) {
+		static char *envp[] = { NULL };
+#ifdef WITH_SELINUX
+		if (idata->flags & PAMNS_SELINUX_ENABLED) {
+			if (setexeccon(NULL) < 0)
+				_exit(1);
+		}
+#endif
+		/* Pass maximum privs when we exec() */
+		if (setuid(geteuid()) < 0) {
+			/* ignore failures, they don't matter */
+		}
+
+		close_fds_pre_exec(idata);
+
+		if (execle(init_script, init_script,
+			polyptr->dir, ipath, newdir?"1":"0", idata->user, NULL, envp) < 0)
+			_exit(1);
+	} else if (pid > 0) {
+		while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
+				(errno == EINTR));
+		if (rc == (pid_t)-1) {
+			pam_syslog(idata->pamh, LOG_ERR, "waitpid failed- %m");
+			rc = PAM_SESSION_ERR;
+			goto out;
+		}
+		if (!WIFEXITED(status) || WIFSIGNALED(status) > 0) {
+			pam_syslog(idata->pamh, LOG_ERR,
+					"Error initializing instance");
+			rc = PAM_SESSION_ERR;
+			goto out;
+		}
+	} else if (pid < 0) {
+		pam_syslog(idata->pamh, LOG_ERR,
+				"Cannot fork to run namespace init script, %m");
+		rc = PAM_SESSION_ERR;
+		goto out;
+	}
+	rc = PAM_SUCCESS;
+out:
+	(void) sigaction(SIGCHLD, &oldsa, NULL);
+	return rc;
 }
 
 static int create_polydir(struct polydir_s *polyptr,
