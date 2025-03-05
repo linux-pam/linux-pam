@@ -481,6 +481,7 @@ static int process_line(char *line, const char *home, const char *rhome,
 			struct instance_data *idata)
 {
     char *dir = NULL, *instance_prefix = NULL, *rdir = NULL;
+    const char *config_dir, *config_instance_prefix;
     char *method, *uids;
     char *tptr;
     struct polydir_s *poly;
@@ -530,22 +531,19 @@ static int process_line(char *line, const char *home, const char *rhome,
         goto erralloc;
     }
 
-    dir = config_options[0];
-    if (dir == NULL) {
+    config_dir = config_options[0];
+    if (config_dir == NULL) {
         pam_syslog(idata->pamh, LOG_NOTICE, "Invalid line missing polydir");
         goto skipping;
     }
-    instance_prefix = config_options[1];
-    if (instance_prefix == NULL) {
+    config_instance_prefix = config_options[1];
+    if (config_instance_prefix == NULL) {
         pam_syslog(idata->pamh, LOG_NOTICE, "Invalid line missing instance_prefix");
-        dir = NULL;
         goto skipping;
     }
     method = config_options[2];
     if (method == NULL) {
         pam_syslog(idata->pamh, LOG_NOTICE, "Invalid line missing method");
-        instance_prefix = NULL;
-        dir = NULL;
         goto skipping;
     }
 
@@ -560,19 +558,16 @@ static int process_line(char *line, const char *home, const char *rhome,
     /*
      * Expand $HOME and $USER in poly dir and instance dir prefix
      */
-    if ((rdir=expand_variables(dir, var_names, rvar_values)) == NULL) {
-	    instance_prefix = NULL;
-	    dir = NULL;
+    if ((rdir = expand_variables(config_dir, var_names, rvar_values)) == NULL) {
 	    goto erralloc;
     }
 
-    if ((dir=expand_variables(dir, var_names, var_values)) == NULL) {
-	    instance_prefix = NULL;
+    if ((dir = expand_variables(config_dir, var_names, var_values)) == NULL) {
 	    goto erralloc;
     }
 
-    if ((instance_prefix=expand_variables(instance_prefix, var_names, var_values))
-	    == NULL) {
+    if ((instance_prefix = expand_variables(config_instance_prefix,
+					    var_names, var_values)) == NULL) {
 	    goto erralloc;
     }
 
