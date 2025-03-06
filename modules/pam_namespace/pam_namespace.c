@@ -469,6 +469,15 @@ static int parse_method(char *method, struct polydir_s *poly,
     return 0;
 }
 
+static void
+strip_trailing_slashes(char *str)
+{
+	char *p = str + strlen(str);
+
+	while (p-- > str && *p == '/')
+		*p = '\0';
+}
+
 /*
  * Called from parse_config_file, this function processes a single line
  * of the namespace configuration file. It skips over comments and incomplete
@@ -490,7 +499,6 @@ static int process_line(char *line, const char *home, const char *rhome,
     static const char *const var_names[] = {"HOME", "USER", NULL};
     const char *var_values[] = {home, idata->user};
     const char *rvar_values[] = {rhome, idata->ruser};
-    size_t len;
 
     /*
      * skip the leading white space
@@ -577,15 +585,8 @@ static int process_line(char *line, const char *home, const char *rhome,
 	    pam_syslog(idata->pamh, LOG_DEBUG, "Expanded instance prefix: '%s'", instance_prefix);
     }
 
-    len = strlen(dir);
-    if (len > 0 && dir[len-1] == '/') {
-	    dir[len-1] = '\0';
-    }
-
-    len = strlen(rdir);
-    if (len > 0 && rdir[len-1] == '/') {
-	    rdir[len-1] = '\0';
-    }
+    strip_trailing_slashes(dir);
+    strip_trailing_slashes(rdir);
 
     if (dir[0] == '\0' || rdir[0] == '\0') {
 	    pam_syslog(idata->pamh, LOG_NOTICE, "Invalid polydir");
