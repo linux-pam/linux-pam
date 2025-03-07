@@ -1197,7 +1197,7 @@ static int protect_dir(const char *path, mode_t mode, int do_mkdir,
 	struct stat st;
 
 	if (p == NULL) {
-		goto error;
+		return -1;
 	}
 
 	if (*dir == '/') {
