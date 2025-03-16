@@ -333,7 +333,7 @@ static int read_file(const pam_handle_t *pamh, const char*filename, char ***line
       (void) fclose(conf);
       return PAM_BUF_ERR;
     }
-    (*lines)[i] = 0;
+    (*lines)[i] = NULL;
     while (_pam_line_assemble(conf, &buffer, '\0') > 0) {
       char *p = buffer.assembled;
       char **tmp = NULL;
@@ -355,7 +355,7 @@ static int read_file(const pam_handle_t *pamh, const char*filename, char ***line
         _pam_line_buffer_clear(&buffer);
         return PAM_BUF_ERR;
       }
-      (*lines)[i] = 0;
+      (*lines)[i] = NULL;
     }
 
     (void) fclose(conf);

@@ -578,7 +578,7 @@ list_match(pam_handle_t *pamh, char *list, char *sptr,
      * the match is affected by any exceptions.
      */
 
-    for (tok = strtok_r(list, item->sep, &sptr); tok != 0;
+    for (tok = strtok_r(list, item->sep, &sptr); tok != NULL;
 	 tok = strtok_r(NULL, item->sep, &sptr)) {
 	if (strcasecmp(tok, "EXCEPT") == 0)	/* EXCEPT: give up */
 	    break;
@@ -590,7 +590,7 @@ list_match(pam_handle_t *pamh, char *list, char *sptr,
     if (match != NO) {
 	while ((tok = strtok_r(NULL, item->sep, &sptr)) && strcasecmp(tok, "EXCEPT"))
 	     /* VOID */ ;
-	if (tok == 0)
+	if (tok == NULL)
 	    return match;
 	if (list_match(pamh, NULL, sptr, item, match_fn) == NO)
 	    return YES; /* drop special meaning of ALL */

@@ -48,7 +48,7 @@ pam_sm_authenticate(pam_handle_t *pamh UNUSED, int flags UNUSED,
 		    int argc UNUSED, const char **argv UNUSED)
 {
 	const char *user;
-	int rc = pam_get_user(pamh, &user, 0);
+	int rc = pam_get_user(pamh, &user, NULL);
 	if (rc != PAM_SUCCESS) {
 		pam_syslog(pamh, LOG_NOTICE, "cannot determine user name: %s",
 			   pam_strerror(pamh, rc));

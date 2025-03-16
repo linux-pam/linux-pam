@@ -209,7 +209,7 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 	    pam_syslog(pamh, LOG_CRIT, "out of memory");
 	    goto get_mail_status_cleanup;
 	}
-	i = scandir(dir, &namelist, 0, alphasort);
+	i = scandir(dir, &namelist, NULL, alphasort);
 	save_errno = errno;
 	pam_overwrite_string(dir);
 	_pam_drop(dir);
@@ -230,7 +230,7 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 		pam_syslog(pamh, LOG_CRIT, "out of memory");
 		goto get_mail_status_cleanup;
 	    }
-	    i = scandir(dir, &namelist, 0, alphasort);
+	    i = scandir(dir, &namelist, NULL, alphasort);
 	    save_errno = errno;
 	    pam_overwrite_string(dir);
 	    _pam_drop(dir);
