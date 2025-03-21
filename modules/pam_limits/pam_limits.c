@@ -231,6 +231,11 @@ rlimit2str (int i)
     return "rtprio";
     break;
 #endif
+#ifdef RLIMIT_RTTIME
+  case RLIMIT_RTTIME:
+    return "rttime";
+    break;
+#endif
   default:
     return "UNKNOWN";
     break;
@@ -676,6 +681,10 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 #ifdef RLIMIT_RTPRIO
     else if (strcmp(lim_item, "rtprio") == 0)
 	limit_item = RLIMIT_RTPRIO;
+#endif
+#ifdef RLIMIT_RTTIME
+    else if (strcmp(lim_item, "rttime") == 0)
+	limit_item = RLIMIT_RTTIME;
 #endif
     else if (strcmp(lim_item, "maxlogins") == 0) {
 	limit_item = LIMIT_LOGIN;
