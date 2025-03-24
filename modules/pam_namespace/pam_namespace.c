@@ -474,7 +474,7 @@ strip_trailing_slashes(char *str)
 {
 	char *p = str + strlen(str);
 
-	while (p-- > str && *p == '/')
+	while (--p > str && *p == '/')
 		*p = '\0';
 }
 
