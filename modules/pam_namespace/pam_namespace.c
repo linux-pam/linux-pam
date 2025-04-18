@@ -63,6 +63,147 @@ static void close_fds_pre_exec(struct instance_data *idata)
 	}
 }
 
+static void
+strip_trailing_slashes(char *str)
+{
+	char *p = str + strlen(str);
+
+	while (--p > str && *p == '/')
+		*p = '\0';
+}
+
+static int protect_mount(int dfd, const char *path, struct instance_data *idata)
+{
+	struct protect_dir_s *dir = idata->protect_dirs;
+	char tmpbuf[64];
+
+	while (dir != NULL) {
+		if (strcmp(path, dir->dir) == 0) {
+			return 0;
+		}
+		dir = dir->next;
+	}
+
+	if (pam_sprintf(tmpbuf, "/proc/self/fd/%d", dfd) < 0)
+		return -1;
+
+	dir = calloc(1, sizeof(*dir));
+
+	if (dir == NULL) {
+		return -1;
+	}
+
+	dir->dir = strdup(path);
+
+	if (dir->dir == NULL) {
+		free(dir);
+		return -1;
+	}
+
+	if (idata->flags & PAMNS_DEBUG) {
+		pam_syslog(idata->pamh, LOG_INFO,
+			"Protect mount of %s over itself", path);
+	}
+
+	if (mount(tmpbuf, tmpbuf, NULL, MS_BIND, NULL) != 0) {
+		int save_errno = errno;
+		pam_syslog(idata->pamh, LOG_ERR,
+			"Protect mount of %s failed: %m", tmpbuf);
+		free(dir->dir);
+		free(dir);
+		errno = save_errno;
+		return -1;
+	}
+
+	dir->next = idata->protect_dirs;
+	idata->protect_dirs = dir;
+
+	return 0;
+}
+
+static int protect_dir(const char *path, mode_t mode, int do_mkdir,
+	struct instance_data *idata)
+{
+	char *p = strdup(path);
+	char *d;
+	char *dir = p;
+	int dfd = AT_FDCWD;
+	int dfd_next;
+	int save_errno;
+	int flags = O_RDONLY | O_DIRECTORY;
+	int rv = -1;
+	struct stat st;
+
+	if (p == NULL) {
+		return -1;
+	}
+
+	if (*dir == '/') {
+		dfd = open("/", flags);
+		if (dfd == -1) {
+			goto error;
+		}
+		dir++;	/* assume / is safe */
+	}
+
+	while ((d=strchr(dir, '/')) != NULL) {
+		*d = '\0';
+		dfd_next = openat(dfd, dir, flags);
+		if (dfd_next == -1) {
+			goto error;
+		}
+
+		if (dfd != AT_FDCWD)
+			close(dfd);
+		dfd = dfd_next;
+
+		if (fstat(dfd, &st) != 0) {
+			goto error;
+		}
+
+		if (flags & O_NOFOLLOW) {
+			/* we are inside user-owned dir - protect */
+			if (protect_mount(dfd, p, idata) == -1)
+				goto error;
+		} else if (st.st_uid != 0 || st.st_gid != 0 ||
+			(st.st_mode & S_IWOTH)) {
+			/* do not follow symlinks on subdirectories */
+			flags |= O_NOFOLLOW;
+		}
+
+		*d = '/';
+		dir = d + 1;
+	}
+
+	rv = openat(dfd, dir, flags);
+
+	if (rv == -1) {
+		if (!do_mkdir || mkdirat(dfd, dir, mode) != 0) {
+			goto error;
+		}
+		rv = openat(dfd, dir, flags);
+	}
+
+	if (flags & O_NOFOLLOW) {
+		/* we are inside user-owned dir - protect */
+		if (protect_mount(rv, p, idata) == -1) {
+			save_errno = errno;
+			close(rv);
+			rv = -1;
+			errno = save_errno;
+		}
+	}
+
+error:
+	save_errno = errno;
+	free(p);
+	if (dfd != AT_FDCWD && dfd >= 0)
+		close(dfd);
+	errno = save_errno;
+
+	return rv;
+}
+
 /* Evaluating a list of files which have to be parsed in the right order:
  *
  * - If etc/security/namespace.d/@filename@.conf exists, then
@@ -467,15 +608,6 @@ static int parse_method(char *method, struct polydir_s *poly,
     }
 
     return 0;
-}
-
-static void
-strip_trailing_slashes(char *str)
-{
-	char *p = str + strlen(str);
-
-	while (--p > str && *p == '/')
-		*p = '\0';
 }
 
 /*
@@ -1133,138 +1265,6 @@ fail:
 	*i_name = NULL;
     }
     return rc;
-}
-
-static int protect_mount(int dfd, const char *path, struct instance_data *idata)
-{
-	struct protect_dir_s *dir = idata->protect_dirs;
-	char tmpbuf[64];
-
-	while (dir != NULL) {
-		if (strcmp(path, dir->dir) == 0) {
-			return 0;
-		}
-		dir = dir->next;
-	}
-
-	if (pam_sprintf(tmpbuf, "/proc/self/fd/%d", dfd) < 0)
-		return -1;
-
-	dir = calloc(1, sizeof(*dir));
-
-	if (dir == NULL) {
-		return -1;
-	}
-
-	dir->dir = strdup(path);
-
-	if (dir->dir == NULL) {
-		free(dir);
-		return -1;
-	}
-
-	if (idata->flags & PAMNS_DEBUG) {
-		pam_syslog(idata->pamh, LOG_INFO,
-			"Protect mount of %s over itself", path);
-	}
-
-	if (mount(tmpbuf, tmpbuf, NULL, MS_BIND, NULL) != 0) {
-		int save_errno = errno;
-		pam_syslog(idata->pamh, LOG_ERR,
-			"Protect mount of %s failed: %m", tmpbuf);
-		free(dir->dir);
-		free(dir);
-		errno = save_errno;
-		return -1;
-	}
-
-	dir->next = idata->protect_dirs;
-	idata->protect_dirs = dir;
-
-	return 0;
-}
-
-static int protect_dir(const char *path, mode_t mode, int do_mkdir,
-	struct instance_data *idata)
-{
-	char *p = strdup(path);
-	char *d;
-	char *dir = p;
-	int dfd = AT_FDCWD;
-	int dfd_next;
-	int save_errno;
-	int flags = O_RDONLY | O_DIRECTORY;
-	int rv = -1;
-	struct stat st;
-
-	if (p == NULL) {
-		return -1;
-	}
-
-	if (*dir == '/') {
-		dfd = open("/", flags);
-		if (dfd == -1) {
-			goto error;
-		}
-		dir++;	/* assume / is safe */
-	}
-
-	while ((d=strchr(dir, '/')) != NULL) {
-		*d = '\0';
-		dfd_next = openat(dfd, dir, flags);
-		if (dfd_next == -1) {
-			goto error;
-		}
-
-		if (dfd != AT_FDCWD)
-			close(dfd);
-		dfd = dfd_next;
-
-		if (fstat(dfd, &st) != 0) {
-			goto error;
-		}
-
-		if (flags & O_NOFOLLOW) {
-			/* we are inside user-owned dir - protect */
-			if (protect_mount(dfd, p, idata) == -1)
-				goto error;
-		} else if (st.st_uid != 0 || st.st_gid != 0 ||
-			(st.st_mode & S_IWOTH)) {
-			/* do not follow symlinks on subdirectories */
-			flags |= O_NOFOLLOW;
-		}
-
-		*d = '/';
-		dir = d + 1;
-	}
-
-	rv = openat(dfd, dir, flags);
-
-	if (rv == -1) {
-		if (!do_mkdir || mkdirat(dfd, dir, mode) != 0) {
-			goto error;
-		}
-		rv = openat(dfd, dir, flags);
-	}
-
-	if (flags & O_NOFOLLOW) {
-		/* we are inside user-owned dir - protect */
-		if (protect_mount(rv, p, idata) == -1) {
-			save_errno = errno;
-			close(rv);
-			rv = -1;
-			errno = save_errno;
-		}
-	}
-
-error:
-	save_errno = errno;
-	free(p);
-	if (dfd != AT_FDCWD && dfd >= 0)
-		close(dfd);
-	errno = save_errno;
-
-	return rv;
 }
 
 static int check_inst_parent(char *ipath, struct instance_data *idata)
