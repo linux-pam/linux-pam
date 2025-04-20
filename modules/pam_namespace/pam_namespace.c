@@ -1147,6 +1147,9 @@ static int protect_mount(int dfd, const char *path, struct instance_data *idata)
 		dir = dir->next;
 	}
 
+	if (pam_sprintf(tmpbuf, "/proc/self/fd/%d", dfd) < 0)
+		return -1;
+
 	dir = calloc(1, sizeof(*dir));
 
 	if (dir == NULL) {
@@ -1159,8 +1162,6 @@ static int protect_mount(int dfd, const char *path, struct instance_data *idata)
 		free(dir);
 		return -1;
 	}
-
-	pam_sprintf(tmpbuf, "/proc/self/fd/%d", dfd);
 
 	if (idata->flags & PAMNS_DEBUG) {
 		pam_syslog(idata->pamh, LOG_INFO,
