@@ -1373,9 +1373,9 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 
 		close_fds_pre_exec(idata);
 
-		if (execle(init_script, init_script,
-			polyptr->dir, ipath, newdir?"1":"0", idata->user, NULL, envp) < 0)
-			_exit(1);
+		execle(init_script, init_script,
+		       polyptr->dir, ipath, newdir?"1":"0", idata->user, NULL, envp);
+		_exit(1);
 	} else if (pid > 0) {
 		while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
 				(errno == EINTR));
@@ -1812,8 +1812,8 @@ static int cleanup_tmpdirs(struct instance_data *idata)
 		}
 #endif
 		close_fds_pre_exec(idata);
-		if (execle("/bin/rm", "/bin/rm", "-rf", pptr->instance_prefix, NULL, envp) < 0)
-			_exit(1);
+		execle("/bin/rm", "/bin/rm", "-rf", pptr->instance_prefix, NULL, envp);
+		_exit(1);
 	    } else if (pid > 0) {
 		while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
 		    (errno == EINTR));
