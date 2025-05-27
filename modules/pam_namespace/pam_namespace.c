@@ -215,8 +215,7 @@ static int secure_opendir(const char *path, int opm, mode_t mode,
 			if (dfd_next == -1)
 				goto error;
 		} else if (st.st_uid != 0
-		           || (st.st_gid != 0 && (st.st_mode & S_IWGRP))
-		           || (st.st_mode & S_IWOTH)) {
+		           || (st.st_mode & (S_IWGRP|S_IWOTH))) {
 			/* do not follow symlinks on subdirectories */
 			flags |= O_NOFOLLOW;
 		}
