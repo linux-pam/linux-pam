@@ -63,6 +63,147 @@ static void close_fds_pre_exec(struct instance_data *idata)
 	}
 }
 
+static void
+strip_trailing_slashes(char *str)
+{
+	char *p = str + strlen(str);
+
+	while (--p > str && *p == '/')
+		*p = '\0';
+}
+
+static int protect_mount(int dfd, const char *path, struct instance_data *idata)
+{
+	struct protect_dir_s *dir = idata->protect_dirs;
+	char tmpbuf[64];
+
+	while (dir != NULL) {
+		if (strcmp(path, dir->dir) == 0) {
+			return 0;
+		}
+		dir = dir->next;
+	}
+
+	if (pam_sprintf(tmpbuf, "/proc/self/fd/%d", dfd) < 0)
+		return -1;
+
+	dir = calloc(1, sizeof(*dir));
+
+	if (dir == NULL) {
+		return -1;
+	}
+
+	dir->dir = strdup(path);
+
+	if (dir->dir == NULL) {
+		free(dir);
+		return -1;
+	}
+
+	if (idata->flags & PAMNS_DEBUG) {
+		pam_syslog(idata->pamh, LOG_INFO,
+			"Protect mount of %s over itself", path);
+	}
+
+	if (mount(tmpbuf, tmpbuf, NULL, MS_BIND, NULL) != 0) {
+		int save_errno = errno;
+		pam_syslog(idata->pamh, LOG_ERR,
+			"Protect mount of %s failed: %m", tmpbuf);
+		free(dir->dir);
+		free(dir);
+		errno = save_errno;
+		return -1;
+	}
+
+	dir->next = idata->protect_dirs;
+	idata->protect_dirs = dir;
+
+	return 0;
+}
+
+static int protect_dir(const char *path, mode_t mode, int do_mkdir,
+	struct instance_data *idata)
+{
+	char *p = strdup(path);
+	char *d;
+	char *dir = p;
+	int dfd = AT_FDCWD;
+	int dfd_next;
+	int save_errno;
+	int flags = O_RDONLY | O_DIRECTORY;
+	int rv = -1;
+	struct stat st;
+
+	if (p == NULL) {
+		return -1;
+	}
+
+	if (*dir == '/') {
+		dfd = open("/", flags);
+		if (dfd == -1) {
+			goto error;
+		}
+		dir++;	/* assume / is safe */
+	}
+
+	while ((d=strchr(dir, '/')) != NULL) {
+		*d = '\0';
+		dfd_next = openat(dfd, dir, flags);
+		if (dfd_next == -1) {
+			goto error;
+		}
+
+		if (dfd != AT_FDCWD)
+			close(dfd);
+		dfd = dfd_next;
+
+		if (fstat(dfd, &st) != 0) {
+			goto error;
+		}
+
+		if (flags & O_NOFOLLOW) {
+			/* we are inside user-owned dir - protect */
+			if (protect_mount(dfd, p, idata) == -1)
+				goto error;
+		} else if (st.st_uid != 0 || st.st_gid != 0 ||
+			(st.st_mode & S_IWOTH)) {
+			/* do not follow symlinks on subdirectories */
+			flags |= O_NOFOLLOW;
+		}
+
+		*d = '/';
+		dir = d + 1;
+	}
+
+	rv = openat(dfd, dir, flags);
+
+	if (rv == -1) {
+		if (!do_mkdir || mkdirat(dfd, dir, mode) != 0) {
+			goto error;
+		}
+		rv = openat(dfd, dir, flags);
+	}
+
+	if (flags & O_NOFOLLOW) {
+		/* we are inside user-owned dir - protect */
+		if (protect_mount(rv, p, idata) == -1) {
+			save_errno = errno;
+			close(rv);
+			rv = -1;
+			errno = save_errno;
+		}
+	}
+
+error:
+	save_errno = errno;
+	free(p);
+	if (dfd != AT_FDCWD && dfd >= 0)
+		close(dfd);
+	errno = save_errno;
+
+	return rv;
+}
+
 /* Evaluating a list of files which have to be parsed in the right order:
  *
  * - If etc/security/namespace.d/@filename@.conf exists, then
@@ -319,8 +460,7 @@ static int parse_iscript_params(char *params, struct polydir_s *poly)
 
     if (*params != '\0') {
 	if (*params != '/') { /* path is relative to NAMESPACE_D_DIR */
-		if (asprintf(&poly->init_script, "%s%s", NAMESPACE_D_DIR, params) == -1)
-			return -1;
+		poly->init_script = pam_asprintf("%s%s", NAMESPACE_D_DIR, params);
 	} else {
 		poly->init_script = strdup(params);
 	}
@@ -482,6 +622,7 @@ static int process_line(char *line, const char *home, const char *rhome,
 			struct instance_data *idata)
 {
     char *dir = NULL, *instance_prefix = NULL, *rdir = NULL;
+    const char *config_dir, *config_instance_prefix;
     char *method, *uids;
     char *tptr;
     struct polydir_s *poly;
@@ -490,7 +631,6 @@ static int process_line(char *line, const char *home, const char *rhome,
     static const char *const var_names[] = {"HOME", "USER", NULL};
     const char *var_values[] = {home, idata->user};
     const char *rvar_values[] = {rhome, idata->ruser};
-    size_t len;
 
     /*
      * skip the leading white space
@@ -531,22 +671,19 @@ static int process_line(char *line, const char *home, const char *rhome,
         goto erralloc;
     }
 
-    dir = config_options[0];
-    if (dir == NULL) {
+    config_dir = config_options[0];
+    if (config_dir == NULL) {
         pam_syslog(idata->pamh, LOG_NOTICE, "Invalid line missing polydir");
         goto skipping;
     }
-    instance_prefix = config_options[1];
-    if (instance_prefix == NULL) {
+    config_instance_prefix = config_options[1];
+    if (config_instance_prefix == NULL) {
         pam_syslog(idata->pamh, LOG_NOTICE, "Invalid line missing instance_prefix");
-        dir = NULL;
         goto skipping;
     }
     method = config_options[2];
     if (method == NULL) {
         pam_syslog(idata->pamh, LOG_NOTICE, "Invalid line missing method");
-        instance_prefix = NULL;
-        dir = NULL;
         goto skipping;
     }
 
@@ -561,19 +698,16 @@ static int process_line(char *line, const char *home, const char *rhome,
     /*
      * Expand $HOME and $USER in poly dir and instance dir prefix
      */
-    if ((rdir=expand_variables(dir, var_names, rvar_values)) == NULL) {
-	    instance_prefix = NULL;
-	    dir = NULL;
+    if ((rdir = expand_variables(config_dir, var_names, rvar_values)) == NULL) {
 	    goto erralloc;
     }
 
-    if ((dir=expand_variables(dir, var_names, var_values)) == NULL) {
-	    instance_prefix = NULL;
+    if ((dir = expand_variables(config_dir, var_names, var_values)) == NULL) {
 	    goto erralloc;
     }
 
-    if ((instance_prefix=expand_variables(instance_prefix, var_names, var_values))
-	    == NULL) {
+    if ((instance_prefix = expand_variables(config_instance_prefix,
+					    var_names, var_values)) == NULL) {
 	    goto erralloc;
     }
 
@@ -583,15 +717,8 @@ static int process_line(char *line, const char *home, const char *rhome,
 	    pam_syslog(idata->pamh, LOG_DEBUG, "Expanded instance prefix: '%s'", instance_prefix);
     }
 
-    len = strlen(dir);
-    if (len > 0 && dir[len-1] == '/') {
-	    dir[len-1] = '\0';
-    }
-
-    len = strlen(rdir);
-    if (len > 0 && rdir[len-1] == '/') {
-	    rdir[len-1] = '\0';
-    }
+    strip_trailing_slashes(dir);
+    strip_trailing_slashes(rdir);
 
     if (dir[0] == '\0' || rdir[0] == '\0') {
 	    pam_syslog(idata->pamh, LOG_NOTICE, "Invalid polydir");
@@ -607,13 +734,12 @@ static int process_line(char *line, const char *home, const char *rhome,
     }
 
 #define COPY_STR(dst, src, apd)                                \
-	(snprintf((dst), sizeof(dst), "%s%s", (src), (apd)) != \
-		  (ssize_t) (strlen(src) + strlen(apd)))
+	pam_sprintf((dst), "%s%s", (src), (apd))
 
-    if (COPY_STR(poly->dir, dir, "")
-	|| COPY_STR(poly->rdir, rdir, "")
+    if (COPY_STR(poly->dir, dir, "") < 0
+	|| COPY_STR(poly->rdir, rdir, "") < 0
 	|| COPY_STR(poly->instance_prefix, instance_prefix,
-		    poly->method == TMPDIR ? "XXXXXX" : "")) {
+		    poly->method == TMPDIR ? "XXXXXX" : "") < 0) {
 	pam_syslog(idata->pamh, LOG_NOTICE, "Pathnames too long");
 	goto skipping;
     }
@@ -1065,10 +1191,8 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 
     switch (pm) {
         case USER:
-	    if (asprintf(i_name, "%s", idata->user) < 0) {
-		*i_name = NULL;
+	    if ((*i_name = strdup(idata->user)) == NULL)
 		goto fail;
-	    }
 	    break;
 
 #ifdef WITH_SELINUX
@@ -1078,17 +1202,12 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 		pam_syslog(idata->pamh, LOG_ERR, "Error translating directory context");
 		goto fail;
 	    }
-	    if (polyptr->flags & POLYDIR_SHARED) {
-		if (asprintf(i_name, "%s", rawcon) < 0) {
-			*i_name = NULL;
-			goto fail;
-		}
-	    } else {
-		if (asprintf(i_name, "%s_%s", rawcon, idata->user) < 0) {
-			*i_name = NULL;
-			goto fail;
-		}
-	    }
+	    if (polyptr->flags & POLYDIR_SHARED)
+		*i_name = strdup(rawcon);
+	    else
+		*i_name = pam_asprintf("%s_%s", rawcon, idata->user);
+	    if (*i_name == NULL)
+		goto fail;
 	    break;
 
 #endif /* WITH_SELINUX */
@@ -1118,11 +1237,12 @@ static int poly_name(const struct polydir_s *polyptr, char **i_name,
 	    *i_name = hash;
 	    hash = NULL;
         } else {
-	    char *newname;
-	    if (asprintf(&newname, "%.*s_%s", NAMESPACE_MAX_DIR_LEN-1-(int)strlen(hash),
-		*i_name, hash) < 0) {
+	    char *newname =
+		pam_asprintf("%.*s_%s",
+			     NAMESPACE_MAX_DIR_LEN - 1 - (int)strlen(hash),
+			     *i_name, hash);
+	    if (newname == NULL)
 		goto fail;
-	    }
 	    free(*i_name);
 	    *i_name = newname;
         }
@@ -1145,137 +1265,6 @@ fail:
 	*i_name = NULL;
     }
     return rc;
-}
-
-static int protect_mount(int dfd, const char *path, struct instance_data *idata)
-{
-	struct protect_dir_s *dir = idata->protect_dirs;
-	char tmpbuf[64];
-
-	while (dir != NULL) {
-		if (strcmp(path, dir->dir) == 0) {
-			return 0;
-		}
-		dir = dir->next;
-	}
-
-	dir = calloc(1, sizeof(*dir));
-
-	if (dir == NULL) {
-		return -1;
-	}
-
-	dir->dir = strdup(path);
-
-	if (dir->dir == NULL) {
-		free(dir);
-		return -1;
-	}
-
-	snprintf(tmpbuf, sizeof(tmpbuf), "/proc/self/fd/%d", dfd);
-
-	if (idata->flags & PAMNS_DEBUG) {
-		pam_syslog(idata->pamh, LOG_INFO,
-			"Protect mount of %s over itself", path);
-	}
-
-	if (mount(tmpbuf, tmpbuf, NULL, MS_BIND, NULL) != 0) {
-		int save_errno = errno;
-		pam_syslog(idata->pamh, LOG_ERR,
-			"Protect mount of %s failed: %m", tmpbuf);
-		free(dir->dir);
-		free(dir);
-		errno = save_errno;
-		return -1;
-	}
-
-	dir->next = idata->protect_dirs;
-	idata->protect_dirs = dir;
-
-	return 0;
-}
-
-static int protect_dir(const char *path, mode_t mode, int do_mkdir,
-	struct instance_data *idata)
-{
-	char *p = strdup(path);
-	char *d;
-	char *dir = p;
-	int dfd = AT_FDCWD;
-	int dfd_next;
-	int save_errno;
-	int flags = O_RDONLY | O_DIRECTORY;
-	int rv = -1;
-	struct stat st;
-
-	if (p == NULL) {
-		goto error;
-	}
-
-	if (*dir == '/') {
-		dfd = open("/", flags);
-		if (dfd == -1) {
-			goto error;
-		}
-		dir++;	/* assume / is safe */
-	}
-
-	while ((d=strchr(dir, '/')) != NULL) {
-		*d = '\0';
-		dfd_next = openat(dfd, dir, flags);
-		if (dfd_next == -1) {
-			goto error;
-		}
-
-		if (dfd != AT_FDCWD)
-			close(dfd);
-		dfd = dfd_next;
-
-		if (fstat(dfd, &st) != 0) {
-			goto error;
-		}
-
-		if (flags & O_NOFOLLOW) {
-			/* we are inside user-owned dir - protect */
-			if (protect_mount(dfd, p, idata) == -1)
-				goto error;
-		} else if (st.st_uid != 0 || st.st_gid != 0 ||
-			(st.st_mode & S_IWOTH)) {
-			/* do not follow symlinks on subdirectories */
-			flags |= O_NOFOLLOW;
-		}
-
-		*d = '/';
-		dir = d + 1;
-	}
-
-	rv = openat(dfd, dir, flags);
-
-	if (rv == -1) {
-		if (!do_mkdir || mkdirat(dfd, dir, mode) != 0) {
-			goto error;
-		}
-		rv = openat(dfd, dir, flags);
-	}
-
-	if (flags & O_NOFOLLOW) {
-		/* we are inside user-owned dir - protect */
-		if (protect_mount(rv, p, idata) == -1) {
-			save_errno = errno;
-			close(rv);
-			rv = -1;
-			errno = save_errno;
-		}
-	}
-
-error:
-	save_errno = errno;
-	free(p);
-	if (dfd != AT_FDCWD && dfd >= 0)
-		close(dfd);
-	errno = save_errno;
-
-	return rv;
 }
 
 static int check_inst_parent(char *ipath, struct instance_data *idata)
@@ -1349,68 +1338,68 @@ static int inst_init(const struct polydir_s *polyptr, const char *ipath,
 	if ((polyptr->flags & POLYDIR_ISCRIPT) && polyptr->init_script)
 		init_script = polyptr->init_script;
 
-	if (access(init_script, F_OK) == 0) {
-		if (access(init_script, X_OK) < 0) {
-			if (idata->flags & PAMNS_DEBUG)
-				pam_syslog(idata->pamh, LOG_ERR,
-						"Namespace init script not executable");
-			return PAM_SESSION_ERR;
-		} else {
-			struct sigaction newsa, oldsa;
+	if (access(init_script, F_OK) != 0)
+		return PAM_SUCCESS;
 
-			memset(&newsa, '\0', sizeof(newsa));
-			newsa.sa_handler = SIG_DFL;
-			if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
-				pam_syslog(idata->pamh, LOG_ERR, "failed to reset SIGCHLD handler");
-				return PAM_SESSION_ERR;
-			}
-
-			pid = fork();
-			if (pid == 0) {
-				static char *envp[] = { NULL };
-#ifdef WITH_SELINUX
-				if (idata->flags & PAMNS_SELINUX_ENABLED) {
-					if (setexeccon(NULL) < 0)
-						_exit(1);
-				}
-#endif
-				/* Pass maximum privs when we exec() */
-				if (setuid(geteuid()) < 0) {
-					/* ignore failures, they don't matter */
-				}
-
-				close_fds_pre_exec(idata);
-
-				if (execle(init_script, init_script,
-					polyptr->dir, ipath, newdir?"1":"0", idata->user, NULL, envp) < 0)
-					_exit(1);
-			} else if (pid > 0) {
-				while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
-						(errno == EINTR));
-				if (rc == (pid_t)-1) {
-					pam_syslog(idata->pamh, LOG_ERR, "waitpid failed- %m");
-					rc = PAM_SESSION_ERR;
-					goto out;
-				}
-				if (!WIFEXITED(status) || WIFSIGNALED(status) > 0) {
-					pam_syslog(idata->pamh, LOG_ERR,
-							"Error initializing instance");
-					rc = PAM_SESSION_ERR;
-					goto out;
-				}
-			} else if (pid < 0) {
-				pam_syslog(idata->pamh, LOG_ERR,
-						"Cannot fork to run namespace init script, %m");
-				rc = PAM_SESSION_ERR;
-				goto out;
-			}
-			rc = PAM_SUCCESS;
-out:
-			(void) sigaction(SIGCHLD, &oldsa, NULL);
-			return rc;
-		}
+	if (access(init_script, X_OK) < 0) {
+		if (idata->flags & PAMNS_DEBUG)
+			pam_syslog(idata->pamh, LOG_ERR,
+					"Namespace init script not executable");
+		return PAM_SESSION_ERR;
 	}
-	return PAM_SUCCESS;
+
+	struct sigaction newsa, oldsa;
+
+	memset(&newsa, '\0', sizeof(newsa));
+	newsa.sa_handler = SIG_DFL;
+	if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
+		pam_syslog(idata->pamh, LOG_ERR, "failed to reset SIGCHLD handler");
+		return PAM_SESSION_ERR;
+	}
+
+	pid = fork();
+	if (pid == 0) {
+		static char *envp[] = { NULL };
+#ifdef WITH_SELINUX
+		if (idata->flags & PAMNS_SELINUX_ENABLED) {
+			if (setexeccon(NULL) < 0)
+				_exit(1);
+		}
+#endif
+		/* Pass maximum privs when we exec() */
+		if (setuid(geteuid()) < 0) {
+			/* ignore failures, they don't matter */
+		}
+
+		close_fds_pre_exec(idata);
+
+		execle(init_script, init_script,
+		       polyptr->dir, ipath, newdir?"1":"0", idata->user, NULL, envp);
+		_exit(1);
+	} else if (pid > 0) {
+		while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
+				(errno == EINTR));
+		if (rc == (pid_t)-1) {
+			pam_syslog(idata->pamh, LOG_ERR, "waitpid failed- %m");
+			rc = PAM_SESSION_ERR;
+			goto out;
+		}
+		if (!WIFEXITED(status) || WIFSIGNALED(status) > 0) {
+			pam_syslog(idata->pamh, LOG_ERR,
+					"Error initializing instance");
+			rc = PAM_SESSION_ERR;
+			goto out;
+		}
+	} else if (pid < 0) {
+		pam_syslog(idata->pamh, LOG_ERR,
+				"Cannot fork to run namespace init script, %m");
+		rc = PAM_SESSION_ERR;
+		goto out;
+	}
+	rc = PAM_SUCCESS;
+out:
+	(void) sigaction(SIGCHLD, &oldsa, NULL);
+	return rc;
 }
 
 static int create_polydir(struct polydir_s *polyptr,
@@ -1654,16 +1643,14 @@ static int ns_setup(struct polydir_s *polyptr,
 
     retval = protect_dir(polyptr->dir, 0, 0, idata);
 
-    if (retval < 0 && errno != ENOENT) {
-	pam_syslog(idata->pamh, LOG_ERR, "Polydir %s access error: %m",
-		polyptr->dir);
-	return PAM_SESSION_ERR;
-    }
-
     if (retval < 0) {
-	if ((polyptr->flags & POLYDIR_CREATE) &&
-		create_polydir(polyptr, idata) != PAM_SUCCESS)
-		return PAM_SESSION_ERR;
+        if (errno != ENOENT || !(polyptr->flags & POLYDIR_CREATE)) {
+            pam_syslog(idata->pamh, LOG_ERR, "Polydir %s access error: %m",
+                    polyptr->dir);
+            return PAM_SESSION_ERR;
+        }
+        if (create_polydir(polyptr, idata) != PAM_SUCCESS)
+            return PAM_SESSION_ERR;
     } else {
 	close(retval);
     }
@@ -1712,7 +1699,7 @@ static int ns_setup(struct polydir_s *polyptr,
 #endif
     }
 
-    if (asprintf(&inst_dir, "%s%s", polyptr->instance_prefix, instname) < 0)
+    if ((inst_dir = pam_asprintf("%s%s", polyptr->instance_prefix, instname)) == NULL)
 	goto error_out;
 
     if (idata->flags & PAMNS_DEBUG)
@@ -1825,8 +1812,8 @@ static int cleanup_tmpdirs(struct instance_data *idata)
 		}
 #endif
 		close_fds_pre_exec(idata);
-		if (execle("/bin/rm", "/bin/rm", "-rf", pptr->instance_prefix, NULL, envp) < 0)
-			_exit(1);
+		execle("/bin/rm", "/bin/rm", "-rf", pptr->instance_prefix, NULL, envp);
+		_exit(1);
 	    } else if (pid > 0) {
 		while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
 		    (errno == EINTR));

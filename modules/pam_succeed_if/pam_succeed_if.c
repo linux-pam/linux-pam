@@ -56,6 +56,7 @@
 #include <security/pam_modules.h>
 #include <security/pam_modutil.h>
 #include <security/pam_ext.h>
+#include "pam_inline.h"
 
 /* Basically, run cmp(atol(left), atol(right)), returning PAM_SUCCESS if
  * the function returns non-zero, PAM_AUTH_ERR if it returns zero, and
@@ -313,12 +314,10 @@ evaluate(pam_handle_t *pamh, int debug,
 	    (strcasecmp(left, "user") == 0)) {
 		left = user;
 	} else if (strcasecmp(left, "uid") == 0) {
-		snprintf(numstr, sizeof(numstr), "%lu",
-			(unsigned long) (*pwd)->pw_uid);
+		pam_sprintf(numstr, "%lu", (unsigned long) (*pwd)->pw_uid);
 		left = numstr;
 	} else if (strcasecmp(left, "gid") == 0) {
-		snprintf(numstr, sizeof(numstr), "%lu",
-			(unsigned long) (*pwd)->pw_gid);
+		pam_sprintf(numstr, "%lu", (unsigned long) (*pwd)->pw_gid);
 		left = numstr;
 	} else if (strcasecmp(left, "shell") == 0) {
 		left = (*pwd)->pw_shell;

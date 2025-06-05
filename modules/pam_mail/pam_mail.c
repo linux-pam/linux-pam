@@ -153,10 +153,9 @@ get_folder(pam_handle_t *pamh, int ctrl,
 
     retval = PAM_BUF_ERR;
     if (ctrl & PAM_HOME_MAIL) {
-	if (asprintf(&folder, MAIL_FILE_FORMAT, pwd->pw_dir, "", path) < 0)
+	if ((folder = pam_asprintf(MAIL_FILE_FORMAT, pwd->pw_dir, "", path)) == NULL)
 	    goto get_folder_cleanup;
     } else {
-	int rc;
 	size_t i;
 	char *hash;
 
@@ -169,10 +168,10 @@ get_folder(pam_handle_t *pamh, int ctrl,
 	}
 	hash[2 * i] = '\0';
 
-	rc = asprintf(&folder, MAIL_FILE_FORMAT, path, hash, pwd->pw_name);
+	folder = pam_asprintf(MAIL_FILE_FORMAT, path, hash, pwd->pw_name);
 	pam_overwrite_string(hash);
 	_pam_drop(hash);
-	if (rc < 0)
+	if (folder == NULL)
 	    goto get_folder_cleanup;
     }
     D(("folder=[%s]", folder));
@@ -206,11 +205,11 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 	char *dir;
 	struct dirent **namelist;
 
-	if (asprintf(&dir, "%s/new", folder) < 0) {
+	if ((dir = pam_asprintf("%s/new", folder)) == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "out of memory");
 	    goto get_mail_status_cleanup;
 	}
-	i = scandir(dir, &namelist, 0, alphasort);
+	i = scandir(dir, &namelist, NULL, alphasort);
 	save_errno = errno;
 	pam_overwrite_string(dir);
 	_pam_drop(dir);
@@ -227,11 +226,11 @@ get_mail_status(pam_handle_t *pamh, int ctrl, const char *folder)
 	    _pam_drop(namelist[i]);
 	_pam_drop(namelist);
 	if (type == 0) {
-	    if (asprintf(&dir, "%s/cur", folder) < 0) {
+	    if ((dir = pam_asprintf("%s/cur", folder)) == NULL) {
 		pam_syslog(pamh, LOG_CRIT, "out of memory");
 		goto get_mail_status_cleanup;
 	    }
-	    i = scandir(dir, &namelist, 0, alphasort);
+	    i = scandir(dir, &namelist, NULL, alphasort);
 	    save_errno = errno;
 	    pam_overwrite_string(dir);
 	    _pam_drop(dir);
@@ -406,9 +405,9 @@ static int _do_mail(pam_handle_t *pamh, int flags, int argc,
     /* set the MAIL variable? */
 
     if (!(ctrl & PAM_NO_ENV) && est) {
-	char *tmp;
+	char *tmp = pam_asprintf(MAIL_ENV_FORMAT, folder);
 
-	if (asprintf(&tmp, MAIL_ENV_FORMAT, folder) < 0) {
+	if (tmp == NULL) {
 	    pam_syslog(pamh, LOG_CRIT,
 		       "no memory for " MAIL_ENV_NAME " variable");
 	    retval = PAM_BUF_ERR;

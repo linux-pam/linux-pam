@@ -101,12 +101,8 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
 static char*
 _pam_conv_str_umask_to_homemode(const char *umask)
 {
-   unsigned int m = 0;
-   char tmp[5];
-
-   m = 0777 & ~strtoul(umask, NULL, 8);
-   (void) snprintf(tmp, sizeof(tmp), "0%o", m);
-   return strdup(tmp);
+   unsigned int m = 0777 & ~strtoul(umask, NULL, 8);
+   return pam_asprintf("%#o", m);
 }
 
 /* Do the actual work of creating a home dir */

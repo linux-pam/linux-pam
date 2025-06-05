@@ -11,8 +11,8 @@
 
 static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 {
-    char *full_path;
-    int found_agent, length, reset_length, to_agent[2], from_agent[2];
+    char *full_path = NULL;
+    int found_agent, length, to_agent[2], from_agent[2];
     int return_code = PAM_BPC_FAIL;
 
     if (agent->id[agent->id_length] != '\0') {
@@ -27,16 +27,6 @@ static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 	}
     }
 
-    /* enough memory for any path + this agent */
-    reset_length = 3 + pch->max_path + agent->id_length;
-    D(("reset_length = %d (3+%d+%d)",
-       reset_length, pch->max_path, agent->id_length));
-    full_path = malloc(reset_length);
-    if (full_path == NULL) {
-	D(("no memory for agent path"));
-	return PAM_BPC_FAIL;
-    }
-
     found_agent = 0;
     for (length=0; pch->agent_paths[length]; ++length) {
 	struct stat buf;
@@ -44,7 +34,10 @@ static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 	D(("path: [%s]", pch->agent_paths[length]));
 	D(("agent id: [%s]", agent->id));
 
-	sprintf(full_path, "%s/%s", pch->agent_paths[length], agent->id);
+	if ((full_path = pam_asprintf("%s/%s", pch->agent_paths[length], agent->id)) == NULL) {
+	    D(("no memory for agent path"));
+	    return PAM_BPC_FAIL;
+	}
 
 	D(("looking for agent here: [%s]\n", full_path));
 	if (stat(full_path, &buf) == 0) {
@@ -52,6 +45,9 @@ static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 	    found_agent = 1;
 	    break;
 	}
+
+	free(full_path);
+	full_path = NULL;
     }
 
     if (! found_agent) {
@@ -144,7 +140,6 @@ close_the_agent:
     close(to_agent[1]);
 
 free_and_return:
-    pam_overwrite_n(full_path, reset_length);
     free(full_path);
 
     D(("returning %d", return_code));

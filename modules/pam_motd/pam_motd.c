@@ -116,36 +116,19 @@ static int pam_split_string(const pam_handle_t *pamh, char *arg, char delim,
 }
 
 /* Join A_STR and B_STR, inserting a "/" between them if one is not already trailing
- * in A_STR or beginning B_STR. A pointer to a newly allocated string holding the
- * joined string is returned in STRP_OUT.
- * Returns -1 in case of error, or the number of bytes in the joined string in
- * case of success. */
-static int join_dir_strings(char **strp_out, const char *a_str, const char *b_str)
+ * in A_STR or beginning B_STR.
+ * Returns NULL in case of an error,
+ * or a newly allocated string holding the joined string in case of success. */
+static char *join_dir_strings(const char *a_str, const char *b_str)
 {
-    int has_sep = 0;
-    int retval = -1;
-    char *join_strp = NULL;
+    int has_sep;
 
-    if (strp_out == NULL || a_str == NULL || b_str == NULL) {
-	goto out;
-    }
-    if (strlen(a_str) == 0) {
-	goto out;
-    }
+    if (a_str == NULL || b_str == NULL || strlen(a_str) == 0)
+	return NULL;
 
     has_sep = (a_str[strlen(a_str) - 1] == '/') || (b_str[0] == '/');
 
-    retval = asprintf(&join_strp, "%s%s%s", a_str,
-	(has_sep == 1) ? "" : "/", b_str);
-
-    if (retval < 0) {
-	goto out;
-    }
-
-    *strp_out = join_strp;
-
-  out:
-    return retval;
+    return pam_asprintf("%s%s%s", a_str, (has_sep == 1) ? "" : "/", b_str);
 }
 
 static int compare_strings(const void *a, const void *b)
@@ -228,8 +211,8 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 		continue;             /* are good.             */
 	    case DT_UNKNOWN:   /* for file systems that do not provide */
 			       /* a filetype, we use lstat()           */
-		if (join_dir_strings(&fullpath, motd_dir_path_split[i],
-				     d[j]->d_name) <= 0)
+		if ((fullpath = join_dir_strings(motd_dir_path_split[i],
+						 d[j]->d_name)) == NULL)
 		    break;
 		rc = lstat(fullpath, &s);
 		_pam_drop(fullpath);  /* free the memory alloc'ed by join_dir_strings */
@@ -282,11 +265,11 @@ static void try_to_display_directories_with_overrides(pam_handle_t *pamh,
 	}
 
 	for (j = 0; j < num_motd_dirs; j++) {
-	    char *abs_path = NULL;
+	    char *abs_path;
 	    int fd;
 
-	    if (join_dir_strings(&abs_path, motd_dir_path_split[j],
-		    dirnames_all[i]) < 0 || abs_path == NULL) {
+	    if ((abs_path = join_dir_strings(motd_dir_path_split[j],
+					     dirnames_all[i])) == NULL) {
 		continue;
 	    }
 

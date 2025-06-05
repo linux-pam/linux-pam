@@ -47,6 +47,7 @@
 #include <security/pam_modutil.h>
 
 #include "faillock.h"
+#include "pam_inline.h"
 
 #define ignore_return(x) if (1==((int)(x))) {;}
 
@@ -55,7 +56,7 @@ open_tally (const char *dir, const char *user, uid_t uid, int create)
 {
 	char *path;
 	int flags = O_RDWR;
-	int fd, r;
+	int fd;
 
 	if (dir == NULL || strstr(user, "../") != NULL)
 	/* just a defensive programming as the user must be a
@@ -63,10 +64,10 @@ open_tally (const char *dir, const char *user, uid_t uid, int create)
 	 */
 		return -1;
 	if (*dir && dir[strlen(dir) - 1] != '/')
-		r = asprintf(&path, "%s/%s", dir, user);
+		path = pam_asprintf("%s/%s", dir, user);
 	else
-		r = asprintf(&path, "%s%s", dir, user);
-	if (r < 0)
+		path = pam_asprintf("%s%s", dir, user);
+	if (path == NULL)
 		return -1;
 
 	if (create) {

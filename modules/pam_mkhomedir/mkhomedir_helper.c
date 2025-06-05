@@ -25,6 +25,7 @@
 
 #include <security/pam_ext.h>
 #include <security/pam_modutil.h>
+#include "pam_inline.h"
 
 struct dir_spec {
    int fd;
@@ -61,7 +62,7 @@ fail:
 static int
 dir_spec_at(struct dir_spec *spec, struct dir_spec *parent, const char *path)
 {
-   if (asprintf(&spec->path, "%s/%s", parent->path, path) < 0)
+   if ((spec->path = pam_asprintf("%s/%s", parent->path, path)) == NULL)
       goto fail;
    spec->fd = openat(parent->fd, path, O_DIRECTORY | O_NOFOLLOW);
    if (spec->fd == -1)
@@ -94,10 +95,10 @@ copy_entry(struct dir_spec *parent, const struct passwd *pwd, mode_t dir_mode,
    int res;
    int retval = PAM_SESSION_ERR;
    struct stat st;
-   char *newsource = NULL;
+   char *newsource;
 
    /* Determine what kind of file it is. */
-   if (asprintf(&newsource, "%s/%s", source, dent->d_name) < 0)
+   if ((newsource = pam_asprintf("%s/%s", source, dent->d_name)) == NULL)
    {
       pam_syslog(NULL, LOG_CRIT, "asprintf failed for 'newsource'");
       retval = PAM_BUF_ERR;

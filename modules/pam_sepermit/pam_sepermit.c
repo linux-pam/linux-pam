@@ -88,7 +88,7 @@ match_process_uid(pid_t pid, uid_t uid)
 	FILE *f;
 	int re = 0;
 
-	if (asprintf (&buf, PROC_BASE "/%d/status", pid) < 0)
+	if ((buf = pam_asprintf(PROC_BASE "/%d/status", pid)) == NULL)
 		return 0;
 	n = strlen(buf) + 1;
 	if (!(f = fopen (buf, "r"))) {
@@ -248,7 +248,7 @@ sepermit_lock(pam_handle_t *pamh, const char *user, int debug)
 		return -1;
 	}
 
-	snprintf(buf, sizeof(buf), "%s/%d.lock", SEPERMIT_LOCKDIR, pw->pw_uid);
+	pam_sprintf(buf, "%s/%d.lock", SEPERMIT_LOCKDIR, pw->pw_uid);
 	int fd = open(buf, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 	if (fd < 0) {
 		pam_syslog(pamh, LOG_ERR, "Unable to open lock file %s/%d.lock", SEPERMIT_LOCKDIR, pw->pw_uid);

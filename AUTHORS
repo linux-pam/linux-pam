@@ -1,4 +1,9 @@
-Original authors and current maintainers of Linux-PAM:
+The current maintainers of Linux-PAM are:
+
+Dmitry V. Levin		<ldv@strace.io>
+Thorsten Kukuk		<kukuk@thkukuk.de>
+
+The original authors and maintainers of Linux-PAM are:
 
 Andrew G. Morgan	<morgan@kernel.org>
 Dmitry V. Levin		<ldv@altlinux.org>

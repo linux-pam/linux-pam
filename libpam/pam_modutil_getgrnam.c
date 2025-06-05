@@ -8,22 +8,13 @@
  */
 
 #include "pam_modutil_private.h"
+#include "pam_inline.h"
 
 #include <errno.h>
 #include <limits.h>
 #include <grp.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-static int intlen(int number)
-{
-    int len = 2;
-    while (number != 0) {
-        number /= 10;
-	len++;
-    }
-    return len;
-}
 
 struct group *
 pam_modutil_getgrnam(pam_handle_t *pamh, const char *group)
@@ -55,27 +46,25 @@ pam_modutil_getgrnam(pam_handle_t *pamh, const char *group)
 			    sizeof(struct group) + (char *) buffer,
 			    length, &result);
 	if (!status && (result == buffer)) {
-	    char *data_name;
 	    const void *ignore;
 	    int i;
 
-	    data_name = malloc(strlen("_pammodutil_getgrnam") + 1 +
-			       strlen(group) + 1 + intlen(INT_MAX) + 1);
-	    if ((pamh != NULL) && (data_name == NULL)) {
-	        D(("was unable to register the data item [%s]",
-	           pam_strerror(pamh, status)));
-		free(buffer);
-		return NULL;
-	    }
-
 	    if (pamh != NULL) {
 	        for (i = 0; i < INT_MAX; i++) {
-	            sprintf(data_name, "_pammodutil_getgrnam_%s_%d", group, i);
+	            char *data_name = pam_asprintf("_pammodutil_getgrnam_%s_%d",
+						   group, i);
+		    if (data_name == NULL) {
+			D(("was unable to register the data item [%s]",
+			   pam_strerror(pamh, status)));
+			free(buffer);
+			return NULL;
+		    }
 		    status = PAM_NO_MODULE_DATA;
 	            if (pam_get_data(pamh, data_name, &ignore) != PAM_SUCCESS) {
 		        status = pam_set_data(pamh, data_name,
 					      result, pam_modutil_cleanup);
 		    }
+		    free(data_name);
 		    if (status == PAM_SUCCESS) {
 		        break;
 		    }
@@ -83,8 +72,6 @@ pam_modutil_getgrnam(pam_handle_t *pamh, const char *group)
 	    } else {
 	        status = PAM_SUCCESS;
 	    }
-
-	    free(data_name);
 
 	    if (status == PAM_SUCCESS) {
 		D(("success"));

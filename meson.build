@@ -140,6 +140,7 @@ try_cc_flags = [
   '-Wuninitialized',
   '-Wunused',
   '-Wwrite-strings',
+  '-Wzero-as-null-pointer-constant',
 ]
 add_project_arguments(
   cc.get_supported_arguments(try_cc_flags),

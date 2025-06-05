@@ -9,6 +9,8 @@
 #define PAM_INLINE_H
 
 #include "pam_cc_compat.h"
+#include <stdarg.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -144,6 +146,39 @@ pam_drop_response(struct pam_response *reply, int replies)
 	}
 	free(reply);
 }
+
+static inline char * PAM_FORMAT((printf, 1, 2)) PAM_NONNULL((1)) PAM_ATTRIBUTE_MALLOC
+pam_asprintf(const char *fmt, ...)
+{
+	int rc;
+	char *res;
+	va_list ap;
+
+	va_start(ap, fmt);
+	rc = vasprintf(&res, fmt, ap);
+	va_end(ap);
+
+	return rc < 0 ? NULL : res;
+}
+
+static inline int PAM_FORMAT((printf, 3, 4)) PAM_NONNULL((3))
+pam_snprintf(char *str, size_t size, const char *fmt, ...)
+{
+	int rc;
+	va_list ap;
+
+	va_start(ap, fmt);
+	rc = vsnprintf(str, size, fmt, ap);
+	va_end(ap);
+
+	if (rc < 0 || (unsigned int) rc >= size)
+		return -1;
+	return rc;
+}
+
+#define pam_sprintf(str_, fmt_, ...)						\
+	pam_snprintf((str_), sizeof(str_) + PAM_MUST_BE_ARRAY(str_), (fmt_),	\
+		     ##__VA_ARGS__)
 
 
 static inline int

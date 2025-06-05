@@ -312,7 +312,7 @@ _pam_open_config_file(pam_handle_t *pamh
 	    return PAM_BUF_ERR;
 	}
     } else if (pamh->confdir != NULL) {
-        if (asprintf (&p, "%s/%s", pamh->confdir, service) < 0) {
+	if ((p = pam_asprintf("%s/%s", pamh->confdir, service)) == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "asprintf failed");
 	    return PAM_BUF_ERR;
 	}
@@ -332,7 +332,7 @@ _pam_open_config_file(pam_handle_t *pamh
 
     for (i = 0; i < PAM_ARRAY_SIZE(pamd_dirs); i++) {
 	DIAG_PUSH_IGNORE_FORMAT_NONLITERAL
-	if (asprintf (&p, pamd_dirs[i], service) < 0) {
+	if ((p = pam_asprintf(pamd_dirs[i], service)) == NULL) {
 	    pam_syslog(pamh, LOG_CRIT, "asprintf failed");
 	    return PAM_BUF_ERR;
 	}
@@ -648,10 +648,10 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 	    size_t isa_len = strlen("$ISA");
 
 	    if (isa != NULL) {
-		char *mod_full_isa_path = NULL;
-		if (strlen(mod_path) >= INT_MAX ||
-			asprintf(&mod_full_isa_path, "%.*s%s%s",
-			(int)(isa - mod_path), mod_path, _PAM_ISA, isa + isa_len) < 0) {
+		char *mod_full_isa_path = strlen(mod_path) >= INT_MAX ? NULL :
+			pam_asprintf("%.*s%s%s", (int)(isa - mod_path),
+				     mod_path, _PAM_ISA, isa + isa_len);
+		if (mod_full_isa_path == NULL) {
 		    D(("couldn't get memory for mod_path"));
 		    pam_syslog(pamh, LOG_CRIT, "no memory for module path");
 		    success = PAM_ABORT;
@@ -722,8 +722,8 @@ static int _pam_add_handler(pam_handle_t *pamh
 	mod_path != NULL) {
 	if (mod_path[0] == '/') {
 	    mod = _pam_load_module(pamh, mod_path, handler_type);
-	} else if (asprintf(&mod_full_path, "%s%s",
-			     DEFAULT_MODULE_PATH, mod_path) >= 0) {
+	} else if ((mod_full_path = pam_asprintf("%s%s", DEFAULT_MODULE_PATH,
+						 mod_path)) != NULL) {
 	    mod = _pam_load_module(pamh, mod_full_path, handler_type);
 	    _pam_drop(mod_full_path);
 	} else {

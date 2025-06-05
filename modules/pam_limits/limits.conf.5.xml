@@ -266,6 +266,12 @@
                   (Linux 2.6.12 and higher)</para>
               </listitem>
             </varlistentry>
+            <varlistentry>
+              <term>rttime</term>
+              <listitem>
+                <para>Timeout for real-time tasks in microseconds (Linux 2.6.25 and higher)</para>
+              </listitem>
+            </varlistentry>
           </variablelist>
         </listitem>
       </varlistentry>

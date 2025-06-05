@@ -115,8 +115,7 @@ testvectors(void)
 		if (hmac != NULL) {
 			unsigned char *hmacc = hmac;
 			for (j = 0; j < hmac_len; j++) {
-				snprintf(hex, sizeof(hex), "%02x",
-					 hmacc[j] & 0xff);
+				pam_sprintf(hex, "%02x", hmacc[j] & 0xff);
 				if (strncasecmp(hex,
 						vectors[i].hmac + 2 * j,
 						2) != 0) {

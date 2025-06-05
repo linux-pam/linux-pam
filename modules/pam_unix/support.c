@@ -479,8 +479,7 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 		(*ret)->pw_shell = strcpy(p, sshell);
 
 		_pam_drop(buf);
-		if (asprintf(&buf, "_pam_unix_getpwnam_%s", name) < 0) {
-			buf = NULL;
+		if ((buf = pam_asprintf("_pam_unix_getpwnam_%s", name)) == NULL) {
 			goto fail;
 		}
 
@@ -731,9 +730,8 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 
 	retval = get_pwd_hash(pamh, name, &pwd, &salt);
 
-	if (asprintf(&data_name, "%s%s", FAIL_PREFIX, name) < 0) {
+	if ((data_name = pam_asprintf("%s%s", FAIL_PREFIX, name)) == NULL) {
 		pam_syslog(pamh, LOG_CRIT, "no memory for data-name");
-		data_name = NULL;
 	}
 
 	if (p != NULL && strlen(p) > PAM_MAX_RESP_SIZE) {
