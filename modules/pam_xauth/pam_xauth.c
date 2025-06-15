@@ -83,6 +83,10 @@ static const char * const xauthpaths[] = {
 	"/usr/bin/X11/xauth"
 };
 
+#ifndef HOST_NAME_MAX
+# define HOST_NAME_MAX 255
+#endif
+
 /* Run a given command (with a NULL-terminated argument list), feeding it the
  * given input on stdin, and storing any output it generates. */
 static int
