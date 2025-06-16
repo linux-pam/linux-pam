@@ -11,21 +11,22 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Milo Casagrande <milo@milo.name>, 2020.
 # Dmitry V. Levin <ldv@altlinux.org>, 2020, 2021.
+# Salvatore Cocuzza <info@salvatorecocuzza.it>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2025-06-16 08:00+0000\n"
-"PO-Revision-Date: 2021-07-22 00:54+0000\n"
-"Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
-"Language-Team: Italian <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/it/>\n"
+"PO-Revision-Date: 2025-06-16 22:18+0000\n"
+"Last-Translator: Salvatore Cocuzza <info@salvatorecocuzza.it>\n"
+"Language-Team: Italian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7.2\n"
+"X-Generator: Weblate 5.12.1\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
@@ -250,7 +251,7 @@ msgid "%s failed: unknown status 0x%x"
 msgstr "%s non riuscita: stato sconosciuto 0x%x"
 
 #: modules/pam_faillock/main.c:131
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [--dir /path/to/tally-directory] [--user username] [--reset] [--"
 "legacy-output]\n"
@@ -258,7 +259,7 @@ msgstr ""
 "Uso: %s [--dir /path/to/tally-directory] [--user nomeutente] [--reset]\n"
 
 #: modules/pam_faillock/main.c:182
-#, fuzzy, c-format
+#, c-format
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "Accesso         Errori   Ultimi errori      Da\n"
 
@@ -337,9 +338,8 @@ msgid "There were too many logins for '%s'."
 msgstr "Sono stati effettuati troppi accessi per «%s»."
 
 #: modules/pam_mail/pam_mail.c:289
-#, fuzzy
 msgid "You do not have any new mail."
-msgstr "Ci sono nuove email."
+msgstr "Non hai ricevuto nuova posta."
 
 #: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
