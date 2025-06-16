@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-10-13 20:00+0000\n"
+"POT-Creation-Date: 2025-06-16 08:00+0000\n"
 "PO-Revision-Date: 2012-04-10 04:36-0400\n"
 "Last-Translator: Mahay Alam Khan <mahayalamkhan@gmail.com>\n"
 "Language-Team: Bengali <info@ankur.org.bd>\n"
@@ -67,12 +67,12 @@ msgstr "নতুন পাসওয়ার্ড পুনরায় লিখু
 msgid "Sorry, passwords do not match."
 msgstr "দুঃখিত, পাসওয়ার্ড দুটি এক নয়।"
 
-#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
+#: libpam/pam_get_authtok.c:145 libpam/pam_get_authtok.c:249
 #, c-format
 msgid "Retype %s"
 msgstr "%s পুনরায় লিখুন"
 
-#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
+#: libpam/pam_get_authtok.c:185 libpam/pam_get_authtok.c:267
 #, fuzzy
 msgid "Password change has been aborted."
 msgstr "পাসওয়ার্ড পরিবর্তন প্রক্রিয়া বাতিল করা হয়েছে।"
@@ -326,54 +326,54 @@ msgstr[1] "সর্বশেষ সফল লগ-ইনের পরে %d-ট�
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "সর্বশেষ সফল লগ-ইনের পরে %d-টি ব্যর্থ লগ-ইনের প্রচেষ্টা করা হয়েছে।"
 
-#: modules/pam_limits/pam_limits.c:1424
+#: modules/pam_limits/pam_limits.c:1435
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s'-র ক্ষেত্রে অত্যাধিক লগ-ইন"
 
-#: modules/pam_mail/pam_mail.c:290
+#: modules/pam_mail/pam_mail.c:289
 #, fuzzy
 msgid "You do not have any new mail."
 msgstr "নতুন মেইল প্রাপ্ত।"
 
-#: modules/pam_mail/pam_mail.c:293
+#: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
 msgstr "নতুন মেইল প্রাপ্ত।"
 
-#: modules/pam_mail/pam_mail.c:296
+#: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
 msgstr "পুরোনো মেইল রয়েছে।"
 
-#: modules/pam_mail/pam_mail.c:300
+#: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
 msgstr "মেইল রয়েছে।"
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "%s ফোল্ডারে কোনো মেইল উপস্থিত নেই।"
 
-#: modules/pam_mail/pam_mail.c:311
+#: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "%s ফোল্ডারে নতুন মেইল উপস্থিত।"
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "%s ফোল্ডারে পুরোনো মেইল উপস্থিত রয়েছে।"
 
-#: modules/pam_mail/pam_mail.c:320
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "%s ফোল্ডারে মেইল উপস্থিত রয়েছে।"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:124
+#: modules/pam_mkhomedir/pam_mkhomedir.c:120
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "'%s' ডিরেক্টরি নির্মাণ করা হচ্ছে।"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:207
+#: modules/pam_mkhomedir/pam_mkhomedir.c:203
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "ডিরেক্টরি '%s' নির্মাণ ও আরম্ভ করতে ব্যর্থ।"
@@ -388,45 +388,45 @@ msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হ
 msgid "Password has been already used."
 msgstr "পাসওয়ার্ড পূর্বে ব্যবহৃত হয়েছে। একটি পৃথক পাসওয়ার্ড নির্বাচন করুন।"
 
-#: modules/pam_selinux/pam_selinux.c:174
+#: modules/pam_selinux/pam_selinux.c:173
 #, fuzzy, c-format
 msgid "The default security context is %s."
 msgstr "ডিফল্ট Security Context %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:178
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "ভিন্ন role অথবা level লিখতে ইচ্ছুক কি?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:191
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "role: "
 
-#: modules/pam_selinux/pam_selinux.c:195
+#: modules/pam_selinux/pam_selinux.c:194
 #, fuzzy, c-format
 msgid "There is no default type for role %s."
 msgstr "role %s-র জন্য কোনো ডিফল্ট type উপস্থিত নেই\n"
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "level: "
 
-#: modules/pam_selinux/pam_selinux.c:261
+#: modules/pam_selinux/pam_selinux.c:260
 #, fuzzy
 msgid "This is not a valid security context."
 msgstr "বৈধ নিরাপত্তা সংক্রান্ত context নয়"
 
-#: modules/pam_selinux/pam_selinux.c:510
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:641
+#: modules/pam_selinux/pam_selinux.c:639
 #, fuzzy, c-format
 msgid "Security context %s has been assigned."
 msgstr "Security Context %s ধার্য করা হয়েছে"
 
-#: modules/pam_selinux/pam_selinux.c:657
+#: modules/pam_selinux/pam_selinux.c:655
 #, fuzzy, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "কি নির্মাণের Context %s ধার্য করা হয়েছে"
@@ -447,7 +447,7 @@ msgstr "pam_set_item() করতে ব্যর্থ\n"
 msgid "login: failure forking: %m"
 msgstr "লগ-ইন: fork করতে ব্যর্থ: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:385
+#: modules/pam_timestamp/pam_timestamp.c:387
 #, fuzzy, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "প্রবেশাধিকার প্রদান করা হয়েছে (%ld পূর্বে সর্বশেষ লগ-ইন করা হয়েছে)।"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-10-13 20:00+0000\n"
+"POT-Creation-Date: 2025-06-16 08:00+0000\n"
 "PO-Revision-Date: 2024-10-28 01:54+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
@@ -61,12 +61,12 @@ msgstr "Ketik ulang kata sandi baru: "
 msgid "Sorry, passwords do not match."
 msgstr "Maaf, kata sandi yang Anda masukkan tidak sama."
 
-#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
+#: libpam/pam_get_authtok.c:145 libpam/pam_get_authtok.c:249
 #, c-format
 msgid "Retype %s"
 msgstr "Ketik ulang %s"
 
-#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
+#: libpam/pam_get_authtok.c:185 libpam/pam_get_authtok.c:267
 msgid "Password change has been aborted."
 msgstr "Pergantian kata sandi telah digugurkan."
 
@@ -319,53 +319,53 @@ msgstr[0] ""
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "Ada %d upaya log masuk yang gagal sejak log masuk sukses terakhir."
 
-#: modules/pam_limits/pam_limits.c:1424
+#: modules/pam_limits/pam_limits.c:1435
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Ada terlalu banyak log masuk bagi '%s'."
 
-#: modules/pam_mail/pam_mail.c:290
+#: modules/pam_mail/pam_mail.c:289
 msgid "You do not have any new mail."
 msgstr "Anda tidak punya surat baru."
 
-#: modules/pam_mail/pam_mail.c:293
+#: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
 msgstr "Anda menerima surel baru."
 
-#: modules/pam_mail/pam_mail.c:296
+#: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
 msgstr "Anda memiliki surel lama."
 
-#: modules/pam_mail/pam_mail.c:300
+#: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
 msgstr "Anda memiliki surel."
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Anda tidak memiliki surel di folder %s."
 
-#: modules/pam_mail/pam_mail.c:311
+#: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Anda memiliki surel baru di folder %s."
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Anda memiliki email lama di folder %s."
 
-#: modules/pam_mail/pam_mail.c:320
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Anda memiliki surel di folder %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:124
+#: modules/pam_mkhomedir/pam_mkhomedir.c:120
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Membuat direktori '%s'."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:207
+#: modules/pam_mkhomedir/pam_mkhomedir.c:203
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Tidak dapat membuat direktori '%s'."
@@ -379,44 +379,44 @@ msgstr "Sandi sudah digunakan sebelumnya. Pilih sandi yang lain."
 msgid "Password has been already used."
 msgstr "Sandi sudah digunakan."
 
-#: modules/pam_selinux/pam_selinux.c:174
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "Konteks keamanan baku adalah %s."
 
-#: modules/pam_selinux/pam_selinux.c:178
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "Apakah anda mau menambah izin atau level yang berbeda?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:191
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "Sebagai:"
 
-#: modules/pam_selinux/pam_selinux.c:195
+#: modules/pam_selinux/pam_selinux.c:194
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "Tidak ada tipe baku bagi peran %s."
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "Level:"
 
-#: modules/pam_selinux/pam_selinux.c:261
+#: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
 msgstr "Ini bukan konteks keamanan yang benar."
 
-#: modules/pam_selinux/pam_selinux.c:510
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "Konteks yang valid bagi %s tidak bisa diperoleh."
 
-#: modules/pam_selinux/pam_selinux.c:641
+#: modules/pam_selinux/pam_selinux.c:639
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "Konteks keamanan %s telah ditugaskan."
 
-#: modules/pam_selinux/pam_selinux.c:657
+#: modules/pam_selinux/pam_selinux.c:655
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Konteks pembuatan kunci %s telah ditugaskan."
@@ -437,7 +437,7 @@ msgstr "gagal untuk pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "log masuk: kegagalan fork: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:385
+#: modules/pam_timestamp/pam_timestamp.c:387
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Akses telah diberikan (akses terkahir %ld detik yang lalu)."

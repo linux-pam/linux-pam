@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-10-13 20:00+0000\n"
+"POT-Creation-Date: 2025-06-16 08:00+0000\n"
 "PO-Revision-Date: 2023-09-18 01:35+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
@@ -67,12 +67,12 @@ msgstr "Redigite a nova senha: "
 msgid "Sorry, passwords do not match."
 msgstr "As senhas não são iguais."
 
-#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
+#: libpam/pam_get_authtok.c:145 libpam/pam_get_authtok.c:249
 #, c-format
 msgid "Retype %s"
 msgstr "Redigite %s"
 
-#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
+#: libpam/pam_get_authtok.c:185 libpam/pam_get_authtok.c:267
 msgid "Password change has been aborted."
 msgstr "A alteração de senha foi abortada."
 
@@ -326,53 +326,53 @@ msgstr[1] "Houveram %d falhas de login desde o último login bem sucedido."
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "Houveram %d falhas de login desde o último login bem sucedido."
 
-#: modules/pam_limits/pam_limits.c:1424
+#: modules/pam_limits/pam_limits.c:1435
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Há logins demais para '%s'."
 
-#: modules/pam_mail/pam_mail.c:290
+#: modules/pam_mail/pam_mail.c:289
 msgid "You do not have any new mail."
 msgstr "Você não tem novas mensagens."
 
-#: modules/pam_mail/pam_mail.c:293
+#: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
 msgstr "Há novas mensagens."
 
-#: modules/pam_mail/pam_mail.c:296
+#: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
 msgstr "Há mensagens antigas."
 
-#: modules/pam_mail/pam_mail.c:300
+#: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
 msgstr "Há mensagens."
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Não há mensagens na pasta %s."
 
-#: modules/pam_mail/pam_mail.c:311
+#: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Há novas mensagens na pasta %s."
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Há mensagens antigas na pasta %s."
 
-#: modules/pam_mail/pam_mail.c:320
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Há mensagens na pasta %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:124
+#: modules/pam_mkhomedir/pam_mkhomedir.c:120
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Criando o diretório '%s'."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:207
+#: modules/pam_mkhomedir/pam_mkhomedir.c:203
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Impossível criar e inicializar o diretório \"%s\"."
@@ -386,44 +386,44 @@ msgstr "A senha já foi usada. Escolha outra."
 msgid "Password has been already used."
 msgstr "A senha já foi usada."
 
-#: modules/pam_selinux/pam_selinux.c:174
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "Contexto de Segurança Padrão %s."
 
-#: modules/pam_selinux/pam_selinux.c:178
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "Deseja digitar uma função ou nível diferente?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:191
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "função:"
 
-#: modules/pam_selinux/pam_selinux.c:195
+#: modules/pam_selinux/pam_selinux.c:194
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "Não existe tipo padrão para a função %s."
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "nível:"
 
-#: modules/pam_selinux/pam_selinux.c:261
+#: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
 msgstr "Não é um contexto de segurança válido."
 
-#: modules/pam_selinux/pam_selinux.c:510
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "Impossível obter um contexto válido para %s."
 
-#: modules/pam_selinux/pam_selinux.c:641
+#: modules/pam_selinux/pam_selinux.c:639
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "Contexto de segurança %s atribuído."
 
-#: modules/pam_selinux/pam_selinux.c:657
+#: modules/pam_selinux/pam_selinux.c:655
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Contexto de criação de chave %s atribuído."
@@ -444,7 +444,7 @@ msgstr "falha em pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "login: falha na bifurcação: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:385
+#: modules/pam_timestamp/pam_timestamp.c:387
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Acesso concedido (o último acesso foi a %ld segundos atrás)."

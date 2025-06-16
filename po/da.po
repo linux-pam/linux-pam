@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-10-13 20:00+0000\n"
+"POT-Creation-Date: 2025-06-16 08:00+0000\n"
 "PO-Revision-Date: 2024-03-19 18:57+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <https://translate.fedoraproject.org/projects/linux-"
@@ -63,12 +63,12 @@ msgstr "Genindtast ny adgangskode: "
 msgid "Sorry, passwords do not match."
 msgstr "Adgangskoderne stemmer ikke overens."
 
-#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
+#: libpam/pam_get_authtok.c:145 libpam/pam_get_authtok.c:249
 #, c-format
 msgid "Retype %s"
 msgstr "Genindtast %s"
 
-#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
+#: libpam/pam_get_authtok.c:185 libpam/pam_get_authtok.c:267
 msgid "Password change has been aborted."
 msgstr "Ændring af adgangskode blev afbrudt."
 
@@ -322,53 +322,53 @@ msgstr[1] "Der var %d fejlende loginforsøg siden sidste succesfulde login."
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "Der var %d fejlende loginforsøg siden sidste succesfulde login."
 
-#: modules/pam_limits/pam_limits.c:1424
+#: modules/pam_limits/pam_limits.c:1435
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Der var for mange logins for '%s'."
 
-#: modules/pam_mail/pam_mail.c:290
+#: modules/pam_mail/pam_mail.c:289
 msgid "You do not have any new mail."
 msgstr "Der er ingen nye mails."
 
-#: modules/pam_mail/pam_mail.c:293
+#: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
 msgstr "Der er nye mails."
 
-#: modules/pam_mail/pam_mail.c:296
+#: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
 msgstr "Der er gamle e-mails."
 
-#: modules/pam_mail/pam_mail.c:300
+#: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
 msgstr "Der er mails."
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Der er ingen mails i mappen %s."
 
-#: modules/pam_mail/pam_mail.c:311
+#: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Der er nye mails i mappen %s."
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Der er gamle mails i mappen %s."
 
-#: modules/pam_mail/pam_mail.c:320
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Der er mails i mappen %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:124
+#: modules/pam_mkhomedir/pam_mkhomedir.c:120
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Opretter mappe \"%s\"."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:207
+#: modules/pam_mkhomedir/pam_mkhomedir.c:203
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Kunne ikke oprette og initialisere mappe \"%s\"."
@@ -382,44 +382,44 @@ msgstr "Adgangskoden er allerede blevet brugt. Vælg en anden."
 msgid "Password has been already used."
 msgstr "Adgangskode er allerede i brug."
 
-#: modules/pam_selinux/pam_selinux.c:174
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "Standard sikkerhedskonteksten er %s."
 
-#: modules/pam_selinux/pam_selinux.c:178
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "Vil du angive en anden rolle eller niveau?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:191
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "rolle:"
 
-#: modules/pam_selinux/pam_selinux.c:195
+#: modules/pam_selinux/pam_selinux.c:194
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "Der er ikke nogen standardtype for rollen %s."
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "niveau:"
 
-#: modules/pam_selinux/pam_selinux.c:261
+#: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
 msgstr "Der er ikke et gyldigt sikkerhedskontekst."
 
-#: modules/pam_selinux/pam_selinux.c:510
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "Der kunne ikke indhentes et gyldigt kontekst for %s."
 
-#: modules/pam_selinux/pam_selinux.c:641
+#: modules/pam_selinux/pam_selinux.c:639
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "Sikkerhedskontekst %s er blevet tildelt."
 
-#: modules/pam_selinux/pam_selinux.c:657
+#: modules/pam_selinux/pam_selinux.c:655
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Nøgleoprettelseskonteksten %s er blevet tildelt."
@@ -440,7 +440,7 @@ msgstr "pam_set_item() mislykkedes\n"
 msgid "login: failure forking: %m"
 msgstr "login: fejl ved forgrening: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:385
+#: modules/pam_timestamp/pam_timestamp.c:387
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Adgang er blevet givet (sidste adgang var for %ld sekunder siden)."

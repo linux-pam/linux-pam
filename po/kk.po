@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-10-13 20:00+0000\n"
+"POT-Creation-Date: 2025-06-16 08:00+0000\n"
 "PO-Revision-Date: 2022-12-07 16:19+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://translate.fedoraproject.org/projects/linux-"
@@ -61,12 +61,12 @@ msgstr "үшін жаңа парольді қайта енгізіңіз: "
 msgid "Sorry, passwords do not match."
 msgstr "Кешіріңіз, парольдер өзара сәйкес емес."
 
-#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
+#: libpam/pam_get_authtok.c:145 libpam/pam_get_authtok.c:249
 #, c-format
 msgid "Retype %s"
 msgstr "%s қайта енгізіңіз"
 
-#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
+#: libpam/pam_get_authtok.c:185 libpam/pam_get_authtok.c:267
 msgid "Password change has been aborted."
 msgstr "Парольді өзгертуден бас тартылды."
 
@@ -320,53 +320,53 @@ msgstr[0] "Соңғы сәтті жүйеге кіру реттен кейін %
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "Соңғы сәтті жүйеге кіру реттен кейін %d қате талап болған."
 
-#: modules/pam_limits/pam_limits.c:1424
+#: modules/pam_limits/pam_limits.c:1435
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "\"%s\" үшін жүйеге кіру талап саны тым көп."
 
-#: modules/pam_mail/pam_mail.c:290
+#: modules/pam_mail/pam_mail.c:289
 msgid "You do not have any new mail."
 msgstr "Сізде жаңа пошта жоқ."
 
-#: modules/pam_mail/pam_mail.c:293
+#: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
 msgstr "Сізде жаңа поштаңыз бар."
 
-#: modules/pam_mail/pam_mail.c:296
+#: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
 msgstr "Сізде ескі поштаңыз бар."
 
-#: modules/pam_mail/pam_mail.c:300
+#: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
 msgstr "Сізде пошта бар."
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Сізде %s бумасында пошта жоқ."
 
-#: modules/pam_mail/pam_mail.c:311
+#: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Сізде %s бумасында жаңа поштаңыз бар."
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Сізде %s бумасында ескі поштаңыз бар."
 
-#: modules/pam_mail/pam_mail.c:320
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Сізде %s бумасында поштаңыз бар."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:124
+#: modules/pam_mkhomedir/pam_mkhomedir.c:120
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "'%s' бумасын жасау."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:207
+#: modules/pam_mkhomedir/pam_mkhomedir.c:203
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "'%s' бумасын жасау мүмкін емес."
@@ -380,44 +380,44 @@ msgstr "Пароль осыған дейін қолданған. Басқасы�
 msgid "Password has been already used."
 msgstr "Пароль осыған дейін қолданылған."
 
-#: modules/pam_selinux/pam_selinux.c:174
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "Бастапқы қауіпсіздік контексті %s."
 
-#: modules/pam_selinux/pam_selinux.c:178
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "Басқа роль не деңгейді енгізуді қалайсыз ба?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:191
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "ролі:"
 
-#: modules/pam_selinux/pam_selinux.c:195
+#: modules/pam_selinux/pam_selinux.c:194
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "%s ролі үшін бастапқы түрі көрсетілмеген."
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "деңгейі:"
 
-#: modules/pam_selinux/pam_selinux.c:261
+#: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
 msgstr "Дұрыс қауіпсіздік контексті емес."
 
-#: modules/pam_selinux/pam_selinux.c:510
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "%s үшін жарамды контекстті алу мүмкін емес."
 
-#: modules/pam_selinux/pam_selinux.c:641
+#: modules/pam_selinux/pam_selinux.c:639
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "%s қауіпсіздік контексті тағайындалды."
 
-#: modules/pam_selinux/pam_selinux.c:657
+#: modules/pam_selinux/pam_selinux.c:655
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "%s кілттерді жасау қауіпсіздік контексті тағайындалды."
@@ -438,7 +438,7 @@ msgstr "pam_set_item() орындау мүмкін емес\n"
 msgid "login: failure forking: %m"
 msgstr "login: үрдісті бастау мүмкін емес: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:385
+#: modules/pam_timestamp/pam_timestamp.c:387
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Рұқсат расталған (соңғы қатынау %ld секунд бұрын болған)."

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-10-13 20:00+0000\n"
+"POT-Creation-Date: 2025-06-16 08:00+0000\n"
 "PO-Revision-Date: 2024-08-08 15:41+0000\n"
 "Last-Translator: Aindriu Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -63,12 +63,12 @@ msgstr "Iontráil focal faire nua arís: "
 msgid "Sorry, passwords do not match."
 msgstr "Tá brón orm, ní ionann na focail fhaire."
 
-#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
+#: libpam/pam_get_authtok.c:145 libpam/pam_get_authtok.c:249
 #, c-format
 msgid "Retype %s"
 msgstr "Iontráil %s arís"
 
-#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
+#: libpam/pam_get_authtok.c:185 libpam/pam_get_authtok.c:267
 msgid "Password change has been aborted."
 msgstr "Cuireadh deireadh le hathrú pasfhocail."
 
@@ -336,53 +336,53 @@ msgstr[4] ""
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "Theip ar %d iarracht logáil isteach ón logáil isteach dheireanach."
 
-#: modules/pam_limits/pam_limits.c:1424
+#: modules/pam_limits/pam_limits.c:1435
 #, c-format
 msgid "There were too many logins for '%s'."
 msgstr "Bhí an iomarca logáil isteach le haghaidh '%s'."
 
-#: modules/pam_mail/pam_mail.c:290
+#: modules/pam_mail/pam_mail.c:289
 msgid "You do not have any new mail."
 msgstr "Níl aon ríomhphost nua agat."
 
-#: modules/pam_mail/pam_mail.c:293
+#: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
 msgstr "Tá post nua agat."
 
-#: modules/pam_mail/pam_mail.c:296
+#: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
 msgstr "Tá seanphost agat."
 
-#: modules/pam_mail/pam_mail.c:300
+#: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
 msgstr "Tá post agat."
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "Níl aon phost agat i bhfillteán %s."
 
-#: modules/pam_mail/pam_mail.c:311
+#: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "Tá post nua agat i bhfillteán %s."
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "Tá seanphost agat i bhfillteán %s."
 
-#: modules/pam_mail/pam_mail.c:320
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "Tá post agat i bhfillteán %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:124
+#: modules/pam_mkhomedir/pam_mkhomedir.c:120
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Comhadlann '%s' á cruthú."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:207
+#: modules/pam_mkhomedir/pam_mkhomedir.c:203
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Ní féidir comhadlann '%s' a chruthú agus a thúsú."
@@ -396,44 +396,44 @@ msgstr "Úsáidtear an focal faire cheana. Roghnaigh ceann eile."
 msgid "Password has been already used."
 msgstr "Úsáidtear an focal faire cheana."
 
-#: modules/pam_selinux/pam_selinux.c:174
+#: modules/pam_selinux/pam_selinux.c:173
 #, c-format
 msgid "The default security context is %s."
 msgstr "Is é %s an comhthéacs slándála réamhshocraithe."
 
-#: modules/pam_selinux/pam_selinux.c:178
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "An bhfuil fonn ort ról nó leibhéal difriúil a iontráil?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:191
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "ról:"
 
-#: modules/pam_selinux/pam_selinux.c:195
+#: modules/pam_selinux/pam_selinux.c:194
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "Níl aon chineál réamhshocraithe le haghaidh ról %s."
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "leibhéal:"
 
-#: modules/pam_selinux/pam_selinux.c:261
+#: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
 msgstr "Ní comhthéacs bailí slándála é seo."
 
-#: modules/pam_selinux/pam_selinux.c:510
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "Níorbh fhéidir comhthéacs bailí do %s a fháil."
 
-#: modules/pam_selinux/pam_selinux.c:641
+#: modules/pam_selinux/pam_selinux.c:639
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "Comhthéacs slándála %s sannta."
 
-#: modules/pam_selinux/pam_selinux.c:657
+#: modules/pam_selinux/pam_selinux.c:655
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Tá comhthéacs cruthú eochrach %s sannta."
@@ -454,7 +454,7 @@ msgstr "theip ar pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "logáil isteach: theip ar dhéanamh foirc: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:385
+#: modules/pam_timestamp/pam_timestamp.c:387
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Tugadh rochtain (bhí an rochtain dheireanach %ld soicind ó shin)."

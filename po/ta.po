@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2024-10-13 20:00+0000\n"
+"POT-Creation-Date: 2025-06-16 08:00+0000\n"
 "PO-Revision-Date: 2020-03-06 23:59+0000\n"
 "Last-Translator: Dmitry V. Levin <ldv@altlinux.org>\n"
 "Language-Team: Tamil <https://translate.fedoraproject.org/projects/linux-pam/"
@@ -65,12 +65,12 @@ msgstr "புதிய password மீண்டும் உள்ளிடவ�
 msgid "Sorry, passwords do not match."
 msgstr "கடவுச்சொல் பொருந்தவில்லை."
 
-#: libpam/pam_get_authtok.c:143 libpam/pam_get_authtok.c:245
+#: libpam/pam_get_authtok.c:145 libpam/pam_get_authtok.c:249
 #, c-format
 msgid "Retype %s"
 msgstr "%sஐ மறு தட்டச்சு செய்"
 
-#: libpam/pam_get_authtok.c:183 libpam/pam_get_authtok.c:263
+#: libpam/pam_get_authtok.c:185 libpam/pam_get_authtok.c:267
 #, fuzzy
 msgid "Password change has been aborted."
 msgstr "கடவுச்சொல் மாற்றம் கைவிடப்பட்டது."
@@ -324,54 +324,54 @@ msgstr[1] "கடைசி புகுபதிவிலிருந்து %
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "கடைசி புகுபதிவிலிருந்து %d புகுபதிவு முயற்சி தோல்வியடைந்தன."
 
-#: modules/pam_limits/pam_limits.c:1424
+#: modules/pam_limits/pam_limits.c:1435
 #, fuzzy, c-format
 msgid "There were too many logins for '%s'."
 msgstr "'%s'க்கு பல புகுபதிவுகள் உள்ளன."
 
-#: modules/pam_mail/pam_mail.c:290
+#: modules/pam_mail/pam_mail.c:289
 #, fuzzy
 msgid "You do not have any new mail."
 msgstr "உங்களுக்கு புதிய அஞ்சல் உள்ளது."
 
-#: modules/pam_mail/pam_mail.c:293
+#: modules/pam_mail/pam_mail.c:292
 msgid "You have new mail."
 msgstr "உங்களுக்கு புதிய அஞ்சல் உள்ளது."
 
-#: modules/pam_mail/pam_mail.c:296
+#: modules/pam_mail/pam_mail.c:295
 msgid "You have old mail."
 msgstr "உங்களுக்கு பழைய அஞ்சல் உள்ளது."
 
-#: modules/pam_mail/pam_mail.c:300
+#: modules/pam_mail/pam_mail.c:299
 msgid "You have mail."
 msgstr "உங்களுக்கு அஞ்சல் உள்ளது."
 
-#: modules/pam_mail/pam_mail.c:307
+#: modules/pam_mail/pam_mail.c:306
 #, c-format
 msgid "You have no mail in folder %s."
 msgstr "உங்களுக்கு %s அடைவில் அஞ்சல் இல்லை."
 
-#: modules/pam_mail/pam_mail.c:311
+#: modules/pam_mail/pam_mail.c:310
 #, c-format
 msgid "You have new mail in folder %s."
 msgstr "உங்களுக்கு %s அடைவில் புதிய அஞ்சல் உள்ளது."
 
-#: modules/pam_mail/pam_mail.c:315
+#: modules/pam_mail/pam_mail.c:314
 #, c-format
 msgid "You have old mail in folder %s."
 msgstr "உங்களுக்கு %s அடைவில் பழைய அஞ்சல் உள்ளது."
 
-#: modules/pam_mail/pam_mail.c:320
+#: modules/pam_mail/pam_mail.c:319
 #, c-format
 msgid "You have mail in folder %s."
 msgstr "உங்களுக்கு %s அடைவில் அஞ்சல் உள்ளது."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:124
+#: modules/pam_mkhomedir/pam_mkhomedir.c:120
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "அடைவு '%s'ஐ உருவாக்குகிறது."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:207
+#: modules/pam_mkhomedir/pam_mkhomedir.c:203
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "அடைவு '%s'ஐ உருவாக்க மற்றும் துவக்க முடியவில்லை."
@@ -385,45 +385,45 @@ msgstr "கடவுச்சொல் ஏற்கனவே பயன்பட�
 msgid "Password has been already used."
 msgstr "கடவுச்சொல் ஏற்கனவே பயன்படுத்தப்பட்டுள்ளது."
 
-#: modules/pam_selinux/pam_selinux.c:174
+#: modules/pam_selinux/pam_selinux.c:173
 #, fuzzy, c-format
 msgid "The default security context is %s."
 msgstr "முன்னிருப்பு பாதுகாப்பு சூழல் %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:178
+#: modules/pam_selinux/pam_selinux.c:177
 msgid "Would you like to enter a different role or level?"
 msgstr "நீங்கள் வேறு பங்கு அல்லது நிலையை உள்ளிட வேண்டுமா?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:191
+#: modules/pam_selinux/pam_selinux.c:190
 msgid "role:"
 msgstr "பங்கு:"
 
-#: modules/pam_selinux/pam_selinux.c:195
+#: modules/pam_selinux/pam_selinux.c:194
 #, fuzzy, c-format
 msgid "There is no default type for role %s."
 msgstr "பங்கு %sக்கு முன்னிருப்பு வகை இல்லை\n"
 
-#: modules/pam_selinux/pam_selinux.c:227
+#: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
 msgstr "நிலை:"
 
-#: modules/pam_selinux/pam_selinux.c:261
+#: modules/pam_selinux/pam_selinux.c:260
 #, fuzzy
 msgid "This is not a valid security context."
 msgstr "இது சரியான பாதுகாப்பு சூழல் இல்லை"
 
-#: modules/pam_selinux/pam_selinux.c:510
+#: modules/pam_selinux/pam_selinux.c:509
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:641
+#: modules/pam_selinux/pam_selinux.c:639
 #, fuzzy, c-format
 msgid "Security context %s has been assigned."
 msgstr "பாதுகாப்பு சூழல் %s ஒதுக்கப்பட்டது"
 
-#: modules/pam_selinux/pam_selinux.c:657
+#: modules/pam_selinux/pam_selinux.c:655
 #, fuzzy, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "விசை உருவாக்க சூழல் %s ஒதுக்கப்பட்டுள்ளது"
@@ -444,7 +444,7 @@ msgstr "pam_set_item() செயலிழக்கப்பட்டது\n"
 msgid "login: failure forking: %m"
 msgstr "login: failure forking: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:385
+#: modules/pam_timestamp/pam_timestamp.c:387
 #, fuzzy, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "அணுகல் வழங்கப்பட்டது (கடைசி அணுகல் %ld விநாடிகளுக்கு முன்)."
