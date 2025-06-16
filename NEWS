@@ -1,10 +1,11 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
-Release 1.7.X
+Release 1.7.1
 * pam_access: do not resolve ttys or display variables as hostnames.
 * pam_access: added "nodns" option to disallow resolving of tokens as hostnames
   (CVE-2024-10963).
 * pam_limits: added support for rttime (RLIMIT_RTTIME).
+* pam_namespace: fixed potential privilege escalation (CVE-2025-6020).
 * meson: added support of elogind as a logind provider.
 * Multiple minor bug fixes, build fixes, portability fixes,
   documentation improvements, and translation updates.
