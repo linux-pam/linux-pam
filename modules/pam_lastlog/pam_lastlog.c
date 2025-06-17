@@ -569,7 +569,8 @@ last_login_failed(pam_handle_t *pamh, int announce, const char *user, time_t llt
 
     while ((retval=pam_modutil_read(fd, (void *)&ut,
 			 sizeof(ut))) == sizeof(ut)) {
-	if (ut.ut_tv.tv_sec >= lltime && strncmp(ut.ut_user, user, UT_NAMESIZE) == 0) {
+	if (zero_extend_signed_to_ull(ut.ut_tv.tv_sec) >= zero_extend_signed_to_ull(lltime)
+	    && strncmp(ut.ut_user, user, UT_NAMESIZE) == 0) {
 	    memcpy(&utuser, &ut, sizeof(utuser));
 	    failed++;
 	}
