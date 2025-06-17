@@ -244,7 +244,9 @@ check_login_time(
 		if (strncmp(ruser, ut->ut_user, sizeof(ut->ut_user)) != 0) {
 			continue;
 		}
-		if (oldest_login == 0 || oldest_login > ut->ut_tv.tv_sec) {
+		if (oldest_login == 0 ||
+		    zero_extend_signed_to_ull(oldest_login)
+		    > zero_extend_signed_to_ull(ut->ut_tv.tv_sec)) {
 			oldest_login = ut->ut_tv.tv_sec;
 		}
 	}
