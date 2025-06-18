@@ -34,9 +34,62 @@ struct dir_spec {
 
 static unsigned long u_mask = 0022;
 static const char *skeldir = "/etc/skel";
+static const size_t max_readlink_buflen = 10000;
 
 static int create_homedir(struct dir_spec *, const struct passwd *, mode_t,
 			  const char *, const char *);
+
+/* Wrapper around readlink() to handle an heap-allocated return buffer */
+static int
+do_readlink(const char *path, char **ret_buf)
+{
+   char *buf = NULL;
+   size_t buflen = 32;
+
+   while (buflen < max_readlink_buflen)
+   {
+      char *newbuf = NULL;
+      ssize_t linklen;
+
+      newbuf = realloc(buf, buflen);
+      if (newbuf == NULL)
+      {
+	 pam_syslog(NULL, LOG_CRIT, "failed to realloc buffer in do_readlink()");
+	 free(buf);
+	 return PAM_BUF_ERR;
+      }
+      buf = newbuf;
+
+      linklen = readlink(path, buf, buflen - 1);
+      if (linklen < 0)
+      {
+	 pam_syslog(NULL, LOG_ERR, "readlink(%s) failed: %m", path);
+	 free(buf);
+	 return PAM_SESSION_ERR;
+      }
+
+      if ((size_t) linklen < buflen - 1)
+      {
+	 buf[linklen] = '\0';
+	 break;
+      }
+
+      buflen += 32;
+   }
+
+   if (buflen >= max_readlink_buflen)
+   {
+      pam_syslog(NULL, LOG_ERR,
+		 "readlink(%s) not possible, it would require more than %zd bytes",
+		 path, max_readlink_buflen);
+      free(buf);
+      return PAM_SESSION_ERR;
+   }
+
+   *ret_buf = buf;
+
+   return PAM_SUCCESS;
+}
 
 static int
 dir_spec_open(struct dir_spec *spec, const char *path)
@@ -122,38 +175,17 @@ copy_entry(struct dir_spec *parent, const struct passwd *pwd, mode_t dir_mode,
    /* If it's a symlink, create a new link. */
    if (S_ISLNK(st.st_mode))
    {
-      int pointedlen = 0;
-#ifndef PATH_MAX
       char *pointed = NULL;
+      int readlinkerr;
+
+      readlinkerr = do_readlink(newsource, &pointed);
+      if (readlinkerr == PAM_BUF_ERR)
       {
-	 int size = 100;
-
-	 while (1)
-	 {
-	    pointed = malloc(size);
-	    if (pointed == NULL)
-	    {
-	       retval = PAM_BUF_ERR;
-	       goto go_out;
-	    }
-	    pointedlen = readlink(newsource, pointed, size);
-	    if (pointedlen < 0) break;
-	    if (pointedlen < size) break;
-	    free(pointed);
-	    size *= 2;
-	 }
+	 retval = PAM_BUF_ERR;
+	 goto go_out;
       }
-      if (pointedlen < 0)
-	 free(pointed);
-      else
-	 pointed[pointedlen] = 0;
-#else
-      char pointed[PATH_MAX] = {};
 
-      pointedlen = readlink(newsource, pointed, sizeof(pointed) - 1);
-#endif
-
-      if (pointedlen >= 0)
+      if (pointed != NULL)
       {
 	 if (symlinkat(pointed, parent->fd, dent->d_name) != 0)
          {
@@ -162,9 +194,7 @@ copy_entry(struct dir_spec *parent, const struct passwd *pwd, mode_t dir_mode,
 	    if (retval != PAM_SUCCESS)
 	       pam_syslog(NULL, LOG_DEBUG, "unable to create link %s/%s: %m",
 			  parent->path, dent->d_name);
-#ifndef PATH_MAX
 	    free(pointed);
-#endif
 	    goto go_out;
 	 }
 
@@ -174,15 +204,11 @@ copy_entry(struct dir_spec *parent, const struct passwd *pwd, mode_t dir_mode,
 	    pam_syslog(NULL, LOG_DEBUG,
 		       "unable to change perms on link %s/%s: %m",
 		       parent->path, dent->d_name);
-#ifndef PATH_MAX
 	    free(pointed);
-#endif
 	    retval = PAM_PERM_DENIED;
 	    goto go_out;
 	 }
-#ifndef PATH_MAX
 	 free(pointed);
-#endif
       }
       retval = PAM_SUCCESS;
       goto go_out;
