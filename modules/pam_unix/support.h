@@ -179,4 +179,6 @@ extern int _unix_verify_user(pam_handle_t *pamh, unsigned long long ctrl,
 extern int _unix_run_verify_binary(pam_handle_t *pamh,
 				   unsigned long long ctrl,
 				   const char *user, long *daysleft);
+extern int _unix_pwaccess_check_expired(pam_handle_t *pamh,
+					const char *user, long *daysleft);
 #endif /* _PAM_UNIX_SUPPORT_H */

@@ -116,7 +116,7 @@ if module == 'pam_unix'
   endif
   pam_module_c_args += ['-DCHKPWD_HELPER="@0@"'.format(sbindir / 'unix_chkpwd'),
                         '-DUPDATE_HELPER="@0@"'.format(sbindir / 'unix_update')]
-  pam_module_deps += [libcrypt, libselinux, libtirpc, libnsl]
+  pam_module_deps += [libcrypt, libselinux, libtirpc, libnsl, libpwaccess]
 endif
 if module == 'pam_userdb'
   if not enable_pam_userdb

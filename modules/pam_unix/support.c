@@ -22,6 +22,9 @@
 #ifdef HAVE_NIS
 #include <rpcsvc/ypclnt.h>
 #endif
+#ifdef USE_PWACCESS
+#include <pwaccess.h>
+#endif
 
 #include <security/_pam_macros.h>
 #include <security/pam_modules.h>
@@ -515,6 +518,93 @@ int _unix_comesfromsource(pam_handle_t *pamh,
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#ifdef USE_PWACCESS
+int _unix_pwaccess_check_expired(pam_handle_t *pamh, const char *user,
+				 long *daysleft)
+{
+    int  r, retval = PAM_SYSTEM_ERR;
+    bool pwchangeable = false;
+    long dl = -1;
+    char *error = NULL;
+
+    D(("called."));
+
+    r = pwaccess_check_expired(user, &dl, &pwchangeable, &error);
+    if (r < 0 || error) {
+        if (PWACCESS_IS_NOT_RUNNING(r)) {
+	    free(error);
+	    return PAM_SYSTEM_ERR;
+	}
+	if (r == -ENOENT) {
+	    free(error);
+	    return PAM_USER_UNKNOWN;
+	}
+	pam_syslog(pamh, LOG_ERR, "pwaccess failed: %s", error ? error : strerror(-r));
+	free(error);
+	return PAM_AUTHINFO_UNAVAIL;
+    }
+    *daysleft = dl;
+
+    switch(r) {
+        case PWA_EXPIRED_NO:
+	    if (!pwchangeable) {
+	        D(("password change too recent"));
+                return PAM_AUTHTOK_ERR;
+	    }
+	    retval = PAM_SUCCESS;
+	    break;
+        case PWA_EXPIRED_YES:
+            retval = PAM_ACCT_EXPIRED;
+            break;
+        case PWA_EXPIRED_CHANGE_PW:
+            retval = PAM_NEW_AUTHTOK_REQD;
+            break;
+        case PWA_EXPIRED_DISABLED:
+            retval = PAM_AUTHTOK_EXPIRED;
+            break;
+        default:
+	    retval = PAM_SYSTEM_ERR;
+    }
+
+    return retval;
+}
+
+static int _unix_pwaccess_verify_password(pam_handle_t *pamh, const char *passwd,
+			      unsigned long long ctrl, const char *user)
+{
+    int  r;
+    bool authenticated = false;
+    bool nullok = false;
+    char *error = NULL;
+
+    D(("called."));
+
+    if (off(UNIX__NONULL, ctrl))
+        nullok = true;
+
+
+    r = pwaccess_verify_password(user, passwd, nullok, &authenticated, &error);
+    if (r < 0 || error) {
+        if (PWACCESS_IS_NOT_RUNNING(r)) {
+	    free(error);
+	    return PAM_SYSTEM_ERR;
+	}
+	if (r == -ENOENT) {
+	    free(error);
+	    return PAM_USER_UNKNOWN;
+	}
+	pam_syslog(pamh, LOG_ERR, "pwaccess failed: %s", error ? error : strerror(-r));
+	free(error);
+	return PAM_AUTHINFO_UNAVAIL;
+    }
+
+    if (authenticated)
+	return PAM_SUCCESS;
+
+    return PAM_AUTH_ERR;
+}
+#endif
+
 static int _unix_run_helper_binary(pam_handle_t *pamh, const char *passwd,
 				   unsigned long long ctrl, const char *user)
 {
@@ -686,6 +776,13 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 		retval = get_pwd_hash(pamh, name, &pwd, &salt);
 
 		if (retval == PAM_UNIX_RUN_HELPER) {
+#ifdef USE_PWACCESS
+		        retval = _unix_pwaccess_verify_password(pamh, NULL, ctrl, name);
+			if (retval == PAM_SUCCESS)
+				blank = nonexistent_check;
+			else if (retval != PAM_AUTH_ERR)
+			  /* Fallback to unix_chkpwd if pwaccess reports an error */
+#endif
 			if (_unix_run_helper_binary(pamh, NULL, ctrl, name) == PAM_SUCCESS)
 				blank = nonexistent_check;
 		} else if (retval == PAM_USER_UNKNOWN) {
@@ -742,6 +839,11 @@ int _unix_verify_password(pam_handle_t * pamh, const char *name
 	if (retval != PAM_SUCCESS) {
 		if (retval == PAM_UNIX_RUN_HELPER) {
 			D(("running helper binary"));
+#ifdef USE_PWACCESS
+			retval = _unix_pwaccess_verify_password(pamh, p, ctrl, name);
+			if (retval != PAM_SUCCESS && retval != PAM_AUTH_ERR)
+			  /* Fallback to unix_chkpwd if pwaccess reports an error */
+#endif
 			retval = _unix_run_helper_binary(pamh, p, ctrl, name);
 		} else {
 			D(("user's record unavailable"));
@@ -881,7 +983,11 @@ _unix_verify_user(pam_handle_t *pamh,
         return PAM_SUCCESS;
 
     if (retval == PAM_UNIX_RUN_HELPER) {
-        retval = _unix_run_verify_binary(pamh, ctrl, name, daysleft);
+#ifdef USE_PWACCESS
+        retval = _unix_pwaccess_check_expired(pamh, name, daysleft);
+        if (retval == PAM_SYSTEM_ERR) /* pwaccess not running */
+#endif
+	    retval = _unix_run_verify_binary(pamh, ctrl, name, daysleft);
         if (retval == PAM_AUTHINFO_UNAVAIL &&
             on(UNIX_BROKEN_SHADOW, ctrl))
             return PAM_SUCCESS;
