@@ -53,6 +53,7 @@ cdata.set10('DEFAULT_USERGROUPS_SETTING', get_option('usergroups'))
 cdata.set('PAM_USERTYPE_UIDMIN', get_option('uidmin'))
 cdata.set('PAM_USERTYPE_OVERFLOW_UID', get_option('kernel-overflow-uid'))
 cdata.set('PAM_MISC_CONV_BUFSIZE', get_option('misc-conv-bufsize'))
+cdata.set('DIRECT_RUN_HELPER', get_option('direct_run_chkpwd_helper') ? 1 : false)
 
 cdata.set_quoted('_PAM_ISA',
   get_option('isadir') != '' ? get_option('isadir') : '../..' / fs.name(libdir) / 'security')
