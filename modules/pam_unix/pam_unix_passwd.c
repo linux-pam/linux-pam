@@ -522,7 +522,11 @@ static int _unix_verify_shadow(pam_handle_t *pamh, const char *user, unsigned lo
 		return PAM_SUCCESS;
 
 	if (retval == PAM_UNIX_RUN_HELPER) {
-		retval = _unix_run_verify_binary(pamh, ctrl, user, &daysleft);
+#ifdef USE_PWACCESS
+	        retval = _unix_pwaccess_check_expired(pamh, user, &daysleft);
+		if (retval == PAM_SYSTEM_ERR) /* pwaccess not running */
+#endif
+			retval = _unix_run_verify_binary(pamh, ctrl, user, &daysleft);
 		if (retval == PAM_AUTH_ERR || retval == PAM_USER_UNKNOWN)
 			return retval;
 	}
