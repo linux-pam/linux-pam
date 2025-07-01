@@ -627,6 +627,11 @@ _expand_arg(pam_handle_t *pamh, char **value)
     if ('\\' == *orig) {
       ++orig;
       if ('$' != *orig && '@' != *orig && '\\' != *orig) {
+	if (!*orig) {
+	  D(("Ignoring backslash at end of string"));
+	  pam_syslog(pamh, LOG_ERR, "Ignoring backslash at end of string");
+	  break;
+	}
 	D(("Unrecognized escaped character: <%c> - ignoring", *orig));
 	pam_syslog(pamh, LOG_ERR,
 		   "Unrecognized escaped character: <%c> - ignoring",
