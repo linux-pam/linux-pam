@@ -18,26 +18,26 @@
 static void echoOff(int fd, int off)
 {
     struct termios tty;
-    if (ioctl(fd, TCGETA, &tty) < 0)
+    if (tcgetattr(fd, &tty) < 0)
     {
-        fprintf(stderr, "TCGETA failed: %s\n", strerror(errno));
+        fprintf(stderr, "tcgetattr failed: %s\n", strerror(errno));
         return;
     }
 
     if (off)
     {
         tty.c_lflag &= ~(ECHO | ECHOE | ECHOK | ECHONL);
-        if (ioctl(fd, TCSETAF, &tty) < 0)
+        if (tcsetattr(fd, TCSAFLUSH, &tty) < 0)
         {
-            fprintf(stderr, "TCSETAF failed: %s\n", strerror(errno));
+            fprintf(stderr, "tcsetattr(TCSAFLUSH) failed: %s\n", strerror(errno));
         }
     }
     else
     {
         tty.c_lflag |= (ECHO | ECHOE | ECHOK | ECHONL);
-        if (ioctl(fd, TCSETAW, &tty) < 0)
+        if (tcsetattr(fd, TCSADRAIN, &tty) < 0)
         {
-            fprintf(stderr, "TCSETAW failed: %s\n", strerror(errno));
+            fprintf(stderr, "tcsetattr(TCSADRAIN) failed: %s\n", strerror(errno));
         }
     }
 }
