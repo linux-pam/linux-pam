@@ -18,7 +18,7 @@
 static void echoOff(int fd, int off)
 {
     struct termios tty;
-    if (ioctl(fd, TCGETA, &tty) < 0)
+    if (tcgetattr(fd, &tty) < 0)
     {
         fprintf(stderr, "TCGETA failed: %s\n", strerror(errno));
         return;
@@ -27,7 +27,7 @@ static void echoOff(int fd, int off)
     if (off)
     {
         tty.c_lflag &= ~(ECHO | ECHOE | ECHOK | ECHONL);
-        if (ioctl(fd, TCSETAF, &tty) < 0)
+        if (tcsetattr(fd, 0, &tty) < 0)
         {
             fprintf(stderr, "TCSETAF failed: %s\n", strerror(errno));
         }
@@ -35,7 +35,7 @@ static void echoOff(int fd, int off)
     else
     {
         tty.c_lflag |= (ECHO | ECHOE | ECHOK | ECHONL);
-        if (ioctl(fd, TCSETAW, &tty) < 0)
+        if (tcsetattr(fd, TCSADRAIN, &tty) < 0)
         {
             fprintf(stderr, "TCSETAW failed: %s\n", strerror(errno));
         }
