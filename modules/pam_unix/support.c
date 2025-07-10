@@ -648,7 +648,7 @@ _unix_blankpasswd (pam_handle_t *pamh, unsigned long long ctrl, const char *name
 {
 	struct passwd *pwd = NULL;
 	char *salt = NULL;
-	int daysleft;
+	long daysleft;
 	int retval;
 	int blank = 0;
 	int execloop;
@@ -863,7 +863,7 @@ int
 _unix_verify_user(pam_handle_t *pamh,
                   unsigned long long ctrl,
                   const char *name,
-                  int *daysleft)
+                  long *daysleft)
 {
     int retval;
     struct spwd *spent;

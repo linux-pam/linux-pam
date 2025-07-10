@@ -41,7 +41,7 @@ static int _check_expiry(const char *uname)
 	struct spwd *spent;
 	struct passwd *pwent;
 	int retval;
-	int daysleft;
+	long daysleft;
 
 	retval = get_account_info(uname, &pwent, &spent);
 	if (retval != PAM_SUCCESS) {
@@ -56,7 +56,7 @@ static int _check_expiry(const char *uname)
 	}
 
 	retval = check_shadow_expiry(spent, &daysleft);
-	printf("%d\n", daysleft);
+	printf("%ld\n", daysleft);
 	return retval;
 }
 

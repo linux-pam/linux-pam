@@ -510,7 +510,7 @@ static int _unix_verify_shadow(pam_handle_t *pamh, const char *user, unsigned lo
 {
 	struct passwd *pwent = NULL;	/* Password and shadow password */
 	struct spwd *spent = NULL;	/* file entries for the user */
-	int daysleft;
+	long daysleft;
 	int retval;
 
 	retval = get_account_info(pamh, user, &pwent, &spent);

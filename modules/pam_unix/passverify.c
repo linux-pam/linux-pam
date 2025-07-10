@@ -284,23 +284,8 @@ PAMH_ARG_DECL(int get_pwd_hash,
 	return PAM_SUCCESS;
 }
 
-/*
- * invariant: 0 <= num1
- * invariant: 0 <= num2
- */
-static int
-subtract(long num1, long num2)
-{
-	long value = num1 - num2;
-	if (value < INT_MIN)
-		return INT_MIN;
-	if (value > INT_MAX)
-		return INT_MAX;
-	return (int)value;
-}
-
 PAMH_ARG_DECL(int check_shadow_expiry,
-	struct spwd *spent, int *daysleft)
+	struct spwd *spent, long *daysleft)
 {
 	long int curdays, passed;
 	*daysleft = -1;
@@ -331,7 +316,7 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 			long inact = spent->sp_max < LONG_MAX - spent->sp_inact ?
 			    spent->sp_max + spent->sp_inact : LONG_MAX;
 			if (passed >= inact) {
-				*daysleft = subtract(inact, passed);
+				*daysleft = inact - passed;
 				D(("authtok expired"));
 				return PAM_AUTHTOK_EXPIRED;
 			}
@@ -344,7 +329,7 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 			long warn = spent->sp_warn > spent->sp_max ? -1 :
 			    spent->sp_max - spent->sp_warn;
 			if (passed >= warn) {
-				*daysleft = subtract(spent->sp_max, passed);
+				*daysleft = spent->sp_max - passed;
 				D(("warn before expiry"));
 			}
 		}

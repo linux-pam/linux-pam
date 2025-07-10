@@ -174,9 +174,9 @@ extern int _unix_verify_password(pam_handle_t * pamh, const char *name,
 				 const char *p, unsigned long long ctrl);
 
 extern int _unix_verify_user(pam_handle_t *pamh, unsigned long long ctrl,
-                             const char *name, int *daysleft);
+                             const char *name, long *daysleft);
 
 extern int _unix_run_verify_binary(pam_handle_t *pamh,
 				   unsigned long long ctrl,
-				   const char *user, int *daysleft);
+				   const char *user, long *daysleft);
 #endif /* _PAM_UNIX_SUPPORT_H */

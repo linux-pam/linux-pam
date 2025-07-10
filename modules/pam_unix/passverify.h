@@ -73,7 +73,7 @@ PAMH_ARG_DECL(int get_pwd_hash,
 	const char *name, struct passwd **pwd, char **hash);
 
 PAMH_ARG_DECL(int check_shadow_expiry,
-	struct spwd *spent, int *daysleft);
+	struct spwd *spent, long *daysleft);
 
 PAMH_ARG_DECL(int unix_update_passwd,
 	const char *forwho, const char *towhat);
