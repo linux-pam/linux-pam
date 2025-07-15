@@ -48,6 +48,13 @@
       <replaceable>umask</replaceable>.
     </para>
 
+    <para condition="with_vendordir">
+        When <replaceable>path-to-skel</replaceable> is equal to this default
+        value <emphasis>/etc/skel</emphasis>,
+        <emphasis>%vendordir%/skel</emphasis> will also be used, but files
+        from default value will be preferred.
+    </para>
+
     <para>
       The helper is separated from the module to not require direct access from
       login SELinux domains to the contents of user home directories. The

@@ -28,26 +28,15 @@
      <morgan@parc.power.net> 1996
  */
 
-#include "config.h"
+#include "pam_mkhomedir.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <sys/wait.h>
-#include <unistd.h>
-#include <pwd.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <syslog.h>
 #include <signal.h>
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
-#include <security/pam_modutil.h>
-#include <security/pam_ext.h>
 
 #include "pam_cc_compat.h"
 #include "pam_inline.h"
@@ -73,7 +62,12 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
 {
    opt->ctrl = 0;
    opt->umask = NULL;
-   opt->skeldir = "/etc/skel";
+#ifdef VENDORDIR
+   opt->skeldir = "";
+#else
+   opt->skeldir = SKELDIR;
+#endif
+
 
    /* does the application require quiet? */
    if ((flags & PAM_SILENT) == PAM_SILENT)
@@ -252,6 +246,20 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
       }
       return PAM_SUCCESS;
    }
+#ifdef VENDORDIR
+   if (strcmp(opt.skeldir, "") == 0)
+   {
+      /* Prefer using SKELDIR and then look into VENDOR_SKELDIR */
+      opt.skeldir = SKELDIR;
+      retval = create_homedir(pamh, &opt, user, pwd->pw_dir);
+      if (retval != PAM_SUCCESS)
+      {
+         pam_syslog(pamh, LOG_NOTICE, "Failed to create from %s.", SKELDIR);
+         return retval;
+      }
+      opt.skeldir = VENDOR_SKELDIR;
+   }
+#endif
 
    return create_homedir(pamh, &opt, user, pwd->pw_dir);
 }
