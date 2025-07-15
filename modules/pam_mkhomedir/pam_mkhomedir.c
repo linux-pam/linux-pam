@@ -60,6 +60,11 @@
 #define LOGIN_DEFS           "/etc/login.defs"
 #define UMASK_DEFAULT        "0022"
 
+#define SKELDIR "/etc/skel"
+#ifdef VENDORDIR
+#define VENDOR_SKELDIR (VENDORDIR "/skel")
+#endif
+
 struct options_t {
   int ctrl;
   const char *umask;
@@ -73,7 +78,7 @@ _pam_parse (const pam_handle_t *pamh, int flags, int argc, const char **argv,
 {
    opt->ctrl = 0;
    opt->umask = NULL;
-   opt->skeldir = "/etc/skel";
+   opt->skeldir = NULL;
 
    /* does the application require quiet? */
    if ((flags & PAM_SILENT) == PAM_SILENT)
@@ -154,7 +159,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
    child = fork();
    if (child == 0) {
 	static char *envp[] = { NULL };
-	const char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL };
+	const char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 	if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_PIPE_FD,
 					    PAM_MODUTIL_PIPE_FD,
@@ -165,8 +170,11 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
 	args[0] = MKHOMEDIR_HELPER;
 	args[1] = user;
 	args[2] = opt->umask ? opt->umask : UMASK_DEFAULT;
-	args[3] = opt->skeldir;
+	args[3] = opt->skeldir ? opt->skeldir : SKELDIR;
 	args[4] = login_homemode;
+#ifdef VENDORDIR
+	args[5] = opt->skeldir ? NULL : VENDOR_SKELDIR;
+#endif
 
 	DIAG_PUSH_IGNORE_CAST_QUAL;
 	execve(MKHOMEDIR_HELPER, (char **)args, envp);
