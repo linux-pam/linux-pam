@@ -46,6 +46,12 @@
       <filename>/etc/skel/</filename>) is used to copy default files
       and also sets a umask for the creation.
     </para>
+
+    <para condition="with_vendordir">
+      <emphasis>%vendordir%/skel</emphasis> will also be used unless
+      <replaceable>skel</replaceable> option is specified.
+    </para>
+
     <para>
       The new users home directory will not be removed after logout
       of the user.
