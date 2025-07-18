@@ -62,6 +62,8 @@
 #define FAILLOCK_ACTION_AUTHSUCC 1
 #define FAILLOCK_ACTION_AUTHFAIL 2
 
+#define FAILLOCK_AUTH_EXECUTED   "pam_faillock:auth_executed"
+
 static int
 args_parse(pam_handle_t *pamh, int argc, const char **argv,
 		int flags, struct options *opts)
@@ -478,6 +480,10 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
 		goto err;
 	}
 
+	rv = pam_set_data(pamh, FAILLOCK_AUTH_EXECUTED, (void *)1, NULL);
+	if (rv != PAM_SUCCESS)
+		goto err;
+
 	if (!(opts.flags & FAILLOCK_FLAG_LOCAL_ONLY) ||
 		check_local_user (pamh, opts.user) != 0) {
 		switch (opts.action) {
@@ -531,6 +537,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 	struct options opts;
 	int rv, fd = -1;
 	struct tally_data tallies;
+	const void *auth_flag;
 
 	memset(&tallies, 0, sizeof(tallies));
 
@@ -540,6 +547,12 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 		goto err;
 
 	opts.action = FAILLOCK_ACTION_AUTHSUCC;
+
+	rv = pam_get_data(pamh, FAILLOCK_AUTH_EXECUTED, &auth_flag);
+	if (rv == PAM_NO_MODULE_DATA) {
+		rv = PAM_SUCCESS;
+		goto err;
+	}
 
 	if ((rv=get_pam_user(pamh, &opts)) != PAM_SUCCESS) {
 		goto err;

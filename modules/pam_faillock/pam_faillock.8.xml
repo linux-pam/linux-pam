@@ -243,6 +243,14 @@
       user accounts allowing the adversary to infer that a particular account
       is not existing on a system.
     </para>
+    <para>
+      If the <option>auth</option> stack has not been run prior to the <option>account</option>
+      stack, the logic to reset the failed login counter is intentionally skipped. This prevents
+      automated services, such as <emphasis>crond</emphasis> or <emphasis>systemd-user</emphasis>,
+      which might only perform account management tasks, from inadvertently clearing a user's
+      failed attempt records. This ensures the faillock counter is only reset by a service that
+      performs a full, successful authentication.
+    </para>
   </refsect1>
 
   <refsect1 xml:id="pam_faillock-examples">
