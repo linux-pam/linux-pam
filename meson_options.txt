@@ -14,6 +14,8 @@ option('elogind', type: 'feature', value: 'auto',
        description: 'logind support in pam_issue, pam_limits, and pam_timestamp via elogind')
 option('openssl', type: 'feature', value: 'disabled',
        description: 'Use OpenSSL crypto libraries in pam_timestamp')
+option('pwaccess', type: 'feature', value: 'auto',
+       description: 'libpwaccess support in pam_unix')
 option('selinux', type: 'feature', value: 'auto',
        description: 'SELinux support')
 option('nis', type: 'feature', value: 'auto',
