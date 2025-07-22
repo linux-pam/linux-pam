@@ -8,23 +8,12 @@
      <morgan@parc.power.net> 1996
  */
 
-#include "config.h"
+#include "pam_mkhomedir.h"
 
 #include <stdarg.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
-#include <unistd.h>
-#include <pwd.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <dirent.h>
-#include <syslog.h>
 
-#include <security/pam_ext.h>
-#include <security/pam_modutil.h>
 #include "pam_inline.h"
 
 struct dir_spec {
@@ -33,7 +22,7 @@ struct dir_spec {
 };
 
 static unsigned long u_mask = 0022;
-static const char *skeldir = "/etc/skel";
+static const char *skeldir = SKELDIR;
 
 static int create_homedir(struct dir_spec *, const struct passwd *, mode_t,
 			  const char *, const char *);
@@ -277,10 +266,18 @@ create_homedir(struct dir_spec *parent, const struct passwd *pwd,
    if (mkdirat(parent->fd, dest, 0700))
    {
       if (errno == EEXIST)
-	 return PAM_SUCCESS;
-      pam_syslog(NULL, LOG_ERR, "unable to create directory %s/%s: %m",
-		 parent->path, dest);
-      return PAM_PERM_DENIED;
+      {
+#ifdef VENDORDIR
+         if (strncmp(source, VENDOR_SKELDIR, strlen(VENDOR_SKELDIR)) == 1)
+#endif
+                return PAM_SUCCESS;
+      }
+      else
+      {
+         pam_syslog(NULL, LOG_ERR, "unable to create directory %s/%s: %m",
+		    parent->path, dest);
+         return PAM_PERM_DENIED;
+      }
    }
 
    if (dir_spec_at(&base, parent, dest) < 0)
@@ -444,7 +441,10 @@ main(int argc, char *argv[])
    /* Stat the home directory, if something exists then we assume it is
       correct and return a success */
    if (stat(pwd->pw_dir, &st) == 0)
-	return PAM_SUCCESS;
+#ifdef VENDORDIR
+    if (strcmp(skeldir, VENDOR_SKELDIR) == 1)
+#endif
+	 return PAM_SUCCESS;
 
    if (make_parent_dirs(pwd->pw_dir, 0) != PAM_SUCCESS)
 	return PAM_PERM_DENIED;
