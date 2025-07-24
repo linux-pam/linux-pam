@@ -99,3 +99,6 @@ option('pam_lastlog', type: 'feature', value: 'disabled',
        description: 'pam_lastlog module')
 option('pam_unix', type: 'feature', value: 'auto',
        description: 'pam_unix module')
+option('direct_run_chkpwd_helper', type: 'boolean', value: true,
+       description: 'Run unix_chkpwd helper to access password file, other than fallback of getspnam')
+
