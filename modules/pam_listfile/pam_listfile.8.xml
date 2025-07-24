@@ -126,7 +126,9 @@
           <listitem>
             <para>
               File containing one item per line. The file needs to be a plain
-              file and not world writable.
+              file and not world writable. It must be owned by the real user
+              (not the effective user) who has executed the application that
+              is using this PAM module.
             </para>
           </listitem>
 	</varlistentry>
@@ -137,8 +139,8 @@
           </term>
           <listitem>
             <para>
-              What to do if something weird happens like being unable to open
-              the file.
+              What to do if something weird happens like a problem while
+              opening the file. The default value is fail.
             </para>
           </listitem>
         </varlistentry>
@@ -162,8 +164,7 @@
           </term>
           <listitem>
             <para>
-              Do not treat service refusals or missing list files as
-              errors that need to be logged.
+              Do not treat service refusals as errors that need to be logged.
             </para>
           </listitem>
         </varlistentry>
