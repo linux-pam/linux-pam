@@ -80,6 +80,10 @@ unsigned long long _set_ctrl(pam_handle_t *pamh, int flags, int *remember,
 		D(("IAMROOT"));
 		set(UNIX__IAMROOT, ctrl);
 	}
+	if (flags & PAM_CHANGE_EXPIRED_AUTHTOK) {
+		D(("PAM_CHANGE_EXPIRED_AUTHTOK"));
+		set(UNIX_EXPIRED_ONLY, ctrl);
+	}
 	if (flags & PAM_UPDATE_AUTHTOK) {
 		D(("UPDATE_AUTHTOK"));
 		set(UNIX__UPDATE, ctrl);
