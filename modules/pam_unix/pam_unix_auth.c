@@ -2,7 +2,6 @@
  * pam_unix authentication management
  *
  * Copyright Alexander O. Yuriev, 1996.  All rights reserved.
- * NIS+ support by Thorsten Kukuk <kukuk@weber.uni-paderborn.de>
  * Copyright Jan Rękorajski, 1999.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

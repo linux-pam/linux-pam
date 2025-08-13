@@ -200,65 +200,26 @@ PAMH_ARG_DECL(int get_account_info,
 	*pwd = pam_modutil_getpwnam(pamh, name);	/* Get password file entry... */
 	*spwdent = NULL;
 
-	if (*pwd != NULL) {
-		if (strcmp((*pwd)->pw_passwd, "*NP*") == 0)
-		{ /* NIS+ */
-#ifdef HELPER_COMPILE
-			uid_t save_euid, save_uid;
-
-			save_euid = geteuid();
-			save_uid = getuid();
-			if (save_uid == (*pwd)->pw_uid) {
-				if (setreuid(save_euid, save_uid))
-					return PAM_CRED_INSUFFICIENT;
-			} else  {
-				if (setreuid(0, -1))
-					return PAM_CRED_INSUFFICIENT;
-				if (setreuid(-1, (*pwd)->pw_uid)) {
-					if (setreuid(-1, 0)
-					    || setreuid(0, -1)
-					    || setreuid(-1, (*pwd)->pw_uid)) {
-						return PAM_CRED_INSUFFICIENT;
-					}
-				}
-			}
-
-			*spwdent = pam_modutil_getspnam(pamh, name);
-			if (save_uid == (*pwd)->pw_uid) {
-				if (setreuid(save_uid, save_euid))
-					return PAM_CRED_INSUFFICIENT;
-			} else {
-				if (setreuid(-1, 0)
-				    || setreuid(save_uid, -1)
-				    || setreuid(-1, save_euid))
-					return PAM_CRED_INSUFFICIENT;
-			}
-
-			if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL)
-				return PAM_AUTHINFO_UNAVAIL;
-#else
-			/* we must run helper for NIS+ passwords */
-			return PAM_UNIX_RUN_HELPER;
-#endif
-		} else if (is_pwd_shadowed(*pwd)) {
-#ifdef HELPER_COMPILE
-			/*
-			 * shadow password file entry for this user,
-			 * if shadowing is enabled
-			 */
-			*spwdent = getspnam(name);
-			if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL)
-				return PAM_AUTHINFO_UNAVAIL;
-#else
-			/*
-			 * The helper has to be invoked to deal with
-			 * the shadow password file entry.
-			 */
-			return PAM_UNIX_RUN_HELPER;
-#endif
-		}
-	} else {
+	if (*pwd == NULL) {
 		return PAM_USER_UNKNOWN;
+	}
+
+	if (is_pwd_shadowed(*pwd)) {
+#ifdef HELPER_COMPILE
+		/*
+		 * shadow password file entry for this user,
+		 * if shadowing is enabled
+		 */
+		*spwdent = getspnam(name);
+		if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL)
+			return PAM_AUTHINFO_UNAVAIL;
+#else
+		/*
+		 * The helper has to be invoked to deal with
+		 * the shadow password file entry.
+		 */
+		return PAM_UNIX_RUN_HELPER;
+#endif
 	}
 	return PAM_SUCCESS;
 }
