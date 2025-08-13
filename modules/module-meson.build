@@ -431,7 +431,7 @@ if module == 'pam_unix'
              ],
     c_args: ['-DHELPER_COMPILE="unix_chkpwd"'],
     link_args: exe_link_args,
-    dependencies: [libpam_internal_dep, libpam_dep, libcrypt, libselinux, libaudit],
+    dependencies: [libpam_internal_dep, libpam_dep, libcrypt, libselinux, libaudit, libpwaccess],
     install: true,
     install_dir: sbindir,
   )
@@ -447,7 +447,7 @@ if module == 'pam_unix'
                ],
       c_args: ['-DHELPER_COMPILE="unix_update"'],
       link_args: exe_link_args,
-      dependencies: [libpam_internal_dep, libpam_dep, libcrypt, libselinux, libaudit],
+      dependencies: [libpam_internal_dep, libpam_dep, libcrypt, libselinux, libaudit, libpwaccess],
       install: true,
       install_dir: sbindir,
     )

@@ -264,6 +264,10 @@ foreach f: ['crypt_r']
   endif
 endforeach
 
+libpwaccess = dependency('libpwaccess', required: get_option('pwaccess'))
+if libpwaccess.found()
+  cdata.set('USE_PWACCESS', 1)
+endif
 
 libeconf = dependency('libeconf', version: '>= 0.5.0', required: get_option('econf'))
 if libeconf.found()

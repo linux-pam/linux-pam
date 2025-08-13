@@ -23,6 +23,9 @@
 #ifdef HAVE_CRYPT_H
 #include <crypt.h>
 #endif
+#ifdef USE_PWACCESS
+#include <pwaccess.h>
+#endif
 
 #include "pam_cc_compat.h"
 #include "pam_inline.h"
@@ -210,6 +213,22 @@ PAMH_ARG_DECL(int get_account_info,
 		 * shadow password file entry for this user,
 		 * if shadowing is enabled
 		 */
+#ifdef USE_PWACCESS
+		int r;
+		bool complete = false;
+		char *error = NULL;
+
+		r = pwaccess_get_user_record(-1, name, NULL, spwdent, &complete, &error);
+		if (r < 0) {
+			if (!PWACCESS_IS_NOT_RUNNING(r))
+				pam_syslog(pamh, LOG_ERR, "%s",
+					   error ? error : strerror(-r));
+			free(error);
+		}
+		if (complete)
+			return PAM_SUCCESS;
+		struct_shadow_freep(spwdent);
+#endif
 		*spwdent = getspnam(name);
 		if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL)
 			return PAM_AUTHINFO_UNAVAIL;
