@@ -150,6 +150,7 @@ add_project_link_arguments(
   # --as-needed and --no-undefined are enabled by default
   cc.get_supported_link_arguments([
     '-Wl,--fatal-warnings',
+    '-Wl,--no-undefined-version',
     '-Wl,-O1',
   ]),
   language: 'c')
