@@ -1,9 +1,3 @@
-pam_module_map = 'modules.map'
-pam_module_map_path = meson.current_source_dir() / pam_module_map
-
-pam_module_link_deps = ['..' / pam_module_map]
-pam_module_link_args = ['-Wl,--version-script=' + pam_module_map_path]
-
 subdir('pam_access')
 subdir('pam_canonicalize_user')
 subdir('pam_debug')
