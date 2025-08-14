@@ -62,7 +62,7 @@ pam_modutil_getgrgid(pam_handle_t *pamh, gid_t gid)
 		    status = PAM_NO_MODULE_DATA;
 	            if (pam_get_data(pamh, data_name, &ignore) != PAM_SUCCESS) {
 		        status = pam_set_data(pamh, data_name,
-					      result, pam_modutil_cleanup);
+					      result, pam_modutil_cleanup_group);
 		    }
 		    free(data_name);
 		    if (status == PAM_SUCCESS) {

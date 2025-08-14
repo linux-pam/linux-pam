@@ -20,5 +20,14 @@
 extern void
 pam_modutil_cleanup(pam_handle_t *pamh, void *data,
                     int error_status);
+extern void
+pam_modutil_cleanup_group(pam_handle_t *pamh, void *data,
+			  int error_status);
+extern void
+pam_modutil_cleanup_passwd(pam_handle_t *pamh, void *data,
+			   int error_status);
+extern void
+pam_modutil_cleanup_shadow(pam_handle_t *pamh, void *data,
+			   int error_status);
 
 #endif /* PAMMODUTIL_PRIVATE_H */
