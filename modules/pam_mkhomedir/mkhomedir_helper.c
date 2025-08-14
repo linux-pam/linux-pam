@@ -8,23 +8,12 @@
      <morgan@parc.power.net> 1996
  */
 
-#include "config.h"
+#include "pam_mkhomedir.h"
 
 #include <stdarg.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
-#include <unistd.h>
-#include <pwd.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <dirent.h>
-#include <syslog.h>
 
-#include <security/pam_ext.h>
-#include <security/pam_modutil.h>
 #include "pam_inline.h"
 
 struct dir_spec {
@@ -33,10 +22,10 @@ struct dir_spec {
 };
 
 static unsigned long u_mask = 0022;
-static const char *skeldir = "/etc/skel";
+static const char *skeldir = SKELDIR;
 
 static int create_homedir(struct dir_spec *, const struct passwd *, mode_t,
-			  const char *, const char *);
+			  const char *, const char *, const char *);
 
 static int
 dir_spec_open(struct dir_spec *spec, const char *path)
@@ -88,7 +77,7 @@ dir_spec_close(struct dir_spec *spec)
 
 static int
 copy_entry(struct dir_spec *parent, const struct passwd *pwd, mode_t dir_mode,
-	   const char *source, struct dirent *dent)
+	   const char *source, struct dirent *dent, const char *vendordir)
 {
    char remark[BUFSIZ];
    int srcfd = -1, destfd = -1;
@@ -96,6 +85,7 @@ copy_entry(struct dir_spec *parent, const struct passwd *pwd, mode_t dir_mode,
    int retval = PAM_SESSION_ERR;
    struct stat st;
    char *newsource;
+   char *newvendordir = NULL;
 
    /* Determine what kind of file it is. */
    if ((newsource = pam_asprintf("%s/%s", source, dent->d_name)) == NULL)
@@ -114,8 +104,25 @@ copy_entry(struct dir_spec *parent, const struct passwd *pwd, mode_t dir_mode,
    /* If it's a directory, recurse. */
    if (S_ISDIR(st.st_mode))
    {
+      if (vendordir != NULL)
+      {
+         if ((newvendordir = pam_asprintf("%s/%s", vendordir, dent->d_name)) == NULL)
+         {
+            pam_syslog(NULL, LOG_CRIT, "asprintf failed for 'newvendordir'");
+            retval = PAM_BUF_ERR;
+            goto go_out;
+         }
+         if (lstat(newvendordir, &st) != 0)
+         {
+            free(newvendordir);
+            newvendordir = NULL;
+         }
+      }
+      else
+         newvendordir = NULL;
+
       retval = create_homedir(parent, pwd, dir_mode & (~u_mask), newsource,
-			      dent->d_name);
+			      dent->d_name, newvendordir);
       goto go_out;
    }
 
@@ -259,19 +266,22 @@ copy_entry(struct dir_spec *parent, const struct passwd *pwd, mode_t dir_mode,
       close(destfd);
 
    free(newsource);
-
+   if (newvendordir != NULL)
+      free(newvendordir);
    return retval;
 }
 
 /* Do the actual work of creating a home dir */
 static int
 create_homedir(struct dir_spec *parent, const struct passwd *pwd,
-	       mode_t dir_mode, const char *source, const char *dest)
+	       mode_t dir_mode, const char *source, const char *dest,
+	       const char *vendordir)
 {
    DIR *d = NULL;
    struct dirent *dent;
    struct dir_spec base;
    int retval = PAM_SESSION_ERR;
+   const char **sources = (const char *[]){source, vendordir, NULL};
 
    /* Create the new directory */
    if (mkdirat(parent->fd, dest, 0700))
@@ -296,31 +306,35 @@ create_homedir(struct dir_spec *parent, const struct passwd *pwd,
       goto go_out;
    }
 
-   /* Scan the directory */
-   d = opendir(source);
-   if (d == NULL)
+   /* Scan the directories */
+   for (; *sources; sources++)
    {
-      pam_syslog(NULL, LOG_DEBUG, "unable to read directory %s: %m", source);
-      retval = PAM_PERM_DENIED;
-      goto go_out;
-   }
+      d = opendir(*sources);
+      if (d == NULL)
+      {
+         pam_syslog(NULL, LOG_DEBUG, "unable to read directory %s: %m", *sources);
+         retval = PAM_PERM_DENIED;
+         goto go_out;
+      }
 
-   for (dent = readdir(d); dent != NULL; dent = readdir(d))
-   {
-      /* Skip some files.. */
-      if (strcmp(dent->d_name,".") == 0 ||
-	  strcmp(dent->d_name,"..") == 0)
-	 continue;
+      for (dent = readdir(d); dent != NULL; dent = readdir(d))
+      {
+         /* Skip some files.. */
+         if (strcmp(dent->d_name,".") == 0 ||
+             strcmp(dent->d_name,"..") == 0)
+            continue;
 
-      retval = copy_entry(&base, pwd, dir_mode, source, dent);
-      if (retval != PAM_SUCCESS)
-	 goto go_out;
+         retval = copy_entry(&base, pwd, dir_mode, *sources, dent, vendordir);
+         if (retval != PAM_SUCCESS)
+            goto go_out;
+      }
+      closedir(d);
    }
 
    retval = PAM_SUCCESS;
 
  go_out:
-   if (d != NULL)
+   if (*sources != NULL && d != NULL)
       closedir(d);
 
    if (fchmodat(parent->fd, dest, dir_mode, AT_SYMLINK_NOFOLLOW) != 0 ||
@@ -340,7 +354,8 @@ create_homedir(struct dir_spec *parent, const struct passwd *pwd,
 
 static int
 create_homedir_helper(const struct passwd *_pwd, mode_t home_mode,
-		      const char *_skeldir, const char *_homedir)
+		      const char *_skeldir, const char *_homedir,
+		      const char *_vendordir)
 {
    int retval = PAM_SESSION_ERR;
    struct dir_spec base;
@@ -357,7 +372,7 @@ create_homedir_helper(const struct passwd *_pwd, mode_t home_mode,
    }
    *cp = '/';
 
-   retval = create_homedir(&base, _pwd, home_mode, _skeldir, cp + 1);
+   retval = create_homedir(&base, _pwd, home_mode, _skeldir, cp + 1, _vendordir);
 
  go_out:
    dir_spec_close(&base);
@@ -399,6 +414,7 @@ main(int argc, char *argv[])
    struct stat st;
    char *eptr;
    unsigned long home_mode = 0;
+   const char *vendordir = NULL;
 
    if (argc < 2) {
 	fprintf(stderr, "Usage: %s <username> [<umask> [<skeldir> [<home_mode>]]]\n", argv[0]);
@@ -433,6 +449,9 @@ main(int argc, char *argv[])
        }
    }
 
+   if (argc >= 6)
+      vendordir = argv[5];
+
    if (home_mode == 0)
       home_mode = 0777 & ~u_mask;
 
@@ -449,5 +468,5 @@ main(int argc, char *argv[])
    if (make_parent_dirs(pwd->pw_dir, 0) != PAM_SUCCESS)
 	return PAM_PERM_DENIED;
 
-   return create_homedir_helper(pwd, home_mode, skeldir, pwd->pw_dir);
+   return create_homedir_helper(pwd, home_mode, skeldir, pwd->pw_dir, vendordir);
 }
