@@ -1,0 +1,5 @@
+{
+  global:
+    pam_sm_acct_mgmt;
+  local: *;
+};
