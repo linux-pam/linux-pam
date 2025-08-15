@@ -208,7 +208,7 @@ PAMH_ARG_DECL(int get_account_info,
 	}
 
 	if (is_pwd_shadowed(*pwd)) {
-#ifdef HELPER_COMPILE
+#if defined(HELPER_COMPILE) || defined(PAM_UNIX_TRY_GETSPNAM)
 		/*
 		 * shadow password file entry for this user,
 		 * if shadowing is enabled
@@ -229,10 +229,19 @@ PAMH_ARG_DECL(int get_account_info,
 			return PAM_SUCCESS;
 		struct_shadow_freep(spwdent);
 #endif
-		*spwdent = getspnam(name);
-		if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL)
+		*spwdent = pam_modutil_getspnam(pamh, name);
+		if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL
+# ifndef HELPER_COMPILE
+			/* synthesized entry from libnss-systemd */
+			|| (strcmp(name, "root") == 0 &&
+			    strcmp((*spwdent)->sp_pwdp, "!*") == 0)
+# endif
+		   )
+# ifdef HELPER_COMPILE
 			return PAM_AUTHINFO_UNAVAIL;
-#else
+# endif
+#endif /* HELPER_COMPILE || PAM_UNIX_TRY_GETSPNAM */
+#ifndef HELPER_COMPILE
 		/*
 		 * The helper has to be invoked to deal with
 		 * the shadow password file entry.

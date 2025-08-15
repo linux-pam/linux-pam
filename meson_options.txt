@@ -101,3 +101,5 @@ option('pam_lastlog', type: 'feature', value: 'disabled',
        description: 'pam_lastlog module')
 option('pam_unix', type: 'feature', value: 'auto',
        description: 'pam_unix module')
+option('pam_unix-try-getspnam', type: 'boolean', value: false,
+       description: 'Let pam_unix try getspnam to obtain shadow password file entry before falling back to invoking the helper')
