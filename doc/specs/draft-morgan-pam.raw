@@ -442,7 +442,7 @@ available agents on the system is implementation specific.
 pamc_start() function returns NULL on failure. Otherwise, the return
 value is a pointer to an opaque data type which provides a handle to
 the libpamc library. On systems where threading is available, the
-libpamc libraray is thread safe provided a single (pamc_handler_t *)
+libpamc library is thread safe provided a single (pamc_handler_t *)
 is used by each thread.
 
 #$$$$  Client (Applicant) selection of agents
