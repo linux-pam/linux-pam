@@ -213,12 +213,18 @@ PAMH_ARG_DECL(int get_account_info,
 		*spwdent = getspnam(name);
 		if (*spwdent == NULL || (*spwdent)->sp_pwdp == NULL)
 			return PAM_AUTHINFO_UNAVAIL;
-#else
+#elif !defined(PAM_UNIX_TRY_GETSPNAM)
 		/*
 		 * The helper has to be invoked to deal with
 		 * the shadow password file entry.
 		 */
 		return PAM_UNIX_RUN_HELPER;
+#else
+		*spwdent = pam_modutil_getspnam(pamh, name);
+		if (*spwdent == NULL) {
+			/* still a chance the user can authenticate */
+			return PAM_UNIX_RUN_HELPER;
+		}
 #endif
 	}
 	return PAM_SUCCESS;
