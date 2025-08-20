@@ -6,8 +6,8 @@
 
   You need to add the following (or equivalent) to the /etc/pam.conf file.
   # check authorization
-  check   auth       required     pam_unix_auth.so
-  check   account    required     pam_unix_acct.so
+  check   auth       required     pam_unix.so
+  check   account    required     pam_unix.so
 */
 
 #include <security/pam_appl.h>
