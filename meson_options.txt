@@ -87,7 +87,7 @@ option('xauth', type: 'string',
        description: 'Additional path to check for xauth when it is called from pam_xauth')
 option('randomdev', type: 'string',
        description: 'Random device to use instead of /dev/urandom')
-option('vendordir', type: 'string',
+option('vendordir', type: 'string', value: '/usr/share/pam',
        description: 'Distribution provided configuration files directory')
 
 option('pam_userdb', type: 'feature', value: 'auto',
