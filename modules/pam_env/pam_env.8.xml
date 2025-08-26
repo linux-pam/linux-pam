@@ -80,8 +80,8 @@
       pairs on separate lines. The path to this file can be specified with the
       <emphasis>envfile</emphasis> option.
       If this file has not been defined, the settings are read from the
-      files <filename>/etc/security/environment</filename> and
-      <filename>/etc/security/environment.d/*</filename>.
+      files <filename>/etc/environment</filename> and
+      <filename>/etc/environment.d/*</filename>.
       If the file <filename>/etc/environment</filename> does not exist, the
       settings are read from the files <filename>%vendordir%/environment</filename>,
       <filename>%vendordir%/environment.d/*</filename> and
