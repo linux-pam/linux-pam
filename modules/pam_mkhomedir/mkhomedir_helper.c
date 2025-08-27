@@ -34,6 +34,7 @@ struct dir_spec {
 
 static unsigned long u_mask = 0022;
 static const char *skeldir = "/etc/skel";
+static int use_copy_mode = 0;
 
 static int create_homedir(struct dir_spec *, const struct passwd *, mode_t,
 			  const char *, const char *);
@@ -323,6 +324,12 @@ create_homedir(struct dir_spec *parent, const struct passwd *pwd,
    if (d != NULL)
       closedir(d);
 
+   if (use_copy_mode) {
+      struct stat st;
+      if (lstat(source, &st) == 0)
+         dir_mode = st.st_mode;
+   }
+
    if (fchmodat(parent->fd, dest, dir_mode, AT_SYMLINK_NOFOLLOW) != 0 ||
        fchownat(parent->fd, dest, pwd->pw_uid, pwd->pw_gid,
 		AT_SYMLINK_NOFOLLOW) != 0)
@@ -401,7 +408,7 @@ main(int argc, char *argv[])
    unsigned long home_mode = 0;
 
    if (argc < 2) {
-	fprintf(stderr, "Usage: %s <username> [<umask> [<skeldir> [<home_mode>]]]\n", argv[0]);
+	fprintf(stderr, "Usage: %s <username> [<umask> [<skeldir> [<home_mode> [<copymode>]]]]\n", argv[0]);
 	return PAM_SESSION_ERR;
    }
 
@@ -431,6 +438,14 @@ main(int argc, char *argv[])
 		pam_syslog(NULL, LOG_ERR, "Bogus home_mode value %s", argv[4]);
 		return PAM_SESSION_ERR;
        }
+   }
+
+   if (argc >= 6) {
+      if (strcmp(argv[5], "copymode")) {
+         pam_syslog(NULL, LOG_ERR, "Unknown directory mode %s.", argv[5]);
+         return PAM_SESSION_ERR;
+      }
+      use_copy_mode = 1;
    }
 
    if (home_mode == 0)
