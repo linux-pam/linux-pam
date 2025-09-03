@@ -24,6 +24,9 @@
         <replaceable>path-to-skel</replaceable>
       <arg choice="opt" rep="norepeat">
         <replaceable>home_mode</replaceable>
+      <arg choice="opt" rep="norepeat">
+        <replaceable>path-to-vendor-skel</replaceable>
+      </arg>
       </arg>
       </arg>
       </arg>
@@ -46,6 +49,13 @@
       <emphasis>/etc/skel</emphasis>. The default value of
       <replaceable>home_mode</replaceable> is computed from the value of
       <replaceable>umask</replaceable>.
+    </para>
+
+    <para>
+      <replaceable>path-to-vendor-skel</replaceable> doesn't have default
+      value. When set to a <emphasis>path</emphasis>, home directory will be
+      populated by contents of <replaceable>path-to-skel</replaceable> first,
+      and then by contents of <emphasis>path</emphasis>.
     </para>
 
     <para>
