@@ -54,9 +54,9 @@
 #include "pam_i18n.h"
 
 /* argument parsing */
-#define MKHOMEDIR_DEBUG         020	/* be verbose about things */
-#define MKHOMEDIR_QUIET         040	/* keep quiet about things */
-#define MKHOMEDIR_OVERRIDE_HOME 060 /* override the home directory */
+#define MKHOMEDIR_DEBUG         020	 /* be verbose about things */
+#define MKHOMEDIR_QUIET         040	 /* keep quiet about things */
+#define MKHOMEDIR_OVERRIDE_HOME 0100 /* override the home directory */
 
 #define LOGIN_DEFS           "/etc/login.defs"
 #define UMASK_DEFAULT        "0022"
@@ -166,7 +166,7 @@ create_homedir (pam_handle_t *pamh, options_t *opt,
    child = fork();
    if (child == 0) {
 	static char *envp[] = { NULL };
-	const char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	const char *args[] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 	if (pam_modutil_sanitize_helper_fds(pamh, PAM_MODUTIL_PIPE_FD,
 					    PAM_MODUTIL_PIPE_FD,
@@ -264,23 +264,16 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
    /* Determine the target home directory */
    if (opt.parent != NULL) {
          /* Use parent directory option to construct home directory path */
-         size_t parent_len = strlen(opt.parent);
-         size_t user_len = strlen((const char *)user);
+         homedir = pam_asprintf("%s/%s", opt.parent, (const char *)user);
 
-         /* Allocate memory for parent + "/" + username + null terminator */
-         homedir = malloc(parent_len + 1 + user_len + 1);
          if (homedir == NULL) {
-            pam_syslog(pamh, LOG_ERR, "Memory allocation failed.");
+            pam_syslog(pamh, LOG_ERR, "Memory allocation failed for target directory");
             return PAM_BUF_ERR;
+         } else if (opt.ctrl & MKHOMEDIR_DEBUG) {
+            pam_syslog(pamh, LOG_DEBUG, "Using parent option: creating home directory %s", homedir);
          }
 
-         /* Construct the path: parent/username */
-         snprintf(homedir, parent_len + 1 + user_len + 1, "%s/%s", opt.parent, (const char *)user);
          target_dir = homedir;
-
-         if (opt.ctrl & MKHOMEDIR_DEBUG) {
-            pam_syslog(pamh, LOG_DEBUG, "Using parent option: creating home directory %s", target_dir);
-         }
       } else {
          /* Use the home directory from the password entry */
          target_dir = pwd->pw_dir;
@@ -301,15 +294,12 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
 
     /* Set HOME environment variable if override_home option is enabled */
    if (retval == PAM_SUCCESS && opt.ctrl & MKHOMEDIR_OVERRIDE_HOME) {
-      char *home_env;
-      size_t home_len = strlen("HOME=") + strlen(target_dir) + 1;
+      char *home_env = pam_asprintf("HOME=%s", target_dir);
 
-      home_env = malloc(home_len);
       if (home_env == NULL) {
          pam_syslog(pamh, LOG_ERR, "Memory allocation failed for HOME environment variable");
          retval = PAM_BUF_ERR;
       } else {
-         snprintf(home_env, home_len, "HOME=%s", target_dir);
          retval = pam_putenv(pamh, home_env);
          if (retval != PAM_SUCCESS) {
             pam_syslog(pamh, LOG_ERR, "Failed to set HOME environment variable to %s", target_dir);
@@ -320,9 +310,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags, int argc,
       }
    }
 
-   if (homedir != NULL) {
-      free(homedir);
-   }
+   free(homedir);
 
    return retval;
 }

@@ -473,7 +473,7 @@ main(int argc, char *argv[])
    }
 
    if (argc >= 7)
-   vendordir = argv[6];
+      vendordir = argv[6];
 
    /* Stat the home directory, if something exists then we assume it is
       correct and return a success */
