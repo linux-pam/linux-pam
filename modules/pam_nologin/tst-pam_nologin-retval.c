@@ -163,7 +163,10 @@ main(void)
 		ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_close_session(pamh, 0));
 		ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 		pamh = NULL;
+	}
 
+	/* uid != 0 */
+	if (geteuid() != 0 && (pw = getpwuid(geteuid())) != NULL) {
 		/* PAM_SYSTEM_ERR */
 		ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 		ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
@@ -189,10 +192,7 @@ main(void)
 		ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_close_session(pamh, 0));
 		ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 		pamh = NULL;
-	}
 
-	/* uid != 0 */
-	if (geteuid() != 0 && (pw = getpwuid(geteuid())) != NULL) {
 		/* PAM_AUTH_ERR */
 		ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 		ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
