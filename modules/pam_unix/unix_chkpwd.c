@@ -108,13 +108,23 @@ int main(int argc, char *argv[])
 	  /* if the caller specifies the username, verify that user
 	     matches it */
 	  if (user == NULL || strcmp(user, argv[1])) {
+	    uid_t euid = geteuid();
 	    gid_t rgid = getgid();
+	    uid_t egid = getegid();
 
-	    /* no match -> permanently change to the real user and group,
-	     * check for no-return, and proceed */
-	    if (setgid(rgid) != 0              || setuid(ruid) != 0 ||
-	        (rgid != 0 && setgid(0) != -1) || (ruid != 0 && setuid(0) != -1))
-		return PAM_AUTH_ERR;
+	    /* no match -> permanently change to the real user and group */
+	    if (rgid != egid && setregid(rgid, rgid) != 0)
+	      return PAM_AUTH_ERR;
+
+	    if (ruid != euid && setreuid(ruid, ruid) != 0)
+	      return PAM_AUTH_ERR;
+
+	    /* check that we cannot change back */
+	    if (rgid != egid && setegid(egid) == 0)
+	      return PAM_AUTH_ERR;
+
+	    if (ruid != euid && seteuid(euid) == 0)
+	      return PAM_AUTH_ERR;
 	  }
 	}
 
