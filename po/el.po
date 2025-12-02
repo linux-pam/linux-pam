@@ -5,14 +5,14 @@
 # Translators:
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+# Jim Spentzos <jimspentzos2000@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2025-06-16 08:00+0000\n"
 "PO-Revision-Date: 2025-09-09 10:43+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"Last-Translator: Jim Spentzos <jimspentzos2000@gmail.com>\n"
 "Language-Team: Greek <https://translate.fedoraproject.org/projects/linux-pam/"
 "master/el/>\n"
 "Language: el\n"
@@ -25,27 +25,27 @@ msgstr ""
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
 msgid "Password: "
-msgstr ""
+msgstr "Κωδικός πρόσβασης: "
 
 #. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:42
 #, c-format
 msgid "Current %s password: "
-msgstr ""
+msgstr "Τρέχων κωδικός πρόσβασης για «%s»: "
 
 #: libpam/pam_get_authtok.c:43
 msgid "Current password: "
-msgstr ""
+msgstr "Τρέχων κωδικός πρόσβασης: "
 
 #. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
-msgstr ""
+msgstr "Νέος κωδικός πρόσβασης για «%s»: "
 
 #: libpam/pam_get_authtok.c:46
 msgid "New password: "
-msgstr ""
+msgstr "Νέος κωδικός πρόσβασης: "
 
 #. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:48
@@ -76,7 +76,7 @@ msgstr ""
 
 #: libpam/pam_strerror.c:41
 msgid "Success"
-msgstr ""
+msgstr "Επιτυχία"
 
 #: libpam/pam_strerror.c:43
 msgid "Critical error - immediate abort"
@@ -96,7 +96,7 @@ msgstr ""
 
 #: libpam/pam_strerror.c:51
 msgid "System error"
-msgstr ""
+msgstr "Σφάλμα συστήματος"
 
 #: libpam/pam_strerror.c:53
 msgid "Memory buffer error"
@@ -108,7 +108,7 @@ msgstr ""
 
 #: libpam/pam_strerror.c:57
 msgid "Authentication failure"
-msgstr ""
+msgstr "Αποτυχία ταυτοποίησης"
 
 #: libpam/pam_strerror.c:59
 msgid "Insufficient credentials to access authentication data"
@@ -399,7 +399,7 @@ msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
-msgstr "επίπεδο"
+msgstr "επίπεδο:"
 
 #: modules/pam_selinux/pam_selinux.c:260
 msgid "This is not a valid security context."
@@ -482,21 +482,19 @@ msgid "The password has not been changed."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:575
-#, fuzzy
 msgid "You must choose a shorter password."
 msgstr "Πρέπει να επιλέξετε μικρότερο κωδικό πρόσβασης."
 
 #: modules/pam_unix/pam_unix_passwd.c:579
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "Πρέπει να επιλέξετε μικρότερο κωδικό πρόσβασης."
+msgstr "Πρέπει να επιλέξετε μεγαλύτερο κωδικό πρόσβασης."
 
 #: modules/pam_unix/pam_unix_passwd.c:684
 #, c-format
 msgid "Changing password for %s."
-msgstr ""
+msgstr "Αλλαγή κωδικού πρόσβασης για «%s»."
 
 #: modules/pam_unix/pam_unix_passwd.c:714
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "Πρέπει να επιλέξετε μικρότερο κωδικό πρόσβασης."
+msgstr ""
+"Πρέπει να περιμένετε περισσότερο για να αλλάξετε τον κωδικό πρόσβασής σας."
