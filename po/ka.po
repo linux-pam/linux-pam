@@ -5,22 +5,22 @@
 # Translators:
 # George Machitidze <giomac@gmail.com>, 2013
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
-# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022.
+# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2025-06-16 08:00+0000\n"
-"PO-Revision-Date: 2022-11-13 09:19+0000\n"
+"PO-Revision-Date: 2025-09-25 10:54+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
-"Language-Team: Georgian <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/ka/>\n"
+"Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
@@ -31,7 +31,7 @@ msgstr "პაროლი: "
 #: libpam/pam_get_authtok.c:42
 #, c-format
 msgid "Current %s password: "
-msgstr "%s-ის ახალი პაროლი: "
+msgstr "%s-ის მიმდინარე პაროლი: "
 
 #: libpam/pam_get_authtok.c:43
 msgid "Current password: "
@@ -41,7 +41,7 @@ msgstr "მიმდინარე პაროლი: "
 #: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
-msgstr "%s-ის ახალი პაროლი: "
+msgstr "ახალი %s-ის პაროლი: "
 
 #: libpam/pam_get_authtok.c:46
 msgid "New password: "
@@ -51,7 +51,7 @@ msgstr "ახალი პაროლი: "
 #: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
-msgstr "გაიმეორეთ %s-ის ახალი პაროლი: "
+msgstr "გაიმეორეთ ახალი %s-ის პაროლი: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
@@ -68,23 +68,23 @@ msgstr "ხელახლა შეიყვანეთ %s"
 
 #: libpam/pam_get_authtok.c:185 libpam/pam_get_authtok.c:267
 msgid "Password change has been aborted."
-msgstr "პაროლის შეცვლის პროცედურა გაუქმდა."
+msgstr "პაროლის შეცვლის პროცედურა შეწყდა."
 
 #: libpam/pam_item.c:317
 msgid "login:"
-msgstr "მომხმარებელი:"
+msgstr "შესვლა:"
 
 #: libpam/pam_strerror.c:41
 msgid "Success"
-msgstr "წარმატებული"
+msgstr "წარმატებულია"
 
 #: libpam/pam_strerror.c:43
 msgid "Critical error - immediate abort"
-msgstr "კრიტიკული შეცდომა - დაუყოვნებელი გაუქმება"
+msgstr "კრიტიკული შეცდომა - დაუყოვნებელი შეწყვეტა"
 
 #: libpam/pam_strerror.c:45
 msgid "Failed to load module"
-msgstr "მოდულის ჩატვირთვა ვერ მოხერხდა"
+msgstr "მოდულის ჩატვირთვა ჩავარდა"
 
 #: libpam/pam_strerror.c:47
 msgid "Symbol not found"
@@ -104,15 +104,15 @@ msgstr "მეხსიერების ბუფერის შეცდო�
 
 #: libpam/pam_strerror.c:55
 msgid "Permission denied"
-msgstr "წვდომა უარყოფილია"
+msgstr "წვდომა აკრძალულია"
 
 #: libpam/pam_strerror.c:57
 msgid "Authentication failure"
-msgstr "ავთენტიკაციის შეცდომა"
+msgstr "ავთენტიკაცია ჩავარდა"
 
 #: libpam/pam_strerror.c:59
 msgid "Insufficient credentials to access authentication data"
-msgstr "ავთენტიკაციის მონაცემებთან წვდომისათვის არასაკმარისი უფლებები გაქვთ"
+msgstr "არასაკმარისი უფლებები ავთენტიკაციის მონაცემებთან წვდომისათვის"
 
 #: libpam/pam_strerror.c:61
 msgid "Authentication service cannot retrieve authentication info"
@@ -132,11 +132,11 @@ msgstr "ავთენტიკაციის კოდი აღარ მუ
 
 #: libpam/pam_strerror.c:69
 msgid "User account has expired"
-msgstr "მომხმარებლის ვადა გასულია"
+msgstr "მომხმარებლის ანგარიშის ვადა ამოიწურა"
 
 #: libpam/pam_strerror.c:71
 msgid "Cannot make/remove an entry for the specified session"
-msgstr "მითითებული სესიის ჩანაწერის შექმნის/წაშლის შეცდომა"
+msgstr "მითითებული სესიისთვის ჩანაწერის შექმნის/წაშლის შეცდომა"
 
 #: libpam/pam_strerror.c:73
 msgid "Authentication service cannot retrieve user credentials"
@@ -148,7 +148,7 @@ msgstr "მომხმარებელი ან პაროლი ვად
 
 #: libpam/pam_strerror.c:77
 msgid "Failure setting user credentials"
-msgstr "მომხმარებლის ან პაროლის დაყენების შეცდომა"
+msgstr "ავტორიზაციის დეტალების დაყენების შეცდომა"
 
 #: libpam/pam_strerror.c:79
 msgid "No module specific data is present"
@@ -164,11 +164,11 @@ msgstr "საუბრის შეცდომა"
 
 #: libpam/pam_strerror.c:85
 msgid "Authentication token manipulation error"
-msgstr "ავთენტიკაციის კოდის მანიპულირების შეცდომა"
+msgstr "ავთენტიკაციის კოდის მანიპულაციის შეცდომა"
 
 #: libpam/pam_strerror.c:87
 msgid "Authentication information cannot be recovered"
-msgstr "ავთენტიკაციის ინფორმაციის აღდგენის შეცდომა"
+msgstr "ავთენტიკაციის ინფორმაციის აღდგენა შეუძლებელია"
 
 #: libpam/pam_strerror.c:89
 msgid "Authentication token lock busy"
@@ -176,15 +176,15 @@ msgstr "ავთენტიკაციის კოდის ბლოკი 
 
 #: libpam/pam_strerror.c:91
 msgid "Authentication token aging disabled"
-msgstr "ავთენტიკაციის კოდის ვადის გასვლა გამორთულია"
+msgstr "ავთენტიკაციის კოდის ვადის ამოწურვა გამორთულია"
 
 #: libpam/pam_strerror.c:93
 msgid "Failed preliminary check by password service"
-msgstr "პაროლის წინასწარი შემოწმების შეცდომა"
+msgstr "პაროლის სერვისის მიერ წინასწარი შემოწმება ჩავარდა"
 
 #: libpam/pam_strerror.c:95
 msgid "The return value should be ignored by PAM dispatch"
-msgstr "დაბრუნებული ნიშვნელობა იგნორირებული უნდა იყოს PAM dispatch-ის მიერ"
+msgstr "დაბრუნებული მნიშვნელობა იგნორირებული უნდა იყოს PAM dispatch-ის მიერ"
 
 #: libpam/pam_strerror.c:97
 msgid "Module is unknown"
@@ -200,11 +200,11 @@ msgstr "საუბარი მოვლენას ელოდება"
 
 #: libpam/pam_strerror.c:103
 msgid "Application needs to call libpam again"
-msgstr "აპლიკაციას libpam-ის თავიდან გაშვება სჭირდება"
+msgstr "აპლიკაციას libpam-ის თავიდან გამოძახება სჭირდება"
 
 #: libpam/pam_strerror.c:106
 msgid "Unknown PAM error"
-msgstr "PAM-ის უცნობი შეცდომა"
+msgstr "უცნობი PAM-ის შეცდომა"
 
 #.
 #. * external timeout definitions - these can be overridden by the
@@ -214,31 +214,31 @@ msgstr "PAM-ის უცნობი შეცდომა"
 #. time when we timeout
 #: libpam_misc/misc_conv.c:36
 msgid "...Time is running out...\n"
-msgstr "...დრო გადის...\n"
+msgstr "...დრო იწურება...\n"
 
 #: libpam_misc/misc_conv.c:37
 msgid "...Sorry, your time is up!\n"
-msgstr "...უკაცრავად, თქვენი დრო გავიდა!\n"
+msgstr "...უკაცრავად, თქვენი დრო ამოიწურა!\n"
 
 #: libpam_misc/misc_conv.c:351
 #, c-format
 msgid "erroneous conversation (%d)\n"
-msgstr "შეცდომითი საუბარი (%d)\n"
+msgstr "შეცდომის შემცველი საუბარი (%d)\n"
 
 #: modules/pam_exec/pam_exec.c:298
 #, c-format
 msgid "%s failed: exit code %d"
-msgstr "%s-ის შეცდომა: გამოსვლის კოდი %d"
+msgstr "%s ჩავარდა: გასვლის კოდი %d"
 
 #: modules/pam_exec/pam_exec.c:308
 #, c-format
 msgid "%s failed: caught signal %d%s"
-msgstr "%s-ის შეცდომა: გადაჭერილი სიგნალი %d%s"
+msgstr "%s ჩავარდა: დავიჭირე სიგნალი %d%s"
 
 #: modules/pam_exec/pam_exec.c:318
 #, c-format
 msgid "%s failed: unknown status 0x%x"
-msgstr "%s-ის შეცდომა: უცნობიბ სტატუსი 0x%x"
+msgstr "%s ჩავარდა: უცნობი სტატუსი 0x%x"
 
 #: modules/pam_faillock/main.c:131
 #, c-format
@@ -252,7 +252,7 @@ msgstr ""
 #: modules/pam_faillock/main.c:182
 #, c-format
 msgid "Login           Failures    Latest failure         From\n"
-msgstr "მომხმარებელი          შეცდომები      ბოლოშეცდომა         საიდან\n"
+msgstr "შესვლის          შეცდომები      ბოლო შეცდომა         საიდან\n"
 
 #: modules/pam_faillock/pam_faillock.c:416
 #, c-format
@@ -297,7 +297,7 @@ msgstr "ბოლო შესვლა: %s%s%s"
 
 #: modules/pam_lastlog/pam_lastlog.c:360
 msgid "Welcome to your new account!"
-msgstr "კეთილი იყოს თქვენი მობრძაება ახალ ანგარიშში!"
+msgstr "კეთილი იყოს თქვენი მობრძანება ახალ ანგარიშში!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
 #: modules/pam_lastlog/pam_lastlog.c:623
