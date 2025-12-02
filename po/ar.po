@@ -5,22 +5,23 @@
 # Translators:
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Yaron Shahrabani <sh.yaron@gmail.com>, 2020.
+# joo es <jonnyse@users.noreply.translate.fedoraproject.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2025-06-16 08:00+0000\n"
-"PO-Revision-Date: 2020-07-05 10:55+0000\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Arabic <https://translate.fedoraproject.org/projects/linux-"
-"pam/master/ar/>\n"
+"PO-Revision-Date: 2025-09-03 13:53+0000\n"
+"Last-Translator: joo es <jonnyse@users.noreply.translate.fedoraproject.org>\n"
+"Language-Team: Arabic <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 5.13\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
@@ -29,14 +30,13 @@ msgstr "كلمة السر: "
 
 #. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:42
-#, fuzzy, c-format
+#, c-format
 msgid "Current %s password: "
-msgstr "كلمة سر %s الجديدة: "
+msgstr "كلمة سر %s الحالة: "
 
 #: libpam/pam_get_authtok.c:43
-#, fuzzy
 msgid "Current password: "
-msgstr "كلمة سر الجديدة: "
+msgstr "كلمة سر %s الحالية: "
 
 #. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:45
@@ -65,7 +65,7 @@ msgstr "عذرًا، يوجد عدم تطابق بين كلمات السر."
 #: libpam/pam_get_authtok.c:145 libpam/pam_get_authtok.c:249
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "أعد كتابة %s"
 
 #: libpam/pam_get_authtok.c:185 libpam/pam_get_authtok.c:267
 #, fuzzy
@@ -412,7 +412,7 @@ msgstr ""
 
 #: modules/pam_selinux/pam_selinux.c:226
 msgid "level:"
-msgstr ""
+msgstr "المستوى:"
 
 #: modules/pam_selinux/pam_selinux.c:260
 #, fuzzy
@@ -506,12 +506,11 @@ msgstr "تعذر تغيير كلمة السر الخاصة بـ NIS."
 
 #: modules/pam_unix/pam_unix_passwd.c:575
 msgid "You must choose a shorter password."
-msgstr "يجب عليك اختيار كلمة مرور أقصر."
+msgstr "يجب عليك اختيار كلمة سر أقصر."
 
 #: modules/pam_unix/pam_unix_passwd.c:579
-#, fuzzy
 msgid "You must choose a longer password."
-msgstr "يجب اختيار كلمة سر أطول"
+msgstr "يجب اختيار كلمة سر أطول."
 
 #: modules/pam_unix/pam_unix_passwd.c:684
 #, c-format
@@ -519,9 +518,8 @@ msgid "Changing password for %s."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:714
-#, fuzzy
 msgid "You must wait longer to change your password."
-msgstr "يجب الانتظار فترة أطول لتغيير كلمة السر"
+msgstr "يجب الانتظار فترة أطول لتغيير كلمة السر."
 
 #, fuzzy
 #~ msgid "You have no mail."
