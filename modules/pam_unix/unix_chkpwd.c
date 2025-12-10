@@ -69,6 +69,7 @@ int main(int argc, char *argv[])
 	int retval = PAM_AUTH_ERR;
 	char *user;
 	char *passwords[] = { pass };
+	uid_t ruid = getuid();
 
 	/*
 	 * Catch or ignore as many signal as possible.
@@ -87,9 +88,9 @@ int main(int argc, char *argv[])
 	if (isatty(STDIN_FILENO) || argc != 3 ) {
 		helper_log_err(LOG_NOTICE
 		      ,"inappropriate use of Unix helper binary [UID=%d]"
-			 ,getuid());
+			 ,ruid);
 #ifdef HAVE_LIBAUDIT
-		audit_log(AUDIT_ANOM_EXEC, getuidname(getuid()), PAM_SYSTEM_ERR);
+		audit_log(AUDIT_ANOM_EXEC, getuidname(ruid), PAM_SYSTEM_ERR);
 #endif
 		fprintf(stderr
 		 ,"This binary is not designed for running in this way\n"
@@ -102,31 +103,37 @@ int main(int argc, char *argv[])
 	 * Determine what the current user's name is.
 	 * We must thus skip the check if the real uid is 0.
 	 */
-	if (getuid() == 0) {
-	  user=argv[1];
-	}
-	else {
-	  user = getuidname(getuid());
+	if (ruid != 0) {
+	  user = getuidname(ruid);
 	  /* if the caller specifies the username, verify that user
 	     matches it */
 	  if (user == NULL || strcmp(user, argv[1])) {
-	    uid_t ruid = getuid();
+	    uid_t euid = geteuid();
 	    gid_t rgid = getgid();
+	    uid_t egid = getegid();
 
-	    /* no match -> permanently change to the real user and group,
-	     * check for no-return, and proceed */
-	    if (setgid(rgid) != 0              || setuid(ruid) != 0 ||
-	        (rgid != 0 && setgid(0) != -1) || (ruid != 0 && setuid(0) != -1))
-		return PAM_AUTH_ERR;
+	    /* no match -> permanently change to the real user and group */
+	    if (rgid != egid && setregid(rgid, rgid) != 0)
+	      return PAM_AUTH_ERR;
+
+	    if (ruid != euid && setreuid(ruid, ruid) != 0)
+	      return PAM_AUTH_ERR;
+
+	    /* check that we cannot change back */
+	    if (rgid != egid && setegid(egid) == 0)
+	      return PAM_AUTH_ERR;
+
+	    if (ruid != euid && seteuid(euid) == 0)
+	      return PAM_AUTH_ERR;
 	  }
-	  user = argv[1];
 	}
 
-	option=argv[2];
+	user = argv[1];
+	option = argv[2];
 
 	if (strcmp(option, "chkexpiry") == 0)
 	  /* Check account information from the shadow file */
-	  return _check_expiry(argv[1]);
+	  return _check_expiry(user);
 	/* read the nullok/nonull option */
 	else if (strcmp(option, "nullok") == 0)
 	  nullok = 1;
@@ -134,7 +141,7 @@ int main(int argc, char *argv[])
 	  nullok = 0;
 	else {
 #ifdef HAVE_LIBAUDIT
-	  audit_log(AUDIT_ANOM_EXEC, getuidname(getuid()), PAM_SYSTEM_ERR);
+	  audit_log(AUDIT_ANOM_EXEC, getuidname(ruid), PAM_SYSTEM_ERR);
 #endif
 	  return PAM_SYSTEM_ERR;
 	}
@@ -161,7 +168,7 @@ int main(int argc, char *argv[])
 		if (!nullok || !blankpass) {
 			/* no need to log blank pass test */
 #ifdef HAVE_LIBAUDIT
-			if (getuid() != 0)
+			if (ruid != 0)
 				audit_log(AUDIT_USER_AUTH, user, PAM_AUTH_ERR);
 #endif
 			helper_log_err(LOG_NOTICE, "password check failed for user (%s)", user);
@@ -175,7 +182,7 @@ int main(int argc, char *argv[])
 		else
 			return PAM_AUTH_ERR;
 	} else {
-	        if (getuid() != 0) {
+	        if (ruid != 0) {
 #ifdef HAVE_LIBAUDIT
 			return audit_log(AUDIT_USER_AUTH, user, PAM_SUCCESS);
 #else
