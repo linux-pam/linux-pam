@@ -473,7 +473,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
 		goto err;
 
 	if (!(opts.flags & FAILLOCK_FLAG_NO_DELAY)) {
-		pam_fail_delay(pamh, 2000000);	/* 2 sec delay on failure */
+		pam_fail_delay(pamh, 500000);	/* 0.5 sec delay on failure */
 	}
 
 	if ((rv=get_pam_user(pamh, &opts)) != PAM_SUCCESS) {
