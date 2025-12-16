@@ -7,7 +7,6 @@
 #include "config.h"
 
 #include <limits.h>
-#include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -81,18 +80,18 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 
     if (fd >= 0) {
 
-	int msg_style = PAM_TEXT_INFO;
 	struct passwd *user_pwd;
 	struct stat st;
 
 	user_pwd = pam_modutil_getpwnam(pamh, username);
 	if (user_pwd == NULL) {
 	    retval = PAM_USER_UNKNOWN;
-	    msg_style = PAM_ERROR_MSG;
 	} else if (user_pwd->pw_uid) {
 	    retval = PAM_AUTH_ERR;
-	    msg_style = PAM_ERROR_MSG;
-	}
+	} else {
+            /* logging in as root: don't fail, don't show the message */
+            goto clean_up_fd;
+        }
 
 	/* fill in message buffer with contents of /etc/nologin */
 	if (fstat(fd, &st) < 0)  {
@@ -128,7 +127,7 @@ static int perform_check(pam_handle_t *pamh, struct opt_s *opts)
 
 	    if (pam_modutil_read(fd, mtmp, st.st_size) == st.st_size) {
 	        mtmp[st.st_size] = '\0';
-	        (void) pam_prompt (pamh, msg_style, NULL, "%s", mtmp);
+	        (void) pam_prompt (pamh, PAM_ERROR_MSG, NULL, "%s", mtmp);
 	    }
 	    else
 	        retval = PAM_SYSTEM_ERR;
