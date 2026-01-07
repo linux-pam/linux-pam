@@ -477,6 +477,8 @@ if enable_pam_unix
           enable_nis = false
           libnsl = null_dep
           break
+        else
+          cdata.set('HAVE_' + f.to_upper(), 1)
         endif
       endforeach
     endif
