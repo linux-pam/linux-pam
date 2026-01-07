@@ -384,7 +384,7 @@ int _unix_getpwnam(pam_handle_t *pamh, const char *name,
 		}
 	}
 
-#if defined(HAVE_NIS) && defined(HAVE_YP_GET_DEFAULT_DOMAIN) && defined (HAVE_YP_BIND) && defined (HAVE_YP_MATCH) && defined (HAVE_YP_UNBIND)
+#if defined(HAVE_NIS)
 	if (!matched && nis) {
 		char *userinfo = NULL, *domain = NULL;
 		int len = 0, i;
