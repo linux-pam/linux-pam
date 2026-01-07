@@ -141,26 +141,11 @@ static char *getNISserver(pam_handle_t *pamh, unsigned long long ctrl)
 #endif
 
 
-#ifdef HAVE_YP_GET_DEFAULT_DOMAIN
 	if ((err = yp_get_default_domain(&domainname)) != 0) {
 		pam_syslog(pamh, LOG_WARNING, "can't get local yp domain: %s",
 			 yperr_string(err));
 		return NULL;
 	}
-#elif defined(HAVE_GETDOMAINNAME)
-	char domainname_res[256];
-
-	if (getdomainname (domainname_res, sizeof (domainname_res)) == 0)
-	  {
-	    if (strcmp (domainname_res, "(none)") == 0)
-	      {
-		/* If domainname is not set, some systems will return "(none)" */
-		domainname_res[0] = '\0';
-	      }
-	    domainname = domainname_res;
-	  }
-	else domainname = NULL;
-#endif
 
 	if ((err = yp_master(domainname, "passwd.byname", &master)) != 0) {
 		pam_syslog(pamh, LOG_WARNING, "can't find the master ypserver: %s",
