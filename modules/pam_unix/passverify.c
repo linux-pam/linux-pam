@@ -336,9 +336,31 @@ PAMH_ARG_DECL(int check_shadow_expiry,
 
 /* passwd/salt conversion macros */
 
-#define PW_TMPFILE              "/etc/npasswd"
-#define SH_TMPFILE              "/etc/nshadow"
-#define OPW_TMPFILE             SCONFIG_DIR "/nopasswd"
+#define PW_TMPFILE              "/etc/.pam.passwdXXXXXX"
+#define SH_TMPFILE              "/etc/.pam.shadowXXXXXX"
+#define OPW_TMPFILE             SCONFIG_DIR "/.pam.opasswdXXXXXX"
+
+/*
+ * fmkstemp - creates and opens a temporary file from given pattern
+ */
+static FILE *
+fmkstemp(char *name)
+{
+        FILE *fp;
+        int fd;
+
+        fd = mkstemp(name);
+        if (fd == -1)
+                return NULL;
+
+        fp = fdopen(fd, "we");
+        if (fp == NULL) {
+                close(fd);
+                return NULL;
+        }
+
+        return fp;
+}
 
 /*
  * i64c - convert an integer to a radix 64 character
@@ -627,12 +649,12 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 		  int howmany)
 #endif
 {
+    char tempfile[] = OPW_TMPFILE;
     char *buf = NULL;
     char *s_luser, *s_uid, *s_npas, *s_pas, *pass;
     int npas;
     FILE *pwfile, *opwfile;
     int err = 0;
-    mode_t oldmask;
     int found = 0;
     struct passwd *pwd = NULL;
     struct stat st;
@@ -649,8 +671,6 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
     if (oldpass == NULL) {
 	return PAM_SUCCESS;
     }
-
-    oldmask = umask(077);
 
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
@@ -670,11 +690,10 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
       freecon(passwd_context_raw);
     }
 #endif
-    pwfile = fopen(OPW_TMPFILE, "we");
-    umask(oldmask);
+    pwfile = fmkstemp(tempfile);
     if (pwfile == NULL) {
       err = 1;
-      goto done;
+      goto tmp_error;
     }
 
     opwfile = fopen(OLD_PASSWORDS_FILE, "re");
@@ -782,9 +801,12 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
 
 done:
     if (!err) {
-	if (rename(OPW_TMPFILE, OLD_PASSWORDS_FILE))
+	if (rename(tempfile, OLD_PASSWORDS_FILE))
 	    err = 1;
     }
+    if (err)
+	unlink(tempfile);
+tmp_error:
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
       if (setfscreatecon_raw(prev_context_raw)) {
@@ -795,27 +817,21 @@ done:
       prev_context_raw = NULL;
     }
 #endif
-    if (!err) {
-	return PAM_SUCCESS;
-    } else {
-	unlink(OPW_TMPFILE);
-	return PAM_AUTHTOK_ERR;
-    }
+    return err ? PAM_AUTHTOK_ERR : PAM_SUCCESS;
 }
 
 PAMH_ARG_DECL(int unix_update_passwd,
 	const char *forwho, const char *towhat)
 {
+    char tempfile[] = PW_TMPFILE;
     struct passwd *tmpent = NULL;
     struct stat st;
     FILE *pwfile, *opwfile;
     int err = 1;
-    mode_t oldmask;
 #ifdef WITH_SELINUX
     char *prev_context_raw = NULL;
 #endif
 
-    oldmask = umask(077);
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
       char *passwd_context_raw = NULL;
@@ -834,11 +850,10 @@ PAMH_ARG_DECL(int unix_update_passwd,
       freecon(passwd_context_raw);
     }
 #endif
-    pwfile = fopen(PW_TMPFILE, "we");
-    umask(oldmask);
+    pwfile = fmkstemp(tempfile);
     if (pwfile == NULL) {
       err = 1;
-      goto done;
+      goto tmp_error;
     }
 
     opwfile = fopen("/etc/passwd", "re");
@@ -902,12 +917,15 @@ PAMH_ARG_DECL(int unix_update_passwd,
 
 done:
     if (!err) {
-	if (!rename(PW_TMPFILE, "/etc/passwd"))
+	if (!rename(tempfile, "/etc/passwd"))
 	    pam_syslog(pamh,
 		LOG_NOTICE, "password changed for %s", forwho);
 	else
 	    err = 1;
     }
+    if (err)
+        unlink(tempfile);
+tmp_error:
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
       if (setfscreatecon_raw(prev_context_raw)) {
@@ -918,28 +936,21 @@ done:
       prev_context_raw = NULL;
     }
 #endif
-    if (!err) {
-	return PAM_SUCCESS;
-    } else {
-	unlink(PW_TMPFILE);
-	return PAM_AUTHTOK_ERR;
-    }
+    return err ? PAM_AUTHTOK_ERR : PAM_SUCCESS;
 }
 
 PAMH_ARG_DECL(int unix_update_shadow,
 	const char *forwho, char *towhat)
 {
+    char tempfile[] = SH_TMPFILE;
     struct spwd spwdent, *stmpent = NULL;
     struct stat st;
     FILE *pwfile, *opwfile;
     int err = 0;
-    mode_t oldmask;
     int wroteentry = 0;
 #ifdef WITH_SELINUX
     char *prev_context_raw = NULL;
 #endif
-
-    oldmask = umask(077);
 
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
@@ -959,11 +970,10 @@ PAMH_ARG_DECL(int unix_update_shadow,
       freecon(shadow_context_raw);
     }
 #endif
-    pwfile = fopen(SH_TMPFILE, "we");
-    umask(oldmask);
+    pwfile = fmkstemp(tempfile);
     if (pwfile == NULL) {
 	err = 1;
-	goto done;
+	goto tmp_error;
     }
 
     opwfile = fopen("/etc/shadow", "re");
@@ -1047,13 +1057,15 @@ PAMH_ARG_DECL(int unix_update_shadow,
 
  done:
     if (!err) {
-	if (!rename(SH_TMPFILE, "/etc/shadow"))
+	if (!rename(tempfile, "/etc/shadow"))
 	    pam_syslog(pamh,
 		LOG_NOTICE, "password changed for %s", forwho);
 	else
 	    err = 1;
     }
-
+    if (err)
+        unlink(tempfile);
+tmp_error:
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
       if (setfscreatecon_raw(prev_context_raw)) {
@@ -1064,13 +1076,7 @@ PAMH_ARG_DECL(int unix_update_shadow,
       prev_context_raw = NULL;
     }
 #endif
-
-    if (!err) {
-	return PAM_SUCCESS;
-    } else {
-	unlink(SH_TMPFILE);
-	return PAM_AUTHTOK_ERR;
-    }
+    return err ? PAM_AUTHTOK_ERR : PAM_SUCCESS;
 }
 
 #ifdef HELPER_COMPILE
