@@ -693,7 +693,7 @@ save_old_password(pam_handle_t *pamh, const char *forwho, const char *oldpass,
     pwfile = fmkstemp(tempfile);
     if (pwfile == NULL) {
       err = 1;
-      goto done;
+      goto tmp_error;
     }
 
     opwfile = fopen(OLD_PASSWORDS_FILE, "re");
@@ -804,6 +804,9 @@ done:
 	if (rename(tempfile, OLD_PASSWORDS_FILE))
 	    err = 1;
     }
+    if (err)
+	unlink(tempfile);
+tmp_error:
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
       if (setfscreatecon_raw(prev_context_raw)) {
@@ -814,12 +817,7 @@ done:
       prev_context_raw = NULL;
     }
 #endif
-    if (!err) {
-	return PAM_SUCCESS;
-    } else {
-	unlink(tempfile);
-	return PAM_AUTHTOK_ERR;
-    }
+    return err ? PAM_AUTHTOK_ERR : PAM_SUCCESS;
 }
 
 PAMH_ARG_DECL(int unix_update_passwd,
@@ -855,7 +853,7 @@ PAMH_ARG_DECL(int unix_update_passwd,
     pwfile = fmkstemp(tempfile);
     if (pwfile == NULL) {
       err = 1;
-      goto done;
+      goto tmp_error;
     }
 
     opwfile = fopen("/etc/passwd", "re");
@@ -925,6 +923,9 @@ done:
 	else
 	    err = 1;
     }
+    if (err)
+        unlink(tempfile);
+tmp_error:
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
       if (setfscreatecon_raw(prev_context_raw)) {
@@ -935,12 +936,7 @@ done:
       prev_context_raw = NULL;
     }
 #endif
-    if (!err) {
-	return PAM_SUCCESS;
-    } else {
-	unlink(tempfile);
-	return PAM_AUTHTOK_ERR;
-    }
+    return err ? PAM_AUTHTOK_ERR : PAM_SUCCESS;
 }
 
 PAMH_ARG_DECL(int unix_update_shadow,
@@ -977,7 +973,7 @@ PAMH_ARG_DECL(int unix_update_shadow,
     pwfile = fmkstemp(tempfile);
     if (pwfile == NULL) {
 	err = 1;
-	goto done;
+	goto tmp_error;
     }
 
     opwfile = fopen("/etc/shadow", "re");
@@ -1067,7 +1063,9 @@ PAMH_ARG_DECL(int unix_update_shadow,
 	else
 	    err = 1;
     }
-
+    if (err)
+        unlink(tempfile);
+tmp_error:
 #ifdef WITH_SELINUX
     if (SELINUX_ENABLED) {
       if (setfscreatecon_raw(prev_context_raw)) {
@@ -1078,13 +1076,7 @@ PAMH_ARG_DECL(int unix_update_shadow,
       prev_context_raw = NULL;
     }
 #endif
-
-    if (!err) {
-	return PAM_SUCCESS;
-    } else {
-	unlink(tempfile);
-	return PAM_AUTHTOK_ERR;
-    }
+    return err ? PAM_AUTHTOK_ERR : PAM_SUCCESS;
 }
 
 #ifdef HELPER_COMPILE
