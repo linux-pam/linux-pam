@@ -467,15 +467,15 @@ msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "ಎಚ್ಚರಿಕೆ: ನಿಮ್ಮ ಗುಪ್ತಪದದ ವಾಯಿದೆಯು %d ದಿನಗಳ ನಂತರ ತೀರಿಹೋಗುತ್ತದೆ"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "ಎಚ್ಚರಿಕೆ: ನಿಮ್ಮ ಗುಪ್ತಪದದ ವಾಯಿದೆಯು %ld ದಿನಗಳ ನಂತರ ತೀರಿಹೋಗುತ್ತದೆ"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "ಎಚ್ಚರಿಕೆ: %d ದಿನಗಳಲ್ಲಿ ನಿಮ್ಮ ಗುಪ್ತಪದದ ಅವಧಿ ಅಂತ್ಯಗೊಳ್ಳುತ್ತದೆ"
+msgid "Warning: your password will expire in %ld days."
+msgstr "ಎಚ್ಚರಿಕೆ: %ld ದಿನಗಳಲ್ಲಿ ನಿಮ್ಮ ಗುಪ್ತಪದದ ಅವಧಿ ಅಂತ್ಯಗೊಳ್ಳುತ್ತದೆ"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

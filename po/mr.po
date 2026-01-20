@@ -466,16 +466,16 @@ msgstr "तुमचा गुप्तशब्द तत्काळ बदल
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "सावधानता: तुमचे गुप्तशब्द %d दिवस अंतर्गत कालबाह्य होईल"
-msgstr[1] "सावधानता: तुमचे गुप्तशब्द %d दिवस अंतर्गत कालबाह्य होईल"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "सावधानता: तुमचे गुप्तशब्द %ld दिवस अंतर्गत कालबाह्य होईल"
+msgstr[1] "सावधानता: तुमचे गुप्तशब्द %ld दिवस अंतर्गत कालबाह्य होईल"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "सावधानता: तुमचे गुप्तशब्द %d दिवसात कालबाह्य होईल"
+msgid "Warning: your password will expire in %ld days."
+msgstr "सावधानता: तुमचे गुप्तशब्द %ld दिवसात कालबाह्य होईल"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

@@ -474,17 +474,17 @@ msgstr "Vi se cere să vă schimbați parola imediat (parola a expirat)."
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Atenție: parola dvs. va expira în %d zi."
-msgstr[1] "Atenție: parola dvs. va expira în %d zile."
-msgstr[2] "Atenție: parola dvs. va expira în %d de zile."
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "Atenție: parola dvs. va expira în %ld zi."
+msgstr[1] "Atenție: parola dvs. va expira în %ld zile."
+msgstr[2] "Atenție: parola dvs. va expira în %ld de zile."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "Atenție: parola dvs. va expira în %d zile."
+msgid "Warning: your password will expire in %ld days."
+msgstr "Atenție: parola dvs. va expira în %ld zile."
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

@@ -462,16 +462,16 @@ msgstr "ਤੁਹਾਨੂੰ ਆਪਣਾ ਪਾਸਵਰਡ ਫ਼ੌਰੀ �
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %d ਦਿਨ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
-msgstr[1] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %d ਦਿਨਾਂ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %ld ਦਿਨ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
+msgstr[1] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %ld ਦਿਨਾਂ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %d ਦਿਨਾਂ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
+msgid "Warning: your password will expire in %ld days."
+msgstr "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %ld ਦਿਨਾਂ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

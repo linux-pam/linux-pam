@@ -466,16 +466,16 @@ msgstr "మీరు మీ సంకేతపదమును తక్షణమ
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "హెచ్చరిక: మీ సంకేతపదము %d రోజులో కాలముతీరుతుంది"
-msgstr[1] "హెచ్చరిక: మీ సంకేతపదము %d రోజులలో కాలముతీరుతుంది"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "హెచ్చరిక: మీ సంకేతపదము %ld రోజులో కాలముతీరుతుంది"
+msgstr[1] "హెచ్చరిక: మీ సంకేతపదము %ld రోజులలో కాలముతీరుతుంది"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "హెచ్చరిక: మీ సంకేతపదము %d రోజులలో కాలముతీరుతుంది"
+msgid "Warning: your password will expire in %ld days."
+msgstr "హెచ్చరిక: మీ సంకేతపదము %ld రోజులలో కాలముతీరుతుంది"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

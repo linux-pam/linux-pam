@@ -472,16 +472,16 @@ msgstr "Le contrasigno es troppo vetule e debe esser cambiate immediatemente."
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Advertimento: le contrasigno perimera in %d die"
-msgstr[1] "Advertimento: le contrasigno perimera in %d dies"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "Advertimento: le contrasigno perimera in %ld die"
+msgstr[1] "Advertimento: le contrasigno perimera in %ld dies"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "Advertimento: le contrasigno perimera in %d dies"
+msgid "Warning: your password will expire in %ld days."
+msgstr "Advertimento: le contrasigno perimera in %ld dies"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

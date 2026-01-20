@@ -472,17 +472,17 @@ msgstr "Morate odmah da promenite vašu lozinku (zastarela je)"
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Upozorenje: vaša lozinka će isteći kroz %d dan"
-msgstr[1] "Upozorenje: vaša lozinka će isteći kroz %d dana"
-msgstr[2] "Upozorenje: vaša lozinka će isteći kroz %d dana"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "Upozorenje: vaša lozinka će isteći kroz %ld dan"
+msgstr[1] "Upozorenje: vaša lozinka će isteći kroz %ld dana"
+msgstr[2] "Upozorenje: vaša lozinka će isteći kroz %ld dana"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "Upozorenje: vaša lozinka će isteći kroz %d dana"
+msgid "Warning: your password will expire in %ld days."
+msgstr "Upozorenje: vaša lozinka će isteći kroz %ld dana"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

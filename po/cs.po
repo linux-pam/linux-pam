@@ -466,17 +466,17 @@ msgstr "Nyní musíte změnit své heslo (heslo vypršelo)."
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Varování: Vaše heslo vyprší za %d den."
-msgstr[1] "Varování: Vaše heslo vyprší za %d dny."
-msgstr[2] "Varování: Vaše heslo vyprší za %d dní."
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "Varování: Vaše heslo vyprší za %ld den."
+msgstr[1] "Varování: Vaše heslo vyprší za %ld dny."
+msgstr[2] "Varování: Vaše heslo vyprší za %ld dní."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "Varování: Počet dní do vypršení hesla: %d"
+msgid "Warning: your password will expire in %ld days."
+msgstr "Varování: Počet dní do vypršení hesla: %ld"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

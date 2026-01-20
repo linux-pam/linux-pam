@@ -470,16 +470,16 @@ msgstr "Du måste ändra ditt lösenord omedelbart (lösenord för gammalt)."
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Varning: ditt lösenord går ut om %d dag."
-msgstr[1] "Varning: ditt lösenord går ut om %d dagar."
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "Varning: ditt lösenord går ut om %ld dag."
+msgstr[1] "Varning: ditt lösenord går ut om %ld dagar."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "Varning: ditt lösenord går ut om %d dagar."
+msgid "Warning: your password will expire in %ld days."
+msgstr "Varning: ditt lösenord går ut om %ld dagar."
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

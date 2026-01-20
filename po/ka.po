@@ -463,15 +463,15 @@ msgstr "საჭიროა თქვენი პაროლის დაუ
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "გაფრთხილება: თქვენს პაროლს ვადა %d დღეში გაუვა."
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "გაფრთხილება: თქვენს პაროლს ვადა %ld დღეში გაუვა."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "გაფრთხილება: თქვენს პაროლს ვადა %d დღეში გაუვა."
+msgid "Warning: your password will expire in %ld days."
+msgstr "გაფრთხილება: თქვენს პაროლს ვადა %ld დღეში გაუვა."
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

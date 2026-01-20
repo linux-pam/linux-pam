@@ -471,15 +471,15 @@ msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
 msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
-msgid "Warning: your password will expire in %d days."
+msgid "Warning: your password will expire in %ld days."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_passwd.c:459

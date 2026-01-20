@@ -463,16 +463,16 @@ msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Hoiatus: su parool aegub %d päeva pärast"
-msgstr[1] "Hoiatus: su parool aegub %d päeva pärast"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "Hoiatus: su parool aegub %ld päeva pärast"
+msgstr[1] "Hoiatus: su parool aegub %ld päeva pärast"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "Hoiatus: su parool aegub %d päeva pärast"
+msgid "Warning: your password will expire in %ld days."
+msgstr "Hoiatus: su parool aegub %ld päeva pärast"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

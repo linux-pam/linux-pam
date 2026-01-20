@@ -463,15 +463,15 @@ msgstr "パスワードを直ちに変更する必要があります(パスワ�
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "警告: パスワードは %d 日で失効します。"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "警告: パスワードは %ld 日で失効します。"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "警告: パスワードは %d 日で失効します。"
+msgid "Warning: your password will expire in %ld days."
+msgstr "警告: パスワードは %ld 日で失効します。"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

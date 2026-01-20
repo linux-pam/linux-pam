@@ -467,16 +467,16 @@ msgstr "আপুনি আপোনাৰ গুপ্তশব্দ সলন
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "সকীয়নী: আপোনাৰ গুপ্তশব্দ %d দিনত অন্ত হ'ব"
-msgstr[1] "সকীয়নী: আপোনাৰ গুপ্তশব্দ %d দিনত অন্ত হ'ব"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "সকীয়নী: আপোনাৰ গুপ্তশব্দ %ld দিনত অন্ত হ'ব"
+msgstr[1] "সকীয়নী: আপোনাৰ গুপ্তশব্দ %ld দিনত অন্ত হ'ব"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "সকীয়নী: আপোনাৰ গুপ্তশব্দ %d দিনত অন্ত হ'ব"
+msgid "Warning: your password will expire in %ld days."
+msgstr "সকীয়নী: আপোনাৰ গুপ্তশব্দ %ld দিনত অন্ত হ'ব"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

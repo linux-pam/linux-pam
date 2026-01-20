@@ -467,16 +467,16 @@ msgstr "તમારે તમારો પાસવર્ડ તુરંત �
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "ચેતવણી: તમારો પાસવર્ડ %d દિવસમાં નિવૃત્ત થઈ જશે"
-msgstr[1] "ચેતવણી: તમારો પાસવર્ડ %d દિવસોમાં નિવૃત્ત થઈ જશે"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "ચેતવણી: તમારો પાસવર્ડ %ld દિવસમાં નિવૃત્ત થઈ જશે"
+msgstr[1] "ચેતવણી: તમારો પાસવર્ડ %ld દિવસોમાં નિવૃત્ત થઈ જશે"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "ચેતવણી: તમારો પાસવર્ડ %d દિવસોમાં નિવૃત્ત થઈ જશે"
+msgid "Warning: your password will expire in %ld days."
+msgstr "ચેતવણી: તમારો પાસવર્ડ %ld દિવસોમાં નિવૃત્ત થઈ જશે"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

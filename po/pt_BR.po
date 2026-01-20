@@ -466,16 +466,16 @@ msgstr "Mude sua senha imediatamente (senha expirada)."
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Aviso: sua senha irá expirar em %d dia."
-msgstr[1] "Aviso: sua senha irá expirar em %d dias."
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "Aviso: sua senha irá expirar em %ld dia."
+msgstr[1] "Aviso: sua senha irá expirar em %ld dias."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "Aviso: sua senha irá expirar em %d dias."
+msgid "Warning: your password will expire in %ld days."
+msgstr "Aviso: sua senha irá expirar em %ld dias."
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

@@ -481,16 +481,16 @@ msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Advertencia: su contraseña caducará en %d día."
-msgstr[1] "Advertencia: su contraseña caducará en %d días."
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "Advertencia: su contraseña caducará en %ld día."
+msgstr[1] "Advertencia: su contraseña caducará en %ld días."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "Advertencia: su contraseña caducará en %d días."
+msgid "Warning: your password will expire in %ld days."
+msgstr "Advertencia: su contraseña caducará en %ld días."
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

@@ -470,17 +470,17 @@ msgstr "Wymagana jest natychmiastowa zmiana hasła (hasło wygasło)."
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Ostrzeżenie: hasło wygaśnie za %d dzień."
-msgstr[1] "Ostrzeżenie: hasło wygaśnie za %d dni."
-msgstr[2] "Ostrzeżenie: hasło wygaśnie za %d dni."
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "Ostrzeżenie: hasło wygaśnie za %ld dzień."
+msgstr[1] "Ostrzeżenie: hasło wygaśnie za %ld dni."
+msgstr[2] "Ostrzeżenie: hasło wygaśnie za %ld dni."
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "Ostrzeżenie: hasło wygaśnie za %d dni."
+msgid "Warning: your password will expire in %ld days."
+msgstr "Ostrzeżenie: hasło wygaśnie za %ld dni."
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

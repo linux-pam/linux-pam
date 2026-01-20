@@ -469,16 +469,16 @@ msgstr "நீங்கள் உங்கள் கடவுச்சொல்�
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "எச்சரிக்கை: கடவுச்சொல் %d நாட்களில் முடிவுறும்"
-msgstr[1] "எச்சரிக்கை: கடவுச்சொல் %d நாட்களில் முடிவுறும்"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "எச்சரிக்கை: கடவுச்சொல் %ld நாட்களில் முடிவுறும்"
+msgstr[1] "எச்சரிக்கை: கடவுச்சொல் %ld நாட்களில் முடிவுறும்"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "எச்சரிக்கை: கடவுச்சொல் %d நாட்களில் முடிவுறும்"
+msgid "Warning: your password will expire in %ld days."
+msgstr "எச்சரிக்கை: கடவுச்சொல் %ld நாட்களில் முடிவுறும்"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

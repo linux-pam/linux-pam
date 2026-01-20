@@ -468,16 +468,16 @@ msgstr "आपके लिए अपना शब्दकूट तत्क�
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "चेतावनी: आपका शब्दकूट %d दिन में समाप्त हो जायेगा"
-msgstr[1] "चेतावनी: आपका शब्दकूट %d दिन में समाप्त हो जायेगा"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "चेतावनी: आपका शब्दकूट %ld दिन में समाप्त हो जायेगा"
+msgstr[1] "चेतावनी: आपका शब्दकूट %ld दिन में समाप्त हो जायेगा"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "चेतावनी: आपका शब्दकूट %d दिनों में समाप्त हो जायेगा"
+msgid "Warning: your password will expire in %ld days."
+msgstr "चेतावनी: आपका शब्दकूट %ld दिनों में समाप्त हो जायेगा"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."

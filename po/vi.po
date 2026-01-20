@@ -468,15 +468,15 @@ msgstr "Bạn phải thay đổi ngay mật khẩu (mật khẩu quá cũ)"
 
 #: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d day."
-msgid_plural "Warning: your password will expire in %d days."
-msgstr[0] "Cảnh báo: mật khẩu của bạn sẽ hết hạn trong %d ngày"
+msgid "Warning: your password will expire in %ld day."
+msgid_plural "Warning: your password will expire in %ld days."
+msgstr[0] "Cảnh báo: mật khẩu của bạn sẽ hết hạn trong %ld ngày"
 
 #. TRANSLATORS: only used if dngettext is not supported
 #: modules/pam_unix/pam_unix_acct.c:283
 #, fuzzy, c-format
-msgid "Warning: your password will expire in %d days."
-msgstr "Cảnh báo: mật khẩu của bạn sẽ hết hạn trong %d ngày"
+msgid "Warning: your password will expire in %ld days."
+msgstr "Cảnh báo: mật khẩu của bạn sẽ hết hạn trong %ld ngày"
 
 #: modules/pam_unix/pam_unix_passwd.c:459
 msgid "NIS password could not be changed."
