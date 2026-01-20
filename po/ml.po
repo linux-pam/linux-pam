@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2025-06-16 08:00+0000\n"
+"POT-Creation-Date: 2026-01-20 08:00+0000\n"
 "PO-Revision-Date: 2013-04-15 01:55-0400\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -253,13 +253,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "Login           Failures Latest failure     From\n"
 
-#: modules/pam_faillock/pam_faillock.c:416
+#: modules/pam_faillock/pam_faillock.c:418
 #, fuzzy, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "%u പരാജയപ്പെട്ട ലോഗിനുകള്‍ കാരണം അക്കൌണ്ട് താല്‍ക്കാലികമായി പൂട്ടിയിരിക്കുന്നു"
 
-#: modules/pam_faillock/pam_faillock.c:425
-#: modules/pam_faillock/pam_faillock.c:431
+#: modules/pam_faillock/pam_faillock.c:427
+#: modules/pam_faillock/pam_faillock.c:433
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -267,24 +267,24 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:434
+#: modules/pam_faillock/pam_faillock.c:436
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr ""
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:592
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:593
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:601
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:602
 #, c-format
 msgid " from %.*s"
 msgstr " %.*s-ല്‍ നിന്നും"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:613
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:614
 #, c-format
 msgid " on %.*s"
 msgstr " %.*s-ല്‍"
@@ -300,12 +300,12 @@ msgid "Welcome to your new account!"
 msgstr "നിങ്ങളുടെ പുതിയ അക്കൌണ്ടിലേക്ക് സ്വാഗതം!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:623
+#: modules/pam_lastlog/pam_lastlog.c:624
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "അവസാനം ലോഗിന്‍ ചെയ്തതു് പരാജയപ്പെട്ടു:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:632 modules/pam_lastlog/pam_lastlog.c:639
+#: modules/pam_lastlog/pam_lastlog.c:633 modules/pam_lastlog/pam_lastlog.c:640
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -314,7 +314,7 @@ msgstr[0] "ശരിയായി അവസാനം ലോഗിന്‍ ചെ
 msgstr[1] "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:644
+#: modules/pam_lastlog/pam_lastlog.c:645
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
@@ -361,18 +361,18 @@ msgstr "%s ഫോള്‍ഡറില്‍ നിങ്ങള്‍ക്ക�
 msgid "You have mail in folder %s."
 msgstr "%s ഫോള്‍ഡറില്‍ നിങ്ങള്‍ക്ക് മെയില്‍ ഉണ്ട്."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:120
+#: modules/pam_mkhomedir/pam_mkhomedir.c:125
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "'%s' ഡയറക്ടറി ഉണ്ടാക്കുന്നു."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:203
+#: modules/pam_mkhomedir/pam_mkhomedir.c:211
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "%s ഡയറക്ടറി ഉണ്ടാക്കുവാനും ആരംഭിക്കുവാനും സാധ്യമായില്ല."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:383
-#: modules/pam_unix/pam_unix_passwd.c:584
+#: modules/pam_unix/pam_unix_passwd.c:573
 msgid "Password has been already used. Choose another."
 msgstr "അടയാളവാക്ക് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
 
@@ -439,73 +439,80 @@ msgstr "pam_set_item() ചെയ്യുന്നതില്‍ പരാജ�
 msgid "login: failure forking: %m"
 msgstr "login: ഫോര്‍ക്ക് ചെയ്യുന്നതില്‍ പരാജയം: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:387
+#: modules/pam_timestamp/pam_timestamp.c:389
 #, fuzzy, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "അനുവാദം നല്‍കിയിരിക്കുന്നു (ഒടുവില്‍ പ്രവേശിച്ചതു് %ld സെക്കന്‍ഡുകള്‍ക്കു് മുമ്പാണു്)."
 
-#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
+#: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 #, fuzzy
 msgid "Your account has expired; please contact your system administrator."
 msgstr ""
 "നിങ്ങളുടെ അക്കൌണ്ടിന്റെ കാലാവധി അവസാനിച്ചിരിക്കുന്നു; ദയവായി സിസ്റ്റം അഡ്മിനിസ്ട്രേറ്ററുമായി "
 "ബന്ധപ്പെടുക"
 
-#: modules/pam_unix/pam_unix_acct.c:240
+#: modules/pam_unix/pam_unix_acct.c:241
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "നിങ്ങളുടെ അടയാളവാക്ക് ഉടനെ മാറ്റേണ്ടതുണ്ട് (root enforced)"
 
-#: modules/pam_unix/pam_unix_acct.c:246
+#: modules/pam_unix/pam_unix_acct.c:247
 #, fuzzy
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "നിങ്ങളുടെ അടയാളവാക്ക് ഉടനെ മാറ്റേണ്ടതുണ്ട് (അടയാളവാക്ക് മാറ്റുന്നതിന് സമയമായി)"
 
-#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
+#: modules/pam_unix/pam_unix_acct.c:272 modules/pam_unix/pam_unix_acct.c:279
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %ld day."
 msgid_plural "Warning: your password will expire in %ld days."
-msgstr[0] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %ld ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
-msgstr[1] "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %ld ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
+msgstr[0] ""
+"മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %ld ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
+msgstr[1] ""
+"മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %ld ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:283
+#: modules/pam_unix/pam_unix_acct.c:284
 #, fuzzy, c-format
 msgid "Warning: your password will expire in %ld days."
 msgstr "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %ld ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
 
-#: modules/pam_unix/pam_unix_passwd.c:459
+#: modules/pam_unix/pam_unix_passwd.c:444
 msgid "NIS password could not be changed."
 msgstr "NIS അടയാളവാക്ക് മാറ്റുവാന്‍ സാധ്യമാകുന്നില്ല."
 
-#: modules/pam_unix/pam_unix_passwd.c:557
+#: modules/pam_unix/pam_unix_passwd.c:546
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "അടയാളവാക്ക് നല്‍കിയിട്ടില്ല"
 
-#: modules/pam_unix/pam_unix_passwd.c:558
+#: modules/pam_unix/pam_unix_passwd.c:547
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS അടയാളവാക്ക് മാറ്റുവാന്‍ സാധ്യമാകുന്നില്ല."
 
-#: modules/pam_unix/pam_unix_passwd.c:575
+#: modules/pam_unix/pam_unix_passwd.c:564
 msgid "You must choose a shorter password."
 msgstr "നിങ്ങൾ ഒരു ഹ്രസ്വ പാസ്‌വേഡ് തിരഞ്ഞെടുക്കണം."
 
-#: modules/pam_unix/pam_unix_passwd.c:579
+#: modules/pam_unix/pam_unix_passwd.c:568
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "ഇതിലും വലിയ അടയാളവാക്ക് തിരഞ്ഞെടുക്കുക"
 
-#: modules/pam_unix/pam_unix_passwd.c:684
+#: modules/pam_unix/pam_unix_passwd.c:673
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s-നുളള അടയാളവാക്ക് മാറ്റുന്നു."
 
-#: modules/pam_unix/pam_unix_passwd.c:714
+#: modules/pam_unix/pam_unix_passwd.c:703
+#, fuzzy
+msgid "Your password is not expired."
+msgstr "അടയാളവാക്ക് നല്‍കിയിട്ടില്ല"
+
+#: modules/pam_unix/pam_unix_passwd.c:706
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "നിങ്ങളുടെ അടയാളവാക്ക് മാറ്റുന്നതിനായി ഇനിയും കാത്തിരിക്കേണ്ടതാണ്."

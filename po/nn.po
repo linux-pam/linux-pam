@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2025-06-16 08:00+0000\n"
+"POT-Creation-Date: 2026-01-20 08:00+0000\n"
 "PO-Revision-Date: 2024-05-02 21:36+0000\n"
 "Last-Translator: Adaline Simonian <adalinesimonian@gmail.com>\n"
 "Language-Team: Norwegian Nynorsk <https://translate.fedoraproject.org/"
@@ -254,13 +254,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr ""
 
-#: modules/pam_faillock/pam_faillock.c:416
+#: modules/pam_faillock/pam_faillock.c:418
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "Konto er låst som følgje av %u mislukka innloggingar."
 
-#: modules/pam_faillock/pam_faillock.c:425
-#: modules/pam_faillock/pam_faillock.c:431
+#: modules/pam_faillock/pam_faillock.c:427
+#: modules/pam_faillock/pam_faillock.c:433
 #, fuzzy, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -268,24 +268,24 @@ msgstr[0] "(%d minutt står att for å låse opp)"
 msgstr[1] "(%d minutt står att for å låse opp)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:434
+#: modules/pam_faillock/pam_faillock.c:436
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(%d minutt står att for å låse opp)"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:592
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:593
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:601
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:602
 #, c-format
 msgid " from %.*s"
 msgstr " frå %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:613
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:614
 #, c-format
 msgid " on %.*s"
 msgstr " på %.*s"
@@ -301,12 +301,12 @@ msgid "Welcome to your new account!"
 msgstr "Velkommen til din nye konto!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:623
+#: modules/pam_lastlog/pam_lastlog.c:624
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "Siste feila innlogging:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:632 modules/pam_lastlog/pam_lastlog.c:639
+#: modules/pam_lastlog/pam_lastlog.c:633 modules/pam_lastlog/pam_lastlog.c:640
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -317,7 +317,7 @@ msgstr[1] ""
 "Det har vore %d feila innloggingsforsøk utan feil sidan førre innlogging."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:644
+#: modules/pam_lastlog/pam_lastlog.c:645
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
@@ -364,18 +364,18 @@ msgstr "Du har ulest e-post i mappa %s."
 msgid "You have mail in folder %s."
 msgstr "Du har e-post i mappa %s."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:120
+#: modules/pam_mkhomedir/pam_mkhomedir.c:125
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "Opprettar kataloge «%s»."
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:203
+#: modules/pam_mkhomedir/pam_mkhomedir.c:211
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "Kan ikkje lage og initiere katalog «%s»."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:383
-#: modules/pam_unix/pam_unix_passwd.c:584
+#: modules/pam_unix/pam_unix_passwd.c:573
 msgid "Password has been already used. Choose another."
 msgstr "Passord er allereie nytta. Vel eit anna."
 
@@ -441,27 +441,27 @@ msgstr "kunne ikkje pam_set_item()\n"
 msgid "login: failure forking: %m"
 msgstr "login: feil under forgreining: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:387
+#: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "Tilgang innvilga (siste tilgang var for %ld sekund sidan)."
 
-#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
+#: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."
 msgstr "Kontoen din er utløpt; kontakt systemadministratoren din."
 
-#: modules/pam_unix/pam_unix_acct.c:240
+#: modules/pam_unix/pam_unix_acct.c:241
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "Du må straks endre passordet ditt (kravd av administrator)."
 
-#: modules/pam_unix/pam_unix_acct.c:246
+#: modules/pam_unix/pam_unix_acct.c:247
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "Du må straks endre passordet ditt (passordet har utløpt)."
 
-#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
+#: modules/pam_unix/pam_unix_acct.c:272 modules/pam_unix/pam_unix_acct.c:279
 #, c-format
 msgid "Warning: your password will expire in %ld day."
 msgid_plural "Warning: your password will expire in %ld days."
@@ -469,37 +469,42 @@ msgstr[0] "Advarsel: Passordet ditt utløper om %ld dag."
 msgstr[1] "Advarsel: Passordet ditt utløper om %ld dagar."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:283
+#: modules/pam_unix/pam_unix_acct.c:284
 #, c-format
 msgid "Warning: your password will expire in %ld days."
 msgstr "Varsel: Passordet ditt går ut om %ld dagar."
 
-#: modules/pam_unix/pam_unix_passwd.c:459
+#: modules/pam_unix/pam_unix_passwd.c:444
 msgid "NIS password could not be changed."
 msgstr "NIS-passord kunne ikkje bli endra."
 
-#: modules/pam_unix/pam_unix_passwd.c:557
+#: modules/pam_unix/pam_unix_passwd.c:546
 msgid "No password has been supplied."
 msgstr "Inga passord er blitt angjeve."
 
-#: modules/pam_unix/pam_unix_passwd.c:558
+#: modules/pam_unix/pam_unix_passwd.c:547
 msgid "The password has not been changed."
 msgstr "Passordet kunne ikkje bli endra."
 
-#: modules/pam_unix/pam_unix_passwd.c:575
+#: modules/pam_unix/pam_unix_passwd.c:564
 msgid "You must choose a shorter password."
 msgstr "Du må velje eit kortare passord."
 
-#: modules/pam_unix/pam_unix_passwd.c:579
+#: modules/pam_unix/pam_unix_passwd.c:568
 msgid "You must choose a longer password."
 msgstr "Du må velje eit kortare passord."
 
-#: modules/pam_unix/pam_unix_passwd.c:684
+#: modules/pam_unix/pam_unix_passwd.c:673
 #, c-format
 msgid "Changing password for %s."
 msgstr "Skiftar passord for %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:714
+#: modules/pam_unix/pam_unix_passwd.c:703
+#, fuzzy
+msgid "Your password is not expired."
+msgstr "Inga passord er blitt angjeve."
+
+#: modules/pam_unix/pam_unix_passwd.c:706
 msgid "You must wait longer to change your password."
 msgstr "Du må vente lengre før du kan skifte passordet ditt."
 

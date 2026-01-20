@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2025-06-16 08:00+0000\n"
+"POT-Creation-Date: 2026-01-20 08:00+0000\n"
 "PO-Revision-Date: 2023-03-14 02:20+0000\n"
 "Last-Translator: A S Alam <amanpreet.alam@gmail.com>\n"
 "Language-Team: Punjabi <https://translate.fedoraproject.org/projects/linux-"
@@ -256,13 +256,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "ਲਾਗਇਨ           ਫੇਲ੍ਹ    ਸਭ ਤੋੰ ਆਖਰੀ ਫੇਲ੍ਹ         ਇਸ ਤੋੰ\n"
 
-#: modules/pam_faillock/pam_faillock.c:416
+#: modules/pam_faillock/pam_faillock.c:418
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "%u ਫੇਲ੍ਹ ਹੋਏ ਲਾਗਇਨਾਂ ਕਰਕੇ ਖਾਤਾ ਲਾਕ ਕੀਤਾ ਹੈ।"
 
-#: modules/pam_faillock/pam_faillock.c:425
-#: modules/pam_faillock/pam_faillock.c:431
+#: modules/pam_faillock/pam_faillock.c:427
+#: modules/pam_faillock/pam_faillock.c:433
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -270,24 +270,24 @@ msgstr[0] "(ਅਣਲਾਕ ਕਰਨ ਲਈ %d ਮਿੰਟ ਬਚੇ ਹਨ)"
 msgstr[1] "(ਅਣਲਾਕ ਕਰਨ ਲਈ %d ਮਿੰਟ ਬਚੇ ਹਨ)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:434
+#: modules/pam_faillock/pam_faillock.c:436
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(ਅਣਲਾਕ ਕਰਨ ਲਈ %d ਮਿੰਟ ਬਚੇ ਹਨ)"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:592
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:593
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:601
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:602
 #, c-format
 msgid " from %.*s"
 msgstr " %.*s ਤੋਂ"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:613
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:614
 #, c-format
 msgid " on %.*s"
 msgstr " %.*s ਉੱਤੇ"
@@ -303,12 +303,12 @@ msgid "Welcome to your new account!"
 msgstr "ਤੁਹਾਡੇ ਨਵੇਂ ਖਾਤੇ ਵਿੱਚ ਜੀ ਆਇਆਂ ਨੂੰ!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:623
+#: modules/pam_lastlog/pam_lastlog.c:624
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "ਆਖਰੀ ਫੇਲ ਹੋਇਆ ਲਾਗਇਨ:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:632 modules/pam_lastlog/pam_lastlog.c:639
+#: modules/pam_lastlog/pam_lastlog.c:633 modules/pam_lastlog/pam_lastlog.c:640
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -317,7 +317,7 @@ msgstr[0] "ਪਿਛਲੇ ਕਾਮਯਾਬ ਲਾਗਇਨ ਤੋਂ ਬਾ�
 msgstr[1] "ਪਿਛਲੇ ਕਾਮਯਾਬ ਲਾਗਇਨ ਤੋਂ ਬਾਅਦ %d ਫੇਲ੍ਹ ਲਾਗਇਨ ਕੋਸ਼ਿਸ਼ਾਂ ਸਨ।"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:644
+#: modules/pam_lastlog/pam_lastlog.c:645
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "ਪਿਛਲੇ ਕਾਮਯਾਬ ਲਾਗਇਨ ਤੋਂ ਬਾਅਦ %d ਫੇਲ੍ਹ ਲਾਗਇਨ ਕੋਸ਼ਿਸ਼ਾਂ ਸਨ।"
@@ -363,18 +363,18 @@ msgstr "ਫੋਲਡਰ %s ਵਿੱਚ ਤੁਹਾਡੀ ਪੁਰਾਣੀ �
 msgid "You have mail in folder %s."
 msgstr "ਫੇਲਡਰ %s ਵਿੱਚ ਤੁਹਾਡੀ ਮੇਲ ਹੈ।"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:120
+#: modules/pam_mkhomedir/pam_mkhomedir.c:125
 #, c-format
 msgid "Creating directory '%s'."
 msgstr "ਡਾਇਰੈਕਟਰੀ '%s' ਬਣਾਈ ਜਾ ਰਹੀ ਹੈ।"
 
-#: modules/pam_mkhomedir/pam_mkhomedir.c:203
+#: modules/pam_mkhomedir/pam_mkhomedir.c:211
 #, c-format
 msgid "Unable to create and initialize directory '%s'."
 msgstr "ਡਾਇਰੈਕਟਰੀ '%s' ਨੂੰ ਬਣਾਉਣ ਅਤੇ ਸ਼ੁਰੂ ਕਰਨ ਵਿੱਚ ਅਸਮਰਥ।"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:383
-#: modules/pam_unix/pam_unix_passwd.c:584
+#: modules/pam_unix/pam_unix_passwd.c:573
 msgid "Password has been already used. Choose another."
 msgstr "ਪਾਸਵਰਡ ਪਹਿਲਾਂ ਵੀ ਵਰਤਿਆ ਗਿਆ ਹੈ। ਵੱਖਰਾ ਚੁਣੋ।"
 
@@ -440,27 +440,27 @@ msgstr "pam_set_item() ਲਈ ਫੇਲ\n"
 msgid "login: failure forking: %m"
 msgstr "ਲਾਗਇਨ: ਫੋਰਕਿੰਗ ਫੇਲ: %m"
 
-#: modules/pam_timestamp/pam_timestamp.c:387
+#: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
 msgid "Access has been granted (last access was %ld seconds ago)."
 msgstr "ਪਹੁੰਚ ਲਈ ਇਜਾਜ਼ਤ ਦਿੱਤੀ ਗਈ (ਪਿਛਲੀ ਪਹੁੰਚ %ld ਸਕਿੰਟ ਪਹਿਲਾਂ ਸੀ)।"
 
-#: modules/pam_unix/pam_unix_acct.c:232 modules/pam_unix/pam_unix_acct.c:254
+#: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."
 msgstr "ਤੁਹਾਡੇ ਖਾਤੇ ਦੀ ਮਿਆਦ ਪੁੱਗ ਗਈ ਹੈ; ਆਪਣੇ ਸਿਸਟਮ ਪਰਸ਼ਾਸ਼ਕ ਨਾਲ ਸੰਪਰਕ ਕਰੋ ਜੀ।"
 
-#: modules/pam_unix/pam_unix_acct.c:240
+#: modules/pam_unix/pam_unix_acct.c:241
 msgid ""
 "You are required to change your password immediately (administrator "
 "enforced)."
 msgstr "ਤੁਹਾਨੂੰ ਆਪਣਾ ਪਾਸਵਰਡ ਫ਼ੌਰੀ ਤਬਦੀਲ ਕਰਨਾ ਪਵੇਗਾ (ਪਰਸ਼ਾਸ਼ਕ ਵੱਲੋਂ ਲਾਜ਼ਮੀ ਬਣਾਇਆ)।"
 
-#: modules/pam_unix/pam_unix_acct.c:246
+#: modules/pam_unix/pam_unix_acct.c:247
 msgid ""
 "You are required to change your password immediately (password expired)."
 msgstr "ਤੁਹਾਨੂੰ ਆਪਣਾ ਪਾਸਵਰਡ ਫ਼ੌਰੀ ਤਬਦੀਲ ਕਰਨਾ ਪਵੇਗਾ (ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ ਪੁੱਗੀ ਹੈ)।"
 
-#: modules/pam_unix/pam_unix_acct.c:271 modules/pam_unix/pam_unix_acct.c:278
+#: modules/pam_unix/pam_unix_acct.c:272 modules/pam_unix/pam_unix_acct.c:279
 #, c-format
 msgid "Warning: your password will expire in %ld day."
 msgid_plural "Warning: your password will expire in %ld days."
@@ -468,37 +468,42 @@ msgstr[0] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ �
 msgstr[1] "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %ld ਦਿਨਾਂ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_unix/pam_unix_acct.c:283
+#: modules/pam_unix/pam_unix_acct.c:284
 #, c-format
 msgid "Warning: your password will expire in %ld days."
 msgstr "ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ %ld ਦਿਨਾਂ ‘ਚ ਪੁੱਗ ਜਾਵੇਗੀ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:459
+#: modules/pam_unix/pam_unix_passwd.c:444
 msgid "NIS password could not be changed."
 msgstr "NIS ਪਾਸਵਰਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:557
+#: modules/pam_unix/pam_unix_passwd.c:546
 msgid "No password has been supplied."
 msgstr "ਕੋਈ ਪਾਸਵਰਡ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:558
+#: modules/pam_unix/pam_unix_passwd.c:547
 msgid "The password has not been changed."
 msgstr "ਪਾਸਵਰਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਗਿਆ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:575
+#: modules/pam_unix/pam_unix_passwd.c:564
 msgid "You must choose a shorter password."
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ ਛੋਟਾ ਪਾਸਵਰਡ ਚੁਣਨਾ ਚਾਹੀਦਾ ਹੈ."
 
-#: modules/pam_unix/pam_unix_passwd.c:579
+#: modules/pam_unix/pam_unix_passwd.c:568
 msgid "You must choose a longer password."
 msgstr "ਤੁਹਾਨੂੰ ਲੰਮਾ ਪਾਸਵਰਡ ਚੁਣਨਾ ਪਵੇਗਾ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:684
+#: modules/pam_unix/pam_unix_passwd.c:673
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s ਲਈ ਪਾਸਵਰਡ ਤਬਦੀਲ ਕਰ ਰਿਹਾ ਹੈ।"
 
-#: modules/pam_unix/pam_unix_passwd.c:714
+#: modules/pam_unix/pam_unix_passwd.c:703
+#, fuzzy
+msgid "Your password is not expired."
+msgstr "ਕੋਈ ਪਾਸਵਰਡ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ।"
+
+#: modules/pam_unix/pam_unix_passwd.c:706
 msgid "You must wait longer to change your password."
 msgstr "ਤੁਹਾਨੂੰ ਆਪਣੇ ਪਾਸਵਰਡ ਨੂੰ ਬਦਲਣ ਲਈ ਲੰਮੀ ਉਡੀਕ ਕਰਨੀ ਪਵੇਗੀ।"
 
