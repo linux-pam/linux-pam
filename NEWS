@@ -1,5 +1,18 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 1.7.2
+* build: enabled vendordir by default.
+* pam_access: fixed stack overflow with huge configuration files.
+* pam_env: enhanced error diagnostics when ignoring backslash at end of string.
+* pam_faillock: skip clearing user's failed attempt when auth stack is not run.
+* pam_mkhomedir: added support for vendordir skeleton directory.
+* pam_unix: added support for pwaccessd.
+* pam_unix: added support for PAM_CHANGE_EXPIRED_AUTHTOK.
+* pam_unix: fixed password expiration warnings for large day values.
+* pam_unix: hardened temporary file handling.
+* Multiple minor bug fixes, build fixes, portability fixes,
+  documentation improvements, and translation updates.
+
 Release 1.7.1
 * pam_access: do not resolve ttys or display variables as hostnames.
 * pam_access: added "nodns" option to disallow resolving of tokens as hostnames
