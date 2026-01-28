@@ -2,16 +2,25 @@ name: CI
 
 on: [push, pull_request]
 
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   VERBOSE: 1
 
 jobs:
   whitespace-errors:
+    name: Check for whitespace errors
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: check
-      run: git diff-index --check --cached 4b825dc642cb6eb9a060e54bf8d69288fbee4904
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        with:
+          persist-credentials: false
+      - name: check
+        run: git diff-index --check --cached 4b825dc642cb6eb9a060e54bf8d69288fbee4904
 
   build-check:
     runs-on: ubuntu-24.04
@@ -52,9 +61,10 @@ jobs:
       CC: ${{ matrix.cc }}
       TARGET: x86_64
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Set environment variables
         env:
