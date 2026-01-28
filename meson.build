@@ -109,17 +109,6 @@ if xauth_option != '' and xauth_option != '/usr/X11R6/bin/xauth'
 endif
 
 
-# meson defines -D_STRIP_FILE_OFFSET_BITS=64 even for 64-bit systems, this
-# forces glibc to use function names with the same semantics but with "64"
-# suffix, and that leads to discrepancies in the build artefacts produced
-# by different build systems.
-if cc.sizeof('long') >= 8
-  add_project_arguments(
-    '-U_FILE_OFFSET_BITS',
-    language: 'c')
-endif
-
-
 try_cc_flags = [
   '-Wbad-function-cast',
   '-Wcast-align',
