@@ -7,8 +7,8 @@
 
 opts='-Doptimization=2 -Dwerror=true -Dpam_lastlog=enabled'
 
-case "${VENDORDIR-}" in
-	*/*)
+case "${VENDORDIR-no}" in
+	*/*|'')
 		opts="$opts -Dvendordir=$VENDORDIR"
 		;;
 esac
