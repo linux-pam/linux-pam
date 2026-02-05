@@ -39,7 +39,7 @@ jobs:
           - clang-16
           - clang-15
           - clang-14
-        variant: [base, debug, openssl, sanitizers, vendordir]
+        variant: [base, debug, openssl, sanitizers, novendordir]
         exclude:
           - cc: clang-18
             variant: sanitizers
@@ -81,7 +81,7 @@ jobs:
               echo 'ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1' >> "$GITHUB_ENV"
               echo 'UBSAN_OPTIONS=print_stacktrace=1:print_summary=1:halt_on_error=1' >> "$GITHUB_ENV"
               ;;
-            vendordir) echo 'VENDORDIR=${prefix}/share/etc' >> "$GITHUB_ENV" ;;
+            novendordir) echo 'VENDORDIR=' >> "$GITHUB_ENV" ;;
           esac
 
       - name: Install dependencies
