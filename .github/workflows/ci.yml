@@ -40,7 +40,7 @@ jobs:
           - clang-16
           - clang-15
           - clang-14
-        variant: [base, debug, openssl, sanitizers, novendordir]
+        variant: [base, debug, logind, openssl, sanitizers, novendordir]
         exclude:
           - cc: clang-19
             variant: sanitizers
@@ -54,11 +54,6 @@ jobs:
             variant: sanitizers
           - cc: clang-14
             variant: sanitizers
-        include:
-          - cc: gcc-14
-            variant: logind
-          - cc: clang-19
-            variant: logind
     name: Build ${{ matrix.cc }}-x86_64-${{ matrix.variant }}
     env:
       CC: ${{ matrix.cc }}
