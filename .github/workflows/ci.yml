@@ -34,6 +34,7 @@ jobs:
           - gcc-11
           - gcc-10
           - gcc-9
+          - clang-19
           - clang-18
           - clang-17
           - clang-16
@@ -41,6 +42,8 @@ jobs:
           - clang-14
         variant: [base, debug, openssl, sanitizers, novendordir]
         exclude:
+          - cc: clang-19
+            variant: sanitizers
           - cc: clang-18
             variant: sanitizers
           - cc: clang-17
@@ -54,7 +57,7 @@ jobs:
         include:
           - cc: gcc-14
             variant: logind
-          - cc: clang-18
+          - cc: clang-19
             variant: logind
     name: Build ${{ matrix.cc }}-x86_64-${{ matrix.variant }}
     env:
