@@ -27,33 +27,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cc:
-          - gcc-14
-          - gcc-13
-          - gcc-12
-          - gcc-11
-          - gcc-10
-          - gcc-9
-          - clang-19
-          - clang-18
-          - clang-17
-          - clang-16
-          - clang-15
-          - clang-14
+        cc: [gcc-14, gcc-13, gcc-12, gcc-11, gcc-10, gcc-9, clang-19, clang-18, clang-17, clang-16, clang-15, clang-14]
         variant: [base, debug, logind, openssl, sanitizers, novendordir]
         exclude:
-          - cc: clang-19
-            variant: sanitizers
-          - cc: clang-18
-            variant: sanitizers
-          - cc: clang-17
-            variant: sanitizers
-          - cc: clang-16
-            variant: sanitizers
-          - cc: clang-15
-            variant: sanitizers
-          - cc: clang-14
-            variant: sanitizers
+          - { cc: clang-19, variant: sanitizers }
+          - { cc: clang-18, variant: sanitizers }
+          - { cc: clang-17, variant: sanitizers }
+          - { cc: clang-16, variant: sanitizers }
+          - { cc: clang-15, variant: sanitizers }
+          - { cc: clang-14, variant: sanitizers }
     name: Build ${{ matrix.cc }}-x86_64-${{ matrix.variant }}
     env:
       CC: ${{ matrix.cc }}
