@@ -256,6 +256,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
     {
       int status = 0;
       pid_t rc;
+      int result = PAM_SUCCESS;
 
       if (use_stdout)
         close(stdout_fds[1]);
@@ -265,8 +266,12 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	  if (debug)
 	    pam_syslog (pamh, LOG_DEBUG, "send password to child");
 	  if (write(fds[1], authtok, strlen(authtok)) == -1)
-	    pam_syslog (pamh, LOG_ERR,
-			      "sending password to child failed: %m");
+	    {
+	      pam_syslog (pamh, LOG_ERR,
+				"sending password to child failed: %m");
+	      result = PAM_SYSTEM_ERR;
+	      goto finish_child;
+	    }
 
 	  /* with expose_authok pipe to child stdin is closed right away */
 	  close(fds[0]);       /* close here to avoid possible SIGPIPE above during write */
@@ -286,8 +291,15 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	      pam_info(pamh, "%s", buf);
 	    }
 	  free(buf);
-	  fclose(stdout_file);
 	}
+
+      finish_child:
+
+      if (result != PAM_SUCCESS) /* kill child in case of error */
+	kill(pid, SIGTERM);
+
+      if (use_stdout)
+	fclose(stdout_file);
 
       if (child_stdin)
 	{
@@ -301,7 +313,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       if (rc == (pid_t)-1)
 	{
 	  pam_syslog (pamh, LOG_ERR, "waitpid returns with -1: %m");
-	  return PAM_SYSTEM_ERR;
+	  return result == PAM_SUCCESS ? PAM_SYSTEM_ERR : result;
 	}
       else if (status != 0)
 	{
@@ -313,6 +325,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 		if (!quiet)
 	      pam_error (pamh, _("%s failed: exit code %d"),
 			 argv[optargc], WEXITSTATUS(status));
+	      result = PAM_PERM_DENIED; /* deny when exit status is not 0 */
 	    }
 	  else if (WIFSIGNALED(status))
 	    {
@@ -334,9 +347,9 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	      pam_error (pamh, _("%s failed: unknown status 0x%x"),
 			 argv[optargc], status);
 	    }
-	  return PAM_SYSTEM_ERR;
+	  return result == PAM_SUCCESS ? PAM_SYSTEM_ERR : result;
 	}
-      return PAM_SUCCESS;
+      return result;
     }
   else /* child */
     {
