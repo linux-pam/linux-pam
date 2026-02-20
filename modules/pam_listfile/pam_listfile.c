@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
+#include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <syslog.h>
@@ -60,6 +61,7 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     char *aline=NULL;
     const char *apply_val;
     struct stat fileinfo;
+    int fd;
     FILE *inf;
     int apply_type;
     size_t n=0;
@@ -263,7 +265,6 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 		break;
 	    default:
 		pam_syslog(pamh,LOG_ERR,
-
 			 "Internal weirdness, unknown extended item %d",
 			 extitem);
 		return onerr;
@@ -275,9 +276,24 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 	     "Got file = %s, item = %d, value = %s, sense = %d",
 	     ifname, citem, citemp, sense);
 #endif
-    if(lstat(ifname,&fileinfo)) {
-	if(!quiet)
-		pam_syslog(pamh,LOG_ERR, "Couldn't open %s",ifname);
+    fd = open(ifname,O_RDONLY | O_NOFOLLOW);
+    if(fd == -1) { /* Check that we opened it successfully */
+        pam_syslog(pamh,LOG_ERR,  "Error opening %s", ifname);
+        close(fd);
+	return onerr;
+    }
+
+    if(fstat(fd,&fileinfo)) {
+        pam_syslog(pamh,LOG_ERR, "Couldn't not retrieve info about %s",ifname);
+        close(fd);
+	return onerr;
+    }
+
+    if (!(fileinfo.st_uid == getuid() || fileinfo.st_uid != 0)) {
+	pam_syslog(pamh,LOG_ERR,
+		 "%s is not owned by the superuser or the user of the application using PAM",
+		 ifname);
+        close(fd);
 	return onerr;
     }
 
@@ -288,17 +304,10 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 	pam_syslog(pamh,LOG_ERR,
 		 "%s is either world writable or not a normal file",
 		 ifname);
-	return PAM_AUTH_ERR;
-    }
-
-    inf = fopen(ifname,"r");
-    if(inf == NULL) { /* Check that we opened it successfully */
-	if (onerr == PAM_SERVICE_ERR) {
-	    /* Only report if it's an error... */
-	    pam_syslog(pamh,LOG_ERR,  "Error opening %s", ifname);
-	}
+        close(fd);
 	return onerr;
     }
+
     /* There should be no more errors from here on */
     retval=PAM_AUTH_ERR;
     /* This loop assumes that PAM_SUCCESS == 0
@@ -307,6 +316,13 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     assert(PAM_SUCCESS == 0);
     assert(PAM_AUTH_ERR != 0);
 #endif
+    inf = fdopen(fd,"r");
+    if(inf == NULL) {
+        pam_syslog(pamh,LOG_ERR, "Couldn't not open file %s for reading",ifname);
+        close(fd);
+	return onerr;
+    }
+
     while(retval && getline(&aline,&n,inf) != -1) {
 	const char *a = aline;
 
