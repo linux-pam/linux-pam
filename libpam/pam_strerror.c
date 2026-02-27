@@ -34,6 +34,9 @@
 #include "pam_private.h"
 #include "pam_i18n.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 const char *pam_strerror(pam_handle_t *pamh UNUSED, int errnum)
 {
     switch (errnum) {
@@ -105,3 +108,6 @@ const char *pam_strerror(pam_handle_t *pamh UNUSED, int errnum)
 
     return _("Unknown PAM error");
 }
+#ifdef __cplusplus
+}
+#endif
