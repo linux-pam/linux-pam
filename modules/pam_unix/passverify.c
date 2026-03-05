@@ -540,42 +540,10 @@ PAMH_ARG_DECL(char * create_password_hash,
 int
 unix_selinux_confined(void)
 {
-    static int confined = -1;
-    int fd;
-    char tempfile[]="/etc/.pwdXXXXXX";
-
-    if (confined != -1)
-	return confined;
-
-    /* cannot be confined without SELinux enabled */
-    if (!SELINUX_ENABLED){
-	confined = 0;
-	return confined;
-    }
-
-    /* let's try opening shadow read only */
-    if ((fd=open("/etc/shadow", O_RDONLY | O_CLOEXEC)) != -1) {
-        close(fd);
-        confined = 0;
-        return confined;
-    }
-
-    if (errno == EACCES) {
-	confined = 1;
-	return confined;
-    }
-
-    /* shadow opening failed because of other reasons let's try
-       creating a file in /etc */
-    if ((fd=mkstemp(tempfile)) != -1) {
-        unlink(tempfile);
-        close(fd);
-        confined = 0;
-        return confined;
-    }
-
-    confined = 1;
-    return confined;
+    if (is_selinux_enabled() > 0 &&
+	security_getenforce() > 0)
+        return 1;
+    return 0;
 }
 
 #else
