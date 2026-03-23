@@ -203,9 +203,6 @@ closing hook for modules to affect the services available to a user.</para>
       </citerefentry>,
       <citerefentry>
         <refentrytitle>pam_strerror</refentrytitle><manvolnum>3</manvolnum>
-      </citerefentry>,
-      <citerefentry>
-        <refentrytitle>PAM</refentrytitle><manvolnum>8</manvolnum>
       </citerefentry>
     </para>
   </refsect1>
