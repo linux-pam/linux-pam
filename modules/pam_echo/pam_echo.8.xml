@@ -118,7 +118,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Message was successful printed.
+             Message was successfully printed.
           </para>
         </listitem>
       </varlistentry>

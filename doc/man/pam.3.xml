@@ -114,7 +114,7 @@
         <citerefentry>
           <refentrytitle>pam_open_session</refentrytitle><manvolnum>3</manvolnum>
         </citerefentry> function sets up a user session for a previously
-        successful authenticated user. The session should later be terminated
+        successfully authenticated user. The session should later be terminated
         with a call to
         <citerefentry>
           <refentrytitle>pam_close_session</refentrytitle><manvolnum>3</manvolnum>

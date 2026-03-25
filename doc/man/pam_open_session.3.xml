@@ -30,7 +30,7 @@
     <title>DESCRIPTION</title>
     <para>
       The <function>pam_open_session</function> function sets up a
-      user session for a previously successful authenticated user.
+      user session for a previously successfully authenticated user.
       The session should later be terminated with a call to
       <citerefentry>
         <refentrytitle>pam_close_session</refentrytitle><manvolnum>3</manvolnum>
@@ -91,7 +91,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Session was successful created.
+             Session was successfully created.
           </para>
         </listitem>
       </varlistentry>

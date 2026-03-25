@@ -91,8 +91,8 @@
     </para>
 
     <para>
-      The session component of this module logs when a user logins
-      or leave the system.
+      The session component of this module logs when a user logs in
+      or leaves the system.
     </para>
 
     <para>

@@ -91,7 +91,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Session was successful terminated.
+             Session was successfully terminated.
           </para>
         </listitem>
       </varlistentry>
