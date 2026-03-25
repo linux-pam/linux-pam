@@ -62,7 +62,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Data was successful retrieved.
+             Data was successfully retrieved.
           </para>
         </listitem>
       </varlistentry>

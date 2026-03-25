@@ -101,7 +101,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Data was successful updated.
+             Data was successfully updated.
           </para>
         </listitem>
       </varlistentry>

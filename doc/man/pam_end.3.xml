@@ -83,7 +83,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Transaction was successful terminated.
+             Transaction was successfully terminated.
           </para>
         </listitem>
       </varlistentry>

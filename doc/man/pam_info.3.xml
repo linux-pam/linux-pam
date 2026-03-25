@@ -71,7 +71,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Transaction was successful created.
+             Transaction was successfully created.
           </para>
         </listitem>
       </varlistentry>
