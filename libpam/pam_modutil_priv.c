@@ -14,7 +14,9 @@
 #include <syslog.h>
 #include <pwd.h>
 #include <grp.h>
+#ifdef HAVE_SYS_FSUID_H
 #include <sys/fsuid.h>
+#endif /* HAVE_SYS_FSUID_H */
 
 /*
  * Two setfsuid() calls in a row are necessary to check
@@ -22,17 +24,25 @@
  */
 static int change_uid(uid_t uid, uid_t *save)
 {
+#ifdef HAVE_SYS_FSUID_H
 	uid_t tmp = setfsuid(uid);
 	if (save)
 		*save = tmp;
 	return (uid_t) setfsuid(uid) == uid ? 0 : -1;
+#else
+	return setresuid(-1, uid, save ? (*save = geteuid()) : uid);
+#endif
 }
 static int change_gid(gid_t gid, gid_t *save)
 {
+#ifdef HAVE_SYS_FSUID_H
 	gid_t tmp = setfsgid(gid);
 	if (save)
 		*save = tmp;
 	return (gid_t) setfsgid(gid) == gid ? 0 : -1;
+#else
+	return setresgid(-1, gid, save ? (*save = getegid()) : gid);
+#endif
 }
 
 static int cleanup(struct pam_modutil_privs *p)
