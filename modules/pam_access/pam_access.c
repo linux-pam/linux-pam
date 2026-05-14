@@ -681,6 +681,16 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
     if (tok[0] == '(' && tok[strlen(tok) - 1] == ')') {
       return (group_match (pamh, tok, string, item->debug));
     } else if ((at = strchr(at, '@')) != NULL) {
++    /* The token contains '@'. It could be a fully qualified domain
++     * username (user@domain) or the legacy user@host syntax.
++     * Try an exact match against the login name first so that
++     * "user@domain" tokens work when use_fully_qualified_names is
++     * enabled in SSSD / AD / IPA environments. */
++	
++    if (string_match(pamh, tok, string))
++        return YES;
++
++    /* Fall back to interpreting token as user@host */
         /* split user@host pattern */
 	if (item->hostname == NULL)
 	    return NO;
