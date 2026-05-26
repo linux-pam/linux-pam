@@ -550,7 +550,7 @@ _strbuf_reserve(struct string_buffer *buffer, size_t add)
   if (buffer->size == 0 && add < 64) {
     /* Start with 64 bytes if that's enough */
     s = 64;
-  } else if (buffer->size >= SIZE_MAX / 2 || buffer->size * 2 < add + 1) {
+  } else if (buffer->size >= SIZE_MAX / 2 || buffer->size * 2 < buffer->len + add + 1) {
     /* If doubling is not enough (or not possible), get as much as needed */
     s = buffer->len + add + 1;
   } else {
