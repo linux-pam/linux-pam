@@ -86,9 +86,32 @@ pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		return PAM_SESSION_ERR;
 	}
 	login_name = pam_modutil_getlogin(pamh);
-	if (login_name == NULL) {
-		login_name = "";
-	}
+	if (login_name == NULL || *login_name == '\0') {
+          /* Fallback: Read audit login UID from /proc/self/loginuid */
+          FILE *loginuid_file;
+          uid_t audit_uid = (uid_t)-1;
+
+          loginuid_file = fopen("/proc/self/loginuid", "r");
+          if (loginuid_file != NULL) {
+              if (fscanf(loginuid_file, "%u", &audit_uid) != 1) {
+                  audit_uid = (uid_t)-1;
+              }
+              fclose(loginuid_file);
+          }
+
+          if (audit_uid != (uid_t)-1) {
+              struct passwd *pwd;
+              pwd = pam_modutil_getpwuid(pamh, audit_uid);
+              if (pwd != NULL && pwd->pw_name != NULL) {
+                  login_name = pwd->pw_name;
+              }
+          }
+
+          if (login_name == NULL || *login_name == '\0') {
+              login_name = "";
+          }
+      }
+
 	if (off (UNIX_QUIET, ctrl)) {
 		char uid[32];
 		struct passwd *pwd = pam_modutil_getpwnam (pamh, user_name);
