@@ -194,14 +194,18 @@ static int secure_opendir(const char *path, int opm, mode_t mode,
 			goto error;
 
 		if (fstat(dfd_next, &st) != 0) {
+			save_errno = errno;
 			close(dfd_next);
+			errno = save_errno;
 			goto error;
 		}
 
 		if ((flags & O_NOFOLLOW) && (opm & SECURE_OPENDIR_PROTECT)) {
 			/* we are inside user-owned dir - protect */
 			if (protect_mount(dfd_next, p, idata) == -1) {
+				save_errno = errno;
 				close(dfd_next);
+				errno = save_errno;
 				goto error;
 			}
 			/*
@@ -244,6 +248,7 @@ static int secure_opendir(const char *path, int opm, mode_t mode,
 			close(rv);
 			rv = -1;
 			errno = save_errno;
+			goto error;
 		}
 		/*
 		 * Reopen the directory to obtain a new descriptor after
