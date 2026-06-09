@@ -437,6 +437,28 @@ evaluate(pam_handle_t *pamh, int debug,
 	return PAM_SERVICE_ERR;
 }
 
+static void
+log_requirement(pam_handle_t *pamh,
+		struct passwd **pwd,
+		const char *resolution,
+		const char *left,
+		const char *qual,
+		const char *right,
+		const char *user,
+		int check_user)
+{
+	if (check_user && !*pwd && !(*pwd = pam_modutil_getpwnam(pamh, user))) {
+		pam_syslog(pamh, LOG_INFO,
+			   "requirement \"%s %s %s\" "
+			   "%s by unknown user",
+			   left, qual, right, resolution);
+	} else {
+		pam_syslog(pamh, LOG_INFO,
+			   "requirement \"%s %s %s\" "
+			   "%s by user \"%s\"",
+			   left, qual, right, resolution, user);
+	}
+}
 static int
 pam_succeed_if(pam_handle_t *pamh, int argc, const char **argv)
 {
@@ -539,19 +561,17 @@ pam_succeed_if(pam_handle_t *pamh, int argc, const char **argv)
 					   user);
 			if (ret != PAM_SUCCESS) {
 				if(!quiet_fail && ret != PAM_USER_UNKNOWN)
-					pam_syslog(pamh, LOG_INFO,
-						   "requirement \"%s %s %s\" "
-						   "not met by user \"%s\"",
-						   left, qual, right, user);
+					log_requirement(pamh, &pwd, "not met",
+							left, qual, right, user,
+							!(audit || use_uid));
 				left = qual = right = NULL;
 				break;
 			}
 			else
 				if(!quiet_succ)
-					pam_syslog(pamh, LOG_INFO,
-						   "requirement \"%s %s %s\" "
-						   "was met by user \"%s\"",
-						   left, qual, right, user);
+					log_requirement(pamh, &pwd, "was met",
+							left, qual, right, user,
+							!(audit || use_uid));
 			left = qual = right = NULL;
 			continue;
 		}
