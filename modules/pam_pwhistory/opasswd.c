@@ -404,7 +404,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
 		      }
 
 		    /* compare the last password */
-		    if (strcmp (last, oldpass) == 0)
+		    if (strcmp (last, oldpass) == 0 && entry.count <= howmany)
 		      goto write_old_data;
 		  }
 		else
