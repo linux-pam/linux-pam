@@ -29,7 +29,7 @@
     </para>
     <para>
       The authentication mechanism of this module is based on the contents
-      of two files; <filename>/etc/hosts.equiv</filename> (or
+      of two files: <filename>/etc/hosts.equiv</filename>
       and <filename>~/.rhosts</filename>. Firstly, hosts listed in the
       former file are treated as equivalent to the localhost. Secondly,
       entries in the user's own copy of the latter file is used to map
@@ -41,9 +41,9 @@
     </para>
     <para>
       The module authenticates a remote user (internally specified by the
-      item <parameter>PAM_RUSER</parameter> connecting from the remote
+      item <parameter>PAM_RUSER</parameter>) connecting from the remote
       host (internally specified by the item <command>PAM_RHOST</command>).
-      Accordingly, for applications to be compatible this authentication
+      Accordingly, for applications to be compatible with this authentication
       module they must set these items prior to calling
       <function>pam_authenticate()</function>.  The module is not capable
       of independently probing the network connection for such information.
