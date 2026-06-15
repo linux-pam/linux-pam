@@ -1032,14 +1032,6 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
     return retval;
 }
 
-/* --- authentication management functions (only) --- */
-
-int
-pam_sm_authenticate (pam_handle_t *pamh UNUSED, int flags UNUSED,
-		     int argc UNUSED, const char **argv UNUSED)
-{
-  return PAM_IGNORE;
-}
 
 static int
 handle_env (pam_handle_t *pamh, int argc, const char **argv)
@@ -1103,6 +1095,16 @@ handle_env (pam_handle_t *pamh, int argc, const char **argv)
   /* indicate success or failure */
   D(("Exit."));
   return retval;
+}
+
+/* --- authentication management functions (only) --- */
+
+int
+pam_sm_authenticate (pam_handle_t *pamh, int flags UNUSED,
+		     int argc, const char **argv)
+{
+  D(("Auth env Called"));
+  return handle_env (pamh, argc, argv);
 }
 
 int
