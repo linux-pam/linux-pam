@@ -321,15 +321,24 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	} else {
 
 	  /* Unknown password encryption method -
-	   * default to plaintext password storage
+	   * default to plaintext password storage.
+	   * Use constant-time comparison: strncmp/strncasecmp leak prefix bytes
+	   * and the length pre-check leaks the password length (CWE-208).
 	   */
 
-	  if (strlen(pass) != (size_t)data.dsize) {
-	    compare = 1; /* wrong password len -> wrong password */
-	  } else if (ctrl & PAM_ICASE_ARG) {
-	    compare = strncasecmp(data.dptr, pass, data.dsize);
+	  /* libdb is not guaranteed to produce null-terminated strings */
+	  char *stored = strndup(data.dptr, data.dsize);
+	  if (stored == NULL) {
+	    pam_syslog(pamh, LOG_CRIT, "strndup failed: data.dptr");
+	    compare = -2;
 	  } else {
-	    compare = strncmp(data.dptr, pass, data.dsize);
+	    if (ctrl & PAM_ICASE_ARG) {
+	      compare = pam_consttime_strcaseeq(pass, stored) ? 0 : 1;
+	    } else {
+	      compare = pam_consttime_streq(pass, stored) ? 0 : 1;
+	    }
+	    pam_overwrite_string(stored);
+	    free(stored);
 	  }
 
 	  if (cryptmode && pam_str_skip_icase_prefix(cryptmode, "none") == NULL
@@ -361,36 +370,40 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
         }
 
         /* now handle the key_only case */
+        size_t ulen = strlen(user);
         for (key = db_firstkey(dbm);
              key.dptr != NULL;
              key = db_nextkey(dbm, key)) {
-            int compare;
-            /* first compare the user portion (case sensitive) */
-            compare = strncmp(key.dptr, user, strlen(user));
-            if (compare == 0) {
-                /* assume failure */
-                compare = -1;
-                /* if we have the divider where we expect it to be... */
-                if (key.dptr[strlen(user)] == '-') {
-		    saw_user = 1;
-		    if ((size_t)key.dsize == strlen(user) + 1 + strlen(pass)) {
-		        if (ctrl & PAM_ICASE_ARG) {
-			    /* compare the password portion (case insensitive)*/
-                            compare = strncasecmp(key.dptr + strlen(user) + 1,
-                                                  pass,
-                                                  strlen(pass));
-		        } else {
-                            /* compare the password portion (case sensitive) */
-                            compare = strncmp(key.dptr + strlen(user) + 1,
-                                              pass,
-                                              strlen(pass));
-		        }
-		    }
-                }
-                if (compare == 0) {
+            /* assume failure */
+            int compare = -1;
+
+            /*
+             * First compare the user portion (case sensitive);
+             * user is caller-supplied, so this memcmp leaks nothing secret.
+             */
+            if ((size_t)key.dsize > ulen &&
+                key.dptr[ulen] == '-' &&
+                memcmp(key.dptr, user, ulen) == 0) {
+                saw_user = 1;
+                char *stored_pass = strndup(key.dptr + ulen + 1,
+                                            key.dsize - ulen - 1);
+                if (stored_pass == NULL) {
                     db_close(dbm);
-                    return 0; /* match */
+                    return -2;
                 }
+                /* compare the password portion (case (in)sensitive) */
+                if (ctrl & PAM_ICASE_ARG) {
+                    compare = pam_consttime_strcaseeq(pass, stored_pass) ? 0 : 1;
+                } else {
+                    compare = pam_consttime_streq(pass, stored_pass) ? 0 : 1;
+                }
+                pam_overwrite_string(stored_pass);
+                free(stored_pass);
+            }
+
+            if (compare == 0) {
+                db_close(dbm);
+                return 0; /* match */
             }
         }
         db_close(dbm);

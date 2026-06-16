@@ -9,6 +9,7 @@
 #define PAM_INLINE_H
 
 #include "pam_cc_compat.h"
+#include <ctype.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -237,6 +238,25 @@ pam_consttime_streq(const char *userinput, const char *secret) {
 
 	do {
 		ret |= *u ^ *s;
+
+		s += !!*s;
+	} while (*u++ != '\0');
+
+	return ret == 0;
+}
+
+/*
+ * Constant-time, case-insensitive string equality check.
+ * Same contract as pam_consttime_streq but uses tolower() on each byte.
+ * Runs for exactly strlen(userinput)+1 iterations regardless of secret.
+ */
+static inline int
+pam_consttime_strcaseeq(const char *userinput, const char *secret) {
+	volatile const char *u = userinput, *s = secret;
+	volatile int ret = 0;
+
+	do {
+		ret |= tolower((unsigned char)*u) ^ tolower((unsigned char)*s);
 
 		s += !!*s;
 	} while (*u++ != '\0');
