@@ -316,6 +316,8 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 
 		start[n] = '\0';
 		start = strtok_r(start, OPT_DELIM, &sptr);
+		if (start == NULL)
+			continue;
 
 		switch (start[0]) {
 			case '@':
