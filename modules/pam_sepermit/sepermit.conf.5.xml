@@ -71,7 +71,8 @@
     </variablelist>
 
     <para>
-      The lines which start with # character are comments and are ignored.
+      The lines whose first non-whitespace character is # are comments
+      and are ignored.
     </para>
   </refsect1>
 
