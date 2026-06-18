@@ -234,8 +234,8 @@ config_context (pam_handle_t *pamh, const char *defaultcon, int use_current_rang
 	if (debug)
 	  pam_syslog(pamh, LOG_NOTICE, "Selected Security Context %s", context_str(new_context));
 
-        /* Get the string value of the context and see if it is valid. */
-        if (!security_check_context(context_str(new_context))) {
+	/* Get the string value of the context and see if it is valid. */
+	if (!security_check_context(context_str(new_context))) {
 	  newcon = strdup(context_str(new_context));
 	  if (newcon == NULL)
 	    goto fail_set;
@@ -259,7 +259,7 @@ config_context (pam_handle_t *pamh, const char *defaultcon, int use_current_rang
 	  send_audit_message(pamh, 0, defaultcon, context_str(new_context));
 	  send_text(pamh,_("This is not a valid security context."),debug);
 	}
-        context_free(new_context); /* next time around allocates another */
+	context_free(new_context); /* next time around allocates another */
       }
     else
       return strdup(defaultcon);
