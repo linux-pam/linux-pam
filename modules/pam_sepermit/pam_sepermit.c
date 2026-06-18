@@ -65,7 +65,7 @@
 
 #define SEPERMIT_CONF_FILE	(SCONFIG_DIR "/sepermit.conf")
 #ifdef VENDOR_SCONFIG_DIR
-# define SEPERMIT_VENDOR_CONF_FILE	(VENDOR_SCONFIG_DIR "/sepermit.conf");
+# define SEPERMIT_VENDOR_CONF_FILE	(VENDOR_SCONFIG_DIR "/sepermit.conf")
 #endif
 #define MODULE "pam_sepermit"
 #define OPT_DELIM ":"
