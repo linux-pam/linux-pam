@@ -483,9 +483,9 @@ compute_exec_context(pam_handle_t *pamh, module_data_t *data,
       pam_syslog(pamh, LOG_DEBUG, "Username= %s SELinux User= %s Level= %s",
 		 username, seuser, level);
     free(level);
+    free(seuser);
   }
   if (num_contexts > 0) {
-    free(seuser);
     data->default_user_context = strdup(contextlist[0]);
     freeconary(contextlist);
     if (!data->default_user_context) {
