@@ -719,9 +719,9 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 		} else if (strcmp(lim_value, "1") == 0) {
 			int_value = 1;
 		} else {
-			pam_syslog(pamh, LOG_DEBUG,
-				   "wrong limit value '%s' for limit type '%s'",
-				   lim_value, lim_type);
+			pam_syslog(pamh, LOG_WARNING,
+				   "wrong limit value '%s' for limit item '%s' of type '%s'",
+				   lim_value, lim_item, lim_type);
 		}
 	} else if (limit_item != LIMIT_PRI
 #ifdef RLIMIT_NICE
@@ -742,9 +742,9 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 		temp = temp < INT_MAX ? temp : INT_MAX;
 		int_value = temp > INT_MIN ? temp : INT_MIN;
 		if (int_value == 0 && value_orig == endptr) {
-			pam_syslog(pamh, LOG_DEBUG,
-				   "wrong limit value '%s' for limit type '%s'",
-				   lim_value, lim_type);
+			pam_syslog(pamh, LOG_WARNING,
+				   "wrong limit value '%s' for limit item '%s' of type '%s'",
+				   lim_value, lim_item, lim_type);
             return;
 		}
 	} else {
@@ -754,9 +754,9 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 		rlimit_value = strtoul (lim_value, &endptr, 10);
 #endif
 		if (rlimit_value == 0 && value_orig == endptr) {
-			pam_syslog(pamh, LOG_DEBUG,
-				   "wrong limit value '%s' for limit type '%s'",
-				   lim_value, lim_type);
+			pam_syslog(pamh, LOG_WARNING,
+				   "wrong limit value '%s' for limit item '%s' of type '%s'",
+				   lim_value, lim_item, lim_type);
 			return;
 		}
 	}
