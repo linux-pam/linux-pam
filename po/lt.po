@@ -4,154 +4,157 @@
 #
 # Translators:
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
+# Marija Grineviciute <marijagrine@protonmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2026-01-20 08:00+0000\n"
-"PO-Revision-Date: 2011-11-30 06:56-0500\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Lithuanian (http://www.transifex.com/projects/p/fedora/"
-"language/lt/)\n"
+"PO-Revision-Date: 2026-03-09 21:58+0000\n"
+"Last-Translator: Marija Grineviciute <marijagrine@protonmail.com>\n"
+"Language-Team: Lithuanian <https://translate.fedoraproject.org/projects/"
+"linux-pam/master/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"(n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.8.3\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
+"19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
+"1 : 2);\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
 msgid "Password: "
-msgstr ""
+msgstr "Slaptažodis: "
 
 #. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:42
 #, c-format
 msgid "Current %s password: "
-msgstr ""
+msgstr "Dabartinis %s slaptažodis: "
 
 #: libpam/pam_get_authtok.c:43
 msgid "Current password: "
-msgstr ""
+msgstr "Dabartinis slaptažodis: "
 
 #. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:45
 #, c-format
 msgid "New %s password: "
-msgstr ""
+msgstr "Naujas %s slaptažodis: "
 
 #: libpam/pam_get_authtok.c:46
 msgid "New password: "
-msgstr ""
+msgstr "Naujas slaptažodis: "
 
 #. For Translators: "%s" is replaced with "<service>".
 #: libpam/pam_get_authtok.c:48
 #, c-format
 msgid "Retype new %s password: "
-msgstr ""
+msgstr "Įveskite naują %s slaptažodį iš naujo: "
 
 #: libpam/pam_get_authtok.c:49
 msgid "Retype new password: "
-msgstr ""
+msgstr "Įveskite naują slaptažodį iš naujo: "
 
 #: libpam/pam_get_authtok.c:50
 msgid "Sorry, passwords do not match."
-msgstr ""
+msgstr "Slaptažodžiai nesutampa."
 
 #: libpam/pam_get_authtok.c:145 libpam/pam_get_authtok.c:249
 #, c-format
 msgid "Retype %s"
-msgstr ""
+msgstr "Įveskite %s iš naujo"
 
 #: libpam/pam_get_authtok.c:185 libpam/pam_get_authtok.c:267
 msgid "Password change has been aborted."
-msgstr ""
+msgstr "Slaptažodžio keitimas nutrauktas."
 
 #: libpam/pam_item.c:317
 msgid "login:"
-msgstr ""
+msgstr "prisijungti:"
 
 #: libpam/pam_strerror.c:41
 msgid "Success"
-msgstr ""
+msgstr "Pavyko"
 
 #: libpam/pam_strerror.c:43
 msgid "Critical error - immediate abort"
-msgstr ""
+msgstr "Kritinė klaida – nutraukiama nedelsiant"
 
 #: libpam/pam_strerror.c:45
 msgid "Failed to load module"
-msgstr ""
+msgstr "Nepavyko įkelti modulio"
 
 #: libpam/pam_strerror.c:47
 msgid "Symbol not found"
-msgstr ""
+msgstr "Simbolis nerastas"
 
 #: libpam/pam_strerror.c:49
 msgid "Error in service module"
-msgstr ""
+msgstr "Klaida paslaugos modulyje"
 
 #: libpam/pam_strerror.c:51
 msgid "System error"
-msgstr ""
+msgstr "Sistemos klaida"
 
 #: libpam/pam_strerror.c:53
 msgid "Memory buffer error"
-msgstr ""
+msgstr "Atminties buferio klaida"
 
 #: libpam/pam_strerror.c:55
 msgid "Permission denied"
-msgstr ""
+msgstr "Leidimas atmestas"
 
 #: libpam/pam_strerror.c:57
 msgid "Authentication failure"
-msgstr ""
+msgstr "Autentifikacijos nesėkmė"
 
 #: libpam/pam_strerror.c:59
 msgid "Insufficient credentials to access authentication data"
-msgstr ""
+msgstr "Nepakankami kredencialai norint prieigos prie autentifikacijos duomenų"
 
 #: libpam/pam_strerror.c:61
 msgid "Authentication service cannot retrieve authentication info"
 msgstr ""
+"Autentifikacijos paslaugai nepavyksta išgauti autentifikacijos informacijos"
 
 #: libpam/pam_strerror.c:63
 msgid "User not known to the underlying authentication module"
-msgstr ""
+msgstr "Pagrindiniam autentifikacijos moduliui nežinomas naudotojas"
 
 #: libpam/pam_strerror.c:65
 msgid "Have exhausted maximum number of retries for service"
-msgstr ""
+msgstr "Išnaudojote visus galimus paslaugos bandymus"
 
 #: libpam/pam_strerror.c:67
 msgid "Authentication token is no longer valid; new one required"
-msgstr ""
+msgstr "Autentifikacijos atpažinimo ženklas nebegalioja; reikalingas naujas"
 
 #: libpam/pam_strerror.c:69
 msgid "User account has expired"
-msgstr ""
+msgstr "Naudotojo paskyra nebegalioja"
 
 #: libpam/pam_strerror.c:71
 msgid "Cannot make/remove an entry for the specified session"
-msgstr ""
+msgstr "Negalima įvesti arba pašalinti įrašo nurodytam seansui"
 
 #: libpam/pam_strerror.c:73
 msgid "Authentication service cannot retrieve user credentials"
-msgstr ""
+msgstr "Autentifikacijos paslauga negali gauti naudotojo kredencialų"
 
 #: libpam/pam_strerror.c:75
 msgid "User credentials expired"
-msgstr ""
+msgstr "Baigėsi naudotojo kredencialų galiojimas"
 
 #: libpam/pam_strerror.c:77
 msgid "Failure setting user credentials"
-msgstr ""
+msgstr "Nesėkmė nustatant naudotojo kredencialus"
 
 #: libpam/pam_strerror.c:79
 msgid "No module specific data is present"
-msgstr ""
+msgstr "Nėra jokių specifinių modulio duomenų"
 
 #: libpam/pam_strerror.c:81
 msgid "Bad item passed to pam_*_item()"
@@ -159,7 +162,7 @@ msgstr ""
 
 #: libpam/pam_strerror.c:83
 msgid "Conversation error"
-msgstr ""
+msgstr "Pokalbio klaida"
 
 #: libpam/pam_strerror.c:85
 msgid "Authentication token manipulation error"
