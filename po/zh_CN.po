@@ -15,13 +15,14 @@
 # Dingzhong Chen <wsxy162@gmail.com>, 2022.
 # Liu Tao <lyuutau@outlook.com>, 2023.
 # 耗子 <haozi@loli.email>, 2026.
+# Clover Yan <i@khyan.top>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2026-01-20 08:00+0000\n"
-"PO-Revision-Date: 2026-04-02 23:59+0000\n"
-"Last-Translator: 耗子 <haozi@loli.email>\n"
+"PO-Revision-Date: 2026-05-01 02:59+0000\n"
+"Last-Translator: Clover Yan <i@khyan.top>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/linux-pam/master/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -29,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
@@ -125,7 +126,7 @@ msgstr "没有足够的凭据可以访问身份验证数据"
 
 #: libpam/pam_strerror.c:61
 msgid "Authentication service cannot retrieve authentication info"
-msgstr "身份验证服务无法检索神身份验证信息"
+msgstr "身份验证服务无法检索身份验证信息"
 
 #: libpam/pam_strerror.c:63
 msgid "User not known to the underlying authentication module"
