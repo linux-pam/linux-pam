@@ -4,15 +4,15 @@
 #
 # Translators:
 # Ivan Petrouchtchak <ivanpetrouchtchak@yahoo.com>, 2006
-# Yuri Chornoivan <yurchor@ukr.net>, 2010,2012, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2010,2012, 2020, 2021, 2022, 2026.
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021, 2022, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2026-01-20 08:00+0000\n"
-"PO-Revision-Date: 2022-11-13 09:19+0000\n"
+"PO-Revision-Date: 2026-02-24 23:58+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/linux-"
 "pam/master/uk/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
@@ -513,9 +513,8 @@ msgid "Changing password for %s."
 msgstr "Зміна пароля %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:703
-#, fuzzy
 msgid "Your password is not expired."
-msgstr "Не було надано жодного пароля."
+msgstr "Строк дії вашого пароля не вичерпано."
 
 #: modules/pam_unix/pam_unix_passwd.c:706
 msgid "You must wait longer to change your password."
