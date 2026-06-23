@@ -14,13 +14,13 @@
 # Dmitry V. Levin <ldv@altlinux.org>, 2020.
 # Álvaro Castillo <sincorchetes@gmail.com>, 2020.
 # Emilio Herrera <ehespinosa57@gmail.com>, 2021, 2022.
-# "Fco. Javier F. Serrador" <fserrador@gmail.com>, 2025.
+# "Fco. Javier F. Serrador" <fserrador@gmail.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2026-01-20 08:00+0000\n"
-"PO-Revision-Date: 2025-07-30 09:53+0000\n"
+"PO-Revision-Date: 2026-03-01 15:58+0000\n"
 "Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/linux-"
 "pam/master/es/>\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.16.1\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
@@ -519,9 +519,8 @@ msgid "Changing password for %s."
 msgstr "Cambiando la contraseña de %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:703
-#, fuzzy
 msgid "Your password is not expired."
-msgstr "No se ha proporcionado ninguna contraseña."
+msgstr "Tu contraseña no está caducada."
 
 #: modules/pam_unix/pam_unix_passwd.c:706
 msgid "You must wait longer to change your password."
