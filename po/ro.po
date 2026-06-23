@@ -5,13 +5,13 @@
 # Translators:
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Vlad <milovlad@outlook.com>, 2020.
-# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2023.
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2023, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2026-01-20 08:00+0000\n"
-"PO-Revision-Date: 2023-04-09 22:51+0000\n"
+"PO-Revision-Date: 2026-02-24 23:58+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://translate.fedoraproject.org/projects/linux-"
 "pam/master/ro/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
@@ -512,9 +512,8 @@ msgid "Changing password for %s."
 msgstr "Se schimbă parola pentru %s."
 
 #: modules/pam_unix/pam_unix_passwd.c:703
-#, fuzzy
 msgid "Your password is not expired."
-msgstr "Nu a fost introdusă nicio parolă."
+msgstr "Parola dumneavoastră nu a expirat."
 
 #: modules/pam_unix/pam_unix_passwd.c:706
 msgid "You must wait longer to change your password."
