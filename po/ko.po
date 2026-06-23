@@ -9,13 +9,13 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # simmon <simmon@nplob.com>, 2021.
 # Seong-ho Cho <darkcircle.0426@gmail.com>, 2021, 2022, 2023, 2024.
-# 김인수 <simmon@nplob.com>, 2022, 2023, 2024.
+# 김인수 <simmon@nplob.com>, 2022, 2023, 2024, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2026-01-20 08:00+0000\n"
-"PO-Revision-Date: 2024-10-02 05:38+0000\n"
+"PO-Revision-Date: 2026-02-24 23:58+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/linux-"
 "pam/master/ko/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
@@ -498,9 +498,8 @@ msgid "Changing password for %s."
 msgstr "%s를 위한 비밀번호 변경 중."
 
 #: modules/pam_unix/pam_unix_passwd.c:703
-#, fuzzy
 msgid "Your password is not expired."
-msgstr "어떤 비밀번호를 제공되지 않았습니다."
+msgstr "당신의 비밀번호가 만료되지 않았습니다."
 
 #: modules/pam_unix/pam_unix_passwd.c:706
 msgid "You must wait longer to change your password."
