@@ -472,10 +472,8 @@ tst_module_retval_name = 'tst-' + module + '-retval'
 tst_module_retval_src = tst_module_retval_name + '.c'
 
 if fs.exists(tst_module_retval_src)
-  tst_module_retval_link_args = ''
-  if module == 'pam_canonicalize_user'
-    tst_module_retval_link_args = '-Wl,--export-dynamic'
-  endif
+  tst_module_retval_link_args = \
+    (module == 'pam_canonicalize_user') ? ['-Wl,--export-dynamic'] : []
 
   tst_module_retval_deps = [libpam_internal_dep, libpam_dep]
   if module == 'pam_rootok'
