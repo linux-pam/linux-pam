@@ -165,7 +165,7 @@ module #2:    pam_fail_delay (pamh, 4000000);
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-            Delay was successful adjusted.
+            Delay was successfully adjusted.
           </para>
         </listitem>
       </varlistentry>

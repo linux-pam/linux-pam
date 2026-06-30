@@ -91,7 +91,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             User name was successful retrieved.
+             User name was successfully retrieved.
           </para>
         </listitem>
       </varlistentry>

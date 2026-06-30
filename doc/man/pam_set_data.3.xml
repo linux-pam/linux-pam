@@ -141,7 +141,7 @@
         <term>PAM_SUCCESS</term>
         <listitem>
            <para>
-             Data was successful stored.
+             Data was successfully stored.
           </para>
         </listitem>
       </varlistentry>
