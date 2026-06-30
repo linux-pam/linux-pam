@@ -6,13 +6,14 @@
 # Tomáš Mráz <tmraz@fedoraproject.org>, 2016. #zanata
 # Yaron Shahrabani <sh.yaron@gmail.com>, 2020, 2023.
 # Dmitry V. Levin <ldv@altlinux.org>, 2021.
+# "Dmitry V. Levin" <ldv@altlinux.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
 "POT-Creation-Date: 2026-01-20 08:00+0000\n"
-"PO-Revision-Date: 2023-02-17 14:20+0000\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"PO-Revision-Date: 2026-06-30 17:38+0000\n"
+"Last-Translator: \"Dmitry V. Levin\" <ldv@altlinux.org>\n"
 "Language-Team: Hebrew <https://translate.fedoraproject.org/projects/linux-"
 "pam/master/he/>\n"
 "Language: he\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: libpam/pam_get_authtok.c:40 modules/pam_exec/pam_exec.c:182
 #: modules/pam_userdb/pam_userdb.c:62
@@ -497,9 +498,8 @@ msgid "Changing password for %s."
 msgstr "הססמה עבור %s מוחלפת."
 
 #: modules/pam_unix/pam_unix_passwd.c:703
-#, fuzzy
 msgid "Your password is not expired."
-msgstr "לא סופקה ססמה."
+msgstr "תוקף ססמתך לא פג."
 
 #: modules/pam_unix/pam_unix_passwd.c:706
 msgid "You must wait longer to change your password."
