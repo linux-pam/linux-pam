@@ -676,6 +676,10 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
      */
 
     /* Try to split on a pattern (@*[^@]+)(@+.*) */
+	/* Exact match for fully qualified username (user@domain) */
+    if (strchr(string, '@') != NULL && strcmp(tok, string) == 0)
+        return YES;
+	
     for (at = tok; *at == '@'; ++at);
 
     if (tok[0] == '(' && tok[strlen(tok) - 1] == ')') {
