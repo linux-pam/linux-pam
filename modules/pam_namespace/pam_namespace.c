@@ -2089,20 +2089,182 @@ static int cwd_in(char *dir, struct instance_data *idata)
     return retval;
 }
 
+/*
+ * Maximum directory recursion depth for rm_instance_dir().  A polyinstantiated
+ * /tmp instance should never be this deep, but we cap it to avoid exhausting
+ * file descriptors on a pathologically deep tree created by a malicious user.
+ */
+#define TMPDIR_CLEANUP_MAX_DEPTH 64
+
+/*
+ * Recursively remove all entries inside the directory referred to by dir_fd.
+ * Symlinks are unlinked without following.  Regular files and other non-
+ * directory entries are unlinked directly.  Subdirectories are opened with
+ * O_NOFOLLOW before recursing, so a symlink-to-directory swap between
+ * readdir() and openat() is harmless: openat() will fail with ENOTDIR/ELOOP
+ * and we will fall through to unlinkat() which removes the symlink itself.
+ *
+ * Returns 0 on success, -1 if any entry could not be removed (caller should
+ * log; we continue best-effort to remove as much as possible).
+ *
+ * Note: fdopendir() takes ownership of dir_fd; do NOT close(dir_fd) after
+ * a successful fdopendir() call.  closedir() releases the fd.
+ */
+static int
+rm_dir_contents(const pam_handle_t *pamh, int dir_fd, unsigned int depth)
+{
+    DIR *dirp;
+    struct dirent *ent;
+    struct stat st;
+    int child_fd;
+    int ret = 0;
+
+    if (depth > TMPDIR_CLEANUP_MAX_DEPTH) {
+        pam_syslog(pamh, LOG_ERR,
+                   "rm_dir_contents: recursion depth limit reached, "
+                   "instance directory not fully removed");
+        close(dir_fd);
+        return -1;
+    }
+
+    dirp = fdopendir(dir_fd);
+    if (dirp == NULL) {
+        pam_syslog(pamh, LOG_ERR,
+                   "rm_dir_contents: fdopendir failed: %m");
+        close(dir_fd);
+        return -1;
+    }
+    /* dir_fd is now owned by dirp; do not close(dir_fd) separately. */
+
+    errno = 0;
+    while ((ent = readdir(dirp)) != NULL) {
+        if (strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0)
+            continue;
+
+        /*
+         * Use AT_SYMLINK_NOFOLLOW so we always operate on the entry itself,
+         * never on what a symlink points to.
+         */
+        if (fstatat(dirfd(dirp), ent->d_name, &st, AT_SYMLINK_NOFOLLOW) != 0) {
+            int saved_errno = errno;
+            pam_syslog(pamh, LOG_ERR,
+                       "rm_dir_contents: fstatat(%s) failed: %m",
+                       ent->d_name);
+            errno = saved_errno;
+            ret = -1;
+            continue;
+        }
+
+        if (S_ISDIR(st.st_mode)) {
+            /*
+             * Open the subdirectory with O_NOFOLLOW|O_DIRECTORY.  If the
+             * entry was swapped to a symlink between readdir() and openat(),
+             * openat() returns ELOOP/ENOTDIR.  In that case we fall through
+             * and unlinkat() removes the symlink without following it.
+             */
+            child_fd = openat(dirfd(dirp), ent->d_name,
+                              O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
+            if (child_fd >= 0) {
+                /* Recurse; child_fd ownership transferred to next level. */
+                if (rm_dir_contents(pamh, child_fd, depth + 1) != 0)
+                    ret = -1;
+                /* Now the directory should be empty; remove its entry. */
+                if (unlinkat(dirfd(dirp), ent->d_name, AT_REMOVEDIR) != 0) {
+                    int saved_errno = errno;
+                    pam_syslog(pamh, LOG_ERR,
+                               "rm_dir_contents: unlinkat(AT_REMOVEDIR, %s) failed: %m",
+                               ent->d_name);
+                    errno = saved_errno;
+                    ret = -1;
+                }
+                continue;
+            }
+            /*
+             * openat() failed.  The entry may have been replaced by a
+             * symlink; fall through to the non-directory unlinkat() below,
+             * which removes the symlink (not its target).
+             */
+        }
+
+        /* Regular file, symlink, special file, or a directory we could not
+         * open — remove the entry without following any link. */
+        if (unlinkat(dirfd(dirp), ent->d_name, 0) != 0) {
+            int saved_errno = errno;
+            pam_syslog(pamh, LOG_ERR,
+                       "rm_dir_contents: unlinkat(%s) failed: %m",
+                       ent->d_name);
+            errno = saved_errno;
+            ret = -1;
+        }
+    }
+
+    if (errno != 0) {
+        pam_syslog(pamh, LOG_ERR,
+                   "rm_dir_contents: readdir failed: %m");
+        ret = -1;
+    }
+
+    closedir(dirp);
+    return ret;
+}
+
+/*
+ * Securely remove the directory entry <name> inside the directory referred
+ * to by parent_fd, along with all of its contents.
+ *
+ * parent_fd must have been obtained via openat()/secure_opendir_stateless()
+ * with O_NOFOLLOW so that the parent path itself is trusted.
+ *
+ * <name> is opened with O_NOFOLLOW|O_DIRECTORY.  If it has been replaced by
+ * a symlink between our caller's check and this call, openat() fails and we
+ * return an error without touching anything.
+ *
+ * Returns 0 on success, -1 on failure.
+ */
+static int
+rm_instance_dir(const pam_handle_t *pamh, int parent_fd, const char *name)
+{
+    int dir_fd;
+
+    dir_fd = openat(parent_fd, name,
+                    O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
+    if (dir_fd < 0) {
+        if (errno == ENOENT) {
+            /* Already gone — not an error. */
+            return 0;
+        }
+        pam_syslog(pamh, LOG_ERR,
+                   "rm_instance_dir: openat(%s) failed: %m", name);
+        return -1;
+    }
+
+    /* Remove all contents first; dir_fd ownership goes to rm_dir_contents. */
+    if (rm_dir_contents(pamh, dir_fd, 0) != 0) {
+        /*
+         * Contents not fully removed; still attempt to remove the (possibly
+         * now-partially-empty) directory entry so we leave the system as
+         * clean as possible.
+         */
+        (void)unlinkat(parent_fd, name, AT_REMOVEDIR);
+        return -1;
+    }
+
+    /* Directory is now empty; remove its entry from the parent. */
+    if (unlinkat(parent_fd, name, AT_REMOVEDIR) != 0) {
+        pam_syslog(pamh, LOG_ERR,
+                   "rm_instance_dir: unlinkat(AT_REMOVEDIR, %s) failed: %m",
+                   name);
+        return -1;
+    }
+
+    return 0;
+}
+
 static int cleanup_tmpdirs(struct instance_data *idata)
 {
     struct polydir_s *pptr;
-    pid_t rc, pid;
+    int rc = PAM_SUCCESS;
     int dfd = -1;
-    struct sigaction newsa, oldsa;
-    int status;
-
-    memset(&newsa, '\0', sizeof(newsa));
-    newsa.sa_handler = SIG_DFL;
-    if (sigaction(SIGCHLD, &newsa, &oldsa) == -1) {
-	pam_syslog(idata->pamh, LOG_ERR, "Cannot set signal value");
-	return PAM_SESSION_ERR;
-    }
 
     for (pptr = idata->polydirs_ptr; pptr; pptr = pptr->next) {
 	if (pptr->method == TMPDIR) {
@@ -2111,62 +2273,26 @@ static int cleanup_tmpdirs(struct instance_data *idata)
             if (dfd == -1)
                 continue;
 
-            if (faccessat(dfd, pptr->instname, F_OK, AT_SYMLINK_NOFOLLOW) != 0) {
-                close(dfd);
-                continue;
+            /*
+             * rm_instance_dir() opens the instance directory itself with
+             * O_NOFOLLOW before touching anything inside it.  If the entry
+             * has been replaced by a symlink (TOCTOU attack), openat() fails
+             * with ELOOP/ENOTDIR and we skip without following the link.
+             * No fork() or external binary is involved, so there is no
+             * check-to-use window between the existence test and the delete.
+             */
+            if (rm_instance_dir(idata->pamh, dfd, pptr->instname) != 0) {
+                pam_syslog(idata->pamh, LOG_ERR,
+                           "Error removing instance dir %s",
+                           pptr->instance_absolute);
+                rc = PAM_SESSION_ERR;
             }
 
-	    pid = fork();
-	    if (pid == 0) {
-		static char *envp[] = { NULL };
-#ifdef WITH_SELINUX
-		if (idata->flags & PAMNS_SELINUX_ENABLED) {
-		    if (setexeccon(NULL) < 0)
-			_exit(1);
-		}
-#endif
-                if (fchdir(dfd) == -1) {
-                    pam_syslog(idata->pamh, LOG_ERR, "Failed fchdir to %s: %m",
-                            pptr->instance_absolute);
-                    _exit(1);
-                }
-
-		close_fds_pre_exec(idata);
-
-		execle("/bin/rm", "/bin/rm", "-rf", pptr->instname, NULL, envp);
-		_exit(1);
-	    } else if (pid > 0) {
-
-                if (dfd != -1)
-                    close(dfd);
-
-		while (((rc = waitpid(pid, &status, 0)) == (pid_t)-1) &&
-		    (errno == EINTR));
-		if (rc == (pid_t)-1) {
-		    pam_syslog(idata->pamh, LOG_ERR, "waitpid failed: %m");
-		    rc = PAM_SESSION_ERR;
-		    goto out;
-		}
-		if (!WIFEXITED(status) || WIFSIGNALED(status) > 0) {
-		    pam_syslog(idata->pamh, LOG_ERR,
-			"Error removing %s", pptr->instance_prefix);
-		}
-	    } else if (pid < 0) {
-
-                if (dfd != -1)
-                    close(dfd);
-
-		pam_syslog(idata->pamh, LOG_ERR,
-			"Cannot fork to cleanup temporary directory, %m");
-		rc = PAM_SESSION_ERR;
-		goto out;
-	    }
+            close(dfd);
+            dfd = -1;
         }
     }
 
-    rc = PAM_SUCCESS;
-out:
-    sigaction(SIGCHLD, &oldsa, NULL);
     return rc;
 }
 
