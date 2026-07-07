@@ -118,7 +118,7 @@ check_running (pam_handle_t *pamh, uid_t uid, int killall, int debug)
 	int running = 0;
 	self = getpid();
 	if (!(dir = opendir(PROC_BASE))) {
-		pam_syslog(pamh, LOG_ERR, "Failed to open proc directory file %s:", PROC_BASE);
+		pam_syslog(pamh, LOG_ERR, "Failed to open proc directory file %s: %m", PROC_BASE);
 		return -1;
 	}
 	max_pids = 256;
@@ -214,7 +214,7 @@ sepermit_unlock(pam_handle_t *pamh, void *plockfd, int error_status UNUSED)
 	fl.l_whence = SEEK_SET;
 
 	if (lockfd->debug)
-		pam_syslog(pamh, LOG_ERR, "Unlocking fd: %d uid: %lu", lockfd->fd, (unsigned long) lockfd->uid);
+		pam_syslog(pamh, LOG_NOTICE, "Unlocking fd: %d uid: %lu", lockfd->fd, (unsigned long) lockfd->uid);
 
 	/* Don't kill uid==0 */
 	if (lockfd->uid)
@@ -254,7 +254,7 @@ sepermit_lock(pam_handle_t *pamh, const char *user, int debug)
 	}
 	int fd = open(buf, O_RDWR | O_CREAT | O_NOFOLLOW, S_IRUSR | S_IWUSR);
 	if (fd < 0) {
-		pam_syslog(pamh, LOG_ERR, "Unable to open lock file %s/%lu.lock", SEPERMIT_LOCKDIR, (unsigned long) pw->pw_uid);
+		pam_syslog(pamh, LOG_ERR, "Unable to open lock file %s: %m", buf);
 		return -1;
 	}
 
