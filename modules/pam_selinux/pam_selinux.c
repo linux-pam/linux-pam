@@ -246,7 +246,7 @@ config_context (pam_handle_t *pamh, const char *defaultcon, int use_current_rang
 	     be checked at setexeccon time */
 	  if (mls_enabled &&
 	      selinux_check_access(defaultcon, newcon, "context", "contains", NULL) != 0) {
-	    pam_syslog(pamh, LOG_NOTICE, "Security context %s is not allowed for %s", defaultcon, newcon);
+	    pam_syslog(pamh, LOG_NOTICE, "Security context %s is not allowed for %s", newcon, defaultcon);
 
 	    send_audit_message(pamh, 0, defaultcon, newcon);
 
@@ -355,7 +355,7 @@ context_from_env (pam_handle_t *pamh, const char *defaultcon, int env_params, in
      be checked at setexeccon time */
   if (mls_enabled &&
       selinux_check_access(defaultcon, newcon, "context", "contains", NULL) != 0) {
-    pam_syslog(pamh, LOG_NOTICE, "Security context %s is not allowed for %s", defaultcon, newcon);
+    pam_syslog(pamh, LOG_NOTICE, "Security context %s is not allowed for %s", newcon, defaultcon);
 
     goto fail_set;
   }
