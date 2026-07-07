@@ -192,6 +192,7 @@ config_context (pam_handle_t *pamh, const char *defaultcon, int use_current_rang
 	    pam_prompt(pamh, PAM_ERROR_MSG, NULL,
 		       _("There is no default type for role %s."), response);
 	    _pam_drop(response);
+	    context_free(new_context);
 	    continue;
 	  } else {
 	    if (context_role_set(new_context, response))
