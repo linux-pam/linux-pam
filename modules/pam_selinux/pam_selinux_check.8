@@ -17,13 +17,8 @@ The user to login as.
 .SH DIAGNOSTICS
 You must setup a /etc/pam.d/pam_selinux_check file, in order for the check to work.
 
-When checking if a selinux is valid,
 .B pam_selinux_check
-returns an exit code of 0 for success and > 0 on error:
-
-.nf
-1: Authentication failure
-.fi
+returns an exit code of 0 on success and 1 on failure.
 
 .SH SEE ALSO
 pam_selinux(8)
