@@ -99,13 +99,13 @@ int authenticate_via_pam( const char *user ,   pam_handle_t **pamh) {
 				conv,
 				pamh ) ) {
     fprintf( stderr, _("failed to initialize PAM\n") );
-    exit( -1 );
+    exit( 1 );
   }
 
   if( PAM_SUCCESS != pam_set_item(*pamh, PAM_RUSER, user))
   {
       fprintf( stderr, _("failed to pam_set_item()\n") );
-      exit( -1 );
+      exit( 1 );
   }
 
   /* Ask PAM to authenticate the user running this program */
@@ -124,10 +124,10 @@ main (int argc, char **argv)
   int childPid;
 
   if (argc < 1)
-    exit (-1);
+    exit (1);
 
   if (!authenticate_via_pam(argv[1],&pamh))
-    exit(-1);
+    exit(1);
 
   childPid = fork();
   if (childPid < 0) {
@@ -136,7 +136,7 @@ main (int argc, char **argv)
     pam_close_session(pamh, 0);
     /* We're done with PAM.  Free `pam_handle'. */
     pam_end( pamh, PAM_SUCCESS );
-    exit(0);
+    exit(1);
   }
   if (childPid) {
     close(0); close(1); close(2);
@@ -159,5 +159,5 @@ main (int argc, char **argv)
    * things could be set. */
   execv("/bin/sh",argv);
   fprintf(stderr,"Failure\n");
-  return 0;
+  return 1;
 }
