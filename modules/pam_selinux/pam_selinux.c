@@ -485,9 +485,10 @@ compute_exec_context(pam_handle_t *pamh, module_data_t *data,
     free(level);
     free(seuser);
   }
-  if (num_contexts > 0) {
+  if (num_contexts > 0)
     data->default_user_context = strdup(contextlist[0]);
-    freeconary(contextlist);
+  freeconary(contextlist);
+  if (num_contexts > 0) {
     if (!data->default_user_context) {
       pam_syslog(pamh, LOG_CRIT, "Out of memory");
       return PAM_BUF_ERR;
