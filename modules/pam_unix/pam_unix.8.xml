@@ -87,7 +87,9 @@
       The password component of this module performs the task of updating
       the user's password. The default encryption hash is taken from the
       <emphasis remap="B">ENCRYPT_METHOD</emphasis> variable from
-      <emphasis>/etc/login.defs</emphasis>
+      <emphasis>login.defs</emphasis>. If that variable is absent
+      and no hash algorithm option is passed to the module, SHA512 is
+      used as the built-in default.
     </para>
 
     <para>

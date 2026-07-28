@@ -97,7 +97,7 @@ typedef struct {
 #define UNIX_MIN_PASS_LEN        27	/* min length for password */
 #define UNIX_QUIET		 28	/* Don't print informational messages */
 #define UNIX_NO_PASS_EXPIRY      29     /* Don't check for password expiration if not used for authentication */
-#define UNIX_DES                 30     /* DES, default */
+#define UNIX_DES                 30     /* DES, deprecated */
 #define UNIX_GOST_YESCRYPT_PASS  31     /* new password hashes will use gost-yescrypt */
 #define UNIX_YESCRYPT_PASS       32     /* new password hashes will use yescrypt */
 #define UNIX_NULLRESETOK         33     /* allow empty password if password reset is enforced */
@@ -149,7 +149,10 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX_EXPIRED_ONLY */        {NULL,               _ALL_ON_,                    040000000000, 0},
 };
 
-#define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag)
+/* Change this to switch the built-in default hash for new passwords. */
+#define UNIX_DEFAULT_HASH_ALGO  UNIX_SHA512_PASS
+
+#define UNIX_DEFAULTS  (unix_args[UNIX__NONULL].flag | unix_args[UNIX_DEFAULT_HASH_ALGO].flag)
 
 /* use this to free strings. ESPECIALLY password strings */
 
