@@ -91,7 +91,7 @@ match_process_uid(pid_t pid, uid_t uid)
 	if ((buf = pam_asprintf(PROC_BASE "/%d/status", pid)) == NULL)
 		return 0;
 	n = strlen(buf) + 1;
-	if (!(f = fopen (buf, "r"))) {
+	if (!(f = fopen (buf, "re"))) {
 		free(buf);
 		return 0;
 	}
@@ -180,7 +180,7 @@ static uid_t get_loginuid(pam_handle_t *pamh)
 	char *eptr;
 	uid_t rv = (uid_t)-1;
 
-	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_RDONLY);
+	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_RDONLY|O_CLOEXEC);
 	if (fd < 0) {
 		if (errno != ENOENT) {
 			pam_syslog(pamh, LOG_ERR,
@@ -252,14 +252,11 @@ sepermit_lock(pam_handle_t *pamh, const char *user, int debug)
 		pam_syslog(pamh, LOG_ERR, "Lock file path for user %s is too long", user);
 		return -1;
 	}
-	int fd = open(buf, O_RDWR | O_CREAT | O_NOFOLLOW, S_IRUSR | S_IWUSR);
+	int fd = open(buf, O_RDWR | O_CREAT | O_NOFOLLOW | O_CLOEXEC, S_IRUSR | S_IWUSR);
 	if (fd < 0) {
 		pam_syslog(pamh, LOG_ERR, "Unable to open lock file %s: %m", buf);
 		return -1;
 	}
-
-	/* Need to close on exec */
-	fcntl(fd, F_SETFD, FD_CLOEXEC);
 
 	if (fcntl(fd, F_SETLK, &fl) == -1) {
 		pam_syslog(pamh, LOG_ERR, "User %s with exclusive login already logged in", user);
@@ -292,7 +289,7 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 	int exclusive = 0;
 	int ignore = 0;
 
-	f = fopen(cfgfile, "r");
+	f = fopen(cfgfile, "re");
 
 	if (!f) {
 		pam_syslog(pamh, LOG_ERR, "Failed to open config file %s: %m", cfgfile);
