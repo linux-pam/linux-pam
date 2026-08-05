@@ -77,7 +77,6 @@ struct lockfd {
 };
 
 #define PROC_BASE "/proc"
-#define MAX_NAMES (int)(sizeof(unsigned long)*8)
 
 static int
 match_process_uid(pid_t pid, uid_t uid)
