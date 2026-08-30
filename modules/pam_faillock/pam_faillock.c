@@ -301,6 +301,21 @@ write_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 
 	if (*fd == -1) {
 		*fd = open_tally(dir, opts->user, opts->uid, 1);
+		if (*fd != -1) {
+			/*
+			 * Re-read the tally now that we hold the lock:
+			 * a concurrent process may have written records
+			 * between our earlier failed open and this one.
+			 */
+			free(tallies->records);
+			memset(tallies, 0, sizeof(*tallies));
+			if (read_tally(*fd, tallies) != 0) {
+				pam_syslog(pamh, LOG_ERR,
+					   "Error reading the tally file for %s: %m",
+					   opts->user);
+				return PAM_SYSTEM_ERR;
+			}
+		}
 	}
 	if (*fd == -1) {
 		if (errno == EACCES) {
