@@ -504,8 +504,16 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
 		switch (opts.action) {
 			case FAILLOCK_ACTION_PREAUTH:
 				rv = check_tally(pamh, &opts, &tallies, &fd);
-				if (rv == PAM_AUTH_ERR && !(opts.flags & FAILLOCK_FLAG_SILENT)) {
-					faillock_message(pamh, &opts);
+				if (rv == PAM_AUTH_ERR) {
+					if (!(opts.flags & FAILLOCK_FLAG_NO_LOG_INFO)) {
+						pam_syslog(pamh, LOG_INFO,
+							   "User %s is temporarily locked out due to"
+							   " %u consecutive failed login attempts",
+							   opts.user, (unsigned int) opts.failures);
+					}
+					if (!(opts.flags & FAILLOCK_FLAG_SILENT)) {
+						faillock_message(pamh, &opts);
+					}
 				}
 				break;
 
