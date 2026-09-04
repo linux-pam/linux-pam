@@ -191,7 +191,7 @@
                   If a group name is specified with this option, members
                   of the group will be handled by this module the same as
                   the root account (the options <option>even_deny_root</option>
-                  and <option>root_unlock_time</option> will apply to them.
+                  and <option>root_unlock_time</option> will apply to them.)
                   By default the option is not set.
                 </para>
               </listitem>
