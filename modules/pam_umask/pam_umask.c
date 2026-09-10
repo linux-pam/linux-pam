@@ -133,7 +133,7 @@ static void
 setup_limits_from_gecos (pam_handle_t *pamh, options_t *options,
 			 struct passwd *pw)
 {
-  char *cp;
+  const char *cp, *next;
 
   if (options->usergroups)
     {
@@ -152,38 +152,88 @@ setup_limits_from_gecos (pam_handle_t *pamh, options_t *options,
     }
 
   /* See if the GECOS field contains values for NICE, UMASK or ULIMIT.  */
-  for (cp = pw->pw_gecos; cp != NULL; cp = strchr (cp, ','))
+  for (cp = pw->pw_gecos; cp != NULL; cp = next)
+  {
+    enum { GECOS_UMASK, GECOS_PRI, GECOS_ULIMIT } field;
+    const char *str;
+    const char *end = strchr (cp, ',');
+    char *endptr;
+    long value;
+    long min_value = 0;
+    long max_value = LONG_MAX;
+    int base = 10;
+
+    next = end != NULL ? end + 1 : NULL;
+    if (end == NULL)
+      end = cp + strlen (cp);
+
+    if ((str = pam_str_skip_icase_prefix (cp, "umask=")) != NULL)
     {
-      const char *str;
-
-      if (*cp == ',')
-	cp++;
-
-      if ((str = pam_str_skip_icase_prefix (cp, "umask=")) != NULL)
-	umask (strtol (str, NULL, 8) & 0777);
-      else if ((str = pam_str_skip_icase_prefix (cp, "pri=")) != NULL)
-	{
-	  errno = 0;
-	  if (nice (strtol (str, NULL, 10)) == -1 && errno != 0)
-	    {
-	      if (!options->silent || options->debug)
-		pam_error (pamh, "nice failed: %m\n");
-	      pam_syslog (pamh, LOG_ERR, "nice failed: %m");
-	    }
-	}
-      else if ((str = pam_str_skip_icase_prefix (cp, "ulimit=")) != NULL)
-	{
-	  struct rlimit rlimit_fsize;
-	  rlimit_fsize.rlim_cur = 512L * strtol (str, NULL, 10);
-	  rlimit_fsize.rlim_max = rlimit_fsize.rlim_cur;
-	  if (setrlimit (RLIMIT_FSIZE, &rlimit_fsize) == -1)
-	    {
-	      if (!options->silent || options->debug)
-		pam_error (pamh, "setrlimit failed: %m\n");
-	      pam_syslog (pamh, LOG_ERR, "setrlimit failed: %m");
-	    }
-        }
+      field = GECOS_UMASK;
+      base = 8;
     }
+    else if ((str = pam_str_skip_icase_prefix (cp, "pri=")) != NULL)
+    {
+      field = GECOS_PRI;
+      min_value = INT_MIN;
+      max_value = INT_MAX;
+    }
+    else if ((str = pam_str_skip_icase_prefix (cp, "ulimit=")) != NULL)
+    {
+      field = GECOS_ULIMIT;
+      max_value = LONG_MAX / 512;
+    }
+    else
+      continue;
+
+    errno = 0;
+    value = strtol (str, &endptr, base);
+    if (str == endptr || endptr != end || errno == ERANGE
+      || value < min_value || value > max_value)
+    {
+      size_t len = (size_t) (end - cp);
+      int precision = len > INT_MAX ? INT_MAX : (int) len;
+
+      if (!options->silent || options->debug)
+        pam_error (pamh, "invalid value in GECOS field: %.*s\n",
+                   precision, cp);
+      pam_syslog (pamh, LOG_ERR, "invalid value in GECOS field: %.*s",
+                   precision, cp);
+      continue;
+    }
+
+    switch (field)
+    {
+      case GECOS_UMASK:
+        umask ((mode_t) (value & 0777));
+        break;
+
+      case GECOS_PRI:
+        errno = 0;
+        if (nice ((int) value) == -1 && errno != 0)
+        {
+          if (!options->silent || options->debug)
+            pam_error (pamh, "nice failed: %m\n");
+          pam_syslog (pamh, LOG_ERR, "nice failed: %m");
+        }
+        break;
+
+      case GECOS_ULIMIT:
+      {
+        struct rlimit rlimit_fsize;
+
+        rlimit_fsize.rlim_cur = (rlim_t) (512L * value);
+        rlimit_fsize.rlim_max = rlimit_fsize.rlim_cur;
+        if (setrlimit (RLIMIT_FSIZE, &rlimit_fsize) == -1)
+        {
+          if (!options->silent || options->debug)
+            pam_error (pamh, "setrlimit failed: %m\n");
+          pam_syslog (pamh, LOG_ERR, "setrlimit failed: %m");
+        }
+      }
+      break;
+    }
+  }
 }
 
 
