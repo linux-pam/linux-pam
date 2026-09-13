@@ -155,6 +155,7 @@ check_headers = [
   'crypt.h',
   'paths.h',
   'sys/random.h',
+  'sys/fsuid.h',
 ]
 foreach h: check_headers
   if cc.has_header(h)
