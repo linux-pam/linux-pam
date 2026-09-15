@@ -452,7 +452,7 @@ check_time(pam_handle_t *pamh, const void *AT, const char *times,
 	  return FALSE;
      }
 
-     for (marked_day = 0; len > 0 && isalpha((unsigned char)times[j]); --len) {
+     for (marked_day = 0; len > 1 && isalpha((unsigned char)times[j]); len -= 2) {
 	  int this_day=-1;
 
 	  D(("%c%c ?", times[j], times[j+1]));
