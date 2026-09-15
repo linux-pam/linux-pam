@@ -436,7 +436,7 @@ static int
 check_time(pam_handle_t *pamh, const void *AT, const char *times,
 	   int len, int rule)
 {
-     int not,pass;
+     int pass;
      int marked_day, time_start, time_end;
      const TIME *at;
      int i,j=0;
@@ -450,13 +450,6 @@ check_time(pam_handle_t *pamh, const void *AT, const char *times,
 		     "internal error in file %s at line %d",
 		     __FILE__, __LINE__);
 	  return FALSE;
-     }
-
-     if (times[j] == '!') {
-	  ++j;
-	  not = TRUE;
-     } else {
-	  not = FALSE;
      }
 
      for (marked_day = 0; len > 0 && isalpha((unsigned char)times[j]); --len) {
@@ -532,7 +525,7 @@ check_time(pam_handle_t *pamh, const void *AT, const char *times,
 	  }
      }
 
-     return (not ^ pass);
+     return pass;
 }
 
 static int
