@@ -79,8 +79,7 @@ config_log(const pam_handle_t *pamh, int priority, const char *fmt, ...)
 int
 read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 {
-	char *linebuf = NULL;
-	size_t n = 0;
+	char linebuf[FAILLOCK_CONF_MAX_LINELEN+1];
 	const char *fname = (cfgfile != NULL) ? cfgfile : FAILLOCK_DEFAULT_CONF;
 	FILE *f = fopen(fname, "r");
 
@@ -101,21 +100,23 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 		return PAM_SERVICE_ERR;
 	}
 
-	while (getline(&linebuf, &n, f) != -1) {
+	while (fgets(linebuf, sizeof(linebuf), f) != NULL) {
 		size_t len;
 		char *ptr;
 		char *name;
 		int eq;
 
 		len = strlen(linebuf);
+		/* len cannot be 0 unless there is a bug in fgets */
 		if (len && linebuf[len - 1] != '\n' && !feof(f)) {
-			free(linebuf);
-			(void) fclose(f);
-			return PAM_SERVICE_ERR;
+			/* Line too long - skip to next newline */
+			int c;
+			while ((c = fgetc(f)) != EOF && c != '\n')
+				;
+			continue;
 		}
 
 		if ((ptr=strchr(linebuf, '#')) != NULL) {
-			*ptr = '\0';
 		} else {
 			ptr = linebuf + len;
 		}
@@ -163,7 +164,6 @@ read_config_file(pam_handle_t *pamh, struct options *opts, const char *cfgfile)
 		set_conf_opt(pamh, opts, name, ptr);
 	}
 
-	free(linebuf);
 	(void)fclose(f);
 	return PAM_SUCCESS;
 }
@@ -256,6 +256,9 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name,
 	}
 	else if (strcmp(name, "nodelay") == 0) {
 		opts->flags |= FAILLOCK_FLAG_NO_DELAY;
+	}
+	else if (strcmp(name, "uid_based_files") == 0) {
+		opts->flags |= FAILLOCK_FLAG_UID_BASED_FILES;
 	}
 	else {
 		config_log(pamh, LOG_ERR, "Unknown option: %s", name);
