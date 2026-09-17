@@ -125,6 +125,7 @@ try_cc_flags = [
   '-Wpointer-arith',
   '-Wreturn-type',
   '-Wshadow',
+  '-Wshift-sign-overflow',
   '-Wstrict-prototypes',
   '-Wundef',
   '-Wuninitialized',
