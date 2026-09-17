@@ -139,12 +139,26 @@ send_audit_message(const pam_handle_t *pamh, int success, const char *default_co
 #endif /* HAVE_LIBAUDIT */
 }
 
+PAM_FORMAT((printf, 3, 4))
 static int
-send_text (pam_handle_t *pamh, const char *text, int debug)
+send_text (pam_handle_t *pamh, int debug, const char *fmt, ...)
 {
-  if (debug)
-    pam_syslog(pamh, LOG_NOTICE, "%s", text);
-  return pam_info (pamh, "%s", text);
+  va_list args;
+  int rc;
+
+  va_start(args, fmt);
+
+  if (debug) {
+      va_list syslog_args;
+
+      va_copy(syslog_args, args);
+      pam_vsyslog(pamh, LOG_NOTICE, fmt, syslog_args);
+      va_end(syslog_args);
+  }
+
+  rc = pam_vinfo(pamh, fmt, args);
+  va_end(args);
+  return rc;
 }
 
 /*
@@ -270,7 +284,7 @@ config_context (pam_handle_t *pamh, const char *defaultcon, int use_current_rang
 	}
 	else {
 	  send_audit_message(pamh, 0, defaultcon, context_str(new_context));
-	  send_text(pamh,_("This is not a valid security context."),debug);
+	  send_text(pamh, debug, _("This is not a valid security context."));
 	}
 	context_free(new_context); /* next time around allocates another */
       }
@@ -645,13 +659,8 @@ set_context(pam_handle_t *pamh, const module_data_t *data,
   err |= rc;
 
   send_audit_message(pamh, !rc, data->default_user_context, data->exec_context);
-  if (verbose && !rc) {
-    char msg[PATH_MAX];
-
-    pam_sprintf(msg,
-	     _("Security context %s has been assigned."), data->exec_context);
-    send_text(pamh, msg, debug);
-  }
+  if (verbose && !rc)
+      send_text(pamh, debug, _("Security context %s has been assigned."), data->exec_context);
 #ifdef HAVE_SETKEYCREATECON
   if (debug)
     pam_syslog(pamh, LOG_NOTICE, "Set key creation context to %s",
@@ -661,13 +670,8 @@ set_context(pam_handle_t *pamh, const module_data_t *data,
   if (rc)
     pam_syslog(pamh, LOG_ERR, "Setting key creation context %s failed: %m",
 	       data->exec_context ? data->exec_context : "");
-  if (verbose && !rc) {
-    char msg[PATH_MAX];
-
-    pam_sprintf(msg,
-	     _("Key creation context %s has been assigned."), data->exec_context);
-    send_text(pamh, msg, debug);
-  }
+  if (verbose && !rc)
+      send_text(pamh, debug, _("Key creation context %s has been assigned."), data->exec_context);
 #endif
 
   if (err && security_getenforce() != 0)
