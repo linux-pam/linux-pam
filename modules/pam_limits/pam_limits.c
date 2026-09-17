@@ -1051,7 +1051,7 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 		    case LIMIT_RANGE_MM:
 			if (gid > (gid_t)max_uid)
 			    break;
-			/* fallthrough */
+			PAM_FALLTHROUGH;
 		    case LIMIT_RANGE_MIN:
 			if (gid >= (gid_t)min_uid)
 			    process_limit(pamh, LIMITS_DEF_GROUP, ltype, item, value, ctrl,
@@ -1099,11 +1099,11 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 		    case LIMIT_RANGE_ONE:
 			if (uid != max_uid)
 			    break;
-			/* fallthrough */
+			PAM_FALLTHROUGH;
 		    case LIMIT_RANGE_MM:
 			if (uid > max_uid)
 			    break;
-			/* fallthrough */
+			PAM_FALLTHROUGH;
 		    case LIMIT_RANGE_MIN:
 			if (uid >= min_uid)
 			    process_limit(pamh, LIMITS_DEF_USER, ltype, item, value, ctrl, pl);
@@ -1127,7 +1127,7 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 		    case LIMIT_RANGE_MM:
 			if (gid > (gid_t)max_uid)
 			    continue;  /* next line */
-			/* fallthrough */
+			PAM_FALLTHROUGH;
 		    case LIMIT_RANGE_MIN:
 			if (gid < (gid_t)min_uid)
 			    continue;  /* next line */
@@ -1148,7 +1148,7 @@ parse_config_file(pam_handle_t *pamh, const char *uname, uid_t uid, gid_t gid,
 		    case LIMIT_RANGE_MM:
 			if (uid > max_uid)
 			    continue;  /* next line */
-			/* fallthrough */
+			PAM_FALLTHROUGH;
 		    case LIMIT_RANGE_MIN:
 			if (uid >= min_uid)
 			    break;
@@ -1343,6 +1343,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
     struct pam_limit_s plstruct;
     struct pam_limit_s *pl = &plstruct;
     char *free_filename = NULL;
+    char **filename_list;
 
     D(("called."));
 
@@ -1395,7 +1396,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	goto out;
 
     /* Read subsequent *.conf files, if they exist. */
-    char **filename_list = read_limits_dir(pamh);
+    filename_list = read_limits_dir(pamh);
     if (filename_list != NULL) {
         for (i = 0; filename_list[i] != NULL; i++) {
             pl->conf_file = filename_list[i];

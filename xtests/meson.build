@@ -24,7 +24,7 @@ xtest_progs = [
 ]
 
 foreach prog: xtest_progs
-  tst_exe = executable(
+  executable(
     prog,
     sources: prog + '.c',
     c_args: ['-DLIBPAM_COMPILE'],
@@ -39,7 +39,7 @@ foreach prog: xtest_progs
     args: [
       files('run-xtests.sh'),
       meson.current_source_dir(),
-      fs.name(tst_exe),
+      prog,
     ],
     env: ['MESON_BUILD_SUBDIR=' + meson.current_build_dir()],
     is_parallel: false,

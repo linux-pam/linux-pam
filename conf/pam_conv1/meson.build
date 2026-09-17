@@ -17,9 +17,13 @@ executable(
   'pam_conv1',
   sources: [pam_conv_l, pam_conv_y],
   include_directories: [libpam_inc],
-  c_args: [
+  c_args: cc.get_supported_arguments([
     '-Wno-unused-function',
     '-Wno-sign-compare',
-  ],
+    # yychar/yynerrs are generated globals
+    '-Wno-missing-variable-declarations',
+    # flex annotates fallthrough with a comment
+    '-Wno-implicit-fallthrough',
+  ]),
   link_args: exe_link_args,
 )

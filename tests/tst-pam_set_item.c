@@ -47,7 +47,7 @@ struct mapping {
   const char *new_value;
 };
 
-struct mapping items[] = {
+static struct mapping items[] = {
   {PAM_SERVICE, "PAM_SERVICE", PAM_SUCCESS, "logout"},
   {PAM_USER, "PAM_USER", PAM_SUCCESS, "noroot"},
   {PAM_TTY, "PAM_TTY", PAM_SUCCESS, "TTyX"},

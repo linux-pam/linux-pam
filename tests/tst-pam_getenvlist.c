@@ -39,7 +39,7 @@
 #include <string.h>
 #include <security/pam_appl.h>
 
-const char *envvals[] = {"VAL1=1", "VAL2=2", "VAL3=3"};
+static const char *envvals[] = {"VAL1=1", "VAL2=2", "VAL3=3"};
 
 int
 main (void)

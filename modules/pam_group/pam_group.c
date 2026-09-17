@@ -181,7 +181,7 @@ read_field(const pam_handle_t *pamh, int fd, char **buf, int *from, int *state,
 		    ++src; /* skip it */
 		    break;
 		}
-	    /* fallthrough */
+	    PAM_FALLTHROUGH;
 	    default:
 		*to++ = c;
 		onspace = 0;
