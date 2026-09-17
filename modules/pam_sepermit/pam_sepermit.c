@@ -65,7 +65,7 @@
 
 #define SEPERMIT_CONF_FILE	(SCONFIG_DIR "/sepermit.conf")
 #ifdef VENDOR_SCONFIG_DIR
-# define SEPERMIT_VENDOR_CONF_FILE	(VENDOR_SCONFIG_DIR "/sepermit.conf");
+# define SEPERMIT_VENDOR_CONF_FILE	(VENDOR_SCONFIG_DIR "/sepermit.conf")
 #endif
 #define MODULE "pam_sepermit"
 #define OPT_DELIM ":"
@@ -77,28 +77,27 @@ struct lockfd {
 };
 
 #define PROC_BASE "/proc"
-#define MAX_NAMES (int)(sizeof(unsigned long)*8)
 
 static int
 match_process_uid(pid_t pid, uid_t uid)
 {
 	char *buf;
 	size_t n;
-	uid_t puid;
+	unsigned long puid;
 	FILE *f;
 	int re = 0;
 
 	if ((buf = pam_asprintf(PROC_BASE "/%d/status", pid)) == NULL)
 		return 0;
 	n = strlen(buf) + 1;
-	if (!(f = fopen (buf, "r"))) {
+	if (!(f = fopen (buf, "re"))) {
 		free(buf);
 		return 0;
 	}
 
 	while (getline(&buf, &n, f) != -1) {
-		if (sscanf (buf, "Uid:\t%d", &puid)) {
-			re = uid == puid;
+		if (sscanf (buf, "Uid:\t%lu", &puid)) {
+			re = uid == (uid_t) puid;
 			break;
 		}
 	}
@@ -118,7 +117,7 @@ check_running (pam_handle_t *pamh, uid_t uid, int killall, int debug)
 	int running = 0;
 	self = getpid();
 	if (!(dir = opendir(PROC_BASE))) {
-		pam_syslog(pamh, LOG_ERR, "Failed to open proc directory file %s:", PROC_BASE);
+		pam_syslog(pamh, LOG_ERR, "Failed to open proc directory file %s: %m", PROC_BASE);
 		return -1;
 	}
 	max_pids = 256;
@@ -180,7 +179,7 @@ static uid_t get_loginuid(pam_handle_t *pamh)
 	char *eptr;
 	uid_t rv = (uid_t)-1;
 
-	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_RDONLY);
+	fd = open("/proc/self/loginuid", O_NOFOLLOW|O_RDONLY|O_CLOEXEC);
 	if (fd < 0) {
 		if (errno != ENOENT) {
 			pam_syslog(pamh, LOG_ERR,
@@ -214,7 +213,7 @@ sepermit_unlock(pam_handle_t *pamh, void *plockfd, int error_status UNUSED)
 	fl.l_whence = SEEK_SET;
 
 	if (lockfd->debug)
-		pam_syslog(pamh, LOG_ERR, "Unlocking fd: %d uid: %d", lockfd->fd, lockfd->uid);
+		pam_syslog(pamh, LOG_NOTICE, "Unlocking fd: %d uid: %lu", lockfd->fd, (unsigned long) lockfd->uid);
 
 	/* Don't kill uid==0 */
 	if (lockfd->uid)
@@ -248,15 +247,15 @@ sepermit_lock(pam_handle_t *pamh, const char *user, int debug)
 		return -1;
 	}
 
-	pam_sprintf(buf, "%s/%d.lock", SEPERMIT_LOCKDIR, pw->pw_uid);
-	int fd = open(buf, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
-	if (fd < 0) {
-		pam_syslog(pamh, LOG_ERR, "Unable to open lock file %s/%d.lock", SEPERMIT_LOCKDIR, pw->pw_uid);
+	if (pam_sprintf(buf, "%s/%lu.lock", SEPERMIT_LOCKDIR, (unsigned long) pw->pw_uid) < 0) {
+		pam_syslog(pamh, LOG_ERR, "Lock file path for user %s is too long", user);
 		return -1;
 	}
-
-	/* Need to close on exec */
-	fcntl(fd, F_SETFD, FD_CLOEXEC);
+	int fd = open(buf, O_RDWR | O_CREAT | O_NOFOLLOW | O_CLOEXEC, S_IRUSR | S_IWUSR);
+	if (fd < 0) {
+		pam_syslog(pamh, LOG_ERR, "Unable to open lock file %s: %m", buf);
+		return -1;
+	}
 
 	if (fcntl(fd, F_SETLK, &fl) == -1) {
 		pam_syslog(pamh, LOG_ERR, "User %s with exclusive login already logged in", user);
@@ -289,7 +288,7 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 	int exclusive = 0;
 	int ignore = 0;
 
-	f = fopen(cfgfile, "r");
+	f = fopen(cfgfile, "re");
 
 	if (!f) {
 		pam_syslog(pamh, LOG_ERR, "Failed to open config file %s: %m", cfgfile);
@@ -301,12 +300,11 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 		char *sptr;
 		char *opt;
 
-		if (line[0] == '#')
-			continue;
-
 		start = line;
 		while (isspace((unsigned char)*start))
 			++start;
+		if (*start == '#')
+			continue;
 		n = strlen(start);
 		while (n > 0 && isspace((unsigned char)start[n-1])) {
 			--n;
@@ -316,6 +314,8 @@ sepermit_match(pam_handle_t *pamh, const char *cfgfile, const char *user,
 
 		start[n] = '\0';
 		start = strtok_r(start, OPT_DELIM, &sptr);
+		if (start == NULL)
+			continue;
 
 		switch (start[0]) {
 			case '@':
@@ -411,7 +411,7 @@ pam_sepermit(pam_handle_t *pamh, int argc, const char **argv)
 	if (debug)
 		pam_syslog(pamh, LOG_NOTICE, "Parsing config file: %s", cfgfile);
 
-	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || *user == '\0') {
+	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || user == NULL || *user == '\0') {
 		pam_syslog(pamh, LOG_NOTICE, "cannot determine user name");
 		return PAM_USER_UNKNOWN;
 	}
@@ -424,11 +424,8 @@ pam_sepermit(pam_handle_t *pamh, int argc, const char **argv)
 		}
 	}
 
-	if (getseuserbyname(user, &seuser, &level) != 0) {
-		seuser = NULL;
-		level = NULL;
-		pam_syslog(pamh, LOG_ERR, "getseuserbyname failed: %m");
-	}
+	if (getseuserbyname(user, &seuser, &level) != 0)
+		pam_syslog(pamh, LOG_ERR, "getseuserbyname failed for user %s: %m", user);
 
 	if (debug && sense != PAM_SUCCESS)
 		pam_syslog(pamh, LOG_NOTICE, "Access will not be allowed on match");
