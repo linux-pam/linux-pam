@@ -99,6 +99,31 @@ main(void)
 	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 	pamh = NULL;
 
+	/* malformed time fields: rules should be ignored, not deny access */
+	ASSERT_NE(NULL, fp = fopen(config_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "# malformed time field rules\n"
+				 "%s ; * ; root ; oogabooga-1234-3423\n"
+				 "%s ; * ; root ; !oogabooga-1234-3423\n"
+				 "%s ; * ; root ; 0000-2400\n"
+				 "%s ; * ; root ; Al\n"
+				 "%s ; * ; root ; Al0000-2400&\n"
+				 "%s ; * ; root ; Al0000-2400?foo\n",
+			     service_file, service_file, service_file, service_file,
+			     service_file, service_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, "root", &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_setcred(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_acct_mgmt(pamh, 0));
+	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_chauthtok(pamh, 0));
+	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_open_session(pamh, 0));
+	ASSERT_EQ(PAM_MODULE_UNKNOWN, pam_close_session(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
 	/* cleanup */
 	ASSERT_EQ(0, unlink(config_file));
 	ASSERT_EQ(0, unlink(service_file));
