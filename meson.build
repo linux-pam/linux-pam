@@ -121,6 +121,7 @@ try_cc_flags = [
   '-Wmissing-declarations',
   '-Wmissing-format-attribute',
   '-Wmissing-prototypes',
+  '-Wmissing-variable-declarations',
   '-Wnull-dereference',
   '-Wpointer-arith',
   '-Wreturn-type',

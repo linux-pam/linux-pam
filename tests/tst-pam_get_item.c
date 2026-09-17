@@ -45,7 +45,7 @@ struct mapping {
   int expected;
 };
 
-struct mapping items[] = {
+static struct mapping items[] = {
   {PAM_SERVICE, "PAM_SERVICE", PAM_SUCCESS},
   {PAM_USER, "PAM_USER", 0},
   {PAM_TTY, "PAM_TTY", 0},
