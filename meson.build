@@ -120,6 +120,7 @@ try_cc_flags = [
   '-Wimplicit-fallthrough',
   '-Wimplicit-fallthrough=5',
   '-Winit-self',
+  '-Wjump-misses-init',
   '-Wmain',
   '-Wmissing-declarations',
   '-Wmissing-format-attribute',
