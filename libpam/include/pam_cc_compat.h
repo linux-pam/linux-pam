@@ -27,6 +27,12 @@
 # define PAM_ATTRIBUTE_MALLOC		/* empty */
 #endif
 
+#if PAM_GNUC_PREREQ(7, 0) || PAM_CLANG_PREREQ(10, 0)
+# define PAM_FALLTHROUGH		__attribute__((__fallthrough__))
+#else
+# define PAM_FALLTHROUGH		((void) 0)
+#endif
+
 #if PAM_GNUC_PREREQ(4, 6)
 # define DIAG_PUSH_IGNORE_CAST_QUAL					\
 	_Pragma("GCC diagnostic push");					\
