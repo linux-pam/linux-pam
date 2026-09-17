@@ -241,6 +241,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
   int found = 0;
   struct passwd *pwd;
   const char *oldpass;
+  char *opasswd_backup;
 
   /* Define opasswd file and temp file for opasswd */
   const char *opasswd_file =
@@ -517,7 +518,7 @@ save_old_pass, const char *user, int howmany, const char *filename, int debug UN
       goto error_opasswd;
     }
 
-  char *opasswd_backup = pam_asprintf("%s.old", opasswd_file);
+  opasswd_backup = pam_asprintf("%s.old", opasswd_file);
   if (opasswd_backup == NULL)
     {
       retval = PAM_BUF_ERR;

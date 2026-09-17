@@ -1343,6 +1343,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
     struct pam_limit_s plstruct;
     struct pam_limit_s *pl = &plstruct;
     char *free_filename = NULL;
+    char **filename_list;
 
     D(("called."));
 
@@ -1395,7 +1396,7 @@ pam_sm_open_session (pam_handle_t *pamh, int flags UNUSED,
 	goto out;
 
     /* Read subsequent *.conf files, if they exist. */
-    char **filename_list = read_limits_dir(pamh);
+    filename_list = read_limits_dir(pamh);
     if (filename_list != NULL) {
         for (i = 0; filename_list[i] != NULL; i++) {
             pl->conf_file = filename_list[i];
