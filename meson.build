@@ -116,6 +116,9 @@ try_cc_flags = [
   '-Wcast-qual',
   '-Wdeprecated',
   '-Wformat=2',
+  # clang rejects the level suffix; keep both so each compiler picks one
+  '-Wimplicit-fallthrough',
+  '-Wimplicit-fallthrough=5',
   '-Winit-self',
   '-Wmain',
   '-Wmissing-declarations',

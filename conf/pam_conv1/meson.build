@@ -22,6 +22,8 @@ executable(
     '-Wno-sign-compare',
     # yychar/yynerrs are generated globals
     '-Wno-missing-variable-declarations',
+    # flex annotates fallthrough with a comment
+    '-Wno-implicit-fallthrough',
   ]),
   link_args: exe_link_args,
 )

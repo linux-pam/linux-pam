@@ -381,7 +381,7 @@ int pam_get_user(pam_handle_t *pamh, const char **user, const char *prompt)
 		D(("no response provided"));
 		retval = PAM_CONV_ERR;
 	    }
-	    /* fallthrough */
+	    PAM_FALLTHROUGH;
 	default:
 	    pamh->former.fail_user = retval;
     }

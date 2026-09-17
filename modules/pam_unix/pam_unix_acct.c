@@ -260,7 +260,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		 * as it is relevant only for password change.
 		 */
 		retval = PAM_SUCCESS;
-		/* fallthrough */
+		PAM_FALLTHROUGH;
 	case PAM_SUCCESS:
 		if (daysleft >= 0) {
 			pam_syslog(pamh, LOG_DEBUG,
