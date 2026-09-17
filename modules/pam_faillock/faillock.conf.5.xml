@@ -196,6 +196,21 @@
                 </para>
               </listitem>
             </varlistentry>
+            <varlistentry>
+              <term>
+                uid_based_files
+              </term>
+              <listitem>
+                <para>
+                  Use user ID (UID) instead of username for lock file naming.
+                  When enabled, tally files are named by UID (e.g., /var/run/faillock/1000)
+                  instead of username (e.g., /var/run/faillock/username).
+                  This is useful for environments where usernames can change
+                  (e.g., SSSD/LDAP) or to prevent UID reuse security issues.
+                  By default, this option is not set (username-based files are used).
+                </para>
+              </listitem>
+            </varlistentry>
         </variablelist>
   </refsect1>
 
