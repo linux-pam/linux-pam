@@ -96,10 +96,10 @@ char **pamc_list_agents(pamc_handle_t pch);
 #define PAM_BP_MAX_LENGTH     0x20000                   /* an advisory limit */
 #define PAM_BP_WCONTROL(x)    (__PAM_BP_WOCTET(x,4))
 #define PAM_BP_RCONTROL(x)    (__PAM_BP_ROCTET(x,4))
-#define PAM_BP_SIZE(x)        ((__PAM_BP_ROCTET(x,0)<<24)+      \
-			       (__PAM_BP_ROCTET(x,1)<<16)+      \
-			       (__PAM_BP_ROCTET(x,2)<< 8)+      \
-			       (__PAM_BP_ROCTET(x,3)    ))
+#define PAM_BP_SIZE(x)        (((uint32_t)__PAM_BP_ROCTET(x,0)<<24)|      \
+			       ((uint32_t)__PAM_BP_ROCTET(x,1)<<16)|      \
+			       ((uint32_t)__PAM_BP_ROCTET(x,2)<< 8)|      \
+			       ((uint32_t)__PAM_BP_ROCTET(x,3)    ))
 #define PAM_BP_LENGTH(x)      (PAM_BP_SIZE(x) - PAM_BP_MIN_SIZE)
 #define PAM_BP_WDATA(x)       (PAM_BP_MIN_SIZE + (uint8_t *) (x))
 #define PAM_BP_RDATA(x)       (PAM_BP_MIN_SIZE + (const uint8_t *) (x))
