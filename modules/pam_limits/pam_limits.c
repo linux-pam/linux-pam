@@ -688,10 +688,8 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 #endif
     else if (strcmp(lim_item, "maxlogins") == 0) {
 	limit_item = LIMIT_LOGIN;
-	pl->flag_numsyslogins = 0;
     } else if (strcmp(lim_item, "maxsyslogins") == 0) {
 	limit_item = LIMIT_NUMSYSLOGINS;
-	pl->flag_numsyslogins = 1;
     } else if (strcmp(lim_item, "priority") == 0) {
 	limit_item = LIMIT_PRI;
     } else if (strcmp(lim_item, "nonewprivs") == 0) {
@@ -853,6 +851,7 @@ process_limit (const pam_handle_t *pamh, int source, const char *lim_type,
 	    if (pl->login_limit_def < source) {
 		return;
 	    } else {
+		pl->flag_numsyslogins = (int)(limit_item == LIMIT_NUMSYSLOGINS);
 		pl->login_limit = int_value;
 		pl->login_limit_def = source;
 	    }
