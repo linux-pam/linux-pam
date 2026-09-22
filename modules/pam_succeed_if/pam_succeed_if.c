@@ -337,6 +337,7 @@ evaluate(pam_handle_t *pamh, int debug,
 			ruser == NULL)
 			ruser = "";
 		left = (const char *)ruser;
+		user = left;
 	} else if (strcasecmp(left, "rhost") == 0) {
 		const void *rhost;
 		if (pam_get_item(pamh, PAM_RHOST, &rhost) != PAM_SUCCESS ||
