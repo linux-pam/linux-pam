@@ -378,7 +378,13 @@ is_same(pam_handle_t *pamh UNUSED, const void *A, const char *b,
      for (i=0; len > 0; ++i, --len) {
 	  if (b[i] != a[i]) {
 	       if (b[i++] == '*') {
-		    return (!--len || !strncmp(b+i,a+strlen(a)-len,len));
+		    size_t a_len;
+		    if (!--len)
+			return TRUE;
+		    a_len = strlen(a);
+		    if (a_len < (size_t) len)
+			return FALSE;
+		    return !strncmp(b + i, a + a_len - len, len);
 	       } else
 		    return FALSE;
 	  }
