@@ -435,9 +435,10 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
     while (fcntl(last_fd, F_SETLK, &last_lock) < 0) {
 	if (0 == --lock_retries) {
 	    D(("locking %s failed", _PATH_LASTLOG));
-	    pam_syslog(pamh, LOG_ERR,
-		       "file %s is locked/write", _PATH_LASTLOG);
-	    return PAM_SERVICE_ERR;
+	    pam_syslog(pamh, LOG_WARNING,
+		       "file %s is locked/write, skipping lastlog update",
+		       _PATH_LASTLOG);
+	    goto out;
 	}
 	D(("locking %s failed..(waiting a little)", _PATH_LASTLOG));
 	pam_syslog(pamh, LOG_INFO,
@@ -493,6 +494,7 @@ last_login_write(pam_handle_t *pamh, int announce, int last_fd,
     (void) fcntl(last_fd, F_SETLK, &last_lock);        /* unlock */
     D(("unlocked"));
 
+out:
     if (announce & LASTLOG_WTMP) {
 	/* write wtmp entry for user */
 	logwtmp(last_login.ll_line, user, remote_host);
