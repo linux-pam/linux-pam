@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2026-01-20 08:00+0000\n"
+"POT-Creation-Date: 2026-09-24 08:00+0000\n"
 "PO-Revision-Date: 2024-06-27 08:36+0000\n"
 "Last-Translator: Léane GRASSER <leane.grasser@proton.me>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/linux-"
@@ -272,13 +272,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "Connexion       Échecs      Dernier échec          De\n"
 
-#: modules/pam_faillock/pam_faillock.c:418
+#: modules/pam_faillock/pam_faillock.c:433
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "Le compte est temporairement verrouillé dû aux %u connexions échouées."
 
-#: modules/pam_faillock/pam_faillock.c:427
-#: modules/pam_faillock/pam_faillock.c:433
+#: modules/pam_faillock/pam_faillock.c:442
+#: modules/pam_faillock/pam_faillock.c:448
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -286,24 +286,24 @@ msgstr[0] "(%d minute restante pour déverrouiller)"
 msgstr[1] "(%d minutes restantes pour déverrouiller)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:436
+#: modules/pam_faillock/pam_faillock.c:451
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(%d minutes restantes pour déverrouiller)"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:593
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:595
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %A %e %B %Y à %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:602
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:604
 #, c-format
 msgid " from %.*s"
 msgstr " de %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:614
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid " on %.*s"
 msgstr " sur %.*s"
@@ -319,12 +319,12 @@ msgid "Welcome to your new account!"
 msgstr "Bienvenue sur votre nouveau compte !"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:624
+#: modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "Dernière connexion échoué : %s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:633 modules/pam_lastlog/pam_lastlog.c:640
+#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -337,7 +337,7 @@ msgstr[1] ""
 "réussie."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:645
+#: modules/pam_lastlog/pam_lastlog.c:647
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
@@ -396,7 +396,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Impossible de créer et d'initialiser le répertoire « %s »."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:383
-#: modules/pam_unix/pam_unix_passwd.c:573
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "Password has been already used. Choose another."
 msgstr "Mot de passe déjà utilisé. Choisissez-en un autre."
 
@@ -404,44 +404,44 @@ msgstr "Mot de passe déjà utilisé. Choisissez-en un autre."
 msgid "Password has been already used."
 msgstr "Mot de passe déjà utilisé."
 
-#: modules/pam_selinux/pam_selinux.c:173
+#: modules/pam_selinux/pam_selinux.c:199
 #, c-format
 msgid "The default security context is %s."
 msgstr "Le contexte de sécurité par défaut est %s."
 
-#: modules/pam_selinux/pam_selinux.c:177
+#: modules/pam_selinux/pam_selinux.c:203
 msgid "Would you like to enter a different role or level?"
 msgstr "Voulez-vous entrer un niveau ou un rôle différent ?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:190
+#: modules/pam_selinux/pam_selinux.c:216
 msgid "role:"
 msgstr "rôle :"
 
-#: modules/pam_selinux/pam_selinux.c:194
+#: modules/pam_selinux/pam_selinux.c:220
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "Il n'y a aucun type par défaut pour le rôle %s."
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:253
 msgid "level:"
 msgstr "niveau :"
 
-#: modules/pam_selinux/pam_selinux.c:260
+#: modules/pam_selinux/pam_selinux.c:287
 msgid "This is not a valid security context."
 msgstr "Ceci n'est pas un contexte de sécurité valide."
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:536
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "Impossible d'obtenir un contexte valide pour %s."
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:663
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "Le contexte de sécurité %s a été attribué."
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:675
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Le contexte de création de clés %s a été attribué."
@@ -499,37 +499,37 @@ msgstr[1] "Attention : votre mot de passe expirera dans %ld jours."
 msgid "Warning: your password will expire in %ld days."
 msgstr "Attention : votre mot de passe expirera dans %ld jours."
 
-#: modules/pam_unix/pam_unix_passwd.c:444
+#: modules/pam_unix/pam_unix_passwd.c:443
 msgid "NIS password could not be changed."
 msgstr "Le mot de passe NIS n'a pas pu être changé."
 
-#: modules/pam_unix/pam_unix_passwd.c:546
+#: modules/pam_unix/pam_unix_passwd.c:545
 msgid "No password has been supplied."
 msgstr "Aucun mot de passe n'a été fourni."
 
-#: modules/pam_unix/pam_unix_passwd.c:547
+#: modules/pam_unix/pam_unix_passwd.c:546
 msgid "The password has not been changed."
 msgstr "Le mot de passe n'a pas été modifié."
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:563
 msgid "You must choose a shorter password."
 msgstr "Vous devez choisir un mot de passe plus court."
 
-#: modules/pam_unix/pam_unix_passwd.c:568
+#: modules/pam_unix/pam_unix_passwd.c:567
 msgid "You must choose a longer password."
 msgstr "Vous devez choisir un mot de passe plus long."
 
-#: modules/pam_unix/pam_unix_passwd.c:673
+#: modules/pam_unix/pam_unix_passwd.c:672
 #, c-format
 msgid "Changing password for %s."
 msgstr "Changement du mot de passe pour %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:703
+#: modules/pam_unix/pam_unix_passwd.c:702
 #, fuzzy
 msgid "Your password is not expired."
 msgstr "Aucun mot de passe n'a été fourni."
 
-#: modules/pam_unix/pam_unix_passwd.c:706
+#: modules/pam_unix/pam_unix_passwd.c:705
 msgid "You must wait longer to change your password."
 msgstr ""
 "Vous devez attendre plus longtemps afin de pouvoir changer votre mot de "

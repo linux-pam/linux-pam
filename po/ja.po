@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2026-01-20 08:00+0000\n"
+"POT-Creation-Date: 2026-09-24 08:00+0000\n"
 "PO-Revision-Date: 2024-09-04 03:38+0000\n"
 "Last-Translator: Tomohiro KATO <tomop@teamgedoh.net>\n"
 "Language-Team: Japanese <https://translate.fedoraproject.org/projects/linux-"
@@ -258,37 +258,37 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "ログイン        失敗        最終日時               接続元\n"
 
-#: modules/pam_faillock/pam_faillock.c:418
+#: modules/pam_faillock/pam_faillock.c:433
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "%u 回のログイン失敗によりアカウントはロックされました。"
 
-#: modules/pam_faillock/pam_faillock.c:427
-#: modules/pam_faillock/pam_faillock.c:433
+#: modules/pam_faillock/pam_faillock.c:442
+#: modules/pam_faillock/pam_faillock.c:448
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
 msgstr[0] "(ロック解除まで %d 分)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:436
+#: modules/pam_faillock/pam_faillock.c:451
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(ロック解除まで残り %d 分)"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:593
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:595
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %Y/%m/%d (%a) %H:%M:%S %Z"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:602
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:604
 #, c-format
 msgid " from %.*s"
 msgstr " ホスト:%.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:614
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid " on %.*s"
 msgstr " 端末:%.*s"
@@ -304,12 +304,12 @@ msgid "Welcome to your new account!"
 msgstr "新しいアカウントへようこそ!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:624
+#: modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "最後の失敗ログイン:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:633 modules/pam_lastlog/pam_lastlog.c:640
+#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -317,7 +317,7 @@ msgid_plural ""
 msgstr[0] "最後の正しいログインの後に %d 回のログイン試行失敗があります。"
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:645
+#: modules/pam_lastlog/pam_lastlog.c:647
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "最後の正しいログインの後に %d 回のログインの試行失敗があります。"
@@ -374,7 +374,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "ディレクトリ %s の作成・初期化ができません。"
 
 #: modules/pam_pwhistory/pam_pwhistory.c:383
-#: modules/pam_unix/pam_unix_passwd.c:573
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "Password has been already used. Choose another."
 msgstr ""
 "パスワードはすでに使用されています。 別のパスワードを選択してください。"
@@ -383,44 +383,44 @@ msgstr ""
 msgid "Password has been already used."
 msgstr "パスワードはすでに使用されています。"
 
-#: modules/pam_selinux/pam_selinux.c:173
+#: modules/pam_selinux/pam_selinux.c:199
 #, c-format
 msgid "The default security context is %s."
 msgstr "デフォルトセキュリティコンテキストは %s です。"
 
-#: modules/pam_selinux/pam_selinux.c:177
+#: modules/pam_selinux/pam_selinux.c:203
 msgid "Would you like to enter a different role or level?"
 msgstr "異なるロール又はレベルを入力しますか?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:190
+#: modules/pam_selinux/pam_selinux.c:216
 msgid "role:"
 msgstr "ロール:"
 
-#: modules/pam_selinux/pam_selinux.c:194
+#: modules/pam_selinux/pam_selinux.c:220
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "ロール %s にはデフォルトタイプがありません。"
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:253
 msgid "level:"
 msgstr "レベル:"
 
-#: modules/pam_selinux/pam_selinux.c:260
+#: modules/pam_selinux/pam_selinux.c:287
 msgid "This is not a valid security context."
 msgstr "有効なセキュリティコンテキストではありません。"
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:536
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "%s の有効なセキュリティコンテキストを取得できません。"
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:663
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "セキュリティコンテキスト %s が割り当てられました。"
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:675
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "キー作成コンテキスト %s が割り当てられました。"
@@ -473,37 +473,37 @@ msgstr[0] "警告: パスワードは %ld 日で失効します。"
 msgid "Warning: your password will expire in %ld days."
 msgstr "警告: パスワードは %ld 日で失効します。"
 
-#: modules/pam_unix/pam_unix_passwd.c:444
+#: modules/pam_unix/pam_unix_passwd.c:443
 msgid "NIS password could not be changed."
 msgstr "NIS パスワードを変更できませんでした。"
 
-#: modules/pam_unix/pam_unix_passwd.c:546
+#: modules/pam_unix/pam_unix_passwd.c:545
 msgid "No password has been supplied."
 msgstr "パスワードが与えられていません。"
 
-#: modules/pam_unix/pam_unix_passwd.c:547
+#: modules/pam_unix/pam_unix_passwd.c:546
 msgid "The password has not been changed."
 msgstr "パスワードを変更できませんでした。"
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:563
 msgid "You must choose a shorter password."
 msgstr "より短いパスワードを選択する必要があります。"
 
-#: modules/pam_unix/pam_unix_passwd.c:568
+#: modules/pam_unix/pam_unix_passwd.c:567
 msgid "You must choose a longer password."
 msgstr "より長いパスワードを選択する必要があります。"
 
-#: modules/pam_unix/pam_unix_passwd.c:673
+#: modules/pam_unix/pam_unix_passwd.c:672
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s 用のパスワードを変更しています。"
 
-#: modules/pam_unix/pam_unix_passwd.c:703
+#: modules/pam_unix/pam_unix_passwd.c:702
 #, fuzzy
 msgid "Your password is not expired."
 msgstr "パスワードが与えられていません。"
 
-#: modules/pam_unix/pam_unix_passwd.c:706
+#: modules/pam_unix/pam_unix_passwd.c:705
 msgid "You must wait longer to change your password."
 msgstr "パスワードを変更するにはより長い時間の経過が必要です。"
 

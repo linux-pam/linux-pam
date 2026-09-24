@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2026-01-20 08:00+0000\n"
+"POT-Creation-Date: 2026-09-24 08:00+0000\n"
 "PO-Revision-Date: 2012-12-17 05:00-0500\n"
 "Last-Translator: Nik Kalach <nik.kalach@inbox.ru>\n"
 "Language-Team: Interlingua <trans-ia@lists.fedoraproject.org>\n"
@@ -258,13 +258,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "Conto        Fallimentos Ultime fallimento  De\n"
 
-#: modules/pam_faillock/pam_faillock.c:418
+#: modules/pam_faillock/pam_faillock.c:433
 #, fuzzy, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "Le conto es blocate a causa de %u insuccessos al authentication"
 
-#: modules/pam_faillock/pam_faillock.c:427
-#: modules/pam_faillock/pam_faillock.c:433
+#: modules/pam_faillock/pam_faillock.c:442
+#: modules/pam_faillock/pam_faillock.c:448
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -272,24 +272,24 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:436
+#: modules/pam_faillock/pam_faillock.c:451
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr ""
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:593
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:595
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:602
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:604
 #, c-format
 msgid " from %.*s"
 msgstr " de %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:614
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid " on %.*s"
 msgstr " via %.*s"
@@ -305,12 +305,12 @@ msgid "Welcome to your new account!"
 msgstr "Benvenite al nove conto!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:624
+#: modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "Ultime connexion fallite:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:633 modules/pam_lastlog/pam_lastlog.c:640
+#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -321,7 +321,7 @@ msgstr[1] ""
 "Il esseva %d insuccessos de initiar le session desde le ultime connexion."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:645
+#: modules/pam_lastlog/pam_lastlog.c:647
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr ""
@@ -380,7 +380,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "Impossibile de crear e de initiar le directorio '%s'."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:383
-#: modules/pam_unix/pam_unix_passwd.c:573
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "Password has been already used. Choose another."
 msgstr "Le contrasigno jam se ha utilisate. Selige un altere."
 
@@ -388,45 +388,45 @@ msgstr "Le contrasigno jam se ha utilisate. Selige un altere."
 msgid "Password has been already used."
 msgstr "Le contrasigno se ha jam usate."
 
-#: modules/pam_selinux/pam_selinux.c:173
+#: modules/pam_selinux/pam_selinux.c:199
 #, fuzzy, c-format
 msgid "The default security context is %s."
 msgstr "Contexto de securitate predefinite %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:177
+#: modules/pam_selinux/pam_selinux.c:203
 msgid "Would you like to enter a different role or level?"
 msgstr "Velle tu introducer un rolo e nivello differente?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:190
+#: modules/pam_selinux/pam_selinux.c:216
 msgid "role:"
 msgstr "rolo:"
 
-#: modules/pam_selinux/pam_selinux.c:194
+#: modules/pam_selinux/pam_selinux.c:220
 #, fuzzy, c-format
 msgid "There is no default type for role %s."
 msgstr "Necun typo predefinite pro le rolo %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:253
 msgid "level:"
 msgstr "nivello:"
 
-#: modules/pam_selinux/pam_selinux.c:260
+#: modules/pam_selinux/pam_selinux.c:287
 #, fuzzy
 msgid "This is not a valid security context."
 msgstr "Contexto de securitate incorrecte"
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:536
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:663
 #, fuzzy, c-format
 msgid "Security context %s has been assigned."
 msgstr "Contexto de securitate %s attribuite"
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:675
 #, fuzzy, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "Contexto de creation de clave %s attribuite"
@@ -483,41 +483,41 @@ msgstr[1] "Advertimento: le contrasigno perimera in %ld dies"
 msgid "Warning: your password will expire in %ld days."
 msgstr "Advertimento: le contrasigno perimera in %ld dies"
 
-#: modules/pam_unix/pam_unix_passwd.c:444
+#: modules/pam_unix/pam_unix_passwd.c:443
 msgid "NIS password could not be changed."
 msgstr "Le contrasigno NIS non pote esser cambiate."
 
-#: modules/pam_unix/pam_unix_passwd.c:546
+#: modules/pam_unix/pam_unix_passwd.c:545
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "Necun contrasigno fornite"
 
-#: modules/pam_unix/pam_unix_passwd.c:547
+#: modules/pam_unix/pam_unix_passwd.c:546
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "Le contrasigno NIS non pote esser cambiate."
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:563
 #, fuzzy
 msgid "You must choose a shorter password."
 msgstr "Selige un contrasigno plus longe"
 
-#: modules/pam_unix/pam_unix_passwd.c:568
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "Selige un contrasigno plus longe"
 
-#: modules/pam_unix/pam_unix_passwd.c:673
+#: modules/pam_unix/pam_unix_passwd.c:672
 #, c-format
 msgid "Changing password for %s."
 msgstr "Cambiamento del contrasigno pro %s."
 
-#: modules/pam_unix/pam_unix_passwd.c:703
+#: modules/pam_unix/pam_unix_passwd.c:702
 #, fuzzy
 msgid "Your password is not expired."
 msgstr "Necun contrasigno fornite"
 
-#: modules/pam_unix/pam_unix_passwd.c:706
+#: modules/pam_unix/pam_unix_passwd.c:705
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "Attende ancora pro cambiar le contrasigno"

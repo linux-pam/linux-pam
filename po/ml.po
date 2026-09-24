@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2026-01-20 08:00+0000\n"
+"POT-Creation-Date: 2026-09-24 08:00+0000\n"
 "PO-Revision-Date: 2013-04-15 01:55-0400\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -253,13 +253,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "Login           Failures Latest failure     From\n"
 
-#: modules/pam_faillock/pam_faillock.c:418
+#: modules/pam_faillock/pam_faillock.c:433
 #, fuzzy, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "%u പരാജയപ്പെട്ട ലോഗിനുകള്‍ കാരണം അക്കൌണ്ട് താല്‍ക്കാലികമായി പൂട്ടിയിരിക്കുന്നു"
 
-#: modules/pam_faillock/pam_faillock.c:427
-#: modules/pam_faillock/pam_faillock.c:433
+#: modules/pam_faillock/pam_faillock.c:442
+#: modules/pam_faillock/pam_faillock.c:448
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -267,24 +267,24 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:436
+#: modules/pam_faillock/pam_faillock.c:451
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr ""
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:593
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:595
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:602
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:604
 #, c-format
 msgid " from %.*s"
 msgstr " %.*s-ല്‍ നിന്നും"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:614
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid " on %.*s"
 msgstr " %.*s-ല്‍"
@@ -300,12 +300,12 @@ msgid "Welcome to your new account!"
 msgstr "നിങ്ങളുടെ പുതിയ അക്കൌണ്ടിലേക്ക് സ്വാഗതം!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:624
+#: modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "അവസാനം ലോഗിന്‍ ചെയ്തതു് പരാജയപ്പെട്ടു:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:633 modules/pam_lastlog/pam_lastlog.c:640
+#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -314,7 +314,7 @@ msgstr[0] "ശരിയായി അവസാനം ലോഗിന്‍ ചെ
 msgstr[1] "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:645
+#: modules/pam_lastlog/pam_lastlog.c:647
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "ശരിയായി അവസാനം ലോഗിന്‍ ചെയ്ത ശേഷം %d തവണ ലോഗിന്‍ പരാജയപ്പെട്ടു."
@@ -372,7 +372,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "%s ഡയറക്ടറി ഉണ്ടാക്കുവാനും ആരംഭിക്കുവാനും സാധ്യമായില്ല."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:383
-#: modules/pam_unix/pam_unix_passwd.c:573
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "Password has been already used. Choose another."
 msgstr "അടയാളവാക്ക് നിലവില്‍ ഉപയോഗിത്തിലുള്ളതാണ്. മറ്റൊന്ന് നല്‍കുക."
 
@@ -380,45 +380,45 @@ msgstr "അടയാളവാക്ക് നിലവില്‍ ഉപയോ�
 msgid "Password has been already used."
 msgstr "രഹസ്യവാക്ക് നിലവില്‍ ഉപയോഗിച്ചിരിയ്ക്കുന്നു."
 
-#: modules/pam_selinux/pam_selinux.c:173
+#: modules/pam_selinux/pam_selinux.c:199
 #, fuzzy, c-format
 msgid "The default security context is %s."
 msgstr "സ്വതവേയുള്ള സെക്യൂരിറ്റി കോണ്‍ടെക്സ്റ്റ് %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:177
+#: modules/pam_selinux/pam_selinux.c:203
 msgid "Would you like to enter a different role or level?"
 msgstr "നിങ്ങള്‍ക്കു് മറ്റൊരു ജോലി അല്ലെങ്കില്‍ നില നല്‍കണമോ?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:190
+#: modules/pam_selinux/pam_selinux.c:216
 msgid "role:"
 msgstr "ജോലി:"
 
-#: modules/pam_selinux/pam_selinux.c:194
+#: modules/pam_selinux/pam_selinux.c:220
 #, fuzzy, c-format
 msgid "There is no default type for role %s."
 msgstr "%s ജോലിയ്ക്കു് സ്വതവേയുള്ള തരം ലഭ്യമല്ല\n"
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:253
 msgid "level:"
 msgstr "നില: "
 
-#: modules/pam_selinux/pam_selinux.c:260
+#: modules/pam_selinux/pam_selinux.c:287
 #, fuzzy
 msgid "This is not a valid security context."
 msgstr "ശരിയായ സെക്യൂരിറ്റി കോണ്‍ടെക്സ്റ്റ് അല്ല"
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:536
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:663
 #, fuzzy, c-format
 msgid "Security context %s has been assigned."
 msgstr "%s എന്ന സെക്യൂരിറ്റി കോണ്‍ടെക്സ്റ്റ് നല്‍കിയിരിക്കുന്നു"
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:675
 #, fuzzy, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "കീ ഉണ്ടാക്കുന്നതിനുള്ള കോണ്‍ടെക്സ്റ്റ് ആയ %s നല്‍കിയിരിക്കുന്നു"
@@ -479,40 +479,40 @@ msgstr[1] ""
 msgid "Warning: your password will expire in %ld days."
 msgstr "മുന്നറിയിപ്പ്: നിങ്ങളുടെ അടയാളവാക്കിന്റെ കാലാവധി %ld ദിവസത്തിനുള്ളില്‍ അവസാനിക്കുന്നു"
 
-#: modules/pam_unix/pam_unix_passwd.c:444
+#: modules/pam_unix/pam_unix_passwd.c:443
 msgid "NIS password could not be changed."
 msgstr "NIS അടയാളവാക്ക് മാറ്റുവാന്‍ സാധ്യമാകുന്നില്ല."
 
-#: modules/pam_unix/pam_unix_passwd.c:546
+#: modules/pam_unix/pam_unix_passwd.c:545
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "അടയാളവാക്ക് നല്‍കിയിട്ടില്ല"
 
-#: modules/pam_unix/pam_unix_passwd.c:547
+#: modules/pam_unix/pam_unix_passwd.c:546
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS അടയാളവാക്ക് മാറ്റുവാന്‍ സാധ്യമാകുന്നില്ല."
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:563
 msgid "You must choose a shorter password."
 msgstr "നിങ്ങൾ ഒരു ഹ്രസ്വ പാസ്‌വേഡ് തിരഞ്ഞെടുക്കണം."
 
-#: modules/pam_unix/pam_unix_passwd.c:568
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "ഇതിലും വലിയ അടയാളവാക്ക് തിരഞ്ഞെടുക്കുക"
 
-#: modules/pam_unix/pam_unix_passwd.c:673
+#: modules/pam_unix/pam_unix_passwd.c:672
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s-നുളള അടയാളവാക്ക് മാറ്റുന്നു."
 
-#: modules/pam_unix/pam_unix_passwd.c:703
+#: modules/pam_unix/pam_unix_passwd.c:702
 #, fuzzy
 msgid "Your password is not expired."
 msgstr "അടയാളവാക്ക് നല്‍കിയിട്ടില്ല"
 
-#: modules/pam_unix/pam_unix_passwd.c:706
+#: modules/pam_unix/pam_unix_passwd.c:705
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "നിങ്ങളുടെ അടയാളവാക്ക് മാറ്റുന്നതിനായി ഇനിയും കാത്തിരിക്കേണ്ടതാണ്."

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2026-01-20 08:00+0000\n"
+"POT-Creation-Date: 2026-09-24 08:00+0000\n"
 "PO-Revision-Date: 2026-06-30 17:38+0000\n"
 "Last-Translator: \"Dmitry V. Levin\" <ldv@altlinux.org>\n"
 "Language-Team: Hebrew <https://translate.fedoraproject.org/projects/linux-"
@@ -255,13 +255,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "כניסה           כשלים כשל אחרון     מאת\n"
 
-#: modules/pam_faillock/pam_faillock.c:418
+#: modules/pam_faillock/pam_faillock.c:433
 #, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "החשבון ננעל בעקבות %u ניסיונות התחברות שנכשלו."
 
-#: modules/pam_faillock/pam_faillock.c:427
-#: modules/pam_faillock/pam_faillock.c:433
+#: modules/pam_faillock/pam_faillock.c:442
+#: modules/pam_faillock/pam_faillock.c:448
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -269,24 +269,24 @@ msgstr[0] "(נותרה דקה לשחרור)"
 msgstr[1] "(נותרו %d דקות לשחרור)"
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:436
+#: modules/pam_faillock/pam_faillock.c:451
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr "(נותרו %d דקות לשחרור)"
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:593
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:595
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:602
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:604
 #, c-format
 msgid " from %.*s"
 msgstr " מהמארח %.*s"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:614
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid " on %.*s"
 msgstr " על גבי %.*s"
@@ -302,12 +302,12 @@ msgid "Welcome to your new account!"
 msgstr "ברוך בואך לחשבונך החדש!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:624
+#: modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "כניסה כושלת אחרונה:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:633 modules/pam_lastlog/pam_lastlog.c:640
+#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -316,7 +316,7 @@ msgstr[0] "היה ניסיון התחברות %d שנכשל מאז ההתחבר�
 msgstr[1] "היו %d ניסיונות התחברות שנכשלו מאז ההתחברות האחרונה שהצליחה."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:645
+#: modules/pam_lastlog/pam_lastlog.c:647
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "היו %d ניסיונות התחברות שנכשלו מאז ההתחברות האחרונה שהצליחה."
@@ -373,7 +373,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "לא ניתן ליצור ולאתחל את התיקייה ‚%s’."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:383
-#: modules/pam_unix/pam_unix_passwd.c:573
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "Password has been already used. Choose another."
 msgstr "כבר נעשה שימוש בססמה. נא לבחור באחרת."
 
@@ -381,44 +381,44 @@ msgstr "כבר נעשה שימוש בססמה. נא לבחור באחרת."
 msgid "Password has been already used."
 msgstr "כבר נעשה שימוש בססמה הזאת."
 
-#: modules/pam_selinux/pam_selinux.c:173
+#: modules/pam_selinux/pam_selinux.c:199
 #, c-format
 msgid "The default security context is %s."
 msgstr "הקשר האבטחה כבררת מחדל הוא %s."
 
-#: modules/pam_selinux/pam_selinux.c:177
+#: modules/pam_selinux/pam_selinux.c:203
 msgid "Would you like to enter a different role or level?"
 msgstr "מעניין אותך למלא תפקיד או רמה שונים?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:190
+#: modules/pam_selinux/pam_selinux.c:216
 msgid "role:"
 msgstr "תפקיד:"
 
-#: modules/pam_selinux/pam_selinux.c:194
+#: modules/pam_selinux/pam_selinux.c:220
 #, c-format
 msgid "There is no default type for role %s."
 msgstr "אין סוג בררת מחדל לתפקיד %s."
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:253
 msgid "level:"
 msgstr "רמה:"
 
-#: modules/pam_selinux/pam_selinux.c:260
+#: modules/pam_selinux/pam_selinux.c:287
 msgid "This is not a valid security context."
 msgstr "זה לא הקשר אבטחה תקני."
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:536
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr "לא ניתן לקבל הקשר תקני עבור %s."
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:663
 #, c-format
 msgid "Security context %s has been assigned."
 msgstr "הקשר האבטחה %s הוקצה."
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:675
 #, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "הקשר יצירת המפתח %s הוקצה."
@@ -472,36 +472,36 @@ msgstr[1] "אזהרה: הססמה שלך תפוג תוך %ld ימים."
 msgid "Warning: your password will expire in %ld days."
 msgstr "אזהרה: הססמה שלך תפוג תוך %ld ימים."
 
-#: modules/pam_unix/pam_unix_passwd.c:444
+#: modules/pam_unix/pam_unix_passwd.c:443
 msgid "NIS password could not be changed."
 msgstr "לא היה ניתן לשנות ססמת NIS."
 
-#: modules/pam_unix/pam_unix_passwd.c:546
+#: modules/pam_unix/pam_unix_passwd.c:545
 msgid "No password has been supplied."
 msgstr "לא סופקה ססמה."
 
-#: modules/pam_unix/pam_unix_passwd.c:547
+#: modules/pam_unix/pam_unix_passwd.c:546
 msgid "The password has not been changed."
 msgstr "הססמה לא הוחלפה."
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:563
 msgid "You must choose a shorter password."
 msgstr "עליך לבחור סיסמה קצרה יותר."
 
-#: modules/pam_unix/pam_unix_passwd.c:568
+#: modules/pam_unix/pam_unix_passwd.c:567
 msgid "You must choose a longer password."
 msgstr "עליך לבחור ססמה ארוכה יותר."
 
-#: modules/pam_unix/pam_unix_passwd.c:673
+#: modules/pam_unix/pam_unix_passwd.c:672
 #, c-format
 msgid "Changing password for %s."
 msgstr "הססמה עבור %s מוחלפת."
 
-#: modules/pam_unix/pam_unix_passwd.c:703
+#: modules/pam_unix/pam_unix_passwd.c:702
 msgid "Your password is not expired."
 msgstr "תוקף ססמתך לא פג."
 
-#: modules/pam_unix/pam_unix_passwd.c:706
+#: modules/pam_unix/pam_unix_passwd.c:705
 msgid "You must wait longer to change your password."
 msgstr "עליך להמתין זמן רב יותר כדי להחליף את ססמתך."
 

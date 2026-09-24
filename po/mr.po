@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linux-PAM\n"
 "Report-Msgid-Bugs-To: https://github.com/linux-pam/linux-pam/issues\n"
-"POT-Creation-Date: 2026-01-20 08:00+0000\n"
+"POT-Creation-Date: 2026-09-24 08:00+0000\n"
 "PO-Revision-Date: 2013-05-03 03:46-0400\n"
 "Last-Translator: sandeeps <sshedmak@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -255,13 +255,13 @@ msgstr ""
 msgid "Login           Failures    Latest failure         From\n"
 msgstr "प्रवेश           अपयशी अलिकडील अपयश     पासून\n"
 
-#: modules/pam_faillock/pam_faillock.c:418
+#: modules/pam_faillock/pam_faillock.c:433
 #, fuzzy, c-format
 msgid "The account is locked due to %u failed logins."
 msgstr "%u अपयशी प्रवेश मुळे खाते कुलूपबंद केले"
 
-#: modules/pam_faillock/pam_faillock.c:427
-#: modules/pam_faillock/pam_faillock.c:433
+#: modules/pam_faillock/pam_faillock.c:442
+#: modules/pam_faillock/pam_faillock.c:448
 #, c-format
 msgid "(%d minute left to unlock)"
 msgid_plural "(%d minutes left to unlock)"
@@ -269,24 +269,24 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: only used if dngettext is not supported.
-#: modules/pam_faillock/pam_faillock.c:436
+#: modules/pam_faillock/pam_faillock.c:451
 #, c-format
 msgid "(%d minutes left to unlock)"
 msgstr ""
 
 #. TRANSLATORS: "strftime options for date of last login"
-#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:593
+#: modules/pam_lastlog/pam_lastlog.c:323 modules/pam_lastlog/pam_lastlog.c:595
 msgid " %a %b %e %H:%M:%S %Z %Y"
 msgstr " %a %b %e %H:%M:%S %Z %Y"
 
 #. TRANSLATORS: " from <host>"
-#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:602
+#: modules/pam_lastlog/pam_lastlog.c:332 modules/pam_lastlog/pam_lastlog.c:604
 #, c-format
 msgid " from %.*s"
 msgstr " %.*s पासून"
 
 #. TRANSLATORS: " on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:614
+#: modules/pam_lastlog/pam_lastlog.c:344 modules/pam_lastlog/pam_lastlog.c:616
 #, c-format
 msgid " on %.*s"
 msgstr " %.*s वरील"
@@ -302,12 +302,12 @@ msgid "Welcome to your new account!"
 msgstr "नवीन खात्यावर स्वागत आहे!"
 
 #. TRANSLATORS: "Last failed login: <date> from <host> on <terminal>"
-#: modules/pam_lastlog/pam_lastlog.c:624
+#: modules/pam_lastlog/pam_lastlog.c:626
 #, c-format
 msgid "Last failed login:%s%s%s"
 msgstr "शेवटचे अपयशी दाखलन:%s%s%s"
 
-#: modules/pam_lastlog/pam_lastlog.c:633 modules/pam_lastlog/pam_lastlog.c:640
+#: modules/pam_lastlog/pam_lastlog.c:635 modules/pam_lastlog/pam_lastlog.c:642
 #, c-format
 msgid "There was %d failed login attempt since the last successful login."
 msgid_plural ""
@@ -316,7 +316,7 @@ msgstr[0] "शेवटचे यशस्वी प्रवेश पासू
 msgstr[1] "शेवटचे यशस्वी प्रवेश पासून %d अपयशी प्रवेश प्रयत्न आढळले गेले."
 
 #. TRANSLATORS: only used if dngettext is not supported
-#: modules/pam_lastlog/pam_lastlog.c:645
+#: modules/pam_lastlog/pam_lastlog.c:647
 #, c-format
 msgid "There were %d failed login attempts since the last successful login."
 msgstr "शेवटचे यशस्वी प्रवेश पासून %d अपयशी प्रवेश प्रयत्न आढळले."
@@ -374,7 +374,7 @@ msgid "Unable to create and initialize directory '%s'."
 msgstr "डिरेक्ट्री '%s' बनवण्यास व प्रारंभ करण्यास अशक्य."
 
 #: modules/pam_pwhistory/pam_pwhistory.c:383
-#: modules/pam_unix/pam_unix_passwd.c:573
+#: modules/pam_unix/pam_unix_passwd.c:572
 msgid "Password has been already used. Choose another."
 msgstr "ह्या गुप्तशब्दचा आधीच वापर झाला आहे. दुसरा निवडा."
 
@@ -382,45 +382,45 @@ msgstr "ह्या गुप्तशब्दचा आधीच वापर
 msgid "Password has been already used."
 msgstr "पासवर्ड आधिपासूनच वापरले आहे."
 
-#: modules/pam_selinux/pam_selinux.c:173
+#: modules/pam_selinux/pam_selinux.c:199
 #, fuzzy, c-format
 msgid "The default security context is %s."
 msgstr "मुलभूत सुरक्षा संदर्भ %s\n"
 
-#: modules/pam_selinux/pam_selinux.c:177
+#: modules/pam_selinux/pam_selinux.c:203
 msgid "Would you like to enter a different role or level?"
 msgstr "तुम्हाला अन्य भूमिका किंवा स्तर प्रविष्ट करायला आवडेल?"
 
 #. Allow the user to enter role and level individually
-#: modules/pam_selinux/pam_selinux.c:190
+#: modules/pam_selinux/pam_selinux.c:216
 msgid "role:"
 msgstr "भूमिका:"
 
-#: modules/pam_selinux/pam_selinux.c:194
+#: modules/pam_selinux/pam_selinux.c:220
 #, fuzzy, c-format
 msgid "There is no default type for role %s."
 msgstr "भूमिका %s करीता मुलभूत प्रकार आढळले नाही\n"
 
-#: modules/pam_selinux/pam_selinux.c:226
+#: modules/pam_selinux/pam_selinux.c:253
 msgid "level:"
 msgstr "स्तर:"
 
-#: modules/pam_selinux/pam_selinux.c:260
+#: modules/pam_selinux/pam_selinux.c:287
 #, fuzzy
 msgid "This is not a valid security context."
 msgstr "वैध सुरक्षा संदर्भ नाही"
 
-#: modules/pam_selinux/pam_selinux.c:509
+#: modules/pam_selinux/pam_selinux.c:536
 #, c-format
 msgid "A valid context for %s could not be obtained."
 msgstr ""
 
-#: modules/pam_selinux/pam_selinux.c:639
+#: modules/pam_selinux/pam_selinux.c:663
 #, fuzzy, c-format
 msgid "Security context %s has been assigned."
 msgstr "सुरक्षा संदर्भ %s लागू केले गेले"
 
-#: modules/pam_selinux/pam_selinux.c:655
+#: modules/pam_selinux/pam_selinux.c:675
 #, fuzzy, c-format
 msgid "Key creation context %s has been assigned."
 msgstr "कि निर्माण संदर्भ %s लागू केले गेले"
@@ -477,40 +477,40 @@ msgstr[1] "सावधानता: तुमचे गुप्तशब्द
 msgid "Warning: your password will expire in %ld days."
 msgstr "सावधानता: तुमचे गुप्तशब्द %ld दिवसात कालबाह्य होईल"
 
-#: modules/pam_unix/pam_unix_passwd.c:444
+#: modules/pam_unix/pam_unix_passwd.c:443
 msgid "NIS password could not be changed."
 msgstr "NIS गुप्तशब्द बदलविले जाऊ शकत नाही."
 
-#: modules/pam_unix/pam_unix_passwd.c:546
+#: modules/pam_unix/pam_unix_passwd.c:545
 #, fuzzy
 msgid "No password has been supplied."
 msgstr "गुप्तशब्द दिलेला नाही"
 
-#: modules/pam_unix/pam_unix_passwd.c:547
+#: modules/pam_unix/pam_unix_passwd.c:546
 #, fuzzy
 msgid "The password has not been changed."
 msgstr "NIS गुप्तशब्द बदलविले जाऊ शकत नाही."
 
-#: modules/pam_unix/pam_unix_passwd.c:564
+#: modules/pam_unix/pam_unix_passwd.c:563
 msgid "You must choose a shorter password."
 msgstr "आपण लहान संकेतशब्द निवडणे आवश्यक आहे."
 
-#: modules/pam_unix/pam_unix_passwd.c:568
+#: modules/pam_unix/pam_unix_passwd.c:567
 #, fuzzy
 msgid "You must choose a longer password."
 msgstr "तुम्ही मोठा गुप्तशब्द निवडला पाहीजे"
 
-#: modules/pam_unix/pam_unix_passwd.c:673
+#: modules/pam_unix/pam_unix_passwd.c:672
 #, c-format
 msgid "Changing password for %s."
 msgstr "%s करीता गुप्तशब्द बदलवित आहे."
 
-#: modules/pam_unix/pam_unix_passwd.c:703
+#: modules/pam_unix/pam_unix_passwd.c:702
 #, fuzzy
 msgid "Your password is not expired."
 msgstr "गुप्तशब्द दिलेला नाही"
 
-#: modules/pam_unix/pam_unix_passwd.c:706
+#: modules/pam_unix/pam_unix_passwd.c:705
 #, fuzzy
 msgid "You must wait longer to change your password."
 msgstr "तुमचा गुप्तशब्द बदलण्यासाठी तुम्हाला बराच वेळ वाट पहावी लागेल"
