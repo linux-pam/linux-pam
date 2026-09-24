@@ -1,5 +1,35 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Release 1.7.3
+* pam_unix: removed support for creating new DES/bigcrypt hashed passwords.
+  Login with existing DES/bigcrypt passwords is still possible.
+* pam_unix: changed the default hash algorithm from DES to SHA512.
+* pam_unix: always use unix_update helper if SELinux is enabled.
+* pam_unix: fixed option parsing that could silently ignore "quiet" and
+  "minlen=" depending on configuration line order.
+* pam_access: fixed matching of fully qualified usernames.
+* pam_env: fixed buffer allocation that could result in insufficient space.
+* pam_faillock: fixed tally loss under concurrent auth failures that could
+  allow the deny= threshold to be bypassed.
+* pam_faillock: added logging when preauth denies access to a locked account.
+* pam_group: fixed out-of-bounds read in wildcard matching.
+* pam_limits: fixed maxlogins/maxsyslogins limits that could incorrectly
+  deny login.
+* pam_namespace: fixed resource leaks on configuration parse errors.
+* pam_pwhistory: allow earlier passwords when remember count is reduced.
+* pam_selinux: fixed memory leaks and corrected swapped arguments in
+  log messages.
+* pam_sepermit: fixed crash on malformed config lines, hardened lock file
+  handling, and fixed leaking file descriptors on exec.
+* pam_succeed_if: fixed broken ruser matching and prevented logging unknown
+  user names in plaintext.
+* pam_time: fixed out-of-bounds read in wildcard matching, fixed day-of-week
+  parsing, and ignore rules with malformed time fields.
+* pam_umask: validate umask, pri and ulimit values in GECOS.
+* pam_userdb: fixed password comparison timing leak.
+* Multiple minor bug fixes, build fixes, portability fixes,
+  documentation improvements, and translation updates.
+
 Release 1.7.2
 * build: enabled vendordir by default.
 * pam_access: fixed stack overflow with huge configuration files.
