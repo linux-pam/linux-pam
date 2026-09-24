@@ -52,21 +52,38 @@
 #define ignore_return(x) if (1==((int)(x))) {;}
 
 int
-open_tally (const char *dir, const char *user, uid_t uid, int create)
+open_tally (const char *dir, const char *user, uid_t uid, int create, int use_uid)
 {
 	char *path;
+	char identifier[32];
+	const char *id_str;
 	int flags = O_RDWR;
 	int fd;
 
-	if (dir == NULL || strstr(user, "../") != NULL)
-	/* just a defensive programming as the user must be a
-	 * valid user on the system anyway
-	 */
+	if (dir == NULL)
 		return -1;
+
+	/* Build file path based on use_uid flag */
+	if (use_uid) {
+		/* Use UID for filename: /var/run/faillock/1000 */
+		snprintf(identifier, sizeof(identifier), "%u", uid);
+		id_str = identifier;
+	} else {
+		/* Use USERNAME for filename (original behavior) */
+		if (strstr(user, "../") != NULL)
+		/* just a defensive programming as the user must be a
+		 * valid user on the system anyway
+		 */
+			return -1;
+		id_str = user;
+	}
+
+	/* Build path with single code path */
 	if (*dir && dir[strlen(dir) - 1] != '/')
-		path = pam_asprintf("%s/%s", dir, user);
+		path = pam_asprintf("%s/%s", dir, id_str);
 	else
-		path = pam_asprintf("%s%s", dir, user);
+		path = pam_asprintf("%s%s", dir, id_str);
+
 	if (path == NULL)
 		return -1;
 
