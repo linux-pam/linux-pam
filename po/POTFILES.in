@@ -76,7 +76,6 @@ modules/pam_timestamp/pam_timestamp_check.c
 modules/pam_tty_audit/pam_tty_audit.c
 modules/pam_umask/pam_umask.c
 modules/pam_unix/bigcrypt.c
-modules/pam_unix/bigcrypt_main.c
 modules/pam_unix/md5.c
 modules/pam_unix/md5_broken.c
 modules/pam_unix/md5_crypt.c
