@@ -52,6 +52,7 @@
 #include <sys/mount.h>
 #include <sys/wait.h>
 #include <libgen.h>
+#include <dirent.h>
 #include <fcntl.h>
 #include <sched.h>
 #include <glob.h>
