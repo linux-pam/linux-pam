@@ -388,7 +388,7 @@ create_homedir_helper(const struct passwd *_pwd, mode_t home_mode,
 }
 
 static int
-make_parent_dirs(char *dir, int make)
+make_parent_dirs(const char *dir, int make)
 {
   int rc = PAM_SUCCESS;
   char *cp = strrchr(dir, '/');
@@ -423,9 +423,10 @@ main(int argc, char *argv[])
    char *eptr;
    unsigned long home_mode = 0;
    const char *vendordir = NULL;
+   const char *target_dir = NULL;
 
    if (argc < 2) {
-	fprintf(stderr, "Usage: %s <username> [<umask> [<skeldir> [<home_mode>]]]\n", argv[0]);
+	fprintf(stderr, "Usage: %s <username> [<umask> [<skeldir> [<home_mode> [<target_dir>] [<vendordir>]]]]\n", argv[0]);
 	return PAM_SESSION_ERR;
    }
 
@@ -457,24 +458,30 @@ main(int argc, char *argv[])
        }
    }
 
-   if (argc >= 6)
-      vendordir = argv[5];
-
    if (home_mode == 0)
       home_mode = 0777 & ~u_mask;
 
-   if (pwd->pw_dir[0] != '/') {
+    if (argc >= 6) {
+      target_dir = argv[5];
+   } else {
+      target_dir = pwd->pw_dir;
+    }
+
+   if (target_dir[0] != '/') {
       pam_syslog(NULL, LOG_ERR, "Relative user home directory %s", pwd->pw_dir);
       return PAM_SESSION_ERR;
    }
 
+   if (argc >= 7)
+      vendordir = argv[6];
+
    /* Stat the home directory, if something exists then we assume it is
       correct and return a success */
-   if (stat(pwd->pw_dir, &st) == 0)
+   if (stat(target_dir, &st) == 0)
 	return PAM_SUCCESS;
 
-   if (make_parent_dirs(pwd->pw_dir, 0) != PAM_SUCCESS)
+   if (make_parent_dirs(target_dir, 0) != PAM_SUCCESS)
 	return PAM_PERM_DENIED;
 
-   return create_homedir_helper(pwd, home_mode, skeldir, pwd->pw_dir, vendordir);
+   return create_homedir_helper(pwd, home_mode, skeldir, target_dir, vendordir);
 }
