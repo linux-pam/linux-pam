@@ -437,10 +437,10 @@ main(void)
 	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 	pamh = NULL;
 
-	/* file does not exist, not a regular file, or world writable */
+	/* file does not exist, not a regular file, or world writable, onerr=succeed */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
-			     "auth required %s/" LTDIR "%s.so item=user file= sense=allow\n"
+			     "auth required %s/" LTDIR "%s.so item=user file= sense=allow onerr=succeed\n"
 			     "account required %s/" LTDIR "%s.so item=user file=. sense=allow onerr=succeed\n"
 			     "password required %s/" LTDIR "%s.so item=user file=/ sense=allow onerr=succeed\n"
 			     "session required %s/" LTDIR "%s.so item=user file=/dev/null sense=allow onerr=succeed\n",
@@ -453,12 +453,37 @@ main(void)
 	ASSERT_EQ(PAM_SUCCESS,
 		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
 	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_setcred(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_acct_mgmt(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_chauthtok(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_open_session(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_close_session(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* file does not exist, not a regular file, or world writable. Fail on error */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=user file= sense=allow onerr=fail\n"
+			     "account required %s/" LTDIR "%s.so item=user file=. sense=allow onerr=fail\n"
+			     "password required %s/" LTDIR "%s.so item=user file=/ sense=allow onerr=fail\n"
+			     "session required %s/" LTDIR "%s.so item=user file=/dev/null sense=allow onerr=fail\n",
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME,
+			     cwd, MODULE_NAME));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
 	ASSERT_EQ(PAM_SERVICE_ERR, pam_authenticate(pamh, 0));
 	ASSERT_EQ(PAM_PERM_DENIED, pam_setcred(pamh, 0));
-	ASSERT_EQ(PAM_AUTH_ERR, pam_acct_mgmt(pamh, 0));
-	ASSERT_EQ(PAM_AUTH_ERR, pam_chauthtok(pamh, 0));
-	ASSERT_EQ(PAM_AUTH_ERR, pam_open_session(pamh, 0));
-	ASSERT_EQ(PAM_AUTH_ERR, pam_close_session(pamh, 0));
+	ASSERT_EQ(PAM_SERVICE_ERR, pam_acct_mgmt(pamh, 0));
+	ASSERT_EQ(PAM_SERVICE_ERR, pam_chauthtok(pamh, 0));
+	ASSERT_EQ(PAM_SERVICE_ERR, pam_open_session(pamh, 0));
+	ASSERT_EQ(PAM_SERVICE_ERR, pam_close_session(pamh, 0));
 	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 	pamh = NULL;
 
