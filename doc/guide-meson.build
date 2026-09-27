@@ -7,7 +7,7 @@ xml = configure_file(
   input: name + '.xml',
   output: name + '.xml',
   configuration: {
-    'PAM_VERSION': meson.project_version(),
+    'PAM_VERSION': pam_version_full,
     'PAM_RELEASE_DATE': release_date,
     'PAM_SOURCE_DIR': meson.current_source_dir(),
   },

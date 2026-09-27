@@ -14,6 +14,31 @@ pkgconfig = import('pkgconfig')
 
 prog_git = find_program('git', required: false)
 
+if fs.is_file('.tarball-version')
+  pam_version_full = fs.read('.tarball-version').strip()
+  pam_version_numeric = pam_version_full.split('.g')[0]
+else
+  pam_version_numeric = meson.project_version() + '.0.0'
+  pam_version_full = pam_version_numeric
+  if prog_git.found()
+    r = run_command(prog_git, 'describe', '--match', 'v*', check: false)
+    if r.returncode() == 0
+      git_version = r.stdout().strip().substring(1)
+      parts = git_version.split('-')
+      if parts.length() == 1
+        pam_version_numeric = parts[0]
+        pam_version_full = pam_version_numeric
+      else
+        pam_version_numeric = parts[0] + '.0.' + parts[1]
+        pam_version_full = pam_version_numeric + '.' + parts[2]
+      endif
+    endif
+  endif
+endif
+
+meson.add_dist_script('sh', '-c',
+  'echo "$1" > "$MESON_DIST_ROOT"/.tarball-version', '_', pam_version_full)
+
 if fs.is_file('.release-date')
   release_date = fs.read('.release-date').strip()
 else
@@ -55,7 +80,7 @@ null_dep = dependency('', required: false)
 
 cdata.set('_GNU_SOURCE', 1)
 cdata.set_quoted('PACKAGE', meson.project_name())
-cdata.set_quoted('PAM_VERSION', meson.project_version())
+cdata.set_quoted('PAM_VERSION', pam_version_full)
 cdata.set('UNUSED', '__attribute__((__unused__))')
 cdata.set('PAM_NO_HEADER_FUNCTIONS', 1, description: 'Disable function bodies in headers')
 cdata.set_quoted('SYSCONFDIR', sysconfdir)

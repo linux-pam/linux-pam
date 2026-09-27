@@ -35,6 +35,6 @@ pkgconfig.generate(
   description: 'Miscellaneous functions that make the job of writing PAM-aware applications easier.',
   name: 'pam_misc',
   filebase: 'pam_misc',
-  version: meson.project_version(),
+  version: pam_version_numeric,
   url: 'http://www.linux-pam.org/'
 )

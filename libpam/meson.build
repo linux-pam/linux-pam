@@ -68,6 +68,6 @@ pkgconfig.generate(
   description: 'The primary Linux-PAM library. It is used by PAM modules and PAM-aware applications.',
   name: 'PAM',
   filebase: 'pam',
-  version: meson.project_version(),
+  version: pam_version_numeric,
   url: 'http://www.linux-pam.org/'
 )

@@ -31,6 +31,6 @@ pkgconfig.generate(
   description: 'The PAM client API library and binary prompt support. Rarely used.',
   name: 'libpamc',
   filebase: 'pamc',
-  version: meson.project_version(),
+  version: pam_version_numeric,
   url: 'http://www.linux-pam.org/'
 )
