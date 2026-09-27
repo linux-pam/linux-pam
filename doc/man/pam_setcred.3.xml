@@ -55,7 +55,7 @@
        Such credentials should be established, by the application, prior
        to a call to this function.  For example,
        <citerefentry>
-         <refentrytitle>initgroups</refentrytitle><manvolnum>2</manvolnum>
+         <refentrytitle>initgroups</refentrytitle><manvolnum>3</manvolnum>
        </citerefentry> (or equivalent) should have been performed.
       </para>
 
