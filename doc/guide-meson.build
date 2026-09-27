@@ -3,7 +3,15 @@
 guide = fs.name(meson.current_source_dir()).to_upper()
 name = 'Linux-PAM_' + guide
 
-xml = files(name + '.xml')
+xml = configure_file(
+  input: name + '.xml',
+  output: name + '.xml',
+  configuration: {
+    'PAM_VERSION': meson.project_version(),
+    'PAM_RELEASE_DATE': release_date,
+    'PAM_SOURCE_DIR': meson.current_source_dir(),
+  },
+)
 
 if guide == 'SAG'
   toc_max_depth = '2'

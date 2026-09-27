@@ -1,11 +1,11 @@
-<book xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="mwg">
+<book xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="mwg" xml:base="@PAM_SOURCE_DIR@/">
   <info>
     <title>The Linux-PAM Module Writers' Guide</title>
     <authorgroup>
       <author><personname><firstname>Andrew G.</firstname><surname>Morgan</surname></personname><email>morgan@kernel.org</email></author>
       <author><personname><firstname>Thorsten</firstname><surname>Kukuk</surname></personname><email>kukuk@thkukuk.de</email></author>
     </authorgroup>
-    <releaseinfo>Version 1.7.3, September 2026</releaseinfo>
+    <releaseinfo>Version @PAM_VERSION@, @PAM_RELEASE_DATE@</releaseinfo>
     <abstract>
       <para>
         This manual documents what a programmer needs to know in order

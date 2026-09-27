@@ -12,6 +12,23 @@ project('Linux-PAM', 'c',
 fs = import('fs')
 pkgconfig = import('pkgconfig')
 
+prog_git = find_program('git', required: false)
+
+if fs.is_file('.release-date')
+  release_date = fs.read('.release-date').strip()
+else
+  release_date = 'unreleased'
+  if prog_git.found()
+    r = run_command(prog_git, 'log', '-1', '--format=%cd', '--date=format:%B %Y',
+                    check: false)
+    if r.returncode() == 0
+      release_date = r.stdout().strip()
+    endif
+  endif
+endif
+
+meson.add_dist_script('sh', '-c',
+  'echo "$1" > "$MESON_DIST_ROOT"/.release-date', '_', release_date)
 
 prefixdir = get_option('prefix')
 if not fs.is_absolute(prefixdir)
