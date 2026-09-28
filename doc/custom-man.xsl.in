@@ -2,8 +2,12 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ss="http://docbook.sf.net/xmlns/string.subst/1.0" version="1.0">
   <xsl:import href="MAN_STYLESHEET"/>
   <xsl:param name="vendordir"/>
+  <xsl:param name="pam_version"/>
+  <xsl:param name="pam_release_date"/>
 
   <xsl:param name="man.string.subst.map.local.pre">
     <ss:substitution oldstring="%vendordir%" newstring="{$vendordir}" />
+    <ss:substitution oldstring="%PAM_VERSION%" newstring="{$pam_version}" />
+    <ss:substitution oldstring="%PAM_RELEASE_DATE%" newstring="{$pam_release_date}" />
   </xsl:param>
 </xsl:stylesheet>

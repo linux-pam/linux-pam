@@ -1,9 +1,10 @@
 <refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pam_error">
 
+  <info><date>%PAM_RELEASE_DATE%</date></info>
   <refmeta>
     <refentrytitle>pam_error</refentrytitle>
     <manvolnum>3</manvolnum>
-    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM %PAM_VERSION%</refmiscinfo>
     <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 

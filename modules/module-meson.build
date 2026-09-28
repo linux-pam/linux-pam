@@ -217,6 +217,8 @@ foreach man: pam_module_mans
               '--path', meson.current_source_dir(),
               stringparam_vendordir,
               stringparam_profileconditions,
+              '--stringparam', 'pam_version', pam_version_full,
+              '--stringparam', 'pam_release_date', release_date,
               custom_man_xsl,
               '@INPUT@'],
     install: true,
