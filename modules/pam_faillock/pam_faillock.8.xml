@@ -3,7 +3,8 @@
   <refmeta>
     <refentrytitle>pam_faillock</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
   <refnamediv xml:id="pam_faillock-name">

@@ -3,7 +3,8 @@
   <refmeta>
     <refentrytitle>access.conf</refentrytitle>
     <manvolnum>5</manvolnum>
-    <refmiscinfo class="sectdesc">Linux-PAM Manual</refmiscinfo>
+    <refmiscinfo class="source">Linux-PAM</refmiscinfo>
+    <refmiscinfo class="manual">Linux-PAM Manual</refmiscinfo>
   </refmeta>
 
   <refnamediv>
