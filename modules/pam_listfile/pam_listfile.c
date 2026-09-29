@@ -50,7 +50,6 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     int extitem = 0;
     int sense = -1;
     int quiet = 0;
-    int i;
     const void *void_citemp;
     const char *citemp;
     const char *ifname=NULL;
@@ -61,7 +60,7 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     int apply_type = APPLY_TYPE_NULL;
     size_t n=0;
 
-    for(i=0; i < argc; i++) {
+    for(int i=0; i < argc; i++) {
 	const char *str;
 
 	/* option quiet has no value */
