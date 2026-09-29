@@ -15,7 +15,6 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <syslog.h>
-#include <stdarg.h>
 #include <string.h>
 #include <pwd.h>
 #include <grp.h>
