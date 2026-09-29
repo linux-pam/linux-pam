@@ -236,7 +236,7 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
             citemp = str;
     }
 
-    if(!citemp || (strlen(citemp) == 0)) {
+    if(!citemp || citemp[0] == '\0') {
 	/* The item was NULL - we are sure not to match */
 	return sense?PAM_SUCCESS:PAM_AUTH_ERR;
     }
