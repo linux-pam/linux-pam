@@ -55,17 +55,14 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     const char *citemp;
     const char *ifname=NULL;
     char *aline=NULL;
-    const char *apply_val;
+    const char *apply_val = "";
     struct stat fileinfo;
     FILE *inf;
-    int apply_type;
+    int apply_type = APPLY_TYPE_NULL;
     size_t n=0;
 
     /* Stuff for "extended" items */
     struct passwd *userinfo;
-
-    apply_type=APPLY_TYPE_NULL;
-    apply_val = "";
 
     for(i=0; i < argc; i++) {
 	const char *str;
