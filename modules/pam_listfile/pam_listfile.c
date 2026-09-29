@@ -178,7 +178,7 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 		      "Non-sense use for apply= parameter");
 	    apply_type=APPLY_TYPE_NULL;
 	}
-	if(extitem && (extitem==EI_GROUP)) {
+	if(extitem == EI_GROUP) {
 	    pam_syslog(pamh,LOG_WARNING,
 		      "Non-sense use for apply= parameter");
 	    apply_type=APPLY_TYPE_NULL;
