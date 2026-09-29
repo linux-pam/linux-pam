@@ -84,6 +84,8 @@
     <para>
       Besides this last one, all arguments should be specified; do not
       count on any default behavior.
+      Each option should be specified at most once.  The behavior when
+      an option is specified more than once is undefined.
     </para>
     <para>
       No credentials are awarded by this module.
