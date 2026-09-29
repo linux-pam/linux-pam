@@ -18,10 +18,7 @@
 #include <string.h>
 #include <pwd.h>
 #include <grp.h>
-
-#ifdef PAM_DEBUG
-#include <assert.h>
-#endif
+#include <stdbool.h>
 
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
@@ -34,6 +31,71 @@
 /* Extended Items that are not directly available via pam_get_item() */
 #define EI_GROUP (1 << 0)
 #define EI_SHELL (1 << 1)
+
+static bool
+match_entry(pam_handle_t *pamh, int citem, int extitem,
+	    const char *citemp, const char *entry)
+{
+    if (citem == PAM_TTY) {
+	const char *str = pam_str_skip_prefix(entry, "/dev/");
+	if (str != NULL)
+	    entry = str;
+    }
+    if (extitem == EI_GROUP)
+	return pam_modutil_user_in_group_nam_nam(pamh, citemp, entry);
+    return strcmp(entry, citemp) == 0;
+}
+
+static int
+match_file(pam_handle_t *pamh, int citem, int extitem,
+	   const char *citemp, const char *ifname, int onerr, bool quiet,
+	   bool *matched)
+{
+    struct stat fileinfo;
+
+    if (lstat(ifname, &fileinfo)) {
+	if (!quiet)
+	    pam_syslog(pamh, LOG_ERR, "Couldn't open %s", ifname);
+	return -1;
+    }
+
+    if ((fileinfo.st_mode & S_IWOTH)
+	|| !S_ISREG(fileinfo.st_mode)) {
+	pam_syslog(pamh, LOG_ERR,
+		   "%s is either world writable or not a normal file",
+		   ifname);
+	return PAM_AUTH_ERR;
+    }
+
+    FILE *inf = fopen(ifname, "r");
+    if (inf == NULL) {
+	if (onerr == PAM_SERVICE_ERR)
+	    pam_syslog(pamh, LOG_ERR, "Error opening %s", ifname);
+	return -1;
+    }
+
+    char *aline = NULL;
+    size_t n = 0;
+    bool found = false;
+    int retval = 0;
+
+    while (!found && getline(&aline, &n, inf) != -1) {
+	aline[strcspn(aline, "\r\n")] = '\0';
+	if (aline[0] == '\0')
+	    continue;
+	found = match_entry(pamh, citem, extitem, citemp, aline);
+    }
+
+    if (!found && ferror(inf)) {
+	pam_syslog(pamh, LOG_ERR, "Error reading %s", ifname);
+	retval = -1;
+    }
+
+    free(aline);
+    fclose(inf);
+    *matched = found;
+    return retval;
+}
 
 /* Constants for apply= parameter */
 #define APPLY_TYPE_NULL		0
@@ -51,23 +113,20 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     int citem = 0;
     int extitem = 0;
     int sense = -1;
-    int quiet = 0;
+    bool quiet = false;
     const void *void_citemp;
     const char *citemp;
     const char *ifname=NULL;
-    char *aline=NULL;
     const char *apply_val = "";
-    struct stat fileinfo;
-    FILE *inf;
     int apply_type = APPLY_TYPE_NULL;
-    size_t n=0;
+    bool matched;
 
     for(int i=0; i < argc; i++) {
 	const char *str;
 
 	/* option quiet has no value */
 	if(!strcmp(argv[i],"quiet")) {
-	    quiet = 1;
+	    quiet = true;
 	    continue;
 	}
 
@@ -270,70 +329,17 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 	     "Got file = %s, item = %d, value = %s, sense = %d",
 	     ifname, citem, citemp, sense);
 #endif
-    if(lstat(ifname,&fileinfo)) {
-	if(!quiet)
-		pam_syslog(pamh,LOG_ERR, "Couldn't open %s",ifname);
+    retval = match_file(pamh, citem, extitem, citemp,
+			ifname, onerr, quiet, &matched);
+    if (retval == -1)
 	return onerr;
-    }
+    if (retval)
+	return retval;
 
-    if((fileinfo.st_mode & S_IWOTH)
-       || !S_ISREG(fileinfo.st_mode)) {
-	/* If the file is world writable or is not a
-	   normal file, return error */
-	pam_syslog(pamh,LOG_ERR,
-		 "%s is either world writable or not a normal file",
-		 ifname);
-	return PAM_AUTH_ERR;
-    }
-
-    inf = fopen(ifname,"r");
-    if(inf == NULL) { /* Check that we opened it successfully */
-	if (onerr == PAM_SERVICE_ERR) {
-	    /* Only report if it's an error... */
-	    pam_syslog(pamh,LOG_ERR,  "Error opening %s", ifname);
-	}
-	return onerr;
-    }
-    /* There should be no more errors from here on */
-    retval=PAM_AUTH_ERR;
-    /* This loop assumes that PAM_SUCCESS == 0
-       and PAM_AUTH_ERR != 0 */
-#ifdef PAM_DEBUG
-    assert(PAM_SUCCESS == 0);
-    assert(PAM_AUTH_ERR != 0);
-#endif
-    while(retval && getline(&aline,&n,inf) != -1) {
-	const char *a = aline;
-
-	aline[strcspn(aline, "\r\n")] = '\0';
-	if(aline[0] == '\0')
-	    continue;
-	if(citem == PAM_TTY) {
-	    const char *str = pam_str_skip_prefix(a, "/dev/");
-	    if (str != NULL)
-		a = str;
-	}
-	if (extitem == EI_GROUP) {
-	    retval = !pam_modutil_user_in_group_nam_nam(pamh,
-		citemp, aline);
-	} else {
-	    retval = strcmp(a, citemp);
-	}
-    }
-
-    if (retval && ferror(inf)) {
-	pam_syslog(pamh, LOG_ERR, "Error reading %s", ifname);
-	free(aline);
-	fclose(inf);
-	return onerr;
-    }
-
-    free(aline);
-    fclose(inf);
-    if ((sense && retval) || (!sense && !retval)) {
+    if (sense != matched) {
 #ifdef PAM_DEBUG
 	pam_syslog(pamh,LOG_INFO,
-		 "Returning PAM_SUCCESS, retval = %d", retval);
+		 "Returning PAM_SUCCESS, matched = %d", matched);
 #endif
 	return PAM_SUCCESS;
     }
@@ -342,7 +348,7 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 	const char *user_name;
 #ifdef PAM_DEBUG
 	pam_syslog(pamh,LOG_INFO,
-		 "Returning PAM_AUTH_ERR, retval = %d", retval);
+		 "Returning PAM_AUTH_ERR, matched = %d", matched);
 #endif
 	(void) pam_get_item(pamh, PAM_SERVICE, &service);
 	(void) pam_get_user(pamh, &user_name, NULL);
