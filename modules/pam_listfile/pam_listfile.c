@@ -19,10 +19,6 @@
 #include <pwd.h>
 #include <grp.h>
 
-#ifdef PAM_DEBUG
-#include <assert.h>
-#endif
-
 #include <security/pam_modules.h>
 #include <security/_pam_macros.h>
 #include <security/pam_modutil.h>
@@ -294,10 +290,6 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     retval=PAM_AUTH_ERR;
     /* This loop assumes that PAM_SUCCESS == 0
        and PAM_AUTH_ERR != 0 */
-#ifdef PAM_DEBUG
-    assert(PAM_SUCCESS == 0);
-    assert(PAM_AUTH_ERR != 0);
-#endif
     while(retval && getline(&aline,&n,inf) != -1) {
 	const char *a = aline;
 
