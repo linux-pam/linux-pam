@@ -61,9 +61,6 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     int apply_type = APPLY_TYPE_NULL;
     size_t n=0;
 
-    /* Stuff for "extended" items */
-    struct passwd *userinfo;
-
     for(i=0; i < argc; i++) {
 	const char *str;
 
@@ -239,6 +236,7 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     }
 
     if(extitem) {
+	struct passwd *userinfo;
 	switch(extitem) {
 	    case EI_GROUP:
 		/* Just ignore, call pam_modutil_in_group... later */
