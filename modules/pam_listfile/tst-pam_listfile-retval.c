@@ -561,6 +561,42 @@ main(void)
 	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 	pamh = NULL;
 
+	/* item=home is listed, sense=allow */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=home file=%s sense=allow\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "%s\n", pw->pw_dir));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* item=home is listed, sense=deny */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=home file=%s sense=deny\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "%s\n", pw->pw_dir));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_AUTH_ERR, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
 	/* item is not listed, sense=allow */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
