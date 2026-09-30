@@ -105,6 +105,9 @@
           <listitem>
             <para>
 	      What is listed in the file and should be checked for.
+	      For <option>item=shell</option>, if the user's login shell
+	      field in the passwd entry is empty, it is treated
+	      as <filename>/bin/sh</filename> in accordance with POSIX.
             </para>
           </listitem>
         </varlistentry>
