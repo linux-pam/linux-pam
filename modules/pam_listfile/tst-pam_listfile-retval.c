@@ -244,6 +244,16 @@ main(void)
 	write_list("# %s\n\t # %s\n", pw->pw_name, pw->pw_name);
 	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
 
+	/* item=home is listed, sense=allow */
+	write_service_all(cwd, "item=home file=" LIST_FILE " sense=allow");
+	write_list("%s\n", pw->pw_dir);
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	/* item=home is listed, sense=deny */
+	write_service_all(cwd, "item=home file=" LIST_FILE " sense=deny");
+	write_list("%s\n", pw->pw_dir);
+	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
+
 	/* item is not listed, sense=allow */
 	write_service_all(cwd, "item=user file=" LIST_FILE " sense=allow");
 	write_list(":\n");

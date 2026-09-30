@@ -31,6 +31,7 @@
 /* Extended Items that are not directly available via pam_get_item() */
 #define EI_GROUP (1 << 0)
 #define EI_SHELL (1 << 1)
+#define EI_HOME  (1 << 2)
 
 static bool
 match_entry(pam_handle_t *pamh, int citem, int extitem,
@@ -189,6 +190,8 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 		    extitem = EI_GROUP;
 		else if(!strcmp(str,"shell"))
 		    extitem = EI_SHELL;
+		else if(!strcmp(str,"home"))
+		    extitem = EI_HOME;
 		else
 		    citem = 0;
 	    }
@@ -329,6 +332,15 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 		citemp = userinfo->pw_shell;
 		if (citemp[0] == '\0')
 		    citemp = DEFAULT_SHELL;
+		break;
+	    case EI_HOME:
+		userinfo = pam_modutil_getpwnam(pamh, citemp);
+		if (userinfo == NULL) {
+		    pam_syslog(pamh, LOG_NOTICE, "getpwnam(%s) failed",
+			     citemp);
+		    return onerr;
+		}
+		citemp = userinfo->pw_dir;
 		break;
 	    default:
 		pam_syslog(pamh,LOG_ERR,
