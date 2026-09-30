@@ -17,7 +17,7 @@
     <cmdsynopsis xml:id="pam_listfile-cmdsynopsis" sepchar=" ">
       <command>pam_listfile.so</command>
       <arg choice="plain" rep="norepeat">
-	item=[tty|user|rhost|ruser|group|shell]
+	item=[tty|user|rhost|ruser|group|shell|home]
       </arg>
       <arg choice="plain" rep="norepeat">
         sense=[allow|deny]
@@ -54,7 +54,10 @@
       name of the remote host (if any) from which the request was made,
       <emphasis>PAM_RHOST</emphasis>; and <emphasis>ruser</emphasis> specifies
       the name of the remote user (if available) who made the request,
-      <emphasis>PAM_RUSER</emphasis> -- and looks for an instance of that item
+      <emphasis>PAM_RUSER</emphasis>;
+      <emphasis>home</emphasis> specifies the user's home directory;
+      and <emphasis>group</emphasis> specifies a user's group memberships
+      -- and looks for an instance of that item
       in the <option>file=<replaceable>filename</replaceable></option>.
       <filename>filename</filename> contains one line per item listed.  If the
       item is found, then if <option>sense=allow</option>,
@@ -100,7 +103,7 @@
 
         <varlistentry>
           <term>
-            item=[tty|user|rhost|ruser|group|shell]
+            item=[tty|user|rhost|ruser|group|shell|home]
           </term>
           <listitem>
             <para>
@@ -160,7 +163,7 @@
             <para>
               Restrict the user class for which the restriction apply. Note that
               with <option>item=[user|ruser|group]</option> this does not make sense,
-              but for <option>item=[tty|rhost|shell]</option> it has a meaning.
+              but for <option>item=[tty|rhost|shell|home]</option> it has a meaning.
             </para>
           </listitem>
         </varlistentry>
