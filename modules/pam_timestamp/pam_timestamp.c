@@ -384,10 +384,10 @@ get_timestamp_name(pam_handle_t *pamh, int argc, const char **argv,
 
 /* Tell the user that access has been granted. */
 static void
-verbose_success(pam_handle_t *pamh, long diff)
+verbose_success(pam_handle_t *pamh, long long diff)
 {
 	pam_info(pamh, _("Access has been granted"
-			 " (last access was %ld seconds ago)."), diff);
+			 " (last access was %lld seconds ago)."), diff);
 }
 
 int
@@ -417,8 +417,8 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 				interval = tmp;
 				if (debug) {
 					pam_syslog(pamh, LOG_DEBUG,
-					       "setting timeout to %ld"
-					       " seconds", (long)interval);
+					       "setting timeout to %lld"
+					       " seconds", (long long)interval);
 				}
 			}
 		} else
@@ -584,19 +584,19 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 		if (timestamp_good(then, now, interval) == PAM_SUCCESS) {
 			close(fd);
 			pam_syslog(pamh, LOG_NOTICE, "timestamp file `%s' is "
-			       "only %ld seconds old, allowing access to %s "
-			       "for user %s", path, (long) (now - st.st_mtime),
+			       "only %lld seconds old, allowing access to %s "
+			       "for user %s", path, (long long)now - (long long)st.st_mtime,
 			       service, ruser);
 			if (verbose) {
-				verbose_success(pamh, now - st.st_mtime);
+				verbose_success(pamh, (long long)now - (long long)st.st_mtime);
 			}
 			return PAM_SUCCESS;
 		} else {
 			close(fd);
 			pam_syslog(pamh, LOG_NOTICE, "timestamp file `%s' has "
-			       "unacceptable age (%ld seconds), disallowing "
+			       "unacceptable age (%lld seconds), disallowing "
 			       "access to %s for user %s",
-			       path, (long) (now - st.st_mtime),
+			       path, (long long)now - (long long)st.st_mtime,
 			       service, ruser);
 			return PAM_AUTH_ERR;
 		}
