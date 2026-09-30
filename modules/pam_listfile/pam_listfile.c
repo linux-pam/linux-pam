@@ -313,6 +313,13 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 	}
     }
 
+    if (retval && ferror(inf)) {
+	pam_syslog(pamh, LOG_ERR, "Error reading %s", ifname);
+	free(aline);
+	fclose(inf);
+	return onerr;
+    }
+
     free(aline);
     fclose(inf);
     if ((sense && retval) || (!sense && !retval)) {
