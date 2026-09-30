@@ -37,6 +37,8 @@
 #define APPLY_TYPE_USER		2
 #define APPLY_TYPE_GROUP	3
 
+#define DEFAULT_SHELL "/bin/sh"
+
 static int
 pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 {
@@ -247,6 +249,8 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 		    return onerr;
 		}
 		citemp = userinfo->pw_shell;
+		if (citemp[0] == '\0')
+		    citemp = DEFAULT_SHELL;
 		break;
 	    default:
 		pam_syslog(pamh,LOG_ERR,
