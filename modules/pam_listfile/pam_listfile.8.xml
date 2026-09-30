@@ -131,7 +131,10 @@
           </term>
           <listitem>
             <para>
-              File containing one item per line. The file needs to be a plain
+              File containing one item per line.  Leading and trailing
+              whitespace on each line is ignored.  Lines starting with
+              <literal>#</literal> (optionally preceded by whitespace) are
+              treated as comments and skipped.  The file needs to be a plain
               file and not world writable.
             </para>
           </listitem>
