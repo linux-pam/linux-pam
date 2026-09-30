@@ -232,6 +232,18 @@ main(void)
 	write_list("%s\n", pw->pw_name);
 	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
 
+	/* item is listed with whitespace and comments, sense=allow */
+	write_service_all(cwd, "item=user file=" LIST_FILE " sense=allow");
+	write_list("# This is a comment\n"
+		   "\t # Indented comment\n"
+		   "  %s\t \n", pw->pw_name);
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	/* item is commented out, sense=allow */
+	write_service_all(cwd, "item=user file=" LIST_FILE " sense=allow");
+	write_list("# %s\n\t # %s\n", pw->pw_name, pw->pw_name);
+	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
+
 	/* item is not listed, sense=allow */
 	write_service_all(cwd, "item=user file=" LIST_FILE " sense=allow");
 	write_list(":\n");
