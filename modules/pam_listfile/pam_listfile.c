@@ -80,10 +80,25 @@ match_file(pam_handle_t *pamh, int citem, int extitem,
     int retval = 0;
 
     while (!found && getline(&aline, &n, inf) != -1) {
-	aline[strcspn(aline, "\r\n")] = '\0';
-	if (aline[0] == '\0')
+	const char *a;
+	char *end;
+
+	/* Strip line terminators and trailing whitespace */
+	end = aline + strcspn(aline, "\r\n");
+	while (end > aline && (end[-1] == ' ' || end[-1] == '\t'))
+	    --end;
+	*end = '\0';
+
+	/* Skip leading whitespace */
+	a = aline;
+	while (*a == ' ' || *a == '\t')
+	    ++a;
+
+	/* Skip empty lines and comments */
+	if (a[0] == '\0' || a[0] == '#')
 	    continue;
-	found = match_entry(pamh, citem, extitem, citemp, aline);
+
+	found = match_entry(pamh, citem, extitem, citemp, a);
     }
 
     if (!found && ferror(inf)) {
