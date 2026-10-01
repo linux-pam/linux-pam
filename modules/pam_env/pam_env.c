@@ -910,6 +910,7 @@ _parse_config_file(pam_handle_t *pamh, int ctrl, const char *file)
       if (PAM_SUCCESS != retval && ILLEGAL_VAR != retval
 	  && BAD_LINE != retval && PAM_BAD_ITEM != retval) break;
 
+      retval = PAM_SUCCESS;
       _clean_var(var);
 
     }  /* for */
