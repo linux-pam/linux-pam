@@ -403,6 +403,46 @@ main(void)
 	check_patterns(1);
 	check_negation(1);
 
+	/* shorthand: deny + item=user + file= */
+	write_service_all(cwd, "deny item=user file=" LIST_FILE);
+	write_list("%s\n", pw->pw_name);
+	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
+
+	/* shorthand: errok with missing item= */
+	write_service_all(cwd, "errok");
+	check_pam("", PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	/* combined form: allow + user=<name> (inline) */
+	write_service_all(cwd, "allow user=%s", pw->pw_name);
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	/* combined form: deny=<file> + user */
+	write_service_all(cwd, "user deny=%s/" LIST_FILE, cwd);
+	write_list("%s\n", pw->pw_name);
+	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
+
+	/* shorthand: errfail with missing item= */
+	write_service_all(cwd, "errfail");
+	check_pam("", PAM_SERVICE_ERR, PAM_PERM_DENIED, PAM_SERVICE_ERR);
+
+	/* shorthand: errsucceed with missing item= */
+	write_service_all(cwd, "errsucceed");
+	check_pam("", PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	/* combined form: deny=<inline_list> + user */
+	write_service_all(cwd, "user deny=%s", pw->pw_name);
+	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
+
+	/* combined form: allow=<file> + user */
+	write_service_all(cwd, "user allow=%s/" LIST_FILE, cwd);
+	write_list("%s\n", pw->pw_name);
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	/* shorthand: standalone group keyword with file= */
+	write_service_all(cwd, "group allow file=" LIST_FILE);
+	write_list("%s\n", gr->gr_name);
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
 	/* item is not listed, sense=allow */
 	write_service_all(cwd, "item=user file=" LIST_FILE " sense=allow");
 	write_list(":\n");
