@@ -5,6 +5,7 @@
  */
 
 #include "test_assert.h"
+#include "pam_inline.h"
 
 #include <errno.h>
 #include <limits.h>
@@ -92,6 +93,62 @@ write_list(const char *format, ...)
 	ASSERT_LE(0, vfprintf(fp, format, args));
 	va_end(args);
 	ASSERT_EQ(0, fclose(fp));
+}
+
+struct match_case {
+	const char *entries;
+	const char *value;
+	int matched;
+};
+
+/* Exercise real PAM configuration parsing with synthetic remote users. */
+static void
+check_file_match(const char *entries, const char *value, int matched)
+{
+	char cwd[PATH_MAX];
+
+	ASSERT_NE(NULL, getcwd(cwd, sizeof(cwd)));
+	write_list("%s\n", entries);
+
+	for (int deny = 0; deny <= 1; ++deny) {
+		int result = matched != deny ? PAM_SUCCESS : PAM_AUTH_ERR;
+
+		write_service_all(cwd, "item=ruser file=" LIST_FILE " sense=%s onerr=fail",
+				  deny ? "deny" : "allow");
+		check_pam_ruser("", value, result,
+				result == PAM_SUCCESS ? PAM_SUCCESS : PAM_PERM_DENIED,
+				result);
+	}
+}
+
+static void
+check_file_matches(const struct match_case *cases, size_t count)
+{
+	for (size_t i = 0; i < count; ++i)
+		check_file_match(cases[i].entries, cases[i].value, cases[i].matched);
+}
+
+static void
+check_file_patterns(void)
+{
+	static const struct match_case cases[] = {
+		{ "DOMAIN\\alice", "DOMAIN\\alice", 1 },
+		{ "DOMAIN\\alice", "DOMAINalice", 0 },
+		{ "DOMAIN\\*", "DOMAIN\\alice", 1 },
+		{ "DOMAIN\\*", "DOMAINalice", 0 },
+		{ "DOMAIN\\*", "DOMAIN*", 0 },
+		{ "trailing\\", "trailing\\", 1 },
+		{ "trailing\\", "trailing", 0 },
+		{ "[*]", "*", 1 },
+		{ "[?]", "?", 1 },
+		{ "[[]", "[", 1 },
+		{ "/home/*", "/home/a/b", 1 },
+		{ "*", ".hidden", 1 },
+		{ "alice", "malice", 0 },
+		{ "alice", "alices", 0 },
+	};
+
+	check_file_matches(cases, PAM_ARRAY_SIZE(cases));
 }
 
 int
@@ -254,6 +311,18 @@ main(void)
 	write_list("%s\n", pw->pw_dir);
 	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
 
+	/* item matches glob pattern, sense=allow */
+	write_service_all(cwd, "item=user file=" LIST_FILE " sense=allow");
+	write_list("%c*\n", pw->pw_name[0]);
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	/* item does not match glob pattern, sense=allow */
+	write_service_all(cwd, "item=user file=" LIST_FILE " sense=allow");
+	write_list("%s*%s\n", pw->pw_name, pw->pw_name);
+	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
+
+	check_file_patterns();
+
 	/* item is not listed, sense=allow */
 	write_service_all(cwd, "item=user file=" LIST_FILE " sense=allow");
 	write_list(":\n");
@@ -286,6 +355,11 @@ main(void)
 			     8192, " ",
 			     65536, cwd, MODULE_NAME, list_file));
 	ASSERT_EQ(0, fclose(fp));
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	/* group glob pattern match */
+	write_service_all(cwd, "item=group file=" LIST_FILE " sense=allow onerr=fail");
+	write_list("%c*\n", gr->gr_name[0]);
 	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
 
 	ASSERT_EQ(0, unlink(list_file));
