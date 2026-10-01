@@ -7,7 +7,9 @@
 
 #include "pam_modutil_private.h"
 
+#include <fnmatch.h>
 #include <stdlib.h>
+#include <string.h>
 #include <pwd.h>
 #include <grp.h>
 
@@ -146,4 +148,64 @@ pam_modutil_user_in_group_uid_gid(pam_handle_t *pamh,
 	grp = pam_modutil_getgrgid(pamh, group);
 
 	return pam_modutil_user_in_group_common(pamh, pwd, grp);
+}
+
+static int
+checkgroupname(pam_handle_t *pamh, gid_t gid, const char *pattern)
+{
+	struct group *grp;
+
+	grp = pam_modutil_getgrgid(pamh, gid);
+	if (grp == NULL)
+		return 0;
+	return fnmatch(pattern, grp->gr_name, 0) == 0;
+}
+
+#ifdef HAVE_GETGROUPLIST
+static int
+checkgrouplist_pat(pam_handle_t *pamh, const char *user, gid_t primary,
+		   const char *pattern)
+{
+	gid_t *grouplist;
+	int ngroups;
+	int found = 0;
+
+	grouplist = getgrouplist_alloc(user, primary, &ngroups);
+	if (grouplist != NULL) {
+		for (int i = 0; i < ngroups; i++) {
+			if (grouplist[i] == primary)
+				continue;
+			if (checkgroupname(pamh, grouplist[i], pattern)) {
+				found = 1;
+				break;
+			}
+		}
+		free(grouplist);
+	}
+
+	return found;
+}
+#endif
+
+int
+pam_modutil_user_in_group_nam_pat(pam_handle_t *pamh,
+				  const char *user, const char *pattern)
+{
+	struct passwd *pwd;
+
+	if (strpbrk(pattern, "*?[") == NULL)
+		return pam_modutil_user_in_group_nam_nam(pamh, user, pattern);
+
+	pwd = pam_modutil_getpwnam(pamh, user);
+	if (pwd == NULL)
+		return 0;
+
+	if (checkgroupname(pamh, pwd->pw_gid, pattern))
+		return 1;
+
+#ifdef HAVE_GETGROUPLIST
+	return checkgrouplist_pat(pamh, pwd->pw_name, pwd->pw_gid, pattern);
+#else
+	return 0;
+#endif
 }
