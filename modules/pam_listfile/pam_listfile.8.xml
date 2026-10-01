@@ -22,9 +22,14 @@
       <arg choice="plain" rep="norepeat">
         sense=[allow|deny]
       </arg>
-      <arg choice="plain" rep="norepeat">
-        file=<replaceable>/path/filename</replaceable>
-      </arg>
+      <group choice="plain" rep="norepeat">
+        <arg choice="plain" rep="norepeat">
+          file=<replaceable>/path/filename</replaceable>
+        </arg>
+        <arg choice="plain" rep="norepeat">
+          list=<replaceable>item1,item2,...</replaceable>
+        </arg>
+      </group>
       <arg choice="plain" rep="norepeat">
         onerr=[succeed|fail]
       </arg>
@@ -58,8 +63,10 @@
       <emphasis>home</emphasis> specifies the user's home directory;
       and <emphasis>group</emphasis> specifies a user's group memberships
       -- and looks for an instance of that item
-      in the <option>file=<replaceable>filename</replaceable></option>.
-      <filename>filename</filename> contains one line per item listed.  If the
+      in the <option>file=<replaceable>filename</replaceable></option>
+      (one line per item) or in the comma-separated
+      <option>list=<replaceable>item1,item2,...</replaceable></option>.
+      If the
       item is found, then if <option>sense=allow</option>,
       <emphasis>PAM_SUCCESS</emphasis> is returned, causing the authorization
       request to succeed; else if <option>sense=deny</option>,
@@ -149,6 +156,22 @@
             </para>
           </listitem>
 	</varlistentry>
+
+        <varlistentry>
+          <term>
+            list=<replaceable>item1,item2,...</replaceable>
+          </term>
+          <listitem>
+            <para>
+              A comma-separated inline list of items to match against,
+              as an alternative to <option>file=</option>.  Each item may
+              contain shell-style glob patterns and may be prefixed with
+              <literal>!</literal> to negate the match.  Only one of
+              <option>file=</option> or <option>list=</option> may be
+              specified.
+            </para>
+          </listitem>
+        </varlistentry>
 
         <varlistentry>
           <term>
