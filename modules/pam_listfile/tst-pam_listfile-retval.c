@@ -103,33 +103,44 @@ struct match_case {
 
 /* Exercise real PAM configuration parsing with synthetic remote users. */
 static void
-check_file_match(const char *entries, const char *value, int matched)
+check_match(const char *entries, const char *value, int matched, int inline_list)
 {
 	char cwd[PATH_MAX];
+	char *list = NULL;
 
 	ASSERT_NE(NULL, getcwd(cwd, sizeof(cwd)));
-	write_list("%s\n", entries);
+	if (inline_list) {
+		ASSERT_NE(NULL, list = strdup(entries));
+		for (char *p = list; *p; ++p)
+			if (*p == '\n')
+				*p = ',';
+	} else {
+		write_list("%s\n", entries);
+	}
 
 	for (int deny = 0; deny <= 1; ++deny) {
 		int result = matched != deny ? PAM_SUCCESS : PAM_AUTH_ERR;
 
-		write_service_all(cwd, "item=ruser file=" LIST_FILE " sense=%s onerr=fail",
+		write_service_all(cwd, "item=ruser %s=%s sense=%s onerr=fail",
+				  inline_list ? "list" : "file",
+				  inline_list ? list : list_file,
 				  deny ? "deny" : "allow");
 		check_pam_ruser("", value, result,
 				result == PAM_SUCCESS ? PAM_SUCCESS : PAM_PERM_DENIED,
 				result);
 	}
+	free(list);
 }
 
 static void
-check_file_matches(const struct match_case *cases, size_t count)
+check_matches(const struct match_case *cases, size_t count, int inline_list)
 {
 	for (size_t i = 0; i < count; ++i)
-		check_file_match(cases[i].entries, cases[i].value, cases[i].matched);
+		check_match(cases[i].entries, cases[i].value, cases[i].matched, inline_list);
 }
 
 static void
-check_file_patterns(void)
+check_patterns(int inline_list)
 {
 	static const struct match_case cases[] = {
 		{ "DOMAIN\\alice", "DOMAIN\\alice", 1 },
@@ -148,11 +159,11 @@ check_file_patterns(void)
 		{ "alice", "alices", 0 },
 	};
 
-	check_file_matches(cases, PAM_ARRAY_SIZE(cases));
+	check_matches(cases, PAM_ARRAY_SIZE(cases), inline_list);
 }
 
 static void
-check_file_negation(void)
+check_negation(int inline_list)
 {
 	static const struct match_case cases[] = {
 		/* Exact matches outrank globs in either order. */
@@ -186,7 +197,7 @@ check_file_negation(void)
 		{ "*\n!DOMAIN\\admin", "DOMAINadmin", 1 },
 	};
 
-	check_file_matches(cases, PAM_ARRAY_SIZE(cases));
+	check_matches(cases, PAM_ARRAY_SIZE(cases), inline_list);
 }
 
 int
@@ -359,7 +370,7 @@ main(void)
 	write_list("%s*%s\n", pw->pw_name, pw->pw_name);
 	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
 
-	check_file_patterns();
+	check_patterns(0);
 
 	/* negated item match, sense=deny: negation means not listed */
 	write_service_all(cwd, "item=user file=" LIST_FILE " sense=deny");
@@ -371,7 +382,26 @@ main(void)
 	write_list("!%s%s\n%s\n", pw->pw_name, pw->pw_name, pw->pw_name);
 	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
 
-	check_file_negation();
+	check_negation(0);
+
+	/* inline list match, sense=allow */
+	write_service_all(cwd, "item=user list=%s sense=allow", pw->pw_name);
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	/* inline list non-match, sense=allow */
+	write_service_all(cwd, "item=user list=: sense=allow");
+	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
+
+	/* inline list with negation, sense=deny */
+	write_service_all(cwd, "item=user list=!%s sense=deny", pw->pw_name);
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	/* inline list with glob pattern, sense=allow */
+	write_service_all(cwd, "item=user list=%c* sense=allow", pw->pw_name[0]);
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	check_patterns(1);
+	check_negation(1);
 
 	/* item is not listed, sense=allow */
 	write_service_all(cwd, "item=user file=" LIST_FILE " sense=allow");
