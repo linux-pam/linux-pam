@@ -16,31 +16,50 @@
 #define NGROUPS_MIN 100
 #define NGROUPS_MAX 65536
 
-static int checkgrouplist(const char *user, gid_t primary, gid_t target)
+static gid_t *
+getgrouplist_alloc(const char *user, gid_t primary, int *ngroups_out)
 {
-	int ngroups, pgroups, i;
+	gid_t *grouplist = NULL;
+	int ngroups, pgroups, i = -1;
 
 	ngroups = NGROUPS_MIN;
 	do {
-		gid_t *grouplist;
-
 		pgroups = ngroups;
+		free(grouplist);
 		grouplist = malloc(sizeof(gid_t) * ngroups);
-		if (grouplist == NULL) {
-			return 0;
-		}
+		if (grouplist == NULL)
+			return NULL;
 		i = getgrouplist(user, primary, grouplist, &ngroups);
-		if (i >= 0) {
-			for (i = 0; i < ngroups; i++) {
-				if (grouplist[i] == target) {
-					free(grouplist);
-					return 1;
-				}
+	} while (i < 0 && ngroups > 0 && ngroups != pgroups
+		 && ngroups <= NGROUPS_MAX);
+
+	if (i < 0) {
+		free(grouplist);
+		return NULL;
+	}
+	*ngroups_out = ngroups;
+	return grouplist;
+}
+
+static int
+checkgrouplist(const char *user, gid_t primary, gid_t target)
+{
+	gid_t *grouplist;
+	int ngroups;
+	int found = 0;
+
+	grouplist = getgrouplist_alloc(user, primary, &ngroups);
+	if (grouplist != NULL) {
+		for (int i = 0; i < ngroups; i++) {
+			if (grouplist[i] == target) {
+				found = 1;
+				break;
 			}
 		}
 		free(grouplist);
-	} while (i < 0 && ngroups > 0 && ngroups != pgroups && ngroups <= NGROUPS_MAX);
-	return 0;
+	}
+
+	return found;
 }
 #endif
 
