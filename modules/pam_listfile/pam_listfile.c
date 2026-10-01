@@ -68,6 +68,40 @@ match_next_entry(pam_handle_t *pamh, int citem, int extitem,
 }
 
 static int
+match_list(pam_handle_t *pamh, int citem, int extitem,
+	   const char *citemp, const char *list, bool *matched)
+{
+    char *list_copy = strdup(list);
+    if (list_copy == NULL)
+	return -1;
+
+    char *saveptr;
+    char *token;
+    bool found = false;
+    bool matched_glob = false;
+
+    for (token = strtok_r(list_copy, ",", &saveptr);
+	 token != NULL;
+	 token = strtok_r(NULL, ",", &saveptr)) {
+	bool negate = false;
+	if (*token == '!') {
+	    negate = true;
+	    ++token;
+	}
+	if (*token == '\0')
+	    continue;
+
+	if (match_next_entry(pamh, citem, extitem, citemp, token, negate,
+			     &matched_glob, &found))
+	    break;
+    }
+
+    free(list_copy);
+    *matched = found;
+    return 0;
+}
+
+static int
 match_file(pam_handle_t *pamh, int citem, int extitem,
 	   const char *citemp, const char *ifname, int onerr, bool quiet,
 	   bool *matched)
@@ -164,6 +198,7 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     int extitem = 0;
     int sense = -1;
     bool quiet = false;
+    bool is_inline_list = false;
     const void *void_citemp;
     const char *citemp;
     const char *ifname=NULL;
@@ -208,6 +243,10 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 	    }
 	} else if ((str = pam_str_skip_prefix(argv[i], "file=")) != NULL) {
 	    ifname = str;
+	    is_inline_list = false;
+	} else if ((str = pam_str_skip_prefix(argv[i], "list=")) != NULL) {
+	    ifname = str;
+	    is_inline_list = true;
 	} else if ((str = pam_str_skip_prefix(argv[i], "item=")) != NULL) {
 	    if(!strcmp(str,"user"))
 		citem = PAM_USER;
@@ -254,7 +293,7 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     }
 
     if (!ifname) {
-	pam_syslog(pamh,LOG_ERR, "List filename not specified");
+	pam_syslog(pamh,LOG_ERR, "No file= or list= specified");
 	if (retval == -1)
 	    retval = onerr;
     }
@@ -387,15 +426,23 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 #ifdef PAM_DEBUG
     pam_syslog(pamh,LOG_INFO,
 
-	     "Got file = %s, item = %d, value = %s, sense = %d",
+	     "Got %s = %s, item = %d, value = %s, sense = %d",
+	     is_inline_list ? "list" : "file",
 	     ifname, citem, citemp, sense);
 #endif
-    retval = match_file(pamh, citem, extitem, citemp,
-			ifname, onerr, quiet, &matched);
-    if (retval == -1)
-	return onerr;
-    if (retval)
-	return retval;
+    if (is_inline_list) {
+	retval = match_list(pamh, citem, extitem, citemp,
+			    ifname, &matched);
+	if (retval)
+	    return onerr;
+    } else {
+	retval = match_file(pamh, citem, extitem, citemp,
+			    ifname, onerr, quiet, &matched);
+	if (retval == -1)
+	    return onerr;
+	if (retval)
+	    return retval;
+    }
 
     if (sense != matched) {
 #ifdef PAM_DEBUG
@@ -414,10 +461,17 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 	(void) pam_get_item(pamh, PAM_SERVICE, &service);
 	(void) pam_get_user(pamh, &user_name, NULL);
 	if (!quiet) {
-	    pam_syslog(pamh, LOG_NOTICE,
-		       "Refused user %s for service %s: %s in %s",
-		       user_name, (const char *) service,
-		       sense ? "listed" : "not listed", ifname);
+	    if (is_inline_list)
+		pam_syslog(pamh, LOG_NOTICE,
+			   "Refused user %s for service %s: %s in %s list",
+			   user_name, (const char *) service,
+			   sense ? "listed" : "not listed",
+			   sense ? "deny" : "allow");
+	    else
+		pam_syslog(pamh, LOG_NOTICE,
+			   "Refused user %s for service %s: %s in %s",
+			   user_name, (const char *) service,
+			   sense ? "listed" : "not listed", ifname);
 	}
 	return PAM_AUTH_ERR;
     }
