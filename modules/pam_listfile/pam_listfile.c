@@ -79,6 +79,7 @@ match_file(pam_handle_t *pamh, int citem, int extitem,
     char *aline = NULL;
     size_t n = 0;
     bool found = false;
+    bool negate = false;
     int retval = 0;
 
     while (!found && getline(&aline, &n, inf) != -1) {
@@ -100,8 +101,21 @@ match_file(pam_handle_t *pamh, int citem, int extitem,
 	if (a[0] == '\0' || a[0] == '#')
 	    continue;
 
+	/* Check for negation */
+	negate = false;
+	if (*a == '!') {
+	    negate = true;
+	    ++a;
+	    while (*a == ' ' || *a == '\t')
+		++a;
+	    if (*a == '\0')
+		continue;
+	}
+
 	found = match_entry(pamh, citem, extitem, citemp, a);
     }
+    if (found && negate)
+	found = false;
 
     if (!found && ferror(inf)) {
 	pam_syslog(pamh, LOG_ERR, "Error reading %s", ifname);
