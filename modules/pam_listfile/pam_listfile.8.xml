@@ -137,8 +137,12 @@
               File containing one item per line.  Leading and trailing
               whitespace on each line is ignored.  Lines starting with
               <literal>#</literal> (optionally preceded by whitespace) are
-              treated as comments and skipped.  The file needs to be a plain
-              file and not world writable.
+              treated as comments and skipped.  Each entry may contain
+              shell-style glob patterns (<literal>*</literal>,
+              <literal>?</literal>, <literal>[...]</literal>) for matching;
+              see <citerefentry><refentrytitle>fnmatch</refentrytitle>
+              <manvolnum>3</manvolnum></citerefentry>.
+              The file needs to be a plain file and not world writable.
             </para>
           </listitem>
 	</varlistentry>
@@ -291,6 +295,9 @@ auth    required       pam_listfile.so \
       </citerefentry>,
       <citerefentry>
 	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>fnmatch</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>
     </para>
   </refsect1>

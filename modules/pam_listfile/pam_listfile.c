@@ -18,6 +18,7 @@
 #include <string.h>
 #include <pwd.h>
 #include <grp.h>
+#include <fnmatch.h>
 #include <stdbool.h>
 
 #include <security/pam_modules.h>
@@ -43,8 +44,8 @@ match_entry(pam_handle_t *pamh, int citem, int extitem,
 	    entry = str;
     }
     if (extitem == EI_GROUP)
-	return pam_modutil_user_in_group_nam_nam(pamh, citemp, entry);
-    return strcmp(entry, citemp) == 0;
+	return pam_modutil_user_in_group_nam_pat(pamh, citemp, entry);
+    return fnmatch(entry, citemp, 0) == 0;
 }
 
 static int
