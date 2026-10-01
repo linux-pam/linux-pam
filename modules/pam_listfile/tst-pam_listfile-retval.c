@@ -151,6 +151,44 @@ check_file_patterns(void)
 	check_file_matches(cases, PAM_ARRAY_SIZE(cases));
 }
 
+static void
+check_file_negation(void)
+{
+	static const struct match_case cases[] = {
+		/* Exact matches outrank globs in either order. */
+		{ "ftp*\n!ftpadmin", "ftpadmin", 0 },
+		{ "!ftpadmin\nftp*", "ftpadmin", 0 },
+		{ "!ftp*\nftpadmin", "ftpadmin", 1 },
+		{ "ftpadmin\n!ftp*", "ftpadmin", 1 },
+		/* Within each priority level, the first match wins. */
+		{ "ftpadmin\n!ftpadmin", "ftpadmin", 1 },
+		{ "!ftpadmin\nftpadmin", "ftpadmin", 0 },
+		{ "ftp*\n!ftp?*", "ftpadmin", 1 },
+		{ "!ftp?*\nftp*", "ftpadmin", 0 },
+		{ "!ftp?*\nftp*\nftpadmin", "ftpadmin", 1 },
+		{ "ftp*\n!ftp?*\n!ftpadmin", "ftpadmin", 0 },
+		{ "ftp*\n!ftpadmin\nftpadmin", "ftpadmin", 0 },
+		{ "!ftp*\nftpadmin\n!ftpadmin", "ftpadmin", 1 },
+		/* Bracket expressions remain globs, even for a single literal. */
+		{ "ftp*\n![f]tpadmin", "ftpadmin", 1 },
+		{ "![f]tpadmin\nftp*", "ftpadmin", 0 },
+		{ "![f]tpadmin\nftpadmin", "ftpadmin", 1 },
+		{ "[f]tpadmin\n!ftpadmin", "ftpadmin", 0 },
+		{ "ftp*\n!ftpadmin", "ftpuser", 1 },
+		{ "!ftpadmin", "ftpuser", 0 },
+		{ "ftp*\n!ftpadmin", "other", 0 },
+		{ "ftp*\n!other", "ftpadmin", 1 },
+		{ "ftp*\n!ftp*", "ftpuser", 1 },
+		{ "DOMAIN\\*\n!DOMAIN\\admin", "DOMAIN\\admin", 0 },
+		{ "!DOMAIN\\admin\nDOMAIN\\*", "DOMAIN\\admin", 0 },
+		{ "DOMAIN\\*\n!DOMAIN\\admin", "DOMAIN\\alice", 1 },
+		{ "!DOMAIN\\*\nDOMAIN\\admin", "DOMAIN\\admin", 1 },
+		{ "*\n!DOMAIN\\admin", "DOMAINadmin", 1 },
+	};
+
+	check_file_matches(cases, PAM_ARRAY_SIZE(cases));
+}
+
 int
 main(void)
 {
@@ -322,6 +360,18 @@ main(void)
 	check_pam(pw->pw_name, PAM_AUTH_ERR, PAM_PERM_DENIED, PAM_AUTH_ERR);
 
 	check_file_patterns();
+
+	/* negated item match, sense=deny: negation means not listed */
+	write_service_all(cwd, "item=user file=" LIST_FILE " sense=deny");
+	write_list("!%s\n", pw->pw_name);
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	/* negated non-matching entry does not affect result */
+	write_service_all(cwd, "item=user file=" LIST_FILE " sense=allow");
+	write_list("!%s%s\n%s\n", pw->pw_name, pw->pw_name, pw->pw_name);
+	check_pam(pw->pw_name, PAM_SUCCESS, PAM_SUCCESS, PAM_SUCCESS);
+
+	check_file_negation();
 
 	/* item is not listed, sense=allow */
 	write_service_all(cwd, "item=user file=" LIST_FILE " sense=allow");

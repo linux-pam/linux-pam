@@ -147,6 +147,15 @@
               Wildcards can match slashes and leading dots;
               see <citerefentry><refentrytitle>fnmatch</refentrytitle>
               <manvolnum>3</manvolnum></citerefentry>.
+              Entries prefixed with <literal>!</literal> negate the match:
+              if the winning entry is negated, the item is treated as not
+              listed.  Exact matches take precedence over glob matches;
+              among matches of equal priority, the first entry wins.
+              An entry is exact if, after removing any negation prefix,
+              it contains none of <literal>*</literal>,
+              <literal>?</literal>, or <literal>[</literal>.
+              Bracket expressions are glob patterns even when they match
+              a single literal character.
               The file needs to be a plain file and not world writable.
             </para>
           </listitem>

@@ -48,6 +48,25 @@ match_entry(pam_handle_t *pamh, int citem, int extitem,
     return fnmatch(entry, citemp, FNM_NOESCAPE) == 0;
 }
 
+/* Keep the first matching glob result; an exact match is final. */
+static bool
+match_next_entry(pam_handle_t *pamh, int citem, int extitem,
+		 const char *citemp, const char *entry, bool negate,
+		 bool *matched_glob, bool *matched)
+{
+    bool glob = strpbrk(entry, "*?[") != NULL;
+
+    if (glob && *matched_glob)
+	return false;
+    if (!match_entry(pamh, citem, extitem, citemp, entry))
+	return false;
+
+    *matched = !negate;
+    if (glob)
+	*matched_glob = true;
+    return !glob;
+}
+
 static int
 match_file(pam_handle_t *pamh, int citem, int extitem,
 	   const char *citemp, const char *ifname, int onerr, bool quiet,
@@ -79,11 +98,13 @@ match_file(pam_handle_t *pamh, int citem, int extitem,
     char *aline = NULL;
     size_t n = 0;
     bool found = false;
+    bool matched_glob = false;
     int retval = 0;
 
-    while (!found && getline(&aline, &n, inf) != -1) {
+    while (getline(&aline, &n, inf) != -1) {
 	const char *a;
 	char *end;
+	bool negate = false;
 
 	/* Strip line terminators and trailing whitespace */
 	end = aline + strcspn(aline, "\r\n");
@@ -100,10 +121,22 @@ match_file(pam_handle_t *pamh, int citem, int extitem,
 	if (a[0] == '\0' || a[0] == '#')
 	    continue;
 
-	found = match_entry(pamh, citem, extitem, citemp, a);
+	/* Check for negation */
+	if (*a == '!') {
+	    negate = true;
+	    ++a;
+	    while (*a == ' ' || *a == '\t')
+		++a;
+	    if (*a == '\0')
+		continue;
+	}
+
+	if (match_next_entry(pamh, citem, extitem, citemp, a, negate,
+			     &matched_glob, &found))
+	    break;
     }
 
-    if (!found && ferror(inf)) {
+    if (ferror(inf)) {
 	pam_syslog(pamh, LOG_ERR, "Error reading %s", ifname);
 	retval = -1;
     }
