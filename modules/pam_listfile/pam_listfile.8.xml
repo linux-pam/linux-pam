@@ -142,6 +142,9 @@
               <literal>?</literal>, <literal>[...]</literal>) for matching;
               see <citerefentry><refentrytitle>fnmatch</refentrytitle>
               <manvolnum>3</manvolnum></citerefentry>.
+              Entries prefixed with <literal>!</literal> negate the match:
+              if the item matches a negated entry, it is treated as not
+              listed regardless of other entries in the file.
               The file needs to be a plain file and not world writable.
             </para>
           </listitem>
