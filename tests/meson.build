@@ -16,6 +16,7 @@ foreach name: ['dlopen',
                'pam_get_data',
                'pam_set_data',
                'pam_mkargv',
+               'pam_modutil_ingroup',
                'pam_start_confdir',
               ]
   tst_deps = [libpam_internal_dep, libpam_dep]
