@@ -190,9 +190,56 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     for(int i=0; i < argc; i++) {
 	const char *str;
 
-	/* option quiet has no value */
+	/* options without '=' */
 	if(!strcmp(argv[i],"quiet")) {
 	    quiet = true;
+	    continue;
+	}
+	if(!strcmp(argv[i],"errok") || !strcmp(argv[i],"errsucceed")) {
+	    onerr = PAM_SUCCESS;
+	    continue;
+	}
+	if(!strcmp(argv[i],"errfail")) {
+	    onerr = PAM_SERVICE_ERR;
+	    continue;
+	}
+	if(!strcmp(argv[i],"allow")) {
+	    sense = 0;
+	    continue;
+	}
+	if(!strcmp(argv[i],"deny")) {
+	    sense = 1;
+	    continue;
+	}
+	if(!strcmp(argv[i],"user")) {
+	    citem = PAM_USER;
+	    continue;
+	}
+	if(!strcmp(argv[i],"tty")) {
+	    citem = PAM_TTY;
+	    continue;
+	}
+	if(!strcmp(argv[i],"rhost")) {
+	    citem = PAM_RHOST;
+	    continue;
+	}
+	if(!strcmp(argv[i],"ruser")) {
+	    citem = PAM_RUSER;
+	    continue;
+	}
+	if(!strcmp(argv[i],"group")) {
+	    citem = PAM_USER;
+	    extitem = EI_GROUP;
+	    continue;
+	}
+	if(!strcmp(argv[i],"shell")) {
+	    citem = PAM_USER;
+	    extitem = EI_SHELL;
+	    continue;
+	}
+	if(!strcmp(argv[i],"home")) {
+	    citem = PAM_USER;
+	    extitem = EI_HOME;
 	    continue;
 	}
 
@@ -258,6 +305,45 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 		apply_type=APPLY_TYPE_USER;
 		apply_val = str;
 	    }
+	} else if ((str = pam_str_skip_prefix(argv[i], "allow=")) != NULL) {
+	    sense = 0;
+	    ifname = str;
+	    is_inline_list = (str[0] != '/');
+	} else if ((str = pam_str_skip_prefix(argv[i], "deny=")) != NULL) {
+	    sense = 1;
+	    ifname = str;
+	    is_inline_list = (str[0] != '/');
+	} else if ((str = pam_str_skip_prefix(argv[i], "user=")) != NULL) {
+	    citem = PAM_USER;
+	    ifname = str;
+	    is_inline_list = (str[0] != '/');
+	} else if ((str = pam_str_skip_prefix(argv[i], "tty=")) != NULL) {
+	    citem = PAM_TTY;
+	    ifname = str;
+	    is_inline_list = (str[0] != '/');
+	} else if ((str = pam_str_skip_prefix(argv[i], "rhost=")) != NULL) {
+	    citem = PAM_RHOST;
+	    ifname = str;
+	    is_inline_list = (str[0] != '/');
+	} else if ((str = pam_str_skip_prefix(argv[i], "ruser=")) != NULL) {
+	    citem = PAM_RUSER;
+	    ifname = str;
+	    is_inline_list = (str[0] != '/');
+	} else if ((str = pam_str_skip_prefix(argv[i], "group=")) != NULL) {
+	    citem = PAM_USER;
+	    extitem = EI_GROUP;
+	    ifname = str;
+	    is_inline_list = (str[0] != '/');
+	} else if ((str = pam_str_skip_prefix(argv[i], "shell=")) != NULL) {
+	    citem = PAM_USER;
+	    extitem = EI_SHELL;
+	    ifname = str;
+	    is_inline_list = (str[0] != '/');
+	} else if ((str = pam_str_skip_prefix(argv[i], "home=")) != NULL) {
+	    citem = PAM_USER;
+	    extitem = EI_HOME;
+	    ifname = str;
+	    is_inline_list = (str[0] != '/');
 	} else {
 	    pam_syslog(pamh,LOG_ERR, "Unknown option: %s",argv[i]);
 	    if (retval == -1)

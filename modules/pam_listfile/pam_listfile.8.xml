@@ -209,8 +209,71 @@
             </para>
           </listitem>
         </varlistentry>
+
       </variablelist>
 
+    </para>
+    <para>
+      The following shorthand forms are also accepted:
+    </para>
+    <para>
+      <variablelist>
+
+        <varlistentry>
+          <term>allow, deny</term>
+          <listitem><para>
+            Equivalent to <option>sense=allow</option> and
+            <option>sense=deny</option>.
+          </para></listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>errok, errsucceed, errfail</term>
+          <listitem><para>
+            Equivalent to <option>onerr=succeed</option>
+            (<option>errok</option>, <option>errsucceed</option>)
+            and <option>onerr=fail</option> (<option>errfail</option>).
+          </para></listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>user, tty, rhost, ruser, group, shell, home</term>
+          <listitem><para>
+            Equivalent to <option>item=</option> with the corresponding
+            value.
+          </para></listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            allow=<replaceable>list</replaceable>,
+            deny=<replaceable>list</replaceable>
+          </term>
+          <listitem><para>
+            Set the sense and provide a list or file path in one option.
+            If the value starts with <literal>/</literal>, it is treated
+            as a file path; otherwise as an inline comma-separated list.
+          </para></listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            user=<replaceable>list</replaceable>,
+            tty=<replaceable>list</replaceable>,
+            rhost=<replaceable>list</replaceable>,
+            ruser=<replaceable>list</replaceable>,
+            group=<replaceable>list</replaceable>,
+            shell=<replaceable>list</replaceable>,
+            home=<replaceable>list</replaceable>
+          </term>
+          <listitem><para>
+            Set the item and provide a list or file path in one option.
+            If the value starts with <literal>/</literal>, it is treated
+            as a file path; otherwise as an inline comma-separated list.
+          </para></listitem>
+        </varlistentry>
+
+      </variablelist>
     </para>
   </refsect1>
 
