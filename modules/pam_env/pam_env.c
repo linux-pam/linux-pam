@@ -62,7 +62,6 @@ typedef struct var {
 
 #define DEFINE_VAR   101
 #define UNDEFINE_VAR 102
-#define ILLEGAL_VAR  103
 
 struct string_buffer {
   char *str;
@@ -907,7 +906,7 @@ _parse_config_file(pam_handle_t *pamh, int ctrl, const char *file)
 	  retval = _undefine_var(pamh, ctrl, var);
 	}
       }
-      if (PAM_SUCCESS != retval && ILLEGAL_VAR != retval
+      if (PAM_SUCCESS != retval
 	  && BAD_LINE != retval && PAM_BAD_ITEM != retval) break;
 
       retval = PAM_SUCCESS;
