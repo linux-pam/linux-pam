@@ -31,6 +31,12 @@
       <arg choice="opt" rep="norepeat">
         skel=<replaceable>skeldir</replaceable>
       </arg>
+      <arg choice="opt" rep="norepeat">
+        parent=<replaceable>parentdir</replaceable>
+      </arg>
+      <arg choice="opt" rep="norepeat">
+        override_home
+      </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -119,6 +125,33 @@
         </listitem>
       </varlistentry>
 
+      <varlistentry>
+        <term>
+          <option>parent=<replaceable>/path/to/parent/directory</replaceable></option>
+        </term>
+        <listitem>
+          <para>
+            Specify an alternative parent directory where home directories
+            will be created. When this option is used, the home directory
+            will be created as <filename><replaceable>parent</replaceable>/<replaceable>username</replaceable></filename>
+            instead of using the home directory from the user's password entry.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>
+          <option>override_home</option>
+        </term>
+        <listitem>
+          <para>
+            When this option is set, the module will set the HOME environment
+            variable to the location of the directory that the module manages.
+            This is useful when the home directory created by the module should
+            become the effective home directory for the session.
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
   </refsect1>
 
@@ -196,6 +229,20 @@
   session    required    pam_unix.so
   session    optional    pam_lastlog.so
   session    optional    pam_mail.so standard
+      </programlisting>
+    </para>
+
+    <para>
+      An example using the parent option to create home directories under /home/users:
+      <programlisting>
+  session    required    pam_mkhomedir.so parent=/home/users skel=/etc/skel/ umask=0022
+      </programlisting>
+    </para>
+
+    <para>
+      An example using the override_home option to set the HOME environment variable:
+      <programlisting>
+  session    required    pam_mkhomedir.so parent=/home/users override_home skel=/etc/skel/ umask=0022
       </programlisting>
     </para>
   </refsect1>

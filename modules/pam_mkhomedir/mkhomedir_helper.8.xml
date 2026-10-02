@@ -28,6 +28,9 @@
         <replaceable>path-to-vendor-skel</replaceable>
       </arg>
       </arg>
+      <arg choice="opt" rep="norepeat">
+        <replaceable>target-dir</replaceable>
+      </arg>
       </arg>
       </arg>
     </cmdsynopsis>
@@ -48,7 +51,9 @@
       default value of <replaceable>path-to-skel</replaceable> is
       <emphasis>/etc/skel</emphasis>. The default value of
       <replaceable>home_mode</replaceable> is computed from the value of
-      <replaceable>umask</replaceable>.
+      <replaceable>umask</replaceable>.   If <replaceable>target-dir</replaceable>
+      is not specified, the home directory location from the user's password
+      entry is used.
     </para>
 
     <para>
