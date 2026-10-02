@@ -25,6 +25,7 @@ static const char service_file[] = TEST_NAME ".service";
 static const char missing_file[] = TEST_NAME ".missing";
 static const char my_conf[] = TEST_NAME ".conf";
 static const char my_env[] = TEST_NAME ".env";
+static const char bad_conf[] = TEST_NAME ".bad.conf";
 #ifdef VENDORDIR
 static const char dir_usr_etc_security[] = TEST_NAME_DIR VENDOR_SCONFIG_DIR;
 static const char usr_env[] = TEST_NAME_DIR VENDORDIR "/environment";
@@ -76,6 +77,12 @@ setup(void)
 			     "USER}\\\\name\n"));
 	ASSERT_EQ(0, fclose(fp));
 
+	ASSERT_NE(NULL, fp = fopen(bad_conf, "w"));
+	ASSERT_LT(0, fprintf(fp,
+			     "GOOD_VAR\tDEFAULT=good\n"
+			     "BAD_VAR\tBADOPTION=bad\n"));
+	ASSERT_EQ(0, fclose(fp));
+
 	ASSERT_NE(NULL, fp = fopen(my_env, "w"));
 	ASSERT_LT(0, fprintf(fp,
 			     "test_value=foo\n"
@@ -103,6 +110,7 @@ static void
 cleanup(void)
 {
 	ASSERT_EQ(0, unlink(my_conf));
+	ASSERT_EQ(0, unlink(bad_conf));
 	ASSERT_EQ(0, unlink(my_env));
 #ifdef VENDORDIR
 	ASSERT_EQ(0, unlink(usr_env));
@@ -251,6 +259,21 @@ main(void)
 
 	const char *env2[] = { "test_value=foo", "test2_value=bar", NULL };
 	check_env(env2);
+
+	/*
+	 * conffile= specifies a file whose last line is malformed,
+	 * preceded by a valid line.  This must not cause PAM_ABORT.
+	 */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "session required %s/" LTDIR "%s.so"
+			     " conffile=%s/%s envfile=%s\n",
+			     cwd, MODULE_NAME,
+			     cwd, bad_conf, "/dev/null"));
+	ASSERT_EQ(0, fclose(fp));
+
+	const char *env3a[] = { "GOOD_VAR=good", NULL };
+	check_env(env3a);
 
 #if defined (USE_ECONF) && defined (VENDORDIR)
 
