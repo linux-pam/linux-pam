@@ -34,6 +34,9 @@
         stdout
       </arg>
       <arg choice="opt" rep="norepeat">
+        interactive
+      </arg>
+      <arg choice="opt" rep="norepeat">
         log=<replaceable>file</replaceable>
       </arg>
       <arg choice="opt" rep="norepeat">
@@ -144,7 +147,34 @@
               Per default the output of the executed command is written to <filename>/dev/null</filename>. With this option, the stdout output of the executed command is redirected to the calling application. It's in the responsibility of this application what happens with the output. The <option>log</option> option is ignored.
             </para>
           </listitem>
-       </varlistentry>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            interactive
+          </term>
+          <listitem>
+            <para>
+              Works only with <option>auth</option> type
+              and requires <option>stdout</option> option set.
+              This option is ignored if <option>expose_authtok</option>
+              option is set.
+              This option can be used if one wants to implement
+              a challenge-response kind of authentication.
+              Normally the executed command perfoms auhtentication
+              given only the password, environment and additional means, but
+              not being able to interact with the user over the console.
+              With <option>interactive</option> and <option>stdout</option>
+              options set, the executed command is able to show messages
+              to the user and also to request single line responses,
+              which it can read on its stdin.
+              If the executed command outputs a line beginning with "&lt;&lt;",
+              the rest of the line is used as a prompt to the user
+              and the user is requested to input the response.
+              The executed command can request the reponse several times.
+            </para>
+          </listitem>
+        </varlistentry>
 
         <varlistentry>
           <term>
