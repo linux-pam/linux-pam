@@ -15,7 +15,6 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <syslog.h>
-#include <stdarg.h>
 #include <string.h>
 #include <pwd.h>
 #include <grp.h>
@@ -42,8 +41,6 @@
 #define APPLY_TYPE_USER		2
 #define APPLY_TYPE_GROUP	3
 
-#define LESSER(a, b) ((a) < (b) ? (a) : (b))
-
 static int
 pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 {
@@ -53,24 +50,17 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
     int extitem = 0;
     int sense = -1;
     int quiet = 0;
-    int i;
     const void *void_citemp;
     const char *citemp;
     const char *ifname=NULL;
     char *aline=NULL;
-    const char *apply_val;
+    const char *apply_val = "";
     struct stat fileinfo;
     FILE *inf;
-    int apply_type;
+    int apply_type = APPLY_TYPE_NULL;
     size_t n=0;
 
-    /* Stuff for "extended" items */
-    struct passwd *userinfo;
-
-    apply_type=APPLY_TYPE_NULL;
-    apply_val = "";
-
-    for(i=0; i < argc; i++) {
+    for(int i=0; i < argc; i++) {
 	const char *str;
 
 	/* option quiet has no value */
@@ -181,7 +171,7 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 		      "Non-sense use for apply= parameter");
 	    apply_type=APPLY_TYPE_NULL;
 	}
-	if(extitem && (extitem==EI_GROUP)) {
+	if(extitem == EI_GROUP) {
 	    pam_syslog(pamh,LOG_WARNING,
 		      "Non-sense use for apply= parameter");
 	    apply_type=APPLY_TYPE_NULL;
@@ -239,12 +229,13 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
             citemp = str;
     }
 
-    if(!citemp || (strlen(citemp) == 0)) {
+    if(!citemp || citemp[0] == '\0') {
 	/* The item was NULL - we are sure not to match */
 	return sense?PAM_SUCCESS:PAM_AUTH_ERR;
     }
 
     if(extitem) {
+	struct passwd *userinfo;
 	switch(extitem) {
 	    case EI_GROUP:
 		/* Just ignore, call pam_modutil_in_group... later */
