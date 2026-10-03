@@ -344,9 +344,12 @@ pam_listfile(pam_handle_t *pamh, int argc, const char **argv)
 #endif
 	(void) pam_get_item(pamh, PAM_SERVICE, &service);
 	(void) pam_get_user(pamh, &user_name, NULL);
-	if (!quiet)
-	    pam_syslog (pamh, LOG_NOTICE, "Refused user %s for service %s",
-	                user_name, (const char *)service);
+	if (!quiet) {
+	    pam_syslog(pamh, LOG_NOTICE,
+		       "Refused user %s for service %s: %s in %s",
+		       user_name, (const char *) service,
+		       sense ? "listed" : "not listed", ifname);
+	}
 	return PAM_AUTH_ERR;
     }
 }
