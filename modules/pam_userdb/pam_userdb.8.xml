@@ -41,7 +41,7 @@
         unknown_ok
       </arg>
       <arg choice="opt" rep="norepeat">
-        key_only
+        key_only[=<replaceable>separator</replaceable>]
       </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
@@ -172,17 +172,31 @@
       </varlistentry>
       <varlistentry>
         <term>
-          key_only
+          key_only[=<replaceable>separator</replaceable>]
         </term>
         <listitem>
           <para>
             The username and password are concatenated together
-            in the database hash as 'username-password' with a
-            random value.  if the concatenation of the username and
-            password with a dash in the middle returns any result,
-            the user is valid.  this is useful in cases where
+            in the database hash as
+            'username<replaceable>separator</replaceable>password' with a
+            random value.  If the concatenation of the username and
+            password with the separator in the middle returns any result,
+            the user is valid.  This is useful in cases where
             the username may not be unique but the username and
             password pair are.
+          </para>
+          <para>
+            When no <replaceable>separator</replaceable> is given,
+            <option>-</option> (dash) is used for backward
+            compatibility.  When a single-character
+            <replaceable>separator</replaceable> is specified
+            explicitly (e.g. <option>key_only=:</option>), the module
+            rejects any username that contains the separator character,
+            preventing ambiguous database keys.  Using
+            <option>key_only=:</option> is recommended because
+            <option>:</option> is already excluded from POSIX
+            usernames.  Using <option>key_only=-</option> applies
+            the same guard with the traditional dash separator.
           </para>
         </listitem>
       </varlistentry>
