@@ -14,6 +14,7 @@
 #define PAM_KEY_ONLY_ARG	0x0020
 #define PAM_USE_FPASS_ARG	0x0040
 #define PAM_TRY_FPASS_ARG	0x0080
+#define PAM_KEY_ONLY_EXPLICIT_ARG 0x0100
 
 /* The name of the module we are compiling */
 #ifndef MODULE_NAME
