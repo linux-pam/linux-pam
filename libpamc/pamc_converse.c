@@ -163,6 +163,11 @@ int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
     D(("agent replied with prompt of size %d and control %u",
        size, control));
 
+    if (size < PAM_BP_MIN_SIZE || size > PAM_BP_MAX_LENGTH) {
+	D(("agent reply size is invalid (%u)", size));
+	goto pamc_unknown_prompt;
+    }
+
     PAM_BP_RENEW(prompt_p, control, size - PAM_BP_MIN_SIZE);
     if (*prompt_p == NULL) {
 	D(("problem making a new prompt for reply"));
