@@ -434,7 +434,7 @@ msgstr ""
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
+msgid "Access has been granted (last access was %lld seconds ago)."
 msgstr ""
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255

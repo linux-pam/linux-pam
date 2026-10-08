@@ -442,8 +442,8 @@ msgstr "ଲଗଇନ: fork କରିବାରେ ବିଫଳ: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "ପ୍ରବେଶ ଗ୍ରହଣୀୟ ହୋଇଛି (ପୂର୍ବ ପ୍ରବେଶ ହୋଇଥିଲା %ld ସେକଣ୍ଡ ପୂର୍ବରୁ)।"
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "ପ୍ରବେଶ ଗ୍ରହଣୀୟ ହୋଇଛି (ପୂର୍ବ ପ୍ରବେଶ ହୋଇଥିଲା %lld ସେକଣ୍ଡ ପୂର୍ବରୁ)।"
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."

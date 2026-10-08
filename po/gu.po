@@ -444,8 +444,8 @@ msgstr "પ્રવેશ: ફોર્કમાં નિષ્ફળ: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, fuzzy, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "પ્રવેશની મંજૂરી આપેલ છે (છેલ્લો પ્રવેશ એ %ld સેકંડો પહેલા હતો)."
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "પ્રવેશની મંજૂરી આપેલ છે (છેલ્લો પ્રવેશ એ %lld સેકંડો પહેલા હતો)."
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 #, fuzzy

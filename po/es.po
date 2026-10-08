@@ -457,8 +457,8 @@ msgstr "inicio de sesión: error en horquilla: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Acceso ha sido permitido (último acceso fue hace %ld segundos)."
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "Acceso ha sido permitido (último acceso fue hace %lld segundos)."
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."

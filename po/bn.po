@@ -449,8 +449,8 @@ msgstr "লগ-ইন: fork করতে ব্যর্থ: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, fuzzy, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "প্রবেশাধিকার প্রদান করা হয়েছে (%ld পূর্বে সর্বশেষ লগ-ইন করা হয়েছে)।"
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "প্রবেশাধিকার প্রদান করা হয়েছে (%lld পূর্বে সর্বশেষ লগ-ইন করা হয়েছে)।"
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 #, fuzzy

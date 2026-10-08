@@ -441,8 +441,8 @@ msgstr "login: ഫോര്‍ക്ക് ചെയ്യുന്നതില�
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, fuzzy, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "അനുവാദം നല്‍കിയിരിക്കുന്നു (ഒടുവില്‍ പ്രവേശിച്ചതു് %ld സെക്കന്‍ഡുകള്‍ക്കു് മുമ്പാണു്)."
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "അനുവാദം നല്‍കിയിരിക്കുന്നു (ഒടുവില്‍ പ്രവേശിച്ചതു് %lld സെക്കന്‍ഡുകള്‍ക്കു് മുമ്പാണു്)."
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 #, fuzzy

@@ -439,8 +439,8 @@ msgstr "登入：失敗的分叉：%m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "已賦予存取權限（最後一次存取為 %ld 秒前）。"
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "已賦予存取權限（最後一次存取為 %lld 秒前）。"
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."

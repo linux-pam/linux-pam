@@ -440,8 +440,8 @@ msgstr "log masuk: kegagalan fork: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Akses telah diberikan (akses terkahir %ld detik yang lalu)."
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "Akses telah diberikan (akses terkahir %lld detik yang lalu)."
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."

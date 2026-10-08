@@ -444,8 +444,8 @@ msgstr "login: feil under forgreining: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Tilgang innvilga (siste tilgang var for %ld sekund sidan)."
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "Tilgang innvilga (siste tilgang var for %lld sekund sidan)."
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."

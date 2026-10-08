@@ -448,8 +448,8 @@ msgstr "登录：派生失败：%m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "访问已被准许（上次访问是 %ld 秒之前）。"
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "访问已被准许（上次访问是 %lld 秒之前）。"
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."

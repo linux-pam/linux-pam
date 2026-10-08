@@ -452,8 +452,8 @@ msgstr "início de sessão: falha no 'forking': %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Acesso permitido (último acesso foi à %ld segundos atrás)."
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "Acesso permitido (último acesso foi à %lld segundos atrás)."
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."

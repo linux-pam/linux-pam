@@ -446,8 +446,8 @@ msgstr "вход: неуспех при стартиране: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "Достъпът е предоставен (последният достъп бе преди %ld секунди)."
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "Достъпът е предоставен (последният достъп бе преди %lld секунди)."
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."

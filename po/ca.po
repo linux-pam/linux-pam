@@ -452,8 +452,8 @@ msgstr "inici de sessió: ha fallat la bifurcació: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "S'ha concedit l'accés (l'últim accés va ser fa %ld segons)."
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "S'ha concedit l'accés (l'últim accés va ser fa %lld segons)."
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."

@@ -446,8 +446,8 @@ msgstr "login: failure forking: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, fuzzy, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "அணுகல் வழங்கப்பட்டது (கடைசி அணுகல் %ld விநாடிகளுக்கு முன்)."
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "அணுகல் வழங்கப்பட்டது (கடைசி அணுகல் %lld விநாடிகளுக்கு முன்)."
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 #, fuzzy

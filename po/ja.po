@@ -443,8 +443,8 @@ msgstr "ログイン: fork失敗: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "アクセスが許可されました（最後のアクセスは %ld 秒前）。"
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "アクセスが許可されました（最後のアクセスは %lld 秒前）。"
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 msgid "Your account has expired; please contact your system administrator."

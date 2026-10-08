@@ -443,8 +443,8 @@ msgstr "दाखलन: विभाजन अपयशी: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, fuzzy, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "प्रवेश स्वीकारले (शेवटचा प्रवेश %ld सेकंद पूर्वी आढळला)."
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "प्रवेश स्वीकारले (शेवटचा प्रवेश %lld सेकंद पूर्वी आढळला)."
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 #, fuzzy

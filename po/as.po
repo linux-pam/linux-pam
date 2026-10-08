@@ -444,8 +444,8 @@ msgstr "প্ৰৱেশ: forking ত বিফল: %m"
 
 #: modules/pam_timestamp/pam_timestamp.c:389
 #, fuzzy, c-format
-msgid "Access has been granted (last access was %ld seconds ago)."
-msgstr "অভিগম্যতাৰ অনুমতি (শেহতীয়া অভিগম্যতা %ld ছেকেণ্ড আগতে) ।"
+msgid "Access has been granted (last access was %lld seconds ago)."
+msgstr "অভিগম্যতাৰ অনুমতি (শেহতীয়া অভিগম্যতা %lld ছেকেণ্ড আগতে) ।"
 
 #: modules/pam_unix/pam_unix_acct.c:233 modules/pam_unix/pam_unix_acct.c:255
 #, fuzzy
