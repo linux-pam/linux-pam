@@ -85,12 +85,13 @@ obtain_authtok(pam_handle_t *pamh)
 
 static int
 _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
-	    const char **database, const char **cryptmode)
+	    const char **database, const char **cryptmode, char *key_sep)
 {
   int ctrl;
 
   *database = NULL;
   *cryptmode = NULL;
+  *key_sep = '-';
 
   /* step through arguments */
   for (ctrl = 0; argc-- > 0; ++argv)
@@ -109,6 +110,16 @@ _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
 	ctrl |= PAM_UNKNOWN_OK_ARG;
       else if (!strcasecmp(*argv, "key_only"))
 	ctrl |= PAM_KEY_ONLY_ARG;
+      else if ((str = pam_str_skip_icase_prefix(*argv, "key_only=")) != NULL)
+	{
+	  if (str[0] != '\0' && str[1] == '\0') {
+	    ctrl |= PAM_KEY_ONLY_ARG | PAM_KEY_ONLY_EXPLICIT_ARG;
+	    *key_sep = str[0];
+	  } else {
+	    pam_syslog(pamh, LOG_ERR,
+		       "key_only= requires a single separator character - ignored");
+	  }
+	}
       else if (!strcasecmp(*argv, "use_first_pass"))
 	ctrl |= PAM_USE_FPASS_ARG;
       else if (!strcasecmp(*argv, "try_first_pass"))
@@ -134,6 +145,11 @@ _pam_parse (pam_handle_t *pamh, int argc, const char **argv,
 	  pam_syslog(pamh, LOG_ERR, "unknown option: %s", *argv);
 	}
     }
+
+  if ((ctrl & PAM_KEY_ONLY_ARG) && !(ctrl & PAM_KEY_ONLY_EXPLICIT_ARG))
+    pam_syslog(pamh, LOG_WARNING,
+	       "key_only without explicit separator is deprecated,"
+	       " use key_only=<sep> instead");
 
   return ctrl;
 }
@@ -209,7 +225,7 @@ db_close(void *dbm)
  */
 static int
 user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
-	     const char *user, const char *pass, int ctrl)
+	     const char *user, const char *pass, int ctrl, char key_sep)
 {
 #ifdef HAVE_GDBM_H
     GDBM_FILE *dbm;
@@ -223,6 +239,15 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
     if (dbm == NULL) {
 	pam_syslog(pamh, LOG_ERR,
 		   "user_lookup: could not open database `%s': %m", database);
+	return -2;
+    }
+
+    if ((ctrl & PAM_KEY_ONLY_EXPLICIT_ARG) &&
+	memchr(user, key_sep, strlen(user))) {
+	pam_syslog(pamh, LOG_NOTICE,
+		   "user_lookup: username must not contain '%c'"
+		   " in key_only mode", key_sep);
+	db_close(dbm);
 	return -2;
     }
 
@@ -242,7 +267,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
     memset(&key, 0, sizeof(key));
     memset(&data, 0, sizeof(data));
     if (ctrl & PAM_KEY_ONLY_ARG) {
-	if ((key.dptr = pam_asprintf("%s-%s", user, pass)) != NULL)
+	if ((key.dptr = pam_asprintf("%s%c%s", user, key_sep, pass)) != NULL)
 	    key.dsize = strlen(key.dptr);
     } else {
         key.dptr = strdup(user);
@@ -382,7 +407,7 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
              * user is caller-supplied, so this memcmp leaks nothing secret.
              */
             if ((size_t)key.dsize > ulen &&
-                key.dptr[ulen] == '-' &&
+                key.dptr[ulen] == key_sep &&
                 memcmp(key.dptr, user, ulen) == 0) {
                 saw_user = 1;
                 char *stored_pass = strndup(key.dptr + ulen + 1,
@@ -427,10 +452,11 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
      const void *password;
      const char *database = NULL;
      const char *cryptmode = NULL;
+     char key_sep;
      int retval = PAM_AUTH_ERR, ctrl;
 
      /* parse arguments */
-     ctrl = _pam_parse(pamh, argc, argv, &database, &cryptmode);
+     ctrl = _pam_parse(pamh, argc, argv, &database, &cryptmode, &key_sep);
      if (database == NULL) {
         pam_syslog(pamh, LOG_ERR, "can not get the database name");
         return PAM_SERVICE_ERR;
@@ -476,7 +502,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags UNUSED,
 		    username);
 
      /* Now use the username to look up password in the database file */
-     retval = user_lookup(pamh, database, cryptmode, username, password, ctrl);
+     retval = user_lookup(pamh, database, cryptmode, username, password, ctrl, key_sep);
      switch (retval) {
 	 case -2:
 	     /* some sort of system error. The log was already printed */
@@ -523,10 +549,11 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
     const char *username;
     const char *database = NULL;
     const char *cryptmode = NULL;
+    char key_sep;
     int retval = PAM_AUTH_ERR, ctrl;
 
     /* parse arguments */
-    ctrl = _pam_parse(pamh, argc, argv, &database, &cryptmode);
+    ctrl = _pam_parse(pamh, argc, argv, &database, &cryptmode, &key_sep);
 
     /* Get the username */
     retval = pam_get_user(pamh, &username, NULL);
@@ -537,7 +564,7 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags UNUSED,
     }
 
     /* Now use the username to look up password in the database file */
-    retval = user_lookup(pamh, database, cryptmode, username, "", ctrl);
+    retval = user_lookup(pamh, database, cryptmode, username, "", ctrl, key_sep);
     switch (retval) {
         case -2:
 	    /* some sort of system error. The log was already printed */
