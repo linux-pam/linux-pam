@@ -17,14 +17,19 @@
     <cmdsynopsis xml:id="pam_listfile-cmdsynopsis" sepchar=" ">
       <command>pam_listfile.so</command>
       <arg choice="plain" rep="norepeat">
-	item=[tty|user|rhost|ruser|group|shell]
+	item=[tty|user|rhost|ruser|group|shell|home]
       </arg>
       <arg choice="plain" rep="norepeat">
         sense=[allow|deny]
       </arg>
-      <arg choice="plain" rep="norepeat">
-        file=<replaceable>/path/filename</replaceable>
-      </arg>
+      <group choice="plain" rep="norepeat">
+        <arg choice="plain" rep="norepeat">
+          file=<replaceable>/path/filename</replaceable>
+        </arg>
+        <arg choice="plain" rep="norepeat">
+          list=<replaceable>item1,item2,...</replaceable>
+        </arg>
+      </group>
       <arg choice="plain" rep="norepeat">
         onerr=[succeed|fail]
       </arg>
@@ -54,9 +59,14 @@
       name of the remote host (if any) from which the request was made,
       <emphasis>PAM_RHOST</emphasis>; and <emphasis>ruser</emphasis> specifies
       the name of the remote user (if available) who made the request,
-      <emphasis>PAM_RUSER</emphasis> -- and looks for an instance of that item
-      in the <option>file=<replaceable>filename</replaceable></option>.
-      <filename>filename</filename> contains one line per item listed.  If the
+      <emphasis>PAM_RUSER</emphasis>;
+      <emphasis>home</emphasis> specifies the user's home directory;
+      and <emphasis>group</emphasis> specifies a user's group memberships
+      -- and looks for an instance of that item
+      in the <option>file=<replaceable>filename</replaceable></option>
+      (one line per item) or in the comma-separated
+      <option>list=<replaceable>item1,item2,...</replaceable></option>.
+      If the
       item is found, then if <option>sense=allow</option>,
       <emphasis>PAM_SUCCESS</emphasis> is returned, causing the authorization
       request to succeed; else if <option>sense=deny</option>,
@@ -100,7 +110,7 @@
 
         <varlistentry>
           <term>
-            item=[tty|user|rhost|ruser|group|shell]
+            item=[tty|user|rhost|ruser|group|shell|home]
           </term>
           <listitem>
             <para>
@@ -131,11 +141,37 @@
           </term>
           <listitem>
             <para>
-              File containing one item per line. The file needs to be a plain
-              file and not world writable.
+              File containing one item per line.  Leading and trailing
+              whitespace on each line is ignored.  Lines starting with
+              <literal>#</literal> (optionally preceded by whitespace) are
+              treated as comments and skipped.  Each entry may contain
+              shell-style glob patterns (<literal>*</literal>,
+              <literal>?</literal>, <literal>[...]</literal>) for matching;
+              see <citerefentry><refentrytitle>fnmatch</refentrytitle>
+              <manvolnum>3</manvolnum></citerefentry>.
+              Entries prefixed with <literal>!</literal> negate the match:
+              if the item matches a negated entry, it is treated as not
+              listed regardless of other entries in the file.
+              The file needs to be a plain file and not world writable.
             </para>
           </listitem>
 	</varlistentry>
+
+        <varlistentry>
+          <term>
+            list=<replaceable>item1,item2,...</replaceable>
+          </term>
+          <listitem>
+            <para>
+              A comma-separated inline list of items to match against,
+              as an alternative to <option>file=</option>.  Each item may
+              contain shell-style glob patterns and may be prefixed with
+              <literal>!</literal> to negate the match.  Only one of
+              <option>file=</option> or <option>list=</option> may be
+              specified.
+            </para>
+          </listitem>
+        </varlistentry>
 
         <varlistentry>
           <term>
@@ -157,7 +193,7 @@
             <para>
               Restrict the user class for which the restriction apply. Note that
               with <option>item=[user|ruser|group]</option> this does not make sense,
-              but for <option>item=[tty|rhost|shell]</option> it has a meaning.
+              but for <option>item=[tty|rhost|shell|home]</option> it has a meaning.
             </para>
           </listitem>
         </varlistentry>
@@ -173,8 +209,71 @@
             </para>
           </listitem>
         </varlistentry>
+
       </variablelist>
 
+    </para>
+    <para>
+      The following shorthand forms are also accepted:
+    </para>
+    <para>
+      <variablelist>
+
+        <varlistentry>
+          <term>allow, deny</term>
+          <listitem><para>
+            Equivalent to <option>sense=allow</option> and
+            <option>sense=deny</option>.
+          </para></listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>errok, errsucceed, errfail</term>
+          <listitem><para>
+            Equivalent to <option>onerr=succeed</option>
+            (<option>errok</option>, <option>errsucceed</option>)
+            and <option>onerr=fail</option> (<option>errfail</option>).
+          </para></listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>user, tty, rhost, ruser, group, shell, home</term>
+          <listitem><para>
+            Equivalent to <option>item=</option> with the corresponding
+            value.
+          </para></listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            allow=<replaceable>list</replaceable>,
+            deny=<replaceable>list</replaceable>
+          </term>
+          <listitem><para>
+            Set the sense and provide a list or file path in one option.
+            If the value starts with <literal>/</literal>, it is treated
+            as a file path; otherwise as an inline comma-separated list.
+          </para></listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>
+            user=<replaceable>list</replaceable>,
+            tty=<replaceable>list</replaceable>,
+            rhost=<replaceable>list</replaceable>,
+            ruser=<replaceable>list</replaceable>,
+            group=<replaceable>list</replaceable>,
+            shell=<replaceable>list</replaceable>,
+            home=<replaceable>list</replaceable>
+          </term>
+          <listitem><para>
+            Set the item and provide a list or file path in one option.
+            If the value starts with <literal>/</literal>, it is treated
+            as a file path; otherwise as an inline comma-separated list.
+          </para></listitem>
+        </varlistentry>
+
+      </variablelist>
     </para>
   </refsect1>
 
@@ -285,6 +384,9 @@ auth    required       pam_listfile.so \
       </citerefentry>,
       <citerefentry>
 	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>fnmatch</refentrytitle><manvolnum>3</manvolnum>
       </citerefentry>
     </para>
   </refsect1>
