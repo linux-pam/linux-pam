@@ -14,6 +14,7 @@ docbook-xsl-ns
 flex
 gettext
 libaudit-dev
+libcrypt-dev
 libdb-dev
 libfl-dev
 libselinux1-dev
