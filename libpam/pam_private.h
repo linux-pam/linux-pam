@@ -50,15 +50,17 @@
 
 #define _PAM_INVALID_RETVAL  (-1)    /* default value for cached_retval */
 
+typedef int (*servicefn)(pam_handle_t *, int, int, const char **);
+
 struct handler {
     int handler_type;
-    int (*func)(pam_handle_t *pamh, int flags, int argc, char **argv);
+    servicefn func;
     int actions[_PAM_RETURN_VALUES];
     /* set by authenticate, open_session, chauthtok(1st)
        consumed by setcred, close_session, chauthtok(2nd) */
     int cached_retval; int *cached_retval_p;
     int argc;
-    char **argv;
+    const char **argv;
     struct handler *next;
     char *mod_name;
     int stack_level;
@@ -172,7 +174,7 @@ struct pam_handle {
 					 event driven applications */
     const char *mod_name;	/* Name of the module currently executed */
     int mod_argc;               /* Number of module arguments */
-    char **mod_argv;            /* module arguments */
+    const char **mod_argv;      /* module arguments */
     int choice;			/* Which function we call from the module */
 
 #ifdef HAVE_LIBAUDIT
@@ -247,7 +249,6 @@ void _pam_start_timer(pam_handle_t *pamh);
 void _pam_await_timer(pam_handle_t *pamh, int status);
 
 typedef void (*voidfunc(void))(void);
-typedef int (*servicefn)(pam_handle_t *, int, int, char **);
 
 void *_pam_dlopen (const char *mod_path);
 servicefn _pam_dlsym (void *handle, const char *symbol);
@@ -273,7 +274,7 @@ char *_pam_strdup(const char *s);
 
 char *_pam_memdup(const char *s, int len);
 
-size_t _pam_mkargv(const char *s, char ***argv, int *argc);
+size_t _pam_mkargv(const char *s, const char ***argv, int *argc);
 
 void _pam_sanitize(pam_handle_t *pamh);
 

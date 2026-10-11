@@ -31,7 +31,7 @@ static void _pam_free_handlers_aux(struct handler **hp);
 static int _pam_add_handler(pam_handle_t *pamh
 		     , int must_fail, int other, int stack_level, int type
 		     , int *actions, const char *mod_path
-		     , int argc, char **argv, size_t argvlen);
+		     , int argc, const char **argv, size_t argvlen);
 
 /* Values for module type */
 
@@ -78,7 +78,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	int res;              /* module added successfully? */
 	int handler_type = PAM_HT_MODULE; /* regular handler from a module */
 	int argc;
-	char **argv;
+	const char **argv;
 	size_t argvlen;
 
 	D(("LINE: %s", buf));
@@ -701,7 +701,7 @@ _pam_load_module(pam_handle_t *pamh, const char *mod_path, int handler_type)
 static int _pam_add_handler(pam_handle_t *pamh
 			    , int handler_type, int other, int stack_level
 			    , int type, int *actions, const char *mod_path
-			    , int argc, char **argv, size_t argvlen)
+			    , int argc, const char **argv, size_t argvlen)
 {
     struct loaded_module *mod = NULL;
     struct handler **handler_p;

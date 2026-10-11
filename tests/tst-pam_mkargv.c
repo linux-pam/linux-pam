@@ -20,7 +20,7 @@ int main(void)
   static const char * const argvresult[] = {"user", "=", "XENDT\\userα",
                                             "user=XENDT\\user1"};
   int myargc;
-  char **myargv;
+  const char **myargv;
   int argvlen;
   int explen;
   int i;

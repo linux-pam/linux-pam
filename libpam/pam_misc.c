@@ -151,11 +151,11 @@ char *_pam_memdup(const char *x, int len)
 /* Generate argv, argc from s */
 /* caller must free(argv)     */
 
-size_t _pam_mkargv(const char *s, char ***argv, int *argc)
+size_t _pam_mkargv(const char *s, const char ***argv, int *argc)
 {
     size_t l;
     size_t argvlen = 0;
-    char **our_argv = NULL;
+    const char **our_argv = NULL;
 
     D(("called: %s",s));
 
@@ -163,10 +163,11 @@ size_t _pam_mkargv(const char *s, char ***argv, int *argc)
 
     l = strlen(s);
     if (l && l < SIZE_MAX / (sizeof(char) + sizeof(char *))) {
-	char **argvbuf;
+	const char **argvbuf;
+	void *storage;
 	/* Overkill on the malloc, but not large */
 	argvlen = (l + 1) * (sizeof(char) + sizeof(char *));
-	if ((our_argv = argvbuf = malloc(argvlen)) == NULL) {
+	if ((storage = malloc(argvlen)) == NULL) {
 	    pam_syslog(NULL, LOG_CRIT, "pam_mkargv: null returned by malloc");
 	    argvlen = 0;
 	} else {
@@ -176,7 +177,8 @@ size_t _pam_mkargv(const char *s, char ***argv, int *argc)
 #ifdef PAM_DEBUG
 	    unsigned count=0;
 #endif
-	    argvbufp = (char *) argvbuf + (l * sizeof(char *));
+	    our_argv = argvbuf = storage;
+	    argvbufp = (char *) storage + (l * sizeof(char *));
 	    strcpy(argvbufp, s);
 	    D(("[%s]",argvbufp));
 	    while ((tok = _pam_tokenize(argvbufp, &tmp))) {
