@@ -56,9 +56,10 @@ jobs:
             logind) echo 'USE_LOGIND=yes' >> "$GITHUB_ENV" ;;
             openssl) echo 'USE_OPENSSL=yes' >> "$GITHUB_ENV" ;;
             sanitizers)
-              echo 'CFLAGS=-O1 -g -fsanitize=address -fsanitize-address-use-after-scope -fno-omit-frame-pointer -fsanitize=undefined -Wno-error=inline -Wno-error=format-overflow' >> "$GITHUB_ENV"
-              echo 'LDFLAGS=-fsanitize=address -fsanitize-address-use-after-scope -fno-omit-frame-pointer -fsanitize=undefined' >> "$GITHUB_ENV"
-              echo 'ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1' >> "$GITHUB_ENV"
+              echo 'MESON_OPTIMIZATION=1' >> "$GITHUB_ENV"
+              echo 'MESON_SANITIZERS=address,undefined' >> "$GITHUB_ENV"
+              echo 'CFLAGS=-Wno-error=inline -Wno-error=format-overflow' >> "$GITHUB_ENV"
+              echo 'ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1:strict_init_order=1' >> "$GITHUB_ENV"
               echo 'UBSAN_OPTIONS=print_stacktrace=1:print_summary=1:halt_on_error=1' >> "$GITHUB_ENV"
               ;;
             novendordir) echo 'VENDORDIR=' >> "$GITHUB_ENV" ;;
