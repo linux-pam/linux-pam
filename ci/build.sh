@@ -11,6 +11,9 @@ case "${MESON_SANITIZERS-}" in
 	'') ;;
 	*)
 		opts="$opts -Db_sanitize=$MESON_SANITIZERS -Ddebug=true"
+		case "$CC" in
+			clang*) opts="$opts -Db_lundef=false" ;;
+		esac
 		;;
 esac
 
