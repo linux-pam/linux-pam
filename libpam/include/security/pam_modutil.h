@@ -98,6 +98,11 @@ pam_modutil_user_in_group_uid_gid(pam_handle_t *pamh,
                                   uid_t user,
                                   gid_t group);
 
+extern int PAM_NONNULL((1,2,3))
+pam_modutil_user_in_group_nam_pat(pam_handle_t *pamh,
+                                  const char *user,
+                                  const char *pattern);
+
 extern const char * PAM_NONNULL((1))
 pam_modutil_getlogin(pam_handle_t *pamh);
 

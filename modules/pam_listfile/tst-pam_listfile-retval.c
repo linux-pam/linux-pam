@@ -520,6 +520,353 @@ main(void)
 	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 	pamh = NULL;
 
+	/* item is listed with whitespace and comments, sense=allow */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=user file=%s sense=allow\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp,
+			     "# This is a comment\n"
+			     "\t # Indented comment\n"
+			     "  %s\t \n",
+			     pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* item is commented out, sense=allow */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=user file=%s sense=allow\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "# %s\n", pw->pw_name));
+	ASSERT_LT(0, fprintf(fp, "\t # %s\n", pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_AUTH_ERR, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* item=home is listed, sense=allow */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=home file=%s sense=allow\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "%s\n", pw->pw_dir));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* item=home is listed, sense=deny */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=home file=%s sense=deny\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "%s\n", pw->pw_dir));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_AUTH_ERR, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* item matches glob pattern, sense=allow */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=user file=%s sense=allow\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "%c*\n", pw->pw_name[0]));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* item does not match glob pattern, sense=allow */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=user file=%s sense=allow\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "%s*%s\n", pw->pw_name, pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_AUTH_ERR, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* negated item match, sense=deny: negation means not listed */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=user file=%s sense=deny\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "!%s\n", pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* negated non-matching entry does not affect result */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=user file=%s sense=allow\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "!%s%s\n%s\n", pw->pw_name, pw->pw_name, pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* inline list match, sense=allow */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=user list=%s sense=allow\n",
+			     cwd, MODULE_NAME, pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* inline list non-match, sense=allow */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=user list=: sense=allow\n",
+			     cwd, MODULE_NAME));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_AUTH_ERR, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* inline list with negation, sense=deny */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=user list=!%s sense=deny\n",
+			     cwd, MODULE_NAME, pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* inline list with glob pattern, sense=allow */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=user list=%c* sense=allow\n",
+			     cwd, MODULE_NAME, pw->pw_name[0]));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* shorthand: deny + item=user + file= */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so deny item=user file=%s\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "%s\n", pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_AUTH_ERR, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* shorthand: errok with missing item= */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so errok\n",
+			     cwd, MODULE_NAME));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* combined form: allow + user=<name> (inline) */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so allow user=%s\n",
+			     cwd, MODULE_NAME, pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* combined form: deny=<file> + user */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so user deny=%s/%s\n",
+			     cwd, MODULE_NAME, cwd, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "%s\n", pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_AUTH_ERR, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* shorthand: errfail with missing item= */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so errfail\n",
+			     cwd, MODULE_NAME));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SERVICE_ERR, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* shorthand: errsucceed with missing item= */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so errsucceed\n",
+			     cwd, MODULE_NAME));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* combined form: deny=<inline_list> + user */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so user deny=%s\n",
+			     cwd, MODULE_NAME, pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_AUTH_ERR, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* combined form: allow=<file> + user */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so user allow=%s/%s\n",
+			     cwd, MODULE_NAME, cwd, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "%s\n", pw->pw_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* shorthand: standalone group keyword with file= */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so group allow file=%s\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "%s\n", gr->gr_name));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
 	/* item is not listed, sense=allow */
 	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
 	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
@@ -610,6 +957,24 @@ main(void)
 	ASSERT_EQ(PAM_SUCCESS, pam_chauthtok(pamh, 0));
 	ASSERT_EQ(PAM_SUCCESS, pam_open_session(pamh, 0));
 	ASSERT_EQ(PAM_SUCCESS, pam_close_session(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+	pamh = NULL;
+
+	/* group glob pattern match */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "auth required %s/" LTDIR "%s.so item=group file=%s sense=allow onerr=fail\n",
+			     cwd, MODULE_NAME, list_file));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(list_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "%c*\n", gr->gr_name[0]));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, pw->pw_name, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_authenticate(pamh, 0));
 	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 	pamh = NULL;
 
