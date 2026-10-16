@@ -225,20 +225,15 @@ do_user(struct options *opts, const char *user)
 		if (*endptr == 0 && endptr != user) {
 			/* user is all digits - treat as UID */
 			if (errno == ERANGE || uid_val > (uid_t)-1) {
-				/* Overflow - treat as username instead */
-				pwd = getpwnam(user);
-				if (pwd == NULL) {
-					fprintf(stderr, "%s: Error no such user: %s\n", opts->progname, user);
-					return 1;
-				}
-			} else {
-				pwd = getpwuid((uid_t)uid_val);
-				if (pwd == NULL) {
-					/* UID exists in tally but not in passwd - inform user */
-					fprintf(stderr, "%s: UID %lu has a tally file but no matching user in passwd\n",
-						opts->progname, uid_val);
-					return 0;
-				}
+				fprintf(stderr, "%s: Invalid UID value: %s\n", opts->progname, user);
+				return 1;
+			}
+			pwd = getpwuid((uid_t)uid_val);
+			if (pwd == NULL) {
+				/* UID exists in tally but not in passwd - inform user */
+				fprintf(stderr, "%s: UID %lu has a tally file but no matching user in passwd\n",
+					opts->progname, uid_val);
+				return 0;
 			}
 		} else {
 			/* Not all digits - treat as username */
