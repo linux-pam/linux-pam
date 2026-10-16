@@ -198,7 +198,7 @@ check_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 
 	opts->now = time(NULL);
 
-	tfd = open_tally(dir, opts->user, opts->uid, 0);
+	tfd = open_tally(dir, opts->user, opts->uid, 0, !!(opts->flags & FAILLOCK_FLAG_UID_BASED_FILES));
 
 	*fd = tfd;
 
@@ -278,7 +278,7 @@ reset_tally(pam_handle_t *pamh, struct options *opts, int *fd)
 	const char *dir = get_tally_dir(opts);
 
 	if (*fd == -1) {
-		*fd = open_tally(dir, opts->user, opts->uid, 1);
+		*fd = open_tally(dir, opts->user, opts->uid, 1, !!(opts->flags & FAILLOCK_FLAG_UID_BASED_FILES));
 	}
 	else {
 		while ((rv=ftruncate(*fd, 0)) == -1 && errno == EINTR);
@@ -300,7 +300,7 @@ write_tally(pam_handle_t *pamh, struct options *opts, struct tally_data *tallies
 	const char *dir = get_tally_dir(opts);
 
 	if (*fd == -1) {
-		*fd = open_tally(dir, opts->user, opts->uid, 1);
+		*fd = open_tally(dir, opts->user, opts->uid, 1, !!(opts->flags & FAILLOCK_FLAG_UID_BASED_FILES));
 		if (*fd != -1) {
 			/*
 			 * Re-read the tally now that we hold the lock:
