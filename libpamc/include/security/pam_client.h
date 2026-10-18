@@ -138,13 +138,13 @@ do {                                                                       \
 
 #define PAM_BP_FILL(prmpt, offset, length, data)                           \
 do {                                                                       \
-    size_t bp_length;                                                      \
-    uint8_t *prompt = (uint8_t *) (prmpt);                               \
-    bp_length = PAM_BP_LENGTH(prompt);                                     \
-    if (bp_length < ((length)+(offset))) {                                 \
+    size_t __bp_length;                                                    \
+    uint8_t *__prompt = (uint8_t *) (prmpt);                             \
+    __bp_length = PAM_BP_LENGTH(__prompt);                                 \
+    if (__bp_length < ((length)+(offset))) {                               \
 	PAM_BP_ASSERT("attempt to write over end of prompt");              \
     }                                                                      \
-    memcpy((offset) + PAM_BP_WDATA(prompt), (data), (length));             \
+    memcpy((offset) + PAM_BP_WDATA(__prompt), (data), (length));           \
 } while (0)
 
 #define PAM_BP_EXTRACT(prmpt, offset, length, data)                        \
