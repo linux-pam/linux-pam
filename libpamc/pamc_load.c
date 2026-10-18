@@ -316,13 +316,15 @@ int __pamc_valid_agent_id(int id_length, const char *id)
     int post, i;
 
     for (i=post=0 ; i < id_length; ++i) {
-	int ch = id[i++];
+	int ch = id[i];
 
 	if (isalpha((unsigned char)ch) || isdigit((unsigned char)ch) || (ch == '_')) {
+	    if (post)
+		post = 2;               /* seen a domain character */
 	    continue;
-	} else if (post && (ch == '.')) {
+	} else if ((post == 2) && (ch == '.')) {
 	    continue;
-	} else if ((i > 1) && (!post) && (ch == '@')) {
+	} else if ((i > 0) && (!post) && (ch == '@')) {
 	    post = 1;
 	} else {
 	    D(("id=%s contains '%c' which is illegal", id, ch));
@@ -332,6 +334,9 @@ int __pamc_valid_agent_id(int id_length, const char *id)
 
     if (!i) {
 	D(("length of id is 0"));
+	return 0;
+    } else if (post == 1) {
+	D(("id=%s has no domain after '@'", id));
 	return 0;
     } else {
 	return 1;                       /* id is valid */
