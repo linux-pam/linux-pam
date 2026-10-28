@@ -96,6 +96,8 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
   int quiet_log = 0;
   int expose_authtok = 0;
   int use_stdout = 0;
+  int use_interactive = 0;
+  int child_stdin = 0; /* child receives stdin from parent */
   int optargc;
   const char *logfile = NULL;
   char authtok[PAM_MAX_RESP_SIZE] = {};
@@ -124,6 +126,8 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	debug = 1;
       else if (strcasecmp (argv[optargc], "stdout") == 0)
 	use_stdout = 1;
+      else if (strcasecmp (argv[optargc], "interactive") == 0)
+	use_interactive = 1;
       else if ((str = pam_str_skip_icase_prefix (argv[optargc], "log=")) != NULL)
 	logfile = str;
       else if ((str = pam_str_skip_icase_prefix (argv[optargc], "type=")) != NULL)
@@ -153,6 +157,30 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       return retval;
     }
 
+  if (use_interactive == 1)
+    {
+      if (strcmp (pam_type, "auth") != 0)
+	{
+	  pam_syslog (pamh, LOG_ERR,
+		      "interactive not supported for type %s", pam_type);
+	  use_interactive = 0;
+	}
+      else if (expose_authtok)
+	{
+	  pam_syslog (pamh, LOG_ERR,
+		      "interactive is not compatible with expose_authtok");
+	  use_interactive = 0;
+	}
+      else if (!use_stdout)
+	{
+	  pam_syslog (pamh, LOG_ERR,
+		      "interactive requires stdout mode");
+	  use_interactive = 0;
+	}
+      else
+	child_stdin = 1;
+    }
+
   if (expose_authtok == 1)
     {
       if (strcmp (pam_type, "auth") != 0 && strcmp (pam_type, "password") != 0)
@@ -164,6 +192,8 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       else
 	{
 	  const void *void_pass;
+
+	  child_stdin = 1;
 
 	  retval = pam_get_item (pamh, PAM_AUTHTOK, &void_pass);
 	  if (retval != PAM_SUCCESS)
@@ -200,13 +230,16 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	    }
 	  else
 	    strncpy (authtok, void_pass, sizeof(authtok) - 1);
+	}
+    }
 
-	  if (pipe(fds) != 0)
-	    {
-	      pam_overwrite_array(authtok);
-	      pam_syslog (pamh, LOG_ERR, "Could not create pipe: %m");
-	      return PAM_SYSTEM_ERR;
-	    }
+  if (child_stdin)
+    {
+      if (pipe(fds) != 0)
+	{
+	  pam_overwrite_array(authtok);
+	  pam_syslog (pamh, LOG_ERR, "Could not create pipe: %m");
+	  return PAM_SYSTEM_ERR;
 	}
     }
 
@@ -250,17 +283,27 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
     {
       int status = 0;
       pid_t rc;
+      int result = PAM_SUCCESS;
+
+      if (use_stdout)
+        close(stdout_fds[1]);
 
       if (expose_authtok) /* send the password to the child */
 	{
 	  if (debug)
 	    pam_syslog (pamh, LOG_DEBUG, "send password to child");
 	  if (write(fds[1], authtok, strlen(authtok)) == -1)
-	    pam_syslog (pamh, LOG_ERR,
-			      "sending password to child failed: %m");
+	    {
+	      pam_syslog (pamh, LOG_ERR,
+				"sending password to child failed: %m");
+	      result = PAM_SYSTEM_ERR;
+	      goto finish_child;
+	    }
 
-          close(fds[0]);       /* close here to avoid possible SIGPIPE above */
-          close(fds[1]);
+	  /* with expose_authok pipe to child stdin is closed right away */
+	  close(fds[0]);       /* close here to avoid possible SIGPIPE above during write */
+	  close(fds[1]);
+	  child_stdin = 0; /* forget that child stdin was opened */
 	}
 
       pam_overwrite_array(authtok);
@@ -269,14 +312,80 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	{
 	  char *buf = NULL;
 	  size_t n = 0;
-	  close(stdout_fds[1]);
 	  while (getline(&buf, &n, stdout_file) != -1)
 	    {
 	      buf[strcspn(buf, "\n")] = '\0';
-	      pam_info(pamh, "%s", buf);
+
+	      /* check if interactive mode is not requested */
+	      if (!(use_interactive && buf[0] == '<' && buf[1] == '<'))
+		{
+		  pam_info(pamh, "%s", buf);
+		  continue;
+		}
+
+	      /* string begins with "<<" - child asks for a prompt */
+
+	      char *resp = NULL;
+
+	      if (debug)
+		pam_syslog (pamh, LOG_DEBUG, "child asked for a prompt");
+
+	      /* show prompt and get response */
+	      retval = pam_prompt (pamh, PAM_PROMPT_ECHO_OFF,
+				   &resp, "%s", buf+2);
+	      /* usually buf is freed after exiting the cycle */
+	      /* but if there is an error, we will jump over free() call */
+	      free(buf);
+
+	      /* failed to get interactive response */
+	      if (retval != PAM_SUCCESS)
+		{
+		  _pam_drop (resp);
+		  if (retval == PAM_CONV_AGAIN)
+		    result = PAM_PERM_DENIED;
+		  else
+		    result = retval;
+		  goto finish_child;
+		}
+
+	      /* null interactive response */
+	      if (!resp)
+		{
+		  result = PAM_PERM_DENIED;
+		  goto finish_child;
+		}
+
+	      if (debug)
+		pam_syslog (pamh, LOG_DEBUG, "send response to child: %s", resp);
+
+	      /* send interactive response to child */
+	      if (write(fds[1], resp, strlen(resp)) == -1 ||
+		  write(fds[1], "\n", 1) == -1)
+		{
+		  _pam_drop (resp);
+		  pam_syslog (pamh, LOG_ERR,
+			      "sending response to child failed: %m");
+		  result = PAM_SYSTEM_ERR;
+		  goto finish_child;
+		}
+
+	      _pam_drop (resp);
 	    }
 	  free(buf);
-	  fclose(stdout_file);
+	}
+
+      finish_child:
+
+      if (result != PAM_SUCCESS) /* kill child in case of error */
+	kill(pid, SIGTERM);
+
+      if (use_stdout)
+	fclose(stdout_file);
+
+      if (child_stdin)
+	{
+	  close(fds[0]);       /* close here to avoid possible SIGPIPE above during write */
+	  close(fds[1]);
 	}
 
       while ((rc = waitpid (pid, &status, 0)) == -1 &&
@@ -285,7 +394,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       if (rc == (pid_t)-1)
 	{
 	  pam_syslog (pamh, LOG_ERR, "waitpid returns with -1: %m");
-	  return PAM_SYSTEM_ERR;
+	  return result == PAM_SUCCESS ? PAM_SYSTEM_ERR : result;
 	}
       else if (status != 0)
 	{
@@ -297,6 +406,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 		if (!quiet)
 	      pam_error (pamh, _("%s failed: exit code %d"),
 			 argv[optargc], WEXITSTATUS(status));
+	      result = PAM_PERM_DENIED; /* deny when exit status is not 0 */
 	    }
 	  else if (WIFSIGNALED(status))
 	    {
@@ -318,9 +428,9 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 	      pam_error (pamh, _("%s failed: unknown status 0x%x"),
 			 argv[optargc], status);
 	    }
-	  return PAM_SYSTEM_ERR;
+	  return result == PAM_SUCCESS ? PAM_SYSTEM_ERR : result;
 	}
-      return PAM_SUCCESS;
+      return result;
     }
   else /* child */
     {
@@ -330,7 +440,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       int envlen, nitems;
       char *envstr;
       enum pam_modutil_redirect_fd redirect_stdin =
-	      expose_authtok ? PAM_MODUTIL_IGNORE_FD : PAM_MODUTIL_PIPE_FD;
+	      child_stdin ? PAM_MODUTIL_IGNORE_FD : PAM_MODUTIL_PIPE_FD;
       enum pam_modutil_redirect_fd redirect_stdout =
 	      (use_stdout || logfile) ? PAM_MODUTIL_IGNORE_FD : PAM_MODUTIL_NULL_FD;
 
@@ -339,7 +449,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
       /* First, move all the pipes off of stdin, stdout, and stderr, to ensure
        * that calls to dup2 won't close them. */
 
-      if (expose_authtok)
+      if (child_stdin)
 	{
 	  fds[0] = move_fd_to_non_stdio(pamh, fds[0]);
 	  close(fds[1]);
@@ -353,7 +463,7 @@ call_exec (const char *pam_type, pam_handle_t *pamh,
 
       /* Set up stdin. */
 
-      if (expose_authtok)
+      if (child_stdin)
 	{
 	  /* reopen stdin as pipe */
 	  if (dup2(fds[0], STDIN_FILENO) == -1)
