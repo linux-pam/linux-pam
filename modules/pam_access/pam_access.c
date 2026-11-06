@@ -485,14 +485,9 @@ login_access (pam_handle_t *pamh, struct login_info *item)
 	    lineno++;
 	    if (line[0] == 0)
 		continue;
-	    if (line[end = strlen(line) - 1] != '\n') {
-		pam_syslog(pamh, LOG_ERR,
-                           "%s: line %zu: missing newline or line too long",
-		           item->config_file, lineno);
-		continue;
-	    }
 	    if (line[0] == '#')
 		continue;			/* comment line */
+	    end = strlen(line);
 	    while (end > 0 && isspace((unsigned char)line[end - 1]))
 		end--;
 	    line[end] = 0;			/* strip trailing whitespace */
