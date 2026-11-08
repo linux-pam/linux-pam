@@ -234,6 +234,7 @@
       Individual files with the failure records are created as owned by
       the user. This allows <emphasis remap="B">pam_faillock.so</emphasis> module
       to work correctly when it is called from a screensaver.
+      The tally directory itself must not be writable by non-root users.
     </para>
     <para>
       Note that using the module in <option>preauth</option> without the

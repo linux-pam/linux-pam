@@ -43,6 +43,9 @@
                   default is <filename>/var/run/faillock</filename>.
                 </para>
                 <para>
+                  The tally directory must not be writable by non-root users.
+                </para>
+                <para>
                   Note: These files will disappear after reboot on systems configured with
                   directory <filename>/var/run/faillock</filename> mounted on virtual memory.
                 </para>
