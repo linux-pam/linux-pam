@@ -73,7 +73,7 @@ if module == 'pam_sepermit'
     subdir_done()
   endif
   pam_module_deps += [libselinux]
-  sepermit_lockdir = localstatedir / 'run' / 'sepermit'
+  sepermit_lockdir = runstatedir / 'sepermit'
   pam_module_c_args += ['-DSEPERMIT_LOCKDIR="@0@"'.format(sepermit_lockdir)]
 endif
 if module == 'pam_setquota'
@@ -216,6 +216,7 @@ foreach man: pam_module_mans
               '--xinclude',
               '--path', meson.current_source_dir(),
               stringparam_vendordir,
+              stringparam_runstatedir,
               stringparam_profileconditions,
               '--stringparam', 'pam_version', pam_version_full,
               '--stringparam', 'pam_release_date', release_date,
@@ -241,6 +242,7 @@ readme_html = custom_target(
             '--path', meson.current_source_dir(),
             '--stringparam', 'generate.toc', 'none',
             stringparam_vendordir,
+            stringparam_runstatedir,
             stringparam_profileconditions,
             txt_stylesheet,
             '@INPUT@'],
@@ -296,8 +298,13 @@ if module == 'pam_faillock'
     install: true,
     install_dir: sbindir,
   )
+  faillock_conf = configure_file(
+    input: 'faillock.conf.in',
+    output: 'faillock.conf',
+    configuration: cdata
+  )
   install_data(
-    'faillock.conf',
+    faillock_conf,
     install_dir: vendor_sconfigdir,
     install_tag: 'config',
   )

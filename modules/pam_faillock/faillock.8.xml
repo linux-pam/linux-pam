@@ -77,7 +77,7 @@
                   from the command line. If this isn't provided, then the value
                   from the configuration file is used. Finally, if neither of
                   them has been provided, then
-                  <filename>/var/run/faillock</filename> is used.
+                  <filename>%runstatedir%/faillock</filename> is used.
                 </para>
               </listitem>
             </varlistentry>
@@ -108,7 +108,7 @@
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term>/var/run/faillock/*</term>
+        <term>%runstatedir%/faillock/*</term>
         <listitem>
           <para>the files logging the authentication failures for users</para>
         </listitem>
