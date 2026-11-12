@@ -2,9 +2,9 @@
 # authentication attempts.
 #
 # The directory where the user files with the failure records are kept.
-# The default is /var/run/faillock.
+# The default is @runstatedir@/faillock.
 # The directory must not be writable by non-root users.
-# dir = /var/run/faillock
+# dir = @runstatedir@/faillock
 #
 # Will log the user name into the system log if the user is not found.
 # Enabled if option is present.

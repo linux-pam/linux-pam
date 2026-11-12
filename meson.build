@@ -64,6 +64,7 @@ includedir = prefixdir / get_option('includedir') / 'security'
 libdir = prefixdir / get_option('libdir')
 localedir = prefixdir / get_option('localedir')
 localstatedir = '/' / get_option('localstatedir')
+runstatedir = '/' / get_option('runstatedir')
 mandir = prefixdir / get_option('mandir')
 sbindir = prefixdir / get_option('sbindir')
 sysconfdir = prefixdir / get_option('sysconfdir')
@@ -84,9 +85,11 @@ cdata.set_quoted('PAM_VERSION', pam_version_full)
 cdata.set('UNUSED', '__attribute__((__unused__))')
 cdata.set('PAM_NO_HEADER_FUNCTIONS', 1, description: 'Disable function bodies in headers')
 cdata.set_quoted('SYSCONFDIR', sysconfdir)
+cdata.set_quoted('RUNSTATEDIR', runstatedir)
 cdata.set_quoted('LTDIR', '')
 # used in configure_file() only, so not quoted
 cdata.set('sbindir', sbindir)
+cdata.set('runstatedir', runstatedir)
 
 cdata.set('PAM_DEBUG', get_option('pam-debug') ? 1 : false)
 cdata.set('PAM_LOCKING', get_option('pamlocking') ? 1 : false)
@@ -137,6 +140,8 @@ else
   stringparam_vendordir = ['--stringparam', 'vendordir', vendordir]
   stringparam_profileconditions = 'with_vendordir'
 endif
+
+stringparam_runstatedir = ['--stringparam', 'runstatedir', runstatedir]
 
 randomdev_option = get_option('randomdev')
 if randomdev_option == '' or randomdev_option == 'yes'
