@@ -21,9 +21,6 @@
   <section xml:id="sag-pam_timestamp-examples">
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_timestamp/pam_timestamp.8.xml" xpointer='xpointer(id("pam_timestamp-examples")/*)'/>
   </section>
-  <section xml:id="sag-pam_timestamp-files">
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_timestamp/pam_timestamp.8.xml" xpointer='xpointer(id("pam_timestamp-files")/*)'/>
-  </section>
   <section xml:id="sag-pam_timestamp-author">
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../../modules/pam_timestamp/pam_timestamp.8.xml" xpointer='xpointer(id("pam_timestamp-author")/*)'/>
   </section>

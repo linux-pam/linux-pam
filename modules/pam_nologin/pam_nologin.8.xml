@@ -31,10 +31,10 @@
 
     <para>
       pam_nologin is a PAM module that prevents users from logging into
-      the system when <filename>/var/run/nologin</filename> or
-      <filename>/etc/nologin</filename> exists. The contents
-      of the file are displayed to the user. The pam_nologin module
-      has no effect on the root user's ability to log in.
+      the system when the file <filename>nologin</filename> exists in the
+      <filename>run</filename> or <filename>/etc</filename> directory.
+      The contents of the file are displayed to the user. The pam_nologin
+      module has no effect on the root user's ability to log in.
     </para>
   </refsect1>
 
@@ -49,8 +49,7 @@
         <listitem>
           <para>
             Use this file instead the default
-            <filename>/var/run/nologin</filename> or
-            <filename>/etc/nologin</filename>.
+            <filename>nologin</filename> files.
           </para>
         </listitem>
       </varlistentry>
@@ -143,6 +142,24 @@ auth  required  pam_nologin.so
       would lead to a successful login because the nologin module
       <emphasis>succeeded</emphasis>.
     </para>
+  </refsect1>
+
+  <refsect1 xml:id="pam_nologin-files">
+    <title>FILES</title>
+    <variablelist>
+      <varlistentry>
+        <term>%runstatedir%/nologin</term>
+        <listitem>
+          <para>default nologin file</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>/etc/nologin</term>
+        <listitem>
+          <para>compatibility nologin file</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
   </refsect1>
 
   <refsect1 xml:id="pam_nologin-see_also">

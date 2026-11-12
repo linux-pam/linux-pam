@@ -73,6 +73,8 @@ option('htmldir', type: 'string',
 option('pdfdir', type: 'string',
        description: 'PDF documentation directory')
 
+option('runstatedir', type: 'string', value: '/run',
+       description: 'Directory for runtime variable data (replaces the legacy /var/run)')
 option('isadir', type: 'string',
        description: 'Arch-specific PAM modules directory, relative to SECUREDIR')
 option('securedir', type: 'string',
