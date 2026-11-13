@@ -257,8 +257,9 @@ user_lookup (pam_handle_t *pamh, const char *database, const char *cryptmode,
 	     key = db_nextkey(dbm, key)) {
 	     data = db_fetch(dbm, key);
 	    pam_syslog(pamh, LOG_INFO,
-		       "key[len=%d] = `%s', data[len=%d] = `%s'",
-		       key.dsize, key.dptr, data.dsize, data.dptr);
+		       "key[len=%d] = `%.*s', data[len=%d] = `%.*s'",
+		       key.dsize, key.dsize, key.dptr ? key.dptr : "",
+		       data.dsize, data.dsize, data.dptr ? data.dptr : "");
 	}
     }
 
