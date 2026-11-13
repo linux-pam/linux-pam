@@ -46,3 +46,13 @@ foreach name: ['dlopen',
          ],
   )
 endforeach
+
+tst_pamc_list_agents = executable(
+  'tst-pamc_list_agents',
+  sources: 'tst-pamc_list_agents.c',
+  include_directories: [libpam_inc, libpamc_inc],
+  link_with: [libpamc],
+  link_args: exe_link_args,
+)
+
+test('tst-pamc_list_agents', tst_pamc_list_agents)
