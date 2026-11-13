@@ -68,7 +68,7 @@ struct tally_data {
 
 #define FAILLOCK_DEFAULT_TALLYDIR "/var/run/faillock"
 
-int open_tally(const char *dir, const char *user, uid_t uid, int create);
+int open_tally(const char *dir, const char *user, uid_t uid, int create, int use_uid);
 int read_tally(int fd, struct tally_data *tallies);
 int update_tally(int fd, struct tally_data *tallies);
 #endif

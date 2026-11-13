@@ -257,6 +257,9 @@ set_conf_opt(pam_handle_t *pamh, struct options *opts, const char *name,
 	else if (strcmp(name, "nodelay") == 0) {
 		opts->flags |= FAILLOCK_FLAG_NO_DELAY;
 	}
+	else if (strcmp(name, "uid_based_files") == 0) {
+		opts->flags |= FAILLOCK_FLAG_UID_BASED_FILES;
+	}
 	else {
 		config_log(pamh, LOG_ERR, "Unknown option: %s", name);
 	}
