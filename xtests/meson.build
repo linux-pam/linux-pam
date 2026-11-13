@@ -12,6 +12,7 @@ xtest_progs = [
   'tst-pam_dispatch5',
   'tst-pam_group1',
   'tst-pam_limits1',
+  'tst-pam_misc_conv',
   'tst-pam_motd',
   'tst-pam_pwhistory1',
   'tst-pam_shells',

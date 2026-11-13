@@ -281,9 +281,10 @@ int misc_conv(int num_msg, const struct pam_message **msgm,
 	      struct pam_response **response, void *appdata_ptr)
 {
     int count=0;
+    int retval=PAM_SUCCESS;
     struct pam_response *reply;
 
-    if (num_msg <= 0)
+    if (num_msg <= 0 || msgm == NULL)
 	return PAM_CONV_ERR;
 
     D(("allocating empty response structure array."));
@@ -362,6 +363,9 @@ int misc_conv(int num_msg, const struct pam_message **msgm,
 	}
     }
 
+    if (!response)
+	goto free_reply;
+
     *response = reply;
     reply = NULL;
 
@@ -370,7 +374,9 @@ int misc_conv(int num_msg, const struct pam_message **msgm,
 failed_conversation:
 
     D(("the conversation failed"));
+    retval = PAM_CONV_ERR;
 
+free_reply:
     if (reply) {
 	for (count=0; count<num_msg; ++count) {
 	    if (reply[count].resp == NULL) {
@@ -400,5 +406,5 @@ failed_conversation:
 	reply = NULL;
     }
 
-    return PAM_CONV_ERR;
+    return retval;
 }
