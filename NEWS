@@ -1,6 +1,7 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
 Release 1.7.3
+* pam_unix: accept bcrypt as an alias for blowfish, including in login.defs.
 * pam_unix: removed support for creating new DES/bigcrypt hashed passwords.
   Login with existing DES/bigcrypt passwords is still possible.
 * pam_unix: changed the default hash algorithm from DES to SHA512.

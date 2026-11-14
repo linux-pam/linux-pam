@@ -100,8 +100,9 @@ typedef struct {
 #define UNIX_YESCRYPT_PASS       30     /* new password hashes will use yescrypt */
 #define UNIX_NULLRESETOK         31     /* allow empty password if password reset is enforced */
 #define UNIX_EXPIRED_ONLY        32	/* only allow setting if password expired */
+#define UNIX_BCRYPT_PASS         33     /* alias for the blowfish hash option */
 /* -------------- */
-#define UNIX_CTRLS_              33	/* number of ctrl arguments defined */
+#define UNIX_CTRLS_              34	/* number of ctrl arguments defined */
 
 /*
  * Mask of all hash algorithm flags, used for mutual exclusion:
@@ -154,6 +155,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX_YESCRYPT_PASS */       {"yescrypt",         _ALL_ON_^UNIX_HASH_ALGO_FLAGS,010000000000, 1},
 /* UNIX_NULLRESETOK */         {"nullresetok",      _ALL_ON_,                    020000000000, 0},
 /* UNIX_EXPIRED_ONLY */        {NULL,               _ALL_ON_,                    040000000000, 0},
+/* UNIX_BCRYPT_PASS */         {"bcrypt",           _ALL_ON_^UNIX_HASH_ALGO_FLAGS, 0200000000, 1},
 };
 
 /* Change this to switch the built-in default hash for new passwords. */

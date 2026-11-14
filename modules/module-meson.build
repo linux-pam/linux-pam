@@ -509,3 +509,14 @@ endif
 if module == 'pam_filter'
   subdir('upperLOWER')
 endif
+
+if module == 'pam_unix'
+  tst_pam_unix_ctrl = executable(
+    'tst-pam_unix-ctrl',
+    sources: ['tst-pam_unix-ctrl.c'] + pam_module_src,
+    c_args: pam_module_c_args,
+    dependencies: pam_module_deps,
+  )
+  test('pam_unix hash selection', tst_pam_unix_ctrl,
+       env: ['srcdir=' + (meson.project_source_root() / 'tests')])
+endif
