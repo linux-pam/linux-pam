@@ -170,7 +170,7 @@ session optional pam_timestamp.so
     <title>FILES</title>
     <variablelist>
       <varlistentry>
-        <term>/var/run/pam_timestamp/...</term>
+        <term>%runstatedir%/pam_timestamp/...</term>
         <listitem>
           <para>timestamp files and directories</para>
         </listitem>

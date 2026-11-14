@@ -91,7 +91,7 @@ do {                                                \
  */
 
 #ifndef _PAM_LOGFILE
-#define _PAM_LOGFILE "/var/run/pam-debug.log"
+#define _PAM_LOGFILE "/run/pam-debug.log"
 #endif
 
 #ifdef PAM_NO_HEADER_FUNCTIONS

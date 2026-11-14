@@ -23,7 +23,7 @@
 #include <security/pam_ext.h>
 #include "pam_inline.h"
 
-#define DEFAULT_NOLOGIN_PATH "/var/run/nologin"
+#define DEFAULT_NOLOGIN_PATH RUNSTATEDIR "/nologin"
 #define COMPAT_NOLOGIN_PATH "/etc/nologin"
 
 /*

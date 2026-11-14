@@ -54,7 +54,6 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include <syslog.h>
-#include <paths.h>
 #ifdef WITH_OPENSSL
 #include "hmac_openssl_wrapper.h"
 #else
@@ -80,7 +79,7 @@
  * for the timestamp_timeout parameter. */
 #define DEFAULT_TIMESTAMP_TIMEOUT (5 * 60)
 #define MODULE "pam_timestamp"
-#define TIMESTAMPDIR _PATH_VARRUN MODULE
+#define TIMESTAMPDIR RUNSTATEDIR "/" MODULE
 #define TIMESTAMPKEY TIMESTAMPDIR "/_pam_timestamp_key"
 
 /* Various buffers we use need to be at least as large as either PATH_MAX or
