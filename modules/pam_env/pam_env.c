@@ -17,6 +17,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
+#include <dirent.h>
+#include <limits.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -29,10 +31,7 @@
 #include <security/_pam_macros.h>
 #include <security/pam_ext.h>
 #include "pam_inline.h"
-
-#ifndef USE_ECONF
 #include "pam_line.h"
-#endif
 
 /* This little structure makes it easier to keep variables together */
 
@@ -43,10 +42,6 @@ typedef struct var {
   char *override;
 } VAR;
 
-#define DEFAULT_ETC_ENVFILE     "/etc/environment"
-#ifdef VENDORDIR
-#define VENDOR_DEFAULT_ETC_ENVFILE (VENDORDIR "/environment")
-#endif
 #define DEFAULT_READ_ENVFILE    1
 
 #define DEFAULT_USER_ENVFILE    ".pam_environment"
@@ -68,6 +63,8 @@ struct string_buffer {
   size_t len;
   size_t size;
 };
+
+#define ENVD_EXPAND_DEPTH_ERROR (-1)
 
 /* This is a special value used to designate an empty string */
 static char quote='\0';
@@ -146,11 +143,6 @@ _pam_parse (const pam_handle_t *pamh, int argc, const char **argv,
     return ctrl;
 }
 
-#ifdef USE_ECONF
-
-#define ENVIRONMENT "environment"
-#define PAM_ENV "pam_env"
-
 static int
 isDirectory(const char *path) {
    struct stat statbuf;
@@ -158,6 +150,11 @@ isDirectory(const char *path) {
        return 0;
    return S_ISDIR(statbuf.st_mode);
 }
+
+#ifdef USE_ECONF
+
+#define ENVIRONMENT "environment"
+#define PAM_ENV "pam_env"
 
 /*
  * Remove escaped newline from string.
@@ -308,9 +305,9 @@ econf_read_file(const pam_handle_t *pamh, const char *filename, const char *deli
     econf_free(key_file);
     return PAM_SUCCESS;
 }
+#endif
 
-#else
-
+#ifndef USE_ECONF
 static int read_file(const pam_handle_t *pamh, const char*filename, char ***lines)
 {
     FILE *conf;
@@ -597,6 +594,608 @@ _strbuf_add_string(struct string_buffer *buffer, const char *str)
   buffer->len += len;
 
   return 0;
+}
+
+static int
+_envd_valid_name(const char *name, size_t length)
+{
+  if (length == 0 ||
+      (!isalpha((unsigned char)name[0]) && name[0] != '_'))
+    return 0;
+  for (size_t i = 1; i < length; ++i) {
+    if (!isalnum((unsigned char)name[i]) && name[i] != '_')
+      return 0;
+  }
+  return 1;
+}
+
+static int
+_envd_expand_text(pam_handle_t *pamh, const char *text, char quote_char,
+		  struct string_buffer *buffer, unsigned int depth)
+{
+  if (depth > 16)
+    return ENVD_EXPAND_DEPTH_ERROR;
+
+  while (*text != '\0') {
+    if (*text == '\\' && quote_char != '\'') {
+      char next = text[1];
+      if (next == '\0') {
+	if (_strbuf_add_char(buffer, '\\'))
+	  return 1;
+	++text;
+      } else if (quote_char != '"' || next == '"' || next == '$' ||
+		 next == '\\' || next == '`' || next == '\n') {
+	if (next != '\n' && _strbuf_add_char(buffer, next))
+	  return 1;
+	text += 2;
+      } else {
+	if (_strbuf_add_char(buffer, *text++))
+	  return 1;
+      }
+      continue;
+    }
+
+    if (*text != '$') {
+      if (_strbuf_add_char(buffer, *text++))
+	return 1;
+      continue;
+    }
+
+    if (text[1] == '$') {
+      if (_strbuf_add_char(buffer, '$'))
+	return 1;
+      text += 2;
+      continue;
+    }
+
+    const char *name = NULL;
+    size_t name_length = 0;
+    const char *replacement = NULL;
+    const char *operator_value = NULL;
+    size_t operator_length = 0;
+    size_t reference_length = 0;
+    char operator_char = '\0';
+    int colon_operator = 0;
+    const char *end = NULL;
+    const char *reference = text;
+
+    if (text[1] == '{') {
+      const char *close = text + 2;
+      unsigned int nested = 0;
+      for (; *close != '\0'; ++close) {
+	if (close[0] == '$' && close[1] == '{') {
+	  ++nested;
+	  ++close;
+	} else if (*close == '}') {
+	  if (nested == 0)
+	    break;
+	  --nested;
+	}
+      }
+      if (*close == '\0') {
+	if (_strbuf_add_char(buffer, *text++))
+	  return 1;
+	continue;
+      }
+
+      name = text + 2;
+      end = close;
+      for (const char *p = name; p < close; ++p) {
+	if (p[0] == ':' && p + 1 < close &&
+	    (p[1] == '-' || p[1] == '+')) {
+	  operator_char = p[1];
+	  colon_operator = 1;
+	  operator_value = p + 2;
+	  end = p;
+	  break;
+	} else if (p[0] == '-') {
+	  operator_char = p[0];
+	  operator_value = p + 1;
+	  end = p;
+	  break;
+	}
+      }
+      name_length = (size_t)(end - name);
+      if (operator_value != NULL)
+	operator_length = (size_t)(close - operator_value);
+      reference_length = (size_t)(close + 1 - reference);
+      text = close + 1;
+    } else if (isalpha((unsigned char)text[1]) || text[1] == '_') {
+      name = text + 1;
+      while (isalnum((unsigned char)name[name_length]) ||
+	     name[name_length] == '_')
+	++name_length;
+      reference_length = name_length + 1;
+      text = name + name_length;
+    } else {
+      if (_strbuf_add_char(buffer, *text++))
+	return 1;
+      continue;
+    }
+
+    if (!_envd_valid_name(name, name_length)) {
+      char *literal = strndup(reference, reference_length);
+      if (literal == NULL)
+	return 1;
+      int error = _strbuf_add_string(buffer, literal);
+      free(literal);
+      if (error)
+	return 1;
+      continue;
+    }
+
+    char *variable_name = strndup(name, name_length);
+    if (variable_name == NULL)
+      return 1;
+    replacement = pam_getenv(pamh, variable_name);
+    free(variable_name);
+
+    if (operator_char == '-' &&
+	(replacement == NULL || (colon_operator && *replacement == '\0'))) {
+      char *value = strndup(operator_value, operator_length);
+      if (value == NULL)
+	return 1;
+      int error = _envd_expand_text(pamh, value, quote_char, buffer, depth + 1);
+      free(value);
+      if (error)
+	return error;
+    } else if (operator_char == '+' && replacement != NULL &&
+	       *replacement != '\0') {
+      char *value = strndup(operator_value, operator_length);
+      if (value == NULL)
+	return 1;
+      int error = _envd_expand_text(pamh, value, quote_char, buffer, depth + 1);
+      free(value);
+      if (error)
+	return error;
+    } else if ((operator_char == '\0' || operator_char == '-') &&
+	       replacement != NULL &&
+	       _strbuf_add_string(buffer, replacement)) {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+static char *
+_envd_expand_value(pam_handle_t *pamh, const char *value, char quote_char,
+		   int *error)
+{
+  struct string_buffer buffer;
+  char *result;
+
+  _strbuf_init(&buffer);
+  *error = _envd_expand_text(pamh, value, quote_char, &buffer, 0);
+  if (*error != 0) {
+    _strbuf_free(&buffer);
+    return NULL;
+  }
+  result = strdup(buffer.str == NULL ? "" : buffer.str);
+  _strbuf_free(&buffer);
+  return result;
+}
+
+static int
+_envd_set_line(pam_handle_t *pamh, int ctrl, const char *filename, char *line)
+{
+  char *key = line;
+  char *equals;
+  char *value;
+  char quote_char = '\0';
+  char *value_end;
+  char *expanded;
+  char *variable;
+  char *envvar;
+  size_t key_length;
+  int retval;
+  int expansion_error;
+
+  key += strspn(key, " \t\r");
+  if (*key == '\0' || *key == '#' || *key == ';')
+    return PAM_SUCCESS;
+
+  equals = strchr(key, '=');
+  if (equals == NULL) {
+    pam_syslog(pamh, LOG_ERR, "Invalid environment.d assignment in %s, ignoring",
+	       filename);
+    return PAM_SUCCESS;
+  }
+  value_end = equals;
+  while (value_end > key && (value_end[-1] == ' ' || value_end[-1] == '\t'))
+    --value_end;
+  key_length = (size_t)(value_end - key);
+  if (!_envd_valid_name(key, key_length)) {
+    pam_syslog(pamh, LOG_ERR, "Invalid environment.d variable in %s, ignoring",
+	       filename);
+    return PAM_SUCCESS;
+  }
+
+  value = equals + 1;
+  value += strspn(value, " \t\r");
+  value_end = value + strlen(value);
+  while (value_end > value &&
+	 (value_end[-1] == ' ' || value_end[-1] == '\t' ||
+	  value_end[-1] == '\r'))
+    --value_end;
+
+  if (*value == '"' || *value == '\'') {
+    char *close;
+    quote_char = *value++;
+    close = value;
+    while (close < value_end) {
+      if (quote_char == '"' && *close == '\\' && close + 1 < value_end &&
+	  (close[1] == '"' || close[1] == '$' || close[1] == '\\' ||
+	   close[1] == '`')) {
+	++close;
+      } else if (*close == quote_char) {
+	break;
+      }
+      ++close;
+    }
+    if (close == value_end || strspn(close + 1, " \t\r") != strlen(close + 1)) {
+      pam_syslog(pamh, LOG_ERR, "Invalid quoted environment.d value in %s, ignoring",
+		 filename);
+      return PAM_SUCCESS;
+    }
+    *close = '\0';
+  } else {
+    *value_end = '\0';
+  }
+
+  expanded = _envd_expand_value(pamh, value, quote_char, &expansion_error);
+  if (expanded == NULL) {
+    if (expansion_error == ENVD_EXPAND_DEPTH_ERROR) {
+      pam_syslog(pamh, LOG_ERR, "Invalid environment.d assignment in %s, ignoring",
+		 filename);
+      return PAM_SUCCESS;
+    }
+    pam_syslog(pamh, LOG_ERR, "Cannot expand environment.d value in %s",
+	       filename);
+    return PAM_BUF_ERR;
+  }
+  variable = strndup(key, key_length);
+  if (variable == NULL) {
+    pam_overwrite_string(expanded);
+    free(expanded);
+    pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+    return PAM_BUF_ERR;
+  }
+  envvar = pam_asprintf("%s=%s", variable, expanded);
+  free(variable);
+  pam_overwrite_string(expanded);
+  free(expanded);
+  if (envvar == NULL) {
+    pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+    return PAM_BUF_ERR;
+  }
+
+  retval = pam_putenv(pamh, envvar);
+  if (retval != PAM_SUCCESS) {
+    D(("error setting environment.d variable \"%s\"", key));
+  } else if (ctrl & PAM_DEBUG_ARG) {
+    pam_syslog(pamh, LOG_DEBUG, "pam_putenv(\"%s\")", envvar);
+  }
+  pam_overwrite_string(envvar);
+  free(envvar);
+  return retval;
+}
+
+static char
+_envd_quote_state(const char *line)
+{
+  const char *value = strchr(line, '=');
+  char quote_char;
+
+  if (value == NULL)
+    return '\0';
+  value += 1 + strspn(value + 1, " \t\r");
+  quote_char = *value;
+  if (quote_char != '"' && quote_char != '\'')
+    return '\0';
+  ++value;
+
+  while (*value != '\0') {
+    if (quote_char == '"' && *value == '\\' && value[1] != '\0') {
+      ++value;
+    } else if (*value == quote_char) {
+      return '\0';
+    }
+    ++value;
+  }
+  return quote_char;
+}
+
+static int
+_parse_envd_file(pam_handle_t *pamh, int ctrl, const char *filename)
+{
+  FILE *fp;
+  char *line = NULL;
+  size_t capacity = 0;
+  ssize_t length;
+  struct string_buffer logical_line;
+  int retval = PAM_SUCCESS;
+
+  fp = fopen(filename, "r");
+  if (fp == NULL) {
+    if (errno == ENOENT)
+      return PAM_SUCCESS;
+    pam_syslog(pamh, LOG_ERR, "Unable to open environment.d file: %s: %s",
+	       filename, strerror(errno));
+    return PAM_ABORT;
+  }
+
+  _strbuf_init(&logical_line);
+  while ((length = getline(&line, &capacity, fp)) >= 0) {
+    int has_newline = length > 0 && line[length - 1] == '\n';
+    if (has_newline)
+      line[--length] = '\0';
+    if (logical_line.str == NULL) {
+      const char *first_nonblank = line + strspn(line, " \t\r");
+      if (*first_nonblank == '#' || *first_nonblank == ';')
+	continue;
+    }
+    if (_strbuf_add_string(&logical_line, line)) {
+      retval = PAM_BUF_ERR;
+      break;
+    }
+
+    char quote_char = _envd_quote_state(logical_line.str);
+    size_t trailing_backslashes = 0;
+    while (trailing_backslashes < logical_line.len &&
+	   logical_line.str[logical_line.len - trailing_backslashes - 1] == '\\')
+      ++trailing_backslashes;
+    if (has_newline && quote_char != '\'' && trailing_backslashes % 2 == 1) {
+      logical_line.str[--logical_line.len] = '\0';
+      continue;
+    }
+    if (has_newline && quote_char != '\0') {
+      if (_strbuf_add_char(&logical_line, '\n')) {
+	retval = PAM_BUF_ERR;
+	break;
+      }
+      continue;
+    }
+
+    if (logical_line.str != NULL) {
+      retval = _envd_set_line(pamh, ctrl, filename, logical_line.str);
+      if (retval != PAM_SUCCESS)
+	break;
+    }
+    _strbuf_free(&logical_line);
+  }
+
+  if (retval == PAM_SUCCESS && ferror(fp)) {
+    pam_syslog(pamh, LOG_ERR, "Unable to read environment.d file: %s: %s",
+	       filename, strerror(errno));
+    retval = PAM_ABORT;
+  }
+  if (retval == PAM_SUCCESS && logical_line.str != NULL)
+    retval = _envd_set_line(pamh, ctrl, filename, logical_line.str);
+  _strbuf_free(&logical_line);
+  free(line);
+  if (fclose(fp) != 0 && retval == PAM_SUCCESS) {
+    pam_syslog(pamh, LOG_ERR, "Unable to close environment.d file: %s: %s",
+	       filename, strerror(errno));
+    retval = PAM_ABORT;
+  }
+  if (retval == PAM_BUF_ERR)
+    pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+  return retval;
+}
+
+struct envd_file {
+  char *name;
+  char *path;
+  int priority;
+};
+
+static char *
+_find_environment_file(const pam_handle_t *pamh, const char *base_dir)
+{
+  char *system_file;
+  struct stat statbuf;
+  int stat_error;
+
+  system_file = pam_asprintf("%s%s/environment",
+			     base_dir == NULL ? "" : base_dir, SYSCONFDIR);
+  if (system_file == NULL) {
+    pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+    return NULL;
+  }
+  if (stat(system_file, &statbuf) == 0 || errno != ENOENT)
+    return system_file;
+
+#ifdef VENDORDIR
+  char *vendor_file = pam_asprintf("%s%s/environment",
+				   base_dir == NULL ? "" : base_dir, VENDORDIR);
+  if (vendor_file == NULL) {
+    pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+    free(system_file);
+    return NULL;
+  }
+  if (stat(vendor_file, &statbuf) == 0) {
+    free(system_file);
+    return vendor_file;
+  }
+  stat_error = errno;
+  free(vendor_file);
+#else
+  stat_error = errno;
+#endif
+
+  if (stat_error != ENOENT) {
+    pam_syslog(pamh, LOG_ERR, "Unable to inspect environment file: %s",
+	       strerror(stat_error));
+  }
+  return system_file;
+}
+
+static int
+_envd_file_compare(const void *left, const void *right)
+{
+  const struct envd_file *a = left;
+  const struct envd_file *b = right;
+  int comparison = strcmp(a->name, b->name);
+
+  if (comparison != 0)
+    return comparison;
+  return (a->priority > b->priority) - (a->priority < b->priority);
+}
+
+static int
+_envd_add_directory(const pam_handle_t *pamh, const char *directory,
+		    int priority, struct envd_file **files, size_t *count)
+{
+  DIR *dir;
+  struct dirent *entry;
+  struct stat null_stat;
+  int has_null_stat = stat("/dev/null", &null_stat) == 0;
+
+  if (directory == NULL)
+    return PAM_SUCCESS;
+
+  dir = opendir(directory);
+  if (dir == NULL) {
+    if (errno == ENOENT || errno == ENOTDIR)
+      return PAM_SUCCESS;
+    pam_syslog(pamh, LOG_ERR, "Unable to open environment.d directory %s: %s",
+	       directory, strerror(errno));
+    return PAM_ABORT;
+  }
+
+  for (;;) {
+    size_t name_length;
+    char *path;
+    struct stat statbuf;
+    struct envd_file *new_files;
+
+    errno = 0;
+    entry = readdir(dir);
+    if (entry == NULL) {
+      if (errno != 0) {
+	pam_syslog(pamh, LOG_ERR, "Unable to read environment.d directory %s: %s",
+		   directory, strerror(errno));
+	closedir(dir);
+	return PAM_ABORT;
+      }
+      break;
+    }
+
+    name_length = strlen(entry->d_name);
+    if (name_length <= sizeof(".conf") - 1 ||
+	strcmp(entry->d_name + name_length - (sizeof(".conf") - 1), ".conf") != 0)
+      continue;
+    path = pam_asprintf("%s/%s", directory, entry->d_name);
+    if (path == NULL) {
+      pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+      closedir(dir);
+      return PAM_BUF_ERR;
+    }
+    if (stat(path, &statbuf) != 0) {
+      if (errno != ENOENT) {
+	free(path);
+	continue;
+      }
+    } else if (!S_ISREG(statbuf.st_mode) &&
+	       !(has_null_stat && statbuf.st_dev == null_stat.st_dev &&
+		 statbuf.st_ino == null_stat.st_ino)) {
+      free(path);
+      continue;
+    }
+
+    new_files = realloc(*files, (*count + 1) * sizeof(**files));
+    if (new_files == NULL) {
+      free(path);
+      pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+      closedir(dir);
+      return PAM_BUF_ERR;
+    }
+    *files = new_files;
+    (*files)[*count].name = strdup(entry->d_name);
+    (*files)[*count].path = path;
+    (*files)[*count].priority = priority;
+    if ((*files)[*count].name == NULL) {
+      free(path);
+      pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+      closedir(dir);
+      return PAM_BUF_ERR;
+    }
+    ++*count;
+  }
+
+  if (closedir(dir) != 0) {
+    pam_syslog(pamh, LOG_ERR, "Unable to close environment.d directory %s: %s",
+	       directory, strerror(errno));
+    return PAM_ABORT;
+  }
+  return PAM_SUCCESS;
+}
+
+static int
+_parse_envd(pam_handle_t *pamh, int ctrl, const char *base_dir)
+{
+  struct envd_file *files = NULL;
+  size_t count = 0;
+  char *vendor_dir = NULL;
+  char *sysconf_dir;
+  int retval;
+
+#ifdef VENDORDIR
+  vendor_dir = pam_asprintf("%s%s/environment.d",
+			    base_dir == NULL ? "" : base_dir, VENDORDIR);
+  if (vendor_dir == NULL) {
+    pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+    return PAM_BUF_ERR;
+  }
+#endif
+  sysconf_dir = pam_asprintf("%s%s/environment.d",
+			     base_dir == NULL ? "" : base_dir, SYSCONFDIR);
+  if (sysconf_dir == NULL) {
+    pam_syslog(pamh, LOG_ERR, "Cannot allocate memory.");
+    free(vendor_dir);
+    return PAM_BUF_ERR;
+  }
+
+  retval = _envd_add_directory(pamh, vendor_dir, 0, &files, &count);
+  if (retval == PAM_SUCCESS)
+    retval = _envd_add_directory(pamh, sysconf_dir, 1, &files, &count);
+  free(vendor_dir);
+  free(sysconf_dir);
+  if (retval != PAM_SUCCESS)
+    goto done;
+
+  if (count > 1)
+    qsort(files, count, sizeof(*files), _envd_file_compare);
+  for (size_t i = 0; i < count;) {
+    size_t next = i + 1;
+    size_t selected = i;
+    struct stat file_stat, null_stat;
+    int masked = 0;
+
+    while (next < count && strcmp(files[i].name, files[next].name) == 0) {
+      selected = next;
+      ++next;
+    }
+    if (stat(files[selected].path, &file_stat) == 0 &&
+	stat("/dev/null", &null_stat) == 0 &&
+	file_stat.st_dev == null_stat.st_dev && file_stat.st_ino == null_stat.st_ino)
+      masked = 1;
+    if (!masked) {
+      retval = _parse_envd_file(pamh, ctrl, files[selected].path);
+      if (retval != PAM_SUCCESS)
+	break;
+    }
+    i = next;
+  }
+
+done:
+  for (size_t i = 0; i < count; ++i) {
+    free(files[i].name);
+    free(files[i].path);
+  }
+  free(files);
+  return retval;
 }
 
 static int
@@ -923,7 +1522,7 @@ _parse_config_file(pam_handle_t *pamh, int ctrl, const char *file)
 }
 
 static int
-_parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
+_parse_env_assignments(pam_handle_t *pamh, int ctrl, const char *file)
 {
     int retval=PAM_SUCCESS, i, t;
     char *key, *mark;
@@ -932,24 +1531,11 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
 #ifdef USE_ECONF
     retval = econf_read_file(pamh, file, "=", ENVIRONMENT, "", "", &env_list);
 #else
-    /* Only one file will be parsed. So, file has to be set. */
-    if (file == NULL) /* No filename has been set via argv. */
-      file = DEFAULT_ETC_ENVFILE;
-#ifdef VENDOR_DEFAULT_ETC_ENVFILE
-    /*
-    * Check whether file is available.
-    * If it does not exist, fall back to VENDOR_DEFAULT_ETC_ENVFILE; file.
-    */
-    struct stat stat_buffer;
-    if (stat(file, &stat_buffer) != 0 && errno == ENOENT) {
-      file = VENDOR_DEFAULT_ETC_ENVFILE;
-    }
-#endif
     retval = read_file(pamh, file, &env_list);
 #endif
 
     if (retval != PAM_SUCCESS)
-        return retval == PAM_IGNORE ? PAM_SUCCESS : retval;
+      return retval;
 
     for (char **env = env_list; *env != NULL; ++env) {
         key = *env;
@@ -1030,6 +1616,34 @@ _parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
     free_string_array(env_list);
     D(("Exit."));
     return retval;
+}
+
+static int
+_parse_env_file(pam_handle_t *pamh, int ctrl, const char *file)
+{
+  int retval = PAM_SUCCESS;
+  const char *base_dir = NULL;
+  char *resolved_file = NULL;
+  int read_envd = file == NULL;
+
+  if (file != NULL && isDirectory(file)) {
+    base_dir = file;
+    read_envd = 1;
+  }
+  if (read_envd) {
+    resolved_file = _find_environment_file(pamh, base_dir);
+    if (resolved_file == NULL)
+      return PAM_BUF_ERR;
+    file = resolved_file;
+  }
+
+  retval = _parse_env_assignments(pamh, ctrl, file);
+  if (retval == PAM_IGNORE)
+    retval = PAM_SUCCESS;
+  if (retval == PAM_SUCCESS && read_envd)
+    retval = _parse_envd(pamh, ctrl, base_dir);
+  free(resolved_file);
+  return retval;
 }
 
 /* --- authentication management functions (only) --- */

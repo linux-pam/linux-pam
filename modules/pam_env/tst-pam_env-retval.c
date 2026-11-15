@@ -26,15 +26,33 @@ static const char missing_file[] = TEST_NAME ".missing";
 static const char my_conf[] = TEST_NAME ".conf";
 static const char my_env[] = TEST_NAME ".env";
 static const char bad_conf[] = TEST_NAME ".bad.conf";
+static const char envd_reg_root[] = TEST_NAME_DIR "/envd-regression";
+static const char envd_reg_env[] = TEST_NAME_DIR "/envd-regression"
+				   SYSCONFDIR "/environment";
+static const char envd_reg_dir[] = TEST_NAME_DIR "/envd-regression"
+				   SYSCONFDIR "/environment.d";
+static const char envd_reg_file[] = TEST_NAME_DIR "/envd-regression"
+				    SYSCONFDIR "/environment.d/10-defaults.conf";
+static const char envd_reg_missing[] = TEST_NAME_DIR "/envd-regression"
+				       SYSCONFDIR "/environment.d/00-missing.conf";
 #ifdef VENDORDIR
 static const char dir_usr_etc_security[] = TEST_NAME_DIR VENDOR_SCONFIG_DIR;
 static const char usr_env[] = TEST_NAME_DIR VENDORDIR "/environment";
 static const char usr_conf[] = TEST_NAME_DIR VENDOR_SCONFIG_DIR "/pam_env.conf";
+static const char envd_root[] = TEST_NAME_DIR "/envd";
+static const char envd_usr_dir[] = TEST_NAME_DIR "/envd" VENDORDIR "/environment.d";
+static const char envd_etc_dir[] = TEST_NAME_DIR "/envd" SYSCONFDIR "/environment.d";
+static const char envd_usr_env[] = TEST_NAME_DIR "/envd" VENDORDIR "/environment";
+static const char envd_usr_10[] = TEST_NAME_DIR "/envd" VENDORDIR "/environment.d/10-example.conf";
+static const char envd_usr_20[] = TEST_NAME_DIR "/envd" VENDORDIR "/environment.d/20-example.conf";
+static const char envd_usr_30[] = TEST_NAME_DIR "/envd" VENDORDIR "/environment.d/30-chain.conf";
+static const char envd_usr_40[] = TEST_NAME_DIR "/envd" VENDORDIR "/environment.d/40-chain.conf";
+static const char envd_etc_20[] = TEST_NAME_DIR "/envd" SYSCONFDIR "/environment.d/20-example.conf";
+static const char envd_etc_50[] = TEST_NAME_DIR "/envd" SYSCONFDIR "/environment.d/50-chain.conf";
 #endif
 
 static struct pam_conv conv;
 
-#ifdef VENDORDIR
 static void
 mkdir_p(const char *pathname, mode_t mode)
 {
@@ -61,7 +79,6 @@ rmdir_p(const char *pathname)
 	rmdir_p(dirname(buf));
 	free(buf);
 }
-#endif
 
 static void
 setup(void)
@@ -89,6 +106,37 @@ setup(void)
 			     "test2_value=bar\n"));
 	ASSERT_EQ(0, fclose(fp));
 
+	mkdir_p(envd_reg_dir, 0755);
+
+	ASSERT_NE(NULL, fp = fopen(envd_reg_env, "w"));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(envd_reg_file, "w"));
+	ASSERT_LT(0, fprintf(fp,
+			     "BASE=present\n"
+			     "RESULT_SET=${BASE:-fallback}\n"
+			     "RESULT_SET_DEFAULT=${BASE-fallback}\n"
+			     "RESULT_UNSET=${UNSET:-fallback}\n"
+			     "RESULT_UNSET_DEFAULT=${UNSET-fallback}\n"
+			     "EMPTY=\n"
+			     "RESULT_EMPTY=${EMPTY:-fallback}\n"
+			     "RESULT_EMPTY_DEFAULT=${EMPTY-fallback}\n"
+			     "TOO_DEEP=original\n"
+			     "TOO_DEEP=${A:-${B:-${C:-${D:-${E:-${F:-${G:-${H:-${I:-${J:-${K:-${L:-${M:-${N:-${O:-${P:-${Q:-too deep}}}}}}}}}}}}}}}}}\n"
+			     "AFTER_TOO_DEEP=present\n"
+			     "# Example: VALUE=\"\n"
+			     "RESULT_AFTER_QUOTE_COMMENT=present\n"
+			     "; Example: VALUE=\"\n"
+			     "RESULT_AFTER_SEMICOLON_QUOTE_COMMENT=present\n"
+			     "# Example: VALUE=\\\n"
+			     "RESULT_AFTER_BACKSLASH_COMMENT=present\n"
+			     "; Example: VALUE=\\\n"
+			     "RESULT_AFTER_SEMICOLON_BACKSLASH_COMMENT=present\n"
+			     "CONTINUED=first\\\n"
+			     "second\n"));
+	ASSERT_EQ(0, fclose(fp));
+	ASSERT_EQ(0, symlink("missing-target.conf", envd_reg_missing));
+
 #ifdef VENDORDIR
 	mkdir_p(dir_usr_etc_security, 0755);
 
@@ -104,6 +152,53 @@ setup(void)
 			     "MANPAGER		DEFAULT=less\n"));
 	ASSERT_EQ(0, fclose(fp));
 #endif
+
+#ifdef VENDORDIR
+	mkdir_p(envd_usr_dir, 0755);
+	mkdir_p(envd_etc_dir, 0755);
+
+	ASSERT_NE(NULL, fp = fopen(envd_usr_env, "w"));
+	ASSERT_LT(0, fprintf(fp, "PATH=/usr/bin\n"));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(envd_usr_10, "w"));
+	ASSERT_LT(0, fprintf(fp,
+			     "TEST=\"example var\"\n"
+			     "PATH=\"/my/custom/path:${PATH}\"\n"
+			     "LITERAL=\"$$TEST\"\n"
+			     "FALLBACK_DEFAULT=\"${UNSET:-default}\"\n"
+			     "BASE=present\n"
+			     "FALLBACK_SET=\"${BASE:-fallback}\"\n"
+			     "EMPTY=\n"
+			     "FALLBACK_EMPTY=\"${EMPTY:-fallback}\"\n"
+			     "CONTINUED=first\\\n"
+			     "second\n"));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(envd_usr_20, "w"));
+	ASSERT_LT(0, fprintf(fp, "TEST=\"vendor $TEST\"\n"));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(envd_etc_20, "w"));
+	ASSERT_LT(0, fprintf(fp,
+			     "TEST=\"system $TEST\"\n"
+			     "QUOTED='# $TEST'\n"
+			     "SPACED=' value '\n"
+			     "FALLBACK=\"${UNSET:+unused}${TEST:+-configured}\"\n"));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(envd_usr_30, "w"));
+	ASSERT_LT(0, fprintf(fp, "CHAIN=first\n"));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(envd_usr_40, "w"));
+	ASSERT_LT(0, fprintf(fp, "CHAIN=\"$CHAIN second\"\n"));
+	ASSERT_EQ(0, fclose(fp));
+
+	ASSERT_NE(NULL, fp = fopen(envd_etc_50, "w"));
+	ASSERT_LT(0, fprintf(fp, "CHAIN=\"${CHAIN:+$CHAIN third}\"\n"));
+	ASSERT_EQ(0, fclose(fp));
+#endif
 }
 
 static void
@@ -112,10 +207,27 @@ cleanup(void)
 	ASSERT_EQ(0, unlink(my_conf));
 	ASSERT_EQ(0, unlink(bad_conf));
 	ASSERT_EQ(0, unlink(my_env));
+	ASSERT_EQ(0, unlink(envd_reg_env));
+	ASSERT_EQ(0, unlink(envd_reg_file));
+	ASSERT_EQ(0, unlink(envd_reg_missing));
+	rmdir_p(envd_reg_dir);
 #ifdef VENDORDIR
 	ASSERT_EQ(0, unlink(usr_env));
 	ASSERT_EQ(0, unlink(usr_conf));
 	rmdir_p(dir_usr_etc_security);
+#endif
+
+#ifdef VENDORDIR
+	ASSERT_EQ(0, unlink(envd_usr_env));
+	ASSERT_EQ(0, unlink(envd_usr_10));
+	ASSERT_EQ(0, unlink(envd_usr_20));
+	ASSERT_EQ(0, unlink(envd_usr_30));
+	ASSERT_EQ(0, unlink(envd_usr_40));
+	ASSERT_EQ(0, unlink(envd_etc_20));
+	ASSERT_EQ(0, unlink(envd_etc_50));
+	rmdir_p(envd_usr_dir);
+	rmdir_p(envd_etc_dir);
+	rmdir_p(envd_root);
 #endif
 }
 
@@ -275,6 +387,33 @@ main(void)
 	const char *env3a[] = { "GOOD_VAR=good", NULL };
 	check_env(env3a);
 
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "session required %s/" LTDIR "%s.so"
+			     " conffile=/dev/null envfile=%s/%s\n",
+			     cwd, MODULE_NAME, cwd, envd_reg_root));
+	ASSERT_EQ(0, fclose(fp));
+
+	const char *env_defaults[] = {
+		"BASE=present",
+		"RESULT_SET=present",
+		"RESULT_SET_DEFAULT=present",
+		"RESULT_UNSET=fallback",
+		"RESULT_UNSET_DEFAULT=fallback",
+		"EMPTY=",
+		"RESULT_EMPTY=fallback",
+		"RESULT_EMPTY_DEFAULT=",
+		"TOO_DEEP=original",
+		"AFTER_TOO_DEEP=present",
+		"RESULT_AFTER_QUOTE_COMMENT=present",
+		"RESULT_AFTER_SEMICOLON_QUOTE_COMMENT=present",
+		"RESULT_AFTER_BACKSLASH_COMMENT=present",
+		"RESULT_AFTER_SEMICOLON_BACKSLASH_COMMENT=present",
+		"CONTINUED=firstsecond",
+		NULL
+	};
+	check_env(env_defaults);
+
 #if defined (USE_ECONF) && defined (VENDORDIR)
 
 	/* envfile is a directory. So values will be read from {TEST_NAME_DIR}/usr/etc and {TEST_NAME_DIR}/etc */
@@ -303,6 +442,32 @@ main(void)
 	const char *env4[] = {"PAGER=emacs", "MANPAGER=less", NULL};
 	check_env(env4);
 
+#endif
+
+#ifdef VENDORDIR
+	/* Verify environment.d expansion, ordering, quoting, and file precedence. */
+	ASSERT_NE(NULL, fp = fopen(service_file, "w"));
+	ASSERT_LT(0, fprintf(fp, "#%%PAM-1.0\n"
+			     "session required %s/" LTDIR "%s.so"
+			     " conffile=/dev/null envfile=%s/%s\n",
+			     cwd, MODULE_NAME, cwd, envd_root));
+	ASSERT_EQ(0, fclose(fp));
+
+	const char *env5[] = {
+		"PATH=/my/custom/path:/usr/bin",
+		"TEST=system example var",
+		"LITERAL=$TEST",
+		"FALLBACK=-configured",
+		"FALLBACK_DEFAULT=default",
+		"FALLBACK_SET=present",
+		"FALLBACK_EMPTY=fallback",
+		"CONTINUED=firstsecond",
+		"QUOTED=# system example var",
+		"SPACED= value ",
+		"CHAIN=first second third",
+		NULL
+	};
+	check_env(env5);
 #endif
 
 	/* cleanup */
