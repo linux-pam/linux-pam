@@ -42,6 +42,7 @@
 #include <ctype.h>
 #include <sys/utsname.h>
 #include <arpa/inet.h>
+#include <netinet/in.h>
 #include <netdb.h>
 #include <sys/socket.h>
 #include <glob.h>
@@ -331,6 +332,10 @@ is_local_addr (const char *string, int addr_type)
  * addresses and compare them to find out if they are equal.
  * If netmask was provided it will be used to focus comparison to
  * relevant bits.
+ *
+ * ipaddr0 is always the address of the connecting host, ipaddr1 is
+ * always the address derived from an access.conf(5) rule token (see
+ * the only two callers in network_netmask_match()).
  */
 static int
 are_addresses_equal (const char *ipaddr0, const char *ipaddr1,
@@ -357,7 +362,22 @@ are_addresses_equal (const char *ipaddr0, const char *ipaddr1,
     if (local1 == YES && local2 == YES)
       return YES;
 
-    return NO;
+    /* An IPv4 rule token should match a connection presented as
+     * an IPv4-mapped IPv6 form of that address. Unwrap such a
+     * connection address and fall through to the normal AF_INET
+     * comparison below.
+     */
+    if (addr_type0 == AF_INET6 && addr_type1 == AF_INET &&
+	IN6_IS_ADDR_V4MAPPED((struct in6_addr *)&addr0)) {
+      struct sockaddr_storage mapped;
+
+      memset(&mapped, 0, sizeof(mapped));
+      memcpy(&mapped, &((struct in6_addr *)&addr0)->s6_addr[12],
+	     sizeof(struct in_addr));
+      addr0 = mapped;
+      addr_type0 = AF_INET;
+    } else
+      return NO;
   }
 
   if (netmask != NULL) {

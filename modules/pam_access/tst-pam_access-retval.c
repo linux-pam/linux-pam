@@ -66,6 +66,19 @@ check(const char *user, int expected)
 	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
 }
 
+static void
+check_rhost(const char *user, const char *rhost, int expected)
+{
+	pam_handle_t *pamh = NULL;
+
+	ASSERT_EQ(PAM_SUCCESS,
+		  pam_start_confdir(service_file, user, &conv, ".", &pamh));
+	ASSERT_NE(NULL, pamh);
+	ASSERT_EQ(PAM_SUCCESS, pam_set_item(pamh, PAM_RHOST, rhost));
+	ASSERT_EQ(expected, pam_acct_mgmt(pamh, 0));
+	ASSERT_EQ(PAM_SUCCESS, pam_end(pamh, 0));
+}
+
 int
 main(void)
 {
@@ -137,6 +150,31 @@ main(void)
 	ASSERT_LT(0, wlen);
 	write_access_file(multi, (size_t) wlen);
 	check(pw->pw_name, PAM_SUCCESS);
+
+	/*
+	 * Regression test: a connection address presented in IPv4-mapped
+	 * IPv6 form (::ffff:a.b.c.d) must match an access.conf(5) rule
+	 * written for the plain IPv4 address, both as a host and as a
+	 * network/netmask token, as documented in access.conf(5).  Before
+	 * the fix, are_addresses_equal() compared the AF_INET rule against
+	 * the AF_INET6 peer, the address families never matched, the deny
+	 * rule was skipped, and NOMATCH was treated as PAM_SUCCESS.
+	 */
+	static const char host_rule[] = "-:ALL:10.1.2.3";
+	write_access_file(host_rule, strlen(host_rule));
+	check_rhost(pw->pw_name, "10.1.2.3", PAM_PERM_DENIED);
+	check_rhost(pw->pw_name, "::ffff:10.1.2.3", PAM_PERM_DENIED);
+
+	static const char net_rule[] = "-:ALL:10.0.0.0/8";
+	write_access_file(net_rule, strlen(net_rule));
+	check_rhost(pw->pw_name, "10.1.2.3", PAM_PERM_DENIED);
+	check_rhost(pw->pw_name, "::ffff:10.1.2.3", PAM_PERM_DENIED);
+
+	/* Control: a non-matching network must still allow access. */
+	static const char nomatch_rule[] = "-:ALL:192.0.2.0/24";
+	write_access_file(nomatch_rule, strlen(nomatch_rule));
+	check_rhost(pw->pw_name, "10.1.2.3", PAM_SUCCESS);
+	check_rhost(pw->pw_name, "::ffff:10.1.2.3", PAM_SUCCESS);
 
 	ASSERT_EQ(0, unlink(access_file));
 	ASSERT_EQ(0, unlink(service_file));
