@@ -384,8 +384,8 @@ failed_conversation:
 		break;
 	    case PAM_BINARY_PROMPT:
 	      {
-		void *bt_ptr = reply[count].resp;
-		pam_binary_handler_free(appdata_ptr, bt_ptr);
+		pamc_bp_t bt_ptr = (pamc_bp_t) reply[count].resp;
+		pam_binary_handler_free(appdata_ptr, &bt_ptr);
 		break;
 	      }
 	    case PAM_ERROR_MSG:

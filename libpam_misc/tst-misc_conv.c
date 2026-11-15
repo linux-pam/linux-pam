@@ -16,6 +16,7 @@ enum binary_action {
 	BINARY_REPLACE,
 	BINARY_FAIL,
 	BINARY_NULL,
+	BINARY_CLOSE_INPUT,
 };
 
 struct conversation {
@@ -145,6 +146,9 @@ handle_binary(void *appdata, pamc_bp_t *prompt)
 		/* The handler disposes of its in-progress packet on failure. */
 		PAM_BP_RENEW(prompt, 0, 0);
 		return state->action == BINARY_FAIL ? PAM_AUTH_ERR : PAM_SUCCESS;
+	case BINARY_CLOSE_INPUT:
+		ASSERT_EQ(0, close(STDIN_FILENO));
+		break;
 	case BINARY_COPY:
 		break;
 	}
@@ -291,6 +295,8 @@ test_failure(const char *name)
 	const struct pam_message invalid = { -1, "invalid" };
 	const struct pam_message *msgm[] = { &invalid, &invalid, &invalid };
 	struct pam_response *response = NULL;
+	struct conversation state = { .request = NULL, .action = BINARY_CLOSE_INPUT };
+	struct pam_message binary = { PAM_BINARY_PROMPT, NULL };
 	int count = 1;
 
 	ASSERT_NE(EOF, fputs("first\nsecond\n", input));
@@ -303,11 +309,25 @@ test_failure(const char *name)
 	} else if (strcmp(name, "read-error") == 0) {
 		ASSERT_EQ(0, close(STDIN_FILENO));
 		msgm[0] = &first;
+	} else if (strcmp(name, "read-error-after-response") == 0) {
+		state.request = make_binary_prompt();
+		binary.msg = (const char *) state.request;
+		pam_binary_handler_fn = handle_binary;
+		pam_binary_handler_free = free_binary;
+		msgm[0] = &first;
+		msgm[1] = &binary;
+		msgm[2] = &second;
+		count = 3;
 	} else {
 		if (strcmp(name, "invalid-style") != 0)
 			usage();
 	}
-	ASSERT_EQ(PAM_CONV_ERR, misc_conv(count, msgm, &response, NULL));
+	ASSERT_EQ(PAM_CONV_ERR, misc_conv(count, msgm, &response, &state));
+	if (state.request) {
+		ASSERT_EQ(1, state.handled);
+		ASSERT_EQ(1, state.freed);
+		PAM_BP_RENEW(&state.request, 0, 0);
+	}
 	ASSERT_EQ(0, fclose(input));
 }
 
@@ -322,7 +342,8 @@ test_binary(const char *name)
 	int count = 1, success = 0, handled = 1, freed = 0;
 
 	pam_binary_handler_fn = handle_binary;
-	pam_binary_handler_free = free_binary;
+	if (strcmp(name, "cleanup-default") != 0)
+		pam_binary_handler_free = free_binary;
 	if (strcmp(name, "copy") == 0) {
 		success = 1;
 	} else if (strcmp(name, "replace") == 0) {
@@ -338,6 +359,15 @@ test_binary(const char *name)
 		state.action = BINARY_FAIL;
 	} else if (strcmp(name, "handler-null") == 0) {
 		state.action = BINARY_NULL;
+	} else if (strcmp(name, "cleanup-multiple") == 0) {
+		msgm[1] = &binary;
+		count = 3;
+		handled = freed = 2;
+	} else if (strcmp(name, "cleanup-custom") == 0) {
+		count = 2;
+		freed = 1;
+	} else if (strcmp(name, "cleanup-default") == 0) {
+		count = 2;
 	} else {
 		usage();
 	}

@@ -51,12 +51,14 @@ foreach echo: ['on', 'off']
   endforeach
 endforeach
 
-foreach case: ['invalid-style', 'invalid-after-text', 'read-error']
+foreach case: ['invalid-style', 'invalid-after-text', 'read-error',
+              'read-error-after-response']
   test('misc_conv failure ' + case, tst_misc_conv, args: ['failure', case])
 endforeach
 
 foreach case: ['copy', 'replace', 'missing-handler', 'null-payload',
-              'handler-failure', 'handler-null']
+              'handler-failure', 'handler-null', 'cleanup-default',
+              'cleanup-custom', 'cleanup-multiple']
   test('misc_conv binary ' + case, tst_misc_conv, args: ['binary', case])
 endforeach
 
