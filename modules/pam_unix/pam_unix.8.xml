@@ -318,13 +318,17 @@
       </varlistentry>
       <varlistentry>
         <term>
+          bcrypt
+        </term>
+        <term>
           blowfish
         </term>
         <listitem>
           <para>
             When a user changes their password next,
-            encrypt it with the blowfish algorithm. The
-            blowfish algorithm must be supported by the <citerefentry>
+            hash it with the bcrypt algorithm. The
+            <option>blowfish</option> name is retained as an alias for
+            backwards compatibility. The bcrypt algorithm must be supported by the <citerefentry>
 	    <refentrytitle>crypt</refentrytitle><manvolnum>3</manvolnum>
             </citerefentry> function.
           </para>
@@ -365,7 +369,7 @@
         <listitem>
           <para>
             Set the optional number of rounds of the SHA256, SHA512,
-            blowfish, gost-yescrypt, and yescrypt password hashing
+            bcrypt, gost-yescrypt, and yescrypt password hashing
             algorithms to
             <replaceable>n</replaceable>.
           </para>
