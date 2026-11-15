@@ -30,6 +30,36 @@ libpam_misc_dep = declare_dependency(
   link_with: [libpam_misc],
 )
 
+tst_misc_conv = executable(
+  'tst-misc_conv',
+  sources: 'tst-misc_conv.c',
+  include_directories: [libpamc_inc],
+  dependencies: [libpam_dep, libpam_misc_dep],
+  c_args: ['-DLIBPAM_COMPILE'],
+  link_args: exe_link_args,
+)
+
+foreach case: ['arguments', 'informational']
+  test('misc_conv ' + case, tst_misc_conv, args: [case])
+endforeach
+
+foreach echo: ['on', 'off']
+  foreach case: ['line', 'empty', 'eof', 'no-newline', 'multiple',
+                'below-limit', 'at-limit', 'above-limit']
+    test('misc_conv input echo-' + echo + ' ' + case, tst_misc_conv,
+         args: ['input', echo, case])
+  endforeach
+endforeach
+
+foreach case: ['invalid-style', 'invalid-after-text', 'read-error']
+  test('misc_conv failure ' + case, tst_misc_conv, args: ['failure', case])
+endforeach
+
+foreach case: ['copy', 'replace', 'missing-handler', 'null-payload',
+              'handler-failure', 'handler-null']
+  test('misc_conv binary ' + case, tst_misc_conv, args: ['binary', case])
+endforeach
+
 pkgconfig.generate(
   libpam_misc,
   description: 'Miscellaneous functions that make the job of writing PAM-aware applications easier.',
