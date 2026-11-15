@@ -30,7 +30,7 @@ struct conversation {
 static void
 usage(void)
 {
-	fputs("Usage: tst-misc_conv arguments|informational|input on|off CASE|failure CASE|binary CASE\n",
+	fputs("Usage: tst-misc_conv arguments|null-arguments|informational|input on|off CASE|failure CASE|binary CASE\n",
 	      stderr);
 	exit(EXIT_FAILURE);
 }
@@ -180,6 +180,23 @@ test_arguments(void)
 
 	ASSERT_EQ(PAM_CONV_ERR, misc_conv(0, &msgm, &response, NULL));
 	ASSERT_EQ(PAM_CONV_ERR, misc_conv(-1, &msgm, &response, NULL));
+}
+
+static void
+test_null_arguments(void)
+{
+	const struct pam_message msg = { PAM_TEXT_INFO, "unused" };
+	const struct pam_message *msgm = &msg;
+	struct pam_response *response = NULL;
+
+	/* msgm == NULL, response == NULL */
+	ASSERT_EQ(PAM_CONV_ERR, misc_conv(1, NULL, NULL, NULL));
+
+	/* msgm == NULL, response != NULL */
+	ASSERT_EQ(PAM_CONV_ERR, misc_conv(1, NULL, &response, NULL));
+
+	/* msgm != NULL, response == NULL */
+	ASSERT_EQ(PAM_CONV_ERR, misc_conv(1, &msgm, NULL, NULL));
 }
 
 static void
@@ -398,6 +415,8 @@ main(int argc, char **argv)
 {
 	if (argc == 2 && strcmp(argv[1], "arguments") == 0)
 		test_arguments();
+	else if (argc == 2 && strcmp(argv[1], "null-arguments") == 0)
+		test_null_arguments();
 	else if (argc == 2 && strcmp(argv[1], "informational") == 0)
 		test_informational();
 	else if (argc == 4 && strcmp(argv[1], "input") == 0 &&

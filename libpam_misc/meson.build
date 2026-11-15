@@ -39,7 +39,7 @@ tst_misc_conv = executable(
   link_args: exe_link_args,
 )
 
-foreach case: ['arguments', 'informational']
+foreach case: ['arguments', 'null-arguments', 'informational']
   test('misc_conv ' + case, tst_misc_conv, args: [case])
 endforeach
 

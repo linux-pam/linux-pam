@@ -283,7 +283,7 @@ int misc_conv(int num_msg, const struct pam_message **msgm,
     int count=0;
     struct pam_response *reply;
 
-    if (num_msg <= 0)
+    if (num_msg <= 0 || msgm == NULL || response == NULL)
 	return PAM_CONV_ERR;
 
     D(("allocating empty response structure array."));
