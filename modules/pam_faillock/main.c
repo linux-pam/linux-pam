@@ -128,8 +128,8 @@ static void
 usage(const char *progname)
 {
 	fprintf(stderr,
-		_("Usage: %s [--dir /path/to/tally-directory]"
-		  " [--user username] [--reset] [--legacy-output]\n"), progname);
+		_("Usage: %s [--conf /path/to/config-file] [--dir /path/to/tally-directory]\n"
+		  "       [--user username|UID] [--reset] [--legacy-output]\n"), progname);
 
 }
 
@@ -213,16 +213,44 @@ do_user(struct options *opts, const char *user)
 	int fd;
 	int rv;
 	struct tally_data tallies;
-	struct passwd *pwd;
+	struct passwd *pwd = NULL;
 	const char *dir = get_tally_dir(opts);
+	char *endptr;
+	unsigned long uid_val;
 
-	pwd = getpwnam(user);
-	if (pwd == NULL) {
-	    fprintf(stderr, "%s: Error no such user: %s\n", opts->progname, user);
-	    return 1;
+	/* Lookup user information */
+	if (opts->flags & FAILLOCK_FLAG_UID_BASED_FILES) {
+		/* Try username lookup first to support 'faillock --user alice' */
+		pwd = getpwnam(user);
+		if (pwd == NULL) {
+			/* If username lookup fails, try parsing as numeric UID */
+			/* Validate that input starts with a digit (strtoul accepts signs/whitespace) */
+			if (user[0] >= '0' && user[0] <= '9') {
+				errno = 0;
+				uid_val = strtoul(user, &endptr, 10);
+				if (*endptr == '\0' && endptr != user) {
+					if (errno == ERANGE || uid_val > (uid_t)-1) {
+						fprintf(stderr, "%s: Invalid UID value: %s\n", opts->progname, user);
+						return 1;
+					}
+					pwd = getpwuid((uid_t)uid_val);
+				}
+			}
+		}
+	} else {
+		/* Username-based mode - always use username lookup */
+		pwd = getpwnam(user);
 	}
 
-	fd = open_tally(dir, user, pwd->pw_uid, 1);
+	/* Common error handling */
+	if (pwd == NULL) {
+		fprintf(stderr, "%s: Error no such user: %s\n",
+			opts->progname, user);
+		return 1;
+	}
+
+	/* Use original 'user' parameter for filename in default mode to avoid NSS canonicalization issues */
+	fd = open_tally(dir, user, pwd->pw_uid, 1, opts->flags & FAILLOCK_FLAG_UID_BASED_FILES);
 
 	if (fd == -1) {
 		if (errno == ENOENT) {
@@ -230,7 +258,7 @@ do_user(struct options *opts, const char *user)
 		}
 		else {
 			fprintf(stderr, "%s: Error opening the tally file for %s:",
-				opts->progname, user);
+				opts->progname, pwd->pw_name);
 			perror(NULL);
 			return 3;
 		}
@@ -243,15 +271,15 @@ do_user(struct options *opts, const char *user)
 		while ((rv=ftruncate(fd, 0)) == -1 && errno == EINTR);
 		if (rv == -1) {
 			fprintf(stderr, "%s: Error clearing the tally file for %s:",
-				opts->progname, user);
+				opts->progname, pwd->pw_name);
 			perror(NULL);
 #ifdef HAVE_LIBAUDIT
 		}
 		if ((audit_fd=audit_open()) >= 0) {
 			(void) !audit_log_acct_message(audit_fd,
 				AUDIT_USER_MGMT, NULL,
-				"faillock-reset", user,
-				pwd != NULL ? pwd->pw_uid : AUDIT_NO_ID,
+				"faillock-reset", pwd->pw_name,
+				pwd->pw_uid,
 				NULL, NULL, NULL, rv == 0);
 			close(audit_fd);
 		}
@@ -265,17 +293,17 @@ do_user(struct options *opts, const char *user)
 		memset(&tallies, 0, sizeof(tallies));
 		if (read_tally(fd, &tallies) == -1) {
 			fprintf(stderr, "%s: Error reading the tally file for %s:",
-				opts->progname, user);
+				opts->progname, pwd->pw_name);
 			perror(NULL);
 			close(fd);
 			return 5;
 		}
 
 		if (opts->legacy_output == 0) {
-			print_in_new_format(opts, &tallies, user);
+			print_in_new_format(opts, &tallies, pwd->pw_name);
 		}
 		else {
-			print_in_legacy_format(opts, &tallies, user);
+			print_in_legacy_format(opts, &tallies, pwd->pw_name);
 		}
 
 		free(tallies.records);

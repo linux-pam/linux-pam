@@ -196,6 +196,31 @@
                 </para>
               </listitem>
             </varlistentry>
+            <varlistentry>
+              <term>
+                uid_based_files
+              </term>
+              <listitem>
+                <para>
+                  Use user ID (UID) instead of username for tally file naming.
+                  When enabled, tally files are named by UID (e.g., /var/run/faillock/1000)
+                  instead of username (e.g., /var/run/faillock/username).
+                  This provides filename stability across username changes, which is useful
+                  for environments where usernames can change (e.g., SSSD/LDAP).
+                  By default, this option is not set (username-based files are used).
+                </para>
+                <para>
+                  <emphasis role="strong">Warning:</emphasis> Switching between username-based
+                  and UID-based naming schemes will effectively clear existing lockout state,
+                  as the module will not find the old tally files under their new names.
+                  When enabling this option on a system with existing tally files, administrators
+                  should either accept that current lockouts will be cleared, or manually rename
+                  existing tally files from usernames to UIDs before enabling this option.
+                  Similarly, disabling this option will require renaming files from UIDs back to
+                  usernames if preservation of lockout state is desired.
+                </para>
+              </listitem>
+            </varlistentry>
         </variablelist>
   </refsect1>
 
