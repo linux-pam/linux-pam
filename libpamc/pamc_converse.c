@@ -218,5 +218,5 @@ pamc_unknown_prompt:
     /* the server is trying something that the client does not support */
     D(("unknown prompt"));
     PAM_BP_RENEW(prompt_p, PAM_BPC_FAIL, 0);
-    return PAM_BPC_TRUE;
+    return *prompt_p != NULL ? PAM_BPC_TRUE : PAM_BPC_FALSE;
 }

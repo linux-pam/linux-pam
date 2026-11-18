@@ -321,6 +321,50 @@ test_pipe_relocation_failure(void)
 	}
 }
 
+#ifdef NDEBUG
+static void
+test_reply_allocations(void)
+{
+	/* Debug builds intentionally terminate at PAM_BP_ASSERT on prompt OOM;
+	 * tst-pam_bp checks that policy.  NDEBUG must handle failed reply and
+	 * fallback allocations without returning TRUE with a NULL prompt.
+	 */
+	static const char selection[] = "fixture/echo";
+	static const uint8_t payload[] = { 0x11, 0, 0x80, 0xff };
+	size_t fds = fd_count();
+	for (int persistent = 0; persistent <= 1; ++persistent) {
+		pamc_test_case("pamc_converse: reply OOM, persistent=%d (setup)",
+			       persistent);
+		reset();
+		pamc_handle_t handle = start();
+		pamc_bp_t bp = NULL;
+		PAM_BP_RENEW(&bp, PAM_BPC_SELECT, sizeof(selection) - 1);
+		ASSERT_NE(NULL, bp);
+		memcpy(PAM_BP_WDATA(bp), selection, sizeof(selection) - 1);
+		ASSERT_EQ(PAM_BPC_TRUE, pamc_converse(handle, &bp));
+		PAM_BP_RENEW(&bp, PAM_BPC_OK, sizeof(payload));
+		ASSERT_NE(NULL, bp);
+		memcpy(PAM_BP_WDATA(bp), payload, sizeof(payload));
+		pamc_test_case("pamc_converse: reply OOM, persistent=%d (injection)",
+			       persistent);
+		pamc_fault_arm(FAULT_ALLOC, 1, persistent);
+		ASSERT_EQ(persistent ? PAM_BPC_FALSE : PAM_BPC_TRUE,
+			  pamc_converse(handle, &bp));
+		ASSERT_EQ(persistent ? 2U : 1U, pamc_fault_hits());
+		if (persistent)
+			ASSERT_EQ(NULL, bp);
+		else {
+			ASSERT_NE(NULL, bp);
+			ASSERT_EQ(PAM_BPC_FAIL, PAM_BP_RCONTROL(bp));
+			ASSERT_EQ(0U, PAM_BP_LENGTH(bp));
+		}
+		reset();
+		PAM_BP_RENEW(&bp, 0, 0);
+		finish(&handle, PAM_BPC_TRUE, fds);
+	}
+}
+#endif
+
 int
 main(int argc, char **argv)
 {
@@ -332,5 +376,8 @@ main(int argc, char **argv)
 	pamc_test_run(argv[1], test_launch_failures);
 	pamc_test_run(argv[1], test_interrupted_wait);
 	pamc_test_run(argv[1], test_pipe_relocation_failure);
+#ifdef NDEBUG
+	pamc_test_run(argv[1], test_reply_allocations);
+#endif
 	return 0;
 }
