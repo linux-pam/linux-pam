@@ -348,7 +348,7 @@ int __pamc_valid_agent_id(int id_length, const char *id)
  */
 
 static pamc_id_node_t *__pamc_add_node(pamc_id_node_t *root, const char *id,
-				       int *counter)
+				       int *counter, int *error)
 {
     if (root) {
 
@@ -357,9 +357,9 @@ static pamc_id_node_t *__pamc_add_node(pamc_id_node_t *root, const char *id,
 	if ((cmp = strcmp(id, root->agent_id))) {
 	    /* Every insertion contributes to the whole list's allocation size. */
 	    if (cmp > 0) {
-		root->right = __pamc_add_node(root->right, id, counter);
+		root->right = __pamc_add_node(root->right, id, counter, error);
 	    } else {
-		root->left = __pamc_add_node(root->left, id, counter);
+		root->left = __pamc_add_node(root->left, id, counter, error);
 	    }
 	}
 
@@ -379,6 +379,8 @@ static pamc_id_node_t *__pamc_add_node(pamc_id_node_t *root, const char *id,
 
 	if (node)
 	    (*counter)++;
+	else
+	    *error = 1;
 	return node;
     }
 }
@@ -423,9 +425,9 @@ static void __pamc_fill_list_from_tree(pamc_id_node_t *tree, char **agent_list,
 
 char **pamc_list_agents(pamc_handle_t pch)
 {
-    int i, total_agent_count=0;
+    int i, total_agent_count=0, error=0;
     pamc_id_node_t *tree = NULL;
-    char **agent_list;
+    char **agent_list = NULL;
 
     /* loop over agent paths */
 
@@ -444,7 +446,12 @@ char **pamc_list_agents(pamc_handle_t pch)
 		    continue;
 		}
 
-		tree = __pamc_add_node(tree, item->d_name, &total_agent_count);
+		tree = __pamc_add_node(tree, item->d_name, &total_agent_count,
+				      &error);
+		if (error) {
+		    closedir(dir);
+		    goto out;
+		}
 	    }
 
 	    closedir(dir);
@@ -466,6 +473,7 @@ char **pamc_list_agents(pamc_handle_t pch)
 	D(("no memory for agent list"));
     }
 
+out:
     __pamc_liberate_nodes(tree);
 
     return agent_list;

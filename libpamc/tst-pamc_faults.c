@@ -159,6 +159,60 @@ test_load_allocations(void)
 }
 
 static void
+free_list(char **agents)
+{
+	static const char *const expected[] = { "alpha", "fixture", "zeta" };
+	ASSERT_NE(NULL, agents);
+	for (size_t i = 0; i < sizeof(expected) / sizeof(expected[0]); ++i) {
+		ASSERT_NE(NULL, agents[i]);
+		ASSERT_EQ(0, strcmp(expected[i], agents[i]));
+		pamc_fault_free(agents[i]);
+	}
+	ASSERT_EQ(NULL, agents[sizeof(expected) / sizeof(expected[0])]);
+	pamc_fault_free(agents);
+}
+
+static void
+test_list_allocations(void)
+{
+	pamc_test_case("pamc_list_agents: allocation profile");
+	const char *dir = getenv("PAMC_AGENT_PATH");
+	char helper[PATH_MAX], alias[PATH_MAX];
+	static const char *const names[] = { "alpha", "zeta" };
+
+	ASSERT_LT(snprintf(helper, sizeof(helper), "%s/fixture", dir),
+		  (int) sizeof(helper));
+	for (size_t i = 0; i < sizeof(names) / sizeof(names[0]); ++i) {
+		ASSERT_LT(snprintf(alias, sizeof(alias), "%s/%s", dir, names[i]),
+			  (int) sizeof(alias));
+		ASSERT_EQ(0, symlink(helper, alias));
+	}
+	size_t fds = fd_count();
+	pamc_handle_t handle = start();
+	size_t baseline = pamc_fault_live_blocks();
+	reset();
+	char **agents = pamc_list_agents(handle);
+	size_t allocations = pamc_fault_calls(FAULT_ALLOC);
+	free_list(agents);
+	ASSERT_NE(0U, allocations);
+	for (size_t nth = 1; nth <= allocations; ++nth) {
+		pamc_test_case("pamc_list_agents: allocation %zu/%zu (injection)",
+			       nth, allocations);
+		pamc_fault_arm(FAULT_ALLOC, nth, 0);
+		/* OOM must not masquerade as a successful but incomplete listing. */
+		ASSERT_EQ(NULL, pamc_list_agents(handle));
+		ASSERT_EQ(1U, pamc_fault_hits());
+		ASSERT_EQ(baseline, pamc_fault_live_blocks());
+		ASSERT_EQ(fds, fd_count());
+		reset();
+		pamc_test_case("pamc_list_agents: allocation %zu/%zu (recovery)",
+			       nth, allocations);
+		free_list(pamc_list_agents(handle));
+	}
+	finish(&handle, PAM_BPC_TRUE, fds);
+}
+
+static void
 test_launch_failures(void)
 {
 	static const struct {
@@ -220,6 +274,7 @@ main(int argc, char **argv)
 	pamc_test_run(argv[1], test_start_allocations);
 	pamc_test_run(argv[1], test_disable_allocations);
 	pamc_test_run(argv[1], test_load_allocations);
+	pamc_test_run(argv[1], test_list_allocations);
 	pamc_test_run(argv[1], test_launch_failures);
 	return 0;
 }
