@@ -34,3 +34,19 @@ pkgconfig.generate(
   version: pam_version_numeric,
   url: 'http://www.linux-pam.org/'
 )
+
+# The macros' unsigned comparisons against zero warn for some boundary cases.
+pam_bp_test_c_args = cc.get_supported_arguments(['-Wno-type-limits'])
+
+foreach ndebug: [false, true]
+  tst_name = 'tst-pam_bp' + (ndebug ? '-ndebug' : '')
+  tst_pam_bp = executable(
+    tst_name,
+    sources: 'tst-pam_bp.c',
+    include_directories: [libpam_inc, libpamc_inc],
+    c_args: pam_bp_test_c_args + [ndebug ? '-DNDEBUG' : '-UNDEBUG'],
+    link_args: exe_link_args,
+  )
+
+  test(tst_name, tst_pam_bp, suite: 'libpamc')
+endforeach
