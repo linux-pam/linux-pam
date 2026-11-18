@@ -38,6 +38,8 @@ pkgconfig.generate(
 # The macros' unsigned comparisons against zero warn for some boundary cases.
 pam_bp_test_c_args = cc.get_supported_arguments(['-Wno-type-limits'])
 
+libpamc_test_targets = []
+
 foreach ndebug: [false, true]
   tst_name = 'tst-pam_bp' + (ndebug ? '-ndebug' : '')
   tst_pam_bp = executable(
@@ -49,6 +51,7 @@ foreach ndebug: [false, true]
   )
 
   test(tst_name, tst_pam_bp, suite: 'libpamc')
+  libpamc_test_targets += tst_pam_bp
 endforeach
 
 pamc_test_agent = executable(
@@ -87,6 +90,7 @@ pamc_test_agent_alternate = executable(
   c_args: ['-DPAMC_TEST_VARIANT=1'],
   link_args: exe_link_args,
 )
+libpamc_test_targets += [pamc_test_agent, pamc_test_agent_alternate, tst_pamc_agent]
 
 foreach name: ['client', 'load', 'converse']
   tst_name = 'tst-pamc_' + name
@@ -98,6 +102,7 @@ foreach name: ['client', 'load', 'converse']
     link_args: exe_link_args,
   )
   tst_args = [pamc_test_agent]
+  libpamc_test_targets += tst_exe
   if name == 'load'
     tst_args += pamc_test_agent_alternate
   endif
@@ -136,3 +141,37 @@ test(
   suite: 'libpamc',
   timeout: 30,
 )
+libpamc_test_targets += tst_pamc_converse_io
+
+pamc_fault_c_args = pamc_inject_c_args + ['-DPAMC_TEST_FAULTS']
+foreach ndebug: [false, true]
+  suffix = ndebug ? '-ndebug' : ''
+  mode_args = [ndebug ? '-DNDEBUG' : '-UNDEBUG']
+  pamc_fault_lib = static_library(
+    'pamc-test-faults' + suffix,
+    sources: libpamc_src,
+    include_directories: [libpam_inc, libpamc_inc, libpam_internal_inc],
+    dependencies: [libpam_internal_dep],
+    c_args: pamc_fault_c_args + mode_args,
+  )
+  tst_name = 'tst-pamc_faults' + suffix
+  tst_exe = executable(
+    tst_name,
+    sources: ['tst-pamc_faults.c', 'tst-pamc-faults.c'],
+    include_directories: [libpam_inc, libpamc_inc],
+    c_args: mode_args,
+    link_with: [pamc_fault_lib, pamc_test_fixture],
+    link_args: exe_link_args,
+  )
+  libpamc_test_targets += tst_exe
+  test(
+    tst_name, tst_exe,
+    args: [pamc_test_agent],
+    env: ['TMPDIR=' + meson.current_build_dir()],
+    suite: 'libpamc',
+    timeout: 30,
+  )
+endforeach
+
+# Build only this suite, including helper executables, for sanitizer checks.
+alias_target('libpamc-tests', libpamc_test_targets)
