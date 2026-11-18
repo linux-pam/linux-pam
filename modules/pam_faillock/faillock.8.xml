@@ -88,6 +88,15 @@
               <listitem>
                 <para>
                   The user whose failure records should be displayed or cleared.
+                  This can be either a username or a numeric UID.
+                </para>
+                <para>
+                  When the <option>uid_based_files</option> option is enabled in
+                  <filename>faillock.conf</filename>, usernames are resolved to UIDs
+                  internally, and numeric UIDs are also accepted. This allows
+                  <command>faillock --user alice</command> to work regardless of the
+                  naming scheme configured. When <option>uid_based_files</option> is
+                  disabled (the default), only usernames are accepted.
                 </para>
               </listitem>
             </varlistentry>
