@@ -272,6 +272,19 @@ test_launch_failures(void)
 }
 
 static void
+test_interrupted_wait(void)
+{
+	pamc_test_case("pamc_end: waitpid call 1 interrupted, then retry");
+	size_t fds = fd_count();
+	pamc_handle_t handle = start();
+	ASSERT_EQ(PAM_BPC_TRUE, pamc_load(handle, "fixture"));
+	pamc_fault_arm(FAULT_WAIT_EINTR, 1, 0);
+	finish(&handle, PAM_BPC_TRUE, fds);
+	ASSERT_EQ(1U, pamc_fault_hits());
+	ASSERT_EQ(2U, pamc_fault_calls(FAULT_WAIT_EINTR));
+}
+
+static void
 test_pipe_relocation_failure(void)
 {
 	/* With 0/1 closed, the first pipe succeeds in those slots.  Limits of
@@ -317,6 +330,7 @@ main(int argc, char **argv)
 	pamc_test_run(argv[1], test_load_allocations);
 	pamc_test_run(argv[1], test_list_allocations);
 	pamc_test_run(argv[1], test_launch_failures);
+	pamc_test_run(argv[1], test_interrupted_wait);
 	pamc_test_run(argv[1], test_pipe_relocation_failure);
 	return 0;
 }

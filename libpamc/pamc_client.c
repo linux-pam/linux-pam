@@ -130,7 +130,9 @@ static int __pamc_shutdown_agents(pamc_handle_t pch)
 	close(this->reader);
 	this->reader = -1;
 
-	pid = waitpid(this->pid, &status, 0);
+	do {
+	    pid = waitpid(this->pid, &status, 0);
+	} while (pid == -1 && errno == EINTR);
 	if (pid == this->pid) {
 
 	    D(("is exit:%d, exit val:%d",
