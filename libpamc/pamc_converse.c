@@ -205,7 +205,9 @@ int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
 pamc_converse_failure:
 
     D(("conversation failure"));
-    PAM_BP_RENEW(prompt_p, 0, 0);
+    if (prompt_p != NULL) {
+	PAM_BP_RENEW(prompt_p, 0, 0);
+    }
     return PAM_BPC_FALSE;
 
 pamc_unknown_prompt:

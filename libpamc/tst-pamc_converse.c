@@ -58,6 +58,8 @@ test_invalid_arguments(void)
 	ASSERT_EQ(NULL, bp);
 	ASSERT_EQ(PAM_BPC_FALSE, pamc_converse(handle, &bp));
 	ASSERT_EQ(NULL, bp);
+	ASSERT_EQ(PAM_BPC_FALSE, pamc_converse(handle, NULL));
+	ASSERT_EQ(PAM_BPC_FALSE, pamc_converse(NULL, NULL));
 	ASSERT_EQ(PAM_BPC_TRUE, pamc_end(&handle));
 }
 
