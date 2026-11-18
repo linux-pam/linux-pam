@@ -8,6 +8,8 @@
  * The helper path is resolved before symlinking.  The supervisor enforces a
  * deadline, kills/reaps leftover descendants even if an assertion aborts the
  * test, and removes the temporary directory before reporting the result.
+ * Tests may create files/subdirectories under the initial PAMC_AGENT_PATH;
+ * cleanup removes that tree without following symlinks.
  */
 void pamc_test_run(const char *helper, void (*test)(void));
 

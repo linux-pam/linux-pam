@@ -79,3 +79,33 @@ test(
   suite: 'libpamc',
   timeout: 30,
 )
+
+pamc_test_agent_alternate = executable(
+  'tst-pamc-agent-alternate',
+  sources: 'tst-pamc-agent.c',
+  include_directories: [libpam_inc, libpamc_inc],
+  c_args: ['-DPAMC_TEST_VARIANT=1'],
+  link_args: exe_link_args,
+)
+
+foreach name: ['client', 'load']
+  tst_name = 'tst-pamc_' + name
+  tst_exe = executable(
+    tst_name,
+    sources: tst_name + '.c',
+    include_directories: [libpam_inc, libpamc_inc],
+    link_with: [pamc_test_fixture, libpamc],
+    link_args: exe_link_args,
+  )
+  tst_args = [pamc_test_agent]
+  if name == 'load'
+    tst_args += pamc_test_agent_alternate
+  endif
+  test(
+    tst_name, tst_exe,
+    args: tst_args,
+    env: ['TMPDIR=' + meson.current_build_dir()],
+    suite: 'libpamc',
+    timeout: 30,
+  )
+endforeach

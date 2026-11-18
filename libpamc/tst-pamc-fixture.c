@@ -3,10 +3,12 @@
 #include "tst-pamc-fixture.h"
 
 #include <errno.h>
+#include <dirent.h>
 #include <signal.h>
 #include <stdarg.h>
 #include <string.h>
 #include <sys/mman.h>
+#include <sys/stat.h>
 #include <sys/prctl.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -31,6 +33,33 @@ pamc_test_case(const char *format, ...)
 	va_end(ap);
 	ASSERT_NE(0, length >= 0);
 	ASSERT_LT(length, CONTEXT_BYTES);
+}
+
+/* Only traverse the private mkdtemp tree; never follow an agent symlink. */
+static void
+remove_tree(const char *path)
+{
+	DIR *dir = opendir(path);
+	struct dirent *entry;
+
+	ASSERT_NE(NULL, dir);
+	while ((entry = readdir(dir)) != NULL) {
+		char child[PATH_MAX];
+		struct stat st;
+
+		if (strcmp(entry->d_name, ".") == 0
+		    || strcmp(entry->d_name, "..") == 0)
+			continue;
+		ASSERT_LT(snprintf(child, sizeof(child), "%s/%s", path,
+				   entry->d_name), (int) sizeof(child));
+		ASSERT_EQ(0, lstat(child, &st));
+		if (S_ISDIR(st.st_mode))
+			remove_tree(child);
+		else
+			ASSERT_EQ(0, unlink(child));
+	}
+	ASSERT_EQ(0, closedir(dir));
+	ASSERT_EQ(0, rmdir(path));
 }
 
 static void
@@ -125,8 +154,7 @@ pamc_test_run(const char *helper, void (*test)(void))
 	const int reap_errno = errno;
 
 	/* Cleanup happens before assertions about the worker's outcome. */
-	ASSERT_EQ(0, unlink(agent));
-	ASSERT_EQ(0, rmdir(directory));
+	remove_tree(directory);
 	if (waited != pid || timed_out || !WIFEXITED(status)
 	    || WEXITSTATUS(status) != EXIT_SUCCESS || leftovers
 	    || reap_errno != ECHILD
