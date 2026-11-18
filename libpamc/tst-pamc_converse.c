@@ -252,7 +252,8 @@ test_io_errors(void)
 	} faults[] = {
 		{ IO_READ_ERROR, "header read EIO" },
 		{ IO_READ_BODY_ERROR, "body read EIO" },
-		{ IO_WRITE_ERROR, "write EIO" }
+		{ IO_WRITE_ERROR, "write EIO" },
+		{ IO_WRITE_ZERO, "zero-byte write" }
 	};
 	for (size_t i = 0; i < sizeof(faults) / sizeof(faults[0]); ++i) {
 		pamc_test_case("pamc_converse: %s", faults[i].name);

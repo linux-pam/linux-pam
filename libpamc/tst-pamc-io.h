@@ -6,7 +6,7 @@
 #include <sys/types.h>
 
 enum pamc_test_fault {
-	IO_NORMAL, IO_READ_ERROR, IO_READ_BODY_ERROR, IO_WRITE_ERROR
+	IO_NORMAL, IO_READ_ERROR, IO_READ_BODY_ERROR, IO_WRITE_ERROR, IO_WRITE_ZERO
 };
 struct pamc_test_io {
 	size_t read_limit, write_limit;

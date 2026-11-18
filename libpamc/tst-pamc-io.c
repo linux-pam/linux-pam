@@ -56,6 +56,11 @@ pamc_test_write(int fd, const void *buffer, size_t count)
 		errno = EIO;
 		return -1;
 	}
+	if (pamc_test_io.fault == IO_WRITE_ZERO) {
+		/* One-shot: buggy retry code fails its result assertion, not a hang. */
+		pamc_test_io.fault = IO_NORMAL;
+		return 0;
+	}
 	if (pamc_test_io.write_limit && count > pamc_test_io.write_limit)
 		count = pamc_test_io.write_limit;
 	ssize_t result = write(fd, buffer, count);

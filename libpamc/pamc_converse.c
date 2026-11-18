@@ -121,6 +121,9 @@ int pamc_converse(pamc_handle_t pch, pamc_bp_t *prompt_p)
 		D(("problem writing to agent: %m"));
 		goto pamc_unknown_prompt;
 	    }
+	} else if (rval == 0) {
+	    D(("agent input write made no progress"));
+	    goto pamc_unknown_prompt;
 	} else {
 	    offset += rval;
 	}
