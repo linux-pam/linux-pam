@@ -182,6 +182,13 @@ int pamc_end(pamc_handle_t *pch_p)
     D(("shutting down agents"));
     retval = __pamc_shutdown_agents(*pch_p);
 
+    while ((*pch_p)->blocked_agents) {
+	pamc_blocked_t *block = (*pch_p)->blocked_agents;
+	(*pch_p)->blocked_agents = block->next;
+	free(block->id);
+	free(block);
+    }
+
     D(("freeing *pch_p"));
     free(*pch_p);
     *pch_p = NULL;

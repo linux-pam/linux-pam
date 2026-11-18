@@ -97,6 +97,37 @@ test_start_allocations(void)
 }
 
 static void
+test_disable_allocations(void)
+{
+	pamc_test_case("pamc_disable: allocation profile");
+	size_t fds = fd_count();
+	pamc_handle_t handle = start();
+	reset();
+	ASSERT_EQ(PAM_BPC_TRUE, pamc_disable(handle, "fixture"));
+	size_t allocations = pamc_fault_calls(FAULT_ALLOC);
+	finish(&handle, PAM_BPC_TRUE, fds);
+	ASSERT_NE(0U, allocations);
+	for (size_t nth = 1; nth <= allocations; ++nth) {
+		pamc_test_case("pamc_disable: allocation %zu/%zu (injection)",
+			       nth, allocations);
+		reset();
+		handle = start();
+		size_t baseline = pamc_fault_live_blocks();
+		pamc_fault_arm(FAULT_ALLOC, nth, 0);
+		ASSERT_EQ(PAM_BPC_FALSE, pamc_disable(handle, "fixture"));
+		ASSERT_EQ(1U, pamc_fault_hits());
+		ASSERT_EQ(baseline, pamc_fault_live_blocks());
+		ASSERT_EQ(fds, fd_count());
+		reset();
+		/* A failed disable must not accidentally leave the agent blocked. */
+		pamc_test_case("pamc_disable: allocation %zu/%zu (recovery)",
+			       nth, allocations);
+		ASSERT_EQ(PAM_BPC_TRUE, pamc_load(handle, "fixture"));
+		finish(&handle, PAM_BPC_TRUE, fds);
+	}
+}
+
+static void
 test_load_allocations(void)
 {
 	pamc_test_case("pamc_load: allocation profile");
@@ -187,6 +218,7 @@ main(int argc, char **argv)
 {
 	ASSERT_EQ(2, argc);
 	pamc_test_run(argv[1], test_start_allocations);
+	pamc_test_run(argv[1], test_disable_allocations);
 	pamc_test_run(argv[1], test_load_allocations);
 	pamc_test_run(argv[1], test_launch_failures);
 	return 0;

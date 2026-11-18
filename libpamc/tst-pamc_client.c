@@ -29,6 +29,29 @@ test_handles(void)
 }
 
 static void
+test_disable(void)
+{
+	pamc_handle_t first = pamc_start(), second = pamc_start();
+
+	ASSERT_NE(NULL, first);
+	ASSERT_NE(NULL, second);
+	ASSERT_EQ(PAM_BPC_FALSE, pamc_disable(NULL, "fixture"));
+	ASSERT_EQ(PAM_BPC_FALSE, pamc_disable(first, NULL));
+	ASSERT_EQ(PAM_BPC_FALSE, pamc_load(NULL, "fixture"));
+	ASSERT_EQ(PAM_BPC_FALSE, pamc_load(first, NULL));
+	ASSERT_EQ(PAM_BPC_FALSE, pamc_load(first, "not_installed"));
+	ASSERT_EQ(PAM_BPC_TRUE, pamc_disable(first, "not_installed"));
+	ASSERT_EQ(PAM_BPC_TRUE, pamc_disable(first, "fixture"));
+	ASSERT_EQ(PAM_BPC_TRUE, pamc_disable(first, "fixture"));
+	ASSERT_EQ(PAM_BPC_FALSE, pamc_load(first, "fixture"));
+	/* Blocking is per handle; an already loaded agent cannot be disabled. */
+	ASSERT_EQ(PAM_BPC_TRUE, pamc_load(second, "fixture"));
+	ASSERT_EQ(PAM_BPC_FALSE, pamc_disable(second, "fixture"));
+	ASSERT_EQ(PAM_BPC_TRUE, pamc_end(&first));
+	ASSERT_EQ(PAM_BPC_TRUE, pamc_end(&second));
+}
+
+static void
 select_mode(pamc_handle_t handle, const char *selection)
 {
 	pamc_bp_t bp = NULL;
@@ -67,10 +90,11 @@ test_shutdown(void)
 
 		ASSERT_NE(NULL, handle);
 		/* The newest agent is reaped first.  Even its failure must not
-		 * prevent reaping the older successful agent.
+		 * prevent reaping the older successful agent or freeing block records.
 		 */
 		select_mode(handle, "fixture/echo");
 		select_mode(handle, cases[i].mode);
+		ASSERT_EQ(PAM_BPC_TRUE, pamc_disable(handle, "not_installed"));
 		ASSERT_EQ(cases[i].expected, pamc_end(&handle));
 		ASSERT_EQ(NULL, handle);
 	}
@@ -81,6 +105,7 @@ main(int argc, char **argv)
 {
 	ASSERT_EQ(2, argc);
 	pamc_test_run(argv[1], test_handles);
+	pamc_test_run(argv[1], test_disable);
 	pamc_test_run(argv[1], test_shutdown);
 	return 0;
 }
