@@ -92,7 +92,7 @@ pamc_test_agent_alternate = executable(
 )
 libpamc_test_targets += [pamc_test_agent, pamc_test_agent_alternate, tst_pamc_agent]
 
-foreach name: ['client', 'load', 'converse']
+foreach name: ['client', 'load', 'converse', 'fds']
   tst_name = 'tst-pamc_' + name
   tst_exe = executable(
     tst_name,

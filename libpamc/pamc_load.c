@@ -8,6 +8,33 @@
 
 #include "libpamc.h"
 #include "pam_inline.h"
+#include <fcntl.h>
+
+/* Keep both the caller's stdio slots and the child's dup2 sources distinct.
+ * pipe() may reuse 0, 1, or 2 when a standard descriptor is closed.
+ */
+static int __pamc_pipe(int fds[2])
+{
+    int i;
+
+    if (pipe(fds) == -1)
+	return -1;
+    for (i = 0; i < 2; ++i) {
+	if (fds[i] <= STDERR_FILENO) {
+	    int fd = fcntl(fds[i], F_DUPFD, STDERR_FILENO + 1);
+	    if (fd == -1) {
+		int saved_errno = errno;
+		close(fds[0]);
+		close(fds[1]);
+		errno = saved_errno;
+		return -1;
+	    }
+	    close(fds[i]);
+	    fds[i] = fd;
+	}
+    }
+    return 0;
+}
 
 static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 {
@@ -55,12 +82,12 @@ static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 	goto free_and_return;
     }
 
-    if (pipe(to_agent)) {
+    if (__pamc_pipe(to_agent)) {
 	D(("failed to open pipe to agent"));
 	goto free_and_return;
     }
 
-    if (pipe(from_agent)) {
+    if (__pamc_pipe(from_agent)) {
 	D(("failed to open pipe from agent"));
 	goto close_the_agent;
     }

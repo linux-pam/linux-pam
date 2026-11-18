@@ -11,6 +11,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <string.h>
+#include <sys/resource.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -270,6 +271,43 @@ test_launch_failures(void)
 	}
 }
 
+static void
+test_pipe_relocation_failure(void)
+{
+	/* With 0/1 closed, the first pipe succeeds in those slots.  Limits of
+	 * three/four descriptors prevent moving both ends above stderr, before
+	 * a second pipe is even attempted.  Restore the limit before asserting
+	 * results so diagnostics and sanitizer cleanup are not resource-limited.
+	 */
+	static const rlim_t limits[] = { 3, 4 };
+	struct rlimit original;
+
+	pamc_test_case("pamc_load: pipe relocation (setup)");
+	ASSERT_EQ(0, getrlimit(RLIMIT_NOFILE, &original));
+	ASSERT_EQ(0, close(STDIN_FILENO));
+	ASSERT_EQ(0, close(STDOUT_FILENO));
+	size_t fds = fd_count();
+	for (size_t i = 0; i < sizeof(limits) / sizeof(limits[0]); ++i) {
+		pamc_test_case("pamc_load: pipe relocation, descriptor limit %lu",
+			       (unsigned long) limits[i]);
+		reset();
+		pamc_handle_t handle = start();
+		size_t baseline = pamc_fault_live_blocks();
+		struct rlimit low = original;
+		ASSERT_LE(limits[i], original.rlim_max);
+		low.rlim_cur = limits[i];
+		ASSERT_EQ(0, setrlimit(RLIMIT_NOFILE, &low));
+		int loaded = pamc_load(handle, "fixture");
+		ASSERT_EQ(0, setrlimit(RLIMIT_NOFILE, &original));
+		ASSERT_EQ(PAM_BPC_FALSE, loaded);
+		ASSERT_EQ(1U, pamc_fault_calls(FAULT_PIPE));
+		ASSERT_EQ(0U, pamc_fault_calls(FAULT_FORK));
+		ASSERT_EQ(baseline, pamc_fault_live_blocks());
+		ASSERT_EQ(fds, fd_count());
+		finish(&handle, PAM_BPC_TRUE, fds);
+	}
+}
+
 int
 main(int argc, char **argv)
 {
@@ -279,5 +317,6 @@ main(int argc, char **argv)
 	pamc_test_run(argv[1], test_load_allocations);
 	pamc_test_run(argv[1], test_list_allocations);
 	pamc_test_run(argv[1], test_launch_failures);
+	pamc_test_run(argv[1], test_pipe_relocation_failure);
 	return 0;
 }
