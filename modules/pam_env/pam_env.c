@@ -661,15 +661,14 @@ _envd_expand_text(pam_handle_t *pamh, const char *text, char quote_char,
 
     if (text[1] == '{') {
       const char *close = text + 2;
-      unsigned int nested = 0;
+      unsigned int brace_depth = 0;
       for (; *close != '\0'; ++close) {
-	if (close[0] == '$' && close[1] == '{') {
-	  ++nested;
-	  ++close;
+	if (*close == '{') {
+	  ++brace_depth;
 	} else if (*close == '}') {
-	  if (nested == 0)
+	  if (brace_depth == 0)
 	    break;
-	  --nested;
+	  --brace_depth;
 	}
       }
       if (*close == '\0') {
@@ -816,8 +815,14 @@ _envd_set_line(pam_handle_t *pamh, int ctrl, const char *filename, char *line)
   value_end = value + strlen(value);
   while (value_end > value &&
 	 (value_end[-1] == ' ' || value_end[-1] == '\t' ||
-	  value_end[-1] == '\r'))
+	  value_end[-1] == '\r')) {
+    const char *backslash = value_end - 1;
+    while (backslash > value && backslash[-1] == '\\')
+      --backslash;
+    if (((size_t)(value_end - 1 - backslash) & 1) != 0)
+      break;
     --value_end;
+  }
 
   if (*value == '"' || *value == '\'') {
     char *close;

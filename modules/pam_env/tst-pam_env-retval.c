@@ -118,6 +118,11 @@ setup(void)
 			     "RESULT_SET_DEFAULT=${BASE-fallback}\n"
 			     "RESULT_UNSET=${UNSET:-fallback}\n"
 			     "RESULT_UNSET_DEFAULT=${UNSET-fallback}\n"
+			     "URL=${SUNSET:-https://example.test/{name}/file}\n"
+			     "NESTED=${UNSET:-${ALSO_UNSET:-fallback}}\n"
+			     "ESCAPED_SPACE=foo\\ \n"
+			     "EVEN_BACKSLASHES=foo\\\\ \n"
+			     "TRAILING_SPACE=foo \t\r\n"
 			     "EMPTY=\n"
 			     "RESULT_EMPTY=${EMPTY:-fallback}\n"
 			     "RESULT_EMPTY_DEFAULT=${EMPTY-fallback}\n"
@@ -400,6 +405,11 @@ main(void)
 		"RESULT_SET_DEFAULT=present",
 		"RESULT_UNSET=fallback",
 		"RESULT_UNSET_DEFAULT=fallback",
+		"URL=https://example.test/{name}/file",
+		"NESTED=fallback",
+		"ESCAPED_SPACE=foo ",
+		"EVEN_BACKSLASHES=foo\\",
+		"TRAILING_SPACE=foo",
 		"EMPTY=",
 		"RESULT_EMPTY=fallback",
 		"RESULT_EMPTY_DEFAULT=",
