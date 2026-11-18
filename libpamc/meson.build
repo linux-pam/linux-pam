@@ -88,7 +88,7 @@ pamc_test_agent_alternate = executable(
   link_args: exe_link_args,
 )
 
-foreach name: ['client', 'load']
+foreach name: ['client', 'load', 'converse']
   tst_name = 'tst-pamc_' + name
   tst_exe = executable(
     tst_name,
@@ -109,3 +109,30 @@ foreach name: ['client', 'load']
     timeout: 30,
   )
 endforeach
+
+# A private build makes the conversation's I/O injectable without exporting
+# internal symbols from the shared library.  The ordinary target above still
+# tests the installed-style shared library without seams.
+pamc_inject_c_args = ['-include', meson.current_source_dir() / 'tst-pamc-inject.h']
+pamc_test_converse = static_library(
+  'pamc-test-converse',
+  sources: libpamc_src,
+  include_directories: [libpam_inc, libpamc_inc, libpam_internal_inc],
+  dependencies: [libpam_internal_dep],
+  c_args: pamc_inject_c_args + ['-DPAMC_TEST_IO'],
+)
+tst_pamc_converse_io = executable(
+  'tst-pamc_converse-io',
+  sources: ['tst-pamc_converse.c', 'tst-pamc-io.c'],
+  include_directories: [libpam_inc, libpamc_inc],
+  c_args: ['-DPAMC_TEST_IO'],
+  link_with: [pamc_test_converse, pamc_test_fixture],
+  link_args: exe_link_args,
+)
+test(
+  'tst-pamc_converse-io', tst_pamc_converse_io,
+  args: [pamc_test_agent],
+  env: ['TMPDIR=' + meson.current_build_dir()],
+  suite: 'libpamc',
+  timeout: 30,
+)
