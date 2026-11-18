@@ -50,3 +50,32 @@ foreach ndebug: [false, true]
 
   test(tst_name, tst_pam_bp, suite: 'libpamc')
 endforeach
+
+pamc_test_agent = executable(
+  'tst-pamc-agent',
+  sources: 'tst-pamc-agent.c',
+  include_directories: [libpam_inc, libpamc_inc],
+  link_args: exe_link_args,
+)
+
+pamc_test_fixture = static_library(
+  'pamc-test-fixture',
+  sources: 'tst-pamc-fixture.c',
+  include_directories: [libpam_inc],
+)
+
+tst_pamc_agent = executable(
+  'tst-pamc_agent',
+  sources: 'tst-pamc_agent.c',
+  include_directories: [libpam_inc, libpamc_inc],
+  link_with: [pamc_test_fixture, libpamc],
+  link_args: exe_link_args,
+)
+
+test(
+  'tst-pamc_agent', tst_pamc_agent,
+  args: [pamc_test_agent],
+  env: ['TMPDIR=' + meson.current_build_dir()],
+  suite: 'libpamc',
+  timeout: 30,
+)
