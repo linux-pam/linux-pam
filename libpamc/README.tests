@@ -1,0 +1,70 @@
+libpamc tests
+=============
+
+Run the self-contained suite from the repository root, after Meson setup:
+
+    meson compile -C build libpamc-tests
+    meson test -C build --no-rebuild --suite libpamc --print-errorlogs
+
+The alias builds all suite executables, including both agent helper variants.
+Tests need neither installed PAM configuration nor root, a login session,
+secret files, Perl, or external agent programs.  Agent tests use private
+temporary directories and supervised subprocesses.  The supervisor bounds
+execution time, reaps leftover descendants, and removes the directory tree
+even when a test fails.  These tests do not use the legacy test/ demos.
+
+Private fault-injection builds
+-----------------------------
+
+The normal API tests link the built shared library.  Additional private builds
+replace selected calls only inside libpamc objects; they do not interpose on
+libc, the driver, the supervisor, or the agent, or change the installed ABI.
+The hook macros are installed after libc headers so fortified inline wrappers
+cannot bypass injection.  The test harness does not disable fortification.
+
+tst-pamc_converse-io forces short transfers, EINTR, and I/O failures.
+tst-pamc_faults and tst-pamc_faults-ndebug first profile successful operations,
+then fail each allocation API call in turn.  They verify rollback and recovery
+using tracked live heap blocks, /proc/self/fd counts, and child reaping checks.
+Startup cases cover both pipes, fork, both dup2 calls, exec, and interrupted
+waitpid.  Child startup failures are reported at pamc_end(), not pamc_load().
+Shared fault reports verify the child's PID, injection kind and call ordinal,
+not merely an unsuccessful exit status.  A separate shared case label lets
+the supervisor report the failing scenario even after a worker crash or
+timeout, without adding output to successful runs.
+
+Real-descriptor tests cover every nonempty combination of closed stdin,
+stdout and stderr, requiring pipe remapping to preserve those closed slots.
+Low descriptor limits also exercise relocation failure and rollback.  I/O
+tests inject errors after partial header/body writes; the agent independently
+checks exactly which prefix arrived before EOF.  The I/O hooks use libc
+read/write so sanitizer buffer checks remain active.
+
+Prompt allocation failure intentionally triggers PAM_BP_ASSERT in debug
+builds; tst-pam_bp covers that assertion policy.  The NDEBUG fault build also
+checks one-shot and persistent reply/fallback OOM without terminating the
+process.  Assertions in the test driver itself remain active in both modes.
+
+Sanitizers
+----------
+
+To instrument the shared library, all private builds, drivers, and agents:
+
+    meson setup build-pamc-sanitize -Db_sanitize=address,undefined -Doptimization=1
+    meson compile -C build-pamc-sanitize libpamc-tests
+    ASAN_OPTIONS=detect_leaks=1 UBSAN_OPTIONS=halt_on_error=1 \
+        meson test -C build-pamc-sanitize --no-rebuild --suite libpamc --print-errorlogs
+
+Then exercise the shared library with assertions disabled as well:
+
+    meson configure build-pamc-sanitize -Db_ndebug=true
+    meson compile -C build-pamc-sanitize libpamc-tests
+    ASAN_OPTIONS=detect_leaks=1 UBSAN_OPTIONS=halt_on_error=1 \
+        meson test -C build-pamc-sanitize --no-rebuild --suite libpamc --print-errorlogs
+
+With Clang, Meson may also require -Db_lundef=false for sanitizer builds.
+The header-macro and fault tests always include explicit builds of both
+assertion policies regardless of the project-wide b_ndebug setting.  The
+commands above additionally exercise the shared library under both
+policies, without requiring CI configuration changes.  Hostile reply-size
+tests send only a header for invalid lengths and never allocate huge bodies.
