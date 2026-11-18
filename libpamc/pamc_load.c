@@ -75,8 +75,11 @@ static int __pamc_exec_agent(pamc_handle_t pch, pamc_agent_t *agent)
 
 	int i;
 
-	dup2(from_agent[1], STDOUT_FILENO);
-	dup2(to_agent[0], STDIN_FILENO);
+	if (dup2(from_agent[1], STDOUT_FILENO) == -1
+	    || dup2(to_agent[0], STDIN_FILENO) == -1) {
+	    D(("failed to connect agent pipes: %m"));
+	    _exit(1);
+	}
 
 	/* we close all of the files that have filedescriptors lower
 	   and equal to twice the highest we have seen, The idea is

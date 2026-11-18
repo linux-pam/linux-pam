@@ -224,6 +224,9 @@ test_launch_failures(void)
 		{ "pipe to agent", FAULT_PIPE, 1, 0 },
 		{ "pipe from agent", FAULT_PIPE, 2, 0 },
 		{ "fork", FAULT_FORK, 1, 0 },
+		/* First dup2 installs stdout, second installs stdin. */
+		{ "dup2 stdout", FAULT_DUP2, 1, 1 },
+		{ "dup2 stdin", FAULT_DUP2, 2, 1 },
 		{ "execle", FAULT_EXEC, 1, 1 }
 	};
 	size_t fds = fd_count();
