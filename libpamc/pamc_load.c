@@ -355,12 +355,11 @@ static pamc_id_node_t *__pamc_add_node(pamc_id_node_t *root, const char *id,
 	int cmp;
 
 	if ((cmp = strcmp(id, root->agent_id))) {
+	    /* Every insertion contributes to the whole list's allocation size. */
 	    if (cmp > 0) {
-		root->right = __pamc_add_node(root->right, id,
-					      &(root->child_count));
+		root->right = __pamc_add_node(root->right, id, counter);
 	    } else {
-		root->left = __pamc_add_node(root->left, id,
-					     &(root->child_count));
+		root->left = __pamc_add_node(root->left, id, counter);
 	    }
 	}
 
@@ -378,7 +377,8 @@ static pamc_id_node_t *__pamc_add_node(pamc_id_node_t *root, const char *id,
 	    }
 	}
 
-	(*counter)++;
+	if (node)
+	    (*counter)++;
 	return node;
     }
 }
@@ -396,7 +396,6 @@ static pamc_id_node_t *__pamc_liberate_nodes(pamc_id_node_t *tree)
 	tree->left = __pamc_liberate_nodes(tree->left);
 	tree->right = __pamc_liberate_nodes(tree->right);
 
-	tree->child_count = 0;
 	free(tree);
     }
 

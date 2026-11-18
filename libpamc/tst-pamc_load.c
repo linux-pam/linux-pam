@@ -78,7 +78,7 @@ check_list(pamc_handle_t handle, const char *const *expected, size_t count)
 static void
 test_listing(void)
 {
-	static const char *const expected[] = { "zeta" };
+	static const char *const expected[] = { "Alpha", "middle", "zeta" };
 	char helper[PATH_MAX];
 
 	prepare();
@@ -89,9 +89,13 @@ test_listing(void)
 	check_list(empty, NULL, 0);
 	ASSERT_EQ(PAM_BPC_TRUE, pamc_end(&empty));
 
-	/* The same ID in overlapping and repeated directories appears once. */
+	/* Multiple distinct names expose undercounted trees; overlapping and
+	 * repeated directories must neither duplicate names nor inflate counts.
+	 */
 	install("first/zeta", helper);
-	install("second/zeta", helper);
+	install("first/Alpha", helper);
+	install("second/middle", helper);
+	install("second/Alpha", helper);
 	set_paths(OVERLAPPING_PATHS);
 	pamc_handle_t handle = pamc_start();
 	ASSERT_NE(NULL, handle);
@@ -103,7 +107,7 @@ test_listing(void)
 static void
 test_agent_ids(void)
 {
-	static const char *const valid[] = { "A1_" };
+	static const char *const valid[] = { "A1_", "a@host.name" };
 	static const char *const invalid[] = {
 		".hidden", "@host", "name@", "name@.host", "a@@host",
 		"a b", "a\x80", "!aaa", "a!aa", "aa!a", "aaa!"

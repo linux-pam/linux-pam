@@ -53,7 +53,6 @@ typedef struct pamc_agent_s {
 
 typedef struct pamc_id_node {
     struct pamc_id_node *left, *right;
-    int child_count;
     char *agent_id;
 } pamc_id_node_t;
 
