@@ -176,7 +176,7 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
 		    int argc, const char **argv)
 {
   int retval;
-  char *val, *mntdevice = NULL;
+  char *val, *mntdevice = NULL, *mntdevice_byfsname = NULL;
   const void *user;
   const struct passwd *pwd;
   struct pam_params param = {
@@ -294,24 +294,46 @@ pam_sm_open_session(pam_handle_t *pamh, int flags UNUSED,
                      "with suffix=\"%s\" on device=\"%s\"", pwd->pw_dir,
                      mnt->mnt_dir, s, mntdevice);
       }
-    /* param.fs has been specified, find exactly matching filesystem */
-    } else if ((strncmp(param.fs, mnt->mnt_dir, param.fs_len) == 0
-                && mnt->mnt_dir[param.fs_len] == '\0') ||
-               (strncmp(param.fs, mnt->mnt_fsname, param.fs_len) == 0
-                && mnt->mnt_fsname[param.fs_len] == '\0' )) {
+    /* param.fs has been specified, find exactly matching filesystem.
+     * A match on mnt_dir is trusted since an unprivileged user cannot
+     * mount over an arbitrary existing mountpoint, but mnt_fsname of a
+     * FUSE mount can be set to any string via "fsname=" by whoever
+     * creates the mount, so a mnt_fsname match is only used as a
+     * fallback when no mnt_dir match was found. */
+    } else if (strncmp(param.fs, mnt->mnt_dir, param.fs_len) == 0
+               && mnt->mnt_dir[param.fs_len] == '\0') {
         free(mntdevice);
         if ((mntdevice = strdup(mnt->mnt_fsname)) == NULL) {
           pam_syslog(pamh, LOG_CRIT, "Memory allocation error");
+          free(mntdevice_byfsname);
           endmntent(fp);
           return PAM_PERM_DENIED;
         }
         if (param.debug >= 2)
           pam_syslog(pamh, LOG_DEBUG, "Found fs=\"%s\" in mnt_dir=\"%s\" "
                      "on device=\"%s\"", param.fs, mnt->mnt_dir, mntdevice);
+    } else if (strncmp(param.fs, mnt->mnt_fsname, param.fs_len) == 0
+               && mnt->mnt_fsname[param.fs_len] == '\0') {
+        free(mntdevice_byfsname);
+        if ((mntdevice_byfsname = strdup(mnt->mnt_fsname)) == NULL) {
+          pam_syslog(pamh, LOG_CRIT, "Memory allocation error");
+          free(mntdevice);
+          endmntent(fp);
+          return PAM_PERM_DENIED;
+        }
+        if (param.debug >= 2)
+          pam_syslog(pamh, LOG_DEBUG, "Found fs=\"%s\" as mnt_fsname on "
+                     "mnt_dir=\"%s\"", param.fs, mnt->mnt_dir);
     }
   }
 
   endmntent(fp);
+
+  if (mntdevice == NULL) {
+    mntdevice = mntdevice_byfsname;
+    mntdevice_byfsname = NULL;
+  }
+  free(mntdevice_byfsname);
 
   if (mntdevice == NULL) {
     pam_syslog(pamh, LOG_ERR, "Filesystem or device not found: %s", param.fs ? param.fs : pwd->pw_dir);
