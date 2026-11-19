@@ -84,16 +84,35 @@
       files <filename>/etc/environment</filename> and
       <filename>/etc/environment.d/*</filename>.
       If the file <filename>/etc/environment</filename> does not exist, the
-      settings are read from the files <filename>%vendordir%/environment</filename>,
-      <filename>%vendordir%/environment.d/*</filename> and
-      <filename>/etc/environment.d/*</filename> in that order.
+      file <filename>%vendordir%/environment</filename> is used instead.
+      Files from <filename>%vendordir%/environment.d/</filename> and
+      <filename>/etc/environment.d/</filename> are considered together and
+      processed in global lexicographic filename order. When both directories
+      contain a file with the same name, the file in
+      <filename>/etc/environment.d/</filename> takes precedence. Values may
+      reference previously defined variables using
+      <literal>$NAME</literal> or <literal>${NAME}</literal>; the
+      <literal>${NAME:-default}</literal>,
+      <literal>${NAME-default}</literal> and
+      <literal>${NAME:+alternative}</literal> forms are also supported.
+      Variable expansion is performed inside quoted values as well.
       And last but not least, with the <emphasis>readenv</emphasis> option this mechanism can
       be completely disabled.
     </para>
     <para condition="with_vendordir_and_without_econf">
       Second a file (<filename>/etc/environment</filename> by default) with simple
       <emphasis>KEY=VAL</emphasis> pairs on separate lines will be read.
-      If this file does not exist, <filename>%vendordir%/etc/environment</filename> is used.
+      If this file does not exist, <filename>%vendordir%/environment</filename> is used.
+      Files from <filename>%vendordir%/environment.d/</filename> and
+      <filename>/etc/environment.d/</filename> are considered together and
+      processed in global lexicographic filename order. When both directories
+      contain a file with the same name, the file in
+      <filename>/etc/environment.d/</filename> takes precedence. Values may
+      reference previously defined variables using <literal>$NAME</literal>
+      or <literal>${NAME}</literal>, including inside quotes. The
+      <literal>${NAME:-default}</literal>,
+      <literal>${NAME-default}</literal> and
+      <literal>${NAME:+alternative}</literal> forms are also supported.
       With the <emphasis>envfile</emphasis> option an alternate file can be specified,
       which overrules all other files.
       And with the <emphasis>readenv</emphasis> option this can be completely disabled.
@@ -101,6 +120,13 @@
     <para condition="without_vendordir">
       Second a file (<filename>/etc/environment</filename> by default) with simple
       <emphasis>KEY=VAL</emphasis> pairs on separate lines will be read.
+      Files in <filename>/etc/environment.d/</filename> are also read in
+      lexicographic filename order, and values may reference previously
+      defined variables using <literal>$NAME</literal> or
+      <literal>${NAME}</literal>, including inside quotes. The
+      <literal>${NAME:-default}</literal>,
+      <literal>${NAME-default}</literal> and
+      <literal>${NAME:+alternative}</literal> forms are also supported.
       With the <emphasis>envfile</emphasis> option an alternate file can be specified.
       And with the <emphasis>readenv</emphasis> option this can be completely disabled.
     </para>
