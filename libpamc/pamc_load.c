@@ -356,11 +356,9 @@ static pamc_id_node_t *__pamc_add_node(pamc_id_node_t *root, const char *id,
 
 	if ((cmp = strcmp(id, root->agent_id))) {
 	    if (cmp > 0) {
-		root->right = __pamc_add_node(root->right, id,
-					      &(root->child_count));
+		root->right = __pamc_add_node(root->right, id, counter);
 	    } else {
-		root->left = __pamc_add_node(root->left, id,
-					     &(root->child_count));
+		root->left = __pamc_add_node(root->left, id, counter);
 	    }
 	}
 
@@ -375,10 +373,11 @@ static pamc_id_node_t *__pamc_add_node(pamc_id_node_t *root, const char *id,
 	    if (node->agent_id == NULL) {
 		free(node);
 		node = NULL;
+	    } else {
+		(*counter)++;
 	    }
 	}
 
-	(*counter)++;
 	return node;
     }
 }
