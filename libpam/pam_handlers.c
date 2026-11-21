@@ -63,6 +63,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 {
     struct pam_line_buffer buffer;
     int x;                    /* read a line from the FILE *f ? */
+    int entries_seen = 0;
 
     _pam_line_buffer_init(&buffer);
     /*
@@ -104,6 +105,7 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 
 	    /* This is a service we are looking for */
 	    D(("Found PAM config entry for: %s", this_service));
+	    entries_seen++;
 
 	    tok = _pam_tokenize(NULL, &nexttok);
 	    if (tok == NULL) {
@@ -286,7 +288,17 @@ static int _pam_parse_conf_file(pam_handle_t *pamh, FILE *f
 	}
     }
 
-    return ( (x < 0) ? PAM_ABORT:PAM_SUCCESS );
+    if (x < 0)
+	return PAM_ABORT;
+
+    if (include_level > 0 && entries_seen == 0) {
+	pam_syslog(pamh, LOG_ERR,
+		   "(%s) included config is empty",
+		   known_service ? known_service : "<unknown>");
+	return PAM_SERVICE_ERR;
+    }
+
+    return PAM_SUCCESS;
 }
 
 static int
