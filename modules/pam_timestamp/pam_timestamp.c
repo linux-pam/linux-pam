@@ -259,6 +259,18 @@ check_login_time(
 }
 
 #ifndef PAM_TIMESTAMP_MAIN
+/*
+ * User names are used as components of the timestamp pathname, so reject
+ * path separators and the two dot entries to avoid path traversal.
+ */
+static int
+valid_user_name(const char *name)
+{
+	return name != NULL && name[0] != '\0' &&
+	       strcmp(name, ".") != 0 && strcmp(name, "..") != 0 &&
+	       strchr(name, '/') == NULL;
+}
+
 static int
 get_ruser(pam_handle_t *pamh, char *ruserbuf, size_t ruserbuflen)
 {
@@ -283,11 +295,8 @@ get_ruser(pam_handle_t *pamh, char *ruserbuf, size_t ruserbuflen)
 		 * of constructed timestamp pathname, so ".", "..", and '/'
 		 * are disallowed to avoid potential path traversal issues.
 		 */
-		if (!strcmp(ruser, ".") ||
-		    !strcmp(ruser, "..") ||
-		    strchr(ruser, '/')) {
+		if (!valid_user_name(ruser))
 			ruser = NULL;
-		}
 	}
 	if (ruser == NULL || strlen(ruser) >= ruserbuflen) {
 		*ruserbuf = '\0';
@@ -331,7 +340,8 @@ get_timestamp_name(pam_handle_t *pamh, int argc, const char **argv,
 		return i;
 	}
 	/* Get the name of the target user. */
-	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || user[0] == '\0') {
+	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS ||
+	    !valid_user_name(user)) {
 		return PAM_AUTH_ERR;
 	}
 	if (debug) {
