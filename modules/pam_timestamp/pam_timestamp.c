@@ -47,6 +47,7 @@
 #include <limits.h>
 #include <pwd.h>
 #include <signal.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -178,6 +179,19 @@ check_tty(const char *tty)
 	return tty;
 }
 
+#ifndef PAM_TIMESTAMP_MAIN
+/* Account names must not introduce path syntax into a timestamp name. */
+static bool
+is_valid_timestamp_name_component(const char *name)
+{
+	return name != NULL &&
+	       name[0] != '\0' &&
+	       strcmp(name, ".") != 0 &&
+	       strcmp(name, "..") != 0 &&
+	       strchr(name, '/') == NULL;
+}
+#endif
+
 /* Determine the right path name for a given user's timestamp. */
 static int
 format_timestamp_name(char *path, size_t len,
@@ -277,14 +291,7 @@ get_ruser(pam_handle_t *pamh, char *ruserbuf, size_t ruserbuflen)
 			ruser = pwd->pw_name;
 		}
 	} else {
-		/*
-		 * This ruser is used by format_timestamp_name as a component
-		 * of constructed timestamp pathname, so ".", "..", and '/'
-		 * are disallowed to avoid potential path traversal issues.
-		 */
-		if (!strcmp(ruser, ".") ||
-		    !strcmp(ruser, "..") ||
-		    strchr(ruser, '/')) {
+		if (!is_valid_timestamp_name_component(ruser)) {
 			ruser = NULL;
 		}
 	}
