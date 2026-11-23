@@ -139,8 +139,13 @@
 
     <para><emphasis>mntopts</emphasis>=<replaceable>value</replaceable>
       - value of this flag is passed to the mount call when the tmpfs mount is
-      done. It allows for example the specification of the maximum size of the
-      tmpfs instance that is created by the mount call. In addition to
+      done. The value may contain <emphasis>:</emphasis> characters, for
+      example <emphasis>mpol=bind:0-1</emphasis>. A colon ends the value
+      when it is followed by another colon, by one of the flags above, or
+      by the end of the method field; otherwise it is part of the value.
+      It allows for example the
+      specification of the maximum size of the tmpfs instance that is created
+      by the mount call. In addition to
       options specified in the <citerefentry>
       <refentrytitle>tmpfs</refentrytitle><manvolnum>5</manvolnum>
       </citerefentry> manual the <emphasis>nosuid</emphasis>,
