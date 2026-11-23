@@ -714,7 +714,34 @@ static int parse_method(char *method, struct polydir_s *poly,
 
     poly->method = pm;
 
-    while ((flag=strtok_r(NULL, ":", &sptr)) != NULL) {
+    while (sptr != NULL && *sptr != '\0') {
+	char *end = strchr(sptr, ':');
+
+	/*
+	 * A ':' separates flags, but it is also a valid character in a
+	 * mount option (for example "mpol=bind:0-1").  Only split when
+	 * the next component starts with a known flag name.
+	 */
+	while (end != NULL) {
+		size_t j;
+
+		for (j = 0; flag_names[j]; j++) {
+			size_t len = strlen(flag_names[j]);
+
+			if (strncmp(end + 1, flag_names[j], len) == 0 &&
+			    (end[1 + len] == '\0' || end[1 + len] == '=' ||
+			     end[1 + len] == ':'))
+				break;
+		}
+		if (flag_names[j])
+			break;
+		end = strchr(end + 1, ':');
+	}
+
+	if (end != NULL)
+		*end = '\0';
+	flag = sptr;
+	sptr = end != NULL ? end + 1 : NULL;
 	for (i = 0; flag_names[i]; i++) {
 		size_t namelen = strlen(flag_names[i]);
 
