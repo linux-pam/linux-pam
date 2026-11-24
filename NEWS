@@ -1,5 +1,9 @@
 Linux-PAM NEWS -- history of user-visible changes.
 
+Unreleased
+* pam_timestamp: prevent malformed account names from directing timestamp
+  operations outside the timestamp cache directory.
+
 Release 1.7.3
 * pam_unix: removed support for creating new DES/bigcrypt hashed passwords.
   Login with existing DES/bigcrypt passwords is still possible.

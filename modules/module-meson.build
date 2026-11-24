@@ -86,10 +86,11 @@ if module == 'pam_shells'
 endif
 if module == 'pam_timestamp'
   if cdata.get('WITH_OPENSSL', 0) == 1
-    pam_module_src += ['hmac_openssl_wrapper.c']
+    pam_timestamp_hmac_src = ['hmac_openssl_wrapper.c']
   else
-    pam_module_src += ['hmacsha1.c', 'sha1.c']
+    pam_timestamp_hmac_src = ['hmacsha1.c', 'sha1.c']
   endif
+  pam_module_src += pam_timestamp_hmac_src
   pam_module_deps += [libcrypto, logind_dep]
 endif
 if module == 'pam_tty_audit'
@@ -499,6 +500,15 @@ if fs.exists(tst_module_retval_src)
   )
 endif
 
+
+if module == 'pam_timestamp'
+  tst_timestamp_name = executable(
+    'tst-pam_timestamp-name',
+    sources: ['tst-pam_timestamp-name.c'] + pam_timestamp_hmac_src,
+    dependencies: pam_module_deps,
+  )
+  test('pam_timestamp name', tst_timestamp_name)
+endif
 
 if module == 'pam_timestamp' and cdata.get('WITH_OPENSSL', 0) != 1
   hmacfile_exe = executable(

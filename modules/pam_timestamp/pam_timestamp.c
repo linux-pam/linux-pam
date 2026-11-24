@@ -179,7 +179,6 @@ check_tty(const char *tty)
 	return tty;
 }
 
-#ifndef PAM_TIMESTAMP_MAIN
 /* Account names must not introduce path syntax into a timestamp name. */
 static bool
 is_valid_timestamp_name_component(const char *name)
@@ -190,9 +189,11 @@ is_valid_timestamp_name_component(const char *name)
 	       strcmp(name, "..") != 0 &&
 	       strchr(name, '/') == NULL;
 }
-#endif
 
-/* Determine the right path name for a given user's timestamp. */
+/*
+ * Determine the right path name for a given user's timestamp.
+ * The caller must validate both usernames and the tty before formatting.
+ */
 static int
 format_timestamp_name(char *path, size_t len,
 		      const char *timestamp_dir,
@@ -276,7 +277,8 @@ static int
 get_ruser(pam_handle_t *pamh, char *ruserbuf, size_t ruserbuflen)
 {
 	const void *ruser;
-	struct passwd *pwd;
+	const char *origin = "PAM_RUSER";
+	int priority = LOG_NOTICE;
 
 	if (ruserbuf == NULL || ruserbuflen < 1)
 		return -2;
@@ -284,19 +286,23 @@ get_ruser(pam_handle_t *pamh, char *ruserbuf, size_t ruserbuflen)
 	if (pam_get_item(pamh, PAM_RUSER, &ruser) != PAM_SUCCESS) {
 		ruser = NULL;
 	}
-	if ((ruser == NULL) || (strlen(ruser) == 0)) {
+	if (ruser == NULL || *(const char *) ruser == '\0') {
 		/* Barring that, use the current RUID. */
-		pwd = pam_modutil_getpwuid(pamh, getuid());
-		if (pwd != NULL) {
-			ruser = pwd->pw_name;
+		struct passwd *pwd = pam_modutil_getpwuid(pamh, getuid());
+		if (pwd == NULL) {
+			*ruserbuf = '\0';
+			return -1;
 		}
-	} else {
-		if (!is_valid_timestamp_name_component(ruser)) {
-			pam_syslog(pamh, LOG_NOTICE, "invalid PAM_RUSER for timestamp path");
-			ruser = NULL;
-		}
+		ruser = pwd->pw_name;
+		origin = "username returned by real-UID lookup";
+		priority = LOG_ERR;
 	}
-	if (ruser == NULL || strlen(ruser) >= ruserbuflen) {
+	if (!is_valid_timestamp_name_component(ruser)) {
+		pam_syslog(pamh, priority, "invalid %s for timestamp path", origin);
+		*ruserbuf = '\0';
+		return -1;
+	}
+	if (strlen(ruser) >= ruserbuflen) {
 		*ruserbuf = '\0';
 		return -1;
 	}
@@ -338,14 +344,18 @@ get_timestamp_name(pam_handle_t *pamh, int argc, const char **argv,
 		return i;
 	}
 	/* Get the name of the target user. */
-	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS || user[0] == '\0') {
+	if (pam_get_user(pamh, &user, NULL) != PAM_SUCCESS) {
+		return PAM_AUTH_ERR;
+	}
+	if (!is_valid_timestamp_name_component(user)) {
+		pam_syslog(pamh, LOG_ERR, "invalid PAM_USER for timestamp path");
 		return PAM_AUTH_ERR;
 	}
 	if (debug) {
 		pam_syslog(pamh, LOG_DEBUG, "becoming user `%s'", user);
 	}
 	/* Get the name of the source user. */
-	if (get_ruser(pamh, ruser, sizeof(ruser)) || strlen(ruser) == 0) {
+	if (get_ruser(pamh, ruser, sizeof(ruser))) {
 		return PAM_AUTH_ERR;
 	}
 	if (debug) {
@@ -833,6 +843,10 @@ main(int argc, char **argv)
 		fprintf(stderr, "unknown user\n");
 		return 4;
 	}
+	if (!is_valid_timestamp_name_component(pwd->pw_name)) {
+		fprintf(stderr, "invalid source username for timestamp path\n");
+		return 4;
+	}
 #ifdef USE_LOGIND
 	uid = pwd->pw_uid;
 #endif
@@ -844,8 +858,8 @@ main(int argc, char **argv)
 		return 4;
 	}
 	target_user = (optind < argc) ? argv[optind] : user;
-	if ((strchr(target_user, '.') != NULL) ||
-	    (strchr(target_user, '/') != NULL) ||
+	if (!is_valid_timestamp_name_component(target_user) ||
+	    (strchr(target_user, '.') != NULL) ||
 	    (strchr(target_user, '%') != NULL)) {
 		fprintf(stderr, "invalid target username for timestamp path\n");
 		return 4;
