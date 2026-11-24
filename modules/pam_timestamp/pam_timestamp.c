@@ -292,6 +292,7 @@ get_ruser(pam_handle_t *pamh, char *ruserbuf, size_t ruserbuflen)
 		}
 	} else {
 		if (!is_valid_timestamp_name_component(ruser)) {
+			pam_syslog(pamh, LOG_NOTICE, "invalid PAM_RUSER for timestamp path");
 			ruser = NULL;
 		}
 	}
@@ -380,6 +381,7 @@ get_timestamp_name(pam_handle_t *pamh, int argc, const char **argv,
 	/* Generate the name of the file used to cache auth results.  These
 	 * paths should jive with sudo's per-tty naming scheme. */
 	if (format_timestamp_name(path, len, tdir, tty, ruser, user) < 0) {
+		pam_syslog(pamh, LOG_ERR, "timestamp path too long");
 		return PAM_AUTH_ERR;
 	}
 	if (debug) {
@@ -845,7 +847,7 @@ main(int argc, char **argv)
 	if ((strchr(target_user, '.') != NULL) ||
 	    (strchr(target_user, '/') != NULL) ||
 	    (strchr(target_user, '%') != NULL)) {
-		fprintf(stderr, "invalid user: %s\n", target_user);
+		fprintf(stderr, "invalid target username for timestamp path\n");
 		return 4;
 	}
 
