@@ -859,7 +859,6 @@ main(int argc, char **argv)
 	}
 	target_user = (optind < argc) ? argv[optind] : user;
 	if (!is_valid_timestamp_name_component(target_user) ||
-	    (strchr(target_user, '.') != NULL) ||
 	    (strchr(target_user, '%') != NULL)) {
 		fprintf(stderr, "invalid target username for timestamp path\n");
 		return 4;
