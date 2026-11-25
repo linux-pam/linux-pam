@@ -678,7 +678,7 @@ static int filter_mntopts(const char *opts, char **filtered,
 	    dest += len;
 	}
 
-	opts = end + 1;
+	opts = end != NULL ? end + 1 : NULL;
     } while (end != NULL);
 
     return 0;
