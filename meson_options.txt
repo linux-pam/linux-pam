@@ -20,6 +20,8 @@ option('selinux', type: 'feature', value: 'auto',
        description: 'SELinux support')
 option('nis', type: 'feature', value: 'auto',
        description: 'NIS/YP support in pam_unix')
+option('getlogin', type: 'combo', choices: ['auto', 'enabled', 'disabled'], value: 'auto',
+       description: 'Use getlogin() in pam_modutil_getlogin() (auto: probe at configure time and disable it if it honours LOGNAME, e.g. musl)')
 
 option('examples', type: 'boolean', value: true,
        description: 'Build examples')

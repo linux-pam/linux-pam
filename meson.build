@@ -243,6 +243,66 @@ foreach ident: check_functions
   endif
 endforeach
 
+
+# Some libc implementations don't follow POSIX.
+# Check for this at configure time and, if found, disable the use of
+# getlogin() so that callers like pam_wheel fall back to PAM_RUSER.
+# Exit codes: 0 = getlogin() honours LOGNAME (broken), 1 = it does not,
+# 2 = test setup failed, anything else (incl. death by signal) = unknown.
+getlogin_check = '''
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+#define PAM_GETLOGIN_CHECK_VALUE "pam-getlogin-check-value"
+
+int main(void)
+{
+  const char *name;
+
+  if (setenv("LOGNAME", PAM_GETLOGIN_CHECK_VALUE, 1) != 0)
+    return 2;
+
+  name = getlogin();
+
+  return (name != NULL && strcmp(name, PAM_GETLOGIN_CHECK_VALUE) == 0) ? 0 : 1;
+}
+'''
+
+# Deliberately not a 'feature' option: -Dauto_features=enabled must not
+# force-enable getlogin() on libcs where it honours LOGNAME (e.g. musl),
+# as that would silently re-introduce the pam_wheel vulnerability.
+getlogin_opt = get_option('getlogin')
+getlogin_status = 'disabled (explicit override)'
+
+if getlogin_opt == 'enabled'
+  cdata.set('USE_GETLOGIN', 1)
+  getlogin_status = 'enabled (explicit override, not probed)'
+elif getlogin_opt == 'auto'
+  if meson.can_run_host_binaries()
+    getlogin_result = cc.run(getlogin_check, name: 'getlogin() honours LOGNAME (broken, e.g. musl)')
+    if not getlogin_result.compiled()
+      getlogin_status = 'disabled (probe could not compile)'
+      warning('Could not compile the getlogin() test program, disabling its use for safety (use -Dgetlogin=enabled to override)')
+    elif getlogin_result.returncode() == 1
+      # Only enable getlogin() on the explicit "does not honour LOGNAME"
+      # answer; any other outcome is inconclusive, so stay safe.
+      cdata.set('USE_GETLOGIN', 1)
+      getlogin_status = 'enabled (probe does not honour LOGNAME)'
+    elif getlogin_result.returncode() == 0
+      getlogin_status = 'disabled (probe honours LOGNAME)'
+      warning('getlogin() implementation is broken, disabling its use')
+    else
+      getlogin_status = 'disabled (probe exit status @0@)'.format(getlogin_result.returncode())
+      warning('Unexpected exit status @0@ from the getlogin() test program, disabling its use for safety (use -Dgetlogin=enabled to override)'.format(getlogin_result.returncode()))
+    endif
+  else
+    getlogin_status = 'disabled (cannot run host binaries)'
+    warning('Cannot run test binaries while cross compiling, disabling use of getlogin() for safety (configure an exe_wrapper or use -Dgetlogin=enabled only if the target libc is known to be safe)')
+  endif
+endif
+
+
 enable_pam_keyinit = cc.get_define('__NR_keyctl', prefix: '#include <sys/syscall.h>') != ''
 
 if get_option('mailspool') != ''
@@ -703,3 +763,5 @@ endif
 if get_option('xtests')
   subdir('xtests')
 endif
+
+summary('getlogin()', getlogin_status, section: 'Configuration')

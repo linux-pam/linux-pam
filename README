@@ -48,3 +48,14 @@ at https://github.com/linux-pam/linux-pam/issues .
 To generate manual pages from the XML source files you need the
 docbook-xsl stylesheets in version 1.69.1 or newer, older versions had
 a bug which generates a broken layout.
+
+Cross-compilation and getlogin():
+
+The default -Dgetlogin=auto disables getlogin() if it honours LOGNAME
+(e.g., musl), or if the probe cannot establish safety.  The configuration
+summary reports the decision and reason.  For cross-builds, configure
+Meson's exe_wrapper with the target runtime libraries to run the probe,
+or select explicitly:
+  - -Dgetlogin=enabled bypasses detection; use only for a target libc
+    known not to derive the user name from LOGNAME.
+  - -Dgetlogin=disabled keeps it disabled for unsafe or unknown targets.

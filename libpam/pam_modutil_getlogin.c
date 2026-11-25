@@ -25,7 +25,11 @@ pam_modutil_getlogin(pam_handle_t *pamh)
 	return logname;
     }
 
+#ifdef USE_GETLOGIN
     logname = getlogin();
+#else
+    logname = NULL;
+#endif
     if (logname == NULL) {
       return NULL;
     }
