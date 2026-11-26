@@ -510,6 +510,19 @@ if module == 'pam_timestamp'
   test('pam_timestamp name', tst_timestamp_name)
 endif
 
+if module == 'pam_namespace'
+  tst_pam_namespace_parse = executable(
+    'tst-pam_namespace-parse',
+    sources: ['tst-pam_namespace-parse.c', 'md5.c', 'argv_parse.c'],
+    dependencies: pam_module_deps,
+    c_args: pam_module_c_args,
+  )
+  test(
+    'pam_namespace parse',
+    tst_pam_namespace_parse,
+  )
+endif
+
 if module == 'pam_timestamp' and cdata.get('WITH_OPENSSL', 0) != 1
   hmacfile_exe = executable(
     'hmacfile',

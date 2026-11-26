@@ -678,10 +678,43 @@ static int filter_mntopts(const char *opts, char **filtered,
 	    dest += len;
 	}
 
-	opts = end + 1;
+	opts = end != NULL ? end + 1 : NULL;
     } while (end != NULL);
 
     return 0;
+}
+
+static const char *const flag_names[] = { "create", "noinit", "iscript",
+	"shared", "mntopts", NULL };
+static const unsigned int flag_values[] = { POLYDIR_CREATE, POLYDIR_NOINIT,
+	POLYDIR_ISCRIPT, POLYDIR_SHARED, POLYDIR_MNTOPTS };
+
+/*
+ * Find the colon that terminates the value of the mntopts flag.  The
+ * value can contain colons, for example "mpol=bind:0-1", so a colon is
+ * part of the value unless it is followed by another colon, by one of
+ * the flag names, or by the end of the line.
+ */
+static char *mntopts_end(char *opts)
+{
+    char *p = opts;
+
+    while ((p = strchr(p, ':')) != NULL) {
+	size_t i;
+
+	if (p[1] == '\0' || p[1] == ':')
+	    return p;
+	for (i = 0; flag_names[i]; i++) {
+	    size_t len = strlen(flag_names[i]);
+
+	    if (strncmp(p + 1, flag_names[i], len) == 0 &&
+		(p[1 + len] == '\0' || p[1 + len] == '=' ||
+		 p[1 + len] == ':'))
+		return p;
+	}
+	p++;
+    }
+    return NULL;
 }
 
 static int parse_method(char *method, struct polydir_s *poly,
@@ -691,10 +724,6 @@ static int parse_method(char *method, struct polydir_s *poly,
     char *sptr = NULL;
     static const char *const method_names[] = { "user", "context", "level", "tmpdir",
 	"tmpfs", NULL };
-    static const char *const flag_names[] = { "create", "noinit", "iscript",
-	"shared", "mntopts", NULL };
-    static const unsigned int flag_values[] = { POLYDIR_CREATE, POLYDIR_NOINIT,
-	POLYDIR_ISCRIPT, POLYDIR_SHARED, POLYDIR_MNTOPTS };
     int i;
     char *flag;
 
@@ -714,7 +743,30 @@ static int parse_method(char *method, struct polydir_s *poly,
 
     poly->method = pm;
 
-    while ((flag=strtok_r(NULL, ":", &sptr)) != NULL) {
+    for (flag = sptr; flag != NULL && *flag != '\0'; flag = sptr) {
+	char *end = strchr(flag, ':');
+
+	for (i = 0; flag_names[i]; i++) {
+	    size_t namelen = strlen(flag_names[i]);
+
+	    if (strncmp(flag, flag_names[i], namelen) == 0) {
+		if (flag_values[i] == POLYDIR_MNTOPTS && flag[namelen] == '=')
+		    end = mntopts_end(flag + namelen + 1);
+		break;
+	    }
+	}
+
+	if (end != NULL) {
+	    *end = '\0';
+	    sptr = end + 1;
+	    while (*sptr == ':')
+		sptr++;
+	    if (*sptr == '\0')
+		sptr = NULL;
+	} else {
+	    sptr = NULL;
+	}
+
 	for (i = 0; flag_names[i]; i++) {
 		size_t namelen = strlen(flag_names[i]);
 
