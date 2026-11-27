@@ -24,11 +24,12 @@ econf_err pam_econf_readconfig(econf_file **key_file,
 
 #ifdef HAVE_ECONF_READCONFIG
 
-    char *parsing_dirs =
-	pam_asprintf("PARSING_DIRS=%s:%s", usr_conf_dir, etc_conf_dir);
+    char *parsing_dirs = pam_asprintf("PARSING_DIRS=%s%s%s",
+				      usr_conf_dir ? usr_conf_dir : "",
+				      usr_conf_dir ? ":" : "",
+				      etc_conf_dir);
     if (parsing_dirs == NULL) {
         ret = ECONF_NOMEM;
-        parsing_dirs = NULL;
     }
     if (ret == ECONF_SUCCESS)
         ret = econf_newKeyFile_with_options(key_file, parsing_dirs);
